@@ -13,22 +13,21 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import gobject
 import gtk
 import gnome.canvas
 import pango
+import autopart
+import gui
+import parted
+import string
+import copy
+import types
 from gui import WrappingLabel, widgetExpander
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
 from fsset import *
-from autopart import doPartitioning, queryAutoPartitionOK
-from autopart import CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_NONE_DESCR_TEXT
-from autopart import AUTOPART_DISK_CHOICE_DESCR_TEXT
-
-import gui
-import parted
-import string
-import copy
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
@@ -50,7 +49,7 @@ class DiskStripeSlice:
             if event.button == 1:
                 self.parent.selectSlice(self.partition, 1)
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-            self.editCb(self.ctree)
+            self.editCb(self.treeView)
                 
         return gtk.TRUE
 
@@ -136,11 +135,11 @@ class DiskStripeSlice:
                       clip_width=xlength-1, clip_height=yheight-1)
         self.hideOrShowText()
        
-    def __init__(self, parent, partition, ctree, editCb):
+    def __init__(self, parent, partition, treeView, editCb):
         self.text = None
         self.partition = partition
         self.parent = parent
-        self.ctree = ctree
+        self.treeView = treeView
         self.editCb = editCb
         pgroup = parent.getGroup()
 
@@ -152,12 +151,11 @@ class DiskStripeSlice:
         self.update()
 
 class DiskStripe:
-    def __init__(self, drive, disk, group, ctree, canvas, editCb):
+    def __init__(self, drive, disk, group, tree, editCb):
         self.disk = disk
         self.group = group
-        self.tree = ctree
+        self.tree = tree
         self.drive = drive
-        self.canvas = canvas
         self.slices = []
         self.hash = {}
         self.editCb = editCb
@@ -198,9 +196,6 @@ class DiskStripe:
     def getGroup(self):
         return self.group
 
-    def getCanvas(self):
-        return self.canvas
-
     def selectSlice(self, partition, updateTree=0):
         self.deselect()
         slice = self.hash[partition]
@@ -208,12 +203,7 @@ class DiskStripe:
 
         # update selection of the tree
         if updateTree:
-            self.tree.unselect(self.tree.selection[0])
-            nodes = self.tree.base_nodes()
-            for node in nodes:
-                row = self.tree.find_by_row_data(node, partition)
-                self.tree.select(row)
-                break
+            self.tree.selectPartition(partition)
         self.selected = slice
 
     def deselect(self):
@@ -227,11 +217,11 @@ class DiskStripe:
         self.hash[partition] = stripe
 
 class DiskStripeGraph:
-    def __init__(self, ctree, editCb):
+    def __init__(self, tree, editCb):
         self.canvas = gnome.canvas.Canvas()
         self.diskStripes = []
         self.textlabels = []
-        self.ctree = ctree
+        self.tree = tree
         self.editCb = editCb
         self.next_ypos = 0.0
 
@@ -289,11 +279,145 @@ class DiskStripeGraph:
         self.textlabels.append(text)
         group = self.canvas.root().add(gnome.canvas.CanvasGroup,
                                        x=0, y=yoff+textheight)
-        stripe = DiskStripe(drive, disk, group, self.ctree, self.canvas,
-                             self.editCb)
+        stripe = DiskStripe(drive, disk, group, self.tree, self.editCb)
         self.diskStripes.append(stripe)
         self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
         return stripe
+
+class DiskTreeModelHelper:
+    def __init__(self, model, columns, iter):
+        self.model = model
+        self.iter = iter
+        self.columns = columns
+
+    def __getitem__(self, key):
+        if type(key) == types.StringType:
+            key = self.columns[key]
+        try:
+            return self.model.get_value(self.iter, key)
+        except:
+            return None
+
+    def __setitem__(self, key, value):
+        if type(key) == types.StringType:
+            key = self.columns[key]
+        self.model.set_value(self.iter, key, value)
+
+class DiskTreeModel(gtk.TreeStore):
+    isLeaf = -3
+    isFormattable = -2
+    
+    # format: column header, type, x alignment, hide?, visibleKey
+    titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
+              (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
+              (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
+              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
+              (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
+              (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
+              (N_("Format"), gobject.TYPE_BOOLEAN, 0.0, 0, isFormattable),
+              # the following must be the last two
+              ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
+              ("IsFormattable", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
+              ("PyObject", gobject.TYPE_PYOBJECT, 0.0, 1, 0))
+    
+    def __init__(self):
+        self.titleSlot = {}
+        i = 0
+        types = [self]
+        self.columns = []
+        for title, kind, alignment, hide, key in self.titles:
+            self.titleSlot[title] = i
+            types.append(kind)
+            if hide:
+                i += 1
+                continue
+            elif kind == gobject.TYPE_BOOLEAN:
+                renderer = gtk.CellRendererToggle()
+                propertyMapping = {'active': i}
+            elif (kind == gobject.TYPE_STRING or
+                  kind == gobject.TYPE_INT):
+                renderer = gtk.CellRendererText()
+                propertyMapping = {'text': i}
+
+            # wire in the cells that we want only visible on leaf nodes to
+            # the special leaf node column.
+            if key < 0:
+                propertyMapping['visible'] = len(self.titles) + key
+                
+            renderer.set_property('xalign', alignment)
+            col = apply(gtk.TreeViewColumn, (_(title), renderer),
+                        propertyMapping)
+            self.columns.append(col)
+            i += 1
+
+        apply(gtk.TreeStore.__init__, types)
+
+        self.view = gtk.TreeView(self)
+        # append all of the columns
+        map(self.view.append_column, self.columns)
+
+    def getTreeView(self):
+        return self.view
+
+    def selectPartition(self, partition):
+        pyobject = self.titleSlot['PyObject']
+        iter = self.get_iter_root()
+        next = 1
+        # iterate over the list, looking for the current mouse selection
+        while next:
+            # if this is a parent node, get the first child and iter over them
+            if self.iter_has_child(iter):
+                parent = iter
+                iter = self.iter_children(parent)
+                continue
+            # if it's not a parent node and the mouse matches, select it.
+            elif self.get_value(iter, pyobject) == partition:
+                path = self.get_path(parent)
+                self.view.expand_row(path, gtk.TRUE)
+                selection = self.view.get_selection()
+                selection.unselect_all()
+                selection.select_iter(iter)
+                path = self.get_path(iter)
+                col = self.view.get_column(0)
+                self.view.set_cursor(path, col, gtk.FALSE)
+                self.view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                return
+            # get the next row.
+            next = self.iter_next(iter)
+            # if there isn't a next row and we had a parent, go to the node
+            # after the parent we've just gotten the children of.
+            if not next and parent:
+                next = self.iter_next(parent)
+                iter = parent
+
+    def getCurrentPartition(self):
+        selection = self.view.get_selection()
+        rc = selection.get_selected()
+        if rc:
+            model, iter = rc
+        else:
+            return None
+        pyobject = self.titleSlot['PyObject']
+        try:
+            return self.get_value(iter, pyobject)
+        except:
+            return None
+
+    def resetSelection(self):
+        pass
+##         selection = self.view.get_selection()
+##         selection.set_mode(gtk.SELECTION_SINGLE)
+##         selection.set_mode(gtk.SELECTION_BROWSE)
+
+    def clear(self):
+        selection = self.view.get_selection()
+        selection.unselect_all()
+        gtk.TreeStore.clear(self)
+        
+    def __getitem__(self, iter):
+        if type(iter) == gtk.TreeIter:
+            return DiskTreeModelHelper(self, self.titleSlot, iter)
+        raise KeyError, iter
 
 
 # this should probably go into a class
@@ -400,6 +524,9 @@ def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     for lev in levels:
         item = gtk.MenuItem(lev)
         item.set_data("level", lev)
+        # XXX gtk bug, if you don't show then the menu will be larger
+        # than the largest menu item
+        item.show()        
         leveloptionmenu.add(item)
         if reqlevel and lev == reqlevel:
             defindex = i
@@ -445,6 +572,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
         if fileSystemTypeGet(name).isFormattable():
             item = gtk.MenuItem(name)
             item.set_data("type", types[name])
+            # XXX gtk bug, if you don't show then the menu will be larger
+            # than the largest menu item
+            item.show()
             fstypeoptionMenu.add(item)
             if default and default.getName() == name:
                 defindex = i
@@ -510,16 +640,19 @@ class PartitionWindow(InstallWindow):
         hbox = gtk.HBox(gtk.FALSE)
         hbox.pack_start(image, gtk.FALSE)
 
-        win.connect("clicked", self.quit)
-        textbox = gtk.Text()
-        textbox.insert_defaults(comments)
-        textbox.set_word_wrap(1)
-        textbox.set_editable(0)
+        buffer = gtk.TextBuffer(None)
+        buffer.set_text(comments)
+        text = gtk.TextView()
+        text.set_buffer(buffer)
+        text.set_property("editable", gtk.FALSE)
+        text.set_property("cursor_visible", gtk.FALSE)
+        text.set_wrap_mode(gtk.WRAP_WORD)
         
         sw = gtk.ScrolledWindow()
-        sw.add(textbox)
+        sw.add(text)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-
+        sw.set_shadow_type(gtk.SHADOW_IN)
+        
         info1 = gtk.Label(labelstr1)
         info1.set_line_wrap(gtk.TRUE)
 #        info1.set_usize(300, -1)
@@ -539,7 +672,7 @@ class PartitionWindow(InstallWindow):
         win.set_position(gtk.WIN_POS_CENTER)
         win.show_all()
         rc = win.run()
-        win.close()
+        win.destroy()
         return rc
         
     def getNext(self):
@@ -601,15 +734,13 @@ class PartitionWindow(InstallWindow):
 
         
         self.diskStripeGraph.shutDown()
-        self.tree.freeze()
-        self.clearTree()
+        self.tree.clear()
         del self.parent
         return None
 
     def getPrev(self):
         self.diskStripeGraph.shutDown()
-        self.tree.freeze()
-        self.clearTree()
+        self.tree.clear()
         del self.parent
         return None
     
@@ -617,34 +748,53 @@ class PartitionWindow(InstallWindow):
         drives = self.diskset.disks.keys()
         drives.sort()
 
+        self.tree.resetSelection()
+        
         for drive in drives:
-            text = [""] * self.numCols
-            text[self.titleSlot["Device"]] = '/dev/' + drive
             disk = self.diskset.disks[drive]
-            sectorsPerCyl = disk.dev.heads * disk.dev.sectors
 
             # add a disk stripe to the graph
             stripe = self.diskStripeGraph.add(drive, disk)
 
             # add a parent node to the tree
-            parent = self.tree.insert_node(None, None, text,
-                                           is_leaf = gtk.FALSE,
-                                           expanded = gtk.TRUE,
-                                           spacing = TREE_SPACING)
+            parent = self.tree.append(None)
+            self.tree[parent]['Device'] = '/dev/%s' % (drive,)
+            sectorsPerCyl = disk.dev.heads * disk.dev.sectors
+
             extendedParent = None
             part = disk.next_partition()
             while part:
                 if part.type & parted.PARTITION_METADATA:
                     part = disk.next_partition(part)
                     continue
+
                 stripe.add(part)
-
-                text = [""] * self.numCols
                 device = get_partition_name(part)
-
                 request = self.partitions.getRequestByDeviceName(device)
+
+                if part.type == parted.PARTITION_EXTENDED:
+                    if extendedParent:
+                        raise RuntimeError, ("can't handle more than "
+                                             "one extended partition per disk")
+                    extendedParent = self.tree.append(parent)
+                    iter = extendedParent
+                elif part.type & parted.PARTITION_LOGICAL:
+                    if not extendedParent:
+                        raise RuntimeError, ("crossed logical partition "
+                                             "before extended")
+                    iter = self.tree.append(extendedParent)
+                    self.tree[iter]['IsLeaf'] = gtk.TRUE
+                else:
+                    iter = self.tree.append(parent)
+                    self.tree[iter]['IsLeaf'] = gtk.TRUE
+                    
                 if request and request.mountpoint:
-                    text[self.titleSlot["Mount Point"]] = request.mountpoint
+                    self.tree[iter]['Mount Point'] = request.mountpoint
+                else:
+                    self.tree[iter]['Mount Point'] = ""
+
+                if request and request.fstype:
+                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 
                 if part.type & parted.PARTITION_FREESPACE:
                     ptype = _("Free space")
@@ -659,57 +809,33 @@ class PartitionWindow(InstallWindow):
                             ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = part.fs_type.name
-                    if request.format:
-                        text[self.titleSlot["Format"]] = _("Yes")
-                    else:
-                        text[self.titleSlot["Format"]] = _("No")
+                    self.tree[iter]['Format'] = request.format
                 else:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
+                        
                         if ptype == "foreign":
                             ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
-                    text[self.titleSlot["Device"]] = _("Free")
+                    devname = _("Free")
                 else:
-                    text[self.titleSlot["Device"]] = '/dev/' + device
-                text[self.titleSlot["Type"]] = ptype
-                text[self.titleSlot["Start"]] = "%d" % \
-                             (start_sector_to_cyl(disk.dev, part.geom.start),)
-                text[self.titleSlot["End"]] = "%d" % \
-                                (end_sector_to_cyl(disk.dev, part.geom.end),)
+                    devname = '/dev/%s' % (device,)
+                self.tree[iter]['Device'] = devname
+                self.tree[iter]['Type'] = ptype
+                self.tree[iter]['Start'] = str(start_sector_to_cyl(disk.dev,
+                                                                   part.geom.start))
+                self.tree[iter]['End'] = str(end_sector_to_cyl(disk.dev,
+                                                               part.geom.end))
                 size = getPartSizeMB(part)
                 if size < 1.0:
                     sizestr = "< 1"
                 else:
                     sizestr = "%8.0f" % (size)
-                text[self.titleSlot["Size (MB)"]] = sizestr
-
-                if part.type == parted.PARTITION_EXTENDED:
-                    if extendedParent:
-                        raise RuntimeError, ("can't handle more than "
-                                             "one extended partition per disk")
-                    extendedParent = \
-                                   self.tree.insert_node(parent,
-                                                         None, text,
-                                                         is_leaf=gtk.FALSE,
-                                                         expanded=gtk.TRUE,
-                                                         spacing=TREE_SPACING)
-                    node = extendedParent
-                                        
-                elif part.type & parted.PARTITION_LOGICAL:
-                    if not extendedParent:
-                        raise RuntimeError, ("crossed logical partition "
-                                             "before extended")
-                    node = self.tree.insert_node(extendedParent, None, text,
-                                                 spacing = TREE_SPACING)
-                else:
-                    node = self.tree.insert_node(parent, None, text,
-                                                 spacing = TREE_SPACING)
-               
-                self.tree.node_set_row_data(node, part)
-
+                self.tree[iter]['Size (MB)'] = sizestr
+                self.tree[iter]['PyObject'] = part
+                
                 part = disk.next_partition(part)
 
         # handle RAID next
@@ -717,47 +843,45 @@ class PartitionWindow(InstallWindow):
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
             for request in raidrequests:
-		text = [""] * self.numCols
+                iter = self.tree.append(None)
 
                 if request and request.mountpoint:
-                    text[self.titleSlot["Mount Point"]] = request.mountpoint
-                
+                    self.tree[iter]["Mount Point"] = request.mountpoint
                 if request.fstype:
                     ptype = request.fstype.getName()
-                    if request.format:
-                        text[self.titleSlot["Format"]] = _("Yes")
-                    else:
-                        text[self.titleSlot["Format"]] = _("No")
+                    
+                    self.tree[iter]['Format'] = request.format
+                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 else:
                     ptype = _("None")
+                    self.tree[iter]['IsFormattable'] = gtk.FALSE
 
                 device = _("RAID Device %s"  % (str(raidcounter)))
-                text[self.titleSlot["Device"]] = device
-                text[self.titleSlot["Type"]] = ptype
-                text[self.titleSlot["Start"]] = ""
-                text[self.titleSlot["End"]] = ""
-                text[self.titleSlot["Size (MB)"]] = \
-                                          "%g" % (request.size)
+                self.tree[iter]['IsLeaf'] = gtk.TRUE
+                self.tree[iter]['Device'] = device
+                self.tree[iter]['Type'] = ptype
+                self.tree[iter]['Start'] = ""
+                self.tree[iter]['End'] = ""
+                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
+                self.tree[iter]['PyObject'] = request.device
 
-                # add a parent node to the tree
-                parent = self.tree.insert_node(None, None, text,
-                                               is_leaf = gtk.FALSE,
-                                               expanded = gtk.TRUE,
-                                               spacing = TREE_SPACING)
-                self.tree.node_set_row_data(parent, request.device)
                 raidcounter = raidcounter + 1
                 
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
-        self.tree.columns_autosize()
+        self.treeView.expand_all()
 
-    def treeSelectClistRowCb(self, list, row, column, event, tree):
-        if event:
-            if event.type == gtk.gdk._2BUTTON_PRESS:
-                self.editCb(tree)
-
-    def treeSelectCb(self, tree, node, column):
-        partition = tree.node_get_row_data(node)
+    def treeActivateCb(self, view, path, col):
+        if self.tree.getCurrentPartition():
+            self.editCb()
+        
+    def treeSelectCb(self, selection, *args):
+        rc = selection.get_selected()
+        if rc:
+            model, iter = rc
+        else:
+            return
+        partition = model[iter]['PyObject']
         if partition:
             self.diskStripeGraph.selectSlice(partition)
 
@@ -1262,39 +1386,27 @@ class PartitionWindow(InstallWindow):
         dialog.destroy()
 
     def deleteCb(self, widget):
-        node = self.tree.selection[0]
-        partition = self.tree.node_get_row_data(node)
+        partition = self.tree.getCurrentPartition()
 
         if doDeletePartitionByRequest(self.intf, self.partitions, partition):
             self.refresh()
             
-    def clearTree(self):
-        node = self.tree.node_nth(0)
-        while node:
-            self.tree.remove_node(node)
-            node = self.tree.node_nth(0)
-        self.tree.set_selection_mode(gtk.SELECTION_SINGLE)
-        self.tree.set_selection_mode(gtk.SELECTION_BROWSE)
-
     def resetCb(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
         
         self.diskStripeGraph.shutDown()
         self.newFsset = self.fsset.copy()
-        self.tree.freeze()
-        self.clearTree()
         self.diskset.refreshDevices()
         self.partitions.setFromDisk(self.diskset)
+        self.tree.clear()
         self.populate()
-        self.tree.thaw()
 
     def refresh(self):
         self.diskStripeGraph.shutDown()
-        self.tree.freeze()
-        self.clearTree()
+        self.tree.clear()
         try:
-            doPartitioning(self.diskset, self.partitions)
+            autopart.doPartitioning(self.diskset, self.partitions)
             rc = 0
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
@@ -1304,17 +1416,15 @@ class PartitionWindow(InstallWindow):
             # XXX somebody other than me should make this look better
             # XXX this doesn't handle the 'delete /boot partition spec' case
             #     (it says 'add anyway')
-            dialog = gtk.Dialog(_("Warning"))
-            dialog.set_parent(self.parent)
+            dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
+                                       gtk.BUTTONS_NONE,
+                                       _("Warning: %s.") % (msg))
             button = gtk.Button(_("_Modify Partition"))
             dialog.add_action_widget(button, 1)
             button = gtk.Button(_("_Continue"))
             dialog.add_action_widget(button, 2)
             dialog.set_position(gtk.WIN_POS_CENTER)
 
-            label = gtk.Label(_("Warning: %s.") % (msg))
-            label.set_line_wrap(gtk.TRUE)
-            dialog.vbox.pack_start(label)
             dialog.show_all()
             rc = dialog.run()
             dialog.destroy()
@@ -1328,12 +1438,10 @@ class PartitionWindow(InstallWindow):
                     req.ignoreBootConstraints = 1
 
         self.populate()
-        self.tree.thaw()
         return rc
 
-    def editCb(self, widget):
-        node = self.tree.selection[0]
-        part = self.tree.node_get_row_data(node)
+    def editCb(self, *args):
+        part = self.tree.getCurrentPartition()
 
         (type, request) = doEditPartitionByRequest(self.intf, self.partitions,
                                                    part)
@@ -1558,30 +1666,11 @@ class PartitionWindow(InstallWindow):
             buttonBox.add (button)
             button.connect ("clicked", cb)
 
-        # set up the tree
-        titles = [N_("Device"), N_("Start"), N_("End"),
-                  N_("Size (MB)"), N_("Type"), N_("Mount Point"), N_("Format")]
-        
-        # do two things: enumerate the location of each field and translate
-        self.titleSlot = {}
-        i = 0
-        for title in titles:
-            self.titleSlot[title] = i
-            titles[i] = _(title)
-            i = i + 1
-
-        self.numCols = len(titles)
-        self.tree = gtk.CTree(self.numCols, 0, titles)
-        self.tree.set_selection_mode(gtk.SELECTION_BROWSE)
-        self.tree.column_titles_passive()
-        for i in range(self.numCols):
-            self.tree.set_column_resizeable(i, 0)
-            
-        self.tree.set_column_justification(1, gtk.JUSTIFY_RIGHT)
-        self.tree.set_column_justification(2, gtk.JUSTIFY_RIGHT)
-        self.tree.set_column_justification(3, gtk.JUSTIFY_RIGHT)
-        self.tree.connect("select_row", self.treeSelectClistRowCb, self.tree)
-        self.tree.connect("tree_select_row", self.treeSelectCb)
+        self.tree = DiskTreeModel()
+        self.treeView = self.tree.getTreeView()
+        self.treeView.connect('row-activated', self.treeActivateCb)
+        self.treeViewSelection = self.treeView.get_selection()
+        self.treeViewSelection.connect("changed", self.treeSelectCb)
 
         # set up the canvas
         self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCb)
@@ -1598,7 +1687,7 @@ class PartitionWindow(InstallWindow):
         box.pack_start(frame, gtk.TRUE, gtk.TRUE)
         box.pack_start(buttonBox, gtk.FALSE)
         sw = gtk.ScrolledWindow()
-        sw.add(self.tree)
+        sw.add(self.treeView)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         box.pack_start(sw, gtk.TRUE)
 
@@ -1614,26 +1703,30 @@ class AutoPartitionWindow(InstallWindow):
 
     def getNext(self):
         if self.clearLinuxRB.get_active():
-            self.partitions.autoClearPartType = CLEARPART_TYPE_LINUX
+            self.partitions.autoClearPartType = autopart.CLEARPART_TYPE_LINUX
         elif self.clearAllRB.get_active():
-            self.partitions.autoClearPartType = CLEARPART_TYPE_ALL
+            self.partitions.autoClearPartType = autopart.CLEARPART_TYPE_ALL
         else:
-            self.partitions.autoClearPartType = CLEARPART_TYPE_NONE
+            self.partitions.autoClearPartType = autopart.CLEARPART_TYPE_NONE
 
         allowdrives = []
         for i in self.driveclist.selection:
             allowdrives.append(self.driveclist.get_row_data(i))
 
         if len(allowdrives) < 1:
-            self.intf.messageWindow(_("Warning"), 
+            dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
                                     _("You need to select at least one "
                                       "drive to have Red Hat Linux installed "
-                                      "onto."), type = "ok")
+                                      "onto."))
+            dlg.show_all()
+            rc = dlg.run()
+            dlg.destroy()
             raise gui.StayOnScreen
 
         self.partitions.autoClearPartDrives = allowdrives
 
-        if not queryAutoPartitionOK(self.intf, self.diskset, self.partitions):
+        if not autopart.queryAutoPartitionOK(self.intf, self.diskset,
+                                             self.partitions):
             raise gui.StayOnScreen
         
         if self.inspect.get_active():
@@ -1657,7 +1750,7 @@ class AutoPartitionWindow(InstallWindow):
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(5)
 
-        label = WrappingLabel(_(AUTOPART_DISK_CHOICE_DESCR_TEXT))
+        label = WrappingLabel(_(autopart.AUTOPART_DISK_CHOICE_DESCR_TEXT))
         label.set_alignment(0.0, 0.0)
         box.pack_start(label, gtk.FALSE, gtk.FALSE)
 
@@ -1669,18 +1762,18 @@ class AutoPartitionWindow(InstallWindow):
         
         radioBox = gtk.VBox(gtk.FALSE)
         self.clearLinuxRB = gtk.RadioButton(
-            None, _(CLEARPART_TYPE_LINUX_DESCR_TEXT))
+            None, _(autopart.CLEARPART_TYPE_LINUX_DESCR_TEXT))
 	radioBox.pack_start(self.clearLinuxRB, gtk.FALSE, gtk.FALSE)
         self.clearAllRB = gtk.RadioButton(
-            self.clearLinuxRB, _(CLEARPART_TYPE_ALL_DESCR_TEXT))
+            self.clearLinuxRB, _(autopart.CLEARPART_TYPE_ALL_DESCR_TEXT))
 	radioBox.pack_start(self.clearAllRB, gtk.FALSE, gtk.FALSE)
         self.clearNoneRB = gtk.RadioButton(
-            self.clearLinuxRB, _(CLEARPART_TYPE_NONE_DESCR_TEXT))
+            self.clearLinuxRB, _(autopart.CLEARPART_TYPE_NONE_DESCR_TEXT))
 	radioBox.pack_start(self.clearNoneRB, gtk.FALSE, gtk.FALSE)
 
-        if type == CLEARPART_TYPE_LINUX:
+        if type == autopart.CLEARPART_TYPE_LINUX:
             self.clearLinuxRB.set_active(1)
-        elif type == CLEARPART_TYPE_ALL:
+        elif type == autopart.CLEARPART_TYPE_ALL:
             self.clearAllRB.set_active(1)
         else:
             self.clearNoneRB.set_active(1)
