@@ -232,7 +232,7 @@ def noformatCB2(widget, data):
        badblocks     - toggle button for badblock check
 """
 def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
-                                  showbadblocks=1, ignorefs=[]):
+                                  showbadblocks=0, ignorefs=[]):
     ofstype = origrequest.fstype
 
     maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
