@@ -452,7 +452,7 @@ class FileSystemSet:
         raidtab = self.raidtab()
 
         if raidtab:
-            f = open (prefix + "/etc/fstab", "w")
+            f = open (prefix + "/etc/raidtab", "w")
             f.write (raidtab)
             f.close ()
 
