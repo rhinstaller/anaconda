@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-04-02 13:19+0200\n"
+"PO-Revision-Date: 2004-06-22 09:49+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -982,11 +982,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"При аналізі kickstart-файлу виявлено наступну помилку:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Помилка відкривання файлу: %s: %s"
+msgstr "Помилка аналізу конфігураційного файлу Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -997,9 +999,8 @@ msgstr ""
 "обережно."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Типово"
+msgstr "типово:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1153,9 +1154,9 @@ msgid "Change CDROM"
 msgstr "Змінити компакт-диск"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Будь ласка, вставте диск %d для продовження."
+msgstr "Будь ласка, вставте %s диск %d для продовження."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1168,7 +1169,7 @@ msgstr "Цей диск не є коректним компакт-диском %
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Не вдається отримати доступ до CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1211,13 +1212,13 @@ msgstr "Довжина назви комп'ютера не повинна пер
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
-"Назва комп'ютера повинна починатись з символу в діапазоні 'a-z' або 'A-Z'"
+"Назва комп'ютера повинна починатись з символів в діапазоні 'a-z' або 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Назва комп'ютера повинна містити букви в діапазоні 'a-z' або 'A-Z', '-', чи "
-"'.'"
+"Назва комп'ютера повинна містити символи в діапазоні 'a-z' або 'A-Z', '-', "
+"чи '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1504,10 +1505,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Пристрій %s форматований як LDL а не як CDL. DASD форматовані як LDL "
-"непідтримуються при програмою встановлення %s. Якщо ви бажаєте "
-"використовувати цей диск для встановлення, необхідно пере-ініціалізувати "
-"його, що призведе до втрати ВСІХ ДАНИХ на цьому пристрої.\n"
+"Пристрій %s форматований як LDL а не як CDL. DASD форматовані як LDL не "
+"підтримуються програмою встановлення %s. Якщо ви бажаєте використовувати цей "
+"диск для встановлення, необхідно пере-ініціалізувати його, що призведе до "
+"втрати ВСІХ ДАНИХ на цьому пристрої.\n"
 "\n"
 "Переформатувати DASD використовуючи CDL формат?"
 
@@ -1741,7 +1742,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
-msgstr "Відформатувати як swap?"
+msgstr "Форматувати як swap?"
 
 #: ../partIntfHelpers.py:380
 #, python-format
@@ -1925,7 +1926,7 @@ msgstr ""
 #: ../partitions.py:768
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "Ви повинні створити розділ /boot/efi типу FAT розміром 50 мегабайтів."
+msgstr "Необхідно створити розділ /boot/efi типу FAT розміром 50 мегабайтів."
 
 #: ../partitions.py:791
 msgid "You must create a PPC PReP Boot partition."
@@ -2094,7 +2095,7 @@ msgstr ""
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
-"Після завершення вийдіть(exit) з командної оболонки і вашу систему буде "
+"Після завершення вийдіть (exit) з командної оболонки і вашу систему буде "
 "перевантажено."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
@@ -2193,7 +2194,7 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Помилка при підключенні вашої системи або її частини. Її частинубуло "
+"Помилка при підключенні вашої системи або її частини. Її частину було "
 "підключено у %s.\n"
 "\n"
 "Натисніть <Enter>, щоб попасти в оболонку. При виході з оболонки система "
@@ -2437,9 +2438,8 @@ msgid "Connecting..."
 msgstr "З'єднання..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Не вдається завантажити файл!"
+msgstr "Не вдається запустити систему X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2447,25 +2447,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Графічна система X не може запуститись на цьому комп'ютері. Бажаєте запустити VNC, "
+"щоб підключитись до цього комп'ютера з іншого комп'ютера та продовжити "
+"графічне встановлення, або ж продовжити встановлення у текстовому режимі?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Використовувати текстовий режим"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Запуск VNC..."
+msgstr "Запускати VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Настройка SILO"
+msgstr "Настройка VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Пароль користувача root"
+msgstr "Без паролю"
 
 #: ../vnc.py:62
 msgid ""
@@ -2473,6 +2473,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Пароль запобігає несанкціонованим з'єднанням для підслуховування та "
+"контролю за процесом встановлення. Введіть пароль, який буде використовуватись "
+"при встановленні"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2495,9 +2498,8 @@ msgid "Password Length"
 msgstr "Довжина паролю"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Пароль користувача root має складатися принаймні з 6 символів."
+msgstr "Пароль має складатися принаймні з 6 символів."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2541,6 +2543,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Обліковий рахунок користувача root використовується для адміністрування системи. "
+"Введіть пароль користувача root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2750,7 +2754,7 @@ msgstr "Використовувати LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "Використовувати LBA32 (зазвичай не вимагається)"
+msgstr "_Примусово LBA32 (зазвичай не вимагається)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -3198,7 +3202,7 @@ msgstr "_Увімкнути брандмауер"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Дозволити іншим особам з Інтернет мати доступ до цих служб."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3206,28 +3210,25 @@ msgstr "Дозволити в_хідні:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Віддалений вхід (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Сервер"
+msgstr "WWW сервер"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Пошта (SMTP)"
+msgstr "Поштовий сервер (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Передача файлів (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
 msgstr "Інші _порти:"
 
 #: ../iw/firewall_gui.py:236
-#, fuzzy
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr "_Розширення Security Enhanced Linux (SELinux):"
 
@@ -6731,32 +6732,28 @@ msgstr ""
 "драйверів. Який пристрій використовувати?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"В вашій системі є декілька пристроїв, в які може бути вставлений диск "
-"драйверів. Який пристрій використовувати?"
+"На цьому пристрої є декілька розділів, які можуть містити диск "
+"драйверів. Який розділ використовувати?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Помилка підключення диску оновлень"
+msgstr "Помилка підключення розділу."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Виберіть драйвер"
+msgstr "Виберіть образ диску драйверів"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Виберіть файл, який є вашим образом диску драйверів."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Помилка підключення диску драйверів."
+msgstr "Помилка завантаження диску драйверів з файлу."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7104,9 +7101,9 @@ msgid "Add Device"
 msgstr "Додати пристрій"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Завантажувач вже виконується. Запускається оболонка."
+msgstr "Завантажувач вже виконується. Запускається оболонка.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
@@ -7246,19 +7243,21 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s є адаптером бездротового зв'язку. Вкажіть ESSID та ключ шифрування, "
+"які потрібні для доступу до бездротової мережі. Якщо ключ не використовується, "
+"залише це поле порожнім та продовжуйте встановлення."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Ключ шифрування"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Додаткові параметри"
+msgstr "Параметри бездротового зв'язку"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
@@ -8164,12 +8163,11 @@ msgstr "Запоріжжя, Сх Луганськ"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Бенгалі"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "Італійська"
+msgstr "Каталанська"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8244,9 +8242,8 @@ msgid "Norwegian"
 msgstr "Норвезька"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Німецька"
+msgstr "Персидська"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8282,15 +8279,14 @@ msgstr "Українська"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Уельська"
 
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
 
-#, fuzzy
 #~ msgid "The CDROM could not be mounted."
-#~ msgstr "Цей каталог не може бути підключений з сервера."
+#~ msgstr "Компакт-диск неможливо підключити."
 
 #~ msgid "Enter the root (administrator) password for the system."
 #~ msgstr "Введіть пароль користувача root(адміністратора) цієї системи."
