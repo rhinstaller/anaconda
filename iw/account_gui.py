@@ -74,9 +74,7 @@ class AccountWindow (InstallWindow):
              len(accountName) <= 8 and len(password1) > 5) and
             accountName != "root" and accountName not in systemUsers):
 	    self.userPwLabel.set_text(_("User password accepted."))
-            self.win.set_sensitive(0, gtk.TRUE)
 	else:
-            self.win.set_sensitive(0, gtk.FALSE)
 	    if not accountName:
 		self.userPwLabel.set_text("")
 	    elif accountName == "root":
@@ -105,7 +103,7 @@ class AccountWindow (InstallWindow):
         # when Edit button is clicked
         self.data = [index, accountName, password, password, fullName]
 
-    def addUser_cb(self, widget, *args):
+    def addUser_cb(self):
 	accountName = self.accountName.get_text()
 	password1 = self.userPass1.get_text()
         password2 = self.userPass2.get_text()
@@ -132,7 +130,7 @@ class AccountWindow (InstallWindow):
         self.delete.set_sensitive(gtk.FALSE)
         self.win.destroy()
         
-    def editUser_cb(self, widget, *args):
+    def editUser_cb(self):
 	index = self.userList.selection
 	if (not index): return
 
@@ -159,26 +157,34 @@ class AccountWindow (InstallWindow):
         self.delete.set_sensitive(gtk.FALSE)
         self.userList.unselect_all()
         self.win.destroy()
+        
+    def close (self, widget, button, flag):
+        if button == 0:
+            if flag == "addUser":
+                self.addUser_cb()
+            elif flag == "editUser":
+                self.editUser_cb()
+        else:
+            pass
+        self.win.destroy()
 
     def addUser (self, widget):
         title = _("Add a New User")
         self.win = self.userWindow(title, None)
-        self.win.append_button_with_pixmap(_("OK"), STOCK_BUTTON_OK)
-        self.win.append_button_with_pixmap(_("Cancel"), STOCK_BUTTON_CANCEL)
-        self.win.button_connect(0, self.addUser_cb)
-        self.win.button_connect(1, self.win.destroy)
-        self.win.set_sensitive(0, gtk.FALSE)
+        self.win.add_button('gtk-ok', 0)
+        self.win.add_button('gtk-cancel', 1)
+        self.win.connect("response", self.close, "addUser")
         self.win.show_all()
+        self.win.run()
 
     def editUser (self, widget):
         title = _("Edit User")
         if self.data:
             # if there is data there to edit
             self.win = self.userWindow(title, self.data)
-            self.win.append_button_with_pixmap(_("OK"), STOCK_BUTTON_OK)
-            self.win.append_button_with_pixmap(_("Cancel"), STOCK_BUTTON_CANCEL)
-            self.win.button_connect(0, self.editUser_cb)
-            self.win.button_connect(1, self.win.destroy)
+            self.win.add_button('gtk-ok', 0)
+            self.win.add_button('gtk-cancel', 1)
+            self.win.connect("response", self.close, "editUser")
             self.win.show_all()
 
     def userWindow (self, title, data=None):
