@@ -10,5 +10,6 @@ moduleDeps mlNewDeps(void);
 int mlLoadModule(char * modName, moduleList modLoaded,
 	         moduleDeps modDeps, int testing);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
+int mlModuleInList(const char * modName, moduleList list);
 
 #endif

@@ -22,8 +22,6 @@ struct moduleList_s {
     int numModules;
 };
 
-static int moduleLoaded(moduleList modList, const char * name);
-
 int mlReadLoadedList(moduleList * mlp) {
     int fd;
     char * start;
@@ -156,17 +154,6 @@ int mlLoadDeps(moduleDeps moduleDepList, const char * path) {
     return 0;
 }
 
-static int moduleLoaded(moduleList modList, const char * name) {
-    int i;
-
-    if (!modList) return 0;
-
-    for (i = 0; i < modList->numModules; i++)
-        if (!strcmp(modList->modules[i], name)) return 1;
-
-    return 0;
-}
-
 int mlLoadModule(char * modName, moduleList modLoaded,
 	         moduleDeps modDeps, int testing) {
     moduleDeps dep;
@@ -174,7 +161,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     char fileName[80];
     int rc;
 
-    if (moduleLoaded(modLoaded, modName)) {
+    if (mlModuleInList(modName, modLoaded)) {
 	return 0;
     }
 
@@ -184,9 +171,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    if (!moduleLoaded(modLoaded, *nextDep)) {
-		mlLoadModule(*nextDep, modLoaded, modDeps, testing);
-	    }
+	    mlLoadModule(*nextDep, modLoaded, modDeps, testing);
 
 	    nextDep++;
 	}
@@ -211,4 +196,15 @@ char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
     if (dep) return dep->deps;
 
     return NULL;
+}
+
+int mlModuleInList(const char * modName, moduleList list) {
+    int i;
+
+    if (!list) return 0;
+
+    for (i = 0; i < list->numModules; i++)
+        if (!strcmp(list->modules[i], modName)) return 1;
+
+    return 0;
 }
