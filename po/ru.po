@@ -36,6 +36,8 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Следующие разделы являются вновь созданными, но вы не выбрали их для "
+"форматирования. Это может позже при установке вызвать ошибку.\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -44,11 +46,14 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Для продолжения нажмите ОК. Чтобы вернуться и выбрать эти разделы для "
+"форматирования (что и рекомендуется), нажмите 'Отменить'."
 
 #: ../fstab.py:74
-#, fuzzy
 msgid "Warning"
-msgstr "Поиск"
+msgstr "Внимание!"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -291,9 +296,8 @@ msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr ""
 
 #: ../rescue.py:54
-#, fuzzy
 msgid "System to Rescue"
-msgstr "Система для обновления"
+msgstr "Система для восстановления"
 
 #: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
@@ -347,9 +351,8 @@ msgid "Exit"
 msgstr "Выход"
 
 #: ../rescue.py:70 ../rescue.py:76
-#, fuzzy
 msgid "Rescue"
-msgstr "_Перезагрузить"
+msgstr "Восстановить"
 
 #: ../rescue.py:71
 msgid ""
@@ -358,6 +361,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Система была смонтирована под /mnt/sysimage.\n"
+"\n"
+"Нажмите <Enter> чтобы попасть в оболочку. Система будет перезагружаться "
+"автоматически при выходе из оболочки."
 
 #: ../rescue.py:77
 msgid ""
@@ -367,21 +374,26 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"При монтировании системы или ее части произошла ошибка. Монтировать можно "
+"под /mnt/sysimage.\n"
+"Нажмите <Enter> для того, чтобы попасть в оболочку. При выходе из оболочки "
+"система перезагрузится автоматически."
 
 #: ../rescue.py:83
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Метод восстановления"
+msgstr "Режим восстановления"
 
 #: ../rescue.py:84
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Отсутствуют разделы Linux. Нажмите Enter для возврата в оболочку. Система "
+"будет автоматически перезагружаться при выходе из оболочки."
 
 #: ../rescue.py:95
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Ваша система смонтирована под каталогом /mnt/sysimage."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -422,24 +434,21 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Носитель какого типа содержит пакеты для установки?"
+msgstr "Поддержку каких языков установить?"
 
 #: ../text.py:158 ../text.py:1124
-#, fuzzy
 msgid "Language Support"
-msgstr "Поддержка лэптопов"
+msgstr "Поддержка языков"
 
 #: ../text.py:205
-#, fuzzy
 msgid "Default Language"
-msgstr "Выберите язык"
+msgstr "Основной язык"
 
 #: ../text.py:206
 #, fuzzy
 msgid "Choose the default language: "
-msgstr "Выберите язык"
+msgstr "Выберите основной язык:"
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -614,13 +623,14 @@ msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
+"                           <Enter> для перезагрузки                          "
+" "
 
 #: ../text.py:638 ../text.py:661
 msgid "Complete"
 msgstr "Готово"
 
 #: ../iw/congrats_gui.py:34 ../text.py:639
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -638,7 +648,7 @@ msgstr ""
 "<Enter> для перезагрузки. Информацию об исправлениях к данному выпуску Red "
 "Hat Linux, можно найти в разделе Errata на http://www.redhat.com.\n"
 "\n"
-"Информация о настойке и использовании вашей системы содержится в "
+"Информация о настройке и использовании вашей системы содержится в "
 "руководствах пользователя Red Hat Linux."
 
 #: ../text.py:657
@@ -646,9 +656,10 @@ msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                               <Enter> для выхода                            "
+" "
 
 #: ../text.py:662
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -742,12 +753,11 @@ msgstr "Отладка"
 
 #: ../text.py:984
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:988
-#, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
 #: ../text.py:991
 msgid ""
@@ -777,9 +787,8 @@ msgstr "Настройка сети"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "Конфигурация LILO"
+msgstr "Конфигурация брандмауэра"
 
 #: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
@@ -818,7 +827,7 @@ msgstr "Автоматическое разбиение"
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:280 ../text.py:1090 ../text.py:1094
 msgid "Partition"
-msgstr "Разбиение"
+msgstr "Раздел"
 
 #: ../text.py:1092
 msgid "Manually Partition"
@@ -834,9 +843,8 @@ msgstr "Swap"
 
 #: ../text.py:1100 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Автоматическое разбиение"
+msgstr "Внимание: загрузочный раздел"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -847,9 +855,8 @@ msgid "Mouse Configuration"
 msgstr "Выбор мыши"
 
 #: ../text.py:1126
-#, fuzzy
 msgid "Language Default"
-msgstr "Выбор языка"
+msgstr "Основной язык"
 
 #: ../text.py:1137
 msgid "Package Groups"
@@ -1021,20 +1028,18 @@ msgid "Space Needed"
 msgstr "Мало места"
 
 #: ../todo.py:1705
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Похоже, у вас недостаточно места для установки всех выбранных вами пакетов. "
-"Вам необходимо больше места на следующих файловых системах:\n"
+"Похоже, у вас недостаточно дескрипторов файлов для установки всех выбранных "
+"вами пакетов. Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
 #: ../todo.py:1708
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Мало места"
+msgstr "Недостаточно дескрипторов файлов"
 
 #: ../todo.py:1714
 msgid "Disk Space"
@@ -1144,7 +1149,7 @@ msgstr "Пароли root не совпадают."
 
 #: ../iw/account_gui.py:56
 msgid "User password accepted."
-msgstr "Пароль пользователя root принят."
+msgstr "Пароль пользователя принят."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -1315,7 +1320,6 @@ msgid "Congratulations"
 msgstr "Поздравляем"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1341,7 +1345,7 @@ msgstr "Неопределенные зависимости"
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr "Полный размер установки: %s"
+msgstr "Полный размер: %s"
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
@@ -1393,43 +1397,40 @@ msgid "Select drive to run fdisk on"
 msgstr "Выберите устройство для работы fdisk"
 
 #: ../iw/firewall_gui.py:59
-#, fuzzy
 msgid "Please choose your security level:  "
-msgstr "Выберите, пожалуйста, тип входа в систему"
+msgstr "Выберите, пожалуйста, уровень безопасности:  "
 
 #: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Высокий"
 
 #: ../iw/firewall_gui.py:69 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Средний"
 
 #: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Без брандмауэра"
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Использовать правила брандмауэжра по умолчанию"
 
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Уточнить обновление"
+msgstr "Уточнить"
 
 #: ../iw/firewall_gui.py:101
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Использованное устройство RAID"
+msgstr "Доверенные устройства:"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Разрешить входящие:"
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "Другие порты:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1484,28 +1485,24 @@ msgid "What language should be used during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
 #: ../iw/language_support_gui.py:145
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Выберите язык"
+msgstr "Выберите основной язык"
 
 #: ../iw/language_support_gui.py:156
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Выберите язык"
+msgstr "Поддержку каких языков установить?"
 
 #: ../iw/language_support_gui.py:211
-#, fuzzy
 msgid "Select all"
-msgstr "Выбрать группу"
+msgstr "Выбрать все"
 
 #: ../iw/language_support_gui.py:217
-#, fuzzy
 msgid "Reset"
-msgstr "_Перезагрузить"
+msgstr "Вернуть первоначальные значения"
 
 #: ../iw/language_support_gui.py:231
 msgid "Select as default"
-msgstr ""
+msgstr "Выбрать по умолчанию"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1680,7 +1677,7 @@ msgid "Package Group Selection"
 msgstr "Выбор групп пакетов"
 
 #: ../iw/package_gui.py:558
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
 "\n"
@@ -1688,11 +1685,13 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
-"Ошибка доступа к файлу hdlist. Вероятно поврежден носитель или образ. "
+"Ошибка доступа к файлу hdlist:\n"
+"\n"
+"%s\n"
+"\n"
 "Программа установки прекращает работу."
 
 #: ../iw/package_gui.py:563
-#, fuzzy
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1722,12 +1721,10 @@ msgid "Summary"
 msgstr "Сведения"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Группы пакетов"
+msgstr "Пакетов: "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
 msgstr "Всего    :"
 
@@ -1863,7 +1860,7 @@ msgstr "Ручное разбиение программой fdisk [только для специалистов]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Внимание: Размещение загрузочного раздела"
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -1878,6 +1875,15 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Вы разместили раздел, содержащий ядро (загрузочный раздел) выше 1023 "
+"цилиндров. BIOS этой системы не поддерживает загрузку выше этого предела. В "
+"случае продолжения система вероятнее всего не сможет загрузить Linux.\n"
+"\n"
+"Если вы выберете продолжение, НАСТОЯТЕЛЬНО рекомендуется создать загрузочную "
+"дискету при запросе программы. Это обеспечит вам гарантию загрузки системы "
+"после установки.\n"
+"\n"
+"Вы уверены, что хотите продолжить?"
 
 #: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:386
 msgid ""
@@ -1889,6 +1895,13 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Вы разместили раздел, содержащий ядро, (загрузочный раздел) выше 1023 "
+"цилиндров. BIOS данной системы поддерживает загрузку выше этого предела.\n"
+"\n"
+"Настоятельно рекомендуется создать загрузочную дискету при запросе программы "
+"установки, так как эта новая возможность в последних системных платах не "
+"всегда надежна. Создание загрузочной дискеты обеспечит вам гарантию загрузки "
+"системы после установки."
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1993,14 +2006,12 @@ msgid "Please choose your login type:"
 msgstr "Выберите, пожалуйста, тип входа в систему"
 
 #: ../iw/xconfig_gui.py:519
-#, fuzzy
 msgid "Text"
-msgstr "Далее"
+msgstr "Текстовый"
 
 #: ../iw/xconfig_gui.py:520
-#, fuzzy
 msgid "Graphical"
-msgstr "Использовать графический вход в систему"
+msgstr "Графический"
 
 #: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
@@ -2023,22 +2034,20 @@ msgid "Restore original values"
 msgstr "Восстановить первоначальные параметры"
 
 #: ../iw/xconfig_gui.py:964
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Строчная развертка"
+msgstr "Частота строк"
 
 #: ../iw/xconfig_gui.py:966
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Кадровая развертка"
+msgstr "Частота кадров"
 
 #: ../iw/xconfig_gui.py:972
 msgid "Hz"
-msgstr ""
+msgstr "Гц"
 
 #: ../iw/xconfig_gui.py:975
 msgid "kHz"
-msgstr ""
+msgstr "кГц"
 
 #: ../iw/xconfig_gui.py:1165
 msgid ""
@@ -2133,37 +2142,39 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"Брандмауэр защищает от проникновения в сеть посторонних. Высокий уровень "
+"безопасности полностью блокирует доступ. Средний блокирует доступ к "
+"системным сервисам (таким как telnet или печать), но разрешает другие связи. "
+"При установленном брандмауэре все связи не могут быть разрешены, что и не "
+"рекомендуется. "
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Уровень безопасности"
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Использованное устройство RAID"
+msgstr "Доверенные устройства:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Удалить"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
-#, fuzzy
 msgid "Mail (SMTP)"
-msgstr "Всего (M)"
+msgstr "Почта (SMTP)"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
@@ -2171,23 +2182,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Поддержка принтера"
+msgstr "Другие порты"
 
 #: ../textw/firewall_text.py:120
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Неверная метка загрузки"
+msgstr "Неверный выбор"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Невозможно улучшить брандмауэр, если он запрещен"
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Настройка завершена"
+msgstr "Настройка брандмауэра -  Уточнить"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2196,6 +2204,10 @@ msgid ""
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
 msgstr ""
+"Существует два способа улучшить брандмауэр. Во-первых, можно разрешить весь "
+"трафик с определенных сетевых интерфейсов. Во-вторых, можно просто разрешить "
+"прохождение определенных протоколов через брандмауэр. Укажите дополнительные "
+"порты в форме 'service:protocol', такой как 'imap:tcp'."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2965,10 +2977,14 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Рекомендуется, чтобы корневой (/) раздел имел размер не менее %ld Мбайт. Вы "
+"пытаетесь создать корневой раздел в %ld Мбайт, возможен сбой установки. \n"
+"\n"
+"Вы уверены, что действуете правильно?"
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
-msgstr ""
+msgstr "Внимание: Размер корневой FC"
 
 #: ../libfdisk/gnomefsedit.c:1291
 msgid "No Drives Specified"
@@ -3346,7 +3362,7 @@ msgstr "Текущие разделы диска"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "  Точка монтирования    Устройство Запрошено   Выделено       Тип"
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
@@ -3719,13 +3735,12 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Вставьте диск обновлений и нажмите \"OK\" для продолжения."
 
 #: ../loader/loader.c:2255
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Вставленная вами дискета не является диском драйверов от этой версии Red Hat "
-"Linux."
+"Вставленная вами дискета не является диском обновлений от этой версии Red "
+"Hat Linux."
 
 #: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
@@ -4065,7 +4080,7 @@ msgstr "Южная Америка"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Индийский регион"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
@@ -4165,18 +4180,3 @@ msgstr "Средства разработки ядра"
 
 msgid "Utilities"
 msgstr "Утилиты"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Проверить эту конфигурацию"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "Уточнить конфигурацию X"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Рабочий стол по умолчанию:"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Swap Partition"
-
-#~ msgid "Pacific Rim"
-#~ msgstr "Тихоокеанский регион"
