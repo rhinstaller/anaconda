@@ -145,7 +145,8 @@ int insmod(char * modName, char * path, char ** args) {
     argc += count;
 
     if ((child = fork()) == 0) {
-	exit(ourInsmodCommand(argc, argv));
+	execv("/bin/loader", argv);
+	exit(1);
     }
 
     waitpid(child, &status, 0);
