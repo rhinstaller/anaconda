@@ -1274,21 +1274,22 @@ class DiskSet:
             except parted.error, msg:
                 if not intf:
                     DiskSet.skippedDisks.append(drive)
-                rc = intf.messageWindow(_("Warning"),
-                          _("The partition table on device %s was unreadable. "
-                            "To create new partitions it must be initialized, "
-                            "causing the loss of ALL DATA on this drive.\n\n"
-                            "Would you like to initialize this drive?")
-                                        % (drive,), type = "yesno")
-                if rc == 0:
-                    DiskSet.skippedDisks.append(drive)
                 else:
-                    try:
-                        dev.disk_create(getDefaultDiskType())
-                        disk = parted.PedDisk.open(dev)
-                        self.disks[drive] = disk
-                    except parted.error, msg:
+                    rc = intf.messageWindow(_("Warning"),
+                             _("The partition table on device %s was unreadable. "
+                               "To create new partitions it must be initialized, "
+                               "causing the loss of ALL DATA on this drive.\n\n"
+                               "Would you like to initialize this drive?")
+                                           % (drive,), type = "yesno")
+                    if rc == 0:
                         DiskSet.skippedDisks.append(drive)
+                    else:
+                        try:
+                            dev.disk_create(getDefaultDiskType())
+                            disk = parted.PedDisk.open(dev)
+                            self.disks[drive] = disk
+                        except parted.error, msg:
+                            DiskSet.skippedDisks.append(drive)
 
     def partitionTypes (self):
         rc = []

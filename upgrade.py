@@ -121,7 +121,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     if id.fsset.rootOnLoop():
 	space = isys.pathSpaceAvailable("/mnt/loophost")
 
-        for entry in fsset.entries:
+        for entry in id.fsset.entries:
             if entry.mountpoint != '/' or space <= 16:
                 continue
             

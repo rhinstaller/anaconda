@@ -308,7 +308,7 @@ class ext2FileSystem(extFileSystem):
         if entry.fsystem.getName() != "ext3":
             raise RuntimeError, ("Trying to migrate ext2 to something other "
                                  "than ext3")
-            
+
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
                                     ["tunefs", "-j", devicePath ],
                                     stdout = "/dev/tty5",
@@ -866,7 +866,7 @@ class FileSystemSet:
     def hasDirtyFilesystems(self):
 	if self.rootOnLoop():
             entry = self.getEntryByMountPoint('/')
-	    mountLoopbackRoot(entry.device.host, skipMount = 1)
+            mountLoopbackRoot(entry.device.host[5:], skipMount = 1)
 	    dirty = isys.ext2IsDirty("loop1")
 	    unmountLoopbackRoot(skipMount = 1)
 	    if dirty: return 1
@@ -935,7 +935,7 @@ class FileSystemSetEntry:
         self.badblocks = badblocks
 
     def mount(self, chroot='/', devPrefix='/tmp'):
-        device = self.device.setupDevice(chroot, devPrefix=devPrefix) 
+        device = self.device.setupDevice(chroot, devPrefix=devPrefix)
         self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint))
         self.mountcount = self.mountcount + 1
 
@@ -1159,12 +1159,34 @@ class SwapFileDevice(Device):
                                     "required size is unknown.")
         return file
 
+# This is a device that describes a swap file that is sitting on
+# the loopback filesystem host for partitionless installs.
+# The piggypath is the place where the loopback file host filesystem
+# will be mounted
+class PiggybackSwapFileDevice(SwapFileDevice):
+    def __init__(self, piggypath, file):
+        SwapFileDevice.__init__(self, file)
+        self.piggypath = piggypath
+        
+    def setupDevice (self, chroot, devPrefix='/tmp'):
+        return SwapFileDevice.setupDevice(self, self.piggypath, devPrefix)
+
 class LoopbackDevice(Device):
     def __init__(self, hostPartition, hostFs):
         Device.__init__(self)
         self.host = "/dev/" + hostPartition
         self.hostfs = hostFs
         self.device = "loop1"
+
+    def setupDevice(self, chroot, devPrefix='/tmp/'):
+        isys.makeDevInode("loop1", '/tmp/' + "loop1")
+        
+        if not self.isSetup:
+            isys.mount(self.host[5:], "/mnt/loophost", fstype = "vfat")
+            isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
+
+        self.isSetup = 1
+        return "/tmp/loop1"
 
     def getComment (self):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
@@ -1243,12 +1265,10 @@ def readFstab (path):
 	    # swap files
 	    file = fields[0]
 
-	    # the loophost looks like /mnt/loophost to the install, not
-	    # like /initrd/loopfs
 	    if file[:15] == "/initrd/loopfs/":
-		file = "/mnt/loophost/" + file[14:]
+		file = file[14:]
 
-	    device = SwapFileDevice(file)
+	    device = PiggybackSwapFileDevice("/mnt/loophost", file)
         elif fields[0][:9] == "/dev/loop":
 	    # look up this loop device in the index to find the
             # partition that houses the filesystem image
@@ -1297,10 +1317,10 @@ def mountLoopbackRoot(device, skipMount = 0):
 
 def unmountLoopbackRoot(skipMount = 0):
     if not skipMount:
-	isys.umount('/mnt/sysimage')        
+	isys.umount('/mnt/sysimage')
     isys.makeDevInode("loop1", '/tmp/' + "loop1")
     isys.unlosetup("/tmp/loop1")
-    isys.umount('/mnt/loophost')        
+    isys.umount('/mnt/loophost')
 
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     if windowCreator:
