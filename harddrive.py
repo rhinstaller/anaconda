@@ -100,7 +100,7 @@ class HardDriveInstallMethod(InstallMethod):
 	isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
 
 	isys.makeDevInode("loop2", "/tmp/loop2")
-	isys.losetup("/tmp/loop2", isoImage)
+	isys.losetup("/tmp/loop2", isoImage, readonly = 1)
 	
 	isys.mount("loop2", "/tmp/hdimage", fstype = 'iso9660', readOnly = 1);
 	self.tree = "/tmp/hdimage/"
@@ -207,7 +207,7 @@ class HardDriveInstallMethod(InstallMethod):
 	    isys.makeDevInode("loop2", "/tmp/loop2")
 
 	    try:
-		isys.losetup("/tmp/loop2", what)
+		isys.losetup("/tmp/loop2", what, readonly = 1)
 	    except SystemError:
 		continue
 
