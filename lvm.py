@@ -180,7 +180,6 @@ def lvlist():
             (lv, vg, attr, size) = line.strip()[:-1].split()
         except:
             continue
-        size = size[:-1]
         log("lv is %s/%s, size of %s" %(vg, lv, size))
         lvs.append( (vg, lv, size) )
 

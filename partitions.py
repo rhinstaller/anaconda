@@ -196,7 +196,7 @@ class Partitions:
             # FIXME: need to find the pe size of the vg
             pesize = 4096
             try:
-                preexist_size = float(size) / 1024.0
+                preexist_size = float(size) / (1024.0 * 1024.0)
             except:
                 log("preexisting size for %s not a valid integer, ignoring" %(vg,))
                 preexist_size = None
