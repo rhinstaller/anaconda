@@ -27,6 +27,20 @@ from constants_text import *
 from translate import _
 from log import log
 
+
+# sanity checking for various numeric input boxes
+def invalidInteger(str):
+    ints = range(0,10)
+    if str == "":
+        return _("Must specify a value")
+    for n in str:
+        if n not in ints:
+            return _("Requested value is not an integer")
+    if len(str) > 9:
+        return _("Requested value is too large")
+
+    return None
+
 class PartitionWindow:
     def populate(self):
         # XXX we really should separate this stuff out into interface
@@ -670,10 +684,9 @@ class PartitionWindow:
                 request.badblocks = badblocksCB.selected()
 
                 if origrequest.start == None:
-                    if size.value() == "":
-                        self.intf.messageWindow(_("Must Specify Size"),
-                                                _("Must specify a base size "
-                                                  "for the partition."))
+                    if invalidInteger(size.value()):
+                        self.intf.messageWindow(_("Invalid Entry for Partition Size"),
+                                                invalidInteger(size.value()))
                         continue
                     request.size = int(size.value())
                 
@@ -683,10 +696,9 @@ class PartitionWindow:
                     else:
                         grow = TRUE
                     if growtype == "limit":
-                        if limitentry.value() == "":
-                            self.intf.messageWindow(_("Specify Maximum Size"),
-                                                _("Please specify a maximum "
-                                                  "size for the partition."))
+                        if invalidInteger(limitentry.value()):
+                            self.intf.messageWindow(_("Invalid Entry for Maximum Size"),
+                                           invalidInteger(limitentry.value()))
                             continue
                             
                         maxsize = int(limitentry.value())
@@ -703,31 +715,27 @@ class PartitionWindow:
                             allowdrives.append(i) 
                     request.drive = allowdrives
                 else:
-                    if start.value() == "":
-                        self.intf.messageWindow(_("Specify Start"),
-                                                _("Please specify a starting "
-                                                  "cylinder for the "
-                                                  "partition."))
+                    if invalidInteger(start.value()):
+                        self.intf.messageWindow(_("Invalid Entry for Starting Cylinder"),
+                                           invalidInteger(start.value()))
                         continue
+                    
                     request.start = int(start.value())
                     request.badblocks = badblocksCB.selected()
 
                     cyltype = cylopts.getSelection()
                     if cyltype == "end":
-                        if end.value() == "":
-                            self.intf.messageWindow(_("Specify End"),
-                                                    _("Please specify the end "
-                                                      "cylinder for the "
-                                                      "partition."))
+                        if invalidInteger(end.value()):
+                            self.intf.messageWindow(_("Invalid Entry for End Cylinder"),
+                                           invalidInteger(end.value()))
                             continue
+                        
                         request.end = int(end.value())
                         request.size = None
                     elif cyltype == "size":
-                        if size.value() == "":
-                            self.intf.messageWindow(_("Specify Size"),
-                                                    _("Please specify the  "
-                                                      "size for the "
-                                                      "partition."))
+                        if invalidInteger(size.value()):
+                            self.intf.messageWindow(_("Invalid Entry for Partition Size"),
+                                           invalidInteger(size.value()))
                             continue
                         request.end = None
                         request.size = int(size.value())
@@ -856,6 +864,11 @@ class PartitionWindow:
                 raidmembers.append(id)
 
             request.raidmembers = raidmembers
+            if invalidInteger(spares.value()):
+                self.intf.messageWindow(_("Invalid Entry for Raid Spares"),
+                                        invalidInteger(spares.value()))
+                continue
+            
             request.raidspares = int(spares.value())
             request.raidlevel = raidtype.current()
 
