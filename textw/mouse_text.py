@@ -74,7 +74,7 @@ class MouseWindow:
 
         key = 0
         for amouse in mice:
-            l.append(amouse, key)
+            l.append(_(amouse), key)
             key = key + 1
         l.setCurrent(default)
         l.setCallback (self.listcb)

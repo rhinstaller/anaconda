@@ -1,7 +1,10 @@
 2005-03-23  Jeremy Katz  <katzj@redhat.com>
 
-	* textw/timezone_text.py (TimezoneWindow.__call__): Mark string
+	* textw/timezone_text.py (TimezoneWindow.__call__): Mark strings
 	for translation.
+	* gui.py (ExceptionWindow.__init__): Likewise.
+	* iw/network_gui.py (NetworkWindow.handleIPError): Likewise.
+	* textw/mouse_text.py (MouseWindow.__call__): Likewise.
 
 2005-03-23  Peter Jones  <pjones@redhat.com>
 
