@@ -1,3 +1,8 @@
+2005-03-21  Jeremy Katz  <katzj@redhat.com>
+
+	* hdrlist.py (EverythingExclude): Exclude Xen kernels from an
+	everything install for now (related to #151490)
+
 2005-03-21  Paul Nasrat <pnasrat@redhat.com>
 
 	* loader2/cdinstall.c: Don't unlink device (#151232)

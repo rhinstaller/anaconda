@@ -53,6 +53,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-tape' : None,      'kernel-BOOTtape' : None,
                      'kernel-pseries': None,    'kernel-iseries': None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
+                     'kernel-xen0': None, 'kernel-xenU': None,
                      'kernel-bigmem-unsupported': None,
                      'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None }
