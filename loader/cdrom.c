@@ -19,12 +19,11 @@ static struct { char * modname, * devname; } transTable[] = {
 } ;
 
 static int setupCDdevicePanel(int * type) {
-    char * menuItems[3];
+    char * menuItems[2];
     int cdromType = 0, rc;
 
     menuItems[0] = "SCSI";
-    menuItems[1] = _("Other CDROM");
-    menuItems[2] = NULL;
+    menuItems[1] = NULL;
 
     if (*type == CD_OTHER)
 	cdromType = 1;
