@@ -122,7 +122,7 @@ class PartitionWindow:
                     part = disk.next_partition(part)
                     continue
                 # ignore the tiny < 1 MB partitions (#119479)
-                if getPartSizeMB(part) <= 1.0:
+                if getPartSizeMB(part) <= 1.0 and not part.type & parted.PARTITION_BOOT:
                     part = disk.next_partition(part)
                     continue                
 
