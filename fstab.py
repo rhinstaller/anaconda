@@ -25,7 +25,6 @@ import sys
 from translate import _
 from log import log
 
-
 def isValidExt2(device):
     file = '/tmp/' + device
     isys.makeDevInode(device, file)
@@ -46,6 +45,36 @@ def isValidExt2(device):
     return 0
 
 class Fstab:
+
+    # return 1 if we should stay on the same screen
+    def checkFormatting(self, messageWindow):
+	alreadyExists = {}
+
+	(drives, raid) = self.partitionList()
+        for (drive, part, type, start, cyl, size, preexisting) in drives:
+	    if preexisting:
+		alreadyExists[part] = 1
+
+	badList = []
+	for (part, drive, fsystem, format, size) in \
+		self.formattablePartitions():
+	    print part, format
+	    if not alreadyExists.has_key(part) and not format:
+		badList.append((part, drive))
+
+	if badList:
+	    message = _("The following partitions are newly created, but "
+		        "you have chosen not to format them. This will "
+			"probably cause an error later in the install.\n"
+			"\n")
+	    for (part, drive) in badList:
+		message = message + ("\t%-20s %s\n" % (part, drive))
+	    rc = messageWindow(_("Warning"), message, type = "okcancel").getrc()
+
+	    return rc
+	
+	return 0
+
     def attemptPartitioning(self, partitions, prefstab, clearParts):
         
 	attempt = []
