@@ -341,9 +341,10 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	bootDev = bootDev.device.getDevice()
 
-	f.write('default=0\n')
-	f.write('timeout=30\n')
-
+        f.write('default=0\n')
+        f.write('timeout=30\n')
+        f.write('splashimage=%s/grub/splash.xpm.gz' % (grubbyPartitionName(bootDev),))
+        
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
 	    kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
