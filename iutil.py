@@ -132,7 +132,7 @@ def copyFile(source, to):
     f = os.open(source, os.O_RDONLY)
     t = os.open(to, os.O_RDWR | os.O_TRUNC | os.O_CREAT)
 
-    count = os.read(f, 16384)
+    count = os.read(f, 262144)
     while (count):
 	os.write(t, count)
 	count = os.read(f, 16384)
