@@ -1360,6 +1360,9 @@ class FileSystemSetEntry:
 
     def getBadblocks(self):
         return self.badblocks
+
+    def getMountPoint(self):
+	return self.mountpoint
         
     def setFormat (self, state):
         if self.migrate and state:
