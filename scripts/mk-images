@@ -419,7 +419,7 @@ makeinitrd() {
 	    shift; shift
 	    continue
 	elif [ $1 = "--modules" ]; then
-	    LOADERMODULES=$2
+	    INITRDMODULES=$2
 	    shift; shift
 	    continue
 	elif [ $1 = "--moduleballname" ]; then
@@ -438,7 +438,7 @@ makeinitrd() {
 	echo "no loader binary specified!" >&2
 	exit 1
     fi
-    if [ -z "$LOADERMODULES" ]; then
+    if [ -z "$INITRDMODULES" ]; then
 	echo "warning: no loader modules specified!" >&2
     fi
     if [ -z "$INITRDSIZE" ]; then
@@ -472,8 +472,8 @@ makeinitrd() {
 	mkdir -p $MBD_DIR/dev/iseries
     fi
 
-    if [ -n "$LOADERMODULES" ]; then
-	MODSET=`expandModuleSet "$LOADERMODULES"`
+    if [ -n "$INITRDMODULES" ]; then
+	MODSET=`expandModuleSet "$INITRDMODULES"`
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
     fi
 
