@@ -271,6 +271,7 @@ if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 	insmod ctc$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
+   echo "alias $DEVICE ctc" >> /tmp/modprobe.conf
 elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod fsm$LO
 	insmod iucv$LO
@@ -279,6 +280,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	if [ -n "$IUCV" ]; then
 		 echo "options netiucv $IUCV" >> /tmp/modprobe.conf
 	fi
+   echo "alias $DEVICE iucv" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    insmod ccwgroup$LO
 	insmod cu3088$LO
@@ -392,8 +394,8 @@ BROADCAST=$BROADCAST
 HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
-QETH=$QETH
 EOF
+[ "$QETH" != "" ] && echo "QETH=$QETH" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
