@@ -82,7 +82,14 @@ char * sdupprintf(const char *format, ...) {
 	printf("ERROR: vsnprintf behavior is not C99\n");
 	abort();
     }
-	
+
+    /* 
+     * according to C99, 7.15 #3, the value of ap is now indeterminate
+     * so we need to call va_end/va_start again.
+     */
+    va_end(args);
+    va_start(args, format);	
+
     buf = malloc(size);
     if (buf == NULL)
 	return NULL;
