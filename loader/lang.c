@@ -85,7 +85,7 @@ static const struct langInfo languages[] = {
 	{ "Romanian",	"ro",	"lat2-sun16",	"iso02",	"ro_RO" },
 	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
 	{ "Spanish",	"es",	"lat0-sun16",	"iso01",	"es_MX" },
-	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_SU" },
+	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_RU.KOI8-R" },
 	{ "Ukrainian",  "uk",   "RUSCII_8x16",	"koi2alt",	"uk_UA" },
 };
 /* FONT LIST ENDS */

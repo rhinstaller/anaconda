@@ -198,6 +198,7 @@ class AutoPartitionWindow(InstallWindow):
 
         box = GtkVBox (FALSE)
 	box.pack_start(label, FALSE)
+        box.set_border_width (5)
 
         radioBox = GtkVBox (FALSE)
 	self.continueChoice = GtkRadioButton (None, _("Remove data"))

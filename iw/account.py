@@ -141,8 +141,8 @@ class AccountWindow (InstallWindow):
         self.confirm.connect ("activate", forward)
         self.confirm.set_visibility (FALSE)
         self.confirm.connect ("changed", self.rootPasswordsMatch)
-        table.attach (self.pw,      1, 2, 0, 1, FILL|EXPAND)
-        table.attach (self.confirm, 1, 2, 1, 2, FILL|EXPAND)
+        table.attach (self.pw,      1, 2, 0, 1, FILL|EXPAND, 5)
+        table.attach (self.confirm, 1, 2, 1, 2, FILL|EXPAND, 5)
 
 	pw = self.todo.rootpassword.getPure()
 	if pw:

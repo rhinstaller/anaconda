@@ -204,6 +204,46 @@ class Language (SimpleConfigFile):
 	return self.lang
 
 class Keyboard (SimpleConfigFile):
+    console2x = {
+            "be-latin1"		: ('pc102', 'be'),
+            "be2-latin1"	: ('pc102', 'be'),
+            "fr-latin0"		: ('pc102', 'fr'),
+            "fr-latin1"		: ('pc102', 'fr'),
+            "fr-pc"		: ('pc102', 'fr'),
+            "fr"		: ('pc102', 'fr'),
+            "bg"		: ('pc102', 'bg'),
+            "cf"		: ('pc102', 'cf'),
+            "cz-lat2-prog" 	: ('pc102', 'cs'),
+            "cz-lat2"		: ('pc102', 'cs'),
+            "dk-latin1"		: ('pc102', 'dk'),
+            "dk"		: ('pc102', 'dk'),
+            "es"		: ('pc102', 'es'),
+            "fi-latin1"		: ('pc102', 'fi'),
+            "fi"		: ('pc102', 'fi'),
+            "hu101"		: ('pc102', 'hu'),
+            "it-ibm"		: ('pc101', 'it'),
+            "it"		: ('pc102', 'it'),
+            "it2"		: ('pc102', 'it'),
+            "jp106"	        : ('jp106', 'jp'),
+            "no-latin1"  	: ('pc102', 'no'),
+            "no"		: ('pc102', 'no'),
+            "pl"		: ('pc102', 'pl'),
+            "pt-latin1"		: ('pc102', 'pt'),
+            "ru-cp1251" 	: ('pc102', 'ru'),
+            "ru-ms"		: ('microsoft', 'ru'),
+            "ru"		: ('pc102', 'ru'),
+            "ru1"		: ('pc102', 'ru'),
+            "ru2"		: ('pc102', 'ru'),
+            "ru_win"		: ('pc105', 'ru'),
+            "se-latin1"		: ('pc102', 'se'),
+            "us"		: ('pc101', 'us'),
+            "de-latin1-nodeadkeys" : ('pc102', 'de'),
+            "de-latin1"		: ('pc102', 'de'),
+            "de"		: ('pc102', 'de'),
+            "fr_CH-latin1" 	: ('pc102', 'fr_CH'),
+            "fr_CH"		: ('pc102', 'fr_CH'),
+            "hu"		: ('pc102', 'fr_CH'),
+            }
     # XXX fixme - externalize
     def __init__ (self):
 	self.type = "PC"
@@ -328,6 +368,11 @@ class Keyboard (SimpleConfigFile):
 	    else:
 		return "us"
 
+    def getXKB (self):
+        if Keyboard.console2x.has_key (self.get ()):
+            (model, keylayout) = Keyboard.console2x[self.get ()]
+            return ("xfree86", model, keylayout, "", "")
+
 class Authentication:
     def __init__ (self):
         self.useShadow = 1
@@ -400,7 +445,7 @@ class ToDo:
             self.x = x
         else:
             if mouse:
-                self.x = XF86Config (mouse)
+                self.x = XF86Config (mouse = mouse)
             else:
                 self.x = XF86Config ()
 
@@ -1167,6 +1212,10 @@ class ToDo:
 	    todo.language.setByAbbrev(todo.instClass.language)
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)
+            if todo.instClass.keyboard != "us":
+                xkb = todo.keyboard.getXKB ()
+                if xkb:
+                    apply (todo.x.setKeyboard, xkb)
 
 	(bootProto, ip, netmask, gateway, nameserver) = \
 		todo.instClass.getNetwork()

@@ -19,9 +19,12 @@ class KeyboardWindow (InstallWindow):
         self.model = "pc101"
         self.layout = "en_US"
         self.variant = ""
+        self.hasrun = 0
 
     def getNext (self):
-	self.todo.x.setKeyboard (self.rulesbase, self.model, self.layout, self.variant, "")
+        if self.hasrun:
+            self.todo.x.setKeyboard (self.rulesbase, self.model,
+                                     self.layout, self.variant, "")
         return None
 
     def select_row (self, clist, row, col, event):
@@ -106,4 +109,5 @@ class KeyboardWindow (InstallWindow):
         box.pack_start (entry, FALSE)
 
         box.set_border_width (5)
+        self.hasrun = 1
         return box

@@ -174,6 +174,7 @@ class InstallClass:
 	self.language = lang
 
     def setKeyboard(self, kb):
+        print "set", kb
 	self.keyboard = kb
 
     def setPostScript(self, postScript, inChroot = 1):

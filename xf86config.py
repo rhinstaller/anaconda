@@ -33,8 +33,9 @@ class XF86Config:
         self.keyLayout = "us"
         self.keyVariant = ""
         self.keyOptions = ""
-
+        
     def setKeyboard (self, rules, model, layout, variant, options):
+        print self, rules, model, layout, variant, options
         self.keyRules = rules
         self.keyModel = model
         self.keyLayout = layout
@@ -381,7 +382,7 @@ EndSection
 """ % self.mouse
 
     def keyboardSection (self):
-        return """
+        string = """
 # **********************************************************************
 # Keyboard section
 # **********************************************************************
@@ -430,15 +431,16 @@ Section "Keyboard"
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
 #    XkbOptions  "ctrl:nocaps"
-
-    XkbRules    "%s"
-    XkbModel    "%s"
-    XkbLayout   "%s"
-    XkbVariant  "%s"
-    XkbOptions  "%s"
-EndSection
-""" % (self.keyRules, self.keyModel, self.keyLayout, self.keyVariant, self.keyOptions)
-
+"""
+        for (tag, value) in (("XkbRules", self.keyRules),
+                             ("XkbModel", self.keyModel),
+                             ("XkbLayout", self.keyLayout),
+                             ("XkbVariant", self.keyVariant),
+                             ("XkbOptions", self.keyOptions)):
+            if value:
+                string = string + '    %s	"%s"\n' % (tag, value)
+        string = string + "EndSection\n"
+        return string
         
     def monitorSection (self):
         info = {}
