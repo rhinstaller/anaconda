@@ -28,12 +28,12 @@ class CheckList (gtk.TreeView):
                                    gobject.TYPE_STRING, gobject.TYPE_STRING)
         gtk.TreeView.__init__ (self, self.store)
         
-        renderer = gtk.CellRendererToggle()
-        column = gtk.TreeViewColumn('Checkbox', renderer, active=0)
+        self.checkboxrenderer = gtk.CellRendererToggle()
+        column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
         column.set_fixed_width(50)
         column.set_clickable(gtk.TRUE)
-        renderer.connect ("toggled", self.toggled_item)        
+        self.checkboxrenderer.connect ("toggled", self.toggled_item)        
         self.append_column(column)
 
         # XXX we only handle two text columns right now
@@ -51,6 +51,11 @@ class CheckList (gtk.TreeView):
         self.set_rules_hint(gtk.FALSE)
         self.set_headers_visible(gtk.FALSE)
         self.columns_autosize()
+        self.set_enable_search(gtk.FALSE)
+
+        # keep track of the number of rows we have so we can
+        # iterate over them all
+        self.num_rows = 0
 
     def append_row (self, textList, init_value):
         """Add a row to the list.
@@ -67,6 +72,8 @@ class CheckList (gtk.TreeView):
             self.store.set_value(iter, i, textList[i])
             i = i + 1
 
+        self.num_rows = self.num_rows + 1
+
 
     def toggled_item(self, data, row):
         """Set a function to be called when the value of a row is toggled.
@@ -81,6 +88,7 @@ class CheckList (gtk.TreeView):
     def clear (self):
         "Remove all rows"
         self.store.clear()
+        self.num_rows = 0
 
 
     def get_active(self, row):
@@ -103,3 +111,42 @@ class CheckList (gtk.TreeView):
 
         iter = self.store.get_iter(row)
         return self.store.get_value(iter, column)
+
+
+    def set_column_title(self, column, title):
+        "Set the title of column to title"
+
+        col = self.get_column(column)
+        if col:
+            col.set_title(title)
+
+
+    def set_column_min_width(self, column, min):
+        "Set the minimum width of column to min"
+
+        col = self.get_column(column)
+        if col:
+            col.set_min_width(min)
+
+
+    def set_column_clickable(self, column, clickable):
+        "Set the column to be clickable"
+
+        col = self.get_column(column)
+        if col:
+            col.set_clickable(clickable)
+            
+
+    def set_column_sizing(self, column, sizing):
+        "Set the column to use the given sizing method"
+
+        col = self.get_column(column)
+        if col:
+            col.set_sizing(sizing)
+
+    def set_column_sort_id(self, column, id):
+        "Set the sort id of column to id"
+
+        col = self.get_column(column)
+        if col:
+            col.set_sort_column_id(id)
