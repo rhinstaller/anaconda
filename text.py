@@ -51,10 +51,7 @@ class LanguageWindow:
         if "Japanese" in languages and not haveKon:
 	    languages.remove("Japanese")
 
-	if os.environ.has_key('LANG'):
-	    current = todo.instTimeLanguage.getCurrent()
-	else:
-	    current = None
+        current = todo.instTimeLanguage.getCurrent()
 
         height = min((screen.height - 16, len(languages)))
         if todo.reconfigOnly:
