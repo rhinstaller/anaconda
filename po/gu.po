@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 18:40+0530\n"
+"PO-Revision-Date: 2004-07-22 19:01+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -2027,23 +2027,25 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
+"તમે ઓછી સ્વેપ જગ્યા (%dM) સ્થિત કરેલી છે કે જે તમારા કમ્પ્યુટર પર ઉપ્લબ્ધ "
+"RAM (%dM) કરતાં. આ નકારાત્મક રીતે તમારા પરિણામ પર અસર કરે છે."
 
 #: ../partitions.py:1167
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "સ્થાપક દ્વારા પાર્ટીશન વપરાઈ રહ્યું છે."
 
 #: ../partitions.py:1170
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "પાર્ટીશન કે જે RAID ઍરેનો સભ્ય છે."
 
 #: ../partitions.py:1173
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "પાર્ટીશન કે જે LVM કદ જૂથનો સભ્ય છે."
 
 #: ../partRequests.py:233
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "આ માઉન્ટ બિંદુ અમાન્ય છે. %s ડિરેક્ટરી / ફાઈલ સિસ્ટમ પર જ હોવી જોઈએ."
 
 #: ../partRequests.py:236
 #, python-format
@@ -2051,10 +2053,13 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
+"માઉન્ટ બિંદુ %s વાપરી શકાશે નહિં. તે મોટે ભાગે સંજ્ઞાવાળી કડી યોગ્ય "
+"સિસ્ટમ પ્રક્રિયા માટે હોવી જ જોઈએ. મહેરબાની કરીને યાેગ્ય માઉન્ટ બિંદુ "
+"પસંદ કરો."
 
 #: ../partRequests.py:243
 msgid "This mount point must be on a linux file system."
-msgstr ""
+msgstr "આ માઉન્ટ બિંદુ લિનક્સ ફાઈલ સિસ્ટમ પર જ હોવુ જોઈએ."
 
 #: ../partRequests.py:264
 #, python-format
@@ -2062,13 +2067,15 @@ msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr ""
+"માઉન્ટ બિંદુ \"%s\" પહેલાથી જ વપરાશમાં છે, મહેરબાની કરીને અલગ "
+"માઉન્ટ બિંદુ પસંદ કરો."
 
 #: ../partRequests.py:278
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
+msgstr "%s પાર્ટીશનનું માપ (%10.2f MB) %10.2f MB ના મહત્તમ માપ કરતાં વધી ગયું."
 
 #: ../partRequests.py:465
 #, python-format
@@ -2076,28 +2083,30 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
+"મંજૂરી કરાયેલ પાર્ટીશનનું માપ (માપ = %s MB) %s MB ના મહત્તમ માપ "
+"કરતાં વધી ગયું."
 
 #: ../partRequests.py:470
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "મંજૂરી કરાયેલ પાર્ટીશનનું માપ ઋણ છે! (માપ = %s MB)"
 
 #: ../partRequests.py:474
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "પાર્ટીશનો પહેલા સિલિન્ડર કરતાં નીચે શરુ કરી શકાતા નથી."
 
 #: ../partRequests.py:477
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "પાર્ટીશનો ઋણ સિલિન્ડર આગળ અંત થતા નથી."
 
 #: ../partRequests.py:643
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID મંજૂરીમાં કોઈ સભ્યો નથી, અથવા RAID સ્તર સ્પષ્ટ કરેલ નથી."
 
 #: ../partRequests.py:655
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "%s પ્રકારનું RAID ઉપકરણને ઓછામાં ઓછા %s સભ્યો જરુરી છે."
 
 #: ../partRequests.py:661
 #, python-format
@@ -2105,27 +2114,29 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
+"RAID ઉપકરણ પાસે %s ના મહત્તમ છે. તમારે સ્પેર વધારવા માટે RAID  "
+"ઉપકરણ પર સભ્યો વધારવા જોઈએ."
 
 #: ../rescue.py:123
 msgid "Starting Interface"
-msgstr ""
+msgstr "ઈન્ટરફેસ શરુ કરી રહ્યા છીએ"
 
 #: ../rescue.py:124
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "%s શરુ કરવા જઈ રહ્યા છીએ"
 
 #: ../rescue.py:174
 msgid "Setup Networking"
-msgstr ""
+msgstr "સેટઅપ નેટવર્ક"
 
 #: ../rescue.py:175
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "શું તમે આ સિસ્ટમ પર નેટવર્ક ઈન્ટરફેસ શરુ કરવા માંગો છો?"
 
 #: ../rescue.py:220 ../text.py:479
 msgid "Cancelled"
-msgstr ""
+msgstr "નકારાઈ ગયું"
 
 #: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
