@@ -14,7 +14,7 @@ def addNewPackageToUpgSet(pkgDict, pkg):
     else:
         # first check version
         val = rpm.versionCompare(pkgDict[name], pkg)
-        if val == -1:
+        if val < 0:
             # we're newer, add this one
             pkgDict[name] = pkg
         elif val == 0:
