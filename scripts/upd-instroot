@@ -153,10 +153,10 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
 PACKAGESRESCUE=" bzip2 bzip2-libs dump
-                findutils ftp gzip iputils krb5-libs less 
+                findutils ftp gzip iputils joe krb5-libs less 
                 modutils mtools mt-st mtr net-tools open 
                 openssh openssh-clients 
-                pciutils pine rsh
+                pciutils rsh
                 traceroute tar"
 
 # turn off options we dont want, ie. set package list to something harmless
@@ -660,6 +660,7 @@ bin/ping
 bin/sync
 bin/tar
 bin/zcat
+etc/joe/*
 sbin/arp
 sbin/depmod
 sbin/dump
@@ -677,8 +678,12 @@ sbin/route
 usr/bin/bunzip2
 usr/bin/bzcat
 usr/bin/bzip2
+usr/bin/emacs
 usr/bin/find
 usr/bin/ftp
+usr/bin/jmacs
+usr/bin/joe
+usr/bin/jpico
 usr/bin/less
 usr/bin/mattrib
 usr/bin/mbadblocks
@@ -710,6 +715,7 @@ usr/bin/rsh
 usr/bin/scp
 usr/bin/sftp
 usr/bin/ssh
+usr/bin/termidx
 usr/bin/xargs
 usr/kerberos/lib/libgssapi*
 usr/kerberos/lib/libkrb5*
@@ -798,6 +804,12 @@ rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libxtrap.a
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
 
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
+
+# fixup joe links
+ln -fs jpicosrc $DESTGR/etc/joe/picosrc
+ln -fs jmacsrc $DESTGR/etc/joe/emacsrc
+ln -fs jmacs $DESTGR/usr/bin/emacs
+ln -fs jpico $DESTGR/usr/bin/pico
 
 echo "Creating nsswitch.conf"
 cat > $DEST/etc/nsswitch.conf <<EOF
