@@ -1134,7 +1134,7 @@ class ToDo:
         # on the children
         if self.setupFilesystems:
             if not self.upgrade:
-		if (self.ddruidAlreadySaved):
+		if (self.ddruidAlreadySaved or self.upgrade):
 		    self.makeFilesystems (createSwap = 0)
 		else:
 		    self.ddruid.save ()
