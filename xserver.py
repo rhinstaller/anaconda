@@ -95,8 +95,7 @@ def startX(resolution, nofbmode, video, monitor, mouse):
 #    else:
 #        attempt = 'PROBED'
 
-#    attempt = 'PROBED'
-    attempt = 'VESA'
+    attempt = 'PROBED'
 
     failed = 1
     next_attempt = None
