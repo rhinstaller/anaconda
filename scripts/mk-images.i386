@@ -83,10 +83,12 @@ SCSIMODS="sd_mod sr_mod"
 SECSTAGE="agpgart msdos vfat raid0 raid1 raid5 ext3 reiserfs $IDEMODS $SCSIMODS $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS"
-LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
-	     sym53c8xx $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
-	       eepro100 tulip pcnet32 8139too"
+LOCALMODULES="$COMMONMODULES BusLogic aic7xxx $IDEMODS $SCSIMODS"
+NETWORKMODULES="$COMMONMODULES nfs 3c59x eepro100 tulip pcnet32"
+#LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
+#	     sym53c8xx $IDEMODS $SCSIMODS"
+#NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
+#	       eepro100 tulip pcnet32 8139too"
 #	       sis900 e100 hp100 natsemi"
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
