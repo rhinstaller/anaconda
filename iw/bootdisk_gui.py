@@ -2,7 +2,7 @@ import iutil
 from iw_gui import *
 from gtk import *
 from translate import _, N_
-from dispatch import *
+from constants import *
 
 class BootdiskWindow (InstallWindow):
 
@@ -39,7 +39,7 @@ class BootdiskWindow (InstallWindow):
         
         label = None
 
-	if dir == dispatch.DISPATCH_FORWARD:
+	if dir == DISPATCH_FORWARD:
 	    label = GtkLabel (
 		_("Please remove the install floppy (if used) and insert a "
 		  "blank floppy in the first floppy drive. All data on this "
