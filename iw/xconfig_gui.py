@@ -937,13 +937,13 @@ class XConfigWindow (InstallWindow):
         self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
         arch = iutil.getArch()
-        if arch == "alpha" or arch == "ia64":
+        # we can only probe video ram on i386
+        if arch != "i386":
             label = makeFormattedLabel (_("Your video ram size can not be "
                                           "autodetected.  Choose your video "
                                           "ram size from the choices below:"))
             box.pack_start (label, gtk.FALSE)
-        elif arch == "i386":
-            # but we can on everything else
+        else:
             self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
             label = makeFormattedLabel (_("In most cases, the video hardware "
@@ -954,9 +954,6 @@ class XConfigWindow (InstallWindow):
             self.autoBox.pack_start (label, gtk.FALSE)
 
             box.pack_start (self.autoBox, gtk.FALSE)
-        else:
-            # sparc
-            return
 
 	# load in card database
         self.cards = self.videocard.cardsDB()
