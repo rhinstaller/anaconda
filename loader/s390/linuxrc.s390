@@ -248,6 +248,70 @@ EOF
 
 [ -n "$DEBUG" ] && debugshell
 
+get_all_dasds()
+{
+	unset online_dasds
+	TMP="`grep ':active' < /proc/dasd/devices | grep -v '\(^019\|none\)'`"
+	for i in "$TMP"; do 
+		online_dasds="`echo "$i" | 
+			sed -e 's/.*   \(.*\):.*:.*/\/dev\/\1/'` $online_dasds"
+	done
+	if [ -z "$online_dasds" ]; then
+		echo "No DASD devices found. Please check your setup."
+		return 1
+	else
+		echo "DASD devices "
+		echo "$online_dasds found."
+		return 0
+	fi
+}
+
+# Probe for DASD devices
+if [ -z "$DASD" ]; then
+	echo "If you know the address range of your DASDs, please enter it now."
+	echo "If you just press return, autodetection will be attempted."
+	echo "(200-20f is usually a good setting for vm, fd00-fd0f for LPARs)"
+	echo "Danger: Autoprobing might give you wrong results!"
+	read DASD
+fi
+if [ -z "$DASD" ]; then
+	echo "Probing for DASD devices."
+	insmod dasd_mod.o probeonly
+	# ignore DASD devices at 019x (might be CMS)
+	grep -v "\(^019\|none\)" /proc/dasd/devices > /tmp/dasd
+	RANGE_START=""
+	PREV=""
+	for i in `sed -e 's/^\(....\).*/\1/' < /tmp/dasd`; do
+		PREV=$ADDR
+		ADDR=$i
+		ADDR_DEC=`printf "%u" 0x$ADDR`
+		if [ -z "$RANGE_START" ]; then
+			RANGE_START=$ADDR
+			RANGE_START_DEC=`printf "%u" 0x$RANGE_START`
+		fi
+		if [ "$ADDR_DEC" -lt "$RANGE_START_DEC" ]; then
+			[ -n "$DASD" ] && DASD="$DASD,"
+			DASD="$DASD$RANGE_START"
+			LAST="$RANGE_START"
+			if [ -n "$PREV" ] && [ "$PREV" != "$RANGE_START" ]; then
+				DASD="${DASD}-$PREV"
+				LAST="$PREV"
+			fi
+			PREV=""
+			RANGE_START=$ADDR
+		fi
+	done
+	if [ "$LAST" != "$ADDR" ]; then
+		[ -n "$DASD" ] && DASD="$DASD,"
+		DASD="$DASD$RANGE_START"
+		[ "$ADDR" != "$RANGE_START" ] && DASD="${DASD}-$ADDR"
+	fi
+	echo "DASD ranges APPEAR to be $DASD."
+	rmmod dasd_mod
+fi
+echo "Loading DASD kernel module. This can take a while."
+insmod dasd_mod.o dasd=$DASD
+
 if [ ":$INTERACTIVE" = ":0" ]; then
 	rhsetup nointeractive || startinetd
 else
