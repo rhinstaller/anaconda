@@ -125,9 +125,9 @@ class MiloInstall:
                 
     def write (self):
         if onMILO ():
-            writeMilo ()
+            self.writeMilo ()
         else:
-            writeAboot ()
+            self.writeAboot ()
 
         
     
