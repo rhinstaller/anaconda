@@ -8,6 +8,7 @@
 #include <dirent.h>
 #include <popt.h>
 #include <rpmlib.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -17,6 +18,7 @@
 #define FILENAME_TAG 1000000
 #define FILESIZE_TAG 1000001
 #define CDNUM_TAG    1000002
+#define ORDER_TAG    1000003
 
 struct onePackageInfo {
     char * name;
@@ -37,6 +39,28 @@ int pkgInfoCmp(const void * a, const void * b) {
 struct onePackageInfo * pkgList;
 int pkgListItems = 0;
 int pkgListAlloced = 0;
+char ** depOrder = NULL;
+
+/* mmmm... linear search */
+int getOrder (char * fn)
+{
+    char *p = NULL;
+    int i = 0;
+
+    if (!depOrder || !depOrder[0] || !depOrder[0][0]) {
+	return -1;
+    }
+    
+    p = depOrder[i];
+    while (p && *p && strncmp (fn, p, strlen(p))) {
+	p = depOrder[i++];
+    }
+    if (p) {
+	return i;
+    }
+
+    return -1;
+}
 
 int onePass(FD_t outfd, const char * dirName, int cdNum) {
     FD_t fd;
@@ -50,6 +74,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
     struct stat sb;
     int_32 * fileSizes;
     int fileCount;
+    int order = 0;
 
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
@@ -153,6 +178,11 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 		    headerAddEntry(h, CDNUM_TAG, RPM_INT32_TYPE, 
 				    &cdNum, 1);
 
+		if ((order = getOrder (ent->d_name)) > -1) {
+		    headerAddEntry(h, ORDER_TAG, RPM_INT32_TYPE, 
+				    &order, 1);
+		}
+
 		headerWrite(outfd, h, HEADER_MAGIC_YES);
 		headerFree(h);
 	    }
@@ -186,10 +216,12 @@ int main(int argc, const char ** argv) {
     int rc;
     int i;
     char * hdListFile = NULL;
+    char * depOrderFile = NULL;
     poptContext optCon;
     struct poptOption options[] = {
             { "hdlist", '\0', POPT_ARG_STRING, &hdListFile, 0 },
             { "withnumbers", '\0', 0, &doNumber, 0 },
+	    { "fileorder", '\0', POPT_ARG_STRING, &depOrderFile, 0 },
             { 0, 0, 0, 0, 0 }
     };
 
@@ -207,6 +239,42 @@ int main(int argc, const char ** argv) {
     if (!args || !args[0] || !args[0][0])
 	usage();
 
+    if (depOrderFile) {
+	FILE *f;
+	int nalloced = 0;
+	int numpkgs = 0;
+	int len = 0;
+	char buf[80];
+	char *p;
+	int i;
+	
+	if (!(f = fopen(depOrderFile, "r")))
+	    usage();
+
+	while ((fgets(buf, sizeof(buf) - 1, f))) {
+	    if (numpkgs == nalloced) {
+		depOrder = realloc (depOrder, sizeof (char *) * (nalloced += 5));
+		memset (depOrder + numpkgs, '\0', 5);
+	    }
+
+	    p = buf + strlen(buf);
+	    i = 0;
+	    /* trim off two '.' worth of data */
+	    while (p > buf && i < 2) {
+		p--;
+		if (*p == '.')
+		    i++;
+	    }
+	    *p = '\0';
+
+	    len = strlen(buf);
+	    depOrder[numpkgs] = malloc (len + 1);
+	    /* chomp off \n */
+	    strcpy (depOrder[numpkgs], buf);
+	    numpkgs++;
+	}
+    }
+    
     if (!hdListFile) {
 	strcpy(buf, args[0]);
 	strcat(buf, "/RedHat/base/hdlist");
