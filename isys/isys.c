@@ -128,7 +128,7 @@ static PyMethodDef isysModuleMethods[] = {
 */
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
-    { "htavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
+    { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
@@ -766,8 +766,6 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-    result = detectSMP();
-
     return Py_BuildValue("i", detectSMP());
 }
 
@@ -775,8 +773,6 @@ static PyObject * htAvailable(PyObject * s, PyObject * args) {
     int result;
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    result = detectSMP();
 
     return Py_BuildValue("i", detectHT());
 }
