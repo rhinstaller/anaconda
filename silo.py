@@ -4,6 +4,7 @@ from lilo import LiloConfigFile
 import _silo
 import iutil
 import isys
+import rpm
 
 class SiloInstall:
     def allowSiloLocationConfig(self, fstab):

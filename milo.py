@@ -3,6 +3,7 @@ import iutil
 import isys
 import string
 import os
+import rpm
 
 def onMILO ():
     try:

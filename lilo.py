@@ -2,6 +2,7 @@ import string
 import os
 import isys
 import iutil
+import rpm
 
 class LiloConfigFile:
     def __repr__ (self, tab = 0):

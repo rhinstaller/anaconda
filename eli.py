@@ -2,6 +2,7 @@ import os
 from lilo import LiloConfigFile
 import isys
 import iutil
+import rpm
 
 class EliConfiguration:
 
