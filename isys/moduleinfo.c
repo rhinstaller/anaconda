@@ -37,10 +37,10 @@ struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis,
 				       const char * moduleName) {
     int i;
 
-    for (i = 0; i < mis->numModules; i++)
+    for (i = 0; i < mis->numModules; i++) {
 	if (!strcmp(moduleName, mis->moduleList[i].moduleName))
 	    return mis->moduleList + i;
-
+    }
     return NULL;
 }
 
@@ -166,7 +166,7 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
     }
 
     if (nextModule && nextModule->moduleName) mis->numModules++;
-    mis->numModules = nextModule - mis->moduleList;
+    mis->numModules = (nextModule - mis->moduleList) + 1;
 
     return 0;
 }
