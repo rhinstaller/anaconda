@@ -10,6 +10,9 @@ MIN_RAM = _isys.MIN_RAM
 MIN_GUI_RAM = _isys.MIN_GUI_RAM
 EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 
+def pathSpaceAvailable(path, fsystem = "ext2"):
+    return _isys.devSpaceFree(path)
+
 def spaceAvailable(device, fsystem = "ext2"):
     mount(device, "/mnt/space", fstype = fsystem)
     space = _isys.devSpaceFree("/mnt/space/.")
@@ -42,8 +45,8 @@ def raidsb(mdDevice):
     os.close(fd)
     return rc
 
-def losetup(device, file, readonly = 0):
-    if readonly:
+def losetup(device, file, readOnly = 0):
+    if readOnly:
 	mode = os.O_RDONLY
     else:
 	mode = os.O_RDWR
