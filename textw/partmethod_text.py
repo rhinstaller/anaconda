@@ -30,6 +30,8 @@ class PartitionMethod:
 
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
+	elif rc == "ds":
+	    partitions.useAutopartitioning = 0
         else:
             partitions.useAutopartitioning = 1
 
