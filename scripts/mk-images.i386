@@ -61,27 +61,6 @@ CD-ROM's boot speed would be an advantage.
 
 To use this image file, burn the file onto CD-R (or CD-RW) media as you
 normally would.
-
-While most present-day computers are able to start the installation process
-by booting directly from $PRODUCT CD #1, some hardware configurations
-require the use of boot and driver diskettes.  If your hardware requires
-boot and driver diskettes to start the installation process, you can create
-them using the image files in this directory.
-
-To create boot and driver diskettes from these image files, follow the
-instructions in the $PRODUCT Installation Guide, Chapter 1, under the
-section entitled, "Making an Installation Boot Diskette."
-
-All installation methods must use a boot diskette created from the
-following image file:
-
-bootdisk.img - primary boot image for all install methods
-
-A driver diskette will be required for installation types other than those
-using ATAPI CD-ROM drives or ATA (also known as IDE) hard drives.
-
-The following driver diskette image files are available:
-
 EOF
 
 # LATEUSBMODS go in the second stage.  
