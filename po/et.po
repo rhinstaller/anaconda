@@ -3,16 +3,16 @@
 # Anaconda eesti keele tõlge.
 # Copyright (C)
 # This file is distributed under the same license as the PACKAGE package.
-# Allan Sims <allsi@eau.ee>, 2004.
+# Allan Sims <allsi@eau.ee>, 2004, 2005.
 # Antti Markus <antti.markus@starman.ee>, 2004.
-#
+# 
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2005-01-15 15:35+0200\n"
+"PO-Revision-Date: 2005-01-27 18:35+0200\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -214,7 +214,7 @@ msgstr "Installatsiooni sunniti jätkama tekstirežiimis"
 
 #: ../anaconda:824
 msgid "No video hardware found, assuming headless"
-msgstr "Videoseadet ei leitud, eeldatakse monitorita installatsiooniga."
+msgstr "Videoseadet ei leitud, eeldatakse monitorita installeerimist."
 
 #: ../anaconda:835
 #: ../anaconda:1097
@@ -320,7 +320,7 @@ msgstr ""
 
 #: ../autopart.py:1282
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Antud köitegruppi (volume group) pole olemas"
+msgstr "Antud ruumigruppi (volume group) pole olemas"
 
 #: ../autopart.py:1283
 #, python-format
@@ -329,7 +329,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s jaoks ei suudetud leida köitegruppi (volume group) %s.\n"
+"%s jaoks ei suudetud leida ruumigruppi (volume group) %s.\n"
 "\n"
 "Vajuta 'Olgu' süsteemi taaskäivitamiseks."
 
@@ -740,7 +740,7 @@ msgstr "Loomine"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr "Luuakse laadimisketas..."
+msgstr "Laadimisketta loomine..."
 
 #: ../floppy.py:170
 msgid "An error occurred while attempting to verify the boot disk.  Please make sure that you have a good floppy in the first floppy drive."
@@ -820,7 +820,7 @@ msgstr ""
 "\n"
 "/etc/fstab sinu uuendatud partitsioonis ei viita sobivale saalealale.\n"
 "\n"
-"Vajuta alglaadimiseks Olgu."
+"Alglaadimiseks vajuta Olgu."
 
 #: ../fsset.py:1366
 #, python-format
@@ -1169,7 +1169,7 @@ msgstr "%s installeerija"
 
 #: ../gui.py:1275
 msgid "Unable to load title bar"
-msgstr "Tiitliriba laadimine ebaõnnestus"
+msgstr "Tiitelriba laadimine ebaõnnestus"
 
 #: ../gui.py:1337
 msgid "Install Window"
@@ -1251,7 +1251,7 @@ msgstr "See ei ole õige %s CD-ROM"
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr "Ei pääse CD-ROM-ile ligi"
+msgstr "CD-ROM-ile ei pääse ligi"
 
 #: ../installclass.py:61
 msgid "Install on System"
@@ -1303,7 +1303,7 @@ msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
-"Uuendatava Linux installatsiooni failisüsteemid on juba ühendatud. Tagasi enam minna ei saa. \n"
+"Uuendatava Linux installatsiooni failisüsteemid on juba ühendatud. Tagasi ei saa enam minna. \n"
 "\n"
 
 #: ../packages.py:51
@@ -1339,7 +1339,7 @@ msgstr "Püüad installeerida arvutisse, mis ei ole %s antud versiooni poolt toe
 
 #: ../packages.py:311
 msgid "Dependency Check"
-msgstr "Sõltuvuste kontroll"
+msgstr "Sõltuvuste kontrollimine"
 
 #: ../packages.py:312
 msgid "Checking dependencies in packages selected for installation..."
@@ -1399,7 +1399,7 @@ msgstr "Viga päiste loendi mestimisel (merge). See võib olla tingitud puuduvas
 
 #: ../packages.py:870
 msgid "Preparing RPM transaction..."
-msgstr "RPM transaktsiooniks valmistumine..."
+msgstr "RPM toiminguteks valmistumine..."
 
 #: ../packages.py:953
 #, python-format
@@ -1454,7 +1454,7 @@ msgstr "Installeerimine algab"
 
 #: ../packages.py:988
 msgid "Starting install process, this may take several minutes..."
-msgstr "Installeerimise käivitamine. Selleks võib kuluda isegi mitu minutit..."
+msgstr "Installeerimise käivitamine. Selleks võib kuluda mitmeid minuteid..."
 
 #: ../packages.py:1028
 msgid ""
@@ -1496,11 +1496,11 @@ msgstr "Kettaruum"
 
 #: ../packages.py:1110
 msgid "Post Install"
-msgstr "Paigaldusjärgne"
+msgstr "Installeerimisjärgne"
 
 #: ../packages.py:1111
 msgid "Performing post install configuration..."
-msgstr "Installeerimise järgne seadistamine..."
+msgstr "Installeerimisjärgne seadistamine..."
 
 #: ../packages.py:1289
 msgid ""
@@ -1609,7 +1609,7 @@ msgstr "Lähtestamine"
 #: ../partedUtils.py:749
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Ketast %s vormindatakse...\n"
+msgstr "Ketta %s vormindamine...\n"
 
 #: ../partedUtils.py:843
 #, python-format
@@ -2224,7 +2224,7 @@ msgstr " <F1> abi | <Tab> elementide vahel | <Tühik> valimine | <F12> järgmine
 
 #: ../text.py:369
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> elementide vahel   |  <Tühik> valimine   |  <F12> järgmine ekraan"
+msgstr "  <Tab>/<Alt-Tab> elementide vahel | <Tühik> valimine | <F12> järgmine ekraan"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2241,7 +2241,7 @@ msgstr "Otsimine"
 #: ../upgrade.py:71
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Otsitakse %s installatsiooni..."
+msgstr "%s installatsiooni otsimine..."
 
 #: ../upgrade.py:123
 #: ../upgrade.py:131
@@ -2365,11 +2365,11 @@ msgstr "X ei suutnud käivituda. Soovid sa käivitada VNC-d ühendamaks oma arvu
 #: ../vnc.py:62
 #: ../vnc.py:65
 msgid "Use text mode"
-msgstr "Kasuta tekstireiimi"
+msgstr "Kasuta tekstirežiimi"
 
 #: ../vnc.py:63
 msgid "Start VNC"
-msgstr "Käivita VNC "
+msgstr "Käivita VNC"
 
 #: ../vnc.py:73
 msgid "VNC Configuration"
@@ -2471,7 +2471,7 @@ msgstr "Sul on määramata FCP (fiiber kanali protokoll) LUN (loogilise üksuse 
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Sea juurkasutaja (root) parool"
+msgstr "Sea juurkasutaja parool"
 
 #: ../iw/account_gui.py:41
 #: ../iw/account_gui.py:49
@@ -2664,7 +2664,7 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "_Jah, soovin teha käivitusketta"
+msgstr "_Jah, soovin teha käivitusketast"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
@@ -3103,11 +3103,11 @@ msgstr "Lubada _SELinux?:"
 #: ../iw/installpath_gui.py:34
 #: ../textw/installpath_text.py:48
 msgid "Installation Type"
-msgstr "Installatsiooni tüüp"
+msgstr "Installeerimise tüüp"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
-msgstr "IP aadress on puudu"
+msgstr "IP aadress puudub"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
@@ -3553,7 +3553,7 @@ msgstr "Andmete viga"
 
 #: ../iw/network_gui.py:158
 msgid "You have not specified a hostname.  Depending on your network environment this may cause problems later."
-msgstr "Hostinimi on määramata.  Olenevalt võrgukeskkonnast võib see hiljem probleeme tekitada."
+msgstr "Arvuti nimi on määramata.  Olenevalt võrgukeskkonnast võib see hiljem probleeme tekitada."
 
 #: ../iw/network_gui.py:162
 #, python-format
@@ -3568,7 +3568,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Hostinimi \"%s\" ei sobi, sest:\n"
+"Arvutinimi \"%s\" ei sobi, sest:\n"
 "\n"
 "%s"
 
@@ -3669,7 +3669,7 @@ msgstr "Võrguseadmed"
 
 #: ../iw/network_gui.py:541
 msgid "Set the hostname:"
-msgstr "Hostinimi määratakse:"
+msgstr "Arvutinimi määratakse:"
 
 #: ../iw/network_gui.py:545
 msgid "_automatically via DHCP"
@@ -3681,12 +3681,12 @@ msgstr "_käsitsi"
 
 #: ../iw/network_gui.py:557
 msgid "(ex. \"host.domain.com\")"
-msgstr "(nt \"hostinimi.domeen.ee\")"
+msgstr "(nt \"arvutinimi.domeen.ee\")"
 
 #: ../iw/network_gui.py:564
 #: ../loader2/net.c:803
 msgid "Hostname"
-msgstr "Hostinimi"
+msgstr "Arvutinimi"
 
 #: ../iw/network_gui.py:617
 msgid "Miscellaneous Settings"
@@ -4099,15 +4099,15 @@ msgstr "Tee RAID seade [vaikimisi=/dev/md%s]."
 #: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Duplitseeri ketas RAID seadme tekitamiseks [vaikimisi=/dev/md%s]."
+msgstr "Klooni ketas RAID seadme tekitamiseks [vaikimisi=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Ketta duplitseerimise redaktori viga"
+msgstr "Ketta kloonimise redaktori viga"
 
 #: ../iw/partition_gui.py:1305
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Ketta duplitseerimise redaktori käivitamine ebaõnnestus."
+msgstr "Ketta kloonimise redaktori käivitamine ebaõnnestus."
 
 #: ../iw/partition_gui.py:1349
 msgid "Ne_w"
@@ -4184,7 +4184,7 @@ msgstr "Otsitakse vigaseid plokke?"
 #: ../iw/partition_ui_helpers_gui.py:339
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  This is done by selecting the drive in the 'Allowable Drives' checklist."
-msgstr "Tüüpi '%s' partitsioonid peavad jääma ühe ketta piiresse.  Seda saab teha valides ketta 'Lubatud ketaste' nimistust."
+msgstr "'%s' tüüpi partitsioonid peavad jääma ühe ketta piiresse.  Seda saab teha valides ketta 'Lubatud ketaste' nimistust."
 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
@@ -4240,7 +4240,7 @@ msgstr "%s-%s-%s.%s (%s) installeerimine"
 
 #: ../iw/progress_gui.py:352
 msgid "Summary"
-msgstr "Kokkuvõte"
+msgstr "Kirjeldus"
 
 #: ../iw/progress_gui.py:379
 #: ../textw/progress_text.py:130
@@ -4546,7 +4546,7 @@ msgstr "Määra uued alglaaduri seaded"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid "This will let you create a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr "Siit saab määrata uue alglaaduri seaded.  See valik on mõeldud alglaadurite vahetamiseks."
+msgstr "Siit saab määrata uue alglaaduri seadeid.  See valik on mõeldud alglaadurite vahetamiseks."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4862,7 +4862,7 @@ msgstr ""
 "\n"
 "Alglaadimisketta tegemine on väga soovitatav.\n"
 "\n"
-"Kas soovid alglaadimisketta teha?"
+"Kas soovid alglaadimisketast teha?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
@@ -5199,7 +5199,7 @@ msgstr "Klaviatuuri valik"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Milline klaviatuuron arvuti külge ühendatud?"
+msgstr "Milline klaviatuur on arvuti külge ühendatud?"
 
 #: ../textw/language_text.py:108
 msgid "Select All"
@@ -5342,7 +5342,7 @@ msgstr "käsitsi"
 
 #: ../textw/network_text.py:378
 msgid "Hostname Configuration"
-msgstr "Hostinime seaded"
+msgstr "Arvutinime seaded"
 
 #: ../textw/network_text.py:381
 msgid "If your system is part of a larger network where hostnames are assigned by DHCP, select automatically via DHCP. Otherwise, select manually and enter in a hostname for your system. If you do not, your system will be known as 'localhost.'"
@@ -5351,11 +5351,11 @@ msgstr "Kui arvuti on suuremas võrgus, kus hostinimesid jagatakse DHCP kaudu, s
 #: ../textw/network_text.py:407
 #: ../textw/network_text.py:413
 msgid "Invalid Hostname"
-msgstr "Vigane hostinimi"
+msgstr "Vigane arvutinimi"
 
 #: ../textw/network_text.py:408
 msgid "You have not specified a hostname."
-msgstr "Hostinimi määramata"
+msgstr "Arvutinimi määramata"
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
@@ -5400,11 +5400,11 @@ msgstr "Osad valitud pakettidest kasutavad pakette, mida ei ole valitud. Kui val
 
 #: ../textw/packages_text.py:399
 msgid "Install packages to satisfy dependencies"
-msgstr "Installeeri paketid sõltuvuste rahudamiseks"
+msgstr "Installeeri paketid sõltuvuste rahuldamiseks"
 
 #: ../textw/packages_text.py:400
 msgid "Do not install packages that have dependencies"
-msgstr "Ära installeeri pakette, mis teistest sõltuvad"
+msgstr "Ära installeeri pakette, mis sõltuvad teistest"
 
 #: ../textw/packages_text.py:401
 msgid "Ignore package dependencies"
@@ -5458,7 +5458,7 @@ msgstr "Kindla suurusega:"
 
 #: ../textw/partition_text.py:411
 msgid "Fill maximum size of (MB):"
-msgstr "Täida max suuruseni (MB):"
+msgstr "Täida maks. suuruseni (MB):"
 
 #: ../textw/partition_text.py:415
 msgid "Fill all available space:"
@@ -5654,7 +5654,7 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1445
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-Abi      F2-Uus      F3-Muuda   F4-Kustuta    F5-Algolek    F12-OK        "
+msgstr "    F1-Abi      F2-Uus      F3-Muuda  F4-Kustuta   F5-Algolek  F12-OK        "
 
 #: ../textw/partition_text.py:1474
 msgid "No Root Partition"
@@ -5695,7 +5695,7 @@ msgstr " Suurus : "
 
 #: ../textw/progress_text.py:102
 msgid " Summary: "
-msgstr " Kokkuvõte: "
+msgstr " Kirjeldus: "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
@@ -5703,7 +5703,7 @@ msgstr "    Paketid"
 
 #: ../textw/progress_text.py:148
 msgid "      Bytes"
-msgstr "      baiti"
+msgstr "     Baidid"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -5711,7 +5711,7 @@ msgstr "        Aeg"
 
 #: ../textw/progress_text.py:151
 msgid "Total    :"
-msgstr "Kokku    :"
+msgstr "Kokku :   "
 
 #: ../textw/progress_text.py:158
 msgid "Completed:   "
@@ -6393,12 +6393,12 @@ msgstr "CD-d ei leitud"
 
 #: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
-msgstr "CD-lt ei leitud kiirstartid (kickstart) faili."
+msgstr "CD-lt ei leitud kiirstardi (kickstart) faili."
 
 #: ../loader2/driverdisk.c:124
 #: ../loader2/firewire.c:50
 msgid "Loading"
-msgstr "Laetakse"
+msgstr "Laadimine"
 
 #: ../loader2/driverdisk.c:124
 msgid "Reading driver disk..."
@@ -6635,7 +6635,7 @@ msgstr "Tere tulemast %s - Päästeviis"
 #: ../loader2/lang.c:54
 #: ../loader2/loader.c:138
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> elementide vahel  | <Tühik> valib | <F12> edasi "
+msgstr " <Tab>/<Alt-Tab> elementide vahel  | <Tühik> valib | <F12> järgmine ekraan "
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -6680,7 +6680,7 @@ msgstr "Uuendused"
 
 #: ../loader2/loader.c:314
 msgid "Reading anaconda updates..."
-msgstr "Loetakse anaconda uuendusi..."
+msgstr "Anaconda uuenduste lugemine..."
 
 #: ../loader2/loader.c:342
 msgid "No hard drives have been found.  You probably need to manually choose device drivers for the installation to succeed.  Would you like to select drivers now?"
@@ -6751,7 +6751,7 @@ msgstr "laadija on juba käivitatud.  Shell-i laadimine.\n"
 #: ../loader2/loader.c:1517
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Anaconda käivitamine %s pääste režiimis  - palun oota...\n"
+msgstr "Anaconda käivitamine %s päästerežiimis  - palun oota...\n"
 
 #: ../loader2/loader.c:1519
 #, c-format
@@ -6949,7 +6949,7 @@ msgstr "Nii IP aadress kui ka võrgumask peavad olema sobivad."
 
 #: ../loader2/net.c:804
 msgid "Determining host name and domain..."
-msgstr "Arvuti nime ja domeeni tuvastamine..."
+msgstr "Arvutinime ja domeeni tuvastamine..."
 
 #: ../loader2/net.c:891
 #, c-format
@@ -7066,7 +7066,7 @@ msgstr "Veebilehe nimi:"
 
 #: ../loader2/urls.c:303
 msgid "Use non-anonymous ftp"
-msgstr "Ära kasuta anonüümset ftp-d"
+msgstr "Ei kasutata anonüümset ftp-d"
 
 #: ../loader2/urls.c:312
 msgid "FTP Setup"
@@ -7091,7 +7091,7 @@ msgstr "Tundmatu arvuti"
 #: ../loader2/urls.c:334
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s ei ole sobiv hostinimi."
+msgstr "%s ei ole sobiv arvutinimi."
 
 #: ../loader2/urls.c:407
 msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below."
