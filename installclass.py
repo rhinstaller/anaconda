@@ -301,6 +301,7 @@ class BaseInstallClass:
         import videocard
         import monitor
 
+
         # XXX they could have sensitive hardware, but we need this info =\
         videohw = videocard.VideoCardInfo()
         if videohw:
@@ -321,8 +322,13 @@ class BaseInstallClass:
                 raise RuntimeError, "Could not probe video card and no fallback specified"
             id.videocard.setVidcard(vc)
 
-        if videoRam in id.videocard.possible_ram_sizes():
-            id.videocard.primaryCard().setVideoRam(videoRam)
+	if type(videoRam) == type(1024):
+	    tmpram = videoRam
+	else:
+	    tmpram = string.atoi(videoRam)
+	    
+        if tmpram in id.videocard.possible_ram_sizes():
+            id.videocard.primaryCard().setVideoRam(str(tmpram))
 
         if id.monitor.getMonitorID() != "Unprobed monitor":
             usemon = id.monitor.getMonitorID()
