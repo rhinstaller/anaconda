@@ -1,7 +1,6 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
-from syslogd import Syslogd
 import string
 import socket
 import crypt
@@ -312,6 +311,19 @@ class Drives:
     def available (self):
         return isys.hardDriveList ()
 
+class InstSyslog:
+    def __init__ (self, root, log):
+        self.pid = os.fork ()
+        if not self.pid:
+            if os.access ("./anaconda", os.X_OK):
+                path = "./anaconda"
+            else:
+                path = "/usr/bin/anaconda"
+            os.execv (path, ("syslogd", "--syslogd", root, log))
+
+    def __del__ (self):
+        os.kill (self.pid, 15)
+        
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
@@ -1290,7 +1302,7 @@ class ToDo:
             logname = '/tmp/install.log'
             
 	self.instLog = open(self.instPath + logname, "w+")
-	syslog = Syslogd(root = self.instPath, output = self.instLog)
+	syslog = InstSyslog (self.instPath, self.instPath + logname)
 
 	ts.scriptFd = self.instLog.fileno ()
 	# the transaction set dup()s the file descriptor and will close the
@@ -1398,7 +1410,7 @@ class ToDo:
 				    
 	    #os.unlink(path)
 
-	del syslog
+        del syslog
         
         w.pop ()
 

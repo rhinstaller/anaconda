@@ -1,6 +1,6 @@
 from gtk import *
 from iw import *
-from gui import _, setLanguage
+from gui import _
 
 class LanguageWindow (InstallWindow):
 
@@ -11,6 +11,7 @@ class LanguageWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.readHTML ("lang")
+        self.icw = ics.getICW ()
         self.question = (_("What language should be used during the "
                          "installation process?"))
         self.languages = self.todo.language.available ()
@@ -20,7 +21,7 @@ class LanguageWindow (InstallWindow):
         if self.running:
             lang = clist.get_text (clist.selection[0], 0)
             self.todo.language.set (lang)
-            setLanguage (self.languages[lang])
+            self.icw.setLanguage (self.languages[lang])
         
     def getScreen (self):
         mainBox = GtkVBox (FALSE, 10)

@@ -5,7 +5,6 @@ from socket import *
 from select import select
 
 class Syslogd:
-
     def goSyslog(self, output, sockName):
 	sock = socket(AF_UNIX, SOCK_STREAM)
 
@@ -46,6 +45,4 @@ class Syslogd:
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):
 	output = output
 	filename = root + socket;
-	self.child = os.fork()
-	if (not self.child):
-	    self.goSyslog(output, filename)
+        self.goSyslog(output, filename)

@@ -1,6 +1,17 @@
 #!/usr/bin/python
 
 import sys, os
+
+print sys.argv
+
+# Python passed my path as argv[0]!
+# if sys.argv[0][-7:] == "syslogd":
+if sys.argv[1] == "--syslogd":
+    from syslogd import Syslogd
+    root = sys.argv[2]
+    output = sys.argv[3]
+    syslog = Syslogd (root, open (output, "w+"))
+
 import gettext
 import traceback
 import string
@@ -146,6 +157,7 @@ if traceOnly:
     import urlinstall
     import mimetools
     import mimetypes
+    import syslogd
     for module in sys.__dict__['modules'].keys ():
         if module not in [ "__builtin__", "__main__" ]:
             foo = repr (sys.__dict__['modules'][module])
