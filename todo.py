@@ -392,7 +392,7 @@ class ToDo:
 	    oldImages[dev] = self.liloImages[dev]
 
 	self.liloImages = {}
-	for dev in drives:
+	for (dev, type) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -402,7 +402,7 @@ class ToDo:
 		    self.liloImages[dev] = ("linux", 2)
 	    else:
 		if not oldImages.has_key(dev):
-		    self.liloImages[dev] = ("", 2)
+		    self.liloImages[dev] = ("", type)
 		else:
 		    self.liloImages[dev] = oldImages[dev]
 
