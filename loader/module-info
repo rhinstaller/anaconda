@@ -246,8 +246,6 @@ ibmtr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
-	
-
 lance
 	eth
 	"AMD LANCE: Allied Telesis AT1500, HP J2405A, most NE2100/clone"
@@ -524,6 +522,10 @@ in2000
 	scsi_hostadapter
 	"IN2000 SCSI"
 	setup_string "ioport:addr"
+
+initio
+	scsi_hostadapter
+	"Initio SCSI"
 
 ips
 	scsi_hostadapter
