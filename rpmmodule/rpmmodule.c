@@ -40,8 +40,8 @@ static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args);
 static PyObject * rpmtransOrder(rpmtransObject * s, PyObject * args);
 static void rpmtransDealloc(PyObject * o);
 static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name);
-static PyObject * rpmtransSetAttr(rpmtransObject * o, char * name, 
-				  PyObject * val);
+static int rpmtransSetAttr(rpmtransObject * o, char * name, 
+			   PyObject * val);
 
 /* Types */
 
@@ -88,7 +88,7 @@ static PySequenceMethods hdrAsSequence = {
 	0,				/* length */
 	0,				/* concat */
 	0,				/* repeat */
-	hdrSubscript,			/* item */
+	(intargfunc) hdrSubscript,	/* item */
 	0,				/* slice */
 	0,				/* assign item */
 	0,				/* assign slice */
@@ -800,18 +800,25 @@ static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name) {
     return Py_FindMethod(rpmtransMethods, (PyObject *) o, name);
 }
 
-static PyObject * rpmtransSetAttr(rpmtransObject * o, char * name,
+static int rpmtransSetAttr(rpmtransObject * o, char * name,
 				  PyObject * val) {
     int i;
 
     if (!strcmp(name, "scriptFd")) {
-	if (!PyArg_Parse(val, "d", &i)) return NULL;
-	o->scriptFd = fdDup(i);
-	
-	rpmtransSetScriptFd(o->ts, o->scriptFd);
+	if (!PyArg_Parse(val, "d", &i)) return 0;
+	if (i < 0) {
+	    PyErr_SetString(PyExc_TypeError, "bad file descriptor");
+	    return -1;
+	} else {
+	    o->scriptFd = fdDup(i);
+	    rpmtransSetScriptFd(o->ts, o->scriptFd);
+	}
+    } else {
+	PyErr_SetString(PyExc_AttributeError, name);
+	return -1;
     }
-	
-    return NULL;
+
+    return 0;
 }
 
 static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
