@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-04 14:30+0530\n"
+"PO-Revision-Date: 2004-08-04 18:31+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -3877,15 +3877,15 @@ msgstr "જાતે (_m)"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(દા.ત. \"host.domain.com\")"
 
 #: ../iw/network_gui.py:548 ../loader2/net.c:772
 msgid "Hostname"
-msgstr ""
+msgstr "યજમાનનામ"
 
 #: ../iw/network_gui.py:609
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "મિશ્રિત સુયોજનો"
 
 #: ../iw/osbootwidget.py:42
 msgid ""
@@ -3895,6 +3895,12 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
+"તમે બીજી ઓપરેટિંગ સિસ્ટમ બુટ કરવા માટે બુટ લોડર રુપરેખાંકિત કરી "
+"શકો છો. તે તમને યાદીમાંથી ઓપરેટિંગ સિસ્ટમ પસંદ કરીને બુટ કરવા માટે "
+"પરવાનગી આપે છે. વધારાની ઓપરેટિંગ સિસ્ટમો ઉમેરવા માટે, કે જે આપોઆપ "
+"શોધી શકાયા નથી, તે માટે 'ઉમેરો' ક્લિક કરો. મૂળભુત રીતે બુટ થતી "
+"ઓપરેટિંગ સિસ્ટમ બદલવા માટે, 'મૂળભુત' પસંદ કરીને જરુરી હોય "
+"તે ઓપરેટિંગ સિસ્ટમ પસંદ કરો."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3902,57 +3908,59 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr ""
+msgstr "મૂળભુત"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
-msgstr ""
+msgstr "લેબલ"
 
 #: ../iw/osbootwidget.py:132
 msgid "Image"
-msgstr ""
+msgstr "ચિત્ર"
 
 #: ../iw/osbootwidget.py:139
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
+"બુટ લોડર મેનુમાં પ્રદર્શિત થતુ લેબલ દાખલ કરો. ઉપકરણ એ કે જેમાંથી "
+"(અથવા હાર્ડ ડ્રાઈવ અને પાર્ટીશન નંબર) તે બુટ થાય છે."
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr ""
+msgstr "લેબલ (_L)"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "મૂળભુત બુટ લક્ષ્ય (_T)"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
-msgstr ""
+msgstr "તમારે દાખલા માટે લેબલ સ્પષ્ટ કરવું જ પડે છે"
 
 #: ../iw/osbootwidget.py:233
 msgid "Boot label contains illegal characters"
-msgstr ""
+msgstr "બુટ લેબલ અયોગ્ય અક્ષરો સમાવે છે"
 
 #: ../iw/osbootwidget.py:257
 msgid "Duplicate Label"
-msgstr ""
+msgstr "નકલી લેબલ"
 
 #: ../iw/osbootwidget.py:258
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "આ લેબલ પહેલાથી જ બીજા પ્રવેશ માટે વપરાયેલ છે."
 
 #: ../iw/osbootwidget.py:271
 msgid "Duplicate Device"
-msgstr ""
+msgstr "નકલી ઉપકરણ"
 
 #: ../iw/osbootwidget.py:272
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "બીજા બુટ પ્રવેશ માટે આ ઉપકરણ પહેલાથી જ વપરાયેલ છે."
 
 #: ../iw/osbootwidget.py:336
 msgid "Cannot Delete"
-msgstr ""
+msgstr "કાઢી શકતા નથી"
 
 #: ../iw/osbootwidget.py:337
 #, python-format
@@ -3960,14 +3968,16 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
+"બુટ લક્ષ્ય કાઢી શકાતું નથી કારણકે તે %s સિસ્ટમ માટે છે જે તમે સ્થાપિત "
+"કરવા જઈ રહ્યા છો."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "પેકેજની અયોગ્ય પસંદગી"
 
 #: ../iw/package_gui.py:66
 msgid "All Packages"
-msgstr ""
+msgstr "બધા પેકેજો"
 
 #: ../iw/package_gui.py:186
 #, python-format
@@ -3975,47 +3985,49 @@ msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
+"પેકેજ: %s\n"
+"આવૃત્તિ: %s\n"
 
 #: ../iw/package_gui.py:356
 msgid "_Tree View"
-msgstr ""
+msgstr "ટ્રી દેખાવ (_T)"
 
 #: ../iw/package_gui.py:358
 msgid "_Flat View"
-msgstr ""
+msgstr "સપાટ દેખાવ (_F)"
 
 #: ../iw/package_gui.py:373
 msgid "_Package"
-msgstr ""
+msgstr "પેકેજ (_P)"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
-msgstr ""
+msgstr "માપ (MB) (_S)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
-msgstr ""
+msgstr "કુલ માપ:"
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr ""
+msgstr "જૂથમાં બધું પસંદ કરો (_a)"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr ""
+msgstr "જૂથમાં બધું નાપસંદ કરો (_U)"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
-msgstr ""
+msgstr "પેકેજ જૂથ પસંદગી"
 
 #: ../iw/package_gui.py:677
 msgid "Minimal"
-msgstr ""
+msgstr "ન્યુનતમ"
 
 #: ../iw/package_gui.py:739
 #, python-format
 msgid "Details for '%s'"
-msgstr ""
+msgstr "'%s' માટેની વિગતો"
 
 #: ../iw/package_gui.py:748
 msgid ""
@@ -4024,219 +4036,231 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"પેકેજ જૂથ પાસે બંને આધાર અને વૈકલ્પિક પેકેજ સભ્યો છે. આધાર પેકેજો "
+"હંમેશા પેકેજ જૂથ પસંદ થાય તેની સાથે જ પસંદ થઈ જાય છે.\n"
+"\n"
+"વૈકલ્પિક પેકેજો સ્થાપિત થવા માટે પસંદ કરો:"
 
 #: ../iw/package_gui.py:791
 msgid "Base Packages"
-msgstr ""
+msgstr "આધાર પેકેજો"
 
 #: ../iw/package_gui.py:821
 msgid "Optional Packages"
-msgstr ""
+msgstr "વૈકલ્પિક પેકેજો"
 
 #: ../iw/package_gui.py:1031
 msgid "Details"
-msgstr ""
+msgstr "વિગતો"
 
 #: ../iw/package_gui.py:1125
 msgid "_Select individual packages"
-msgstr ""
+msgstr "અંગત પેકેજો પસંદ કરો (_S)"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "વધારાના માપ માટેના વિકલ્પો"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr ""
+msgstr "ચોક્કસ માપ (_F)"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "બધી જગ્યા આટલા માપ સુધી ભરી દો (MB):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "મહત્તમ માન્ય માપ સુધી ભરી દો"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "અંતિમ સીલીન્ડર શરુઆતના સીલીન્ડર કરતાં મોટો જ હોવો જોઈએ."
 
 #: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:655
 msgid "Add Partition"
-msgstr ""
+msgstr "પાર્ટીશન ઉમેરો"
 
 #: ../iw/partition_dialog_gui.py:266
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "પાર્ટીશનમાં ફેરફાર કરો: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:268
 msgid "Edit Partition"
-msgstr ""
+msgstr "પાર્ટીશનમાં ફેરફાર કરો"
 
 #: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમનો પ્રકાર (_T):"
 
 #: ../iw/partition_dialog_gui.py:328
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "ઉપ્લબ્ધ ડ્રાઈવો (_D):"
 
 #: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
-msgstr ""
+msgstr "ડ્રાઈવ:"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Original File System Label:"
-msgstr ""
+msgstr "મૂળ ફાઈલ સિસ્ટમ લેબલ:"
 
 #: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "શરુઆતનો સીલીન્ડર (_S):"
 
 #: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "અંતિમ સીલીન્ડર (_E):"
 
 #: ../iw/partition_dialog_gui.py:454
 msgid "Force to be a _primary partition"
-msgstr ""
+msgstr "પ્રાથમિક પાર્ટીશન હોય તે માટે દબાણ કરો (_p)"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1130
 msgid "Type"
-msgstr ""
+msgstr "પ્રકાર"
 
 #: ../iw/partition_gui.py:362
 msgid "Format"
-msgstr ""
+msgstr "બંધારણ"
 
 #: ../iw/partition_gui.py:364 ../textw/partition_text.py:1130
 msgid "Start"
-msgstr ""
+msgstr "શરુ"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1130
 msgid "End"
-msgstr ""
+msgstr "અંત"
 
 #: ../iw/partition_gui.py:402
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
+"માઉન્ટ બિંદુ/\n"
+"RAID/વોલ્યુમ"
 
 #: ../iw/partition_gui.py:404
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
+"માપ\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1124
 msgid "Partitioning"
-msgstr ""
+msgstr "પાર્ટીશન કરી રહ્યા છીએ"
 
 #: ../iw/partition_gui.py:639
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "તમારી મંગાયેલી પાર્ટીશન કરવાની પદ્ધતિ સાથે નીચેની ગંભીર ભૂલો હતી."
 
 #: ../iw/partition_gui.py:642
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
+"તમારા %s ના સ્થાપન સાથે ચાલુ રાખવા પહેલાં ભૂલો સુધારેલી જ "
+"હોવી જોઈએ."
 
 #: ../iw/partition_gui.py:648
 msgid "Partitioning Errors"
-msgstr ""
+msgstr "પાર્ટીશન કરવામાં ભૂલો"
 
 #: ../iw/partition_gui.py:654
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
+msgstr "તમારા મંગાયેલી પાર્ટીશન કરવાની પદ્ધતિ સાથે નીચેની ચેતવણીઓ હતી."
 
 #: ../iw/partition_gui.py:656
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "તમારી મંગાયેલી પાર્ટીશન કરવાની પદ્ધતિ સાથે તમે ચાલુ રાખવા માંગો છો?"
 
 #: ../iw/partition_gui.py:661
 msgid "Partitioning Warnings"
-msgstr ""
+msgstr "પાર્ટીશન કરતી વખતની ચેતવણીઓ"
 
 #: ../iw/partition_gui.py:683
 msgid "Format Warnings"
-msgstr ""
+msgstr "બંધારણ ચેતવણીઓ"
 
 #: ../iw/partition_gui.py:688
 msgid "_Format"
-msgstr ""
+msgstr "બંધારણ (_F)"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
-msgstr ""
+msgstr "LVM વોલ્યુમ જૂથો"
 
 #: ../iw/partition_gui.py:758
 msgid "RAID Devices"
-msgstr ""
+msgstr "RAID ઉપકરણો"
 
 #: ../iw/partition_gui.py:786 ../iw/partition_gui.py:911
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:155
 msgid "None"
-msgstr ""
+msgstr "કંઈ નહિં"
 
 #: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:326
 msgid "Hard Drives"
-msgstr ""
+msgstr "હાર્ડ ડ્રાઈવો"
 
 #: ../iw/partition_gui.py:874 ../textw/partition_text.py:137
 #: ../textw/partition_text.py:176
 msgid "Free space"
-msgstr ""
+msgstr "ખાલી જગ્યા"
 
 #: ../iw/partition_gui.py:876 ../textw/partition_text.py:139
 msgid "Extended"
-msgstr ""
+msgstr "વિસ્તૃત"
 
 #: ../iw/partition_gui.py:878 ../textw/partition_text.py:141
 msgid "software RAID"
-msgstr ""
+msgstr "સોફ્ટવેર RAID"
 
 #: ../iw/partition_gui.py:913
 msgid "Free"
-msgstr ""
+msgstr "મુક્ત"
 
 #: ../iw/partition_gui.py:1003 ../textw/partition_text.py:224
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr ""
+msgstr "મંગાયેલ પાર્ટીશનો સ્થિત કરી શક્યા નહિં: %s."
 
 #: ../iw/partition_gui.py:1012
 #, python-format
 msgid "Warning: %s."
-msgstr ""
+msgstr "ચેતવણી: %s."
 
 #: ../iw/partition_gui.py:1194 ../iw/partition_gui.py:1208
 msgid "Not supported"
-msgstr ""
+msgstr "આધાર નથી"
 
 #: ../iw/partition_gui.py:1195
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "LVM ને આ પ્લેટફોર્મ પર આધાર નથી."
 
 #: ../iw/partition_gui.py:1209
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "સોફ્ટવેર RAID ને આ પ્લેટફોર્મ પર આધાર નથી."
 
 #: ../iw/partition_gui.py:1216
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "કોઈ RAID ન્યુનતમ ઉપકરણ નંબરો ઉપ્લબ્ધ નથી"
 
 #: ../iw/partition_gui.py:1217
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
+"સોફ્ટવેર RAID ઉપકરણ બનાવી શકાતું નથી કારણકે ઉપ્લબ્ધ RAID ન્યુનત્મ"
+"ઉપકરણ નંબરો વપરાઈ ગયેલ છે."
 
 #: ../iw/partition_gui.py:1231
 msgid "RAID Options"
-msgstr ""
+msgstr "RAID વિકલ્પો"
 
 #: ../iw/partition_gui.py:1242
 #, python-format
@@ -4249,6 +4273,13 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"સોફ્ટવેર RAID તમને ઘણી બધી ડિસ્ક મોટા RAID ઉપકરણમાં ભેગી"
+"કરવાની પરવાનગી આપે છે. RAID ઉપકરણ વધુ ઝડપ અને અંગત ડ્રાઈવ "
+"વાપરવા માટે રાહત પૂરી પાડે છે. RAID ઉપકરણો વિશે વધુ જાણકારી મેળવવા "
+"માટે મહેરબાની કરીને %s દસ્તાવેજો જુઓ.\n"
+"\n"
+"તમારી પાસે વર્તમાનમાં %s સોફ્ટવેર RAID વાપરવા માટે મુક્ત છે.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1253
 msgid ""
@@ -4257,100 +4288,106 @@ msgid ""
 "mounted.\n"
 "\n"
 msgstr ""
+"RAID વાપરવા માટે તમારે પહેલાં ઓછામાં ઓછા બે પાર્ટીશનો 'સોફ્ટવેર RAID' "
+"પ્રકારના રાખવા જોઈએ. પછી તમે RAID ઉપકરણ બનાવી શકો છો કે જેનું "
+"બંધારણ ઘડી શકાય અને માઉન્ટ થઈ શકે.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1259
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "તમે હમણાં શું કરવા માંગો છો?"
 
 #: ../iw/partition_gui.py:1268
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "સોફ્ટવેર RAID પાર્ટીશન બનાવો (_p)."
 
 #: ../iw/partition_gui.py:1271
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "RAID ઉપકરણ બનાવો [default=/dev/md%s] (_d)."
 
 #: ../iw/partition_gui.py:1275
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "RAID ઉપકરણ બનાવવા માટે ડ્રાઈવનું ક્લોન બનાવો [default=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1314
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "ડ્રાઈવ ક્લોન સંપાદક બનાવી શક્યા નહિં"
 
 #: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "અમુક કારણોસર ડ્રાઈવ ક્લોન સંપાદક બનાવી શક્યા નહિં."
 
 #: ../iw/partition_gui.py:1359
 msgid "Ne_w"
-msgstr ""
+msgstr "નવું (_w)"
 
 #: ../iw/partition_gui.py:1362
 msgid "Re_set"
-msgstr ""
+msgstr "ફરીથી સુયોજિત કરો (_s)"
 
 #: ../iw/partition_gui.py:1363
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1364
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1405
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "RAID ઉપકરણ/LVM વોલ્યુમ જૂથ સભ્યો છુપાવો (_G)"
 
 #: ../iw/partition_gui.py:1420 ../textw/partition_text.py:1214
 msgid "Automatic Partitioning"
-msgstr ""
+msgstr "આપોઆપ પાર્ટીશન કરી રહ્યા છીએ"
 
 #: ../iw/partition_gui.py:1448
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
+"તમારે ઓછામાં ઓછી એક હાર્ડ ડ્રાઈવ પસંદ કરેલી હોવી જોઈએ કે "
+"જેના પર %s સ્થાપિત હોય."
 
 #: ../iw/partition_gui.py:1490
 msgid "I want to have automatic partitioning:"
-msgstr ""
+msgstr "મારે આપોઆપ પાર્ટીશન હોય એની જરુર છે:"
 
 #: ../iw/partition_gui.py:1521
 msgid "Select the drive(s) to use for this installation:"
-msgstr ""
+msgstr "આ સ્થાપન માટે ડ્રાઈવો પસંદ કરો:"
 
 #: ../iw/partition_gui.py:1545
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
+msgstr "બનેલા પાર્ટીશનોનો રીવ્યુ લો"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:247
 #: ../textw/partition_text.py:249 ../textw/partition_text.py:251
 #: ../textw/partition_text.py:276
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "< લાગુ પડતું નથી>"
 
 #: ../iw/partition_ui_helpers_gui.py:241
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "તમે આ પાર્ટીશન પર ફાઈલ સિસ્ટમ કેવી રીતે તૈયાર થયેલી જોવા માંગો છો?"
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "ફેરફાર કર્યા વિના રહેવા દો (માહિતી બચાવે)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
-msgstr ""
+msgstr "પાર્ટીશનને આ રીતે ફોર્મેટ કરો (_F):"
 
 #: ../iw/partition_ui_helpers_gui.py:278
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "પાર્ટીશનને આમાં ફેરવો (_g):"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "ખરાબ બ્લોકો માટે ચકાસો? (_b)"
 
 #: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
@@ -4358,104 +4395,106 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
+"'%s' પ્રકારના પાર્ટીસનો એક ડ્રાઈવમાં સમાયેલા હોવા જોઈએ. આ 'ઉપ્લબ્ધ "
+"ડ્રાઈવો' ની યાદીમાં પસંદગી કરીને થાય છે."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "ડિસ્ક પાર્ટીશન સેટઅપ"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr ""
+msgstr "આપોઆપ પાર્ટીશન (_A)"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "ડિસ્ક ડ્રુડ સાથે જાતે પાર્ટીશનો પાડો (_D)"
 
 #: ../iw/progress_gui.py:41
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s બાઈટ"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s બાઈટો"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:397
 msgid "Installing Packages"
-msgstr ""
+msgstr "પેકેજો સ્થાપિત કરી રહ્યા છીએ"
 
 #: ../iw/progress_gui.py:167
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "બાકીનો સમય: %s મિનિટો"
 
 #: ../iw/progress_gui.py:183
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "%s ડાઉનલોડ કરી રહ્યા છીએ"
 
 #: ../iw/progress_gui.py:223
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "%s-%s-%s.%s (%s) સ્થાપિત કરી રહ્યા છીએ"
 
 #: ../iw/progress_gui.py:352 ../iw/progress_gui.py:603
 msgid "Summary"
-msgstr ""
+msgstr "સાર"
 
 #: ../iw/progress_gui.py:379 ../iw/progress_gui.py:643
 #: ../textw/progress_text.py:130
 msgid "Status: "
-msgstr ""
+msgstr "સ્થિતિ: "
 
 #: ../iw/progress_gui.py:419 ../textw/progress_text.py:65
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "ડાઉનલોડ કરી રહ્યા છીએ - %s"
 
 #: ../iw/progress_gui.py:478 ../iw/progress_gui.py:672
 msgid "Total"
-msgstr ""
+msgstr "કુલ"
 
 #: ../iw/progress_gui.py:484 ../iw/progress_gui.py:674
 msgid "Remaining"
-msgstr ""
+msgstr "બાકીનું"
 
 #: ../iw/progress_gui.py:516
 #, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr ""
+msgstr "%s-%s-%s.%s સ્થાપિત કરી રહ્યા છીએ"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
-msgstr ""
+msgstr "પેકેજ પ્રગતિ: "
 
 #: ../iw/progress_gui.py:658
 msgid "Total Progress:   "
-msgstr ""
+msgstr "કુલ પ્રગતિ:   "
 
 #: ../iw/progress_gui.py:685
 msgid "Status"
-msgstr ""
+msgstr "સ્થિતિ"
 
 #: ../iw/progress_gui.py:685
 msgid "Packages"
-msgstr ""
+msgstr "પેકેજો"
 
 #: ../iw/progress_gui.py:685
 msgid "Time"
-msgstr ""
+msgstr "સમય"
 
 #: ../iw/raid_dialog_gui.py:261
 msgid ""
@@ -4465,51 +4504,59 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
+"ઓછામાં ઓછા બે નહિં વપરાયેલ સોફ્ટવેર RAID પાર્ટીશનો RAID ઉપકરણ"
+"બનાવવા માટે જરુરી છે.\n"
+"\n"
+"પહેલા ઓછામાં ઓછા બે પાર્ટીશનો \"સોફ્ટવેર RAID\" પ્રકારના બનાવો, "
+"અને પછી \"RAID\" વિકલ્પ ફરીથી પસંદ કરો."
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
 #: ../textw/partition_text.py:911
 msgid "Make RAID Device"
-msgstr ""
+msgstr "RAID ઉપકરણ બનાવો"
 
 #: ../iw/raid_dialog_gui.py:278
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "RAID ઉપકરણમાં ફેરફાર કરો: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:909
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "RAID ઉપકરણમાં ફેરફાર કરો"
 
 #: ../iw/raid_dialog_gui.py:321
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID ઉપકરણ (_D):"
 
 #: ../iw/raid_dialog_gui.py:339
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAID સ્તર (_L):"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr ""
+msgstr "_RAID સભ્યો:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr ""
+msgstr "સ્પેરોની સંખ્યા (_s):"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr ""
+msgstr "પાર્ટીશનને ફોર્મેટ કરવું છે (_F)?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
+"સ્રોત ડ્રાઈવને કોઈ પાર્ટીશનો ક્લોન કરેલ નથી. તમારે પહેલા 'સોફ્ટવેર RAID' "
+"પ્રકારનો પાર્ટીશન વ્યાખ્યાયિત કરવો પડે છે આ ડ્રાઈવ પર તે ક્લોન બની જાય "
+"તે પહેલાં."
 
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr ""
+msgstr "સ્રોત ડ્રાઈવ ભૂલ"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -4518,6 +4565,10 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"પસંદ થયેલ સ્રોત ડ્રાઈવ પાસે તેના પાર્ટીશનો છે કે જે 'સોફ્ટવેર RAID' "
+"પ્રકારના નથી.\n"
+"\n"
+"આ પાર્ટીશનો આ ડ્રાઈવ ક્લોન થઈ જાય તે પહેલાં દૂર થઈ જશે."
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4528,6 +4579,11 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
+"પસંદ થયેલ સ્રોત ડ્રાઈવ પાસે પાર્ટીશનો છે કે જે ડ્રાઈવ /dev/%s સાથે "
+"સંકળાયેલ નથી.\n"
+"\n"
+"આ ડ્રાઈવ ક્લોન થઈ જાય તે પહેલાં આ પાર્ટીશનો દૂર થઈ જશે અથવા આ "
+"ડ્રાઈવ માટે પ્રતિબંધિત થઈ જશે."
 
 #: ../iw/raid_dialog_gui.py:523
 msgid ""
@@ -4536,20 +4592,24 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"પસંદ થયેલ સ્રોત ડ્રાઈવ પાસે સોફ્ટવેર RAID પાર્ટીશનો છે કે જે સક્રિય સોફ્ટવેર"
+"RAID ઉપકરણના સભ્ય છે.\n"
+"\n"
+"આ ડ્રાઈવ ક્લોન થઈ જાય તે પહેલાં આ પાર્ટીશનો દૂર કરી દેવામાં આવશે."
 
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
 msgid "Target Drive Error"
-msgstr ""
+msgstr "લક્ષ્ય ડ્રાઈવ ભૂલ"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "મહેરબાની કરીને ક્લોનની પ્રક્રિયા માટે લક્ષ્ય ડ્રાઈવો પસંદ કરો."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "સ્રોત ડ્રાઈવ /dev/%s આ રીતે લક્ષ્ય ડ્રાઈવ તરીકે પસંદ કરી શકાતું નથી."
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -4561,10 +4621,16 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"લક્ષ્ય ડ્રાઈવ /dev/%s પાસે પાર્ટીશન છે કે જે નીચેના કારણોસર દૂર કરી શકાતું "
+"નથી:\n"
+"\n"
+"\"%s\"\n"
+"\n"
+"આ ડ્રાઈવ લક્ષ્ય બને તે પહેલાં આ પાર્ટીશન દૂર કરવું જ પડે છે."
 
 #: ../iw/raid_dialog_gui.py:617
 msgid "Please select a source drive."
-msgstr ""
+msgstr "મહેરબાની કરીને સ્રોત ડ્રાઈવ પસંદ કરો."
 
 #: ../iw/raid_dialog_gui.py:637
 #, python-format
@@ -4572,6 +4638,8 @@ msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
+"ડ્રાઈવ /dev/%s હવે નીચેની ડ્રાઈવોમાં ક્લોન થઈ જશે:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:642
 msgid ""
@@ -4579,18 +4647,21 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"ચેતવણી! લક્ષ્ય ડ્રાઈવ પરની બધી માહિતી હવે પછી નાશ થઈ જશે."
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "Final Warning"
-msgstr ""
+msgstr "છેલ્લી ચેતવણી"
 
 #: ../iw/raid_dialog_gui.py:647
 msgid "Clone Drives"
-msgstr ""
+msgstr "ક્લોન ડ્રાઈવો"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "લક્ષ્ય ડ્રાઈવો સાફ કરવામાં ત્યાં ભૂલ હતી. ક્લોન કરવાનું નિષ્ફળ."
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4607,148 +4678,166 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"ક્લોન ડ્રાઈવ સાધન\n"
+"\n"
+"આ સાધન તમને RAID અૅરે સુયોજિત કરવા માટે જરુરી પ્રયત્ન ઘટાડવા "
+"માટેની પરવાનગી આપે છે. વિચાર તો એવો છે કે સ્રોત ડ્રાઈવ લઈ લેવી કે જે "
+"જરુરી પાર્ટીશન દેખાવ સાથે છે, અને આ દેખાવને તેના જેવા બીજા સરખા "
+"માપની ડ્રાઈવોમાં ફેરવો. પછી RAID ઉપકરણ બનાવી શકાશે.\n"
+"\n"
+"નોંધ: સ્રોત ડ્રાઈવ પાસે પાર્ટીશનો હોવા જ જોઈએ કે જે માત્ર તે ડ્રાઈવ સાથે "
+"જ બંધાયેલા હોય, અને તે માત્ર નહિં વપરાયેલ સોફ્ટવેર RAID પાર્ટીશનો "
+"સમાવે. બીજા પ્રકારના પાર્ટીશનો માન્ય નથી.\n"
+"\n"
+"આ પ્રક્રિયા દ્વારા લક્ષ્ય ડ્રાઈવો પરનું બધું જ નાશ થઈ જશે."
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
-msgstr ""
+msgstr "સ્રોત ડ્રાઈવ:"
 
 #: ../iw/raid_dialog_gui.py:718
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "લક્ષ્ય ડ્રાઈવો:"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid "Drives"
-msgstr ""
+msgstr "ડ્રાઈવો"
 
 #: ../iw/release_notes_viewer_gui.py:142
 msgid "Release Notes"
-msgstr ""
+msgstr "પ્રકાશન નોંધો"
 
 #: ../iw/release_notes_viewer_gui.py:146
 msgid "Unable to load file!"
-msgstr ""
+msgstr "ફાઈલ લાવવા માટે સમર્થ નથી!"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
-msgstr ""
+msgstr "Silo ો રુપરેખાંકન"
 
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
 msgid "Partition"
-msgstr ""
+msgstr "પાર્ટીશન"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr ""
+msgstr "ના પર SILO બુટ રેકોર્ડ સ્થાપિત કરો:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
-msgstr ""
+msgstr "PROM ઉપનામ બનાવો"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "લિનક્સ માટે મૂળભુત PROM બુટ ઉપકરણ સુયોજિત કરો"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
-msgstr ""
+msgstr "કર્નલ પરિમાણો"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
-msgstr ""
+msgstr "બુટ ડિસ્ક બનાવો"
 
 #: ../iw/silo_gui.py:244
 msgid "Do not install SILO"
-msgstr ""
+msgstr "SILO સ્થાપિત કરો નહિં"
 
 #: ../iw/silo_gui.py:263 ../textw/silo_text.py:207
 msgid "Partition type"
-msgstr ""
+msgstr "પાર્ટીશન પ્રકાર"
 
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:213
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr ""
+msgstr "બુટ લેબલ"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr ""
+msgstr "મૂળભુત બુટ ઈમેજ"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "ટાઈમ ઝોન પસંદગી"
 
 #: ../iw/timezone_gui.py:67
 msgid "System clock uses _UTC"
-msgstr ""
+msgstr "સિસ્ટમ ઘડિયાળ _UTC વાપરે છે"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr ""
+msgstr "તમારા ટાઈમ ઝોન માટે મહેરબાની કરીને નજીકનું શહેર પસંદ કરો:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
-msgstr ""
+msgstr "જગ્યા (_L)"
 
 #: ../iw/timezone_map_gui.py:128
 msgid "Description"
-msgstr ""
+msgstr "વર્ણન"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "બુટ લોડર રુપરેખાંકન સુધારો"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "બુટ લોડર રુપરેખાંકન સુધારો (_U)"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "આ તમારુ વર્તમાન બુટ લોડર સુધારશે."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
+msgstr "સ્થાપકે વર્તમાનમાં %s પર સ્થાપિત %s બુટ લોડર શોધી કાઢ્યું."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr ""
+msgstr "આ આગ્રહવાળો વિકલ્પ છે."
 
 #: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"તમારી સિસ્ટમમાં હાલમાં વપરાતું બુટ લોડર શોધવા માટે આ સ્થાપક સમર્થ "
+"નથી."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
-msgstr ""
+msgstr "નવું બુટ લોડર રુપરેકાંકન બનાવો (_C)"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"આ તમને નવું બુટ લોડર રુપરેખાંકન બનાવવાની પરવાનગી આપે છે. જો "
+"તમે બુટ લોડરો બદલવા માંગો, તો તમે આ પસંદ કરી શકો."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "બુટ લોડર સુધારવાનું અવગણી દો (_S)"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"આ બુટ લોડરના રુપરેખાંકનમાં કોઈ બદલાવો કરતું નથી. જો તમે ત્રીજી "
+"વ્યક્તિનું બુટ લોડર વાપરી રહ્યા હો, તો તમે આ પસંદ કરી શકો છો."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
-msgstr ""
+msgstr "તમે શું કરવા માંગો છો?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમો ફેરવો"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:36
 #, python-format
@@ -4760,10 +4849,16 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"%s નું આ પ્રકાશન ext3 ફાઈલ સિસ્ટમને આધાર આપે છે. તેની પાસે"
+"%s ની જૂની ext2 ફાઈલ સિસ્ટમ કરતાં વધુ લાભો છે. એ શક્ય છે કે"
+"ext2 બંધારણવાળા પાર્ટીશનોને માહિતીના ખોવાય વગર ext3 ફાઈલ "
+"સિસ્ટમમાં ફેરવવા.\n"
+"\n"
+"તમે નીચેનામાંના કયા પાર્ટીશનને ફેરવવા માંગો છો?"
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "સ્વેપ પાર્ટીશન સુધારો"
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -4773,6 +4868,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"કર્નલ 2.4 ને જૂની કર્નલો કરતાં વધારે સ્વેપની જરુર પડે છે, ઓછામાં ઓછી"
+"તમારી સિસ્ટમની RAM કરતાં બેવડી. તમારી પાસે હાલમાં %dMB ની સ્વેપ"
+"રુપરેખાંકિત કરેલ છે, પરંતુ તમે વધારાની સ્વેપ જગ્યા તમારી ફાઈલ સિસ્ટમમાં "
+"હમણાં બનાવી શકો છો."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4781,18 +4880,21 @@ msgid ""
 "\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
+"\n"
+"\n"
+"સ્થાપકે %s MB ની RAM શોધી કાઢી.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
-msgstr ""
+msgstr "હું સ્વેપ ફાઈલ બનાવવા માંગુ છે (_w)"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
-msgstr ""
+msgstr "સ્વેપ ફાઈલ પસંદ કરવા માટે પાર્ટીશન પસંદ કરો:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "ખાલી જગ્યા (MB)"
 
 #: ../iw/upgrade_swap_gui.py:166
 #, python-format
@@ -4800,14 +4902,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"એનો આગ્રહ રાખવામાં આવે છે કે તમારી સ્વેપ ફાઈલ ઓછામાં ઓછી %d MB "
+"હોવી જોઈએ. મહેરબાની કરીને સ્વેપ ફાઈલ માટે માપ દાખલ કરો:"
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
-msgstr ""
+msgstr "સ્વેપ ફાઈલ માપ (MB) (_s):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr ""
+msgstr "મારે સ્વેપ ફાઈલ બનાવવાની જરુર છે (_d)"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4815,122 +4919,129 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"એ ખૂબ જરુરી છે કે તમારે સ્વેપ ફાઈલ બનાવવી જરુરી છે. એમ કરવામાં "
+"નિષ્ફળતા સ્થાપકને અડધેથી બંધ કરી દેવાનું કારણ બને છે. શું તમે ચાલુ "
+"રાખવા માંગો છો?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "સ્વેપ ફાઈલ ૧ અને ૨૦૦૦ MB માપ ની વચ્ચે જ હોવી જોઈએ."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "તમે સ્વેપ પાર્ટીશન માટે પસંદ કરેલ ઉપકરણ માટે પૂરતી જગ્યા નથી."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
-msgstr ""
+msgstr "નહિં ચકાસાયેલ મોનિટર"
 
 #: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
-msgstr ""
+msgstr "ગ્રાફિકલ રુપરેખાંકન કસ્ટમાઈઝ કરો"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr ""
+msgstr "રંગની ઊંડાઈ (_C):"
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "૨૫૬ રંગો (૮ બીટ)"
 
 #: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "ઊંચો રંગ (૧૬ બીટ)"
 
 #: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "ખરુ રંગ (૨૪ બીટ)"
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr ""
+msgstr "સ્ક્રીન રીઝોલ્યુશન (_S):"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "મહેરબાની કરીને તમારુ મૂળભુત ડેસ્કટોપ પર્યાવરણ પસંદ કરો:"
 
 #: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "તમારુ ડેસ્કટોપ પર્યાવરણ છે:"
 
 #: ../iw/xconfig_gui.py:355
 msgid "GNO_ME"
-msgstr ""
+msgstr "GNO_ME"
 
 #: ../iw/xconfig_gui.py:357
 msgid "_KDE"
-msgstr ""
+msgstr "_KDE"
 
 #: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "મહેરબાની કરીને તમારો પ્રવેશ પ્રકાર પસંદ કરો:"
 
 #: ../iw/xconfig_gui.py:395
 msgid "_Text"
-msgstr ""
+msgstr "લખાણ (_T)"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Graphical"
-msgstr ""
+msgstr "ગ્રાફિકવાળું (_G)"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:416
 msgid "Monitor Configuration"
-msgstr ""
+msgstr "મોનિટર રુપરેખાંકન"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "મોનિટર સ્પષ્ટ થયેલ નથી"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:468
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"તમે મોનિટરનો પ્રકાર પસંદ કરેલ નથી. એ જરુરી છે કે તમે નજીકનું બંધબેસતું "
+"મોડેલ મહત્તમ શક્ય ડિસ્પ્લે ગુણવત્તા સાથેના ક્રમમાં પસંદ કરો."
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr ""
+msgstr "મોનિટરનો પ્રકાર પસંદ કરો (_C)"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
+"મોટા ભાગના કિસ્સાઓમાં, મોનિટર આપોઆપ શોધાઈ જાય છે. જો શોધાયેલ "
+"સુયોજનો મોનિટર માટે યોગ્ય નહિં હોય, તો સાચા સુયોજનો પસંદ કરો."
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr ""
+msgstr "મૂળ કિંમતો ફરીથી સંગ્રહો (_o)"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr ""
+msgstr "આડુ સુમેળ (_z):"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
-msgstr ""
+msgstr "ઊભુ સુમેળ (_V):"
 
 #: ../iw/xconfig_gui.py:758
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:761
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:781
 msgid "Graphical Interface (X) Configuration"
-msgstr ""
+msgstr "ગ્રાફિકવાળું ઈન્ટરફેસ (X) રુપરેખાંકન"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
-msgstr ""
+msgstr "અજ્ઞાત વિડીયો કાર્ડ"
 
 #: ../iw/xconfig_gui.py:812
 #, python-format
@@ -4938,10 +5049,12 @@ msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
+"વિડીયો કાર્ડ %s પસંદ કરતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને આ ભૂલનો "
+"bugzilla.redhat.com અહેવાલ આપો."
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr ""
+msgstr "નહિં સ્પષ્ટ કરેલ વિડીયો કાર્ડ"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4949,6 +5062,9 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
+"જો તમારે X રુપરેખાંકન ચાલુ રહે તે પહેલાં વિડીયો કાર્ડ પકડવાની જરુર છે."
+"જો તમે હાલમાં X રુપરેખાંકન અવગણવા માંગો તો 'X રુપરેખાંકન અવગણો' "
+"બટન દબાવો."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -4956,12 +5072,17 @@ msgid ""
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"તમારી સિસ્ટમ X વિન્ડો સિસ્ટમ માટે ફ્રેમ બફર વાપરવા માટે સુયોજિત થયેલ છે."
+"જો તમે X વિન્ડો સિસ્ટમ સુયોજિત કરવા માંગતા નહિં હોય, તો 'X રુપરેખાંકન"
+"અવગણઓ' પસંદ કરો."
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
+"તમારી વિડીયો ram માપ આપોઆપ શોધાયેલ નથી. નીચેના વિકલ્પોમાંથી તમારી "
+"વિડીયો ram માપ પસંદ કરો:"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
@@ -4969,22 +5090,24 @@ msgid ""
 "detected settings are not correct for the hardware, select the right "
 "settings."
 msgstr ""
+"મોટા ભાગના કિસ્સાઓમાં, વિડીયો હાર્ડવેર આપોઆપ શોધાઈ જશે. જો શોધાયેલ "
+"સુયોજનો હાર્ડવેર માટે યોગ્ય ના હોય, તો સાચા સુયોજનો પસંદ કરો."
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr ""
+msgstr "વિડીયો કાર્ડ RAM (_V): "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr ""
+msgstr "X રુપરેખાંકન અવગણો (_S)"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL બુટ લોડર રુપરેખાંકન"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "z/IPL બુટ લોડર તમારી સિસ્ટમ પર સ્થાપિત થશે."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -5002,14 +5125,25 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"z/IPL બુટ લોડર હવે તમારી સિસ્ટમ પર સ્થાપિત થશે.\n"
+"\n"
+"તમે પહેલા પસંદ કરેલ રુટ પાર્ટીશન સુયોજન માટે છે.\n"
+"\n"
+"મશીનને શરુ કરવા માટે વપરાતી કર્નલ કે જે મૂળભુત રીતે સ્થાપિત થયેલ છે.\n"
+"\n"
+"જો તમને સુધારો કરવાની જરુર જણાય તો સ્થાપન પછી /etc/zipl.conf  "
+"રુપરેખાંકન ફાઈલ બદલવામાં રાહત અનુભવો.\n"
+"\n"
+"તમે હવે કોઈપણ વધારાના પરિમાણો દાખલ કરી શકો છો કે જે તમારા મશીન "
+"અથવા સેટઅપ માટે જરુરી છે."
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "કર્નલ પરિમાણો"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Chandev પરિમાણો"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5022,30 +5156,37 @@ msgid ""
 "\n"
 "Would you like to create a boot diskette?"
 msgstr ""
+"બુટ ડિસ્ક તમને તમારી %s સિસ્ટમને ફ્લોપીમાંથી ચલાવવાની પરવાનગી આપે છે."
+"બુટ ડિસ્ક તમને તમારી સિસ્ટમ બુટ કરવાની પરવાનગી આપે છે જ્યારે "
+"તમારુ બુટલોડર રુપરેખાંકન કામ કરવાનું બંધ કરી દે.\n"
+"\n"
+"ેએનો ખૂબ આગ્રહ રાખવામાં આવે છે કે તમે તમારી બુટ ડિસ્ક બનાવો.\n"
+"\n"
+"શુંં તમે તમારી બુટ ડિસ્ક બનાવવા માંગો છો?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
-msgstr ""
+msgstr "બુટ ડિસ્ક"
 
 #: ../textw/bootloader_text.py:29
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "તમે કયું બુટ લોડર વાપરવા માંગો છો?"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB બુટ લોડર વાપરો"
 
 #: ../textw/bootloader_text.py:47
 msgid "Use LILO Boot Loader"
-msgstr ""
+msgstr "LILO બુટ લોડર વાપરો"
 
 #: ../textw/bootloader_text.py:50
 msgid "No Boot Loader"
-msgstr ""
+msgstr "કોઈ બુટ લોડર નથી"
 
 #: ../textw/bootloader_text.py:72
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "બુટ લોડર અવગણો"
 
 #: ../textw/bootloader_text.py:73
 msgid ""
@@ -5056,6 +5197,13 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
+"તમે કોઈ બુટ લોડર નહિં સ્થાપિત કરવાનું પસંદ કરેલ છે. એ ખૂબ આગ્રહ રાખવામાં "
+"આવે છે કે તમે બુટ લોડર સ્થાપિત કરો જ્યાં સુધી તમારી પાસે ઉન્નત જરુરીયાતો "
+"નહિં હોય."
+"બુટ લોડર મોટે ભાગે હંમેશા જરુરી છે તમારી સિસ્ટમને તમારી હાર્ડ "
+"ડિસ્કમાંથી જ સીધુ બુટ કરવા માટે જરુરી છે.\n"
+"\n"
+"શું તમે ખરેખર બુટ લોડર સ્થાપન અવગણવા માંગો છો?"
 
 #: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
 msgid ""
@@ -5064,41 +5212,45 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+"અમુક સિસ્ટમોને યોગ્ય રીતે કામ કરવા માટે કર્નલને બુટ સમયે ચોક્કસ "
+"વિકલ્પો પસાર કરવા જરુરી છે. જો તમે કર્નલને બુટ વિકલ્પો પસાર કરવાની "
+"જરુર હોય, તો તેમને હમણાં દાખલ કરો. જો તમને એની જરુર ના હોય "
+"અથવા તમે ચોક્કસ ના હોય, તો એને ખાલી છોડી દો."
 
 #: ../textw/bootloader_text.py:119
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 ના વપરાશ માટે દબાણ કરો (સામાન્ય રીતે જરુરી નથી)"
 
 #: ../textw/bootloader_text.py:185
 msgid "Where do you want to install the boot loader?"
-msgstr ""
+msgstr "કમે બુટ લોડર ક્યાં સ્થાપિત કરવા માંગો છો?"
 
 #: ../textw/bootloader_text.py:217 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
-msgstr ""
+msgstr "સાફ"
 
 #: ../textw/bootloader_text.py:225 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "બુટ લેબલમાં ફેરફાર કરો"
 
 #: ../textw/bootloader_text.py:243 ../textw/bootloader_text.py:248
 msgid "Invalid Boot Label"
-msgstr ""
+msgstr "અયોગ્ય બુટ લેબલ"
 
 #: ../textw/bootloader_text.py:244
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "બુટ લેબલ ખાલી હોવું જોઈએ નહિં."
 
 #: ../textw/bootloader_text.py:249
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "બુટ લેબલ અયોગ્ય અક્ષરો ધરાવે છે."
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1135 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
-msgstr ""
+msgstr "ફેરફાર કરો"
 
 #: ../textw/bootloader_text.py:302
 #, python-format
@@ -5107,10 +5259,13 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
+"બુટ વ્યવસ્થાપક %s બીજી ઓપરેટિંગ સિસ્ટમો પણ બુટ કરી શકે છે. તમારે"
+"મને કહેવું પડશે કે તમે કયા પાર્ટીશનોમાંથી બુટ કરવા માંગો છો અને તે દરેક "
+"માટે કયા લેબલો વાપરવા મ  ગો છો."
 
 #: ../textw/bootloader_text.py:315
 msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
+msgstr " <Space> બટન પસંદ કરો | <F2> મૂળભુત બુટ પ્રવેશ પસંદ કરો | <F12> પછીની સ્ક્રીન>"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -5118,40 +5273,45 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
+"બુટ લોડર પાસવર્ડ વપરાશકર્તાઓને ગમેતે વિકલ્પો કર્નલને પસાર કરવાથી "
+"બચાવે છે. ઊંચી સુરક્ષા માટે, અમે પાસવર્ડ સુયોજિત કરવાનો આગ્રહ રાખીએ "
+"છીએ, પરંતુ ઘણા વપરાશકર્તાઓ માટે એ જરુરી નથી."
 
 #: ../textw/bootloader_text.py:404
 msgid "Use a GRUB Password"
-msgstr ""
+msgstr "GRUB પાસવર્ડ વાપરો"
 
 #: ../textw/bootloader_text.py:416
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "બુટ લોડર પાસવર્ડ:"
 
 #: ../textw/bootloader_text.py:417
 msgid "Confirm:"
-msgstr ""
+msgstr "ખાતરી:"
 
 #: ../textw/bootloader_text.py:446
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "પાસવર્ડો બંધબેસતા નથી"
 
 #: ../textw/bootloader_text.py:451
 msgid "Password Too Short"
-msgstr ""
+msgstr "પાસવર્ડ ખૂબ નાનો છે"
 
 #: ../textw/bootloader_text.py:452
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "બુટ લોડર પાસવર્ડ ખૂબ નાનો છે"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"સ્થાપનની પ્રક્રિયાનો અંત કરવા માટે <Enter> દબાવો.\n"
+"\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "બહાર નીકળવા માટે <Enter> દબાવો"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -5159,10 +5319,13 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"વપરાયેલ કોઈપણ સ્થાપન માધ્યમો (ડિસ્ક અથવા CD-ROMs) સ્થાપનની પ્રક્રિયા "
+"દરમ્યાન દૂર કરો અને તમારી સિસ્ટમ રીબુટ કરવા માટે <Enter> દબાવો.\n"
+"\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "રીબુટ કરવા માટે <Enter> દબાવો"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -5171,6 +5334,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"અભિનંદન, તમારુ %s સ્થાપન પૂર્ણ થયું.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:41
 #, python-format
@@ -5181,18 +5347,23 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
+"ઈરાટા વિશેની જાણકારી માટે (સુધારાઓ અને ભૂલો સુધારવા), http://www.redhat.com/errata/ "
+"ની મુલાકાત લો.\n"
+"\n"
+"તમારી સિસ્ટમ વાપરવા માટેની જાણકારી http://www.redhat.com/docs/ "
+"માં %s મદદગ્રંથોમાં ઉપ્લબ્ધ છે."
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
-msgstr ""
+msgstr "પૂર્ણ"
 
 #: ../textw/complete_text.py:48
 msgid "Reboot"
-msgstr ""
+msgstr "રીબુટ"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "સ્થાપન શરુ થવા જઈ રહ્યું છે"
 
 #: ../textw/confirm_text.py:23
 #, python-format
@@ -5200,6 +5371,8 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
+"તમારી સિસ્ટમ રીબુટ કર્યા પછી તમારા સ્થાપનની પૂરેપુરી માહિતી %s માં હશે. "
+"તમારે આ ફાઈલ પાછળથી સંદર્ભ માટે સાચવી રાખવી જોઈએ."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
@@ -5214,11 +5387,11 @@ msgstr ""
 #: ../loader2/net.c:1014 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
 #: ../loader2/urls.c:444
 msgid "Back"
-msgstr ""
+msgstr "પાછા"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "શરુઆત માટે સુધારો કરો"
 
 #: ../textw/confirm_text.py:49
 #, python-format
@@ -5226,6 +5399,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
+"તમારી સિસ્ટમ રીબુટ કર્યા પછી તમારા સુધારાની પૂરેપુરી માહિતી %s માં હશે. "
+"તમારે આ ફાઈલ પાછળથી સંદર્ભ માટે સાચવી રાખવી જોઈએ."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -5237,35 +5412,41 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
+"મૂળભુત સ્થાપન પર્યાવરણ અમારા આગ્રહશીલ પેકેજે પસંદગી માટે સમાવે છે. "
+"સ્થાપન પછી, વધારાના સોફ્ટવેરો 'system-config-packages' સાધનની મદદથી "
+"ઉમેરી શકાશે અથવા દૂર કરી શકાશે.\n"
+"\n"
+"તેમછતાં પણ %s ઘણા કાર્યક્રમો સાથે ભેગુ થાય, અને તમે સ્થાપિત સોફ્ટવેરોની "
+"પસંદગી કસ્ટમાઈઝ કરો."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
-msgstr ""
+msgstr "સોફ્ટવેરની પસંદગી કસ્ટમાઈઝ કરો"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr ""
+msgstr "ના પર fdasd અથવા dasdfmt ચલાવવા માટે ડિસ્ક પસંદ કરો"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr ""
+msgstr "આગળ વધો"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
-msgstr ""
+msgstr "પાર્ટીસનોમાં ફેરફાર કરો"
 
 #: ../textw/fdasd_text.py:33
 msgid "Format DASD"
-msgstr ""
+msgstr "DASD ફોર્મેટ કરો"
 
 #: ../textw/fdasd_text.py:50 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
-msgstr ""
+msgstr "ડિસ્ક સેટઅપ"
 
 #: ../textw/fdasd_text.py:74
 #, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr ""
+msgstr "ડ્રાઈવ %s પર %s ચલાવતી વખતે ભૂલ ઉદ્ભવી."
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -5275,6 +5456,10 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
+"dasdfmt ચલાવી રહ્યા છે એટલે \n"
+"ડ્રાઈવ %s પરની બધી માહિતીનો નાશ.\n"
+"\n"
+"શું તમે ખરેખર આ માંગો છો?"
 
 #: ../textw/fdasd_text.py:101
 msgid ""
@@ -5284,42 +5469,47 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
+"ભૂલ ઉદ્ભવી છે - કોઈ માન્ય ઉપકરણો મળી આવ્યા નથી કે જેના પર નવી "
+"ફાઈલ સિસ્ટમ બનાવી શકાય. મહેરબાની કરીને તમારા હાર્ડવેરની ચકાસણી "
+"કરો આ સમસ્યાના કારણ માટે અથવા dasdfmt વાપરો.\n"
+"\n"
+"fdasd સ્ક્રીન પર પાછા ફરવું છે?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr ""
+msgstr "ના પર fdisk ચલાવવા માટે ડિસ્ક પસંદ કરો"
 
 #: ../textw/firewall_text.py:27
 msgid "Customize"
-msgstr ""
+msgstr "કસ્ટમાઈઝ"
 
 #: ../textw/firewall_text.py:44
 msgid "Enable firewall"
-msgstr ""
+msgstr "ફાયરવોલ સક્રિય કરો"
 
 #: ../textw/firewall_text.py:47
 msgid "No firewall"
-msgstr ""
+msgstr "કોઈ ફાયરવોલ નથી"
 
 #: ../textw/firewall_text.py:54
 msgid "Allow incoming:"
-msgstr ""
+msgstr "આવવાની પરવાનગી આપો:"
 
 #: ../textw/firewall_text.py:86 ../textw/language_text.py:145
 msgid "Invalid Choice"
-msgstr ""
+msgstr "અયોગ્ય પસંદ"
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "તમે નિષ્ક્રિય ફાયરવોલ કસ્ટમાઈઝ કરી શકતા નથી."
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
-msgstr ""
+msgstr "ફાયરવોલ રુપરેખાંકન કસ્ટમાઈઝ કરો"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "સુરક્ષા ઉન્નત લિનક્સ"
 
 #: ../textw/firewall_text.py:161
 msgid ""
@@ -5327,162 +5517,165 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"સુરક્ષા ઉન્નત લિનક્સ (SELinux) તમારી સિસ્ટમની સુરક્ષા સુધારવા માટે "
+"સખ્ત પહોંચ નિયંત્રકો પૂરા પાડે છે. તમે આ આધાર કેવી રીતે સક્રિય કરવા "
+"માંગો છો?"
 
 #: ../textw/firewall_text.py:169
 msgid "Disable SELinux"
-msgstr ""
+msgstr "SELinux નિષ્ક્રિય કરો"
 
 #: ../textw/firewall_text.py:171
 msgid "Warn on violations"
-msgstr ""
+msgstr "શાંતિભંગ પર ચેતવો"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
-msgstr ""
+msgstr "તમે કયા પ્રકારની સિસ્ટમ સ્થાપિત કરવા માંગો છો?"
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
-msgstr ""
+msgstr "કીબોર્ડની પસંદગી"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "આ કમ્પ્યુટર સાથે ક્યા પ્રકારનું કીબોર્ડ જોડેલું છે?"
 
 #: ../textw/language_text.py:108
 msgid "Select All"
-msgstr ""
+msgstr "બધું પસંદ કરો"
 
 #: ../textw/language_text.py:108
 msgid "Reset"
-msgstr ""
+msgstr "ફરીથી સુયોજિત કરો"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
+msgstr "આ સિસ્ટમ પર વાપરવા માટે તમને ગમતી વધારાની ભાષાઓ પસંદ કરો:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
-msgstr ""
+msgstr "ભાષાનો આધાર"
 
 #: ../textw/language_text.py:146
 msgid "You must select at least one language to install."
-msgstr ""
+msgstr "તમારે ઓછામાં ઓછી એક ભાષા સ્થાપન માટે પસંદ કરવી જ પડશે."
 
 #: ../textw/language_text.py:189
 msgid "Default Language"
-msgstr ""
+msgstr "મૂળભુત ભાષા"
 
 #: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
-msgstr ""
+msgstr "આ સિસ્ટમ માટે મૂળભુત ભાષા પસંદ કરો:"
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "તમારા માઉસ સાથે સ્થિત કયું ઉપકરણ છે?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "આ કમ્પ્યુટર સાથે માઉસનું કયું મોડેલ જોડેલું છે?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "૩ બટનો સુધી પહોંચવા માંગો છો?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr ""
+msgstr "માઉસની પસંદગી"
 
 #: ../textw/network_text.py:30
 msgid "Invalid IP string"
-msgstr ""
+msgstr "અયોગ્ય IP શબ્દમાળા"
 
 #: ../textw/network_text.py:31
 #, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr ""
+msgstr "દાખલ કરેલ IP '%s' એ માન્ય IP નથી."
 
 #: ../textw/network_text.py:68
 msgid "IP Address"
-msgstr ""
+msgstr "IP સરનામુ"
 
 #: ../textw/network_text.py:69
 msgid "Netmask"
-msgstr ""
+msgstr "નેટમાસ્ક"
 
 #: ../textw/network_text.py:71
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "પોઈન્ટ ટુ પોઈન્ટ (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "એનક્રિપ્શન કી"
 
 #: ../textw/network_text.py:88
 #, python-format
 msgid "Network Device: %s"
-msgstr ""
+msgstr "નેટવર્ક ઉપકરણ: %s"
 
 #: ../textw/network_text.py:94
 #, python-format
 msgid "Description: %s"
-msgstr ""
+msgstr "વર્ણન: %s"
 
 #: ../textw/network_text.py:99
 msgid "Configure using DHCP"
-msgstr ""
+msgstr "DHCP વાપરીને રુપરેખાંકિત કરો"
 
 #: ../textw/network_text.py:112
 msgid "Activate on boot"
-msgstr ""
+msgstr "બુટ વખતે સક્રિય કરો"
 
 #: ../textw/network_text.py:138
 #, python-format
 msgid "Network Configuration for %s"
-msgstr ""
+msgstr "%s માટેનું નેટવર્ક રુપરેખાંકન"
 
 #: ../textw/network_text.py:171
 msgid "Invalid information"
-msgstr ""
+msgstr "અયોગ્ય જાણકારી"
 
 #: ../textw/network_text.py:172
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "ચાલુ રાખવા માટે તમારે માન્ય IP દાખલ કરવું જ જોઈએ"
 
 #: ../textw/network_text.py:256
 msgid "Gateway:"
-msgstr ""
+msgstr "ગેટવે:"
 
 #: ../textw/network_text.py:266
 msgid "Primary DNS:"
-msgstr ""
+msgstr "પ્રાથમિક DNS:"
 
 #: ../textw/network_text.py:271
 msgid "Secondary DNS:"
-msgstr ""
+msgstr "ગૌણ DNS:"
 
 #: ../textw/network_text.py:276
 msgid "Tertiary DNS:"
-msgstr ""
+msgstr "તૃતિય DNS:"
 
 #: ../textw/network_text.py:283
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "મિશ્રિત નેટવર્ક સુયોજનો"
 
 #: ../textw/network_text.py:351
 msgid "automatically via DHCP"
-msgstr ""
+msgstr "DHCP મારફત આપોઆપ"
 
 #: ../textw/network_text.py:355
 msgid "manually"
-msgstr ""
+msgstr "જાતે"
 
 #: ../textw/network_text.py:374
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "યજમાનનામ રુપરેખાંકન"
 
 #: ../textw/network_text.py:377
 msgid ""
@@ -5491,51 +5684,55 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"જો તમારી સિસ્ટમ એ મોટા નેટવર્કનો ભાગ હોય કે જ્યાં યજમાનનામો DHCP "
+"દ્વારા નક્કી થાય, તો આપોઆપ DHCP દ્વારા પસંદ કરો. નહિંતર, જાતે પસંદ "
+"કરો અને તમારી સિસ્ટમ માટે યજમાનનામ દાખલ કરો. જો તમે એમ નહિં કરો, "
+"તો તમારી સિસ્ટમ 'localhost' તરીકે ઓળખાશે."
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "અયોગ્ય યજમાનનામ"
 
 #: ../textw/network_text.py:404
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "તમે યજમાનનામ સ્પષ્ટ કરેલ નથી."
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
-msgstr ""
+msgstr "અંગત પેકેજો પસંદ કરો"
 
 #: ../textw/packages_text.py:73
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> પસંદગી   |   <F2> જૂથની વિગતો   |   <F12> આગળીની સ્ક્રીન"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
-msgstr ""
+msgstr "પેકેજ જૂથની વિગતો"
 
 #: ../textw/packages_text.py:172
 msgid "Package :"
-msgstr ""
+msgstr "પેકેજ :"
 
 #: ../textw/packages_text.py:177
 msgid "Size    :"
-msgstr ""
+msgstr "માપ    :"
 
 #: ../textw/packages_text.py:178
 #, python-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:197
 msgid "Total size"
-msgstr ""
+msgstr "કુલ માપ"
 
 #: ../textw/packages_text.py:326
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
+msgstr "   <Space>,<+>,<-> પસંદગી   |   <F1> મદદ   |   <F2> પેકેજ વર્ણન"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
-msgstr ""
+msgstr "પેકેજોનું આધારભૂતપણુ"
 
 #: ../textw/packages_text.py:376
 msgid ""
@@ -5543,293 +5740,297 @@ msgid ""
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
+"સ્થાપન કરવા માટે તમે પસંદ કરેલ અમુક પેકેજોને નહિં પસંદ કરેલ પેકેજોની જરુર "
+"પડશે. જો તમે ફક્ત બરાબર પસંદ કરો તો બધા જરુરી પેકેજો સ્થાપિત થઈ જશે."
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
-msgstr ""
+msgstr "આધારભુતોનો સંતોષ મેળવવા માટે પેકેજો સ્થાપિત કરો"
 
 #: ../textw/packages_text.py:398
 msgid "Do not install packages that have dependencies"
-msgstr ""
+msgstr "જે પેકેજો બીજા પર આધાર રાખતા હોય તેને સ્થાપિત કરો નહિં"
 
 #: ../textw/packages_text.py:399
 msgid "Ignore package dependencies"
-msgstr ""
+msgstr "પેકેજોનું આધારપણું અવગણો"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
-msgstr ""
+msgstr "કિંમત સ્પષ્ટ કરો જ"
 
 #: ../textw/partition_text.py:42
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "માંગણી થયેલ કિંમત એ પૂર્ણાંક નથી"
 
 #: ../textw/partition_text.py:44
 msgid "Requested value is too large"
-msgstr ""
+msgstr "માંગણી થયેલ કિંમત એ ખૂબ મોટી છે"
 
 #: ../textw/partition_text.py:98
 #, python-format
 msgid "RAID Device %s"
-msgstr ""
+msgstr "RAID ઉપકરણ %s"
 
 #: ../textw/partition_text.py:227
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "ચેતવણી: %s"
 
 #: ../textw/partition_text.py:228
 msgid "Modify Partition"
-msgstr ""
+msgstr "પાર્ટીશન સુધારો"
 
 #: ../textw/partition_text.py:228
 msgid "Add anyway"
-msgstr ""
+msgstr "કોઈપણ રીતે ઉમેરો"
 
 #: ../textw/partition_text.py:266
 msgid "Mount Point:"
-msgstr ""
+msgstr "માઉન્ટ બિંદુ:"
 
 #: ../textw/partition_text.py:287
 msgid "File System type:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમનો પ્રકાર:"
 
 #: ../textw/partition_text.py:321
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "માન્ય ડ્રાઈવો:"
 
 #: ../textw/partition_text.py:377
 msgid "Fixed Size:"
-msgstr ""
+msgstr "ચોક્કસ માપ:"
 
 #: ../textw/partition_text.py:379
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "નું મહત્તમ માપ ભરો (MB):"
 
 #: ../textw/partition_text.py:383
 msgid "Fill all available space:"
-msgstr ""
+msgstr "બધી ઉપ્લબ્ધ જગ્યાઓ ભરો:"
 
 #: ../textw/partition_text.py:406
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "શરુઆતનો સીલીન્ડર:"
 
 #: ../textw/partition_text.py:419
 msgid "End Cylinder:"
-msgstr ""
+msgstr "અંતિમ સીલીન્ડર:"
 
 #: ../textw/partition_text.py:443
 msgid "RAID Level:"
-msgstr ""
+msgstr "RAID સ્તર:"
 
 #: ../textw/partition_text.py:461
 msgid "RAID Members:"
-msgstr ""
+msgstr "RAID સભ્યો:"
 
 #: ../textw/partition_text.py:480
 msgid "Number of spares?"
-msgstr ""
+msgstr "સ્પેરોની સંખ્યા?"
 
 #: ../textw/partition_text.py:494
 msgid "File System Type:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમ પ્રકાર:"
 
 #: ../textw/partition_text.py:507
 msgid "File System Label:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમ લેબલ:"
 
 #: ../textw/partition_text.py:518
 msgid "File System Option:"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમ વિકલ્પ:"
 
 #: ../textw/partition_text.py:521 ../textw/partition_text.py:759
 #: ../textw/partition_text.py:996
 #, python-format
 msgid "Format as %s"
-msgstr ""
+msgstr "%s તરીકે ફોર્મેટ કરો"
 
 #: ../textw/partition_text.py:523 ../textw/partition_text.py:761
 #: ../textw/partition_text.py:998
 #, python-format
 msgid "Migrate to %s"
-msgstr ""
+msgstr "%s માં ફેરવો"
 
 #: ../textw/partition_text.py:525 ../textw/partition_text.py:763
 #: ../textw/partition_text.py:1000
 msgid "Leave unchanged"
-msgstr ""
+msgstr "નહિં બદલાયેલને છોડી દો"
 
 #: ../textw/partition_text.py:541 ../textw/partition_text.py:736
 #: ../textw/partition_text.py:976
 msgid "File System Options"
-msgstr ""
+msgstr "ફાઈલ સિસ્ટમ વિકલ્પો"
 
 #: ../textw/partition_text.py:544
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr ""
+"મહેરબાની કરીને તમે કેવી રીતે આ પાર્ટીશન પર ફાઈલ સિસ્ટમ તૈયાર "
+"કરવા માંગો છો તે પસંદ કરો."
 
 #: ../textw/partition_text.py:552
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "ખરાબ બ્લોકો માટે ચકાસો"
 
 #: ../textw/partition_text.py:556
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "નહિં બદલાયેલને છોડી દો (માહિતી બચાવે છે)"
 
 #: ../textw/partition_text.py:565
 msgid "Format as:"
-msgstr ""
+msgstr "આ રીતે ફોર્મેટ કરો:"
 
 #: ../textw/partition_text.py:585
 msgid "Migrate to:"
-msgstr ""
+msgstr "માં ફેરવો:"
 
 #: ../textw/partition_text.py:697
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "પ્રાથમિક પાર્ટીશન તરીકે દબાણ કરો"
 
 #: ../textw/partition_text.py:714
 msgid "Not Supported"
-msgstr ""
+msgstr "આધારભૂત નથી"
 
 #: ../textw/partition_text.py:715
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "LVM વોલ્યુમ જૂથો માત્ર ગ્રાફિકવાળા સ્થાપકમાં ફેરફાર કરી શકાય."
 
 #: ../textw/partition_text.py:791 ../textw/partition_text.py:844
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "પાર્ટીશન માટે અયોગ્ય પ્રવેશ"
 
 #: ../textw/partition_text.py:803
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "મહત્તમ માપ માટે અયોગ્ય પ્રવેશ"
 
 #: ../textw/partition_text.py:822
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "શરુઆતના સીલીન્ડર માટે અયોગ્ય પ્રવેશ"
 
 #: ../textw/partition_text.py:836
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "અંતિમ સીલીન્ડર માટે અયોગ્ય પ્રવેશ"
 
 #: ../textw/partition_text.py:949
 msgid "No RAID partitions"
-msgstr ""
+msgstr "કોઈ RAID પાર્ટીશનો નથી"
 
 #: ../textw/partition_text.py:950
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "ઓછામાં ઓછા બે સોફ્ટવેર RAID પાર્ટીશનો જરુરી છે."
 
 #: ../textw/partition_text.py:962
 msgid "Format partition?"
-msgstr ""
+msgstr "પાર્ટીશન ફોર્મેટ કરવો છે?"
 
 #: ../textw/partition_text.py:1024
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "RAID સ્પેર માટે અયોગ્ય પ્રવેશ"
 
 #: ../textw/partition_text.py:1037
 msgid "Too many spares"
-msgstr ""
+msgstr "ઘણા બધા સ્પેર છે"
 
 #: ../textw/partition_text.py:1038
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "RAID0 અૅરે સાથે મહત્તમ સંખ્યાના સ્પેર ૦ છે."
 
 #: ../textw/partition_text.py:1134
 msgid "New"
-msgstr ""
+msgstr "નવું"
 
 #: ../textw/partition_text.py:1136 ../textw/userauth_text.py:236
 msgid "Delete"
-msgstr ""
+msgstr "કાઢી નાંખો"
 
 #: ../textw/partition_text.py:1137
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1140
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+msgstr "    F1-મદદ     F2-નવું      F3-ફેરફાર કરો   F4-કાઢી નાંખો    F5-ફરી સુયોજિત કરો    F12-બરાબર        "
 
 #: ../textw/partition_text.py:1169
 msgid "No Root Partition"
-msgstr ""
+msgstr "કોઈ રુટ પાર્ટીશન નથી"
 
 #: ../textw/partition_text.py:1170
 msgid "Must have a / partition to install on."
-msgstr ""
+msgstr "ના પર સ્થાપન કરવા માટે / પાર્ટીશન હોવું જ જોઈએ."
 
 #: ../textw/partition_text.py:1237
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "આ સ્થાપન માટે તમે કઈ ડ્રાઈવ પસંદ કરવા માંગો છો?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr ""
+msgstr "આપોઆપ પાર્ટીશન"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
-msgstr ""
+msgstr "ડિસ્ક ડ્રુડ"
 
 #: ../textw/progress_text.py:98
 msgid "Package Installation"
-msgstr ""
+msgstr "પેકેજનું સ્થાપન"
 
 #: ../textw/progress_text.py:100
 msgid " Name   : "
-msgstr ""
+msgstr " નામ   : "
 
 #: ../textw/progress_text.py:101
 msgid " Size   : "
-msgstr ""
+msgstr " માપ   : "
 
 #: ../textw/progress_text.py:102
 msgid " Summary: "
-msgstr ""
+msgstr " સાર: "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
-msgstr ""
+msgstr "    પેકેજો"
 
 #: ../textw/progress_text.py:148
 msgid "      Bytes"
-msgstr ""
+msgstr "      બાઈટો"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
-msgstr ""
+msgstr "        સમય"
 
 #: ../textw/progress_text.py:151
 msgid "Total    :"
-msgstr ""
+msgstr "કુલ    :"
 
 #: ../textw/progress_text.py:158
 msgid "Completed:   "
-msgstr ""
+msgstr "પૂર્ણ:   "
 
 #: ../textw/progress_text.py:168
 msgid "Remaining:  "
-msgstr ""
+msgstr "બાકીનું:  "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
 msgid "SILO Configuration"
-msgstr ""
+msgstr "SILO રુપરેખાંકન"
 
 #: ../textw/silo_text.py:77
 msgid "Create PROM alias `linux'"
-msgstr ""
+msgstr "PROM ઉપનામ `linux' બનાવો"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "મૂળભુત બુટ ઉપકરણ PROM સુયોજિત કરો"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "તમે ક્યાં બુટલોડર સ્થાપિત કરવા માંગો છો?"
 
 #: ../textw/silo_text.py:219
 msgid ""
@@ -5837,23 +6038,26 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
+"રેડ હેટ જે બુટ વ્યવસ્થાપક વાપરે છે તે બીજી ઓપરેટિંગ સિસ્ટમ પણ બુટ "
+"કરી શકે છે. તમારે કયા પાર્ટીશનને બુટ કરવો છે તે તમારે મને કહેવાની "
+"જરુર છે અને તે દરેક માટે તમે કયું લેબલ વાપરવા માંગો છો."
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "તમે કયા ટાઈમ ઝોનમાં સ્થિત થયેલા છો?"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "બુટ લોડર રુપરેખાંકન સુધારો"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "બુટ લોડર સુધારવાનું અવગણો"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "નવુ બુટ લોડર રુપરેખાંકન બનાવો"
 
 #: ../textw/upgrade_text.py:94
 #, python-format
@@ -5863,38 +6067,42 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"કર્નલ ૨.૪ ને જૂની કર્નલો કરતાં વધુ સ્વેપની જરુર છે, ઓછામાં ઓછી"
+"સ્વેપ જગ્યા તમારી સિસ્ટમની RAM કરતાં બેગણી હોવી જોઈએ. તમારી "
+"પાસે વર્તમાનમાં સ્વેપ માટે %dMB રુપરેખાંકિત કરેલ છે, પરંતુ તમે તમારી "
+"સિસ્ટમમાં કોઈપણ ફાઈલ સિસ્ટમ પર વધારાની સ્વેપ બનાવી શકો છો."
 
 #: ../textw/upgrade_text.py:112
 msgid "Free Space"
-msgstr ""
+msgstr "ખાલી જગ્યા"
 
 #: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "RAM મળી આવી (MB):"
 
 #: ../textw/upgrade_text.py:130
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "સૂચન થયેલ માપ (MB):"
 
 #: ../textw/upgrade_text.py:133
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "સ્વેપ ફાઈલ માપ (MB):"
 
 #: ../textw/upgrade_text.py:141
 msgid "Add Swap"
-msgstr ""
+msgstr "સ્વેપ ઉમેરો"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "તમે દાખલ કરેલ કિંમત એ માન્ય સંખ્યા નથી."
 
 #: ../textw/upgrade_text.py:205
 msgid "Reinstall System"
-msgstr ""
+msgstr "સિસ્ટમ ફરીથી સ્થાપિત કરો"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
-msgstr ""
+msgstr "સુધારા માટેની સિસ્ટમ"
 
 #: ../textw/upgrade_text.py:208
 msgid ""
@@ -5903,10 +6111,14 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"તમારી સિસ્ટમ પર પહેલાથી હાજર એક અથવા વધુ લિનક્સ સ્થાપન મળી આવ્યાં.\n"
+"\n"
+"મહેરબાની કરીને એક સુધારા માટે પસંદ કરો, અથવા 'સિસ્ટમ ફરીથી સ્થાપિત કરો'  "
+"વિકલ્પ તમારી સિસ્ટમમાં નવું સ્થાપન કરવા માટે પસંદ કરો."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
-msgstr ""
+msgstr "સુધારા માટે પેકેજો કસ્ટમાઈઝ કરો"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -5914,10 +6126,13 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
+"તમે સ્થાપિત કરેલ પેકેજો, અને બીજા બધા પેકેજો કે જે તેમના આધારપણાને "
+"સંતોષવા માટે જરુરી છે, તે સ્થાપન માટે પસંદ કરાયેલ છે. શું તમે પેકેજો "
+"ક્સ્ટમાઈઝ કરી શકો છો કે જે સુધારવાના છે?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
-msgstr ""
+msgstr "રુટ પાસવર્ડ"
 
 #: ../textw/userauth_text.py:31
 msgid ""
@@ -5925,71 +6140,78 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"રુટ પાસવર્ડ પસંદ કરો. તમારે એને બે વખત ખાતરી માટે લખવો જ જોઈએ "
+"અને લખતી વખતે કોઈ ભૂલ કરવી જોઈએ નહિં. યાદ રાખો કે રુટ પાસવર્ડ એ "
+"સિસ્ટમની સુરક્ષા માટે ખૂબ ખતરનાક ભાગ છે!"
 
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "રુટ પાસવર્ડ ઓછામાં ઓછો ૬ અક્ષરો જેટલો લાંબો હોવો જ જોઈએ."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
-msgstr ""
+msgstr "વપરાશકર્તામાં ફેરફાર કરો"
 
 #: ../textw/userauth_text.py:105
 msgid "Add User"
-msgstr ""
+msgstr "વપરાશકર્તા ઉમેરો"
 
 #: ../textw/userauth_text.py:110
 msgid "User Name"
-msgstr ""
+msgstr "વપરાશકર્તા નામ"
 
 #: ../textw/userauth_text.py:111
 msgid "Password"
-msgstr ""
+msgstr "પાસવર્ડ"
 
 #: ../textw/userauth_text.py:112
 msgid "Password (confirm)"
-msgstr ""
+msgstr "પાસવર્ડ (ખાતરી)"
 
 #: ../textw/userauth_text.py:113 ../textw/userauth_text.py:222
 msgid "Full Name"
-msgstr ""
+msgstr "પૂરું નામ"
 
 #: ../textw/userauth_text.py:125
 msgid "Bad User Name"
-msgstr ""
+msgstr "ખરાબ વપરાશકર્તા નામ"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
+msgstr "વપરાશકર્તા નામ માત્ર A-Z, a-z, અને 0-9 સમાવે છે."
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
-msgstr ""
+msgstr "વપરાશકર્તા નામ ખોવાઈ ગયું"
 
 #: ../textw/userauth_text.py:134
 msgid "You must provide a user name"
-msgstr ""
+msgstr "તમારે વપરાશકર્તા નામ પુરું પાડવું જ જોઈએ"
 
 #: ../textw/userauth_text.py:139
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "પાસવર્ડ ઓછામાં ઓછો ૬ અક્ષરો જેટલો લાંબો હોવો જ જોઈએ."
 
 #: ../textw/userauth_text.py:155 ../textw/userauth_text.py:162
 #: ../textw/userauth_text.py:170
 msgid "User Exists"
-msgstr ""
+msgstr "વપરાશકર્તાઓ હાજર છે"
 
 #: ../textw/userauth_text.py:156
 msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"રુટ વપરાશકર્તા પહેલાથી રુપરેખાંકિત છે. તમારે આ વપરાશકર્તાને "
+"અંહિ ઉમેરવાની જરુર છે."
 
 #: ../textw/userauth_text.py:163
 msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
+"સિસ્ટમ વપરાશકર્તા પહેલાથી જ રુપરેખાંકિત છે. તમારે આ વપરાશકર્તાને "
+"અંહિ ઉમેરવાની જરુર છે."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "વપરાશકર્તા id પહેલાથી હાજર છે.  બીજું પસંદ કરો."
 
 #: ../textw/userauth_text.py:198
 msgid ""
@@ -5997,10 +6219,13 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"તમારે તમારી સિસ્ટમ મોટા ભાગની સામાન્ય ક્રિયાઓ કરવા માટે સામાન્ય "
+"વપરાશકર્તા ખાતુ વાપરવું જોઈએ. રુટ વપરાશકર્તા ખાતું વાપરીને નહિં, "
+"તમે તમારી સિસ્ટમનું રુપરેખાંકન બગાડવાની શક્યતાઓ ઘટાડી રહ્યા છો."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
-msgstr ""
+msgstr "વપરાશકર્તા ખાતા સુયોજન"
 
 #: ../textw/userauth_text.py:211
 msgid ""
@@ -6008,87 +6233,90 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
+"બીજા વપરાશકર્તા ખાતાઓને સિસ્ટમ પર હોવાની શું જરુર છે? તમારી પાસે "
+"ઓછામાં ઓછો એક બિન-રુટ ખાતુ સામાન્ય કાર્ય કરવા માટે હોવું જોઈએ, પરંતુ "
+"ઘણા વપરાશકર્તા સિસ્ટમ પાસે કોઈપણ સંખ્યાના ખાતાઓ સુયોજિત કરી શકાય છે."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
-msgstr ""
+msgstr "વપરાશકર્તા નામ"
 
 #: ../textw/userauth_text.py:236
 msgid "Add"
-msgstr ""
+msgstr "ઉમેરો"
 
 #: ../textw/userauth_text.py:249
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "વપરાશકર્તા માટે જાણકારી દાખલ કરો."
 
 #: ../textw/userauth_text.py:267
 msgid "Change the information for this user."
-msgstr ""
+msgstr "આ વપરાશકર્તા માટે જાણકારી બદલો."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
-msgstr ""
+msgstr "શેડો પાસવર્ડ વાપરો"
 
 #: ../textw/userauth_text.py:341
 msgid "Enable MD5 Passwords"
-msgstr ""
+msgstr "MD5 પાસવર્ડો સક્રિય કરો"
 
 #: ../textw/userauth_text.py:346
 msgid "Enable NIS"
-msgstr ""
+msgstr "NIS સક્રિય કરો"
 
 #: ../textw/userauth_text.py:352
 msgid "NIS Domain:"
-msgstr ""
+msgstr "NIS ડોમેઈન:"
 
 #: ../textw/userauth_text.py:354
 msgid "NIS Server:"
-msgstr ""
+msgstr "NIS સર્વર:"
 
 #: ../textw/userauth_text.py:356
 msgid "or use:"
-msgstr ""
+msgstr "અથવા વાપરો:"
 
 #: ../textw/userauth_text.py:359
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "બ્રોડકાસ્ટ દ્વારા સર્વરને માંગણી કરો"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
-msgstr ""
+msgstr "LDAP સક્રિય કરો"
 
 #: ../textw/userauth_text.py:386
 msgid "LDAP Server:"
-msgstr ""
+msgstr "LDAP સર્વર:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP આધારિત DN:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
-msgstr ""
+msgstr "TLS જોડાણો વાપરો"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr ""
+msgstr "કર્બરોઝ સક્રિય કરો"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
-msgstr ""
+msgstr "રીઆલ્મ:"
 
 #: ../textw/userauth_text.py:418
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
 msgid "Admin Server:"
-msgstr ""
+msgstr "સંચાલક સર્વર:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -6096,88 +6324,90 @@ msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"%s માં તમારું સ્વાગત છે!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
-msgstr ""
+msgstr "રંગની ઊંડાઈ"
 
 #: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
-msgstr ""
+msgstr "મહેરબાની કરીને તમે જે વાપરવા માંગતા હોય તે રંગની ઊંડાઈ પસંદ કરો:"
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
-msgstr ""
+msgstr "રીઝોલ્યુશન"
 
 #: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "મહેરબાની કરીને તમે જે વાપરવા માંગતા હોય તે રીઝોલ્યુશન વાપરો:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
-msgstr ""
+msgstr "X કસ્ટમાઈઝેશન"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
+msgstr "તમારી સિસ્ટમ માટે રંગની ઊંડાઈ અને વિડીયો માધ્યમ પસંદ કરો. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
-msgstr ""
+msgstr "રંગની ઊંડાઈ:"
 
 #: ../textw/xconfig_text.py:142 ../textw/xconfig_text.py:149
 #: ../textw/xconfig_text.py:427 ../textw/xconfig_text.py:438
 #: ../textw/xconfig_text.py:657 ../textw/xconfig_text.py:664
 msgid "Change"
-msgstr ""
+msgstr "બદલો"
 
 #: ../textw/xconfig_text.py:145
 msgid "Resolution:"
-msgstr ""
+msgstr "રીઝોલ્યુશન:"
 
 #: ../textw/xconfig_text.py:155
 msgid "Default Desktop:"
-msgstr ""
+msgstr "મૂળભુત ડેસ્કટોપ:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
-msgstr ""
+msgstr "જીનોમ"
 
 #: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
-msgstr ""
+msgstr "કેડીઈ"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
-msgstr ""
+msgstr "મૂળભુત પ્રવેશ:"
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
-msgstr ""
+msgstr "ગ્રાફિકવાળું"
 
 #: ../textw/xconfig_text.py:180
 msgid "Text"
-msgstr ""
+msgstr "લખાણ"
 
 #: ../textw/xconfig_text.py:228
 msgid "Monitor"
-msgstr ""
+msgstr "મોનિટર"
 
 #: ../textw/xconfig_text.py:229
 msgid "Please select the monitor attached to your system."
-msgstr ""
+msgstr "મહેરબાની કરીને તમારી સિસ્ટમ સાથે મોનિટર પસંદ કરો."
 
 #: ../textw/xconfig_text.py:254
 msgid "horizontal"
-msgstr ""
+msgstr "આડુ"
 
 #: ../textw/xconfig_text.py:257
 msgid "vertical"
-msgstr ""
+msgstr "ઊભુ"
 
 #: ../textw/xconfig_text.py:261
 msgid "Invalid Sync Rates"
-msgstr ""
+msgstr "અયોગ્ય સુમેળ દરો"
 
 #: ../textw/xconfig_text.py:262
 #, python-format
@@ -6192,10 +6422,19 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
+"%s સુમેળ દર અયોગ્ય છે:\n"
+"\n"
+"      %s\n"
+"\n"
+"માન્ય સુમેળ દર આ પ્રકારનો હોઈ શકે:\n"
+"\n"
+"      ૩૧.૫                   એક નંબર\n"
+"    ૫૦.૧-૯૦.૨                નંબરોનો વિસ્તાર\n"
+"૩૧.૫,૩૫.૦,૩૯.૨-૪૦.૦          નંબરો/વિસ્તારોની યાદી\n"
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "મોનિટર સુમેળ દરો"
 
 #: ../textw/xconfig_text.py:281
 msgid ""
@@ -6204,6 +6443,10 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"મહેરબાની કરીને તમારા મોનિટર માટે મોનિટર સુમેળ દરો દાખલ કરો. \n"
+"\n"
+"નોંધ - એ મોટે ભાગે જરુરી નથી કે સુમેળ દરોમાં જાતે ફેરફાર કરવો અને "
+"દાખલ કરેલ કિંમતોની ખાતરી કરવા માટે કાળજી રાખવી જોઈએ."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
