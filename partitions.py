@@ -823,16 +823,34 @@ class Partitions:
             iutil.getPPCMachine() == "iSeries"):
             reqs = self.getBootableRequest()
             found = 0
+
+            bestreq = None
             if reqs:
                 for req in reqs:
                     if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                         found = 1
-                        break
+                        # the best one is either the first or the first
+                        # newly formatted one
+                        if ((bestreq is None) or ((bestreq.format == 0) and
+                                                  (req.format == 1))):
+                            bestreq = req
             if iutil.getPPCMachine() == "iSeries" and iutil.hasIbmSis():
                 found = 1
                 
             if not found:
                 errors.append(_("You must create a PPC PReP Boot partition."))
+
+            if bestreq is not None:
+                if (iutil.getPPCMachine() == "pSeries"):
+                    minsize = 4
+                else:
+                    minsize = 16
+                if bestreq.getActualSize(self, diskset) < minsize:
+                    warnings.append(_("Your %s partition is less than %s "
+                                      "megabytes which is lower than "
+                                      "recommended for a normal %s install.")
+                                    %(_("PPC PReP Boot"), size, productName))
+                    
 
         for (mount, size) in checkSizes:
             req = self.getRequestByMountPoint(mount)
