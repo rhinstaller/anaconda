@@ -49,13 +49,7 @@ class CongratulationWindow (InstallWindow):
 	    a.set_size_request(200, -1)
             hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
-        if iutil.getArch() == 'i386':
-            bootstr = _("If you created a boot diskette during this "
-			"installation as your primary means of "
-			"booting %s, insert it before "
-			"rebooting your newly installed system.\n\n") % (productName,)
-        else:
-            bootstr = ""
+        bootstr = ""
 
         if iutil.getArch() == "s390":
             floppystr = ""
