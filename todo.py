@@ -1062,7 +1062,7 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
-        if self.upgrade:
+        if self.upgrade and self.dbpath:
             # move the rebuilt db into place.
             os.rename (self.instPath + "/var/lib/rpm",
                        self.instPath + "/var/lib/rpm-old")
@@ -1070,6 +1070,8 @@ class ToDo:
                        self.instPath + "/var/lib/rpm")
             rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
             iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+            # flag this so we only do it once.
+            self.dbpath = None
 
         self.method.targetFstab (self.fstab)
 
@@ -1211,6 +1213,9 @@ class ToDo:
 		    script.close()
 		    os.chmod(self.instPath + "/etc/X11/X", 0755)
 		else:
+                    if os.access (self.todo.instPath + "/etc/X11/X", os.R_OK):
+                        os.rename (self.todo.instPath + "/etc/X11/X",
+                                   self.todo.instPath + "/etc/X11/X.rpmsave")
 		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
 				self.instPath + "/etc/X11/X")
 		self.x.write (self.instPath + "/etc/X11/XF86Config")
