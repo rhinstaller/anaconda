@@ -232,7 +232,6 @@ makemainmodules() {
 }
 
 makeinitrd() {
-    EXTRAKERNELPATH=""
     EXTRAINITRDPATH=""
     PCMCIA=""
     INITRDSIZE=""
