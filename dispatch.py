@@ -22,7 +22,8 @@ from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
 from packages import doPreInstall, doPostInstall, doPostAction
-from autopart import doAutoPartition, firstbootConfiguration
+from autopart import doAutoPartition
+from packages import firstbootConfiguration
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
