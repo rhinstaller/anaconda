@@ -499,6 +499,7 @@ class PartitionRequests:
 
     def setFromDisk(self, diskset):
         self.deletes = []
+        self.requests = []
         diskset.refreshDevices()
         drives = diskset.disks.keys()
         drives.sort()
@@ -873,8 +874,5 @@ def autoCreatePartitionRequests(autoreq):
                                    format = format)
         
         requests.append(newrequest)
-
-    for r in requests:
-        print r
 
     return requests

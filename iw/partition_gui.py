@@ -463,8 +463,8 @@ class PartitionWindow(InstallWindow):
             entry = request.toEntry()
             self.fsset.add (entry)
 
-        print self.fsset.fstab()
-        print self.fsset.raidtab()
+#        print self.fsset.fstab()
+#        print self.fsset.raidtab()
         del self.parent
         return None
 
@@ -1229,8 +1229,8 @@ class PartitionWindow(InstallWindow):
         self.diskset.openDevices()
         self.partitions = partitions
 
-        for part in self.partitions.requests:
-            print part
+#        for part in self.partitions.requests:
+#            print part
         
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in

@@ -399,7 +399,6 @@ def deletePart(diskset, delete):
             disk.delete_partition(part)
             return
         part = disk.next_partition(part)
-    
 
 def processPartitioning(diskset, requests):
     # reset disk to original state
@@ -472,7 +471,6 @@ def processPartitioning(diskset, requests):
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()
 
-
 def doPartitioning(diskset, requests):
     for request in requests.requests:
         request.requestSize = request.size
@@ -538,6 +536,8 @@ def doClearPartAction(id, type, cleardrives):
         ext = disk.extended_partition
         if ext and len(get_logical_partitions(disk)) == 0:
             delete = DeleteSpec(drive, ext.geom.start, ext.geom.end)
+            old = id.partrequests.getRequestByDeviceName(get_partition_name(ext))
+            id.partrequests.removeRequest(old)
             id.partrequests.addDelete(delete)
             continue
     
