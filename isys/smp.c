@@ -617,24 +617,19 @@ int detectSMP(void)
     if (isSMP != -1)
 	return isSMP;
 
-#ifdef __i386__
+#if defined (__i386__)
     return isSMP = intelDetectSMP();
-#elif __sparc__
+#elif defined (__sparc__)
     return isSMP = sparcDetectSMP();
-#elif __alpha__
+#elif defined (__alpha__)
     return isSMP = alphaDetectSMP();
-#elif __s390__
+#elif defined (__s390__) || defined (__s390x__)
     return isSMP = s390DetectSMP();
-#elif __s390x__
-    return isSMP = s390DetectSMP();
-#elif __ia64__
+#elif defined (__ia64__) || defined (__x86_64__)
     return isSMP = 1;
-#elif __x86_64__
-    return isSMP = 1;
-#elif __powerpc__
+#elif defined (__powerpc__)
     return isSMP = powerpcDetectSMP();
 #else
     #error unknown architecture
 #endif
 }
-	
