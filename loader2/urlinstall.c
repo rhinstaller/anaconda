@@ -416,7 +416,7 @@ int kickstartFromUrl(char * url, struct loaderData_s * loaderData,
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
-    char *url;
+    char *url = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksUrlOptions[] = {

@@ -450,7 +450,7 @@ char * mountHardDrive(struct installMethod * method,
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
-    char *biospart, *partition, *dir, *p;
+    char *biospart = NULL, *partition = NULL, *dir = NULL, *p;
     poptContext optCon;
     int rc;
 

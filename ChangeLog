@@ -1,5 +1,9 @@
 2004-09-28  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hdinstall.c (setKickstartHD): 
+	* loader2/urlinstall.c (setKickstartUrl): 
+	Make sure variables are initialized (#133996).
+
 	* isys/isys.py (readSwapLabel): Add function to read label from
 	swap filesystems.
 	(readFSLabel): Read swap and JFS labels too.
