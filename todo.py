@@ -378,9 +378,10 @@ class ToDo:
         self.videoCardStateName = ""
         self.videoCardStateNode = ""
         self.videoRamState = ""
+        self.videoRamOriginal = ""
         self.monitorOriginalName = ""
         self.monitorOriginalNode = ""
-        
+        self.probedFlag = ""
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
