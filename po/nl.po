@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3.94\n"
 "POT-Creation-Date: 2002-09-02 23:28-0400\n"
-"PO-Revision-Date: 2002-09-03 12:46+0200\n"
+"PO-Revision-Date: 2002-09-04 15:41+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -6010,7 +6010,7 @@ msgstr "Videokaart-configuratie"
 
 #: ../textw/xconfig_text.py:643
 msgid "Select the video card and video RAM for your system."
-msgstr "Selecteer de videokkaart en video-RAM voor uw systeem."
+msgstr "Selecteer de videokaart en video-RAM voor uw systeem."
 
 #: ../textw/xconfig_text.py:646
 msgid "Video Card:"
@@ -6047,7 +6047,7 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home or "
 "desktop use."
 msgstr ""
-"Perfect voor PCs of laptops. Seleceteer dit type om een grafische "
+"Perfect voor PCs of laptops. Selecteer dit type om een grafische "
 "desktopomgeving te installeren. Een desktopsysteem dat ideaal is voor gebruik "
 "thuis, of op het werk."
 
@@ -6063,7 +6063,7 @@ msgid ""
 msgstr ""
 "Selecteer dit installatietype als u bestand-delen (file-sharing), "
 "printer-delen, of Webservices wilt instellen. Ook kunnen extra services "
-"worden aangezet, en kunt u kiezen of u een grafische omgeving wilt "
+"worden aangezet en kunt u kiezen of u een grafische omgeving wilt "
 "installeren."
 
 #: ../installclasses/upgradeclass.py:8
@@ -6100,9 +6100,9 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Deze module kan parameters krijgen die de werking beïnvloeden.  ALs u niet "
-"weet wat voor parameters u moet opgeven, slaat u dit scherm gewoon over door "
-"nu op de \"OK\"-knop te klikken."
+"Deze module kan parameters meekrijgen die de werking beïnvloeden.  Als u niet "
+"weet welke parameters u moet opgeven, kunt u dit scherm gewoon overslaan door "
+"nu op \"OK\" te klikken."
 
 #: ../loader/devices.c:93
 msgid "Module Parameters"
@@ -6123,7 +6123,7 @@ msgstr "Voer uw driver-diskette in en geef \"OK\" om door te gaan."
 
 #: ../loader/devices.c:265
 msgid "Failed to mount driver disk."
-msgstr "Driver-diskette aankoppelen mislukt"
+msgstr "Aankoppelen driver-diskette mislukt"
 
 #: ../loader/devices.c:272
 #, c-format
@@ -6140,7 +6140,7 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "Welke driver zal ik proberen? Als de benodigde driver niet in de lijst "
-"voorkomt, en u heeft een aparte driverdiskette, druk dan op F2."
+"voorkomt, en u heeft een aparte driver-diskette, druk dan op F2."
 
 #: ../loader/devices.c:341
 msgid "Specify module parameters"
@@ -6219,7 +6219,7 @@ msgstr "Wat voor apparaat wilt u toevoegen?"
 
 #: ../loader/loader.c:383
 msgid "The following devices have been found on your system:"
-msgstr "De volgende devices zijn op uw systeem gevonden:"
+msgstr "De volgende apparaten zijn op uw systeem gevonden:"
 
 #: ../loader/loader.c:385 ../loader/loader.c:410
 msgid "Done"
@@ -6227,7 +6227,7 @@ msgstr "Gereed"
 
 #: ../loader/loader.c:385 ../loader/loader.c:410
 msgid "Add Device"
-msgstr "Device Toevoegen"
+msgstr "Apparaat Toevoegen"
 
 #: ../loader/loader.c:411
 msgid ""
@@ -6240,15 +6240,15 @@ msgstr ""
 #: ../loader/loader.c:494 ../loader/loader.c:935 ../loader/loader.c:2922
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Map %s lezen is mislukt: %s"
+msgstr "Lezen van map %s is mislukt: %s"
 
 #: ../loader/loader.c:603
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"Er is een fout opgetreden bij het lezen van de ISO-images. Controleer "
-"alstublieft uw ISO-images en probeer opnieuw."
+"Er is een fout opgetreden bij het lezen van de ISO-images. Controleer uw "
+"ISO-images alstublieft en probeer opnieuw."
 
 #: ../loader/loader.c:952
 #, c-format
@@ -6270,8 +6270,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Schijnbaar heeft u geen harde schijven in uw systeem! Wilt u aanvullende "
-"apparaten configureren?"
+"Schijnbaar heeft u geen harde schijven in uw systeem! Wilt u andere apparaten "
+"configureren?"
 
 #: ../loader/loader.c:1183
 #, c-format
@@ -6312,7 +6312,7 @@ msgid ""
 "CD and insert another for testing."
 msgstr ""
 "Kies \"%s\" om de CD te testen die zich momenteel in het station bevindt. Of "
-"kies \"%s\" om de CD uit te werpen en een nieuwe in te voeren die vervolgens "
+"kies \"%s\" om de CD uit te werpen en een andere in te voeren die vervolgens "
 "getest kan worden."
 
 #: ../loader/loader.c:1339
@@ -6326,11 +6326,10 @@ msgid ""
 "\"%s\"."
 msgstr ""
 "Als u andere mediadragers wilt testen, voert u de volgende CD in en klikt u "
-"op \"%s\".  U hoeft niet alle CDs te testen alhoewel het wordt aangeraden dit "
-"tenminste één keer te doen.\n"
+"op \"%s\".  U hoeft niet alle CDs te testen alhoewel het wel wordt aangeraden "
+"dit tenminste één keer te doen.\n"
 "\n"
-"Om te beginnen met het installatieproces voert u CD #1 in en klikt u op "
-"\"%s\"."
+"Om het installatieproces te starten voert u CD #1 in en klikt u op \"%s\"."
 
 #: ../loader/loader.c:1360 ../loader/loader.c:1484
 #, c-format
@@ -6535,7 +6534,7 @@ msgid ""
 msgstr ""
 "NB.\n"
 "\n"
-"Geen checksum-informatie beschikbaar, kon de mediadrager niet verifiëren."
+"Geen controlesom-informatie beschikbaar, kon het medium niet verifiëren."
 
 #: ../loader/mediacheck.c:334
 msgid "Media Check Result"
@@ -6562,7 +6561,7 @@ msgstr "De medium-controle %s is compleet en het resultaat is: %s\n"
 #: ../loader/modules.c:390
 #, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Aankoppelen driver-disk: %s mislukt."
+msgstr "Aankoppelen driver-diskette: %s mislukt."
 
 #: ../loader/modules.c:410
 msgid "The wrong diskette was inserted."
@@ -6734,11 +6733,11 @@ msgstr "Wilt u uw netwerk instellen?"
 
 #: ../loader/pcmcia.c:38
 msgid "PC Card"
-msgstr "PC-Kaart"
+msgstr "PC-kaart"
 
 #: ../loader/pcmcia.c:39
 msgid "Initializing PC Card Devices..."
-msgstr "PC-kaart apparaten aan het initialiseren..."
+msgstr "PC-kaart apparaten worden geïnitialiseerd..."
 
 #: ../loader/pcmcia.c:107
 msgid "PCMCIA"
@@ -6746,7 +6745,7 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:108
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Doe nu uw PCMCIA driver diskette in de floppydrive."
+msgstr "Doe nu uw PCMCIA driver-diskette in de floppydrive."
 
 #: ../loader/pcmcia.c:117
 msgid "Failed to mount disk."
@@ -6792,7 +6791,7 @@ msgstr "Niet-anonieme ftp gebruiken"
 
 #: ../loader/urls.c:246
 msgid "Use proxy server"
-msgstr "Proxy server gebruiken"
+msgstr "Proxyserver gebruiken"
 
 #: ../loader/urls.c:258
 msgid "FTP Setup"
@@ -6832,7 +6831,7 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"ALs u een HTTP-proxyserver gebruikt, moet u de naam van de HTTP-proxyserver "
+"Als u een HTTP-proxyserver gebruikt, moet u de naam van de HTTP-proxyserver "
 "invoeren."
 
 #: ../loader/urls.c:386
@@ -7097,7 +7096,8 @@ msgstr "Eastern Time - Ontario & Quebec - meeste lokaties"
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-"Eastern Time - Ontario & Quebec - plaatsen die DST 1967-1973 niet gebruikten"
+"Eastern Time - Ontario & Quebec - plaatsen die DST 1967-1973 niet in acht "
+"namen"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7577,5 +7577,3 @@ msgstr "Zweeds"
 msgid "Ukrainian"
 msgstr "Oekraïns"
 
-#~ msgid "Romanian"
-#~ msgstr "Roemeens"
