@@ -274,7 +274,7 @@ def growParts(diskset, requests):
                 request.requestSize = cur
 
                 # try adding
-                ret = processPartitioning(diskset, newRequest)
+                (ret, msg) = processPartitioning(diskset, newRequest)
 #                print diskset.diskState()
 
                 if ret == PARTITION_SUCCESS:
@@ -292,7 +292,7 @@ def growParts(diskset, requests):
             if ret == PARTITION_FAIL:
                 request.requestSize = min
                 # XXX this can't fail (?)
-                processPartitioning(diskset, newRequest)
+                (ret, msg) = processPartitioning(diskset, newRequest)
 
     return PARTITION_SUCCESS
 
