@@ -295,7 +295,6 @@ msgid "Bootdisk"
 msgstr "Zavádìcí disketa"
 
 #: ../text.py:441
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -556,9 +555,8 @@ msgstr "Instalace dokonèena"
 
 #: ../text.py:960 ../text.py:963 ../text.py:966 ../textw/silo.py:24
 #: ../textw/silo.py:62 ../textw/silo.py:153
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Konfigurace LILO"
+msgstr "Konfigurace SILO"
 
 #: ../text.py:971
 msgid "Examine System"
@@ -816,7 +814,7 @@ msgstr "Typ"
 
 #: ../iw/lilo.py:128
 msgid "Install LILO boot record on:"
-msgstr "Instalace zavadìèe LILO na:"
+msgstr "Instalovat zavadìè LILO na:"
 
 #: ../iw/lilo.py:133 ../iw/silo.py:134
 msgid "Master Boot Record (MBR)"
@@ -1020,24 +1018,20 @@ msgid "Manually partition"
 msgstr "Ruèní rozdìlování diskù"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Konfigurace LILO"
+msgstr "Konfigurace SILO"
 
 #: ../iw/silo.py:126
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Instalace zavadìèe LILO na:"
+msgstr "Instalovat zavadìè SILO na:"
 
 #: ../iw/silo.py:132
-#, fuzzy
 msgid "First sector of boot partition (recommended)"
-msgstr "První sektor zavádìcího oddílu"
+msgstr "První sektor zavádìného oddílu (doporuèeno)"
 
 #: ../iw/silo.py:157
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Neinstalovat LILO"
+msgstr "Neinstalovat SILO"
 
 #: ../iw/timezone.py:130
 msgid "View:"
