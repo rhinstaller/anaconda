@@ -89,7 +89,7 @@ class UpgradeSwapWindow:
 
 	(fsList, suggSize, suggMntPoint) = rc
 
-        ramDetected = iutil.memInstalled(corrected=1)/1024
+        ramDetected = iutil.memInstalled()/1024
 
 	text = _("The 2.4 kernel needs significantly more swap than older "
 		 "kernels, as much as twice as much swap space as RAM on the "

@@ -150,7 +150,7 @@ def upgradeMigrateFind(dispatch, thefsset):
 # returns None if no more swap is needed
 def upgradeSwapSuggestion(dispatch, id, instPath):
     # mem is in kb -- round it up to the nearest 4Mb
-    mem = iutil.memInstalled(corrected = 0)
+    mem = iutil.memInstalled()
     rem = mem % 16384
     if rem:
 	mem = mem + (16384 - rem)
