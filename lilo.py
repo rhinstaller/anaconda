@@ -85,6 +85,7 @@ class LiloConfigFile:
 		continue
 	    if l[0] == '#':
 		self.order.append('#' + orig)
+		continue
 	    fields = string.split(l, '=', 1)
 	    if (len(fields) == 2):
 		f0 = string.strip (fields [0])
