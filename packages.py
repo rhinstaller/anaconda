@@ -385,7 +385,7 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
 
     if flags.setupFilesystems:
 	if not upgrade.get():
-            partitions.doMetaDeletes()
+            partitions.doMetaDeletes(diskset)
             thefsset.setActive(diskset)
             if not thefsset.isActive():
                 diskset.savePartitions ()

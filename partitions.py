@@ -979,10 +979,11 @@ class Partitions:
         return None
 
 
-    def doMetaDeletes(self):
+    def doMetaDeletes(self, diskset):
         """Does the removal of all of the non-physical volumes in the delete list."""
 
-        # have to have lvm on first
+        # have to have lvm on, which requires raid to be started
+        diskset.startAllRaid()
         lvm.vgactivate()
 
         # now, go through and delete logical volumes
@@ -996,6 +997,7 @@ class Partitions:
                 lvm.vgremove(delete.name)
 
         lvm.vgdeactivate()
+        diskset.stopAllRaid()
 
 
     def deleteDependentRequests(self, request):
