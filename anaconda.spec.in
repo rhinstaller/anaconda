@@ -10,6 +10,7 @@ BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-dev
 Prereq: chkconfig /etc/init.d
 Requires: rpm404-python, rhpl
 Excludearch: sparc sparc64
+Url: http://rhlinux.redhat.com/anaconda/
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
@@ -70,6 +71,9 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Wed Aug 21 2002 Jeremy Katz <katzj@redhat.com>
+- added URL
 
 * Thu May 23 2002 Jeremy Katz <katzj@redhat.com>
 - add require and buildrequire on rhpl
