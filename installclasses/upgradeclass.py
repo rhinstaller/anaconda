@@ -47,6 +47,7 @@ class InstallClass(BaseInstallClass):
 
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
+            dispatch.skipStep("bootloader")
 
     def setInstallData(self, id):
         BaseInstallClass.__init__(self, id)
