@@ -257,6 +257,9 @@ if traceOnly:
     import mimetools
     import mimetypes
     import syslogd
+    import installclass
+
+    installclass.availableClasses()
 
     if iutil.getArch() == "i386":
 	import edd
