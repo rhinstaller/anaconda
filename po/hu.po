@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-07-20 14:05-0400\n"
+"POT-Creation-Date: 2001-07-23 14:32-0400\n"
 "PO-Revision-Date: 2000-08-17 11:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -9,19 +9,46 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../autopart.py:719
+#: ../autopart.py:718
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
 
-#: ../autopart.py:830
+#: ../autopart.py:832
+#, fuzzy
+msgid "Requested Partition Does Not Exist"
+msgstr "Lekötetlen partíciók találhatók..."
+
+#: ../autopart.py:833
+#, c-format
+msgid ""
+"Unable to locate partition %s to use for %s.\n"
+"\n"
+"Press OK to reboot your system."
+msgstr ""
+
+#: ../autopart.py:865
+msgid "Partition Request Sanity Check Errors"
+msgstr ""
+
+#: ../autopart.py:866
+#, c-format
+msgid ""
+"The following errors occurred with your partitioning:\n"
+"\n"
+"%s\n"
+"\n"
+"Press OK to reboot your system."
+msgstr ""
+
+#: ../autopart.py:875
 #, fuzzy
 msgid "Warnings During Automatic Partitioning"
 msgstr "Automatikus Particionálás"
 
-#: ../autopart.py:831
+#: ../autopart.py:876
 #, fuzzy, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -29,31 +56,31 @@ msgid ""
 "%s"
 msgstr "Automatikus Particionálás"
 
-#: ../autopart.py:837 ../iw/partition_gui.py:1120
+#: ../autopart.py:888 ../iw/partition_gui.py:1132
 #: ../textw/partition_text.py:147
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Kézi particionálás"
 
-#: ../autopart.py:838
+#: ../autopart.py:889
 #, fuzzy, c-format
 msgid ""
-"Could not allocated requested partitions: \n"
+"Could not allocate requested partitions: \n"
 "\n"
-"%s."
+"%s.%s"
 msgstr "Lekötetlen partíciók találhatók..."
 
-#: ../autopart.py:869 ../harddrive.py:233 ../iw/bootloader_gui.py:67
-#: ../iw/partition_gui.py:1125 ../iw/partition_gui.py:1437
+#: ../autopart.py:923 ../harddrive.py:233 ../iw/bootloader_gui.py:67
+#: ../iw/partition_gui.py:1137 ../iw/partition_gui.py:1449
 #: ../iw/upgrade_swap_gui.py:169 ../iw/upgrade_swap_gui.py:177
-#: ../iw/upgrade_swap_gui.py:184 ../partitioning.py:1090
+#: ../iw/upgrade_swap_gui.py:184 ../partitioning.py:1273
 #: ../textw/bootloader_text.py:128 ../textw/partition_text.py:151
-#: ../textw/upgrade_text.py:180
+#: ../textw/upgrade_text.py:172
 #, fuzzy
 msgid "Warning"
 msgstr "Keresés"
 
-#: ../autopart.py:875
+#: ../autopart.py:929
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -66,28 +93,28 @@ msgid ""
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
 
-#: ../autopart.py:891
+#: ../autopart.py:945
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
 
-#: ../autopart.py:896
+#: ../autopart.py:950
 #, fuzzy
 msgid "Remove all partitions on this system"
 msgstr "Linux partíciók eltávolítása"
 
-#: ../autopart.py:897
+#: ../autopart.py:951
 #, fuzzy
 msgid "Remove all Linux Partitions on this system"
 msgstr "Linux partíciók eltávolítása"
 
-#: ../autopart.py:898
+#: ../autopart.py:952
 #, fuzzy
 msgid "Keep all partitions and use existing free space"
 msgstr "Meglévõ szabad terület használata"
 
-#: ../autopart.py:900
+#: ../autopart.py:954
 #, fuzzy, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -100,7 +127,7 @@ msgstr ""
 "meghajtóhoz hozzárendelte volna.\n"
 " Biztos, hogy ezt akarja?"
 
-#: ../autopart.py:905
+#: ../autopart.py:959
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -158,21 +185,21 @@ msgstr "Master Boot Record (MBR)"
 msgid "First sector of boot partition"
 msgstr "Boot-partíció elsõ szektora"
 
-#: ../fsset.py:696 ../fsset.py:715 ../fsset.py:752 ../fsset.py:772
-#: ../fsset.py:801 ../fsset.py:821 ../harddrive.py:171 ../image.py:65
+#: ../fsset.py:696 ../fsset.py:715 ../fsset.py:760 ../fsset.py:780
+#: ../fsset.py:809 ../fsset.py:829 ../harddrive.py:171 ../image.py:65
 #: ../image.py:142 ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:27 ../loader/lang.c:102
 #: ../loader/loader.c:478 ../loader/loader.c:535 ../loader/loader.c:912
 #: ../loader/loader.c:967 ../loader/loader.c:1140 ../loader/loader.c:1145
-#: ../loader/loader.c:1185 ../loader/loader.c:1244 ../loader/loader.c:2112
-#: ../loader/loader.c:2142 ../loader/loader.c:2220 ../loader/loader.c:2432
+#: ../loader/loader.c:1185 ../loader/loader.c:1244 ../loader/loader.c:2207
+#: ../loader/loader.c:2237 ../loader/loader.c:2315 ../loader/loader.c:2527
 #: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:79
 #: ../loader/urls.c:89 ../loader/urls.c:97 ../loader/urls.c:236
-#: ../loader/urls.c:241 ../packages.py:236 ../partitioning.py:949
-#: ../partitioning.py:980 ../textw/bootdisk_text.py:88
-#: ../textw/upgrade_text.py:168 ../textw/upgrade_text.py:175
-#: ../textw/upgrade_text.py:197 ../upgrade.py:265 ../upgrade.py:277
+#: ../loader/urls.c:241 ../packages.py:237 ../partitioning.py:1132
+#: ../partitioning.py:1163 ../textw/bootdisk_text.py:88
+#: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
+#: ../textw/upgrade_text.py:189 ../upgrade.py:265 ../upgrade.py:277
 msgid "Error"
 msgstr "Hiba"
 
@@ -195,7 +222,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:753
+#: ../fsset.py:761
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -204,7 +231,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:773
+#: ../fsset.py:781
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -213,7 +240,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:802
+#: ../fsset.py:810
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -222,7 +249,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 
-#: ../fsset.py:822
+#: ../fsset.py:830
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -232,11 +259,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1299
+#: ../fsset.py:1307
 msgid "Formatting"
 msgstr "Formázás"
 
-#: ../fsset.py:1300
+#: ../fsset.py:1308
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s filerendszer formázása..."
@@ -245,7 +272,7 @@ msgstr "%s filerendszer formázása..."
 msgid "Fix"
 msgstr ""
 
-#: ../gui.py:105 ../iw/partition_gui.py:533 ../iw/partition_gui.py:596
+#: ../gui.py:105 ../iw/partition_gui.py:545 ../iw/partition_gui.py:608
 #: ../iw/welcome_gui.py:101 ../libfdisk/fsedit.c:953
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
 #: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
@@ -256,11 +283,11 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:273
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
-#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:259
+#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:251
 msgid "Yes"
 msgstr "Igen"
 
-#: ../gui.py:106 ../iw/partition_gui.py:535 ../iw/partition_gui.py:598
+#: ../gui.py:106 ../iw/partition_gui.py:547 ../iw/partition_gui.py:610
 #: ../iw/welcome_gui.py:104 ../libfdisk/fsedit.c:953
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237
 #: ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398
@@ -271,7 +298,7 @@ msgstr "Igen"
 #: ../libfdisk/newtfsedit.c:1788 ../loader/devices.c:231 ../loader/net.c:889
 #: ../text.py:274 ../textw/bootdisk_text.py:25 ../textw/bootdisk_text.py:54
 #: ../textw/bootloader_text.py:76 ../textw/constants_text.py:36
-#: ../textw/upgrade_text.py:259 ../textw/upgrade_text.py:266
+#: ../textw/upgrade_text.py:251 ../textw/upgrade_text.py:258
 msgid "No"
 msgstr "Nem"
 
@@ -310,8 +337,8 @@ msgstr "Nem"
 #: ../loader/loader.c:853 ../loader/loader.c:912 ../loader/loader.c:967
 #: ../loader/loader.c:1061 ../loader/loader.c:1140 ../loader/loader.c:1145
 #: ../loader/loader.c:1185 ../loader/loader.c:1213 ../loader/loader.c:1244
-#: ../loader/loader.c:1490 ../loader/loader.c:2112 ../loader/loader.c:2142
-#: ../loader/loader.c:2205 ../loader/loader.c:2220 ../loader/loader.c:2432
+#: ../loader/loader.c:1490 ../loader/loader.c:2207 ../loader/loader.c:2237
+#: ../loader/loader.c:2300 ../loader/loader.c:2315 ../loader/loader.c:2527
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:359
 #: ../loader/net.c:722 ../loader/net.c:755 ../loader/pcmcia.c:104
 #: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:158
@@ -331,11 +358,11 @@ msgid "Ignore"
 msgstr ""
 
 #: ../gui.py:110 ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:717 ../iw/partition_gui.py:1170
+#: ../iw/partition_gui.py:729 ../iw/partition_gui.py:1182
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2205 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2300 ../loader/pcmcia.c:104
 #: ../text.py:114 ../text.py:115 ../text.py:246 ../text.py:248 ../text.py:278
 #: ../textw/bootloader_text.py:197 ../textw/constants_text.py:24
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
@@ -395,7 +422,7 @@ msgstr ""
 #: ../loader/loader.c:816 ../loader/loader.c:853 ../loader/loader.c:967
 #: ../loader/loader.c:1061 ../loader/loader.c:1490 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:359 ../loader/urls.c:158
-#: ../loader/urls.c:387 ../rescue.py:129 ../textw/confirm_text.py:24
+#: ../loader/urls.c:387 ../textw/confirm_text.py:24
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 #: ../textw/silo_text.py:110 ../textw/userauth_text.py:177
@@ -498,52 +525,52 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Szeretné beállítani a rendszert?"
 
-#: ../packages.py:95
+#: ../packages.py:96
 msgid "Reading"
 msgstr "Olvasás"
 
-#: ../packages.py:95
+#: ../packages.py:96
 msgid "Reading package information..."
 msgstr "Csomag információ olvasása..."
 
-#: ../packages.py:152
+#: ../packages.py:153
 msgid "Dependency Check"
 msgstr "Függöség ellenõrzés"
 
-#: ../packages.py:153
+#: ../packages.py:154
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "A telepítésre kiválasztott csomagok közötti függöségek ellenõrzése..."
 
-#: ../packages.py:202 ../packages.py:461
+#: ../packages.py:203 ../packages.py:462
 msgid "Processing"
 msgstr "Feldolgozás"
 
-#: ../packages.py:203
+#: ../packages.py:204
 msgid "Preparing to install..."
 msgstr "Felkészülés telepítésre..."
 
-#: ../packages.py:237
+#: ../packages.py:238
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:462
+#: ../packages.py:463
 msgid "Setting up RPM transaction..."
 msgstr ""
 
-#: ../packages.py:498
+#: ../packages.py:504
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s frissítése.\n"
 
-#: ../packages.py:500
+#: ../packages.py:506
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s telepítése.\n"
 
-#: ../packages.py:551
+#: ../packages.py:557
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -552,17 +579,17 @@ msgstr ""
 "Nincsen elegendõ lemezterülete a kiválasztott csomagok telepítéséhez. A "
 "következõ filerendszereken van szükség több helyre:\n"
 
-#: ../iw/partition_gui.py:1373 ../iw/upgrade_swap_gui.py:121
-#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:555 ../packages.py:575
-#: ../textw/upgrade_text.py:114
+#: ../iw/partition_gui.py:1385 ../iw/upgrade_swap_gui.py:121
+#: ../libfdisk/gnomefsedit.c:3132 ../packages.py:561 ../packages.py:581
+#: ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Mount pont"
 
-#: ../packages.py:556
+#: ../packages.py:562
 msgid "Space Needed"
 msgstr "Szükséges hely"
 
-#: ../packages.py:571
+#: ../packages.py:577
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -572,28 +599,28 @@ msgstr ""
 "Nincsen elegendõ lemezterülete a kiválasztott csomagok telepítéséhez. A "
 "következõ filerendszereken van szükség több helyre:\n"
 
-#: ../packages.py:576
+#: ../packages.py:582
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Szükséges hely"
 
-#: ../packages.py:582
+#: ../packages.py:588
 msgid "Disk Space"
 msgstr "Lemez terület"
 
-#: ../packages.py:621
+#: ../packages.py:627
 msgid "Post Install"
 msgstr "Telepítés utáni szakasz"
 
-#: ../packages.py:622
+#: ../packages.py:628
 msgid "Performing post install configuration..."
 msgstr "Telepítés utáni konfigurálás..."
 
-#: ../partitioning.py:165
+#: ../partitioning.py:171
 msgid "Foreign"
 msgstr ""
 
-#: ../partitioning.py:326
+#: ../partitioning.py:338
 #, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
@@ -603,120 +630,120 @@ msgstr ""
 "\n"
 "A mount-pontok neve csak nyomtatható karakterekbõl állhat."
 
-#: ../partitioning.py:333
+#: ../partitioning.py:345
 msgid "Please specify a mount point for this partition."
 msgstr ""
 
-#: ../partitioning.py:352
+#: ../partitioning.py:364
 #, fuzzy, c-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr ""
 "A kért mount-pont  már használatban van. Válasszon egy érvényes mount-pontot."
 
-#: ../partitioning.py:391
+#: ../partitioning.py:403
 #, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
 msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
 
-#: ../partitioning.py:396
+#: ../partitioning.py:408
 #, fuzzy
 msgid "This mount point must be on a linux filesystem."
 msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
 
-#: ../partitioning.py:406
+#: ../partitioning.py:418
 #, c-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr ""
 
-#: ../partitioning.py:413
+#: ../partitioning.py:425
 #, c-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
 
-#: ../partitioning.py:418
+#: ../partitioning.py:430
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr ""
 
-#: ../partitioning.py:422
+#: ../partitioning.py:434
 msgid "Partitions can't start below the first cylinder."
 msgstr ""
 
-#: ../partitioning.py:425
+#: ../partitioning.py:437
 msgid "Partitions can't end on a negative cylinder."
 msgstr ""
 
-#: ../partitioning.py:458
+#: ../partitioning.py:470
 msgid "No members in RAID request, or not RAID level specified."
 msgstr ""
 
-#: ../partitioning.py:475
+#: ../partitioning.py:488
 #, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Boot partíciót (/boot) csak RAID-1 meghajtón lehet létrehozni."
 
-#: ../partitioning.py:479
+#: ../partitioning.py:492
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr ""
 
-#: ../partitioning.py:485
+#: ../partitioning.py:498
 #, c-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
 
-#: ../partitioning.py:503
+#: ../partitioning.py:518
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of Red Hat Linux to continue."
 msgstr ""
 
-#: ../partitioning.py:506
+#: ../partitioning.py:521
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install Red Hat Linux."
 msgstr ""
 
-#: ../partitioning.py:511
+#: ../partitioning.py:536
 #, c-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal Red Hat Linux install."
 msgstr ""
 
-#: ../partitioning.py:522
+#: ../partitioning.py:558
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitioning.py:526
+#: ../partitioning.py:562
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for Red Hat Linux "
 "only supports 32 swap devices."
 msgstr ""
 
-#: ../partitioning.py:535
+#: ../partitioning.py:571
 #, c-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
 
-#: ../partitioning.py:950 ../partitioning.py:981
+#: ../partitioning.py:1133 ../partitioning.py:1164
 #, fuzzy, c-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Hiba az ext2 filerendszer mountolásánal %s-en: %s"
 
-#: ../partitioning.py:1091
+#: ../partitioning.py:1274
 #, fuzzy, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -727,11 +754,11 @@ msgstr ""
 "A %s eszköz partíciós táblája hibás. Új partíciók létrehozása elõtt "
 "inicializálnia kell, ami a meghajtón lévõ ÖSSZES ADAT elvesztését jelenti."
 
-#: ../libfdisk/fsedit.c:1052 ../partitioning.py:1168
+#: ../libfdisk/fsedit.c:1052 ../partitioning.py:1351
 msgid "No Drives Found"
 msgstr "Nem találtam meghajtókat"
 
-#: ../partitioning.py:1169
+#: ../partitioning.py:1352
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -740,7 +767,7 @@ msgstr ""
 "Hiba történt - nincsenek érvényes eszközök, amiken létre lehetne hozni új "
 "file-rendszereket. Ellenõrizze a hardvert a probléma okának kiderítéséhez."
 
-#: ../partitioning.py:1242
+#: ../partitioning.py:1425
 #, fuzzy
 msgid ""
 "You are about to delete a RAID device.\n"
@@ -748,7 +775,7 @@ msgid ""
 "Are you sure?"
 msgstr "Ki kell választania egy RAID eszközt."
 
-#: ../partitioning.py:1245
+#: ../partitioning.py:1428
 #, fuzzy, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -757,115 +784,115 @@ msgid ""
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
 #: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
-#: ../partitioning.py:1249
+#: ../partitioning.py:1432
 msgid "Are you sure you want to delete this partition?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
-#: ../partitioning.py:1251
+#: ../partitioning.py:1434
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Újra   : "
 
-#: ../partitioning.py:1255
+#: ../partitioning.py:1438
 #, fuzzy
 msgid "Confirm Reset"
 msgstr "Újra   : "
 
-#: ../partitioning.py:1256
+#: ../partitioning.py:1439
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
-#: ../partitioning.py:1280
+#: ../partitioning.py:1463
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../partitioning.py:1283
+#: ../partitioning.py:1466
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitioning.py:1292 ../partitioning.py:1298 ../partitioning.py:1306
-#: ../partitioning.py:1317 ../partitioning.py:1324
+#: ../partitioning.py:1475 ../partitioning.py:1481 ../partitioning.py:1489
+#: ../partitioning.py:1500 ../partitioning.py:1507
 #, fuzzy
 msgid "Unable To Remove"
 msgstr "Nem találok videokártyát"
 
-#: ../partitioning.py:1293
+#: ../partitioning.py:1476
 #, fuzzy
 msgid "You must first select a partition to remove."
 msgstr "Boot-partíció elsõ szektora"
 
-#: ../partitioning.py:1299
+#: ../partitioning.py:1482
 msgid "You cannot remove free space."
 msgstr ""
 
-#: ../partitioning.py:1307
+#: ../partitioning.py:1490
 #, fuzzy, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../partitioning.py:1318
+#: ../partitioning.py:1501
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
 
-#: ../partitioning.py:1325
+#: ../partitioning.py:1508
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 
-#: ../partitioning.py:1353 ../partitioning.py:1375
+#: ../partitioning.py:1536 ../partitioning.py:1558
 msgid "Unable To Edit"
 msgstr ""
 
-#: ../partitioning.py:1354
+#: ../partitioning.py:1537
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "Válasszon egy nyelvet"
 
-#: ../partitioning.py:1376
+#: ../partitioning.py:1559
 #, fuzzy, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../partitioning.py:1384 ../partitioning.py:1389
+#: ../partitioning.py:1567 ../partitioning.py:1572
 #, fuzzy
 msgid "Unable to Edit"
 msgstr "Nem találok videokártyát"
 
-#: ../partitioning.py:1385
+#: ../partitioning.py:1568
 #, fuzzy
 msgid "You cannot edit this partition, as it is in use by the installer."
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../partitioning.py:1390
+#: ../partitioning.py:1573
 #, fuzzy
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../partitioning.py:1402
+#: ../partitioning.py:1585
 #, fuzzy
 msgid "Installation cannot continue."
 msgstr "Telepítés elkezdése"
 
-#: ../partitioning.py:1403
+#: ../partitioning.py:1586
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:1423
+#: ../partitioning.py:1606
 msgid "Low Memory"
 msgstr "Kevés a memória"
 
-#: ../partitioning.py:1424
+#: ../partitioning.py:1607
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -874,12 +901,12 @@ msgstr ""
 "Mivel niccs elég memória a gépben, már most be kell kapcsolni a swap "
 "területet. Ehhez az új partíciós táblát a lemezre kell írni. Rendben van?"
 
-#: ../partitioning.py:1436 ../partitioning.py:1445
+#: ../partitioning.py:1619 ../partitioning.py:1628
 #, fuzzy
 msgid "Format?"
 msgstr "Formázás"
 
-#: ../partitioning.py:1437
+#: ../partitioning.py:1620
 #, fuzzy
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
@@ -891,7 +918,7 @@ msgstr ""
 "meghajtóhoz hozzárendelte volna.\n"
 " Biztos, hogy ezt akarja?"
 
-#: ../partitioning.py:1446
+#: ../partitioning.py:1629
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted as a system directory.  It is highly recommended you format this "
@@ -901,39 +928,95 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
+#: ../partitioning.py:1643
+#, fuzzy
+msgid "Error with Partitioning"
+msgstr "Kézi particionálás"
+
+#: ../partitioning.py:1644
+#, c-format
+msgid ""
+"The following critical errors exist with your requested partitioning scheme. "
+"These errors must be corrected prior to continuing with your install of Red "
+"Hat Linux.\n"
+"\n"
+"%s"
+msgstr ""
+
+#: ../partitioning.py:1657
+#, fuzzy
+msgid "Partitioning Warning"
+msgstr "Automatikus Particionálás"
+
+#: ../partitioning.py:1658
+#, c-format
+msgid ""
+"The following warnings exist with your requested partition scheme.\n"
+"\n"
+"%s\n"
+"\n"
+"Would you like to continue with your requested partitioning scheme."
+msgstr ""
+
 #: ../iw/account_gui.py:149 ../iw/account_gui.py:160
-#: ../iw/partition_gui.py:716 ../iw/partition_gui.py:1169 ../loader/urls.c:79
+#: ../iw/partition_gui.py:728 ../iw/partition_gui.py:1181 ../loader/urls.c:79
 #: ../loader/urls.c:89 ../loader/urls.c:97 ../loader/urls.c:247
-#: ../rescue.py:34 ../rescue.py:85 ../rescue.py:106 ../rescue.py:123
-#: ../text.py:384 ../textw/bootdisk_text.py:65 ../textw/bootdisk_text.py:67
-#: ../textw/complete_text.py:41 ../textw/complete_text.py:56
-#: ../textw/complete_text.py:72 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:20
-#: ../textw/firewall_text.py:201 ../textw/network_text.py:134
-#: ../textw/silo_text.py:110 ../xserver.py:51
+#: ../rescue.py:34 ../rescue.py:110 ../rescue.py:131 ../rescue.py:148
+#: ../rescue.py:154 ../text.py:384 ../textw/bootdisk_text.py:65
+#: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:41
+#: ../textw/complete_text.py:56 ../textw/complete_text.py:72
+#: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
+#: ../textw/constants_text.py:20 ../textw/firewall_text.py:201
+#: ../textw/network_text.py:134 ../textw/silo_text.py:110 ../xserver.py:51
 msgid "OK"
 msgstr "OK"
 
-#: ../rescue.py:82
-#, fuzzy
-msgid "System to Rescue"
-msgstr "Frissítendõ rendszer"
+#: ../rescue.py:48 ../rescue.py:84 ../rescue.py:163
+msgid "When finished please exit from the shell and your system will reboot."
+msgstr ""
 
-#: ../rescue.py:83 ../textw/upgrade_text.py:216
-msgid "What partition holds the root partition of your installation?"
-msgstr "Melyik partíció a meglévõ rendszer root-partíciója?"
-
-#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:66 ../rescue.py:85
-#: ../rescue.py:89
-msgid "Exit"
-msgstr "Kilépés"
-
-#: ../rescue.py:100 ../rescue.py:118
+#: ../rescue.py:70 ../rescue.py:125 ../rescue.py:143
 #, fuzzy
 msgid "Rescue"
 msgstr "_Alaphelyzet"
 
-#: ../rescue.py:101
+#: ../rescue.py:71
+msgid ""
+"The rescue environment will now attempt to find your Red Hat Linux "
+"installation and mount it under the directory /mnt/sysimage.  You can then "
+"make any changes required to your system.  If you want to proceed with this "
+"step choose 'Continue'.\n"
+"\n"
+"If for some reason this process fails you can choose 'Skip' and this step "
+"will be skipped and you will go directly to a command shell.\n"
+"\n"
+msgstr ""
+
+#: ../rescue.py:79
+msgid "Continue"
+msgstr "Folytatás"
+
+#: ../rescue.py:79 ../rescue.py:81 ../textw/bootdisk_text.py:67
+#: ../textw/bootdisk_text.py:93 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:118
+msgid "Skip"
+msgstr "Kihagy"
+
+#: ../rescue.py:107
+#, fuzzy
+msgid "System to Rescue"
+msgstr "Frissítendõ rendszer"
+
+#: ../rescue.py:108 ../textw/upgrade_text.py:208
+msgid "What partition holds the root partition of your installation?"
+msgstr "Melyik partíció a meglévõ rendszer root-partíciója?"
+
+#: ../iw/congrats_gui.py:14 ../iw/congrats_gui.py:66 ../rescue.py:110
+#: ../rescue.py:114
+msgid "Exit"
+msgstr "Kilépés"
+
+#: ../rescue.py:126
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -945,7 +1028,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:119
+#: ../rescue.py:144
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -954,18 +1037,18 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:125
+#: ../rescue.py:150
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Rescue módszer"
 
-#: ../rescue.py:126
+#: ../rescue.py:151
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:135
+#: ../rescue.py:160
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
@@ -1229,7 +1312,7 @@ msgstr "Hozzáad"
 
 #: ../iw/account_gui.py:331 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1487 ../textw/bootloader_text.py:274
-#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:903
+#: ../textw/fdisk_text.py:40 ../textw/partition_text.py:905
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:211
 msgid "Edit"
@@ -1390,12 +1473,12 @@ msgstr ""
 
 #: ../iw/bootloader_gui.py:251 ../iw/bootloader_gui.py:438
 #: ../iw/silo_gui.py:127 ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:121
-#: ../textw/upgrade_text.py:115
+#: ../textw/upgrade_text.py:107
 msgid "Partition"
 msgstr "Partíció"
 
 #: ../iw/bootloader_gui.py:254 ../iw/bootloader_gui.py:439
-#: ../iw/partition_gui.py:1373 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281
+#: ../iw/partition_gui.py:1385 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281
 #: ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Típus"
@@ -1430,7 +1513,7 @@ msgid "Default"
 msgstr "Alapértelmezés"
 
 #: ../iw/bootloader_gui.py:357 ../iw/mouse_gui.py:145
-#: ../iw/partition_gui.py:1372 ../iw/silo_gui.py:257
+#: ../iw/partition_gui.py:1384 ../iw/silo_gui.py:257
 #: ../libfdisk/gnomefsedit.c:3133 ../textw/bootloader_text.py:191
 #: ../textw/bootloader_text.py:259 ../textw/mouse_text.py:38
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
@@ -1574,7 +1657,7 @@ msgid ""
 "com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
-"Linux manuals.at http://www.redhat.com/support/manuals."
+"Linux manuals at http://www.redhat.com/support/manuals."
 msgstr ""
 "Gratulálunk, a beállítás kész.\n"
 "\n"
@@ -1632,7 +1715,7 @@ msgstr ""
 msgid "Please select the device containing the root filesystem: "
 msgstr "Válassza ki a root filerendszert tartalmazó eszközt: "
 
-#: ../iw/examine_gui.py:76 ../textw/upgrade_text.py:230
+#: ../iw/examine_gui.py:76 ../textw/upgrade_text.py:222
 #, fuzzy, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Red Hat Linux rendszerek keresése..."
@@ -1714,36 +1797,36 @@ msgstr "Válassza ki a formázandó partíciókat"
 msgid "Installation Type"
 msgstr "A telepítendõ rendszer típusa"
 
-#: ../iw/keyboard_gui.py:28
+#: ../iw/keyboard_gui.py:26
 msgid "Keyboard Configuration"
 msgstr "Billentyûzet beállítás"
 
-#: ../iw/keyboard_gui.py:102
+#: ../iw/keyboard_gui.py:100
 #, fuzzy
 msgid "Which model keyboard is attached to the computer?"
 msgstr "Milyen típusú billentyûzet van a géphez kötve?"
 
-#: ../iw/keyboard_gui.py:111
+#: ../iw/keyboard_gui.py:109
 msgid "Model"
 msgstr "Típus"
 
-#: ../iw/keyboard_gui.py:131
+#: ../iw/keyboard_gui.py:129
 msgid "Layout"
 msgstr "Elrendezés"
 
-#: ../iw/keyboard_gui.py:151
+#: ../iw/keyboard_gui.py:149
 msgid "Dead Keys"
 msgstr "Dead keys"
 
-#: ../iw/keyboard_gui.py:161
+#: ../iw/keyboard_gui.py:159
 msgid "Enable dead keys"
 msgstr "Dead keys engedélyezése"
 
-#: ../iw/keyboard_gui.py:162
+#: ../iw/keyboard_gui.py:160
 msgid "Disable dead keys"
 msgstr "Dead keys tiltása"
 
-#: ../iw/keyboard_gui.py:175
+#: ../iw/keyboard_gui.py:173
 msgid "Test your selection here:"
 msgstr "Itt próbálhatja ki a beállítást:"
 
@@ -1882,7 +1965,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:407 ../iw/partition_gui.py:1373
+#: ../iw/package_gui.py:407 ../iw/partition_gui.py:1385
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Méret (MB) :"
@@ -1908,264 +1991,265 @@ msgstr "Csomag csoport kiválasztás"
 msgid "Select individual packages"
 msgstr "Csomagok egyéni kiválasztása"
 
-#: ../iw/partition_gui.py:301 ../iw/partition_gui.py:322
-#: ../iw/partition_gui.py:324 ../textw/partition_text.py:170
+#: ../iw/partition_gui.py:300 ../iw/partition_gui.py:321
+#: ../iw/partition_gui.py:323 ../textw/partition_text.py:170
 #: ../textw/partition_text.py:172 ../textw/partition_text.py:174
 #: ../textw/partition_text.py:199
 msgid "<Not Applicable>"
 msgstr ""
 
-#: ../iw/partition_gui.py:463 ../textw/fdisk_text.py:38
+#: ../iw/partition_gui.py:466 ../textw/fdisk_text.py:38
 msgid "Disk Setup"
 msgstr "Lemez beállítás"
 
-#: ../iw/partition_gui.py:522 ../textw/partition_text.py:61
+#: ../iw/partition_gui.py:534 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:98
 #, fuzzy
 msgid "Free space"
 msgstr "Lemez terület"
 
-#: ../iw/partition_gui.py:524 ../textw/partition_text.py:63
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:63
 msgid "Extended"
 msgstr ""
 
-#: ../iw/partition_gui.py:526 ../textw/partition_text.py:65
+#: ../iw/partition_gui.py:538 ../textw/partition_text.py:65
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:542 ../iw/partition_gui.py:600
+#: ../iw/partition_gui.py:554 ../iw/partition_gui.py:612
 #: ../textw/partition_text.py:77 ../textw/partition_text.py:129
 #, fuzzy
 msgid "None"
 msgstr "Kész"
 
-#: ../iw/partition_gui.py:544
+#: ../iw/partition_gui.py:556
 #, fuzzy
 msgid "Free"
 msgstr "Szabad (M)"
 
-#: ../iw/partition_gui.py:602 ../textw/partition_text.py:131
+#: ../iw/partition_gui.py:614 ../textw/partition_text.py:131
 #, fuzzy, c-format
 msgid "RAID Device %s"
 msgstr "Nem RAID eszköz"
 
-#: ../iw/partition_gui.py:671
+#: ../iw/partition_gui.py:683
 msgid "Additional Size Options"
 msgstr ""
 
-#: ../iw/partition_gui.py:676
+#: ../iw/partition_gui.py:688
 msgid "Fixed size"
 msgstr ""
 
-#: ../iw/partition_gui.py:677
+#: ../iw/partition_gui.py:689
 msgid "Fill all space up to (MB):"
 msgstr ""
 
-#: ../iw/partition_gui.py:685
+#: ../iw/partition_gui.py:697
 msgid "Fill to maximum allowable size"
 msgstr ""
 
-#: ../iw/partition_gui.py:714 ../textw/partition_text.py:515
+#: ../iw/partition_gui.py:726 ../textw/partition_text.py:517
 #, fuzzy
 msgid "Add Partition"
 msgstr "Partíció"
 
-#: ../iw/partition_gui.py:731 ../iw/partition_gui.py:1184
+#: ../iw/partition_gui.py:743 ../iw/partition_gui.py:1196
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392 ../textw/partition_text.py:189
 msgid "Mount Point:"
 msgstr "Mount pont:"
 
-#: ../iw/partition_gui.py:739 ../textw/partition_text.py:571
+#: ../iw/partition_gui.py:751 ../textw/partition_text.py:573
 #, fuzzy
 msgid "Filesystem Type:"
 msgstr "Root filerendszer méret"
 
-#: ../iw/partition_gui.py:747
+#: ../iw/partition_gui.py:759
 #, fuzzy
 msgid "Original Filesystem Type:"
 msgstr "Root filerendszer méret"
 
-#: ../iw/partition_gui.py:756 ../libfdisk/newtfsedit.c:494
+#: ../iw/partition_gui.py:768 ../libfdisk/newtfsedit.c:494
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../iw/partition_gui.py:768 ../libfdisk/gnomefsedit.c:1134
-#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:238
+#: ../iw/partition_gui.py:780 ../libfdisk/gnomefsedit.c:1134
+#: ../libfdisk/newtfsedit.c:527 ../textw/partition_text.py:240
 msgid "Allowable Drives:"
 msgstr "Használható meghajtók:"
 
-#: ../iw/partition_gui.py:776
+#: ../iw/partition_gui.py:788
 #, fuzzy
 msgid "Drive:"
 msgstr "Meghajtó"
 
-#: ../iw/partition_gui.py:785
+#: ../iw/partition_gui.py:797
 #, fuzzy
 msgid "Original Filesystem Label:"
 msgstr "Root filerendszer méret"
 
-#: ../iw/partition_gui.py:796 ../iw/partition_gui.py:831
-#: ../textw/partition_text.py:259 ../textw/partition_text.py:342
-#: ../textw/partition_text.py:587
+#: ../iw/partition_gui.py:808 ../iw/partition_gui.py:843
+#: ../textw/partition_text.py:261 ../textw/partition_text.py:344
+#: ../textw/partition_text.py:589
 #, fuzzy
 msgid "Size (MB):"
 msgstr "Méret (MB) :"
 
-#: ../iw/partition_gui.py:809 ../textw/partition_text.py:322
+#: ../iw/partition_gui.py:821 ../textw/partition_text.py:324
 msgid "Start Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:825 ../textw/partition_text.py:335
+#: ../iw/partition_gui.py:837 ../textw/partition_text.py:337
 msgid "End Cylinder:"
 msgstr ""
 
-#: ../iw/partition_gui.py:847
+#: ../iw/partition_gui.py:859
 msgid "How would you like to prepare the filesystem on this partition?"
 msgstr ""
 
-#: ../iw/partition_gui.py:856 ../textw/partition_text.py:424
+#: ../iw/partition_gui.py:868 ../textw/partition_text.py:426
 msgid "Leave unchanged (preserve data)"
 msgstr ""
 
-#: ../iw/partition_gui.py:861
+#: ../iw/partition_gui.py:873
 #, fuzzy
 msgid "Format partition as:"
 msgstr "Nincs root-partíció"
 
-#: ../iw/partition_gui.py:881
+#: ../iw/partition_gui.py:893
 #, fuzzy
 msgid "Migrate partition to:"
 msgstr "Nincs root-partíció"
 
-#: ../iw/partition_gui.py:902
+#: ../iw/partition_gui.py:914
 #, fuzzy
 msgid "Check for bad blocks?"
 msgstr "Hibás blokkok keresése formázás közben"
 
-#: ../iw/partition_gui.py:933 ../textw/partition_text.py:557
+#: ../iw/partition_gui.py:945 ../textw/partition_text.py:559
 msgid "Force to be a primary partition"
 msgstr ""
 
-#: ../iw/partition_gui.py:940 ../textw/partition_text.py:422
-#: ../textw/partition_text.py:560
+#: ../iw/partition_gui.py:952 ../textw/partition_text.py:424
+#: ../textw/partition_text.py:562
 #, fuzzy
 msgid "Check for bad blocks"
 msgstr "Hibás blokkok keresése formázás közben"
 
-#: ../iw/partition_gui.py:1011 ../iw/partition_gui.py:1020
-#: ../iw/partition_gui.py:1058 ../iw/partition_gui.py:1308
-#: ../textw/partition_text.py:694 ../textw/partition_text.py:711
-#: ../textw/partition_text.py:818
+#: ../iw/partition_gui.py:1023 ../iw/partition_gui.py:1032
+#: ../iw/partition_gui.py:1070 ../iw/partition_gui.py:1320
+#: ../textw/partition_text.py:696 ../textw/partition_text.py:713
+#: ../textw/partition_text.py:820
 msgid "Error With Request"
 msgstr ""
 
-#: ../iw/partition_gui.py:1121
+#: ../iw/partition_gui.py:1133 ../textw/partition_text.py:148
 #, fuzzy, c-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Lekötetlen partíciók találhatók..."
 
-#: ../iw/partition_gui.py:1127 ../textw/partition_text.py:152
+#: ../iw/partition_gui.py:1139 ../textw/partition_text.py:152
 #, fuzzy
 msgid "Modify Partition"
 msgstr "Partíció-szerkesztés"
 
-#: ../iw/partition_gui.py:1128 ../textw/partition_text.py:152
+#: ../iw/partition_gui.py:1140 ../textw/partition_text.py:152
 #, fuzzy
 msgid "Add anyway"
 msgstr "Swap"
 
-#: ../iw/partition_gui.py:1132
+#: ../iw/partition_gui.py:1144
 #, fuzzy, c-format
 msgid "Warning: %s."
 msgstr "Keresés"
 
-#: ../iw/partition_gui.py:1167
+#: ../iw/partition_gui.py:1179 ../textw/partition_text.py:743
 #, fuzzy
-msgid "Make Raid Device"
-msgstr "Alkalmazott RAID eszköz"
+msgid "Make RAID Device"
+msgstr "_RAID Eszköz létrehozás"
 
-#: ../iw/partition_gui.py:1191 ../textw/partition_text.py:209
+#: ../iw/partition_gui.py:1203 ../textw/partition_text.py:209
 #, fuzzy
 msgid "Filesystem type:"
 msgstr "Root filerendszer méret"
 
-#: ../iw/partition_gui.py:1202 ../textw/partition_text.py:359
+#: ../iw/partition_gui.py:1214 ../textw/partition_text.py:361
 #, fuzzy
 msgid "RAID Level:"
 msgstr "RAID típus:"
 
-#: ../iw/partition_gui.py:1232 ../textw/partition_text.py:377
-msgid "Raid Members:"
-msgstr ""
+#: ../iw/partition_gui.py:1244 ../textw/partition_text.py:379
+#, fuzzy
+msgid "RAID Members:"
+msgstr "RAID típus:"
 
-#: ../iw/partition_gui.py:1243
+#: ../iw/partition_gui.py:1255
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1250 ../textw/partition_text.py:766
+#: ../iw/partition_gui.py:1262 ../textw/partition_text.py:768
 #, fuzzy
 msgid "Format partition?"
 msgstr "Nincs root-partíció"
 
-#: ../iw/partition_gui.py:1353
+#: ../iw/partition_gui.py:1365
 #, fuzzy
 msgid "_New"
 msgstr "Új"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1366
 #, fuzzy
 msgid "_Edit"
 msgstr "Szerkesztés"
 
-#: ../iw/partition_gui.py:1355 ../libfdisk/gnomefsedit.c:3699
+#: ../iw/partition_gui.py:1367 ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr "_Töröl"
 
-#: ../iw/partition_gui.py:1356 ../libfdisk/gnomefsedit.c:3694
+#: ../iw/partition_gui.py:1368 ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr "_Alaphelyzet"
 
-#: ../iw/partition_gui.py:1357
+#: ../iw/partition_gui.py:1369
 #, fuzzy
-msgid "Make _Raid"
+msgid "Make _RAID"
 msgstr "Alkalmazott RAID eszköz"
 
-#: ../iw/partition_gui.py:1372
+#: ../iw/partition_gui.py:1384
 #, fuzzy
 msgid "Start"
 msgstr "Állás"
 
-#: ../iw/partition_gui.py:1372
+#: ../iw/partition_gui.py:1384
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1373
+#: ../iw/partition_gui.py:1385
 #, fuzzy
 msgid "Format"
 msgstr "Formázás"
 
-#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:963
+#: ../iw/partition_gui.py:1431 ../textw/partition_text.py:974
 msgid "Automatic Partitioning"
 msgstr "Automatikus Particionálás"
 
-#: ../iw/partition_gui.py:1438
+#: ../iw/partition_gui.py:1450
 #, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Válasszon egy nyelvet"
 
-#: ../iw/partition_gui.py:1477
+#: ../iw/partition_gui.py:1489
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Automatikus Particionálás"
 
-#: ../iw/partition_gui.py:1508 ../textw/partition_text.py:986
+#: ../iw/partition_gui.py:1520 ../textw/partition_text.py:997
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hová akarja telepíteni a boot betöltõt?"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1537
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2295,7 +2379,7 @@ msgstr "UTC idõeltolódás"
 msgid "Migrate Filesystems"
 msgstr "Root filerendszer méret"
 
-#: ../iw/upgrade_migratefs_gui.py:60 ../textw/upgrade_text.py:32
+#: ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 msgid ""
 "This release of Red Hat Linux supports the ext3 journalling filesystem.  It "
 "has several benefits over the ext2 filesystem traditionally shipped in Red "
@@ -2347,7 +2431,7 @@ msgid ""
 "size for the swap file:"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:151 ../textw/upgrade_text.py:136
+#: ../iw/upgrade_swap_gui.py:151 ../textw/upgrade_text.py:128
 #, fuzzy
 msgid "Swap file size (MB):"
 msgstr "Swap terület méret:"
@@ -2363,11 +2447,11 @@ msgid ""
 "to continue?"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:178 ../textw/upgrade_text.py:181
+#: ../iw/upgrade_swap_gui.py:178 ../textw/upgrade_text.py:173
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:176
+#: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:168
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
@@ -2565,11 +2649,6 @@ msgstr ""
 msgid "Boot Disk"
 msgstr "Boot lemez"
 
-#: ../textw/bootdisk_text.py:67 ../textw/bootdisk_text.py:93
-#: ../textw/silo_text.py:36 ../textw/upgrade_text.py:126
-msgid "Skip"
-msgstr "Kihagy"
-
 #: ../textw/bootloader_text.py:29
 #, fuzzy
 msgid "Which boot loader would you like to use?"
@@ -2722,8 +2801,8 @@ msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata.\n"
 "\n"
-"Information on using your system is available in the Red Hat Linux manuals."
-"http://www.redhat.com/support/manuals."
+"Information on using your system is available in the Red Hat Linux manuals "
+"at http://www.redhat.com/support/manuals."
 msgstr ""
 "Gratulálunk, a beállítás kész.\n"
 "\n"
@@ -2834,11 +2913,11 @@ msgstr "%s nem érvényes host név."
 msgid "What type of system would you like to install?"
 msgstr "Milyen típusú rendszert szeretne telepíteni?"
 
-#: ../textw/keyboard_text.py:37
+#: ../textw/keyboard_text.py:35
 msgid "Keyboard Selection"
 msgstr "Billentyûzet kiválasztás"
 
-#: ../textw/keyboard_text.py:38
+#: ../textw/keyboard_text.py:36
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Milyen típusú billentyûzet van a géphez kötve?"
 
@@ -2974,39 +3053,34 @@ msgstr ""
 "telepítésére is, melyeket nem választott ki. Ha az Ok-t válassza, ezek a "
 "csomagok telepítésre kerülnek."
 
-#: ../textw/partition_text.py:148
-#, fuzzy, c-format
-msgid "Could not allocated requested partitions: %s."
-msgstr "Lekötetlen partíciók találhatók..."
-
 #: ../textw/partition_text.py:151
 #, fuzzy, c-format
 msgid "Warning: %s"
 msgstr "Keresés"
 
-#: ../textw/partition_text.py:293
+#: ../textw/partition_text.py:295
 #, fuzzy
 msgid "Fixed Size:"
 msgstr "Hibás méret"
 
-#: ../textw/partition_text.py:295
+#: ../textw/partition_text.py:297
 msgid "Fill maximum size of (MB):"
 msgstr ""
 
-#: ../textw/partition_text.py:299
+#: ../textw/partition_text.py:301
 msgid "Fill all available space:"
 msgstr ""
 
-#: ../textw/partition_text.py:395
+#: ../textw/partition_text.py:397
 msgid "Number of spares?"
 msgstr ""
 
-#: ../textw/partition_text.py:413 ../textw/partition_text.py:610
+#: ../textw/partition_text.py:415 ../textw/partition_text.py:612
 #, fuzzy
 msgid "Filesystem Options"
 msgstr "Filerendszer Formázás"
 
-#: ../textw/partition_text.py:416
+#: ../textw/partition_text.py:418
 #, fuzzy
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
@@ -3014,79 +3088,74 @@ msgstr ""
 "\n"
 "Válassza ki az önnek megfelelõ eszközt a partícionáláshoz."
 
-#: ../textw/partition_text.py:433
+#: ../textw/partition_text.py:435
 msgid "Format as:"
 msgstr ""
 
-#: ../textw/partition_text.py:452
+#: ../textw/partition_text.py:454
 msgid "Migrate to:"
 msgstr ""
 
-#: ../textw/partition_text.py:581
+#: ../textw/partition_text.py:583
 #, fuzzy
 msgid "Filesystem Label:"
 msgstr "Root filerendszer méret"
 
-#: ../textw/partition_text.py:592
+#: ../textw/partition_text.py:594
 #, fuzzy
 msgid "Filesystem Option:"
 msgstr "Root filerendszer méret"
 
-#: ../textw/partition_text.py:618
+#: ../textw/partition_text.py:620
 #, c-format
 msgid "Format as %s"
 msgstr ""
 
-#: ../textw/partition_text.py:620
+#: ../textw/partition_text.py:622
 #, c-format
 msgid "Migrate to %s"
 msgstr ""
 
-#: ../textw/partition_text.py:622
+#: ../textw/partition_text.py:624
 #, fuzzy
 msgid "Leave unchanged"
 msgstr "Változások mentése"
 
-#: ../textw/partition_text.py:741
-#, fuzzy
-msgid "Make RAID Device"
-msgstr "_RAID Eszköz létrehozás"
-
-#: ../textw/partition_text.py:810
+#: ../textw/partition_text.py:812
 #, fuzzy
 msgid "Too many spares"
 msgstr "Túl sok meghajtó"
 
-#: ../textw/partition_text.py:811
+#: ../textw/partition_text.py:813
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:893
+#: ../textw/partition_text.py:895
 #, fuzzy
 msgid "Partitioning"
 msgstr "Partíció"
 
-#: ../textw/partition_text.py:903
+#: ../textw/partition_text.py:905
 msgid "New"
 msgstr "Új"
 
-#: ../textw/partition_text.py:903
+#: ../textw/partition_text.py:905
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:906
+#: ../textw/partition_text.py:908
 #, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "   F1-Súgó  F2-Hozzáad  F3-Szerkeszt  F4-Töröl  F5-Alaphelyzet  F12-Ok       "
 
-#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:933
+#: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:935
 msgid "No Root Partition"
 msgstr "Nincs root-partíció"
 
-#: ../textw/partition_text.py:934
+#: ../textw/partition_text.py:936
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
@@ -3169,7 +3238,7 @@ msgstr "Melyik idõzónában tartózkodik?"
 msgid "Hardware clock set to GMT?"
 msgstr "A hardware óra GMT-n áll?"
 
-#: ../textw/upgrade_text.py:97
+#: ../textw/upgrade_text.py:89
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -3178,48 +3247,48 @@ msgid ""
 "file systems now."
 msgstr ""
 
-#: ../textw/upgrade_text.py:115
+#: ../textw/upgrade_text.py:107
 #, fuzzy
 msgid "Free Space"
 msgstr "Lemez terület"
 
-#: ../textw/upgrade_text.py:130
+#: ../textw/upgrade_text.py:122
 msgid "RAM detected (MB):"
 msgstr ""
 
-#: ../textw/upgrade_text.py:133
+#: ../textw/upgrade_text.py:125
 #, fuzzy
 msgid "Suggested size (MB):"
 msgstr "Méret (MB) :"
 
-#: ../textw/upgrade_text.py:144
+#: ../textw/upgrade_text.py:136
 #, fuzzy
 msgid "Add Swap"
 msgstr "Swap"
 
-#: ../textw/upgrade_text.py:169
+#: ../textw/upgrade_text.py:161
 #, fuzzy
 msgid "The value you entered is not a valid number."
 msgstr "A megadott méretnek számnak kell lennie."
 
-#: ../textw/upgrade_text.py:198
+#: ../textw/upgrade_text.py:190
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Nincsenek Linux partíciók. Ez a rendszer nem frissíthetõ!"
 
-#: ../textw/upgrade_text.py:215
+#: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
 msgstr "Frissítendõ rendszer"
 
-#: ../textw/upgrade_text.py:229
+#: ../textw/upgrade_text.py:221
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "Raid partíció"
 
-#: ../textw/upgrade_text.py:251
+#: ../textw/upgrade_text.py:243
 msgid "Customize Packages to Upgrade"
 msgstr "Válassza ki a frissítendõ csomagokat"
 
-#: ../textw/upgrade_text.py:252
+#: ../textw/upgrade_text.py:244
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -3612,7 +3681,7 @@ msgstr "Egyéni frissítés"
 msgid "Laptop"
 msgstr ""
 
-#: ../installclasses/server.py:12 ../libfdisk/gnomefsedit.c:2654
+#: ../installclasses/server.py:9 ../libfdisk/gnomefsedit.c:2654
 #: ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr "Szerver"
@@ -3626,7 +3695,7 @@ msgstr "Rendszer frissítés"
 msgid "Upgrade"
 msgstr "Frissítés"
 
-#: ../installclasses/workstation.py:12 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/workstation.py:9 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Munkaállomás"
 
@@ -4606,7 +4675,7 @@ msgstr ""
 "A rendszerhez nincsenek speciális eszközmeghajtók betöltve. Akar most "
 "ilyeneket betölteni?"
 
-#: ../loader/loader.c:536 ../loader/loader.c:2143
+#: ../loader/loader.c:536 ../loader/loader.c:2238
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Hiba a %s könyvtár olvasásánál: %s"
@@ -4709,20 +4778,20 @@ msgstr "Milyen típusú médián van a rescue image?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Milyen típusú médián vannak a telepítendõ csomagok?"
 
-#: ../loader/loader.c:2113
+#: ../loader/loader.c:2208
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nem találom a ks.cfg file-t a boot floppyn."
 
-#: ../loader/loader.c:2205
+#: ../loader/loader.c:2300
 msgid "Updates Disk"
 msgstr "Updates lemez"
 
-#: ../loader/loader.c:2206
+#: ../loader/loader.c:2301
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 "Helyezze be az updates lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
 
-#: ../loader/loader.c:2211
+#: ../loader/loader.c:2306
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -4731,26 +4800,26 @@ msgstr ""
 "A behelyezett floppy nem a megfelelõ driver lemez ehhez a Red Hat Linux "
 "verzióhoz."
 
-#: ../loader/loader.c:2221
+#: ../loader/loader.c:2316
 msgid "Failed to mount floppy disk."
 msgstr "Nem sikerült mount-olni a floppyt."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2226
+#: ../loader/loader.c:2321
 msgid "Updates"
 msgstr "Updates"
 
-#: ../loader/loader.c:2226
+#: ../loader/loader.c:2321
 msgid "Reading anaconda updates..."
 msgstr "Az anaconda frissítéseinek olvasása..."
 
-#: ../loader/loader.c:2432
+#: ../loader/loader.c:2527
 msgid "You do not have enough RAM to install Red Hat Linux on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2920
+#: ../loader/loader.c:3022
 #, fuzzy
 msgid "Running anaconda - please wait...\n"
 msgstr "Az anaconda frissítéseinek olvasása..."
@@ -5918,6 +5987,14 @@ msgid "Ukrainian"
 msgstr ""
 
 #, fuzzy
+#~ msgid "Make Raid Device"
+#~ msgstr "Alkalmazott RAID eszköz"
+
+#, fuzzy
+#~ msgid "Could not allocated requested partitions: %s."
+#~ msgstr "Lekötetlen partíciók találhatók..."
+
+#, fuzzy
 #~ msgid "Samba Server:"
 #~ msgstr "SMB (Samba) szerver"
 
@@ -6174,10 +6251,6 @@ msgstr ""
 #~ msgid "Swap"
 #~ msgstr "Swap"
 
-#, fuzzy
-#~ msgid "Boot Partition Warning"
-#~ msgstr "Automatikus Particionálás"
-
 #~ msgid "Package Groups"
 #~ msgstr "Csomag csoportok"
 
@@ -6304,9 +6377,6 @@ msgstr ""
 #~ "\n"
 #~ "Ha ezt nem akarja, akkor folytathatja a telepítést kézi particionálással, "
 #~ "vagy visszaléphet, és választhatja a teljesen egyéni telepítést."
-
-#~ msgid "Continue"
-#~ msgstr "Folytatás"
 
 #~ msgid "Manually partition"
 #~ msgstr "Kézi particionálás"
