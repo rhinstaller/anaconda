@@ -312,7 +312,7 @@ int main(int argc, char **argv) {
     int rc;
 
     if (argc < 2) {
-	printf("Usage: checkisomd5  <isofilename>\n\n");
+	printf("Usage: checkisomd5  <isofilename>|<blockdevice>\n\n");
 	exit(1);
     }
 
