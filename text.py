@@ -328,7 +328,7 @@ class UpgradeExamineWindow:
                 scroll = 0
 
 	    partList = []
-	    for (drive, fstype) in parts:
+	    for drive in parts:
 		partList.append(drive)
 
             (button, choice) = \
@@ -337,7 +337,7 @@ class UpgradeExamineWindow:
                                       "of your installation?"), partList, 
                                     [ _("OK"), _("Back") ], width = 30,
                                     scroll = scroll, height = height,
-				    root = "multipleroot")
+				    help = "multipleroot")
             if button == string.lower (_("Back")):
                 return INSTALL_BACK
             else:
