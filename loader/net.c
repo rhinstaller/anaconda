@@ -489,6 +489,13 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton(env, &newCfg.dev.broadcast))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
+   /* FIXME: Hack to avoid changes to pump.h (no dev.mtu available) */
+   /* numXfs isn't used by anything */
+   env = getenv("MTU");
+   if (env && *env) {
+       strncpy(newCfg.dev.numXfs, env, 6);
+       newCfg.dev.set |= PUMP_NETINFO_HAS_XFNTSRVS;
+   }
 #endif   /* s390 */
 
 #ifdef __STANDALONE__
@@ -581,6 +588,11 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+
+   /* FIXME: Hack to avoid changes to pump.h (no dev.mtu available) */
+   /* numXfs isn't used by anything */
+    if (dev->dev.set & PUMP_NETINFO_HAS_XFNTSRVS)
+	fprintf(f, "MTU=%s\n", dev->dev.numXfs);
 
     fclose(f);
 
