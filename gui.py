@@ -11,6 +11,7 @@ from iw.rootpartition import *
 from iw.auth import *
 from iw.mouse import *
 from iw.keyboard import *
+from iw.format import *
 import sys
 import GdkImlib
 from gnomepyfsedit import fsedit
@@ -107,10 +108,10 @@ class InstallInterface:
     def run (self, todo):
         start_new_thread (GtkMainThread ().run, ())
         steps = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
-                 PackageSelectionWindow, AuthWindow, AccountWindow, InstallProgressWindow]
+                 FormatWindow, PackageSelectionWindow, AuthWindow, AccountWindow, InstallProgressWindow]
 
         windows = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
-                   PackageSelectionWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow,
+                   FormatWindow, PackageSelectionWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow,
                    InstallProgressWindow, ConfirmPartitionWindow]
                  
         icw = InstallControlWindow (self, steps, windows, todo)
