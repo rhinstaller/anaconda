@@ -23,7 +23,8 @@ for (dclass, path, comment) in p:
 #    print "IDE  Test-> ",path,_isys.isIdeRemovable("/dev/"+path)
 #    print "SCSI Test-> ",path,_isys.isScsiRemovable("/dev/"+path)
      import isys
-     
-     print path, isys.driveIsRemovable(path)
+
+     if dclass != 'net':
+         print path, isys.driveIsRemovable(path)
     
 

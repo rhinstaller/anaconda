@@ -227,7 +227,8 @@ class InstallPathWindow:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
-				       todo.intf.messageWindow)
+				       todo.intf.messageWindow,
+                                       not todo.expert)
 	    return INSTALL_NOOP
 
 	classes = installclass.availableClasses()
@@ -281,7 +282,8 @@ class InstallPathWindow:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
-				       todo.intf.messageWindow)
+				       todo.intf.messageWindow,
+                                       not todo.expert)
 
         return INSTALL_OK
 
@@ -295,7 +297,8 @@ class UpgradeExamineWindow:
 	    todo.fstab = NewtFstab(todo.setupFilesystems, 
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
-				       todo.intf.messageWindow)
+				       todo.intf.messageWindow,
+                                       not todo.expert)
 	    return INSTALL_NOOP
 
         parts = todo.upgradeFindRoot ()

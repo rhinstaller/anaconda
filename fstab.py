@@ -715,7 +715,18 @@ class Fstab:
 	return self.badBlockCheck
 
     def createDruid(self, fstab = [], ignoreBadDrives = 0):
-	return self.fsedit(0, self.driveList(), fstab, self.zeroMbr, 
+        tlist = self.driveList()
+        list = []
+        if self.ignoreRemovable:
+            for dev in tlist:
+                if isys.driveIsRemovable(dev):
+                    log("Not in expert mode, ignoring removable device %s", dev)
+                    continue
+                list.append(dev)
+        else:
+            list = tlist
+
+	return self.fsedit(0, list, fstab, self.zeroMbr, 
 			   self.readOnly, ignoreBadDrives)
 
     def getRunDruid(self):
@@ -725,7 +736,7 @@ class Fstab:
 	self.shouldRunDruid = state
 
     def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		 readOnly, waitWindow, messageWindow):
+		 readOnly, waitWindow, messageWindow, ignoreRemovable):
 	self.fsedit = fsedit
 	self.fsCache = {}
         self.clearfsOptions()
@@ -739,6 +750,7 @@ class Fstab:
 	self.waitWindow = waitWindow
 	self.messageWindow = messageWindow
 	self.badBlockCheck = 0
+        self.ignoreRemovable = ignoreRemovable
 
         #
         # extraFilesystems used for upgrades when /etc/fstab is read as
@@ -777,12 +789,12 @@ class GuiFstab(Fstab):
 	self.beenSaved = 0
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow):
+		 messageWindow, ignoreRemovable):
 	from gnomepyfsedit import fsedit        
 	from gtk import *
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow)
+		       readOnly, waitWindow, messageWindow, ignoreRemovable)
 
 	self.GtkFrame = GtkFrame
         self.GtkAccelGroup = GtkAccelGroup
@@ -792,11 +804,11 @@ class GuiFstab(Fstab):
 class NewtFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
-		 messageWindow):
+		 messageWindow, ignoreRemovable):
 	from newtpyfsedit import fsedit        
 
 	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow)
+		       readOnly, waitWindow, messageWindow, ignoreRemovable)
 
 def readFstab (path, fstab):
     f = open (path, "r")

@@ -125,7 +125,8 @@ class InstallPathWindow (InstallWindow):
 	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
 				       self.todo.serial, 0, 0,
 				       self.todo.intf.waitWindow,
-				       self.todo.intf.messageWindow)
+				       self.todo.intf.messageWindow,
+                                       not self.todo.expert)
 
         # set state of disk druid to be read-only if needed
         if (InstallPathWindow.fdisk.get_active()):

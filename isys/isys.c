@@ -1234,7 +1234,7 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
     char *path;
     char str[100];
-    char *devpath[250];
+    char devpath[250];
     char *t;
     int fd;
     int rc, i;
