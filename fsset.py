@@ -938,9 +938,7 @@ class FileSystemSet:
         ret = {}
         bootDev = self.getBootDev()
 
-	if bootDev.getName() == "LoopbackDevice":
-	    return ret
-	elif bootDev.getName() == "RAIDDevice":
+	if bootDev.getName() == "RAIDDevice":
             ret['boot'] = (bootDev.device, N_("RAID Device"))
             return ret
 
