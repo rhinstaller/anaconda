@@ -302,11 +302,11 @@ class AuthConfigWindow:
         subgrid.setField (Label (""), 0, 2)
         
         subgrid.setField (Label (_("NIS Domain:")),
-                          1, 0, (5, 0, 1, 0), anchorRight = 1)
+                          1, 0, (2, 0, 1, 0), anchorRight = 1)
         subgrid.setField (Label (_("NIS Server:")),
-                          1, 1, (5, 0, 1, 0), anchorRight = 1)
+                          1, 1, (2, 0, 1, 0), anchorRight = 1)
         subgrid.setField (Label (_("or use:")),
-                          1, 2, (5, 0, 1, 0), anchorRight = 1)
+                          1, 2, (2, 0, 1, 0), anchorRight = 1)
 
         text = _("Request server via broadcast")
         entrywid = len(text) + 4
