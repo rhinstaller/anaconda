@@ -317,6 +317,8 @@ class LiloConfiguration:
         if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
             if self.edd and useLBA32:
                 lilo.addEntry("lba32", replace = 0)
+		if lilo.testEntry("linear"):
+		    lilo.delEntry("linear")
             elif self.liloLinear:
                 lilo.addEntry("linear", replace = 0)
 
