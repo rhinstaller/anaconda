@@ -179,6 +179,11 @@ size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
     return wlite_mbrtowc (pwc, s, n, ps);
 }
 
+#define mbstate_t wlite_mbstate_t
+size_t mbsrtowcs(wchar_t *pwc, const char **src, size_t n, mbstate_t *ps) {
+    return wlite_mbsrtowcs (pwc, src, n, ps);
+}
+
 int iswspace (wchar_t c) {
     return wlite_iswctype((c), wlite_space_);
 }
