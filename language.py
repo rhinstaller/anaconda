@@ -118,7 +118,10 @@ class InstallTimeLanguage:
 
         os.environ["LANG"] = lang
         os.environ["LC_NUMERIC"] = 'C'
-        locale.setlocale(locale.LC_ALL, "")
+        try:
+            locale.setlocale(locale.LC_ALL, "")
+        except locale.Error:
+            pass
 
         newlangs = [lang]
 	if len(lang) > 2:
