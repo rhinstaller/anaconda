@@ -125,9 +125,9 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh
+    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh wget installer
 	sed net-tools inetd openssh openssh-server fileutils modutils
-	portmap textutils telnet-server login ssh_keys"
+	portmap textutils sh-utils telnet-server login ssh_keys"
 fi
 
 # xpm is missing
@@ -179,8 +179,8 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh
-	sed net-tools inetd openssh openssh-server fileutils login
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh installer
+	sed net-tools inetd openssh openssh-server fileutils login wget
 	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
@@ -281,38 +281,55 @@ EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
-usr/lib/anaconda-runtime/loader/linuxrc.s390
-usr/lib/anaconda-runtime/loader/dasdformat
-usr/lib/anaconda-runtime/loader/mountpoint
-usr/lib/anaconda-runtime/loader/netsetup
-usr/lib/anaconda-runtime/loader/pkgselect
-usr/lib/anaconda-runtime/loader/pkgsrc
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/s/screen
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt102
 usr/share/terminfo/x/xterm
-usr/sbin/glibc_post_upgrade
-bin/login
-bin/ksh
-usr/sbin/sshd
 usr/bin/strace
 usr/bin/ldd
-bin/ps
+usr/bin/wget
+usr/bin/head
+usr/bin/printf
+usr/bin/tee
+usr/sbin/chroot
+usr/sbin/sshd
+usr/sbin/glibc_post_upgrade
 usr/sbin/inetd
 usr/sbin/in.telnetd
-sbin/insmod
+sbin/consoletype
+sbin/rhsetup
 sbin/ifconfig
 sbin/route
 sbin/portmap
 sbin/fdasd
 sbin/dasdfmt
+sbin/swapon
+sbin/swapoff
+sbin/mkswap
+sbin/tune2fs
+bin/dd
+bin/ln
+bin/ls
+bin/mv
+bin/rm
+bin/sort
+bin/more
+bin/mkdir
+bin/grep
+bin/gzip
+bin/zcat
+bin/login
+bin/ksh
 bin/cat
 bin/chmod
 bin/sed
 bin/mount
+bin/umount
+bin/uname
 bin/hostname
+bin/ps
 lib/libpam.so*
 lib/libdl.so*
 lib/libdl-*.so*

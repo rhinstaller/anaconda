@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x 
 
 PATH=$PATH:/sbin:/usr/sbin
 
@@ -452,26 +452,46 @@ EOF
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $MBD_DIR/lib
        mkdir -p $MBD_DIR/etc/ssh 
-       cp -f $LOADERBINDIR/linuxrc.s390 $MBD_DIR/linuxrc
+       cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
-       cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
        ln -sf ksh $MBD_DIR/sbin/sh
-       #cp -f $IMGPATH/usr/bin/ssh-keygen $MBD_DIR/sbin/ssh-keygen
+       cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
+       cp -f $IMGPATH/usr/lib/anaconda-runtime/loader/formatmnt \
+	   $MBD_DIR/sbin/formatmnt
+       cp -f $IMGPATH/usr/bin/wget $MBD_DIR/bin/wget
+       cp -f $IMGPATH/usr/bin/head $MBD_DIR/bin/head
+       cp -f $IMGPATH/usr/bin/printf $MBD_DIR/bin/printf
+       cp -f $IMGPATH/usr/bin/tee $MBD_DIR/bin/tee
+       cp -f $IMGPATH/usr/sbin/chroot $MBD_DIR/sbin/chroot
+       cp -f $IMGPATH/usr/sbin/consoletype $MBD_DIR/sbin/consoletype
+       cp -f $IMGPATH/usr/sbin/rhsetup $MBD_DIR/sbin/rhsetup
+       cp -f $IMGPATH/usr/sbin/swapon $MBD_DIR/sbin/swapon
+       cp -f $IMGPATH/usr/sbin/swapoff $MBD_DIR/sbin/swapoff
+       cp -f $IMGPATH/usr/sbin/mkswap $MBD_DIR/sbin/mkswap
+       cp -f $IMGPATH/usr/sbin/tune2fs $MBD_DIR/sbin/tune2fs
+       cp -f $IMGPATH/usr/bin/ls $MBD_DIR/bin/ls
+       cp -f $IMGPATH/usr/bin/ln $MBD_DIR/bin/ln
+       cp -f $IMGPATH/usr/bin/dd $MBD_DIR/bin/dd
+       cp -f $IMGPATH/usr/bin/mv $MBD_DIR/bin/mv
+       cp -f $IMGPATH/usr/bin/rm $MBD_DIR/bin/rm
+       cp -f $IMGPATH/usr/bin/sort $MBD_DIR/bin/sort
+       cp -f $IMGPATH/usr/bin/more $MBD_DIR/bin/more
+       cp -f $IMGPATH/usr/bin/mkdir $MBD_DIR/bin/mkdir
+       cp -f $IMGPATH/usr/bin/grep $MBD_DIR/bin/grep
+       cp -f $IMGPATH/usr/bin/gzip $MBD_DIR/bin/gzip
+       cp -f $IMGPATH/usr/bin/mount $MBD_DIR/bin/mount
+       cp -f $IMGPATH/usr/bin/umount $MBD_DIR/bin/umount
+       cp -f $IMGPATH/usr/bin/uname $MBD_DIR/bin/uname
+       cp -f $IMGPATH/usr/bin/ps $MBD_DIR/bin/ps
+       ln -s gzip $MBD_DIR/bin/zcat
        cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
-       cp -f $IMGPATH/usr/bin/ps $MBD_DIR/sbin/ps
        cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
        cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
-       #cp -f $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
-       #install -m 755 $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
-       #install -m 755 $IMGPATH/usr/sbin/rmmod $MBD_DIR/sbin/rmmod
-       #install -m 755 $IMGPATH/usr/sbin/modprobe $MBD_DIR/sbin/modprobe
-       #install -m 755 $IMGPATH/bin/ls $MBD_DIR/sbin/ls
-       #install -m 755 $IMGPATH/lib/libtermcap.so.2.0.8 $MBD_DIR/lib/libtermcap.so.2
+       cp -df $IMGPATH/lib/libtermcap* $MBD_DIR/lib/
        install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
        install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
        install -m 755 $IMGPATH/usr/sbin/ldconfig $MBD_DIR/sbin/ldconfig
-
        cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
        cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
        cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
@@ -481,7 +501,6 @@ EOF
        cp -f $IMGPATH/usr/bin/chmod $MBD_DIR/sbin/chmod
        cp -f $IMGPATH/usr/bin/sed $MBD_DIR/sbin/sed
        cp -f $IMGPATH/usr/bin/hostname $MBD_DIR/sbin/hostname
-       cp -f $IMGPATH/usr/bin/mount $MBD_DIR/sbin/mount
        cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
        cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
        cp -f $IMGPATH/etc/services $MBD_DIR/etc/
@@ -585,11 +604,11 @@ EOF
 	    $MBD_DIR xpram1 b 35 1 600 root:root
 	    $MBD_DIR xpram2 b 35 2 600 root:root
 EOF
+	for i in `seq 2 9`; do
+	    ln -s console $MBD_DIR/dev/tty$i
+	done
     fi
     ln -s fb0 $MBD_DIR/dev/fb
-    for i in `seq 2 9`; do
-	ln -s console $MBD_DIR/dev/tty$i
-    done
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
 	dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000
