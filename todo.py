@@ -852,6 +852,7 @@ class ToDo:
 
         self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
         rpm.addMacro("_dbpath_rebuild", self.dbpath);
+        rpm.addMacro("_dbapi", "-1");
 
         # now, set the system clock so the timestamps will be right:
         iutil.setClock (self.instPath)
@@ -1348,7 +1349,7 @@ class ToDo:
         # XXX in case we started out in Upgrade land, we need to
         # reset this macro to point to the right place.
         rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-        rpm.addMacro ("_dbi_config", "hash perms=0644")
+#        rpm.addMacro ("_dbi_config", "hash perms=0644")
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
