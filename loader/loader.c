@@ -736,8 +736,7 @@ static char * setupCdrom(struct installMethod * method,
 	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
 			  NULL)) {
 		if (!needRedHatCD || 
-			!access(
-			    "/mnt/source/RedHat/instimage/usr/bin/anaconda", 
+		    !access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
 			    X_OK)) {
 		    unlink("/mnt/runtime");
 		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
@@ -745,6 +744,7 @@ static char * setupCdrom(struct installMethod * method,
 		}
 		umount("/mnt/source");
 	    }
+	    unlink("/tmp/cdrom");
 	}
 
 	if (probeQuickly) return NULL;
