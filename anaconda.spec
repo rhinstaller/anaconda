@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.15
+Version: 10.1.1.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,7 +74,7 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Mar XX 2005 XXX <XXX@redhat.com> 10.1.1.XX-X
+* Mon Mar 14 2005 Chris Lumens <clumens@redhat.com> - 10.1.1.16-1
 - Fix typo in Xvnc parameters (#150498).
 
 * Wed Mar  2 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.15-1
