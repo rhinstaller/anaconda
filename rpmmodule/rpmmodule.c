@@ -277,7 +277,7 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
 
     o = PyObject_NEW(rpmdbObject, &rpmdbType);
     o->db = NULL;
-    if (rpmdbOpen("/", &o->db, forWrite ? O_RDWR : O_RDONLY, 0)) {
+    if (rpmdbOpen(root, &o->db, forWrite ? O_RDWR | O_CREAT: O_RDONLY, 0)) {
 	Py_DECREF(o);
 	PyErr_SetString(pyrpmError, "cannot open database in /var/lib/rpm");
 	return NULL;
