@@ -6,6 +6,7 @@ import rpm
 import time
 import gettext
 import glob
+import _balkan
 from newtpyfsedit import fsedit        
 
 INSTALL_OK = 0
@@ -480,7 +481,7 @@ class HostnameWindow:
 
 class PartitionWindow:
     def __call__(self, screen, todo):
-	if (not todo.setupFilesystems): return INSTALL_NOOP
+	#if (not todo.setupFilesystems): return INSTALL_NOOP
 
         fstab = []
         for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
@@ -696,16 +697,16 @@ class PackageDepWindow:
 class BootDiskWindow:
     def __call__(self, screen, todo):
         rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
-                                _("A custom bootdisk provides a way of booting into your "
-                                  "Linux system without depending on the normal bootloader. "
-                                  "This is useful if you don't want to install lilo on your "
-                                  "system, another operating system removes lilo, or lilo "
-                                  "doesn't work with your hardware configuration. A custom "
-                                  "bootdisk can also be used with the Red Hat rescue image, "
-                                  "making it much easier to recover from severe system "
-                                  "failures.\n\n"
-                                  "Would you like to create a bootdisk for your system?"),
-                                buttons = [ _("Yes"), _("No"), _("Back") ])
+		_("A custom bootdisk provides a way of booting into your "
+		  "Linux system without depending on the normal bootloader. "
+		  "This is useful if you don't want to install lilo on your "
+		  "system, another operating system removes lilo, or lilo "
+		  "doesn't work with your hardware configuration. A custom "
+		  "bootdisk can also be used with the Red Hat rescue image, "
+		  "making it much easier to recover from severe system "
+		  "failures.\n\n"
+		  "Would you like to create a bootdisk for your system?"),
+		buttons = [ _("Yes"), _("No"), _("Back") ])
                                 
 
         if rc == string.lower (_("Yes")):
@@ -750,6 +751,151 @@ class LiloWindow:
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
         return INSTALL_OK
+
+class LiloImagesWindow:
+
+    def editItem(self, screen, partition, itemLabel):
+	devLabel = Label(_("Device") + ":")
+	bootLabel = Label(_("Boot label") + ":")
+	device = Label("/dev/" + partition)
+        newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
+
+	buttons = ButtonBar(screen, [_("Ok"), _("Clear"), _("Cancel")])
+
+	subgrid = Grid(2, 2)
+	subgrid.setField(devLabel, 0, 0, anchorLeft = 1)
+	subgrid.setField(device, 1, 0, padding = (1, 0, 0, 0), anchorLeft = 1)
+	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
+	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
+
+	g = GridForm(screen, _("Edit Boot Label"), 1, 2)
+	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
+	g.add(buttons, 0, 1, growx = 1)
+
+	result = ""
+	while (result != string.lower(_("Ok")) and result != newLabel):
+	    result = g.run()
+	    if (buttons.buttonPressed(result)):
+		result = buttons.buttonPressed(result)
+
+	    if (result == string.lower(_("Cancel"))):
+		return itemLabel
+	    elif (result == string.lower(_("Clear"))):
+		newLabel.set("")
+
+	screen.popWindow()
+
+	return newLabel.value()
+
+    def formatDevice(self, type, label, device, default):
+	if (type == 2):
+	    type = "Linux extended"
+	elif (type == 1):
+	    type = "DOS/Windows"
+	elif (type == 4):	
+	    type = "OS/2 / Windows NT"
+	else:
+	    type = "Other"
+
+	if default == device:
+	    default = '*'
+	else:
+	    default = ""
+	    
+	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
+
+    def __call__(self, screen, todo):
+        drives = todo.drives.available ().keys ()
+	images = {}
+        for drive in drives:
+	    try:
+		table = _balkan.readTable ('/tmp/' + drive)
+	    except SystemError:
+		pass
+	    else:
+                for i in range (len (table)):
+		    (type, sector, size) = table[i]
+		    if size and (type == 1 or type == 2):
+			dev = drive + str (i + 1)
+			images[dev] = ("", type)
+
+	if (not images): return
+
+	mountsByDev = {}
+	for loc in todo.mounts.keys():
+	    (device, fsystem, reformat) = todo.mounts[loc]
+	    mountsByDev[device] = loc
+
+	for dev in images.keys():
+	    if (mountsByDev.has_key(dev)):
+		if mountsByDev[dev] == '/':
+		    default = dev
+		    images[dev] = ("linux", 2)
+		else:
+		    del images[dev]
+
+	sortedKeys = images.keys()
+	sortedKeys.sort()
+
+	listboxLabel = Label("%-10s  %-25s %-7s %-10s" % 
+		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
+	listbox = Listbox(5, scroll = 1, returnExit = 1)
+
+	foundDos = 0
+	for n in sortedKeys:
+	    (label, type) = images[n]
+	    if (type == 1):
+		if (foundDos): continue
+		foundDos = 1
+		label = "dos"
+		images[n] = (label, type)
+	    listbox.append(self.formatDevice(type, label, n, default), n)
+
+	buttons = ButtonBar(screen, [ _("Ok"), _("Edit"), _("Back") ] )
+
+	text = TextboxReflowed(55, _("The boot manager Red Hat uses can boot other " 
+		      "operating systems as well. You need to tell me " 
+		      "what partitions you would like to be able to boot " 
+		      "and what label you want to use for each of them."))
+
+	g = GridForm(screen, _("LILO Configuration"), 1, 4)
+	g.add(text, 0, 0, anchorLeft = 1)
+	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
+	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
+	g.add(buttons, 0, 3, growx = 1)
+	g.addHotKey("F2")
+
+	result = None
+	while (result != string.lower(_("Ok")) and result != string.lower(_("Back"))):
+	    result = g.run()
+	    if (buttons.buttonPressed(result)):
+		result = buttons.buttonPressed(result)
+
+	    if (result == string.lower(_("Edit")) or result == listbox):
+		item = listbox.current()
+		(label, type) = images[item]
+		label = self.editItem(screen, item, label)
+		images[item] = (label, type)
+		if (default == item and not label):
+		    default = ""
+		listbox.replace(self.formatDevice(type, label, item, default), item)
+		listbox.setCurrent(item)
+	    elif result == "F2":
+		item = listbox.current()
+		(label, type) = images[item]
+		if (label):
+		    if (default):
+			(oldLabel, oldType) = images[default]
+			listbox.replace(self.formatDevice(oldType, oldLabel, default, 
+					""), default)
+		    default = item
+		    listbox.replace(self.formatDevice(type, label, item, default), 
+				    item)
+		    listbox.setCurrent(item)
+
+	screen.popWindow()
+
+	return INSTALL_NOOP
 
 class BeginInstallWindow:
     def __call__ (self, screen, todo):
@@ -1022,6 +1168,7 @@ class InstallInterface:
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo)],
             [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
+	    [_("LILO Configuration"), LiloImagesWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
             [_("Install System"), InstallWindow, (self.screen, todo)],
             [_("Bootdisk"), BootdiskWindow, (self.screen, todo)],
