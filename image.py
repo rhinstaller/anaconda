@@ -22,6 +22,11 @@ class ImageInstallMethod(InstallMethod):
     def readHeaders(self):
 	return HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
+    def writeCleanupPath(self, f):
+	isys.makeDevInode("loop0", "/tmp/loop0")
+	f.write("umount /mnt/runtime\n")
+	f.write("lounsetup /tmp/loop0\n")
+
     def __init__(self, tree):
 	InstallMethod.__init__(self)
 	self.tree = tree
