@@ -847,6 +847,11 @@ static char * mountHardDrive(struct installMethod * method,
         netDev.isDynamic = 1;
 	i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
         if (i) return NULL;
+	rc = readNetConfig(devName, &netDev, flags);
+	if (rc) {
+                if (!FL_TESTING(flags)) pumpDisableInterface(devName);
+                return NULL;
+	}
 	setupRemote(&ui);
 	for(c = 'a'; c <= 'z'; c++) {
 	  for(i = 1; i < 4; i++) {
