@@ -206,7 +206,7 @@ class Mouse (SimpleConfigFile):
             }
 
     def available (self):
-        return self.mice ()
+        return self.mice
 
     def get (self):
         if self.info.has_key ("FULLNAME"):
