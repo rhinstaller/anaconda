@@ -216,7 +216,7 @@ class BootloaderImagesWindow:
 	subgrid.setField(device, 1, 0, padding = (1, 0, 0, 0), anchorLeft = 1)
 	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
 	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
-	g = GridFormHelp(screen, _("Edit Boot Label Please"), "bootlabel", 1, 2)
+	g = GridFormHelp(screen, _("Edit Boot Label"), "bootlabel", 1, 2)
 	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
 	g.add(buttons, 0, 1, growx = 1)
 
