@@ -776,6 +776,10 @@ class XConfigWindow (InstallWindow):
             self.dispatch.skipStep("writexconfig", skip = 0)
             self.xsetup.skipx = 0
 
+	# if ppc then we bail now, you cant selected videocard for ppc
+	if iutil.getArch() == "ppc":
+	    return None
+
         # set videocard type (assuming we're working with PRIMARY card)
         if self.currentCard:
 	    try:
@@ -805,6 +809,8 @@ class XConfigWindow (InstallWindow):
         else:
 	    selected = None
 
+        
+        # see if they actually picked a card, otherwise keep going
 	if selected == None:
             self.intf.messageWindow(_("Unspecified video card"),
                             _("You need to pick a video card before "
@@ -812,11 +818,6 @@ class XConfigWindow (InstallWindow):
                               "want to skip X configuration entirely "
                               "choose the 'Skip X Configuration' button."))
             raise gui.StayOnScreen
-
-        
-        # see if they actually picked a card, otherwise keep going
-
-
 
         # sniff out the selected ram size
         menu = self.ramOption.get_menu ().get_active()
@@ -842,7 +843,8 @@ class XConfigWindow (InstallWindow):
         return None
 
     def skipToggled (self, widget, *args):
-        self.configbox.set_sensitive (not widget.get_active ())
+	if not self.force_ppc_fb:
+	    self.configbox.set_sensitive (not widget.get_active ())
 
     def selectCardType (self, selection, *args):
 	if self.ignoreEvents:
@@ -941,6 +943,7 @@ class XConfigWindow (InstallWindow):
 
         self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
+	self.force_ppc_fb = 0
         arch = iutil.getArch()
         # we can only probe video ram on i386
         if arch != "i386":
@@ -948,6 +951,15 @@ class XConfigWindow (InstallWindow):
                                           "autodetected.  Choose your video "
                                           "ram size from the choices below:"))
             box.pack_start (label, gtk.FALSE)
+	elif arch == "ppc":
+            label = makeFormattedLabel (_("Your system will be configured to "
+					  "use the frame buffer driver for "
+					  "the X Window System.  If you do "
+					  "not want to have the X Window "
+					  "System configured, choose "
+					  "'Skip X Configuration' below."))
+            box.pack_start (label, gtk.FALSE, gtk.FALSE)
+	    self.force_ppc_fb = 1
         else:
             self.autoBox = gtk.VBox (gtk.FALSE, 5)
 
@@ -1030,7 +1042,10 @@ class XConfigWindow (InstallWindow):
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
         sw.add (self.cardview)
-        box.pack_start (sw, gtk.TRUE)
+
+	# only show this option on non-ppc
+	if not self.force_ppc_fb:
+	    box.pack_start (sw, gtk.TRUE)
 
         #Memory configuration menu
         hbox = gtk.HBox()
@@ -1056,7 +1071,10 @@ class XConfigWindow (InstallWindow):
         hbox.pack_start(self.ramOption, gtk.TRUE, gtk.TRUE, 25)
 
         self.ramOption.set_menu (self.ramMenu)
-        box.pack_start (hbox, gtk.FALSE)
+
+	# only show this option on non-ppc
+	if not self.force_ppc_fb:
+	    box.pack_start (hbox, gtk.FALSE)
 
         restore = gtk.Button (_("Restore _original values"))
         restore.connect ("clicked", self.restorePressed)
@@ -1069,8 +1087,13 @@ class XConfigWindow (InstallWindow):
         
         self.topbox = gtk.VBox (gtk.FALSE, 5)
         self.topbox.set_border_width (5)
-        self.topbox.pack_start (box, gtk.TRUE, gtk.TRUE)
-        self.topbox.pack_start (self.skip, gtk.FALSE)
+	if self.force_ppc_fb:
+	    # tweak packing
+	    self.topbox.pack_start (box, gtk.FALSE, gtk.FALSE)
+	    self.topbox.pack_start (self.skip, gtk.FALSE, gtk.FALSE)
+	else:
+	    self.topbox.pack_start (box, gtk.TRUE, gtk.TRUE)
+	    self.topbox.pack_start (self.skip, gtk.FALSE)
         
         self.configbox = box
         
