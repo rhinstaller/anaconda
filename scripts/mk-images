@@ -634,7 +634,7 @@ EOF
 	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
-	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/init
+	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/sbin/init
 	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     fi
 
