@@ -18,6 +18,10 @@ endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
+MODULELINKAGE = ../isys/modutils/insmod/libmodutils.a    \
+        	../isys/modutils/util/libutil.a          \
+        	../isys/modutils/obj/libobj.a
+
 CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
@@ -37,6 +41,7 @@ endif
 ifeq (ia64, $(ARCH))
 BINS += loader
 OBJS += modstubs.o 
+MODULELINKAGE := 
 endif
 
 ifeq (alpha, $(ARCH))
@@ -112,25 +117,18 @@ install: all
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
-	../isys/modutils/insmod/libmodutils.a    \
-	../isys/modutils/util/libutil.a          \
-	../isys/modutils/obj/libobj.a            \
 	-L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
-        ../isys/modutils/insmod/libmodutils.a    \
-        ../isys/modutils/util/libutil.a          \
-        ../isys/modutils/obj/libobj.a            \
+	$(MODULELINKAGE) \
         -L ../stubs -L../pump -lpump -lz -lresolv -lnewt -lslang -lpci
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
-        ../isys/modutils/insmod/libmodutils.a    \
-        ../isys/modutils/util/libutil.a          \
-        ../isys/modutils/obj/libobj.a            \
+	$(MODULELINKAGE) \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
@@ -138,9 +136,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
         ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
-        ../isys/modutils/insmod/libmodutils.a    \
-        ../isys/modutils/util/libutil.a          \
-        ../isys/modutils/obj/libobj.a            \
+	$(MODULELINKAGE) \
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader.o: loader.c
