@@ -1,7 +1,7 @@
 #
 # silo_gui.py: SILO configuration -- THIS FILE IS DEPRECIATED.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,7 @@
 from iw_gui import *
 
 from gtk import *
-from translate import _
+from rhpl.translate import _
 from xpms_gui import SMALL_CHECK
 import gdkpixbuf
 

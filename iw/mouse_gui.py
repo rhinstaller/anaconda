@@ -1,7 +1,7 @@
 #
 # mouse_gui.py: gui mouse configuration.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,7 @@ import string
 import gobject
 from iw_gui import *
 from re import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from flags import flags
 
 class MouseWindow(InstallWindow):

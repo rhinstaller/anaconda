@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,7 +19,7 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 import gtk
 from flags import flags
-from translate import cat
+from rhpl.translate import cat
 
 # for GTK+ 2.0
 cat.setunicode(1)

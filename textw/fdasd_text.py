@@ -5,7 +5,7 @@
 # Harald Hoyer <harald@redhat.de>
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,7 +19,7 @@ import os
 import isys
 import iutil
 from snack import *
-from translate import _, cat, N_
+from rhpl.translate import _, cat, N_
 from constants_text import *
 import partitioning
 

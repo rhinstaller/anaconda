@@ -1,7 +1,7 @@
 #
 # xconfig_text.py: text mode X Windows System setup dialogs
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,7 @@ from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
 from constants_text import *
 from snack import *
-from translate import _
+from rhpl.translate import _
 
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")

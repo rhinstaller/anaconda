@@ -1,7 +1,7 @@
 #
 # langauge_gui.py: installtime language selection.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,7 +14,7 @@
 import gobject
 import gtk
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 
 class LanguageWindow (InstallWindow):
 

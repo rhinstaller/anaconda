@@ -4,7 +4,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,7 +27,7 @@ from fsset import *
 from autopart import *
 from snack import *
 from constants_text import *
-from translate import _
+from rhpl.translate import _
 from log import log
 
 

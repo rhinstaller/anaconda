@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -24,7 +24,7 @@ from xf86config import *
 from kbd import Keyboard
 from mouse import Mouse
 from snack import *
-from translate import _
+from rhpl.translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
 from videocard import VGA16Card, VESADriverCard

@@ -19,7 +19,7 @@ import iutil
 import partedUtils
 import gui
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 
 class BootloaderWindow (InstallWindow):
     windowTitle = N_("Boot Loader Configuration")

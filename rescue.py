@@ -3,7 +3,7 @@
 #
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -17,7 +17,7 @@ import upgrade
 from snack import *
 from constants_text import *
 from text import WaitWindow, OkCancelWindow
-from translate import _
+from rhpl.translate import _
 import sys
 import os
 from log import log

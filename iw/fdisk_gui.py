@@ -1,7 +1,7 @@
 #
 # fdisk_gui.py: interface that allows the user to run util-linux fdisk.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,7 +14,7 @@
 import gtk
 from iw_gui import *
 from gnome import zvt
-from translate import _
+from rhpl.translate import _
 from dispatch import DISPATCH_NOOP
 import partitioning
 import isys

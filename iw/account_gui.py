@@ -1,7 +1,7 @@
 #
 # account_gui.py: gui root password and user creation dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -17,7 +17,7 @@ import re
 import string
 import gui
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from flags import flags
 
 class AccountWindow (InstallWindow):

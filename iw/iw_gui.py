@@ -1,7 +1,7 @@
 #
 # iw_gui.py: install window base class
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from translate import _
+from rhpl.translate import _
 
 class InstallWindow:
 

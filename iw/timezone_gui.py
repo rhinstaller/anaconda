@@ -1,7 +1,7 @@
 #
 # timezone_gui.py: gui timezone selection.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -17,7 +17,7 @@ import gtk
 import gobject
 from timezone_map_gui import TimezoneMap, ZoneTab
 from iw_gui import *
-from translate import _
+from rhpl.translate import _
 
 class TimezoneWindow(InstallWindow):
     def __init__(self, ics):

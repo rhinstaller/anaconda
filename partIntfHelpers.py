@@ -18,7 +18,7 @@
 """Helper functions shared between partitioning interfaces."""
 
 import string
-from translate import _
+from rhpl.translate import _
 from constants import *
 import partedUtils
 import parted

@@ -3,7 +3,7 @@
 #
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -22,7 +22,7 @@ import gui
 import gobject
 import gtk
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
 from log import log

@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -26,7 +26,7 @@ import fsset
 from log import log
 from flags import flags
 from constants import *
-from translate import _
+from rhpl.translate import _
 from syslogd import syslog
 
 rpm.addMacro("_i18ndomains", "redhat-dist")

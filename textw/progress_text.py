@@ -1,7 +1,7 @@
 #
 # progress_text.py: text mode install/upgrade progress dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,7 @@ import rpm
 from constants import *
 from snack import *
 from constants_text import *
-from translate import _
+from rhpl.translate import _
 
 class InstallProgressWindow:
     def completePackage(self, header, timer):

@@ -1,6 +1,6 @@
 from installclass import BaseInstallClass
-from translate import N_
-from translate import _
+from rhpl.translate import N_, _
+
 import os
 import iutil
 

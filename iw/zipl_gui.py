@@ -1,7 +1,7 @@
 #
 # bootloader_gui.py: gui bootloader configuration dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,7 @@ from iw_gui import *
 
 from gtk import *
 from gnome.ui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 import gdkpixbuf
 import iutil
 from package_gui import queryUpgradeContinue

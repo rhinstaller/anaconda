@@ -4,7 +4,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.

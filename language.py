@@ -3,7 +3,7 @@
 #              installer runtime language choice and installed system
 #              language support.
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,7 +18,7 @@ import string
 import locale
 from simpleconfig import SimpleConfigFile
 import rpm
-from translate import cat
+from rhpl.translate import cat
 
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"

@@ -1,5 +1,5 @@
 import workstation
-from translate import N_
+from rhpl.translate import N_
 import os
 import pcmcia
 

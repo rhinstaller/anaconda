@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -24,7 +24,7 @@ import types
 import rpm
 from string import joinfields
 from cPickle import Pickler
-from translate import _
+from rhpl.translate import _
 from flags import flags
 
 dumpHash = {}

@@ -1,7 +1,7 @@
 #
 # bootdisk_gui.py: gui bootdisk creation dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,7 +14,7 @@
 import iutil
 from iw_gui import *
 import gtk
-from translate import _, N_
+from rhpl.translate import _, N_
 from constants import *
 
 class BootdiskWindow (InstallWindow):

@@ -1,7 +1,7 @@
 import sys
 sys.path.extend(["..", "../iconvmodule"])
-from translate import _
-import translate
+from rhpl.translate import _
+import rhpl.translate
 import language
 
 translate.cat.setunicode(1)

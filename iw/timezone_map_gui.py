@@ -1,7 +1,7 @@
 #
 # timezone_map_gui.py: gui timezone map widget.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,7 +18,7 @@ import gnome.canvas
 import string
 import re
 import math
-from translate import _
+from rhpl.translate import _
 
 class Enum:
     def __init__(self, *args):

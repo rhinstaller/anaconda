@@ -19,7 +19,7 @@ import gettext
 import gtk
 import gobject
 import gui
-from translate import _, N_
+from rhpl.translate import _, N_
 
 ip_re = re.compile('^([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])$')
 _=gettext.gettext

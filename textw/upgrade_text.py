@@ -20,7 +20,7 @@ from snack import *
 from fsset import *
 from log import log
 from flags import flags
-from translate import _
+from rhpl.translate import _
 from constants import *
 
 class UpgradeMigrateFSWindow:

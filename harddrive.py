@@ -1,4 +1,16 @@
-# Install method for hard drive installs
+#
+# harddrive.py - Install method for hard drive installs
+#
+# Copyright 1999-2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 
 from comps import ComponentSet, HeaderList, HeaderListFromFile
 from installmethod import InstallMethod
@@ -8,7 +20,7 @@ import isys
 import iutil
 import rpm
 import string
-from translate import _, cat, N_
+from rhpl.translate import _, cat, N_
 
 FILENAME = 1000000
 

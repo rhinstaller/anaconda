@@ -1,7 +1,7 @@
 #
 # network_text.py: text mode network configuration dialogs
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,7 @@ import os
 import isys
 from snack import *
 from constants_text import *
-from translate import _
+from rhpl.translate import _
 
 class NetworkWindow:
     def setsensitive (self):

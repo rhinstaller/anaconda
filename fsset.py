@@ -3,7 +3,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -26,7 +26,7 @@ import partedUtils
 import raid
 import types
 from log import log
-from translate import _, N_
+from rhpl.translate import _, N_
 
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var']
 

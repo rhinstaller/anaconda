@@ -26,7 +26,7 @@ import string
 from flags import flags
 from log import log
 from constants import *
-from translate import _
+from rhpl.translate import _
 
 from booty import *
 from bootloaderInfo import *

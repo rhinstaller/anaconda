@@ -4,7 +4,7 @@
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -19,7 +19,7 @@ import os
 from string import *
 import types
 import urllib
-from translate import _, N_
+from rhpl.translate import _, N_
 from log import log
 import time
 

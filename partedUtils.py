@@ -26,7 +26,7 @@ import raid
 from log import log
 from flags import flags
 from partErrors import *
-from translate import _
+from rhpl.translate import _
 
 fsTypes = {}
 

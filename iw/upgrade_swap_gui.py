@@ -3,7 +3,7 @@
 #
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -22,7 +22,7 @@ import gobject
 import gtk
 from iw_gui import *
 from package_gui import queryUpgradeContinue
-from translate import _, N_
+from rhpl.translate import _, N_
 from log import log
 from flags import flags
 

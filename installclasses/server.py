@@ -1,5 +1,5 @@
 from installclass import BaseInstallClass
-from translate import *
+from rhpl.translate import *
 from constants import *
 import os
 import iutil

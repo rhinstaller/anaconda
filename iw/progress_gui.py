@@ -1,7 +1,7 @@
 #
 # progress_gui.py: install/upgrade progress window setup.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -20,7 +20,7 @@ import timer
 import gobject
 import gtk
 from iw_gui import *
-from translate import _, N_, utf8
+from rhpl.translate import _, N_, utf8
 from packages import doInstall
 from constants import *
 

@@ -18,7 +18,7 @@
 from iw_gui import *
 
 import gtk
-from translate import _, N_
+from rhpl.translate import _, N_
 import iutil
 import gui
 import checkbootloader

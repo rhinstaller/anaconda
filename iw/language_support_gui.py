@@ -1,7 +1,7 @@
 #
 # langauge_support_gui.py: dialog for selection of which languages to support.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,7 @@ import checklist
 import gtk
 from iw_gui import *
 from flags import flags
-from translate import _, N_
+from rhpl.translate import _, N_
 
 class LanguageSupportWindow (InstallWindow):
     windowTitle = _("Additional Language Support")

@@ -5,7 +5,7 @@
 # Brent Fox <bfox@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,7 +27,7 @@ import time
 import os
 from kbd import Keyboard
 from mouse import Mouse
-from translate import _
+from rhpl.translate import _
 from log import log
 
 XF86Config_template = """
@@ -959,9 +959,7 @@ class XF86Config:
 #                 else:
 #                     raise RuntimeError, "trying frame buffer but no valid modes to try..."
 #        elif self.videocard.hasFixedMode():
-
-        if self.videocard.hasFixedMode():
-            self.manualModes = self.videocard.FixedMode()
+#            self.manualModes = self.videocard.FixedMode()
 
         # save current manually selected mode, override if non-existant
         manmodes = self.manualModes

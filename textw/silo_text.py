@@ -1,7 +1,7 @@
 #
 # silo_text.py: text mode silo setup dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,7 @@
 import iutil
 from snack import *
 from constants_text import *
-from translate import _
+from rhpl.translate import _
 
 class SiloAppendWindow:
 

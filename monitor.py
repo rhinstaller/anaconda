@@ -3,7 +3,7 @@
 #
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,9 +15,7 @@
 
 import string
 import kudzu
-import iutil
-import isys
-from translate import _
+from rhpl.translate import _
 from log import log
 
 def isValidSyncRange(syncrange):
@@ -245,17 +243,20 @@ class MonitorInfo:
                 pass
 
         self.fbmonMode = {}
-        if fbDevice != None:
-            try:
-                (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + fbDevice)
-                self.fbmonSect = monitor
-                self.fbmonMode = {}
-                if int(depth) == 24:
-                    depth = 32
+#
+# we're removing framebuffer code
+#
+#         if fbDevice != None:
+#             try:
+#                 (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + fbDevice)
+#                 self.fbmonSect = monitor
+#                 self.fbmonMode = {}
+#                 if int(depth) == 24:
+#                     depth = 32
                 
-                self.fbmonMode[str(depth)] = [str(mode)]
-            except:
-                pass
+#                 self.fbmonMode[str(depth)] = [str(mode)]
+#             except:
+#                 pass
 
         # save for reset() method
         self.orig_monName = self.monName

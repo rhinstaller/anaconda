@@ -1,7 +1,7 @@
 #
 # confirm_gui.py: install/upgrade point of no return screen.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -13,7 +13,7 @@
 
 import gtk
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from constants import *
 from package_gui import queryUpgradeContinue
 import gui

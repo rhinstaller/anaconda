@@ -1,7 +1,7 @@
 #
 # keyboard_gui.py: keyboard configuration gui dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -21,7 +21,7 @@ from iw_gui import *
 from kbd import Keyboard
 from log import log
 from flags import flags
-from translate import _, N_
+from rhpl.translate import _, N_
 
 class KeyboardWindow (InstallWindow):
     windowTitle = N_("Keyboard Configuration")

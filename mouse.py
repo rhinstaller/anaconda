@@ -1,7 +1,7 @@
 #
 # mouse.py: mouse configuration data
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,7 +14,7 @@
 import kudzu
 from simpleconfig import SimpleConfigFile
 import os
-from translate import _, N_
+from rhpl.translate import _, N_
 
 class Mouse (SimpleConfigFile):
     mice = {

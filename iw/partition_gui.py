@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,7 +27,7 @@ import types
 import checklist
 import raid
 from iw_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from partitioning import *
 from partIntfHelpers import *
 from partedUtils import *

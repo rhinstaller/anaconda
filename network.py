@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -22,7 +22,7 @@ import isys
 import socket
 import os
 from log import log
-from translate import _, N_
+from rhpl.translate import _, N_
 
 def inStrRange(v, s):
     if string.find(s, v) == -1:

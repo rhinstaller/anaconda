@@ -5,7 +5,7 @@
 # Brent Fox <bfox@redhat.com>
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,12 +18,10 @@
 import copy
 import string
 import kudzu
-import iutil
-import isys
 import os
 
 from log import log
-from translate import _
+from rhpl.translate import _
 
 Videocard_blacklist = ["Generic VGA compatible",
                        "Generic VGA16",
@@ -192,14 +190,17 @@ class FrameBufferCard(VideoCard):
     def hasFixedMode(self):
         return 1
 
-    def FixedMode(self):
-        fb = isys.fbinfo()
-        if fb:
-            (x, y, bpp) = fb
-            rc = {}
-            rc[str(bpp)] = ["%sx%s" % (x, y)]
-            return rc
-        return None
+#
+# we're removing frame buffer code
+#
+#     def FixedMode(self):
+#         fb = isys.fbinfo()
+#         if fb:
+#             (x, y, bpp) = fb
+#             rc = {}
+#             rc[str(bpp)] = ["%sx%s" % (x, y)]
+#             return rc
+#         return None
 
 # fake card entry for frame buffer
 class VGA16Card(VideoCard):

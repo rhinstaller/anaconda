@@ -1,7 +1,7 @@
 #
 # fdasd_gui.py: interface that allows the user to run util-linux fdasd.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,7 +14,7 @@
 from gtk import *
 from iw_gui import *
 from gnome.zvt import *
-from translate import _
+from rhpl.translate import _
 from dispatch import DISPATCH_NOOP
 import partitioning
 import isys

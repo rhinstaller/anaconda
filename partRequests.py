@@ -23,7 +23,7 @@ import string
 import os, sys
 
 from constants import *
-from translate import _
+from rhpl.translate import _
 
 import fsset
 import raid

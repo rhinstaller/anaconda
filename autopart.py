@@ -3,7 +3,7 @@
 #
 # Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -22,7 +22,7 @@ from partitioning import *
 import partedUtils
 import partRequests
 from constants import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from partErrors import *
 from log import log
 

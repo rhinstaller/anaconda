@@ -2,7 +2,7 @@
 # examine_gui.py: dialog to allow selection of a RHL installation to upgrade
 #                 and if the user wishes to select individual packages.
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,7 +15,7 @@
 import gtk
 from iw_gui import *
 from package_gui import *
-from translate import _, N_
+from rhpl.translate import _, N_
 from constants import *
 from upgrade import *
 

@@ -3,7 +3,7 @@
 #
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2002 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -18,7 +18,7 @@ import gtk
 from iw_gui import *
 from isys import *
 import gui
-from translate import _, N_
+from rhpl.translate import _, N_
 import network
 import checklist
 import ipwidget
