@@ -29,20 +29,6 @@ class UpgradeSwapWindow (InstallWindow):
     windowTitle = N_("Upgrade Swap Partition")
     htmlTag = "upswapfile"
 
-    def getPrev (self):
-        # we're doing an upgrade, offer choice of aborting upgrade.
-        # we can't allow them to go back in install, since we've
-        # started swap and mounted the systems filesystems
-        # if we've already started an upgrade, cannot back out
-        rc = queryUpgradeContinue(self.todo.intf)
-
-        if not rc:
-            raise gui.StayOnScreen
-        else:
-            import sys
-            print _("Aborting upgrade")
-            sys.exit(0)
-
     def getNext (self):
         #-If the user doesn't need to add swap, we don't do anything
         if not self.neededSwap:
@@ -74,11 +60,9 @@ class UpgradeSwapWindow (InstallWindow):
             raise gui.StayOnScreen            
 
         else:
-            if self.todo.setupFilesystems:
-                upgrade.createSwapFile(self.todo.instPath, self.todo.fstab,
-                                       mnt, val)
+            if flags.setupFilesystems:
+                upgrade.createSwapFile(instPath, fsset, mnt, val)
                                        
-            self.todo.upgradeFindPackages()
         return None
 
     def toggle (self, data):

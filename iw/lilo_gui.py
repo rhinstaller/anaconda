@@ -247,7 +247,7 @@ class LiloWindow (InstallWindow):
 
 	imageList = bl.images.getImages()
 	defaultDevice = bl.images.getDefault()
-        self.ignoreSignals = 1
+        self.ignoreSignals = 0
 
         format = "/dev/%s"
 

@@ -93,12 +93,13 @@ def swapSuggestion(instPath, fsset):
 	    fsList.append(info)
     else:
         for entry in fsset.entries:
-            if not entry.isMounted():
-                continue
+            # XXX multifsify
             if (entry.fsystem.getName() == "ext2"
                 or entry.fsystem.getName() == "ext3"):
+                if flags.setupFilesystems and not entry.isMounted():
+                    continue
                 space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
-                info = (mntpoint, entry.device.getDevice(), space)
+                info = (entry.mountpoint, entry.device.getDevice(), space)
                 fsList.append(info)
 
     suggestion = mem * 2 - swap
@@ -118,7 +119,8 @@ def swapfileExists(swapname):
     except:
 	return 0
 
-def createSwapFile(instPath, theFstab, mntPoint, size):
+# XXX fix me.
+def createSwapFile(instPath, thefsset, mntPoint, size):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
     if theFstab.rootOnLoop():
@@ -200,7 +202,7 @@ def upgradeFindPackages (intf, method, id, instPath):
     global rebuildTime
     if not rebuildTime:
 	rebuildTime = str(int(time.time()))
-    method.mergeFullHeaders(id.hdlist)
+    method.mergeFullHeaders(id.hdList)
 
     win = intf.waitWindow (_("Finding"),
                            _("Finding packages to upgrade..."))
@@ -236,7 +238,7 @@ def upgradeFindPackages (intf, method, id, instPath):
     rpm.addMacro("_dbpath", id.dbpath)
     rpm.addMacro("_dbapi", "3")
     try:
-	packages = rpm.findUpgradeSet (id.hdlist.hdlist, instPath)
+	packages = rpm.findUpgradeSet (id.hdList.hdlist, instPath)
     except rpm.error:
 	iutil.rmrf (rebuildpath)
 	win.pop()
@@ -252,14 +254,14 @@ def upgradeFindPackages (intf, method, id, instPath):
 	comp.unselect()
 
     # unselect all packages
-    for package in id.hdlist.packages.values ():
+    for package in id.hdList.packages.values ():
 	package.selected = 0
 
     hasX = 0
     hasFileManager = 0
     # turn on the packages in the upgrade set
     for package in packages:
-	id.hdlist[package[rpm.RPMTAG_NAME]].select()
+	id.hdList[package[rpm.RPMTAG_NAME]].select()
 	if package[rpm.RPMTAG_NAME] == "XFree86":
 	    hasX = 1
 	if package[rpm.RPMTAG_NAME] == "gmc":
