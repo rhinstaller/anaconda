@@ -96,7 +96,7 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution='])
+            'autostep', 'resolution=', 'skipddc'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
