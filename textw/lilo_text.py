@@ -192,16 +192,17 @@ class LiloImagesWindow:
 		    _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
 		      "what partitions you would like to be able to boot " 
-		      "and what label you want to use for each of them.\n\n"
-                      "Press the F2 key to select the partition to boot by "
-                      "default."))
+		      "and what label you want to use for each of them.\n\n"))
+#                      "Press the F2 key to select the partition to boot by "
+#                      "default."))
 
 	g = GridFormHelp(screen, _("LILO Configuration"), "lilolabels", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
-	g.addHotKey("F2")
+#	g.addHotKey("F2")
+	g.addHotKey(" ")
 
 	result = None
 	while (result != "ok" and result != "back" and result != "F12"):
@@ -218,7 +219,8 @@ class LiloImagesWindow:
 		    default = ""
 		listbox.replace(self.formatDevice(type, label, item, default), item)
 		listbox.setCurrent(item)
-	    elif result == "F2":
+#	    elif result == "F2":
+	    elif result == " ":
 		item = listbox.current()
 		(label, type) = images[item]
 		if (label):
