@@ -1480,14 +1480,8 @@ class ToDo:
 	l = []
 
 	for p in self.hdList.selected():
-            if p.h[rpm.RPMTAG_NAME] != 'locale-ja':
-                l.append(p)
+            l.append(p)
 	l.sort(self.sortPackages)
-
-        # XXX HACK HACK for Japanese.
-        #     Remove me when the japanese locale is in glibc package
-	localePackage = self.hdList['locale-ja']
-	l = [ localePackage ] + l
 
 	for p in l:
             ts.add(p.h, p.h, how)
