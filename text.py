@@ -557,7 +557,7 @@ class InstallProgressWindow:
 
 	elapsedTime = time.time() - self.timeStarted 
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-	finishTime = (float (self.sizeTotal) / self.sizeComplete) * elapsedTime;
+	finishTime = (float (self.sizeTotal) / (self.sizeComplete+1)) * elapsedTime;
 	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 	remainingTime = finishTime - elapsedTime;
 	self.timeRemainingW.setText("%12s" % formatTime(remainingTime))
