@@ -1505,7 +1505,15 @@ ext2 = fileSystemTypeGet("ext2")
 ext2.registerDeviceArgumentFunction(RAIDDevice, RAIDDevice.ext2Args)
 
 class VolumeGroupDevice(Device):
-    def __init__(self, name, physvols, existing = 0):
+    def __init__(self, name, physvols, pesize = 4096, existing = 0):
+        """Creates a VolumeGroupDevice.
+
+        name is the name of the volume group
+        physvols is a list of Device objects which are the physical volumes
+        pesize is the size of physical extents in kilobytes
+        existing is whether this vg previously existed.
+        """
+
         Device.__init__(self)
         self.physicalVolumes = physvols
         self.isSetup = existing
@@ -1513,8 +1521,7 @@ class VolumeGroupDevice(Device):
         self.device = name
         self.isSetup = existing
 
-        # these are attributes we might want to expose.  or maybe not
-        # self.physicalextentsize = 4 * 1024 * 1024
+        self.physicalextentsize = pesize
 
     def setupDevice (self, chroot, devPrefix='/tmp'):
         if not self.isSetup:
@@ -1530,7 +1537,9 @@ class VolumeGroupDevice(Device):
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
                 rc = iutil.execWithRedirect("/usr/sbin/pvcreate",
                                             ["pvcreate", "-ff", "-y",
-                                             "-v", node],
+                                             "-v", "-p",
+                                             "%sk" %(self.physicalextentsize,),
+                                             node],
                                             stdout = "/tmp/lvmout",
                                             stderr = "/tmp/lvmout",
                                             searchPath = 1)

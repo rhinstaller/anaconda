@@ -662,7 +662,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         pvs = []
         for pv in self.physicalVolumes:
             pvs.append(partitions.getRequestByID(pv).getDevice(partitions))
-        dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
+        dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs, self.pesize)
         return dev
 
     def getActualSize(self, partitions, diskset):
