@@ -685,7 +685,10 @@ class ComponentSet:
                         try:
                             h = self.packages[reqname].h
                         except KeyError:
-                            conflicts = 0
+                            # we don't actually have the conflicting package
+                            # in our available packages, the conflict is
+                            # on the system.  Continue on.
+                            continue
 			installed = ("", h[rpm.RPMTAG_VERSION],
 				     h [rpm.RPMTAG_RELEASE])
 			if rpm.labelCompare (installed, needed) >= 0:
