@@ -25,4 +25,4 @@ sun.o: sun.h
 
 install: all
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	cp _balkanmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install _balkanmodule.so $(DESTDIR)/$(PYTHONLIBDIR)

@@ -76,9 +76,9 @@ install-hd: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 
-	cp -a anaconda $(DESTDIR)/usr/bin
-	cp -a *.py $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install anaconda $(DESTDIR)/usr/bin
+	install *.py $(DESTDIR)/$(PYTHONLIBDIR)
+	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 install: all
@@ -89,13 +89,13 @@ install: all
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a anaconda $(DESTDIR)/usr/bin
-	cp -a raidstart-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a raidstop-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
+	install anaconda $(DESTDIR)/usr/bin
+	install raidstart-stub $(DESTDIR)/$(PYTHONLIBDIR)
+	install raidstop-stub $(DESTDIR)/$(PYTHONLIBDIR)
+	install $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
+	install lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYHTONLIBDIR) $(PYFILES)
-	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 create-archive:

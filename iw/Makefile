@@ -5,7 +5,7 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)/iw
-	cp -a *.py $(DESTDIR)/$(PYTHONLIBDIR)/iw
+	install *.py $(DESTDIR)/$(PYTHONLIBDIR)/iw
 	../py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR)/iw $(DESTDIR)/$(PYTHONLIBDIR)/iw/*.py
 
 clean:

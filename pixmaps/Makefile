@@ -5,4 +5,4 @@ all:
 
 install: 
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
-	cp -a *.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
+	install *.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps

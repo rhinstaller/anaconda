@@ -31,7 +31,7 @@ clean:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all
-	cp $(PYMODULES) isys.py $(DESTDIR)/$(PYTHONLIBDIR)
+	install $(PYMODULES) isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
 subdirs:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done

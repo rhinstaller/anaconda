@@ -7,9 +7,9 @@ LDFLAGS=`gnome-config --libs gnomeui`
 
 install: timezonemapmodule.so
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a timezonemapmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install timezonemapmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
-	cp -a map480.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
+	install map480.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
 
 gglobe-canvas: gglobe-canvas.c gnome-map.o gnome-canvas-dot.o gglobe-canvas.o gnome-map.h timezones.o timezones.h
 	gcc -O2 -g -o gglobe-canvas gnome-map.o timezones.o gnome-canvas-dot.o gglobe-canvas.o $(LDFLAGS)
