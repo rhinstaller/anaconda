@@ -175,7 +175,7 @@ set_flag_marker (MapData *mapdata, gchar *color,
 
         setup_item (gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
 					   gnome_canvas_text_get_type (),
-					   "font", "-adobe-helvetica-bold-r-normal--12-*-72-72-p-*-iso8859-1",
+					   "font", "-adobe-helvetica-bold-r-normal--12-*-72-72-p-*-*-*",
 					   "anchor", GTK_ANCHOR_CENTER,
 					   "fill_color", "red",
 					   "text", "x",
