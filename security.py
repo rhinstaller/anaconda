@@ -29,7 +29,10 @@ selinux_states = { SEL_DISABLED: "disabled",
 
 class Security:
     def __init__(self):
-        self.selinux = SEL_ENFORCING
+        if flags.selinux == 1:
+            self.selinux = SEL_ENFORCING
+        else:
+            self.selinux = SEL_DISABLED
 
     def setSELinux(self, val):
         if not selinux_states.has_key(val):

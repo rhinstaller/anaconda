@@ -17,6 +17,7 @@ import gui
 from iw_gui import *
 from isys import *
 from rhpl.translate import _, N_
+from flags import flags
 
 class FirewallWindow (InstallWindow):		
 
@@ -291,6 +292,9 @@ class FirewallWindow (InstallWindow):
         hbox.set_spacing(8)
         hbox.pack_start(label, gtk.FALSE)
         hbox.pack_start(self.se_option_menu, gtk.TRUE)
+
+        if flags.selinux == 0:
+            hbox.set_sensitive(gtk.FALSE)
 
         box.pack_start(hbox, gtk.FALSE)
 

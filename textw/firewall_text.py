@@ -17,6 +17,7 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from rhpl.log import log
+from flags import flags
 
 class FirewallWindow:
     def __call__(self, screen, intf, network, firewall, security):
@@ -241,6 +242,10 @@ class FirewallWindow:
 
 class SELinuxWindow:
     def __call__(self, screen, intf, network, firewall, security):
+        if flags.selinux == 0:
+            log("selinux disabled, not showing selinux config screen")
+            return INSTALL_OK
+        
         self.intf = intf
 
         toplevel = GridFormHelp (screen, _("Security Enhanced Linux"),
