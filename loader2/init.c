@@ -4,11 +4,12 @@
  * This is the install type init 
  *
  * Erik Troan (ewt@redhat.com)
+ * Jeremy Katz (katzj@redhat.com)
  *
- * Copyright 1996 - 2003 Red Hat, Inc.
+ * Copyright 1996 - 2004 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
- * public license.
+ * general public license.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
