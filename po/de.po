@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-23 22:21+0100\n"
+"PO-Revision-Date: 2005-04-02 13:00+0200\n"
 "Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -555,7 +555,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s wird installiert..."
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -564,11 +564,10 @@ msgstr ""
 "Ein außergewöhnlicher Zustand ist eingetreten. Dies weist wahrscheinlich auf "
 "einen Fehler hin. Kopieren Sie den vollständigen Text der angezeigten "
 "Meldung oder sichern Sie den Fehlerbericht auf einer Diskette, und reichen "
-"Sie unter http://bugzilla.redhat.com/bugzilla einen detaillierten "
-"Fehlerbericht für die Komponente anaconda ein."
+"Sie einen detaillierten Fehlerbericht für anaconda unter %s ein."
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -576,8 +575,7 @@ msgid ""
 msgstr ""
 "Ein außergewöhnlicher Zustand ist eingetreten. Dies weist wahrscheinlich auf "
 "einen Fehler hin. Kopieren Sie den vollständigen Text der angezeigten "
-"Meldung und reichen Sie unter http://bugzilla.redhat.com/bugzilla einen "
-"detaillierten Fehlerbericht für die Komponente anaconda ein."
+"Meldung und reichen Sie detaillierten Fehlerbericht für anaconda unter %s ein."
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1035,7 +1033,6 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Ein außergewöhnlicher Fehler ist aufgetreten"
 
@@ -1045,7 +1042,7 @@ msgstr "Fehler_diagnose"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Speichere auf Diskette"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1591,7 +1588,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Achtung! Dies ist Beta-Software!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1614,7 +1611,7 @@ msgstr ""
 "\n"
 "Rückmeldungen sind willkommen unter:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "Hier können Sie Meldungen in Bezug auf '%s' einreichen.\n"
 
@@ -3180,14 +3177,13 @@ msgid "Congratulations"
 msgstr "Herzlichen Glückwunsch!"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
 "Entfernen Sie sämtliche Installationsmedien, die Sie bei der "
-"Installationverwendet haben, und drücken Sie \"Neu starten\", um Ihr System "
+"Installation verwendet haben, und drücken Sie \"Neu starten\", um Ihr System "
 "neu zu starten.\n"
 "\n"
 
@@ -5174,13 +5170,13 @@ msgid "Unknown video card"
 msgstr "Unbekannte Grafikkarte"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "Bei der Auswahl der Grafikkarte %s ist ein Fehler aufgetreten. Senden Sie "
-"diesen Fehler an bugzilla.redhat.com."
+"diesen Fehler an %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6248,9 +6244,8 @@ msgid "What time zone are you located in?"
 msgstr "In welcher Zeitzone befinden Sie sich?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Systemuhr verwendet _UTC"
+msgstr "Systemuhr verwendet UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8516,12 +8511,11 @@ msgstr "Zaporozh'ye, Ost Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabisch"
+msgstr "Amharisch"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8604,9 +8598,8 @@ msgid "Icelandic"
 msgstr "Isländisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Mazedonisch"
+msgstr "Indonesisch"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8633,9 +8626,8 @@ msgid "Norwegian"
 msgstr "Norwegisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8662,9 +8654,8 @@ msgid "Russian"
 msgstr "Russisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slowenisch"
+msgstr "Slowakisch"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8683,9 +8674,8 @@ msgid "Tamil"
 msgstr "Tamilisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamilisch"
+msgstr "Thai"
 
 #. generated from lang-table
 msgid "Turkish"
