@@ -9,6 +9,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <linux/kd.h>
+
 #define LOADER_OK 0
 #define LOADER_BACK 1
 #define LOADER_ERROR -1
@@ -54,16 +56,34 @@ char * sdupprintf(const char *format, ...) {
     return buf;
 }
 
+#define BEEP_TIME 150
+#define BEEP_OK 1000
+#define BEEP_WARN 2000
+#define BEEP_ERR 4000
+                                                  
+static void beep(unsigned int ms, unsigned int freq)
+{
+    int fd, arg;
+                                                                                
+    fd = open("/dev/console", O_RDWR);
+    if (fd < 0)
+        return;
+    arg = (ms << 16) | freq;
+    ioctl(fd, KDMKTONE, arg);
+    close(fd);
+    usleep(ms*1000);
+}
 
 
 void mlLoadModuleSet(char * origModNames) {
     char * start, * next, * end;
+    char * modNames;
     char ** initialList;
     int child, i, status;
 
-    start = alloca(strlen(origModNames) + 1);
+    start = modNames = alloca(strlen(origModNames) + 1);
+    strcpy(modNames, origModNames);
 
-    printf("mods are %s", origModNames);
     next = start;
     i = 1;
     while (*next) {
@@ -83,16 +103,18 @@ void mlLoadModuleSet(char * origModNames) {
         initialList[i++] = start;
         start = next;
     }
-
+    
     initialList[i] = NULL;
     for (i = 0; initialList[i]; i++) {
-        logMessage("inserting %s", initialList[i]);
-        /*        if (child = fork()) {
+        if (!strlen(initialList[i]))
+            continue;
+        //logMessage("inserting %s", initialList[i]);
+        if (!(child = fork())) {
             execl("/sbin/modprobe", "/sbin/modprobe", initialList[i], NULL);
             exit(0);
         }
 
-        waitpid(child, &status, 0);*/
+        waitpid(child, &status, 0);
         logMessage("inserted %s", initialList[i]);
     }
 }
@@ -206,9 +228,11 @@ struct bind_info_t {
 
 
 #define DS_BIND_REQUEST _IOWR('d', 60, struct bind_info_t)
+#define DS_GET_DEVICE_INFO _IOWR('d', 61, struct bind_info_t)
 int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     int fd;
     struct bind_info_t * bind;
+    int ret, j;
 
     if (has_pcmcia() <= 0) {
         logMessage("pcmcia not loaded, can't activate module");  
@@ -224,10 +248,33 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
     bind = calloc(1, sizeof(struct bind_info_t *));
     strcpy(bind->dev_info,pdev->driver);
     bind->function = pdev->function;
-    if (ioctl(fd, DS_BIND_REQUEST, bind) == -1) {
-        logMessage("failed to activate pcmcia device");
+    logMessage("device is %s, function is %d", bind->dev_info, bind->function);
+    if (ioctl(fd, DS_BIND_REQUEST, bind) != 0) {
+        logMessage("failed to activate pcmcia device: %d", errno);
+        beep(BEEP_TIME, BEEP_ERR);
         return LOADER_ERROR;
     }
+
+    for (ret = j = 0; j < 10; j++) {
+        logMessage("trying to get device info");
+        ret = ioctl(fd, DS_GET_DEVICE_INFO, bind);
+        if (ret == 0) {
+            beep(BEEP_TIME, BEEP_OK);
+            logMessage("succeeded");
+            break;
+        } else if (errno != EAGAIN) {
+            beep(BEEP_TIME, BEEP_ERR);
+            logMessage("failed, errno is %d", errno);
+            break;
+        } else {
+            logMessage("EAGAIN, errno is %d", errno);
+        }
+        usleep(100000);
+    }
+
+    if (j >= 10)
+        beep(BEEP_TIME, BEEP_ERR);
+
     return LOADER_OK;
 }
 
@@ -291,9 +338,16 @@ static int detectHardware(char *** modules) {
     
     for (device = devices; *device; device++) {
         driver = (*device)->driver;
-         if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
-            && strcmp (driver, "disabled")) {
+        if (strcmp(driver, "usb-uhci") && strcmp(driver, "i810_audio") &&
+            strcmp(driver, "orinoco_pci") && strcmp(driver, "i810_rng") &&
+            strcmp(driver, "i810-tco") && strcmp(driver, "ignore") &&
+            strcmp(driver, "unknown") && strcmp(driver, "disabled") &&
+            strcmp(driver, "e100") && strcmp(driver, "Card") &&
+            strcmp(driver, "Card:ATI Radeon Mobility 7500")) {
             modList[numMods++] = strdup(driver);
+            //            logMessage("loading %s", driver);
+        } else {
+            //logMessage("not loading %s", driver);
         }
         
         freeDevice (*device);
@@ -316,6 +370,7 @@ int main(int argc, char ** argv) {
     logMessage("initializing pcmcia controller");
     initializePcmciaController();
 
+    sleep(2);
     detectHardware(&modList);
 
     if (modList) {
@@ -328,6 +383,7 @@ int main(int argc, char ** argv) {
        
         mlLoadModuleSet(modules);
         
+        sleep(2);
         startPcmciaDevices();
     }
 }
