@@ -483,6 +483,15 @@ class ToDo:
 	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
 	f.write(str (self.keyboard))
+	rc = iutil.execWithRedirect("/usr/bin/loadkeys",
+				    [ "/usr/bin/loadkeys", self.keyboard.layout ],
+				    stdout = None, stderr, = None,
+				    searchPath = 0, root = self.instPath)
+	mapfile = open(self.instPath + "/etc/sysconfig/console/default.kmap", "w")
+	rc = iutil.execWithRedirect("/usr/bin/dumpkeys",
+				    [ "/usr/bin/dumpkeys"],
+				    stdout = mapfile, stderr = None,
+				    searchPath = 0, root = self.instPath)
 	f.close()
 
     def needBootdisk (self):
