@@ -1,5 +1,11 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/zfcp_gui.py (ZFCPWindow.getNext): Update FCP config after
+	adding SCSI LUNs (#133290)
+
+	* autopart.py (doAutoPartition): Fix LVM traceback if going back
+	from not enough space (#131325)
+
 	* isys/isys.py (getGeometry): Remove unused function.
 	* isys/isys.c (doGetGeometry): Likewise.
 

@@ -26,6 +26,9 @@ class ZFCPWindow(InstallWindow):
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
 
+    def getNext(self):
+        self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
+
     def setupDevices(self):
         def sortFcpDevs(one, two):
             if one[0] < two[0]:
