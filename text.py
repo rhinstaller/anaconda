@@ -76,7 +76,7 @@ class LanguageWindow:
 
         choice = descriptions[choice]
         lang = languages [choice]
-
+        
         if (todo.setupFilesystems
             and lang[:2] == "ja" and not isys.isPsudoTTY(0)):
             # we're not running KON yet, lets fire it up
@@ -126,37 +126,39 @@ class LanguageWindow:
 class LanguageSupportWindow:
     def __call__(self, screen, todo):
 
-
         languages = todo.language.available ()
         descriptions = languages.keys ()
         descriptions.sort ()
         current = todo.language.get ()
 
+        langs = todo.language.getSupported ()
+#        print langs
+#        time.sleep(2)
 
         ct = CheckboxTree(height = 8, scroll = 1)
 
+
         for lang in descriptions:
             if languages[lang] == current:
-                #                default = descriptions.index (lang)
                 ct.append(lang, lang, 1)
             else:
                 ct.append(lang, lang, 0)
 
-#        cb = Checkbox (_("Select individual packages"), individual.get ())
+        if langs != None:
+            for lang in langs:
+                ct.setEntryValue(lang, 1)
+
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
-#	la = Label(_("Hello"))
 
         message = (_("Choose the languages to be installed:"))
         width = len(message)
         tb = Textbox (width, 2, message)
 
-#	ct.setCallback(self.updateSize, (la, todo, ct))
 
         g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
 
         g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
-#        g.add (cb, 0, 2, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
         result = g.runOnce()
@@ -166,53 +168,53 @@ class LanguageSupportWindow:
         if rc == "back":
             return INSTALL_BACK
 
+        #--If they selected all langs, then set todo.language.setSupported to None.  This installs all langs
+        if todo.language.getSupported () == descriptions:
+            todo.language.setSupported (None)
+        else:
+            todo.language.setSupported (ct.getSelection()) 
+
         return INSTALL_OK
 
+
 class LanguageDefaultWindow:
-    def __call__(self, screen, todo):
-
-
+    def __call__(self,screen, todo):
         languages = todo.language.available ()
+        langs = todo.language.getSupported ()
+
         descriptions = languages.keys ()
         descriptions.sort ()
         current = todo.language.get ()
 
-
-        ct = CheckboxTree(height = 8, scroll = 1)
-
-        for lang in descriptions:
+        for lang in langs:
             if languages[lang] == current:
-                #                default = descriptions.index (lang)
-                ct.append(lang, lang, 1)
+                default = langs.index (lang)
             else:
-                ct.append(lang, lang, 0)
+                default = langs[0]
+                
+        height = min((screen.height - 16, len(descriptions)))
+        
+        buttons = [_("Ok"), _("Back")]
 
-#        cb = Checkbox (_("Select individual packages"), individual.get ())
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
-#	la = Label(_("Hello"))
+        (button, choice) = ListboxChoiceWindow(screen, _("Default Language"),
+			_("Choose the default language: "), langs, 
+			buttons, width = 30, default = default, scroll = 1,
+                                               height = height, help = "langdefault")
 
-        message = (_("Choose the default language:"))
-        width = len(message)
-        tb = Textbox (width, 2, message)
+	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
-#	ct.setCallback(self.updateSize, (la, todo, ct))
 
-        g = GridFormHelp (screen, _("Default Language"), "langdefault", 1, 4)
+        choice = langs[choice]
+#        lang = languages [choice]
+        
+#        print choice
+#        time.sleep(2)
+#        todo.language.setByAbbrev (choice)
 
-        g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-        g.add (ct, 0, 1, (0, 0, 0, 1))
-#        g.add (cb, 0, 2, (0, 0, 0, 1))
-        g.add (bb, 0, 3, growx = 1)
-
-        result = g.runOnce()
-
-        rc = bb.buttonPressed (result)
-
-        if rc == "back":
-            return INSTALL_BACK
-
+        todo.language.set (choice)
         return INSTALL_OK
-    
+
+
 class KeyboardWindow:
     beenRun = 0
 
@@ -489,7 +491,7 @@ class XConfigWindow:
                 return None
 
         todo.x.probe (probeMonitor = 0)
-
+#        todo.x.server = None  #-hack
         if todo.x.server:
             rc = ButtonChoiceWindow (screen, _("X probe results"),
                                      todo.x.probeReport (),
@@ -1039,6 +1041,7 @@ class InstallInterface:
 #                 "mouse" ],
 #                [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
 #                 "mouse" ],
+
                 [N_("Time Zone Setup"), TimezoneWindow, 
                  (self.screen, todo, test), "timezone" ],
                 [N_("Root Password"), RootPasswordWindow, 
@@ -1058,10 +1061,10 @@ class InstallInterface:
             self.commonSteps = [
                 [N_("Language Selection"), LanguageWindow, 
                  (self.screen, todo, self), "language" ],
-                [N_("Language Support"), LanguageSupportWindow, 
-                 (self.screen, todo), "lanugagesupport" ],
-                [N_("Language Default"), LanguageDefaultWindow, 
-                 (self.screen, todo), "lanugagedefault" ],
+#                [N_("Language Support"), LanguageSupportWindow, 
+#                 (self.screen, todo), "lanugagesupport" ],
+#                [N_("Language Default"), LanguageDefaultWindow, 
+#                 (self.screen, todo), "lanugagedefault" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
@@ -1118,6 +1121,12 @@ class InstallInterface:
 		    "mouse" ],
             [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo.mouse),
 		    "mouse" ],
+
+            [N_("Language Support"), LanguageSupportWindow, 
+             (self.screen, todo), "lanugagesupport" ],
+            [N_("Language Default"), LanguageDefaultWindow, 
+             (self.screen, todo), "lanugagedefault" ],
+
             [N_("Time Zone Setup"), TimezoneWindow, 
 		    (self.screen, todo, test), "timezone" ],
             [N_("Root Password"), RootPasswordWindow, 
