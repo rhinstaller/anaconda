@@ -682,6 +682,16 @@ def doPreInstall(method, id, intf, instPath, dir):
 	f = open(instPath + "/etc/mtab", "w+")
 	f.close()
 
+        # we really started writing modprobe.conf out before things were
+        # all completely ready.  so now we need to nuke old modprobe.conf's
+        # if you're upgrading from a 2.4 dist so that we can get the
+        # transition right
+        if (os.path.exists(instPath + "/etc/modules.conf") and
+            os.path.exists(instPath + "/etc/modprobe.conf")):
+            log("renaming old modprobe.conf -> modprobe.conf.anacbak")
+            os.rename(instPath + "/etc/modprobe.conf",
+                      instPath + "/etc/modprobe.conf.anacbak")
+
     if method.systemMounted (id.fsset, instPath):
 	id.fsset.umountFilesystems(instPath)
 	return DISPATCH_BACK
@@ -1140,6 +1150,14 @@ def doPostInstall(method, id, intf, instPath):
             # needed for prior to 2.6 so that mice have some chance
             # of working afterwards. FIXME: this is a hack
             migrateMouseConfig(instPath, instLogName)
+
+            # bye-bye to old modules.conf (see above comment wrt modprobe.conf)
+            if (os.path.exists(instPath + "/etc/modules.conf") and
+                os.path.exists(instPath + "/etc/modprobe.conf")):
+                log("renaming old modules.conf -> modprobe.conf.pre26")
+                os.rename(instPath + "/etc/modules.conf",
+                          instPath + "/etc/modules.conf.pre26")
+            
 
         w.set(5)
 
