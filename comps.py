@@ -136,7 +136,7 @@ class ComponentSet:
 		skipIfFound = 0
 		if (archList[0] == '!'):
 		    skipIfFound = 1
-		    archList = archList[2:]
+		    archList = archList[1:]
 		archList = split(archList)
 		found = 0
 		for n in archList:
