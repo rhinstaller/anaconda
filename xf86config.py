@@ -472,9 +472,8 @@ Section "Monitor"
     ModelName   "Unknown"
     HorizSync   31.5
     VertRefresh 60
-    Mode "640x480"        25.175  640 664 760 800
+    ModeLine  "640x480"   25.175  640 664 760 800
                                   480 491 493 525
-    EndMode
 EndSection
 
 Section "Monitor"
