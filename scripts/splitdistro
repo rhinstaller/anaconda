@@ -257,7 +257,7 @@ srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
 #srcPkgList.reverse()
 disc2pkgs = excessFiles(srcDir, srcPkgList,
-			targetSize - disc3used - fudgeFactor)
+			targetSize - fudgeFactor)
 print "first src pkg to move to 2nd src cd is", disc2pkgs[0]
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
@@ -267,7 +267,7 @@ srcDisc1Size = spaceUsed(disc1SrcDir)
 print "Dropping remainder of sources on third disc..."
 stamp(disc3SrcDir, releasestr, "5", arch, startedAt, dirInfo)
 disc3pkgs = excessFiles(srcDir, srcPkgList,
-                        srcDisc1Size - disc3used + targetSize - fudgeFactor)
+                        srcDisc1Size + targetSize - fudgeFactor)
 print "first src pkg to move to 3rd src cd is", disc3pkgs[0]
 moveFiles("%s/SRPMS" % disc2SrcDir,
           "%s/SRPMS" % disc3SrcDir,
