@@ -5,12 +5,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.130\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-16 01:31+0000\n"
+"PO-Revision-Date: 2004-09-25 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
-"Language-Team: is <kde-isl@mmedia.is>\n"
+"Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -2489,9 +2489,8 @@ msgstr ""
 "eða nýrra. Þetta virðist vera eldra kerfi. Viltu halda uppfærslunni áfram ?"
 
 #: ../urlinstall.py:46
-#, fuzzy
 msgid "Connecting..."
-msgstr "Fer yfir \"%s\"..."
+msgstr "Tengist..."
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -6714,7 +6713,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6724,13 +6723,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tSkjáborðsumhverfi (GNOME)\n"
+"\tKerfisstjórnunartól\n"
+"\tStillingatól fyrir þjóna\n"
+"\tVefþjónn\n"
+"\tSkráarþjónn fyrir Windows (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux sjáborð"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6742,23 +6745,23 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tSkjáborðsumhverfi (GNOME)\n"
-"\tSkrifstofutól (OpenOffice.org)\n"
+"\tSkrifstofutól (OpenOffice)\n"
 "\tVafri (Mozilla) \n"
 "\tPóstforrit (Evolution)\n"
 "\tHraðskilaboð (Instant messaging)\n"
 "\tHljóð og myndtól\n"
 "\tLeikir\n"
+"\tKerfisstjórnunartól\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6771,7 +6774,7 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tSkjáborðsumhverfi (GNOME)\n"
-"\tSkrifstofutól (OpenOffice.org)\n"
+"\tSkrifstofutól (OpenOffice)\n"
 "\tVafri (Mozilla) \n"
 "\tPóstforrit (Evolution)\n"
 "\tHraðskilaboð (Instant messaging)\n"
