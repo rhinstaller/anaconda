@@ -8,7 +8,7 @@ prepareBootImage() {
 	rm -rf $stagedir
 	mkdir -p $stagedir
 	cp $KERNELROOT/boot/vmlinuz-* $stagedir/vmlinux64.gz
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd64.img
+	cp $MBD_FSIMAGE $stagedir/initrd64.img
         cp $BOOTDISKDIR/fd.b $stagedir
 	cp $BOOTDISKDIR/second.b $stagedir
 	cp $BOOTDISKDIR/*.msg $stagedir
