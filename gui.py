@@ -857,8 +857,15 @@ class InstallControlWindow:
 	    rc = self.runReleaseNotesViewer()
 	    if rc:
 		# failed to run, note we havent started it yet
-		self.releaseNotesStartViewer = 1
 		self.releaseNotesModalDummy.destroy()
+		self.releaseNotesStartViewerAttempts += 1
+		if self.releaseNotesStartViewerAttempts > 15:
+		    log("Giving up trying to run viewer!")
+		    gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
+		    self.releaseNotesStartViewer = 0
+		    self.releaseNotesStartViewerAttempts = 0
+		else:
+		    self.releaseNotesStartViewer = 1
 	    else:
 		# started viewer succesfully, remove idle handler
 		gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
@@ -886,6 +893,7 @@ class InstallControlWindow:
 	    log("Already queued request to start a viewer")
 	    return
 	
+	self.releaseNotesStartViewerAttempts = 0
 	self.releaseNotesStartViewer = 1
 	self.releaseNotesStartViewerIdleID = gtk.timeout_add(50, self.releaseNotesPollStartViewerCB, None)
 
@@ -906,7 +914,7 @@ class InstallControlWindow:
 	    if os.access("iw/release_notes_viewer_gui.py", os.X_OK):
 		path = ("iw/release_notes_viewer_gui.py",)
 	    else:
-		path = ("/mnt/source/RHupdates/release_notes_viewer_gui.py",)
+		path = ("/usr/lib/anaconda/iw/release_notes_viewer_gui.py",)
 
 	    # if no viewer present then just ignore click
 	    if not os.access(path[0], os.X_OK):
@@ -1159,6 +1167,7 @@ class InstallControlWindow:
 	self.releaseNotesType = None
 	self.releaseNotesViewerPid = None
 	self.releaseNotesStartViewer = 0
+	self.releaseNotesStartViewerAttempts = 0
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
