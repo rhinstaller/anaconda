@@ -102,6 +102,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.packageList.sort ()
             self.sortType = "Package"
 
+        elif col == 0:
+            self.bubblesort(args, col)
+            min = 0
+            max = self.maxrows - 1
+            self.sortType = "Selected"
+            
         self.packageList.thaw () 
 
 
@@ -114,16 +120,20 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         for i in range(self.rownum):
             for j in range(self.rownum-i):
-                    
-                    
                 currow = j
                 nextrow = j + 1
-                
-                curr = self.packageList.get_text(currow, col)
-                curr = string.atoi(curr)
-                next = self.packageList.get_text(nextrow, col)
-                next = string.atoi(next)
-                
+
+                #--depending on which column we're sorting by, we extract different data to compare
+                if col == 0:                
+                    (curr, row_data, header) = self.packageList.get_row_data (currow)
+                    (next, row_data, header) = self.packageList.get_row_data (nextrow)
+
+                elif col == 2:
+                    curr = self.packageList.get_text(currow, col)
+                    curr = string.atoi(curr)
+                    next = self.packageList.get_text(nextrow, col)
+                    next = string.atoi(next)
+
                 if curr < next:
                     self.packageList.swap_rows(currow, nextrow)
                     count = count + 1
@@ -271,6 +281,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 pass
             elif self.sortType == "Size":
                 self.sort_list (args, 2)
+            elif self.sortType == "Selected":
+                self.sort_list (args, 0)
 
             self.packageList.column_titles_active ()
             
@@ -372,6 +384,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.column_titles_show ()
 
         self.packageList.set_column_min_width(0, 16)
+        self.packageList.column_title_active (0)
         self.packageList.column_title_active (1)
         self.packageList.column_title_active (2)
         self.packageList.connect ('click-column', self.sort_list)
@@ -390,13 +403,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         packageHBox.pack_start (self.packageListSW)
 
-
         descVBox = GtkVBox ()        
         descVBox.pack_start (GtkHSeparator (), FALSE, padding=2)
 
-#        hbox = GtkHButtonBox ()
         hbox = GtkHBox ()
-
         bb = GtkHButtonBox ()
         bb.set_layout (BUTTONBOX_END)
 
@@ -416,9 +426,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.selectAllButton.set_sensitive (FALSE)
         self.unselectAllButton.set_sensitive (FALSE)
 
-#        descVBox.pack_start (hbox, FALSE)
         descVBox.pack_start (hbox, FALSE)
-        
 
         descSW = GtkScrolledWindow ()
         descSW.set_border_width (5)
