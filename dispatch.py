@@ -18,6 +18,7 @@ from types import *
 from constants import *
 from packages import readPackages, checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
+from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
@@ -58,6 +59,9 @@ installSteps = [
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xsetup")),
     ("mouse", ("id.mouse",)),
+    ("checkmonitorok", checkMonitorOK, ("id.monitor", "dispatch")),
+    ("monitor", ("id.xsetup", "id.monitor", "intf")),
+    ("setsanex", setSaneXSettings, ("id.xsetup",)),
     ("findrootparts", findRootParts, ("intf", "id", "dispatch", "dir", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("installtype", ("dispatch", "id", "method", "intf")),
@@ -135,8 +139,15 @@ installSteps = [
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "dir", "id.floppyDevice",
                                     "id.hdList", "instPath", "id.bootloader")),
+#
+# we dont use videocard and xcustom currently, they are still listed as
+# steps but are not listed in the list of install steps in installclass.py
+#    
     ("videocard", ("dispatch", "id.xsetup", "id.videocard", "intf")),
-    ("monitor", ("id.xsetup", "id.monitor")),
+#    
+# this got moved up to just after mouse config, only runs if monitor probe
+# failed. Needs to be here if we enable videocard and xcustom again.
+#    ("monitor", ("id.xsetup", "id.monitor", "intf")),
     ("xcustom", ("id.xsetup", "id.monitor", "id.videocard",
                  "id.desktop", "id.comps", "id.instClass", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),

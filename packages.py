@@ -204,6 +204,23 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     if gnomeSelected or kdeSelected:
         id.desktop.setDefaultRunLevel(5)
 
+# verifies that monitor is not Unprobed, and if so we can skip monitor question
+def checkMonitorOK(monitor, dispatch):
+    rc = 0
+    if monitor is not None:
+	if monitor.getMonitorID() != "Unprobed Monitor":
+	    rc = 1
+
+    dispatch.skipStep("monitor", skip=rc)
+
+# sets a reasonable default for X settings.
+def setSaneXSettings(xsetup):
+    if xsetup is not None and xsetup.xhwstate is not None:
+	if not xsetup.imposed_sane_default:
+	    xsetup.xhwstate.choose_sane_default()
+	    xsetup.imposed_sane_default = 1
+	    
+
 def checksig(fileName):
     # RPM spews to stdout/stderr.  Redirect.
     # stolen from up2date/up2date.py

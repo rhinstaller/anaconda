@@ -433,6 +433,20 @@ class MonitorWindow (InstallWindow):
 		idname = self.currentMonitor
 		monname = self.currentMonitor
 
+	    # warn user their monitor type is unprobed
+	    if idname == "Unprobed Monitor":
+		rc = self.intf.messageWindow(_("Monitor Unspecified"),
+			    _("You have not selected a monitor type.  It is "
+			      "recommended you choose the closest matching "
+			      "model in order to have the highest possible "
+			      "display quality."),
+					     type="custom",
+					     custom_buttons = [_("Proceed"),
+					     _("Choose monitor type")],
+					     custom_icon="warning")
+		if rc:
+		    raise gui.StayOnScreen
+
 	    # XXX - this is messed up - we set the monitor object in instdata
 	    #       to the current values, then we have to push it into the
 	    #       xhwstate as well.  Need to join this operation somehow.
@@ -594,10 +608,11 @@ class MonitorWindow (InstallWindow):
         (entry, other) = entrys
         self.enableIfSyncsValid(entry, other)
 
-    def getScreen (self, xsetup, monitor):
+    def getScreen (self, xsetup, monitor, intf):
 
-        self.monitor = monitor
+	self.intf = intf
         self.xsetup = xsetup
+        self.monitor = monitor
 
         # some flags to let us know when to ignore callbacks we caused
         self.ignoreEntryChanges = 0

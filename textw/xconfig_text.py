@@ -321,8 +321,9 @@ class MonitorWindow:
         self.vsync = self.origVsync
         self.currentMonitor = self.origMonitorName
         
-    def __call__(self, screen, xsetup, monitor):
+    def __call__(self, screen, xsetup, monitor, intf):
 
+	self.intf = intf
         self.xsetup = xsetup
         self.monitor = monitor
 
@@ -441,10 +442,23 @@ class MonitorWindow:
 		hval = self.hsync
 		vval = self.vsync
 
+                screen.popWindow()
+
+		if self.currentMonitor == "Unprobed Monitor":
+		    unspecrc = intf.messageWindow(_("Monitor Unspecified"),
+			    _("You have not selected a monitor type.  It is "
+			      "recommended you choose the closest matching "
+			      "model in order to have the highest possible "
+			      "display quality."),
+					    type="custom",
+					    custom_buttons = [ _("Choose monitor type"), _("Proceed")],
+					    custom_icon="warning")
+		if not unspecrc:
+		    continue
+
 		if not self.sanityCheckSyncRates(screen, hval, vval):
 		    continue
 
-                screen.popWindow()
                 break
             elif rc == "default":
                 self.resetCB(screen)

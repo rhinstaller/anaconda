@@ -413,6 +413,8 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("monitor")
         self.skipSteps.append("xcustom")
         self.skipSteps.append("handleX11pkgs")
+        self.skipSteps.append("checkmonitorok")
+        self.skipSteps.append("setsanex")
 
 
     def doUpgrade(self, id, args):
