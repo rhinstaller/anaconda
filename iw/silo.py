@@ -76,7 +76,7 @@ class SiloWindow (InstallWindow):
 
     def mbr_toggled (self, widget, *args):
 	if widget.get_active ():
-	    part = self.boothd
+	    part = self.mbrpart
 	else:
 	    part = self.bootpart
 	prompath = self.todo.silo.disk2PromPath(part)
@@ -144,9 +144,9 @@ class SiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
         if '/' not in self.todo.mounts.keys (): return None
-	(bootpart, boothd) = self.todo.silo.getSiloOptions()
+	(bootpart, boothd, mbrpart) = self.todo.silo.getSiloOptions()
 	self.bootpart = bootpart
-	self.boothd = boothd
+	self.mbrpart = mbrpart
             
         format = "/dev/%s"
 
@@ -166,15 +166,9 @@ class SiloWindow (InstallWindow):
         part = GtkRadioButton(self.mbr,
 	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
-	self.radioBox.attach(part, 1, 2, 2, 3)
-	self.radioBox.attach(self.mbr, 1, 2, 3, 4)
-	self.mbr.connect("toggled", self.mbr_toggled)
-	if self.todo.silo.getSiloMbrDefault() == 'mbr':
-	    self.mbr.set_active (TRUE)
-	else:
-	    part.set_active (TRUE);
+	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
+	self.radioBox.attach(part, 1, 2, 3, 4)
 
-	# FIXME: Position this correctly
         self.linuxAlias = GtkCheckButton(
 	    _("Create PROM alias") + ":")
 	if (self.todo.silo.hasAliases()):
@@ -187,6 +181,12 @@ class SiloWindow (InstallWindow):
 	tempBox.pack_start(self.linuxAlias)
 	tempBox.pack_start(self.linuxAliasLabel)
         self.radioBox.attach(tempBox, 0, 2, 4, 5)
+
+	self.mbr.connect("toggled", self.mbr_toggled)
+	if self.todo.silo.getSiloMbrDefault() == 'mbr':
+	    self.mbr.set_active (TRUE)
+	else:
+	    part.set_active (TRUE);
 
         self.bootDevice = GtkCheckButton(_("Set default PROM boot device to linux"))
         self.radioBox.attach(self.bootDevice, 0, 2, 5, 6)
