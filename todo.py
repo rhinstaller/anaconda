@@ -568,7 +568,12 @@ class ToDo:
 			_("Error mounting %s: %s") % (device, msg))
 		os.remove( '/tmp/' + device);
 
-	os.mkdir (self.instPath + '/proc')
+        try:
+            os.mkdir (self.instPath + '/proc')
+        except:
+            pass
+            
+            
 	isys.mount('/proc', self.instPath + '/proc', 'proc')
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
