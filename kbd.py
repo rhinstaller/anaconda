@@ -3,47 +3,49 @@ import string
 from simpleconfig import SimpleConfigFile
 
 class Keyboard (SimpleConfigFile):
-    console2x = {
-            "be-latin1"         : ('pc102', 'be'),
-            "be2-latin1"        : ('pc102', 'be'),
-            "bg"                : ('pc102', 'bg'),
-            "cf"                : ('pc102', 'cf'),
-            "cz-lat2"           : ('pc102', 'cs'),
-            "cz-lat2-prog"      : ('pc102', 'cs'),
-            "de"                : ('pc102', 'de'),
-            "de-latin1"         : ('pc102', 'de'),
-            "de-latin1-nodeadkeys" : ('pc102', 'de'),
-            "dk"                : ('pc102', 'dk'),
-            "dk-latin1"         : ('pc102', 'dk'),
-            "es"                : ('pc102', 'es'),
-            "fi"                : ('pc102', 'fi'),
-            "fi-latin1"         : ('pc102', 'fi'),
-            "fr"                : ('pc102', 'fr'),
-            "fr-latin0"         : ('pc102', 'fr'),
-            "fr-latin1"         : ('pc102', 'fr'),
-            "fr-pc"             : ('pc102', 'fr'),
-            "fr_CH"             : ('pc102', 'fr_CH'),
-            "fr_CH-latin1"      : ('pc102', 'fr_CH'),
-            "hu"                : ('pc102', 'fr_CH'),
-            "hu101"             : ('pc102', 'hu'),
-            "it"                : ('pc102', 'it'),
-            "it-ibm"            : ('pc101', 'it'),
-            "it2"               : ('pc102', 'it'),
-            "jp106"             : ('jp106', 'jp'),
-            "no"                : ('pc102', 'no'),
-            "no-latin1"         : ('pc102', 'no'),
-            "pl"                : ('pc102', 'pl'),
-            "pt-latin1"         : ('pc102', 'pt'),
-            "ru"                : ('pc102', 'ru'),
-            "ru-cp1251"         : ('pc102', 'ru'),
-            "ru-ms"             : ('microsoft', 'ru'),
-            "ru1"               : ('pc102', 'ru'),
-            "ru2"               : ('pc102', 'ru'),
-            "ru_win"            : ('pc105', 'ru'),
-            "se-latin1"         : ('pc102', 'se'),
-            "uk"                : ('pc101', 'gb'),
-            "us"                : ('pc101', 'us'),
-            }
+    # the *first* item in each of these wins conflicts
+    console2xlist = [
+            ("be-latin1"         , ('pc102', 'be')),
+            ("be2-latin1"        , ('pc102', 'be')),
+            ("bg"                , ('pc102', 'bg')),
+            ("cf"                , ('pc102', 'cf')),
+            ("cz-lat2"           , ('pc102', 'cs')),
+            ("cz-lat2-prog"      , ('pc102', 'cs')),
+            ("de-latin1"         , ('pc102', 'de')),
+            ("de"                , ('pc102', 'de')),
+            ("de-latin1-nodeadkeys" , ('pc102', 'de')),
+            ("dk"                , ('pc102', 'dk')),
+            ("dk-latin1"         , ('pc102', 'dk')),
+            ("es"                , ('pc102', 'es')),
+            ("fi"                , ('pc102', 'fi')),
+            ("fi-latin1"         , ('pc102', 'fi')),
+            ("fr"                , ('pc102', 'fr')),
+            ("fr-latin0"         , ('pc102', 'fr')),
+            ("fr-latin1"         , ('pc102', 'fr')),
+            ("fr-pc"             , ('pc102', 'fr')),
+            ("fr_CH"             , ('pc102', 'fr_CH')),
+            ("fr_CH-latin1"      , ('pc102', 'fr_CH')),
+            ("hu"                , ('pc102', 'fr_CH')),
+            ("hu101"             , ('pc102', 'hu')),
+            ("it"                , ('pc102', 'it')),
+            ("it-ibm"            , ('pc101', 'it')),
+            ("it2"               , ('pc102', 'it')),
+            ("jp106"             , ('jp106', 'jp')),
+            ("no-latin1"         , ('pc102', 'no')),
+            ("no"                , ('pc102', 'no')),
+            ("pl"                , ('pc102', 'pl')),
+            ("pt-latin1"         , ('pc102', 'pt')),
+            ("ru"                , ('pc102', 'ru')),
+            ("ru-cp1251"         , ('pc102', 'ru')),
+            ("ru-ms"             , ('microsoft', 'ru')),
+            ("ru1"               , ('pc102', 'ru')),
+            ("ru2"               , ('pc102', 'ru')),
+            ("ru_win"            , ('pc105', 'ru')),
+            ("se-latin1"         , ('pc102', 'se')),
+            ("uk"                , ('pc101', 'gb')),
+            ("us"                , ('pc101', 'us')),
+            ]
+
     console2xsun = {
 	    "sun-pl-altgraph"	: 'pl',
 	    "sun-pl"		: 'pl',
@@ -57,18 +59,20 @@ class Keyboard (SimpleConfigFile):
 	    "sunt5-uk"		: 'en_US',
 	    "sunt5-us-cz"	: 'cs',
 	    }
+
+    console2x = {}
+    for (console, (map, layout)) in console2xlist:
+	console2x[console] = (map, layout)
+
     x2console = {}
-    tmp = console2x.items()
-    tmp.reverse()
-    for (key, value) in tmp:
-        x2console [value] = key
+    for (console, (map, layout)) in console2xlist:
+	if not x2console.has_key((map, layout)):
+	    x2console [(map, layout)] = console
 
     xsun2console = {}
-    tmp = console2xsun.items()
-    tmp.reverse()
-    for (key, value) in tmp:
+    for (key, value) in console2xsun.items():
         xsun2console [value] = key
-    del tmp
+    
     
     def __init__ (self):
 	self.type = "PC"
@@ -239,7 +243,7 @@ class Keyboard (SimpleConfigFile):
                 return
             if layout == lay:
                 fuzzy = key
-        
+
         if fuzzy:
             self.info["KEYTABLE"] = mapping[fuzzy]
         else:
