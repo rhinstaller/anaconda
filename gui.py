@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 from gtk import *
-import GdkImlib
+#import GdkImlib
 import isys
 import sys
 import _balkan
@@ -40,14 +40,14 @@ class WelcomeWindow:
 
         hbox = GtkHBox (FALSE, 10)
 
-        try:
-            im = GdkImlib.Image("shadowman-200.png")
-            im.render()
-            pix = im.make_pixmap()
-            hbox.pack_start(pix, TRUE, TRUE, 0)
+#        try:
+#            im = GdkImlib.Image("shadowman-200.png")
+#            im.render()
+#            pix = im.make_pixmap()
+#            hbox.pack_start(pix, TRUE, TRUE, 0)
 
-        except:
-            print "Unable to load shadowman-200.png"
+#        except:
+#            print "Unable to load shadowman-200.png"
 
         hbox.pack_start(vbox, TRUE, TRUE, 0)
 
