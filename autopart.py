@@ -1352,7 +1352,18 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                     for r in partitions.requests:
                         if isinstance(r.fstype,
                                       fsset.lvmPhysicalVolumeDummyFileSystem):
-                            req.physicalVolumes.append(r.uniqueID)
+                            valid = 0
+                            if ((partitions.autoClearPartDrives is None) or
+                                len(partitions.autoClearPartDrives) == 0):
+                                valid = 1
+                            else:
+                                for d in r.drive:
+                                    if d in partitions.autoClearPartDrives:
+                                        valid = 1
+                                        break
+                                    
+                            if valid:
+                                req.physicalVolumes.append(r.uniqueID)
             if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
                 # if the volgroup is set to a string, we probably need
                 # to find that volgroup and use it's id
