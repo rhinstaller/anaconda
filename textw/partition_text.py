@@ -246,6 +246,7 @@ class PartitionWindow:
         driveLbl = Label(_("Allowable Drives:"))
         subgrid.setField(driveLbl, 0, 0)
         disks = self.diskset.disks.keys()
+        disks.sort()
         drivelist = CheckboxTree(height=2, scroll=1)
         if not request.drive:
             for disk in disks:
