@@ -7,7 +7,7 @@ fi
 
 prepareBootImage() {
         dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
-	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
+	mkdosfs -r 16 -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
 	$SYSLINUX $MBD_TMPIMAGE
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
