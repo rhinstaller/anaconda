@@ -400,7 +400,7 @@ class PackageGroupWindow:
 
         # turn on all the comps we selected
         for comp in ct.getSelection():
-            comp.select (0)
+            comp.select (1)
 
         rc = bb.buttonPressed (result)
 
@@ -471,6 +471,46 @@ class IndividualPackageWindow:
 
         return INSTALL_OK
 
+class PackageDepWindow:
+    def run(self, screen, todo):
+        deps = todo.verifyDeps ()
+        if not deps:
+            return INSTALL_NOOP
+
+        g = GridForm(screen, _("Package Dependencies"), 1, 5)
+        g.add (TextboxReflowed (45, _("Some of the packages you have "
+                                      "selected to install require "
+                                      "packages you have not selected. If "
+                                      "you just select Ok all of those "
+                                      "required packages will be "
+                                      "installed.")), 0, 0, (0, 0, 0, 1))
+        g.add (Label ("%-20s %-20s" % (_("Package"), _("Requirement"))), 0, 1, anchorLeft = 1)
+        text = ""
+        for (name, suggest) in deps:
+            text = text + "%-20s %-20s\n" % (name, suggest)
+        
+        if len (deps) > 5:
+            scroll = 1
+        else:
+            scroll = 0
+            
+        g.add (Textbox (45, 5, text, scroll = scroll), 0, 2, anchorLeft = 1)
+        
+        cb = Checkbox (_("Install packages to satisfy dependencies"), 1)
+        g.add (cb, 0, 3, (0, 1, 0, 1), growx = 1)
+        
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        g.add (bb, 0, 4, growx = 1)
+
+        result = g.run ()
+
+        if cb.selected ():
+            todo.selectDeps (deps)
+        
+        rc = bb.buttonPressed (result)
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+        return INSTALL_OK
 
 class MouseWindow:
     def run(self, screen, todo):
@@ -725,6 +765,13 @@ class InstallInterface:
         self.screen.drawRootText(0 - len(title), 0,
                                  (self.screen.width - len(title)) * " ")
     
+    def exceptionWindow(self, title, text):
+	rc = ButtonChoiceWindow(self.screen, title, text,
+                           buttons = [ _("OK"), _("Debug") ])
+        if rc == string.lower (_("Debug")):
+            return 1
+        return None
+
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
@@ -752,6 +799,7 @@ class InstallInterface:
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
+            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],

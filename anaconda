@@ -242,8 +242,11 @@ except:
     from string import joinfields
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
-    intf.messageWindow (_("Exception Occured"), text)
+    rc = intf.exceptionWindow (_("Exception Occured"), text)
     intf.__del__ ()
+    if rc:
+        import pdb
+        pdb.post_mortem (tb)
     os._exit (1)
 
 del intf

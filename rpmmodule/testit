@@ -2,28 +2,32 @@
 
 import rpm
 import os
+import time
 
 def cb(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
 	d = os.open(key, os.O_RDONLY)
 	return d
 
-fd = os.open('foo', os.O_RDONLY);
-(h, isSource) = rpm.headerFromPackage(fd)
-print "from foo:", h[rpm.RPMTAG_NAME]
-os.close(fd)
+## fd = os.open('foo', os.O_RDONLY);
+## (h, isSource) = rpm.headerFromPackage(fd)
+## print "from foo:", h[rpm.RPMTAG_NAME]
+## os.close(fd)
 
-#list = rpm.readHeaderList('hdlist')
-#print "got", len(list), "items"
+list = rpm.readHeaderList('/mnt/test/msw/i386/RedHat/base/hdlist')
+print "got", len(list), "items"
 
 d = rpm.opendb(0)
 
-ts = rpm.TransactionSet("/", d)
+ts = rpm.TransactionSet()
 
-ts.add(h, "foo")
+for h in list:
+    ts.add(h, "foo", "a")
+
+ts.add(list[0], "foo")
 rc = ts.depcheck()
 print rc
 
 ts.order()
-print "run", ts.run(rpm.RPMTRANS_FLAG_TEST, 0, cb, "arg")
+#print "run", ts.run(rpm.RPMTRANS_FLAG_TEST, 0, cb, "arg")
 

@@ -653,6 +653,38 @@ class ToDo:
             out = open (self.instPath + "/etc/conf.modules", "w")
             out.write (inf.read ())
 
+    def verifyDeps (self):
+	ts = rpm.TransactionSet()
+        self.comps['Base'].select (1)
+
+	for p in self.hdList.packages.values ():
+            if p.selected:
+                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]))
+            else:
+                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
+
+	ts.order()
+        deps = ts.depcheck()
+        rc = []
+        if deps:
+            for ((name, version, release),
+                 (reqname, reqversion),
+                 flags, suggest, sense) in deps:
+                if sense == rpm.RPMDEP_SENSE_REQUIRES:
+                    if suggest:
+                        (header, sugname) = suggest
+                    else:
+                        sugname = _("no suggestion")
+                    if not (name, sugname) in rc:
+                        rc.append ((name, sugname))
+            return rc
+        else:
+            return None
+
+    def selectDeps (self, deps):
+        for (who, dep) in deps:
+            self.hdList[dep].selected = 1
+        
     def doInstall(self, intf):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
@@ -661,11 +693,6 @@ class ToDo:
         # make sure that all comps that include other comps are
         # selected (i.e. - recurse down the selected comps and turn
         # on the children
-
-        for comp in self.comps:
-            if comp.selected:
-                comp.select(1)
-
         if self.setupFilesystems:
             self.ddruid.save ()
             self.makeFilesystems ()
