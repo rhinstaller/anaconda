@@ -577,7 +577,6 @@ class ToDo:
 	kernelFile = "/boot/vmlinuz-" + kernelVersion
 	    
 	self.lilo.addImage ("image", kernelFile, sl)
-	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
         for (type, name, config) in self.lilo.images:
             # remove entries for missing kernels (upgrade)
@@ -591,6 +590,8 @@ class ToDo:
                 if not isys.checkBoot ('/tmp/' + device):
                     self.lilo.delImage (name)
                 os.remove ('/tmp/' + device)
+
+	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
 	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
 				"-r", self.instPath ], stdout = None)
