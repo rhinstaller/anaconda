@@ -12,5 +12,5 @@ subdirs:
 
 install: all
 	mkdir -p $(DESTDIR)
-	cp -a anaconda comps.py gui.py image.py text.py $(DESTDIR)
+	cp -a anaconda comps.py gui.py image.py text.py todo.py $(DESTDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
