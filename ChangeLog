@@ -1,5 +1,8 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c (parseCmdLineIp): Add patch from Bastien Nocera
+	to support parsing of pxelinux IPAPPEND (#134054)
+
 	* scripts/scrubtree: Clean up handling of binaries that we
 	want busybox to override.  Inspired by #137948.
 
