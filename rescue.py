@@ -159,7 +159,8 @@ def runRescue(instPath, mountroot, id):
         print _("When finished please exit from the shell and your "
                 "system will reboot.")
         print
-	os.execv("/bin/sh", [ "-/bin/sh" ])
+	os.system("/bin/sh")
+	sys.exit(0)
 
     # lets create some devices
     iutil.makeDriveDeviceNodes()
@@ -346,4 +347,5 @@ def runRescue(instPath, mountroot, id):
     print _("When finished please exit from the shell and your "
                 "system will reboot.")
     print
-    os.execv("/bin/sh", [ "-/bin/sh" ])
+    os.system("/bin/sh")
+    sys.exit(0)
