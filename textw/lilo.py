@@ -181,7 +181,9 @@ class LiloImagesWindow:
 		    _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
 		      "what partitions you would like to be able to boot " 
-		      "and what label you want to use for each of them."))
+		      "and what label you want to use for each of them.\n\n"
+                      "Press the F2 key to select the partition to boot by "
+                      "default."))
 
 	g = GridForm(screen, _("LILO Configuration"), 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
