@@ -500,12 +500,14 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     char * arg, * chptr;
     poptContext optCon;
     struct in_addr * parseAddress;
+    int noDns = 0;
     struct poptOption ksOptions[] = {
 	    { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
 	    { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
 	    { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
 	    { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
 	    { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
+	    { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -594,7 +596,12 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 
     fillInIpInfo(netDev);
     configureNetwork(netDev);
-    findHostAndDomain(netDev, flags);
+
+    logMessage("nodns is %d", noDns);
+
+    if (!noDns)
+	findHostAndDomain(netDev, flags);
+
     writeResolvConf(netDev);
     
     return 0;
