@@ -257,7 +257,6 @@ class GNOMEWorkstation(Workstation):
 	Workstation.__init__(self, expert)
         self.desktop = "GNOME"
 	self.setGroups(["GNOME Workstation"])
-	self.addToSkipList("package-selection")
 
 class KDEWorkstation(Workstation):
 
