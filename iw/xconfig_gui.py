@@ -38,11 +38,11 @@ class XCustomWindow (InstallWindow):
         self.todo.x.manualModes = newmodes
         self.todo.x.setModes (newmodes)
 
-#        print "Res", self.todo.resState
-#        print "Depth", self.todo.depthState
         self.todo.resState = self.selectedRes
         self.todo.depthState = self.selectedDepth
 
+#        print "Res", self.todo.resState
+#        print "Depth", self.todo.depthState
 
         if self.text.get_active ():
             self.todo.initlevel = 3
@@ -227,13 +227,15 @@ class XCustomWindow (InstallWindow):
 
         frame1.add (self.depth_combo)
 
+#        print "self.todo.depthState is ", self.todo.depthState
+
         count = 0
         for depth in self.bit_depth:
             if depth == self.todo.depthState:
                 self.depth_combo.list.select_item (count)
                 self.selectedDepth = depth
-            else:
-                self.selectedDepth = "8"
+#            else:
+#                self.selectedDepth = "8"
             count = count + 1
 
         frame2 = GtkFrame (_("Screen Resolution:"))
@@ -246,41 +248,66 @@ class XCustomWindow (InstallWindow):
         self.res_combo = GtkCombo ()
         self.res_combo.entry.set_editable (FALSE)
 
-        if self.depth_count == 1:
-            self.res_combo.set_popdown_strings (self.res_list1)
+        count = 0
+        for res in self.res_list:
+            if res == self.todo.resState:
+#                print "FOR"
+#                print self.todo.depthState, self.todo.resState
+                
+                if self.todo.depthState == "8":
+#                    print "1"
+                    self.res_combo.set_popdown_strings (self.res_list1)
+                elif self.todo.depthState == "16":
+#                    print "2"
+                    self.res_combo.set_popdown_strings (self.res_list2)
+                elif self.todo.depthState == "32":
+#                    print "3"
+                    self.res_combo.set_popdown_strings (self.res_list3)
 
-        elif self.depth_count >= 2:
-            #--If they can do 16 bit color, default to 16 bit at 1024x768
-            self.depth_combo.list.select_item (1)
-            self.res_combo.set_popdown_strings (self.res_list2)
+                self.res_combo.list.select_item (count)
+                self.selectedRes = res
+            count = count + 1
+
+
+        #--If they've been to this screen before, don't try to select a default res
+        if self.todo.depthState != "":
+#            print "in if"
+            pass
+        #--Otherwise, try to select a default setting that makes sense...like 16 bit at 1024x768
+        else:
+#            print "in else"
+            if self.depth_count == 1:
+                self.res_combo.set_popdown_strings (self.res_list1)
+                self.selectedDepth = "8"
+
+            elif self.depth_count >= 2:
+                #--If they can do 16 bit color, default to 16 bit at 1024x768
+                self.depth_combo.list.select_item (1)
+                self.selectedDepth = "16"
+
+                self.res_combo.set_popdown_strings (self.res_list2)
 
 #            print "len(self.res_list2) = ", len (self.res_list2)
-            if len (self.res_list2) >= 3:
-#                print "try1"
-                self.res_combo.list.select_item (2)
-                self.currentRes = 2
-            elif len (self.res_list2) == 2:
-#                print "try2"
-                self.res_combo.list.select_item (1)
-                self.currentRes = 1
-            elif len (self.res_list2) == 1:
-#                print "try3"
-                self.res_combo.list.select_item (0)
-                self.currentRes = 0
+                if len (self.res_list2) >= 3:
+#                    print "try1"
+                    self.res_combo.list.select_item (2)
+                    self.currentRes = 2
+                    self.selectedRes = "1024x768"
+                elif len (self.res_list2) == 2:
+#                    print "try2"
+                    self.res_combo.list.select_item (1)
+                    self.currentRes = 1
+                    self.selectedRes = "800x600"
+                elif len (self.res_list2) == 1:
+#                    print "try3"
+                    self.res_combo.list.select_item (0)
+                    self.currentRes = 0
+                    self.selectedRes = "640x480"
 
         frame2.add (self.res_combo)
 
 
         self.depth_combo.list.connect ("select-child", self.depth_cb)
-
-        count = 0
-        for res in self.res_list:
-            if res == self.todo.resState:
-                self.res_combo.list.select_item (count)
-                self.selectedRes = res
-            else:
-                self.selectedRes = "640x480"
-            count = count + 1
 
         self.res_combo.list.connect ("select-child", self.res_cb)
 
@@ -439,6 +466,10 @@ class MonitorWindow (InstallWindow):
             self.todo.x.state = monitor[0]
 
     def getNext (self):
+        #--If they don't want to skip, then have them enter the XCustomWindow screen
+        if self.todo.x.skip == 0:
+            return XCustomWindow
+
         if self.skipme:
             return None
 
@@ -447,8 +478,6 @@ class MonitorWindow (InstallWindow):
                                     (self.hEntry.get_text (),
                                      self.vEntry.get_text ())))
 
-
-            
         return None
 
     def moveto (self, ctree, area, node):
@@ -456,6 +485,10 @@ class MonitorWindow (InstallWindow):
         self.selectCb (ctree, node, -1)
 
     def getScreen (self):
+        #--If they want to skip X configuration, skip this screen
+        if self.todo.x.skip == 1:
+            return
+
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
         # installed.  If it isn't return None.
@@ -468,13 +501,7 @@ class MonitorWindow (InstallWindow):
         else:
             self.skipme = FALSE
 
-        #--If we have never probed before, then probe.  Otherwise, skip it.
-        if self.todo.probedFlag == "":
-            self.todo.x.probe ()
-            self.todo.probedFlag = "TRUE"
-        else:
-            self.todo.probedFlag = "TRUE"
-            
+
         box = GtkVBox (FALSE, 5)
 
         monitors = self.todo.x.monitors ()
@@ -604,11 +631,6 @@ class XConfigWindow (InstallWindow):
         else:
             self.todo.initlevel = 3
 
-	if not self.cantprobe:
-            #	    if self.custom.get_active () and not self.skip.get_active ():
-            if not self.skip.get_active ():
-		return XCustomWindow
-
         return None
 
     def customToggled (self, widget, *args):
@@ -617,7 +639,6 @@ class XConfigWindow (InstallWindow):
     def skipToggled (self, widget, *args):
         self.configbox.set_sensitive (not widget.get_active ())
         self.todo.x.skip = widget.get_active ()
-
     def testPressed (self, widget, *args):
         try:
             self.todo.x.test ()
@@ -719,6 +740,15 @@ class XConfigWindow (InstallWindow):
             return None
         else:
             self.skipme = FALSE
+
+
+        #--If we have never probed before, then probe.  Otherwise, skip it.
+        if self.todo.probedFlag == "":
+            self.todo.x.probe ()
+            self.todo.probedFlag = "TRUE"
+        else:
+            self.todo.probedFlag = "TRUE"
+
 
 
         self.newDesktop = ""
