@@ -31,6 +31,9 @@ class PartitionEditor:
     def sizespinchangedCB(self, widget, fillmaxszsb):
 	size = widget.get_value_as_int()
 	maxsize = fillmaxszsb.get_value_as_int()
+        if size < 1:
+            widget.set_value(1)
+            size = 1
 	if size > maxsize:
 	    fillmaxszsb.set_value(size)
 
