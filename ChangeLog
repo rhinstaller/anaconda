@@ -1,5 +1,7 @@
 2004-10-05  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version:
+
 	* kickstart.py (KickstartBase.readKickstart): Have to reset things
 	when we enter a new scriptlet to break multiple scriptlet with
 	different interpreters (#134707)

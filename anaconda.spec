@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.14
+Version: 10.0.3.15
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct  5 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.15-1
+- Fix creation of scsi device nodes (#134709)
+- Fix multiple kickstart scriptlets with different interpreters (#134707)
+
 * Mon Oct  4 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.14-1
 - Some zfcp fixes
 - Don't traceback if we have a %%include inside a scriptlet (#120252)
