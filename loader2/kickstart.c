@@ -63,6 +63,8 @@ struct ksCommand {
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr);
+static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
+                        char ** argv, int * flagsPtr);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
@@ -71,6 +73,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_CDROM, "cdrom", setKickstartCD },
     { KS_CMD_HD, "harddrive", setKickstartHD },
     { KS_CMD_TEXT, "text", setTextMode },
+    { KS_CMD_GRAPHICAL, "graphical", setGraphicalMode },
     { KS_CMD_URL, "url", setKickstartUrl },
     { KS_CMD_NETWORK, "network", setKickstartNetwork },
     { KS_CMD_KEYBOARD, "keyboard", setKickstartKeyboard },
@@ -362,6 +365,12 @@ void getKickstartFile(struct knownDevices * kd,
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TEXT;
+    return;
+}
+
+static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
+                        char ** argv, int * flagsPtr) {
+    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_GRAPHICAL;
     return;
 }
 
