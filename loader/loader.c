@@ -2238,6 +2238,11 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 
 	if (rc == 2) return;
 
+#if 0
+    _("The floppy disk you inserted is not a valid update disk "
+      "for this release of Red Hat Linux.")
+#endif
+
 	devMakeInode(floppyDevice, "/tmp/floppy");
 	if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
 		      NULL)) {
