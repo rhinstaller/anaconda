@@ -218,6 +218,9 @@ class Kickstart(InstallClass):
 
         self.addToSkipList("mouse")
 
+    def doReboot(self, args):
+        self.addToSkipList("complete")
+
     def readKickstart(self, file):
 	handlers = { 
 		     "authconfig"	: self.doAuthconfig	,
@@ -232,6 +235,7 @@ class Kickstart(InstallClass):
 		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,
 		     "part"		: self.definePartition	,
+		     "reboot"		: self.doReboot		,
 		     "rootpw"		: self.doRootPw		,
 		     "text"		: None			,
 		     "timezone"		: self.doTimezone	,
@@ -315,13 +319,12 @@ class Kickstart(InstallClass):
 	InstallClass.__init__(self)
 	self.addToSkipList("bootdisk")
         self.addToSkipList("welcome")
+        self.addToSkipList("package-selection")
+        self.addToSkipList("confirm-install")
 	self.partitions = []
 
 	self.installType = "install"
 	self.readKickstart(file)
-
-	self.setGroups(["Base"])
-	#self.addToSkipList("package-selection")
 
         # need to take care of:
 	#[ "lilo", "mouse", "network", "complete",
