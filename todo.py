@@ -1539,8 +1539,8 @@ class ToDo:
                                         p.h[rpm.RPMTAG_ARCH]))
         self.instLog.close ()
 
-        w = self.intf.waitWindow(_("Post Install"), 
-                                 _("Performing post install configuration..."))
+        w = self.intf.progressWindow(_("Post Install"), 
+			     _("Performing post install configuration..."), 8)
 
         try:
             if not self.upgrade:
@@ -1553,6 +1553,8 @@ class ToDo:
                 self.createRemovable("zip", partNum = 4)
                 self.createRemovable("jaz", partNum = 4)
 
+		w.set(1);
+
                 self.copyExtraModules()
                 self.fstab.write (self.instPath)
                 self.writeConfiguration ()
@@ -1560,6 +1562,8 @@ class ToDo:
                 if (self.instClass.defaultRunlevel):
                     self.initlevel = self.instClass.defaultRunlevel
                     self.setDefaultRunlevel ()
+
+		w.set(2);
 
                 # pcmcia is supported only on i386 at the moment
                 if arch == "i386":
@@ -1578,6 +1582,8 @@ class ToDo:
 
                     self.x.write (self.instPath + "/etc/X11")
                 self.setDefaultRunlevel ()
+
+		w.set(3);
 
                 # blah.  If we're on a serial mouse, and we have X, we need to
                 # close the mouse device, then run kudzu, then open it again.
@@ -1617,6 +1623,8 @@ class ToDo:
                     except RuntimeError:
                         pass
 
+	    w.set(4);
+
             # needed for prior systems which were not xinetd based
             if self.upgrade:
                 self.migrateXinetd()
@@ -1637,17 +1645,26 @@ class ToDo:
                 else:
                     raise RuntimeError, "What kind of machine is this, anyway?!"
 
+		w.set(5);
+
+
                 # go ahead and depmod modules as modprobe in rc.sysinit
                 # will complain loaduly if we don't do it now.
                 self.depmodModules()
 
+	    w.set(6);
+
             self.instClass.postAction(self.instPath, self.serial)
+
+	    w.set(7);
 
             if self.setupFilesystems:
                 f = open("/tmp/cleanup", "w")
                 self.method.writeCleanupPath(f)
                 self.fstab.writeCleanupPath(f)
                 f.close()
+
+	    w.set(8);
 
             del syslog
 
