@@ -182,7 +182,8 @@ for p in hdlist.pkgs.values():
         list.append(p)
 list.sort(cmpHeaderByName)
 for item in list:
-    pkgOrder.append(item.nevra())
+    if item.nevra() not in pkgOrder:
+        pkgOrder.append(item.nevra())
 
 # Now set up rpm to run the transaction deporder
 testpath = '/tmp/pkgorder-' + str (os.getpid ())
