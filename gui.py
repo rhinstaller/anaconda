@@ -646,7 +646,7 @@ class InstallControlWindow:
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
             label = button.children ()[0].children ()[0].children()[1]
-            label.set_text (_(text))
+            label.set_text (text)
             button.queue_resize()
 
     def setup_window (self, runres):
