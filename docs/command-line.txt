@@ -115,3 +115,9 @@ method=hd://<dev>/<path> Use <path> on <dev> for a hard drive installation
 
 method=cdrom     Do a CDROM based installation.
 
+vnc             Do graphical installation via VNC.  Instead of
+                starting a normal X server, vncserver will be started
+                and you can then connect remotely to do the
+                installation.
+
+vncpassword=<pass>  Set a password for the vnc session.
