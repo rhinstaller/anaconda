@@ -102,7 +102,9 @@ class PackageGroupWindow:
 	    for k in origpkgselection.keys():
 		pkgselection[k] = origpkgselection[k]
 
-	    for pkg in origpkgselection.keys():
+            pkgs = origpkgselection.keys()
+            pkgs.sort()
+            for pkg in pkgs:
                 if grpset.hdrlist.pkgs.has_key(pkg):
                     name = grpset.hdrlist.pkgs[pkg].name
                 elif grpset.groups.has_key(pkg):
