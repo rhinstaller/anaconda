@@ -339,7 +339,7 @@ class Fstab:
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only
                 # thing that our milo seems to read.
-                if arch == "alpha" and mntpoint == bootPart:
+                if arch == "alpha" and device == bootPart:
                     args = args + ["-b", "1024"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
