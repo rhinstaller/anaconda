@@ -77,6 +77,7 @@ class InstallClass:
     def removeFromSkipList(self, type):
 	if type == "partition":
 	    self.skipPartitioning = 0
+	    self.removeFromSkipList("format")
 	else:
 	    if self.skipSteps.has_key(type):
 		del self.skipSteps[type]
