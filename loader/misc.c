@@ -75,7 +75,7 @@ char * sdupprintf(const char *format, ...) {
     size_t size = 0;
 
     va_start(ap1, format);
-    va_copy(ap1, ap2);
+    va_copy(ap2, ap1);
     
     /* XXX requires C99 vsnprintf behavior */
     size = vsnprintf(&c, 1, format, ap1) + 1;
