@@ -845,13 +845,6 @@ if [ -n "$NEEDGR" ]; then
     rm -f $DESTGR/usr/bin/pango-querymodules
 fi
 
-echo "Munging gtkrc to not use Bluecurve icon theme"
-if [ -n "$NEEDGR" ]; then
-    mv $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old
-    cat $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old | grep -v "iconrc" > $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc
-    rm -f $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old
-fi
-
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
