@@ -49,7 +49,7 @@ char *netServerPrompt = \
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
-    char * ip, * nm, * gw, * ns;
+    const char * ip, * nm, * gw, * ns;
 };
 
 typedef int int32;
@@ -159,7 +159,7 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
 
 static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
-    char * ns = "";
+    const char * ns = "";
     struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
                                       { NULL, NULL, 0 } };
 

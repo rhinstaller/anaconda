@@ -42,10 +42,10 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     int rc;
 
     entries[0].text = _("NFS server name:");
-    entries[0].value = &newServer;
+    entries[0].value = (const char **) &newServer;
     entries[0].flags = NEWT_FLAG_SCROLL;
     entries[1].text = _("Red Hat directory:");
-    entries[1].value = &newDir;
+    entries[1].value = (const char **) &newDir;
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;

@@ -64,7 +64,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
                        "options can be obtained by pressing the F1 key."), 
                      mod->moduleName);
     text = newtTextboxReflowed(-1, -1, buf, 60, 0, 10, 0);
-    entry = newtEntry(-1, -1, argsEntry, 50, &argsEntry, 
+    entry = newtEntry(-1, -1, argsEntry, 50, (const char **) &argsEntry, 
                       NEWT_ENTRY_SCROLL);
     
     newtFormAddHotKey(f, NEWT_KEY_F1);
