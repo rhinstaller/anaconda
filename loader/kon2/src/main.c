@@ -41,10 +41,12 @@ kon_main(int argc, const char *argv[])
 {
     extern void ChangeNewConsole();
 
+#if 0 /* disable version number by request */
 #ifdef	MINI_KON
     fprintf(stderr, "Kanji ON Console MINI " VERSION "\n\n");
 #else
     fprintf(stderr, "Kanji ON Console " VERSION "\n\n");
+#endif
 #endif
     if (geteuid() != 0) {
 	fprintf(stderr, "can not get I/O permissions.\n");
