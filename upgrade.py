@@ -78,7 +78,6 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
-    log("now unmounting")
     isys.umount(instPath)        
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
@@ -104,7 +103,6 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
-        lvm.vgscan()
         oldfsset.mountFilesystems(instPath, readOnly = readOnly)
 
     # XXX we should properly support 'auto' at some point
