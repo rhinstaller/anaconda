@@ -2622,6 +2622,7 @@ int main(int argc, char ** argv) {
     int i, rc;
     int flags = 0;
     int testing = 0;
+    int mediacheck = 0;
     char * lang = NULL;
     char * keymap = NULL;
     char * kbdtype = NULL;
@@ -2642,6 +2643,7 @@ int main(int argc, char ** argv) {
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
+	    { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -2711,8 +2713,9 @@ int main(int argc, char ** argv) {
     }
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
+    if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
-    flags |= LOADER_FLAGS_MEDIACHECK;
+    /*    flags |= LOADER_FLAGS_MEDIACHECK; */
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
 			      &instClass);
