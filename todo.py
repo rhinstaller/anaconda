@@ -1233,10 +1233,10 @@ class ToDo:
         self.writeMouse ()
         self.writeKeyboard ()
         self.writeNetworkConfig ()
-        self.setupAuthentication ()
         self.writeRootPassword ()
         self.createAccounts ()
         self.writeTimezone()
+        self.setupAuthentication ()
 
     def sortPackages(self, first, second):
 	one = 0
