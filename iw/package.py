@@ -377,17 +377,20 @@ class PackageSelectionWindow (InstallWindow):
         ics.setTitle (_("Package Group Selection"))
         ics.setNextEnabled (1)
         ics.readHTML ("sel-group")
+        self.selectIndividualPackages = FALSE
+        
 ##         ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
 ##                      "</BODY></HTML>")
 
     def getNext (self):
-	if not self.__dict__.has_key("individualPackages"):
+	if not self.__dict__.has_key ("individualPackages"):
 	    return None
 
         if self.individualPackages.get_active ():
+            self.selectIndividualPackages = TRUE
             return IndividualPackageSelectionWindow
-        else:
-            return None
+
+        return None
 
     def getScreen (self):
         threads_leave ()
@@ -442,7 +445,7 @@ class PackageSelectionWindow (InstallWindow):
 
         vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton (_("Select individual packages"))
-        self.individualPackages.set_active (FALSE)
+        self.individualPackages.set_active (self.selectIndividualPackages)
         align = GtkAlignment (0.5, 0.5)
         align.add (self.individualPackages)
 
