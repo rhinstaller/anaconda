@@ -48,10 +48,6 @@ class DesktopChoiceWindow (InstallWindow):
 	vbox.set_border_width (5)
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
-        labeltxt = _("The default installation includes a recommended package "
-                     "set, including:\n\n")
-        
-
 	# ugly hack
 	if instclass.name == N_("Workstation"):
 	    self.windowTitle = N_("Workstation Defaults")
