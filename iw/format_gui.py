@@ -29,17 +29,21 @@ class FormatWindow (InstallWindow):
         mounts = self.todo.fstab.formattablePartitions()
 
 	gotOne = 0
+        sw = GtkScrolledWindow ()
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 	for (mount, dev, fstype, format, size) in mounts:
 	    gotOne = 1
 	    checkButton = GtkCheckButton ("/dev/%s   %s" % (dev, mount))
 	    checkButton.set_active (format)
 	    checkButton.connect ("toggled", toggled, (self.todo, dev))
-	    box.pack_start (checkButton)
+	    box.pack_start (checkButton, FALSE, FALSE)
 
 	if not gotOne: return None
 
+        sw.add_with_viewport (box)
+        
         vbox = GtkVBox (FALSE, 10)
-        vbox.pack_start (box, FALSE, TRUE)
+        vbox.pack_start (sw, TRUE, TRUE)
 
         vbox.pack_start (GtkHSeparator (), FALSE, padding=3)
         
