@@ -12,6 +12,16 @@ import socket
 import crypt
 import whrandom
 
+class LogFile:
+    def __init__ (self):
+        self.logFile = open("/dev/tty3", "w")
+
+    def __call__ (self, format, *args):
+        if args:
+            self.logFile.write (format % args)
+        else:
+            self.logFile.write (format)
+            
 class SimpleConfigFile:
     def __str__ (self):
         s = ""
@@ -351,6 +361,7 @@ class ToDo:
         self.auth = Authentication ()
         self.ddruid = None;
         self.drives = Drives ()
+        self.log = LogFile ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
