@@ -51,7 +51,7 @@ class DesktopChoiceWindow (InstallWindow):
         header = _("The default installation environment includes our "
                    "recommended package selection, including:\n\n")
         footer = _("\n\nAfter installation, additional software can be "
-                   "added or removed using the 'redhat-config-packages' "
+                   "added or removed using the 'system-config-packages' "
                    "tool.\n\n"
                    "If you are familiar with %s, you may have specific "
                    "packages you would like to install or avoid "

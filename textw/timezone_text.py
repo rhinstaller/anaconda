@@ -19,7 +19,7 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _, textdomain
 
-textdomain("redhat-config-date")
+textdomain("system-config-date")
 
 class TimezoneWindow:
 

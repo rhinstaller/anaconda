@@ -19,7 +19,7 @@ from timezone_map_gui import TimezoneMap, ZoneTab
 from iw_gui import *
 from rhpl.translate import _, textdomain
 
-textdomain("redhat-config-date")
+textdomain("system-config-date")
 
 class TimezoneWindow(InstallWindow):
     def __init__(self, ics):

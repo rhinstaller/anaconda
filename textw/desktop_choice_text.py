@@ -27,7 +27,7 @@ class DesktopChoiceWindow:
 	labeltxt = N_("The default installation environment includes our "
                       "recommended package selection.  After installation, "
                       "additional software can be added or removed using the "
-                      "'redhat-config-packages' tool.\n\n"
+                      "'system-config-packages' tool.\n\n"
 		      "However %s ships with many more applications, and "
 		      "you may customize the selection of software "
 		      "installed if you want.")
