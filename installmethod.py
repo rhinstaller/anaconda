@@ -1,4 +1,6 @@
 import os
+import string
+from comps import ComponentSet
 
 class InstallMethod:
 
