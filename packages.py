@@ -464,7 +464,8 @@ def doPreInstall(method, id, intf, instPath, dir):
 #    delay writing migrate adjusted fstab till later, in case
 #    rpm transaction set determines they don't have enough space to upgrade
 #    else:
-#        id.fsset.migratewrite(instPath)
+#        id.fsset.migratewrite(instPath)        
+
 
 def doInstall(method, id, intf, instPath):
     if flags.test:
@@ -697,7 +698,9 @@ def doPostInstall(method, id, intf, instPath):
 	    w.set(1)
 
 	    copyExtraModules(instPath, id.comps, id.extraModules)
-
+            if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                copyOCOModules(instPath)
+                
 	    w.set(2)
 
 	    # pcmcia is supported only on i386 at the moment
@@ -832,6 +835,12 @@ def migrateXinetd(instPath, instLog):
     iutil.execWithRedirect(argv[0], argv, root = instPath,
 			   stdout = logfile, stderr = logfile)
     os.close(logfile)
+
+def copyOCOModules(instPath):
+    command = ("cd %s/lib/modules; cp -ar /OCO ibm" % (instPath))
+    log("running: '%s'" % (command, ))
+    os.system(command)
+
 
 def copyExtraModules(instPath, comps, extraModules):
     kernelVersions = comps.kernelVersionList()
