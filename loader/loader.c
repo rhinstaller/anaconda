@@ -134,7 +134,7 @@ static void startNewt(int flags) {
     }
 }
 
-static void stopNewt(void) {
+void stopNewt(void) {
     if (newtRunning) newtFinished();
 }
 

@@ -304,9 +304,12 @@ int chooseLanguage(char ** lang, int flags) {
 
     {
 	extern int continuing;
+	extern void stopNewt(void);
 
 	if (!strcmp (languages[choice].key, "ja") && !continuing) {
 	    char * args[4];
+
+	    stopNewt();
 	    
 	    args[0] = "kon";
 	    args[1] = "-e";
