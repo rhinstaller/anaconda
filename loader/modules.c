@@ -797,7 +797,7 @@ int mlModuleInList(const char * modName, moduleList list) {
 int mlWriteConfModules(moduleList list, int fd) {
     int i;
     struct loadedModuleInfo * lm;
-    char buf[200], buf2[200];
+    char buf[16384], buf2[512];
     int scsiNum;
     int ethNum;
     int trNum = 0;

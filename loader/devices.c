@@ -339,7 +339,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	newtFormAddHotKey(form, NEWT_KEY_F2);
 
 	for (i = 0; i < numSorted; i++) {
-	    char buf[80];
+	    char buf[1024];
 	    int num = sortedOrder[i].index;
 
 	    snprintf (buf, sizeof(buf), "%s (%s)",
@@ -437,7 +437,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 
 void ddReadDriverDiskModInfo(moduleInfoSet modInfo) {
     int num = 0;
-    char fileName[80];
+    char fileName[1024];
     struct stat sb;
     FILE * f;
     struct driverDiskInfo * ddi;
