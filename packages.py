@@ -81,12 +81,11 @@ def writeKSConfiguration(id, instPath):
 def writeXConfiguration(id, instPath):
     testmode = flags.test
 
-#
 # use to test writing X config in test mode
-#
 #    testmode = 0
 #    instPath = '/'
-    
+# end code for test writing
+
     if testmode:
         return
 
