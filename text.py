@@ -387,16 +387,27 @@ class InstallInterface:
 
     def run(self, id, dispatch, configFileData):
         # set up for CJK text mode if needed
+        oldlang = None
         if (flags.setupFilesystems and
             (id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "bterm")
             and not isys.isPsudoTTY(0)
             and not flags.serial):
             log("starting bterm")
+            rc = 1
             try:
                 rc = isys.startBterm()
                 time.sleep(1)
             except Exception, e:
                 log("got an exception starting bterm: %s" %(e,))
+
+            if rc == 1:
+                log("unable to start bterm, falling back to english")
+                oldlang = id.instLanguage.getCurrent()
+                log("old language was %s" %(oldlang,))
+                id.instLanguage.setRuntimeLanguage("English")
+                id.instLanguage.setRuntimeDefaults(oldlang)
+                
+                
         
         self.screen = SnackScreen()
         self.configFileData = configFileData
@@ -429,6 +440,14 @@ class InstallInterface:
 
         # draw the frame after setting up the fallback
         self.drawFrame()
+
+        if oldlang is not None:
+            ButtonChoiceWindow(self.screen, "Language Unavailable",
+                               "%s display is unavailable in text mode.  "
+                               "The installation will continue in "
+                               "English." % (oldlang,),
+                               buttons=[TEXT_OK_BUTTON])
+        
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
