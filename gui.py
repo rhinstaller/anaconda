@@ -337,8 +337,8 @@ def titleBarMotionEventCB(widget, event, data):
 	    newx = gtk.gdk.screen_width() - w
 	if (newy+20) > (gtk.gdk.screen_height()):
 	    newy = gtk.gdk.screen_height() - 20
-	
-	data["window"].move(newx, newy)
+
+	data["window"].move(int(newx), int(newy))
 
 def addFrame(dialog, title=None, showtitle = 1):
     contents = dialog.get_children()[0]
