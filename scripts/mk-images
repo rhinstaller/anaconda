@@ -440,9 +440,15 @@ makeinitrd() {
 	cp -a $KERNELROOT/etc/pcmcia $MBD_DIR/etc
     fi
 
-    for n in insmod rmmod modprobe; do
-	ln -s loader $MBD_DIR/sbin/$n
-    done
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+        for n in insmod rmmod modprobe; do
+           ln -s loaderbin $MBD_DIR/sbin/$n
+        done
+    else
+        for n in insmod rmmod modprobe; do
+           ln -s loader $MBD_DIR/sbin/$n
+        done
+    fi
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $MBD_DIR/lib $MBD_DIR/mnt1 \
