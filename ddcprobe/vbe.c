@@ -467,10 +467,10 @@ struct vbe_modeline *vbe_get_edid_modelines()
 	for(i = 0; ret[i].refresh != 0; i++) {
 		struct vesa_timing_t *t = NULL;
 		for(j = 0; known_vesa_timings[j].refresh != 0; j++) {
-			if(ret[i].width == known_vesa_timings[j].x)
-			if(ret[i].height == known_vesa_timings[j].y)
-			if(ret[i].refresh == known_vesa_timings[j].refresh) {
-				t = &known_vesa_timings[j];
+			t = &known_vesa_timings[j];
+			if(ret[i].width == t->x)
+			if(ret[i].height == t->y)
+			if(ret[i].refresh == t->refresh) {
 				snprintf(buf, sizeof(buf),
 					 "ModeLine \"%dx%d\"\t%6.2f "
 					 "%4d %4d %4d %4d %4d %4d %4d %4d %s %s"
@@ -492,6 +492,8 @@ struct vbe_modeline *vbe_get_edid_modelines()
 					 t->vsync == vsync_pos ?
 					 "+vsync" : "-vsync");
 				ret[i].modeline = strdup(buf);
+				ret[i].hfreq = t->hfreq;
+				ret[i].vfreq = t->vfreq;
 			}
 		}
 	}
