@@ -312,13 +312,16 @@ class MessageWindow:
 	elif type == 'custom':
 	    docustom = 1
 	    buttons = gtk.BUTTONS_NONE
+	    style = gtk.MESSAGE_QUESTION
 
-	    if custom_icon == "warning":
-		style = gtk.MESSAGE_WARNING
-	    elif custom_icon == "question":
-		style = gtk.MESSAGE_QUESTION
-	    else:
-		style = gtk.MESSAGE_QUESTION
+	if custom_icon == "warning":
+	    style = gtk.MESSAGE_WARNING
+	elif custom_icon == "question":
+	    style = gtk.MESSAGE_QUESTION
+	elif custom_icon == "error":
+	    style = gtk.MESSAGE_ERROR
+	elif custom_icon == "info":
+	    style = gtk.MESSAGE_INFO
 
 	dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
