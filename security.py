@@ -36,7 +36,8 @@ class Security:
 
     def setSELinux(self, val):
         if not selinux_states.has_key(val):
-            raise ValueError, "Setting to invalid SELinux state: %s" %(val,)
+            log("Tried to set to invalid SELinux state: %s" %(val,))
+            val = SEL_DISABLED
 
         self.selinux = val
 
