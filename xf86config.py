@@ -441,7 +441,7 @@ EndSection
 Section "Module"
         Load  "dbe"
         Load  "extmod"
-	Load %(nonSparcMods)s
+	%(nonSparcMods)s
         Load  "pex5"
         Load  "record"
         Load  "xie"
@@ -1037,7 +1037,7 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
                  "ia64Mods"     : "",
-		 "nonSparcMods" : "fbdevhw",
+		 "nonSparcMods" : "Load fbdevhw",
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
