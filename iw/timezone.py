@@ -69,6 +69,14 @@ class TimezoneWindow (InstallWindow):
                           "+14:00")
                     
 
+    def getNext (self):
+        self.todo.setTimezoneInfo (self.list.get_text (self.list.selection[0], 0),
+                                   self.systemUTC.get_active ())
+        return None
+
+    def fixUp (self):
+        self.tz.setcurrent (self.default)
+
     def getScreen (self):
         try:
             f = open ("/usr/share/anaconda/map480.png")
@@ -82,8 +90,18 @@ class TimezoneWindow (InstallWindow):
 
         mainBox = GtkVBox (FALSE, 5)
         tz = timezonemap.new (path)
+        self.tz = tz
         map = Map (tz.map)
-        list = List (tz.citylist)
+        swList = List (tz.citylist)
+        self.list = swList.children ()[0]
+
+	rc = self.todo.getTimezoneInfo()
+	if rc:
+	    (self.default, asUTC, asArc) = rc
+	else:
+	    self.default = "America/New_York"
+	    asUTC = 0
+
         status = Status (tz.statusbar)
         views = Option (tz.views)
 
@@ -101,7 +119,7 @@ class TimezoneWindow (InstallWindow):
         box.pack_start (frame, FALSE)
         box.pack_start (status, FALSE)
         mainBox.pack_start (box, FALSE)
-        mainBox.pack_start (list, TRUE)
+        mainBox.pack_start (swList, TRUE)
 
 	tzBox = GtkVBox (FALSE)
         sw = GtkScrolledWindow ()
@@ -129,10 +147,10 @@ class TimezoneWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 5)
         box.pack_start (nb)
-        systemUTC = GtkCheckButton (_("System clock uses UTC"))
-        systemUTC.set_active (TRUE)
+        self.systemUTC = GtkCheckButton (_("System clock uses UTC"))
+        self.systemUTC.set_active (asUTC)
         align = GtkAlignment (0, 0)
-        align.add (systemUTC)
+        align.add (self.systemUTC)
         box.pack_start (align, FALSE)
         box.set_border_width (5)
         return box
