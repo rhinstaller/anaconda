@@ -1433,7 +1433,7 @@ class ToDo:
             logname = '/tmp/upgrade.log'
         else:
             logname = '/tmp/install.log'
-            
+
         self.instLogName = self.instPath + logname
 	self.instLog = open(self.instLogName, "w+")
 	syslog = InstSyslog (self.instPath, self.instPath + logname)
@@ -1507,6 +1507,15 @@ class ToDo:
         del p
 
         self.instLog.close ()
+        if self.upgrade:
+            self.instLog.write ("\n\nThe following packages were available on the CD but NOT upgraded:\n")
+            for p in self.hdList.packages.values ():
+                if not p.selected:
+                    self.instLog.write("%s-%s-%s.%s.rpm" %
+                                       (p.h[rpm.RPMTAG_NAME],
+                                        p.h[rpm.RPMTAG_VERSION],
+                                        p.h[rpm.RPMTAG_RELEASE],
+                                        p.h[rpm.RPMTAG_ARCH]))
 
         w = self.intf.waitWindow(_("Post Install"), 
                                  _("Performing post install configuration..."))
