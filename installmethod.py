@@ -14,6 +14,7 @@
 import os
 import string
 from hdrlist import groupSetFromCompsFile
+from constants import *
 
 from rhpl.log import log
 
