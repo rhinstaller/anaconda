@@ -1807,7 +1807,7 @@ class RAIDDevice(Device):
         return []
 
     def mdadmLine (self, devPrefix="/dev"):
-        return "ARRAY %s/%s superminor=%s\n" %(devPrefix, self.device,
+        return "ARRAY %s/%s super-minor=%s\n" %(devPrefix, self.device,
                                                self.minor)
 
     def raidTab (self, devPrefix='/dev'):
