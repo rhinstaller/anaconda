@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-01-16 16:09-0500\n"
-"PO-Revision-Date: 2001-01-19 03:56+0100\n"
+"PO-Revision-Date: 2001-01-19 05:04+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,9 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Följande partitioner har skapats nyligen, men du har valt att inte formatera "
+"dem. Detta kommer troligtvis att orsaka ett fel senare under "
+"installationen.\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -43,11 +46,14 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Tryck OK för att fortsätta, eller Avbryt för att gå tillbaka och välja att "
+"dessa partitioner formateras (REKOMMENDERAS)."
 
 #: ../fstab.py:74
-#, fuzzy
 msgid "Warning"
-msgstr "Söker"
+msgstr "Varning"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -274,9 +280,8 @@ msgid "The CDROM could not be mounted."
 msgstr "cdromskivan kunde inte monteras."
 
 #: ../rescue.py:43
-#, fuzzy
 msgid "System to Rescue"
-msgstr "System att uppgradera"
+msgstr "System att rädda"
 
 #: ../rescue.py:44 ../text.py:387
 msgid "What partition holds the root partition of your installation?"
@@ -330,9 +335,8 @@ msgid "Exit"
 msgstr "Avsluta"
 
 #: ../rescue.py:59 ../rescue.py:65
-#, fuzzy
 msgid "Rescue"
-msgstr "_Återställ"
+msgstr "Räddning"
 
 #: ../rescue.py:60
 msgid ""
@@ -341,6 +345,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Ditt system har monterats under /mnt/sysimage.\n"
+"\n"
+"Tryck <Enter> för att komma till ett skal. Systemet kommer att starta om "
+"automatiskt när du avslutar skalet."
 
 #: ../rescue.py:66
 msgid ""
@@ -350,21 +358,27 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Ett fel inträffade vid försök att montera en del av eller hela ditt system. "
+"En del kan ha monterats under /mnt/sysimage.\n"
+"\n"
+"Tryck <Enter> för att komma till ett skal. Systemet kommer att starta om "
+"automatiskt när du avslutar skalet."
 
 #: ../rescue.py:72
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Räddningsmetod"
+msgstr "Räddningsläge"
 
 #: ../rescue.py:73
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Du har inga Linuxpartitioner. Tryck Enter för att komma till ett skal. "
+"Systemet kommer att starta om automatiskt när du avslutar skalet."
 
 #: ../rescue.py:84
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -404,24 +418,20 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Vilket språk vill du använda under installationen?"
 
 #: ../text.py:149
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Vilket medium innehåller paketen som ska installeras?"
+msgstr "Välj de språk som ska installeras:"
 
 #: ../text.py:155 ../text.py:1061
-#, fuzzy
 msgid "Language Support"
-msgstr "Stöd för bärbar dator"
+msgstr "Språkstöd"
 
 #: ../text.py:194
-#, fuzzy
 msgid "Choose the default language:"
-msgstr "Välj ett språk"
+msgstr "Välj standardspråket:"
 
 #: ../text.py:200
-#, fuzzy
 msgid "Default Language"
-msgstr "Välj ett språk"
+msgstr "Standardspråk"
 
 #: ../text.py:236 ../text.py:1029 ../text.py:1065
 msgid "Keyboard Selection"
@@ -601,13 +611,14 @@ msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
+"                           <Enter> för att starta om                         "
+" "
 
 #: ../text.py:637 ../text.py:660
 msgid "Complete"
 msgstr "Färdig"
 
 #: ../iw/congrats_gui.py:34 ../text.py:638
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -623,11 +634,11 @@ msgstr ""
 "\n"
 "Tryck enter för att starta om och se till att ta bort ditt bootmedium när "
 "systemet startar om, annars kommer installationsprogrammet att startas igen. "
-"Ta en titt på fellistan (som du finner på http://www.redhat.com/errata) för "
+"Ta en titt på fellistan (som du hittar på http://www.redhat.com/errata) för "
 "information om vilka uppdateringar som finns för denna utgåva av Red Hat "
 "Linux.\n"
 "\n"
-"Information om konfigurering och användning av ditt Red Hat Linux-system "
+"Information om konfiguration och användning av ditt Red Hat Linux-system "
 "finns i Red Hat Linux-manualerna."
 
 #: ../text.py:656
@@ -635,9 +646,10 @@ msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                             <Enter> för att avsluta                         "
+" "
 
 #: ../text.py:661
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -650,12 +662,11 @@ msgstr ""
 "Gratulerar, installationen är färdig.\n"
 "\n"
 " För information om vilka uppdateringar som finns för denna utgåva av Red "
-"Hat Linux kan du ta en titt på fellistan som du finner på "
+"Hat Linux kan du ta en titt på fellistan som du hittar på "
 "http://www.redhat.com.\n"
 "\n"
-"Information om vidare konfigurering av ditt system kan du hitta i kapitlet "
-"som behandlar åtgärder efter installationen i \"The Official Red Hat Linux "
-"User's Guide\"."
+"Information om vidare konfiguration av ditt system hittar du på "
+"http://www.redhat.com/support/manuals/"
 
 #: ../text.py:728
 msgid "Package Installation"
@@ -733,12 +744,11 @@ msgstr "Felsökning"
 
 #: ../text.py:983
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:987
-#, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux © 2000 Red Hat, Inc."
+msgstr "Red Hat Linux © 2001 Red Hat, Inc."
 
 #: ../text.py:990
 msgid ""
@@ -770,9 +780,8 @@ msgstr "Nätverkskonfiguration"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1035 ../text.py:1115
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "Lilo-konfiguration"
+msgstr "Brandväggskonfiguration"
 
 #: ../text.py:1042 ../text.py:1121
 msgid "Time Zone Setup"
@@ -795,9 +804,8 @@ msgid "Configuration Complete"
 msgstr "Konfigurationen är färdig"
 
 #: ../text.py:1063
-#, fuzzy
 msgid "Language Default"
-msgstr "Språkval"
+msgstr "Standardspråk"
 
 #: ../text.py:1076 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
@@ -832,9 +840,8 @@ msgstr "Swap"
 
 #: ../text.py:1098 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Automatisk partitionering"
+msgstr "Varning angående bootpartition"
 
 #: ../text.py:1100
 msgid "Filesystem Formatting"
@@ -1010,23 +1017,21 @@ msgstr "Monteringspunkt"
 
 #: ../todo.py:1673
 msgid "Space Needed"
-msgstr "Utrymme som krävs"
+msgstr "Utrymme som behövs"
 
 #: ../todo.py:1686
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Du verkar inte ha tillräckligt med diskutrymme för att installera de paket "
-"du har valt. Du behöver mer utrymme på följande filsystem:\n"
+"Du verkar inte ha tillräckligt med filnoder för att installera de paket du "
+"har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
 #: ../todo.py:1689
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Utrymme som krävs"
+msgstr "Noder som behövs"
 
 #: ../todo.py:1695
 msgid "Disk Space"
@@ -1309,7 +1314,6 @@ msgid "Congratulations"
 msgstr "Gratulerar"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1319,14 +1323,14 @@ msgid ""
 "Information on further configuring your system is available in the Official "
 "Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
 msgstr ""
-"Gratulerar, konfigureringen är färdig.\n"
+"Gratulerar, konfigurationen är färdig.\n"
 "\n"
 "För information om vilka uppdateringar som finns för denna utgåva av Red Hat "
-"Linux, ta en titt på fellistan som du finner på http://www.redhat.com.\n"
+"Linux, ta en titt på fellistan som du hittar på http://www.redhat.com.\n"
 "\n"
-"Information om vidare konfigurering av ditt system kan du hitta i kapitlet "
-"som behandlar åtgärder efter installationen i \"The Official Red Hat Linux "
-"User's Guide\"."
+"Information om vidare konfiguration av ditt system kan du hitta i de "
+"officiella Red Hat Linux-manualerna som du hittar på "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1388,43 +1392,40 @@ msgid "Select drive to run fdisk on"
 msgstr "Välj enhet att använda fdisk på"
 
 #: ../iw/firewall_gui.py:59
-#, fuzzy
 msgid "Please choose your security level:  "
-msgstr "Var vänlig och välj din inloggningstyp:"
+msgstr "Var vänlig och välj din säkerhetsnivå:  "
 
 #: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Hög"
 
 #: ../iw/firewall_gui.py:69 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Mellan"
 
 #: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Ingen brandvägg"
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Använd standard-brandväggsregler"
 
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Anpassa uppgraderingen"
+msgstr "Anpassa"
 
 #: ../iw/firewall_gui.py:101
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Använd RAID-enhet"
+msgstr "Betrodda enheter:"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Tillåt inkommande:"
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "Andra portar:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1479,28 +1480,24 @@ msgid "What language should be used during the installation process?"
 msgstr "Vilket språk ska användas under installationen?"
 
 #: ../iw/language_support_gui.py:140
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Välj ett språk"
+msgstr "Välj standardspråket:   "
 
 #: ../iw/language_support_gui.py:158
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Välj ett språk"
+msgstr "Välj de språk som ska installeras:"
 
 #: ../iw/language_support_gui.py:197
-#, fuzzy
 msgid "Select all"
-msgstr "Välj alla i gruppen"
+msgstr "Välj alla"
 
 #: ../iw/language_support_gui.py:202
-#, fuzzy
 msgid "Reset"
-msgstr "_Återställ"
+msgstr "Återställ"
 
 #: ../iw/language_support_gui.py:224
 msgid "Select as default"
-msgstr ""
+msgstr "Välj som standard"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1675,7 +1672,7 @@ msgid "Package Group Selection"
 msgstr "Val av paketgrupper"
 
 #: ../iw/package_gui.py:558
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
 "\n"
@@ -1683,12 +1680,13 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
-"Ett fel inträffade vid överföringen av hdlist-filen. Installationsmediet "
-"eller installationsavbilden är kanske korrupt. Installationsprogrammet "
-"kommer nu att avslutas."
+"Följande fel inträffade vid överföring av hdlist-filen:\n"
+"\n"
+"%s\n"
+"\n"
+"Installationsprogrammet kommer nu att avslutas."
 
 #: ../iw/package_gui.py:563
-#, fuzzy
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1719,14 +1717,12 @@ msgid "Summary"
 msgstr "Sammanfattning"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Paketgrupper"
+msgstr "Paketförlopp: "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
-msgstr "Totalt  : "
+msgstr "Totalt förlopp:   "
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
@@ -1861,7 +1857,7 @@ msgstr "Partitionera manuellt med fdisk [endast avancerade användare]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Varning angående plats för bootpartition"
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -1876,6 +1872,16 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Du har lagt partitionen som innehåller kärnan (bootpartitionen) ovanför "
+"1023-cylindersgränsen, och det verkar som om systemets BIOS inte stöder "
+"uppstart från platser ovanför denna gräns. Om du fortsätter kommer systemet "
+"troligtvis inte att kunna startas om i Linux.\n"
+"\n"
+"Om du väljer att fortsätta är det VARMT rekommenderat att du skapar en "
+"bootdiskett när du efterfrågas detta. Det garanterar att du har en möjlighet "
+"att starta systemet efter installationen.\n"
+"\n"
+"Är du säker på att du vill fortsätta?"
 
 #: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:386
 msgid ""
@@ -1887,6 +1893,14 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Du har lagt partitionen som innehåller kärnan (bootpartitionen) ovanför "
+"1023-cylindersgränsen. Det verkar som om systemets BIOS stöder uppstart från "
+"platser ovanför denna gräns. \n"
+"\n"
+"Det rekommenderas VARMT att skapar en bootdiskett när "
+"installationsprogrammet frågar efter detta, eftersom detta är en ny finess i "
+"nyare moderkort som inte alltid är tillförlitlig. Att skapa en bootdiskett "
+"garanterar att du kan starta systemet efter installationen."
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1991,14 +2005,12 @@ msgid "Please choose your login type:"
 msgstr "Var vänlig och välj din inloggningstyp:"
 
 #: ../iw/xconfig_gui.py:521
-#, fuzzy
 msgid "Text"
-msgstr "Nästa"
+msgstr "Text"
 
 #: ../iw/xconfig_gui.py:522
-#, fuzzy
 msgid "Graphical"
-msgstr "Använd grafisk inloggning"
+msgstr "Grafisk"
 
 #: ../iw/xconfig_gui.py:562
 msgid "Bits per Pixel"
@@ -2021,22 +2033,20 @@ msgid "Restore original values"
 msgstr "Återställ ursprungliga värden"
 
 #: ../iw/xconfig_gui.py:967
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Horisontell synkronisering"
+msgstr "Horisontell synkronisering:"
 
 #: ../iw/xconfig_gui.py:969
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Vertikal synkronisering"
+msgstr "Vertikal synkronisering:"
 
 #: ../iw/xconfig_gui.py:975
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:978
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:1160
 msgid ""
@@ -2131,37 +2141,38 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"En brandvägg skyddar mot otillåtna nätverksinbrott. Hög säkerhet blockerar "
+"alla inkommande åtkomster. Mellan blockerar åtkomst av systemtjänster (som "
+"exempelvis telnet eller skrivare), men tillåter andra anslutningar. Ingen "
+"brandvägg tillåter alla anslutningar och rekommenderas inte. "
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Säkerhetsnivå:"
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Använd RAID-enhet"
+msgstr "Betrodda enheter:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Ta bort"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
-#, fuzzy
 msgid "Mail (SMTP)"
-msgstr "Totalt"
+msgstr "E-post (SMTP)"
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
 #: ../textw/firewall_text.py:90
@@ -2169,23 +2180,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Skrivarstöd"
+msgstr "Andra portar"
 
 #: ../textw/firewall_text.py:120
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Ogiltig bootetikett"
+msgstr "Ogiltigt val"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Du kan inte anpassa en avstängd brandvägg."
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Konfigurationen är färdig"
+msgstr "Brandväggskonfiguration - Anpassa"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2194,6 +2202,10 @@ msgid ""
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
 msgstr ""
+"Du kan anpassa din brandvägg på två sätt. Du kan välja att tillåta all "
+"trafik på vissa nätverksgränssnitt, eller explicit tillåta vissa protokoll "
+"att passera genom brandväggen. Ange ytterligare portar på formen "
+"\"tjänst:protokoll\", exempelvis \"imap:tcp\". "
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2965,10 +2977,15 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Det rekommenderas att rotpartitionen (/) har en storlek på minst %ld "
+"megabyte. Du försöker skapa en som är %ld megabyte, vilket skulle göra att "
+"installationen misslyckades.\n"
+"\n"
+"Är du säker på att du vill göra detta?"
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
-msgstr ""
+msgstr "Varning: Storlek på rotfilsystemet"
 
 #: ../libfdisk/gnomefsedit.c:1291
 msgid "No Drives Specified"
@@ -3353,7 +3370,7 @@ msgstr "Nuvarande diskpartitioner"
 
 #: ../libfdisk/newtfsedit.c:1453
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "   Monteringspunkt      Enhet      Begärt      Verklig        Typ"
 
 #: ../libfdisk/newtfsedit.c:1477
 msgid ""
@@ -3729,13 +3746,12 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Sätt i din uppdateringsdiskett och tryck \"OK\" för att fortsätta."
 
 #: ../loader/loader.c:2242
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Disketten som du satte i är ingen giltig drivrutinsdiskett för denna version "
-"av Red Hat Linux."
+"Disketten som du satte i är ingen giltig uppdateringsdiskett för denna "
+"version av Red Hat Linux."
 
 #: ../loader/loader.c:2250
 msgid "Failed to mount floppy disk."
@@ -4079,7 +4095,7 @@ msgstr "Sydamerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indien"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
@@ -4179,18 +4195,3 @@ msgstr "Kärnutveckling"
 
 msgid "Utilities"
 msgstr "Verktyg"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Testa denna konfiguration"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "Anpassa X-konfiguration"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Standardskrivbord:"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Växlingspartition"
-
-#~ msgid "Pacific Rim"
-#~ msgstr "Stilla Havet"
