@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
+#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,7 +11,6 @@
 #include <sys/sysmacros.h>
 #include <sys/statfs.h>
 #include <unistd.h>
-#include <zlib.h>
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
@@ -18,6 +18,16 @@
 #include "commands.h"
 #include "mount_by_label.h"
 #include "../isys/cpio.h"
+
+int mygethostbyname(char * host, struct in_addr * address) {
+    struct hostent * hostinfo;
+
+    hostinfo = gethostbyname(host);
+    if (!hostinfo) return 1;
+
+    memcpy(address, hostinfo->h_addr_list[0], hostinfo->h_length);
+    return 0;
+}
 
 static int copyfd(int to, int from);
 
@@ -190,9 +200,11 @@ int uncpioCommand(int argc, char ** argv) {
 	return 1;
     }
 
-    cfd = gzdopen(0, "r");
+    cfd = gunzip_dopen(0);
 
     rc = myCpioInstallArchive(cfd, NULL, 0, NULL, NULL, &fail);
+
+    gunzip_close(cfd);
 
     if (rc) {
 	fprintf(stderr, "cpio failed on %s: ", fail);
