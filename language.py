@@ -251,7 +251,8 @@ class Language (SimpleConfigFile):
 
 	self.info['LANG'] = lang
 	self.info['SYSFONT'] = font
-	self.info['SYSFONTACM'] = map
+        if map != "utf8":
+            self.info['SYSFONTACM'] = map
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if lang == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
