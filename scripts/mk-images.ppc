@@ -1,3 +1,4 @@
+COMMONMODULES="nfs fat vfat cramfs loop"
 FSMODS="msdos vfat ext3 reiserfs jfs"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sr_mod st"
@@ -8,6 +9,7 @@ NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too
 	   de4x5 acenic pcnet32 tulip natsemi eepro100 airport"
 
 SCSIMODULES="advansys aic7xxx initio sym53c8xx"
+ISERIESMODULES="veth viodasd viocd"
 
 # images we only want on the CD (usually for space reasons)
 ISOMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
@@ -25,7 +27,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
@@ -48,7 +50,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES $ISERIESMODULES"
 
 	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map
