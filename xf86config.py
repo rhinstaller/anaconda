@@ -145,7 +145,7 @@ class XF86Config:
             fields = string.split (line, ';')
             man = string.strip(fields[0])
             model = string.strip(fields[1])
-            eisa = string.strip(fields[2])
+            eisa = string.lower(string.strip(fields[2]))
             horiz = string.strip(fields[3])
             vert = string.strip(fields[4])
             if self.monlist.has_key(man):
@@ -213,7 +213,7 @@ class XF86Config:
 			self.vidRam = string.strip (memory[2][:-2])
 
 		    if line and line[:8] == "EISA ID:":
-			self.monEisa = line[9:]
+			self.monEisa = string.lower(line[9:])
 			self.monID = line[9:]
 
 		    if line and line[:6] == "\tName:":
