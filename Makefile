@@ -13,7 +13,7 @@ BUILDONLYSUBDIRS = pump
 
 ifeq (i386, $(ARCH))
 SUBDIRS += ddcprobe
-SUBDIRSRECFG += ddcprobe
+#SUBDIRSRECFG += ddcprobe
 endif
 
 

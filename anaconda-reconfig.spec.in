@@ -1,6 +1,6 @@
 Name: anaconda-reconfig
 Version: @@VERSION@@
-Release: 1
+Release: 2
 Copyright: GPL
 Summary: The Red Hat Linux first time booting configuration tool.
 Group: Applications/System
@@ -25,7 +25,7 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 %install
 rm -rf $RPM_BUILD_ROOT
 make RECFGDESTDIR=$RPM_BUILD_ROOT install-reconfig
-strip $RPM_BUILD_ROOT/usr/sbin/ddcprobe
+#strip $RPM_BUILD_ROOT/usr/sbin/ddcprobe
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -42,7 +42,7 @@ fi
 %defattr(-,root,root)
 %doc COPYING
 /usr/sbin/anaconda-reconfig
-/usr/sbin/ddcprobe
+#/usr/sbin/ddcprobe
 /usr/share/anaconda/*
 /usr/share/locale/*/*/*
 /usr/lib/anaconda/*
@@ -51,6 +51,10 @@ fi
 
 
 %changelog
+
+* Fri Dec 03 1999 Michael Fulbright <drmike@redhat.com>
+- remove ddcprobe since we don't do X configuration in reconfig now
+
 * Tue Nov 30 1999 Michael Fulbright <drmike@redhat.com>
 - first try at packaging reconfiguration tool
 
