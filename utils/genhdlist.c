@@ -173,7 +173,8 @@ int onePrePass(const char * dirName) {
     return 0;
 }
 
-int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
+int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum, 
+            int doSplit) {
     FD_t fd;
     struct dirent * ent;
     char * subdir = alloca(strlen(dirName) + 20);
@@ -353,18 +354,20 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 		}
                 compressFilelist(h);
 
-		h2 = headerNew();
-		for (i = 0; tagsInList2[i] > -1; i++) {
-		    int_32 type, c;
-		    void * p;
+                if (doSplit) {
+                    h2 = headerNew();
+                    for (i = 0; tagsInList2[i] > -1; i++) {
+                        int_32 type, c;
+                        void * p;
+                        
+                        if (headerGetEntry(h, tagsInList2[i], &type, &p, &c)) {
+                            headerAddEntry(h2, tagsInList2[i], type, p, c);
+                            headerRemoveEntry(h, tagsInList2[i]);
+                        }
 
-		    if (headerGetEntry(h, tagsInList2[i], &type, &p, &c)) {
-			headerAddEntry(h2, tagsInList2[i], type, p, c);
-			headerRemoveEntry(h, tagsInList2[i]);
-		    }
-
-		    /* XXX need to headerFreeData */
-		}
+                        /* XXX need to headerFreeData */
+                    }
+                }
 
 		if (newFileList) {
 		    headerAddEntry(h, RPMTAG_OLDFILENAMES, 
@@ -382,14 +385,17 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 		    free(newFileFlags);
 		    newFileList = NULL;
 		}
-
-		headerAddEntry(h, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
-		headerAddEntry(h2, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
-		marker++;
+                
+                if (doSplit) {
+                    headerAddEntry(h, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
+                    headerAddEntry(h2, MATCHER_TAG, RPM_INT32_TYPE, &marker, 1);
+                    marker++;
+                }
 
 		nh = headerCopy (h);
 		headerWrite(outfd, nh, HEADER_MAGIC_YES);
-		headerWrite(out2fd, h2, HEADER_MAGIC_YES);
+                if (doSplit)
+                    headerWrite(out2fd, h2, HEADER_MAGIC_YES);
 
 		headerFree(h);
 		headerFree(nh);
@@ -419,10 +425,11 @@ static void usage(void) {
 
 int main(int argc, const char ** argv) {
     char buf[300];
-    FD_t outfd, out2fd;
+    FD_t outfd = NULL, out2fd = NULL;
     int cdNum = -1;
     const char ** args;
     int doNumber = 0;
+    int split = 1, noSplit = 0, doSplit = 0;
     int rc;
     int i;
     char * hdListFile = NULL;
@@ -433,6 +440,8 @@ int main(int argc, const char ** argv) {
             { "hdlist", '\0', POPT_ARG_STRING, &hdListFile, 0 },
             { "withnumbers", '\0', 0, &doNumber, 0 },
 	    { "fileorder", '\0', POPT_ARG_STRING, &depOrderFile, 0 },
+            { "nosplit", '\0', 0, &noSplit, 0 },
+            { "split", '\0', 0, &split, 0 },
             { 0, 0, 0, 0, 0 }
     };
 
@@ -449,6 +458,8 @@ int main(int argc, const char ** argv) {
     args = poptGetArgs(optCon);
     if (!args || !args[0] || !args[0][0])
 	usage();
+
+    if (split && !noSplit) doSplit = 1;
 
     if (depOrderFile) {
 	FILE *f;
@@ -511,11 +522,13 @@ int main(int argc, const char ** argv) {
 	return 1;
     }
 
-    out2fd = Fopen(hdListFile2, "w");
-    if (!out2fd) {
-	fprintf(stderr,"error creating file %s: %s\n", hdListFile2, 
-		strerror(errno));
-	return 1;
+    if (doSplit) {
+        out2fd = Fopen(hdListFile2, "w");
+        if (!out2fd) {
+            fprintf(stderr,"error creating file %s: %s\n", hdListFile2, 
+                    strerror(errno));
+            return 1;
+        }
     }
 
     if (doNumber)
@@ -535,14 +548,15 @@ int main(int argc, const char ** argv) {
 
     i = 0;
     while (args[i]) {
-	if (onePass(outfd, out2fd, args[i], cdNum))
+	if (onePass(outfd, out2fd, args[i], cdNum, doSplit))
 	    return 1;
 	if (doNumber) cdNum++;
 	i++;
     }
 
     Fclose(outfd);
-    Fclose(out2fd);
+    if (doSplit)
+        Fclose(out2fd);
 
     poptFreeContext(optCon);
 
