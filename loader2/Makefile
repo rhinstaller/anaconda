@@ -47,6 +47,8 @@ GUNZIP = ../isys/gzlib/libgunzip-diet.a
 OBJS += dietstubs.o ctype.o
 ISYSLIB += -lrpc
 CTYPEDEP = ctype.c
+else
+OBJS += wcstubs.o
 endif
 
 ifeq (i386, $(ARCH))
