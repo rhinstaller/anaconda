@@ -377,6 +377,7 @@ makeinitrd() {
     MODULEBALLNAME="modules.cgz"
     MYLANGTABLE=$LANGTABLE
     MYLOADERTR=loader.tr
+    BOGL=yes
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
@@ -409,6 +410,10 @@ makeinitrd() {
 	elif [ $1 = "--moduleballname" ]; then
 	    MODULEBALLNAME=$2
 	    shift; shift
+	    continue
+	elif [ $1 = "--nobogl" ]; then
+	    BOGL=""
+	    shift
 	    continue
 	fi
 	echo "Unknown option passed to makeinitrd"
@@ -477,7 +482,9 @@ EOF
 
     mkdir -p $MBD_DIR/etc/terminfo/b
     install -m 644 $IMGPATH/usr/share/terminfo/b/bterm $MBD_DIR/etc/terminfo/b/bterm
-    install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
+    if [ -n "$BOGL" ]; then
+	install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
+    fi
 
     if [ -n "$PCMCIA" ]; then
 	mkdir -p $MBD_BOOTTREE/etc
