@@ -61,6 +61,7 @@
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
+#include "isys/gzlib/gzlib.h"
 
 #include "cdrom.h"
 #include "devices.h"
@@ -153,14 +154,14 @@ void doSuspend(void) {
 }
 
 static int setupRamdisk(void) {
-    int f;
+    gzFile f;
     static int done = 0;
 
     if (done) return 0;
 
     done = 1;
 
-    f = open("/etc/ramfs.img", 0);
+    f = gunzip_open("/etc/ramfs.img");
     if (f) {
 	char buf[10240];
 	int i, j = 0;
@@ -169,16 +170,17 @@ static int setupRamdisk(void) {
 	fd = open("/dev/ram", O_RDWR);
 	logMessage("copying file to fd %d", fd);
 
-	while ((i = read(f, buf, sizeof(buf))) > 0) {
+	while ((i = gunzip_read(f, buf, sizeof(buf))) > 0) {
 	    j += write(fd, buf, i);
 	}
 
 	logMessage("wrote %d bytes", j);
 	close(fd);
-	close(f);
+	gunzip_close(f);
     }
 
-    doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
+    if (doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL))
+	logMessage("failed to mount ramfs image");
 
     return 0;
 }
