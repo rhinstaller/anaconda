@@ -573,6 +573,11 @@ class AdvancedBootloaderWindow (InstallWindow):
                 else:
                     thisLabel = self.imagelist[key][0]
 
+                # if the label is the same as it used to be, they must
+                # have changed the device which is fine
+                if thisLabel == oldLabel:
+                    continue
+
                 if thisLabel == label:
                     self.intf.messageWindow(_("Duplicate Label"),
                                             _("This label is already in "
