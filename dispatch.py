@@ -50,7 +50,7 @@ installSteps = [
     ("mouse", ("id.mouse",)),
     ("welcome", ("id.configFileData",)),
     ("reconfigwelcome", ()),
-    ("reconfigkeyboard", ("id.instLanguage", "id.keyboard")),
+    ("reconfigkeyboard", ("id.instLanguage", "id.keyboard", "id.xconfig")),
     ("installtype", ("dispatch", "id", "method", "intf")),
     ("findrootparts", findRootParts, ("intf", "id", "dir", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
