@@ -71,7 +71,6 @@ class InstallData:
         self.upgradeDeps = ""
         self.upgradeRemove = []
         self.upgradeInfoFound = None
-        self.configFileData = self.tmpData
         self.firstboot = FIRSTBOOT_DEFAULT
 
     def setInstallProgressClass(self, c):
@@ -248,12 +247,10 @@ class InstallData:
                 forcedoff.has_key(pkg.name)):
                 f.write("-%s\n" %(pkg.name))
 
-    def __init__(self, extraModules, floppyDevice, configFileData, methodstr):
+    def __init__(self, extraModules, floppyDevice, methodstr):
 	self.instLanguage = language.InstallTimeLanguage()
 	self.keyboard = keyboard.Keyboard()
-        self.tmpData = configFileData
 
-        self.configFileData = None
         self.mouse = None
         self.monitor = None
         self.videocard = None

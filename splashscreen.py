@@ -26,7 +26,7 @@ cat.setunicode(1)
 
 splashwindow = None
 
-def splashScreenShow(configFileData):
+def splashScreenShow():
     from gui import readImageFromFile
     
     #set the background to a dark gray

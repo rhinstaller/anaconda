@@ -157,13 +157,8 @@ class InstallInterface:
 	try:
             f = None
 
-            if self.configFileData.has_key("helptag"):
-                helpTag = "-%s" % (self.configFileData["helptag"],)
-            else:
-                helpTag = ""
             arch = "-%s" % (iutil.getArch(),)
-            tags = [ "%s%s" % (helpTag, arch), "%s" % (helpTag,),
-                     "%s" % (arch,), "" ]
+            tags = ["%s" % (arch,), "" ]
 
 	    # XXX
 	    #
@@ -381,7 +376,7 @@ class InstallInterface:
 	if self.screen:
 	    self.screen.finish()
 
-    def run(self, id, dispatch, configFileData):
+    def run(self, id, dispatch):
         # set up for CJK text mode if needed
         oldlang = None
         if (flags.setupFilesystems and
@@ -409,7 +404,6 @@ class InstallInterface:
             id.instLanguage.setRuntimeDefaults(oldlang)
         
         self.screen = SnackScreen()
-        self.configFileData = configFileData
 	self.screen.helpCallback(self.helpWindow)
 
 # uncomment this line to make the installer quit on <Ctrl+Z>

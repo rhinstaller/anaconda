@@ -94,9 +94,7 @@ class InstallInterface:
     def waitWindow(self, title, text):
         return WaitWindow(title, text)
 
-    def run(self, id, dispatch, configFileData):
-        self.configFileData = configFileData
-
+    def run(self, id, dispatch):
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
         id.fsset.registerWaitWindow(self.waitWindow)        

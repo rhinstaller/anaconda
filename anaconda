@@ -598,12 +598,9 @@ if (progmode == 'rescue'):
 	sys.stderr.write('--method required for rescue mode\n')
 	sys.exit(1)
 
-    import rescue, instdata, configFileData
+    import rescue, instdata
     
-    configFile = configFileData.configFileData()
-    configFileData = configFile.getConfigData()
-    
-    id = instdata.InstallData([], "fd0", configFileData, method)
+    id = instdata.InstallData([], "fd0", method)
     rescue.runRescue(rootPath, not rescue_nomount, id)
 
     # shouldn't get back here
@@ -712,7 +709,6 @@ if traceOnly:
     import installclass
     import re
     import rescue
-    import configFileData
     import kickstart
     import whiteout
     import findpackageset
@@ -960,13 +956,6 @@ if display_mode == 'g' and flags.usevnc:
 		   vncconnectport=vncconnectport)
 
 
-#
-# read in anaconda configuration file
-#
-import configFileData
-configFile = configFileData.configFileData()
-configFileData = configFile.getConfigData()
-
 # setup links required for all install types
 for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
     try:
@@ -992,13 +981,13 @@ if (display_mode == 'g'):
 
     if nofallback:
 	from splashscreen import splashScreenShow
-	splashScreenShow(configFileData)
+	splashScreenShow()
 	
         from gui import InstallInterface
     else:
         try:
 	    from splashscreen import splashScreenShow
-	    splashScreenShow(configFileData)
+	    splashScreenShow()
 	    
             from gui import InstallInterface
         except Exception, e:
@@ -1078,7 +1067,7 @@ floppyDevice = floppy.probeFloppyDevice()
 if not flags.test and flags.setupFilesystems:
     iutil.makeDriveDeviceNodes()
 
-id = instClass.installDataClass(extraModules, floppyDevice, configFileData, method)
+id = instClass.installDataClass(extraModules, floppyDevice, method)
 
 id.x_already_set = x_already_set
 
@@ -1176,7 +1165,7 @@ instClass.setSteps(dispatch)
 sys.excepthook = lambda type, value, tb, dispatch=dispatch, intf=intf: handleException(dispatch, intf, (type, value, tb))
 
 try:
-    intf.run(id, dispatch, configFileData)
+    intf.run(id, dispatch)
 except SystemExit, code:
     intf.shutdown()
 except:

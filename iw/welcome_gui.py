@@ -26,12 +26,11 @@ class WelcomeWindow (InstallWindow):
         ics.setGrabNext (1)
 
     # WelcomeWindow tag="wel"
-    def getScreen (self, configFileData):
+    def getScreen (self):
         frame = gtk.Frame ()
         frame.set_shadow_type (gtk.SHADOW_NONE)
 
-        image = configFileData["WelcomeScreen"]
-        pix = gui.readImageFromFile(image)
+        pix = gui.readImageFromFile("pixmaps/splash.png")
         
         if pix:
             box = gtk.EventBox ()

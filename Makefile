@@ -70,8 +70,6 @@ install:
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
 
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
-	install -m 644 anaconda.conf $(DESTDIR)/$(ANACONDADATADIR)
-
 	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm
 
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)

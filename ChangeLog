@@ -1,5 +1,21 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda: Remove essentially unused config file data code,
+	product.img basically supplanted this.
+	* Makefile: Likewise.
+	* cmdline.py: Likewise.
+	* gui.py: Likewise.
+	* text.py: Likewise.
+	* dispatch.py: Likewise.
+	* instdata.py: Likewise.
+	* splashscreen.py: Likewise.
+	* iw/welcome_gui.py: Likewise.
+	* textw/welcome_text.py: Likewise.
+	
+	* anaconda.conf: Remove file.
+	* configFileData.py: Likewise.
+	* readConfigFile.py: Likewise.
+
 	* constants.py: Fix traceback
 
 	* bootdisk/sparc/*: Remove out of date sparc files.

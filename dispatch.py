@@ -56,7 +56,7 @@ from rhpl.log import log
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-    ("welcome", ("id.configFileData",)),
+    ("welcome", ()),
     ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard")),

@@ -18,7 +18,7 @@ from constants import *
 import os
 
 class WelcomeWindow:
-    def __call__(self, screen, configFileData):
+    def __call__(self, screen):
         rc = ButtonChoiceWindow(screen, _("%s") % (productName,), 
                                 _("Welcome to %s!\n\n")
                                 % (productName, ),

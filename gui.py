@@ -82,7 +82,7 @@ stepToClass = {
     "complete" : ("congrats_gui", "CongratulationWindow"),
 }
 
-elif iutil.getArch() == 's390':
+if iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 #
@@ -738,7 +738,7 @@ class InstallInterface:
     def getBootdisk (self):
         return None
 
-    def run(self, id, dispatch, configFileData):
+    def run(self, id, dispatch):
 ##         from xkb import XKB
 ##         kb = XKB()
 
@@ -768,7 +768,7 @@ class InstallInterface:
         id.instLanguage.setRuntimeLanguage (lang)
         id.instLanguage.setDefault (lang)
         self.icw = InstallControlWindow (self, self.dispatch, lang)
-        self.icw.run (self.runres, configFileData)
+        self.icw.run (self.runres)
 
 class TextViewBrowser(gtk.TextView):
     def __init__(self):
@@ -1319,8 +1319,7 @@ class InstallControlWindow:
     def busyCursorPop(self):
         rootPopBusyCursor()
         
-    def run (self, runres, configFileData):
-        self.configFileData = configFileData
+    def run (self, runres):
         self.setup_window(runres)
         gtk.main()
             
@@ -1392,14 +1391,8 @@ class InstallControlState:
         if self.htmlFile:
             file = self.htmlFile
 
-            if self.cw.configFileData.has_key("helptag"):
-                helpTag = "-%s" % (self.cw.configFileData["helptag"],)
-            else:
-                helpTag = ""
-
             arch = "-%s" % (iutil.getArch(),)
-            tags = [ "%s%s" % (helpTag, arch), "%s" % (helpTag,),
-                     "%s" % (arch,), "" ]
+            tags = [ "%s" % (arch,), "" ]
 
             found = 0
             for path in self.searchPath:
