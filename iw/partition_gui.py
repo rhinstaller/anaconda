@@ -333,6 +333,7 @@ def fstypechangeCB(widget, mountCombo):
 def createAllowedDrivesClist(disks, reqdrives):
     driveclist = GtkCList()
     driveclist.set_selection_mode (SELECTION_MULTIPLE)
+    driveclist.set_usize(-1, 75)
 
     driverow = 0
     drives = disks.keys()
@@ -356,6 +357,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     partclist = GtkCList()
     partclist.set_selection_mode (SELECTION_MULTIPLE)
+    partclist.set_usize(-1, 95)
     sw = GtkScrolledWindow()
     sw.add(partclist)
     sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
