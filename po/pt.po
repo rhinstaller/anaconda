@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: redhat-install\n"
+"Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-02-09 15:55-0500\n"
-"PO-Revision-Date: 2001-01-28 14:01+00:00\n"
-"Last-Translator: Pedro Morais <morais@poli.org>\n"
-"Language-Team: Portuguese <morais@poli.org>\n"
+"PO-Revision-Date: 2001-02-10 19:59+00:00\n"
+"Last-Translator: Pedro Morais <morais@kde.org>\n"
+"Language-Team: Portuguese <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-latin1\n"
 "Content-Transfer-Encoding: none\n"
@@ -437,9 +437,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Que língua gostaria de utilizar durante o processo de instalação?"
 
 #: ../text.py:132
-#, fuzzy
 msgid "Select All"
-msgstr "Escolher todas"
+msgstr "Escolher Todas"
 
 #: ../iw/language_support_gui.py:199 ../text.py:132
 msgid "Reset"
@@ -458,9 +457,8 @@ msgid "Invalid Choice"
 msgstr "Escolha Inválida"
 
 #: ../text.py:170
-#, fuzzy
 msgid "You select at least one language to install."
-msgstr "Escolha as línguas a instalar:"
+msgstr "Escolha pelo menos uma língua a instalar."
 
 #: ../text.py:198
 msgid "Default Language"
@@ -949,7 +947,7 @@ msgstr ""
 
 #: ../todo.py:697
 msgid "Creating boot disk..."
-msgstr "A Criar disco de arranque..."
+msgstr "A criar disquete de arranque..."
 
 #: ../todo.py:716
 msgid "Reading"
@@ -965,7 +963,7 @@ msgstr "Verificação de Dependências"
 
 #: ../todo.py:983
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "A verificar depedências dos pacotes seleccionados..."
+msgstr "A verificar as dependências dos pacotes seleccionados..."
 
 #: ../todo.py:1008 ../todo.py:1050 ../todo.py:1056 ../todo.py:1073
 #: ../todo.py:1202
@@ -1314,19 +1312,19 @@ msgid ""
 msgstr ""
 "Retire a disquete de instalaçao (se utilizada) e insira uma disquete vazia "
 "na primeira drive de disquetes. Todos os dados neste disquete serão apagados "
-"ao criar o disco de arranque."
+"ao criar o disquete de arranque."
 
 #: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Um erro ocorreu ao fazer o disco de arranque. Verifique que está uma "
+"Um erro ocorreu ao fazer a disquete de arranque. Verifique que está uma "
 "disquete formatada na primeira drive de disquetes."
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
-msgstr "Saltar criação de disquete de arranque"
+msgstr "Não criar a disquete de arranque"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
@@ -1575,7 +1573,7 @@ msgstr "Parâmetros do núcleo"
 
 #: ../iw/lilo_gui.py:296 ../iw/silo_gui.py:226
 msgid "Create boot disk"
-msgstr "Criar disco de arranque"
+msgstr "Criar disquete de arranque"
 
 #: ../iw/lilo_gui.py:310
 msgid "Install LILO"
@@ -2132,7 +2130,7 @@ msgstr "RAM da Placa de Video: "
 
 #: ../iw/xconfig_gui.py:1649
 msgid "Skip X Configuration"
-msgstr "Saltar Configuração X"
+msgstr "Não efectuar a configuração do X"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -2184,7 +2182,7 @@ msgid ""
 msgstr ""
 "Se tem a disquete de instalação na sua unidade de disquete, retire-a. Insira "
 "então uma disquete vazia na primeira drive de disquetes. Todos os dados "
-"neste disquete serão apagados ao criar o disco de arranque."
+"neste disquete serão apagados ao criar a disquete de arranque."
 
 #: ../textw/firewall_text.py:13
 msgid ""
@@ -2894,6 +2892,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Isto acontece porque a geometria do disco detectado pelo núcleo é diferente "
+"da utilizada quando a unidade for particionada. Isto pode ser corrigido "
+"especificando a geometria do disco na linha de comando ao arrancar o "
+"instalador."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2907,12 +2909,11 @@ msgstr "<Partição RAID>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Não consegui encontrar a partição chamada %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Nenhuma Partição Root"
+msgstr "Partição Root"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -2920,6 +2921,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"O crescimento do conjunto RAID root (/) parece ter sido impedido pelo limite "
+"de arranque abaixo do cilindro 1024. Se este for o caso, pode adicionar uma "
+"partição /boot (50 MB é suficiente) de modo a permitir que a partição root "
+"preencha o disco."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2927,6 +2932,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"O crescimento da partição (/) parece ter sido impedido pelo limite de "
+"arranque abaixo do cilindro 1024. Se este for o caso, pode adicionar uma "
+"partição /boot (50 MB é suficiente) de modo a permitir que a partição root "
+"preencha o disco."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -3583,7 +3592,7 @@ msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"A disquete que inseriu não é uma disco de controladores válido para esta "
+"A disquete que inseriu não é uma disquete de controladores válida para esta "
 "versão do Red Hat Linux."
 
 #: ../loader/devices.c:327
@@ -3592,8 +3601,8 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "Que controlador devo tentar utilizar? Se o controlador que precisa não "
-"aparecer nesta lista, e tiver um disco de controladores adicional, carregue "
-"em F2."
+"aparecer nesta lista, e tiver uma disquete de controladores adicional, "
+"carregue em F2."
 
 #: ../loader/devices.c:336
 msgid "Specify module parameters"
@@ -3824,19 +3833,19 @@ msgstr "Não consegui encontrar o ficheiro ks.cfg na disquete de arranque."
 
 #: ../loader/loader.c:2242
 msgid "Updates Disk"
-msgstr "Disco de Actualizações"
+msgstr "Disquete de Actualizações"
 
 #: ../loader/loader.c:2243
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
-"Insira o disco com as actualizações e carregue em \"OK\" para continuar."
+"Insira a disquete com as actualizações e carregue em \"OK\" para continuar."
 
 #: ../loader/loader.c:2248
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"A disquete que inseriu não é uma disco de actualizações válido para esta "
+"A disquete que inseriu não é uma disquete de actualizações válida para esta "
 "versão do Red Hat Linux."
 
 #: ../loader/loader.c:2258
@@ -3856,7 +3865,7 @@ msgstr "A ler actualizações ao anaconda..."
 
 #: ../loader/loader.c:2469
 msgid "You don't have enough system memory to install Red Hat on this machine."
-msgstr ""
+msgstr "Não tem memória sufiente nesta máquina para instalar o Red Hat."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4027,7 +4036,7 @@ msgstr "Não consegui montar disco."
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr ""
-"Essa disquete não parece ser um disco de controladores PCMCIA da Red Hat."
+"Essa disquete não parece ser uma disquete de controladores PCMCIA da Red Hat."
 
 #: ../loader/urls.c:79
 #, c-format
@@ -4276,12 +4285,3 @@ msgstr "Desenvolvimento do Kernel"
 
 msgid "Utilities"
 msgstr "Utilitários"
-
-#~ msgid "America/New_York"
-#~ msgstr "América/Nova_Iorque"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Sincronismo Horizontal"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Sincronismo Vertical"
