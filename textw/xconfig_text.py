@@ -247,10 +247,6 @@ class XCustomWindow:
         self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
 	self.xsetup.xhwstate.set_resolution(self.selectedRes)
 
-	ButtonChoiceWindow(screen, "Report",
-			   "%s %s" % (self.selectedDepth, self.selectedRes),
-			   buttons=[TEXT_OK_BUTTON])
-
         desktop.setDefaultDesktop (self.selectedDesktop)
         desktop.setDefaultRunLevel(self.selectedRunLevel)
 
