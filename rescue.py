@@ -62,7 +62,7 @@ def makeMtab(instPath, theFsset):
         f = open("/etc/mtab", "w+")
         f.write(theFsset.mtab())
         f.close()
-        sys.exit(0)
+        os._exit(0)
 
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):

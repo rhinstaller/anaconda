@@ -90,7 +90,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
             # let the caller deal with the exit code of 1.
             pass
 
-	sys.exit(1)
+	os._exit(1)
 
     if newPgrp:
 	os.setpgid(childpid, childpid)
@@ -135,7 +135,7 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
 	else:
 	    os.execv(command, argv)
 
-	sys.exit(1)
+	os._exit(1)
 
     os.close(write)
 

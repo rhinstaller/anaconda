@@ -1319,7 +1319,7 @@ def setFileCons(instPath, partitions):
                     continue
                 ret = isys.resetFileContext(f)
                 log("set fc of %s to %s" %(f, ret))
-            sys.exit(0)
+            os._exit(0)
 
         try:
             os.waitpid(child, 0)

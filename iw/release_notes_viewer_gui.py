@@ -46,7 +46,7 @@ def loadReleaseNotes(fn):
     return buffer
 
 def relnotes_closed(widget, data):
-    sys.exit(0)
+    os._exit(0)
 
 
 def exposeCB(widget, event, data):

@@ -197,7 +197,7 @@ class FileSystemType:
             os.close(fd)
             os.execv(args[0], args)
             log("failed to exec %s", args)
-            sys.exit(1)
+            os._exit(1)
 
         os.close(p[1])
 
@@ -2374,7 +2374,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.close(fd)
         os.execv(argList[0], argList)
         log("failed to exec %s", argList)
-        sys.exit(1)
+        os._exit(1)
 			    
     os.close(p[1])
 

@@ -741,7 +741,7 @@ class DiskSet:
             os.close(fd)
             os.execv(argList[0], argList)
             log("failed to exec %s", argList)
-            sys.exit(1)
+            os._exit(1)
 			    
         os.close(p[1])
 
