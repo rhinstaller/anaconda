@@ -64,6 +64,11 @@ class UpgradeBootloaderWindow:
                     "loader configuration or create a new boot loader "
                     "configuration?"))
 
+            self.update_radio = blradio.add(_("Update boot loader "
+                                              "configuration"),
+                                            "update", update)
+            self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
+
         self.nobl_radio = blradio.add(_("Skip boot loader updating"),
                                       "nobl", nobl)
         self.newbl_radio = blradio.add(_("Create new boot loader config"),

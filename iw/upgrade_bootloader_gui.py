@@ -77,13 +77,17 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.update_radio = GtkRadioButton(None, _("Update boot loader "
                                                        "configuration"))
             self.update_radio.set_active(FALSE)
+            update = 1
         else:
             str = _("We are unable to determine what boot loader you are "
                     "currently using.  Would you like to not do any boot "
                     "loader configuration or create a new boot loader "
                     "configuration?")
 
-            self.update_radio = None
+            self.update_radio = GtkRadioButton(None, _("Update boot loader "
+                                                       "configuration"))
+            self.update_radio.set_sensitive(FALSE)
+            update = 0
             
     
         self.nobl_radio = GtkRadioButton(self.update_radio,
@@ -96,7 +100,7 @@ class UpgradeBootloaderWindow (InstallWindow):
 
         # if they have one, the default is to update, otherwise the
         # default is to not touch anything
-        if self.update_radio:
+        if update == 1:
             default = self.update_radio
         else:
             default = self.nobl_radio
