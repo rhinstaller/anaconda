@@ -8,5 +8,9 @@ foreach $n (@ARGV) {
 while (<STDIN>) {
     chop;
     @a = split;
-    $mods{$a[2]} && print "$_\n";
+    if ($mods{$a[2]}) {
+	print "$_\n";
+    } elsif ($_ =~ /Card:Intel.*810/) {
+	print "$_\n";
+    }
 }
