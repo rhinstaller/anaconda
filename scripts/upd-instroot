@@ -99,7 +99,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
          hdparm lvm jfsutils librpm404 rhpl"
 
 if [ $ARCH = i386 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs lilo"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils lilo"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -303,6 +303,7 @@ usr/lib/rpm/rpmrc
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
 usr/sbin/ddcprobe
+usr/sbin/dmidecode
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
