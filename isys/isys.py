@@ -345,12 +345,33 @@ def getDasdDevPort():
         dasdnum = line[:index]
         
         start = line[index:].find("dasd")
-        end = line[start:].find(":")
-        dev = line[start:end + start].strip()
+        end = line[index + start:].find(":")
+        dev = line[index + start:end + start + index].strip()
         
         ret[dev] = dasdnum
 
     return ret
+
++# get active/ready state of a dasd device
++# returns 0 if we're fine, 1 if not
+def getDasdState(dev):
+    devs = getDasdDevPort()
+    if not devs.has_key(dev):
+        log("don't have %s in /dev/dasd/devices!" %(dev,))
+        return 0
+    
+    f = open("/proc/dasd/devices", "r")
+    lines = f.readlines()
+    f.close()
+    
+    for line in lines:
+        if not line.startswith(devs[dev]):
+            continue
+        if line.find(" ready") != -1:
+            return 1
+        
+    return 0
+
 
 def makeDevInode(name, fn=None):
     if fn:

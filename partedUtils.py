@@ -265,7 +265,7 @@ def checkDasdFmt(disk, intf):
     if intf:
         try:
             devs = isys.getDasdDevPort()
-            dev = "/dev/%s (%s" %(disk.dev.path[5:], devs[device])
+            dev = "/dev/%s (%s)" %(disk.dev.path[5:], devs[device])
         except Exception, e:
             log("exception getting dasd dev ports: %s" %(e,))
             dev = "/dev/%s" %(disk.dev.path[5:],)
@@ -802,7 +802,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             # FIXME: need the right fix for z/VM formatted dasd
-            if 0 and iutil.getArch() == "s390":
+            if iutil.getArch() == "s390" and isys.getDasdState(drive):
                 rc = intf.messageWindow(_("Warning"),
                         _("The partition table on device %s was unreadable. "
                           "To create new partitions it must be initialized, "
