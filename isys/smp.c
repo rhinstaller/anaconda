@@ -337,6 +337,10 @@ int detectSMP(void)
     return isSMP = sparcDetectSMP();
 #elif __alpha__
     return isSMP = alphaDetectSMP();
+#elif __ia64__
+    return isSMP = 1;
+#else
+    #error unknown architecture
 #endif
 }
 	
