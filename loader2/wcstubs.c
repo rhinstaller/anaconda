@@ -19,7 +19,7 @@
 #define WLITE_REDEF_STDC 0
 #include <wlite_wchar.h>
 #include <wlite_wctype.h>
-
+#include <pthread.h>
 
 int wcwidth (wchar_t c) {
     return wlite_wcwidth(c);
@@ -37,17 +37,31 @@ size_t wcrtomb(char *s, wchar_t wc, void *ps) {
     return wlite_wcrtomb (s, wc, ps);
 }
 
-/* Define ALIAS as a strong alias for ORIGINAL.  */
+const char * __dgettext(const char * domainname, const char * msgid) {
+    return msgid;
+}
+
+const char * __dcgettext(const char * domainname, const char * msgid,
+		       int category) {
+    return msgid;
+}
+
+/* Define ALIASNAME as a strong alias for NAME.  */
 # define strong_alias(name, aliasname) _strong_alias(name, aliasname)
 # define _strong_alias(name, aliasname) \
   extern __typeof (name) aliasname __attribute__ ((alias (#name)));
 
+strong_alias (__dgettext, dgettext);
+strong_alias (__dcgettext, dcgettext);
 
 /* lie to slang to trick it into using unicode chars for linedrawing */
-/* can't do this one -- the symbol size changes */
-/*char * setlocale (int category, const char *locale) {
+char * setlocale (int category, const char *locale) {
     if (locale == NULL || *locale == '\0')
 	return "en_US.UTF-8";
     return 0;
-    }*/
+}
 
+/* avoid bringing in glibc's setlocale.o - we want to use our
+   fake setlocale() */
+typedef pthread_mutex_t __libc_lock_t;
+__libc_lock_t __libc_setlocale_lock;
