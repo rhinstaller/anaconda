@@ -280,6 +280,7 @@ class InstallCallback:
             self.size = h[rpm.RPMTAG_SIZE]
 	    while self.rpmFD < 0:
                 fn = self.method.getFilename(h, self.pkgTimer)
+#		log("Opening rpm %s", fn)
 		try:
                     ret = checksig(fn)
 #                    log("return of checksig for %s is %s" %(fn, ret))
@@ -310,10 +311,20 @@ class InstallCallback:
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
 	elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-            if total != 100:
-                self.progress.setPackageScale(amount, self.size)
-            else:
-                self.progress.setPackageScale(self.size, self.size)
+	    # just lets make sure its defined to something
+	    cur_amount = amount
+
+	    # RPM returns strange values sometimes (dev package usually)
+            if total == 100:
+		cur_amount = self.size
+
+	    # seems some packages (dev) make rpm return bogus values
+	    if cur_amount > self.size:
+		cur_amount = self.size
+	    elif cur_amount < 0:
+		cur_amount = 0
+
+	    self.progress.setPackageScale(cur_amount, self.size)
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
