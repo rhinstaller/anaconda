@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.18
+Version: 10.0.3.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Oct 17 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.19-1
+- Fix font size to fit on disk display better (#135731)
+- Write out part lines for autopart lvm correctly (#135714)
+- Remove empty row in drive order for boot loader (#135944)
+- Replace % in URLs to avoid format string weirdness (#135929)
+- Bind mount /dev for rescue mode (#135860)
+- Fix Dutch and Danish keyboard defaults (#135839)
+- add s2io 10GbE driver
+
 * Thu Oct 14 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.18-1
 - Add fonts for ta, gu, bn, hi, pa (#119283)
 - Re-enable bterm for testing (#113910)
