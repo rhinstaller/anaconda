@@ -1196,9 +1196,6 @@ static char * mediaCheckCdrom(char *cddriver) {
     first = 1;
     do {
 	char *descr;
-
-	descr = getReleaseDescriptorFromIso("/tmp/cdrom");
-
 	/* if first time through, see if they want to eject the CD      */
 	/* currently in the drive (most likely the CD they booted from) */
 	/* and test a different disk.  Otherwise just test the disk in  */
@@ -1212,10 +1209,13 @@ static char * mediaCheckCdrom(char *cddriver) {
 				 "insert another for testing."), _("Test"),
 			       _("Eject CD"));
 
-	    if (rc == 1)
+	    if (rc == 1) {
+		descr = getReleaseDescriptorFromIso("/tmp/cdrom");
 		mediaCheckFile("/tmp/cdrom", descr);
+	    }
 
 	} else {
+	    descr = getReleaseDescriptorFromIso("/tmp/cdrom");
 	    mediaCheckFile("/tmp/cdrom", descr);
 	}
 
