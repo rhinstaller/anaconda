@@ -657,10 +657,6 @@ static int writeModulesConf(moduleList list, int fd) {
             write(fd, buf, strlen(buf));
         }
     }
-    if (getenv("IUCV")) {
-        sprintf(buf, "options netiucv %s\n", getenv("IUCV"));
-        write(fd, buf, strlen(buf));
-    }
 
     return 0;
 }

@@ -232,6 +232,9 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
+	if [ -n "$IUCV" ]; then
+		 echo "options netiucv $IUCV" >> /tmp/modules.conf
+	fi
 elif [ -n "$LCS" -o -n "$TR" ]; then
 	insmod lcs$LO
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
