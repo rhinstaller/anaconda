@@ -160,6 +160,11 @@ def growToParent(widget, rect, growTo=None):
     else:
         widget.ignoreEvents = 0
 
+class MnemonicLabel(gtk.Label):
+    def __init__(self, text=""):
+        gtk.Label.__init__(self, "")
+        self.set_text_with_mnemonic(text)
+
 class WrappingLabel(gtk.Label):
     def __init__(self, label=""):
         gtk.Label.__init__(self, label)
