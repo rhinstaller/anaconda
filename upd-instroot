@@ -240,6 +240,10 @@ for n in $RPMS; do
     rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
 done
 
+if [ $ARCH = sparc ]; then
+    rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
+fi
+
 for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/*; do
     mkfontdir $I
 done
