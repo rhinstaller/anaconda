@@ -923,7 +923,10 @@ class Partitions:
             for device in protected:
                 log("%s is a protected partition" % (device))
                 request = self.getRequestByDeviceName(device)
-                request.setProtected(1)
+                if request is not None:
+                    request.setProtected(1)
+                else:
+                    log("no request, probably a removable drive")
 
     def copy (self):
         """Deep copy the object."""
