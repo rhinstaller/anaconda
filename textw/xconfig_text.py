@@ -361,10 +361,17 @@ class MonitorWindow:
         self.origHsync = self.monitor.getMonitorHorizSync()
         self.origVsync = self.monitor.getMonitorVertSync()
 
-        self.monDB = self.monitor.monitorsDB()
+	self.ddcmon = self.monitor.getDDCProbeResults()
+
         self.monitorslist = {}
+	self.monitorsnames = []
+
+	# now read in monitors database
+        self.monDB = self.monitor.monitorsDB()
         for man in self.monDB.keys():
             for mon in self.monDB[man]:
+		if self.ddcmon and string.upper(self.ddcmon[0]) == string.upper(mon[1]):
+		    continue
                 self.monitorslist[mon[0]] = mon
         self.monitorsnames = self.monitorslist.keys()
         self.monitorsnames.sort()
@@ -395,7 +402,8 @@ class MonitorWindow:
 	while 1:
             selMonitorName = self.currentMonitor
 	    if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
-		selMonitor = self.ddcmon
+		selMonitor = (self.ddcmon[1], self.ddcmon[0],
+			      self.ddcmon[2], self.ddcmon[3])
 	    elif selMonitorName == unprobed_monitor_string:
 		selMonitor = (unprobed_monitor_string, unprobed_monitor_string,
 			      "31.5", "50-61")

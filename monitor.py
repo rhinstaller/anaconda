@@ -208,7 +208,6 @@ class MonitorInfo:
 	    try:
                 monitor = kudzu.probe(kudzu.CLASS_MONITOR, kudzu.BUS_DDC,
                                       kudzu.PROBE_ALL)
-#		print monitor
 
 		monEisa = None
 		monName = None
@@ -219,8 +218,6 @@ class MonitorInfo:
 		    self.orig_use_probed = 1
                     monEisa = monitor[0].id
 
-#		    print monEisa
-
                     # only guess the timings if something is non-zero
                     if (monitor[0].horizSyncMin != 0 or
                         monitor[0].horizSyncMax != 0 or
@@ -230,9 +227,6 @@ class MonitorInfo:
                                                    monitor[0].horizSyncMax)
                         monVert = "%d-%d" % (monitor[0].vertRefreshMin,
                                                   monitor[0].vertRefreshMax)
-#			print monHoriz
-#			print monVert
-
 		    if monitor[0].desc != None:
 			monName = monitor[0].desc
 
@@ -241,8 +235,6 @@ class MonitorInfo:
             except:
                 log("ddcprobe failed")
                 pass
-
-#	print self
 
         self.fbmonMode = {}
         if fbDevice != None:

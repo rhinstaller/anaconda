@@ -396,7 +396,6 @@ class MonitorWindow (InstallWindow):
         self.ics.setPrevEnabled (gtk.TRUE)
         
     def getNext (self):
-#	print "in getNext ",self.currentMonitor
         if self.currentMonitor:
             monHoriz = string.replace(self.hEntry.get_text(), " ", "")
             monVert = string.replace(self.vEntry.get_text(), " ", "")
@@ -408,7 +407,6 @@ class MonitorWindow (InstallWindow):
 	    else:
 		idname = self.currentMonitor
 
-#	    print "idname =", idname
             self.monitor.setSpecs(monHoriz,
                                   monVert,
                                   id=idname,
@@ -432,7 +430,6 @@ class MonitorWindow (InstallWindow):
             self.ics.setNextEnabled (gtk.FALSE)
 
     def setCurrent(self, monitorname, recenter=1):
-#	print "in setCurrent ",monitorname
 	self.ignoreEvents = 1
 	self.currentMonitor = monitorname
 
@@ -442,7 +439,6 @@ class MonitorWindow (InstallWindow):
 
         # iterate over the list, looking for the current monitor selection
         while next:
-#	    print monitorname, self.monitorstore.get_value(iter, 0)
             # if this is a parent node, get the first child and iter over them
             if self.monitorstore.iter_has_child(iter):
                 parent = iter
@@ -481,6 +477,8 @@ class MonitorWindow (InstallWindow):
 	elif monitorname == unprobed_monitor_string:
 	    hsync = "31.5"
 	    vsync = "50-61"
+#	    hsync = self.ddcmon[2]
+#	    vsync = self.ddcmon[3]
 	else:
 	    monname = self.monitorstore.get_value(iter, 0)
 	    rc = self.monitor.lookupMonitorByName(monname)
@@ -533,6 +531,8 @@ class MonitorWindow (InstallWindow):
 	# if we have a ddc probe value, reset to that
 	if self.ddcmon:
 	    self.setCurrent(ddc_monitor_string + " - " + self.ddcmon[1])
+	else:
+	    self.setCurrent(unprobed_monitor_string)
 
 	self.setSyncField(self.hEntry, self.origHsync)
         self.setSyncField(self.vEntry, self.origVsync)
@@ -602,6 +602,28 @@ class MonitorWindow (InstallWindow):
 
 	self.currentMonitor = None
 	toplevels={}
+
+        # Insert DDC probed monitor if it had no match in database
+        # or otherwise if we did not detect a monitor at all
+        #--Add a category for a DDC probed monitor if a DDC monitor was probed
+	self.ddcmon = self.monitor.getDDCProbeResults()
+	if self.ddcmon:
+	    title = ddc_monitor_string + " - " + self.ddcmon[1]
+	else:
+	    title = unprobed_monitor_string
+
+	man = title
+	toplevels[man] = self.monitorstore.append(None)
+	self.monitorstore.set_value(toplevels[man], 0, title)
+	iter = self.monitorstore.append(toplevels[man])
+	self.monitorstore.set_value(iter, 0, title)
+
+	# set as current monitor if necessary
+	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
+	    self.currentMonitor = title
+	    self.origMonitorName = title
+
+	# now insert rest of monitors, unless we match the ddc probed id
         for man in keys:
             if man == "Generic":
                 title = _("Generic")
@@ -619,35 +641,15 @@ class MonitorWindow (InstallWindow):
                     if amonitor[0] == previous_monitor:
                         continue
 
+		if self.ddcmon and string.upper(self.ddcmon[0]) == string.upper(amonitor[1]):
+		    continue
+
                 previous_monitor = amonitor[0]
 		iter = self.monitorstore.append(toplevels[man])
 		self.monitorstore.set_value(iter, 0, amonitor[0])
 
                 if amonitor[0] == self.monitor.getMonitorID():
                     self.currentMonitor = amonitor[0]
-
-        # Insert DDC probed monitor if it had no match in database
-        # or otherwise if we did not detect a monitor at all
-        #--Add a category for a DDC probed monitor if a DDC monitor was probed
-	self.ddcmon = self.monitor.getDDCProbeResults()
-	if self.ddcmon:
-	    title = ddc_monitor_string + " - " + self.ddcmon[1]
-	else:
-	    title = unprobed_monitor_string
-
-#	print title
-	man = title
-	toplevels[man] = self.monitorstore.append(None)
-	self.monitorstore.set_value(toplevels[man], 0, title)
-	iter = self.monitorstore.append(toplevels[man])
-	self.monitorstore.set_value(iter, 0, title)
-
-#	print self.origMonitorID
-	
-	# set as current monitor if necessary
-	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
-	    self.currentMonitor = title
-	    self.origMonitorName = title
 
         self.monitorview = gtk.TreeView(self.monitorstore)
         self.monitorview.set_property("headers-visible", gtk.FALSE)
