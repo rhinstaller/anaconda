@@ -18,8 +18,8 @@ Notes:
  - all paths without a leading '/' are relative to directory specified
    to installer containing install source.
 
- - 'updates.img' is a ext2 filesystem containing the updated sources and
-   shared libraries for anaconda.
+ - 'updates.img' is a ext2 filesystem containing the updated python
+   sources and modules for anaconda.
           
 Current Installation Methods:
 -----------------------------
@@ -33,7 +33,8 @@ Current Installation Methods:
 
   Update Options: 
       - floppy.
-      - 'updates.img' file in '/RedHat/base' directory of CD #1 image.
+      - 'updates.img' file in '/RedHat/base' or '/RHupdates' directory 
+         of CD #1 image.
 
 - NFS (from a fully exploded tree)
 ----------------------------------
@@ -43,8 +44,8 @@ Current Installation Methods:
 
   Update Options:
       - floppy.
-      - 'updates.img' file in 'RedHat/base' or 'RHupdates/' directory.
-      - updated python or shared libs in 'RHupdates/' directory are 
+      - 'updates.img' file in 'RedHat/base' directory.
+      - updated python sources or modules in 'RHupdates/' directory are 
         used in preference to those in original.
 
 - NFS (from a directory of ISOs)
@@ -55,8 +56,8 @@ Current Installation Methods:
 
   Update Options:
       - floppy
-      - 'updates.img' file in 'RedHat/base' or 'RHupdates/' directory 
-      - updated python or shared libs in 'RHupdates/' directory are 
+      - 'updates.img' file in 'RedHat/base' directory 
+      - updated python sources or modules in 'RHupdates/' directory are 
         used in preference to those in original.
 
 - FTP/HTTP (from a fully exploded tree)
@@ -92,6 +93,8 @@ Hard Drive from fully exploded tree (kickstart only)
   Update Options:
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory.
+      - updated python sources or modules in 'RHupdates/' directory are 
+        used in preference to those in original.
 
 Hard Drive from ISOs (non-kickstart only)
 -----------------------------------------
@@ -103,5 +106,7 @@ Hard Drive from ISOs (non-kickstart only)
   Update Options:
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory of ISO image for CD #1.
+      - updated python sources or modules in 'RHupdates/' directory are 
+        used in preference to those in original.
   
 
