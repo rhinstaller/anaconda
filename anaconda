@@ -850,7 +850,7 @@ if keymap:
 # set up the headless case
 if isHeadless == 1:
     id.setHeadless(isHeadless)
-    instClass.setAsHeadless(isHeadless)
+    instClass.setAsHeadless(isHeadless, dispatch)
 
 instClass.setSteps(dispatch)
 

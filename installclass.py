@@ -166,7 +166,7 @@ class BaseInstallClass:
     # called from anaconda so that we can skip steps in the headless case
     # in a perfect world, the steps would be able to figure this out
     # themselves by looking at instdata.headless.  but c'est la vie.
-    def setAsHeadless(self, isHeadless = 0):
+    def setAsHeadless(self, isHeadless = 0, dispatch):
         if isHeadless == 0:
             pass
         else:
