@@ -169,13 +169,13 @@ class UpgradeSwapWindow (InstallWindow):
                     _("It is stongly recommended that you create a swap "
                       "file.  Failure to do so could cause the installer "
                       "to abort abnormally.  Are you sure that you wish "
-                      "to continue?"), type = "yesno").getrc()
+                      "to continue?"), type = "yesno")
         return rc
 
     def swapWrongSize(self):
         rc = self.intf.messageWindow(_("Warning"), 
                     _("The swap file must be between 1 and 2000 MB in size."),
-                       type = "okcancel").getrc()
+                       type = "okcancel")
         return rc
 
     def swapTooBig(self):
@@ -183,5 +183,5 @@ class UpgradeSwapWindow (InstallWindow):
         rc = self.intf.messageWindow(_("Warning"), 
                     _("There is not enough space on the device you "
 			  "selected for the swap partition."),
-                       type = "okcancel").getrc()
+                       type = "okcancel")
         return rc

@@ -238,6 +238,13 @@ class InstallInterface:
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
 			       buttons = [ TEXT_OK_BUTTON ])
+        elif type == "yesno":
+	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+			       buttons = [ TEXT_YES_BUTTON, TEXT_NO_BUTTON ])
+            if rc == "yes":
+                return 1
+            else:
+                return 0
 	else:
 	    return OkCancelWindow(self.screen, _(title), _(text))
 

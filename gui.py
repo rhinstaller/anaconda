@@ -233,7 +233,7 @@ class MessageWindow:
         self.rc = button
 
     def questionquit (self, button):
-        self.rc = button
+        self.rc = not button
 
     def getrc (self):
         return self.rc
@@ -258,6 +258,11 @@ class MessageWindow:
         win.keyboard_grab(0)
         self.window.show_all ()
         self.rc = self.window.run ()
+
+        # invert result from yes/no dialog for some reason
+        if type == "yesno":
+            self.rc = not self.rc
+        
         win.keyboard_ungrab()
     
 class InstallInterface:
@@ -285,7 +290,8 @@ class InstallInterface:
         return self.ppw
 
     def messageWindow(self, title, text, type = "ok"):
-        return MessageWindow (title, text, type)
+        rc = MessageWindow (title, text, type).getrc()
+        return rc
 
     def exceptionWindow(self, title, text):
         print text

@@ -21,7 +21,7 @@ def queryUpgradeContinue(intf):
                          "mounted. You cannot go back past this point. "
                          "\n\n") + 
                      _( "Would you like to continue with the upgrade?"),
-                                      type = "yesno").getrc()
+                                      type = "yesno")
     return rc
 
 class IndividualPackageSelectionWindow (InstallWindow):

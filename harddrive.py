@@ -236,7 +236,7 @@ class HardDriveInstallMethod(InstallMethod):
                                                "it was corrupted on transfer to this computer."
                                                "\n\nPress OK to continue (but installation will "
                                                "probably fail), or Cancel to exit the "
-                                               "installer (RECOMMENDED). " % file, type = "okcancel").getrc()
+                                               "installer (RECOMMENDED). " % file, type = "okcancel")
                             if rc:
                                 import sys
                                 sys.exit(0)
