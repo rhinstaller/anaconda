@@ -178,6 +178,18 @@ def readPackages(intf, method, id):
                                  "Press <return> to try again."))
             continue
 
+    # people make bad tree copies all the time.  let's just mandate that
+    # the Core group has to exist in the comps file else we complain
+    if not grpset.groups.has_key("core"):
+        intf.messageWindow(_("Error"),
+                           _("The comps file in your installation tree is "
+                             "missing critical groups.  Please ensure that "
+                             "your install tree has been correctly "
+                             "generated."),
+                           type="custom", custom_icon="error",
+                           custom_buttons=[_("_Exit")])
+        sys.exit(0)
+
     while iutil.getArch() == "ia64":
         try:
             method.mergeFullHeaders(hdrlist)
