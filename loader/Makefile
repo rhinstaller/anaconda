@@ -19,16 +19,16 @@ CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_AL
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
-ifeq (i386, $(ARCH))
-BINS += loader-local loader-network loader-pcmcia
-DIRS += pcmcia-install
-OBJS += stubs.o 
-endif
-
 ifeq (1, $(KON))
 DIRS += kon2
 OBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 CFLAGS += -DINCLUDE_KON=1
+endif
+
+ifeq (i386, $(ARCH))
+BINS += loader-local loader-network loader-pcmcia
+DIRS += pcmcia-install
+OBJS += stubs.o 
 endif
 
 ifeq (alpha, $(ARCH))
