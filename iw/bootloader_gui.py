@@ -21,7 +21,7 @@ class BootloaderWindow (InstallWindow):
     checkMark_Off = foo.make_pixmap()
     del foo
 
-    windowTitle = N_("Bootloader Configuration")
+    windowTitle = N_("Boot Loader Configuration")
     htmlTag = "bootloader"
 
     def getPrev (self):
@@ -83,8 +83,7 @@ class BootloaderWindow (InstallWindow):
         if not default:
             default = linuxDevice
 
-
-        self.bl.setUseGrub(not self.grubCheck.get_active())
+        self.bl.setUseGrub(self.grub_radio.get_active())
         self.bl.args.set(self.appendEntry.get_text())
         self.bl.images.setDefault(default)
 
@@ -140,15 +139,18 @@ class BootloaderWindow (InstallWindow):
 
         list = self.bootDevice.keys()
         list.extend ([self.appendEntry, self.editBox, self.imageList,
-                      self.liloLocationBox, self.radioBox, self.sw])
+                      self.liloLocationBox, self.radioBox, self.sw,
+                      self.radio_hbox])
         for n in list:
             n.set_sensitive (state)
 
-        if state and not len(self.bootDevice.keys()) < 2:
-            self.liloLocationBox.set_sensitive(0)
-            self.grubCheck.set_sensitive(0)
-	    for n in self.bootDevice.keys():
-		n.set_sensitive(0)
+#        if state and not len(self.bootDevice.keys()) < 2:
+#            self.liloLocationBox.set_sensitive(0)
+#            self.grubCheck.set_sensitive(0)
+#            print "here"
+#            self.radio_hbox.set_sensitive(0)
+#	    for n in self.bootDevice.keys():
+#		n.set_sensitive(0)
 
     def labelInsertText(self, entry, text, len, data):
         i = 0
@@ -256,7 +258,7 @@ class BootloaderWindow (InstallWindow):
         spacer.set_usize(10, 1)
         self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
 
-        label = GtkLabel(_("Install GRUB boot record on:"))
+        label = GtkLabel(_("Install boot loader on:"))
         label.set_alignment(0.0, 0.5)
         self.liloLocationBox = GtkVBox (FALSE, 0)
         self.liloLocationBox.pack_start(label)
@@ -276,12 +278,6 @@ class BootloaderWindow (InstallWindow):
 		    radio.set_active(1)
 
 		count = count + 1
-
-        self.grubCheck = GtkCheckButton(
-	    _("Use LILO bootloader (instead of Grub)"))
-        self.grubCheck.set_active(not bl.useGrub())
-
-        self.radioBox.attach(self.grubCheck, 0, 2, 4, 5)
 
         label = GtkLabel(_("Kernel parameters") + ":")
         label.set_alignment(0.0, 0.5)
@@ -322,6 +318,18 @@ class BootloaderWindow (InstallWindow):
         optionBox.pack_start (self.bootloader, FALSE)
 
         box.pack_start (optionBox, FALSE)
+
+        box.pack_start(GtkHSeparator(), FALSE)
+        label = GtkLabel(_("Boot loader:"))
+        self.grub_radio = GtkRadioButton(None, (_("GRUB")))
+        self.lilo_radio = GtkRadioButton(self.grub_radio, (_("LILO")))
+
+        self.radio_hbox = GtkHBox(FALSE, 5)
+        self.radio_hbox.set_border_width(5)
+        self.radio_hbox.pack_start(label, FALSE)
+        self.radio_hbox.pack_start(self.grub_radio, FALSE)
+        self.radio_hbox.pack_start(self.lilo_radio, FALSE)
+        box.pack_start(self.radio_hbox, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
