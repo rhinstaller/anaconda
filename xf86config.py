@@ -455,12 +455,12 @@ Section "Keyboard"
         if self.monVert:
             info["VERT"] = self.monVert
         else:
-            info["VERT"] = "50-100"
+            info["VERT"] = "60"
 
         if self.monHoriz:
             info["HORIZ"] = self.monHoriz
         else:
-            info["HORIZ"] = "30-65"
+            info["HORIZ"] = "31.5"
         
         return """
 # **********************************************************************
