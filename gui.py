@@ -1316,8 +1316,14 @@ class InstallControlWindow:
                     pass
                 
             if pixbuf:
+                (pixmap, mask) = pixbuf.render_pixmap_and_mask()
+                pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap),
+                                          0, 0, 0, 0,
+                                          pixbuf.get_width(),
+                                          pixbuf.get_height(),
+                                          gtk.gdk.RGB_DITHER_MAX, 0, 0)
                 p = gtk.Image()
-                p.set_from_pixbuf(pixbuf)
+                p.set_from_pixmap(pixmap, mask)
                 a = gtk.Alignment()
                 a.set(0.5, 0.5, 1.0, 1.0)
                 a.add(p)
