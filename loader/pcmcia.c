@@ -56,7 +56,7 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
 	    else
 		pcic = "i82365";
 	}
-    } while((line = strtok(NULL, "\r\n")))
+    } while((line = strtok(NULL, "\r\n")));
 
     if (!pcic)
     {
