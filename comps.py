@@ -128,7 +128,8 @@ class Package:
 	(self.state, self.selected) = state
 
     def registerComponent(self, comp):
-	self.comps.append(comp)
+        if comp not in self.comps:
+            self.comps.append(comp)
 
     def unregisterComponent(self, comp):
         try:
@@ -710,6 +711,9 @@ class ComponentSet:
             self.compsById[comp.id] = comp
 
         for group in groups:
+            # everything is special and this speeds things up a bit
+            if group == "everything":
+                continue
             group = self.compsxml.groups[group]            
             comp = self.compsDict[group.name]
             for id in group.groups.keys():
