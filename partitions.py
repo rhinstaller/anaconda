@@ -244,6 +244,11 @@ class Partitions:
                                                              mountpoint = mnt,
                                                              preexist = 1)
                 self.addRequest(spec)
+
+        for vg in lvm.partialvgs():
+            spec = partRequests.PartialVolumeGroupRequestSpec(vgname = vg)
+            self.addRequest(spec)
+            
         lvm.vgdeactivate()
 
         diskset.stopAllRaid()

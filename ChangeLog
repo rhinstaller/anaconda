@@ -1,5 +1,8 @@
 2004-12-03  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.setFromDisk): Detect partial vgs,
+	preserve the name (#139058)
+
 	* lvm.py (partialvgs): Detect partial volume groups.
 
 	* partitions.py (Partitions.getPartialLVMRequests): Get partial
