@@ -184,6 +184,18 @@ Section "Screen"
 EndSection
 
 Section "Screen"
+    Driver      "accel"
+    Device      "Device"
+    Monitor     "Monitor"
+    Subsection  "Display"
+        Depth       8
+        Modes       "640x480"
+        ViewPort    0 0
+        Virtual     640 480
+    EndSubsection
+EndSection
+
+Section "Screen"
     Driver      "fbdev"
     Device      "Device"
     Monitor     "Monitor"
@@ -197,6 +209,7 @@ EndSection
 
     server = os.fork()
     if (not server):
+        print "starting", serverPath
         os.execv(serverPath, [serverPath, ':1', '-xf86config', 
                  '/tmp/XF86Config', 'vt5'])
     child = os.fork()
