@@ -16,7 +16,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Set, verify, and create paths
     KERNELPATH=$1
-    IMAGEPATH=$2
+    TOPDESTPATH=$2
+    IMAGEPATH=$2/images
     FULLMODPATH=$3
     INSTIMGPATH=$4
     INSTIMGTEMPLATE=$5
@@ -226,6 +227,17 @@ makemainmodules() {
 }
 
 makebootdisk() {
+    EXTRAKERNELPATH=""
+    EXTRAINITRDPATH=""
+    while [ $(echo $1 | cut -c1-2) = "--" ]; do
+	if [ $1 = "--kernelto" ]; then
+	    EXTRAKERNELPATH=$2
+	    shift; shift
+	elif [ $1 = "--initrdto" ]; then
+	    EXTRAINITRDPATH=$2
+	    shift; shift
+	fi
+    done
     MBD_FILENAME=$IMAGEPATH/$1
     LOADERBIN=$2
     MODSET=`expandModuleSet "$3"`
@@ -350,6 +362,16 @@ EOF
     else
 	echo "I don't know how big to make the image!" >&2
 	exit 1
+    fi
+
+    if [ -n "$EXTRAKERNELPATH" ]; then
+	mkdir -p $EXTRAKERNELPATH
+	cp -a $KERNELROOT/boot/vmlinuz-* $EXTRAKERNELPATH/vmlinuz
+    fi
+
+    if [ -n "$EXTRAINITRDPATH" ]; then
+	mkdir -p $EXTRAINITRDPATH
+	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH/initrd
     fi
     
     rmdir $MBD_BOOTTREE 

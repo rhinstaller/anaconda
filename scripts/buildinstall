@@ -30,7 +30,7 @@ if [ ! -f $MK_IMAGES ]; then
 fi
 
 $UPD_INSTROOT $1/RedHat/RPMS $1/image-template $1/RedHat/instimage
-$MK_IMAGES $1/RedHat/RPMS $1/images $1/RedHat/instimage/modules $1/RedHat/base $1/image-template
+$MK_IMAGES $1/RedHat/RPMS $1 $1/RedHat/instimage/modules $1/RedHat/base $1/image-template
 
 rm -rf $BUILDINSTDIR
 rm -rf $1/image-template $1/RedHat/instimage/usr/lib/anaconda-runtime
