@@ -42,7 +42,7 @@ while [ -n "$1" ]; do
 	if [ ! -f "$1" ]; then
 	    ln -sf ./busybox $1
 	else
-	    echo "Overriding busybox version of $i"
+	    echo "Overriding busybox version of $1"
 	fi
     fi
     shift
