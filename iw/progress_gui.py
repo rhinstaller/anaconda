@@ -34,6 +34,10 @@ class DoInstall (Thread):
             os.kill(os.getpid(), signal.SIGTERM)
 
         except:
+            import traceback
+            list = apply(traceback.format_exception, sys.exc_info())
+            text = string.joinfields (list, "")
+            print text
             threads_enter ()
             handleException(self.todo, sys.exc_info())
         threads_enter ()
@@ -117,7 +121,10 @@ class InstallProgressWindow (InstallWindow):
     def setPackage(self, header):
         threads_enter ()
         if len(self.pixmaps):
-            if not (self.numComplete) % (self.numTotal / len(self.pixmaps)):
+            pkgsPerImage = self.numTotal / len(self.pixmaps)
+            if pkgsPerImage < 1:
+                pkgsPerImage = 1
+            if not (self.numComplete) % pkgsPerImage:
                 if self.numComplete:
                     num = self.numComplete * len(self.pixmaps) / self.numTotal
                 else:
