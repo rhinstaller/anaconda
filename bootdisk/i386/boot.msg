@@ -11,7 +11,7 @@
 
  -  To disable hardware probing, type: 0flinux noprobe <ENTER>07.  
 
- -  To test the install media you are using, type: 0flinux mediacheck<ENTER>07.  
+ -  To test the install media you are using, type: 0flinux mediacheck <ENTER>07.  
 
  -  To enable rescue mode, type: 0flinux rescue <ENTER>07.  
     Press 05<F4>07 for more information about rescue mode.
