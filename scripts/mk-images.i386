@@ -49,7 +49,7 @@ CD-ROM's boot speed would be an advantage.
 To use this image file, burn the file onto CD-R (or CD-RW) media as you
 normally would.
 
-The boot.img file is a VFAT filesystem image that can be written to a
+The diskboot.img file is a VFAT filesystem image that can be written to a
 USB pendrive or other bootable media larger than a floppy.  Note that
 booting via USB is dependent on your BIOS supporting this.  It should
 be written to the device using dd.
@@ -194,10 +194,10 @@ makeBootImages() {
     
     # now make a boot pendrive image
     mkdir -p $TOPDESTPATH/images/fobpath
-    dd if=/dev/zero of=$TOPDESTPATH/images/boot.img bs=1M count=6 2>/dev/null
-    mkdosfs -r 16 -C $TOPDESTPATH/images/boot.img
-    $SYSLINUX $TOPDESTPATH/images/boot.img
-    mount %TOPDESTPATH/images/boot.img $TOPDESTPATH/images/fobpath
+    dd if=/dev/zero of=$TOPDESTPATH/images/diskboot.img bs=1M count=6 2>/dev/null
+    mkdosfs -r 16 -C $TOPDESTPATH/images/diskboot.img
+    $SYSLINUX $TOPDESTPATH/images/diskboot.img
+    mount %TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
     cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/fobpath
     mv $TOPDESTPATH/images/fobpath/isolinux.cfg $TOPDESTPATH/images/fobpath/syslinux.cfg
     umount -f $TOPDESTPATH/images/fobpath
