@@ -19,6 +19,7 @@
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
+#include "misc.h"
 #include "modules.h"
 #include "devices.h"
 
@@ -224,24 +225,90 @@ static void removeExtractedModule(char * path) {
     rmdir(path);
 }
 
-int mlLoadModule(char * modName, void * location, moduleList modLoaded,
-	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
-		 int flags) {
-    moduleDeps dep;
-    char ** nextDep, ** argPtr;
+/* this leaks memory if their is a loop in the modules. oh well. */
+char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args, 
+			    int depth, char *** listPtr, int * listSizePtr) {
+    int listSize;
+    char ** list;
+    char ** next;
+    char ** deps;
+
+    if (!depth) {
+	int count;
+
+	listSize = 5;
+	list = malloc((listSize + 1) * sizeof(*list));
+	*list = NULL;
+
+	listPtr = &list;
+	listSizePtr = &listSize;
+
+	for (deps = args, count = 0; *deps; deps++, count++);
+    } else {
+	list = *listPtr;
+	listSize = *listSizePtr;
+    }
+
+    if (depth++ > 100) {
+	return NULL;
+    }
+
+    while (*args) {
+	/* don't load it twice */
+	next = list;
+	while (*next && strcmp(*next, *args)) next++;
+
+	if (*next || mlModuleInList(*args, modLoaded)) {
+	    args++;
+	    continue;
+	}
+
+	/* load everything this depends on */
+	deps = mlGetDeps(ml, *args);
+	if (deps) {
+	    if (!tsortModules(modLoaded, ml, deps, depth, listPtr, listSizePtr))
+		return NULL;
+
+	    list = *listPtr;
+	    listSize = *listSizePtr;
+
+	    free(deps);
+	}	    
+
+	/* add this to the list */
+	next = list;
+	while (*next) next++;
+
+	if ((next - list) >= listSize) {
+	    listSize += 10;
+	    /* leave room for a NULL */
+	    list = realloc(list, sizeof(*list) * (listSize + 1));
+
+	    *listSizePtr = listSize;
+	    *listPtr = list;
+	}
+
+	next[0] = *args;
+	next[1] = NULL;
+
+	args++;
+    }
+
+    return list;
+}
+
+static int loadModule(const char * modName, char * path, moduleList modLoaded,
+	         char ** args, moduleInfoSet modInfo, int flags) {
     char fileName[200];
     int rc, i;
-    char ** arg, ** newArgs;
+    char ** arg, ** newArgs, ** argPtr;
     struct moduleInfo * mi = NULL;
     int ethDevices = -1;
     pid_t child;
     int status;
-    char * path = NULL;
-    int needUmount = 0;
 
-    if (mlModuleInList(modName, modLoaded)) {
+    if (mlModuleInList(modName, modLoaded))
 	return 0;
-    }
 
     if (modInfo && (mi = isysFindModuleInfo(modInfo, modName))) {
 	if (mi->major == DRIVER_NET && mi->minor == DRIVER_MINOR_ETHERNET) {
@@ -249,37 +316,17 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	}
     }
 
-    for (dep = modDeps; dep->name && strcmp(dep->name, modName);
-    	 dep++);
-
-    if (dep && dep->deps) {
-	nextDep = dep->deps;
-	while (*nextDep) {
-	    if (mlLoadModule(*nextDep, location, modLoaded, modDeps, NULL, 
-			     modInfo, flags) && location)
-		  mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, 
-			       modInfo, flags);
-	    nextDep++;
-	}
-    }
-
-    if (location)
-	path = extractModule(location, modName); 
-
     sprintf(fileName, "%s.o", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++)  {
 	strcat(fileName, " ");
 	strcat(fileName, *argPtr);
     }
 
-    sprintf(fileName, "%s.o", modName);
-
     if (FL_TESTING(flags)) {
-	logMessage("would have insmod %s", fileName);
+	logMessage("would have insmod %s", path);
 	rc = 0;
     } else {
-	logMessage("going to insmod %s (path is %s)", fileName,
-		   path ? path : "NULL");
+	logMessage("going to insmod %s", path);
 
 	if (!(child = fork())) {
 	    int fd = open("/dev/tty3", O_RDWR);
@@ -289,7 +336,7 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	    dup2(fd, 2);
 	    close(fd);
 
-	    rc = insmod(fileName, path, args);
+	    rc = insmod(path, NULL, args);
 	    _exit(rc);
 	}
 
@@ -300,16 +347,14 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	} else {
 	    rc = 0;
 	}
-    }
 
-    if (needUmount)
-	umount(path);
+	logMessage("%s done w/ rc %d", path, rc);
+    }
 
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
 	modLoaded->mods[modLoaded->numModules].weLoaded = 1;
-	/* path is malloced by extractModule() */
-	modLoaded->mods[modLoaded->numModules].path = path;
+	modLoaded->mods[modLoaded->numModules].path = strdup(path);
 	modLoaded->mods[modLoaded->numModules].firstDevNum = -1;
 	modLoaded->mods[modLoaded->numModules].lastDevNum = -1;
 	modLoaded->mods[modLoaded->numModules].written = 0;
@@ -338,26 +383,123 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	}
 
 	modLoaded->mods[modLoaded->numModules++].args = newArgs;
-	/* */
-	if (!FL_TESTING(flags)) {
-	    int fd;
-	    
-	    fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT | O_APPEND,
-		      0666);
-	    if (fd == -1) {
-		logMessage("error appending to /tmp/modules.conf: %s\n", 
-			   strerror(errno));
-	    } else {
-		mlWriteConfModules(modLoaded, fd);
-		close(fd);
-	    }
-	}
     } else {
 	if (path) removeExtractedModule(path);
 	free(path);
     }
 
     return rc;
+}
+
+/* loads a : separated list of modules */
+int mlLoadModuleSet(const char * origModNames, void * location, 
+		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
+		    moduleInfoSet modInfo, int flags) {
+    char * modNames;
+    char * end, * start, * next;
+    char ** initialList;
+    int i;
+    char ** list, ** l;
+    char ** paths, ** p;
+
+    start = modNames = alloca(strlen(origModNames) + 1);
+    strcpy(modNames, origModNames);
+
+    next = start, i = 1;
+    while (*next) {
+	if (*next == ':') i++;
+	next++;
+    }
+
+    initialList = alloca(sizeof(*initialList) * (i + 1));
+
+    i = 0;
+    while (start) {
+	next = end = strchr(start, ':');
+	if (next) *end = '\0', next++;
+
+	if (mlModuleInList(start, modLoaded)) {
+	    /* already loaded */
+	    start = next;
+	    continue;
+	}
+
+	initialList[i++] = start;
+
+	start = next;
+    }
+    initialList[i] = NULL;
+
+    list = tsortModules(modLoaded, modDeps, initialList, 0, NULL, NULL);
+    if (!list) {
+	logMessage("found loop in module dependencies; not inserting anything");
+	return 1;
+    }
+
+    paths = NULL;
+    if (location)
+	paths = extractModules(location, list, paths); 
+
+    paths = extractModules(NULL, list, paths); 
+    i = 0;
+    if (!paths) {
+	logMessage("no modules found -- aborting insertion\n");
+	i++;
+    } else {
+	/* if any modules weren't found, holler */
+	for (l = list, p = paths; *l && p; l++, p++) {
+	    if (!*p) {
+		logMessage("module %s not found -- aborting insertion",
+			   *l);
+		i++;
+	    }
+	}
+    }
+
+    /* insert the modules now */
+    for (l = list, p = paths; !i && *l; l++, p++) {
+	if (loadModule(*l, *p, modLoaded, args, modInfo, flags)) {
+	    logMessage("failed to insert %s -- bailing\n", *p);
+	    i++;
+	}
+    }
+
+    logMessage("done inserting modules");
+
+    if (!FL_TESTING(flags)) {
+	int fd;
+	
+	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT | O_APPEND,
+		  0666);
+	if (fd == -1) {
+	    logMessage("error appending to /tmp/modules.conf: %s\n", 
+		       strerror(errno));
+	} else {
+	    mlWriteConfModules(modLoaded, fd);
+	    close(fd);
+	}
+    }
+
+    logMessage("wrote modules.conf");
+    
+    for (p = paths; *p; p++) {
+	unlink(*p);
+	free(*p);
+    }
+
+    free(paths);
+    free(list);
+
+    logMessage("load module set done");
+
+    return i;
+}
+
+int mlLoadModule(const char * modName, void * location, moduleList modLoaded,
+	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
+		 int flags) {
+    return mlLoadModuleSet(modName, location, modLoaded, modDeps, args,
+			   modInfo, flags);
 }
 
 char ** mlGetDeps(moduleDeps modDeps, const char * modName) {

@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include <sys/utsname.h>
 #include <zlib.h>
 #include <linux/fd.h>
@@ -20,7 +21,7 @@
 #include "misc.h"
 #include "modules.h"
 #include "windows.h"
-#include "../kudzu/kudzu.h"
+#include "kudzu/kudzu.h"
 #include "isys/cpio.h"
 
 void eject(char * deviceName) {
@@ -441,8 +442,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     return rc;
 }
 
-char * extractModule(struct driverDiskInfo * ddi, char * modName) {
-    char * pattern[] = { NULL, NULL };
+static char * filterDriverModules(struct driverDiskInfo * ddi,
+				  const char * const * modNames) {
     struct utsname un;
     gzFile from;
     gzFile to;
@@ -454,17 +455,23 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
     int failed;
     char * toPath;
     char * chptr;
+    char ** pattern, ** p;
+    int i;
 
     uname(&un);
-
     /* strip off BOOT, -SMP, whatever */
     chptr = un.release + strlen(un.release) - 1;
     while (!isdigit(*chptr)) chptr--;
     *(chptr + 1) = '\0';
 
-    pattern[0] = alloca(strlen(modName) + strlen(un.release) + 5);
-    sprintf(pattern[0], "%s*/%s.o", un.release, modName);
-    logMessage("extracting pattern %s", pattern[0]);
+    for (i = 0; modNames[i]; i++) ;
+    pattern = alloca((i + 1) * sizeof(*pattern));
+
+    for (i = 0, p = pattern; modNames[i]; i++, p++) {
+	*p = alloca(strlen(modNames[i]) + strlen(un.release) + 5);
+	sprintf(*p, "%s*/%s.o", un.release, modNames[i]);
+	logMessage("extracting pattern %s", *p);
+    }
 
     if (ddi->device)
 	devMakeInode(ddi->device, ddi->mntDevice);
@@ -504,13 +511,15 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 
 	if (!failed) {
 	    from = gzopen("/tmp/drivers/modules.cgz", "r");
-	    toPath = malloc(strlen(modName) + 30);
-	    sprintf(toPath, "/tmp/modules/%s", modName);
+	    toPath = malloc(strlen(modNames[0]) + 30);
+	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
 	    mkdirChain(toPath);
 	    strcat(toPath, "/modules.cgz");
 	    to = gzopen(toPath, "w");
 
-	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), modName);
+	    /* This message isn't good, but it'll do. */
+	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), 
+		      modNames[0]);
 
 	    myCpioFilterArchive(from, to, pattern);
 
@@ -520,7 +529,7 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 	    gzclose(to);
 	    umount("/tmp/drivers");
 
-	    sprintf(toPath, "/tmp/modules/%s", modName);
+	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
 	    return toPath;
 	}
 
@@ -533,6 +542,73 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 		_("Please insert the %s driver disk now."), ddi->title);
 	if (rc == 2) return NULL;
     }
+}
+
+char ** extractModules(struct driverDiskInfo * ddi, 
+			const char * const * modNames, char ** oldPaths) {
+    gzFile fd;
+    char * ballPath;
+    struct cpioFileMapping * map;
+    int i, numMaps;
+    const char * const * m;
+    struct utsname u;
+    int rc;
+    const char * failedFile;
+    char fn[255];
+
+    /* this needs to know about modules64.cgz for sparc */
+
+    uname(&u);
+    strcpy(u.release, "2.4.7-10BOOT");
+
+    if (ddi) {
+	ballPath = filterDriverModules(ddi, modNames);
+    } else {
+	ballPath = strdup("/modules/modules.cgz");
+    }
+
+    fd = gzopen(ballPath, "r");
+    if (!fd) {
+	logMessage("failed to open %s", ballPath);
+	free(ballPath);
+	return NULL;
+    }
+
+    for (m = modNames, i = 0; *m; i++, m++);
+    
+    map = alloca(sizeof(*map) * i);
+    memset(map, 0, sizeof(*map) * i);
+    if (!oldPaths)
+	/* +1 NULL terminates this list */
+	oldPaths = calloc(i + 1, sizeof(*oldPaths));
+
+    for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
+	if (!oldPaths[i]) {
+	    map[numMaps].archivePath = alloca(strlen(u.release) + 
+						strlen(*m) + 25);
+	    sprintf(map[numMaps].archivePath, "%s/%s.o", u.release, *m);
+	    map[numMaps].fsPath = alloca(10 + strlen(*m));
+	    sprintf(map[numMaps].fsPath, "/tmp/%s.o", *m);
+	    unlink(map[numMaps].fsPath);
+	    map[numMaps].mapFlags = CPIO_MAP_PATH;
+	    numMaps++;
+	}
+    }
+
+    qsort(map, numMaps, sizeof(*map), myCpioFileMapCmp);
+    rc = myCpioInstallArchive(fd, map, numMaps, NULL, NULL, &failedFile);
+
+    for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
+	if (!oldPaths[i]) {
+	    /* can't trust map; the order changed thanks to qsort */
+	    sprintf(fn, "/tmp/%s.o", modNames[i]);
+	    if (!access(fn, R_OK))
+		oldPaths[i] = strdup(fn);
+	    numMaps++;
+	}
+    }
+
+    return oldPaths;
 }
 
 void ddReadDriverDiskModInfo(moduleInfoSet modInfo) {

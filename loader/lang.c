@@ -21,6 +21,7 @@
 #include "loader.h"
 #include "lang.h"
 #include "log.h"
+#include "misc.h"
 #include "windows.h"
 
 #define errorWindow(String) \
@@ -50,13 +51,6 @@ static int aStringCmp(const void * a, const void * b) {
 	return 0;
 
     return 1;
-}
-
-static int simpleStringCmp(const void * a, const void * b) {
-    const char * first = *((const char **) a);
-    const char * second = *((const char **) b);
-
-    return strcmp(first, second);
 }
 
 char * translateString(char * str) {

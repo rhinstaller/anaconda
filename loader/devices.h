@@ -23,6 +23,7 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 void ddReadDriverDiskModInfo(moduleInfoSet modInfo);
 
 void ejectFloppy(void);
-char * extractModule(struct driverDiskInfo * location, char * modName);
+char ** extractModules(struct driverDiskInfo * location, 
+			const char * const * modNames, char ** oldPaths);
 
 #endif

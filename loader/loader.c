@@ -2430,11 +2430,8 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 		  NULL, NULL))
 	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
 
-    mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-
-    /* add a flag to skip this module load maybe ? */
-    mlLoadModule("usb-storage", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("hid:keybdev:usb-storage", NULL, modLoaded, modDeps, NULL, 
+		 modInfo, flags);
 
     return 0;
 }
@@ -2503,8 +2500,7 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
-    mlLoadModule("sd_mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("sr_mod", NULL, modLoaded, modDeps, NULL, modInfo, 
+    mlLoadModule("sd_mod:sr_mod", NULL, modLoaded, modDeps, NULL, modInfo, 
 		 flags);
 }
 
@@ -2655,9 +2651,6 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-#if 0
-    mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-#endif
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -2873,13 +2866,8 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("msdos", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("raid0:raid1:raid5:msdos:vfat:ext3:reiserfs", NULL, 
+		 modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 

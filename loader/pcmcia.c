@@ -144,16 +144,11 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 	}
     }
 
-    if (mlLoadModule(pcic, NULL, modLoaded, modDeps, NULL, 
-		     modInfo, flags)) {
-	logMessage("failed to load pcic");
-	umount("/modules");
-	return LOADER_ERROR;
-    }
+    sprintf("%s:ds", pcic);
 
-    if (mlLoadModule("ds", NULL, modLoaded, modDeps, NULL, 
-		     modInfo, flags)) {
-	logMessage("failed to load ds");
+    if (mlLoadModuleSet(pcic, NULL, modLoaded, modDeps, NULL, 
+		        modInfo, flags)) {
+	logMessage("failed to load pcic/ds");
 	umount("/modules");
 	return LOADER_ERROR;
     }
