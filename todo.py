@@ -302,7 +302,7 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
-        self.liloLinear = 0
+        self.liloLinear = 1
         self.liloAppend = None
         arch = iutil.getArch ()
 	if arch == "sparc":
