@@ -172,16 +172,25 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         else:
             return 0
 
-        if request.type == REQUEST_PREEXIST:
-            # get the drive
-            drive = partedUtils.get_partition_drive(partition)
+        if request.getPreExisting():
+            if isinstance(request, partRequests.PartitionSpec):
+                # get the drive
+                drive = partedUtils.get_partition_drive(partition)
 
-            if partition.type & parted.PARTITION_EXTENDED:
-                requestlist.deleteAllLogicalPartitions(partition)
+                if partition.type & parted.PARTITION_EXTENDED:
+                    requestlist.deleteAllLogicalPartitions(partition)
 
-            delete = partRequests.DeleteSpec(drive, partition.geom.start,
-                                             partition.geom.end)
-            requestlist.addDelete(delete)
+                delete = partRequests.DeleteSpec(drive, partition.geom.start,
+                                                 partition.geom.end)
+                requestlist.addDelete(delete)
+            elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
+                delete = partRequests.deleteLogicalVolumeSpec(request.logicalVolumeName,
+                                                              request.volumeGroup)
+                requestlist.addDelete(delete)
+            elif isinstance(request, partRequests.VolumeGroupRequestSpec):
+                delete = partRequests.deleteVolumeGroupSpec(request.volumeGroupName)
+                requestlist.addDelete(delete)
+            # FIXME: do we need to do anything with preexisting raids?
     else: # is this a extended partition we made?
         if partition.type & parted.PARTITION_EXTENDED:
             requestlist.deleteAllLogicalPartitions(partition)
