@@ -141,7 +141,7 @@ class SiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
     def getScreen (self):
-	(self.images, default) = self.todo.silo.getSiloImages(self.todo.fstab)
+	(self.images, defaultLabel) = self.todo.silo.getSiloImages(self.todo.fstab)
         self.ignoreSignals = 0
 
 	(mount, dev, fstype, format, size) = self.todo.fstab.mountList()[0]
