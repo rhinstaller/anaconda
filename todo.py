@@ -644,12 +644,14 @@ class ToDo:
 	f.close()
 
     def writeMouse(self):
+	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self.mouse))
 	f.close()
 	self.mouse.makeLink(self.instPath)
 
     def writeKeyboard(self):
+	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
 	f.write(str (self.keyboard))
 	f.close()

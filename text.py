@@ -95,6 +95,8 @@ class MouseDeviceWindow:
 
 class MouseWindow:
     def __call__(self, screen, todo):
+	if todo.serial:
+	    return INSTALL_NOOP
         mice = todo.mouse.available ().keys ()
         mice.sort ()
 	(default, emulate) = todo.mouse.get ()
@@ -146,6 +148,8 @@ class MouseWindow:
 
 class KeyboardWindow:
     def __call__(self, screen, todo):
+	if todo.serial:
+	    return INSTALL_NOOP
         keyboards = todo.keyboard.available ()
         keyboards.sort ()
         default = keyboards.index (todo.keyboard.get ())
@@ -496,6 +500,11 @@ class XConfigWindow:
 	    todo._cardindex = -1
             return INSTALL_OK
 
+	if todo.serial:
+	    # if doing serial installation and no card was probed,
+	    # assume no card is present (typical case).
+	    return INSTALL_NOOP
+
 	# if we didn't find a server, we need the user to choose...
 	carddb = todo.x.cards()
 	cards = carddb.keys ()
@@ -553,6 +562,11 @@ class XConfigWindow:
 class XconfiguratorWindow:
     def __call__ (self, screen, todo):
         if not todo.x.server: return INSTALL_NOOP
+
+	# if serial install, we can't run it.
+	if todo.serial:
+	    todo.x.skip = 1
+	    return INSTALL_NOOP
 
         # if Xconfigurator isn't installed, we can't run it.
         if not os.access (todo.instPath + '/usr/X11R6/bin/Xconfigurator',
@@ -776,7 +790,7 @@ class WaitWindow:
 class TimezoneWindow:
 
     def getTimezoneList(self, test):
-	if test:
+	if test and not os.access("/usr/lib/timezones.gz", os.R_OK):
 	    cmd = "./gettzlist"
 	    stdin = None
 	else:
@@ -905,6 +919,8 @@ class InstallInterface:
         self.screen.finish()
 
     def run(self, todo, test = 0):
+	if todo.serial:
+	    self.screen.suspendCallback(spawnShell, self.screen)
         self.commonSteps = [
             [_("Language Selection"), LanguageWindow, 
 		    (self.screen, todo), "language" ],
@@ -1037,4 +1053,11 @@ def debugSelf(screen):
     screen.suspend ()
     import pdb
     pdb.set_trace()
+    screen.resume ()
+
+def spawnShell(screen):
+    screen.suspend ()
+    print "\n\nType <exit> to return to the install program.\n"
+    iutil.execWithRedirect ("/bin/sh", ["-/bin/sh"])
+    time.sleep(5)
     screen.resume ()

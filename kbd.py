@@ -66,7 +66,9 @@ class Keyboard (SimpleConfigFile):
 			   kudzu.PROBE_ONE)
 	if list:
 	    (device, module, desc) = list[0]
-	    if desc[:8] == 'Sun Type':
+	    if desc[:14] == 'Serial console':
+		self.type = "Serial"
+	    elif desc[:8] == 'Sun Type':
 		self.type = "Sun"
 		if desc[8:1] == '4':
 		    self.model = 'type4'
@@ -92,6 +94,10 @@ class Keyboard (SimpleConfigFile):
 			self.layout = 'us'
 		    else:
 			self.layout = xx[0]
+	if self.type == "Sun":
+	    self.info["KEYBOARDTYPE"] = "sun"
+	elif self.type != "Serial":
+	    self.info["KEYBOARDTYPE"] = "pc"
 
     def available (self):
 	if self.type == "Sun":
@@ -111,6 +117,8 @@ class Keyboard (SimpleConfigFile):
 		"sunt5-uk",
 		"sunt5-us-cz",
 	    ]
+	if self.type == "Serial":
+	    return [ "us" ]
         return [
             "azerty",
             "be-latin1",
@@ -195,7 +203,8 @@ class Keyboard (SimpleConfigFile):
             ]
 
     def set (self, keytable):
-        self.info["KEYTABLE"] = keytable
+	if self.type != "Serial":
+	    self.info["KEYTABLE"] = keytable
 
     def get (self):
         if self.info.has_key ("KEYTABLE"):
