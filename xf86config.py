@@ -625,7 +625,7 @@ EndSection
             section = section + """
     Subsection "Display"
         Depth       %s
-        Modes        "1280x1024" "1024x768" "800x600" "640x480" 
+        Modes       "640x480" 
         ViewPort    0 0
     EndSubsection
 """ % (depth,)
