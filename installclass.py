@@ -136,7 +136,8 @@ class BaseInstallClass:
 	    dispatch.skipStep("betanag")
 
         # XXX ugh, this badly needs some clean up
-        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
+        if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
+            iutil.getArch() == "sparc"):
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
             dispatch.skipStep("fdasd", permanent = 1)
@@ -257,6 +258,7 @@ class BaseInstallClass:
         id.auth.useLdapauth = useLdapauth
         id.auth.ldapServer = ldapServer
         id.auth.ldapBasedn = ldapBasedn
+        id.auth.ldapTLS = useldapTls
 
         id.auth.useKrb5 = useKrb5
         id.auth.krb5Realm = krb5Realm
