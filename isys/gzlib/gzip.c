@@ -195,7 +195,7 @@ unsigned strstart;      /* start of string to insert */
 
 int to_stdout = 0;    /* output to stdout (-c) */
 int decompress = 0;   /* decompress (-d) */
-int force = 0;        /* don't ask questions, compress links (-f) */
+int force = 1;        /* don't ask questions, compress links (-f) */
 int no_name = -1;     /* don't save or restore the original file name */
 int no_time = -1;     /* don't save or restore the original file time */
 int recursive = 0;    /* recurse through directories (-r) */
@@ -204,12 +204,11 @@ int quiet = 0;        /* be very quiet (-q) */
 int do_lzw = 0;       /* generate output compatible with old compress (-Z) */
 int test = 0;         /* test .gz file integrity */
 int foreground;       /* set if program run in foreground */
-char *progname;       /* program name */
+char *progname = "gzlib";
 int maxbits = BITS;   /* max bits per code for LZW */
 int method = DEFLATED;/* compression method */
 int level = 6;        /* compression level */
 int exit_code = OK;   /* program exit code */
-int save_orig_name;   /* set if original name must be saved */
 int last_member;      /* set for .zip and .Z files */
 int part_nb;          /* number of parts in .gz file */
 time_t time_stamp;      /* original time stamp (modification time) */
@@ -239,7 +238,7 @@ local int input_eof	OF((void));
 local void treat_stdin  OF((void));
 local int  get_method   OF((int in));
 local void do_exit      OF((int exitcode));
-int (*work) OF((int infile, int outfile)) = NULL;
+int (*work) OF((int infile, int outfile)) = zip;
 
 #define strequ(s1, s2) (strcmp((s1),(s2)) == 0)
 
@@ -254,7 +253,7 @@ local void progerror (string)
 }
 
 /* ======================================================================== */
-int gunzip_main (void)
+int gunzip_main (int do_decompress_arg)
 {
     int file_count;     /* number of files to precess */
     int proglen;        /* length of progname */
@@ -264,17 +263,12 @@ int gunzip_main (void)
 
     EXPAND(argc, argv); /* wild card expansion if necessary */
 
-    progname = base_name (argv[0]);
     proglen = strlen(progname);
 
     /* Suppress .exe for MSDOS, OS/2 and VMS: */
     if (proglen > 4 && strequ(progname+proglen-4, ".exe")) {
         progname[proglen-4] = '\0';
     }
-
-    /* Add options in GZIP environment variable if there is one */
-    env = add_envopt(&argc, &argv, OPTIONS_VAR);
-    if (env != NULL) args = argv;
 
     foreground = signal(SIGINT, SIG_IGN) != SIG_IGN;
     if (foreground) {
@@ -291,22 +285,8 @@ int gunzip_main (void)
     }
 #endif
 
-#ifndef GNU_STANDARD
-    /* For compatibility with old compress, use program name as an option.
-     * If you compile with -DGNU_STANDARD, this program will behave as
-     * gzip even if it is invoked under the name gunzip or zcat.
-     *
-     * Systems which do not support links can still use -d or -dc.
-     * Ignore an .exe extension for MSDOS, OS/2 and VMS.
-     */
-    if (  strncmp(progname, "un",  2) == 0     /* ungzip, uncompress */
-       || strncmp(progname, "gun", 3) == 0) {  /* gunzip */
+    if (do_decompress_arg)
 	decompress = 1;
-    } else if (strequ(progname+1, "cat")       /* zcat, pcat, gcat */
-	    || strequ(progname, "gzcat")) {    /* gzcat */
-	decompress = to_stdout = 1;
-    }
-#endif
 
     z_suffix = Z_SUFFIX;
     z_len = strlen(z_suffix);
@@ -379,9 +359,11 @@ local void treat_stdin()
     to_stdout = 1;
     part_nb = 0;
 
-    method = get_method(ifd);
-    if (method < 0) {
-	do_exit(exit_code); /* error message already emitted */
+    if (decompress) {
+	method = get_method(ifd);
+	if (method < 0) {
+	    do_exit(exit_code); /* error message already emitted */
+	}
     }
 
     /* Actually do the compression/decompression. Loop over zipped members.
@@ -473,27 +455,8 @@ local int get_method(in)
 
 	/* Get original file name if it was truncated */
 	if ((flags & ORIG_NAME) != 0) {
-	    if (no_name || (to_stdout && !list) || part_nb > 1) {
-		/* Discard the old name */
-		char c; /* dummy used for NeXTstep 3.0 cc optimizer bug */
-		do {c=get_byte();} while (c != 0);
-	    } else {
-		/* Copy the base name. Keep a directory prefix intact. */
-                char *p = base_name (ofname);
-                char *base = p;
-		for (;;) {
-		    *p = (char)get_char();
-		    if (*p++ == '\0') break;
-		    if (p >= ofname+sizeof(ofname)) {
-			gzerror("corrupted input -- file name too large");
-		    }
-		}
-                /* If necessary, adapt the name to local OS conventions: */
-                if (!list) {
-                   MAKE_LEGAL_NAME(base);
-		   if (base) list=0; /* avoid warning about unused variable */
-                }
-	    } /* no_name || to_stdout */
+	    char c; /* dummy used for NeXTstep 3.0 cc optimizer bug */
+	    do {c=get_byte();} while (c != 0);
 	} /* ORIG_NAME */
 
 	/* Discard file comment if any */
@@ -504,7 +467,12 @@ local int get_method(in)
 	    header_bytes = inptr + 2*sizeof(long); /* include crc and size */
 	}
 
-    } 
+    } else if (force && to_stdout && !list) { /* pass input unchanged */
+	method = STORED;
+	work = copy;
+        inptr = 0;
+	last_member = 1;
+    }
     
     if (method >= 0) return method;
 
@@ -562,7 +530,7 @@ RETSIGTYPE abort_gzip()
 {
    if (remove_ofname) {
        close(ofd);
-       xunlink (ofname);
+       unlink (ofname);
    }
    do_exit(ERROR);
 }

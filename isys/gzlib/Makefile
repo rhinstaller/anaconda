@@ -1,16 +1,19 @@
 include ../../Makefile.inc
 
 CFLAGS += -I . -g
-SOURCES = bits.c gzip.c inflate.c lzw.c trees.c unzip.c util.c zip.c binding.c
-OBJS = bits.o gzip.o inflate.o lzw.o trees.o unzip.o util.o zip.o binding.o
-
+SOURCES = bits.c gzip.c inflate.c lzw.c trees.c unzip.c util.c zip.c binding.c \
+	  deflate.c zip.c
+OBJS = $(patsubst %.c,%.o,$(SOURCES))
 DOBJS = $(patsubst %.o,%.do,$(OBJS))
 
 ifeq (i386, $(ARCH))
 DIETLIB=libgunzip-diet.a($(DOBJS))
 endif
 
-all: libgunzip.a($(OBJS)) $(DIETLIB)
+all: libgunzip.a($(OBJS)) $(DIETLIB) test
+
+test: libgunzip.a
+	$(CC) $(CFLAGS) -o test test.c libgunzip.a
 
 clean:	
 	rm -f libgunzip.a $(OBJS) $(DOBJS)

@@ -27,7 +27,8 @@ gzFile gunzip_dopen(int fd) {
 	dup2(p[1], 1);
 	close(p[0]);
 	close(p[1]);
-	gunzip_main();
+	if (fd > 2) close(fd);
+	gunzip_main(1);
 	exit(0);
     }
 
@@ -48,7 +49,51 @@ gzFile gunzip_open(const char * file) {
     fd = open(file, O_RDONLY);
     if (fd < 0) return NULL;
 
-    return gunzip_dopen(fd); 
+    return gunzip_dopen(fd);
+}
+
+gzFile gzip_dopen(int fd) {
+    int p[2];
+    void * oldsig;
+    pid_t child;
+    gzFile str;
+
+    pipe(p);
+
+    oldsig = signal(SIGCLD, SIG_IGN);
+
+    child = fork();
+    if (!child) {
+	if (fork()) exit(0);
+
+	dup2(p[0], 0);
+	dup2(fd, 1);
+	close(p[0]);
+	close(p[1]);
+	if (fd > 2) close(fd);
+	gunzip_main(0);
+	exit(0);
+    }
+
+    waitpid(child, NULL, 0);
+    signal(SIGCLD, oldsig);
+
+    close(p[0]);
+
+    str = malloc(sizeof(*str));
+    str->fd = p[1];
+
+    return str;
+}
+
+
+gzFile gzip_open(const char * file, int flags) {
+    int fd;
+
+    fd = open(file, flags);
+    if (fd < 0) return NULL;
+
+    return gzip_dopen(fd);
 }
 
 int gunzip_read(gzFile str, void * buf, int bytes) {
@@ -64,7 +109,17 @@ int gunzip_read(gzFile str, void * buf, int bytes) {
     return pos;
 }
 
+int gzip_write(gzFile str, void * buf, int bytes) {
+    return write(str->fd, buf, bytes);
+}
+
 int gunzip_close(gzFile str) {
+    close(str->fd);
+    
+    return 0;
+}
+
+int gzip_close(gzFile str) {
     close(str->fd);
     
     return 0;
