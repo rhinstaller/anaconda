@@ -947,6 +947,6 @@ if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
 
    if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
-    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/share/hwdata/Cards
    fi
 fi
