@@ -216,7 +216,6 @@ class LanguageSupportWindow (InstallWindow):
                     self.language.append_row((locale, ""), FALSE)
                     
             self.maxrows = self.maxrows + 1
-            self.todo.langMaxRows = self.maxrows
             
         self.combo.set_popdown_strings (list)
 #        print sel
