@@ -1,13 +1,3 @@
-# 
-#
-#
-#
-#
-#
-#
-#
-#
-#
 # translation of et.po to Estonian
 #
 # Anaconda eesti keele tõlge.
@@ -22,7 +12,7 @@ msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-09 08:54+0200\n"
+"PO-Revision-Date: 2004-09-25 11:54+0200\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2541,7 +2531,7 @@ msgid "DDC Probed Monitor"
 msgstr "Automaatselt tuvastatud monitor"
 
 #: ../zfcp.py:27
-#, fuzzy
+#
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -3275,14 +3265,14 @@ msgid "_Enable firewall"
 msgstr "_Kasuta tulemüüri"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
+#
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Läbi tulemüüri võid sa lubada teistele arvutitele ligipääsu teatud "
-"teenustele. Millistele teenustele lubada ligipääsu?"
+"Läbi tulemüüri võid sa lubada teistele arvutitele ligipääsu oma arvuti teatud "
+"teenustele. Millistele teenustele, kui üldse, lubada ligipääsu?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -5944,9 +5934,9 @@ msgid "No Volume Groups"
 msgstr "Puuduvad kettagrupid"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
+#
 msgid "No volume groups in which to create a logical volume"
-msgstr "Puudub kettagrupp, mille sisse loogilist ketast luua."
+msgstr "Puuduvad kettagrupid, millesse loogilist ketast luua."
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -6651,7 +6641,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6661,13 +6651,18 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tGraafiline töölaud (GNOME)\n"
+"\tAdministreerimise vahendid\n"
+"\tServeri seadistamise vahendid\n"
+"\tVeebiserver\n"
+"\tWindowsi Faili Server (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
+#
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6685,17 +6680,18 @@ msgstr ""
 "\tSõnumivahetus (Instant Messaging)\n"
 "\tAudio- ja videoprogrammid\n"
 "\tMängud\n"
+"\tAdministreerimise vahendid\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
+#
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6714,8 +6710,8 @@ msgstr ""
 "\tSõnumivahetus\n"
 "\tAudio- ja videoprogrammid\n"
 "\tMängud\n"
-"\tArendusvahendid\n"
-"\tAdministreerimisvahendid\n"
+"\tTarkvara arendusvahendid\n"
+"\tAdministreerimise vahendid\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -8326,9 +8322,9 @@ msgid "Bengali"
 msgstr "bengali keel"
 
 #. generated from lang-table
-#, fuzzy
+#
 msgid "Bengali(India)"
-msgstr "bengali keel"
+msgstr "bengali keel (India)"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8385,7 +8381,7 @@ msgstr "saksa keel"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
