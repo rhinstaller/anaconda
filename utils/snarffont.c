@@ -14,7 +14,7 @@ void die(char * mess) {
 #define MAXFONTSIZE	65536
 
 int main(void) {
-    char buf[MAXFONTSIZE];
+    unsigned char buf[MAXFONTSIZE];
     struct console_font_op cfo;
     unsigned short map[E_TABSZ];
     struct unipair descs[2048];
