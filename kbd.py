@@ -64,6 +64,7 @@ class Keyboard (SimpleConfigFile):
             ("sg"    		 , ('pc102', 'de_CH', '')),
             ("sg-latin1"         , ('pc102', 'de_CH', '')),
             ("sk-qwerty"         , ('pc102', 'us_sk_qwerty', '')),
+            ("slovene"           , ('pc102', 'si', '')),
             ("trq"	         , ('pc102', 'tr', '')),
             ("uk"                , ('pc101', 'gb', '')),
             ("us"                , ('pc105', 'us', '')),
