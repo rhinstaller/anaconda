@@ -123,11 +123,18 @@ class HeaderList:
 	rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
 	os.close(fd)
 
+    def preordered(self):
+        preordered = 1
+	for h in self.selected():
+            if h[1000003] == None:
+                preordered = 0
+        return preordered
+
+
     def __init__(self, hdlist, compatPackages = None, noscore = 0):
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
-        self.preordered = 1
 	for h in hdlist:
             if h[1000003] == None:
                 self.preordered = 0
