@@ -12,6 +12,7 @@ class CongratulationWindow (InstallWindow):
         ics.setPrevEnabled (0)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
         ics.setNextEnabled (1)
+	ics.setGrabNext (1)
 
     def getScreen (self):
         self.ics.setHelpEnabled (0)
@@ -41,6 +42,5 @@ class CongratulationWindow (InstallWindow):
         box.pack_start (label, TRUE, TRUE, 0)
 
         hbox.pack_start (box)
-
         return hbox
 

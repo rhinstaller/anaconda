@@ -441,6 +441,9 @@ class InstallControlWindow (Thread):
         if self.displayHelp:
             self.html.source (ics.getHTML ())
 
+        if (ics.getGrabNext ()):
+            buttons["next"].grab_focus ()
+
     def __init__ (self, ii, steps, todo):
         Thread.__init__ (self)
         self.ii = ii
@@ -554,6 +557,7 @@ class InstallControlState:
         self.nextButtonLabel = None
         self.prevButtonLabel = None
         self.helpEnabled = 3 # Values other than TRUE or FALSE don't change the help setting
+        self.grabNext = 0
 
     def getState (self):
         return (self.title, prevEnabled, nextEnabled, prevText, nextTest)
@@ -657,6 +661,13 @@ class InstallControlState:
 
     def getHelpEnabled (self):
         return self.helpEnabled
+
+    def setGrabNext (self, value):
+        self.grabNext = value
+        self.cw.update (self)
+
+    def getGrabNext (self):
+        return self.grabNext
 
     def getICW (self):
         return self.cw
