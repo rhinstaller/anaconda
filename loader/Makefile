@@ -63,19 +63,18 @@ STATIC=-static
 endif
 endif
 
-ifeq (1, $(KON))
-LANGS = ja
-else
-LANGS = $(shell awk '{ print $$2 }' ../lang-table | grep -v '^en$$')
-endif
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)|(^ja$$)')
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
 
-all: dirs $(BINS) loader.tr
+all: dirs $(BINS) loader.tr loader-kon.tr
 
 loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o | gzip -9) > $@
+
+loader-kon.tr: tr/ja.tr ../lang-table
+	(cd tr; echo ja.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po: *.c
 	xgettext --default-domain=loader --add-comments \
