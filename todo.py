@@ -303,7 +303,7 @@ class ToDo:
 	if iutil.getArch() == "sparc":
 	    try:
 		f = open(self.fdDevice, "r")
-	    except Exception, (errnum, msg):
+	    except IOError, (errnum, msg):
 		if errno.errorcode[errnum] == 'ENXIO':
 		    self.fdDevice = "/dev/fd1"
 	    else:
@@ -1261,6 +1261,8 @@ class ToDo:
 	self.getHeaderList()
 	self.getCompsList()
 
+        arch = iutil.getArch ()
+
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
@@ -1426,7 +1428,6 @@ class ToDo:
 	    if (self.instClass.defaultRunlevel):
 		self.initlevel = self.instClass.defaultRunlevel
 		self.setDefaultRunlevel ()
-            arch = iutil.getArch ()
             
             # pcmcia is supported only on i386 at the moment
             if arch == "i386":
@@ -1452,10 +1453,11 @@ class ToDo:
 	    devnull = os.open("/dev/null", os.O_RDWR)
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
-	if self.silo:
-	    self.silo.installSilo ()
-	else:
-	    self.installLilo ()
+        if arch != "alpha":
+            if self.silo:
+                self.silo.installSilo ()
+            else:
+                self.installLilo ()
 
 	if self.instClass.postScript:
 	    scriptRoot = "/"
