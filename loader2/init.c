@@ -531,6 +531,13 @@ int main(int argc, char **argv) {
                           "/dev/hvsi0", "/dev/hvsi1",
                           "/dev/hvsi2", /* hvsi for POWER5 */
                           NULL };
+    struct termios cmode, mode;
+    int cfd;
+    
+    cfd =  open("/dev/console", O_RDONLY);
+    tcgetattr(cfd,&cmode);
+    close(cfd);
+
 #elif defined (__ia64__)
     char * consoles[] = { "/dev/ttySG0", NULL };
 #else
@@ -538,13 +545,6 @@ int main(int argc, char **argv) {
 #endif
     for (i = 0; consoles[i] != NULL; i++) {
 #if defined(__powerpc__)
-        int cfd;
-        struct termios cmode, mode;
-
-        cfd =  open("/dev/console", O_RDONLY);
-        tcgetattr(cfd,&cmode);
-        close(cfd);
-
         if ((fd = open(consoles[i], O_RDWR)) >= 0 && !tcgetattr(fd, &mode) && !termcmp(&cmode, &mode)) {
 #else
         if ((fd = open(consoles[i], O_RDWR)) >= 0) {
