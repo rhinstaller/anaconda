@@ -70,7 +70,9 @@ class ZFCPWindow:
             elif (result  == TEXT_OK_CHECK or result == TEXT_F12_CHECK):
                 # FIXME: do sanity checking here
 
-                fcpdev = (devEntry.value(), sidEntry.value(), wwpnEntry.value(), slunEntry.value(), fcplunEntry.value())
+                fcpdev = (string.lower(devEntry.value()), string.lower(sidEntry.value()),
+                          string.lower(wwpnEntry.value()), string.lower(slunEntry.value()),
+                          string.lower(fcplunEntry.value()))
                 res = fcpdev
                 break
 
@@ -174,6 +176,7 @@ class ZFCPWindow:
 
         # FIXME: this should be common between tui & gui
         fcp.writeFcpSysfs(fcp.fcpdevices)
+        fcp.writeModprobeConf(fcp.fcpdevices)
         isys.flushDriveDict()
         self.diskset.refreshDevices(intf)
         try:

@@ -20,6 +20,7 @@ from rhpl.translate import _, N_
 import os
 import isys
 import iutil
+import string
 
 class ZFCPWindow(InstallWindow):
 
@@ -177,7 +178,7 @@ class ZFCPWindow(InstallWindow):
             rc = addWin.run()
             if rc == 1:
                 for t in range(len(self.options)):
-                    tmpvals[t] = entrys[t].get_text()
+                    tmpvals[t] = string.lower(entrys[t].get_text())
                     if tmpvals[t] == "":
                         self.options[t][2]()   # FIXME: This hides addWin behind the main window
                         invalid = 1

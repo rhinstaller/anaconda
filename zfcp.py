@@ -86,10 +86,13 @@ class ZFCP:
                      fo.write("1")
                      fo.close()
                   except:
+                     log("opening %s failed" %(fno,))
                      continue
                except:
+                  log("opening %s failed" %(fnu,))
                   continue
             except:
+               log("opening %s failed" %(fnp,))
                continue
 
     def writeModprobeConf(self, fcpdevices):
@@ -109,7 +112,7 @@ class ZFCP:
             if not foundalias:
                 try:
                     f = open("/tmp/modprobe.conf", "a")
-                    f.write("alias scsi_hostadapter zfcp")
+                    f.write("alias scsi_hostadapter zfcp\n")
                     f.close()
                 except:
                     pass
@@ -151,7 +154,7 @@ class ZFCP:
             lines = f.readlines()
             f.close()
             for line in lines:
-                line = string.strip(line)
+                line = string.lower(string.strip(line))
                 fcpconf = string.split(line)
                 if len(line) > 0  and (len(fcpconf) != 5 or fcpconf[0][:1] == "#"):   # nonempty but invalid line or comment
                     continue
