@@ -49,6 +49,7 @@
 #include "log.h"
 #include "modules.h"
 #include "net.h"
+#include "pcmcia.h"
 #include "urls.h"
 #include "windows.h"
 
@@ -888,6 +889,12 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	free(class);
     }
 
+#ifdef INCLUDE_PCMCIA
+    for (i = 0; i < numMethods; i++) {
+	installNames[numValidMethods] = installMethods[i].name;
+	validMethods[numValidMethods++] = i;
+    }
+#else
     for (i = 0; i < numMethods; i++) {
 	if ((networkAvailable && installMethods[i].network) ||
 		(localAvailable && !installMethods[i].network)) {
@@ -897,12 +904,13 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	    validMethods[numValidMethods++] = i;
 	}
     }
+#endif
 
     installNames[numValidMethods] = NULL;
 
     if (!numValidMethods) {
 	logMessage("no install methods have the required devices!\n");
-	return NULL;
+	exit(1);
     }
 
     do { 
@@ -978,15 +986,22 @@ int main(int argc, char ** argv) {
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0,
 	    	"display a list of probed pci devices" },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
-	    POPT_AUTOHELP
 	    { 0, 0, 0, 0, 0 }
     };
 
+    if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
+	return ourInsmodCommand(argc, argv);
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
+	return rmmod_main(argc, argv);
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe")) {
+	return ourInsmodCommand(argc, argv);
+    }
+
 #ifdef INCLUDE_PCMCIA
-    if (!strcmp(argv[0] - strlen(argv[0]) - 7, "cardmgr"))
-	cardmgr_main(argv, argc);
-    else if (!strcmp(argv[0] - strlen(argv[0]) - 5, "probe"))
-	probe_main(argv, argc);
+    if (!strcmp(argv[0] + strlen(argv[0]) - 7, "cardmgr"))
+	return cardmgr_main(argc, argv);
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "probe"))
+	return probe_main(argc, argv);
 #endif
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
@@ -1018,13 +1033,18 @@ int main(int argc, char ** argv) {
     openLog(FL_TESTING(flags));
 
     kd = kdInit();
+    mlReadLoadedList(&modLoaded);
+    modDeps = mlNewDeps();
+    mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+#ifdef INCLUDE_PCMCIA
+    startPcmcia(modLoaded, modDeps, flags);
+    logMessage("pcmcia initialized");
+#endif
 
     kdFindIdeList(&kd);
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
-    mlReadLoadedList(&modLoaded);
-    modDeps = mlNewDeps();
-    mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
