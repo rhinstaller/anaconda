@@ -123,6 +123,16 @@ class NetworkDevice(SimpleConfigFile):
     def __init__(self, dev):
         self.info = { "DEVICE" : dev,
                       "ONBOOT": "no" }
+	if dev.startswith('ctc'):
+	    self.info["TYPE"] = "CTC"
+	elif dev.startswith('iucv'):
+	    self.info["TYPE"] = "IUCV"
+	elif dev.startswith('escon'):
+	    self.info["TYPE"] = "ESCON"
+	elif dev.startswith('tr'):
+	    self.info["TYPE"] = "Token Ring"
+	else:
+	    self.info["TYPE"] = "Ethernet"
 
 class Network:
     def __init__(self):
