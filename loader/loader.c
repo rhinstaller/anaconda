@@ -653,10 +653,14 @@ int main(int argc, char ** argv) {
     unlink("/modules/modules.cgz");
     unlink("/modules/pcitable");
 
-    symlink("mnt/source/RedHat/instimage/modules/modules.dep", "/modules");
-    symlink("mnt/source/RedHat/instimage/modules/modules-info", "/modules");
-    symlink("mnt/source/RedHat/instimage/modules/modules.cgz", "/modules");
-    symlink("mnt/source/RedHat/instimage/modules/pcitable", "/modules");
+    symlink("../mnt/source/RedHat/instimage/modules/modules.dep",
+	    "/modules/modules.dep");
+    symlink("../mnt/source/RedHat/instimage/modules/module-info",
+	    "/modules/module-info");
+    symlink("../mnt/source/RedHat/instimage/modules/modules.cgz",
+	    "/modules/modules.cgz");
+    symlink("../mnt/source/RedHat/instimage/modules/pcitable",
+	    "/modules/pcitable");
 
     if (newtRunning) newtFinished();
     closeLog();

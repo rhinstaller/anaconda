@@ -13,4 +13,5 @@ clean:
 	rm -f *.o $(TARGET)
 
 install: all
+	mkdir -p $(DESTDIR)
 	cp $(TARGET) $(DESTDIR)
