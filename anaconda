@@ -233,8 +233,21 @@ from kickstart import Kickstart
 # override display mode if machine cannot nicely run X
 #
 if (not test):
-    if (iutil.memInstalled() < 35000):
+    if (iutil.memInstalled() < isys.MIN_GUI_RAM):
 	forced_display_mode = 't'
+
+if iutil.memInstalled() < isys.MIN_RAM:
+    from snack import *
+
+    screen = SnackScreen()
+    ButtonChoiceWindow(screen, _('Fatal Error'),
+			_('You do not have enough RAM to install Red Hat '
+			  'Linux on this machine.\n'
+			  '\n'
+			  'Press <return> to reboot your system.\n'), 
+			  buttons = (_("OK"),))
+    screen.finish()
+    sys.exit(0)
 
 #
 # handle class passed from loader
