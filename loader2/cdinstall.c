@@ -250,7 +250,8 @@ static void queryCDMediaCheck(char *dev, int flags) {
   writeISOStatus(isostatus, mediasum);
 
   /* see if we should check image(s) */
-  if (!isostatus || FL_MEDIACHECK(flags)) {
+  /* in rescue mode only test if they explicitly asked to */
+  if ((!isostatus && !FL_RESCUE(flags)) || FL_MEDIACHECK(flags)) {
     
     startNewt(flags);
     rc = newtWinChoice(_("CD Found"), _("OK"),
@@ -317,8 +318,8 @@ char * setupCdrom(char * location,
             devMakeInode(kd->known[i].name, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL)) {
-                if (!access("/mnt/source/.discinfo", R_OK) &&
-		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+                if (!access("/mnt/source/RedHat/base/stage2.img", R_OK) &&
+		    (FL_RESCUE(flags) || !access("/mnt/source/.discinfo", R_OK))) {
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
