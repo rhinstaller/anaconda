@@ -106,10 +106,11 @@ class FirewallWindow (InstallWindow):
         box.pack_start (self.table, gtk.FALSE, 5)
 
         y = 0
-        label = gui.WrappingLabel (_("With a firewall, you may wish to "
-                                     "allow access to specific services on "
-                                     "your computer from others.  "
-                                     "Allow access to which services?"))
+        label = gui.WrappingLabel (_("You can use a firewall to allow "
+                                     "access to specific services on your "
+                                     "computer from other computers. Which "
+                                     "services, if any, do you wish to "
+                                     "allow access to ?"))
 	label.set_size_request(400, -1)
         label.set_alignment(0.0, 0.0)
         self.table.attach(label, 0, 2, y, y + 1, gtk.EXPAND | gtk.FILL, gtk.FILL, 5, 5)
