@@ -40,7 +40,8 @@ class DesktopChoiceWindow:
 	toplevel.add (customize, 0, 3, (0, 0, 0, 1))	 
 	toplevel.add (bb, 0, 4, (0, 0, 0, 0), growx = 1)
 
-	rc = toplevel.run()
+	result = toplevel.run()
+        rc = bb.buttonPressed (result)
 	if rc == TEXT_BACK_CHECK:
 	    screen.popWindow()
 	    return INSTALL_BACK
