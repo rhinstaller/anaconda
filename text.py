@@ -185,7 +185,6 @@ class AuthConfigWindow:
         return INSTALL_OK
 
 class NetworkWindow:
-            
     def run(self, screen, todo):
         def setsensitive (self):
             if self.cb.selected ():
@@ -223,7 +222,7 @@ class NetworkWindow:
                     self.ns.set (ns)
 
         devices = todo.network.available ()
-        if not devices.items () == 0:
+        if devices.items () == 0:
             return INSTALL_NOOP
         dev = devices[devices.keys ()[0]]
 
@@ -268,24 +267,35 @@ class NetworkWindow:
         toplevel.add (bb, 0, 2, growx = 1)
 
         setsensitive (self)
-        
-        result = toplevel.runOnce ()
-        
-        if self.cb.selected ():
-            dev.set (("bootproto", "dhcp"))
-            dev.unset ("ipaddr", "netmask", "network", "broadcast")
-        else:
-            self.calculateIPs ()
+
+        while 1:
+            result = toplevel.run ()
+            if self.cb.selected ():
+                dev.set (("bootproto", "dhcp"))
+                dev.unset ("ipaddr", "netmask", "network", "broadcast")
+            else:
+                try:
+                    (network, broadcast) = isys.inet_calcNetBroad (self.ip.value (), self.nm.value ())
+                except:
+                    ButtonChoiceWindow(screen, _("Invalid information"),
+                                       _("You must enter valid IP information to continue"),
+                                       buttons = [ _("Ok") ])
+                    continue
+
             dev.set (("bootproto", "static"))
             dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
-                     ("network", self.network), ("broadcast", self.broadcast))
+                     ("network", network), ("broadcast", broadcast))
             todo.network.gateway = self.gw.value ()
             todo.network.primaryNS = self.ns.value ()
             todo.network.guessHostnames ()
+            screen.popWindow()
+            break
                      
         dev.set (("onboot", "yes"))
 
         rc = bb.buttonPressed (result)
+
+        todo.log ("\"" + dev.get ("device") + "\"")
 
         if rc == "back":
             return INSTALL_BACK

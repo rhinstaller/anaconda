@@ -85,7 +85,7 @@ class Network:
             info = {}
             for line in lines:
                 netinf = string.splitfields (line, '=')
-                info [netinf[0]] = netinf[1]
+                info [netinf[0]] = string.strip (netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice (info["DEVICE"])
             if info.has_key ("IPADDR"):
                 self.netdevices [info["DEVICE"]].set (("IPADDR", info["IPADDR"]))
