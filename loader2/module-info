@@ -885,6 +885,9 @@ fdomain_cs
 qlogic_cs
         scsi_hostadapter
         "Qlogic PCMCIA SCSI driver"
+ide-cs
+	ide
+	"PCMCIA IDE driver"
 
 # pcmcia host controllers
 yenta_socket
