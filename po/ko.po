@@ -7,13 +7,12 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-07-23 14:03+1000\n"
-"Last-Translator: Michelle J Kim <mkim@redhat.com>\n"
+"PO-Revision-Date: 2004-09-12 16:02+1000\n"
+"Last-Translator: David Sungmin Joo <djoo@redhat.com>\n"
 "Language-Team:  <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -187,9 +186,8 @@ msgid "Using mouse type: %s"
 msgstr "사용할 마우스 유형: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "%s 설치에 필요한 사항을 검색하고 있습니다... "
+msgstr "그래픽 설치 시작중..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,12 +245,11 @@ msgstr ""
 "OpenFirmware는 이 설치를 부팅하지 못할 것입니다."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다. "
-"부팅 디스켓을 만드시는 것을 권장합니다."
+"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1064,7 +1061,7 @@ msgstr "재시도(_R)"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "설치프로그램을 나가겠습니다..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2564,53 +2561,49 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "z시리즈 기계들은 보통 SCSI 장치들을 Fiber 채널 (FCP)를 통해 사용하실 수 "
+"있습니다. 각 장치들의, 16비트 장치 번호, 16비트 SCSI ID, 64비트 세계 포트 번호 (WWPN),"
+"16비트 SCSI LUN 그리고 64비트 FCP LUN 의 5가지 변수가 필요합니다."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "장치"
+msgstr "장치 번호"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "호스트명을 지정하지 않으셨습니다."
+msgstr "장치 번호를 지정하지 않으셨거나, 번호가 맞지 않습니다"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "호스트명을 지정하지 않으셨습니다."
+msgstr "SCSI ID를 지정하지 않으셨거나, ID가 맞지 않습니다"
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "호스트명을 지정하지 않으셨습니다."
+msgstr "포트 이름을  지정하지 않으셨거나, 포트 번호가 맞지 않습니다"
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "호스트명을 지정하지 않으셨습니다."
+msgstr "SCSI LUN을 지정하지 않으셨거나, LUN 번호가 맞지 않습니다"
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "호스트명을 지정하지 않으셨습니다."
+msgstr "FCP LUN을 지정하지 않으셨거나, LUN 번호가 맞지 않습니다"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3305,7 +3298,6 @@ msgstr ""
 "있습니다. 어느 서비스를 허용하시겠습니까?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -5132,35 +5124,31 @@ msgid "_Skip X configuration"
 msgstr "X 설정 생략(_S)"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC 설정"
+msgstr "ZFCP 설정"
 
 #: ../iw/zfcp_gui.py:99
-#, fuzzy
 msgid "_Remove"
-msgstr "재설정(_R)"
+msgstr "제거(_R)"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "장치"
+msgstr "FCP 장치들"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "장치 추가"
+msgstr "FCP 장치 추가"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "LVM 장치 편집"
+msgstr "FCP 장치 %s 편집"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "지금 설정에서 FCP 디스크를 제거 하시려 합니다. 계속 하시겠습니까?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5881,9 +5869,8 @@ msgid "End Cylinder:"
 msgstr "실린더의 끝:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "볼륨 그룹명:"
+msgstr "볼륨 그룹:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6006,49 +5993,43 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "RAID0 어레이에 구성된 여분(spare)의 최대 수는 '0' 입니다."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM 볼륨 그룹"
+msgstr "볼륨 그룹 없음"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "논리 볼륨명을 입력해 주십시오."
+msgstr "논리 볼륨안에 만들 볼륨 그룹 없음."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
-"다. 이 최대 논리 볼륨 용량을 증가시키기 위해서는 이 볼륨 그룹에 해당하는 물리"
-"적 범위 용량을 증가하시면 됩니다."
+"다. "
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "현재 요청하신 용량이 (%10.2f MB)이 최대 논리 볼륨 용량 (%10.2f MB) 보다 큽니"
+"다. "
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "논리 볼륨 편집"
+msgstr "새로운 파티션 혹은 논리 볼륨?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "부트 파티션은 논리 볼륨에 지정하실 수 없습니다."
+msgstr "새로운 파티션 혹은 새로운 논리 볼륨을 만드시겠습니까?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
 msgstr "파티션"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
 msgstr "논리 볼륨"
 
@@ -6654,40 +6635,36 @@ msgid "Video RAM:"
 msgstr "비디오 카드의 램 용량:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "장치"
+msgstr "장치 번호:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "장치"
+msgstr "FCP 장치"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "장치"
+msgstr "장치 #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "제거"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7108,7 +7085,7 @@ msgstr "하드 드라이브에서 킥스타트 파일을 찾을 수 없습니다
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "바이오스 디스크 %s를 위한 하드 드라이브를 찾을수 없습니다"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7752,7 +7729,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "부에노스 아이레스 (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7832,7 +7809,7 @@ msgstr "채텀 군도 (Chatham Islands)"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "추부트 (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7989,7 +7966,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "라 리오하 (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8096,9 +8073,8 @@ msgid "most locations"
 msgstr "대부분 지역"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "대부분 지역 (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "대부분 지역 (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8240,11 +8216,11 @@ msgstr "사바주 (Sabah)와 사라와크주 (Sarawak)"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "산 후안 (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "산타 크루즈 (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8292,7 +8268,7 @@ msgstr "티벳 & 대부분의 신강 유오이 자치구"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "티에라 델 푸에고 (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8304,7 +8280,7 @@ msgstr "트루크 제도 (츄크 Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "투쿠만 (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8363,9 +8339,8 @@ msgid "Bengali"
 msgstr "벵갈어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "헝가리어"
+msgstr "불가리어"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8456,9 +8431,8 @@ msgid "Persian"
 msgstr "페르시아어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "영어"
+msgstr "폴란드"
 
 #. generated from lang-table
 msgid "Portuguese"
