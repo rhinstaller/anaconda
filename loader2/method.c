@@ -495,7 +495,7 @@ int copyDirectory(char * from, char * to) {
                 fchmod(outfd, sb.st_mode & 07777);
 
                 while ((i = read(fd, buf, sizeof(buf))) > 0)
-                    write(outfd, buf, i);
+                    i = write(outfd, buf, i);
                 close(outfd);
             }
 
@@ -537,7 +537,7 @@ int verifyStamp(char * path) {
     char *stamp1;
     char *stamp2;
     FILE *f;
-    int fail = 0;
+    int fail = 0, ret;
     char * p;
 
     stamp1 = alloca(13);
@@ -548,7 +548,7 @@ int verifyStamp(char * path) {
     if (!f) {
         fail = 1;
     } else {
-        fgets(stamp1, 13, f);
+        ret = fgets(stamp1, 13, f);
 	fclose(f);
 
         /* and the runtime */
@@ -558,7 +558,7 @@ int verifyStamp(char * path) {
         if (!f) {
             fail = 1;
         } else {
-            fgets(stamp2, 13, f);
+            ret = fgets(stamp2, 13, f);
 	    fclose(f);
 
             if (strncmp(stamp1, stamp2, 12) != 0) {
