@@ -1424,8 +1424,11 @@ class FileSystemSet:
                                         searchPath = 1)
             
             rootDev = "/dev/%s" % (root.device.getDevice(),)
-            os.makedirs(instPath + rootDev[:string.rfind(rootDev, "/")])
-            iutil.copyDeviceNode(rootDev, instPath + rootDev)
+            dir = rootDev[:string.rfind(rootDev, "/")]
+            if not os.access(instPath + dir, os.X_OK):
+                os.makedirs(instPath + dir)
+            if not os.access(instPath + rootDev):
+                iutil.copyDeviceNode(rootDev, instPath + rootDev)
 
 #        raise RuntimeError
 
