@@ -305,6 +305,13 @@ class LoopSizeWindow:
 				% (avail, )),
 			buttons = [ _("OK") ])
 		continue
+	    if size > 2000 or swapSize > 2000:
+		ButtonChoiceWindow(screen, _("Bad Size"),
+			_("Neither the root file system size "
+			  "nor the swap space size may be greater then "
+			  "2000 megabytes."),
+			buttons = [ _("OK") ])
+		continue
 
 	    break
 
