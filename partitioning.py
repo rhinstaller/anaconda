@@ -215,6 +215,15 @@ def get_lvm_partitions(disk):
     return filter_partitions(disk, func)
 
 # returns a list of the actual raid device requests
+def get_lvm_volume_groups(requests):
+    raidRequests = []
+    for request in requests:
+        if request.type == REQUEST_VG:
+            raidRequests.append(request)
+            
+    return raidRequests
+
+# returns a list of the actual raid device requests
 def get_raid_devices(requests):
     raidRequests = []
     for request in requests:
@@ -275,15 +284,26 @@ def get_available_lvm_partitions(diskset, requests, request):
     rc = []
     drives = diskset.disks.keys()
     drives.sort()
+    volgroups = get_lvm_volume_groups(requests.requests)
     for drive in drives:
         disk = diskset.disks[drive]
         for part in get_lvm_partitions(disk):
             partname = get_partition_name(part)
-            used = 0
-            # XXX doesn't actually figure out if it's used
+	    partrequest = requests.getRequestByDeviceName(partname)
+	    used = 0
+	    for volgroup in volgroups:
+		if volgroup.physicalVolumes:
+		    if partrequest.uniqueID in volgroup.physicalVolumes:
+			if request and request.uniqueID and volgroup.uniqueID == request.uniqueID:
+			    used = 2
+			else:
+			    used = 1
 
-            if not used:
-                rc.append((partname, getPartSizeMB(part), 0))
+		if used:
+		    break
+
+	    if used == 0:
+		rc.append((partname, getPartSizeMB(part), 0))
             elif used == 2:
                 rc.append((partname, getPartSizeMB(part), 1))
     return rc
@@ -386,7 +406,8 @@ def sanityCheckMountPoint(mntpt, fstype, reqtype):
             return None
     else:
         if (fstype and fstype.isMountable() and
-            (reqtype == REQUEST_NEW or reqtype == REQUEST_RAID)):
+            (reqtype == REQUEST_NEW or reqtype == REQUEST_RAID or reqtype ==
+	     REQUEST_VG or reqtype == REQUEST_LV)):
             return _("Please specify a mount point for this partition.")
         else:
             # its an existing partition so don't force a mount point
@@ -1028,12 +1049,24 @@ class Partitions:
         for request in self.requests:
             if request.mountpoint == mount:
                 return request
+	    
+	for request in self.requests:
+	    if request.type == REQUEST_LV and request.mountpoint == mount:
+		return request
         return None
 
     def getRequestByDeviceName(self, device):
         for request in self.requests:
             if request.device == device:
                 return request
+
+	# now look for a Volume group or logical volume that matches
+	for request in self.requests:
+	    if request.type == REQUEST_VG and request.volumeGroupName == device:
+		return request
+	    elif request.type == REQUEST_LV and request.logicalVolumeName == device:
+		return request
+	    
         return None
 
     def getRequestByID(self, id):
@@ -1063,12 +1096,19 @@ class Partitions:
         return 0
 
     # LVM helpers
-    def getLVForPV(self, pvrequest):
+    def getLVMVolGroupNames(self, requests):
 	retval = []
-	pvid = pvrequest.uniqueID
+	for request in self.requests:
+	    if request.type == REQUEST_VG:
+		retval.append(request)
+
+	return retval
+	
+    def getLVMLVForVG(self, vgrequest):
+	retval = []
+	pvid = vgrequest.uniqueID
 	for request in self.requests:
 	    if request.type == REQUEST_LV:
-		print "in getLVForPV:", request
 		if request.volumeGroup == pvid:
 		    retval.append(request)
 
@@ -1078,8 +1118,16 @@ class Partitions:
         retval = {}
         for request in self.requests:
             if request.type == REQUEST_VG:
-                retval[request.volumeGroupName] = self.getLVForPV(request)
+                retval[request.volumeGroupName] = self.getLVMLVForVG(request)
 	    
+        return retval
+
+    def getLVMVGRequests(self):
+        retval = []
+        for request in self.requests:
+            if request.type == REQUEST_VG:
+                retval.append(request)
+
         return retval
 
     def getLVMLVRequests(self):
@@ -1090,6 +1138,22 @@ class Partitions:
 
         return retval
 
+    def isLVMVolumeGroupMember(self, request):
+	volgroups = self.getLVMVGRequests()
+	if not volgroups:
+	    return 0
+
+	used = 0
+	for volgroup in volgroups:
+	    if volgroup.physicalVolumes:
+		if request.uniqueID in volgroup.physicalVolumes:
+			used = 1
+
+	    if used:
+		break
+
+	return used
+	    
     # return name of boot mount point in current requests
     def getBootableRequest(self):
         bootreq = None
@@ -1863,7 +1927,14 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         intf.messageWindow(_("Unable To Remove"),
                            _("You must first select a partition to remove."))
         return 0
-    elif type(partition) == type("RAID"):
+
+    if iutil.getArch() == "s390" and type(partition) != type("RAID"):
+	self.intf.messageWindow(_("Error"),
+				_("DASD partitions can only be deleted "
+				  "with fdasd"))
+	return
+
+    if type(partition) == type("RAID"):
         device = partition
     elif partition.type & parted.PARTITION_FREESPACE:
         intf.messageWindow(_("Unable To Remove"),
@@ -1879,7 +1950,6 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
                              "partition, as it is an extended partition "
                              "which contains %s") %(ret))
         return 0
-        
 
     # see if device is in our partition requests, remove
     request = requestlist.getRequestByDeviceName(device)
@@ -1895,6 +1965,20 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             intf.messageWindow(_("Unable To Remove"),
                                _("You cannot remove this "
                                  "partition, as it is part of a RAID device."))
+            return 0
+
+	if request.type == REQUEST_LV:
+	    # temporary message
+            intf.messageWindow(_("Unable To Remove"),
+                               _("Removing logical volumes from the "
+				 "treeview is not currently supported."))
+	    return 0
+
+        if requestlist.isLVMVolumeGroupMember(request):
+            intf.messageWindow(_("Unable To Remove"),
+			       _("You cannot remove this "
+				 "partition, as it is part of a LVM "
+ 				 "volume group."))
             return 0
 
         if confirmDeleteRequest(intf, request):
@@ -1928,10 +2012,23 @@ def doEditPartitionByRequest(intf, requestlist, part):
                            _("You must select a partition to edit"))
 
         return (None, None)
-    elif type(part) == type("RAID"):
+
+    if type(part) == type("RAID"):
         request = requestlist.getRequestByDeviceName(part)
 
-        return ("RAID", request)
+	if request.type == REQUEST_RAID:
+	    return ("RAID", request)
+	elif request.type == REQUEST_VG:
+	    return ("LVMVG", request)
+	elif request.type == REQUEST_LV:
+	    return ("LVMLV", request)
+	else:
+	    return (None, None)
+    elif iutil.getArch() == "s390":
+	self.intf.messageWindow(_("Error"),
+				_("You must go back and use fdasd to "
+				  "inititalize this partition"))
+	return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = PartitionSpec(fsset.fileSystemTypeGetDefault(), REQUEST_NEW,
                                 start = start_sector_to_cyl(part.geom.disk.dev,

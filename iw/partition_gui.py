@@ -264,7 +264,7 @@ class DiskStripeGraph:
         text = self.canvas.root().add(gnome.canvas.CanvasText,
                                       x=0.0, y=yoff,
                                       font="sans",
-                                      size_points=12)
+                                      size_points=9)
         drivetext = ("Drive %s (Geom: %s/%s/%s) "
                      "(Model: %s)") % ('/dev/' + drive,
                                        disk.dev.cylinders,
@@ -402,9 +402,10 @@ class DiskTreeModel(gtk.TreeStore):
             model, iter = rc
         else:
             return None
+
         pyobject = self.titleSlot['PyObject']
-        try:
-            return self.get_value(iter, pyobject)
+	try:
+	    return self.get_value(iter, pyobject)
         except:
             return None
 
@@ -524,7 +525,7 @@ def createAllowedDrivesList(disks, reqdrives):
 	    selected = 1
 
 	sizestr = "%8.0f MB" % size
-	drivelist.append_row((drive,disks[drive].dev.model, sizestr), selected)
+	drivelist.append_row((drive, sizestr, disks[drive].dev.model),selected)
 
     return drivelist
 
@@ -538,6 +539,7 @@ def createAllowedRaidPartitionsList(allraidparts, reqraidpart):
     sw = gtk.ScrolledWindow()
     sw.add(partlist)
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+    sw.set_shadow_type(gtk.SHADOW_IN)
 
     partrow = 0
     for part, size, used in allraidparts:
@@ -562,6 +564,7 @@ def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart):
     sw = gtk.ScrolledWindow()
     sw.add(partlist)
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+    sw.set_shadow_type(gtk.SHADOW_IN)
 
     for part, size, used in alllvmparts:
         partname = "%s" % part
@@ -810,53 +813,42 @@ class PartitionWindow(InstallWindow):
         
 	# first do LVM
         lvmrequests = self.partitions.getLVMRequests()
-	print 'in populate: ',lvmrequests
         if lvmrequests:
-	    lvmparent = self.tree.append(None)
-	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+#
+# XXX this breaks when we try to refresh tree after a refresh
+#
+# XXX - this breaks self.refresh calls!!!	
+#	    lvmparent = self.tree.append(None)
+#	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+            lvmparent = None
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
-		self.tree[vgparent]['Device'] = vgname
-
+		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
+		vgrequest = self.partitions.getRequestByDeviceName(vgname)
+                self.tree[vgparent]['PyObject'] = vgrequest.volumeGroupName
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
-		    print 'in populate lvrequest:', lvrequest
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
 		    self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size)
-
-		continue
+		    self.tree[iter]['PyObject'] = lvrequest.logicalVolumeName
 		
-                if request and request.mountpoint:
-                    self.tree[iter]["Mount Point"] = request.mountpoint
-                if request.fstype:
-                    ptype = request.fstype.getName()
-                    
-                    self.tree[iter]['Format'] = request.format
-                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
-                else:
-                    ptype = _("None")
-                    self.tree[iter]['IsFormattable'] = gtk.FALSE
-
-                device = _("RAID Device %s"  % (str(raidcounter)))
-                self.tree[iter]['IsLeaf'] = gtk.TRUE
-                self.tree[iter]['Device'] = device
-                self.tree[iter]['Type'] = ptype
-		self.tree[iter]['Start'] = _("N/A")
-		self.tree[iter]['End'] = _("N/A")
-#                self.tree[iter]['Start'] = ""
-#                self.tree[iter]['End'] = ""
-                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
-                self.tree[iter]['PyObject'] = request.device
-
-                raidcounter = raidcounter + 1
+                    ptype = lvrequest.fstype.getName()
+                    self.tree[iter]['Format'] = gtk.TRUE
+                    self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
+		    self.tree[iter]['IsLeaf'] = gtk.TRUE
+		    self.tree[iter]['Type'] = ptype
+		    self.tree[iter]['Start'] = _("N/A")
+		    self.tree[iter]['End'] = _("N/A")
 
         # handle RAID next
         raidcounter = 0
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
-	    raidparent = self.tree.append(None)
-	    self.tree[raidparent]['Device'] = _("RAID Devices")
+# XXX - this breaks self.refresh calls!!!	
+#	    raidparent = self.tree.append(None)
+#	    self.tree[raidparent]['Device'] = _("RAID Devices")
+            raidparent = None
             for request in raidrequests:
                 iter = self.tree.append(raidparent)
 
@@ -885,6 +877,11 @@ class PartitionWindow(InstallWindow):
                 raidcounter = raidcounter + 1
                 
 	# now normal partitions
+# XXX - this breaks self.refresh calls!!!	
+#	drvparent = self.tree.append(None)
+#	self.tree[drvparent]['Device'] = _("Hard Drives")
+
+	drvparent=None
         for drive in drives:
             disk = self.diskset.disks[drive]
 
@@ -892,7 +889,7 @@ class PartitionWindow(InstallWindow):
             stripe = self.diskStripeGraph.add(drive, disk)
 
             # add a parent node to the tree
-            parent = self.tree.append(None)
+            parent = self.tree.append(drvparent)
             self.tree[parent]['Device'] = '/dev/%s' % (drive,)
             sectorsPerCyl = disk.dev.heads * disk.dev.sectors
 
@@ -1149,6 +1146,7 @@ class PartitionWindow(InstallWindow):
                 sw = gtk.ScrolledWindow()
                 sw.add(driveview)
                 sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		sw.set_shadow_type(gtk.SHADOW_IN)
                 maintable.attach(sw, 1, 2, row, row + 1)
 		driveview.set_size_request(375, 80)
             else:
@@ -1504,14 +1502,9 @@ class PartitionWindow(InstallWindow):
         dialog.destroy()
 
     def deleteCb(self, widget):
-        partition = self.tree.getCurrentPartition()
+        curselection = self.tree.getCurrentPartition()
 
-        if iutil.getArch() == "s390" and type(partition) != type("RAID"):
-            self.intf.messageWindow(_("Error"),
-                                    _("DASD partitions can only be deleted with fdasd"))
-            return
-
-        if doDeletePartitionByRequest(self.intf, self.partitions, partition):
+        if doDeletePartitionByRequest(self.intf, self.partitions, curselection):
             self.refresh()
             
     def resetCb(self, *args):
@@ -1571,12 +1564,13 @@ class PartitionWindow(InstallWindow):
         if request:
             if type == "RAID":
                 self.editRaidRequest(request)
+	    elif type == "LVMVG":
+		self.editLVMVolumeGroup(request)
+	    elif type == "LVMLV":
+		vgrequest = self.partitions.getRequestByID(request.volumeGroup)
+		self.editLVMVolumeGroup(vgrequest)
             elif type == "NEW":
-                if iutil.getArch() == "s390":
-                    self.intf.messageWindow(_("Error"),
-                        _("You must go back and use fdasd to inititalize this partition"))
-                else:
-                    self.editPartitionRequest(request, isNew = 1)
+		self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
 
@@ -1588,7 +1582,6 @@ class PartitionWindow(InstallWindow):
         availraidparts = get_available_raid_partitions(self.diskset,
                                                        self.partitions,
                                                        raidrequest)
-
         # if no raid partitions exist, raise an error message and return
         if len(availraidparts) < 2:
             dlg = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK,
@@ -1770,7 +1763,18 @@ class PartitionWindow(InstallWindow):
 
         dialog.destroy()
 
-    def addLogicalVolume(self, widget):
+    def getCurrentLogicalVolume(self):
+	selection = self.logvollist.get_selection()
+	rc = selection.get_selected()
+	if rc:
+	    model, iter = rc
+	else:
+	    return None
+
+	return iter
+
+
+    def editLogicalVolume(self, logrequest, isNew = 0):
         dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
@@ -1781,47 +1785,148 @@ class PartitionWindow(InstallWindow):
         maintable.set_col_spacings(5)
         row = 0
 
-        maintable.attach(createAlignedLabel(_("Mount point")), 0, 1, row, row + 1)
+        maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
         mountpointEntry = gtk.Entry(16)
         maintable.attach(mountpointEntry, 1, 2, row, row + 1)
-
+	if logrequest:
+	    mountpointEntry.set_text(logrequest.mountpoint)
         row = row + 1
 
-        maintable.attach(createAlignedLabel(_("Size")), 0, 1, row, row + 1)
+	maintable.attach(createAlignedLabel(_("Filesystem:")), 0, 1, row, row+1)
+	maintable.attach(createAlignedLabel(_("ext3")), 1, 2, row, row+1)
+	row = row+1
+			 
+        maintable.attach(createAlignedLabel(_("Size (MB):")), 0, 1, row, row+1)
         sizeEntry = gtk.Entry(16)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
+	if logrequest:
+	    sizeEntry.set_text("%g" % (logrequest.size,))
         row = row + 1
 
-        maintable.attach(createAlignedLabel(_("Logical Volume Name")), 0, 1, row, row + 1)
+        maintable.attach(createAlignedLabel(_("Logical Volume Name:")), 0, 1, row, row + 1)
         lvnameEntry = gtk.Entry(16)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
+	if logrequest:
+	    lvnameEntry.set_text(logrequest.logicalVolumeName)
         row = row + 1
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
-        
-        rc = dialog.run()
-        if rc == 2:
-            dialog.destroy()
-            return
 
-        # I suck.  I assume the fs is ext3 because it doesn't matter
-        # for me and do no error checking :)
-        fsystem = fileSystemTypeGetDefault()
-        mntpt = mountpointEntry.get_text()
-        size = int(sizeEntry.get_text())
-        lvname = lvnameEntry.get_text()
+	while 1:
+	    rc = dialog.run()
+	    if rc == 2:
+		dialog.destroy()
+		return
 
+	    # I suck.  I assume the fs is ext3 because it doesn't matter
+	    # for me and do no error checking :)
+	    fsystem = fileSystemTypeGetDefault()
+	    mntpt = string.strip(mountpointEntry.get_text())
+	    badsize = 0
+	    try:
+		size = int(sizeEntry.get_text())
+	    except:
+		badsize = 1
+
+	    if badsize or size <= 0:
+		self.intf.messageWindow(_("Illegal size"),
+					_("The requested size as entered is "
+					  "not a valid number greater than 0."))
+		continue
+	    
+	    lvname = string.strip(lvnameEntry.get_text())
+
+	    print "|%s|" % (mntpt,)
+	    err = sanityCheckMountPoint(mntpt, fsystem, REQUEST_LV)
+	    if err:
+		self.intf.messageWindow(_("Bad mount point"), err)
+		continue
+
+	    if len(lvname) < 1:
+		self.intf.messageWindow(_("Illegal Logical Volume Name"),
+					_("Please enter a logical volume name."))
+		continue
+
+	    # everything ok
+	    break
+
+	if not isNew:
+	    self.logvolreqs.remove(logrequest)
+	    iter = self.getCurrentLogicalVolume()
+	    self.logvolstore.remove(iter)
+	    
         request = PartitionSpec(fsystem, REQUEST_LV, mountpoint = mntpt,
                                 volname = lvname, size = size)
         self.logvolreqs.append(request)
-        self.logvollist.append((mntpt,))
+
+	iter = self.logvolstore.append()
+	self.logvolstore.set_value(iter, 0, lvname)
+	self.logvolstore.set_value(iter, 1, mntpt)
+	self.logvolstore.set_value(iter, 2, "%g" % (size,))
 
         dialog.destroy()
+	
+    def editCurrentLogicalVolume(self):
+	iter = self.getCurrentLogicalVolume()
+	
+	logvolname = self.logvolstore.get_value(iter, 0)
+	logrequest = None
+	for lv in self.logvolreqs:
+	    if lv.logicalVolumeName == logvolname:
+		logrequest = lv
+		
+	if logrequest is None:
+	    return
 
-    def makeLvmCB(self, widget):
-        self.logvolreqs = []
-        
+	self.editLogicalVolume(logrequest)
+
+    def addLogicalVolumeCB(self, widget):
+	self.editLogicalVolume(None, isNew = 1)
+	return
+
+    def editLogicalVolumeCB(self, widget):
+	self.editCurrentLogicalVolume()
+	return
+
+    def delLogicalVolumeCB(self, widget):
+	iter = self.getCurrentLogicalVolume()
+	if iter is None:
+	    return
+	
+	logvolname = self.logvolstore.get_value(iter, 0)
+	if logvolname is None:
+	    return
+
+	rc = self.intf.messageWindow(_("Confirm Delete"),
+				_("Are you sure you want to remove the "
+				"logical volume %s?") % (logvolname,),
+				type = "yesno")
+	if not rc:
+	    return
+
+	for lv in self.logvolreqs:
+	    if lv.logicalVolumeName == logvolname:
+		self.logvolreqs.remove(lv)
+
+	self.logvolstore.remove(iter)
+	return
+    
+    def logvolActivateCb(self, view, path, col):
+	self.editCurrentLogicalVolume()
+
+    def editLVMVolumeGroup(self, origvgrequest, isNew = 0):
+        availlvmparts = get_available_lvm_partitions(self.diskset,
+						     self.partitions,
+						     origvgrequest)
+
+        # if no raid partitions exist, raise an error message and return
+        if len(availlvmparts) < 1:
+	    self.intf.messageWindow(_("Not enough physical volumes"),
+			       _("At least one LVM partition is needed."))
+            return
+
+
         dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
         dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
@@ -1833,75 +1938,168 @@ class PartitionWindow(InstallWindow):
         row = 0
 
         # volume group name
-        maintable.attach(createAlignedLabel(_("Volume Name")), 0, 1, row, row + 1)
+	labelalign = gtk.Alignment()
+	labelalign.set(0.0, 0.5, 0.0, 0.0)
+	labelalign.add(createAlignedLabel(_("Volume Group Name:")))
+        maintable.attach(labelalign, 0, 1, row, row + 1)
         volnameEntry = gtk.Entry(16)
+	if not isNew:
+	    volnameEntry.set_text(origvgrequest.volumeGroupName)
+	    
         maintable.attach(volnameEntry, 1, 2, row, row + 1)
+	row = row + 1
 
-        lvmparts = get_available_lvm_partitions(self.diskset,
-                                                self.partitions,
-                                                None)
-
-        row = row + 1
-
-        (lvmlist, sw) = createAllowedLvmPartitionsList(lvmparts, [])
+        (lvmlist, sw) = createAllowedLvmPartitionsList(availlvmparts, [])
         lvmlist.set_size_request(275, 80)
 
-        maintable.attach(createAlignedLabel(_("PVs to Use")), 0, 1, row, row + 1)
+        maintable.attach(createAlignedLabel(_("Physical Volumes to Use:")), 0, 1,
+			 row, row + 1)
         maintable.attach(sw, 1, 2, row, row + 1)
         row = row + 1
 
-        # obviously this should be a treeview, but writing a clist is faster
-        self.logvollist = gtk.CList()
+	# populate list of logical volumes
+        lvtable = gtk.Table()
+        lvtable.set_row_spacings(5)
+        lvtable.set_col_spacings(5)
+	self.logvolstore = gtk.ListStore(gobject.TYPE_STRING,
+				      gobject.TYPE_STRING,
+				      gobject.TYPE_STRING)
+	
+        self.logvolreqs = self.partitions.getLVMLVForVG(origvgrequest)
+	self.origvolreqs = copy.copy(self.logvolreqs)
+
+	if self.logvolreqs:
+	    for lvrequest in self.logvolreqs:
+		iter = self.logvolstore.append()
+		self.logvolstore.set_value(iter, 0, lvrequest.logicalVolumeName)
+		self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
+		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.size,))
+
+	self.logvollist = gtk.TreeView(self.logvolstore)
+        col = gtk.TreeViewColumn(_("Logical Volume Name"),
+				 gtk.CellRendererText(), text=0)
+        self.logvollist.append_column(col)
+        col = gtk.TreeViewColumn(_("Mount Point"),
+				 gtk.CellRendererText(), text=1)
+        self.logvollist.append_column(col)
+        col = gtk.TreeViewColumn(_("Size (MB)"),
+				 gtk.CellRendererText(), text=2)
+        self.logvollist.append_column(col)
+        self.logvollist.connect('row-activated', self.logvolActivateCb)
+
         sw = gtk.ScrolledWindow()
         sw.add(self.logvollist)
         sw.set_size_request(100, 100)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+        lvtable.attach(sw, 0, 1, 0, 1)
 
-        maintable.attach(sw, 1, 2, row, row + 1)
+	# button box of options
+	lvbbox = gtk.VBox()
+        add = gtk.Button(_("_Add"))
+        add.connect("clicked", self.addLogicalVolumeCB)
+	lvbbox.pack_start(add)
+        edit = gtk.Button(_("_Edit"))
+        edit.connect("clicked", self.editLogicalVolumeCB)
+	lvbbox.pack_start(edit)
+        delete = gtk.Button(_("_Delete"))
+        delete.connect("clicked", self.delLogicalVolumeCB)
+	lvbbox.pack_start(delete)
 
-        add = gtk.Button("Add Logical Volume")
-        maintable.attach(add, 0, 1, row, row + 1, gtk.EXPAND, gtk.SHRINK)
-        add.connect("clicked", self.addLogicalVolume)
+	lvalign = gtk.Alignment()
+	lvalign.set(0.5, 0.0, 0.0, 0.0)
+	lvalign.add(lvbbox)
+        lvtable.attach(lvalign, 1, 2, 0, 1, gtk.SHRINK, gtk.SHRINK)
 
-        row + row + 1
-        
+	# pack all logical volumne stuff in a frame
+	frame = gtk.Frame(_("Logical Volumes"))
+	frame.add(lvtable)
+	maintable.attach(frame, 0, 2, row, row+1)
+	row = row + 1
+	
+	dialog.set_size_request(500, 400)
+
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
-        rc = dialog.run()
 
-        pv = []
-	model = lvmlist.get_model()
-	iter = model.get_iter_root()
-	next = 1
-	while next:
-	    val   = model.get_value(iter, 0)
-	    drive = model.get_value(iter, 1)
+	while 1:
+	    rc = dialog.run()
 
-	    if val:
-		id = self.partitions.getRequestByDeviceName(drive).uniqueID
-		pv.append(id)
-		
-	    next = model.iter_next(iter)
+	    if rc == 2:
+		dialog.destroy()
+		return
+
+	    pv = []
+	    model = lvmlist.get_model()
+	    iter = model.get_iter_root()
+	    next = 1
+	    availSpaceMB = 0
+	    while next:
+		val      = model.get_value(iter, 0)
+		partname = model.get_value(iter, 1)
+
+		if val:
+		    pvreq = self.partitions.getRequestByDeviceName(partname)
+		    id = pvreq.uniqueID
+		    pv.append(id)
+
+		    part = get_partition_by_name(self.diskset.disks, partname)
+		    availSpaceMB = availSpaceMB + getPartSizeMB(part)
+
+		next = model.iter_next(iter)
+
+	    print "Total size of volume group is %g MB" % (availSpaceMB,)
+
+	    neededSpaceMB = 0
+	    for lv in self.logvolreqs:
+		neededSpaceMB = neededSpaceMB + lv.requestSize
+
+	    print "Required size for logical volumes is %g MB" % (neededSpaceMB,)
+
+	    if neededSpaceMB > availSpaceMB:
+		self.intf.messageWindow(_("Not enough space"),
+					_("The logical volumes you have "
+					  "configured require %g MB, but the "
+					  "volume group only has %g MB.  Please "
+					  "either make the volume group larger "
+					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
+		continue
+
+	    # check volume name
+	    volname = string.strip(volnameEntry.get_text())
+	    if len(volname) < 1:
+		self.intf.messageWindow(_("Illegal Volume Group Name"),
+					_("Please enter a volume group name"))
+		continue
+
+	    # everything ok
+	    break
 
         # first add the volume group
-        request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
-                                REQUEST_VG, physvolumes = pv,
-                                vgname = volnameEntry.get_text())
+	if not isNew:
+	    for lv in self.origvolreqs:
+		self.partitions.removeRequest(lv)
+
+	    self.partitions.removeRequest(origvgrequest)
+
+
+	request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
+				REQUEST_VG, physvolumes = pv,
+				vgname = volname)
 
         self.partitions.addRequest(request)
 
         # this is an evil hack for now.  should addRequest return the id?
         vgID = self.partitions.nextUniqueID - 1
 
-        print self.logvolreqs
         # now add the logical volumes
         for lv in self.logvolreqs:
             lv.volumeGroup = vgID
             lv.format = 1
             self.partitions.addRequest(lv)
 
-        for req in self.partitions.requests:
-            print req
+#        for req in self.partitions.requests:
+#            print req
 
 	# XXX - probably shouldn't do this here - trying to force refresh of ui
         self.diskStripeGraph.shutDown()
@@ -1909,7 +2107,15 @@ class PartitionWindow(InstallWindow):
         self.populate()
 	
         dialog.destroy()
-            
+	return
+    
+    def makeLvmCB(self, widget):
+
+        request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
+                                REQUEST_VG)
+        self.editLVMVolumeGroup(request, isNew = 1)
+
+	return
 
     def makeraidCB(self, widget):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
@@ -1963,20 +2169,32 @@ class PartitionWindow(InstallWindow):
         # do the initial population of the tree and the graph
         self.populate(initial = 1)
 
-        box = gtk.VBox(gtk.FALSE, 5)
+	vpaned = gtk.VPaned()
+
         sw = gtk.ScrolledWindow()
         sw.add(self.diskStripeGraph.getCanvas())
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+
         frame = gtk.Frame()
         frame.add(sw)
+	vpaned.add1(frame)
+
+        box = gtk.VBox(gtk.FALSE, 5)
         box.pack_start(frame, gtk.TRUE, gtk.TRUE)
         box.pack_start(buttonBox, gtk.FALSE)
         sw = gtk.ScrolledWindow()
         sw.add(self.treeView)
-        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+	
         box.pack_start(sw, gtk.TRUE)
+	vpaned.add2(box)
 
-	return box
+	# XXX should probably be set according to height 
+	vpaned.set_position(170)
+
+	return vpaned
 
 class AutoPartitionWindow(InstallWindow):
     def __init__(self, ics):
@@ -2093,6 +2311,7 @@ class AutoPartitionWindow(InstallWindow):
         sw = gtk.ScrolledWindow()
         sw.add(self.drivelist)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	sw.set_shadow_type(gtk.SHADOW_IN)
         
 	align = gtk.Alignment()
 	align.add(sw)
