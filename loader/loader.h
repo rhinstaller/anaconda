@@ -18,6 +18,7 @@
 #define LOADER_FLAGS_KSFILE		(1 << 12)
 #define LOADER_FLAGS_KSCDROM		(1 << 13)
 #define LOADER_FLAGS_MCHECK		(1 << 14)
+#define LOADER_FLAGS_KSNFS		(1 << 15)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -34,3 +35,4 @@
 #define FL_KSFILE(a)	    ((a) & LOADER_FLAGS_KSFILE)
 #define FL_KSCDROM(a)	    ((a) & LOADER_FLAGS_KSCDROM)
 #define FL_MCHECK(a)	    ((a) & LOADER_FLAGS_MCHECK)
+#define FL_KSNFS(a)	    ((a) & LOADER_FLAGS_KSNFS)

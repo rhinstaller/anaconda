@@ -1651,13 +1651,13 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	} else if (!strcasecmp(argv[i], "serial"))
 	    flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "ks")) {
-	    flags |= LOADER_FLAGS_KICKSTART;
+	    flags |= LOADER_FLAGS_KSNFS;
 	    *ksSource = NULL;
         } else if (!strncasecmp(argv[i], "ks=cdrom:", 7)) {
 	    flags |= LOADER_FLAGS_KSCDROM;
 	    *ksSource = argv[i] + 9;
         } else if (!strncasecmp(argv[i], "ks=nfs:", 7)) {
-	    flags |= LOADER_FLAGS_KICKSTART;
+	    flags |= LOADER_FLAGS_KSNFS;
 	    *ksSource = argv[i] + 7;
         } else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
@@ -2141,11 +2141,12 @@ int main(int argc, char ** argv) {
 #endif
     
 #ifdef INCLUDE_NETWORK
-    if (FL_KICKSTART(flags) && !ksFile) {
+    if (FL_KSNFS(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
-	kickstartFromNfs(&kd, ksFile, modInfo, modLoaded, &modDeps, flags, 
-			 ksSource, ksNetDevice);
+	if (!kickstartFromNfs(&kd, ksFile, modInfo, modLoaded, &modDeps, flags, 
+			      ksSource, ksNetDevice))
+	    flags |= LOADER_FLAGS_KICKSTART;
     }
 #endif
 
@@ -2280,6 +2281,16 @@ int main(int argc, char ** argv) {
 
     argptr = anacondaArgs;
     if (FL_RESCUE(flags)) {
+	if (!lang) {
+	    int rc;
+
+	    do {
+		rc = chooseLanguage(&lang, flags);
+		if (rc) break;
+
+		rc = chooseKeyboard (&keymap, &kbdtype, flags);
+	    } while (rc);
+	}
 	*argptr++ = "/bin/sh";
     } else {
 	if (!access("./anaconda", X_OK))
