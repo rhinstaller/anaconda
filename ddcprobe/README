@@ -1,0 +1,8 @@
+This is some VBE/DDC stuff.  It makes calls to the VESA extensions in the BIOS
+using a slightly modified version of Josh Vanderhoof's LRMI 0.6, and generally
+requires a 2.2 or newer kernel.  The idea for reading EDID data from the BIOS
+came from Matt Wilson <msw@gimp.org>, as well as several ideas about better ways
+to lay out data structure declarations.
+
+Nalin Dahyabhai
+bigfun@pobox.com
