@@ -371,7 +371,12 @@ class ToDo:
 	self.expert = expert
         self.progressWindow = None
 	self.fdDevice = None
-	self.setFdDevice()
+
+        # If reconfig mode, don't probe floppy
+        print self.reconfigOnly
+        if self.reconfigOnly != 1:
+            self.setFdDevice()
+        
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
