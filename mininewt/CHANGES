@@ -1,0 +1,57 @@
+***************
+THIS FILE IS OBSOLETE -- UPDATE THE SPEC FILE INSTEAD
+***************
+
+0.59 -> 0.50.10
+	- added support for help
+	- added cusor on/off stuff
+
+0.57 -> 0.59
+	- minor fixes
+
+0.55 -> 0.56
+	- added newtCheckboxTreeSetEntry(), newtCheckboxTreeGetEntryValue()
+	  and newtCheckboxTreeSetEntryValue()
+	- checkboxtree callbacks
+	- if collapsing branches at the end of the list and list length
+	  is larger then height, move first visible entry accordingly
+	- allow selection of all checkboxes on current branch
+	- snack bindings for the above
+
+0.54 -> 0.55
+	- added newtCheckboxTreeGetCurrent() and snack bindings
+	- updated snack stuff to allow manual placement of grid
+	  wrapped windows
+
+0.53 -> 0.54
+	- fix segfault in newtRadioGetCurrent
+
+0.52 -> 0.53
+	- place cursor in checkboxtree's more carefully
+
+0.51 -> 0.52
+	- listbox bug fixes
+
+0.50 -> 0.51
+	- added newtFormSetTimer() (and test case, and python)
+	- checkboxtree's could improperly leave info from closed trees
+	  at the end of the display
+
+0.40 -> 0.50
+	- added CheckboxTree widget
+	- vastly improved python bindings
+
+0.30 -> 0.40
+        - GPM mouse support added
+
+0.30 -> 0.31:
+	- pgdn could core dump on short textboxes
+
+0.25 -> 0.30:
+	- newtDrawRootText() didn't use the specified position properly
+	- removed relics of original listbox code still handing around
+	  checkbox.c
+	- renamed DOBORDER flag to simply BORDER
+	- listboxes no longer scroll by default
+	- newtListboxSetEntry() uses a key, not an index
+	- listbox scrollbars should work properly in borders
