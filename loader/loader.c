@@ -796,12 +796,15 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     close(loopfd);
 
     if (doPwMount("/tmp/loop", "/mnt/runtime", "iso9660", 1,
-	      0, NULL, NULL)) {
-	logMessage("failed to mount loop: %s", 
-		   strerror(errno));
-	return LOADER_ERROR;
-    }
-
+		  0, NULL, NULL))
+	if (doPwMount("/tmp/loop", "/mnt/runtime", "ext2", 1,
+		      0, NULL, NULL)) {
+	    
+	    logMessage("failed to mount loop: %s", 
+		       strerror(errno));
+	    return LOADER_ERROR;
+	}
+    
     return 0;
 }
 
