@@ -109,7 +109,10 @@ class KeyboardWindow:
 	else:
             default = iutil.defaultKeyboard()
 
-        default = keyboards.index (default)
+        try:
+            default = keyboards.index (default)
+        except ValueError:
+            default = keyboards.index ("us")
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
