@@ -211,7 +211,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 	    mountRootPartition(intf, rootInfo[0], oldfsset, instPath,
                                allowDirty = 0)
 	except SystemError, msg:
-	    intf.messageWindow(_("Dirty Filesystems"),
+	    intf.messageWindow(_("Mount failed"),
 		_("One or more of the filesystems listed in the "
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
