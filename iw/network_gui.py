@@ -253,7 +253,7 @@ class NetworkWindow(InstallWindow):
 	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 6)
         devbox.set_border_width(6)
 
-	framelab = _("Configure %s" % (dev,))
+	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
 	if descr is not None and len(descr) > 0:
 	    framelab += " - " + descr[:70]
