@@ -343,7 +343,6 @@ EOF
     mkdir $MBD_MNTPOINT
     mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
     (cd $MBD_DIR; find . | cpio --quiet -p $MBD_MNTPOINT)
-    LEFT=df $MBD_MNTPOINT | tail +2 | awk '{print $4}'
     umount $MBD_MNTPOINT
 
     mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
@@ -368,7 +367,10 @@ EOF
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
-	df $MBD_BOOTTREE | tail +2
+
+	left=$(df $MBD_BOOTTREE | tail +2)
+	left=$(echo $left | awk '{print $4'})
+
 	umount $MBD_BOOTTREE
     else
 	echo "I don't know how big to make the image!" >&2
