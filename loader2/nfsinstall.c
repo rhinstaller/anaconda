@@ -159,6 +159,7 @@ char * mountNfsImage(struct installMethod * method,
                     }
                 }
                 if ((path = validIsoImages("/mnt/source"))) {
+		    logMessage("Path to valid iso is %s", path);
                     copyUpdatesImg("/mnt/source/updates.img");
 
                     if (mountLoopback(path, "/mnt/source2", "loop1")) 
@@ -167,7 +168,8 @@ char * mountNfsImage(struct installMethod * method,
                         rc = mountStage2("/mnt/source2/RedHat/base/stage2.img");
                         if (rc) {
                             umountLoopback("/mnt/source2", "loop1");
-                            if (rc == -1) foundinvalid = 1;
+                            if (rc == -1)
+				foundinvalid = 1;
                         } else {
                             queryIsoMediaCheck(path, flags);
 
