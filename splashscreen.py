@@ -54,7 +54,13 @@ def splashScreenShow(configFileData):
             except RuntimeError:
                 pixbuf = None
         if pixbuf:
-            p.set_from_pixbuf(pixbuf)
+            (pixmap, mask) = pixbuf.render_pixmap_and_mask()
+            pixbuf.render_to_drawable(pixmap, gtk.gdk.gc_new(pixmap),
+                                      0, 0, 0, 0,
+                                      pixbuf.get_width(), pixbuf.get_height(),
+                                      gtk.gdk.RGB_DITHER_MAX, 0, 0)
+            
+            p.set_from_pixmap(pixmap, mask)
         return p
 
     global splashwindow
