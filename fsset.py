@@ -1173,7 +1173,7 @@ class RAIDDevice(Device):
         self.members.sort()
 
     def __del__ (self):
-        RAIDDevice.usedMajors.remove(self.minor)
+        del RAIDDevice.usedMajors[self.minor]
 
     def ext2Args (self):
         if self.level == 5:
