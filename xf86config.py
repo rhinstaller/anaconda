@@ -35,7 +35,6 @@ class XF86Config:
         self.keyOptions = ""
         
     def setKeyboard (self, rules, model, layout, variant, options):
-        print self, rules, model, layout, variant, options
         self.keyRules = rules
         self.keyModel = model
         self.keyLayout = layout
