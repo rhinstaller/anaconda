@@ -93,7 +93,7 @@ def partedExceptionWindow(exc):
     print exc.type_string
     print exc.message
     print exc.options
-    win = gtk.Dialog(exc.type_string, mainWindow)
+    win = gtk.Dialog(exc.type_string, mainWindow, gtk.DIALOG_MODAL)
     win.set_position(gtk.WIN_POS_CENTER)
     label = WrappingLabel(exc.message)
     win.vbox.pack_start (label)
@@ -195,7 +195,7 @@ class ProgressWindow:
 
 class ExceptionWindow:
     def __init__ (self, text):
-        win = gtk.Dialog("Exception Occured", mainWindow)
+        win = gtk.Dialog("Exception Occured", mainWindow, gtk.DIALOG_MODAL)
         win.add_button("Debug", 0)
         win.add_button("Save to floppy", 1)
         win.add_button('gtk-ok', 2)
@@ -458,7 +458,7 @@ class InstallControlWindow:
         self.releaseButton.set_sensitive(gtk.TRUE)
 
     def releaseClicked (self, widget):
-        self.textWin = gtk.Dialog(parent=mainWindow)
+        self.textWin = gtk.Dialog(parent=mainWindow, flags=gtk.DIALOG_MODAL)
         self.releaseButton.set_sensitive(gtk.FALSE)
 
         table = gtk.Table(3, 3, gtk.FALSE)
@@ -596,7 +596,7 @@ class InstallControlWindow:
 	    (icon, text) = ics.getNextButton()
 	    nextButton = gtk.Button(stock=icon)
 #            nextButton.set_property("label", _(text))
-	    nextButton.connect ("clicked", self.nextClicked)
+	    nextButton.connect("clicked", self.nextClicked)
 	    nextButton.show_all()
 
         children = self.buttonBox.children ()
@@ -652,7 +652,7 @@ class InstallControlWindow:
         self.handle = None
 
     def abortInstall (self, *args):
-        dlg = gtk.Dialog(_("Warning"), mainWindow)
+        dlg = gtk.Dialog(_("Warning"), mainWindow, gtk.DIALOG_MODAL)
         dlg.set_modal(gtk.TRUE)
         dlg.set_size_request(350, 200)
         dlg.set_position(gtk.WIN_POS_CENTER)
@@ -688,6 +688,10 @@ class InstallControlWindow:
             and (event.state & (gtk.gdk.CONTROL_MASK | gtk.gdk.MOD1_MASK))):
             gtk.mainquit()
             os._exit(0)
+        # XXX hack: remove me when the accelerators work again.
+        elif (event.keyval == gtk.keysyms.F12
+              and self.currentWindow.getICS().getNextEnabled()):
+            self.nextClicked()
 
     def buildStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
@@ -794,9 +798,10 @@ class InstallControlWindow:
 	self.buildStockButtons()
 
         group = gtk.AccelGroup()
-        self.nextButtonStock.add_accelerator ("clicked", group, gtk.keysyms.F12,
-                                              gtk.gdk.RELEASE_MASK, 0);
-        self.window.add_accel_group (group)
+        self.window.add_accel_group(group)
+        self.nextButtonStock.add_accelerator('clicked', group,
+                                             gtk.keysyms.F12,
+                                             gtk.gdk.RELEASE_MASK, 0);
 
         # set up ctrl+alt+delete handler
         self.window.connect ("key-release-event", self.keyRelease)
