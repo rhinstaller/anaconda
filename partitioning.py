@@ -507,7 +507,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
 # if there are none
 # if baseChecks is set, the basic sanity tests which the UI runs prior to
 # accepting a partition will be run on the requests
-def sanityCheckAllRequests(requests, baseChecks = 0):
+def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 50),
                   ('/home', 100), ('/boot', 20)]
     warnings = []
@@ -522,7 +522,17 @@ def sanityCheckAllRequests(requests, baseChecks = 0):
 
     for (mount, size) in checkSizes:
         req = requests.getRequestByMountPoint(mount)
-        if req and req.size < size:
+        if not req:
+            continue
+        if req.type == REQUEST_RAID:
+            thissize = req.size
+        else:
+            part = get_partition_by_name(diskset.disks, req.device)
+            if not part:
+                thissize = req.size
+            else:
+                thissize = getPartSizeMB(part)
+        if thissize < size:
             warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
 
     foundSwap = 0

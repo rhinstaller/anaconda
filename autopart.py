@@ -856,7 +856,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass):
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane 
-    (errors, warnings) = sanityCheckAllRequests(partitions, baseChecks = 1)
+    (errors, warnings) = sanityCheckAllRequests(partitions, diskset, 1)
     if warnings:
         for warning in warnings:
             log("WARNING: %s" % (warning))

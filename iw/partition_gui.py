@@ -469,7 +469,7 @@ class PartitionWindow(InstallWindow):
         self.parent = ics.getICW().window
         
     def getNext(self):
-        (errors, warnings) = sanityCheckAllRequests(self.partitions)
+        (errors, warnings) = sanityCheckAllRequests(self.partitions, self.diskset)
         rc = partitionSanityErrors(self.intf, errors)
         if rc != 1:
             raise gui.StayOnScreen

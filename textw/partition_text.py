@@ -936,7 +936,7 @@ class PartitionWindow:
                         _("Must have a / partition to install on."))
                     continue
                 
-                (errors, warnings) = sanityCheckAllRequests(self.partitions)
+                (errors, warnings) = sanityCheckAllRequests(self.partitions, self.diskset)
                 rc = partitionSanityErrors(self.intf, errors)
                 if rc != 1:
                     continue
