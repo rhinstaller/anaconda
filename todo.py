@@ -24,6 +24,7 @@ from mouse import Mouse
 from xf86config import XF86Config
 import errno
 import raid
+import timer
 import fstab
 import time
 import gettext_rh
@@ -1298,7 +1299,7 @@ class ToDo:
         os.close(logfile)
         
     def instCallback(self, what, amount, total, h, (param)):
-	(intf, messageWindow) = param
+	(intf, messageWindow, pkgTimer) = param
         if (what == rpm.RPMCALLBACK_TRANS_START):
             # step 6 is the bulk of the transaction set
             # processing time
@@ -1315,11 +1316,15 @@ class ToDo:
             self.progressWindow.pop ()
 
         if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+	    # We don't want to start the timer until we get to the first
+	    # file.
+	    pkgTimer.start()
+
             intf.setPackage(h)
             intf.setPackageScale(0, 1)
             self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
             self.instLog.flush ()
-            fn = self.method.getFilename(h)
+            fn = self.method.getFilename(h, pkgTimer)
 
 	    self.rpmFD = -1
 	    while self.rpmFD < 0:
@@ -1346,7 +1351,7 @@ class ToDo:
                 intf.setPackageScale(amount, total)
         elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
             os.close (self.rpmFD)
-            intf.completePackage(h)
+            intf.completePackage(h, pkgTimer)
         else:
             pass
 
@@ -1569,9 +1574,11 @@ class ToDo:
             self.modeText = _("Installing %s.\n")
 
         oldError = rpm.errorSetCallback (self.rpmError)
+	pkgTimer = timer.Timer(start = 0)
 
         problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE,
-                          self.instCallback, (p, self.intf.messageWindow))
+                          self.instCallback, 
+			  (p, self.intf.messageWindow, pkgTimer))
 
 #        problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0,
 #                          self.instCallback, (p, self.intf.messageWindow))
