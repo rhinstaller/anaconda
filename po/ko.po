@@ -325,12 +325,7 @@ msgstr ""
 msgid "Hostname"
 msgstr "호스트명"
 
-<<<<<<< ko.po
-#: ../text.py:441
-=======
 #: ../text.py:447
-#, fuzzy
->>>>>>> 1.18
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -598,14 +593,8 @@ msgstr "시스템 설치"
 msgid "Installation Complete"
 msgstr "설치 완료"
 
-<<<<<<< ko.po
-#: ../text.py:964 ../text.py:967 ../text.py:970 ../textw/silo.py:24
-#: ../textw/silo.py:62 ../textw/silo.py:153
-=======
 #: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24
 #: ../textw/silo.py:79 ../textw/silo.py:183
-#, fuzzy
->>>>>>> 1.18
 msgid "SILO Configuration"
 msgstr "SILO 설정"
 
@@ -625,12 +614,7 @@ msgstr "시스템 업그레이드"
 msgid "Upgrade Complete"
 msgstr "업그레이드 완료"
 
-<<<<<<< ko.po
-#: ../text.py:1009
-=======
 #: ../text.py:1039
-#, fuzzy
->>>>>>> 1.18
 msgid "Cancelled"
 msgstr "취소됨"
 
@@ -1229,21 +1213,11 @@ msgstr "파티션 수동 설정"
 msgid "Silo Configuration"
 msgstr "SILO 설정"
 
-<<<<<<< ko.po
-#: ../iw/silo.py:155
-=======
 #: ../iw/silo.py:160
-#, fuzzy
->>>>>>> 1.18
 msgid "Install SILO boot record on:"
 msgstr "SILO 부트 레코드를 설치할 위치:"
 
-<<<<<<< ko.po
-#: ../iw/silo.py:170
-=======
 #: ../iw/silo.py:173
-#, fuzzy
->>>>>>> 1.18
 msgid "Create PROM alias"
 msgstr "PROM 앨리어스 생성"
 
@@ -1251,12 +1225,7 @@ msgstr "PROM 앨리어스 생성"
 msgid "Set default PROM boot device to linux"
 msgstr "리눅스용 기본 PROM 부트 장치 설정"
 
-<<<<<<< ko.po
-#: ../iw/silo.py:209
-=======
 #: ../iw/silo.py:221
-#, fuzzy
->>>>>>> 1.18
 msgid "Do not install SILO"
 msgstr "SILO 설치하지 않음"
 
@@ -1292,11 +1261,7 @@ msgstr "모니터"
 msgid "Video Ram"
 msgstr "비디오 램"
 
-<<<<<<< ko.po
-#: ../iw/xconfig.py:12
-=======
 #: ../iw/xconfig.py:13
->>>>>>> 1.18
 msgid "Horizontal Frequency Range"
 msgstr "수평 주파수 범위"
 
@@ -2597,8 +2562,6 @@ msgstr "HTTP 프록시 포트:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "SCSI 드라이버 읽는 중"
-<<<<<<< ko.po
-=======
 
 #~ msgid ""
 #~ "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -2626,4 +2589,3 @@ msgstr "SCSI 드라이버 읽는 중"
 #~ "루트 파티션(/)을 RAID 장치에 할당 했지 때문에 부트 파티션(/boot)을 리눅스 "
 #~ "네이티브 파티션(ext2) 또는 RAID-1 파티션에 할당해야 설치를 계속할 수 "
 #~ "있습니다."
->>>>>>> 1.18
