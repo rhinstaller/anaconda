@@ -257,7 +257,7 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 	   libpthread* libss* libtermcap* libuuid* \
 
 	cd $DEST/usr
-	echo X11R6 | cpio --quiet -H crc -o | \
+	find X11R6 | cpio --quiet -H crc -o | \
             gzip -9 > X11R6.cgz
 	rm -rf X11R6
 

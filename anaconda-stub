@@ -19,8 +19,9 @@ cd /usr/bin
 rm python1.5.cgz
 ln -s /tmp/python1.5 /usr/bin/python1.5
 
-uncpio < /usr/X11R6.cgz
-ln -s /tmp/X11R6 /usr/X11R6
+cd /usr
+uncpio < X11R6.cgz
+rm X11R6.cgz
 
 cd /usr/lib
 for n in *.cgz; do
