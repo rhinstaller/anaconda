@@ -115,6 +115,9 @@ for line in lines:
     # major hack... chop off iso885915 to make it shorter
     lang = re.sub(".iso885915$", "", lang)
 
+    # we don't want @euro locales for utf8
+    lang = lang.replace("UTF-8@euro", "UTF-8")
+
     # someone put nb_NO in locale.alias.  yuck.  We don't want
     # to offer that
     if lang.startswith("nb_") or lang.startswith("iw_"):
