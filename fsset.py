@@ -1248,9 +1248,11 @@ class FileSystemSet:
 
     def filesystemSpace(self, chroot='/'):
 	space = []
-        # XXX limit to ext[23] etc?
         for entry in self.entries:
             if not entry.isMounted():
+                continue
+            # we can't put swap files on swap partitions; that's nonsense
+            if entry.mountpoint == "swap":
                 continue
             path = "%s/%s" % (chroot, entry.mountpoint)
             try:
