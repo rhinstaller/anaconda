@@ -178,8 +178,13 @@ class BaseInstallClass:
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         cmdline = open("/proc/cmdline", "r").read()
-        if cmdline.find("noupgrade") != -1:
-            dispatch.skipStep("findrootparts")
+        cmdline = cmdline.split()
+        if "noupgrade" in cmdline:
+            dispatch.skipStep("findrootparts", skip = 1)
+
+        # upgrade will also always force looking for an upgrade. 
+        if "upgrade" in cmdline:
+            dispatch.skipStep("findrootparts", skip = 0)
 
         # if there's only one install class, it doesn't make much sense
         # to show it
