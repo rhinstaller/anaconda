@@ -525,6 +525,11 @@ def doInstall(method, id, intf, instPath):
         pass
     syslog.start (instPath, syslogname)
 
+    if upgrade:
+        instLog.write("Upgrading %s packages\n\n" % (i))        
+    else:
+        instLog.write("Installing %s packages\n\n" % (i))
+
     ts.scriptFd = instLog.fileno ()
     # the transaction set dup()s the file descriptor and will close the
     # dup'd when we go out of scope
