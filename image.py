@@ -110,6 +110,9 @@ class CdromInstallMethod(ImageInstallMethod):
 		except:
 		    pass
 
+		if done:
+		    break
+
 	    if not done:
 		isys.ejectCdrom(self.device)
 
