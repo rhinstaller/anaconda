@@ -220,7 +220,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     for (i = 0; i < numSorted; i++) {
         newtListboxAppendEntry(listbox, sdupprintf("%s (%s)", 
                                                    modInfo->moduleList[sortedOrder[i].index].description,
-                                                   modInfo->moduleList[sortedOrder[i].index].moduleName), (void *) sortedOrder[i].index);
+                                                   modInfo->moduleList[sortedOrder[i].index].moduleName), INT_TO_POINTER(sortedOrder[i].index));
     }
 
     grid = newtCreateGrid(1, 4);
@@ -238,7 +238,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     do { 
         newtFormRun(f, &es);
 
-        num = (int) newtListboxGetCurrent(listbox);
+        num = POINTER_TO_INT(newtListboxGetCurrent(listbox));
 
         if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
             done = -1;
