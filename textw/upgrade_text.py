@@ -19,9 +19,9 @@ class UpgradeSwapWindow:
                               _("If you would like to exit the upgrade select "
                               "Exit, or choose Ok to continue with the "
                               "upgrade."),
-                               [ _("Ok"), _("Exit") ], width = 50)
+                               [ TEXT_OK_BUTTON, _("Exit") ], width = 50)
 
-            if rc == 'ok':
+            if rc == TEXT_OK_CHECK:
                 return INSTALL_OK
             else:
                 import sys
@@ -64,8 +64,8 @@ class UpgradeSwapWindow:
 
 	    count = count + 1
 
-	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
-			     (_("Back"), "back") ] )
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
+			    TEXT_BACK_BUTTON] )
 
 	amGrid = Grid(2, 2)
 	amGrid.setField(Label(_("Suggested size (MB):")), 0, 0, anchorLeft = 1,
@@ -91,7 +91,7 @@ class UpgradeSwapWindow:
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
-	    if result == "back":
+	    if result == TEXT_BACK_CHECK:
 		screen.popWindow()
 		return INSTALL_BACK
 	    elif result == "skip":
@@ -138,9 +138,9 @@ class UpgradeExamineWindow:
                               _("If you would like to exit the upgrade select "
                               "Exit, or choose Ok to continue with the "
                               "upgrade."),
-                               [ _("Ok"), _("Exit") ], width = 50)
+                               [ TEXT_OK_BUTTON, _("Exit") ], width = 50)
 
-            if rc == 'ok':
+            if rc == TEXT_OK_CHECK:
                 return INSTALL_OK
             else:
                 import sys
@@ -152,7 +152,7 @@ class UpgradeExamineWindow:
             ButtonChoiceWindow(screen, _("Error"),
                                _("You don't have any Linux partitions. You "
                                  "can't upgrade this system!"),
-                               [ _("Back") ], width = 50)
+                               [ TEXT_BACK_BUTTON ], width = 50)
             return INSTALL_BACK
         
         if len (parts) > 1:
@@ -170,10 +170,10 @@ class UpgradeExamineWindow:
                 ListboxChoiceWindow(screen, _("System to Upgrade"),
                                     _("What partition holds the root partition "
                                       "of your installation?"), partList, 
-                                    [ _("OK"), _("Back") ], width = 30,
+                                    [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ], width = 30,
                                     scroll = scroll, height = height,
 				    help = "multipleroot")
-            if button == string.lower (_("Back")):
+            if button == TEXT_BACK_CHECK:
                 return INSTALL_BACK
             else:
                 root = parts[choice]
@@ -187,8 +187,8 @@ class UpgradeExamineWindow:
             if not todo.instClass.skipStep('confirm-upgrade'):
                 rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
                    _("Upgrading the Red Hat Linux installation on partition /dev/%s") % (drive,),
-                                         buttons = [ _("Ok"), _("Back") ])
-                if rc  == string.lower (_("Back")):
+                                         buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
+                if rc == TEXT_BACK_CHECK:
                     return INSTALL_BACK
 
         todo.upgradeMountFilesystems (root)
@@ -210,10 +210,10 @@ class CustomizeUpgradeWindow:
                                    "for installation. Would you like "
                                    "to customize the set of packages "
                                    "that will be upgraded?"),
-                                 buttons = [ _("Yes"), _("No"), _("Back") ],
+                                 buttons = [ _("Yes"), _("No"), TEXT_BACK_BUTTON],
 				help = "custupgrade")
 
-        if rc == string.lower (_("Back")):
+        if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
         if rc == string.lower (_("No")):

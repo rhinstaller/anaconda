@@ -6,13 +6,11 @@ from constants_text import *
 from translate import _
 
 class NetworkWindow:
-    def setsensitive (self, todo):
+    def setsensitive (self):
         if self.cb.selected ():
             sense = FLAGS_SET
-            todo.dhcpState = "ON"
         else:
             sense = FLAGS_RESET
-            todo.dhcpState = "OFF"
 
         for n in self.ip, self.nm, self.gw, self.ns, self.ns2, self.ns3:
             n.setFlags (FLAG_DISABLED, sense)
@@ -43,14 +41,14 @@ class NetworkWindow:
                 ns = isys.inet_calcNS (net)
                 self.ns.set (ns)
 
-    def __call__(self, screen, todo):
+    def __call__(self, screen, network):
 
 
-        devices = todo.network.available ()
+        devices = network.available ()
         if not devices:
             return INSTALL_NOOP
 
-        if todo.network.readData:
+        if network.readData:
             # XXX expert mode, allow changing network settings here
             return INSTALL_NOOP
         
@@ -80,15 +78,15 @@ class NetworkWindow:
         self.nm = Entry (16)
         self.nm.set (dev.get ("netmask"))
         self.gw = Entry (16)
-        self.gw.set (todo.network.gateway)
+        self.gw.set (network.gateway)
         self.ns = Entry (16)
-        self.ns.set (todo.network.primaryNS)
+        self.ns.set (network.primaryNS)
         self.ns2 = Entry (16)
-        self.ns2.set (todo.network.secondaryNS)
+        self.ns2.set (network.secondaryNS)
         self.ns3 = Entry (16)
-        self.ns3.set (todo.network.ternaryNS)
+        self.ns3.set (network.ternaryNS)
 
-        self.cb.setCallback (self.setsensitive, todo)
+        self.cb.setCallback (self.setsensitive)
         self.ip.setCallback (self.calcNM)
         self.nm.setCallback (self.calcGW)
 
@@ -99,7 +97,7 @@ class NetworkWindow:
         secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
         secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
 
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         toplevel = GridFormHelp (screen, _("Network Configuration"), 
 				 "network", 1, 3)
@@ -107,7 +105,7 @@ class NetworkWindow:
         toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
         toplevel.add (bb, 0, 2, growx = 1)
 
-        self.setsensitive (todo)
+        self.setsensitive ()
 
         while 1:
             result = toplevel.run ()
@@ -126,10 +124,10 @@ class NetworkWindow:
                 dev.set (("bootproto", "static"))
                 dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
                          ("network", network), ("broadcast", broadcast))
-                todo.network.gateway = self.gw.value ()
-                todo.network.primaryNS = self.ns.value ()
-                todo.network.secondaryNS = self.ns2.value()
-                todo.network.ternaryNS = self.ns3.value()
+                network.gateway = self.gw.value ()
+                network.primaryNS = self.ns.value ()
+                network.secondaryNS = self.ns2.value()
+                network.ternaryNS = self.ns3.value()
 
             screen.popWindow()
             break
@@ -138,32 +136,29 @@ class NetworkWindow:
 
         rc = bb.buttonPressed (result)
 
-        if rc == "back":
+        if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
         return INSTALL_OK
 
 class HostnameWindow:
-    def __call__(self, screen, todo):
+    def __call__(self, screen, network):
 
-        if todo.dhcpState == "ON":
-            return
-        
         entry = Entry (24)
 
-        if todo.network.hostname != "localhost.localdomain":
-            entry.set (todo.network.hostname)
+        if network.hostname != "localhost.localdomain":
+            entry.set (network.hostname)
 
 
         rc, values = EntryWindow(screen, _("Hostname Configuration"),
              _("The hostname is the name of your computer.  If your "
                "computer is attached to a network, this may be "
                "assigned by your network administrator."),
-             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")],
+             [(_("Hostname"), entry)], buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
 	     help = "hostname")
 
-        if rc == string.lower (_("Back")):
+        if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        todo.network.hostname = entry.value ()
+        network.hostname = entry.value ()
 
         return INSTALL_OK

@@ -1,11 +1,10 @@
-#import gettext_rh
 from snack import *
 from constants_text import *
 from translate import _
 import iutil
 
 class RootPasswordWindow:
-    def __call__ (self, screen, todo):
+    def __call__ (self, screen, rootPw, accounts):
         toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
@@ -15,7 +14,7 @@ class RootPasswordWindow:
 				"root password is a critical part "
 				"of system security!")), 0, 0, (0, 0, 0, 1))
 
-	pw = todo.rootpassword.getPure()
+	pw = rootPw.getPure()
 	if not pw: pw = ""
 
         entry1 = Entry (24, password = 1, text = pw)
@@ -27,26 +26,26 @@ class RootPasswordWindow:
         passgrid.setField (entry2, 1, 1)
         toplevel.add (passgrid, 0, 1, (0, 0, 0, 1))
         
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
         toplevel.add (bb, 0, 2, growx = 1)
 
         while 1:
             toplevel.setCurrent (entry1)
             result = toplevel.run ()
             rc = bb.buttonPressed (result)
-            if rc == "back":
+            if rc == TEXT_BACK_CHECK:
                 screen.popWindow()
                 return INSTALL_BACK
             if len (entry1.value ()) < 6:
                 ButtonChoiceWindow(screen, _("Password Length"),
 		       _("The root password must be at least 6 characters "
 			 "long."),
-		       buttons = [ _("OK") ], width = 50)
+		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             elif entry1.value () != entry2.value ():
                 ButtonChoiceWindow(screen, _("Password Mismatch"),
 		       _("The passwords you entered were different. Please "
 			 "try again."),
-		       buttons = [ _("OK") ], width = 50)
+		       buttons = [ TEXT_OK_BUTTON ], width = 50)
             else:
                 break
 
@@ -54,7 +53,7 @@ class RootPasswordWindow:
             entry2.set ("")
 
         screen.popWindow()
-        todo.rootpassword.set (entry1.value ())
+        rootPw.set (entry1.value ())
         return INSTALL_OK
 
 class UsersWindow:
@@ -81,7 +80,7 @@ class UsersWindow:
 			   (_("Password"), pass1),
 			   (_("Password (confirm)"), pass2),
 			   (_("Full Name"), fullname) ],
-			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ],
+			 buttons = [ TEXT_OK_BUTTON, (cancelText, "cancel") ],
 			 help = helptag)
             
             if rc == "cancel":
@@ -96,19 +95,19 @@ class UsersWindow:
                                    _("User IDs must be less than 8 "
                                      "characters and contain only characters "
                                      "A-Z, a-z, and 0-9."),
-                                   buttons = [ _("OK") ], width = 50)
+                                   buttons = [ TEXT_OK_BUTTON ], width = 50)
 		continue
                 
 	    if not userid.value ():
 		ButtonChoiceWindow(self.screen, _("Missing User ID"),
                                    _("You must provide a user ID"),
-                                   buttons = [ _("OK") ], width = 50)
+                                   buttons = [ TEXT_OK_BUTTON ], width = 50)
 		continue
 	    if len (pass1.value ()) < 6:
 		ButtonChoiceWindow(self.screen, _("Password Length"),
 		       _("The password must be at least 6 characters "
 			 "long."),
-		       buttons = [ _("OK") ], width = 50)
+		       buttons = [ TEXT_OK_BUTTON ], width = 50)
 		pass1.set ("")
 		pass2.set ("")
 		continue
@@ -116,7 +115,7 @@ class UsersWindow:
 		ButtonChoiceWindow(self.screen, _("Password Mismatch"),
 		   _("The passwords you entered were different. Please "
 		     "try again."),
-		   buttons = [ _("OK") ], width = 50)
+		   buttons = [ TEXT_OK_BUTTON ], width = 50)
 		pass1.set ("")
 		pass2.set ("")
 		continue
@@ -125,14 +124,14 @@ class UsersWindow:
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("The root user is already configured. You don't "
 		         "need to add this user here."),
-			 buttons = [ _("OK") ], width = 50)
+			 buttons = [ TEXT_OK_BUTTON ], width = 50)
                 continue
 
             if self.users.has_key (userid.value ()) and  \
 				   userid.value () != currentid:
                 ButtonChoiceWindow(self.screen, _("User Exists"),
 		       _("This user id already exists.  Choose another."),
-			 buttons = [ _("OK") ], width = 50)
+			 buttons = [ TEXT_OK_BUTTON], width = 50)
                 continue
 
             # XXX FIXME - more data validity checks
@@ -144,12 +143,12 @@ class UsersWindow:
 
 	return INSTALL_OK
 
-    def __call__ (self, screen, todo):
+    def __call__ (self, screen, rootPw, accounts):
         self.users = {}
         self.screen = screen
 	user = { "id" : "", "name" : "", "password" : "" }
 
-	for (account, name, password) in todo.getUserList():
+	for (account, name, password) in accounts.getUserList():
 	    user['id'] = account
 	    user['name'] = name
 	    user['password'] = password
@@ -196,7 +195,7 @@ class UsersWindow:
             listbox.append (userformat % user, user["id"])
 
         bb = ButtonBar (screen, ((_("Add"), "add"), (_("Delete"), "delete"),
-                                 (_("Edit"), "edit"), (_("OK"), "ok"), (_("Back"), "back")))
+                                 (_("Edit"), "edit"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
         
         g.add (bb, 0, 3, growx = 1)
 
@@ -239,10 +238,10 @@ class UsersWindow:
                              listbox.replace (userformat % user, user["id"])
                          self.users [user["id"]] = user
                          listbox.setCurrent(user["id"])
-            elif rc == "ok" or result == "F12":
+            elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 dir = INSTALL_OK
                 break
-            elif rc == "back":
+            elif rc == TEXT_BACK_CHECK:
                 dir = INSTALL_BACK
                 break
             else:
@@ -255,7 +254,7 @@ class UsersWindow:
 	    info = ( n['id'], n['name'], n['password'] )
 	    list.append(info)
 
-	todo.setUserList(list)
+	accounts.setUserList(list)
 
         return dir
 
@@ -293,19 +292,19 @@ class AuthConfigWindow:
         self.krb5Kdc.setFlags (FLAG_DISABLED, server)
         self.krb5Admin.setFlags (FLAG_DISABLED, server)
 
-    def __call__(self, screen, todo):
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+    def __call__(self, screen, auth):
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         toplevel = GridFormHelp (screen, _("Authentication Configuration"), 
 				 "authconfig", 1, 10)
-        self.shadow = Checkbox (_("Use Shadow Passwords"), todo.auth.useShadow)
+        self.shadow = Checkbox (_("Use Shadow Passwords"), auth.useShadow)
         toplevel.add (self.shadow, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
-        self.md5 = Checkbox (_("Enable MD5 Passwords"), todo.auth.useMD5)
+        self.md5 = Checkbox (_("Enable MD5 Passwords"), auth.useMD5)
         toplevel.add (self.md5, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
 
         # nis support
         subgrid = Grid (3, 3)
-        self.nis = Checkbox (_("Enable NIS"), todo.auth.useNIS)
+        self.nis = Checkbox (_("Enable NIS"), auth.useNIS)
         subgrid.setField (self.nis, 0, 0)
 
         subgrid.setField (Label (""), 0, 1)
@@ -322,10 +321,10 @@ class AuthConfigWindow:
         entrywid = len(text) + 4
         
         self.nisDomain = Entry (entrywid)
-        self.nisDomain.set (todo.auth.nisDomain)
-        self.broadcast = Checkbox (text, todo.auth.nisuseBroadcast)
+        self.nisDomain.set (auth.nisDomain)
+        self.broadcast = Checkbox (text, auth.nisuseBroadcast)
         self.nisServer = Entry (entrywid)
-        self.nisServer.set (todo.auth.nisServer)
+        self.nisServer.set (auth.nisServer)
         subgrid.setField (self.nisDomain, 2, 0, anchorLeft = 1)
         subgrid.setField (self.broadcast, 2, 1, anchorLeft = 1)
         subgrid.setField (self.nisServer, 2, 2, anchorLeft = 1)
@@ -339,7 +338,7 @@ class AuthConfigWindow:
         # ldap support next
         subgrid2 = Grid (3, 3)
 
-        self.ldap = Checkbox (_("Enable LDAP"), todo.auth.useLdap)
+        self.ldap = Checkbox (_("Enable LDAP"), auth.useLdap)
         subgrid2.setField(self.ldap, 0, 0)
 
         subgrid2.setField (Label (""), 0, 1)
@@ -351,9 +350,9 @@ class AuthConfigWindow:
                            1, 1, (2, 0, 1, 0), anchorRight = 1)
 
         self.ldapServer = Entry (entrywid)
-        self.ldapServer.set (todo.auth.ldapServer)
+        self.ldapServer.set (auth.ldapServer)
         self.ldapBasedn = Entry (entrywid)
-        self.ldapBasedn.set (todo.auth.ldapBasedn)
+        self.ldapBasedn.set (auth.ldapBasedn)
         subgrid2.setField (self.ldapServer, 2, 0, anchorLeft = 1)
         subgrid2.setField (self.ldapBasedn, 2, 1, anchorLeft = 1)
 
@@ -368,7 +367,7 @@ class AuthConfigWindow:
         # kerberos last support next
         subgrid3 = Grid (3, 4)
 
-        self.krb5 = Checkbox (_("Enable Kerberos"), todo.auth.useKrb5)
+        self.krb5 = Checkbox (_("Enable Kerberos"), auth.useKrb5)
         subgrid3.setField(self.krb5, 0, 0)
 
         subgrid3.setField (Label (""), 0, 1)
@@ -382,11 +381,11 @@ class AuthConfigWindow:
         subgrid3.setField (Label (_("Admin Server:")),
                            1, 2, (-2, 0, 1, 0), anchorRight = 1)
         self.krb5Realm = Entry (entrywid)
-        self.krb5Realm.set (todo.auth.krb5Realm)
+        self.krb5Realm.set (auth.krb5Realm)
         self.krb5Kdc = Entry (entrywid)
-        self.krb5Kdc.set (todo.auth.krb5Kdc)
+        self.krb5Kdc.set (auth.krb5Kdc)
         self.krb5Admin = Entry (entrywid)
-        self.krb5Admin.set (todo.auth.krb5Admin)
+        self.krb5Admin.set (auth.krb5Admin)
         subgrid3.setField (self.krb5Realm, 2, 0, anchorLeft = 1)
         subgrid3.setField (self.krb5Kdc, 2, 1, anchorLeft = 1)
         subgrid3.setField (self.krb5Admin, 2, 2, anchorLeft = 1)
@@ -405,25 +404,25 @@ class AuthConfigWindow:
 
         result = toplevel.runOnce ()
         
-        todo.auth.useMD5 = self.md5.value ()
-        todo.auth.useShadow = self.shadow.value ()
-        todo.auth.useNIS = self.nis.selected ()
-        todo.auth.nisDomain = self.nisDomain.value ()
-        todo.auth.nisuseBroadcast = self.broadcast.selected ()
-        todo.auth.nisServer = self.nisServer.value ()
-        todo.auth.useLdap = self.ldap.selected ()
-        todo.auth.useLdapauth = self.ldap.selected ()
-        todo.auth.ldapServer = self.ldapServer.value()
-        todo.auth.ldapBasedn = self.ldapBasedn.value()
-        todo.auth.ldapTLS = self.ldapTLS.selected ()
-        todo.auth.useKrb5 = self.krb5.selected()
-        todo.auth.krb5Realm = self.krb5Realm.value()
-        todo.auth.krb5Kdc = self.krb5Kdc.value()
-        todo.auth.krb5Admin = self.krb5Admin.value()
+        auth.useMD5 = self.md5.value ()
+        auth.useShadow = self.shadow.value ()
+        auth.useNIS = self.nis.selected ()
+        auth.nisDomain = self.nisDomain.value ()
+        auth.nisuseBroadcast = self.broadcast.selected ()
+        auth.nisServer = self.nisServer.value ()
+        auth.useLdap = self.ldap.selected ()
+        auth.useLdapauth = self.ldap.selected ()
+        auth.ldapServer = self.ldapServer.value()
+        auth.ldapBasedn = self.ldapBasedn.value()
+        auth.ldapTLS = self.ldapTLS.selected ()
+        auth.useKrb5 = self.krb5.selected()
+        auth.krb5Realm = self.krb5Realm.value()
+        auth.krb5Kdc = self.krb5Kdc.value()
+        auth.krb5Admin = self.krb5Admin.value()
 
         rc = bb.buttonPressed (result)
 
-        if rc == "back":
+        if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
         return INSTALL_OK
 

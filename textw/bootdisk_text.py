@@ -2,12 +2,16 @@ import iutil
 from translate import _
 from snack import *
 from constants_text import *
+import dispatch
 
 class BootDiskWindow:
-    def __call__(self, screen, todo):
+    def __call__(self, screen, dir, disp):
 	# we *always* do this for loopback installs
-	if todo.fstab.rootOnLoop():
-	    return INSTALL_NOOP
+	#
+	# XXX
+	#
+	#if todo.fstab.rootOnLoop():
+	    #return INSTALL_NOOP
 
 	buttons = [ _("Yes"), _("No") ]
 	text =  _("A custom boot disk provides a way of booting into your "
@@ -35,46 +39,44 @@ class BootDiskWindow:
 	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons,
 				help = "bootdiskquery")
 
-	if rc == string.lower (_("Yes")):
-	    todo.bootdisk = 1
-	
 	if rc == string.lower (_("No")):
-	    todo.bootdisk = 0
+	    disp.skipStep("makebootdisk")
+	else:
+	    disp.skipStep("makebootdisk", skip = 0)
+	
 
 	return INSTALL_OK
 
 class MakeBootDiskWindow:
-    def __call__ (self, screen, todo):
-        if not todo.needBootdisk():
-            return INSTALL_NOOP
+    def __call__ (self, screen, dir, disp):
+	# XXX
+	#if todo.fstab.rootOnLoop():
+	    #buttons = [ _("OK") ]
+	#else:
 
-	if todo.fstab.rootOnLoop():
-	    buttons = [ _("OK") ]
-	else:
-	    buttons = [ _("OK"), _("Skip") ]
+	# This is a bit gross. This lets the first bootdisk screen skip
+	# this one if the user doesn't want to see it.
+	if disp.stepInSkipList("makebootdisk"):
+	    return INSTALL_NOOP
 
-        rc = ButtonChoiceWindow (screen, _("Bootdisk"),
+	buttons = [ _("OK"), _("Skip") ]
+
+	if dir == dispatch.DISPATCH_FORWARD:
+	    rc = ButtonChoiceWindow (screen, _("Bootdisk"),
 		     _("If you have the install floppy in your drive, first "
-                       "remove it. Then insert a blank floppy in the first "
-                       "floppy drive. "
+		       "remove it. Then insert a blank floppy in the first "
+		       "floppy drive. "
 		       "All data on this disk will be erased during creation "
 		       "of the boot disk."), buttons, help = "insertbootdisk")
+	else:
+	    rc = ButtonChoiceWindow (screen, _("Error"),
+		    _("An error occured while making the boot disk. "
+		      "Please make sure that there is a formatted floppy "
+		      "in the first floppy drive."), buttons)
+
         if rc == string.lower (_("Skip")):
-            return INSTALL_OK
-            
-        while 1:
-            try:
-                todo.makeBootdisk ()
-            except:
-                rc = ButtonChoiceWindow (screen, _("Error"),
-			_("An error occured while making the boot disk. "
-			  "Please make sure that there is a formatted floppy "
-			  "in the first floppy drive."), buttons)
-                if rc == string.lower (_("Skip")):
-                    break
-                continue
-            else:
-                break
+	    disp.skipStep("makebootdisk")
+	else:
+	    disp.skipStep("makebootdisk", skip = 0)
             
         return INSTALL_OK
-

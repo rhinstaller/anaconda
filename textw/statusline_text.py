@@ -42,7 +42,7 @@ class CleanStatusLine:
     def __str__(self):
         args = copy.deepcopy(self.largs)
         if self.optargs != None:
-            args.extend(optargs)
+            args.extend(self.optargs)
         args.extend(self.rargs)
         return self.formatStatusLine(args)
 

@@ -22,8 +22,8 @@ class SiloAppendWindow:
 	if todo.silo.getAppend():
 	    entry.set(todo.silo.getAppend())
 
-	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
-			     (_("Back"), "back") ] )
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
+			     TEXT_BACK_BUTTON ] )
 
 	grid = GridFormHelp(screen, _("SILO Configuration"), 
 			    "silokernelopts", 1, 3)
@@ -34,7 +34,7 @@ class SiloAppendWindow:
         result = grid.runOnce ()
         button = buttons.buttonPressed(result)
         
-        if button == "back":
+        if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
 	if button == "skip":
@@ -202,8 +202,8 @@ class SiloImagesWindow:
 	    if n == default:
 		listbox.setCurrent(n)
 
-	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
-				      (_("Back"), "back") ] )
+	buttons = ButtonBar(screen, [ TEXT_OK_BUTTON, (_("Edit"), "edit"), 
+				      TEXT_BACK_BUTTON ] )
 
 	text = TextboxReflowed(55, _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
@@ -219,7 +219,7 @@ class SiloImagesWindow:
 	g.addHotKey("F2")
 
 	result = None
-	while (result != "ok" and result != "back" and result != "F12"):
+	while (result != TEXT_OK_CHECK and result != TEXT_BACK_CHECK and result != TEXT_F12_CHECK):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
@@ -248,7 +248,7 @@ class SiloImagesWindow:
 
 	screen.popWindow()
 
-	if (result == "back"):
+	if (result == TEXT_BACK_CHECK):
 	    return INSTALL_BACK
 
 	todo.silo.setSiloImages(images)

@@ -8,18 +8,14 @@ from translate import _
 
 class TimezoneWindow:
 
-    def getTimezoneList(self, test):
-	if not os.access("/usr/lib/timezones.gz", os.R_OK):
-            if test:
-                cmd = "./gettzlist"
-                stdin = None
-            else:
-                zoneList = iutil.findtz('/usr/share/zoneinfo', '')
-                cmd = ""
-                stdin = None
-	else:
+    def getTimezoneList(self):
+	if os.access("/usr/lib/timezones.gz", os.R_OK):
 	    cmd = "/usr/bin/gunzip"
 	    stdin = os.open("/usr/lib/timezones.gz", 0)
+	else:
+	    zoneList = iutil.findtz('/usr/share/zoneinfo', '')
+	    cmd = ""
+	    stdin = None
 
         if cmd != "":
             zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
@@ -48,25 +44,25 @@ class TimezoneWindow:
         # disable for now
         return
         
-	if os.access("/usr/share/zoneinfo/" + self.l.current(), os.R_OK):
-	    os.environ['TZ'] = self.l.current()
-	    self.label.setText(self.currentTime())
-	else:
-	    self.label.setText("")
+#	if os.access("/usr/share/zoneinfo/" + self.l.current(), os.R_OK):
+#	    os.environ['TZ'] = self.l.current()
+#	    self.label.setText(self.currentTime())
+#	else:
+#	    self.label.setText("")
 
     def currentTime(self):
 	return "Current time: " + strftime("%X %Z", localtime(time()))
 
-    def __call__(self, screen, todo, test):
-	timezones = self.getTimezoneList(test)
-	rc = todo.getTimezoneInfo()
+    def __call__(self, screen, instLang, timezone):
+	timezones = self.getTimezoneList()
+	rc = timezone.getTimezoneInfo()
 	if rc:
 	    (default, asUtc, asArc) = rc
 	else:
-	    default = todo.instTimeLanguage.getDefaultTimeZone()
+	    default = todo.instLang.getDefaultTimeZone()
 	    asUtc = 0
 
-	bb = ButtonBar(screen, [(_("OK"), "ok"), (_("Back"), "back")])
+	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
 			_("What time zone are you located in?"))
 
@@ -111,14 +107,14 @@ class TimezoneWindow:
             result = self.g.run()
             rc = bb.buttonPressed (result)
             
-            if rc == "back":
+            if rc == TEXT_BACK_CHECK:
                 screen.popWindow()
                 return INSTALL_BACK
             else:
                 break
 
         screen.popWindow()
-	todo.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
+	timezone.setTimezoneInfo(self.l.current(), asUtc = self.c.selected())
 
 	return INSTALL_OK
 

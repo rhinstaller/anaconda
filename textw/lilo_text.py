@@ -2,6 +2,7 @@
 from snack import *
 from constants_text import *
 from translate import _
+from flags import flags
 import string
 import iutil
 if iutil.getArch() == 'i386':
@@ -12,11 +13,7 @@ if iutil.getArch() == 'i386':
 
 class LiloAppendWindow:
 
-    def __call__(self, screen, todo):
-	if not todo.fstab.setupFilesystems or todo.fstab.rootOnLoop():
-	    todo.skipLilo = 1
-	    return INSTALL_NOOP
-
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):
 	t = TextboxReflowed(53,
 		     _("A few systems will need to pass special options "
 		       "to the kernel at boot time for the system to function "
@@ -24,16 +21,15 @@ class LiloAppendWindow:
 		       "kernel, enter them now. If you don't need any or "
 		       "aren't sure, leave this blank."))
 
-        cb = Checkbox(_("Use linear mode (needed for some SCSI drives)"),
-		      isOn = todo.lilo.getLinear())
+        cb = Checkbox(_("Use LILO bootloader (instead of Grub)"),
+		      isOn = not bl.useGrub())
 	entry = Entry(48, scroll = 1, returnExit = 1)
-	if todo.lilo.getAppend():
-	    entry.set(todo.lilo.getAppend())
+	entry.set(bl.args.get())
 
-	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
-			     (_("Back"), "back") ] )
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
+			     TEXT_BACK_BUTTON ] )
 
-	grid = GridFormHelp(screen, _("LILO Configuration"), "kernelopts", 1, 4)
+	grid = GridFormHelp(screen, _("Bootloader Configuration"), "kernelopts", 1, 4)
 	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
 
 	if not edd.detect():
@@ -45,78 +41,59 @@ class LiloAppendWindow:
         result = grid.runOnce ()
         button = buttons.buttonPressed(result)
         
-        if button == "back":
+        if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
 	if button == "skip":
-            rc = ButtonChoiceWindow(screen, _("Skip LILO"),
-                                    _("You have elected to not install "
-                                      "LILO. It is strongly recommended "
-                                      "that you do install LILO unless "
-                                      "you have an advanced need.  LILO "
-                                      "is almost always required in order "
-                                      "to reboot your system into Linux "
-                                      "directly from the hard drive.\n\n"
-                                      "Are you sure you want to skip LILO "
-                                      "installation?"),
-                                    [ (_("Yes"), "yes"), (_("No"), "no") ],
-                                    width = 50)
-            if rc == "yes":
-                todo.skipLilo = 1
-                todo.lilo.setDevice(None)
-            else:
-                todo.skipLilo = 0
+            rc = ButtonChoiceWindow(screen, _("Skip Bootloader"),
+				_("You have elected to not install "
+				  "any bootloader. It is strongly recommended "
+				  "that you install a bootloader unless "
+				  "you have an advanced need.  A bootloader "
+				  "is almost always required in order "
+				  "to reboot your system into Linux "
+				  "directly from the hard drive.\n\n"
+				  "Are you sure you want to skip bootloader "
+				  "installation?"),
+				[ (_("Yes"), "yes"), (_("No"), "no") ],
+				width = 50)
+	    dispatch.skipStep("instbootloader", skip = (rc == "yes"))
 	else:
-	    todo.skipLilo = 0
+	    dispatch.skipStep("instbootloader", 0)
 
-	todo.lilo.setLinear(cb.selected())
-	if entry.value():
-	    todo.lilo.setAppend(string.strip(entry.value()))
-	else:
-	    todo.lilo.setAppend(None)
+	bl.args.set(entry.value())
+	bl.setUseGrub(not cb.value())
 
 	return INSTALL_OK
 
 class LiloWindow:
-    def __call__(self, screen, todo):
-        if not todo.setupFilesystems: return INSTALL_NOOP
-	if todo.skipLilo: return INSTALL_NOOP
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):
+	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
-	(mount, dev, fstype, format, size) = todo.fstab.mountList()[0]
-	if mount != '/': return INSTALL_NOOP
-	if todo.skipLilo: return INSTALL_NOOP
-
-	if not todo.lilo.allowLiloLocationConfig(todo.fstab):
+	choices = fsset.bootloaderChoices(diskSet)
+	if len(choices) == 1:
+	    bl.setDevice(choices[0][0])
 	    return INSTALL_NOOP
 
-	bootpart = todo.fstab.getBootDevice()
-	boothd = todo.fstab.getMbrDevice()
-
-	if (todo.lilo.getDevice () == "mbr"):
-	    default = 0
-	elif (todo.lilo.getDevice () == "partition"):
-	    default = 1
-	else:
-	    default = 0
-            
         format = "/dev/%-11s %s" 
         locations = []
-        locations.append (format % (boothd, _("Master Boot Record (MBR)")))
-        locations.append (format % (bootpart, _("First sector of boot partition")))
+	default = 0
+	for (device, desc) in choices:
+	    if device == bl.getDevice():
+		default = len(locations)
+	    locations.append (format % (device, _(desc)))
 
-        (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
-                                         _("Where do you want to install the bootloader?"),
-                                         locations, default = default,
-                                         buttons = [ _("OK"), _("Back") ],
-					 help = "lilolocation")
+        (rc, sel) = ListboxChoiceWindow (screen, _("Bootloader Configuration"),
+			 _("Where do you want to install the bootloader?"),
+			 locations, default = default,
+			 buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ],
+			 help = "lilolocation")
 
-        if sel == 0:
-            todo.lilo.setDevice("mbr")
-        else:
-            todo.lilo.setDevice("partition")
-
-        if rc == string.lower (_("Back")):
+        if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
+
+	bl.setDevice(choices[sel][0])
+
         return INSTALL_OK
 
 class LiloImagesWindow:
@@ -137,7 +114,7 @@ class LiloImagesWindow:
 	device = Label("/dev/" + partition)
         newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
 
-	buttons = ButtonBar(screen, [(_("Ok"), "ok"), (_("Clear"), "clear"),
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Clear"), "clear"),
 			    (_("Cancel"), "cancel")])
 
 	subgrid = Grid(2, 2)
@@ -151,7 +128,7 @@ class LiloImagesWindow:
 	g.add(buttons, 0, 1, growx = 1)
 
 	result = ""
-	while (result != "ok" and result != "F12" and result != newLabel):
+	while (result != TEXT_OK_CHECK and result != TEXT_F12_CHECK and result != newLabel):
 	    result = g.run()
 
 	    if (buttons.buttonPressed(result)):
@@ -162,17 +139,17 @@ class LiloImagesWindow:
 		return itemLabel
 	    elif (result == "clear"):
 		newLabel.set("")
-            elif (result == "ok" or result == "F12" or result == newLabel):
+            elif (result == TEXT_OK_CHECK or result == TEXT_F12_CHECK or result == newLabel):
 		if not allowNone and not newLabel.value():
                     rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
                                              _("Boot label may not be empty."),
-                                             [ _("OK") ])
+                                             [ TEXT_OK_BUTTON ])
                     result = ""
                 elif not self.validLiloLabel(newLabel.value()):
                     rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
                                              _("Boot label contains "
                                                "illegal characters."),
-                                             [ _("OK") ])
+                                             [ TEXT_OK_BUTTON ])
                     result = ""
 
 	screen.popWindow()
@@ -180,11 +157,11 @@ class LiloImagesWindow:
 	return newLabel.value()
 
     def formatDevice(self, type, label, device, default):
-	if (type == 2):
+	if (type == "ext2"):
 	    type = "Linux Native"
-	elif (type == 1):
+	elif (type == "FAT"):
 	    type = "DOS/Windows"
-	elif (type == 4):	
+	elif (type == "ntfs" or type == "hpfs"):	
 	    type = "OS/2 / Windows NT"
 	else:
 	    type = "Other"
@@ -196,34 +173,27 @@ class LiloImagesWindow:
 	    
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
-    def __call__(self, screen, todo):
-	(images, default) = todo.lilo.getLiloImages(todo.fstab)
-	if not images: return INSTALL_NOOP
-	if todo.skipLilo: return INSTALL_NOOP
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):
+	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
-	# the default item is kept as a label (which makes more sense for the
-	# user), but we want our listbox "indexed" by device, which so we keep
-	# the default item as a device
-	for (dev, (label, type)) in images.items():
-	    if label == default:
-		default = dev
-		break
-
-	sortedKeys = images.keys()
-	sortedKeys.sort()
+	images = bl.images.getImages()
+	default = bl.images.getDefault()
 
 	listboxLabel = Label("%-10s  %-25s %-7s %-10s" % 
 		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
 
-	for n in sortedKeys:
-	    (label, type) = images[n]
-	    listbox.append(self.formatDevice(type, label, n, default), n)
-	    if n == default:
-		listbox.setCurrent(n)
+	sortedKeys = images.keys()
+	sortedKeys.sort()
 
-	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
-				      (_("Back"), "back") ] )
+	for dev in sortedKeys:
+	    (label, type) = images[dev]
+	    listbox.append(self.formatDevice(type, label, dev, default), dev)
+
+	listbox.setCurrent(dev)
+
+	buttons = ButtonBar(screen, [ TEXT_OK_BUTTON, (_("Edit"), "edit"), 
+				      TEXT_BACK_BUTTON ] )
 
 	text = TextboxReflowed(55,
 		    _("The boot manager Red Hat uses can boot other " 
@@ -231,16 +201,18 @@ class LiloImagesWindow:
 		      "what partitions you would like to be able to boot " 
 		      "and what label you want to use for each of them."))
 
-	g = GridFormHelp(screen, _("LILO Configuration"), "lilolabels", 1, 4)
+	g = GridFormHelp(screen, _("Bootloader Configuration"), 
+			 "lilolabels", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
 	g.addHotKey(" ")
 
+	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
+
 	result = None
-        (rootdev, rootfs) = todo.fstab.getRootDevice()
-	while (result != "ok" and result != "back" and result != "F12"):
+	while (result != TEXT_OK_CHECK and result != TEXT_BACK_CHECK and result != TEXT_F12_CHECK):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
@@ -271,17 +243,12 @@ class LiloImagesWindow:
 
 	screen.popWindow()
 
-	if (result == "back"):
+	if (result == TEXT_BACK_CHECK):
 	    return INSTALL_BACK
 
-	# find the label for the default device
 	for (dev, (label, type)) in images.items():
-	    if dev == default:
-		default = label
-		break
-
-	todo.lilo.setLiloImages(images)
-	todo.lilo.setDefault(label)
+	    bl.images.setImageLabel(dev, label)
+	bl.images.setDefault(default)
 
 	return INSTALL_OK
 

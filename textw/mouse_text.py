@@ -24,8 +24,9 @@ class MouseDeviceWindow:
 
         (button, result) = ListboxChoiceWindow(screen, _("Device"),
                     _("What device is your mouse located on?"), l,
-                    [ _("Ok"), _("Back") ], help = "mousedevice", default = default )
-        if (button == string.lower(_("Back"))): return INSTALL_BACK
+                    [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ], help = "mousedevice", default = default )
+        if button == TEXT_BACK_CHECK:
+            return INSTALL_BACK
 
         mouse.setDevice(choices[l[result]])
 
@@ -52,7 +53,7 @@ class MouseWindow:
             return INSTALL_NOOP
         default = mice.index (default)
 
-        bb = ButtonBar(screen, [_("OK"), _("Back")])
+        bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
         t = TextboxReflowed(40, 
                 _("Which model mouse is attached to this computer?"))
         l = Listbox(8, scroll = 1, returnExit = 0)
@@ -78,7 +79,7 @@ class MouseWindow:
 
         button = bb.buttonPressed(rc)
 
-        if button == string.lower (_("Back")):
+        if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
         choice = l.current()

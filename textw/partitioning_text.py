@@ -21,9 +21,9 @@ class PartitionMethod:
 	      "\n"
 	      "Which tool would you like to use?"),
 	    [ (_("Disk Druid"), "dd") , (_("fdisk"), "fd"), 
-	      (_("Back"), "back") ], width = 50, help = "parttool")
+	      TEXT_BACK_BUTTON ], width = 50, help = "parttool")
 
-	if rc == "back":
+	if rc == TEXT_BACK_CHECK:
 	    return INSTALL_BACK
 	elif rc == "fd":
 	    todo.skipFdisk = 0
@@ -63,9 +63,9 @@ class ManualPartitionWindow:
 		     "drives in your system so you can boot into Linux "
 		     "with LILO."), choices,
 		[ (_("Done"), "done") , (_("Edit"), "edit"), 
-		  (_("Back"), "back") ], width = 50, help = "fdisk")
+		  TEXT_BACK_BUTTON ], width = 50, help = "fdisk")
 
-	    if button != "done" and button != "back":
+	    if button != "done" and button != TEXT_BACK_CHECK:
 		# free our fd's to the hard drive -- we have to 
 		# fstab.rescanDrives() after this or bad things happen!
 		if not haveEdited:
@@ -95,7 +95,7 @@ class ManualPartitionWindow:
 
 	todo.fstab.rescanPartitions()
 
-	if button == "back":
+	if button == TEXT_BACK_CHECK:
 	    return INSTALL_BACK
 
 	return INSTALL_OK
@@ -154,11 +154,11 @@ class AutoPartitionWindow:
 	      "and perform a fully customized installation.") % 
 		    (_(todo.getPartitionWarningText()), ),
 	    [_("Continue"), _("Manually partition")],
-	    buttons = ((_("Ok"), "ok"), (_("Back"), "back")),
+	    buttons = (TEXT_OK_BUTTON, TEXT_BACK_BUTTON),
             default = _("Continue"), 
 	    help = "confirmautopart")
 
-	if (rc == "back"): 
+	if (rc == TEXT_BACK_CHECK): 
 	    # This happens automatically when we go out of scope, but it's
 	    # important so let's be explicit
 	    druid = None
@@ -218,10 +218,10 @@ class TurnOnSwapWindow:
 			 "need to turn on swap space immediately. To do this "
 			 "we'll have to write your new partition table to the "
 			 "disk immediately. Is that okay?"),
-		       [ (_("Yes"), "yes"), (_("Back"), "back") ], width = 50,
+		       [ (_("Yes"), "yes"), TEXT_BACK_BUTTON ], width = 50,
 		       help = "earlyswapon")
 
-	    if (rc == "back"):
+	    if (rc == TEXT_BACK_CHECK):
 		return INSTALL_BACK
 
         todo.fstab.savePartitions ()
@@ -232,7 +232,7 @@ class TurnOnSwapWindow:
 	return INSTALL_OK
 
 class FormatWindow:
-    def __call__(self, screen, todo):
+    def __call__(self, screen, fsset):
         tb = TextboxReflowed (55,
                               _("What partitions would you like to "
                                 "format? We strongly suggest formatting "
@@ -242,28 +242,30 @@ class FormatWindow:
                                 "already been configured during a "
                                 "previous install."))
 
-	mounts = todo.fstab.formattablePartitions()
+	mounts = fsset.formattablePartitions()
         height = min (screen.height - 12, len (mounts))
         
         ct = CheckboxTree(height = height, scroll = 1)
 
 	gotOne = 0
-	for (mount, dev, fstype, format, size) in mounts:
+	for entry in mounts:
 	    gotOne = 1
-	    ct.append("/dev/%s   %s" % (dev, mount), dev, format)
+	    ct.append("/dev/%s   %s" % (entry.device.getDevice(),
+                                        entry.mountpoint),
+                      entry, entry.getFormat())
 
 	if not gotOne: return INSTALL_NOOP
 
-        cb = Checkbox (_("Check for bad blocks during format"),
-			todo.fstab.getBadBlockCheck())
+#        cb = Checkbox (_("Check for bad blocks during format"),
+#			todo.fstab.getBadBlockCheck())
 
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
         g = GridFormHelp (screen, _("Choose Partitions to Format"), 
 			 "formatwhat", 1, 4)
         g.add (tb, 0, 0, (0, 0, 0, 1))
         g.add (ct, 0, 1)
-        g.add (cb, 0, 2, (0, 1, 0, 1))
+#        g.add (cb, 0, 2, (0, 1, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
 	done = 0
@@ -271,22 +273,24 @@ class FormatWindow:
 	while not done:
 	    result = g.run()
 	    rc = bb.buttonPressed (result)
-	    if rc == "back":
+	    if rc == TEXT_BACK_CHECK:
 		screen.popWindow()
 		return INSTALL_BACK
 
-	    for (mount, dev, fstype, format, size) in mounts:
-		todo.fstab.setFormatFilesystem(dev, 0)
+            for entry in mounts:
+                entry.setFormat(0)
 
-	    for dev in ct.getSelection():
-		todo.fstab.setFormatFilesystem(dev, 1)
+	    for entry in ct.getSelection():
+                entry.setFormat(1)
 
-	    todo.fstab.setBadBlockCheck(cb.selected ())
+#	    fstab.setBadBlockCheck(cb.selected ())
 
-	    rc = todo.fstab.checkFormatting(todo.intf.messageWindow)
+#	    rc = todo.fstab.checkFormatting(todo.intf.messageWindow)
 
-	    if not rc:
-		done = 1
+## 	    if not rc:
+## 		done = 1
+            # XXX can't check rc until after we're checking formatting
+            done = 1
 
 	screen.popWindow()
 
@@ -340,10 +344,11 @@ class LoopSizeWindow:
 		  "total less then %d megabytes in size." % (avail, )),
 		    [ ( _("Root filesystem size"), sizeEntry ),
 		      ( _("Swap space"), swapSizeEntry ) ],
-		    buttons = [ (_("OK"), "ok"), (_("Back"), "back") ],
+		    buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ],
 		    help = "loopbacksize")
 
-	    if rc == "back": return INSTALL_BACK
+	    if rc == TEXT_BACK_BUTTON:
+                return INSTALL_BACK
 
 	    try:
 		size = int(sizeEntry.value())
@@ -351,7 +356,7 @@ class LoopSizeWindow:
 	    except:
 		ButtonChoiceWindow(screen, _("Bad Size"),
 			_("The size you enter must be a number."),
-			buttons = [ _("OK") ])
+			buttons = [ TEXT_OK_BUTTON])
 		continue
 
 	    if size + swapSize >= avail:
@@ -359,14 +364,14 @@ class LoopSizeWindow:
 			_("The total size must be smaller then the amount of "
 			  "free space on the disk, which is %d megabytes."
 				% (avail, )),
-			buttons = [ _("OK") ])
+			buttons = [ TEXT_OK_BUTTON ])
 		continue
 	    if size > 2000 or swapSize > 2000:
 		ButtonChoiceWindow(screen, _("Bad Size"),
 			_("Neither the root file system size "
 			  "nor the swap space size may be greater then "
 			  "2000 megabytes."),
-			buttons = [ _("OK") ])
+			buttons = [ TEXT_OK_BUTTON ])
 		continue
 
 	    break
@@ -419,7 +424,7 @@ class LBA32WarningWindow:
                       "recent motherboards and is not always reliable. "
                       "Making a boot disk will guarantee you can boot "
                       "your system once installed."),
-                     [ (_("Ok"), "ok") ], width = 50,
+                     [ TEXT_OK_BUTTON ], width = 50,
                      help = "lba32warning")
         else:
             return INSTALL_NOOP

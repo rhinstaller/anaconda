@@ -12,7 +12,7 @@ class PackageGroupWindow:
 	return _("Total install size: %s") % comps.sizeStr()
     
     def updateSize(self, args):
-	(label, todo, ct ) = args
+	(label, comps, ct ) = args
 
 	comp = ct.getCurrent()
 	list = ct.getSelection()
@@ -25,37 +25,22 @@ class PackageGroupWindow:
 	    if not comp.isSelected(justManual = 1): return
 	    comp.unselect()
 
-	label.setText(self.size(todo.comps))
+	label.setText(self.size(comps))
 
-    def __call__(self, screen, todo, individual):
-        # be sure that the headers and comps files have been read.
-	todo.getHeaderList()
-        todo.getCompsList()
-
-	origSelection = todo.comps.getSelectionState()
+    def __call__(self, screen, comps, dispatch):
+	origSelection = comps.getSelectionState()
 
         ct = CheckboxTree(height = 8, scroll = 1)
-        klass = todo.getClass ()
-        showgroups = klass.getOptionalGroups()
-        for comp in todo.comps:
-            show = 0
-            if showgroups:
-                try:
-                    if klass.findOptionalGroup (comp.name):
-			show = 1
-                except ValueError:
-                    # comp not in show list
-                    pass
-            else:
-                show = not comp.hidden
-            if show:
+        for comp in comps:
+            if not comp.hidden:
                 ct.append(_(comp.name), comp, comp.isSelected(justManual = 1))
 
-        cb = Checkbox (_("Select individual packages"), individual.get ())
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
-	la = Label(self.size(todo.comps))
+        cb = Checkbox (_("Select individual packages"), 
+			    not dispatch.stepInSkipList("indivpackage"))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+	la = Label(self.size(comps))
 
-	ct.setCallback(self.updateSize, (la, todo, ct))
+	ct.setCallback(self.updateSize, (la, comps, ct))
 
         g = GridFormHelp (screen, _("Package Group Selection"), 
 			  "components", 1, 4)
@@ -69,11 +54,14 @@ class PackageGroupWindow:
 
         rc = bb.buttonPressed (result)
 
-        if rc == "back":
-	    todo.comps.setSelectionState(origSelection)
+        if rc == TEXT_BACK_CHECK:
+	    comps.setSelectionState(origSelection)
             return INSTALL_BACK
 
-	individual.set (cb.selected())
+	if cb.selected():
+	    dispatch.skipStep("indivpackage", skip = 0)
+	else:
+	    dispatch.skipStep("indivpackage")
 
         return INSTALL_OK
 
@@ -86,7 +74,7 @@ class IndividualPackageWindow:
 
     def printHelp(self, screen, header):
 	sg = Grid(2, 2)
-	bb = ButtonBar (screen, ((_("OK"), "ok"),))
+	bb = ButtonBar (screen, (TEXT_OK_BUTTON,))
 
 	sg.setField (Label (_("Package :")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
 	sg.setField (Label ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
@@ -164,12 +152,8 @@ class IndividualPackageWindow:
 		elif isOn and not header.isSelected():
 		    self.ctSet(header, 1)
 
-    def __call__(self, screen, todo, individual):
-        if not individual.get():
-            return
-	todo.getHeaderList()
-        todo.getCompsList()
-	origSelection = todo.comps.getSelectionState()
+    def __call__(self, screen, comps, hdList):
+	origSelection = comps.getSelectionState()
 
         ct = CheckboxTree(height = 10, scroll = 1)
 	self.ct = ct
@@ -183,10 +167,10 @@ class IndividualPackageWindow:
         # go through all the headers and grok out the group names, placing
         # packages in lists in the groups dictionary.
         
-        for key in todo.hdList.packages.keys():
-            header = todo.hdList.packages[key]
+        for key in hdList.packages.keys():
+            header = hdList.packages[key]
             # don't show this package if it is in the base group
-            if not todo.comps["Base"].includesPackage (header):
+            if not comps["Base"].includesPackage (header):
 		group = header[rpm.RPMTAG_GROUP]
 		if not self.groups.has_key (group):
 		    self.groups[group] = []
@@ -215,7 +199,7 @@ class IndividualPackageWindow:
 	    self.length = max((self.length, 1+len(key)))
 
 	# comps.size() is in meg, we found in k
-	self.total = todo.comps.size() * 1024
+	self.total = comps.size() * 1024
 
         index = 0
         for key in keys:
@@ -233,7 +217,7 @@ class IndividualPackageWindow:
                 
 	ct.setCallback(self.ctCallback)
 		
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
 	self.lbl = Label ("")
 	self.printTotal()
@@ -263,47 +247,40 @@ class IndividualPackageWindow:
 
         rc = bb.buttonPressed (result)
         
-        if rc == "back":
-	    todo.comps.setSelectionState(origSelection)
+        if rc == TEXT_BACK_CHECK:
+	    comps.setSelectionState(origSelection)
             return INSTALL_BACK
 
         return INSTALL_OK
 
 class PackageDepWindow:
-    moredeps = None
     def size(self, comps):
 	return _("Total install size: %s") % comps.sizeStr()
 
     def radiocb (self, args):
-        (label, todo, widget) = args
+        (label, comps, deps, widget) = args
         if widget == self.inst:
-            todo.selectDeps (self.deps)
-            todo.selectDepCause (self.deps)
+            comps.selectDeps (deps)
+            comps.selectDepCause (deps)
         elif widget == self.cause:
-            todo.unselectDeps (self.deps)
-            todo.unselectDepCause (self.deps)
+            comps.unselectDeps (deps)
+            comps.unselectDepCause (deps)
         elif widget == self.ignore:
-            todo.unselectDeps (self.deps)
-            todo.selectDepCause (self.deps)
+            comps.unselectDeps (deps)
+            comps.selectDepCause (deps)
         else:
             raise RuntimeError, "never reached"
         
-	label.setText(self.size(todo.comps))
+	label.setText(self.size(comps))
 
-    def __call__(self, screen, todo):
-        if not PackageDepWindow.moredeps:
-            self.deps = todo.verifyDeps ()
-        else:
-            self.deps = PackageDepWindow.moredeps
-        if not self.deps:
-            return INSTALL_NOOP
+    def __call__(self, screen, comps, deps):
 
-	origSelection = todo.comps.getSelectionState()
-        todo.selectDeps (self.deps)
+	origSelection = comps.getSelectionState()
+        comps.selectDeps (deps)
 
         g = GridFormHelp(screen, _("Package Dependencies"), 
 			 "packagedeps", 1, 8)
-        g.add (TextboxReflowed (45, _("Some of the packages you have "
+        g.add (TextboxReflowed (50, _("Some of the packages you have "
                                       "selected to install require "
                                       "packages you have not selected. If "
                                       "you just select Ok all of those "
@@ -311,17 +288,17 @@ class PackageDepWindow:
                                       "installed.")), 0, 0, (0, 0, 0, 1))
         g.add (Label ("%-20s %-20s" % (_("Package"), _("Requirement"))), 0, 1, anchorLeft = 1)
         text = ""
-        for name, suggest in self.deps:
+        for name, suggest in deps:
             text = text + "%-20s %-20s\n" % (name, suggest)
         
-        if len (self.deps) > 4:
+        if len (deps) > 4:
             scroll = 1
         else:
             scroll = 0
             
-        g.add (Textbox (45, 4, text, scroll = scroll), 0, 2, anchorLeft = 1)
+        g.add (Textbox (45, 4, text, scroll = scroll), 0, 2)
 
-        la = Label(self.size(todo.comps))
+        la = Label(self.size(comps))
         g.add (la, 0, 3, anchorRight = 1)
 
         instt = _("Install packages to satisfy dependencies")
@@ -333,33 +310,29 @@ class PackageDepWindow:
             return "%-*s" % (pad, text)
         
         self.inst = SingleRadioButton (pad (maxlen, instt), None, 1)
-	self.inst.setCallback(self.radiocb, (la, todo, self.inst))
+	self.inst.setCallback(self.radiocb, (la, comps, deps, self.inst))
         g.add (self.inst, 0, 4, (0, 1, 0, 0), anchorLeft = 1)
 
         self.cause = SingleRadioButton (pad (maxlen, causet), self.inst, 0)
-	self.cause.setCallback(self.radiocb, (la, todo, self.cause))
+	self.cause.setCallback(self.radiocb, (la, comps, deps, self.cause))
         g.add (self.cause, 0, 5, anchorLeft = 1)
         
         self.ignore = SingleRadioButton (pad (maxlen, ignt), self.cause, 0)
         g.add (self.ignore, 0, 6, (0, 0, 0, 1), anchorLeft = 1)
-	self.ignore.setCallback(self.radiocb, (la, todo, self.ignore))
+	self.ignore.setCallback(self.radiocb, (la, comps, deps, self.ignore))
         
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
         g.add (bb, 0, 7, growx = 1)
 
         result = g.runOnce ()
 
         rc = bb.buttonPressed (result)
-        if rc == "back":
-            todo.comps.setSelectionState(origSelection)
+        if rc == TEXT_BACK_CHECK:
+            comps.setSelectionState(origSelection)
             return INSTALL_BACK
 
         if self.ignore.selected():
             return INSTALL_OK
-        
-        moredeps = todo.verifyDeps ()
-        if moredeps and todo.canResolveDeps (moredeps):
-            PackageDepWindow.moredeps = moredeps
-            return self(screen, todo)
+
         return INSTALL_OK
 
