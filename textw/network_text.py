@@ -79,7 +79,7 @@ class NetworkWindow:
         firstg.setField (self.cb, 0, 0, anchorLeft = 1)
 
         ask_ptp = None
-        if len(dev) >= 3 and dev[:3] == "ctc":
+        if len(dev.info["DEVICE"]) >= 3 and dev.info["DEVICE"][:3] == "ctc":
             ask_ptp = 1
             secondg = Grid (2, 7)
         else:
