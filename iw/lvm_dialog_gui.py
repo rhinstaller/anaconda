@@ -609,7 +609,7 @@ class VolumeGroupEditor:
 	    return
 	    
         request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
-					   size = fspace/2)
+					   size = fspace)
 	self.editLogicalVolume(request, isNew = 1)
 	return
 
