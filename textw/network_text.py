@@ -6,11 +6,13 @@ from constants_text import *
 from translate import _
 
 class NetworkWindow:
-    def setsensitive (self):
+    def setsensitive (self, todo):
         if self.cb.selected ():
             sense = FLAGS_SET
+            todo.dhcpState = "ON"
         else:
             sense = FLAGS_RESET
+            todo.dhcpState = "OFF"
 
         for n in self.ip, self.nm, self.gw, self.ns, self.ns2, self.ns3:
             n.setFlags (FLAG_DISABLED, sense)
@@ -73,7 +75,6 @@ class NetworkWindow:
         secondg.setField (Label (_("Secondary nameserver:")), 0, 4, anchorLeft = 1)
         secondg.setField (Label (_("Ternary nameserver:")), 0, 5, anchorLeft = 1)
 
-
         self.ip = Entry (16)
         self.ip.set (dev.get ("ipaddr"))
         self.nm = Entry (16)
@@ -87,18 +88,16 @@ class NetworkWindow:
         self.ns3 = Entry (16)
         self.ns3.set (todo.network.ternaryNS)
 
-        self.cb.setCallback (self.setsensitive)
+        self.cb.setCallback (self.setsensitive, todo)
         self.ip.setCallback (self.calcNM)
         self.nm.setCallback (self.calcGW)
 
         secondg.setField (self.ip, 1, 0, (1, 0, 0, 0))
-	secondg.setField (self.nm, 1, 1, (1, 0, 0, 0))
+	secondg.setField (self.nm, 1, 1, (1, 0, 0, 0))        
 	secondg.setField (self.gw, 1, 2, (1, 0, 0, 0))
         secondg.setField (self.ns, 1, 3, (1, 0, 0, 0))
         secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
         secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
-
-
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
@@ -108,7 +107,7 @@ class NetworkWindow:
         toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
         toplevel.add (bb, 0, 2, growx = 1)
 
-        self.setsensitive ()
+        self.setsensitive (todo)
 
         while 1:
             result = toplevel.run ()
@@ -145,19 +144,57 @@ class NetworkWindow:
 
 class HostnameWindow:
     def __call__(self, screen, todo):
+
+        if todo.dhcpState == "ON":
+            return
+        
         entry = Entry (24)
+        domainEntry = Entry (24)
+
         if todo.network.hostname != "localhost.localdomain":
-            entry.set (todo.network.hostname)
+
+            #--Loader passes in hostname and domain as one line.  To make it more clear to the user,
+            #--we split the hostname off the domain and put them in different GtkEntry boxes
+            hs = todo.network.hostname
+            tmp = string.split(hs, ".")
+
+            entry.set (tmp[0])
+            count = 0
+            domain = ""
+            for token in tmp:
+                if count == 0:
+                    pass
+                elif count == 1:
+                    domain = domain + token
+                else:
+                    domain = domain + "." + token
+                count = count + 1
+
+            domainEntry.set (domain)
+
+            
+#            entry.set (todo.network.hostname)
+
+
         rc, values = EntryWindow(screen, _("Hostname Configuration"),
              _("The hostname is the name of your computer.  If your "
                "computer is attached to a network, this may be "
                "assigned by your network administrator."),
-             [(_("Hostname"), entry)], buttons = [ _("OK"), _("Back")],
+             [(_("Hostname"), entry), (_("Domain"), domainEntry)], buttons = [ _("OK"), _("Back")],
 	     help = "hostname")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
 
-        todo.network.hostname = entry.value ()
+#        todo.network.hostname = entry.value ()
+
+        
+#        if (self.hostname.get_text () != ""):
+
+        fullname = entry.value() + "." + domainEntry.value()
+        todo.network.hostname = fullname
+        print todo.network.hostname
+
+
         
         return INSTALL_OK
