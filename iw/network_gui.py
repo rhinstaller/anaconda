@@ -52,8 +52,10 @@ class NetworkWindow(InstallWindow):
 	    if neterrors is not None:
 		self.handleBadHostname(hname, neterrors) 
 		raise gui.StayOnScreen
-	    elif len(hname) == 0:
-		if self.handleMissingHostname():
+            elif len(hname) == 0:
+                hname = "localhost.localdomain" # ...better than empty
+		if ((self.getNumberActiveDevices() > 0) and
+                    self.handleMissingHostname()):
 		    raise gui.StayOnScreen
 
 	    newHostname = hname
@@ -68,7 +70,7 @@ class NetworkWindow(InstallWindow):
 		try:
 		    tmpvals[t] = self.globals[global_options[t]].dehydrate()
 		except ipwidget.IPMissing, msg:
-		    if t < 2:
+                    if t < 2 and self.getNumberActiveDevices() > 0:
 			if self.handleMissingOptionalIP(global_options[t]):
 			    raise gui.StayOnScreen
 			else:
