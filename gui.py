@@ -4,6 +4,7 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
+from _gtk import gtk_rc_init
 import GdkImlib
 from GDK import *
 import time
@@ -385,12 +386,19 @@ class InstallControlWindow:
 
         cat.setlangs (newlangs)
 
+        gtk_set_locale ()
+        gtk_rc_init ()
+
+        found = 0
         for l in newlangs:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
+                found = 1
+        if not found:
+            rc_parse("/etc/gtk/gtkrc")
 
-        gtk_set_locale ()
         self.window.reset_rc_styles ()
+
         # XXX recreate html widget to set new locale
         # there has to be a better way to do this, but I
         # can't find it.  I try html.set_font_charset, but
