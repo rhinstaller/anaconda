@@ -13,9 +13,12 @@ class DoInstall (Thread):
         Thread.__init__ (self)
 
     def run (self):
-        self.todo.doInstall ()
+        rc = self.todo.doInstall ()
         threads_enter ()
-        self.icw.nextClicked ()
+        if rc:
+            self.icw.prevClicked ()
+        else:
+            self.icw.nextClicked ()
         threads_leave ()
                 
 class InstallProgressWindow (InstallWindow):

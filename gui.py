@@ -55,7 +55,7 @@ class WaitWindow:
 	self.window.add (frame)
 	self.window.show_all ()
 	gdk_flush ()
-	while events_pending ():
+ 	while events_pending ():
             mainiteration (FALSE)
         threads_leave ()
             
@@ -89,8 +89,6 @@ class ProgressWindow:
 	self.window.add (frame)
 	self.window.show_all ()
 	gdk_flush ()
-	while events_pending ():
-            mainiteration (FALSE)
         threads_leave ()
 
     def set (self, amount):
@@ -105,9 +103,66 @@ class ProgressWindow:
 
 class GtkMainThread (Thread):
     def run (self):
+        self.setName ("gtk_main")
         threads_enter ()
         mainloop ()
         threads_leave ()
+
+class MessageWindow:
+    def quit (self, *args):
+        if self.quitmain:
+            mainquit ()
+        else:
+            self.window.destroy ()
+            self.mutex.set ()
+    
+    def __init__ (self, title, text):
+        threads_enter ()
+        self.window = GtkWindow (WINDOW_POPUP)
+        self.window.set_title (title)
+        self.window.set_position (WIN_POS_CENTER)
+        self.window.set_modal (TRUE)
+        box = GtkVBox (5, FALSE)
+        box.set_border_width (10)
+
+        label = GtkLabel (text)
+        label.set_line_wrap (TRUE)
+        label.set_alignment (0.0, 0.5)
+        box.pack_start (label)
+
+        bb = GtkHButtonBox ()
+        ok = GnomeStockButton (STOCK_BUTTON_OK)
+        bb.pack_start (ok)
+        box.pack_end (bb, FALSE, TRUE)
+        ok.connect ("clicked", self.quit)
+
+        frame = GtkFrame ()
+        frame.set_shadow_type (SHADOW_OUT)
+        frame.add (box)
+        self.window.add (frame)
+        self.window.show_all ()
+        gdk_flush ()
+        threads_leave ()
+
+        # there are two cases to cover here in order to be
+        # modal:
+        # 1) the MessageWindow is being created by the gtk_main
+        #    thread, in which case we must call the mainloop recursively.
+        # 2) the MessageWindow is created by some other thread, in
+        #    which case we must _not_ call the mainloop (currently,
+        #    you can not call the mainloop from a second thread).
+        #    Instead, create an Event mutex and wait for it to get set.
+        #    by the clicked signal handler
+        thread = currentThread ()
+        if thread.getName () == "gtk_main":
+            self.quitmain = 1
+            threads_enter ()
+            mainloop ()
+            threads_leave ()
+        else:
+            self.quitmain = 0
+            self.mutex = Event ()
+            self.mutex.wait ()
     
 class InstallInterface:
     def setPackageProgressWindow (self, ppw):
@@ -123,15 +178,8 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-
-#    def messageWindowBlock (self, title, text):
-#
-
     def messageWindow(self, title, text):
-        print "got called"
-        dialog = GnomeOkDialog (text)
-        dialog.set_position (WIN_POS_CENTER)
-        dialog.run ()
+        return MessageWindow (title, text)
 
     def exceptionWindow(self, title, text):
         print text
@@ -291,13 +339,6 @@ class InstallControlWindow (Thread):
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 
-        # get everything shown, then call fixUp so screens can do
-        # things like moveto
-        # EEEEEEEEEEEEEEEEEEEEEEEK!  GTK Deadlock
-## 	while events_pending ():
-##             mainiteration ()
-#	screen.fixUp ()
-
     def update (self, ics):
         if self.buildingWindows or ics != self.currentScreen.getICS ():
             return
@@ -350,6 +391,7 @@ class InstallControlWindow (Thread):
         self.window = GtkWindow ()
 
         self.window.set_default_size (640, 480)
+        self.window.set_usize (640, 480)
         cursor = cursor_new (LEFT_PTR)
         _root_window ().set_cursor (cursor)
 
