@@ -40,8 +40,8 @@ class FirewallWindow (InstallWindow):
 	    
 	    if rc2 == 0:
 		raise gui.StayOnScreen
-	    else:
-		self.firewall.enabled = 0
+        else:
+            self.firewall.enabled = 0
 
             count = 0
             self.firewall.trustdevs = []
@@ -66,7 +66,7 @@ class FirewallWindow (InstallWindow):
                 elif service == "FTP":
                     self.firewall.ftp = val                    
                 count = count + 1
-                    
+
             portstring = string.strip(self.ports.get_text())
             portlist = ""
             bad_token_found = 0
