@@ -36,12 +36,12 @@ os.system("rm -rf %s" % (destdir,))
 os.system("mkdir %s" % (destdir,))
 
 # copy documentation
-os.system("cp -p %s/*eula*       %s/" % (srcdir, destdir))
-os.system("cp -p %s/*EULA*       %s/" % (srcdir, destdir))
-os.system("cp -p %s/README*      %s/" % (srcdir, destdir))
-os.system("cp -p %s/RELEASE*     %s/" % (srcdir, destdir))
-os.system("cp -p %s/GPL          %s/" % (srcdir, destdir))
-os.system("cp -p %s/RPM-*        %s/" % (srcdir, destdir))
+for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
+    try:
+	os.system("cp -p %s/%s       %s/" % (srcdir, pat, destdir))
+    except:
+	print "Unable to find pattern %s" % (pat,)
+
 
 # cp isolinux boot image
 os.system("cp -a %s/isolinux     %s/" % (srcdir, destdir))
