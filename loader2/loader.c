@@ -488,8 +488,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "nofirewire"))
             flags |= LOADER_FLAGS_NOIEEE1394;
-        else if (!strcasecmp(argv[i], "firewire"))
-            flags &= ~LOADER_FLAGS_NOIEEE1394;
         else if (!strcasecmp(argv[i], "noprobe"))
             flags |= LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "nopcmcia"))
@@ -1038,7 +1036,7 @@ static int hasGraphicalOverride() {
 }
 
 int main(int argc, char ** argv) {
-    int flags = LOADER_FLAGS_NOIEEE1394;
+    int flags = 0;
     struct stat sb;
     int rc, i;
     char * arg;
