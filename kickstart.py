@@ -256,7 +256,7 @@ class KickstartBase(BaseInstallClass):
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
-        self.skipSteps.append("bootloaderpassword")
+        self.skipSteps.append("bootloaderadvanced")
 
     def doLilo	(self, id, args):
         self.doBootloader(id, args, useLilo = 1)
