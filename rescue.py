@@ -63,10 +63,89 @@ def makeMtab(instPath, theFsset):
         f.close()
         sys.exit(0)
 
+# XXX
+#     probably belongs somewhere else
+#
+def methodUsesNetworking(methodstr):
+    for m in ['http://', 'ftp://', 'nfs://', 'nfsiso://']:
+	if methodstr.startswith(m):
+	    return 1
+    return 0
+
+# XXX
+#     hack to write out something useful for networking and start interfaces
+#
+def startNetworking(network):
+
+    # do lo first
+    try:
+	os.system("/usr/bin/ifconfig lo 127.0.0.1")
+    except:
+	log("Error trying to start lo in rescue.py::startNetworking()")
+
+    # start up dhcp interfaces first
+    dhcpGotNS = 0
+    for devname in network.netdevices:
+	dev = network.netdevices[devname]
+	log("Attempting to start %s", dev.get('device'))
+	if dev.get('bootproto') == "dhcp":
+	    try:
+		ns = isys.pumpNetDevice(dev.get('device'))
+		if ns:
+		    if not dhcpGotNS:
+			dhcpGotNS = 1
+
+			f = open("/etc/resolv.conf", "w")
+			f.write("nameserver %s\n" % ns)
+			f.close()
+	    except:
+		log("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+	elif dev.get('ipaddr') and dev.get('netmask') and network.gateway is not None:
+	    try:
+		isys.configNetDevice(dev.get('device'),
+				     dev.get('ipaddr'),
+				     dev.get('netmask'),
+				     network.gateway)
+	    except:
+		log("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
+		    
+    # write out resolv.conf if dhcp didnt get us one
+    if not dhcpGotNS:
+        f = open("/etc/resolv.conf", "w")
+
+	if network.domains != ['localdomain'] and network.domains:
+	    f.write("search %s\n" % (string.joinfields(network.domains, ' '),))
+
+        for ns in network.nameservers():
+            if ns:
+                f.write("nameserver %s\n" % (ns,))
+
+        f.close()
+	
+    
 def runRescue(instPath, mountroot, id):
 
     for file in [ "services", "protocols", "group" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
+
+    # see if they would like networking enabled
+    if not methodUsesNetworking(id.methodstr):
+	import network_text
+	
+	screen = SnackScreen()
+
+	rc = ButtonChoiceWindow(screen, _("Setup Networking"),
+	    _("Do you want to start the network interfaces on this system?"),
+				[_("Yes"), _("No")])
+
+	if rc != string.lower(_("No")):
+	    intf = RescueInterface(screen)
+
+	    window = network_text.NetworkWindow()
+	    rc = apply(window, (screen, id.network, intf, 1))
+	    startNetworking(id.network)
+
+	screen.finish()
 
     if (not mountroot):
         print
@@ -174,6 +253,14 @@ def runRescue(instPath, mountroot, id):
                                    (instPath,instPath),
                                    [_("OK")] )
                 rootmounted = 1
+
+		# now turn on swap
+		if not readOnly:
+		    try:
+			fs.turnOnSwap("/")
+		    except:
+			log("Error enabling swap")
+		    
 	except:
 	    # This looks horrible, but all it does is catch every exception,
 	    # and reraise those in the tuple check. This lets programming
