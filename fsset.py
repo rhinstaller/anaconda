@@ -693,6 +693,16 @@ class FATFileSystem(FileSystemType):
         
 fileSystemTypeRegister(FATFileSystem())
 
+class NTFSFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("ntfs")
+        self.formattable = 0
+        self.checked = 0
+        self.name = "ntfs"
+
+fileSystemTypeRegister(FATFileSystem())
+
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
