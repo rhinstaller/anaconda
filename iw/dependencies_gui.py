@@ -24,6 +24,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         self.dependRB = None
         self.causeRB = None
+        self.ics = ics
 
     def getPrev (self):
 	self.comps.setSelectionState(self.origSelection)
@@ -54,6 +55,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 
     #UnresolvedDependenciesWindow tag="depend"
     def getScreen (self, comps, deps):
+        self.ics.setHelpEnabled(TRUE)
 	self.deps = deps
 	self.comps = comps
 
