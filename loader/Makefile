@@ -38,8 +38,6 @@ endif
 
 ifeq (ia64, $(ARCH))
 BINS += loader
-OBJS += modstubs.o 
-MODULELINKAGE := 
 endif
 
 ifeq (alpha, $(ARCH))
