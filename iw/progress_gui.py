@@ -28,7 +28,8 @@ class InstallProgressWindow (InstallWindow):
 
         ics.setTitle (_("Installing Packages"))
         ics.readHTML ("installing")
-        ics.setPrevEnabled (0)
+        ics.setPrevEnabled (FALSE)
+        ics.setHelpButtonEnabled (FALSE)
 
         self.todo = ics.getToDo ()
 	self.numComplete = 0

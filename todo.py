@@ -1100,7 +1100,10 @@ class ToDo:
 
         if self.x.server and not self.x.server == "XFree86":
             # trim off the XF86_
-            self.selectPackage ('XFree86-' + self.x.server[5:])
+            try:
+                self.selectPackage ('XFree86-' + self.x.server[5:])
+            except ValueError, message:
+                log ("Error selecting XFree86 server package: %s", message)
 
         # make sure that all comps that include other comps are
         # selected (i.e. - recurse down the selected comps and turn

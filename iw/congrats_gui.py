@@ -9,13 +9,14 @@ class CongratulationWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle (_("Congratulations"))
-        ics.setPrevEnabled (0)
+        ics.setPrevEnabled (FALSE)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
-        ics.setNextEnabled (1)
+        ics.setNextEnabled (TRUE)
+        ics.setHelpButtonEnabled (FALSE)
 	ics.setGrabNext (1)
 
     def getScreen (self):
-        self.ics.setHelpEnabled (0)
+        self.ics.setHelpEnabled (FALSE)
 
         hbox = GtkHBox (TRUE, 5)
         

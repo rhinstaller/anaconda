@@ -463,6 +463,8 @@ class InstallControlWindow (Thread):
 
         buttons["prev"].set_sensitive (ics.getPrevEnabled ())
         buttons["next"].set_sensitive (ics.getNextEnabled ())
+        self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+        self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
  
         if ics.getHelpEnabled () == FALSE:
             if self.displayHelp:
@@ -622,6 +624,7 @@ class InstallControlState:
         self.todo = todo
         self.prevEnabled = prevEnabled
         self.nextEnabled = nextEnabled
+        self.helpButtonEnabled = TRUE
         self.title = title
         self.html = html
         self.htmlFile = None
@@ -648,9 +651,7 @@ class InstallControlState:
         self.cw.update (self)
 
     def getPrevEnabled (self):
-        if (self.prevEnabled != 0):
-            return TRUE
-        return FALSE
+        return self.prevEnabled
     
     def setNextEnabled (self, value):
         if value == self.nextEnabled: return
@@ -658,9 +659,15 @@ class InstallControlState:
         self.cw.update (self)
 
     def getNextEnabled (self):
-        if (self.nextEnabled != 0):
-            return TRUE
-        return FALSE
+        return self.nextEnabled
+
+    def setHelpButtonEnabled (self, value):
+        if value == self.helpButtonEnabled: return
+        self.helpButtonEnabled = value
+        self.cw.update (self)
+
+    def getHelpButtonEnabled (self):
+        return self.helpButtonEnabled
 
     def readPixmap (self, file):
         try:
