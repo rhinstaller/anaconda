@@ -58,17 +58,12 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-if [ "$(echo $1 |grep rawhide)" ]; then
-    echo "not going to build rawhide images"
-    exit 1
-fi
-
 if [ -z "$PRODUCTSTR" ]; then
     usage
 fi
 
 if [ -z "$VERSION" ]; then
-    usage
+    VERSION=$(rpm --qf '%{VERSION}' -qp $DIR/$PRODUCTPATH/RPMS/redhat-release-*.rpm)
 fi
 
 if [ -z "$DIR" ]; then
