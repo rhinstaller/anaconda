@@ -33,8 +33,19 @@ class PackageGroupWindow:
 	origSelection = todo.comps.getSelectionState()
 
         ct = CheckboxTree(height = 8, scroll = 1)
+        klass = todo.getClass ()
         for comp in todo.comps:
-            if not comp.hidden:
+            show = 0
+            if klass.showgroups:
+                try:
+                    klass.showgroups.index (comp.name)
+                    show = 1
+                except ValueError:
+                    # comp not in show list
+                    pass
+            else:
+                show = not comp.hidden
+            if show:
                 ct.append(_(comp.name), comp, comp.selected)
 
         cb = Checkbox (_("Select individual packages"), individual.get ())

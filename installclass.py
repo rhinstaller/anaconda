@@ -224,6 +224,7 @@ class BaseInstallClass:
 	self.raidList = []
         self.name = ""
         self.pixmap = ""
+        self.showgroups = None
 
         if iutil.getArch () == "alpha":
             self.addToSkipList("bootdisk")

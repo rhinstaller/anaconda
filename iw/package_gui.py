@@ -438,9 +438,20 @@ class PackageSelectionWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 0)
 
-	self.checkButtons = []        
+	self.checkButtons = []
+        klass = self.todo.getClass ()
         for comp in self.todo.comps:
-            if not comp.hidden:
+            show = 0
+            if klass.showgroups:
+                try:
+                    klass.showgroups.index (comp.name)
+                    show = 1
+                except ValueError:
+                    # comp not in show list
+                    pass
+            else:
+                show = not comp.hidden
+            if show:
                 pixname = string.replace (comp.name, ' ', '-')
                 pixname = string.replace (pixname, '/', '-')
                 pixname = string.replace (pixname, '.', '-')
