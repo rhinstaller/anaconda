@@ -610,6 +610,7 @@ class InstallControlWindow:
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
+        self.refreshHelp(recreate = 1)
 
     def prevClicked (self, *args):
 	try:
@@ -675,12 +676,19 @@ class InstallControlWindow:
         except SystemError:
             pass
         
-    def refreshHelp(self):
+    def refreshHelp(self, recreate = 0):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
-        self.help.set_buffer(textbuffer)
+        if recreate == 0:
+            self.help.set_buffer(textbuffer)
+        else:
+            self.help_sw.remove(self.help)
+            self.help = TextViewBrowser()
+            self.help_sw.add(self.help)
+            self.help.set_buffer(textbuffer)
+            self.help.show()
         # scroll to the top.  Do this with a mark so it's done in the idle loop
         iter = textbuffer.get_iter_at_offset(0)
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
@@ -1072,10 +1080,10 @@ class InstallControlWindow:
         self.box.set_spacing(0)
 
         self.box.pack_start (gtk.HSeparator (), gtk.FALSE)
-        sw = gtk.ScrolledWindow()
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        sw.add(self.help)
-        self.box.pack_start(sw, gtk.TRUE)
+        self.help_sw = gtk.ScrolledWindow()
+        self.help_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.help_sw.add(self.help)
+        self.box.pack_start(self.help_sw, gtk.TRUE)
         
         self.helpFrame.add (self.box)
 
