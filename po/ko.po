@@ -162,9 +162,7 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"주의!!\t주의!!\n"
-"\n"
-"
+
 #: ../bootloader.py:610
 msgid "Bootloader"
 msgstr "부트로더"
@@ -3259,19 +3257,6 @@ msgstr "여러분이 위치한 시간대를 선택해 주십시요."
 msgid "Hardware clock set to GMT?"
 msgstr "시스템의 시간을 GMT에 맞춤"
 
-#: ../textw/upgrade_text.py:89
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
-msgstr ""
-"커널 2.4 부터는 이전 버전의 커널이 시스템에 설치되어 있는 램 용량의 두배 이상"
-"의 용량을 스왑 공간을 사용했던 것 보다 훨씬 더 많은 용량의 스왑 공간을 필요"
-"로 합니다. 현재 여러분이 설정하신 스왑 용량은 %d MB 이지만, 추가로 스왑 공간"
-"을 더 생성하실 수 있습니다."
-
 #: ../textw/upgrade_text.py:107
 msgid "Free Space"
 msgstr "여유 공간"
@@ -3839,23 +3824,6 @@ msgid ""
 msgstr ""
 "하드 드라이브의 장치 노드를 생성하는 도중 오류가 발생되었습니다. 이와같은 상"
 "황은 '/tmp' 파티션의 드라이브 공간 부족으로 인한 것 같습니다."
-
-#: ../libfdisk/fsedit.c:1053
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems. Please check your hardware for the cause of this problem."
-msgstr ""
-"오류 발생 - 새로운 파일시스템을 생성하기 위한 장치를 찾을 수 없습니다. 여러"
-"분의 하드웨어를 다시한번 확인해 보시기 바랍니다."
-
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
-#, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s. The "
-"error was"
-msgstr ""
-"블럭 장치 %s 의 파티션 정보를 읽는 도중 오류가 발생되었습니다. 오류 내용은 "
-"다음과 같습니다:"
 
 #: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
 #: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
