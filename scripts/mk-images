@@ -51,7 +51,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     # ppc64-ish trees as ppc, so we have to set the "wrong" block size)
     if [ "$BUILDARCH" = "sparc64" -o "$BUILDARCH" = "ppc64" -o "$BUILDARCH" = "ppc" ]; then
 	CRAMBS="--blocksize 8192"
-    elif [ "$BUILDARCH" = "sparc"
+    elif [ "$BUILDARCH" = "sparc" ]; then
 	CRAMBS="--blocksize 4096"
     else
 	CRAMBS=""
