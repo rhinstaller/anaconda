@@ -246,7 +246,7 @@ def driveDict(klassArg):
     ret = {}
     
     # FIXME: need to add dasd probing to kudzu
-    devs = kudzu.probe(kudzu.CLASS_UNSPEC, kudzu.BUS_IDE | kudzu.BUS_SCSI, 0)
+    devs = kudzu.probe(kudzu.CLASS_UNSPEC, kudzu.BUS_UNSPEC, 0)
     for dev in devs:
         if dev.deviceclass == classMap[klassArg]:
             ret[dev.device] = dev.desc
