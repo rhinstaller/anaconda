@@ -353,7 +353,11 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     partrow = 0
     for (part, used) in allraidparts:
-        partname = get_partition_name(part)
+        partname = "%s: %8.0f MB" % (get_partition_name(part),
+                                     (part.geom.length
+                                      * part.geom.disk.dev.sector_size
+                                      / 1024.0 / 1024.0))
+        
         partclist.append((partname,))
 
         if used or not reqraidpart:
