@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-01-19 10:09-0500\n"
-"PO-Revision-Date: 2001-01-23 15:40+01:00\n"
+"PO-Revision-Date: 2001-01-24 14:12+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnu.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
+"Systemets tilstand ble korrekt skrevet til disketten. Systemet kan startes "
+"på nytt nå."
 
 #: ../fstab.py:65
 msgid ""
@@ -33,6 +35,9 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Følgende partisjoner er nylig opprettet, men du har valgt å ikke formatere "
+"dem. Dette vil sannsynligvis forårsake en feil senere i installasjonen.\n"
+"\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -41,6 +46,10 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Trykk OK for å fortsette, eller avbryt for å gå tilbake og velge at disse "
+"partisjonene skal formateres (ANBEFALT)."
 
 #: ../fstab.py:74
 msgid "Warning"
@@ -123,6 +132,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Feil under montering av enhet %s som %s: %s\n"
+"\n"
+"Dette betyr sannsynligvis at partisjonen ikke er formatert.\n"
+"\n"
+"Trykk OK for å starte systemet på nytt."
 
 #: ../gui.py:171
 msgid ""
@@ -203,7 +217,7 @@ msgstr "Lukk"
 
 #: ../gui.py:527 ../gui.py:783
 msgid "Release Notes"
-msgstr ""
+msgstr "Kommentarer til denne utgaven"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
@@ -275,11 +289,11 @@ msgstr "Denne CD-ROMen kunne ikke monteres."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "ADVARSEL: ingen gyldige blokkenheter ble funnet.\n"
 
 #: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "FEIL: ukjent feil under lesing av partisjonstabellene.\n"
 
 #: ../rescue.py:54
 msgid "System to Rescue"
@@ -347,6 +361,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Dutt system ble montert under /mnt/sysimage.\n"
+"\n"
+"Trykk <linjeskift> for å gå til skallet. Systemet vil starte på nytt når du "
+"avslutter skallet."
 
 #: ../rescue.py:77
 msgid ""
@@ -356,6 +374,11 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"En feil oppsto under forsøk på å montere deler av, eller hele systemet. "
+"Deler kan være montert under /mnt/sysimage.\n"
+"\n"
+"Trykk <linjeskift> for å gå til et skall. Systemet vil starte på nytt når du "
+"avslutter skallet."
 
 #: ../rescue.py:83
 msgid "Rescue Mode"
@@ -366,10 +389,12 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Du har ingen Linux partisjoner. Trykk linjeskift for å gå til et skall. "
+"Systemet vil starte på nytt når du avslutter skallet."
 
 #: ../rescue.py:95
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Systemet er montert under /mnt/sysimage katalogen."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -602,7 +627,7 @@ msgstr ""
 msgid ""
 "                              <Return> to reboot                             "
 " "
-msgstr ""
+msgstr "                              <Linjeskift for å starte på nytt"
 
 #: ../text.py:638 ../text.py:661
 msgid "Complete"
@@ -731,7 +756,7 @@ msgstr "Debug"
 
 #: ../text.py:984
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:988
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
@@ -938,6 +963,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Følgende filer er absolutte symbolske lenke, som vi ikke støtter under "
+"oppgradering. Vennligst endre dem til relative symbolske lenker og start "
+"oppgraderingen på nytt.\n"
+"\n"
 
 #: ../todo.py:998
 msgid "Finding"
@@ -969,6 +998,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
+"et dårlig media. Trykk <linjeskift> for å prøve igjen."
 
 #: ../todo.py:1642
 #, c-format
@@ -1219,7 +1250,7 @@ msgstr "Bruk LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Bruk TLS-oppslag"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
@@ -1371,19 +1402,19 @@ msgstr "Velg disk som fdisk skal kjøres på"
 
 #: ../iw/firewall_gui.py:59
 msgid "Please choose your security level:  "
-msgstr ""
+msgstr "Vennligst velg sikkerhetsnivå:  "
 
 #: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Høyt"
 
 #: ../iw/firewall_gui.py:69 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Middles"
 
 #: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Ingen brannvegg"
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
@@ -1565,7 +1596,7 @@ msgstr "Emulér 3 knapper"
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
@@ -1638,11 +1669,11 @@ msgstr "Velg alle i gruppen"
 
 #: ../iw/package_gui.py:420
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Velg bort alle i gruppen"
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
-msgstr ""
+msgstr "Fil ikke funnet"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1658,12 +1689,19 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
+"Følgende feil oppsto under henting av hdlist filen:\n"
+"\n"
+"%s\n"
+"\n"
+"Installasjonen vil avsluttes nå."
 
 #: ../iw/package_gui.py:563
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
 msgstr ""
+"En feil har oppstått under henting av hdlist-filen. Installasjonsmediet "
+"eller bildet er sannsynligvis korrupt. Installasjonen vil avsluttes nå."
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1676,7 +1714,7 @@ msgstr "Installerer pakker"
 #: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s kBytes"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -1826,7 +1864,7 @@ msgstr "Partisjoner manuelt med fdisk [kun eksperter]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Advarsel om plassering av oppstartspartisjon"
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -1929,15 +1967,15 @@ msgstr "Fargedybde:"
 
 #: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Skjermoppløsning:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
-msgstr ""
+msgstr "   Testinnstillinger  "
 
 #: ../iw/xconfig_gui.py:410
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Vennligst velg ditt standard skrivebordsmiljø:"
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
@@ -1949,11 +1987,11 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Ditt skrivebordsmiljø er:"
 
 #: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Vennligst velg påloggingstype:"
 
 #: ../iw/xconfig_gui.py:519
 msgid "Text"
@@ -1981,7 +2019,7 @@ msgstr "Vertikal synkronisering"
 
 #: ../iw/xconfig_gui.py:952 ../iw/xconfig_gui.py:1763
 msgid "Restore original values"
-msgstr ""
+msgstr "Gjenopprett originale verdier"
 
 #: ../iw/xconfig_gui.py:964
 msgid "Horizontal Sync:"
@@ -2095,7 +2133,7 @@ msgstr ""
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Sikkerhetsnivå:"
 
 #: ../textw/firewall_text.py:58
 msgid "Trusted Devices:"
@@ -2148,7 +2186,7 @@ msgid ""
 "all traffic from certain network interfaces. Second, you can allow certain "
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
-msgstr ""
+msgstr "for"
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2272,7 +2310,7 @@ msgstr "Størr. :"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -2553,7 +2591,7 @@ msgstr "Forespør tjener via kringkasting"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Bruk TLS-tilkoblinger"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2568,7 +2606,7 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Bærbar"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2922,7 +2960,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
-msgstr ""
+msgstr "Advarsel: Rot-FS størrelse"
 
 #: ../libfdisk/gnomefsedit.c:1291
 msgid "No Drives Specified"
@@ -3644,7 +3682,7 @@ msgstr "Kunne ikke finne andre installasjonsbilde"
 
 #: ../loader/loader.c:1273
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
+msgstr "FTP og HTTP-installasjoner krever 20MB eller mer systemminne."
 
 #: ../loader/loader.c:1497
 msgid "Rescue Method"
@@ -3873,7 +3911,7 @@ msgstr "Kunne ikke montere disken."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
+msgstr "Den disketten ser ikke ut til å være en PCMCIA driverdisk."
 
 #: ../loader/urls.c:79
 #, c-format
