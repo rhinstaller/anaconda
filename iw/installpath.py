@@ -47,7 +47,7 @@ class InstallPathWindow (InstallWindow):
         if type == INSTALL:
             if not self.__dict__.has_key ("installSteps"):
                 print '1'
-                from xconfig import XConfigWindow
+#                from xconfig import XConfigWindow
                 print '2'
                 from package import PackageSelectionWindow
                 print '3'
@@ -68,7 +68,7 @@ class InstallPathWindow (InstallWindow):
                 from timezone import TimezoneWindow
                 print '11'
                 
-                self.installSteps = [ XConfigWindow,
+                self.installSteps = [ #XConfigWindow,
                                       PartitionWindow,
                                       FormatWindow,
                                       LiloWindow,
@@ -78,7 +78,7 @@ class InstallPathWindow (InstallWindow):
                                       PackageSelectionWindow,
                                       UnresolvedDependenciesWindow,
                                       AuthWindow,
-                                      XConfigWindow,
+                                      #XConfigWindow,
                                       InstallProgressWindow,
                                       BootdiskWindow,
                                       CongratulationWindow
