@@ -213,6 +213,9 @@ else  # ctc0, escon0, iucv0
 				echo $"Linux guest:"
 			   read IUCV
 		  done
+		  if [ $(echo "$IUCV" |cut -c 1-5) != "iucv=" ]; then
+				IUCV="iucv=$IUCV"
+		  fi
 	 fi
 fi
 # don't ask for MTU, but use it if it has been set in the .parm file
