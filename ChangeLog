@@ -9,6 +9,17 @@
 
 2005-03-23  Chris Lumens  <clumens@redhat.com>
 
+	* dispatch.py, exception.py, installclass.py, instdata.py,
+	packages.py, iw/package_gui.py, textw/packages_text.py:  Renamed
+	langSupport to instLanguage to comply with the class merging in
+	language.py.
+	* gui.py:  Updated for new language classes.
+	* lang-table:  Remove last column, which duplicates information.
+	* language.py:  Rewrote to combine Language and InstallTimeLanguage
+	into a single class, hopefully simplifying language support.
+	* packages.py, iw/language_gui.py:  Use getNickByName as it's more
+	descriptive of what's actually going on.
+	
 	* scripts/upd-instroot  (KEEPFILE, PACKAGES):  Once more, with
 	feeling - this time for libgcc.
 

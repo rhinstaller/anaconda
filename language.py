@@ -3,7 +3,7 @@
 #              installer runtime language choice and installed system
 #              language support.
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -20,6 +20,7 @@ import rpm
 
 from rhpl.translate import cat
 from rhpl.simpleconfig import SimpleConfigFile
+from rhpl.log import log
 
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
@@ -38,17 +39,28 @@ def expandLangs(str):
 
     return langs
 
+# XXX: The following description is going to be wrong soon.
 # This is the langauge that's being used at install time (a list of the
 # choices is in lang-table). 
 class InstallTimeLanguage:
-
     def __init__ (self):
+        self.info = {}
+        self.info["SUPPORTED"] = None
+        self.supported = []
+        self.default = None
+
+        self.allSupportedLangs = []
+        self.allSupportedNicks = []
+        self.langInfoByName = {}
+        self.nativeLangNames = {}
+        self.localeInfo = {}
+
         if os.environ.has_key("LANG"):
             self.current = os.environ["LANG"]
         else:
             self.current = "en_US.UTF-8"
-        self.nativeLangNames = {}
 
+        # English name -> native name mapping
         search = ('lang-names', '/usr/lib/anaconda/lang-names')
         for path in search:
             if os.access(path, os.R_OK):
@@ -57,8 +69,11 @@ class InstallTimeLanguage:
                     lang, native = line.split(' ', 1)
                     native = native.strip()
                     self.nativeLangNames[lang] = native
-                break
 
+                f.close()
+                break
+        
+        # nick -> (name, short name, font, keyboard, timezone) mapping
         search = ('lang-table', '/tmp/updates/lang-table',
                   '/mnt/source/RHupdates/lang-table', '/etc/lang-table',
                   '/usr/lib/anaconda/lang-table')
@@ -67,103 +82,171 @@ class InstallTimeLanguage:
                 f = open(path, "r")
                 break
 
-	lines = f.readlines ()
-	f.close()
-	self.langNicks = {}
-	self.font = {}
-	self.kbd = {}
-	self.tz = {}
-	self.langList = []
-        self.runtimeLangs = {}
-
-        self.tempDefault = ""
-
-	for line in lines:
-	    string.strip(line)
-	    l = string.split(line)
+        for line in f.readlines():
+            string.strip(line)
+            l = string.split(line, '\t')
 
             # throw out invalid lines
-            if len(l) < 7:
+            if len(l) < 6:
                 continue
-	    
-	    longName = l[0]
-	    font = l[2]
-	    shortName = l[3]
-	    keyboard = l[4]
-	    timezone = l[5]
-            runtime = l[6]
 
-	    self.langList.append(longName)
-	    self.langNicks[longName] = shortName
-	    self.font[longName] = font
-	    self.kbd[longName] = keyboard
-	    self.tz[longName] = timezone
-            self.runtimeLangs[runtime] = shortName
+            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], l[5])
 
-        if self.runtimeLangs.has_key(self.current):
-            self.current = self.runtimeLangs[self.current]
+        f.close()
 
-	self.langList.sort()
-        self.setRuntimeLanguage(self.getLangNameByNick(self.current))
+        # long name -> (nick, map, font) mapping
+        search = ('locale-list', '/usr/share/anaconda/locale-list')
+        for path in search:
+            if os.access(path, os.R_OK):
+                f = open(path, 'r')
+
+                for line in f.readlines():
+                    line = string.strip(line)
+                    (nick, map, font, name) = string.split(line, ' ', 3)
+                    self.langInfoByName[name] = (nick, map, font)
+
+                f.close()
+                break
+
+        # If we weren't able to find a locale-list, set a reasonable default.
+        if not self.allSupportedLangs:
+            self.langInfoByName['English (USA)'] = ('en_US.UTF-8', 'iso01', 'default8x16')
+
+        self.allSupportedLangs = self.langInfoByName.keys()
+
+        # Set the language for anaconda to be using based on current $LANG.
+        self.setRuntimeLanguage(self.current)
+
+    # Convert what might be a shortened form of a language's nick (en or
+    # en_US, for example) into the full version (en_US.UTF-8).
+    def canonLangNick (self, nick):
+        try:
+            for key in self.localeInfo.keys():
+                if nick in expandLangs(key):
+                    return key
+        except:
+            return 'en_US.UTF-8'
+
+    def getNickByName (self, name):
+        for k in self.localeInfo.keys():
+            row = self.localeInfo[k]
+            if row[0] == name:
+                return k
+        
+    def getNativeLangName(self, lang):
+        return self.nativeLangNames[lang]
+
+    def getLangNameByNick(self, nick):
+        try:
+            return self.localeInfo[nick][0]
+        except KeyError:
+            nick = self.canonLangNick (self.getCurrent())
+            return self.localeInfo[nick][0]
 
     def getFontFile (self, lang):
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
-	return self.font[lang]
-
-    def getLangNick (self, lang):
-        # returns the short locale ID
-	return self.langNicks[lang]
-
-    def getNativeLangName(self, lang):
-        return self.nativeLangNames.get(lang)
-
-    def getLangNameByNick(self, lang):
-	# The nick we get here may be long (fr_FR@euro), when we need
-	# shorter (fr_FR), so be a bit fuzzy
-	for (langName, nick) in self.langNicks.items():
-            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
-		return langName
-
-        # FIXME: this could end up infinitely recursing if we screw up the
-        # lang-table.  need to revise the whole thing with post-install
-        # language not being the same as the installer language
-        for (nick, main) in self.runtimeLangs.items():
-            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
-                return self.getLangNameByNick(main)
-
-#        raise KeyError, "language %s not found" % lang
-        return self.getLangNameByNick("en_US.UTF-8")
+        lang = self.canonLangNick (lang)
+        return self.localeInfo[lang][2]
 
     def getDefaultKeyboard(self):
-	return self.kbd[self.getCurrent()]
+        lang = self.canonLangNick (self.getCurrent())
+        return self.localeInfo[lang][3]
 
     def getDefaultTimeZone(self):
-	return self.tz[self.getCurrent()]
+        lang = self.canonLangNick (self.getCurrent())
+        return self.localeInfo[lang][4]
 
     def available (self):
-        return self.langList
+        return self.nativeLangNames.keys()
+
+    def getSupported (self):
+	return self.supported
+
+    def getAllSupported (self):
+        return self.allSupportedLangs
 
     def getCurrentLangSearchList(self):
-	return expandLangs(self.langNicks[self.getCurrent()]) + ['C']
+	return expandLangs(self.getCurrent()) + ['C']
 
     def getCurrent(self):
-	return self.getLangNameByNick(self.current)
+	return self.current
 
-    def setRuntimeDefaults(self, name):
-	lang = self.langNicks[name]
-        self.current = lang
+    def getDefault(self):
+        if self.default:
+            return self.default
+        elif os.environ.has_key('RUNTIMELANG'):
+            lang = os.environ['RUNTIMELANG']
+            name = self.getLangNameByNick(lang)
+            if name not in self.getSupported():
+                # the default language needs to be in the supported list!
+                s = self.getSupported()
+                s.append(name)
+                s.sort()
+                self.setSupported(s)
+
+            return name
+        else:
+            return 'English (USA)'
+
+    def setDefault(self, nick):
+        log ("starting setDefault")
+	if not nick:
+	    self.default = None
+	    return
+
+        # Try to find a match for the language nick we were given.
+        for k in self.langInfoByName.keys():
+            row = self.langInfoByName[k]
+            if row[0] == nick:
+                name = k
+
+	self.default = name
+	(lang, map, font) = self.langInfoByName[name]
+
+	self.info['LANG'] = lang
+	self.info['SYSFONT'] = font
+        if map != "utf8":
+            self.info['SYSFONTACM'] = map
+        # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
+	if lang == "zh_CN.GB18030":
+	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
+
+    def setSupported (self, langlist):
+        log ("starting setSupported")
+	if len(langlist) == len(self.allSupportedLangs):
+            allSupportedNicks = map (lambda name: self.langInfoByName[name][0], self.allSupportedLangs)
+            self.info["SUPPORTED"] = None
+	    self.supported = allSupportedNicks
+        elif langlist:
+	    rpmNickList = []
+	    for name in langlist:
+                nick = self.getNickByName(name)
+		rpmNickList = rpmNickList + expandLangs(nick)
+
+            linguas = string.join (rpmNickList, ':')
+            self.info["SUPPORTED"] = linguas
+	    self.supported = langlist
+
+            shortLinguas = string.join (rpmNickList, ':')
+        else:
+            self.info["SUPPORTED"] = None
+	    self.supported = None
+	
+	if self.info["SUPPORTED"]:
+	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
+	else:
+	    os.environ ["LINGUAS"] = ""
+
+    def setRuntimeDefaults(self, nick):
+        self.current = nick
         # XXX HACK HACK, I'm using an environment variable to communicate
         # between two classes (runtimelang and lang support)
-        os.environ["RUNTIMELANG"] = lang
+        os.environ["RUNTIMELANG"] = nick
 
-    def setRuntimeLanguage(self, name):
-        self.setRuntimeDefaults(name)
-        lang = self.langNicks[name]
-
-        for (runtime, main) in self.runtimeLangs.items():
-            if main == lang:
-                lang = runtime
+    def setRuntimeLanguage(self, nick):
+        self.setRuntimeDefaults(nick)
+        lang = nick
 
         os.environ["LANG"] = lang
         os.environ["LC_NUMERIC"] = 'C'
@@ -179,139 +262,20 @@ class InstallTimeLanguage:
             newlangs.append(lang[:2])
         cat.setlangs(newlangs)
 
-    def writeKS(self, f):
-	lang = self.getLangNick(self.getCurrent())
-	f.write("lang %s\n" % lang);
-
-# The languages which should be supported on the installed system, including
-# which language to set as the default.
-class Language (SimpleConfigFile):
-
-    def __init__ (self):
-        self.info = {}
-        self.info["SUPPORTED"] = None
-	self.supported = []
-	self.default = None
-
-        self.allSupportedLangs = []
-        self.langInfoByName = {}
-
-        allSupportedLangs = []
-        langInfoByName = {}
-        langFilter = {}
-        allInstalledFlag = 0
-
-        langsInstalled = []
-        if os.access("/usr/share/anaconda/locale-list", os.R_OK):
-            f = open("/usr/share/anaconda/locale-list")
-            lines = f.readlines()
-            f.close()
-            for line in lines:
-                line = string.strip(line)
-                (lang, map, font, name) = string.split(line, ' ', 3)
-                langInfoByName[name] = (lang, map, font)
-                allSupportedLangs.append(name)
-
-                if allInstalledFlag or (langFilter and langFilter.has_key(lang)):
-                    langsInstalled.append(name)
-        else:
-            langInfoByName['English (USA)'] = ('en_US.UTF-8', 'iso01', 'default8x16')
-            allSupportedLangs.append('English (USA)')
-            langsInstalled.append('English (USA)')
-
-        self.langInfoByName = langInfoByName
-        self.allSupportedLangs = allSupportedLangs
-
-    def getAllSupported(self):
-	return self.allSupportedLangs
-
-    def getLangNameByNick(self, nick):
-	for langName in self.langInfoByName.keys():
-	    (lang, map, font) = self.langInfoByName[langName]
-            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):            
-		return langName
-
-#	raise KeyError, "language %s not found" % nick
-        return self.getLangNameByNick("en_US.UTF-8")
-
-    def getLangNickByName(self, name):
-	(lang, map, font) = self.langInfoByName[name]
-        return lang
-
-    def getSupported (self):
-	return self.supported
-
-    def getDefault (self):
-	if self.default:
-	    return self.default
-        # XXX (see above comment)
-	elif os.environ.has_key('RUNTIMELANG'):
-	    lang = os.environ['RUNTIMELANG']
-	    name = self.getLangNameByNick(lang)
-	    if name not in self.getSupported():
-		# the default language needs to be in the supported list!
-		s = self.getSupported()
-		s.append(name)
-		s.sort()
-		self.setSupported(s)
-
-	    return name
-	else:
-	    return 'English (USA)'
-    
-    def setDefault(self, name):
-	if not name:
-	    self.default = None
-	    return
-
-	self.default = name
-	(lang, map, font) = self.langInfoByName[name]
-
-	self.info['LANG'] = lang
-	self.info['SYSFONT'] = font
-        if map != "utf8":
-            self.info['SYSFONTACM'] = map
-        # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
-	if lang == "zh_CN.GB18030":
-	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
-
-    def setSupported (self, langlist):
-	if len(langlist) == len(self.allSupportedLangs):
-            self.info["SUPPORTED"] = None
-	    self.supported = langlist
-#            rpm.delMacro ("_install_langs")
-        elif langlist:
-	    rpmNickList = []
-	    for name in langlist:
-		(lang, map, font) = self.langInfoByName[name]
-		rpmNickList = rpmNickList + expandLangs(lang)
-
-            linguas = string.join (rpmNickList, ':')
-            self.info["SUPPORTED"] = linguas
-	    self.supported = langlist
-
-            shortLinguas = string.join (rpmNickList, ':')
-#            rpm.addMacro("_install_langs", shortLinguas)
-        else:
-            self.info["SUPPORTED"] = None
-#            rpm.delMacro ("_install_langs")
-	    self.supported = None
-	
-	if self.info["SUPPORTED"]:
-	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
-	else:
-	    os.environ ["LINGUAS"] = ""
-    
     def write(self, instPath):
 	f = open(instPath + "/etc/sysconfig/i18n", "w")
-	f.write(str (self))
+        for key in self.info.keys():
+            if self.info[key] != None:
+                f.write("%s=\"%s\"\n" % (key, self.info[key]))
 	f.close()
 
     def writeKS(self, f):
-	sup = ""
+        sup = ""
+
         if self.info["SUPPORTED"] != None:
             for n in self.getSupported():
-                sup = sup + " " + self.getLangNickByName(n)
-	
-	f.write("langsupport --default=%s%s\n" % 
-		(self.getLangNickByName(self.getDefault()), sup))
+                sup = sup + " " + self.getNickByName(n)
+
+	f.write("lang %s\n" % self.getCurrent())
+        f.write("langsupport --default=%s%s\n" %
+		(self.getNickByName(self.getDefault()), sup))

@@ -347,24 +347,23 @@ class BaseInstallClass:
 
     def setLanguageSupport(self, id, langlist):
 	if len (langlist) == 0:
-	    id.langSupport.setSupported(id.langSupport.getAllSupported())
+	    id.instLanguage.setSupported(id.instLanguage.getAllSupported())
 	else:
 	    newlist = []
 	    for lang in langlist:
-		newlist.append(id.langSupport.getLangNameByNick(lang))
+		newlist.append(id.instLanguage.getLangNameByNick(lang))
 
-            default = id.langSupport.getDefault()
+            default = id.instLanguage.getDefault()
             if default not in newlist:
                 newlist.append(default)
                 
-	    id.langSupport.setSupported(newlist)
+	    id.instLanguage.setSupported(newlist)
 
     def setLanguageDefault(self, id, default):
-	id.langSupport.setDefault(id.langSupport.getLangNameByNick(default))
+	id.instLanguage.setDefault(default)
 
-    def setLanguage(self, id, lang):
-	instLangName = id.instLanguage.getLangNameByNick(lang)
-	id.instLanguage.setRuntimeLanguage(instLangName)
+    def setLanguage(self, id, nick):
+	id.instLanguage.setRuntimeLanguage(nick)
 
     def setDesktop(self, id, desktop):
 	id.desktop.setDefaultDesktop (desktop)

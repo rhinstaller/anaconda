@@ -55,7 +55,6 @@ class InstallData:
 	#	- The install language
 	#	- The keyboard
 
-	self.langSupport = language.Language()
 	self.instClass = None
 	self.network = network.Network()
 	self.zfcp = zfcp.ZFCP()
@@ -113,7 +112,7 @@ class InstallData:
         self.isHeadless = isHeadless
 
     def write(self, instPath):
-        self.langSupport.write (instPath)
+        self.instLanguage.write (instPath)
 
         if not self.isHeadless:
             self.keyboard.write (instPath)
@@ -169,7 +168,6 @@ class InstallData:
 		    break
 
 	self.instLanguage.writeKS(f)
-	self.langSupport.writeKS(f)
         if not self.isHeadless:
             self.keyboard.writeKS(f)
             self.xsetup.writeKS(f, self.desktop)

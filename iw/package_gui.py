@@ -558,7 +558,7 @@ class PackageSelectionWindow (InstallWindow):
 	    if comp.id != "base":
 		comp.unselect ()
 		if comp.id == "everything":
-		    packages.selectLanguageSupportGroups(self.grpset, self.langSupport)
+		    packages.selectLanguageSupportGroups(self.grpset, self.instLanguage)
 
         if count:
             self.setCompCountLabel(comp, count)
@@ -593,7 +593,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	    # turn on lang support if we're minimal and enabling
 	    if comp.id == "base" and newstate:
-		packages.selectLanguageSupportGroups(self.grpset, self.langSupport)
+		packages.selectLanguageSupportGroups(self.grpset, self.instLanguage)
 
 	    self.setComponentsSensitive(comp, not newstate)
 
@@ -915,13 +915,13 @@ class PackageSelectionWindow (InstallWindow):
 	
 	
 
-    def getScreen(self, grpset, langSupport, instClass, dispatch):
+    def getScreen(self, grpset, instLanguage, instClass, dispatch):
 
     # PackageSelectionWindow tag="sel-group"
         ICON_SIZE = 32
         
 	self.grpset = grpset
-	self.langSupport = langSupport
+	self.instLanguage = instLanguage
 	self.dispatch = dispatch
 
 	self.origSelection = self.grpset.getSelectionState()

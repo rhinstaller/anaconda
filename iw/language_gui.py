@@ -33,7 +33,7 @@ class LanguageWindow (InstallWindow):
             self.lang = self.listStore.get_value(iter, 1)
 
 	self.instLang.setRuntimeLanguage(self.lang)
-	self.ics.getICW().setLanguage (self.instLang.getLangNick(self.lang))
+	self.ics.getICW().setLanguage (self.instLang.getNickByName(self.lang))
 
         return None
 
@@ -74,10 +74,10 @@ class LanguageWindow (InstallWindow):
 
         for locale in instLang.available():
             iter = self.listStore.append()
+            nick = self.instLang.getNickByName(locale)
             lang = '%s (<span lang="%s">%s</span>)' % (
-                _(locale),
-                "%s" % (instLang.getLangNick(locale).split('.')[0],),
-                instLang.getNativeLangName(locale))
+                _(locale), "%s" % (nick.split('.')[0],),
+                self.instLang.getNativeLangName(locale))
             self.listStore.set_value(iter, 0, lang)
             self.listStore.set_value(iter, 1, locale)
             self.listStore.set_value(iter, 2, _(locale))
@@ -89,7 +89,7 @@ class LanguageWindow (InstallWindow):
         self.listView.append_column(col)
         self.listView.set_property("headers-visible", False)
 
-        current = instLang.getCurrent()
+        current = instLang.getLangNameByNick(instLang.getCurrent())
         iter = self.listStore.get_iter_first()
         while iter:
             if self.listStore.get_value(iter, 1) == current:

@@ -766,8 +766,9 @@ class InstallInterface:
         id.fsset.registerWaitWindow(self.waitWindow)
         parted.exception_set_handler(partedExceptionWindow)
 
-	lang = id.instLanguage.getCurrent()
-	lang = id.instLanguage.getLangNick(lang)
+        lang = id.instLanguage.getCurrent()
+        id.instLanguage.setRuntimeLanguage (lang)
+        id.instLanguage.setDefault (lang)
         self.icw = InstallControlWindow (self, self.dispatch, lang)
         self.icw.run (self.runres, configFileData)
 

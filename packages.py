@@ -1573,19 +1573,19 @@ def betaNagScreen(intf, dir):
 	    break
 
 # FIXME: this is a kind of poor way to do this, but it will work for now
-def selectLanguageSupportGroups(grpset, langSupport):
+def selectLanguageSupportGroups(grpset, instLanguage):
     if not grpset.groups.has_key("language-support"):
         return
 
-    langSupport.getDefault()
-    sup = langSupport.supported
+    instLanguage.getDefault()
+    sup = instLanguage.supported
     if len(sup) == 0:
-        sup = langSupport.getAllSupported()
+        sup = instLanguage.getAllSupported()
 
     langs = []
     for name in sup:
         try:
-            lang = langSupport.langInfoByName[name][0]
+            lang = instLanguage.langInfoByName[name][0]
             langs.extend(language.expandLangs(lang))
         except:
             continue
