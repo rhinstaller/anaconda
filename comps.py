@@ -1064,7 +1064,7 @@ def orderPackageGroups(curgroups):
 def getCompGroupDescription(comp):
     if comp.name == u"Everything":
 	return _("This group includes all the packages available.  Note that "
-		 "this is substantially more packages than just the ones "
+		 "there are substantially more packages than just the ones "
 		 "in all the other package groups on this page.")
     elif comp.name == u"Base":
 	return _("Choose this group to get the minimal possible set of "
