@@ -303,9 +303,6 @@ class InstallInterface:
         self.icw.run (self.runres)
 
 class InstallControlWindow:
-    def getLanguage (self):
-        return self.lang
-    
     def setLanguage (self, locale):
         gtk_set_locale ()
         _gtk_nuke_rc_files ()
