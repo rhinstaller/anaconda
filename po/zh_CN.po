@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 8.0 beta\n"
-"POT-Creation-Date: 2003-01-31 18:40-0500\n"
-"PO-Revision-Date: 2003-01-29 09:42GMT+10:00\n"
+"POT-Creation-Date: 2003-02-05 01:45-0500\n"
+"PO-Revision-Date: 2003-02-05 09:02GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <i18n@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -14,13 +14,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: ../anaconda:401
+#: ../anaconda:397
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "您没有足够的内存来使用图形化安装程序，开始使用文本方式安装。"
 
-#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
 #: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
 #: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -55,23 +55,23 @@ msgstr "您没有足够的内存来使用图形化安装程序，开始使用文
 msgid "OK"
 msgstr "确定"
 
-#: ../anaconda:481 ../anaconda:699 ../bar.py:23
+#: ../anaconda:477 ../anaconda:695 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "无法实例化 X 硬件状态对象。"
 
-#: ../anaconda:498
+#: ../anaconda:494
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr "%s 安装不支持图形方式安装，开始文本方式安装。"
 
-#: ../anaconda:512
+#: ../anaconda:508
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr "没有发现图形方式安装所需的鼠标，开始文本方式安装。"
 
-#: ../anaconda:517
+#: ../anaconda:513
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "使用鼠标类型：%s"
@@ -231,14 +231,14 @@ msgstr ""
 "\n"
 "按确定按钮来继续。"
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:372
+#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
 #: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
+#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:345
 msgid "Warning"
@@ -310,19 +310,19 @@ msgid ""
 "configuration will not be changed."
 msgstr "您的系统上没有安装任何内核软件包。引导装载程序的配置不变。"
 
-#: ../comps.py:724 ../comps.py:752
+#: ../comps.py:747 ../comps.py:775
 msgid "Everything"
 msgstr "全部"
 
-#: ../comps.py:893 ../comps.py:958 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
 msgid "no suggestion"
 msgstr "没有建议"
 
-#: ../comps.py:1053
+#: ../comps.py:1076
 msgid "Miscellaneous"
 msgstr "其它"
 
-#: ../comps.py:1069
+#: ../comps.py:1092
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -331,7 +331,7 @@ msgstr ""
 "该组包括所有可用的软件包。注意，这里包括的软件包要比在这一页上包括的所有其它"
 "软件包组的数量都大得多。"
 
-#: ../comps.py:1073
+#: ../comps.py:1096
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -411,7 +411,7 @@ msgstr "创建引导盘(_M)"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
+#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
 #: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
@@ -671,7 +671,7 @@ msgid "Fix"
 msgstr "修复"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
 #: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
@@ -680,7 +680,7 @@ msgstr "是"
 
 #: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
 #: ../loader2/loader.c:345
@@ -699,7 +699,7 @@ msgstr "忽略"
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
 #: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
+#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
 #: ../loader2/loader.c:309
@@ -819,7 +819,7 @@ msgstr ""
 "\n"
 "系统现将重新引导。"
 
-#: ../image.py:69
+#: ../image.py:73
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -828,39 +828,39 @@ msgstr ""
 "卸载光盘时出错。请确定您不是从 tty2 上的 shell 进入 %s， 然后点击“确定”来重"
 "试。"
 
-#: ../image.py:96
+#: ../image.py:100
 msgid "Copying File"
 msgstr "正在复制文件"
 
-#: ../image.py:97
+#: ../image.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "正在将安装映像传输到硬盘..."
 
-#: ../image.py:100
+#: ../image.py:104
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr "将安装映像传输到硬盘时出错，很可能是磁盘空间不够。"
 
-#: ../image.py:193
+#: ../image.py:197
 msgid "Change CDROM"
 msgstr "更换光盘"
 
-#: ../image.py:194
+#: ../image.py:198
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "请插入第 %d 张光盘后再继续。"
 
-#: ../image.py:229
+#: ../image.py:233
 msgid "Wrong CDROM"
 msgstr "光盘不对"
 
-#: ../image.py:230
+#: ../image.py:234
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "这不是正确的 %s 光盘。"
 
-#: ../image.py:236
+#: ../image.py:240
 msgid "The CDROM could not be mounted."
 msgstr "该光盘无法被挂载。"
 
@@ -1078,7 +1078,7 @@ msgstr ""
 "统：\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
@@ -1326,7 +1326,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:714
+#: ../iw/lvm_dialog_gui.py:725
 msgid "Confirm Delete"
 msgstr "确认删除"
 
@@ -1336,7 +1336,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "即将删除“/dev/%s”设备上的所有分区。"
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
+#: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
@@ -1562,7 +1562,7 @@ msgid ""
 "for a normal %s install."
 msgstr "您的 %s 分区小于 %s MB，比正常安装 %s 的建议值还小。"
 
-#: ../partitions.py:793 ../partRequests.py:626
+#: ../partitions.py:793 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "可引导分区仅允许指定在 RAID1 设备上。"
 
@@ -1622,50 +1622,50 @@ msgstr ""
 msgid "This mount point must be on a linux file system."
 msgstr "该挂载点必须位于 Linux 文件系统上。"
 
-#: ../partRequests.py:243
+#: ../partRequests.py:249
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
 msgstr "挂载点 %s 已被使用，请另选一个。"
 
-#: ../partRequests.py:257
+#: ../partRequests.py:263
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr "%s 分区的大小(%10.2f MB)已超过了最大值 %10.2f MB。"
 
-#: ../partRequests.py:445
+#: ../partRequests.py:454
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr "所申请分区的大小(%sMB)超过最大值 %sMB。"
 
-#: ../partRequests.py:450
+#: ../partRequests.py:459
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "所申请的分区大小是负数(%sMB)！"
 
-#: ../partRequests.py:454
+#: ../partRequests.py:463
 msgid "Partitions can't start below the first cylinder."
 msgstr "分区不能从第一个柱面以下开始。"
 
-#: ../partRequests.py:457
+#: ../partRequests.py:466
 msgid "Partitions can't end on a negative cylinder."
 msgstr "分区不能终于负柱面。"
 
-#: ../partRequests.py:618
+#: ../partRequests.py:627
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "没有 RAID 成员，或者不是 RAID 级别中指定的。"
 
-#: ../partRequests.py:630
+#: ../partRequests.py:639
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 
-#: ../partRequests.py:636
+#: ../partRequests.py:645
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -1679,7 +1679,7 @@ msgstr "设置联网"
 
 #: ../rescue.py:140
 msgid "Do you want to start the network interfaces on this system?"
-msgstr "你想在这个系统上启动网络界面吗？"
+msgstr "您想在这个系统上启动网络界面吗？"
 
 #: ../rescue.py:165 ../rescue.py:200 ../rescue.py:353
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1986,6 +1986,10 @@ msgstr ""
 "只支持从 Red Hat Linux 6.2 或更高的版本来升级该版本的 %s。您的系统似乎是一个"
 "较老的系统。您想继续升级进程吗？"
 
+#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+msgid "DDC Probed Monitor"
+msgstr "DDC 探测过的显示器"
+
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
 msgstr "设置根口令"
@@ -2171,11 +2175,11 @@ msgstr "确认(_F)："
 msgid "Passwords don't match"
 msgstr "口令不匹配"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
 msgid "Passwords do not match"
 msgstr "口令不匹配"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2218,7 +2222,7 @@ msgstr "否，我不想创建引导盘(_D)"
 msgid "Advanced Boot Loader Configuration"
 msgstr "高级引导装载程序配置"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:136
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2249,9 +2253,9 @@ msgstr "如果您想在引导命令上添加默认选项，在“常规内核参
 msgid "_General kernel parameters"
 msgstr "常规内核参数(_G)"
 
-#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
-#: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
+#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
+#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
 msgid "Boot Loader Configuration"
 msgstr "引导装载程序配置"
 
@@ -2275,7 +2279,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "不要安装引导装载程序而继续(_O)"
 
-#: ../iw/bootloader_main_gui.py:126
+#: ../iw/bootloader_main_gui.py:127
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -2284,32 +2288,32 @@ msgstr ""
 "请选择所需引导装载程序。虽然 GRUB 是系统默认的引导装载程序，您若不想覆盖您目"
 "前使用的引导装载程序，则选择“不要安装引导装载程序”。"
 
-#: ../iw/bootloader_main_gui.py:134
+#: ../iw/bootloader_main_gui.py:135
 msgid "Use _GRUB as the boot loader"
 msgstr "以 GRUB 为引导装载程序(_G)"
 
-#: ../iw/bootloader_main_gui.py:137
+#: ../iw/bootloader_main_gui.py:139
 msgid "Use _LILO as the boot loader"
 msgstr "以 LILO 为引导装载程序(_L)"
 
-#: ../iw/bootloader_main_gui.py:138
+#: ../iw/bootloader_main_gui.py:143
 msgid "_Do not install a boot loader"
 msgstr "不要安装引导装载程序(_D)"
 
-#: ../iw/bootloader_main_gui.py:160
+#: ../iw/bootloader_main_gui.py:166
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "%s 引导装载程序将会被安装在 /dev/%s 上。"
 
-#: ../iw/bootloader_main_gui.py:165
+#: ../iw/bootloader_main_gui.py:171
 msgid "No boot loader will be installed."
 msgstr "无引导装载程序将会被安装。"
 
-#: ../iw/bootloader_main_gui.py:217
+#: ../iw/bootloader_main_gui.py:223
 msgid "_Change boot loader"
 msgstr "改变引导装载程序(_C)"
 
-#: ../iw/bootloader_main_gui.py:245
+#: ../iw/bootloader_main_gui.py:251
 msgid "Configure advanced boot loader _options"
 msgstr "配置高级引导装载程序选项(_O)"
 
@@ -2516,7 +2520,7 @@ msgstr ""
 "\t万维网浏览器 (Mozilla) \n"
 "\t电子邮件 (Evolution)\n"
 "\t即时消息接发\n"
-"\t声音和视频程序S\n"
+"\t声音和视频程序\n"
 "\t游戏\n"
 "\t软件开发工具\n"
 "\t管理工具\n"
@@ -2562,7 +2566,7 @@ msgstr ""
 "\t万维网浏览器 (Mozilla) \n"
 "\t电子邮件 (Evolution)\n"
 "\t即时消息接发\n"
-"\t声音和视频程序S\n"
+"\t声音和视频程序\n"
 "\t游戏\n"
 "\n"
 "安装后，您可以使用“'redhat-config-package”工具来添加或删除软件。\n"
@@ -2767,7 +2771,7 @@ msgstr "重设(_T)"
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
 #: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
-#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:835
+#: ../iw/lvm_dialog_gui.py:639 ../iw/lvm_dialog_gui.py:846
 msgid "Not enough space"
 msgstr "空间不够"
 
@@ -2942,14 +2946,14 @@ msgstr ""
 "目前申请的大小 (%10.2f MB)大于逻辑卷大小的最大值 (%10.2f MB)。要增加上限，您"
 "可以增加该逻辑卷组的物理范围大小。"
 
-#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:616 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
 #: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr "申请出错"
 
-#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:836
+#: ../iw/lvm_dialog_gui.py:640 ../iw/lvm_dialog_gui.py:847
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -2959,20 +2963,20 @@ msgstr ""
 "您配置的逻辑卷需要 %g MB，但是该卷组只有 %g MB。请扩大该卷组，或缩小该逻辑"
 "卷。"
 
-#: ../iw/lvm_dialog_gui.py:679
+#: ../iw/lvm_dialog_gui.py:690
 msgid "No free slots"
 msgstr "无空闲插槽"
 
-#: ../iw/lvm_dialog_gui.py:680
+#: ../iw/lvm_dialog_gui.py:691
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "在每个卷组中，您不能创建多于 %s 个逻辑卷。"
 
-#: ../iw/lvm_dialog_gui.py:686
+#: ../iw/lvm_dialog_gui.py:697
 msgid "No free space"
 msgstr "无空闲空间"
 
-#: ../iw/lvm_dialog_gui.py:687
+#: ../iw/lvm_dialog_gui.py:698
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -2981,29 +2985,29 @@ msgstr ""
 "卷组中没有创建新逻辑卷的余地。要添加逻辑卷，您需要缩小一个或多个现存逻辑卷的"
 "大小。"
 
-#: ../iw/lvm_dialog_gui.py:715
+#: ../iw/lvm_dialog_gui.py:726
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "是否确定要删除该逻辑卷“%s”？"
 
-#: ../iw/lvm_dialog_gui.py:847
+#: ../iw/lvm_dialog_gui.py:858
 msgid "Invalid Volume Group Name"
 msgstr "卷组名称无效"
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:871
 msgid "Name in use"
 msgstr "名称已被使用"
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:872
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "卷组名称“%s”已被使用，请另选一个。"
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:916
 msgid "Not enough physical volumes"
 msgstr "没有足够的物理卷"
 
-#: ../iw/lvm_dialog_gui.py:906
+#: ../iw/lvm_dialog_gui.py:917
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3015,70 +3019,70 @@ msgstr ""
 "\n"
 "首先创建类型为“物理卷 (LVM)”的分区或 RAID 阵列，然后再选择“LVM”选项。"
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:928
 msgid "Make LVM Volume Group"
 msgstr "制作 LVM 卷组"
 
-#: ../iw/lvm_dialog_gui.py:920
+#: ../iw/lvm_dialog_gui.py:931
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "编辑 LVM 卷组：%s"
 
-#: ../iw/lvm_dialog_gui.py:922
+#: ../iw/lvm_dialog_gui.py:933
 msgid "Edit LVM Volume Group"
 msgstr "编辑 LVM 卷组"
 
-#: ../iw/lvm_dialog_gui.py:938
+#: ../iw/lvm_dialog_gui.py:949
 msgid "_Volume Group Name:"
 msgstr "卷组名称(_V)："
 
-#: ../iw/lvm_dialog_gui.py:946
+#: ../iw/lvm_dialog_gui.py:957
 msgid "Volume Group Name:"
 msgstr "卷组名称："
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:966
 msgid "_Physical Extent:"
 msgstr "物理范围(_P)："
 
-#: ../iw/lvm_dialog_gui.py:962
+#: ../iw/lvm_dialog_gui.py:973
 msgid "Physical Extent:"
 msgstr "物理范围："
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:986
 msgid "Physical Volumes to _Use:"
 msgstr "要使用的物理卷(_U)："
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:992
 msgid "Used Space:"
 msgstr "已用空间："
 
-#: ../iw/lvm_dialog_gui.py:998
+#: ../iw/lvm_dialog_gui.py:1009
 msgid "Free Space:"
 msgstr "空闲空间："
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1027
 msgid "Total Space:"
 msgstr "总计空间："
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Logical Volume Name"
 msgstr "逻辑卷名称"
 
-#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
+#: ../iw/lvm_dialog_gui.py:1062 ../iw/partition_gui.py:354
 msgid "Size (MB)"
 msgstr "大小(MB)"
 
-#: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
+#: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../iw/lvm_dialog_gui.py:1082
+#: ../iw/lvm_dialog_gui.py:1093
 msgid "Logical Volumes"
 msgstr "逻辑卷"
 
@@ -3112,7 +3116,7 @@ msgstr "型号(_M)"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "模拟三键鼠标(_E)"
+msgstr "模拟 3 键(_E)"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3253,7 +3257,7 @@ msgstr "引导时激活"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
+#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
@@ -3305,7 +3309,7 @@ msgstr ""
 "统，在想要的操作系统上选择“默认”。"
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
 #: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
 #: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
@@ -4078,8 +4082,8 @@ msgstr "不安装 SILO"
 msgid "Partition type"
 msgstr "分区类型"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:207
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "引导标签"
@@ -4264,10 +4268,6 @@ msgstr "您所选的交换分区在该设备上空间不够。"
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
 msgstr "欢迎"
-
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
-msgid "DDC Probed Monitor"
-msgstr "DDC 探测过的显示器"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "Unprobed Monitor"
@@ -4478,19 +4478,19 @@ msgstr "您想使用哪一个引导装载程序？"
 msgid "Use GRUB Boot Loader"
 msgstr "使用 GRUB 引导装载程序"
 
-#: ../textw/bootloader_text.py:47
+#: ../textw/bootloader_text.py:48
 msgid "Use LILO Boot Loader"
 msgstr "使用 LILO 引导装载程序"
 
-#: ../textw/bootloader_text.py:48
+#: ../textw/bootloader_text.py:51
 msgid "No Boot Loader"
 msgstr "不使用引导装载程序"
 
-#: ../textw/bootloader_text.py:69
+#: ../textw/bootloader_text.py:73
 msgid "Skip Boot Loader"
 msgstr "跳过引导装载程序"
 
-#: ../textw/bootloader_text.py:70
+#: ../textw/bootloader_text.py:74
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -4505,7 +4505,7 @@ msgstr ""
 "\n"
 "您确信要跳过安装引导装载程序这一步骤吗？"
 
-#: ../textw/bootloader_text.py:104 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4515,43 +4515,43 @@ msgstr ""
 "在引导过程中，某些系统需要将特殊选项传递至内核才能正常运行。如果需要将引导选"
 "项传递至内核，现在请输入这些选项；如果不需要或无法确定，请将此项留为空白。"
 
-#: ../textw/bootloader_text.py:113
+#: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
 msgstr "强制使用 LBA32 (通常不需要)"
 
-#: ../textw/bootloader_text.py:179
+#: ../textw/bootloader_text.py:183
 msgid "Where do you want to install the boot loader?"
 msgstr "您想在何处安装引导装载程序？"
 
-#: ../textw/bootloader_text.py:211 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "清除"
 
-#: ../textw/bootloader_text.py:219 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "编辑引导标签"
 
-#: ../textw/bootloader_text.py:237 ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
 msgid "Invalid Boot Label"
 msgstr "引导标签无效"
 
-#: ../textw/bootloader_text.py:238
+#: ../textw/bootloader_text.py:242
 msgid "Boot label may not be empty."
 msgstr "引导标签不能空白。"
 
-#: ../textw/bootloader_text.py:243
+#: ../textw/bootloader_text.py:247
 msgid "Boot label contains illegal characters."
 msgstr "引导标签包含不合法字符。"
 
-#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "编辑"
 
-#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4560,12 +4560,12 @@ msgstr ""
 "Red Hat 使用的引导管理程序也可以引导其它操作系统。您必须输入希望能够引导的分"
 "区，以及每一个分区使用的标签。"
 
-#: ../textw/bootloader_text.py:309
+#: ../textw/bootloader_text.py:313
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F12> 下一屏幕"
 
-#: ../textw/bootloader_text.py:388
+#: ../textw/bootloader_text.py:392
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4574,27 +4574,27 @@ msgstr ""
 "引导装载程序口令可以防止用户将任意选项传递到内核。为安全起见，我们建议您设立"
 "一个口令，但是这对一般的用户来说并非必不可少。"
 
-#: ../textw/bootloader_text.py:398
+#: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
 msgstr "使用 GRUB 口令"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:414
 msgid "Boot Loader Password:"
 msgstr "引导装载程序口令： "
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:415
 msgid "Confirm:"
 msgstr "确认："
 
-#: ../textw/bootloader_text.py:440
+#: ../textw/bootloader_text.py:444
 msgid "Passwords Do Not Match"
 msgstr "口令不匹配"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:449
 msgid "Password Too Short"
 msgstr "口令太短"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:450
 msgid "Boot loader password is too short"
 msgstr "引导装载程序口令太短"
 
@@ -5825,12 +5825,13 @@ msgid "Video RAM:"
 msgstr "视频内存："
 
 #: ../textw/zipl_text.py:22
+#, fuzzy
 msgid ""
-"The z/IPL Boot Loader will be installed on your system after installations "
-"is complete. You can now enter any additional kernel and chandev parameters "
+"The z/IPL Boot Loader will be installed on your system after installation is "
+"complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"z/IPL 引导装载程序将会在安装完成后在你的系统上被安装。您现在可以输入您的机器"
+"z/IPL 引导装载程序将会在安装完成后在您的系统上被安装。您现在可以输入您的机器"
 "或设置可能需要的附加内核和 chandev 参数。"
 
 #: ../textw/zipl_text.py:47
@@ -6005,7 +6006,6 @@ msgstr ""
 "一张磁盘？"
 
 #: ../loader2/driverdisk.c:336
-#, fuzzy
 msgid "Driver disk"
 msgstr "驱动程序盘"
 
@@ -6029,7 +6029,7 @@ msgid ""
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"请输入你想传递给 %s 模块的任何参数，用空格间隔。如果不知道要提供哪些参数，"
+"请输入您想传递给 %s 模块的任何参数，用空格间隔。如果不知道要提供哪些参数，"
 "按“确定”按钮即可跳过这个屏幕。按 F1 键可获得一个可用选项的列表。"
 
 #: ../loader2/driverselect.c:83
@@ -6315,7 +6315,7 @@ msgstr ""
 "失败。\n"
 "\n"
 "刚刚测试过的映像上有错误。这可能是由于损坏的下载或光盘介质。如果可以应用，请"
-"将光盘抹净后再重试。如果测试仍旧失败，你就不应该继续安装。"
+"将光盘抹净后再重试。如果测试仍旧失败，您就不应该继续安装。"
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -7304,7 +7304,8 @@ msgid "Portuguese"
 msgstr "葡萄牙语"
 
 #. generated from lang-table
-msgid "Portuguese(Brasilian)"
+#, fuzzy
+msgid "Portuguese(Brazilian)"
 msgstr "葡萄牙语(巴西)"
 
 #. generated from lang-table

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
-"POT-Creation-Date: 2003-01-31 18:40-0500\n"
+"POT-Creation-Date: 2003-02-05 01:45-0500\n"
 "PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:401
+#: ../anaconda:397
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -23,7 +23,7 @@ msgstr ""
 "Nimate dovolj sistemskega pomnilnika, da bi nameščali sistem v grafičnem "
 "načinu. Namestitev se zaganja v besedilnem načinu."
 
-#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
 #: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
 #: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -58,18 +58,18 @@ msgstr ""
 msgid "OK"
 msgstr "V redu"
 
-#: ../anaconda:481 ../anaconda:699 ../bar.py:23
+#: ../anaconda:477 ../anaconda:695 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:498
+#: ../anaconda:494
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Grafična namestitev ni dostopna za namestitev %s. Zaganja se besedilni način."
 
-#: ../anaconda:512
+#: ../anaconda:508
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -77,7 +77,7 @@ msgstr ""
 "Miška ni bila zaznana. Za grafično namestitev potrebujete miško. Zaganja se "
 "besedilni način."
 
-#: ../anaconda:517
+#: ../anaconda:513
 #, fuzzy, c-format
 msgid "Using mouse type: %s"
 msgstr "Uporablja se vrsta miške: "
@@ -224,14 +224,14 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:372
+#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
 #: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
+#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:345
 msgid "Warning"
@@ -321,26 +321,26 @@ msgstr ""
 "V vaš sistem niste namestili pakete za jedro. Nastavitev vašega zagonskega "
 "nalagalnika ne bo spremenjena."
 
-#: ../comps.py:724 ../comps.py:752
+#: ../comps.py:747 ../comps.py:775
 msgid "Everything"
 msgstr "Vse"
 
-#: ../comps.py:893 ../comps.py:958 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
 msgid "no suggestion"
 msgstr "ni predloga"
 
-#: ../comps.py:1053
+#: ../comps.py:1076
 msgid "Miscellaneous"
 msgstr "Različno"
 
-#: ../comps.py:1069
+#: ../comps.py:1092
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1073
+#: ../comps.py:1096
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -428,7 +428,7 @@ msgstr "Izdelava zagonske diskete"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
+#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
 #: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
@@ -694,7 +694,7 @@ msgid "Fix"
 msgstr "Popravi"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
 #: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
@@ -703,7 +703,7 @@ msgstr "Da"
 
 #: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
 #: ../loader2/loader.c:345
@@ -722,7 +722,7 @@ msgstr "Prezri"
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
 #: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
+#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
 #: ../loader2/loader.c:309
@@ -850,22 +850,22 @@ msgid ""
 "The system will now reboot."
 msgstr "Manjka CD #%d, ki ga potrebujete za namestitev."
 
-#: ../image.py:69
+#: ../image.py:73
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:96
+#: ../image.py:100
 msgid "Copying File"
 msgstr "Datoteka se prepisuje"
 
-#: ../image.py:97
+#: ../image.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "Namestitvena slika se prenaša v disk..."
 
-#: ../image.py:100
+#: ../image.py:104
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -873,25 +873,25 @@ msgstr ""
 "Med prenosom namestitvene slike v vaš disk je prišlo do napake. Verjetno vam "
 "je zmanjkalo diskovnega prostora."
 
-#: ../image.py:193
+#: ../image.py:197
 msgid "Change CDROM"
 msgstr "Spremeni CDROM"
 
-#: ../image.py:194
+#: ../image.py:198
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Prosimo, za nadaljevanje vstavite ploščo %d."
 
-#: ../image.py:229
+#: ../image.py:233
 msgid "Wrong CDROM"
 msgstr "Napačen CDROM"
 
-#: ../image.py:230
+#: ../image.py:234
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "To ni pravi CD-ROM z Red Hat."
 
-#: ../image.py:236
+#: ../image.py:240
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM-a ni moč priklopiti."
 
@@ -1118,7 +1118,7 @@ msgstr ""
 "Potrebujete več prostora na naslednjem datotečnem sistemu:\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
@@ -1376,7 +1376,7 @@ msgstr ""
 "Ste prepričani, da želite ta razdelek odstraniti?"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:714
+#: ../iw/lvm_dialog_gui.py:725
 msgid "Confirm Delete"
 msgstr "Potrdite odstranitev"
 
@@ -1389,7 +1389,7 @@ msgstr ""
 "Ste prepričani, da želite ta razdelek odstraniti?"
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
+#: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
@@ -1643,7 +1643,7 @@ msgstr ""
 "Vaš razdelek %s je manjši od %s megabajtov, kar je manj od priporočene "
 "velikosti za običajno namestitev sistema %s."
 
-#: ../partitions.py:793 ../partRequests.py:626
+#: ../partitions.py:793 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Zagonski razdelki so lahko le na napravah RAID1."
 
@@ -1711,7 +1711,7 @@ msgstr ""
 msgid "This mount point must be on a linux file system."
 msgstr "Ta točka priklopa mora biti v datotečnem sistemu za linux."
 
-#: ../partRequests.py:243
+#: ../partRequests.py:249
 #, fuzzy, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
@@ -1719,7 +1719,7 @@ msgid ""
 msgstr ""
 "Točka priklopa %s je že uporabljena, prosim, izberite drugo točko priklopa."
 
-#: ../partRequests.py:257
+#: ../partRequests.py:263
 #, fuzzy, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
@@ -1727,7 +1727,7 @@ msgid ""
 msgstr ""
 "Velikost razdelka %s (velikost = %s MB) presega največjo velikost %s MB."
 
-#: ../partRequests.py:445
+#: ../partRequests.py:454
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -1736,29 +1736,29 @@ msgstr ""
 "Velikost zahtevanega razdelka (velikost = %s MB) presega največjo velikost %"
 "s MB."
 
-#: ../partRequests.py:450
+#: ../partRequests.py:459
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "Velikost zahtevanega razdelka je negativna! (velikost = %s MB)"
 
-#: ../partRequests.py:454
+#: ../partRequests.py:463
 msgid "Partitions can't start below the first cylinder."
 msgstr "Razdelki se ne morejo začeti pod prvim cilindrom."
 
-#: ../partRequests.py:457
+#: ../partRequests.py:466
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Razdelki se ne morejo končati z negativnim cilindrom."
 
-#: ../partRequests.py:618
+#: ../partRequests.py:627
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Ni članov v zahtevku RAID, ali pa raven RAID ni določena."
 
-#: ../partRequests.py:630
+#: ../partRequests.py:639
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Naprava RAID vrste %s zahteva vsaj %s članov."
 
-#: ../partRequests.py:636
+#: ../partRequests.py:645
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2104,6 +2104,10 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
+#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+msgid "DDC Probed Monitor"
+msgstr "Z DDC preskušeni monitor"
+
 #: ../iw/account_gui.py:25
 #, fuzzy
 msgid "Set Root Password"
@@ -2321,11 +2325,11 @@ msgstr "Potrditev:"
 msgid "Passwords don't match"
 msgstr "Gesli se ne ujemata"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
 msgid "Passwords do not match"
 msgstr "Gesli se ne ujemata"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2368,7 +2372,7 @@ msgstr "Ne želim ustvariti izmenjevalne datoteke"
 msgid "Advanced Boot Loader Configuration"
 msgstr "Prikrojitev zagonskega nalagalnika"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:136
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2402,9 +2406,9 @@ msgstr ""
 msgid "_General kernel parameters"
 msgstr "Parametri jedra"
 
-#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
-#: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
+#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
+#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
 msgid "Boot Loader Configuration"
 msgstr "Prikrojitev zagonskega nalagalnika"
 
@@ -2426,7 +2430,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "Ne namesti zagonskega nalagalnika"
 
-#: ../iw/bootloader_main_gui.py:126
+#: ../iw/bootloader_main_gui.py:127
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -2437,36 +2441,36 @@ msgstr ""
 "vašega trenutnega zagonskega nalagalnika, izberite \"Ne namesti zagonskega "
 "nalagalnika\".  "
 
-#: ../iw/bootloader_main_gui.py:134
+#: ../iw/bootloader_main_gui.py:135
 #, fuzzy
 msgid "Use _GRUB as the boot loader"
 msgstr "Uporabi GRUB kot zagonski nalagalnik"
 
-#: ../iw/bootloader_main_gui.py:137
+#: ../iw/bootloader_main_gui.py:139
 #, fuzzy
 msgid "Use _LILO as the boot loader"
 msgstr "Uporabi LILO kot zagonski nalagalnik"
 
-#: ../iw/bootloader_main_gui.py:138
+#: ../iw/bootloader_main_gui.py:143
 #, fuzzy
 msgid "_Do not install a boot loader"
 msgstr "Ne namesti zagonskega nalagalnika"
 
-#: ../iw/bootloader_main_gui.py:160
+#: ../iw/bootloader_main_gui.py:166
 #, fuzzy, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno nameščen v %s."
 
-#: ../iw/bootloader_main_gui.py:165
+#: ../iw/bootloader_main_gui.py:171
 msgid "No boot loader will be installed."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:217
+#: ../iw/bootloader_main_gui.py:223
 #, fuzzy
 msgid "_Change boot loader"
 msgstr "Zagonski nalagalnik se namešča..."
 
-#: ../iw/bootloader_main_gui.py:245
+#: ../iw/bootloader_main_gui.py:251
 #, fuzzy
 msgid "Configure advanced boot loader _options"
 msgstr "Ustvari nastavitev novega zagonskega nalagalnika"
@@ -2889,7 +2893,7 @@ msgstr "Resetiraj"
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
 #: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
-#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:835
+#: ../iw/lvm_dialog_gui.py:639 ../iw/lvm_dialog_gui.py:846
 msgid "Not enough space"
 msgstr ""
 
@@ -3059,14 +3063,14 @@ msgid ""
 "Extent size for this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:616 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
 #: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr "Napaka pri zahtevku"
 
-#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:836
+#: ../iw/lvm_dialog_gui.py:640 ../iw/lvm_dialog_gui.py:847
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3074,52 +3078,52 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:679
+#: ../iw/lvm_dialog_gui.py:690
 msgid "No free slots"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:680
+#: ../iw/lvm_dialog_gui.py:691
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:686
+#: ../iw/lvm_dialog_gui.py:697
 #, fuzzy
 msgid "No free space"
 msgstr "Prosti prostor"
 
-#: ../iw/lvm_dialog_gui.py:687
+#: ../iw/lvm_dialog_gui.py:698
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:715
+#: ../iw/lvm_dialog_gui.py:726
 #, fuzzy, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Ste prepričani, da želite odstraniti ta razdelek?"
 
-#: ../iw/lvm_dialog_gui.py:847
+#: ../iw/lvm_dialog_gui.py:858
 #, fuzzy
 msgid "Invalid Volume Group Name"
 msgstr "Neveljavna zagonska oznaka"
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:871
 msgid "Name in use"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:872
 #, fuzzy, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Točka priklopa %s je že uporabljena, prosim, izberite drugo točko priklopa."
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:916
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:906
+#: ../iw/lvm_dialog_gui.py:917
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3128,76 +3132,76 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:928
 #, fuzzy
 msgid "Make LVM Volume Group"
 msgstr "Neveljavna zagonska oznaka"
 
-#: ../iw/lvm_dialog_gui.py:920
+#: ../iw/lvm_dialog_gui.py:931
 #, fuzzy, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Neveljavna zagonska oznaka"
 
-#: ../iw/lvm_dialog_gui.py:922
+#: ../iw/lvm_dialog_gui.py:933
 #, fuzzy
 msgid "Edit LVM Volume Group"
 msgstr "Neveljavna zagonska oznaka"
 
-#: ../iw/lvm_dialog_gui.py:938
+#: ../iw/lvm_dialog_gui.py:949
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:946
+#: ../iw/lvm_dialog_gui.py:957
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:966
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:962
+#: ../iw/lvm_dialog_gui.py:973
 msgid "Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:986
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:992
 #, fuzzy
 msgid "Used Space:"
 msgstr "Prostor na disku"
 
-#: ../iw/lvm_dialog_gui.py:998
+#: ../iw/lvm_dialog_gui.py:1009
 #, fuzzy
 msgid "Free Space:"
 msgstr "Prostor na disku"
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1027
 #, fuzzy
 msgid "Total Space:"
 msgstr "Skupna velikost:"
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
+#: ../iw/lvm_dialog_gui.py:1062 ../iw/partition_gui.py:354
 msgid "Size (MB)"
 msgstr "Velikost (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 #, fuzzy
 msgid "_Add"
 msgstr "Dodajmo"
 
-#: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
+#: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
 msgid "_Edit"
 msgstr "_Uredi"
 
-#: ../iw/lvm_dialog_gui.py:1082
+#: ../iw/lvm_dialog_gui.py:1093
 msgid "Logical Volumes"
 msgstr ""
 
@@ -3377,7 +3381,7 @@ msgstr "Aktivacija ob zagonu"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
+#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
@@ -3431,7 +3435,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
 #: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
 #: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
@@ -4210,8 +4214,8 @@ msgstr "Ne nameščajmo zaganjalnika SILO"
 msgid "Partition type"
 msgstr "Vrsta razdelitve"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:207
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Zagonska oznaka"
@@ -4418,10 +4422,6 @@ msgstr "Na izbrani napravi ni dovolj prostora še za izmenjevalni razdelek."
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
 msgstr "Dobrodošli"
-
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
-msgid "DDC Probed Monitor"
-msgstr "Z DDC preskušeni monitor"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "Unprobed Monitor"
@@ -4632,19 +4632,19 @@ msgstr "Kateri zagonski nalagalnik bi radi uporabljali?"
 msgid "Use GRUB Boot Loader"
 msgstr "Uporabi zagonski nalagalnik GRUB"
 
-#: ../textw/bootloader_text.py:47
+#: ../textw/bootloader_text.py:48
 msgid "Use LILO Boot Loader"
 msgstr "Uporabi zagonski nalagalnik LILO"
 
-#: ../textw/bootloader_text.py:48
+#: ../textw/bootloader_text.py:51
 msgid "No Boot Loader"
 msgstr "Brez zagonskega nalagalnika"
 
-#: ../textw/bootloader_text.py:69
+#: ../textw/bootloader_text.py:73
 msgid "Skip Boot Loader"
 msgstr "Preskoči zagonski nalagalnik"
 
-#: ../textw/bootloader_text.py:70
+#: ../textw/bootloader_text.py:74
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -4660,7 +4660,7 @@ msgstr ""
 "\n"
 "Ste prepričani, da želite preskočiti namestitev zagonskega nalagalnika?"
 
-#: ../textw/bootloader_text.py:104 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4672,43 +4672,43 @@ msgstr ""
 "jih zdaj vstavite. Če to ni potrebno ali pa niste prepričani, pustite to "
 "polje prazno."
 
-#: ../textw/bootloader_text.py:113
+#: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Vsili uporabo LBA32 (navadno ni potrebno)"
 
-#: ../textw/bootloader_text.py:179
+#: ../textw/bootloader_text.py:183
 msgid "Where do you want to install the boot loader?"
 msgstr "Kam bi radi namestili zagonski nalagalnik?"
 
-#: ../textw/bootloader_text.py:211 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Pobrišimo"
 
-#: ../textw/bootloader_text.py:219 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Uredimo zagonsko oznako"
 
-#: ../textw/bootloader_text.py:237 ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
 msgid "Invalid Boot Label"
 msgstr "Neveljavna zagonska oznaka"
 
-#: ../textw/bootloader_text.py:238
+#: ../textw/bootloader_text.py:242
 msgid "Boot label may not be empty."
 msgstr "Zagonska oznaka ne sme biti prazna."
 
-#: ../textw/bootloader_text.py:243
+#: ../textw/bootloader_text.py:247
 msgid "Boot label contains illegal characters."
 msgstr "Zagonska oznaka vsebuje neveljavne znake."
 
-#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Uredimo"
 
-#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4718,13 +4718,13 @@ msgstr ""
 "operacijske sisteme. Določiti morate, s katerih razdelitev bi radi zaganjali "
 "sistem in kakšne oznake bi radi uporabljali za njih."
 
-#: ../textw/bootloader_text.py:309
+#: ../textw/bootloader_text.py:313
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <presl> izberi gumb | <F2> izberi privzeti vnos zagona | <F12> nasl. zaslon>"
 
-#: ../textw/bootloader_text.py:388
+#: ../textw/bootloader_text.py:392
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4734,27 +4734,27 @@ msgstr ""
 "določali poljubne izbire. Za najvišjo raven varnosti priporočamo, da "
 "nastavite geslo, vendar to ni potrebno za bolj sproščene uporabnike."
 
-#: ../textw/bootloader_text.py:398
+#: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
 msgstr "Uporabi geslo za GRUB"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:414
 msgid "Boot Loader Password:"
 msgstr "Geslo zagonskega nalagalnika:"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:415
 msgid "Confirm:"
 msgstr "Potrditev:"
 
-#: ../textw/bootloader_text.py:440
+#: ../textw/bootloader_text.py:444
 msgid "Passwords Do Not Match"
 msgstr "Gesli se ne ujemata."
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:449
 msgid "Password Too Short"
 msgstr "Prekratko geslo"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:450
 msgid "Boot loader password is too short"
 msgstr "Geslo zagonskega nalagalnika je prekratko"
 
@@ -6023,8 +6023,8 @@ msgstr "RAM grafične kartice:"
 
 #: ../textw/zipl_text.py:22
 msgid ""
-"The z/IPL Boot Loader will be installed on your system after installations "
-"is complete. You can now enter any additional kernel and chandev parameters "
+"The z/IPL Boot Loader will be installed on your system after installation is "
+"complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
 
@@ -7546,7 +7546,7 @@ msgstr "portugalščina"
 
 #. generated from lang-table
 #, fuzzy
-msgid "Portuguese(Brasilian)"
+msgid "Portuguese(Brazilian)"
 msgstr "portugalščina(brazilska) pt"
 
 #. generated from lang-table

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2003-01-31 18:40-0500\n"
+"POT-Creation-Date: 2003-02-05 01:45-0500\n"
 "PO-Revision-Date: 2001-08-22 21:06EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-#: ../anaconda:401
+#: ../anaconda:397
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -21,7 +21,7 @@ msgstr ""
 "Ви не маєте достатньої кількості пам'яті для графічної програми "
 "встановлення. Запуск у текстовому режимі."
 
-#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
 #: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
 #: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -56,11 +56,11 @@ msgstr ""
 msgid "OK"
 msgstr "Гаразд"
 
-#: ../anaconda:481 ../anaconda:699 ../bar.py:23
+#: ../anaconda:477 ../anaconda:695 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:498
+#: ../anaconda:494
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
@@ -68,7 +68,7 @@ msgstr ""
 "Графічне встановлення не доступне для встановлення %s.  Запуск у текстовому "
 "режимі."
 
-#: ../anaconda:512
+#: ../anaconda:508
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -76,7 +76,7 @@ msgstr ""
 "Не знайдено миші.  Миша необхідна для графічного встановлення.  Запуск у "
 "текстовому режимі."
 
-#: ../anaconda:517
+#: ../anaconda:513
 #, fuzzy, c-format
 msgid "Using mouse type: %s"
 msgstr "Використовується тип миші: "
@@ -223,14 +223,14 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:372
+#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
 #: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
+#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:345
 msgid "Warning"
@@ -319,26 +319,26 @@ msgid ""
 "configuration will not be changed."
 msgstr ""
 
-#: ../comps.py:724 ../comps.py:752
+#: ../comps.py:747 ../comps.py:775
 msgid "Everything"
 msgstr "Все"
 
-#: ../comps.py:893 ../comps.py:958 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
 msgid "no suggestion"
 msgstr "жодних варіантів"
 
-#: ../comps.py:1053
+#: ../comps.py:1076
 msgid "Miscellaneous"
 msgstr "Інші параметри"
 
-#: ../comps.py:1069
+#: ../comps.py:1092
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1073
+#: ../comps.py:1096
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -425,7 +425,7 @@ msgstr "Створити системний диск"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
+#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
 #: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
@@ -691,7 +691,7 @@ msgid "Fix"
 msgstr "Виправити"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
 #: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
@@ -700,7 +700,7 @@ msgstr "Так"
 
 #: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
 #: ../loader2/loader.c:345
@@ -719,7 +719,7 @@ msgstr "Ігнорувати"
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
 #: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
+#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
 #: ../loader2/loader.c:309
@@ -847,22 +847,22 @@ msgid ""
 "The system will now reboot."
 msgstr "Відсутній CD N%d, який потрібен для встановлення."
 
-#: ../image.py:69
+#: ../image.py:73
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:96
+#: ../image.py:100
 msgid "Copying File"
 msgstr "Копіювання файлу"
 
-#: ../image.py:97
+#: ../image.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "Перенесення образу встановлення на жорсткий диск..."
 
-#: ../image.py:100
+#: ../image.py:104
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -870,25 +870,25 @@ msgstr ""
 "Сталася помилка при перенесенні образу встановлення на жорсткий диск вашого "
 "комп'ютера. Можливо не вистачає дискового простору."
 
-#: ../image.py:193
+#: ../image.py:197
 msgid "Change CDROM"
 msgstr "Змінити компакт-диск"
 
-#: ../image.py:194
+#: ../image.py:198
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Будь ласка, вставте диск %d для продовження."
 
-#: ../image.py:229
+#: ../image.py:233
 msgid "Wrong CDROM"
 msgstr "Невірний компакт-диск"
 
-#: ../image.py:230
+#: ../image.py:234
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Це не коректний компакт-диск Red Hat."
 
-#: ../image.py:236
+#: ../image.py:240
 msgid "The CDROM could not be mounted."
 msgstr "CDROM не може бути змонтовано."
 
@@ -1101,7 +1101,7 @@ msgstr ""
 "Вам потрібно більше місця на цих файлових системах:\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
@@ -1355,7 +1355,7 @@ msgstr ""
 "Ви впевнені?"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:714
+#: ../iw/lvm_dialog_gui.py:725
 msgid "Confirm Delete"
 msgstr "Підтвердити Видалення "
 
@@ -1368,7 +1368,7 @@ msgstr ""
 "Ви впевнені?"
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
+#: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
@@ -1619,7 +1619,7 @@ msgstr ""
 "Ваш розділ %s має менше ніж %s мегабайтів, що менше ніж рекомендовано для "
 "нормального встановлення Red Hat Linux."
 
-#: ../partitions.py:793 ../partRequests.py:626
+#: ../partitions.py:793 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Завантажувальні розділи можуть бути тільки на RAID1 пристроях."
 
@@ -1689,7 +1689,7 @@ msgstr ""
 msgid "This mount point must be on a linux file system."
 msgstr "Ця точка монтування повинна бути на файловій системі Linux."
 
-#: ../partRequests.py:243
+#: ../partRequests.py:249
 #, fuzzy, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
@@ -1698,7 +1698,7 @@ msgstr ""
 "Точка монтування %s вже використовується, будь ласка, вкажіть інше місце "
 "монтування."
 
-#: ../partRequests.py:257
+#: ../partRequests.py:263
 #, fuzzy, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
@@ -1706,7 +1706,7 @@ msgid ""
 msgstr ""
 "Розмір розділу %s (розмір = %s Мб) перевищив максимальний розмір в %s Мб."
 
-#: ../partRequests.py:445
+#: ../partRequests.py:454
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -1715,29 +1715,29 @@ msgstr ""
 "Розмір запитаного розділу (розмір = %s Мб) перевищив максимальний розмір в %"
 "s Мб."
 
-#: ../partRequests.py:450
+#: ../partRequests.py:459
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "Від'ємний розмір запитаного розділу! (розмір = %s Мб)"
 
-#: ../partRequests.py:454
+#: ../partRequests.py:463
 msgid "Partitions can't start below the first cylinder."
 msgstr "Розділ не може починатися під першим циліндром."
 
-#: ../partRequests.py:457
+#: ../partRequests.py:466
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Розділ не може закінчуватися на від'ємному циліндрі."
 
-#: ../partRequests.py:618
+#: ../partRequests.py:627
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Жодного члена RAID не запитано або не вказано рівень RAID."
 
-#: ../partRequests.py:630
+#: ../partRequests.py:639
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Пристрій RAID типу %s вимагає як мінімум %s членів."
 
-#: ../partRequests.py:636
+#: ../partRequests.py:645
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2080,6 +2080,10 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
+#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+msgid "DDC Probed Monitor"
+msgstr "Монітор розпізнаний через DDC"
+
 #: ../iw/account_gui.py:25
 #, fuzzy
 msgid "Set Root Password"
@@ -2300,11 +2304,11 @@ msgstr "Підтвердження:"
 msgid "Passwords don't match"
 msgstr "Паролі не співпадають"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
 msgid "Passwords do not match"
 msgstr "Паролі не співпадають"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2347,7 +2351,7 @@ msgstr "Я не бажаю створювати файл підкачки"
 msgid "Advanced Boot Loader Configuration"
 msgstr "Конфіґурування завантажувача"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:136
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2382,9 +2386,9 @@ msgstr ""
 msgid "_General kernel parameters"
 msgstr "Параметри ядра"
 
-#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
-#: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
+#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
+#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
 msgid "Boot Loader Configuration"
 msgstr "Конфіґурування завантажувача"
 
@@ -2406,7 +2410,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "Не встановлювати завантажувач"
 
-#: ../iw/bootloader_main_gui.py:126
+#: ../iw/bootloader_main_gui.py:127
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -2416,36 +2420,36 @@ msgstr ""
 "GRUB є типовим завантажувачем. Як завжди, якщо ви не бажаєте перезаписати "
 "ваш поточний завантажувач, виберіть \"Не встановлювати завантажувач.\""
 
-#: ../iw/bootloader_main_gui.py:134
+#: ../iw/bootloader_main_gui.py:135
 #, fuzzy
 msgid "Use _GRUB as the boot loader"
 msgstr "Використовувати GRUB як завантажувач"
 
-#: ../iw/bootloader_main_gui.py:137
+#: ../iw/bootloader_main_gui.py:139
 #, fuzzy
 msgid "Use _LILO as the boot loader"
 msgstr "Використовувати LILO як завантажувач"
 
-#: ../iw/bootloader_main_gui.py:138
+#: ../iw/bootloader_main_gui.py:143
 #, fuzzy
 msgid "_Do not install a boot loader"
 msgstr "Не встановлювати завантажувач"
 
-#: ../iw/bootloader_main_gui.py:160
+#: ../iw/bootloader_main_gui.py:166
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:165
+#: ../iw/bootloader_main_gui.py:171
 msgid "No boot loader will be installed."
 msgstr ""
 
-#: ../iw/bootloader_main_gui.py:217
+#: ../iw/bootloader_main_gui.py:223
 #, fuzzy
 msgid "_Change boot loader"
 msgstr "Встановлення завантажувача..."
 
-#: ../iw/bootloader_main_gui.py:245
+#: ../iw/bootloader_main_gui.py:251
 #, fuzzy
 msgid "Configure advanced boot loader _options"
 msgstr "Конфіґурування завантажувача"
@@ -2867,7 +2871,7 @@ msgstr "Відмінити"
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
 #: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
-#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:835
+#: ../iw/lvm_dialog_gui.py:639 ../iw/lvm_dialog_gui.py:846
 msgid "Not enough space"
 msgstr ""
 
@@ -3038,14 +3042,14 @@ msgid ""
 "Extent size for this Volume Group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:616 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
 #: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr "Помилка При Запиті"
 
-#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:836
+#: ../iw/lvm_dialog_gui.py:640 ../iw/lvm_dialog_gui.py:847
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3053,53 +3057,53 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:679
+#: ../iw/lvm_dialog_gui.py:690
 msgid "No free slots"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:680
+#: ../iw/lvm_dialog_gui.py:691
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:686
+#: ../iw/lvm_dialog_gui.py:697
 #, fuzzy
 msgid "No free space"
 msgstr "Вільний простір"
 
-#: ../iw/lvm_dialog_gui.py:687
+#: ../iw/lvm_dialog_gui.py:698
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:715
+#: ../iw/lvm_dialog_gui.py:726
 #, fuzzy, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Ви впевнені що справді хочете видалити цей розділ?"
 
-#: ../iw/lvm_dialog_gui.py:847
+#: ../iw/lvm_dialog_gui.py:858
 #, fuzzy
 msgid "Invalid Volume Group Name"
 msgstr "Некоректна Етикетка Системи"
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:871
 msgid "Name in use"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:872
 #, fuzzy, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Точка монтування %s вже використовується, будь ласка, вкажіть інше місце "
 "монтування."
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:916
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:906
+#: ../iw/lvm_dialog_gui.py:917
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3108,76 +3112,76 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:928
 #, fuzzy
 msgid "Make LVM Volume Group"
 msgstr "Некоректна Етикетка Системи"
 
-#: ../iw/lvm_dialog_gui.py:920
+#: ../iw/lvm_dialog_gui.py:931
 #, fuzzy, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Некоректна Етикетка Системи"
 
-#: ../iw/lvm_dialog_gui.py:922
+#: ../iw/lvm_dialog_gui.py:933
 #, fuzzy
 msgid "Edit LVM Volume Group"
 msgstr "Некоректна Етикетка Системи"
 
-#: ../iw/lvm_dialog_gui.py:938
+#: ../iw/lvm_dialog_gui.py:949
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:946
+#: ../iw/lvm_dialog_gui.py:957
 msgid "Volume Group Name:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:966
 msgid "_Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:962
+#: ../iw/lvm_dialog_gui.py:973
 msgid "Physical Extent:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:986
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:992
 #, fuzzy
 msgid "Used Space:"
 msgstr "Дисковий Простір"
 
-#: ../iw/lvm_dialog_gui.py:998
+#: ../iw/lvm_dialog_gui.py:1009
 #, fuzzy
 msgid "Free Space:"
 msgstr "Вільний простір"
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1027
 #, fuzzy
 msgid "Total Space:"
 msgstr "Загальний розмір: "
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Logical Volume Name"
 msgstr ""
 
-#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
+#: ../iw/lvm_dialog_gui.py:1062 ../iw/partition_gui.py:354
 msgid "Size (MB)"
 msgstr "Розмір (Мб)"
 
-#: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 #, fuzzy
 msgid "_Add"
 msgstr "Додати"
 
-#: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
+#: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
 msgid "_Edit"
 msgstr "_Редагувати"
 
-#: ../iw/lvm_dialog_gui.py:1082
+#: ../iw/lvm_dialog_gui.py:1093
 msgid "Logical Volumes"
 msgstr ""
 
@@ -3358,7 +3362,7 @@ msgstr "Привести в дію при завантаженні"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
+#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
@@ -3412,7 +3416,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
 #: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
 #: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
@@ -4192,8 +4196,8 @@ msgstr "Не встановлювати SILO"
 msgid "Partition type"
 msgstr "Тип розділу"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:207
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Етикетка системи"
@@ -4395,10 +4399,6 @@ msgstr "На вибраному пристрої немає вільного м�
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
 msgstr "Ласкаво просимо"
-
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
-msgid "DDC Probed Monitor"
-msgstr "Монітор розпізнаний через DDC"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "Unprobed Monitor"
@@ -4609,19 +4609,19 @@ msgstr "Який завантажувач ви бажаєте використо
 msgid "Use GRUB Boot Loader"
 msgstr "Використовувати GRUB"
 
-#: ../textw/bootloader_text.py:47
+#: ../textw/bootloader_text.py:48
 msgid "Use LILO Boot Loader"
 msgstr "Використовувати LILO"
 
-#: ../textw/bootloader_text.py:48
+#: ../textw/bootloader_text.py:51
 msgid "No Boot Loader"
 msgstr "Без Завантажувача"
 
-#: ../textw/bootloader_text.py:69
+#: ../textw/bootloader_text.py:73
 msgid "Skip Boot Loader"
 msgstr "Пропустити Завантажувач"
 
-#: ../textw/bootloader_text.py:70
+#: ../textw/bootloader_text.py:74
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -4637,7 +4637,7 @@ msgstr ""
 "\n"
 "Ви впевнені що ви хочете пропустити встановлення завантажувача?"
 
-#: ../textw/bootloader_text.py:104 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4648,43 +4648,43 @@ msgstr ""
 "параметри. Якщо потрібно, введіть їх зараз. Якщо це не потрібно, або Ви "
 "вагаєтесь - залиште це поле порожнім. "
 
-#: ../textw/bootloader_text.py:113
+#: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Примусово використовувати LBA32 (не вимагається у нормальних умовах)"
 
-#: ../textw/bootloader_text.py:179
+#: ../textw/bootloader_text.py:183
 msgid "Where do you want to install the boot loader?"
 msgstr "Де ви бажаєте встановити завантажувач?"
 
-#: ../textw/bootloader_text.py:211 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Очистити"
 
-#: ../textw/bootloader_text.py:219 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Редагування етикетки системи"
 
-#: ../textw/bootloader_text.py:237 ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
 msgid "Invalid Boot Label"
 msgstr "Некоректна Етикетка Системи"
 
-#: ../textw/bootloader_text.py:238
+#: ../textw/bootloader_text.py:242
 msgid "Boot label may not be empty."
 msgstr "Етикетка системи не може бути порожньою."
 
-#: ../textw/bootloader_text.py:243
+#: ../textw/bootloader_text.py:247
 msgid "Boot label contains illegal characters."
 msgstr "Етикетка системи містить заборонені символи."
 
-#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Редагувати"
 
-#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4694,12 +4694,12 @@ msgstr ""
 "системи. Вкажіть, для яких розділів ви хочете мати можливість завантаження "
 "та як ви хочете їх назвати."
 
-#: ../textw/bootloader_text.py:309
+#: ../textw/bootloader_text.py:313
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
-#: ../textw/bootloader_text.py:388
+#: ../textw/bootloader_text.py:392
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4709,27 +4709,27 @@ msgstr ""
 "ядра.  Для підвищеної секретності, ми рекомендуємо встановити пароль, але це "
 "не є необхідним для більшості тимчасових користувачів."
 
-#: ../textw/bootloader_text.py:398
+#: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
 msgstr "Вживати Пароль для GRUB"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:414
 msgid "Boot Loader Password:"
 msgstr "Пароль завантажувача:"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:415
 msgid "Confirm:"
 msgstr "Підтвердження:"
 
-#: ../textw/bootloader_text.py:440
+#: ../textw/bootloader_text.py:444
 msgid "Passwords Do Not Match"
 msgstr "Паролі Не Співпадають"
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:449
 msgid "Password Too Short"
 msgstr "Пароль Закороткий"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:450
 msgid "Boot loader password is too short"
 msgstr "Пароль для завантажувача закороткий"
 
@@ -5995,8 +5995,8 @@ msgstr "Відеопам'ять:"
 
 #: ../textw/zipl_text.py:22
 msgid ""
-"The z/IPL Boot Loader will be installed on your system after installations "
-"is complete. You can now enter any additional kernel and chandev parameters "
+"The z/IPL Boot Loader will be installed on your system after installation is "
+"complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
 
@@ -7501,7 +7501,7 @@ msgstr "або :"
 
 #. generated from lang-table
 #, fuzzy
-msgid "Portuguese(Brasilian)"
+msgid "Portuguese(Brazilian)"
 msgstr "або :"
 
 #. generated from lang-table

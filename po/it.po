@@ -8,16 +8,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anacondapo $Revision$\n"
-"POT-Creation-Date: 2003-01-31 18:40-0500\n"
-"PO-Revision-Date: 2003-01-15 16:02+1000\n"
-"Last-Translator: Olympia Ammendola <olympia@brisbane.redhat.com>\n"
-"Language-Team: Italian <it@li.org>\n"
+"POT-Creation-Date: 2003-02-05 01:45-0500\n"
+"PO-Revision-Date: 2003-02-03 09:46+1000\n"
+"Last-Translator: Francesco Valente <fvalen@redhat.com>\n"
+"Language-Team: Italian <i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: ../anaconda:401
+#: ../anaconda:397
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -25,7 +25,7 @@ msgstr ""
 "Memoria insufficiente per l'utilizzo dell'installazione grafica. Avvio della "
 "modalità testo."
 
-#: ../anaconda:416 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
 #: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
 #: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -60,12 +60,12 @@ msgstr ""
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:481 ../anaconda:699 ../bar.py:23
+#: ../anaconda:477 ../anaconda:695 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 "Impossibile iniziare una istanza dell'oggetto dello stato di X hardware"
 
-#: ../anaconda:498
+#: ../anaconda:494
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
@@ -73,7 +73,7 @@ msgstr ""
 "La modalità grafica non è disponibile per l'installazione di %s. Avvio della "
 "modalità testo."
 
-#: ../anaconda:512
+#: ../anaconda:508
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -81,7 +81,7 @@ msgstr ""
 "Nessun mouse rilevato. Il mouse è indispensabile per l'installazione "
 "grafica. Avvio della modalità testo."
 
-#: ../anaconda:517
+#: ../anaconda:513
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Tipo di mouse utilizzato: %s"
@@ -255,14 +255,14 @@ msgstr ""
 "\n"
 "Premere 'OK' per continuare."
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:372
+#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
 #: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
 #: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
-#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
-#: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:139
+#: ../textw/bootloader_text.py:454 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:345
 msgid "Warning"
@@ -343,19 +343,19 @@ msgstr ""
 "Nessun pacchetto del kernel è stato installato sul sistema. La "
 "configurazione del boot loader non verrà modificata."
 
-#: ../comps.py:724 ../comps.py:752
+#: ../comps.py:747 ../comps.py:775
 msgid "Everything"
 msgstr "Tutto"
 
-#: ../comps.py:893 ../comps.py:958 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
 msgid "no suggestion"
 msgstr "nessun suggerimento"
 
-#: ../comps.py:1053
+#: ../comps.py:1076
 msgid "Miscellaneous"
 msgstr "Miscellanea"
 
-#: ../comps.py:1069
+#: ../comps.py:1092
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -365,7 +365,7 @@ msgstr ""
 "pacchetti è superiore a quello degli altri gruppi di pacchetti presenti in "
 "questa pagina."
 
-#: ../comps.py:1073
+#: ../comps.py:1096
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -452,7 +452,7 @@ msgstr "_Crea il dischetto di avvio"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
+#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
 #: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
@@ -731,7 +731,7 @@ msgid "Fix"
 msgstr "Correzione"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
 #: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
@@ -740,7 +740,7 @@ msgstr "Sì"
 
 #: ../gui.py:238 ../rescue.py:141 ../rescue.py:143 ../text.py:323
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
-#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
+#: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
 #: ../loader2/loader.c:345
@@ -759,7 +759,7 @@ msgstr "Ignora"
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:116
 #: ../text.py:117 ../text.py:286 ../text.py:288 ../text.py:327
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
-#: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
+#: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
 #: ../loader2/loader.c:309
@@ -873,14 +873,17 @@ msgid "Install Window"
 msgstr "Finestra di installazione"
 
 #: ../harddrive.py:209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Missing ISO image for CD #%d, which is required for the install.\n"
 "\n"
 "The system will now reboot."
-msgstr "Manca il CD #%d, necessario per l'installazione."
+msgstr ""
+"Manca l'immagine ISO per il CD #%d, necessario per l'installazione.\n"
+"\n"
+"Il sistema effettuerá ora un riavvio."
 
-#: ../image.py:69
+#: ../image.py:73
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -889,15 +892,15 @@ msgstr ""
 "Si è verificato un errore nella disattivazione del CD. Accertarsi di non "
 "utilizzare%s dalla shell su tty2, quindi fare clic su OK per riprovare."
 
-#: ../image.py:96
+#: ../image.py:100
 msgid "Copying File"
 msgstr "Copia del file in corso"
 
-#: ../image.py:97
+#: ../image.py:101
 msgid "Transferring install image to hard drive..."
 msgstr "Trasferimento dell'immagine di installazione sul disco fisso..."
 
-#: ../image.py:100
+#: ../image.py:104
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -906,25 +909,25 @@ msgstr ""
 "d'installazione sul disco fisso. Probabilmente lo spazio disponibile non è "
 "sufficiente."
 
-#: ../image.py:193
+#: ../image.py:197
 msgid "Change CDROM"
 msgstr "Cambia CD-ROM"
 
-#: ../image.py:194
+#: ../image.py:198
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Inserire il disco %d per continuare."
 
-#: ../image.py:229
+#: ../image.py:233
 msgid "Wrong CDROM"
 msgstr "CD-ROM errato"
 
-#: ../image.py:230
+#: ../image.py:234
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Non è il CD-ROM %s corretto."
 
-#: ../image.py:236
+#: ../image.py:240
 msgid "The CDROM could not be mounted."
 msgstr "Il CD-ROM non può essere montato."
 
@@ -1161,7 +1164,7 @@ msgstr ""
 "seguenti:\n"
 "\n"
 
-#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:851 ../packages.py:872 ../iw/lvm_dialog_gui.py:1059
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
@@ -1422,7 +1425,7 @@ msgstr ""
 "\n"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
-#: ../iw/lvm_dialog_gui.py:714
+#: ../iw/lvm_dialog_gui.py:725
 msgid "Confirm Delete"
 msgstr "Conferma Cancella"
 
@@ -1432,7 +1435,7 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "Tutte le partizioni sul dispositivo '/dev/%s' verranno eliminate."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
+#: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
@@ -1682,7 +1685,7 @@ msgstr ""
 "La capacità della partizione %s è inferiore a %s megabyte, ancor meno della "
 "capacità raccomandata per un'installazione di %s normale."
 
-#: ../partitions.py:793 ../partRequests.py:626
+#: ../partitions.py:793 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
 "Le partizioni di boot (/boot) possono trovarsi solo su dispositivi RAID1."
@@ -1752,7 +1755,7 @@ msgstr ""
 msgid "This mount point must be on a linux file system."
 msgstr "Il mount point richiesto deve essere su un filesystem di Linux."
 
-#: ../partRequests.py:243
+#: ../partRequests.py:249
 #, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
@@ -1760,7 +1763,7 @@ msgid ""
 msgstr ""
 "Il mount point \"%s\" è già in uso, scegliere un mount point differente."
 
-#: ../partRequests.py:257
+#: ../partRequests.py:263
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
@@ -1769,7 +1772,7 @@ msgstr ""
 "Le dimensioni sulla partizione %s (%10.2f MB) superano la dimensioni massime "
 "di %10.2f MB."
 
-#: ../partRequests.py:445
+#: ../partRequests.py:454
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -1778,32 +1781,32 @@ msgstr ""
 "Le dimensioni della partizione richiesta (dimensioni = %s MB) superano il "
 "limite massimo consentito di %s MB."
 
-#: ../partRequests.py:450
+#: ../partRequests.py:459
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr ""
 "Le dimensioni della partizione richiesta sono negative! (dimensioni = %s MB)"
 
-#: ../partRequests.py:454
+#: ../partRequests.py:463
 msgid "Partitions can't start below the first cylinder."
 msgstr "Le partizioni non possono iniziare al di sotto del primo cilindro."
 
-#: ../partRequests.py:457
+#: ../partRequests.py:466
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Le partizioni non possono terminare su un cilindro negativo."
 
-#: ../partRequests.py:618
+#: ../partRequests.py:627
 msgid "No members in RAID request, or not RAID level specified."
 msgstr ""
 "Non è stato trovato alcun componente nel RAID richiesto, o non è stato "
 "specificato alcun livello RAID."
 
-#: ../partRequests.py:630
+#: ../partRequests.py:639
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Un dispositivo RAID di tipo %s richiede almeno %s componenti."
 
-#: ../partRequests.py:636
+#: ../partRequests.py:645
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -2070,25 +2073,23 @@ msgstr ""
 
 #: ../upgrade.py:279
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Symlinks assoluto."
 
 #: ../upgrade.py:290
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic link, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as a symbolic link and restart the upgrade.\n"
 "\n"
 msgstr ""
-"I seguenti file sono link simbolici assoluti, che non sono supportati "
-"durante l'aggiornamento. Trasformarli in link simbolici relativi e riavviare "
-"l'aggiornamento.\n"
+"Le seguenti sono directory le quali dovrebbero essere link simbolici, che "
+"non sono supportati durante l'aggiornamento. Trasformarli in link simbolici "
+"e riavviare l'aggiornamento.\n"
 "\n"
 
 #: ../upgrade.py:296
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "Selezione non valida"
+msgstr "Directory non valide"
 
 #: ../upgrade.py:302
 #, python-format
@@ -2147,20 +2148,25 @@ msgstr ""
 "Linux 6.2 o successivo. Questo sistema sembra precedente. Si desidera "
 "continuare il processo di aggiornamento?"
 
+#: ../xsetup.py:53 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
+msgid "DDC Probed Monitor"
+msgstr "DDC Probed Monitor"
+
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
 msgstr "Impostare la password di root"
 
 #: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
-#, fuzzy
 msgid "Error with Password"
-msgstr "Password di root"
+msgstr "Errore nella password"
 
 #: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
+"La password richiesta contiene dei caratteri non ascii i quali non sono "
+"consentitii per l'uso in una password."
 
 #: ../iw/account_gui.py:51
 msgid "Root password accepted."
@@ -2334,11 +2340,11 @@ msgstr "Con_fermare:"
 msgid "Passwords don't match"
 msgstr "Le password non corrispondono"
 
-#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:441
+#: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:445
 msgid "Passwords do not match"
 msgstr "Le password non corrispondono"
 
-#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:451
+#: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:455
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2383,7 +2389,7 @@ msgstr "_Salta la creazione del dischetto di avvio"
 msgid "Advanced Boot Loader Configuration"
 msgstr "Configurazione del boot loader avanzata"
 
-#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:136
+#: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:140
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -2418,9 +2424,9 @@ msgstr ""
 msgid "_General kernel parameters"
 msgstr "_Parametri generali del kernel"
 
-#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:51
-#: ../textw/bootloader_text.py:119 ../textw/bootloader_text.py:178
-#: ../textw/bootloader_text.py:301 ../textw/bootloader_text.py:393
+#: ../iw/bootloader_main_gui.py:29 ../textw/bootloader_text.py:54
+#: ../textw/bootloader_text.py:123 ../textw/bootloader_text.py:182
+#: ../textw/bootloader_text.py:305 ../textw/bootloader_text.py:397
 msgid "Boot Loader Configuration"
 msgstr "Configurazione del boot loader."
 
@@ -2445,7 +2451,7 @@ msgstr ""
 msgid "C_ontinue with no boot loader"
 msgstr "C_ontinuare senza boot loader"
 
-#: ../iw/bootloader_main_gui.py:126
+#: ../iw/bootloader_main_gui.py:127
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
@@ -2455,32 +2461,32 @@ msgstr ""
 "default è GRUB. Per non sovrascrivere il boot loader corrente, selezionare "
 "\"Non installare alcun boot loader.\" "
 
-#: ../iw/bootloader_main_gui.py:134
+#: ../iw/bootloader_main_gui.py:135
 msgid "Use _GRUB as the boot loader"
 msgstr "Utilizza _GRUB come boot loader"
 
-#: ../iw/bootloader_main_gui.py:137
+#: ../iw/bootloader_main_gui.py:139
 msgid "Use _LILO as the boot loader"
 msgstr "Utilizza _LILO come boot loader"
 
-#: ../iw/bootloader_main_gui.py:138
+#: ../iw/bootloader_main_gui.py:143
 msgid "_Do not install a boot loader"
 msgstr "_Non installare alcun boot loader"
 
-#: ../iw/bootloader_main_gui.py:160
+#: ../iw/bootloader_main_gui.py:166
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
 msgstr "Il boot loader %s sarà installato su /dev/%s."
 
-#: ../iw/bootloader_main_gui.py:165
+#: ../iw/bootloader_main_gui.py:171
 msgid "No boot loader will be installed."
 msgstr "Non verrà installato alcun bootloader."
 
-#: ../iw/bootloader_main_gui.py:217
+#: ../iw/bootloader_main_gui.py:223
 msgid "_Change boot loader"
 msgstr "_Cambia boot loader"
 
-#: ../iw/bootloader_main_gui.py:245
+#: ../iw/bootloader_main_gui.py:251
 msgid "Configure advanced boot loader _options"
 msgstr "Configurare le _opzioni del boot loader avanzate"
 
@@ -2789,23 +2795,22 @@ msgid "Upgrade Examine"
 msgstr "Aggiornamento del sistema"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "Perform an upgrade of an existing installation"
-msgstr "Aggiornamento dell'installazione esistente"
+msgstr "Effettuare un aggiornamento di una installazione esistente"
 
 #: ../iw/examine_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Scesciete questa opzione se volete aggiornare il vostro attuale sistema di "
-"Red Hat Linux. Questa opzione conserverà i dati presenti nel sistema."
+"Scesciete questa opzione se volete aggiornare il vostro attuale sistema %s.  "
+"Questa opzione conserverà i dati presenti nel sistema sui vostri dischi."
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Perform a new %s installation"
-msgstr "Effettuare un installazione fresca di %s"
+msgstr "Effettuare una nuova installazione di %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -2958,7 +2963,7 @@ msgstr "Reimpos_ta"
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
 #: ../iw/lvm_dialog_gui.py:286 ../iw/lvm_dialog_gui.py:580
-#: ../iw/lvm_dialog_gui.py:628 ../iw/lvm_dialog_gui.py:835
+#: ../iw/lvm_dialog_gui.py:639 ../iw/lvm_dialog_gui.py:846
 msgid "Not enough space"
 msgstr "Spazio non disponibile"
 
@@ -3144,14 +3149,14 @@ msgstr ""
 "10.2f MB). Per aumentare questo limite è possibile aumentare la dimensione "
 "fisica del gruppo di volumi."
 
-#: ../iw/lvm_dialog_gui.py:605 ../iw/partition_dialog_gui.py:169
+#: ../iw/lvm_dialog_gui.py:616 ../iw/partition_dialog_gui.py:169
 #: ../iw/partition_dialog_gui.py:181 ../iw/partition_dialog_gui.py:229
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:831
 #: ../textw/partition_text.py:853 ../textw/partition_text.py:1024
 msgid "Error With Request"
 msgstr "Errore di richiesta"
 
-#: ../iw/lvm_dialog_gui.py:629 ../iw/lvm_dialog_gui.py:836
+#: ../iw/lvm_dialog_gui.py:640 ../iw/lvm_dialog_gui.py:847
 #, python-format
 msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
@@ -3162,20 +3167,20 @@ msgstr ""
 "volumi ha solo %g MB. Aumentare le dimensioni del gruppo oppure ridurre "
 "quelle delvolume logico."
 
-#: ../iw/lvm_dialog_gui.py:679
+#: ../iw/lvm_dialog_gui.py:690
 msgid "No free slots"
 msgstr "Nessuno slot libero"
 
-#: ../iw/lvm_dialog_gui.py:680
+#: ../iw/lvm_dialog_gui.py:691
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr "Non è possibile creare più di %s volumi logici per gruppi di volumi."
 
-#: ../iw/lvm_dialog_gui.py:686
+#: ../iw/lvm_dialog_gui.py:697
 msgid "No free space"
 msgstr "Spazio libero non disponibile"
 
-#: ../iw/lvm_dialog_gui.py:687
+#: ../iw/lvm_dialog_gui.py:698
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
@@ -3185,30 +3190,30 @@ msgstr ""
 "aggiungere un volume logice, è necessario ridurre le dimensioni di uno o più "
 "volumi logici esistenti"
 
-#: ../iw/lvm_dialog_gui.py:715
+#: ../iw/lvm_dialog_gui.py:726
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
 msgstr "Cancellare il volume logico \"%s\"?"
 
-#: ../iw/lvm_dialog_gui.py:847
+#: ../iw/lvm_dialog_gui.py:858
 msgid "Invalid Volume Group Name"
 msgstr "Nome del gruppo di volumi non valido"
 
-#: ../iw/lvm_dialog_gui.py:860
+#: ../iw/lvm_dialog_gui.py:871
 msgid "Name in use"
 msgstr "Nome in uso"
 
-#: ../iw/lvm_dialog_gui.py:861
+#: ../iw/lvm_dialog_gui.py:872
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
-#: ../iw/lvm_dialog_gui.py:905
+#: ../iw/lvm_dialog_gui.py:916
 msgid "Not enough physical volumes"
 msgstr "Volumi fisici insufficienti"
 
-#: ../iw/lvm_dialog_gui.py:906
+#: ../iw/lvm_dialog_gui.py:917
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3222,70 +3227,70 @@ msgstr ""
 "Creare innanzitutto una partizione o un array raid del tipo \"volume fisico "
 "(LVM)\", quindi selezionare di nuovo l'opzione \"LVM\"."
 
-#: ../iw/lvm_dialog_gui.py:917
+#: ../iw/lvm_dialog_gui.py:928
 msgid "Make LVM Volume Group"
 msgstr "Crea gruppi di volumi LVM"
 
-#: ../iw/lvm_dialog_gui.py:920
+#: ../iw/lvm_dialog_gui.py:931
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Modifica gruppo di volumi LVM: %s"
 
-#: ../iw/lvm_dialog_gui.py:922
+#: ../iw/lvm_dialog_gui.py:933
 msgid "Edit LVM Volume Group"
 msgstr "Modifica gruppo di volumi LVM"
 
-#: ../iw/lvm_dialog_gui.py:938
+#: ../iw/lvm_dialog_gui.py:949
 msgid "_Volume Group Name:"
 msgstr "_Nome gruppo di volumi:"
 
-#: ../iw/lvm_dialog_gui.py:946
+#: ../iw/lvm_dialog_gui.py:957
 msgid "Volume Group Name:"
 msgstr "Nome gruppo di volumi:"
 
-#: ../iw/lvm_dialog_gui.py:955
+#: ../iw/lvm_dialog_gui.py:966
 msgid "_Physical Extent:"
 msgstr "_Dimensioni fisiche:"
 
-#: ../iw/lvm_dialog_gui.py:962
+#: ../iw/lvm_dialog_gui.py:973
 msgid "Physical Extent:"
 msgstr "Dimensioni fisiche:"
 
-#: ../iw/lvm_dialog_gui.py:975
+#: ../iw/lvm_dialog_gui.py:986
 msgid "Physical Volumes to _Use:"
 msgstr "Volumi fisici da _utilizzare:"
 
-#: ../iw/lvm_dialog_gui.py:981
+#: ../iw/lvm_dialog_gui.py:992
 msgid "Used Space:"
 msgstr "Spazio utilizzato:"
 
-#: ../iw/lvm_dialog_gui.py:998
+#: ../iw/lvm_dialog_gui.py:1009
 msgid "Free Space:"
 msgstr "Spazio libero:"
 
-#: ../iw/lvm_dialog_gui.py:1016
+#: ../iw/lvm_dialog_gui.py:1027
 msgid "Total Space:"
 msgstr "Spazio totale:"
 
-#: ../iw/lvm_dialog_gui.py:1045
+#: ../iw/lvm_dialog_gui.py:1056
 msgid "Logical Volume Name"
 msgstr "Nome del volume logico"
 
-#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
+#: ../iw/lvm_dialog_gui.py:1062 ../iw/partition_gui.py:354
 msgid "Size (MB)"
 msgstr "Dimensioni (MB)"
 
-#: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
+#: ../iw/lvm_dialog_gui.py:1076 ../iw/osbootwidget.py:94
 msgid "_Add"
 msgstr "_Aggiungi"
 
-#: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
+#: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: ../iw/lvm_dialog_gui.py:1082
+#: ../iw/lvm_dialog_gui.py:1093
 msgid "Logical Volumes"
 msgstr "Volumi logici"
 
@@ -3467,7 +3472,7 @@ msgstr "Attiva all'avvio"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
+#: ../textw/bootloader_text.py:210 ../textw/bootloader_text.py:281
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
@@ -3521,7 +3526,7 @@ msgstr ""
 "avviato di default, selezionare 'Default' nel sistema operativo desiderato."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:395 ../textw/xconfig_text.py:402
 #: ../textw/xconfig_text.py:516 ../textw/xconfig_text.py:517
 #: ../textw/xconfig_text.py:536 ../textw/xconfig_text.py:537
@@ -4320,8 +4325,8 @@ msgstr "Non installare SILO"
 msgid "Partition type"
 msgstr "Tipo di partizione"
 
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:207
-#: ../textw/bootloader_text.py:277 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:211
+#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Boot label"
@@ -4519,10 +4524,6 @@ msgstr ""
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
 msgstr "Benvenuti"
-
-#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
-msgid "DDC Probed Monitor"
-msgstr "DDC Probed Monitor"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "Unprobed Monitor"
@@ -4745,19 +4746,19 @@ msgstr "Scegliere il boot loader da utilizzare"
 msgid "Use GRUB Boot Loader"
 msgstr "Utilizza il boot loader GRUB"
 
-#: ../textw/bootloader_text.py:47
+#: ../textw/bootloader_text.py:48
 msgid "Use LILO Boot Loader"
 msgstr "Utilizza il boot loader LILO"
 
-#: ../textw/bootloader_text.py:48
+#: ../textw/bootloader_text.py:51
 msgid "No Boot Loader"
 msgstr "Nessun boot loader"
 
-#: ../textw/bootloader_text.py:69
+#: ../textw/bootloader_text.py:73
 msgid "Skip Boot Loader"
 msgstr "Ignora il boot loader"
 
-#: ../textw/bootloader_text.py:70
+#: ../textw/bootloader_text.py:74
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -4773,7 +4774,7 @@ msgstr ""
 "\n"
 "Saltare l'installazione del boot loader?"
 
-#: ../textw/bootloader_text.py:104 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:108 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -4784,43 +4785,43 @@ msgstr ""
 "fase di avvio. Inserire qui le opzioni di boot da passare al kernel o "
 "lasciare la riga vuota."
 
-#: ../textw/bootloader_text.py:113
+#: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Attiva la modalità LBA32 (normalmente non richiesta)"
 
-#: ../textw/bootloader_text.py:179
+#: ../textw/bootloader_text.py:183
 msgid "Where do you want to install the boot loader?"
 msgstr "Scegliere dove installare il boot loader:"
 
-#: ../textw/bootloader_text.py:211 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:215 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Cancella"
 
-#: ../textw/bootloader_text.py:219 ../textw/silo_text.py:155
+#: ../textw/bootloader_text.py:223 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
 msgstr "Modificare la boot label"
 
-#: ../textw/bootloader_text.py:237 ../textw/bootloader_text.py:242
+#: ../textw/bootloader_text.py:241 ../textw/bootloader_text.py:246
 msgid "Invalid Boot Label"
 msgstr "Boot label non valida"
 
-#: ../textw/bootloader_text.py:238
+#: ../textw/bootloader_text.py:242
 msgid "Boot label may not be empty."
 msgstr "La boot label non può essere vuota."
 
-#: ../textw/bootloader_text.py:243
+#: ../textw/bootloader_text.py:247
 msgid "Boot label contains illegal characters."
 msgstr "La boot label contiene caratteri illegali."
 
-#: ../textw/bootloader_text.py:292 ../textw/fdisk_text.py:41
+#: ../textw/bootloader_text.py:296 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1119 ../textw/partition_text.py:1126
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:237
 msgid "Edit"
 msgstr "Modifica"
 
-#: ../textw/bootloader_text.py:296 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -4830,14 +4831,14 @@ msgstr ""
 "operativi. Indicare la partizione da avviare e associare a ognuna di essa "
 "un'etichetta."
 
-#: ../textw/bootloader_text.py:309
+#: ../textw/bootloader_text.py:313
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> seleziona pulsante | <F2> seleziona boot entry di default | <F12> "
 "schermata successiva>"
 
-#: ../textw/bootloader_text.py:388
+#: ../textw/bootloader_text.py:392
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -4848,27 +4849,27 @@ msgstr ""
 "impostare una password, ma per gli utenti occasionali questa operazione non "
 "è necessaria."
 
-#: ../textw/bootloader_text.py:398
+#: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
 msgstr "Attiva una password per GRUB"
 
-#: ../textw/bootloader_text.py:410
+#: ../textw/bootloader_text.py:414
 msgid "Boot Loader Password:"
 msgstr "Password del boot loader:"
 
-#: ../textw/bootloader_text.py:411
+#: ../textw/bootloader_text.py:415
 msgid "Confirm:"
 msgstr "Confermare:"
 
-#: ../textw/bootloader_text.py:440
+#: ../textw/bootloader_text.py:444
 msgid "Passwords Do Not Match"
 msgstr "Le password non corrispondono."
 
-#: ../textw/bootloader_text.py:445
+#: ../textw/bootloader_text.py:449
 msgid "Password Too Short"
 msgstr "Password troppo breve"
 
-#: ../textw/bootloader_text.py:446
+#: ../textw/bootloader_text.py:450
 msgid "Boot loader password is too short"
 msgstr "La password per il boot loader è troppo breve."
 
@@ -6146,9 +6147,10 @@ msgid "Video RAM:"
 msgstr "Memoria scheda video:"
 
 #: ../textw/zipl_text.py:22
+#, fuzzy
 msgid ""
-"The z/IPL Boot Loader will be installed on your system after installations "
-"is complete. You can now enter any additional kernel and chandev parameters "
+"The z/IPL Boot Loader will be installed on your system after installation is "
+"complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
 "Il Boot Loader z/IPL verrà installato sul vostro sistema dopo che "
@@ -6344,9 +6346,8 @@ msgstr ""
 "o caricare un altro dischetto dei driver?"
 
 #: ../loader2/driverdisk.c:336
-#, fuzzy
 msgid "Driver disk"
-msgstr "Dischetto dei driver"
+msgstr "Dischetto del driver"
 
 #: ../loader2/driverdisk.c:337
 msgid "Do you have a driver disk?"
@@ -7682,7 +7683,8 @@ msgid "Portuguese"
 msgstr "Portoghese"
 
 #. generated from lang-table
-msgid "Portuguese(Brasilian)"
+#, fuzzy
+msgid "Portuguese(Brazilian)"
 msgstr "Portoghese(Brasiliano)"
 
 #. generated from lang-table
