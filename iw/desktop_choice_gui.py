@@ -49,7 +49,7 @@ class DesktopChoiceWindow (InstallWindow):
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
 	# ugly hack
-	if instclass.name == N_("Workstation"):
+	if instclass.id == "workstation":
 	    self.windowTitle = N_("Workstation Defaults")
 	    self.ics.setTitle (_(self.windowTitle))
 	    self.htmlTag = "workstation-pkgs"
@@ -72,7 +72,7 @@ class DesktopChoiceWindow (InstallWindow):
 		"If you are familiar with %s, you may have specific packages "
 		"you would like to install or avoid installing. Check the box below to "
 		"customize your installation.") % (productName,)
-	elif instclass.name == N_("Personal Desktop"):
+	elif instclass.id == "personal desktop":
 	    self.windowTitle = N_("Personal Desktop Defaults")
 	    self.ics.setTitle (_(self.windowTitle))
 	    self.htmlTag = "pdesktop-pkgs"
