@@ -21,7 +21,7 @@ from gnome.ui import *
 from translate import _, N_
 from partitioning import *
 from fsset import *
-from autopart import doPartitioning
+from autopart import doPartitioning, queryAutoPartitionOK
 from autopart import CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
 from autopart import CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_NONE_DESCR_TEXT
 from autopart import AUTOPART_DISK_CHOICE_DESCR_TEXT
@@ -1350,6 +1350,9 @@ class AutoPartitionWindow(InstallWindow):
 
         self.partitions.autoClearPartDrives = allowdrives
 
+        if not queryAutoPartitionOK(self.intf, self.diskset, self.partitions):
+            raise gui.StayOnScreen
+        
         if self.inspect.get_active():
             self.dispatch.skipStep("partition", skip = 0)
         else:

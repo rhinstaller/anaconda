@@ -39,19 +39,7 @@ class PartitionMethodWindow(InstallWindow):
 
     def getScreen (self, partitions, instclass):
 
-        # XXX messy - set help based on installclass
-        helpfile = None
-        if instclass.name == _("Workstation"):
-            helpfile = "wkst"
-        elif instclass.name == _("Server"):
-            helpfile = "svr"
-        elif instclass.name == _("Custom"):
-            helpfile = "cust"
-        elif instclass.name == _("Laptop"):
-            helpfile = "laptop"
-
-        if helpfile:
-            self.ics.readHTML(helpfile)
+        self.ics.readHTML("howpartition")
 
         self.partitions = partitions
         

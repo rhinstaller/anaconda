@@ -807,6 +807,39 @@ def doAutoPartition(dir, diskset, partitions, intf):
                _("Could not allocated requested partitions: %s.") % (msg.value))
 
 
+def queryAutoPartitionOK(intf, diskset, partitions):
+    type = partitions.autoClearPartType
+    drives = partitions.autoClearPartDrives
+
+    if type == CLEARPART_TYPE_LINUX:
+        msg = CLEARPART_TYPE_LINUX_WARNING_MSG
+    elif type == CLEARPART_TYPE_ALL:
+        msg = CLEARPART_TYPE_ALL_WARNING_MSG
+    elif type == CLEARPART_TYPE_NONE:
+        return 1
+    else:
+        raise ValueError, "Invalid clear part type in doClearPartAction"
+
+    drvstr = "\n\n    "
+    if drives == None:
+        drives = diskset.disks.keys()
+
+    drives.sort()
+    i = 0
+    for drive in drives:
+        drvstr = drvstr + "    /dev/%s" % (drive)
+        i = i + 1
+        if i > 2:
+            drvstr = drvstr + "\n    "
+            i = 0
+
+    drvstr = drvstr +"\n"
+    
+    rc = intf.messageWindow(_("Warning"), msg % drvstr, type="yesno")
+
+    return rc
+
+
 # XXX hack but these are common strings to TUI and GUI
 PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
                                "partitioning based on your installation type. "
@@ -832,3 +865,15 @@ AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
 CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
 CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
 CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
+
+CLEARPART_TYPE_ALL_WARNING_MSG = N_("WARNING!!\tWARNING!!\n\n"
+                                    "You have selected to remove "
+                                    "all partitions (ALL DATA) on the "
+                                    "following drives:%s\nAre you sure you "
+                                    "want to do this?")
+CLEARPART_TYPE_LINUX_WARNING_MSG = N_("WARNING!!\tWARNING!!\n\n"
+                                      "You have selected to "
+                                      "remove all Linux partitions "
+                                      "(and ALL DATA on them) on the "
+                                      "following drives:%s\n"
+                                      "Are you sure you want to do this?")

@@ -919,13 +919,17 @@ class AutoPartitionWindow:
         bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
         self.g.add(bb, 0, 4, (0,1,0,0))
 
-        rc = self.g.run()
-        res = bb.buttonPressed(rc)
+        while 1:
+            rc = self.g.run()
+            res = bb.buttonPressed(rc)
 
-        screen.popWindow()
-        if res == TEXT_BACK_CHECK:
-            return INSTALL_BACK
+            if res == TEXT_BACK_CHECK:
+                screen.popWindow()
+                return INSTALL_BACK
 
-        partitions.autoClearPartType = typebox.current()
-        partitions.autoClearPartDrives = drivelist.getSelection()
-        return INSTALL_OK
+            partitions.autoClearPartType = typebox.current()
+            partitions.autoClearPartDrives = drivelist.getSelection()
+
+            if queryAutoPartitionOK(intf, diskset, partitions):
+                screen.popWindow()
+                return INSTALL_OK
