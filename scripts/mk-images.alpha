@@ -5,7 +5,7 @@ prepareBootImage() {
         echo y | /sbin/mke2fs -i 4096 $MBD_TMPIMAGE  > /dev/null 2>/dev/null
 	LODEV=`findloopdevice $MBD_TMPIMAGE`
 	e2writeboot $LODEV $BOOTDISKDIR/bootlx
-	mount $LODEV -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
+	mount $LODEV -t ext2 $MBD_BOOTTREE
         mkdir -p $MBD_BOOTTREE/etc
 	cat > $MBD_BOOTTREE/etc/aboot.conf <<EOF
 0:vmlinux.gz load_ramdisk=1 prompt_ramdisk=1 root=/dev/fd0
