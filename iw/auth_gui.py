@@ -38,6 +38,7 @@ class AuthWindow (InstallWindow):
         self.ldapServer.set_sensitive (ldapactive)
         self.ldapBasednLabel.set_sensitive (ldapactive)
         self.ldapBasedn.set_sensitive (ldapactive)
+        self.ldapTLS.set_sensitive (ldapactive)
 
         krb5active = self.krb5.get_active()
         self.krb5RealmLabel.set_sensitive (krb5active)
@@ -64,6 +65,7 @@ class AuthWindow (InstallWindow):
         self.todo.auth.useLdapauth = self.ldap.get_active ()
         self.todo.auth.ldapServer = self.ldapServer.get_text ()
         self.todo.auth.ldapBasedn = self.ldapBasedn.get_text ()
+        self.todo.auth.ldapTSL = self.ldapTLS.get_active ()
 
         self.todo.auth.useKrb5 = self.krb5.get_active ()
         self.todo.auth.krb5Realm = self.krb5Realm.get_text ()
@@ -97,31 +99,49 @@ class AuthWindow (InstallWindow):
         self.nis.connect ("toggled", self.setSensitivities)
         self.nisBroadcast.connect ("toggled", self.setSensitivities)
 
-        hbox1 = GtkHBox ()
-        hbox1.pack_start (self.nisDomainLabel, FALSE)
-        hbox1.pack_start (self.nisDomain)
+#        hbox1 = GtkHBox ()
+#        hbox1.pack_start (self.nisDomainLabel, FALSE)
+#        hbox1.pack_start (self.nisDomain)
 
-        hbox2 = GtkHBox ()
-        hbox2.pack_start (self.nisServerLabel, FALSE)
-        hbox2.pack_start (self.nisServer)
+
+
+#        hbox2 = GtkHBox ()
+#        hbox2.pack_start (self.nisServerLabel, FALSE)
+#        hbox2.pack_start (self.nisServer)
 
         a = GtkAlignment (0, 0)
         a.add (self.nisBroadcast)
 
         nistable = GtkTable (10, 4)
         nistable.attach (self.nis, 0, 10, 0, 1)
-        nistable.attach (hbox1, 2, 10, 1, 2)
+
+	spacer = GtkLabel("")
+	spacer.set_usize(10, 1)
+        nistable.attach (spacer, 0, 1, 1, 2)
+        
+        nistable.attach (self.nisDomainLabel, 2, 3, 1, 2)
+        nistable.attach (self.nisDomain, 3, 15, 1, 2)
+
+
+#        nistable.attach (hbox1, 2, 15, 1, 2)
         nistable.attach (a, 2, 10, 2, 3, xoptions = EXPAND|FILL)
-        nistable.attach (hbox2, 4, 10, 3, 4)
+#        nistable.attach (hbox2, 3, 15, 3, 4)
+
+        nistable.attach (self.nisServerLabel, 2, 5, 3, 4)
+        nistable.attach (self.nisServer, 3, 10, 3, 4)
+
 
         # ldap
         self.ldap = GtkCheckButton (_("Enable LDAP"))
         self.ldapServer = GtkEntry ()
         self.ldapBasedn = GtkEntry ()
+        self.ldapTLS = GtkCheckButton (_("Use TLS lookups"))
         self.ldapServerLabel = GtkLabel (_("LDAP Server:"))
         self.ldapServerLabel.set_alignment (0, 0)
         self.ldapBasednLabel = GtkLabel (_("LDAP Base DN:"))
         self.ldapBasednLabel.set_alignment (0, 0)
+        self.ldapTLSLabel = GtkLabel (_("Enable LDAP TLS"))
+        self.ldapTLSLabel.set_alignment (0,0)
 
 	# restore ldap settings
         self.ldap.set_active (self.todo.auth.useLdap)
@@ -138,12 +158,16 @@ class AuthWindow (InstallWindow):
         ldaptable.attach (self.ldapServerLabel, 2, 3, 1, 2)
         ldaptable.attach (self.ldapServer, 3, 10, 1, 2)
 
+
 	spacer = GtkLabel("")
 	spacer.set_usize(10, 1)
         ldaptable.attach (spacer, 0, 1, 2, 3)
         ldaptable.attach (self.ldapBasednLabel, 2, 3, 2, 3)
         ldaptable.attach (self.ldapBasedn, 3, 10, 2, 3)
-
+        a = GtkAlignment (0, 0)
+        a.add (self.ldapTLS)
+        ldaptable.attach (a, 2, 3, 3, 4, xoptions = EXPAND|FILL)
+        
         self.ldap.connect ("toggled", self.setSensitivities)
 
         # krb5
