@@ -1080,4 +1080,19 @@ def selectLanguageSupportGroups(comps, langSupport):
                         %(group.name,))
                     continue
                 comps.compsDict[group.name].select()
-
+                for package in group.pkgConditionals.keys():
+                    req = group.pkgConditionals[package]
+                    if not comps.packages.has_key(package):
+                        log("Missing %s which is in a langsupport conditional" %(package,))
+                        continue
+                    if not comps.compsxml.packages.has_key(req):
+                        log("Missing %s which is required by %s in a langsupport group" %(req, package))
+                        continue
+                    # add to the deps in the dependencies structure --
+                    # this will take care of if we're ever added as a dep
+                    comps.compsxml.packages[req].dependencies.append(package)
+                    # also add to all components for which the req is
+                    # registered as PKGTYPE_DEFAULT
+                    pkg = comps.packages[package]
+                    for comp in comps.packages[req].comps:
+                        comp.addPackage(pkg, 1)
