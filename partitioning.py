@@ -664,7 +664,8 @@ def getDefaultDiskType():
         return parted.disk_type_get("msdos")
 
 archLabels = {'i386': ['msdos'],
-             'ia64': ['msdos', 'GPT']}
+              'alpha': ['bsd'],
+              'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
     arch = iutil.getArch()
