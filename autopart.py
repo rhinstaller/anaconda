@@ -1309,7 +1309,7 @@ PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets partitions "
 AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
                                      "set up by the installation program, you "
                                      "must choose how to use the space on "
-                                     "hard drives.")
+                                     "your hard drives.")
 
 CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
 CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
