@@ -27,7 +27,7 @@ if width >= 800:
             print "Unable to load", file
 #--Otherwise, use the old 640x480 one
 else:
-    print "In lowres mode..."
+#    print "In lowres mode..."
     try:
         im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
     except:
