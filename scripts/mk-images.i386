@@ -142,6 +142,7 @@ PCMCIAMODULES="$PCMCIAMODULES yenta_socket pcmcia_core ds"
 
 echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+           --pcmcia \
 	   --initrdsize 2750 \
 	   --loaderbin loader \
 	   --modules "$COMMONMODULES"
