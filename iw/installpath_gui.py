@@ -54,7 +54,6 @@ class InstallPathWindow (InstallWindow):
 		     ( AutoPartitionWindow, "partition" ),
                      FDiskWindow,
 		     ( PartitionWindow, "partition" ),
-#                     ( LBA32WarningWindow, "lba32warning"),
 		     ( FormatWindow, "format" ),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     ( NetworkWindow, "network" ),

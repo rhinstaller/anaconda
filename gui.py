@@ -339,17 +339,15 @@ class InstallInterface:
     def run (self, todo, test = 0):
         # This is the same as the file
         if todo.reconfigOnly:
-            if todo.serial:
-                commonSteps = [ ( LanguageWindow, "language" ), 
-                                ]
-            else:
+            if not todo.serial:
                 commonSteps = [ ( ReconfigWelcomeWindow, "reconfig"),
-                                ( LanguageWindow, "language" ), 
                                 ( KeyboardWindow, "keyboard" ),
                                 ]
 
             commonSteps = commonSteps + [
 		     ( NetworkWindow, "network" ),
+                     ( FirewallWindow, "firewall" ),
+                     ( LanguageSupportWindow, "languagesupport" ),
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
@@ -359,13 +357,11 @@ class InstallInterface:
         else:
             if todo.serial:
                 commonSteps = [ ( LanguageWindow, "language" ),
-#                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( WelcomeWindow, "welcome" ),
                                 ( InstallPathWindow, "installtype" ),
                                 ]
             else:
                 commonSteps = [ ( LanguageWindow, "language" ), 
-#                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( KeyboardWindow, "keyboard" ),
                                 ( MouseWindow, "mouse" ),
                                 ( WelcomeWindow, "welcome" ),

@@ -942,8 +942,6 @@ class InstallInterface:
             self.commonSteps = [
                 [N_("Welcome"), ReconfigWelcomeWindow, 
                  (self.screen,), "reconfig" ],
-                [N_("Language Selection"), LanguageWindow, 
-                 (self.screen, todo, self), "language" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
@@ -952,12 +950,8 @@ class InstallInterface:
                  "network"],
 		[N_("Firewall Configuration"), FirewallWindow, (self.screen, todo),
 		 "firewall" ],
-
-#                [N_("Mouse Configuration"), MouseWindow, (self.screen, todo),
-#                 "mouse" ],
-#                [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
-#                 "mouse" ],
-
+                [N_("Language Default"), LanguageDefaultWindow, 
+                 (self.screen, todo), "languagedefault" ],
                 [N_("Time Zone Setup"), TimezoneWindow, 
                  (self.screen, todo, test), "timezone" ],
                 [N_("Root Password"), RootPasswordWindow, 
@@ -966,10 +960,6 @@ class InstallInterface:
                  (self.screen, todo), "accounts" ],
                 [N_("Authentication"), AuthConfigWindow, (self.screen, todo),
                  "authentication" ],
-#                [N_("X Configuration"), XConfigWindow, (self.screen, todo),
-#                 "xconfig" ],
-#                [N_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
-#		    "xconfig"],
                 [N_("Configuration Complete"), ReconfigFinishedWindow, (self.screen,todo),
                  "complete" ],
                 ]
@@ -977,10 +967,6 @@ class InstallInterface:
             self.commonSteps = [
                 [N_("Language Selection"), LanguageWindow, 
                  (self.screen, todo, self), "language" ],
-#                [N_("Language Support"), LanguageSupportWindow, 
-#                 (self.screen, todo), "languagesupport" ],
-#                [N_("Language Default"), LanguageDefaultWindow, 
-#                 (self.screen, todo), "languagedefault" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],

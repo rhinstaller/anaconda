@@ -324,27 +324,64 @@ class InstallTimeLanguage:
 
 class Language (SimpleConfigFile):
 
-    def __init__ (self):
+    def __init__ (self, useInstalledLangs):
         self.info = {}
         self.info["SUPPORTED"] = None
 	self.supported = []
 	self.default = None
 
-	self.allSupportedLangs = []
-	self.langInfoByName = {}
-	if os.access("/usr/share/anaconda/locale-list", os.R_OK):
-	    f = open("/usr/share/anaconda/locale-list")
-	    lines = f.readlines()
-	    f.close()
-	    for line in lines:
-		line = string.strip(line)
-		(lang, map, font, name) = string.split(line, ' ', 3)
-		self.langInfoByName[name] = (lang, map, font)
-		self.allSupportedLangs.append(name)
-	else:
-	    self.langInfoByName['English (USA)'] = ('en_US', 'iso01', 'default8x16')
-	    self.allSupportedLangs.append('English (USA)')
+        self.allSupportedLangs = []
+        self.langInfoByName = {}
 
+        allSupportedLangs = []
+        langInfoByName = {}
+        langFilter = {}
+
+        if useInstalledLangs:
+            # load from /etc/sysconfig/i18n
+            supported = None
+            if os.access("/etc/sysconfig/i18n", os.R_OK):
+                f = open("/etc/sysconfig/i18n")
+                lines = f.readlines()
+                f.close()
+                for line in lines:
+                    if line[0:9] == "SUPPORTED":
+                        tmpstr = line[11:]
+                        supported = tmpstr[:string.find(tmpstr,'\"')]
+                        break
+
+            # if no info on current system, just punt with reasonable default
+            if not supported:
+                langFilter['en_US'] = 1
+            else:
+                for lang in string.split(supported, ":"):
+                    langFilter[lang] = 1
+
+        langsInstalled = []
+        if os.access("/usr/share/anaconda/locale-list", os.R_OK):
+            f = open("/usr/share/anaconda/locale-list")
+            lines = f.readlines()
+            f.close()
+            for line in lines:
+                line = string.strip(line)
+                (lang, map, font, name) = string.split(line, ' ', 3)
+                langInfoByName[name] = (lang, map, font)
+                allSupportedLangs.append(name)
+
+                if langFilter and langFilter.has_key(lang):
+                    langsInstalled.append(name)
+        else:
+            langInfoByName['English (USA)'] = ('en_US', 'iso01', 'default8x16')
+            allSupportedLangs.append('English (USA)')
+            langsInstalled.append('English (USA)')
+
+        self.langInfoByName = langInfoByName
+        self.allSupportedLangs = allSupportedLangs
+
+        # set languages which were selected at install time for reconfig mode
+        if useInstalledLangs:
+            self.setSupported(langsInstalled)
+                                             
     def getAllSupported(self):
 	return self.allSupportedLangs
 
@@ -487,7 +524,7 @@ class ToDo:
 	self.setupFilesystems = setupFilesystems
 	self.installSystem = installSystem
         self.instTimeLanguage = InstallTimeLanguage ()
-        self.language = Language ()
+        self.language = Language (reconfigOnly)
 	self.serial = serial
         self.reconfigOnly = reconfigOnly
         self.network = Network ()
@@ -551,10 +588,9 @@ class ToDo:
         self.firewallState = 0
 
         # If reconfig mode, don't probe floppy
-        #print self.reconfigOnly
         if self.reconfigOnly != 1:
             self.setFdDevice()
-        
+
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -907,7 +943,13 @@ class ToDo:
                 log ("lokkit run failed: %s", msg)
             except OSError, (errno, msg):
                 log ("lokkit run failed: %s", msg)
-                
+        elif self.reconfigOnly:
+            # remove /etc/sysconfig/ipchains
+            try:
+                os.remove("/etc/sysconfig/ipchains")
+            except:
+                pass
+
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
         if self.auth.useShadow:
@@ -969,8 +1011,6 @@ class ToDo:
         else:
             args.append ("--disablehesiod")
 
-
-        log ("running authentication cmd |%s|" % args)
         try:
             iutil.execWithRedirect(args[0], args,
                                    stdout = None, stderr = None,

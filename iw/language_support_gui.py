@@ -151,8 +151,10 @@ class LanguageSupportWindow (InstallWindow):
 
         sep = GtkHSeparator ()
         vbox.pack_start (sep, FALSE, 15)
-
-        label = GtkLabel (_("Choose the languages to install:"))
+        if self.todo.reconfigOnly:
+            label = GtkLabel (_("Currently installed languages:"))
+        else:
+            label = GtkLabel (_("Choose the languages to install:"))
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE)
@@ -163,7 +165,6 @@ class LanguageSupportWindow (InstallWindow):
         self.language = checklist.CheckList(1)
         self.language.connect ("button_press_event", self.support_select_row)
         self.language.connect ("key_press_event", self.language_key_press)
-
 
         self.maxrows = 0
         list = []
@@ -222,9 +223,9 @@ class LanguageSupportWindow (InstallWindow):
         button = GtkButton (_("Select as default"))
         alignment.add (button)
 
+        # in reconfig mode make some widgets unchangable
+        if self.todo.reconfigOnly:
+            self.language.set_sensitive(FALSE)
+            all_button.set_sensitive(FALSE)
+
         return vbox
-
-
-
-
-
