@@ -1130,6 +1130,16 @@ int main(int argc, char ** argv) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
-    
+#if 0
+    else {
+	char **args = anacondaArgs;
+	printf("would have run ");
+	while (*args)
+	    printf("%s ", *args++);
+	printf("\n");
+	printf("LANGKEY=%s\n", getenv("LANGKEY"));
+	printf("LANG=%s\n", getenv("LANG"));
+    }
+#endif
     return 1;
 }

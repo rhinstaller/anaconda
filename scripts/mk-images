@@ -427,13 +427,9 @@ EOF
     rm -f $MBD_DIR/.buildstamp
     echo $IMAGEUUID > $MBD_DIR/.buildstamp
 
-    if [ -f $LOADERBINDIR/kon.cfg ]; then
-        mkdir -p $MBD_DIR/etc/terminfo/k
-        install -m 644 $IMGPATH/usr/share/terminfo/k/kon $MBD_DIR/etc/terminfo/k/kon
-	install -m 644 $LOADERBINDIR/kon.cfg $MBD_DIR/etc
-	install -m 644 $LOADERBINDIR/minikon.fnt $MBD_DIR/etc
-	ln -s loader $MBD_DIR/sbin/continue
-    fi
+    mkdir -p $MBD_DIR/etc/terminfo/b
+    install -m 644 $IMGPATH/usr/share/terminfo/b/bterm $MBD_DIR/etc/terminfo/b/bterm
+    install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
 
     if [ -n "$PCMCIA" ]; then
 	mkdir -p $MBD_BOOTTREE/etc

@@ -133,7 +133,7 @@ void loadLanguage (char * file, int flags) {
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
 
-    if (!key || !strcmp(key, "en_US.UTF-8")) {
+    if (!key || !strcmp(key, "en")) {
         if (strings) {
             free(strings), strings = NULL;
             numStrings = allocedStrings = 0;
@@ -218,13 +218,18 @@ void setLanguage (char * key, int flags) {
 
 /* returns 0 on success, 1 on failure */
 extern int bterm_main(int argc, char **argv);
+
 int startBterm(int flags) {
-    char *args[4] = { "bterm", "-s", "-f", "/usr/lib/bogl/font.bgf.gz" };
+    char *args[4] = { "bterm", "-s", "-f", NULL };
     int rc;
+
+    if (FL_TESTING(flags))
+	args[3] = "font.bgf.gz";	
+    else
+	args[3] = "/etc/font.bgf.gz";
     
     stopNewt();
     rc = bterm_main(4, args);
-    logMessage("returning, rc is %d", rc);
     startNewt(flags);
     return rc;
 }
@@ -278,27 +283,7 @@ int chooseLanguage(char ** lang, int flags) {
     /* this can't happen */
     if (i == numLanguages) abort();
 
-    if (!strncmp(languages[choice].key, "en", 2)) {
-        char *buf;
-        /* stick with the default (English) */
-        unsetenv("LANG");
-        unsetenv("LANGKEY");
-        unsetenv("LC_ALL");
-        unsetenv("LINGUAS");
-        if (strings) {
-            free(strings), strings = NULL;
-            numStrings = allocedStrings = 0;
-        }
-        buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
-        newtDrawRootText(0, 0, buf);
-        free(buf);
-        newtPushHelpLine(_(bottomHelpLine));
-
-        return 0;
-    }
-
     /* load the language only if it is displayable */
-    /* disable until working */
     if (!strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
@@ -308,9 +293,14 @@ int chooseLanguage(char ** lang, int flags) {
 	return 0;
     } else {
 	setLanguage (languages[choice].key, flags);
-	loadLanguage (NULL, flags);
     }
-    
+
+    /* clear out top line */
+    buf = alloca(80);
+    for (i=0; i < 80; i++)
+	buf[i] = ' ';
+    newtDrawRootText(0, 0, buf);
+
     buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
     newtDrawRootText(0, 0, buf);
     free(buf);

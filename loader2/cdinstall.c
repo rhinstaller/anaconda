@@ -292,6 +292,17 @@ char * setupCdrom(char * location,
     int foundinvalid = 0;
     char * buf;
 
+#if 0
+    if (FL_TESTING(flags) && interactive) {
+        for (i = 0; i < kd->numKnown; i++) {
+            if (kd->known[i].class != CLASS_CDROM) continue;
+	    buf = malloc(200);
+	    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+	    return buf;
+	}
+    }
+#endif
+    
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; i < kd->numKnown; i++) {
@@ -369,7 +380,7 @@ char * mountCdromImage(struct installMethod * method,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags) {
 
-    setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1);
+    return setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1);
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc,

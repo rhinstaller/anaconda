@@ -40,10 +40,9 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 HWLIBS = -lkudzu_loader  -lpci
 
 DEBUG = -ggdb
-COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"'
+COPTS = $(DEBUG) -Os -Wall -DVERSION='"$(VERSION)"'
 CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)'
 STATIC = -static
-
 
 ifeq (1, $(USEDIET))
 CFLAGS += -DGZLIB=1
@@ -69,7 +68,14 @@ LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
 
-all: $(BINS) loader.tr
+all: $(BINS) loader.tr font.bgf.gz
+
+font.bgf.gz: /usr/lib/bogl/font.bdf.gz /usr/bin/reduce-font
+	zcat /usr/lib/bogl/font.bdf.gz > font.bdf
+	(for I in ../po/*.po; do msgconv -t utf-8 $$I; done) | reduce-font  > font-reduced.bdf
+	bdftobogl -b font.bdf > font.bgf
+	rm -f font.bdf font-reduced.bdf
+	gzip -9 -f font.bgf
 
 loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o |gzip -9) > $@
@@ -110,7 +116,7 @@ loader: loader.o $(OBJS) $(NETOBJS)
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \
-	loader loader-pcmcia loader-local loader-network
+	loader
 
 depend: ctype.c
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
@@ -123,6 +129,7 @@ install: all
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 ifeq (.depend,$(wildcard .depend))
 include .depend

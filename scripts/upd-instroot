@@ -98,13 +98,13 @@ mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python python2 newt slang
-	 libtermcap zlib ash kon2 e2fsprogs util-linux raidtools popt
+	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 mount procps rpm XFree86 Xconfigurator anaconda
 	 anaconda-runtime kudzu-devel kudzu hwdata db3 bzip2
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted
 	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
-	 elfutils-libelf"
+	 elfutils-libelf bogl-bterm"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -329,7 +329,6 @@ usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
 usr/share/terminfo/v/vt100
-usr/share/doc/kon2*/terminfo.kon
 usr/share/hwdata/pcitable
 usr/share/hwdata/pci.ids
 usr/share/hwdata/Cards
@@ -633,7 +632,7 @@ usr/share/pixmaps/yes.xpm
 usr/share/redhat-config-keyboard/*
 usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
-usr/share/terminfo/k/kon
+usr/share/terminfo/b/bterm
 usr/share/terminfo/v/vt100
 usr/share/themes/Bluecurve/gtk-2.0/*
 usr/share/vte/termcap/xterm
@@ -683,12 +682,6 @@ expandPackageSet "$RPMS" $DEST $KEEPFILE
 
 expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
 echo -e "\rExpanding packages..."
-
-if [ -f $DEST/usr/share/doc/kon2*/terminfo.kon ]; then
-   tic $DEST/usr/share/doc/kon2*/terminfo.kon -o $DEST/usr/share/terminfo
-   tic $DEST/usr/share/doc/kon2*/terminfo.kon -o $DESTGR/usr/share/terminfo
-   rm $DEST/usr/share/doc/kon2*/terminfo.kon
-fi
 
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$

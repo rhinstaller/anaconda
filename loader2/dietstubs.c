@@ -5,6 +5,9 @@
 #include <setjmp.h>
 #include <ctype.h>
 #include <stdarg.h>
+#ifdef GZLIB
+#include "../isys/gzlib/gzlib.h"
+#endif
 
 #define WLITE_REDEF_STDC 0
 #include <wlite_wchar.h>
