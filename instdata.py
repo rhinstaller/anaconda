@@ -123,7 +123,7 @@ class InstallData:
         self.mouse.writeKS(f)
         self.xconfig.writeKS(f)
 	self.network.writeKS(f)
-	self.rootPassword.writeKS(f)
+	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)
 	self.auth.writeKS(f)
 	self.timezone.writeKS(f)

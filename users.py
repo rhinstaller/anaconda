@@ -94,8 +94,12 @@ class RootPassword(Password):
 	    setPassword(instPath, "root", self.getCrypted (),
                         auth.useMD5, alreadyCrypted = 1)
 
-    def writeKS(self, f):
-	f.write("rootpw --iscrypted %s\n" % self.getCrypted())
+    def writeKS(self, f, auth):
+        pure = self.getPure()
+        if pure:
+            f.write("rootpw --iscrypted %s\n" %(cryptPassword(pure, auth.useMD5)))
+        else:
+            f.write("rootpw --iscrypted %s\n" %(self.getCrypted()))
 
 def cryptPassword(password, useMD5):
     if useMD5:
