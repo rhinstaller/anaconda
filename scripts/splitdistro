@@ -84,18 +84,25 @@ startedAt = time.time()
 
 fns = {}
 
-(args, extra) = getopt.getopt(sys.argv[1:], '', [ 'fileorder=' ])
+(args, extra) = getopt.getopt(sys.argv[1:], '', [ 'fileorder=', 'release=' ])
+
 if len(extra) != 2:
     print "splitdistro --fileorder <file> [--release <comment>] <toppath> <arch>"
     sys.exit(1)
 
 releasestr = ""
+packageOrderFile = None
 for n in args:
     (str, arg) = n
     if str == '--fileorder':
 	packageOrderFile = arg
     if str == '--release':
 	releasestr = arg
+
+if not packageOrderFile:
+    print "splitdistro --fileorder <file> [--release <comment>] <toppath> <arch>"
+    sys.exit(1)
+
 
 arch = extra[1]
 distDir = os.path.normpath(extra[0] + "/" + arch)
