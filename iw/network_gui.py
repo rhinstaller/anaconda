@@ -326,7 +326,9 @@ class NetworkWindow(InstallWindow):
 	    bootproto = self.devices[device].get("bootproto")
 
 	    if bootproto and bootproto == 'dhcp':
-		return 1
+		onboot = self.devices[device].get("ONBOOT")
+		if onboot == "yes":
+		    return 1
 
 	return 0
 	
