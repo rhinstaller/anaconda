@@ -44,6 +44,11 @@ else:
     sys.path.append('/usr/lib/anaconda/iw')
     sys.path.append('/usr/lib/anaconda/installclasses')
 
+try:
+    import updates_disk_hook
+except ImportError:
+    pass
+
 # do this early to keep our import footprint as small as possible
 # Python passed my path as argv[0]!
 # if sys.argv[0][-7:] == "syslogd":
