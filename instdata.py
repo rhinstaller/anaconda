@@ -22,6 +22,7 @@ import desktop
 import users
 import fsset
 import bootloader
+import partitioning
 from flags import *
 
 from simpleconfig import SimpleConfigFile
@@ -59,21 +60,13 @@ class InstallData:
 	self.hdList = None
 	self.comps = None
 	self.upgrade = Boolean()
+        # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
-#
-# delay setting these until we know the partition method        
-#        self.diskset = partitioning.DiskSet()
-#        self.partrequests = partitioning.PartitionRequests(self.diskset)
-        self.diskset = None
-        self.partrequests = None
-        self.autoPartitionRequests = []
-        self.autoClearPartType = None
-        self.autoClearPartDrives = []
+        self.diskset = partitioning.DiskSet()
+        self.partitions = partitioning.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
         self.dbpath = None
-        self.useFdisk = 0
-        self.useAutopartitioning = 1
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
 

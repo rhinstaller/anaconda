@@ -25,21 +25,21 @@ class PartitionMethodWindow(InstallWindow):
     def getNext(self):
         
         if self.useFdisk.get_active():
-            self.id.useAutopartitioning = 0
-            self.id.useFdisk = 1
+            self.partitions.useAutopartitioning = 0
+            self.partitions.useFdisk = 1
         elif self.useAuto.get_active():
-            self.id.useAutopartitioning = 1
-            self.id.useFdisk = 0
+            self.partitions.useAutopartitioning = 1
+            self.partitions.useFdisk = 0
         else:
-            self.id.useAutopartitioning = 0
-            self.id.useFdisk = 0
+            self.partitions.useAutopartitioning = 0
+            self.partitions.useFdisk = 0
             
 	return None
 
-    def getScreen (self, id):
+    def getScreen (self, partitions):
 
         # XXX Change to not use id in (use more specific components of id)
-        self.id = id
+        self.partitions = partitions
         
         box = GtkVBox (FALSE)
         box.set_border_width (5)
@@ -75,9 +75,9 @@ class PartitionMethodWindow(InstallWindow):
             self.useAuto, _("Manually partition with fdisk [experts only]"))
 	radioBox.pack_start(self.useFdisk, FALSE, FALSE)
 
-        if id.useAutopartitioning:
+        if partitions.useAutopartitioning:
             self.useAuto.set_active(1)
-        elif id.useFdisk:
+        elif partitions.useFdisk:
             self.useFdisk.set_active(1)
         else:
             self.useDS.set_active(1)

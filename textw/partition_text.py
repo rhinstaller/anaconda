@@ -740,8 +740,8 @@ class AutoPartitionWindow:
             flag = FLAGS_SET
         # XXX need a way to disable the checkbox tree
         
-    def __call__(self, screen, id, diskset, intf):
-        if not id.useAutopartitioning:
+    def __call__(self, screen, diskset, partitions, intf):
+        if not partitions.useAutopartitioning:
             return INSTALL_NOOP
         
         self.g = GridFormHelp(screen, _("Autopartitioning"), "autopartitioning", 1, 6)
@@ -751,9 +751,9 @@ class AutoPartitionWindow:
         typebox.append(_("Remove all Linux partitions"), CLEARPART_TYPE_LINUX)
         typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
         typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
-        if id.autoClearPartType == CLEARPART_TYPE_LINUX:
+        if partitions.autoClearPartType == CLEARPART_TYPE_LINUX:
             typebox.setCurrent(CLEARPART_TYPE_LINUX)
-        elif id.autoClearPartType == CLEARPART_TYPE_ALL:
+        elif partitions.autoClearPartType == CLEARPART_TYPE_ALL:
             typebox.setCurrent(CLEARPART_TYPE_ALL)
         else:
             typebox.setCurrent(CLEARPART_TYPE_NONE)
@@ -763,9 +763,9 @@ class AutoPartitionWindow:
         # list of drives to select which to clear
         subgrid = Grid(1, 2)
         driveLbl = Label(_("Clear Partitions on These Drives:"))
-        cleardrives = id.autoClearPartDrives
+        cleardrives = partitions.autoClearPartDrives
         subgrid.setField(driveLbl, 0, 0)
-        disks = id.diskset.disks.keys()
+        disks = diskset.disks.keys()
         drivelist = CheckboxTree(height=3, scroll=1)
         if not cleardrives or len(cleardrives) < 1:
             for disk in disks:
@@ -792,6 +792,6 @@ class AutoPartitionWindow:
         if res == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        id.autoClearPartType = typebox.current()
-        id.autoClearPartDrives = drivelist.getSelection()
+        partitions.autoClearPartType = typebox.current()
+        partitions.autoClearPartDrives = drivelist.getSelection()
         return INSTALL_OK

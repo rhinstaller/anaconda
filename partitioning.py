@@ -527,16 +527,43 @@ class PartitionSpec:
             entry.setFormat(self.format)
         return entry
 
-class PartitionRequests:
+class Partitions:
     def __init__ (self, diskset = None):
+        # requests for partitions including preexisting partitions
+        # a list of PartitionSpec objects
         self.requests = []
+
+        # preexisting partitions which should be deleted
+        # a list of DeleteSpec objects
         self.deletes = []
-        # identifier used for raid partitions
+
+        # auto partitioning requests
+        # a list of PartitionSpec objects
+        # these are set by the installclass and then folded into self.requests
+        self.autoPartitionRequests = []
+
+        # CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
+        # used by installclasses to say which partitions to clear
+        self.autoClearPartType = None
+
+        # drives to clear partitions on (following self.autoClearPartType)
+        # note that None clears ALL drives 
+        self.autoClearPartDrives = None
+
+        # internal counter... if you use it as an ID, increment it to avoid
+        # problems later on
         self.nextUniqueID = 1
+
+        # partition method
+        self.useAutopartitioning = 1
+        self.useFdisk = 0
+
         if diskset:
             self.setFromDisk(diskset)
 
 
+    # clear out the delete list and initialize all partitions which
+    # currently exist on the disk
     def setFromDisk(self, diskset):
         self.deletes = []
         self.requests = []
@@ -569,7 +596,7 @@ class PartitionRequests:
                 start = part.geom.start
                 end = part.geom.end
                 size = getPartSizeMB(part)
-                drive = part.geom.disk.dev.path[5:]
+                drive = get_partition_drive(part)
                 
                 spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
                                      start = start, end = end, size = size,
@@ -580,7 +607,7 @@ class PartitionRequests:
                 part = disk.next_partition(part)
 
     def addRequest (self, request):
-        request.uniqueID = self.nextUniqueID + 1
+        request.uniqueID = self.nextUniqueID
         self.nextUniqueID = self.nextUniqueID + 1
         self.requests.append(request)
         self.requests.sort()
@@ -644,13 +671,20 @@ class PartitionRequests:
             n = n + 1
 
     def copy (self):
-        new = PartitionRequests()
+        new = Partitions()
         for request in self.requests:
             new.addRequest(request)
         for delete in self.deletes:
             new.addDelete(delete)
-        return new
+        new.autoPartitionRequests = self.autoPartitionRequests
+        new.autoClearPartType = self.autoClearPartType
+        new.autoClearPartDrives = self.autoClearPartDrives
+        new.nextUniqueID = self.nextUniqueID
+        new.useAutopartitioning = self.useAutopartitioning
+        new.useFdisk = self.useFdisk
         
+        return new
+           
 
 class DiskSet:
     skippedDisks = []
@@ -864,30 +898,29 @@ class DiskSet:
                 part = disk.next_partition(part)
         return rc
 
-def partitionObjectsInitialize(id, dir):
+def partitionObjectsInitialize(diskset, partitions, dir):
     if dir == DISPATCH_BACK:
         return
     
     # read in drive info
-    id.diskset = DiskSet()
-    id.diskset.refreshDevices()
-    id.partrequests = PartitionRequests(id.diskset)
+    diskset.refreshDevices()
+    partitions.setFromDisk(diskset)
 
-def partitionMethodSetup(id, dispatch):
+def partitionMethodSetup(partitions, dispatch):
 
     # turn on/off step based on 3 paths:
     #  - use fdisk, then set mount points
     #  - use autopartitioning, then set mount points
     #  - use interactive partitioning tool, continue
 
-    dispatch.skipStep("autopartition", skip = not id.useAutopartitioning)
-    dispatch.skipStep("autopartitionexecute",skip = not id.useAutopartitioning)
-    dispatch.skipStep("fdisk", skip = not id.useFdisk)
+    dispatch.skipStep("autopartition", skip = not partitions.useAutopartitioning)
+    dispatch.skipStep("autopartitionexecute",skip = not partitions.useAutopartitioning)
+    dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
 
     protected = dispatch.method.protectedPartitions()
     if protected:
         for device in protected:
-            request = id.partrequests.getRequestByDeviceName(device)
+            request = partitions.getRequestByDeviceName(device)
             request.type = REQUEST_PROTECTED
 
     
@@ -983,7 +1016,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             drive = get_partition_drive(partition)
 
             if partition.type & parted.PARTITION_EXTENDED:
-                deleteAllLogicalPartitions(partition, requsestlist)
+                deleteAllLogicalPartitions(partition, requestlist)
 
             delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
             requestlist.addDelete(delete)

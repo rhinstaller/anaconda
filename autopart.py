@@ -632,7 +632,10 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
 # this the first time
-def doClearPartAction(id, type, cleardrives):
+def doClearPartAction(partitions, diskset):
+    type = partitions.autoClearPartType
+    cleardrives = partitions.autoClearPartDrives
+    
     if type == CLEARPART_TYPE_LINUX:
         linuxOnly = 1
     elif type == CLEARPART_TYPE_ALL:
@@ -642,14 +645,14 @@ def doClearPartAction(id, type, cleardrives):
     else:
         raise ValueError, "Invalid clear part type in doClearPartAction"
         
-    drives = id.diskset.disks.keys()
+    drives = diskset.disks.keys()
     drives.sort()
 
     for drive in drives:
         # skip drives not in clear drive list
         if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
             continue
-        disk = id.diskset.disks[drive]
+        disk = diskset.disks[drive]
         part = disk.next_partition()
         while part:
             if (part.type & parted.PARTITION_FREESPACE) or (part.type & parted.PARTITION_METADATA):
@@ -660,40 +663,39 @@ def doClearPartAction(id, type, cleardrives):
             else:
                 ptype = None
             if (linuxOnly == 0) or (ptype and (ptype.isLinuxNativeFS())):
-                old = id.partrequests.getRequestByDeviceName(get_partition_name(part))
-                id.partrequests.removeRequest(old)
+                old = partitions.getRequestByDeviceName(get_partition_name(part))
+                partitions.removeRequest(old)
 
-                drive = part.geom.disk.dev.path[5:]
+                drive = get_partition_drive(part)
                 delete = DeleteSpec(drive, part.geom.start, part.geom.end)
-                id.partrequests.addDelete(delete)
+                partitions.addDelete(delete)
             part = disk.next_partition(part)
 
 
     # set the diskset up
-    doPartitioning(id.diskset, id.partrequests, doRefresh = 1)
+    doPartitioning(diskset, partitions, doRefresh = 1)
     for drive in drives:
         if cleardrives and len(cleardrives) > 0 and not drive in cleardrives:
             continue
 
-        disk = id.diskset.disks[drive]
+        disk = diskset.disks[drive]
         ext = disk.extended_partition
         if ext and len(get_logical_partitions(disk)) == 0:
             delete = DeleteSpec(drive, ext.geom.start, ext.geom.end)
-            old = id.partrequests.getRequestByDeviceName(get_partition_name(ext))
-            id.partrequests.removeRequest(old)
-            id.partrequests.addDelete(delete)
-            deletePart(id.diskset, delete)
+            old = partitions.getRequestByDeviceName(get_partition_name(ext))
+            partitions.removeRequest(old)
+            partitions.addDelete(delete)
+            deletePart(diskset, delete)
             continue
     
-def doAutoPartition(dir, id, intf):
-
+def doAutoPartition(dir, diskset, partitions, intf):
     if dir == DISPATCH_BACK:
-        id.diskset.refreshDevices()
-        id.partrequests.setFromDisk(id.diskset)
+        diskset.refreshDevices()
+        partitions.setFromDisk(diskset)
         return
     
     # if no auto partition info in instclass we bail
-    if len(id.autoPartitionRequests) < 1:
+    if len(partitions.autoPartitionRequests) < 1:
         return DISPATCH_NOOP
 
     # reset drive and request info to original state
@@ -701,16 +703,16 @@ def doAutoPartition(dir, id, intf):
 ##     id.diskset.refreshDevices()
 ##     id.partrequests = PartitionRequests(id.diskset)
 
-    doClearPartAction(id, id.autoClearPartType, id.autoClearPartDrives)
+    doClearPartAction(partitions, diskset)
 
-    for request in id.autoPartitionRequests:
-        id.partrequests.addRequest(request)
+    for request in partitions.autoPartitionRequests:
+        partitions.addRequest(request)
 
     try:
-        doPartitioning(id.diskset, id.partrequests, doRefresh = 0)
+        doPartitioning(diskset, partitions, doRefresh = 0)
     except PartitioningError, msg:
         # restore drives to original state
-        id.diskset.refreshDevices()
-        id.partrequests = PartitionRequests(id.diskset)
+        diskset.refreshDevices()
+        partitions.setFromDisk(diskset)
         intf.messageWindow(_("Error Partitioning"),
                _("Could not allocated requested partitions: %s.") % (msg.value))

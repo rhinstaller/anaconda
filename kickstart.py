@@ -552,7 +552,7 @@ class KickstartBase(BaseInstallClass):
         self.excludedList = excludedPackages
 
         # XXX this is just not really a good way to do this...
-        id.bootloader.setDefaultDevice = 1
+        id.bootloader.useDefaultDevice = 1
 
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
@@ -683,7 +683,7 @@ class KickstartBase(BaseInstallClass):
         if not format:
             request.format = 0
         
-        id.autoPartitionRequests.append(request)
+        id.partitions.autoPartitionRequests.append(request)
 
         self.skipSteps.append("partition")
         self.skipSteps.append("partitionmethod")

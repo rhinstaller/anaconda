@@ -19,7 +19,7 @@ from translate import _, cat, N_
 from constants_text import *
 
 class PartitionMethod:
-    def __call__(self, screen, id):
+    def __call__(self, screen, partitions):
         rc = ButtonChoiceWindow(screen, _("Disk Setup"),
              _("Autopartitioning sets up your partitioning in a reasonable "
                "way depending on your installation type and then gives you a "
@@ -39,13 +39,13 @@ class PartitionMethod:
         if rc == TEXT_BACK_CHECK:
             return INSTALL_BACK
         elif rc == "fd":
-            id.useAutopartitioning = 0
-            id.useFdisk = 1
+            partitions.useAutopartitioning = 0
+            partitions.useFdisk = 1
         elif rc == "ds":
-            id.useAutopartitioning = 0
-            id.useFdisk = 0
+            partitions.useAutopartitioning = 0
+            partitions.useFdisk = 0
         else:
-            id.useAutopartitioning = 1
-            id.useFdisk = 0
+            partitions.useAutopartitioning = 1
+            partitions.useFdisk = 0
 
         return INSTALL_OK

@@ -1197,11 +1197,11 @@ class AutoPartitionWindow(InstallWindow):
 
     def getNext(self):
         if self.clearLinuxRB.get_active():
-            self.id.autoClearPartType = CLEARPART_TYPE_LINUX
+            self.partitions.autoClearPartType = CLEARPART_TYPE_LINUX
         elif self.clearAllRB.get_active():
-            self.id.autoClearPartType = CLEARPART_TYPE_ALL
+            self.partitions.autoClearPartType = CLEARPART_TYPE_ALL
         else:
-            self.id.autoClearPartType = CLEARPART_TYPE_NONE
+            self.partitions.autoClearPartType = CLEARPART_TYPE_NONE
 
         allowdrives = []
         for i in self.driveclist.selection:
@@ -1213,18 +1213,18 @@ class AutoPartitionWindow(InstallWindow):
                                       "Red Hat Linux installed onto."), type = "ok")
             raise gui.StayOnScreen
 
-        self.id.autoClearPartDrives = allowdrives
+        self.partitions.autoClearPartDrives = allowdrives
 
         return None
 
 
-    def getScreen(self, id, diskset, intf):
+    def getScreen(self, diskset, partitions, intf):
         
-        # XXX Change to not use id in (use more specific components of id)
-        self.id = id
         self.diskset = diskset
-        type = id.autoClearPartType
-        cleardrives = id.autoClearPartDrives
+        self.partitions = partitions
+        self.intf = intf
+        type = partitions.autoClearPartType
+        cleardrives = partitions.autoClearPartDrives
         
         box = GtkVBox (FALSE)
         box.set_border_width (5)
@@ -1274,7 +1274,7 @@ class AutoPartitionWindow(InstallWindow):
         label = GtkLabel(_("Which drives do you want to use for Linux?"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, FALSE, FALSE, 10)
-        self.driveclist = createAllowedDrivesClist(id.diskset.disks,
+        self.driveclist = createAllowedDrivesClist(diskset.disks,
                                                    cleardrives)
         # XXX bad use of usize
         self.driveclist.set_usize(300, -1)

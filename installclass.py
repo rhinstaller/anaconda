@@ -46,8 +46,8 @@ class BaseInstallClass:
         id.bootloader.useGrubVal = 0
 
     def setClearParts(self, id, clear, drives = None, warningText = None):
-	id.autoClearPartType = clear
-        id.autoClearPartDrives = drives
+	id.partitions.autoClearPartType = clear
+        id.partitions.autoClearPartDrives = drives
         # XXX hack for install help text in GUI mode
         if clear == CLEARPART_TYPE_LINUX:
             self.clearType = "wkst"

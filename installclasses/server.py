@@ -40,16 +40,16 @@ class InstallClass(BaseInstallClass):
 
         autorequests = [ ("/", None,256, None, 1, 1),
                          ("/boot", None, 50, None, 0, 1),
-                         ("/usr", None, 512, None, 0, 1),
+                         ("/usr", None, 800, None, 0, 1),
                          ("/var", None, 256, None, 0, 1),
                          ("/home", None, 512, None, 1, 1) ]
         
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append((None, "swap", minswap, maxswap, 1, 1))
 
-        id.autoClearPartType = CLEARPART_TYPE_ALL
-        id.autoClearPartDrives = []
-        id.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        id.partitions.autoClearPartType = CLEARPART_TYPE_ALL
+        id.partitions.autoClearPartDrives = []
+        id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
