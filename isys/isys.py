@@ -145,7 +145,7 @@ def unlosetup(device):
         os.close(loop)
 
 def ddfile(file, megs, pw = None):
-    buf = '\x00' * 1024 * 256
+    buf = '\x00' * (1024 * 256)
 
     fd = os.open(file, os.O_RDWR | os.O_CREAT)
 
