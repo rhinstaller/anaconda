@@ -99,7 +99,7 @@ EndSection
 
     # give time for the server to fail (if it is going to fail...)
     time.sleep (1)
-    pid, status = waitpid (server, os.NOHANG)
+    pid, status = waitpid (server, os.WNOHANG)
     if status:
         raise RuntimeError, "X server failed to start"
         
