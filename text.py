@@ -116,32 +116,18 @@ class LanguageWindow:
 class LanguageSupportWindow:
     def __call__(self, screen, todo):
 	# should already be sorted
-	languages = todo.language.getAllSupported()
-        langs = todo.language.getSupported ()
-
-	# We don't use todo.instTimeLanguage.getCurrent() because it returns a 
-	# long name rather then a short locale name, and long names may not 
-	# match between todo.instTimeLanguage and todo.language
-	if not langs and os.environ.has_key('LANG'):
-	    current = todo.language.getLangNameByNick(os.environ['LANG'])
-	else:
-	    current = None
-
-
 
         ct = CheckboxTree(height = 8, scroll = 1)
 
-        for lang in languages:
-            if lang == current:
-                ct.append(lang, lang, 1)
-		ct.setCurrent(lang)
-            else:
-                ct.append(lang, lang, 0)
+        for lang in todo.language.getAllSupported():
+	    ct.append(lang, lang, 0)
 
+	for lang in todo.language.getSupported ():
+	    ct.setEntryValue(lang, 1)
 
-        if langs != None:
-            for lang in langs:
-                ct.setEntryValue(lang, 1)
+	current = todo.language.getDefault()
+	ct.setCurrent(current)
+	ct.setEntryValue(current, 1)
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Select All"), "all"), (_("Reset"), "reset"), (_("Back"), "back")))
 
