@@ -42,6 +42,7 @@ static void gnome_canvas_dot_get_arg    (GtkObject *object, GtkArg *arg, guint a
 
 static void gnome_canvas_dot_update    (GnomeCanvasItem *item, double *affine,
 					ArtSVP *clip_svp, int flags);
+static void gnome_canvas_dot_realize   (GnomeCanvasItem *item);
 static void gnome_canvas_dot_unrealize (GnomeCanvasItem *item);
 static void gnome_canvas_dot_draw      (GnomeCanvasItem *item, GdkDrawable *drawable,
 					int x, int y, int width, int height);
@@ -127,6 +128,7 @@ gnome_canvas_dot_class_init (GnomeCanvasDotClass *class)
 	object_class->get_arg = gnome_canvas_dot_get_arg;
 
 	item_class->update = gnome_canvas_dot_update;
+	item_class->realize = gnome_canvas_dot_realize;
 	item_class->unrealize = gnome_canvas_dot_unrealize;
 	item_class->draw = gnome_canvas_dot_draw;
 	item_class->point = gnome_canvas_dot_point;
@@ -145,6 +147,8 @@ gnome_canvas_dot_init (GnomeCanvasDot *dot)
 	priv->x = 0.0;
 	priv->y = 0.0;
 	priv->fill_color = 0x000000ff;
+	priv->need_shape_update = TRUE;
+	priv->need_color_update = TRUE;
 }
 
 /* Destroy handler for the dot item */
@@ -324,6 +328,23 @@ gnome_canvas_dot_update (GnomeCanvasItem *item, double *affine, ArtSVP *clip_svp
 
 	/* If the fill our outline changed, we need to redraw, anyways */
 	gnome_canvas_request_redraw (item->canvas, item->x1, item->y1, item->x2, item->y2);
+}
+
+/* Realize handler for the dot item */
+static void
+gnome_canvas_dot_realize (GnomeCanvasItem *item)
+{
+	GnomeCanvasDot *dot;
+	DotPrivate *priv;
+
+	dot = GNOME_CANVAS_DOT (item);
+	priv = dot->priv;
+
+	if (parent_class->realize)
+	    (* parent_class->realize) (item);
+
+	priv->need_color_update = TRUE;
+	gnome_canvas_item_request_update (item);
 }
 
 /* Unrealize handler for the dot item */
