@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-08 22:34+0200\n"
+"PO-Revision-Date: 2004-06-11 13:09+0200\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -998,7 +998,7 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #: ../gui.py:638 ../text.py:283
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
@@ -1006,10 +1006,10 @@ msgid ""
 msgstr ""
 "S'ha trobat el següent error en analitzar la configuració de l'inici ràpid:"
 "n\n"
+"\n"
 "%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
 msgstr "S'ha produït un error en analitzar la configuració de l'inici ràpid"
 
@@ -1177,9 +1177,9 @@ msgid "Change CDROM"
 msgstr "Canvieu el CD-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Inseriu el disc %d per continuar."
+msgstr "Inseriu %s disc %d per continuar."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1192,7 +1192,7 @@ msgstr "Aquest no és el CD-ROM %s correcte."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "No s'ha pogut accedir al CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1209,7 +1209,7 @@ msgid ""
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 "Heu indicat que s'havia d'instal·lar el paquet '%s'. Aquest paquet no "
-"existeix. Voleu continuar o anul·leu la instal·lació?"
+"existeix. Voleu continuar o anul·lar la instal·lació?"
 
 #: ../kickstart.py:1380 ../kickstart.py:1408
 msgid "_Abort"
@@ -2480,9 +2480,8 @@ msgid "Connecting..."
 msgstr "S'està connectant..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "No s'ha pogut carregar el fitxer"
+msgstr "No s'ha pogut iniciar X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2490,25 +2489,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"No s'ha pogut executar X en aquesta màquina. Voleu iniciar VNC per\n"
+"connectar-vos a aquest ordinador a través d'una altre màquina, i fer una\n"
+"instal·lació gràfica o voleu continuar la instal·lació en mode text?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Fes servir mode text"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "S'està iniciant el VNC..."
+msgstr "Inicia VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Configuració del SILO"
+msgstr "Configuració del VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Contrasenya del superusuari (root)"
+msgstr "Sense contrasenya"
 
 #: ../vnc.py:62
 msgid ""
@@ -2516,6 +2515,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"La contrasenya previndrà accessos no autoritzats de possibles mentre feu la "
+"instal·lació. Indiqueu la contrasenya que es farà servir per a la "
+"instal·lació"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2538,9 +2540,8 @@ msgid "Password Length"
 msgstr "Longitud de la contrasenya"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "La contrasenya ha de tenir almenys 6 caràcters."
+msgstr "La contrasenya ha de tenir almenys sis caràcters."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2584,6 +2585,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"El compte del superusuari (root) s'utilitza per a l'administració del "
+"sistema. Entreu la contrasenya del superusuari."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3250,7 +3253,7 @@ msgstr "_Habilita el tallafoc"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Permet a d'altres accedir a aquests serveis des d'internet."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3258,21 +3261,19 @@ msgstr "Permet entr_ant:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Entrada remota (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Servidor"
+msgstr "Servidor web"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Correu (SMTP)"
+msgstr "Servidor de correu (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transferència de fitxers (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -6816,32 +6817,28 @@ msgstr ""
 "controladors. Quin voleu fer servir?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Hi ha diversos dispositius que poden servir com a fonts per al disquet de "
-"controladors. Quin voleu fer servir?"
+"Hi ha diverses particions en aquest dispositiu que podrien cotenir la imatge "
+"del disquet de controladors. Quina voleu fer servir?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "S'ha produït un error en muntar el disc d'actualitzacions"
+msgstr "S'ha produït un error en muntar la partició."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Seleccioneu el controlador"
+msgstr "Seleccioneu la imatge del disc de controlador"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Seleccioneu el fitxer que sigui la imatge del disc de controladors."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "No s'ha pogut muntar el disquet de controladors."
+msgstr "No s'ha pogut carregar el disc de controlador des del fitxer."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
