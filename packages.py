@@ -41,8 +41,9 @@ def queryUpgradeContinue(intf, dir):
                          "\n\n") + 
                      _( "Would you like to continue with the upgrade?"),
                                       type = "yesno")
-    if rc == 1:
+    if rc == 0:
         sys.exit(0)
+    return DISPATCH_FORWARD
 
 def writeConfiguration(id, instPath):
     log("Writing main configuration")
