@@ -121,7 +121,6 @@ class BaseInstallClass:
 		 "languagesupport",
 		 "timezone",
 		 "accounts",
-		 "authentication",
 		 "readcomps",
                  "selectlangpackages",
 		 "package-selection",
@@ -142,7 +141,6 @@ class BaseInstallClass:
                  "dopostaction",
 		 "writexconfig",
 		 "writeksconfig",
-		 "bootdisk",
                  "methodcomplete",
 		 "complete"
 		)
@@ -174,7 +172,7 @@ class BaseInstallClass:
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         cmdline = open("/proc/cmdline", "r").read()
-        if cmdline.find("noupgrade") != -1:
+        if cmdline.find("upgrade") == -1:
             dispatch.skipStep("findrootparts")
 
     # called from anaconda so that we can skip steps in the headless case
@@ -199,32 +197,8 @@ class BaseInstallClass:
     # This is called after the comps is read in (after setPackageSelection()).
     # It can both select groups, change the default selection for groups, and
     # change which groups are hidden.
-    def setGroupSelection(self, comps, intf):
+    def setGroupSelection(self, grpset, intf):
 	pass
-
-    # this is a utility function designed to be called from setGroupSelection()
-    # it hides all of the groups not in the "groups" list
-    def showGroups(self, comps, groups):
-	groupSet = {}
-
-	for group in groups:
-	    if type(group) == type("a"):
-		groupSet[group] = None
-	    else:
-		(group, val) = group
-		groupSet[group] = val
-	    
-	for comp in comps:
-	    if groupSet.has_key(comp.name):
-		comp.hidden = 0
-
-		# do nothing if groupSet[comp.name] == None
-		if groupSet[comp.name] == 1:
-		    comp.select()
-		elif groupSet[comp.name] == 0:
-		    comp.unselect(0)
-	    else:
-		comp.hidden = 1
 
     def getMakeBootdisk(self):
 	return self.makeBootdisk

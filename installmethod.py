@@ -13,7 +13,7 @@
 
 import os
 import string
-from comps import ComponentSet
+from hdrlist import groupSetFromCompsFile
 
 from rhpl.log import log
 
@@ -59,7 +59,7 @@ class InstallMethod:
 		    break
 
 	if path:
-	    return ComponentSet(path, hdlist)
+	    return groupSetFromCompsFile(path, hdlist)
 	else:
 	    return self.readCompsViaMethod(hdlist)
 	pass
@@ -88,7 +88,7 @@ class InstallMethod:
     def systemUnmounted(self):
 	pass
 
-    def systemMounted(self, fstab, mntPoint, selected):
+    def systemMounted(self, fstab, mntPoint):
 	pass
 
     def filesDone(self):

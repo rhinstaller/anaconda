@@ -27,14 +27,13 @@ class InstallClass(BaseInstallClass):
         dispatch.skipStep("desktopchoice", skip = 0)
         dispatch.skipStep("package-selection", skip = 1)
 
-    def setGroupSelection(self, comps, intf):
-	BaseInstallClass.__init__(self, comps)
+    def setGroupSelection(self, grpset, intf):
+	BaseInstallClass.__init__(self, grpset)
 
-        for comp in comps.comps:
-            comp.unselect()
+        grpset.unselectAll()
 
-        comps["Workstation Common"].includeMembers()
-        comps["GNOME Desktop Environment"].select()
+        grpset.selectGroup("workstation-common", asMeta = 1)
+        grpset.selectGroup("gnome-desktop")
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)

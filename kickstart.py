@@ -1192,9 +1192,6 @@ class KickstartBase(BaseInstallClass):
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
-	for pkg in hdlist.keys():
-	    hdlist[pkg].setState((0, 0))
-
 	for n in self.packageList:
             if hdlist.has_key(n):
                 hdlist[n].select()
@@ -1216,35 +1213,35 @@ class KickstartBase(BaseInstallClass):
                     pass
                                 
 
-    def setGroupSelection(self, comps, intf):
-	for comp in comps:
-	    comp.unselect()
+    def setGroupSelection(self, grpset, intf):
+        grpset.unselectAll()
 
-	comps['Base'].select()
+	grpset.selectGroup("base")
 	for n in self.groupList:
-            if comps.has_key(n):
-                comps[n].select()
-            elif self.handleMissing == KS_MISSING_IGNORE:
-                log("group %s doesn't exist, ignoring" %(n,))
-            else:
-                rc = intf.messageWindow(_("Missing Group"),
-                                        _("You have specified that the "
-                                          "group '%s' should be installed.  "
-                                          "This group does not exist. "
-                                          "Would you like to continue or "
-                                          "abort your installation?") %(n,),
-                                        type="custom",
-                                        custom_buttons=[_("_Abort"),
-                                                        _("_Continue")])
-                if rc == 0:
-                    sys.exit(1)
+            try:
+                grpset.selectGroup(n)
+            except KeyError:
+                if self.handleMissing == KS_MISSING_IGNORE:
+                    log("group %s doesn't exist, ignoring" %(n,))
                 else:
-                    pass
+                    rc = intf.messageWindow(_("Missing Group"),
+                                            _("You have specified that the "
+                                              "group '%s' should be installed.  "
+                                              "This group does not exist. "
+                                              "Would you like to continue or "
+                                              "abort your installation?")
+                                            %(n,),
+                                            type="custom",
+                                            custom_buttons=[_("_Abort"),
+                                                            _("_Continue")])
+                    if rc == 0:
+                        sys.exit(1)
+                    else:
+                        pass
                 
-
         for n in self.excludedList:
-            if comps.packages.has_key(n):
-                comps.packages[n].unselect()
+            if grpset.hdrlist.has_key(n):
+                grpset.hdrlist[n].unselect(isManual = 1)
             else:
                 log("%s does not exist, can't exclude" %(n,))
 

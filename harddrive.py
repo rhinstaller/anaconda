@@ -12,7 +12,7 @@
 #
 
 
-from comps import ComponentSet, HeaderList, HeaderListFromFile
+from hdrlist import groupSetFromCompsFile, HeaderListFromFile
 from installmethod import InstallMethod, FileCopyException
 from image import findIsoImages
 import shutil
@@ -67,7 +67,7 @@ class HardDriveInstallMethod(InstallMethod):
     def readCompsViaMethod(self, hdlist):
 	self.mountMedia(1)
 	fname = self.findBestFileMatch(self.tree, 'comps.xml')
-	cs = ComponentSet(fname, hdlist)
+        cs = groupSetFromCompsFile(fname, hdlist)
 	self.umountMedia()
 	return cs
 
@@ -113,7 +113,7 @@ class HardDriveInstallMethod(InstallMethod):
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 	self.umountMedia()
 
-    def systemMounted(self, fsset, mntPoint, selected):
+    def systemMounted(self, fsset, mntPoint):
 	self.mountMedia(1)
 	    
     def systemUnmounted(self):

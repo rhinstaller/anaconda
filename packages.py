@@ -4,7 +4,7 @@
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
-# Jeremy Katzj <katzj@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
 # Copyright 2001-2003 Red Hat, Inc.
 #
@@ -32,7 +32,7 @@ from flags import flags
 from product import *
 from constants import *
 from syslogd import syslog
-from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT
+from hdrlist import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, DependencyChecker
 from installmethod import FileCopyException
 
 from rhpl.log import log
@@ -130,10 +130,17 @@ def writeXConfiguration(id, instPath):
     id.desktop.write(instPath)
 
 def readPackages(intf, method, id):
-    while id.hdList is None:
+    if id.grpset:
+        grpset = id.grpset
+        hdrlist = idr.grpset.hdrlist
+    else:
+        grpset = None
+        hdrlist = None
+        
+    while hdrlist is None:
 	w = intf.waitWindow(_("Reading"), _("Reading package information..."))
         try:
-            id.hdList = method.readHeaders()
+            hdrlist = method.readHeaders()
         except FileCopyException:
             w.pop()
             method.unmountCD()
@@ -144,11 +151,11 @@ def readPackages(intf, method, id):
             continue
 
         w.pop()
-        id.instClass.setPackageSelection(id.hdList, intf)
+        id.instClass.setPackageSelection(hdrlist, intf)
 
-    while id.comps is None:
+    while grpset is None:
         try:
-            id.comps = method.readComps(id.hdList)
+            grpset = method.readComps(hdrlist)
         except FileCopyException:
             method.unmountCD()            
             intf.messageWindow(_("Error"),
@@ -156,12 +163,9 @@ def readPackages(intf, method, id):
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
             continue
-        id.instClass.setGroupSelection(id.comps, intf)
+        id.instClass.setGroupSelection(grpset, intf)
+    id.grpset = grpset
 
-    else:
-	# re-evaluate all the expressions for packages with qualifiers.
-
-	id.comps.updateSelections()
 
 def handleX11Packages(dir, intf, disp, id, instPath):
 
@@ -173,8 +177,8 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     # uncomment this block if you want X configuration to be presented
     #
 # START BLOCK
-#     if (not id.comps.packages.has_key('XFree86') or
-#         not id.comps.packages['XFree86'].selected):
+#     if (not id.grpset.hdrlist.has_key('XFree86') or
+#         not id.grpset.hdrlist['XFree86'].isSelected()):
 #         disp.skipStep("videocard")
 #         disp.skipStep("monitor")
 #         disp.skipStep("xcustom")
@@ -191,10 +195,10 @@ def handleX11Packages(dir, intf, disp, id, instPath):
 # END BLOCK
 
     # set default runlevel based on packages
-    gnomeSelected = (id.comps.packages.has_key('gnome-session')
-                     and id.comps.packages['gnome-session'].selected)
-    kdeSelected = (id.comps.packages.has_key('kdebase')
-                   and id.comps.packages['kdebase'].selected)
+    gnomeSelected = (id.grpset.hdrlist.has_key('gnome-session')
+                     and id.grpset.hdrlist['gnome-session'].isSelected())
+    kdeSelected = (id.grpset.hdrlist.has_key('kdebase')
+                   and id.grpset.hdrlist['kdebase'].isSelected())
 
     if gnomeSelected:
         id.desktop.setDefaultDesktop("GNOME")
@@ -220,28 +224,6 @@ def setSaneXSettings(xsetup):
 	    xsetup.xhwstate.choose_sane_default()
 	    xsetup.imposed_sane_default = 1
 	    
-
-def checksig(fileName):
-    # RPM spews to stdout/stderr.  Redirect.
-    # stolen from up2date/up2date.py
-    saveStdout = os.dup(1)
-    saveStderr = os.dup(2)
-    redirStdout = os.open("/dev/null", os.O_WRONLY | os.O_APPEND)
-    redirStderr = os.open("/dev/null", os.O_WRONLY | os.O_APPEND)
-    os.dup2(redirStdout, 1)
-    os.dup2(redirStderr, 2)
-    # now do the rpm thing
-    ret = rpm.checksig(fileName, rpm.CHECKSIG_MD5)
-    # restore normal stdout and stderr
-    os.dup2(saveStdout, 1)
-    os.dup2(saveStderr, 2)
-    # Clean up
-    os.close(redirStdout)
-    os.close(redirStderr)
-    os.close(saveStdout)
-    os.close(saveStderr)
-    return ret    
-
 def checkDependencies(dir, intf, disp, id, instPath):
     if dir == DISPATCH_BACK:
 	return
@@ -249,16 +231,34 @@ def checkDependencies(dir, intf, disp, id, instPath):
     win = intf.waitWindow(_("Dependency Check"),
       _("Checking dependencies in packages selected for installation..."))
 
-    id.dependencies = id.comps.verifyDeps(instPath, id.upgrade.get())
+    # FIXME: we really don't need to build up a ts more than once
+    # granted, this is better than before still
+    if id.upgrade.get():
+        ts = rpm.TransactionSet(instPath)
+        how = "u"
+    else:
+        ts = rpm.TransactionSet()
+        how = "i"
+    ts.setVSFlags(-1)
+    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+    
+    for p in id.grpset.hdrlist.pkgs.values():
+        if p.isSelected():
+            ts.addInstall(p.hdr, p.hdr, how)
+    depcheck = DependencyChecker(id.grpset, how)
+    id.dependencies = ts.check(depcheck.callback)
 
     win.pop()
 
-    if (id.dependencies and id.comps.canResolveDeps(id.dependencies)
-        and id.handleDeps == CHECK_DEPS):
+    if id.dependencies and id.handleDeps == CHECK_DEPS:
 	disp.skipStep("dependencies", skip = 0)
+        log("FIXME: had dependency problems.  resolved them without informing the user")
+	disp.skipStep("dependencies")
     else:
 	disp.skipStep("dependencies")
 
+    return
+    # FIXME: I BROKE IT
     # this is kind of hackish, but makes kickstart happy
     if id.handleDeps == CHECK_DEPS:
         pass
@@ -268,36 +268,6 @@ def checkDependencies(dir, intf, disp, id, instPath):
     elif id.handleDeps == RESOLVE_DEPS:
         id.comps.selectDepCause(id.dependencies)        
         id.comps.selectDeps(id.dependencies)
-
-#XXX
-#try:
-    #self.todo.getHeaderList ()
-    #self.todo.getCompsList()
-    #self.files_found = "TRUE"
-#except ValueError, msg:
-    #extra = msg
-#except RuntimeError, msg:
-    #extra = msg
-#except TypeError, msg:
-    #extra = msg
-#except KeyError, key:
-    #extra = ("The comps file references a package called \"%s\" which "
-	     #"could not be found." % (key,))
-#except:
-    #extra = ""
-#
-#if self.files_found == "FALSE":
-    #if extra:
-	#text = (_("The following error occurred while "
-		  #"retreiving hdlist file:\n\n"
-		  #"%s\n\n"
-		  #"Installer will exit now.") % extra)
-    #else:
-	#text = (_("An error has occurred while retreiving the hdlist "
-		  #"file.  The installation media or image is "
-		  #"probably corrupt.  Installer will exit now."))
-    #win = ErrorWindow (text)
-#else:
 
 class InstallCallback:
     def packageDownloadCB(self, state,  amount):
@@ -536,7 +506,7 @@ def doPreInstall(method, id, intf, instPath, dir):
     arch = iutil.getArch ()
 
     # this is a crappy hack, but I don't want bug reports from these people
-    if (arch == "i386") and (not id.hdList.has_key("kernel")):
+    if (arch == "i386") and (not id.grpset.hdrlist.has_key("kernel")):
         intf.messageWindow(_("Error"),
                            _("You are trying to install on a machine "
                              "which isn't supported by this release of "
@@ -548,68 +518,66 @@ def doPreInstall(method, id, intf, instPath, dir):
     # shorthand
     upgrade = id.upgrade.get()
 
-    def select(hdList, name):
-        if hdList.has_key(name):
-            hdList[name].selected = 1
+    def select(hdrlist, name):
+        if hdrlist.has_key(name):
+            hdrlist[name].select(isManual = 1)
 
     if not upgrade:
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
         if arch == "s390":
 	    if (string.find(os.uname()[2], "tape") > -1):
-		select(id.hdList, 'kernel-tape')
+		select(id.grpset.hdrlist, 'kernel-tape')
         elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
-            select(id.hdList, 'kernel-pseries')
+            select(id.grpset.hdrlist, 'kernel-pseries')
         elif arch == "ppc" and iutil.getPPCMachine() == "iSeries":
-            select(id.hdList, "kernel-iseries")
+            select(id.grpset.hdrlist, "kernel-iseries")
                 
 	if isys.smpAvailable() or isys.htavailable():
-            select(id.hdList, 'kernel-smp')
+            select(id.grpset.hdrlist, 'kernel-smp')
 
-	if (id.hdList.has_key('kernel-bigmem')):
-	    if iutil.needsEnterpriseKernel():
-		id.hdList['kernel-bigmem'].selected = 1
+        if iutil.needsEnterpriseKernel():
+            select(id.grpset.hdrlist, "kernel-bigmem")
 
-	if (id.hdList.has_key('kernel-summit')):
-	    if isys.summitavailable():
-		id.hdList['kernel-summit'].selected = 1
+        if isys.summitavailable():
+            select(id.grpset.hdrlist, "kernel-summit")
 
 	# we *always* need a kernel installed
-        select(id.hdList, 'kernel')
+        select(id.grpset.hdrlist, 'kernel')
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:
-            select(id.hdList, 'ypbind')
-            select(id.hdList, 'yp-tools')
-            select(id.hdList, 'portmap')
+            select(id.grpset.hdrlist, 'ypbind')
+            select(id.grpset.hdrlist, 'yp-tools')
+            select(id.grpset.hdrlist, 'portmap')
 
 	if id.auth.useLdap:
-            select(id.hdList, 'nss_ldap')
-            select(id.hdList, 'openldap')
-            select(id.hdList, 'perl')
+            select(id.grpset.hdrlist, 'nss_ldap')
+            select(id.grpset.hdrlist, 'openldap')
+            select(id.grpset.hdrlist, 'perl')
 
 	if id.auth.useKrb5:
-            select(id.hdList, 'pam_krb5')
-            select(id.hdList, 'krb5-workstation')
-            select(id.hdList, 'krbafs')
-            select(id.hdList, 'krb5-libs')
+            select(id.grpset.hdrlist, 'pam_krb5')
+            select(id.grpset.hdrlist, 'krb5-workstation')
+            select(id.grpset.hdrlist, 'krbafs')
+            select(id.grpset.hdrlist, 'krb5-libs')
 
         if id.auth.useSamba:
-            select(id.hdList, 'pam_smb')
+            select(id.grpset.hdrlist, 'pam_smb')
 
         if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 0:
-            select(id.hdList, 'lilo')
+            select(id.grpset.hdrlist, 'lilo')
         elif iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
-            select(id.hdList, 'grub')
+            select(id.grpset.hdrlist, 'grub')
         elif iutil.getArch() == "s390":
-            select(id.hdList, 's390utils')
+            select(id.grpset.hdrlist, 's390utils')
         elif iutil.getArch() == "ppc":
-            select(id.hdList, 'yaboot')
+            select(id.grpset.hdrlist, 'yaboot')
         elif iutil.getArch() == "ia64":
-            select(id.hdList, 'elilo')
+            select(id.grpset.hdrlist, 'elilo')
 
         if pcmcia.pcicType():
-            select(id.hdList, 'kernel-pcmcia-cs')
+            select(id.grpset.hdrlist, 'kernel-pcmcia-cs')
 
     if flags.test:
 	return
@@ -619,7 +587,7 @@ def doPreInstall(method, id, intf, instPath, dir):
     # on the children
     while 1:
         try:
-            method.mergeFullHeaders(id.hdList)
+            method.mergeFullHeaders(id.grpset.hdrlist)
         except FileCopyException:
             method.unmountCD()
             intf.messageWindow(_("Error"),
@@ -635,7 +603,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 	f = open(instPath + "/etc/mtab", "w+")
 	f.close()
 
-    if method.systemMounted (id.fsset, instPath, id.hdList.selected()):
+    if method.systemMounted (id.fsset, instPath):
 	id.fsset.umountFilesystems(instPath)
 	return DISPATCH_BACK
 
@@ -714,8 +682,9 @@ def doInstall(method, id, intf, instPath):
 
     l = []
 
-    for p in id.hdList.selected():
-	l.append(p)
+    for p in id.grpset.hdrlist.values():
+        if p.isSelected():
+            l.append(p)
     l.sort(sortPackages)
 
     progress = intf.progressWindow(_("Processing"),
@@ -749,19 +718,22 @@ def doInstall(method, id, intf, instPath):
 
     i = 0
     for p in l:
-	ts.addInstall(p.h, p.h, how)
+	ts.addInstall(p.hdr, p.hdr, how)
 	total = total + 1
 	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
         i = i + 1
         progress.set(i)
 
     progress.pop()
-    
-    if not id.hdList.preordered():
+
+    depcheck = DependencyChecker(id.grpset)
+    if not id.grpset.hdrlist.preordered():
 	log ("WARNING: not all packages in hdlist had order tag")
         # have to call ts.check before ts.order() to set up the alIndex
-        ts.check()
+        ts.check(depcheck.callback)
         ts.order()
+    else:
+        ts.check(depcheck.callback)
 
     if upgrade:
 	logname = '/root/upgrade.log'
@@ -836,11 +808,6 @@ def doInstall(method, id, intf, instPath):
 	spaceneeded = {}
 	nodeneeded = {}
 	size = 12
-
-	# XXX
-	nodeprob = -1
-	if rpm.__dict__.has_key ("RPMPROB_DISKNODES"):
-	    nodeprob = rpm.RPMPROB_DISKNODES
 
 	for (descr, (type, mount, need)) in problems:
             log("(%s, (%s, %s, %s))" %(descr, type, mount, need))
@@ -949,16 +916,19 @@ def doInstall(method, id, intf, instPath):
                         "this version but NOT installed:\n"))
         
     lines = []
-    for p in id.hdList.packages.values ():
-        if not p.selected:
-            lines.append("%s-%s-%s.%s.rpm\n" %
-                         (p.h[rpm.RPMTAG_NAME],
-                          p.h[rpm.RPMTAG_VERSION],
-                          p.h[rpm.RPMTAG_RELEASE],
-                          p.h[rpm.RPMTAG_ARCH]))
-    lines.sort()
     for line in lines:
         instLog.write(line)
+        lines = []
+        for p in id.grpset.hdrlist.values():
+            if not p.isSelected():
+                lines.append("%s-%s-%s.%s.rpm\n" %
+                             (p.h[rpm.RPMTAG_NAME],
+                              p.h[rpm.RPMTAG_VERSION],
+                              p.h[rpm.RPMTAG_RELEASE],
+                              p.h[rpm.RPMTAG_ARCH]))
+        lines.sort()
+        for line in lines:
+            instLog.write(line)
     instLog.close ()
 
     id.instProgress = None
@@ -985,7 +955,7 @@ def doPostInstall(method, id, intf, instPath):
 	if not upgrade:
 	    w.set(1)
 
-	    copyExtraModules(instPath, id.comps, id.extraModules)
+	    copyExtraModules(instPath, id.grpset, id.extraModules)
 
 	    w.set(2)
 
@@ -1043,9 +1013,9 @@ def doPostInstall(method, id, intf, instPath):
                     pass
 
                 argv = [ "/usr/sbin/kudzu", "-q" ]
-                if id.hdList.has_key("kernel"):
-                    ver = "%s-%s" %(id.hdList["kernel"][rpm.RPMTAG_VERSION],
-                                    id.hdList["kernel"][rpm.RPMTAG_RELEASE])
+                if id.grpset.hdrlist.has_key("kernel"):
+                    ver = "%s-%s" %(id.grpset.hdrlist["kernel"][rpm.RPMTAG_VERSION],
+                                    id.grpset.hdrlist["kernel"][rpm.RPMTAG_RELEASE])
                     argv.extend(["-k", ver])
                 
                 devnull = os.open("/dev/null", os.O_RDWR)
@@ -1188,8 +1158,8 @@ def migrateXinetd(instPath, instLog):
 			   stdout = logfile, stderr = logfile)
     os.close(logfile)
 
-def copyExtraModules(instPath, comps, extraModules):
-    kernelVersions = comps.kernelVersionList()
+def copyExtraModules(instPath, grpset, extraModules):
+    kernelVersions = grpset.kernelVersionList()
 
     for (path, subdir, name) in extraModules:
         if not path:
@@ -1283,49 +1253,34 @@ def betaNagScreen(intf, dir):
 	    break
 
 # FIXME: this is a kind of poor way to do this, but it will work for now
-def selectLanguageSupportGroups(comps, langSupport):
+def selectLanguageSupportGroups(grpset, langSupport):
     sup = langSupport.supported
     if len(sup) == 0:
         sup = langSupport.getAllSupported()
 
-    for group in comps.compsxml.groups.values():
+    for group in grpset.groups.values():
+        xmlgrp = grpset.compsxml.groups[group.basename]
+        langs = []
         for name in sup:
             try:
                 lang = langSupport.langInfoByName[name][0]
-                langs = language.expandLangs(lang)
+                langs.extend(language.expandLangs(lang))
             except:
                 continue
-            if group.langonly in langs:
-                if not comps.compsDict.has_key(group.name):
-                    log("Where did the %s component go?"
-                        %(group.name,))
+            
+        if group.langonly is not None and group.langonly in langs:
+            group.select()
+            for package in xmlgrp.pkgConditionals.keys():
+                req = xmlgrp.pkgConditionals[package]
+                if not grpset.hdrlist.has_key(package):
+                    log("Missing %s which is in a langsupport conditional" %(package,))
                     continue
-                comps.compsDict[group.name].select()
-                for package in group.pkgConditionals.keys():
-                    req = group.pkgConditionals[package]
-                    if not comps.packages.has_key(package):
-                        log("Missing %s which is in a langsupport conditional" %(package,))
-                        continue
-                    if not comps.compsxml.packages.has_key(req):
-                        log("Missing %s which is required by %s in a langsupport group" %(req, package))
-                        continue
-                    # add to the deps in the dependencies structure --
-                    # this will take care of if we're ever added as a dep
-                    comps.compsxml.packages[req].dependencies.append(package)
-                    # also add to components as needed
-                    # if the req is PKGTYPE_MANDATORY, then just add to the
-                    # depsDict.  if the req is PKGTYPE_DEFAULT, add it
-                    # as DEFAULT
-                    pkg = comps.packages[package]
-                    reqp = comps.packages[req]
-                    for comp in comps.packages[req].comps:
-                        if comp.newpkgDict.has_key(reqp):
-                            if comp.newpkgDict[reqp][0] == PKGTYPE_MANDATORY:
-                                comp.addDependencyPackage(pkg)
-                                comp.updateDependencyCountForAddition(pkg)
-                            else:
-                                comp.addPackage(pkg, PKGTYPE_DEFAULT)
-                        elif comp.depsDict.has_key(req):
-                            comp.addDependencyPackage(pkg)
-                            comp.updateDependencyCountForAddition(pkg)
-    comps.updateSelections()
+                # add to the deps in the dependencies structure for the
+                # package.  this should take care of whenever we're
+                # selected
+                grpset.hdrlist[req].addDeps([package])
+                if grpset.hdrlist[req].isSelected():
+                    grpset.hdrlist[package].select()
+                    sys.stdout.flush()
+                    grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
+                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount - 1)

@@ -40,7 +40,7 @@ FSMODS="msdos vfat ext3 reiserfs"
 SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb"
-COMMONMODULES="vfat loop cramfs $USBMODS $BTERMMODULES"
+COMMONMODULES="vfat loop cramfs floppy $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x 

@@ -1,14 +1,13 @@
-COMMONMODULES="nfs fat vfat cramfs loop"
+COMMONMODULES="nfs fat vfat cramfs loop floppy"
 FSMODS="msdos vfat ext3 reiserfs jfs"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sr_mod st"
 LATEUSBMODS="mousedev usb-storage"
 SECSTAGE="raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
-# need yellowfin for IBM?
 NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too
-	   de4x5 acenic pcnet32 tulip natsemi eepro100 airport"
+	   de4x5 acenic pcnet32 tulip natsemi e100 e1000 airport"
 
-SCSIMODULES="advansys aic7xxx initio sym53c8xx"
+SCSIMODULES="$SCSIMODS advansys aic7xxx initio sym53c8xx"
 ISERIESMODULES="veth viodasd viocd"
 
 # images we only want on the CD (usually for space reasons)
@@ -27,7 +26,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
@@ -53,7 +52,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES $ISERIESMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
 
 	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map
@@ -66,13 +65,13 @@ makeBootImages() {
     # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
     #            --initrdsize 8192 \
     #            --loaderbin loader \
-    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES"
     fi
 }
 
 makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS"
     makemainimage "stage2" "cramfs"
 }

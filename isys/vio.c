@@ -77,7 +77,7 @@ int vioGetCdDevs(struct knownDevices * devices) {
 
 	    model = alloca((20 + strlen(chptr)) * sizeof(char *));
 	    sprintf(model, "IBM Virtual CD-ROM Model %s", chptr);
-	    snprintf(ctl, 63, "iseries/vcd%d", ctlNum);
+	    snprintf(ctl, 63, "iseries/vcd%c", ctlNum + 'a');
 
 	    if (!deviceKnown(devices, ctl)) {
 	      newDevice.name = strdup(ctl);

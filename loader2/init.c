@@ -97,6 +97,7 @@ char * env[] = {
 int testing=0;
 void unmountFilesystems(void);
 void disableSwap(void);
+struct termios ts;
 
 int mystrstr(char *str1, char *str2) {
     char *p;
@@ -164,9 +165,9 @@ int hasNetConfiged(void) {
     struct ifconf configs;
     struct ifreq devs[10];
 
-    #ifdef __i386__
-	return 0;
-    #endif
+#ifdef __i386__
+    return 0;
+#endif
 
     s = socket(AF_INET, SOCK_STREAM, 0);
     if (s < 0) {
@@ -434,11 +435,20 @@ int copyDirectory(char * from, char * to) {
     return 0;
 }
 
+void sigintHandler(int signum)
+{
+    /* reset terminal */
+    tcsetattr(0, TCSANOW, &ts);
+    /* Shift in, default color, move down 100 lines */
+    /* ^O        ^[[0m          ^[[100E */
+    printf("\017\033[0m\033[100E\n");
+    shutDown(0, 1);
+}
 
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
-    int fd;
+    int fd; 
     int doReboot = 0;
     int doShutdown =0;
     int isSerial = 0;
@@ -449,7 +459,6 @@ int main(int argc, char **argv) {
     int i;
     char buf[500];
     int len;
-
 
 #if !defined(__s390__) && !defined(__s390x__)
     testing = (getppid() != 0) && (getppid() != 1);
@@ -482,9 +491,6 @@ int main(int argc, char **argv) {
 	    fatal_error(1);
     }
     printf("done\n");
-
-    signal(SIGINT, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);
 
     /* these args are only for testing from commandline */
     for (i = 1; i < argc; i++) {
@@ -551,6 +557,13 @@ int main(int argc, char **argv) {
     dup2(0, 2);
 #endif
 
+    /* disable Ctrl+Z, Ctrl+C, etc */
+    tcgetattr(0, &ts);
+    ts.c_iflag &= ~BRKINT;
+    ts.c_iflag |= IGNBRK;
+    ts.c_iflag &= ~ISIG;
+    tcsetattr(0, TCSANOW, &ts);
+
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
 	printf("could not set new controlling tty\n");
@@ -613,6 +626,23 @@ int main(int argc, char **argv) {
 	exit(0);
     }
 
+    /* set up the ctrl+alt+delete handler to kill our pid, not pid 1 */
+    signal(SIGINT, sigintHandler);
+    if ((fd = open("/proc/sys/kernel/cad_pid", O_WRONLY)) != -1) {
+	char buf[7];
+	int count;
+	sprintf(buf, "%d", getpid());
+	count = write(fd, buf, strlen(buf));
+	close(fd);
+	/* if we succeeded in writing our pid, turn off the hard reboot
+	   ctrl-alt-del handler */
+	if (count == strlen(buf) &&
+	    (fd = open("/proc/sys/kernel/ctrl-alt-del", O_WRONLY)) != -1) {
+	    write(fd, "0", 1);
+	    close(fd);
+	}
+    }
+    
     while (!doShutdown) {
 	childpid = wait4(-1, &waitStatus, 0, NULL);
 

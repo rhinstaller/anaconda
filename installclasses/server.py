@@ -24,12 +24,11 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("authentication")
 
-    def setGroupSelection(self, comps, intf):
-	BaseInstallClass.__init__(self, comps)
+    def setGroupSelection(self, grpset, intf):
+	BaseInstallClass.__init__(self, grpset)
 
-        for comp in comps.comps:
-            comp.unselect()
-	comps["Server"].includeMembers()
+        grpset.unselectAll()
+        grpset.selectGroup("server", asMeta = 1)
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)

@@ -39,27 +39,27 @@ class PackageGroupWindow:
 
 	label.setText(self.size(comps))
 
-    def __call__(self, screen, comps, langSupport, instClass, dispatch):
-	origSelection = comps.getSelectionState()
+    def __call__(self, screen, grpset, langSupport, instClass, dispatch):
+	origSelection = grpset.getSelectionState()
 
         ct = CheckboxTree(height = 8, scroll = 1)
-        for comp in comps:
-            if not comp.hidden:
-                ct.append(comp.name, comp, comp.isSelected(justManual = 1))
+        for group in grpset.groups.values():
+            if not group.hidden:
+                ct.append(group.name, group, group.isSelected(justManual = 1))
 
         cb = Checkbox (_("Select individual packages"), 
 			    not dispatch.stepInSkipList("indivpackage"))
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
-	la = Label(self.size(comps))
+	la = Label(self.size(grpset))
 
-	ct.setCallback(self.updateSize, (la, comps, ct))
+	ct.setCallback(self.updateSize, (la, grpset, ct))
 
         g = GridFormHelp (screen, _("Package Group Selection"), 
 			  "packagetree", 1, 4)
 
         g.add (la, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
-        g.add (cb, 0, 2, (0, 0, 0, 1))
+#        g.add (cb, 0, 2, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
         result = g.runOnce()
@@ -67,7 +67,7 @@ class PackageGroupWindow:
         rc = bb.buttonPressed (result)
 
         if rc == TEXT_BACK_CHECK:
-	    comps.setSelectionState(origSelection)
+	    grpset.setSelectionState(origSelection)
             return INSTALL_BACK
 
 	if cb.selected():

@@ -1058,7 +1058,7 @@ int main(int argc, char ** argv) {
     checkForRam(flags);
 
     
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs", modLoaded, modDeps, 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy", modLoaded, modDeps, 
                     modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
