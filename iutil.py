@@ -109,7 +109,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     return status
 
 def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
-		    catchfd = 1, closefd = -1):
+		    stderr = 2, catchfd = 1, closefd = -1):
 
     if not searchPath and not os.access (root + command, os.X_OK):
 	raise RuntimeError, command + " can not be run"
@@ -129,6 +129,15 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
 	if stdin:
 	    os.dup2(stdin, 0)
 	    os.close(stdin)
+
+        if stderr == sys.stdout:
+            stderr = sys.stdout.fileno()
+        else:
+            stderr = getfd(stderr)
+
+	if stderr != 2:
+	    os.dup2(stderr, 2)
+	    os.close(stderr)
 
 	if (searchPath):
 	    os.execvp(command, argv)
