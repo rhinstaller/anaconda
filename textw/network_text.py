@@ -4,7 +4,6 @@ import isys
 from snack import *
 from constants_text import *
 from translate import _
-from log import log
 
 class NetworkWindow:
     def setsensitive (self):
@@ -125,8 +124,6 @@ class NetworkWindow:
         dev.set (("onboot", "yes"))
 
         rc = bb.buttonPressed (result)
-
-        log ("\"" + dev.get ("device") + "\"")
 
         if rc == "back":
             return INSTALL_BACK
