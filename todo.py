@@ -757,7 +757,21 @@ class ToDo:
                                       "You may be out of disk space?"))
             raise RuntimeError, "Rebuild of RPM database failed."
 
-        rpm.addMacro("_dbpath", self.dbpath);
+### XXXXXXXXXXXXXXXXXXXXXXXXXXX fix me - move the replace back down to
+#                               doInstall        
+#        rpm.addMacro("_dbpath", self.dbpath);
+
+        # move the rebuilt db into place.
+        os.rename (self.instPath + "/var/lib/rpm",
+                   self.instPath + "/var/lib/anaconda-oldrpm" + str(int(time.time())))
+        os.rename (self.instPath + self.dbpath,
+                   self.instPath + "/var/lib/rpm")
+        rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+#        iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+
+        # flag this so we only do it once.
+        self.dbpath = None
+
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         # unselect all packages
         for package in self.hdList.packages.values ():
@@ -1151,16 +1165,16 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
-        if self.upgrade and self.dbpath:
+#        if self.upgrade and self.dbpath:
             # move the rebuilt db into place.
-            os.rename (self.instPath + "/var/lib/rpm",
-                       self.instPath + "/var/lib/rpm-old")
-            os.rename (self.instPath + self.dbpath,
-                       self.instPath + "/var/lib/rpm")
-            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-            # flag this so we only do it once.
-            self.dbpath = None
+#              os.rename (self.instPath + "/var/lib/rpm",
+#                         self.instPath + "/var/lib/rpm-old")
+#              os.rename (self.instPath + self.dbpath,
+#                         self.instPath + "/var/lib/rpm")
+#              rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+#              iutil.rmrf (self.instPath + "/var/lib/rpm-old")
+#              # flag this so we only do it once.
+#              self.dbpath = None
 
         self.method.systemMounted (self.fstab, self.instPath)
 
