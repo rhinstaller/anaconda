@@ -384,6 +384,7 @@ makeproductfile() {
     echo $IMAGEUUID > $root/.buildstamp
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
+    echo $PRODUCTPATH >> $root/.buildstamp
 }
 
 makeinitrd() {
