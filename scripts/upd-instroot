@@ -84,15 +84,18 @@ expandPackageSet() {
 
 PACKAGEDIR=$1
 
-DEST=/tmp/hd-image
 if [ -z "$2" ]; then
-    DESTGR=/tmp/upd-instroot
-elif [ -d "$2" ]; then
-    DESTGR=$2/RedHat/instimage
+    DEST=/tmp/upd-instroot
 else
-    echo "$2 is not a directory!"
-    exit 1
+    DEST=$2
 fi
+
+if [ -z "$3" ]; then
+    DESTGR=/tmp/upd-instroot
+else
+    DESTGR=$3
+fi
+
 
 rm -rf $DEST $DESTGR
 mkdir -p $DEST
@@ -549,6 +552,10 @@ echo "Compressing ramdisk install images..."
 		gzip -9 > slang-newt.cgz
 	rm -f libnewt* libslang*
 
+	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub $DEST/usr/bin/anaconda
+
+	rm -rf $DEST/usr/lib/anaconda-runtime
+
 	cd $DEST/usr/bin
 	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
 	rm -f python python1.5
@@ -569,8 +576,6 @@ echo "Compressing ramdisk install images..."
 	cd $DEST/usr/sbin
 	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
 	rm -f [a-r]*
-
-	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub $DEST/usr/bin/anaconda
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
