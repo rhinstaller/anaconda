@@ -5,6 +5,7 @@ from string import *
 import types
 import urllib
 from translate import _
+from translate import N_
 
 XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
 			'XFree86-AGX' : 1, 	'XFree86-I128' : 1,
@@ -427,7 +428,7 @@ class ComponentSet:
                     else:
                         comp.addPackage(packages[l])
 
-        everything = Component(_("Everything"), 0, 0)
+        everything = Component(N_("Everything"), 0, 0)
         for package in packages.keys ():
 	    if (packages[package][rpm.RPMTAG_NAME] != 'kernel' and
                 packages[package][rpm.RPMTAG_NAME] != 'kernel-BOOT' and
