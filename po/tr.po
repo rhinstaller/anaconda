@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 2001-03-05 11:43-0500\n"
+"POT-Creation-Date: 2001-03-06 15:32-0500\n"
 "PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
@@ -13,7 +13,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Tüm paketler"
 
-#: ../exception.py:13 ../text.py:950
+#: ../exception.py:13 ../text.py:955
 msgid "Exception Occurred"
 msgstr "Bir sorun oluþtu"
 
@@ -130,7 +130,7 @@ msgstr ""
 "Bir sorun oluþtu. Lütfen hata http://bugzilla.redhat.com/bugzilla adresine "
 "gönderiniz."
 
-#: ../gui.py:325 ../text.py:968
+#: ../gui.py:325 ../text.py:973
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -151,9 +151,9 @@ msgstr "Ýleri"
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:58
 #: ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222
 #: ../text.py:225 ../text.py:305 ../text.py:377 ../text.py:395 ../text.py:398
-#: ../text.py:407 ../text.py:408 ../text.py:423 ../text.py:426 ../text.py:448
-#: ../text.py:451 ../text.py:508 ../text.py:511 ../text.py:537 ../text.py:541
-#: ../text.py:550 ../text.py:624 ../text.py:626 ../text.py:636 ../text.py:638
+#: ../text.py:412 ../text.py:413 ../text.py:428 ../text.py:431 ../text.py:453
+#: ../text.py:456 ../text.py:513 ../text.py:516 ../text.py:542 ../text.py:546
+#: ../text.py:555 ../text.py:629 ../text.py:631 ../text.py:641 ../text.py:643
 #: ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9
 #: ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -193,7 +193,7 @@ msgid "Online Help"
 msgstr "Çevrimiçi Yardým"
 
 #: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:63 ../text.py:1040 ../text.py:1073
+#: ../text.py:63 ../text.py:1045 ../text.py:1078
 msgid "Language Selection"
 msgstr "Dil Seçimi"
 
@@ -285,10 +285,10 @@ msgstr "CDROM baðlanamadý."
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
 #: ../rescue.py:109 ../rescue.py:117 ../text.py:129 ../text.py:168
-#: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:448 ../text.py:466
-#: ../text.py:508 ../text.py:537 ../text.py:624 ../text.py:636 ../text.py:665
-#: ../text.py:686 ../text.py:856 ../text.py:910 ../text.py:936 ../text.py:962
-#: ../text.py:970 ../text.py:985 ../text.py:1229 ../textw/bootdisk_text.py:52
+#: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:453 ../text.py:471
+#: ../text.py:513 ../text.py:542 ../text.py:629 ../text.py:641 ../text.py:670
+#: ../text.py:691 ../text.py:861 ../text.py:915 ../text.py:941 ../text.py:967
+#: ../text.py:975 ../text.py:990 ../text.py:1234 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -394,7 +394,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60
-#: ../text.py:193 ../text.py:348 ../text.py:407 ../text.py:550
+#: ../text.py:193 ../text.py:348 ../text.py:412 ../text.py:555
 #: ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
 #: ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155
 #: ../textw/partitioning_text.py:420 ../textw/silo_text.py:136
@@ -419,7 +419,7 @@ msgstr "Sýfýrla"
 msgid "Choose the languages to be installed:"
 msgstr "Kurulacak dilleri seçin:"
 
-#: ../text.py:135 ../text.py:1136
+#: ../text.py:135 ../text.py:1141
 msgid "Language Support"
 msgstr "Dil Desteði"
 
@@ -440,7 +440,7 @@ msgstr "Öntanýmlý Dil"
 msgid "Choose the default language: "
 msgstr "Öntanýmlý dili seçin: "
 
-#: ../text.py:220 ../text.py:1042 ../text.py:1079
+#: ../text.py:220 ../text.py:1047 ../text.py:1084
 msgid "Keyboard Selection"
 msgstr "Tuþtakýmý Seçimi"
 
@@ -452,7 +452,7 @@ msgstr "Ne tip bir klavye kullanýyorsunuz?"
 msgid "Upgrade Existing Installation"
 msgstr "Eski Sistemi Güncelle"
 
-#: ../text.py:303 ../text.py:1082
+#: ../text.py:303 ../text.py:1087
 msgid "Installation Type"
 msgstr "Kurulum Tipi"
 
@@ -485,20 +485,20 @@ msgstr "Diskinizde hiç Linux bölümü yok. Sistem güncellenemez."
 msgid "System to Upgrade"
 msgstr "Güncellenecek Sistem"
 
-#: ../text.py:405
+#: ../text.py:410
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "Raid Bölümü"
 
-#: ../text.py:406
+#: ../text.py:411
 msgid "Going to upgrade partition /dev/"
 msgstr ""
 
-#: ../text.py:415
+#: ../text.py:420
 msgid "Customize Packages to Upgrade"
 msgstr "Güncellenecek Paketlerin Seçimi"
 
-#: ../text.py:416
+#: ../text.py:421
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -517,7 +517,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
-#: ../text.py:423 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../text.py:428 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
@@ -531,17 +531,17 @@ msgstr "Evet"
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:423 ../text.py:429
+#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:428 ../text.py:434
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Hayýr"
 
-#: ../text.py:439 ../text.py:458
+#: ../text.py:444 ../text.py:463
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:440
+#: ../text.py:445
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -561,7 +561,7 @@ msgstr ""
 "Red Hat ve diðer Linux ürünlerini kaydetmek için lütfen "
 "http://www.redhat.com adresine göz atýn."
 
-#: ../text.py:459
+#: ../text.py:464
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -580,41 +580,41 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:530 ../loader/loader.c:2249 ../loader/pcmcia.c:104
-#: ../text.py:466 ../text.py:469 ../text.py:856 ../text.py:857 ../text.py:970
-#: ../text.py:972 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../text.py:471 ../text.py:474 ../text.py:861 ../text.py:862 ../text.py:975
+#: ../text.py:977 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Vazgeç"
 
-#: ../text.py:506
+#: ../text.py:511
 msgid "X probe results"
 msgstr "X tarama sonuçlarý"
 
-#: ../text.py:526 ../text.py:546
+#: ../text.py:531 ../text.py:551
 msgid "Unlisted Card"
 msgstr "Listede Bulunmayan Kart"
 
-#: ../text.py:534
+#: ../text.py:539
 msgid "Video Card Selection"
 msgstr "Ekran Kartý Seçimi"
 
-#: ../text.py:535
+#: ../text.py:540
 msgid "Which video card do you have?"
 msgstr "Ne tip bir ekran kartýnýz var?"
 
-#: ../text.py:548
+#: ../text.py:553
 msgid "X Server Selection"
 msgstr "X Sunucu Seçimi"
 
-#: ../text.py:548
+#: ../text.py:553
 msgid "Choose a server"
 msgstr "Bir sunucu seçin"
 
-#: ../text.py:620
+#: ../text.py:625
 msgid "Installation to begin"
 msgstr "Kuruluma baþlangýç"
 
-#: ../iw/confirm_gui.py:45 ../text.py:621
+#: ../iw/confirm_gui.py:45 ../text.py:626
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -622,11 +622,11 @@ msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
 "sonra /tmp/install.log dosyasýnda bulabilirsiniz."
 
-#: ../text.py:632
+#: ../text.py:637
 msgid "Upgrade to begin"
 msgstr "Güncellemeye baþla"
 
-#: ../iw/confirm_gui.py:41 ../text.py:633
+#: ../iw/confirm_gui.py:41 ../text.py:638
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -634,17 +634,17 @@ msgstr ""
 "Güncelleme boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
 "sonra /tmp/upgrade.log dosyasýnda bulabilirsiniz."
 
-#: ../text.py:652
+#: ../text.py:657
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 
-#: ../text.py:654 ../text.py:677
+#: ../text.py:659 ../text.py:682
 msgid "Complete"
 msgstr "Bitti"
 
-#: ../iw/congrats_gui.py:34 ../text.py:655
+#: ../iw/congrats_gui.py:34 ../text.py:660
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -665,13 +665,13 @@ msgstr ""
 "Sisteminizi nasýl ayarlayacaðýnýza iliþkin bilgiler Red Hat Linux Kullaným "
 "Kýlavuzunda ele alýnmaktadýr."
 
-#: ../text.py:673
+#: ../text.py:678
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 
-#: ../text.py:678
+#: ../text.py:683
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -689,59 +689,59 @@ msgstr ""
 "Daha ilerideki aþamalarda sistemde yapabileceðiniz ayarlamalar için Red Hat "
 "Linux Kullanýcý Kýlavuzu'na baþvurun."
 
-#: ../text.py:745
+#: ../text.py:750
 msgid "Package Installation"
 msgstr "Paket Kurulumu"
 
-#: ../text.py:747
+#: ../text.py:752
 msgid "Name   : "
 msgstr "Ýsim   :"
 
-#: ../text.py:748
+#: ../text.py:753
 msgid "Size   : "
 msgstr "Boy    :"
 
-#: ../text.py:749
+#: ../text.py:754
 msgid "Summary: "
 msgstr "Özet   :"
 
-#: ../text.py:775
+#: ../text.py:780
 msgid "    Packages"
 msgstr "       Paket"
 
-#: ../text.py:776
+#: ../text.py:781
 msgid "       Bytes"
 msgstr "        Bayt"
 
-#: ../text.py:777
+#: ../text.py:782
 msgid "        Time"
 msgstr "       Zaman"
 
-#: ../text.py:779
+#: ../text.py:784
 msgid "Total    :"
 msgstr "Toplam   :"
 
-#: ../text.py:786
+#: ../text.py:791
 msgid "Completed:   "
 msgstr "Biten:       "
 
-#: ../text.py:796
+#: ../text.py:801
 msgid "Remaining:  "
 msgstr "Kalan:      "
 
-#: ../text.py:908
+#: ../text.py:913
 msgid "Help not available"
 msgstr "yardým yok"
 
-#: ../text.py:909
+#: ../text.py:914
 msgid "No help is available for this install."
 msgstr "Bu kurulum için yardým bulunmuyor."
 
-#: ../text.py:967
+#: ../text.py:972
 msgid "Save Crash Dump"
 msgstr "Hata Mesajýný Kaydet"
 
-#: ../text.py:978
+#: ../text.py:983
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -753,30 +753,30 @@ msgstr ""
 "ve bugzilla.redhat.com web sayfasý yardýmýyla Red Hat'e ulaþtýrýn.\n"
 "\n"
 
-#: ../text.py:985 ../text.py:988
+#: ../text.py:990 ../text.py:993
 msgid "Save"
 msgstr "Kaydet"
 
-#: ../text.py:985 ../text.py:986
+#: ../text.py:990 ../text.py:991
 msgid "Debug"
 msgstr "Hata Ayýklama"
 
-#: ../text.py:996
+#: ../text.py:1001
 msgid " "
 msgstr ""
 
-#: ../text.py:1000
+#: ../text.py:1005
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C), 2001 Red Hat, Inc."
 
-#: ../text.py:1003
+#: ../text.py:1008
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> yardým  |  <Tab> ileri-geri  |  <Boþluk> iþaretle  |  <F12> sonraki "
 "ekran"
 
-#: ../text.py:1005
+#: ../text.py:1010
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -784,149 +784,149 @@ msgstr ""
 "  <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki "
 "ekran"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1038
-#: ../text.py:1081
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1043
+#: ../text.py:1086
 msgid "Welcome"
 msgstr "Hoþgeldiniz"
 
-#: ../text.py:1044 ../text.py:1127
+#: ../text.py:1049 ../text.py:1132
 msgid "Hostname Setup"
 msgstr "Makina Adý Belirlenmesi"
 
-#: ../text.py:1046 ../text.py:1124
+#: ../text.py:1051 ../text.py:1129
 msgid "Network Setup"
 msgstr "Að Ayarlarý"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1048 ../text.py:1129
+#: ../iw/firewall_gui.py:12 ../text.py:1053 ../text.py:1134
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "Güvenlik Duvarý Yapýlandýrmasý"
 
-#: ../text.py:1056 ../text.py:1141
+#: ../text.py:1061 ../text.py:1146
 msgid "Time Zone Setup"
 msgstr "Zaman Dilimi Ayarlarý"
 
-#: ../text.py:1058 ../text.py:1143 ../textw/userauth_text.py:9
+#: ../text.py:1063 ../text.py:1148 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "root Parolasý"
 
-#: ../text.py:1060 ../text.py:1145 ../textw/userauth_text.py:172
+#: ../text.py:1065 ../text.py:1150 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Kullanýcý Hesabý Ýþlemleri"
 
-#: ../text.py:1062 ../text.py:1147
+#: ../text.py:1067 ../text.py:1152
 msgid "Authentication"
 msgstr "Kimlik sýnama"
 
-#: ../text.py:1068
+#: ../text.py:1073
 msgid "Configuration Complete"
 msgstr "Yapýlandýrma Tamamlandý"
 
-#: ../text.py:1090 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1095 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO Yapýlandýrmasý"
 
-#: ../text.py:1096 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1101 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO Yapýlandýrmasý"
 
-#: ../text.py:1100
+#: ../text.py:1105
 msgid "Automatic Partition"
 msgstr "Otomatik Bölümlendir"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1102 ../text.py:1106
+#: ../iw/silo_gui.py:280 ../text.py:1107 ../text.py:1111
 msgid "Partition"
 msgstr "Bölümlendirme"
 
-#: ../text.py:1104
+#: ../text.py:1109
 msgid "Manually Partition"
 msgstr "Elle Bölümlendir"
 
-#: ../text.py:1108 ../textw/partitioning_text.py:333
+#: ../text.py:1113 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Kök Dosya Sistemi Büyüklüðü:"
 
-#: ../text.py:1110
+#: ../text.py:1115
 msgid "Swap"
 msgstr "Takas"
 
-#: ../text.py:1112 ../textw/partitioning_text.py:390
+#: ../text.py:1117 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 msgid "Boot Partition Warning"
 msgstr "Açýlýþ Bölümü Uyarýsý"
 
-#: ../text.py:1114
+#: ../text.py:1119
 msgid "Filesystem Formatting"
 msgstr "Dosya Sistemi Biçimlendirme"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1131 ../text.py:1133
+#: ../iw/mouse_gui.py:56 ../text.py:1136 ../text.py:1138
 msgid "Mouse Configuration"
 msgstr "Fare Yapýlandýrmasý"
 
-#: ../text.py:1138
+#: ../text.py:1143
 msgid "Language Default"
 msgstr "Öntanýmlý DÝl"
 
-#: ../text.py:1149
+#: ../text.py:1154
 msgid "Package Groups"
 msgstr "Paket Gruplarý"
 
-#: ../text.py:1151 ../text.py:1179
+#: ../text.py:1156 ../text.py:1184
 msgid "Individual Packages"
 msgstr "Ayrý Paketler"
 
-#: ../text.py:1153 ../text.py:1180 ../textw/packages_text.py:304
+#: ../text.py:1158 ../text.py:1185 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Paket Baðýmlýlýðý"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1155 ../text.py:1163
+#: ../iw/xconfig_gui.py:846 ../text.py:1160 ../text.py:1168
 msgid "X Configuration"
 msgstr "X Yapýlandýrmasý"
 
-#: ../text.py:1157
+#: ../text.py:1162
 msgid "Installation Begins"
 msgstr "Kurulum Baþlýyor"
 
-#: ../text.py:1159
+#: ../text.py:1164
 msgid "Install System"
 msgstr "Sistemi Kur"
 
-#: ../text.py:1160 ../text.py:1162 ../text.py:1185 ../text.py:1187
+#: ../text.py:1165 ../text.py:1167 ../text.py:1190 ../text.py:1192
 msgid "Boot Disk"
 msgstr "Açýlýþ Disketi"
 
-#: ../text.py:1165
+#: ../text.py:1170
 msgid "Installation Complete"
 msgstr "Kurulum Bitti"
 
-#: ../text.py:1170
+#: ../text.py:1175
 msgid "Examine System"
 msgstr "Sistemi Ýncele"
 
-#: ../text.py:1177
+#: ../text.py:1182
 msgid "Customize Upgrade"
 msgstr "Güncellemeyi Ayarla"
 
-#: ../text.py:1182
+#: ../text.py:1187
 msgid "Upgrade Begins"
 msgstr "Güncelleme Baþlangýcý"
 
-#: ../text.py:1184
+#: ../text.py:1189
 msgid "Upgrade System"
 msgstr "Sistemi Güncelle"
 
-#: ../text.py:1188
+#: ../text.py:1193
 msgid "Upgrade Complete"
 msgstr "Güncelleme Bitti"
 
-#: ../text.py:1226
+#: ../text.py:1231
 msgid "Cancelled"
 msgstr "Vazgeçildi"
 
-#: ../text.py:1227
+#: ../text.py:1232
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adýmdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
@@ -1080,35 +1080,35 @@ msgstr ""
 "oldu. Lütfen Linux'u tekrar açýn, dosya sistemlerini baðlayýn ve temiz bir "
 "þekilde güncellemek üzere sistemi yeniden baþlatýn."
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:934
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:933
 msgid "Video Card"
 msgstr "Ekran Kartý"
 
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:936
+#: ../iw/xconfig_gui.py:14 ../xf86config.py:935
 msgid "Video Ram"
 msgstr "Ekran Belleði"
 
-#: ../xf86config.py:939
+#: ../xf86config.py:938
 msgid "X server"
 msgstr "X Sunucu"
 
-#: ../xf86config.py:942
+#: ../xf86config.py:941
 msgid "Unable to detect video card"
 msgstr "Ekran kartý tanýtýlamadý"
 
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:949 ../xf86config.py:951
+#: ../iw/xconfig_gui.py:13 ../xf86config.py:948 ../xf86config.py:950
 msgid "Monitor"
 msgstr "Monitör"
 
-#: ../xf86config.py:951
+#: ../xf86config.py:950
 msgid "Plug and Play Monitor"
 msgstr "Tak ve Çalýþtýr Monitör"
 
-#: ../xf86config.py:953
+#: ../xf86config.py:952
 msgid "Horizontal frequency range"
 msgstr "Yatay tazeleme hýzý"
 
-#: ../xf86config.py:955
+#: ../xf86config.py:954
 msgid "Vertical frequency range"
 msgstr "Düþey tazeleme hýzý"
 
@@ -1355,7 +1355,7 @@ msgid "Total install size: %s"
 msgstr "Toplam kurulum boyutu: %s"
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
-#: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
+#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Paket"
 
@@ -1732,43 +1732,43 @@ msgstr "Paketler Kuruluyor"
 msgid "%s KBytes"
 msgstr "%s Kbayt"
 
-#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
 msgid "Size"
 msgstr "Boy"
 
-#: ../iw/progress_gui.py:193
+#: ../iw/progress_gui.py:200
 msgid "Summary"
 msgstr "Özet"
 
-#: ../iw/progress_gui.py:223
+#: ../iw/progress_gui.py:230
 msgid "Package Progress: "
 msgstr "Paket Kurulumu: "
 
-#: ../iw/progress_gui.py:228
+#: ../iw/progress_gui.py:235
 msgid "Total Progress:   "
 msgstr "Toplam:           "
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Status"
 msgstr "Durum"
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Packages"
 msgstr "Paketler"
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Time"
 msgstr "Zaman"
 
-#: ../iw/progress_gui.py:255
+#: ../iw/progress_gui.py:262
 msgid "Total"
 msgstr "Toplam"
 
-#: ../iw/progress_gui.py:256
+#: ../iw/progress_gui.py:263
 msgid "Completed"
 msgstr "Bitti"
 
-#: ../iw/progress_gui.py:257
+#: ../iw/progress_gui.py:264
 msgid "Remaining"
 msgstr "Kalan"
 
