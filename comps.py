@@ -499,7 +499,7 @@ class ComponentSet:
             else:
                 connected = 1
 
-        self.compsxml = rhpl.Comps(file)
+        self.compsxml = rhpl.comps.Comps(file)
         file.close()
 
         self.comps = []
