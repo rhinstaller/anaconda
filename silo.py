@@ -324,7 +324,7 @@ class SiloInstall:
 		os.remove(instRoot + "/etc/silo.conf")
 	    except:
 		pass
-	    os.symlink("../boot/silo.conf", instPath + "/etc/silo.conf")
+	    os.symlink("../boot/silo.conf", instRoot + "/etc/silo.conf")
 	else:
 	    silo.write(instRoot + "/etc/silo.conf")
 
