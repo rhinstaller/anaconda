@@ -12,4 +12,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint);
 
+void ejectFloppy(void);
+char * extractModule(char * location, char * modName);
+
 #endif

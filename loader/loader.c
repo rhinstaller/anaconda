@@ -115,18 +115,6 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 static int newtRunning = 0;
 int continuing = 0;
 
-void ejectFloppy(void) {
-#if defined(__sparc__) || defined(__ia64__)
-    int fd;
-
-    logMessage("ejecting floppy");
-
-    fd = open("/dev/fd0", O_RDONLY);
-    ioctl(fd, FDEJCET, 1);
-    close(fd);
-#endif
-}
-
 void doSuspend(void) {
     newtFinished();
     exit(1);

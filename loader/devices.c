@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/utsname.h>
+#include <zlib.h>
 
 #include "devices.h"
 #include "isys/imount.h"
@@ -17,6 +19,18 @@
 #include "modules.h"
 #include "windows.h"
 #include "../kudzu/kudzu.h"
+
+void ejectFloppy(void) {
+#if defined(__sparc__) || defined(__ia64__)
+    int fd;
+
+    logMessage("ejecting floppy");
+
+    fd = open("/dev/fd0", O_RDONLY);
+    ioctl(fd, FDEJCET, 1);
+    close(fd);
+#endif
+}
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     struct newtWinEntry * entries;
@@ -368,4 +382,84 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
         *moduleName = mod->moduleName;
     
     return rc;
+}
+
+char * extractModule(char * location, char * modName) {
+    char * pattern[] = { NULL, NULL };
+    struct utsname un;
+    gzFile from;
+    gzFile to;
+    int first = 1;
+    int fd;
+    char * buf;
+    struct stat sb;
+    int rc;
+    int failed;
+    char * toPath;
+
+    uname(&un);
+
+    pattern[0] = alloca(strlen(modName) + strlen(un.release) + 5);
+    sprintf(pattern[0], "%s*/%s.o", un.release, modName);
+    logMessage("extracting pattern %s", pattern[0]);
+
+    devMakeInode("fd0", "/tmp/fd0");
+    while (1) {
+	failed = 0;
+
+	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
+	    if (doPwMount("/tmp/fd0", "/tmp/drivers", "ext2", 1, 0, NULL, NULL))
+		failed = 1;
+
+	if (failed && !first) {
+	    newtWinMessage(_("Error"), _("OK"), 
+		    _("Failed to mount driver disk."));
+	} else if (!failed) {
+	    if ((fd = open("/tmp/drivers/rhdd-6.1", O_RDONLY)) < 0)
+		failed = 1;
+	    if (!failed) {
+		fstat(fd, &sb);
+		buf = malloc(sb.st_size + 1);
+		read(fd, buf, sb.st_size);
+		if (buf[sb.st_size - 1] == '\n')
+		    sb.st_size--;
+		buf[sb.st_size] = '\0';
+		close(fd);
+
+		failed = strcmp(buf, location);
+		free(buf);
+	    }
+
+	    if (failed && !first) {
+		umount("/tmp/drivers");
+		newtWinMessage(_("Error"), _("OK"),
+			_("The wrong diskette was inserted."));
+	    }
+	}
+
+	if (!failed) {
+	    from = gzopen("/tmp/drivers/modules.cgz", "r");
+	    toPath = malloc(strlen(modName) + 30);
+	    sprintf(toPath, "/tmp/modules/%s", modName);
+	    mkdirChain(toPath);
+	    strcat(toPath, "/modules.cgz");
+	    to = gzopen(toPath, "w");
+
+	    myCpioFilterArchive(from, to, pattern);
+
+	    gzclose(from);
+	    gzclose(to);
+	    umount("/tmp/drivers");
+
+	    sprintf(toPath, "/tmp/modules/%s", modName);
+	    return toPath;
+	}
+
+	first = 0;
+
+	ejectFloppy();
+	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
+		_("Please insert the %s driver disk now."), location);
+	if (rc == 2) return NULL;
+    }
 }
