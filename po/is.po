@@ -5,14 +5,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: rhinstall 6.1\n"
+"Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
 "PO-Revision-Date: 1999-09-04 19:56+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
@@ -479,11 +479,11 @@ msgstr "Velja pakka fyrir pakka"
 
 #: ../iw/package.py:377 ../text.py:790 ../text.py:855
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Velja pakkahópa"
 
 #: ../text.py:882 ../text.py:1571
 msgid "Package Dependencies"
-msgstr ""
+msgstr "Pakkaskilyrði"
 
 #: ../text.py:883
 msgid ""
@@ -491,22 +491,25 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
+"Sumir pakkanna sem þú valdir til uppsetningar þarfnast annara pakka sem þú "
+"valdir ekki. Ef þú velur Í lagi mun öllum þessum pökkum sem uppá vantar "
+"verða bætt við."
 
 #: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:889
 msgid "Package"
-msgstr ""
+msgstr "Pakki"
 
 #: ../iw/dependencies.py:29 ../text.py:889
 msgid "Requirement"
-msgstr ""
+msgstr "Þarfnast"
 
 #: ../iw/dependencies.py:36 ../text.py:901
 msgid "Install packages to satisfy dependencies"
-msgstr ""
+msgstr "Setja inn pakka til að uppfylla þarfir annara pakka"
 
 #: ../text.py:919 ../text.py:1258 ../text.py:1580
 msgid "Bootdisk"
-msgstr ""
+msgstr "Ræsidisklingur"
 
 #: ../text.py:920
 msgid ""
@@ -519,6 +522,14 @@ msgid ""
 "\n"
 "Would you like to create a bootdisk for your system?"
 msgstr ""
+"Sérsmíðaður ræsidisklingur gerir þér kleyft að ræsa Linux án þess að nota "
+"ræsistjóra eins og LILO. Þetta kemur að gagni ef þú vilt ekki setja upp LILO "
+"á vélinni eða ef annað stýrikerfi hefur fjarlægt LILO eða LILO virkar ekki "
+"með vélbúnaðarstillingum þínum. Ræsidiskling má einnig nota með Red Hat "
+"'rescue' disklingnum svo hægt sé að bjarga vélinni ef alvarleg vandamál koma "
+"upp.\n"
+"\n"
+"Viltu búa til ræsidiskling fyrir vélina þína?"
 
 #: ../text.py:946
 msgid ""
@@ -527,44 +538,47 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+"Á sumum vélum er nauðsynlegt að gefa kjarnanum sérstök viðföng við ræsingu "
+"svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
+"viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
 
 #: ../iw/lilo.py:138 ../text.py:952
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr ""
+msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
 
 #: ../text.py:954 ../text.py:1262 ../text.py:1263 ../text.py:1274
 #: ../text.py:1275
 msgid "Skip"
-msgstr ""
+msgstr "Sleppa"
 
 #: ../text.py:957 ../text.py:996 ../text.py:1093 ../text.py:1545
 #: ../text.py:1547 ../text.py:1549
 msgid "LILO Configuration"
-msgstr ""
+msgstr "Stillingar LILO"
 
 #: ../text.py:997
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "Hvert viltu setja ræsistjórann?"
 
 #: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1013 ../text.py:1070
 msgid "Boot label"
-msgstr ""
+msgstr "Ræsimerki:"
 
 #: ../text.py:1017 ../text.py:1037
 msgid "Clear"
-msgstr ""
+msgstr "Hreinsa"
 
 #: ../text.py:1025
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "Breyta ræsimerki"
 
 #: ../iw/lilo.py:171 ../text.py:1070
 msgid "Partition type"
-msgstr ""
+msgstr "Tegund sneiðar"
 
 #: ../iw/lilo.py:171 ../text.py:1070
 msgid "Default"
-msgstr ""
+msgstr "Sjálfgefið"
 
 #: ../text.py:1088
 msgid ""
@@ -572,44 +586,49 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
+"Ræsistjórinn sem fylgir Red Hat getur einnig ræst upp önnur stýrikerfi. Þú "
+"þarft að að merkja við þær sneiðar sem þú vilt geta ræst upp af og hvaða "
+"heiti þær eiga að fá."
 
 #: ../text.py:1142
 msgid "X probe results"
-msgstr ""
+msgstr "Útkoma X leitar"
 
 #: ../text.py:1155 ../text.py:1174
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Óþekkt kort"
 
 #: ../text.py:1163
 msgid "Video Card Selection"
-msgstr ""
+msgstr "Val skjákorts"
 
 #: ../text.py:1164
 msgid "Which video card do you have?"
-msgstr ""
+msgstr "Hvaða skjákort ertu með?"
 
 #: ../text.py:1176
 msgid "X Server Selection"
-msgstr ""
+msgstr "Val X þjóns"
 
 #: ../text.py:1176
 msgid "Choose a server"
-msgstr ""
+msgstr "Veldu þjón"
 
 #: ../text.py:1226
 msgid "Installation to begin"
-msgstr ""
+msgstr "Uppsetning að byrja"
 
 #: ../text.py:1227
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
+"Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
+"Honum ættir þú að halda til haga."
 
 #: ../text.py:1242
 msgid "Complete"
-msgstr ""
+msgstr "Lokið"
 
 #: ../iw/congrats.py:17 ../text.py:1243
 msgid ""
@@ -622,12 +641,23 @@ msgid ""
 "Information on configuring your system is available in the post install "
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
+"Til hamingju, uppsetningu er lokið.\n"
+"\n"
+"Taktu disklinginn eða geisladiskinn sem þú ræstir upp af úr drifinu og sláðu "
+"á return til að ræsa upp Linux. Á http://www.redhat.com má finna viðbætur "
+"og/eða lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
+"Red Hat Linux.\n"
+"\n"
+"Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
+"finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
 
 #: ../iw/bootdisk.py:40 ../text.py:1259
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
+"Settu tóman diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum "
+"verður eytt þegar ræsidisklingurinn er útbúinn."
 
 #: ../iw/bootdisk.py:44 ../text.py:1271
 msgid ""
@@ -700,10 +730,11 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
+"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
 #: ../text.py:1533
 msgid "Welcome"
-msgstr ""
+msgstr "Velkomin(n)"
 
 #: ../text.py:1539
 msgid "Automatic Partition"
@@ -1608,23 +1639,23 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3027
 msgid "Partitions"
-msgstr ""
+msgstr "Disksneiðar"
 
 #: ../libfdisk/gnomefsedit.c:3071
 msgid "_Add..."
-msgstr ""
+msgstr "_Bæta við..."
 
 #: ../libfdisk/gnomefsedit.c:3083
 msgid "_Edit..."
-msgstr ""
+msgstr "_Breyta..."
 
 #: ../libfdisk/gnomefsedit.c:3084
 msgid "_Delete"
-msgstr ""
+msgstr "_Eyða"
 
 #: ../libfdisk/gnomefsedit.c:3085
 msgid "_Reset"
-msgstr ""
+msgstr "_Endurstilla"
 
 #. XXXX - uncomment if you want the add raid button
 #.
@@ -1661,37 +1692,40 @@ msgstr ""
 #.
 #: ../libfdisk/gnomefsedit.c:3138
 msgid "Drive Summary"
-msgstr ""
+msgstr "Drifið þitt"
 
 #: ../libfdisk/newtfsedit.c:142
 msgid "Swap Partition"
-msgstr ""
+msgstr "Diskminnisdisksneið"
 
 #: ../libfdisk/newtfsedit.c:1282
 msgid "Current Disk Partitions"
-msgstr ""
+msgstr "Núverandi disksneiðar"
 
 #: ../libfdisk/newtfsedit.c:1315
 msgid "Drive Summaries"
-msgstr ""
+msgstr "Drifin þín"
 
 #: ../libfdisk/newtfsedit.c:1430
 msgid "No Root Partition"
-msgstr ""
+msgstr "Engin rótarsneið"
 
 #: ../libfdisk/newtfsedit.c:1431
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
+"Þú verður að skilgreina rótarsneið (/) á \"Linux native\" disksneið (ext2) "
+"svo uppsetningin geti haldið áfram"
 
 #: ../libfdisk/newtfsedit.c:1451
 msgid "No Swap Partition"
-msgstr ""
+msgstr "Engin diskminnissneið"
 
 #: ../libfdisk/newtfsedit.c:1452
 msgid "You must assign a swap partition for the install to proceed."
 msgstr ""
+"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
 
 #: ../libfdisk/newtfsedit.c:1484
 msgid ""
@@ -1700,18 +1734,22 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
+"Það eru enn ófráteknar disksneiðar eftir. Ef þú hættir núna verða þær ekki "
+"vistaðar á diskinn.\n"
+"\n"
+"Ertu viss um að þú viljir hætta?"
 
 #: ../libfdisk/newtfsedit.c:1500
 msgid "Save Changes"
-msgstr ""
+msgstr "Vista breytingum"
 
 #: ../libfdisk/newtfsedit.c:1502
 msgid "Save changes to partition table(s)?"
-msgstr ""
+msgstr "Vista breytingum á disksneiðatöflunni?"
 
 #: ../libfdisk/newtfsedit.c:1546
 msgid "You may only delete NFS mounts."
-msgstr ""
+msgstr "Þú mátt aðeins eyða NFS tengingum."
 
 msgid "Warning"
 msgstr "Aðvörun"
@@ -1749,8 +1787,9 @@ msgstr "Annað geisladrif"
 msgid "CDROM type"
 msgstr "Tegund geisladrifs"
 
+#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "Hvernig geisladrif er í vélinni þinni?"
+msgstr "Hvaða skjákort ertu með?"
 
 msgid "Initializing CDROM..."
 msgstr "Frumstilli geisladrifið..."
@@ -1968,8 +2007,9 @@ msgstr ""
 msgid "Loading Supplemental Disk..."
 msgstr "Les inn aukadisklinginn..."
 
+#, fuzzy
 msgid "Driver Disk"
-msgstr "Rekladisklingur"
+msgstr "Drifin þín"
 
 msgid ""
 "This install method requires a driver disk. Please remove the supplemental "
@@ -2018,8 +2058,9 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Mappa sem inniheldur Red Hat:"
 
+#, fuzzy
 msgid "Select Partition"
-msgstr "Veldu disksneið"
+msgstr "Diskminnisdisksneið"
 
 msgid "Failed to create /tmp/rhimage symlink: %s"
 msgstr "Gat ekki búið til /tmp/rhimage sýndarhlekk: %s"
@@ -2081,8 +2122,9 @@ msgstr ""
 "sneiðar þarf að frumstilla hana. Þú getur sett \"zerombr yes\" í "
 "hraðuppsetningarstillingaskrána svo þetta gerist sjálfvirkt"
 
+#, fuzzy
 msgid "Zero Partition Table"
-msgstr "Auð disksneiðatafla"
+msgstr "Tegund sneiðar"
 
 msgid ""
 "bad argument to kickstart zerombr command: %s.\n"
@@ -2099,8 +2141,9 @@ msgstr "Veldu disksneiðar sem á að forsníða"
 msgid "bad argument to kickstart clearpart command %s: %s"
 msgstr "ólöglegt viðfang við \"clearpart\" hraðuppsetningarskipun %s: %s"
 
+#, fuzzy
 msgid "Partition Command"
-msgstr "Disksneiðaskipun"
+msgstr "Disksneiðar"
 
 msgid "bad argument to kickstart part command %s: %s"
 msgstr "ólöglegt viðfang við part hraðuppsetningar skipun %s: %s"
@@ -2143,8 +2186,9 @@ msgstr "Ólöglegt svar frá þjóninum"
 msgid "Server IO error"
 msgstr "Les/rit villa frá þjóni"
 
+#, fuzzy
 msgid "Server timeout"
-msgstr "Tíminn rann út"
+msgstr "Val X þjóns"
 
 msgid "Unable to lookup server host address"
 msgstr "Ekki tókst að fletta upp IP vistfangi þjónsins"
@@ -2227,8 +2271,9 @@ msgstr ""
 "Til þess að setja up Red Hat Linux þarftu að minnsta kosti eina disksneið "
 "frátekna fyrir Linux sem er minnst 150 megabæti."
 
+#, fuzzy
 msgid "Partition Disks"
-msgstr "Sneiða diska"
+msgstr "Disksneiðar"
 
 msgid "Done"
 msgstr "Búið"
@@ -2347,7 +2392,7 @@ msgstr "Stilla netið"
 
 #, fuzzy
 msgid "Configure timezone"
-msgstr "Stillingar nets"
+msgstr "Stillingar LILO"
 
 msgid "Configure services"
 msgstr "Stilla þjónustur"
@@ -2364,8 +2409,9 @@ msgstr "Finna núverandi uppsetningu"
 msgid "Disk Druid"
 msgstr "Diska Drúídi"
 
+#, fuzzy
 msgid "fdisk"
-msgstr "fdisk"
+msgstr "Ræsidisklingur"
 
 msgid ""
 "Disk Druid is a tool for partitioning and setting up mount points. It is "
@@ -2385,8 +2431,9 @@ msgstr ""
 msgid "Scanning packages..."
 msgstr "Skoða pakkana..."
 
+#, fuzzy
 msgid "Install log"
-msgstr "Uppsetningarannáll"
+msgstr "Uppsetning að byrja"
 
 msgid "Upgrade log"
 msgstr "Uppfærsluannáll"
@@ -2527,8 +2574,9 @@ msgstr "Gat ekki búið til /mnt/tmp/ks.script: %s"
 msgid "Failed to write ks post script: %s"
 msgstr "Gat ekki búið til skipanaskrá hraðuppsetningar f/ eftirákeyrslu: %s"
 
+#, fuzzy
 msgid "Choose a Language"
-msgstr "Veldu tungumál"
+msgstr "Veldu þjón"
 
 msgid "Failed to create symlink for package source."
 msgstr "Gat ekki búið til tákntengingu fyrir frumkóða pakkans."
@@ -2552,6 +2600,7 @@ msgstr "Bý til minnisræsidisk..."
 msgid "Device:"
 msgstr "Tæki"
 
+#, fuzzy
 msgid "Boot label:"
 msgstr "Ræsimerki:"
 
@@ -2560,7 +2609,7 @@ msgstr "Set upp ræsistjórann..."
 
 #, fuzzy
 msgid "Bootable Partitions"
-msgstr "Veldu disksneiðar sem á að forsníða"
+msgstr "Engin rótarsneið"
 
 msgid "Creating bootdisk..."
 msgstr "Bý til ræsidiskling..."
@@ -2568,8 +2617,9 @@ msgstr "Bý til ræsidiskling..."
 msgid "Formatting swap space on device %s..."
 msgstr "Forsníð diskminni á tæki %s..."
 
+#, fuzzy
 msgid "No Swap Space"
-msgstr "Ekkert diskminni"
+msgstr "Engin diskminnissneið"
 
 msgid ""
 "You don't have any swap space defined. Would you like to continue, or "
@@ -2790,11 +2840,13 @@ msgstr "Veldu hóp"
 msgid "(none available)"
 msgstr "(ekkert til staðar)"
 
+#, fuzzy
 msgid "Package:"
-msgstr "Pakki:"
+msgstr "Pakki"
 
+#, fuzzy
 msgid "Upgrade Packages"
-msgstr "Uppfæra pakka"
+msgstr "Pakki"
 
 #, fuzzy
 msgid "Printer Information"
@@ -2805,7 +2857,7 @@ msgstr "<F1> mun gefa þér upplýsingar um þessa gerð prentara"
 
 #, fuzzy
 msgid "What type of printer do you have?"
-msgstr "Hverskonar kerfi villtu setja upp?"
+msgstr "Hvaða skjákort ertu með?"
 
 msgid "Configure Printer"
 msgstr "Stilla prentara"
@@ -2963,8 +3015,9 @@ msgstr "Veldu prenttengingu"
 msgid "How is this printer connected?"
 msgstr "Hvernig er þessi prentari tengdur?"
 
+#, fuzzy
 msgid "Printer type:"
-msgstr "Tegund prentara:"
+msgstr "Tegund sneiðar"
 
 msgid "Queue:"
 msgstr "Biðröð:"
