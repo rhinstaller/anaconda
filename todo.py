@@ -774,7 +774,10 @@ class ToDo:
 			    needed = ("", fields [0], fields [1])
 			else:
 			    needed = ("", fields [0], "")
-			h = self.hdList[reqname].h
+                        try:
+                            h = self.hdList[reqname].h
+                        except KeyError:
+                            conflicts = 0
 			installed = ("", h[rpm.RPMTAG_VERSION],
 				     h [rpm.RPMTAG_RELEASE])
 			if rpm.labelCompare (installed, needed) >= 0:
