@@ -862,10 +862,15 @@ char *getReleaseDescriptorFromIso(char *file) {
     if (filetype == 2)
 	umountLoopback("tmp/testmnt", "loop6");
 
-    if (descr)
-	return strdup(descr);
-    else
+    if (descr) {
+	char *dupdescr;
+	
+	dupdescr = strdup(descr);
+	dupdescr[strlen(dupdescr)-1] = '\0';
+        return dupdescr;
+    } else {
 	return descr;
+    }
 }
 
 
