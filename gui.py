@@ -31,6 +31,10 @@ import rpm
 from thread import *
 from threading import *
 import time
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -253,19 +257,19 @@ class InstallControlWindow (Thread):
         threads_enter ()
         self.window = GtkWindow ()
         self.window.set_border_width (10)
-        self.window.set_title ("Install Control Window")
+        self.window.set_title (_("Red Hat Linux Installer"))
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_default_size (640, 480)
         vbox = GtkVBox (FALSE, 10)
 
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
-        self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), "Back")
+        self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), _("Back"))
         self.nextButtonStock = GnomeStockButton (STOCK_BUTTON_NEXT)
         
-        self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), "Finish")
-	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), "Hide Help")
-        self.showHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), "Show Help")
+        self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), _("Finish"))
+	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Hide Help"))
+        self.showHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Show Help"))
         self.hideHelpButton.connect ("clicked", self.helpClicked)
         self.showHelpButton.connect ("clicked", self.helpClicked)
         self.prevButtonStock.connect ("clicked", self.prevClicked)
@@ -286,7 +290,7 @@ class InstallControlWindow (Thread):
         self.html.source ("<HTML><BODY>HTML Help Window</BODY></HTML>")
         self.displayHelp = TRUE
 
-        self.helpFrame = GtkFrame ("Help Window")
+        self.helpFrame = GtkFrame (_("Online Help"))
         self.helpFrame.add (self.html)
 
         table = GtkTable (1, 3, TRUE)
