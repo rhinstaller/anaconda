@@ -424,7 +424,7 @@ def partitionSanityErrors(intf, errors):
                                   "scheme. "
                                   "These errors must be corrected prior "
                                   "to continuing with your install of "
-                                  "%s.\n\n%s") %(errorstr, productName),
+                                  "%s.\n\n%s") %(productName, errorstr),
 				custom_icon="error")
     return rc
 
