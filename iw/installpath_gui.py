@@ -79,7 +79,8 @@ class InstallPathWindow (InstallWindow):
 	label.set_markup("<b>"+labelstr+"</b>")
 	label.set_alignment (0.0, 0.5)
 	if description is not None:
-	    label.set_markup (label.get_text() + "\n<small>"+description+"</small>")
+	    label.set_markup ("<b>%s</b>\n<small>%s</small>" %(labelstr,
+                                                               description))
 	    label.set_line_wrap(gtk.TRUE)
 	    if  gtk.gdk.screen_width() > 640:
 		wraplen = 350
