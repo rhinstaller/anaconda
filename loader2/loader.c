@@ -574,8 +574,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))
             num_link_checks = atoi(argv[i] + 10);
-        else if (!strncasecmp(argv[i], "allowcddma", 10))
-            flags |= LOADER_FLAGS_ENABLECDDMA;
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
@@ -1500,6 +1498,18 @@ int main(int argc, char ** argv) {
             rc = 1;
         else
             rc = 0;
+
+        if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
+            if (!(pid = fork())) {
+                char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
+                              strdup("/sbin/halt"));
+                execl(cmd, cmd, NULL);
+                fprintf(stderr, "exec of poweroff failed: %s", 
+                        strerror(errno));
+                exit(1);
+            }
+            waitpid(pid, &status, 0);
+        }
 
 #if defined(__s390__) || defined(__s390x__)
         /* FIXME: we have to send a signal to linuxrc on s390 so that shutdown

@@ -68,6 +68,12 @@ static void setCmdlineMode(struct loaderData_s * loaderData, int argc,
                            char ** argv, int * flagsPtr);
 static void setSELinux(struct loaderData_s * loaderData, int argc, 
                        char ** argv, int * flagsPtr);
+static void setPowerOff(struct loaderData_s * loaderData, int argc, 
+                        char ** argv, int * flagsPtr);
+static void setHalt(struct loaderData_s * loaderData, int argc, 
+                    char ** argv, int * flagsPtr);
+static void setShutdown(struct loaderData_s * loaderData, int argc, 
+                        char ** argv, int * flagsPtr);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
@@ -85,6 +91,9 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_DEVICE, "device", loadKickstartModule },
     { KS_CMD_CMDLINE, "cmdline", setCmdlineMode },
     { KS_CMD_SELINUX, "selinux", setSELinux },
+    { KS_CMD_POWEROFF, "poweroff", setPowerOff },
+    { KS_CMD_HALT, "halt", setHalt },
+    { KS_CMD_SHUTDOWN, "shutdown", setShutdown },
     { KS_CMD_NONE, NULL, NULL }
 };
 
@@ -358,6 +367,51 @@ static void setCmdlineMode(struct loaderData_s * loaderData, int argc,
 static void setSELinux(struct loaderData_s * loaderData, int argc, 
                        char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_SELINUX;
+    return;
+}
+
+static void setPowerOff(struct loaderData_s * loaderData, int argc, 
+                        char ** argv, int * flagsPtr) {
+    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_POWEROFF;
+    return;
+}
+
+static void setHalt(struct loaderData_s * loaderData, int argc, 
+                    char ** argv, int * flagsPtr) {
+    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_HALT;
+    return;
+}
+
+static void setShutdown(struct loaderData_s * loaderData, int argc, 
+                    char ** argv, int * flagsPtr) {
+    poptContext optCon;
+    int reboot = 0, halt = 0, poweroff = 0;
+    int rc;
+
+    struct poptOption ksOptions[] = {
+        { "reboot", 'r', POPT_ARG_NONE, &reboot, 0 },
+        { "halt", 'h', POPT_ARG_NONE, &halt, 0 },
+        { "poweroff", 'p', POPT_ARG_NONE, &poweroff, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(*flagsPtr);
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to shutdown kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+
+    if (poweroff) 
+        (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_POWEROFF;
+    if ((!poweroff && !reboot) || (halt))
+        (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_HALT;
+
     return;
 }
 

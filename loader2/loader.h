@@ -13,6 +13,7 @@
 #define LOADER_FLAGS_RESCUE		(1 << 3)
 #define LOADER_FLAGS_KICKSTART		(1 << 4)
 #define LOADER_FLAGS_KICKSTART_SEND_MAC	(1 << 5)
+#define LOADER_FLAGS_POWEROFF           (1 << 6)
 #define LOADER_FLAGS_NOPROBE		(1 << 7)
 #define LOADER_FLAGS_MODDISK		(1 << 8)
 #define LOADER_FLAGS_ISA		(1 << 9)
@@ -32,8 +33,7 @@
 #define LOADER_FLAGS_NOFB		(1 << 27)
 #define LOADER_FLAGS_CMDLINE            (1 << 28)
 #define LOADER_FLAGS_GRAPHICAL		(1 << 29)
-/* FIXME: this should go away */
-#define LOADER_FLAGS_ENABLECDDMA       	(1 << 13)
+#define LOADER_FLAGS_HALT       	(1 << 13)
 #define LOADER_FLAGS_SELINUX            (1 << 14)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
@@ -42,6 +42,7 @@
 #define FL_RESCUE(a)	    ((a) & LOADER_FLAGS_RESCUE)
 #define FL_KICKSTART(a)	    ((a) & LOADER_FLAGS_KICKSTART)
 #define FL_KICKSTART_SEND_MAC(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_MAC)
+#define FL_POWEROFF(a)      ((a) & LOADER_FLAGS_POWEROFF)
 #define FL_NOPROBE(a)	    ((a) & LOADER_FLAGS_NOPROBE)
 #define FL_MODDISK(a)	    ((a) & LOADER_FLAGS_MODDISK)
 #define FL_ISA(a)	    ((a) & LOADER_FLAGS_ISA)
@@ -63,8 +64,7 @@
 #define FL_NOFB(a)	    ((a) & LOADER_FLAGS_NOFB)
 #define FL_GRAPHICAL(a)	    ((a) & LOADER_FLAGS_GRAPHICAL)
 #define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
-/* FIXME: this should go away */
-#define FL_ENABLECDDMA(a)   ((a) & LOADER_FLAGS_ENABLECDDMA)
+#define FL_HALT(a)          ((a) & LOADER_FLAGS_HALT)
 #define FL_SELINUX(a)       ((a) & LOADER_FLAGS_SELINUX)
 
 

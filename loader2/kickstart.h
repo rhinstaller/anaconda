@@ -16,6 +16,9 @@
 #define KS_CMD_CMDLINE     11
 #define KS_CMD_GRAPHICAL   12
 #define KS_CMD_SELINUX     13
+#define KS_CMD_POWEROFF    14
+#define KS_CMD_HALT        15
+#define KS_CMD_SHUTDOWN    16
 
 int ksReadCommands(char * cmdFile, int flags);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);
