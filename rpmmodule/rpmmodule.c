@@ -26,7 +26,8 @@ static hdrObject * rpmdbSubscript(rpmdbObject * s, PyObject * key);
 
 static void hdrDealloc(hdrObject * s);
 static PyObject * hdrGetAttr(hdrObject * s, char * name);
-static PyObject * hdrSubscript(hdrObject * s, int item);
+static PyObject * hdrSubscript(hdrObject * s, PyObject * item);
+static PyObject * hdrKeyList(hdrObject * s, PyObject * args);
 static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 
 void initrpm(void);
@@ -90,14 +91,10 @@ struct hdrObject_s {
 
 static PyObject * pyrpmError;
 
-static PySequenceMethods hdrAsSequence = {
-	0,				/* length */
-	0,				/* concat */
-	0,				/* repeat */
-	(intargfunc) hdrSubscript,	/* item */
-	0,				/* slice */
-	0,				/* assign item */
-	0,				/* assign slice */
+static PyMappingMethods hdrAsMapping = {
+	(inquiry) 0,			/* mp_length */
+	(binaryfunc) hdrSubscript,	/* mp_subscript */
+	(objobjargproc)0,		/* mp_ass_subscript */
 };
 
 static PyTypeObject hdrType = {
@@ -113,8 +110,8 @@ static PyTypeObject hdrType = {
 	0,				/* tp_compare */
 	0,				/* tp_repr */
 	0,				/* tp_as_number */
-	&hdrAsSequence,			/* tp_as_sequence */
-	0,				/* tp_as_mapping */
+	0,	 			/* tp_as_sequence */
+	&hdrAsMapping,			/* tp_as_mapping */
 };
 
 static PyMappingMethods rpmdbAsMapping = {
@@ -172,6 +169,7 @@ static struct PyMethodDef rpmtransMethods[] = {
 };
 
 static struct PyMethodDef hdrMethods[] = {
+	{"keys",	(PyCFunction) hdrKeyList,	1 },
 	{"verifyFile",	(PyCFunction) hdrVerifyFile,	1 },
 	{NULL,		NULL}		/* sentinel */
 };
@@ -179,7 +177,7 @@ static struct PyMethodDef hdrMethods[] = {
 /* Code */
 
 void initrpm(void) {
-    PyObject * m, * d, * tag;
+    PyObject * m, * d, * tag, * dict;
     int i;
 
     rpmReadConfigFiles(NULL, NULL);
@@ -190,10 +188,16 @@ void initrpm(void) {
     pyrpmError = PyString_FromString("rpm.error");
     PyDict_SetItemString(d, "error", pyrpmError);
 
+    dict = PyDict_New();
+
     for (i = 0; i < rpmTagTableSize; i++) {
 	tag = PyInt_FromLong(rpmTagTable[i].val);
 	PyDict_SetItemString(d, rpmTagTable[i].name, tag);
+
+        PyDict_SetItem(dict, tag, PyString_FromString(rpmTagTable[i].name + 7));
     }
+
+    PyDict_SetItemString(d, "tagnames", dict);
 
     PyDict_SetItemString(d, "RPMFILE_STATE_NORMAL", 
 			 PyInt_FromLong(RPMFILE_STATE_NORMAL));
@@ -606,13 +610,27 @@ static PyObject * hdrGetAttr(hdrObject * s, char * name) {
     return Py_FindMethod(hdrMethods, (PyObject * ) s, name);
 }
 
-static PyObject * hdrSubscript(hdrObject * s, int tag) {
-    int type, count;
+static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
+    int type, count, i, tag = -1;
     void * data;
     PyObject * o, * metao;
-    int i;
     char ** stringArray;
     int forceArray = 0;
+    char * str;
+
+    if (PyInt_Check(item)) {
+	tag = PyInt_AsLong(item);
+    } else if (PyString_Check(item)) {
+	str = PyString_AsString(item);
+	for (i = 0; i < rpmTagTableSize; i++)
+	    if (!strcasecmp(rpmTagTable[i].name + 7, str)) break;
+	if (i < rpmTagTableSize) tag = rpmTagTable[i].val;
+    }
+
+    if (tag == -1) {
+	PyErr_SetString(PyExc_KeyError, "unknown header tag");
+	return NULL;
+    }
 
     if (!headerGetEntry(s->h, tag, &type, &data, &count)) {
 	Py_INCREF(Py_None);
@@ -718,6 +736,36 @@ static PyObject * hdrSubscript(hdrObject * s, int tag) {
     }
 
     return o;
+}
+
+static PyObject * hdrKeyList(hdrObject * s, PyObject * args) {
+    PyObject * list;
+    HeaderIterator iter;
+    int tag, type;
+
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    list = PyList_New(0);
+
+    iter = headerInitIterator(s->h);
+    while (headerNextIterator(iter, &tag, &type, NULL, NULL)) {
+        if (tag == HEADER_I18NTABLE) continue;
+
+	switch (type) {
+	  case RPM_BIN_TYPE:
+	  case RPM_INT32_TYPE:
+	  case RPM_CHAR_TYPE:
+	  case RPM_INT8_TYPE:
+	  case RPM_INT16_TYPE:
+	  case RPM_STRING_ARRAY_TYPE:
+	  case RPM_STRING_TYPE:
+	    PyList_Append(list, PyInt_FromLong(tag));
+	}
+    }
+
+    headerFreeIterator(iter);
+
+    return list;
 }
 
 /* Returns a list of these tuple for each part which failed:
