@@ -377,7 +377,7 @@ class swapFileSystem(FileSystemType):
 
     def umount(self, device, path):
         # unfortunately, turning off swap is bad.
-        pass
+        raise RuntimeError, "unable to turn off swap"
     
     def formatDevice(self, entry, progress, chroot='/'):
         file = entry.device.setupDevice(chroot)
@@ -944,9 +944,12 @@ class FileSystemSetEntry:
 
     def umount(self, chroot='/'):
         if self.mountcount > 0:
-            self.fsystem.umount(self.device, "%s/%s" % (chroot,
-                                                        self.mountpoint))
-            self.mountcount = self.mountcount - 1
+            try:
+                self.fsystem.umount(self.device, "%s/%s" % (chroot,
+                                                            self.mountpoint))
+                self.mountcount = self.mountcount - 1
+            except RuntimeError:
+                pass
 
     def setFileSystemType(self, fstype):
         self.fsystem = fstype
