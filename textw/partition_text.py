@@ -862,7 +862,7 @@ class AutoPartitionWindow:
             flag = FLAGS_SET
         # XXX need a way to disable the checkbox tree
         
-    def __call__(self, screen, diskset, partitions, intf):
+    def __call__(self, screen, diskset, partitions, intf, dispatch):
         if not partitions.useAutopartitioning:
             return INSTALL_NOOP
         

@@ -1340,14 +1340,21 @@ class AutoPartitionWindow(InstallWindow):
 
         self.partitions.autoClearPartDrives = allowdrives
 
+        if self.inspect.get_active():
+            self.dispatch.skipStep("partition", skip = 0)
+        else:
+            self.dispatch.skipStep("partition")
+
         return None
 
 
-    def getScreen(self, diskset, partitions, intf):
+    def getScreen(self, diskset, partitions, intf, dispatch):
         
         self.diskset = diskset
         self.partitions = partitions
         self.intf = intf
+        self.dispatch = dispatch
+        
         type = partitions.autoClearPartType
         cleardrives = partitions.autoClearPartDrives
         
@@ -1410,6 +1417,14 @@ class AutoPartitionWindow(InstallWindow):
         drivesbox.pack_start(align, FALSE, FALSE)
 
         box.pack_start(drivesbox, FALSE, FALSE)
+
+        self.inspect = GtkCheckButton(_("Allow me to inspect and modify "
+                                   "autopartitioning results"))
+
+        self.inspect.set_active(not dispatch.stepInSkipList("partition"))
+        
+	box.pack_start(self.inspect, FALSE, FALSE, 10)
+
         self.ics.setNextEnabled (TRUE)
 
 	align = GtkAlignment()

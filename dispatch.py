@@ -53,7 +53,7 @@ installSteps = [
     ( "partitionmethod", ("id.partitions", "id.instClass") ),
     ( "partitionobjinit", partitionObjectsInitialize, ("id.diskset", "id.partitions", "dir") ),
     ( "partitionmethodsetup", partitionMethodSetup, ("id.partitions", "dispatch") ),
-    ( "autopartition", ("id.diskset", "id.partitions", "intf") ),
+    ( "autopartition", ("id.diskset", "id.partitions", "intf", "dispatch") ),
     ( "autopartitionexecute", doAutoPartition, ("dir", "id.diskset", "id.partitions", "intf")),
     ( "fdisk", ("id.useFdisk", "id.diskset", "id.partitions")),
     ( "partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),

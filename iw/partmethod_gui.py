@@ -89,6 +89,7 @@ class PartitionMethodWindow(InstallWindow):
 	align.set(0.5, 0.5, 0.0, 0.0)
 
 	box.pack_start(align, FALSE, FALSE, 10)
+
 	box.set_border_width (5)
 
         self.ics.setNextEnabled (TRUE)
