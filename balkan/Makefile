@@ -26,7 +26,7 @@ _balkanmodule.o: _balkanmodule.c balkan.h
 libbalkan.a: libbalkan.a($(OBJECTS))
 
 clean:
-	rm -f *.o *.so $(TARGET)
+	rm -f *.o *.so $(TARGET) .depend
 
 dos.o: dos.h
 
