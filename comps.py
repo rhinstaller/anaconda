@@ -430,7 +430,7 @@ class Component:
                 pkg = pkg.name
                 # make sure the package is in the package list
                 if not self.set.compsxml.packages.has_key(pkg):
-                    log("Component %s needs package %s which doesn't exist"
+                    log("Component %s contains non-existent package %s (this is probably not a problem)"
                         %(self.name, pkg))
                     continue
                 deps = self.set.compsxml.packages[pkg].dependencies
