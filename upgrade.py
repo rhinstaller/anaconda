@@ -58,7 +58,7 @@ def findExistingRoots(intf, id, chroot):
 
     rootparts = diskset.findExistingRootPartitions(intf, chroot)
     for i in range(1, 6):
-        time.sleep(1)
+        time.sleep(0.5)
         win.set(i)
 
     win.pop()
