@@ -853,7 +853,7 @@ def doAutoPartition(dir, diskset, partitions, intf):
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
         intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocated requested partitions: \n\n%s.") % (msg.value))
+               _("Could not allocate requested partitions: \n\n%s.") % (msg.value))
 
 
 def queryAutoPartitionOK(intf, diskset, partitions):
