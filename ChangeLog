@@ -1,3 +1,12 @@
+2004-11-11  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/partition_ui_helpers_gui.py (mountptchangeCB): Automatically
+	set the filesystem type to vfat if the user selects /boot/efi as
+	the mountpoint on ia64 (#138580)
+
+	* iw/datacombo.py (DataComboBox.set_active_text): Add convenience
+	method to set the active item based on text.
+
 2004-11-10  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/loader.c: Make serial imply nofb (#134167)

@@ -50,6 +50,16 @@ class DataComboBox(gtk.ComboBox):
     def get_text(self, row):
         return self.get_stored_data(row, col = 0)
 
+    def set_active_text(self, t):
+        n = 0
+        i = self.store.get_iter(n)
+        while i is not None:
+            if self.store.get_value(i, 0) == t:
+                self.set_active(n)
+                break
+            i = self.store.iter_next(i)
+            n += 1
+
     def clear(self):
         self.store.clear()
 
@@ -65,7 +75,7 @@ if __name__ == "__main__":
     cb.append("/dev/hda6", "hda6")
     cb.append("/dev/hda7", "hda7")
     cb.append("/dev/hda8", "hda8")
-    cb.set_active(0)
+    cb.set_active_text("/dev/hda7")
 
     cb.connect('changed', mycb)
     
