@@ -409,6 +409,26 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 pass
             sys.exit(0)
 
+    # during upgrade, make sure that we only install %lang colored files
+    # for the languages selected to be supported.
+    langs = ''
+    if os.access(instPath + "/etc/sysconfig/i18n", os.R_OK):
+        f = open(instPath + "/etc/sysconfig/i18n", 'r')
+        for line in f.readlines():
+            line = string.strip(line)
+            parts = string.split(line, '=')
+            if len(parts) < 2:
+                continue
+            if string.strip(parts[0]) == 'SUPPORTED':
+                langs = parts[1]
+                if len(langs) > 0:
+                    if langs[0] == '"' and langs[-1:] == '"':
+                        langs = langs[1:-1]
+                break
+        del f
+    if langs:
+        rpm.addMacro("_install_langs", langs)
+                
     # check the installed system to see if the packages just
     # are not newer in this release.
     if hasX and not hasFileManager:
