@@ -306,11 +306,8 @@ class InstallCallback:
             self.size = h[rpm.RPMTAG_SIZE]
 
 	    while self.rpmFD < 0:
-		# this should never fail right? So lets put it before the try.
-                fn = self.method.getFilename(h, self.pkgTimer)
-#		log("Opening rpm %s", fn)
-
 		try:
+                    fn = self.method.getFilename(h, self.pkgTimer)
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 
                     # Make sure this package seems valid
@@ -332,12 +329,14 @@ class InstallCallback:
 		except:
                     self.method.unmountCD()
 		    self.messageWindow(_("Error"),
-			_("The file %s cannot be opened. This is due to "
-			  "a missing file or perhaps a corrupt package.  If "
-			  "you are installing from CD media this usually "
+			_("The package %s-%s-%s cannot be opened. This is due "
+                          "to a missing file or perhaps a corrupt package.  "
+                          "If you are installing from CD media this usually "
 			  "means the CD media is corrupt, or the CD drive is "
 			  "unable to read the media.\n\n"
-			  "Press <return> to try again.") % (fn,))
+			  "Press <return> to try again.") % (h['name'],
+                                                             h['version'],
+                                                             h['release']))
 
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
