@@ -373,7 +373,7 @@ static int dac960GetDevices(struct knownDevices * devices) {
 	    if (start) start++;
 	}
 
-	sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+	sprintf(ctl, "/proc/rd/c%d/current_status", ctlNum++);
     }
 
     return 0;
