@@ -2,6 +2,7 @@ from snack import *
 import sys
 import isys
 import os
+import stat
 import iutil
 import rpm
 import time
@@ -480,13 +481,25 @@ class BootDiskWindow:
 
 class XConfigWindow:
     def __call__(self, screen, todo):
-        # we need to get the package list here for things like
-        # workstation install - which will not have read the
-        # package list yet.
-        todo.getCompsList ()
+        #
+        # if in reconfigOnly mode we query existing rpm db
+        # if X not installed, just skip this step
+        #
+        if todo.reconfigOnly:
+            import rpm
+            db = rpm.opendb()
+            rc = db.findbyname ("XFree86")
+            if len(rc) == 0:
+                return None
+        else:
+            # we need to get the package list here for things like
+            # workstation install - which will not have read the
+            # package list yet.
+            todo.getCompsList ()
 
-	if not todo.hdList.packages.has_key('XFree86') or \
-	   not todo.hdList.packages['XFree86'].selected: return None
+            if not todo.hdList.packages.has_key('XFree86') or \
+               not todo.hdList.packages['XFree86'].selected:
+                return None
 
         todo.x.probe (probeMonitor = 0)
 
@@ -603,16 +616,34 @@ class InstallWindow:
         return INSTALL_OK
 
 class FinishedWindow:
-    def __call__ (self, screen):
-        rc = ButtonChoiceWindow (screen, _("Complete"), 
-	 _("Congratulations, installation is complete.\n\n"
-	   "Remove the boot media and "
-	   "press return to reboot. For information on fixes which are "
-	   "available for this release of Red Hat Linux, consult the "
-	   "Errata available from http://www.redhat.com.\n\n"
-	   "Information on configuring your system is available in the post "
-	   "install chapter of the Official Red Hat Linux User's Guide."),
-	 [ _("OK") ])
+    def __call__ (self, screen, todo):
+        if not todo.reconfigOnly:
+            rc = ButtonChoiceWindow (screen, _("Complete"), 
+                     _("Congratulations, installation is complete.\n\n"
+                      "Remove the boot media and "
+                      "press return to reboot. For information on fixes which "
+                       "are available for this release of Red Hat Linux, "
+                       "consult the "
+                       "Errata available from http://www.redhat.com.\n\n"
+                       "Information on configuring your system is available "
+                       "in the post install chapter of the Official Red Hat "
+                       "Linux User's Guide."),
+                    [ _("OK") ])
+        else:
+            todo.writeConfiguration()
+            
+            rc = ButtonChoiceWindow (screen, _("Complete"), 
+                       _("Congratulations, configuration is complete.\n\n"
+                         " For information on fixes which "
+                         "are available for this release of Red Hat Linux, "
+                         "consult the "
+                         "Errata available from http://www.redhat.com.\n\n"
+                         "Information on further configuring your system is "
+                         "available "
+                         "in the post install chapter of the Official Red Hat "
+                         "Linux User's Guide."),
+                      [ _("OK") ])
+
         return INSTALL_OK
 
 class BootdiskWindow:
@@ -809,24 +840,26 @@ def findtz(basepath, relpath):
         else:
             timezone = n
             
-            filestat = os.lstat(basepath+'/'+timezone)
-            [filemode] = filestat[:1]
-            
-            if (not (stat.S_ISLNK(filemode) or
-                     stat.S_ISREG(filemode) or
-                     stat.S_ISDIR(filemode))):
-                continue
-            elif n[:1] >= 'A' and n[:1] <= 'Z':
-                if stat.S_ISDIR(filemode):
-                    tmptzdata = findtz(basepath, timezone)
-                else:
-                    tmptzdata = [timezone]
+        filestat = os.lstat(basepath+'/'+timezone)
+        [filemode] = filestat[:1]
+        
+        if (not (stat.S_ISLNK(filemode) or
+                 stat.S_ISREG(filemode) or
+                 stat.S_ISDIR(filemode))):
+            continue
+        elif n[:1] >= 'A' and n[:1] <= 'Z':
+            if stat.S_ISDIR(filemode):
+                tmptzdata = findtz(basepath, timezone)
+            else:
+                tmptzdata = [timezone]
                     
-                    for m in tmptzdata:
-                        if tzdata == []:
-                            tzdata = [m]
-                        else:
-                            tzdata.append(m)
+        for m in tmptzdata:
+            if tzdata == []:
+                tzdata = [m]
+            else:
+                tzdata.append(m)
+
+        tzdata.sort()
                             
     return tzdata
 
@@ -841,6 +874,7 @@ class TimezoneWindow:
             else:
                 zoneList = findtz('/usr/share/zoneinfo', '')
                 cmd = ""
+                stdin = None
 	else:
 	    cmd = "/usr/bin/gunzip"
 	    stdin = os.open("/usr/lib/timezones.gz", 0)
@@ -849,7 +883,8 @@ class TimezoneWindow:
             zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
             zoneList = string.split(zones)
 
-	if (stdin != None): os.close(stdin)
+	if (stdin != None):
+            os.close(stdin)
 
 	return zoneList
 
@@ -870,6 +905,7 @@ class TimezoneWindow:
 
         for tz in timezones:
 	    l.append(tz, tz)
+
 	l.setCurrent(default)
 
 	c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
@@ -970,15 +1006,46 @@ class InstallInterface:
     def run(self, todo, test = 0):
 	if todo.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
-        self.commonSteps = [
-            [_("Language Selection"), LanguageWindow, 
-		    (self.screen, todo), "language" ],
-            [_("Keyboard Selection"), KeyboardWindow, 
-		    (self.screen, todo), "keyboard" ],
-            [_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
-            [_("Installation Type"), InstallPathWindow, 
-		    (self.screen, todo, self) ],
-            ]
+
+        if todo.reconfigOnly:
+            self.commonSteps = [
+                [_("Language Selection"), LanguageWindow, 
+                 (self.screen, todo), "language" ],
+                [_("Keyboard Selection"), KeyboardWindow, 
+                 (self.screen, todo), "keyboard" ],
+                [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+                 "network"],
+                [_("Network Setup"), NetworkWindow, (self.screen, todo), 
+                 "network"],
+                [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
+                 "mouse" ],
+                [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
+                 "mouse" ],
+                [_("Time Zone Setup"), TimezoneWindow, 
+                 (self.screen, todo, test), "timezone" ],
+                [_("Root Password"), RootPasswordWindow, 
+                 (self.screen, todo), "accounts" ],
+                [_("User Account Setup"), UsersWindow, 
+                 (self.screen, todo), "accounts" ],
+                [_("Authentication"), AuthConfigWindow, (self.screen, todo),
+                 "authentication" ],
+                [_("X Configuration"), XConfigWindow, (self.screen, todo),
+                 "xconfig" ],
+                [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
+		    "xconfig"],
+                [_("Configuration Complete"), FinishedWindow, (self.screen,todo),
+                 "complete" ],
+                ]
+        else:
+            self.commonSteps = [
+                [_("Language Selection"), LanguageWindow, 
+                 (self.screen, todo), "language" ],
+                [_("Keyboard Selection"), KeyboardWindow, 
+                 (self.screen, todo), "keyboard" ],
+                [_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
+                [_("Installation Type"), InstallPathWindow, 
+                 (self.screen, todo, self) ],
+                ]
 
 	if iutil.getArch() == 'sparc':
 	    BootloaderAppendWindow = SiloAppendWindow
@@ -1044,7 +1111,7 @@ class InstallInterface:
             [_("Boot Disk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
             [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
 		    "xconfig"],
-            [_("Installation Complete"), FinishedWindow, (self.screen,),
+            [_("Installation Complete"), FinishedWindow, (self.screen, todo),
 		"complete" ]
             ]
 
