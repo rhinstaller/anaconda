@@ -649,7 +649,7 @@ class FileSystemSetEntry:
 
     def umount(self, chroot='/'):
         if self.mountcount > 0:
-            self.fssytem.umount(self.device, "%s/%s" % (chroot,
+            self.fsystem.umount(self.device, "%s/%s" % (chroot,
                                                         self.mountpoint))
             self.mountcount = self.mountcount - 1
         
