@@ -1,4 +1,4 @@
-LOADLIBES = -lpopt -L../isys -lisys
+LOADLIBES =  -L../isys -lisys
 CFLAGS = -Wall -g
 LDFLAGS = -g
 
@@ -9,10 +9,10 @@ moddeps: moddeps.o
             $(LOADLIBES) \
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
-	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz
+	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c
-	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz
+	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt
 
 snarffont: snarffont.c
 	$(CC) -o snarffont snarffont.c
