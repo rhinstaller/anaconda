@@ -31,6 +31,9 @@
 /*
  * nfsmount.c,v 1.1.1.1 1993/11/18 08:40:51 jrs Exp
  */
+/* hack hack to prevent linux/in.h from being included */
+#define _LINUX_IN_H
+
 
 #include <unistd.h>
 #include <stdio.h>
@@ -49,9 +52,12 @@
 #include "sundries.h"
 #include "nfsmount.h"
 
+#define NFS_NEED_KERNEL_TYPES
+#include <linux/uio.h>
 #include <linux/nfs.h>
 #include "mount_constants.h"
-#include "nfs_mount3.h"
+#include "nfs_mount4.h"
+#undef NFS_NEED_KERNEL_TYPES
 
 #include "dns.h"
 
@@ -124,6 +130,12 @@ nfsxmalloc(size_t size)
 
 /* end of sundries.c */
 
+#ifdef HAVE_NFSV3
+#define MAX_NFSPROT ((nfs_mount_version >= 4) ? 3 : 2)
+#else
+#define MAX_NFSPROT 2
+#endif
+
 static int
 linux_version_code(void) {
 	struct utsname my_utsname;
@@ -161,13 +173,69 @@ find_kernel_nfs_mount_version(void) {
 	if (kernel_version) {
 	     if (kernel_version < MAKE_VERSION(2,1,32))
 		  nfs_mount_version = 1;
-	     else
+#ifdef HAVE_NFSV3
+	     else if (kernel_version < MAKE_VERSION(2,2,7))
 		  nfs_mount_version = 3;
+	     else
+		  nfs_mount_version = 4;
+#else
+	     else
+		  nfs_mount_version = 3
+#endif
 	}
 #if 0
 	if (nfs_mount_version > NFS_MOUNT_VERSION)
 	     nfs_mount_version = NFS_MOUNT_VERSION;
 #endif
+}
+
+static struct pmap *
+get_mountport(struct sockaddr_in *server_addr,
+      long unsigned prog,
+      long unsigned version,
+      long unsigned proto,
+      long unsigned port)
+{
+struct pmaplist *pmap;
+static struct pmap p = {0, 0, 0, 0};
+
+server_addr->sin_port = PMAPPORT;
+pmap = pmap_getmaps(server_addr);
+
+if (!pmap)
+	return NULL;
+
+if (version > MAX_NFSPROT)
+	version = MAX_NFSPROT;
+if (!prog)
+	prog = MOUNTPROG;
+p.pm_prog = prog;
+p.pm_vers = version;
+p.pm_prot = proto;
+p.pm_port = port;
+
+while (pmap) {
+	if (pmap->pml_map.pm_prog != prog)
+		goto next;
+	if (!version && p.pm_vers > pmap->pml_map.pm_vers)
+		goto next;
+	if (version > 2 && pmap->pml_map.pm_vers != version)
+		goto next;
+	if (version && version <= 2 && pmap->pml_map.pm_vers > 2)
+		goto next;
+	if (pmap->pml_map.pm_vers > MAX_NFSPROT ||
+	    (proto && p.pm_prot && pmap->pml_map.pm_prot != proto) ||
+	    (port && pmap->pml_map.pm_port != port))
+		goto next;
+	memcpy(&p, &pmap->pml_map, sizeof(p));
+next:
+	pmap = pmap->pml_next;
+}
+if (!p.pm_vers)
+	p.pm_vers = MOUNTVERS;
+if (!p.pm_prot)
+	p.pm_prot = IPPROTO_TCP;
+return &p;
 }
 
 int nfsmount(const char *spec, const char *node, int *flags,
@@ -181,7 +249,6 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	char *old_opts;
 	char *mounthost=NULL;
 	char new_opts[1024];
-	fhandle root_fhandle;
 	struct timeval total_timeout;
 	enum clnt_stat clnt_stat;
 	static struct nfs_mount_data data;
@@ -189,13 +256,18 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	int val;
 	struct sockaddr_in server_addr;
 	struct sockaddr_in mount_server_addr;
+	struct pmap* pm_mnt;
 	int msock, fsock;
 	struct timeval retry_timeout;
-	struct fhstatus status;
+	union {
+		struct fhstatus nfsv2;
+		struct mountres3 nfsv3;
+	} status;
 	struct stat statbuf;
 	char *s;
 	int port;
 	int mountport;
+	int proto;
 	int bg;
 	int soft;
 	int intr;
@@ -285,11 +357,11 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	tcp = 0;
 
 	mountprog = MOUNTPROG;
-	mountvers = MOUNTVERS;
+	mountvers = 0;
 	port = 0;
 	mountport = 0;
 	nfsprog = NFS_PROGRAM;
-	nfsvers = NFS_VERSION;
+	nfsvers = 0;
 
 	/* parse options */
 
@@ -396,6 +468,8 @@ int nfsmount(const char *spec, const char *node, int *flags,
 			}
 		}
 	}
+	proto = (tcp) ? IPPROTO_TCP : IPPROTO_UDP;
+
 	data.flags = (soft ? NFS_MOUNT_SOFT : 0)
 		| (intr ? NFS_MOUNT_INTR : 0)
 		| (posix ? NFS_MOUNT_POSIX : 0)
@@ -434,6 +508,19 @@ int nfsmount(const char *spec, const char *node, int *flags,
 		(data.flags & NFS_MOUNT_TCP) != 0);
 #endif
 #endif
+	if (nfsvers > MAX_NFSPROT) {
+		fprintf(stderr, "NFSv%d not supported!\n", nfsvers);
+		return 0;
+	}
+	if (mountvers > MAX_NFSPROT) {
+		fprintf(stderr, "NFSv%d not supported!\n", nfsvers);
+		return 0;
+	}
+	if (nfsvers && !mountvers)
+		mountvers = (nfsvers < 3) ? 1 : nfsvers;
+	if (nfsvers && nfsvers < mountvers) {
+		mountvers = nfsvers;
+	}
 
 	data.version = nfs_mount_version;
 	*mount_opts = (char *) &data;
@@ -506,28 +593,66 @@ int nfsmount(const char *spec, const char *node, int *flags,
 			if (t - prevt < 30)
 				sleep(30);
 
-			/* contact the mount daemon via TCP */
-			mount_server_addr.sin_port = htons(mountport);
-			msock = RPC_ANYSOCK;
-			mclient = clnttcp_create(&mount_server_addr,
-						 mountprog, mountvers,
-						 &msock, 0, 0);
+			pm_mnt = get_mountport(&mount_server_addr,
+				       mountprog,
+				       mountvers,
+				       proto,
+ 				       mountport);
 
-			/* if this fails, contact the mount daemon via UDP */
-			if (!mclient) {
-				mount_server_addr.sin_port = htons(mountport);
-				msock = RPC_ANYSOCK;
+			if (pm_mnt == NULL) {
+			  fprintf(stderr, "mount: cannot access portmapper on %s: %s\n",
+				  hostname, strerror (errno));
+			  goto fail;
+			}
+
+			/* contact the mount daemon via TCP */
+			mount_server_addr.sin_port = htons(pm_mnt->pm_port);
+			msock = RPC_ANYSOCK;
+
+			switch (pm_mnt->pm_prot) {
+			case IPPROTO_UDP:
 				mclient = clntudp_create(&mount_server_addr,
-							 mountprog, mountvers,
-							 retry_timeout, &msock);
+						 pm_mnt->pm_prog,
+						 pm_mnt->pm_vers,
+						 retry_timeout,
+						 &msock);
+		  if (mclient)
+			  break;
+		  mount_server_addr.sin_port = htons(pm_mnt->pm_port);
+		  msock = RPC_ANYSOCK;
+		case IPPROTO_TCP:
+			mclient = clnttcp_create(&mount_server_addr,
+						 pm_mnt->pm_prog,
+						 pm_mnt->pm_vers,
+						 &msock, 0, 0);
+			break;
+		default:
+			mclient = 0;
 			}
 			if (mclient) {
 				/* try to mount hostname:dirname */
 				mclient->cl_auth = authunix_create_default();
-				clnt_stat = clnt_call(mclient, MOUNTPROC_MNT,
-					(xdrproc_t) xdr_dirpath, (caddr_t) &dirname,
-					(xdrproc_t) xdr_fhstatus, (caddr_t) &status,
+
+			/* make pointers in xdr_mountres3 NULL so
+			 * that xdr_array allocates memory for us
+			 */
+			memset(&status, 0, sizeof(status));
+
+			if (pm_mnt->pm_vers == 3)
+				clnt_stat = clnt_call(mclient, MOUNTPROC3_MNT,
+						      (xdrproc_t) xdr_dirpath,
+						      (caddr_t) &dirname,
+						      (xdrproc_t) xdr_mountres3,
+						      (caddr_t) &status,
 					total_timeout);
+			else
+				clnt_stat = clnt_call(mclient, MOUNTPROC_MNT,
+						      (xdrproc_t) xdr_dirpath,
+						      (caddr_t) &dirname,
+						      (xdrproc_t) xdr_fhstatus,
+						      (caddr_t) &status,
+						      total_timeout);
+
 				if (clnt_stat == RPC_SUCCESS)
 					break;		/* we're done */
 				if (errno != ECONNREFUSED) {
@@ -561,12 +686,40 @@ int nfsmount(const char *spec, const char *node, int *flags,
 			goto fail;
 	}
 
-	if (status.fhs_status != 0) {
-		myerror = status.fhs_status;
-		goto fail;
-	}
-	memcpy((char *) &root_fhandle, (char *) status.fhstatus_u.fhs_fhandle,
-		sizeof (root_fhandle));
+	nfsvers = (pm_mnt->pm_vers < 2) ? 2 : pm_mnt->pm_vers;
+  
+	if (nfsvers == 2) {
+		if (status.nfsv2.fhs_status != 0) {
+			myerror = status.nfsv2.fhs_status;
+			goto fail;
+		}
+		memcpy(data.root.data,
+		       (char *) status.nfsv2.fhstatus_u.fhs_fhandle,
+		       NFS_FHSIZE);
+#if NFS_MOUNT_VERSION >= 4
+		data.root.size = NFS_FHSIZE;
+		memcpy(data.old_root.data,
+		       (char *) status.nfsv2.fhstatus_u.fhs_fhandle,
+		       NFS_FHSIZE);
+#endif
+	} else {
+#if NFS_MOUNT_VERSION >= 4
+		fhandle3 *fhandle;
+		if (status.nfsv3.fhs_status != 0) {
+			myerror = status.nfsv3.fhs_status;
+			goto fail;
+		}
+		fhandle = &status.nfsv3.mountres3_u.mountinfo.fhandle;
+		memset(data.old_root.data, 0, NFS_FHSIZE);
+		memset(&data.root, 0, sizeof(data.root));
+		data.root.size = fhandle->fhandle3_len;
+		memcpy(data.root.data,
+		       (char *) fhandle->fhandle3_val,
+		       fhandle->fhandle3_len);
+
+		data.flags |= NFS_MOUNT_VER3;
+#endif
+  	}
 
 	/* create nfs socket for kernel */
 
@@ -616,8 +769,6 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	/* prepare data structure for kernel */
 
 	data.fd = fsock;
-	memcpy((char *) &data.root, (char *) &root_fhandle,
-		sizeof (root_fhandle));
 	memcpy((char *) &data.addr, (char *) &server_addr, sizeof(data.addr));
 	strncpy(data.hostname, hostname, sizeof(data.hostname));
 
