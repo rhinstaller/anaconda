@@ -41,10 +41,13 @@ class UpgradeExamineWindow (InstallWindow):
         vbox = GtkVBox (FALSE, 5)
 
         if self.parts and len (self.parts) > 1:
+            box.pack_start (GtkLabel (_("Please select the device which "
+                                        "contains the root filesystem to be "
+                                        "upgraded.")), FALSE)
             self.ics.setNextEnabled (TRUE)
-            (self.root, someFilesystem) = self.parts[0]
+            self.root = self.parts[0]
             group = None
-            for (part, someFilesystem) in self.parts:
+            for part in self.parts:
                 group = GtkRadioButton (group, part)
                 group.connect ("toggled", self.toggled, part)
                 box.pack_start (group, FALSE)
