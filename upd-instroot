@@ -13,7 +13,7 @@ pythondeps() {
 
 	(cd $DIR; \
 	    chroot . strace -o straceout.$$ \
-		usr/bin/anaconda -p /mnt/source --test --text --traceonly
+		usr/bin/anaconda -m dir://mnt/source --test --text --traceonly
 	)
 
 	((cat $DIR/straceout.$$ |
@@ -125,6 +125,7 @@ usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
 usr/X11R6/lib/X11/xkb/*
+usr/X11R6/lib/X11/rgb/*
 usr/X11R6/lib/libXpm*
 usr/lib/libglib*
 usr/lib/libmodule*
