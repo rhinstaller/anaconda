@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
 	exit(0);
     }
 
-    rc = mediaCheckFile(argv[1]);
+    rc = mediaCheckFile(argv[1], 1);
 
     exit(rc ? 0 : 1);
 }

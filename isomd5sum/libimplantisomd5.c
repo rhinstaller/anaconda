@@ -6,6 +6,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <string.h>
 
 #include "md5.h"
 #include "libimplantisomd5.h"
@@ -21,7 +22,7 @@
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
-int parsepvd(int isofd, char *mediasum, long long *isosize) {
+static int parsepvd(int isofd, char *mediasum, long long *isosize) {
     unsigned char buf[2048];
     long long offset;
     unsigned char *p;
@@ -65,7 +66,7 @@ int parsepvd(int isofd, char *mediasum, long long *isosize) {
 }
 
 
-unsigned int writeAppData(unsigned char *appdata, char *valstr, unsigned int loc) {
+static unsigned int writeAppData(unsigned char *appdata, char *valstr, unsigned int loc) {
     if (loc + strlen(valstr) > 511) {
 	printf("Attempted to write too much appdata, exiting...\n");
 	exit(-1);
@@ -83,7 +84,7 @@ static void usage(void) {
 }
 
 
-int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
+int implantISOFile(char *fname, int supported, int forceit, int quiet, char **errstr) {
     int i;
     int rc;
     int isofd;
@@ -103,13 +104,13 @@ int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
     isofd = open(fname, O_RDWR);
 
     if (isofd < 0) {
-	errstr = "Error - Unable to open file %s\n\n";
+	*errstr = "Error - Unable to open file %s\n\n";
 	return -1;
     }
 
     pvd_offset = parsepvd(isofd, mediasum, &isosize);
     if (pvd_offset < 0) {
-	errstr = "Could not find primary volumne!\n\n";
+	*errstr = "Could not find primary volumne!\n\n";
 	return -1;
     }
 
@@ -123,7 +124,7 @@ int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
 		dirty = 1;
 
 	if (dirty) {
-	    errstr = "Application data has been used - not implanting md5sum!\n";
+	    *errstr = "Application data has been used - not implanting md5sum!\n";
 	    return -1;
 	}
     } else {
@@ -163,8 +164,10 @@ int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
 	strcat(md5str, tmpstr);
     }
 
-    printf("Inserting md5sum into iso image...\n");
-    printf("md5 = %s\n", md5str);
+    if (!quiet) {
+	printf("Inserting md5sum into iso image...\n");
+	printf("md5 = %s\n", md5str);
+    }
     /*    memcpy(new_appdata, orig_appdata, 512); */
     memset(new_appdata, ' ', 512);
 
@@ -177,10 +180,12 @@ int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
     loc = writeAppData(new_appdata, ";", loc);
 
     if (supported) {
-	printf("Setting supported flag to 1\n");
+	if (!quiet)
+	    printf("Setting supported flag to 1\n");
 	loc = writeAppData(new_appdata, "RHLISOSTATUS=1", loc);
     } else {
-	printf("Setting supported flag to 0\n");
+	if (!quiet)
+	    printf("Setting supported flag to 0\n");
 	loc = writeAppData(new_appdata, "RHLISOSTATUS=0", loc);
     }
 	
@@ -199,6 +204,6 @@ int implantISOFile(char *fname, int supported, int forceit, char *errstr) {
     }
 
     close(isofd);
-
+    errstr = NULL;
     return 0;
 }

@@ -50,7 +50,11 @@ int main(int argc, char **argv) {
     if (!args || !args[0] || !args[0][0])
         usage();
 
-    rc = implantISOFile((char *)args[0], supported, forceit, errstr);
-    if (rc)
-	fprintf(stderr, errstr);
+    rc = implantISOFile((char *)args[0], supported, forceit, 0, &errstr);
+    if (rc) {
+	fprintf(stderr, "ERROR: %s\n", errstr);
+	exit(1);
+    } else {
+	exit(0);
+    }
 }

@@ -20,7 +20,7 @@
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
-int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported) {
+static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported) {
     unsigned char buf[2048];
     unsigned char buf2[512];
     unsigned char tmpbuf[512];
@@ -117,7 +117,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 /* returns -1 if no checksum encoded in media, 0 if no match, 1 if match */
 /* mediasum is the sum encoded in media, computedsum is one we compute   */
 /* both strings must be pre-allocated at least 33 chars in length        */
-int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
+static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) {
     int nread;
     int i;
     int appdata_start_offset, appdata_end_offset;
@@ -145,8 +145,11 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
     apoff = pvd_offset + APPDATA_OFFSET;
 
     buf = malloc(bufsize * sizeof(unsigned char));
-    printf("Percent complete: %05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
-    fflush(stdout);
+    if (!quiet) {
+	printf("Percent complete: %05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
+	fflush(stdout);
+    }
+
     while (offset < isosize - skipsectors*2048) {
 	nattempt = MIN(isosize - skipsectors*2048 - offset, bufsize);
 
@@ -178,12 +181,16 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
 	MD5_Update(&md5ctx, buf, nread);
 	offset = offset + nread;
 	
-	printf("\b\b\b\b\b\b%05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
-	fflush(stdout);
+	if (!quiet) {
+	    printf("\b\b\b\b\b\b%05.1f%%", (100.0*offset)/(isosize-skipsectors*2048.0));
+	    fflush(stdout);
+	}
     }
 
-    printf("\b\b\b\b\b\b\n\n", (100.0*offset)/(isosize-skipsectors*2048.0));
-    
+    if (!quiet) {
+	printf("\b\b\b\b\b\b\n\n", (100.0*offset)/(isosize-skipsectors*2048.0));
+    }
+
     sleep(1);
 
     free(buf);
@@ -223,7 +230,7 @@ static void readCB(void *co, long long pos) {
 }
 #endif
 
-int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported) {
+static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported, int quiet) {
     int rc;
     int llen;
     int skipsectors;
@@ -236,12 +243,12 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
 	return -1;
     }
 
-    rc = checkmd5sum(isofd, mediasum, computedsum);
+    rc = checkmd5sum(isofd, mediasum, computedsum, quiet);
 
     return rc;
 }
 
-int mediaCheckFile(char *file) {
+int mediaCheckFile(char *file, int quiet) {
     int isofd;
     int rc;
     char *result;
@@ -257,14 +264,15 @@ int mediaCheckFile(char *file) {
 	return -1;
     }
 
-    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize, &supported);
+    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize, &supported, quiet);
 
     close(isofd);
 
     /*    printf("isosize = %lld\n", isosize); 
 	  printf("%s\n%s\n", mediasum, computedsum);*/
 
-    fprintf(stderr, "The supported flag value is %d\n", supported);
+    if (!quiet)
+	fprintf(stderr, "The supported flag value is %d\n", supported);
 
     if ( rc == 0)
 	result = "FAIL.\n\nIt is not recommended to use this media.";
@@ -273,8 +281,9 @@ int mediaCheckFile(char *file) {
     else
 	result = "NA.\n\nNo checksum information available, unable to verify media.";
 
-    fprintf(stderr, "The media check is complete, the "
-		      "result is: %s\n", result);
+    if (!quiet)
+	fprintf(stderr, "The media check is complete, the "
+		"result is: %s\n", result);
 
     return rc;
 }
