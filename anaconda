@@ -421,13 +421,15 @@ if display_mode == 'g':
         startXServer = 1
         import xserver
         try:
-            if os.access("/etc/X11/XF86Config", os.R_OK):
+            if os.access("/etc/X11/XF86Config", os.R_OK) or os.access("/etc/X11/XF86Config-4", os.R_OK):
                 xcfg = xserver.start_existing_X ()
             else:
                 xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw,
                                        mousehw)
         except RuntimeError:
             print " X startup failed, falling back to text mode"
+            xcfg = xf86config.XF86Config(videohw.primaryCard(),
+                                         monitorhw, mousehw, runres)
             display_mode = 't'
             time.sleep(2)            
     else:
