@@ -219,6 +219,9 @@ EOF
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libX11* $MBD_DIR/$LIBDIR/
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXmuu* $MBD_DIR/$LIBDIR/
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXext* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXt* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libSM* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libICE* $MBD_DIR/$LIBDIR/
     install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
     install -m 755 $IMGPATH/usr/sbin/ldconfig $MBD_DIR/sbin/ldconfig
