@@ -763,6 +763,8 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
 	class = "tape"; break;
       case CLASS_NETWORK:
 	class = "net"; break;
+      case CLASS_FLOPPY:
+	class = "floppy"; break;
       case CLASS_UNSPEC:
       case CLASS_OTHER:
       case CLASS_SCSI:
@@ -770,8 +772,6 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
       case CLASS_AUDIO:
       case CLASS_MOUSE:
       case CLASS_MODEM:
-      case CLASS_FLOPPY:
-	class = "floppy"; break;
       case CLASS_SCANNER:
       case CLASS_RAID:
       case CLASS_PRINTER:
@@ -781,6 +781,7 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
       case CLASS_USB:
       case CLASS_SOCKET:
       case CLASS_FIREWIRE:
+      case CLASS_IDE:
 	break;
     }
 
