@@ -581,7 +581,7 @@ def doInstall(method, id, intf, instPath):
 	    nodeprob = rpm.RPMPROB_DISKNODES
 
 	for (descr, (type, mount, need)) in problems:
-            if mount.startswith('/mnt/sysimage'):
+            if mount.startswith(instPath):
 		mount = mount[13:]
 		if not mount:
 		    mount = '/'

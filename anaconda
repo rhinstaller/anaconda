@@ -230,7 +230,7 @@ if (progmode == 'rescue'):
     configFileData = configFile.getConfigData()
     
     id = instdata.InstallData([], "fd0", configFileData)
-    rescue.runRescue("/mnt/sysimage", not rescue_nomount, id)
+    rescue.runRescue(rootPath, not rescue_nomount, id)
 
     # shouldn't get back here
     sys.exit(1)

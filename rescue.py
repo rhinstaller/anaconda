@@ -90,12 +90,12 @@ def runRescue(instPath, mountroot, id):
     rc = ButtonChoiceWindow(screen, _("Rescue"),
         _("The rescue environment will now attempt to find your Red Hat "
           "Linux installation and mount it under the directory "
-          "/mnt/sysimage.  You can then make any changes required to your "
+          "%s.  You can then make any changes required to your "
           "system.  If you want to proceed with this step choose "
           "'Continue'.\n\n"
           "If for some reason this process fails you can choose 'Skip' "
           "and this step will be skipped and you will go directly to a "
-          "command shell.\n\n"),
+          "command shell.\n\n" % (instPath,)),
           [_("Continue"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
@@ -143,11 +143,11 @@ def runRescue(instPath, mountroot, id):
 	    upgrade.mountRootPartition(intf, root, fs, instPath,
 				       allowDirty = 1)
 	    ButtonChoiceWindow(screen, _("Rescue"),
-		_("Your system has been mounted under /mnt/sysimage.\n\n"
+		_("Your system has been mounted under %s.\n\n"
 		  "Press <return> to get a shell. If you would like to "
 		  "make your system the root environment, run the command:\n\n"
-		  "\tchroot /mnt/sysimage\n\nThe system will reboot "
-		  "automatically when you exit from the shell."),
+		  "\tchroot %s\n\nThe system will reboot "
+		  "automatically when you exit from the shell." % (instPath, instPath)),
 		  [_("OK")] )
             rootmounted = 1
 	except:
@@ -161,9 +161,9 @@ def runRescue(instPath, mountroot, id):
 
 	    ButtonChoiceWindow(screen, _("Rescue"),
 		_("An error occured trying to mount some or all of your "
-		  "system. Some of it may be mounted under /mnt/sysimage.\n\n"
+		  "system. Some of it may be mounted under %s.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
-		  "automatically when you exit from the shell."),
+		  "automatically when you exit from the shell." % (instPath,)),
 		  [_("OK")] )
     else:
 	ButtonChoiceWindow(screen, _("Rescue Mode"),
@@ -176,8 +176,8 @@ def runRescue(instPath, mountroot, id):
 
     print
     if rootmounted:
-        makeMtab("/mnt/sysimage")
-        print _("Your system is mounted under the /mnt/sysimage directory.")
+        makeMtab(instPath)
+        print _("Your system is mounted under the %s directory." % (instPath,))
         print
 
     print _("When finished please exit from the shell and your "

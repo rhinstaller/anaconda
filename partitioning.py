@@ -1267,7 +1267,7 @@ class DiskSet:
 
         return labels
 
-    def findExistingRootPartitions(self, intf):
+    def findExistingRootPartitions(self, intf, mountpoint):
         rootparts = []
 
         self.startAllRaid()
@@ -1279,18 +1279,18 @@ class DiskSet:
                 continue
 
             try:
-                isys.mount(dev, '/mnt/sysimage', readOnly = 1)
+                isys.mount(dev, mountpoint, readOnly = 1)
             except SystemError, (errno, msg):
                 try:
-                    isys.mount(dev, '/mnt/sysimage', "ext3", readOnly = 1)
+                    isys.mount(dev, mountpoint, "ext3", readOnly = 1)
                 except SystemError, (errno, msg):
                     intf.messageWindow(_("Error"),
                                        _("Error mounting filesystem "
                                          "on %s: %s") % (dev, msg))
                     continue
-            if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+            if os.access (mountpoint + '/etc/fstab', os.R_OK):
                 rootparts.append ((dev, "ext2"))
-            isys.umount('/mnt/sysimage')
+            isys.umount(mountpoint)
 
         self.stopAllRaid()
 
@@ -1313,20 +1313,20 @@ class DiskSet:
                                      or part.fs_type.name == "reiserfs"):
                     node = get_partition_name(part)
 		    try:
-			isys.mount(node, '/mnt/sysimage', part.fs_type.name)
+			isys.mount(node, mountpoint, part.fs_type.name)
 		    except SystemError, (errno, msg):
 			intf.messageWindow(_("Error"),
                                            _("Error mounting filesystem on "
                                              "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
-		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
 			rootparts.append ((node, part.fs_type.name))
-		    isys.umount('/mnt/sysimage')
+		    isys.umount(mountpoint)
                 elif part.fs_type and (part.fs_type.name == "FAT"):
                     node = get_partition_name(part)
                     try:
-                        isys.mount(node, '/mnt/sysimage', fstype = "vfat",
+                        isys.mount(node, mountpoint, fstype = "vfat",
                                    readOnly = 1)
                     except:
 			log("failed to mount vfat filesystem on %s\n" 
@@ -1334,10 +1334,10 @@ class DiskSet:
                         part = disk.next_partition(part)
 			continue
                         
-		    if os.access('/mnt/sysimage/redhat.img', os.R_OK):
+		    if os.access(mountpoint + '/redhat.img', os.R_OK):
                         rootparts.append((node, "vfat"))
 
-		    isys.umount('/mnt/sysimage')
+		    isys.umount(mountpoint)
                     
                 part = disk.next_partition(part)
         return rootparts

@@ -42,7 +42,7 @@ def findExistingRoots(intf, id, chroot):
     win = intf.waitWindow(_("Searching"),
                           _("Searching for Red Hat Linux installations..."))
 
-    rootparts = diskset.findExistingRootPartitions(intf)
+    rootparts = diskset.findExistingRootPartitions(intf, chroot)
     win.pop()
 
     return rootparts
@@ -58,7 +58,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if rootFs == "vfat":
 	mountLoopbackRoot(root)
     else:
-	isys.mount(root, '/mnt/sysimage', rootFs)
+	isys.mount(root, instPath, rootFs)
 
     oldfsset.reset()
     newfsset = fsset.readFstab(instPath + '/etc/fstab')
@@ -68,7 +68,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if rootFs == "vfat":
 	unmountLoopbackRoot()
     else:
-	isys.umount('/mnt/sysimage')        
+	isys.umount(instPath)        
 
     if not allowDirty and oldfsset.hasDirtyFilesystems():
         import sys

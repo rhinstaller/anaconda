@@ -142,8 +142,8 @@ def dumpException(out, text, tb, dispatch):
         traceback.print_exc(None, out)
 
     for file in ("/tmp/syslog", "/tmp/netinfo",
-                 "/mnt/sysimage/tmp/install.log",
-                 "/mnt/sysimage/tmp/upgrade.log"):
+                 dispatch.instPath + "/tmp/install.log",
+                 dispatch.instPath + "/tmp/upgrade.log"):
         try:
             f = open(file, 'r')
             line = "\n\n%s:\n" % (file,)
