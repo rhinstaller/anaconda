@@ -1,0 +1,107 @@
+02-25-2002
+----------
+
+Description of Anaconda Install Methods (and ways of updating it)
+-----------------------------------------------------------------
+
+Notes:
+------------
+
+ - "fully exploded tree" - this is a tree which in the root has the
+   the 'RedHat' directory from every CD image merged into a single
+   'RedHat' directory.
+
+ - "ISO" - the ISO image for a CD image.
+
+ - "anaconda update" - patches for anaconda to fix bugs/etc
+
+ - all paths without a leading '/' are relative to directory specified
+   to installer containing install source.
+
+ - 'updates.img' is a ext2 filesystem containing the updated sources and
+   shared libraries for anaconda.
+          
+Current Installation Methods:
+-----------------------------
+
+- CDROM
+-------
+
+  Summary:
+      This is pretty self-explanatory.  Mounts the CD and installs packages,
+      prompts user to switch CDs when the next disc is required.
+
+  Update Options: 
+      - floppy.
+      - 'updates.img' file in '/RedHat/base' directory of CD #1 image.
+
+- NFS (from a fully exploded tree)
+----------------------------------
+
+  Summary:
+      Mounts directory from NFS server.
+
+  Update Options:
+      - floppy.
+      - 'updates.img' file in 'RedHat/base' or 'RHupdates/' directory.
+      - updated python or shared libs in 'RHupdates/' directory are 
+        used in preference to those in original.
+
+- NFS (from a directory of ISOs)
+--------------------------------
+
+  Summary:
+      Loopback mounts ISO images from NFS server.
+
+  Update Options:
+      - floppy
+      - 'updates.img' file in 'RedHat/base' or 'RHupdates/' directory 
+      - updated python or shared libs in 'RHupdates/' directory are 
+        used in preference to those in original.
+
+- FTP/HTTP (from a fully exploded tree)
+---------------------------------------
+
+  Summary:
+      Pulls files from tree via FTP.
+
+  Update Options:
+      - floppy.
+      - 'updates.img' file in 'RedHat/base' directory.
+
+- FTP/HTTP (from a directory of loopback-mounted ISOs)
+------------------------------------------------------
+
+  Summary:
+      Pulls files from tree via FTP.  Looks in 'disc1/' directory to contain
+      files from CD #1, 'disc2/' for CD #2, etc.  These can be created on the
+      server by loopback mounting the ISO images into these directories under
+      the directory made available to ftp.
+
+  Update Options:
+      - floppy
+      - 'updates.img' file in '/RedHat/base' directory in ISO image for CD #1.
+
+Hard Drive from fully exploded tree (kickstart only)
+----------------------------------------------------
+
+  Summary:
+      Similar to NFS method - user specifies a top-level directory and
+      all files are sought under there.
+
+  Update Options:
+      - floppy.
+      - 'updates.img' file in '/RedHat/base' directory.
+
+Hard Drive from ISOs (non-kickstart only)
+-----------------------------------------
+
+  Summary:
+      Similar to NFS ISO-based method - loopback mounts ISOs in directory
+      specified by user.
+
+  Update Options:
+      - floppy.
+      - 'updates.img' file in '/RedHat/base' directory of ISO image for CD #1.
+  
+

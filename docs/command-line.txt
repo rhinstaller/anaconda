@@ -1,4 +1,4 @@
-8-23-2001
+2-25-2002
 ---------
 
 Boot time command args:
@@ -17,6 +17,9 @@ nofb            Do not use frame buffer for GUI install.
 nousb           Do not load USB support (helps if install hangs 
                 early sometimes).
 
+nousbstorage	Do not load usbstorage module in loader.  May help with
+		device ordering on SCSI systems.
+
 noprobe         Do not attempt to detect hw, prompts user instead.
 
 nopcmcia        Ignore PCMCIA controller in system.
@@ -31,6 +34,9 @@ dd              Use a driver disk.
 
 driverdisk      Same as 'dd'.
 
+mediacheck	Activates loader code to give user option of testing integrity
+		of install source (if an ISO-based method).
+
 rescue          Run rescue environment.
 
 nomount         Don't automatically mount any installed Linux partitions 
@@ -40,10 +46,11 @@ nopass          Don't pass keyboard/mouse info to stage 2 installer, good for
                 testing keyboard and mouse config screens in stage2 installer
                 during network installs.
 
-ksdevice        Takes an argument like 'eth0', tells install what network
-                device to use for kickstart from network.
 
 serial          Turns on serial console support.
+
+ksdevice        Takes an argument like 'eth0', tells install what network
+                device to use for kickstart from network.
 
 ks              Kickstart over NFS.
 
