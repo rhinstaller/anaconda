@@ -39,6 +39,7 @@
 #include "isys/probe.h"
 #include "isys/pci/pciprobe.h"
 
+#include "cdrom.h"
 #include "devices.h"
 #include "lang.h"
 #include "loader.h"
@@ -72,7 +73,12 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
 
-static void startNewt(void) {
+void doSuspend(void) {
+    newtFinished();
+    exit(1);
+}
+
+static void startNewt(int flags) {
     if (!newtRunning) {
 	newtInit();
 	newtCls();
@@ -80,6 +86,8 @@ static void startNewt(void) {
 
 	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 	newtRunning = 1;
+        if (FL_TESTING(flags)) 
+	    newtSetSuspendCallback((void *) doSuspend, NULL);
     }
 }
 
@@ -200,7 +208,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 	    for (i = 0; !justProbe && modList[i]; i++) {
 	    	if (modList[i]->major == DRIVER_SCSI) {
-		    startNewt();
+		    startNewt(flags);
 
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
@@ -224,10 +232,14 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
 		      moduleDeps modDeps, int flags) {
     int i;
     int rc;
+    int hasCdrom = 0;
 
     do {
+    /*
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class != DEVICE_CDROM) continue;
+
+	    hasCdrom = 1;
 
 	    logMessage("trying to mount device %s", kd->known[i].name);
 	    devMakeInode(kd->known[i].name, "/tmp/cdrom");
@@ -239,12 +251,18 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
 		umount("/mnt/source");
 	    }
 	}
+	*/
 
-	rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
+	if (hasCdrom) {
+	    rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
 			_("I could not find a Red Hat Linux "
 			  "CDROM in any of your CDROM drives. Please insert "
 			  "the Red Hat CD and press \"Ok\" to retry."));
-	if (rc == 2) break;
+	    if (rc == LOADER_BACK) break;
+	} else {
+	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
+	    if (rc == LOADER_BACK) break;
+	}
     } while (1);
 
     return LOADER_BACK;
@@ -268,7 +286,8 @@ static int ensureNetDevice(struct knownDevices * kd,
 
     /* It seems like expert mode should do something here? */
     if (!devName) {
-	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags);
+	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags,
+			   NULL);
 	if (rc) return rc;
 	kdFindNetList(kd);
     }
@@ -340,6 +359,7 @@ static int doMountImage(char * location, struct knownDevices * kd,
     char * installNames[10];
     int methodNum = 0;
     int networkAvailable = 0;
+    int localAvailable = 0;
     void * class;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
@@ -347,9 +367,14 @@ static int doMountImage(char * location, struct knownDevices * kd,
 	free(class);
     }
 
+    if ((class = isysGetModuleList(modInfo, DRIVER_SCSI))) {
+	localAvailable = 1;
+	free(class);
+    }
+
     for (i = 0; i < numMethods; i++) {
 	if ((networkAvailable && installMethods[i].network) ||
-		(!networkAvailable && !installMethods[i].network)) {
+		(localAvailable && !installMethods[i].network)) {
 	    if (i == defaultMethod) methodNum = numValidMethods;
 
 	    installNames[numValidMethods] = installMethods[i].name;
@@ -449,7 +474,7 @@ int main(int argc, char ** argv) {
 
     flags = parseCmdLineFlags(flags, cmdLine);
 
-    arg = FL_TESTING(flags) ? "/boot/module-info" : "/modules/module-info";
+    arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo)) {
         fprintf(stderr, "failed to read %s\n", arg);
@@ -471,7 +496,7 @@ int main(int argc, char ** argv) {
     pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
-    startNewt();
+    startNewt(flags);
 
     doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
 		 FL_TESTING(flags));
