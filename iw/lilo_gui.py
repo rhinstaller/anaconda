@@ -152,9 +152,11 @@ class LiloWindow (InstallWindow):
         i = 0
         while i < len:
             cur = text[i]
-            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
-                entry.emit_stop_by_name ("insert_text");
-                return;
+# lilo did not allow ' '!, grub does
+#            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
+            if cur == '#' or cur == '$' or cur == '=':
+                entry.emit_stop_by_name ("insert_text")
+                return
             i = i + 1
 
     def labelUpdated(self, *args):
@@ -218,7 +220,7 @@ class LiloWindow (InstallWindow):
 
         self.typeLabel.set_text(_("Type") + ":" + type)
         self.labelEntry.set_text(label)
-
+        
         # do not allow blank label to be default
         if not label:
             self.defaultCheck.set_active(0)
@@ -338,8 +340,9 @@ class LiloWindow (InstallWindow):
             if label == None:
                 print "label is None!!"
                 label = ""
-            self.imageList.append(("", "/dev/" + n, self.typeName(type), 
-                                    label))
+            row = ("", "/dev/" + n, self.typeName(type), label)
+            self.imageList.append(row)
+
             if (n == defaultDevice):
                 self.default = self.count
                 self.imageList.set_pixmap(self.count, 0, self.checkMark)
@@ -347,8 +350,6 @@ class LiloWindow (InstallWindow):
                 self.imageList.set_pixmap(self.count, 0, self.checkMark_Off)
             self.count = self.count + 1
 
-
-        self.imageList.connect("select_row", self.labelSelected)
         self.imageList.columns_autosize ()
         self.imageList.column_title_passive (1)
         self.imageList.set_border_width (5)
@@ -362,11 +363,13 @@ class LiloWindow (InstallWindow):
         tempBox.pack_start(self.deviceLabel, FALSE)
         tempBox.pack_start(self.typeLabel, FALSE)
         self.defaultCheck = GtkCheckButton(_("Default boot image"))
-        self.defaultCheck.connect("toggled", self.defaultUpdated)
 
         # Alliteration!
         self.labelLabel = GtkLabel(_("Boot label") + ":")
         self.labelEntry = GtkEntry(15)
+
+        self.imageList.connect("select_row", self.labelSelected)
+        self.defaultCheck.connect("toggled", self.defaultUpdated)
         self.labelEntry.connect("changed", self.labelUpdated)
         self.labelEntry.connect("insert_text", self.labelInsertText)
 
