@@ -1150,7 +1150,9 @@ class ToDo:
         loops = 0
         while deps and self.canResolveDeps (deps) and loops < 10:
             for (name, suggest) in deps:
-                log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
+                if name != _("no suggestion"):
+                    log ("Upgrade Dependency: %s needs %s, "
+                         "automatically added.", name, suggest)
             self.selectDeps (deps)
             deps = self.verifyDeps ()
             loops = loops + 1
