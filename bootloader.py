@@ -521,6 +521,14 @@ class x86BootloaderInfo(bootloaderInfo):
         
         if not self.useGrubVal:
             args.append("--useLilo")
+        if self.forceLBA32:
+            args.append("--lba32")
+        if not self.useLinear:
+            args.append("--nolinear")
+        if self.password:
+            args.append("--md5pass=%s" %(password))
+        
+        
         # XXX add location of bootloader here too
 
         return args
@@ -554,6 +562,9 @@ def availableBootDevices(diskSet, fsset):
 	    devs.append((dev, type))
 
     slash = fsset.getEntryByMountPoint('/')
+    if not slash or not slash.device or not slash.fsystem:
+        raise ValueError, ("Trying to pick boot devices but do not have a "
+                           "sane root partition.  Aborting install.")
     devs.append((slash.device.getDevice(), slash.fsystem.getName()))
 
     devs.sort()
