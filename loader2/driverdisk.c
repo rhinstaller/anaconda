@@ -332,8 +332,16 @@ int loadDriverDisks(int class, moduleList modLoaded,
                     moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                     struct knownDevices * kd, int flags) {
     int rc;
-    loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                        kd, flags, 1);
+
+    rc = newtWinChoice(_("Driver disk"), _("Yes"), _("No"), 
+                       _("Do you have a driver disk?"));
+    if (rc != 1)
+        return LOADER_OK;
+
+    rc = loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
+                             kd, flags, 1);
+    if (rc == LOADER_BACK)
+        return LOADER_OK;
 
     do {
         rc = newtWinChoice(_("More Driver Disks?"), _("Yes"), _("No"),
@@ -341,7 +349,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
         if (rc != 1)
             break;
         loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                            kd, flags, 1);
+                            kd, flags, 0);
     } while (1);
 
     return LOADER_OK;
