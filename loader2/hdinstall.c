@@ -205,6 +205,11 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
     copyUpdatesImg(path);
 
+    /* handle product.img now before we copy stage2 over... this allows
+     * us to keep our ramdisk size as small as possible */
+    sprintf(path, "%s/%s/RedHat/base/product.img", prefix, dir ? dir : "");
+    copyProductImg(path);
+
     rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg2.img", flags, 
 				  device, mntpoint);
     close(fd);

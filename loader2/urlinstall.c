@@ -92,6 +92,16 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         unlink("/tmp/ramfs/updates-disk.img");
     }
 
+    /* grab the product.img before netstg1.img so that we minimize our
+     * ramdisk usage */
+    if (!loadSingleUrlImage(ui, "RedHat/base/product.img", flags,
+                            "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
+                            "loop7", 1)) {
+        copyDirectory("/tmp/product-disk", "/tmp/product");
+        umountLoopback("/tmp/product-disk", "loop7");
+        unlink("/tmp/ramfs/product-disk.img");
+    }
+
     if (loadSingleUrlImage(ui, "RedHat/base/netstg2.img", flags,
                            "/tmp/ramfs/netstg2.img",
                            "/mnt/runtime", "loop0", 0)) {

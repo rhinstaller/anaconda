@@ -501,6 +501,15 @@ void copyUpdatesImg(char * path) {
     }
 }
 
+void copyProductImg(char * path) {
+    if (!access(path, R_OK)) {
+        if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
+            copyDirectory("/tmp/product-disk", "/tmp/product");
+            umountLoopback("/tmp/product-disk", "loop7");
+        }
+    }
+}
+
 
 /* verify that the stamp files in / of the initrd and the stage2 match */
 int verifyStamp(char * path) {
@@ -571,6 +580,10 @@ int mountStage2(char * path) {
 
     /* JKFIXME: this is kind of silly.. /mnt/source is hardcoded :/ */
     copyUpdatesImg("/mnt/source/RedHat/base/updates.img");
+
+    /* more hard coding */
+    copyProductImg("/mnt/source/RedHat/base/product.img");
+
     return 0;
 }
 

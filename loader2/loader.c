@@ -1271,14 +1271,14 @@ int main(int argc, char ** argv) {
     }
 
     if (useRHupdates) {
-        setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
+        setenv("PYTHONPATH", "/tmp/updates:/tmp/product:/mnt/source/RHupdates", 1);
         setenv("LD_LIBRARY_PATH", 
-               sdupprintf("/tmp/updates:/mnt/source/RHupdates:%s",
+               sdupprintf("/tmp/updates:/tmp/product:/mnt/source/RHupdates:%s",
                            getenv("LD_LIBRARY_PATH")), 1);
     } else {
-        setenv("PYTHONPATH", "/tmp/updates", 1);
+        setenv("PYTHONPATH", "/tmp/updates:/tmp/product", 1);
         setenv("LD_LIBRARY_PATH", 
-               sdupprintf("/tmp/updates:%s", getenv("LD_LIBRARY_PATH")), 1);
+               sdupprintf("/tmp/updates:/tmp/product:%s", getenv("LD_LIBRARY_PATH")), 1);
     }
 
 
