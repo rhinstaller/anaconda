@@ -696,6 +696,8 @@ static char *doLoaderMain(char * location,
         if (loaderData->method && *loaderData->method && 
             !strcmp(loaderData->method, installMethods[i].shortname)) {
             methodNum = numValidMethods;
+            /* disable the fast path (#102652) */
+            flags |= LOADER_FLAGS_ASKMETHOD;
         }
     }
 
