@@ -42,6 +42,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELBASE=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELBASE/moddeps
     MODMAPS=$KERNELBASE/modules.pcimap
+    USBMAPS=$KERNELBASE/modules.usbmap
     BUILDARCH=$5
 
     KERNELNAME=vmlinuz
@@ -93,6 +94,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
     TRIMMODMAP=$IMGPATH/usr/lib/anaconda-runtime/trimmodmap
+    TRIMUSBMAP=$IMGPATH/usr/lib/anaconda-runtime/trimusbmap
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
@@ -110,7 +112,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     touch $MODULESUSED
 
     REQUIREMENTS="$TRIMPCITABLE $TRIMMODMAP $PCITABLE $GETMODDEPS $MODINFO
-		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
+		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS $TRIMUSBMAP"
 
     dieLater=
     for n in $REQUIREMENTS; do
@@ -177,6 +179,7 @@ rundepmod () {
     $FAKEARCH /sbin/depmod -a -F $KERNELROOT/boot/System.map-$version \
             -b $KERNELROOT $version
     mv $KERNELROOT/lib/modules/$version/modules.pcimap $MODMAPS
+    mv $KERNELROOT/lib/modules/$version/modules.usbmap $USBMAPS
 
     cat $KERNELROOT/lib/modules/$version/modules.dep | $FILTERMODDEPS > $final 
 }
@@ -312,6 +315,9 @@ makemoduleball() {
     
     # create the modules.pcimap
     $TRIMMODMAP $PCITABLE $(find . -name *.ko -exec basename {} \;) < $MODMAPS > ../modules.pcimap
+
+    # create the modules.usbmap
+    $TRIMUSBMAP $(find . -name *.ko -exec basename {} \;) < $USBMAPS > ../modules.usbmap
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
