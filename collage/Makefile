@@ -1,6 +1,6 @@
 CFLAGS = -Wall -g
 LDFLAGS = -g
-LOADLIBES = -L../isys -lpopt -lz -lisys -lresolv -lrpm
+LOADLIBES = -L../isys -lpopt -lz -lisys -lresolv -lrpm -lbz2
 
 all:	collage
 

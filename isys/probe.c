@@ -10,8 +10,8 @@
 #include "probe.h"
 
 static int sortDevices(const void * a, const void * b) {
-    const struct device * one = a;
-    const struct device * two = b;
+    const struct kddevice * one = a;
+    const struct kddevice * two = b;
 
     return strcmp(one->name, two->name);
 }
@@ -25,7 +25,7 @@ static int deviceKnown(struct knownDevices * devices, char * dev) {
     return 0;
 }
 
-static void addDevice(struct knownDevices * devices, struct device dev) {
+static void addDevice(struct knownDevices * devices, struct kddevice dev) {
     if (devices->numKnown == devices->numKnownAlloced) {
     	devices->numKnownAlloced += 5;
     	devices->known = realloc(devices->known, 
@@ -37,7 +37,7 @@ static void addDevice(struct knownDevices * devices, struct device dev) {
 
 void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass, 
 		 char * devName, char * devModel) {
-    struct device new;
+    struct kddevice new;
 
     new.class = devClass;
     new.name = devName;
@@ -56,7 +56,7 @@ int kdFindNetList(struct knownDevices * devices) {
     int fd;
     char buf[1024];
     char * start, * end;
-    struct device newDevice;
+    struct kddevice newDevice;
 
     if ((fd = open("/proc/net/dev", O_RDONLY)) < 0) {
 	fprintf(stderr, "failed to open /proc/net/dev!\n");
@@ -84,7 +84,7 @@ int kdFindNetList(struct knownDevices * devices) {
 
 	    newDevice.name = strdup(start);
 	    newDevice.model = NULL;
-	    newDevice.class = DEVICE_NET;
+	    newDevice.class = CLASS_NETWORK;
 	    addDevice(devices, newDevice);
 	}
 
@@ -103,7 +103,7 @@ int kdFindIdeList(struct knownDevices * devices) {
     char path[80];
     int fd, i;
     struct dirent * ent;
-    struct device device;
+    struct kddevice device;
 
     if (access("/proc/ide", R_OK)) return 0;
 
@@ -121,13 +121,13 @@ int kdFindIdeList(struct knownDevices * devices) {
 		close(fd);
 		path[i - 1] = '\0';		/* chop off trailing \n */
 
-		device.class = DEVICE_UNKNOWN;
+		device.class = CLASS_UNSPEC;
 		if (!strcmp(path, "cdrom")) 
-		    device.class = DEVICE_CDROM;
+		    device.class = CLASS_CDROM;
 		else if (!strcmp(path, "disk"))
-		    device.class = DEVICE_DISK;
+		    device.class = CLASS_HD;
 
-		if (device.class != DEVICE_UNKNOWN) {
+		if (device.class != CLASS_UNSPEC) {
 		    device.name = strdup(ent->d_name);
 
 		    sprintf(path, "/proc/ide/%s/model", ent->d_name);
@@ -169,7 +169,7 @@ int kdFindScsiList(struct knownDevices * devices) {
     char driveName = 'a';
     char cdromNum = '0';
     char tapeNum = '0';
-    struct device device;
+    struct kddevice device;
 
     if (access("/proc/scsi/scsi", R_OK)) return 0;
 
@@ -269,13 +269,13 @@ int kdFindScsiList(struct knownDevices * devices) {
 	    *typebuf = '\0';
 	    if (strstr(start, "Direct-Access")) {
 		sprintf(typebuf, "sd%c", driveName++);
-		device.class = DEVICE_DISK;
+		device.class = CLASS_HD;
 	    } else if (strstr(start, "Sequential-Access")) {
 		sprintf(typebuf, "st%c", tapeNum++);
-		device.class = DEVICE_TAPE;
+		device.class = CLASS_TAPE;
 	    } else if (strstr(start, "CD-ROM")) {
 		sprintf(typebuf, "scd%c", cdromNum++);
-		device.class = DEVICE_CDROM;
+		device.class = CLASS_CDROM;
 	    }
 
 	    if (*typebuf && !deviceKnown(devices, typebuf)) {

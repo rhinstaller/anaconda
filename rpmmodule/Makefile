@@ -10,7 +10,7 @@ CC       = gcc
 INCLUDES = -I/usr/include/rpm -I/usr/include/python1.5
 CFLAGS   = -Wall -fPIC -g $(INCLUDES)
 
-LIBS     = -lrpm -lz -ldb1
+LIBS     = -lrpm -lbz2 -lz -ldb1
 LDFLAGS  = -shared -Wl,-soname,$(TARGET) $(LIBS)
 
 # what are we building here?

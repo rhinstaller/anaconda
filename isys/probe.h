@@ -1,16 +1,16 @@
 #ifndef H_PROBE
 #define H_PROBE
 
-struct device {
+#include "kudzu/kudzu.h"
+
+struct kddevice {
     char * name;		/* malloced */
     char * model;
-    enum deviceClass { DEVICE_UNKNOWN, DEVICE_DISK, DEVICE_CDROM, DEVICE_NET,
-    		       DEVICE_TAPE }
-    	class;
+    enum deviceClass class;
 };
 
 struct knownDevices {
-    struct device * known;
+    struct kddevice * known;
     int numKnown;
     int numKnownAlloced;
 };

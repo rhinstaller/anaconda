@@ -40,7 +40,7 @@
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
-#include "isys/pci/pciprobe.h"
+#include "kudzu/kudzu.h"
 
 #include "cdrom.h"
 #include "devices.h"
@@ -89,11 +89,11 @@ static char * mountUrlImage(struct installMethod * method,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
-    { N_("Local CDROM"), 0, DEVICE_CDROM, mountCdromImage },
-    { N_("NFS image"), 1, DEVICE_NET, mountNfsImage },
-    { "FTP", 1, DEVICE_NET, mountUrlImage },
-    { "HTTP", 1, DEVICE_NET, mountUrlImage },
-    { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
+    { N_("Local CDROM"), 0, CLASS_CDROM, mountCdromImage },
+    { N_("NFS image"), 1, CLASS_NETWORK, mountNfsImage },
+    { "FTP", 1, CLASS_NETWORK, mountUrlImage },
+    { "HTTP", 1, CLASS_NETWORK, mountUrlImage },
+    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -160,39 +160,40 @@ static void spawnShell(int flags) {
 
 static int detectHardware(moduleInfoSet modInfo, 
 			  struct moduleInfo *** modules, int flags) {
-    struct pciDevice **devices, **device;
+    struct device ** devices, ** device;
     struct moduleInfo * mod, ** modList;
     int numMods, i;
+    char *driver;
 
-    probePciFreeDrivers();
-    if (probePciReadDrivers(FL_TESTING(flags) ? "../isys/pci/pcitable" :
-			              "/modules/pcitable")) {
-        logMessage("An error occured while reading the PCI ID table");
-	return LOADER_ERROR;
-    }
+    initializeDeviceList();
 
-    logMessage("looking for devices on pci bus");
-    
-    devices = probePci(0, 0);
+    logMessage("probing buses");
+
+    devices = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
+
+    logMessage("finished bus probing");
+
     if (devices == NULL) {
         *modules = NULL;
 	return LOADER_OK;
     }
 
-    logMessage("returned from probePci");
-
     modList = malloc(sizeof(*modList) * 50);	/* should be enough */
     numMods = 0;
 
     for (device = devices; *device; device++) {
-	logMessage("found suggestion of %s", (*device)->driver);
-	if ((mod = isysFindModuleInfo(modInfo, (*device)->driver))) {
-	    logMessage("found %s device", (*device)->driver);
-	    for (i = 0; i < numMods; i++) 
-	        if (modList[i] == mod) break;
-	    if (i == numMods) 
-		modList[numMods++] = mod;
+	driver = (*device)->driver;
+	if (strcmp (driver, "ignore") && strcmp (driver, "unknown")) {
+	    logMessage("found suggestion of %s", driver);
+	    if ((mod = isysFindModuleInfo(modInfo, driver))) {
+		logMessage("found %s device", driver);
+		for (i = 0; i < numMods; i++) 
+		    if (modList[i] == mod) break;
+		if (i == numMods) 
+		    modList[numMods++] = mod;
+	    }
 	}
+	freeDevice (*device);
     }
 
     if (numMods) {
@@ -309,12 +310,13 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
     return 0;
 }
 
-int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
+int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
     struct moduleInfo ** modList;
 
-    if (!access("/proc/bus/pci/devices", R_OK)) {
+    if (!access("/proc/bus/pci/devices", R_OK) ||
+        !access("/proc/openprom", R_OK)) {
         /* autodetect whatever we can */
         if (detectHardware(modInfo, &modList, flags)) {
 	    logMessage("failed to scan pci bus!");
@@ -521,7 +523,7 @@ static char * mountHardDrive(struct installMethod * method,
     while (!done) {
 	numPartitions = 0;
 	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class == DEVICE_DISK) {
+	    if (kd->known[i].class == CLASS_HD) {
 		devMakeInode(kd->known[i].name, "/tmp/hddevice");
 		if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
 		    if ((rc = balkanReadTable(fd, &table))) {
@@ -668,7 +670,7 @@ static char * setupCdrom(struct installMethod * method,
 
     do {
 	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class != DEVICE_CDROM) continue;
+	    if (kd->known[i].class != CLASS_CDROM) continue;
 
 	    hasCdrom = 1;
 
@@ -720,7 +722,7 @@ static int ensureNetDevice(struct knownDevices * kd,
        let them specify multiple ones here?? */
 
     for (i = 0; i < kd->numKnown; i++) {
-	if (kd->known[i].class == DEVICE_NET) {
+	if (kd->known[i].class == CLASS_NETWORK) {
 	    devName = kd->known[i].name;
 	    break;
 	}
@@ -736,7 +738,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 
     if (!devName) {
 	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class == DEVICE_NET) {
+	    if (kd->known[i].class == CLASS_NETWORK) {
 		devName = kd->known[i].name;
 		break;
 	    }
@@ -1051,19 +1053,19 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     /* XXX kickstartDevices(modInfo, modLoaded, modDeps); */
 
     if (ksHasCommand(KS_CMD_NFS)) {
-	ksDeviceType = DEVICE_NET;
+	ksDeviceType = CLASS_NETWORK;
 	ksType = KS_CMD_NFS;
 	table = ksNfsOptions;
     } else if (ksHasCommand(KS_CMD_CDROM)) {
-	ksDeviceType = DEVICE_CDROM;
+	ksDeviceType = CLASS_CDROM;
 	ksType = KS_CMD_CDROM;
 	table = NULL;
     } else if (ksHasCommand(KS_CMD_HD)) {
-	ksDeviceType = DEVICE_UNKNOWN;
+	ksDeviceType = CLASS_UNSPEC;
 	ksType = KS_CMD_HD;
 	table = ksHDOptions;
     } else if (ksHasCommand(KS_CMD_URL)) {
-	ksDeviceType = DEVICE_NET;
+	ksDeviceType = CLASS_NETWORK;
 	ksType = KS_CMD_URL;
 	table = ksUrlOptions;
     } else {
@@ -1071,7 +1073,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	return NULL;
     }
 
-    if (ksDeviceType != DEVICE_UNKNOWN) {
+    if (ksDeviceType != CLASS_UNSPEC) {
 	for (i = 0; i < kd->numKnown; i++)
 	    if (kd->known[i].class == ksDeviceType) break;
 
@@ -1131,7 +1133,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	logMessage("partname is %s", partname);
 
 	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class != DEVICE_DISK) continue;
+	    if (kd->known[i].class != CLASS_HD) continue;
 	    if (!strncmp(kd->known[i].name, partname, strlen(partname) - 1))
 		break;
 	}
@@ -1400,7 +1402,7 @@ logMessage("Flags are 0x%x\n", flags);
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
-    pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
+    busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
     if (FL_KSHD(flags)) {
@@ -1452,7 +1454,7 @@ logMessage("Flags are 0x%x\n", flags);
 	sleep(5);
 	exit(1);
     }
-    pciProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     if (access("/proc/pci", X_OK) || FL_EXPERT(flags)) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
@@ -1476,11 +1478,11 @@ logMessage("Flags are 0x%x\n", flags);
 
     for (i = 0; i < kd.numKnown; i++) {
     	printf("%-5s ", kd.known[i].name);
-	if (kd.known[i].class == DEVICE_CDROM)
+	if (kd.known[i].class == CLASS_CDROM)
 	    printf("cdrom");
-	else if (kd.known[i].class == DEVICE_DISK)
+	else if (kd.known[i].class == CLASS_HD)
 	    printf("disk ");
-	else if (kd.known[i].class == DEVICE_NET)
+	else if (kd.known[i].class == CLASS_NETWORK)
 	    printf("net  ");
     	if (kd.known[i].model)
 	    printf(" %s\n", kd.known[i].model);

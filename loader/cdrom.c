@@ -77,7 +77,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 		    }
 		}
 
-		kdAddDevice(kd, DEVICE_CDROM, devName, NULL);
+		kdAddDevice(kd, CLASS_CDROM, devName, NULL);
 
 		done = 1;
 	    }

@@ -1561,11 +1561,8 @@ class Flag:
 
 class InstallInterface:
     def messageWindow(self, title, text):
-        self.screen.drawRootText(0 - len(title), 0, title)
 	ButtonChoiceWindow(self.screen, title, text,
                            buttons = [ _("OK") ])
-        self.screen.drawRootText(0 - len(title), 0,
-                                 (self.screen.width - len(title)) * " ")
     
     def exceptionWindow(self, title, text):
 	rc = ButtonChoiceWindow(self.screen, title, text,

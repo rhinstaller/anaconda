@@ -52,25 +52,25 @@ install: all
 	#rm -f $(DESTDIR)/sbin/init
 	#install -s loader $(DESTDIR)/sbin/loader
 	#install -s init $(DESTDIR)/sbin/init
-	#install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
+	#install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
 
 loader: loader.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        ../isys/pci/libpciprobe.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
+        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) 
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o pcmcia.o $(OBJS) \
 		-L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
-        ../isys/pci/libpciprobe.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
+        -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-pcmcia.o: loader.c
 	$(CC) -DINCLUDE_PCMCIA $(CFLAGS) -o $@ -c $^

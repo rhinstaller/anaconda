@@ -9,7 +9,6 @@
 
 #include "imount.h"
 #include "isys.h"
-#include "pci/pciprobe.h"
 #include "probe.h"
 #include "smp.h"
 
@@ -455,16 +454,13 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doPciProbe(PyObject * s, PyObject * args) {
-    struct pciDevice ** matches, ** item;
+    struct device ** matches, ** item;
     PyObject * list;
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-    /* may as well try <shrug> */
-    probePciReadDrivers("isys/pci/pcitable");
-    probePciReadDrivers("/etc/pcitable");
+    matches = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
 
-    matches = probePci(0, 1);
     if (!matches) {
 	Py_INCREF(Py_None);
 	return Py_None;
@@ -473,6 +469,7 @@ static PyObject * doPciProbe(PyObject * s, PyObject * args) {
     list = PyList_New(0);
     for (item = matches; *item; item++) {
 	PyList_Append(list, Py_BuildValue("s", (*item)->driver));
+	freeDevice (*item);
     }
 
     free(matches);
@@ -682,11 +679,11 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
     if (po->list.known[item].model) model = po->list.known[item].model;
 
     switch (po->list.known[item].class) {
-      case DEVICE_CDROM:
+      case CLASS_CDROM:
 	class = "cdrom"; break;
-      case DEVICE_DISK:
+      case CLASS_HD:
 	class = "disk"; break;
-      case DEVICE_NET:
+      case CLASS_NETWORK:
 	class = "net"; break;
     }
 

@@ -2,8 +2,7 @@ import string
 import os
 
 class LiloConfiguration:
-
-    def __repr__(self, tab = 0):
+    def __repr__ (self, tab = 0):
 	s = ""
 	for n in self.order:
 	    if (tab):
@@ -44,7 +43,7 @@ class LiloConfiguration:
 	f.close()
 	os.chmod(file, 0644)
 
-    def read(self, file):
+    def read (self, file):
 	f = open(file, "r")
 	image = None
 	for l in f.readlines():
