@@ -184,16 +184,16 @@ class ExceptionWindow:
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         hbox = GtkHBox (FALSE)
-        s = None
-        if s:
-            hbox.pack_start (GnomePixmap (pixmap_file('gnome-warning.png')),
-                             FALSE)
+        file = pixmap_file('gnome-warning.png')
+        if file:
+            hbox.pack_start (GnomePixmap (file), FALSE)
 
-        info = GtkLabel (_("An exceptional condition has occured.  This "
-                           "is most likely a bug.  Please copy the "
-                           "full text of this exception and file a bug "
-                           "report against anaconda at "
-                           "http://bugzilla.redhat.com/bugzilla"))
+        info = GtkLabel(_("An unhandled exception has occured.  This "
+                          "is most likely a bug.  Please copy the "
+                          "full text of this exception or save the crash "
+                          "dump to a floppy then file a detailed bug "
+                          "report against anaconda at "
+                          "http://bugzilla.redhat.com/bugzilla/"))
         info.set_line_wrap (TRUE)
         info.set_usize (400, -1)
 

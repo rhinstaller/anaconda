@@ -246,11 +246,12 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, title, text):
-	ugh = _("An internal error occurred in the installation program. "
-		"Please report this error to Red Hat (through the "
-		"bugzilla.redhat.com web site) as soon as possible. The "
-		"information on this failure may be saved to a floppy disk, "
-		"and will help Red Hat in fixing the problem.\n\n")
+	ugh = "%s\n\n" % (_("An unhandled exception has occured.  This "
+                            "is most likely a bug.  Please copy the "
+                            "full text of this exception or save the crash "
+                            "dump to a floppy then file a detailed bug "
+                            "report against anaconda at "
+                            "http://bugzilla.redhat.com/bugzilla/"),)
 
 	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
                            buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")])
