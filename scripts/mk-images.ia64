@@ -14,18 +14,18 @@ prepareBootImage() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
 	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
-	cp $KERNELROOT/boot/efi/vmlinux-* $MBD_BOOTTREE/vmlinux
+	cp $KERNELROOT/boot/efi/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	cat > $MBD_BOOTTREE/elilo.conf << EOF
 timeout=5
 
-image=vmlinux
+image=vmlinuz
         label=linux
         read-only
 	initrd=initrd.img
 EOF
 }
 
-makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
+makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	     --imagename boot.img \
 	     --bootdisksize 10240 \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \

@@ -84,7 +84,7 @@ class EliloConfiguration:
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel[rpm.RPMTAG_VERSION],
                                       kernel[rpm.RPMTAG_RELEASE], tag)
-	    kernelFile = "vmlinux" + kernelTag
+	    kernelFile = "vmlinuz" + kernelTag
 
 	    try:
 		(fsType, sl) = elilo.getImage(label)
@@ -132,12 +132,12 @@ if __name__ == "__main__":
     config.read ('/boot/efi/elilo.conf')
     print config
     print "image list", config.listImages()
-    config.delImage ('vmlinux-2.4.0-0.32')
+    config.delImage ('vmlinuz-2.4.0-0.32')
     print '----------------------------------'
     config = LiloConfigFile ()
     config.read ('/boot/efi/elilo.conf')
     print config
     print '----------------------------------'    
-    print config.getImage('vmlinux-2.4.0-0.32')
+    print config.getImage('vmlinuz-2.4.0-0.32')
     
 
