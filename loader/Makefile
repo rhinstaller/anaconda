@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-VERSION = 6.2
+VERSION = 7.0
 
 DESTDIR = ../../trees/initrd
 
@@ -42,6 +42,7 @@ endif
 
 ifeq (alpha, $(ARCH))
 BINS += loader
+OBJS += stubs.o
 endif
 
 ifeq (sparc, $(ARCH))
