@@ -122,7 +122,7 @@ nfsxmalloc(size_t size)
       void *ptr = malloc(size);
         if (!ptr)
 	    {
-		      error("Out of memory");
+		      perror("Out of memory");
 		            exit(1);
 	    }
 	  return ptr;
