@@ -233,6 +233,11 @@ class InstallProgressWindow (InstallWindow):
             }
 
         clist = GtkCList (4, (_("Status"), _("Packages"), _("Size"), _("Time")))
+        clist.column_titles_passive ()
+        clist.set_column_resizeable (0, FALSE)
+        clist.set_column_resizeable (1, FALSE)
+        clist.set_column_resizeable (2, FALSE)
+        clist.set_column_resizeable (3, FALSE)
         clist.set_column_justification (0, JUSTIFY_LEFT)
         clist.set_column_justification (1, JUSTIFY_RIGHT)
         clist.set_column_justification (2, JUSTIFY_RIGHT)
