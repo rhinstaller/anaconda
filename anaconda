@@ -36,7 +36,7 @@ if (debug):
     import pdb
     pdb.set_trace()
 
-if (not test and not localInstall and os.getpid() > 10):
+if (not test and not localInstall and os.getpid() > 50):
     print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
