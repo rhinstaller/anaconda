@@ -123,6 +123,11 @@ class AuthWindow (InstallWindow):
         self.ldapBasednLabel = GtkLabel (_("LDAP Base DN:"))
         self.ldapBasednLabel.set_alignment (0, 0)
 
+	# restore ldap settings
+        self.ldap.set_active (self.todo.auth.useLdap)
+	self.ldapServer.set_text (self.todo.auth.ldapServer)
+        self.ldapBasedn.set_text (self.todo.auth.ldapBasedn)
+         
         ldaptable = GtkTable (10, 4)
 
         ldaptable.attach (self.ldap, 0, 10, 0, 1)
@@ -153,6 +158,12 @@ class AuthWindow (InstallWindow):
         self.krb5AdminLabel = GtkLabel (_("Admin Server:"))
         self.krb5AdminLabel.set_alignment (0, 0)
 
+        # restore krb5 settings
+        self.krb5.set_active (self.todo.auth.useKrb5)
+        self.krb5Realm.set_text (self.todo.auth.krb5Realm)
+        self.krb5Kdc.set_text (self.todo.auth.krb5Kdc)
+        self.krb5Admin.set_text (self.todo.auth.krb5Admin)
+        
         krb5table = GtkTable (10, 4)
 
         krb5table.attach (self.krb5, 0, 10, 0, 1)
