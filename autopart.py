@@ -1368,7 +1368,10 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                                     if d in partitions.autoClearPartDrives:
                                         valid = 1
                                         break
-                                    
+
+                            if not r.multidrive:
+                                valid = 0
+
                             if valid:
                                 req.physicalVolumes.append(r.uniqueID)
             if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
