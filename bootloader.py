@@ -522,6 +522,13 @@ class x86BootloaderInfo(bootloaderInfo):
 	    os.rename(instRoot + "/boot/grub/menu.lst",
 		      instRoot + "/boot/grub/menu.lst.rpmsave")
         os.symlink("./grub.conf", instRoot + "/boot/grub/menu.lst")
+ 
+        # make a symlink for /etc/grub.conf since config files belong in /etc
+        if os.access (instRoot + "/etc/grub.conf", os.R_OK):
+	    os.rename(instRoot + "/etc/grub.conf",
+		      instRoot + "/etc/grub.conf.rpmsave")
+        os.symlink("../boot/grub/grub.conf", instRoot + "/etc/grub.conf")
+       
 
         if not os.access(instRoot + "/boot/grub/device.map", os.R_OK):
             f = open(instRoot + "/boot/grub/device.map", "w+")
@@ -624,13 +631,20 @@ class x86BootloaderInfo(bootloaderInfo):
 		  defaultDev, justConfig, intf):
         if len(kernelList) < 1:
             self.noKernelsWarn(intf)
-        
+
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useGrubVal))
         str = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useGrubVal))
+        # XXX move the lilo.conf out of the way if they're using GRUB
+        # so that /sbin/installkernel does a more correct thing
+        if self.useGrubVal:
+            os.rename(instRoot + "/etc/lilo.conf",
+                      instRoot + "/etc/lilo.conf.anaconda")
+        
+        
 
     def getArgList(self):
         args = bootloaderInfo.getArgList(self)
