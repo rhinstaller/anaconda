@@ -746,6 +746,7 @@ makedriverdisk () {
     size=$(expr $size / 1024)
 
     echo "Wrote $IMAGEPATH/${diskname}.img (${size}k)"
+    echo "${diskname}.img - ${modlabel}" >> $IMAGEPATH/README
 
     if [ -n "$PADSIZE" ]; then
 	padfile $IMAGEPATH/${diskname}.img $PADSIZE
