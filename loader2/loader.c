@@ -261,10 +261,16 @@ static void spawnShell(int flags) {
         
         signal(SIGINT, SIG_DFL);
         signal(SIGTSTP, SIG_DFL);
-        
+
+#if defined(__x86_64__) || defined(__s390x__) || defined(__ppc64__)
+        setenv("LD_LIBRARY_PATH",
+               "/lib64:/usr/lib64:/usr/X11R6/lib64:/usr/kerberos/lib64:/mnt/usr/lib64:"
+               "/mnt/sysimage/lib64:/mnt/sysimage/usr/lib64", 1);
+#else
         setenv("LD_LIBRARY_PATH",
                "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
                "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
+#endif
         
         execl("/bin/sh", "-/bin/sh", NULL);
         logMessage("exec of /bin/sh failed: %s", strerror(errno));
