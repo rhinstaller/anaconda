@@ -580,35 +580,27 @@ class DiskSet:
 	lvm.vgscan()
 	lvm.vgactivate()
 
-        vgs = []
-        if os.path.isdir("/proc/lvm/VGs"):
-            vgs = os.listdir("/proc/lvm/VGs")
-        for vg in vgs:
-            if not os.path.isdir("/proc/lvm/VGs/%s/LVs" %(vg,)):
-                log("Unable to find LVs for %s" % (vg,))
-                continue
-            lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
-            for lv in lvs:
-                dev = "/dev/%s/%s" %(vg, lv)
-                found = 0
-                for fs in fsset.getFStoTry(dev):
-                    try:
-                        isys.mount(dev, mountpoint, fs, readOnly = 1)
-                        found = 1
-                        break
-                    except SystemError:
-                        pass
+        for (vg, lv, size) in lvm.lvlist():
+            dev = "/dev/%s/%s" %(vg, lv)
+            found = 0
+            for fs in fsset.getFStoTry(dev):
+                try:
+                    isys.mount(dev, mountpoint, fs, readOnly = 1)
+                    found = 1
+                    break
+                except SystemError:
+                    pass
 
-                if found:
-                    if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        relstr = getRedHatReleaseString(mountpoint)
-                        cmdline = open('/proc/cmdline', 'r').read()
-
-                        if ((cmdline.find("upgradeany") != -1) or
-                            (upgradeany == 1) or
-                            (productMatches(relstr, productName))):
-                            rootparts.append ((dev, fs, relstr))
-                    isys.umount(mountpoint)
+            if found:
+                if os.access (mountpoint + '/etc/fstab', os.R_OK):
+                    relstr = getRedHatReleaseString(mountpoint)
+                    cmdline = open('/proc/cmdline', 'r').read()
+                    
+                    if ((cmdline.find("upgradeany") != -1) or
+                        (upgradeany == 1) or
+                        (productMatches(relstr, productName))):
+                        rootparts.append ((dev, fs, relstr))
+                isys.umount(mountpoint)
 
 	lvm.vgdeactivate()
 
