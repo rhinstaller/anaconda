@@ -36,6 +36,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     IMGPATH=$4
     KERNELBASE=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELBASE/moddeps
+    MODMAPS=$KERNELBASE/modules.pcimap
     BUILDARCH=$5
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
@@ -84,6 +85,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
+    TRIMMODMAP=$IMGPATH/usr/lib/anaconda-runtime/trimmodmap
     GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
     KEYMAPS=/tmp/keymaps-$BUILDARCH.$$
     SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
@@ -100,7 +102,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     touch $MODULESUSED
 
-    REQUIREMENTS="$TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO
+    REQUIREMENTS="$TRIMPCITABLE $TRIMMODMAP $PCITABLE $GETMODDEPS $MODINFO
 		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
 
     dieLater=
@@ -170,6 +172,9 @@ rundepmod () {
     $FAKEARCH /sbin/depmod -e -F $KERNELROOT/boot/System.map-$version \
 	    $what > $final.foo 2>&1 | 
 	    egrep -v "modprobe: (${exclpattern}) multiply defined"
+    $FAKEARCH /sbin/depmod -a -F $KERNELROOT/boot/System.map-$version \
+            -b $KERNELROOT $version
+    mv $KERNELROOT/lib/modules/$version/modules.pcimap $MODMAPS
 
     # For paride we need to change this:
     # aten: paride
@@ -313,7 +318,7 @@ makemoduleball() {
     MMB_MODULESET=$(resdeps $2)
 
     rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep \
-	   $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
+	   $MMB_DIR/modules.pcimap $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
     mkdir -p $MMB_DIR/modules
 
     MMB_MODULESET=$(intcopymodules "$MMB_MODULESET" $MMB_DIR/modules)
@@ -332,6 +337,9 @@ makemoduleball() {
 
     # create the pcitable
     $TRIMPCITABLE $(find . -name *.o -exec basename {} \;) < $PCITABLE > ../pcitable
+    
+    # create the modules.pcimap
+    $TRIMMODMAP $PCITABLE $(find . -name *.o -exec basename {} \;) < $MODMAPS > ../modules.pcimap
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
