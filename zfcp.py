@@ -16,6 +16,7 @@
 import string
 import os
 import iutil
+import isys
 
 from rhpl.translate import _, N_
 from rhpl.log import log
@@ -24,6 +25,17 @@ from rhpl.log import log
 class ZFCP:
     def __init__(self):
         self.readConfig()
+
+    def updateConfig(self, fcpdevices, diskset, intf):
+        self.writeFcpSysfs(fcpdevices)
+        self.writeModprobeConf(fcpdevices)
+        self.writeZFCPconf(fcpdevices)
+        isys.flushDriveDict()
+        diskset.refreshDevices(intf)
+        try:
+            iutil.makeDriveDeviceNodes()
+        except:
+            pass
 
     # remove the configuration from sysfs, required when the user
     # steps backward from the partitioning screen and changes fcp configuration
@@ -127,16 +139,11 @@ class ZFCP:
                 except:
                     pass
 
-    def write(self, instPath):
-        if not len(self.fcpdevices):
+    def writeZFCPconf(self, fcpdevices):
+        if not len(fcpdevices):
             return
-        if not os.path.isdir("%s/etc/" %(instPath,)):
-            iutil.mkdirChain("%s/etc/" %(instPath,))
-
-        fn = "%s/etc/zfcp.conf" % (instPath,)
-        f = open(fn, "w")
-        os.chmod(fn, 0644)
-        for dev in self.fcpdevices:
+        f = open("/tmp/zfcp.conf", "w")
+        for dev in fcpdevices:
             f.write("%s %s %s %s %s\n" % (dev[0], dev[1], dev[2], dev[3], dev[4],))
         f.close()
 

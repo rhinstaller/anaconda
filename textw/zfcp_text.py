@@ -19,7 +19,6 @@ from constants_text import *
 from rhpl.translate import _
 from flags import flags
 from rhpl.log import log
-import isys,iutil
 import copy
 
 class ZFCPWindow:
@@ -64,7 +63,6 @@ class ZFCPWindow:
 
 	    if (result == "cancel"):
 		screen.popWindow ()
-		res = fcpdev
                 break
             
             elif (result  == TEXT_OK_CHECK or result == TEXT_F12_CHECK):
@@ -73,7 +71,6 @@ class ZFCPWindow:
                 fcpdev = (string.lower(devEntry.value()), string.lower(sidEntry.value()),
                           string.lower(wwpnEntry.value()), string.lower(slunEntry.value()),
                           string.lower(fcplunEntry.value()))
-                res = fcpdev
                 break
 
         screen.popWindow()
@@ -174,14 +171,6 @@ class ZFCPWindow:
 
         fcp.fcpdevices = fcpdevs
 
-        # FIXME: this should be common between tui & gui
-        fcp.writeFcpSysfs(fcp.fcpdevices)
-        fcp.writeModprobeConf(fcp.fcpdevices)
-        isys.flushDriveDict()
-        self.diskset.refreshDevices(intf)
-        try:
-            iutil.makeDriveDeviceNodes()
-        except:
-            pass
+        fcp.updateConfig(fcp.fcpdevices, diskset, intf)
         
         return INSTALL_OK

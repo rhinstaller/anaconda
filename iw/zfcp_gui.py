@@ -17,9 +17,6 @@ import gobject
 from iw_gui import *
 import gui
 from rhpl.translate import _, N_
-import os
-import isys
-import iutil
 import string
 
 class ZFCPWindow(InstallWindow):
@@ -36,14 +33,7 @@ class ZFCPWindow(InstallWindow):
                         (_("FCP LUN"),       1, self.handleInvalidFCPLun)]
 
     def getNext(self):
-        self.fcp.writeFcpSysfs(self.fcpdevices)
-        self.fcp.writeModprobeConf(self.fcpdevices)
-        isys.flushDriveDict()
-        self.diskset.refreshDevices(self.intf)
-        try:
-            iutil.makeDriveDeviceNodes()
-        except:
-            pass
+        self.fcp.updateConfig(self.fcpdevices, self.diskset, self.intf)
 
     def handleInvalidDevice(self):
         self.intf.messageWindow(_("Error With Data"),
@@ -209,10 +199,6 @@ class ZFCPWindow(InstallWindow):
         if not iter:
             return None
         devicenum = model.get_value(iter, 0)
-        scsiid = model.get_value(iter, 1)
-        wwpn = model.get_value(iter, 2)
-        scsilun = model.get_value(iter, 3)
-        fcplun = model.get_value(iter, 4)
 
         # create dialog box
         editWin = gtk.Dialog(_("Edit FCP device %s") % (devicenum,),
