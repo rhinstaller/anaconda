@@ -1103,7 +1103,7 @@ static int ensureNetDevice(struct knownDevices * kd,
        or return LOADER_BACK, in which case we don't get here. */
     if (!deviceNums) return LOADER_ERROR;
 
-    if (deviceNums == 1 || FL_KICKSTART(flags)) {
+    if (deviceNums == 1 || FL_KICKSTART(flags) || FL_KSNFS(flags)) {
 	*devNamePtr = devices[0];
 	return 0;
     }
