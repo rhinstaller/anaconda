@@ -12,6 +12,10 @@ Prereq: chkconfig /etc/init.d
 Requires: rpm-python
 Excludearch: sparc sparc64
 
+%ifarch i386
+BuildRequires: diet
+%endif
+
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
 %description
