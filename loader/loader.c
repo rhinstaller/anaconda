@@ -2388,12 +2388,8 @@ logMessage("getting ready to spawn shell now");
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
-
-    #ifdef __i386__
-	/* We need this for loopback installs */
-	mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    #endif
 
     stopNewt();
     closeLog();
