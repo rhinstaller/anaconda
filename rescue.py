@@ -156,8 +156,7 @@ def runRescue(instPath, mountroot, id):
 	    # errors raise exceptions, while any runtime error will
 	    # still result in a shell. 
 	    (exc, val) = sys.exc_info()[0:2]
-	    #if exc in (IndexError, ValueError, SyntaxError):
-	    if 1:
+	    if exc in (IndexError, ValueError, SyntaxError):
 		raise exc, val, sys.exc_info()[2]
 
 	    ButtonChoiceWindow(screen, _("Rescue"),
