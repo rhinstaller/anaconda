@@ -359,6 +359,9 @@ if [ "$NETTYPE" = "ctc" ]; then
    echo "export REMIP=$GATEWAY" >> /etc/profile
 fi
 
+# I'm tired of typing this out...
+echo "loader" >> /.bash_history
+
 startinetd
 
 umount -a
