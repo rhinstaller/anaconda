@@ -452,16 +452,23 @@ class AdvancedBootloaderWindow (InstallWindow):
                                         type="warning")
                 continue
 
+            # if we're editing a previous, get what the old info was for
+            # labels.  otherwise, make it something safe for grub and the
+            # device name for lilo for lack of any better ideas
+            if oldDevice:
+                (oldshort, oldlong, oldisroot) = self.imagelist[oldDevice]
+            else:
+                (oldshort, oldlong, oldisroot) = (dev, label, None)
+                
             # if we're editing and the device has changed, delete the old
             if oldDevice and dev != oldDevice:
                 del self.imagelist[oldDevice]
                 
-
             # go ahead and add it
             if self.bl.useGrub():
-                self.imagelist[dev] = (None, label, isRoot)
+                self.imagelist[dev] = (oldshort, label, isRoot)
             else:
-                self.imagelist[dev] = (label, None, isRoot)
+                self.imagelist[dev] = (label, oldlong, isRoot)
 
             if default.get_active():
                 self.defaultDev = dev
