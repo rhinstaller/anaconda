@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 19:01+0530\n"
+"PO-Revision-Date: 2004-07-23 11:02+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -2140,15 +2140,17 @@ msgstr "નકારાઈ ગયું"
 
 #: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "હું અંહિથી પહેલાના પગલે જઈ શકતો નથી. તમારે ફરીથી પ્રયત્ન કરવો પડશે."
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
+"જ્યારે પૂર્ણ થાય ત્યારે મહેરબાની કરીને શેલમાંથી બહાર નીકળો અને "
+"તમારી સિસ્ટમ રીબુટ થશે."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 msgid "Rescue"
-msgstr ""
+msgstr "જોખમ"
 
 #: ../rescue.py:257
 #, python-format
@@ -2163,33 +2165,42 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"જોખમવાળું પર્યાવરણ હવે તમારું લિનક્સ સ્થાપન શોધશે અને તેને"
+"%s ડિરેક્ટરી હેઠળ માઉન્ટ કરશે. પછી તમે તમારી સિસ્ટમ માટે જરુરી"
+"પરિવર્તનો કરી શકો છો. જો તમે આ પગલા સાથે આગળ વધવા માંગો"
+"તો ચાલુ રાખો. તમે તમારી સિસ્ટમને માત્ર વાંચી શકાય તેવી સ્થિતિમાં"
+"પણ માઉન્ટ કરી શકો છો.\n"
+"\n"
+"જો કોઈ કારણોસર તમારી પ્રક્રિયા નિષ્ફળ જાય તો તમે બંધ કરી શકો છો"
+"અને તમે સીધા જ શેલ પર જઈ શકો છો.\n"
+"\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
 #: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
 msgid "Continue"
-msgstr ""
+msgstr "ચાલુ રાખો"
 
 #: ../rescue.py:267 ../rescue.py:276
 msgid "Read-Only"
-msgstr ""
+msgstr "માત્ર વાંચી શકાય તેવું"
 
 #: ../rescue.py:267 ../rescue.py:269 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
 #: ../loader2/cdinstall.c:256 ../loader2/method.c:406
 msgid "Skip"
-msgstr ""
+msgstr "છોડી દો"
 
 #: ../rescue.py:299
 msgid "System to Rescue"
-msgstr ""
+msgstr "જોખમી સિસ્ટમ"
 
 #: ../rescue.py:300
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "કયો પાર્ટીશન તમારા રુટ પાર્ટીશનના સ્થાપનને પકડી રાખશે?"
 
 #: ../rescue.py:302 ../rescue.py:306
 msgid "Exit"
-msgstr ""
+msgstr "બહાર નીકળો"
 
 #: ../rescue.py:326
 msgid ""
@@ -2197,6 +2208,10 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"તમારી સિસ્ટમમાં ગંદી ફાઈલ સિસ્ટમ છે કે જે માઉન્ટ કરવા માટે તમે નહિં "
+"પસંદ કરી શકો છો. શેલ મેળવવા માટે એન્ટર દબાવો કે જેમાંથી તમે તમારા "
+"પાર્ટીશનો માઉન્ટ અને fsck કરી શકો છો. તમે જ્યારે શેલમાંથી બહાર નીકળો ત્યારે "
+"તમારી સિસ્ટમ આપોઆપ રીબુટ થશે."
 
 #: ../rescue.py:334
 #, python-format
@@ -2210,6 +2225,14 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"તમારી સિસ્ટમ %s હેઠળ માઉન્ટ થઈ.\n"
+"\n"
+"શેલ મેળવવા માટે એન્ટર દબાવો. જો તમે તમારી સિસ્ટમને રુટ પર્યાવરણ"
+"આપવા માંગો, તો આદેશ ચલાવો:\n"
+"\n"
+"\tchroot %s\n"
+"\n"
+"તમે જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી સિસ્ટમ આપોઆપ રીબુટ થશે."
 
 #: ../rescue.py:405
 #, python-format
@@ -2220,77 +2243,84 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"તમારી સિસ્ટમનું અમુક અથવા બધુ માઉન્ટ કરવાનો પ્રયત્ન કરતાં ભૂલ ઉદ્ભવી. "
+"તેમાના અમુક %s હેઠળ માઉન્ટ થશે.\n"
+"\n"
+"શેલ મેળવવા માટે એન્ટર દબાવો. તમે જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી "
+"સિસ્ટમ આપોઆપ રીબુટ થશે."
 
 #: ../rescue.py:411
 msgid "Rescue Mode"
-msgstr ""
+msgstr "જોખમી સ્થિતિ"
 
 #: ../rescue.py:412
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"તમારી પાસે કોઈ લિનક્સ પાર્ટીશન નથી. શેલ મેળવવા માટે એન્ટર દબાવો. તમે "
+"જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી સિસ્ટમ આપોઆપ રીબુટ થશે."
 
 #: ../rescue.py:423
 #, python-format
 msgid "Your system is mounted under the %s directory."
-msgstr ""
+msgstr "તમારી સિસ્ટમ %s ડિરેક્ટરી હેઠળ માઉન્ટ થયેલ છે."
 
 #: ../text.py:193
 msgid "Help not available"
-msgstr ""
+msgstr "મદદ ઉપ્લબ્ધ નથી"
 
 #: ../text.py:194
 msgid "No help is available for this step of the install."
-msgstr ""
+msgstr "સ્થાપનના આ પગથિયા માટે કોઈ મદદ ઉપ્લબ્ધ નથી."
 
 #: ../text.py:294
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "ક્રેશ ડમ્પ સંગ્રહો"
 
 #: ../text.py:315 ../text.py:323
 msgid "Save"
-msgstr ""
+msgstr "સંગ્રહો"
 
 #: ../text.py:315 ../text.py:318 ../text.py:321
 msgid "Debug"
-msgstr ""
+msgstr "ભૂલ શોધો"
 
 #: ../text.py:358
 #, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr ""
+msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:365
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
+msgstr " <F1> મદદ માટે | <Tab> ભાગો વચ્ચે | <Space> પસંદ કરે છે | <F12> આગળની સ્ક્રીન"
 
 #: ../text.py:367
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> ભાગો વચ્ચે    |  <Space> પસંદ કરે છે   |  <F12> આગળની સ્ક્રીન"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
-msgstr ""
+msgstr "વર્તમાન સિસ્ટમ સુધારે છે"
 
 #: ../upgradeclass.py:12
 msgid "Upgrade"
-msgstr ""
+msgstr "સુધારો"
 
 #: ../upgrade.py:62
 msgid "Searching"
-msgstr ""
+msgstr "શોધી રહ્યા છીએ"
 
 #: ../upgrade.py:63
 #, python-format
 msgid "Searching for %s installations..."
-msgstr ""
+msgstr "%s સ્થાપનો શોધી રહ્યા છીએ..."
 
 #: ../upgrade.py:115 ../upgrade.py:123
 msgid "Dirty File Systems"
-msgstr ""
+msgstr "ગંદી ફાઈલ સિસ્ટમો"
 
 #: ../upgrade.py:116
 #, python-format
@@ -2300,6 +2330,10 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"તમારી લિનક્સ સિસ્ટમ માટે નીચેની ફાઈલ સિસ્ટમો સંપૂર્ણ રીતે માઉન્ટ દૂર "
+"કરી શકાઈ નથી. મહેરબાની કરીને તમારું લિનક્સ સ્થાપન ચાલુ કરો, ફાઈલ"
+"સિસ્ટમને ચકાસવાની તક આપો અને બંધ કર્યા પછી સુધારો કરો.\n"
+"%s"
 
 #: ../upgrade.py:124
 #, python-format
@@ -2308,16 +2342,22 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"તમારી લિનક્સ સિસ્ટમ માટે નીચેની ફાઈલ સિસ્ટમો સંપૂર્ણ રીતે માઉન્ટ દૂર "
+"કરી શકાઈ નથી. શું તમે કોઈ પણ રીતે માઉન્ટ કરવા માંગો છો?\n"
+"%s"
 
 #: ../upgrade.py:258 ../upgrade.py:264
 msgid "Mount failed"
-msgstr ""
+msgstr "માઉન્ટ નિષ્ફળ"
 
 #: ../upgrade.py:259
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"તમારી લિનક્સ સિસ્ટમના /etc/fstab મા યાદિત કરેલ એક અથવા વધુ "
+"ફાઈલ સિસ્ટમો માઉન્ટ કરી શકાઈ નથી. મહેરબાની કરીને આ સમસ્યા દૂર "
+"કરો અને સુધારો કરવાનો ફરીથી પ્રયત્ન કરો."
 
 #: ../upgrade.py:265
 msgid ""
@@ -2325,6 +2365,9 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
+"તમારી લિનક્સ સિસ્ટમના /etc/fstab મા યાદિત કરેલ એક અથવા વધુ "
+"ફાઈલ સિસ્ટમો ચોક્કસ નથી અને માઉન્ટ કરી શકાઈ નથી. મહેરબાની કરીને "
+"આ સમસ્યા દૂર કરો અને સુધારો કરવાનો ફરીથી પ્રયત્ન કરો."
 
 #: ../upgrade.py:282
 msgid ""
@@ -2333,10 +2376,14 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"નીચેની ફાઈલો એ ચોક્કસ સંજ્ઞાવાળી કડીઓ છે, કે જે અમે સુધારા દરમ્યાન "
+"આધાર આપતા નથી. મહેરબાની કરીને સંબંધિત સંજ્ઞાવાળી કડીઓમાં ફેરવાે અને "
+"સુધારો ફરીથી શરુ કરો.\n"
+"\n"
 
 #: ../upgrade.py:288
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "ચોક્કસ સંજ્ઞાવાળી કડીઓ"
 
 #: ../upgrade.py:299
 msgid ""
@@ -2345,23 +2392,27 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"નીચેની ડિરેક્ટરીઓ કે જે સંજ્ઞાવાળી કડીઓ છે, કે જે સુધારા સાથે સમસ્યાઓ "
+"ઊભી કરે છે. મહેરબાની કરીને તેમને સંજ્ઞાવાળી કડીઓની મૂળ સ્થિતિમાં ફેરવો "
+"અને સુધારો ફરીથી શરુ કરો.\n"
+"\n"
 
 #: ../upgrade.py:305
 msgid "Invalid Directories"
-msgstr ""
+msgstr "અયોગ્ય ડિરેક્ટરીઓ"
 
 #: ../upgrade.py:311
 #, python-format
 msgid "%s not found"
-msgstr ""
+msgstr "%s મળ્યુ નથી"
 
 #: ../upgrade.py:354
 msgid "Finding"
-msgstr ""
+msgstr "શોધી રહ્યા છીએ"
 
 #: ../upgrade.py:355
 msgid "Finding packages to upgrade..."
-msgstr ""
+msgstr "સુધારો કરવા માટે પેકેજો શોધી રહ્યા છીએ..."
 
 #: ../upgrade.py:367
 msgid ""
@@ -2369,10 +2420,13 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"સ્થાપનનો કાર્યક્રમ pre-rpm 4.x ડેટાબેેઝ સાથે સિસ્ટમને સુધારવા માટે"
+"અસમર્થ છે. મહેરબાની કરીને આવૃત્તિ નોંધોમાં દર્શાવ્યા પ્રમાણે તમારી આવૃત્તિ માટે "
+"errata rpm પેકેજો સ્થાપિત કરો અને પછી સુધારાની પ્રક્રિયા શરુ કરો."
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
-msgstr ""
+msgstr "સુધારો કરવા માટે પેકેજો શોધતાં ભૂલ ઉદ્ભવી."
 
 #: ../upgrade.py:422
 #, python-format
