@@ -151,8 +151,9 @@ class AutoPartitionWindow:
 	      "this install by partitioning manually, or you can go back "
 	      "and perform a fully customized installation.") % 
 		    (_(todo.getPartitionWarningText()), ),
-	    [_("Continue"), _("Manually partition")], 
-	    buttons = basicButtons, default = _("Continue"), 
+	    [_("Continue"), _("Manually partition")],
+	    buttons = ((_("Ok"), "ok"), (_("Back"), "back")),
+            default = _("Continue"), 
 	    help = "confirmautopart")
 
 	if (rc == "back"): 
