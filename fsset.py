@@ -1550,7 +1550,7 @@ class VolumeGroupDevice(Device):
             # rescan now that we've recreated pvs.  ugh.
             lvm.vgscan()
 
-            args = [ "/usr/sbin/vgcreate", "-v",
+            args = [ "/usr/sbin/vgcreate", "-v", "-An",
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
@@ -1591,7 +1591,7 @@ class LogicalVolumeDevice(Device):
             rc = iutil.execWithRedirect("/usr/sbin/lvcreate",
                                         ["lvcreate", "-L",
                                          "%dM" % (self.size,),
-                                         "-n", self.name,
+                                         "-n", self.name, "-An",
                                          self.volumeGroup],
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
