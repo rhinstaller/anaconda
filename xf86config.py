@@ -892,7 +892,7 @@ class XF86Config:
         config.write (config4)
         config.close ()
 
-    def writeKS (self, f):
+    def writeKS (self, f, desktop=None):
         if self.skipx:
             f.write("skipx\n")
             return
