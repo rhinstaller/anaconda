@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-29 18:52-0500\n"
-"PO-Revision-Date: 2001-03-21 02:15+0900\n"
+"PO-Revision-Date: 2001-03-30 12:24+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,6 +137,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"%s (을)를 포맷하는 도중 오류가 발생되었습니다. 지금과 같은 상황은 매우 "
+"심각한 상황이므로 설치를 계속 진행할 수 없습니다.\n"
+"\n"
+"[엔터] 키를 누르시면, 시스템을 재부팅 합니다."
 
 #: ../fstab.py:796 ../fstab.py:1255
 #, c-format
@@ -1420,9 +1424,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "루트 파일시스템이 있는 장치를 선택해 주십시요: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy, c-format
+#, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
-msgstr "레드햇 리눅스가 설치되어 있는 파티션을 업그레이드 하고 있습니다: /dev/"
+msgstr "다음의 파티션을 업그레이드 하고 있습니다: /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1482,7 +1486,7 @@ msgstr "허용할 서비스:"
 
 #: ../iw/firewall_gui.py:299
 msgid "Other ports:"
-msgstr "그 이외의 포트:"
+msgstr "그 외의 포트:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -2383,7 +2387,7 @@ msgstr "FTP"
 
 #: ../textw/firewall_text.py:98
 msgid "Other ports"
-msgstr "그 이외의 포트"
+msgstr "그 외의 포트"
 
 #: ../textw/firewall_text.py:125
 msgid "You cannot customize a disabled firewall."
@@ -2423,9 +2427,8 @@ msgstr ""
 "내용이 필요없거나 잘 모르시겠다면, 빈 칸으로 두시기 바랍니다."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "생략"
+msgstr "LILO 생략"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2436,6 +2439,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"여러분은 LILO 설치를 생략하셨습니다. 특별한 이유가 없다면, 가능한 LILO를 "
+"설치하시기 바랍니다.  LILO는 여러분의 시스템에 설치되어 있는 리눅스를 하드 "
+"드라이브에서 부팅하도록 하는데 반드시 필요합니다.\n"
+"\n"
+"확실히 LILO 설치를 생략하시겠습니까?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -3121,8 +3129,8 @@ msgid ""
 msgstr ""
 "이와같은 상황은 설치 프로그램에서 검색된 드라이브의 지오메트리 내용과 "
 "드라이브가 파티션 되었을 때 사용된 지오메트리의 내용이 서로 다르기 "
-"때문입니다.  이 문제를 해결하기 위해서는 설치 프로그램의 부팅시 커널 명령 "
-"행에서 드라이브의 정확한 지오메트리를 직접 입력해 주시면 됩니다."
+"때문입니다.  이 문제를 해결하시려면, 설치 프로그램의 부팅시 커널 명령 행에서 "
+"드라이브의 정확한 지오메트리를 직접 입력해 주시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:1564
 msgid ""
@@ -3133,6 +3141,13 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
+"이 오류의 원인은 여러분 시스템의 드라이브에 파티션 유형이 '0' 인 논리 "
+"파티션이 존재하기 때문입니다.  파티션 유형이 '0' 인 파티션은 해당 드라이브의 "
+"파티션이 완전히 정의되어 있지 않은 것이며, 다른 운영체제의 파티션 설정 "
+"프로그램에 의해 생성된 것입니다.  이와같은 상황은 현재 아나콘다 설치 "
+"프로그램에서는 지원하지 않습니다.  이 문제를 해결하시려면, 그 파티션을 "
+"생성한 운영체제의 파티션 설정 프로그램을 사용하여 해당 파티션의 유형을 "
+"올바로 지정해 주시기 바랍니다."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -4967,9 +4982,8 @@ msgid "New South Wales - most locations"
 msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5093,7 +5107,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5214,6 +5228,3 @@ msgstr "터키어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라이나어"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdniestria"
