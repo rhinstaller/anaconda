@@ -49,7 +49,7 @@ def startMiniWM(root='/'):
     return childpid
 
 # startup vnc X server
-def startVNCServer(vncpasswd=None, root='/'):
+def startVNCServer(vncpassword=None, root='/'):
     
     def set_vnc_password(root, passwd, passwd_file):
 	(pid, fd) = os.forkpty()
@@ -74,6 +74,14 @@ def startVNCServer(vncpasswd=None, root='/'):
 	# read remaining output
 	os.read(fd, 1000)
 
+	# wait for status
+	try:
+	    (pid, status) = os.waitpid(pid, 0)
+	except OSError, (errno, msg):
+	    print __name__, "waitpid:", msg
+
+	return status
+	
     dup_log(_("Starting VNC..."))
 
     vncpid = os.fork()
@@ -83,9 +91,13 @@ def startVNCServer(vncpasswd=None, root='/'):
 		 "-depth", "16", "-geometry", "800x600" "-dontdisconnect"]
 
 	# set passwd if necessary
-	if vncpasswd is not None:
-	    set_vnc_password(vncpasswd, "/tmp/vncpasswd_file")
-	    args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
+	if vncpassword is not None:
+	    rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    if rc:
+		dup_log(_("Unable to set vnc password - using no password!"))
+		dup_log(_("Make sure your password is at least 6 characters in length."))
+	    else:
+		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
 			     
 	tmplogFile = "/tmp/vncserver.log"
 	try:
@@ -102,7 +114,7 @@ def startVNCServer(vncpasswd=None, root='/'):
 	os.execv(args[0], args)
 	sys.exit (1)
 
-    if vncpasswd is None:
+    if vncpassword is None:
 	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
 	dup_log(_("You can use the vncpasswd=<password> boot option"))
 	dup_log(_("if you would like to secure the server.\n\n"))
@@ -243,7 +255,7 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution=', 'skipddc', 'vnc', 'vncpasswd='])
+            'autostep', 'resolution=', 'skipddc', 'vnc'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -307,7 +319,7 @@ progmode = None
 customClass = None
 kbd = None
 ksfile = None
-vncpasswd = None
+vncpassword = None
 
 #
 # parse off command line arguments
@@ -377,8 +389,16 @@ for n in args:
         kbdtype = arg
     elif (str == '--vnc'):
 	flags.usevnc = 1
-    elif (str == '--vncpasswd='):
-	vncpasswd = arg
+
+	# see if there is a vnc password file
+	try:
+	    pfile = open("/tmp/vncpassword.dat", "r")
+	    vncpassword=pfile.readline().strip()
+	    pfile.close()
+	    os.unlink("/tmp/vncpassword.dat")
+	except:
+	    pass
+
 	
 # s390s don't have ttys
 if iutil.getArch() == "s390":
@@ -630,11 +650,11 @@ else: # s390 checks
 
 # if they want us to use VNC do that now
 if display_mode == 'g' and flags.usevnc:
-    # dont run vncpasswd if in test mode
+    # dont run vncpassword if in test mode
     if flags.test:
-	vncpasswd = None
+	vncpassword = None
 	
-    startVNCServer(vncpasswd=vncpasswd)
+    startVNCServer(vncpassword=vncpassword)
 
 if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
     import rhpl.monitor as monitor
