@@ -19,11 +19,13 @@ import sys
 import iutil
 import glob
 import gui
+import gobject
 import gtk
 from iw_gui import *
 from translate import _, N_
 from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
+from log import log
 
 class XCustomWindow (InstallWindow):
 
@@ -687,11 +689,20 @@ class XConfigWindow (InstallWindow):
             self.xconfig.skipx = 0
 
         # set videocard type (assuming we're working with PRIMARY card)
-        if self.selected_card:
+        if self.currentCard:
+	    try:
+		selected = self.cards[self.currentCard]
+	    except:
+		self.intf.messageWindow(_("Unknown video card"),
+					_("An error has occurred selecting "
+					  "the video card %s. Please report "
+					  "this error to bugzilla.redhat.com."))
+		raise gui.StayOnScreen
+
             primary_card = self.videocard.primaryCard()
-            primary_card.setCardData(self.selected_card)
-            primary_card.setDevID (self.selected_card["NAME"])
-            primary_card.setDescription (self.selected_card["NAME"])
+            primary_card.setCardData(selected)
+            primary_card.setDevID (selected["NAME"])
+            primary_card.setDescription (selected["NAME"])
 
             # pull out resolved version of card data
             card_data = primary_card.getCardData()
@@ -703,6 +714,9 @@ class XConfigWindow (InstallWindow):
 
             primary_card.setXServer(server)
         else:
+	    selected = None
+
+	if selected == None:
             self.intf.messageWindow(_("Unspecified video card"),
                             _("You need to pick a video card before "
                               "X configuration can continue.  If you "
@@ -734,76 +748,74 @@ class XConfigWindow (InstallWindow):
     def skipToggled (self, widget, *args):
         self.configbox.set_sensitive (not widget.get_active ())
 
-    def movetree (self, ctree, area, selected_node):
-        if self.selected_node == None:
-            print "bad selected_node = None!!"
-            return
-        
-        self.ctree.freeze()
-        node = self.selected_node
-        (parent_node, cardname) = self.ctree.node_get_row_data(node)
+    def selectCardType (self, selection, *args):
+	if self.ignoreEvents:
+	    return
 
-        self.ctree.select(node)
-        self.ctree.expand(parent_node)
-        self.ctree.thaw()
-        self.ctree.node_moveto(node, 0, 0.5, 0)
-
-    def movetree2 (self, ctree, area, node):
-        self.ctree.freeze()
-        node = self.orig_node
-        (current_parent_node, cardname2) = self.ctree.node_get_row_data(node)
-        self.selected_node = node
-        self.ctree.select(node)
-        (parent_node, cardname) = self.ctree.node_get_row_data(node)                        
-        self.ctree.expand(parent_node)
-        self.ctree.thaw()
-        self.ctree.node_moveto(node, 0, 0.5, 0)
-
-    def selectCb_tree (self, ctree, node, column):
-        try:
-            self.current_node = node
-            (parent, cardname) = ctree.node_get_row_data (node)
-            if cardname:
-                card = self.cards[cardname]
-                depth = 0
-
-                self.selected_card = card
-        except:
-            print "selectCb_tree failed"
-            pass
+	rc = selection.get_selected()
+	if rc:
+	    model, iter = rc
+	    self.currentCard = model.get_value(iter, 0)
+	else:
+	    print "unknown error in selectCb_tree!"
+	    
             
-    def restorePressed (self, ramMenu):
-        try:
-            (current_parent_node, cardname1) = self.ctree.node_get_row_data(self.current_node)
-            (original_parent_node, cardname2) = self.ctree.node_get_row_data(self.orig_node)
-
-            if current_parent_node != original_parent_node:
-                self.ctree.collapse(current_parent_node)
-
-            if cardname1 != cardname2:
-                self.movetree2(self.ctree, self.orig_node, 0)
-            else:
-                pass
-        except:
-            pass
-        
-        self.ramOption.remove_menu ()
-        self.selectVideoRamMenu(1)
-        self.ramOption.set_menu (self.ramMenu)
+    def restorePressed (self, button):
+	self.currentCard = self.probedCard
+	self.currentMem = self.probedMem
+        self.setCurrent(self.probedCard, self.probedMem)
         
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
 
-    def selectVideoRamMenu(self, useProbed):
+    def setCurrent(self, cardname, recenter=1):
+        self.ignoreEvents = 1
+        self.currentCard = cardname
+
+        parent = None
+        iter = self.cardstore.get_iter_root()
+        next = 1
+        # iterate over the list, looking for the current mouse selection
+        while next:
+            # if this is a parent node, get the first child and iter over them
+            if self.cardstore.iter_has_child(iter):
+                parent = iter
+                iter = self.cardstore.iter_children(parent)
+                continue
+            # if it's not a parent node and the mouse matches, select it.
+            elif self.cardstore.get_value(iter, 0) == cardname:
+                path = self.cardstore.get_path(parent)
+                self.cardview.expand_row(path, gtk.TRUE)
+                selection = self.cardview.get_selection()
+                selection.unselect_all()
+                selection.select_iter(iter)
+                path = self.cardstore.get_path(iter)
+                col = self.cardview.get_column(0)
+                self.cardview.set_cursor(path, col, gtk.FALSE)
+                if recenter:
+                    self.cardview.scroll_to_cell(path, col, gtk.TRUE,
+                                                  0.5, 0.5)
+                break
+            # get the next row.
+            next = self.cardstore.iter_next(iter)
+            # if there isn't a next row and we had a parent, go to the node
+            # after the parent we've just gotten the children of.
+            if not next and parent:
+                next = self.cardstore.iter_next(parent)
+                iter = parent
 
         #--Some video cards don't return exact numbers, so do some hacks
         try:
-            vidRam = string.atoi (self.videocard.primaryCard(useProbed=useProbed).getVideoRam())
+            vidRam = string.atoi (self.currentMem)
         except:
             vidRam = 1024
 
         count = self.videocard.index_closest_ram_size(vidRam)
+	self.ramOption.remove_menu()
         self.ramMenu.set_active(count)
+	self.ramOption.set_menu(self.ramMenu)
+
+	self.ignoreEvents = 0
 
     # XConfigWindow tag="xconf"
     def getScreen (self, dispatch, xconfig, videocard, intf):
@@ -852,60 +864,45 @@ class XConfigWindow (InstallWindow):
         else:
             # sparc
             return
-            
-        # Monitor selection tree
-        self.ctree = gtk.CTree ()
-        self.ctree.set_selection_mode (gtk.SELECTION_BROWSE)
 
-        fn = self.ics.findPixmap("videocard.png")
-        p = gtk.gdk.pixbuf_new_from_file (fn)
-        if p:
-            self.videocard_p, self.videocard_b = p.render_pixmap_and_mask()
-
-        self.manufacturer_nodes = {}
-
-        # put Generic and other first
-        self.manufacturer_nodes["Generic"] = self.ctree.insert_node(None, None,
-                                                                   (_("Generic"),), 2,
-                                           self.videocard_p, self.videocard_b,
-                                           self.videocard_p, self.videocard_b,
-                                           gtk.FALSE)
-        self.manufacturer_nodes["Other"] = self.ctree.insert_node(None, None,
-                                                                   (_("Other"),), 2,
-                                           self.videocard_p, self.videocard_b,
-                                           self.videocard_p, self.videocard_b,
-                                           gtk.FALSE)
-        
-        for man in self.videocard.manufacturerDB():
-            self.manufacturer_nodes[man] = self.ctree.insert_node (None, None,
-                                                                   (man,), 2,
-                                           self.videocard_p, self.videocard_b,
-                                           self.videocard_p, self.videocard_b,
-                                           gtk.FALSE)
-
+	# load in card database
         self.cards = self.videocard.cardsDB()
         cards = self.cards.keys()
         cards.sort()
 
         other_cards = copy.copy(cards)
-        current_cardsel = None
-        probed_card = None
-        self.current_node = None
-        self.orig_node = None
-        self.selected_node = None
+        self.currentCard = None
+        self.probedCard = None
         if self.videocard.primaryCard():
             carddata = self.videocard.primaryCard().getCardData(dontResolve=1)
             if carddata:
-                current_cardsel = carddata["NAME"]
+                self.currentCard = carddata["NAME"]
             else:
-                current_cardsel = None
+                self.currentCard = None
 
             carddata = self.videocard.primaryCard(useProbed=1).getCardData()
             if carddata:
-                probed_card = carddata["NAME"]
+                self.probedCard = carddata["NAME"]
             else:
-                probed_card = None
-            
+                self.probedCard = None
+
+	# load images of videocard
+        fn = self.ics.findPixmap("videocard.png")
+        p = gtk.gdk.pixbuf_new_from_file (fn)
+        if p:
+            self.videocard_p, self.videocard_b = p.render_pixmap_and_mask()
+
+        # Videocard selection tree - preset 'Generic' and 'Other' nodes
+	self.cardstore = gtk.TreeStore(gobject.TYPE_STRING,
+				       gobject.TYPE_STRING)
+
+	toplevels={}
+	manufacturers = ["Generic", "Other"] + self.videocard.manufacturerDB()
+	for man in manufacturers:
+	    toplevels[man] = self.cardstore.append(None)
+	    self.cardstore.set_value(toplevels[man], 0, man)
+
+	# now go through cards and matchup with manufacturers
         for card in cards:
             temp = string.lower(card)
 
@@ -914,45 +911,30 @@ class XConfigWindow (InstallWindow):
                 other_cards.remove(card)
                 continue
 
-            manufacturers = self.videocard.manufacturerDB()
-            manufacturers.append("Generic")
             for man in manufacturers:
                 if string.lower(man) == temp[:len(man)]:
-                    node = self.ctree.insert_node (self.manufacturer_nodes[man], None, (card,), 2)
-                    self.ctree.node_set_row_data(node, (self.manufacturer_nodes[man], card))
+		    parent = toplevels.get(man)
+		    iter = self.cardstore.append(parent)
+		    self.cardstore.set_value(iter, 0, card)
                     other_cards.remove(card)
-
-            # note location of current selection and probed card
-            if card == current_cardsel:
-                self.current_node = node
-                self.selected_node = node
-            
-            if card == probed_card:
-                self.orig_node = node
 
         # now add cards not categorized into above manufacturers
         for card in other_cards:
-            node = self.ctree.insert_node (self.manufacturer_nodes["Other"], None, (card,), 2)
-            self.ctree.node_set_row_data(node, (self.manufacturer_nodes["Other"], card))
-            
-            # note location of current selection and probed card
-            if card == current_cardsel:
-                self.current_node = node
-                self.selected_node = node
-            
-            if card == probed_card:
-                self.orig_node = node
+	    parent = toplevels.get("Other")
+	    iter = self.cardstore.append(parent)
+	    self.cardstore.set_value(iter, 0, card)
 
-        # set to None initially, changed by selectCb_tree callback
-        self.selected_card = None
-
-        #- Once ctree is realized then expand  branch and select selected item.
-        self.ctree.connect ("tree_select_row", self.selectCb_tree)
-        self.ctree.connect ("map-event", self.movetree, self.selected_node)
+        self.cardview = gtk.TreeView(self.cardstore)
+        self.cardview.set_property("headers-visible", gtk.FALSE)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
+        self.cardview.append_column(col)
+        selection = self.cardview.get_selection()
+        selection.connect("changed", self.selectCardType)
 
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        sw.add (self.ctree)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+        sw.add (self.cardview)
         box.pack_start (sw, gtk.TRUE)
 
         #Memory configuration menu
@@ -974,7 +956,6 @@ class XConfigWindow (InstallWindow):
             memitem = gtk.MenuItem(tag)
             self.ramMenu.add(memitem)
 
-        self.selectVideoRamMenu(0)
         hbox.pack_start(label, gtk.FALSE)
         hbox.pack_start(self.ramOption, gtk.TRUE, gtk.TRUE, 25)
 
@@ -998,5 +979,11 @@ class XConfigWindow (InstallWindow):
         self.configbox = box
         
         self.skip.set_active (self.dispatch.stepInSkipList("monitor"))
-        
+
+        # set state
+	self.ignoreEvents = 0
+	self.currentMem = self.videocard.primaryCard(useProbed=0).getVideoRam()
+	self.probedMem = self.videocard.primaryCard(useProbed=1).getVideoRam()
+	self.setCurrent(self.currentCard, self.currentMem)
+
         return self.topbox
