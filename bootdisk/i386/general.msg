@@ -21,4 +21,5 @@ information on expert mode.
 There are a number of parameters that can be passed to the Linux kernel
 at boot time.  Press 05<F4>07 for more information. 
 
+
 05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07
