@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-01 11:37-0500\n"
-"PO-Revision-Date: 2001-02-28 21:59-05:00\n"
+"PO-Revision-Date: 2001-03-02 16:39-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -344,17 +344,19 @@ msgstr "インストールの種類を選択してください。"
 
 #: ../iw/lilo_gui.py:50 ../text.py:340
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "アップグレードしますか?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:341
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"アップグレードするように選択した Linux インストールファイル"
+"システムは既にマウントされています。\n"
 
 #: ../text.py:345
 msgid "If you would like to exit the upgrade select Exit, or choose Ok to continue with the upgrade."
-msgstr ""
+msgstr "アップグレードを中止したいなら [終了] を選択してください。そうでなければ [OK] を押してアップグレードを続行してください。"
 
 #: ../text.py:375
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -365,13 +367,12 @@ msgid "System to Upgrade"
 msgstr "アップグレード対象システム"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "RAID パーティション"
+msgstr "アップグレードパーティション"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
-msgstr ""
+msgstr "アップグレードするパーティション /dev/"
 
 #: ../text.py:415
 msgid "Customize Packages to Upgrade"
@@ -908,7 +909,7 @@ msgstr "テキストモードを使用する"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "マウスタイプを検出中..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1278,14 +1279,12 @@ msgid "Lilo Configuration"
 msgstr "LILO の設定"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "システムの設定を行いますか?"
+msgstr "アップグレードを続行しますか?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "アップグレードの準備ができました"
+msgstr "アップグレード中止"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
@@ -3174,9 +3173,8 @@ msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr "Red Hat をこのマシンにインストールするのに十分なメモリがありません。"
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "anaconda アップデートを読み込んでいます..."
+msgstr "anaconda を起動中 - しばらくお待ち下さい...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
