@@ -93,6 +93,7 @@ class FileSystemType:
         self.partedPartitionFlags = []
         self.maxSize = 2 * 1024 * 1024
         self.supported = -1
+        self.defaultOptions = "defaults"
         
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -163,6 +164,9 @@ class FileSystemType:
     def getMaxSize(self):
         return self.maxSize
 
+    def getDefaultOptions(self, mountpoint):
+        return self.defaultOptions
+
 class reiserfsFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -176,14 +180,13 @@ class reiserfsFileSystem(FileSystemType):
     
 fileSystemTypeRegister(reiserfsFileSystem())
 
-class ext2FileSystem(FileSystemType):
+class extFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("ext2")
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
-        self.name = "ext2"
         self.maxSize = 4 * 1024 * 1024
 
     def formatDevice(self, entry, progress, message, chroot='/'):
@@ -193,6 +196,7 @@ class ext2FileSystem(FileSystemType):
         entry.setLabel(label)
         args = [ "/usr/sbin/mke2fs", devicePath, '-L', label ]
         args.extend(devArgs)
+        args.extend(self.extraFormatArgs)
 
         rc = ext2FormatFilesystem(args, "/dev/tty5",
                                   progress,
@@ -205,38 +209,21 @@ class ext2FileSystem(FileSystemType):
                                   "Press Enter to reboot your "
                                   "system.") % (entry.device.getDevice(),))
             raise SystemError
+    
+
+class ext2FileSystem(extFileSystem):
+    def __init__(self):
+        extFileSystem.__init__(self)
+        self.name = "ext2"
+        self.extraFormatArgs = []
 
 fileSystemTypeRegister(ext2FileSystem())
 
-class ext3FileSystem(FileSystemType):
+class ext3FileSystem(extFileSystem):
     def __init__(self):
-        FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
-        self.formattable = 1
-        self.checked = 1
-        self.linuxnativefs = 1
+        extFileSystem.__init__(self)
         self.name = "ext3"
-        self.maxSize = 4 * 1024 * 1024
-
-    def formatDevice(self, entry, progress, message, chroot='/'):
-        devicePath = entry.device.setupDevice(chroot)
-        devArgs = self.getDeviceArgs(entry.device)
-        label = labelFactory.createLabel(entry.mountpoint)
-        entry.setLabel(label)
-        args = [ "/usr/sbin/mke2fs", devicePath, '-j', '-L', label ]
-        args.extend(devArgs)
-
-        rc = ext2FormatFilesystem(args, "/dev/tty5",
-                                  progress,
-                                  entry.mountpoint)
-        if rc:
-            message and message(_("Error"), 
-                                _("An error occured trying to format %s. "
-                                  "This problem is serious, and the install "
-                                  "cannot continue.\n\n"
-                                  "Press Enter to reboot your "
-                                  "system.") % (entry.device.getDevice(),))
-            raise SystemError
+        self.extraFormatArgs = [ "-j" ]
 
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -337,6 +324,7 @@ fileSystemTypeRegister(ProcFileSystem())
 class DevptsFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "devpts")
+        self.defaultOptions = "gid=5,mode=620"
 
 fileSystemTypeRegister(DevptsFileSystem())
 
@@ -545,14 +533,17 @@ class FileSystemSet:
 
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
-                  fsystem=None, options="defaults",
-                 order=-1, fsck=-1, format=0):
+                  fsystem=None, options=None,
+                  order=-1, fsck=-1, format=0):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
         self.mountpoint = mountpoint
         self.fsystem = fsystem
-        self.options = options
+        if options:
+            self.options = options
+        else:
+            self.options = fsystem.getDefaultOptions(mountpoint)
         self.mountcount = 0
         self.label = None
         if fsck == -1:
@@ -569,7 +560,9 @@ class FileSystemSetEntry:
         else:
             self.order = order
         if format and not fsystem.isFormattable():
-            raise RuntimeError, "file system type %s is not formattable, but has been added to fsset with format flag on" % fsystem.getName()
+            raise RuntimeError, ("file system type %s is not formattable, "
+                                 "but has been added to fsset with format "
+                                 "flag on" % fsystem.getName())
         self.format = format
 
     def mount(self, chroot='/', devPrefix='/tmp'):
@@ -640,7 +633,8 @@ class RAIDDevice(Device):
         self.isSetup = existing
 
         if len(members) < spares:
-            raise RuntimeError, "you requiested more spare devices than online devices!"
+            raise RuntimeError, ("you requiested more spare devices "
+                                 "than online devices!")
 
         if level == 5:
             if self.numDisks < 3:
@@ -652,7 +646,8 @@ class RAIDDevice(Device):
                 if not RAIDDevice.usedMajors.has_key(I):
                     minor = I
                     break
-                raise RuntimeError, "Unable to allocate minor number for raid device"
+                raise RuntimeError, ("Unable to allocate minor number for "
+                                     "raid device")
             minor = I
         RAIDDevice.usedMajors[minor] = None
         self.device = "md" + str(minor)
@@ -988,8 +983,7 @@ if __name__ == "__main__":
     fsset = FileSystemSet()
     proc = FileSystemSetEntry(Device(), '/proc', 'proc')
     fsset.add(proc)
-    devpts = FileSystemSetEntry(Device(), '/dev/pts', 'devpts',
-                                'gid=5,mode=620')
+    devpts = FileSystemSetEntry(Device(), '/dev/pts', 'devpts')
     fsset.add(devpts)
 
     device = LoopbackDevice("hda1", "vfat")
