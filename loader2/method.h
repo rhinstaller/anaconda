@@ -22,6 +22,8 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device);
 char * validIsoImages(char * dirName);
 void queryIsoMediaCheck(char * isoDir, int flags);
 
+int verifyStamp(char * path);
+
 int mountStage2(char * path);
 int copyFileAndLoopbackMount(int fd, char * dest, int flags,
                              char * device, char * mntpoint);

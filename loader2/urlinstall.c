@@ -22,8 +22,10 @@
 #include <unistd.h>
 
 #include "loader.h"
+#include "loadermisc.h"
 #include "lang.h"
 #include "log.h"
+#include "method.h"
 #include "net.h"
 #include "method.h"
 #include "urls.h"
