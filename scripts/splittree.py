@@ -248,7 +248,7 @@ and RPMs. Set to 1 to turn on."""
         # create the packages dictionary in this format: n-v-r.a:['n-v-r.arch.rpm']
         for filename in rpmlist:
             filesize = os.path.getsize("%s/RedHat/RPMS/%s" % (self.dist_dir, filename))
-            pkg_nvr = nvra(filename)
+            pkg_nvr = nvra("%s/RedHat/RPMS/%s" %(self.dist_dir, filename))
             
             if packages.has_key(pkg_nvr):
                 # append in case we have multiple packages with the
