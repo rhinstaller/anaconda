@@ -1,7 +1,7 @@
 COMMONMODULES="nfs fat vfat cramfs loop floppy"
 FSMODS="msdos vfat ext3 reiserfs jfs"
 IDEMODS="ide-cd"
-SCSIMODS="sd_mod sr_mod st"
+SCSIMODS="sd_mod sg sr_mod st"
 LATEUSBMODS="mousedev usb-storage"
 SECSTAGE="raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
 NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too

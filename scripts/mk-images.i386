@@ -89,7 +89,7 @@ USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
 LATEUSBMODS="mousedev usb-storage"
 IDEMODS=""
-SCSIMODS="sd_mod sr_mod st"
+SCSIMODS="sd_mod sg sr_mod st"
 
 FSMODS="msdos vfat ext3 reiserfs jfs"
 SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
