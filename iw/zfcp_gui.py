@@ -26,6 +26,13 @@ class ZFCPWindow(InstallWindow):
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
 
+    def sortFcpDevs(one, two):
+        if one[0] < two[0]:
+                return -1
+            elif one[0] > two[0]:
+                return 1
+            return 0
+
     def setupDevices(self):
         self.store = gtk.TreeStore(gobject.TYPE_STRING,
                                    gobject.TYPE_STRING,
@@ -42,6 +49,7 @@ class ZFCPWindow(InstallWindow):
                 column.set_min_width(140)
                 column.set_sizing (gtk.TREE_VIEW_COLUMN_AUTOSIZE)
                 self.view.append_column(column)
+        self.fcpdevices.sort(sortFcpDevs)
         for i in range(len(self.fcpdevices)):
             self.store.append(None, (self.fcpdevices[i][0],self.fcpdevices[i][1], \
               self.fcpdevices[i][2],self.fcpdevices[i][3],self.fcpdevices[i][4]))
