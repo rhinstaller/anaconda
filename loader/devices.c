@@ -264,7 +264,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 			      "/tmp/drivers", ddi))
 	    newtWinMessage(_("Error"), _("OK"),
 		_("The floppy disk you inserted is not a valid driver disk "
-		  "for this release of Red Hat Linux."));
+		  "for this release of %s."), PRODUCTNAME);
 	else
 	    done = 1;
 

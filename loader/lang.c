@@ -38,7 +38,7 @@ struct aString {
 struct aString * strings = NULL;
 int numStrings = 0, allocedStrings = 0;
 
-static char * topLineWelcome = N_("Welcome to Red Hat Linux");
+static char * topLineWelcome = N_("Welcome to " PRODUCTNAME);
 static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
 
 static int aStringCmp(const void * a, const void * b) {

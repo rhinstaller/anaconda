@@ -181,7 +181,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 		  "\n"
 		  "    o the name or IP number of your NFS server\n"
 		  "    o the directory on that server containing\n"
-		  "      Red Hat Linux for your architecture"), 60, 5, 15,
+		  "      " PRODUCTNAME " for your architecture"), 60, 5, 15,
 		24, entries, _("OK"), _("Back"), NULL);
 
     if (rc == 2) {

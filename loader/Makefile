@@ -28,7 +28,7 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DPRODUCTNAME=$(PRODUCTNAME)
+CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DPRODUCTNAME='$(PRODUCTNAME)'
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 

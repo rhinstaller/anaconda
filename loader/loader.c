@@ -194,7 +194,7 @@ void startNewt(int flags) {
     if (!newtRunning) {
 	newtInit();
 	newtCls();
-	newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
+	newtDrawRootText(0, 0, _("Welcome to " PRODUCTNAME));
 
 	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 
@@ -1068,7 +1068,7 @@ static char * mountHardDrive(struct installMethod * method,
 
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
-		  "CD (iso9660) images for Red Hat Linux? If you don't "
+		  "CD (iso9660) images for " PRODUCTNAME "? If you don't "
 		  "see the disk drive you're using listed here, press F2 "
 		  "to configure additional devices."), 62, 5, 5, 0);
 
@@ -1243,9 +1243,10 @@ static char * mediaCheckCdrom(char *cddriver) {
 
 static void wrongCDMessage(void) {
     newtWinMessage(_("Error"), _("OK"),
-		   _("The Red Hat Linux CD was not found "
+		   _("The " PRODUCTNAME " CD was not found "
 		     "in any of your CDROM drives. Please insert "
-		     "the Red Hat Linux CD and press %s to retry."), _("OK"));
+		     "the " PRODUCTNAME " CD and press %s to retry."), 
+		   _("OK"));
 }
 
 /* put mounts back and continue */
@@ -1355,9 +1356,9 @@ static char * setupCdrom(struct installMethod * method,
 
 	if (hasCdrom) {
 	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
-			_("The Red Hat Linux CD was not found "
+			_("The " PRODUCTNAME " CD was not found "
 			  "in any of your CDROM drives. Please insert "
-			  "the Red Hat Linux CD and press %s to retry."), _("OK"));
+			  "the " PRODUCTNAME " CD and press %s to retry."), _("OK"));
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, 
@@ -2768,7 +2769,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 
 #if 0
     _("The floppy disk you inserted is not a valid update disk "
-      "for this release of Red Hat Linux.")
+      "for this release of " PRODUCTNAME ".")
 #endif
 
 logMessage("UPDATES floppy device is %s", floppyDevice);
@@ -2995,7 +2996,8 @@ static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
 	startNewt(flags);
 	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
-					      "RAM to install Red Hat Linux on this machine."));
+					      "RAM to install " PRODUCTNAME 
+					      " on this machine."));
 	stopNewt();
 	exit(0);
     }

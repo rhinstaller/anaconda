@@ -700,6 +700,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     i = 0;
     if (!paths) {
 	logMessage("no modules found -- aborting insertion");
+	return i;
 	i++;
     } else {
 	*items = '\0';
