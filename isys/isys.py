@@ -342,3 +342,10 @@ def sync ():
 
 def isIsoImage(file):
     return _isys.isisoimage(file)
+
+def getGeometry(device):
+    makeDevInode(device, "/tmp/disk")
+    rc = _isys.getGeometry("/tmp/disk")
+    os.unlink("/tmp/disk")
+    return rc
+

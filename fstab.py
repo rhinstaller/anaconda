@@ -129,6 +129,41 @@ class Fstab:
         else:
             return None
 
+    def getBootPartitionMaxCyl(self):
+	bootpart = self.getBootDevice()
+	boothd = self.getMbrDevice()
+
+
+        maxcyl = None
+        
+        try:
+            bootgeom = isys.getGeometry(boothd)
+        except:
+            bootgeom = None
+
+        log("Boot drive is %s, geometry is %s" % (boothd, bootgeom))
+        if bootgeom != None:
+            isys.makeDevInode(boothd, '/tmp/' + boothd)
+                    
+            try:
+                table = _balkan.readTable ('/tmp/' + boothd)
+            except SystemError:
+                pass
+            else:
+                for i in range (len (table)):
+                    part = "%s%d" % (boothd, i+1)
+                    if part == bootpart:
+                        (type, sector, size) = table[i]
+                        maxcyl = (sector+size) / string.atoi(bootgeom[2])
+                        maxcyl = maxcyl /  string.atoi(bootgeom[1])
+
+                        log("Boot part ends on cyl %s" % maxcyl)
+                                    
+            os.remove ('/tmp/' + boothd)
+
+            return maxcyl
+
+
     def getMbrDevice(self):
 	return self.driveList()[0]
 

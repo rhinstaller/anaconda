@@ -371,3 +371,63 @@ class AutoPartitionWindow(InstallWindow):
 
 
 
+class LBA32WarningWindow(InstallWindow):
+    def __init__ (self, ics):
+        InstallWindow.__init__ (self, ics)
+        ics.setTitle (_("Boot Partition Location Warning"))
+        ics.readHTML ("lba32warning")
+        self.showing = 0
+
+    def proceedChanged(self, widget, *args):
+        if self.proceed.get_active():
+            self.ics.setNextEnabled (TRUE)
+        else:
+            self.ics.setNextEnabled (FALSE)
+
+    def getScreen (self):
+
+        # check if boot partition is above 1023 cyl limit
+        if iutil.getArch() != "i386":
+            return INSTALL_NOOP
+
+        if self.todo.fstab.getBootPartitionMaxCyl() > 1023 and not self.todo.fstab.edd:
+            vbox = GtkVBox (FALSE, 5)
+            
+            label = GtkLabel (
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1023 cylinder limit, and "
+                      "it appears that this systems BIOS does not support "
+                      "booting from above this limit. Proceeding will "
+                      "most likely make the system unable to reboot into "
+                      "Linux.\n\n"
+                      "Are you sure you want to proceed?"))
+
+            label.set_usize (400, -1)
+            label.set_line_wrap (TRUE)
+            label.set_alignment(0.0, 0.0)
+            vbox.pack_start (label, FALSE, FALSE)
+
+            vbox2 = GtkVBox (FALSE, 5)
+            
+            self.proceed = GtkRadioButton (None, _("Yes"))
+            self.proceed.connect("toggled", self.proceedChanged)
+            self.dontproceed = GtkRadioButton (self.proceed, _("No"))
+            self.dontproceed.set_active()
+            self.dontproceed.connect("toggled", self.proceedChanged)
+
+            vbox2.pack_start (self.proceed, FALSE)
+            vbox2.pack_start (self.dontproceed, FALSE)
+            vbox2.set_border_width (25)
+            
+            vbox.pack_start (vbox2, TRUE)
+            vbox.set_border_width (5)
+
+            self.ics.setNextEnabled (FALSE)
+
+            return vbox
+        else:
+            return None
+
+
+
+

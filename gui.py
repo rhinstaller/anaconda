@@ -442,10 +442,12 @@ class InstallControlWindow:
         self.stateListIndex = pos
         
     def prevClicked (self, *args):
-        self.currentScreen.getPrev ()
+        prev = self.currentScreen.getPrev ()
         self.prevList.pop ()
         (self.currentScreen, self.stateListIndex) = self.prevList[-1]
+
         self.setScreen (self.currentScreen, self.prevClicked)
+
 
     def nextClicked (self, *args):
         next = self.currentScreen.getNext ()

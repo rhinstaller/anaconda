@@ -272,6 +272,14 @@ class LiloConfiguration:
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
 
+        useLBA32 = 0
+        if self.edd:
+            from log import log
+            maxcyl = fstab.getBootPartitionMaxCyl()
+            if maxcyl > 1023:
+                log("Using lba32")
+                useLBA32 = 1
+
 	if (self.liloDevice == "mbr"):
 	    liloTarget = boothd
 	elif (type(self.liloDevice) == type((1,)) and 
@@ -290,7 +298,7 @@ class LiloConfiguration:
         #
         # test to see if one of these already in lilo.conf, use if so
         if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
-            if self.edd:
+            if self.edd and useLBA32:
                 lilo.addEntry("lba32", replace = 0)
             elif self.liloLinear:
                 lilo.addEntry("linear", replace = 0)

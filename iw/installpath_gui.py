@@ -53,6 +53,7 @@ class InstallPathWindow (InstallWindow):
 		     ( AutoPartitionWindow, "partition" ),
                      FDiskWindow,
 		     ( PartitionWindow, "partition" ),
+                     ( LBA32WarningWindow, "lba32warning"),
 		     ( FormatWindow, "format" ),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     ( NetworkWindow, "network" ),
@@ -135,17 +136,6 @@ class InstallPathWindow (InstallWindow):
                                        self.todo.expert,
                                        self.todo.upgrade)
 
-###
-### msf - 05-11-2000 - need to move this code!!!!!!
-###            
-#        # set state of disk druid to be read-only if needed
-#        if (InstallPathWindow.fdisk.get_active()):
-#            self.todo.fstab.setReadonly(1)
-#        else:
-#            self.todo.fstab.setReadonly(0)
-#
-#	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
-
     def toggled (self, widget, type):
         if not widget.get_active (): return
         if type == INSTALL:
@@ -220,11 +210,6 @@ class InstallPathWindow (InstallWindow):
 
 	spacer = GtkLabel("")
 	spacer.set_usize(60, 1)
-###
-### msf - 05-11-2000 need to move!!!
-###
-#	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
-#	align.add (InstallPathWindow.fdisk)
 
 	align = GtkAlignment ()
 	align.set (0.0, 0.0, 0.0, 0.0)
@@ -239,17 +224,6 @@ class InstallPathWindow (InstallWindow):
 	box.pack_start(table, FALSE)
 
 	hbox = GtkHBox (FALSE)
-
-        
-###
-### msf - 05-11-2000 need to move!!!
-###
-#	if not InstallPathWindow.__dict__.has_key("fdisk"):
-#	    fdiskState = 0
-#	else:
-#	    fdiskState = InstallPathWindow.fdisk.get_active()
-#
-#	InstallPathWindow.fdisk.set_active(fdiskState)
 
         self.toggled (installButton, INSTALL)
         self.toggled (self.upgradeButton, UPGRADE)

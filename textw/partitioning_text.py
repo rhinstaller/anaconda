@@ -341,3 +341,38 @@ class LoopSizeWindow:
 
 	return INSTALL_NOOP
 	
+class LBA32WarningWindow:
+    def __call__(self, dir, screen, todo):
+
+        if dir == -1:
+            return INSTALL_NOOP
+        
+        # check if boot partition is above 1023 cyl limit
+        if iutil.getArch() != "i386":
+            return INSTALL_NOOP
+
+	ButtonChoiceWindow(screen, "", "%s" % todo.fstab.getBootPartitionMaxCyl(),
+                           buttons = [ _("OK") ])
+
+        if todo.fstab.getBootPartitionMaxCyl() > 1023 and not todo.fstab.edd:
+            rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1023 cylinder limit, and "
+                      "it appears that this systems BIOS does not support "
+                      "booting from above this limit. Proceeding will "
+                      "most likely make the system unable to reboot into "
+                      "Linux.\n\n"
+                      "Are you sure you want to proceed?"),
+	    [ (_("Yes"), "yes") , (_("No"), "no") ], width = 50,
+                                    help = "lba32warning")
+
+            if rc == "no":
+                return INSTALL_BACK
+            else:
+                return INSTALL_OK
+        else:
+            return INSTALL_NOOP
+            
+        
+
+

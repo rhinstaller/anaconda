@@ -3,6 +3,7 @@ from iw_gui import *
 from thread import *
 import isys
 from translate import _
+from rootpartition_gui import AutoPartitionWindow
 
 class FormatWindow (InstallWindow):
     def __init__ (self, ics):

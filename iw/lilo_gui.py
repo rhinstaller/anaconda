@@ -268,8 +268,7 @@ class LiloWindow (InstallWindow):
             _("Use linear mode (needed for some SCSI drives)"))
         self.linearCheck.set_active(self.todo.lilo.getLinear())
 
-	if not edd.detect():
-	    self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
+        self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
 
         if not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
             self.liloLocationBox.set_sensitive(0)

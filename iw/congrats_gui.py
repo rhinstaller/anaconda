@@ -33,7 +33,7 @@ class CongratulationWindow (InstallWindow):
 	label = GtkLabel(
                      _("Congratulations, installation is complete.\n\n"
                        "Press return to reboot, and be sure to remove your "
-		       "boot medium as the system reboots, or your system "
+		       "boot medium after the system reboots, or your system "
 		       "will rerun the install. For information on fixes which "
                        "are available for this release of Red Hat Linux, "
                        "consult the "

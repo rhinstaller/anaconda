@@ -31,6 +31,7 @@ from partitioning_text import AutoPartitionWindow
 from partitioning_text import PartitionWindow
 from partitioning_text import TurnOnSwapWindow
 from partitioning_text import FormatWindow
+from partitioning_text import LBA32WarningWindow
 from packages_text import PackageGroupWindow
 from packages_text import IndividualPackageWindow
 from packages_text import PackageDepWindow
@@ -630,7 +631,7 @@ class FinishedWindow:
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
 		 _("Congratulations, installation is complete.\n\n"
 		   "Press return to reboot, and be sure to remove your "
-		   "boot medium as the system reboots, or your system "
+		   "boot medium after the system reboots, or your system "
 		   "will rerun the install. For information on fixes which "
 		   "are available for this release of Red Hat Linux, "
 		   "consult the "
@@ -1066,6 +1067,8 @@ class InstallInterface:
 		    "partition" ],
             [N_("Swap"), TurnOnSwapWindow, (self.screen, todo),
 		    "partition" ],
+            [N_("Boot Partition Warning"), LBA32WarningWindow, (self.screen, todo),
+		    "lba32warning" ],
             [N_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
             [BootloaderConfiguration, BootloaderAppendWindow, 
@@ -1155,6 +1158,8 @@ class InstallInterface:
 		self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
 		# This is *disgusting* (ewt)
 		if step[1] == UpgradeExamineWindow:
+		    rc = apply (step[1](), (dir,) + step[2])
+                elif step[1] == LBA32WarningWindow:
 		    rc = apply (step[1](), (dir,) + step[2])
 		else:
 		    rc = apply (step[1](), step[2])

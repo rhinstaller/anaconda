@@ -28,6 +28,7 @@
 #include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
 #include <sys/types.h>
+#include <linux/hdreg.h>
 
 #include "Python.h"
 
@@ -87,6 +88,7 @@ static PyObject * doVtActivate(PyObject * s, PyObject * args);
 static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
+static PyObject * dogetGeometry(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -134,6 +136,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
+    { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1383,3 +1386,34 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     return Py_BuildValue("i", rc);
 }
 int fileIsIso(const char * file);
+
+static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
+    int fd;
+    int rc;
+    char *dev;
+    char cylinders[16], heads[16], sectors[16];
+    char errstr[200];
+    struct hd_geometry g;
+
+    if (!PyArg_ParseTuple(args, "s", &dev)) return NULL;
+
+    fd = open(dev, O_RDONLY);
+    if (fd < 0) {
+	snprintf(errstr, sizeof(errstr), "could not open device %s", dev);
+	PyErr_SetString(PyExc_ValueError, errstr);
+        return NULL;
+    }
+
+    if (ioctl(fd, HDIO_GETGEO, &g)) {
+        close(fd);
+	snprintf(errstr, sizeof(errstr),  "HDTIO_GETGEO ioctl() failed on device %s", dev);
+	PyErr_SetString(PyExc_ValueError, errstr);
+        return NULL;
+    }
+
+    snprintf(cylinders, sizeof(cylinders), "%d", g.cylinders);
+    snprintf(heads, sizeof(heads), "%d", g.heads);
+    snprintf(sectors, sizeof(sectors), "%d", g.sectors);
+    
+    return Py_BuildValue("(sss)", cylinders, heads, sectors);
+}
