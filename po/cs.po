@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-05-25 18:58-0400\n"
-"PO-Revision-Date: 2004-04-15 16:44+0200\n"
+"PO-Revision-Date: 2004-05-27 11:48+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -973,17 +973,19 @@ msgstr "Ignorovat"
 msgid "Cancel"
 msgstr "Zrušit"
 
+# FIXME: s/n\\n/\\n/
 #: ../gui.py:638 ../text.py:283
 #, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:n\n"
 "%s"
 msgstr ""
+"Při zpracovávání vašeho nastavení kickstart byla nalezena následující chyba:\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Chyba při otevírání souboru kickstart %s: %s"
+msgstr "Chyba při zpracovávání nastavení kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -994,9 +996,8 @@ msgstr ""
 "disketu, na které nemáte důležitá data."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Implicitní"
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -7021,9 +7022,9 @@ msgid "Add Device"
 msgstr "Přidat zařízení"
 
 #: ../loader2/loader.c:1112
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "loader již byl spuštěn. Spouštím shell."
+msgstr "loader již byl spuštěn. Spouštím shell.\n"
 
 #: ../loader2/loader.c:1460
 #, c-format
@@ -7161,20 +7162,20 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s je adaptér pro bezdrátovou síť. Zadejte prosím ESSID a šifrovací klíč potřebný po přístup k vaší bezdrátové síti. Pokud klíč není potřeba, nechte toto pole prázdné a instalace bude pokračovat."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Šifrovací klíč"
 
+# If you can get away with it in English...
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Různé volby"
+msgstr "Bezdrátová nastavení"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
