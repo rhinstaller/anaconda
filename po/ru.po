@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "POT-Creation-Date: 2001-08-23 12:33-0400\n"
-"PO-Revision-Date: 2001-08-19 21:55EET\n"
+"PO-Revision-Date: 2001-09-06 00:24GMT\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=KOI8-R\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 0.9.4\n"
+"X-Generator: KBabel 0.9.5\n"
 
 #: ../anaconda:313
 msgid ""
@@ -73,8 +73,7 @@ msgstr "Пропуск определения типа мыши.\n"
 
 #: ../anaconda:410
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Графическая установка невозможна для %s установок. Запускается текстовый "
 "режим."
@@ -196,7 +195,6 @@ msgid "Warning"
 msgstr "Внимание!"
 
 #: ../autopart.py:954
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -214,6 +212,7 @@ msgstr ""
 "Утилита ручного разбиения диска, Disk Druid, позволяет настроить разделы в "
 "интерактивном окружении. Вы можете установить типы файловых систем, точки "
 "монтирования и многое другое при помощи этой мощной и удобной программы. \n"
+"\n"
 "fdisk - это традиуионная текстовая утилита управления разделами. Несмотря на "
 "сложность, в некоторых случаях применение fdisk предпочтительно."
 
@@ -235,8 +234,7 @@ msgstr "Удалить разделы Linux на этой системе"
 
 #: ../autopart.py:977
 msgid "Keep all partitions and use existing free space"
-msgstr ""
-"Сохранить все разделы и использовать существующее свободное пространство"
+msgstr "Сохранить все разделы и использовать существующее свободное пространство"
 
 #: ../autopart.py:979
 #, c-format
@@ -271,7 +269,7 @@ msgstr ""
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
+msgstr "На вашей системе не установлен ни один пакет с ядром Linux. Конфигурация загрузчика не будет изменена."
 
 #: ../bootloader.py:737
 msgid "Bootloader"
@@ -811,14 +809,11 @@ msgstr "Укажите точку монтирования для этого раздела."
 
 #: ../partitioning.py:379
 #, c-format
-msgid ""
-"The mount point %s is already in use, please choose a different mount point."
-msgstr ""
-"Точка монтирования %s уже используется, выберите другую точку монтирования."
+msgid "The mount point %s is already in use, please choose a different mount point."
+msgstr "Точка монтирования %s уже используется, выберите другую точку монтирования."
 
 #: ../partitioning.py:436
-msgid ""
-"This mount point is invalid.  This directory must be on the / filesystem."
+msgid "This mount point is invalid.  This directory must be on the / filesystem."
 msgstr ""
 "Точка монтирования неверна. Этот каталог должен быть на корневой файловой "
 "системе."
@@ -832,8 +827,7 @@ msgstr "Эта точка монтирования должна быть на файловой системе linux."
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
-msgstr ""
-"Размер раздела %s (размер = %s MB) превышает максимальный размер %s MB."
+msgstr "Размер раздела %s (размер = %s MB) превышает максимальный размер %s MB."
 
 #: ../partitioning.py:461
 #, c-format
@@ -897,8 +891,7 @@ msgstr ""
 "мало для установки Red Hat Linux."
 
 #: ../partitioning.py:574
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitioning.py:582
@@ -1015,10 +1008,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partitioning.py:1595
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitioning.py:1619
 msgid "the partition in use by the installer."
@@ -1060,8 +1051,7 @@ msgstr ""
 
 #: ../partitioning.py:1664
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr ""
-"Невозможно удалить этот раздел, поскольку он является частью устройства RAID."
+msgstr "Невозможно удалить этот раздел, поскольку он является частью устройства RAID."
 
 #: ../partitioning.py:1695 ../partitioning.py:1717
 msgid "Unable To Edit"
@@ -1347,17 +1337,14 @@ msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
 #: ../text.py:304
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:306
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../text.py:396
 msgid "Cancelled"
@@ -2147,8 +2134,7 @@ msgstr "Установленные в настоящее время языки:"
 
 #: ../iw/language_support_gui.py:155
 msgid "Choose additional languages you would like to use on this system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе:"
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
 #: ../iw/language_support_gui.py:204
 msgid "Select all"
@@ -2156,7 +2142,7 @@ msgstr "Выбрать все"
 
 #: ../iw/language_support_gui.py:210 ../textw/language_text.py:120
 msgid "Reset"
-msgstr "Вернуть первоначальные значения"
+msgstr "Сбросить изменения"
 
 #: ../iw/language_support_gui.py:224
 msgid "Select as default"
@@ -2265,7 +2251,7 @@ msgstr "Размер (МB)"
 
 #: ../iw/package_gui.py:456
 msgid "Total size: "
-msgstr "Всего: "
+msgstr "Всего  : "
 
 #: ../iw/package_gui.py:459
 msgid "Select all in group"
@@ -2295,16 +2281,14 @@ msgid "Disk Setup"
 msgstr "Разбиение диска"
 
 #: ../iw/partition_gui.py:543
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:546
 msgid ""
 "These errors must be corrected prior to continuing with your install of Red "
 "Hat Linux."
-msgstr ""
-"Эти ошибки должны быть исправлены перед продолжением установки Red Hat Linux."
+msgstr "Эти ошибки должны быть исправлены перед продолжением установки Red Hat Linux."
 
 #: ../iw/partition_gui.py:553
 msgid "Partitioning Errors"
@@ -2535,8 +2519,7 @@ msgid "Automatic Partitioning"
 msgstr "Автоматическое разбиение"
 
 #: ../iw/partition_gui.py:1609
-msgid ""
-"You need to select at least one drive to have Red Hat Linux installed onto."
+msgid "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Вы должны выбрать хотя бы одно устройство для установки Red Hat Linux."
 
 #: ../iw/partition_gui.py:1648
@@ -2548,8 +2531,7 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Какие устройства вы хотите использовать для этой установки?"
 
 #: ../iw/partition_gui.py:1701
-msgid ""
-"Review (allows you to see and change the automatic partitioning results)"
+msgid "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
 "Просмотр (позволяет проверить и изменить результаты автоматического "
 "разбиения)"
@@ -2763,10 +2745,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла свопинга должан быть между 1 и 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 msgid "Welcome"
@@ -3252,8 +3232,7 @@ msgstr "Выбрать все"
 
 #: ../textw/language_text.py:122
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе."
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе."
 
 #: ../textw/language_text.py:126
 msgid "Language Support"
@@ -3337,11 +3316,11 @@ msgstr ""
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr "Пакет:"
+msgstr "Пакет   :"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Размер:"
+msgstr "Размер  :"
 
 #: ../textw/packages_text.py:97
 #, c-format
@@ -3353,10 +3332,8 @@ msgid "Total size"
 msgstr "Всего"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -3410,8 +3387,7 @@ msgid "Filesystem Options"
 msgstr "Опции ФС"
 
 #: ../textw/partition_text.py:440
-msgid ""
-"Please choose how you would like to prepare the filesystem on this partition."
+msgid "Please choose how you would like to prepare the filesystem on this partition."
 msgstr "Выберите, как будет подготовлена файловая система на этом разделе."
 
 #: ../textw/partition_text.py:457
@@ -3489,8 +3465,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:992
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
 
 #: ../textw/partition_text.py:1019
@@ -3715,8 +3690,7 @@ msgid "User Exists"
 msgstr "Пользователь существует"
 
 #: ../textw/userauth_text.py:146
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "Пользователь root уже существует."
 
 #: ../textw/userauth_text.py:154
@@ -4162,10 +4136,8 @@ msgid "Welcome to Red Hat Linux"
 msgstr "Добро пожаловать в Red Hat Linux"
 
 #: ../loader/lang.c:41 ../loader/loader.c:188
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader/lang.c:297
 msgid "Choose a Language"
@@ -4495,8 +4467,7 @@ msgstr "Сетевое устройство"
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader/net.c:887
 #, c-format
@@ -4833,15 +4804,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5000,10 +4968,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -5154,10 +5120,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -5470,3 +5434,4 @@ msgstr "Испанский"
 #. generated from lang-table
 msgid "Swedish"
 msgstr "Шведский"
+
