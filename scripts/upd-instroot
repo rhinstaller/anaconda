@@ -132,7 +132,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            libgnomecanvas libart_lgpl libzvt gnome-python2-zvt
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           redhat-config-keyboard"
+           redhat-config-keyboard Xft fontconfig"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -429,6 +429,7 @@ etc/gtk-2.0/gtkrc*
 etc/im_palette.pal
 etc/imrc
 etc/pango/*
+etc/fonts/*
 lib/libnss_dns*
 lib/libpam*
 lib/libproc*
@@ -554,10 +555,12 @@ usr/lib/gtk-2.0/*/loaders/*png*
 usr/lib/gtk-2.0/*/loaders/*la*
 usr/lib/gtk-2.0/immodules/
 usr/lib/libImlib*
+usr/lib/libXft*
 usr/lib/libart*
 usr/lib/libatk*
 usr/lib/libaudio*
 usr/lib/libesd*
+usr/lib/libfontconfig*
 usr/lib/libfreetype*
 usr/lib/libgdk*
 usr/lib/libglib*
