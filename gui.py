@@ -563,10 +563,10 @@ class InstallControlWindow:
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
-        self.window.set_default_size (640, 480)
-        self.window.set_usize (640, 480)
-#        self.window.set_default_size (800, 600)
-#        self.window.set_usize (800, 600)
+#        self.window.set_default_size (640, 480)
+#        self.window.set_usize (640, 480)
+        self.window.set_default_size (800, 600)
+        self.window.set_usize (800, 600)
 
         cursor = cursor_new (LEFT_PTR)
         _root_window ().set_cursor (cursor)
@@ -606,22 +606,22 @@ class InstallControlWindow:
         vbox = GtkVBox (FALSE, 10)
 
         #Create header at the top of the installer
-#        try:
-#            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
-#            pixmap = GtkPixmap(pix, msk)
-#            pixmap.show()
-#            vbox.pack_start(pixmap, FALSE, TRUE, 0)
+        try:
+            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
+            pixmap = GtkPixmap(pix, msk)
+            pixmap.show()
+            vbox.pack_start(pixmap, FALSE, TRUE, 0)
 #            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
-#        except:
-#            try:
-#                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
-#                pixmap = GtkPixmap(pix, msk)
-#                pixmap.show()
-#                vbox.pack_start(pixmap, FALSE, TRUE, 0)
+        except:
+            try:
+                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
+                pixmap = GtkPixmap(pix, msk)
+                pixmap.show()
+                vbox.pack_start(pixmap, FALSE, TRUE, 0)
 #                im = GdkImlib.Image ("pixmaps/first.png")
 
-#            except:
-#                print "Unable to load", file
+            except:
+                print "Unable to load", file
 
         vbox.set_spacing(0)
 
