@@ -17,6 +17,9 @@
 
 #include "edd.h"
 
+#include <sys/wait.h>
+#include <unistd.h>
+
 #include <Python.h>
 
 static PyObject * edd_py_detect (PyObject * s, PyObject * args);
@@ -30,14 +33,29 @@ static PyObject *
 edd_py_detect (PyObject * s, PyObject * args) {
   EDDCapability *ec;
   int device = 0x80;
+  pid_t childpid;
+  int status;
 
   if (!PyArg_ParseTuple(args, "|i", &device))
     return NULL;
 
-  if ((ec = edd_supported(device))) {
-    free (ec);
-    return Py_BuildValue ("i", 1);
+  /* Run this probe as a child as it sometimes segv's in the vm stuff. 
+     The child returns 1 if edd works, and 0 if it doesn't. */
+
+  if (!(childpid = fork())) {
+      if ((ec = edd_supported(device))) {
+	free (ec);
+	exit(1);
+      }
+
+      exit(0);
   }
+
+  waitpid(childpid, &status, 0);
+
+  if (WIFEXITED(status) && WEXITSTATUS(status))
+    return Py_BuildValue ("i", 1);
+
   return Py_BuildValue ("i", 0);
 }
 
