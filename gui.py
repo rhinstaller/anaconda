@@ -1096,7 +1096,6 @@ class InstallControlWindow:
         self.box = gtk.VBox (gtk.FALSE, 0)
         self.box.set_spacing(0)
 
-        self.box.pack_start (gtk.HSeparator (), gtk.FALSE)
         self.help_sw = gtk.ScrolledWindow()
         self.help_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.help_sw.add(self.help)
