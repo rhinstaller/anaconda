@@ -535,28 +535,21 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 #ifndef __STANDALONE__
     int i;
 #endif
-DB
 #ifndef __STANDALONE__
     for (i = 0; i < kd->numKnown; i++)
 	if (!strcmp(kd->known[i].name, dev->dev.device)) break;
 #endif
-DB
     
     if (!(f = fopen(fn, "w"))) return -1;
-DB
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
-    printf("DEVICE=%s\n", dev->dev.device);
-DB
 
 #ifndef __STANDALONE__
     if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
 	fprintf(f, "ONBOOT=no\n");
     else
 #endif
-DB
 	fprintf(f, "ONBOOT=yes\n");
-DB
 
     if (dev->isDynamic) {
 	fprintf(f, "BOOTPROTO=dhcp\n");
@@ -567,24 +560,17 @@ DB
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
     }
-DB
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
-DB
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
-DB
-  fflush(f);
      if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
        fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
-DB
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	fprintf(f, "GATEWAY=%s\n", dev->dev.gateway);
 
-DB
     fclose(f);
-DB
 
     return 0;
 }
