@@ -263,8 +263,8 @@ fmv18x
 	irq "IRQ level" "[0-9]+"
 
 forcedeth
-        eth
-        "nForce Ethernet Driver"
+	eth
+	"nForce Ethernet Driver"
 
 hamachi
 	eth
@@ -581,6 +581,10 @@ airport
 3w-xxxx
 	scsi_hostadapter
 	"3ware Storage Controller"
+
+3w-9xxx
+	scsi_hostadapter
+	"3ware 9000 Series Storage Controller"
 
 AM53C974
 	scsi_hostadapter
