@@ -94,8 +94,6 @@ class ZiplWindow (InstallWindow):
         label.set_padding(50,50)
         box.pack_start(label, FALSE)
 
-#	choices = fsset.bootloaderChoices(diskSet)
-
         box.pack_start (GtkHSeparator (), FALSE)
 
         label = GtkLabel(_("Kernel Parameters") + ":")
