@@ -45,6 +45,7 @@ stepToClasses = {
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
     "partition": ("partition_text", ("PartitionWindow")),
+    "zfcpconfig": ("zfcp_text", ("ZFCPWindow")),
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow")),
 # replace with below if you want customize screen
 #    "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
