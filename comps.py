@@ -68,6 +68,9 @@ class Package:
 	    for comp in chain:
 		if not comp.isSelected(justManual = 0):
 		    on = 0
+                else:
+                    if not comp.set.exprMatch (comp.pkgDict[self]):
+                        on = 0
 	    if on: 
 		self.selected = 1
 
@@ -192,11 +195,7 @@ class Component:
 	    self.manuallySelected = 1
 
 	for pkg in self.pkgs:
-            # if the qualifier for this package is true, turn it on.
-            # XXX twiddling internals
-            pkg.selected = 0
-            if self.set.exprMatch (self.pkgDict[pkg]):
-                pkg.updateSelectionCache()
+            pkg.updateSelectionCache()
 
 	for comp in self.includes:
 	    comp.select(forInclude = 1)
@@ -474,11 +473,7 @@ class ComponentSet:
 	for comp in self.comps:
             if comp.isSelected ():
                 for pkg in comp.pkgs:
-                    # XXX twiddling internals
-                    pkg.selected = 0
-                    # if the qualifier for this package is true, turn it on.
-                    if self.exprMatch (comp.pkgDict[pkg]):
-                        pkg.updateSelectionCache()
+                    pkg.updateSelectionCache()
         
     def __repr__(self):
 	s = ""
