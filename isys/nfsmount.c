@@ -53,7 +53,6 @@
 #include "nfsmount.h"
 
 #define NFS_NEED_KERNEL_TYPES
-#include <linux/uio.h>
 #include <linux/nfs.h>
 #include "mount_constants.h"
 #include "nfs_mount4.h"
