@@ -8,9 +8,10 @@ class UnresolvedDependenciesWindow (InstallWindow):
         ics.setTitle ("Unresolved Dependencies")
         ics.setNextEnabled (1)
         print "hello world"
+        self.dependCB = None
 
     def getNext (self):
-        if self.dependCB.get_active ():
+        if self.dependCB and self.dependCB.get_active ():
             self.todo.selectDeps (self.deps)
         return None
     
