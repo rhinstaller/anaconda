@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-19 02:53+01:00\n"
+"PO-Revision-Date: 2000-02-19 16:20+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1885,6 +1885,10 @@ msgid ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
+"Et drev med en BSD disketikette blev fundet. Red Hats installation "
+"understøtter kun BSD disketiketter i skrivebeskyttet modus, så du er nødt "
+"til at bruge en brugerdefineret installation og fdisk (istedetfor Disk "
+"Druid) til maskiner med BSD disketiketter."
 
 #: ../libfdisk/fsedit.c:1268
 #, c-format
@@ -2105,6 +2109,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"Du har valgt at montere denne raid enhed som en boot'ende partition. Sørg "
+"venligst for at alle dens partitioner kan boot'es."
 
 #: ../libfdisk/gnomefsedit.c:2038
 msgid "No RAID Device"
@@ -2161,6 +2167,9 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"%s partitionen er en præ-eksisterende partition i denne raid-enheds sæt af "
+"partitioner.  Monteringspunktet er sat til /boot. Er du sikker på at det er "
+"muligt at boot'e fra denne partition?"
 
 #: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
@@ -2489,6 +2498,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
+"Du ser ikke ud til at have nogen harddiske på dit system! Vil du gerne "
+"konfigurere yderligere enheder?"
 
 #: ../loader/loader.c:622
 msgid ""
@@ -2496,6 +2507,9 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
+"Hvilken partition og hvilken mappe på den partition indeholder RedHat/RPMS "
+"og RedHat/base mapperne? Hvis du ikke kan se det diskdrev du bruger her, så "
+"tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:636
 msgid "Directory holding Red Hat:"
