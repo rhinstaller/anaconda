@@ -536,6 +536,8 @@ class PartitionWindow(InstallWindow):
                 else:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
+                        if ptype == "foreign":
+                            ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
@@ -747,6 +749,9 @@ class PartitionWindow(InstallWindow):
 
             if origrequest.origfstype:
                 typestr = origrequest.origfstype.getName()
+                if origrequest.origfstype.getName() == "foreign":
+                    part = get_partition_by_name(self.diskset.disks, origrequest.device)
+                    typestr = map_foreign_to_fsname(part.native_type)
             else:
                 typestr = _("Unknown")
 

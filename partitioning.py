@@ -158,6 +158,12 @@ def set_partition_file_system_type(part, fstype):
 def get_partition_drive(partition):
     return "%s" %(partition.geom.disk.dev.path[5:])
 
+def map_foreign_to_fsname(type):
+    if type in allPartitionTypesDict.keys():
+        return allPartitionTypesDict[type]
+    else:
+        return _("Foreign")
+
 def filter_partitions(disk, func):
     rc = []
     part = disk.next_partition ()
@@ -702,7 +708,8 @@ class Partitions:
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
 
                 # set label if makes sense
-                if ptype and ptype.isMountable() and ptype.getName != "foreign":
+                if ptype and ptype.isMountable() and \
+                   (ptype.getName() == "ext2" or ptype.getName() == "ext3"):
                     if spec.device in labels.keys():
                         if labels[spec.device] and len(labels[spec.device])>0:
                             spec.fslabel = labels[spec.device]
@@ -1361,3 +1368,74 @@ def queryNoFormatPreExisting(intf):
 
 # XXX is this all of the possibilities?
 dosPartitionTypes = [ 1, 6, 11, 12, 14, 15 ]
+
+# master list of partition types
+allPartitionTypesDict = {
+    0 : "Empty",
+    1: "DOS 12-bit FAT",
+    2: "XENIX root",
+    3: "XENIX usr",
+    4: "DOS 16-bit <32M",
+    5: "Extended",
+    6: "DOS 16-bit >=32M",
+    7: "NTFS/HPFS",
+    8: "AIX",
+    9: "AIX bootable",
+    10: "OS/2 Boot Manager",
+    0xb: "Win95 FAT32",
+    0xc: "Win95 FAT32",
+    0xe: "Win95 FAT16",
+    0xf: "Win95 Ext'd",
+    0x10: "OPUS",
+    0x11: "Hidden FAT12",
+    0x12: "Compaq Setup",
+    0x14: "Hidden FAT16 <32M",
+    0x16: "Hidden FAT16",
+    0x17: "Hidden HPFS/NTFS",
+    0x18: "AST SmartSleep",
+    0x1b: "Hidden Win95 FAT32",
+    0x1c: "Hidden Win95 FAT32 (LBA)",
+    0x1e: "Hidden Win95 FAT16 (LBA)",
+    0x24: "NEC_DOS",
+    0x39: "Plan 9",
+    0x40: "Venix 80286",
+    0x41: "PPC_PReP Boot",
+    0x42: "SFS",
+    0x4d: "QNX4.x",
+    0x4e: "QNX4.x 2nd part",
+    0x4f: "QNX4.x 2nd part",
+    0x51: "Novell?",
+    0x52: "Microport",
+    0x63: "GNU HURD",
+    0x64: "Novell Netware 286",
+    0x65: "Novell Netware 386",
+    0x75: "PC/IX",
+    0x80: "Old MINIX",
+    0x81: "Linux/MINIX",
+    0x82: "Linux swap",
+    0x83: "Linux native",
+    0x84: "OS/2 hidden C:",
+    0x85: "Linux Extended",
+    0x86: "NTFS volume set",
+    0x87: "NTFS volume set",
+    0x8e: "Linux LVM",
+    0x93: "Amoeba",
+    0x94: "Amoeba BBT",
+    0x9f: "BSD/OS",
+    0xa0: "IBM Thinkpad hibernation",
+    0xa5: "BSD/386",
+    0xa6: "OpenBSD",
+    0xb7: "BSDI fs",
+    0xb8: "BSDI swap",
+    0xc7: "Syrinx",
+    0xdb: "CP/M",
+    0xde: "Dell Utility",
+    0xe1: "DOS access",
+    0xe3: "DOS R/O",
+    0xeb: "BEOS",
+    0xee: "EFI GPT",    
+    0xef: "EFI (FAT-12/16/32)",
+    0xf2: "DOS secondary",
+    0xfd: "Linux RAID",
+    0xff: "BBT"
+    }

@@ -71,6 +71,8 @@ class PartitionWindow:
                 else:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
+                        if ptype == "foreign":
+                            ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = _("None")
 
@@ -568,7 +570,11 @@ class PartitionWindow:
             srow = 0
             typeLbl = Label(_("Filesystem Type:"))
             subgrid.setField(typeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-            type = Label(origrequest.fstype.getName())
+            ptype = origrequest.fstype.getName()
+            if ptype == "foreign":
+                part = get_partition_by_name(self.diskset.disks, origrequest.device)
+                ptype = map_foreign_to_fsname(part.native_type)
+            type = Label(ptype)
             subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
             srow = srow +1
             if origrequest.type != REQUEST_NEW and origrequest.fslabel:
