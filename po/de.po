@@ -58,12 +58,12 @@ msgstr "Dateisystem %s wird formatiert..."
 
 #: ../fstab.py:419
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Erstelle Loopback Dateisystem auf dem Gerät /dev/%s..."
 
 #: ../fstab.py:463
 #, c-format
@@ -1697,6 +1697,8 @@ msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Benutzer-IDs dürfen höchstens aus 8 Buchstaben bestehen und nur aus den "
+"Buchstaben A-Z, a-z und 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
