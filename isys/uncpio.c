@@ -187,7 +187,7 @@ static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr,
     return 0;
 }
 
-int cpioFileMapCmp(const void * a, const void * b) {
+static int myCpioFileMapCmp(const void * a, const void * b) {
     const struct cpioFileMapping * first = a;
     const struct cpioFileMapping * second = b;
 
@@ -496,7 +496,7 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
 	if (mappings) {
 	    needle.archivePath = ch.path;
 	    map = bsearch(&needle, mappings, numMappings, sizeof(needle),
-			  cpioFileMapCmp);
+			  myCpioFileMapCmp);
 	}
 
 	if (mappings && !map) {
