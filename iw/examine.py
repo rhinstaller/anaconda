@@ -7,7 +7,6 @@ class UpgradeExamineWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
         ics.setTitle (_("Upgrade Examine"))
 
     def toggled (self, widget, part):
@@ -16,7 +15,7 @@ class UpgradeExamineWindow (InstallWindow):
 
     def getNext (self):
         threads_leave ()
-	todo.makeFilesystems (createFs = 0)
+	self.todo.makeFilesystems (createFs = 0)
         self.todo.upgradeFindPackages (self.root)
         threads_enter ()
         
