@@ -13,19 +13,22 @@ class KeyboardWindow (InstallWindow):
         ics.setNextEnabled (TRUE)
 	self.kb = xkb.XKB ()
 	self.rules = self.kb.getRules ()
+	rules = _xkb.get_rulesbase ()
+	self.rulesbase = rules[string.rfind (rules, "/")+1:]
+        self.model = "pc101"
+        self.layout = "en_US"
+        self.variant = ""
 
     def getNext (self):
-#        self.todo.keyboard.set (self.keyboardList.get_selection ()[0].children ()[0].get ())
+	self.todo.x.setKeyboard (self.rulesbase, self.model, self.layout, self.variant, "")
         return None
 
     def select_row (self, clist, row, col, event):
-	model = self.modelList.get_row_data (self.modelList.selection[0])
-	layout = self.layoutList.get_row_data (self.layoutList.selection[0])
-	variant = self.variantList.get_row_data (self.variantList.selection[0])
-	options = "complete"
+	self.model = self.modelList.get_row_data (self.modelList.selection[0])
+	self.layout = self.layoutList.get_row_data (self.layoutList.selection[0])
+	self.variant = self.variantList.get_row_data (self.variantList.selection[0])
 
-	self.kb.setRule (model, layout, variant, options)
-	self.todo.x.setKeyboard (model, layout, variant, "")
+	self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
     def getScreen (self):
 	box = GtkVBox (FALSE, 5)
