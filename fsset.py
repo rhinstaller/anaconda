@@ -1062,6 +1062,9 @@ class RAIDDevice(Device):
         self.device = "md" + str(minor)
         self.minor = minor
 
+        # make sure the list of raid members is sorted
+        self.members.sort()
+
     def __del__ (self):
         RAIDDevice.usedMajors.remove(self.minor)
 
