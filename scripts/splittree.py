@@ -24,8 +24,22 @@ import string
 import getopt
 import time
 import types
+import rpm
 
+global _ts
+_ts = None
 
+# returns n-v-r.a from file filename
+def nvra(pkgfile):
+    global _ts
+    if _ts is None:
+        _ts = rpm.TransactionSet()
+        _ts.setVSFlags(-1)
+    fd = os.open(pkgfile, os.O_RDONLY)
+    h = _ts.hdrFromFdno(fd)
+    os.close(fd)
+    return "%s-%s-%s.%s" %(h['name'], h['version'], h['release'], h['arch'])
+    
 
 class Timber:
     """Split trees like no other"""
@@ -231,10 +245,10 @@ and RPMs. Set to 1 to turn on."""
         rpmlist = os.listdir("%s/RedHat/RPMS" % self.dist_dir)
         rpmlist.sort()
 
-        # create the packages dictionary in this format: n-v-r:['n-v-r.arch.rpm']
+        # create the packages dictionary in this format: n-v-r.a:['n-v-r.arch.rpm']
         for filename in rpmlist:
             filesize = os.path.getsize("%s/RedHat/RPMS/%s" % (self.dist_dir, filename))
-            pkg_nvr = string.join(string.split(filename, ".")[:-2], ".")
+            pkg_nvr = nvra("%s/RedHat/RPMS/%s" %(self.dist_dir, filename))
             
             if packages.has_key(pkg_nvr):
                 # append in case we have multiple packages with the
