@@ -54,7 +54,7 @@ class NetworkDevice (SimpleConfigFile):
         return s
 
     def __init__ (self, dev):
-        self.info = { "DEVICE" : dev }
+        self.info = { "DEVICE" : dev, "ONBOOT" : "yes" }
         self.hostname = ""
 
 class Network:
