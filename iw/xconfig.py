@@ -199,7 +199,7 @@ class XConfigWindow (InstallWindow):
             sw = GtkScrolledWindow ()
             sw.add (self.monlist)
             sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
-            self.autoBox.pack_start (sw, TRUE)
+            self.autoBox.pack_start (sw, TRUE, TRUE)
 
         test = GtkAlignment ()
         button = GtkButton (_("Test this configuration"))
@@ -218,7 +218,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (self.custom, FALSE)
         self.autoBox.pack_start (self.xdm, FALSE)
 
-        box.pack_start (self.autoBox, FALSE)        
+        box.pack_start (self.autoBox, TRUE, TRUE)
         box.pack_start (self.skip, FALSE)
 
         self.skip.set_active (self.todo.x.skip)
