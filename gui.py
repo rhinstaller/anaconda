@@ -5,10 +5,15 @@ from gtk import _root_window
 from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
+import time
 
 im = None
 splashwindow = None
 
+
+#print "Inside gui.py"
+#print x.res
+#time.sleep (5)
 width = screen_width()
 
 #--If the xserver is running at 800x600 res or higher, use the 800x600 splash screen.
@@ -17,11 +22,12 @@ if width >= 800:
         im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
     except:
         try:
-            im = GdkImlib.Image ("pixmaps/first-lowres.png")
+            im = GdkImlib.Image ("pixmaps/first.png")
         except:
             print "Unable to load", file
 #--Otherwise, use the old 640x480 one
 else:
+    print "In lowres mode..."
     try:
         im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
     except:
