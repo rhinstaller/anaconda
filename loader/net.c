@@ -571,6 +571,14 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+   if (!strncmp(dev->dev.device, "ctc", 3)) {
+     if (dev->dev.set & PUMP_NETINFO_HAS_BROADCAST)
+       fprintf(f, "REMIP=%s\n", dev->dev.broadcast);
+   } else {
+       fprintf(f, "BROADCAST=%s\n", dev->dev.broadcast);
+   }
+    if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	fprintf(f, "GATEWAY=%s\n", dev->dev.gateway);
 
     fclose(f);
 
