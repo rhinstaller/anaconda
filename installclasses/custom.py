@@ -9,7 +9,7 @@ from partitioning import autoCreatePartitionRequests
 
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
-    name = N_("Custom System")
+    name = N_("Custom")
     pixmap = "custom.png"
         
     sortPriority = 10000

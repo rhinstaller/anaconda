@@ -9,7 +9,7 @@ from autopart import CLEARPART_TYPE_NONE
 
 class InstallClass(BaseInstallClass):
 
-    name = N_("Server System")
+    name = N_("Server")
     pixmap = "server.png"
     sortPriority = 10
 
