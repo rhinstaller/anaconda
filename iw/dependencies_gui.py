@@ -87,14 +87,14 @@ class UnresolvedDependenciesWindow (InstallWindow):
         self.updateSize()
 
         rb = gtk.VBox (gtk.FALSE)
-        self.dependRB = gtk.RadioButton (None, _("Install packages to "
+        self.dependRB = gtk.RadioButton (None, _("_Install packages to "
                                                 "satisfy dependencies"))
         
-        self.causeRB  = gtk.RadioButton (self.dependRB, _("Do not install "
+        self.causeRB  = gtk.RadioButton (self.dependRB, _("_Do not install "
                                                          "packages that "
                                                          "have dependencies"))
         
-        self.ignoreRB = gtk.RadioButton (self.dependRB, _("Ignore package "
+        self.ignoreRB = gtk.RadioButton (self.dependRB, _("I_gnore package "
                                                          "dependencies"))
 
         rb.pack_start (self.dependRB)
