@@ -58,7 +58,7 @@ class InstallPathWindow (InstallWindow):
 
 	for (name, object, pixmap) in self.installTypes:
 	    descr = object.description
-	    r.addEntry(name, name, pixmap=self.ics.readPixmap(pixmap),
+	    r.addEntry(name, _(name), pixmap=self.ics.readPixmap(pixmap),
 		       descr=_(descr))
 
 	return r

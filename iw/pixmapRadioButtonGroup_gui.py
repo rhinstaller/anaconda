@@ -63,6 +63,7 @@ class pixmapRadioButtonGroup:
         return button
 
     # add a entry to end of list
+    # (label and descr should already be passed through _())
     def addEntry(self, name, label, pixmap=None, descr=None, userdata=None):
 	node = {}
 	node["name"] = name
@@ -124,8 +125,8 @@ class pixmapRadioButtonGroup:
 	    label = item["label"]
 	    pixmap = item["pixmap"]
 	    descr = item["descr"]
-	    radioGroup = self.pixRadioButton(radioGroup, _(label), pixmap,
-					     description=_(descr))
+	    radioGroup = self.pixRadioButton(radioGroup, label, pixmap,
+					     description=descr)
 	    buttons.append(radioGroup)
 	    self.buttonToEntry[radioGroup] = name
 

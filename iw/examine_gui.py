@@ -56,7 +56,7 @@ class UpgradeExamineWindow (InstallWindow):
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
 	r.addEntry(UPGRADE_STR,
-                   N_("Perform an upgrade of an existing installation"),
+                   _("Perform an upgrade of an existing installation"),
 		   pixmap=self.ics.readPixmap("upgrade.png"),
 		   descr=_("Choose this option if you would like "
                            "to upgrade your existing %s system.  "
@@ -64,7 +64,7 @@ class UpgradeExamineWindow (InstallWindow):
                            "existing data on your drives.") %(productName,))
         
 	r.addEntry(REINSTALL_STR,
-                   N_("Perform a new %s installation") %(productName,),
+                   _("Perform a new %s installation") %(productName,),
 		   pixmap=self.ics.readPixmap("install.png"),
 		   descr=_("Choose this option to install your system "
                            "from scratch.  Depending on how you choose "
