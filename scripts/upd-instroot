@@ -130,7 +130,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               sed net-tools xinetd openssl openssh openssh-server coreutils
               login initscripts XFree86-xauth bash portmap pam 
               telnet-server login mount grep modutils gawk 
-              XFree86-libs strace"
+              XFree86-libs strace laus"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -448,6 +448,7 @@ usr/X11R6/$LIBDIR/libXmuu.so*
 usr/X11R6/$LIBDIR/libX11.so*
 usr/X11R6/$LIBDIR/libXext.so*
 usr/X11R6/bin/xauth
+usr/$LIBDIR/liblaus.so*
 EOF
 fi
       

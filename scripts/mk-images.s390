@@ -291,6 +291,7 @@ EOF
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
     cp -df $IMGPATH/$LIBDIR/libpam.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libpam_misc.so* $MBD_DIR/$LIBDIR
+    cp -df $IMGPATH/usr/$LIBDIR/liblaus.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl-*.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libnsl.so* $MBD_DIR/$LIBDIR
