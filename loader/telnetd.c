@@ -26,8 +26,6 @@
 #define IPPORT_TELNET 23
 #endif
 
-#define DEBUG
-
 /* Forks, keeping the loader as our child (so we know when it dies). */
 int beTelnet(int flags) {
     int sock;
@@ -106,9 +104,6 @@ int beTelnet(int flags) {
 #ifndef DEBUG
 	startNewt(flags);
 	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
-#else
-	close(1);
-	open("LOG", O_RDWR | O_CREAT);
 #endif
 
 	fds[0].events = POLLIN;
