@@ -2,6 +2,7 @@
 
 	* kickstart.py (KickstartBase.doLangSupport):  Don't skip a step that
 	doesn't exist.
+	* loader2/lang.c (setLangEnv):  Change font case to match lang-table.
 
 2005-04-04  Chris Lumens  <clumens@redhat.com>
 

@@ -211,9 +211,9 @@ static void setLangEnv (int i, int flags) {
     if (i > numLanguages)
         return;
 
-    logMessage("setting language to %s", languages[i].lc_all);
-    if (!strcmp(languages[i].font, "None"))
+    if (!strcmp(languages[i].font, "none"))
         return;
+    logMessage("setting language to %s", languages[i].lc_all);
 
     setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
