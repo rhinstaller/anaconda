@@ -44,7 +44,7 @@ class DesktopChoiceWindow (InstallWindow):
 	self.intf = intf
 	self.dispatch = dispatch
 
-	vbox = gtk.VBox (gtk.FALSE, 36)
+	vbox = gtk.VBox (gtk.FALSE, 0)
 	vbox.set_border_width (5)
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
@@ -56,13 +56,13 @@ class DesktopChoiceWindow (InstallWindow):
         labeltxt = _(
      "The default workstation environment includes our recommendations for "
      "new users, including:\n\n"
-     "Desktop shell (GNOME)\n"
-     "Office suite (OpenOffice)\n"
-     "Web browser (Mozilla) \n"
-     "Email (Evolution)\n"
-     "Instant messaging\n"
-     "Sound and video applications\n"
-     "Games\n\n"
+     "\tDesktop shell (GNOME)\n"
+     "\tOffice suite (OpenOffice)\n"
+     "\tWeb browser (Mozilla) \n"
+     "\tEmail (Evolution)\n"
+     "\tInstant messaging\n"
+     "\tSound and video applications\n"
+     "\tGames\n\n"
      "After installation, additional software can be added or removed using "
      "the 'redhat-config-package' tool.\n\n"
      "If you are familiar with %s, you may have specific packages "
@@ -76,13 +76,13 @@ class DesktopChoiceWindow (InstallWindow):
 	
 	self.acceptRadio = gtk.RadioButton (None, _("_Accept the current package list"))
 	self.customizeRadio = gtk.RadioButton (self.acceptRadio, _("_Customize the set of packages to be installed"))
-	vbox2 = gtk.VBox (gtk.FALSE, 18)
+	vbox2 = gtk.VBox (gtk.FALSE)
 	vbox2.pack_start (self.acceptRadio, gtk.FALSE, gtk.FALSE, 0)
 	vbox2.pack_start (self.customizeRadio, gtk.FALSE, gtk.FALSE, 0)
 	al = gtk.Alignment(0.5, 0)
 	al.add (vbox2)
 	
-	vbox.pack_start (al, gtk.FALSE, gtk.FALSE, 0)
+	vbox.pack_start (al, gtk.FALSE, gtk.FALSE, 25)
 	custom = not self.dispatch.stepInSkipList("package-selection")
 	if custom:
 	    self.customizeRadio.set_active(1)
