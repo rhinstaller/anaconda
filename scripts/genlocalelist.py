@@ -87,10 +87,10 @@ charFont["ISO-8859-15"] =  "lat0-sun16"
 charFont["UTF-8"] = "latarcyrheb-sun16"
 
 prefNotUtf8 = {}
-prefNotUtf8["ja_JP"] = "eucJP"
-prefNotUtf8["ko_KR"] = "eucKR"
+prefNotUtf8["ja_JP"] = "EUC-JP"
+prefNotUtf8["ko_KR"] = "EUC-KR"
 prefNotUtf8["zh_CN"] = "GB18030"
-prefNotUtf8["zh_TW"] = "Big5"
+prefNotUtf8["zh_TW"] = "BIG5"
 
 
 f = os.popen("locale -a", "r")
@@ -116,6 +116,8 @@ for line in lines:
     lang = lang.replace("gb18030", "GB18030")
     lang = re.sub("^zh_CN$", "zh_CN.GB18030", lang)
     lang = re.sub("^zh_TW$", "zh_TW.Big5", lang)
+    lang = re.sub("^ja_JP$", "ja_JP.eucJP", lang)
+    lang = re.sub("^ko_KR$", "ko_KR.eucKR", lang)
     lang = lang.replace("utf8", "UTF-8")
 
     # we don't want @euro locales for utf8
@@ -148,8 +150,14 @@ for line in lines:
     if nameList.has_key(fullName):
         # we want the en_US form
         nick = language.expandLangs(nameList[fullName])[-2]
+#	print nick, charmap,
+#	if prefNotUtf8.has_key(nick):
+#		print prefNotUtf8[nick]
+#	else:
+#		print
         if (prefNotUtf8.has_key(nick) and
             (charmap != prefNotUtf8[nick])):
+#	    print "have nick, but this isn't the right charmap"
             continue
         elif charmap != "UTF-8":
             continue
