@@ -733,15 +733,18 @@ class PartitionWindow(InstallWindow):
         row = row + 1
 
         # Partition Type
-        maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
-                                            0, 1, row, row + 1)
-
         if origrequest.type == REQUEST_NEW:
+            maintable.attach(createAlignedLabel(_("Filesystem Type:")),
+                             0, 1, row, row + 1)
+
             (newfstype, newfstypeMenu) = createFSTypeMenu(origrequest.fstype,
                                                           fstypechangeCB,
                                                           mountCombo)
             maintable.attach(newfstype, 1, 2, row, row + 1)
         else:
+            maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
+                             0, 1, row, row + 1)
+
             if origrequest.origfstype:
                 typestr = origrequest.origfstype.getName()
             else:
@@ -769,6 +772,15 @@ class PartitionWindow(InstallWindow):
                                  0, 1, row, row + 1)
                 maintable.attach(createAlignedLabel(origrequest.drive[0]),
                                  1, 2, row, row + 1)
+
+            row = row + 1
+
+        # original fs label
+        if origrequest.type != REQUEST_NEW and origrequest.fslabel:
+            maintable.attach(createAlignedLabel(_("Original Filesystem Label:")),
+                             0, 1, row, row + 1)
+            fslabel = GtkLabel(origrequest.fslabel)
+            maintable.attach(fslabel, 1, 2, row, row + 1)
 
             row = row + 1
 

@@ -513,7 +513,7 @@ class PartitionSpec:
                  format = None, options = None, 
                  constraint = None, migrate = None,
                  raidmembers = None, raidlevel = None, 
-                 raidspares = None, badblocks = None):
+                 raidspares = None, badblocks = None, fslabel = None):
         #
         # requesttype: REQUEST_PREEXIST or REQUEST_NEW or REQUEST_RAID
         #
@@ -549,6 +549,9 @@ class PartitionSpec:
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
+
+        # fs label (if pre-existing, otherwise None)
+        self.fslabel = fslabel
         
         # device is what we currently think the device is
         # realDevice is used by partitions which are pre-existing
@@ -661,6 +664,7 @@ class Partitions:
         self.deletes = []
         self.requests = []
         diskset.refreshDevices()
+        labels = diskset.getLabels()
         drives = diskset.disks.keys()
         drives.sort()
         for drive in drives:
@@ -696,6 +700,12 @@ class Partitions:
                                      start = start, end = end, size = size,
                                      drive = drive, format = format)
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()
+
+                # set label if makes sense
+                if ptype and ptype.isMountable() and ptype.getName != "foreign":
+                    if spec.device in labels.keys():
+                        if labels[spec.device] and len(labels[spec.device])>0:
+                            spec.fslabel = labels[spec.device]
 
                 self.addRequest(spec)
                 part = disk.next_partition(part)

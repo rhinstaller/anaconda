@@ -185,7 +185,7 @@ class PartitionWindow:
     def makeMountEntry(self, request):
         mountgrid = Grid(2, 1)
         mountLbl = Label(_("Mount Point:"))
-        mountgrid.setField(mountLbl, 0, 0, (0,0,6,0), anchorLeft = 1)
+        mountgrid.setField(mountLbl, 0, 0, (0,0,0,0), anchorLeft = 1)
         mountpoint = request.mountpoint
         if mountpoint:
             mount = Entry(20, mountpoint)
@@ -565,18 +565,28 @@ class PartitionWindow:
         else:
             subgrid = Grid(2, 4)
             # filesystem type selection
+            srow = 0
             typeLbl = Label(_("Filesystem Type:"))
-            subgrid.setField(typeLbl, 0, 0, (0,0,2,0), anchorLeft = 1)
+            subgrid.setField(typeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
             type = Label(origrequest.fstype.getName())
-            subgrid.setField(type, 1, 0, anchorRight = 1)
+            subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
+            srow = srow +1
+            if origrequest.type != REQUEST_NEW and origrequest.fslabel:
+                fsLbl = Label(_("Filesystem Label:"))
+                subgrid.setField(fsLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
+                label = Label(origrequest.fslabel)
+                subgrid.setField(label, 1, srow, (0,0,0,1), anchorRight = 1)
+                srow = srow + 1
+                
             sizeLbl = Label(_("Size (MB):"))
-            subgrid.setField(sizeLbl, 0, 1, (0,1,2,0), anchorLeft = 1)
+            subgrid.setField(sizeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
             size = Label("%s" %(int(origrequest.size)))
-            subgrid.setField(size, 1, 1, (0,1,0,0), anchorRight = 1)
+            subgrid.setField(size, 1, srow, (0,0,0,1), anchorRight = 1)
+            srow = srow + 1
             tmpLbl = Label(_("Filesystem Option:"))
-            subgrid.setField(tmpLbl, 0, 2, (0,1,2,0), anchorLeft = 1)
+            subgrid.setField(tmpLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
             fsoptLbl = Label("")
-            subgrid.setField(fsoptLbl, 1, 2, (0,1,2,0), anchorLeft = 1)
+            subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
