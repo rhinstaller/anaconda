@@ -271,7 +271,6 @@ class Language (SimpleConfigFile):
     
     def set (self, lang):
         self.lang = self.langs[lang]
-        os.environ["LANG"] = self.langs[lang]
         if self.japanesehack:
             self.info["LANG"] = "ja_JP.eucJP"
             rpm.addMacro("_install_langs", "ja_JP.eucJP")

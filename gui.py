@@ -378,7 +378,8 @@ class InstallControlWindow:
             newlangs.append(lang[:2])
         self.lang = lang
         
-        os.environ["LC_ALL"] = lang        
+        os.environ["LC_ALL"] = lang
+        os.environ["LANG"] = lang
         self.locale = lang[:2]
 
         cat.setlangs (newlangs)
