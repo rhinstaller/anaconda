@@ -73,6 +73,13 @@ class NetworkWindow:
         self.onboot = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
         firstg.setField (self.onboot, 0, 2, anchorLeft = 1)
 
+        if len(dev.info["DEVICE"]) >= 3 and dev.info["DEVICE"][:3] == "ctc":
+            ask_ptp = 1
+            secondg = Grid (2, 7)
+        else:
+            ask_ptp = None
+            secondg = Grid (2, 6)
+
         secondg = Grid (2, 6)
             
         secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)
@@ -84,6 +91,9 @@ class NetworkWindow:
         secondg.setField (Label (_("Secondary nameserver:")), 0, 4,
                           anchorLeft = 1)
         secondg.setField (Label (_("Tertiary nameserver:")), 0, 5,
+                          anchorLeft = 1)
+        if ask_ptp:
+            secondg.setField (Label (_("Point to Point (IP):")), 0, 6,
                           anchorLeft = 1)
         
         self.ip = Entry (16)
@@ -98,6 +108,9 @@ class NetworkWindow:
         self.ns2.set (network.secondaryNS)
         self.ns3 = Entry (16)
         self.ns3.set (network.ternaryNS)
+        if ask_ptp:
+            self.ptp = Entry(16)
+            self.ptp.set (dev.get ("remip"))
             
         self.cb.setCallback (self.setsensitive)
         self.ip.setCallback (self.calcNM)
@@ -109,6 +122,8 @@ class NetworkWindow:
         secondg.setField (self.ns, 1, 3, (1, 0, 0, 0))
         secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
         secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
+        if ask_ptp:
+            secondg.setField (self.ptp, 1, 6, (1, 0, 0, 0))
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
@@ -129,7 +144,7 @@ class NetworkWindow:
                 dev.unset ('onboot')
             if self.cb.selected ():
                 dev.set (("bootproto", "dhcp"))
-                dev.unset ("ipaddr", "netmask", "network", "broadcast")
+                dev.unset ("ipaddr", "netmask", "network", "broadcast", "remip")
             else:
                 try:
                     (net, bc) = isys.inet_calcNetBroad (self.ip.value (),
