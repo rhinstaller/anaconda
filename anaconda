@@ -715,6 +715,7 @@ if traceOnly:
     import libxml2
     import cmdline
     import encodings.utf_8
+    import encodings.idna
 
     installclass.availableClasses()
 
