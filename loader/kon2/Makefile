@@ -40,7 +40,7 @@ depend:
 	done
 
 clean:
-	$(RM) -f *~ include/*~ doc/*~ .depend .config include/config.h config.out
+	$(RM) -f *~ include/*~ doc/*~ .depend .config config.out
 	@for i in $(SUBDIRS);\
 	do (cd $$i && echo cleaning all in $$i && $(MAKE) clean);\
 	done
