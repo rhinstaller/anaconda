@@ -581,8 +581,7 @@ def doInstall(method, id, intf, instPath):
 	    nodeprob = rpm.RPMPROB_DISKNODES
 
 	for (descr, (type, mount, need)) in problems:
-	    idx = string.find (mount, "/mnt/sysimage")
-	    if mount[0:13] == "/mnt/sysimage":
+            if mount.startswith('/mnt/sysimage'):
 		mount = mount[13:]
 		if not mount:
 		    mount = '/'
@@ -729,32 +728,32 @@ def doPostInstall(method, id, intf, instPath):
 		    pass
 
 	    if arch != "s390" and arch != "s390x":
-		    unmountUSB = 0
-		    try:
-			isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
-			unmountUSB = 1
-		    except:
-			log("Mount of /proc/bus/usb failed")
-			pass
+                unmountUSB = 0
+                try:
+                    isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
+                    unmountUSB = 1
+                except:
+                    log("Mount of /proc/bus/usb failed")
+                    pass
 
-			
-		    argv = [ "/usr/sbin/kudzu", "-q" ]
-		    devnull = os.open("/dev/null", os.O_RDWR)
-		    iutil.execWithRedirect(argv[0], argv, root = instPath,
-					   stdout = devnull)
-		    # turn it back on            
-		    if mousedev:
-			try:
-			    os.rename ("/dev/disablemouse", mousedev)
-			except OSError:
-			    pass
-			try:
-			    xmouse.reopen()
-			except RuntimeError:
-			    pass
 
-		    if unmountUSB:
-			isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+                argv = [ "/usr/sbin/kudzu", "-q" ]
+                devnull = os.open("/dev/null", os.O_RDWR)
+                iutil.execWithRedirect(argv[0], argv, root = instPath,
+                                       stdout = devnull)
+                # turn it back on            
+                if mousedev:
+                    try:
+                        os.rename ("/dev/disablemouse", mousedev)
+                    except OSError:
+                        pass
+                    try:
+                        xmouse.reopen()
+                    except RuntimeError:
+                        pass
+
+                if unmountUSB:
+                    isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
 
 	w.set(4)
 
