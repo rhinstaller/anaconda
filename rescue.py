@@ -213,7 +213,7 @@ def runRescue(instPath, mountroot, id):
 	    scroll = 0
 
 	partList = []
-	for (drive, fs) in disks:
+	for (drive, fs, relstr) in disks:
 	    partList.append(drive)
 
 	(button, choice) = \
