@@ -68,9 +68,10 @@ class Fstab:
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
         # skip out here if not partitions defined, just onpart def's
-        if partitions == None:
-            return ddruid
-
+        # cant do this now, have to let attempt fixup partition types
+        #if partitions == None:
+        #    return ddruid
+       
 	for (mntpoint, sizespec, locspec, typespec, fsopts) in partitions:
             (device, part, primOnly) = locspec
             (size, maxsize, grow) = sizespec
@@ -104,6 +105,17 @@ class Fstab:
             for (mntpoint, sizespce, locspec, typespec, fsopts) in partitions:
                 if fsopts != None:
                     self.setfsOptions (mntpoint, fsopts)
+
+            # sanity check
+            for (partition, mount, fsystem, size) in ddruid.getFstab():
+                if mount == '/' and fsystem != 'ext2':
+                    raise ValueError, "--onpart specified for mount point / on non-ext2 partition"
+
+                # if mount point other than '/' is on non-ext2, better have
+                # specified --dontformat 
+                for (mntpoint, (dev, fstype, reformat)) in prefstab:
+                    if mntpoint == mount and reformat != 0 and fsystem != fstype:
+                    raise ValueError, "--onpart specified for mount point %s on non-ext2 partition without --dontformat option" % mntpoint
 
             return ddruid
         else:
@@ -696,7 +708,9 @@ class Fstab:
 
 	fstab = []
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
-	    if fsystem == "swap": continue
+
+	    if fsystem == "swap":
+                continue
 
 	    if not self.fsCache.has_key((partition, mount)):
 		if mount == '/home' and isValidExt2(partition):
