@@ -115,18 +115,18 @@ fi
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
-PACKAGESGR="XFree86-libs imlib libpng libtiff libjpeg
-      XFree86-S3 XFree86-S3V 
-      XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
-      XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts glib gtk+
-      XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
-      XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
-      e2fsprogs fileutils glibc rsh less ftp readline gzip
-      popt specspo util-linux
-      rpm rpm-devel open grep net-tools traceroute 
-      tar procps textutils sed ncurses bash cpio mt-st iputils sh-utils
-      XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
-      pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
+PACKAGESGR="XFree86-libs imlib libpng libtiff libjpeg XFree86-S3
+           XFree86-S3V XFree86-FBDev XFree86-I128 XFree86-3DLabs
+           XFree86-VGA16 XFree86-75dpi-fonts
+           XFree86-ISO8859-2-75dpi-fonts glib gtk+
+           XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
+           XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
+           XFree86-xfs e2fsprogs fileutils glibc rsh less ftp
+           readline gzip popt specspo util-linux rpm rpm-devel open
+           grep net-tools traceroute tar procps textutils sed ncurses
+           bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
+           XFree86 Xconfigurator pygnome pygtk pygtk-libglade
+           pygnome-libglade pygnome-applet pygnome-capplet"
 
 if [ $ARCH != ia64 ]; then
     PACKAGESGR="$PACKAGESGR mtools pine modutils"
@@ -263,10 +263,8 @@ usr/X11R6/lib/libX11*
 usr/X11R6/lib/libXi*
 usr/X11R6/lib/libXext*
 usr/X11R6/bin/setxkbmap
-usr/X11R6/bin/XFree86
-usr/X11R6/lib/modules/*
-usr/X11R6/lib/modules/lib*
 usr/X11R6/bin/XF86_3DLabs
+usr/X11R6/bin/XFree86
 usr/X11R6/bin/XF86_I128
 usr/X11R6/bin/XF86_FBDev
 usr/X11R6/bin/XF86_Mach32
@@ -281,25 +279,26 @@ usr/X11R6/bin/Xsun
 usr/X11R6/bin/Xsun24
 usr/X11R6/bin/Xtest
 usr/X11R6/lib/X11/fonts/75dpi/cour*
+usr/X11R6/lib/X11/fonts/75dpi/fonts*
 usr/X11R6/lib/X11/fonts/75dpi/helv*
 usr/X11R6/lib/X11/fonts/75dpi/tim*
-usr/X11R6/lib/X11/fonts/75dpi/fonts*
+usr/X11R6/lib/X11/fonts/cyrillic/*
+usr/X11R6/lib/X11/fonts/misc/12x*
 usr/X11R6/lib/X11/fonts/misc/6x*
 usr/X11R6/lib/X11/fonts/misc/7x*
 usr/X11R6/lib/X11/fonts/misc/8x*
 usr/X11R6/lib/X11/fonts/misc/9x*
-usr/X11R6/lib/X11/fonts/misc/12x*
+usr/X11R6/lib/X11/fonts/misc/cursor*
+usr/X11R6/lib/X11/fonts/misc/fonts*
 usr/X11R6/lib/X11/fonts/misc/jis*
 usr/X11R6/lib/X11/fonts/misc/k14*
-usr/X11R6/lib/X11/fonts/misc/fonts*
-usr/X11R6/lib/X11/fonts/misc/cursor*
 usr/X11R6/lib/X11/fonts/misc/olcursor*
-usr/X11R6/lib/X11/fonts/cyrillic/*
 usr/X11R6/lib/X11/xserver/SecurityPolicy
+usr/X11R6/lib/modules/*
 usr/share/fonts/ISO8859-2/75dpi/cour*
+usr/share/fonts/ISO8859-2/75dpi/fonts*
 usr/share/fonts/ISO8859-2/75dpi/helv*
 usr/share/fonts/ISO8859-2/75dpi/tim*
-usr/share/fonts/ISO8859-2/75dpi/fonts*
 usr/share/fonts/ISO8859-2/misc/6x*
 usr/share/fonts/ISO8859-2/misc/9x*
 usr/share/fonts/ISO8859-2/misc/fonts*
@@ -485,11 +484,12 @@ for p in $DEST $DESTGR; do
 	(cd $p; chroot $p usr/sbin/ldconfig )
 	rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
-	for l in `find $p -type f -perm +100 | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
+	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf
+
+	for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/lib/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
 	    $STRIP $l -R .comment -R .note `objdump -h $l | \
 		sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 	done
-	find $p -name "*.a" | xargs rm -rf
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
