@@ -572,7 +572,7 @@ def ejectCdrom(device, makeDevice = 1):
         makeDevInode(device, "/tmp/cdrom")
         fd = os.open("/tmp/cdrom", os.O_RDONLY|os.O_NONBLOCK)
     else:
-        fd = os.open(device, os.O_RDONLY|os.O_NOBLOCK)
+        fd = os.open(device, os.O_RDONLY|os.O_NONBLOCK)
 
     # this is a best effort
     try:
