@@ -21,6 +21,7 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
+static int PromiseSX8GetDevices(struct knownDevices * devices);
 #ifdef WITH_ATARAID
 static int ataraidGetDevices(struct knownDevices * devices);
 #endif
@@ -413,6 +414,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+        PromiseSX8GetDevices(devices);
 	viodGetDevices(devices);
 	return 0;
     }
@@ -432,6 +434,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+        PromiseSX8GetDevices(devices);
 	viodGetDevices(devices);
 	goto bye;
     }
@@ -564,6 +567,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
+    PromiseSX8GetDevices(devices);
     viodGetDevices(devices);
     /* we can't really sanely do ataraid devs yet (#82848) */
 #if WITH_ATARAID
@@ -733,7 +737,7 @@ static int ProcPartitionsGetDevices(struct knownDevices * devices) {
 	    
 	if (!strncmp("i2o/", start, 4))
 	   model = "I2O Block Device";
-
+        
 	if (model) {
 	    i = 0;
 	    while(!(isspace(*start))) {
@@ -897,6 +901,38 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
 	f = fopen (ctl, "r");
     }
 
+    
+    return 0;
+}
+
+static int PromiseSX8GetDevices(struct knownDevices * devices) {
+    struct kddevice newDevice;
+    FILE *f;
+    char buf[256];
+    char *ptr;
+    int ctlNum = 0;
+    char ctl[64];
+    char *path;
+	
+    path = "/proc/driver/sx8";
+
+    f = fopen(path, "r");
+
+    while (fgets(buf, sizeof(buf) - 1, f)) {
+        if (!strncmp(buf, "sx8/", 4)) {
+            ptr = strchr(buf, ':');
+            *ptr = '\0';
+            sprintf(ctl, "sx8/%d", ctlNum++);
+            
+            if (!deviceKnown(devices, ctl)) {
+                newDevice.name = strdup(ctl);
+                newDevice.model = strdup("Promise SX8 SATA disk");
+                newDevice.class = CLASS_HD;
+                addDevice(devices, newDevice);
+            }
+        }
+    }
+    fclose(f);
     
     return 0;
 }
