@@ -470,6 +470,8 @@ def hasIbmSis():
     for line in lines:
         if line.startswith("ibmsis"):
             return 1
+        if line.startswith("ipr"):
+            return 1
 
     return 0
 
