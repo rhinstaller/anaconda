@@ -293,6 +293,11 @@ class BaseInstallClass:
 	    newlist = []
 	    for lang in langlist:
 		newlist.append(id.langSupport.getLangNameByNick(lang))
+
+            default = id.langSupport.getDefault()
+            if default not in newlist:
+                newlist.append(default)
+                
 	    id.langSupport.setSupported(newlist)
 
     def setLanguageDefault(self, id, default):
