@@ -24,6 +24,7 @@ import struct
 import partitioning
 import partedUtils
 import raid
+import lvm
 import types
 
 from rhpl.log import log
@@ -1515,13 +1516,7 @@ class VolumeGroupDevice(Device):
 
     def setupDevice (self, chroot, devPrefix='/tmp'):
         if not self.isSetup:
-            rc = iutil.execWithRedirect("/usr/sbin/vgscan",
-                                        ["vgscan", "-v"],
-                                        stdout = "/tmp/lvmout",
-                                        stderr = "/tmp/lvmout",
-                                        searchPath = 1)
-            if rc:
-                raise SystemError, "vgscan failed"
+            lvm.vgscan()
             
             nodes = []
             for volume in self.physicalVolumes:
@@ -1543,14 +1538,7 @@ class VolumeGroupDevice(Device):
                 nodes.append(node)
 
             # rescan now that we've recreated pvs.  ugh.
-            rc = iutil.execWithRedirect("/usr/sbin/vgscan",
-                                        ["vgscan", "-v"],
-                                        stdout = "/tmp/lvmout",
-                                        stderr = "/tmp/lvmout",
-                                        searchPath = 1)
-            if rc:
-                raise SystemError, "vgscan failed"
-
+            lvm.vgscan()
 
             args = [ "/usr/sbin/vgcreate", "-v", self.name ]
             args.extend(nodes)
