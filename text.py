@@ -214,14 +214,11 @@ class PackageGroupWindow:
         for comp in todo.comps:
             if not comp.hidden: comp.unselect(0)
 
-        screen.suspend()
-        # turn on all the comps we selected
-        for comp in ct.getSelection():
-            print "select", comp.name
-            comp.select (0)
-        time.sleep(5)
-        screen.resume()
-        screen.refresh()
+        list = ct.getSelection()
+        print list
+            # turn on all the comps we selected
+#            for comp in list:
+#                comp.select (0)
             
         rc = bb.buttonPressed (result)
 
