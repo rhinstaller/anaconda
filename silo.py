@@ -1,6 +1,6 @@
 import string
 import os
-import lilo
+from lilo import LiloConfiguration
 import _silo
 
 class SiloInstall:

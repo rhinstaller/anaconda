@@ -1558,7 +1558,11 @@ class ToDo:
 	    if (self.instClass.defaultRunlevel):
 		self.initlevel = self.instClass.defaultRunlevel
 		self.setDefaultRunlevel ()
-	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
+            arch = iutil.getArch ()
+            
+            # pcmcia is supported only on i386 at the moment
+            if arch == "i386":
+                pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
                 self.x.write (self.instPath + "/etc/X11/XF86Config")
