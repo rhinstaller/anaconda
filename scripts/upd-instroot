@@ -496,10 +496,18 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/bin
 	rm -rf $p/sbin
 
+	# copy bootloader files for sparc
 	if [ $ARCH = sparc -a $p = $DESTGR ]; then
 	    mkdir -p $p/usr/lib/anaconda-runtime/boot
 	    (cd $p/boot; find -name "*.b") | (cd $p/boot; /bin/cpio --quiet -pdmu $p/usr/lib/anaconda-runtime/boot)
         fi
+
+	# copy bootloader file for alpha
+	if [ $ARCH = alpha -a $p = $DESTGR ]; then
+	    mkdir -p $p/usr/lib/anaconda-runtime/boot
+	    cp -af $p/boot/bootlx $p/usr/lib/anaconda-runtime/boot
+        fi
+
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf
