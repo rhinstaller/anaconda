@@ -29,7 +29,7 @@ import types
 from rhpl.log import log
 from rhpl.translate import _, N_
 
-defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var']
+defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
 if iutil.getArch() == "ia64":
     defaultMountPoints.insert(1, '/boot/efi')
