@@ -162,13 +162,13 @@ class BaseInstallClass:
 	    dispatch.skipStep("fdasd", permanent = 1)
 
     # This is called after the hdlist is read in.
-    def setPackageSelection(self, hdlist):
+    def setPackageSelection(self, hdlist, intf):
 	pass
 
     # This is called after the comps is read in (after setPackageSelection()).
     # It can both select groups, change the default selection for groups, and
     # change which groups are hidden.
-    def setGroupSelection(self, comps):
+    def setGroupSelection(self, comps, intf):
 	pass
 
     # this is a utility function designed to be called from setGroupSelection()

@@ -25,6 +25,11 @@ import raid
 import string
 import partRequests
 
+from rhpl.translate import _
+
+KS_MISSING_PROMPT = 0
+KS_MISSING_IGNORE = 1
+
 class Script:
     def __repr__(self):
 	str = ("(s: '%s' i: %s c: %d)") %  \
@@ -623,10 +628,13 @@ class KickstartBase(BaseInstallClass):
                     continue
 
                 if len(args) > 1:
-                    if args[1] == "--resolvedeps":
-                        id.handleDeps = RESOLVE_DEPS
-                    elif args[1] == "--ignoredeps":
-                        id.handleDeps = IGNORE_DEPS
+                    for arg in args[1:]:
+                        if arg == "--resolvedeps":
+                            id.handleDeps = RESOLVE_DEPS
+                        elif arg == "--ignoredeps":
+                            id.handleDeps = IGNORE_DEPS
+                        elif arg == "--ignoremissing":
+                            self.handleMissing = KS_MISSING_IGNORE
                 
 		where = "packages"
                 self.skipSteps.append("package-selection")
@@ -1119,20 +1127,56 @@ class KickstartBase(BaseInstallClass):
 
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()
-    def setPackageSelection(self, hdlist):
+    def setPackageSelection(self, hdlist, intf):
 	for pkg in hdlist.keys():
 	    hdlist[pkg].setState((0, 0))
 
 	for n in self.packageList:
-	    hdlist[n].select()
+            if hdlist.has_key(n):
+                hdlist[n].select()
+            elif self.handleMissing == KS_MISSING_IGNORE:
+                log("package %s doesn't exist, ignoring" %(n,))
+            else:
+                rc = intf.messageWindow(_("Missing Package"),
+                                        _("You have specified that the "
+                                          "package '%s' should be installed.  "
+                                          "This package does not exist. "
+                                          "Would you like to continue or "
+                                          "abort your installation?") %(n,),
+                                        type="custom",
+                                        custom_buttons=[_("_Abort"),
+                                                        _("_Continue")])
+                if rc == 0:
+                    sys.exit(1)
+                else:
+                    pass
+                                
 
-    def setGroupSelection(self, comps):
+    def setGroupSelection(self, comps, intf):
 	for comp in comps:
 	    comp.unselect()
 
 	comps['Base'].select()
 	for n in self.groupList:
-	    comps[n].select()
+            if comps.has_key(n):
+                comps[n].select()
+            elif self.handleMissing == KS_MISSING_IGNORE:
+                log("group %s doesn't exist, ignoring" %(n,))
+            else:
+                rc = intf.messageWindow(_("Missing Group"),
+                                        _("You have specified that the "
+                                          "group '%s' should be installed.  "
+                                          "This package does not exist. "
+                                          "Would you like to continue or "
+                                          "abort your installation?") %(n,),
+                                        type="custom",
+                                        custom_buttons=[_("_Abort"),
+                                                        _("_Continue")])
+                if rc == 0:
+                    sys.exit(1)
+                else:
+                    pass
+                
 
         for n in self.excludedList:
             if comps.packages.has_key(n):
@@ -1153,7 +1197,11 @@ class KickstartBase(BaseInstallClass):
         self.ksPVMapping = {}
         self.ksVGMapping = {}
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
-        self.ksID = 100000 
+        self.ksID = 100000
+
+        # how to handle missing packages
+        self.handleMissing = KS_MISSING_PROMPT
+        
         BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):

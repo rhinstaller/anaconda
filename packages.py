@@ -133,7 +133,7 @@ def readPackages(intf, method, id):
             continue
 
         w.pop()
-        id.instClass.setPackageSelection(id.hdList)
+        id.instClass.setPackageSelection(id.hdList, intf)
 
     while id.comps is None:
         try:
@@ -145,10 +145,8 @@ def readPackages(intf, method, id):
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
             continue
-	id.instClass.setGroupSelection(id.comps)
+        id.instClass.setGroupSelection(id.comps, intf)
 
-	# XXX
-	#updateInstClassComps ()
     else:
 	# re-evaluate all the expressions for packages with qualifiers.
 
