@@ -696,6 +696,7 @@ def doInstall(method, id, intf, instPath):
 	how = "u"
     else:
 	how = "i"
+        rpm.addMacro("__dbi_htconfig", "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
     l = []
 

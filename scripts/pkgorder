@@ -35,13 +35,16 @@ def cmpHeaderByName(h1, h2):
 
 def addIfNeeded(pkg):
     global pkgOrder, pkgHash
-    canon = rhpl.arch.canonArch
-    second = rhpl.arch.getSecondaryArch()
+    multi = rhpl.arch.getMultiArchInfo()
+    if multi is not None:
+        prim = multi[1]
+        second = multi[2]
+        
     diff = rhpl.arch.archDifference
     if not pkgHash.has_key (pkg.name):
         pkgHash[pkg.name] = [ pkg ]
         pkgOrder.append(pkg.nevra())
-    elif second is None:
+    elif multi is None:
         # this isn't a biarch arch, so we don't need to worry about
         # multiple glibcs
         return
@@ -57,8 +60,8 @@ def addIfNeeded(pkg):
             # if one of them doesn't work for the canon arch and the other
             # does, then one of them is for the secondary arch and we want
             # to add it.  
-            if ( ((diff(canon, arch1) == 0) and (diff(second, arch2) != 0)) or
-                 ((diff(canon, arch2) == 0) and (diff(second, arch1) != 0)) ):
+            if ( ((diff(prim, arch1) == 0) and (diff(second, arch2) != 0)) or
+                 ((diff(prim, arch2) == 0) and (diff(second, arch1) != 0)) ):
                 pkgHash[pkg.name].append(pkg)
                 pkgOrder.append(pkg.nevra())
         

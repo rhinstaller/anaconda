@@ -159,7 +159,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     if (class == CLASS_NETWORK)
         type = DRIVER_NET;
     else if ((class == CLASS_SCSI) || (class == CLASS_HD) || 
-             (class == CLASS_CDROM))
+             (class == CLASS_CDROM) || (class == CLASS_IDE))
         type = DRIVER_SCSI;
     else if (class == CLASS_UNSPEC)
         type = -1;
