@@ -58,7 +58,7 @@ class InstallClass:
     def getGroups(self):
 	return self.groups
 
-    def setRootPassword(self, pw):
+    def doRootPw(self, pw, isCrypted = 0):
 	self.rootPassword = pw
 
     def getMakeBootdisk(self):
