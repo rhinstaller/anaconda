@@ -1143,7 +1143,7 @@ class PartitionWindow(InstallWindow):
         if raidrequest.fstype and raidrequest.fstype.isFormattable():
             formatButton = GtkCheckButton (_("Format partition?"))
             # XXX this probably needs more logic once we detect existing raid
-            if raidrequest.format != None and raidrequest.format != 0:
+            if raidrequest.format == None or raidrequest.format != 0:
                 formatButton.set_active(1)
             else:
                 formatButton.set_active(0)
