@@ -12,7 +12,6 @@ class Keyboard (SimpleConfigFile):
             ("cf"                , ('pc102', 'cf')),
             ("cz-lat2"           , ('pc102', 'cs')),
             ("cz-lat2-prog"      , ('pc102', 'cs')),
-
             ("de-latin1"         , ('pc102', 'de')),
             ("de"                , ('pc102', 'de')),
             ("de-latin1-nodeadkeys" , ('pc102', 'de')),
@@ -46,6 +45,7 @@ class Keyboard (SimpleConfigFile):
             ("ru2"               , ('pc102', 'ru')),
             ("ru_win"            , ('pc105', 'ru')),
             ("se-latin1"         , ('pc102', 'se')),
+            ("sk-qwerty"         , ('pc102', 'us_sk_qwerty')),
             ("uk"                , ('pc101', 'gb')),
             ("us"                , ('pc105', 'us')),
             ]
@@ -221,6 +221,7 @@ class Keyboard (SimpleConfigFile):
             "sg",
             "sk-prog-qwertz",
             "sk-qwertz",
+            "sk-qwerty",
             "slovene",
             ]
 
