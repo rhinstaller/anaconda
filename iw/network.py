@@ -38,7 +38,7 @@ class NetworkWindow (InstallWindow):
                     network, broadcast = inet_calcNetBroad (self.ip.get_text (), self.nm.get_text ())
                     self.dev.set (("bootproto", "static"))
                     self.dev.set (("ipaddr", self.ip.get_text ()), ("netmask", self.nm.get_text ()),
-                                  ("network", network), ("broadcast", broadcast))
+                                  ("network", network), ("broadcast", broadcast), ("onboot", "yes"))
                     self.todo.network.gateway = self.gw.get_text ()
                     self.todo.network.primaryNS = self.dns1.get_text ()
                     self.todo.network.guessHostnames ()
