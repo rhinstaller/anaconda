@@ -229,7 +229,7 @@ class MonitorWindow:
                             _("Please select the monitor attached to your "
                             "system.") , self.monitorsnames,
                             [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON],
-                            scroll = 1, height = 7, help = "monitor",
+                            scroll = 1, height = 12, help = "monitor",
                             default = self.currentMonitor)
 
         if button != TEXT_CANCEL_CHECK:
@@ -342,13 +342,32 @@ class MonitorWindow:
 
 	# now read in monitors database
         self.monDB = self.monitor.monitorsDB()
+
+	# put generic LCD and CRTs first so easy to find
+	genericnames = []
+	for desiredmanf in ['Generic LCD Display', 'Generic CRT Display']:
+	    if desiredmanf in self.monDB.keys():
+		for mon in self.monDB[desiredmanf]:
+		    if self.ddcmon and string.upper(self.ddcmon[0]) == string.upper(mon[1]):
+			continue
+		    self.monitorslist[mon[0]] = mon
+		    genericnames.append(mon[0])
+	    
+	# now the rest
+	remainingnames = []
         for man in self.monDB.keys():
+	    # already inserted these
+	    if man in ['Generic LCD Display', 'Generic CRT Display']:
+		continue
+
             for mon in self.monDB[man]:
 		if self.ddcmon and string.upper(self.ddcmon[0]) == string.upper(mon[1]):
 		    continue
-                self.monitorslist[mon[0]] = mon
-        self.monitorsnames = self.monitorslist.keys()
-        self.monitorsnames.sort()
+		self.monitorslist[mon[0]] = mon
+                remainingnames.append(mon[0])
+
+	remainingnames.sort()
+        self.monitorsnames = genericnames + remainingnames
 
         # Insert DDC probed monitor if it had no match in database
         # or otherwise if we did not detect a monitor at all
