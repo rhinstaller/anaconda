@@ -195,6 +195,7 @@ int getRemovableDevices(char *** devNames) {
     for (i = 0; devices[i] && (i < numDevices); i++)
         (*devNames)[i] = strdup(devices[i]->device);
     free(devices);
+    (*devNames)[i] = NULL;
 
     if (i != numDevices)
         logMessage("somehow numDevices != len(devices)");
