@@ -272,7 +272,7 @@ int kdFindScsiList(struct knownDevices * devices) {
 		device.class = DEVICE_DISK;
 	    } else if (strstr(start, "Sequential-Access")) {
 		sprintf(typebuf, "st%c", tapeNum++);
-		device.class = DEVICE_DISK;
+		device.class = DEVICE_TAPE;
 	    } else if (strstr(start, "CD-ROM")) {
 		sprintf(typebuf, "scd%c", cdromNum++);
 		device.class = DEVICE_CDROM;
