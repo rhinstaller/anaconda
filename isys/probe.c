@@ -445,7 +445,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 
 	switch (state) {
 	  case SCSISCSI_TOP:
-	    if (strcmp("Attached devices: ", start)) {
+	    if (strncmp("Attached devices:", start, 17)) {
 		val = -1;
 		goto bye;
 	    }
