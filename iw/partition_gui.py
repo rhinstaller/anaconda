@@ -330,7 +330,8 @@ def createAllowedDrivesClist(disks, reqdrives):
     for drive in drives:
         size = getDeviceSizeMB(disks[drive].dev)
         str = "%s: %s - %0.0f MB" % (drive, disks[drive].dev.model, size)
-        driveclist.append((str,))
+        row = driveclist.append((str,))
+        driveclist.set_row_data(row, drive)
 
         if reqdrives:
             if drive in reqdrives:
@@ -838,7 +839,7 @@ class PartitionWindow(InstallWindow):
                     else:
                         allowdrives = []
                         for i in driveclist.selection:
-                            allowdrives.append(self.diskset.disks.keys()[i])
+                            allowdrives.append(driveclist.get_row_data(i))
 
                     request.size = sizespin.get_value_as_int()
                     request.drive = allowdrives
@@ -1204,7 +1205,7 @@ class AutoPartitionWindow(InstallWindow):
 
         allowdrives = []
         for i in self.driveclist.selection:
-            allowdrives.append(self.diskset.disks.keys()[i])
+            allowdrives.append(self.driveclist.get_row_data(i))
 
         if len(allowdrives) < 1:
             self.intf.messageWindow(_("Warning"), 
