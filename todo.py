@@ -1310,8 +1310,8 @@ class ToDo:
 	for p in l:
             if p['name'] != 'locale-ja':
                 ts.add(p.h, p.h, how)
-	    total = total + 1
-	    totalSize = totalSize + p['size']
+                total = total + 1
+                totalSize = totalSize + p['size']
 
 	ts.order()
 
