@@ -4,6 +4,7 @@
 /* Michael Fulbright msf@redhat.com                                */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <popt.h>
 
 #include "md5.h"

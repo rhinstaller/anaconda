@@ -3,6 +3,8 @@
 /* Michael Fulbright msf@redhat.com                                */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "md5.h"
 #include "libcheckisomd5.h"
