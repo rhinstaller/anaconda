@@ -1106,9 +1106,19 @@ class ToDo:
         # always upgrade all packages in Base package group
 	self.comps['Base'].select(1)
 
+        hasX = 0
+        hasgmc = 0
         # turn on the packages in the upgrade set
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
+            if package[rpm.RPMTAG_NAME] == "XFree86":
+                hasX = 1
+            if package[rpm.RPMTAG_NAME] == "gmc":
+                hasgmc = 1
+                
+        # yes, this is rude
+        if hasX and not hasgmc:
+            self.comps['GNOME'].select(1)
             
         # new package dependency fixup
         self.selectDeps (self.verifyDeps ())
