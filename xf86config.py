@@ -842,6 +842,7 @@ class XF86Config:
         # PCI probe for video cards
         sections = {}
 
+        cards = []
         cards = kudzu.probe (kudzu.CLASS_VIDEO,
                              kudzu.BUS_UNSPEC,
                              kudzu.PROBE_ALL);
@@ -973,9 +974,9 @@ class XF86Config:
         # PCI descr, (horiz, vert), modes
         laptops = (("ATI|Rage Mobility",
                     ("30-110", "60-110"),
-                    { "8" : ["800x600", "1024x768", "1400x1050"],
-                      "16" : ["800x600", "1024x768", "1400x1050"],
-                      "32" : ["800x600", "1024x768", "1400x1050"]}),
+                    { "8" : ["800x600", "1024x768", "1280x1024", "1400x1050"],
+                      "16" : ["800x600", "1024x768", "1280x1024", "1400x1050"],
+                      "32" : ["800x600", "1024x768", "1280x1024", "1400x1050"]}),
                    )
         for (card, (horiz, vert), modes) in laptops:
             if (len(self.descr) >= len (card)
@@ -993,9 +994,7 @@ class XF86Config:
 
         files = self.files
         modes = self.modes
-        laptop = self.laptop()
-        if laptop:
-            self.modes = laptop
+
         self.files = """
     RgbPath	"/usr/X11R6/lib/X11/rgb"
     FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
