@@ -32,7 +32,7 @@ class NetworkWindow:
         ip = self.ip.value ()
         if ip and not self.nm.value ():
             try:
-                mask = 255.255.255.0
+                mask = "255.255.255.0"
             except ValueError:
                 return
 
