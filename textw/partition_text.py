@@ -50,6 +50,13 @@ class PartitionWindow:
                     part = disk.next_partition(part)
                     continue
 
+                device = get_partition_name(part)
+                request = self.partitions.getRequestByDeviceName(device)
+                if request and request.mountpoint:
+                    mount = request.mountpoint
+                else:
+                    mount = ""
+
                 if part.type & parted.PARTITION_FREESPACE:
                     ptype = _("Free space")
                 elif part.type & parted.PARTITION_EXTENDED:
@@ -63,13 +70,6 @@ class PartitionWindow:
                         ptype = part.fs_type.name
                 else:
                     ptype = _("None")
-
-                device = get_partition_name(part)
-                request = self.partitions.getRequestByDeviceName(device)
-                if request and request.mountpoint:
-                    mount = request.mountpoint
-                else:
-                    mount = ""
 
                 start = (part.geom.start / sectorsPerCyl) + 1
                 end = (part.geom.end / sectorsPerCyl) + 1
@@ -729,7 +729,11 @@ class PartitionWindow:
             self.partitions.removeRequest(request)
             if request.type == REQUEST_PREEXIST:
                 # get the drive
-                drive = partition.geom.disk.dev.path[5:]
+                drive = get_partition_drive(partition)
+
+                if partition.type & parted.PARTITION_EXTENDED:
+                    deleteAllLogicalPartitions(partition, self.partitions)
+                
                 delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
                 self.partitions.addDelete(delete)
         else: # shouldn't happen
@@ -826,11 +830,11 @@ class AutoPartitionWindow:
         typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
         typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
         if id.autoClearPartType == CLEARPART_TYPE_LINUX:
-            typebox.setCurrent(0)
+            typebox.setCurrent(CLEARPART_TYPE_LINUX)
         elif id.autoClearPartType == CLEARPART_TYPE_ALL:
-            typebox.setCurrent(1)
+            typebox.setCurrent(CLEARPART_TYPE_ALL)
         else:
-            typebox.setCurrent(2)
+            typebox.setCurrent(CLEARPART_TYPE_NONE)
             
         self.g.add(typebox, 0, 2, (0,1,0,0))
 
