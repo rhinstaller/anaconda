@@ -1,6 +1,7 @@
 from gtk import *
 from iw import *
 import xkb
+import string
 from gui import _
 
 class KeyboardWindow (InstallWindow):
@@ -13,7 +14,7 @@ class KeyboardWindow (InstallWindow):
         ics.setNextEnabled (TRUE)
 	self.kb = xkb.XKB ()
 	self.rules = self.kb.getRules ()
-	rules = _xkb.get_rulesbase ()
+	rules = self.kb.getRulesBase ()
 	self.rulesbase = rules[string.rfind (rules, "/")+1:]
         self.model = "pc101"
         self.layout = "en_US"
