@@ -360,7 +360,7 @@ def upgradeFindPackages (intf, method, id, instPath):
             recs = db.findbyname ("gnome-core")
         except rpm.error:
             pass
-        if not recs:
+        if recs:
             recs = None
             try:
                 recs = db.findbyname ("nautilus")
@@ -368,7 +368,7 @@ def upgradeFindPackages (intf, method, id, instPath):
                 pass
             if not recs:
                 log("Upgrade: gnome-core is on the system, but nautilus isn't."
-                    "Selecting nautilus to be installed")
+                    "  Selecting nautilus to be installed")
                 id.hdList["nautilus"].select()
 
     del db
