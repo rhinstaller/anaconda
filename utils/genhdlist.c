@@ -69,7 +69,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
     struct dirent * ent;
     char * subdir = alloca(strlen(dirName) + 20);
     int errno;
-    Header h;
+    Header h, nh;
     int isSource, rc;
     int_32 size;
     DIR * dir;
@@ -155,6 +155,28 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 		headerRemoveEntry(h, RPMTAG_EXCLUSIVE);
 		headerRemoveEntry(h, RPMTAG_DISTRIBUTION);
 		headerRemoveEntry(h, RPMTAG_VERIFYSCRIPT);
+
+		/* new header sigs */
+		headerRemoveEntry(h, RPMTAG_SIGSIZE);
+		headerRemoveEntry(h, RPMTAG_SIGGPG);
+		headerRemoveEntry(h, RPMTAG_SIGPGP);
+
+		/* other stuff we don't need - msw */
+		headerRemoveEntry(h, RPMTAG_PACKAGER);
+		headerRemoveEntry(h, RPMTAG_LICENSE);
+		headerRemoveEntry(h, RPMTAG_BUILDTIME);
+		headerRemoveEntry(h, RPMTAG_BUILDHOST);
+		headerRemoveEntry(h, RPMTAG_RPMVERSION);
+  	        headerRemoveEntry(h, RPMTAG_POSTINPROG);
+		headerRemoveEntry(h, RPMTAG_POSTUNPROG);
+		headerRemoveEntry(h, RPMTAG_PREINPROG);
+		headerRemoveEntry(h, RPMTAG_PREUNPROG);
+		headerRemoveEntry(h, RPMTAG_COOKIE);
+		headerRemoveEntry(h, RPMTAG_OPTFLAGS);
+		headerRemoveEntry(h, RPMTAG_PAYLOADFORMAT);
+		headerRemoveEntry(h, RPMTAG_PAYLOADCOMPRESSOR);
+		headerRemoveEntry(h, RPMTAG_PAYLOADFLAGS);
+		
 		headerAddEntry(h, FILENAME_TAG, RPM_STRING_TYPE, ent->d_name, 1);
 		headerAddEntry(h, FILESIZE_TAG, RPM_INT32_TYPE, 
 				&size, 1);
@@ -185,8 +207,10 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 				    &order, 1);
 		}
 
-		headerWrite(outfd, h, HEADER_MAGIC_YES);
+		nh = headerCopy (h);
+		headerWrite(outfd, nh, HEADER_MAGIC_YES);
 		headerFree(h);
+		headerFree(nh);
 	    }
 	    Fclose(fd);
 	}
