@@ -271,7 +271,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod netiucv$LO
 	sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-   echo "alias $DEVICE iucv" >> /tmp/modprobe.conf
+   echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    insmod ccwgroup$LO
 	insmod cu3088$LO
