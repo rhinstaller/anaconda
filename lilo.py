@@ -328,9 +328,9 @@ class LiloConfiguration:
 
 	for (label, device) in otherList:
 	    try:
-		(fsType, sl) = lilo.getImage(device)
-		lilo.delImage(device)
-		lilo.addImage(device + '-old')
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+		lilo.addImage(label + '-old')
 	    except IndexError:
 		sl = LiloConfigFile(imageType = "other", path = device)
 
