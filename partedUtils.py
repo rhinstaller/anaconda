@@ -381,16 +381,19 @@ class DiskSet:
 
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
+            found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
                     isys.mount(dev, mountpoint, fs, readOnly = 1)
+                    found = 1
                     break
                 except SystemError, (errno, msg):
                     pass
 
-            if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                rootparts.append ((dev, fs))
-            isys.umount(mountpoint)
+            if found:
+                if os.access (mountpoint + '/etc/fstab', os.R_OK):
+                    rootparts.append ((dev, fs))
+                isys.umount(mountpoint)
 
         self.stopAllRaid()
 
@@ -408,16 +411,19 @@ class DiskSet:
             lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
             for lv in lvs:
                 dev = "/dev/%s/%s" %(vg, lv)
+                found = 0
                 for fs in fsset.getFStoTry(dev):
                     try:
                         isys.mount(dev, mountpoint, fs, readOnly = 1)
+                        found = 1
                         break
                     except SystemError:
                         pass
 
-                if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    rootparts.append ((dev, fs))
-                isys.umount(mountpoint)
+                if found:
+                    if os.access (mountpoint + '/etc/fstab', os.R_OK):
+                        rootparts.append ((dev, fs))
+                    isys.umount(mountpoint)
 
         lvm.vgdeactivate()
 
