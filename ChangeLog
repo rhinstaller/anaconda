@@ -1,5 +1,7 @@
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images (makeinitrd): Just create /dev
+
 	* partIntfHelpers.py (sanityCheckVolumeGroupName): Blacklist root
 	as a VG name (#142785)
 

@@ -599,8 +599,7 @@ makeinitrd() {
     rm -rf $MBD_DIR MBD_FSIMAGE
     mkdir -p $MBD_DIR/modules
     mkdir -p $MBD_DIR/sbin
-    mkdir -p $MBD_DIR/dev/pts
-    mkdir -p $MBD_DIR/dev/input
+    mkdir -p $MBD_DIR/dev
     mkdir -p $MBD_DIR/etc
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/selinux
