@@ -88,7 +88,7 @@ class SiloInstall:
 	todo.liloImages = {}
 	nSolaris = 0
 	nSunOS = 0
-	for (dev, devName, type) in drives:
+	for (dev, devName, type, start, size) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -138,6 +138,27 @@ class SiloInstall:
 	boothd = bootpart[:i+1]
 
 	return (bootpart, boothd)
+
+    def getSiloMbrDefault(self):
+	# Check partition at cylinder 0 on the boot disk
+	# is /, /boot or Linux swap
+	(bootpart, boothd) = self.getSiloOptions()
+	(drives, raid) = self.todo.ddruid.partitionList()
+	for (dev, devName, type, start, size) in drives:
+	    i = len (dev) - 1
+	    while i > 0 and dev[i] in string.digits:
+		i = i - 1
+	    devhd = dev[:i+1]
+	    if devhd == boothd and start == 0:
+		if type == 5:
+		    return "mbr'"
+		elif type == 2:
+		    if dev == bootpart:
+			return "mbr"
+		    elif dev == self.todo.mounts['/'][0]:
+			return "mbr"
+		return "partition"
+	return "partition"
 
     def hasUsableFloppy(self):
 	try:

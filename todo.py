@@ -30,7 +30,7 @@ class FakeDDruid:
             if size and type != -1:
                 self.partitions.append ((name + str (i + 1)),
                                         "Existing000" + str(len (self.partitions)),
-                                        type)
+                                        type, sector, size)
     def __init__ (self):
         self.partitions = []
         
@@ -393,7 +393,7 @@ class ToDo:
 
 	self.liloImages = {}
         foundDos = 0
-	for (dev, devName, type) in drives:
+	for (dev, devName, type, start, size) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -422,11 +422,11 @@ class ToDo:
 	if not raid: return
 
 	deviceDict = {}
-	for (device, name, type) in devices:
+	for (device, name, type, start, size) in devices:
 	    deviceDict[name] = device
 
 	rt = open(file, "w")
-	for (mntpoint, device, fstype, raidType, makeup) in raid:
+	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
 
 	    if createDevices:
 		isys.makeDevInode(device, devPrefix + '/' + device)
@@ -492,7 +492,7 @@ class ToDo:
 	    w = self.intf.waitWindow(_("Creating"),
 			  _("Creating RAID devices..."))
 
-	    for (mntpoint, device, fsType, raidType, makeup) in raid:
+	    for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
                 iutil.execWithRedirect ("/usr/sbin/mkraid", 
 			[ 'mkraid', '--really-force', '--configfile', 
 			  '/tmp/raidtab', '/tmp/' + device ])
@@ -526,7 +526,7 @@ class ToDo:
                     args = args + ["-b", "1024"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
-                    for (rmnt, rdevice, fsType, raidType, makeup) in raid:
+                    for (rmnt, rdevice, fsType, raidType, start, size, makeup) in raid:
                         if rdevice == device:
                             rtype = raidType
                             rdisks = len (makeup)
