@@ -112,7 +112,4 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	@for I in *.py textw/*.py iw/*.py; do \
-	PYTHONPATH=.:edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker $$I | grep -v "__init__() not called"; \
-	done
-
+	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
