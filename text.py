@@ -15,7 +15,7 @@ cat = gettext.Catalog ("anaconda-text", "/usr/share/locale")
 _ = cat.gettext
 
 class LanguageWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         languages = todo.language.available ()
         descriptions = languages.keys ()
         locales = languages.values ()
@@ -36,7 +36,7 @@ class LanguageWindow:
         return INSTALL_OK
 
 class KeyboardWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         keyboards = todo.keyboard.available ()
         keyboards.sort ()
         default = keyboards.index (todo.keyboard.get ())
@@ -51,10 +51,46 @@ class KeyboardWindow:
             return INSTALL_BACK
         todo.keyboard.set (keyboards[choice])
         return INSTALL_OK
+    
+class InstallPathWindow:
+    def __call__ (self, screen, todo, intf):
+        rc = ButtonChoiceWindow(screen, _("Installation Path"),
+                                _("Would you like to install a new system "
+                                  "or upgrade a system which already contains "
+                                  "Red Hat Linux 2.0 or later?"),
+                                buttons = [_("Install"), _("Upgrade"), _("Back")], width = 35)
 
+        if rc == string.lower(_("Back")):
+            return INSTALL_BACK
+        if rc == string.lower(_("Upgrade")):
+            intf.steps = intf.commonSteps + intf.upgradeSteps
+            todo.upgrade = 1
+        else:
+            intf.steps = intf.commonSteps + intf.installSteps
+            todo.upgrade = 0
+        return INSTALL_OK
 
+class UpgradeExamineWindow:
+    def __call__ (self, screen, todo):
+        parts = todo.findInstalledSystem ()
+
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("System to Upgrade"),
+                                _("Which partition do you wish to upgrade?"), parts, 
+                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8)
+
+class CustomizeUpgradeWindow:
+    def __call__ (self, screen, todo):
+        parts = todo.findInstalledSystem ()
+
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("System to Upgrade"),
+                                _("Which partition do you wish to upgrade?"), parts, 
+                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
+                                default = default)
+        
 class RootPasswordWindow:
-    def run(self, screen, todo):
+    def __call__ (self, screen, todo):
         toplevel = GridForm (screen, _("Root Password"), 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
@@ -101,7 +137,7 @@ class RootPasswordWindow:
         return INSTALL_OK
 
 class WelcomeWindow:
-    def run(self, screen):
+    def __call__(self, screen):
         rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
                                 _("Welcome to Red Hat Linux!\n\n"
                                   "This installation process is outlined in detail in the "
@@ -119,7 +155,7 @@ class WelcomeWindow:
         return INSTALL_OK
 
 class AuthConfigWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         def setsensitive (self):
             server = FLAGS_RESET
             flag = FLAGS_RESET
@@ -185,7 +221,7 @@ class AuthConfigWindow:
         return INSTALL_OK
 
 class NetworkWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         def setsensitive (self):
             if self.cb.selected ():
                 sense = FLAGS_SET
@@ -302,7 +338,7 @@ class NetworkWindow:
         return INSTALL_OK
 
 class PartitionWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
 	if (not todo.setupFilesystems): return INSTALL_NOOP
         from newtpyfsedit import fsedit        
 
@@ -321,7 +357,7 @@ class PartitionWindow:
 
 
 class FormatWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
 	if (not todo.setupFilesystems): return INSTALL_NOOP
 
         tb = TextboxReflowed (55,
@@ -372,7 +408,7 @@ class FormatWindow:
         return INSTALL_OK
 
 class PackageGroupWindow:
-    def run(self, screen, todo, individual):
+    def __call__(self, screen, todo, individual):
         # be sure that the headers and comps files have been read.
 	todo.getHeaderList()
         todo.getCompsList()
@@ -409,7 +445,7 @@ class PackageGroupWindow:
         return INSTALL_OK
 
 class IndividualPackageWindow:
-    def run(self, screen, todo, individual):
+    def __call__(self, screen, todo, individual):
         if not individual.get():
             return
 	todo.getHeaderList()
@@ -472,7 +508,7 @@ class IndividualPackageWindow:
         return INSTALL_OK
 
 class PackageDepWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         deps = todo.verifyDeps ()
         if not deps:
             return INSTALL_NOOP
@@ -513,7 +549,7 @@ class PackageDepWindow:
         return INSTALL_OK
 
 class MouseWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         mice = todo.mouse.available ().keys ()
         mice.sort ()
         default = mice.index (todo.mouse.get ())
@@ -530,7 +566,7 @@ class MouseWindow:
         return INSTALL_OK
 
 class BootDiskWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
                                 _("A custom bootdisk provides a way of booting into your "
                                   "Linux system without depending on the normal bootloader. "
@@ -555,7 +591,7 @@ class BootDiskWindow:
         return INSTALL_OK
 
 class LiloWindow:
-    def run(self, screen, todo):
+    def __call__(self, screen, todo):
         if '/' not in todo.mounts.keys (): return INSTALL_NOOP
 
         if todo.mounts.has_key ('/boot'):
@@ -588,7 +624,7 @@ class LiloWindow:
         return INSTALL_OK
 
 class BeginInstallWindow:
-    def run(self, screen, todo):
+    def __call__ (self, screen, todo):
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
                                   "/tmp/install.log after rebooting your system. You "
@@ -599,12 +635,12 @@ class BeginInstallWindow:
         return INSTALL_OK
 
 class InstallWindow:
-    def run(self, screen, todo):
+    def __call__ (self, screen, todo):
         todo.doInstall ()
         return INSTALL_OK
 
 class FinishedWindow:
-    def run(self, screen, todo):
+    def __call__ (self, screen):
         rc = ButtonChoiceWindow (screen, _("Complete"), 
                                  _("Congratulations, installation is complete.\n\n"
                                    "Remove the boot media and "
@@ -664,16 +700,8 @@ class InstallProgressWindow:
 	self.g.draw()
 	self.screen.refresh()
 
-    def __del__(self):
-        self.screen.drawRootText(0 - len(_("Package Installation")), 0,
-                                 (self.screen.width - len(_("Package Installation"))) * " ")
-	self.screen.popWindow()
-	self.screen.refresh()
-        
     def __init__(self, screen, total, totalSize):
 	self.screen = screen
-        self.screen.drawRootText(0 - len(_("Package Installation")), 0, _("Package Installation"))
-        toplevel = GridForm(self.screen, _("Package Installation"), 1, 5)
 
         name = _("Name   : ")
         size = _("Size   : ")
@@ -802,21 +830,27 @@ class InstallInterface:
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 	self.screen.suspendCallback(killSelf, self.screen)
+        self.individual = Flag(0)
+        self.step = 0
+        self.dir = 1
 
     def __del__(self):
         self.screen.finish()
 
     def run(self, todo):
-        individual = Flag(0)
-        steps = [
+        self.commonSteps = [
             [_("Language Selection"), LanguageWindow, (self.screen, todo)],
             [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
             [_("Welcome"), WelcomeWindow, (self.screen,)],
+            [_("Installation Path"), InstallPathWindow, (self.screen, todo, self)],
+            ]
+        
+        self.installSteps = [
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
-            [_("Package Groups"), PackageGroupWindow, (self.screen, todo, individual)],
-            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, individual)],
+            [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
+            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
             [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
@@ -825,28 +859,32 @@ class InstallInterface:
             [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
             [_("Install System"), InstallWindow, (self.screen, todo)],
-            [_("Installation Complete"), FinishedWindow, (self.screen, todo)]
-        ]
-        
-        step = 0
-        dir = 1
+            [_("Installation Complete"), FinishedWindow, (self.screen,)]
+            ]
 
-        while step >= 0 and step < len(steps) and steps[step]:
+        self.upgradeSteps = [
+            [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
+            [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],            
+            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            ]
+
+        self.steps = self.commonSteps
+
+        while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
             # clear out the old root text by writing spaces in the blank
             # area on the right side of the screen
-            self.screen.drawRootText(len(self.welcomeText), 0,
+            self.screen.drawRootText (len(self.welcomeText), 0,
                                      (self.screen.width - len(self.welcomeText)) * " ")
-            self.screen.drawRootText(0 - len(steps[step][0]), 0, steps[step][0])
-            rc = apply(steps[step][1]().run, steps[step][2])
+            self.screen.drawRootText (0 - len(self.steps[self.step][0]),
+                                     0, self.steps[self.step][0])
+            rc = apply (self.steps[self.step][1](), self.steps[self.step][2])
             if rc == -1:
                 dir = -1
             elif rc == 0:
                 dir = 1
-            step = step + dir
-                
+            self.step = self.step + dir
+        self.screen.finish ()
+
 def killSelf(screen):
     screen.finish()
     os._exit(0)
-
-
-

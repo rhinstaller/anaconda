@@ -57,6 +57,7 @@ if (os.path.exists('rpmmodule')):
     sys.path.append('rpmmodule')
     sys.path.append('isys')
     sys.path.append('libfdisk')
+    sys.path.append('balkan')
 #elif (mode == None):
 #      try:
 #          f = open('/dev/fb0', 'r')

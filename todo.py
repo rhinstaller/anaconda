@@ -11,6 +11,7 @@ import string
 import socket
 import crypt
 import whrandom
+import _balkan
 
 class LogFile:
     def __init__ (self):
@@ -390,6 +391,7 @@ class ToDo:
         self.log = LogFile ()
         self.bootdisk = 0
         self.liloDevice = None
+        self.upgrade = 0
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -685,6 +687,23 @@ class ToDo:
     def selectDeps (self, deps):
         for (who, dep) in deps:
             self.hdList[dep].selected = 1
+
+    def findInstalledSystem (self):
+        win = self.intf.waitWindow ("Examining System",
+                                    "Searching for previous installations")
+        rootparts = []
+        drives = self.drives.available ().keys ()
+        for drive in drives:
+            isys.makeDevInode(drive, '/tmp/' + drive)
+            table = _balkan.readTable ('/tmp/' + drive)
+            for (type, sector, size) in table:
+                if size and type == 0x83:
+                    isys.mount( '/tmp/' + drive, '/mnt/sysimage')
+                    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+                        rootparts.append (drive)
+            os.remove ('/tmp/' + drive)
+        win.pop ()
+        return rootparts
         
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -713,8 +732,14 @@ class ToDo:
 
         total = 0
 	totalSize = 0
+
+        if self.upgrade:
+            how = "u"
+        else:
+            how = "i"
+        
 	for p in self.hdList.selected():
-	    ts.add(p.h, (p.h, self.method))
+	    ts.add(p.h, (p.h, self.method), how)
 	    total = total + 1
 	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 
@@ -758,15 +783,16 @@ class ToDo:
 
         w = self.intf.waitWindow("Post Install", 
                                  "Performing post install configuration")
-        
-	self.writeFstab ()
-        self.writeLanguage ()
-        self.writeMouse ()
-        self.writeKeyboard ()
-        self.writeNetworkConfig ()
-        self.writeRootPassword ()
-        self.setupAuthentication ()
-        self.copyConfModules ()
+
+        if not self.upgrade:
+            self.writeFstab ()
+            self.writeLanguage ()
+            self.writeMouse ()
+            self.writeKeyboard ()
+            self.writeNetworkConfig ()
+            self.writeRootPassword ()
+            self.setupAuthentication ()
+            self.copyConfModules ()
         self.makeBootdisk ()
 	self.installLilo ()
         

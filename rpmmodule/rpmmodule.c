@@ -887,8 +887,8 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
 	return NULL;
     }
 
-    if (how && strcmp(how, "a") && strcmp(how, "u")) {
-	PyErr_SetString(PyExc_TypeError, "how argument must be \"u\" or \"a\"");
+    if (how && strcmp(how, "a") && strcmp(how, "u") && strcmp(how, "i")) {
+	PyErr_SetString(PyExc_TypeError, "how argument must be \"u\", \"a\", or \"i\"");
 	return NULL;
     } else if (how && !strcmp(how, "u"))
     	isUpgrade = 1;
