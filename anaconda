@@ -99,7 +99,7 @@ if iutil.getArch() == 'ia64':
 # localInstall   - install to chroot
 # reconfigOnly   - allow user to reconfig installed box w/o reinstall
 # nofallback     - don't fall back to text mode on gui startup failure
-# lowres         - run in 640x480 mode
+# runres         - resolution to run 
 test = 0
 xmode = 0
 debug = 0
@@ -372,7 +372,12 @@ if xmode:
             pass
         sys.exit (0)
 
-intf = InstallInterface(runres = runres)
+print display_mode
+print runres
+if display_mode == "t":
+    intf = InstallInterface ()
+else:
+    intf = InstallInterface(runres = runres)
 
 # imports after setting up the path
 if not reconfigOnly:
