@@ -53,6 +53,16 @@ BINS += loader
 OBJS += stubs.o
 endif
 
+ifeq (s390, $(ARCH))
+BINS += loader loader-local
+OBJS += stubs.o
+endif
+
+ifeq (s390x, $(ARCH))
+BINS += loader loader-local
+OBJS += stubs.o
+endif
+
 ifeq (sparc, $(ARCH))
 BINS += loader loader-local
 OBJS += stubs.o
