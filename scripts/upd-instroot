@@ -465,7 +465,7 @@ for p in $DEST $DESTGR; do
 
 	if [ -x /usr/bin/runroot ]; then
 	    REALPATH=`(cd $p; /bin/pwd)`
-            runroot dist-7.0 --arch $ARCH cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH
+            runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
