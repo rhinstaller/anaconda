@@ -29,7 +29,8 @@ if [ ! -f $MK_IMAGES ]; then
     MK_IMAGES=$BUILDINSTDIR/mk-images
 fi
 
-$UPD_INSTROOT $1/RedHat/RPMS $1
-$MK_IMAGES $1/RedHat/RPMS $1/images $1/RedHat/instimage/modules
+$UPD_INSTROOT $1/RedHat/RPMS $1/image-template $1/RedHat/instimage
+$MK_IMAGES $1/RedHat/RPMS $1/images $1/RedHat/instimage/modules $1/RedHat/base $1/image-template
 
 rm -rf $BUILDINSTDIR
+rm -rf $1/image-template $1/RedHat/instimage/usr/lib/anaconda-runtime
