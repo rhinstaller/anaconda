@@ -132,8 +132,7 @@ class InstallPathWindow (InstallWindow):
 		name = topButtons[item][0].name
 		pixmap = topButtons[item][0].pixmap
 		topLevelGroup = self.pixRadioButton(topLevelGroup,
-				    _(name), "workstation.png")
-#				    _(name), pixmap)
+				    _(name), pixmap)
 		self.buttonToObject[topLevelGroup] = topButtons[item][0]
 		box = None
 
@@ -143,8 +142,7 @@ class InstallPathWindow (InstallWindow):
 		(parentName, parentPixmap) = topButtons[item][0].parentClass
 
 		topLevelGroup = self.pixRadioButton(topLevelGroup,
-		    _(parentName), "workstation.png")
-#		    _(parentName), parentPixmap)
+		    _(parentName), parentPixmap)
 
 		box = gtk.VBox (gtk.FALSE, 9)
 		group = None
