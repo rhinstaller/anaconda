@@ -199,7 +199,7 @@ class Language (SimpleConfigFile):
         if self.lang:
             return self.lang
         else:
-            return "en"
+            return "en_US"
 
 class Keyboard (SimpleConfigFile):
     # XXX fixme - externalize
