@@ -910,7 +910,7 @@ static void * tsCallback(const Header h, const rpmCallbackType what,
     struct tsCallbackType * cbInfo = data;
     PyObject * args, * result;
     int fd;
-    FD_t fdt;
+    static FD_t fdt;
 
     if (cbInfo->pythonError) return NULL;
 
@@ -931,9 +931,12 @@ static void * tsCallback(const Header h, const rpmCallbackType what,
 	    return NULL;
 	}
 	fdt = fdDup(fd);
-	close(fd);
 	Py_DECREF(result);
 	return fdt;
+    }
+
+    if (what == RPMCALLBACK_INST_CLOSE_FILE) {
+	fdClose (fdt);
     }
 
     Py_DECREF(result);

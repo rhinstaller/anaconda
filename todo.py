@@ -341,6 +341,8 @@ class Authentication:
 class Drives:
     def available (self):
         return isys.hardDriveList ()
+
+rpmFD = None
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
@@ -613,12 +615,14 @@ class ToDo:
                 intf.setPackage(h)
                 intf.setPackageScale(0, 1)
                 fn = method.getFilename(h)
-                instCallback.d = os.open(fn, os.O_RDONLY)
-                return instCallback.d
+                global rpmFD
+                rpmFD = os.open(fn, os.O_RDONLY)
+                return rpmFD
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
             elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-                instCallback.d.close ()
+                global rpmFD
+                os.close (rpmFD)
                 (h, method) = key
                 intf.completePackage(h)
             else:
