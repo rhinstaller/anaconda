@@ -187,8 +187,10 @@ class Language (SimpleConfigFile):
 
 	if os.access("lang-table", os.R_OK):
 	    f = open("lang-table", "r")
+	elif os.access("/etc/lang-table", os.R_OK):
+	    f = open("/etc/lang-table", "r")
 	else:
-	    f = open("/usr/share/anaconda/lang-table", "r")
+	    f = open("/usr/lib/anaconda/lang-table", "r")
 
 	lines = f.readlines ()
 	f.close()
