@@ -634,12 +634,12 @@ class lvmVolumeGroupDummyFileSystem(FileSystemType):
         self.supported = 0
         self.maxSizeMB = 2 * 1024 * 1024
 
-        def isMountable(self):
-            return 0
+    def isMountable(self):
+        return 0
 
-        def formatDevice(self, entry, progress, chroot='/'):
-            # the vgcreate already did this
-            pass
+    def formatDevice(self, entry, progress, chroot='/'):
+        # the vgcreate already did this
+        pass
 
 fileSystemTypeRegister(lvmVolumeGroupDummyFileSystem())
 
