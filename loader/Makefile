@@ -33,7 +33,7 @@ BINS += loader-local loader-network loader-pcmcia
  KONOBJS = ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
  endif
 DIRS += pcmcia-install kon2
-#OBJS += stubs.o
+OBJS += stubs.o
 endif
 
 ifeq (ia64, $(ARCH))
@@ -46,7 +46,7 @@ endif
 
 ifeq (sparc, $(ARCH))
 BINS += loader loader-local
-#OBJS += stubs.o
+OBJS += stubs.o
 endif
 
 ifeq (.depend,$(wildcard .depend))

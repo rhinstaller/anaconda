@@ -30,6 +30,8 @@ __gconv_NOCONV () {
 
 strong_alias (__gconv_OK,
 	      __gconv_close_transform);
+strong_alias (__gconv_OK,
+	      __gconv_close);
 
 strong_alias (__gconv_NOCONV,
 	      __gconv);
@@ -63,3 +65,6 @@ strong_alias (__gconv_NOCONV,
 	      __gconv_transform_internal_utf16);
 strong_alias (__gconv_NOCONV,
 	      __gconv_transform_internal_utf8);
+
+strong_alias (__gconv_OK,
+	      __gconv_transliterate);
