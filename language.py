@@ -24,18 +24,18 @@ from rhpl.log import log
 
 # Converts a single language into a "language search path". For example,
 # fr_FR.utf8@euro would become "fr_FR.utf8@eueo fr_FR.utf8 fr_FR fr"
-def expandLangs(str):
-    langs = [str]
+def expandLangs(astring):
+    langs = [astring]
     # remove charset ...
-    if '.' in str:
-	langs.append(string.split(str, '.')[0])
+    if '.' in astring:
+	langs.append(string.split(astring, '.')[0])
 
-    if '@' in str:
-	langs.append(string.split(str, '@')[0])
+    if '@' in astring:
+	langs.append(string.split(astring, '@')[0])
 
     # also add 2 character language code ...
-    if len(str) > 2:
-	langs.append(str[:2])
+    if len(astring) > 2:
+	langs.append(astring[:2])
 
     return langs
 
