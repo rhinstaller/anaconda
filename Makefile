@@ -1,5 +1,5 @@
 SUBDIRSHD = rpmmodule isys balkan libfdisk collage loader stubs po kudzu
-SUBDIRS = $(SUBDIRSHD) gnome-map
+SUBDIRS = $(SUBDIRSHD) gnome-map iw
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
@@ -7,7 +7,7 @@ DESTDIR = ../../../RedHat/instimage
 CATALOGS = po/anaconda.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
 
-PYFILES = $(wildcard *.py) $(wildcard iw/*.py)
+PYFILES = $(wildcard *.py)
 
 all: subdirs _xkb.so $(CATALOGS)
 
@@ -31,9 +31,7 @@ install-hd: all
 	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -a *.py $(DESTDIR)/usr/lib/python1.5/site-packages
-	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages/iw
-	cp -a iw/*.py $(DESTDIR)/usr/lib/python1.5/site-packages/iw
-	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
+	cp -a *.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 install: all
@@ -43,11 +41,8 @@ install: all
 		exit 1; \
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
-	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
-	mkdir -p $(DESTDIR)/usr/bin/iw
 	cp -a anaconda $(DESTDIR)/usr/bin
-	cp -a $(PYFILES) $(DESTDIR)/usr/lib/python1.5/site-packages
+	cp -var $(PYFILES) $(DESTDIR)/usr/lib/python1.5/site-packages
 	./py-compile --basedir $(DESTDIR)/usr/lib/python1.5/site-packages $(PYFILES)
-	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
-	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
+	cp -a *.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
