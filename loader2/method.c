@@ -596,7 +596,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %lld bytes to %s (%s)", sb.st_size, dest, 
+    logMessage("copied %jd bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {
