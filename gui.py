@@ -716,6 +716,10 @@ class InstallControlWindow:
         group = GtkAccelGroup()
         self.nextButtonStock.add_accelerator ("clicked", group, GDK.F12,
                                               GDK.RELEASE_MASK, 0);
+        self.hideHelpButton.add_accelerator ("clicked", group, GDK.F10,
+                                              GDK.RELEASE_MASK, 0);
+        self.showHelpButton.add_accelerator ("clicked", group, GDK.F11,
+                                             GDK.RELEASE_MASK, 0);
         self.window.add_accel_group (group)
         self.window.connect ("key-release-event", self.keyRelease)
 
