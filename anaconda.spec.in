@@ -68,6 +68,7 @@ fi
 %config /etc/rc.d/init.d/reconfig
 
 %files runtime
+%defattr(-,root,root)
 /usr/lib/anaconda-runtime
 
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
