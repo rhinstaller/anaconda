@@ -86,7 +86,11 @@ def startX():
 	    raise RuntimeError, "Missing X server"
         print serverPath, "missing.  Falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
-        
+
+        if not os.access (serverPath, os.X_OK):
+            print serverPath, "missing.  Falling back to text mode"
+            raise RuntimeError, "No X server binaries found to run"
+
     server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
 
     # give time for the server to fail (if it is going to fail...)
