@@ -94,7 +94,7 @@ class MiloInstall:
             hasboot = 1
             kernelroot = '/'
             try:
-		os.remove(todo.instPath + "/etc/milo.conf")
+		os.remove(todo.instPath + "/etc/milo.conf", "w")
                 os.symlink("../boot/milo.conf",
                            self.todo.instPath + "/etc/milo.conf")
             except:
