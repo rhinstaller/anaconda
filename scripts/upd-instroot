@@ -167,7 +167,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
            xfsprogs xfsdump dmapi attr acl policy policycoreutils
-           selinux-policy-targeted
+           selinux-policy-targeted ttfonts-zh_CN
            xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts
            xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
            xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
@@ -622,7 +622,6 @@ usr/sbin/prelink
 usr/sbin/smartctl
 usr/share/anaconda/*
 usr/share/icons/default/*
-usr/share/icons/Bluecurve/index.theme
 usr/share/icons/Bluecurve/cursors/*
 usr/share/icons/Bluecurve/*/stock/*
 usr/share/fonts/default/Type1/n019003l*
@@ -663,6 +662,7 @@ usr/share/terminfo/x/xterm
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
 usr/share/themes/Bluecurve/gtk-2.0/*
+usr/share/themes/Bluecurve/index.theme
 usr/share/vte/termcap/xterm
 usr/share/zoneinfo/zone.tab
 EOF
