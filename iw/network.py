@@ -126,6 +126,13 @@ class NetworkWindow (InstallWindow):
             bootproto = "static"
 	dev.set (("bootproto", bootproto))
 
+    def onBootToggled (self, widget, dev):
+	if widget.get_active ():
+	    onboot = "yes"
+	else:
+	    onboot = "no"
+	dev.set (("onboot", onboot))
+
     def getScreen (self):
         box = GtkVBox ()
         box.set_border_width (5)
@@ -146,6 +153,7 @@ class NetworkWindow (InstallWindow):
             align = GtkAlignment ()
             bootcb = GtkCheckButton (_("Activate on boot"))
             bootcb.set_active (devs[i].get ("onboot") == "yes")
+	    bootcb.connect ("toggled", self.onBootToggled, devs[i])
             align.add (bootcb)
 
             devbox.pack_start (align, FALSE)
