@@ -99,10 +99,10 @@ int main(int argc, char **argv)
 	       edid_info->week, edid_info->year + 1990);
 
 	printf("Input signal type: %s%s%s%s.\n",
-	       edid_info->video_input & 0x01 ? "separate sync, " : "",
-	       edid_info->video_input & 0x02 ? "composite sync, " : "",
-	       edid_info->video_input & 0x04 ? "sync on green, " : "",
-	       edid_info->video_input & 0x80 ?
+	       edid_info->video_input.separate_sync ? "separate sync, " : "",
+	       edid_info->video_input.composite_sync ? "composite sync, " : "",
+	       edid_info->video_input.sync_on_green ? "sync on green, " : "",
+	       edid_info->video_input.digital ?
 	       "digital signal" : "analog signal");
 
 	printf("Screen size max %d cm horizontal, %d cm vertical.\n",
@@ -112,43 +112,43 @@ int main(int argc, char **argv)
 	printf("Gamma: %f.\n", edid_info->gamma / 100.0 + 1);
 
 	printf("DPMS flags: %s, %s%s, %s%s, %s%s.\n",
-	       edid_info->dpms_flags & 0x08 ? "RGB" : "non-RGB",
-	       edid_info->dpms_flags & 0x20 ? "" : "no ", "active off",
-	       edid_info->dpms_flags & 0x40 ? "" : "no ", "suspend",
-	       edid_info->dpms_flags & 0x80 ? "" : "no ", "standby");
+	       edid_info->dpms_flags.rgb ? "RGB" : "non-RGB",
+	       edid_info->dpms_flags.active_off ? "" : "no ", "active off",
+	       edid_info->dpms_flags.suspend ? "" : "no ", "suspend",
+	       edid_info->dpms_flags.standby ? "" : "no ", "standby");
 
 	printf("Established timings:\n");
-	if(edid_info->established_timings1 & 0x01)
+	if(edid_info->established_timings.timing_720x400_70)
 		printf("\t720x400 @ 70 Hz (VGA 640x400, IBM)\n");
-	if(edid_info->established_timings1 & 0x02)
+	if(edid_info->established_timings.timing_720x400_88)
 		printf("\t720x400 @ 88 Hz (XGA2)\n");
-	if(edid_info->established_timings1 & 0x04)
+	if(edid_info->established_timings.timing_640x480_60)
 		printf("\t640x480 @ 60 Hz (VGA)\n");
-	if(edid_info->established_timings1 & 0x08)
+	if(edid_info->established_timings.timing_640x480_67)
 		printf("\t640x480 @ 67 Hz (Mac II, Apple)\n");
-	if(edid_info->established_timings1 & 0x10)
+	if(edid_info->established_timings.timing_640x480_72)
 		printf("\t640x480 @ 72 Hz (VESA)\n");
-	if(edid_info->established_timings1 & 0x20)
+	if(edid_info->established_timings.timing_640x480_75)
 		printf("\t640x480 @ 75 Hz (VESA)\n");
-	if(edid_info->established_timings1 & 0x40)
+	if(edid_info->established_timings.timing_800x600_56)
 		printf("\t800x600 @ 56 Hz (VESA)\n");
-	if(edid_info->established_timings1 & 0x80)
+	if(edid_info->established_timings.timing_800x600_60)
 		printf("\t800x600 @ 60 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x01)
+	if(edid_info->established_timings.timing_800x600_72)
 		printf("\t800x600 @ 72 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x02)
+	if(edid_info->established_timings.timing_800x600_75)
 		printf("\t800x600 @ 75 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x04)
+	if(edid_info->established_timings.timing_832x624_75)
 		printf("\t832x624 @ 75 Hz (Mac II)\n");
-	if(edid_info->established_timings2 & 0x08)
+	if(edid_info->established_timings.timing_1024x768_87i)
 		printf("\t1024x768 @ 87 Hz Interlaced (8514A)\n");
-	if(edid_info->established_timings2 & 0x10)
+	if(edid_info->established_timings.timing_1024x768_60)
 		printf("\t1024x768 @ 60 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x20)
+	if(edid_info->established_timings.timing_1024x768_70)
 		printf("\t1024x768 @ 70 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x40)
+	if(edid_info->established_timings.timing_1024x768_75)
 		printf("\t1024x768 @ 75 Hz (VESA)\n");
-	if(edid_info->established_timings2 & 0x80)
+	if(edid_info->established_timings.timing_1280x1024_75)
 		printf("\t1280x1024 @ 75 Hz (VESA)\n");
 
 	/* Standard timings. */
