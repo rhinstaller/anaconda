@@ -115,6 +115,7 @@ static char **getPartitionsList(void) {
 			rc = (char **) malloc(sizeof(char *));
 		    else
 			rc = (char **) realloc(rc, (numfound+1)*sizeof(char *));
+		    /* XXX need to insertion sort these! */
 		    rc[numfound] = (char *) malloc(strlen(b) + 7);
 		    sprintf(rc[numfound], "/dev/%s", b);
 
@@ -195,7 +196,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
     char *typetry[] = {"ext2", "vfat", NULL};
     char **type;
 
-    logMessage("mounting device %s for hard drive install %s", device);
+    logMessage("mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
 	/* +5 skips over /dev/ */
@@ -203,9 +204,10 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	    logMessage("devMakeInode failed!");
 
 	/* XXX try to mount as ext2 and then vfat */
-	for (type=typetry; *type; type++)
-	    if (doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 1, 0, NULL, NULL))
+	for (type=typetry; *type; type++) {
+	    if (!doPwMount("/tmp/hddev", "/tmp/hdimage", *type, 1, 0, NULL, NULL))
 		break;
+	}
 
 	if (!type)
 	    return NULL;
@@ -213,9 +215,14 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	sprintf(filespec, "/tmp/hdimage/%s", dirName);
 
 	if ((path = validIsoImages(filespec))) {
-	    logMessage("Path to valid iso is %s", path);
-	    copyUpdatesImg("/mnt/source/updates.img");
+	    char updpath[4096];
 
+	    logMessage("Path to valid iso is %s", path);
+
+	    snprintf(updpath, sizeof(updpath), "%s/updates.img", filespec);
+	    logMessage("Looking for updates for HD in %s", updpath);
+	    copyUpdatesImg(updpath);
+	    
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
 	    if (!rc) {
 		rc = loadHDImages("/tmp/loopimage", "/", flags, "loop1",
@@ -379,7 +386,7 @@ char * mountHardDrive(struct installMethod * method,
 
 	logMessage("partition %s selected", selpart);
 	
-	url = setupIsoImages(selpart, dir, flags);
+	url = setupIsoImages(selpart + 5, dir, flags);
 	if (!url) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
