@@ -1,7 +1,7 @@
 from iw import *
 from gtk import *
 from gui import _
-import ituil
+import iutil
 
 class BootdiskWindow (InstallWindow):
 
