@@ -61,6 +61,8 @@ class Mouse (SimpleConfigFile):
 		("MMSeries", "MMSeries", "ttyS", 1),
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1),
+        "None - None" :
+                ("None", "Microsoft", "null", 0),
 	"Sun - Mouse":
 		("sun", "sun", "sunmouse", 0),
 	}
