@@ -11,10 +11,10 @@
 #include <sys/utsname.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <zlib.h>
 
 #include "isys/imount.h"
 #include "isys/isys.h"
+#include "isys/cpio.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -28,6 +28,40 @@ struct moduleDependency_s {
     char * name;
     char ** deps;
 };
+
+
+static char ** extractModules(struct driverDiskInfo * location, 
+			char * const * modNames, char ** oldPaths);
+static int ethCount(void);
+static int scsiCount(void);
+int mlReadLoadedList(moduleList * mlp);
+void mlFreeList(moduleList ml);
+moduleDeps mlNewDeps(void);
+int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path);
+char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args, 
+			    int depth, char *** listPtr, int * listSizePtr);
+static int loadModule(const char * modName, char * path, moduleList modLoaded,
+	         char ** args, moduleInfoSet modInfo, int flags);
+static char * filterDriverModules(struct driverDiskInfo * ddi,
+				  char * const * modNames);
+static char ** extractModules(struct driverDiskInfo * ddi, 
+			      char * const * modNames, char ** oldPaths);
+static int doLoadModules(const char * origModNames, moduleList modLoaded, 
+		    moduleDeps modDeps, moduleInfoSet modInfo, int flags,
+		    const char * argModule, char ** args);
+int mlLoadModule(const char * modName, 
+		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
+		    moduleInfoSet modInfo, int flags);
+int mlLoadModuleSet(const char * modNames, 
+		    moduleList modLoaded, moduleDeps modDeps, 
+		    moduleInfoSet modInfo, int flags);
+char ** mlGetDeps(moduleDeps modDeps, const char * modName);
+int mlModuleInList(const char * modName, moduleList list);
+int mlWriteConfModules(moduleList list, int fd);
+int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+			     int flags);
+int reloadUnloadedModule(char * modName, void * location,
+			 moduleList modLoaded, char ** args, int flags);
 
 static int ethCount(void) {
     int fd;
@@ -70,7 +104,6 @@ static int scsiCount(void) {
     fclose(f);
     return count;
 }
-
 
 int mlReadLoadedList(moduleList * mlp) {
     int fd;
@@ -406,6 +439,190 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     return rc;
 }
 
+static char * filterDriverModules(struct driverDiskInfo * ddi,
+				  char * const * modNames) {
+    struct utsname un;
+    gzFile from;
+    gzFile to;
+    int first = 1;
+    int fd;
+    char * buf;
+    struct stat sb;
+    int rc;
+    int failed;
+    char * toPath;
+    char * chptr;
+    char ** pattern, ** p;
+    int i;
+
+    uname(&un);
+    /* strip off BOOT, -SMP, whatever */
+    chptr = un.release + strlen(un.release) - 1;
+    while (!isdigit(*chptr)) chptr--;
+    *(chptr + 1) = '\0';
+
+    for (i = 0; modNames[i]; i++) ;
+    pattern = alloca((i + 1) * sizeof(*pattern));
+
+    for (i = 0, p = pattern; modNames[i]; i++, p++) {
+	*p = alloca(strlen(modNames[i]) + strlen(un.release) + 5);
+	sprintf(*p, "%s*/%s.o", un.release, modNames[i]);
+	logMessage("extracting pattern %s%s%s", *p,
+		    ddi->title ? " from " : "",
+		    ddi->title ? ddi->title : "");
+    }
+    *p = NULL;
+
+    if (ddi->device)
+	devMakeInode(ddi->device, ddi->mntDevice);
+
+    while (1) {
+	failed = 0;
+
+	if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, 
+		      NULL, NULL))
+	    failed = 1;
+
+	if (failed && !first) {
+	    newtWinMessage(_("Error"), _("OK"), 
+		    _("Failed to mount driver disk: %s."), strerror(errno));
+	} else if (!failed) {
+	    if ((fd = open("/tmp/drivers/rhdd-6.1", O_RDONLY)) < 0)
+		failed = 1;
+	    if (!failed) {
+		fstat(fd, &sb);
+		buf = malloc(sb.st_size + 1);
+		read(fd, buf, sb.st_size);
+		if (buf[sb.st_size - 1] == '\n')
+		    sb.st_size--;
+		buf[sb.st_size] = '\0';
+		close(fd);
+
+		failed = strcmp(buf, ddi->title);
+		free(buf);
+	    }
+
+	    if (failed && !first) {
+		umount("/tmp/drivers");
+		newtWinMessage(_("Error"), _("OK"),
+			_("The wrong diskette was inserted."));
+	    }
+	}
+
+	if (!failed) {
+	    from = gunzip_open("/tmp/drivers/modules.cgz");
+	    toPath = malloc(strlen(modNames[0]) + 30);
+	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
+	    mkdirChain(toPath);
+	    strcat(toPath, "/modules.cgz");
+	    to = gzip_open(toPath, O_TRUNC | O_RDWR | O_CREAT, 0600);
+
+	    /* This message isn't good, but it'll do. */
+	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), 
+		      modNames[0]);
+
+	    myCpioFilterArchive(from, to, pattern);
+
+	    newtPopWindow();
+
+	    gunzip_close(from);
+	    gunzip_close(to);
+	    umount("/tmp/drivers");
+
+	    return toPath;
+	}
+
+	first = 0;
+
+	if (ddi->device)
+	    eject(ddi->device);
+
+	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
+		_("Please insert the %s driver disk now."), ddi->title);
+	if (rc == 2) return NULL;
+    }
+}
+
+static char ** extractModules(struct driverDiskInfo * ddi, 
+			      char * const * modNames, char ** oldPaths) {
+    gzFile fd;
+    char * ballPath;
+    struct cpioFileMapping * map;
+    int i, numMaps;
+    char * const * m;
+    struct utsname u;
+    int rc;
+    const char * failedFile;
+    char fn[255];
+    struct stat sb;
+
+    /* this needs to know about modules64.cgz for sparc */
+
+    uname(&u);
+
+    if (ddi) {
+	logMessage("looking for drivers on driver disk");
+	ballPath = filterDriverModules(ddi, modNames);
+    } else {
+	ballPath = strdup("/modules/modules.cgz");
+    }
+
+    fd = gunzip_open(ballPath);
+    if (!fd) {
+	logMessage("failed to open %s", ballPath);
+	free(ballPath);
+	return NULL;
+    }
+
+    for (m = modNames, i = 0; *m; i++, m++);
+    
+    map = alloca(sizeof(*map) * i);
+    memset(map, 0, sizeof(*map) * i);
+    if (!oldPaths)
+	/* +1 NULL terminates this list */
+	oldPaths = calloc(i + 1, sizeof(*oldPaths));
+
+    for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
+	if (!oldPaths[i]) {
+	    map[numMaps].archivePath = alloca(strlen(u.release) + 
+						strlen(*m) + 25);
+	    sprintf(map[numMaps].archivePath, "%s/%s.o", u.release, *m);
+	    map[numMaps].fsPath = alloca(10 + strlen(*m));
+	    sprintf(map[numMaps].fsPath, "/tmp/%s.o", *m);
+	    unlink(map[numMaps].fsPath);
+	    map[numMaps].mapFlags = CPIO_MAP_PATH;
+	    numMaps++;
+	}
+    }
+
+    /* nothing to do */
+    if (!numMaps) {
+	gunzip_close(fd);
+	return oldPaths;
+    }
+
+    qsort(map, numMaps, sizeof(*map), myCpioFileMapCmp);
+    rc = myCpioInstallArchive(fd, map, numMaps, NULL, NULL, &failedFile);
+
+    gunzip_close(fd);
+
+    for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
+	if (!oldPaths[i]) {
+	    /* can't trust map; the order changed thanks to qsort */
+	    sprintf(fn, "/tmp/%s.o", modNames[i]);
+	    if (!stat(fn, &sb)) {
+		if (ddi)
+		    logMessage("module %s found on driver disk %s (%d bytes)", 
+				modNames[i], ddi->title, sb.st_size);
+		oldPaths[i] = strdup(fn);
+	    }
+	    numMaps++;
+	}
+    }
+
+    return oldPaths;
+}
+
 static int doLoadModules(const char * origModNames, moduleList modLoaded, 
 		    moduleDeps modDeps, moduleInfoSet modInfo, int flags,
 		    const char * argModule, char ** args) {
@@ -704,18 +921,17 @@ int reloadUnloadedModule(char * modName, void * location,
     pid_t child;
     char ** path;
     char ** argPtr;
-    char ** list;
+    char * list[2];
 
     if (!mlModuleInList(modName, modLoaded)) {
 	return 0;
     }
 
-    list = malloc(3 * sizeof(*list));
-    *list = modName;
-    *(list + 1) = NULL;
+    list[0] = modName;
+    list[1] = NULL;
 
     if (location)
-	path = extractModules(location, tsortModules(modLoaded, NULL, modName, 0, NULL, NULL), (char **) NULL);
+	path = extractModules(location, tsortModules(modLoaded, NULL, list, 0, NULL, NULL), (char **) NULL);
 
     sprintf(fileName, "%s.o", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++)  {
