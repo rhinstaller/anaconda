@@ -351,4 +351,5 @@ except:
         pdb.post_mortem (tb)
     os._exit (1)
 
+todo.fstab.umountFilesystems(rootPath, ignoreErrors = 1)
 del intf
