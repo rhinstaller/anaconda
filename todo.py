@@ -1153,9 +1153,13 @@ class ToDo:
             how = "u"
         else:
             how = "i"
-        
+
+        # XXX HACK HACK for Japanese.
+        #     Remove me when the japanese locales are in glibc package
+        ts.add(self.hdlist['locale-ja'].h, self.hdlist['locale-ja'].h, how)
 	for p in self.hdList.selected():
-	    ts.add(p.h, p.h, how)
+            if p.name != 'locale-ja':
+                ts.add(p.h, p.h, how)
 	    total = total + 1
 	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 
