@@ -80,7 +80,9 @@ class KernelArguments:
 
 class BootImages:
 
-    # returns dictionary of (label, devtype) pairs indexed by device
+    # returns dictionary of (label, longlabel, devtype) pairs indexed by device
+    # XXX note that after we've gone through the bootloader screen once we
+    # lose the distinction between the two and label == longlabel
     def getImages(self):
 	# return a copy so users can modify it w/o affecting us
 
@@ -91,7 +93,7 @@ class BootImages:
 	return dict
 
     def setImageLabel(self, dev, label):
-	self.images[dev] = (label, self.images[dev][1])
+	self.images[dev] = (label, label, self.images[dev][1])
 
     # default is a device
     def setDefault(self, default):
@@ -123,20 +125,153 @@ class BootImages:
 	    self.default = entry.device.getDevice()
 	    (label, type) = self.images[self.default]
 	    if not label:
-		self.images[self.default] = ("Red Hat Linux", type)
+		self.images[self.default] = ("linux", "Red Hat Linux", type)
 
     def __init__(self):
 	self.default = None
 	self.images = {}
-	
-class x86BootloaderInfo:
 
+
+class bootloaderInfo:
     def getDevice(self):
-	return self.device
+        return self.device
 
     def setDevice(self, device):
-	self.device = device
+        self.device = device
 
+    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+                            chainList, defaultDev):
+	images = bl.images.getImages()
+
+        # on upgrade read in the lilo config file
+	lilo = LiloConfigFile ()
+	self.perms = 0644
+        if os.access (instRoot + self.configfile, os.R_OK):
+	    self.perms = os.stat(instRoot + self.configfile)[0] & 0777
+	    lilo.read (instRoot + self.configfile)
+	    os.rename(instRoot + self.configfile,
+		      instRoot + self.configfile + '.rpmsave')
+
+	# Remove any invalid entries that are in the file; we probably
+	# just removed those kernels. 
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
+	    if fsType == "other": continue
+
+	    if not os.access(instRoot + sl.getPath(), os.R_OK):
+		lilo.delImage(label)
+
+	lilo.addEntry("prompt", replace = 0)
+	lilo.addEntry("timeout", "50", replace = 0)
+
+        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
+	if not rootDev:
+            raise RuntimeError, "Installing lilo, but there is no root device"
+
+	if rootDev == defaultDev:
+	    lilo.addEntry("default", kernelList[0][0])
+	else:
+	    lilo.addEntry("default", chainList[0][0])
+
+	for (label, version) in kernelList:
+	    kernelTag = "-" + version
+	    kernelFile = self.kernelLocation + "vmlinuz" + kernelTag
+
+	    try:
+		lilo.delImage(label)
+	    except IndexError, msg:
+		pass
+
+	    sl = LiloConfigFile(imageType = "image", path = kernelFile)
+
+	    initrd = makeInitrd (kernelTag, instRoot)
+
+	    sl.addEntry("label", label)
+	    if os.access (instRoot + initrd, os.R_OK):
+		sl.addEntry("initrd", initrd)
+
+	    sl.addEntry("read-only")
+	    sl.addEntry("root", '/dev/' + rootDev)
+
+	    if self.args.get():
+		sl.addEntry('append', '"%s"' % self.args.get())
+		
+	    lilo.addImage (sl)
+
+	for (label, device) in chainList:
+	    try:
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+	    except IndexError:
+		sl = LiloConfigFile(imageType = "other", path = device)
+		sl.addEntry("optional")
+
+	    sl.addEntry("label", label)
+	    lilo.addImage (sl)
+
+	# Sanity check #1. There could be aliases in sections which conflict
+	# with the new images we just created. If so, erase those aliases
+	imageNames = {}
+	for label in lilo.listImages():
+	    imageNames[label] = 1
+
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
+	    if sl.testEntry('alias'):
+		alias = sl.getEntry('alias')
+		if imageNames.has_key(alias):
+		    sl.delEntry('alias')
+		imageNames[alias] = 1
+
+	# Sanity check #2. If single-key is turned on, go through all of
+	# the image names (including aliases) (we just built the list) and
+	# see if single-key will still work.
+	if lilo.testEntry('single-key'):
+	    singleKeys = {}
+	    turnOff = 0
+	    for label in imageNames.keys():
+		l = label[0]
+		if singleKeys.has_key(l):
+		    turnOff = 1
+		singleKeys[l] = 1
+	    if turnOff:
+		lilo.delEntry('single-key')
+
+        return lilo
+
+	lilo.write(instRoot + self.configfile, perms = self.perms)
+
+	if not justConfigFile:
+	    # throw away stdout, catch stderr
+	    str = iutil.execWithCapture(instRoot + '/sbin/lilo' ,
+					[ "lilo", "-r", instRoot ],
+					catchfd = 2, closefd = 1)
+	else:
+	    str = ""
+
+	return str
+
+    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+		  defaultDev, justConfig):
+
+        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+                                          kernelList, chainList, defaultDev)
+	config.write(instRoot + self.configfile, perms = self.perms)
+
+        return ""
+
+
+    def __init__(self):
+	self.args = KernelArguments()
+	self.images = BootImages()
+	self.device = None
+        self.useLinear = 1    # only used for kickstart compatibility
+        self.useDefaultDevice = 0  # XXX hack, used by kickstart
+        self.useGrubVal = 0      # only used on x86
+        self.configfile = None
+        self.kernelLocation = "/boot/"
+	
+class x86BootloaderInfo(bootloaderInfo):
     def setUseGrub(self, val):
 	self.useGrubVal = val
 
@@ -149,9 +284,9 @@ class x86BootloaderInfo:
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 
 	cf = '/boot/grub/grub.conf'
-	perms = 0644
+	self.perms = 0644
         if os.access (instRoot + cf, os.R_OK):
-	    perms = os.stat(instRoot + cf)[0] & 0777
+	    self.perms = os.stat(instRoot + cf)[0] & 0777
 	    os.rename(instRoot + cf,
 		      instRoot + cf + '.rpmsave')
 
@@ -219,35 +354,17 @@ class x86BootloaderInfo:
 
 	return None
 
-    def writeLilo(self, instRoot, fsset, bl, langs, kernelList, chainList,
-		  defaultDev, justConfigFile):
-	images = bl.images.getImages()
-
-        # on upgrade read in the lilo config file
-	lilo = LiloConfigFile ()
-	perms = 0644
-        if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
-	    perms = os.stat(instRoot + '/etc/lilo.conf')[0] & 0777
-	    lilo.read (instRoot + '/etc/lilo.conf')
-	    os.rename(instRoot + '/etc/lilo.conf',
-		      instRoot + '/etc/lilo.conf.rpmsave')
-
-	# Remove any invalid entries that are in the file; we probably
-	# just removed those kernels. 
-	for label in lilo.listImages():
-	    (fsType, sl) = lilo.getImage(label)
-	    if fsType == "other": continue
-
-	    if not os.access(instRoot + sl.getPath(), os.R_OK):
-		lilo.delImage(label)
+    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+                            chainList, defaultDev):
+        config = bootloaderInfo.getBootloaderConfig(self, instRoot, fsset, bl, langs,
+                                                    kernelList, chainList,
+                                                    defaultDev)
 
 	liloTarget = bl.getDevice()
 
-	lilo.addEntry("boot", '/dev/' + liloTarget, replace = 0)
-	lilo.addEntry("map", "/boot/map", replace = 0)
-	lilo.addEntry("install", "/boot/boot.b", replace = 0)
-	lilo.addEntry("prompt", replace = 0)
-	lilo.addEntry("timeout", "50", replace = 0)
+	config.addEntry("boot", '/dev/' + liloTarget, replace = 0)
+	config.addEntry("map", "/boot/map", replace = 0)
+	config.addEntry("install", "/boot/boot.b", replace = 0)
         message = "/boot/message"
         for lang in language.expandLangs(langs.getDefault()):
             fn = "/boot/message." + lang
@@ -255,90 +372,23 @@ class x86BootloaderInfo:
                 message = fn
                 break
 
-	lilo.addEntry("message", message, replace = 0)
+	config.addEntry("message", message, replace = 0)
 
-        if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
+        if not config.testEntry('lba32') and not config.testEntry('linear'):
             if self.useLinear:
-                lilo.addEntry("linear", replace = 0)
+                config.addEntry("linear", replace = 0)
             else:
-                lilo.addEntry("nolinear", replace = 0)
+                config.addEntry("nolinear", replace = 0)
 
-        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
-	if not rootDev:
-            raise RuntimeError, "Installing lilo, but there is no root device"
+        return config
 
-	if rootDev == defaultDev:
-	    lilo.addEntry("default", kernelList[0][0])
-	else:
-	    lilo.addEntry("default", chainList[0][0])
+    def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
+                  chainList, defaultDev, justConfig):
+        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+                                          kernelList, chainList, defaultDev)
+	config.write(instRoot + self.configfile, perms = self.perms)
 
-	for (label, version) in kernelList:
-	    kernelTag = "-" + version
-	    kernelFile = "/boot/vmlinuz" + kernelTag
-
-	    try:
-		lilo.delImage(label)
-	    except IndexError, msg:
-		pass
-
-	    sl = LiloConfigFile(imageType = "image", path = kernelFile)
-
-	    initrd = makeInitrd (kernelTag, instRoot)
-
-	    sl.addEntry("label", label)
-	    if os.access (instRoot + initrd, os.R_OK):
-		sl.addEntry("initrd", initrd)
-
-	    sl.addEntry("read-only")
-	    sl.addEntry("root", '/dev/' + rootDev)
-
-	    if self.args.get():
-		sl.addEntry('append', '"%s"' % self.args.get())
-		
-	    lilo.addImage (sl)
-
-	for (label, device) in chainList:
-	    try:
-		(fsType, sl) = lilo.getImage(label)
-		lilo.delImage(label)
-	    except IndexError:
-		sl = LiloConfigFile(imageType = "other", path = device)
-		sl.addEntry("optional")
-
-	    sl.addEntry("label", label)
-	    lilo.addImage (sl)
-
-	# Sanity check #1. There could be aliases in sections which conflict
-	# with the new images we just created. If so, erase those aliases
-	imageNames = {}
-	for label in lilo.listImages():
-	    imageNames[label] = 1
-
-	for label in lilo.listImages():
-	    (fsType, sl) = lilo.getImage(label)
-	    if sl.testEntry('alias'):
-		alias = sl.getEntry('alias')
-		if imageNames.has_key(alias):
-		    sl.delEntry('alias')
-		imageNames[alias] = 1
-
-	# Sanity check #2. If single-key is turned on, go through all of
-	# the image names (including aliases) (we just built the list) and
-	# see if single-key will still work.
-	if lilo.testEntry('single-key'):
-	    singleKeys = {}
-	    turnOff = 0
-	    for label in imageNames.keys():
-		l = label[0]
-		if singleKeys.has_key(l):
-		    turnOff = 1
-		singleKeys[l] = 1
-	    if turnOff:
-		lilo.delEntry('single-key')
-
-	lilo.write(instRoot + "/etc/lilo.conf", perms = perms)
-
-	if not justConfigFile:
+        if not justConfig:
 	    # throw away stdout, catch stderr
 	    str = iutil.execWithCapture(instRoot + '/sbin/lilo' ,
 					[ "lilo", "-r", instRoot ],
@@ -347,7 +397,7 @@ class x86BootloaderInfo:
 	    str = ""
 
 	return str
-
+        
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):
 	if self.useGrubVal:
@@ -359,12 +409,10 @@ class x86BootloaderInfo:
 
 
     def __init__(self):
-	self.args = KernelArguments()
-	self.images = BootImages()
-	self.useGrubVal = 1		    # use lilo otherwise
-	self.device = None
-        self.useLinear = 1    # only used for kickstart compatibility
-        self.setDefaultDevice = 0  # XXX hack, used by kickstart
+        bootloaderInfo.__init__(self)
+	self.useGrubVal = 1
+        self.kernelLocation = "/boot/"
+        self.configfile = "/etc/lilo.conf"
 
 def availableBootDevices(diskSet, fsset):
     devs = []
@@ -408,7 +456,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet):
 
     bl.images.setup(diskSet, fsset)
 
-    if bl.setDefaultDevice and choices:
+    if bl.useDefaultDevice and choices:
         bl.setDevice(choices[0][0])
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
@@ -421,7 +469,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     rootDev = fsset.getEntryByMountPoint('/').device.getDevice()
     defaultDev = bl.images.getDefault()
 
-    for (dev, (label, type)) in bl.images.getImages().items():
+    for (dev, (label, longlabel, type)) in bl.images.getImages().items():
 	if dev == rootDev:
 	    kernelLabel = label
 	elif dev == defaultDev:

@@ -189,8 +189,11 @@ class BootloaderImagesWindow:
 	sortedKeys.sort()
 
 	for dev in sortedKeys:
-	    (label, type) = images[dev]
-	    listbox.append(self.formatDevice(type, label, dev, default), dev)
+	    (label, longlabel, type) = images[dev]
+            if not bl.useGrub():
+                listbox.append(self.formatDevice(type, label, dev, default), dev)
+            else:
+                listbox.append(self.formatDevice(type, longlabel, dev, default), dev)                
 
 	listbox.setCurrent(dev)
 

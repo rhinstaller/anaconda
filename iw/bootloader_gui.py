@@ -337,12 +337,15 @@ class BootloaderWindow (InstallWindow):
         self.count = 0
         self.types = []
         for n in sortedKeys:
-            (label, type) = imageList[n]
+            (label, longlabel, type) = imageList[n]
             self.types.append(type)
             if label == None:
                 print "label is None!!"
                 label = ""
-            row = ("", "/dev/" + n, self.typeName(type), label)
+            if not bl.useGrub():
+                row = ("", "/dev/" + n, self.typeName(type), label)
+            else:
+                row = ("", "/dev/" + n, self.typeName(type), longlabel)
             self.imageList.append(row)
 
             if (n == defaultDevice):
