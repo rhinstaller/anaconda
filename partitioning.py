@@ -627,7 +627,7 @@ class PartitionSpec:
         self.constraint = constraint
         self.partition = None
         self.requestSize = size
-        # XXX these are PartedPartitionDevice, should be requests        
+        # note that the raidmembers are the unique id of the requests
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
@@ -870,11 +870,26 @@ class Partitions:
                     self.requests[n] = request
                     self.requests[index] = tmp
             n = n + 1
+
         tmp = self.getBootableRequest()
-        if tmp:
-            index = self.requests.index(tmp)
-            self.requests[index] = self.requests[0]
-            self.requests[0] = tmp
+
+        # if raid, we want all of the contents of the bootable raid
+        if tmp and tmp.type == REQUEST_RAID:
+            boot = []
+            for member in tmp.raidmembers:
+                boot.append(self.getRequestByID(member))
+        elif tmp:
+            boot = [tmp]
+        else:
+            boot = []
+
+        # remove the bootables from the request
+        for bootable in boot:
+            self.requests.pop(self.requests.index(bootable))
+
+        # move to the front of the list
+        boot.extend(self.requests)
+        self.requests = boot
 
     def copy (self):
         new = Partitions()
