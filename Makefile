@@ -77,6 +77,9 @@ archive: create-archive
 src: create-archive
 	@rpm -ts anaconda-$(VERSION).tar.gz
 
+snapsrc: create-snapshot
+	@rpm -ts anaconda-$(VERSION).tar.gz
+
 create-snapshot:
 	@rm -rf /tmp/anaconda
 	@rm -rf /tmp/anaconda-$(VERSION)
