@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <netdb.h>
 #ifdef __STANDALONE__
+#include <netdb.h>
 #include <libintl.h>
 #include <locale.h>
 
@@ -53,18 +53,8 @@
 #include "log.h"
 #include "net.h"
 #include "windows.h"
-#include "misc.h"
 
 #endif /* __STANDALONE__ */
-
-#ifndef __STANDALONE__
-char *netServerPrompt = \
-    N_("Please enter the following information:\n"
-       "\n"
-       "    o the name or IP number of your %s server\n" 
-       "    o the directory on that server containing\n" 
-       "      %s for your architecture\n");
-#endif
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
@@ -141,7 +131,12 @@ static void ipCallback(newtComponent co, void * dptr) {
 	if (strlen(data->ip) && !strlen(data->nm)) {
 	    if (inet_aton(data->ip, &ipaddr)) {
 		ipaddr.s_addr = ntohl(ipaddr.s_addr);
-		ascii = "255.255.255.0";
+		if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 127)
+		    ascii = "255.0.0.0";
+		else if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 191)
+		    ascii = "255.255.0.0";
+		else 
+		    ascii = "255.255.255.0";
 		newtEntrySet(data->nmEntry, ascii, 1);
 	    }
 	}
@@ -168,7 +163,6 @@ static void ipCallback(newtComponent co, void * dptr) {
 #ifndef __STANDALONE__
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
-    char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
     char * newDir = *dirptr ? strdup(*dirptr) : NULL;
     int rc;
@@ -181,10 +175,14 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    buf = sdupprintf(_(netServerPrompt), "NFS", PRODUCTNAME);
-    rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
-			24, entries, _("OK"), _("Back"), NULL);
-    free(buf);
+    
+    rc = newtWinEntries(_("NFS Setup"), 
+		_("Please enter the following information:\n"
+		  "\n"
+		  "    o the name or IP number of your NFS server\n"
+		  "    o the directory on that server containing\n"
+		  "      Red Hat Linux for your architecture"), 60, 5, 15,
+		24, entries, _("OK"), _("Back"), NULL);
 
     if (rc == 2) {
 	if (newServer) free(newServer);
@@ -208,7 +206,12 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)) {
 	i = (int32 *) &cfg->dev.ip;
 
-	nm = "255.255.255.0";
+	if (((*i & 0xFF000000) >> 24) <= 127)
+	    nm = "255.0.0.0";
+	else if (((*i & 0xFF000000) >> 24) <= 191)
+	    nm = "255.255.0.0";
+	else 
+	    nm = "255.255.255.0";
 
 	inet_aton(nm, &cfg->dev.netmask);
 	cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
@@ -294,7 +297,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     char dhcpChoice;
     char * chptr;
 
-#if !defined(__s390__) && !defined(__s390x__)
     text = newtTextboxReflowed(-1, -1, 
 		_("Please enter the IP configuration for this machine. Each "
 		  "item should be entered as an IP address in dotted-decimal "
@@ -435,63 +437,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	}
     } while (i != 2);
 
-#else /* s390 now */
-   char * env;
-   /* quick and dirty hack by opaukstadt@millenux.com for s390 */
-   /* ctc stores remoteip in broadcast-field until pump.h is changed */
-   memset(&newCfg, 0, sizeof(newCfg));
-   strcpy(newCfg.dev.device, device);
-   newCfg.isDynamic = 0;
-   env = getenv("IPADDR");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.ip))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
-   }
-   env = getenv("NETMASK");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.netmask))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
-   }
-   env = getenv("GATEWAY");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.gateway))
-      newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-   }
-   env = getenv("NETWORK");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.network))
-      newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
-   }
-   env = getenv("DNS");
-   if (env && *env) {
-     char *s = strdup (env);
-     char *t = strtok (s, ":");
-     if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
-      newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
-   }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-     env = getenv("REMIP");
-     if (env && *env) {
-       if(inet_aton(env, &newCfg.dev.gateway))
-	 newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-     }
-   }
-   env = getenv("BROADCAST");
-   if (env && *env) {
-     if(inet_aton(env, &newCfg.dev.broadcast))
-       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
-   }
-#endif   /* s390 */
-
 #ifdef __STANDALONE__
     if (!newCfg.isDynamic)
 #endif	  
+    cfg->dev = newCfg.dev;
     cfg->isDynamic = newCfg.isDynamic;
-    memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
 
     fillInIpInfo(cfg);
 
-#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
 	if (*c.gw && inet_aton(c.gw, &addr)) {
 	    cfg->dev.gateway = addr;
@@ -507,7 +460,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     }
 
     newtPopWindow();
-#endif
+
     if (!FL_TESTING(flags)) {
 	configureNetwork(cfg);
 	findHostAndDomain(cfg, flags);
@@ -521,13 +474,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
-#if !defined(__s390__) && !defined(__s390x__)
     pumpSetupInterface(&dev->dev);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	pumpSetupDefaultGateway(&dev->dev.gateway);
 
-#endif
     return 0;
 }
 
@@ -560,14 +511,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "BOOTPROTO=static\n");
 	fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
-	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
-	  fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-	  if (!strncmp(dev->dev.device, "ctc", 3) || \
-	      !strncmp(dev->dev.device, "iucv", 4)) 
-	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
-	}
-	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-	  fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
+	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
     }
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
@@ -584,9 +529,6 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     char * filename = "/etc/resolv.conf";
     FILE * f;
     int i;
-#if defined(__s390__) || defined(__s390x__)
-    return 0;
-#endif
 
     if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && !net->dev.numDns)
     	return LOADER_ERROR;
@@ -612,7 +554,9 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     char * name, * chptr;
+#ifdef __STANDALONE__
     struct hostent * he;
+#endif
 
     if (!FL_TESTING(flags)) {
 	writeResolvConf(dev);
@@ -621,8 +565,12 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
 	winStatus(40, 3, _("Hostname"), 
 		  _("Determining host name and domain..."));
+#ifdef __STANDALONE__
 	he = gethostbyaddr( (char *) &dev->dev.ip, sizeof (dev->dev.ip), AF_INET);
 	name = he ? he->h_name : 0;
+#else
+	name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
+#endif
 	newtPopWindow();
 
 	if (!name) {
