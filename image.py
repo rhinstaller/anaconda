@@ -127,7 +127,19 @@ class CdromInstallMethod(ImageInstallMethod):
                 self.timestamp = timestamp
 
 	    needed = h[1000002]
-            self.unmountCD()
+
+            # if self.currentDisc is empty, then we shouldn't have anything
+            # mounted.  double-check by trying to unmount, but we don't want
+            # to get into a loop of trying to unmount forever.  if
+            # self.currentDisc is set, then it should still be mounted and
+            # we want to loop until it unmounts successfully
+            if not self.currentDisc:
+                try:
+                    isys.umount("/mnt/source")
+                except:
+                    pass
+            else:
+                self.unmountCD()
 
 	    done = 0
 
