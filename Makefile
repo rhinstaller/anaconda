@@ -32,15 +32,15 @@ mini-wm: mini-wm.c
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
-	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `pkg-config --libs gtk+-2.0`
+	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/$LIBDIR/libxkbfile.a `pkg-config --libs gtk+-2.0`
 
 xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c 
-	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/lib/libXxf86misc.a -L/usr/X11R6/lib -lX11 -lXext
+	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/$LIBDIR/libXxf86misc.a -L/usr/X11R6/$LIBDIR -lX11 -lXext
 
 xutils.so: xutils.c
 	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c 
-	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/lib -lX11
+	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$LIBDIR -lX11
 
 depend:
 	rm -f *.o *.so *.pyc

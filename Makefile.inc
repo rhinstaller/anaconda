@@ -15,6 +15,12 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 ARCH := $(patsubst ppc%,ppc,$(ARCH))
 
+ifneq (x86_64, $(ARCH))
+LIBDIR = lib
+else
+LIBDIR = lib64
+endif
+
 #
 # define options
 #
