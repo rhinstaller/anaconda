@@ -829,7 +829,7 @@ class AutoPartitionWindow:
             typebox.setCurrent(0)
         elif id.autoClearPartType == CLEARPART_TYPE_ALL:
             typebox.setCurrent(1)
-        else
+        else:
             typebox.setCurrent(2)
             
         self.g.add(typebox, 0, 2, (0,1,0,0))
