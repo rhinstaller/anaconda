@@ -1,9 +1,6 @@
 include ../Makefile.inc
 
 ISYSLIB=isys
-ifeq ($(ARCH),i386)
-ISYSLIB=isys-diet
-endif
 
 CFLAGS = -Wall -g -O2
 LDFLAGS = -g
