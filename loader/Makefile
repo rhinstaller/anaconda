@@ -42,7 +42,7 @@ install: all
 
 loader: $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \
-        ../isys/pci/libpciprobe.a ../isys/isys.a \
+        ../isys/pci/libpciprobe.a ../isys/libisys.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \

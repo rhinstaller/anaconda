@@ -8,12 +8,12 @@ STATICLIBS = pci/libpciprobe.a modutils/insmod/libmodutils.a \
 LOADLIBES = -lrpm -lresolv -lz -lpci
 SUBDIRS = modutils pci
 
-all: subdirs _isys.so isys.a 
+all: subdirs _isys.so libisys.a 
 
 _isys.so: $(OBJECTS) $(STATICLIBS)
 	gcc -shared -g -o $@ $(OBJECTS) $(STATICLIBS) $(LOADLIBES)
 
-isys.a: isys.a($(OBJECTS))
+libisys.a: libisys.a($(OBJECTS))
 
 clean:
 	rm -f *.o $(TARGET) $(OBJECTS)
