@@ -41,6 +41,9 @@ elif (mode == None):
     except:
 	mode = 't'
 
+# imports after setting up the path
+from image import InstallMethod
+
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     os.environ['DISPLAY'] = ':0'
     server = os.fork()
@@ -60,7 +63,12 @@ else:
     print "No mode was specified"
     sys.exit(1)
 
-method = InstallInterface()
-method.run()
+method = InstallMethod('/mnt/redhat/test/6.0/i386')
 
+intf = InstallInterface()
 
+w = intf.waitWindow("Reading", "Reading package information...")
+hdlist = method.readHeaders()
+intf.popWaitWindow(w)
+
+intf.run(hdlist)
