@@ -375,7 +375,7 @@ class AutoPartitionWindow(InstallWindow):
             self.ics.setTitle (_("Disk Partitioning"))
             label = \
                   GtkLabel(_("Please select the type of disk partitioning you would like to use."
-                             "\n\nAutomatic partitioning will erase %s"
+                             "\n\n%s"
                              "\n\nSelecting manual partitioning allows you to create the partitions by hand.") % 
                            (_(todo.getPartitionWarningText()), ))
         else:

@@ -147,7 +147,7 @@ class AutoPartitionWindow:
 	    return
 
 	(rc, choice) = ListboxChoiceWindow(screen, _("Automatic Partitioning"),
-	    _("Automatic partitioning will erase %s\n\n"
+	    _("%s\n\n"
               "If you don't want to do this, you can continue with "
 	      "this install by partitioning manually, or you can go back "
 	      "and perform a fully customized installation.") % 
