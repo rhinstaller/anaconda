@@ -719,7 +719,7 @@ class FileSystemSet:
 #        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
 #	    return [ ( "/dev/dasda", "DASD" ) ]
         
-        elif iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
+        if iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
             bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
 	    bootDev = mntDict['/boot']
