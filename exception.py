@@ -15,6 +15,7 @@
 #
 
 import isys
+import sys
 import os
 import signal
 import traceback
@@ -158,6 +159,9 @@ def dumpException(out, text, tb, dispatch):
             traceback.print_exc(None, out)
 
 def handleException(dispatch, intf, (type, value, tb)):
+    # restore original exception handler
+    sys.excepthook = sys.__excepthook__
+
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
