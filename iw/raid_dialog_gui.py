@@ -640,7 +640,7 @@ class RaidCloneDialog:
 				"WILL BE DESTROYED.")
 	    
 	    rc = self.intf.messageWindow(_("Final Warning"),
-					 msgtxt,
+					 msgtxt, type="custom",
 					 custom_buttons = ["gtk-cancel", _("Clone Drives")], custom_icon="warning")
 	    if not rc:
 		return 0
