@@ -478,30 +478,32 @@ static int loadCompressedRamdisk(int fd, off_t size, char *title,
     return rc;
 }
 
-static int loadStage2Ramdisk(int fd, off_t size, int flags) {
+static int loadStage2Ramdisk(int fd, off_t size, int flags,
+			     char * device, char * mntpoint) {
     int rc;
     
     rc = loadCompressedRamdisk(fd, size, _("Loading second stage ramdisk..."),
-			       "ram3", flags);
+			       device, flags);
     
     if (rc) {
 	newtWinMessage(_("Error"), _("OK"), _("Error loading ramdisk."));
 	return rc;
     }
 
-    if (devMakeInode("ram3", "/tmp/ram3")) {
-	logMessage("failed to make device ram3");
+    if (devMakeInode(device, "/tmp/ram")) {
+	logMessage("failed to make device %s", device);
 	return 1;
     }
     
-    if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 0, 0, NULL, NULL)) {
+    if (doPwMount("/tmp/ram", mntpoint, "ext2", 0, 0, NULL, NULL)) {
 	newtWinMessage(_("Error"), _("OK"),
-		"Error mounting ramdisk. This shouldn't "
-		    "happen, and I'm rebooting your system now.");
+		"Error mounting /dev/%s on %s (%s). This shouldn't "
+		    "happen, and I'm rebooting your system now.", 
+		device, mntpoint, strerror(errno));
 	exit(1);
     }
 
-    unlink("/tmp/ram3");
+    unlink("/tmp/ram");
 
     return 0;
 }
@@ -538,7 +540,7 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	    return NULL;
 	} 
 
-	rc = loadStage2Ramdisk(fd, 0, flags);
+	rc = loadStage2Ramdisk(fd, 0, flags, "ram3", "/mnt/runtime");
 	close(fd);
 	umount("/tmp/hdimage");
 	if (rc) return NULL;
@@ -1010,6 +1012,45 @@ static char * mountNfsImage(struct installMethod * method,
 
 #ifdef INCLUDE_NETWORK
 
+static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
+			char * device, char * mntpoint) {
+    int fd;
+    int rc;
+
+    fd = urlinstStartTransfer(ui, file);
+
+    if (fd < 0)
+	return 1;
+
+    rc = loadStage2Ramdisk(fd, 0, flags, device, mntpoint);
+    urlinstFinishTransfer(ui, fd);
+
+    if (rc) return 1;
+
+    return 0;
+}
+
+static int loadUrlImages(struct iurlinfo * ui, int flags) {
+    if (loadSingleUrlImage(ui, "base/netstg1.img", flags, "ram3",
+		     "/mnt/runtime")) {
+	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
+			_("FTP") : _("HTTP"), _("OK"), 
+	       _("Unable to retrieve the first install image"));
+	return 1;
+    }
+
+    if (loadSingleUrlImage(ui, "base/netstg2.img", flags, "ram4",
+		     "/mnt/runtime/usr")) {
+	umount("/mnt/runtime");
+	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
+			_("FTP") : _("HTTP"), _("OK"), 
+	       _("Unable to retrieve the second install image"));
+	return 1;
+    }
+
+    return 0;
+}
+
 #define URL_STAGE_IP			1
 #define URL_STAGE_MAIN			2
 #define URL_STAGE_SECOND		3
@@ -1026,7 +1067,6 @@ static char * mountUrlImage(struct installMethod * method,
     struct iurlinfo ui;
     char needsSecondary = ' ';
     static struct networkDeviceConfig netDev;
-    int fd;
     char * url;
     char * login;
     enum urlprotocol_t proto = 
@@ -1070,25 +1110,11 @@ static char * mountUrlImage(struct installMethod * method,
 		break;
 	    }
 
-#ifdef __i386__
-	    fd = urlinstStartTransfer(&ui, "base/netstg2.img");
-#else
-	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
-#endif
-
-	    if (fd < 0) {
-		newtWinMessage(ui.protocol == URL_METHOD_FTP ?
-				_("FTP") : _("HTTP"), _("OK"), 
-		       _("Unable to retrieve the second stage ramdisk"));
+	    if (loadUrlImages(&ui, flags))
 		stage = URL_STAGE_MAIN;
-		break;
-	    }
-	    
-	    rc = loadStage2Ramdisk(fd, 0, flags);
-	    urlinstFinishTransfer(&ui, fd);
-	    if (!rc)
+	    else
 		stage = URL_STAGE_DONE;
-
+	    
 	    break;
         }
     }
@@ -1417,7 +1443,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char ** ksArgv;
     int ksArgc;
     int ksType;
-    int i, rc, fd;
+    int i, rc;
     int flags = *flagsPtr;
     enum deviceClass ksDeviceType;
     struct poptOption * table;
@@ -1591,15 +1617,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	logMessage("url address %s", ui.address);
 	logMessage("url prefix %s", ui.prefix);
 
-	fd = urlinstStartTransfer(&ui, "base/netstg2.img");
-	if (fd < 0) {
-	    logMessage("failed to open url");
-	    return NULL;
-	}
-	rc = loadStage2Ramdisk(fd, 0, flags);
-	urlinstFinishTransfer(&ui, fd);
-
-	if (rc) {
+	if (loadUrlImages(&ui, flags)) {
 	    logMessage("failed to retrieve second stage");
 	    return NULL;
 	}
