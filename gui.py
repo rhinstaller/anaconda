@@ -825,17 +825,32 @@ class InstallControlWindow:
 
     def relnotes_closed (self, *args):
         self.textWin.destroy()
-        for (icon, name, text, func) in self.stockButtons:
-            if self.__dict__.has_key(name):
-		self.__dict__[name].set_sensitive(self.relnotes_buttonstate[name])
+
+#
+# XXX - disabling this behavior for now due to bug where if you pop up
+#       release notes during package selection, then close it after
+#       package selection is done and install has moved to next screen,
+#       the stockButtons get their state screwed up
+#
+#        for (icon, name, text, func) in self.stockButtons:
+#            if self.__dict__.has_key(name):
+#		self.__dict__[name].set_sensitive(self.relnotes_buttonstate[name])
+        return
 
     def releaseClicked (self, widget):
         self.textWin = gtk.Dialog(parent=mainWindow, flags=gtk.DIALOG_MODAL)
-	self.relnotes_buttonstate={}
-        for (icon, name, text, func) in self.stockButtons:
-            if self.__dict__.has_key(name):
-		self.relnotes_buttonstate[name] = self.__dict__[name].get_property("sensitive")
-                self.__dict__[name].set_sensitive(gtk.FALSE)
+
+
+#
+# XXX - disabling this behavior for now due to bug where if you pop up
+#       release notes during package selection, then close it after
+#       package selection is done and install has moved to next screen,
+#       the stockButtons get their state screwed up
+#	self.relnotes_buttonstate={}
+#        for (icon, name, text, func) in self.stockButtons:
+#            if self.__dict__.has_key(name):
+#		self.relnotes_buttonstate[name] = self.__dict__[name].get_property("sensitive")
+#                self.__dict__[name].set_sensitive(gtk.FALSE)
 
         table = gtk.Table(3, 3, gtk.FALSE)
         self.textWin.vbox.pack_start(table)
