@@ -30,7 +30,34 @@ from flags import flags
 dumpHash = {}
 
 # XXX do length limits on obj dumps.
-def dumpClass(instance, fd, level=0):
+def dumpClass(instance, fd, level=0, parentkey=""):
+
+    keySkipList = [ 
+		    "id.accounts",
+		    "id.bootloader.password",
+		    "id.comps",
+		    "id.dispatch",
+		    "id.hdList",		    
+		    "id.keyboard.modelDict",
+		    "intf.icw.buff",
+		    "intf.icw.stockButtons",
+		    "id.instLanguage.nativeLangNames",
+		    "id.instLanguage.runtimeLangs",
+		    "id.instLanguage.langList",
+		    "id.instLanguage.langNicks",
+		    "id.instLanguage.font",
+		    "id.instLanguage.kbd",
+		    "id.instLanguage.tz",
+		    "id.langSupport.langInfoByName",
+		    "id.langSupport.langNicks",
+		    "id.langSupport.langList",
+		    "id.langSupport.allSupportedLangs",
+		    "id.rootPassword",
+		    "id.tmpData",
+		    "id.xsetup.xhwstate.monitor.monlist",
+		    "id.xsetup.xhwstate.monitor.monids"
+		   ]
+
     # protect from loops
     if not dumpHash.has_key(instance):
         dumpHash[instance] = None
@@ -44,9 +71,20 @@ def dumpClass(instance, fd, level=0):
     fd.write("%s instance, containing members:\n" %
              (instance.__class__.__name__))
     pad = ' ' * ((level) * 2)
+
     for key, value in instance.__dict__.items():
+	if parentkey != "":
+	    curkey = parentkey + "." + key
+	else:
+	    curkey = key
+
+#	print "curkey:", curkey
+	if curkey in keySkipList:
+	    continue
+	    
         if type(value) == types.ListType:
-            fd.write("%s%s: [" % (pad, key))
+#            fd.write("%s%s: [" % (pad, key))
+            fd.write("%s%s: [" % (pad, curkey))
             first = 1
             for item in value:
                 if not first:
@@ -59,9 +97,15 @@ def dumpClass(instance, fd, level=0):
                     fd.write("%s" % (item,))
             fd.write("]\n")
         elif type(value) == types.DictType:
-            fd.write("%s%s: {" % (pad, key))
+#            fd.write("%s%s: {" % (pad, key))
+            fd.write("%s%s: {" % (pad, curkey))
             first = 1
             for k, v in value.items():
+		newkey = curkey+"."+k
+#		print "newkey:",newkey
+		if newkey in keySkipList:
+		    continue
+		
                 if not first:
                     fd.write(", ")
                 else:
@@ -71,15 +115,17 @@ def dumpClass(instance, fd, level=0):
                 else:
                     fd.write("%s: " % (k,))
                 if type(v) == types.InstanceType:
-                    dumpClass(v, fd, level + 1)
+                    dumpClass(v, fd, level + 1, parentkey = curkey)
                 else:
                     fd.write("%s" % (v,))
             fd.write("}\n")
         elif type(value) == types.InstanceType:
-            fd.write("%s%s: " % (pad, key))
-            dumpClass(value, fd, level + 1)
+#            fd.write("%s%s: " % (pad, key))
+            fd.write("%s%s: " % (pad, curkey))
+            dumpClass(value, fd, level + 1, parentkey=curkey)
         else:
-            fd.write("%s%s: %s\n" % (pad, key, value))
+#            fd.write("%s%s: %s\n" % (pad, key, value))
+            fd.write("%s%s: %s\n" % (pad, curkey, value))
 
 def dumpException(out, text, tb, dispatch):
     p = Pickler(out)
@@ -114,26 +160,26 @@ def dumpException(out, text, tb, dispatch):
         out.write("\n")
     
     # these have C objects in them which can't dump
-    dispatch.id.hdList = None
-    dispatch.id.comps = None
+#    dispatch.id.hdList = None
+#    dispatch.id.comps = None
 
     # we don't need to know passwords
-    dispatch.id.rootPassword = None
-    dispatch.id.accounts = None
+#    dispatch.id.rootPassword = None
+#    dispatch.id.accounts = None
 
 #    dispatch.intf = None
 #    dispatch.dispatch = None
 
-    try:
-        if dispatch.id.xsetup and dispatch.id.xsetup.xhwstate and dispatch.id.xsetup.xhwstate.monitor:
-            dispatch.id.xsetup.xhwstate.monitor.monlist = None
-            dispatch.id.xsetup.xhwstate.monitor.monids = None
-        dispatch.id.langSupport.langNicks = None
-        dispatch.id.langSupport.langList = None
-        dispatch.id.langSupport.allSupportedLangs = None
-        dispatch.intf.icw.buff = None
-    except:
-        pass
+#    try:
+#        if dispatch.id.xsetup and dispatch.id.xsetup.xhwstate and dispatch.id.xsetup.xhwstate.monitor:
+#            dispatch.id.xsetup.xhwstate.monitor.monlist = None
+#            dispatch.id.xsetup.xhwstate.monitor.monids = None
+#        dispatch.id.langSupport.langNicks = None
+#        dispatch.id.langSupport.langList = None
+#        dispatch.id.langSupport.allSupportedLangs = None
+#        dispatch.intf.icw.buff = None
+#    except:
+#        pass
     
     try:
         out.write("\n\n")
@@ -163,8 +209,22 @@ def handleException(dispatch, intf, (type, value, tb)):
     # restore original exception handler
     sys.excepthook = sys.__excepthook__
 
+    # get traceback information
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
+
+    # save to local storage first
+    out = open("/tmp/anacdump.txt", "w")
+    dumpException (out, text, tb, dispatch)
+    out.close()
+
+    # run kickstart traceback scripts (if necessary)
+    try:
+	if dispatch.id.instClass.name and dispatch.id.instClass.name == "kickstart":
+	    dispatch.id.instClass.runTracebackScripts()
+    except:
+	pass
+
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
     if rc == 1:
 	intf.__del__ ()
@@ -176,10 +236,13 @@ def handleException(dispatch, intf, (type, value, tb)):
 	intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
 
+    # in test mode have save to floppy option just copy to new name
     if not flags.setupFilesystems:
-        out = open("/tmp/anacdump.txt", "w")
-        dumpException (out, text, tb, dispatch)
-        out.close()
+        try:
+            iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
+        except:
+            pass
+
         intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
 
@@ -220,9 +283,11 @@ def handleException(dispatch, intf, (type, value, tb)):
         except SystemError:
             continue
 
-	out = open("/tmp/crash/anacdump.txt", "w")
-        dumpException (out, text, tb, dispatch)
-        out.close()
+	# copy trace dump we wrote to local storage to floppy
+        try:
+            iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash")
+        except:
+            pass
 
         # write out any syslog information as well
         try:
