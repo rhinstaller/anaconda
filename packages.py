@@ -993,7 +993,7 @@ def doInstall(method, id, intf, instPath):
 
     if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
         log("rhgb installed, adding to boot loader config")
-        id.bootloader.args.append("rhgb")
+        id.bootloader.args.append("rhgb quiet")
 
     instLog.close ()
 
