@@ -1,5 +1,8 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (MnemonicLabel.__init__): Allow setting of label
+	alignment on creation.
+
 	* iw/network_gui.py (NetworkWindow.editDevice): Get rid of 
 	warning from pygtk
 
@@ -24,6 +27,7 @@
 
 	* iw/bootloader_main_gui.py: Don't reference boot 
 	disks anymore (#135851)
+	* iw/bootloader_advanced_gui.py: Likewise.
 	* textw/bootloader_text.py: Likewise.
 
 	* iw/network_gui.py (NetworkWindow.editDevice): Add hardware

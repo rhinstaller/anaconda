@@ -300,9 +300,11 @@ def getBusyCursorStatus():
     return _busyCursor
 
 class MnemonicLabel(gtk.Label):
-    def __init__(self, text=""):
+    def __init__(self, text="", alignment = None):
         gtk.Label.__init__(self, "")
         self.set_text_with_mnemonic(text)
+        if alignment is not None:
+            apply(self.set_alignment, alignment)
 
 class WrappingLabel(gtk.Label):
     def __init__(self, label=""):
