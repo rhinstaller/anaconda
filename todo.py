@@ -336,6 +336,7 @@ class Language (SimpleConfigFile):
         allSupportedLangs = []
         langInfoByName = {}
         langFilter = {}
+        allInstalledFlag = 0
 
         if useInstalledLangs:
             # load from /etc/sysconfig/i18n
@@ -350,9 +351,10 @@ class Language (SimpleConfigFile):
                         supported = tmpstr[:string.find(tmpstr,'\"')]
                         break
 
-            # if no info on current system, just punt with reasonable default
+            # if no info on current system, with RH 7.1 this means ALL
+            # languages were installed
             if not supported:
-                langFilter['en_US'] = 1
+                allInstalledFlag = 1
             else:
                 for lang in string.split(supported, ":"):
                     langFilter[lang] = 1
@@ -368,7 +370,7 @@ class Language (SimpleConfigFile):
                 langInfoByName[name] = (lang, map, font)
                 allSupportedLangs.append(name)
 
-                if langFilter and langFilter.has_key(lang):
+                if allInstalledFlag or (langFilter and langFilter.has_key(lang)):
                     langsInstalled.append(name)
         else:
             langInfoByName['English (USA)'] = ('en_US', 'iso01', 'default8x16')
