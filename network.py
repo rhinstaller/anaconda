@@ -102,6 +102,8 @@ class NetworkDevice(SimpleConfigFile):
         keys.remove("DEVICE")
 	if "DESC" in keys:
 	    keys.remove("DESC")
+        if "KEY" in keys:
+            keys.remove("KEY")
 
 	# Don't let onboot be turned on unless we have config information
 	# to go along with it
@@ -395,8 +397,16 @@ class Network:
                 f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
             if dev.get('dhcpclass'):
                 f.write("DHCP_CLASSID=%s\n" % dev.get('dhcpclass'))
-                
+
             f.close()
+
+            if dev.get("key"):
+                fn = "%s/etc/sysconfig/network-scripts/keys-%s" % (instPath,
+                                                                   device)
+                f = open(fn, "w")
+                os.chmod(fn, 0600)
+                f.write("KEY=%s\n" % dev.get('key'))
+                f.close()
 
         # /etc/sysconfig/network
 
