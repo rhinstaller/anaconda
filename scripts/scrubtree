@@ -20,6 +20,7 @@ touch $p/etc/ld.so.conf
 mkdir $p/proc
 mount -t proc proc $p/proc
 [ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib > $p/etc/ld.so.conf
+echo /usr/kerberos/lib > $p/etc/ld.so.conf
 (cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
