@@ -110,11 +110,11 @@ class Partitions:
                         # XXX this is a hack
                         format = 1
 
-                # FIXME: we don't handle ptype being None very well, so
-                # just say it's foreign.  Should probably fix None handling
-                # instead some day.
-                if ptype is None:
-                    ptype = fsset.fileSystemTypeGet("foreign")
+                    # FIXME: we don't handle ptype being None very well, so
+                    # just say it's foreign.  Should probably fix None handling
+                    # instead some day.
+                    if ptype is None:
+                        ptype = fsset.fileSystemTypeGet("foreign")
                     
                 start = part.geom.start
                 end = part.geom.end
