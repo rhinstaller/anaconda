@@ -3092,6 +3092,32 @@ void setFloppyDevice(int flags) {
     logMessage("system floppy device is %s", floppyDevice);
 }
 
+
+static void sleepUntilUsbIsStable(void) {
+    struct stat sb;
+    time_t last = 0;
+    int i, count = 0;
+
+    /* sleep for a maximum of 20 seconds, minimum of 2 seconds */
+    logMessage("waiting for usb to become stable...");
+    for (i = 0; i < 20; i++) {
+	stat("/proc/bus/usb/devices", &sb);
+	if (last == sb.st_mtime) {
+	    count++;
+	    /* if we get the same mtime twice in a row, should be
+	       good enough to use now */
+	    if (count > 1)
+		break;
+	} else {
+	    /* if we didn't match mtimes, reset the stability counter */
+	    count = 0;
+	}
+	last = sb.st_mtime;
+	sleep(1);
+    }
+    logMessage("%d seconds.", i);
+}
+ 
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
@@ -3124,8 +3150,10 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 		  NULL, NULL))
 	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
 
-    /* sleep so we make sure usb devices get properly initialized */
-    sleep(2);
+    /* sleep so we make sure usb devices get properly enumerated.
+       that way we should block when initializing each usb driver until
+       the device is ready for use */
+    sleepUntilUsbIsStable();
 
     buf = alloca(40);
     sprintf(buf, "hid:keybdev%s", 
