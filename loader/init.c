@@ -630,12 +630,6 @@ int main(int argc, char **argv) {
     if (testing)
 	exit(0);
 
-	fd = open("/proc/self/0", O_RDWR, 0);    
-	if (fd < 0) {
-	    printf("failed to open /proc/self/0\n");
-	    fatal_error(1);
-	}
-
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
