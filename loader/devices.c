@@ -28,7 +28,7 @@ void ejectFloppy(void) {
     logMessage("ejecting floppy");
 
     fd = open("/dev/fd0", O_RDONLY);
-    ioctl(fd, FDEJCET, 1);
+    ioctl(fd, FDEJECT, 1);
     close(fd);
 #endif
 }
