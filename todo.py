@@ -63,6 +63,14 @@ class ToDo:
 	self.headerList()
 	self.compsList()
 
+        # make sure that all comps that include other comps are
+        # selected (i.e. - recurse down the selected comps and turn
+        # on the children
+
+        for comp in self.comps:
+            if comp.selected:
+                comp.select(1)
+
 	self.makeFilesystems()
 	self.mountFilesystems()
 
