@@ -201,11 +201,8 @@ else  # ctc0, escon0, iucv0
 		  read GATEWAY
 	 done
 
-	 if [ "$NETTYPE" = "ctc" ]; then
-		 if [ -z "$MTU" ]; then
-			   MTU="1500"
-		 fi
-		 MMTU="mtu 1500"   # always use mtu 1500 for the installer
+	 if [ "$NETTYPE" = "ctc" -a -z "$MTU" ]; then
+		  MTU="1500"
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$IUCV" ]; do
