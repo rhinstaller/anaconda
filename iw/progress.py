@@ -109,9 +109,18 @@ class InstallProgressWindow (InstallWindow):
         
         apply (self.clist.set_text, self.status["total"]["size"] +
                                     ("%d M" % (totalSize / (1024 * 1024)),))
-        self.clist.columns_autosize ()
         threads_leave ()
 
+    def allocate (self, widget, *args):
+        if self.frobnicatingClist: return
+        
+        self.frobnicatingClist = 1
+        print widget.get_allocation ()
+        width = widget.get_allocation ()[2] - 50
+        for x in range (4):
+            widget.set_column_width (x, width / 4)
+
+            
     def getScreen (self):
 	table = GtkTable (3, 2)
         self.curPackage = { "package" : _("Package"),
@@ -158,7 +167,9 @@ class InstallProgressWindow (InstallWindow):
         clist.append ((_("Total"),     "0", "0 M", "0:00.00"))
         clist.append ((_("Completed"), "0", "0 M", "0:00.00"))
         clist.append ((_("Remaining"), "0", "0 M", "0:00.00"))
-	clist.columns_autosize ()
+        self.frobnicatingClist = 0
+        
+	clist.connect_after ("size_allocate", self.allocate)
         for x in range (4):
             clist.column_title_passive (x)
         for x in range (3):
