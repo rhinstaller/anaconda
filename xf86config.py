@@ -1258,10 +1258,12 @@ Section "Screen"
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         # see if 16 bpp is available, and if it should be the
         # default depth
+
         if self.keyVariant:
-            info["enableVariant"] = ""
+            data["enableVariant"] = ""
         if self.keyOptions:
-            info["enableOptions"] = ""
+            data["enableOptions"] = ""
+
         if maxdepth > 0:
             if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
