@@ -119,56 +119,74 @@ class ProgressWindow:
         self.window.destroy ()
 	threads_leave ()
 
-def ExceptionWindow(text):
-    win = GnomeDialog ("Exception Occured")
-    win.append_button ("Debug")
-    win.append_button ("Save to floppy")
-    win.append_button_with_pixmap ("OK", STOCK_BUTTON_OK)
-    textbox = GtkText()
-    textbox.insert_defaults (text)
-    sw = GtkScrolledWindow ()
-    sw.add (textbox)
-    sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+class ExceptionWindow:
+    def __init__ (self, text):
+        win = GnomeDialog ("Exception Occured")
+        win.connect ("clicked", self.quit)
+        win.append_button ("Debug")
+        win.append_button ("Save to floppy")
+        win.append_button_with_pixmap ("OK", STOCK_BUTTON_OK)
+        textbox = GtkText()
+        textbox.insert_defaults (text)
+        sw = GtkScrolledWindow ()
+        sw.add (textbox)
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-    hbox = GtkHBox (FALSE)
-    # XXX fix me, use util function when we upgrade pygnome
-    # s = unconditional_pixmap_file ("gnome-error.png")
-    if s:
-        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'),
-                         FALSE)
+        hbox = GtkHBox (FALSE)
+        # XXX fix me, use util function when we upgrade pygnome
+        # s = unconditional_pixmap_file ("gnome-error.png")
+        if s:
+            hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'),
+                             FALSE)
 
-    info = GtkLabel (_("An exceptional condition has occured.  This "
-                       "is most likely a bug.  Please copy the "
-                       "full text of this exception and file a bug "
-                       "report at "
-                       "http://bugzilla.redhat.com/bugzilla"))
-    info.set_line_wrap (TRUE)
-    info.set_usize (350, -1)
+        info = GtkLabel (_("An exceptional condition has occured.  This "
+                           "is most likely a bug.  Please copy the "
+                           "full text of this exception and file a bug "
+                           "report at "
+                           "http://bugzilla.redhat.com/bugzilla"))
+        info.set_line_wrap (TRUE)
+        info.set_usize (350, -1)
 
-    hbox.pack_start (sw, TRUE)
-    win.vbox.pack_start (info, FALSE)            
-    win.vbox.pack_start (hbox, TRUE)
-    win.set_usize (500, 300)
-    win.set_position (WIN_POS_CENTER)
-    win.show_all ()
-    rc = win.run ()
-    threads_leave()
-    # I did it this way for future expantion
-    # 0 is debug
-    if rc == 0:
-        import isys
-        try:
-            # switch to VC1 so we can debug
-            isys.vtActivate (1)
-        except SystemError:
-            pass
-        return 1
-    # 1 is save
-    if rc == 1:
-        return 2
-    # 2 is OK
-    elif rc == 2:
-        return 0
+        hbox.pack_start (sw, TRUE)
+        win.vbox.pack_start (info, FALSE)            
+        win.vbox.pack_start (hbox, TRUE)
+        win.set_usize (500, 300)
+        win.set_position (WIN_POS_CENTER)
+        win.show_all ()
+        self.window = win
+        
+        thread = currentThread ()
+        if thread.getName () == "gtk_main":
+            self.mutex = None
+            self.rc = self.window.run ()
+            threads_leave()
+        else:
+            threads_leave ()
+            self.mutex = Event ()
+            self.mutex.wait ()
+        
+    def quit (self, dialog, button):
+        self.rc = button
+        if self.mutex:
+            self.mutex.set ()
+
+    def getrc (self):
+        # I did it this way for future expantion
+        # 0 is debug
+        if self.rc == 0:
+            import isys
+            try:
+                # switch to VC1 so we can debug
+                isys.vtActivate (1)
+            except SystemError:
+                pass
+            return 1
+        # 1 is save
+        if self.rc == 1:
+            return 2
+        # 2 is OK
+        elif self.rc == 2:
+            return 0
 
 class MessageWindow:
     def quit (self, dialog, button):
@@ -245,7 +263,8 @@ class InstallInterface:
 
     def exceptionWindow(self, title, text):
         print text
-        return ExceptionWindow (text)
+        win = ExceptionWindow (text)
+        return win.getrc ()
 
     def dumpWindow(self):
         window = MessageWindow("Save Crash Dump", 

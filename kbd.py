@@ -43,8 +43,8 @@ class Keyboard (SimpleConfigFile):
             ("ru2"               , ('pc102', 'ru')),
             ("ru_win"            , ('pc105', 'ru')),
             ("se-latin1"         , ('pc102', 'se')),
-            ("uk"                , ('pc101', 'gb')),
-            ("us"                , ('pc101', 'us')),
+            ("uk"                , ('pc104', 'gb')),
+            ("us"                , ('pc104', 'us')),
             ]
 
     console2xsun = {

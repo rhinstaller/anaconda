@@ -5,6 +5,7 @@ import rpm
 import time
 from threading import *
 from translate import _
+import sys
 
 class DoInstall (Thread):
     def __init__ (self, icw, todo):
@@ -13,7 +14,12 @@ class DoInstall (Thread):
         Thread.__init__ (self)
 
     def run (self):
-        rc = self.todo.doInstall ()
+        from exception import handleException
+        try:
+            rc = self.todo.doInstall ()
+        except:
+            threads_enter ()
+            handleException(self.todo, sys.exc_info())
         threads_enter ()
         if rc:
             self.icw.prevClicked ()
