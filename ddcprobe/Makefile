@@ -26,13 +26,13 @@ modetest: lrmi.o vesamode.o vbe.o modetest.o
 libvbe.a: lrmi.o vesamode.o vbe.o
 	$(AR) cru $@ $^
 
-install-lib: $(DESTDIR)/usr/include/vbe.h $(DESTDIR)/usr/lib/libvbe.a
+install-lib: $(prefix)/include/vbe.h $(prefix)/lib/libvbe.a
 
-$(DESTDIR)/usr/include/vbe.h:
-	install -m 644 vbe.h $(DESTDIR)/usr/include/vbe.h
+$(prefix)/include/vbe.h:
+	install -m 644 vbe.h $(prefix)/include/vbe.h
 
-$(DESTDIR)/usr/lib/libvbe.a:
-	install -m 644 libvbe.a $(DESTDIR)/usr/lib/libvbe.a
+$(prefix)/lib/libvbe.a:
+	install -m 644 libvbe.a $(prefix)/lib/libvbe.a
 
 clean:
 	$(RM) $(TARGETS) *.o core
