@@ -59,7 +59,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	self.deps = deps
 	self.comps = comps
 
-        sw = GtkScrolledWindow ()
+        sw = gtk.GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
