@@ -1090,7 +1090,7 @@ allPartitionTypesDict = {
     0xa6: "OpenBSD",
     0xb7: "BSDI fs",
     0xb8: "BSDI swap",
-    0xbf: "Solaris"
+    0xbf: "Solaris",
     0xc7: "Syrinx",
     0xdb: "CP/M",
     0xde: "Dell Utility",
