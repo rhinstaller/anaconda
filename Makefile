@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 6.2.2
+VERSION = 7.0
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
@@ -102,6 +102,8 @@ install: all
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
+
+archive: create-archive
 
 create-archive:
 	@rm -rf /tmp/anaconda
