@@ -3,6 +3,7 @@ from iw import *
 from thread import *
 import isys
 from gui import _
+from fdisk import *
 
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
@@ -30,6 +31,10 @@ class PartitionWindow (InstallWindow):
 	self.skippedScreen = 0
 
     def getNext (self):
+        from installpath import InstallPathWindow
+        if InstallPathWindow.fdisk and InstallPathWindow.fdisk.get_active ():
+            return FDiskWindow
+        
 	self.todo.ddruid.next ()
         
 	if not self.skippedScreen:
@@ -62,6 +67,11 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
+        from installpath import InstallPathWindow
+
+	if InstallPathWindow.fdisk and InstallPathWindow.fdisk.get_active ():
+            return None
+
         self.todo.ddruid.setCallback (self.enableCallback)
 
 	if self.skippedScreen:
