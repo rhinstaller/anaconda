@@ -1,5 +1,5 @@
 #!/bin/sh
 /sbin/loaderbin
-umount /mnt/sysimage/dev/pts
-umount /mnt/sysimage/proc
-umount /mnt/sysimage
+umount /mnt/sysimage/dev/pts >/dev/null 2>&1
+umount /mnt/sysimage/proc >/dev/null 2>&1
+umount /mnt/sysimage >/dev/null 2>&1
