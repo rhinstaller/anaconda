@@ -136,7 +136,23 @@ class FirewallWindow (InstallWindow):
             
         self.activate_firewall(None)
 
-        label = gtk.Label(_("_Security Enhanced Linux (SELinux) Extensions:"))
+        # SELinux widgets
+        selbox = gtk.VBox()
+        selbox.set_spacing(8)
+
+        l = gui.WrappingLabel(_("Security Enhanced Linux (SELinux) "
+                                "provides finer-grained "
+                                "security controls than are available "
+                                "in a traditional Linux system.  It can "
+                                "be set up in a disabled state, a state "
+                                "which only warns about things which would "
+                                "be denied, or a fully active state."))
+        l.set_size_request(400, -1)
+        l.set_alignment(0.0, 0.0)
+
+        selbox.pack_start(l, gtk.FALSE)
+
+        label = gtk.Label(_("Enable _SELinux?:"))
         label.set_use_underline(gtk.TRUE)
         self.se_option_menu = gtk.OptionMenu()
         label.set_mnemonic_widget(self.se_option_menu)
@@ -152,14 +168,15 @@ class FirewallWindow (InstallWindow):
         hbox = gtk.HBox()
         hbox.set_spacing(8)
         hbox.pack_start(label, gtk.FALSE)
-        hbox.pack_start(self.se_option_menu, gtk.TRUE)
+        hbox.pack_start(self.se_option_menu, gtk.FALSE)
+        selbox.pack_start(hbox)
 
         if flags.selinux == 0:
-            hbox.set_sensitive(gtk.FALSE)
+            selbox.set_sensitive(gtk.FALSE)
 
         if (SELINUX_DEFAULT == 1) or flags.selinux:
             box.pack_start (gtk.HSeparator(), gtk.FALSE)
-            box.pack_start(hbox, gtk.FALSE)
+            box.pack_start(selbox, gtk.FALSE)
 
         return box
 
