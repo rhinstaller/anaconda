@@ -2092,7 +2092,7 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
     sprintf(fullFn, "/tmp/nfskd/%s", file);
     copyFile(fullFn, location);
 
-    umount("/tmp/nfs");
+    umount("/tmp/nfskd");
 
     return 0;
 }
