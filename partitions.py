@@ -875,7 +875,7 @@ class Partitions:
         if clearpart:
             f.write(clearpart)
 
-        # two passes here, once to write out parts, once to write out raids
+        # lots of passes here -- parts, raid, volgroup, logvol
         # XXX what do we do with deleted partitions?
         for request in self.requests:
             args = []
@@ -894,6 +894,9 @@ class Partitions:
             elif request.fstype.getName() == "software RAID":
                 # since we guarantee that uniqueIDs are ints now...
                 args.append("raid.%s" % (request.uniqueID))
+            elif request.fstype.getName() == "physical volume (LVM)":
+                # see above about uniqueIDs being ints
+                args.append("pv.%s" % (request.uniqueID))
             elif request.mountpoint:
                 args.append(request.mountpoint)
                 args.append("--fstype")
@@ -978,6 +981,69 @@ class Partitions:
             args.append("%s" % (string.join(raidmems)))
 
             f.write("#raid %s\n" % (string.join(args)))
+
+        for request in self.requests:
+            args = []
+            if request.type != REQUEST_VG:
+                continue
+
+            args.append(request.volumeGroupName)
+
+            # silly pv syntax
+            pvs = []
+            for member in request.physicalVolumes:
+                if (type(member) != type("")) or not member.startswith("pv."):
+                    pvs.append("pv.%s" % (member))
+                else:
+                    pvs.append(member)
+            args.append("%s" % (string.join(pvs)))
+
+            f.write("#volgroup %s\n" % (string.join(args)))
+
+        for request in self.requests:
+            args = []
+            if request.type != REQUEST_LV:
+                continue
+
+            # no fstype, no deal (same with foreigns)
+            if not request.fstype or request.fstype.getName() == "foreign":
+                continue
+
+            # require a vg name and an lv name
+            if (request.logicalVolumeName is None or
+                request.volumeGroup is None):
+                continue
+
+            # first argument is mountpoint, which can also be swap
+            if request.fstype.getName() == "swap":
+                args.append("swap")
+            elif request.mountpoint:
+                args.append(request.mountpoint)
+            else:
+                continue
+
+            # generic options
+            if not request.format:
+                args.append("--noformat")
+            if request.fstype:
+                args.append("--fstype")
+                args.append(request.fstype.getName())
+
+            vg = self.getRequestByID(request.volumeGroup)
+            if vg is None:
+                continue
+
+            args.extend(["--name=%s" %(request.logicalVolumeName,),
+                         "--vgname=%s" %(vg.volumeGroupName,)])
+
+            if request.percent is not None:
+                args.append("--percent=%s" %(request.percent,))
+            elif request.size is not None:
+                args.append("--size=%s" %(request.size,))
+            else:
+                continue
+            
+            f.write("#logvol %s\n" % (string.join(args)))            
 
     def deleteAllLogicalPartitions(self, part):
         """Add delete specs for all logical partitions in part."""
