@@ -412,7 +412,7 @@ $LIBDIR/libcrypt*
 $LIBDIR/libc.so*
 $LIBDIR/libc-*so*
 lib/ld*.so*
-$LIBDIR/ld-*.so*
+$LIBDIR/ld*.so*
 $LIBDIR/libresolv.so*
 $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
@@ -864,7 +864,6 @@ if [ -n "$NEEDGR" ]; then
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-
 fi
 
 # make the changes we want to fonts.conf for anaconda (#65913)
