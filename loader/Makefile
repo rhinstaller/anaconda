@@ -2,7 +2,7 @@ DESTDIR = ../../trees/initrd
 
 OBJS = loader.o log.o windows.o modules.o
 SOURCES = $(subst .o,.c,$(OBJS))
-BINS = loader init
+BINS = devices loader init
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
@@ -42,6 +42,14 @@ install: all
 
 loader: $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \
+        ../isys/pci/libpciprobe.a ../isys/libisys.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -lrpm -lz -lresolv -lnewt -lslang -lpci
+
+devices: devices.o modules.o
+	$(CC) -g -o $@ devices.o modules.o -lpopt     \
         ../isys/pci/libpciprobe.a ../isys/libisys.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \

@@ -409,95 +409,6 @@ void unmountFilesystems(void) {
     }
 }
 
-void readargs(int * isRescue, int * isSerial, int * isExpert, int * isKick,
-	      int * forceSupp, int * isNetwork, int *isText) {
-    char buf[512];
-    char * arg;
-    int fd;
-    int size;
-    int done = 0;
-    char * start, * end;
-
-    printf("opening /proc/cmdline... ");
-
-    if ((fd = open("/proc/cmdline", O_RDONLY, 0)) < 0) fatal_error(1);
-
-    size = read(fd, buf, sizeof(buf) - 1);
-    buf[size] = '\0';
-    close(fd);
-
-    printf("done\n");
-
-    printf("checking command line arguments... ");
-    start = buf;
-
-    while (!done) {
-	while (*start && isspace(*start)) start++;
-	if (!(*start)) break;
-	
-	end = start;
-	while (*end && !isspace(*end) && *end != '\n') end++;
-
-	if (!*end) done = 1;
-	*end = '\0';
-
-	if (!*start ||
-	    !strcmp(start, "auto") ||
-	    !strncmp(start, "BOOT_IMAGE", 10) ||
-	    !strncmp(start, "initrd=", 7) ||
-	    !strncmp(start, "bootdevice=", 11) ||
-	    !strncmp(start, "bootfile=", 9) ||
-	    !strcmp(start, "ro") ||
-	    !strncmp(start, "root=", 5) ||
-	    !strncmp(start, "mem=", 4) ||
-	    !strncmp(start, "hda=", 4) ||
-	    !strncmp(start, "hdb=", 4) ||
-	    !strncmp(start, "hdc=", 4) ||
-	    !strncmp(start, "hdd=", 4) ||
-	    !strncmp(start, "load_ramdisk", 12) ||
-	    !strncmp(start, "prompt_ramdisk", 14)) {
-	    /* lilo does this for us -- we don't care */
-	} else if (!strcmp(start, "debug")) {
-	    printf("\n\tdebug disk mode enabled");
-	    environ[ENV_DEBUG] = "DEBUG=1";
-	} else if (!strcmp(start, "rescue")) {
-	    printf("\n\trescue disk mode enabled");
-	    *isRescue = 1;
-	} else if (!strcmp(start, "serial")) {
-	    printf("\n\tserial mode enabled");
-	    *isSerial = 1;
-	} else if (!strcmp(start, "expert")) {
-	    printf("\n\texpert mode enabled");
-	    *isExpert = 1;
-	} else if (!strcmp(start, "supp")) {
-	    *forceSupp = 1;
-	} else if (!strcmp(start, "local")) {
-	    *isNetwork = 0;
-	} else if (!strcmp(start, "network")) {
-	    *isNetwork = 1;
-	} else if (!strcmp(start, "text")) {
-	    *isText = 1;
-	} else if (!strncmp(start, "kickstart", 9) || 
-                   !strncmp(start, "ks", 2)) {
-	    arg = strchr(start, '=');
-
-	    if (arg) {
-		*isKick = KICK_FLOPPY;
-		printf("\n\ta floppy kickstart install will be performed");
-	    } else {
-		*isKick = KICK_BOOTP;
-		printf("\n\ta bootp kickstart install will be performed");
-	    }
-	} else {
-	    printf("\n\tunknown option '%s'!", start);
-	    sleep(5);
-	}
-
-	start = end + 1;
-    }
-    printf("done\n");
-}
-
 int main(void) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -505,15 +416,8 @@ int main(void) {
     int nfsRoot = 0;
     int roRoot = 0;
     int cdRoot = 0;
-    int isRescue = 0;
-    int isSerial = 0;
-    int isExpert = 0;
-    int isKick = 0;
-    int isNetwork = 0;
-    int isText = 0;
     int doReboot = 0;
     int doShutdown =0;
-    int forceSupp = 0;
 #ifdef __alpha__
     char * kernel;
 #endif
@@ -542,9 +446,7 @@ int main(void) {
 
     printf("done\n");
 
-    readargs(&isRescue, &isSerial, &isExpert, &isKick, &forceSupp, &isNetwork,
-	     &isText);
-
+#if 0
     if (isSerial) {
 	fd = open("/dev/ttyS0", O_RDWR, 0);
 	if (fd < 0) {
@@ -570,6 +472,7 @@ int main(void) {
 
 	close(fd);
     }
+#endif
 
     if (!testing) {
 	sethostname("localhost.localdomain", 21);
@@ -642,6 +545,7 @@ int main(void) {
 
     if (!(installpid = fork())) {
 	/* child */
+#if 0
 	if (!isSerial) {
 	    fd = open("/dev/tty1", O_RDWR, 0);
 	    if (fd < 0) {
@@ -661,27 +565,9 @@ int main(void) {
 	    setsid();
 	    close(fd);
 	}
-	
-	*argvp++ = "/sbin/loader";
-
-	if (isExpert) *argvp++ = "--expert";
-	if (forceSupp) *argvp++ = "--forcesupp";
-	if (isKick == KICK_FLOPPY) 
-	    *argvp++ = "--ks=floppy";
-	else if (isKick)
-	    *argvp++ = "--ks=bootp";
-
-#ifdef __i386__
-	if (isNetwork)
-	    *argvp++ = "--network";
-	else
-	    *argvp++ = "--local";
 #endif
 	
-	if (isText)
-	    *argvp++ = "--text";
-
-	*argvp++ = NULL;
+	*argvp++ = "/sbin/loader";
 
 	printf("running %s\n", argv[0]);
 	execve(argv[0], argv, environ);
