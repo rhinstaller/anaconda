@@ -982,68 +982,35 @@ class ComponentSet:
 
 # this is a temporary way to set order of packages
 def orderPackageGroups(curgroups):
-    compsParents = ["Desktops", "Applications", "Servers", "Development", "System"]
-    compsHierarchy = { "Desktops" : ["X Window System",
-				     "GNOME Desktop Environment",
-				     "KDE Desktop Environment"],
-		       "Applications" : ["Editors",
-					 "Engineering and Scientific",
-					 "Graphical Internet",
-					 "Text-based Internet",
-					 "Office/Productivity",
-					 "Sound and Video",
-					 "Graphics",
-					 "Games and Entertainment",
-					 "Authoring and Publishing"],
-		       "Servers" : [ "Server Configuration Tools",
-				     "Web Server",
-                                     "Mail Server",
-				     "Windows File Server",
-				     "NFS File Server",
-				     "DNS Name Server",
-				     "FTP Server",
-				     "SQL Database Server",
-				     "News Server",
-				     "Network Servers"],
-		       "Development" : [ 
-					 "Development Tools",
-					 "Development Libraries",
-					 "Kernel Development",
-					 "X Software Development",
-					 "GNOME Software Development",
-					 "KDE Software Development"],
-		       "System" : [ "Administration Tools",
-	                            "System Tools",
-				    "Printing Support"
-				    ] }
+    compsParents = curgroups.compsxml.hierarchy.order
+    compsHierarchy = curgroups.compsxml.hierarchy
 
-    curgrpnames = []
+    grpids = []
     for grp in curgroups:
-	curgrpnames.append(grp.name)
+	grpids.append(grp.id)
 
     ignorelst = []
     retlist = []
     retdict = {}
 
     for key in compsParents:
+        retlist.append(key)
+        retdict[key] = []
+        
 	compslist = compsHierarchy[key]
 	for grp in compslist:
 
-	    if grp in curgrpnames:
-		thecomp = curgroups[curgrpnames.index(grp)]
+	    if grp in grpids:
+                thecomp = curgroups.compsById[grp]
 		ignorelst.append(grp)
-		if key not in retlist:
-		    retlist.append(key)
-		    retdict[key] = [thecomp]
-		else:
-		    retdict[key].append(thecomp)
+                retdict[key].append(thecomp)
 
     miscgrp = "Miscellaneous"
-    for grp in curgrpnames:
+    for grp in grpids:
 	if grp in ignorelst:
 	    continue
 
-	thecomp = curgroups[curgrpnames.index(grp)]
+        thecomp = curgroups.compsById[grp]
 	if miscgrp not in retlist:
 	    retlist.append(miscgrp)
 	    retdict[miscgrp] = [thecomp]
