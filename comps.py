@@ -9,13 +9,19 @@ from translate import N_
 from log import log
 import time
 
-XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
-			'XFree86-AGX' : 1, 	'XFree86-I128' : 1,
-			'XFree86-Mach32' : 1, 	'XFree86-Mach64' : 1,
-			'XFree86-Mach8' : 1, 	'XFree86-Mono' : 1,
-			'XFree86-P9000' : 1, 	'XFree86-S3' : 1,
-			'XFree86-S3V' : 1, 	'XFree86-SVGA' : 1,
-			'XFree86-VGA16' : 1,    'XFree86-W32' : 1 }
+ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
+                    'XFree86-AGX' : None, 	'XFree86-I128' : None,
+                    'XFree86-Mach32' : None, 	'XFree86-Mach64' : None,
+                    'XFree86-Mach8' : None, 	'XFree86-Mono' : None,
+                    'XFree86-P9000' : None, 	'XFree86-S3' : None,
+                    'XFree86-S3V' : None, 	'XFree86-SVGA' : None,
+                    'XFree86-VGA16' : None,	'XFree86-W32' : None,
+
+                    'kernel' : None,		'kernel-BOOT' : None,
+                    'kernel-smp' : None,
+
+                    'kinput2-canna' : None,	'kinput-canna-wnn4' : None,
+                    'kinput2-wnn4' : None,	'kinput2-wnn6' : None }
 
 # Package selection is complicated. Here are the rules:
 #
@@ -447,11 +453,7 @@ class ComponentSet:
 
         everything = Component(N_("Everything"), 0, 0)
         for package in packages.keys ():
-	    if (packages[package][rpm.RPMTAG_NAME] != 'kernel' and
-                packages[package][rpm.RPMTAG_NAME] != 'kernel-BOOT' and
-#                packages[package][rpm.RPMTAG_NAME] != 'kernel-enterprise' and
-                packages[package][rpm.RPMTAG_NAME] != 'kernel-smp' and
-		  not XFreeServerPackages.has_key(packages[package][rpm.RPMTAG_NAME])):
+	    if not ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
 		everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything

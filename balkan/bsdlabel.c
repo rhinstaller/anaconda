@@ -10,48 +10,53 @@
 #define BSD_FS_UNUSED		0	/* disklabel unused partition entry ID */
 #define BSD_LABEL_OFFSET	64
 
-struct bsd_disklabel {
-    unsigned int	d_magic;		/* the magic number */
-    signed short	d_type;			/* drive type */
-    signed short	d_subtype;		/* controller/d_type specific */
-    char	d_typename[16];		/* type name, e.g. "eagle" */
-    char	d_packname[16];			/* pack identifier */ 
-    unsigned int	d_secsize;		/* # of bytes per sector */
-    unsigned int	d_nsectors;		/* # of data sectors per track */
-    unsigned int	d_ntracks;		/* # of tracks per cylinder */
-    unsigned int	d_ncylinders;		/* # of data cylinders per unit */
-    unsigned int	d_secpercyl;		/* # of data sectors per cylinder */
-    unsigned int	d_secperunit;		/* # of data sectors per unit */
-    unsigned short	d_sparespertrack;	/* # of spare sectors per track */
-    unsigned short	d_sparespercyl;		/* # of spare sectors per cylinder */
-    unsigned int	d_acylinders;		/* # of alt. cylinders per unit */
-    unsigned short	d_rpm;			/* rotational speed */
-    unsigned short	d_interleave;		/* hardware sector interleave */
-    unsigned short	d_trackskew;		/* sector 0 skew, per track */
-    unsigned short	d_cylskew;		/* sector 0 skew, per cylinder */
-    unsigned int	d_headswitch;		/* head switch time, usec */
-    unsigned int	d_trkseek;		/* track-to-track seek, usec */
-    unsigned int	d_flags;		/* generic flags */
-    #define NDDATA 5
-    unsigned int	d_drivedata[NDDATA];	/* drive-type specific information */
-    #define NSPARE 5
-    unsigned int	d_spare[NSPARE];	/* reserved for future use */
-    unsigned int	d_magic2;		/* the magic number (again) */
-    unsigned short	d_checksum;		/* xor of data incl. partitions */
+typedef struct bsd_partition bsdp;
+typedef struct bsd_disklabel bsdl;
 
-		    /* filesystem and partition information: */
-    unsigned short	d_npartitions;		/* number of partitions in following */
-    unsigned int	d_bbsize;		/* size of boot area at sn0, bytes */
-    unsigned int	d_sbsize;		/* max size of fs superblock, bytes */
-    struct	bsd_partition {		/* the partition table */
-	    unsigned int	p_size;		/* number of sectors in partition */
-	    unsigned int	p_offset;	/* starting sector */
-	    unsigned int	p_fsize;	/* filesystem basic fragment size */
-	    unsigned char	p_fstype;	/* filesystem type, see below */
-	    unsigned char	p_frag;		/* filesystem fragments per block */
-	    unsigned short	p_cpg;		/* filesystem cylinders per group */
-    } d_partitions[BSD_MAXPARTITIONS];	/* actually may be more */
+struct	bsd_partition {		/* the partition table */
+    u_int32_t	p_size;		/* number of sectors in partition */
+    u_int32_t	p_offset;	/* starting sector */
+    u_int32_t	p_fsize;	/* filesystem basic fragment size */
+    u_int8_t	p_fstype;	/* filesystem type, see below */
+    u_int8_t	p_frag;		/* filesystem fragments per block */
+    u_int16_t	p_cpg;		/* filesystem cylinders per group */
 };
+
+struct bsd_disklabel {
+        u_int32_t	d_magic;		/* the magic number */
+        int16_t		d_type;			/* drive type */
+        int16_t		d_subtype;		/* controller/d_type specific */
+        int8_t		d_typename[16];		/* type name, e.g. "eagle" */
+        int8_t		d_packname[16];		/* pack identifier */ 
+        u_int32_t	d_secsize;		/* # of bytes per sector */
+        u_int32_t	d_nsectors;		/* # of data sectors per track */
+        u_int32_t	d_ntracks;		/* # of tracks per cylinder */
+        u_int32_t	d_ncylinders;		/* # of data cylinders per unit */
+        u_int32_t	d_secpercyl;		/* # of data sectors per cylinder */
+        u_int32_t	d_secperunit;		/* # of data sectors per unit */
+        u_int16_t	d_sparespertrack;	/* # of spare sectors per track */
+        u_int16_t	d_sparespercyl;		/* # of spare sectors per cylinder */
+        u_int32_t	d_acylinders;		/* # of alt. cylinders per unit */
+        u_int16_t	d_rpm;			/* rotational speed */
+        u_int16_t	d_interleave;		/* hardware sector interleave */
+        u_int16_t	d_trackskew;		/* sector 0 skew, per track */
+        u_int16_t	d_cylskew;		/* sector 0 skew, per cylinder */
+        u_int32_t	d_headswitch;		/* head switch time, usec */
+        u_int32_t	d_trkseek;		/* track-to-track seek, usec */
+        u_int32_t	d_flags;		/* generic flags */
+#define NDDATA 5
+        u_int32_t	d_drivedata[NDDATA];	/* drive-type specific information */
+#define NSPARE 5
+        u_int32_t	d_spare[NSPARE];	/* reserved for future use */
+        u_int32_t	d_magic2;		/* the magic number (again) */
+        u_int16_t	d_checksum;		/* xor of data incl. partitions */
+        
+        /* filesystem and partition information: */
+        u_int16_t	d_npartitions;		/* number of partitions in following */
+        u_int32_t	d_bbsize;		/* size of boot area at sn0, bytes */
+        u_int32_t	d_sbsize;		/* max size of fs superblock, bytes */
+    bsdp d_partitions[BSD_MAXPARTITIONS];	/* actually may be more */
+} __attribute__((packed));
 
 #if 0
 static unsigned short xbsd_dkcksum (struct bsd_disklabel *lp) {
@@ -127,6 +132,9 @@ void main() {
     int i;
     struct partitionTable table;
 
+    printf ("%d\n", sizeof(struct bsd_disklabel));
+    printf ("%d\n", sizeof(struct bsd_partition));
+    return;
     fd = open("/dev/hda", O_RDONLY);
 
     printf("rc= %d\n", bsdlReadTable(fd, &table));
