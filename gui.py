@@ -257,7 +257,7 @@ class InstallControlWindow (Thread):
         self.stateListIndex = pos
         
     def prevClicked (self, *args):
-#          prev = self.currentScreen.getPrev ()
+        self.currentScreen.getPrev ()
 #          if prev:
 #              instantiated = 0
 #              for x in self.windowList:
