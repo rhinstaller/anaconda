@@ -836,7 +836,7 @@ class ToDo:
 	lilo.addEntry("timeout", "50")
 
 	smpInstalled = (self.hdList.has_key('kernel-smp') and 
-                        self.hdList['kernel-smp'].selected and isys.smpAvailable())
+                        self.hdList['kernel-smp'].selected)
 
         if self.mounts.has_key ('/'):
             (dev, fstype, format) = self.mounts['/']
@@ -940,9 +940,6 @@ class ToDo:
 		if comp.selected:
 		    comp.select (1)
 	self.comps['Base'].select(1)
-
-	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    self.hdList['kernel-smp'].selected = 1
 
 	self.updateInstClassComps()
             
@@ -1385,6 +1382,11 @@ class ToDo:
 	# make sure we have the header list and comps file
 	self.getHeaderList()
 	self.getCompsList()
+
+	# this is NICE and LATE. It lets kickstart/server/workstation
+	# installs detect this properly
+	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
+	    self.hdList['kernel-smp'].selected = 1
 
         if self.x.server:
             self.selectPackage ('XFree86-' + self.x.server)
