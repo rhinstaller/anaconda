@@ -986,9 +986,9 @@ class ToDo:
                         dev = drive + str (i + 1)
                         isys.makeDevInode(dev, '/tmp/' + dev)
                         try:
-                            isys.swapon (dev)
+                            isys.swapon ('/tmp/' + dev)
                         except:
-                            self.log ("Error in swapon of %s", dev)
+                            self.log ("Error in swapon of %s\n", dev)
                         os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
