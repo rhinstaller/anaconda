@@ -62,6 +62,7 @@ lib/libc*
 lib/libm*
 lib/libcrypt*
 lib/libdl*
+lib/libdb.so.2
 lib/libdb1*
 lib/libnsl*
 lib/libnss_files*
@@ -176,13 +177,14 @@ EOF
 
 # sparc needs 100dpi fonts as well, otherwise
 # things look ugly
+
 if [ `uname -m | sed 's/sparc64/sparc/'` = sparc ]; then
     cat >> $KEEPFILEGR <<-EOF
-    usr/X11R6/lib/X11/fonts/100dpi/cour*
-    usr/X11R6/lib/X11/fonts/100dpi/helv*
-    usr/X11R6/lib/X11/fonts/100dpi/tim*
-    usr/X11R6/lib/X11/fonts/100dpi/fonts*
-    EOF
+usr/X11R6/lib/X11/fonts/100dpi/cour*
+usr/X11R6/lib/X11/fonts/100dpi/helv*
+usr/X11R6/lib/X11/fonts/100dpi/tim*
+usr/X11R6/lib/X11/fonts/100dpi/fonts*
+EOF
 fi
 
 for I in $PACKAGES; do
@@ -286,14 +288,13 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 
 	cd $DEST/lib
 	ls    libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
-	   libpthread* libss* libtermcap* libuuid* \
+	      libpthread* libss* libtermcap* libuuid* \
 			| cpio --quiet -H crc -o | gzip -9 > libs.cgz
 	rm -f libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
-	   libpthread* libss* libtermcap* libuuid* \
+	      libpthread* libss* libtermcap* libuuid*
 
 	cd $DEST/usr
-	find X11R6 | cpio --quiet -H crc -o | \
-            gzip -9 > X11R6.cgz
-	rm -rf X11R6
+	find X11R6 | cpio --quiet -H crc -o | gzip -9 > X11R6.cgz
+	rm -rf X11R5
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
