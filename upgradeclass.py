@@ -44,6 +44,7 @@ class InstallClass(BaseInstallClass):
                     "instbootloader",
                     "dopostaction",
 		    "bootdisk",
+                    "methodcomplete",
 		    "complete"
 		)
 

@@ -132,6 +132,7 @@ class BaseInstallClass:
 		 "writexconfig",
 		 "writeksconfig",
 		 "bootdisk",
+                 "methodcomplete",
 		 "complete"
 		)
 
