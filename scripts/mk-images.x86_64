@@ -123,7 +123,7 @@ makeBootImages() {
     # now make a boot pendrive image
     mkdir -p $TOPDESTPATH/images/fobpath
     dd if=/dev/zero of=$TOPDESTPATH/images/diskboot.img bs=1M count=6 2>/dev/null
-    mkdosfs -r 16 $TOPDESTPATH/images/diskboot.img
+    mkdosfs $TOPDESTPATH/images/diskboot.img
     $SYSLINUX $TOPDESTPATH/images/diskboot.img
     mount -o loop $TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
     cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
