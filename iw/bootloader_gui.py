@@ -407,10 +407,8 @@ class BootloaderWindow (InstallWindow):
             (label, longlabel, type) = imageList[n]
             self.types.append(type)
             if label == None:
-                print "label is None!!"
                 label = ""
             if longlabel == None:
-                print "longlabel is None!!"
                 longlabel = ""
             if self.lastselected == "lilo":
                 row = ("", "/dev/" + n, self.typeName(type), label)
