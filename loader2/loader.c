@@ -1408,23 +1408,15 @@ int main(int argc, char ** argv) {
         }
         
         for (i = 0; i < modLoaded->numModules; i++) {
-            struct moduleInfo * mi;
-            char * where;
-
             if (!modLoaded->mods[i].path) continue;
-            
-            mi = findModuleInfo(modInfo, modLoaded->mods[i].name);
-            if (!mi) continue;
-            if (mi->major == DRIVER_NET)
-                where = "net";
-            else if (mi->major == DRIVER_SCSI)
-                where = "scsi";
-            else
-                where = "other";
+            if (!strcmp(modLoaded->mods[i].path, 
+                        "/mnt/runtime/modules/modules.cgz")) {
+                continue;
+            }
             
             *argptr++ = "--module";
             *argptr = alloca(80);
-            sprintf(*argptr, "%s:%s:%s", modLoaded->mods[i].path, where,
+            sprintf(*argptr, "%s:%s", modLoaded->mods[i].path,
                     modLoaded->mods[i].name);
             
             argptr++;
