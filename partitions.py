@@ -162,7 +162,7 @@ class Partitions:
                 fsystem = fsset.fileSystemTypeGet(fs)
 
             if fs == "swap":
-                mnt = "swap"
+                mnt = None
                 # more forced swap format hacking
                 format = 1
             else:
@@ -269,7 +269,7 @@ class Partitions:
                     fsystem = fsset.fileSystemTypeGet(fs)
 
                 if fs == "swap":
-                    mnt = "swap"
+                    mnt = None
                     format = 1
                 else:
                     mnt = None

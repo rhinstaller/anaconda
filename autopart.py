@@ -1152,7 +1152,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     drives = partitions.autoClearPartDrives
 
     for request in partitions.autoPartitionRequests:
-        if request.device:
+        if (isinstance(request, partRequests.PartitionSpec) and
+            request.device):
             # get the preexisting partition they want to use
             req = partitions.getRequestByDeviceName(request.device)
             if not req or not req.type or req.type != REQUEST_PREEXIST:
@@ -1170,6 +1171,89 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.mountpoint = request.mountpoint
             if request.badblocks:
                 req.badblocks = request.badblocks
+            if request.uniqueID:  # for raid to work
+                req.uniqueID = request.uniqueID
+            if not request.format:
+                req.format = 0
+            else:
+                req.format = 1
+                req.fstype = request.fstype
+        # XXX whee!  lots of cut and paste code lies below
+        elif (isinstance(request, partRequests.RaidRequestSpec) and
+              request.preexist == 1):
+            req = partitions.getRequestByDeviceName(request.device)
+            if not req or req.preexist == 0:
+                 intf.messageWindow(_("Requested Partition Does Not Exist"),
+                                    _("Unable to locate partition %s to use "
+                                      "for %s.\n\n"
+                                      "Press 'OK' to reboot your system.")
+                                    % (request.device,
+                                       request.mountpoint),
+                                    custom_icon='error')
+                 sys.exit(0)
+
+            # now go through and set things from the request to the
+            # preexisting partition's request... ladeda
+            if request.mountpoint:
+                req.mountpoint = request.mountpoint
+            if request.badblocks:
+                req.badblocks = request.badblocks
+            if request.uniqueID:  # for raid to work
+                req.uniqueID = request.uniqueID
+            if not request.format:
+                req.format = 0
+            else:
+                req.format = 1
+                req.fstype = request.fstype
+            # XXX not copying the raid bits because they should be handled
+            # automagically (actually, people probably aren't specifying them)
+                
+        elif (isinstance(request, partRequests.VolumeGroupRequestSpec) and
+              request.preexist == 1):
+            # get the preexisting partition they want to use
+            req = partitions.getRequestByVolumeGroupName(request.volumeGroupName)
+            if not req or req.preexist == 0 or req.format == 1:
+                 intf.messageWindow(_("Requested Partition Does Not Exist"),
+                                    _("Unable to locate partition %s to use "
+                                      "for %s.\n\n"
+                                      "Press 'OK' to reboot your system.")
+                                   % (request.volumeGroupName,
+                                      request.mountpoint),
+                                    custom_icon='error')
+                 sys.exit(0)
+
+            # now go through and set things from the request to the
+            # preexisting partition's request... ladeda
+            if request.physicalVolumes:
+                req.physicalVolumes = request.physicalVolumes
+            if request.pesize:
+                req.pesize = request.pesize
+            if request.uniqueID:  # for raid to work
+                req.uniqueID = request.uniqueID
+            if not request.format:
+                req.format = 0
+            else:
+                req.format = 1
+        elif (isinstance(request, partRequests.LogicalVolumeRequestSpec) and
+              request.preexist == 1):
+            # get the preexisting partition they want to use
+            req = partitions.getRequestByLogicalVolumeName(request.logicalVolumeName)
+            if not req or req.preexist == 0:
+                intf.messageWindow(_("Requested Partition Does Not Exist"),
+                                   _("Unable to locate partition %s to use "
+                                     "for %s.\n\n"
+                                     "Press 'OK' to reboot your system.")
+                                   % (request.logicalVolumeName,
+                                      request.mountpoint),
+				   custom_icon='error')
+                sys.exit(0)
+
+            # now go through and set things from the request to the
+            # preexisting partition's request... ladeda
+            if request.volumeGroup:
+                req.volumeGroup = request.volumeGroup
+            if request.mountpoint:
+                req.mountpoint = request.mountpoint
             if request.uniqueID:  # for raid to work
                 req.uniqueID = request.uniqueID
             if not request.format:

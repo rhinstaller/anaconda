@@ -703,7 +703,7 @@ class KickstartBase(BaseInstallClass):
         initAll = 0
 
         (args, extra) = isys.getopt(args, '', [ 'linux', 'all', 'drives=',
-                                                'initlabel'])
+                                                'initlabel', 'none'])
 
         for n in args:
             (str, arg) = n
@@ -715,6 +715,8 @@ class KickstartBase(BaseInstallClass):
                 drives = string.split(arg, ',')
             elif str == '--initlabel':
                 initAll = 1
+            elif str == '--none':
+                type = CLEARPART_TYPE_NONE
             
         self.setClearParts(id, type, drives, initAll = initAll)
 
@@ -725,7 +727,10 @@ class KickstartBase(BaseInstallClass):
                                                 'fstype=',
                                                 'percent=',
 						'maxsize=',
-						'grow', 'recommended'])
+						'grow',
+                                                'recommended',
+                                                'noformat',
+                                                'useexisting'])
 
         mountpoint = None
         vgname = None
@@ -737,6 +742,7 @@ class KickstartBase(BaseInstallClass):
 	maxSizeMB = 0
         format = 1
         recommended = None
+        preexist = 0
 
         for n in args:
             (str, arg) = n
@@ -756,6 +762,11 @@ class KickstartBase(BaseInstallClass):
 		grow = 1
             elif str == '--recommended':
                 recommended = 1
+            elif str == "--noformat":
+                format = 0
+                preexist = 1
+            elif str == "--useexisting":
+                preexist = 1
             else:
                 print str, " ", arg
 
@@ -794,14 +805,24 @@ class KickstartBase(BaseInstallClass):
                                                         volgroup = vgid,
                                                         lvname = name,
 							grow = grow,
-							maxSizeMB=maxSizeMB)
+							maxSizeMB=maxSizeMB,
+                                                        preexist = preexist)
         id.partitions.autoPartitionRequests.append(request)        
                                                         
 
     def defineVolumeGroup(self, id, args):
-        (args, extra) = isys.getopt(args, '', [])
+        (args, extra) = isys.getopt(args, '', ['noformat','useexisting'])
+
+        preexist = 0
+        format = 1
 
         vgname = extra[0]
+
+	for n in args:
+	    (str, arg) = n
+	    if str == '--noformat' or str == '--useexisting':
+                preexist = 1
+                format = 0
 
         pvs = []
         # get the unique ids of each of the physical volumes
@@ -810,7 +831,7 @@ class KickstartBase(BaseInstallClass):
                 raise RuntimeError, "Tried to use an undefined partition in Volume Group specification"
             pvs.append(self.ksPVMapping[pv])
 
-        if len(pvs) == 0:
+        if len(pvs) == 0 and not preexist:
             raise ValueError, "Volume group defined without any physical volumes"
 
         # get a sort of hackish id
@@ -819,14 +840,16 @@ class KickstartBase(BaseInstallClass):
         self.ksID = self.ksID + 1
             
         request = partRequests.VolumeGroupRequestSpec(vgname = vgname,
-                                                      physvols = pvs)
+                                                      physvols = pvs,
+                                                      preexist = preexist,
+                                                      format = format)
         request.uniqueID = uniqueID
         id.partitions.autoPartitionRequests.append(request)
 
     def defineRaid(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
                                                 'spares=', 'fstype=',
-                                                'noformat'] )
+                                                'noformat', 'useexisting'] )
 
         level = None
         raidDev = None
@@ -834,6 +857,7 @@ class KickstartBase(BaseInstallClass):
         fstype = None
         format = 1
         uniqueID = None
+        preexist = 0
 					
 	for n in args:
 	    (str, arg) = n
@@ -848,6 +872,9 @@ class KickstartBase(BaseInstallClass):
                 spares = int(arg)
             elif str == "--noformat":
                 format = 0
+                preexist = 1
+            elif str == "--useexisting":
+                preexist = 1
             elif str == "--fstype":
                 fstype = arg
 
@@ -888,9 +915,9 @@ class KickstartBase(BaseInstallClass):
         elif raid.isRaid5(level):
             level = "RAID5"
 
-        if not level:
+        if not level and preexist == 0:
             raise ValueError, "RAID Partition defined without RAID level"
-        if len(raidmems) == 0:
+        if len(raidmems) == 0 and preexist == 0:
             raise ValueError, "RAID Partition defined without any RAID members"
 
         request = partRequests.RaidRequestSpec(filesystem,
@@ -899,7 +926,8 @@ class KickstartBase(BaseInstallClass):
                                                raidlevel = level,
                                                raidspares = spares,
                                                format = format,
-                                               raidminor = raidDev)
+                                               raidminor = raidDev,
+                                               preexist = preexist)
         
         if uniqueID:
             request.uniqueID = uniqueID
