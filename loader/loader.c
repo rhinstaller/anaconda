@@ -2604,6 +2604,7 @@ int main(int argc, char ** argv) {
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
     }
+
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromHardDrive(ksFile, modLoaded, &modDeps, ksSource, flags);
@@ -2693,7 +2694,8 @@ logMessage("found url image %s", url);
     /* merge in any new pci ids */
     pciReadDrivers("/modules/pcitable");
 
-    /*modInfo = isysNewModuleInfoSet();*/
+    /* XXX should free old modInfo set */
+    modInfo = isysNewModuleInfoSet();
 #if !defined(__ia64__)
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
