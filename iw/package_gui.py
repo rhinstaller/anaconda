@@ -27,10 +27,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.updatingIcons = FALSE
 
-	self.idirImage = GdkImlib.create_image_from_xpm (xpms.I_DIRECTORY_XPM)
-	self.idirUpImage = GdkImlib.create_image_from_xpm (xpms.I_DIRECTORY_UP_XPM)
-	self.packageImage = GdkImlib.create_image_from_xpm (xpms.PACKAGE_XPM)
-	self.packageSelectedImage = GdkImlib.create_image_from_xpm (xpms.PACKAGE_SELECTED_XPM)
+	self.idirImage = GdkImlib.create_image_from_xpm (xpms_gui.I_DIRECTORY_XPM)
+	self.idirUpImage = GdkImlib.create_image_from_xpm (xpms_gui.I_DIRECTORY_UP_XPM)
+	self.packageImage = GdkImlib.create_image_from_xpm (xpms_gui.PACKAGE_XPM)
+	self.packageSelectedImage = GdkImlib.create_image_from_xpm (xpms_gui.PACKAGE_SELECTED_XPM)
 
     def getPrev (self):
         for x in self.ics.getICW ().stateList:
@@ -251,9 +251,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         if (not self.__dict__.has_key ("open_p")):
             self.open_p, self.open_b = create_pixmap_from_xpm_d (self.ctree,
-                                                                 None, xpms.DIRECTORY_OPEN_XPM)
+                                                                 None, xpms_gui.DIRECTORY_OPEN_XPM)
             self.closed_p, self.closed_b = create_pixmap_from_xpm_d (self.ctree,
-                                                                     None, xpms.DIRECTORY_CLOSE_XPM)
+                                                                     None, xpms_gui.DIRECTORY_CLOSE_XPM)
 
         groups = {}
 
