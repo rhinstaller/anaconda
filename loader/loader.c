@@ -148,6 +148,37 @@ void doSuspend(void) {
     exit(1);
 }
 
+static int setupRamdisk(void) {
+    gzFile f;
+    static int done = 0;
+
+    if (done) return 0;
+
+    done = 1;
+
+    f = gzopen("/etc/ramfs.img", "r");
+    if (f) {
+	char buf[10240];
+	int i, j = 0;
+	int fd;
+
+	fd = open("/dev/ram", O_RDWR);
+	logMessage("copying file to fd %d", fd);
+
+	while ((i = gzread(f, buf, sizeof(buf))) > 0) {
+	    j += write(fd, buf, i);
+	}
+
+	logMessage("wrote %d bytes", j);
+	close(fd);
+	gzclose(f);
+    }
+
+    doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
+
+    return 0;
+}
+
 static void startNewt(int flags) {
     if (!newtRunning) {
 	newtInit();
@@ -460,6 +491,11 @@ static int loadLocalImages(char * prefix, char * dir, int flags,
     int fd, rc;
     char * path;
 
+    /* In a kind world, this would do nothing more then mount a ramfs
+     * or tmpfs. The world isn't kind. */
+
+    setupRamdisk();
+
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
     sprintf(path, "%s/%s/RedHat/base/hdstg1.img", prefix, dir ? dir : "");
@@ -678,8 +714,6 @@ static int totalMemory(void) {
 
 	*chptr = '\0';
 
-	logMessage("found total memory tag: \"%s\"", start);
-	
 	while (!isdigit(*start) && *start) start++;
 	if (!*start) {
 	    logMessage("no number appears after MemTotal tag");
@@ -1145,6 +1179,8 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 }
 
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
+    setupRamdisk();
+
     if (loadSingleUrlImage(ui, "base/netstg1.img", flags, 
 			   "/tmp/ramfs/netstg1.img",
 			   "/mnt/runtime", "loop0")) {
@@ -2473,12 +2509,12 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
+#if 0
     mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
 
     if (!continuing) {
-	doPwMount("/tmp/ramfs", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
-
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
