@@ -18,6 +18,8 @@ import partitioning
 from translate import _
 from lilo import LiloConfigFile
 import os
+import crypt
+import whrandom
 import language
 from flags import flags
 import iutil
@@ -142,6 +144,9 @@ class bootloaderInfo:
     def setForceLBA(self, val):
         pass
     
+    def setPassword(self, val, isCrypted = 1):
+        pass
+
     def getDevice(self):
         return self.device
 
@@ -327,6 +332,19 @@ class ia64BootloaderInfo(bootloaderInfo):
     
 	
 class x86BootloaderInfo(bootloaderInfo):
+    def setPassword(self, val, isCrypted = 1):
+        if isCrypted:
+            self.password = val
+        else:
+            salt = "$1$"
+            saltLen = 8
+
+	    for i in range(saltLen):
+                salt = salt + whrandom.choice (string.letters +
+                                               string.digits + './')
+
+            self.password = crypt.crypt (val, salt)
+        
     def setForceLBA(self, val):
         self.forceLBA32 = val
         
@@ -339,7 +357,7 @@ class x86BootloaderInfo(bootloaderInfo):
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 
 	cf = '/boot/grub/grub.conf'
-	self.perms = 0644
+	self.perms = 0600
         if os.access (instRoot + cf, os.R_OK):
 	    self.perms = os.stat(instRoot + cf)[0] & 0777
 	    os.rename(instRoot + cf,
@@ -364,6 +382,9 @@ class x86BootloaderInfo(bootloaderInfo):
         f.write('timeout=30\n')
         f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
                 % (grubbyPartitionName(bootDev), cfPath))
+
+        if self.password:
+            f.write('password --md5 %s\n' %(self.password))
         
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
@@ -486,6 +507,7 @@ class x86BootloaderInfo(bootloaderInfo):
 	self.useGrubVal = 1
         self.kernelLocation = "/boot/"
         self.configfile = "/etc/lilo.conf"
+        self.password = None
 
 def availableBootDevices(diskSet, fsset):
     devs = []
