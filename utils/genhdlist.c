@@ -470,7 +470,10 @@ int main(int argc, const char ** argv) {
 
     hdListFile2 = malloc(strlen(hdListFile) + 2);
     sprintf(hdListFile2, "%s2", hdListFile);
-    
+
+    unlink (hdListFile);
+    unlink (hdListFile2);
+	
     outfd = Fopen(hdListFile, "w");
     if (!outfd) {
 	fprintf(stderr,"error creating file %s: %s\n", hdListFile, 
