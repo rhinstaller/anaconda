@@ -290,9 +290,10 @@ class ToDo:
         log.open (serial, reconfigOnly, test)
 
         # try to get --onpart working again
-        from fstab import NewtFstab
-        self.fstab = NewtFstab(self.setupFilesystems,serial,0,0,
-                                self.intf.waitWindow,self.intf.messageWindow)
+#        from fstab import NewtFstab
+#        self.fstab = NewtFstab(self.setupFilesystems,serial,0,0,
+#                                self.intf.waitWindow,self.intf.messageWindow)
+        self.fstab = None
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
