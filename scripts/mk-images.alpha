@@ -1,10 +1,25 @@
 SECSTAGE="vfat raid0 raid1 raid5"
 
 prepareBootImage() {
-	gunzip < $BOOTDISKDIR/generic.img.gz > $MBD_TMPIMAGE
-	mount -o loop -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
-
+        dd if=/dev/zero of=$MBD_TMPIMAGE bs=1k count=$BOOTDISKSIZE 2>/dev/null
+        echo y | /sbin/mke2fs -i 4096 $MBD_TMPIMAGE  > /dev/null 2>/dev/null
+	LODEV=`findloopdevice $MBD_TMPIMAGE`
+	e2writeboot $LODEV $BOOTDISKDIR/bootlx
+	mount $LODEV -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
+        mkdir -p $MBD_BOOTTREE/etc
+	cat > $MBD_BOOTTREE/etc/aboot.conf <<EOF
+0:vmlinux.gz load_ramdisk=1 prompt_ramdisk=1 root=/dev/fd0
+EOF
+        cat > $MBD_BOOTTREE/etc/milo.conf <<EOF
+image=/vmlinux.gz
+        label=linux
+        root=/dev/fd0
+        append="load_ramdisk=1 prompt_ramdisk=1"
+EOF
 	zcat $KERNELROOT/boot/vmlinuz-* | gzip -9 > $MBD_BOOTTREE/vmlinux.gz
+	umount $LODEV
+	losetup -d $LODEV
+	mount -o loop -t ext2 $MBD_TMPIMAGE $MBD_BOOTTREE
 }
 
 NETMODULES="3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
