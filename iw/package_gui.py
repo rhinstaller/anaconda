@@ -524,7 +524,9 @@ class PackageSelectionWindow (InstallWindow):
 	for comp in compsorder:
             if not comp.hidden:
 		numvis = numvis + 1
-	    
+
+#	grpTooltips = gtk.Tooltips()
+#	grpTooltips.enable()
 	idx = 0
         for comp in compsorder:
             if not comp.hidden:
@@ -551,15 +553,21 @@ class PackageSelectionWindow (InstallWindow):
                 checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
 
-		if idx < numvis/2:
+		if numvis <= 30:
+		    boxcol1.pack_start (checkButton)
+		elif idx < numvis/2:
 		    boxcol1.pack_start (checkButton)
 		else:
 		    boxcol2.pack_start (checkButton)
 		idx = idx + 1
 
+#	for cb in self.checkButtons:
+#	    grpTooltips.set_tip(cb[0], cb[1].name, "")
+
 	tmpbox = gtk.HBox(gtk.FALSE, 0)
 	tmpbox.pack_start(boxcol1)
-	tmpbox.pack_start(boxcol2)
+	if numvis > 30:
+	    tmpbox.pack_start(boxcol2)
 	
         wrapper = gtk.VBox (gtk.FALSE, 0)
         wrapper.pack_start (tmpbox, gtk.FALSE)
