@@ -2112,7 +2112,7 @@ def isValidExt2(device):
     if len(buf) != 2048:
 	return 0
 
-    if struct.unpack("H", buf[1080:1082]) == (0xef53,):
+    if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
 	return 1
 
     return 0
