@@ -220,10 +220,11 @@ disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
+srcDisc1Used = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
 disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
-                        (targetSize - fudgeFactor) * 2)
+                        srcDisc1Used + targetSize - fudgeFactor)
 moveFiles("%s/SRPMS" % disc2SrcDir,
           "%s/SRPMS" % disc3SrcDir,
           disc3pkgs)
