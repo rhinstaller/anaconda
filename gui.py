@@ -100,8 +100,13 @@ class InstallInterface:
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 
-        commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow,
-                       WelcomeWindow, InstallPathWindow]
+        # This is the same as the file
+	commonSteps = [ ( LanguageWindow, "language" ), 
+			( KeyboardWindow, "keyboard" ),
+			( MouseWindow, "mouse" ),
+			( WelcomeWindow, "welcome" ),
+			( InstallPathWindow, "installtype" ),
+		      ]
 
         self.finishedTODO = Event ()
         self.icw = InstallControlWindow (self, commonSteps, todo)
@@ -119,6 +124,7 @@ class InstallControlWindow (Thread):
         return window
 
     def setStateList (self, list, pos):
+	print "states", list
         self.stateList = []
 	self.stateTagByWindow = {}
         for x in list:
