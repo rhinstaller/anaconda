@@ -903,6 +903,8 @@ class InstallInterface:
             [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
             [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],            
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [_("Upgrade System"), InstallWindow, (self.screen, todo)],
+            [_("Upgrade Complete"), FinishedWindow, (self.screen,)]
             ]
 
         self.steps = self.commonSteps
