@@ -340,7 +340,7 @@ class Fstab:
                 # to have 1024 block size.  It's the only
                 # thing that our milo seems to read.
                 if arch == "alpha" and device == bootPart:
-                    args = args + ["-b", "1024"]
+                    args = args + ["-b", "1024", '-r', '0', '-O', 'none']
                 # set up raid options for md devices.
                 if device[:2] == 'md':
                     for (rmnt, rdevice, fsType, raidType, start, size, makeup) in raid:
