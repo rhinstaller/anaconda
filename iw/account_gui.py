@@ -69,7 +69,7 @@ class AccountWindow (InstallWindow):
 
 	if (password1 and password1 == password2 and
 	    self.userAccountMatch.search(accountName) and
-	    len(accountName) <= 8 and len(password1) > 5) and accountName != "root" and accountName not in systemUsers:
+	    len(password1) > 5) and accountName not in systemUsers:
 	    self.userPwLabel.set_text(_("User password accepted."))
             self.win.set_sensitive(0, TRUE)
 	else:
@@ -202,7 +202,7 @@ class AccountWindow (InstallWindow):
         self.forward = lambda widget, box=userWin: box.focus (DIR_TAB_FORWARD)
 
         #entry boxes
-        self.accountName = GtkEntry (8)
+        self.accountName = GtkEntry ()
         userTable.attach(self.accountName, 1, 2, 0, 1, SHRINK, SHRINK)
         self.fullName = GtkEntry ()
         userTable.attach(self.fullName, 1, 2, 1, 2, SHRINK, SHRINK)
@@ -336,6 +336,7 @@ class AccountWindow (InstallWindow):
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
+        self.userList.set_column_auto_resize(0, TRUE)
         for x in range (2):
             self.userList.column_title_passive (x)
 
