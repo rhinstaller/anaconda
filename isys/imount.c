@@ -3,6 +3,8 @@
 #include <string.h>
 #include <sys/errno.h>
 #include <sys/mount.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #include "imount.h"
