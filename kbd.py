@@ -25,7 +25,7 @@ class Keyboard (SimpleConfigFile):
             ("be2-latin1"        , ('pc102', 'be', '')),
             ("bg"                , ('pc102', 'bg', '')),
             ("br-abnt2"          , ('pc102', 'br', '')),
-            ("cf"                , ('pc102', 'cf', '')),
+            ("cf"                , ('pc102', 'ca_enhanced', '')),
             ("cz-lat2"           , ('pc102', 'cz', '')),
             ("cz-lat2-prog"      , ('pc102', 'cz', '')),
             ("de-latin1"         , ('pc102', 'de', '')),
