@@ -533,6 +533,7 @@ class KickstartBase(BaseInstallClass):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
 		     "authconfig"	: self.doAuthconfig	,
+                     "autopart"         : self.doAutopart       ,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
 		     "device"		: None			,
@@ -725,6 +726,11 @@ class KickstartBase(BaseInstallClass):
                 type = CLEARPART_TYPE_NONE
             
         self.setClearParts(id, type, drives, initAll = initAll)
+
+    def doAutoPart(self, id, args):
+        # sets up default autopartitioning.  use clearpart separately
+        # if you want it
+        self.setDefaultPartitioning(id, doClear = 0)
 
     def defineLogicalVolume(self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',

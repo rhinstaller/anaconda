@@ -448,7 +448,8 @@ class BaseInstallClass:
         mouse.set(mouseName, emulThree, device)
         id.setMouse(mouse)
 
-    def setDefaultPartitioning(self, id, clear = CLEARPART_TYPE_LINUX):
+    def setDefaultPartitioning(self, id, clear = CLEARPART_TYPE_LINUX,
+                               doClear = 1):
         autorequests = [ ("/", None, 1024, None, 1, 1) ]
 
         bootreq = getAutopartitionBoot()
@@ -457,8 +458,10 @@ class BaseInstallClass:
 
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append((None, "swap", minswap, maxswap, 1, 1))
-        id.partitions.autoClearPartType = clear
-        id.partitions.autoClearPartDrives = []
+
+        if doClear:
+            id.partitions.autoClearPartType = clear
+            id.partitions.autoClearPartDrives = []
         id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
         
 
