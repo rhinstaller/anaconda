@@ -13,6 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import kudzu
 import upgrade
 from snack import *
 from constants_text import *
@@ -146,6 +147,12 @@ def runRescue(instPath, mountroot, id):
 	    startNetworking(id.network)
 
 	screen.finish()
+
+    # load st.o if they have any tape drives
+    tapes = kudzu.probe(kudzu.CLASS_TAPE, kudzu.BUS_SCSI, kudzu.PROBE_ALL)
+    if len(tapes) > 0:
+        log("Loading st.o because tape drives detected")
+        os.system("/bin/modprobe st.o")
 
     if (not mountroot):
         print
