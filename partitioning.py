@@ -988,7 +988,8 @@ class Partitions:
             if request.fstype.getName() == "swap":
                 args.append("swap")
             elif request.fstype.getName() == "software RAID":
-                if request.uniqueID[0:5] != "raid.":
+                if ((type(request.uniqueID) != type("")) or 
+                    (request.uniqueID[0:5] != "raid.")):
                     args.append("raid.%s" % (request.uniqueID))
                 else:
                     args.append("%s" % (request.uniqueID))
@@ -1069,7 +1070,7 @@ class Partitions:
             # silly raid member syntax
             raidmems = []
             for member in request.raidmembers:
-                if member[0:5] != "raid.":
+                if (type(member) != type("")) or (member[0:5] != "raid."):
                     raidmems.append("raid.%s" % (member))
                 else:
                     raidmems.append(member)
