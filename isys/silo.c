@@ -105,15 +105,10 @@ prom_getopt(char *var, int *lenp) {
 static void
 prom_setopt(char *var, char *value) {
     DECL_OP(MAX_VAL);
-    
+
     strcpy (op->oprom_array, var);
     strcpy (op->oprom_array + strlen (var) + 1, value);
-    if (ioctl (promfd, OPROMSETOPT, op) < 0) {
-    	printf ("in %s\n", var);
-	perror ("opepromsetopt");
-	printf ("%d\n", errno);
-	return;
-    }
+    ioctl (promfd, OPROMSETOPT, op);
 }
 
 static int
@@ -551,7 +546,7 @@ static void get_root_name(void) {
     
     prom_getsibling(0);
     prop = prom_getproperty("name", &len);
-    if (prop && len > 0 && !strcmp (prop, "aliases"))
+    if (prop && len > 0)
 	prom_root_name = strdup(prop);
 }
 
@@ -571,6 +566,7 @@ int init_sbusdisk(void) {
 
 void set_prom_vars(char *linuxAlias, char *bootDevice) {
     int len;
+    int aliasDone = 0;
     if (prom_init(O_RDWR))
 	return;
     if (linuxAlias && hasaliases) {
@@ -584,14 +580,13 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		enabled = 0;
 	    else if (!strcasecmp (use_nvramrc, "true"))
 		enabled = 1;
-	    printf ("use_nvramrc `%s' %d\n", use_nvramrc, len);
 	}
 	if (enabled != -1) {
 	    p = prom_getopt ("nvramrc", &len);
 	    if (p) {
 		memcpy (nvramrc, p, len);
 		nvramrc [len] = 0;
-		q = p;
+		q = nvramrc;
 		while (q) {
 		    /* If there is already `devalias linux /some/ugly/prom/path'
 		       make sure we fully understand that and remove it. */
@@ -619,11 +614,14 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		prom_setopt ("nvramrc", nvramrc);
 		if (!enabled)
 		    prom_setopt ("use-nvramrc?", "true");
+		aliasDone = 1;
 	    }
 	}
     }
     if (bootDevice) {
 	char *p;
+	if (aliasDone)
+	    bootDevice = "linux";
 	p = prom_getopt ("boot-device", &len);
 	if (p) {
 	    prom_setopt ("boot-device", bootDevice);
@@ -643,6 +641,7 @@ int main(void) {
 
     init_sbusdisk();
     set_prom_vars ("/sbus@2,0/SUNW,fas@1,8800000/sd@0,0", "linux");
+    printf ("prom root name `%s'\n", prom_root_name);
     for (i = 0; i < hdlen; i++) {
 	if (hd[i].type)
 		printf ("hd%c %x %d %d %d\n", i + 'a', hd[i].prom_node,

@@ -3,12 +3,58 @@ import os
 from lilo import LiloConfiguration
 import _silo
 import iutil
+import isys
 
 class SiloInstall:
     def __init__ (self, todo):
 	self.todo = todo
-	self.linuxAlias = None
-	self.bootBevice = None
+	self.linuxAlias = 1
+	self.bootBevice = 1
+
+    def checkUFS(self, dev):
+	f = open("/proc/mounts","r")
+	lines = f.readlines ()
+	f.close ()
+	mounted = None
+	type = None
+	for line in lines:
+	    fields = string.split (line)
+	    if fields[0] == '/dev/' + dev and fields[2] == 'ufs':
+		mounted = fields[1]
+	if not mounted:
+	    try:
+		os.mkdir ("/tmp/ufsmntpoint")
+		isys.makeDevInode (dev, "/tmp/" + dev)
+		isys.mount ("/tmp" + dev, "/tmp/ufsmntpoint", "ufs")
+	    except:
+		try:
+		    os.remove ("/tmp/" + dev)
+		except:
+		    pass
+		return None
+	    root = "/tmp/ufsmntpoint"
+	else:
+	    root = mounted
+	if os.access (root + "/etc/system", os.X_OK):
+	    if os.access (root + "/kernel/unix", os.X_OK):
+		type = "Solaris"
+	    elif os.access (root + "/kernel/genunix", os.X_OK):
+		type = "Solaris"
+	# FIXME - test for SunOS. Anyone?
+	if not mounted:
+	    try:
+		isys.umount ("/tmp/ufsmntpoint")
+	    except:
+		pass
+	    try:
+		os.rmdir ("/tmp/ufsmntpoint")
+	    except:
+		pass
+	    try:
+		os.remove ("/tmp/" + dev)
+	    except:
+		pass
+	return type
 
     def getSiloImages(self):
 	todo = self.todo
@@ -28,13 +74,18 @@ class SiloInstall:
 	    oldImages[dev] = todo.liloImages[dev]
 
 	todo.liloImages = {}
-	foundUfs = 0
+	nSolaris = 0
+	nSunOS = 0
 	for (dev, devName, type) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
 	    #	       and contain /boot of
 	    #	       some Linux installation
+	    # FIXME: For now only list / and UFS partitions,
+	    # for 6.2 write code which will read and parse silo.conf from other
+	    # Linux partitions and merge it in (after required device
+	    # substitions etc.
 
 	    # only list ext2 and ufs partitions
 	    if type != 2 and type != 6:
@@ -43,16 +94,24 @@ class SiloInstall:
 	    if (mountsByDev.has_key(dev)):
 		if mountsByDev[dev] == '/':
 		    todo.liloImages[dev] = ("linux", 2)
-	    else:
+	    elif type == 6:
 		if not oldImages.has_key(dev):
 		    todo.liloImages[dev] = ("", type)
 		else:
 		    todo.liloImages[dev] = oldImages[dev]
-	    # XXX
-	    if type == 6:
-		if foundUfs: continue
-		foundUfs = 1
-		todo.liloImages[dev] = ("solaris", type)
+		ostype = self.checkUFS(dev)
+		if ostype == "Solaris":
+		    if nSolaris == 0:
+			todo.liloImages[dev] = ("solaris", type)
+		    else:
+			todo.liloImages[dev] = ("solaris%d" % nSolaris, type)
+		    nSolaris = nSolaris + 1
+		elif ostype == "SunOS":
+		    if nSunOS == 0:
+			todo.liloImages[dev] = ("sunos", type)
+		    else:
+			todo.liloImages[dev] = ("sunos%d" % nSunOS, type)
+		    nSunOS = nSunOS + 1
 
 	return todo.liloImages
 
@@ -77,7 +136,12 @@ class SiloInstall:
 	f.close ()
 	for line in lines:
 	    if string.strip (line) == "2 fd":
-		return 1
+		name = _silo.promRootName()
+		if name and name[0:10] == 'SUNW,Ultra' and string.find(name, "Engine") == -1:
+		    # Seems like SMCC Ultra box. It is highly probable
+		    # the floppies will be unbootable
+		    return 1
+		return 2
 	return 0
 
     def setPROM(self, linuxAlias, bootDevice):
@@ -116,8 +180,12 @@ class SiloInstall:
 
 	args = [ "silo" ]
 
-	if (todo.liloDevice != "mbr"):
+	if todo.liloDevice == "mbr":
+	    device = boothd
+	else:
+	    device = bootpart
 	    args.append("-t")
+	bootDevice = self.disk2PromPath(device)
 
 	i = len (bootpart) - 1
 	while i > 0 and bootpart[i] in string.digits:
@@ -136,8 +204,21 @@ class SiloInstall:
 	    if (drive == rootDev) and label:
 		main = label
 	    elif label:
-		# FIXME
-		otherList.append (label, "/dev/" + drive)
+		i = len(drive) - 1
+		while i > 0 and drive[i] in string.digits:
+		    i = i - 1
+		prompath = drive[:i+1]
+		if prompath == boothd:
+		    prompath = drive[i+1:]
+		else:
+		    prompath = self.disk2PromPath(prompath)
+		    if prompath:
+			if prompath[:3] == 'sd(':
+			    prompath = prompath + drive[i+1:]
+			else:
+			    prompath = prompath + ";" + drive[i+1:]
+		if prompath:
+		    otherList.append (label, prompath)
 
 	silo.addEntry("default", main)
 
@@ -201,3 +282,8 @@ class SiloInstall:
 				   args,
 				   stdout = None,
                                    root = todo.instPath)
+	    if self.linuxAlias and self.hasAliases():
+		linuxAlias = bootDevice
+	    if not self.bootDevice:
+		bootDevice = None
+	    _silo.setPromVars(linuxAlias,bootDevice)

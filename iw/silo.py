@@ -26,7 +26,12 @@ class SiloWindow (InstallWindow):
 
     def getNext (self):
         # XXX
-        if not self.bootdisk: return None
+        if not self.bootdisk:
+	    if self.todo.silo.hasUsableFloppy() == 2:
+		self.todo.bootdisk = 1
+	    else:
+		self.todo.bootdisk = 0
+	    return None
 
         if self.bootdisk.get_active ():
             self.todo.bootdisk = 1
@@ -56,7 +61,7 @@ class SiloWindow (InstallWindow):
 	if (type == 2):
 	    return "Linux Native"
 	elif (type == 6):
-	    return "SunOS/Solaris"
+	    return "UFS"
 	else:
 	    return "Other"
 
@@ -199,10 +204,12 @@ class SiloWindow (InstallWindow):
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
-	if self.todo.silo.hasUsableFloppy():
+	floppy = self.todo.silo.hasUsableFloppy()
+	if floppy == 2:
 	    self.bootdisk.set_active (TRUE)
 	else:
 	    self.bootdisk.set_active (FALSE)
+	if floppy == 0:
 	    self.bootdisk.set_sensitive (FALSE)
         optionBox.pack_start (self.bootdisk)
 
