@@ -975,6 +975,23 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
 	int x[4], y[4], vtotal, laced = 0, dblscan = 0;
 	char *p;
 	double drate, hrate, vrate;
+#ifdef __sparc__
+	switch (fix.accel) {
+	case FB_ACCEL_SUN_CREATOR:
+	    var.bits_per_pixel = 24;
+	    /* FALLTHROUGH */
+	case FB_ACCEL_SUN_LEO:
+	case FB_ACCEL_SUN_CGSIX:
+	case FB_ACCEL_SUN_CG14:
+	case FB_ACCEL_SUN_BWTWO:
+	case FB_ACCEL_SUN_CGTHREE:
+	case FB_ACCEL_SUN_TCX:
+	    var.xres = var.xres_virtual;
+	    var.yres = var.yres_virtual;
+	    fix.smem_len = 0;
+	    break;
+	}
+#endif
 	depth = var.bits_per_pixel;
 	sprintf(vidmode, "%dx%d", var.xres, var.yres);
 	x[0] = var.xres;
@@ -1032,6 +1049,7 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
     switch (depth) {
     case 8:
     case 16:
+    case 24:
     case 32:
     	return Py_BuildValue("(iiss)", size, depth, vidmode, vidres);
     }

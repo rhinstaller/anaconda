@@ -442,12 +442,10 @@ EndSection
 
 Section "Module"
         Load  "dbe"
-        Load  "extmod"
-	%(nonSparcMods)s
+        Load  "extmod"%(nonSparcMods)s
         Load  "pex5"
         Load  "record"
-        Load  "xie"
-        %(ia64Mods)s
+        Load  "xie"%(ia64Mods)s
 EndSection
 
 Section "InputDevice"
@@ -816,12 +814,10 @@ class XF86Config:
 	    except:
 		pass
 	    if not self.vidRam and self.device:
-		if self.server and self.server[0:3] == 'Sun':
-		    # fbconProbe gives bogus video RAM reports on SBUS and UPA servers
-		    return
 		try:
 		    (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.device)
-		    self.vidRam = "%d" % vidram
+		    if vidram:
+			self.vidRam = "%d" % vidram
 		    if depth:
 			self.modes = { "%d" % depth : [ mode ] }
 			self.monSect = monitor
@@ -1029,7 +1025,10 @@ Section "Screen"
             screens = screens + """
 	EndSubsection
 """
-        data = { "mouseProto"   : self.mouse.info['XMOUSETYPE'],
+	mouseProto = self.mouse.info['XMOUSETYPE']
+	if mouseProto == 'sun':
+	    mouseProto = 'BusMouse'
+        data = { "mouseProto"   : mouseProto,
                  "mouseDevice"  : self.mouse.device,
                  "cardsOptions" :
                  self.vidCards[self.primary].get ("LINE",
@@ -1042,7 +1041,7 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
                  "ia64Mods"     : "",
-		 "nonSparcMods" : 'Load "fbdevhw"',
+		 "nonSparcMods" : '\nLoad "fbdevhw"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,

@@ -11,8 +11,7 @@ XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
 			'XFree86-Mach8' : 1, 	'XFree86-Mono' : 1,
 			'XFree86-P9000' : 1, 	'XFree86-S3' : 1,
 			'XFree86-S3V' : 1, 	'XFree86-SVGA' : 1,
-			'XFree86-W32' : 1,	'XFree86-Sun' : 1,
-			'XFree86-SunMono' : 1,	'XFree86-Sun24' : 1 }
+			'XFree86-W32' : 1 }
 
 # Package selection is complicated. Here are the rules:
 #
