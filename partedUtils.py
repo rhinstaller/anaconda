@@ -706,6 +706,9 @@ class DiskSet:
 
     def dasdFmt (self, intf = None, drive = None):
         """Format dasd devices (s390)."""
+
+        self.closeDevices()
+
         w = intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
                                ) % (drive,), 100)
@@ -778,7 +781,8 @@ class DiskSet:
         w and w.pop()
         
         isys.flushDriveDict()
-            
+        self.refreshDevices()
+        
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return 0
 
