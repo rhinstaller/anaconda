@@ -1185,16 +1185,36 @@ void ejectCdrom(void) {
 /* XXX this ignores "location", which should be fixed */
 static char * mediaCheckCdrom(char *cddriver) {
     int rc;
-    
+    int first;
+
     devMakeInode(cddriver, "/tmp/cdrom");
-    
+
+    first = 1;
     do {
 	char *descr;
 
 	descr = getReleaseDescriptorFromIso("/tmp/cdrom");
 
-	mediaCheckFile("/tmp/cdrom", descr);
-	
+	/* if first time through, see if they want to eject the CD      */
+	/* currently in the drive (most likely the CD they booted from) */
+	/* and test a different disk.  Otherwise just test the disk in  */
+	/* the drive since it was inserted in the previous pass through */
+	/* this loop, so they want it tested.                           */
+	if (first) {
+	    first = 0;
+	    rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject CD"),
+			       _("Choose \"%s\" to test the CD currently in "
+				 "the drive, or \"%s\" to eject the CD and "
+				 "insert another for testing."), _("Test"),
+			       _("Eject CD"));
+
+	    if (rc == 1)
+		mediaCheckFile("/tmp/cdrom", descr);
+
+	} else {
+	    mediaCheckFile("/tmp/cdrom", descr);
+	}
+
 	if (descr)
 	    free(descr);
 
@@ -1202,12 +1222,12 @@ static char * mediaCheckCdrom(char *cddriver) {
 	
 	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
 			   _("If you would like to test additional media, "
-			     "insert the next CD and press %s. "
+			     "insert the next CD and press \"%s\". "
 			     "You do not have to test all CDs, although "
 			     "it is recommended you do so at least once.\n\n"
 			     "To begin the installation process "
 			     "insert CD #1 into the drive "
-			     "and press %s."),
+			     "and press \"%s\"."),
 			   _("Test"), _("Continue"));
 
 	if (rc == 2) {
@@ -1291,7 +1311,7 @@ static char * setupCdrom(struct installMethod * method,
 			    startNewt(flags);
 			    rc = newtWinChoice(_("CD Found"), _("OK"),
 					       _("Skip"), 
-       _("To being testing the CD media before installation press %s.\n\n"
+       _("To begin testing the CD media before installation press %s.\n\n"
 	 "Choose %s to skip the media test and start the installation."), _("OK"), _("Skip"));
 
 			    if (rc != 2) {
