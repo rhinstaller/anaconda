@@ -1,5 +1,10 @@
 2004-09-21  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.x86_64: Add a README in the images/pxeboot dir.
+
+	* scripts/mk-images.ia64: Create an images/pxeboot directory with
+	the kernel + initrd used in the boot.img.
+
 	* loader2/net.c (chooseNetworkInterface): Support using
 	ksdevice=macaddr instead of ksdevice=link or ksdevice=ethX.
 	Should sanitize the mac address to handle most sane formats (#130605).

@@ -51,7 +51,24 @@ makeBootImages() {
     cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
     mkisofs -quiet -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T $TOPDESTPATH/images/isopath
     rm -rf $TOPDESTPATH/images/isopath
+
+    # now make a pxe dir with kernel + initrd
+    mkdir -p $TOPDESTPATH/images/pxeboot
+    ln $TOPDESTPATH/images/ramdisk.img $TOPDESTPATH/images/pxeboot/initrd.img
+    ln $TOPDESTPATH/kernels/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
+    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
+The files in this directory are useful for booting a machine via PXE.  
+
+The following files are available:
+vmlinuz - the kernel used for the installer
+initrd.img - an initrd with support for all install methods and
+    drivers supported for installation of $PRODUCT
+EOF
+  fi
+
+    # clean up
     rm -f $TOPDESTPATH/images/ramdisk.img
+    rm -rf $TOPDESTPATH/kernels
 }
 
 makeSecondStage() {

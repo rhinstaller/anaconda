@@ -141,6 +141,16 @@ makeBootImages() {
     mv $TOPDESTPATH/images/fobpath/isolinux.cfg $TOPDESTPATH/images/fobpath/syslinux.cfg
     umount -f $TOPDESTPATH/images/fobpath
     rmdir $TOPDESTPATH/images/fobpath
+
+    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
+The files in this directory are useful for booting a machine via PXE.  
+
+The following files are available:
+vmlinuz - the kernel used for the installer
+initrd.img - an initrd with support for all install methods and
+    drivers supported for installation of $PRODUCT
+EOF
+  fi
 }
 
 makeSecondStage() {
