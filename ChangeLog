@@ -1,3 +1,7 @@
+2004-11-22  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/modules.c: Fix segfault on ia64 (#140093)
+
 2004-11-19  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py (doPreInstall): Don't remove the directories as
