@@ -25,6 +25,10 @@ class HTMLBuffer(HTMLParser.HTMLParser):
     ignoreTags = ('title',)
     noTagTags = ('html', 'head', 'span')
     newlineTags = ('p', 'h1', 'h2')
+    entityRefMap = { 'copy': unichr(0xA9),
+                     'lt': '<',
+                     'gt': '>',
+                     'quot': '"'}
     whiteSpaceNuker = re.compile(r"""\s+""", re.MULTILINE) 
     def __init__(self):
         self.buffer = gtk.TextBuffer(None)
@@ -172,9 +176,11 @@ class HTMLBuffer(HTMLParser.HTMLParser):
     def handle_entityref(self, name):
         if self.ignoreData != 0:
             return
-        if name == 'copy':
-            # (c) is unicode 00A9
-            self.buffer.insert(self.iter, unichr(0xA9))
+        if self.entityRefMap.has_key(name):
+            self.buffer.insert(self.iter, self.entityRefMap[name])
+        else:
+            pass
+            #print "warning: unhandled entity", name
 
 if __name__ == '__main__':
     def quit(*args):
