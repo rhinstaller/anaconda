@@ -271,6 +271,7 @@ class Language (SimpleConfigFile):
     
     def set (self, lang):
         self.lang = self.langs[lang]
+        # XXX remove me.
         if self.japanesehack:
             self.info["LANG"] = "ja_JP.eucJP"
             rpm.addMacro("_install_langs", "ja_JP.eucJP")
@@ -278,7 +279,6 @@ class Language (SimpleConfigFile):
         else:
             self.info["LANG"] = self.langs[lang]
             rpm.addMacro("_install_langs", self.langs[lang])
-            os.environ["LINGUAS"] = self.langs[lang]
 
 	if self.font[lang] != "None":
 	    self.info["SYSFONT"] = self.font[lang]

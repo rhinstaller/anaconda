@@ -306,10 +306,13 @@ class ComponentSet:
 	return self.compsDict.keys()
 
     def exprMatch(self, expr, arch1, arch2, matchAllLang = 0):
-	if os.environ.has_key('LANG'):
-	    lang = os.environ['LANG']
-	else:
-	    lang = None
+	if os.environ.has_key('LINGUAS'):
+            langs = split (os.environ['LINGUAS'], ':')
+        else:
+            if os.environ.has_key('LANG'):
+                langs = [ os.environ['LANG'] ]
+            else:
+                langs = []
 
 	if expr[0] != '(':
 	    raise ValueError, "leading ( expected"
@@ -326,7 +329,7 @@ class ComponentSet:
 	    if l[0] == "lang":
 		if len(l) != 2:
 		    raise ValueError, "too many arguments for lang"
-		if l[1] != lang:
+		if l[1] not in langs:
 		    newTruth = 0
 		else:
 		    newTruth = 1

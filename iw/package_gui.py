@@ -484,7 +484,7 @@ class PackageSelectionWindow (InstallWindow):
         ics.readHTML ("sel-group")
         self.selectIndividualPackages = FALSE
 
-        self.files_found = "TRUE"
+        self.files_found = "FALSE"
         
     def getPrev (self):
 	self.todo.comps.setSelectionState(self.origSelection)
@@ -524,15 +524,33 @@ class PackageSelectionWindow (InstallWindow):
 	    self.todo.getHeaderList ()
 	    self.todo.getCompsList()
 	    threads_enter ()
+            self.files_found = "TRUE"
+        except ValueError, msg:
+            extra = msg
+        except RuntimeError, msg:
+            extra = msg
+        except TypeError, msg:
+            extra = msg
+        except KeyError, key:
+            extra = ("The comps file references a package called \"%s\" which "
+                     "could not be found." % (key,))
         except:
-            self.files_found = "FALSE"
+            extra = ""
 
         if self.files_found == "FALSE":
-            text = (_("An error has occurred while retreiving hdlist file.  The installation media or image is probably corrupt.  Installer will exit now."))
+            if extra:
+                text = (_("The following error occurred while "
+                          "retreiving hdlist file:\n\n"
+                          "%s\n\n"
+                          "Installer will exit now.") % extra)
+            else:
+                text = (_("An error has occurred while retreiving the hdlist "
+                          "file.  The installation media or image is "
+                          "probably corrupt.  Installer will exit now."))
             win = ErrorWindow (text)
         else:
             self.origSelection = self.todo.comps.getSelectionState()
-
+            
         sw = GtkScrolledWindow ()
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
