@@ -18,7 +18,8 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
     int p[2];
     char buf[4096];
     int i, status;
-    char * pcic;
+    char * pcic = NULL;
+    char * line = NULL;
 
     logMessage("in startPcmcia()");
 
@@ -45,14 +46,23 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
        stops printing output once it finds a pcic, so this is actually
        correct */
 
-    if (strstr(buf, "TCIC-2 probe: not found")) {
+    line = strtok(buf, "\r\n");
+
+    do {
+	if (!strstr(line, "not found"))
+	{
+	    if (strstr(line, "TCIC"))
+	        pcic = "tcic";
+	    else
+		pcic = "i82365";
+	}
+    } while((line = strtok(NULL, "\r\n")))
+
+    if (!pcic)
+    {
 	logMessage("no pcic controller found");
 	return;
-    } else if (strstr(buf, "TCIC"))
-	pcic = "tcic";
-    else 
-	pcic = "i82365";
-
+    }
     logMessage("need to load %s", pcic);
 
     if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, NULL, flags)) {
