@@ -17,6 +17,7 @@ class InstallClass(workstation.InstallClass):
         comps["Emacs"].select()
         comps["GNOME Software Development"].select()
 	comps["X Software Development"].select()
+        comps["Development Tools"].select()
 
     def __init__(self, expert):
 	workstation.InstallClass.__init__(self, expert)
