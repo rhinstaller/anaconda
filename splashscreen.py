@@ -45,14 +45,26 @@ def splashScreenShow(configFileData):
     root.set_cursor(cursor)
 
     def load_image(file):
+        # FIXME: this should use findPixmap() in gui.py
+        fn = None
+        for path in ("/mnt/source/RHupdates/pixmaps/",
+                     "/mnt/source/RHupdates/",
+                     "/tmp/updates/pixmaps/", "/tmp/updates/",
+                     "/tmp/product/pixmaps/", "/tmp/product/",
+                     "/usr/share/anaconda/pixmaps/", "pixmaps/",
+                     "/usr/share/pixmaps/",
+                     "/usr/share/anaconda/", ""):
+            if os.access(path + file, os.R_OK):
+                fn = path + file
+                break
+
         p = gtk.Image()
+        if fn is None:
+            return p
         try:
-            pixbuf = gtk.gdk.pixbuf_new_from_file("/usr/share/anaconda/" + file)
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
         except RuntimeError:
-            try:
-                pixbuf = gtk.gdk.pixbuf_new_from_file(file)
-            except RuntimeError:
-                pixbuf = None
+            pixbuf = None
         if pixbuf:
             (pixmap, mask) = pixbuf.render_pixmap_and_mask()
             pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap),
@@ -71,9 +83,7 @@ def splashScreenShow(configFileData):
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
-        image = configFileData["Splashscreen"]
-
-        p = load_image(image)
+        p = load_image("pixmaps/first.png")
     else:
         p = load_image('pixmaps/first-lowres.png')
                         
