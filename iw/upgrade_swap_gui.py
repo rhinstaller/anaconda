@@ -17,7 +17,6 @@ class UpgradeSwapWindow (InstallWindow):
         ics.setTitle (_("Upgrade Swap Partition"))
         ics.setNextEnabled (1)
         ics.readHTML ("upswapfile")
-        #self.todo = ics.getToDo ()
 
     def getNext (self):
         mnt, part, size = self.clist.get_row_data(self.row)
@@ -49,6 +48,7 @@ class UpgradeSwapWindow (InstallWindow):
             threads_leave()
             upgrade.createSwapFile(self.todo.instPath, self.todo.fstab, mnt, val,
                                    self.todo.intf.progressWindow)
+            self.todo.upgradeFindPackages()
             threads_enter()
         return None
 
@@ -59,6 +59,13 @@ class UpgradeSwapWindow (InstallWindow):
         self.row = row
     
     def getScreen (self):
+        rc = upgrade.swapSuggestion(self.todo.instPath, self.todo.fstab)
+	if not rc:
+            threads_leave()
+	    self.todo.upgradeFindPackages ()
+            threads_enter()
+	    return None
+
         self.row = 0
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
@@ -79,11 +86,6 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.option1 = GtkRadioButton(None, (_("I want to create a swap file")))
         box.pack_start(self.option1, FALSE)
-
-        rc = upgrade.swapSuggestion(self.todo.instPath, self.todo.fstab)
-	if not rc:
-	    self.todo.upgradeFindPackages ()
-	    return INSTALL_OK
 
         (fsList, suggSize, suggMntPoint) = rc
 
