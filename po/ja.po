@@ -444,7 +444,6 @@ msgstr ""
 # ../text.py:317
 # ../text.py:353
 #: ../text.py:358
-#, fuzzy
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -454,7 +453,7 @@ msgid ""
 msgstr ""
 "Red Hat Linux へようこそ！\n"
 "\n"
-"再設定モードに入りました。このモードでは、コンピュータのサイト固有機能を設定することができます。 \n"
+"再設定モードに入りました。このモードでは、コンピュータのサイト固有の設定を行うことができます。 \n"
 "\n"
 "設定内容を変更せずに終了するには、下の「キャンセル」ボタンを選択します。"
 
@@ -1933,9 +1932,8 @@ msgstr "検出された設定がハードウェアに適さない場合には、以下から正しい設定を選択
 # ../text.py:548
 # ../iw/xconfig.py:372
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "X 設定の検出の結果"
+msgstr "自動検出の結果"
 
 # ../iw/xconfig.py:403
 # ../iw/xconfig.py:432
@@ -2158,9 +2156,8 @@ msgstr "ユーザ ID"
 # ../textw/userauth.py:77
 # ../textw/userauth.py:91
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "ユーザ ID"
+msgstr "無効なユーザIDです"
 
 # ../textw/userauth.py:92
 #: ../textw/userauth.py:92
@@ -2171,13 +2168,13 @@ msgstr "ユーザIDはアルファベットA-Z,a-z,0-9の範囲の8文字以内のものでなければなり
 # ../textw/userauth.py:99
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
-msgstr "ユーザ ID が指定されていません"
+msgstr "ユーザ ID が設定されていません"
 
 # ../textw/userauth.py:91
 # ../textw/userauth.py:100
 #: ../textw/userauth.py:100
 msgid "You must provide a user ID"
-msgstr "ユーザ ID を指定してください"
+msgstr "ユーザ ID を設定してください"
 
 # ../textw/userauth.py:96
 # ../textw/userauth.py:105
@@ -2880,9 +2877,8 @@ msgstr "_削除"
 # ../libfdisk/gnomefsedit.c:3345
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3345
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "RAID デバイスがありません"
+msgstr "RAIDデバイスを作成する"
 
 # ../libfdisk/gnomefsedit.c:3266
 # ../libfdisk/gnomefsedit.c:3355
@@ -3247,13 +3243,13 @@ msgstr "第二段階 ramdisk を検索することができません"
 # ../loader/loader.c:1152
 #: ../loader/loader.c:1155
 msgid "Rescue Method"
-msgstr "レスキュー手段"
+msgstr "レスキュー方法"
 
 # ../loader/loader.c:1103
 # ../loader/loader.c:1153
 #: ../loader/loader.c:1156
 msgid "Installation Method"
-msgstr "インストール手段"
+msgstr "インストール方法"
 
 # ../loader/loader.c:1105
 # ../loader/loader.c:1155
@@ -3351,19 +3347,19 @@ msgstr ""
 # ../loader/net.c:228
 #: ../loader/net.c:228
 msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr "このマシン用の IP 構成を入力してください。各項目をドット付きの 10 進表記で IP アドレスとして入力する必要があります (たとえば、1.2.3.4)。"
+msgstr "このマシン用の IP アドレスを入力してください。各項目をドット付きの 10 進表記で入力する必要があります (たとえば、1.2.3.4)。"
 
 # ../loader/net.c:270
 # ../loader/net.c:270
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "動的 IP 構成を使用する (BOOTP/DHCP)"
+msgstr "動的割り当て IP アドレスを使用する (BOOTP/DHCP)"
 
 # ../loader/net.c:298
 # ../loader/net.c:298
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
-msgstr "TCP/IP の構成"
+msgstr "TCP/IP の設定"
 
 # ../loader/net.c:329
 # ../loader/net.c:329
@@ -3381,7 +3377,7 @@ msgstr "有効な IP アドレスとネットマスクの両方を入力してください。"
 # ../loader/net.c:338 ../loader/net.c:574
 #: ../loader/net.c:338 ../loader/net.c:574
 msgid "Dynamic IP"
-msgstr "動的 IP"
+msgstr "動的割り当て IP"
 
 # ../loader/net.c:339 ../loader/net.c:572
 # ../loader/net.c:339 ../loader/net.c:575
@@ -3481,7 +3477,7 @@ msgstr "ネットワークの設定を行いますか?"
 #: ../loader/urls.c:71
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "%s へのログインに失敗しました:%s"
+msgstr "%s へログインできませんでした:%s"
 
 # ../loader/urls.c:80 ../loader/urls.c:87
 # ../loader/urls.c:80 ../loader/urls.c:87
