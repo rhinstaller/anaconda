@@ -145,40 +145,37 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux installationsskal på %s"
 
 #: ../gui.py:685
-#, fuzzy
 msgid "Install Window"
-msgstr "Installér"
+msgstr "Installeringsvindue"
 
 #: ../image.py:33
 msgid "Copying File"
-msgstr ""
+msgstr "Kopierer fil"
 
 #: ../image.py:34
 msgid "Transferring install image to hard drive..."
 msgstr ""
 
 #: ../image.py:51
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Anden cdrom"
+msgstr "Ændr cdrom"
 
 #: ../image.py:52
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Indsæt cd %d for at fortsætte."
 
 #: ../image.py:61
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Anden cdrom"
+msgstr "Forkert cdrom"
 
 #: ../image.py:62
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "Dette er ikke den korrekte Red Hat cdrom"
 
 #: ../image.py:67
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "Cdrom'en kunne ikke monteres."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:824 ../libfdisk/fsedit.c:831
@@ -449,12 +446,10 @@ msgstr ""
 "du har genstartet dit system. Du kan beholde denne fil for senere reference."
 
 #: ../text.py:555
-#, fuzzy
 msgid "Upgrade to begin"
 msgstr "Opgradér system"
 
 #: ../iw/confirm_gui.py:40 ../text.py:556
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -568,7 +563,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:878
-#, fuzzy
 msgid ""
 " <F1> for help> | <Tab> between elements | <Space> selects | <F12> next "
 "screen"
@@ -695,7 +689,6 @@ msgid "Customize Upgrade"
 msgstr "Manuel opgradering"
 
 #: ../text.py:1032
-#, fuzzy
 msgid "Upgrade Begins"
 msgstr "Opgraderingsundersøgelse"
 
@@ -716,7 +709,7 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 
 #: ../todo.py:350
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying timezone (from %s): %s"
 msgstr "Fejl ved kopiering af fil: %s"
 
@@ -830,7 +823,7 @@ msgstr "Grafikkort"
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:802
 msgid "Video Ram"
-msgstr "Video-RAM"
+msgstr "Video-ram"
 
 #: ../xf86config.py:804
 msgid "X server"
@@ -866,16 +859,15 @@ msgstr "Root-adgangskode accepteret."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Indtast venligst root-adgangskode."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "Root-adgangskoden er for kort."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
-msgstr "Root-adgangskoden stemmer ikke."
+msgstr "Root-adgangskoder stemmer ikke."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -886,12 +878,10 @@ msgid "Please enter user password."
 msgstr ""
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
 msgstr "Root-adgangskoden er for kort."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
 msgstr "Root-adgangskoden stemmer ikke."
 
@@ -975,7 +965,6 @@ msgid "Bootdisk Creation"
 msgstr "Opret opstartsdiskette"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
@@ -997,7 +986,6 @@ msgid "Skip boot disk creation"
 msgstr "Undlad oprettelse af opstartsdiskette"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
 msgstr "System som skal opgraderes"
 
@@ -1006,7 +994,6 @@ msgid "About to Install"
 msgstr "Klar til at installere"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
 msgstr "Klik på næste for at begynde installation af Red Hat Linux"
 
@@ -1064,12 +1051,10 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Installér pakker for at opfylde afhængigheder"
 
 #: ../iw/dependencies_gui.py:88
-#, fuzzy
 msgid "Do not install packages that have dependencies"
 msgstr "Installér pakker for at opfylde afhængigheder"
 
 #: ../iw/dependencies_gui.py:92
-#, fuzzy
 msgid "Ignore package dependencies"
 msgstr "Pakkeafhængigheder"
 
@@ -1392,7 +1377,6 @@ msgstr ""
 "brugerdefineret installation."
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
 msgstr "Automatisk partitionering"
 
@@ -1408,7 +1392,6 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
 msgstr "Manuel partitionering"
 
@@ -1420,12 +1403,10 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Automatisk partitionering"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
 msgstr "Manuel partitionering"
 
@@ -1587,7 +1568,6 @@ msgid "Bootdisk"
 msgstr "Opstartsdiskette"
 
 #: ../textw/bootdisk_text.py:52
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
@@ -1624,12 +1604,10 @@ msgid "Clear"
 msgstr "Ryd"
 
 #: ../textw/lilo_text.py:115
-#, fuzzy
 msgid "Edit Boot Label Please"
 msgstr "Redigér opstartsnavn"
 
 #: ../textw/lilo_text.py:135 ../textw/lilo_text.py:140
-#, fuzzy
 msgid "Invalid Boot Label"
 msgstr "Redigér opstartsnavn"
 
@@ -1642,7 +1620,6 @@ msgid "Boot labels cannot contain space(s)."
 msgstr ""
 
 #: ../textw/lilo_text.py:197
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1695,17 +1672,14 @@ msgstr ""
 "et navn."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
 msgstr "Pakke"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
 msgstr "Størrelse: "
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
 msgstr "Total"
 
@@ -2087,7 +2061,6 @@ msgstr ""
 "Hat Software om at du fik denne besked."
 
 #: ../libfdisk/fsedit.c:929
-#, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Kunne ikke oprette swap på enhed "
 
@@ -2186,7 +2159,6 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Er du sikker på at du vil slette denne partition?"
 
 #: ../libfdisk/gnomefsedit.c:793 ../libfdisk/newtfsedit.c:295
-#, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "Redigér partition"
 
@@ -2213,7 +2185,6 @@ msgid "Size (Megs):"
 msgstr "Størrelse (Mb):"
 
 #: ../libfdisk/gnomefsedit.c:913
-#, fuzzy
 msgid "Use remaining space?"
 msgstr "Brug eksisterende ledig plads"
 
@@ -2330,7 +2301,6 @@ msgstr ""
 "enkelt drev. Vælg venligst det drev som du vil begrænse denne partition til."
 
 #: ../libfdisk/gnomefsedit.c:1415 ../libfdisk/newtfsedit.c:759
-#, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Ubrugte partitioner"
 
@@ -2488,7 +2458,6 @@ msgid "Use Pre-existing Partition?"
 msgstr "Brug præ-eksisterende partition?"
 
 #: ../libfdisk/gnomefsedit.c:2405
-#, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "Ingen RAID-enhed"
 
@@ -2564,7 +2533,6 @@ msgid "Actual"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3159
-#, fuzzy
 msgid "Drive"
 msgstr "Spring drev over"
 
@@ -2573,7 +2541,6 @@ msgid "Geom [C/H/S]"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3161
-#, fuzzy
 msgid "Total (M)"
 msgstr "Total"
 
@@ -2639,22 +2606,18 @@ msgid "Swap Partition"
 msgstr "Swappartition"
 
 #: ../libfdisk/newtfsedit.c:314
-#, fuzzy
 msgid "Edit New Partition"
 msgstr "Redigér partition"
 
 #: ../libfdisk/newtfsedit.c:379
-#, fuzzy
 msgid "Use remaining space?:"
 msgstr "Brug eksisterende ledig plads"
 
 #: ../libfdisk/newtfsedit.c:423
-#, fuzzy
 msgid "Type:"
 msgstr "Type"
 
 #: ../libfdisk/newtfsedit.c:437
-#, fuzzy
 msgid "Unknown"
 msgstr "Ukendt vært"
 
@@ -2767,7 +2730,6 @@ msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Indsæt din driverdisk og tryk \"Ok\" for at fortsætte."
 
 #: ../loader/devices.c:218 ../loader/devices.c:417
-#, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere diskette."
 
@@ -2792,7 +2754,7 @@ msgid "Specify module parameters"
 msgstr "Angiv modulparametre"
 
 #: ../loader/devices.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
 msgstr "Kunne ikke logge ind på %s: %s"
 
@@ -2801,7 +2763,6 @@ msgid "The wrong diskette was inserted."
 msgstr ""
 
 #: ../loader/devices.c:462
-#, fuzzy
 msgid "Driver Disk"
 msgstr "Drevresumér"
 
@@ -2892,7 +2853,7 @@ msgid "Loading"
 msgstr "Indlæser"
 
 #: ../loader/loader.c:485
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Indlæser andet trins ramdisk..."
 
@@ -2944,12 +2905,10 @@ msgstr ""
 "Indsæt venligst Red Hat CD'en og tryk på \"Ok\" for at prøve igen."
 
 #: ../loader/loader.c:925
-#, fuzzy
 msgid "Networking Device"
 msgstr "Netværksenhed"
 
 #: ../loader/loader.c:926
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -2972,12 +2931,10 @@ msgid "HTTP"
 msgstr ""
 
 #: ../loader/loader.c:1055
-#, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Kunne ikke hente det andet trins ramdisk"
 
 #: ../loader/loader.c:1064
-#, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Kunne ikke hente det andet trins ramdisk"
 
@@ -3007,7 +2964,6 @@ msgid "Failed to read directory %s: %s"
 msgstr "Kunne ikke læse mappe %s: %s"
 
 #: ../loader/loader.c:2028
-#, fuzzy
 msgid "Updates Disk"
 msgstr "Opdateringer"
 
@@ -3032,11 +2988,11 @@ msgstr "Læser anaconda opdateringer..."
 
 #: ../loader/loader.c:2211
 msgid "PC Card"
-msgstr "PC-kort"
+msgstr "Pc-kort"
 
 #: ../loader/loader.c:2211
 msgid "Initializing PC Card Devices..."
-msgstr "Opstarter PC-kort enheder..."
+msgstr "Opstarter Pc-kort enheder..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -3065,9 +3021,8 @@ msgstr ""
 "      Red Hat Linux for din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:237
-#, fuzzy
 msgid "Nameserver IP"
-msgstr "Navnetjener"
+msgstr "Navnetjener-IP"
 
 #: ../loader/net.c:241 ../loader/net.c:719
 msgid "Nameserver"
@@ -3082,12 +3037,10 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:252
-#, fuzzy
 msgid "Invalid IP Information"
-msgstr "Ugyldig information"
+msgstr "Ugyldig IP-information"
 
 #: ../loader/net.c:253
-#, fuzzy
 msgid "You entered an invalid IP address."
 msgstr "Du skal indtaste både en gyldig IP-adresse og en netmaske."
 
@@ -3225,11 +3178,11 @@ msgstr ""
 
 #: ../loader/urls.c:181
 msgid "FTP site name:"
-msgstr "FTP-sitenavn:"
+msgstr "Ftp-sidenavn:"
 
 #: ../loader/urls.c:182
 msgid "Web site name:"
-msgstr "Websitenavn:"
+msgstr "Websidenavn:"
 
 #: ../loader/urls.c:200
 msgid "Use non-anonymous ftp or a proxy server"
@@ -3241,11 +3194,11 @@ msgstr "Brug proxytjener"
 
 #: ../loader/urls.c:217
 msgid "FTP Setup"
-msgstr "FTP-opsætning"
+msgstr "Ftp-opsætning"
 
 #: ../loader/urls.c:218
 msgid "HTTP Setup"
-msgstr "HTTP-opsætning"
+msgstr "Http-opsætning"
 
 #: ../loader/urls.c:228
 msgid "You must enter a server name."
@@ -3288,26 +3241,25 @@ msgstr "Kontonavn:"
 
 #: ../loader/urls.c:346
 msgid "FTP Proxy:"
-msgstr "FTP-proxy:"
+msgstr "Ftp-proxy:"
 
 #: ../loader/urls.c:347
 msgid "HTTP Proxy:"
-msgstr "HTTP-proxy:"
+msgstr "Http-proxy:"
 
 #: ../loader/urls.c:351
 msgid "FTP Proxy Port:"
-msgstr "FTP-proxyport:"
+msgstr "Ftp-proxyport:"
 
 #: ../loader/urls.c:352
 msgid "HTTP Proxy Port:"
-msgstr "HTTP-proxyport:"
+msgstr "Http-proxyport:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Indlæser SCSI-driver"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
 msgstr "Installér egendefineret system"
 
@@ -3325,144 +3277,83 @@ msgid ""
 msgstr ""
 "Du er ved at slette alle eksisterende Linux-installationer på dit system."
 
-# ../comps/comps-master:3
 msgid "Base"
 msgstr ""
 
-# ../comps/comps-master:150
 msgid "Printer Support"
-msgstr ""
+msgstr "Printer-understøttelse"
 
-#, fuzzy
 msgid "X Window System"
-msgstr "Undersøg system"
+msgstr "X-vinduessystem"
 
-# ../comps/comps-master:259
 msgid "GNOME"
-msgstr ""
+msgstr "Gnome"
 
-# ../comps/comps-master:315
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
 msgstr ""
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
 msgstr ""
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
 msgstr ""
 
-# ../comps/comps-master:389
 msgid "Games"
-msgstr ""
+msgstr "Underholdning"
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Multimedie-understøttelse"
 
-#, fuzzy
 msgid "Networked Workstation"
-msgstr "Netværkskonfiguration"
+msgstr "Netværksorienteret arbejdsstation"
 
-#, fuzzy
 msgid "Dialup Workstation"
 msgstr "KDE-arbejdsstation"
 
-#, fuzzy
 msgid "News Server"
 msgstr "Navnetjener"
 
-#, fuzzy
 msgid "NFS Server"
 msgstr "NIS-tjener:"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
 msgstr ""
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
 msgstr ""
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Anonym ftp-tjener"
 
-#, fuzzy
 msgid "Web Server"
-msgstr "Tjener"
+msgstr "Webtjener"
 
-#, fuzzy
 msgid "DNS Name Server"
-msgstr "Navnetjener"
+msgstr "DNS-navnetjener"
 
-# ../comps/comps-master:557
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Postgres (SQL-tjener"
 
-#, fuzzy
 msgid "Network Management Workstation"
 msgstr "Netværkskonfiguration"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
 msgstr ""
 
-# ../comps/comps-master:597
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
-# ../comps/comps-master:610
 msgid "Development"
-msgstr ""
+msgstr "Udvikling"
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Kerneparametre"
+msgstr "Kerneudvikling"
 
-# ../comps/comps-master:722
 msgid "Clustering"
 msgstr ""
 
-# ../comps/comps-master:738
 msgid "Utilities"
-msgstr ""
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "Installér GNOME-arbejdsstation"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "Installér KDE-arbejdsstation"
-
-#~ msgid "Install Server System"
-#~ msgstr "Installér serversystem"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "GNOME-arbejdsstation"
-
-#~ msgid "Custom"
-#~ msgstr "Manuel"
-
-#~ msgid "Use fdisk"
-#~ msgstr "Brug fdisk"
-
-#~ msgid "Remove data"
-#~ msgstr "Fjern data"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Udfyld hele disken?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Du har anført denne RAID-enhed som en partition der kan startes et system "
-#~ "fra. Sørg venligst for at der kan startes fra alle RAID-delpartitionerne."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Hvilken driver skal jeg prøve?"
+msgstr "Tilbehør"
