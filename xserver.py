@@ -78,13 +78,17 @@ def startX(resolution):
     else:
         (Xtype, Xtmp) = mouse.get()
         print "Found a", Xtype
-        time.sleep(2)
+#        time.sleep(2)
 
     x = XF86Config (mouse, resolution)
     x.res = resolution
     
     x.probe ()
-#    print "Probed X server is " , x.server
+    print "Probed X server is " , x.server
+
+#    import time
+#    time.sleep(4)
+
     probedServer = x.server
 
     #--Run fb_check() and see if framebuffer works on this card
@@ -123,6 +127,11 @@ def startX(resolution):
     
 	x.server = probedServer
 
+        if not x.server:
+            print "Unknown card"
+            raise RuntimeError, "Unable to start X for unknown card"
+                        
+
 	# if this fails, we want the exception to go back to anaconda to
 	# it knows that this didn't work
 	testx(mouse, x)
@@ -148,7 +157,7 @@ def fb_check ():
 	return 0
 
 def testx(mouse, x):
-    print "going to test the x server"
+#    print "going to test the x server"
     try:
 	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
     except:
@@ -158,14 +167,21 @@ def testx(mouse, x):
 	list = traceback.format_exception (type, value, tb)
 	text = joinfields (list, "")
 	print text
-    print "tested the x server"
+#    print "tested the x server"
 
     # give time for the server to fail (if it is going to fail...)
     # FIXME: Should find out if X server is already running
     # otherwise with NFS installs the X server may be still being
     # fetched from the network while we already continue to run
 
-    time.sleep (4)
+#    print "in testx, server is  |%s| " %server
+#    time.sleep (4)
+
+    if not server:
+        sys.stderr.write("X SERVER FAILED");
+        raise RuntimeError, "X server failed to start"
+
+
     count = 0
 
     sys.stdout.write("Waiting for X server to start")
