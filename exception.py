@@ -143,6 +143,7 @@ def dumpException(out, text, tb, dispatch):
         traceback.print_exc(None, out)
 
     for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
+                 "/tmp/lvmout",
                  dispatch.instPath + "/root/install.log",
                  dispatch.instPath + "/root/upgrade.log"):
         try:
