@@ -3,12 +3,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-04-15 17:42-0400\n"
-"PO-Revision-Date: 2002-04-15 16:45-0400\n"
-"Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
+"PO-Revision-Date: 2002-04-16 12:17-0400\n"
+"Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Emacs 21.1\n"
 
 #: ../anaconda:319
 msgid ""
@@ -282,11 +283,11 @@ msgstr ""
 
 #: ../bootloader.py:866
 msgid "Bootloader"
-msgstr "Bootloader"
+msgstr "Oppstartslaster"
 
 #: ../bootloader.py:866
 msgid "Installing bootloader..."
-msgstr "Installerer bootloader..."
+msgstr "Installerer blader..."
 
 #: ../comps.py:563
 msgid "Everything"
@@ -764,6 +765,12 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Det oppstod en feil ved installering av %s. Dette kan tyde på feil ved "
+"installeringsmediumet, mangel på diskplass og/eller hardwareproblem. Dette "
+"er en alvorlig feil, og din installering vil avbrytes. Sjekk "
+"installeringsmediumet og prøv på nytt.\n"
+"\n"
+"Trykk OK for å starte programmet på nytt."
 
 #: ../packages.py:537
 msgid "Setting up RPM transaction..."
@@ -807,6 +814,12 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Følgende pakker ble automatisk valgt for\n"
+"installering:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:607
 msgid "Install Starting"
@@ -814,7 +827,7 @@ msgstr "Starter installering"
 
 #: ../packages.py:608
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "Starter installeringsprosessen. Dette kan ta noen minutter..."
 
 #: ../packages.py:653
 msgid ""
@@ -859,6 +872,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"Følgende pakker er tilgjengelige i denne versjonen men IKKE oppgradert:\n"
 
 #: ../packages.py:722
 msgid "Post Install"
@@ -1953,7 +1969,7 @@ msgstr "Ikke installer oppstartslaster"
 
 #: ../iw/bootloader_gui.py:443 ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "Sett standard bootfil"
+msgstr "Sett standard oppstartsfil"
 
 #: ../iw/bootloaderpassword_gui.py:24
 msgid "Boot Loader Password Configuration"
@@ -2807,23 +2823,27 @@ msgstr "Oppdater konfigurasjon av oppstartslaster"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Dette vil oppdatere din nåværende oppstartslaster."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
+"Installeringsprogrammet har detektert at oppstartslasteren %s er installert "
+"på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Dette er det anbefalte alternativet."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Installeringsprogrammet klarte ikke å finne en oppstartslaster på ditt "
+"nåværende system."
 
 #: ../iw/upgrade_bootloader_gui.py:90 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
@@ -2834,6 +2854,8 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Dette vil la deg lage en ny konfigurering for din oppstartslaster. Hvis du "
+"ønsker å bytte oppstartslaster bør du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:99 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -2844,10 +2866,12 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Dette vil ikke endre din oppstartslasterkonfigurasjon. Hvis du bruker en "
+"tredjeparts oppstartslaster bør du velge dette."
 
 #: ../iw/upgrade_bootloader_gui.py:112
 msgid "What would you like to do?"
-msgstr "Hva vild du gjøre?"
+msgstr "Hva vil du gjøre?"
 
 #: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:31
 msgid "Migrate Filesystems"
@@ -3064,6 +3088,9 @@ msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"Dette grafikkorter har ingen driver for X i databasen. Du kan velge et annet "
+"grafikkort eller\n"
+"'Hopp over konfigurasjon av X'."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -3226,6 +3253,8 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+"<Mellomrom> velger knapp | <F2> velger oppstartsalternativ | <F12> neste "
+"skjerm"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3998,7 +4027,7 @@ msgstr "Bruk TLS-tilkoblinger"
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, python-format
@@ -4418,6 +4447,7 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"En feil oppstod ved lesing fra ISO-filene. Sjekk ISO-filene og prøv på nytt."
 
 #: ../loader/loader.c:913
 #, c-format
@@ -4426,10 +4456,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Ønsker du å teste sjekksummen av ISO-filen:\n"
+"\n"
+"   %s?"
 
 #: ../loader/loader.c:916
 msgid "Checksum Test"
-msgstr ""
+msgstr "Test av sjekksum:"
 
 #: ../loader/loader.c:1026
 msgid "Hard Drives"
@@ -4473,7 +4506,7 @@ msgstr "Mediasjekk"
 
 #: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
-msgstr ""
+msgstr "Løs ut CD"
 
 #: ../loader/loader.c:1207
 #, c-format
@@ -4494,6 +4527,12 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"Hvis du ønsker å teste flere installeringsmedia, sett inn neste CD og trykk "
+"\"%s\". Du trenger ikke teste alle CDene, selv om det er anbefalt at du gjør "
+"dette ihvertfall første gangen du bruker dem.\n"
+"\n"
+"For å fortsette installeringsprosessen sett inn CD #1 i CD-ROM-stasjonen og "
+"trykk \"%s\"."
 
 #: ../loader/loader.c:1249 ../loader/loader.c:1363
 #, c-format
@@ -4515,6 +4554,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"For å starte testing av CDer før installeringen trykk %s.\n"
+"\n"
+"Velg %s for å hoppe over denne testen og starte installeringen."
 
 #: ../loader/loader.c:1459
 msgid "Networking Device"
@@ -4613,6 +4655,9 @@ msgid ""
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
 "your system now."
 msgstr ""
+"Andre del av installeringsprogrammet er ikke det samme som delen på "
+"oppstartsdisketten du bruker. Dette skal ikke skje, og systemet vil nå "
+"starte på nytt."
 
 #: ../loader/loader.c:3479
 msgid ""
@@ -4620,6 +4665,8 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
+"Ingen harddisker er funnet. Du er sannsynligvis nødt til å velge en driver "
+"for å kunne fortsette installeringen. Hvis du velge driver nå?"
 
 #: ../loader/loader.c:3644
 msgid "Running anaconda - please wait...\n"
@@ -4630,6 +4677,8 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"Klarte ikke å lese CDens sjekksum fra primær volum-beskrivelse. Dette betyr "
+"sannsynligvis at at CDen ble laget uten å legge til sjekksum."
 
 #: ../loader/mediacheck.c:201
 #, c-format
@@ -4653,7 +4702,7 @@ msgid ""
 msgstr ""
 "FEIL.\n"
 "\n"
-"Det anbefales å ikke bruke dette mediumet."
+"Det anbefales å ikke bruke dette mediet."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -4663,7 +4712,7 @@ msgid ""
 msgstr ""
 "OK.\n"
 "\n"
-"Det er ok å installere fra dette mediumet."
+"Det er ok å installere fra dette mediet."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -4695,7 +4744,7 @@ msgstr ""
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Mediasjekken av %s er ferdig, og resultatet er: %s\n"
 
 #: ../loader/modules.c:390
 #, c-format
@@ -4897,7 +4946,7 @@ msgstr "Den disketten ser ikke ut til å være en PCMCIA driverdisk."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "Venter på telnet-forbindelse..."
 
 #: ../loader/telnetd.c:106
 msgid "Running anaconda via telnet..."
@@ -5173,7 +5222,7 @@ msgstr "Amundsen-Scott-basen, Sydpolen"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
@@ -5197,7 +5246,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5221,7 +5270,7 @@ msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "midt-Kina - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
@@ -5305,11 +5354,11 @@ msgstr "Østre Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "øst-Kina - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "østkysten, nord for Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
@@ -5408,7 +5457,7 @@ msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5651,7 +5700,7 @@ msgstr "De fleste steder i Queensland"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -5667,7 +5716,7 @@ msgstr "Sabah og Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5683,7 +5732,7 @@ msgstr "sydvest-Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "sydvest Xinjian Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -5703,7 +5752,7 @@ msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
@@ -5771,7 +5820,7 @@ msgstr "Kinesisk(forenklet)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Kinesisk(tradisjonell)"
+msgstr "Kinesisk(Tradisjonell)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5836,6 +5885,9 @@ msgstr "Svensk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "%s  %s"
+#~ msgstr "%s  %s"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"

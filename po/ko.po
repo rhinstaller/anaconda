@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3\n"
 "POT-Creation-Date: 2002-04-15 17:42-0400\n"
-"PO-Revision-Date: 2002-04-15 18:06-0400\n"
+"PO-Revision-Date: 2002-03-26 14:50GMT+10.00\n"
 "Last-Translator: Michelle Kim <mkim@brisbane.redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -134,13 +134,13 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"%s (을)를 위한 %s 공간을 찾을 수 없습니다.\n"
+"%s 파티션을  %s에 사용하기 위해 찾을 수 없습니다.\n"
 "\n"
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
 #: ../autopart.py:935
 msgid "Partition Request Sanity Check Errors"
-msgstr "공간 요청 검사에서의 오류"
+msgstr "파티션 요청 검사에서의 오류"
 
 #: ../autopart.py:936
 #, python-format
@@ -151,7 +151,7 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"공간에서 다음과 같은 오류가 발생하였습니다:\n"
+"파티션하는 과정에서 다음과 같은 오류가 발생하였습니다:\n"
 "\n"
 "%s\n"
 "\n"
@@ -159,7 +159,7 @@ msgstr ""
 
 #: ../autopart.py:945
 msgid "Warnings During Automatic Partitioning"
-msgstr "자동 공간 설정중 주의할 사항 발생"
+msgstr "자동 파티션 도중 경고 발생"
 
 #: ../autopart.py:946
 #, python-format
@@ -168,14 +168,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"자동 공간 설정 도중 다음과 같은 주의해야할 사항이 발생하였습니다:\n"
+"자동 파티션 도중 다음과 같은 경고 사항이 발생하였습니다:\n"
 "\n"
 "%s"
 
 #: ../autopart.py:959 ../iw/partition_gui.py:1291
 #: ../textw/partition_text.py:164
 msgid "Error Partitioning"
-msgstr "공간 설정의 오류"
+msgstr "파티션의 오류"
 
 #: ../autopart.py:960
 #, python-format
@@ -184,7 +184,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"요청하신 공간을 할당할 수 없습니다: \n"
+"요청하신 파티션을 할당할 수 없습니다: \n"
 "\n"
 "%s.%s"
 
@@ -212,25 +212,24 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
-"자동 공간 분할은 여러분이 선택하신 설치 유형에 따라 자동으로 공간을 설정합니"
-"다. 자동으로 설정된 공간의 결과를 확인해 보신 후에 필요하시다면, 사용자가 원"
-"하시는 대로 직접 공간을 설정하실 수도 있습니다.\n"
+"자동 파티션은 여러분이 선택하신 설치 유형에 따라 자동으로 파티션을 설정합니"
+"다. 자동으로 설정된 파티션의 결과를 확인해 보신 후에 필요하시다면, 사용자가 "
+"원하시는 대로 직접 파티션을 설정하실 수도 있습니다.\n"
 "\n"
-"수동 디스크 공간 분할 프로그램인 Disk Druid는 상호호환 방식을 통해 파일시스"
-"템 유형, 마운트할 지점, 용량 등을 쉽고도 편하게 설정하실 수 있도록 도와드릴 "
-"것입니다.\n"
+"수동 디스크 파티션 도구인 Disk Druid는 상호 호환 환경에서 파일 시스템 유형,마"
+"운트할 지점, 용량 등을 쉽고도 편하게 설정하실 수 있도록 도와드릴 것입니다.\n"
 "\n"
-"fdisk는 Red Hat에서 제공하는 전통적인 텍스트-화면의 수동 디스크 공간 분할 도"
-"구 입니다. 사용하기에는 쉽지 않지만, 때로는 fdisk로 디스크 공간을 설정해야할 "
-"경우가 발생합니다. "
+"fdisk는 Red Hat에서 제공하는 전통적인 텍스트-화면의 수동 디스크 파티션 도구 "
+"입니다. 사용하기에는 쉽지 않지만, 때로는 fdisk로 디스크 공간을 설정해야할 경"
+"우가 발생합니다. "
 
 #: ../autopart.py:1018
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
-"설치 프로그램이 자동으로 공간을 설정하기에 앞서, 하드 드라이브의 공간을 어떻"
-"게 분할할 지는 여러분이 직접 선택해 주시는 것이 좋습니다."
+"설치 프로그램이 자동으로 파티션하기에 앞서, 하드 드라이브의 공간을 어떻게 분"
+"할할 지는 여러분이 직접 선택해 주시는 것이 좋습니다."
 
 #: ../autopart.py:1023
 msgid "Remove all partitions on this system"
@@ -255,9 +254,9 @@ msgid ""
 msgstr ""
 "!!주의!!\t!!주의!!\n"
 "\n"
-"%s 드라이브 상에 존재하는 모든 분할공간 (모든 자료) 을 삭제하기로 하셨습니"
+"%s 드라이브 상에 존재하는 모든 파티션들 (모든 자료) 을 삭제하기로 하셨습니"
 "다\n"
-"확실히 삭제하시겠습니까?"
+"정말로 삭제하시겠습니까?"
 
 #: ../autopart.py:1032
 #, python-format
@@ -272,15 +271,15 @@ msgstr ""
 "\n"
 "다음의 드라이브 상에 존재하는 모든 리눅스 파티션 (리눅스 파티션 상의 모든 자"
 "료) 을 삭제하기로 하셨습니다:%s\n"
-"확실히 삭제하시겠습니까?"
+"정말로 삭제하시겠습니까?"
 
 #: ../bootloader.py:287
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  여러분의 부트 로더 설정"
-"은 바뀌지 않을 것입니다."
+"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  여러분의 부트로더 설정은 "
+"바뀌지 않을 것입니다."
 
 #: ../bootloader.py:866
 msgid "Bootloader"
@@ -311,8 +310,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"현재 시스템의 상태를 플로피 디스켓에 기록하였습니다. 여러분의 시스템을 재부"
-"팅 합니다."
+"현재 시스템의 상태를 성공적으로 플로피 디스켓에 기록하였습니다. 여러분의 시스"
+"템을 재부팅 합니다."
 
 #: ../floppy.py:62 ../floppy.py:91 ../fsset.py:522 ../fsset.py:946
 #: ../fsset.py:965 ../fsset.py:1010 ../fsset.py:1032 ../fsset.py:1079
@@ -579,7 +578,7 @@ msgstr "닫기"
 
 #: ../gui.py:460 ../gui.py:636
 msgid "Release Notes"
-msgstr "새로운 사항"
+msgstr "출시에 앞서"
 
 #: ../gui.py:492
 msgid "Unable to load file!"
@@ -587,7 +586,7 @@ msgstr "파일을 불러올 수 없습니다!"
 
 #: ../gui.py:526
 msgid "Release notes are missing.\n"
-msgstr "새로운 사항의 내용을 찾을 수 없습니다.\n"
+msgstr "출시에 앞서의 내용을 찾을 수 없습니다.\n"
 
 #: ../gui.py:632 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
@@ -768,7 +767,7 @@ msgid ""
 msgstr ""
 "%s (을)를 설치하는 도중 오류가 발생되었습니다. 미디어 실패, 디스켓 공간 부족"
 "이나 하드워어 문제들로 비롯된 것일 수 있습니다. 이것은 매우 심각한 오류이므"
-"로 설치를 계쏙 진행할 수 없습니다. 미디어를 확인하시고 설치를 다시 시도해 주"
+"로 설치를 계속 진행할 수 없습니다. 미디어를 확인하시고 설치를 다시 시도해 주"
 "십시오.\n"
 "\n"
 "OK 버튼?? 누르시면, 시스템을 재부팅 합니다."
@@ -1029,8 +1028,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"여러분 시스템 상의 램 용량(%dMB) 보다 적은 스왑 공간(%dMB)을 지정하셨습니"
-"다.  이와같은 설정은 오히려 성능을 감소시킬 수 있습니다."
+"여러분 시스템 상의 스왑 공간(%dMB)을 사용 가능한 램 용량(%dMB) 보다 적게 지정"
+"하셨습니다.  이와 같은 설정은 오히려 성능을 감소시킬 수 있습니다."
 
 #: ../partitioning.py:707
 #, python-format
@@ -1050,7 +1049,7 @@ msgstr ""
 #: ../partitioning.py:1336
 #, python-format
 msgid "Error mounting filesystem on %s: %s"
-msgstr "%s 의 파일시스템을 마운트하는 도중 오류가 발생되었습니다: %s"
+msgstr "%s에 파일시스템을 마운트하는 도중 오류가 발생되었습니다: %s"
 
 #: ../partitioning.py:1456
 #, python-format
@@ -1206,13 +1205,13 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"여러분 시스템의 메모리가 부족하기 때문에 지금 스왑 공간을 사용해야 합니다. 스"
-"왑 공간을 사용하시려면, 현재 여러분의 새로운 파티션 정보를 드라이브에 기록해"
-"야 합니다. 그렇게 하시겠습니까?"
+"여러분 시스템의 메모리가 부족하기 때문에 지금 즉시 스왑 공간을 사용해야 합니"
+"다. 스왑 공간을 사용하시려면, 현재 여러분의 새로운 파티션 정보를 드라이브에 "
+"기록해야 합니다. 그렇게 하시겠습니까?"
 
 #: ../partitioning.py:1837
 msgid "Format as Swap?"
-msgstr "스왑 포맷"
+msgstr "스왑으로 포맷하시겠습니까?"
 
 #: ../partitioning.py:1838
 #, python-format
@@ -1241,7 +1240,7 @@ msgstr ""
 "기존-파티션을 포맷하기로 하셨습니다.  포맷을 진행하시면, 이전의 자료는 모두 "
 "삭제됩니다.\n"
 "\n"
-"확실히 포맷하시겠습니까?"
+"정말로 포맷하시겠습니까?"
 
 #: ../partitioning.py:1866
 msgid ""
@@ -1257,7 +1256,7 @@ msgstr ""
 "특별히 이 파티션에 있는 자료를 보존하실 필요가 없으시다면, 이 파티션을 포맷하"
 "실 것을 권합니다.\n"
 "\n"
-"기존의 파티션을 포맷하지 않으시겠습니까?"
+"정말로 기존의 파티션을 포맷하지 않으시겠습니까?"
 
 #: ../partitioning.py:1882
 msgid "Error with Partitioning"
@@ -1338,7 +1337,8 @@ msgstr ""
 "복구 환경은 기존에 설치되어 있는 Red Hat Linux 시스템을 검색하여 '/mnt/"
 "sysimage' 디렉토리에 마운트시킬 것입니다.  이 디렉토리를 통해 시스템의 복구 "
 "작업을 하실 수 있습니다.  이러한 복구 작업을 원하시면, [진행] 버튼을 눌러주십"
-"시요.\n"
+"시요. 또한 여러분은 '읽기-전용'을 선택하여 읽기-쓰기 대신 읽기-전용으로 파일 "
+"시스템을마운트하도록 선택하실 수 있습니다.\n"
 "\n"
 "어떠한 이유로 인하여 이러한 과정이 실패하였을 경우에는 [생략] 버튼을 누르시"
 "면, 곧바로 명령-쉘 화면으로 이동합니다.\n"
@@ -1538,9 +1538,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"다음의 파일은 독립된 심볼릭 링크 파일입니다. 이와같은 독립 심볼릭 링크 파일"
-"은 현재의 업그레이드 설치에서는 아직 지원되지 않습니다. 문제가 발생한 심볼릭 "
-"링크 파일을 수정하신 후에 업그레이드 설치를 다시 시작해 주시기 바랍니다.\n"
+"다음의 파일은 절대(absolute) 심볼릭 링크 파일입니다. 이와같은 절대 심볼릭 링"
+"크 파일은 현재의 업그레이드 설치에서는 아직 지원되지 않습니다. 절대 심볼릭 링"
+"크를 상대(relative) 심볼릭 링크로 수정하신 후에 업그레이드 설치를 다시 시작"
+"해 주시기 바랍니다.\n"
 "\n"
 
 #: ../upgrade.py:259
@@ -1574,10 +1575,10 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"이 시스템에는 %s에 포함되어 있는 패키지와 중복되는 써드 파티 패키지가 설치되"
-"어 있는 것 같습니다. 이러한 패키지가 중복해서 업그레이드 설치가 될 경우에는 "
-"그 패키지의 기능이 완전히 멈춰버리거나, 시스템의 다른 부분이 불안정할 수 있습"
-"니다.  업그레이드 설치를 계속 진행하시겠습니까?"
+"이 시스템에는 Red Hat Linux에 포함되어 있는 패키지와 중복되는 제 3의 파티 패"
+"키지가 설치되어 있는 것 같습니다. 이러한 패키지가 중복해서 업그레이드 설치가 "
+"될 경우에는 그 패키지의 기능이 완전히 멈춰버리거나, 시스템의 다른 부분이 불안"
+"정할 수 있습니다.  업그레이드 설치를 계속 진행하시겠습니까?"
 
 #: ../upgrade.py:398
 msgid ""
@@ -1587,7 +1588,7 @@ msgid ""
 "process?"
 msgstr ""
 "이 시스템에는 /etc/redhat-release 파일이 존재하지 않습니다.  이 것은 Red Hat "
-"리눅스 시스템이 아닐 가능성이 큽니다. 이 시스템에 업그레이드 설치를 하실 경우"
+"Linux 시스템이 아닐 가능성이 큽니다. 이 시스템에 업그레이드 설치를 하실 경우"
 "에는 시스템을 사용할 수 없는 상태로 만들 수 있습니다.  업그레이드 설치를 계"
 "속 진행하시겠습니까?"
 
@@ -1693,7 +1694,7 @@ msgstr "패스워드:"
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
 #: ../textw/bootloader_text.py:397
 msgid "Confirm:"
-msgstr "확 인:"
+msgstr "확인:"
 
 #: ../iw/account_gui.py:192
 msgid "Please enter user name"
@@ -1709,7 +1710,7 @@ msgstr "Root 패스워드: "
 
 #: ../iw/account_gui.py:292
 msgid "Confirm: "
-msgstr "확 인: "
+msgstr "확인: "
 
 #: ../iw/account_gui.py:326
 msgid "Account Name"
@@ -1743,10 +1744,10 @@ msgid ""
 "administrative users who need to use this system. Use the <Add> button to "
 "enter additional user accounts."
 msgstr ""
-"계정 추가에서는 시스템을 사용하기 위한 사용자들의 계정을 생성하실 수 있습니"
-"다. 이러한 계정은 개인 사용자 또는 관리자가 관리-목적 이외에 사용하기 위한 것"
-"입니다. 추가할 사용자가 있으시다면, [추가] 버튼을 클릭하여 사용자 계정에 필요"
-"한 사항을 입력해 주시기 바랍니다."
+"이 시스템의 다른 사용자들을 위해 추가 계정을 생성할 수 있습니다.이러한 계정"
+"은 개인 로그인 계정 또는 관리자가 관리-목적 이외에 사용하기 위한 것입니다. 추"
+"가할 사용자가 있으시다면, [추가] 버튼을 클릭하여 사용자 계정에 필요한 사항을 "
+"입력해 주시기 바랍니다."
 
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 msgid "Authentication Configuration"
@@ -1979,8 +1980,8 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"부트로더 패스워드를 6자 이하로 지정하셨습니다.  이보다 긴 내용의 패스워드를 "
-"지정해 주시기 바랍니다.\n"
+"부트로더 패스워드를 6자 이하로 지정하셨습니다.  이보다 긴 패스워드를 지정해 "
+"주시기 바랍니다.\n"
 "\n"
 "이 패스워드를 그대로 사용하시겠습니까?"
 
@@ -2636,7 +2637,7 @@ msgstr "여분(spare)의 수:"
 
 #: ../iw/partition_gui.py:1438 ../textw/partition_text.py:843
 msgid "Format partition?"
-msgstr "파티션 포맷"
+msgstr "파티션을 포맷하시겠습니까?"
 
 #: ../iw/partition_gui.py:1542
 msgid "_New"
@@ -2720,11 +2721,11 @@ msgstr "%s KB"
 #: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
 #: ../textw/partition_text.py:986
 msgid "Size"
-msgstr "용  량"
+msgstr "용량"
 
 #: ../iw/progress_gui.py:197
 msgid "Summary"
-msgstr "설  명"
+msgstr "설명"
 
 #: ../iw/progress_gui.py:227
 msgid "Package Progress: "
@@ -2732,11 +2733,11 @@ msgstr "패키지 설치 상황: "
 
 #: ../iw/progress_gui.py:232
 msgid "Total Progress:   "
-msgstr "전  체 진행 상황: "
+msgstr "전체 진행 상황: "
 
 #: ../iw/progress_gui.py:249
 msgid "Status"
-msgstr "상 황"
+msgstr "상황"
 
 #: ../iw/progress_gui.py:249
 msgid "Packages"
@@ -2748,7 +2749,7 @@ msgstr "소요시간"
 
 #: ../iw/progress_gui.py:259
 msgid "Total"
-msgstr "전  체"
+msgstr "전체"
 
 #: ../iw/progress_gui.py:260
 msgid "Completed"
@@ -2756,7 +2757,7 @@ msgstr "완료됨"
 
 #: ../iw/progress_gui.py:261
 msgid "Remaining"
-msgstr "남  음"
+msgstr "남음"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
@@ -2792,7 +2793,7 @@ msgstr "시간대 선택"
 
 #: ../iw/timezone_gui.py:187
 msgid "View:"
-msgstr "지역:"
+msgstr "보기:"
 
 #: ../iw/timezone_gui.py:195 ../iw/timezone_gui.py:196
 msgid "System clock uses UTC"
@@ -5869,3 +5870,28 @@ msgstr "스웨덴어"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "우크라니아어"
+
+#~ msgid "%s  %s"
+#~ msgstr "%s  %s"
+
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your NFS server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      %s for your architecture"
+#~ msgstr ""
+#~ "다음의 사항을 입력해 주십시요:\n"
+#~ "\n"
+#~ "    o 이름 또는 NFS 서버의 IP 주소\n"
+#~ "    o 여러분 시스템 체계에 맞는 %s를 포함한\n"
+#~ "       서버가 있는 디렉토리"
+
+#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+
+#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+#~ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#~ msgid "Portuguese(Brasilian) pt"
+#~ msgstr "포루투칼어(브리질) pt"
