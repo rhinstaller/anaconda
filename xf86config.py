@@ -409,6 +409,9 @@ EndSection
 """ % self.mouse
 
     def keyboardSection (self):
+	autorepeat = "AutoRepeat  500 5"
+	if iutil.getArch() == "sparc":
+	    autorepeat = "# AutoRepeat  200 20"
         string = """
 # **********************************************************************
 # Keyboard section
@@ -421,7 +424,7 @@ Section "Keyboard"
     # following line
     # Protocol   "Xqueue"
 
-    AutoRepeat  500 5
+    %s
 
     # Let the server do the NumLock processing.  This should only be 
     # required when using pre-R6 clients
@@ -458,7 +461,7 @@ Section "Keyboard"
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
 #    XkbOptions  "ctrl:nocaps"
-"""
+""" % autorepeat
         for (tag, value) in (("XkbRules", self.keyRules),
                              ("XkbModel", self.keyModel),
                              ("XkbLayout", self.keyLayout),
