@@ -1216,12 +1216,17 @@ class PartitionWindow(InstallWindow):
 
         # Create here, pack below
         numparts =  len(availraidparts)
+        if raidrequest.raidspares:
+            nspares = raidrequest.raidspares
+        else:
+            nspares = 0
+            
         if raidrequest.raidlevel:
             maxspares = get_raid_max_spares(raidrequest.raidlevel, numparts)
         else:
             maxspares = 0
 
-        spareAdj = GtkAdjustment (value = 0, lower = 0,
+        spareAdj = GtkAdjustment (value = nspares, lower = 0,
                                upper = maxspares, step_incr = 1)
         sparesb = GtkSpinButton(spareAdj, digits = 0)
         sparesb.set_data("numparts", numparts)
