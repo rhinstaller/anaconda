@@ -282,7 +282,7 @@ class ComponentSet:
 	if (megs >= 1000):
 	    big = megs / 1000
 	    little = megs % 1000
-	    return "%d,%dM" % (big, little)
+	    return "%d,%03dM" % (big, little)
 
 	return "%dM" % (megs)
 
