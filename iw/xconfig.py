@@ -18,14 +18,24 @@ class XCustomWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        self.ics.setNextEnabled (FALSE)
-
         self.todo = ics.getToDo ()
         ics.setTitle (_("Customize X Configuration"))
         ics.setHTML ("<HTML><BODY>This is the configuration customization screen<</BODY></HTML>")
-
+        self.ics.setNextEnabled (TRUE)
+        
         self.didTest = 0
 
+    def getNext (self):
+        newmodes = {}
+        
+        for depth in self.toggles.keys ():
+            newmodes[depth] = []
+            for (res, button) in self.toggles[depth]:
+                if button.get_active ():
+                    newmodes[depth].append (res)
+
+        self.todo.x.modes = newmodes
+        
     def getScreen (self):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
@@ -35,12 +45,16 @@ class XCustomWindow (InstallWindow):
         depths = self.todo.x.modes.keys ()
         depths.sort ()
 
+        self.toggles = {}
         for depth in depths:
+            self.toggles[depth] = []
             vbox = GtkVBox (FALSE, 5)
             vbox.pack_start (GtkLabel (depth + _("Bits per Pixel")), FALSE)
             for res in self.todo.x.modes[depth]:
-                vbox.pack_start (GtkCheckButton (res), FALSE)
-
+                button = GtkCheckButton (res)
+                self.toggles[depth].append (res, button)
+                vbox.pack_start (button, FALSE)
+                
             hbox.pack_start (vbox)
 
         box.pack_start (hbox, FALSE)
