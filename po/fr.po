@@ -360,7 +360,6 @@ msgstr ""
 "http://www.redhat.com/."
 
 #: ../text.py:358
-#, fuzzy
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -372,7 +371,7 @@ msgstr ""
 "Red Hat Linux vous souhaite la bienvenue !\n"
 "\n"
 "Vous êtes maintenant dans le mode de reconfiguration qui va vous permettre "
-"de configurer votre ordinateur pour votre zone géographique actuelle. \n"
+"de configurer votre ordinateur. \n"
 "\n"
 "Pour quitter sans modifier votre configuration, cliquez sur le bouton "
 "Annuler ci-dessous."
@@ -1482,7 +1481,6 @@ msgstr ""
 "sélectionnez les paramètres appropriés ci-dessous :"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
 msgstr "Résultats de la détection X"
 
@@ -1686,9 +1684,8 @@ msgid "User ID"
 msgstr "ID utilisateur"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "ID utilisateur"
+msgstr "ID utilisateur faux"
 
 #: ../textw/userauth.py:92
 msgid ""
