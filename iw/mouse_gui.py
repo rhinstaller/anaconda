@@ -14,6 +14,7 @@
 import gtk
 import string
 import gobject
+import gui
 from iw_gui import *
 from re import *
 from rhpl.translate import _, N_
@@ -87,7 +88,7 @@ class MouseWindow(InstallWindow):
             self.devstore.set_value(iter, 1, dev)
         self.devstore.set_sort_column_id(0, gtk.SORT_ASCENDING)
         self.devview = gtk.TreeView(self.devstore)
-        col = gtk.TreeViewColumn(_("Device"), gtk.CellRendererText(), text=0)
+        col = gtk.TreeViewColumn(_("_Device"), gtk.CellRendererText(), text=0)
         self.devview.append_column(col)
         selection = self.devview.get_selection()
         selection.connect("changed", self.selectDeviceType)
@@ -216,7 +217,7 @@ class MouseWindow(InstallWindow):
         # populate the big widgets with the available selections
         self.setupMice()
         self.setupDeviceList()
-        self.emulate3 = gtk.CheckButton(_("Emulate 3 Buttons"))
+        self.emulate3 = gtk.CheckButton(_("_Emulate 3 Buttons"))
         self.setCurrent(currentDev, currentMouse, emulate3)
 
         # set up the box for this screen
@@ -230,7 +231,7 @@ class MouseWindow(InstallWindow):
             a.add(pix)
             a.set(0.0, 0.0, 0.0, 0.0)
             hbox.pack_start(a, gtk.FALSE)
-        label = gtk.Label(_("Which model mouse is attached to the computer?"))
+        label = gui.MnemonicLabel(_("Which _model mouse is attached to the computer?"))
         label.set_line_wrap(gtk.TRUE)
         label.set_size_request(350, -1)
         hbox.pack_start(label, gtk.FALSE)
@@ -243,6 +244,7 @@ class MouseWindow(InstallWindow):
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add(self.mouseview)
         box.pack_start(sw)
+        label.set_mnemonic_widget(self.mouseview)
 
         # then the port list
         frame = gtk.Frame()
