@@ -79,7 +79,7 @@ class UpgradeMigrateFSWindow:
             return INSTALL_OK
 
 class UpgradeSwapWindow:
-    def __call__ (self, screen, intf, fsset, instPath, swapInfo):
+    def __call__ (self, screen, intf, fsset, instPath, swapInfo, dispatch):
 	rc = swapInfo
 
 	(fsList, suggSize, suggMntPoint) = rc
@@ -176,6 +176,7 @@ class UpgradeSwapWindow:
 		    screen.popWindow()
                     if flags.setupFilesystems:
                         upgrade.createSwapFile(instPath, fsset, mnt, val)
+                    dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 
 	raise ValueError
