@@ -117,13 +117,19 @@ static int selectMedia(struct loaderState *state) {
 }
 
 static int selectInterface(struct loaderState *state) {
-    newtWinChoice(_("Install Interface"), _("Text"), _("Graphical"),
-		   _("You can install Red Hat Linux using one of two "
-		     "interfaces, Text or Graphical.  The text mode "
-		     "is similar to older Red Hat Linux installers. "
-		     "The Graphical installer is new and offers point "
-		     "and click installation of Red Hat Linux."));
-
+    int rc;
+    
+    rc = newtWinChoice(_("Install Interface"), _("Text"), _("Graphical"),
+		       _("You can install Red Hat Linux using one of two "
+			 "interfaces, Text or Graphical.  The text mode "
+			 "is similar to older Red Hat Linux installers. "
+			 "The Graphical installer is new and offers point "
+			 "and click installation of Red Hat Linux."));
+    if (rc == 1 || rc == 0)
+	state->interface = INTERFACE_TEXT;
+    else
+	state->interface = INTERFACE_GUI;
+    
     return LOADER_OK;
 }
 
