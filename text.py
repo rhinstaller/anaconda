@@ -44,7 +44,7 @@ class InstallProgressWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
-	if (todo.runLive): return -2
+	if (not todo.setupFilesystems): return -2
 
         device = 'hda';
 
