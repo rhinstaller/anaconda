@@ -3,7 +3,7 @@
 
 prepareBootImage() {
 	gunzip < $BOOTDISKDIR/bootfs.gz > $MBD_TMPIMAGE
-	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
+	mount -o loop,offset=16384 -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
 	cp $KERNELROOT/boot/efi/vmlinux-* $MBD_BOOTTREE/vmlinux
