@@ -578,6 +578,12 @@ class InstallControlWindow:
             nextButton.grab_focus ()
 
     def __init__ (self, ii, dispatch, locale):
+        self.prevButtonStock = None
+        self.nextButtonStock = None
+        self.releaseButton = None
+        self.showHelpButton = None
+        self.hideHelpButton = None
+
 	self.stockButtons = [ 
 	    ( STOCK_BUTTON_PREV, "prevButtonStock",
 		    _("Back"), self.prevClicked ),
