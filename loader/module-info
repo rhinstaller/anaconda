@@ -472,6 +472,14 @@ aic7xxx
 	#scsi_hostadapter
 	#"atp870u"
 
+cpqarray
+	scsi_hostadapter
+	"Compaq Smart/2 RAID Controller"
+
+DAC960
+	scsi_hostadapter
+	"Mylex DAC960 RAID Controller"
+
 dtc
 	scsi_hostadapter
 	"DTC 3180/3280"
@@ -516,6 +524,10 @@ in2000
 	scsi_hostadapter
 	"IN2000 SCSI"
 	setup_string "ioport:addr"
+
+ips
+	scsi_hostadapter
+	"IBM ServeRAID"
 
 megaraid
 	scsi_hostadapter
