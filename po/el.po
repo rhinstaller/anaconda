@@ -13,12 +13,12 @@ msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2004-04-25 17:26-0200\n"
+"PO-Revision-Date: 2005-03-29 02:44+0300\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -39,11 +39,8 @@ msgid "Unable to set vnc password - using no password!"
 msgstr ""
 
 #: ../anaconda:160
-#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
-"Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 5 χαρακτήρες.\n"
-"Προσπαθήστε ξανά.\n"
+msgstr "Ο κωδικός πρόσβασης πρέπει να έχει τουλάχιστον 6 χαρακτήρες."
 
 #: ../anaconda:183
 msgid ""
@@ -450,14 +447,12 @@ msgid ""
 msgstr ""
 
 #: ../bootloader.py:96
-#, fuzzy
 msgid "Bootloader"
-msgstr "Bootloader για χρήση"
+msgstr "Bootloader"
 
 #: ../bootloader.py:96
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "Εγκ. πρ. εκκίνησης"
+msgstr "Εγκατάσταση bootloader..."
 
 #: ../bootloader.py:154
 msgid ""
@@ -539,9 +534,8 @@ msgid "Mail Server (SMTP)"
 msgstr ""
 
 #: ../floppy.py:103
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Μορφοποιεί δισκέτες."
+msgstr "Αδυναμία δημιουργίας δισκέτας εκκίνησης"
 
 #: ../floppy.py:104
 msgid ""
@@ -801,9 +795,8 @@ msgstr ""
 #: ../image.py:483 ../packages.py:457 ../packages.py:1565
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
-#, fuzzy
 msgid "_Reboot"
-msgstr "Reset"
+msgstr "_Επανεκκίνηση"
 
 #: ../fsset.py:2487
 msgid "Formatting"
@@ -1039,9 +1032,8 @@ msgid ""
 msgstr ""
 
 #: ../image.py:188
-#, fuzzy
 msgid "Copying File"
-msgstr "Αντιγραφή αρχείων"
+msgstr "Αντιγραφή Αρχείου"
 
 #: ../image.py:189
 #, fuzzy
@@ -1229,7 +1221,6 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:461
-#, fuzzy
 msgid "Installing..."
 msgstr "Γίνεται εγκατάσταση..."
 
@@ -1256,9 +1247,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:870
-#, fuzzy
 msgid "Preparing RPM transaction..."
-msgstr "Λήψη μεταφράσεων..."
+msgstr "Προετοιμασία συναλλαγής RPM..."
 
 #: ../packages.py:960
 #, fuzzy, python-format
@@ -2298,9 +2288,8 @@ msgid "Start VNC"
 msgstr "Έναρξη"
 
 #: ../vnc.py:73
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Ρύθμιση SILO"
+msgstr "Ρύθμιση VNC"
 
 #: ../vnc.py:77
 #, fuzzy
@@ -2359,9 +2348,8 @@ msgstr ""
 
 #
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Συσκευή"
+msgstr "Αριθμός συσκευής"
 
 #: ../zfcp.py:30
 msgid "You have not specified a device number or the number is invalid"
@@ -2369,7 +2357,7 @@ msgstr ""
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
 msgid "You have not specified a SCSI ID or the ID is invalid."
@@ -2377,7 +2365,7 @@ msgstr ""
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -2385,7 +2373,7 @@ msgstr ""
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 msgid "You have not specified a SCSI LUN or the number is invalid."
@@ -2393,7 +2381,7 @@ msgstr ""
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -2513,7 +2501,7 @@ msgstr "Πραγματικό όνομα"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
-msgstr ""
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 #, fuzzy
@@ -2751,9 +2739,8 @@ msgstr "Αυτόματη Εγκατάσταση"
 
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
-#, fuzzy
 msgid "Reboot?"
-msgstr "Reset"
+msgstr "Επανεκκίνηση;"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:62
@@ -2928,9 +2915,9 @@ msgid "Upgrade Examine"
 msgstr "Αναβάθμιση"
 
 #: ../iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "_Install %s"
-msgstr "Εγκατάσταση"
+msgstr "_Εγκατάσταση %s"
 
 #: ../iw/examine_gui.py:62
 msgid ""
@@ -2995,12 +2982,11 @@ msgstr "Προειδοποίηση"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:177
 msgid "Active"
-msgstr ""
+msgstr "Ενεργό"
 
 #: ../iw/firewall_gui.py:27 ../textw/firewall_text.py:29
-#, fuzzy
 msgid "Firewall"
-msgstr "firewall"
+msgstr "Firewall"
 
 #: ../iw/firewall_gui.py:37 ../textw/firewall_text.py:112
 #, fuzzy
@@ -3057,9 +3043,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:158
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Ενεργοποίηση N_IS"
+msgstr "Ενεργοποίηση _SELinux;:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3472,9 +3457,8 @@ msgid "Gateway"
 msgstr "Πύλη Δικτύου"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:609
-#, fuzzy
 msgid "Primary DNS"
-msgstr "Πρωτεύον"
+msgstr "Πρωτεύον DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:611
 #, fuzzy
@@ -3595,7 +3579,7 @@ msgstr "Σημείο Προσάρτησης: "
 
 #: ../iw/network_gui.py:242
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:243
 msgid "Encryption _Key"
@@ -3608,9 +3592,9 @@ msgid "Hardware address:"
 msgstr "Διεύθυνση IP:"
 
 #: ../iw/network_gui.py:293
-#, fuzzy, python-format
+#, python-format
 msgid "Configure %s"
-msgstr "Ρύθμιση "
+msgstr "Ρύθμιση %s"
 
 #: ../iw/network_gui.py:467
 #, fuzzy
@@ -3684,7 +3668,7 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:133
 msgid "Image"
-msgstr ""
+msgstr "Εικόνα"
 
 #: ../iw/osbootwidget.py:140
 msgid ""
@@ -4205,24 +4189,24 @@ msgid "Manually partition with _Disk Druid"
 msgstr ""
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr "SMB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr "%s KBytes"
+msgstr "%s Byte"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr "%s KBytes"
+msgstr "%s Bytes"
 
 #: ../iw/progress_gui.py:53
 #, fuzzy
@@ -5352,9 +5336,8 @@ msgid "Hardware Address: %s"
 msgstr ""
 
 #: ../textw/network_text.py:103
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Ρύθμιση IDE"
+msgstr "Ρύθμιση με χρήση DHCP"
 
 #: ../textw/network_text.py:116
 #, fuzzy
@@ -5362,9 +5345,9 @@ msgid "Activate on boot"
 msgstr "Ξεκίνησαν στην εκκίνηση συστήματος"
 
 #: ../textw/network_text.py:142
-#, fuzzy, python-format
+#, python-format
 msgid "Network Configuration for %s"
-msgstr "Ρυθμίσεις δικτύου"
+msgstr "Ρυθμίση Δικτύου για %s"
 
 #: ../textw/network_text.py:175
 #, fuzzy
@@ -5383,14 +5366,12 @@ msgid "Gateway:"
 msgstr "Πύλη δικτύου:"
 
 #: ../textw/network_text.py:270
-#, fuzzy
 msgid "Primary DNS:"
-msgstr "Πρωτεύον"
+msgstr "Πρωτεύον DNS:"
 
 #: ../textw/network_text.py:275
-#, fuzzy
 msgid "Secondary DNS:"
-msgstr "Δευτερεύων"
+msgstr "Δευτερεύων DNS:"
 
 #: ../textw/network_text.py:280
 #, fuzzy
@@ -5403,9 +5384,8 @@ msgid "Miscellaneous Network Settings"
 msgstr "Διάφορα"
 
 #: ../textw/network_text.py:355
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "_αυτόματα μέσω DCHP"
+msgstr "αυτόματα μέσω DCHP"
 
 #: ../textw/network_text.py:359
 #, fuzzy
@@ -5779,12 +5759,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1445
-#, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-Βοήθεια     F2-Νέο      F3-Επεξργασία   F4-Διαγραφή    F5-Reset    "
-"F12-Εντάξει       "
+"    F1-Βοήθεια     F2-Νέο      F3-Επεξεργασία   F4-Διαγραφή    F5-Επαναφορά    F12-OK        "
 
 #: ../textw/partition_text.py:1474
 #, fuzzy
@@ -5838,9 +5816,8 @@ msgid "    Packages"
 msgstr "    Πακέτα"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "       Bytes"
+msgstr "      Bytes"
 
 #: ../textw/progress_text.py:149
 #, fuzzy
@@ -5945,9 +5922,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Η επιλεγμένη γραμματοσειρά δεν είναι έγκυρη."
 
 #: ../textw/upgrade_text.py:199
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Πρόβλημα Εγκατάστασης"
+msgstr "Επανεγκτάσταση Συστήματος"
 
 #: ../textw/upgrade_text.py:208
 #, fuzzy
@@ -5975,9 +5951,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/userauth_text.py:29
-#, fuzzy
 msgid "Root Password"
-msgstr "Συνθηματικό Διαχειριστή Συστήματος"
+msgstr "Κωδικός Διαχειριστή Συστήματος"
 
 #: ../textw/userauth_text.py:31
 msgid ""
@@ -6227,9 +6202,8 @@ msgid "Resolution:"
 msgstr "Ανάλυση:"
 
 #: ../textw/xconfig_text.py:155
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Προεπιλεγμένες θέσεις τερματισμού στηλοθετών:"
+msgstr "Προεπιλεγμένη Επιφάνεια Εργασίας:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
@@ -6392,15 +6366,13 @@ msgstr "Βίντεο RAM:"
 
 #
 #: ../textw/zfcp_text.py:44
-#, fuzzy
 msgid "FCP Device"
-msgstr "Συσκευή"
+msgstr "Συσκευή FCP"
 
 #
 #: ../textw/zfcp_text.py:102
-#, fuzzy
 msgid "Device #"
-msgstr "Συσκευή"
+msgstr "Συσκευή #"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
@@ -6414,9 +6386,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/zipl_text.py:56
-#, fuzzy
 msgid "z/IPL Configuration"
-msgstr "Ρύθμιση LΑΝ"
+msgstr "Ρύθμιση z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
@@ -6529,9 +6500,8 @@ msgid "Test"
 msgstr "Δοκιμή"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
-#, fuzzy
 msgid "Eject CD"
-msgstr "Εξαγωγή"
+msgstr "Εξαγωγή CD"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -6559,9 +6529,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/cdinstall.c:253
-#, fuzzy
 msgid "CD Found"
-msgstr " προσαρτημένο"
+msgstr "Βρέθηκε CD"
 
 #: ../loader2/cdinstall.c:255
 #, c-format
@@ -6579,9 +6548,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/cdinstall.c:382
-#, fuzzy
 msgid "CD Not Found"
-msgstr " προσαρτημένο"
+msgstr "Δε βρέθηκε CD"
 
 #: ../loader2/cdinstall.c:449
 msgid "Cannot find kickstart file on CDROM."
@@ -6886,9 +6854,8 @@ msgid "Hard drive"
 msgstr "Σκληρός δίσκος"
 
 #: ../loader2/loader.c:111
-#, fuzzy
 msgid "NFS image"
-msgstr "Εικόνα GIF"
+msgstr "Εικόνα NFS"
 
 #: ../loader2/loader.c:303
 #, fuzzy
@@ -7120,9 +7087,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:230
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Διάφορα"
+msgstr "Ασύρματες Ρυθμίσεις"
 
 #: ../loader2/net.c:259
 #, fuzzy
@@ -7401,9 +7367,8 @@ msgid "Hide _Help"
 msgstr "Απόκρυψη _Bοήθειας"
 
 #: tmp/anaconda.glade.h:2
-#, fuzzy
 msgid "Reboo_t"
-msgstr "Reset"
+msgstr "Επανε_κκίνηση"
 
 #: tmp/anaconda.glade.h:3
 msgid "Show _Help"
@@ -7411,7 +7376,6 @@ msgstr "Εμφάνιση _Βοήθειας"
 
 #
 #: tmp/anaconda.glade.h:4
-#, fuzzy
 msgid "_Debug"
 msgstr "_Αποσφαλμάτωση"
 
@@ -7421,9 +7385,8 @@ msgid "_Next"
 msgstr "_Επόμενο"
 
 #: tmp/anaconda.glade.h:6
-#, fuzzy
 msgid "_Release Notes"
-msgstr "Ανασήκωση Σημειώματων"
+msgstr "_Πληροφορίες Έκδοσης"
 
 #
 #. generated from zone.tab
@@ -8176,9 +8139,8 @@ msgid "Chinese(Traditional)"
 msgstr "Κινέζικα(Παραδοσιακά)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Κροατικό"
+msgstr "Κροατική"
 
 #
 #. generated from lang-table
@@ -8190,9 +8152,8 @@ msgid "Danish"
 msgstr "Δανέζικο"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Dutch"
-msgstr "Ολλανδικά"
+msgstr "Ολλανδική"
 
 #. generated from lang-table
 msgid "English"
@@ -8264,14 +8225,12 @@ msgid "Persian"
 msgstr "Γερμανικά"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Αγγλικά"
+msgstr "Πολωνική"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "Πορτογαλλικά"
+msgstr "Πορτογαλική"
 
 #. generated from lang-table
 #, fuzzy
@@ -8287,9 +8246,8 @@ msgid "Russian"
 msgstr "Ρωσικά"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovenian"
-msgstr "Σλοβενικά"
+msgstr "Σλοβενική"
 
 #. generated from lang-table
 msgid "Spanish"
@@ -8300,9 +8258,8 @@ msgid "Swedish"
 msgstr "Σουηδικά"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Τανζανία"
+msgstr "Ταμίλ"
 
 #. generated from lang-table
 msgid "Turkish"
