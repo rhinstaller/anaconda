@@ -7,7 +7,6 @@ import time
 from xf86config import *
 from kbd import Keyboard
 from mouse import Mouse
-import time
 from snack import *
 from translate import _
 from constants_text import *
@@ -84,7 +83,7 @@ def startX(resolution):
     x.res = resolution
     
     x.probe ()
-#    print "Probed X server is " , x.server
+    print "Probed X server is " , x.server
     probedServer = x.server
     x.server = "XF86_FBDev"
 
@@ -103,6 +102,7 @@ def startX(resolution):
     if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
         x.server = probedServer
         print "Frame buffer didn't work...trying ", x.server
+        time.sleep(2)
         serverPath = '/usr/X11R6/bin/' + x.server
 
         
@@ -117,6 +117,7 @@ def startX(resolution):
         testx(mouse, x)
     except:
         print "Can't open /dev/fb0"
+#        time.sleep(5)
         try:            
             x.server = probedServer
             testx(mouse, x)
@@ -136,7 +137,7 @@ def testx(mouse, x):
         # otherwise with NFS installs the X server may be still being
         # fetched from the network while we already continue to run
 
-        time.sleep (4)
+#        time.sleep (4)
         count = 0
 
         sys.stdout.write("Waiting for X server to start")
