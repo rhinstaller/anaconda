@@ -44,7 +44,7 @@ class BootloaderChoiceWindow:
 
         blradio = RadioGroup()
         grub = blradio.add(_("Use GRUB Boot Loader"), "grub", useGrub)
-        if iutil.getArch == "i386":
+        if iutil.getArch() == "i386":
             lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
         else:
             lilo = None
