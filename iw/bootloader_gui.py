@@ -55,7 +55,7 @@ class BootloaderWindow (InstallWindow):
 	    self.dispatch.skipStep("instbootloader", skip = 0)
 
 	    for (widget, device) in self.bootDevice.items():
-		if not widget.get_active():
+		if widget.get_active():
 		    self.bl.setDevice(device)
 
         self.bl.setUseGrub(self.grub_radio.get_active())
