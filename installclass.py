@@ -207,7 +207,7 @@ class BaseInstallClass:
                           useNIS = 0, nisDomain = "",  nisBroadcast = 0,
                           nisServer = "",
                           useLdap = 0, useLdapauth = 0, ldapServer = "",
-                          ldapBasedn = "",
+                          ldapBasedn = "", useldapTls = 0,
                           useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
                           krb5Admin = "",
                           useHesiod = 0, hesiodLhs = "", hesiodRhs = "",

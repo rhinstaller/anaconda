@@ -200,7 +200,8 @@ class KickstartBase(BaseInstallClass):
 	    
 	self.setAuthentication(id, useShadow, useMd5,
                                useNis, nisDomain, nisBroadcast, nisServer,
-                               useLdap, useLdapauth, ldapServer, ldapBasedn,
+                               useLdap, useLdapauth, ldapServer,
+                               ldapBasedn, useLdaptls,
                                useKrb5, krb5Realm, krb5Kdc, krb5Admin,
                                useHesiod, hesiodLhs, hesiodRhs,
                                useSamba, smbServers, smbWorkgroup)
