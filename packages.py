@@ -850,6 +850,7 @@ def doInstall(method, id, intf, instPath):
 
 	intf.messageWindow (_("Disk Space"), probs)
 
+        ts.closeDB()
 	del ts
 	instLog.close()
 	syslog.stop()
@@ -861,6 +862,7 @@ def doInstall(method, id, intf, instPath):
 
     # This should close the RPM database so that you can
     # do RPM ops in the chroot in a %post ks script
+    ts.closeDB()
     del ts
 #    rpm.errorSetCallback (oldError)
     
