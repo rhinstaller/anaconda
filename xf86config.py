@@ -640,8 +640,12 @@ class XF86Config:
 		    else:
 			# just pick something reasonable for most modes
 			self.monitor.setSpecs("31.5-65.0", "50-90")
+	else:
+	    # fallback if nothing avail
+	    self.modes = { "16" :  ["800x600"] }
+	    if not monsyncknown:
+		self.monitor.setSpecs("31.5-48.5", "50-70")
 	    
-
         self.fallbackModes = self.modes
         
 	self.device = None
