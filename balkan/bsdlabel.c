@@ -53,6 +53,8 @@ struct bsd_disklabel {
     } d_partitions[BSD_MAXPARTITIONS];	/* actually may be more */
 };
 
+long long llseek(int fd, long long offset, int whence);
+
 #if 0
 static unsigned short xbsd_dkcksum (struct bsd_disklabel *lp) {
   unsigned short *start, *end;
@@ -80,7 +82,7 @@ int bsdlReadTable(int fd, struct partitionTable * table) {
 
     table->sectorSize = 512;
 
-    if (lseek64(fd, BSD_LABEL_OFFSET, SEEK_SET) < 0)
+    if (lseek(fd, BSD_LABEL_OFFSET, SEEK_SET) < 0)
 	return BALKAN_ERROR_ERRNO;
 
     if (read(fd, &label, sizeof(label)) != sizeof(label))
