@@ -505,7 +505,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	{
 	    /* only enable the first device we see
 	       in loader mode */
-	    if (i < 0)
+	    if (i < 1)
 #endif
 		fprintf(f, "ONBOOT=yes\n");
 #ifndef __STANDALONE__
