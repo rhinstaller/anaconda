@@ -279,8 +279,9 @@ class KickstartBase(BaseInstallClass):
         if upgrade:
             id.bootloader.kickstart = 1
             id.bootloader.doUpgradeOnly = 1
-        else:
-            self.showSteps.append("bootloadersetup")
+
+        
+        self.showSteps.append("bootloadersetup")
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
