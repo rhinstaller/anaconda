@@ -2,7 +2,7 @@ from installclass import BaseInstallClass
 from translate import *
 import os
 import iutil
-from partitioning import autoCreatePartitionRequests
+from partitioning import *
 from autopart import CLEARPART_TYPE_LINUX
 from autopart import CLEARPART_TYPE_ALL
 from autopart import CLEARPART_TYPE_NONE
