@@ -60,11 +60,6 @@ def mouseWindow(mouse):
     return 1
     
 def startX(resolution, nofbmode):
-#    print "Inside startX"
-#    print resolution
-    print nofbmode
-#    time.sleep (5)
-
     global serverPath
     global mode
     
@@ -79,17 +74,10 @@ def startX(resolution, nofbmode):
             raise RuntimeError, "failed to get a mouse for X startup"
     else:
         (Xtype, Xtmp) = mouse.get()
-#        print "Found a", Xtype
-#        time.sleep(2)
 
     x = XF86Config (mouse, resolution)
-    x.res = resolution
-    
+    x.res = resolution    
     x.probe ()
-#    print "Probed X server is " , x.server
-
-#    import time
-#    time.sleep(4)
 
     probedServer = x.server
 
@@ -104,13 +92,11 @@ def startX(resolution, nofbmode):
     elif iutil.getArch() == "sparc":
   	raise RuntimeError, "Unknown card"
     else:
-#          print "Unknown card, falling back to VGA16"
           x.server = "XF86_VGA16"
           serverPath = '/usr/X11R6/bin/XF86_VGA16'
 
     if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
         x.server = probedServer
-#        print "Frame buffer didn't work...trying ", x.server
         serverPath = '/usr/X11R6/bin/' + x.server
 
         
@@ -127,10 +113,10 @@ def startX(resolution, nofbmode):
             testx(mouse, x)
 
         except (RuntimeError, IOError):
-            from log import log
-            log.open(0, 0, 0, 0)
-            log ("can't open /dev/fb0")
-            log.close()
+#            from log import log
+#            log.open(0, 0, 0, 0)
+#            log ("can't open /dev/fb0")
+#            log.close()
     
             x.server = probedServer
 
