@@ -22,6 +22,7 @@ import sys
 import os.path
 import partedUtils
 import string
+import lvm
 from flags import flags
 from fsset import *
 from partitioning import *
@@ -66,7 +67,10 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     diskset = partedUtils.DiskSet()
     diskset.openDevices()
     diskset.startAllRaid()
+    lvm.vgscan()
+    lvm.vgactivate()
 
+    log("going to mount %s on %s as %s" %(root, instPath, rootFs))
     isys.mount(root, instPath, rootFs)
 
     oldfsset.reset()
@@ -74,12 +78,14 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
+    log("now unmounting")
     isys.umount(instPath)        
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
     if not allowDirty and dirtyDevs != []:
         import sys
         diskset.stopAllRaid()
+        lvm.vgdeactivate()
 	intf.messageWindow(_("Dirty Filesystems"),
                            _("The following filesystems for your Linux system "
                              "were not unmounted cleanly.  Please boot your "
@@ -98,6 +104,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
+        lvm.vgscan()
         oldfsset.mountFilesystems(instPath, readOnly = readOnly)
 
     # XXX we should properly support 'auto' at some point

@@ -24,6 +24,7 @@ from product import *
 import fsset
 import iutil, isys
 import raid
+import lvm
 from flags import flags
 from partErrors import *
 
@@ -380,11 +381,9 @@ class DiskSet:
 
         for dev, devices, level, numActive in self.mdList:
             (errno, msg) = (None, None)
-            found = 0
             for fs in fsset.getFStoTry(dev):
                 try:
                     isys.mount(dev, mountpoint, fs, readOnly = 1)
-                    found = 1
                     break
                 except SystemError, (errno, msg):
                     pass
@@ -394,6 +393,33 @@ class DiskSet:
             isys.umount(mountpoint)
 
         self.stopAllRaid()
+
+        # now, look for candidate lvm roots
+        lvm.vgscan()
+        lvm.vgactivate()
+
+        vgs = []
+        if os.path.isdir("/proc/lvm/VGs"):
+            vgs = os.listdir("/proc/lvm/VGs")
+        for vg in vgs:
+            if not os.path.isdir("/proc/lvm/VGs/%s/LVs" %(vg,)):
+                log("Unable to find LVs for %s" % (lv,))
+                continue
+            lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
+            for lv in lvs:
+                dev = "/dev/%s/%s" %(vg, lv)
+                for fs in fsset.getFStoTry(dev):
+                    try:
+                        isys.mount(dev, mountpoint, fs, readOnly = 1)
+                        break
+                    except SystemError:
+                        pass
+
+                if os.access (mountpoint + '/etc/fstab', os.R_OK):
+                    rootparts.append ((dev, fs))
+                isys.umount(mountpoint)
+
+        lvm.vgdeactivate()
 
         drives = self.disks.keys()
         drives.sort()
