@@ -629,9 +629,13 @@ class DiskSet:
         if self.disks:
             return
         for drive in self.driveList ():
-            isys.makeDevInode(drive, '/tmp/' + drive)
+	    deviceFile = '/dev/' + drive
+	    if not os.access(deviceFile, os.R_OK):
+		deviceFile = '/tmp/' + drive
+		isys.makeDevInode(drive, deviceFile)
+
             try:
-                dev = parted.PedDevice.get ('/tmp/' + drive)
+                dev = parted.PedDevice.get (deviceFile)
             except parted.error, msg:
                 raise PartitioningError, msg
             try:
