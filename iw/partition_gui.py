@@ -722,7 +722,11 @@ class PartitionWindow(InstallWindow):
                     ptype = _("None")
                     self.tree[iter]['IsFormattable'] = gtk.FALSE
 
-                device = "/dev/md%d" % (request.raidminor,)
+		try:
+		    device = "/dev/md%d" % (request.raidminor,)
+		except:
+		    device = "Auto"
+		    
                 self.tree[iter]['IsLeaf'] = gtk.TRUE
                 self.tree[iter]['Device'] = device
                 self.tree[iter]['Type'] = ptype
