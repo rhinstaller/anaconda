@@ -17,6 +17,7 @@
  */
 
 #include <fcntl.h>
+#include <kudzu/kudzu.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -63,7 +64,18 @@ static int detectHardware(moduleInfoSet modInfo,
     
     for (device = devices; *device; device++) {
         driver = (*device)->driver;
-        if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
+        /* this is kind of icky and verbose.  there are better and more 
+         * general ways to do it but this is simple and obvious */
+        if (FL_NOPCMCIA(flags) && ((*device)->class == CLASS_SOCKET)) {
+            logMessage("ignoring pcmcia device %s (%s)", (*device)->desc,
+                       (*device)->driver);
+        } else if (FL_NOIEEE1394(flags) && ((*device)->class == CLASS_FIREWIRE)) {
+            logMessage("ignoring firewire device %s (%s)", (*device)->desc,
+                       (*device)->driver);
+        } else if (FL_NOUSB(flags) && ((*device)->class == CLASS_USB)) {
+            logMessage("ignoring usb device %s (%s)", (*device)->desc,
+                       (*device)->driver);
+        } else if (strcmp (driver, "ignore") && strcmp (driver, "unknown")
             && strcmp (driver, "disabled")) {
             modList[numMods++] = strdup(driver);
         }
