@@ -263,53 +263,58 @@ class RootPasswordWindow:
         return INSTALL_OK
 
 class UsersWindow:
-    def editWindow (self, user, edit = 0):
+    def editWindow (self, user, text, edit = 0, cancelText = None):
+	if (not cancelText):
+	    cancelText = _("Cancel")
+
         userid = Entry (8, user["id"])
         currentid = user["id"]
-        fullname = Entry (30, user["name"])
+        fullname = Entry (20, user["name"], scroll = 1)
         pass1 = Entry (10, user["password"], hidden = 1)
         pass2 = Entry (10, user["password"], hidden = 1)
 
+	if edit:
+	    title = _("Edit User")
+	else:
+	    title = _("Add User")
+
         while 1:
-            if edit:
-                title = _("Edit User")
-                pass1.setFlags (FLAG_DISABLED, FLAGS_SET)
-                pass2.setFlags (FLAG_DISABLED, FLAGS_SET)
-            else:
-                title = _("Add User")
                 
-            (rc, ent) = EntryWindow (self.screen, title, "",
-                                     [ (_("User ID"), userid),
-                                       (_("Full Name"), fullname),
-                                       (_("Password"), pass1),
-                                       (_("Password (confirm)"), pass2) ],
-                                     buttons = [ _("OK"), _("Cancel") ])
+            (rc, ent) = EntryWindow (self.screen, title, text,
+			 [ (_("User ID"), userid),
+			   (_("Full Name"), fullname),
+			   (_("Password"), pass1),
+			   (_("Password (confirm)"), pass2) ],
+			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ])
             
-            if rc == string.lower (_("Cancel")):
-                return
+            if rc == "cancel":
+                return INSTALL_BACK
+	    if not len(pass1.value()) and not len(pass2.value()) and \
+	       not len(userid.value()) and not len(fullname.value()):
+                return INSTALL_OK
 
-            if not edit:
-                if len (pass1.value ()) < 6:
-                    ButtonChoiceWindow(self.screen, _("Password Length"),
-                                       _("The password must be at least 6 characters "
-                                         "long."),
-                                       buttons = [ _("OK") ], width = 50)
-                    pass1.set ("")
-                    pass2.set ("")
-                    continue
-                elif pass1.value () != pass2.value ():
-                    ButtonChoiceWindow(self.screen, _("Password Mismatch"),
-                                       _("The passwords you entered were different. Please "
-                                         "try again."),
-                                       buttons = [ _("OK") ], width = 50)
-                    pass1.set ("")
-                    pass2.set ("")
-                    continue
+	    if len (pass1.value ()) < 6:
+		ButtonChoiceWindow(self.screen, _("Password Length"),
+		       _("The password must be at least 6 characters "
+			 "long."),
+		       buttons = [ _("OK") ], width = 50)
+		pass1.set ("")
+		pass2.set ("")
+		continue
+	    elif pass1.value () != pass2.value ():
+		ButtonChoiceWindow(self.screen, _("Password Mismatch"),
+		   _("The passwords you entered were different. Please "
+		     "try again."),
+		   buttons = [ _("OK") ], width = 50)
+		pass1.set ("")
+		pass2.set ("")
+		continue
 
-            if self.users.has_key (userid.value ()) and userid.value () != currentid:
+            if self.users.has_key (userid.value ()) and  \
+				   userid.value () != currentid:
                 ButtonChoiceWindow(self.screen, _("User Exists"),
-                                   _("This user id already exists.  Choose another."),
-                                     buttons = [ _("OK") ], width = 50)
+		       _("This user id already exists.  Choose another."),
+			 buttons = [ _("OK") ], width = 50)
                 continue
 
             # XXX FIXME - more data validity checks
@@ -319,20 +324,44 @@ class UsersWindow:
             user["password"] = pass1.value ()
             break
 
+	return INSTALL_OK
+
     def __call__ (self, screen, todo):
         self.users = {}
         self.screen = screen
+	user = { "id" : "", "name" : "", "password" : "" }
+
+	if not self.users.keys():
+	    rc = self.editWindow(user, _("You should use a normal user "
+		"account for most activities on your system. By not using the "
+		"root account casually, you'll reduce the chance of "
+		"disrupting your system's configuration."), 
+		cancelText = _("Back"))
+	    if (rc == INSTALL_BACK):
+		return INSTALL_BACK
+	    if (not user['id']):
+		return INSTALL_OK
+	    self.users[user["id"]] = user
         
-        g = GridForm (screen, _("User Account Setup"), 1, 3)
+        g = GridForm (screen, _("User Account Setup"), 1, 4)
+
+	t = TextboxReflowed(60, _("What user account would you like to have "
+	    "on the system? You should have at least one non-root account "
+	    "for normal work, but multi-user systems can have any number "
+	    "of accounts set up."))
+	g.add(t, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         listformat = "%-15s  %-40s"
         userformat = "%(id)-15s  %(name)-40s"
 
+	subgrid = Grid(1, 2)
         header = listformat % (_("User name"), _("Full Name"))
         label = Label (header)
-        g.add (label, 0, 0, anchorLeft = 1)
-        listbox = Listbox (5, scroll = 1, returnExit = 1, width = 60)
-        g.add (listbox, 0, 1, (0, 0, 0, 1))
+        subgrid.setField (label, 0, 0, anchorLeft = 1)
+        listbox = Listbox (5, scroll = 1, returnExit = 1, width = 54)
+        subgrid.setField (listbox, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
+
+	g.add(subgrid, 0, 1)
 
         for user in self.users.values ():
             listbox.append (userformat % user, user["id"])
@@ -340,27 +369,29 @@ class UsersWindow:
         bb = ButtonBar (screen, ((_("Add"), "add"), (_("Delete"), "delete"),
                                  (_("Edit"), "edit"), (_("OK"), "ok"), (_("Back"), "back")))
         
-        g.add (bb, 0, 2, growx = 1)
+        g.add (bb, 0, 3, growx = 1)
 
         while 1:
             result = g.run ()
             
             rc = bb.buttonPressed (result)
 
-            if rc == string.lower (_("Add")):
+            if rc == "add":
                 user = { "id" : "", "name" : "", "password" : "" }
-                self.editWindow (user)
+                self.editWindow (user, 
+		    _("Enter the information for the user."), 0)
                 listbox.append (userformat % user, user["id"])
-                listbox.setcurrent (user["id"])
+                listbox.setCurrent (user["id"])
                 self.users[user["id"]] = user
-            elif rc == string.lower (_("Delete")):
+            elif rc == "delete":
                 current = listbox.current ()
                 listbox.delete (current)
                 del self.users [current]
-            elif rc == string.lower (_("Edit")) or result == listbox:
+            elif rc == "edit" or result == listbox:
 		current = listbox.current()
                 user = self.users[current]
-                self.editWindow (user, 1)
+                self.editWindow (user, 
+			_("Change the information for this user."), 1)
                 # if the user id changed, we need to delete the old key
                 # and insert this new one.
                 if user["id"] != current:
@@ -373,17 +404,14 @@ class UsersWindow:
                     listbox.replace (userformat % user, user["id"])
                 self.users [user["id"]] = user
 		listbox.setCurrent(user["id"])
-            elif rc == string.lower (_("OK")):
+            elif rc == "ok" or result == "F12":
                 dir = INSTALL_OK
                 break
-            elif rc == string.lower (_("Back")):
+            elif rc == "back":
                 dir = INSTALL_BACK
                 break
-            elif rc == "F12":
-                dir = INSTALL_OK
-                break
             else:
-                raise NeverGetHereError, "I shouldn't be here..."
+                raise NeverGetHereError, "I shouldn't be here w/ rc %s..." % rc
                 
         screen.popWindow ()
         return dir
@@ -1011,7 +1039,7 @@ class LiloImagesWindow:
 	g.addHotKey("F2")
 
 	result = None
-	while (result != "ok" and result != "back"):
+	while (result != "ok" and result != "back" and result != "F12"):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
@@ -1351,6 +1379,7 @@ class InstallInterface:
             ]
         
         self.installSteps = [
+            [_("User Account Setup"), UsersWindow, (self.screen, todo)],
             [_("Network Setup"), NetworkWindow, (self.screen, todo), 
 		    "network"],
             [_("Time zone Setup"), TimezoneWindow, (self.screen, todo, test)],
@@ -1374,7 +1403,6 @@ class InstallInterface:
             [_("Authentication"), AuthConfigWindow, (self.screen, todo),
 		"authentication" ],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
-            [_("User Account Setup"), UsersWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
