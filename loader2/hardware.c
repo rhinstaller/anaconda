@@ -205,6 +205,35 @@ void updateKnownDevices(struct knownDevices * kd) {
     kdFindNetList(kd, 0);
 }
 
+static int probeVirtualPPCDevs(moduleInfoSet modInfo, moduleList modLoaded, 
+                               moduleDeps modDeps, struct knownDevices * kd, 
+                               int flags) {
+#ifdef __powerpc__
+    int loadveth = 0, loadvscsi = 0;
+    char * buf = NULL;
+
+    if (!access("/proc/device-tree/vdevice/l-lan", F_OK))
+        loadveth = 1;
+    if (!access("/proc/device-tree/vdevice/v-scsi", F_OK))
+        loadvscsi = 1;
+
+    if (loadveth && loadvscsi)
+        buf = strdup("ibmveth:ibmvscsi");
+    else if (loadveth)
+        buf = strdup("ibmveth");
+    else if (loadvscsi)
+        buf = strdup("ibmvscsi");
+
+    if (buf != NULL) {
+	mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
+	updateKnownDevices(kd);
+        free(buf);
+    }
+
+#endif
+    return 0;
+}
+
 int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded, 
 		 moduleDeps modDeps, struct knownDevices * kd, int flags) {
     /* this is a hack since we can't really probe on iSeries */
@@ -270,6 +299,9 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
     /* we can't really *probe* on iSeries, but we can pretend */
     probeiSeries(modInfo, modLoaded, modDeps, kd, flags);
+
+    /* probe power5 virtual devices also (#127705) */
+    probeVirtualPPCDevs(modInfo, modLoaded, modDeps, kd, flags);
     
     if (canProbeDevices()) {
         /* autodetect whatever we can */
