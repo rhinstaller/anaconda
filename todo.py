@@ -674,6 +674,8 @@ class ToDo:
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
                 args = [ "mke2fs", '/tmp/' + device ]
+                if iutil.getArch () == "alpha":
+                    args.append ("-r", "0")
                 # set up raid options for md devices.
                 if device[:2] == 'md':
                     for (rmnt, rdevice, fsType, raidType, makeup) in raid:
