@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: redhat-install\n"
 "POT-Creation-Date: 2000-12-14 13:43-0500\n"
-"PO-Revision-Date: 2000-08-01 22:43+01:00\n"
+"PO-Revision-Date: 2000-12-18 20:41+00:00\n"
 "Last-Translator: Pedro Morais <morais@poli.org>\n"
 "Language-Team: Portuguese <morais@poli.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr "Ocorreu uma Excepção"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr ""
+msgstr "Mensagem de erro escrita"
 
 #: ../exception.py:92
 msgid ""
@@ -188,7 +188,7 @@ msgstr "Instalador do Red Hat Linux em %s"
 
 #: ../gui.py:745
 msgid "Release Notes"
-msgstr ""
+msgstr "Notas de Lançamento"
 
 #: ../gui.py:827
 msgid "Install Window"
@@ -197,7 +197,7 @@ msgstr "Janela de Instalação"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Falta o CD #%d, o qual é necessário para a instalação."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -823,9 +823,8 @@ msgstr ""
 "Reconstrução da base de dados de RPMs falhou. Falta de espaço em disco?"
 
 #: ../todo.py:1032
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "A procurar pacotes para actualizar..."
+msgstr "Ocorreu um erro ao procurar pacotes para actualizar."
 
 #: ../todo.py:1342
 msgid "Processing"
@@ -1050,7 +1049,7 @@ msgstr "Activar LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Utilizar procurar TLS"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:347
 msgid "LDAP Server:"
@@ -1291,9 +1290,8 @@ msgid "Create boot disk"
 msgstr "Criar disco de arranque"
 
 #: ../iw/lilo_gui.py:300
-#, fuzzy
 msgid "Install LILO"
-msgstr "Instalar"
+msgstr "Instalar LILO"
 
 #: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1319,9 +1317,8 @@ msgid "Boot label"
 msgstr "Nome"
 
 #: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Alterar o dispostivo de arranque PROM por omissão"
+msgstr "Imagem de arranque por omissão"
 
 #: ../iw/mouse_gui.py:132 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1345,7 +1342,7 @@ msgstr "Emular 3 Botões"
 
 #: ../iw/mouse_gui.py:143
 msgid "Port"
-msgstr ""
+msgstr "Porta"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:105
 msgid "Network Configuration"
@@ -1405,26 +1402,24 @@ msgid "Total install size: "
 msgstr "Tamanho total da instalação: "
 
 #: ../iw/package_gui.py:367
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Tamanho (Mb):"
+msgstr "Tamanho (MB)"
 
 #: ../iw/package_gui.py:396
-#, fuzzy
 msgid "Total size: "
-msgstr "Tamanho total"
+msgstr "Tamanho total: "
 
 #: ../iw/package_gui.py:399
 msgid "Select all in group"
-msgstr ""
+msgstr "Escolher todos no grupo"
 
 #: ../iw/package_gui.py:403
 msgid "Unselect all in group"
-msgstr ""
+msgstr "DesSeleccionar todos no grupo"
 
 #: ../iw/package_gui.py:436
 msgid "File not found"
-msgstr ""
+msgstr "Ficheiro não encontrado"
 
 #: ../iw/package_gui.py:479 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1448,7 +1443,7 @@ msgstr "A Instalar Pacotes"
 #: ../iw/progress_gui.py:132
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s KBytes"
 
 #: ../iw/progress_gui.py:182 ../iw/progress_gui.py:223
 msgid "Size"
@@ -1609,7 +1604,7 @@ msgstr "Selecção do fuso horário"
 #: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
 #: ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
 msgid "America/New_York"
-msgstr ""
+msgstr "América/Nova_Iorque"
 
 #: ../iw/timezone_gui.py:157
 msgid "View:"
@@ -1648,25 +1643,24 @@ msgid "Test failed"
 msgstr "Teste Falhou"
 
 #: ../iw/xconfig_gui.py:24
-#, fuzzy
 msgid "Customize Graphics Configuration"
-msgstr "Personalizar Configuração do X"
+msgstr "Personalizar Configuração Gráfica"
 
 #: ../iw/xconfig_gui.py:214
 msgid "Color Depth:"
-msgstr ""
+msgstr "Cores:"
 
 #: ../iw/xconfig_gui.py:242
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Resolução do Ecrã:"
 
 #: ../iw/xconfig_gui.py:318
 msgid "   Test Setting   "
-msgstr ""
+msgstr "Testar Configuração"
 
 #: ../iw/xconfig_gui.py:336
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Por favor escolha o seu ambiente de trabalhi por omissão:"
 
 #: ../iw/xconfig_gui.py:346 ../iw/xconfig_gui.py:395
 msgid "GNOME"
@@ -1678,11 +1672,11 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:376
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "O seu ambiente de trabalho é:"
 
 #: ../iw/xconfig_gui.py:428
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Por favor escolha o tipo de autenticação:"
 
 #: ../iw/xconfig_gui.py:478
 msgid "Bits per Pixel"
@@ -1702,7 +1696,7 @@ msgstr "Sincronismo Vertical"
 
 #: ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
 msgid "Restore original values"
-msgstr ""
+msgstr "Restaurar valores originais"
 
 #: ../iw/xconfig_gui.py:1027
 msgid ""
@@ -1731,9 +1725,8 @@ msgid "Autoprobe results:"
 msgstr "Detecção Automática:"
 
 #: ../iw/xconfig_gui.py:1553
-#, fuzzy
 msgid "Video card RAM: "
-msgstr "Placa de Video"
+msgstr "RAM da Placa de Video: "
 
 #: ../iw/xconfig_gui.py:1644
 msgid "Test this configuration"
@@ -1891,14 +1884,12 @@ msgid "Primary nameserver:"
 msgstr "Servidor DNS Primário:"
 
 #: ../textw/network_text.py:73
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Servidor DNS Primário:"
+msgstr "Servidor DNS secundário:"
 
 #: ../textw/network_text.py:74
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Servidor DNS Primário:"
+msgstr "Servidor DNS terciário:"
 
 #: ../textw/network_text.py:122
 msgid "Invalid information"
@@ -1931,7 +1922,7 @@ msgstr "Tamanho :"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -2212,7 +2203,7 @@ msgstr "Pedir servidor por broadcast"
 
 #: ../textw/userauth_text.py:359
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Utilizar ligações TLS"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2227,7 +2218,7 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Portátil"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2625,7 +2616,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1530
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Não consigo apagar /boot"
 
 #: ../libfdisk/gnomefsedit.c:1531
 msgid ""
@@ -2745,7 +2736,6 @@ msgid "Illegal RAID mountpoint"
 msgstr "Ponto de montagem RAID ilegal"
 
 #: ../libfdisk/gnomefsedit.c:2240
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3097,9 +3087,9 @@ msgid "Loading"
 msgstr "A carregar"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "A carregar o ramdisk %s..."
+msgstr "A carregar o controlador %s..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3214,7 +3204,6 @@ msgstr ""
 "algum dispositivo adicional?"
 
 #: ../loader/loader.c:812
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3225,16 +3214,15 @@ msgstr ""
 "carregue em F2 para configurar mais dispositivos."
 
 #: ../loader/loader.c:826
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Directoria que contém o Red Hat:"
+msgstr "Directoria que contém as imagens:"
 
 #: ../loader/loader.c:846
 msgid "Select Partition"
 msgstr "Seleccione Partição"
 
 #: ../loader/loader.c:894
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Dispositivo %s não parece conter uma distribuição de Red Hat."
 
@@ -3332,14 +3320,12 @@ msgid "Reading anaconda updates..."
 msgstr "A ler actualizações ao anaconda..."
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "IDE"
-msgstr "KDE"
+msgstr "IDE"
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "Initializing IDE modules..."
-msgstr "A inicializar o CDROM..."
+msgstr "A inicializar módulos IDE..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3491,21 +3477,20 @@ msgstr "A iniciar dispositivos PC Card..."
 
 #: ../loader/pcmcia.c:91
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:92
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 msgstr "Por favor insira o controlador %s agora."
 
 #: ../loader/pcmcia.c:101
-#, fuzzy
 msgid "Failed to mount disk."
 msgstr "Não consegui montar disquete de controladores."
 
 #: ../loader/pcmcia.c:119
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr ""
+"Essa disquete não parece ser um disco de controladores PCMCIA da Red Hat."
 
 #: ../loader/urls.c:79
 #, c-format
@@ -3558,9 +3543,8 @@ msgid "Web site name:"
 msgstr "Nome do servidor WWW:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
-msgstr "Utilizar ftp não-anónimo ou um servidor de \"proxy\""
+msgstr "Utilizar ftp não-anónimo"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
@@ -3592,7 +3576,6 @@ msgid "%s is not a valid hostname."
 msgstr "%s não é um nome de servidor válido."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -3633,56 +3616,55 @@ msgstr "A carregar controlador SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Mapear Imagem ao ecrã"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Largura do mapa (em pixels)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Activar 'anti-alias'"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Mundo"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "América do Norte"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "América do Sul"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Pacífico"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Europa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "África"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Ásia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Não consigo carregar dados de fuso horário"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Ver:"
+msgstr "Ver: "
 
 msgid "Base"
 msgstr "Base"
@@ -3738,9 +3720,8 @@ msgstr "Servidor Web"
 msgid "DNS Name Server"
 msgstr "Servidor de Nomes DNS"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "Servidor NFS"
+msgstr "Servidor SQL"
 
 msgid "Network Management Workstation"
 msgstr "Estação de Trabalho de Gestão de Rede"
@@ -3759,41 +3740,3 @@ msgstr "Desenvolvimento do Kernel"
 
 msgid "Utilities"
 msgstr "Utilitários"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Erro ao montar %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Não instalar LILO"
-
-#~ msgid "Up"
-#~ msgstr "Subir"
-
-#~ msgid "Name: "
-#~ msgstr "Nome: "
-
-#~ msgid "Package Details"
-#~ msgstr "Detalhes do Pacote"
-
-#~ msgid "Size: "
-#~ msgstr "Tamanho: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Seleccionar Pacote para Instalar"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Confirmar Particionamento"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "O gestor de arranque que o Red Hat usa pode também iniciar outros sistemas "
-#~ "operativos. Insira quais as partições que deseja ser capaz de iniciar e que "
-#~ "nome deseja usar para cada uma delas.\n"
-#~ "\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Servidor SQL Postgres"
