@@ -8,7 +8,7 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
-       misc.o ftp.o
+       misc.o ftp.o kudzustubs.o
 ifneq (ia64, $(ARCH))
 OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
 SLANGLIB = ../minislang/libslang.a
