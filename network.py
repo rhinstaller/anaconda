@@ -279,13 +279,19 @@ class Network:
             return None
 	if not self.primaryNS:
             return
+        myns = self.primaryNS
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
-		if dev.get('bootproto') == "dhcp":
-		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
+                if (dev.get('bootproto') == "dhcp" and
+                    dev.get('onboot') == "yes"):
+		    ret = isys.pumpNetDevice(dev.get('device'))
+                    if ret is None:
+                        continue
+                    myns = ret
                     self.isConfigured = 1
                     break
-		elif dev.get('ipaddr') and dev.get('netmask') and self.gateway is not None:
+                elif (dev.get('ipaddr') and dev.get('netmask') and
+                      self.gateway is not None and dev.get('onboot') == "yes"):
                     try:
                         isys.configNetDevice(dev.get('device'),
                                              dev.get('ipaddr'),
@@ -302,7 +308,7 @@ class Network:
             return None
 
 	f = open("/etc/resolv.conf", "w")
-	f.write("nameserver %s\n" % self.primaryNS)
+	f.write("nameserver %s\n" % myns)
 	f.close()
 	isys.resetResolv()
 	isys.setResolvRetry(1)
