@@ -391,7 +391,7 @@ def deleteAllLogicalPartitions(part, requests):
         request = requests.getRequestByDeviceName(get_partition_name(partition))
         requests.removeRequest(request)
         if request.type == REQUEST_PREEXIST:
-            drive = partition.geom.disk.dev.path[5:]
+            drive = get_partition_drive(partition)
             delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
             requests.addDelete(delete)
             
