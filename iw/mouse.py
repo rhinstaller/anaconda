@@ -140,7 +140,8 @@ class MouseWindow (InstallWindow):
         sorted_mice_keys = self.availableMice.keys()
         sorted_mice_keys.sort ()
 
-	(currentMouse, currentDev) = self.todo.mouse.get()
+        currentDev = self.todo.mouse.getDevice ()
+	(currentMouse, emulate3) = self.todo.mouse.get ()
 
 	deviceList = [ ("/dev/ttyS0 (COM1 under DOS)", "ttyS0" ),
 		    ("/dev/ttyS1 (COM2 under DOS)", "ttyS1" ),
