@@ -224,6 +224,11 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
     copyUpdatesImg(path);
 
+    /* handle product.img now before we copy stage2 over... this allows
+     * us to keep our ramdisk size as small as possible */
+    sprintf(path, "%s/%s/RedHat/base/product.img", prefix, dir ? dir : "");
+    copyProductImg(path);
+
     dest = alloca(strlen(target) + 50);
     sprintf(dest,"/tmp/ramfs/%s", target);
     rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
@@ -243,6 +248,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     return rc;
 }
 
+#if 0 /* Unused now */
 /* mount loopback  second stage image for hard drive install */
 static int mountHDImages(char * prefix, char * dir, int flags, 
 			 char * device, char * mntpoint,
@@ -301,6 +307,7 @@ static int mountHDImages(char * prefix, char * dir, int flags,
 
     return rc;
 }
+#endif
 
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName,  int flags) {
@@ -576,7 +583,8 @@ char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
-void setKickstartHD(struct loaderData_s * loaderData, int argc,
+void setKickstartHD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
     char *partition, *dir;
     poptContext optCon;

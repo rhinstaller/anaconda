@@ -290,7 +290,7 @@ void lm_init (pack_level, flags)
 {
     register unsigned j;
 
-    if (pack_level < 1 || pack_level > 9) warn("bad pack level");
+    if (pack_level < 1 || pack_level > 9) warning("bad pack level");
     compr_level = pack_level;
 
     /* Initialize the hash table. */
@@ -495,7 +495,7 @@ local void check_match(start, match, length)
         fprintf(stderr,
             " start %d, match %d, length %d\n",
             start, match, length);
-        warn("invalid match");
+        warning("invalid match");
     }
     if (verbose > 1) {
         fprintf(stderr,"\\[%d,%d]", start-match, length);

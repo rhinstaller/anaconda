@@ -18,7 +18,8 @@ char * findRedHatCD(char * location,
 		    int requirepkgs);
 
 
-void setKickstartCD(struct loaderData_s * loaderData, int argc,
+void setKickstartCD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr);
 
 int kickstartFromCD(char *kssrc, struct knownDevices * kd, int flags);

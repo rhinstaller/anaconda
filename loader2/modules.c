@@ -94,13 +94,13 @@ static int scsiDiskCount(void) {
 
     devices = probeDevices(CLASS_HD, BUS_SCSI, PROBE_ALL);
     if (devices) {
-        for (i; devices[i]; i++);
+        for (; devices[i]; i++);
         free(devices);
     }
     /* have to probe for usb floppies too */
     devices = probeDevices(CLASS_FLOPPY, BUS_SCSI, PROBE_ALL);
     if (devices) {
-        for (i; devices[i]; i++);
+        for (; devices[i]; i++);
         free(devices);
     }
 
@@ -660,8 +660,6 @@ static int writeModulesConf(moduleList list, int fd) {
         }
     }
 
-    /* JKFIXME: used to have special casing for iucv stuff on s390 */
-
     return 0;
 }
 
@@ -711,22 +709,23 @@ char * getModuleLocation(int version) {
 
     uname(&u);
 
-    if (!arch) {
+    if (!arch && !access(archfile, R_OK)) {
         struct stat sb;
         int fd;
 
-        if (!stat(archfile, &sb)) {
-            arch = malloc(sb.st_size + 1);
+        stat(archfile, &sb);
+        arch = malloc(sb.st_size + 1);
 
-            fd = open(archfile, O_RDONLY);
-            read(fd, arch, sb.st_size);
-            if (arch[sb.st_size -1 ] == '\n')
-                sb.st_size--;
-            arch[sb.st_size] = '\0';
-            close(fd);
-        } else {
-            arch = strdup(u.machine);
-        }
+        fd = open(archfile, O_RDONLY);
+        read(fd, arch, sb.st_size);
+        if (arch[sb.st_size -1 ] == '\n')
+            sb.st_size--;
+        arch[sb.st_size] = '\0';
+        close(fd);
+    } else if (!arch) {
+        logMessage("can't find arch file %s, defaulting to %s", archfile, 
+                   u.machine);
+        arch = strdup(u.machine);
     }
 
     if (version == 1) {
@@ -895,8 +894,9 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
     return rc;
 }
 
-void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr) {
+void loadKickstartModule(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
+                         char ** argv, int * flagsPtr) {
     char * opts = NULL;
     char * module = NULL;
     char * type = NULL;
@@ -912,6 +912,7 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     optCon = poptGetContext(NULL, argc, (const char **) argv, 
                             ksDeviceOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
+        startNewt(flags);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to device kickstart method "
                          "command %s: %s"),

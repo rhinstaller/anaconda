@@ -71,13 +71,61 @@ def addIfNeeded(pkg):
             pkgHash[pkg.name].append(pkg)
             pkgOrder.append(pkg.nevra())
 
-        
+
+outputted = []
+# Now set up rpm to run the transaction deporder
+testpath = '/tmp/pkgorder-' + str (os.getpid ())
+os.system ("mkdir -p " + testpath + "/var/lib/rpm")
+
+def runTsAndOutput(pkglist):
+    global outputted
+
+    # no sense trying with no packages
+    if len(pkglist) == 0:
+        return
+    
+    ts = rpm.TransactionSet(testpath)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+
+    for item in pkglist:
+#        print >> sys.stderr, "adding %s" %(item.name,)
+        ts.addInstall(item.hdr, item.hdr, "i")
+
+    ts.check()
+    ts.order()
+
+    theorder = ts.getKeys()
+    if theorder is None: theorder = []
+    # print the results.
+    for p in theorder:
+        def archSort(hdr1, hdr2):
+            h1 = hdlist[hdr1[0]]
+            h2 = hdlist[hdr2[0]]
+            
+            if rhpl.arch.score(h1['arch']) > rhpl.arch.score(h2['arch']):
+                return -1
+            elif rhpl.arch.score(h1['arch']) < rhpl.arch.score(h2['arch']):
+                return 1
+            return 0
+    
+        if p['name'] in outputted:
+            continue
+        outputted.append(p['name'])
+        pkgs = hdlist.pkgnames[p['name']]
+        pkgs.sort(archSort)
+        for pnevra in pkgs:
+            pkg = hdlist.pkgs[pnevra[0]]
+            print "%s-%s-%s.%s.rpm" % (pkg['name'], pkg['version'],
+                                       pkg['release'], pkg['arch'])
+    
+
 
 # set PKGORDER_DEBUG to get rpm debugging
 if os.environ.has_key("PKGORDER_DEBUG"):
     rpm.setVerbosity(rpm.RPMLOG_DEBUG)
 
-if len(sys.argv) != 3:
+if len(sys.argv) < 3:
     print "pkgorder <toppath> <arch>"
     sys.exit(1)
 
@@ -111,12 +159,14 @@ pkgOrder = []
 pkgHash = {}
 
 # We always want all the kernels-.* in our package list, except for a few
-for package in hdlist.keys():
+for p in hdlist.values():
+    package = p['name']
     if (package.startswith("kernel") and
-        not package.startswith("kernel-doc") and
-        not package.startswith("kernel-source") and
-        not package.startswith("kernel-debug")):
+        package in hdrlist.EverythingExclude.keys() and
+        not package.endswith("-unsupported")):
         try:
+            # FIXME: since we do unselect all at the end of the loop, these
+            # stay selected for the first time through
             hdlist[package].select()
         except:
             print package
@@ -131,12 +181,18 @@ tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
 
 grpids = grpset.groups.keys()
 grpids.sort()
-    
-# FIXME: this is a hack to get things we want to be first on the CDs earlier
-# in a more perfect world, we'd read the installclasses to do this
-complist = ["core", "base", "text-internet", "web-server",
-            "smb-server", "printing", "dialup", "server-cfg",
-            "admin-tools"]
+
+# allow passing in an initial group list on the command line
+if len(sys.argv) > 3:
+    complist = sys.argv[3:]
+else:
+    complist = []
+# then we add the things we have hard-coded.  this is kind of ugly and in
+# a perfect world, we could figure it out automagically, but oh well
+for g in ("core", "base", "text-internet", "web-server",
+          "smb-server", "printing", "dialup", "server-cfg",
+          "admin-tools"):
+    if g not in complist: complist.append(g)
 # now let's pull in all of workstation common
 if grpset.groups.has_key("workstation-common"):
     comp = grpset.groups["workstation-common"]
@@ -145,10 +201,10 @@ if grpset.groups.has_key("workstation-common"):
         if name not in complist:
             complist.append(name)
 # a couple more that make sense to have early
-complist.extend(["gnome-desktop", "emacs", "development-tools",
-                 "development-libs", "x-software-development",
-                 "gnome-software-development", "kde-desktop",
-                 "kde-software-development"])
+for g in ("gnome-desktop", "emacs", "development-tools", "development-libs",
+          "x-software-development", "gnome-software-development",
+          "kde-desktop", "kde-software-development"):
+    if g not in complist: complist.append(g)
         
 latelangs = []
 for id in grpids:
@@ -171,7 +227,6 @@ for id in complist:
     group = grpset.groups[id]
     list = []
 
-    grpset.unselectAll()
     group.select()
 
     # append what got turned on to our order.
@@ -179,9 +234,15 @@ for id in complist:
         if p.isSelected():
             list.append(p)
     list.sort(cmpHeaderByName)
+
+#    print >> sys.stderr, id
     for item in list:
         addIfNeeded(item)
 
+    runTsAndOutput(list)
+    grpset.unselectAll()
+    
+    
 # add all of the packages that haven't been added yet.
 list = []
 for p in hdlist.pkgs.values():
@@ -192,57 +253,9 @@ for item in list:
     if item.nevra() not in pkgOrder:
         pkgOrder.append(item.nevra())
 
-# Now set up rpm to run the transaction deporder
-testpath = '/tmp/pkgorder-' + str (os.getpid ())
-os.system ("mkdir -p " + testpath + "/var/lib/rpm")
-
-ts = rpm.TransactionSet(testpath)
-ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
-# ts coloring, more hacks to workaround #92285
-if (rhpl.arch.canonArch.startswith("ppc64") or
-    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
-    ts.setColor(3)
-
-i = 0
-for h in pkgOrder:
-#    sys.stderr.write("%s: %s\n" %(i, h))
-    i += 1
-    ts.addInstall(hdlist[h].hdr, hdlist[h].hdr, 'i')
-pkgOrder = []
-
-# we have to run ts.check() before ts.order() now to set up the
-# alIndex.  
-ts.check()
-ts.order()
-
-# Get the order back out...
-try:
-    pkgOrder = ts.getKeys()
-except AttributeError:
-    print "you don't have the latest RPM!"
-    sys.exit(1)
-
-outputted = []
-# print the results.
+list = []
 for p in pkgOrder:
-    def archSort(hdr1, hdr2):
-        h1 = hdlist[hdr1[0]]
-        h2 = hdlist[hdr2[0]]
-        
-        if rhpl.arch.score(h1['arch']) > rhpl.arch.score(h2['arch']):
-            return -1
-        elif rhpl.arch.score(h1['arch']) < rhpl.arch.score(h2['arch']):
-            return 1
-        return 0
-    
-    if p['name'] in outputted:
-        continue
-    outputted.append(p['name'])
-    pkgs = hdlist.pkgnames[p['name']]
-    pkgs.sort(archSort)
-    for pnevra in pkgs:
-        pkg = hdlist.pkgs[pnevra[0]]
-        print "%s-%s-%s.%s.rpm" % (pkg['name'], pkg['version'],
-                                   pkg['release'], pkg['arch'])
+    list.append(hdlist[p])
+
+runTsAndOutput(list)
 

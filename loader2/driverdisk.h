@@ -21,7 +21,12 @@ int getRemovableDevices(char *** devNames);
 int chooseManualDriver(int class, moduleList modLoaded, 
                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                        struct knownDevices * kd, int flags);
-void useKickstartDD(struct loaderData_s * loaderData, int argc, 
+void useKickstartDD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc, 
                     char ** argv, int * flagsPtr);
+
+void getDDFromSource(struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
+                     char * src, int flags);
 
 #endif

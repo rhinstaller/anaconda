@@ -121,7 +121,6 @@ static unsigned long long calc_pdcblock_offset (int fd) {
 static int read_disk_sb (int fd, unsigned char *buffer,int bufsize)
 {
 	int ret = -1;
-	char bh[4096];
 	unsigned long long sb_offset;
 	
 	/*
@@ -152,14 +151,8 @@ static unsigned int calc_sb_csum (unsigned int* ptr)
 	return sum;
 }
 
-static int check_disk_sb (void)
-{
-	return 0;
-}
-
 int pdc_dev_running_raid(int fd)
 {
-	int i;
 	struct promise_raid_conf *prom;
 	unsigned char block[4096];
 

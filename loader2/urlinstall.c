@@ -99,6 +99,16 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         unlink("/tmp/ramfs/updates-disk.img");
     }
 
+    /* grab the product.img before netstg1.img so that we minimize our
+     * ramdisk usage */
+    if (!loadSingleUrlImage(ui, "RedHat/base/product.img", flags,
+                            "/tmp/ramfs/product-disk.img", "/tmp/product-disk",
+                            "loop7", 1)) {
+        copyDirectory("/tmp/product-disk", "/tmp/product");
+        umountLoopback("/tmp/product-disk", "loop7");
+        unlink("/tmp/ramfs/product-disk.img");
+    }
+
     /* require 128MB for use of graphical stage 2 due to size of image */
     if (FL_TEXT(flags) || totalMemory() < 128000) {
 	stage2img = "netstg2.img";
@@ -297,16 +307,15 @@ char * mountUrlImage(struct installMethod * method,
     return url;
 }
 
-/* pull kickstart configuration file via http */
-int kickstartFromUrl(char * url, struct knownDevices * kd,
-                     struct loaderData_s * loaderData, int flags) {
+int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
+                   struct loaderData_s * loaderData, int flags) {
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
     char * host = NULL, * file = NULL, * chptr = NULL;
     int fd, rc;
     struct networkDeviceConfig netCfg;
-    char *ehdrs;
+    char * ehdrs;
 
     if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
@@ -367,15 +376,16 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     }
 	
     fd = urlinstStartTransfer(&ui, file, ehdrs, 1);
+
     if (fd < 0) {
         logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
     }
            
-    rc = copyFileFd(fd, "/tmp/ks.cfg");
+    rc = copyFileFd(fd, dest);
     if (rc) {
-        unlink ("/tmp/ks.cfg");
-        logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+        unlink (dest);
+        logMessage("failed to copy file to %s", dest);
         return 1;
     }
 
@@ -384,7 +394,14 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     return 0;
 }
 
-void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+/* pull kickstart configuration file via http */
+int kickstartFromUrl(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags) {
+    return getFileFromUrl(url, "/tmp/ks.cfg", kd, loaderData, flags);
+}
+
+void setKickstartUrl(struct knownDevices * kd, 
+                     struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
     char *url;

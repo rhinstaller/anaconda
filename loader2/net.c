@@ -31,6 +31,7 @@
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
+#include "../isys/net.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -115,7 +116,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
-static void waitForLink(char * dev) {
+static int waitForLink(char * dev) {
     int tries = 0;
 
     /* try to wait for a valid link -- if the status is unknown or
@@ -129,7 +130,9 @@ static void waitForLink(char * dev) {
         tries++;
     }
     logMessage("%d seconds.", tries);
-    /* JKFIXME: arguably, we shouldn't let you use nics without link */
+    if (tries < 5)
+        return 0;
+    return 1;
 }
 
 void initLoopback(void) {
@@ -288,6 +291,43 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     if (loaderData->ptpaddr && (inet_aton(loaderData->ptpaddr, &addr))) {
         cfg->dev.ptpaddr = addr;
         cfg->dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+    }
+
+    if (loaderData->ethtool) {
+        char * option, * buf;
+        ethtool_duplex duplex = ETHTOOL_DUPLEX_UNSPEC;
+        ethtool_speed speed = ETHTOOL_SPEED_UNSPEC;
+
+        buf = strdup(loaderData->ethtool);
+        option = strtok(buf, " ");
+        while (option) {
+            if (option[strlen(option) - 1] == '\"')
+                option[strlen(option) - 1] = '\0';
+            if (option[0] == '\"')
+                option++;
+            if (!strncmp(option, "duplex=", 7)) {
+                if (!strncmp(option + 7, "full", 4)) 
+                    duplex = ETHTOOL_DUPLEX_FULL;
+                else if (!strncmp(option + 7, "half", 4))
+                    duplex = ETHTOOL_DUPLEX_HALF;
+                else
+                    logMessage("Unknown duplex setting: %s", option + 7);
+            } else if (!strncmp("speed=", option, 6)) {
+                if (!strncmp(option + 6, "1000", 4))
+                    speed = ETHTOOL_SPEED_1000;
+                else if (!strncmp(option + 6, "100", 3))
+                    speed = ETHTOOL_SPEED_100;
+                else if (!strncmp(option + 6, "10", 4))
+                    speed = ETHTOOL_SPEED_10;
+                else
+                    logMessage("Unknown speed setting: %s", option + 6);
+            } else {
+                logMessage("Unknown ethtool setting: %s", option);
+            }
+            option = strtok(NULL, " ");
+        }
+        setEthtoolSettings(loaderData->netDev, speed, duplex);
+        free(buf);
     }
 
     cfg->noDns = loaderData->noDns;
@@ -540,7 +580,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "MTU=%d\n", dev->dev.mtu);
     if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
         fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.ptpaddr));
-
+    
     fclose(f);
 
     return 0;
@@ -614,9 +654,10 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     return 0;
 }
 
-void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+void setKickstartNetwork(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
-    char * arg, * bootProto = NULL, * device = NULL;;
+    char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL;
     int noDns = 0, rc;
     poptContext optCon;
 
@@ -629,6 +670,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
         { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
         { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
+        { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
@@ -657,7 +699,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
             break;
         }
     }
-
+    
     if (rc < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to kickstart network command %s: %s"),
@@ -692,6 +734,13 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         loaderData->netDev_set = 1;
     }
 
+    if (ethtool) {
+        if (loaderData->ethtool)
+            free(loaderData->ethtool);
+        loaderData->ethtool = strdup(ethtool);
+        free(ethtool);
+    }
+
     if (noDns) {
         loaderData->noDns = 1;
     }
@@ -715,7 +764,6 @@ int chooseNetworkInterface(struct knownDevices * kd,
     for (i = 0; i < kd->numKnown; i++) {
         if (kd->known[i].class != CLASS_NETWORK)
             continue;
-
         if (kd->known[i].model) {
                 deviceNames[deviceNums] = alloca(strlen(kd->known[i].name) +
                                           strlen(kd->known[i].model) + 4);
@@ -728,9 +776,6 @@ int chooseNetworkInterface(struct knownDevices * kd,
             devices[deviceNums] = kd->known[i].name;
             deviceNames[deviceNums++] = kd->known[i].name;
         }
-
-        /* make sure that this device is disabled */
-        pumpDisableInterface(kd->known[i].name);
 
         /* this device has been set and we don't really need to ask 
          * about it again... */
@@ -757,7 +802,26 @@ int chooseNetworkInterface(struct knownDevices * kd,
         return LOADER_NOOP;
     }
 
+    if ((loaderData->netDev && (loaderData->netDev_set) == 1) &&
+        !strcmp(loaderData->netDev, "link")) {
+        logMessage("looking for first netDev with link");
+        for (rc = 0; rc < 5; rc++) {
+            for (i = 0; i < deviceNums; i++) {
+                if (get_link_status(devices[i]) == 1) {
+                    loaderData->netDev = devices[i];
+                    logMessage("%s has link, using it", devices[i]);
+                    return LOADER_NOOP;
+                }
+            }
+            sleep(1);
+        }
+        logMessage("wanted netdev with link, but none present.  prompting");
+    }
+
     startNewt(flags);
+
+    if (max > 70)
+        max = 70;
 
     /* JKFIXME: should display link status */
     deviceNum = 0;
@@ -770,6 +834,14 @@ int chooseNetworkInterface(struct knownDevices * kd,
         return LOADER_BACK;
 
     loaderData->netDev = devices[deviceNum];
+
+    /* turn off the non-active interface.  this should keep things from
+     * breaking when we need the interface to do the install as long as
+     * you keep using that device */
+    for (i = 0; i < deviceNums; i++) {
+        if (strcmp(loaderData->netDev, devices[i]))
+            pumpDisableInterface(kd->known[i].name);
+    }
 
     return LOADER_OK;
 }

@@ -143,8 +143,8 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* extraHeaders only applicable for http and used for pulling ks from http */
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
-int urlinstStartTransfer(struct iurlinfo * ui, char * filename, char *extraHeaders,
-                         int silentErrors) {
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
+                         char *extraHeaders, int silentErrors) {
     char * buf;
     int fd;
     char * finalPrefix;
@@ -265,8 +265,10 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtTextboxSetText(text, reflowedText);
     free(reflowedText);
 
-    siteEntry = newtEntry(22, 8, site, 24, &site, NEWT_ENTRY_SCROLL);
-    dirEntry = newtEntry(22, 9, dir, 24, &dir, NEWT_ENTRY_SCROLL);
+    siteEntry = newtEntry(22, 8, site, 24, (const char **) &site, 
+                          NEWT_ENTRY_SCROLL);
+    dirEntry = newtEntry(22, 9, dir, 24, (const char **) &dir, 
+                         NEWT_ENTRY_SCROLL);
 
     entryGrid = newtCreateGrid(2, 2);
     newtGridSetField(entryGrid, 0, 0, NEWT_GRID_COMPONENT,
@@ -407,14 +409,15 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     free(reflowedText);
 
     if (protocol == URL_METHOD_FTP) {
-        accountEntry = newtEntry(-1, -1, NULL, 24, &account, 
+        accountEntry = newtEntry(-1, -1, NULL, 24, (const char **) &account, 
                                  NEWT_FLAG_SCROLL);
-        passwordEntry = newtEntry(-1, -1, NULL, 24, &password, 
+        passwordEntry = newtEntry(-1, -1, NULL, 24, (const char **) &password, 
                                   NEWT_FLAG_SCROLL | NEWT_FLAG_PASSWORD);
     }
-    proxyEntry = newtEntry(-1, -1, ui->proxy, 24, &proxy, NEWT_ENTRY_SCROLL);
-    proxyPortEntry = newtEntry(-1, -1, ui->proxyPort, 6, &proxyPort,
-                               NEWT_FLAG_SCROLL);
+    proxyEntry = newtEntry(-1, -1, ui->proxy, 24, (const char **) &proxy, 
+                           NEWT_ENTRY_SCROLL);
+    proxyPortEntry = newtEntry(-1, -1, ui->proxyPort, 6, 
+                               (const char **) &proxyPort, NEWT_FLAG_SCROLL);
 
     entryGrid = newtCreateGrid(2, 4);
     if (protocol == URL_METHOD_FTP) {

@@ -48,6 +48,7 @@ makeBootImages() {
     cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
     mkisofs -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V -T $TOPDESTPATH/images/isopath
     rm -rf $TOPDESTPATH/images/isopath
+    rm -f $TOPDESTPATH/images/ramdisk.img
 }
 
 makeSecondStage() {

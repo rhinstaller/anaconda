@@ -20,7 +20,9 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
+#ifdef WITH_ATARAID
 static int ataraidGetDevices(struct knownDevices * devices);
+#endif
 static int viodGetDevices(struct knownDevices * devices);
 /* Added support for I2O Block devices: Boji Kannanthanam
        <boji.t.Kannanthanam@intel.com> */
@@ -568,7 +570,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     CompaqSmartArray5300GetDevices(devices);
     viodGetDevices(devices);
     /* we can't really sanely do ataraid devs yet (#82848) */
-#if 0
+#if WITH_ATARAID
     ataraidGetDevices(devices);
 #endif
 
@@ -766,6 +768,7 @@ static int ProcPartitionsGetDevices(struct knownDevices * devices) {
     return 0;
 }
 
+#ifdef WITH_ATARAID
 static int ataraidGetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;
     int fd, i;
@@ -856,6 +859,7 @@ static int ataraidGetDevices(struct knownDevices * devices) {
     free (buf);
     return 0;
 }
+#endif
 
 
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {

@@ -9,7 +9,8 @@ struct nfsInstallData {
 };
 
 
-void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+void setKickstartNfs(struct knownDevices * kd, 
+                     struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr);
 int kickstartFromNfs(char * url, struct knownDevices * kd,
                      struct loaderData_s * loaderData, int flags);
@@ -18,6 +19,7 @@ char * mountNfsImage(struct installMethod * method,
                      struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDepsPtr, int flags);
-
+int getFileFromNfs(char * url, char * dest, struct knownDevices * kd,
+                   struct loaderData_s * loaderData, int flags);
 
 #endif

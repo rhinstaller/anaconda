@@ -387,7 +387,8 @@ char * mountCdromImage(struct installMethod * method,
     return setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1, 1);
 }
 
-void setKickstartCD(struct loaderData_s * loaderData, int argc,
+void setKickstartCD(struct knownDevices * kd, 
+                    struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
     logMessage("kickstartFromCD");

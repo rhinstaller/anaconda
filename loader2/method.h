@@ -32,8 +32,10 @@ void umountStage2(void);
 int mountStage2(char * path);
 int copyFileAndLoopbackMount(int fd, char * dest, int flags,
                              char * device, char * mntpoint);
+int getFileFromBlockDevice(char *device, char *path, char * dest);
 
 void copyUpdatesImg(char * path);
+void copyProductImg(char * path);
 int copyDirectory(char * from, char * to);
 
 void setMethodFromCmdline(char * arg, struct loaderData_s * ld);

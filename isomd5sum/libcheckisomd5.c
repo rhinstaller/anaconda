@@ -188,7 +188,7 @@ static int checkmd5sum(int isofd, char *mediasum, char *computedsum, int quiet) 
     }
 
     if (!quiet) {
-	printf("\b\b\b\b\b\b\n\n", (100.0*offset)/(isosize-skipsectors*2048.0));
+	printf("\b\b\b\b\b\b\n%05.1f\n", (100.0*offset)/(isosize-skipsectors*2048.0));
     }
 
     sleep(1);
@@ -232,7 +232,6 @@ static void readCB(void *co, long long pos) {
 
 static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported, int quiet) {
     int rc;
-    int llen;
     int skipsectors;
 
     if (parsepvd(isofd, mediasum, &skipsectors, isosize, supported) < 0) {
@@ -253,7 +252,6 @@ int mediaCheckFile(char *file, int quiet) {
     int rc;
     char *result;
     unsigned char mediasum[33], computedsum[33];
-    char tmpstr[256];
     long long isosize;
     int supported;
 
@@ -288,14 +286,11 @@ int mediaCheckFile(char *file, int quiet) {
     return rc;
 }
 
-int printMD5SUM(char *file) {
+void printMD5SUM(char *file) {
     int isofd;
     char mediasum[64];
-    char computedsum;
     long long isosize;
     int supported;
-    int rc;
-    int llen;
     int skipsectors;
 
     isofd = open(file, O_RDONLY);

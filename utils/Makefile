@@ -7,9 +7,9 @@ ISYSLIB=isys
 
 LOADERDIR = ../loader2
 LOADLIBES =  -lpopt
-CFLAGS = -Wall -g -I.. -I$(LOADERDIR)
+CFLAGS = -Wall -g -I.. -I$(LOADERDIR) -Werror
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
-LDFLAGS = -g -static
+LDFLAGS = -g
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all

@@ -501,6 +501,15 @@ void copyUpdatesImg(char * path) {
     }
 }
 
+void copyProductImg(char * path) {
+    if (!access(path, R_OK)) {
+        if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
+            copyDirectory("/tmp/product-disk", "/tmp/product");
+            umountLoopback("/tmp/product-disk", "loop7");
+        }
+    }
+}
+
 
 /* verify that the stamp files in / of the initrd and the stage2 match */
 int verifyStamp(char * path) {
@@ -571,6 +580,10 @@ int mountStage2(char * path) {
 
     /* JKFIXME: this is kind of silly.. /mnt/source is hardcoded :/ */
     copyUpdatesImg("/mnt/source/RedHat/base/updates.img");
+
+    /* more hard coding */
+    copyProductImg("/mnt/source/RedHat/base/product.img");
+
     return 0;
 }
 
@@ -583,7 +596,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %lld bytes to %s (%s)", sb.st_size, dest, 
+    logMessage("copied %jd bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {
@@ -601,6 +614,45 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
     }
 
     return 0;
+}
+
+/* given a device name (w/o '/dev' on it), try to get a file */
+/* Error codes: 
+      1 - could not create device node
+      2 - could not mount device as ext2, vfat, or iso9660
+      3 - file named path not there
+*/
+int getFileFromBlockDevice(char *device, char *path, char * dest) {
+    int rc;
+    char file[4096];
+
+    logMessage("getFileFromBlockDevice(%s, %s)", device, path);
+
+    if (devMakeInode(device, "/tmp/srcdev"))
+        return 1;
+
+    if ((doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", 1, 0, NULL, NULL, 0, 0)) && 
+        doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", 1, 0, NULL, NULL, 0, 0) && 
+        doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
+        logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
+        return 2;
+    }
+
+    snprintf(file, sizeof(file), "/tmp/mnt/%s", path);
+    logMessage("Searching for file on path %s", file);
+    
+    if (access(file, R_OK)) {
+	rc = 3;
+    } else {
+	copyFile(file, dest);
+	rc = 0;
+	logMessage("file copied to %s", dest);
+    }    
+
+    umount("/tmp/mnt");
+    unlink("/tmp/mnt");
+    unlink("/tmp/srcdev");
+    return rc;
 }
 
 void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {

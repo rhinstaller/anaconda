@@ -27,12 +27,16 @@
 #include "log.h"
 #include "loadermisc.h"
 #include "lang.h"
+#include "method.h"
 #include "modules.h"
 #include "moduledeps.h"
 #include "moduleinfo.h"
 #include "windows.h"
 #include "hardware.h"
 #include "driverdisk.h"
+
+#include "nfsinstall.h"
+#include "urlinstall.h"
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"
@@ -111,6 +115,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "/tmp/ramfs/DD-%d", disknum);
     mkdirChain(file);
 
+    startNewt(flags);
     winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
@@ -398,23 +403,71 @@ int loadDriverDisks(int class, moduleList modLoaded,
     return LOADER_OK;
 }
 
-void useKickstartDD(struct loaderData_s * loaderData, int argc, 
-                    char ** argv, int * flagsPtr) {
+static void loadFromLocation(struct knownDevices * kd,
+                            struct loaderData_s * loaderData, 
+                            char * dir, int flags) {
+    if (verifyDriverDisk(dir, flags) == LOADER_BACK) {
+        logMessage("not a valid driver disk");
+        return;
+    }
+
+    loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
+                   loaderData->modDepsPtr, dir, flags);
+    busProbe(loaderData->modInfo, loaderData->modLoaded, *
+             loaderData->modDepsPtr, 0, kd, flags);
+}
+
+void getDDFromSource(struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
+                     char * src, int flags) {
+    if (!strncmp(src, "nfs:", 4)) {
+        if (getFileFromNfs(src + 4, "/tmp/dd.img", kd, loaderData, 
+                           flags)) {
+            logMessage("unable to retrieve driver disk: %s", src);
+            return;
+        }
+    } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http://", 7)) {
+        if (getFileFromUrl(src, "/tmp/dd.img", kd, loaderData, flags)) {
+            logMessage("unable to retrieve driver disk: %s", src);
+            return;
+        }
+    } else {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Unknown driver disk kickstart source: %s"), src);
+        return;
+    }
+    if (!mountLoopback("/tmp/dd.img", "/tmp/drivers", "loop6")) {
+        loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
+        umountLoopback("/tmp/drivers", "loop6");
+        unlink("/tmp/drivers");
+        unlink("/tmp/dd.img");
+    }
+
+}
+
+static void getDDFromDev(struct knownDevices * kd,
+                         struct loaderData_s * loaderData, char * dev, 
+                         char * fstype, int flags);
+
+void useKickstartDD(struct knownDevices * kd, struct loaderData_s * loaderData,
+                    int argc, char ** argv, int * flagsPtr) {
     char * fstype = NULL;
     char * dev = NULL;
+    char * src;
     poptContext optCon;
     int rc;
     int flags = *flagsPtr;
     struct poptOption ksDDOptions[] = {
         { "type", '\0', POPT_ARG_STRING, &fstype, 0 },
+        { "source", '\0', POPT_ARG_STRING, &src, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to driver disk kickstart method "
-                         "command %s: %s"),
+                       _("The following invalid argument was specified for "
+                         "the kickstart driver disk command: %s:%s"),
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
         return;
@@ -422,13 +475,21 @@ void useKickstartDD(struct loaderData_s * loaderData, int argc,
 
     dev = (char *) poptGetArg(optCon);
 
-    if (!dev) {
+    if (!dev && !src) {
         logMessage("bad arguments to kickstart driver disk command");
         return;
     }
 
-    /* JKFIXME: this duplicated a bit more code than I'd like but I don't 
-     * want to change the main driver disk code at this point */
+    if (dev) {
+        return getDDFromDev(kd, loaderData, dev, fstype, flags);
+    } else {
+        return getDDFromSource(kd, loaderData, src, flags);
+    }
+}
+
+static void getDDFromDev(struct knownDevices * kd,
+                         struct loaderData_s * loaderData, char * dev, 
+                        char * fstype, int flags) {
     devMakeInode(dev, "/tmp/dddev");
     if (fstype) {
         if (!doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
@@ -447,14 +508,8 @@ void useKickstartDD(struct loaderData_s * loaderData, int argc,
         }
     }
 
-    rc = verifyDriverDisk("/tmp/drivers", flags);
-    if (rc == LOADER_BACK) {
-        logMessage("not a valid driver disk");
-        umount("/tmp/drivers");
-        return;
-    }
-
-    rc = loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
-                        loaderData->modDepsPtr, "/tmp/drivers", flags);
+    loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
     umount("/tmp/drivers");
+    unlink("/tmp/drivers");
+    unlink("/tmp/dddev");
 }

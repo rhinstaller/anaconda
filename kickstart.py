@@ -425,13 +425,14 @@ class KickstartBase(BaseInstallClass):
 	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
-		  'nodns', 'device=', 'hostname='])
+		  'nodns', 'device=', 'hostname=', 'ethtool='])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
 	gateway = ""
 	nameserver = ""
 	hostname = ""
+        ethtool = ""
         device = None
 	for n in args:
 	    (str, arg) = n
@@ -449,8 +450,10 @@ class KickstartBase(BaseInstallClass):
 		device = arg
 	    elif str == "--hostname":
 		hostname = arg
+            elif str== "--ethtool":
+                ethtool = arg
 
-	self.setNetwork(id, bootProto, ip, netmask, device=device)
+	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device)
 	if hostname != "":
 	    self.setHostname(id, hostname)
         if nameserver != "":
@@ -759,6 +762,15 @@ class KickstartBase(BaseInstallClass):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
         self.setDefaultPartitioning(id, doClear = 0)
+
+        id.partitions.isKickstart = 1
+
+        self.skipSteps.append("partition")
+        self.skipSteps.append("partitionmethod")
+        self.skipSteps.append("partitionmethodsetup")
+        self.skipSteps.append("fdisk")
+        self.skipSteps.append("autopartition")
+        
 
     def defineLogicalVolume(self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',

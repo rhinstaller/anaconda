@@ -14,7 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os, iutil
+import os, sys, iutil
 import string
 import language
 
@@ -180,6 +180,11 @@ class BaseInstallClass:
         if cmdline.find("noupgrade") != -1:
             dispatch.skipStep("findrootparts")
 
+        # if there's only one install class, it doesn't make much sense
+        # to show it
+        if availableClasses() < 2:
+            dispatch.skipStep("installtype")
+
     # called from anaconda so that we can skip steps in the headless case
     # in a perfect world, the steps would be able to figure this out
     # themselves by looking at instdata.headless.  but c'est la vie.
@@ -285,7 +290,7 @@ class BaseInstallClass:
 
         id.auth.enableCache = enableCache
 
-    def setNetwork(self, id, bootProto, ip, netmask, device = None):
+    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None):
 	if bootProto:
 	    devices = id.network.available ()
 	    if (devices and bootProto):
@@ -349,7 +354,7 @@ class BaseInstallClass:
 
         # XXX they could have sensitive hardware, but we need this info =\
         videohw = videocard.VideoCardInfo()
-        if videohw:
+        if videohw and iutil.getArch() != "ppc": # XXX hack for ppc
             id.setVideoCard(videohw)
             
         if (not noProbe):
@@ -358,7 +363,7 @@ class BaseInstallClass:
             if monitorhw:
                 id.setMonitor(monitorhw)
 
-        if id.videocard and not id.videocard.primaryCard().getXServer():
+        if id.videocard and not id.videocard.primaryCard().getXServer() and iutil.getArch() != "ppc": # XXX hack for ppc
             if (card != None):
                 vc = id.videocard.locateVidcardByName(card)
             elif (server != None):
@@ -527,8 +532,14 @@ def availableClasses(showHidden=0):
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
+    elif os.access("/tmp/product/installclasses", os.R_OK):
+        path = "/tmp/product/installclasses"
     else:
 	path = "/usr/lib/anaconda/installclasses"
+
+    # append the location of installclasses to the python path so we
+    # can import them
+    sys.path.append(path)
 
     files = os.listdir(path)
     done = {}

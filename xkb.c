@@ -206,11 +206,9 @@ int main (int argc, char **argv)
 {
   int major, minor, event, error, reason;
   int max;
-  int i;
   Display *dpy;
   XkbComponentNamesRec ptrns = { NULL, NULL, NULL, NULL, NULL, "*" };
   XkbComponentListPtr comps;
-  XkbDescPtr xkb;
 
 
   major = XkbMajorVersion;

@@ -43,6 +43,7 @@
 #include "md-int.h"
 #include "imount.h"
 #include "isys.h"
+#include "net.h"
 #include "probe.h"
 #include "smp.h"
 #include "lang.h"

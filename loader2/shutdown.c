@@ -32,6 +32,14 @@ extern int testing;
 void disableSwap(void);
 void unmountFilesystems(void);
 
+void rebootHandler(int signum) {
+    printf("rebooting system\n");
+#if USE_MINILIBC
+    reboot(0xfee1dead, 672274793, 0x1234567);
+#else
+    reboot(RB_AUTOBOOT);
+#endif
+}
 
 void shutDown(int noKill, int doReboot) {
     sync(); sync();
@@ -65,7 +73,8 @@ void shutDown(int noKill, int doReboot) {
 #endif
     } else {
 	printf("you may safely reboot your system\n");
-	reboot(RB_HALT_SYSTEM);
+        signal(SIGINT, rebootHandler);
+        while (1);
     }
 
     exit(0);

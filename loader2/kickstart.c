@@ -52,7 +52,8 @@
 struct ksCommandNames {
     int code;
     char * name;
-    void (*setupData) (struct loaderData_s *loaderData,
+    void (*setupData) (struct knownDevices * kd, 
+                       struct loaderData_s *loaderData,
                        int argc, char ** argv, int * flagsPtr);
 } ;
 
@@ -61,13 +62,17 @@ struct ksCommand {
     char ** argv;
 };
 
-static void setTextMode(struct loaderData_s * loaderData, int argc, 
+static void setTextMode(struct knownDevices * kd, 
+                        struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr);
-static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
-                        char ** argv, int * flagsPtr);
-static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
+static void setGraphicalMode(struct knownDevices * kd,
+                             struct loaderData_s * loaderData, int argc, 
+                             char ** argv, int * flagsPtr);
+static void setCmdlineMode(struct knownDevices * kd, 
+                           struct loaderData_s * loaderData, int argc, 
                            char ** argv, int * flagsPtr);
-void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
+void loadKickstartModule(struct knownDevices * kd, 
+                         struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
 struct ksCommandNames ksTable[] = {
@@ -274,35 +279,7 @@ int kickstartFromFloppy(char *kssrc, int flags) {
       3 - kickstart file named path not there
 */
 int getKickstartFromBlockDevice(char *device, char *path) {
-    int rc;
-    char ksfile[4096];
-
-    logMessage("getKickstartFromBlockDevice(%s, %s)", device, path);
-
-    if (devMakeInode(device, "/tmp/kssrcdev"))
-        return 1;
-
-    if ((doPwMount("/tmp/kssrcdev", "/tmp/ks", "vfat", 1, 0, NULL, NULL, 0, 0)) && 
-        doPwMount("/tmp/kssrcdev", "/tmp/ks", "ext2", 1, 0, NULL, NULL, 0, 0) && 
-        doPwMount("/tmp/kssrcdev", "/tmp/ks", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
-        logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
-        return 2;
-    }
-
-    snprintf(ksfile, sizeof(ksfile), "/tmp/ks/%s", path);
-    logMessage("Searching for ks file on path %s", ksfile);
-    
-    if (access(ksfile, R_OK)) {
-	rc = 3;
-    } else {
-	copyFile(ksfile, "/tmp/ks.cfg");
-	rc = 0;
-	logMessage("kickstart file copied to /tmp/ks.cfg");
-    }    
-
-    umount("/tmp/ks");
-    unlink("/tmp/kssrcdev");
-    return rc;
+    return getFileFromBlockDevice(device, path, "/tmp/ks.cfg");
 }
 
 void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
@@ -365,25 +342,29 @@ void getKickstartFile(struct knownDevices * kd,
     return;
 }
 
-static void setTextMode(struct loaderData_s * loaderData, int argc, 
+static void setTextMode(struct knownDevices * kd, 
+                        struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TEXT;
     return;
 }
 
-static void setGraphicalMode(struct loaderData_s * loaderData, int argc, 
+static void setGraphicalMode(struct knownDevices * kd,
+                             struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_GRAPHICAL;
     return;
 }
 
-static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
+static void setCmdlineMode(struct knownDevices * kd, 
+                           struct loaderData_s * loaderData, int argc, 
                            char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_CMDLINE;
     return;
 }
 
-void setupKickstart(struct loaderData_s * loaderData, int * flagsPtr) {
+void runKickstart(struct knownDevices * kd, struct loaderData_s * loaderData, 
+                  int * flagsPtr) {
     struct ksCommandNames * cmd;
     int argc;
     char ** argv;
@@ -391,7 +372,7 @@ void setupKickstart(struct loaderData_s * loaderData, int * flagsPtr) {
     logMessage("setting up kickstart");
     for (cmd = ksTable; cmd->name; cmd++) {
         if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
-            cmd->setupData(loaderData, argc, argv, flagsPtr);
+            cmd->setupData(kd, loaderData, argc, argv, flagsPtr);
         }
     }
 }

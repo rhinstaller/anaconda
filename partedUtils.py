@@ -166,6 +166,17 @@ def get_partition_drive(partition):
     """Return the device name for disk that PedPartition partition is on."""
     return "%s" %(partition.geom.dev.path[5:])
 
+def get_max_logical_partitions(disk):
+    if not disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
+        return 0
+    dev = disk.dev.path[5:]
+    for key in max_logical_partition_count.keys():
+        if dev.startswith(key):
+            return max_logical_partition_count[key]
+    # FIXME: if we don't know about it, should we pretend it can't have
+    # logicals?  probably safer to just use something reasonable
+    return 11
+
 def map_foreign_to_fsname(type):
     """Return the partition type associated with the numeric type.""" 
     if type in allPartitionTypesDict.keys():
@@ -384,28 +395,53 @@ def getRedHatReleaseString(mountpoint):
             return ""
 	relstr = string.strip(lines[0][:-1])
 
-	# clean it up some
-	#
-	# see if it fits expected form:
-	#
-	#   'Red Hat Linux release 6.2 (Zoot)'
-	#
-	#
+        # get the release name and version
+        # assumes that form is something
+        # like "Red Hat Linux release 6.2 (Zoot)"
+        if relstr.find("release") != -1:
+            try:
+                idx = relstr.find("release")
+                prod = relstr[:idx - 1]
 
-        if relstr.startswith(productName):
-	    try:
-		# look for version string
-		vers = string.split(relstr[14:])[1]
-		for a in string.split(vers, '.'):
-		    anum = string.atof(a)
+                ver = ""
+                for a in relstr[idx + 8:]:
+                    if a in string.digits() + ".":
+                        ver = ver + a
+                    else:
+                        break
 
-		relstr = productName + " " + vers
-	    except:
-		# didnt pass test dont change relstr
-		pass
-
+                    relstr = prod + " " + ver
+            except:
+                pass # don't worry, just use the relstr as we have it
         return relstr
     return ""
+
+def productMatches(oldproduct, newproduct):
+    """Determine if this is a reasonable product to upgrade old product"""
+    if oldproduct.startswith(newproduct):
+        return 1
+
+    productUpgrades = {
+        "Red Hat Enterprise Linux AS": ("Red Hat Linux Advanced Server", ),
+        "Red Hat Enterprise Linux WS": ("Red Hat Linux Advanced Workstation",),
+        # FIXME: this probably shouldn't be in a release...
+        "Red Hat Enterprise Linux": ("Red Hat Linux Advanced Server",
+                                     "Red Hat Linux Advanced Workstation",
+                                     "Red Hat Enterprise Linux AS",
+                                     "Red Hat Enterprise Linux ES",
+                                     "Red Hat Enterprise Linux WS")
+        }
+
+    if productUpgrades.has_key(newproduct):
+        acceptable = productUpgrades[newproduct]
+    else:
+        acceptable = ()
+
+    for p in acceptable:
+        if oldproduct.startswith(p):
+            return 1
+
+    return 0
 
 class DiskSet:
     """The disks in the system."""
@@ -550,10 +586,10 @@ class DiskSet:
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
                         relstr = getRedHatReleaseString(mountpoint)
                         cmdline = open('/proc/cmdline', 'r').read()
-                        
-                        if (relstr.startswith(productName) or
-                            cmdline.find("upgradeany") != -1 or
-                            upgradeany == 1):
+
+                        if ((cmdline.find("upgradeany") != -1) or
+                            (upgradeany == 1) or
+                            (productMatches(relstr, productName))):
                             rootparts.append ((node, part.fs_type.name,
                                                relstr))
 		    isys.umount(mountpoint)
@@ -948,3 +984,13 @@ allPartitionTypesDict = {
     0xfd: "Linux RAID",
     0xff: "BBT"
     }
+
+max_logical_partition_count = {
+    "hd": 59,
+    "sd": 11,
+    "ataraid/": 11,
+    "rd/": 3,
+    "cciss/": 11,
+    "iseries/vd": 3,
+    "ida/": 11
+}

@@ -220,6 +220,10 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
                         return PARTITION_FAIL
+                    # check to make sure we can still create more logical parts
+                    if (len(partedUtils.get_logical_partitions(disk)) ==
+                        partedUtils.get_max_logical_partitions(disk)):
+                        return PARTITION_FAIL
                 else:
                     partType = parted.PARTITION_PRIMARY
             else:
@@ -329,12 +333,14 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 ##                 print "Trying drive", drive
                 disk = diskset.disks[drive]
                 numPrimary = len(partedUtils.get_primary_partitions(disk))
+                numLogical = len(partedUtils.get_logical_partitions(disk))
 
                 # if there is an extended partition add it in
 		if disk.extended_partition:
 		    numPrimary = numPrimary + 1
 		    
                 maxPrimary = disk.max_primary_partition_count
+                maxLogical = partedUtils.get_max_logical_partitions(disk)
 
                 for part in free[drive]:
 		    # if this is a free space outside extended partition
@@ -342,6 +348,9 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 		    if not part.type & parted.PARTITION_LOGICAL:
 			if numPrimary == maxPrimary:
 			    continue
+                    else:
+                        if numLogical == maxLogical:
+                            continue
 		    
 #                    log( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = partedUtils.getPartSizeMB(part)
@@ -1349,16 +1358,20 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             log("WARNING: %s" % (warning))
     if errors:
         errortxt = string.join(errors, '\n')
+        if isKickstart:
+            extra = _("\n\nPress 'OK' to reboot your system.")
+        else:
+            extra = _("\n\nYou can choose a different automatic partitioning "
+                      "options or click 'Back' to select manual partitioning."
+                      "\n\nPress 'OK' to continue.")
+            
         intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
 			     "This can happen if there is not enough "
 			     "space on your hard drive(s) for the "
-			     "installation. "
-			     "You can choose a different automatic "
-			     "partitioning option, or click 'Back' "
-			     "to select manual partitioning.\n\n"
-                             "Press 'OK' to continue.") % (errortxt),
+			     "installation.%s")
+                           % (errortxt, extra),
 			   custom_icon='error')
 	#
 	# XXX if in kickstart we reboot
@@ -1367,8 +1380,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 	    intf.messageWindow(_("Unrecoverable Error"),
 			       _("Your system will now be rebooted."))
 	    sys.exit(0)
-	else:
-	    return DISPATCH_BACK
+        return DISPATCH_BACK
 
 def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.
@@ -1405,10 +1417,11 @@ def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if iutil.getArch() == "ia64":
         return [ ("/boot/efi", "vfat", 100, None, 0, 1) ]
-    elif (iutil.getPPCMachine() == "pSeries" or
-          iutil.getPPCMachine() == "iSeries"):
+    elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1),
                  ("/boot", None, 100, None, 0, 1) ]
+    elif (iutil.getPPCMachine() == "iSeries"):
+        return [ (None, "PPC PReP Boot", 4, None, 0, 1) ]
     else:
         return [ ("/boot", None, 100, None, 0, 1) ]
 

@@ -285,7 +285,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
     return;
 #else
     char **dasd_parms;
-    char *line, *ports = NULL;
+    char *line;
     char *parms = NULL, *parms_end;
     FILE *fd;
 
@@ -322,24 +322,11 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
         return;
     }
     if(!parms) {
-        mlLoadModuleSet("dasd_mod:dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
+        dasd_parms[0] = "dasd=autodetect";
+        mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, dasd_parms, flags);
+        mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod",
                         modLoaded, modDeps, modInfo, flags);
-        if((ports = getDasdPorts())) {
-            parms = (char *)malloc(strlen("dasd=") + strlen(ports) + 1);
-            strcpy(parms,"dasd=");
-            strcat(parms, ports);
-            dasd_parms[0] = parms;
-            removeLoadedModule("dasd_eckd_mod", modLoaded, flags);
-            removeLoadedModule("dasd_fba_mod", modLoaded, flags);
-            removeLoadedModule("dasd_diag_mod", modLoaded, flags);
-            removeLoadedModule("dasd_mod", modLoaded, flags);
-            mlLoadModule("dasd_mod", modLoaded, modDeps, modInfo, 
-                         dasd_parms, flags);
-            mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
-                            modLoaded, modDeps, modInfo, flags);
-            free(dasd_parms);
-            free(ports);
-        }
+        free(dasd_parms);
     }
 #endif
 }

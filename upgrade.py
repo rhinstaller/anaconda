@@ -407,6 +407,33 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     ts = rpm.TransactionSet(instPath)
     ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 
+    # make sure we have an arch match. (#87655)
+    # FIXME: is bash a good package to check?
+    mi = ts.dbMatch('name', 'bash')
+    myarch = id.grpset.hdrlist["bash"][rpm.RPMTAG_ARCH]
+    for h in mi:
+        if h[rpm.RPMTAG_ARCH] != myarch:
+            rc = intf.messageWindow(_("Warning"),
+                                    _("The arch of the release of %s you "
+                                      "are upgrading to appears to be %s "
+                                      "which does not match your previously "
+                                      "installed arch of %s.  This is likely "
+                                      "to not succeed.  Are you sure you "
+                                      "wish to continue the upgrade process?")
+                                    %(productName, h[rpm.RPMTAG_ARCH],
+                                      myarch),
+                                    type="yesno")
+            if rc == 0:
+                try:
+                    resetRpmdb(id.dbpath, instPath)
+                except Exception, e:
+                    log("error returning rpmdb to old state: %s" %(e,))
+                    pass
+                sys.exit(0)
+            else:
+                log("WARNING: upgrade between possibly incompatible "
+                    "arches %s -> %s" %(h[rpm.RPMTAG_ARCH], myarch))
+                
     mi = ts.dbMatch()
     found = 0
     hasX = 0
@@ -605,6 +632,17 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.grpset.hdrlist["rhn-applet"].select()
+
+    # and since xterm is now split out from XFree86 (#98254)
+    if (id.grpset.hdrlist.has_key("xterm") and
+        not id.grpset.hdrlist["xterm"].isSelected()):
+        h = ts.dbMatch('name', 'XFree86').next()
+        if h is not None:
+            text = ("Upgrade: XFree86 was on the system.  Pulling in xterm "
+                    "for upgrade.")
+            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+            log(text)
+            id.grpset.hdrlist["xterm"].select()
 
     # now some upgrade removal black list checking... there are things that
     # if they were installed in the past, we want to remove them because

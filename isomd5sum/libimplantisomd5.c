@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "md5.h"
 #include "libimplantisomd5.h"
@@ -25,7 +26,7 @@
 static int parsepvd(int isofd, char *mediasum, long long *isosize) {
     unsigned char buf[2048];
     long long offset;
-    unsigned char *p;
+    unsigned char *p __attribute__((unused));
 
     if (lseek(isofd, 16*2048, SEEK_SET) == -1)
 	return ((long long)-1);
@@ -78,15 +79,10 @@ static unsigned int writeAppData(unsigned char *appdata, char *valstr, unsigned 
 }
 
 
-static void usage(void) {
-    fprintf(stderr, "implantisomd5:         implantisomd5 [--force] [--supported] <isofilename>\n");
-    exit(1);
-}
 
 
 int implantISOFile(char *fname, int supported, int forceit, int quiet, char **errstr) {
     int i;
-    int rc;
     int isofd;
     int nread;
     int dirty;
@@ -97,7 +93,7 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     unsigned char buf[2048];
     unsigned char orig_appdata[512];
     unsigned char new_appdata[512];
-    unsigned char mediasum[33], computedsum[33];
+    unsigned char mediasum[33];
     char md5str[40];
     MD5_CTX md5ctx;
 

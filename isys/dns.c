@@ -3,6 +3,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <resolv.h>
+#include <arpa/inet.h>
 #include <arpa/nameser.h>
 #include <stdlib.h>
 #include <string.h>

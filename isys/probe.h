@@ -1,6 +1,7 @@
 #ifndef H_PROBE
 #define H_PROBE
 
+#include <sys/types.h>
 #include "kudzu/kudzu.h"
 
 #define DASD_IOCTL_LETTER 'D'

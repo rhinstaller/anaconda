@@ -64,7 +64,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
                        "options can be obtained by pressing the F1 key."), 
                      mod->moduleName);
     text = newtTextboxReflowed(-1, -1, buf, 60, 0, 10, 0);
-    entry = newtEntry(-1, -1, argsEntry, 50, &argsEntry, 
+    entry = newtEntry(-1, -1, argsEntry, 50, (const char **) &argsEntry, 
                       NEWT_ENTRY_SCROLL);
     
     newtFormAddHotKey(f, NEWT_KEY_F1);
@@ -220,7 +220,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     for (i = 0; i < numSorted; i++) {
         newtListboxAppendEntry(listbox, sdupprintf("%s (%s)", 
                                                    modInfo->moduleList[sortedOrder[i].index].description,
-                                                   modInfo->moduleList[sortedOrder[i].index].moduleName), (void *) sortedOrder[i].index);
+                                                   modInfo->moduleList[sortedOrder[i].index].moduleName), INT_TO_POINTER(sortedOrder[i].index));
     }
 
     grid = newtCreateGrid(1, 4);
@@ -238,7 +238,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
     do { 
         newtFormRun(f, &es);
 
-        num = (int) newtListboxGetCurrent(listbox);
+        num = POINTER_TO_INT(newtListboxGetCurrent(listbox));
 
         if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
             done = -1;

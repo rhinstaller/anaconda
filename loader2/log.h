@@ -3,9 +3,6 @@
 
 #include <stdio.h>
 
-extern FILE * log;
-extern int logfd;
-
 void logMessage(const char * s, ...) __attribute__ ((format (printf, 1, 2)));;
 void openLog(int useLocal);
 void closeLog(void);

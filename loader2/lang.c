@@ -388,7 +388,8 @@ int chooseLanguage(char ** lang, int flags) {
     return setupLanguage(choice, flags);
 }
 
-void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
+void setKickstartLanguage(struct knownDevices * kd, 
+                          struct loaderData_s * loaderData, int argc, 
                           char ** argv, int * flagsPtr) {
     if (argc < 2) {
         logMessage("no argument passed to lang kickstart command");
