@@ -147,6 +147,10 @@ class ProgressWindow:
 
 class InstallInterface:
     def helpWindow(self, screen, key):
+        lang = self.instLanguage.getCurrent()
+        lang = self.instLanguage.getLangNick(lang)
+        self.langSearchPath = expandLangs(lang) + ['C']
+
         if key == "helponhelp":
             if self.showingHelpOnHelp:
                 return None
@@ -349,6 +353,7 @@ class InstallInterface:
             id.instLanguage.setRuntimeLanguage(lang)
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
+        self.instLanguage = id.instLanguage
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
