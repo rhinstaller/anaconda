@@ -7,7 +7,7 @@ Group: Applications/System
 Source: anaconda-reconfig-%{PACKAGE_VERSION}.tar.gz
 Obsoletes: rhs-hwdiag setconsole
 Prereq: chkconfig
-BuildRoot: /tmp/anaconda-reconfig-%{PACKAGE_VERSION}
+BuildRoot: /var/tmp/anaconda-reconfig-%{PACKAGE_VERSION}
 
 %description
 anaconda-reconfig is usually run the first-time a pre-installed computer
