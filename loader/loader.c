@@ -1457,6 +1457,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
         if (!strcasecmp(argv[i], "expert"))
 	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE |
 		     LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "noprobe"))
+	    flags |= LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "updates"))
