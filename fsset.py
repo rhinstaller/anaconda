@@ -1481,6 +1481,8 @@ class FileSystemSet:
             dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
             os.symlink(dmdev, instPath + rootDev)
+            if not os.path.isdir("%s/etc/lvm" %(instPath,)):
+                os.makedirs("%s/etc/lvm" %(instPath,))
 #        raise RuntimeError
 
     def filesystemSpace(self, chroot='/'):
