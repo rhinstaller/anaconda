@@ -81,6 +81,22 @@ def inet_calcNetBroad (ip, nm):
             
     return (inet_ntoa (netaddr), inet_ntoa (bcaddr))
 
+def inet_calcGateway (bc):
+    if isinstance (bc, type ("")):
+        bcaddr = inet_aton (bc)
+    else:
+        bcaddr = ip
+
+    return inet_ntoa (bcaddr - 1)
+
+def inet_calcNS (net):
+    if isinstance (net, type ("")):
+        netaddr = inet_aton (net)
+    else:
+        netaddr = net
+
+    return inet_ntoa (netaddr + 1)
+
 try:
     _isys.readmoduleinfo("/modules/module-info")
 except IOError:
