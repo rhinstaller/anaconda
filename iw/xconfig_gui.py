@@ -831,9 +831,14 @@ class XConfigWindow (InstallWindow):
 	# lots of duplication here complicated by factor we have a
 	# videocard object as part of instdata and in xhwstate!!
 	# need to consolidate
-        self.videocard.primaryCard().setVideoRam(str(vidram))
-	self.xsetup.xhwstate.set_videocard_ram(vidram)
-        self.xsetup.xhwstate.set_videocard_card(self.videocard.primaryCard())
+	try:
+	    self.videocard.primaryCard().setVideoRam(str(vidram))
+	    self.xsetup.xhwstate.set_videocard_ram(vidram)
+	    cardname = self.videocard.primaryCard().cardData["NAME"]
+	    self.xsetup.xhwstate.set_videocard_name(cardname)
+	    self.xsetup.xhwstate.set_videocard_card(cardname)
+	except:
+	    log("videocard-getNext: could not determine cardname for primary card %s", self.videocard.primaryCard())
         return None
 
     def skipToggled (self, widget, *args):
