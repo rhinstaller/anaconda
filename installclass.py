@@ -442,8 +442,9 @@ class BaseInstallClass:
                 raise RuntimeError, "Unknown videocard specified: %s" %(card,)
 
         if videoRam:
-            id.videocard.primaryCard().setVideoRam(videoRam)
-            id.xsetup.xhwstate.set_videocard_ram(videoRam)
+            # FIXME: this required casting is ugly
+            id.videocard.primaryCard().setVideoRam(str(videoRam))
+            id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
         if server is not None:
             log("unable to really do anything with server right now")
