@@ -1375,6 +1375,7 @@ static PyObject * doGetLength(PyObject * s, PyObject * args) {
 	PyErr_SetString(PyExc_ValueError, errstr);
         return NULL;
     }
+    close(fd);
 
     return Py_BuildValue("i", bytes);
 }
