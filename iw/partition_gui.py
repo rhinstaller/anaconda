@@ -21,6 +21,7 @@ from translate import _, N_
 from partitioning import *
 from fsset import *
 from autopart import doPartitioning
+from autopart import CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
 import parted
 import string
 import copy
@@ -202,7 +203,7 @@ class DiskStripe:
         self.hash[partition] = stripe
 
 class DiskStripeGraph:
-    def __init__(self, diskset, ctree):
+    def __init__(self, ctree):
         self.canvas = GnomeCanvas()
         self.diskStripes = []
         self.textlabels = []
@@ -1191,7 +1192,6 @@ class PartitionWindow(InstallWindow):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
         self.editRaidDevice(request)
 
-    
     def getScreen (self, fsset, diskset, partitions, intf):
         self.fsset = fsset
         self.diskset = diskset
@@ -1199,6 +1199,10 @@ class PartitionWindow(InstallWindow):
         
         self.diskset.openDevices()
         self.partitions = partitions
+
+        for part in self.partitions.requests:
+            print part
+        
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in
 #        self.newFsset = self.fsset.copy()
@@ -1238,7 +1242,7 @@ class PartitionWindow(InstallWindow):
         self.tree.connect ("tree_select_row", self.treeSelectCb)
 
         # set up the canvas
-        self.diskStripeGraph = DiskStripeGraph(diskset, self.tree)
+        self.diskStripeGraph = DiskStripeGraph(self.tree)
         
         # do the initial population of the tree and the graph
         self.populate (initial = 1)
@@ -1256,3 +1260,36 @@ class PartitionWindow(InstallWindow):
         box.pack_start (sw, TRUE)
 
 	return box
+
+
+
+class AutoPartitionWindow(InstallWindow):
+    def __init__(self, ics):
+    	InstallWindow.__init__(self, ics)
+        ics.setTitle (_("Automatic Disk Setup"))
+        ics.setNextEnabled (TRUE)
+        self.parent = ics.getICW().window
+
+    def getNext(self):
+        pass
+
+    def getScreen(self, type, cleardrives, diskset, intf):
+        vbox = GtkVBox(FALSE, 5)
+        if type == CLEARPART_TYPE_LINUX:
+            clearstring = "all Linux partitions"
+        elif type == CLEARPART_TYPE_ALL:
+            clearstring = "all partitions"
+        else:
+            clearstring = "no partitions"
+
+        if not cleardrives or len(cleardrives) < 1:
+            cleardrivestring = "on all drives"
+        else:
+            cleardrivestring = "on these drives: "
+            for drive in cleardrives:
+                cleardrivestring = cleardrivestring + drive + " "
+                
+        vbox.pack_start(GtkLabel(_("Autopartitioning will clear %s %s.") %
+                                 (clearstring, cleardrivestring)))
+
+        return vbox
