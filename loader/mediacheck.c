@@ -272,7 +272,7 @@ int mediaCheckFile(char *file, char *descr) {
     else
 	descrstr[0] = '\0';
 
-    snprintf(tmpstr, sizeof(tmpstr), _("The media check %s is complete, and "
+    snprintf(tmpstr, sizeof(tmpstr), _("The media check %sis complete, and "
 				       "the result is: %s\n"), descrstr, result);
     newtTextboxSetText(t, tmpstr);
     f = newtForm(NULL, NULL, 0);
