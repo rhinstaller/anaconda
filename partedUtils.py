@@ -222,6 +222,8 @@ def getDefaultDiskType():
         return parted.disk_type_get("bsd")
     elif iutil.getArch() == "sparc":
         return parted.disk_type_get("sun")
+    elif iutil.getArch() == "ppc":
+        return parted.disk_type_get("msdos")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
@@ -231,7 +233,8 @@ archLabels = {'i386': ['msdos'],
               's390': ['dasd'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
-              'ia64': ['msdos', 'gpt']}
+              'ia64': ['msdos', 'gpt'],
+              'ppc': ['msdos', 'mac'}
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
