@@ -387,7 +387,6 @@ EOF
     rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
 
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
-    dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 
     if [ -n "$PADSIZE" ]; then
 	size=`cat $MBD_FSIMAGE | wc -c`

@@ -8,6 +8,7 @@ fi
 SECSTAGE="vfat raid0 raid1 raid5"
 
 prepareBootImage() {
+        dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 	gunzip < $BOOTDISKDIR/template.img.gz |
 	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
 	$SYSLINUX $MBD_TMPIMAGE
