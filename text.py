@@ -206,35 +206,21 @@ class NetworkWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
- 	if (not todo.setupFilesystems): return INSTALL_NOOP
+# 	if (not todo.setupFilesystems): return INSTALL_NOOP
 
-        dev = "hda"
+        sys.path.append('libfdisk')
+        from newtpyfsedit import fsedit        
 
-	isys.makeDevInode (dev, "/tmp/" + dev)
-	device = parted.device_read ("/tmp/" + dev)
-	os.remove("/tmp/" + dev)
+        fstab = []
+        for (dev, dir, reformat) in todo.mounts:
+            fstab.append ((dev, dir))
+        
+        (dir, res) = fsedit(1, ['hda'], fstab)
 
-        keys = device.partitions.keys()
-        keys.sort()
+        for (partition, mount, size) in res:
+            todo.addMount(partition, mount)
 
-        partList = []
-	for key in keys:
-            partition = device.partitions[key]
-	    if (partition.sys_type == 0x83):
-		fullName = "%s%d" % (dev, key)
-		partList.append((fullName, fullName))
-
-	rc = ListboxChoiceWindow(screen, _("Root Partition"),
-				 _("What partition would you "
-				 "like to use for your root partition?"),
-				 partList, buttons = [_("OK"), _("Back")])
-
-	if rc[0] == string.lower(_("Back")):
-	    return INSTALL_BACK
-
-	todo.addMount(rc[1], "/")
-
-        return INSTALL_OK
+        return dir
 
 class PackageGroupWindow:
     def run(self, screen, todo, individual):
