@@ -1361,7 +1361,7 @@ class InstallControlState:
         for path in ("/mnt/source/RHupdates/pixmaps/",
                      "/mnt/source/RHupdates/",
                      "/tmp/updates/pixmaps/", "/tmp/updates/",
-                     "/tmp/product/pixmaps/",
+                     "/tmp/product/pixmaps/", "/tmp/product/",
                      "/usr/share/anaconda/pixmaps/", "pixmaps/",
                      "/usr/share/pixmaps/",
                      "/usr/share/anaconda/", ""):
