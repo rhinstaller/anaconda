@@ -49,12 +49,14 @@ struct intfInfo {
 
 static int configureNetDevice(struct intfInfo * intf) {
     struct ifreq req;
-    struct rtentry route;
     int s;
     struct sockaddr_in addr;
     struct in_addr ia;
     char ip[20], nm[20], nw[20], bc[20];
-
+#if 0 /* 2.0 kernels only */
+    struct rtentry route;
+#endif
+	
     addr.sin_family = AF_INET;
     addr.sin_port = 0;
 
@@ -148,7 +150,9 @@ static int configureNetDevice(struct intfInfo * intf) {
 }
 
 int main(int argc, char ** argv) {
-    char * arg, **args;
+    char ** argptr;
+    char * anacondaArgs[30];
+    char * arg;
     poptContext optCon;
     int testing, network, local, rc;
     char ** modules, *module;
@@ -184,7 +188,7 @@ int main(int argc, char ** argv) {
     if (modules == NULL) {
 	printf("No PCI devices found :(\n");
     } else {
-	while (module = *modules++) {
+	while ((module = *modules++)) {
 	    if (!testing) {
 		printf("Inserting module %s\n", module);
 		insmod(module, NULL);
@@ -226,9 +230,13 @@ int main(int argc, char ** argv) {
 
     symlink("/mnt/source/RedHat/instimage/usr", "/usr");
     
-    execv(testing ? "../anaconda" : "/usr/bin/anaconda", argv);
+    argptr = anacondaArgs;
+    *argptr++ = testing ? "../anaconda" : "/usr/bin/anaconda";
+
+    execv(anacondaArgs[0], anacondaArgs);
 
     sleep(5);
     
     return 0;
 }
+
