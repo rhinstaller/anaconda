@@ -2,6 +2,7 @@ import os
 import string
 import kudzu
 import isys
+import sys
 
 def findCardInDB (needle, lines = None):
     if not lines:
