@@ -654,17 +654,18 @@ class ToDo:
 	mdList = raid.startAllRaid(drives)
 
 	for dev in mdList:
-	    isys.makeDevInode(dev, '/tmp/' + dev)
-	    try:
-		isys.mount('/tmp/' + dev, '/mnt/sysimage')
-	    except SystemError, (errno, msg):
-		self.intf.messageWindow(_("Error"),
-					_("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-		continue
-	    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-		rootparts.append (dev)
-	    isys.umount('/mnt/sysimage')
-	    os.remove ('/tmp/' + dev)
+            if fstab.isValidExt2 (dev):
+                isys.makeDevInode(dev, '/tmp/' + dev)
+                try:
+                    isys.mount('/tmp/' + dev, '/mnt/sysimage')
+                except SystemError, (errno, msg):
+                    self.intf.messageWindow(_("Error"),
+                                            _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
+                    continue
+                if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+                    rootparts.append (dev)
+                isys.umount('/mnt/sysimage')
+                os.remove ('/tmp/' + dev)
 
 	raid.stopAllRaid(mdList)
 	
