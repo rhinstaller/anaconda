@@ -1011,9 +1011,9 @@ class InstallInterface:
 	    if (rc != INSTALL_NOOP):
 		# clear out the old root text by writing spaces in the blank
 		# area on the right side of the screen
-		self.screen.drawRootText (len(self.welcomeText), 0,
-			     (self.screen.width - len(self.welcomeText)) * " ")
-		self.screen.drawRootText (0 - len(step[0]),
+		self.screen.drawRootText (len(_(self.welcomeText)), 0,
+			     (self.screen.width - len(_(self.welcomeText)) * " ")
+		self.screen.drawRootText (0 - len(_(step[0])),
 					 0, _(step[0]))
 		# This is *disgusting* (ewt)
 		if step[1] == UpgradeExamineWindow:
