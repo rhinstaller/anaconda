@@ -9,7 +9,7 @@ import string
 from xf86config import XF86Config
 from translate import _
 from instdata import InstallData
-from autopart import *
+from partitioning import *
 
 class BaseInstallClass:
     # default to not being hidden

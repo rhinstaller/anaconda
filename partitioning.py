@@ -45,6 +45,11 @@ REQUEST_NEW = 2
 REQUEST_RAID = 4
 REQUEST_PROTECTED = 8
 
+# when clearing partitions, what do we clear
+CLEARPART_TYPE_LINUX = 1
+CLEARPART_TYPE_ALL   = 2
+CLEARPART_TYPE_NONE  = 3
+
 fsTypes = {}
 
 fs_type = parted.file_system_type_get_next ()
@@ -719,7 +724,7 @@ class Partitions:
 
         # CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
         # used by installclasses to say which partitions to clear
-        self.autoClearPartType = None
+        self.autoClearPartType = CLEARPART_TYPE_NONE
 
         # drives to clear partitions on (following self.autoClearPartType)
         # note that None clears ALL drives 
@@ -919,7 +924,6 @@ class Partitions:
         new.useFdisk = self.useFdisk
         new.reinitializeDisks = self.reinitializeDisks
         return new
-           
 
 class DiskSet:
     skippedDisks = []

@@ -4,9 +4,6 @@ import os
 import iutil
 from partitioning import *
 from fsset import *
-from autopart import CLEARPART_TYPE_LINUX
-from autopart import CLEARPART_TYPE_ALL
-from autopart import CLEARPART_TYPE_NONE
 
 class InstallClass(BaseInstallClass):
     name = N_("Workstation")
