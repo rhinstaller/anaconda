@@ -233,10 +233,7 @@ class LiloConfiguration:
 		      instRoot + '/etc/lilo.conf.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
-	# just removed those kernels. While we're here, build an index
-	# to the already-configured (and valid) lilo images by the lilo
-	# label, as we can normally only get them by filename which isn't
-	# easily done.
+	# just removed those kernels. 
 	for label in lilo.listImages():
 	    (fsType, sl) = lilo.getImage(label)
 	    if fsType == "other": continue
