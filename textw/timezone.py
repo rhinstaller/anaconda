@@ -76,7 +76,6 @@ class TimezoneWindow:
 
 	self.l.setCurrent(default)
 	self.l.setCallback(self.updateClock)
-	self.updateClock()
 
 	self.c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
 	self.c.setCallback(self.updateSysClock)
@@ -87,6 +86,10 @@ class TimezoneWindow:
 	self.g.add(self.c, 0, 2, padding = (0, 1, 0, 1), anchorLeft = 1)
 	self.g.add(self.l, 0, 3, padding = (0, 0, 0, 1))
 	self.g.add(bb, 0, 4, growx = 1)
+
+	self.updateClock()
+	self.updateSysClock()
+
 	self.g.setTimer(500)
 
 	result = "TIMER"
