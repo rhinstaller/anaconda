@@ -53,6 +53,7 @@ int main(int argc, char ** argv) {
 		  case DRIVER_NET: 
 		    switch (mi->minor) {
 		      case DRIVER_MINOR_ETHERNET: printf("\teth\n"); break;
+		      case DRIVER_MINOR_TR: printf("\ttr\n"); break;
 
 		      default:
 		      	fprintf(stderr, "unknown net minor type for %s\n",
