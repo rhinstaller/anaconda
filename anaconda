@@ -64,7 +64,8 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     server = os.fork()
     if (not server):
 	os.execv('/usr/X11R6/bin/XF86_VGA16', ['/usr/X11R6/bin/XF86_VGA16',
-                 '-xf86config', imagepath + '/etc/X11/XF86Config'])
+                 '-xf86config',
+                 imagepath + '/RedHat/instimage/etc/X11/XF86Config'])
     child = os.fork()
     if (child):
 	os.waitpid(child, 0)
