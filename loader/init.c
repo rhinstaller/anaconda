@@ -81,6 +81,7 @@ char * env[] = {
     "TERM=linux",
     "DEBUG=",
     "TERMINFO=/etc/linux-terminfo",
+    "PYTHONPATH=/tmp/updates",
     NULL
 };
 
