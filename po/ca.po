@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-09 22:57+0200\n"
+"PO-Revision-Date: 2004-09-10 20:08+0200\n"
 "Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -2604,7 +2604,6 @@ msgid "DDC Probed Monitor"
 msgstr "Monitor probat DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -2613,8 +2612,8 @@ msgid ""
 msgstr ""
 "Les màquines zSeries poden accedir a dispositius SCSI a través d'un canal de "
 "fibra òprica (FCP). Cal que proporcioneu 5 paràmetres per a cada dispositiu: "
-"un número de dispositiu de 16 bits, l'ID de l'SCSCI de 16 bits, i el World "
-"Wide Port Number (WWPN) de 16 bits, el LUN de l'SCSI de 16 bits, i el LUN de "
+"un número de dispositiu de 16 bits, l'ID de l'SCSCI de 16 bits, i el número "
+"de port global (WWPN) de 16 bits, el LUN de l'SCSI de 16 bits, i el LUN de "
 "l'FCP de 64 bits."
 
 #: ../zfcp.py:29
@@ -2639,7 +2638,8 @@ msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "No heu especificat cap worldwide port name, o aquest no és vàlid."
+msgstr ""
+"No heu especificat cap nom de port global (WWPN), o aquest no és vàlid."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
