@@ -3118,7 +3118,6 @@ msgstr ""
 "harddiskgeometrien som en kjerneopsjon når installeringsprogrammet startes."
 
 #: ../libfdisk/fsedit.c:1564
-#, fuzzy
 msgid ""
 "This error has occurred because there is a logical partition on the drive "
 "which has a partition type of zero (0).  A partition type of zero means that "
@@ -3127,11 +3126,12 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
-"Dette skjer fordi det er en logisk partisjon på harddisken som har "
-"partisjonstype null (0). Dette støttes ikke av installeringsprogrammet, "
-"anaconda. Den logiske partisjonen ble sannsynligvis laget av et "
-"partisjonsprogram for et annet operativsystem, så du kan forsøke å rette "
-"problemet der."
+"Denne feilen oppstår fordi det er en logisk partisjon på harddisken med "
+"partisjonstype null (0). En partisjonstype null innebærer at harddiskens "
+"partisjonering ikke er fullstending, noe som kan forårsakes av "
+"partisjoneringsprogrammer for andre operativsystemer. Denne tilstanden "
+"støttes ikke av installeringsprogrammet, anaconda. Du kan forsøke å rette "
+"problemet i programmet som opprettet partisjonen."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -4973,9 +4973,8 @@ msgid "New South Wales - most locations"
 msgstr "De fleste steder i New South Wales"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Broken Hill"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5099,7 +5098,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok-stasjonen, den sydlige magnetiske pol"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5220,6 +5219,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Transdniestria"
-#~ msgstr "Transdniestria"
