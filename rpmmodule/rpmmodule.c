@@ -85,7 +85,7 @@ static PyMethodDef rpmModuleMethods[] = {
     { "errorString", (PyCFunction) errorString, METH_VARARGS, NULL },
     { "versionCompare", (PyCFunction) versionCompare, METH_VARARGS, NULL },
     { "labelCompare", (PyCFunction) labelCompare, METH_VARARGS, NULL },
-    /* Don't use me yet.
+    /* don't use me yet
     { "Fopen", (PyCFunction) doFopen, METH_VARARGS, NULL },
     */
     { NULL }
@@ -213,10 +213,14 @@ int mdfile(const char *fn, unsigned char *digest);
 
 /* Code */
 
+extern int _rpmio_debug;
+
 void initrpm(void) {
     PyObject * m, * d, * tag, * dict;
     int i;
+    const struct headerSprintfExtension * ext = rpmHeaderFormats;
 
+/*      _rpmio_debug = -1;  */
     rpmReadConfigFiles(NULL, NULL);
 
     m = Py_InitModule("rpm", rpmModuleMethods);
@@ -232,6 +236,14 @@ void initrpm(void) {
 	PyDict_SetItemString(d, (char *) rpmTagTable[i].name, tag);
 
         PyDict_SetItem(dict, tag, PyString_FromString(rpmTagTable[i].name + 7));
+    }
+
+    while (ext->name) {
+	if (ext->type == HEADER_EXT_TAG) {
+            PyDict_SetItemString(d, ext->name, PyCObject_FromVoidPtr(ext, NULL));
+            PyDict_SetItem(dict, tag, PyString_FromString(ext->name + 7));
+        }
+        ext++;
     }
 
     PyDict_SetItemString(d, "tagnames", dict);
@@ -871,25 +883,46 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
     PyObject * o, * metao;
     char ** stringArray;
     int forceArray = 0;
+    int freeData;
     char * str;
+    struct headerSprintfExtension * ext = NULL;
+    const struct headerSprintfExtension * extensions = rpmHeaderFormats;
 
-    if (PyInt_Check(item)) {
+    if (PyCObject_Check (item)) {
+        ext = PyCObject_AsVoidPtr(item);
+    } else if (PyInt_Check(item)) {
 	tag = PyInt_AsLong(item);
     } else if (PyString_Check(item)) {
 	str = PyString_AsString(item);
 	for (i = 0; i < rpmTagTableSize; i++)
 	    if (!strcasecmp(rpmTagTable[i].name + 7, str)) break;
 	if (i < rpmTagTableSize) tag = rpmTagTable[i].val;
+        if (tag == -1) {
+            /* if we still don't have the tag, go looking for the header
+               extensions */
+            while (extensions->name) {
+                if (extensions->type == HEADER_EXT_TAG
+                    && !strcasecmp(extensions->name + 7, str)) {
+                    (const struct headerSprintfExtension *) ext = extensions;
+                }
+                extensions++;
+            }
+        }
     }
 
-    if (tag == -1) {
-	PyErr_SetString(PyExc_KeyError, "unknown header tag");
-	return NULL;
-    }
-
-    if (!headerGetEntry(s->h, tag, &type, &data, &count)) {
-	Py_INCREF(Py_None);
-	return Py_None;
+    if (ext) {
+        ext->u.tagFunction(s->h, &type, &data, &count, &freeData);
+        forceArray = 1;
+    } else {
+        if (tag == -1) {
+            PyErr_SetString(PyExc_KeyError, "unknown header tag");
+            return NULL;
+        }
+        
+        if (!headerGetEntry(s->h, tag, &type, &data, &count)) {
+            Py_INCREF(Py_None);
+            return Py_None;
+        }
     }
 
     switch (tag) {
@@ -1490,41 +1523,84 @@ static PyObject * doDelMacro(PyObject * self, PyObject * args) {
     return Py_None;
 }
 
+typedef struct FDlist_t FDlist;
+
+struct FDlist_t {
+    FILE *f;
+    FD_t fd;
+    FDlist *next;
+} ;
+
+static FDlist *fdhead = NULL;
+static FDlist *fdtail = NULL;
+
 static int closeCallback(FILE * f) {
-    /* XXX FD_t leak */
-    /* XXX lookup the FD_t from the fp and close with Fclose */
-    return fclose(f);
+    FDlist *node, *last;
+
+    node = fdhead;
+    last = NULL;
+    while (node) {
+        if (node->f == f)
+            break;
+        last = node;
+        node = node->next;
+    }
+    if (node) {
+        if (last)
+            last->next = node->next;
+        else
+            fdhead = node->next;
+        printf ("closing\n");
+        node->fd = fdLink(node->fd, "closeCallback");
+        Fclose (node->fd);
+        while (node->fd)
+            node->fd = fdFree(node->fd, "closeCallback");
+        free (node);
+    }
     return 0; 
 }
 
 static PyObject * doFopen(PyObject * self, PyObject * args) {
     char * path, * mode;
-    FD_t fd;
-    FILE *f;
+    FDlist *node;
     
     if (!PyArg_ParseTuple(args, "ss", &path, &mode))
 	return NULL;
-
-    fd = Fopen(path, mode);
-    fd = fdLink(fd, "doFopen");
     
-    if (!fd) {
+    node = malloc (sizeof(FDlist));
+    
+    node->fd = Fopen(path, mode);
+    node->fd = fdLink(node->fd, "doFopen");
+    
+    if (!node->fd) {
 	PyErr_SetFromErrno(pyrpmError);
+        free (node);
 	return NULL;
     }
     
-    if (Ferror(fd)) {
-	const char *err = Fstrerror(fd);
+    if (Ferror(node->fd)) {
+	const char *err = Fstrerror(node->fd);
+        free(node);
 	if (err) {
 	    PyErr_SetString(pyrpmError, err);
 	    return NULL;
 	}
     }
-    f = fdGetFp(fd);
-    if (!f) {
+    node->f = fdGetFp(node->fd);
+    if (!node->f) {
 	PyErr_SetString(pyrpmError, "FD_t has no FILE*");
+        free(node);
 	return NULL;
     }
-	
-    return PyFile_FromFile (f, path, mode, closeCallback);
+
+    node->next = NULL;
+    if (fdtail) {
+        fdtail->next = node;
+    } else {
+        fdhead = node;
+    }
+    fdtail = node;
+    
+    return PyFile_FromFile (node->f, path, mode, closeCallback);
 }
+
