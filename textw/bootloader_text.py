@@ -363,7 +363,7 @@ class bootloaderPassword:
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
-	    if (result == "cancel"):
+	    if result == TEXT_BACK_CHECK:
 		screen.popWindow()
                 return INSTALL_BACK
 
