@@ -147,7 +147,6 @@ class x86BootloaderInfo:
 		  defaultDev, justConfigFile):
 	images = bl.images.getImages()
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
-	grubRootDev = grubbyPartitionName(rootDev)
 
 	cf = '/boot/grub/grub.conf'
 	perms = 0644
