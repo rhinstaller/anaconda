@@ -28,8 +28,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <netdb.h>
 #ifdef __STANDALONE__
+#include <netdb.h>
 #include <libintl.h>
 #include <locale.h>
 
@@ -612,7 +612,9 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     char * name, * chptr;
+#ifdef __STANDALONE__
     struct hostent * he;
+#endif
 
     if (!FL_TESTING(flags)) {
 	writeResolvConf(dev);
@@ -621,8 +623,12 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
 	winStatus(40, 3, _("Hostname"), 
 		  _("Determining host name and domain..."));
+#ifdef __STANDALONE__
 	he = gethostbyaddr( (char *) &dev->dev.ip, sizeof (dev->dev.ip), AF_INET);
 	name = he ? he->h_name : 0;
+#else
+	name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
+#endif
 	newtPopWindow();
 
 	if (!name) {
