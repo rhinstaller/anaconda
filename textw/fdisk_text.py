@@ -20,9 +20,10 @@ import iutil
 from snack import *
 from translate import _, cat, N_
 from constants_text import *
+import partitioning
 
 class fdiskPartitionWindow:
-    def __call__(self, screen, diskset, partrequests):
+    def __call__(self, screen, diskset, partrequests, intf):
         choices = []
         drives = diskset.disks.keys()
         drives.sort()
@@ -64,7 +65,8 @@ class fdiskPartitionWindow:
                     pass
 
 
-        diskset.refreshDevices()
+        diskset.refreshDevices(intf)
+        partitioning.checkNoDisks(diskset, intf)
         partrequests.setFromDisk(diskset)
 
         if button == TEXT_BACK_CHECK:

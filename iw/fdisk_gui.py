@@ -16,6 +16,7 @@ from iw_gui import *
 from gnome.zvt import *
 from translate import _
 from dispatch import DISPATCH_NOOP
+import partitioning
 import isys
 import os
 
@@ -27,7 +28,8 @@ class FDiskWindow (InstallWindow):
 
     def getNext(self):
         # reread partitions
-        self.diskset.refreshDevices()
+        self.diskset.refreshDevices(self.intf)
+        partitioning.checkNoDisks(self.diskset, self.intf)
         self.partrequests.setFromDisk(self.diskset)
 
         return None
@@ -78,10 +80,11 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     # FDiskWindow tag="fdisk"
-    def getScreen (self, diskset, partrequests):
+    def getScreen (self, diskset, partrequests, intf):
         
         self.diskset = diskset
         self.partrequests = partrequests
+        self.intf = intf
         
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)
