@@ -430,8 +430,8 @@ RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
 RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR")
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
-rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/state
-ln -s /tmp $DESTGR/var/state/xkb 
+rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
+ln -s /tmp $DESTGR/var/lib/xkb 
 
 echo -n "Expanding packages..."
 expandPackageSet "$RPMS" $DEST $KEEPFILE
@@ -466,6 +466,10 @@ ls | grep -v locale.alias | LC_ALL=C sort > $DESTGR/locales.list
 LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 ); done
 rm -f $DESTGR/locales $DESTGR/locales.list
+
+# Remove unneeded XFree86 modules
+rm -rf $DESTGR/usr/X11R6/lib/modules/dri
+rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
