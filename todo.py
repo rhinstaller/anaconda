@@ -639,13 +639,23 @@ class ToDo:
         if deps:
             for (who, dep) in deps:
                 if dep != _("no suggestion"):
-                    self.hdList[dep].selected = 1
+                    self.hdList[dep].select ()
 
     def unselectDeps (self, deps):
         if deps:
             for (who, dep) in deps:
                 if dep != _("no suggestion"):
-                    self.hdList[dep].selected = 0
+                    self.hdList[dep].unselect ()
+
+    def selectDepCause (self, deps):
+        if deps:
+            for (who, dep) in deps:
+                self.hdList[who].select ()
+
+    def unselectDepCause (self, deps):
+        if deps:
+            for (who, dep) in deps:
+                self.hdList[who].unselect ()
 
     def canResolveDeps (self, deps):
         canresolve = 0
@@ -1168,6 +1178,7 @@ class ToDo:
         # XXX in case we started out in Upgrade land, we need to
         # reset this macro to point to the right place.
         rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+        rpm.addMacro ("_dbi_config", "hash perms=0644")
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
