@@ -54,7 +54,7 @@ install-reconfig: all
 	mkdir -p $(RECFGDESTDIR)/etc/rc.d/init.d
 	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 
-	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d
+	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
 	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda-reconfig
 	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
