@@ -247,7 +247,11 @@ class Fstab:
 		else:
 		    isys.swapon (file)
 	    else:
-		isys.swapon (file)
+		try:
+		    isys.swapon (file)
+		except:
+		    # XXX should we complain?
+		    pass
 
     def addNewRaidDevice(self, mountPoint, raidDevice, fileSystem, 
 		      raidLevel, deviceList):
