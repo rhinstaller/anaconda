@@ -44,9 +44,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.RPM = 2
         self.rownum = 0
         self.maxrows = 0
-
         self.updatingIcons = FALSE
-
 
     def getPrev (self):
         for x in self.ics.getICW ().stateList:
@@ -60,10 +58,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     import sys
                     print _("Aborting upgrade")
                     sys.exit(0)
-
         return None
     
-
     def build_tree (self, x):
         if (x == ()): return ()
         if (len (x) == 1): return (x[0],)
@@ -111,7 +107,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def sort_list (self, args, col):
         self.packageList.freeze ()
 
-        if col == 2:
+        if col == 3:
             self.bubblesort(args, col)
             min = 0
             max = self.maxrows - 1
@@ -148,7 +144,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     (curr, row_data, header) = self.packageList.get_row_data (currow)
                     (next, row_data, header) = self.packageList.get_row_data (nextrow)
 
-                elif col == 2:
+                elif col == 3:
                     curr = self.packageList.get_text(currow, col)
                     curr = string.atoi(curr)
                     next = self.packageList.get_text(nextrow, col)
@@ -213,7 +209,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         except:
             pass
 
-
     def toggle_row (self, row):
         (val, row_data, header) = self.packageList.get_row_data(row)
 
@@ -236,7 +231,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageDesc.insert_defaults (description)
         self.packageDesc.thaw ()
 
-
         if val == 0:
             header.unselect()
         else:
@@ -250,14 +244,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def key_press_cb (self, clist, event):
         if event.keyval == ord(" ") and self.packageList.focus_row != -1:
             self.toggle_row (self.packageList.focus_row)
-#            self.emit_stop_by_name ("key_press_event")
-#            return 1
-
-#        return 0
-
 
     def select (self, ctree, node, *args):
-#        print "select"
         self.clear_package_desc ()
         self.packageList.freeze ()
         self.packageList.clear ()
@@ -274,20 +262,18 @@ class IndividualPackageSelectionWindow (InstallWindow):
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
                 dirName = header[rpm.RPMTAG_NAME] 
-
                 dirSize = header[rpm.RPMTAG_SIZE]
-
+                dirVersion = header[rpm.RPMTAG_VERSION]
                 dirDesc = header[rpm.RPMTAG_DESCRIPTION]
 
                 dirSize = dirSize/1000000
                 if dirSize > 1:
                     row = [ "", dirName, "%s" % dirSize]
-                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), TRUE, dirDesc)
+                    self.rownum = self.packageList.append_row((dirName, dirVersion, "%s" % dirSize), TRUE, dirDesc)
                     
                 else:
                     row = [ "", dirName, "1"]
-                    self.rownum = self.packageList.append_row((dirName, "1"), TRUE, dirDesc)
-
+                    self.rownum = self.packageList.append_row((dirName, dirVersion, "1"), TRUE, dirDesc)
 
                 if header.isSelected():
                     self.packageList.set_row_data(self.rownum, (1, dirDesc, header))
@@ -300,17 +286,15 @@ class IndividualPackageSelectionWindow (InstallWindow):
             if self.sortType == "Package":
                 pass
             elif self.sortType == "Size":
-                self.sort_list (args, 2)
+                self.sort_list (args, 3)
             elif self.sortType == "Selected":
                 self.sort_list (args, 0)
 
-            self.packageList.column_titles_active ()
-            
+            self.packageList.column_titles_active ()            
             self.selectAllButton.set_sensitive (TRUE)
             self.unselectAllButton.set_sensitive (TRUE)
             
         except:
-#            print "Except called"
             self.selectAllButton.set_sensitive (FALSE)
             self.unselectAllButton.set_sensitive (FALSE)
             pass
@@ -394,19 +378,24 @@ class IndividualPackageSelectionWindow (InstallWindow):
         packageHBox = GtkHBox ()
         packageHBox.pack_start (sw, FALSE)
 
-        self.packageList = checklist.CheckList(2)
+        self.packageList = checklist.CheckList(3)
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("Package")))
         self.packageList.set_column_auto_resize (1, TRUE)
-        self.packageList.set_column_title (2, (_("Size (MB)")))
+
+        self.packageList.set_column_title (2, (_("Version")))
         self.packageList.set_column_auto_resize (2, TRUE)
+
+        self.packageList.set_column_title (3, (_("Size (MB)")))
+        self.packageList.set_column_auto_resize (3, TRUE)
         self.packageList.column_titles_show ()
 
         self.packageList.set_column_min_width(0, 16)
         self.packageList.column_title_active (0)
         self.packageList.column_title_active (1)
         self.packageList.column_title_active (2)
+        self.packageList.column_title_active (3)
         self.packageList.connect ('click-column', self.sort_list)
         self.packageList.connect ('button_press_event', self.button_press)
         self.packageList.connect ("key_press_event", self.key_press_cb)
@@ -476,22 +465,16 @@ class ErrorWindow:
         win.connect ("clicked", self.exit)
 
         info = GtkLabel (text)
-#        info = GtkLabel (_("An error has occurred while retreiving hdlist or comps files.  "
-#                           "The installation media or image is probably corrupt.  Installer will exit now."))
         info.set_line_wrap (TRUE)
 
         hbox = GtkHBox (FALSE)
         hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), FALSE)
         hbox.pack_start (info)
 
-#        exit = GtkButton (_("Ok"))
-#        exit.connect ("clicked", self.exit)
-#        exit.set_border_width (20)
         win.append_button (_("Ok"))
         win.button_connect (0 , self.exit)
 
         win.vbox.pack_start (hbox, FALSE)
-#        win.vbox.pack_start (exit, FALSE, FALSE, 10)
 
         win.set_usize (450, 180)
         win.set_position (WIN_POS_CENTER)
@@ -552,7 +535,6 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.setSize()
 
-    # PackageSelectionWindow tag="sel-group"
     def getScreen (self):
         #--If we can't retreive hdlist or comps files, raise an error
         try:
@@ -568,8 +550,8 @@ class PackageSelectionWindow (InstallWindow):
         except TypeError, msg:
             extra = msg
         except KeyError, key:
-            extra = ("The comps file references a package called \"%s\" which "
-                     "could not be found." % (key,))
+            extra = (_("The comps file references a package called \"%s\" which "
+                     "could not be found." % (key,)))
         except:
             extra = ""
 
@@ -660,77 +642,3 @@ class PackageSelectionWindow (InstallWindow):
         vbox.set_border_width (5)
 
         return vbox
-
-
-        
-#        else:
-#            self.raiseDialog ()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
