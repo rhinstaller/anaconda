@@ -653,7 +653,6 @@ EOF
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
 	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/sbin/init
 	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
-	install -m 755 $IMGPATH/usr/bin/sleep $MBD_DIR/sbin/sleep
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then

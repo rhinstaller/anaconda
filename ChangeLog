@@ -1,3 +1,8 @@
+2004-10-26  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/mk-images: Use busybox sleep for s390 instead of
+	coreutils sleep to avoid needing librt and libpthread (#131167)
+
 2004-10-25  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/net.c (setKickstartNetwork): Handle onboot 
