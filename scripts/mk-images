@@ -118,7 +118,6 @@ findPackage() {
     done
 
     echo "cannot find package $name in path $dir" >&2
-    kill -9 $$
 }
 
 findmodule () {
