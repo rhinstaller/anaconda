@@ -5,6 +5,7 @@ from translate import _
 import raid
 import os
 from log import log
+import isys
 
 class RescueInterface:
 
@@ -21,7 +22,7 @@ class RescueInterface:
     def __init__(self, screen):
 	self.screen = screen
 
-def runRescue(serial):
+def runRescue(url, serial):
 
     from fstab import NewtFstab
 
@@ -42,6 +43,16 @@ def runRescue(serial):
 
     screen = SnackScreen()
     intf = RescueInterface(screen)
+
+    # go ahead and set things up for reboot
+    if url[0:6] == "cdrom:" or url[0:4] == "nfs:":
+	f = open("/tmp/cleanup", "w")
+
+	isys.makeDevInode("loop0", "/tmp/loop0")
+	f.write("umount /mnt/runtime\n")
+	f.write("lounsetup /tmp/loop0\n")
+
+	f.close()
 
     parts = upgrade.findExistingRoots(intf, fstab)
 

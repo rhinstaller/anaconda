@@ -214,7 +214,7 @@ if (progmode == None):
 
 if (progmode == 'rescue'):
     import rescue
-    rescue.runRescue(serial)
+    rescue.runRescue(method, serial)
     # shouldn't get back here
     sys.exit(1)
 
