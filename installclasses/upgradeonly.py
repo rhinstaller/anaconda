@@ -40,6 +40,7 @@ class InstallClass(BaseInstallClass):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
+            dispatch.skipStep("bootloaderpassword")
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

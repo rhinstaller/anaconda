@@ -33,6 +33,7 @@ class InstallClass(BaseInstallClass):
                     "findpackages",
                     "bootloadersetup",
 		    "bootloader",
+                    "bootloaderpassword"
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",
@@ -48,6 +49,7 @@ class InstallClass(BaseInstallClass):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
+            dispatch.skipStep("bootloaderpassword")
 
     def setInstallData(self, id):
         BaseInstallClass.__init__(self, id)
