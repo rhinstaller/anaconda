@@ -1,7 +1,5 @@
 include ../Makefile.inc
 
-VERSION = 7.2
-
 DESTDIR = ../../trees/initrd
 
 OBJS = log.o windows.o modules.o devices.o cdrom.o kickstart.o lang.o \
