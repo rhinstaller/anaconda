@@ -792,8 +792,6 @@ class DiskSet:
 
         w and w.pop()
         
-        isys.flushDriveDict()
-
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return 0
 

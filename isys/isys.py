@@ -240,10 +240,6 @@ def loadKeymap(keymap):
 
 probedList = None
 
-def flushDriveDict():
-    global probedList
-    probedList = None
-
 classMap = { "disk": kudzu.CLASS_HD,
              "cdrom": kudzu.CLASS_CDROM,
              "floppy": kudzu.CLASS_FLOPPY }
