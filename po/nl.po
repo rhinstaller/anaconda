@@ -1,9 +1,9 @@
 # Dutch translation of anaconda-po
-# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005 Free Software Foundation, Inc.
 #
 # Arjan van de Ven <arjanv@redhat.com>, 2001.
 # Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
-# Peter van Egdom <p.van.egdom@chello.nl>, 2002, 2003, 2004.
+# Peter van Egdom <p.van.egdom@chello.nl>, 2002, 2003, 2004, 2005.
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-11-26 20:06+0100\n"
+"PO-Revision-Date: 2005-01-13 23:08+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -802,7 +802,7 @@ msgstr ""
 "Geef <Enter> om uw systeem te herstarten."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -813,8 +813,8 @@ msgid ""
 msgstr ""
 "Fout bij het aanzetten van wisselgeheugen-partitie %s: %s\n"
 "\n"
-"Dit betekent waarschijnlijk dat deze wissel-partitie niet geïnitialiseerd "
-"is.\n"
+"Het /etc/fstab bestand op de partitie waarvan u wilt upgraden heeft geen "
+"verwijzing naar een geldige wissel-partitie.\n"
 "\n"
 "Geef OK om uw systeem te herstarten."
 
@@ -934,7 +934,6 @@ msgstr ""
 "Geef OK om uw systeem te herstarten."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -942,10 +941,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Er is een fout opgetreden bij het aankoppelen van device %s als %s: %s\n"
+"Er is een fout opgetreden bij het zoeken naar het / item.\n"
 "\n"
-"Dit is waarschijnlijk veroorzaakt doordat deze partitie niet geformatteerd "
-"is.\n"
+"Dit betekent waarschijnlijk dat uw fstab bestand niet correct is.\n"
 "\n"
 "Geef OK om uw systeem te herstarten."
 
@@ -1342,6 +1340,9 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Er ontbreken kritieke groepen in het \"comps\" bestand in uw "
+"installatieomgeving. Wees er zeker van dat uw installatieomgeving correct is "
+"samengesteld."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1387,15 +1388,17 @@ msgstr ""
 "lezen."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Herstarten"
+msgstr "_Herstarten"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. Dit "
+"zal waarschijnlijk een herinstallatie inhouden.  Weet u zeker dat u verder "
+"wilt gaan?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -1422,15 +1425,15 @@ msgstr ""
 "\n"
 "Geef OK om uw systeem opnieuw op te starten."
 
-# return? moet dit niet enter zijn?
 #: ../packages.py:735 ../upgrade.py:350
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Het was niet mogelijk on de \"header list\" te activeren. Dit komt door een "
-"ontbrekend bestand of een beschadigde mediadrager.  Geef <Enter> om opnieuw "
-"te proberen."
+"Het was niet mogelijk om de zogenaamde \"header list\" samen te voegen. Dit "
+"kan veroorzaakt worden door een ontbrekend bestand of door een beschadigde "
+"media-drager. Kies <Enter> om het installatieprogramma een nieuwe poging te "
+"laten doen."
 
 #: ../packages.py:870
 msgid "Preparing RPM transaction..."
@@ -2360,7 +2363,7 @@ msgstr ""
 
 #: ../rescue.py:420
 msgid "Rescue Mode"
-msgstr "Herstel Mode"
+msgstr "Herstel modus"
 
 # return -> enter
 #: ../rescue.py:421
@@ -2958,7 +2961,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Geavanceerde bootloader-configuratie"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2967,8 +2969,7 @@ msgid ""
 msgstr ""
 "Het gebruik forceren van LBA32 voor uw bootloader terwijl dit niet in het "
 "BIOS wordt ondersteund kan tot gevolg hebben dat uw computer niet meer kan "
-"opstarten. We raden u sterk aan een opstartdiskette te maken wanneer dat "
-"verderop in het installatieproces aan u gevraagd wordt.\n"
+"opstarten.\n"
 "\n"
 "Wilt u doorgaan en LBA32-modus forceren?"
 
@@ -3003,7 +3004,6 @@ msgid "Change Boot Loader"
 msgstr "Bootloader veranderen"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -4017,9 +4017,8 @@ msgid "Encryption _Key"
 msgstr "Encryptie _sleutel"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP-adres:"
+msgstr "Hardware adres:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5835,7 +5834,7 @@ msgstr "Beschrijving: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hardware adres: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7334,9 +7333,9 @@ msgid "Welcome to %s"
 msgstr "Welkom bij %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Welkom bij %s"
+msgstr "Welkom bij %s - Herstel modus"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7871,14 +7870,12 @@ msgid "Account name:"
 msgstr "Accountnaam:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP-instellingen"
+msgstr "Overige FTP-instellingen"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP-instellingen"
+msgstr "Overige HTTP-instellingen"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
