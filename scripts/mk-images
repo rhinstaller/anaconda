@@ -880,8 +880,9 @@ for kernelvers in $vertag; do
 
     # make the boot images
     makeBootImages
+done
 
 # make the second stage
 makeSecondStage
 rm -rf $KERNELROOT
-done
+
