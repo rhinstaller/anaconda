@@ -1239,12 +1239,7 @@ class PartedPartitionDevice(PartitionDevice):
         if not self.partition:
             return self.device
         
-        if (self.partition.geom.disk.dev.type == parted.DEVICE_DAC960
-            or self.partition.geom.disk.dev.type == parted.DEVICE_CPQARRAY):
-            return "%sp%d" % (self.partition.geom.disk.dev.path[5:],
-                              self.partition.num)
-        return "%s%d" % (self.partition.geom.disk.dev.path[5:],
-                         self.partition.num)
+        return partitioning.get_partition_name(self.partition)
 
     def solidify(self):
         # drop reference on the parted partition object and note
