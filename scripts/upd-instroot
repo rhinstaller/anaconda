@@ -1013,8 +1013,9 @@ echo "Cleaning ramdisk install images..."
 rm -rf $DEST/usr/lib/anaconda-runtime
 
 # remove *.py in /usr/lib/anaconda since we compile everything
-find $DESTGR/usr/lib/anaconda/ -name "*.py" | while read fn; do
+find $DESTGR -name "*.py" | while read fn; do
     if [ -f ${fn}c ]; then
+	echo "removing $fn because it has a .pyc"
 	rm -f $fn
     fi
 done
