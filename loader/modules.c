@@ -77,13 +77,14 @@ moduleDeps mlNewDeps(void) {
     return md;
 }
 
-int mlLoadDeps(moduleDeps moduleDepList, const char * path) {
+int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
     int fd;
     char * buf;
     struct stat sb;
     char * start, * end, * chptr;
     int i, numItems;
     moduleDeps nextDep;
+    moduleDeps moduleDepList = *moduleDepListPtr;
 
     fd = open(path, O_RDONLY);
     if (fd < 0) {
@@ -150,6 +151,8 @@ int mlLoadDeps(moduleDeps moduleDepList, const char * path) {
     nextDep->deps = NULL;
     moduleDepList = realloc(moduleDepList, sizeof(*moduleDepList) *
 				(nextDep - moduleDepList + 1));
+
+    *moduleDepListPtr = moduleDepList;
 
     return 0;
 }

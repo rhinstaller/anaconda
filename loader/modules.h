@@ -5,7 +5,7 @@ typedef struct moduleDependency_s * moduleDeps;
 
 int mlReadLoadedList(moduleList * list);
 void mlFreeList(moduleList list);
-int mlLoadDeps(moduleDeps moduleDepList, const char * path);
+int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
 int mlLoadModule(char * modName, moduleList modLoaded,
 	         moduleDeps modDeps, int testing);
