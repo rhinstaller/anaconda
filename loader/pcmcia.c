@@ -117,13 +117,13 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 
 	    fd = open("/modules/rhdd-6.1", O_RDONLY);
 	    if (fd >= 0) {
-		char buf[20];
+		char buf[30];
 		int i;
 
-		i = read(fd, buf, 20);
+		i = read(fd, buf, 30);
 		buf[9] = '\0';
 		logMessage("read %s", buf);
-		if (i == 9 && !strcmp(buf, "rhpcmcia\n")) {
+		if (i == 23 && !strcmp(buf, "PCMCIA Driver Diskette\n")) {
 		    winStatus(40, 3, title, text);
 		    if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, 
 				     NULL, modInfo, flags)) {
