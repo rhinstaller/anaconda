@@ -532,13 +532,19 @@ import configFileData
 configFile = configFileData.configFileData()
 configFileData = configFile.getConfigData()
 
+# setup links required for all install types
+for i in ( "services", "protocol", "nsswitch.conf"):
+    try:
+        os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+    except:
+        pass
+
 #
 # setup links required by graphical mode if installing and verify display mode
 #
 if (display_mode == 'g'):
     if not flags.test and flags.setupFilesystems:
-        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "services",
-                   "protocol", "pango", "nsswitch.conf", "fonts"):
+        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts"):
             try:
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
