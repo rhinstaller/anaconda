@@ -708,35 +708,30 @@ class XF86Config:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
-            return modes
         elif string.atoi(vidRam) >= 6144:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
-            return modes
         elif string.atoi(vidRam) >= 4096:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
-            return modes
         elif string.atoi(vidRam) >= 2048:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             modes["16"] = ["640x480", "800x600", "1024x768", "1152x864"]
             modes["32"] = ["640x480", "800x600"]
-            return modes
         elif string.atoi(vidRam) >= 1024:
             modes["8"] = ["640x480", "800x600", "1024x768", "1152x864"]
             modes["16"] = ["640x480", "800x600"]
             modes["32"] = []
-            return modes
         elif string.atoi(vidRam) >= 512:
             modes["8"] = ["640x480", "800x600"]
             modes["16"] = ["640x480"]
             modes["32"] = []
-            return modes
         elif string.atoi(vidRam) >= 256:
             modes["8"] = ["640x480"]
-            return modes
+
+        return modes
 
     def filterModesByMemory (self):
         self.modes = self.availableModes()
