@@ -67,17 +67,17 @@ typedef void (*cpioCallback)(struct cpioCallbackInfo * filespec, void * data);
    directory. The mode mapping is only used for the permission bits, not
    for the file type. The owner/group mappings are ignored for the nonroot
    user. If *failedFile is non-NULL on return, it should be free()d. */
-int cpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings, 
+int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings, 
 		       int numMappings, cpioCallback cb, void * cbData,
 		       const char ** failedFile);
-int cpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
+int myCpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
 		     int numMappings, cpioCallback cb, void * cbData,
 		     unsigned int * archiveSize, char ** failedFile);
 
 /* This is designed to be qsort/bsearch compatible */
-int cpioFileMapCmp(const void * a, const void * b);
+int myCpioFileMapCmp(const void * a, const void * b);
 
-const char *cpioStrerror(int rc);
+const char *myCpioStrerror(int rc);
 
 int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin);
 

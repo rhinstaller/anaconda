@@ -18,7 +18,7 @@ int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin) {
 	map.mapFlags = CPIO_MAP_PATH;
     }
 
-    rc = cpioInstallArchive(fd, outName ? &map : NULL, 1, NULL, NULL, 
+    rc = myCpioInstallArchive(fd, outName ? &map : NULL, 1, NULL, NULL, 
 			    &failedFile);
 
     if (rc || access(outName, R_OK)) {

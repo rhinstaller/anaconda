@@ -469,7 +469,7 @@ static int eatBytes(struct ourfd * fd, int amount) {
     return 0;
 }
 
-int cpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings, 
+int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings, 
 		       int numMappings, cpioCallback cb, void * cbData,
 		       const char ** failedFile) {
     struct cpioHeader ch;
@@ -792,7 +792,7 @@ static int writeLinkedFile(int fd, struct hardLink * hlink,
     return 0;
 }
 
-int cpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
+int myCpioBuildArchive(int fd, struct cpioFileMapping * mappings, 
 		     int numMappings, cpioCallback cb, void * cbData,
 		     unsigned int * archiveSize, char ** failedFile) {
     size_t size, totalsize = 0;
@@ -900,7 +900,7 @@ int cpioBuildArchive(int fd, struct cpioFileMapping * mappings,
     return 0;
 }
 
-const char * cpioStrerror(int rc)
+const char * myCpioStrerror(int rc)
 {
     static char msg[256];
     char *s;
