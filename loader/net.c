@@ -7,7 +7,21 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "isys/dns.h"
+#ifdef __STANDALONE__
+#include <netdb.h>
+#include <libintl.h>
+#include <locale.h>
+
+#define _(String) gettext((String))
+
+#define LOADER_BACK 2
+#define LOADER_ERROR -1;
+
+#include "net.h"
+
+#else
+
+# include "isys/dns.h"
 #include "pump/pump.h"
 
 #include "kickstart.h"
@@ -17,12 +31,72 @@
 #include "net.h"
 #include "windows.h"
 
+#endif /* __STANDALONE__ */
+
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
     char * ip, * nm, * gw, * ns;
 };
 
 typedef int int32;
+
+#ifdef __STANDALONE__
+static FILE * logfile = NULL;
+
+#define FL_TESTING(foo) 0
+
+void logMessage(const char * s, ...) {
+	va_list args;
+	
+	if (!logfile) return;
+	va_start(args, s);
+
+	fprintf(logfile, "* ");
+	vfprintf(logfile, s, args);
+	fprintf(logfile, "\n");
+	fflush(logfile);
+
+	va_end(args);
+
+	return;
+}
+
+/* yawn. This really should be in newt. */
+void winStatus(int width, int height, char * title,
+	                       char * text, ...) {
+	newtComponent t, f;
+	char * buf = NULL;
+	int size = 0;
+	int i = 0;
+	va_list args;
+	
+	va_start(args, text);
+	
+	do {
+		size += 1000;
+		if (buf) free(buf);
+		buf = malloc(size);
+		i = vsnprintf(buf, size, text, args);
+	} while (i == size);
+	
+	va_end(args);
+	
+	newtCenteredWindow(width, height, title);
+	
+	t = newtTextbox(1, 1, width - 2, height - 2, NEWT_TEXTBOX_WRAP);
+	newtTextboxSetText(t, buf);
+	f = newtForm(NULL, NULL, 0);
+	
+	free(buf);
+	
+	newtFormAddComponent(f, t);
+	
+	newtDrawForm(f);
+	newtRefresh();
+	newtFormDestroy(f);
+}
+
+#endif
 
 static void ipCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
@@ -63,6 +137,7 @@ static void ipCallback(newtComponent co, void * dptr) {
     }
 }
 
+#ifndef __STANDALONE__
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
@@ -99,6 +174,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
     return 0;
 }
+#endif
 
 static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     if (!(cfg->dev.set & PUMP_INTFINFO_HAS_BROADCAST)) {
@@ -116,6 +192,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
+#ifndef __STANDALONE__
 void initLoopback(void) {
     struct pumpNetIntf dev;
 
@@ -126,6 +203,7 @@ void initLoopback(void) {
 
     pumpSetupInterface(&dev);
 }
+#endif
 
 static void dhcpBoxCallback(newtComponent co, void * ptr) {
     struct intfconfig_s * c = ptr;
@@ -229,7 +307,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	if (answer == back) {
 	    newtFormDestroy(f);
 	    newtPopWindow();
-
 	    return LOADER_BACK;
 	} 
 
@@ -334,7 +411,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 	if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
 	    fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
 	if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
-	    fprintf(f, "HOSTNAME=%s\n", dev->dev.domain);
+	    fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
     }
 
     fclose(f);
@@ -371,6 +448,9 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     char * name, * chptr;
+#ifdef __STANDALONE__
+    struct hostent * he;
+#endif
 
     if (!FL_TESTING(flags)) {
 	writeResolvConf(dev);
@@ -379,7 +459,12 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
 	winStatus(40, 3, _("Hostname"), 
 		  _("Determining host name and domain..."));
+#ifdef __STANDALONE__
+	he = gethostbyaddr( (char *) &dev->dev.ip, sizeof (dev->dev.ip), AF_INET);
+	name = he->h_name;
+#else
 	name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
+#endif
 	newtPopWindow();
 
 	if (!name) {
@@ -407,6 +492,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     return 0;
 }
 
+#ifndef __STANDALONE__
 int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
 		     int flags) {
     char ** ksArgv;
@@ -499,3 +585,128 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     
     return 0;
 }
+#endif
+
+#ifdef __STANDALONE__
+int main(int argc, char **argv) {
+    int netSet, rc;
+    int x;
+    char * bootProto = NULL;
+    char * device = NULL;
+    char * hostname = NULL;
+    char * domain = NULL;
+    char * arg;
+    char path[256];
+    char roottext[80];
+    poptContext optCon;
+    struct networkDeviceConfig *netDev;
+    struct in_addr * parseAddress;
+    struct poptOption Options[] = {
+	    POPT_AUTOHELP
+	    { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0,
+	      _("Boot protocol to use"), "(dhcp|bootp|none)" },
+	    { "gateway", '\0', POPT_ARG_STRING, NULL, 'g',
+	      _("Network gateway"), NULL },
+	    { "ip", '\0', POPT_ARG_STRING, NULL, 'i',
+	      _("IP address"), NULL },
+	    { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n',
+	      _("Nameserver"), NULL },
+	    { "netmask", '\0', POPT_ARG_STRING, NULL, 'm',
+	      _("Netmask"), NULL },
+	    { "hostname", '\0', POPT_ARG_STRING, &hostname, 0,
+	      _("Hostname"), NULL 
+	    },
+	    { "domain", '\0', POPT_ARG_STRING, &domain, 0,
+	      _("Domain name"), NULL
+	    },
+	    { "device", 'd', POPT_ARG_STRING, &device, 0,
+	      _("Network device"), NULL 
+	    },
+	    { 0, 0, 0, 0, 0 }
+    };
+
+	
+    netDev = malloc(sizeof(struct networkDeviceConfig));
+    memset(netDev,'\0',sizeof(struct networkDeviceConfig));
+    optCon = poptGetContext("netconfig", argc, argv, Options, 0);
+    while ((rc = poptGetNextOpt(optCon)) >= 0) {
+	parseAddress = NULL;
+	netSet = 0;
+
+	arg = poptGetOptArg(optCon);
+
+	switch (rc) {
+	  case 'g':
+	    parseAddress = &netDev->dev.gateway;
+	    netSet = PUMP_NETINFO_HAS_GATEWAY;
+	    break;
+		
+	  case 'i':
+	    parseAddress = &netDev->dev.ip;
+	    netSet = PUMP_INTFINFO_HAS_IP;
+	    break;
+		
+	  case 'n':
+	    parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
+	    netSet = PUMP_NETINFO_HAS_DNS;
+	    break;
+
+	  case 'm':
+	    parseAddress = &netDev->dev.netmask;
+	    netSet = PUMP_INTFINFO_HAS_NETMASK;
+	    break;
+	}
+
+	if (!inet_aton(arg, parseAddress)) {
+	    logMessage("bad ip number in network command: %s", arg);
+	    return -1;
+	}
+
+	netDev->dev.set |= netSet;
+    }
+
+    if (rc < -1) {
+	fprintf(stderr, "%s: %s\n",
+		   poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		   poptStrerror(rc));
+    } else {
+	poptFreeContext(optCon);
+    }
+	
+    if (netDev->dev.set || 
+	(bootProto && (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")))) {
+	    if (!device) device="eth0";
+	    if (bootProto && (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")))
+		netDev->isDynamic++;
+	    strncpy(netDev->dev.device,device,10);
+	    if (hostname) {
+		    netDev->dev.hostname=strdup(hostname);
+		    netDev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
+	    }
+	    if (domain) {
+		    netDev->dev.domain=strdup(domain);
+		    netDev->dev.set |= PUMP_NETINFO_HAS_DOMAIN;
+	    }
+	    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
+	    writeNetInfo(path,netDev);
+    } else {
+	    newtInit();
+	    newtCls();
+	    newtPushHelpLine(_(" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"));
+	    snprintf(roottext,80,_("netconfig %s  (C) 1999 Red Hat, Inc."), VERSION);
+	    newtDrawRootText(0, 0, roottext);
+	    x=newtWinChoice(_("Network configuration"),_("Yes"),_("No"),
+			  _("Would you like to set up networking?"));
+	    if (x==2) { 
+		    newtFinished();
+		    exit(0);
+	    }
+	    if (!device) device="eth0";
+	    readNetConfig(device,netDev,0);
+	    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
+	    writeNetInfo(path,netDev);
+	    newtFinished();
+    }
+    exit(0);
+}
+#endif
