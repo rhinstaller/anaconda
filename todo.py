@@ -988,7 +988,7 @@ class ToDo:
                         try:
                             isys.swapon (dev)
                         except:
-                            self.log ("Error turning on swap on %s", dev)
+                            self.log ("Error in swapon of %s", dev)
                         os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
