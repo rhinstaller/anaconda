@@ -473,7 +473,7 @@ class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
 		 expert = 0, serial = 0, reconfigOnly = 0, test = 0,
-		 extraModules = [], pcicController = None):
+		 extraModules = []):
 	self.intf = intf
 	self.method = method
 	self.hdList = None
@@ -488,7 +488,6 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
-        self.pcicController = pcicController
         self.verifiedState = None
 
         if mouse:
@@ -1857,8 +1856,8 @@ class ToDo:
                 # pcmcia is supported only on i386 at the moment
                 if arch == "i386":
                     pcmcia.createPcmciaConfig(
-			    self.instPath + "/etc/sysconfig/pcmcia",
-			    self.pcicController)
+			    self.instPath + "/etc/sysconfig/pcmcia")
+			   
                 self.copyConfModules ()
                 if not self.x.skip and self.x.server:
                     if os.access (self.instPath + "/etc/X11/X", os.R_OK):

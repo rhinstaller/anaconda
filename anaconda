@@ -135,7 +135,6 @@ kickstart = None
 mouseInfo = None
 progmode = None
 customClass = None
-pcicController = None
 
 #
 # parse off command line arguments
@@ -154,8 +153,6 @@ for n in args:
 	xmode = 1
     elif (str == '-t' or str == '--test'):
 	test = 1
-    elif (str == '--pcic'):
-	pcicController = arg
     elif (str == '--overhead'):
 	overhead = int(arg)
     elif (str == '--rescue'):
@@ -504,7 +501,7 @@ todo = ToDo(intf, method, rootPath, installSystem = installPackages,
 	    setupFilesystems = setupFilesystems, mouse = mouseInfo,
 	    instClass = instClass, x = x, expert = expert,
 	    serial = serial, reconfigOnly = reconfigOnly, test = test,
-	    extraModules = extraModules, pcicController = pcicController)
+	    extraModules = extraModules)
 
 try:
     intf.run(todo, test = test)

@@ -2897,11 +2897,6 @@ int main(int argc, char ** argv) {
 	    *argptr++ = instClass;
 	}
 
-	if (pcic[0]) {
-	    *argptr++ = "--pcic";
-	    *argptr++ = pcic;
-	}
-
 	if (memoryOverhead) {
 	    *argptr++ = "--overhead";
 	    *argptr = malloc(20);
