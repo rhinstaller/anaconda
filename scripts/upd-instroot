@@ -359,6 +359,7 @@ usr/X11R6/lib/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/ftp
+usr/bin/gtk-query-immodules-2.0
 usr/bin/head
 usr/bin/less
 usr/bin/lsattr*
@@ -387,6 +388,7 @@ usr/bin/mtype
 usr/bin/mwrite
 usr/bin/mzip
 usr/bin/open
+usr/bin/pango-querymodules
 usr/bin/pico
 usr/bin/rcp
 usr/bin/rlogin
@@ -400,6 +402,8 @@ usr/lib/anaconda/iw
 usr/lib/gconv/*
 usr/lib/gdk-pixbuf/loaders/*png*
 usr/lib/gdkimlib*
+usr/lib/gtk-2.0/*/loaders/*png*
+usr/lib/gtk-2.0/immodules/
 usr/lib/libImlib*
 usr/lib/libart*
 usr/lib/libatk*
@@ -558,6 +562,18 @@ echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*
     rm $DESTGR/usr/X11R6/bin/mkfontdir
+fi
+
+echo "Getting pango modules"
+if [ -n "$NEEDGR" ]; then
+    chroot $DESTGR $DESTGR/usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+    rm -f $DESTGR/usr/bin/pango-querymodules
+fi
+
+echo "Getting gtk2 input method modules"
+if [ -n "$NEEDGR" ]; then
+    chroot $DESTGR $DESTGR/usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
+    rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
 rm -f $KEEPFILE $KEEPFILEGR
