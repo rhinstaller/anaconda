@@ -192,8 +192,10 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	}
     }
 
+    if (mod->major == DRIVER_SCSI) scsiWindow(mod->moduleName);
     rc = mlLoadModule(mod->moduleName, modLoaded, modDeps, args,
 		      FL_TESTING(flags));
+    if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {
 	for (arg = args; *arg; arg++)
