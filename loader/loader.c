@@ -89,6 +89,7 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device);
 static int umountLoopback(char * mntpoint, char * device);
 int copyDirectory(char * from, char * to);
 static char * mediaCheckISODir(char *path);
+static void useMntSourceUpdates(char * path);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -528,7 +529,7 @@ char * validIsoImages(char * dirName) {
 #ifdef INCLUDE_LOCAL
 static int loadLocalImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
-    int fd, rc, fd2;
+    int fd, rc;
     char * path;
 
     /* In a kind world, this would do nothing more then mount a ramfs
@@ -548,15 +549,7 @@ static int loadLocalImages(char * prefix, char * dir, int flags,
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
-    if ((fd2 = open(path, O_RDONLY)) >= 0) {
-      if (!setupStage2Image(fd2, "/tmp/ramfs/updates-disk.img", flags,
-			    "loop7", "/tmp/update-disk")) {
-	copyDirectory("/tmp/update-disk", "/tmp/updates");
-	umountLoopback("/tmp/update-disk", "loop7");
-	unlink("/tmp/ramfs/updates-disk.img");
-      }
-      close(fd2);
-    }
+    useMntSourceUpdates(path);
 
     rc = setupStage2Image(fd, "/tmp/ramfs/hdstg1.img", flags, device, mntpoint);
 
@@ -587,6 +580,14 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	path = validIsoImages(filespec);
 
 	if (path) {
+	    char * updatesPath;
+
+	    /* handle updates.img now before we copy stage2 over... this allows
+	     * us to keep our ramdisk size as small as possible */
+	    updatesPath = alloca(50 + strlen(filespec));
+	    sprintf(updatesPath, "%s/updates.img", filespec);
+	    useMntSourceUpdates(updatesPath);
+
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
 	    if (!rc) {
 		rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
@@ -780,16 +781,14 @@ static int totalMemory(void) {
     return total;
 }
 
-/* try to grab an updates.img from /mnt/source/RedHat/base/
- * XXX hard coded locations suck.  oh well
+/* try to use the provided updates.img at path
  */
-static void useMntSourceUpdates() {
-  if (!access("/mnt/source/RedHat/base/updates.img", R_OK)) {
-    if (!mountLoopback("/mnt/source/RedHat/base/updates.img",
+static void useMntSourceUpdates(char * path) {
+  if (!access(path, R_OK)) {
+    if (!mountLoopback(path,
 		       "/tmp/update-disk", "loop7")) {
 	copyDirectory("/tmp/update-disk", "/tmp/updates");
 	umountLoopback("/tmp/update-disk", "loop7");
-	unlink("/tmp/ramfs/update-disk.img");
     }
   }
 }
@@ -1345,7 +1344,7 @@ static char * setupCdrom(struct installMethod * method,
 		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
-		        useMntSourceUpdates();
+		        useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 		      
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
@@ -1550,12 +1549,12 @@ static char * mountNfsImage(struct installMethod * method,
 				       "/mnt/runtime", "loop0")) {
 			rmdir("/mnt/source");
 			symlink("/mnt/source", "/mnt/source");
-		        useMntSourceUpdates();
+		        useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 			stage = NFS_STAGE_DONE;
 			url = "nfs://mnt/source/.";
 		    }
 		} else if ((path = validIsoImages("/mnt/source"))) {
-		    useMntSourceUpdates();
+		    useMntSourceUpdates("/mnt/source/updates.img");
 
 		    if (mountLoopback(path, "/mnt/source2", "loop1"))
 			logMessage("failed to mount iso loopback!");
@@ -1564,6 +1563,7 @@ static char * mountNfsImage(struct installMethod * method,
 				         "/mnt/runtime", "loop0")) {
 			    logMessage("failed to mount install loopback!");
 			} else {
+			    useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 			    stage = NFS_STAGE_DONE;
 			    url = "nfsiso:/mnt/source";
 			    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
@@ -2273,11 +2273,11 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 			       "/mnt/runtime", "loop0")) {
 		rmdir("/mnt/source");
 		symlink("/mnt/source", "/mnt/source");
-		useMntSourceUpdates();
+		useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 		imageUrl = "nfs://mnt/source/.";
 	    }
 	} else if ((isopath = validIsoImages("/mnt/source"))) {
-	    useMntSourceUpdates();
+	    useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 
 	    if (mountLoopback(isopath, "/mnt/source2", "loop1"))
 		logMessage("failed to mount iso loopback!");
