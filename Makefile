@@ -1,4 +1,5 @@
-SUBDIRSHD = rpmmodule isys balkan libfdisk collage loader stubs po kudzu
+SUBDIRSHD = rpmmodule isys balkan libfdisk collage loader stubs po kudzu \
+	    minislang
 SUBDIRS = $(SUBDIRSHD) gnome-map iw
 BUILDONLYSUBDIRS = pump
 
