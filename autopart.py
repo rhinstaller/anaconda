@@ -740,11 +740,20 @@ def processPartitioning(diskset, requests, newParts):
         if request.type == REQUEST_LV and not request.device:
             request.device = str(request.uniqueID)
 
-        if request.type == REQUEST_RAID or request.type == REQUEST_VG:
-            request.size = request.getActualSize(requests, diskset)
         if not request.device:
 #            return PARTITION_FAIL
             raise PartitioningError, "Unsatisfied partition request\n%s" %(request)
+
+
+    # get the sizes for raid devices, vgs, and logical volumes
+    for request in requests.requests:
+        if request.type == REQUEST_RAID:
+            request.size = request.getActualSize(requests, diskset)
+        if request.type == REQUEST_VG:
+            request.size = request.getActualSize(requests, diskset)
+        if request.type == REQUEST_LV and request.percent:
+            request.size = request.getActualSize(requests, diskset)
+            vgreq = requests.getRequestByID(request.volumeGroup)
 
     return (PARTITION_SUCCESS, "success")
 
