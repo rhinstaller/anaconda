@@ -118,7 +118,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite3 neon
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl bogl-devel yum
+ 	 xfsprogs xfsdump dmapi libacl libattr attr acl yum
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -177,7 +177,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
            xorg-x11-base xorg-x11-ISO8859-15-75dpi 
            xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
-           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa"
+           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel"
 
 #
 # stuff ONLY included for rescue mode
