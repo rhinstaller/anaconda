@@ -38,7 +38,7 @@ callingAttribute = 1
 
 # bool: warn when using named arguments: func(a=1, b=2), where def func(a, b):
 #       def func2(a, b, **kw): doesn't generate a warning
-namedArgs = 1
+namedArgs = 0
 
 # int: warnings for code complexity, max value before generating a warning
 maxLines = 200
