@@ -715,6 +715,9 @@ def doPreInstall(method, id, intf, instPath, dir):
         id.fsset.write(instPath)
         # rootpath mode doesn't have this file around
         if os.access("/tmp/modprobe.conf", os.R_OK):
+            conffile = open("/tmp/modprobe.conf", "a")
+            conffile.write("\ninclude /etc/modprobe.conf.dist\n")
+            conffile.close()
             iutil.copyFile("/tmp/modprobe.conf", 
                            instPath + "/etc/modprobe.conf")
 
