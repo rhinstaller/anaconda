@@ -305,7 +305,7 @@ class InstallTimeLanguage:
     def setRuntimeLanguage(self, name):
 	lang = self.langNicks[name]
 
-        #os.environ["LC_ALL"] = lang
+        os.environ["LC_ALL"] = lang
         os.environ["LANG"] = lang
         os.environ["LC_NUMERIC"] = 'C'
 
