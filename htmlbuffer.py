@@ -23,7 +23,7 @@ import re
 
 class HTMLBuffer(HTMLParser.HTMLParser):
     ignoreTags = ('title',)
-    noTagTags = ('html', 'div', 'head')
+    noTagTags = ('html', 'div', 'head', 'span')
     newlineTags = ('p', 'h1', 'h2', 'li')
     whiteSpaceNuker = re.compile(r"""\s+""", re.MULTILINE) 
     def __init__(self):
