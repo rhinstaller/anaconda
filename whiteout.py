@@ -19,8 +19,7 @@ if flags.selinux:
     for fn in ("/tmp/updates/file_contexts",
                "/mnt/source/RHupdates/file_contexts",
                "/etc/security/selinux/src/policy/file_contexts/file_contexts",
-               "/mnt/runtime/etc/security/selinux/file_contexts",
-               "/etc/security/selinux/file_contexts"):
+                "/etc/security/selinux/file_contexts"):
         if os.access(fn, os.R_OK):
             break
     rpm.addMacro("__file_context_path", fn)
