@@ -39,7 +39,7 @@ class InstallPathWindow (InstallWindow):
                              InstallPathWindow
                              ]
 
-        self.installSteps = [ AccountWindow, PartitionWindow,
+        self.installSteps = [ PartitionWindow,
 			      LiloWindow,
 			      InstallTypeWindow,
                               TimezoneWindow,

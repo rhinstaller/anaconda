@@ -156,7 +156,7 @@ if forceMount:
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo)
-    intf.run(todo)
+    intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()
     from string import joinfields

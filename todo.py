@@ -295,7 +295,8 @@ class ToDo:
         self.upgrade = 0
 	self.lilo = LiloConfiguration()
 	self.initrdsMade = {}
-        
+	self.liloImages = {} 
+
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -310,6 +311,42 @@ class ToDo:
                 except:
                     # XXX
                     pass
+
+    def getLiloImages(self):
+	if self.liloImages:
+	    return self.liloImages
+
+        drives = self.drives.available ().keys ()
+	images = {}
+        for drive in drives:
+	    try:
+		table = _balkan.readTable ('/tmp/' + drive)
+	    except SystemError:
+		pass
+	    else:
+                for i in range (len (table)):
+		    (type, sector, size) = table[i]
+		    if size and (type == 1 or type == 2):
+			dev = drive + str (i + 1)
+			images[dev] = ("", type)
+
+	if (not images): return None
+
+	mountsByDev = {}
+	for loc in self.mounts.keys():
+	    (device, fsystem, reformat) = self.mounts[loc]
+	    mountsByDev[device] = loc
+
+	for dev in images.keys():
+	    if (mountsByDev.has_key(dev)):
+		if mountsByDev[dev] == '/':
+		    default = dev
+		    images[dev] = ("linux", 2)
+		else:
+		    del images[dev]
+
+	self.liloImages = images
+	return self.liloImages
 
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 

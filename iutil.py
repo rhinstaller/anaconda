@@ -20,7 +20,8 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     childpid = os.fork()
     if (not childpid):
-        isys.chroot (root)
+        if (root != '/'): isys.chroot (root)
+
 	if stdin != 0:
 	    os.dup2(stdin, 0)
 	    os.close(stdin)
@@ -41,7 +42,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
     return status
 
-def execWithCapture(command, argv, searchPath = 0, root = '/'):
+def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
     (read, write) = os.pipe()
 
@@ -49,6 +50,10 @@ def execWithCapture(command, argv, searchPath = 0, root = '/'):
     if (not childpid):
         if (root != '/'): isys.chroot (root)
 	os.dup2(write, 1)
+
+	if stdin:
+	    os.dup2(stdin, 0)
+	    os.close(stdin)
 
 	if (searchPath):
 	    os.execvp(command, argv)

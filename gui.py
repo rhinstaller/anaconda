@@ -100,7 +100,7 @@ class InstallInterface:
     def getCongratulation ():
         return CongratulationWindow
 
-    def run (self, todo):
+    def run (self, todo, test = 0):
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 

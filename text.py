@@ -2,11 +2,11 @@ from snack import *
 import sys
 import isys
 import os
+import iutil
 import rpm
 import time
 import gettext
 import glob
-import _balkan
 from newtpyfsedit import fsedit        
 
 INSTALL_OK = 0
@@ -78,7 +78,7 @@ class MouseWindow:
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
 	t = TextboxReflowed(30, 
 		_("Which model mouse is attached to this computer?"))
-	l = Listbox(8, scroll = 1, returnExit = 0, anchorLeft = 1)
+	l = Listbox(8, scroll = 1, returnExit = 0)
 
         key = 0
         for mouse in mice:
@@ -931,34 +931,8 @@ class LiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-        drives = todo.drives.available ().keys ()
-	images = {}
-        for drive in drives:
-	    try:
-		table = _balkan.readTable ('/tmp/' + drive)
-	    except SystemError:
-		pass
-	    else:
-                for i in range (len (table)):
-		    (type, sector, size) = table[i]
-		    if size and (type == 1 or type == 2):
-			dev = drive + str (i + 1)
-			images[dev] = ("", type)
-
-	if (not images): return
-
-	mountsByDev = {}
-	for loc in todo.mounts.keys():
-	    (device, fsystem, reformat) = todo.mounts[loc]
-	    mountsByDev[device] = loc
-
-	for dev in images.keys():
-	    if (mountsByDev.has_key(dev)):
-		if mountsByDev[dev] == '/':
-		    default = dev
-		    images[dev] = ("linux", 2)
-		else:
-		    del images[dev]
+	images = todo.liloImages
+	if not images: return
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
@@ -1225,6 +1199,36 @@ class WaitWindow:
 	g.draw()
 	self.screen.refresh()
 
+class TimezoneWindow:
+
+    def getTimezoneList(self, test):
+	if test:
+	    cmd = "./gettzlist"
+	    stdin = None
+	else:
+	    cmd = "/usr/bin/gunzip"
+	    stdin = os.open("/usr/lib/timezones.gz", 0)
+
+	zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
+	zoneList = string.split(zones)
+
+	if (stdin != None): os.close(stdin)
+
+	return zoneList
+
+    def __call__(self, screen, todo, test):
+	timezones = self.getTimezoneList(test)
+        (button, choice) = \
+            ListboxChoiceWindow(screen, _("Time zone Selection"),
+			_("What time zone are you located in?"),
+			timezones, buttons = [(_("OK"), "ok"),
+			(_("Back"), "back")], width = 40, height = 8, 
+			default = "US/Eastern")
+
+	if (button == "back"):
+	    return INSTALL_BACK
+
+	return INSTALL_OK
 
 class Flag:
     """a quick mutable boolean class"""
@@ -1272,7 +1276,7 @@ class InstallInterface:
     def __del__(self):
         self.screen.finish()
 
-    def run(self, todo):
+    def run(self, todo, test = 0):
         self.commonSteps = [
             [_("Language Selection"), LanguageWindow, (self.screen, todo)],
             [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
@@ -1282,6 +1286,7 @@ class InstallInterface:
         
         self.installSteps = [
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
+            [_("Time zone Setup"), TimezoneWindow, (self.screen, todo, test)],
             [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
