@@ -1001,7 +1001,7 @@ def doPostInstall(method, id, intf, instPath):
 	return
 
     w = intf.progressWindow(_("Post Install"),
-                            _("Performing post install configuration..."), 7)
+                            _("Performing post install configuration..."), 6)
 
     upgrade = id.upgrade.get()
     arch = iutil.getArch ()
@@ -1166,24 +1166,6 @@ def doPostInstall(method, id, intf, instPath):
                 
         w.set(6)
 
-        # FIXME: this is a huge gross hack.  hard coded list of files
-        # created by anaconda so that we can not be killed by selinux
-        log("setting SELinux contexts for anaconda created files")
-        if (os.access("%s/usr/sbin/setfiles" %(instPath), os.X_OK) and
-            flags.selinux):
-            for f in ("/etc/rpm/platform", "/etc/lilo.conf",
-                      "/etc/lilo.conf.anaconda", "/etc/mtab", "/etc/resolv.conf",
-                      "/etc/modprobe.conf", "/etc/modprobe.conf~",
-                      "/var/lib/rpm"):
-                if not os.access("%s/%s" %(instPath, f), os.R_OK):
-                    continue
-                iutil.execWithRedirect("/usr/sbin/setfiles",
-                                       ["setfiles", "-v", "/etc/security/selinux/src/policy/file_contexts/file_contexts", f],
-                                       stdout = "/dev/tty5",
-                                       stderr = "/dev/tty5",
-                                       root = instPath)
-                
-        w.set(7)
 
     finally:
 	pass
@@ -1250,6 +1232,39 @@ def doPostInstall(method, id, intf, instPath):
     
     if flags.setupFilesystems:
 	syslog.stop()
+
+# FIXME: this is a huge gross hack.  hard coded list of files
+# created by anaconda so that we can not be killed by selinux
+def setFileCons(instPath):
+    if flags.selinux:
+        log("setting SELinux contexts for anaconda created files")
+
+        # ugh, this is ugly
+        def addpath(x): return "/var/lib/rpm/" + x
+        rpmfiles = os.listdir(instPath + "/var/lib/rpm")
+        rpmfiles = map(addpath, rpmfiles)
+
+        files = ["/etc/rpm/platform", "/etc/lilo.conf",
+                 "/etc/lilo.conf.anaconda", "/etc/mtab", "/etc/resolv.conf",
+                 "/etc/modprobe.conf", "/etc/modprobe.conf~",
+                 "/var/lib/rpm", "/"] + rpmfiles
+
+        # blah, to work in a chroot, we need to actually be inside so the
+        # regexes will work
+        child = os.fork()
+        if (child):
+            os.chroot(instPath)
+            for f in  + rpmfiles:
+                if not os.access("%s" %(f,), os.R_OK):
+                    log("%s doesn't exist" %(f,))
+                    continue
+                ret = isys.resetFileContext(f)
+                log("set fc of %s to %s" %(f, ret))
+            sys.exit(0)
+
+        (pid, rc) = os.waitpid(child, 0)
+
+    return
 
 def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):

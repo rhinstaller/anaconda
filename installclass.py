@@ -156,6 +156,7 @@ class BaseInstallClass:
 		 "writeksconfig",
 		 "bootdisk",
                  "methodcomplete",
+                 "setfilecon",
 		 "complete"
 		)
 

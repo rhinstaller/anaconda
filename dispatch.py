@@ -28,6 +28,7 @@ from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import selectLanguageSupportGroups
 from packages import setupTimezone
+from packages import setFileCons
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -151,6 +152,7 @@ installSteps = [
                  "id.desktop", "id.grpset", "id.instClass", "instPath")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
+    ("setfilecon", setFileCons, ("instPath",)),
     ("dopostaction", doPostAction, ("id", "instPath")),
     ("methodcomplete", doMethodComplete, ("method",)),
     ("complete", ()),
