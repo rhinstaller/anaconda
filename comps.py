@@ -111,6 +111,13 @@ class Component:
         self.selected = 0
 	for n in self.items.keys ():
 	    self.items[n].selected = 0
+        # always turn off conditional packages, regardless
+        # if the condition is met or not.
+        conds = self.conditional.keys ()
+        if conds:
+            for condition in conds:
+                for pkg in self.conditional[condition]:
+                    pkg.selected = 0
 	if recurse:
 	    for n in self.includes:
 		n.unselect(recurse)
