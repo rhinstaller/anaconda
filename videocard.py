@@ -22,6 +22,7 @@ import iutil
 import isys
 
 from log import log
+from translate import _
 
 Video_cardslist = {}
 
