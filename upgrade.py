@@ -515,8 +515,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         langs = langs[1:-1]
                 break
         del f
-    if langs:
-        rpm.addMacro("_install_langs", langs)
+##     if langs:
+##         rpm.addMacro("_install_langs", langs)
                 
     # check the installed system to see if the packages just
     # are not newer in this release.

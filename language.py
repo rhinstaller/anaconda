@@ -263,7 +263,7 @@ class Language (SimpleConfigFile):
 	if len(langlist) == len(self.allSupportedLangs):
             self.info["SUPPORTED"] = None
 	    self.supported = langlist
-            rpm.delMacro ("_install_langs")
+#            rpm.delMacro ("_install_langs")
         elif langlist:
 	    rpmNickList = []
 	    for name in langlist:
@@ -275,10 +275,10 @@ class Language (SimpleConfigFile):
 	    self.supported = langlist
 
             shortLinguas = string.join (rpmNickList, ':')
-            rpm.addMacro("_install_langs", shortLinguas)
+#            rpm.addMacro("_install_langs", shortLinguas)
         else:
             self.info["SUPPORTED"] = None
-            rpm.delMacro ("_install_langs")
+#            rpm.delMacro ("_install_langs")
 	    self.supported = None
 	
 	if self.info["SUPPORTED"]:
