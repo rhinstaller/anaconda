@@ -28,7 +28,7 @@ class FinishedWindow:
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your Red Hat Linux installation is "
                "complete.\n\n"
-               "Remove any CD-ROMs or floppy diskettes you used during the "
+               "Remove any floppy diskettes you used during the "
                "installation process and press <Enter> to reboot your system. "
                "\n\n"
                "If you created a boot disk to use to boot your Red Hat Linux "
