@@ -495,10 +495,13 @@ def growParts(diskset, requests, newParts):
                 # compute fraction of freespace which to give to this
                 # request. Weight by original request size
                 percent = origSize[request.uniqueID] / (growSize[drive] * 1.0)
-                maxsect = long(percent * thisFreeSize[drive]) + startSize
+                growby = long(percent * thisFreeSize[drive])
+                if growby < cylsectors:
+                    growby = cylsectors;
+                maxsect = startSize + growby
 
 #                print request
-#                print "percent, maxsect, free", percent,maxsect,freeSize[drive], startSize, lastFreeSize
+#                print "percent, growby, maxsect, free", percent, growby, maxsect,freeSize[drive], startSize, lastFreeSize
 #                print "max is ",maxsect
                 imposedMax = 0
                 if request.maxSize: 
@@ -540,13 +543,15 @@ def growParts(diskset, requests, newParts):
                     lastDiff = diff
                     diff = max - min
 
+#                    print min, max, diff, cylsectors
+#                    print diskset.diskState()
+
                     if diff < cylsectors:
                         cur = max
                     else:
                         cur = max - (diff / 2)
 
                     inner_iter = inner_iter + 1
-##                     print diskset.diskState()
 ##                     print "sizes",min,max,diff,lastDiff
 
 #                freeSize[drive] = freeSize[drive] - (min - startSize)
