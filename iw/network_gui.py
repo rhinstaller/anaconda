@@ -165,13 +165,15 @@ class NetworkWindow(InstallWindow):
 				_("The hostname \"%s\" is not valid for the following reason:\n\n%s") % (hostname, error))
 
     def handleIPError(self, field, errmsg):
+	newfield = string.replace(field, "_", "")
 	self.intf.messageWindow(_("Error With Data"),
 				_("An error occurred converting "
-				  " the value entered for \"%s\":\n\n%s" % (field, errmsg)))
+				  " the value entered for \"%s\":\n%s" % (newfield, errmsg)))
 
     def handleIPMissing(self, field):
+	newfield = string.replace(field, "_", "")
 	self.intf.messageWindow(_("Error With Data"),
-				_("A value is required for the field \"%s\"." % (field,)))
+				_("A value is required for the field \"%s\"." % (newfield,)))
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
@@ -284,6 +286,7 @@ class NetworkWindow(InstallWindow):
 			tmpvals[t] = entrys[t].dehydrate()
 		    except ipwidget.IPMissing, msg:
 			self.handleIPMissing(options[t][0])
+			valsgood = 0
 			break
 		    except ipwidget.IPError, msg:
 			self.handleIPError(options[t][0], msg[0])
