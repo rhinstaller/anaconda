@@ -54,6 +54,7 @@ const char * __dcgettext(const char * domainname, const char * msgid,
 strong_alias (__dgettext, dgettext);
 strong_alias (__dcgettext, dcgettext);
 
+#ifdef DIET
 /* lie to slang to trick it into using unicode chars for linedrawing */
 char * setlocale (int category, const char *locale) {
     if (locale == NULL || *locale == '\0')
@@ -65,3 +66,5 @@ char * setlocale (int category, const char *locale) {
    fake setlocale() */
 typedef pthread_mutex_t __libc_lock_t;
 __libc_lock_t __libc_setlocale_lock;
+
+#endif
