@@ -46,7 +46,9 @@ IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
 
 FSMODS="msdos vfat ext3 reiserfs jfs xfs"
-SECSTAGE="agpgart md raid0 raid1 raid5 raid6 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
+LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror"
+RAIDMODS="md raid0 raid1 raid5 raid6"
+SECSTAGE="agpgart $RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb"
 COMMONMODULES="vfat loop cramfs floppy edd $USBMODS $BTERMMODULES"

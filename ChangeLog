@@ -1,3 +1,15 @@
+2004-09-27  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c: Load dm-zero, dm-snapshot and dm-mirror (#132001)
+
+	* scripts/mk-images.i386: 
+	* scripts/mk-images.ia64: 
+	* scripts/mk-images.ppc: 
+	* scripts/mk-images.s390: 
+	* scripts/mk-images.x86_64:
+	Use a variable for raid and lvm modules.  Add dm-zero, dm-snapshot
+	and dm-mirror (#132001)
+
 2004-09-24  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version
