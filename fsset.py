@@ -1611,6 +1611,8 @@ class VolumeGroupDevice(Device):
             # XXX the lvm tools are broken and will only work for /dev
             node = volume.setupDevice(chroot, devPrefix="/dev")
 
+            # XXX I should check if the pv is set up somehow so that we
+            # can have preexisting vgs and add new pvs to them.
             if not self.isSetup:
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
