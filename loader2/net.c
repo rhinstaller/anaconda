@@ -124,7 +124,7 @@ static int waitForLink(char * dev) {
      * to five times */
     logMessage("waiting for link...");
     while (tries < num_link_checks) {
-        if (get_link_status(dev) != 0)
+      if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
@@ -551,6 +551,7 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
 
+    waitForLink((char *)&dev->dev.device);
     return 0;
 }
 
