@@ -9,7 +9,7 @@ class FirewallWindow:
 	bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Customize"), "customize"), (_("Back"), "back")))
 	
 	toplevel = GridFormHelp (screen, _("Firewall Configuration"),
-				"firewall", 1, 5)
+				"securitylevel", 1, 5)
 	text = _("A firewall protects against unauthorized "
 		 "network intrusions. High security blocks all "
 		 "incoming accesses. Medium blocks access "
@@ -124,7 +124,7 @@ class FirewallWindow:
 		    popbb = ButtonBar (screen, ((_("OK"), "ok"),))
 	
 		    poplevel = GridFormHelp (screen, _("Firewall Configuration - Customize"),
-				"firewall-custom", 1, 5)
+				"securitycustom", 1, 5)
 		    text = _("You can customize your firewall in two ways. "
 		    	"First, you can select to allow all traffic from "
 			"certain network interfaces. Second, you can allow "
