@@ -315,6 +315,7 @@ if traceOnly:
     import mimetypes
     import syslogd
     import installclass
+    import re
 
     installclass.availableClasses()
 
