@@ -379,20 +379,15 @@ class ToDo:
 	    fdDevice = "hda"
 	elif iutil.getArch() == "i386":
 	    # Look for the first IDE floppy device
-	    drives = isys.hardDriveDict().keys()
+	    drives = isys.floppyDriveDict().keys()
+	    if not drives:
+		log("no IDE floppy devices found")
+		return 0
 
 	    # We don't need to be picky about sort order as we toss
 	    # items that aren't hd* anyway
 	    drives.sort()
-	    floppyDrive = None
-	    for drive in drives:
-		if drives[0:2] != 'hd': continue
-		f = open("/proc/ide/%s/media" % floppyDevice, "r")
-		type = f.readline()
-		f.close()
-		if type == "floppy\n":
-		    floppyDrive = drive
-		    break
+	    floppyDrive = drives[0]
 
 	    # No IDE floppy's -- we're fine w/ /dev/fd0
 	    if not floppyDrive: return
@@ -401,15 +396,18 @@ class ToDo:
 	    f = open("/tmp/syslog", "r")
 	    for line in f.readlines():
 		# chop off the loglevel (which init's syslog leaves behind)
-		line = line[1:]
+		line = line[3:]
 		match = "Floppy drive(s): "
 		if match == line[:len(match)]:
 		    # Good enough
-		    return
+		    floppyDrive = fd0
+		    break
 
-	    self.fdDevice = "%s" % floppyDevice
+	    self.fdDevice = floppyDrive
 	else:
 	    raise SystemError, "cannot determine floppy device for this arch"
+
+	log("anaconda floppy device is %s", self.fdDevice)
 
     def writeTimezone(self):
 	if (self.timezone):
@@ -1116,7 +1114,7 @@ class ToDo:
 	    mntpoint = "/mnt/" + cdname
 	    self.fstab.addMount(cdname, mntpoint, "iso9660")
 
-    def createRemovable(self, rType):
+    def createRemovable(self, rType, partNum = None, mntDirRoot = None):
 	devDict = isys.floppyDriveDict()
 
 	d = isys.hardDriveDict()
@@ -1125,6 +1123,9 @@ class ToDo:
 
 	list = devDict.keys()
 	list.sort()
+
+	if not mntDirRoot:
+	    mntDirRoot = rType
 
 	count = 0
 	for device in list:
@@ -1140,13 +1141,25 @@ class ToDo:
 		os.unlink(self.instPath + "/dev/%s" % rType)
 	    except OSError:
 		pass
-	    # the 4th partition of zip/jaz disks is the one that usually
-	    # contains the DOS filesystem.  We'll guess at using that
-	    # one, it is a sane default.
-	    device = device + "4";
-	    os.symlink(device, self.instPath + "/dev/%s" % rType)
-	    mntpoint = "/mnt/%s" % rType
-	    self.fstab.addMount(rType, mntpoint, "auto")
+
+	    if partNum:
+		device = device + str(partNum)
+
+	    devLink = rType
+	    if count:
+		devLink = rType + str(count)
+
+	    os.symlink(device, self.instPath + "/dev/%s" % devLink)
+
+	    mntpoint = "/mnt/" + mntDirRoot
+	    if count:
+		mntpoint = mntpoint + str(count)
+
+	    self.fstab.addMount(devLink, mntpoint, "auto")
+
+	    count = count + 1
+
+	return count
 
     def setDefaultRunlevel (self):
         try:
@@ -1522,10 +1535,16 @@ class ToDo:
 
         if not self.upgrade:
 	    self.createCdrom()
-	    self.createRemovable("zip")
-	    self.createRemovable("jaz")
+
+	    self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
+	    if self.fdDevice[0:2] == "fd":
+		self.createRemovable("ls-120", mntDirRoot = "ls120")
+
+	    self.createRemovable("zip", partNum = 4)
+	    self.createRemovable("jaz", partNum = 4)
+
 	    self.copyExtraModules()
-            self.fstab.write (self.instPath, fdDevice = self.fdDevice)
+            self.fstab.write (self.instPath)
             self.writeConfiguration ()
             self.writeDesktop ()
 	    if (self.instClass.defaultRunlevel):

@@ -673,7 +673,7 @@ class Fstab:
             
 	isys.mount('/proc', instPath + '/proc', 'proc')
 
-    def write(self, prefix, fdDevice = None):
+    def write(self, prefix):
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
 	f = open (prefix + "/etc/fstab", "w")
@@ -703,10 +703,6 @@ class Fstab:
 		    f.write (format % ( devName, mntpoint, fs, 'noauto,owner', 0, 0))
                 else:
                     f.write (format % ( devName, mntpoint, fs, 'defaults', 0, 0))
-	if fdDevice:
-	    f.write (format % ("/dev/" + fdDevice, "/mnt/floppy", 'auto', 
-			       'noauto,owner', 0, 0))
-
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 
 			    0, 0))
