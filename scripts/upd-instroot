@@ -120,7 +120,8 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            ncurses bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
-           reiserfs-utils atk pango freetype"
+           reiserfs-utils atk pango freetype gnome-python2-canvas 
+           libgnomecanvas libart_lgpl"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -229,7 +230,7 @@ usr/lib/librpmdb*.so*
 usr/lib/librpmio*.so*
 usr/lib/libslang*
 usr/lib/libz.*
-usr/lib/python*
+usr/lib/python2.2/*
 usr/lib/python2.2/site-packages/*kudzu*
 usr/lib/python2.2/site-packages/rpmmodule.so
 usr/lib/python2.2/site-packages/partedmodule.so
@@ -359,7 +360,7 @@ usr/X11R6/lib/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/ftp
-usr/bin/gtk-query-immodules-2.0
+usr/bin/gtk-query*
 usr/bin/head
 usr/bin/less
 usr/bin/lsattr*
@@ -388,7 +389,7 @@ usr/bin/mtype
 usr/bin/mwrite
 usr/bin/mzip
 usr/bin/open
-usr/bin/pango-querymodules
+usr/bin/pango*
 usr/bin/pico
 usr/bin/rcp
 usr/bin/rlogin
@@ -561,18 +562,28 @@ rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*
-    rm $DESTGR/usr/X11R6/bin/mkfontdir
+    rm -f $DESTGR/usr/X11R6/bin/mkfontdir
 fi
 
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
-    chroot $DESTGR $DESTGR/usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
+    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/pango-querymodules 2> $REALPATH/etc/pango/pango.modules"
+    else
+	/usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+    fi
     rm -f $DESTGR/usr/bin/pango-querymodules
 fi
 
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
-    chroot $DESTGR $DESTGR/usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
+    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 2> $REALPATH/etc/gtk-2.0/gtk.immodules"
+    else
+	/usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
+    fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
 
@@ -682,6 +693,17 @@ patch -p0 > /dev/null <<EOF
          for dir in self.dirs:
              self.ftp.cwd(dir)
 EOF
+cd -
+
+# XXX this removes our dependency on bonobo and other crap like that :)
+echo "Patching gnome-python __init__.py"
+if [ -n "$NEEDGR" ]; then
+    cd $DESTGR/usr/lib/python2.2/site-packages/gnome
+    mv __init__.py oldinit.py
+    rm -f __init__.py*
+    grep -v _gnome oldinit.py > __init__.py
+    rm -f oldinit.py
+fi
 cd -
 
 echo -n -e "Removing unused python files in hdimage... "
