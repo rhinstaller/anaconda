@@ -14,8 +14,10 @@
 #include <locale.h>
 
 #define _(String) gettext((String))
+#define N_(String) String
 
 #define LOADER_BACK 2
+#define LOADER_OK 0
 #define LOADER_ERROR -1;
 
 #include "net.h"
@@ -452,16 +454,20 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
     FILE * f;
     int i;
 
+#ifndef __STANDALONE__
     for (i = 0; i < kd->numKnown; i++)
 	if (!strcmp(kd->known[i].name, dev->dev.device)) break;
-
+#endif
+    
     if (!(f = fopen(fn, "w"))) return -1;
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
 
+#ifndef __STANDALONE__
     if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
 	fprintf(f, "ONBOOT=no\n");
     else
+#endif
 	fprintf(f, "ONBOOT=yes\n");
 
     if (dev->isDynamic) {
@@ -794,7 +800,7 @@ int main(int argc, const char **argv) {
 		    netDev->dev.set |= PUMP_NETINFO_HAS_DOMAIN;
 	    }
 	    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
-	    writeNetInfo(path,netDev);
+	    writeNetInfo(path,netDev, NULL);
     } else {
 	    newtInit();
 	    newtCls();
@@ -810,7 +816,7 @@ int main(int argc, const char **argv) {
 	    if (!device) device="eth0";
 	    if (readNetConfig(device,netDev,0) != LOADER_BACK) {
 		    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
-		    writeNetInfo(path,netDev);
+		    writeNetInfo(path,netDev, NULL);
 	    }
 	    newtFinished();
     }

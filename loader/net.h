@@ -1,8 +1,13 @@
 #ifndef H_LOADER_NET
 #define H_LOADER_NET
 
-#include "../isys/probe.h"
 #include "pump.h"
+#ifdef __STANDALONE__
+struct knownDevices {
+};
+#else
+#include "../isys/probe.h"
+#endif
 
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
