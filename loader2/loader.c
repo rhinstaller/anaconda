@@ -1040,10 +1040,16 @@ int main(int argc, char ** argv) {
             symlink("/mnt/runtime/lib64", "/lib64");
         }
 #else
-	rename("/usr", "/usr_old");
-        symlink("mnt/runtime/usr", "/usr");
+#if defined (__s390x__)
+        /* FIXME: This should be changed to use rpm's %{_lib} macro */
+        rename("/lib64", "/lib64_old");
+	symlink("mnt/runtime/lib64", "/lib64");
+#else
         rename("/lib", "/lib_old");
 	symlink("mnt/runtime/lib", "/lib");
+#endif
+	rename("/usr", "/usr_old");
+        symlink("mnt/runtime/usr", "/usr");
 	system("/sbin/ldconfig");
 #endif
     }
