@@ -46,7 +46,7 @@ class InstallMethod:
 	return cs
 
     def getFilename(self, h):
-	return self.tree + "RedHat/RPMS/" + self.fnames[h]
+	return self.tree + self.path + "/RedHat/RPMS/" + self.fnames[h]
 
     def readHeaders(self):
 	self.mountMedia()
