@@ -371,6 +371,7 @@ if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
     os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
 os.environ['HOME'] = '/tmp'
 os.environ['LC_NUMERIC'] = 'C'
+os.environ["GCONF_GLOBAL_LOCKS"] = "1"
 
 if os.environ.has_key ("ANACONDAARGS"):
     theargs = string.split (os.environ["ANACONDAARGS"])
