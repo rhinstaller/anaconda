@@ -91,6 +91,8 @@ class UpgradeSwapWindow:
 
 	(fsList, suggSize, suggMntPoint) = rc
 
+        ramDetected = iutil.memInstalled()/1024
+
 	text = _("The 2.4 kernel needs significantly more swap than older "
 		 "kernels, as much as twice as much swap space as RAM on the "
 		 "system. You currently have %dMB of swap configured, but "
@@ -123,13 +125,16 @@ class UpgradeSwapWindow:
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
 			    TEXT_BACK_BUTTON] )
 
-	amGrid = Grid(2, 2)
-	amGrid.setField(Label(_("Suggested size (MB):")), 0, 0, anchorLeft = 1,
+	amGrid = Grid(2, 3)
+	amGrid.setField(Label(_("RAM detected (MB):")), 0, 0, anchorLeft = 1,
 			padding = (0, 0, 1, 0))
-	amGrid.setField(Label(str(suggSize)), 1, 0, anchorLeft = 1)
-	amGrid.setField(Label(_("Swap file size (MB):")), 0, 1, anchorLeft = 1,
+	amGrid.setField(Label(str(ramDetected)), 1, 0, anchorLeft = 1)
+	amGrid.setField(Label(_("Suggested size (MB):")), 0, 1, anchorLeft = 1,
 			padding = (0, 0, 1, 0))
-	amGrid.setField(amount, 1, 1)
+	amGrid.setField(Label(str(suggSize)), 1, 1, anchorLeft = 1)
+	amGrid.setField(Label(_("Swap file size (MB):")), 0, 2, anchorLeft = 1,
+			padding = (0, 0, 1, 0))
+	amGrid.setField(amount, 1, 2)
 	
 	liGrid = Grid(1, 2)
 	liGrid.setField(liLabel, 0, 0)
