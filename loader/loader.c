@@ -2200,7 +2200,7 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 #endif
 
 void setFloppyDevice(int flags) {
-#if defined(__i386__)
+#if defined(__i386__) || defined(__ia64__)
     struct device ** devices;
     char line[256];
     const char * match = "Floppy drive(s): ";
@@ -2219,7 +2219,8 @@ void setFloppyDevice(int flags) {
     }
 
     logMessage("found IDE floppy %s", devices[0]->device);
-
+	
+#ifdef __i386__
     f = fopen("/tmp/syslog", "r");
     while (fgets(line, sizeof(line), f)) {
 	if (!strncmp(line + 3, match, strlen(match))) {
@@ -2232,6 +2233,9 @@ void setFloppyDevice(int flags) {
 
     if (!foundFd0)
 	floppyDevice = strdup(devices[0]->device);
+#else	/* ia64 */
+    floppyDevice=malloc(strlen(devices[0]->device)+2);
+    sprintf(floppyDevice,"%s1",devices[0]->device);
 #endif
 
     logMessage("system floppy device is %s", floppyDevice);
