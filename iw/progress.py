@@ -3,7 +3,20 @@ from iw import *
 import string
 import rpm
 import time
+from threading import *
 
+class DoInstall (Thread):
+    def __init__ (self, icw, todo):
+        self.todo = todo
+        self.icw = icw
+        Thread.__init__ (self)
+
+    def run (self):
+        self.todo.doInstall ()
+        threads_enter ()
+        self.icw.nextClicked ()
+        threads_leave ()
+                
 class InstallProgressWindow (InstallWindow):
 
     def __init__ (self, ics):
@@ -12,6 +25,7 @@ class InstallProgressWindow (InstallWindow):
         ics.setTitle ("Installing Packages")
         ics.setPrevEnabled (0)
 
+        self.todo = ics.getToDo ()
 	self.numComplete = 0
 	self.sizeComplete = 0
         
@@ -143,5 +157,9 @@ class InstallProgressWindow (InstallWindow):
         vbox.pack_start (clist, TRUE)
 
 	self.ics.getInstallInterface ().setPackageProgressWindow (self)
+        ii = self.ics.getInstallInterface ()
+        icw = ii.icw
+        worker = DoInstall (icw, self.todo)
+        worker.start ()
 	return vbox
 

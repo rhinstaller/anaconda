@@ -389,6 +389,7 @@ class ToDo:
         self.drives = Drives ()
         self.log = LogFile ()
         self.bootdisk = 0
+        self.liloDevice = None
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -685,7 +686,7 @@ class ToDo:
         for (who, dep) in deps:
             self.hdList[dep].selected = 1
         
-    def doInstall(self, intf):
+    def doInstall(self):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
 	self.getCompsList()
@@ -705,7 +706,7 @@ class ToDo:
 	    try:
 	        os.mkdir(self.instPath + i)
 	    except os.error, (errno, msg):
-                intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
+                self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
 
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)

@@ -11,7 +11,16 @@ class CongratulationWindow (InstallWindow):
         ics.setNextEnabled (1)
 
     def getScreen (self):
-        label = GtkLabel("install done")
+        label = GtkLabel("Congratulations, installation is complete.\n\n"
+                         "Remove the boot media and "
+                         "press return to reboot. For information on fixes which are "
+                         "available for this release of Red Hat Linux, consult the "
+                         "Errata available from http://www.redhat.com.\n\n"
+                         "Information on configuring your system is available in the post "
+                         "install chapter of the Official Red Hat Linux User's Guide.")
+        label.set_line_wrap (TRUE)
+        label.set_line_wrap (TRUE)
+        label.set_alignment (0.0, 0.5)
 
         box = GtkVBox (FALSE, 10)
         box.pack_start (label, TRUE, TRUE, 0)

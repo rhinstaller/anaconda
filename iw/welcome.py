@@ -21,7 +21,6 @@ class WelcomeWindow (InstallWindow):
 
     def getScreen (self):
         label = GtkLabel("(insert neat logo graphic here)")
-        label.set_line_wrap (TRUE)
 
         box = GtkVBox (FALSE, 10)
         box.pack_start (label, TRUE, TRUE, 0)

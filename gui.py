@@ -28,31 +28,6 @@ from thread import *
 from threading import *
 import time
 
-class NetworkConfigWindow:
-    def __init__ (self, ics):
-        self.ics = ics
-        ics.setTitle ("Network Configuration")
-
-    def getScreen (self):
-        devices = ["Ethernet Device 0 (eth0)",
-                   "Ethernet Device 1 (eth1)",
-                   "Ethernet Device 2 (eth2)"]
-        vbox = GtkVBox (FALSE, 10)
-        optionmenu = GtkOptionMenu ()
-        menu = GtkMenu ()
-        for i in devices:
-            menuitem = GtkMenuItem (i)
-            menu.append (menuitem)
-
-        optionmenu.set_menu (menu)
-
-        hbox = GtkHBox (FALSE, 10)
-        devLabel = GtkLabel ("Device: ")
-        hbox.pack_start (devLabel, FALSE)
-        hbox.pack_start (optionmenu, TRUE)
-        vbox.pack_start (hbox, FALSE, padding=10)
-        return vbox
-
 class WaitWindow:
     def __init__(self, title, text):
 	threads_enter ()
@@ -88,11 +63,9 @@ class GtkMainThread (Thread):
         threads_leave ()
     
 class InstallInterface:
-
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
-        self.finishedTODO.set ()
-        
+
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
 
@@ -104,6 +77,9 @@ class InstallInterface:
         print text
 #        dialog = GnomeOkDialog (text)
 #        dialog.set_position (WIN_POS_CENTER)
+
+    def exceptionWindow(self, title, text):
+        print text
 
     def getDDruid (self, drives):
         return fsedit (1, drives)
@@ -121,7 +97,7 @@ class InstallInterface:
         steps = [WelcomeWindow, LanguageWindow, MouseWindow, 
 	         KeyboardWindow, NetworkWindow, AutoPartitionWindow, PartitionWindow, 
                  FormatWindow, PackageSelectionWindow, AuthWindow, 
-	         AccountWindow, InstallProgressWindow]
+	         AccountWindow, InstallProgressWindow, CongratulationWindow]
 
         windows = [WelcomeWindow, LanguageWindow, MouseWindow, 
 	           KeyboardWindow, NetworkWindow, AutoPartitionWindow,
@@ -135,9 +111,6 @@ class InstallInterface:
         self.finishedTODO.wait ()
 
 	todo.setLiloLocation("hda")
-
-    def runPostInstall (screens = (CongratulationWindow,)):
-        print "post install reached"
 
 class InstallControlWindow (Thread):
 
@@ -162,7 +135,13 @@ class InstallControlWindow (Thread):
                     break
         else:
             self.stateListIndex = self.stateListIndex + 1
-            self.currentScreen = self.stateList[self.stateListIndex]
+            if self.stateListIndex < len (self.stateList):
+                self.currentScreen = self.stateList[self.stateListIndex]
+                if self.stateListIndex == len (self.stateList) - 2:
+                    print "show finish button here"
+            else:
+                self.ii.finishedTODO.set ()
+                sys.exit (0)
         self.setScreen (self.currentScreen, self.nextClicked)
 
     def helpClicked (self, widget, *args):

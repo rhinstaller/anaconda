@@ -226,16 +226,6 @@ try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems)
     intf.run(todo)
-    todo.doInstall(intf)
-    intf.messageWindow (_("Complete"), 
-                        _("Congratulations, installation is complete.\n\n"
-                          "Remove the boot media and "
-                          "press return to reboot. For information on fixes which are "
-                          "available for this release of Red Hat Linux, consult the "
-                          "Errata available from http://www.redhat.com.\n\n"
-                          "Information on configuring your system is available in the post "
-                          "install chapter of the Official Red Hat Linux User's Guide."))
-
 except:
     (type, value, tb) = sys.exc_info()
     import traceback

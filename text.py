@@ -502,7 +502,7 @@ class PackageDepWindow:
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
         g.add (bb, 0, 4, growx = 1)
 
-        result = g.run ()
+        result = g.runOnce ()
 
         if cb.selected ():
             todo.selectDeps (deps)
@@ -589,13 +589,31 @@ class LiloWindow:
 
 class BeginInstallWindow:
     def run(self, screen, todo):
-        rc = ButtonChoiceWindow(screen, _("Installation to begin"),
+        rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
                                   "/tmp/install.log after rebooting your system. You "
                                   "may want to keep this file for later reference."),
                                 buttons = [ _("OK"), _("Back") ])
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
+        return INSTALL_OK
+
+class InstallWindow:
+    def run(self, screen, todo):
+        todo.doInstall ()
+        return INSTALL_OK
+
+class FinishedWindow:
+    def run(self, screen, todo):
+        rc = ButtonChoiceWindow (screen, _("Complete"), 
+                                 _("Congratulations, installation is complete.\n\n"
+                                   "Remove the boot media and "
+                                   "press return to reboot. For information on fixes which are "
+                                   "available for this release of Red Hat Linux, consult the "
+                                   "Errata available from http://www.redhat.com.\n\n"
+                                   "Information on configuring your system is available in the post "
+                                   "install chapter of the Official Red Hat Linux User's Guide."),
+                                 [ _("OK") ])
         return INSTALL_OK
 
 class InstallProgressWindow:
@@ -806,6 +824,8 @@ class InstallInterface:
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo)],
             [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
+            [_("Install System"), InstallWindow, (self.screen, todo)],
+            [_("Installation Complete"), FinishedWindow, (self.screen, todo)]
         ]
         
         step = 0
