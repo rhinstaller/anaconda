@@ -33,6 +33,7 @@ if im:
     box.add (pix)
     splashwindow.add (box)
     splashwindow.show_all ()
+    gdk_flush ()
     while events_pending ():
         mainiteration (FALSE)
     threads_leave ()        
@@ -82,8 +83,11 @@ class WaitWindow:
 	self.window.show_all ()
         thread = currentThread ()
         if thread.getName () == "gtk_main":
+            gdk_flush()
             while events_pending ():
                 mainiteration (FALSE)
+        else:
+            gdk_flush()
         threads_leave ()
             
     def pop(self):
@@ -127,15 +131,10 @@ class ProgressWindow:
         self.window.destroy ()
 	threads_leave ()
 
-def ExceptionWindow():
-    import sys, traceback
-    (type, value, tb) = sys.exc_info()
-    from string import joinfields
-    list = traceback.format_exception (type, value, tb)
-    text = joinfields (list, "")
-    print text
-
-    win = GnomeDialog ("Exception Occured", STOCK_BUTTON_OK)
+def ExceptionWindow(text):
+    win = GnomeDialog ("Exception Occured")
+    win.append_button ("Debug")
+    win.append_button_with_pixmap ("OK", STOCK_BUTTON_OK)
     textbox = GtkText()
     textbox.insert_defaults (text)
     sw = GtkScrolledWindow ()
@@ -146,7 +145,7 @@ def ExceptionWindow():
     # XXX fix me, use util function when we upgrade pygnome
     # s = unconditional_pixmap_file ("gnome-error.png")
     if s:
-        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-error.png'),
+        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'),
                          FALSE)
 
     info = GtkLabel (_("An exceptional condition has occured.  This "
@@ -163,24 +162,19 @@ def ExceptionWindow():
     win.set_usize (500, 300)
     win.set_position (WIN_POS_CENTER)
     win.show_all ()
-    win.run ()
-
-    # welcome to the land of threads where sys.exit() doesn't.
-    os.kill (os.getpid(), 9)    
-
-class GtkMainThread (Thread):
-    def run (self):
-        self.setName ("gtk_main")
-        threads_enter ()
+    rc = win.run ()
+    # I did it this way for future expantion
+    # 0 is debug
+    if rc == 0:
+        import isys
         try:
-            mainloop ()
-        except SystemExit, code:
-            threads_leave ()
-            sys.exit(code)
-        except:
-            ExceptionWindow ()
-        threads_leave ()
-        sys.exit (0)
+            isys.vtActivate (1)
+        except SystemError:
+            pass
+        return 1
+    # 1 is OK
+    elif rc == 1:
+        return 0
 
 class MessageWindow:
     def quit (self, dialog, button):
@@ -233,6 +227,9 @@ class MessageWindow:
             self.mutex.wait ()
     
 class InstallInterface:
+    def __del__ (self):
+        pass
+    
     def shutdown (self):
 	pass
 
@@ -254,7 +251,7 @@ class InstallInterface:
 
     def exceptionWindow(self, title, text):
         print text
-        return 1
+        return ExceptionWindow (text)
 
     def getBootdisk ():
         return None
@@ -263,9 +260,6 @@ class InstallInterface:
         return CongratulationWindow
 
     def run (self, todo, test = 0):
-        gtkThread = GtkMainThread ()
-        gtkThread.start ()
-
         # This is the same as the file
         if todo.reconfigOnly:
             if todo.serial:
@@ -299,8 +293,6 @@ class InstallInterface:
                                 ( InstallPathWindow, "installtype" ),
                                 ]
 
-        self.finishedTODO = Event ()
-
         from xkb import XKB
         kb = XKB()
         try:
@@ -313,11 +305,9 @@ class InstallInterface:
                 (rules, model, layout, variant, options) = info
                 kb.setRule (model, layout, variant, "complete")
         self.icw = InstallControlWindow (self, commonSteps, todo)
-        self.icw.start ()
-        self.finishedTODO.wait ()
-        sys.exit (0)
+        self.icw.run ()
 
-class InstallControlWindow (Thread):
+class InstallControlWindow:
     def setLanguage (self, lang):
         newlangs = [lang]
         
@@ -420,8 +410,7 @@ class InstallControlWindow (Thread):
             if self.stateListIndex < len (self.stateList):
                 self.currentScreen = self.stateList[self.stateListIndex]
             else:
-                self.ii.finishedTODO.set ()
-                sys.exit (0)
+                mainquit ()
         self.setScreen (self.currentScreen, self.nextClicked)
 
     def helpClicked (self, widget, simulated = 0):
@@ -538,7 +527,6 @@ class InstallControlWindow (Thread):
             buttons["next"].grab_focus ()
 
     def __init__ (self, ii, steps, todo):
-        Thread.__init__ (self)
         self.ii = ii
         self.todo = todo
         self.steps = steps
@@ -550,9 +538,11 @@ class InstallControlWindow (Thread):
     def keyRelease (self, window, event):
         if ((event.keyval == KP_Delete or event.keyval == Delete)
             and (event.state & (CONTROL_MASK | MOD1_MASK))):
-            os.kill (os.getpid(), 9)
+            #os.kill (os.getpid(), 9)
+            mainquit ()
 
-    def main (self):
+    def setup_window (self):
+        threads_enter()
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
@@ -657,10 +647,8 @@ class InstallControlWindow (Thread):
         self.table = table
 
         self.window.add (vbox)
-        threads_leave ()
 
         # Popup the ICW and wait for it to wake us back up
-        threads_enter ()
         self.window.show_all ()
         global splashwindow
         if splashwindow:
@@ -668,15 +656,25 @@ class InstallControlWindow (Thread):
         threads_leave ()
 
     def run (self):
+        self.setup_window ()
         threads_enter ()
-        try:
-            self.main ()
-        except SystemExit, code:
-            sys.exit (code)
-        except:
-            threads_leave()
-            mainquit()
-            ExceptionWindow ()
+        thread = currentThread ()
+        thread.setName ("gtk_main")
+        mainloop ()
+        threads_leave ()
+
+#          try:
+#              self.setup_window ()
+#              threads_enter ()
+#              thread = currentThread ()
+#              thread.setName ("gtk_main")
+#              mainloop ()
+#          except SystemExit, code:
+#              threads_leave ()
+#              sys.exit(code)
+#          except:
+#              ExceptionWindow ()
+#          threads_leave ()
             
 class InstallControlState:
     def __init__ (self, cw, ii, todo, title = _("Install Window"),
