@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm"
+         hdparm lvm jfsutils"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs lilo"
@@ -232,6 +232,7 @@ sbin/mkdosfs
 sbin/mke2fs
 sbin/busybox.anaconda
 sbin/mkfs.ext2
+sbin/mkfs.jfs
 sbin/mkfs.msdos
 sbin/mkfs.vfat
 sbin/mkreiserfs
@@ -432,6 +433,7 @@ sbin/reiserfsck
 sbin/fsck
 sbin/fsck.ext2
 sbin/fsck.ext3
+sbin/fsck.jfs
 sbin/ifconfig
 sbin/insmod
 sbin/lsmod

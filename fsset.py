@@ -346,6 +346,46 @@ class xfsFileSystem(FileSystemType):
         
 fileSystemTypeRegister(xfsFileSystem())
 
+class jfsFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("jfs")
+        self.formattable = 1
+        self.checked = 1
+        self.linuxnativefs = 1
+        # this is totally, 100% unsupported.  Boot with "linux jfs"
+        # at the boot: prompt will let you make new reiserfs filesystems
+        # in the installer.  Bugs filed when you use this will be closed
+        # WONTFIX.
+        try:
+            f = open("/proc/cmdline")
+            line = f.readline()
+            if string.find(line, " jfs") != -1:
+                self.supported = 1
+            else:
+                self.supported = 0
+            del f
+        except:
+            self.supported = 0
+        self.name = "jfs"
+
+        self.maxSizeMB = 2 * 1024 * 1024
+
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        rc = iutil.execWithRedirect("/usr/sbin/mkfs.jfs",
+                                    ["mkfs.jfs", "-q",
+                                     devicePath ],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        
+        if rc:
+            raise SystemError
+                                  
+fileSystemTypeRegister(jfsFileSystem())
+
 class extFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
