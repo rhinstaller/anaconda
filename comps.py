@@ -240,7 +240,7 @@ class ComponentSet:
         for package in packages.keys ():
             everything.addPackage (packages[package])
         self.comps.append (everything)
-
+        self.compsDict["Everything"] = everything
 
     def __repr__(self):
 	s = ""
