@@ -31,7 +31,7 @@ from constants import *
 from rhpl.log import log
 from rhpl.translate import _
 
-upgrade_remove_blacklist = ["linuxconf", "linuxconf-devel", "gnome-linuxconf"]
+upgrade_remove_blacklist = ("linuxconf", "linuxconf-devel", "gnome-linuxconf")
 
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
@@ -261,7 +261,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 
 	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
 		       '/boot', '/tmp', '/var/tmp', '/root',
-                       '/bin/sh')
+                       '/bin/sh', '/usr/tmp')
 	badLinks = []
 	for n in checkLinks:
 	    if not os.path.islink(instPath + n): continue
@@ -276,8 +276,26 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 			"symbolic links and restart the upgrade.\n\n")
 	    for n in badLinks:
 		message = message + '\t' + n + '\n'
-	    intf.messageWindow(("Absolute Symlinks"), message)
+	    intf.messageWindow(_("Absolute Symlinks"), message)
 	    sys.exit(0)
+
+        # fix for 80446
+        badLinks = []
+        mustBeLinks = ( '/usr/tmp', )
+        for n in mustBeLinks:
+            if not os.path.islink(instPath + n):
+                badLinks.append(n)
+
+        if badLinks: 
+	    message = _("The following are directories which should instead "
+                        "be symbolic link, which will cause problems with the "
+                        "upgrade.  Please return them to their original state "
+                        "as a symbolic link and restart the upgrade.\n\n")
+            for n in badLinks:
+                message = message + '\t' + n + '\n'
+	    intf.messageWindow(_("Invalid Directories"), message)
+	    sys.exit(0)
+           
     else:
         if not os.access (instPath + "/etc/fstab", os.R_OK):
             rc = intf.messageWindow(_("Warning"),
