@@ -2203,10 +2203,16 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
    stuff */
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
-    if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL))
 
-    mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
-		 flags);
+    logMessage("looking for USB mouse...");
+    if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
+	logMessage("USB mouse found, loading mousedev module");
+	if (mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
+			 flags)) {
+	    logMessage ("failed to loading mousedev module");
+	    return 1;
+	}
+    }
 }
 
 
