@@ -203,7 +203,8 @@ class InstallControlWindow (Thread):
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
 	# entirely, we continue advancing in direction given
-	if self.todo.instClass.skipStep(self.stateTagByWindow[screen]):
+	if (self.stateTagByWindow.has_key(screen) and
+	        self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
             direction ()
             return
 	new_screen = screen.getScreen ()
