@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2003-07-30 18:04-0400\n"
+"POT-Creation-Date: 2003-08-11 19:06-0400\n"
 "PO-Revision-Date: 2002-10-07 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -18,46 +18,49 @@ msgstr ""
 msgid "Starting VNC..."
 msgstr ""
 
-#: ../anaconda:114
+#: ../anaconda:129
+#, fuzzy, c-format
+msgid "%s %s installation on host %s"
+msgstr "%s uppsetningarforrit á %s"
+
+#: ../anaconda:131
+#, fuzzy, c-format
+msgid "%s %s installation"
+msgstr "Setja upp %s frá grunni"
+
+#: ../anaconda:149
 msgid "Unable to set vnc password - using no password!"
 msgstr ""
 
-#: ../anaconda:115
+#: ../anaconda:150
 #, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
 msgstr "Rótarlykilorðið verður að vera a.m.k. 6 stafir að lengd."
 
-#: ../anaconda:135
+#: ../anaconda:173
 msgid ""
 "\n"
 "\n"
-"WARNING!!! VNC server running with NO PASSWORD!"
-msgstr ""
-
-#: ../anaconda:136
-msgid "You can use the vncpasswd=<password> boot option"
-msgstr ""
-
-#: ../anaconda:137
-msgid ""
+"WARNING!!! VNC server running with NO PASSWORD!\n"
+"You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
 
-#: ../anaconda:165
+#: ../anaconda:177
 msgid "The VNC server now running."
 msgstr ""
 
-#: ../anaconda:167
+#: ../anaconda:179
 #, c-format
 msgid "Please connect to %s to begin the install..."
 msgstr ""
 
-#: ../anaconda:169
+#: ../anaconda:181
 msgid "Please connect to begin the install..."
 msgstr ""
 
-#: ../anaconda:495 ../anaconda:633 ../gui.py:238 ../rescue.py:40
+#: ../anaconda:510 ../anaconda:648 ../gui.py:238 ../rescue.py:40
 #: ../rescue.py:223 ../rescue.py:301 ../rescue.py:329 ../rescue.py:339
 #: ../rescue.py:408 ../rescue.py:414 ../text.py:322 ../text.py:468
 #: ../textw/complete_text.py:56 ../textw/confirm_text.py:24
@@ -70,43 +73,43 @@ msgstr ""
 #: ../loader2/cdinstall.c:250 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:345 ../loader2/cdinstall.c:350
 #: ../loader2/cdinstall.c:353 ../loader2/cdinstall.c:423
-#: ../loader2/driverdisk.c:244 ../loader2/driverdisk.c:260
-#: ../loader2/driverdisk.c:274 ../loader2/driverdisk.c:442
-#: ../loader2/driverdisk.c:475 ../loader2/driverselect.c:73
+#: ../loader2/driverdisk.c:247 ../loader2/driverdisk.c:263
+#: ../loader2/driverdisk.c:277 ../loader2/driverdisk.c:445
+#: ../loader2/driverdisk.c:478 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:223
 #: ../loader2/hdinstall.c:272 ../loader2/hdinstall.c:439
 #: ../loader2/hdinstall.c:490 ../loader2/hdinstall.c:523
 #: ../loader2/hdinstall.c:573 ../loader2/kbd.c:125 ../loader2/kickstart.c:108
 #: ../loader2/kickstart.c:118 ../loader2/kickstart.c:161
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:374
-#: ../loader2/loader.c:304 ../loader2/loader.c:317 ../loader2/loader.c:328
-#: ../loader2/loader.c:645 ../loader2/loader.c:786 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:302 ../loader2/loader.c:315 ../loader2/loader.c:326
+#: ../loader2/loader.c:643 ../loader2/loader.c:802 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:147 ../loader2/method.c:355 ../loader2/method.c:440
-#: ../loader2/modules.c:914 ../loader2/net.c:173 ../loader2/net.c:424
+#: ../loader2/modules.c:916 ../loader2/net.c:173 ../loader2/net.c:424
 #: ../loader2/net.c:717 ../loader2/net.c:740 ../loader2/net.c:846
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:190
 #: ../loader2/nfsinstall.c:194 ../loader2/nfsinstall.c:233
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:60
 #: ../loader2/urlinstall.c:112 ../loader2/urlinstall.c:125
 #: ../loader2/urlinstall.c:386 ../loader2/urlinstall.c:395
-#: ../loader2/urlinstall.c:406 ../loader2/urls.c:170 ../loader2/urls.c:180
-#: ../loader2/urls.c:188 ../loader2/urls.c:250 ../loader2/urls.c:313
-#: ../loader2/urls.c:318 ../loader2/urls.c:324 ../loader2/urls.c:438
+#: ../loader2/urlinstall.c:406 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urls.c:189 ../loader2/urls.c:254 ../loader2/urls.c:317
+#: ../loader2/urls.c:322 ../loader2/urls.c:328 ../loader2/urls.c:442
 msgid "OK"
 msgstr "Í lagi"
 
-#: ../anaconda:541
+#: ../anaconda:556
 #, fuzzy
 msgid "Unknown Error"
 msgstr "Óþekkt kort"
 
-#: ../anaconda:544
+#: ../anaconda:559
 #, fuzzy, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
 
-#: ../anaconda:618
+#: ../anaconda:633
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -114,26 +117,26 @@ msgstr ""
 "Það er ekki nægjanlegt vinnsluminni í vélinni til að nota myndræna "
 "uppsetningarforritið. Fer í textaham."
 
-#: ../anaconda:670
+#: ../anaconda:685
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: ../anaconda:697
+#: ../anaconda:712
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:708 ../anaconda:944
+#: ../anaconda:723 ../anaconda:959
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Get ekki ræst vélbúnaðarþátt X."
 
-#: ../anaconda:735
+#: ../anaconda:750
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Ekki er hægt að nota myndrænu notendaskilin í %s uppsetningu. Fer í textaham."
 
-#: ../anaconda:748
+#: ../anaconda:763
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -141,7 +144,7 @@ msgstr ""
 "Engin mús fannst. Mús er nauðsynleg fyrir myndræna uppsetningu. Fer í "
 "textaham."
 
-#: ../anaconda:753
+#: ../anaconda:768
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Músartegund: %s"
@@ -383,8 +386,8 @@ msgstr ""
 "\n"
 "Veldu 'Í lagi' til að halda áfram."
 
-#: ../autopart.py:1457 ../bootloader.py:139 ../image.py:391
-#: ../partedUtils.py:266 ../partedUtils.py:296 ../partedUtils.py:817
+#: ../autopart.py:1459 ../bootloader.py:139 ../image.py:391
+#: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:834
 #: ../upgrade.py:305 ../upgrade.py:416 ../upgrade.py:469 ../upgrade.py:489
 #: ../upgrade.py:530 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:91
@@ -392,11 +395,11 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:142 ../textw/bootloader_text.py:457
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:353
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:351
 msgid "Warning"
 msgstr "Aðvörun"
 
-#: ../autopart.py:1463
+#: ../autopart.py:1465
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -413,7 +416,7 @@ msgstr ""
 "gagnvirku umhverfi. Þú getur einnig stillt tegundir skráarkerfa, "
 "tengipunkta, stærðir og fleira í þessu handhæga og einfalda tóli."
 
-#: ../autopart.py:1474
+#: ../autopart.py:1476
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -421,20 +424,20 @@ msgstr ""
 "Áður en unnt er að sneiða diskinn sjálfvirkt þarft þú að gefa upp hvernig þú "
 "vilt að diskurinn þinn sé nýttur."
 
-#: ../autopart.py:1479
+#: ../autopart.py:1481
 msgid "Remove all partitions on this system"
 msgstr "Fjarlægja allar disksneiðar á þessari vél"
 
-#: ../autopart.py:1480
+#: ../autopart.py:1482
 #, fuzzy
 msgid "Remove all Linux partitions on this system"
 msgstr "Fjarlægja allar Linux disksneiðar á þessari vél"
 
-#: ../autopart.py:1481
+#: ../autopart.py:1483
 msgid "Keep all partitions and use existing free space"
 msgstr "Fjarlægja engar sneiðar og nota einungis laust pláss"
 
-#: ../autopart.py:1483
+#: ../autopart.py:1485
 #, fuzzy, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -445,7 +448,7 @@ msgstr ""
 "%s\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../autopart.py:1487
+#: ../autopart.py:1489
 #, fuzzy, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -499,7 +502,7 @@ msgstr ""
 msgid "Installing %s-%s-%s... "
 msgstr "Set inn %s-%s-%s.\n"
 
-#: ../comps.py:761 ../comps.py:789 ../hdrlist.py:734
+#: ../comps.py:761 ../comps.py:789 ../hdrlist.py:739
 msgid "Everything"
 msgstr "Allt"
 
@@ -507,11 +510,11 @@ msgstr "Allt"
 msgid "no suggestion"
 msgstr "engin tillaga"
 
-#: ../comps.py:1092 ../hdrlist.py:938
+#: ../comps.py:1092 ../hdrlist.py:943
 msgid "Miscellaneous"
 msgstr "Ýmislegt"
 
-#: ../comps.py:1108 ../hdrlist.py:43 ../hdrlist.py:885
+#: ../comps.py:1108 ../hdrlist.py:43 ../hdrlist.py:890
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -520,7 +523,7 @@ msgstr ""
 "Þessi hópur inniheldur alla pakkana sem koma með dreifingunni. Athugaðu að "
 "þetta eru talsvert fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
 
-#: ../comps.py:1112 ../hdrlist.py:889
+#: ../comps.py:1112 ../hdrlist.py:894
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -603,27 +606,27 @@ msgid "_Make boot disk"
 msgstr "_Búa til ræsidiskling"
 
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
-#: ../fsset.py:562 ../fsset.py:1195 ../fsset.py:1214 ../fsset.py:1261
-#: ../fsset.py:1272 ../fsset.py:1308 ../fsset.py:1358 ../fsset.py:1401
+#: ../fsset.py:562 ../fsset.py:1198 ../fsset.py:1217 ../fsset.py:1264
+#: ../fsset.py:1275 ../fsset.py:1311 ../fsset.py:1361 ../fsset.py:1404
 #: ../harddrive.py:219 ../image.py:78 ../image.py:115 ../image.py:252
 #: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:342
-#: ../packages.py:511 ../packages.py:594 ../partedUtils.py:614
+#: ../packages.py:511 ../packages.py:594 ../partedUtils.py:631
 #: ../upgrade.py:336 ../upgrade.py:361 ../upgrade.py:388
 #: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:423 ../loader2/driverdisk.c:274
-#: ../loader2/driverdisk.c:346 ../loader2/hdinstall.c:223
+#: ../loader2/cdinstall.c:423 ../loader2/driverdisk.c:277
+#: ../loader2/driverdisk.c:349 ../loader2/hdinstall.c:223
 #: ../loader2/hdinstall.c:272 ../loader2/hdinstall.c:490
 #: ../loader2/hdinstall.c:573 ../loader2/kickstart.c:261 ../loader2/lang.c:102
-#: ../loader2/loader.c:328 ../loader2/loader.c:645 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:326 ../loader2/loader.c:643 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:147 ../loader2/method.c:355
 #: ../loader2/method.c:440 ../loader2/nfsinstall.c:190
 #: ../loader2/nfsinstall.c:194 ../loader2/telnetd.c:86
 #: ../loader2/urlinstall.c:60 ../loader2/urlinstall.c:112
-#: ../loader2/urlinstall.c:125 ../loader2/urls.c:170 ../loader2/urls.c:180
-#: ../loader2/urls.c:188 ../loader2/urls.c:313 ../loader2/urls.c:318
+#: ../loader2/urlinstall.c:125 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urls.c:189 ../loader2/urls.c:317 ../loader2/urls.c:322
 msgid "Error"
 msgstr "Villa"
 
@@ -683,27 +686,27 @@ msgstr ""
 "\n"
 "Viltu halda áfram án þess að breyta %s?"
 
-#: ../fsset.py:1110
+#: ../fsset.py:1113
 msgid "RAID Device"
 msgstr "RAID tæki"
 
-#: ../fsset.py:1114 ../fsset.py:1120
+#: ../fsset.py:1117 ../fsset.py:1123
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: ../fsset.py:1125
+#: ../fsset.py:1128
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: ../fsset.py:1128 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1131 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Fyrsta geira ræsidisksneiðar"
 
-#: ../fsset.py:1129 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1132 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Aðalræsifærsluna (MBR)"
 
-#: ../fsset.py:1196
+#: ../fsset.py:1199
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -716,7 +719,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1215
+#: ../fsset.py:1218
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -731,7 +734,7 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
-#: ../fsset.py:1262
+#: ../fsset.py:1265
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -744,7 +747,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1273
+#: ../fsset.py:1276
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -757,7 +760,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1309
+#: ../fsset.py:1312
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -770,7 +773,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1359
+#: ../fsset.py:1362
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -783,11 +786,11 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1379 ../fsset.py:1388
+#: ../fsset.py:1382 ../fsset.py:1391
 msgid "Invalid mount point"
 msgstr "Óleyfilegur tengipunktur"
 
-#: ../fsset.py:1380
+#: ../fsset.py:1383
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -801,7 +804,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1389
+#: ../fsset.py:1392
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -814,7 +817,7 @@ msgstr ""
 "\n"
 "Sláðu á <Enter> til að endurræsa vélina."
 
-#: ../fsset.py:1402
+#: ../fsset.py:1405
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -829,11 +832,11 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
-#: ../fsset.py:2210
+#: ../fsset.py:2213
 msgid "Formatting"
 msgstr "Forsníð"
 
-#: ../fsset.py:2211
+#: ../fsset.py:2214
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Forsníð %s skráakerfið..."
@@ -888,9 +891,9 @@ msgstr "Laga"
 
 #: ../gui.py:236 ../rescue.py:175 ../text.py:320 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:391
-#: ../loader2/driverdisk.c:402 ../loader2/hdinstall.c:385
-#: ../loader2/loader.c:353
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:394
+#: ../loader2/driverdisk.c:405 ../loader2/hdinstall.c:385
+#: ../loader2/loader.c:351
 msgid "Yes"
 msgstr "Já"
 
@@ -898,8 +901,8 @@ msgstr "Já"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:391 ../loader2/driverdisk.c:402
-#: ../loader2/loader.c:353
+#: ../loader2/driverdisk.c:394 ../loader2/driverdisk.c:405
+#: ../loader2/loader.c:351
 msgid "No"
 msgstr "Nei"
 
@@ -917,8 +920,8 @@ msgstr "Hunsa"
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:103
 #: ../textw/bootloader_text.py:219 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:245
-#: ../loader2/loader.c:317
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:248
+#: ../loader2/loader.c:315
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -965,7 +968,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:976 ../packages.py:516 ../packages.py:1258
+#: ../gui.py:976 ../packages.py:516 ../packages.py:1259
 #: ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Hætta"
@@ -974,19 +977,19 @@ msgstr "_Hætta"
 msgid "_Retry"
 msgstr "_Reyna aftur"
 
-#: ../gui.py:979 ../packages.py:1261
+#: ../gui.py:979 ../packages.py:1262
 msgid "Rebooting System"
 msgstr "Endurræsi vélina"
 
-#: ../gui.py:980 ../packages.py:1262
+#: ../gui.py:980 ../packages.py:1263
 msgid "Your system will now be rebooted..."
 msgstr "Vélin þín mun nú endurræsa sig..."
 
-#: ../gui.py:983 ../packages.py:1264
+#: ../gui.py:983 ../packages.py:1265
 msgid "_Reboot"
 msgstr "En_durræsa"
 
-#: ../gui.py:1074 ../packages.py:1264
+#: ../gui.py:1074 ../packages.py:1265
 msgid "_Back"
 msgstr "_Til baka"
 
@@ -1087,15 +1090,15 @@ msgstr "Þetta er ekki rétti %s geisladiskurinn."
 msgid "The CDROM could not be mounted."
 msgstr "Ekki var hægt að tengja geisladiskinn."
 
-#: ../installclass.py:47
+#: ../installclass.py:59
 msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
-#: ../kickstart.py:1222
+#: ../kickstart.py:1217
 msgid "Missing Package"
 msgstr "Vantar pakka"
 
-#: ../kickstart.py:1223
+#: ../kickstart.py:1218
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1104,19 +1107,19 @@ msgstr ""
 "Þú hefur tekið fram að setja skuli upp pakkann '%s'. Þessi pakki er ekki "
 "til. Viltu halda áfram eða hætta uppsetningu?"
 
-#: ../kickstart.py:1229 ../kickstart.py:1256
+#: ../kickstart.py:1224 ../kickstart.py:1251
 msgid "_Abort"
 msgstr "Hætta _við"
 
-#: ../kickstart.py:1230 ../kickstart.py:1257 ../iw/partition_gui.py:997
+#: ../kickstart.py:1225 ../kickstart.py:1252 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "_Halda áfram"
 
-#: ../kickstart.py:1248
+#: ../kickstart.py:1243
 msgid "Missing Group"
 msgstr "Pakkahóp vantar"
 
-#: ../kickstart.py:1249
+#: ../kickstart.py:1244
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1266,12 +1269,12 @@ msgstr ""
 "Set inn %s pakkana\n"
 "\n"
 
-#: ../packages.py:773 ../packages.py:1074
+#: ../packages.py:773 ../packages.py:1075
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Uppfæri %s-%s-%s.\n"
 
-#: ../packages.py:775 ../packages.py:1076
+#: ../packages.py:775 ../packages.py:1077
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Set inn %s-%s-%s.\n"
@@ -1301,7 +1304,7 @@ msgstr "Uppsetning að hefjast"
 msgid "Starting install process, this may take several minutes..."
 msgstr "Ræsi uppsetningarferlið. Þetta gæti tekið nokkrar mínútur..."
 
-#: ../packages.py:838
+#: ../packages.py:839
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1311,17 +1314,17 @@ msgstr ""
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:842 ../packages.py:863 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:843 ../packages.py:864 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Tengipunktur"
 
-#: ../packages.py:843
+#: ../packages.py:844
 msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
-#: ../packages.py:859
+#: ../packages.py:860
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1331,15 +1334,15 @@ msgstr ""
 "valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:864
+#: ../packages.py:865
 msgid "Nodes Needed"
 msgstr "Vantar inóður"
 
-#: ../packages.py:875
+#: ../packages.py:876
 msgid "Disk Space"
 msgstr "Diskpláss"
 
-#: ../packages.py:912
+#: ../packages.py:913
 msgid ""
 "\n"
 "\n"
@@ -1349,19 +1352,19 @@ msgstr ""
 "\n"
 "Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI uppfærðir:\n"
 
-#: ../packages.py:933
+#: ../packages.py:934
 msgid "Post Install"
 msgstr "Eftir uppsetningu"
 
-#: ../packages.py:934
+#: ../packages.py:935
 msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
-#: ../packages.py:1244
+#: ../packages.py:1245
 msgid "Warning! This is a beta!"
 msgstr "Aðvörun! Þetta er beta-hugbúnaður!"
 
-#: ../packages.py:1245
+#: ../packages.py:1246
 #, fuzzy, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
@@ -1387,7 +1390,7 @@ msgstr ""
 "\n"
 "og flokkað það í flokkinn 'Red Hat Public Beta'.\n"
 
-#: ../packages.py:1258
+#: ../packages.py:1259
 msgid "_Install BETA"
 msgstr "_Setja upp BETU"
 
@@ -1395,10 +1398,10 @@ msgstr "_Setja upp BETU"
 msgid "Foreign"
 msgstr "Ókunnugt"
 
-#: ../partedUtils.py:267
+#: ../partedUtils.py:274
 #, fuzzy, python-format
 msgid ""
-"The /dev/%s device is LDL formatted instead of CDL formatted.  LDL formatted "
+"The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
 "use this disk for installation, it must be re-initialized causing the loss "
 "of ALL DATA on this drive.\n"
@@ -1412,7 +1415,7 @@ msgstr ""
 "\n"
 "Viltu frumstilla töfluna?"
 
-#: ../partedUtils.py:297
+#: ../partedUtils.py:304
 #, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
@@ -1428,21 +1431,21 @@ msgstr ""
 "\n"
 "Viltu frumstilla töfluna?"
 
-#: ../partedUtils.py:615
+#: ../partedUtils.py:632
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Villa við tengingu skráakerfis á %s: %s"
 
-#: ../partedUtils.py:699
+#: ../partedUtils.py:716
 msgid "Initializing"
 msgstr "Frumstilli"
 
-#: ../partedUtils.py:700
+#: ../partedUtils.py:717
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "Vinsamlegast bíðið meðan drifið %s er forsniðið...\n"
 
-#: ../partedUtils.py:818
+#: ../partedUtils.py:835
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1461,11 +1464,11 @@ msgstr ""
 "\n"
 "Viltu frumstilla þennan disk og eyða á honum ÖLLUM GÖGNUM?"
 
-#: ../partedUtils.py:936 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:953 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Engin drif fundust"
 
-#: ../partedUtils.py:937
+#: ../partedUtils.py:954
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1831,11 +1834,11 @@ msgid ""
 msgstr ""
 "Þú verður að búa til /boot/efi sneið af gerðinni FAT sem er 50 megabæti."
 
-#: ../partitions.py:832
+#: ../partitions.py:835
 msgid "You must create a PPC PReP Boot partition."
 msgstr ""
 
-#: ../partitions.py:839
+#: ../partitions.py:842
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1844,15 +1847,15 @@ msgstr ""
 "%s disksneiðin er minni en %s megabæti sem er minna en mælt er með fyrir "
 "venjulega %s uppsetningu."
 
-#: ../partitions.py:869 ../partRequests.py:636
+#: ../partitions.py:872 ../partRequests.py:636
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Ræsisneiðar mega einungis vera á RAID1 tækjum."
 
-#: ../partitions.py:876
+#: ../partitions.py:879
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Ræsisneiðar mega ekki vera á sýndardiskum."
 
-#: ../partitions.py:880
+#: ../partitions.py:883
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1860,7 +1863,7 @@ msgstr ""
 "Þú hefur ekki skilgreint diskminnissneið. Þó það sé ekki algerlega "
 "nauðsynlegt mun það bæta afköst til muna í flestum tilfellum."
 
-#: ../partitions.py:887
+#: ../partitions.py:890
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1869,7 +1872,7 @@ msgstr ""
 "Þú hefur skilgreint fleiri en 32 diskminnissneiðar. Kjarninn í %s styður "
 "einungis 32 diskminnissneiðar."
 
-#: ../partitions.py:898
+#: ../partitions.py:901
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1878,15 +1881,15 @@ msgstr ""
 "Þú hefur skilgreint minna diskminnispláss (%dM) en minnið í vélinni (%dM). "
 "Þetta getur haft neikvæð áhrif á afköst vélarinnar."
 
-#: ../partitions.py:1179
+#: ../partitions.py:1182
 msgid "the partition in use by the installer."
 msgstr "disksneiðin er í notkun af uppsetningarforritinu."
 
-#: ../partitions.py:1182
+#: ../partitions.py:1185
 msgid "a partition which is a member of a RAID array."
 msgstr "disksneið sem er í RAID tæki."
 
-#: ../partitions.py:1185
+#: ../partitions.py:1188
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "disksneið sem er í LVM sýndardiskhóp."
 
@@ -2027,7 +2030,7 @@ msgstr ""
 "\n"
 
 #: ../rescue.py:266 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:347
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:350
 msgid "Continue"
 msgstr "Halda áfram"
 
@@ -2819,78 +2822,22 @@ msgstr "_Ekki setja inn pakka sem þarfnast annara pakka"
 msgid "I_gnore package dependencies"
 msgstr "_Hunsa pakkaskilyrði"
 
-#: ../iw/desktop_choice_gui.py:25 ../iw/desktop_choice_gui.py:53
-#: ../textw/desktop_choice_text.py:24
-msgid "Workstation Defaults"
-msgstr "Sjálfgefin gildi vinnustöðvar"
+#: ../iw/desktop_choice_gui.py:25
+#, fuzzy
+msgid "Package Defaults"
+msgstr "Velja pakkahópa"
 
-#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:7
-msgid "Workstation"
-msgstr "Vinnustöð"
-
-#: ../iw/desktop_choice_gui.py:58
-#, python-format
+#: ../iw/desktop_choice_gui.py:51
 msgid ""
-"The default workstation environment includes our recommendations for new "
-"users, including:\n"
+"The default installation environment includes our recommended package "
+"selection, including:\n"
 "\n"
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
-"\n"
-"After installation, additional software can be added or removed using the "
-"'redhat-config-packages' tool.\n"
-"\n"
-"If you are familiar with %s, you may have specific packages you would like "
-"to install or avoid installing. Check the box below to customize your "
-"installation."
 msgstr ""
-"Sjálfgefna vinnustöðvaruppsetningin inniheldur það sem við mælum með fyrir "
-"nýja notendur, og innifelur amk:\n"
-"\n"
-"\tMyndrænt vinnuumhverfi (GNOME)\n"
-"\tSkrifstofutól (OpenOffice)\n"
-"\tVefrápara (Mozilla) \n"
-"\tPóstforrit (Evolution)\n"
-"\tInstant messaging\n"
-"\tHljóð og myndtól\n"
-"\tLeiki\n"
-"\tTól til hugbúnaðarþróunar\n"
-"\tKerfisstjórnunartól\n"
-"\n"
-"Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka með "
-"'redhat-config-packages' tólinu.\n"
-"\n"
-"Ef þú er vanur að nota %s getur þú valið pakka sem þú vilt setja inn eða "
-"ekki setja inn með því að haka við í boxið hér að neðan."
 
-#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
-msgid "Personal Desktop"
-msgstr "Skjáborð"
-
-#: ../iw/desktop_choice_gui.py:76
-msgid "Personal Desktop Defaults"
-msgstr "Sjálfgefnir eiginleikar skjáborðs"
-
-#: ../iw/desktop_choice_gui.py:81
-#, python-format
+#: ../iw/desktop_choice_gui.py:53
+#, fuzzy, python-format
 msgid ""
-"The default personal desktop environment includes our recommendations for "
-"new users, including:\n"
 "\n"
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
 "\n"
 "After installation, additional software can be added or removed using the "
 "'redhat-config-packages' tool.\n"
@@ -2916,7 +2863,7 @@ msgstr ""
 "Ef þú er vanur að nota %s getur þú velið pakka sem þú vilt setja inn eða "
 "ekki setja inn með því að haka við í boxið hér að neðan."
 
-#: ../iw/desktop_choice_gui.py:98
+#: ../iw/desktop_choice_gui.py:65
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
@@ -2924,11 +2871,11 @@ msgstr ""
 "Ef þú vilt breyta sjálfgefnum pökkunum sem verða uppsettir getur þú "
 "sérsniðið þá hér fyrir neðan."
 
-#: ../iw/desktop_choice_gui.py:106
+#: ../iw/desktop_choice_gui.py:73
 msgid "_Accept the current package list"
 msgstr "_Samþykkja núverandi pakkalista"
 
-#: ../iw/desktop_choice_gui.py:107
+#: ../iw/desktop_choice_gui.py:74
 msgid "_Customize the set of packages to be installed"
 msgstr "_Velja pakka sem á að setja inn"
 
@@ -3014,10 +2961,11 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Veldu disk til að keyra fdisk á:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-msgid "Firewall Configuration"
-msgstr "Stillingar eldveggjar"
+#, fuzzy
+msgid "Firewall"
+msgstr "Enginn eldveggur"
 
-#: ../iw/firewall_gui.py:132
+#: ../iw/firewall_gui.py:115
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3030,45 +2978,49 @@ msgstr ""
 "\n"
 "Til dæmis '1234:udp'"
 
-#: ../iw/firewall_gui.py:136
+#: ../iw/firewall_gui.py:119
 msgid "Warning: Bad Token"
 msgstr "Aðvörun: Ógilt tákn"
 
-#: ../iw/firewall_gui.py:188
-msgid "Select a security level for the system:  "
-msgstr "Veldu öryggisstig þessarar vélar:  "
+#: ../iw/firewall_gui.py:145 ../textw/firewall_text.py:28
+msgid ""
+"A firewall can help prevent unauthorized access to your computer from the "
+"outside world.  Would you like to enable a firewall?"
+msgstr ""
 
-#: ../iw/firewall_gui.py:197
-msgid "Hi_gh"
-msgstr "Há_tt"
-
-#: ../iw/firewall_gui.py:198
-msgid "_Medium"
-msgstr "_Miðlungs"
-
-#: ../iw/firewall_gui.py:199
+#: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "En_ginn eldveggur"
 
-#: ../iw/firewall_gui.py:215
-msgid "Use _default firewall rules"
-msgstr "Nota s_jálfgefnar eldveggjarreglur"
+#: ../iw/firewall_gui.py:157
+#, fuzzy
+msgid "_Enable firewall"
+msgstr "En_ginn eldveggur"
 
-#: ../iw/firewall_gui.py:216
-msgid "_Customize"
-msgstr "_Sérsníða"
+#: ../iw/firewall_gui.py:159
+#, fuzzy
+msgid "_Custom firewall"
+msgstr "En_ginn eldveggur"
 
-#: ../iw/firewall_gui.py:229
-msgid "_Trusted devices:"
-msgstr "_Tæki sem er treyst:"
+#: ../iw/firewall_gui.py:178
+msgid "What services should be allowed to pass through the firewall?"
+msgstr ""
 
-#: ../iw/firewall_gui.py:255
+#: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
 msgstr "_Leyfa tengingar inn:"
 
-#: ../iw/firewall_gui.py:280
+#: ../iw/firewall_gui.py:211
 msgid "Other _ports:"
 msgstr "Önnur _port:"
+
+#: ../iw/firewall_gui.py:219
+msgid "If you would like to allow all traffic from a device, select it below."
+msgstr ""
+
+#: ../iw/firewall_gui.py:228
+msgid "_Trusted devices:"
+msgstr "_Tæki sem er treyst:"
 
 #: ../iw/installpath_gui_hacked.py:34 ../iw/installpath_gui.py:34
 #: ../textw/installpath_text.py:42
@@ -5072,13 +5024,13 @@ msgstr ""
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:353
-#: ../loader2/driverdisk.c:245 ../loader2/driverdisk.c:260
+#: ../loader2/driverdisk.c:248 ../loader2/driverdisk.c:263
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:385
-#: ../loader2/hdinstall.c:439 ../loader2/kbd.c:125 ../loader2/loader.c:304
-#: ../loader2/loader.c:786 ../loader2/loader.c:809 ../loader2/net.c:173
+#: ../loader2/hdinstall.c:439 ../loader2/kbd.c:125 ../loader2/loader.c:302
+#: ../loader2/loader.c:802 ../loader2/loader.c:825 ../loader2/net.c:173
 #: ../loader2/net.c:424 ../loader2/net.c:846 ../loader2/nfsinstall.c:54
-#: ../loader2/urls.c:250 ../loader2/urls.c:438
+#: ../loader2/urls.c:254 ../loader2/urls.c:442
 msgid "Back"
 msgstr "Til baka"
 
@@ -5095,13 +5047,16 @@ msgstr ""
 "Eftir að uppfærslunni lýkur verður til annáll í %s eftir endurræsinguna. "
 "Honum ættir þú að halda til haga."
 
+#: ../textw/desktop_choice_text.py:24
+msgid "Workstation Defaults"
+msgstr "Sjálfgefin gildi vinnustöðvar"
+
 #: ../textw/desktop_choice_text.py:27
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The Personal Desktop and Workstation options install a default set of "
-"applications that will allow you to browse the Internet, send and receive "
-"email, and create and edit documents on your %s system. The Workstation "
-"option includes development and administration tools as well.\n"
+"The default installation environment includes our recommended package "
+"selection.  After installation, additional software can be added or removed "
+"using the 'redhat-config-packages' tool.\n"
 "\n"
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
@@ -5113,7 +5068,7 @@ msgstr ""
 "Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið hvaða "
 "hugbúnað þú vilt nota."
 
-#: ../textw/desktop_choice_text.py:39
+#: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
 msgstr "Sérsníða hugbúnaðarval"
 
@@ -5177,86 +5132,62 @@ msgstr "Veldu disk til að keyra fdisk á"
 msgid "Customize"
 msgstr "Sérsníða"
 
-#: ../textw/firewall_text.py:28
-msgid ""
-"A firewall protects against unauthorized network intrusions. High security "
-"blocks all incoming accesses. Medium blocks access to system services (such "
-"as telnet or printing), but allows other connections. No firewall allows all "
-"connections and is not recommended. "
-msgstr ""
-"Eldveggur ver vélina gegn óæskilegum nettengingum. Hátt öryggisstig stöðvar "
-"allar tengingar sem eru á leið inn. Miðlungsöryggi lokar á tengingar á ýmsar "
-"kerfisþjónustur (eins og til dæmis telnet og prentun) en leyfir aðrar "
-"tengingar. Ef enginn eldveggur er valinn er öllum tengingum hleypt inn og "
-"það er ekki mælt með því."
-
-#: ../textw/firewall_text.py:44
-msgid "Security Level:"
-msgstr "Öryggisstig:"
+#: ../textw/firewall_text.py:45
+#, fuzzy
+msgid "Enable firewall"
+msgstr "Enginn eldveggur"
 
 #: ../textw/firewall_text.py:48
-msgid "High"
-msgstr "Hátt"
-
-#: ../textw/firewall_text.py:51
-msgid "Medium"
-msgstr "Miðlungs"
-
-#: ../textw/firewall_text.py:54
 msgid "No firewall"
 msgstr "Enginn eldveggur"
 
-#: ../textw/firewall_text.py:73
+#: ../textw/firewall_text.py:67
 msgid "Trusted Devices:"
 msgstr "Tæki sem er treyst, þegar í notkun:"
 
-#: ../textw/firewall_text.py:85
+#: ../textw/firewall_text.py:77
 msgid "Allow incoming:"
 msgstr "Leyfa tengingar inn:"
 
-#: ../textw/firewall_text.py:90
-msgid "DHCP"
-msgstr "DHCP"
-
-#: ../textw/firewall_text.py:92
+#: ../textw/firewall_text.py:82
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:94 ../loader2/telnetd.c:82
+#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:82
 #: ../loader2/telnetd.c:124
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:96
+#: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:98
+#: ../textw/firewall_text.py:88
 msgid "Mail (SMTP)"
 msgstr "Póstur (SMTP)"
 
-#: ../textw/firewall_text.py:100
+#: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:104
+#: ../textw/firewall_text.py:94
 msgid "Other ports"
 msgstr "Önnur port"
 
-#: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
+#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Ógilt val"
 
-#: ../textw/firewall_text.py:131
+#: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
 msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
 
-#: ../textw/firewall_text.py:136
+#: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
 msgstr "Stillingar eldveggs - Sérsníða"
 
-#: ../textw/firewall_text.py:138
+#: ../textw/firewall_text.py:128
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5268,7 +5199,7 @@ msgstr ""
 "eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka port á "
 "sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
 
-#: ../textw/firewall_text.py:194
+#: ../textw/firewall_text.py:184
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Aðvörun: %s er ekki gild gátt."
@@ -5890,7 +5821,7 @@ msgstr ""
 "vitir örugglega hvað það er og þú hafir ekki slegið það rangt inn. Mundu að "
 "rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar!"
 
-#: ../textw/userauth_text.py:44 ../loader2/urls.c:428
+#: ../textw/userauth_text.py:44 ../loader2/urls.c:432
 msgid "Password:"
 msgstr "Lykilorð:"
 
@@ -6345,6 +6276,10 @@ msgstr ""
 "sett upp ásamt stjórn á hvaða hugbúnaðarpakkar fara inn og hvernig "
 "auðkenning fer fram."
 
+#: ../installclasses/personal_desktop.py:10
+msgid "Personal Desktop"
+msgstr "Skjáborð"
+
 #: ../installclasses/personal_desktop.py:12
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
@@ -6353,6 +6288,51 @@ msgid ""
 msgstr ""
 "Fyrir einkatölvur eða kjöltutölvur. Með þessari uppsetningaraðferð kemur "
 "myndrænt umhverfi sem hentar vel til heimanotkunar eða til vinnu."
+
+#: ../installclasses/personal_desktop.py:17
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+msgstr ""
+
+#: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
+msgid "Red Hat Enterprise Linux AS"
+msgstr ""
+
+#: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tAdministration Tools\n"
+"\tServer Configuration Tools\n"
+"\tWeb Server\n"
+"\tWindows File Server (SMB)\n"
+msgstr ""
+
+#: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
+msgid "Red Hat Enterprise Linux ES"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
+msgid "Red Hat Enterprise Linux WS"
+msgstr ""
+
+#: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:13
+msgid ""
+"\tDesktop shell (GNOME)\n"
+"\tOffice suite (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tSound and video applications\n"
+"\tGames\n"
+"\tSoftware Development Tools\n"
+"\tAdministration Tools\n"
+msgstr ""
 
 #: ../installclasses/server.py:10
 msgid "Server"
@@ -6367,6 +6347,10 @@ msgstr ""
 "Veldu þessa uppsetningaraðferð ef þú vilt setja upp skráarþjón, prentþjón og/"
 "eða vefþjón. Hægt er að virkja fleiri þjónustur og þú getur kosið að setja "
 "ekki upp myndræn notandaskil."
+
+#: ../installclasses/workstation.py:7
+msgid "Workstation"
+msgstr "Vinnustöð"
 
 #: ../installclasses/workstation.py:9
 msgid ""
@@ -6457,19 +6441,19 @@ msgstr "Geisladiskur fannst ekki"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Gat ekki fundið hraðuppsetningarskrá á geisladisknum."
 
-#: ../loader2/driverdisk.c:119 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:120 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Les inn"
 
-#: ../loader2/driverdisk.c:119
+#: ../loader2/driverdisk.c:120
 msgid "Reading driver disk..."
 msgstr "Les rekladiskinn..."
 
-#: ../loader2/driverdisk.c:239
+#: ../loader2/driverdisk.c:242
 msgid "Driver Disk Source"
 msgstr "Staðsetning rekladisks"
 
-#: ../loader2/driverdisk.c:240
+#: ../loader2/driverdisk.c:243
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6477,29 +6461,29 @@ msgstr ""
 "Þú hefur fleiri en eitt drif í vélinni þinni sem nota má fyrir "
 "rekladiskling. Hvert þeirra viltu nota við uppsetninguna?"
 
-#: ../loader2/driverdisk.c:258
+#: ../loader2/driverdisk.c:261
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Settu rekladisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
-#: ../loader2/driverdisk.c:260
+#: ../loader2/driverdisk.c:263
 msgid "Insert Driver Disk"
 msgstr "Settu rekladiskinn í drifið"
 
-#: ../loader2/driverdisk.c:275
+#: ../loader2/driverdisk.c:278
 msgid "Failed to mount driver disk."
 msgstr "Gat ekki tengt rekladisklinginn."
 
-#: ../loader2/driverdisk.c:346
+#: ../loader2/driverdisk.c:349
 msgid "Manually choose"
 msgstr "Velja handvirkt"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:350
 msgid "Load another disk"
 msgstr "Setja annan disk í"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:351
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6508,37 +6492,37 @@ msgstr ""
 "Engin tæki af réttri tegund fundust á þessum rekladisk. Viltu velja rekil "
 "handvirkt, halda áfram eða lesa inn annann rekladisk?"
 
-#: ../loader2/driverdisk.c:391
+#: ../loader2/driverdisk.c:394
 msgid "Driver disk"
 msgstr "Rekladiskur"
 
-#: ../loader2/driverdisk.c:392
+#: ../loader2/driverdisk.c:395
 msgid "Do you have a driver disk?"
 msgstr "Ertu með rekladisk?"
 
-#: ../loader2/driverdisk.c:402
+#: ../loader2/driverdisk.c:405
 msgid "More Driver Disks?"
 msgstr "Fleiri rekladisklinga?"
 
-#: ../loader2/driverdisk.c:403
+#: ../loader2/driverdisk.c:406
 msgid "Do you wish to load any more driver disks?"
 msgstr "Viltu lesa inn fleiri rekladisklinga?"
 
-#: ../loader2/driverdisk.c:442 ../loader2/driverdisk.c:475
+#: ../loader2/driverdisk.c:445 ../loader2/driverdisk.c:478
 #: ../loader2/hdinstall.c:523 ../loader2/kickstart.c:108
 #: ../loader2/kickstart.c:118 ../loader2/kickstart.c:161
-#: ../loader2/modules.c:914 ../loader2/net.c:717 ../loader2/net.c:740
+#: ../loader2/modules.c:916 ../loader2/net.c:717 ../loader2/net.c:740
 #: ../loader2/nfsinstall.c:233 ../loader2/urlinstall.c:386
 #: ../loader2/urlinstall.c:395 ../loader2/urlinstall.c:406
 msgid "Kickstart Error"
 msgstr "Kickstart villa"
 
-#: ../loader2/driverdisk.c:443
+#: ../loader2/driverdisk.c:446
 #, fuzzy, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "óleyfilegt viðfang við Url skipun hraðuppsetningar %s: %s"
 
-#: ../loader2/driverdisk.c:476
+#: ../loader2/driverdisk.c:479
 #, fuzzy, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6712,11 +6696,11 @@ msgstr "Harðir diskar"
 msgid "NFS image"
 msgstr "NFS svæði"
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:297
 msgid "Update Disk Source"
 msgstr "Staðsetning uppfærsludisks"
 
-#: ../loader2/loader.c:300
+#: ../loader2/loader.c:298
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6724,29 +6708,29 @@ msgstr ""
 "Þú hefur fleiri en eitt tæki í vélinni þinni sem gætu hentað fyrir "
 "uppfærsludisk.  Hvert þeirra viltu nota?"
 
-#: ../loader2/loader.c:315
+#: ../loader2/loader.c:313
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Settu uppfærsludisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
-#: ../loader2/loader.c:317
+#: ../loader2/loader.c:315
 msgid "Updates Disk"
 msgstr "Uppfærsludiskur"
 
-#: ../loader2/loader.c:329
+#: ../loader2/loader.c:327
 msgid "Failed to mount updates disk"
 msgstr "Gat ekki tengt uppfærsludisklinginn"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:330
 msgid "Updates"
 msgstr "Uppfærslur"
 
-#: ../loader2/loader.c:332
+#: ../loader2/loader.c:330
 msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anacondu..."
 
-#: ../loader2/loader.c:354
+#: ../loader2/loader.c:352
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6755,40 +6739,40 @@ msgstr ""
 "Engir harðir diskar fundust. Þú þarft líklega að velja rekla fyrir diskana "
 "handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
-#: ../loader2/loader.c:642
+#: ../loader2/loader.c:640
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp %s."
 
-#: ../loader2/loader.c:778
+#: ../loader2/loader.c:794
 msgid "Rescue Method"
 msgstr "Gerð neyðardisklings"
 
-#: ../loader2/loader.c:779
+#: ../loader2/loader.c:795
 msgid "Installation Method"
 msgstr "Tegund uppsetningar"
 
-#: ../loader2/loader.c:781
+#: ../loader2/loader.c:797
 msgid "What type of media contains the rescue image?"
 msgstr "Á hverskonar miðli er neyðardisklingurinn?"
 
-#: ../loader2/loader.c:783
+#: ../loader2/loader.c:799
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hverskonar kerfi viltu setja upp?"
 
-#: ../loader2/loader.c:808
+#: ../loader2/loader.c:824
 msgid "No driver found"
 msgstr "Engin rekill fannst"
 
-#: ../loader2/loader.c:808
+#: ../loader2/loader.c:824
 msgid "Select driver"
 msgstr "Veldu rekil"
 
-#: ../loader2/loader.c:809
+#: ../loader2/loader.c:825
 msgid "Use a driver disk"
 msgstr "Nota rekladiskling"
 
-#: ../loader2/loader.c:810
+#: ../loader2/loader.c:826
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6796,34 +6780,34 @@ msgstr ""
 "Engin tæki fundust til að framkvæma þessa tegund af uppsetningu.  Viltu "
 "velja rekil handvirkt eða nota rekladiskling?"
 
-#: ../loader2/loader.c:964
+#: ../loader2/loader.c:987
 msgid "The following devices have been found on your system."
 msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni."
 
-#: ../loader2/loader.c:966
+#: ../loader2/loader.c:989
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Það eru engir sérstakir tækjareklar í notkun. Viltu lesa einhverja inn núna?"
 
-#: ../loader2/loader.c:970
+#: ../loader2/loader.c:993
 msgid "Devices"
 msgstr "Tæki"
 
-#: ../loader2/loader.c:971
+#: ../loader2/loader.c:994
 msgid "Done"
 msgstr "Búið"
 
-#: ../loader2/loader.c:972
+#: ../loader2/loader.c:995
 msgid "Add Device"
 msgstr "Bæta við tæki"
 
-#: ../loader2/loader.c:1073
+#: ../loader2/loader.c:1096
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
-#: ../loader2/loader.c:1404
+#: ../loader2/loader.c:1427
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Keyri anaconda, %s kerfisuppsetningatólið - Vinsamlegast bíðið...\n"
@@ -6927,7 +6911,7 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "Gátsummupróf"
 
-#: ../loader2/modules.c:915
+#: ../loader2/modules.c:917
 #, fuzzy, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Óleyfilegt viðfang við HD skipun hraðuppsetningar %s: %s"
@@ -6979,7 +6963,7 @@ msgstr "Þú gafst upp ógilt IP vistfang."
 msgid "Dynamic IP"
 msgstr "Lausbundið IP"
 
-#: ../loader2/net.c:227 ../loader2/net.c:230 ../loader2/net.c:479
+#: ../loader2/net.c:227 ../loader2/net.c:479
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Sendi beiðni um IP stillingar fyrir %s..."
@@ -7024,7 +7008,7 @@ msgstr "Upplýsingar vantar"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Þú verður að gefa upp fullgilt IP vistfang og netmöskva."
 
-#: ../loader2/net.c:636 ../loader2/net.c:638
+#: ../loader2/net.c:636
 msgid "Determining host name and domain..."
 msgstr "Reyni að ákvarða vélarheiti og netlén..."
 
@@ -7054,7 +7038,7 @@ msgstr ""
 msgid "NFS server name:"
 msgstr "NFS þjónn:"
 
-#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:280
+#: ../loader2/nfsinstall.c:47 ../loader2/urls.c:284
 msgid "Red Hat directory:"
 msgstr "Red Hat mappan:"
 
@@ -7108,58 +7092,58 @@ msgstr ""
 msgid "Unknown Url method %s"
 msgstr "Óþekkt Url skipun %s"
 
-#: ../loader2/urls.c:171
+#: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Gat ekki stimplað inn í %s: %s"
 
-#: ../loader2/urls.c:181 ../loader2/urls.c:189
+#: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Gat ekki lesið %s: %s"
 
-#: ../loader2/urls.c:194
+#: ../loader2/urls.c:196
 msgid "Retrieving"
 msgstr "Sæki"
 
-#: ../loader2/urls.c:276
+#: ../loader2/urls.c:280
 msgid "FTP site name:"
 msgstr "FTP þjónn:"
 
-#: ../loader2/urls.c:277
+#: ../loader2/urls.c:281
 msgid "Web site name:"
 msgstr "Vefþjónn:"
 
-#: ../loader2/urls.c:294
+#: ../loader2/urls.c:298
 msgid "Use non-anonymous ftp"
 msgstr "Nota auðkennt ftp"
 
-#: ../loader2/urls.c:303
+#: ../loader2/urls.c:307
 msgid "FTP Setup"
 msgstr "FTP stillingar"
 
-#: ../loader2/urls.c:304
+#: ../loader2/urls.c:308
 msgid "HTTP Setup"
 msgstr "HTTP stillingar"
 
-#: ../loader2/urls.c:314
+#: ../loader2/urls.c:318
 msgid "You must enter a server name."
 msgstr "Þú verður að gefa upp heiti þjóns."
 
-#: ../loader2/urls.c:319
+#: ../loader2/urls.c:323
 msgid "You must enter a directory."
 msgstr "Þú verður að nefna möppu."
 
-#: ../loader2/urls.c:324
+#: ../loader2/urls.c:328
 msgid "Unknown Host"
 msgstr "Óþekkt vél"
 
-#: ../loader2/urls.c:325
+#: ../loader2/urls.c:329
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s er ekki gilt heiti vélar."
 
-#: ../loader2/urls.c:398
+#: ../loader2/urls.c:402
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -7167,13 +7151,13 @@ msgstr ""
 "Ef þú ert ekki að nota nafnlaust ftp sláðu þá inn notandaheiti og lykilorð "
 "að neðan."
 
-#: ../loader2/urls.c:403
+#: ../loader2/urls.c:407
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "Ef þú vilt nota vefsel þarftu að gefa upp heiti þess hér."
 
-#: ../loader2/urls.c:425
+#: ../loader2/urls.c:429
 msgid "Account name:"
 msgstr "Notandanafn:"
 
@@ -7899,6 +7883,91 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
+
+#~ msgid ""
+#~ "The default workstation environment includes our recommendations for new "
+#~ "users, including:\n"
+#~ "\n"
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice)\n"
+#~ "\tWeb browser (Mozilla) \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tSoftware Development Tools\n"
+#~ "\tAdministration Tools\n"
+#~ "\n"
+#~ "After installation, additional software can be added or removed using the "
+#~ "'redhat-config-packages' tool.\n"
+#~ "\n"
+#~ "If you are familiar with %s, you may have specific packages you would "
+#~ "like to install or avoid installing. Check the box below to customize "
+#~ "your installation."
+#~ msgstr ""
+#~ "Sjálfgefna vinnustöðvaruppsetningin inniheldur það sem við mælum með "
+#~ "fyrir nýja notendur, og innifelur amk:\n"
+#~ "\n"
+#~ "\tMyndrænt vinnuumhverfi (GNOME)\n"
+#~ "\tSkrifstofutól (OpenOffice)\n"
+#~ "\tVefrápara (Mozilla) \n"
+#~ "\tPóstforrit (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tHljóð og myndtól\n"
+#~ "\tLeiki\n"
+#~ "\tTól til hugbúnaðarþróunar\n"
+#~ "\tKerfisstjórnunartól\n"
+#~ "\n"
+#~ "Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka "
+#~ "með 'redhat-config-packages' tólinu.\n"
+#~ "\n"
+#~ "Ef þú er vanur að nota %s getur þú valið pakka sem þú vilt setja inn eða "
+#~ "ekki setja inn með því að haka við í boxið hér að neðan."
+
+#~ msgid "Personal Desktop Defaults"
+#~ msgstr "Sjálfgefnir eiginleikar skjáborðs"
+
+#~ msgid "Firewall Configuration"
+#~ msgstr "Stillingar eldveggjar"
+
+#~ msgid "Select a security level for the system:  "
+#~ msgstr "Veldu öryggisstig þessarar vélar:  "
+
+#~ msgid "Hi_gh"
+#~ msgstr "Há_tt"
+
+#~ msgid "_Medium"
+#~ msgstr "_Miðlungs"
+
+#~ msgid "Use _default firewall rules"
+#~ msgstr "Nota s_jálfgefnar eldveggjarreglur"
+
+#~ msgid "_Customize"
+#~ msgstr "_Sérsníða"
+
+#~ msgid ""
+#~ "A firewall protects against unauthorized network intrusions. High "
+#~ "security blocks all incoming accesses. Medium blocks access to system "
+#~ "services (such as telnet or printing), but allows other connections. No "
+#~ "firewall allows all connections and is not recommended. "
+#~ msgstr ""
+#~ "Eldveggur ver vélina gegn óæskilegum nettengingum. Hátt öryggisstig "
+#~ "stöðvar allar tengingar sem eru á leið inn. Miðlungsöryggi lokar á "
+#~ "tengingar á ýmsar kerfisþjónustur (eins og til dæmis telnet og prentun) "
+#~ "en leyfir aðrar tengingar. Ef enginn eldveggur er valinn er öllum "
+#~ "tengingum hleypt inn og það er ekki mælt með því."
+
+#~ msgid "Security Level:"
+#~ msgstr "Öryggisstig:"
+
+#~ msgid "High"
+#~ msgstr "Hátt"
+
+#~ msgid "Medium"
+#~ msgstr "Miðlungs"
+
+#~ msgid "DHCP"
+#~ msgstr "DHCP"
 
 #~ msgid "DASD partitions can only be deleted with fdasd"
 #~ msgstr "DASD disksneiðar má einungis fjarlægja með fdasd"
