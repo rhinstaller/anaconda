@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-23 13:25+0530\n"
+"PO-Revision-Date: 2004-07-23 17:50+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -2761,18 +2761,24 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
+"બુટ ડિસ્ક તમને તમારી %s સિસ્ટમ ફ્લોપી ડિસ્કમાંથી ચલાવવાની પરવાનગી "
+"આપે છે. બુટ ડિસ્ક તમને તમારી બુટલોડર રુપરેખાંકન કામ કરવાનું બંધ કરે ત્યારે"
+"ચલાવવાની પરવાનગી આપે છે, જો તમે બુટ લોડર સ્થાપિત નહિં કરવાનું પસંદ કરો"
+"અથવા તમારું ત્રીજી વ્યક્તિનું સોફ્ટવેર લિનક્સને આધાર નહિં આપે.\n"
+"\n"
+"એવો માેટે ભાગે આગ્રહ રાખવામાં આવે છે કે તમે બુટ ડિસ્ક બનાવી દો.\n"
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr ""
+msgstr "હા, હું બુટ ડિસ્ક બનાવવા માંગુ છું (_Y)"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
-msgstr ""
+msgstr "ના, હું બુટ ડિસ્ક બનાવવા માંગતો નથી (_d)"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr ""
+msgstr "ઉન્નત બુટલોડર રુપરેખાંકન"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
 msgid ""
@@ -2782,34 +2788,44 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"તમારા બુટ લોડર માટે LBA32 નો ઉપયોગ કરો જ્યારે BIOS "
+"દ્વારા આધાર ના "
+"હોય ત્યારે તે તમારા મશીનને બુટ નહિં થવા દેવા માટે સક્રિય કરશે. "
+"અમે તમારા તરફથી બુટ ડિસ્ક બનાવવાનો આગ્રહ રાખીએ છીએ જે સ્થાપન "
+"પ્રક્રિયામાં પાછળથી પૂછવામાં આવે છે.\n"
+"\n"
+"શું તમે ચાલુ રાખવા માંગો છો અને LBA32 સ્થિતિ પર દબાણ કરવા "
+"માંગો છો?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr ""
+msgstr "LBA32 પર ભાર મૂકો"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 પર ભાર મૂકો (_F) (મોટે ભાગે જરુરી નથી)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
+"જો તમે તમારા બુટ આદેશ પાસે મૂળભુત વિકલ્પો ઉમેરવા માંગતા હોય, તો "
+"તેમને કર્નલના સામાન્ય પરિમાણો ક્ષેત્રમાં મૂકો."
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr ""
+msgstr "સામાન્ય કર્નલ પરિમાણો (_G)"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
 #: ../textw/bootloader_text.py:307 ../textw/bootloader_text.py:399
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "બુટલોડર રુપરેખાંકન"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
-msgstr ""
+msgstr "બુટલોડર બદલો"
 
 #: ../iw/bootloader_main_gui.py:93
 msgid ""
@@ -2818,10 +2834,14 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
+"તમે તમારી સિસ્ટમ પર બુટલોડર સ્થાપિત કરવું નહિં એમ પસંદ કરેલ છે. "
+"તમારે તમારી સિસ્ટમને આ વિકલ્પ સાથે ચલાવવા માટે બુટ ડિસ્ક બનાવવી પડશે.\n"
+"\n"
+"શું તમે ચાલુ રાખવા માંગો છો અને બુટલોડર સ્થાપિત કરો નહિ?"
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr ""
+msgstr "બુટલોડર નહિં હોય એમ ચાલુ કરો (_o)"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
@@ -2829,35 +2849,38 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
+"મહેરબાની કરીને બુટલોડર પસંદ કરો કે જે તમારું કમ્પ્યુટર વાપરશે. "
+"GRUB એ મૂળભુત બુટલોડર છે. તેમછતાં પણ, જો તમારે વર્તમાન બુટ "
+"લોડર પર ફરીથી લખવાની જરુર હોય તો, \"બુટલોડર સ્થાપિક કરો નહિ.\""
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
-msgstr ""
+msgstr "_GRUB ને બુટલોડર તરીકે વાપરો"
 
 #: ../iw/bootloader_main_gui.py:143
 msgid "Use _LILO as the boot loader"
-msgstr ""
+msgstr "_LILO બુટલોડર તરીકે વાપરો"
 
 #: ../iw/bootloader_main_gui.py:147
 msgid "_Do not install a boot loader"
-msgstr ""
+msgstr "બુટ લોડર સ્થાપિત કરો નહિં (_D)"
 
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr ""
+msgstr "%s બુટલોડર /dev/%s પર સ્થાપિત થશે."
 
 #: ../iw/bootloader_main_gui.py:175
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "કોઈ બુટલોડર સ્થાપિત થશે નહિં."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr ""
+msgstr "બુટલોડર બદલો (_C)"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
-msgstr ""
+msgstr "ઉન્નત બુટલોડર વિકલ્પો રુપરેખાંકિત કરો (_o)"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
