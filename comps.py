@@ -229,6 +229,9 @@ class Component:
 	p.addSelectionChain([self, condComponent])
 	self.pkgDict[p] = 1
 
+    def setDefault(self, default):
+        self.default = default
+
     def setDefaultSelection(self):
 	if self.default:
 	    self.select()
