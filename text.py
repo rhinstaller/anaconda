@@ -878,7 +878,7 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 2000 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
-	    self.screen.pushHelpLine (_(" <F1> for help> | <Tab> between elements | <Space> selects | <F12> next screen"))
+	    self.screen.pushHelpLine (_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
 	else:
 	    self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
