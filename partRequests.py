@@ -175,6 +175,50 @@ class RequestSpec:
         sys.stderr.write("WARNING: Abstract RequestSpec.getActualSize() called\n")
         import traceback
         traceback.print_stack()
+
+    # XXX we don't have a request for a Physical Volume, so any request type
+    # that can contain a Volume Group needs to be able to compensate for
+    # a Physical Volume's overhead.  It might be worth making a PVRequest
+    # or having the VG do the compensation instead...
+    def getPVSize(self, partitions, diskset):
+        """Return the usable size for a physical volume in the request in megabytes."""
+
+        part = partedUtils.get_partition_by_name(diskset.disks, self.device)
+        if not part:
+            # XXX kickstart might still call this before allocating the
+            # partitions
+            raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
+
+        for pvpart, pvvg, pvsize in lvm.pvlist():
+            if pvpart == "/dev/%s" % (self.device):
+                size = pvsize
+                return size;
+
+        # If we get here, the PV and/or VG hasn't been created yet, so we
+        # have to guess.
+        #
+        # You can't tell what the size of a Physical Volume until it's
+        # associated with a Volume Group, because the PV stores metadata
+        # in a Physical Extent, and the size of a PE for this PV is defined
+        # as that of the VG to which it is associated.  So until you assign
+        # a VG to the PV, it has indeterminate size.  Brilliant.
+        #
+        # Current lvm utils (t happens if we create it, we basically always
+        # use 1 PE.  So right now, I'm assuming 64M PEs, since they're the
+        # biggest we ever create.  Sorry about the wasted space...
+        #
+        # The big downside here is that if the user chooses 4M, at this point
+        # he's losing 60M to 64M of space.
+        #
+        # XXX We should probably look at making this recalculate after the 
+        # VG is associated.
+        size = self.getActualSize(partitions, diskset)
+
+        # It might also be a good idea to make this use some estimate for
+        # "best" PE size, and present that as the default when creating a VG,
+        # rather than always using 64.  That's rather complicated, though.
+        size = long((math.floor(size / 64)-1) * 64)
+        return size
         
     def getDevice(self, partitions):
         """Return a device to solidify."""
@@ -468,39 +512,6 @@ class PartitionSpec(RequestSpec):
             raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
         return partedUtils.getPartSizeMB(part)
 
-    def getPVSize(self, partitions, diskset):
-        """Return the size of the physical volume in the request in megabytes."""
-
-        part = partedUtils.get_partition_by_name(diskset.disks, self.device)
-        if not part:
-            # XXX kickstart might still call this before allocating the partitions
-            raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
-
-        for pvpart, pvvg, pvsize in lvm.pvlist():
-            if pvpart == "/dev/%s" % (self.device):
-                size = pvsize
-                return size;
-
-        # If we get here, the PV and/or VG hasn't been created yet, so we
-        # have to guess.
-
-        # you can't tell what the size of a PV until you've created a volume
-        # group, because the PV uses a PE to store metadata in, and it's 
-        # got no PEs until there's a VG.  So until you put something IN 
-        # a PV, it has undefined size.  Brilliant.
-        #
-        # From looking at what happens if we create it, we basically always
-        # use 1 PE.  So right now, I'm assuming 64M PEs, since they're the
-        # biggest we create.
-        #
-        # The big downside here is that if the user chooses 4M, at this point
-        # he's losing 60M to 64M of space.  I _think_ he'll actually get this
-        # back as soon as it's created though, since we don't give a max size
-        # to vgcreate, and we call getPVSize pretty often.
-        size = self.getActualSize(partitions, diskset)
-        size = long((math.floor(size / 64)-1) * 64)
-        return size
-        
     def doSizeSanityCheck(self):
         """Sanity check that the size of the partition is sane."""
         if not self.fstype:

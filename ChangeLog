@@ -1,3 +1,8 @@
+2005-02-25  Peter Jones <pjones@redhat.com>
+
+	* partRequests.py: All RequestSpec's must be able to guess how much
+	space a nested PV can provide.
+
 2005-02-24  Peter Jones <pjones@redhat.com>
 
 	* gui.py: fix "debug" cmdline arg to not traceback.
