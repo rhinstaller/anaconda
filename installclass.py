@@ -364,8 +364,8 @@ class BaseInstallClass:
         if tmpram in id.videocard.possible_ram_sizes():
             id.videocard.primaryCard().setVideoRam(str(tmpram))
 
-        if id.monitor.getMonitorID() != "Unprobed monitor":
-            usemon = id.monitor.getMonitorID()
+        if id.monitor.getMonitorID() != "Unprobed Monitor":
+	    usemon = id.monitor.getMonitorName()
         elif monitorName:
             usemon = monitorName
         else:
@@ -374,7 +374,7 @@ class BaseInstallClass:
         setmonitor = 0
         if usemon:
             try:
-                (model, eisa, vert, horiz) = id.monitor.lookupMonitor(usemon)
+                (model, eisa, vert, horiz) = id.monitor.lookupMonitorByName(usemon)
                 id.monitor.setSpecs(horiz, vert, id=model, name=model)
                 setmonitor = 1
             except:
