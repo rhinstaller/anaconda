@@ -118,7 +118,7 @@ class UpgradeSwapWindow (InstallWindow):
         box.pack_start(hs, gtk.FALSE)
 
         self.option1 = gtk.RadioButton(None,
-                                      (_("I want to create a swap file")))
+                                      (_("I _want to create a swap file")))
         box.pack_start(self.option1, gtk.FALSE)
 
         (fsList, suggSize, suggMntPoint) = rc
@@ -127,7 +127,7 @@ class UpgradeSwapWindow (InstallWindow):
         box.pack_start(self.swapbox, gtk.FALSE)
         
 
-        label = gtk.Label (_("Select the partition to put the swap file on:"))
+        label = gui.MnemonicLabel (_("Select the _partition to put the swap file on:"))
         a = gtk.Alignment(0.2, 0.5)
         a.add(label)
         self.swapbox.pack_start(a, gtk.FALSE)
@@ -143,6 +143,7 @@ class UpgradeSwapWindow (InstallWindow):
 	    self.store.set_value(iter, 2, str(size))
 
 	self.view=gtk.TreeView(self.store)
+        label.set_mnemonic_widget(self.view)
 
 	i = 0
 	for title in [(_("Mount Point")), (_("Partition")), (_("Free Space (MB)"))]:
@@ -178,16 +179,17 @@ class UpgradeSwapWindow (InstallWindow):
         a.add(hbox)
         self.swapbox.pack_start(a, gtk.FALSE)
 
-        label = gtk.Label (_("Swap file size (MB):"))
+        label = gui.MnemonicLabel (_("Swap file _size (MB):"))
         hbox.pack_start(label, gtk.FALSE)
 
         self.entry = gtk.Entry(4)
+        label.set_mnemonic_widget(self.entry)
         self.entry.set_size_request(40, 25)
         self.entry.set_text(str(suggSize))
         hbox.pack_start(self.entry, gtk.FALSE, gtk.TRUE, 10)
 
         self.option2 = gtk.RadioButton(self.option1,
-                                      (_("I don't want to create a swap "
+                                      (_("I _don't want to create a swap "
                                          "file")))
         box.pack_start(self.option2, gtk.FALSE, gtk.TRUE, 20)
 
