@@ -21,6 +21,8 @@
 #include <string.h>
 #include "md5.h"
 
+void MD5_Transform(uint32 *buf, uint32 const *in);
+
 #ifndef HIGHFIRST
 #define byteReverse(buf, len)	/* Nothing */
 #else
