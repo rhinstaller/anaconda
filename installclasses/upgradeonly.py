@@ -14,15 +14,27 @@ class InstallClass(BaseInstallClass):
     def setSteps(self, dispatch):
 	dispatch.setStepList(
 		    "mouse",
-		    "installtype",
+		    "findinstall",
+                    "partitionobjinit",
+                    "upgrademount",
+                    "upgradeswapsuggestion",
 		    "addswap",
+                    "upgrademigfind",
+                    "upgrademigratefs",
+                    "upgradecontinue",
+                    "checkdeps",
 		    "dependencies",
-		    "monitor",
+		    "confirmupgrade",
 		    "install",
+                    "preinstallconfig",
+                    "installpackages",
+                    "postinstallconfig",
+                    "instbootloader",
+		    "bootdisk",
 		    "complete"
 		)
     
     def __init__(self, expert):
-	BaseInstallClass.__init__(self)
+	BaseInstallClass.__init__(self, expert)
 
         self.installType = "upgrade"
