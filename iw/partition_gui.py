@@ -1502,6 +1502,8 @@ class PartitionWindow(InstallWindow):
         self.diskset.openDevices()
         self.partitions = partitions
 
+        checkForSwapNoMatch(self.intf, self.diskset, self.partitions)
+
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in
 #        self.newFsset = self.fsset.copy()

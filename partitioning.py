@@ -1759,6 +1759,32 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         fsset.formatSwap(instPath)
         fsset.turnOnSwap(instPath)
 
+def checkForSwapNoMatch(intf, diskset, partitions):
+    for request in partitions.requests:
+        if not request.device or not request.fstype:
+            continue
+        
+        part = get_partition_by_name(diskset.disks, request.device)
+        if (part and (not part.type & parted.PARTITION_FREESPACE) and (part.native_type == 0x82) and (request.fstype and request.fstype.getName() != "swap") and (not request.format)):
+            rc = intf.messageWindow(_("Format as Swap?"),
+                                    _("/dev/%s has a partition type of 0x82 "
+                                      "(Linux swap) but does not appear to "
+                                      "be formatted as a Linux swap "
+                                      "partition.\n\n"
+                                      "Would you like to format this "
+                                      "partition as a swap partition?")
+                                    % (request.device), type = "yesno")
+            if rc == 1:
+                request.format = 1
+                request.fstype = fsset.fileSystemTypeGet("swap")
+                if request.fstype.getName() == "software RAID":
+                    part.set_flag(parted.PARTITION_RAID, 1)
+                else:
+                    part.set_flag(parted.PARTITION_RAID, 0)
+                    
+                set_partition_file_system_type(part, request.fstype)
+
+
 def queryFormatPreExisting(intf):
     rc = intf.messageWindow(_("Format?"),
                             _("You have chosen to format a pre-existing "

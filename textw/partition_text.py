@@ -968,6 +968,8 @@ class PartitionWindow:
         self.diskset.openDevices()
         self.partitions = partitions
 
+        checkForSwapNoMatch(self.intf, self.diskset, self.partitions)        
+
         self.g = GridFormHelp(screen, _("Partitioning"), "partition", 1, 5)
 
         self.lb = CListbox(height=10, cols=6,
