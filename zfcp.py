@@ -25,6 +25,87 @@ from rhpl.log import log
 class ZFCP:
     def __init__(self):
         self.readConfig()
+        self.options = [
+            (_("Device number"), 1,
+             _("You have not specified a device number or the number is invalid"),
+             self.sanitizeDeviceInput, self.checkValidDevice),
+            (_("SCSI Id"), 0,
+             _("You have not specified a SCSI ID or the ID is invalid."),
+             self.sanitizeHexInput, self.checkValidID),
+            (_("WWPN"), 1,
+             _("You have not specified a worldwide port name or the name is invalid."),
+             self.sanitizeHexInput, self.checkValid64BitHex),
+            (_("SCSI LUN"), 0,
+             _("You have not specified a SCSI LUN or the number is invalid."),
+             self.sanitizeHexInput, self.checkValidID),
+            (_("FCP LUN"), 1,
+             _("You have not specified a FCP LUN or the number is invalid."),
+             self.sanitizeFCPLInput, self.checkValid64BitHex)]
+
+    def hextest(self, hex):
+        try:
+            string.atoi(hex, 16)  # Bug in python, atoi is
+            return 0                    # supposed to find out the base
+        except:                         # on its own
+            return -1
+
+    def checkValidDevice(self, id):
+        if id is None or id == "":
+            return -1
+        if len(id) != 8:             # p.e. 0.0.0600
+            return -1
+        if id[0] not in string.digits or id[2] not in string.digits:
+            return -1
+        if id[1] != "." or id[3] != ".":
+            return -1
+        return self.hextest(id[4:])
+
+    def checkValidID(self, hex):
+        if hex is None or hex == "":
+            return -1
+        if len(hex) > 6:
+            return -1
+        return self.hextest(hex)
+
+    def checkValid64BitHex(self, hex):
+        if hex is None or hex == "":
+            return -1
+        if len(hex) != 18:
+            return -1
+        return self.hextest(hex)
+
+    def sanitizeDeviceInput(self, dev):
+        if dev is None or dev == "":
+            return None
+        dev = string.lower(dev)
+        bus = dev[:string.rfind(dev, ".") + 1]
+        dev = dev[string.rfind(dev, ".") + 1:]
+        dev = "0" * (4 - len(dev)) + dev
+        if not len(bus):
+            return "0.0." + dev
+        else:
+            return bus + dev
+
+    def sanitizeHexInput(self, id):
+        if id is None or id == "":
+            return None
+        id = string.lower(id)
+        if id[:2] != "0x":
+            return "0x" + id
+        return id
+
+    # ZFCP LUNs are usually entered as 16 bit, sysfs accepts only 64 bit 
+    # (#125632), expand with zeroes if necessary
+    def sanitizeFCPLInput(self, lun):
+        if lun is None or lun == "":
+            return None
+        lun = string.lower(lun)
+        if lun[:2] == "0x":
+            lun = lun[2:]
+        lun = "0x" + "0" * (4 - len(lun)) + lun
+        lun = lun + "0" * (16 - len(lun) + 2)
+        return lun
+
 
     def updateConfig(self, fcpdevices, diskset, intf):
         self.writeFcpSysfs(fcpdevices)
@@ -168,44 +249,8 @@ class ZFCP:
                 for i in range(1,5):
                     if fcpconf[i][:2] != "0x":
                         fcpconf[i] = "0x" + fcpconf[i]
-                fcpconf[4] = self.expandLun(fcpconf[4])
+                fcpconf[4] = self.sanitizeFCPLInput(fcpconf[4])
                 self.fcpdevices.append(fcpconf)
-
-    def handleInvalidDevice(self, intf):
-        intf.messageWindow(_("Error With Data"),
-        _("You have not specified a device number or the number is invalid"))
-
-    def handleInvalidSCSIId(self, intf):
-        intf.messageWindow(_("Error With Data"),
-            _("You have not specified a SCSI ID or the ID is invalid."))
-
-    def handleInvalidWWPN(self, intf):
-        intf.messageWindow(_("Error With Data"),
-            _("You have not specified a worldwide port name or the name is invalid."))
-
-    def handleInvalidSCSILun(self, intf):
-        intf.messageWindow(_("Error With Data"),
-            _("You have not specified a SCSI LUN or the number is invalid."))
-
-    def handleInvalidFCPLun(self, intf):
-        intf.messageWindow(_("Error With Data"),
-            _("You have not specified a FCP LUN or the number is invalid."))
-
-    def sanityCheckHexValue(self, length, value):
-        # FIXME: do a real checking if this is a valid hex value
-        if len(value) == length:
-            return None
-        else:
-            return _("Invalid input. Entered string must have %d characters") % length
-
-    # ZFCP LUNs are usually entered as 16 bit, sysfs accepts only 64 bit 
-    # (#125632), expand with zeroes if necessary
-    def expandLun(self, lun):
-        if lun[:2] == "0x":
-            lun = lun[2:]
-        lun = "0x" + "0" * (4 - len(lun)) + lun
-        lun = lun + "0" * (16 - len(lun) + 2)
-        return lun
 
 
 # vim:tw=78:ts=4:et:sw=4

@@ -17,7 +17,6 @@ import gobject
 from iw_gui import *
 import gui
 from rhpl.translate import _, N_
-import string
 
 class ZFCPWindow(InstallWindow):
 
@@ -61,11 +60,7 @@ class ZFCPWindow(InstallWindow):
     def getScreen(self, fcp, diskset, intf):
         self.diskset = diskset
         self.intf = intf
-        self.options = [(_("Device number"), 1, fcp.handleInvalidDevice, intf),
-                        (_("SCSI Id"),       0, fcp.handleInvalidSCSIId, intf),
-                        (_("WWPN"),          1, fcp.handleInvalidWWPN, intf),
-                        (_("SCSI LUN"),      0, fcp.handleInvalidSCSILun, intf),
-                        (_("FCP LUN"),       1, fcp.handleInvalidFCPLun, intf)]
+        self.options = fcp.options
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(6)
         fcp.cleanFcpSysfs(fcp.fcpdevices)
@@ -145,22 +140,19 @@ class ZFCPWindow(InstallWindow):
             rc = addWin.run()
             if rc == 1:
                 for t in range(len(self.options)):
-                    tmpvals[t] = string.lower(entrys[t].get_text())
-                    if tmpvals[t] == "":
-                        self.options[t][2](self.options[t][3])   # FIXME: This hides addWin behind the main window
+                    tmpvals[t] = entrys[t].get_text()
+                    tmpvals[t] = self.options[t][3](tmpvals[t])   # sanitize input
+                    if tmpvals[t] is not None:                    # update text
+                        entrys[t].set_text(tmpvals[t])
+                    if self.options[t][4](tmpvals[t]) == -1:      # validate input
+                        self.intf.messageWindow(_("Error With Data"),
+                            self.options[t][2])
                         invalid = 1
                         break
-                    if t != 0 and tmpvals[t][:2] != "0x":
-                        tmpvals[t] = "0x" + tmpvals[t]
-                    elif t == 0:
-                        tmpvals[t] = "0" * (4 - len(tmpvals[t])) + tmpvals[t]
-                        if tmpvals[t][:4] != "0.0.":
-                            tmpvals[t] = "0.0." + tmpvals[t]
                         
                 if invalid == 0:
                     addWin.destroy()
-                    tmpvals[4] = self.fcp.expandLun(tmpvals[4])
-                    line = self.store.append(None, (tmpvals[0],tmpvals[1],tmpvals[2],tmpvals[3],tmpvals[4]))
+                    self.store.append(None, (tmpvals[0],tmpvals[1],tmpvals[2],tmpvals[3],tmpvals[4]))
                     self.fcpdevices.append(tmpvals)
                     break
             if rc == 2:
@@ -215,8 +207,10 @@ class ZFCPWindow(InstallWindow):
             if rc == 1:
                 for t in range(len(self.options)):
                     tmpvals[t] = entrys[t].get_text()
-                    if tmpvals[t] == "":
-                        self.options[t][2]()   # FIXME: This hides addWin behind the main window
+                    tmpvals[t] = self.options[t][3](tmpvals[t])   # sanitize input
+                    if self.options[t][4](tmpvals[t]) == -1:      # validate input
+                        self.intf.messageWindow(_("Error With Data"),
+                            self.options[t][2])
                         invalid = 1
                         break
                 if invalid == 0:
