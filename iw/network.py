@@ -113,7 +113,11 @@ class NetworkWindow (InstallWindow):
         if (new_nm != nm.get_text ()):
             nm.set_text (new_nm)
 
-    def DHCPtoggled (self, widget, table):
+    def DHCPtoggled (self, widget, (dev, table)):
+        if widget.get_active ():
+            dev.set (("bootproto", "dhcp"))
+        else:
+            dev.set (("bootproto", "static"))
         table.set_sensitive (not widget.get_active ())
         self.ipTable.set_sensitive (not widget.get_active ())
 
@@ -147,7 +151,7 @@ class NetworkWindow (InstallWindow):
             options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
             ipTable = GtkTable (len (options), 2)
 
-            DHCPcb.connect ("toggled", self.DHCPtoggled, ipTable)
+            DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 

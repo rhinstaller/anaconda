@@ -39,7 +39,7 @@ echo "DESTGR is $DESTGR"
 
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
-          XFree86-FBDev XFree86-75dpi-fonts XFree86-I128
+          XFree86-FBDev XFree86-75dpi-fonts XFree86-100dpi-fonts XFree86-I128
           XFree86-3DLabs XFree86-VGA16 XFree86-Sun
 	  XFree86-3. xpm-3 glib- gtk+-
           gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
@@ -146,6 +146,7 @@ usr/X11R6/lib/X11/fonts/misc/olcursor*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/xkb/*
 usr/X11R6/lib/X11/rgb*
+usr/X11R6/lib/X11/XKeysymDB
 usr/X11R6/lib/libXpm*
 usr/lib/libglib*
 usr/lib/libthread*
@@ -172,6 +173,17 @@ usr/share/zoneinfo/zone.tab
 usr/bin/chattr*
 usr/bin/lsattr*
 EOF
+
+# sparc needs 100dpi fonts as well, otherwise
+# things look ugly
+if [ `uname -m | sed 's/sparc64/sparc/'` = sparc ]; then
+    cat >> $KEEPFILEGR <<-EOF
+    usr/X11R6/lib/X11/fonts/100dpi/cour*
+    usr/X11R6/lib/X11/fonts/100dpi/helv*
+    usr/X11R6/lib/X11/fonts/100dpi/tim*
+    usr/X11R6/lib/X11/fonts/100dpi/fonts*
+    EOF
+fi
 
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
@@ -221,11 +233,18 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	cp /sbin/ldconfig $p
-	(cd $p; chroot $p ./ldconfig \
-		$([ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib) )
-	rm -f $p/ldconfig
+	# Must create ld.so.conf, because ldconfig does not cache
+	# dirs specified on the command line.
+	touch $p/etc/ld.so.conf
+	[ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib > $p/etc/ld.so.conf
+	(cd $p; chroot $p ./ldconfig )
+	rm -f $p/ldconfig $p/etc/ld.so.conf
 
-	find $p -name "*.so" | xargs strip
+	for l in `find $p -exec file {} \; | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
+	    # Strip dwarf stuff, symbols and unneeded not-alloced sections
+	    strip $l -R .comment -R .note `objdump -h $l | \
+		sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
+	done
 	find $p -name "*.a" | xargs rm -rf
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 

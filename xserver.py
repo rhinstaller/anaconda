@@ -34,7 +34,7 @@ def startX():
         except:
             pass
     elif mouseDev == 'sunmouse':
-	mousePrototol = "Sun"
+	mouseProtocol = "sun"
 	mouseEmulate = 0
     else:
         mouseProtocol = "Microsoft"
@@ -106,16 +106,20 @@ EndSection
     server = os.fork()
     if (not server):
         print "starting", serverPath
+	args = [serverPath, ':1', 'vt7']
 	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
 	    try:
 		os.unlink("/dev/mouse")
 	    except:
 		pass
 	    os.symlink(mouseDev, "/dev/mouse")
-	    os.execv(serverPath, [serverPath, 'vt7', '-dev', '/dev/' + x.device])
+	    if x.device:
+		args.append ("-dev")
+		args.append ('/dev/' + x.device)
 	else:
-	    os.execv(serverPath, [serverPath, ':1', '-xf86config', 
-		     '/tmp/XF86Config', 'vt7'])
+	    args.append("-xf86config")
+	    args.append("/tmp/XF86Config")
+	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
     time.sleep (1)

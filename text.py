@@ -17,6 +17,9 @@ from textw.constants import *
 from textw.lilo import LiloWindow
 from textw.lilo import LiloAppendWindow
 from textw.lilo import LiloImagesWindow
+from textw.silo import SiloWindow
+from textw.silo import SiloAppendWindow
+from textw.silo import SiloImagesWindow
 from textw.userauth import RootPasswordWindow
 from textw.userauth import UsersWindow
 from textw.userauth import AuthConfigWindow
@@ -927,9 +930,24 @@ class InstallInterface:
 		"complete" ]
             ]
 
-        self.upgradeSteps = [
-            [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
-            [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],            
+	if iutil.getArch() == 'sparc':
+	    for i in range(len(self.installSteps)):
+		step = self.installSteps[i]
+		if step[3] == 'lilo':
+		    self.installSteps[i] = [
+			_("SILO Configuration"), SiloAppendWindow, 
+			(self.screen, todo), "silo"]
+		    self.installSteps[i+1] = [
+			_("SILO Configuration"), SiloWindow, 
+			(self.screen, todo), "silo"]
+		    self.installSteps[i+2] = [
+			_("SILO Configuration"), SiloImagesWindow, 
+			(self.screen, todo), "silo"]
+		    break
+
+	self.upgradeSteps = [
+	    [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
+	    [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
             [_("Upgrade Complete"), FinishedWindow, (self.screen,)]

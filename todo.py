@@ -73,6 +73,7 @@ class Network:
             pass
         else:
             lines = f.readlines ()
+	    f.close ()
             info = {}
             for line in lines:
                 netinf = string.splitfields (line, '=')
@@ -203,9 +204,33 @@ class Language (SimpleConfigFile):
 class Keyboard (SimpleConfigFile):
     # XXX fixme - externalize
     def __init__ (self):
+	self.type = "PC"
         self.info = {}
+        try:
+            f = open ("/dev/kbd", "r")
+	    f.close()
+	    self.type = "Sun"
+        except:
+	    pass
 
     def available (self):
+	if self.type == "Sun":
+	    return [
+		"sun-pl-altgraph",
+		"sun-pl",
+		"sundvorak",
+		"sunkeymap",
+		"sunt4-es",
+		"sunt4-no-latin1.map.gz",
+		"sunt5-cz-us",
+		"sunt5-de-latin1",
+		"sunt5-es",
+		"sunt5-fi-latin1",
+		"sunt5-fr-latin1",
+		"sunt5-ru",
+		"sunt5-uk",
+		"sunt5-us-cz",
+	    ]
         return [
             "azerty",
             "be-latin1",
@@ -296,7 +321,10 @@ class Keyboard (SimpleConfigFile):
         if self.info.has_key ("KEYTABLE"):
             return self.info["KEYTABLE"]
         else:
-            return "us"
+	    if self.type == "Sun":
+		return "sunkeymap"
+	    else:
+		return "us"
 
 class Authentication:
     def __init__ (self):
@@ -559,7 +587,7 @@ class ToDo:
                           _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
-                args = [ "mke2fs", '/tmp/' + device ]
+                args = [ "mke2fs", '/tmp/' + device, "-s1" ]
                 if self.badBlockCheck:
                     args.append ("-c")
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
@@ -568,7 +596,7 @@ class ToDo:
                                         searchPath = 1)
             elif fsystem == "swap" and createSwap:
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
-                                             [ "mkswap", '/tmp/' + device ],
+                                             [ "mkswap", '-v1', '/tmp/' + device ],
                                              stdout = None, stderr = None,
                                              searchPath = 1)
                 if rc:
@@ -857,7 +885,6 @@ class ToDo:
             device = dev.get ("device")
             f = open (self.instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device, "w")
             f.write (str (dev))
-            f.write ("ONBOOT=yes\n")
             f.close ()
 
         # /etc/sysconfig/network

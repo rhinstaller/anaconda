@@ -2,7 +2,7 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 SUBDIRSHD = rpmmodule kudzu isys balkan libfdisk collage loader stubs po \
-	    minislang textw
+	    minislang textw utils
 SUBDIRS = $(SUBDIRSHD) gnome-map iw help pixmaps
 BUILDONLYSUBDIRS = pump
 

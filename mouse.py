@@ -61,7 +61,7 @@ class Mouse (SimpleConfigFile):
 		("MMSeries", "MMSeries", "ttyS", 1),
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1),
-	"Sun Mouse":
+	"Sun - Mouse":
 		("sun", "sun", "sunmouse", 0),
 	}
 
@@ -78,9 +78,10 @@ class Mouse (SimpleConfigFile):
 	    for desc in mice:
 		(gpm, x11, dev, em) = self.mice[desc]
 #		print "trying %s: '%s', '%s'" % (desc, x11, proto)
-		if (x11 == proto and desc[0:7] == "Generic" and emulate == em):
-		    mouseType = (desc, emulate, device)
-		    break
+		if (x11 == proto and emulate == em):
+		    if (desc[:7] == "Generic" or desc[:3] == "Sun"):
+			mouseType = (desc, emulate, device)
+			break
 	    self.device = device
 	    if not mouseType:
 		raise KeyError, "unknown X11 mouse type %s" % proto
@@ -95,7 +96,7 @@ class Mouse (SimpleConfigFile):
 		(device, module, desc) = list[0]
 
 		if device == "sunmouse":
-		    self.set("Sun Mouse", 0)
+		    self.set("Sun - Mouse", 0)
 		elif device == "psaux":
 		    self.set("Generic - 3 Button Mouse (PS/2)", 0)
 		else:

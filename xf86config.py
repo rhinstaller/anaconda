@@ -151,8 +151,6 @@ class XF86Config:
         if self.vidCards:
             self.devID = self.vidCards[0]["NAME"]
             self.server = self.vidCards[0]["SERVER"]
-            # there are no Cards entries with a DEVICE directive
-            # self.device = self.vidCards[0]["DEVICE"]
 
     def probe (self, probeMonitor = 1):
         if self.probed:
@@ -169,17 +167,16 @@ class XF86Config:
             (device, server, descr) = card
             if len (server) > 5 and server[0:5] == "Card:":
                 self.vidCards.append (self.cards (server[5:]))
+	    if len (self.vidCards) == 0:
+		self.device = device
             if len (server) > 7 and server[0:7] == "Server:":
                 info = { "NAME" : string.split (descr, '|')[1],
-                         "SERVER" : server[7:],
-			 "DEVICE" : device }
+                         "SERVER" : server[7:] }
                 self.vidCards.append (info)
 
         if self.vidCards:
             self.devID = self.vidCards[0]["NAME"]
             self.server = self.vidCards[0]["SERVER"]
-            # no Cards entries with DEVICE
-            # self.device = self.vidCards[0]["DEVICE"]
 
         # VESA probe for monitor/videoram, etc.
         if probeMonitor:

@@ -1625,7 +1625,8 @@ int main(int argc, char ** argv) {
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
-    if ((access("/proc/pci", X_OK) || FL_MODDISK(flags)) 
+    if (((access("/proc/bus/pci/devices", X_OK) &&
+	  access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
 	    && !ksFile) {
 	startNewt(flags);
         devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 1);
@@ -1689,7 +1690,9 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
-    if ((access("/proc/pci", X_OK) || FL_NOPROBE(flags)) && !ksFile) {
+    if (((access("/proc/bus/pci/devices", X_OK) &&
+	  access("/proc/openprom", X_OK)) ||
+	FL_NOPROBE(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
 

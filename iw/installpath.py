@@ -13,6 +13,7 @@ from format import *
 from congrats import *
 from dependencies import *
 from lilo import *
+from silo import *
 from examine import *
 from bootdisk import *
 from timezone import *
@@ -20,6 +21,7 @@ from xconfig import *
 from fdisk import *
 from rootpartition import *
 from confirm import *
+import iutil
 from gui import _
 import installclass
 
@@ -65,6 +67,14 @@ class InstallPathWindow (InstallWindow):
 		   ]
 
     def __init__ (self, ics):
+	if iutil.getArch() == 'sparc':
+	    for i in range(len(self.installSteps)):
+		if type(self.installSteps[i]) == type((1,)):
+		    (x, string) = self.installSteps[i]
+		    if string == 'lilo':
+			self.installSteps[i] = ( SiloWindow, "silo" )
+			break
+
 	InstallWindow.__init__ (self, ics)
 
         ics.readHTML ("instpath")
