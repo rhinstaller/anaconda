@@ -194,6 +194,10 @@ class InstallProgressWindow (InstallWindow):
             else:
                 files = ["progress_first.png"]
 
+        #--Need to merge with if statement above...don't show ads in lowres
+        if self.todo.intf.runres != '800x600':
+            files = ["progress_first.png"]
+
         pixmaps = []
         for pixmap in files:
             if string.find (pixmap, "progress_first.png") < 0:
