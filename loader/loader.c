@@ -1911,6 +1911,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_LOWRES;
 	else if (!strcasecmp(argv[i], "nofb"))
 	    flags |= LOADER_FLAGS_NOFB;
+	else if (!strcasecmp(argv[i], "nousbstorage"))
+  	    flags |= LOADER_FLAGS_NOUSBSTORAGE;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
@@ -2433,7 +2435,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
-    /* add a flag to skip this module load maybe ? */
+    if (FL_NOUSBSTORAGE(flags)) return 0;
     mlLoadModule("usb-storage", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     return 0;
