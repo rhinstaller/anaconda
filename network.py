@@ -136,10 +136,6 @@ class NetworkDevice(SimpleConfigFile):
 	    self.info["TYPE"] = "CTC"
 	elif dev.startswith('iucv'):
 	    self.info["TYPE"] = "IUCV"
-	elif dev.startswith('escon'):
-	    self.info["TYPE"] = "ESCON"
-	elif dev.startswith('lcs'):
-	    self.info["TYPE"] = "LCS"
 	elif dev.startswith('tr'):
 	    self.info["TYPE"] = "\"Token Ring\""
 	else:
