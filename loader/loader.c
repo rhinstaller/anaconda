@@ -9,7 +9,7 @@
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
  *
- * Copyright 1999 Red Hat, Inc.
+ * Copyright 1997 - 2002 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * public license.
@@ -473,6 +473,52 @@ static int setupStage2Image(int fd, char * dest, int flags,
     return 0;
 }
 
+/* returns the *absolute* path (malloced) to the #1 iso image */
+char * validIsoImages(char * dirName) {
+    DIR * dir;
+    struct dirent * ent;
+    char isoImage[1024];
+
+    if (!(dir = opendir(dirName))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       dirName, strerror(errno));
+	return 0;
+    }
+
+    /* Walk through the directories looking for a Red Hat CD image. */
+    errno = 0;
+    while ((ent = readdir(dir))) {
+	sprintf(isoImage, "%s/%s", dirName, ent->d_name);
+
+	if (fileIsIso(isoImage)) {
+	    errno = 0;
+	    continue;
+	}
+
+	if (mountLoopback(isoImage, "/tmp/loopimage", "loop0")) {
+	    logMessage("failed to mount %s", isoImage);
+	    errno = 0;
+	    continue;
+	}
+
+	if (!access("/tmp/loopimage/RedHat/base/hdstg1.img", F_OK)) {
+	    umountLoopback("/tmp/loopimage", "loop0");
+	    break;
+	}
+
+	umountLoopback("/tmp/loopimage", "loop0");
+
+	errno = 0;
+    }
+
+    closedir(dir);
+
+    if (!ent) return NULL;
+
+    return strdup(isoImage);
+}
+
 #ifdef INCLUDE_LOCAL
 static int loadLocalImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
@@ -518,8 +564,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
     int rc;
     char * url;
     char filespec[1024];
-    DIR * dir;
-    struct dirent * ent;
+    char * path;
 
     logMessage("mounting device %s as %s", device, type);
 
@@ -532,45 +577,28 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    return NULL;
 
 	sprintf(filespec, "/tmp/hdimage/%s", dirName);
-	if (!(dir = opendir(filespec))) {
-	    newtWinMessage(_("Error"), _("OK"), 
-			   _("Failed to read directory %s: %s"),
-			   filespec, strerror(errno));
-	    umount("/tmp/hdimage");
-	    return NULL;
+
+	path = validIsoImages(filespec);
+
+	if (path) {
+	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
+	    if (!rc) {
+		rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
+				     "/mnt/runtime");
+		newtWinMessage(_("Error"), _("OK"),
+			_("An error occured reading the install "
+			  "from the ISO images. Please check your ISO "
+			  "images and try again."));
+	    }
+
+	    umount("/tmp/loopimage");
+	} else {
+	    rc = 1;
 	}
 
-	/* Walk through the directories looking for a Red Hat CD image. */
-	errno = 0;
-	while ((ent = readdir(dir))) {
-	    sprintf(filespec, "/tmp/hdimage/%s/%s", dirName, ent->d_name);
-
-	    if (fileIsIso(filespec)) {
-		errno = 0;
-		continue;
-	    }
-
-	    if (mountLoopback(filespec, "/tmp/loopimage", "loop0")) {
-		errno = 0;
-		continue;
-	    }
-
-	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
-				 "/mnt/runtime");
-	    if (!rc) { 
-		umountLoopback("/tmp/loopimage", "loop0");
-		break;
-	    }
-
-	    umountLoopback("/tmp/loopimage", "loop0");
-
-	    errno = 0;
-	}
-
-	closedir(dir);
 	umount("/tmp/hdimage");
 
-	if (!ent) return NULL;
+	if (!rc) return NULL;
     }
 
     url = malloc(50 + strlen(dirName ? dirName : ""));
@@ -1250,6 +1278,8 @@ static char * mountNfsImage(struct installMethod * method,
     char * host = NULL;
     char * dir = NULL;
     char * fullPath;
+    char * path;
+    char * url = NULL;
     int stage = NFS_STAGE_IP;
 
 /*XXX
@@ -1306,8 +1336,25 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
+			rmdir("/mnt/source");
+			symlink("/mnt/source", "/mnt/source");
 		        useMntSourceUpdates();
 			stage = NFS_STAGE_DONE;
+			url = "nfs://mnt/source/.";
+		    }
+		} else if ((path = validIsoImages("/mnt/source"))) {
+		    useMntSourceUpdates();
+
+		    if (mountLoopback(path, "/mnt/source2", "loop1"))
+			logMessage("failed to mount iso loopback!");
+		    else {
+			if (mountLoopback("/mnt/source2/RedHat/base/stage2.img",
+				         "/mnt/runtime", "loop0")) {
+			    logMessage("failed to mount install loopback!");
+			} else {
+			    stage = NFS_STAGE_DONE;
+			    url = "nfsiso:/mnt/source";
+			}
 		    }
 		} else {
 		    umount("/mnt/source");
@@ -1320,7 +1367,7 @@ static char * mountNfsImage(struct installMethod * method,
 		        _("I could not mount that directory from the server"));
 	    }
 
-	    break;
+	    break;	    /* from switch */
         }
     }
 
@@ -1329,7 +1376,7 @@ static char * mountNfsImage(struct installMethod * method,
     free(host);
     free(dir);
 
-    return "nfs://mnt/source/.";
+    return url;
 }
 
 #endif
