@@ -131,13 +131,9 @@ class TimezoneWindow (InstallWindow):
 	rc = self.todo.getTimezoneInfo()
 	if rc:
 	    (self.default, asUTC, asArc) = rc
-            # XXX
-            # self.default = _(self.default)
-            self.default = self.default
+            self.default = _(self.default)
 	else:
-            # XXX
-            # self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
-	    self.default = self.todo.instTimeLanguage.getDefaultTimeZone()
+            self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):

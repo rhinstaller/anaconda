@@ -91,7 +91,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
-	   --initrdsize 2100 \
+	   --initrdsize 2200 \
 	   --loaderbin loader-pcmcia \
 	   --modules "nfs vfat $IDEMODS $SCSIMODS"
 
