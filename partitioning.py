@@ -1205,7 +1205,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return ("PARTITION", request)
     else: # shouldn't ever happen
         raise ValueError, ("Trying to edit non-existent partition %s"
-                           % (get_partition_name(part))
+                           % (get_partition_name(part)))
     
     
 def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
