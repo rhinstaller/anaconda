@@ -381,7 +381,7 @@ class DiskTreeModel(gtk.TreeStore):
             elif (kind == gobject.TYPE_STRING or
                   kind == gobject.TYPE_INT):
                 renderer = gtk.CellRendererText()
-                propertyMapping = {'text': i}
+		propertyMapping = {'text': i}
 
             # wire in the cells that we want only visible on leaf nodes to
             # the special leaf node column.
@@ -398,6 +398,8 @@ class DiskTreeModel(gtk.TreeStore):
             col = apply(gtk.TreeViewColumn, (title, renderer),
                         propertyMapping)
 	    col.set_alignment(0.5)
+	    if kind == gobject.TYPE_STRING or kind == gobject.TYPE_INT:
+		col.set_property('sizing', gtk.TREE_VIEW_COLUMN_AUTOSIZE)
             self.columns.append(col)
             i += 1
 
