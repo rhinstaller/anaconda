@@ -41,6 +41,8 @@ while [ -n "$1" ]; do
         # if file doesnt already exist, link to busybox
 	if [ ! -f "$1" ]; then
 	    ln -sf ./busybox $1
+	else
+	    echo "Overriding busybox version of $i"
 	fi
     fi
     shift
