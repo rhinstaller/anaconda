@@ -11,11 +11,7 @@ STATICOBJS = otherinsmod.o
 STATICLIBS = /usr/lib/python1.5/site-packages/kudzumodule.so
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
 PYMODULES = _isys.so
-SUBDIRS = 
-
-ifneq ($(ARCH),ia64)
-SUBDIRS += modutils
-endif
+SUBDIRS = modutils
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
