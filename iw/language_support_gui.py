@@ -115,7 +115,7 @@ class LanguageSupportWindow (InstallWindow):
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self, langs):
 	self.langs = langs
-        self.languages = a + self.langs.getAllSupported ()
+        self.languages = self.langs.getAllSupported ()
         self.supportedLangs = self.langs.getSupported()
 	self.origLangs = []
         for i in self.supportedLangs:
