@@ -59,11 +59,20 @@ class Component:
 	self.includes.append(component)
 
     def select(self, recurse = 1):
+        self.selected = 1
 	for n in self.items:
 	    n.selected = 1
 	if recurse:
 	    for n in self.includes:
 		n.select(recurse)
+
+    def unselect(self, recurse = 1):
+        self.selected = 0
+	for n in self.items:
+	    n.selected = 0
+	if recurse:
+	    for n in self.includes:
+		n.unselect(recurse)
 
     def __init__(self, name, selected, hidden = 0):
 	self.name = name
@@ -123,7 +132,7 @@ class ComponentSet:
 		    hidden = 1
 		    (foo, l) = split(l, None, 1)
 		    
-		comp = Component(l, default, hidden)
+		comp = Component(l, default == '1', hidden)
 	    elif (l == "end"):
 		self.comps.append(comp)
 		self.compsDict[comp.name] = comp

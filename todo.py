@@ -90,8 +90,7 @@ class ToDo:
 	instLog = open(self.instPath + '/tmp/install.log', "w+")
 	syslog = Syslog(root = self.instPath, output = instLog)
 
-	instLogFd = os.open(self.instPath + '/tmp/install.log',
-			    os.O_RDWR)
+	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_RDWR)
 	ts.scriptFd = instLogFd
 	# the transaction set dup()s the file descriptor and will close the
 	# dup'd when we go out of scope
@@ -161,8 +160,8 @@ class ToDo:
 
     def headerList(self):
 	if (not self.hdList):
-	    w = self.intf.waitWindow("Reading", 
-			"Reading package information...")
+	    w = self.intf.waitWindow("Reading",
+                                     "Reading package information...")
 	    self.hdList = self.method.readHeaders()
 	    w.pop()
 	return self.hdList
@@ -178,7 +177,6 @@ class ToDo:
 	self.kernelPackage = self.hdList['kernel']
 
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    self.hdList['kernel'].selected = 0
 	    self.hdList['kernel-smp'].selected = 1
 	    self.kernelPackage = self.hdList['kernel-smp']
 
