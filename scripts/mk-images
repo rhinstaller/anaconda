@@ -853,7 +853,7 @@ vertag="BOOT"
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     arches="ppc64pseries ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
-    arches="i686"
+    arches="i586"
 else
     arches="$BUILDARCH"
 fi
@@ -867,6 +867,12 @@ for KERNELARCH in $arches; do
 	echo "kernel-$kernelvers does not exist for $KERNELARCH -- using kernel package"
 	kpackage=$($LATEST $KERNELPATH kernel)
 	kernelvers=""
+    fi
+
+    if [ "$KERNELARCH" = "i586" -a ! -f "$kpackage" ]; then
+	echo "No i586 kernel, trying i686..."
+	KERNELARCH="i686"
+	kpackage=$($LATEST $KERNELPATH kernel)
     fi
 
     if [ ! -f "$kpackage" ]; then
