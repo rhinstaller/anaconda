@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2 \n"
-"POT-Creation-Date: 2001-03-17 13:31-0500\n"
+"POT-Creation-Date: 2001-03-20 15:42-0500\n"
 "PO-Revision-Date:  2000-03-01 17:24-0500\n"
 "Last-Translator: Raimo Koski <rkoski@pp.weppi.fi>\n"
 "Language-Team: Finnish <linux@sot.com>\n"
@@ -57,15 +57,15 @@ msgstr ""
 msgid "Warning"
 msgstr "Varoitus"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:834
-#: ../harddrive.py:173 ../image.py:64 ../image.py:141
+#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774
+#: ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
-#: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2132 ../loader/loader.c:2162
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/pcmcia.c:114
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
+#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
+#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
@@ -100,7 +100,7 @@ msgstr "Ei sivutusaluetta"
 msgid "Creating swap space..."
 msgstr "Alustan sivutusosiota laitteella %s..."
 
-#: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
+#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
 #, fuzzy
 msgid "Formatting"
 msgstr "Alustan"
@@ -138,12 +138,21 @@ msgstr ""
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:777 ../fstab.py:1236
+#: ../fstab.py:775
+#, c-format
+msgid ""
+"An error occured trying to format %s. This problem is serious, and the "
+"install cannot continue.\n"
+"\n"
+"Press Enter to reboot your system."
+msgstr ""
+
+#: ../fstab.py:784 ../fstab.py:1243
 #, fuzzy, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Luon ext2-tiedostojärjestelmän laitteelle /dev/%s..."
 
-#: ../fstab.py:835
+#: ../fstab.py:842
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -173,8 +182,8 @@ msgstr ""
 #: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
-#: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
+#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
+#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
@@ -314,12 +323,12 @@ msgstr "Osiota %s ei voitu sijoittaa."
 #: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
 #: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
-#: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
-#: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
-#: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2132 ../loader/loader.c:2162 ../loader/loader.c:2225
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/net.c:185
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
+#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
+#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
+#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
+#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
@@ -411,11 +420,11 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
-#: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
-#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
-#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
-#: ../libfdisk/fsedit.c:1467 ../libfdisk/gnomefsedit.c:756
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -554,7 +563,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2225 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -1920,7 +1929,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:486
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1951,17 +1960,17 @@ msgstr "Asenna"
 msgid "Swap space size:"
 msgstr "Paperikoko:"
 
-#: ../iw/rootpartition_gui.py:325 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:329 ../textw/partitioning_text.py:149
 #, fuzzy
 msgid "Automatic Partitioning"
 msgstr "Muokkaa osiota"
 
-#: ../iw/rootpartition_gui.py:376
+#: ../iw/rootpartition_gui.py:380
 #, fuzzy
 msgid "Disk Partitioning"
 msgstr "Osioi uudelleen"
 
-#: ../iw/rootpartition_gui.py:378
+#: ../iw/rootpartition_gui.py:382
 #, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
@@ -1971,12 +1980,12 @@ msgid ""
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:388
 #, fuzzy
 msgid "Automatic Partitioning Failed"
 msgstr "Muokkaa osiota"
 
-#: ../iw/rootpartition_gui.py:385
+#: ../iw/rootpartition_gui.py:389
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1987,38 +1996,38 @@ msgid ""
 "Red Hat Linux."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:396
 #, fuzzy
 msgid "Manual Partitioning"
 msgstr "Osioi uudelleen"
 
-#: ../iw/rootpartition_gui.py:393
+#: ../iw/rootpartition_gui.py:397
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:407
+#: ../iw/rootpartition_gui.py:411
 #, fuzzy
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Muokkaa osiota"
 
-#: ../iw/rootpartition_gui.py:414
+#: ../iw/rootpartition_gui.py:418
 #, fuzzy
 msgid "Manually partition with Disk Druid"
 msgstr "Osioi uudelleen"
 
-#: ../iw/rootpartition_gui.py:426
+#: ../iw/rootpartition_gui.py:430
 msgid "Manually partition with fdisk [experts only]"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:449
+#: ../iw/rootpartition_gui.py:453
 #, fuzzy
 msgid "Boot Partition Location Warning"
 msgstr "Juuriosio"
 
-#: ../iw/rootpartition_gui.py:473 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2032,23 +2041,23 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:504 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
+#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
 #: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Kyllä"
 
-#: ../iw/rootpartition_gui.py:506 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
@@ -2397,7 +2406,7 @@ msgstr ""
 msgid "Mail (SMTP)"
 msgstr ""
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 #: ../textw/firewall_text.py:94
 msgid "FTP"
 msgstr ""
@@ -2940,22 +2949,22 @@ msgstr "Voit menettää tietoja! Haluatko varmasti tehdä tämän?"
 msgid "Workstation"
 msgstr "Työasema"
 
-#: ../libfdisk/fsedit.c:400
+#: ../libfdisk/fsedit.c:401
 msgid "partitioning did not meet requirements"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928 ../libfdisk/fsedit.c:935
-#: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
-#: ../libfdisk/fsedit.c:994
+#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:995
 msgid "Bad Mount Point"
 msgstr "Huono liitoskohta"
 
-#: ../libfdisk/fsedit.c:922
+#: ../libfdisk/fsedit.c:923
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "%s-hakemisto pitää olla juuriosiolla"
 
-#: ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:930
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2966,7 +2975,7 @@ msgstr ""
 "\n"
 "Liitoskohtien pitää alkaa /-merkillä."
 
-#: ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:937
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2977,7 +2986,7 @@ msgstr ""
 "\n"
 "Liitoskohta ei saa loppua /-merkillä."
 
-#: ../libfdisk/fsedit.c:945
+#: ../libfdisk/fsedit.c:946
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2988,7 +2997,7 @@ msgstr ""
 "\n"
 "Liitoskohtien nimet saavat sisältää vain tulostuvia merkkejä."
 
-#: ../libfdisk/fsedit.c:953
+#: ../libfdisk/fsedit.c:954
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2996,7 +3005,7 @@ msgid ""
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:973
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -3007,12 +3016,12 @@ msgstr ""
 "\n"
 "Järjestelmäosioiden pitää olla Linuxin natiiveja osioita."
 
-#: ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:986
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:995
+#: ../libfdisk/fsedit.c:996
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -3024,11 +3033,11 @@ msgstr ""
 "Järjestelmäosioiden pitää olla Linuxin natiiveja osioita tai NFS:llä "
 "jaettuja."
 
-#: ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1024
 msgid "Too Many Drives"
 msgstr "Liian monta kiintolevyä"
 
-#: ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1025
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -3038,23 +3047,23 @@ msgstr ""
 "Käytä fdisk-ohjelmaa osiointiin ja ilmoita Red Hat Softwarelle, että näit "
 "tämän viestin."
 
-#: ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1034
 #, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Alustan sivutusosiota laitteella %s..."
 
-#: ../libfdisk/fsedit.c:1034
+#: ../libfdisk/fsedit.c:1035
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1051
 msgid "No Drives Found"
 msgstr "Levyjä ei löytynyt"
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1052
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -3062,24 +3071,24 @@ msgstr ""
 "Virhe. En löytänyt laitteita, joille voisi luoda uusia tiedostojärjestelmiä. "
 "Tarkista laitteistosta johtuvat ongelmat."
 
-#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
+#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
 #, fuzzy, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr "Virhe luettaessa osiotaulua lohkolaitteelta %s. Virhe oli:"
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1454 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Uudelleen"
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1425
-#: ../libfdisk/fsedit.c:1447 ../libfdisk/fsedit.c:1454
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
 msgid "Skip Drive"
 msgstr "Ohita levy"
 
-#: ../libfdisk/fsedit.c:1419
+#: ../libfdisk/fsedit.c:1420
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3088,20 +3097,20 @@ msgstr ""
 "Osiotaulu laitteella %s on vioittunut. Jotta uusia osiota voitaisiin luoda, "
 "se pitää alustaa, jolloin KAIKKI TIEDOT häviävät tältä levyltä."
 
-#: ../libfdisk/fsedit.c:1424
+#: ../libfdisk/fsedit.c:1425
 msgid "Bad Partition Table"
 msgstr "Viallinen osiotaulu"
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1426
 msgid "Initialize"
 msgstr "Alusta"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 #, fuzzy
 msgid "BSD Disklabel"
 msgstr "BSD:n levynimiö"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3111,17 +3120,17 @@ msgstr ""
 "kirjoitussuojatussa tilassa, joten sinun pitää valita mukautettua asennus ja "
 "käyttää fdisk:iä (Disk Druidin sijasta) koneissa, joissa on BSD:n levynimiö."
 
-#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1520
+#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
 #, c-format
 msgid "System error %d"
 msgstr "Järjestelmävirhe %d"
 
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1508
-#: ../libfdisk/fsedit.c:1535
+#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
+#: ../libfdisk/fsedit.c:1536
 msgid "Fdisk Error"
 msgstr "Fdisk-virhe"
 
-#: ../libfdisk/fsedit.c:1530
+#: ../libfdisk/fsedit.c:1531
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3960,16 +3969,16 @@ msgstr "Lataan lisälevykettä..."
 msgid "Error loading ramdisk."
 msgstr "Luon käynnistyksen ramlevyn..."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2163
+#: ../loader/loader.c:585 ../loader/loader.c:2166
 #, fuzzy, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "En voi luoda %s: %s\n"
 
-#: ../loader/loader.c:870
+#: ../loader/loader.c:873
 msgid "Hard Drives"
 msgstr "Kiintolevyt"
 
-#: ../loader/loader.c:871
+#: ../loader/loader.c:874
 #, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
@@ -3978,7 +3987,7 @@ msgstr ""
 "Sinulla ei ole sivutusosioita määriteltynä. Haluatko jatkaa tai osioida "
 "levysi uudelleen?"
 
-#: ../loader/loader.c:885
+#: ../loader/loader.c:888
 #, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -3987,100 +3996,100 @@ msgid ""
 msgstr ""
 "Millä osiolla ja hakemistossa on RedHat/RPMS ja RedHat/base hakemistot?"
 
-#: ../loader/loader.c:899
+#: ../loader/loader.c:902
 #, fuzzy
 msgid "Directory holding images:"
 msgstr "Hakemisto, jossa Red Hat on:"
 
-#: ../loader/loader.c:919
+#: ../loader/loader.c:922
 msgid "Select Partition"
 msgstr "Valitse osio"
 
-#: ../loader/loader.c:967
+#: ../loader/loader.c:970
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Laitteessa %s ei vaikuta olevan Red Hatin asennushakemistopuuta."
 
-#: ../loader/loader.c:1022
+#: ../loader/loader.c:1025
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:1109
+#: ../loader/loader.c:1112
 #, fuzzy
 msgid "Networking Device"
 msgstr "NFS:n määrittely"
 
-#: ../loader/loader.c:1110
+#: ../loader/loader.c:1113
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "Missä tietovälineessä asennettavat paketit ovat?"
 
-#: ../loader/loader.c:1192
+#: ../loader/loader.c:1195
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Hakemistosta ei löydy Red Hatin asennushakemistopuuta."
 
-#: ../loader/loader.c:1197
+#: ../loader/loader.c:1200
 msgid "I could not mount that directory from the server"
 msgstr "En voinut liittää hakemistoa palvelimelta"
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 msgid "HTTP"
 msgstr ""
 
-#: ../loader/loader.c:1239
+#: ../loader/loader.c:1242
 #, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Luon käynnistyksen ramlevyn..."
 
-#: ../loader/loader.c:1248
+#: ../loader/loader.c:1251
 #, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Luon käynnistyksen ramlevyn..."
 
-#: ../loader/loader.c:1278
+#: ../loader/loader.c:1281
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 
-#: ../loader/loader.c:1508
+#: ../loader/loader.c:1511
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1509
+#: ../loader/loader.c:1512
 msgid "Installation Method"
 msgstr "Asennusmenetelmä"
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1514
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1513
+#: ../loader/loader.c:1516
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "Missä tietovälineessä asennettavat paketit ovat?"
 
-#: ../loader/loader.c:2133
+#: ../loader/loader.c:2136
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "En löydä ks.cfg:tä käynnistyslevykkeeltä."
 
-#: ../loader/loader.c:2225
+#: ../loader/loader.c:2228
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader/loader.c:2226
+#: ../loader/loader.c:2229
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/loader.c:2231
+#: ../loader/loader.c:2234
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
 
-#: ../loader/loader.c:2241
+#: ../loader/loader.c:2244
 #, fuzzy
 msgid "Failed to mount floppy disk."
 msgstr "En saanut yhteyttä FTP-palvelimeen"
@@ -4088,19 +4097,19 @@ msgstr "En saanut yhteyttä FTP-palvelimeen"
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:2452
+#: ../loader/loader.c:2455
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2912
+#: ../loader/loader.c:2917
 msgid "Running anaconda - please wait...\n"
 msgstr ""
 

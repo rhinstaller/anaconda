@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 2001-03-17 13:31-0500\n"
+"POT-Creation-Date: 2001-03-20 15:42-0500\n"
 "PO-Revision-Date: 2000-03-07 18:15+01:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -51,15 +51,15 @@ msgstr ""
 msgid "Warning"
 msgstr "Vyhµadávanie"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:834
-#: ../harddrive.py:173 ../image.py:64 ../image.py:141
+#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774
+#: ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
-#: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2132 ../loader/loader.c:2162
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/pcmcia.c:114
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
+#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
+#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
@@ -86,7 +86,7 @@ msgstr "Odkladací priestor"
 msgid "Creating swap space..."
 msgstr "Formátovanie odkladacieho priestoru na /dev/%s..."
 
-#: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
+#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
 msgid "Formatting"
 msgstr "Formátovanie"
 
@@ -121,12 +121,21 @@ msgstr "Loopback"
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Vytváranie súborového systému loopback na zariadení /dev/%s..."
 
-#: ../fstab.py:777 ../fstab.py:1236
+#: ../fstab.py:775
+#, c-format
+msgid ""
+"An error occured trying to format %s. This problem is serious, and the "
+"install cannot continue.\n"
+"\n"
+"Press Enter to reboot your system."
+msgstr ""
+
+#: ../fstab.py:784 ../fstab.py:1243
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formátovanie súborového systému %s..."
 
-#: ../fstab.py:835
+#: ../fstab.py:842
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -156,8 +165,8 @@ msgstr "Ïalej"
 #: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
-#: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
+#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
+#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
@@ -291,12 +300,12 @@ msgstr ""
 #: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
 #: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
-#: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
-#: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
-#: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2132 ../loader/loader.c:2162 ../loader/loader.c:2225
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/net.c:185
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
+#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
+#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
+#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
+#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
@@ -389,11 +398,11 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
-#: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
-#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
-#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
-#: ../libfdisk/fsedit.c:1467 ../libfdisk/gnomefsedit.c:756
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -532,7 +541,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2225 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -1831,7 +1840,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:486
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1864,16 +1873,16 @@ msgstr "Veµkos» koreòového súborového systému:"
 msgid "Swap space size:"
 msgstr "Veµkos» odkladacieho priestoru:"
 
-#: ../iw/rootpartition_gui.py:325 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:329 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/rootpartition_gui.py:376
+#: ../iw/rootpartition_gui.py:380
 #, fuzzy
 msgid "Disk Partitioning"
 msgstr "Manuálne rozdelenie"
 
-#: ../iw/rootpartition_gui.py:378
+#: ../iw/rootpartition_gui.py:382
 #, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
@@ -1883,12 +1892,12 @@ msgid ""
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:388
 #, fuzzy
 msgid "Automatic Partitioning Failed"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/rootpartition_gui.py:385
+#: ../iw/rootpartition_gui.py:389
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1899,37 +1908,37 @@ msgid ""
 "Red Hat Linux."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:396
 #, fuzzy
 msgid "Manual Partitioning"
 msgstr "Manuálne rozdelenie"
 
-#: ../iw/rootpartition_gui.py:393
+#: ../iw/rootpartition_gui.py:397
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:407
+#: ../iw/rootpartition_gui.py:411
 #, fuzzy
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/rootpartition_gui.py:414
+#: ../iw/rootpartition_gui.py:418
 #, fuzzy
 msgid "Manually partition with Disk Druid"
 msgstr "Manuálne rozdelenie"
 
-#: ../iw/rootpartition_gui.py:426
+#: ../iw/rootpartition_gui.py:430
 msgid "Manually partition with fdisk [experts only]"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:449
+#: ../iw/rootpartition_gui.py:453
 msgid "Boot Partition Location Warning"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:473 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1943,23 +1952,23 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:504 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
+#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
 #: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Áno"
 
-#: ../iw/rootpartition_gui.py:506 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
@@ -2313,7 +2322,7 @@ msgstr ""
 msgid "Mail (SMTP)"
 msgstr ""
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 #: ../textw/firewall_text.py:94
 msgid "FTP"
 msgstr "FTP"
@@ -2853,22 +2862,22 @@ msgstr ""
 msgid "Workstation"
 msgstr "Pracovná stanica"
 
-#: ../libfdisk/fsedit.c:400
+#: ../libfdisk/fsedit.c:401
 msgid "partitioning did not meet requirements"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928 ../libfdisk/fsedit.c:935
-#: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
-#: ../libfdisk/fsedit.c:994
+#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:995
 msgid "Bad Mount Point"
 msgstr "Chybný bod pripojenia"
 
-#: ../libfdisk/fsedit.c:922
+#: ../libfdisk/fsedit.c:923
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Adresár %s sa musí nachádza» v koreòovom súborovom systéme."
 
-#: ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:930
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2879,7 +2888,7 @@ msgstr ""
 "\n"
 "Tieto body musia zaèína» /."
 
-#: ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:937
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2890,7 +2899,7 @@ msgstr ""
 "\n"
 "Tieto body nesmú konèi» /."
 
-#: ../libfdisk/fsedit.c:945
+#: ../libfdisk/fsedit.c:946
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2901,7 +2910,7 @@ msgstr ""
 "\n"
 "Tieto body musia obsahova» iba tlaèiteµné znaky."
 
-#: ../libfdisk/fsedit.c:953
+#: ../libfdisk/fsedit.c:954
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2913,7 +2922,7 @@ msgstr ""
 "systémy a navy¹e bude prístup k takémuto oddielu pomal¹í ako k natívnemu "
 "Linux oddielu. Chcete pokraèova»?"
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:973
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2924,12 +2933,12 @@ msgstr ""
 "\n"
 "Systémové oddiely musia by» v oddieli typu Linux Native."
 
-#: ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:986
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:995
+#: ../libfdisk/fsedit.c:996
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2940,11 +2949,11 @@ msgstr ""
 "\n"
 "/usr musí by» v oddieli typu Linux Native alebo na zväzku NFS."
 
-#: ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1024
 msgid "Too Many Drives"
 msgstr "Priveµa jednotiek"
 
-#: ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1025
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2954,23 +2963,23 @@ msgstr ""
 "¹tandardný program fdisk pre konfiguráciu va¹ich diskov a oznámte Red Hat "
 "Software, ¾e ste túto hlá¹ku videli."
 
-#: ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1034
 #, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Chyba pri vytváraní odkladacieho priestoru na zariadení "
 
-#: ../libfdisk/fsedit.c:1034
+#: ../libfdisk/fsedit.c:1035
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1051
 msgid "No Drives Found"
 msgstr "Neboli nájdené ¾iadne jednotky"
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1052
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2979,7 +2988,7 @@ msgstr ""
 "mo¾né vytvori» nové súborové systémy. Skontrolujte vá¹ hardvér pre zistenie "
 "príèiny problému."
 
-#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
+#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2987,17 +2996,17 @@ msgid ""
 msgstr ""
 "Pri èítaní tabuµky rozdelenia blokového zariadenia %s sa vyskytla chyba: "
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1454 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Znovu"
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1425
-#: ../libfdisk/fsedit.c:1447 ../libfdisk/fsedit.c:1454
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
 msgid "Skip Drive"
 msgstr "Vynecha» jednotku"
 
-#: ../libfdisk/fsedit.c:1419
+#: ../libfdisk/fsedit.c:1420
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3007,19 +3016,19 @@ msgstr ""
 "oddielov musí by» inicializovaná, èo spôsobí stratu V©ETKÝCH ÚDAJOV na tomto "
 "disku."
 
-#: ../libfdisk/fsedit.c:1424
+#: ../libfdisk/fsedit.c:1425
 msgid "Bad Partition Table"
 msgstr "Chybná tabuµka rozdelenia"
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1426
 msgid "Initialize"
 msgstr "Inicializácia"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 msgid "BSD Disklabel"
 msgstr "BSD popis disku"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3029,17 +3038,17 @@ msgstr ""
 "podporuje pre BSD popisy len èítanie, tak¾e musíte pou¾i» manuálnu "
 "in¹taláciu a fdisk (namiesto Disk Druida)."
 
-#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1520
+#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
 #, c-format
 msgid "System error %d"
 msgstr "Systémová chyba %d"
 
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1508
-#: ../libfdisk/fsedit.c:1535
+#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
+#: ../libfdisk/fsedit.c:1536
 msgid "Fdisk Error"
 msgstr "Chyba fdisk-u"
 
-#: ../libfdisk/fsedit.c:1530
+#: ../libfdisk/fsedit.c:1531
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3855,16 +3864,16 @@ msgstr "Naèítava sa ramdisk druhej fázy..."
 msgid "Error loading ramdisk."
 msgstr "Chyba pri èítaní ramdisku. "
 
-#: ../loader/loader.c:585 ../loader/loader.c:2163
+#: ../loader/loader.c:585 ../loader/loader.c:2166
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nepodarilo sa preèíta» adresár %s: %s"
 
-#: ../loader/loader.c:870
+#: ../loader/loader.c:873
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
-#: ../loader/loader.c:871
+#: ../loader/loader.c:874
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3872,7 +3881,7 @@ msgstr ""
 "Zdá sa, ¾e na va¹om systéme nemáte ¾iadne pevné disky! ®eláte si "
 "nakonfigurova» prídavné zariadenia?"
 
-#: ../loader/loader.c:885
+#: ../loader/loader.c:888
 #, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -3883,21 +3892,21 @@ msgstr ""
 "RedHat/base? Pokiaµ tu nevidíte zariadenie, ktoré pou¾ívate, stlaète F2 a "
 "nakonfigurujte prídavné zariadenia."
 
-#: ../loader/loader.c:899
+#: ../loader/loader.c:902
 #, fuzzy
 msgid "Directory holding images:"
 msgstr "Adresár obsahujúci Red Hat:"
 
-#: ../loader/loader.c:919
+#: ../loader/loader.c:922
 msgid "Select Partition"
 msgstr "Výber oddielu"
 
-#: ../loader/loader.c:967
+#: ../loader/loader.c:970
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Zariadenie %s zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:1022
+#: ../loader/loader.c:1025
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3905,74 +3914,74 @@ msgstr ""
 "V ¾iadnej z va¹ich CDROM mechaník nebolo nájdené CD s Red Hat Linuxom. "
 "Vlo¾te prosím Red Hat CD a stlaète \"OK\" pre nový pokus."
 
-#: ../loader/loader.c:1109
+#: ../loader/loader.c:1112
 #, fuzzy
 msgid "Networking Device"
 msgstr "Sie»ové zariadenie"
 
-#: ../loader/loader.c:1110
+#: ../loader/loader.c:1113
 #, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "Aký typ systému si ¾eláte nain¹talova»?"
 
-#: ../loader/loader.c:1192
+#: ../loader/loader.c:1195
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Tento adresár zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:1197
+#: ../loader/loader.c:1200
 msgid "I could not mount that directory from the server"
 msgstr "Nie je mo¾né pripoji» tento adresár zo servera"
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 msgid "HTTP"
 msgstr ""
 
-#: ../loader/loader.c:1239
+#: ../loader/loader.c:1242
 #, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Nepodarilo sa naèíta» ramdisk druhej fázy"
 
-#: ../loader/loader.c:1248
+#: ../loader/loader.c:1251
 #, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Nepodarilo sa naèíta» ramdisk druhej fázy"
 
-#: ../loader/loader.c:1278
+#: ../loader/loader.c:1281
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 
-#: ../loader/loader.c:1508
+#: ../loader/loader.c:1511
 msgid "Rescue Method"
 msgstr "Záchranná metóda"
 
-#: ../loader/loader.c:1509
+#: ../loader/loader.c:1512
 msgid "Installation Method"
 msgstr "Spôsob in¹talácie"
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1514
 msgid "What type of media contains the rescue image?"
 msgstr "Aký typ média obsahuje záchranný obraz systému?"
 
-#: ../loader/loader.c:1513
+#: ../loader/loader.c:1516
 msgid "What type of media contains the packages to be installed?"
 msgstr "Aký typ média obsahuje balíky, ktoré si ¾eláte nain¹talova»?"
 
-#: ../loader/loader.c:2133
+#: ../loader/loader.c:2136
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádzacej diskete nie je mo¾né nájs» súbor ks.cfg."
 
-#: ../loader/loader.c:2225
+#: ../loader/loader.c:2228
 #, fuzzy
 msgid "Updates Disk"
 msgstr "Aktualizácie"
 
-#: ../loader/loader.c:2226
+#: ../loader/loader.c:2229
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Vlo¾te disketu s aktualizáciou a stlaète \"OK\" pre pokraèovanie."
 
-#: ../loader/loader.c:2231
+#: ../loader/loader.c:2234
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -3981,26 +3990,26 @@ msgstr ""
 "Disketa, ktorú ste vlo¾ili, nie je správna disketa s ovládaèmi pre túto "
 "verziu Red Hat Linuxu."
 
-#: ../loader/loader.c:2241
+#: ../loader/loader.c:2244
 msgid "Failed to mount floppy disk."
 msgstr "Nepodarilo sa mi pripoji» disketu."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Updates"
 msgstr "Aktualizácie"
 
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Reading anaconda updates..."
 msgstr "Naèítanie aktualizácií anakondy..."
 
-#: ../loader/loader.c:2452
+#: ../loader/loader.c:2455
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2912
+#: ../loader/loader.c:2917
 #, fuzzy
 msgid "Running anaconda - please wait...\n"
 msgstr "Naèítanie aktualizácií anakondy..."

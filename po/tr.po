@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 2001-03-17 13:31-0500\n"
+"POT-Creation-Date: 2001-03-20 15:42-0500\n"
 "PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
@@ -49,15 +49,15 @@ msgstr ""
 msgid "Warning"
 msgstr "Uyarý"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:834
-#: ../harddrive.py:173 ../image.py:64 ../image.py:141
+#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774
+#: ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
-#: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2132 ../loader/loader.c:2162
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/pcmcia.c:114
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
+#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
+#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
@@ -84,7 +84,7 @@ msgstr "Takas alaný"
 msgid "Creating swap space..."
 msgstr "%s aygýtýnda takas alaný oluþturuluyor..."
 
-#: ../fstab.py:513 ../fstab.py:776 ../fstab.py:1235
+#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
 msgid "Formatting"
 msgstr "Biçimlendiriliyor"
 
@@ -119,12 +119,21 @@ msgstr "Loopback"
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "/dev/%s aygýtýnda loopback dosya sistemi yaratýlýyor..."
 
-#: ../fstab.py:777 ../fstab.py:1236
+#: ../fstab.py:775
+#, c-format
+msgid ""
+"An error occured trying to format %s. This problem is serious, and the "
+"install cannot continue.\n"
+"\n"
+"Press Enter to reboot your system."
+msgstr ""
+
+#: ../fstab.py:784 ../fstab.py:1243
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s dosya sistemi biçimlendiriliyor..."
 
-#: ../fstab.py:835
+#: ../fstab.py:842
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -158,8 +167,8 @@ msgstr "Ýleri"
 #: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
-#: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
+#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
+#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
@@ -290,12 +299,12 @@ msgstr "CDROM baðlanamadý."
 #: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
 #: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
-#: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
-#: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
-#: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2132 ../loader/loader.c:2162 ../loader/loader.c:2225
-#: ../loader/loader.c:2240 ../loader/loader.c:2452 ../loader/net.c:185
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
+#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
+#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
+#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
+#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
+#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
@@ -385,11 +394,11 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
-#: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
-#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
-#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
-#: ../libfdisk/fsedit.c:1467 ../libfdisk/gnomefsedit.c:756
+#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -520,7 +529,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2225 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -1792,7 +1801,7 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:486
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1825,16 +1834,16 @@ msgstr "Kök dosya sistemi büyüklüðü:"
 msgid "Swap space size:"
 msgstr "Takas alaný büyüklüðü:"
 
-#: ../iw/rootpartition_gui.py:325 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:329 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Otomatik Bölümlendirme"
 
-#: ../iw/rootpartition_gui.py:376
+#: ../iw/rootpartition_gui.py:380
 #, fuzzy
 msgid "Disk Partitioning"
 msgstr "Elle Bölümlendirme"
 
-#: ../iw/rootpartition_gui.py:378
+#: ../iw/rootpartition_gui.py:382
 #, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
@@ -1844,11 +1853,11 @@ msgid ""
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:388
 msgid "Automatic Partitioning Failed"
 msgstr "Otomatik Bölümlendirme Baþarýsýz Oldu"
 
-#: ../iw/rootpartition_gui.py:385
+#: ../iw/rootpartition_gui.py:389
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1864,11 +1873,11 @@ msgstr ""
 "\n"
 "Lütfen listeden hangi bölümlendirme programýný kullanacaðýnýzý belirtiniz."
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:396
 msgid "Manual Partitioning"
 msgstr "Elle Bölümlendirme"
 
-#: ../iw/rootpartition_gui.py:393
+#: ../iw/rootpartition_gui.py:397
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
@@ -1878,23 +1887,23 @@ msgstr ""
 "Lütfen Red Hat Linux kurulumu için hangi bölümlendirme programýný "
 "kullanacaðýnýzý belirtiniz."
 
-#: ../iw/rootpartition_gui.py:407
+#: ../iw/rootpartition_gui.py:411
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Otomatik Bölümlendir ve VERÝLERÝ SÝL"
 
-#: ../iw/rootpartition_gui.py:414
+#: ../iw/rootpartition_gui.py:418
 msgid "Manually partition with Disk Druid"
 msgstr "Disk Druid yardýmýyla elle bölümlendir"
 
-#: ../iw/rootpartition_gui.py:426
+#: ../iw/rootpartition_gui.py:430
 msgid "Manually partition with fdisk [experts only]"
 msgstr "fdisk yardýmýyla elle bölümlendir [sadece uzmanlar]"
 
-#: ../iw/rootpartition_gui.py:449
+#: ../iw/rootpartition_gui.py:453
 msgid "Boot Partition Location Warning"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:473 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1908,23 +1917,23 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:504 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
+#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
 #: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Evet"
 
-#: ../iw/rootpartition_gui.py:506 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
@@ -2265,7 +2274,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "E-posta (SMTP)"
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 #: ../textw/firewall_text.py:94
 msgid "FTP"
 msgstr "FTP"
@@ -2795,22 +2804,22 @@ msgstr "Linux'a yer açmak için diskinizdeki TÜM bilgiler silinecektir."
 msgid "Workstation"
 msgstr "Ýþistasyonu"
 
-#: ../libfdisk/fsedit.c:400
+#: ../libfdisk/fsedit.c:401
 msgid "partitioning did not meet requirements"
 msgstr "bölümlendirme henüz tamamlanmadý"
 
-#: ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928 ../libfdisk/fsedit.c:935
-#: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
-#: ../libfdisk/fsedit.c:994
+#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:995
 msgid "Bad Mount Point"
 msgstr "Hatalý Baðlama Noktasý"
 
-#: ../libfdisk/fsedit.c:922
+#: ../libfdisk/fsedit.c:923
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "%s dizini kök bölümünde bulunmalý"
 
-#: ../libfdisk/fsedit.c:929
+#: ../libfdisk/fsedit.c:930
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2821,7 +2830,7 @@ msgstr ""
 "\n"
 "Baðlama noktalarý / karakteriyle baþlamalýdýr."
 
-#: ../libfdisk/fsedit.c:936
+#: ../libfdisk/fsedit.c:937
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2832,7 +2841,7 @@ msgstr ""
 "\n"
 "Baðlama noktalarý / iþaretiyle bitmemeli."
 
-#: ../libfdisk/fsedit.c:945
+#: ../libfdisk/fsedit.c:946
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2843,7 +2852,7 @@ msgstr ""
 "\n"
 "Baðlama noktalarý yalnýzca basýlabilir karakterler içermeli."
 
-#: ../libfdisk/fsedit.c:953
+#: ../libfdisk/fsedit.c:954
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2855,7 +2864,7 @@ msgstr ""
 "kullanamazsýnýz. Ek olarak böyle bir kurulum yöntemine gitmeniz halinde hýz "
 "önemli oranda düþecektir. Devam etmek istiyor musunuz?"
 
-#: ../libfdisk/fsedit.c:972
+#: ../libfdisk/fsedit.c:973
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2866,12 +2875,12 @@ msgstr ""
 "\n"
 "Sistem bölümleri Linux native tipi bir bölümde olmalýdýr."
 
-#: ../libfdisk/fsedit.c:985
+#: ../libfdisk/fsedit.c:986
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr "Bu platformda /boot dizini DOS uyumlu dosya sisteminde %x olmalý."
 
-#: ../libfdisk/fsedit.c:995
+#: ../libfdisk/fsedit.c:996
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2882,11 +2891,11 @@ msgstr ""
 "\n"
 "/usr dizini bir Linux ext2 disk bölümü ya da NFS üzerinde bulunmalýdýr."
 
-#: ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1024
 msgid "Too Many Drives"
 msgstr "Çok Fazla Disk"
 
-#: ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1025
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2896,11 +2905,11 @@ msgstr ""
 "diskinizi bölümlemek için fdisk aracýný kullanýn ve bu uyarýyý gördüðünüzü "
 "Red Hat Software'a bildirin."
 
-#: ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1034
 msgid "Error Creating Device Nodes"
 msgstr "Aygýt Düðümlerinin Oluþturulmasýnda Hata"
 
-#: ../libfdisk/fsedit.c:1034
+#: ../libfdisk/fsedit.c:1035
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -2909,11 +2918,11 @@ msgstr ""
 "Disk üzerinde düðüm noktasý yaratýlýrken bir hata oluþtu. Disk alanýnýz "
 "yetersiz olabilir."
 
-#: ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1051
 msgid "No Drives Found"
 msgstr "Hiç Sürücü Bulunamadý"
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1052
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2921,7 +2930,7 @@ msgstr ""
 "Yeni bir dosya sistemi yaratmak için aygýt bulunamadý. Lütfen donanýmýnýzý "
 "kontrol ediniz."
 
-#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
+#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2931,17 +2940,17 @@ msgstr ""
 "için sýfýrlanmasý gerekiyor. Bu iþlem diskteki BÜTÜN BÝLGÝNÝN yitirilmesine "
 "yol açacaktýr."
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1454 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Tekrar dene"
 
-#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1425
-#: ../libfdisk/fsedit.c:1447 ../libfdisk/fsedit.c:1454
+#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
 msgid "Skip Drive"
 msgstr "Diski Geç"
 
-#: ../libfdisk/fsedit.c:1419
+#: ../libfdisk/fsedit.c:1420
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2951,19 +2960,19 @@ msgstr ""
 "yaratmak için bu tablonun yeniden düzenlenmesi gerekiyor. Bu durumda DÝSK "
 "ÜZERÝNDE BULUNAN TÜM BÝLGÝLER SÝLÝNECEKTÝR."
 
-#: ../libfdisk/fsedit.c:1424
+#: ../libfdisk/fsedit.c:1425
 msgid "Bad Partition Table"
 msgstr "Hatalý Bölüm Tablosu"
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1426
 msgid "Initialize"
 msgstr "Sýfýrla"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 msgid "BSD Disklabel"
 msgstr "BSD Disk Etiketi"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1468
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2974,17 +2983,17 @@ msgstr ""
 "makinalarda özel bir kurulum programý ve fdisk kullanmanýz gerekir (Disk "
 "Druid çalýþmaz)."
 
-#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1520
+#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
 #, c-format
 msgid "System error %d"
 msgstr "Sistem hatasý %d"
 
-#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1508
-#: ../libfdisk/fsedit.c:1535
+#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
+#: ../libfdisk/fsedit.c:1536
 msgid "Fdisk Error"
 msgstr "Fdisk Hatasý"
 
-#: ../libfdisk/fsedit.c:1530
+#: ../libfdisk/fsedit.c:1531
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3804,16 +3813,16 @@ msgstr "%s ramdisk yükleniyor..."
 msgid "Error loading ramdisk."
 msgstr "Ramdisk yüklenmesinde hata."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2163
+#: ../loader/loader.c:585 ../loader/loader.c:2166
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s dizini okunamadý: %s"
 
-#: ../loader/loader.c:870
+#: ../loader/loader.c:873
 msgid "Hard Drives"
 msgstr "Sabit Diskler"
 
-#: ../loader/loader.c:871
+#: ../loader/loader.c:874
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3821,7 +3830,7 @@ msgstr ""
 "Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak ister "
 "misiniz?"
 
-#: ../loader/loader.c:885
+#: ../loader/loader.c:888
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3831,20 +3840,20 @@ msgstr ""
 "içeriyor? Eðer kullandýðýnýz diski bu listede göremiyorsanýz, F2 tuþuna "
 "basýp ek aygýt sürücülerini yapýlandýrabilirsiniz."
 
-#: ../loader/loader.c:899
+#: ../loader/loader.c:902
 msgid "Directory holding images:"
 msgstr "Görüntülerin bulunduðu dizin:"
 
-#: ../loader/loader.c:919
+#: ../loader/loader.c:922
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
-#: ../loader/loader.c:967
+#: ../loader/loader.c:970
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s aygýtýnda bir Red Hat Linux kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:1022
+#: ../loader/loader.c:1025
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3852,11 +3861,11 @@ msgstr ""
 "CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat Linux "
 "CD'sini sürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
 
-#: ../loader/loader.c:1109
+#: ../loader/loader.c:1112
 msgid "Networking Device"
 msgstr "Að Aygýtý"
 
-#: ../loader/loader.c:1110
+#: ../loader/loader.c:1113
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3864,59 +3873,59 @@ msgstr ""
 "Sistemde birden fazla að aygýtý bulunuyor. Hangisi üzerinden kurulum yapmak "
 "istiyorsunuz?"
 
-#: ../loader/loader.c:1192
+#: ../loader/loader.c:1195
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Bu dizinde Red Hat Linux kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:1197
+#: ../loader/loader.c:1200
 msgid "I could not mount that directory from the server"
 msgstr "Sunucudan bu dizin baðlanamadý."
 
-#: ../loader/loader.c:1238 ../loader/loader.c:1247
+#: ../loader/loader.c:1241 ../loader/loader.c:1250
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1239
+#: ../loader/loader.c:1242
 msgid "Unable to retrieve the first install image"
 msgstr "Birinci kýsým kurulum dosyasý alýnamýyor"
 
-#: ../loader/loader.c:1248
+#: ../loader/loader.c:1251
 msgid "Unable to retrieve the second install image"
 msgstr "Ýkinci kýsým kurulum dosyasý alýnamýyor"
 
-#: ../loader/loader.c:1278
+#: ../loader/loader.c:1281
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 
-#: ../loader/loader.c:1508
+#: ../loader/loader.c:1511
 msgid "Rescue Method"
 msgstr "Kurtarma Yöntemi"
 
-#: ../loader/loader.c:1509
+#: ../loader/loader.c:1512
 msgid "Installation Method"
 msgstr "Kurulum Yöntemi"
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1514
 msgid "What type of media contains the rescue image?"
 msgstr "Kurtarma görüntüsü nerede bulunuyor?"
 
-#: ../loader/loader.c:1513
+#: ../loader/loader.c:1516
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kurulacak paketler nerede bulunuyor?"
 
-#: ../loader/loader.c:2133
+#: ../loader/loader.c:2136
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
-#: ../loader/loader.c:2225
+#: ../loader/loader.c:2228
 msgid "Updates Disk"
 msgstr "Güncelleme Disketi"
 
-#: ../loader/loader.c:2226
+#: ../loader/loader.c:2229
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/loader.c:2231
+#: ../loader/loader.c:2234
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3924,26 +3933,26 @@ msgstr ""
 "Sürücüye yerleþtirilen disket Red Hat Linux'un bu sürümü için güncel "
 "sürücüler içermiyor."
 
-#: ../loader/loader.c:2241
+#: ../loader/loader.c:2244
 msgid "Failed to mount floppy disk."
 msgstr "Disket baðlanamadý."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Updates"
 msgstr "Güncellemeler"
 
-#: ../loader/loader.c:2246
+#: ../loader/loader.c:2249
 msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
-#: ../loader/loader.c:2452
+#: ../loader/loader.c:2455
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2912
+#: ../loader/loader.c:2917
 #, fuzzy
 msgid "Running anaconda - please wait...\n"
 msgstr "Anaconda güncellemeleri okunuyor..."
