@@ -212,9 +212,11 @@ class LiloConfiguration:
 	    self.setLiloImages(self.getLiloImages())
 
         # on upgrade read in the lilo config file
-        if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
-	    lilo.read (instRoot + '/etc/lilo.conf')
 	lilo = LiloConfigFile ()
+        if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
+	    os.rename(instRoot + '/etc/lilo.conf',
+		      instRoot + '/etc/lilo.conf.rpmsave')
+	    lilo.read (instRoot + '/etc/lilo.conf')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. While we're here, build an index
@@ -225,7 +227,7 @@ class LiloConfiguration:
 	for image in lilo.listImages():
 	    (fsType, sl) = lilo.getImage(image)
 	    if fsType == "other": continue
-	    if not os.access(instRoot + image):
+	    if not os.access(instRoot + image, os.R_OK):
 		lilo.delImage(image)
 	    else:
 		imagesByLabel[sl.getEntry('label')] = image
