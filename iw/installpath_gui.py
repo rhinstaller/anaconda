@@ -26,9 +26,6 @@ class InstallPathWindow (InstallWindow):
 	#if self.flags.setupFilesystems() and self.id.fstab:
 	    #self.id.fstab.turnOffSwap()
 
-	needNewDruid = 0
-	icw = self.ics.getICW ()
-
 	for (button, box, buttons) in self.topLevelButtonList:
 	    if not button.get_active(): continue
 
