@@ -97,6 +97,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         copyDirectory("/tmp/update-disk", "/tmp/updates");
         umountLoopback("/tmp/update-disk", "loop7");
         unlink("/tmp/ramfs/updates-disk.img");
+        unlink("/tmp/update-disk");
     }
 
     /* grab the product.img before netstg1.img so that we minimize our
@@ -107,6 +108,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         copyDirectory("/tmp/product-disk", "/tmp/product");
         umountLoopback("/tmp/product-disk", "loop7");
         unlink("/tmp/ramfs/product-disk.img");
+        unlink("/tmp/product-disk");
     }
 
     /* require 128MB for use of graphical stage 2 due to size of image */

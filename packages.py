@@ -238,7 +238,7 @@ def getAnacondaTS(instPath = None):
 
     # set color if needed.  FIXME: why isn't this the default :/
     if (rhpl.arch.canonArch.startswith("ppc64") or
-        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
         ts.setColor(3)
 
     return ts
@@ -1190,6 +1190,11 @@ def copyExtraModules(instPath, grpset, extraModules):
 	pattern = ""
 	names = ""
 	for (n, tag) in kernelVersions:
+            if tag == "up":
+                pkg = "kernel"
+            else:
+                pkg = "kernel-%s" %(tag,)
+            arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
             # version 1 path
             pattern = pattern + " %s/%s/%s.o " % (n, arch, name)
             # version 0 path

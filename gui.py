@@ -430,7 +430,13 @@ class ProgressWindow:
         rootPushBusyCursor()
 
     def set (self, amount):
-	self.progress.set_fraction (float (amount) / self.total)
+	# only update widget if we've changed by 5%
+	curval = self.progress.get_fraction()
+	newval = float (amount) / self.total
+	if newval < 0.998:
+	    if (newval - curval) < 0.05 and newval > curval:
+		return
+	self.progress.set_fraction (newval)
         processEvents ()        
     
     def pop(self):
@@ -1464,7 +1470,7 @@ class InstallControlState:
         for path in ("/mnt/source/RHupdates/pixmaps/",
                      "/mnt/source/RHupdates/",
                      "/tmp/updates/pixmaps/", "/tmp/updates/",
-                     "/tmp/product/pixmaps/",
+                     "/tmp/product/pixmaps/", "/tmp/product/",
                      "/usr/share/anaconda/pixmaps/", "pixmaps/",
                      "/usr/share/pixmaps/",
                      "/usr/share/anaconda/", ""):

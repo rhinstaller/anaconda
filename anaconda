@@ -679,8 +679,14 @@ if customClass:
 # if no instClass declared by user figure it out based on other cmdline args
 #
 if not instClass:
-    from installclass import DefaultInstall
+    from installclass import DefaultInstall, availableClasses
     instClass = DefaultInstall(flags.expert)
+
+    if len(availableClasses()) < 2:
+        (cname, cobject, clogo) = availableClasses()[0]
+        log("%s is only installclass, using it" %(cname,))
+        instClass = cobject(flags.expert)
+        
 
 # this lets install classes force text mode instlls
 if instClass.forceTextMode:
@@ -976,7 +982,7 @@ if xcfg is not None:
 
 if kbd:
     id.setKeyboard(kbd)
-    
+
 instClass.setInstallData(id)
 
 dispatch = dispatch.Dispatcher(intf, id, methodobj, rootPath)

@@ -13,7 +13,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import kudzu
 import upgrade
 from snack import *
 from constants_text import *
@@ -23,6 +22,7 @@ import os
 import isys
 import iutil
 import fsset
+import shutil
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -63,6 +63,36 @@ def makeMtab(instPath, theFsset):
         f.write(theFsset.mtab())
         f.close()
         sys.exit(0)
+
+# make sure they have a resolv.conf in the chroot
+def makeResolvConf(instPath):
+    if not os.access("/etc/resolv.conf", os.R_OK):
+        return
+    
+    if os.access("%s/etc/resolv.conf" %(instPath,), os.R_OK):
+        f = open("%s/etc/resolv.conf" %(instPath,), "r")
+        buf = f.read()
+        f.close()
+    else:
+        buf = ""
+
+    # already have a nameserver line, don't worry about it
+    if buf.find("nameserver") != -1:
+        return
+
+    f = open("/etc/resolv.conf", "r")
+    buf = f.read()
+    f.close()
+
+    # no nameserver, we can't do much about it
+    if buf.find("nameserver") == -1:
+        return
+
+    shutil.copyfile("%s/etc/resolv.conf" %(instPath,),
+                    "%s/etc/resolv.conf.bak" %(instPath,))
+    f = open("%s/etc/resolv.conf" %(instPath,), "w+")
+    f.write(buf)
+    f.close()
 
 # XXX
 #     probably belongs somewhere else
@@ -186,7 +216,7 @@ def runRescue(instPath, mountroot, id):
 		    lastrc = rc
 
 		    if step == -1:
-			ButtonChoiceWindow(self.screen, _("Cancelled"),
+			ButtonChoiceWindow(screen, _("Cancelled"),
 					   _("I can't go to the previous step "
 					     "from here. You will have to try "
 					     "again."),
@@ -388,6 +418,7 @@ def runRescue(instPath, mountroot, id):
     print
     if rootmounted and not readOnly:
         makeMtab(instPath, fs)
+        makeResolvConf(instPath)
         print _("Your system is mounted under the %s directory.") % (instPath,)
         print
 

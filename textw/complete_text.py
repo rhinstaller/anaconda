@@ -21,9 +21,6 @@ import iutil
 class FinishedWindow:
   
   def __call__ (self, screen):
-        screen.pushHelpLine (string.center(_("<Enter> to reboot"),
-                                           screen.width))
-
         if iutil.getArch() == "i386":
           bootstr = _("If you created a boot diskette during this "
                       "installation as your primary means of "
@@ -33,13 +30,17 @@ class FinishedWindow:
           bootstr = ""
 
         if iutil.getArch() == "s390":
-          floppystr = _("Press <Enter> to reboot your system.\n\n")
+          floppystr = _("Press <Enter> to end the installation process.\n\n")
+          bottomstr = _("<Enter> to exit")
         else:
           floppystr = _("Remove any installation media (diskettes or "
                         "CD-ROMs) used during the installation process "
                         "and press <Enter> to reboot your system."
                         "\n\n")
-          
+          bottomstr = _("<Enter> to reboot")
+
+        screen.pushHelpLine (string.center(bottomstr, screen.width))
+
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your %s installation is "

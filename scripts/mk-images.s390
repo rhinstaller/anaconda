@@ -433,7 +433,7 @@ fi
 IDEMODS=""
 SCSIMODS=""
 
-SECSTAGE="$IDEMODS $SCSIMODS raid0 raid1 raid5 lvm-mod"
+SECSTAGE="$IDEMODS $SCSIMODS md raid0 raid1 raid5 lvm-mod"
 
 COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390 isofs ext3"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"

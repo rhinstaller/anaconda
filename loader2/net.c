@@ -221,10 +221,15 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
              * be broken out into a function too */
             logMessage("sending dhcp request through device %s", loaderData->netDev);
 
-            startNewt(flags);
-            winStatus(50, 3, _("Dynamic IP"), 
-                      _("Sending request for IP information for %s..."), 
-                      loaderData->netDev, 0);
+            if (!FL_CMDLINE(flags)) {
+                startNewt(flags);
+                winStatus(55, 3, _("Dynamic IP"), 
+                          _("Sending request for IP information for %s..."), 
+                          loaderData->netDev, 0);
+            } else {
+                printf(_("Sending request for IP information for %s..."), 
+                       loaderData->netDev);
+            }
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
@@ -233,7 +238,9 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 chptr = NULL;
             }
 
-            newtPopWindow();
+            if (!FL_CMDLINE(flags))
+                newtPopWindow();
+
             if (chptr) {
                 logMessage("pump told us: %s", chptr);
                 return;
@@ -468,7 +475,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
             newCfg.isDynamic = 0;
         } else {
             if (!FL_TESTING(flags)) {
-                winStatus(50, 3, _("Dynamic IP"), 
+                winStatus(55, 3, _("Dynamic IP"), 
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
@@ -624,10 +631,16 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     }
 
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
-        winStatus(40, 3, _("Hostname"), 
-                  _("Determining host name and domain..."));
+        if (!FL_CMDLINE(flags))
+            winStatus(40, 3, _("Hostname"), 
+                      _("Determining host name and domain..."));
+        else
+            printf(_("Determining host name and domain..."));
+
         name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
-        newtPopWindow();
+
+        if (!FL_CMDLINE(flags))
+            newtPopWindow();
 
         if (!name) {
             logMessage("reverse name lookup failed");

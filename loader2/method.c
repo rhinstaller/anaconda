@@ -445,7 +445,8 @@ int copyDirectory(char * from, char * to) {
 
     errno = 0;
     while ((ent = readdir(dir))) {
-        if (ent->d_name[0] == '.') continue;
+        /* we could lose .a this way, but at least, we lose less */
+        if ((ent->d_name[0] == '.') && (strlen(ent->d_name) <= 2)) continue;
 
         sprintf(filespec, "%s/%s", from, ent->d_name);
         sprintf(filespec2, "%s/%s", to, ent->d_name);
@@ -498,6 +499,7 @@ void copyUpdatesImg(char * path) {
         if (!mountLoopback(path, "/tmp/update-disk", "loop7")) {
             copyDirectory("/tmp/update-disk", "/tmp/updates");
             umountLoopback("/tmp/update-disk", "loop7");
+            unlink("/tmp/update-disk");
         }
     }
 }
@@ -507,6 +509,7 @@ void copyProductImg(char * path) {
         if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
             copyDirectory("/tmp/product-disk", "/tmp/product");
             umountLoopback("/tmp/product-disk", "loop7");
+            unlink("/tmp/product-disk");
         }
     }
 }

@@ -3,7 +3,7 @@ SCSIMODULES="sd_mod isp_mod ide-cd aic7xxx"
 EXTRASCSI="DAC960 cpqfc BusLogic 3w-xxxx dmx3191d dpt_i2o megaraid ncr53c8xx sym53c8xx qlogicisp qlogicfc qla2x00 qla1280 cciss cpqarray"
 EXTRANET="3c509 3c59x 8139too dl2k eepro epic100 ewrk3 hamachi natsemi ne2k-pci ns83820 starfire yellowfin"
 
-SECSTAGE="sd_mod raid0 raid1 raid5 ext3 $NETMODULES $SCSIMODULES $EXTRASCSI $EXTRANET"
+SECSTAGE="sd_mod md raid0 raid1 raid5 ext3 $NETMODULES $SCSIMODULES $EXTRASCSI $EXTRANET"
 
 prepareBootImage() {
         dd if=/dev/zero of=$MBD_TMPIMAGE bs=1k count=$BOOTDISKSIZE 2>/dev/null

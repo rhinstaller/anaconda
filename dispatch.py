@@ -110,7 +110,7 @@ installSteps = [
                                            "instPath", "dir")),
     ("selectlangpackages", selectLanguageSupportGroups, ("id.grpset","id.langSupport")),    
     ("package-selection", ("id.grpset", "id.langSupport", "id.instClass", "dispatch")),
-    ("indivpackage", ("id.grpset")),
+    ("indivpackage", ("id.grpset",)),
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
                                           "id", "instPath")),
     ("checkdeps", checkDependencies, ("dir", "intf", "dispatch",

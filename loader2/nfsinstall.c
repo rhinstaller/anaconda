@@ -162,6 +162,11 @@ char * mountNfsImage(struct installMethod * method,
                             if (rc == -1)
 				foundinvalid = 1;
                         } else {
+                            /* JKFIXME: hack because /mnt/source is hard-coded
+                             * in mountStage2() */
+                            copyUpdatesImg("/mnt/source2/RedHat/base/updates.img");
+                            copyUpdatesImg("/mnt/source2/RedHat/base/product.img");
+
                             queryIsoMediaCheck(path, flags);
 
                             stage = NFS_STAGE_DONE;

@@ -605,8 +605,9 @@ def writeRpmPlatform(root="/"):
     if os.access("%s/etc/rpm/macros" %(root,), os.R_OK):
         return
     if not (rhpl.arch.canonArch.startswith("ppc64") or
-            rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+            rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
         return
     f = open("%s/etc/rpm/macros" %(root,), 'w+')
     f.write("%_transaction_color   3\n")
     f.close()
+    

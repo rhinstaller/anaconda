@@ -840,7 +840,10 @@ static char *doLoaderMain(char * location,
 
             /* fall through to ip config */
         case STEP_IP:
-            if (!needsNetwork) step = STEP_METHOD; /* only hit going back */
+            if (!needsNetwork) {
+                step = STEP_METHOD; /* only hit going back */
+                break;
+            }
 
             logMessage("going to do getNetConfig");
 	    /* populate netDev based on any kickstart data */
@@ -1206,7 +1209,7 @@ int main(int argc, char ** argv) {
     /* look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModuleSetLocation("raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod",
+    mlLoadModuleSetLocation("md:raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod",
 			    modLoaded, modDeps, modInfo, flags, 
 			    secondStageModuleLocation);
 
