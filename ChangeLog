@@ -1,3 +1,8 @@
+2005-01-06  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c (parseCmdLineIp): Add patch from Bastien Nocera
+	to support parsing of pxelinux IPAPPEND (#134054)
+
 2005-01-04  Jeremy Katz  <katzj@redhat.com>
 
 	* partedUtils.py (getDefaultDiskType): the default disk type on

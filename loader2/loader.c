@@ -456,6 +456,52 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
    fclose(f);
 }
 
+/* parse anaconda or pxelinux-style ip= arguments
+ * pxelinux format: ip=<client-ip>:<boot-server-ip>:<gw-ip>:<netmask>
+ * anaconda format: ip=<client-ip> netmask=<netmask> gateway=<gw-ip>
+*/
+static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
+{
+  /* Detect pxelinux */
+  if (strstr(argv, ":") != NULL) {
+    char *start, *end;
+
+    /* IP */
+    start = argv + 3;
+    end = strstr(start, ":");
+    loaderData->ip = strndup(start, end-start);
+    loaderData->ipinfo_set = 1;
+
+    /* Boot server */
+    if (end + 1 == '\0')
+      return;
+    start = end + 1;
+    end = strstr(start, ":");
+    if (end == NULL)
+      return;
+
+    /* Gateway */
+    if (end + 1 == '\0')
+      return;
+    start = end + 1;
+    end = strstr(start, ":");
+    if (end == NULL) {
+      loaderData->gateway = strdup (start);
+      return;
+    } else 
+      loaderData->gateway = strndup(start, end-start);
+
+    /* Netmask */
+    if (end + 1 == '\0')
+      return;
+    start = end + 1;
+    loaderData->netmask = strdup(start);
+  } else {
+    loaderData->ip = strdup(argv + 3);
+    loaderData->ipinfo_set = 1;
+  }
+}
+
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
@@ -567,8 +613,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         } else if (!strncasecmp(argv[i], "method=", 7)) {
             setMethodFromCmdline(argv[i] + 7, loaderData);
         } else if (!strncasecmp(argv[i], "ip=", 3)) {
-            loaderData->ip = strdup(argv[i] + 3);
-            loaderData->ipinfo_set = 1;
+            parseCmdLineIp(loaderData, argv[i]);
         } else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "gateway=", 8))
