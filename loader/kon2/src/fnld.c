@@ -50,7 +50,7 @@ struct fontRegs *dbFReg, *sbFReg;
 #define	PATH_MINIFONT	"/usr/lib/minikon.fnt.gz"
 #define	CMD_MINIFONT	"/bin/gzip -dc "PATH_MINIFONT
 #else
-#define	PATH_MINIFONT	"/usr/lib/minikon.fnt"
+#define	PATH_MINIFONT	"/etc/minikon.fnt"
 #endif
 
 void

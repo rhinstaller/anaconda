@@ -37,14 +37,13 @@
 
 
 /* build MINI KON */
+#define MINI_KON
 
 /* Support VGA driver */
 #define HAS_VGA
 
-/* Support J31SX driver */
-
 /* Support MOUSE driver */
-#define HAS_MOUSE
+#undef HAS_MOUSE
 
 /* Install Minix/V font loader */
 #define FLD_MINIX
@@ -56,10 +55,7 @@
 #define FLD_FONTX2
 
 /* Install J3100ROM font loader */
+#define FLD_J31ROM
 
-/* Use ROM font */
-
-/* Use Static font */
 #define USE_STATICFONT
 #endif
-
