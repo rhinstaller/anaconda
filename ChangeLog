@@ -1,5 +1,8 @@
 2004-10-17  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_gui.py: Fix font size to fit a little bit 
+	better (#135731)
+
 	* partitions.py (Partitions.writeKS): Write out size=0 (#135714)
 
 	* kickstart.py (KickstartBase.definePartition): Allow partition

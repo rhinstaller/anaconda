@@ -44,7 +44,7 @@ from partRequests import *
 from constants import *
 from partition_ui_helpers_gui import *
 
-STRIPE_HEIGHT = 32.0
+STRIPE_HEIGHT = 35.0
 LOGICAL_INSET = 3.0
 CANVAS_WIDTH_800 = 490
 CANVAS_WIDTH_640 = 390
@@ -184,7 +184,7 @@ class DiskStripeSlice:
         self.box = self.group.add(gnome.canvas.CanvasRect)
         self.group.connect("event", self.eventHandler)
         self.text = self.group.add(gnome.canvas.CanvasText,
-                                    font="helvetica", size_points=8)
+                                    font="sans", size_points=8)
         self.update()
 
 class DiskStripe:
