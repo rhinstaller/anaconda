@@ -2265,9 +2265,6 @@ logMessage("UPDATES floppy evice is %s", floppyDevice);
 	}
     } while (!done);
 
-    chdir("/tmp/updates");
-    setenv("PYTHONPATH", "/tmp/updates", 1);
-
     return;
 }
 
@@ -2811,10 +2808,13 @@ int main(int argc, char ** argv) {
     }
 #endif
 
+    /* Just in case */
+    setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
+
     argptr = anacondaArgs;
 
-    if (!access("./anaconda", X_OK))
-	*argptr++ = "./anaconda";
+    if (!access("/tmp/updates/anaconda", X_OK))
+	*argptr++ = "/tmp/updates/anaconda";
     else
 	*argptr++ = "/usr/bin/anaconda";
 
