@@ -249,7 +249,8 @@ class MessageWindow:
         label = hbox.children ()[1]
         label.set_line_wrap (TRUE)
         self.window.set_position (WIN_POS_CENTER)
-        
+        win = self.window.get_window()
+        win.keyboard_grab(0)
         self.window.show_all ()
 
         threads_leave ()
@@ -268,10 +269,12 @@ class MessageWindow:
             self.mutex = None
             threads_enter ()
             self.rc = self.window.run ()
+            win.keyboard_ungrab()
             threads_leave ()
         else:
             self.mutex = Event ()
             self.mutex.wait ()
+            win.keyboard_ungrab()
     
 class InstallInterface:
     def __init__ (self, runres, nofbmode):
