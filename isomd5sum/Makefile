@@ -1,9 +1,9 @@
 include ../Makefile.inc
 
 all:
-	gcc -c -O -g md5.c
-	gcc -O -g -o implantisomd5 implantisomd5.c md5.o -lm
-	gcc -O -g -o checkisomd5 checkisomd5.c md5.o -lm
+	gcc -c -O -g -D_FILE_OFFSET_BITS=64 md5.c
+	gcc -O -g -D_FILE_OFFSET_BITS=64 -o  implantisomd5 implantisomd5.c md5.o -lm
+	gcc -O -g -D_FILE_OFFSET_BITS=64 -o checkisomd5 checkisomd5.c md5.o -lm
 
 install:
 	install -m 755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
