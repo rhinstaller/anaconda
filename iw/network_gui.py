@@ -172,6 +172,7 @@ class NetworkWindow (InstallWindow):
         if not devs: return None
 
         devs.keys ().sort ()
+        num = 0
         for i in devs.keys ():
             devbox = GtkVBox ()
             align = GtkAlignment ()
@@ -182,8 +183,9 @@ class NetworkWindow (InstallWindow):
 
             align = GtkAlignment ()
             bootcb = GtkCheckButton (_("Activate on boot"))
-            bootcb.set_active (devs[i].get ("onboot") and
-                               devs[i].get ("onboot") == "yes")
+            onboot = devs[i].get ("onboot")
+            bootcb.set_active ((num == 0 and not onboot)
+                               or onboot == "yes")
 	    bootcb.connect ("toggled", self.onBootToggled, devs[i])
             align.add (bootcb)
 
@@ -199,7 +201,12 @@ class NetworkWindow (InstallWindow):
             self.ipTable = GtkTable (len (options), 2) # this is the iptable used for DNS, et. al
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
-            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
+            bootproto = devs[i].get ("bootproto")
+            # go ahead and set up DHCP on the first device
+            DHCPcb.set_active ((num == 0 and not bootproto)
+                               or bootproto == "dhcp")
+            
+            num = num + 1
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
