@@ -470,7 +470,6 @@ class KickstartBase(BaseInstallClass):
 	groups = []
         excludedPackages = []
 	for n in open(file).readlines():
-            print n
 	    args = isys.parseArgv(n)
 
 	    # don't eliminate white space or comments from scripts
