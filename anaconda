@@ -603,6 +603,10 @@ if method:
 
 floppyDevice = floppy.probeFloppyDevice()
 
+# create device nodes for detected devices if we're not running in test mode
+if not flags.test and flags.setupFilesystems:
+    iutil.makeDriveDeviceNodes()
+
 id = instClass.installDataClass(extraModules, floppyDevice, configFileData)
 #id = instClass.installDataClass(extraModules, floppyDevice)
 
