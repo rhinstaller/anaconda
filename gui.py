@@ -57,7 +57,6 @@ class WaitWindow:
         frame.add (box)
 	self.window.add (frame)
 	self.window.show_all ()
-	gdk_flush ()
         thread = currentThread ()
         print thread.getName ()
         if thread.getName () == "gtk_main":
@@ -94,13 +93,11 @@ class ProgressWindow:
         frame.add (box)
 	self.window.add (frame)
 	self.window.show_all ()
-	gdk_flush ()
         threads_leave ()
 
     def set (self, amount):
         threads_enter ()
 	self.progress.update (float (amount) / self.total)
-        gdk_flush ()
         threads_leave ()
     
     def pop(self):
