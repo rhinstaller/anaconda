@@ -33,6 +33,9 @@ def getArch ():
     if arch == "sparc64":
         arch = "sparc"
 
+    if arch == "ppc64":
+        arch = "ppc"
+
     if arch == "s390x":
         arch = "s390"
 
