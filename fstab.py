@@ -656,7 +656,7 @@ class Fstab:
 
 		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
 		isys.mount("loop1", instPath)
-	    elif fsystem == "ext2" or \
+	    elif fsystem == "ext2" or fsystem == "ext3" or \
 			(fsystem == "vfat" and mntpoint == "/boot/efi"):
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
@@ -972,7 +972,8 @@ def readFstab (path, fstab):
 	# all valid fstab entries have 6 fields
 	if len (fields) < 4 or len (fields) > 6: continue
 
-	if fields[2] != "ext2" and fields[2] != "swap": continue
+	if fields[2] != "ext2" and fields[2] != "ext3" and fields[2] != "swap":
+	    continue
 	if string.find(fields[3], "noauto") != -1: continue
 
 	# this skips swap files! todo has to put them back for upgrades
