@@ -372,7 +372,8 @@ class Kickstart(InstallClass):
                         n = string.strip (n)
 			packages.append(n)
 		elif where == "commands":
-		    handlers[args[0]](args[1:])
+		    if handlers[args[0]]:
+			handlers[args[0]](args[1:])
 		elif where == "pre" or where == "post":
 		    script = script + n
 		else:
