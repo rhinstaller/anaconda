@@ -267,34 +267,59 @@ int chooseLanguage(char ** lang, int flags) {
     char ** langs;
     int i;
     int english = 0;
+    int current = -1;
+    extern int continuing;
+    char * currentLangName = getenv("LANG");
+    int numLangs = 0;
+    char * langPicked;
 
     if (!languages) loadLanguageList(flags);
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
     for (i = 0; i < numLanguages; i++) {
+	/* If we're running in kon, only offer languages which use the
+	   Kon or default8x16 fonts. Don't display languages which require
+	   Kon font if we have no way of providing it. */
+	if (!haveKon && !strcmp(languages[i].font, "Kon"))
+	    continue;
+	if (continuing && strcmp(languages[i].font, "Kon") &&
+	    continuing && strcmp(languages[i].font, "default8x16"))
+	    continue;
+
 	if (!strncmp(languages[i].key, "en", 2))
-	    english = i;
-	langs[i] = languages[i].lang;
+	    english = numLangs;
+	if (currentLangName &&
+	    !strcmp(languages[i].lc_all, currentLangName))
+	    current = numLangs;
+
+	langs[numLangs++] = languages[i].lang;
     }
 
-    langs[i] = NULL;
+    langs[numLangs] = NULL;
 
-    choice = english;
-    
-    if (getenv("LANG")) {
-	for (choice = 0; choice < numLanguages; choice++)
-	    if (!strcmp(languages[choice].lc_all, getenv("LANG"))) break;
-	if (choice == numLanguages) choice = 0;
-    }
+    if (current >= 0)
+	choice = current;
+    else
+	choice = english;
 
     newtWinMenu(_("Choose a Language"), _("What language should be used "
 		"during the installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
 
-    *lang = languages[choice].lc_all;
+    langPicked = langs[choice];
+    for (i = 0; i < numLanguages; i++) {
+	if (!strcmp(langPicked, languages[i].lang)) {
+	    *lang = languages[i].lc_all;
+	    choice = i;
+	    break;
+	}
+    }
 
-    if (choice == english) {
+    /* this can't happen */
+    if (i == numLanguages) abort();
+
+    if (!strncmp(languages[choice].key, "en", 2)) {
 	/* stick with the default (English) */
 	unsetenv("LANG");
 	unsetenv("LANGKEY");
@@ -328,7 +353,6 @@ int chooseLanguage(char ** lang, int flags) {
     }
 
     if (haveKon) {
-	extern int continuing;
 	extern void stopNewt(void);
 	
 	if (!strcmp (languages[choice].font, "Kon") && !continuing) {
@@ -347,9 +371,7 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* If we need kon and have it, or if it's not kon or none, load the lang */
-    if ((!strcmp(languages[choice].font, "Kon") && haveKon) ||
-	(strcmp(languages[choice].font, "None") &&
-	 strcmp(languages[choice].font, "Kon"))) {
+    if ((strcmp(languages[choice].font, "None"))) {
 	loadLanguage (NULL, flags);
     } else {
 	newtWinMessage("Language Unavailable", "OK", 
@@ -358,6 +380,7 @@ int chooseLanguage(char ** lang, int flags) {
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
     }
+
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
