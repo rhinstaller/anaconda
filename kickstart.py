@@ -642,6 +642,8 @@ class KickstartBase(BaseInstallClass):
                             id.handleDeps = RESOLVE_DEPS
                         elif arg == "--ignoredeps":
                             id.handleDeps = IGNORE_DEPS
+                        elif arg == "--excludedocs":
+                            id.excludeDocs = 1
                         elif arg == "--ignoremissing":
                             self.handleMissing = KS_MISSING_IGNORE
                         elif arg == "--nobase":

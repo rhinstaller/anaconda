@@ -714,6 +714,9 @@ def doInstall(method, id, intf, instPath):
 	how = "i"
         rpm.addMacro("__dbi_htconfig", "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
+    if id.excludeDocs:
+        rpm.addMacro("_excludedocs", "1")
+
     l = []
 
     for p in id.grpset.hdrlist.values():
