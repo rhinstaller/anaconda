@@ -1045,6 +1045,13 @@ class Partitions:
                     index = self.requests.index(request)
                     self.requests[n] = request
                     self.requests[index] = tmp
+                elif (request.size and self.requests[n].size and
+                      (request.size == self.requests[n].size) and
+                      (request.uniqueID < self.requests[n].uniqueID)):
+                    tmp = self.requests[n]
+                    index = self.requests.index(request)
+                    self.requests[n] = request
+                    self.requests[index] = tmp                
             n = n + 1
 
         tmp = self.getBootableRequest()
