@@ -124,7 +124,8 @@ class AccountWindow (InstallWindow):
         forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
         table = GtkTable (2, 2)
-        table.set_row_spacings(5)
+        table.set_row_spacings (5)
+	table.set_col_spacings (5)
 
         pass1 = GtkLabel (_("Root Password: "))
         pass1.set_alignment (0.0, 0.5)
@@ -132,7 +133,7 @@ class AccountWindow (InstallWindow):
         pass2 = GtkLabel (_("Confirm: "))
         pass2.set_alignment (0.0, 0.5)
         table.attach (pass2, 0, 1, 1, 2, FILL, 0, 10)
-        self.pw = GtkEntry (8)
+        self.pw = GtkEntry (128)
         self.pw.connect ("activate", forward)
         self.pw.connect ("changed", self.rootPasswordsMatch)
         self.pw.set_visibility (FALSE)
@@ -169,10 +170,10 @@ class AccountWindow (InstallWindow):
 
         self.fullName = GtkEntry ()
         self.fullName.connect ("activate", self.addUser)
-        self.userPass1 = GtkEntry (10)
+        self.userPass1 = GtkEntry (128)
         self.userPass1.connect ("activate", forward)
         self.userPass1.connect ("changed", self.userOkay)
-        self.userPass2 = GtkEntry (10)
+        self.userPass2 = GtkEntry (128)
         self.userPass2.connect ("activate", forward)
         self.userPass2.connect ("changed", self.userOkay)
         self.userPass1.set_visibility (FALSE)
@@ -237,5 +238,5 @@ class AccountWindow (InstallWindow):
 	    index = index + 1
 
 	self.userOkay()
-
+	box.set_border_width (5)
         return box
