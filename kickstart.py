@@ -24,8 +24,10 @@ import sys
 import raid
 import string
 import partRequests
+import urllib2
 
 from rhpl.translate import _
+from rhpl.log import log
 
 KS_MISSING_PROMPT = 0
 KS_MISSING_IGNORE = 1
@@ -1286,3 +1288,87 @@ def Kickstart(file, serial):
 	ksClass = KickstartBase(file, serial)
 
     return ksClass
+
+
+#
+# look through ksfile and if it contains a line:
+#
+# %ksappend <url>
+#
+# pull <url> down and append to /tmp/ks.cfg. This is run before we actually
+# parse the complete kickstart file.
+#
+# Main use is to have the ks.cfg you send to the loader by minimal, and then
+# use %ksappend to pull via https anything private (like passwords, etc) in
+# the second stage.
+#
+class KSAppendException:
+    def __init__(self, s=""):
+	self.str = s
+
+    def __str__(self):
+	return self.str
+	
+def pullRemainingKickstartConfig(ksfile):
+    try:
+	f = open(ksfile, "r")
+    except:
+	raise KSAppendException("Unable to open ks file %s" % (ksfile,))
+
+    lines = f.readlines()
+    f.close()
+
+    url = None
+    for l in lines:
+	ll = l.strip()
+	if string.find(ll, "%ksappend") == -1:
+	    continue
+
+	try:
+	    (xxx, ksurl) = string.split(ll, ' ')
+	except:
+	    raise KSAppendException("Illegal url for %%ksappend - %s" % (ll,))
+
+	log("Attempting to pull second part of ks.cfg from url %s" % (ksurl,))
+
+	try:
+	    url = urllib2.urlopen(ksurl)
+	except urllib2.HTTPError, e:
+	    raise KSAppendException("IOError: %s:%s" % (e.code, e.msg))
+	except urllib2.URLError, e:
+	    raise KSAppendException("IOError: -1:%s" % (e.reason,))
+	else:
+	    # sanity check result - sometimes FTP doesnt
+	    # catch a file is missing
+	    try:
+		clen = url.info()['content-length']
+	    except Exception, e:
+		clen = 0
+
+	    if clen < 1:
+		raise KSAppendException("IOError: -1:File not found")
+
+	break
+
+    # if we got something then rewrite /tmp/ks.cfg with new information
+    if url is not None:
+	os.rename("/tmp/ks.cfg", "/tmp/ks.cfg-part1")
+
+	# insert contents of original /tmp/ks.cfg w/o %ksappend line
+	f = open("/tmp/ks.cfg", 'w+')
+	for l in lines:
+	    ll = l.strip()
+	    if string.find(ll, "%ksappend") != -1:
+		continue
+	    f.write(l)
+
+	# now write part we just grabbed
+	f.write(url.read())
+	f.close()
+
+	# close up url and we're done
+	url.close()
+	
+    return None
+    
+    
