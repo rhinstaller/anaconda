@@ -429,9 +429,11 @@ if display_mode != 't' and mousedev[0] == "None - None":
 # startup X server is we're not already running under an X session
 #
 startXServer = 0
+
+
 if display_mode == 'g':
     import xf86config
-    
+
     if not os.environ.has_key('DISPLAY'):
         startXServer = 1
         import xserver
@@ -439,8 +441,10 @@ if display_mode == 'g':
             if os.access("/etc/X11/XF86Config", os.R_OK) or os.access("/etc/X11/XF86Config-4", os.R_OK):
                 xcfg = xserver.start_existing_X ()
             else:
-                xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw,
-                                       mousehw)
+		xcfg = xf86config.XF86Config(videohw.primaryCard(),
+                                         monitorhw, mousehw, runres)
+                testxcfg = xserver.startX(runres, nofbmode, videohw, monitorhw,
+					  mousehw)
         except RuntimeError:
             print " X startup failed, falling back to text mode"
             xcfg = xf86config.XF86Config(videohw.primaryCard(),

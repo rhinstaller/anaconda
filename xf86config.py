@@ -982,7 +982,7 @@ class XF86Config:
         # restore manualmodes
         self.manualModes = manmodes
         serverPath = "/usr/X11R6/bin/" + servername
-        
+
         serverpid = os.fork()
 
         if (not serverpid):
@@ -1194,11 +1194,23 @@ Section "Screen"
 	Subsection "Display"
         	Depth       %s
                 Modes       """ % depth
-            
+
+	    # put in all modes up to selected mode
+	    availmodes = self.availableModes()
+	    if depth in availmodes.keys():
+		tmpmodes = availmodes[depth]
+		tmpmodes.reverse()
+	    else:
+		tmpmodes = []
+		for d in xmodes.keys():
+		    for r in xmodes[d]:
+			tmpmodes.append(r)
+
             modes = xmodes[depth]
             modes.sort (self.areaCompare)
-            for res in modes:
-                screens = screens + '"' + res + '" '
+            for res in tmpmodes:
+		if self.areaCompare(res, modes[0]) > -1:
+		    screens = screens + '"' + res + '" '
             screens = screens + """
 	EndSubsection
 """
