@@ -92,7 +92,7 @@ class UpgradeExamineWindow (InstallWindow):
 	    label.set_alignment(0.0, 0.5)
 	    vbox.pack_start(label, gtk.FALSE)
             
-        self.individualPackages = gtk.CheckButton (_("Customize packages to be "
+        self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
                                                     "upgraded"))
         self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
             
