@@ -1,5 +1,8 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (KickstartBase.readKickstart): Handle having a
+	%include inside a scriptlet. (#120252)
+
 	* iw/zfcp_gui.py: Fix zfcp help tag
 	(ZFCPWindow.getScreen): Don't change fcp devs until going forward.
 

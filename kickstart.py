@@ -722,6 +722,15 @@ class KickstartBase(BaseInstallClass):
 	packages = []
 	groups = []
         excludedPackages = []
+        
+        script = ""
+        scriptInterp = "/bin/sh"
+        scriptLog = None
+        if where == "pre" or where == "traceback":
+            scriptChroot = 0
+        else:
+            scriptChroot = 1
+        
 	for n in open(file).readlines():
 	    args = isys.parseArgv(n)
 
@@ -742,15 +751,6 @@ class KickstartBase(BaseInstallClass):
 
 		where = args[0][1:]
 		args = isys.parseArgv(n)
-
-		scriptInterp = "/bin/sh"
-                scriptLog = None
-		if where == "pre" or where == "traceback":
-		    scriptChroot = 0
-		else:
-		    scriptChroot = 1
-
-		script = ""
 
 		argList = [ 'interpreter=' ]
 		if where == "post":
