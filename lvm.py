@@ -60,7 +60,7 @@ def vgscan():
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgscan failed.  disabling lvm")
+        log("running vgscan failed: %s.  disabling lvm" %(rc,))
         lvmDevicePresent = 0
 
 def vgactivate(volgroup = None):
@@ -79,7 +79,8 @@ def vgactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        raise SystemError, "vgchange failed"
+        log("running vgchange failed: %s.  disabling lvm" %(rc,))
+        lvmDevicePresent = 0
 
 def vgdeactivate(volgroup = None):
     """Deactivate volume groups by running vgchange -an.
@@ -97,7 +98,8 @@ def vgdeactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        raise SystemError, "vgchange failed"
+        log("running vgchange failed: %s.  disabling lvm" %(rc,))
+        lvmDevicePresent = 0
     
     
 def lvremove(lvname, vgname):
