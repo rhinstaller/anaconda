@@ -44,7 +44,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
 	dispatch.skipStep("instbootloader")
         return
     
-    choices = fsset.bootloaderChoices(diskSet)
+    choices = fsset.bootloaderChoices(diskSet, bl)
     if not choices:
 	dispatch.skipStep("instbootloader")
     else:

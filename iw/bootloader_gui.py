@@ -831,7 +831,7 @@ class AdvancedBootloaderWindow (InstallWindow):
 
         # XXX switch over to real and not debug crap
 #        choices = { 'mbr': ("hda", "MBR"), 'boot': ("hda2", "/boot") }
-        choices = fsset.bootloaderChoices(diskSet)
+        choices = fsset.bootloaderChoices(diskSet, self.bl)
         self.bootDevices = {}
         
 	if choices:

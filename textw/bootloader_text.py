@@ -153,7 +153,7 @@ class BootloaderLocationWindow:
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
 	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
 
-	choices = fsset.bootloaderChoices(diskSet)
+	choices = fsset.bootloaderChoices(diskSet, bl)
 	if len(choices.keys()) == 1:
 	    bl.setDevice(choices[choices.keys()[0]][0])
 	    return INSTALL_NOOP
