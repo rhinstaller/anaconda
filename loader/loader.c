@@ -907,6 +907,7 @@ static char * mountNfsImage(struct installMethod * method,
 	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
 		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
 			    X_OK)) {
+		    unlink("/mnt/runtime");
 		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 		    stage = NFS_STAGE_DONE;
 		} else {
@@ -1430,6 +1431,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	if (doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) 
 	    return NULL;
 	    
+	umount("/mnt/runtime");
 	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
 	imageUrl = "dir://mnt/source/.";
@@ -2031,10 +2033,13 @@ int main(int argc, char ** argv) {
 
     if (!FL_TESTING(flags)) {
      
+	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
+	unlink("/lib");
 	symlink("mnt/runtime/lib", "/lib");
 
-#ifndef __alpha__ /* the only modules we need for alpha are on the inired */
+/* the only modules we need for alpha are on the initrd */
+#if !defined(__alpha__) && !defined(__ia64__)
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/pcitable");
@@ -2109,9 +2114,11 @@ int main(int argc, char ** argv) {
 	}
     }
 
+#ifndef __ia64__
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
 
     #ifdef __i386__
 	/* We need this for loopback installs */
@@ -2175,6 +2182,7 @@ int main(int argc, char ** argv) {
 	    *argptr++ = kbdtype;
 	}
 
+#ifndef __ia64__
 	for (i = 0; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].path) continue;
 
@@ -2194,6 +2202,7 @@ int main(int argc, char ** argv) {
 
 	    argptr++;
 	}
+#endif
     }
     
     *argptr = NULL;
