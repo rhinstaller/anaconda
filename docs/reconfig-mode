@@ -1,0 +1,29 @@
+Reconfig mode
+-------------
+
+12/7/1999 Michael Fulbright
+
+Reconfig mode is intended to allow localized customization of a pre-installed
+Red Hat Linux box by the first time user of the machine.  Properties like
+keyboard mapping, timezone, and network config are edittable the first
+time the computer is booted.
+
+Reconfig mode uses the same sources as the anaconda installer. When anaconda
+is run in reconfig mode (using the --reconfig command line option) the
+user is prompted for various configuration details.
+
+The standard way of setting up anaconda for reconfig mode is to create
+the file 
+
+/etc/reconfigSys
+
+as part of the installation process. This can easily be done as part of the 
+kickstart procedure with a %post section at the end of the ks.cfg file:
+
+%post
+touch /etc/reconfigSys
+
+The /etc/rc.d/init.d/reconfig init script is run and it tests for the
+existence of the /etc/reconfigSys file. If it exists then anaconda is
+run with the --reconfig option.
+
