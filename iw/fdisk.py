@@ -39,7 +39,7 @@ class FDiskWindow (InstallWindow):
             pass
         print "running", path, '/tmp/' + drive
         if zvt.forkpty() == 0:
-            os.execvp (path, (path, '/tmp/' + drive))
+            os.execv (path, (path, '/tmp/' + drive))
         zvt.show ()
 
         self.windowContainer.remove (self.buttonBox)

@@ -400,7 +400,7 @@ class PackageSelectionWindow (InstallWindow):
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
         box = GtkVBox (FALSE, 0)
-
+        
         for comp in self.todo.comps:
             if not comp.hidden:
                 pixname = string.replace (comp.name, ' ', '-')
@@ -437,6 +437,8 @@ class PackageSelectionWindow (InstallWindow):
                 box.pack_start (checkButton)
 
         sw.add_with_viewport (box)
+        box.set_focus_hadjustment(sw.get_hadjustment ())
+        box.set_focus_vadjustment(sw.get_vadjustment ())
 
         vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton (_("Select individual packages"))
