@@ -79,6 +79,9 @@ class PartitionWindow (InstallWindow):
         if not self.checkSwap ():
             return PartitionWindow
 
+        if self.todo.fstab.rootOnLoop():
+            return LoopSizeWindow
+
         return None
 
     def enableCallback (self, value):
@@ -90,6 +93,40 @@ class PartitionWindow (InstallWindow):
 	self.running = 1
 	return self.todo.fstab.runDruid(self.enableCallback)
 
+class LoopSizeWindow(InstallWindow):
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+
+    def getNext (self):
+        todo.fstab.setLoopbackSize (self.adj.value)
+
+    def getScreen (self):
+        # XXX error check mount that this check tries
+        avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
+	size = self.todo.fstab.getLoopbackSize()
+	if not size:
+	    size = avail / 2
+
+        vbox = GtkVBox (FALSE, 5)
+        
+        label = GtkLabel (_("You've chosen to put your root filesystem "
+                            "in a file on an already-existing DOS or "
+                            "Windows filesystem. How large would you "
+                            "like to make the root filesystem? You may "
+                            "make it up to %d megabytes in size." % avail))
+        label.set_usize (400, -1)
+        label.set_line_wrap (TRUE)
+        vbox.pack_start (label, FALSE, FALSE)
+
+        # XXX lower is 150
+        self.adj = GtkAdjustment (value = size, lower = 150, upper = avail, step_incr = 1)
+        self.spin = GtkSpinButton (self.adj, digits = 0)
+        self.spin.set_usize (100, -1)
+        align = GtkAlignment ()
+        align.add (self.spin)
+        vbox.pack_start (align, FALSE, FALSE)
+        return vbox
+        
 class AutoPartitionWindow(InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
