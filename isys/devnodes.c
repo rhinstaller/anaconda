@@ -238,14 +238,14 @@ int devMakeInode(char * devName, char * path) {
         type = S_IFBLK;
         major = 112;
 
-	if (devName[12] && isdigit(devName[12])) {
-	  drive = devName[12] - 'a';
+	if (devName[11] && isdigit(devName[11])) {
+	  drive = devName[10] - 'a';
+	  num = devName + 11;
+	} else if (devName[11] && islower(devName[11])) {
+	  drive = ((devName[10] - 'a' + 1) * 26) + devName[11] - 'a';
 	  num = devName + 12;
-	} else if (devName[12] && islower(devName[12])) {
-	  drive = ((devName[12] - 'a' + 1) * 26) + devName[13] - 'a';
-	  num = devName + 14;
 	} else {
-	  drive = devName[12] - 'a';
+	  drive = devName[10] - 'a';
 	}
 
 	minor = (drive * 8);
