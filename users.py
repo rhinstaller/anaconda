@@ -15,7 +15,7 @@
 #
 
 import iutil
-import whrandom
+import random
 import crypt
 import os
 import string
@@ -79,10 +79,10 @@ class Password:
 	    self.crypt = password
 	    self.pure = None
 	else:
-            salt = (whrandom.choice (string.letters +
-                                     string.digits + './') + 
-                    whrandom.choice (string.letters +
-                                     string.digits + './'))
+            salt = (random.choice (string.letters +
+                                   string.digits + './') + 
+                    random.choice (string.letters +
+                                   string.digits + './'))
             self.crypt = crypt.crypt (password, salt)
 	    self.pure = password
 
@@ -120,8 +120,8 @@ def cryptPassword(password, useMD5):
 	saltLen = 2
 
     for i in range(saltLen):
-	salt = salt + whrandom.choice (string.letters +
-                                       string.digits + './')
+	salt = salt + random.choice (string.letters +
+                                     string.digits + './')
 
     return crypt.crypt (password, salt)
 
