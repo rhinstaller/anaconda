@@ -1164,7 +1164,7 @@ class KickstartBase(BaseInstallClass):
         if onPart:
             request.device = onPart
             for areq in id.partitions.autoPartitionRequests:
-                if areq.device is not None and areq.devce == onPart:
+                if areq.device is not None and areq.device == onPart:
 		    raise ValueError, "Partition %s already used" %(onPart,)
 
         self.addPartRequest(id.partitions, request)
