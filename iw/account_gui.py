@@ -197,10 +197,10 @@ class AccountWindow (InstallWindow):
         userTable.attach(self.accountName, 1, 2, 0, 1, SHRINK, SHRINK)
         self.fullName = GtkEntry ()
         userTable.attach(self.fullName, 1, 2, 1, 2, SHRINK, SHRINK)
-        self.userPass1 = GtkEntry (9)
+        self.userPass1 = GtkEntry ()
         self.userPass1.set_visibility(FALSE)
         userTable.attach(self.userPass1, 1, 2, 2, 3, SHRINK, SHRINK)
-        self.userPass2 = GtkEntry (9)
+        self.userPass2 = GtkEntry ()
         self.userPass2.set_visibility(FALSE)
         userTable.attach (self.userPass2, 1, 2, 3, 4, SHRINK, SHRINK)
 
