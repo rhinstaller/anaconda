@@ -51,9 +51,14 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
 
     bl.images.setup(diskSet, fsset)
 
+    # XXX fix mbr vs boot handling here
     if bl.defaultDevice != None and choices:
-        if bl.defaultDevice > len(choices):
-            bl.defaultDevice = len(choices)
+        keys = choices.keys()
+#        if bl.defaultDevice > len(keys)
+        if "mbr" in keys:
+            bl.defaultDevice = "mbr"
+        else:
+            bl.defaultDevice = "boot"
         bl.setDevice(choices[bl.defaultDevice][0])
 
     bootDev = fsset.getEntryByMountPoint("/")
