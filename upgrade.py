@@ -350,15 +350,16 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
     # open up the database to check dependencies and currently
     # installed packages
-    db = rpm.opendb(0, instPath)
+    ts = rpm.TransactionSet(instPath)
+    ts.seVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
+    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
 
-    i = db.match()
-    h = i.next()
+    mi = ts.dbMatch()
     found = 0
     hasX = 0
     hasFileManager = 0
 
-    while h:
+    for h in mi:
         release = h[rpm.RPMTAG_RELEASE]
         # I'm going to try to keep this message as politically correct
         # as possible.  I think the Ximian GNOME is a very pretty desktop
@@ -420,27 +421,45 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 pass
             sys.exit(0)
 
-    # upgrade nag for upgrades from pre-6.2
-    mi = db.match("name", "redhat-release")
-    h = mi.next()
-    if h:
-        val = rpm.labelCompare((None, '6.2', '1'),
-                               (h[rpm.RPMTAG_EPOCH], h[rpm.RPMTAG_VERSION],
-                                h[rpm.RPMTAG_RELEASE]))
-        if val > 0:
-            rc = intf.messageWindow(_("Warning"),
-                                    _("Upgrades for this version of %s "
-                                      "are only supported from Red Hat Linux "
-                                      "6.2 or higher.  This appears to be an "
-                                      "older system.  Do you wish to continue "
-                                      "the upgrade process?") %(productName,),
-                                    type="yesno")
-            if rc == 0:
-                try:
-                    iutil.rmrf(rebuildpath)
-                except:
-                    pass
-                sys.exit(0)
+    # Figure out current version for upgrade nag and for determining weird
+    # upgrade cases
+    currentVersion = 0.0
+    supportedUpgradeVersion = -1
+    mi = ts.dbMatch('name', 'redhat-release')
+    for h in mi:
+        try:
+            vers = string.atof(h[rpm.RPMTAG_VERSION])
+        except ValueError:
+            vers = 0.0
+        if vers > currentVersion:
+            currentVersion = vers
+
+        # if we haven't found a redhat-release that compares favorably
+        # to 6.2, check this one
+        if supportedUpgradeVersion <= 0:
+            val = rpm.labelCompare((None, '6.2', '1'),
+                                   (h[rpm.RPMTAG_EPOCH], h[rpm.RPMTAG_VERSION],
+                                    h[rpm.RPMTAG_RELEASE]))
+            if val > 0:
+                supportedUpgradeVersion = 0
+            else:
+                supportedUpgradeVersion = 1
+
+    if supportedUpgradeVersion == 0:
+        unsupportedUpgrade = 0
+        rc = intf.messageWindow(_("Warning"),
+                                _("Upgrades for this version of %s "
+                                  "are only supported from Red Hat Linux "
+                                  "6.2 or higher.  This appears to be an "
+                                  "older system.  Do you wish to continue "
+                                  "the upgrade process?") %(productName,),
+                                type="yesno")
+        if rc == 0:
+            try:
+                iutil.rmrf(rebuildpath)
+            except:
+                pass
+            sys.exit(0)
 
 
     # during upgrade, make sure that we only install %lang colored files
@@ -466,56 +485,20 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # check the installed system to see if the packages just
     # are not newer in this release.
     if hasX and not hasFileManager:
-        for name in ("gmc", "nautilus", "kdebase"):
-            try:
-                recs = db.findbyname(name)
-                if recs:
-                    hasFileManager = 1
-                    break
-            except rpm.error:
-                continue
+        for name in ("nautilus", "kdebase", "gmc"):
+            h = ts.dbMatch('name', name).next()
+            if h is not None:
+                hasFileManager = 1
+                break
 
-    currentVersion = 0.0
-    try:
-        recs = db.findbyprovides('redhat-release')
-    except rpm.error:
-        recs = None
-    for rec in recs:
-        try:
-            vers = string.atof(db[rec][rpm.RPMTAG_VERSION])
-        except ValueError:
-            vers = 0.0
-        if vers > currentVersion:
-            currentVersion = vers
-
-    # if we have X but not gmc, we need to turn on GNOME.  We only
-    # want to turn on packages we don't have installed already, though.
-    # Only do this mess if user is upgrading from version older than 6.0.
-    if hasX and not hasFileManager and currentVersion < 6.0:
-        text = "Upgrade: System has X but no desktop -- Installing GNOME"
-        id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
-	log(text)
-        pkgs = ""
-	for package in id.comps['GNOME Desktop Environment'].pkgs:
-	    try:
-		rec = db.findbyname(package.name)
-	    except rpm.error:
-		rec = None
-	    if not rec:
-                pkgs = "%s %s" % (pkgs, package)
-		package.select()
-            log("Upgrade: GNOME: Adding packages: %s", pkgs)
-
+    # make sure the boot loader being used is being installed.
+    # FIXME: generalize so that specific bits aren't needed
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
         log("Upgrade: User selected to use GRUB for bootloader")
         if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected():
             log("Upgrade: grub is not currently selected to be upgraded")
-            recs = None
-            try:
-                recs = db.findbyname("grub")
-            except rpm.error:
-                pass
-            if not recs:
+            h = ts.dbMatch('name', 'grub').next()
+            if h is None:
                 text = ("Upgrade: GRUB is not already installed on the "
                         "system, selecting GRUB")
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
@@ -525,85 +508,46 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         log("Upgrade: User selected to use LILO for bootloader")
         if id.hdList.has_key("lilo") and not id.hdList["lilo"].isSelected():
             log("Upgrade: lilo is not currently selected to be upgraded")
-            recs = None
-            try:
-                recs = db.findbyname("lilo")
-            except rpm.error:
-                pass
-            if not recs:
+            h = ts.dbMatch('name', 'lilo').next()
+            if h is None:
                 text = ("Upgrade: LILO is not already installed on the "
                         "system, selecting LILO")
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["lilo"].select()
                 
-	
-    if (id.hdList.has_key("nautilus")
-        and not id.hdList["nautilus"].isSelected()):
-        log("Upgrade: nautilus is not currently selected to be upgraded")
-        recs = None
-        try:
-            recs = db.findbyname("gnome-core")
-        except rpm.error:
-            pass
-        if recs:
-            recs = None
-            try:
-                recs = db.findbyname("nautilus")
-            except rpm.error:
-                pass
-            if not recs:
-                text = ("Upgrade: gnome-core is on the system, but "
-                        "nautilus isn't.  Selecting nautilus to be installed")
-                id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
-                log(text)
-                id.hdList["nautilus"].select()
 
-    # now for ugly gnome2 upgrade hacks
-    recs = None
-    try:
-        recs = db.findbyname("gnome-core")
-    except rpm.error:
-        pass
-    if recs:
+    h = ts.dbMatch('name', 'gnome-core').next()
+    if h is not None:
         log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
+        upgraded = []
         for pkg in ("gnome-terminal", "gnome-desktop", "gnome-session",
-                    "gnome-panel", "metacity", "file-roller", "yelp"):
-            try:
+                    "gnome-panel", "metacity", "file-roller", "yelp",
+                    "nautilus"):
+            if id.hdList.has_key(pkg) and not id.hdList[pkg].isSelected():
                 id.hdList[pkg].select()
-            except:
-                pass
+                upgraded.append(pkg)
 
-    # more hacks!  we can't really have anything require rhn-applet without
-    # causing lots of pain (think systems that don't want rhn crap installed)
-    # and up2date-gnome is just in the X11 group, so KDE users without GNOME
-    # get it and we really don't want to change that.  so, more ugprade
-    # hacks it is
+        text = ("Upgrade: gnome-core is on the system.  Selecting packages "
+                "to upgrade to GNOME2: %s" %(str(upgraded),))
+        id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+
+    # if they have up2date-gnome, they probably want the applet now too
+    # since it works in both gnome and kde
     if (id.hdList.has_key("rhn-applet")
         and not id.hdList["rhn-applet"].isSelected()):
         log("Upgrade: rhn-applet is not currently selected to be upgraded")
-        recs = None
-        recs2 = None
-        try:
-            recs = db.findbyname("gnome-core")
-            recs2 = db.findbyname("up2date-gnome")
-        except rpm.error:
-            pass
-        if recs and recs2:
-            recs = None
-            try:
-                recs = db.findbyname("rhn-applet")
-            except rpm.error:
-                pass
-            if not recs:
-                text = ("Upgrade: gnome-core and up2date-gnome are on the "
+        h = ts.dbMatch('name', 'up2date-gnome').next()
+
+        if h is not None:
+            hdr = ts.dbMatch('name', 'rhn-applet').next()
+            if hdr is None:
+                text = ("Upgrade: up2date-gnome is on the "
                         "system, but rhn-applet isn't.  Selecting "
                         "rhn-applet to be installed")
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["rhn-applet"].select()
-
-    del db
 
     # new package dependency fixup
     deps = id.comps.verifyDeps(instPath, 1)
