@@ -19,6 +19,7 @@ class LiloWindow (InstallWindow):
 
         ics.setTitle (_("Lilo Configuration"))
         ics.setNextEnabled (1)
+        self.ics = ics
         self.type = None
         self.bootdisk = None
         self.lilo = None
@@ -71,6 +72,37 @@ class LiloWindow (InstallWindow):
 	else:
 	    return "Other"
 
+    def checkLiloReqs(self):
+        if self.default == None:
+            return 0
+
+        defaultlabel = self.imageList.get_text(self.default, 3)
+        if defaultlabel == "" or defaultlabel == None:
+            return 0
+
+        device = None
+        label = None
+        for i in range(self.numImages):
+            device = self.imageList.get_text(i, 1)[5:]
+            label  = self.imageList.get_text(i, 3)
+            if device == self.rootdev:
+                break
+
+        if label == "":
+            return 0
+
+        for i in range(self.numImages):
+            label1 = self.imageList.get_text(i, 3)
+            j = i+1
+            while j < self.numImages:
+                label2 = self.imageList.get_text(j, 3)
+                if label1 == label2:
+                    return 0
+                j = j + 1
+
+
+        return 1
+
     def toggled (self, widget, *args):
         if widget.get_active ():
 	    state = FALSE
@@ -91,7 +123,8 @@ class LiloWindow (InstallWindow):
     def labelInsertText(self, entry, text, len, data):
         i = 0
         while i < len:
-            if text[i] == ' ':
+            cur = text[i]
+            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
                 entry.emit_stop_by_name ("insert_text");
                 return;
             i = i + 1
@@ -103,10 +136,23 @@ class LiloWindow (InstallWindow):
 	label = self.labelEntry.get_text()
 	self.imageList.set_text(index, 3, label)
 
+        # cannot allow user to select as default is zero length
         if label:
             self.defaultCheck.set_sensitive (TRUE)
         else:
+            self.ignoreSignals = 1
+            self.defaultCheck.set_active(0)
             self.defaultCheck.set_sensitive (FALSE)
+            if self.default != None and self.default == index:
+                self.imageList.set_text(self.default, 0, "")
+                self.default = None
+            self.ignoreSignals = 0
+            
+        if self.checkLiloReqs():
+            self.ics.setNextEnabled (1)
+        else:
+            self.ics.setNextEnabled (0)
+
 
     def defaultUpdated(self, *args):
 	if self.ignoreSignals: return
@@ -123,6 +169,12 @@ class LiloWindow (InstallWindow):
 	    self.imageList.set_text(index, 0, "")
 	    self.default = None
 
+        if self.checkLiloReqs():
+            self.ics.setNextEnabled (1)
+        else:
+            self.ics.setNextEnabled (0)
+        
+
     def labelSelected(self, *args):
 	index = self.imageList.selection[0]
 	device = self.imageList.get_text(index, 1)
@@ -135,7 +187,9 @@ class LiloWindow (InstallWindow):
 	self.typeLabel.set_text(_("Type") + ":" + type)
 	self.labelEntry.set_text(label)
 
+        # do not allow blank label to be default
         if not label:
+            self.defaultCheck.set_active(0)
             self.defaultCheck.set_sensitive (FALSE)
 
         self.ignoreSignals = 1
@@ -146,10 +200,13 @@ class LiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
     def getScreen (self):
+        (self.rootdev, rootfs) = self.todo.fstab.getRootDevice()
+
 	if self.todo.fstab.rootOnLoop():
 	    self.todo.bootdisk = 1
 	    return None
 
+# comment these two lines to get lilo screen in test mode
         if not self.todo.fstab.setupFilesystems:
             return None
         
@@ -262,7 +319,6 @@ class LiloWindow (InstallWindow):
 	tempBox.pack_start(self.typeLabel, FALSE)
 	self.defaultCheck = GtkCheckButton("Default boot image")
 	self.defaultCheck.connect("toggled", self.defaultUpdated)
-
 
 	# Alliteration!
 	self.labelLabel = GtkLabel(_("Boot label") + ":")
