@@ -50,41 +50,39 @@ msgid "OK"
 msgstr "Í lagi"
 
 #: ../anaconda:409
-#, fuzzy
 msgid "Unable to probe"
-msgstr "Get ekki leitað\n"
+msgstr "Get ekki leitað"
 
 #: ../anaconda:411
 msgid "Probing for video card:   "
 msgstr "Leita að skjákorti:   "
 
 #: ../anaconda:412
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for video card:   %s"
-msgstr "Leita að skjákorti:   "
+msgstr "Leita að skjákorti:       %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
 msgstr "Leita að skjá: "
 
 #: ../anaconda:417
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for monitor type: %s"
-msgstr "Leita að skjá: "
+msgstr "Leita að skjá:            %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
 msgstr "Leita að tegund músar:   "
 
 #: ../anaconda:430
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for mouse type:   %s"
-msgstr "Leita að tegund músar:   "
+msgstr "Leita að tegund músar:    %s"
 
 #: ../anaconda:432 ../anaconda:433
-#, fuzzy
 msgid "Skipping mouse probe."
-msgstr "Sleppi músarleit.\n"
+msgstr "Sleppi músarleit."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
@@ -690,23 +688,22 @@ msgid "Release notes are missing.\n"
 msgstr "Útgáfuupplýsingarnar vantar.\n"
 
 #: ../gui.py:805
-#, fuzzy
 msgid "Error!"
-msgstr "Villa"
+msgstr "Villa!"
 
 #: ../gui.py:806
 msgid ""
 "An error occured when attempting to load an installer interface component."
 msgstr ""
+"Villa kom upp við að ræsa upp undirhluta uppsetningarforritsins."
 
 #: ../gui.py:810 ../packages.py:1039 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Hætta"
 
 #: ../gui.py:811
-#, fuzzy
 msgid "_Retry"
-msgstr "Reyna aftur"
+msgstr "_Reyna aftur"
 
 #: ../gui.py:813 ../packages.py:1042
 msgid "Rebooting System"
@@ -1109,11 +1106,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "Villa - heiti sýndardiskhópsins %s er ógilt."
 
 #: ../partIntfHelpers.py:47
-#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Villa - heiti sýndardiskhópsins inniheldur ógilda staði eða orðabil."
+msgstr ""
+"Villa - heiti sýndardiskhópsins inniheldur ógilda staði eða orðabil. "
+"Gild tákn í heitunum eru stafir, tölustafir, '.' eða '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1129,11 +1127,12 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "Villa - heiti sýndardisksins %s er ógilt."
 
 #: ../partIntfHelpers.py:71
-#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Villa - heiti sýndardisksins inniheldur ógild tákn eða orðabil."
+msgstr ""
+"Villa - heiti sýndardisksins inniheldur ógild tákn eða orðabil. "
+"Gild tákn í heitunum eru stafir, tölustafir, '.' eða '_'."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -1976,9 +1975,8 @@ msgid "Enter the root (administrator) password for the system."
 msgstr "Sláðu inn rótarlykilorðið fyrir kerfisstjóra þessarar vélar."
 
 #: ../iw/account_gui.py:361
-#, fuzzy
 msgid "Root _Password: "
-msgstr "Rótarlykilorð"
+msgstr "Rótar_lykilorð: "
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
@@ -2337,7 +2335,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Veldu áfram-örina til að byrja uppsetningu %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the %s file after "
 "rebooting your system.\n"
@@ -3157,7 +3155,6 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP upplýsingarnar sem þú slóst inn eru ógildar."
 
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3167,7 +3164,10 @@ msgid ""
 "activated automatically."
 msgstr ""
 "Þú hefur engin virk netkort. Vélin þín mun ekki geta haft samskipti við "
-"aðrar vélar á neti án að minnsta kosti eins netkorts."
+"aðrar vélar á neti án að minnsta kosti eins netkorts.\n"
+"\n"
+"ATH: Ef þú ert með PCMCIA netkort ættir þú að láta það vera óvirkt áfram. "
+"Þegar þú endurræsir eftir uppsetningu mun það verða virkt sjálfkrafa."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3265,62 +3265,52 @@ msgid "Confirm:"
 msgstr "Staðfesta:"
 
 #: ../iw/old_bootloader_gui.py:156
-#, fuzzy
 msgid "No password"
-msgstr "Rótarlykilorð"
+msgstr "Ekkert lykilorð"
 
 #: ../iw/old_bootloader_gui.py:158
-#, fuzzy
 msgid "Change _Password"
 msgstr "_Breyta lykilorði"
 
 #: ../iw/old_bootloader_gui.py:248
-#, fuzzy
 msgid "_Use a Boot Loader Password"
 msgstr "_Nota lykilorð í ræsistjóranum"
 
 #: ../iw/old_bootloader_gui.py:249
-#, fuzzy
 msgid "Set _Password"
-msgstr "_Lykilorð:"
+msgstr "Setja _Lykilorð"
 
 #: ../iw/old_bootloader_gui.py:265
-#, fuzzy
 msgid "Force the use of LBA32 extensions for booting (not normally required)"
-msgstr "Krefjast LBA32-hams (oftast óþarft)"
+msgstr "Krefjast LBA32-hams við ræsingu (oftast óþarft)"
 
 #: ../iw/old_bootloader_gui.py:269
-#, fuzzy
 msgid "_Force LBA32"
-msgstr "Krefjast LBA32"
+msgstr "_Krefjast LBA32"
 
 #: ../iw/old_bootloader_gui.py:273
-#, fuzzy
 msgid "General kernel parameters"
-msgstr "_Almenn kjarnaviðföng"
+msgstr "Almenn kjarnaviðföng"
 
 #: ../iw/old_bootloader_gui.py:323 ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Mynd"
 
 #: ../iw/old_bootloader_gui.py:330
-#, fuzzy
 msgid ""
 "The label is what is displayed in the boot loader to choose to boot this "
 "operating system.  The device is the device which it boots from."
 msgstr ""
-"Sláðu inn diskmerki sem verður notað í lista ræsistjórans. Tækið (eða harði "
-"diskurinn og disksneiðanúmerið) er tækið sem ræst er upp af."
+"Diskmerkið verður notað í lista ræsistjórans til að velja hvaða stýrikerfi "
+"á að ræsa. Tæki er tækið sem ræst er upp af."
 
 #: ../iw/old_bootloader_gui.py:342 ../iw/osbootwidget.py:64
-#, fuzzy
 msgid "Label"
-msgstr "_Merking"
+msgstr "Merking"
 
 #: ../iw/old_bootloader_gui.py:381
-#, fuzzy
 msgid "Default Boot Target"
-msgstr "Sjálfgefin _ræsimynd"
+msgstr "Sjálfgefin ræsimynd"
 
 #: ../iw/old_bootloader_gui.py:410 ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -3360,11 +3350,11 @@ msgstr ""
 
 #: ../iw/old_bootloader_gui.py:645
 msgid "Insert some text about booting other operating systems"
-msgstr ""
+msgstr "Setja inn texta um að ræsa önnur stýrikerfi"
 
 #: ../iw/old_bootloader_gui.py:763
 msgid "Blah, this is the BIOS drive order, more information, etc"
-msgstr ""
+msgstr "Blah, þetta er BIOS drifröðun, frekari upplýsingar og svo frv."
 
 #: ../iw/osbootwidget.py:41
 msgid ""
@@ -3842,7 +3832,7 @@ msgid "Check for _bad blocks?"
 msgstr "Leita að _skemmdum blokkum?"
 
 #: ../iw/partition_ui_helpers_gui.py:335
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
@@ -5943,7 +5933,6 @@ msgstr ""
 "auðkenning fer fram."
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
@@ -5975,13 +5964,12 @@ msgid "Upgrade"
 msgstr "Uppfæra"
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
 "Þessi valkostur setur upp myndræn notandaskil með tólum til "
-"hugbúnaðarþróunar og kerfisstjórnun."
+"hugbúnaðarþróunar og kerfisstjórnunar."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -7069,9 +7057,8 @@ msgid "Madeira Islands"
 msgstr "Madeira Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Rúmanska"
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -7154,9 +7141,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "Queensland - flestir staðir"
+msgstr "flestir staðir"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7237,9 +7223,8 @@ msgid "Northern Territory"
 msgstr "Northern Territory"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Pacific Time - north Yukon"
+msgstr "Pacific Time"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -7472,107 +7457,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "Vinsamlegast breyttu ræsimerkinu"
-
-#~ msgid "Base"
-#~ msgstr "Grunnur"
-
-#~ msgid "Printing Support"
-#~ msgstr "Prentarastuðningur"
-
-#~ msgid "Classic X Window System"
-#~ msgstr "Hefðbundið X gluggakerfi"
-
-#~ msgid "X Window System"
-#~ msgstr "X gluggakerfið"
-
-#~ msgid "Laptop Support"
-#~ msgstr "Kjöltutölvustuðningur"
-
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "Hljóð og margmiðlunarstuðningur"
-
-#~ msgid "Network Support"
-#~ msgstr "Netstuðningur"
-
-#~ msgid "Dialup Support"
-#~ msgstr "Upphringistuðningur"
-
-#~ msgid "Messaging and Web Tools"
-#~ msgstr "Samskipta og veftól"
-
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "Umsýsla með grafík"
-
-#~ msgid "News Server"
-#~ msgstr "Fréttaþjónn"
-
-#~ msgid "NFS File Server"
-#~ msgstr "NFS þjónn"
-
-#~ msgid "Windows File Server"
-#~ msgstr "Skráarþjónn fyrir Windows"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "Þjónn fyrir nafnlaust FTP"
-
-#~ msgid "SQL Database Server"
-#~ msgstr "SQL gagnagrunnsþjónn"
-
-#~ msgid "Web Server"
-#~ msgstr "Vefþjónn"
-
-#~ msgid "Router / Firewall"
-#~ msgstr "Beinir / Eldveggur"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "DNS nafnaþjónn"
-
-#~ msgid "Network Managed Workstation"
-#~ msgstr "Vinnustöð stýrð af neti"
-
-#~ msgid "Authoring and Publishing"
-#~ msgstr "Umbrot og ritstörf"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "Utilities"
-#~ msgstr "Tól"
-
-#~ msgid "Legacy Application Support"
-#~ msgstr "Stuðningur fyrir gömul forrit"
-
-#~ msgid "Software Development"
-#~ msgstr "Hugbúnaðarþróun"
-
-#~ msgid "Kernel Development"
-#~ msgstr "Kjarnaþróun"
-
-#~ msgid "Windows Compatibility / Interoperability"
-#~ msgstr "Windows samhæfni"
-
-#~ msgid "Games and Entertainment"
-#~ msgstr "Leikir og önnur skemmtun"
-
-#~ msgid ""
-#~ "Unable to create symlink for /var/tmp.  This should only happen if there "
-#~ "were errors creating your filesystems.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Get ekki búið til tákntengið /var/tmp.  Þetta ætti einungis að eiga sér "
-#~ "stað ef upp komu villur við gerð skráarkerfa.\n"
-#~ "\n"
-#~ "Veldu Í lagi hnappinn til að endurræsa."
-
-#~ msgid "Attempting to start VGA16 X server"
-#~ msgstr "Reyni að ræsa VGA16 X þjón"
-
-#~ msgid "The following software will be installed:"
-#~ msgstr "Eftirfarandi hugbúnaður verður settur upp:"
-
-#~ msgid "delete"
-#~ msgstr "eyða"

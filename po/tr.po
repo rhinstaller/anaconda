@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda \n"
 "POT-Creation-Date: 2002-08-02 03:06-0400\n"
-"PO-Revision-Date: 2002-07-30 21:26+0300\n"
+"PO-Revision-Date: 2002-08-10 17:45+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -59,37 +59,35 @@ msgid "Probing for video card:   "
 msgstr "Ekran kartý için algýlama: "
 
 #: ../anaconda:412
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for video card:   %s"
-msgstr "Ekran kartý için algýlama: "
+msgstr "Ekran kartý algýlamasý:   %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
 msgstr "Monitör türü için algýlama: "
 
 #: ../anaconda:417
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for monitor type: %s"
-msgstr "Monitör türü için algýlama: "
+msgstr "Monitör türü algýlamasý:  %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
 msgstr "Fare türü için algýlama:   "
 
 #: ../anaconda:430
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for mouse type:   %s"
-msgstr "Fare türü için algýlama:   "
+msgstr "Fare türü algýlamasý:     %s"
 
 #: ../anaconda:432 ../anaconda:433
-#, fuzzy
 msgid "Skipping mouse probe."
-msgstr "Fare algýlamasý atlanýyor.\n"
+msgstr "Fare algýlamasý atlanýyor."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "%s kurulumlarýnda grafik kipi kurulum yapýlamýyor.  Metin kipi kuruluma "
 "geçiliyor."
@@ -374,8 +372,7 @@ msgstr "Yazýldý"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"Sisteminizin durumu diskete kaydedildi. Sistem þimdi yeniden baþlatýlacak."
+msgstr "Sisteminizin durumu diskete kaydedildi. Sistem þimdi yeniden baþlatýlacak."
 
 #: ../floppy.py:59
 msgid "Insert a floppy disk"
@@ -691,23 +688,20 @@ msgid "Release notes are missing.\n"
 msgstr "Daðýtým notlarý bulunamadý.\n"
 
 #: ../gui.py:805
-#, fuzzy
 msgid "Error!"
-msgstr "Hata"
+msgstr "Hata!"
 
 #: ../gui.py:806
-msgid ""
-"An error occured when attempting to load an installer interface component."
-msgstr ""
+msgid "An error occured when attempting to load an installer interface component."
+msgstr "Kurulum programýnýn bir arabirim elemaný yüklenmeye çalýþýlýrken bir hata oluþtu."
 
 #: ../gui.py:810 ../packages.py:1039 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "Çý_kýþ"
 
 #: ../gui.py:811
-#, fuzzy
 msgid "_Retry"
-msgstr "Tekrar dene"
+msgstr "_Tekrar dene"
 
 #: ../gui.py:813 ../packages.py:1042
 msgid "Rebooting System"
@@ -812,8 +806,7 @@ msgstr "Sistemde Kurulum"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Makina ismi bir harf ile baþlamalýdýr. Türkçeye özgü harfleri kullanmayýnýz."
+msgstr "Makina ismi bir harf ile baþlamalýdýr. Türkçeye özgü harfleri kullanmayýnýz."
 
 #: ../network.py:44
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1114,12 +1107,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "Hata - oylum grup ismi %s uygun bir isim deðil."
 
 #: ../partIntfHelpers.py:47
-#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Hata - oylum grubu ismi kuraldýþý karakterler ya da boþluklar içeriyor."
+"Hata - oylum grubu ismi kuraldýþý karakterler ya da boþluklar içeriyor.  "
+"Sadece harfler, rakamlar ile '.' ve '_' karakterleri kullanýlabilir."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1135,12 +1128,12 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "Hata - mantýksal oylum ismi %s uygun bir isim deðil."
 
 #: ../partIntfHelpers.py:71
-#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Hata - mantýksal oylum ismi kuraldýþý karakterler ya da boþluklar içeriyor."
+"Hata - mantýksal oylum ismi kuraldýþý karakterler ya da boþluklar içeriyor.  "
+"Sadece harfler, rakamlar ile '.' ve '_' karakterleri kullanýlabilir."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -1199,8 +1192,7 @@ msgstr "Boþ alaný silemezsiniz."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Bu bölümü silemezsiniz. Bu bölüm %s bölümünü de içeren mantýksal ek bölümdür."
+msgstr "Bu bölümü silemezsiniz. Bu bölüm %s bölümünü de içeren mantýksal ek bölümdür."
 
 #: ../partIntfHelpers.py:183
 msgid ""
@@ -1405,10 +1397,8 @@ msgid "Confirm Reset"
 msgstr "Sýfýrlama Onayý"
 
 #: ../partIntfHelpers.py:536
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Bu bölümü eski (orjinal) durumuna getirmek istediðinizden emin misiniz?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Bu bölümü eski (orjinal) durumuna getirmek istediðinizden emin misiniz?"
 
 #: ../partitioning.py:83
 msgid "Installation cannot continue."
@@ -1442,8 +1432,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"%s kurulumuna devam edebilmek için bir kök disk bölümü (/) belirtmelisiniz."
+msgstr "%s kurulumuna devam edebilmek için bir kök disk bölümü (/) belirtmelisiniz."
 
 #: ../partitions.py:742
 #, python-format
@@ -1453,8 +1442,7 @@ msgid ""
 msgstr "Kök disk bölümü 250 MBdan küçük ve %s kurulumu için bu alan yetersiz."
 
 #: ../partitions.py:749
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "FAT türünde 50 MBlýk bir /boot/efi disk bölümü oluþturmalýsýnýz."
 
 #: ../partitions.py:757
@@ -1512,10 +1500,8 @@ msgstr "bir LVM Oylum Grubunun üyesi olan bir bölüm."
 
 #: ../partRequests.py:214
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Bu baðlama noktasý geçersiz. %s dizini / dosya sisteminde bulunmalýdýr."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Bu baðlama noktasý geçersiz. %s dizini / dosya sisteminde bulunmalýdýr."
 
 #: ../partRequests.py:219
 msgid "This mount point must be on a linux file system."
@@ -1535,8 +1521,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s bölümünün boyu (%10.2f MB) %10.2f MBlýk mümkün en büyük boyuttan fazla."
+msgstr "%s bölümünün boyu (%10.2f MB) %10.2f MBlýk mümkün en büyük boyuttan fazla."
 
 #: ../partRequests.py:436
 #, python-format
@@ -1725,17 +1710,14 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s © 2002 Red Hat, Inc."
 
 #: ../text.py:335
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"<F1> yardým  |  Gezinmek için <Tab>  |  <Boþluk> seçer  | <F12> sonraki ekran"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "<F1> yardým  |  Gezinmek için <Tab>  |  <Boþluk> seçer  | <F12> sonraki ekran"
 
 #: ../text.py:337
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
+msgstr " <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
 
 #: ../text.py:435
 msgid "Cancelled"
@@ -1831,8 +1813,7 @@ msgstr "Güncellenecek paketler belirleniyor..."
 
 #: ../upgrade.py:316
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr ""
-"RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir."
+msgstr "RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir."
 
 #: ../upgrade.py:334
 msgid "An error occurred when finding the packages to upgrade."
@@ -1976,9 +1957,8 @@ msgid "Enter the root (administrator) password for the system."
 msgstr "root (sistem yöneticisi) parolasýný girin."
 
 #: ../iw/account_gui.py:361
-#, fuzzy
 msgid "Root _Password: "
-msgstr "Root Parolasý: "
+msgstr "Root _Parolasý: "
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
@@ -2339,7 +2319,7 @@ msgid "Click next to begin installation of %s."
 msgstr "%s kurulumuna baþlamak için Ýleri'ye týklayýn."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the %s file after "
 "rebooting your system.\n"
@@ -2350,8 +2330,8 @@ msgstr ""
 "Kurulum sýrasýnda tutulan günlük kayýtlarýný sisteminizi yeniden "
 "baþlattýðýnýzda %s dosyasýnda bulabilirsiniz.\n"
 "\n"
-"Kurulumu kolayca tekrarlayabilmenizi saðlayacak kickstart dosyasýný da "
-"sisteminizde %s dosyasý olarak bulabilirsiniz."
+"Kurulumda seçilen seçenekleri içeren kickstart dosyasýný da sisteminizi "
+"yeniden baþlattýðýnýzda %s dosyasý olarak bulabilirsiniz."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -2895,8 +2875,7 @@ msgstr "Mantýksal oylum ismi uygun deðil"
 #: ../iw/lvm_dialog_gui.py:535
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Mantýksal oylum ismi \"%s\" kullanýmda. Lütfen baþka bir isim belirtin."
+msgstr "Mantýksal oylum ismi \"%s\" kullanýmda. Lütfen baþka bir isim belirtin."
 
 #: ../iw/lvm_dialog_gui.py:549
 #, python-format
@@ -3168,7 +3147,6 @@ msgid "The IP information you have entered is invalid."
 msgstr "Girilen IP bilgisi geçersiz."
 
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3178,7 +3156,11 @@ msgid ""
 "activated automatically."
 msgstr ""
 "Etkin bir að baðdaþtýrýcýnýz yok. En azýndan bir baðdaþtýrýcý etkin "
-"olmadýkça sisteminiz bir að üzerinden haberleþme yapamayacaktýr."
+"olmadýkça sisteminiz bir að üzerinden haberleþme yapamayacaktýr.\n"
+"\n"
+"BÝLGÝ: Bir PCMCIA að baþdaðtýrýcýnýz varsa bu noktada onun etkin olmasýný "
+"saðlamasanýz da olur. Sisteminizi yeniden baþlattýðýnýzda aygýt otomatik "
+"olarak etkin olacaktýr."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3277,64 +3259,52 @@ msgid "Confirm:"
 msgstr "Onayla :"
 
 #: ../iw/old_bootloader_gui.py:156
-#, fuzzy
 msgid "No password"
-msgstr "root Parolasý"
+msgstr "Parolasý yok"
 
 #: ../iw/old_bootloader_gui.py:158
-#, fuzzy
 msgid "Change _Password"
-msgstr "Parolayý _deðiþtir"
+msgstr "Parolayý _Deðiþtir"
 
 #: ../iw/old_bootloader_gui.py:248
-#, fuzzy
 msgid "_Use a Boot Loader Password"
-msgstr "Önyükleyici parolasý _kullanýlsýn"
+msgstr "Önyükleyici Parolasý _Kullanýlsýn"
 
 #: ../iw/old_bootloader_gui.py:249
-#, fuzzy
 msgid "Set _Password"
-msgstr "_Parola:"
+msgstr "_Parola"
 
 #: ../iw/old_bootloader_gui.py:265
-#, fuzzy
 msgid "Force the use of LBA32 extensions for booting (not normally required)"
-msgstr "LBA32 kullanýmýna zorla (normalde gerekmez)"
+msgstr "Açýlýþ için LBA32 kullanýmýna zorla (normalde gerekmez)"
 
 #: ../iw/old_bootloader_gui.py:269
-#, fuzzy
 msgid "_Force LBA32"
-msgstr "LBA32 kullanýlsýn"
+msgstr "_LBA32 kullanýlsýn"
 
 #: ../iw/old_bootloader_gui.py:273
-#, fuzzy
 msgid "General kernel parameters"
-msgstr "_Genel çekirdek parametreleri"
+msgstr "Genel çekirdek parametreleri"
 
 #: ../iw/old_bootloader_gui.py:323 ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Bellekeþlemi"
 
 #: ../iw/old_bootloader_gui.py:330
-#, fuzzy
 msgid ""
 "The label is what is displayed in the boot loader to choose to boot this "
 "operating system.  The device is the device which it boots from."
 msgstr ""
-"Önyükleme etiketi açýlýþýný yapmak istediðiniz iþletim sistemini seçmenizi "
-"saðlayan ve önyükleyiciye gösterilen bir isimdir. Önyükleme aygýtý ise "
-"sistemden önce çalýþýp sistem seçimini saðlayan önyükleme alanýnýn "
-"bulunacaðý aygýttýr."
+"Etiket, açýlýþta bu iþletim sistemini seçmenizi saðlayacaktýr."
+"Aygýt ise sistemin açýlacaðý aygýttýr."
 
 #: ../iw/old_bootloader_gui.py:342 ../iw/osbootwidget.py:64
-#, fuzzy
 msgid "Label"
-msgstr "_Etiket"
+msgstr "Etiket"
 
 #: ../iw/old_bootloader_gui.py:381
-#, fuzzy
 msgid "Default Boot Target"
-msgstr "Öntanýmlý Açýlýþ _Hedefi"
+msgstr "Öntanýmlý Açýlýþ Hedefi"
 
 #: ../iw/old_bootloader_gui.py:410 ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -3374,11 +3344,11 @@ msgstr ""
 
 #: ../iw/old_bootloader_gui.py:645
 msgid "Insert some text about booting other operating systems"
-msgstr ""
+msgstr "Diðer iþletim sistemlerinin açýlýþý hakkýnda biraz daha bilgi girebilirsiniz"
 
 #: ../iw/old_bootloader_gui.py:763
 msgid "Blah, this is the BIOS drive order, more information, etc"
-msgstr ""
+msgstr "BIOS sürücü sýralamasý, biraz ek bilgi, v.s"
 
 #: ../iw/osbootwidget.py:41
 msgid ""
@@ -3610,14 +3580,12 @@ msgid "Partitioning"
 msgstr "Bölümlendirme"
 
 #: ../iw/partition_gui.py:612
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Ýstediðiniz bölümleme þemasýna baðlý olarak aþaðýdaki hatalar oluþtu."
 
 #: ../iw/partition_gui.py:615
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "%s kurulumuna devam etmeden önce bu hatalar giderilmelidir."
 
 #: ../iw/partition_gui.py:621
@@ -3815,8 +3783,7 @@ msgstr "Otomatik Bölümlendirme"
 #: ../iw/partition_gui.py:1398
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"%s kurulumunun yapýlabilmesi için en azýndan bir aygýt belirtmelisiniz."
+msgstr "%s kurulumunun yapýlabilmesi için en azýndan bir aygýt belirtmelisiniz."
 
 #: ../iw/partition_gui.py:1440
 msgid "I want to have automatic partitioning:"
@@ -4220,8 +4187,7 @@ msgstr "Bu, mevcut önyükleyiciyi güncelleyecektir."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Kurulum programý %s önyükleyicisini %s üzerinde saptadý."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4354,8 +4320,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Bir takas dosyasý 1-2000 MB arasýnda olabilir."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Takas bölümünün seçildiði aygýtta yeterli yer yok."
 
 #: ../iw/welcome_gui.py:20
@@ -4670,10 +4635,8 @@ msgstr ""
 "etiketlerini belirtin."
 
 #: ../textw/bootloader_text.py:310
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"  <Boþluk> seçer  |  <F2>  Öntanýmlý sistemi seçer  |  <F12>  sonraki ekran "
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "  <Boþluk> seçer  |  <F2>  Öntanýmlý sistemi seçer  |  <F12>  sonraki ekran "
 
 #: ../textw/bootloader_text.py:399
 msgid "Use a GRUB Password"
@@ -5099,8 +5062,7 @@ msgid "Total size"
 msgstr "Toplam boyut"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
 "    <Boþluk>,<+>,<-> seçim yap   |   <F1> yardým   |   <F2> paket "
 "tanýmý      "
@@ -5329,20 +5291,16 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1108
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Yardým             F3-Düzenle   F4-Sil    F5-Baþtan     F12-Tamam      "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Yardým             F3-Düzenle   F4-Sil    F5-Baþtan     F12-Tamam      "
 
 #: ../textw/partition_text.py:1110
 msgid "New"
 msgstr "Yeni"
 
 #: ../textw/partition_text.py:1116
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Yardým    F2-Yeni    F3-Düzenle   F4-Sil    F5-Baþtan     F12-Tamam    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Yardým    F2-Yeni    F3-Düzenle   F4-Sil    F5-Baþtan     F12-Tamam    "
 
 #: ../textw/partition_text.py:1145
 msgid "No Root Partition"
@@ -5565,8 +5523,7 @@ msgstr "Hatalý Kullanýcý Adý"
 
 #: ../textw/userauth_text.py:114
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
-"Kullanýcý isimleri A-Z, a-z ve 0-9 aralýðýndaki karakterleri içermelidir."
+msgstr "Kullanýcý isimleri A-Z, a-z ve 0-9 aralýðýndaki karakterleri içermelidir."
 
 #: ../textw/userauth_text.py:121
 msgid "Missing User Name"
@@ -5586,14 +5543,11 @@ msgid "User Exists"
 msgstr "Kullanýcý Zaten Var"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Root kullanýcýsý daha önce tanýmlandý. Yeniden tanýmlamaya gerek yoktur."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Root kullanýcýsý daha önce tanýmlandý. Yeniden tanýmlamaya gerek yoktur."
 
 #: ../textw/userauth_text.py:151
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "Sistem kullanýcýsý daha önce tanýmlandý. Buraya eklemeye gerek yok."
 
 #: ../textw/userauth_text.py:159
@@ -5987,12 +5941,11 @@ msgid "Upgrade"
 msgstr "Güncelleme"
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"Bu seçenek yazýlým geliþtirme ve sistem yönetimi araçlarý içeren bir "
+"Bu seçenek yazýlým geliþtirme ve sistem yönetimi araçlarýyla bir "
 "masaüstü ortamý kurar."
 
 #: ../loader/cdrom.c:31
@@ -6094,10 +6047,8 @@ msgid "Welcome to %s"
 msgstr "%s'a Hoþ Geldiniz"
 
 #: ../loader/lang.c:42 ../loader/loader.c:205
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
 
 #: ../loader/lang.c:305
 msgid "Choose a Language"
@@ -6384,8 +6335,7 @@ msgstr ""
 #: ../loader/loader.c:3708
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s sistem kurulum programý, anaconda çalýþtýrýlýyor - lütfen bekleyiniz...\n"
+msgstr "%s sistem kurulum programý, anaconda çalýþtýrýlýyor - lütfen bekleyiniz...\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
@@ -6626,8 +6576,7 @@ msgstr "DNS denetimi yok"
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-" Gezinmek için <Tab>/<Alt-Tab>   |   <Boþluk> seçer   |   <F12> sonraki ekran"
+msgstr " Gezinmek için <Tab>/<Alt-Tab>   |   <Boþluk> seçer   |   <F12> sonraki ekran"
 
 #: ../loader/net.c:905
 #, c-format
@@ -6818,8 +6767,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Zamaný - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "Atlantik Zamaný - Nova Scotia, NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
@@ -6999,8 +6947,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Doðu Zamaný - Ontario ve Quebec - çoðu yerleri"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Doðu Zamaný - Ontario ve Quebec - bazý yerleri"
 
 #. generated from zone.tab
@@ -7080,9 +7027,8 @@ msgid "Madeira Islands"
 msgstr "Maderya Adalarý"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Romence"
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -7165,9 +7111,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskova+10 - Bering Boðazý"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "Queensland - çoðu bölgeleri"
+msgstr "çoðu bölgeleri"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7178,10 +7123,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Dað Standart Zamaný - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Dað Standart Zamaný - Dawson Creek ve Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Dað Standart Zamaný - Dawson Creek ve Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7248,9 +7191,8 @@ msgid "Northern Territory"
 msgstr "Kuzey Topraklarý"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Pasifik Zamaný - Kuzey Yukon"
+msgstr "Pasifik Zamaný"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -8051,3 +7993,4 @@ msgstr "Ukraynaca"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "Brezilya Portekizcesi"
+

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-08-02 03:06-0400\n"
-"PO-Revision-Date: 2002-07-31 13:18+0100\n"
+"PO-Revision-Date: 2002-08-02 11:03+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -98,41 +98,39 @@ msgid "OK"
 msgstr "OK"
 
 #: ../anaconda:409
-#, fuzzy
 msgid "Unable to probe"
-msgstr "Não consegui detectar\n"
+msgstr "Não foi possível detectar"
 
 #: ../anaconda:411
 msgid "Probing for video card:   "
 msgstr "A detectar placa gráfica: "
 
 #: ../anaconda:412
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for video card:   %s"
-msgstr "A detectar placa gráfica: "
+msgstr "A detectar placa gráfica: %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
 msgstr "A detectar o tipo de monitor: "
 
 #: ../anaconda:417
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for monitor type: %s"
-msgstr "A detectar o tipo de monitor: "
+msgstr "A detectar o tipo de monitor: %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
 msgstr "A detectar o tipo de rato:    "
 
 #: ../anaconda:430
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for mouse type:   %s"
-msgstr "A detectar o tipo de rato:    "
+msgstr "A detectar o tipo de rato: %s"
 
 #: ../anaconda:432 ../anaconda:433
-#, fuzzy
 msgid "Skipping mouse probe."
-msgstr "Detecção de rato não efectuada.\n"
+msgstr "Detecção de rato não efectuada."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
@@ -747,23 +745,21 @@ msgid "Release notes are missing.\n"
 msgstr "As notas da versão não foram encontradas.\n"
 
 #: ../gui.py:805
-#, fuzzy
 msgid "Error!"
-msgstr "Erro"
+msgstr "Erro!"
 
 #: ../gui.py:806
 msgid ""
 "An error occured when attempting to load an installer interface component."
-msgstr ""
+msgstr "Ocorreu um erro ao tentar carregar um componente de interface do instalador."
 
 #: ../gui.py:810 ../packages.py:1039 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Sair"
 
 #: ../gui.py:811
-#, fuzzy
 msgid "_Retry"
-msgstr "Repetir"
+msgstr "_Repetir"
 
 #: ../gui.py:813 ../packages.py:1042
 msgid "Rebooting System"
@@ -1167,12 +1163,10 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "Erro - o nome do grupo de volumes %s não é válido."
 
 #: ../partIntfHelpers.py:47
-#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"Erro - o nome do grupo de volumes contém caracteres ilegais  ou espaços."
+msgstr "Erro - o nome do grupo de volumes contém caracteres ilegais ou espaços.  Os caracteres aceites são letras, digitos, '.' ou '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1188,11 +1182,10 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "Erro - o nome do volume lógico %s não é válido."
 
 #: ../partIntfHelpers.py:71
-#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Erro - o nome do volume lógico contém caracteres ilegais ou espaços."
+msgstr "Erro - o nome do volume lógico contém caracteres ilegais ou espaços.  Os caracteres aceites são letras, digitos, '.' ou '_'."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -2053,9 +2046,8 @@ msgid "Enter the root (administrator) password for the system."
 msgstr "Insira a senha do 'root' (administrador) deste sistema."
 
 #: ../iw/account_gui.py:361
-#, fuzzy
 msgid "Root _Password: "
-msgstr "Senha de root"
+msgstr "Senha de _Root: "
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
@@ -2421,7 +2413,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Carregue em próximo para começar a instalar o %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the %s file after "
 "rebooting your system.\n"
@@ -2429,11 +2421,9 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the %s file after rebooting the system."
 msgstr ""
-"Poder-se-á encontrar um registo completo da instalação no ficheiro %s depois "
-"de reiniciar o seu sistema.\n"
+"Pode encontrar um registo completo do processo de instalação no ficheiro %s depois de reiniciar o seu sistema.\n"
 "\n"
-"Poder-se-á também encontrar um ficheiro de 'kickstart' com as opções de "
-"instalação seleccionadas no ficheiro %s depois de reiniciar o sistema"
+"Pode também encontrar um ficheiro 'kickstart' com as opções de instalação seleccionadas no ficheiro %s."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -3253,7 +3243,6 @@ msgid "The IP information you have entered is invalid."
 msgstr "Os dados IP inseriu são inválidos."
 
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3262,9 +3251,9 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"O utilizador não tem dispositivos de rede activos. O seu sistema não "
-"conseguirá comunicar com uma rede sem ter predefinido pelo menos um "
-"dispositivo activo."
+"Não tem dispositivos de rede activos.  O seu sistema não conseguirá comunicar com uma rede sem ter pelo menos um dispositivo activo.\n"
+"\n"
+"NOTA: Se tem uma placa de rede PCMCIA deve deixá-la inactiva por agora. Quando reiniciar o seu computador a placa será activada automaticamente."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3362,63 +3351,50 @@ msgid "Confirm:"
 msgstr "Confirme:"
 
 #: ../iw/old_bootloader_gui.py:156
-#, fuzzy
 msgid "No password"
-msgstr "Senha de root"
+msgstr "Sem senha"
 
 #: ../iw/old_bootloader_gui.py:158
-#, fuzzy
 msgid "Change _Password"
-msgstr "Alterar a _senha"
+msgstr "Alterar a _Senha"
 
 #: ../iw/old_bootloader_gui.py:248
-#, fuzzy
 msgid "_Use a Boot Loader Password"
 msgstr "_Utilizar uma senha no gestor de arranque"
 
 #: ../iw/old_bootloader_gui.py:249
-#, fuzzy
 msgid "Set _Password"
-msgstr "_Senha:"
+msgstr "Escolher _Senha"
 
 #: ../iw/old_bootloader_gui.py:265
-#, fuzzy
 msgid "Force the use of LBA32 extensions for booting (not normally required)"
-msgstr "Forçar utilização de LBA32 (não é normalmente necessário)"
+msgstr "Forçar utilização das extensões LBA32 (não é normalmente necessário)"
 
 #: ../iw/old_bootloader_gui.py:269
-#, fuzzy
 msgid "_Force LBA32"
-msgstr "Forçar o modo LBA32"
+msgstr "_Forçar o modo LBA32"
 
 #: ../iw/old_bootloader_gui.py:273
-#, fuzzy
 msgid "General kernel parameters"
-msgstr "Parâmetros _gerais do kernel"
+msgstr "Parâmetros gerais do kernel"
 
 #: ../iw/old_bootloader_gui.py:323 ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Imagem"
 
 #: ../iw/old_bootloader_gui.py:330
-#, fuzzy
 msgid ""
 "The label is what is displayed in the boot loader to choose to boot this "
 "operating system.  The device is the device which it boots from."
-msgstr ""
-"Indique uma etiqueta a ser mostrada no menu do gestor de arranque. O "
-"dispositivo (ou disco rígido e número de partição) é o dispositivo a partir "
-"do qual ele arranca."
+msgstr "O texto a ser mostrado no menu do gestor de arranque para escolher iniciar este sistema operativo.  O dispositivo é o dispositivo a partir do qual ele arranca."
 
 #: ../iw/old_bootloader_gui.py:342 ../iw/osbootwidget.py:64
-#, fuzzy
 msgid "Label"
-msgstr "_Nome"
+msgstr "Nome"
 
 #: ../iw/old_bootloader_gui.py:381
-#, fuzzy
 msgid "Default Boot Target"
-msgstr "Imagem de Arranque por _Omissão"
+msgstr "Imagem de Arranque por Omissão"
 
 #: ../iw/old_bootloader_gui.py:410 ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -3459,11 +3435,11 @@ msgstr ""
 
 #: ../iw/old_bootloader_gui.py:645
 msgid "Insert some text about booting other operating systems"
-msgstr ""
+msgstr "Inserir texto acerca arrancar outros sistemas operativos"
 
 #: ../iw/old_bootloader_gui.py:763
 msgid "Blah, this is the BIOS drive order, more information, etc"
-msgstr ""
+msgstr "Blah, ordem de drives da BIOS, mais informações, etc"
 
 #: ../iw/osbootwidget.py:41
 msgid ""
@@ -6099,13 +6075,10 @@ msgid "Upgrade"
 msgstr "Actualizar"
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr ""
-"Esta opção instala um ambiente de trabalho gráfico com ferramentas para o "
-"desenvolvimento de 'software' e para a administração de sistemas."
+msgstr "Esta opção instala um ambiente de trabalho gráfico com ferramentas para o desenvolvimento de software e para a administração de sistemas. "
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -7202,9 +7175,8 @@ msgid "Madeira Islands"
 msgstr "Ilha da Madeira"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Romeno"
+msgstr "continente"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -7287,9 +7259,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscovo+10 - Mar de Bering"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "Queensland - maior parte dos locais"
+msgstr "maior parte dos locais"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7372,9 +7343,8 @@ msgid "Northern Territory"
 msgstr "Território do Norte"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Hora do Pacífico - Yukon norte"
+msgstr "Hora do Pacífico"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -7607,90 +7577,3 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "Editar Nome de Arranque"
-
-#~ msgid "Base"
-#~ msgstr "Base"
-
-#~ msgid "Printing Support"
-#~ msgstr "Suporte a Impressão"
-
-#~ msgid "Classic X Window System"
-#~ msgstr "X Window System Clássico"
-
-#~ msgid "X Window System"
-#~ msgstr "X Window System"
-
-#~ msgid "Laptop Support"
-#~ msgstr "Suporte a Portáteis"
-
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "Suporte a Som e Multimédia"
-
-#~ msgid "Network Support"
-#~ msgstr "Suporte a Rede"
-
-#~ msgid "Dialup Support"
-#~ msgstr "Suporte a Ligações por Modem"
-
-# ../comps/comps-master:646
-#~ msgid "Messaging and Web Tools"
-#~ msgstr "Ferramentas Web e 'Messaging'"
-
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "Manipulação Gráfica e de Imagens"
-
-#~ msgid "News Server"
-#~ msgstr "Servidor de Notícias"
-
-#~ msgid "NFS File Server"
-#~ msgstr "Servidor de Ficheiros NFS"
-
-#~ msgid "Windows File Server"
-#~ msgstr "Servidor de Ficheiros Windows"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "Servidor FTP Anónimo"
-
-#~ msgid "SQL Database Server"
-#~ msgstr "Servidor de Bases de Dados SQL"
-
-#~ msgid "Web Server"
-#~ msgstr "Servidor Web"
-
-#~ msgid "Router / Firewall"
-#~ msgstr "Router / Firewall"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "Servidor de Nomes DNS"
-
-#~ msgid "Network Managed Workstation"
-#~ msgstr "Estação de Trabalho Gerida por Rede"
-
-#~ msgid "Authoring and Publishing"
-#~ msgstr "Autoria e Publicação"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "Utilities"
-#~ msgstr "Utilitários"
-
-#~ msgid "Legacy Application Support"
-#~ msgstr "Suporte a Aplicações Legadas"
-
-#~ msgid "Software Development"
-#~ msgstr "Desenvolvimento de Software"
-
-#~ msgid "Kernel Development"
-#~ msgstr "Desenvolvimento do Kernel"
-
-# ../comps/comps-master:1162
-#~ msgid "Windows Compatibility / Interoperability"
-#~ msgstr "Compatibilidade / Interoperabilidade com o Windows"
-
-# ../comps/comps-master:1180
-#~ msgid "Games and Entertainment"
-#~ msgstr "Jogos e Entretenimento"

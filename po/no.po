@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-08-02 03:06-0400\n"
-"PO-Revision-Date: 2002-07-23 12:13+0200\n"
+"PO-Revision-Date: 2002-08-02 20:41+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -59,32 +59,31 @@ msgid "Probing for video card:   "
 msgstr "Søker etter skjermkort:   "
 
 #: ../anaconda:412
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for video card:   %s"
-msgstr "Søker etter skjermkort:   "
+msgstr "Søker etter skjermkort:   %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
 msgstr "Søker etter skjermtype: "
 
 #: ../anaconda:417
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for monitor type: %s"
-msgstr "Søker etter skjermtype: "
+msgstr "Søker etter skjermtype: %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
 msgstr "Søker etter mustype:   "
 
 #: ../anaconda:430
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for mouse type:   %s"
-msgstr "Søker etter mustype:   "
+msgstr "Søker etter mustype:   %s"
 
 #: ../anaconda:432 ../anaconda:433
-#, fuzzy
 msgid "Skipping mouse probe."
-msgstr "Hopper over søk etter mus.\n"
+msgstr "Hopper over søk etter mus."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
@@ -672,9 +671,8 @@ msgid "Release notes are missing.\n"
 msgstr "Notis for denne utgaven mangler.\n"
 
 #: ../gui.py:805
-#, fuzzy
 msgid "Error!"
-msgstr "Feil"
+msgstr "Feil!"
 
 #: ../gui.py:806
 msgid ""
@@ -686,9 +684,8 @@ msgid "_Exit"
 msgstr "A_vslutt"
 
 #: ../gui.py:811
-#, fuzzy
 msgid "_Retry"
-msgstr "Prøv igjen"
+msgstr "P_røv igjen"
 
 #: ../gui.py:813 ../packages.py:1042
 msgid "Rebooting System"
@@ -1079,11 +1076,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "Feil - gruppenavn for volum, %s, er ikke gyldig."
 
 #: ../partIntfHelpers.py:47
-#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Feil - gruppenavn for volum inneholder ugyldige tegn eller mellomrom."
+msgstr ""
+"Feil - gruppenavn for volum inneholder ugyldige tegn eller mellomrom.\n"
+"Gyldige tegn er bokstaver, tall «.» eller «_»."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1099,11 +1097,12 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "Feil - navn på logisk volum, %s, er ikke gyldig."
 
 #: ../partIntfHelpers.py:71
-#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Feil - navn på logisk volum inneholder ugyldige tegn eller mellomrom."
+msgstr ""
+"Feil - navn på logisk volum inneholder ugyldige tegn eller mellomrom.\n"
+"Gyldige tegn er bokstaver, tall, «.» eller «_»."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -1118,35 +1117,26 @@ msgid "Please specify a mount point for this partition."
 msgstr "Spesifiser et monteringspunkt for denne partisjonen."
 
 #: ../partIntfHelpers.py:109
-#, fuzzy
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Du kan ikke %s denne partisjonen siden den inneholder data for harddisk-"
-"installasjonen."
+msgstr "Denne partisjonen inneholder data for harddisk-installasjonen."
 
 #: ../partIntfHelpers.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
-"Du kan ikke %%s denne partisjonen da den er en del av RAID-enhet /dev/md%s."
+msgstr "Denne partisjonen er en del av RAID-enhet /dev/md%s."
 
 #: ../partIntfHelpers.py:118
-#, fuzzy
 msgid "This partition is part of a RAID device."
-msgstr "Du kan ikke %s denne partisjonen da den er en del av en RAID-enhet."
+msgstr "Denne partisjonen er en del av en RAID-enhet."
 
 #: ../partIntfHelpers.py:123
-#, fuzzy, python-format
+#, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
-"Du kan ikke %%s denne partisjonen siden den er en del av LVM-volumgruppe «%"
-"s»."
+msgstr "Denne partisjonen er en del av LVM-volumgruppe «%s»."
 
 #: ../partIntfHelpers.py:126
-#, fuzzy
 msgid "This partition is part of a LVM volume group."
-msgstr ""
-"Du kan ikke %s denne partisjonen siden den er en del av en LVM-volumgruppe."
+msgstr "Denne partisjonen er en del av en LVM-volumgruppe."
 
 #: ../partIntfHelpers.py:141 ../partIntfHelpers.py:155
 #: ../partIntfHelpers.py:165 ../partIntfHelpers.py:182
@@ -1175,11 +1165,10 @@ msgstr ""
 "inneholder %s"
 
 #: ../partIntfHelpers.py:183
-#, fuzzy
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
-msgstr "Du er i ferd med å slette partisjonen /dev/%s."
+msgstr "Du kan ikke slette denne partisjonen:\n\n"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
 #: ../iw/lvm_dialog_gui.py:682
@@ -1224,11 +1213,10 @@ msgid "You must select a partition to edit"
 msgstr "Du må velge en partisjon for redigering"
 
 #: ../partIntfHelpers.py:319 ../partIntfHelpers.py:362
-#, fuzzy
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
-msgstr "Du er i ferd med å slette partisjonen /dev/%s."
+msgstr "Du kan ikke redigere denne partisjonen:\n\n"
 
 #: ../partIntfHelpers.py:333
 msgid "You must go back and use fdasd to inititalize this partition"
@@ -1945,9 +1933,8 @@ msgid "Enter the root (administrator) password for the system."
 msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
 
 #: ../iw/account_gui.py:361
-#, fuzzy
 msgid "Root _Password: "
-msgstr "Root-passord: "
+msgstr "Root-_passord: "
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
@@ -2422,9 +2409,8 @@ msgid "Personal Desktop"
 msgstr "Personlig skrivebord"
 
 #: ../iw/desktop_choice_gui.py:76
-#, fuzzy
 msgid "Personal Desktop Defaults"
-msgstr "Personlig skrivebord"
+msgstr "Forvalg for personlig skrivebord"
 
 #: ../iw/desktop_choice_gui.py:81
 #, python-format
@@ -3017,7 +3003,6 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP-informasjonen du oppgav er ugyldig."
 
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3026,8 +3011,9 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"Du har ingen aktive nettverksenheter. Systemet ditt vil ikke kunne "
-"kommunisere over et nettverk uten minst en aktiv enhet."
+"Du har ingen aktive nettverksenheter. Systemet ditt vil ikke kunne kommunisere over et nettverk uten minst en aktiv enhet.\n"
+"\n"
+"MERK: Hvis du har et PCMCIA-basert nettverkskort bør du la dette være inaktivt. Når du starter maskinen på nytt vil kortet aktiveres automatisk."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3125,39 +3111,32 @@ msgid "Confirm:"
 msgstr "Bekreft:"
 
 #: ../iw/old_bootloader_gui.py:156
-#, fuzzy
 msgid "No password"
-msgstr "Root-passord"
+msgstr "Uten passord"
 
 #: ../iw/old_bootloader_gui.py:158
-#, fuzzy
 msgid "Change _Password"
 msgstr "Endre _passord"
 
 #: ../iw/old_bootloader_gui.py:248
-#, fuzzy
 msgid "_Use a Boot Loader Password"
 msgstr "Br_uk passord for oppstartslaster"
 
 #: ../iw/old_bootloader_gui.py:249
-#, fuzzy
 msgid "Set _Password"
-msgstr "_Passord:"
+msgstr "Sett _passord"
 
 #: ../iw/old_bootloader_gui.py:265
-#, fuzzy
 msgid "Force the use of LBA32 extensions for booting (not normally required)"
-msgstr "Tvungen bruk av LBA32 (ikke vanligvis nødvendig)"
+msgstr "Tvungen bruk av LBA32-utvidelsene for oppstart (ikke vanligvis nødvendig)"
 
 #: ../iw/old_bootloader_gui.py:269
-#, fuzzy
 msgid "_Force LBA32"
-msgstr "Bruk LBA32"
+msgstr "_Bruk LBA32"
 
 #: ../iw/old_bootloader_gui.py:273
-#, fuzzy
 msgid "General kernel parameters"
-msgstr "_Generelle parametere for kjernen"
+msgstr "Generelle parametere for kjernen"
 
 #: ../iw/old_bootloader_gui.py:323 ../iw/osbootwidget.py:130
 msgid "Image"
@@ -3170,14 +3149,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/old_bootloader_gui.py:342 ../iw/osbootwidget.py:64
-#, fuzzy
 msgid "Label"
-msgstr "_Etikett"
+msgstr "Etikett"
 
 #: ../iw/old_bootloader_gui.py:381
-#, fuzzy
 msgid "Default Boot Target"
-msgstr "Forvalgt opps_tartsmål"
+msgstr "Forvalgt oppstartsmål"
 
 #: ../iw/old_bootloader_gui.py:410 ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -3303,7 +3280,7 @@ msgstr "Valg av pakkegruppe"
 
 #: ../iw/package_gui.py:699
 msgid "Minimal"
-msgstr ""
+msgstr "Minimal"
 
 #: ../iw/package_gui.py:770
 #, python-format
@@ -3581,7 +3558,7 @@ msgstr "Lag en partisjoner med programvare-RAID."
 #: ../iw/partition_gui.py:1217
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "Opprett en RAID-en_het [forvalg=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1221
 #, python-format
@@ -3593,9 +3570,8 @@ msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
 #: ../iw/partition_gui.py:1261
-#, fuzzy
 msgid "The drive clone editor could not be created for some reason."
-msgstr "Kunne ikke montere denne katalogen fra den oppgitte tjeneren"
+msgstr "Editor for diskkloning kunne ikke opprettes av en ukjent grunn."
 
 #: ../iw/partition_gui.py:1308
 msgid "_Reset"
@@ -3630,22 +3606,21 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
 #: ../iw/partition_gui.py:1398
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Du må velge minst en disk for installasjon av %s."
+msgstr "Du må velge minst en harddisk du vil installere %s på."
 
 #: ../iw/partition_gui.py:1440
 msgid "I want to have automatic partitioning:"
 msgstr "Jeg vil bruke automatisk partisjonering:"
 
 #: ../iw/partition_gui.py:1471
-#, fuzzy
 msgid "Select the drive(s) to use for this installation:"
-msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
+msgstr "Velg stasjonen(e) vil du bruke for denne installasjonen:"
 
 #: ../iw/partition_gui.py:1495
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
+msgstr "Se o_ver (og endre om nødvendig) partisjonene som opprettes"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:221
@@ -3655,7 +3630,6 @@ msgid "<Not Applicable>"
 msgstr "<Ikke brukbar>"
 
 #: ../iw/partition_ui_helpers_gui.py:241
-#, fuzzy
 msgid "How would you like to prepare the file system on this partition?"
 msgstr "Hvordan ønsker du å forberede filsystemet på denne partisjonen?"
 
@@ -3795,7 +3769,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:491 ../iw/raid_dialog_gui.py:497
 #: ../iw/raid_dialog_gui.py:509 ../iw/raid_dialog_gui.py:522
 msgid "Source Drive Error"
-msgstr ""
+msgstr "Feil med kildestasjon"
 
 #: ../iw/raid_dialog_gui.py:498
 msgid ""
@@ -3829,14 +3803,13 @@ msgid "Target Drive Error"
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:537
-#, fuzzy
 msgid "Please select the target drives for the clone operation."
-msgstr "Vennligst velg skjermen som er koblet til ditt system."
+msgstr "Vennligst velg målstasjonen for kloneoperasjonen."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Kildestasjon /dev/%s kan ikke velges som målstasjon også."
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -3850,9 +3823,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:617
-#, fuzzy
 msgid "Please select a source drive."
-msgstr "Vennligst sett inn %s-driverdisketten nå."
+msgstr "Vennligst velg en kildestasjon."
 
 #: ../iw/raid_dialog_gui.py:637
 #, python-format
@@ -3876,9 +3848,8 @@ msgid "Final Warning"
 msgstr "Endelig advarsel"
 
 #: ../iw/raid_dialog_gui.py:647
-#, fuzzy
 msgid "Clone Drives"
-msgstr "Tillatte stasjoner:"
+msgstr "Kloning av disker"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
@@ -3901,14 +3872,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/raid_dialog_gui.py:710
-#, fuzzy
 msgid "Source Drive:"
-msgstr "Stasjon:"
+msgstr "Kildestasjon:"
 
 #: ../iw/raid_dialog_gui.py:718
-#, fuzzy
 msgid "Target Drive(s):"
-msgstr "Harddisker"
+msgstr "Målstasjon(er):"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid "Drives"
@@ -4285,14 +4254,11 @@ msgstr ""
 "listen under:"
 
 #: ../iw/xconfig_gui.py:939
-#, fuzzy
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
 "settings."
-msgstr ""
-"I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk for å "
-"bestemme de beste innstillingene for din skjerm."
+msgstr "I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk. Hvis disse innstillingene ikke er riktige må du velge de korrekte selv."
 
 #: ../iw/xconfig_gui.py:1032
 msgid "_Video card RAM: "
@@ -4491,7 +4457,7 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../textw/complete_text.py:44
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -4501,27 +4467,22 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"Gratulerer, konfigurasjonen er fullført.\n"
+"Gratulerer, %s-installasjonen er fullført.\n"
 "\n"
-"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www."
-"redhat.com/errata.\n"
+"%s%sFor informasjon om errata (oppdateringer og feilrettinger), besøk http://www.redhat.com/errata.\n"
 "\n"
-"Informasjon om bruk av systemet er tilgjengelig brukerhåndbøkene for %s på "
-"http://www.redhat.com/docs."
+"Informasjon om bruk av systemet er tilgjengelig brukerhåndbøkene for %s på http://www.redhat.com/docs."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
 msgstr "Installeringen startes"
 
 #: ../textw/confirm_text.py:21
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
-"En komplett logg av installeringen vil befinne seg i /tmp/install.log etter "
-"omstart av systemet. Du vil kanskje beholde denne filen som et "
-"referansepunkt til senere."
+msgstr "En komplett logg av installeringen vil befinne seg i %s etter omstart av systemet. Du vil kanskje beholde denne filen som et referansepunkt til senere."
 
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
@@ -4540,14 +4501,11 @@ msgid "Upgrade to begin"
 msgstr "Oppgraderingen startes"
 
 #: ../textw/confirm_text.py:33
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
-msgstr ""
-"En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log etter "
-"omstart av systemet. Du vil kanskje beholde denne filen som referansepunkt "
-"til senere."
+msgstr "En komplett logg av oppgraderingen vil befinne seg i %s etter omstart av systemet. Du vil kanskje beholde denne filen som referansepunkt til senere."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -4596,7 +4554,6 @@ msgid ""
 msgstr ""
 
 #: ../textw/fdasd_text.py:101
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem or use "
@@ -4604,8 +4561,9 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
-"ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
+"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet eller bruk dasdfmt.\n"
+"\n"
+"Tilbake til fdasd-skjermen?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -4992,7 +4950,6 @@ msgid "File System Options"
 msgstr "Alternativer for filsystem"
 
 #: ../textw/partition_text.py:518
-#, fuzzy
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
@@ -5370,15 +5327,11 @@ msgid "User Account Setup"
 msgstr "Oppsett av brukerkonto"
 
 #: ../textw/userauth_text.py:199
-#, fuzzy
 msgid ""
 "What other user accounts would you like to have on the system? You should "
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
-msgstr ""
-"Hvilken brukerkonto ønsker du å ha på systemet? Du bør ha minst en konto ved "
-"siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer "
-"satt opp."
+msgstr "Hvilke brukerkontoer ønsker du å ha på systemet? Du bør ha minst en konto ved siden av root for vanlig arbeid, men flerbrukersystemer kan ha mange kontoer satt opp."
 
 #: ../textw/userauth_text.py:210
 msgid "User name"
@@ -6127,9 +6080,9 @@ msgstr ""
 "for å kunne fortsette installeringen. Hvis du velge driver nå?"
 
 #: ../loader/loader.c:3708
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Kjører systeminstallasjonen anaconda - vennligst vent...\n"
+msgstr "Kjører anaconda, systeminstallasjonen for %s - vennligst vent...\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
@@ -6831,9 +6784,8 @@ msgid "Madeira Islands"
 msgstr "Madeira"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Rumensk"
+msgstr "fastland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -6916,60 +6868,57 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Beringstredet"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "De fleste steder i Queensland"
+msgstr "de fleste steder"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
+msgstr "de fleste steder (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr "\"Mountain Standard Time\" - Arizona"
+msgstr "«Mountain Standard Time» - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"\"Mountain Standard Time: - Dawson Creek, Fort Saint John, britisk Columbia"
+msgstr "«Mountain Standard Time» - Dawson Creek, Fort Saint John, britisk Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr "\"Mountain Standard Time\" - Sonora"
+msgstr "«Mountain Standard Time» - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "\"Mountain Time\""
+msgstr "«Mountain Time»"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
+msgstr "«Mountain Time» - Alberta, østre britisk Columbia og vest-Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "\"Mountain Time\" - midt-\"Northwest Territories\""
+msgstr "«Mountain Time» - midtre nordvest-territorier"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "\"Mountain Time\" - Chihuahua"
+msgstr "«Mountain Time» - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "\"Mountain Time\" - Navajo"
+msgstr "«Mountain Time» - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr "\"Mountain Time\" - S Baja, Nayarit, Sinaloa"
+msgstr "«Mountain Time» - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "\"Mountain Time\" - sør-Idaho og øst-Oregon"
+msgstr "«Mountain Time» - sør-Idaho og øst-Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "\"Mountain Time\" - vest-\"Northwest Territories\""
+msgstr "«Mountain Time» - vestlige nordvestterritorier"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -7000,21 +6949,20 @@ msgid "Northern Territory"
 msgstr "Nordterritoriet"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "\"Pacific Time\" - nord-Yukon"
+msgstr "«Pacific Time»"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "\"Pacific Time\" - nord-Yukon"
+msgstr "«Pacific Time» - nord-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "\"Pacific Time\" - sør-Yukon"
+msgstr "«Pacific Time» - sør-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "\"Pacific Time\" - vestre Britisk Columbia"
+msgstr "«Pacific Time» - vestre Britisk Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"

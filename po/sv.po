@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-08-02 03:06-0400\n"
-"PO-Revision-Date: 2002-08-01 15:15+0200\n"
+"PO-Revision-Date: 2002-08-07 19:30+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -60,35 +60,34 @@ msgstr "Kan inte testa"
 
 #: ../anaconda:411
 msgid "Probing for video card:   "
-msgstr "Undersöker grafikkort:   "
+msgstr "Undersöker grafikkort:    "
 
 #: ../anaconda:412
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for video card:   %s"
-msgstr "Undersöker grafikkort:   "
+msgstr "Undersöker grafikkort:    %s"
 
 #: ../anaconda:416
 msgid "Probing for monitor type: "
 msgstr "Undersöker bildskärmstyp: "
 
 #: ../anaconda:417
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for monitor type: %s"
-msgstr "Undersöker bildskärmstyp: "
+msgstr "Undersöker bildskärmstyp: %s"
 
 #: ../anaconda:426
 msgid "Probing for mouse type:   "
-msgstr "Undersöker mustyp:   "
+msgstr "Undersöker mustyp:        "
 
 #: ../anaconda:430
-#, fuzzy, c-format
+#, c-format
 msgid "Probing for mouse type:   %s"
-msgstr "Undersöker mustyp:   "
+msgstr "Undersöker mustyp:        %s"
 
 #: ../anaconda:432 ../anaconda:433
-#, fuzzy
 msgid "Skipping mouse probe."
-msgstr "Hoppar över undersökningen av mustyp.\n"
+msgstr "Hoppar över undersökningen av mustyp."
 
 #: ../anaconda:440 ../anaconda:442
 #, c-format
@@ -697,23 +696,23 @@ msgid "Release notes are missing.\n"
 msgstr "Versionsinformation saknas.\n"
 
 #: ../gui.py:805
-#, fuzzy
 msgid "Error!"
-msgstr "Fel"
+msgstr "Fel!"
 
 #: ../gui.py:806
 msgid ""
 "An error occured when attempting to load an installer interface component."
 msgstr ""
+"Ett fel inträffade vid försök att läsa in en gränssnittskomponent för "
+"installationsprogrammet."
 
 #: ../gui.py:810 ../packages.py:1039 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Avsluta"
 
 #: ../gui.py:811
-#, fuzzy
 msgid "_Retry"
-msgstr "Försök igen"
+msgstr "_Försök igen"
 
 #: ../gui.py:813 ../packages.py:1042
 msgid "Rebooting System"
@@ -1120,11 +1119,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "Fel - volymgruppsnamnet %s är inte giltigt."
 
 #: ../partIntfHelpers.py:47
-#, fuzzy
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "Fel - volymgruppsnamnet innehåller otillåtna tecken eller blanktecken."
+msgstr ""
+"Fel - volymgruppsnamnet innehåller otillåtna tecken eller blanktecken. "
+"Tillåtna tecken är bokstäver, siffror, \".\" eller \"-\"."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1140,12 +1140,12 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "Fel - det logiska volymnamnet %s är inte giltigt."
 
 #: ../partIntfHelpers.py:71
-#, fuzzy
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Fel - det logiska volymnamnet innehåller otillåtna tecken eller blanktecken."
+"Fel - det logiska volymnamnet innehåller otillåtna tecken eller "
+"blanktecken. Tillåtna tecken är bokstäver, siffror, \".\" eller \"-\"."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -1984,7 +1984,7 @@ msgstr "Ange ett användar_lösenord:"
 
 #: ../iw/account_gui.py:244
 msgid "Pass_word (confirm):"
-msgstr "Lösen_ord (bekräfta):"
+msgstr "L_ösenord (bekräfta):"
 
 #: ../iw/account_gui.py:253
 msgid "_Full Name:"
@@ -1999,9 +1999,8 @@ msgid "Enter the root (administrator) password for the system."
 msgstr "Ange rootlösenordet (administratörslösenordet) för detta system."
 
 #: ../iw/account_gui.py:361
-#, fuzzy
 msgid "Root _Password: "
-msgstr "Rootlösenord: "
+msgstr "_Rootlösenord: "
 
 #: ../iw/account_gui.py:364
 msgid "_Confirm: "
@@ -2363,7 +2362,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Klicka på Nästa för att starta installationen av %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the %s file after "
 "rebooting your system.\n"
@@ -2375,7 +2374,7 @@ msgstr ""
 "systemet.\n"
 "\n"
 "En kickstart-fil som innehåller de installationsalternativ som valdes kan "
-"hittas i filen %s efter omstart av systemet"
+"hittas i filen %s efter omstart av systemet."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -3189,7 +3188,6 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP-informationen du angav är inte giltig."
 
 #: ../iw/network_gui.py:181
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active.\n"
@@ -3199,7 +3197,12 @@ msgid ""
 "activated automatically."
 msgstr ""
 "Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
-"kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
+"kommunicera över ett nätverk som standard utan åtminstone en aktiv "
+"enhet.\n"
+"\n"
+"OBSERVERA: Om du har ett PCMCIA-baserat nätverkskort bör du lämna det "
+"inaktivt för tillfället. När du startar om ditt system kommer "
+"nätverkskortet att aktiveras automatiskt."
 
 #: ../iw/network_gui.py:200
 #, python-format
@@ -3302,57 +3305,49 @@ msgid "No password"
 msgstr "Inget lösenord"
 
 #: ../iw/old_bootloader_gui.py:158
-#, fuzzy
 msgid "Change _Password"
 msgstr "Byt _lösenord"
 
 #: ../iw/old_bootloader_gui.py:248
-#, fuzzy
 msgid "_Use a Boot Loader Password"
 msgstr "_Använd ett lösenord för startprogrammet"
 
 #: ../iw/old_bootloader_gui.py:249
-#, fuzzy
 msgid "Set _Password"
-msgstr "Ange lösenord"
+msgstr "Ange _lösenord"
 
 #: ../iw/old_bootloader_gui.py:265
-#, fuzzy
 msgid "Force the use of LBA32 extensions for booting (not normally required)"
-msgstr "Tvinga fram användning av LBA32 (behövs normalt inte)"
+msgstr ""
+"Tvinga fram användning av LBA32-tillägg för start (behövs normalt inte)"
 
 #: ../iw/old_bootloader_gui.py:269
-#, fuzzy
 msgid "_Force LBA32"
-msgstr "Tvinga LBA32"
+msgstr "_Tvinga LBA32"
 
 #: ../iw/old_bootloader_gui.py:273
-#, fuzzy
 msgid "General kernel parameters"
-msgstr "_Allmänna parametrar till kärnan"
+msgstr "Allmänna parametrar till kärnan"
 
 #: ../iw/old_bootloader_gui.py:323 ../iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Avbild"
 
 #: ../iw/old_bootloader_gui.py:330
-#, fuzzy
 msgid ""
 "The label is what is displayed in the boot loader to choose to boot this "
 "operating system.  The device is the device which it boots from."
 msgstr ""
-"Ange en etikett som visas i startprogramsmenyn. Enheten (eller hårddisk och "
-"partitionsnummer) är den enhet som den startar från."
+"Etiketten är vad som visas i startprogrammet så att detta operativsystem "
+"kan väljas att startas upp. Enheten är den enhet som den startar från."
 
 #: ../iw/old_bootloader_gui.py:342 ../iw/osbootwidget.py:64
-#, fuzzy
 msgid "Label"
-msgstr "_Etikett"
+msgstr "Etikett"
 
 #: ../iw/old_bootloader_gui.py:381
-#, fuzzy
 msgid "Default Boot Target"
-msgstr "_Standardstartmål"
+msgstr "Standardstartmål"
 
 #: ../iw/old_bootloader_gui.py:410 ../iw/osbootwidget.py:222
 msgid "You must specify a label for the entry"
@@ -6024,13 +6019,12 @@ msgid "Upgrade"
 msgstr "Uppgradera"
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
 "Detta alternativ installerar en grafisk skrivbordsmiljö med verktyg för "
-"programvaruutveckling och systemadministration."
+"programvaruutveckling och systemadministration. "
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -7121,9 +7115,8 @@ msgid "Madeira Islands"
 msgstr "Madeiraöarna"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Rumänska"
+msgstr "fastlandet"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -7206,9 +7199,8 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Berings hav"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "Queensland - större delen"
+msgstr "större delen"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -7288,9 +7280,8 @@ msgid "Northern Territory"
 msgstr "Nordterritoriet"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Stillahavstid - norra Yukon"
+msgstr "Stillahavstid"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
