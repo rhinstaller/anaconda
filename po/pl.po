@@ -220,7 +220,7 @@ msgid "Could not allocate partitions"
 msgstr "Nie można zaalokować partycji"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -229,7 +229,7 @@ msgstr ""
 "Partycja startowa %s nie należy do dysku wykorzystującego schemat tworzenia "
 "partycji BSD. SRM nie będzie mógł wystartować systemu z tej partycji. "
 "Wykorzystaj partycję należącą do dysku korzystającego ze schematu partycji "
-"BSD lub zmień schemat partycji na tym dysku."
+"BSD lub zmień schemat partycji na tym dysku na BSD."
 
 #: ../autopart.py:1024
 #, python-format
@@ -2057,9 +2057,8 @@ msgid ""
 msgstr "Musisz utworzyć partycję /boot/efi typu FAT o wielkości 50 MB."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Musisz stworzyć partycję startową PPC PReP."
+msgstr "Musisz stworzyć partycję startową Apple Bootstrap."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3104,14 +3103,13 @@ msgid "Congratulations"
 msgstr "Gratulacje"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Usuń wszystkie nośniki (dyskietki lub CD-ROMy) wykorzystywane w trakcie "
-"instalacji z komputera i wciśnij \"Restart\" aby zrestartować system.\n"
+"Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i "
+"wciśnij \"Restart\" aby zrestartować system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5420,14 +5418,13 @@ msgid "<Enter> to exit"
 msgstr "Wciśnij <Enter> aby wyjść"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Usuń wszystkie nośniki (dyskietki lub CD-ROMy) wykorzystywane w trakcie "
-"instalacji z komputera i wciśnij <Enter> aby ponownie uruchomić system.\n"
+"Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i "
+"wciśnij <Enter> aby ponownie uruchomić system.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
