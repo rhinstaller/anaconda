@@ -57,9 +57,17 @@ def devify(device):
 
 class LabelFactory:
     def __init__(self):
-        self.labels = {}
+        self.labels = None
 
     def createLabel(self, mountpoint):
+        if self.labels == None:
+            self.labels = {}
+            diskset = partitioning.DiskSet()
+            diskset.openDevices()
+            labels = diskset.getLabels()
+            del diskset
+            self.reserveLabels(labels)
+        
         if len(mountpoint) > 16:
             mountpoint = mountpoint[0:16]
         count = 0
