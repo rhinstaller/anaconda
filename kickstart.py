@@ -1009,6 +1009,14 @@ class KickstartBase(BaseInstallClass):
             if recommended:
                 (size, maxSize) = iutil.swapSuggestion()
                 grow = 1
+        # if people want to specify no mountpoint for some reason, let them
+        # this is really needed for pSeries boot partitions :(
+        elif extra[0] == 'None':
+            mountpoint = None
+            if fstype:
+                filesystem = fileSystemTypeGet(fstype)
+            else:
+                filesystem = fileSystemTypeGetDefault()
         elif extra[0].startswith("raid."):
             filesystem = fileSystemTypeGet("software RAID")
             
