@@ -44,14 +44,14 @@ class BootdiskWindow (InstallWindow):
                      "Linux system from a floppy diskette.\n\n"
                      "Please remove any diskettes from the floppy drive and "
                      "insert a blank diskette. All data will be ERASED "
-                     "during creation of the boot disk."))
+                     "during creation of the boot disk.")
             if fsset.rootOnLoop():
                 text = text + _("\n\nA boot disk is REQUIRED to boot a "
                                 "partitionless install.")
         else:
             text = _("An error occured while making the boot disk. "
                      "Please make sure that there is a formatted floppy "
-                     "in the first floppy drive."))
+                     "in the first floppy drive.")
         label = GtkLabel (text)
 
         label.set_line_wrap (TRUE)
