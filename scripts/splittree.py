@@ -74,11 +74,15 @@ self.total_srpm_discs : total number of discs with SRPMs
         
 self.reverse_sort_srpms : sort the srpms in reverse order to
 fit. Usually only needed if we share a disc between SRPMs
-and RPMs. Set to 1 to turn on."""
+and RPMs. Set to 1 to turn on.
+
+self.reserve_size : Additional size needed to be reserved on the first disc.
+"""
         
         self.target_size = 640.0 * 1024.0 * 1024
         self.fudge_factor = 1.2 * 1024.0 * 1024
         self.comps_size = 10.0 * 1024 * 1024
+        self.reserve_size = 0
         self.release_str = None
         self.package_order_file = None
         self.arch = None
@@ -292,7 +296,7 @@ and RPMs. Set to 1 to turn on."""
 
                 # compensate for the size of the comps package which has yet to be created
                 if disc == 1:
-                    maxsize = self.target_size - self.comps_size
+                    maxsize = self.target_size - self.comps_size - self.reserve_size
                 else:
                     maxsize = self.target_size
                     
@@ -399,7 +403,7 @@ if "__main__" == __name__:
 
     theargs = ["arch=", "total-discs=", "bin-discs=",
                "src-discs=", "release-string=", "pkgorderfile=",
-               "distdir=", "srcdir=", "productpath="]
+               "distdir=", "srcdir=", "productpath=", "reserve-size="]
 
     try:
         options, args = getopt.getopt(sys.argv[1:], '', theargs)
@@ -454,6 +458,9 @@ if "__main__" == __name__:
     
     if options.has_key("--productpath"):
 	timber.product_path = options["--productpath"]
+
+    if options.has_key("--reserve-size"):
+        timber.reserve_size = float(options["--reserve_size"])
 
     logfile = timber.main()
     

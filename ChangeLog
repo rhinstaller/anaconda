@@ -1,5 +1,8 @@
 2005-03-21  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/splittree.py (Timber.__init__): Add reserve_size for use
+	on ppc (#151234)
+
 	* hdrlist.py (EverythingExclude): Exclude Xen kernels from an
 	everything install for now (related to #151490)
 
