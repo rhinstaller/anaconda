@@ -1,6 +1,6 @@
+#include <Python.h>
 #include <stdio.h>
 
-#include "Python.h"
 #include "libcheckisomd5.h"
 #include "libimplantisomd5.h"
 

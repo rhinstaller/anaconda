@@ -1,6 +1,6 @@
+#include <Python.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <Python.h>
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
 #include <X11/extensions/XKBrules.h>

@@ -15,12 +15,12 @@
  *
  */
 
+#include <Python.h>
 #include <X11/Intrinsic.h>
 #include <X11/Xmd.h>
 #include <X11/extensions/xf86misc.h>
 #include <X11/Xos.h>
 #include <X11/X.h>
-#include <Python.h>
 
 static char *Mouses[] = { "None", "Microsoft", "MouseSystems", "MMSeries",
 			  "Logitech", "BusMouse", "Mouseman", "PS/2",

@@ -15,9 +15,9 @@
  */
 
 
+#include <Python.h>
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-#include <Python.h>
 
 static PyObject * getRootResources(PyObject *s, PyObject *args);
 static PyObject * setRootResource(PyObject * s, PyObject * args);

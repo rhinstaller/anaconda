@@ -1,3 +1,5 @@
+#include <Python.h>
+
 #include <stdio.h>
 #include <dirent.h>
 #include <errno.h>
@@ -37,8 +39,6 @@
 #include <linux/hdreg.h>
 #include <linux/fb.h>
 #include <libintl.h>
-
-#include "Python.h"
 
 #include "md-int.h"
 #include "imount.h"
