@@ -19,8 +19,8 @@ class SiloAppendWindow:
 
 	entry = Entry(48, scroll = 1, returnExit = 1)
 
-	if todo.liloAppend:
-	    entry.set(todo.liloAppend)
+	if todo.silo.getAppend():
+	    entry.set(todo.silo.getAppend())
 
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
@@ -38,14 +38,14 @@ class SiloAppendWindow:
 
 	if button == "skip":
 	    todo.skipLilo = 1
-	    todo.liloDevice = None
+            todo.lilo.setDevice(None)
 	else:
 	    todo.skipLilo = 0
 
 	if entry.value():
-	    todo.liloAppend = string.strip(entry.value())
+	    todo.silo.setAppend(string.strip(entry.value()))
 	else:
-	    todo.liloAppend = None
+	    todo.silo.setAppend(None)
 
 	return INSTALL_OK
 
@@ -98,9 +98,9 @@ class SiloWindow:
 	result = g.runOnce()
 
 	if rc1.selected():
-	    todo.setLiloLocation("mbr")
+	    todo.silo.setDevice("mbr")
 	else:
-	    todo.setLiloLocation("partition")
+	    todo.silo.setDevice("partition")
 
 	lAlias = linuxAlias.selected() != 0
 	bDevice = bootDevice.selected() != 0
@@ -165,9 +165,17 @@ class SiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-	images = todo.silo.getSiloImages()
+	(images, default) = todo.silo.getSiloImages()
 	if not images: return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
+
+	# the default item is kept as a label (which makes more sense for the
+	# user), but we want our listbox "indexed" by device, which so we keep
+	# the default item as a device
+	for (dev, (label, type)) in images.items():
+	    if label == default:
+		default = dev
+		break
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
@@ -176,11 +184,11 @@ class SiloImagesWindow:
 		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
 
-	default = ""
-
 	for n in sortedKeys:
 	    (label, type) = images[n]
 	    listbox.append(self.formatDevice(type, label, n, default), n)
+	    if n == default:
+		listbox.setCurrent(n)
 
 	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
 				      (_("Back"), "back") ] )
@@ -231,7 +239,8 @@ class SiloImagesWindow:
 	if (result == "back"):
 	    return INSTALL_BACK
 
-	todo.setLiloImages(images)
+	todo.silo.setLiloImages(images)
+	todo.silo.setDefault(label)
 
 	return INSTALL_OK
 

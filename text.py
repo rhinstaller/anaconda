@@ -983,10 +983,10 @@ class InstallInterface:
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-	self.screen.suspendCallback(killSelf, self.screen)
+	#self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-	#self.screen.suspendCallback(debugSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1

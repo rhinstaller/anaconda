@@ -1218,7 +1218,8 @@ class ToDo:
         # XXX make me "not test mode"
         if self.setupFilesystems:
 	    if arch == "sparc":
-		self.silo.installSilo ()
+		self.silo.install (self.fstab, self.instPath, self.hdList, 
+				   self.upgrade)
 	    elif arch == "i386":
 		self.lilo.install (self.fstab, self.instPath, self.hdList, 
 				   self.upgrade)

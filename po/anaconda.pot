@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-02 17:43-0500\n"
+"POT-Creation-Date: 2000-02-04 15:51-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,12 +25,13 @@ msgstr ""
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711
-#: ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79
-#: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
+#: ../loader/devices.c:183 ../loader/lang.c:89 ../loader/loader.c:471
+#: ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:1683
+#: ../loader/loader.c:1729 ../loader/loader.c:1800 ../loader/urls.c:70
+#: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
+#: ../loader/urls.c:228 ../text.py:280 ../text.py:765 ../todo.py:330
+#: ../todo.py:659 ../todo.py:690
 msgid "Error"
 msgstr ""
 
@@ -43,7 +44,7 @@ msgstr ""
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:345 ../todo.py:410
+#: ../fstab.py:345 ../todo.py:412
 msgid "Creating"
 msgstr ""
 
@@ -70,15 +71,15 @@ msgstr ""
 msgid "Error mounting %s: %s"
 msgstr ""
 
-#: ../gui.py:270 ../gui.py:516
+#: ../gui.py:275 ../gui.py:521
 msgid "Next"
 msgstr ""
 
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
+#: ../gui.py:276 ../gui.py:520 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
+#: ../loader/devices.c:168 ../loader/devices.c:245 ../loader/lang.c:548
 #: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
-#: ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162
+#: ../loader/loader.c:748 ../loader/loader.c:1151 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
 #: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
@@ -92,46 +93,46 @@ msgstr ""
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186
-#: ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145
-#: ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
 msgstr ""
 
-#: ../gui.py:272 ../gui.py:520
+#: ../gui.py:277 ../gui.py:525
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:273 ../gui.py:519
+#: ../gui.py:278 ../gui.py:524
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:274 ../gui.py:518
+#: ../gui.py:279 ../gui.py:523
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:277 ../gui.py:545
+#: ../gui.py:282 ../gui.py:550
 msgid "Online Help"
 msgstr ""
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
+#: ../gui.py:283 ../iw/language.py:10 ../text.py:59 ../text.py:1005
 #: ../text.py:1034
 msgid "Language Selection"
 msgstr ""
 
-#: ../gui.py:482
+#: ../gui.py:487
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:486
+#: ../gui.py:491
 msgid "Red Hat Linux Install Shell"
 msgstr ""
 
-#: ../gui.py:497
+#: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr ""
 
-#: ../gui.py:498
+#: ../gui.py:503
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
@@ -204,29 +205,29 @@ msgid "What device is your mouse located on? %s %i"
 msgstr ""
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
-#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
+#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:245
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
-#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139
-#: ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774
-#: ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146
-#: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
-#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
-#: ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744
-#: ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165
-#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
-#: ../textw/packages.py:85 ../textw/packages.py:144
+#: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
+#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:995
+#: ../loader/loader.c:1151 ../loader/loader.c:1683 ../loader/loader.c:1729
+#: ../loader/loader.c:1792 ../loader/loader.c:1800 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
+#: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
+#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229
+#: ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471
+#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
+#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
+#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/partitioning.py:273 ../textw/partitioning.py:281
 #: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
-#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
-#: ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98
-#: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
-#: ../textw/userauth.py:248
+#: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
+#: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
+#: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
 msgstr ""
 
@@ -352,8 +353,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
-#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../loader/loader.c:1792 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
+#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr ""
 
@@ -575,11 +576,11 @@ msgstr ""
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr ""
 
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
+#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr ""
 
@@ -686,90 +687,90 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:329
+#: ../todo.py:331
 #, c-format
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../todo.py:410
+#: ../todo.py:412
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:430
+#: ../todo.py:432
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:431
+#: ../todo.py:433
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:627 ../todo.py:640
+#: ../todo.py:629 ../todo.py:642
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:646
+#: ../todo.py:648
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:647
+#: ../todo.py:649
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:658 ../todo.py:689
+#: ../todo.py:660 ../todo.py:691
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
 
-#: ../todo.py:700
+#: ../todo.py:702
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:701
+#: ../todo.py:703
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:944
+#: ../todo.py:946
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:945
+#: ../todo.py:947
 msgid "Preparing to install..."
-msgstr ""
-
-#: ../todo.py:1112
-#, c-format
-msgid "Upgrading %s.\n"
 msgstr ""
 
 #: ../todo.py:1114
 #, c-format
+msgid "Upgrading %s.\n"
+msgstr ""
+
+#: ../todo.py:1116
+#, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1135
+#: ../todo.py:1137
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1138
+#: ../todo.py:1140
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1138
+#: ../todo.py:1140
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1151
+#: ../todo.py:1153
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1175
+#: ../todo.py:1177
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1176
+#: ../todo.py:1178
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -805,68 +806,68 @@ msgstr ""
 msgid "Vertical frequency range"
 msgstr ""
 
-#: ../iw/account.py:14
+#: ../iw/account.py:15
 msgid "Account Configuration"
 msgstr ""
 
-#: ../iw/account.py:35
+#: ../iw/account.py:36
 msgid "Root password accepted."
 msgstr ""
 
-#: ../iw/account.py:38
+#: ../iw/account.py:39
 msgid "Root password is too short."
 msgstr ""
 
-#: ../iw/account.py:40
+#: ../iw/account.py:41
 msgid "Root password does not match."
 msgstr ""
 
-#: ../iw/account.py:138
+#: ../iw/account.py:164
 msgid "Root Password: "
 msgstr ""
 
-#: ../iw/account.py:141
+#: ../iw/account.py:167
 msgid "Confirm: "
 msgstr ""
 
-#: ../iw/account.py:197 ../iw/account.py:236
+#: ../iw/account.py:225 ../iw/account.py:264
 msgid "Account Name"
 msgstr ""
 
-#: ../iw/account.py:201 ../textw/userauth.py:79
+#: ../iw/account.py:229 ../textw/userauth.py:80
 msgid "Password"
 msgstr ""
 
-#: ../iw/account.py:205 ../textw/userauth.py:80
+#: ../iw/account.py:233 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr ""
 
-#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
-#: ../textw/userauth.py:164
+#: ../iw/account.py:237 ../iw/account.py:264 ../textw/userauth.py:79
+#: ../textw/userauth.py:173
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:246 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
 msgid "Add"
 msgstr ""
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:248 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
 #: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
-#: ../textw/userauth.py:176
+#: ../textw/userauth.py:185
 msgid "Edit"
 msgstr ""
 
-#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
+#: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
 msgid "Delete"
 msgstr ""
 
-#: ../iw/account.py:224
+#: ../iw/account.py:252
 msgid "New"
 msgstr ""
 
-#: ../iw/auth.py:11 ../textw/userauth.py:250
+#: ../iw/auth.py:11 ../textw/userauth.py:259
 msgid "Authentication Configuration"
 msgstr ""
 
@@ -878,7 +879,7 @@ msgstr ""
 msgid "Enable shadow passwords"
 msgstr ""
 
-#: ../iw/auth.py:53 ../textw/userauth.py:255
+#: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
 msgstr ""
 
@@ -963,7 +964,7 @@ msgstr ""
 msgid "fdisk"
 msgstr ""
 
-#: ../iw/fdisk.py:80
+#: ../iw/fdisk.py:78
 msgid "Select drive to run fdisk on"
 msgstr ""
 
@@ -996,15 +997,15 @@ msgstr ""
 msgid "Install Type"
 msgstr ""
 
-#: ../iw/installpath.py:181
+#: ../iw/installpath.py:187
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:183
+#: ../iw/installpath.py:189
 msgid "Upgrade"
 msgstr ""
 
-#: ../iw/installpath.py:236
+#: ../iw/installpath.py:242
 msgid "Use fdisk"
 msgstr ""
 
@@ -1012,31 +1013,31 @@ msgstr ""
 msgid "Keyboard Configuration"
 msgstr ""
 
-#: ../iw/keyboard.py:56
+#: ../iw/keyboard.py:57
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:75
+#: ../iw/keyboard.py:76
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:94
+#: ../iw/keyboard.py:95
 msgid "Dead Keys"
 msgstr ""
 
-#: ../iw/keyboard.py:103
+#: ../iw/keyboard.py:104
 msgid "Enable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:104
+#: ../iw/keyboard.py:105
 msgid "Disable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:113
+#: ../iw/keyboard.py:114
 msgid "Test your selection here:"
 msgstr ""
 
-#: ../iw/language.py:21 ../loader/lang.c:267
+#: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -1092,7 +1093,7 @@ msgstr ""
 msgid "Boot label"
 msgstr ""
 
-#: ../iw/mouse.py:134
+#: ../iw/mouse.py:132
 msgid "Emulate 3 Buttons"
 msgstr ""
 
@@ -1286,23 +1287,23 @@ msgstr ""
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../iw/timezone.py:143
+#: ../iw/timezone.py:147
 msgid "View:"
 msgstr ""
 
-#: ../iw/timezone.py:151 ../iw/timezone.py:152
+#: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
 msgstr ""
 
-#: ../iw/timezone.py:200
+#: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
 msgstr ""
 
-#: ../iw/timezone.py:214
+#: ../iw/timezone.py:218
 msgid "Location"
 msgstr ""
 
-#: ../iw/timezone.py:215
+#: ../iw/timezone.py:219
 msgid "UTC Offset"
 msgstr ""
 
@@ -1490,116 +1491,126 @@ msgstr ""
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../textw/userauth.py:10
+#: ../textw/userauth.py:11
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
 
-#: ../loader/urls.c:337 ../textw/userauth.py:23
+#: ../loader/urls.c:337 ../textw/userauth.py:24
 msgid "Password:"
 msgstr ""
 
-#: ../textw/userauth.py:24
+#: ../textw/userauth.py:25
 msgid "Password (again):"
 msgstr ""
 
-#: ../textw/userauth.py:40 ../textw/userauth.py:95
+#: ../textw/userauth.py:41 ../textw/userauth.py:104
 msgid "Password Length"
 msgstr ""
 
-#: ../textw/userauth.py:41
+#: ../textw/userauth.py:42
 msgid "The root password must be at least 6 characters long."
 msgstr ""
 
-#: ../textw/userauth.py:45 ../textw/userauth.py:103
+#: ../textw/userauth.py:46 ../textw/userauth.py:112
 msgid "Password Mismatch"
 msgstr ""
 
-#: ../textw/userauth.py:46 ../textw/userauth.py:104
+#: ../textw/userauth.py:47 ../textw/userauth.py:113
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
-#: ../textw/userauth.py:71
+#: ../textw/userauth.py:72
 msgid "Edit User"
 msgstr ""
 
-#: ../textw/userauth.py:73
+#: ../textw/userauth.py:74
 msgid "Add User"
 msgstr ""
 
-#: ../textw/userauth.py:77
+#: ../textw/userauth.py:78
 msgid "User ID"
 msgstr ""
 
-#: ../textw/userauth.py:90
+#: ../textw/userauth.py:91
+msgid "Bad User ID"
+msgstr ""
+
+#: ../textw/userauth.py:92
+msgid ""
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
+msgstr ""
+
+#: ../textw/userauth.py:99
 msgid "Missing User ID"
 msgstr ""
 
-#: ../textw/userauth.py:91
+#: ../textw/userauth.py:100
 msgid "You must provide a user ID"
 msgstr ""
 
-#: ../textw/userauth.py:96
+#: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
 msgstr ""
 
-#: ../textw/userauth.py:113
+#: ../textw/userauth.py:122
 msgid "User Exists"
 msgstr ""
 
-#: ../textw/userauth.py:114
+#: ../textw/userauth.py:123
 msgid "This user id already exists.  Choose another."
 msgstr ""
 
-#: ../textw/userauth.py:141
+#: ../textw/userauth.py:150
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
 
-#: ../textw/userauth.py:154
+#: ../textw/userauth.py:163
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
 
-#: ../textw/userauth.py:164
+#: ../textw/userauth.py:173
 msgid "User name"
 msgstr ""
 
-#: ../textw/userauth.py:188
+#: ../textw/userauth.py:197
 msgid "Enter the information for the user."
 msgstr ""
 
-#: ../textw/userauth.py:200
+#: ../textw/userauth.py:209
 msgid "Change the information for this user."
 msgstr ""
 
-#: ../textw/userauth.py:251
+#: ../textw/userauth.py:260
 msgid "Use Shadow Passwords"
 msgstr ""
 
-#: ../textw/userauth.py:253
+#: ../textw/userauth.py:262
 msgid "Enable MD5 Passwords"
 msgstr ""
 
-#: ../textw/userauth.py:260
+#: ../textw/userauth.py:269
 msgid "NIS Domain:"
 msgstr ""
 
-#: ../textw/userauth.py:262
+#: ../textw/userauth.py:271
 msgid "NIS Server:"
 msgstr ""
 
-#: ../textw/userauth.py:264
+#: ../textw/userauth.py:273
 msgid "or use:"
 msgstr ""
 
-#: ../textw/userauth.py:267
+#: ../textw/userauth.py:276
 msgid "Request server via broadcast"
 msgstr ""
 
@@ -2155,8 +2166,8 @@ msgstr ""
 msgid "Module Parameters"
 msgstr ""
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
+#: ../loader/devices.c:167 ../loader/devices.c:268 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1792
 msgid "Devices"
 msgstr ""
 
@@ -2164,7 +2175,7 @@ msgstr ""
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/devices.c:179 ../loader/loader.c:1783
+#: ../loader/devices.c:179 ../loader/loader.c:1801
 msgid "Failed to mount floppy disk."
 msgstr ""
 
@@ -2174,17 +2185,17 @@ msgid ""
 "Red Hat Linux."
 msgstr ""
 
-#: ../loader/devices.c:206
+#: ../loader/devices.c:233
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 
-#: ../loader/devices.c:211
+#: ../loader/devices.c:238
 msgid "Which driver should I try?"
 msgstr ""
 
-#: ../loader/devices.c:219
+#: ../loader/devices.c:246
 msgid "Specify module parameters"
 msgstr ""
 
@@ -2207,15 +2218,15 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:267
+#: ../loader/lang.c:275
 msgid "Choose a Language"
 msgstr ""
 
-#: ../loader/lang.c:534
+#: ../loader/lang.c:546
 msgid "Keyboard Type"
 msgstr ""
 
-#: ../loader/lang.c:535
+#: ../loader/lang.c:547
 msgid "What type of keyboard do you have?"
 msgstr ""
 
@@ -2326,51 +2337,51 @@ msgstr ""
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1131
+#: ../loader/loader.c:1143
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1132
+#: ../loader/loader.c:1144
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1134
+#: ../loader/loader.c:1146
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1136
+#: ../loader/loader.c:1148
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1666
+#: ../loader/loader.c:1684
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1712
+#: ../loader/loader.c:1730
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr ""
 
-#: ../loader/loader.c:1775
+#: ../loader/loader.c:1793
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "Initializing PC Card Devices..."
 msgstr ""
 

@@ -6,11 +6,6 @@ import iutil
 import isys
 
 class SiloInstall:
-    def __init__ (self, todo):
-	self.todo = todo
-	self.linuxAlias = 1
-	self.bootDevice = 1
-
     def checkUFS(self, dev):
 	f = open("/proc/mounts","r")
 	lines = f.readlines ()
@@ -72,25 +67,23 @@ class SiloInstall:
 		pass
 	return ufstype
 
-    def getSiloImages(self):
-	todo = self.todo
+    def setSiloImages(self, images):
+	self.siloImages = images
 
-	if not todo.__dict__.has_key('fstab'):
-	    raise RuntimeError, "No fstab object"
-
-	(drives, raid) = todo.fstab.partitionList()
+    def getLiloImages(self, fstab):
+        (drives, raid) = fstab.raidList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
 	for (mntpoint, device, fsystem, doFormat, size) in \
-		self.todo.fstab.mountList():
+		fstab.mountList():
 	    mountsByDev[device] = mntpoint
 
 	oldImages = {}
-	for dev in todo.liloImages.keys():
-	    oldImages[dev] = todo.liloImages[dev]
+	for dev in self.siloImages.keys():
+	    oldImages[dev] = self.siloImages[dev]
 
-	todo.liloImages = {}
+	self.siloImages = {}
 	nSolaris = 0
 	nSunOS = 0
 	for (dev, devName, type, start, size) in drives:
@@ -110,51 +103,29 @@ class SiloInstall:
 
 	    if (mountsByDev.has_key(dev)):
 		if mountsByDev[dev] == '/':
-		    todo.liloImages[dev] = ("linux", 2)
+		    self.siloImages[dev] = ("linux", 2)
 	    elif type == 6:
 		if not oldImages.has_key(dev):
-		    todo.liloImages[dev] = ("", type)
+		    self.siloImages[dev] = ("", type)
 		else:
-		    todo.liloImages[dev] = oldImages[dev]
+		    self.siloImages[dev] = oldImages[dev]
 		ostype = self.checkUFS(dev)
 		if ostype == "Solaris":
 		    if nSolaris == 0:
-			todo.liloImages[dev] = ("solaris", type)
+			self.siloImages[dev] = ("solaris", type)
 		    else:
-			todo.liloImages[dev] = ("solaris%d" % nSolaris, type)
+			self.siloImages[dev] = ("solaris%d" % nSolaris, type)
 		    nSolaris = nSolaris + 1
 		elif ostype == "SunOS":
 		    if nSunOS == 0:
-			todo.liloImages[dev] = ("sunos", type)
+			self.siloImages[dev] = ("sunos", type)
 		    else:
-			todo.liloImages[dev] = ("sunos%d" % nSunOS, type)
+			self.siloImages[dev] = ("sunos%d" % nSunOS, type)
 		    nSunOS = nSunOS + 1
 
-	return todo.liloImages
+	return (self.siloImages, self.default)
 
-    def getSiloOptions(self):
-	bootpart = self.todo.fstab.getBootDevice()
-	i = len (bootpart) - 1
-	while i > 0 and bootpart[i] in string.digits:
-	    i = i - 1
-	boothd = bootpart[:i+1]
-
-	mbrpart = None
-
-	(drives, raid) = self.todo.fstab.partitionList()
-	for (dev, devName, type, start, size) in drives:
-	    i = len (dev) - 1
-	    while i > 0 and dev[i] in string.digits:
-		i = i - 1
-	    devhd = dev[:i+1]
-	    if devhd == boothd and start == 0:
-		mbrpart = dev
-		break
-
-	if not mbrpart: mbrpart = boothd + "3"
-	return (bootpart, boothd, mbrpart)
-
-    def getSiloMbrDefault(self):
+    def getSiloMbrDefault(self, fstab):
 	# Check partition at cylinder 0 on the boot disk
 	# is /, /boot or Linux swap
 	bootpart = self.todo.fstab.getBootDevice()
@@ -206,32 +177,33 @@ class SiloInstall:
     def disk2PromPath(self,dev):
 	return _silo.disk2PromPath(dev)
 
-    def installSilo (self):
-	todo = self.todo
+    def install(self, fstab, instRoot, hdList, upgrade):
 	silo = LiloConfiguration ()
 
-	if not todo.liloImages:
-	    todo.setLiloImages(self.getSiloImages())
-
-	# OK - for this release we need to just blow away the old silo.conf
-	# just like we used to.
-##	 # on upgrade read in the silo config file
-##	 if os.access (todo.instPath + '/etc/silo.conf', os.R_OK):
-##	     silo.read (todo.instPath + '/etc/silo.conf')
-##	 elif not todo.liloDevice: return
+	if not self.siloImages:
+	    (images, default) = self.getSiloImages(fstab)
+	    self.setSiloImages(images)
 
 	(bootpart, boothd, mbrpart) = self.getSiloOptions()
-	smpInstalled = (self.todo.hdList.has_key('kernel-smp') and 
-			self.todo.hdList['kernel-smp'].selected)
+	smpInstalled = (hdList.has_key('kernel-smp') and 
+			hdList['kernel-smp'].selected)
 
-	rootDev = self.todo.fstab.getRootDevice()[0]
+        rootDev = fstab.getRootDevice ()
+        if rootDev:
+	    # strip off the filesystem; we don't need it
+            rootDev = rootDev[0]
+        else:
+            raise RuntimeError, "Installing lilo, but there is no root device"
 
 	args = [ "silo" ]
 
-	if todo.liloDevice == "mbr":
-	    device = mbrpart
+	bootpart = fstab.getBootDevice()
+	boothd = fstab.getMbrDevice()
+
+	if self.siloDevice == "mbr":
+	    device = boothd
 	    try:
-		num = _silo.zeroBasedPart(todo.instPath + "/dev/" + boothd)
+		num = _silo.zeroBasedPart(instRoot + "/dev/" + boothd)
 		if num:
 		    device = boothd + "%d" % num
 	    except:
@@ -254,7 +226,7 @@ class SiloInstall:
 
 	main = "linux"
 
-	for (drive, (label, liloType)) in todo.liloImages.items ():
+	for (drive, (label, siloType)) in self.siloImages.items ():
 	    if (drive == rootDev) and label:
 		main = label
 	    elif label:
@@ -296,11 +268,11 @@ class SiloInstall:
 	    sl = LiloConfiguration()
 
 	    sl.addEntry("label", label)
-	    if os.access (todo.instPath + initrd, os.R_OK):
+	    if os.access (instRoot + initrd, os.R_OK):
 		sl.addEntry("initrd", initrdFile)
 
-            if self.todo.liloAppend:
-		sl.addEntry('append', '"%s"' % self.todo.liloAppend)
+            if self.siloAppend:
+		sl.addEntry('append', '"%s"' % self.siloAppend)
 
 	    silo.addImage ("image", kernelFile, sl)
 
@@ -331,31 +303,63 @@ class SiloInstall:
 	    else: # duplicate entry, first entry wins
 		silo.delImage (name)
 
-	if self.todo.fstab.getBootDevice() != self.todo.fstab.getRootDevice()[0]:
-	    silo.write(todo.instPath + "/boot/silo.conf")
+	if fstab.getBootDevice() != fstab.getRootDevice()[0]:
+	    silo.write(instRoot + "/boot/silo.conf")
 	    try:
-		os.remove(todo.instPath + "/etc/silo.conf")
+		os.remove(instRoot + "/etc/silo.conf")
 	    except:
 		pass
-	    os.symlink("../boot/silo.conf", todo.instPath + "/etc/silo.conf")
+	    os.symlink("../boot/silo.conf", instPath + "/etc/silo.conf")
 	else:
-	    silo.write(todo.instPath + "/etc/silo.conf")
+	    silo.write(instRoot + "/etc/silo.conf")
 
-	# XXX make me "not test mode"
-	if todo.setupFilesystems:
-	    if todo.serial:
-		messages = "/tmp/silo.log"
-	    else:
-		messages = "/dev/tty3"
-	    iutil.execWithRedirect('/sbin/silo',
-				   args,
-				   stdout = None,
-                                   root = todo.instPath)
-	    linuxAlias = ""
-	    if self.linuxAlias and self.hasAliases():
-		linuxAlias = bootDevice
-	    if not self.bootDevice:
-		bootDevice = ""
-	    if not linuxAlias:
-		linuxAlias = ""
-	    _silo.setPromVars(linuxAlias,bootDevice)
+        if self.serial:
+            messages = "/tmp/silo.log"
+        else:
+            messages = "/dev/tty3"
+        iutil.execWithRedirect('/sbin/silo',
+                               args,
+                               stdout = None,
+                               root = instRoot)
+        linuxAlias = ""
+        if self.linuxAlias and self.hasAliases():
+            linuxAlias = bootDevice
+        if not self.bootDevice:
+            bootDevice = ""
+        if not linuxAlias:
+            linuxAlias = ""
+        _silo.setPromVars(linuxAlias,bootDevice)
+
+    def setDevice(self, device):
+	if (type(device) == type((1,))):
+	    self.siloDevice = device
+	elif device != "mbr" and device != "partition" and device:
+	    raise ValueError, "device must be raid, mbr, partition, or None"
+	self.siloDevice = device
+
+    def setAppend(self, append):
+	self.siloAppend = append
+
+    def setDefault(self, default):
+	for (label, fsType) in self.siloImages.values():
+	    if label == default:
+		self.default = default
+		return
+	raise IndexError, "unknown silo label %s" % (default,)
+
+    def getLinear(self):
+	return self.siloLinear
+
+    def getDevice(self):
+	return self.siloDevice
+
+    def getAppend(self):
+	return self.siloAppend
+
+    def __init__(self):
+	self.siloImages = {}
+	self.siloDevice = 'mbr'
+	self.siloLinear = 1
+	self.siloAppend = None
+	self.default = None
+	self.initrdsMade = {}

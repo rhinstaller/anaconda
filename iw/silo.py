@@ -39,15 +39,15 @@ class SiloWindow (InstallWindow):
             self.todo.bootdisk = 0
 
         if self.silo.get_active ():
-            self.todo.setLiloLocation (None)
+            self.todo.silo.setDevice(None)
         else:
             if self.mbr.get_active ():
-                self.todo.setLiloLocation ("mbr")
+		self.todo.silo.setDevice("mbr")
             else:
-                self.todo.setLiloLocation ("partition")
+		self.todo.silo.setDevice("partition")
 
-	self.todo.liloAppend = self.appendEntry.get_text()
-	self.todo.setLiloImages(self.images)
+	self.todo.silo.setAppend(self.appendEntry.get_text())
+	self.todo.silo.setLiloImages(self.images)
 
 	linuxAlias = 0
 	bootDevice = 0
@@ -146,9 +146,9 @@ class SiloWindow (InstallWindow):
 
 	(mount, dev, fstype, format, size) = self.todo.fstab.mountList()[0]
 	if mount != '/': return None
-	(bootpart, boothd, mbrpart) = self.todo.silo.getSiloOptions()
-	self.bootpart = bootpart
-	self.mbrpart = mbrpart
+
+	self.bootpart = self.todo.fstab.getBootDevice()
+	self.mbrpart = self.todo.fstab.getMbrDevice()
             
         format = "/dev/%s"
 
@@ -185,7 +185,7 @@ class SiloWindow (InstallWindow):
         self.radioBox.attach(tempBox, 0, 2, 4, 5)
 
 	self.mbr.connect("toggled", self.mbr_toggled)
-	if self.todo.silo.getSiloMbrDefault() == 'mbr':
+	if self.todo.silo.getSiloMbrDefault(self.todo.fstab) == 'mbr':
 	    self.mbr.set_active (TRUE)
 	else:
 	    part.set_active (TRUE);
@@ -197,8 +197,8 @@ class SiloWindow (InstallWindow):
 	label = GtkLabel(_("Kernel parameters") + ":")
 	label.set_alignment(0.0, 0.5)
 	self.appendEntry = GtkEntry(15)
-	if self.todo.liloAppend:
-	    self.appendEntry.set_text(self.todo.liloAppend)
+	if self.todo.silo.getAppend():
+	    self.appendEntry.set_text(self.todo.silo.getAppend())
 	box = GtkHBox(FALSE, 5)
 	box.pack_start(label)
 	box.pack_start(self.appendEntry)
