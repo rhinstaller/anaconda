@@ -3,10 +3,11 @@ include Makefile.inc
 
 ifneq (ia64, $(ARCH))
 MINISLANG=minislang
+MININEWT=mininewt
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
+SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader po \
 	    textw utils scripts bootdisk installclasses \
 	    keymaps fonts iw pixmaps $(STUBS) iconvmodule isomd5sum
 SUBDIRS = $(SUBDIRSHD)

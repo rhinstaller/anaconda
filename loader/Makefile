@@ -6,10 +6,12 @@ OBJS = log.o windows.o modules.o devices.o cdrom.o kickstart.o lang.o \
        misc.o ftp.o md5.o mediacheck.o moduledeps.o
 
 SLANGLIB = -lslang
+NEWTLIB = -lnewt
 ifneq (ia64, $(ARCH))
 ifneq (i386, $(ARCH))
 OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
 SLANGLIB = ../minislang/libslang.a
+NEWTLIB = ../mininewt/libnewt.a
 endif
 endif
 
@@ -86,6 +88,7 @@ LDFLAGS = -nostdlib /usr/lib/crt1.o
 LOADERLIBS += -lrpc
 ISYS = ../isys/libisys-diet.a
 SLANGLIB = ../minislang/libslang-diet.a
+NEWTLIB = ../mininewt/libnewt-diet.a
 GUNZIP = ../isys/gzlib/libgunzip-diet.a
 DIET=diet
 REALCC=gcc
@@ -145,19 +148,19 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-	-lpump -lz -lnewt $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+	-lpump -lz $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-        -L ../stubs -lz -lnewt $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+        -L ../stubs -lz $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-        -lpump -L ../stubs -lnewt $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+        -lpump -L ../stubs $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
@@ -165,7 +168,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-        -lpump -lz -lresolv -lnewt $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+        -lpump -lz -lresolv $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
