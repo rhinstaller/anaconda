@@ -90,7 +90,7 @@ class KickstartBase(BaseInstallClass):
         krb5Admin = None
 
         useHesiod = 0
-        hesiodDlhs = None
+        hesiodLhs = None
         hesiodRhs = None
 	
 	for n in args:
