@@ -178,6 +178,19 @@ def readPackages(intf, method, id):
                                  "Press <return> to try again."))
             continue
 
+    # people make bad tree copies all the time.  let's just mandate that
+    # the Core group has to exist in the comps file else we complain
+    if not grpset.groups.has_key("core"):
+        intf.messageWindow(_("Error"),
+                           _("The comps file in your installation tree is "
+                             "missing critical groups.  Please ensure that "
+                             "your install tree has been correctly "
+                             "generated."),
+                           type="custom", custom_icon="error",
+                           custom_buttons=[_("_Exit")])
+        sys.exit(0)
+        
+
     # this is a crappy hack, but I don't want bug reports from these people
     if (iutil.getArch() == "i386") and (not grpset.hdrlist.has_key("kernel")):
         intf.messageWindow(_("Error"),
