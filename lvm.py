@@ -101,3 +101,31 @@ def vgremove(vgname):
                                 searchPath = 1)
     if rc:
         raise SystemError, "vgremove failed"
+
+def getPossiblePhysicalExtents(floor=0):
+    """Returns a list of integers representing the possible values for
+       the physical extent of a volume group.  Value is in KB.
+
+       floor - size (in KB) of smallest PE we care about.
+    """
+
+    possiblePE = []
+    curpe = 8
+    while curpe <= 16384*1024:
+	if curpe >= floor:
+	    possiblePE.append(curpe)
+	curpe = curpe * 2
+
+    return possiblePE
+
+def clampLVSizeRequest(size, pe):
+    """Given a size and a PE, returns the actual size of logical volumne.
+
+    size - size (in MB) of logical volume request
+    pe   - PE size (in KB)
+    """
+
+    if ((size*1024L) % pe) == 0:
+	return size
+    else:
+	return ((long((size*1024L)/pe)+1L)*pe)/1024
