@@ -9,7 +9,7 @@
 # Jakub Jelinek <jakub@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
 # Erik Troan <ewt@redhat.com>
-# Matt Wilson <msw@redhat.com>
+# Matt Wilson <msw@specifixinc.com>
 #
 # ... And many others
 #
@@ -670,8 +670,11 @@ import floppy
 import vnc
 
 if not isHeadless:
-    import xsetup
-    import rhpl.xhwstate as xhwstate
+    try:
+        import xsetup
+        import rhpl.xhwstate as xhwstate
+    except ImportError:
+        isHeadless = 1
 import rhpl.keyboard as keyboard
 
 # handle traceonly and exit
