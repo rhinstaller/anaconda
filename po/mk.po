@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-02 03:14+0200\n"
+"PO-Revision-Date: 2004-08-02 20:20+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -2218,10 +2218,12 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Следниве датотеки се апсолутни симболички врски, кои што не ги поддржуваме при надградба. Ве молам променете ги во релативни симболички врски и рестартирајте го надоградувањето.\n"
+"\n"
 
 #: ../upgrade.py:288
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Апсолутни симболични врски"
 
 #: ../upgrade.py:299
 msgid ""
@@ -2230,10 +2232,12 @@ msgid ""
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"Следниве се директориуми кои што треба да бидат симболични врски, кои што ќе предизвикаат проблеми при надоградбата.  Ве молам вратете ги во нивната оригинална состојба, како симболични врски, и рестартирајте го надоградувањето.\n"
+"\n"
 
 #: ../upgrade.py:305
 msgid "Invalid Directories"
-msgstr "Неисправни папки"
+msgstr "Невалидни директориуми"
 
 #: ../upgrade.py:311
 #, python-format
@@ -2242,11 +2246,11 @@ msgstr "%s не е пронајдено"
 
 #: ../upgrade.py:354
 msgid "Finding"
-msgstr "Наоѓање"
+msgstr "Барам"
 
 #: ../upgrade.py:355
 msgid "Finding packages to upgrade..."
-msgstr "Наоѓање на пакетите за надградба..."
+msgstr "Барам пакети за надградба..."
 
 #: ../upgrade.py:367
 msgid ""
@@ -2265,7 +2269,7 @@ msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Архитектурата на верзијата на %s која што ја надградувате, изгледа дека е %s, и како таква не одговара на Вашата претходно инсталирана архитектура на %s.  Ова најверојатно нема да успее.  Дали сте сигурни дека сакате да го продолжите со надоградба?"
 
 #: ../upgrade.py:475
 #, python-format
@@ -2278,6 +2282,9 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
+"Изгледа дека системот име инсталирано надворешни пакети кои што се поклопуваат со пакетите во %s. Бидејќи овие пакети се преклопуваат, со продолжувањето на процесот за надоградба можете да предизвикате тие да престанат да функционираат како што треба, или пак да предизвикате нестабилност на системот.  Ве молам проверете ги ги белешките за изданието за повеќе информации.\n"
+"\n"
+"Дали сакате да го продолжите со надоградба?"
 
 #: ../upgrade.py:498
 #, python-format
@@ -2285,7 +2292,7 @@ msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Овој систем нема датотека /etc/redhat-release.  Можно е ова да не е %s систем. Доколку продолжите со надградба на системот може да се случи да го доведете во некорисна состојба.  Дали сакате да продолжите го продолжите со надоградба?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2293,7 +2300,7 @@ msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
-msgstr ""
+msgstr "Надградбите за оваа верзија на %s се поддржани само во Red Hat Linux 6.2 или некоја повисока верзија.  Ова најверојатно е постар систем.  Дали сакате да продолжите со надоградба?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2308,7 +2315,7 @@ msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "X не може да се подигне на Вашата машина.  Дали сакате да го подигнете VNC за да се врзете на овој компјутер од друг компјутер и да спроведете графичка инсталација, или пак сакате да продолжите во тексутален режим?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -2343,11 +2350,11 @@ msgstr "Лозинка (потврда):"
 
 #: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
-msgstr "Не соодветна лозинка"
+msgstr "Лозинките не се совпаѓаат"
 
 #: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr "Лозинките што ги внесовте се поинакви. Ве молам обидете се повторно."
+msgstr "Лозинките што ги внесовте не се совпаѓаат. Ве молам обидете се повторно."
 
 #: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
@@ -2359,7 +2366,7 @@ msgstr "Лозинката мора да содржи најмалку шест 
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
-msgstr "DDC пронајден монитор"
+msgstr "DDC тестиран монитор"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2368,7 +2375,7 @@ msgstr "Постави ја администраторската (Root) лози
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
 msgid "Error with Password"
-msgstr "Грешка со лозинката"
+msgstr "Грешка во лозинката"
 
 #: ../iw/account_gui.py:42
 msgid ""
@@ -2388,7 +2395,7 @@ msgstr "Администраторската (root) лозинка мора да
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr "Бараната лозинка содржи не-ascii карактери кои не се дозволени да се користат во лозинка."
+msgstr "Бараната лозинка содржи карактери кои што не се ascii и кои не се дозволени за користење во лозинка."
 
 #: ../iw/account_gui.py:93
 msgid ""
@@ -2402,23 +2409,23 @@ msgstr "Root лозинка: "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "Потврди: "
+msgstr "_Потврди: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr "Конфигурација на автентичноста"
+msgstr "Конфигурација за автентикација"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr "Овозможи MD5 лозинки"
+msgstr "Овозможи _MD5 лозинки"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr "Овозможи shadow лозинки"
+msgstr "Овозможи засенети лозинки"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr "Овозможи NIS"
+msgstr "Овозможи N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
@@ -2558,18 +2565,21 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
+"Дискетата за подигнување ви овозможува да го подигнете Вашиот %s систем од флопи дискета.  Дискетата за подигнување ви овозможува да го подигнете Вашиот систем во случај да не работи конфигурацијата на подигнувачот, ако изберете да не користите подигнувач или пак ако Вашиот подигнувач не поддржува Linux.\n"
+"\n"
+"Строго препорачливо е да направите дискета за подигнување.\n"
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "Да, сакам да креирам дискета за подигнување на системот"
+msgstr "Да, сакам да креирам дискета за подигнување"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
-msgstr "Не, не сакам да креирам дискета за подигнување на системот"
+msgstr "Не, не сакам да креирам дискета за подигнување"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
-msgstr "Напредна конфигурација на програмата за подигнување на системот"
+msgstr "Напредна конфигурација на подигнувачот"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
 msgid ""
@@ -2582,11 +2592,11 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr "Принуди LBA32"
+msgstr "Наметни LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "Принуди LBA32 (нормално не се бара)"
+msgstr "Наметни LBA32 (обично не е потребно)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2615,17 +2625,20 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
+"Одбравте да не инсталирате подигнувач на Вашиот систем.  Ќе треба да креирате дискета за подигнување за да го подигнете Вашиот систем со оваа опција.\n"
+"\n"
+"Дали сакате да продолжите без да инсталирате подигнувач?"
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr "Продолжи без подигнувачот"
+msgstr "П_родолжи без подигнувачот"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
+msgstr "Ве молам одберете го подигнувачот кој што ќе го користи компјутерот.  GRUB е стандардниот подигнувач. Доколку не сакате да го изгубите Вашиот тековен подигнувач, одберете \"Не инсталирај подигнувач.\"  "
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
@@ -2714,6 +2727,9 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
+"Целосен запис од инсталацијата ќе можете да најдете во датотеката '%s' откако ќе го рестарирате системот.\n"
+"\n"
+"Датотеката за kickstart која што ги содржи сите одбрани опции за инсталацијата ќе можете да ја најдете во датотеката '%s' откако ќе го рестартирате системот."
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
@@ -2737,7 +2753,7 @@ msgstr "Честитки"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
-msgstr "Рестартирање"
+msgstr "Рестартирањ_е"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -2755,7 +2771,7 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
-"Честитки, инсталацијата е комплетирана.\n"
+"Ви честитам, инсталацијата е завршена.\n"
 "\n"
 "%s%s"
 
@@ -2794,7 +2810,7 @@ msgstr "Пакет"
 
 #: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:382
 msgid "Requirement"
-msgstr "Побарување"
+msgstr "Потреба"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
@@ -2833,6 +2849,12 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"\n"
+"\n"
+"По инсталацијата, можете да додадете или отстраните софтвер со помош на алатката "
+"'system-config-packages'.\n"
+"\n"
+"Ако сте запознаети со %s, може да има одредени пакети кои што сакате или не сакате да ги инсталирате. Штиклирајте го кутивчето подолу, за да ја прилагодите Вашата инсталација."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -2908,6 +2930,8 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Со форматирање на одбраниот DASD уред ќе се уништат сите содржини на уредот. "
+"Дали навистина сакате да го форматирате одбраниот DASD уред?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -2919,11 +2943,11 @@ msgstr "Одбери ги дисковите за партиционирање �
 
 #: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:29
 msgid "Firewall"
-msgstr "Firewall"
+msgstr "Огнен ѕид"
 
 #: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:112
 msgid "Warning - No Firewall"
-msgstr "Предупредување - нема Firewall"
+msgstr "Предупредување - нема огнен ѕид"
 
 #: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:113
 msgid ""
@@ -2935,32 +2959,32 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
-msgstr "Конфигурација на Firewall"
+msgstr "_Конфигурација на огнен ѕид"
 
 #: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:120
 msgid "_Proceed"
-msgstr "Изврши"
+msgstr "_Продолжи"
 
 #: ../iw/firewall_gui.py:77 ../textw/firewall_text.py:31
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
-msgstr ""
+msgstr "Огнениот ѕид може да спречи неавторизиран пристап на Вашиот компјутер, од надворешниот свет  Дали сакате да го вклучите огнениот ѕид?"
 
 #: ../iw/firewall_gui.py:88
 msgid "N_o firewall"
-msgstr "Нема firewall"
+msgstr "Н_ема огнен ѕид"
 
 #: ../iw/firewall_gui.py:90
 msgid "_Enable firewall"
-msgstr "Овозможи firewall"
+msgstr "_Вклучи огнен ѕид"
 
 #: ../iw/firewall_gui.py:107 ../textw/firewall_text.py:94
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Со огнениот ѕид можете да дозволите пристап до одредени сервиси на Вашиот компјутер.  До кои сервиси да дозволам пристап?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -2972,11 +2996,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:155
 msgid "Enable _SELinux?:"
-msgstr "Овозможи SELinux?:"
+msgstr "Овозможи_ SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
-msgstr "Оневозможи"
+msgstr "Оневозможено"
 
 #: ../iw/firewall_gui.py:161
 msgid "Warn"
@@ -2984,7 +3008,7 @@ msgstr "Предупреди"
 
 #: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:173
 msgid "Active"
-msgstr "Активира"
+msgstr "Активно"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3016,23 +3040,23 @@ msgstr "Додатна поддршка за јазикот"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "Избери го вообичаениот јазик за системот:   "
+msgstr "Одберете го стандардниот јазик за системот:   "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "Одбери ги додатните јазици за инсталирање на системот:"
+msgstr "Одберете ги додатните јазици кои што сакате да бидат инсталирањи на системот:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "_Избери сѐ"
+msgstr "_Одбери сѐ"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "Избери ги само вообичаените"
+msgstr "Одберете го само стандардното"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "Ресетирајте"
+msgstr "Ресетирајт_е"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3064,7 +3088,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:183
 msgid "C_ontinue"
-msgstr "Продолжете"
+msgstr "П_родолжете"
 
 #: ../iw/lvm_dialog_gui.py:154
 #, python-format
@@ -3108,25 +3132,25 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
-msgstr "Направете логички диск"
+msgstr "Направи логички диск"
 
 #: ../iw/lvm_dialog_gui.py:361
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Уредете го логичкиот диск: %s"
+msgstr "Уреди го логичкиот диск: %s"
 
 #: ../iw/lvm_dialog_gui.py:363
 msgid "Edit Logical Volume"
-msgstr "Уредете го логичкиот диск"
+msgstr "Уреди го логичкиот диск"
 
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr "Точка на монтирање:"
+msgstr "_Точка на монтирање:"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "Вид на датотечниот систем:"
+msgstr "_Вид на датотечниот систем:"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
@@ -3166,7 +3190,7 @@ msgstr "Недозволена големина"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
+msgstr "Потребната внесена големина не е валиден број поголем од 0."
 
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
@@ -3459,6 +3483,9 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
+"Немате активни мрежни уреди.  Вашиот систем нема да биде во можност да комуницира преку мрежа без ниеден активен уред.\n"
+"\n"
+"ЗАБЕЛЕШКА: Ако имате PCMCIA-базиран мрежен адаптер треба да го оставите неактивен. Откако ќе го рестартирате Вашиот систем, адаптерот ќе се активира автоматски."
 
 #: ../iw/network_gui.py:202
 #, python-format
@@ -4633,14 +4660,14 @@ msgstr ""
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
+msgstr "Вашиот видео ram не може да се дектектира автоматски.  Одберете ја големината на вашиот видео ram од опциите подолу:"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
 "settings."
-msgstr ""
+msgstr "Во повеќето случаи, видео хардверот се детектира автоматски. Доколку детектираните подесувања не се точни, одберете ги правите подесувања."
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
@@ -4980,7 +5007,7 @@ msgstr "Нема firewall"
 
 #: ../textw/firewall_text.py:54
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Дозволи доаѓачки:"
 
 #: ../textw/firewall_text.py:86 ../textw/language_text.py:145
 msgid "Invalid Choice"
@@ -4988,11 +5015,11 @@ msgstr "Невалиден избор"
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Не можете да прилагодите исклучен огнен ѕид."
 
 #: ../textw/firewall_text.py:92
 msgid "Customize Firewall Configuration"
-msgstr "Прилагоди конфигурација на firewall"
+msgstr "Прилагоди конфигурација на огнен ѕид"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5011,11 +5038,11 @@ msgstr "Оневозможи SELinux"
 
 #: ../textw/firewall_text.py:171
 msgid "Warn on violations"
-msgstr ""
+msgstr "Предупреди на прекршоци"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
-msgstr ""
+msgstr "Каков тип на систем сакате да инсталирате?"
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
@@ -5023,7 +5050,7 @@ msgstr "Избор на тастатура"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Кој модел на тастатура е приклучен на овој компјутер?"
 
 #: ../textw/language_text.py:108
 msgid "Select All"
@@ -5031,15 +5058,15 @@ msgstr "Одбери сѐ"
 
 #: ../textw/language_text.py:108
 msgid "Reset"
-msgstr "Ресетира"
+msgstr "Ресетирај"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
+msgstr "Одберете додатни јазици кои што сакате да ги користите на овој систем:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
-msgstr "Поддршка за јазикот"
+msgstr "Поддршка за јазици"
 
 #: ../textw/language_text.py:146
 msgid "You must select at least one language to install."
@@ -5047,23 +5074,23 @@ msgstr "Мора да одберете најмалку еден јазик за
 
 #: ../textw/language_text.py:189
 msgid "Default Language"
-msgstr "Вообичаен јазик"
+msgstr "Стандарден јазик"
 
 #: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
-msgstr ""
+msgstr "Одберете го стандарниот јазик за овој систем: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
-msgstr ""
+msgstr "На кој уред е лоциран Вашиот глушец?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Кој модел на глушец е приклучен на овој компјутер?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Емулирај 3 копчиња?"
+msgstr "Да емулирам 3 копчиња?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -5071,7 +5098,7 @@ msgstr "Избор на глувче"
 
 #: ../textw/network_text.py:30
 msgid "Invalid IP string"
-msgstr ""
+msgstr "Невалиден IP стринг"
 
 #: ../textw/network_text.py:31
 #, python-format
@@ -5084,7 +5111,7 @@ msgstr "IP адреса"
 
 #: ../textw/network_text.py:69
 msgid "Netmask"
-msgstr ""
+msgstr "Маска"
 
 #: ../textw/network_text.py:71
 msgid "Point to Point (IP)"
@@ -5127,19 +5154,19 @@ msgstr "Неточна информација"
 
 #: ../textw/network_text.py:172
 msgid "You must enter valid IP information to continue"
-msgstr ""
+msgstr "Мора да внесете валидна IP адреса за да продолжите"
 
 #: ../textw/network_text.py:256
 msgid "Gateway:"
-msgstr "Порта:"
+msgstr "Премин:"
 
 #: ../textw/network_text.py:266
 msgid "Primary DNS:"
-msgstr "Прв DNS:"
+msgstr "Примарен DNS:"
 
 #: ../textw/network_text.py:271
 msgid "Secondary DNS:"
-msgstr "Втор DNS:"
+msgstr "Секундарен DNS:"
 
 #: ../textw/network_text.py:276
 msgid "Tertiary DNS:"
@@ -5147,7 +5174,7 @@ msgstr "Трет DNS:"
 
 #: ../textw/network_text.py:283
 msgid "Miscellaneous Network Settings"
-msgstr ""
+msgstr "Разни мрежни подесувања"
 
 #: ../textw/network_text.py:351
 msgid "automatically via DHCP"
@@ -5159,7 +5186,7 @@ msgstr "рачно"
 
 #: ../textw/network_text.py:374
 msgid "Hostname Configuration"
-msgstr ""
+msgstr "Конфигурација на име на домаќин"
 
 #: ../textw/network_text.py:377
 msgid ""
@@ -5168,51 +5195,53 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Ако Вашиот систем е дел од поголема мрежа каде што имињата на домаќините се доделуваат од „автоматски од страна на DHCP“, одберете, автоматски со DHCP. Доколку не користите DHCP одберете „рачно“  и внесете го името на домаќинот за системот. Доколку не го направите ова, името на домаќинот ќе остане "
+"'localhost.'"
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
-msgstr ""
+msgstr "Невалидно име на домаќин"
 
 #: ../textw/network_text.py:404
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "Не одредивте име на домаќин"
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
-msgstr ""
+msgstr "Одберете индивидуални пакети"
 
 #: ../textw/packages_text.py:73
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
+msgstr "<Space>,<+>,<-> избор   |   <F2> Детали за група   |   <F12> следен екран"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
-msgstr ""
+msgstr "Детали за пакетите од групата"
 
 #: ../textw/packages_text.py:172
 msgid "Package :"
-msgstr ""
+msgstr "пакет :"
 
 #: ../textw/packages_text.py:177
 msgid "Size    :"
-msgstr ""
+msgstr "големина    :"
 
 #: ../textw/packages_text.py:178
 #, python-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f Кбајти"
 
 #: ../textw/packages_text.py:197
 msgid "Total size"
-msgstr ""
+msgstr "Вкупна големина"
 
 #: ../textw/packages_text.py:326
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
+msgstr "   <Space>,<+>,<-> избор   |   <F1> помош   |   <F2> опис на пакетот"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
-msgstr ""
+msgstr "Зависности на пакетите"
 
 #: ../textw/packages_text.py:376
 msgid ""
@@ -5223,45 +5252,45 @@ msgstr ""
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
-msgstr ""
+msgstr "Инсталирај ги пакетите за да се задоволат зависностите"
 
 #: ../textw/packages_text.py:398
 msgid "Do not install packages that have dependencies"
-msgstr ""
+msgstr "Не инсталирај пакети кои што имаат зависности"
 
 #: ../textw/packages_text.py:399
 msgid "Ignore package dependencies"
-msgstr ""
+msgstr "Игнорирај ги пакетите со зависностите"
 
 #: ../textw/partition_text.py:39
 msgid "Must specify a value"
-msgstr ""
+msgstr "Мора да одредите вредност"
 
 #: ../textw/partition_text.py:42
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "Бараната вредност не е интеџер"
 
 #: ../textw/partition_text.py:44
 msgid "Requested value is too large"
-msgstr ""
+msgstr "Бараната вредност е преголема"
 
 #: ../textw/partition_text.py:98
 #, python-format
 msgid "RAID Device %s"
-msgstr ""
+msgstr "RAID уред %s"
 
 #: ../textw/partition_text.py:227
 #, python-format
 msgid "Warning: %s"
-msgstr ""
+msgstr "Предупредување: %s"
 
 #: ../textw/partition_text.py:228
 msgid "Modify Partition"
-msgstr ""
+msgstr "Промени партиција"
 
 #: ../textw/partition_text.py:228
 msgid "Add anyway"
-msgstr "Сепак додадете"
+msgstr "Сепак додади"
 
 #: ../textw/partition_text.py:266
 msgid "Mount Point:"
@@ -5281,11 +5310,11 @@ msgstr "Фиксна големина:"
 
 #: ../textw/partition_text.py:379
 msgid "Fill maximum size of (MB):"
-msgstr "Исполнете максимална големина од (MB):"
+msgstr "Исполни максимална големина од (MB):"
 
 #: ../textw/partition_text.py:383
 msgid "Fill all available space:"
-msgstr "Исполнете го целиот достапен простор:"
+msgstr "Исполни го целиот достапен простор:"
 
 #: ../textw/partition_text.py:406
 msgid "Start Cylinder:"
@@ -5357,15 +5386,15 @@ msgstr "Остави непроменето (сочувај ги податоц�
 
 #: ../textw/partition_text.py:565
 msgid "Format as:"
-msgstr "Обликувај како:"
+msgstr "Форматирај како:"
 
 #: ../textw/partition_text.py:585
 msgid "Migrate to:"
-msgstr "Пресели на:"
+msgstr "Мигрирај на:"
 
 #: ../textw/partition_text.py:697
 msgid "Force to be a primary partition"
-msgstr "Инсистирај да биде примарна партиција"
+msgstr "Наметни да биде примарна партиција"
 
 #: ../textw/partition_text.py:714
 msgid "Not Supported"
@@ -5563,15 +5592,15 @@ msgstr "Додади swap"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "Вредноста што ја внесовте не е валиден број."
 
 #: ../textw/upgrade_text.py:205
 msgid "Reinstall System"
-msgstr ""
+msgstr "Инсталирај го системот пак"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
-msgstr ""
+msgstr "Систем за надградба"
 
 #: ../textw/upgrade_text.py:208
 msgid ""
@@ -5580,6 +5609,9 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Една или повеќе Linux инсталации беа пронајдени на Вашиот систем.\n"
+"\n"
+"Ве молам одберете еден за надградба, или одберете 'Инсталирај систем пак' за да инсталирате свеж систем."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -5658,11 +5690,11 @@ msgstr "Корисникот постои"
 
 #: ../textw/userauth_text.py:156
 msgid "The root user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "Корисникот root е веќе конфигуриран. Не треба да го додавате овој корисник тука."
 
 #: ../textw/userauth_text.py:163
 msgid "This system user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "Системскиот корисник е веќе конфигуриран. Не треба да го додавате овој корисник тука."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -5728,7 +5760,7 @@ msgstr "или употреби:"
 
 #: ../textw/userauth_text.py:359
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Побарај сервер преку емитување"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
@@ -5828,15 +5860,15 @@ msgstr "KDE"
 
 #: ../textw/xconfig_text.py:176
 msgid "Default Login:"
-msgstr ""
+msgstr "Стандардна најава:"
 
 #: ../textw/xconfig_text.py:178
 msgid "Graphical"
-msgstr "Графичко"
+msgstr "Графичка"
 
 #: ../textw/xconfig_text.py:180
 msgid "Text"
-msgstr "Текст"
+msgstr "Текстуална"
 
 #: ../textw/xconfig_text.py:228
 msgid "Monitor"
@@ -5951,7 +5983,7 @@ msgstr "Конфигурација на видео картичка"
 
 #: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "Одберете ја видео картичката и видео ram-от за Вашиот систем."
 
 #: ../textw/xconfig_text.py:647
 msgid "Video Card:"
@@ -7644,4 +7676,5 @@ msgstr "Велшки"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Зулу"
+
 
