@@ -39,7 +39,7 @@ class UpgradeExamineWindow (InstallWindow):
             c.setSteps(self.dispatch)
             c.setInstallData(self.id)
 
-	    rootfs = self.parts[self.upgradeoption.get_history()]
+	    rootfs = self.parts[self.upgradecombo.get_active()]
             self.id.upgradeRoot = [(rootfs[0], rootfs[1])]
             self.id.rootParts = self.parts
 
@@ -73,7 +73,7 @@ class UpgradeExamineWindow (InstallWindow):
 
     def upgradeOptionsSetSensitivity(self, state):
 	self.uplabel.set_sensitive(state)
-	self.upgradeoption.set_sensitive(state)
+	self.upgradecombo.set_sensitive(state)
 	if self.individualPackages is not None:
 	    self.individualPackages.set_sensitive(state)
 
@@ -130,8 +130,14 @@ class UpgradeExamineWindow (InstallWindow):
 	uplabelstr = _("The following installed system will be upgraded:")
 	self.uplabel = gtk.Label(uplabelstr)
 	self.uplabel.set_alignment(0.0, 0.0)
-	self.upgradeoption = gtk.OptionMenu()
-	self.upgradeoptionmenu = gtk.Menu()
+        model = gtk.ListStore(str)
+	self.upgradecombo = gtk.ComboBox(model)
+
+        cell = gtk.CellRendererText()
+        self.upgradecombo.pack_start(cell, True)
+        self.upgradecombo.set_attributes(cell, markup=0)
+
+        iter = None
 	for (part, filesystem, desc) in self.parts:
 	    if (desc is None) or len(desc) < 1:
 		desc = _("Unknown Linux system")
@@ -139,13 +145,9 @@ class UpgradeExamineWindow (InstallWindow):
 		devname = "/dev/" + part
 	    else:
 		devname = part
-            item = gtk.MenuItem("")
-	    itemlabel = item.get_children()[0]
-	    itemlabel.set_markup("<small>%s (%s)</small>" %(desc, devname))
-	    item.show()
-	    self.upgradeoptionmenu.add(item)
+            iter = model.append (iter)
+            model[iter][0] = "<small>%s (%s)</small>" %(desc, devname)
 
-	self.upgradeoption.set_menu(self.upgradeoptionmenu)
 	upboxtmp.pack_start(self.uplabel)
 
 	# more indentation
@@ -153,9 +155,8 @@ class UpgradeExamineWindow (InstallWindow):
 	crackhbox = gtk.HBox(gtk.FALSE)
 	crackhbox.set_size_request(35, -1)
 	box1.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-	box1.pack_start(self.upgradeoption, gtk.FALSE, gtk.FALSE)
+	box1.pack_start(self.upgradecombo, gtk.FALSE, gtk.FALSE)
 	upboxtmp.pack_start(box1, gtk.FALSE, gtk.FALSE)
-#	upboxtmp.pack_start(self.upgradeoption, gtk.FALSE, gtk.FALSE)
 
 	# hack indent it
 	upbox = gtk.HBox(gtk.FALSE)
@@ -175,7 +176,7 @@ class UpgradeExamineWindow (InstallWindow):
 	    idx = 0
 	    for p in self.parts:
 		if self.id.upgradeRoot[0][0] == p[0]:
-		    self.upgradeoption.set_history(idx)
+		    self.upgradecombo.set_active(idx)
 		    break
 		idx = idx + 1
 
