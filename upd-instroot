@@ -6,7 +6,7 @@ if [ -z "$1" -o ! -d "$1" ]; then
 	exit 1
 fi
 
-ARCH=`uname -m | sed -e 's/sparc64/sparc/' -e 's/i.86/i386/`
+ARCH=`uname -m | sed -e 's/sparc64/sparc/' -e 's/i.86/i386/'`
 
 HOMEDIR=`pwd`
 echo HOMEDIR $HOMEDIR
