@@ -833,6 +833,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
     /* JKFIXME: if we only have one interface and it doesn't have link,
      * do we go ahead? */
     if (deviceNums == 1) {
+        logMessage("only have one network device: %s", devices[0]);
         loaderData->netDev = devices[0];
         return LOADER_NOOP;
     }
