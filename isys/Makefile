@@ -10,7 +10,7 @@ OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
-LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
+LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
 PYMODULES = _isys.so
 SUBDIRS = modutils gzlib
 DIET = diet
@@ -54,6 +54,8 @@ libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 libisys-diet.a: libisys-diet.a($(DOBJECTS))
 
+filtertest: filtertest.o libisys.a
+
 clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
 	for d in $(SUBDIRS); do make -C $$d clean; done
@@ -68,10 +70,8 @@ subdirs:
 nfsmount.o: nfs_mountversion.h
 
 nfsmount.lo: nfs_mountversion.h
-	$(CC) -c $(CFLAGS) -fPIC -o nfsmount.lo nfsmount.c
 
 nfsmount.do: nfs_mountversion.h
-	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o nfsmount.do nfsmount.c
 
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
@@ -83,4 +83,3 @@ ifeq (.depend,$(wildcard .depend))
 include .depend
 endif                                           
 
-.PHONY: nfsmount.lo nfsmount.do
