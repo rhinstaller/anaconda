@@ -196,11 +196,11 @@ else:
 
 if lang:
     instClass.addToSkipList("language")
-    instClass.setLanguage(lang):
+    instClass.setLanguage(lang)
             
 if keymap and kbdtype:
     instClass.addToSkipList("keyboard")
-    instClass.setKeyboard(keymap):
+    instClass.setKeyboard(keymap)
 
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
