@@ -79,9 +79,8 @@ def raidsb(mdDevice):
     rc = 0
     try:
         rc = _isys.getraidsb(fd)
-    except:
-        pass
-    os.close(fd)
+    finally:
+        os.close(fd)
     return rc
 
 def losetup(device, file, readOnly = 0):
