@@ -300,7 +300,7 @@ class BaseInstallClass:
 
         id.auth.enableCache = enableCache
 
-    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None):
+    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1):
 	if bootProto:
 	    devices = id.network.available ()
 	    if (devices and bootProto):
@@ -310,7 +310,10 @@ class BaseInstallClass:
 		    device = list[0]
 		dev = devices[device]
                 dev.set (("bootproto", bootProto))
-                dev.set (("onboot", "yes"))
+		if onboot:
+		    dev.set (("onboot", "yes"))
+		else:
+		    dev.set (("onboot", "no"))
                 if bootProto == "static":
                     if (ip):
                         dev.set (("ipaddr", ip))

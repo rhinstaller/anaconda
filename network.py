@@ -336,6 +336,9 @@ class Network:
 
             if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
                 f.write("network --device %s" % dev.get('device'))
+		onboot = dev.get("onboot")
+		if onboot and onboot == "no":
+		    f.write(" --onboot no")
                 if dev.get('bootproto') == 'dhcp':
                     f.write(" --bootproto dhcp")
 		    if self.overrideDHCPhostname:
