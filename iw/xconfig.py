@@ -107,6 +107,8 @@ class XConfigWindow (InstallWindow):
 	self.sunServer = 0
 	if self.todo.x.server and len (self.todo.x.server) >= 3 and self.todo.x.server[0:3] == 'Sun':
 	    self.sunServer = 1
+        else:
+	    self.sunServer = 0            
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
