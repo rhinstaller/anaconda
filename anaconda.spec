@@ -1,11 +1,11 @@
 Name: anaconda
-Version: 10.2.0.9
+Version: 10.2.0.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.52, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel
+BuildPreReq: pump-devel >= 0.8.20, kudzu-devel >= 1.1.52, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11, rhpl, booty, libxml2-python, zlib-devel, bogl-devel >= 0:0.1.9-17, bogl-bterm >= 0:0.1.9-17, elfutils-devel, beecrypt-devel, libselinux-devel >= 1.6, xorg-x11-devel, intltool >= 0.31.2-3
 Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
 Requires: pyparted, libxml2-python
 Requires: anaconda-help, system-logos
@@ -70,6 +70,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 13 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.10-1
+- Handle /sbin/lvm not existing anymore
+- Allow installclasses to turn off showing the upgrade option
+- Ensure that Core exists in your comps file (#143930)
+- Don't fall back to text mode if we fail to start graphics in test mode
+- Display better error messages for HTTP/FTP errors (clumens, #144546)
+- Switch main UI to use glade, set up infrastructure for use of glade
+- Remove some old code
+- Add buildprereq for intltool (fixed for b.g.o 163981)
+
 * Wed Jan  5 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.9-1
 - Fix some typos (#143257, #144006)
 - Fix from Matthew Miller for multiple dns servers (#84409)
