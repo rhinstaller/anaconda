@@ -103,7 +103,7 @@ build: src
 	@mkdir /tmp/anaconda
 	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b FC-3 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
 	@rm -rf /tmp/anaconda
-	bhc $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?devel/anaconda#$(CVSTAG)'
+	bhc $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?rpms/anaconda/FC-3#$(CVSTAG)'
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
