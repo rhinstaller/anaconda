@@ -7,6 +7,7 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 class InstallClass(BaseInstallClass):
 
+    showLoginChoice = 1
     name = N_("Server")
     pixmap = "server.png"
     description = N_("Select this installation type if you would like to "

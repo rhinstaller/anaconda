@@ -3,6 +3,7 @@ from rhpl.translate import N_
 import os
 
 class InstallClass(personal_desktop.InstallClass):
+    showLoginChoice = 0
     name = N_("Workstation")
     pixmap = "workstation.png"
     description = N_("This option installs a graphical desktop "

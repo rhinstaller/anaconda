@@ -31,6 +31,7 @@ class BaseInstallClass:
     hidden = 0
     pixmap = None
     showMinimal = 0
+    showLoginChoice = 0
     description = None
     
     # don't select this class by default

@@ -87,7 +87,7 @@ class XCustomWindow:
 
 
     def __call__(self, screen, xsetup, monitor, videocard, desktop, comps,
-                 instPath):
+                 instClass, instPath):
 
         self.instPath = instPath
         self.xsetup = xsetup
@@ -173,25 +173,31 @@ class XCustomWindow:
             else:
                 desktopgrid = None
 
-            runlevelgrid = Grid(3,2)
-            label = Label(_("Default Login:"))
-            runlevelgrid.setField(label, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
-            self.graphrb = SingleRadioButton(_("Graphical"), None,
-                                             (self.selectedRunLevel == 5))
-            self.textrb = SingleRadioButton(_("Text"), self.graphrb,
-                                            (self.selectedRunLevel == 3))
-            self.graphrb.setCallback(self.loginCB, self.graphrb)
-            self.textrb.setCallback(self.loginCB, self.textrb)
-            runlevelgrid.setField(self.graphrb, 1, 1, (0, 0, 0, 1),
-                                  anchorLeft = 1)
-            runlevelgrid.setField(self.textrb, 2, 1, (0, 0, 0, 1),
-                                  anchorLeft = 1)
-
+	    if instClass.showLoginChoice:
+		runlevelgrid = Grid(3,2)
+		label = Label(_("Default Login:"))
+		runlevelgrid.setField(label, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
+		self.graphrb = SingleRadioButton(_("Graphical"), None,
+						 (self.selectedRunLevel == 5))
+		self.textrb = SingleRadioButton(_("Text"), self.graphrb,
+						(self.selectedRunLevel == 3))
+		self.graphrb.setCallback(self.loginCB, self.graphrb)
+		self.textrb.setCallback(self.loginCB, self.textrb)
+		runlevelgrid.setField(self.graphrb, 1, 1, (0, 0, 0, 1),
+				      anchorLeft = 1)
+		runlevelgrid.setField(self.textrb, 2, 1, (0, 0, 0, 1),
+				      anchorLeft = 1)
+	    else:
+		# if no choice to be given, assume run level of 5
+		runlevelgrid = None
+		self.selectRunLevel = 5
+		
             toplevel.add(TextboxReflowed(55, text), 0, 0, (0, 0, 0, 1))
             toplevel.add(customgrid, 0, 1, (0, 0, 0, 0), growx = 1)
             if desktopgrid:
                 toplevel.add(desktopgrid, 0, 2, (0, 0, 0, 0), growx = 1)
-            toplevel.add(runlevelgrid, 0, 3, (0, 0, 0, 0), growx = 1)
+	    if runlevelgrid:
+		toplevel.add(runlevelgrid, 0, 3, (0, 0, 0, 0), growx = 1)
             toplevel.add(bb, 0, 4, (0, 0, 0, 0), growx = 1)
 
 	    result = toplevel.run ()
@@ -203,8 +209,6 @@ class XCustomWindow:
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 screen.popWindow()
                 break
-#            elif rc == "test":
-#                self.testCB(screen)
             elif result == depthchangebutton:
                 self.depthchangeCB(screen)
             elif result == reschangebutton:

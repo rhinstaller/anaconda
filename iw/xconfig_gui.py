@@ -69,10 +69,14 @@ class XCustomWindow (InstallWindow):
 	if ENABLE_DESKTOP_CHOICE:
 	    self.desktop.setDefaultDesktop (self.newDesktop)
 
-        if self.text.get_active ():
-            rl = 3
-        elif self.graphical.get_active ():
-            rl = 5
+	if self.instClass.showLoginChoice:
+	    if self.text.get_active ():
+		rl = 3
+	    elif self.graphical.get_active ():
+		rl = 5
+	else:
+	    # default to 5 if we didnt give them a choice
+	    rl = 5
 
         self.desktop.setDefaultRunLevel(rl)
 
@@ -189,12 +193,13 @@ class XCustomWindow (InstallWindow):
 
     # XCustomWindow tag="xcustom"
     def getScreen (self, xsetup, monitor, videocard, desktop, comps,
-                   instPath):
+                   instClass, instPath):
 
         self.xsetup = xsetup
         self.monitor = monitor
         self.videocard = videocard
         self.desktop = desktop
+	self.instClass = instClass
 
 	if not xsetup.imposed_sane_default:
 	    xsetup.xhwstate.choose_sane_default()
@@ -350,27 +355,29 @@ class XCustomWindow (InstallWindow):
         hsep = gtk.HSeparator ()
         self.box.pack_start (hsep)
 
-        frame4 = gtk.Frame (_("Please choose your login type:"))
-        frame4.set_shadow_type (gtk.SHADOW_NONE)
-        hbox4.pack_start (frame4, gtk.TRUE, gtk.FALSE, 2)
-        
-        self.hbox5 = gtk.HBox (gtk.TRUE, 2)
-        frame4.add (self.hbox5)
+	# see if we should allow them to choose graphical or text login
+	if self.instClass.showLoginChoice:
+	    frame4 = gtk.Frame (_("Please choose your login type:"))
+	    frame4.set_shadow_type (gtk.SHADOW_NONE)
+	    hbox4.pack_start (frame4, gtk.TRUE, gtk.FALSE, 2)
 
-        self.text = gtk.RadioButton (None, (_("T_ext")))
-        self.graphical = gtk.RadioButton (self.text, (_("_Graphical")))
+	    self.hbox5 = gtk.HBox (gtk.TRUE, 2)
+	    frame4.add (self.hbox5)
 
-        self.runLevel = self.desktop.getDefaultRunLevel()
+	    self.text = gtk.RadioButton (None, (_("T_ext")))
+	    self.graphical = gtk.RadioButton (self.text, (_("_Graphical")))
 
-        if self.runLevel == 3:
-            self.text.set_active (gtk.TRUE)
-        elif self.runLevel == 5:
-            self.graphical.set_active (gtk.TRUE)
+	    self.runLevel = self.desktop.getDefaultRunLevel()
 
-        self.hbox5.pack_start (self.graphical, gtk.FALSE, 2)
-        self.hbox5.pack_start (self.text, gtk.FALSE, 2)
-        
-        self.box.pack_start (hbox4, gtk.FALSE, gtk.TRUE, 2)
+	    if self.runLevel == 3:
+		self.text.set_active (gtk.TRUE)
+	    elif self.runLevel == 5:
+		self.graphical.set_active (gtk.TRUE)
+
+	    self.hbox5.pack_start (self.graphical, gtk.FALSE, 2)
+	    self.hbox5.pack_start (self.text, gtk.FALSE, 2)
+
+	    self.box.pack_start (hbox4, gtk.FALSE, gtk.TRUE, 2)
 
         return self.box
 
