@@ -17,6 +17,7 @@ prepareBootImage() {
 	size=`cat $MBD_TMPIMAGE | wc -c`
 	filler=`expr $BOOTDISKSIZE "*" 1024 - $size`
 	dd if=/dev/zero bs=$filler count=1 >> $MBD_TMPIMAGE 2> /dev/null
+	echo ROM disk image: `expr $filler / 1024`k free.
 	rm -rf $stagedir
 	mount -tromfs -oloop $MBD_TMPIMAGE $MBD_BOOTTREE
 	$SILO -r $MBD_BOOTTREE -i /fd.b -b /second.b -C /silo.conf -F
