@@ -971,8 +971,6 @@ class XF86Config:
         self.files = files
         self.modes = modes
 
-#        print self.server
-#        time.sleep(5)
         serverPath = "/usr/X11R6/bin/" + self.server
 
         server = os.fork()
