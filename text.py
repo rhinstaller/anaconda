@@ -326,8 +326,11 @@ class InstallInterface:
             if exc.options & flag:
                 buttons.append(_(errorstring))
                 buttonToAction[string.lower(_(errorstring))] = flag
-        rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
-                                buttons=buttons)
+
+        rc = None
+        while not buttonToAction.has_key(rc):
+            rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
+                                    buttons=buttons)
 
         return buttonToAction[rc]
     
