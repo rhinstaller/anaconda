@@ -108,6 +108,7 @@ makeS390initrd() {
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,d,k,l,s,v,x}
+    mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/state
     mkdir -p $MBD_DIR/var/empty/sshd
     mkdir -p $MBD_DIR/etc/{pam.d,security}
