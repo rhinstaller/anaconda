@@ -16,10 +16,12 @@ prepareBootImage() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
-	    if [ $BOOTLANG = "ja_JP" ]; then
-		EXTRA='-e "s/ vga=.*//"'
+	    # fb console and kon don't get along...
+	    if [ "$BOOTLANG" = "ja_JP" ]; then
+		sed -e "s/ vga=.*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cfg-
+		mv -f $MBD_BOOTTREE/syslinux.cfg- $MBD_BOOTTREE/syslinux.cfg
 	    fi
-	    sed -e "s/initrd.img/initrd.img lang=$BOOTLANG/g" $EXTRA < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cfg-
+	    sed -e "s/initrd.img/initrd.img lang=$BOOTLANG/g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cfg-
 	    mv -f $MBD_BOOTTREE/syslinux.cfg- $MBD_BOOTTREE/syslinux.cfg
 	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
 	    if [ $? != 0 ]; then
