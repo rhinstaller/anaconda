@@ -19,7 +19,7 @@ libslang.so:	$(OBJS)
 	gcc -o $@ -shared -Wl,-soname,libslang.so.1 $(OBJS)
 
 clean:
-	rm -f *.o libslang.so
+	rm -f *.o libslang.so libslang.a
 
 install:    libslang.so
 	install -s libslang.so $(DESTDIR)/$(RUNTIMEDIR)/libslang.so.1
