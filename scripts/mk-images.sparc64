@@ -1,10 +1,9 @@
 SECSTAGE="vfat raid0 raid1 raid5"
 TILO=$IMGPATH/usr/bin/tilo
 SILO=$IMGPATH/usr/sbin/silo
+FAKEARCH=sparc64
 
 prepareBootImage() {
-        dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
-	loopdev=`findloopdevice $MBD_TMPIMAGE`
 	stagedir=/tmp/sparcboot.$$
 	rm -rf $stagedir
 	mkdir -p $stagedir
@@ -14,9 +13,11 @@ prepareBootImage() {
 	cp $BOOTDISKDIR/second.b $stagedir
 	cp $BOOTDISKDIR/*.msg $stagedir
 	cp $BOOTDISKDIR/silo64.conf  $stagedir/silo.conf
-        genromfs -V "Red Hat Linux Install" -d $stagedir -f $loopdev -a 512 -A 2048,/..
+        genromfs -V "Red Hat Linux Install" -d $stagedir -f $MBD_TMPIMAGE -a 512 -A 2048,/..
+	size=`cat $MBD_TMPIMAGE | wc -c`
+	filler=`expr $BOOTDISKSIZE "*" 1024 - $size`
+	dd if=/dev/zero bs=$filler count=1 >> $MBD_TMPIMAGE 2> /dev/null
 	rm -rf $stagedir
-	losetup -d $loopdev
 	mount -tromfs -oloop $MBD_TMPIMAGE $MBD_BOOTTREE
 	$SILO -r $MBD_BOOTTREE -i /fd.b -b /second.b -C /silo.conf -F
 }

@@ -118,7 +118,7 @@ rundepmod () {
 
     exclpattern="tc90x|FPT|BusLogic|Pci2000|Pci2220i"
 
-    /sbin/depmod -e -i -m $KERNELROOT/boot/System.map-$version \
+    $FAKEARCH /sbin/depmod -e -i -m $KERNELROOT/boot/System.map-$version \
 	    $what > $final.foo 2>&1 | 
 	    egrep -v "modprobe: (${exclpattern}) multiply defined"
 

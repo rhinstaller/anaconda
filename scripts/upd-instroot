@@ -2,7 +2,6 @@
 
 ORIGDIR=`pwd`
 
-
 if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
 	echo "usage:        $0 <packagedir> [templatedir] [instroot]"
@@ -35,7 +34,7 @@ prunePackageList() {
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm)"
+	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
 	done
 	# gtk+, enough said
 	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
@@ -420,6 +419,8 @@ rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zo
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 rm -rf $TZDIR
+
+chown -R root:root $DEST $DESGTR
 
 # XXX kludge, fix me
 #rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
