@@ -150,6 +150,7 @@ class PartitionWindow:
                                 "", "", "%dM" %(size),
                                 "%s" %(ptype), "%s" %(mount)], request.device,
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+                raidcounter = raidcounter + 1
         
 
     def refresh(self):
