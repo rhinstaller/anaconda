@@ -99,7 +99,7 @@ mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
-	 mount procps rpm XFree86 Xconfigurator anaconda
+	 procps rpm XFree86 Xconfigurator anaconda
 	 anaconda-runtime kudzu hwdata bzip2
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm
@@ -117,7 +117,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
 	net-tools inetd openssh openssh-server coreutils modutils
-	initscripts mount gawk xauth
+	initscripts gawk xauth
 	portmap telnet-server login ssh_keys"
 fi
 
@@ -401,8 +401,6 @@ bin/ksh
 bin/cat
 bin/chmod
 bin/sort
-bin/mount
-bin/umount
 bin/rpm
 $LIBDIR/libpam.so*
 $LIBDIR/libdl.so*
@@ -462,7 +460,6 @@ bin/ps
 bin/rm
 bin/rpm
 bin/touch
-bin/umount
 boot/*.b
 boot/bootlx
 etc/fb.modes
@@ -746,7 +743,6 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     for i in $DEST $DESTGR; do
 	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
 	mv $i/bin/sed $i/bin/sed_save
-	mv $i/bin/mount $i/bin/mount_save
 	mv $i/bin/sort $i/bin/sort_save
 	mv $i/bin/mknod $i/bin/mknod_save
     done
