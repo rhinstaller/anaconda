@@ -1,6 +1,7 @@
 from iw import *
 from gtk import *
 from gui import _
+import ituil
 
 class BootdiskWindow (InstallWindow):
 
@@ -15,6 +16,9 @@ class BootdiskWindow (InstallWindow):
         self.bootdisk = None
 
     def getNext (self):
+        if iutil.getArch() == "alpha":
+            return None
+        
         if not self.todo.needBootdisk():
             return None
         
@@ -33,6 +37,9 @@ class BootdiskWindow (InstallWindow):
         return None
 
     def getScreen (self):
+        if iutil.getArch() == "alpha":
+            return None
+
         if not self.todo.bootdisk: return None
 
         box = GtkVBox (FALSE, 5)
