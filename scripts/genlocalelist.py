@@ -119,9 +119,9 @@ for line in lines:
     # we don't want @euro locales for utf8
     lang = lang.replace("UTF-8@euro", "UTF-8")
 
-    # someone put nb_NO in locale.alias.  yuck.  We don't want
+    # someone put no_NO in locale.alias.  yuck.  We don't want
     # to offer that
-    if lang.startswith("nb_") or lang.startswith("iw_"):
+    if lang.startswith("no_") or lang.startswith("iw_"):
         continue
 
     f = os.popen("LANG=%s locale language territory charmap" %(lang,), "r")
