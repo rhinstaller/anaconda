@@ -114,7 +114,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 anaconda-runtime kudzu hwdata bzip2
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
-	 rhpl pyxf86config libxml2 libxml2-python glib2 laus
+	 rhpl pyxf86config libxml2 libxml2-python glib2 laus laus-libs
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
