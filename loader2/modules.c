@@ -788,9 +788,9 @@ static struct extractedModule * extractModules (char * const * modNames,
         if (!oldPaths[i].path) {
             map[numMaps].archivePath = alloca(strlen(modpath) + 
                                               strlen(*m) + 25);
-            sprintf(map[numMaps].archivePath, "%s/%s.o", modpath, *m);
+            sprintf(map[numMaps].archivePath, "%s/%s.ko", modpath, *m);
             map[numMaps].fsPath = alloca(10 + strlen(*m));
-            sprintf(map[numMaps].fsPath, "/tmp/%s.o", *m);
+            sprintf(map[numMaps].fsPath, "/tmp/%s.ko", *m);
             unlink(map[numMaps].fsPath);
             map[numMaps].mapFlags = CPIO_MAP_PATH;
             numMaps++;
@@ -811,7 +811,7 @@ static struct extractedModule * extractModules (char * const * modNames,
 
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
         if (!oldPaths[i].path) {
-            sprintf(fn, "/tmp/%s.o", modNames[i]);
+            sprintf(fn, "/tmp/%s.ko", modNames[i]);
             if (!stat(fn, &sb)) {
                 oldPaths[i].path = strdup(fn);
                 /* JKFIXME: this is copied from the old stuff -- do we really need it? */
