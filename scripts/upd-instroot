@@ -520,9 +520,17 @@ echo "Patching python library..."
 # always use passive mode for ftp installs
 cd $DEST/usr/lib/python1.5
 patch -p0 > /dev/null <<EOF
---- ./urllib.py.pasv	Sun Sep 26 16:45:24 1999
-+++ ./urllib.py	Sun Sep 26 16:47:56 1999
-@@ -563,6 +563,7 @@
+--- urllib.py.orig	Thu May 18 18:40:49 2000
++++ urllib.py	Thu May 18 18:41:35 2000
+@@ -354,6 +354,7 @@
+         path, attrs = splitattr(path)
+         path = unquote(path)
+         dirs = string.splitfields(path, '/')
++	dirs[0] = '/' + dirs[0]
+         dirs, file = dirs[:-1], dirs[-1]
+         if dirs and not dirs[0]: dirs = dirs[1:]
+         key = (user, host, port, string.joinfields(dirs, '/'))
+@@ -563,6 +564,7 @@
          self.ftp = ftplib.FTP()
          self.ftp.connect(self.host, self.port)
          self.ftp.login(self.user, self.passwd)
@@ -530,7 +538,6 @@ patch -p0 > /dev/null <<EOF
          for dir in self.dirs:
              self.ftp.cwd(dir)
      def retrfile(self, file, type):
-
 EOF
 cd -
 
