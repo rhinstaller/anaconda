@@ -58,7 +58,7 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath, bootloader):
 			  "drive, and insert the floppy diskette that "
 			  "is to contain the boot disk.\n\nAll data will "
 			  "be ERASED during creation of the boot disk."),
-			type="okcancel")
+			type="custom", custom_buttons=[_("Cancel"), _("Make boot disk")])
 
     if rc:
 	return DISPATCH_NOOP
