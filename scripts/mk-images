@@ -400,6 +400,10 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/state
     ln -s /tmp $MBD_DIR/var/state/xkb
 
+    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+	mkdir -p $MBD_DIR/dev/iseries
+    fi
+
     if [ -n "$LOADERMODULES" ]; then
 	MODSET=`expandModuleSet "$LOADERMODULES"`
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"

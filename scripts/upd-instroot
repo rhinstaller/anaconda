@@ -187,6 +187,10 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
+if [ $ARCH = ppc ]; then
+    PACKAGESGR="$PACKAGESGR fbset"
+fi
+
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
 boot/efi/EFI/redhat/elilo.efi
@@ -328,6 +332,7 @@ usr/sbin/dmidecode
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
+usr/share/terminfo/v/vt100
 usr/share/doc/kon2*/terminfo.kon
 usr/share/hwdata/pcitable
 usr/share/hwdata/pci.ids
@@ -446,6 +451,7 @@ bin/umount
 bin/zcat
 boot/*.b
 boot/bootlx
+etc/fb.modes
 etc/gtk-2.0/gtkrc*
 etc/im_palette.pal
 etc/imrc
@@ -605,6 +611,7 @@ usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/sbin/chroot
 usr/sbin/ddcprobe
+usr/sbin/fbset
 usr/sbin/gnome-pty-helper
 usr/sbin/traceroute
 usr/share/anaconda/*
@@ -633,6 +640,7 @@ usr/share/redhat-config-keyboard/*
 usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
 usr/share/terminfo/k/kon
+usr/share/terminfo/v/vt100
 usr/share/themes/Bluecurve/gtk-2.0/*
 usr/share/vte/termcap/xterm
 usr/share/zoneinfo/zone.tab

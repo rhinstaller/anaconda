@@ -1,0 +1,18 @@
+SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3"
+NETMODULES="pcnet32 tulip yellowfin acenic"
+SCSIMODULES=""
+
+prepareBootImage() {
+    mkdir -p $TOPDESTPATH/ppc/chrp
+}
+
+makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
+           --initrdsize 8192 \
+           --loaderbin loader \
+           --modules "nfs fat vfat $NETMODULES $SCSIMODULES"
+
+makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
+makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
+makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+makemainimage "stage2" "cramfs"
+
