@@ -44,9 +44,13 @@ class MiloInstall:
             abootdev = wholeDevice (self.todo.mounts['/boot'][0])
             try:
                 os.mkdir (confprefix)
-		os.remove(todo.instPath + "/etc/aboot.conf")
             except:
 		pass
+            # XXX stat /etc/aboot.conf and do the right thing
+            try:
+		os.remove(todo.instPath + "/etc/aboot.conf")
+            except:
+                pass
             os.symlink("../boot/etc/aboot.conf",
                        self.todo.instPath + "/etc/aboot.conf")
 
@@ -95,10 +99,10 @@ class MiloInstall:
             kernelroot = '/'
             try:
 		os.remove(todo.instPath + "/etc/milo.conf")
-                os.symlink("../boot/milo.conf",
-                           self.todo.instPath + "/etc/milo.conf")
             except:
 		pass
+            os.symlink("../boot/milo.conf",
+                       self.todo.instPath + "/etc/milo.conf")
         else:
             hasboot = 0
             kernelroot = '/boot/'
