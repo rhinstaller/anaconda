@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-29 15:39+01:00\n"
-"Last-Translator: Kjartan Maraas <kmaraas@gnu.org>\n"
+"PO-Revision-Date: 2001-02-02 12:15-05:00\n"
+"Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
@@ -19,15 +19,15 @@ msgstr "Uventet hendelse oppstod"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr "Dump skrevet?"
+msgstr "Dump skrevet"
 
 #: ../exception.py:92
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"Systemets tilstand ble korrekt skrevet til disketten. Systemet kan startes "
-"på nytt nå."
+"Systemets tilstand ble skrevet til disketten. Systemet vil nå bli startet på "
+"nytt."
 
 #: ../fstab.py:65
 msgid ""
@@ -36,7 +36,7 @@ msgid ""
 "\n"
 msgstr ""
 "Følgende partisjoner er nylig opprettet, men du har valgt å ikke formatere "
-"dem. Dette vil sannsynligvis forårsake en feil senere i installasjonen.\n"
+"dem. Dette vil sannsynligvis forårsake en feil senere i installeringen\n"
 "\n"
 
 #: ../fstab.py:73
@@ -48,7 +48,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Trykk OK for å fortsette, eller avbryt for å gå tilbake og velge at disse "
+"Trykk OK for å fortsette, eller Avbryt for å gå tilbake og velge at disse "
 "partisjonene skal formateres (ANBEFALT)."
 
 #: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
@@ -80,8 +80,8 @@ msgid ""
 msgstr ""
 "Kjernen kan ikke lese din nye partisjonsinformasjon. Sannsynligvis fordi du "
 "endret utvidete partisjoner. Selv om dette ikke er kritisk må du starte "
-"maskinen på nytt før du fortsetter. Sett inn Red Hat oppstartsdisketten nå "
-"og trykk \"Ok\" for å starte systemet på nytt.\n"
+"maskinen på nytt før du fortsetter. Sett inn din oppstartsdiskett for Red "
+"Hat Linux nå og trykk \"Ok\" for å starte systemet på nytt.\n"
 
 #: ../fstab.py:504 ../fstab.py:768 ../fstab.py:1205
 msgid "Formatting"
@@ -153,8 +153,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Vennligst sett inn en diskett nå. Alt innhold på disketten vil slettes, så "
-"vær forsiktig når du velger diskett."
+"Sett inn en diskett: Alt innhold på disketten vil slettes, så vær forsiktig "
+"når du velger diskett."
 
 #: ../gui.py:407 ../gui.py:771
 msgid "Next"
@@ -265,7 +265,7 @@ msgid ""
 "probably out of disk space."
 msgstr ""
 "En feil oppsto under overføring av installasjonsfilen til din harddisk. Du "
-"har sannsynlig sluppet opp for diskplass."
+"har sannsynligvis sluppet opp for diskplass."
 
 #: ../image.py:115
 msgid "Change CDROM"
@@ -362,9 +362,9 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"Dutt system ble montert under /mnt/sysimage.\n"
+"Ditt system ble montert under /mnt/sysimage.\n"
 "\n"
-"Trykk <linjeskift> for å gå til skallet. Systemet vil starte på nytt når du "
+"Trykk <Enter> for å gå til skallet. Systemet vil starte på nytt når du "
 "avslutter skallet."
 
 #: ../rescue.py:89
@@ -390,12 +390,12 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Du har ingen Linux partisjoner. Trykk linjeskift for å gå til et skall. "
+"Du har ingen Linux-partisjoner. Trykk linjeskift for å gå til et skall. "
 "Systemet vil starte på nytt når du avslutter skallet."
 
 #: ../rescue.py:108
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "Systemet er montert under /mnt/sysimage katalogen."
+msgstr "Systemet er montert under katalogen \"/mnt/sysimage\"."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -433,7 +433,7 @@ msgstr "Ok"
 
 #: ../text.py:67
 msgid "What language would you like to use during the installation process?"
-msgstr "Hvilket språk ønsker du å bruke under installasjonen?"
+msgstr "Hvilket språk ønsker du å bruke under installeringen?"
 
 #: ../text.py:144
 msgid "Choose the languages to be installed:"
@@ -461,7 +461,7 @@ msgstr "Hvilken type tastatur brukes på denne datamaskinen?"
 
 #: ../text.py:270
 msgid "Upgrade Existing Installation"
-msgstr "Oppgrader eksisterende installasjon"
+msgstr "Oppgrader ditt eksisterende system"
 
 #: ../text.py:292 ../text.py:1046
 msgid "Installation Type"
@@ -469,7 +469,7 @@ msgstr "Installasjonstype"
 
 #: ../text.py:293
 msgid "What type of system would you like to install?"
-msgstr "Hvilken type installasjon ønsker du?"
+msgstr "Hvilken installeringstype ønsker du?"
 
 #: ../text.py:347
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -489,8 +489,8 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Pakkene du har installert og eventuelle andre pakker som er nødvendige for å "
-"tilfredstille deres avhengigheter, er valgt for installasjon. Ønsker du å "
+"Pakkene du har installert, og eventuelle andre pakker som er nødvendige for "
+"å tilfredstille deres avhengigheter, er valgt for installering. Ønsker du å "
 "endre pakkesettet som skal oppgraderes?"
 
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
@@ -542,7 +542,7 @@ msgstr ""
 "Denne installasjonsprosessen er beskrevet i detalj i \"Official Red Hat \n"
 "Linux Installation Guide\", som er tilgjengelig fra Red Hat Software. Hvis "
 "du har\n"
-"tilgang til denne manualen bør du lese installasjonsdelen før du "
+"tilgang til denne manualen bør du lese delen om installering før du "
 "fortsetter.\n"
 "\n"
 "Hvis du har kjøpt Official Red Hat Linux bør du registrere kjøpet gjennom "
@@ -600,14 +600,14 @@ msgstr "Velg en tjener"
 
 #: ../text.py:584
 msgid "Installation to begin"
-msgstr "Installasjonen startes"
+msgstr "Installeringen startes"
 
 #: ../iw/confirm_gui.py:45 ../text.py:585
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplett logg av installasjonen vil befinne seg i /tmp/install.log etter "
+"En komplett logg av installeringen vil befinne seg i /tmp/install.log etter "
 "omstart av systemet. Du vil kanskje beholde denne filen som et "
 "referansepunkt til senere."
 
@@ -628,7 +628,7 @@ msgstr ""
 msgid ""
 "                              <Return> to reboot                             "
 " "
-msgstr "                              <Linjeskift for å starte på nytt"
+msgstr "                              <Enter> for å starte på nytt"
 
 #: ../text.py:618 ../text.py:641
 msgid "Complete"
@@ -646,9 +646,9 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
-"Gratulerer, installasjonen er ferdig.\n"
+"Gratulerer, installeringen er ferdig.\n"
 "\n"
-"Trykk linjeskift for å starte opp på nytt, og forsikre deg om at "
+"Trykk <Enter> for å starte opp på nytt, og forsikre deg om at "
 "oppstartsmediet er fjernet før maskinen starter på nytt, ellers vil "
 "installasjonen starte på nytt. For informasjon om feilrettinger som er "
 "tilgjengelig for denne utgaven av Red Hat Linux, se errataen som finnes på "
@@ -728,7 +728,7 @@ msgstr "Hjelp ikke tilgjengelig"
 
 #: ../text.py:873
 msgid "No help is available for this install."
-msgstr "Ingen hjelp tilgjengelig for denne installasjonen."
+msgstr "Ingen hjelp tilgjengelig for denne installeringen."
 
 #: ../text.py:931
 msgid "Save Crash Dump"
@@ -815,7 +815,7 @@ msgstr "Autentisering"
 
 #: ../text.py:1032
 msgid "Configuration Complete"
-msgstr "Konfigurasjonen fullført"
+msgstr "Konfigurering fullført"
 
 #: ../text.py:1054 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
@@ -879,7 +879,7 @@ msgstr "Pakkeavhengigheter"
 
 #: ../iw/xconfig_gui.py:1007 ../text.py:1119 ../text.py:1127
 msgid "X Configuration"
-msgstr "Konfigurasjon av X"
+msgstr "Konfigurering av X"
 
 #: ../text.py:1121
 msgid "Installation Begins"
@@ -966,8 +966,8 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Følgende filer er absolutte symbolske lenke, som vi ikke støtter under "
-"oppgradering. Vennligst endre dem til relative symbolske lenker og start "
+"Følgende filer er absolutte symbolske lenker, noe som ikke støttes under "
+"oppgradering. Du må endre dem til relative symbolske lenker og starte "
 "oppgraderingen på nytt.\n"
 "\n"
 
@@ -981,7 +981,7 @@ msgstr "Finner pakker som skal oppgraderes..."
 
 #: ../todo.py:1131
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "Gjenoppbygging av RPM databasen feilet. Ikke mer diskplass?"
+msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
 #: ../todo.py:1144
 msgid "An error occured when finding the packages to upgrade."
@@ -1002,7 +1002,7 @@ msgid ""
 "or bad media. Press <return> to try again."
 msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
-"et dårlig media. Trykk <linjeskift> for å prøve igjen."
+"et dårlig media. Trykk <Enter> for å prøve igjen."
 
 #: ../todo.py:1764
 #, c-format
@@ -1021,7 +1021,7 @@ msgid ""
 "\n"
 msgstr ""
 "Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
-"valgt. Du må ha mer plass på de følgende filsystemene:\n"
+"valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
 #: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1814 ../todo.py:1830
@@ -1302,8 +1302,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"En feil oppstod under oppretting av oppstartsdisketten. Vennligst forsikre "
-"deg om at det står en formatert diskett i diskettstasjonen."
+"En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om at "
+"det står en formatert diskett i diskettstasjonen."
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
@@ -1429,7 +1429,7 @@ msgstr "Høyt"
 
 #: ../iw/firewall_gui.py:255 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr "Middles"
+msgstr "Middels"
 
 #: ../iw/firewall_gui.py:256 ../textw/firewall_text.py:39
 msgid "No firewall"
