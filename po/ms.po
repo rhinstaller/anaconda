@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-19 20:05+0800\n"
+"PO-Revision-Date: 2004-08-19 16:13+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -1576,7 +1576,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Sila tunggu sementara memformat pemacu %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1586,7 +1586,15 @@ msgid ""
 "drives to ignore.\n"
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
-msgstr "on s s Kepada on kepada kepada?"
+msgstr ""
+"Jadual partisyen pada peranti %s (%s) tidak dapat dibaca. Untuk mencipta partisyen "
+"baru, ia mesti dimulakan, menyebabkan kehilangan SEMUA DATA pada pemacu "
+"ini.\n"
+"\n"
+"Operasi ini akan mengatasi sebarang pilihan pemasangan mengenai pemacu "
+"yang mana untuk diabaikan.\n"
+"\n"
+"Adakah anda hendak memulakan pemacu ini, memadam SEMUA DATA?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -3228,20 +3236,24 @@ msgid "_Enable firewall"
 msgstr "_Hidupkan firewall"
 
 #: ../iw/firewall_gui.py:107 ../textw/firewall_text.py:94
-#, fuzzy
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr "kepada kepada on daripada Benarkan kepada?"
+msgstr ""
+"Dengan firewall, anda mungkin mahu membenarkan akses kepada servis tertentu pada "
+"komputer anda dari ornag lain.  Benarkan akses ke servis yang mana?"
 
 #: ../iw/firewall_gui.py:143
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr "Keselamatan menyediakan dalam dalam dimatikan atau."
+msgstr ""
+"Security Enhanced Linux (SELinux) menyediakan kawalan keselamatan lebih terperinci "
+"berbanding yang terdapat dalam sistem Linux tradisional.  Ia boleh ditetapkan dalam "
+"keadaan dimatikan, keadaan dimana hanya amaran diberikan mengenai perkara yang perlu "
+"dinafikan, atau keadaan aktif sepenuhnya."
 
 #: ../iw/firewall_gui.py:155
 msgid "Enable _SELinux?:"
@@ -5493,9 +5505,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Anda tidak boleh mempersolalisasi firewall yang dimatikan."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Personalisasi Firewall"
+msgstr "Tetapan Sendiri Konfigurasi Firewall"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -6983,9 +6994,9 @@ msgstr "Tidak menjumpai ks.cfg pada liut but."
 
 # lom
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "kepada s"
+msgstr "Hujah teruk untuk mematikan arahan kaedah kickstart %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -8236,7 +8247,6 @@ msgid "German"
 msgstr "Jerman"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
 msgstr "Hindi"
 
@@ -8261,7 +8271,6 @@ msgid "Korean"
 msgstr "Korea"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Macedonian"
 msgstr "Macedonia"
 
@@ -8287,7 +8296,7 @@ msgstr "Portugis(Brazil)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8306,7 +8315,6 @@ msgid "Swedish"
 msgstr "Swedish"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
 msgstr "Tamil"
 
@@ -8319,7 +8327,6 @@ msgid "Ukrainian"
 msgstr "Ukraine"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Vietnamese"
 msgstr "Vietnam"
 
