@@ -608,6 +608,10 @@ class XF86Config:
     def filterModesByMemory (self):
         if not self.vidRam:
             return
+        laptop = self.laptop()
+        if laptop:
+            self.modes = laptop
+            return
         if string.atoi(self.vidRam) >= 4096:
             self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
@@ -751,6 +755,7 @@ class XF86Config:
 #            return
         self.probed = 1
 	self.device = None
+        self.descr = None
 	self.primary = 0
         # PCI probe for video cards
         sections = {}
@@ -765,6 +770,7 @@ class XF86Config:
 	    if device and not self.device:
 		self.device = device
 		self.primary = len(self.vidCards)
+            self.descr = descr
 	    if len (server) > 9 and server[0:10] == "Server:Sun" and descr[0:4] == "Sun|":
 		server = "Card:Sun " + descr[4:]
             if len (server) > 5 and server[0:5] == "Card:":
@@ -870,8 +876,30 @@ class XF86Config:
         config.write (config4)
         config.close ()        
 
+    def laptop (self):
+        if not self.descr:
+            return None
+        laptops = (("ATI|Rage Mobility",
+                    ("30-60", "60-90"),
+                    { "8" : ["1024x768"],
+                      "16" : ["1024x768"],
+                      "32" : ["1024x768"]}),
+                   )
+        for (card, (horiz, vert), modes) in laptops:
+            if (len(self.descr) >= len (card)
+                and self.descr[:len(card)] == card):
+                self.monHoriz = horiz
+                self.monVert = vert
+                self.monID = "Laptop Screen"
+                return modes
+        return None
+
     def test (self, serverflags=None, spawn=0):
         files = self.files
+        modes = self.modes
+        laptop = self.laptop()
+        if laptop:
+            self.modes = laptop
         self.files = """
     RgbPath	"/usr/X11R6/lib/X11/rgb"
     FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
@@ -899,6 +927,7 @@ class XF86Config:
         f.close ()
 
         self.files = files
+        self.modes = modes
         
         serverPath = "/usr/X11R6/bin/" + self.server
 
@@ -922,12 +951,19 @@ class XF86Config:
             os.environ["DISPLAY"] = ":9"
             os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--norunlevel"])
         else:
-            pid, status = os.waitpid(child, 0)
-            os.kill (server, 15)
-            os.waitpid(server, 0)
-            if not os.WIFEXITED (status) or os.WEXITSTATUS (status):
-                if os.WEXITSTATUS (status) not in [ 0, 1, 2 ]:
-                    raise RuntimeError, "X startup failed %d" % (status,)
+            failed = 0
+            status = -1
+            try:
+                pid, status = os.waitpid(child, 0)
+                os.kill (server, 15)
+                os.waitpid(server, 0)
+                if not os.WIFEXITED (status) or os.WEXITSTATUS (status):
+                    if os.WEXITSTATUS (status) not in [ 0, 1, 2 ]:
+                        failed = 1
+            except OSError:
+                failed = 1
+            if failed:
+                raise RuntimeError, "X startup failed %d" % (status,)
             return
 
     def Version3Config (self, test=0):
