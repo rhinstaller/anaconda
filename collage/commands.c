@@ -174,6 +174,7 @@ int mknodCommand(int argc, char ** argv) {
     if (argc == 2) {
 	end = path + strlen(path) - 1;
 	while (end > path && *end != '/') end--;
+	if (*end == '/') end++;
 
 	if (devMakeInode(end, path)) {
 	    return 1;
