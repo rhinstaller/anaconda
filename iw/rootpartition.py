@@ -212,7 +212,7 @@ class AutoPartitionWindow(InstallWindow):
 	align.set(0.5, 0.5, 0.0, 0.0)
 
 	box.pack_start(align, TRUE, TRUE)
-
+	box.set_border_width (5)
 	return box
 
 
