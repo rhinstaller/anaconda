@@ -21,6 +21,7 @@ import iutil
 import time
 import gettext_rh
 import signal
+import parted
 from translate import _, cat, N_
 from language import expandLangs
 from log import log
@@ -77,6 +78,7 @@ else:
     stepToClasses["bootloader"] = ( "lilo_text", ( "LiloAppendWindow",
                                                    "LiloWindow",
                                                    "LiloImagesWindow") )
+
 
 
 class InstallWindow:
@@ -265,6 +267,24 @@ class InstallInterface:
             return 2
         return None
 
+    def partedExceptionWindow(self, exc):
+        buttons = []
+        buttonToAction = {}
+        flags = ((parted.EXCEPTION_YES, N_("Yes")),
+                 (parted.EXCEPTION_NO, N_("No")),
+                 (parted.EXCEPTION_OK, N_("Ok")),
+                 (parted.EXCEPTION_RETRY, N_("Retry")),
+                 (parted.EXCEPTION_IGNORE, N_("Ignore")),
+                 (parted.EXCEPTION_CANCEL, N_("Cancel")))
+        for flag, string in flags:
+            if exc.options & flag:
+                buttons.append(_(string))
+                buttonToAction[_(string)] = flag
+        rc = ButtonChoiceWindow(self.screen, exc.type_string, exc.message,
+                                buttons = buttons)
+        return buttonToAction[rc]
+    
+
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
@@ -313,6 +333,10 @@ class InstallInterface:
         lang = id.instLanguage.getCurrent()
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
+
+        id.fsset.registerMessageWindow(self.messageWindow)
+        id.fsset.registerProgressWindow(self.progressWindow)
+        parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK
 	(step, args) = dispatch.currentStep()
