@@ -23,7 +23,7 @@
 #define LOADER_FLAGS_NOSHELL            (1 << 17)
 #define LOADER_FLAGS_LOWRES             (1 << 18)
 #define LOADER_FLAGS_NOFB               (1 << 19)
-#define LOADER_FLAGS_NOPCMCIA           (1 << 16)
+#define LOADER_FLAGS_NOPCMCIA           (1 << 20)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
