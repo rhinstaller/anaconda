@@ -232,6 +232,8 @@ if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
 elif [ ":$NETTYPE" = ":iucv" ]; then
+	insmod fsm
+	insmod iucv
 	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
