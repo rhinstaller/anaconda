@@ -400,7 +400,7 @@ def swapAmount():
     for l in lines:
         if l.startswith("SwapTotal:"):
             fields = string.split(l)
-            return = kBytes(long(fields[1]))
+            return kBytes(long(fields[1]))
     return Bytes(0)
 
 def copyDeviceNode(src, dest):
