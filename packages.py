@@ -512,6 +512,9 @@ def doInstall(method, id, intf, instPath):
     if flags.test:
 	return
 
+    # set up dependency white outs
+    import whiteout
+    
     upgrade = id.upgrade.get()
     db = rpm.opendb(1, instPath)
     ts = rpm.TransactionSet(instPath, db)
