@@ -372,8 +372,6 @@ if xmode:
             pass
         sys.exit (0)
 
-print display_mode
-print runres
 if display_mode == "t":
     intf = InstallInterface ()
 else:
