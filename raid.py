@@ -38,7 +38,7 @@ def scanForRaid(drives):
 	isys.makeDevInode(d, "/tmp/" + d)
         try:
             dev = parted.PedDevice.get("/tmp/" + d)
-            disk = parted.PedDisk.open(dev)
+            disk = parted.PedDisk.new(dev)
 
             raidParts = partedUtils.get_raid_partitions(disk)
             for part in raidParts:
