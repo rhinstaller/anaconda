@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.7\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1999-09-08 03:46+0000\n"
+"PO-Revision-Date: 1999-09-08 04:00+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1515,7 +1515,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1321 ../libfdisk/gnomefsedit.c:1340
 #: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1482
 msgid "Unallocated Partitions"
-msgstr ""
+msgstr "Sneiðar sem ekki fannst pláss fyrir"
 
 #: ../libfdisk/gnomefsedit.c:1325 ../libfdisk/gnomefsedit.c:1335
 #: ../libfdisk/newtfsedit.c:88
@@ -1524,36 +1524,41 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
+"Það eru nú disksneiðar sem ekki fannst pláss fyrir í listanum af umbeðnum "
+"sneiðum. Þær disksneiðar sjást hér fyrir neðan ásamt ástæðunni fyrir því að "
+"þær fengu ekkert rými."
 
 #: ../libfdisk/gnomefsedit.c:1600
 msgid "<Swap Partition"
-msgstr ""
+msgstr "<Diskminnissneið"
 
 #: ../libfdisk/gnomefsedit.c:1658
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "RAID tæki: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1681
 msgid "RAID Type:"
-msgstr ""
+msgstr "RAID tegund:"
 
 #: ../libfdisk/gnomefsedit.c:1718
 msgid "Partitions For RAID Array:"
-msgstr ""
+msgstr "Disksneiðar í RAID stæðu:"
 
 #: ../libfdisk/gnomefsedit.c:1807
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
+msgstr "Þú hefur ekki valið tengipunkt. Tengipunktur er nauðsynlegur"
 
 #: ../libfdisk/gnomefsedit.c:1815
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
+"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu "
+"löglegann tengipunkt."
 
 #: ../libfdisk/gnomefsedit.c:1828
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Ræsa af RAID viðvörun"
 
 #: ../libfdisk/gnomefsedit.c:1829
 msgid ""
@@ -1563,15 +1568,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1839
 msgid "No RAID Device"
-msgstr ""
+msgstr "Ekkert RAID tæki"
 
 #: ../libfdisk/gnomefsedit.c:1840
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Þú þarft að velja RAID tæki."
 
 #: ../libfdisk/gnomefsedit.c:1846
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Raid tæki þegar í notkun"
 
 #: ../libfdisk/gnomefsedit.c:1847
 #, c-format
@@ -1579,20 +1584,24 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
+"Raid tækið \"/dev/%s\" er þegar uppsett sem raid tæki. Vinsamlegast veldu "
+"annað."
 
 #: ../libfdisk/gnomefsedit.c:1860
 msgid "Not Enough Partitions"
-msgstr ""
+msgstr "Ekki næjanlega margar disksneiðar"
 
 #: ../libfdisk/gnomefsedit.c:1862
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
+"Þú hefur ekki búið til nógu margar disksneiðar fyrir RAID tegundina sem þú "
+"valdir."
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Ólögleg RAID tegund fyrir /boot"
 
 #: ../libfdisk/gnomefsedit.c:1871
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
@@ -1629,39 +1638,39 @@ msgstr ""
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2137
 msgid "Intended Use"
-msgstr ""
+msgstr "Tilætluð notkun"
 
 #: ../libfdisk/gnomefsedit.c:2176
 msgid "Workstation"
-msgstr ""
+msgstr "Vinnustöð"
 
 #: ../libfdisk/gnomefsedit.c:2250
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "Eyða RAID tæki?"
 
 #: ../libfdisk/gnomefsedit.c:2251
 msgid "Are you sure you want to remove this RAID device?"
-msgstr ""
+msgstr "Ertu viss um að þú viljir eyða þessu RAID tæki?"
 
 #: ../libfdisk/gnomefsedit.c:2302 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
-msgstr ""
+msgstr "Endurstilla disksneiðatöfluna"
 
 #: ../libfdisk/gnomefsedit.c:2304 ../libfdisk/newtfsedit.c:1587
 msgid "Reset partition table to original contents? "
-msgstr ""
+msgstr "Endurstilla disksneiðatöfluna í upprunalegt ástand? "
 
 #: ../libfdisk/gnomefsedit.c:2340 ../libfdisk/gnomefsedit.c:2391
 msgid "<Swap>"
-msgstr ""
+msgstr "<Diskminni>"
 
 #: ../libfdisk/gnomefsedit.c:2342
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2344
 msgid "<not set>"
-msgstr ""
+msgstr "<Ekki stillt>"
 
 #: ../libfdisk/gnomefsedit.c:2901
 msgid "Unallocated Partitions Exist..."
@@ -1822,7 +1831,7 @@ msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
 
 #, fuzzy
 msgid "_Make RAID Device"
-msgstr "Tæki"
+msgstr "Ekkert RAID tæki"
 
 #, fuzzy
 msgid "Skip LILO install"
@@ -2200,7 +2209,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Zero Partition Table"
-msgstr "Skemmd disksneiðatafla"
+msgstr "Endurstilla disksneiðatöfluna"
 
 msgid ""
 "bad argument to kickstart zerombr command: %s.\n"
@@ -2237,9 +2246,8 @@ msgstr ""
 #, fuzzy
 msgid "The mount point %s is already in use."
 msgstr ""
-"Tengipunkturinn %s er ólöglegur.\n"
-"\n"
-"Heiti tengipunkta má ekki enda á /."
+"Tengipunkturinn sem þú valdir er þegar í notkun. Vinsamlegast veldu "
+"löglegann tengipunkt."
 
 msgid "Failed Allocation"
 msgstr "Ekki tókst að taka frá pláss"
