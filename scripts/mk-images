@@ -313,7 +313,7 @@ makemoduleball() {
     getmoddeps "$(find . -name *.o)" ../modules.dep
 
     # create the pcitable
-    $TRIMPCITABLE $(find . -name *.o) < $PCITABLE > ../pcitable
+    $TRIMPCITABLE $(find . -name *.o -exec basename {} \;) < $PCITABLE > ../pcitable
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd-6.1
