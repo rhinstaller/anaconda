@@ -1002,6 +1002,9 @@ for p in $DEST $DESTGR; do
 	done
 done
 
+# do some stripping of debugging symbols
+find $DESTGR -type f -name '*.so' |xargs strip -g
+
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
 rm -rf $DEST/usr/lib/anaconda-runtime
