@@ -36,8 +36,10 @@ fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
     LIBDIR=lib64
+    PQM=pango-querymodules-64
 else
     LIBDIR=lib
+    PQM=pango-querymodules-32
 fi
 
 NEEDGR=yes
@@ -79,7 +81,7 @@ expandPackageSet() {
 
     for n in $RPMS; do 
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
-	if [ "$(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n)" = "tzdata" ] ; then
+	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "tzdata" ] ; then
 	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
@@ -103,15 +105,14 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
+PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
+	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
 	 rhpl pyxf86config libxml2 libxml2-python glib2
-	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl"
+	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -154,11 +155,10 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           system-config-keyboard Xft fontconfig redhat-artwork
+           redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data convertdb1
-           vnc-server libjpeg tcp_wrappers system-config-date
-           xfsprogs xfsdump dmapi libacl libattr attr acl"
+           vnc-server libjpeg tcp_wrappers redhat-config-date"
 
 #
 # stuff ONLY included for rescue mode
@@ -228,7 +228,6 @@ $LIBDIR/libblkid*
 $LIBDIR/libc*
 $LIBDIR/libcom_err*
 $LIBDIR/libcrypt*
-$LIBDIR/libdevmapper*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
@@ -240,12 +239,8 @@ $LIBDIR/libnss_files*
 $LIBDIR/libpthread*
 $LIBDIR/libresolv*
 $LIBDIR/librt[-.]*
-$LIBDIR/libselinux*
 $LIBDIR/libss*
 $LIBDIR/libtermcap*
-$LIBDIR/libhandle*
-$LIBDIR/libattr*
-$LIBDIR/libdm*
 $LIBDIR/libutil*
 $LIBDIR/libuuid*
 sbin/badblocks
@@ -257,21 +252,29 @@ sbin/e2fsadm
 sbin/e2label
 sbin/fsck.ext2
 sbin/fsck.ext3
-sbin/fsck.jfs
-sbin/fsck.xfs
 sbin/fdisk
 sbin/hdparm
 sbin/hwclock
-sbin/jfs_tune
 sbin/ldconfig
-sbin/lvm
+sbin/lvchange
+sbin/lvcreate
+sbin/lvdisplay
+sbin/lvextend
+sbin/lvmchange
+sbin/lvmcreate_initrd
+sbin/lvmdiskscan
+sbin/lvmsadc
+sbin/lvmsar
+sbin/lvreduce
+sbin/lvremove
+sbin/lvrename
+sbin/lvscan
 sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
 sbin/mkfs.jfs
-sbin/mkfs.xfs
 sbin/mkfs.msdos
 sbin/mkfs.vfat
 sbin/mkreiserfs
@@ -279,19 +282,35 @@ sbin/mkraid
 sbin/mkswap
 sbin/parted
 sbin/pdisk
+sbin/pvchange
+sbin/pvcreate
+sbin/pvdata
+sbin/pvdisplay
+sbin/pvmove
+sbin/pvscan
 sbin/probe
 sbin/resize2fs
 sbin/sfdisk
 sbin/tune2fs
-sbin/xfsdump
-sbin/xfsrestore
-sbin/xfs_repair
-usr/sbin/xfs_db
-usr/sbin/xfs_check
-usr/sbin/xfs_copy
+sbin/vgcfgbackup
+sbin/vgcfgrestore
+sbin/vgchange
+sbin/vgck
+sbin/vgcreate
+sbin/vgdisplay
+sbin/vgexport
+sbin/vgextend
+sbin/vgimport
+sbin/vgmerge
+sbin/vgmknodes
+sbin/vgreduce
+sbin/vgremove
+sbin/vgrename
+sbin/vgscan
+sbin/vgsplit
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
-usr/bin/python?.?
+usr/bin/python2.2
 usr/bin/hmount
 usr/bin/humount
 usr/bin/hcopy
@@ -332,14 +351,14 @@ usr/$LIBDIR/libslang*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/libbogl.so*
-usr/$LIBDIR/python?.?/*
-usr/$LIBDIR/python?.?/site-packages/libxml2*
-usr/$LIBDIR/python?.?/site-packages/*kudzu*
-usr/$LIBDIR/python?.?/site-packages/rpmmodule.so
-usr/$LIBDIR/python?.?/site-packages/partedmodule.so
-usr/$LIBDIR/python?.?/site-packages/ixf86configmodule.so
-usr/$LIBDIR/python?.?/site-packages/xf86config.py
-usr/$LIBDIR/python?.?/site-packages/rhpl
+usr/$LIBDIR/python2.2/*
+usr/$LIBDIR/python2.2/site-packages/libxml2*
+usr/$LIBDIR/python2.2/site-packages/*kudzu*
+usr/$LIBDIR/python2.2/site-packages/rpmmodule.so
+usr/$LIBDIR/python2.2/site-packages/partedmodule.so
+usr/$LIBDIR/python2.2/site-packages/ixf86configmodule.so
+usr/$LIBDIR/python2.2/site-packages/xf86config.py
+usr/$LIBDIR/python2.2/site-packages/rhpl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -577,7 +596,7 @@ usr/$LIBDIR/libstdc++.so.5*
 usr/$LIBDIR/libwrap*
 usr/lib/locale/*
 usr/$LIBDIR/pango/*
-usr/$LIBDIR/python?.?/site-packages/gtk*/gtk/*
+usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/syslinux/*
 usr/lib/yaboot/*
@@ -603,9 +622,9 @@ usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic-subst.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
-usr/share/locale/*/LC_MESSAGES/system-config-date.mo
+usr/share/locale/*/LC_MESSAGES/redhat-config-date.mo
 usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
-usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
+usr/share/locale/*/LC_MESSAGES/redhat-config-keyboard.mo
 usr/share/locale/*/LC_MESSAGES/gtk20.mo
 usr/share/locale/*/LC_MESSAGES/libc.mo
 usr/share/locale/*/LC_MESSAGES/rhpl.mo
@@ -618,7 +637,7 @@ usr/share/pixmaps/gnome-warning.png
 usr/share/pixmaps/no.xpm
 usr/share/pixmaps/yes.xpm
 usr/share/ppc64-utils/zImage.lds
-usr/share/system-config-keyboard/*
+usr/share/redhat-config-keyboard/*
 usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
 usr/share/terminfo/v/vt100
@@ -875,12 +894,13 @@ fi
 
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
+    mkdir -p $DESTGR/etc/pango/$ARCH-redhat-linux-gnu
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
+    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/$PQM 2> $DESTGR/etc/pango/pango.modules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/$PQM > $DESTGR/etc/pango/$ARCH-redhat-linux-gnu/pango.modules
     fi
-    rm -f $DESTGR/usr/bin/pango-querymodules
+    rm -f $DESTGR/usr/bin/$PQM
 fi
 
 echo "Getting gtk2 input method modules"
@@ -1022,7 +1042,7 @@ fi
 echo "Patching python library..."
 
 # always use passive mode for ftp installs
-cd $DEST/usr/$LIBDIR/python2.3
+cd $DEST/usr/$LIBDIR/python2.2
 patch -p0 > /dev/null <<EOF
 --- urllib.py.orig	Thu Oct 25 17:05:06 2001
 +++ urllib.py	Thu Oct 25 17:05:34 2001
