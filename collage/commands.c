@@ -341,6 +341,7 @@ int dfCommand(int argc, char ** argv) {
     char * end;
     struct statfs fs;
     int i;
+    int badjust;
 
     if ((fd = open("/proc/mounts", O_RDONLY)) < 0) {
 	perror("failed to open /proc/mounts");
@@ -364,8 +365,12 @@ int dfCommand(int argc, char ** argv) {
 
 	statfs(buf, &fs);
 
+	badjust = fs.f_bsize / 1024;
+
 	printf("%-30s %-10d %-10d %-10d\n",
-		buf, fs.f_blocks, fs.f_blocks - fs.f_bfree, fs.f_bfree);
+		buf, fs.f_blocks * badjust, 
+		(fs.f_blocks - fs.f_bfree) * badjust,  
+		fs.f_bfree * badjust);
 
 	buf = strchr(end + 1, '\n');
 	if (buf) buf++;
