@@ -1358,17 +1358,23 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             log("WARNING: %s" % (warning))
     if errors:
         errortxt = string.join(errors, '\n')
+        if isKickstart:
+            extra = _("\n\nPress 'OK' to reboot your system.")
+        else:
+            extra = _("\n\nYou can choose a different automatic partitioning "
+                      "options or click 'Back' to select manual partitioning."
+                      "\n\nPress 'OK' to continue.")
+            
         intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
 			     "This can happen if there is not enough "
 			     "space on your hard drive(s) for the "
-			     "installation. "
-			     "You can choose a different automatic "
-			     "partitioning option, or click 'Back' "
-			     "to select manual partitioning.\n\n"
-                             "Press 'OK' to continue.") % (errortxt),
+			     "installation.%s")
+                           % (errortxt, extra),
 			   custom_icon='error')
+        if isKickstart:
+            sys.exit(0)
 	return DISPATCH_BACK
 
 def autoCreatePartitionRequests(autoreq):
