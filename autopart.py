@@ -917,18 +917,18 @@ def queryAutoPartitionOK(intf, diskset, partitions):
     else:
         raise ValueError, "Invalid clear part type in doClearPartAction"
 
-    drvstr = "\n\n    "
+    drvstr = "\n\n"
     if drives == None:
         drives = diskset.disks.keys()
 
     drives.sort()
     i = 0
     for drive in drives:
-        drvstr = drvstr + "    /dev/%s" % (drive)
-        i = i + 1
-        if i > 2:
-            drvstr = drvstr + "\n    "
-            i = 0
+        drvstr = drvstr + "%-10s" % ("/dev/"+drive)
+#        i = i + 1
+#        if i > 3:
+#            drvstr = drvstr + "\n    "
+#            i = 0
 
     drvstr = drvstr +"\n"
     
