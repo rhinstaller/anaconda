@@ -2492,14 +2492,11 @@ msgstr ""
 "annefnyddiadwy.  A ydych am barhau â'r broses uwchraddio?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Mae arch y rhyddhad o %s yr ydych yn ei uwchraddio i'w weld yn %s sydd ddim "
-"yn cydweddu â'ch arch a sefydlwyd eisios sef %s.  Nid yw hyn yn debygol o "
-"lwyddo.  A ydych yn sicr eich bod am barhau â'r broses uwchraddio?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -6734,7 +6731,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6783,7 +6779,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
