@@ -27,6 +27,7 @@ from snack import *
 from translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
+from videocard import FrameBufferCard, VGA16Card
 
 serverPath = ""
 
@@ -84,53 +85,53 @@ def startX(resolution, nofbmode, video, monitor, mouse):
     serverPath = None
 
     #--see if framebuffer works on this card
-    probedServer = video.primaryCard().getXServer()
-    if canUseFrameBuffer(video.primaryCard()) == 0:
-        video.primaryCard().setXServer("XF86_FBDev")
+    fbavail = isys.fbinfo()
 
-    if not video.primaryCard().getXServer():
-        video.primaryCard().setXServer("XF86_VGA16")
+    if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
+        card = FrameBufferCard()
+        serverPath = '/usr/X11R6/bin/' + card.getXServer()
+    else:
+        card = None
+        if video.primaryCard():
+            fallbackcard = video.primaryCard()
+        else:
+            # if no xserver then try falling back to VGA16 in no fb
+            fallbackcard = VGA16Card()
 
-    serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
-    
-    x = XF86Config (video, monitor, mouse, resolution)
+#        x = XF86Config (card, monitor, mouse, resolution)
 
     #--If framebuffer server isn't there...try original probed server
-    if not os.access (serverPath, os.X_OK):
-        video.primaryCard().setXServer(probedServer)
-        serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
+    if card and not os.access (serverPath, os.X_OK) and fallbackcard != None:
+        serverPath = '/usr/X11R6/bin/' + fallbackcard.getXServer()
         
         #--If original server isn't there...send them to text mode
         if not os.access (serverPath, os.X_OK):
             raise RuntimeError, "No X server binaries found to run"
 
-    if nofbmode == 0:
+    if card:
         try:
             #-- If can't access /dev/fb0, we're not in framebuffer mode
             fbdevice = open("/dev/fb0", "r")
             fbdevice.close()
-
+            
+            x = XF86Config (card, monitor, mouse, resolution)
             testx(x)
-
+            
         except (RuntimeError, IOError):
-            if not probedServer:
-                print "Unknown card"
+            if fallbackcard == None:
                 raise RuntimeError, "Unable to start X for unknown card"
 
-            video.primaryCard().setXServer(probedServer)
-            serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
+            x = XF86Config (fallbackcard, monitor, mouse, resolution)
 
             # if this fails, we want the exception to go back to anaconda to
             # it knows that this didn't work
             testx(x)
 
     else:  #-We're in nofb mode
-        if not probedServer:
-            print "Unknown card"
+        if fallbackcard == None:
             raise RuntimeError, "Unable to start X for unknown card"
 
-        video.primaryCard().setXServer(probedServer)
-        serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
+        x = XF86Config (fallbackcard, monitor, mouse, resolution)
         
 	# if this fails, we want the exception to go back to anaconda to
 	# it knows that this didn't work
@@ -151,7 +152,7 @@ def canUseFrameBuffer (videocard):
 def testx(x):
     try:
 	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate',
-                          '-dpms', '-v'], spawn=1)
+                          '-dpms', '-v', '-ac', '-nolisten', 'tcp'], spawn=1)
     except:
 	import traceback
         server = None
@@ -173,6 +174,7 @@ def testx(x):
 
     sys.stdout.write(_("Waiting for X server to start...log located in /tmp/X.log\n"))
     sys.stdout.flush()
+
     while count < 60:
 	sys.stdout.write(".")
 	sys.stdout.flush()
@@ -193,7 +195,7 @@ def testx(x):
 	count = count + 1
 
     print _(" X server started successfully.")
-    
+
     child = os.fork()
     if (child):
 	try:
