@@ -1,5 +1,7 @@
 2004-11-16  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/loader.c (setupRamdisk): Remove old code.
+
 	* loader2/net.c (setKickstartNetwork): Allow passing --notksdevice
 	to your network lines so that you don't try to use them as your
 	device (#136903)

@@ -116,46 +116,6 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 /* JKFIXME: bad hack for second stage modules without module-info */
 struct moduleBallLocation * secondStageModuleLocation;
 
-#if 0
-#if !defined(__s390__) && !defined(__s390x__)
-#define RAMDISK_DEVICE "/dev/ram"
-#else
-#define RAMDISK_DEVICE "/dev/ram2"
-#endif
-
-int setupRamdisk(void) {
-    gzFile f;
-    static int done = 0;
-
-    if (done) return 0;
-
-    done = 1;
-
-    f = gunzip_open("/etc/ramfs.img");
-    if (f) {
-        char buf[10240];
-        int i, j = 0;
-        int fd;
-        
-        fd = open(RAMDISK_DEVICE, O_RDWR);
-        logMessage("copying file to fd %d", fd);
-        
-        while ((i = gunzip_read(f, buf, sizeof(buf))) > 0) {
-            j += write(fd, buf, i);
-        }
-        
-        logMessage("wrote %d bytes", j);
-        close(fd);
-        gunzip_close(f);
-    }
-    
-    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL, 0, 0))
-        logMessage("failed to mount ramfs image");
-    
-    return 0;
-}
-#endif
-
 void setupRamfs(void) {
     mkdirChain("/tmp/ramfs");
     doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL, 0, 0);
