@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 1999-09-20 20:40-0400\n"
+"POT-Creation-Date: 1999-09-29 11:25-0400\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -14,178 +14,182 @@ msgstr ""
 "Content-Type: text/plain\n"
 "Content-Transfer-Encoding: ISO-8859-1\n"
 
-#: ../iw/language.py:10 ../text.py:46 ../text.py:866
+#: ../gui.py:264 ../iw/language.py:10 ../text.py:49 ../text.py:895
 msgid "Language Selection"
 msgstr "Pilih Bahasa"
 
-#: ../text.py:47
+#: ../text.py:50
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:65 ../loader/devices.c:164
-#: ../loader/devices.c:175 ../loader/devices.c:178 ../loader/devices.c:210
+#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
+#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:242
-#: ../loader/loader.c:458 ../loader/loader.c:468 ../loader/loader.c:615
-#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
-#: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
-#: ../loader/loader.c:1490 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:49 ../text.py:100
-#: ../text.py:151 ../text.py:177 ../text.py:218 ../text.py:263 ../text.py:353
-#: ../text.py:373 ../text.py:404 ../text.py:453 ../text.py:475 ../text.py:540
-#: ../text.py:561 ../text.py:573 ../text.py:585 ../text.py:763 ../text.py:835
-#: ../text.py:839 ../textw/lilo.py:21 ../textw/lilo.py:66
+#: ../loader/lang.c:246 ../loader/lang.c:506 ../loader/loader.c:243
+#: ../loader/loader.c:459 ../loader/loader.c:469 ../loader/loader.c:627
+#: ../loader/loader.c:685 ../loader/loader.c:730 ../loader/loader.c:863
+#: ../loader/loader.c:868 ../loader/loader.c:954 ../loader/loader.c:1087
+#: ../loader/loader.c:1577 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:103
+#: ../text.py:154 ../text.py:199 ../text.py:242 ../text.py:287 ../text.py:378
+#: ../text.py:398 ../text.py:429 ../text.py:478 ../text.py:500 ../text.py:565
+#: ../text.py:586 ../text.py:598 ../text.py:610 ../text.py:788 ../text.py:860
+#: ../text.py:864 ../text.py:1012 ../textw/lilo.py:21 ../textw/lilo.py:66
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
-#: ../textw/partitioning.py:182 ../textw/userauth.py:29
-#: ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:82
-#: ../textw/userauth.py:94 ../textw/userauth.py:102 ../textw/userauth.py:111
-#: ../textw/userauth.py:172 ../textw/userauth.py:244
+#: ../textw/partitioning.py:202 ../textw/silo.py:21 ../textw/silo.py:66
+#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
+#: ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102
+#: ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "OK"
 msgstr "OK"
 
-#: ../text.py:64
+#: ../text.py:67
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (COM1 di DOS)"
 
-#: ../text.py:65
+#: ../text.py:68
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS1 (COM2 di DOS)"
 
-#: ../text.py:66
+#: ../text.py:69
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS2 (COM3 di DOS)"
 
-#: ../text.py:67
+#: ../text.py:70
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 di DOS)"
 
-#: ../iw/lilo.py:174 ../text.py:82 ../textw/lilo.py:79 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../text.py:85 ../textw/lilo.py:79
+#: ../textw/lilo.py:138 ../textw/silo.py:79 ../textw/silo.py:136
 msgid "Device"
 msgstr "Perangkat"
 
-#: ../text.py:83
+#: ../text.py:86
 #, c-format
 msgid "What device is your mouse located on? %s %i"
 msgstr "Perangkat apa yang disambung ke mouse? %s %i"
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
-#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
-#: ../libfdisk/fsedit.c:679 ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:1048
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1001
-#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/gnomefsedit.c:1063
-#: ../libfdisk/gnomefsedit.c:1268 ../libfdisk/gnomefsedit.c:1362
-#: ../libfdisk/gnomefsedit.c:1380 ../libfdisk/gnomefsedit.c:1620
-#: ../libfdisk/gnomefsedit.c:1847 ../libfdisk/gnomefsedit.c:1855
-#: ../libfdisk/gnomefsedit.c:1869 ../libfdisk/gnomefsedit.c:1880
-#: ../libfdisk/gnomefsedit.c:1887 ../libfdisk/gnomefsedit.c:1902
-#: ../libfdisk/gnomefsedit.c:1911 ../libfdisk/gnomefsedit.c:1968
-#: ../libfdisk/gnomefsedit.c:2129 ../libfdisk/newtfsedit.c:116
+#: ../libfdisk/fsedit.c:614 ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:637 ../libfdisk/fsedit.c:649 ../libfdisk/fsedit.c:659
+#: ../libfdisk/fsedit.c:688 ../libfdisk/fsedit.c:704 ../libfdisk/fsedit.c:1070
+#: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1030
+#: ../libfdisk/gnomefsedit.c:1056 ../libfdisk/gnomefsedit.c:1092
+#: ../libfdisk/gnomefsedit.c:1297 ../libfdisk/gnomefsedit.c:1391
+#: ../libfdisk/gnomefsedit.c:1409 ../libfdisk/gnomefsedit.c:1647
+#: ../libfdisk/gnomefsedit.c:1882 ../libfdisk/gnomefsedit.c:1890
+#: ../libfdisk/gnomefsedit.c:1904 ../libfdisk/gnomefsedit.c:1915
+#: ../libfdisk/gnomefsedit.c:1922 ../libfdisk/gnomefsedit.c:1937
+#: ../libfdisk/gnomefsedit.c:1946 ../libfdisk/gnomefsedit.c:2003
+#: ../libfdisk/gnomefsedit.c:2164 ../libfdisk/newtfsedit.c:116
 #: ../libfdisk/newtfsedit.c:449 ../libfdisk/newtfsedit.c:527
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:84 ../text.py:487
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:87 ../text.py:512
 #: ../textw/constants.py:10 ../textw/lilo.py:84 ../textw/lilo.py:97
-#: ../textw/lilo.py:147
+#: ../textw/lilo.py:147 ../textw/silo.py:84 ../textw/silo.py:97
+#: ../textw/silo.py:145
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:423 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:66
-#: ../loader/devices.c:165 ../loader/devices.c:210 ../loader/lang.c:503
-#: ../loader/loader.c:242 ../loader/loader.c:579 ../loader/loader.c:615
-#: ../loader/loader.c:715 ../loader/loader.c:1072 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:84
-#: ../text.py:85 ../text.py:100 ../text.py:123 ../text.py:151 ../text.py:154
-#: ../text.py:177 ../text.py:204 ../text.py:218 ../text.py:220 ../text.py:239
-#: ../text.py:241 ../text.py:263 ../text.py:265 ../text.py:353 ../text.py:404
-#: ../text.py:406 ../text.py:425 ../text.py:434 ../text.py:453 ../text.py:455
-#: ../text.py:475 ../text.py:478 ../text.py:487 ../text.py:540 ../text.py:541
-#: ../text.py:763 ../text.py:785 ../textw/constants.py:10 ../textw/lilo.py:22
+#: ../gui.py:257 ../gui.py:469 ../libfdisk/fsedit.c:977
+#: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
+#: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168
+#: ../loader/devices.c:218 ../loader/lang.c:506 ../loader/loader.c:243
+#: ../loader/loader.c:591 ../loader/loader.c:627 ../loader/loader.c:730
+#: ../loader/loader.c:1087 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87 ../text.py:88
+#: ../text.py:103 ../text.py:126 ../text.py:154 ../text.py:157 ../text.py:199
+#: ../text.py:228 ../text.py:242 ../text.py:244 ../text.py:263 ../text.py:265
+#: ../text.py:287 ../text.py:289 ../text.py:378 ../text.py:429 ../text.py:431
+#: ../text.py:450 ../text.py:459 ../text.py:478 ../text.py:480 ../text.py:500
+#: ../text.py:503 ../text.py:512 ../text.py:565 ../text.py:566 ../text.py:788
+#: ../text.py:810 ../textw/constants.py:10 ../textw/lilo.py:22
 #: ../textw/lilo.py:66 ../textw/lilo.py:73 ../textw/lilo.py:148
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/packages.py:145 ../textw/partitioning.py:25
-#: ../textw/partitioning.py:62 ../textw/partitioning.py:182
-#: ../textw/userauth.py:29 ../textw/userauth.py:141 ../textw/userauth.py:172
-#: ../textw/userauth.py:244
+#: ../textw/partitioning.py:64 ../textw/partitioning.py:202
+#: ../textw/silo.py:22 ../textw/silo.py:66 ../textw/silo.py:73
+#: ../textw/silo.py:146 ../textw/userauth.py:29 ../textw/userauth.py:141
+#: ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "Back"
 msgstr "Kembali"
 
-#: ../text.py:102
+#: ../text.py:105
 msgid "Which model mouse is attached to this computer?"
 msgstr "Mouse model apa yang digunakan komputer ini?"
 
-#: ../text.py:111
+#: ../text.py:114
 msgid "Emulate 3 Buttons?"
 msgstr "Emulasikan 3 tombol?"
 
-#: ../text.py:113
+#: ../text.py:116
 msgid "Mouse Selection"
 msgstr "Pilih Mouse"
 
-#: ../text.py:149 ../text.py:868
+#: ../text.py:152 ../text.py:897
 msgid "Keyboard Selection"
 msgstr "Pilih Keyboard"
 
-#: ../text.py:150
+#: ../text.py:153
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Keyboard mana yang disambung ke komputer ini?"
 
-#: ../text.py:170
+#: ../text.py:192
 msgid "Install GNOME Workstation"
 msgstr "Install Workstation GNOME"
 
-#: ../text.py:171
+#: ../text.py:193
 msgid "Install KDE Workstation"
 msgstr "Install Workstation KDE"
 
-#: ../text.py:172
+#: ../text.py:194
 msgid "Install Server System"
 msgstr "Install sistem server"
 
-#: ../text.py:173
+#: ../text.py:195
 msgid "Install Custom System"
 msgstr "Install sistem custom"
 
-#: ../text.py:174
+#: ../text.py:196
 msgid "Upgrade Existing Installation"
 msgstr "Upgrade Instalasi yang ada"
 
-#: ../text.py:175 ../text.py:871
+#: ../text.py:197 ../text.py:900
 msgid "Installation Type"
 msgstr "Tipe Instalasi"
 
-#: ../text.py:176
+#: ../text.py:198
 msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../loader/devices.c:175
-#: ../loader/devices.c:178 ../loader/loader.c:458 ../loader/loader.c:468
-#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
-#: ../loader/loader.c:853 ../loader/loader.c:1490 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:201 ../text.py:581
+#: ../libfdisk/newtfsedit.c:1545 ../loader/devices.c:178
+#: ../loader/devices.c:183 ../loader/loader.c:459 ../loader/loader.c:469
+#: ../loader/loader.c:685 ../loader/loader.c:730 ../loader/loader.c:863
+#: ../loader/loader.c:868 ../loader/loader.c:1577 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:225 ../text.py:606
 msgid "Error"
 msgstr "Error"
 
-#: ../text.py:202
+#: ../text.py:226
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Anda belum membuat satupun partisi Linux, jadi tidak bisa upgrade!"
 
-#: ../text.py:215
+#: ../text.py:239
 msgid "System to Upgrade"
 msgstr "Sistem yang hendak diupgrade"
 
-#: ../text.py:216
+#: ../text.py:240
 msgid "What partition holds the root partition of your installation?"
 msgstr "Partisi mana yang menyimpan partisi root di instalasi ini?"
 
-#: ../text.py:231
+#: ../text.py:255
 msgid "Customize Packages to Upgrade"
 msgstr "Pilih paket yang hendak diupgrade"
 
-#: ../text.py:232
+#: ../text.py:256
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -194,32 +198,32 @@ msgstr ""
 "Paket yang teelah diinstal dan paket lain yang juga harus diinstall telah "
 "dipilih. Apakah sekarang Anda ingin memilih paket yang hendak diupgrade ?"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:957
-#: ../libfdisk/gnomefsedit.c:1081 ../libfdisk/gnomefsedit.c:2021
-#: ../libfdisk/gnomefsedit.c:2291 ../libfdisk/gnomefsedit.c:2344
+#: ../libfdisk/gnomefsedit.c:600 ../libfdisk/gnomefsedit.c:986
+#: ../libfdisk/gnomefsedit.c:1110 ../libfdisk/gnomefsedit.c:2056
+#: ../libfdisk/gnomefsedit.c:2326 ../libfdisk/gnomefsedit.c:2379
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:698
-#: ../text.py:239 ../text.py:425 ../text.py:428 ../textw/partitioning.py:145
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:591 ../loader/net.c:701
+#: ../text.py:263 ../text.py:450 ../text.py:453 ../textw/partitioning.py:165
 msgid "Yes"
 msgstr "YA"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:957
-#: ../libfdisk/gnomefsedit.c:1081 ../libfdisk/gnomefsedit.c:2021
-#: ../libfdisk/gnomefsedit.c:2291 ../libfdisk/gnomefsedit.c:2344
+#: ../libfdisk/gnomefsedit.c:600 ../libfdisk/gnomefsedit.c:986
+#: ../libfdisk/gnomefsedit.c:1110 ../libfdisk/gnomefsedit.c:2056
+#: ../libfdisk/gnomefsedit.c:2326 ../libfdisk/gnomefsedit.c:2379
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:239
-#: ../text.py:244 ../text.py:425 ../text.py:431 ../textw/partitioning.py:145
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:701 ../text.py:263
+#: ../text.py:268 ../text.py:450 ../text.py:456 ../textw/partitioning.py:165
 msgid "No"
 msgstr "Tidak"
 
-#: ../text.py:254
+#: ../text.py:278
 msgid "Red Hat Linux"
 msgstr "Linux Red Hat"
 
 # i ../install.c:76
-#: ../text.py:255
+#: ../text.py:279
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -239,43 +243,43 @@ msgstr ""
 "Bila Anda telah membeli Red Hat Linux Official, maka segera daftarkan "
 "pembelian Anda di http://www.redhat.com."
 
-#: ../text.py:325
+#: ../text.py:350
 msgid "Use bootp/dhcp"
 msgstr "Gunakan bootp/dhcp"
 
-#: ../loader/net.c:234 ../text.py:330
+#: ../loader/net.c:234 ../text.py:355
 msgid "IP address:"
 msgstr "Alamat IP:"
 
-#: ../loader/net.c:237 ../text.py:331
+#: ../loader/net.c:237 ../text.py:356
 msgid "Netmask:"
 msgstr "Netmask:"
 
-#: ../loader/net.c:240 ../text.py:332
+#: ../loader/net.c:240 ../text.py:357
 msgid "Default gateway (IP):"
 msgstr "Gateway default (IP):"
 
-#: ../loader/net.c:243 ../text.py:333
+#: ../loader/net.c:243 ../text.py:358
 msgid "Primary nameserver:"
 msgstr "Nameserver Utama:"
 
-#: ../iw/network.py:11 ../text.py:355
+#: ../iw/network.py:11 ../text.py:380
 msgid "Network Configuration"
 msgstr "Konfigurasi Jaringan"
 
-#: ../text.py:371
+#: ../text.py:396
 msgid "Invalid information"
 msgstr "Informasi yang dimasukkan salah"
 
-#: ../text.py:372
+#: ../text.py:397
 msgid "You must enter valid IP information to continue"
 msgstr "Anda harus memberikan alamat IP yang valid"
 
-#: ../text.py:400
+#: ../text.py:425
 msgid "Hostname Configuration"
 msgstr "Konfigurasi Hostname"
 
-#: ../text.py:401
+#: ../text.py:426
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -283,24 +287,25 @@ msgstr ""
 "Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
 "jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
 
-#: ../iw/network.py:183 ../loader/net.c:460 ../loader/net.c:617 ../text.py:404
+#: ../iw/network.py:201 ../loader/net.c:458 ../loader/net.c:620 ../text.py:429
 msgid "Hostname"
 msgstr "Hostname"
 
-#: ../text.py:415 ../text.py:569 ../text.py:923
+#: ../text.py:440 ../text.py:594
 msgid "Bootdisk"
 msgstr "Bootdisk"
 
-#: ../text.py:416
+#: ../text.py:441
+#, fuzzy
 msgid ""
-"A custom bootdisk provides a way of booting into your Linux system without "
+"A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
 "install lilo on your system, another operating system removes lilo, or lilo "
-"doesn't work with your hardware configuration. A custom bootdisk can also be "
-"used with the Red Hat rescue image, making it much easier to recover from "
+"doesn't work with your hardware configuration. A custom boot disk can also "
+"be used with the Red Hat rescue image, making it much easier to recover from "
 "severe system failures.\n"
 "\n"
-"Would you like to create a bootdisk for your system?"
+"Would you like to create a boot disk for your system?"
 msgstr ""
 "Bootdisk membuat Anda dapat memboot Linux tanpa bergantung dari bootloader "
 "yang ada. Ini sangat berguna bila Anda tidak ingin menginstal LILO, atau  "
@@ -311,35 +316,35 @@ msgstr ""
 "\n"
 "Apakah Anda ingin membuat bootdisk sekarang?"
 
-#: ../text.py:451
+#: ../text.py:476
 msgid "X probe results"
 msgstr "Hasil deteksi X"
 
-#: ../text.py:464 ../text.py:483
+#: ../text.py:489 ../text.py:508
 msgid "Unlisted Card"
 msgstr "Card tidak ada"
 
-#: ../text.py:472
+#: ../text.py:497
 msgid "Video Card Selection"
 msgstr "Pilih Video card"
 
-#: ../text.py:473
+#: ../text.py:498
 msgid "Which video card do you have?"
 msgstr "Video card mana yang Anda pakai?"
 
-#: ../text.py:485
+#: ../text.py:510
 msgid "X Server Selection"
 msgstr "Pilih X Server"
 
-#: ../text.py:485
+#: ../text.py:510
 msgid "Choose a server"
 msgstr "Pilih server"
 
-#: ../text.py:536
+#: ../text.py:561
 msgid "Installation to begin"
 msgstr "Instalasi dimulai"
 
-#: ../iw/confirm.py:19 ../text.py:537
+#: ../iw/confirm.py:30 ../text.py:562
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -347,11 +352,11 @@ msgstr ""
 "Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
-#: ../text.py:553
+#: ../text.py:578
 msgid "Complete"
 msgstr "Selesai"
 
-#: ../iw/congrats.py:17 ../text.py:554
+#: ../iw/congrats.py:31 ../text.py:579
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -371,7 +376,7 @@ msgstr ""
 "Cara-cara konfigurasi sistem tersedia setelah instalasi di the Official Red "
 "Hat Linux User's Guide."
 
-#: ../iw/bootdisk.py:41 ../text.py:570
+#: ../iw/bootdisk.py:50 ../text.py:595
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -379,12 +384,12 @@ msgstr ""
 "Masukkan disket kosong di drive pertama Anda. Data di disket ini akan "
 "dihapus saat membuat boot disk."
 
-#: ../text.py:573 ../text.py:574 ../text.py:585 ../text.py:586
-#: ../textw/lilo.py:21
+#: ../text.py:598 ../text.py:599 ../text.py:610 ../text.py:611
+#: ../textw/lilo.py:21 ../textw/silo.py:21
 msgid "Skip"
 msgstr "Lewatkan"
 
-#: ../iw/bootdisk.py:45 ../text.py:582
+#: ../iw/bootdisk.py:54 ../text.py:607
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -392,247 +397,264 @@ msgstr ""
 "Error terjadi saat membuat bootdisk. Silahkan diperiksa apakah ada disket "
 "kosong di drive."
 
-#: ../text.py:644
+#: ../text.py:669
 msgid "Package Installation"
 msgstr "Instalasi Paket"
 
-#: ../text.py:646
+#: ../text.py:671
 msgid "Name   : "
 msgstr "Nama   :"
 
-#: ../text.py:647
+#: ../text.py:672
 msgid "Size   : "
 msgstr "Ukuran  :"
 
-#: ../text.py:648
+#: ../text.py:673
 msgid "Summary: "
 msgstr "Keterangan:"
 
-#: ../text.py:674
+#: ../text.py:699
 msgid "    Packages"
 msgstr "Nama Paket"
 
-#: ../text.py:675
+#: ../text.py:700
 msgid "       Bytes"
 msgstr "       Byte"
 
-#: ../text.py:676
+#: ../text.py:701
 msgid "        Time"
 msgstr "        Waktu"
 
-#: ../text.py:678
+#: ../text.py:703
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:685
+#: ../text.py:710
 msgid "Completed:   "
 msgstr "Selesai:"
 
-#: ../text.py:695
+#: ../text.py:720
 msgid "Remaining:  "
 msgstr "Sisa Waktu:"
 
-#: ../text.py:765
+#: ../text.py:790
 msgid "What time zone are you located in?"
 msgstr "Anda sekarang ada di timezone apa?"
 
-#: ../text.py:773
+#: ../text.py:798
 msgid "Hardware clock set to GMT?"
 msgstr "Jam hardware diset ke GMT?"
 
-#: ../iw/timezone.py:29 ../text.py:775
+#: ../iw/timezone.py:30 ../text.py:800
 msgid "Time Zone Selection"
 msgstr "Pilih Timezone"
 
-#: ../text.py:839 ../text.py:840
+#: ../text.py:864 ../text.py:865
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:852
+#: ../text.py:877
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:854
+#: ../text.py:879
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../iw/welcome.py:10 ../text.py:870
+#: ../iw/welcome.py:11 ../text.py:899
 msgid "Welcome"
 msgstr "Selamat Datang"
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:876 ../text.py:882
+#: ../iw/lilo.py:94 ../iw/lilo.py:196 ../iw/silo.py:119 ../iw/silo.py:243
+#: ../text.py:905 ../text.py:911
 msgid "Partition"
 msgstr "Partisi"
 
-#: ../text.py:878
+#: ../text.py:907
 msgid "Manually Partition"
 msgstr "Partisi manual"
 
-#: ../text.py:880
+#: ../text.py:909
 msgid "Automatic Partition"
 msgstr "Partisi Otomatis"
 
-#: ../text.py:884
+#: ../text.py:913
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:886
+#: ../text.py:915
 msgid "Filesystem Formatting"
 msgstr "Sedang memformat sistem file"
 
-#: ../text.py:888 ../text.py:890 ../text.py:892 ../textw/lilo.py:24
+#: ../text.py:917 ../text.py:919 ../text.py:921 ../textw/lilo.py:24
 #: ../textw/lilo.py:63 ../textw/lilo.py:155
 msgid "LILO Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../text.py:894
+#: ../text.py:923
 msgid "Hostname Setup"
 msgstr "Setup hostname"
 
-#: ../text.py:896
+#: ../text.py:925
 msgid "Network Setup"
 msgstr "Setup Network"
 
-#: ../iw/mouse.py:55 ../text.py:898 ../text.py:900
+#: ../iw/mouse.py:55 ../text.py:927 ../text.py:929
 msgid "Mouse Configuration"
 msgstr "Konfigurasi Mouse"
 
-#: ../text.py:902
+#: ../text.py:931
 msgid "Time Zone Setup"
 msgstr "Setup Time Zone"
 
-#: ../text.py:904 ../textw/userauth.py:8
+#: ../text.py:933 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr "Password Root"
 
-#: ../text.py:906 ../textw/userauth.py:148
+#: ../text.py:935 ../textw/userauth.py:148
 msgid "User Account Setup"
 msgstr "Setup account user"
 
-#: ../text.py:908
+#: ../text.py:937
 msgid "Authentication"
 msgstr "Autentikasi"
 
-#: ../text.py:910
+#: ../text.py:939
 msgid "Package Groups"
 msgstr "Grup Paket"
 
-#: ../text.py:912 ../text.py:933
+#: ../text.py:941 ../text.py:977
 msgid "Individual Packages"
 msgstr "Pilih beberapa paket"
 
-#: ../text.py:914 ../textw/packages.py:114
+#: ../text.py:943 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr "Ketergantungan paket"
 
-#: ../iw/xconfig.py:89 ../text.py:916 ../text.py:924
+#: ../iw/xconfig.py:110 ../text.py:945 ../text.py:953
 msgid "X Configuration"
 msgstr "Konfigurasi X"
 
-#: ../text.py:918
+#: ../text.py:947 ../text.py:952
 msgid "Boot Disk"
 msgstr "Bootdisk"
 
-#: ../text.py:920
+#: ../text.py:949
 msgid "Installation Begins"
 msgstr "Instalasi Mulai"
 
-#: ../text.py:922
+#: ../text.py:951
 msgid "Install System"
 msgstr "Install sistem"
 
-#: ../text.py:926
+#: ../text.py:955
 msgid "Installation Complete"
 msgstr "Instalasi Beres"
 
-#: ../text.py:931
+#: ../text.py:964 ../text.py:967 ../text.py:970 ../textw/silo.py:24
+#: ../textw/silo.py:62 ../textw/silo.py:153
+#, fuzzy
+msgid "SILO Configuration"
+msgstr "Konfigurasi LILO"
+
+#: ../text.py:975
 msgid "Examine System"
 msgstr "Periksa Sistem"
 
-#: ../text.py:932
+#: ../text.py:976
 msgid "Customize Upgrade"
 msgstr "Upgrade custom"
 
-#: ../text.py:934
+#: ../text.py:978
 msgid "Upgrade System"
 msgstr "Upgrade sistem"
 
-#: ../text.py:935
+#: ../text.py:979
 msgid "Upgrade Complete"
 msgstr "Upgrade Beres"
 
-#: ../gui.py:417
-msgid "Red Hat Linux Installer"
-msgstr "Installer Red Hat Linux"
+#: ../text.py:1009
+msgid "Cancelled"
+msgstr "Dibatalkan"
 
-#: ../gui.py:424
+#: ../text.py:1010
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr ""
+"Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
+
+#: ../gui.py:256 ../gui.py:470
 msgid "Next"
 msgstr "Lanjutkan"
 
-#: ../gui.py:426
-msgid "Finish"
-msgstr "Selesai"
-
-#: ../gui.py:427
-msgid "Hide Help"
-msgstr "Sembunyikan help"
-
-#: ../gui.py:428
+#: ../gui.py:258 ../gui.py:474
 msgid "Show Help"
 msgstr "Lihat Help"
 
-#: ../gui.py:450
+#: ../gui.py:259 ../gui.py:473
+msgid "Hide Help"
+msgstr "Sembunyikan help"
+
+#: ../gui.py:260 ../gui.py:472
+msgid "Finish"
+msgstr "Selesai"
+
+#: ../gui.py:263 ../gui.py:496
 msgid "Online Help"
 msgstr "Help online"
+
+#: ../gui.py:463
+msgid "Red Hat Linux Installer"
+msgstr "Installer Red Hat Linux"
 
 #: ../iw/account.py:14
 msgid "Account Configuration"
 msgstr "Konfigurasi Account"
 
-#: ../iw/account.py:129
+#: ../iw/account.py:130
 msgid "Root Password: "
 msgstr "Password Root:"
 
-#: ../iw/account.py:132
+#: ../iw/account.py:133
 msgid "Confirm: "
 msgstr "Konfirmasi:"
 
-#: ../iw/account.py:183 ../iw/account.py:226
+#: ../iw/account.py:184 ../iw/account.py:227
 msgid "Account Name"
 msgstr "Nama Account"
 
-#: ../iw/account.py:187 ../textw/userauth.py:80
+#: ../iw/account.py:188 ../textw/userauth.py:80
 msgid "Password"
 msgstr "Password"
 
-#: ../iw/account.py:191 ../textw/userauth.py:81
+#: ../iw/account.py:192 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr "Password (lagi)"
 
-#: ../iw/account.py:195 ../iw/account.py:226 ../textw/userauth.py:79
+#: ../iw/account.py:196 ../iw/account.py:227 ../textw/userauth.py:79
 #: ../textw/userauth.py:160
 msgid "Full Name"
 msgstr "Nama Lengkap"
 
-#: ../iw/account.py:204 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:171
+#: ../iw/account.py:205 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:171
 msgid "Add"
 msgstr "Tambah"
 
-#: ../iw/account.py:206 ../libfdisk/newtfsedit.c:1296
+#: ../iw/account.py:207 ../libfdisk/newtfsedit.c:1296
 #: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:147 ../textw/lilo.py:168
-#: ../textw/partitioning.py:61 ../textw/userauth.py:172
+#: ../textw/partitioning.py:63 ../textw/silo.py:145 ../textw/silo.py:167
+#: ../textw/userauth.py:172
 msgid "Edit"
 msgstr "Edit"
 
-#: ../iw/account.py:208 ../libfdisk/newtfsedit.c:1296
+#: ../iw/account.py:209 ../libfdisk/newtfsedit.c:1296
 #: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:171
 msgid "Delete"
 msgstr "Hapus"
 
-#: ../iw/account.py:210
+#: ../iw/account.py:211
 msgid "New"
 msgstr "Baru"
 
@@ -668,7 +690,7 @@ msgstr "Server NIS:"
 msgid "Bootdisk Creation"
 msgstr "Membuat Bootdisk"
 
-#: ../iw/bootdisk.py:52
+#: ../iw/bootdisk.py:61
 msgid "Skip boot disk creation"
 msgstr "Tidak buat boot disk"
 
@@ -676,7 +698,7 @@ msgstr "Tidak buat boot disk"
 msgid "About to Install"
 msgstr "Sedang akan mulai install"
 
-#: ../iw/confirm.py:16
+#: ../iw/confirm.py:27
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr "Tekan next untuk memulai instalasi Red Hat Linux."
 
@@ -692,7 +714,7 @@ msgstr "Keluar"
 msgid "Unresolved Dependencies"
 msgstr "Ketergantungan paket tidak diketahui"
 
-#: ../iw/dependencies.py:30 ../iw/progress.py:117 ../textw/packages.py:121
+#: ../iw/dependencies.py:30 ../iw/progress.py:121 ../textw/packages.py:121
 msgid "Package"
 msgstr "Nama Paket"
 
@@ -700,7 +722,7 @@ msgstr "Nama Paket"
 msgid "Requirement"
 msgstr "Membutuhkan"
 
-#: ../iw/dependencies.py:37 ../textw/packages.py:133
+#: ../iw/dependencies.py:38 ../textw/packages.py:133
 msgid "Install packages to satisfy dependencies"
 msgstr "Install paketnya agar bisa dipakai"
 
@@ -716,7 +738,7 @@ msgstr ""
 "Anda belum membuat satupun partisi Linux.\n"
 "jadi tidak bisa upgrade!"
 
-#: ../iw/examine.py:52
+#: ../iw/examine.py:59
 msgid "Customize packages to be upgraded"
 msgstr "Pilih paket yang hendak diupgrade"
 
@@ -724,7 +746,7 @@ msgstr "Pilih paket yang hendak diupgrade"
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk.py:63
+#: ../iw/fdisk.py:88
 msgid "Select drive to run fdisk on"
 msgstr "Pilih drive untuk menjalankan fdisk"
 
@@ -736,36 +758,36 @@ msgstr "Pilih partisi yang hendak diformat"
 msgid "Check for bad blocks while formatting"
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../iw/installpath.py:36
+#: ../iw/installpath.py:38
 msgid "GNOME Workstation"
 msgstr "Workstation GNOME"
 
-#: ../iw/installpath.py:38
+#: ../iw/installpath.py:40
 msgid "KDE Workstation"
 msgstr "Workstation KDE"
 
-#: ../iw/installpath.py:40 ../libfdisk/gnomefsedit.c:2197
-#: ../libfdisk/gnomefsedit.c:2217
+#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2232
+#: ../libfdisk/gnomefsedit.c:2252
 msgid "Server"
 msgstr "Server"
 
-#: ../iw/installpath.py:41
+#: ../iw/installpath.py:43
 msgid "Custom"
 msgstr "Bebas"
 
-#: ../iw/installpath.py:79
+#: ../iw/installpath.py:89
 msgid "Install Type"
 msgstr "Install sistem"
 
-#: ../iw/installpath.py:147
+#: ../iw/installpath.py:158
 msgid "Install"
 msgstr "Install"
 
-#: ../iw/installpath.py:149
+#: ../iw/installpath.py:160
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: ../iw/installpath.py:189
+#: ../iw/installpath.py:214
 msgid "Use fdisk"
 msgstr "Gunakan fdisk"
 
@@ -773,23 +795,23 @@ msgstr "Gunakan fdisk"
 msgid "Keyboard Configuration"
 msgstr "Konfigurasi Keyboard"
 
-#: ../iw/keyboard.py:48
+#: ../iw/keyboard.py:51
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/keyboard.py:67
+#: ../iw/keyboard.py:70
 msgid "Layout"
 msgstr "Layout"
 
-#: ../iw/keyboard.py:86
+#: ../iw/keyboard.py:89
 msgid "Variant"
 msgstr "Varian"
 
-#: ../iw/keyboard.py:101
+#: ../iw/keyboard.py:104
 msgid "Test your selection here:"
 msgstr "Coba keyboardnya di sini:"
 
-#: ../iw/language.py:14 ../loader/lang.c:245
+#: ../iw/language.py:16 ../loader/lang.c:244
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -797,7 +819,7 @@ msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 msgid "Lilo Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../iw/lilo.py:99 ../iw/lilo.py:198
+#: ../iw/lilo.py:99 ../iw/lilo.py:197 ../iw/silo.py:124 ../iw/silo.py:244
 msgid "Type"
 msgstr "Tipe"
 
@@ -805,11 +827,11 @@ msgstr "Tipe"
 msgid "Install LILO boot record on:"
 msgstr "Install boot record LILO di:"
 
-#: ../iw/lilo.py:133
+#: ../iw/lilo.py:133 ../iw/silo.py:163
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo.py:137
+#: ../iw/lilo.py:137 ../iw/silo.py:161
 msgid "First sector of boot partition"
 msgstr "Partisi pertama dari partisi boot"
 
@@ -817,11 +839,11 @@ msgstr "Partisi pertama dari partisi boot"
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Gunakan mode linear (untuk beberapa drive SCSI)"
 
-#: ../iw/lilo.py:144
+#: ../iw/lilo.py:144 ../iw/silo.py:186
 msgid "Kernel parameters"
 msgstr "Parameter Kernel"
 
-#: ../iw/lilo.py:159
+#: ../iw/lilo.py:159 ../iw/silo.py:201
 msgid "Create boot disk"
 msgstr "Buat bootdisk"
 
@@ -829,16 +851,19 @@ msgstr "Buat bootdisk"
 msgid "Do not install LILO"
 msgstr "Jangan install LILO"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../textw/lilo.py:138
+#: ../textw/silo.py:136
 msgid "Default"
 msgstr "Default"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../textw/lilo.py:138
+#: ../textw/silo.py:136
 msgid "Partition type"
 msgstr "Tipe partisi"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:80
-#: ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/lilo.py:208 ../iw/silo.py:220 ../iw/silo.py:255
+#: ../textw/lilo.py:80 ../textw/lilo.py:138 ../textw/silo.py:80
+#: ../textw/silo.py:136
 msgid "Boot label"
 msgstr "Label boot"
 
@@ -846,43 +871,43 @@ msgstr "Label boot"
 msgid "Emulate 3 Buttons"
 msgstr "Emulasikan 3 tombol"
 
-#: ../iw/network.py:132
+#: ../iw/network.py:141
 msgid "Configure using DHCP"
 msgstr "Konfigurasikan pakai DHCP"
 
-#: ../iw/network.py:138
+#: ../iw/network.py:147
 msgid "Activate on boot"
 msgstr "Aktifkan saat boot"
 
-#: ../iw/network.py:147
+#: ../iw/network.py:155
 msgid "IP Address"
 msgstr "Alamat IP"
 
-#: ../iw/network.py:147 ../loader/net.c:615
+#: ../iw/network.py:156 ../loader/net.c:618
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network.py:147 ../loader/loader.c:227
+#: ../iw/network.py:157 ../loader/loader.c:228
 msgid "Network"
 msgstr "Network"
 
-#: ../iw/network.py:147
+#: ../iw/network.py:158
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network.py:184
+#: ../iw/network.py:202
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network.py:184
+#: ../iw/network.py:202
 msgid "Primary DNS"
 msgstr "DNS Primer"
 
-#: ../iw/network.py:184
+#: ../iw/network.py:202
 msgid "Secondary DNS"
 msgstr "DNS Sekunder"
 
-#: ../iw/network.py:184
+#: ../iw/network.py:202
 msgid "Ternary DNS"
 msgstr "DNS Tersier"
 
@@ -890,31 +915,31 @@ msgstr "DNS Tersier"
 msgid "Individual Package Selection"
 msgstr "Pilih masing-masing paket"
 
-#: ../iw/package.py:178
+#: ../iw/package.py:176
 msgid "Up"
 msgstr "Atas"
 
-#: ../iw/package.py:324
+#: ../iw/package.py:322
 msgid "Name: "
 msgstr "Nama:"
 
-#: ../iw/package.py:329
+#: ../iw/package.py:327
 msgid "Package Details"
 msgstr "Keterangan Paket"
 
-#: ../iw/package.py:335
+#: ../iw/package.py:333
 msgid "Size: "
 msgstr "Ukuran :"
 
-#: ../iw/package.py:341
+#: ../iw/package.py:339
 msgid "Select Package For Installation"
 msgstr "Pilih paket Instalasi"
 
-#: ../iw/package.py:377 ../textw/packages.py:22 ../textw/packages.py:87
+#: ../iw/package.py:374 ../textw/packages.py:22 ../textw/packages.py:87
 msgid "Package Group Selection"
 msgstr "Pilihan Grup Paket"
 
-#: ../iw/package.py:444 ../textw/packages.py:18
+#: ../iw/package.py:452 ../textw/packages.py:18
 msgid "Select individual packages"
 msgstr "Pilih beberapa paket"
 
@@ -922,51 +947,65 @@ msgstr "Pilih beberapa paket"
 msgid "Installing Packages"
 msgstr "Instalasi paket"
 
-#: ../iw/progress.py:118 ../iw/progress.py:153
+#: ../iw/progress.py:122 ../iw/progress.py:157
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../iw/progress.py:119
+#: ../iw/progress.py:123
 msgid "Summary"
 msgstr "Keterangan"
 
-#: ../iw/progress.py:153
+#: ../iw/progress.py:157
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress.py:153
+#: ../iw/progress.py:157
 msgid "Packages"
 msgstr "Nama Paket"
 
-#: ../iw/progress.py:153
+#: ../iw/progress.py:157
 msgid "Time"
 msgstr "Waktu"
 
-#: ../iw/progress.py:158
+#: ../iw/progress.py:162
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress.py:159
+#: ../iw/progress.py:163
 msgid "Completed"
 msgstr "Selesai"
 
-#: ../iw/progress.py:160
+#: ../iw/progress.py:164
 msgid "Remaining"
 msgstr "Sisa waktu"
 
-#: ../iw/rootpartition.py:14
+#: ../iw/rootpartition.py:16
 msgid "Confirm Partitioning Selection"
 msgstr "Konfirmasi pilihan partisi"
 
-#: ../iw/rootpartition.py:29 ../textw/partitioning.py:24
+#: ../iw/rootpartition.py:32 ../textw/partitioning.py:24
 msgid "Disk Druid"
 msgstr "Setup disk"
 
-#: ../iw/rootpartition.py:82 ../textw/partitioning.py:107
+#: ../iw/rootpartition.py:43 ../textw/partitioning.py:160
+msgid "Low Memory"
+msgstr "Memory kurang"
+
+#: ../iw/rootpartition.py:44 ../textw/partitioning.py:161
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+"Karena sepertinya Anda kurang memiliki memori di mesin ini, Sekarang kita "
+"perlu mengaktifkan swap secepatnya. Tetapi proses ini harus menuliskan "
+"partisi yang baru ke disk secepatnya. Ok ?"
+
+#: ../iw/rootpartition.py:143 ../textw/partitioning.py:123
 msgid "Automatic Partitioning"
 msgstr "Partisi otomatis"
 
-#: ../iw/rootpartition.py:121 ../textw/partitioning.py:108
+#: ../iw/rootpartition.py:191 ../textw/partitioning.py:124
 #, c-format
 msgid ""
 "%s\n"
@@ -980,33 +1019,58 @@ msgstr ""
 "Bila Anda tidak ingin melakukan ini, Anda bisa lanjutkan dgn instalasi "
 "partisi manual, atau bisa kembali ke awal dan lakukan instalasi custom."
 
-#: ../iw/rootpartition.py:133
+#: ../iw/rootpartition.py:204
 msgid "Remove data"
 msgstr "Hapus data"
 
-#: ../iw/rootpartition.py:136 ../textw/partitioning.py:112
+#: ../iw/rootpartition.py:207 ../textw/partitioning.py:128
 msgid "Manually partition"
 msgstr "Partisi manual"
 
-#: ../iw/timezone.py:114
+#: ../iw/silo.py:18
+#, fuzzy
+msgid "Silo Configuration"
+msgstr "Konfigurasi LILO"
+
+#: ../iw/silo.py:155
+#, fuzzy
+msgid "Install SILO boot record on:"
+msgstr "Install boot record LILO di:"
+
+#: ../iw/silo.py:170
+#, fuzzy
+msgid "Create PROM alias"
+msgstr "Buat bootdisk"
+
+#: ../iw/silo.py:182
+msgid "Set default PROM boot device to linux"
+msgstr ""
+
+#: ../iw/silo.py:209
+#, fuzzy
+msgid "Do not install SILO"
+msgstr "Jangan install LILO"
+
+#: ../iw/timezone.py:154
 msgid "View:"
 msgstr "Lihat:"
 
-#: ../iw/timezone.py:152
-msgid "Use Daylight Saving Time"
+#: ../iw/timezone.py:162 ../iw/timezone.py:163
+msgid "System clock uses UTC"
+msgstr "Jam sistem menggunakan UTC"
+
+#: ../iw/timezone.py:211
+#, fuzzy
+msgid "Use Daylight Saving Time (US only)"
 msgstr "Gunakan Daylight Saving Time"
 
-#: ../iw/timezone.py:159
+#: ../iw/timezone.py:225
 msgid "Location"
 msgstr "Lokasi"
 
-#: ../iw/timezone.py:160
+#: ../iw/timezone.py:226
 msgid "UTC Offset"
 msgstr "Offset UTC"
-
-#: ../iw/timezone.py:164
-msgid "System clock uses UTC"
-msgstr "Jam sistem menggunakan UTC"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -1032,19 +1096,19 @@ msgstr "Jangkauan Frekuensi Vertikal"
 msgid "Test failed"
 msgstr "Test Gagal"
 
-#: ../iw/xconfig.py:22 ../iw/xconfig.py:191
+#: ../iw/xconfig.py:22 ../iw/xconfig.py:219
 msgid "Customize X Configuration"
 msgstr "Konfigurasi X Custom"
 
-#: ../iw/xconfig.py:61
+#: ../iw/xconfig.py:80
 msgid "Bits per Pixel"
 msgstr "Bits per pixel"
 
-#: ../iw/xconfig.py:71 ../iw/xconfig.py:187
+#: ../iw/xconfig.py:90 ../iw/xconfig.py:215
 msgid "Test this configuration"
 msgstr "Test Konfigurasi ini"
 
-#: ../iw/xconfig.py:142
+#: ../iw/xconfig.py:169
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1052,24 +1116,24 @@ msgstr ""
 "Biasanya hardware video akan dideteksi otomatis untuk menentukan setting "
 "terbaik untuk sistem Anda."
 
-#: ../iw/xconfig.py:150
+#: ../iw/xconfig.py:177
 msgid "Autoprobe results:"
 msgstr "Hasil Deteksi:"
 
-#: ../iw/xconfig.py:164
+#: ../iw/xconfig.py:191
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr "Monitor Anda tidak bisa dideteksi, silahkan pilih di daftar:"
 
-#: ../iw/xconfig.py:194
+#: ../iw/xconfig.py:222
 msgid "Use Graphical Login"
 msgstr "Gunakan login grafikal"
 
-#: ../iw/xconfig.py:196
+#: ../iw/xconfig.py:224
 msgid "Skip X Configuration"
 msgstr "Tidak Konfigurasikan X"
 
-#: ../textw/lilo.py:13
+#: ../textw/lilo.py:13 ../textw/silo.py:14
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -1080,26 +1144,28 @@ msgstr ""
 "agar sistem berfungsi baik. Bila sistem ini juga demikian, ketikkan option "
 "kernelnya sekarang. Bila tidak, maka kosongkan saja."
 
-#: ../textw/lilo.py:64
+#: ../textw/lilo.py:64 ../textw/silo.py:64
 msgid "Where do you want to install the bootloader?"
 msgstr "Dimana hendak diinstallkan bootloadernya?"
 
-#: ../textw/lilo.py:84 ../textw/lilo.py:105
+#: ../textw/lilo.py:84 ../textw/lilo.py:105 ../textw/silo.py:84
+#: ../textw/silo.py:105
 msgid "Clear"
 msgstr "Hapus"
 
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1620
-#: ../libfdisk/gnomefsedit.c:2129 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:165 ../textw/lilo.py:84
-#: ../textw/lilo.py:102 ../textw/userauth.py:62
+#: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1647
+#: ../libfdisk/gnomefsedit.c:2164 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:168 ../textw/lilo.py:84
+#: ../textw/lilo.py:102 ../textw/silo.py:84 ../textw/silo.py:102
+#: ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../textw/lilo.py:92
+#: ../textw/lilo.py:92 ../textw/silo.py:92
 msgid "Edit Boot Label"
 msgstr "Ganti label boot"
 
-#: ../textw/lilo.py:150
+#: ../textw/lilo.py:150 ../textw/silo.py:148
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1119,7 +1185,7 @@ msgstr ""
 "namun belum Anda pilih. Tekan Ok bila Anda setuju untuk menginstall paket "
 "lain tersebut."
 
-#: ../textw/partitioning.py:16 ../textw/partitioning.py:55
+#: ../textw/partitioning.py:16 ../textw/partitioning.py:57
 msgid "Disk Setup"
 msgstr "Setup Disk"
 
@@ -1139,7 +1205,7 @@ msgstr ""
 "\n"
 "Program mana yang hendak Anda gunakan?"
 
-#: ../textw/partitioning.py:56
+#: ../textw/partitioning.py:58
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
@@ -1150,29 +1216,15 @@ msgstr ""
 "membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
 "agar Anda dapat langsung memboot ke Linux dengan LILO."
 
-#: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:61
+#: ../loader/loader.c:291 ../loader/loader.c:316 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Selesai"
 
-#: ../textw/partitioning.py:112 ../textw/partitioning.py:113
+#: ../textw/partitioning.py:128 ../textw/partitioning.py:129
 msgid "Continue"
 msgstr "Lanjutkan"
 
-#: ../textw/partitioning.py:140
-msgid "Low Memory"
-msgstr "Memory kurang"
-
-#: ../textw/partitioning.py:141
-msgid ""
-"As you don't have much memory in this machine, we need to turn on swap space "
-"immediately. To do this we'll have to write your new partition table to the "
-"disk immediately. Is that okay?"
-msgstr ""
-"Karena sepertinya Anda kurang memiliki memori di mesin ini, Sekarang kita "
-"perlu mengaktifkan swap secepatnya. Tetapi proses ini harus menuliskan "
-"partisi yang baru ke disk secepatnya. Ok ?"
-
-#: ../textw/partitioning.py:160
+#: ../textw/partitioning.py:180
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -1183,11 +1235,11 @@ msgstr ""
 "partisi sistem, termasuk /, /usr, dan /var. Partisi /home atau /usr/local "
 "tidak perlu diformat, bila sudah dikonfigurasikan sebelumnya."
 
-#: ../textw/partitioning.py:180
+#: ../textw/partitioning.py:200
 msgid "Check for bad blocks during format"
 msgstr "Mengecek bad blok pada saat format"
 
-#: ../textw/partitioning.py:184
+#: ../textw/partitioning.py:204
 msgid "Choose Partitions to Format"
 msgstr "Pilih partisi yang hendak diformat"
 
@@ -1305,17 +1357,17 @@ msgstr "atau gunakan:"
 msgid "Request server via broadcast"
 msgstr "Ambil server pakai broadcast"
 
-#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
-#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:614 ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:637 ../libfdisk/fsedit.c:649 ../libfdisk/fsedit.c:659
 msgid "Bad Mount Point"
 msgstr "Lokasi mount tidak dapat digunakan"
 
-#: ../libfdisk/fsedit.c:606
+#: ../libfdisk/fsedit.c:615
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Direktori %s harus ada di filesystem root"
 
-#: ../libfdisk/fsedit.c:613
+#: ../libfdisk/fsedit.c:622
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1326,7 +1378,7 @@ msgstr ""
 "\n"
 "Lokasi mount harus dimulai dengan karakter slash (/)."
 
-#: ../libfdisk/fsedit.c:620
+#: ../libfdisk/fsedit.c:629
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1337,7 +1389,7 @@ msgstr ""
 "\n"
 "Lokasi mount tidak boleh diakhiri dengan karakter slash (/)."
 
-#: ../libfdisk/fsedit.c:629
+#: ../libfdisk/fsedit.c:638
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1348,7 +1400,7 @@ msgstr ""
 "\n"
 "Lokasi mount harus berupa nama dengan karakter biasa."
 
-#: ../libfdisk/fsedit.c:641
+#: ../libfdisk/fsedit.c:650
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1359,7 +1411,7 @@ msgstr ""
 "\n"
 "Partisi sistem harus berupa partisi Linux Native."
 
-#: ../libfdisk/fsedit.c:651
+#: ../libfdisk/fsedit.c:660
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1370,11 +1422,11 @@ msgstr ""
 "\n"
 "Partisi /usr harus ada di partisi Linux Native atau volume NFS."
 
-#: ../libfdisk/fsedit.c:679
+#: ../libfdisk/fsedit.c:688
 msgid "Too Many Drives"
 msgstr "Drive terlalu banyak"
 
-#: ../libfdisk/fsedit.c:680
+#: ../libfdisk/fsedit.c:689
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -1384,11 +1436,11 @@ msgstr ""
 "program fdisk untuk mensetup drive ini, dan beritahukan ke Red Hat Software "
 "bahwa Anda membaca pesan ini sekarang."
 
-#: ../libfdisk/fsedit.c:695
+#: ../libfdisk/fsedit.c:704
 msgid "No Drives Found"
 msgstr "Tidak ditemukan drive apa pun"
 
-#: ../libfdisk/fsedit.c:696
+#: ../libfdisk/fsedit.c:705
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -1396,7 +1448,7 @@ msgstr ""
 "Ada error - saya tidak bisa menemukan device untuk membuat filesystem. "
 "Segera periksa hardware Anda."
 
-#: ../libfdisk/fsedit.c:950
+#: ../libfdisk/fsedit.c:972
 #, c-format
 msgid ""
 "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -1407,23 +1459,23 @@ msgstr ""
 "device %s. Ada harus menggunakan fdisk untuk membuat dan menuliskan label "
 "baru ke device ini."
 
-#: ../libfdisk/fsedit.c:954
+#: ../libfdisk/fsedit.c:976
 msgid "Corrupt Sun disklabel"
 msgstr "Sun disklabel Rusak"
 
-#: ../libfdisk/fsedit.c:955 ../libfdisk/fsedit.c:1011
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:977 ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1058
 msgid "Skip Drive"
 msgstr "Lewati drive"
 
-#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:1032
+#: ../libfdisk/fsedit.c:986 ../libfdisk/fsedit.c:1054
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
 
-#: ../libfdisk/fsedit.c:1005
+#: ../libfdisk/fsedit.c:1027
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -1432,23 +1484,23 @@ msgstr ""
 "Tabel partisi di device %s rusak. Untuk membuat partisi baru maka harus "
 "diformat dulu, dengan resiko SEMUA DATA HILANG di drive ini."
 
-#: ../libfdisk/fsedit.c:1010
+#: ../libfdisk/fsedit.c:1032
 msgid "Bad Partition Table"
 msgstr "Tabel Partisi Rusak"
 
-#: ../libfdisk/fsedit.c:1011
+#: ../libfdisk/fsedit.c:1033
 msgid "Initialize"
 msgstr "Inisialisasi"
 
-#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1058 ../loader/net.c:329
 msgid "Retry"
 msgstr "Ulangi lagi"
 
-#: ../libfdisk/fsedit.c:1048
+#: ../libfdisk/fsedit.c:1070
 msgid "BSD Disklabel"
 msgstr "Disklabel BSD"
 
-#: ../libfdisk/fsedit.c:1048
+#: ../libfdisk/fsedit.c:1070
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -1459,102 +1511,102 @@ msgstr ""
 "instalasi khusus dan fdisk (jangan Disk Druid) untuk mesin dengan disklabel "
 "BSD."
 
-#: ../libfdisk/fsedit.c:1078
+#: ../libfdisk/fsedit.c:1100
 #, c-format
 msgid "System error %d"
 msgstr "Error system %d"
 
-#: ../libfdisk/fsedit.c:1087 ../libfdisk/fsedit.c:1089
+#: ../libfdisk/fsedit.c:1109 ../libfdisk/fsedit.c:1111
 msgid "Fdisk Error"
 msgstr "Error Fdisk"
 
-#: ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
+#: ../libfdisk/gnomefsedit.c:518 ../libfdisk/gnomefsedit.c:715
 msgid "<Swap Partition>"
 msgstr "<Partisi swap>"
 
-#: ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
+#: ../libfdisk/gnomefsedit.c:526 ../libfdisk/gnomefsedit.c:717
 msgid "<RAID Partition>"
 msgstr "<Partisi RAID>"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
+#: ../libfdisk/gnomefsedit.c:600 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
 msgstr "Hapus Partisi"
 
-#: ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:601 ../libfdisk/newtfsedit.c:698
 msgid "Are you sure you want to delete this partition?"
 msgstr "Benar ingin menghapus partisi ini?"
 
-#: ../libfdisk/gnomefsedit.c:639 ../libfdisk/gnomefsedit.c:645
-#: ../libfdisk/gnomefsedit.c:649 ../libfdisk/gnomefsedit.c:651
+#: ../libfdisk/gnomefsedit.c:660 ../libfdisk/gnomefsedit.c:666
+#: ../libfdisk/gnomefsedit.c:670 ../libfdisk/gnomefsedit.c:672
 #: ../libfdisk/newtfsedit.c:263 ../libfdisk/newtfsedit.c:269
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
 msgstr "Edit Partisi"
 
-#: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1629
+#: ../libfdisk/gnomefsedit.c:687 ../libfdisk/gnomefsedit.c:1656
 msgid "Mount Point:"
 msgstr "Lokasi Mount:"
 
-#: ../libfdisk/gnomefsedit.c:701
+#: ../libfdisk/gnomefsedit.c:730
 msgid "Size (Megs):"
 msgstr "Ukuran (Mega):"
 
-#: ../libfdisk/gnomefsedit.c:732
+#: ../libfdisk/gnomefsedit.c:761
 msgid "Grow to fill disk?"
 msgstr "Perbesar hingga habis kapasitas disk?"
 
-#: ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
+#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
 msgstr "Status Alokasi:"
 
-#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
+#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:337
 msgid "Successful"
 msgstr "Sukses"
 
-#: ../libfdisk/gnomefsedit.c:758 ../libfdisk/newtfsedit.c:339
+#: ../libfdisk/gnomefsedit.c:787 ../libfdisk/newtfsedit.c:339
 msgid "Failed"
 msgstr "Gagal"
 
-#: ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
+#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/newtfsedit.c:344
 msgid "Failure Reason:"
 msgstr "Sebab kegagalan:"
 
-#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1655
+#: ../libfdisk/gnomefsedit.c:813 ../libfdisk/gnomefsedit.c:1690
 msgid "Partition Type:"
 msgstr "Tipe partisi:"
 
-#: ../libfdisk/gnomefsedit.c:851
+#: ../libfdisk/gnomefsedit.c:880
 msgid "Allowable Drives:"
 msgstr "Drive yang digunakan:"
 
-#: ../libfdisk/gnomefsedit.c:957 ../libfdisk/gnomefsedit.c:1847
+#: ../libfdisk/gnomefsedit.c:986 ../libfdisk/gnomefsedit.c:1882
 #: ../libfdisk/newtfsedit.c:486
 msgid "No Mount Point"
 msgstr "Lokasi Mount Tidak Ada"
 
-#: ../libfdisk/gnomefsedit.c:958 ../libfdisk/newtfsedit.c:487
+#: ../libfdisk/gnomefsedit.c:987 ../libfdisk/newtfsedit.c:487
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
 "Anda belum memilih lokasi mount untuk partisi ini. Benar ingin melanjutkan?"
 
-#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1855
+#: ../libfdisk/gnomefsedit.c:1030 ../libfdisk/gnomefsedit.c:1890
 #: ../libfdisk/newtfsedit.c:527
 msgid "Mount Point Error"
 msgstr "Lokasi Mount Salah"
 
-#: ../libfdisk/gnomefsedit.c:1002 ../libfdisk/newtfsedit.c:528
+#: ../libfdisk/gnomefsedit.c:1031 ../libfdisk/newtfsedit.c:528
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr "Lokasi mount tidak sah atau sudah digunakan. Silahkan ulangi lagi."
 
-#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:545
+#: ../libfdisk/gnomefsedit.c:1056 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
 msgstr "Ukuran Salah"
 
-#: ../libfdisk/gnomefsedit.c:1028 ../libfdisk/newtfsedit.c:546
+#: ../libfdisk/gnomefsedit.c:1057 ../libfdisk/newtfsedit.c:546
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -1562,12 +1614,12 @@ msgstr ""
 "Ukuran partisi salah, ukuran haruslah lebih besar atau sama dengan nol (0), "
 "dan dituliksan dalam format bilangan bulat desimal (basis 10)."
 
-#: ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
+#: ../libfdisk/gnomefsedit.c:1092 ../libfdisk/gnomefsedit.c:2003
 #: ../libfdisk/newtfsedit.c:581
 msgid "Swap Size Error"
 msgstr "Ukuran Swap Salah"
 
-#: ../libfdisk/gnomefsedit.c:1064 ../libfdisk/gnomefsedit.c:1969
+#: ../libfdisk/gnomefsedit.c:1093 ../libfdisk/gnomefsedit.c:2004
 #: ../libfdisk/newtfsedit.c:582
 #, c-format
 msgid ""
@@ -1575,11 +1627,11 @@ msgid ""
 "swap partition is %ld Megabytes."
 msgstr "Partisi swap yang Anda buat terlalu besar (maksimum %ld MB)."
 
-#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:1087
+#: ../libfdisk/gnomefsedit.c:1109 ../libfdisk/gnomefsedit.c:1116
 msgid "No RAID Drive Constraint"
 msgstr "Tidak ada drive RAID"
 
-#: ../libfdisk/gnomefsedit.c:1082
+#: ../libfdisk/gnomefsedit.c:1111
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -1588,11 +1640,11 @@ msgstr ""
 "Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive.\n"
 "Bener maunya seperti ini?"
 
-#: ../libfdisk/gnomefsedit.c:1088
+#: ../libfdisk/gnomefsedit.c:1117
 msgid "Close"
 msgstr "Tutup"
 
-#: ../libfdisk/gnomefsedit.c:1089
+#: ../libfdisk/gnomefsedit.c:1118
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -1602,11 +1654,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1297
 msgid "RAID Entry Incomplete"
 msgstr "Entry RAID tidak komplit"
 
-#: ../libfdisk/gnomefsedit.c:1269
+#: ../libfdisk/gnomefsedit.c:1298
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -1618,12 +1670,12 @@ msgstr ""
 "komposisikan ulang device dgn partisi yang telah dialokasikan."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1362 ../libfdisk/gnomefsedit.c:1381
+#: ../libfdisk/gnomefsedit.c:1391 ../libfdisk/gnomefsedit.c:1410
 #: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1482
 msgid "Unallocated Partitions"
 msgstr "Partisi belum dialokasikan"
 
-#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1395 ../libfdisk/gnomefsedit.c:1405
 #: ../libfdisk/newtfsedit.c:88
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -1631,37 +1683,37 @@ msgid ""
 "with the reason they were not allocated."
 msgstr "Ada partisi yang belum dialokasikan di daftar berikut."
 
-#: ../libfdisk/gnomefsedit.c:1641
+#: ../libfdisk/gnomefsedit.c:1676
 msgid "<Swap Partition"
 msgstr "<Partisi swap>"
 
-#: ../libfdisk/gnomefsedit.c:1699
+#: ../libfdisk/gnomefsedit.c:1734
 msgid "RAID Device: /dev/"
 msgstr "Device RAID: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:1722
+#: ../libfdisk/gnomefsedit.c:1757
 msgid "RAID Type:"
 msgstr "Tipe RAID:"
 
-#: ../libfdisk/gnomefsedit.c:1759
+#: ../libfdisk/gnomefsedit.c:1794
 msgid "Partitions For RAID Array:"
 msgstr "Partisi array RAID"
 
-#: ../libfdisk/gnomefsedit.c:1848
+#: ../libfdisk/gnomefsedit.c:1883
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Anda belum memilih lokasi mount untuk partisi ini. Saya perlu ini."
 
-#: ../libfdisk/gnomefsedit.c:1856
+#: ../libfdisk/gnomefsedit.c:1891
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr "Lokasi mount tidak sah atau sudah digunakan. Silahkan ulangi lagi."
 
-#: ../libfdisk/gnomefsedit.c:1869
+#: ../libfdisk/gnomefsedit.c:1904
 msgid "Booting From RAID Warning"
 msgstr "Warning boot dari RAID"
 
-#: ../libfdisk/gnomefsedit.c:1870
+#: ../libfdisk/gnomefsedit.c:1905
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
@@ -1669,19 +1721,19 @@ msgstr ""
 "Anda menentukan device raid ini sebagai partisi boot. Silahkan periksa "
 "apakah semua komponen partisi bisa diboot."
 
-#: ../libfdisk/gnomefsedit.c:1880
+#: ../libfdisk/gnomefsedit.c:1915
 msgid "No RAID Device"
 msgstr "Tidak ada device RAID"
 
-#: ../libfdisk/gnomefsedit.c:1881
+#: ../libfdisk/gnomefsedit.c:1916
 msgid "You need to selected a RAID device."
 msgstr "Anda harus pilih device RAID"
 
-#: ../libfdisk/gnomefsedit.c:1887
+#: ../libfdisk/gnomefsedit.c:1922
 msgid "Used Raid Device"
 msgstr "gunakan device RAID"
 
-#: ../libfdisk/gnomefsedit.c:1888
+#: ../libfdisk/gnomefsedit.c:1923
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -1690,26 +1742,26 @@ msgstr ""
 "Device RAID \"/dev/%s\" sudah dikonfigurasikan sebagai raid. Pilih yang lain "
 "lagi."
 
-#: ../libfdisk/gnomefsedit.c:1901
+#: ../libfdisk/gnomefsedit.c:1936
 msgid "Not Enough Partitions"
 msgstr "Partisi tidak cukup"
 
-#: ../libfdisk/gnomefsedit.c:1903
+#: ../libfdisk/gnomefsedit.c:1938
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 "Anda belum mengkonfigurasikan partisi untuk tipe RAID yang telah Anda pilih."
 
-#: ../libfdisk/gnomefsedit.c:1910
+#: ../libfdisk/gnomefsedit.c:1945
 msgid "Illegal /boot RAID Type"
 msgstr "Tipe /boot RAID tidak bisa dipakai"
 
-#: ../libfdisk/gnomefsedit.c:1912
+#: ../libfdisk/gnomefsedit.c:1947
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Partisi boot (/boot) hanya boleh untuk RAID-1 saja."
 
-#: ../libfdisk/gnomefsedit.c:2013
+#: ../libfdisk/gnomefsedit.c:2048
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -1719,68 +1771,68 @@ msgstr ""
 "Partisi %s adalah partisi yang sudah ada di device RAID ini. Mount point "
 "diset ke /boot. Apakah benar partisi ini bisa melakukan boot?"
 
-#: ../libfdisk/gnomefsedit.c:2020
+#: ../libfdisk/gnomefsedit.c:2055
 msgid "Use Pre-existing Partition?"
 msgstr "Gunakan partisi yang ada?"
 
-#: ../libfdisk/gnomefsedit.c:2129
+#: ../libfdisk/gnomefsedit.c:2164
 msgid "Auto-Partition"
 msgstr "Partisi Otomatis"
 
-#: ../libfdisk/gnomefsedit.c:2136
+#: ../libfdisk/gnomefsedit.c:2171
 msgid "Using Existing Disk Space"
 msgstr "Gunakan sisa space disk yang ada"
 
-#: ../libfdisk/gnomefsedit.c:2155
+#: ../libfdisk/gnomefsedit.c:2190
 msgid "Remove Linux partitions"
 msgstr "Hapus partisi Linux"
 
-#: ../libfdisk/gnomefsedit.c:2166
+#: ../libfdisk/gnomefsedit.c:2201
 msgid "Use existing free space"
 msgstr "Gunakan space yang ada"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2178
+#: ../libfdisk/gnomefsedit.c:2213
 msgid "Intended Use"
 msgstr "Penggunaan sistem"
 
-#: ../libfdisk/gnomefsedit.c:2217
+#: ../libfdisk/gnomefsedit.c:2252
 msgid "Workstation"
 msgstr "Workstation"
 
-#: ../libfdisk/gnomefsedit.c:2291
+#: ../libfdisk/gnomefsedit.c:2326
 msgid "Delete RAID Device?"
 msgstr "Hapus device RAID ?"
 
-#: ../libfdisk/gnomefsedit.c:2292
+#: ../libfdisk/gnomefsedit.c:2327
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Benar ingin menghapus device RAID ini?"
 
-#: ../libfdisk/gnomefsedit.c:2343 ../libfdisk/newtfsedit.c:1585
+#: ../libfdisk/gnomefsedit.c:2378 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
 msgstr "Reset Tabel Partisi"
 
-#: ../libfdisk/gnomefsedit.c:2345 ../libfdisk/newtfsedit.c:1587
+#: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/newtfsedit.c:1587
 msgid "Reset partition table to original contents? "
 msgstr "Tabel partisi hendak direset ke aslinya?"
 
-#: ../libfdisk/gnomefsedit.c:2381 ../libfdisk/gnomefsedit.c:2432
+#: ../libfdisk/gnomefsedit.c:2416 ../libfdisk/gnomefsedit.c:2467
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2383
+#: ../libfdisk/gnomefsedit.c:2418
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2385
+#: ../libfdisk/gnomefsedit.c:2420
 msgid "<not set>"
 msgstr "<tidak diset>"
 
-#: ../libfdisk/gnomefsedit.c:2942
+#: ../libfdisk/gnomefsedit.c:3084
 msgid "Unallocated Partitions Exist..."
 msgstr "Ada partisi yang belum dialokasikan..."
 
-#: ../libfdisk/gnomefsedit.c:2953
+#: ../libfdisk/gnomefsedit.c:3090 ../libfdisk/gnomefsedit.c:3104
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -1788,53 +1840,35 @@ msgstr ""
 "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
 "partisi RAID untuk instal."
 
-#: ../libfdisk/gnomefsedit.c:2967 ../libfdisk/gnomefsedit.c:2980
-msgid ""
-"You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-"or a RAID-1 partition for the install to proceed."
-msgstr ""
-"Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
-"partisi RAID-1 untuk install."
-
-#: ../libfdisk/gnomefsedit.c:2995
-msgid ""
-"Because you have assigned the root partition (/) to a RAID device, you must "
-"also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-"RAID-1 partition for the install to proceed."
-msgstr ""
-"Karena Anda sudah alokasikan partisi root (/) ke device RAID, maka Anda "
-"harus pula alokasikan partisi boot (/boot) ke partisi Linux native (ext2) "
-"atau ke partisi RAID-1."
-
-#: ../libfdisk/gnomefsedit.c:3068
+#: ../libfdisk/gnomefsedit.c:3178
 msgid "Partitions"
 msgstr "Partisi"
 
-#: ../libfdisk/gnomefsedit.c:3112
+#: ../libfdisk/gnomefsedit.c:3222
 msgid "_Add..."
 msgstr "_Tambah..."
 
-#: ../libfdisk/gnomefsedit.c:3124
+#: ../libfdisk/gnomefsedit.c:3234
 msgid "_Edit..."
 msgstr "_Edit..."
 
-#: ../libfdisk/gnomefsedit.c:3125
+#: ../libfdisk/gnomefsedit.c:3235
 msgid "_Delete"
 msgstr "_Hapus"
 
-#: ../libfdisk/gnomefsedit.c:3126
+#: ../libfdisk/gnomefsedit.c:3236
 msgid "_Reset"
 msgstr "_Reset"
 
-#: ../libfdisk/gnomefsedit.c:3155
+#: ../libfdisk/gnomefsedit.c:3265
 msgid "_Make RAID Device"
 msgstr "_Buat Perangkat RAID"
 
-#: ../libfdisk/gnomefsedit.c:3164
+#: ../libfdisk/gnomefsedit.c:3274
 msgid "Auto Partition"
 msgstr "Partisi Otomatis"
 
-#: ../libfdisk/gnomefsedit.c:3177
+#: ../libfdisk/gnomefsedit.c:3287
 msgid "Drive Summary"
 msgstr "Keterangan Drive"
 
@@ -1908,11 +1942,11 @@ msgstr "CDROM jenis apa yang Anda punya?"
 msgid "Initializing CDROM..."
 msgstr "Inisialisasi CDROM..."
 
-#: ../loader/devices.c:50
+#: ../loader/devices.c:51
 msgid "Miscellaneous"
 msgstr "Lain-lain"
 
-#: ../loader/devices.c:59
+#: ../loader/devices.c:60
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -1921,24 +1955,24 @@ msgstr ""
 "Module ini bisa menggunakan parameter khusus. Bila Anda tidak tahu "
 "parameternya apa, lewati saja layar ini, tekan tombol \"OK\" sekarang."
 
-#: ../loader/devices.c:64
+#: ../loader/devices.c:65
 msgid "Module Parameters"
 msgstr "Parameter Modul"
 
-#: ../loader/devices.c:164 ../loader/devices.c:234 ../loader/loader.c:240
-#: ../loader/loader.c:299 ../loader/loader.c:315
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:241
+#: ../loader/loader.c:300 ../loader/loader.c:316
 msgid "Devices"
 msgstr "Perangkat"
 
-#: ../loader/devices.c:166
+#: ../loader/devices.c:169
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader/devices.c:175
+#: ../loader/devices.c:179
 msgid "Failed to mount floppy disk."
 msgstr "Saya gagal memount floppy disk."
 
-#: ../loader/devices.c:179
+#: ../loader/devices.c:184
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -1946,7 +1980,7 @@ msgstr ""
 "Disket yang Anda masukkan tadi tidak berisi disk driver untuk Linux Red Hat "
 "ini."
 
-#: ../loader/devices.c:198
+#: ../loader/devices.c:206
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -1954,11 +1988,11 @@ msgstr ""
 "Driver mana yang hendak dicoba? Bila drivernya tidak ada di daftar, dan Anda "
 "memiliki disk driver lain, silahkan tekan F2."
 
-#: ../loader/devices.c:203
+#: ../loader/devices.c:211
 msgid "Which driver should I try?"
 msgstr "Driver mana yang ingin dipakai ?"
 
-#: ../loader/devices.c:211
+#: ../loader/devices.c:219
 msgid "Specify module parameters"
 msgstr "Tuliskan Parameter module"
 
@@ -1981,57 +2015,57 @@ msgstr "Error saat membaca isi file kickstart %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Error pada baris %d di file kickstart %s."
 
-#: ../loader/lang.c:245
+#: ../loader/lang.c:244
 msgid "Choose a Language"
 msgstr "Pilih bahasanya:"
 
-#: ../loader/lang.c:501
+#: ../loader/lang.c:504
 msgid "Keyboard Type"
 msgstr "Tipe Keyboard"
 
-#: ../loader/lang.c:502
+#: ../loader/lang.c:505
 msgid "What type of keyboard do you have?"
 msgstr "Keyboard mana yang Anda punya?"
 
-#: ../loader/loader.c:99
+#: ../loader/loader.c:100
 msgid "Local CDROM"
 msgstr "CDROM lokal"
 
-#: ../loader/loader.c:102
+#: ../loader/loader.c:103
 msgid "NFS image"
 msgstr "Image NFS"
 
-#: ../loader/loader.c:107
+#: ../loader/loader.c:108
 msgid "Hard drive"
 msgstr "Hard Disk"
 
-#: ../loader/loader.c:123
+#: ../loader/loader.c:124
 msgid "Welcome to Red Hat Linux"
 msgstr "Selamat Datang di Linux Red Hat!"
 
-#: ../loader/loader.c:125
+#: ../loader/loader.c:126
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../loader/loader.c:227
+#: ../loader/loader.c:228
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:241
+#: ../loader/loader.c:242
 msgid "What kind of device would you like to add"
 msgstr "Perangkat apa yang hendak dimasukkan ?"
 
-#: ../loader/loader.c:288
+#: ../loader/loader.c:289
 msgid "I have found the following devices in your system:"
 msgstr "Saya menemukan perangkat berikut ini di sistem:"
 
-#: ../loader/loader.c:290 ../loader/loader.c:315
+#: ../loader/loader.c:291 ../loader/loader.c:316
 msgid "Add Device"
 msgstr "Tambah Perangkat"
 
-#: ../loader/loader.c:316
+#: ../loader/loader.c:317
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -2039,23 +2073,23 @@ msgstr ""
 "Sekarang belum ada device driver yang diload untuk sistem ini. Mau meloadnya "
 "sekarang ?"
 
-#: ../loader/loader.c:400 ../loader/loader.c:402
+#: ../loader/loader.c:401 ../loader/loader.c:403
 msgid "Loading"
 msgstr "Sedang Meload"
 
-#: ../loader/loader.c:454
+#: ../loader/loader.c:455
 msgid "Loading second stage ramdisk..."
 msgstr "Sedang mengambil ramdisk tahap kedua..."
 
-#: ../loader/loader.c:458
+#: ../loader/loader.c:459
 msgid "Error loading ramdisk."
 msgstr "Error saat membaca ramdisk."
 
-#: ../loader/loader.c:579
+#: ../loader/loader.c:591
 msgid "Hard Drives"
 msgstr "Hard Disk"
 
-#: ../loader/loader.c:580
+#: ../loader/loader.c:592
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -2063,7 +2097,7 @@ msgstr ""
 "Sekarang belum ada hard disk di sistem Anda lho! Apakah ingin "
 "mengkonfigurasikan perangkat tambahan lain?"
 
-#: ../loader/loader.c:593
+#: ../loader/loader.c:605
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -2074,20 +2108,20 @@ msgstr ""
 "RedHatnya tidak kelihatan di sini, silahkan pencet F2 untuk tambah device "
 "lagi."
 
-#: ../loader/loader.c:607
+#: ../loader/loader.c:619
 msgid "Directory holding Red Hat:"
 msgstr "Direktori yang berisi Red Hat:"
 
-#: ../loader/loader.c:627
+#: ../loader/loader.c:639
 msgid "Select Partition"
 msgstr "Pilih Partisinya"
 
-#: ../loader/loader.c:671
+#: ../loader/loader.c:686
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
 
-#: ../loader/loader.c:716
+#: ../loader/loader.c:731
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -2095,47 +2129,47 @@ msgstr ""
 "Saya tidak dapat menemukan CDROM Red Hat LInux di drive CD Anda nih. "
 "Silahkan masukkan CDnya dan tekan \"OK\" untuk mengulangi."
 
-#: ../loader/loader.c:849
+#: ../loader/loader.c:864
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Direktori ini tidak memiliki tree Red Hat"
 
-#: ../loader/loader.c:854
+#: ../loader/loader.c:869
 msgid "I could not mount that directory from the server"
 msgstr "Saya tak dapat memount direktori tersebut dari server"
 
-#: ../loader/loader.c:939
+#: ../loader/loader.c:954
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:940
+#: ../loader/loader.c:955
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Saya gagal mengambil ramdisk tahap kedua"
 
-#: ../loader/loader.c:1064
+#: ../loader/loader.c:1079
 msgid "Rescue Method"
 msgstr "Metode Rescue"
 
-#: ../loader/loader.c:1065
+#: ../loader/loader.c:1080
 msgid "Installation Method"
 msgstr "Metode Instalasi"
 
-#: ../loader/loader.c:1067
+#: ../loader/loader.c:1082
 msgid "What type of media contains the rescue image?"
 msgstr "Tipe media yang berisi image rescue itu apa?"
 
-#: ../loader/loader.c:1069
+#: ../loader/loader.c:1084
 msgid "What type of media contains the packages to be installed?"
 msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
-#: ../loader/loader.c:1491
+#: ../loader/loader.c:1578
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-#: ../loader/loader.c:1619
+#: ../loader/loader.c:1733
 msgid "PC Card"
 msgstr "Card PC"
 
-#: ../loader/loader.c:1619
+#: ../loader/loader.c:1733
 msgid "Initializing PC Card Devices..."
 msgstr "Inisialisasi PC Card..."
 
@@ -2189,68 +2223,68 @@ msgstr "Informasi kurang"
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Anda harus memberikan alamat IP dan netmask yang valid"
 
-#: ../loader/net.c:338 ../loader/net.c:569
+#: ../loader/net.c:338 ../loader/net.c:571
 msgid "Dynamic IP"
 msgstr "IP Dinamis"
 
-#: ../loader/net.c:339 ../loader/net.c:570
+#: ../loader/net.c:339 ../loader/net.c:572
 msgid "Sending request for IP information..."
 msgstr "Mengirimkan permintaan IP..."
 
-#: ../loader/net.c:461
+#: ../loader/net.c:459
 msgid "Determining host name and domain..."
 msgstr "Sedang mencari tahu nama host dan domain..."
 
-#: ../loader/net.c:559
+#: ../loader/net.c:560
 msgid "kickstart"
 msgstr "kickstart"
 
-#: ../loader/net.c:560
+#: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
 
-#: ../loader/net.c:607
+#: ../loader/net.c:610
 msgid "Boot protocol to use"
 msgstr "Protokol Boot yang digunakan"
 
-#: ../loader/net.c:609
+#: ../loader/net.c:612
 msgid "Network gateway"
 msgstr "Gateway Network"
 
-#: ../loader/net.c:611
+#: ../loader/net.c:614
 msgid "IP address"
 msgstr "Alamat IP"
 
-#: ../loader/net.c:613
+#: ../loader/net.c:616
 msgid "Nameserver"
 msgstr "Server DNS"
 
-#: ../loader/net.c:620
+#: ../loader/net.c:623
 msgid "Domain name"
 msgstr "Nama Domain"
 
-#: ../loader/net.c:623
+#: ../loader/net.c:626
 msgid "Network device"
 msgstr "Device Network"
 
-#: ../loader/net.c:695
+#: ../loader/net.c:698
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../loader/net.c:696
+#: ../loader/net.c:699
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:698
+#: ../loader/net.c:701
 msgid "Network configuration"
 msgstr "Konfigurasi Jaringan"
 
-#: ../loader/net.c:699
+#: ../loader/net.c:702
 msgid "Would you like to set up networking?"
 msgstr "Ingin mensetup jaringan?"
 
@@ -2358,6 +2392,22 @@ msgstr "Port Proxy HTTP:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Meload Driver SCSI..."
+
+#~ msgid ""
+#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
+#~ "or a RAID-1 partition for the install to proceed."
+#~ msgstr ""
+#~ "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
+#~ "partisi RAID-1 untuk install."
+
+#~ msgid ""
+#~ "Because you have assigned the root partition (/) to a RAID device, you must "
+#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
+#~ "RAID-1 partition for the install to proceed."
+#~ msgstr ""
+#~ "Karena Anda sudah alokasikan partisi root (/) ke device RAID, maka Anda "
+#~ "harus pula alokasikan partisi boot (/boot) ke partisi Linux native (ext2) "
+#~ "atau ke partisi RAID-1."
 
 #~ msgid "Use fdisk to format drives"
 #~ msgstr "Gunakan fdisk untuk memformat"
@@ -2987,14 +3037,6 @@ msgstr "Meload Driver SCSI..."
 #~ msgstr ""
 #~ "Tahap mana yang ingin Anda jalankan? Tahap yang sudah selesai dilakukan "
 #~ "ditandai dengan *."
-
-#~ msgid "Cancelled"
-#~ msgstr "Dibatalkan"
-
-#~ msgid ""
-#~ "I can't go to the previous step from here. You will have to try again."
-#~ msgstr ""
-#~ "Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
 
 #~ msgid "Insert a blank floppy in the first drive /dev/fd0."
 #~ msgstr "Masukkan disket kosong di drive /dev/fd0"
