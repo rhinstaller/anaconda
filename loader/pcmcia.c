@@ -121,7 +121,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 		int i;
 
 		i = read(fd, buf, 30);
-		buf[9] = '\0';
+		buf[23] = '\0';
 		logMessage("read %s", buf);
 		if (i == 23 && !strcmp(buf, "PCMCIA Driver Diskette\n")) {
 		    winStatus(40, 3, title, text);
