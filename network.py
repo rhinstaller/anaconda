@@ -184,8 +184,6 @@ class Network:
                 self.domains.append(info["DOMAIN"])
             if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
-                if info.has_key("BOOTPROTO") and info["BOOTPROTO"] == "dhcp":
-                    self.overrideDHCPhostname = 1
             
 	try:
 	    f = open("/etc/resolv.conf", "r")

@@ -236,8 +236,9 @@ class BaseInstallClass:
 	#if (todo.instClass.x):
 	#apply (todo.instClass.x.setKeyboard, xkb)
 
-    def setHostname(self, id, hostname):
+    def setHostname(self, id, hostname, override = 0):
 	id.network.setHostname(hostname);
+        id.network.overrideDHCPhostname = override
 
     def setNameserver(self, id, nameserver):
         id.network.setDNS(nameserver)

@@ -483,7 +483,7 @@ class KickstartBase(BaseInstallClass):
 
 	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device, onboot=onboot)
 	if hostname != "":
-	    self.setHostname(id, hostname)
+	    self.setHostname(id, hostname, override = 1)
         if nameserver != "":
             self.setNameserver(id, nameserver)
         if gateway != "":
