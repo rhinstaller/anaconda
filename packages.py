@@ -1172,7 +1172,6 @@ def selectLanguageSupportGroups(comps, langSupport):
                     # add to the deps in the dependencies structure --
                     # this will take care of if we're ever added as a dep
                     comps.compsxml.packages[req].dependencies.append(package)
-                    print "adding %s as a dep of %s" %(package, comps.compsxml.packages[req].name)
                     # also add to components as needed
                     # if the req is PKGTYPE_MANDATORY, then just add to the
                     # depsDict.  if the req is PKGTYPE_DEFAULT, add it
@@ -1181,13 +1180,9 @@ def selectLanguageSupportGroups(comps, langSupport):
                     for comp in comps.packages[req].comps:
                         if comp.newpkgDict.has_key(req):
                             if comp.newpkgDict[req][0] == PKGTYPE_MANDATORY:
-                                print "adding %s to comp %s as dep" %(pkg.name, comp.name)
                                 comp.addDependencyPackage(pkg)
                             else:
-                                print "adding %s to comp %s" %(pkg.name, comp.name)
                                 comp.addPackage(pkg, PKGTYPE_DEFAULT)
                         elif comp.depsDict.has_key(req):
                             comp.addDependencyPackage(pkg)
-                        else:
-                            print "unable to find how %s is in comp %s" %(pkg.name, comp.name)
     comps.updateSelections()
