@@ -195,7 +195,6 @@ class BootloaderWindow (InstallWindow):
 
     def labelUpdated(self, *args):
         index = self.imageList.selection[0]
-        device = self.imageList.get_text(index, 1)
 
         label = self.labelEntry.get_text()
         self.imageList.set_text(index, 3, label)
@@ -287,20 +286,6 @@ class BootloaderWindow (InstallWindow):
             self.imageList.set_text(index, 3, tmp)
         self.labelSelected()
 
-    def usePasswordToggle(self, *args):
-        if self.usegrubpasscb.get_active():
-            self.passbutton.set_sensitive(TRUE)
-            if not self.bl.password and not self.password:
-                self.ics.setNextEnabled(0)                
-        else:
-            self.passbutton.set_sensitive(FALSE)
-
-            try:
-                if self.checkLiloReqs():
-                    self.ics.setNextEnabled (1)
-            except:
-                pass
-
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
 	self.dispatch = dispatch
@@ -312,8 +297,6 @@ class BootloaderWindow (InstallWindow):
 	imageList = bl.images.getImages()
 	defaultDevice = bl.images.getDefault()
         self.ignoreSignals = 0
-
-        format = "/dev/%s"
 
         self.radioBox = GtkTable(2, 6)
 	self.bootDevice = {}
