@@ -1,4 +1,4 @@
-;#
+#
 # xf866config.py - XFree86 configuration file generator for 3.3.x and 4.x
 #
 # Matt Wilson <msw@redhat.com>
