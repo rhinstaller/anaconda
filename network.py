@@ -37,6 +37,9 @@ def sanityCheckHostname(hostname):
     if len(hostname) < 1:
 	return None
 
+    if len(hostname) > 64:
+	return _("Hostname must be 64 or less characters in length.")
+    
     if not inStrRange(hostname[0], string.ascii_letters):
 	return _("Hostname must start with a valid character in the range "
 		 "'a-z' or 'A-Z'")
