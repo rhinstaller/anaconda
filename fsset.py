@@ -2057,6 +2057,7 @@ def readFstab (path, intf = None):
             fs = fstotry.split(",")
         else:
             fs = [ fstotry ]
+        fsystem = None            
         for fs in fstotry:
             # if we don't support mounting the filesystem, continue
             if not fileSystemTypes.has_key(fs):
