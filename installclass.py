@@ -11,7 +11,7 @@ FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
 import gettext
-import xf86config
+from xf86config import XF86Config
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
@@ -78,10 +78,10 @@ class InstallClass:
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
-	[ "lilo", "mouse", "network", "authentication", "complete",
+	[ "lilo", "mouse", "network", "authentication", "complete", "complete",
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
-	  "accounts", "dependencies", "language", "keyboard",
-	  "welcome", "installtype", "mouse" ].index(type)
+	  "accounts", "dependencies", "language", "keyboard", "xconfig",
+	  "welcome", "installtype", "mouse", "confirm-install" ].index(type)
 	if type == "partition":
 	    self.skipPartitioning = 1
 	else:
@@ -112,11 +112,13 @@ class InstallClass:
 	if not self.x.server:
 	    self.x.setVidcard (card)
 
-	if not self.todo.x.monID and monitor:
-	    self.setmonitor(monitor)
+	if not self.x.monID and monitor:
+	    self.x.setMonitor((monitor, (None, None)))
 	elif hsync and vsync:
-	    self.setmonitor(None, (hsync, vsync))
-	self.defaultRunlevel = 5
+	    self.x.setMonitor((None, (hsync, vsync)))
+
+	if startX:
+	    self.defaultRunlevel = 5
 
     # Groups is a list of group names -- the full list can be found in 
     # ths comps file for each release
