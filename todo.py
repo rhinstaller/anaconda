@@ -242,7 +242,6 @@ class InstallTimeLanguage:
 	lines = f.readlines ()
 	f.close()
 	self.langNicks = {}
-	self.langNames = {}
 	self.font = {}
 	self.map = {}
 	self.kbd = {}
@@ -264,7 +263,6 @@ class InstallTimeLanguage:
 
 	    self.langList.append(longName)
 	    self.langNicks[longName] = shortName
-	    self.langNames[shortName] = longName
 	    self.font[longName] = font
 	    self.map[longName] = map
 	    self.kbd[longName] = keyboard
@@ -283,8 +281,14 @@ class InstallTimeLanguage:
     def getLangNick (self, lang):
 	return self.langNicks[lang]
 
-    def getLangNameByNick(self, nick):
-	return self.langNames[nick]
+    def getLangNameByNick(self, lang):
+	# The nick we get here may be long (fr_FR@euro), when we need
+	# shorter (fr_FR), so be a bit fuzzy
+	for (langName, nick) in self.langNicks.items():
+	    if (nick == lang) or (nick == lang[0:len(nick)]):
+		return langName
+
+	raise KeyError, "language %s not found" % lang
 
     def getDefaultKeyboard(self):
 	return self.kbd[self.getCurrent()]
@@ -1268,11 +1272,13 @@ class ToDo:
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword,
 			      isCrypted = todo.instClass.rootPasswordCrypted)
+
 	if todo.instClass.language:
 	    langName = todo.language.getLangNameByNick(todo.instClass.language)
 	    todo.language.setSupported([langName])
 	    todo.language.setDefault(langName)
-	    todo.instTimeLanguage.setRuntimeLanguage(langName)
+	    instLangName = todo.instTimeLanguage.getLangNameByNick(todo.instClass.language)
+	    todo.instTimeLanguage.setRuntimeLanguage(instLangName)
 
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)
