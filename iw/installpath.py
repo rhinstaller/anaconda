@@ -95,20 +95,12 @@ class InstallPathWindow (InstallWindow):
         self.ics = ics
 
     def getNext(self):
-	# This makes the error message delivery come at a sane place
-	if not self.todo.fstab:
-	    from fstab import GuiFstab
-
-	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
-				       self.todo.serial, 0, 0,
-				       self.todo.intf.waitWindow,
-				       self.todo.intf.messageWindow)
+	from fstab import GuiFstab
 
 	if not self.__dict__.has_key("upgradeButton"):
 	    return
 
-	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
-
+	needNewDruid = 0
 	icw = self.ics.getICW ()
 	if self.upgradeButton.get_active():
 	    self.todo.upgrade = 1
@@ -125,13 +117,25 @@ class InstallPathWindow (InstallWindow):
 
 	    if type == WORKSTATION_GNOME and self.orig != WORKSTATION_GNOME:
 		self.todo.setClass (installclass.GNOMEWorkstation (self.todo.expert))
+		needNewDruid = 1
 	    elif type == WORKSTATION_KDE and self.orig != WORKSTATION_KDE:
 		self.todo.setClass (installclass.KDEWorkstation (self.todo.expert))
+		needNewDruid = 1
 	    elif type == SERVER and self.orig != SERVER:
-                print "SERVER"
 		self.todo.setClass (installclass.Server (self.todo.expert))
+		needNewDruid = 1
 	    elif type == CUSTOM and self.orig != CUSTOM:
 		self.todo.setClass (installclass.CustomInstall (self.todo.expert))
+		needNewDruid = 1
+
+	# This makes the error message delivery come at a sane place
+	if needNewDruid or not self.todo.fstab:
+	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
+				       self.todo.serial, 0, 0,
+				       self.todo.intf.waitWindow,
+				       self.todo.intf.messageWindow)
+
+	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
 
     def toggled (self, widget, type):
         if not widget.get_active (): return
