@@ -10,6 +10,7 @@ from gtk import *
 from gtk import _root_window
 import GdkImlib
 from GDK import *
+from fstab import GuiFstab
 
 im = None
 splashwindow = None
@@ -475,6 +476,8 @@ class InstallControlWindow (Thread):
         Thread.__init__ (self)
         self.ii = ii
         self.todo = todo
+	self.todo.fstab = GuiFstab(todo.setupFilesystems, todo.serial, 0, 0,
+				   todo.intf.waitWindow)
         self.steps = steps
         if os.environ.has_key ("LC_ALL"):
             self.locale = os.environ["LC_ALL"][:2]

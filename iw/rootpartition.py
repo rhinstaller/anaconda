@@ -51,7 +51,7 @@ class PartitionWindow (InstallWindow):
 	    return 0
 
 	self.todo.ddruid.save ()
-	self.todo.makeFilesystems (createFs = 0)
+	self.fstab.turnOnSwap(self.intf.waitWindow)
 	self.todo.ddruidAlreadySaved = 1
 	PartitionWindow.swapon = 1
 
@@ -60,7 +60,7 @@ class PartitionWindow (InstallWindow):
         return 1
 
     def getNext (self):
-	self.todo.ddruid.next ()
+	self.todo.fstab.runDruidFinished()
         
 	if not self.skippedScreen:
 	    win = self.todo.ddruid.getConfirm ()
@@ -74,38 +74,8 @@ class PartitionWindow (InstallWindow):
 	bootPartition = None
 	rootPartition = None
 
-        fstab = self.todo.ddruid.getFstab ()
-	self.todo.resetMounts()
-        for (partition, mount, fsystem, size) in fstab:
-            self.todo.addMount(partition, mount, fsystem)
-	    if mount == "/":
-		rootPartition = partition
-	    elif mount == "/boot":
-		bootPartition = partition
-
-        (drives, raid) = self.todo.ddruid.partitionList()
-
-	liloBoot = None
-
         if not self.checkSwap ():
             return PartitionWindow
-
-        for (mount, device, fstype, raidType, start, size, makeup) in raid:
-            self.todo.addMount(device, mount, fstype)
-            
-            if mount == "/":
-                rootPartition = device
-            elif mount == "/boot":
-                bootPartition = device
-
-	if (bootPartition):
-	    liloBoot = bootPartition
-	else:
-	    liloBoot = rootPartition
-
-	if liloBoot and len (liloBoot) >= 2 and liloBoot[0:2] == "md":
-	    self.todo.setLiloLocation(("raid", liloBoot))
-	    self.todo.instClass.addToSkipList("lilo")
 
         return None
 
@@ -113,8 +83,6 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
-        self.todo.ddruid.setCallback (self.enableCallback)
-
 	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
 	    fstab = self.todo.ddruid.getFstab ()
@@ -129,10 +97,8 @@ class PartitionWindow (InstallWindow):
                 return AutoPartitionWindow
 	    return None
 
-        self.bin = GtkFrame (None, _obj = self.todo.ddruid.getWindow ())
-        self.bin.set_shadow_type (SHADOW_NONE)
-        self.todo.ddruid.edit ()
-        
+	return self.todo.fstab.runDruid(self.enableCallback)
+
         return self.bin
 
 class AutoPartitionWindow(InstallWindow):

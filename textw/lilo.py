@@ -54,7 +54,8 @@ class LiloAppendWindow:
 
 class LiloWindow:
     def __call__(self, screen, todo):
-        if '/' not in todo.mounts.keys (): return INSTALL_NOOP
+	(mount, dev, fstype, format, size) = todo.fstab.mountList()[0]
+	if mount != '/': return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
 	(bootpart, boothd) = todo.getLiloOptions()

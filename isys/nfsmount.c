@@ -82,7 +82,7 @@ die (int err, const char *fmt, ...) {
 }
 
 char *
-xstrdup (const char *s) {
+nfsxstrdup (const char *s) {
      char *t;
 
      if (s == NULL)
@@ -111,7 +111,7 @@ xstrndup (const char *s, int n) {
 }
 
 void *
-xmalloc(size_t size)
+nfsxmalloc(size_t size)
 {
       void *ptr = malloc(size);
         if (!ptr)
@@ -258,7 +258,7 @@ int nfsmount(const char *spec, const char *node, int *flags,
 	}
 	sprintf(new_opts, "%s%saddr=%s",
 		old_opts, *old_opts ? "," : "", s);
-	*extra_opts = xstrdup(new_opts);
+	*extra_opts = nfsxstrdup(new_opts);
 
 	/* Set default options.
 	 * rsize/wsize (and bsize, for ver >= 3) are left 0 in order to
@@ -551,7 +551,7 @@ int nfsmount(const char *spec, const char *node, int *flags,
 		        goto fail;
 		}
 		if (!running_bg) {
-			prev_bg_host = xstrdup(hostname);
+			prev_bg_host = nfsxstrdup(hostname);
 			if (retry > 0)
 				retval = EX_BG;
 			goto fail;

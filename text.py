@@ -8,6 +8,7 @@ import rpm
 import time
 import gettext_rh
 import glob
+from fstab import NewtFstab
 
 cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
@@ -1018,7 +1019,7 @@ class InstallInterface:
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-#	self.screen.suspendCallback(killSelf, self.screen)
+	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
 #	self.screen.suspendCallback(debugSelf, self.screen)
@@ -1032,6 +1033,8 @@ class InstallInterface:
     def run(self, todo, test = 0):
 	if todo.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
+	todo.fstab = NewtFstab(todo.setupFilesystems, todo.serial, 0, 0,
+			       self.waitWindow)
 
         if todo.reconfigOnly:
             self.commonSteps = [

@@ -207,24 +207,21 @@ class InstallPathWindow (InstallWindow):
 
 	box.pack_start(table, FALSE)
 
-        if self.todo.expert:
-            hbox = GtkHBox (FALSE)
-	    if not InstallPathWindow.__dict__.has_key("fdisk"):
-		fdiskState = 0
-	    else:
-		fdiskState = InstallPathWindow.fdisk.get_active()
+	hbox = GtkHBox (FALSE)
+	if not InstallPathWindow.__dict__.has_key("fdisk"):
+	    fdiskState = 0
+	else:
+	    fdiskState = InstallPathWindow.fdisk.get_active()
 
-	    InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
-	    InstallPathWindow.fdisk.set_active(fdiskState)
+	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
+	InstallPathWindow.fdisk.set_active(fdiskState)
 
-            align = GtkAlignment ()
-            align.add (InstallPathWindow.fdisk)
-            align.set (0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start (box, TRUE)
-            hbox.pack_start (align, FALSE)
-            box = hbox
-        else:
-            InstallPathWindow.fdisk = None
+	align = GtkAlignment ()
+	align.add (InstallPathWindow.fdisk)
+	align.set (0.0, 0.0, 0.0, 0.0)
+	hbox.pack_start (box, TRUE)
+	hbox.pack_start (align, FALSE)
+	box = hbox
 
         self.toggled (installButton, INSTALL)
         self.toggled (self.upgradeButton, UPGRADE)

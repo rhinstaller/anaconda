@@ -8,7 +8,7 @@ from text import _
 
 class PartitionMethod:
     def __call__(self, screen, todo):
-	if not todo.expert or todo.instClass.partitions:
+	if todo.instClass.partitions:
 	    todo.skipFdisk = 1
 	    return INSTALL_NOOP
 
@@ -106,6 +106,7 @@ class ManualPartitionWindow:
 
 class AutoPartitionWindow:
     def __call__(self, screen, todo):
+	return
 	from newtpyfsedit import fsedit        
 
         fstab = []
@@ -143,11 +144,7 @@ class PartitionWindow:
     def __call__(self, screen, todo):
 	dir = INSTALL_NOOP
 	if not todo.getSkipPartitioning():
-	    dir = todo.ddruid.edit ()
-
-	todo.resetMounts()
-	for partition, mount, fstype, size in todo.ddruid.getFstab ():
-	    todo.addMount(partition, mount, fstype)
+	    dir = todo.fstab.runDruid()
 
         return dir
 
@@ -171,7 +168,7 @@ class TurnOnSwapWindow:
 		return INSTALL_BACK
 
 	todo.ddruid.save ()
-	todo.makeFilesystems (createFs = 0)
+	self.fstab.turnOnSwap(self.intf.waitWindow)
 	todo.ddruidAlreadySaved = 1
 	self.beenTurnedOn = 1
 
@@ -188,40 +185,35 @@ class FormatWindow:
                                 "already been configured during a "
                                 "previous install."))
 
-        height = min (screen.height - 12, len (todo.mounts.items()))
+	mounts = todo.fstab.mountList()
+        height = min (screen.height - 12, len (mounts))
         
         ct = CheckboxTree(height = height)
 
-        mounts = todo.mounts.keys ()
-        mounts.sort ()
-
-        for mount in mounts:
-            (dev, fstype, format) = todo.mounts[mount]
+	for (mount, dev, fstype, format, size) in mounts:
             if fstype == "ext2":
-                ct.append("/dev/%s   %s" % (dev, mount), mount, format)
+                ct.append("/dev/%s   %s" % (dev, mount), dev, format)
 
-        cb = Checkbox (_("Check for bad blocks during format"))
+        cb = Checkbox (_("Check for bad blocks during format"),
+			todo.fstab.getBadBlockCheck())
 
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
         g = GridForm (screen, _("Choose Partitions to Format"), 1, 4)
         g.add (tb, 0, 0, (0, 0, 0, 1))
         g.add (ct, 0, 1)
-        g.add (cb, 0, 2, (0, 0, 0, 1))
+        g.add (cb, 0, 2, (0, 1, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
         result = g.runOnce()
 
-        for mount in todo.mounts.keys ():
-            (dev, fstype, format) = todo.mounts[mount]
-            if fstype == "ext2":
-                todo.mounts[mount] = (dev, fstype, 0)
+	for (mount, dev, fstype, format, size) in mounts:
+	    todo.fstab.setFormatFilesystem(dev, 0)
 
-        for mount in ct.getSelection():
-            (dev, fstype, format) = todo.mounts[mount]
-            todo.mounts[mount] = (dev, fstype, 1)
+        for dev in ct.getSelection():
+	    todo.fstab.setFormatFilesystem(dev, 1)
 
-        todo.badBlockCheck = cb.selected ()
+        todo.fstab.setBadBlockCheck(cb.selected ())
 
         rc = bb.buttonPressed (result)
 

@@ -38,12 +38,13 @@ class FakeDDruid:
         self.partitions = []
         
 class LogFile:
-    def __init__ (self, serial, reconfigOnly):
+    def __init__ (self, serial, reconfigOnly, test):
 	if serial or reconfigOnly:
-            if serial:
-                self.logFile = open("/tmp/install.log", "w")
-            else:
-                self.logFile = open("/tmp/reconfig.log", "w")
+	    self.logFile = open("/tmp/install.log", "w")
+	elif reconfigOnly:
+	    self.logFile = open("/tmp/reconfig.log", "w")
+	elif test:
+	    self.logFile = open("anaconda-debug.log", "w")
 	else:
 	    self.logFile = open("/dev/tty3", "w")
 
@@ -271,10 +272,10 @@ class InstSyslog:
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
-		 expert = 0, serial = 0, reconfigOnly = 0, extraModules = []):
+		 expert = 0, serial = 0, reconfigOnly = 0, test = 0,
+		 extraModules = []):
 	self.intf = intf
 	self.method = method
-	self.mounts = {}
 	self.hdList = None
 	self.comps = None
 	self.instPath = rootPath
@@ -282,8 +283,9 @@ class ToDo:
 	self.installSystem = installSystem
         self.language = Language ()
 	self.serial = serial
+	self.fstab = None
         self.reconfigOnly = reconfigOnly
-        self.log = LogFile (serial, reconfigOnly)
+        self.log = LogFile (serial, reconfigOnly, test)
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -294,7 +296,6 @@ class ToDo:
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
         self.desktop = Desktop ()
-        self.ddruid = None
         self.ddruidReadOnly = 0
         self.drives = Drives ()
         self.badBlockCheck = 0
@@ -350,25 +351,6 @@ class ToDo:
 	    else:
 		f.close()
 
-    def umountFilesystems(self):
-	if (not self.setupFilesystems): return 
-
-	isys.umount(self.instPath + '/proc')
-
-        keys = self.mounts.keys ()
-	keys.sort()
-	keys.reverse()
-	for n in keys:
-            (device, fsystem, format) = self.mounts[n]
-            if fsystem != "swap":
-		try:
-		    mntPoint = self.instPath + n
-		    self.log("unmounting " + mntPoint)
-                    isys.umount(mntPoint)
-		except SystemError, (errno, msg):
-		    self.intf.messageWindow(_("Error"), 
-			_("Error unmounting %s: %s") % (device, msg))
-
     def writeTimezone(self):
 	if (self.timezone):
 	    (timezone, asUtc, asArc) = self.timezone
@@ -399,10 +381,15 @@ class ToDo:
 	self.timezone = (timezone, asUtc, asArc)
 
     def getLiloOptions(self):
-        if self.mounts.has_key ('/boot'):
-            bootpart = self.mounts['/boot'][0]
+	mountPoints = {}
+	for (mntpoint, device, fsystem, doFormat, size) in \
+		    self.fstab.mountList():
+	    mountPoints[mntpoint] = device
+
+        if mountPoints.has_key ('/boot'):
+            bootpart = mountPoints['/boot']
         else:
-            bootpart = self.mounts['/'][0]
+            bootpart = mountPoints['/']
         i = len (bootpart) - 1
         while i < 0 and bootpart[i] in digits:
             i = i - 1
@@ -416,16 +403,16 @@ class ToDo:
 	self.liloImages = images
 
     def getLiloImages(self):
-        if not self.ddruid:
-            raise RuntimeError, "No disk druid object"
+        if not self.__dict__.has_key('fstab'):
+            raise RuntimeError, "No fstab object"
 
-        (drives, raid) = self.ddruid.partitionList()
+        (drives, raid) = self.fstab.partitionList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
-	for loc in self.mounts.keys():
-	    (device, fsystem, reformat) = self.mounts[loc]
-	    mountsByDev[device] = loc
+	for (mntpoint, device, fsystem, doFormat, size) in \
+		    self.fstab.mountList():
+	    mountsByDev[device] = mntpoint
 
 	oldImages = {}
 	for dev in self.liloImages.keys():
@@ -457,157 +444,6 @@ class ToDo:
 
 	return self.liloImages
 
-    def createRaidTab(self, file, devPrefix, createDevices = 0):
-        (devices, raid) = self.ddruid.partitionList()
-	if not raid: return
-
-	deviceDict = {}
-	for (device, name, type, start, size) in devices:
-	    deviceDict[name] = device
-
-	rt = open(file, "w")
-	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
-
-	    if createDevices:
-		isys.makeDevInode(device, devPrefix + '/' + device)
-
-	    rt.write("raiddev		    %s/%s\n" % (devPrefix, device,))
-	    rt.write("raid-level		    %d\n" % (raidType,))
-	    rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
-	    rt.write("chunk-size		    64k\n")
-	    rt.write("persistent-superblock	    1\n");
-	    rt.write("#nr-spare-disks	    0\n")
-	    i = 0
-	    for subDevName in makeup:
-		isys.makeDevInode(deviceDict[subDevName], '%s/%s' % 
-			    (devPrefix, deviceDict[subDevName]))
-		rt.write("    device	    %s/%s\n" % 
-		    (devPrefix, deviceDict[subDevName],))
-		rt.write("    raid-disk     %d\n" % (i,))
-		i = i + 1
-
-	rt.write("\n")
-	rt.close()
-
-    def mountFilesystems(self):
-	if (not self.setupFilesystems): return 
-
-        keys = self.mounts.keys ()
-	keys.sort()
-        for mntpoint in keys:
-            (device, fsystem, format) = self.mounts[mntpoint]
-            if fsystem == "swap":
-		continue
-	    elif fsystem == "ext2":
-		try:
-		    iutil.mkdirChain(self.instPath + mntpoint)
-		    isys.makeDevInode(device, '/tmp/' + device)
-		    isys.mount('/tmp/' + device, 
-				self.instPath + mntpoint)
-		    os.remove( '/tmp/' + device);
-		except SystemError, (errno, msg):
-		    self.intf.messageWindow(_("Error"), 
-			_("Error mounting %s: %s") % (device, msg))
-
-        try:
-            os.mkdir (self.instPath + '/proc')
-        except:
-            pass
-            
-	isys.mount('/proc', self.instPath + '/proc', 'proc')
-
-    def makeFilesystems(self, createSwap = 1, createFs = 1):
-        if not self.setupFilesystems: return
-
-	# let's make the RAID devices first -- the fstab will then proceed
-	# naturally
-        (devices, raid) = self.ddruid.partitionList()
-
-	if raid:
-	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
-
-	    w = self.intf.waitWindow(_("Creating"),
-			  _("Creating RAID devices..."))
-
-	    for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
-                iutil.execWithRedirect ("/usr/sbin/mkraid", 
-			[ 'mkraid', '--really-force', '--configfile', 
-			  '/tmp/raidtab', '/tmp/' + device ])
-
-	    w.pop()
-        
-	    # XXX remove extraneous inodes here
-
-        keys = self.mounts.keys ()
-
-	keys.sort()
-
-        arch = iutil.getArch ()
-
-        if arch == "alpha":
-            if '/boot' in keys:
-                kernelPart = '/boot'
-            else:
-                kernelPart = '/'
-        
-	for mntpoint in keys:
-	    (device, fsystem, format) = self.mounts[mntpoint]
-	    if not format: continue
-	    isys.makeDevInode(device, '/tmp/' + device)
-            if fsystem == "ext2" and createFs:
-                args = [ "mke2fs", '/tmp/' + device ]
-                # FORCE the partition that MILO has to read
-                # to have 1024 block size.  It's the only
-                # thing that our milo seems to read.
-                if arch == "alpha" and mntpoint == kernelPart:
-                    args = args + ["-b", "1024"]
-                # set up raid options for md devices.
-                if device[:2] == 'md':
-                    for (rmnt, rdevice, fsType, raidType, start, size, makeup) in raid:
-                        if rdevice == device:
-                            rtype = raidType
-                            rdisks = len (makeup)
-                    if rtype == 5:
-                        rdisks = rdisks - 1
-                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]
-                    elif rtype == 0:
-                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]                        
-                        
-                if self.badBlockCheck:
-                    args.append ("-c")
-
-		w = self.intf.waitWindow(_("Formatting"),
-			      _("Formatting %s filesystem...") % (mntpoint,))
-
-		if self.serial:
-		    messages = "/tmp/mke2fs.log"
-		else:
-		    messages = "/dev/tty5"
-                iutil.execWithRedirect ("/usr/sbin/mke2fs",
-                                        args,
-                                        stdout = messages, stderr = messages,
-                                        searchPath = 1)
-		w.pop()
-            elif fsystem == "swap" and createSwap:
-		w = self.intf.waitWindow(_("Formatting"),
-			      _("Formatting %s filesystem...") % (mntpoint,))
-
-                rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
-                                             [ "mkswap", '-v1', '/tmp/' + device ],
-                                             stdout = None, stderr = None,
-                                             searchPath = 1)
-                if rc:
-                    raise RuntimeError, "error making swap on " + device
-		isys.swapon ('/tmp/' + device)
-		w.pop()
-            else:
-                pass
-
-            os.remove('/tmp/' + device)
-
-	if createSwap:
-	    self.swapCreated = 1
-
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
             ufs = 0
@@ -623,38 +459,6 @@ class ToDo:
                 location = "swap"
                 reformat = 1
         self.mounts[location] = (device, fsystem, reformat)
-
-    def resetMounts(self):
-	self.mounts = {}
-
-    def writeFstab(self):
-	format = "%-23s %-23s %-7s %-15s %d %d\n";
-
-	f = open (self.instPath + "/etc/fstab", "w")
-        keys = self.mounts.keys ()
-	keys.sort ()
-	self.setFdDevice ()
-	for mntpoint in keys: 
-	    (dev, fs, reformat) = self.mounts[mntpoint]
-	    iutil.mkdirChain(self.instPath + mntpoint)
-	    if (mntpoint == '/'):
-		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
-	    else:
-                if (fs == "ext2"):
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
-                elif fs == "iso9660":
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
-                else:
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % (self.fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
-	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
-	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
-	f.close ()
-        # touch mtab
-        open (self.instPath + "/etc/mtab", "w+")
-        f.close ()
-
-	self.createRaidTab("/mnt/sysimage/etc/raidtab", "/dev")
 
     def readFstab (self, path):
         f = open (path, "r")
@@ -783,9 +587,9 @@ class ToDo:
 		     "up in lilo")
 	    smpInstalled = 0
 
-        if self.mounts.has_key ('/'):
-            (dev, fstype, format) = self.mounts['/']
-            rootDev = dev
+	(mntpoint, device, fsystem, doFormat, size) = self.fstab.mountList()[0]
+	if mntpoint == "/":
+            rootDev = device
         else:
             raise RuntimeError, "Installing lilo, but there is no root device"
 
@@ -1168,10 +972,6 @@ class ToDo:
 	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
 	    todo.addMount(dev, mntpoint, fstype, reformat)
 
-	if todo.ddruid:
-	    todo.ddruid = None
-	    todo.mounts = {}
-
 	todo.users = []
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword)
@@ -1404,14 +1204,15 @@ class ToDo:
         if self.setupFilesystems:
             if not self.upgrade:
 		if (self.ddruidAlreadySaved):
-		    self.makeFilesystems (createSwap = 0)
+		    self.makeFilesystems ()
 		else:
-		    self.ddruid.save ()
-		    self.makeFilesystems (createSwap = (not self.swapCreated))
+		    self.fstab.savePartitions ()
+		    self.fstab.turnOnSwap()
+		    self.fstab.makeFilesystems ()
             else:
                 (drives, raid) = self.ddruid.partitionList()
 
-            self.mountFilesystems ()
+            self.fstab.mountFilesystems (self.instPath)
 
         if self.upgrade:
             w = self.intf.waitWindow(_("Rebuilding"), 
@@ -1425,7 +1226,7 @@ class ToDo:
                 # XXX do something sane here.
                 raise RuntimeError, "panic"
 
-        self.method.targetFstab (self.mounts)
+        self.method.targetFstab (self.fstab)
 
 	if not self.installSystem: 
 	    return
@@ -1518,7 +1319,7 @@ class ToDo:
 	    del syslog
 
             if self.setupFilesystems:
-                self.umountFilesystems ()
+                self.umountFilesystems (self.intf.messageWindow)
             
             return 1
 

@@ -15,28 +15,24 @@ class FormatWindow (InstallWindow):
         ics.readHTML ("format")
 
     def getScreen (self):
-        def toggled (widget, (todo, mount)):
+        def toggled (widget, (todo, dev)):
             if widget.get_active ():
-                (dev, fstype, format) = todo.mounts[mount]
-                todo.mounts[mount] = (dev, fstype, 1)
+		todo.fstab.setFormatFilesystem(dev, 1)
             else:
-                (dev, fstype, format) = todo.mounts[mount]
-                todo.mounts[mount] = (dev, fstype, 0)
+		todo.fstab.setFormatFilesystem(dev, 0)
 
         def check (widget, todo):
             todo.badBlockCheck = widget.get_active ()
 
         box = GtkVBox (FALSE, 10)
 
-        mounts = self.todo.mounts.keys ()
-        mounts.sort ()
+        mounts = self.todo.fstab.mountList()
 
-        for mount in mounts:
-            (dev, fstype, format) = self.todo.mounts[mount]
+	for (mount, dev, fstype, format, size) in mounts:
             if fstype == "ext2":
                 checkButton = GtkCheckButton ("/dev/%s   %s" % (dev, mount))
                 checkButton.set_active (format)
-                checkButton.connect ("toggled", toggled, (self.todo, mount))
+                checkButton.connect ("toggled", toggled, (self.todo, dev))
                 box.pack_start (checkButton)
 
         vbox = GtkVBox (FALSE, 10)
