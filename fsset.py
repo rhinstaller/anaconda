@@ -581,7 +581,13 @@ class FileSystemSet:
     # if an active partition is set, leave it alone; if none set
     # set either our boot partition or the first partition on the drive active
     def setActive(self, diskset):
-        bootDev = self.bootloaderChoices(diskset)[1][0]
+        choices = self.bootloaderChoices(diskset)
+        if not choices:
+            bootDev = None
+        elif len(choices) == 1:
+            bootDev = self.bootloaderChoices(diskset)[0][0]
+        else:
+            bootDev = self.bootloaderChoices(diskset)[1][0]
         
         for drive in diskset.disks.keys():
             foundActive = 0
