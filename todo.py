@@ -736,7 +736,7 @@ class ToDo:
 	    
     def setupFirewall (self):
 	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart" ]
-	if self.policy:
+	if self.firewall.policy:
 	    args.append ("--medium")
 	else:
 	    args.append ("--high")
