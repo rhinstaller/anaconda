@@ -735,7 +735,11 @@ class InstallControlWindow:
                 print _("Unable to load title bar")
 
 
-	self.loadReleaseNotes()
+        if not flags.reconfig:
+            self.loadReleaseNotes()
+        else:
+            self.buff = ""
+            
 
         vbox.set_spacing(0)
 
