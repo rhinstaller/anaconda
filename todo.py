@@ -131,7 +131,7 @@ class Network:
 
     def lookupHostname (self):
 	# can't look things up if they don't exist!
-	if not self.hostname: return None
+	if not self.hostname or self.hostname == "localhost.localdomain": return None
 
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
@@ -518,7 +518,7 @@ class ToDo:
 	ip = self.network.lookupHostname()
 
 	# If the hostname is not resolvable, tie it to 127.0.0.1
-	if not ip:
+	if not ip and self.network.hostname != "localhost.localdomain":
 	    localline = localline + self.network.hostname + " "
 	    l = string.split(self.network.hostname, ".")
 	    if len(l) > 1:
