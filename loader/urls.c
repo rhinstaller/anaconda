@@ -1,16 +1,20 @@
+#include <arpa/inet.h>
+#include <ctype.h>
 #include <fcntl.h>
+#include <netinet/in.h>
 #include <newt.h>
-#include <rpmlib.h>
 #include <rpmio.h>
+#include <rpmlib.h>
 #include <rpmurl.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#include "isys/dns.h"
 
 #include "lang.h"
 #include "loader.h"
 #include "urls.h"
-
 #include "log.h"
 #include "rpmmacro.h"
 
@@ -77,6 +81,22 @@ int urlinstFinishTransfer(FD_t fd) {
     newtPopWindow();
 
     return 0;
+}
+
+char * addrToIp(char * hostname) {
+    struct in_addr ad;
+    char * chptr;
+
+    for (chptr = hostname; *chptr; chptr++)
+	if (!(isdigit(*chptr) || *chptr == '.')) break;
+
+    if (!*chptr)
+	return hostname;
+
+    if (mygethostbyname(hostname, &ad))
+	return NULL;
+
+    return inet_ntoa(ad);
 }
 
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
@@ -222,7 +242,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 
     sprintf(ui->urlprefix, "%s://%s/%s",
 	    protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    ui->address, ui->prefix);
+	    addrToIp(ui->address), ui->prefix);
 
     newtFormDestroy(form);
     newtPopWindow();
