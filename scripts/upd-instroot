@@ -841,7 +841,9 @@ fi
 
 echo "Munging gtkrc to not use Bluecurve icon theme"
 if [ -n "$NEEDGR" ]; then
-    cat $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc | grep -v "iconrc" > $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc
+    mv $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old
+    cat $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old | grep -v "iconrc" > $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc
+    rm -f $DESTGR/usr/share/themes/Bluecurve/gtk-2.0/gtkrc-old
 fi
 
 echo "Getting gtk2 input method modules"
