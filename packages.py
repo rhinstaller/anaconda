@@ -684,7 +684,7 @@ def doInstall(method, id, intf, instPath):
     l.sort(sortPackages)
 
     progress = intf.progressWindow(_("Processing"),
-                                   _("Setting up RPM transaction..."),
+                                   _("Preparing RPM transaction..."),
                                    len(l))
 
 
