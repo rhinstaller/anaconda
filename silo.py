@@ -347,6 +347,7 @@ class SiloInstall:
 				   args,
 				   stdout = None,
                                    root = todo.instPath)
+	    linuxAlias = ""
 	    if self.linuxAlias and self.hasAliases():
 		linuxAlias = bootDevice
 	    if not self.bootDevice:
