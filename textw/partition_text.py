@@ -421,7 +421,7 @@ class PartitionWindow:
         subgrid.setField(label, 1, 0)
         entry = Entry(3)
         if request.raidspares:
-            entry.set(request.raidspares)
+            entry.set(str(request.raidspares))
         else:
             entry.set("0")
         subgrid.setField(entry, 0, 0, (0,0,1,0))
