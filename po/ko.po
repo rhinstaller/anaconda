@@ -1,19 +1,20 @@
 # translation of ko.po to Korean
 # Michelle J Kim <mkim@redhat.com>, 2003,2004.
 # David Sungmin Joo <djoo@redhat.com>, 2004.
+# Michelle Ji Yeen Kim <mkim@redhat.com>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2004-11-02 14:12+1000\n"
-"Last-Translator: Michelle J Kim <mkim@redhat.com>\n"
-"Language-Team:  <ko@li.org>\n"
+"PO-Revision-Date: 2005-04-04 11:55+1000\n"
+"Last-Translator: Michelle Ji Yeen Kim <mkim@redhat.com>\n"
+"Language-Team: Korean\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../anaconda:102
 msgid "Starting VNC..."
@@ -206,7 +207,7 @@ msgid "Could not allocate partitions"
 msgstr "파티션을 할당할 수 없습니다"
 
 #: ../autopart.py:1032
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -246,10 +247,8 @@ msgstr ""
 
 #: ../autopart.py:1045
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "%s 부트 파티션은 여러분의 칩 구조 방식에 맞는 부팅을 하지 못할 수 있습니다."
 
 #: ../autopart.py:1071
 #, python-format
@@ -536,7 +535,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s (을)를 설치합니다... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -544,11 +543,11 @@ msgid ""
 msgstr ""
 "처리할 수 없는 예외 상황이 발생되었습니다.  지금 상황은 버그로 추정됩니다.  "
 "현재 발생된 예외 오류의 내용이나 플로피 디스켓에 저장된 dump파일의 내용을 "
-"http://bugzilla.redhat.com/bugzilla/ 의 anaconda 항목에 자세히 보고해 주시기 "
+"%s 의 anaconda 항목에 자세히 보고해 주시기 "
 "바랍니다"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -556,7 +555,7 @@ msgid ""
 msgstr ""
 "처리할 수 없는 예외 상황이 발생되었습니다.  지금 상황은 버그로 추정됩니다.  "
 "현재 발생된 예외적인 오류의 내용이나 플로피 디스켓에 저장된 오류 파일의 내용"
-"을 http://bugzilla.redhat.com/bugzilla/ 의 anaconda 항목에 자세히 보고해 주시"
+"을 %s 의 anaconda 항목에 자세히 보고해 주시"
 "기 바랍니다"
 
 #: ../exception.py:228 ../text.py:232
@@ -745,7 +744,7 @@ msgstr ""
 "[ENTER] 키를 누르시면, 시스템을 재부팅 합니다."
 
 #: ../fsset.py:1366
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -756,7 +755,8 @@ msgid ""
 msgstr ""
 "%s 스왑 장치를 활성화하는 도중 오류가 발생되었습니다: %s\n"
 "\n"
-"이와같은 상황은 스왑 파티션이 초기화되어 있지 않기 때문입니다.\n"
+"이와같은 상황은 업그레이드된 파티션의 /etc/fstab 파일에 "
+"올바른 스왑 파티션이 설정되지 않았기 때문입니다.\n"
 "\n"
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
@@ -874,7 +874,6 @@ msgstr ""
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
 #: ../fsset.py:1586
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -882,9 +881,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"%s 장치를 %s (으)로 마운트하는 도중 오류가 발생되었습니다: %s\n"
+"/ 파티션을 찾는 도중 오류가 발생되었습니다: %s\n"
 "\n"
-"이와같은 상황은 마운트할 파티션이 포맷되어 있지 않기 때문입니다.\n"
+"fstab이 올바르게 설정되지 않은 것 같습니다.\n"
 "\n"
 "[확인] 버튼을 누르시면, 시스템을 재부팅 합니다."
 
@@ -1004,7 +1003,6 @@ msgid "Cancel"
 msgstr "취소"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "예외 상황 발생"
 
@@ -1014,7 +1012,7 @@ msgstr "디버그(_D)"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "플로피에 저장(_S)"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1215,20 +1213,18 @@ msgstr "시스템에 설치"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet 실패"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%s (을)를 설치하는 도중 오류가 발생되었습니다. 미디어 실패, 디스켓 공간 부족"
-"이나 하드워어 문제들로 비롯된 것일 수 있습니다. 이것은 매우 심각한 오류이므"
-"로 설치를 계속 진행할 수 없습니다. 미디어를 확인하시고 설치를 다시 시도해 주"
-"십시오.\n"
+"scriptlet를 실행하는 도중 오류가 발생되었습니다. %s에서 출력된 내용을 "
+"살펴보시기 바랍니다. 치명적인 오류이므로 설치를 중지합니다.\n"
 "\n"
 "확인 버튼을 누르시면, 시스템을 재부팅합니다."
 
@@ -1325,6 +1321,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"설치 트리의 comps 파일에 중요한 그룹이 빠져있습니다. "
+"설치 트리가 정확히 생성되었는지 확인해주십시오."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1365,15 +1363,16 @@ msgstr ""
 "다시 시도하시려면 <return>키를 누르십시오."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
-msgstr "재부팅"
+msgstr "재부팅(_B)"
 
 #: ../packages.py:447
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"지금 재부팅하시면 시스템 상태가 불안정하여 다시 설치하셔야 합니다. "
+"그래도 재부팅하시겠습니까?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -1536,7 +1535,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "경고! 이것은 출시 이전 버전(pre-release) 소프트웨어입니다!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1558,7 +1557,7 @@ msgstr ""
 "\n"
 "의견을 보내주시려면, 다음의 사이트를 방문하셔서: \n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "'%s'에 대한 보고서를 제출해 주십시오.\n"
 
@@ -1936,8 +1935,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
 #: ../partIntfHelpers.py:451
 msgid ""
@@ -1985,8 +1983,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:529
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:77
@@ -2035,16 +2032,14 @@ msgstr ""
 "설정된 용량이 너무 적습니다."
 
 #: ../partitions.py:801
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
 
 #: ../partitions.py:821
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "PPC PReP 부트 파티션을 생성하셔야 합니다."
+msgstr "Apple Bootstrap 파티션을 생성하셔야 합니다."
 
 #: ../partitions.py:843
 msgid "You must create a PPC PReP Boot partition."
@@ -2108,8 +2103,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:243
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일시스템 "
 "상에 위치해야 합니다."
@@ -2132,8 +2126,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:288
 #, python-format
@@ -2164,14 +2157,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:658
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:670
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:676
 #, python-format
@@ -2353,17 +2344,14 @@ msgid "Welcome to %s"
 msgstr "%s에 오신것을 환영합니다 "
 
 #: ../text.py:358
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:360
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2697,8 +2685,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
+msgstr "루트 암호는 시스템 관리에 사용됩니다. 루트 사용자 암호를 입력해주십시오."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2887,7 +2874,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "고급 부트로더 설정"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -2895,8 +2881,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "여러분 메인 보드의 BIOS가 지원하지 않는 상황에서 부트로더를 LBA32 로 사용하신"
-"다면, 여러분의 시스템이 부팅할 수 없게 될 수도 있습니다.  이럴 경우를 대비하"
-"여 반드시 부팅 디스켓을 만드시기 바랍니다.\n"
+"다면, 여러분의 시스템이 부팅할 수 없게 될 수도 있습니다.\n"
 "\n"
 "LBA32 모드로 사용하시겠습니까?"
 
@@ -2931,7 +2916,6 @@ msgid "Change Boot Loader"
 msgstr "부트로더를 변경"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3067,13 +3051,12 @@ msgid "Congratulations"
 msgstr "축하합니다"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"설치에 사용된 설치 매체 (디스켓이나 CD-ROM)를 제거하신 후 \"재부팅\" 키를 눌"
+"설치에 사용된 설치 매체를 제거하신 후 \"재부팅\" 키를 눌"
 "러 시스템을 재부팅하십시오.\n"
 "\n"
 
@@ -3524,8 +3507,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:503
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:536
 msgid "Mount point in use"
@@ -3534,8 +3516,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:537
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:548 ../textw/partition_text.py:1257
 msgid "Illegal Logical Volume Name"
@@ -3548,8 +3529,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:568 ../textw/partition_text.py:1275
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:582
 #, python-format
@@ -3618,8 +3598,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:885
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:929
 msgid "Not enough physical volumes"
@@ -3876,9 +3855,8 @@ msgid "Encryption _Key"
 msgstr "인증키(_K)"
 
 #: ../iw/network_gui.py:260
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP 주소:"
+msgstr "하드웨어 주소:"
 
 #: ../iw/network_gui.py:299
 #, python-format
@@ -4005,8 +3983,7 @@ msgstr "삭제할 수 없습니다."
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
+msgstr "이 부트 대상은 여러분이 설치하시려는 %s 시스템이기 때문에 삭제할 수 없습니다."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:320
 msgid "Individual Package Selection"
@@ -4192,16 +4169,14 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -4212,8 +4187,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:646
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:648
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4740,10 +4714,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4753,8 +4725,7 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4881,8 +4852,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -4998,13 +4968,13 @@ msgid "Unknown video card"
 msgstr "알 수 없는 비디오 카드"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
 msgstr ""
 "%s 비디오 카드를 선택하는 도중 오류가 발생하였습니다. 이 오류의 내용을 "
-"bugzilla.redhat.com에 보고해 주시기 바랍니다."
+"%s에 보고해 주시기 바랍니다."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5240,8 +5210,7 @@ msgstr ""
 "시오."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
 "로 가기>"
@@ -5293,13 +5262,12 @@ msgid "<Enter> to exit"
 msgstr "종료하시려면, [ENTER] 키를 누르십시요"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"설치에 사용된 설치 매체 (디스켓이나 CD-ROM)를 제거하신 후 <Enter> 키를 눌러 "
+"설치에 사용된 설치 매체를 제거하신 후 <Enter> 키를 눌러 "
 "시스템을 재부팅하십시오.\n"
 "\n"
 
@@ -5595,7 +5563,7 @@ msgstr "설명: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "하드웨어 주소: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -5675,8 +5643,7 @@ msgid "Select individual packages"
 msgstr "개별 패키지 선택"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 선택     |    <F2> 그룹 정보      |    <F12> 다음 화면"
 
 #: ../textw/packages_text.py:119
@@ -5701,8 +5668,7 @@ msgid "Total size"
 msgstr "총 용량"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "        <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
 
 #: ../textw/packages_text.py:376
@@ -5972,10 +5938,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1475
 msgid "No Root Partition"
@@ -6047,9 +6011,8 @@ msgid "What time zone are you located in?"
 msgstr "여러분이 위치한 시간대를 선택해 주십시오"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "시스템의 시간을 UTC에 맞춤(_U)"
+msgstr "시스템의 시간을 UTC에 맞춤"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6204,15 +6167,13 @@ msgid "User Exists"
 msgstr "사용자가 존재함"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Root 사용자는 이미 설정되어 있습니다. Root 사용자를 이곳에 추가하실 필요는 없"
 "습니다."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "이 시스템 사용자는 이미 설정되어 있습니다. 이사용자를 이곳에 추가하실 필요는 "
 "없습니다."
@@ -7040,15 +7001,13 @@ msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "킥스타트 방식을 종료하는 명령 %s에 잘못된 인수 값이 지정되었습니다: %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "%s에 오신것을 환영합니다 "
+msgstr "%s에 오신것을 환영합니다 - 복구 모드"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader2/lang.c:377
 msgid "Choose a Language"
@@ -7188,8 +7147,7 @@ msgstr "%s 복구 모드로 anaconda를 실행 중 입니다 - 잠시만 기다�
 #: ../loader2/loader.c:1549
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7570,14 +7528,12 @@ msgid "Account name:"
 msgstr "계정 이름(ID):"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP 설정"
+msgstr "추가 FTP 설정"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP 설정"
+msgstr "추가 HTTP 설정"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -7652,10 +7608,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "대서양 시간 - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7842,8 +7796,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "동부시 - 온타리오 & 퀘벡 - 대부분 지역"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
@@ -8031,10 +7984,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8282,12 +8233,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "아프리칸스어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "아라비아어"
+msgstr "암하라어"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8370,9 +8320,8 @@ msgid "Icelandic"
 msgstr "아이슬랜드어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "인도양 지역"
+msgstr "인도네시아어"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8399,9 +8348,8 @@ msgid "Norwegian"
 msgstr "노르웨이어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "북부 소토어"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8428,9 +8376,8 @@ msgid "Russian"
 msgstr "러시아어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "슬로베니아어"
+msgstr "슬로바키아어"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8449,9 +8396,8 @@ msgid "Tamil"
 msgstr "타밀어"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "타밀어"
+msgstr "태국어"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8473,1502 +8419,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Errata (업데이트 및 버그 수정)에 관한 사항은 다음의 사이트를 방문하시기 바"
-#~ "랍니다:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Red Hat Network를 통한 자동 업데이트에 대한 정보는, 다음 사이트를 참고해 "
-#~ "주십시오:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "시스템 사용 및 설정에 관한 설명은 다음의 사이트를 참고해 주십시오:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "제품 등록을 위해서는 저희 웹 사이트를 방문해 주십시오:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "SILO 설정"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "SILO가 설치될 부트 레코드:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "PROM의 별칭 생성"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "PROM을 리눅스의 기본 부트 장치로 설정"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "커널 매개변수"
-
-#~ msgid "Create boot disk"
-#~ msgstr "부팅 디스켓 제작"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "SILO를 설치하지 않음"
-
-#~ msgid "Partition type"
-#~ msgstr "파티션 유형"
-
-#~ msgid "Default boot image"
-#~ msgstr "기본 부트 이미지"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO 설정"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "PROM의 별칭을 `linux'로 함"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "PROM을 기본 부트 장치로 설정"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "부트로더가 설치될 곳을 지정해 주십시오"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Red Hat의 부트 매니저는 다른 운영체제로도 부팅할 수 있도록 배려하고 있습니"
-#~ "다. 각 운영체제의 부팅 가능한 파티션과 각 운영체제로 부팅하기 위한 이름을 "
-#~ "설정해 주십시오."
-
-#~ msgid "no suggestion"
-#~ msgstr "관련된 내용 없음"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "LILO를 부트로더로 사용(_L)"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "LILO의 드라이버 순서를 변경할 수 없습니다."
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "LILO에서 사용하는 드라이버 순서를 변경하는 것은 지원되지 않습니다."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "LILO 부트로더 사용"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s 의 %s 설치 프로그램"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "여러분은 어떤 부트로더도 설치하지 않기로 하셨습니다.  시스템을 부팅하기 위"
-#~ "해서는 이 옵션을 사용하여 부팅 디스크를 만드셔야 합니다.\n"
-#~ "\n"
-#~ "부트로더 설치를 생략하시겠습니까?"
-
-#~ msgid "Total"
-#~ msgstr "전체"
-
-#~ msgid "Remaining"
-#~ msgstr "남음"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "%s-%s-%s.%s(을)를 설치합니다"
-
-#~ msgid "Package Progress: "
-#~ msgstr "패키지 설치 상황: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "전체 진행 상황: "
-
-#~ msgid "Status"
-#~ msgstr "상황"
-
-#~ msgid "Packages"
-#~ msgstr "패키지 수"
-
-#~ msgid "Time"
-#~ msgstr "소요시간"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Red Hat Linux 6.2 이후 버전에서만 이 버전의 %s을(를) 업그레이드 가능합니"
-#~ "다.  여러분이 사용하시는 컴퓨터는 이전 버전으로 나타납니다.  업그레이드 설"
-#~ "치를 계속 진행하시겠습니까?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t사무용 도구 모음 (OpenOffice.org)\n"
-#~ "\t웹 브라우저 (Mozilla) \n"
-#~ "\t이메일 (Evolution)\n"
-#~ "\t인스턴트 메신저\n"
-#~ "\t사운드와 비디오 프로그램\n"
-#~ "\t게임\n"
-#~ "\t관리 도구\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t사무용 도구 모음 (OpenOffice.org)\n"
-#~ "\t웹 브라우저 (Mozilla) \n"
-#~ "\t이메일 (Evolution)\n"
-#~ "\t인스턴트 메시징\n"
-#~ "\t사운드와 비디오 프로그램\n"
-#~ "\t게임\n"
-#~ "\t소프트웨어 개발용 도구\n"
-#~ "\t관리 도구\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "물리적 범위:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux)는 시스템 보안을 증강시키기 위하여 보다 "
-#~ "엄격한 접근 제어 기능을 제공합니다.  이 기능의 사용 방식을 선택해 주십시"
-#~ "오."
-
-#~ msgid "Disable SELinux"
-#~ msgstr "SELinux 사용않음"
-
-#~ msgid "Warn on violations"
-#~ msgstr "보안 침입시 경고"
-
-#~ msgid "Device number:"
-#~ msgstr "장치 번호:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "E 아르헨티나 (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "잘못된 포트: %s.  올바른 형식은  '포트:프로토콜' 입니다. 여기서 포트는 1에"
-#~ "서 65535 사이의 숫자로 지정해 주셔야 하며 프로토콜은 'tcp' 또는 'udp'로 지"
-#~ "정해 주셔야 합니다.\n"
-#~ "\n"
-#~ "예, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "경고: 잘못된 토큰"
-
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "인터넷 상 다른 사용자가 이 서비스를 사용하는 것을 허용함."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "허용할 서비스(_A):"
-
-#~ msgid "Web Server"
-#~ msgstr "웹 서버"
-
-#~ msgid "Other _ports:"
-#~ msgstr "그 외의 포트(_P):"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Security Enhanced Linux (SELinux) 확장:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "신뢰하는 장치:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "메일 (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "그 외의 포트"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "방화벽 - 사용자 설정"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "사용자 설정에서는 두가지의 유형으로 방화벽을 설정하실 수 있습니다. 첫번째"
-#~ "는 특정 네트워크 장치로 부터 들어오는 트래픽은 모두 허용하도록 할 수 있으"
-#~ "며, 두번째는 방화벽을 통해 들어오는 특정 프로토콜을 허용할 수 있습니다. 콤"
-#~ "마(,)로 구분된 목록에는 'imap:tcp' 와 같이 '서버스:프로토콜' 의 형식으로 "
-#~ "추가하실 포트를 지정하실 수 있습니다."
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "경고: %s (은)는 잘못된 포트입니다."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CDROM을 마운트할 수 없습니다."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Root (관리자)의 암호를 입력해 주십시오."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "방화벽을 사용자 설정함(_C)"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "어떤 서비스를 방화벽을 통과할 수 있게 허용하시겠습니까?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "특정 장치에서 들어오는 모든 트래픽을 허용하시려면, 아래에서 장치를 선택해 "
-#~ "주십시오."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "신뢰하는 장치(_T):"
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "기본 웍스테이션"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "%s를 선택해 주셔서 감사합니다!\n"
-#~ "\n"
-#~ "설치 과정에 관한 자세한 내용은 저희 Red Hat 사에서 제공하는 공식 %s설치 안"
-#~ "내서를 참고해 주십시오. 현재 설치 안내서를 통해 설치를 하고 계실 경우에는 "
-#~ "설치 관련 부분을 먼저 읽어보시기 바랍니다.\n"
-#~ "\n"
-#~ "여러분이 공식 %s 제품을 구입하셨다면, 반드시 저희 웹 사이트 http://www."
-#~ "redhat.com/ 를 방문하여 사용자 등록을 해주시기 바랍니다."
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "이 설치 과정에서 %s 시스템을 부팅하기 위한 주된 목적으로 부팅 디스켓을 만"
-#~ "드셨다면, 새로 설치하신 시스템을 재부팅 하시기 전에 부팅 디스켓을 플로피 "
-#~ "드라이브에 넣어주십시오.\n"
-#~ "\n"
-
-#~ msgid "Online Help"
-#~ msgstr "도움말 화면"
-
-#~ msgid "_Install BETA"
-#~ msgstr "BETA 설치(_I)"
-
-#~ msgid "Set hostname"
-#~ msgstr "호스트명 설정"
-
-#~ msgid "Welcome"
-#~ msgstr "환영합니다"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "시스템의 시간을 GMT에 맞춤"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "부트로더 암호를 입력하신 후 확인해 주십시오."
-
-#~ msgid "_Accept the current package list"
-#~ msgstr "현재 패키지 목록 수용(_A)"
-
-#~ msgid "Perform a new %s installation"
-#~ msgstr "%s 시스템을 새로 설치"
-
-#~ msgid ""
-#~ "Choose this option to install your system from scratch.  Depending on how "
-#~ "you choose to partition your system the existing data on your drives may "
-#~ "or may not be preserved."
-#~ msgstr ""
-#~ "시스템을 처음부터 설치하시려면 이 옵션을 선택하시기 바랍니다. 선택하신 시"
-#~ "스템 파티션 분할 방식에 따라서, 드라이브 상에 저장된 기존 데이타가 보존될 "
-#~ "수도 있고 삭제될 수도 있습니다."
-
-#~ msgid "_Customize packages to be upgraded"
-#~ msgstr "업그레이드할 패키지 사용자 설정(_C)"
-
-#~ msgid "Location"
-#~ msgstr "지역"
-
-#~ msgid "Use _daylight saving time (US only)"
-#~ msgstr "일광-절약 시간 사용 (미국 사용자만)(_D)"
-
-#~ msgid "UTC Offset"
-#~ msgstr "UTC와의 시차"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "X 윈도우 시스템에 프레임 버퍼 드라이버를 사용하도록 시스템을 설정합니다.  "
-#~ "X 윈도우 시스템을 설정하는 것을 원하시지 않는다면, 아래 'X 설정 생략'을 선"
-#~ "택하시기 바랍니다."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "경고!! VNC 서버가 암호 없이 실행 중입니다!"
-
-#, fuzzy
-#~ msgid "You can use the vncpassword=<password> boot option"
-#~ msgstr "vncpasswd=<password> 부트 옵션을 사용하시면 "
-
-#~ msgid ""
-#~ "if you would like to secure the server.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "서버의 보안을 유지할 수 있습니다.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The default workstation environment includes our recommendations for new "
-#~ "users, including:\n"
-#~ "\n"
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'redhat-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "초보 사용자를 위한 기본 웍스테이션 환경 권장사항은 다음과 같습니다:\n"
-#~ "\n"
-#~ "\t데스크탑 쉘 (GNOME)\n"
-#~ "\t오피스 수트 (OpenOffice)\n"
-#~ "\t웹 브라우저 (Mozilla) \n"
-#~ "\t이메일 (Evolution)\n"
-#~ "\t인스턴트 메신저\n"
-#~ "\t사운드와 비디오 응용 프로그램\n"
-#~ "\t게임\n"
-#~ "\t소프트웨어 개발 도구\n"
-#~ "\t관리 도구\n"
-#~ "\n"
-#~ "설치가 끝난 후, 'redhat-config-package' 도구를 사용하여 소프트웨어를 추가"
-#~ "하거나 삭제하실 수 있습니다.\n"
-#~ "\n"
-#~ "%s에 익숙하시다면, 설치하고 싶은 패키지나 설치하지 않을 패키지가 있을 것입"
-#~ "니다. 아래의 상자를 선택하여 설치를 사용자 정의하십시오."
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "개인 데스크탑 기본"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "방화벽 설정"
-
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "보안 수준을 선택해 주십시오: "
-
-#~ msgid "Hi_gh"
-#~ msgstr "최상위 수준(_G)"
-
-#~ msgid "_Medium"
-#~ msgstr "중간 수준(_M)"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "기본 방화벽 방침 사용(_D)"
-
-#~ msgid "_Customize"
-#~ msgstr "사용자 설정(_C)"
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "방화벽은 인증되지 않은 네트워크 칩입으로 부터 여러분의 시스템을 보호합니"
-#~ "다. '최상위 수준의 보안' 은 거의 모든 접근을 제한합니다. '중간 수준의 보"
-#~ "안' 은 시스템 서비스 (텔넷이나 프린트 작업과 같은 서비스) 에 대한 접근은 "
-#~ "제한하지만, 그 외의 접근은 허락합니다. '방화벽을 사용하지 않음' 은 모든 접"
-#~ "근에 대해 허락하지만, 권장하지 않습니다."
-
-#~ msgid "Security Level:"
-#~ msgstr "보안 수준:"
-
-#~ msgid "High"
-#~ msgstr "최상위 수준"
-
-#~ msgid "Medium"
-#~ msgstr "중간 수준"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "DASD 파티션은 fdasd를 사용해야만 삭제하실 수 있습니다."
-
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr "되돌아 가셔서 fdasd를 사용하여 이 파티션을 초기화 하십시오."
-
-#~ msgid "Root password accepted."
-#~ msgstr "Root 암호가 입력되었습니다."
-
-#~ msgid "Root password is too short."
-#~ msgstr "Root 암호가 너무 짧습니다."
-
-#~ msgid "Root passwords do not match."
-#~ msgstr "Root 암호가 아직 입력되지 않았거나 일치하지 않습니다."
-
-#~ msgid "Check for _bad blocks"
-#~ msgstr "불량 섹터 검사(_B)"
-
-#~ msgid "Make _RAID"
-#~ msgstr "RAID 설정(_R)"
-
-#~ msgid "Generic"
-#~ msgstr "일반(Generic)"
-
-#~ msgid ""
-#~ "If you created a boot disk to use to boot your %s system, insert it "
-#~ "before you press <Enter> to reboot.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s 시스템으로 부팅하기 위한 부팅 디스켓을 만드셨다면, [ENTER] 키를 눌러 재"
-#~ "부팅 하시기 전에 부팅 디스켓을 플로피 드라이브에 넣어주십시오.\n"
-#~ "\n"
-
-#~ msgid "Use bootp/dhcp"
-#~ msgstr "BOOTP/DHCP 사용"
-
-#~ msgid "Secondary nameserver:"
-#~ msgstr "2차 DNS:"
-
-#~ msgid "Tertiary nameserver:"
-#~ msgstr "3차 이름서버:"
-
-#~ msgid "Point to Point (IP):"
-#~ msgstr "Point to Point (IP):"
-
-#~ msgid ""
-#~ "The hostname is the name of your computer.  If your computer is attached "
-#~ "to a network, this may be assigned by your network administrator."
-#~ msgstr ""
-#~ "호스트명은 여러분이 사용하시는 컴퓨터의 이름입니다.  여러분의 컴퓨터가 네"
-#~ "트워크로구성되어 있다면, 네트워크 관리자에게 문의하신 후 입력해 주시기 바"
-#~ "랍니다."
-
-#~ msgid "You must go back and use fdasd to initialize this partition"
-#~ msgstr "되돌아 가셔서 fdasd를 사용하여 이 파티션을 초기화 하십시오."
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "     F1-도움말                 F3-편집   F4-삭제   F5-재설정   F12-확"
-#~ "인      "
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "RPM 데이터베이스를 재구축 하는데 실패했습니다. 드라이브의 공간이 부족한 "
-#~ "것 같습니다"
-
-#~ msgid "T_ext"
-#~ msgstr "텍스트 환경(_E)"
-
-#~ msgid "CDROM type"
-#~ msgstr "CDROM 유형"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "사용하고 계신 CDROM 드라이브를 선택해 주십시오"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "CDROM을 초기화하고 있습니다..."
-
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "이 모듈에 필요한 매개변수 값을 설정하실 수 있습니다. 매개변수로 전달할 값"
-#~ "을 정확히 모르신다면, 지금 [확인] 버튼을 눌러 다음 화면으로 진행해 주십시"
-#~ "오."
-
-#~ msgid "Module Parameters"
-#~ msgstr "모듈 매개변수"
-
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr "드라이버 디스켓을 넣으신 후 [확인] 버튼을 눌러주십시오."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid driver disk for this release "
-#~ "of %s."
-#~ msgstr "이 디스켓은 이번 %s 버전의 드라이버 디스켓이 아닙니다."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "어떤 드라이버를 사용하시겠습니까? 여러분에게 필요한 드라이버가 이 목록에"
-#~ "는 없는 것 같습니다. 만일, 별도의 드라이버 디스켓을 갖고 계시다면, [F2] 키"
-#~ "를 누르십시오."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "모듈 매개변수 지정"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "%s 모듈을 로딩하는데 실패했습니다."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "킥스타트 파일 %s (을)를 여는 도중 오류가 발생되었습니다: %s"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "추가할 장치의 종류를 선택해 주십시오"
-
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다: "
-
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 "
-#~ "로딩하시겠습니까? "
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "해당 디렉토리에서 %s 설치에 관련된 파일을 찾을 수 없습니다."
-
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "서버의 해당 디렉토리를 마운트할 수 없습니다 "
-
-#~ msgid "File %s/%s not found on server."
-#~ msgstr "서버에서 %s/%s 파일을 찾을 수 없습니다."
-
-#~ msgid "HTTP"
-#~ msgstr "HTTP"
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
-
-#~ msgid "FTP and HTTP installs require 20MB or more of system memory."
-#~ msgstr ""
-#~ "FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니"
-#~ "다."
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr "업데이트 디스켓을 넣으신 후, [확인] 버튼을 눌러주십시오."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr "이 디스켓은 이번 %s 버전의 업데이트 디스켓이 아닙니다."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "플로피 디스켓을 마운트하는데 실패했습니다."
-
-#~ msgid ""
-#~ "The second stage of the install which you have selected does not match "
-#~ "the boot disk which you are using.  This shouldn't happen, and I'm "
-#~ "rebooting your system now."
-#~ msgstr ""
-#~ "선택하신 설치 두번째 단계는 사용하고 계신 부트 디스크와 맞지가 않습니다.  "
-#~ "오류입니다. 시스템을 다시 부팅합니다."
-
-#~ msgid ""
-#~ "No hard drives have been found. You probably need to manually choose "
-#~ "device drivers for the installation to succeed. Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "하드 드라이브를 찾을 수가 없습니다. 설치를 성공적으로 끝마치기 위해서 직"
-#~ "접 장치 드라이버를 선택하셔야 합니다. 드라이버를 지금 선택하시겠습니까?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "실패\n"
-#~ "\n"
-#~ "이 미디어의 사용을 추천하지 않습니다."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "드라이버 디스켓을 마운트하는데 실패했습니다: %s."
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "이 디스켓은 올바른 디스켓이 아닙니다."
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "%s 드라이버 디스켓을 넣어주십시오."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "IP 주소를 요청하고 있습니다..."
-
-#~ msgid "kickstart"
-#~ msgstr "킥스타트"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "사용할 부트 프로토콜"
-
-#~ msgid "Network gateway"
-#~ msgstr "네트워크 게이트웨이"
-
-#~ msgid "IP address"
-#~ msgstr "IP 주소"
-
-#~ msgid "Domain name"
-#~ msgstr "도메인 명"
-
-#~ msgid "Network device"
-#~ msgstr "네트워크 장치"
-
-#~ msgid "No DNS lookups"
-#~ msgstr "DNS 검색 사용하지 않음"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "네트워크 설정"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "네트워크를 설정하시겠습니까?"
-
-#~ msgid "PC Card"
-#~ msgstr "PC 카드"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "PC 카드 장치를 초기화하고 있습니다..."
-
-#~ msgid "PCMCIA"
-#~ msgstr "PCMCIA"
-
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "PCMCIA 드라이버 디스켓을 플로피 드라이브에 넣어주십시오."
-
-#~ msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-#~ msgstr "이 디스켓은 %s용 PCMCIA 드라이버 디스켓이 아닌 것 같습니다."
-
-#~ msgid "Use proxy server"
-#~ msgstr "프록시 서버 사용"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP 프록시:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP 프록시:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP 프록시 포트:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP 프록시 포트:"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "여러분의 마우스가 자동 검색되지 않았습니다.  그래픽 모드로 설치하시려면, "
-#~ "다음 화면으로 진행하신 후 여러분이 사용하시는 마우스의 정보를 입력해 주십"
-#~ "시오. 또한, 마우스를 사용하지 않는 텍스트 모드로도 설치하실 수 있습니다."
-
-#~ msgid "Attempting to start native X server"
-#~ msgstr "일반적인 X 서버를 시작합니다"
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "VESA 드라이버 X 서버를 시작합니다"
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr ""
-#~ "X 서버를 시작하는 동안 잠시 기다려 주십시오... log 파일은 /tmp/X.log 에 저"
-#~ "장됩니다\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " X 서버가 성공적으로 시작되었습니다."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "여러분의 시스템에서 다음의 루트 파티션을 찾았습니다.  "
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "여러분의 시스템에서 다음의 루트 파티션을 찾았습니다. "
-
-#~ msgid "Resolution requested %s is not supported."
-#~ msgstr "요청하신 %s 해상도는 지원하지 않습니다."
-
-#~ msgid "Falling back to %s."
-#~ msgstr "%s을(를) 사용합니다."
-
-#~ msgid "To avoid this you may need to specify the videocard and "
-#~ msgstr "To avoid this you may need to specify the videocard and "
-
-#~ msgid "monitor specs on the xconfig ks directive if they were "
-#~ msgstr "monitor specs on the xconfig ks directive if they were "
-
-#~ msgid "not probed correctly."
-#~ msgstr "not probed correctly."
-
-#~ msgid "Unable to probe"
-#~ msgstr "검색할 수 없음"
-
-#~ msgid "Probing for video card:   "
-#~ msgstr "비디오 카드 검색:   "
-
-#~ msgid "Probing for video card:   %s"
-#~ msgstr "비디오 카드 검색:   %s"
-
-#, fuzzy
-#~ msgid "Probing for monitor type: "
-#~ msgstr "모니터 유형 검색: %s"
-
-#~ msgid "Probing for monitor type: %s"
-#~ msgstr "모니터 유형 검색: %s"
-
-#~ msgid "Probing for mouse type:   "
-#~ msgstr "마우스 유형 검색:   "
-
-#~ msgid "Probing for mouse type:   %s"
-#~ msgstr "마우스 유형 검색:   %s"
-
-#~ msgid "Skipping mouse probe."
-#~ msgstr "마우스 검색을 생략합니다."
-
-#~ msgid "DISPLAY variable not set. Starting text mode!"
-#~ msgstr "DISPLAY 변수가 설정되지 않았습니다. 텍스트 모드로 시작합니다!"
-
-#~ msgid "Account Configuration"
-#~ msgstr "계정 설정"
-
-#~ msgid "User password accepted."
-#~ msgstr "사용자 암호가 입력되었습니다."
-
-#~ msgid "Root account can not be added here."
-#~ msgstr "Root 계정은 이곳에 추가하실 수 없습니다."
-
-#~ msgid "System accounts can not be added here."
-#~ msgstr "시스템 계정은 이곳에 추가하실 수 없습니다."
-
-#~ msgid "Please enter user password."
-#~ msgstr "사용자 암호를 입력해 주십시오."
-
-#~ msgid "User password is too short."
-#~ msgstr "사용자 암호가 너무 짧습니다."
-
-#~ msgid "User passwords do not match."
-#~ msgstr "사용자 암호가 아직 입력되지 않았거나 일치하지 않습니다."
-
-#~ msgid "Add a New User"
-#~ msgstr "새로운 사용자 추가"
-
-#~ msgid "Add a User Account"
-#~ msgstr "사용자 계정 추가"
-
-#~ msgid "Enter a user _name:"
-#~ msgstr "사용자 명을 입력해 주십시오(_N):"
-
-#~ msgid "Enter a user _password:"
-#~ msgstr "사용자 암호를 입력해 주십시오(_P):"
-
-#~ msgid "Pass_word (confirm):"
-#~ msgstr "암호 (확인)(_W):"
-
-#~ msgid "_Full Name:"
-#~ msgstr "실제 이름(_F):"
-
-#~ msgid "Please enter user name"
-#~ msgstr "사용자 명(ID)을 입력해 주십시오"
-
-#~ msgid "Account Name"
-#~ msgstr "계정 이름"
-
-#~ msgid ""
-#~ "It is recommended that you create a personal account for normal (non-"
-#~ "administrative) use. Accounts can also be created for additional users."
-#~ msgstr ""
-#~ "관리자가 아닌 일반 사용자 계정을 만드실 것을 권장합니다. 이 시스템의 다른 "
-#~ "사용자를 위해 추가 계정을 생성할 수 있습니다."
-
-#~ msgid ""
-#~ "You don't have any Linux partitions.\n"
-#~ "You can't upgrade this sytem!"
-#~ msgstr ""
-#~ "리눅스 파티션이 존재하지 않습니다.\n"
-#~ "이 시스템은 업그레이드 설치를 하실 수 없습니다!"
-
-#~ msgid "Please select the device containing the root filesystem: "
-#~ msgstr "루트 파일시스템이 있는 장치를 선택해 주십시오: "
-
-#~ msgid "Upgrading the %s installation on partition /dev/%s"
-#~ msgstr "/dev/%s 파티션에 있는 %s 시스템을 업그레이드 하고 있습니다 "
-
-#~ msgid "Manually partition with _fdisk (experts only)"
-#~ msgstr "fdisk를 통한 수동 파티션 설정 (익숙한 사용자만)(_F)"
-
-#~ msgid "   _Test Setting   "
-#~ msgstr "  설정 내용 확인  (_T)"
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
-#~ msgstr ""
-#~ "리눅스 파티션이 존재하지 않습니다. 이 시스템은 업그레이드 설치를 하실 수 "
-#~ "없습니다!"
-
-#~ msgid "Upgrade Partition"
-#~ msgstr "파티션 업그레이드"
-
-#~ msgid "Change _Password"
-#~ msgstr "암호 변경(_P)"
-
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "부트로더 암호 사용(_U)"
-
-#~ msgid "Set _Password"
-#~ msgstr "암호 설정(_P)"
-
-#~ msgid ""
-#~ "Force the use of LBA32 extensions for booting (not normally required)"
-#~ msgstr "부팅시 LBA32 모드로 사용 (일반적으로 필요치 않음)"
-
-#~ msgid "_Force LBA32"
-#~ msgstr "LBA32 모드로 사용(_F)"
-
-#~ msgid "General kernel parameters"
-#~ msgstr "일반 커널 매개변수"
-
-#~ msgid ""
-#~ "The label is what is displayed in the boot loader to choose to boot this "
-#~ "operating system.  The device is the device which it boots from."
-#~ msgstr ""
-#~ "부트 로더 메뉴에 표시될 이름을 입력해 주십시오. 장치는 부트될 장치를 의미"
-#~ "합니다."
-
-#~ msgid "Default Boot Target"
-#~ msgstr "기본 부트 대상"
-
-#~ msgid "Insert some text about booting other operating systems"
-#~ msgstr "다른 운영 체제 부팅에 대한 텍스트를 입력해 주십시오."
-
-#~ msgid "Blah, this is the BIOS drive order, more information, etc"
-#~ msgstr "예, 이것은 BIOS 드라이브 순서입니다, 기타 정보, 등등"
-
-#~ msgid "Unable to probe\n"
-#~ msgstr "검색할 수 없음\n"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "부팅할 이름 편집"
-
-#~ msgid "Base"
-#~ msgstr "기본 패키지"
-
-#~ msgid "Printing Support"
-#~ msgstr "인쇄작업 지원"
-
-#~ msgid "Classic X Window System"
-#~ msgstr "전통적 X 윈도우 시스템"
-
-#~ msgid "X Window System"
-#~ msgstr "X 윈도우 시스템"
-
-#~ msgid "Laptop Support"
-#~ msgstr "랩탑(노트북) 지원"
-
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "사운드 및 멀티미디어 지원"
-
-#~ msgid "Network Support"
-#~ msgstr "네트워크 지원"
-
-#~ msgid "Dialup Support"
-#~ msgstr "전화접속 지원"
-
-# ../comps/comps-master:577
-#~ msgid "Messaging and Web Tools"
-#~ msgstr "메세지전달 및 웹작업 도구"
-
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "그래픽 및 이미지 작업"
-
-#~ msgid "News Server"
-#~ msgstr "뉴스 서버"
-
-#~ msgid "NFS File Server"
-#~ msgstr "NFS 파일 서버"
-
-#~ msgid "Windows File Server"
-#~ msgstr "Windows 파일 서버"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "공개용(Anonymous) FTP 서버"
-
-#~ msgid "SQL Database Server"
-#~ msgstr "SQL 데이터베이스 서버"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "DNS 네임서버"
-
-#~ msgid "Network Managed Workstation"
-#~ msgstr "네트워크 관리 웍스테이션"
-
-#~ msgid "Authoring and Publishing"
-#~ msgstr "문서저작 및 출판"
-
-#~ msgid "Emacs"
-#~ msgstr "이맥스(Emacs)"
-
-#~ msgid "Utilities"
-#~ msgstr "유틸리티"
-
-#~ msgid "Legacy Application Support"
-#~ msgstr "기존 응용 프로그램 지원"
-
-#~ msgid "Software Development"
-#~ msgstr "소프트웨어 개발"
-
-#~ msgid "Kernel Development"
-#~ msgstr "커널 개발"
-
-# ../comps/comps-master:1055
-#~ msgid "Windows Compatibility / Interoperability"
-#~ msgstr "Windows 시스템 호환 / 공용"
-
-# ../comps/comps-master:1073
-#~ msgid "Games and Entertainment"
-#~ msgstr "게임 및 오락"
-
-#~ msgid ""
-#~ "Unable to create symlink for /var/tmp.  This should only happen if there "
-#~ "were errors creating your filesystems.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "/var/tmp에 사용될 심볼링 링크를 생성할 수 없습니다.  파일 시스템을 생성하"
-#~ "는 도중 오류가 발생했을 가능성이 있습니다. \n"
-#~ "\n"
-#~ "확인 버튼을 누르시면, 시스템을 재부팅합니다."
-
-#~ msgid "delete"
-#~ msgstr "삭제"
-
-#~ msgid "Make LVM Device"
-#~ msgstr "LVM 장치 설정"
-
-#~ msgid "Developer Workstation"
-#~ msgstr "개발자 웍스테이션"
-
-#~ msgid ""
-#~ "Select this installation type to install a graphical desktop environment "
-#~ "which includes tools for software development."
-#~ msgstr ""
-#~ "이 설치 유형을 선택하여 소프트웨어 개발용 도구와 같은 그래픽 데스크탑 환경"
-#~ "을 설치합니다."
-
-#~ msgid "Partition Request Sanity Check Errors"
-#~ msgstr "파티션 요청 검사에서의 오류"
-
-#~ msgid ""
-#~ "your install again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "설치를 다시 시도해 주십시오.\n"
-#~ "\n"
-#~ "확인 버튼을 누르시면 시스템을 재부팅 합니다."
-
-#~ msgid "User _Name:"
-#~ msgstr "사용자 명(_N):"
-
-#~ msgid ""
-#~ "Additional accounts can be created for other users of this system. Such "
-#~ "accounts could be for a personal login account, or for other non-"
-#~ "administrative users who need to use this system. Use the <Add> button to "
-#~ "enter additional user accounts."
-#~ msgstr ""
-#~ "이 시스템의 다른 사용자들을 위해 추가 계정을 생성할 수 있습니다.이러한 계"
-#~ "정은 개인 로그인 계정 또는 관리자가 관리-목적 이외에 사용하기 위한 것입니"
-#~ "다. 추가할 사용자가 있으시다면, [추가] 버튼을 클릭하여 사용자 계정에 필요"
-#~ "한 사항을 입력해 주시기 바랍니다."
-
-#~ msgid "Use GRUB as the boot loader"
-#~ msgstr "GRUB을 부트로더로 사용"
-
-#~ msgid "Use LILO as the boot loader"
-#~ msgstr "LILO를 부트로더로 사용"
-
-#~ msgid "Do not install a boot loader"
-#~ msgstr "부트로더를 설치하지 않음"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in /root/install.log after "
-#~ "rebooting your system. You may want to keep this file for later "
-#~ "reference. A kickstart file representing the choices you have made will "
-#~ "be in /root/anaconda-ks.cfg."
-#~ msgstr ""
-#~ "설치의 내용이 기록된 로그 파일은 시스템 재부팅 후 /root/install.log 파일"
-#~ "에 저장됩니다. 추후에 참고하실 경우를 대비하여 잘 보관해 두시기 바랍니다. "
-#~ "설치시의 설정이 기록된 킥스타트 파일은 '/root/anaconda-ks.cfg' 파일에 저장"
-#~ "됩니다."
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "축하합니다, %s 설치가 완료되었습니다.\n"
-#~ "\n"
-#~ "[ENTER] 키를 눌러 시스템을 재부팅 하시기 전에 설치 과정에서 사용된 플로피 "
-#~ "디스켓을 시스템에서 제거해 주십시오. \n"
-#~ "\n"
-#~ "%s Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/"
-#~ "errata 를 통해 확인하실 수 있습니다.\n"
-#~ "\n"
-#~ "%s 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/docs 를 참고"
-#~ "해 주시기 바랍니다."
-
-#~ msgid "Please choose your security level:  "
-#~ msgstr "보안 수준을 선택해 주십시오:  "
-
-#~ msgid "_Select all"
-#~ msgstr "모두 선택(_S)"
-
-#~ msgid "Which _model mouse is attached to the computer?"
-#~ msgstr "사용하고 계신 마우스와 일치하는 모델을 선택해 주십시오(_M)"
-
-#~ msgid "I would like the hostname to be set:"
-#~ msgstr "호스트명 설정 방식:"
-
-#~ msgid ""
-#~ "You can configure the boot loader to boot other operating systems.  "
-#~ "Additional operating systems can be added to the below list to choose "
-#~ "between them on boot."
-#~ msgstr ""
-#~ "부트로더를 설정하여 다른 운영 체제로도 부팅할 수 있습니다.  아래 목록에 다"
-#~ "른 운영 체제를 추가하여 부팅시 운영 체제를 선택할 수 있습니다."
-
-#~ msgid ""
-#~ "Re_view (allows you to see and change the automatic partitioning results)"
-#~ msgstr "재확인 (자동 파티션 설정의 결과를 보거나 수정할 수 있습니다)(_V)"
-
-#~ msgid "Have the installer _automatically partition for you"
-#~ msgstr "설치 프로그램에 의한 자동 파티션 설정(_A)"
-
-#~ msgid ""
-#~ "If the probed settings do not match your hardware, select the correct "
-#~ "hardware settings below:"
-#~ msgstr ""
-#~ "검색된 내용이 여러분의 하드웨어 설정과 일치하지 않을 경우에는 아래의 내용"
-#~ "에서 정확한 하드웨어 설정을 직접 선택해 주십시오:"
-
-#~ msgid "Laptop"
-#~ msgstr "랩탑 (노트북)"
-
-#~ msgid "Close"
-#~ msgstr "닫기"
-
-#~ msgid ""
-#~ "You cannot remove this partition, as it is an extended partition which "
-#~ "contains %s"
-#~ msgstr ""
-#~ "이 파티션은 현재 %s (이)가 포함되어 있는 확장 파티션이므로 삭제하실 수 없"
-#~ "습니다"
-
-#~ msgid ""
-#~ "You have chosen to format a pre-existing partition.  This will destroy "
-#~ "all data that was previously on it.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "기존-파티션을 포맷하기로 하셨습니다.  포맷을 진행하시면, 이전의 자료는 모"
-#~ "두 삭제됩니다.\n"
-#~ "\n"
-#~ "정말로 포맷하시겠습니까?"
-
-#~ msgid ""
-#~ "You have chosen not to format a pre-existing partition which is being "
-#~ "mounted under a system directory.  Unless you have particular needs to "
-#~ "preserve data on this partition, it is highly recommended you format this "
-#~ "partition to guarantee the data formerly on the partition does not "
-#~ "corrupt your new installation.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "시스템 디렉토리에 마운트되어 있는 기존-파티션을 포맷하지 않기로 하셨습니"
-#~ "다.  특별히 이 파티션에 있는 자료를 보존하실 필요가 없으시다면, 이 파티션"
-#~ "을 포맷하실 것을 권합니다.\n"
-#~ "\n"
-#~ "정말로 기존의 파티션을 포맷하지 않으시겠습니까?"
-
-#~ msgid "Unknown Card"
-#~ msgstr "알 수 없는 카드"
-
-#~ msgid "Video Ram"
-#~ msgstr "비디오 카드의 램 용량"
-
-#~ msgid "X server"
-#~ msgstr "X 서버"
-
-#~ msgid "Unable to detect video card"
-#~ msgstr "비디오 카드를 검색할 수 없음"
-
-#~ msgid "Attempting to start framebuffer based X server"
-#~ msgstr "프레임버퍼를 사용한 X 서버를 시작합니다"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "A boot disk is REQUIRED to boot a partitionless install."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "파티션 설정이 필요치 않은 방법으로 설치하신 경우에는 반드시 부팅 디스켓을 "
-#~ "만들어야 합니다."
-
-#~ msgid "Skip boot disk creation"
-#~ msgstr "부팅 디스켓을 만들지 않음"
-
-#~ msgid "Boot Loader Password Configuration"
-#~ msgstr "부트로더 암호 설정"
-
-#~ msgid "Password accepted."
-#~ msgstr "암호가 입력되었습니다."
-
-#~ msgid "Password is too short."
-#~ msgstr "암호가 너무 짧습니다."
-
-#~ msgid "Passwords do not match."
-#~ msgstr "암호가 아직 입력되지 않았거나 일치하지 않습니다."
-
-#~ msgid "Use a GRUB Password?"
-#~ msgstr "GRUB 암호 사용"
-
-#~ msgid ""
-#~ "Congratulations, configuration is complete.\n"
-#~ "\n"
-#~ "For information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "축하합니다, 설정이 완료되었습니다.\n"
-#~ "\n"
-#~ "Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/"
-#~ "errata 를 통해 확인하실 수 있습니다.\n"
-#~ "\n"
-#~ "%s 시스템 사용 및 설정에 관한 설명서는 http://www.redhat.com/docs 를 참고"
-#~ "해 주시기 바랍니다."
-
-#~ msgid " is an invalid port."
-#~ msgstr " (은)는 잘못된 포트입니다."
-
-#~ msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-#~ msgstr "형식은 'port:protocol' 입니다.  예) '1234:udp'"
-
-#~ msgid "Choose partitions to Format"
-#~ msgstr "포맷할 파티션 선택"
-
-#~ msgid "Keyboard Configuration"
-#~ msgstr "키보드 설정"
-
-#~ msgid "Which model keyboard is attached to the computer?"
-#~ msgstr "사용하고 계신 키보드와 일치하는 모델을 선택해 주십시요"
-
-#~ msgid "Layout"
-#~ msgstr "자판 배열"
-
-#~ msgid "Dead Keys"
-#~ msgstr "Dead Keys"
-
-#~ msgid "Enable dead keys"
-#~ msgstr "Dead Keys 사용"
-
-#~ msgid "Test your selection here:"
-#~ msgstr "선택하신 키보드를 이곳에서 테스트해 보십시요:"
-
-#~ msgid "Currently installed languages:"
-#~ msgstr "현재 설치될 언어:"
-
-#~ msgid "Port"
-#~ msgstr "포트"
-
-#~ msgid "Broadcast"
-#~ msgstr "브로드캐스트"
-
-#~ msgid "Total install size: "
-#~ msgstr "총 설치 용량: "
-
-#~ msgid "_New"
-#~ msgstr "새로생성(_N)"
-
-#~ msgid "View:"
-#~ msgstr "보기:"
-
-#~ msgid "%s  %s"
-#~ msgstr "%s  %s"
-
-#~ msgid "Exiting anaconda now"
-#~ msgstr "Anaconda를 종료합니다"
-
-#~ msgid "Would you like to configure your system?"
-#~ msgstr "여러분의 시스템을 설정하시겠습니까?"
-
-#~ msgid ""
-#~ "This video card has no suitable X server in the database.  You will need "
-#~ "to choose a different card or choose the 'Skip X Configuration' button."
-#~ msgstr ""
-#~ "이 비디오 카드에는 데이타 베이스에 사용할 알맞은 X 서버가 존재하지 않습니"
-#~ "다. 다른 카드를 선택하시거나 'Skip X Configuration' 버튼을 눌러주십시오."
-
-#~ msgid "Other"
-#~ msgstr "그 외"
-
-#~ msgid ""
-#~ "A custom boot disk provides a way of booting into your Linux system "
-#~ "without depending on the normal boot loader. This is useful if you don't "
-#~ "want to install lilo on your system, another operating system removes "
-#~ "lilo, or lilo doesn't work with your hardware configuration. A custom "
-#~ "boot disk can also be used with the Red Hat rescue image, making it much "
-#~ "easier to recover from severe system failures.\n"
-#~ "\n"
-#~ "Would you like to create a boot disk for your system?"
-#~ msgstr ""
-#~ "부팅 디스켓은 부트로더를 통해 정상적으로 부팅할 수 없는 상황에서 여러분의 "
-#~ "리눅스 시스템으로 부팅할 수 있는 방법을 제공합니다. 즉, 여러분의 시스템에 "
-#~ "'LILO' 를 설치하지 않은 경우, 다른 운영체제가 'LILO' 를 지웠을 경우, 또는 "
-#~ "여러분의 하드웨어에서 제대로 작동되지 않을 경우에 사용하실 수 있습니다. 또"
-#~ "한, 부팅 디스켓을 복구 이미지와 함께 사용하시면, 심각한 문제가 발생된 상황"
-#~ "의 시스템을 쉽게 복구하실 수 있습니다.\n"
-#~ "\n"
-#~ "부팅 디스켓을 만드시겠습니까?"
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using your system is available in the Red Hat Linux "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "축하합니다, %s 설치가 완료되었습니다.\n"
-#~ "\n"
-#~ "[ENTER] 키를 눌러 시스템을 재부팅 하시기 전에 설치 과정에서 사용된 플로피 "
-#~ "디스켓을 시스템에서 제거해 주십시요. \n"
-#~ "\n"
-#~ "%s Errata (업데이트 및 버그 수정) 에 관한 사항은 http://www.redhat.com/"
-#~ "errata 를 통해 확인하실 수 있습니다.\n"
-#~ "\n"
-#~ "여러분의 시스템 사용에 관한 Red Hat Linux 설명서는 http://www.redhat.com/"
-#~ "docs 를 참고해 주시기 바랍니다."
-
-#~ msgid "<Enter> to continue"
-#~ msgstr "계속 진행하시려면, [ENTER] 키를 누르십시요"
-
-#~ msgid ""
-#~ "Congratulations, package installation is complete.\n"
-#~ "\n"
-#~ "Press return to continue.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the %s manuals."
-#~ msgstr ""
-#~ "축하합니다, 패키지 설치가 완료되었습니다.\n"
-#~ "\n"
-#~ "계속 진행하시려면, [ENTER] 키를 누르십시요.\n"
-#~ "\n"
-#~ "%s 설정 및 사용에 관한 내용은 Red Hat Linux  사용 설명서를 참고해 주시기 "
-#~ "바랍니다."
-
-#~ msgid "Bad User ID"
-#~ msgstr "사용자 ID 오류"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "You have entered reconfiguration mode, which will allow you to configure "
-#~ "site-specific options of your computer.\n"
-#~ "\n"
-#~ "To exit without changing your setup select the Cancel button below."
-#~ msgstr ""
-#~ "%s를 선택해 주셔서 감사합니다!\n"
-#~ "\n"
-#~ "여러분의 시스템에 특정-부분의 항목(site-specific options) 을 설정할 수 있"
-#~ "는 재 설정 모드 입니다.\n"
-#~ "\n"
-#~ "설정 내용을 변경하지 않고 종료하시려면, 화면 아래의 [취소] 버튼을 누르십시"
-#~ "요. "
-
-#~ msgid "You cannot go back from this step."
-#~ msgstr "이 곳에서 뒤로 되돌아 가실 수 없습니다."
-
-#~ msgid "Other CDROM"
-#~ msgstr "다른 CDROM"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture"
-#~ msgstr ""
-#~ "다음의 사항을 입력해 주십시요:\n"
-#~ "\n"
-#~ "    o 이름 또는 NFS 서버의 IP 주소\n"
-#~ "    o 여러분 시스템 체계에 맞는 %s를 포함한\n"
-#~ "       서버가 있는 디렉토리"
-
-#~ msgid "Map Image to display"
-#~ msgstr "화면에 표시할 맵 이미지"
-
-#~ msgid "Width of map (in pixels)"
-#~ msgstr "지도의 폭 (픽셀)"
-
-#~ msgid "Enable antialias"
-#~ msgstr "안티알리아스 사용"
-
-#~ msgid "World"
-#~ msgstr "전세계"
-
-#~ msgid "North America"
-#~ msgstr "북미 지역"
-
-#~ msgid "South America"
-#~ msgstr "남미 지역"
-
-#~ msgid "Europe"
-#~ msgstr "유럽 지역"
-
-#~ msgid "Asia"
-#~ msgstr "아시아 지역"
-
-#~ msgid "Cannot load timezone data"
-#~ msgstr "시간대 자료를 읽어올 수 없습니다"
-
-#~ msgid "gglobe-canvas"
-#~ msgstr "세계-지도"
-
-#~ msgid "View: "
-#~ msgstr "지역: "
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "중국어(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              아시아/샹하이"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "중국어(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              아시아/타이페이"
-
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr "VNC 서버가 지금 실행 중입니다 - 접속하여 설치하시기 바랍니다..."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "X 윈도우 시스템에 프레임 버퍼 드라이버를 사용하도록 시스템을 설정합니다.  "
-#~ "X 윈도우 시스템을 설정하는 것을 원하시지 않는다면, 아래 'X 설정 생략'을 선"
-#~ "택하시기 바랍니다."
