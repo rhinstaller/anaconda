@@ -1098,6 +1098,8 @@ class KickstartBase(BaseInstallClass):
             raise ValueError, "partition command requires a size specification"
         if start and not disk:
             raise ValueError, "partition command with start cylinder requires a drive specification"
+        if disk and disk not in isys.hardDriveDict().keys():
+            raise ValueError, "specified disk %s in partition command which does not exist" %(disk,)
         
         # XXX bytes per inode is the only per fs option at the moment
         # and we can assume that it works like this since it only works
