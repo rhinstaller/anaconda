@@ -621,7 +621,7 @@ class KickstartBase(BaseInstallClass):
 	    elif str == "--device":
 		raidDev = arg
             elif str == "--spares":
-                spares = arg
+                spares = int(arg)
             elif str == "--noformat":
                 format = 0
             elif str == "--fstype":
