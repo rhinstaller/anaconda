@@ -20,7 +20,7 @@ PYFILES = $(wildcard *.py)
 
 all:  subdirs mini-wm xmouse.so xutils.so $(CATALOGS) lang-table lang-names locale-list
 
-lang-names: lang-table
+lang-names: lang-table locale-list
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 locale-list:
@@ -42,7 +42,7 @@ depend:
 	for d in $(SUBDIRS); do make -C $$d depend; done
 
 clean:
-	rm -f *.o *.so *.pyc
+	rm -f *.o *.so *.pyc lang-names locale-list
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
