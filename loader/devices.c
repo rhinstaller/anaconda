@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/utsname.h>
 #include <zlib.h>
+#include <linux/fd.h>
 
 #include "devices.h"
 #include "isys/imount.h"
