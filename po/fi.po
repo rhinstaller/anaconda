@@ -1,4 +1,3 @@
-# translation of anaconda.po to Finnish
 # Finnish translation of Anaconda.
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
@@ -25,12 +24,12 @@ msgstr "Käynnistetään VNC:tä..."
 #: ../anaconda:137
 #, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s %s asennusohjelma koneessa %s"
+msgstr "%s %s -asennusohjelma koneessa %s"
 
 #: ../anaconda:139
 #, c-format
 msgid "%s %s installation"
-msgstr "%s %s asennus"
+msgstr "%s %s -asennus"
 
 #: ../anaconda:159
 msgid "Unable to set vnc password - using no password!"
@@ -819,7 +818,7 @@ msgstr ""
 # ../floppy.py:73
 #: ../floppy.py:141
 msgid "Creating"
-msgstr "Luon"
+msgstr "Luodaan"
 
 # ../floppy.py:73
 #: ../floppy.py:141
@@ -1303,7 +1302,7 @@ msgstr "Käynnistetään järjestelmä"
 #: ../gui.py:1267
 #, python-format
 msgid "%s Installer"
-msgstr "%s asennusohjelma"
+msgstr "%s -asennusohjelma"
 
 # ../gui.py:706
 #: ../gui.py:1275
@@ -1403,7 +1402,7 @@ msgstr "Väärä CD-levy"
 #: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "CD-ROM-asemassa ei ole oikea %s CD-levy."
+msgstr "Asemassa ei ole oikeata %s -levyä."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
@@ -4438,11 +4437,11 @@ msgstr "_Kaksipisteyhteys (IP)"
 
 #: ../iw/network_gui.py:240
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:241
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Salaus_avain"
 
 # ../loader/net.c:309 ../textw/network_text.py:82
 #: ../iw/network_gui.py:252
@@ -4645,7 +4644,6 @@ msgstr "_Paketti"
 msgid "_Size (MB)"
 msgstr "_Koko (Mt)"
 
-#
 # ../iw/package_gui.py:456
 #: ../iw/package_gui.py:427
 msgid "Total size: "
@@ -6622,7 +6620,6 @@ msgstr "Koko    :"
 msgid "%.1f KBytes"
 msgstr "%.1f kilotavua"
 
-#
 # ../textw/packages_text.py:116
 #: ../textw/packages_text.py:199
 msgid "Total size"
@@ -6917,6 +6914,8 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Pyydetty koko (%10.2f Mt) on suurempi kuin taltioryhmän vapaa tila "
+"(%10.2f Mt)."
 
 #: ../textw/partition_text.py:1362
 msgid "New Partition or Logical Volume?"
@@ -7697,7 +7696,7 @@ msgstr "Laite #"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
-msgstr ""
+msgstr "Poista"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7779,6 +7778,11 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tTyöpöytä (Gnome)\n"
+"\tHallintatyökalut\n"
+"\tPalvelimien asetustyökalut\n"
+"\tWWW-palvelin\n"
+"\tWindows-tiedostopalvelin (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
@@ -7974,7 +7978,7 @@ msgstr "Valitse ajurilevykkeen levykuva"
 
 #: ../loader2/driverdisk.c:348
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Valitse ajurilevykuvan sisältävä tiedosto."
 
 # ../loader/devices.c:260
 #: ../loader2/driverdisk.c:377
@@ -8188,7 +8192,7 @@ msgstr "Kickstart-tiedostoa ei löydy kiintolevyltä."
 #: ../loader2/hdinstall.c:582
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "BIOS-levylle %s ei löydy kiintolevyä"
 
 # ../loader/lang.c:606
 #: ../loader2/kbd.c:123
@@ -8411,7 +8415,7 @@ msgstr "Käynnistetään anaconda, %sn pelastustila - odota hetki...\n"
 #: ../loader2/loader.c:1519
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Käynnistän anacondaa, %sn asennusohjelmaa - odota hetki...\n"
+msgstr "Käynnistetään anaconda, %sn asennusohjelmaa - odota hetki...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -8542,6 +8546,9 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s on langaton verkkosovitin. Syötä langattoman verkon käyttöön vaadittava "
+"ESSID ja salausavain. Jos avainta ei tarvita, jätä tämä kohta tyhjäksi, ja "
+"asennus jatkuu."
 
 # ../loader/devices.c:77
 #: ../loader2/net.c:191
@@ -8960,7 +8967,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -9040,7 +9047,7 @@ msgstr "Chathamsaaret"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -9199,7 +9206,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -9456,11 +9463,11 @@ msgstr "Sabah ja Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -9508,7 +9515,7 @@ msgstr "Tiibet ja suurin osa Xinjiang Uyghurista"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
