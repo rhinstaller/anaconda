@@ -1,5 +1,5 @@
 # LATEUSBMODS go in the second stage
-USBMODS="uhci hid keybdev"
+USBMODS="usb-uhci hid keybdev"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 $LATEUSBMODS"
