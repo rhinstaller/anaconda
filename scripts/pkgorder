@@ -93,8 +93,8 @@ except rpm.error:
 # and read the comps file
 grpset = hdrlist.groupSetFromCompsFile("file://%s/RedHat/base/comps.xml"
                                        %(distDir,), hdlist, doSelect = 0)
-grpset.groups["everything"].select()
-grpset.unselectAll(unselectPkgs = 1)
+grpset.unselectAll()
+#grpset.groups["everything"].select()
 
 # work out the order we'd like to install everything in
 pkgOrder = []
@@ -144,6 +144,8 @@ latelangs = []
 for id in grpids:
     if id in complist:
         continue
+    if id == "everything": #this would be silly
+        continue
     if ((grpset.groups[id].langonly is not None) and
         (tier1langs.find(grpset.groups[id].langonly) == -1)):
         latelangs.append(id)
@@ -159,7 +161,7 @@ for id in complist:
     group = grpset.groups[id]
     list = []
 
-    grpset.unselectAll(unselectPkgs = 1)
+    grpset.unselectAll()
     group.select()
 
     # append what got turned on to our order.
