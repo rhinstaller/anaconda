@@ -342,8 +342,8 @@ class Language (SimpleConfigFile):
 		self.langInfoByName[name] = (lang, map, font)
 		self.allSupportedLangs.append(name)
 	else:
-	    self.langInfoByName['English (US)'] = ('en_US', 'iso01', 'default8x16')
-	    self.allSupportedLangs.append('English (US)')
+	    self.langInfoByName['English (USA)'] = ('en_US', 'iso01', 'default8x16')
+	    self.allSupportedLangs.append('English (USA)')
 
     def getAllSupported(self):
 	return self.allSupportedLangs
@@ -378,7 +378,7 @@ class Language (SimpleConfigFile):
 
 	    return name
 	else:
-	    return 'English (US)'
+	    return 'English (USA)'
     
     def setDefault(self, name):
 	if not name:
