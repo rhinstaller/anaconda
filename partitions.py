@@ -206,14 +206,14 @@ class Partitions:
                 if fields[0].strip() == "PE size":
                     pesize = fields[1].strip()
                     try:
-                        pesize = int(pesize)
+                        pesize = long(pesize)
                     except:
                         log("PE size for %s not a valid integer, defaulting to 4096" %(vg,))
                         pesize = 4096
                 elif fields[0].strip() == "size":
                     preexist_size = fields[1].strip()
                     try:
-                        preexist_size = int(preexist_size) / 1024.0
+                        preexist_size = long(preexist_size) / 1024.0
                     except:
                         log("preexisting size for %s not a valid integer, ignoring" %(vg,))
                         preexist_size = None
@@ -266,7 +266,7 @@ class Partitions:
                     log("Unable to find LV size for %s/%s" % (vg, lv))
                     continue
                 # size is listed as number of blocks, we want size in megs
-                lvsize = int(lvsize) / 2048.0
+                lvsize = long(lvsize) / 2048.0
 
                 theDev = "/dev/%s/%s" %(vg, lv)
                 fs = partedUtils.sniffFilesystemType(theDev)
