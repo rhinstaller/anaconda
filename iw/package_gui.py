@@ -539,11 +539,13 @@ class PackageSelectionWindow (InstallWindow):
 	self.ignoreComponentToggleEvents = tmpval
 
     def componentToggled(self, widget, data):
+        cw = self.ics.getICW()
 	(comp, lbl, count, al, ebutton) = data
 	newstate = widget.get_active()
 	if self.ignoreComponentToggleEvents:
 	    return
 
+        cw.busyIconPush()
         # turn on all the comps we selected
 	if newstate:
             if ebutton:
@@ -606,6 +608,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	# after all this we need to recompute total size
 	self.setSize()
+        cw.busyIconPop()
 
     def pkgGroupMemberToggled(self, widget, data):
 	(comp, sizeLabel, pkg) = data

@@ -857,6 +857,8 @@ class InstallControlWindow:
             nextButton.grab_focus ()
 
     def __init__ (self, ii, dispatch, locale):
+        self.busyIcon = 0
+        
         self.prevButtonStock = None
         self.nextButtonStock = None
         self.releaseButton = None
@@ -1068,6 +1070,22 @@ class InstallControlWindow:
         self.window.show_all ()
 
         splashScreenPop()
+
+    def busyIconPush(self):
+        self.busyIcon += 1
+        if self.busyIcon > 0:
+            root = gtk.gdk.get_default_root_window()
+            cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+            root.set_cursor(cursor)
+        processEvents()
+        
+    def busyIconPop(self):
+        self.busyIcon -= 1
+        if self.busyIcon <= 0:
+            root = gtk.gdk.get_default_root_window()
+            cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+            root.set_cursor(cursor)
+        processEvents()
 
     def run (self, runres, configFileData):
         self.configFileData = configFileData
