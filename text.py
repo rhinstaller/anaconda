@@ -97,9 +97,9 @@ class WaitWindow:
 	width = 40
 	if (len(text) < width): width = len(text)
 
-	t = TextboxReflowed(width, _(text))
+	t = TextboxReflowed(width, text)
 
-	g = GridForm(self.screen, _(title), 1, 1)
+	g = GridForm(self.screen, title, 1, 1)
 	g.add(t, 0, 0)
 	g.draw()
 	self.screen.refresh()
@@ -109,7 +109,7 @@ class OkCancelWindow:
 	return self.rc
 
     def __init__(self, screen, title, text):
-	rc = ButtonChoiceWindow(screen, _(title), _(text),
+	rc = ButtonChoiceWindow(screen, title, text,
 			        buttons=[TEXT_OK_BUTTON, _("Cancel")])
 	if rc == string.lower(_("Cancel")):
 	    self.rc = 1
@@ -237,25 +237,25 @@ class InstallInterface:
 	    os._exit(1)
 
     def progressWindow(self, title, text, total):
-        return ProgressWindow(self.screen, _(title), _(text), total)
+        return ProgressWindow(self.screen, title, text, total)
 
     def messageWindow(self, title, text, type="ok", default = None):
 	if type == "ok":
-	    ButtonChoiceWindow(self.screen, _(title), _(text),
+	    ButtonChoiceWindow(self.screen, title, text,
 			       buttons=[TEXT_OK_BUTTON])
         elif type == "yesno":
             if default and default == "no":
                 btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
             else:
                 btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
-	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
+	    rc = ButtonChoiceWindow(self.screen, title, text,
 			       buttons=btnlist)
             if rc == "yes":
                 return 1
             else:
                 return 0
 	else:
-	    return OkCancelWindow(self.screen, _(title), _(text))
+	    return OkCancelWindow(self.screen, title, text)
 
     def dumpWindow(self):
 	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),

@@ -150,10 +150,10 @@ def addFrame(dialog):
 class WaitWindow:
     def __init__(self, title, text):
         self.window = gtk.Window(gtk.WINDOW_POPUP)
-        self.window.set_title(_(title))
+        self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
         self.window.set_modal(gtk.TRUE)
-        label = WrappingLabel(_(text))
+        label = WrappingLabel(text)
         box = gtk.Frame()
         box.set_border_width(10)
         box.add(label)
@@ -171,13 +171,13 @@ class WaitWindow:
 class ProgressWindow:
     def __init__(self, title, text, total):
         self.window = gtk.Window (gtk.WINDOW_POPUP)
-        self.window.set_title (_(title))
+        self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
         self.window.set_modal (gtk.TRUE)
         box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (10)
 
-        label = WrappingLabel (_(text))
+        label = WrappingLabel (text)
         label.set_alignment (0.0, 0.5)
         box.pack_start (label, gtk.FALSE)
         
@@ -279,7 +279,7 @@ class MessageWindow:
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
 
-        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, _(text))
+        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
         if default == "no":
             dialog.set_default_response(0)
@@ -722,7 +722,7 @@ class InstallControlWindow:
             image = gtk.Image()
             image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
             box.pack_start(image, gtk.FALSE, gtk.FALSE)
-            label = gtk.Label(_(text))
+            label = gtk.Label(text)
             label.set_property("use-underline", gtk.TRUE)
             box.pack_start(label, gtk.TRUE, gtk.TRUE)
             button.add(box)
@@ -734,7 +734,7 @@ class InstallControlWindow:
     def updateStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
-            button.label.set_text_with_mnemonic(_(text))
+            button.label.set_text_with_mnemonic(text)
             button.queue_resize()
 
     def setup_window (self, runres):
