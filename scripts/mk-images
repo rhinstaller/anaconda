@@ -266,6 +266,7 @@ makeinitrd() {
     PADSIZE=""
     LOADERBIN=""
     INITRDMODULES=""
+    MODULEBALLNAME="modules.cgz"
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
