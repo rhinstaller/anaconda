@@ -180,16 +180,16 @@ and RPMs. Set to 1 to turn on."""
 
         for i in range(self.bin_list[0], self.bin_list[-1] + 1):
             if i == 1:
-                p = os.popen('find %s -type f' % self.dist_dir, 'r')
+                p = os.popen('find %s -type f -not -name .discinfo' % self.dist_dir, 'r')
                 filelist = p.read()
                 p.close()
                 filelist = string.split(filelist)
-
+                
                 p = os.popen('find %s -type d -not -name RPMS -not -name SRPMS' % self.dist_dir, 'r')
                 dirlist = p.read()
                 p.close()
                 dirlist = string.split(dirlist)
-
+                
                 dont_create = []
                 # we need to clean up the dirlist first. We don't want everything yet
                 for j in range(0, len(dirlist)):
