@@ -51,7 +51,7 @@ def splashScreenShow(configFileData):
     if width >= 800:
 #        im = load_image('first.png')
         image = configFileData["Splashscreen"]
-        print "image is ", image
+
         im = load_image(image)
     else:
         im = load_image('first-lowres.png')
