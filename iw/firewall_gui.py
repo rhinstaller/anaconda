@@ -50,28 +50,27 @@ class FirewallWindow (InstallWindow):
                 self.firewall.trustdevs = []
 
                 for device in self.devices:
-                    (val, row_data, header) = self.trusted.get_row_data (count)
-
+                    val = self.trusted.get_active(count)
                     if val == 1:
                         self.firewall.trustdevs.append(device)
-
                     count = count + 1
 
-                for i in range(6):
-                    (val, row_data, header) = self.incoming.get_row_data (i)
-
-                    if row_data == "DHCP":
+                count = 0
+                for service in self.knownPorts.keys():
+                    val = self.incoming.get_active(count)
+                    if service == "DHCP":
                         self.firewall.dhcp = val
-                    elif row_data == "SSH":
+                    elif service == "SSH":
                         self.firewall.ssh = val
-                    elif row_data == "Telnet":
+                    elif service == "Telnet":
                         self.firewall.telnet = val
-                    elif row_data == "WWW (HTTP)":
+                    elif service == "WWW (HTTP)":
                         self.firewall.http = val
-                    elif row_data == "Mail (SMTP)":
+                    elif service == "Mail (SMTP)":
                         self.firewall.smtp = val
-                    elif row_data == "FTP":
-                        self.firewall.ftp = val
+                    elif service == "FTP":
+                        self.firewall.ftp = val                    
+                    count = count + 1
                     
                 portstring = string.strip(self.ports.get_text())
                 portlist = ""
@@ -174,41 +173,14 @@ class FirewallWindow (InstallWindow):
                 self.label2.set_sensitive(self.custom_radio.get_active())
                 self.label3.set_sensitive(self.custom_radio.get_active())
 
-    def trusted_select_row(self, clist, event):
-        try:
-            row, col  = self.trusted.get_selection_info (event.x, event.y)
-            self.toggle_row(self.trusted, row)
-        except:
-            pass
-
-    def incoming_select_row(self, clist, event):
-        try:
-            row, col  = self.incoming.get_selection_info (event.x, event.y)
-            self.toggle_row(self.incoming, row)
-        except:
-            pass    
-        
-        
-    def trusted_key_press (self, list, event):
-        if event.keyval == ord(" ") and self.trusted.focus_row != -1:
-            self.toggle_row (self.trusted, self.trusted.focus_row)
-
-    def incoming_key_press (self, list, event):
-        if event.keyval == ord(" ") and self.incoming.focus_row != -1:
-            self.toggle_row (self.incoming, self.incoming.focus_row)        
-
-    def toggle_row (self, list, row):
-        (val, row_data, header) = list.get_row_data(row)
-        val = not val
-        list.set_row_data(row, (val, row_data, header))
-        list._update_row (row)
-            
     def getScreen (self, network, firewall):
 	self.firewall = firewall
 	self.network = network
 
         self.devices = self.network.available().keys()
         self.devices.sort()
+
+        self.devices = [ self.devices[-1] ]
         
 	self.netCBs = {}
 
@@ -259,8 +231,6 @@ class FirewallWindow (InstallWindow):
         self.label1 = gtk.Label (_("Trusted devices:"))
         self.label1.set_alignment (0.2, 0.0)
         self.trusted = checklist.CheckList(1)
-        self.trusted.connect ('button_press_event', self.trusted_select_row)
-        self.trusted.connect ("key_press_event", self.trusted_key_press)
 
         if self.devices != []:
             table.attach (self.label1, 0, 1, 0, 1, gtk.FILL, gtk.FILL, 5, 5)
@@ -284,30 +254,19 @@ class FirewallWindow (InstallWindow):
         self.label2 = gtk.Label (_("Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
-        self.incoming.connect ('button_press_event', self.incoming_select_row)
-        self.incoming.connect ("key_press_event", self.incoming_key_press)
         table.attach (self.label2, 0, 1, 1, 2, gtk.FILL, gtk.FILL, 5, 5)
         table.attach (self.incoming, 1, 2, 1, 2, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
-        self.list = ["DHCP", "SSH", "Telnet", "WWW (HTTP)", "Mail (SMTP)", "FTP"]
+        self.knownPorts = {"DHCP": self.firewall.dhcp,
+                           "SSH": self.firewall.ssh,
+                           "Telnet": self.firewall.telnet,
+                           "WWW (HTTP)": self.firewall.http,
+                           "Mail (SMTP)": self.firewall.smtp,
+                           "FTP": self.firewall.ftp}
 
         count = 0
-        for item in self.list:
-            self.incoming.append_row ((item, ""), gtk.FALSE)
-
-            if item == "DHCP":
-                self.incoming.set_row_data (count, (self.firewall.dhcp, item, item)) 
-            elif item == "SSH":
-                self.incoming.set_row_data (count, (self.firewall.ssh, item, item)) 
-            elif item == "Telnet":
-                self.incoming.set_row_data (count, (self.firewall.telnet, item, item)) 
-            elif item == "WWW (HTTP)":
-                self.incoming.set_row_data (count, (self.firewall.http, item, item)) 
-            elif item == "Mail (SMTP)":
-                self.incoming.set_row_data (count, (self.firewall.smtp, item, item)) 
-            elif item == "FTP":
-                self.incoming.set_row_data (count, (self.firewall.ftp, item, item)) 
-
+        for item in self.knownPorts.keys():
+            self.incoming.append_row ((item, ""), self.knownPorts[item])
             count = count + 1
 
         self.label3 = gtk.Label (_("Other ports:"))

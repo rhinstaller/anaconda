@@ -1,8 +1,9 @@
 #
-# checklist.py: A class (derived from GtkCList) that provides a list of
+# checklist.py: A class (derived from GtkTreeView) that provides a list of
 #               checkbox / text string pairs
 #
 # Brent Fox <bfox@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -15,136 +16,90 @@
 #
 
 import gtk
+import gobject
 
-class CheckList (gtk.CList):
-    """A class (derived from gtk.CList) that provides a list of
+class CheckList (gtk.TreeView):
+    """A class (derived from gtk.TreeView) that provides a list of
     checkbox / text string pairs"""
-    CHECK_SIZE = 13
 
+    # XXX need to handle the multicolumn case better still....
     def __init__ (self, columns = 1):
-        gtk.CList.__init__ (self, columns+1)
+        self.store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+                                   gobject.TYPE_STRING, gobject.TYPE_STRING)
+        gtk.TreeView.__init__ (self, self.store)
+        
+        renderer = gtk.CellRendererToggle()
+        column = gtk.TreeViewColumn('Checkbox', renderer, active=0)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        column.set_fixed_width(50)
+        column.set_clickable(gtk.TRUE)
+        renderer.connect ("toggled", self.toggled_item)        
+        self.append_column(column)
 
-        self.set_column_auto_resize(0, 1)
-        #for i in range(columns):
-        #    self.set_column_auto_resize (i, 1)
+        # XXX we only handle two text columns right now
+        if columns > 2:
+            raise RuntimeError, "CheckList supports a maximum of 2 columns"
+        self.columns = columns
 
-        self.connect ("realize", self._realize_cb)
-#        self.connect ("button_press_event", self._button_press_cb)
-#        self.connect ("key_press_event", self._key_press_cb)
+        # add the string columns to the tree view widget
+        for i in range(1, columns + 1):
+            renderer = gtk.CellRendererText()
+            column = gtk.TreeViewColumn('Text', renderer, text=i)
+            column.set_clickable(gtk.FALSE)
+            self.append_column(column)
 
-        self.off_pixmap = None
-        self.on_pixmap = None
+        self.set_rules_hint(gtk.FALSE)
+        self.set_headers_visible(gtk.FALSE)
+        self.columns_autosize()
 
-        self.toggled_func = None
-
-        self.n_rows = 0
-
-    def append_row (self, textList, init_value, row_data=None):
+    def append_row (self, textList, init_value):
         """Add a row to the list.
         text: text to display in the row
-        init_value: initial state of the indicator
-        row_data: data to pass to the toggled_func callback"""
+        init_value: initial state of the indicator"""
 
-        textList = ("",) + textList
-        row = self.append (textList)
-        self.set_row_data (row, (not not init_value, row_data, ""))
-        self.n_rows = self.n_rows + 1
+        textList = ("",) + textList        
+        iter = self.store.append()
+        self.store.set_value(iter, 0, init_value)
 
-        if (self.flags() & gtk.REALIZED):
-            self._update_row (row)
+        # add the text for the number of columns we have
+        i = 1
+        for text in textList[1:self.columns + 1]:
+            self.store.set_value(iter, i, textList[i])
+            i = i + 1
 
-        return row
+
+    def toggled_item(self, data, row):
+        """Set a function to be called when the value of a row is toggled.
+        The  function will be called with two arguments, the clicked item
+        in the row and a string for which row was clicked."""
+        
+        iter = self.store.get_iter(int(row))
+        val = self.store.get_value(iter, 0)
+        self.store.set_value(iter, 0, not val)
+
 
     def clear (self):
         "Remove all rows"
-        gtk.CList.clear(self)
-        self.n_rows = 0
-
-    def set_toggled_func (self, func):
-        """Set a function to be called when the value of a row is toggled.
-        The  function will be called with two arguments, the new state
-        of the indicator (boolean) and the row_data for the row."""
-        self.toggled_func = func
-        
-    def _update_row (self, row):
-        (val, row_data, name) = self.get_row_data(row)
-        if val:
-            self.set_pixmap(row,0,self.on_pixmap,self.mask)
-        else:
-            self.set_pixmap(row,0,self.off_pixmap,self.mask)
+        self.store.clear()
 
 
-    def _color_pixmaps(self):
-        style = self.get_style()
-        base_gc = self.on_pixmap.new_gc(foreground = style.base[gtk.STATE_NORMAL])
-        text_gc = self.on_pixmap.new_gc(foreground = style.text[gtk.STATE_NORMAL])
-        
-        self.mask = create_pixmap(None,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE,1)
-        # HACK - we really want to just use a color with a pixel value of 1
-        mask_gc = self.mask.new_gc (foreground = self.get_style().white)
-        draw_rectangle(self.mask,mask_gc,1,0,0,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
+    def get_active(self, row):
+        """Return FALSE or TRUE as to whether or not the row is toggled
+        similar to GtkToggleButtons"""
 
-        draw_rectangle(self.on_pixmap,base_gc,1,0,0,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
-        draw_rectangle(self.on_pixmap,text_gc,0,0,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1)
-
-        draw_line(self.on_pixmap,text_gc,2, CheckList.CHECK_SIZE/2,CheckList.CHECK_SIZE/3,CheckList.CHECK_SIZE-5)
-        draw_line(self.on_pixmap,text_gc,2, CheckList.CHECK_SIZE/2+1,CheckList.CHECK_SIZE/3,CheckList.CHECK_SIZE-4)
-        
-        draw_line(self.on_pixmap,text_gc,CheckList.CHECK_SIZE/3, CheckList.CHECK_SIZE-5, CheckList.CHECK_SIZE-3, 3)
-        draw_line(self.on_pixmap,text_gc,CheckList.CHECK_SIZE/3, CheckList.CHECK_SIZE-4, CheckList.CHECK_SIZE-3, 2)
-
-        draw_rectangle(self.off_pixmap,base_gc,1,0,0,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
-        draw_rectangle(self.off_pixmap,text_gc,0,0,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1)
+        iter = self.store.get_iter(row)
+        return self.store.get_value(iter, 0)
 
 
+    def set_active(self, row, is_active):
+        "Set row to be is_active, similar to GtkToggleButton"
+
+        iter = self.store.get_iter(row)
+        self.store.set_value(iter, 0, is_active)
 
 
+    def get_text(self, row, column):
+        "Get the text from row and column"
 
-
-
-
-
-
-    def _realize_cb (self, clist):
-        self.on_pixmap = create_pixmap(self.get_window(), CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
-        self.off_pixmap = create_pixmap(self.get_window(), CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
-
-        # We can't connect this callback before because of a bug in Pygtk. where it doesn't
-        # like style_set to be called with a NULL old_style
-        self.connect ("style_set", lambda self, old_style: self._color_pixmaps)
-        self._color_pixmaps()
-
-        for i in range (self.n_rows):
-            self._update_row (i)
-
-    def _toggle_row (self, row):
-        (val, row_data, name) = self.get_row_data(row)
-        val = not val
-        self.set_row_data(row, (val, row_data, name))
-        
-        self._update_row (row)
-
-#        print "Val: ", val, "     Row data: ", row_data, "    Name ", name
-
-        
-        if self.toggled_func != None:
-            self.toggled_func(val, row_data)
-
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        iter = self.store.get_iter(row)
+        return self.store.get_value(iter, column)

@@ -25,9 +25,7 @@ class LanguageSupportWindow (InstallWindow):
         self.supportedLangs = []
 
         for row in range(self.maxrows):
-            (val, row_data, header) = self.language.get_row_data (row)
-            
-            if val == 1:
+            if self.language.get_active(row) == 1:
                 selected = self.language.get_text (row, 1)
                 self.supportedLangs.append (selected)
 
@@ -37,21 +35,11 @@ class LanguageSupportWindow (InstallWindow):
 
         return None
 
-    def support_select_row (self, clist, event):
-	# ACK: we need exception handling around here
-        
-	row, col  = self.language.get_selection_info (event.x, event.y)
-	selected = self.language.get_text (row, 1)
-	self.toggle_row (row)
-
-	self.rebuild_combo_box()
-
     def rebuild_combo_box(self):
         list = []
 
 	for row in range(self.maxrows):
-	    (val, row_data, header) = self.language.get_row_data (row)
-	    if val == 1:
+	    if self.language.get_active(row) == 1:
 		selected = self.language.get_text (row, 1)
 		list.append (selected)
 	
@@ -71,18 +59,10 @@ class LanguageSupportWindow (InstallWindow):
 	    self.combo.list.select_item(0)
 	    self.defaultLang = list[0]
 
-    def toggle_row (self, row):
-        (val, row_data, header) = self.language.get_row_data(row)
-        val = not val
-        self.language.set_row_data(row, (val, row_data, header))
-        self.language._update_row (row)
-        
     def select_all (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
         for row in range(self.maxrows):
-            (val, row_data, header) = self.language.get_row_data (row)
-            self.language.set_row_data (row, (gtk.TRUE, row_data, header)) 
-            self.language._update_row (row)
+            self.language.set_active(row, gtk.TRUE)
 
 	self.rebuild_combo_box()
 
@@ -91,26 +71,18 @@ class LanguageSupportWindow (InstallWindow):
 	list = []
 
         for row in range(self.maxrows):
-	    (val, row_data, header) = self.language.get_row_data (row)
             item = self.language.get_text (row, 1)
 
 	    if item in self.origLangs:
-                self.language.set_row_data(row, (1, row_data, header))
-                self.language._update_row (row)
+                self.language.set_active(row, gtk.TRUE)
                 list.append (item)
             else:
-                self.language.set_row_data(row, (0, row_data, header))
-                self.language._update_row (row)
+                self.language.set_active(row, gtk.FALSE)                
 
 	self.defaultLang = self.oldDefaultLang
 	self.combo.set_popdown_strings(list)
 
 	self.combo.list.select_item(list.index(self.defaultLang))
-
-    def language_key_press (self, list, event):
-        if event.keyval == ord(" ") and self.language.focus_row != -1:
-            self.toggle_row (self.language.focus_row)
-	    self.rebuild_combo_box()
 
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self, langs):
@@ -162,8 +134,6 @@ class LanguageSupportWindow (InstallWindow):
 
         # langs we want to support
         self.language = checklist.CheckList(1)
-        self.language.connect ("button_press_event", self.support_select_row)
-        self.language.connect ("key_press_event", self.language_key_press)
 
         self.maxrows = 0
         list = []
