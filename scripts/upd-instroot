@@ -102,7 +102,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf"
+         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf glib2"
 
 if [ $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES libgcc libstdc++"
@@ -129,7 +129,7 @@ fi
 
 PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
-           XFree86-ISO8859-2-75dpi-fonts glib2 gtk2
+           XFree86-ISO8859-2-75dpi-fonts gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
@@ -297,6 +297,10 @@ usr/lib/anaconda/textw/*
 usr/lib/booty/*
 usr/$LIBDIR/gconv/ISO8859-1.so
 usr/$LIBDIR/gconv/gconv-modules
+usr/$LIBDIR/libglib*
+usr/$LIBDIR/libgmodule*
+usr/$LIBDIR/libgobject*
+usr/$LIBDIR/libgthread*
 usr/$LIBDIR/libssl*
 usr/$LIBDIR/libcrypto*
 usr/$LIBDIR/libbz2*
@@ -584,15 +588,11 @@ usr/$LIBDIR/libexpat*
 usr/$LIBDIR/libfontconfig*
 usr/$LIBDIR/libfreetype*
 usr/$LIBDIR/libgdk*
-usr/$LIBDIR/libglib*
-usr/$LIBDIR/libgmodule*
 usr/$LIBDIR/libgnome*
 usr/$LIBDIR/libgnomesupport*
 usr/$LIBDIR/libgnomeui*
 usr/$LIBDIR/libgnorba*
 usr/$LIBDIR/libgnorbagtk*
-usr/$LIBDIR/libgobject*
-usr/$LIBDIR/libgthread*
 usr/$LIBDIR/libgtk*
 usr/$LIBDIR/libgtkxmhtml*
 usr/$LIBDIR/libimlib-png*
