@@ -164,7 +164,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			    (self.progressWindow, _("Copying File"),
 			    _("Transferring install image to hard drive...")))
 	except Exception, e:
-            logMessage("error transferring stage2.img: %s" %(e,))
+            log("error transferring stage2.img: %s" %(e,))
 	    self.messageWindow(_("Error"),
 		    _("An error occurred transferring the install image "
 		      "to your hard drive. You are probably out of disk "
