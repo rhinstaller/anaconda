@@ -1017,20 +1017,28 @@ static char * mountUrlImage(struct installMethod * method,
     }
 
     i = 0;
+    login = "";
     /* password w/o login isn't usefull */
-    if (strlen(ui.login)) {
+    if (ui.login && strlen(ui.login)) {
 	i += strlen(ui.login) + 5;
 	if (strlen(ui.password))
-	    i += strlen(ui.password) + 5;
+	    i += 3*strlen(ui.password) + 5;
+
 	if (ui.login || ui.password) {
 	    login = alloca(i);
-	    sprintf(login, "%s%s%s@",
-		    ui.login, 
-		    ui.password ? ":" : "",
-		    ui.password ? ui.password : "");
+	    strcpy(login, ui.login);
+	    if (ui.password) {
+		char * chptr;
+		char code[4];
+
+		strcat(login, ":");
+		for (chptr = ui.password; *chptr; chptr++) {
+		    sprintf(code, "%%%2x", *chptr);
+		    strcat(login, code);
+		}
+		strcat(login, "@");
+	    }
 	}
-    } else {
-	login = "";
     }
 
     url = malloc(strlen(ui.prefix) + 25 + strlen(ui.address) + strlen(login));
