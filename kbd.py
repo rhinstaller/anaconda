@@ -59,6 +59,11 @@ class Keyboard (SimpleConfigFile):
     x2console = {}
     for (key, value) in console2x.items():
         x2console [value] = key
+
+    xsun2console = {}
+    for (key, value) in console2xsun.items():
+        xsun2console [value] = key
+    
     
     def __init__ (self):
 	self.type = "PC"
@@ -210,21 +215,29 @@ class Keyboard (SimpleConfigFile):
 	    self.info["KEYTABLE"] = keytable
 
     def setfromx (self, model, layout):
-        keys = Keyboard.x2console.keys ()
+	if self.type == "PC":
+            mapping = Keyboard.x2console
+        else:
+            mapping = Keyboard.xsun2console
+            
+        keys = mapping.keys ()
 
         fuzzy = None
         for key in keys:
             (mod, lay) = key
             if model == mod and layout == lay:
-                self.info["KEYTABLE"] = Keyboard.x2console[key]
+                self.info["KEYTABLE"] = mapping[key]
                 break
             if layout == lay:
                 fuzzy = key
 
         if fuzzy:
-            self.info["KEYTABLE"] = Keyboard.x2console[fuzzy]
+            self.info["KEYTABLE"] = mapping[fuzzy]
         else:
-            self.info["KEYTABLE"] = "us"
+            if self.type == "PC":
+                self.info["KEYTABLE"] = "us"
+            else:
+                return "sunkeymap"
 
     def get (self):
         if self.info.has_key ("KEYTABLE"):
