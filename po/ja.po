@@ -8,13 +8,13 @@
 # Yoshinari Takaoka <mumumu@mx.edit.ne.jp>, 2004.
 # Tadashi Jokagi <fedora@elf.no-ip.org>, 2004.
 # Naoki Shigematsu <sigematu@linuxml.net>, 2004.
-# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004.
+# Hirofumi Saito <hi_saito@yk.rim.or.jp>, 2004, 2005.
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-14 10:07+0900\n"
+"PO-Revision-Date: 2005-03-04 22:12+0900\n"
 "Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
 "Language-Team: Japanese<fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -218,15 +218,15 @@ msgid "Could not allocate partitions"
 msgstr "パーティションを確保できませんでした。"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"ブートパーティション %s は BSD ディスクラベルに属しません。SRM はこのパーティ"
-"ションからブート出来ません。BSD ディスクラベルに属するパーティションを使用す"
-"るか、又はこのデバイスディスクラベルを BSD に変更します。"
+"ブートパーティション %s は BSD ディスクラベルに属しません。SRM はこのパー"
+"ティションからブートできません。BSD ディスクラベルに属するパーティション"
+"を使用するか、またはこのデバイスディスクラベルを BSD に変更します。"
 
 #: ../autopart.py:1024
 #, python-format
@@ -1210,19 +1210,18 @@ msgstr "システム上にインストール"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Scriptlet の失敗"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%sインストール中にエラー。  これはメディアの失敗、ディスク容量の不足、 または"
-"ハードの問題である事を示します。致命的なエラーですからインストールは 回避され"
-"ます。メディアを確認してから再インストールを 実行して下さい。\n"
+"scriptlet の実行中にエラーが発生しました。%s の中のアウトプットを調査した"
+"方が良いでしょう。これは致命的なエラーなのでインストールは中断されます。\n"
 " \n"
 "OK ボタンを押すとシステムを再起動します。"
 
@@ -2035,9 +2034,8 @@ msgstr ""
 "/boot/efi パーティションを FAT タイプの 50MB で作成しなければなりません。"
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "PPC PRePブートパーティーションを作成しなくてはなりません。"
+msgstr "Apple Bootstrap パーティーションを作成しなくてはなりません。"
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3066,14 +3064,13 @@ msgid "Congratulations"
 msgstr "おめでとうございます"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"インストール時に使用したインストールメディア(フロッピーディスク、CD-ROMなど)"
-"をすべて取り出してから、\"再起動\"ボタンを押してシステムを再起動します。\n"
+"インストール時に使用したインストールメディアをすべて取り出してから、"
+"\"再起動\"ボタンを押してシステムを再起動します。\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -5383,14 +5380,13 @@ msgid "<Enter> to exit"
 msgstr "終了するには <Enter> を押して下さい。"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"インストール時に使用したインストールメディア(フロッピーディスク、CD-ROM など)"
-"をすべて取り出してから、<Enter>を押してシステムを再起動します。\n"
+"インストール時に使用したインストールメディアをすべて取り出してから、"
+"<Enter>を押してシステムを再起動します。\n"
 "\n"
 
 #: ../textw/complete_text.py:34
