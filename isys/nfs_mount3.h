@@ -8,11 +8,18 @@
 
 #if KERNEL_NFS_MOUNT_VERSION >= 3
 
-/*
- * The kernel includes are at least as good as this file.
- * Use them.
- */
+#define _LINUX_IN_H 1
+
+#define __KERNEL__
+#include <linux/nfs.h>
+#undef __KERNEL__
+
+#include <linux/nfs2.h>
 #include <linux/nfs_mount.h>
+
+#ifndef NFS_VERSION
+#define NFS_VERSION 2
+#endif
 
 #else /* KERNEL_NFS_MOUNT_VERSION < 3 */
 
