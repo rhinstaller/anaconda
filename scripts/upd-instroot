@@ -902,7 +902,7 @@ for p in $DEST $DESTGR; do
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
     else
-	chroot $p /usr/sbin/build-locale-archive
+	/usr/sbin/chroot $p /usr/sbin/build-locale-archive
     fi
     mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
     rm -rf $p/usr/lib/locale/*
