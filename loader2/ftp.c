@@ -427,6 +427,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     struct timeval timeout;
     char headers[4096];
     char * nextChar = headers;
+    char *realhost;
     char *hstr;
     int checkedCode;
     struct in_addr serverAddress;
@@ -435,9 +436,21 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     struct sockaddr_in destPort;
     fd_set readSet;
 
-    if (port < 0) port = 80;
+    realhost = hostname;
+    if (port < 0) {
+	char *colonptr = strchr(hostname, ':');
+	if (colonptr != NULL) {
+	    int realhostlen = colonptr - hostname;
+	    port = atoi(colonptr + 1);
+	    realhost = alloca (realhostlen + 1);
+	    memcpy (realhost, hostname, realhostlen);
+	    realhost[realhostlen] = '\0';
+	} else {
+	    port = 80;
+	}
+    } 
 
-    if ((rc = getHostAddress(hostname, &serverAddress))) return rc;
+    if ((rc = getHostAddress(realhost, &serverAddress))) return rc;
 
     sock = socket(AF_INET, SOCK_STREAM, IPPROTO_IP);
     if (sock < 0) {
@@ -458,8 +471,8 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     else
 	hstr = "";
 
-    buf = alloca(strlen(remotename) + strlen(hostname) + strlen(hstr) + 25);
-    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, hostname, hstr);
+    buf = alloca(strlen(remotename) + strlen(realhost) + strlen(hstr) + 25);
+    sprintf(buf, "GET %s HTTP/1.0\r\nHost: %s\r\n%s\r\n", remotename, realhost, hstr);
     write(sock, buf, strlen(buf));
 
     /* This is fun; read the response a character at a time until we:
