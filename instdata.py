@@ -62,6 +62,9 @@ class InstallData:
 	self.fsset.reset()
         self.diskset = partitioning.DiskSet()
         self.partrequests = partitioning.PartitionRequests(self.diskset)
+        self.autoPartitionRequests = []
+        self.autoClearPartType = None
+        self.autoClearPartDrives = []
 	self.bootloader = bootloader.x86BootloaderInfo()
         self.dependencies = []
         self.dbpath = None
