@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.7
+Version: 10.2.0.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 23 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.8-1
+- Use tmpfs not ramfs for /dev
+- Blacklist "root" as a VG name (#142785)
+- Better error message if swap can't be mounted (clumens, #143000)
+- Some fixes to the new /dev handling in init
+- Make more certain hwaddr gets written out (#143535)
+- Handle new swap label format (#143447)
+- Let the user know they're in rescue mode earlier (clumens, #136171)
+
 * Mon Dec 20 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.7-1
 - Better error handling on device creation (#142273)
 - Reset package selection to defaults if selected (#142415)
