@@ -81,20 +81,23 @@ class LiloConfigFile:
 	    orig = l
 	    while (l and (l[0] == ' ' or l[0] == '\t')):
 		l = l[1:]
-	    if (not l or l[0] == '#'):
-		self.order.append('#' + orig)
+	    if not l:
 		continue
+	    if l[0] == '#':
+		self.order.append('#' + orig)
 	    fields = string.split(l, '=', 1)
 	    if (len(fields) == 2):
-		if (fields[0] == "image" or fields[0] == "other"):
+		f0 = string.strip (fields [0])
+		f1 = string.strip (fields [1])
+		if (f0 == "image" or f0 == "other"):
 		    if image: self.addImage(image)
-		    image = LiloConfigFile(imageType = fields[0], 
-					   path = fields[1])
+		    image = LiloConfigFile(imageType = f0, 
+					   path = f1)
 		    args = None
                 else:
-		    args = (fields[0], fields[1])
+		    args = (f0, f1)
 	    else:
-		args = (l,)
+		args = (string.strip (l),)
 
 	    if (args and image):
 		apply(image.addEntry, args)
