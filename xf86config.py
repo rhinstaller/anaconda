@@ -27,6 +27,7 @@ class XF86Config:
         self.probed = 0
         self.skip = 0
         self.modes = { "8" :  ["640x480"] }
+	self.device = None
 
     def setMouse(self, mouse):
         if mouse:
@@ -123,6 +124,8 @@ class XF86Config:
         if self.vidCards:
             self.devID = self.vidCards[0]["NAME"]
             self.server = self.vidCards[0]["SERVER"]
+            # there are no Cards entries with a DEVICE directive
+            # self.device = self.vidCards[0]["DEVICE"]
 
     def probe (self, probeMonitor = 1):
         if self.probed:
@@ -141,40 +144,46 @@ class XF86Config:
                 self.vidCards.append (self.cards (server[5:]))
             if len (server) > 7 and server[0:7] == "Server:":
                 info = { "NAME" : string.split (descr, '|')[1],
-                         "SERVER" : server[7:] }
+                         "SERVER" : server[7:],
+			 "DEVICE" : device }
                 self.vidCards.append (info)
 
         if self.vidCards:
             self.devID = self.vidCards[0]["NAME"]
             self.server = self.vidCards[0]["SERVER"]
+            # no Cards entries with DEVICE
+            # self.device = self.vidCards[0]["DEVICE"]
 
         # VESA probe for monitor/videoram, etc.
         if probeMonitor:
-            probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
+	    try:
+		probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
 
-            for line in probe:
-                if line and line[:9] == "OEM Name:":
-                    self.cardMan = string.strip (line[10:])
+		for line in probe:
+		    if line and line[:9] == "OEM Name:":
+			self.cardMan = string.strip (line[10:])
 
-                if line and line[:16] == "Memory installed":
-                    memory = string.split (line, '=')
-                    self.vidRam = string.strip (memory[2][:-2])
+		    if line and line[:16] == "Memory installed":
+			memory = string.split (line, '=')
+			self.vidRam = string.strip (memory[2][:-2])
 
-                if line and line[:8] == "EISA ID:":
-                    self.monEisa = line[9:]
-                    self.monID = line[9:]
+		    if line and line[:8] == "EISA ID:":
+			self.monEisa = line[9:]
+			self.monID = line[9:]
 
-                if line and line[:6] == "\tName:":
-                    if not self.monName or len (self.monName) < len (line[7:]):
-                        self.monName = line[7:]
+		    if line and line[:6] == "\tName:":
+			if not self.monName or len (self.monName) < len (line[7:]):
+			    self.monName = line[7:]
 
-                if line and line[:15] == "\tTiming ranges:":
-                    ranges = string.split (line, ',')
-                    self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
-                    self.monVert = string.strip (string.split (ranges[1], '=')[1])
+		    if line and line[:15] == "\tTiming ranges:":
+			ranges = string.split (line, ',')
+			self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
+			self.monVert = string.strip (string.split (ranges[1], '=')[1])
 
-            if self.vidCards and self.cardMan:
-                self.vidCards[0]["VENDOR"] = self.cardMan
+		    if self.vidCards and self.cardMan:
+			self.vidCards[0]["VENDOR"] = self.cardMan
+	    except:
+		pass
 
     def probeReport (self):
         probe = ""

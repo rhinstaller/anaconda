@@ -61,6 +61,8 @@ class Mouse (SimpleConfigFile):
 		("MMSeries", "MMSeries", "ttyS", 1),
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1),
+	"Sun Mouse":
+		("sun", "sun", "sunmouse", 0),
 	}
 
     # XXX fixme - externalize
@@ -92,7 +94,9 @@ class Mouse (SimpleConfigFile):
 	    if (list):
 		(device, module, desc) = list[0]
 
-		if device == "psaux":
+		if device == "sunmouse":
+		    self.set("Sun Mouse", 0)
+		elif device == "psaux":
 		    self.set("Generic - 3 Button Mouse (PS/2)", 0)
 		else:
 		    self.set("Generic - 2 Button Mouse (serial)", 1)

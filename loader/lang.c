@@ -371,6 +371,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     /*if (testing) return 0;*/
 
 #ifdef __sparc__
+#if 0
     if (kickstart) {
     	kbdtype = KBDTYPE_SUN;
 	if (!ksGetCommand(KS_CMD_KBDTYPE, NULL, &argc, &argv)) {
@@ -384,7 +385,9 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	            kbdtype = KBDTYPE_PC;
 	    }
 	}
-    } else {
+    } else
+#endif
+    {
         char twelve = 12;
         int fd;
         
@@ -516,8 +519,6 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	j++;
     }
 #endif	
-    
-    logMessage("using keymap %s", infoTable[num].name);
 
     for (i = 0; i < num; i++) {
 	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {

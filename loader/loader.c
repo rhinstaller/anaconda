@@ -599,8 +599,6 @@ static char * mountHardDrive(struct installMethod * method,
 	
 	label = newtLabel(-1, -1, _("Directory holding Red Hat:"));
 
-	tmpDir = dir ? strdup(dir) : NULL;
-
 	dirEntry = newtEntry(28, 11, dir, 28, &tmpDir, NEWT_ENTRY_SCROLL);
 	
 	entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
@@ -633,8 +631,8 @@ static char * mountHardDrive(struct installMethod * method,
 	
 	if (dir) free(dir);
 	if (tmpDir && *tmpDir) {
+	    /* Protect from form free. */
 	    dir = strdup(tmpDir);
-	    free(tmpDir);
 	} else  {
 	    dir = NULL;
 	}

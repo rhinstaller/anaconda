@@ -15,6 +15,21 @@ from xf86config import XF86Config
 def _(x):
     return x
 
+class FakeDDruid:
+    """A disk druid looking thing for upgrades"""
+    def partitionList (self):
+        return (None, self.partitions)
+        
+    def append (self, name, table):
+        for i in range (len (table)):
+            (type, sector, size) = table[i]
+            if size:
+                self.partitions.append ((name + str (i)),
+                                        "Existing000" + len (self.partitions),
+                                        type)
+    def __init__ (self):
+        self.partitions = []
+        
 class LogFile:
     def __init__ (self):
         self.logFile = open("/dev/tty3", "w")
@@ -392,7 +407,10 @@ class ToDo:
 	self.liloImages = images
 
     def getLiloImages(self):
-	(drives, raid) = self.ddruid.partitionList()
+        if not self.ddruid:
+            raise RuntimeError, "No disk druid object"
+
+        (drives, raid) = self.ddruid.partitionList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
@@ -523,8 +541,18 @@ class ToDo:
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
-            location = "swap"
-            reformat = 1
+            ufs = 0
+            try:
+                isys.makeDevInode(device, '/tmp/' + device)
+            except:
+                pass
+            try:
+                ufs = isys.checkUFS ('/tmp/' + device)
+            except:
+                pass
+            if not ufs:
+                location = "swap"
+                reformat = 1
         self.mounts[location] = (device, fsystem, reformat)
 
     def writeFstab(self):
@@ -904,6 +932,7 @@ class ToDo:
                                     _("Searching for Red Hat Linux installations..."))
         
         drives = self.drives.available ().keys ()
+        self.todo.ddruid = FakeDDruid ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
             
@@ -912,6 +941,7 @@ class ToDo:
             except SystemError:
                 pass
             else:
+                self.todo.ddruid.append (drive, table)
                 for i in range (len (table)):
                     (type, sector, size) = table[i]
                     # 2 is ext2 in balkan speek
@@ -1104,6 +1134,9 @@ class ToDo:
 		else:
 		    self.ddruid.save ()
 		    self.makeFilesystems ()
+            else:
+                (drives, raid) = self.ddruid.partitionList()
+
             self.mountFilesystems ()
 
         if self.upgrade:

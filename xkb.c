@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <fcntl.h>
 #include <Python.h>
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
@@ -9,7 +10,8 @@
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
 #define MAX_COMPONENTS 400
-#define XKB_RULES "/usr/X11R6/lib/X11/xkb/rules/xfree86"
+#define XKB_XFREE86_RULES "/usr/X11R6/lib/X11/xkb/rules/xfree86"
+#define XKB_SUN_RULES "/usr/X11R6/lib/X11/xkb/rules/sun"
 
 PyObject *list_rules ();
 
@@ -36,9 +38,18 @@ list_rules ()
   Bool result;
   int num_comp;
   int i;
+  char *rulesbase = XKB_XFREE86_RULES;
+#ifdef __sparc__
+  int fd;
+  
+  fd = open("/dev/kbd", O_RDONLY);
+  if (fd >= 0) {
+    rulesbase = XKB_SUN_RULES;
+  }
+#endif
 
   list = XkbRF_Create (0,0);
-  result = XkbRF_LoadDescriptionsByName (XKB_RULES, NULL, list);
+  result = XkbRF_LoadDescriptionsByName (rulesbase, NULL, list);
 
   models = PyDict_New ();
   num_comp = min (list->models.num_desc, MAX_COMPONENTS);

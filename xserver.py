@@ -33,20 +33,25 @@ def startX():
             f.close
         except:
             pass
+    elif mouseDev == 'sunmouse':
+	mousePrototol = "Sun"
+	mouseEmulate = 0
     else:
         mouseProtocol = "Microsoft"
 	mouseEmulate = 1
 
     x = XF86Config ((mouseProtocol, mouseEmulate, mouseDev))
     x.probe ()
-    if x.server:
+    if x.server[0:3] == 'Sun':
+	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
+    elif x.server:
         serverPath = '/usr/X11R6/bin/XF86_' + x.server
     else:
         print "Unknown card, falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
 
     if not os.access (serverPath, os.X_OK):
-        print serverpath, "missing.  Falling back to VGA16"
+        print serverPath, "missing.  Falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
         
     settings = { "mouseDev" : '/dev/' + mouseDev ,
@@ -101,8 +106,16 @@ EndSection
     server = os.fork()
     if (not server):
         print "starting", serverPath
-        os.execv(serverPath, [serverPath, ':1', '-xf86config', 
-                 '/tmp/XF86Config', 'vt7'])
+	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
+	    try:
+		os.unlink("/dev/mouse")
+	    except:
+		pass
+	    os.symlink(mouseDev, "/dev/mouse")
+	    os.execv(serverPath, [serverPath, 'vt7', '-dev', '/dev/' + x.device])
+	else:
+	    os.execv(serverPath, [serverPath, ':1', '-xf86config', 
+		     '/tmp/XF86Config', 'vt7'])
 
     # give time for the server to fail (if it is going to fail...)
     time.sleep (1)

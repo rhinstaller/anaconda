@@ -11,7 +11,9 @@ SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
 NETOBJS = net.o
+ifeq (i386, $(ARCH))
 KON = 1
+endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
