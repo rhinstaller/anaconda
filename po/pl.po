@@ -13,9 +13,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-20 12:30+0200\n"
+"PO-Revision-Date: 2004-09-09 14:19+0200\n"
 "Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"Language-Team: POLISH <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -75,13 +75,11 @@ msgstr "Zarzucono połączenie po 50 próbach!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Proszę połącz się ręcznie klientem vnc do %s, celem rozpoczęcia instalacji."
+msgstr "Proszę połącz się ręcznie klientem vnc do %s, celem rozpoczęcia instalacji."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Proszę połącz ręcznie twojego klienta vnc celem rozpoczęcia instalacji."
+msgstr "Proszę połącz ręcznie twojego klienta vnc celem rozpoczęcia instalacji."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -170,13 +168,11 @@ msgstr "Urządzenia wideo nie zostały znalezione, pomyłka"
 
 #: ../anaconda:824 ../anaconda:1084
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-"Nie można zainicjować obiektu stanu urządzenia fizycznego obsługującego X."
+msgstr "Nie można zainicjować obiektu stanu urządzenia fizycznego obsługującego X."
 
 #: ../anaconda:848
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Instalacja w trybie graficznym nie dostępna...  Uruchamiam tryb tekstowy."
+msgstr "Instalacja w trybie graficznym nie dostępna...  Uruchamiam tryb tekstowy."
 
 #: ../anaconda:863
 msgid ""
@@ -197,9 +193,8 @@ msgid "Using mouse type: %s"
 msgstr "Używam mysz typu: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Wyszukiwanie instalacji %s..."
+msgstr "Uruchamiam tryb graficzny instalacji..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -258,12 +253,11 @@ msgstr ""
 "OpenFirmware nie będzie potrafił wystartować systemu."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+#, python-format
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Możliwe że partycja startowa %s nie spełnia wymagań partycji startowej dla "
-"Twojego sprzętu. Bardzo zalecane jest utworzenie dyskietki startowej."
+"Możliwe że partycja startowa %s nie spełnia wymagań stawianych jej przez architekture "
+"twojego systemu."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1079,7 +1073,7 @@ msgstr "_Ponów"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Program instalacyjny zakończy teraz pracę..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1749,8 +1743,7 @@ msgstr ""
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Nie można usunąć tej partycji. To jest partycja rozszerzona która zawiera %s"
+msgstr "Nie można usunąć tej partycji. To jest partycja rozszerzona która zawiera %s"
 
 #: ../partIntfHelpers.py:184
 msgid ""
@@ -1952,8 +1945,7 @@ msgid "Confirm Reset"
 msgstr "Potwierdź Przywrócenie"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Czy jesteś pewien, że chcesz przywrócić tablicę partycji do pierwotnego "
 "stanu?"
@@ -2004,8 +1996,7 @@ msgstr ""
 "zainstalować %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Musisz utworzyć partycję /boot/efi typu FAT o wielkości 50 MB."
 
 #: ../partitions.py:796
@@ -2069,8 +2060,7 @@ msgstr "partycja jest składnikiem grupy wolumenów LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Nieprawidłowy punkt montowania. Katalog %s musi znajdować się w systemie "
 "plików /."
@@ -2093,24 +2083,21 @@ msgstr "Punkt montowania musi znajdować się na linuksowym systemie plików."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Punkt montowania \"%s\" już jest używany. Wybierz inne miejsce montowania."
+msgstr "Punkt montowania \"%s\" już jest używany. Wybierz inne miejsce montowania."
 
 #: ../partRequests.py:278
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Wielkość partycji %s (%10.2f MB) przekracza maksymalną wielkość %10.2f MB."
+msgstr "Wielkość partycji %s (%10.2f MB) przekracza maksymalną wielkość %10.2f MB."
 
 #: ../partRequests.py:469
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Żądana wielkość partycji (= %s MB) przekracza maksymalną wielkość %s MB."
+msgstr "Żądana wielkość partycji (= %s MB) przekracza maksymalną wielkość %s MB."
 
 #: ../partRequests.py:474
 #, python-format
@@ -2166,8 +2153,7 @@ msgstr "Anulowane"
 
 #: ../rescue.py:224 ../text.py:482
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Nie mogę cofnąć się do poprzedniego kroku. Możesz spróbować jeszcze raz."
+msgstr "Nie mogę cofnąć się do poprzedniego kroku. Możesz spróbować jeszcze raz."
 
 #: ../rescue.py:240 ../rescue.py:275 ../rescue.py:432
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2318,8 +2304,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> pomoc | <Tab> pomiędzy elementami | <Spacja> wybór | <F12> następny "
 "ekran"
@@ -2328,8 +2313,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> następne pole | <Spacja> wybór | <F12> następny ekran "
+msgstr "  <Tab>/<Alt-Tab> następne pole | <Spacja> wybór | <F12> następny ekran "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2591,56 +2575,54 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"Maszyny typu zSeries mogą korzystać z urządzeń w standardzie SCSI przez Fibre Channel "
+"(FCP). Musisz podać 5 parametrów dla każdego urządzenia: 16 bitowy numer urządzenia, "
+"16 bitowe SCSI ID, 64 bitowy World Wide Port Number (WWPN), 16 bitowy SCSI LUN "
+"i 64 bitowy FCP LUN."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Urządzenie"
+msgstr "Numer urządzenie"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Nie podano nazwy hosta."
+msgstr "Nie podano numeru urządzenia lub podany numer jest niepoprawny"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Nie podano nazwy hosta."
+msgstr "Nie podano SCSI ID lub podane ID jest niepoprawne."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nie podano nazwy hosta."
+msgstr "Nie podano nazwy wworldwide port name lub podana nazwa jest niepoprawna."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Nie podano nazwy hosta."
+msgstr "Nie podano SCSI LUN lub podany numer jest niepoprawny."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Nie podano nazwy hosta."
+msgstr "Nie podano FCP LUN lub podany numer jest niepoprawny."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Ustal hasło roota"
+msgstr "Ustaw Hasło Root'a"
 
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
@@ -3139,8 +3121,7 @@ msgstr "Za_instaluj pakiety aby spełnić zależności"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr ""
-"_Nie instaluj pakietów wymagających innych, nie wybranych do instalacji"
+msgstr "_Nie instaluj pakietów wymagających innych, nie wybranych do instalacji"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
@@ -3337,7 +3318,6 @@ msgstr ""
 "zewnątrz.  Jakie usługi udostępnić?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3578,8 +3558,7 @@ msgstr "Niepoprawna Nazwa Logicznego Wolumenu"
 #: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1276
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Nazwa logicznego wolumenu \"%s\" jest już wykorzystana. Proszę wybrać inną."
+msgstr "Nazwa logicznego wolumenu \"%s\" jest już wykorzystana. Proszę wybrać inną."
 
 #: ../iw/lvm_dialog_gui.py:577
 #, python-format
@@ -3618,8 +3597,7 @@ msgstr "Brak wolnych slotów"
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Nie można utworzyć więcej niż %s wolumenów logicznych w grupie wolumenów."
+msgstr "Nie można utworzyć więcej niż %s wolumenów logicznych w grupie wolumenów."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -4227,15 +4205,12 @@ msgid "Partitioning"
 msgstr "Definiowanie partycji"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"W żądanym schemacie partycjonowania wykryto następujące błędy krytyczne."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "W żądanym schemacie partycjonowania wykryto następujące błędy krytyczne."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Te błędy muszą zostać skorygowane przed kontynuowaniem instalacji %s."
 
 #: ../iw/partition_gui.py:637
@@ -4248,8 +4223,7 @@ msgstr "Żądany schemat partycjonowania powoduje następujące ostrzeżenia."
 
 #: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
-"Czy chcesz kontynuować instalację z wybranym schematem partycjonowania?"
+msgstr "Czy chcesz kontynuować instalację z wybranym schematem partycjonowania?"
 
 #: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
@@ -4419,8 +4393,7 @@ msgstr "Automatyczne Definiowanie Partycji"
 #: ../iw/partition_gui.py:1440
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
+msgstr "Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
 
 #: ../iw/partition_gui.py:1482
 msgid "I want to have automatic partitioning:"
@@ -4732,8 +4705,7 @@ msgstr "Klonuj Dyski"
 
 #: ../iw/raid_dialog_gui.py:643
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Podczas kasowania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
+msgstr "Podczas kasowania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
 
 #: ../iw/raid_dialog_gui.py:677
 msgid ""
@@ -4864,8 +4836,7 @@ msgstr "To uaktualni Twój obecny boot loader."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Program instalacyjny wykrył boot loader %s zainstalowany na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -5000,10 +4971,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Plik swap musi mieć wielkość pomiędzy 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Na wybranym urządzeniu jest zbyt mało miejsca, aby utworzyć partycję swap."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Na wybranym urządzeniu jest zbyt mało miejsca, aby utworzyć partycję swap."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5176,34 +5145,33 @@ msgid "_Skip X configuration"
 msgstr "_Pomiń Konfigurację X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Konfiguracja VNC"
+msgstr "Konfiguracja ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Usuń"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Urządzenia"
+msgstr "Urządzenia FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Dodanie urządzenia"
+msgstr "Dodaj urządzenie FCP"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Edytuj Urządzenie RAID"
+msgstr "Edytuj urządzenie FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Masz zamiar usunąć dysk typu FCP ze swojej konfiguracji. Czy jesteś pewien że "
+"chcesz kontynuować?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5368,8 +5336,7 @@ msgstr ""
 "tych partycji."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 "<Spacja> wybiera przycisk | <F2> wybierz domyślny start | <F12> następny "
 "ekran"
@@ -5808,10 +5775,8 @@ msgid "Select individual packages"
 msgstr "Wybierz poszczególne pakiety"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Spacja>,<+>,<-> wybór      |   <F2> Detale grupy  |   <F12> następny ekran"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Spacja>,<+>,<-> wybór      |   <F2> Detale grupy  |   <F12> następny ekran"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5835,8 +5800,7 @@ msgid "Total size"
 msgstr "Całkowity rozmiar"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Spacja>,<+>,<-> wybór      |   <F1> pomoc  |   <F2> opis pakietu"
 
 #: ../textw/packages_text.py:374
@@ -5927,9 +5891,8 @@ msgid "End Cylinder:"
 msgstr "Końcowy cylinder:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Nazwa Grupy Wolumenów:"
+msgstr "Grupa Wolumenów:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6052,24 +6015,21 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksymalna liczba dysków zapasowych  w macierzy RAID-0 to 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Grupy wolumenów LVM"
+msgstr "Brak Grupy Wolumenów"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Proszę podać nazwę wolumenu logicznego."
+msgstr "Brak grup wolumenów w której możnaby utworzyć wolumen logiczny."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Żądany rozmiar (%10.2f MB) jest większy niż maksymalny rozmiar logicznego "
-"wolumenu (%10.2f MB). Aby zwiększyć to ograniczenie, możesz powiększyć "
-"rozmiar ekstentu fizycznego dla tej grupy wolumenów."
+"wolumenu (%10.2f MB). "
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6077,26 +6037,24 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Żądany rozmiar (%10.2f MB) jest większy niż dostępny rozmiar logicznego "
+"wolumenu (%10.2f MB). "
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Edytuj Logiczny Wolumen"
+msgstr "Nowa Partycja lub Wolumen Logiczny"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Partycji bootowalnych nie można tworzyć na wolumenach logicznych."
+msgstr "Czy chcesz utworzyć nową partycje lub nowy wolumen logiczny?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partycja"
+msgstr "partycja"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Logiczne Wolumeny"
+msgstr "logiczny wolumen"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6111,8 +6069,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Pomoc    F2-Nowa     F3-Edytuj   F4-Usuń    F5-Przywróć    F12-"
 "OK      "
@@ -6359,14 +6316,11 @@ msgid "User Exists"
 msgstr "użytkownik już istnieje"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Użytkownik root już został dodany. Nie trzeba dodawać tego użytkownika."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Użytkownik root już został dodany. Nie trzeba dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "Ten użytkownik już został dodany. Nie trzeba dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:171
@@ -6696,40 +6650,36 @@ msgid "Video RAM:"
 msgstr "RAM karty:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Urządzenie"
+msgstr "Numer urządzenie:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Urządzenie"
+msgstr "Urządzenie FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Urządzenie"
+msgstr "Urządzenie #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Usuń"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6968,8 +6918,7 @@ msgstr "Nie udało się załadować z pliku dyskietki ze sterownikami."
 #: ../loader2/driverdisk.c:379
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
+msgstr "Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
 
 #: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
@@ -7151,7 +7100,7 @@ msgstr "Nie można znaleźć pliku kickstart na dysku twardym."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Nie można znaleźć dysku twardego odpowiadajacego dyskowi %s w BIOSie"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7191,10 +7140,8 @@ msgid "Welcome to %s"
 msgstr "Witamy w %s  "
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> następny element | <Space> wybór | <F12> następny ekran "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> następny element | <Space> wybór | <F12> następny ekran "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7772,8 +7719,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Czas Atlantycki - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Czas Atlantycki - Nowa Szkocja (większość lokalizacji), NB, W Labrador, E "
 "Quebec & PEI"
@@ -7800,7 +7746,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7881,7 +7827,7 @@ msgstr "Wyspy Chatham"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7964,8 +7910,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Czas Wschodni - Ontario - większość lokalizacji "
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Czas Wschodni- Ontario i Quebec -lokalizacje bez DST 1967-1973"
 
 #. generated from zone.tab
@@ -7978,8 +7923,7 @@ msgstr "Czas Wschodni - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"wschodnie i południowe Borneo, Celebes, Bali, Nusa Tengarra, zachodni Timor"
+msgstr "wschodnie i południowe Borneo, Celebes, Bali, Nusa Tengarra, zachodni Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -8039,7 +7983,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8160,20 +8104,16 @@ msgid "most locations"
 msgstr "większość lokalizacji"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
-"większość lokalizacji (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "większość lokalizacji (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Czas Standardowy Górski - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Czas Standardowy Górski - Dawson Creek i Fort Saint John, Brytyjska Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Czas Standardowy Górski - Dawson Creek i Fort Saint John, Brytyjska Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8185,8 +8125,7 @@ msgstr "Czas Górski"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Czas Górski - Alberta, wschodnia Kolumbia Brytyjska i zachodnie Saskatchewan"
+msgstr "Czas Górski - Alberta, wschodnia Kolumbia Brytyjska i zachodnie Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -8312,11 +8251,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8372,7 +8311,7 @@ msgstr "Tybet i większość Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -8385,7 +8324,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8448,9 +8387,8 @@ msgid "Bengali"
 msgstr "Bengalski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Węgierski"
+msgstr "Bułgarski"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8549,9 +8487,8 @@ msgid "Persian"
 msgstr "Perski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Angielski"
+msgstr "Polski"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8609,5 +8546,3 @@ msgstr "Walijski"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Wschodnia Argentyna (BA, DF, SC, TF)"
