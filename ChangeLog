@@ -1,5 +1,10 @@
 2005-01-04  Jeremy Katz  <katzj@redhat.com>
 
+	* partedUtils.py (getDefaultDiskType): the default disk type on
+	s390 should be dasd, but we can't format those with parted and if
+	we get here, we're formatting an fcp disk which should 
+	be msdos (#144199)
+
 	* loader2/net.c: Fix multiple dns servers being specified on the
 	command line.  Again.  Patch from Matthew Miller (#84409)
 
