@@ -136,12 +136,13 @@ class NetworkWindow(InstallWindow):
     def setHostOptionsSensitivity(self):
         # figure out if they have overridden using dhcp for hostname
 	if self.anyUsingDHCP():
+	    self.hostnameUseDHCP.set_sensitive(1)
+
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 		self.hostnameManual.set_active(1)
 		self.hostnameManual.set_sensitive(1)
 	    else:
 		self.hostnameUseDHCP.set_active(1)
-		self.hostnameUseDHCP.set_sensitive(1)
 	else:
 	    self.hostnameManual.set_active(1)
 	    self.hostnameUseDHCP.set_sensitive(0)
