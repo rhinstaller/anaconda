@@ -22,7 +22,7 @@ extern int errno;
 
 /* from /usr/include/bits/sigset.h */
 /* A `sigset_t' has a bit for each signal.  */
-
+#if defined(__i386__)
 #define _SIGSET_NWORDS (1024 / (8 * sizeof (unsigned long int)))
 typedef struct
   {
@@ -31,6 +31,7 @@ typedef struct
 
 /* from /usr/include/signal.h */
 typedef __sigset_t sigset_t;
+#endif
 
 /* Aieee, gcc 2.95+ creates a stub for posix_types.h on i386 which brings
    glibc headers in and thus makes __FD_SET etc. not defined with 2.3+ kernels. */
@@ -50,8 +51,15 @@ typedef __sigset_t sigset_t;
 #include <asm/signal.h>
 #include <asm/stat.h>
 
-void * alloca(int size);
+void * alloca(size_t size);
 void exit(int arg);
+
+/* x86_64 doesn't have some old crufty syscalls */
+#if defined(__x86_64__) 
+#define __NR__newselect __NR_select
+#define __NR_socketcall __NR_socket
+#endif
+
 
 #ifndef MINILIBC_INTERNAL
 static inline _syscall5(int,mount,const char *,spec,const char *,dir,const char *,type,unsigned long,rwflag,const void *,data);
@@ -123,15 +131,15 @@ inline int socket(int a, int b, int c);
 inline int bind(int a, void * b, int c);
 inline int listen(int a, int b);
 inline int accept(int a, void * addr, void * addr2);
-int strlen(const char * string);
+size_t strlen(const char * string);
 char * strcpy(char * dst, const char * src);
 void * memcpy(void * dst, const void * src, size_t count);
 void sleep(int secs);
 int strcmp(const char * a, const char * b);
-int strncmp(const char * a, const char * b, int len);
+int strncmp(const char * a, const char * b, size_t len);
 void printint(int i);
-void printf(char * fmt, ...);
+int printf(char * fmt, ...);
 char * strchr(char * str, int ch);
-char * strncpy(char * dst, const char * src, int len);
+char * strncpy(char * dst, const char * src, size_t len);
 
 void printstr(char * string);

@@ -57,17 +57,17 @@ inline int accept(int a, void * addr, void * addr2) {
     return socketcall(SYS_ACCEPT, args);
 }
 
-int strlen(const char * string) {
-    int i = 0;
+size_t strlen(const char * string) {
+    size_t i = 0;
 
     while (*string++) i++;
 
     return i;
 }
 
-char * strncpy(char * dst, const char * src, int len) {
+char * strncpy(char * dst, const char * src, size_t len) {
     char * chptr = dst;
-    int i = 0;
+    size_t i = 0;
 
     while (*src && i < len) *dst++ = *src++, i++;
     if (i < len) *dst = '\0';
@@ -122,7 +122,7 @@ int strcmp(const char * a, const char * b) {
 	return 1;
 }
 
-int strncmp(const char * a, const char * b, int len) {
+int strncmp(const char * a, const char * b, size_t len) {
     char buf1[1000], buf2[1000];
 
     strncpy(buf1, a, len);
@@ -169,7 +169,7 @@ char * strchr(char * str, int ch) {
     return NULL;
 }
 
-void printf(char * fmt, ...) {
+int printf(char * fmt, ...) {
     char buf[2048];
     char * start = buf;
     char * chptr = buf;
@@ -205,4 +205,5 @@ void printf(char * fmt, ...) {
 	    start = NULL;
 	}
     }
+    return 0;
 }
