@@ -18,7 +18,7 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
 /* Added support for I2O Block devices: Boji Kannanthanam 
 	<boji.t.Kannanthanam@intel.com> */
-static int I2OGetDevices(struct knownDevices * devices);
+static int ProcPartitionsGetDevices(struct knownDevices * devices);
 
 static int readFD (int fd, char **buf)
 {
@@ -239,11 +239,12 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     struct kddevice device;
     int val = 0;
 
+    ProcPartitionsGetDevices(devices);
+    
     if (access("/proc/scsi/scsi", R_OK)) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
-	I2OGetDevices(devices);
 	return 0;
     }
 
@@ -262,7 +263,6 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
-	I2OGetDevices(devices);
 	goto bye;
     }
 
@@ -394,7 +394,6 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
-    I2OGetDevices(devices);
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -505,11 +504,11 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     return 0;
 }
 
-static int I2OGetDevices(struct knownDevices * devices) {
+static int ProcPartitionsGetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;
     int fd, i;
     char *buf;
-    char * start, *chptr, *next, *end;
+    char * start, *chptr, *next, *end, *model;
     char ctl[40];
 
     /* Read from /proc/partitions */
@@ -546,34 +545,38 @@ static int I2OGetDevices(struct knownDevices * devices) {
 	*chptr = '\0';
 	next = chptr + 1;
 
-	/*get rid of anything which is not alpha */
-	while ( !(isalpha(*start)) ) start++;
-		
-	/* See if it is an I2O Block device */
-	if( ! strncmp("i2o/", start, 4))
-	    {
-		i = 0;
-		while( !(isspace(*start)) ) 
-		    {
-			ctl[i] = *start;
-			i++;
-			start++;
-		    }
-		ctl[i] = '\0';
-    		if (i < 1) { 
-		    free (buf);
-		    return 1; 
+	/* get rid of anything which is not alpha */
+	while (!(isalpha(*start))) start++;
+
+	model = NULL;
+	    
+	if (!strncmp("i2o/", start, 4))
+	   model = "I2O Block Device";
+	else if (!strncmp("ataraid/", start, 8))
+	    model = "ATARAID Block Device";
+
+	if (model) {
+	    i = 0;
+	    while(!(isspace(*start))) {
+		ctl[i] = *start;
+		i++;
+		start++;
+	    }
+	    ctl[i] = '\0';
+	    if (i < 1) { 
+		free (buf);
+		return 1; 
+	    }
+	    /* We don't want partitions just the disks ! */
+	    if (!isdigit(ctl[i-1])){
+		if (!deviceKnown(devices, ctl)) {
+		    newDevice.name = strdup(ctl);
+		    newDevice.model = strdup(model);
+		    newDevice.class = CLASS_HD;
+		    addDevice(devices, newDevice);
 		}
-		/* We don't want partitions just the disks ! */
-		if ( !isdigit(ctl[i-1]) ){
-		    if (!deviceKnown(devices, ctl)) {
-			newDevice.name = strdup(ctl);
-			newDevice.model = strdup("I2O Block Device");
-			newDevice.class = CLASS_HD;
-			addDevice(devices, newDevice);
-		    }
-		}
-	    } /* end of if it is an i2o device */
+	    }
+	} /* end of if it is an /proc/partition device */
 	start = next;
 	end = start + strlen(start);
     } /* end of while */

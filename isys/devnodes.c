@@ -164,6 +164,12 @@ int devMakeInode(char * devName, char * path) {
 	minor = (devName[9] - '0') * 16;  /* disk */
 	if (strlen(devName) > 10)          /* partition */
 	    minor += atoi(devName + 11);
+    } else if (!strncmp(devName, "ataraid/", 8)) {
+	type = S_IFBLK;
+	major = 114;    /* controller */
+	minor = (devName[9] - '0') * 16;  /* disk */
+	if (strlen(devName) > 10)          /* partition */
+	    minor += atoi(devName + 11);
  } else if (!strncmp(devName, "i2o/", 4)) {
         /* I2O Block Device "i2o/hda */
         type = S_IFBLK;
