@@ -14,29 +14,30 @@
 #
 
 import string
+from simpleconfig import SimpleConfigFile
 from log import log
 
-class Desktop:
+class Desktop (SimpleConfigFile):
 #
 # This class represents the default desktop to run and the default runlevel
 # to start in
 #
-    def setDefaultDesktop(self, desktop):
-        self.desktop = desktop
-
     def setDefaultRunLevel(self, runlevel):
         if str(runlevel) != "3" and str(runlevel) != "5":
             raise RuntimeError, "Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!"
         self.runlevel = runlevel
 
-    def getDefaultDesktop(self):
-        return self.desktop
-
     def getDefaultRunLevel(self):
         return self.runlevel
 
+    def setDefaultDesktop(self, desktop):
+        self.info["DESKTOP"] = desktop
+
+    def getDefaultDesktop(self):
+        return self.get("DESKTOP")
+
     def __init__ (self):
-        self.desktop = None
+        SimpleConfigFile.__init__ (self)
         self.runlevel = 3
 
     def write (self, instPath):
@@ -55,3 +56,9 @@ class Desktop:
                 line = string.join (fields, ':')
             inittab.write (line)
         inittab.close ()
+
+	f = open(instPath + "/etc/sysconfig/desktop", "w")
+	f.write(str (self))
+	f.close()
+
+

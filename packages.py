@@ -44,7 +44,7 @@ def queryUpgradeContinue(intf, dir):
 def writeConfiguration(id, instPath):
     log("Writing main configuration")
     if not flags.test:
-	id.write(instPath)
+        id.write(instPath)
 
 def writeKSConfiguration(id, instPath):
     log("Writing autokickstart file")
@@ -79,6 +79,7 @@ def writeXConfiguration(id, instPath):
         fn = "/tmp/"
 
     id.xconfig.write(fn+"/etc/X11")
+    id.desktop.write(instpath)
 
 def readPackages(intf, method, id):
     if (not id.hdList):

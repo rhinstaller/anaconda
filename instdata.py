@@ -104,7 +104,6 @@ class InstallData:
 	self.firewall.write (instPath)
         self.rootPassword.write (instPath, self.auth)
         self.accounts.write (instPath, self.auth)
-        self.desktop.write (instPath)
         self.fsset.write (instPath)
 
     def writeKS(self, filename):
