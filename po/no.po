@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-05 02:35+0200\n"
+"PO-Revision-Date: 2004-10-05 14:19+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2485,15 +2485,11 @@ msgstr ""
 "systemet ender som ubrukelig. Vil du fortsette oppgraderingsprosessen?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Arkitekturen for utgaven av %s du oppgraderer til ser ut til å være %s "
-"hvilket ikke stemmer overens med din tidligere installerte arkitektur %s. "
-"Dette vil sannsynligvis ikke fungere. Er du sikker på at du ønsker å "
-"fortsette oppgraderingen?"
+msgstr "Det ser ut som om systemet du oppgraderer fra er for gammelt til å oppgradere til denne versjonen av %s. Er du sikker på at du ønsker å fortsette oppgraderingen?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2568,7 +2564,6 @@ msgid "DDC Probed Monitor"
 msgstr "DDC-monitor"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -3309,14 +3304,11 @@ msgid "_Enable firewall"
 msgstr "_Aktiver brannmur"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
-msgstr ""
-"Du vil kanskje gi tilgang til andre for spesifikke tjenester på din "
-"datamaskin med en brannvegg. Hvilke tjenester vil du gi tilgang til?"
+msgstr "Du kan bruke en brannvegg til å gi tilgang til andre for spesifikke tjenester på din datamaskin. Hvilke tjenester vil du gi tilgang til?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -6019,9 +6011,8 @@ msgid "No Volume Groups"
 msgstr "Ingen volumgrupper"
 
 #: ../textw/partition_text.py:1173
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Ingen volumgrupper å opprette logisk volum i."
+msgstr "Det finnes ingen volumgrupper for oppretting av et logisk volum"
 
 #: ../textw/partition_text.py:1289
 #, python-format
@@ -6716,7 +6707,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6728,7 +6718,7 @@ msgid ""
 msgstr ""
 "\tSkrivebordsmiljø (GNOME)\n"
 "\tKontorstøtte (OpenOffice.org)\n"
-"\tNettleser (Mozilla)\n"
+"\tNettleser\n"
 "\tE-post (Evolution)\n"
 "\tØyeblikksmeldinger\n"
 "\tProgrammer for lyd og bildebehandling\n"
@@ -6736,7 +6726,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6746,21 +6736,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tAdministrasjonsverktøy\n"
+"\tKonfigurasjonsverktøy for tjenere\n"
+"\tWeb-tjener\n"
+"\tWindows filtjener (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux skrivebord"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6774,7 +6768,7 @@ msgid ""
 msgstr ""
 "\tSkrivebordsmiljø (GNOME)\n"
 "\tKontorstøtte (OpenOffice.org)\n"
-"\tNettleser (Mozilla)\n"
+"\tNettleser\n"
 "\tE-post (Evolution)\n"
 "\tØyeblikksmeldinger\n"
 "\tProgrammer for lyd og bildebehandling\n"
@@ -8377,9 +8371,8 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengali"
+msgstr "Bengali (India)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8435,7 +8428,7 @@ msgstr "Tysk"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8541,47 +8534,6 @@ msgstr "Zulu"
 #~ "Oppgraderinger til denne versjonen av %s er bare støttet for Red Hat "
 #~ "Linux 6.2 og nyere. Dette synes å være et eldre system. Ønsker du å "
 #~ "fortsette oppgraderingsprosssen?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser (Mozilla)\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser (Mozilla)\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-#~ "\tVerktøy for programvareutvikling\n"
-#~ "\tAdministrasjonsverktøy\n"
 
 #~ msgid "Physical Extent:"
 #~ msgstr "Fysisk utbredelse:"
