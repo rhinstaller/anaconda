@@ -677,7 +677,7 @@ EOF
     done
 
     ln -s /usr/bin/sh $MBD_DIR/sbin/sh
-    ln -s /sbin/init $MBD_DIR/linuxrc
+    ln -s /sbin/init $MBD_DIR/init
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 

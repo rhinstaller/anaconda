@@ -1,5 +1,8 @@
 2004-11-17  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images (makeinitrd): initramfs execs on /init
+	instead of /linuxrc
+
 	* scripts/upd-instroot: Update python version in urllib hack
 
 2004-11-16  Jeremy Katz  <katzj@redhat.com>
