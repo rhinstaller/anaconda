@@ -1,11 +1,4 @@
 #!/bin/bash
-# Until someone has a better idea how to handle stripped
-# down rpm-packages for the s390 installer:
-#
-# export a variable LOCALRPMDIR if you need some special packages
-# for the installer that you don't want to have in the normal
-# RPM directory !
-
 
 ORIGDIR=`pwd`
 COMPONENT=""
@@ -60,19 +53,8 @@ prunePackageList() {
 	PATTERN=""
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
-       LOCALFOUND=""
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-       if [ -n "$LOCALRPMDIR" ]; then
-           LOCALFOUND="$(ls $LOCALRPMDIR/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
-           if [ -n "$LOCALFOUND" ]; then
-               echo "Found local: $(basename $LOCALFOUND)" >/dev/stderr
-               LOCALFILES="$LOCALFILES $LOCALFOUND"
-           else
-               PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
-           fi
-       else
-           PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
-       fi
+            PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
 	done
 
 	# gtk+, enough said
@@ -82,10 +64,6 @@ prunePackageList() {
 
 	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
-   if [ -n "$LOCALFILES" ]; then
-      rpm --qf "%{NAME} $LOCALRPMDIR/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
-          -qp $LOCALFILES  | egrep "$PATTERN"  | sed 's/.* //'
-   fi
 }
 
 expandPackageSet() {
@@ -137,7 +115,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils binutils s390installer libgcc
+    PACKAGES="$PACKAGES s390utils binutils libgcc
 	sed net-tools inetd openssh openssh-server coreutils modutils
 	initscripts gawk xauth bash pygtk2 portmap pam libcrack
 	telnet-server login ssh_keys mount grep"
@@ -207,7 +185,7 @@ fi
 # special packages for particular arches
 #
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils binutils s390installer
+    PACKAGESGR="$PACKAGESGR s390utils binutils
 	sed net-tools inetd openssh openssh-server coreutils login 
 	initscripts xauth bash tcp_wrappers
 	modutils portmap openssl telnet-server strace ssh_keys"
@@ -382,7 +360,6 @@ EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
-linuxrc
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/k/kterm
@@ -447,8 +424,8 @@ $LIBDIR/libresolv.so*
 $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
 lib/modules/ibm*
-etc/inetd.conf
-etc/ssh/*
+etc/xinetd.conf
+etc/xinetd.d/telnet
 etc/pam.d/sshd
 etc/pam.d/login
 etc/pam.d/system-auth

@@ -56,15 +56,12 @@ ifeq (i386, $(ARCH))
 COPTS += -DUSE_LOGDEV
 endif
 
-ifeq (s390, $(ARCH))
+ifneq (,$(filter s390,$(ARCH)))
 BINS += loader
 COPTS += -DUSE_LOGDEV
+S390FILES =  linuxrc.s390
 endif
 
-ifeq (s390x, $(ARCH))
-BINS += loader
-COPTS += -DUSE_LOGDEV
-endif
 # translation stuff
 LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
 
@@ -133,6 +130,9 @@ install: all
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
+	for n in $(S390FILES); do \
+	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
+	done
 
 ifeq (.depend,$(wildcard .depend))
 include .depend

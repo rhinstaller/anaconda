@@ -118,7 +118,6 @@ makeS390initrd() {
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
     fi
 
-    echo "PermitEmptyPasswords yes" >> $MBD_DIR/etc/ssh/sshd_config
     cat > $MBD_DIR/etc/passwd << EOF
 root::0:0:root:/tmp:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
@@ -167,11 +166,11 @@ EOF
 
     mkdir -p $MBD_DIR/lib $MBD_DIR/usr/kerberos/lib $MBD_DIR/mnt1 \
      $MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh $MBD_DIR/mnt/source \
-     $MBD_DIR/usr/lib/gconv/
+     $MBD_DIR/usr/lib/gconv/ $MBD_DIR/etc/xinetd.d
     for links in X11R6 bin sbin share; do
        ln -sf /mnt/runtime/usr/$links $MBD_DIR/usr/$links
     done
-    cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
+    cp -f $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/linuxrc
     ln -s ../linuxrc $MBD_DIR/sbin/init
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
     ln -sf bash $MBD_DIR/sbin/sh
@@ -198,12 +197,51 @@ EOF
     install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
     install -m 755 $IMGPATH/usr/sbin/ldconfig $MBD_DIR/sbin/ldconfig
     cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
-    cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
+    cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/sbin/route $MBD_DIR/sbin/route
     cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
-    cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
-    cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
+    cp -f $IMGPATH/etc/xinetd.conf $MBD_DIR/etc/xinetd.conf
+    # key generation takes ages on s390, you really don't want this for every
+    # installation attempt. These are NOT the keys of the installed system!
+    echo -n "Generating SSH1 RSA host key: "
+    /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
+                        -C '' -N '' >&/dev/null
+    chmod 600 $MBD_DIR/etc/ssh/ssh_host_key
+    chmod 644 $MBD_DIR/etc/ssh/ssh_host_key.pub
+    echo
+    echo -n "Generating SSH2 RSA host key: "
+    /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
+                        -C '' -N '' >&/dev/null
+    chmod 600 $MBD_DIR/etc/ssh/ssh_host_rsa_key
+    chmod 644 $MBD_DIR/etc/ssh/ssh_host_rsa_key.pub
+    echo
+    echo -n "Generating SSH2 DSA host key: "
+    /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
+                        -C '' -N '' >&/dev/null
+    chmod 600 $MBD_DIR/etc/ssh/ssh_host_dsa_key
+    chmod 644 $MBD_DIR/etc/ssh/ssh_host_dsa_key.pub
+    echo
+    cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
+Port 22
+HostKey /etc/ssh/ssh_host_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+PermitRootLogin yes
+IgnoreRhosts yes
+StrictModes yes
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd yes
+XAuthLocation /sbin/xauth
+KeepAlive yes
+SyslogFacility AUTHPRIV
+RhostsAuthentication no
+RSAAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+EOF
+
     for file in ISO8859-15.so EUC-JP.so libJIS.so gconv-modules; do
        cp -f $IMGPATH/usr/lib/gconv/$file $MBD_DIR/usr/lib/gconv/$file
     done
