@@ -85,6 +85,8 @@ class UpgradeExamineWindow:
             height = min (len (parts), 12)
             if height == 12:
                 scroll = 1
+            else:
+                scroll = 0
 
             (button, choice) = \
                 ListboxChoiceWindow(screen, _("System to Upgrade"),
