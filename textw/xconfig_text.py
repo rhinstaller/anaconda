@@ -19,8 +19,11 @@ from rhpl.translate import _
 from rhpl.monitor import isValidSyncRange
 from rhpl.videocard import Videocard_blacklist
 
+from desktop import ENABLE_DESKTOP_CHOICE
+
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
+
 
 class XCustomWindow:
 
@@ -201,7 +204,7 @@ class XCustomWindow:
             customgrid.setField (reschangebutton, 2, 1, (0, 0, 0, 1),
                                  anchorLeft = 1)
 
-            if gnomeSelected or kdeSelected:
+            if (ENABLE_DESKTOP_CHOICE) and (gnomeSelected or kdeSelected):
                 desktopgrid = Grid(3,2)
                 label = Label(_("Default Desktop:"))
                 desktopgrid.setField(label, 0, 1, (0, 0, 0, 1), anchorLeft = 1)
