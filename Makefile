@@ -99,4 +99,4 @@ create-archive:
 	@cp /tmp/anaconda-reconfig-$(VERSION).tar.gz .
 	@rm -f /tmp/anaconda-reconfig-$(VERSION).tar.gz
 	@echo ""
-	@echo "The final archive is in anaconda-$(VERSION).tar.gz"
+	@echo "The final archive is in anaconda-reconfig-$(VERSION).tar.gz"
