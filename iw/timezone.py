@@ -78,6 +78,23 @@ class TimezoneWindow (InstallWindow):
     def fixUp (self):
 	pass
 
+    def copy_toggled (self, cb1, cb2):
+        if cb1.get_data ("toggling"): return
+        
+        cb2.set_data ("toggling", 1)
+        cb2.set_active (cb1.get_active ())
+        cb2.set_data ("toggling", 0)
+        
+    def switchPage (self, nb, page, page_num, *args):
+        if page_num == 1:
+            self.systemUTC.reparent (self.p2_align)
+#            self.p1_align.remove (self.systemUTC)
+#            self.p2_align.add (self.systemUTC)
+        elif self.systemUTC["parent"] == self.p2_align:
+            self.systemUTC.reparent (self.p1_align)
+#            self.p2_align.remove (self.systemUTC)
+#            self.p1_align.add (self.systemUTC)
+
     def getScreen (self):
         try:
             f = open ("/usr/share/anaconda/map480.png")
@@ -113,7 +130,26 @@ class TimezoneWindow (InstallWindow):
         label = GtkLabel (_("View:"))
         hbox = GtkHBox (FALSE, 5)
         hbox.pack_start (label, FALSE)
-        hbox.pack_start (views, FALSE)
+        align = GtkAlignment (0.5, 0.5)
+        align.add (views)
+        hbox.pack_start (align, FALSE)
+        self.p1_align = align
+
+        systemUTCCopy = GtkCheckButton (_("System clock uses UTC"))
+        systemUTCCopy.toggling = 0
+
+        self.systemUTC = GtkCheckButton (_("System clock uses UTC"))
+        self.systemUTC.toggling = 0
+
+        systemUTCCopy.connect ("toggled", self.copy_toggled, self.systemUTC)
+        self.systemUTC.connect ("toggled", self.copy_toggled, systemUTCCopy)
+
+        self.systemUTC.set_active (asUTC)
+
+        align = GtkAlignment (0.5, 0.5)
+        align.add (self.systemUTC)
+        hbox.pack_start (align, FALSE)
+
         im = self.ics.readPixmap ("timezone.png")
         if im:
             im.render ()
@@ -147,12 +183,19 @@ class TimezoneWindow (InstallWindow):
         list.select_row (15, 0)
         sw.add (list)
         tzBox.pack_start (sw)
-        align = GtkAlignment (0, 0)
+        box = GtkHBox (FALSE)
+        align = GtkAlignment (0.5, 0.5)
         daylightCB = GtkCheckButton (_("Use Daylight Saving Time"))
         align.add (daylightCB)
-        tzBox.pack_start (align, FALSE)
+        box.pack_start (align, FALSE)
+
+        align = GtkAlignment (1.0, 0.5)
+        align.add (systemUTCCopy)
+
+        box.pack_start (align, TRUE)
+        tzBox.pack_start (box, FALSE)
         tzBox.set_border_width (5)
-        
+        self.tzBox = tzBox
 
         mainBox.set_border_width (5)
 	nb.append_page (mainBox, GtkLabel (_("Location")))
@@ -160,11 +203,12 @@ class TimezoneWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 5)
         box.pack_start (nb)
-        self.systemUTC = GtkCheckButton (_("System clock uses UTC"))
-        self.systemUTC.set_active (asUTC)
-        align = GtkAlignment (0, 0)
-        align.add (self.systemUTC)
-        box.pack_start (align, FALSE)
+#        self.systemUTC = GtkCheckButton (_("System clock uses UTC"))
+#        self.systemUTC.set_active (asUTC)
+#        align = GtkAlignment (0, 0)
+#        align.add (self.systemUTC)
+#        box.pack_start (align, FALSE)
         box.set_border_width (5)
+
         return box
 

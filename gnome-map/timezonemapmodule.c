@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <math.h>
+#include <string.h>
 
 #include <Python.h>
 
@@ -343,10 +344,23 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 
     /* keep status bar from flickering */
     gtk_label_get (GTK_LABEL (GTK_STATUSBAR (mapdata->statusbar)->label), &status_text);
-    if (strcmp (status_text, loc->zone) != 0)
+    if (strncmp (status_text, loc->zone, strlen (loc->zone)) != 0)
       {
+	char *newstr;
+	char *sep = " - ";
+
 	gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
-	gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, loc->zone);
+	newstr = (char *) malloc (strlen (loc->zone) + strlen (sep) + 
+				  ((loc->comment) ? strlen (loc->comment) : 0) + 1);
+	strcpy (newstr, loc->zone);
+	if (loc->comment)
+	  {
+	    strcat (newstr, sep);
+	    strcat (newstr, loc->comment);
+	  }
+	
+	gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, newstr);
+	free (newstr);
       }
     
     gnome_canvas_points_free (points);
@@ -607,7 +621,7 @@ create_location_list (MapData *mapdata)
     TimeZoneLocation   *loc;
     GtkWidget *scrolledwin;
     /* gchar *titles[] = { "Current Selection", NULL }; */
-    gchar *row[1];
+    gchar *row[2];
     gint i;
 
     ignore_locationlist_selectevents = TRUE;
@@ -616,11 +630,11 @@ create_location_list (MapData *mapdata)
 	scrolledwin = gtk_scrolled_window_new (NULL, NULL);
     
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwin),
-					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+					GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	
 	gtk_widget_show (scrolledwin);
 	
-	mapdata->locationlist = gtk_clist_new (1);
+	mapdata->locationlist = gtk_clist_new (2);
 	
 	gtk_clist_set_selection_mode (GTK_CLIST(mapdata->locationlist), 
 				      GTK_SELECTION_BROWSE);
@@ -643,6 +657,7 @@ create_location_list (MapData *mapdata)
 	    continue;
 
 	row[0] = loc->zone;
+	row[1] = loc->comment;
 	newrow = gtk_clist_append (GTK_CLIST (mapdata->locationlist), row);
 	gtk_clist_set_row_data (GTK_CLIST (mapdata->locationlist), newrow, 
 				GINT_TO_POINTER (i));
@@ -703,6 +718,7 @@ main (int argc, char **argv)
     GtkWidget *aframe;
     GtkWidget *mainwindow;
     MapData *mapdata;
+    GtkWidget *cbutton;
 
     gnome_init ("gglobe", "0.1", argc, argv);
 
@@ -730,6 +746,8 @@ main (int argc, char **argv)
     gtk_box_pack_start (GTK_BOX (hbox2), gtk_label_new ("View: "),
 			FALSE, FALSE, 0);
     gtk_box_pack_start (GTK_BOX (hbox2), viewcombo, FALSE, FALSE, 2);
+    cbutton = gtk_check_button_new_with_label ("System clock uses UTC");
+    gtk_box_pack_start (GTK_BOX (hbox2), cbutton, FALSE, FALSE, 5);
 
     /* put cities on the world map */
 
