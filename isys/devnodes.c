@@ -64,7 +64,8 @@ int devMakeInode(char * devName, char * path) {
 	} else if (devName[3] && islower(devName[3])) {
 	    drive = ((devName[2] - 'a' + 1) * 26) + devName[3] - 'a';
 	    num = devName + 4;	    
-	}
+	} else
+	    drive = devName[2] - 'a';
 	/* only 128 SCSI drives, sorry */
 	if (drive > 128)
 	    return -1;
