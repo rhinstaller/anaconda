@@ -33,40 +33,40 @@ CLASS="COPYRIGHT"
 ><DIV
 CLASS="LEGALNOTICE"
 ><A
-NAME="LEGALNOTICE"
+NAME="AEN7"
 ></A
 ><P
 ></P
 ><P
->	kickstart(EN)-anaconda-HTML-RHI (2003-02-24T01:49)
-      </P
-><P
->	Copyright � 2002 by Red Hat, Inc. This material may be distributed only
-	subject to the terms and conditions set forth in the Open Publication
-	License, V1.0 or later (the latest version is presently available at <A
+>    Copyright <sup
+>TM</sup
+> 2003 by Red Hat, Inc.
+    This material may be distributed only subject to the terms and conditions
+    set forth in the Open Publication License, V1.0 or later (the latest version
+    is presently available at <A
 HREF="http://www.opencontent.org/openpub/"
 TARGET="_top"
 >http://www.opencontent.org/openpub/</A
 >).
-      </P
+  </P
 ><P
->	Distribution of substantively modified versions of this document is
-	prohibited without the explicit permission of the copyright holder.
-      </P
+>    Distribution of substantively modified versions of this document is
+    prohibited without the explicit permission of the copyright holder.
+  </P
 ><P
->	Distribution of the work or derivative of the work in any standard (paper)
-	book form for commercial purposes is prohibited unless prior permission is
-	obtained from the copyright holder.
-      </P
+>    Distribution of the work or derivative of the work in any standard (paper)
+    book form for commercial purposes is prohibited unless prior permission is
+    obtained from the copyright holder.
+  </P
 ><P
->	Red Hat, Red Hat Network, the Red Hat "Shadow Man" logo, RPM, Maximum RPM, the RPM logo, Linux
-	Library, PowerTools, Linux Undercover, RHmember, RHmember More, Rough Cuts,
-	Rawhide and all Red Hat-based trademarks and logos are trademarks or registered
-	trademarks of Red Hat, Inc. in the United States and other countries.
-      </P
+>    Red Hat, Red Hat Network, the Red Hat "Shadow Man" logo, RPM, Maximum RPM, the RPM logo, Linux
+    Library, PowerTools, Linux Undercover, RHmember, RHmember More, Rough Cuts,
+    Rawhide and all Red Hat-based trademarks and logos are trademarks or registered
+    trademarks of Red Hat, Inc. in the United States and other countries.
+  </P
 ><P
->	Linux is a registered trademark of Linus Torvalds.
-      </P
+>    Linux is a registered trademark of Linus Torvalds.
+  </P
 ><P
 ></P
 ></DIV
@@ -75,12 +75,12 @@ TARGET="_top"
 CLASS="CHAPTER"
 ><CHAPTER><H1
 ><A
-NAME="CH-INTRO"
+NAME="CH-KICKSTART2"
 ></A
 >Chapter 1. Introduction</H1
 ><DIV
 CLASS="SECT1"
-><H2
+><SECT1><H2
 CLASS="SECT1"
 ><A
 NAME="S1-KICKSTART2-WHATIS"
@@ -88,21 +88,21 @@ NAME="S1-KICKSTART2-WHATIS"
 >What are Kickstart Installations?</H2
 ><P
 >	Many system administrators would prefer to use an automated installation
-	method to install Red Hat Linux on their machines.  To answer this need, Red Hat
+	method to install Red Hat Enterprise Linux on their machines.  To answer this need, Red Hat
 	created the kickstart installation method.  Using kickstart, a system
 	administrator can create a single file containing the answers to all the
-	questions that would normally be asked during a typical Red Hat Linux
+	questions that would normally be asked during a typical 
 	installation.
       </P
 ><P
 >	Kickstart files can be kept on single server system and read by
 	individual computers during the installation. This installation method
-	can support the use of a single kickstart file to install Red Hat Linux on
+	can support the use of a single kickstart file to install Red Hat Enterprise Linux on
 	multiple machines, making it ideal for network and system
 	administrators.
       </P
 ><P
->	Kickstart lets you automate a Red Hat Linux installation.
+>	Kickstart provides a way for users to automate a Red Hat Enterprise Linux installation.
       </P
 ></DIV
 ><DIV
@@ -163,12 +163,12 @@ CLASS="FILENAME"
 	<TT
 CLASS="FILENAME"
 >RH-DOCS</TT
-> directory of the Red Hat Linux Documentation
+> directory of the Red Hat Enterprise Linux Documentation
 	CD, using the <B
 CLASS="APPLICATION"
 >Kickstart Configurator</B
 >
-	application, or writing it from scratch.  The Red Hat Linux installation program
+	application, or writing it from scratch.  The Red Hat Enterprise Linux installation program
 	also creates a sample kickstart file based on the options that you
 	selected during installation. It is written to the file
 	<TT
@@ -321,12 +321,11 @@ NAME="S1-KICKSTART2-OPTIONS"
 >Chapter 2. Kickstart Options</H1
 ><P
 >	The following options can be placed in a kickstart file. If you prefer
-	to use a graphical interface for creating your kickstart file, 
+	to use a graphical interface for creating your kickstart file, you can
 	use the <B
 CLASS="APPLICATION"
 >Kickstart Configurator</B
->
-	application. 
+> application. 
       </P
 ><DIV
 CLASS="NOTE"
@@ -337,6 +336,11 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -363,6 +367,26 @@ VALIGN="TOP"
 ><DIV
 CLASS="VARIABLELIST"
 ><DL
+><DT
+><TT
+CLASS="COMMAND"
+>autopart</TT
+> (optional)</DT
+><DD
+><P
+>Automatically create partitions &#8212; 1 GB or more root
+	    (<TT
+CLASS="FILENAME"
+>/</TT
+>) partition, a swap partition, and an
+	    appropriate boot partition for the architecture. One or more of the
+	    default partition sizes can be redefined with the
+	    <TT
+CLASS="COMMAND"
+>part</TT
+> directive.
+	    </P
+></DD
 ><DT
 ><TT
 CLASS="COMMAND"
@@ -557,7 +581,8 @@ CLASS="COMMAND"
 		    or <TT
 CLASS="COMMAND"
 >--enableldapauth</TT
->, the DN (distinguished
+>, use this option to 
+		    specify the DN (distinguished
 		    name) in your LDAP directory tree
 		    under which user information is stored.  This option is
 		    set in the <TT
@@ -700,6 +725,11 @@ CLASS="TIP"
 WIDTH="90%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -877,6 +907,31 @@ CLASS="COMMAND"
 ><DT
 ><TT
 CLASS="COMMAND"
+>--driveorder</TT
+></DT
+><DD
+><P
+>Specify which drive is first in the BIOS boot
+		  order. For example:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
+>bootloader --driveorder=sda,hda</TT
+></PRE
+></TD
+></TR
+></TABLE
+></DD
+><DT
+><TT
+CLASS="COMMAND"
 >--location=</TT
 ></DT
 ><DD
@@ -1010,6 +1065,11 @@ CLASS="NOTE"
 WIDTH="90%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -1043,15 +1103,6 @@ CLASS="COMMAND"
 ><DIV
 CLASS="VARIABLELIST"
 ><DL
-><DT
-><TT
-CLASS="COMMAND"
-> --linux</TT
-></DT
-><DD
-><P
->Erases all Linux partitions.</P
-></DD
 ><DT
 ><TT
 CLASS="COMMAND"
@@ -1108,8 +1159,38 @@ CLASS="COMMAND"
 		    drive.
 		  </P
 ></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--linux</TT
+></DT
+><DD
+><P
+>Erases all Linux partitions.</P
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--none</TT
+> (default)</DT
+><DD
+><P
+>Do not remove any partitions.</P
+></DD
 ></DL
 ></DIV
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>cmdline</TT
+> (optional)</DT
+><DD
+><P
+>Perform the installation in a completely non-interactive
+	      command line mode.  Any prompts for interaction will halt the
+	      install. This mode is useful on S/390 systems with the x3270
+	      console.</P
 ></DD
 ><DT
 ><TT
@@ -1224,29 +1305,18 @@ CLASS="COMPUTEROUTPUT"
 ><DT
 ><TT
 CLASS="COMMAND"
->deviceprobe</TT
-> (optional)</DT
-><DD
-><P
->Forces a probe of the PCI bus and loads modules for all the
-	      devices found if a module is available.
-	    </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
 >driverdisk</TT
 > (optional)</DT
 ><DD
 ><P
->Driver disks can be used during kickstart installations. You
-	      will need to copy the driver disk's contents to the root
-	      directory of a partition on the system's hard drive. Then you
-	      will need to use the <TT
+>Driver diskettes can be used during kickstart
+	      installations. You need to copy the driver diskettes's contents to
+	      the root directory of a partition on the system's hard drive. Then
+	      you need to use the <TT
 CLASS="COMMAND"
 >driverdisk</TT
-> command to
-	      tell the installation program where to look for the driver disk.
+> command to tell
+	      the installation program where to look for the driver disk.
 	    </P
 ><TABLE
 BORDER="0"
@@ -1269,6 +1339,35 @@ CLASS="REPLACEABLE"
 >&#60;fstype&#62;</I
 ></TT
 >]</TT
+></PRE
+></TD
+></TR
+></TABLE
+><P
+>Alternatively, a network location can be specified for the
+	    driver diskette:</P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="90%"
+><TR
+><TD
+><PRE
+CLASS="SCREEN"
+><TT
+CLASS="COMPUTEROUTPUT"
+><TT
+CLASS="COMMAND"
+>driverdisk --source=ftp://path/to/dd.img</TT
+>
+<TT
+CLASS="COMMAND"
+>driverdisk --source=http://path/to/dd.img</TT
+>
+<TT
+CLASS="COMMAND"
+>driverdisk --source=nfs:host:/path/to/img</TT
+></TT
 ></PRE
 ></TD
 ></TR
@@ -1324,15 +1423,10 @@ WIDTH="90%"
 CLASS="SCREEN"
 ><TT
 CLASS="COMPUTEROUTPUT"
->firewall <TT
+>firewall --enabled|--disabled [--trust=] <TT
 CLASS="REPLACEABLE"
 ><I
->&#60;securitylevel&#62;</I
-></TT
-> [--trust=] <TT
-CLASS="REPLACEABLE"
-><I
->&#60;incoming&#62;</I
+>&#60;device&#62;</I
 ></TT
 > [--port=]</TT
 ></PRE
@@ -1346,39 +1440,25 @@ CLASS="VARIABLELIST"
 ><DL
 ><DT
 ><TT
-CLASS="REPLACEABLE"
-><I
->&#60;securitylevel&#62;</I
-></TT
+CLASS="COMMAND"
+>--enabled</TT
 ></DT
 ><DD
 ><P
->Replace with one of the following levels of security:</P
-><P
-></P
-><UL
-><LI
-><P
-><TT
-CLASS="COMMAND"
->--high</TT
-></P
-></LI
-><LI
-><P
-><TT
-CLASS="COMMAND"
->--medium</TT
-></P
-></LI
-><LI
-><P
+>Reject incoming connections that are not in response to
+		    outbound requests, such as DNS replies or DHCP requests. If
+		    access to services running on this machine is needed, you
+		    can choose to allow specific services through the
+		    firewall.</P
+></DD
+><DT
 ><TT
 CLASS="COMMAND"
 >--disabled</TT
-></P
-></LI
-></UL
+></DT
+><DD
+><P
+>Do not configure any iptables rules.</P
 ></DD
 ><DT
 ><TT
@@ -1414,13 +1494,6 @@ CLASS="REPLACEABLE"
 ><P
 ></P
 ><UL
-><LI
-><P
-><TT
-CLASS="COMMAND"
->--dhcp</TT
-></P
-></LI
 ><LI
 ><P
 ><TT
@@ -1471,7 +1544,7 @@ CLASS="COMMAND"
 		    <TT
 CLASS="COMMAND"
 >imap:tcp</TT
->.  specify numeric ports can also
+>.  Numeric ports can also
 		    be specified explicitly; for example, to allow UDP packets
 		    on port 1234 through, specify
 		    <TT
@@ -1480,6 +1553,74 @@ CLASS="COMMAND"
 >. To specify multiple ports,
 		    separate them by commas.
 		  </P
+></DD
+></DL
+></DIV
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>firstboot</TT
+> (optional)</DT
+><DD
+><P
+>Determine whether the
+	      <B
+CLASS="APPLICATION"
+>Setup Agent</B
+> starts the first time
+	      the system is booted. If enabled, the <TT
+CLASS="COMMAND"
+>firstboot</TT
+>
+	      package must be installed. If not specified, this option is
+	      disabled by default.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="COMMAND"
+>--enable</TT
+></DT
+><DD
+><P
+>The <B
+CLASS="APPLICATION"
+>Setup Agent</B
+> is started
+		  the first time the system boots.</P
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--disable</TT
+></DT
+><DD
+><P
+>The <B
+CLASS="APPLICATION"
+>Setup Agent</B
+> is not
+		    started the first time the system boots.</P
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--reconfig</TT
+></DT
+><DD
+><P
+>Enable the <B
+CLASS="APPLICATION"
+>Setup Agent</B
+> to
+		  start at boot time in reconfiguration mode. This mode enables
+		  the language, mouse, keyboard, root password, security level,
+		  time zone, and networking configuration options in addition to
+		  the default ones.</P
 ></DD
 ></DL
 ></DIV
@@ -1906,165 +2047,6 @@ CLASS="COMMAND"
 ><DT
 ><TT
 CLASS="COMMAND"
->lilo</TT
-> (replaced by <TT
-CLASS="COMMAND"
->bootloader</TT
->)</DT
-><DD
-><DIV
-CLASS="WARNING"
-><P
-></P
-><TABLE
-CLASS="WARNING"
-WIDTH="90%"
-BORDER="0"
-><TR
-><TH
-ALIGN="LEFT"
-VALIGN="CENTER"
-><B
->Warning</B
-></TH
-></TR
-><TR
-><TD
->&nbsp;</TD
-><TD
-ALIGN="LEFT"
-VALIGN="TOP"
-><P
->		This option has been replaced by <TT
-CLASS="COMMAND"
->bootloader</TT
->
-		and is only available for backward compatibility. Refer to
-		<TT
-CLASS="COMMAND"
->bootloader</TT
->.
-	      </P
-></TD
-></TR
-></TABLE
-></DIV
-><P
->Specifies how the boot loader should be installed on the
-	      system. By default, LILO installs on the MBR of the first disk,
-	      and installs a dual-boot system if a DOS partition is found (the
-	      DOS/Windows system will boot if the user types
-	      <TT
-CLASS="COMMAND"
->dos</TT
-> at the
-	      <TT
-CLASS="COMPUTEROUTPUT"
->LILO:</TT
-> prompt).
-	    </P
-><P
-></P
-><DIV
-CLASS="VARIABLELIST"
-><DL
-><DT
-><TT
-CLASS="COMMAND"
->--append</TT
->
-		  <TT
-CLASS="REPLACEABLE"
-><I
->&#60;params&#62;</I
-></TT
-></DT
-><DD
-><P
->Specifies kernel parameters.</P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->--linear</TT
-></DT
-><DD
-><P
->Use the <TT
-CLASS="COMMAND"
->linear</TT
-> LILO option; this is
-		    only for back-wards compatibility (and linear is now used
-		    by default).
-		  </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->--nolinear</TT
-></DT
-><DD
-><P
->Use the <TT
-CLASS="COMMAND"
->nolinear</TT
-> LILO option; linear
-		    is now used by default.
-		  </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->--location=</TT
-></DT
-><DD
-><P
->Specifies where the LILO boot record is written. Valid
-		    values are the following: <TT
-CLASS="COMMAND"
->mbr</TT
->
-		    (the default) or <TT
-CLASS="COMMAND"
->partition</TT
-> 
-		    (installs the boot loader on the first sector of the
-		    partition containing the kernel). If no location is
-		    specified, LILO is not installed.
-		  </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->--lba32</TT
-></DT
-><DD
-><P
->Forces the use of lba32 mode instead of auto-detecting.</P
-></DD
-></DL
-></DIV
-></DD
-><DT
-><TT
-CLASS="COMMAND"
->lilocheck</TT
-> (optional)</DT
-><DD
-><P
->If <TT
-CLASS="COMMAND"
->lilocheck</TT
-> is present, the installation
-	      program checks for LILO on the MBR of the first hard drive, and
-	      reboots the system if it is found &#8212; in this case, no
-	      installation is performed. This can prevent kickstart from
-	      reinstalling an already installed system.
-	    </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
 >logvol</TT
 > (optional)</DT
 ><DD
@@ -2085,28 +2067,55 @@ CLASS="COMMAND"
 >logvol <TT
 CLASS="REPLACEABLE"
 ><I
->mountpoint</I
+>&#60;mntpoint&#62;</I
 ></TT
 > --vgname=<TT
 CLASS="REPLACEABLE"
 ><I
->name</I
+>&#60;name&#62;</I
 ></TT
 > --size=<TT
 CLASS="REPLACEABLE"
 ><I
->size</I
+>&#60;size&#62;</I
 ></TT
 > --name=<TT
 CLASS="REPLACEABLE"
 ><I
->name</I
+>&#60;name&#62;</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;options&#62;</I
 ></TT
 ></TT
 ></PRE
 ></TD
 ></TR
 ></TABLE
+><P
+>	      The options are as follows:
+	    </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>--noformat</DT
+><DD
+><P
+>Use an existing logical volume and do not format it.</P
+></DD
+><DT
+>--useexisting</DT
+><DD
+><P
+>Use an existing logical volume and reformat it.</P
+></DD
+></DL
+></DIV
 ><P
 >Create the partition first, create the logical volume group,
 	      and then create the logical volume. For example:</P
@@ -2222,7 +2231,7 @@ CLASS="COMMAND"
 	      not installed over NFS, HTTP, or FTP), networking is not
 	      configured for the system. If the installation does require
 	      networking and network information is not provided in the
-	      kickstart file, the Red Hat Linux installation program assumes that the
+	      kickstart file, the installation program assumes that the
 	      installation should be done over eth0 via a dynamic IP address
 	      (BOOTP/DHCP), and configures the final, installed system to
 	      determine its IP address dynamically. The
@@ -2475,7 +2484,7 @@ CLASS="COMMAND"
 ><P
 >Creates a partition on the system.</P
 ><P
->If more than one Red Hat Linux installation exists on the system on
+>If more than one Red Hat Enterprise Linux installation exists on the system on
 	      different partitions, the installation program prompts the user
 	      and asks which installation to upgrade.</P
 ><DIV
@@ -2487,6 +2496,11 @@ CLASS="WARNING"
 WIDTH="90%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -2769,20 +2783,6 @@ CLASS="COMMAND"
 ><DT
 ><TT
 CLASS="COMMAND"
->--bytes-per-inode=</TT
-></DT
-><DD
-><P
->Number specified represents the
-		    number of bytes per inode on the file system when it is
-		    created.  It must be given in decimal format. This
-		    option is useful for applications where you want to
-		    increase the number of inodes on the file system.
-		  </P
-></DD
-><DT
-><TT
-CLASS="COMMAND"
 >--type=</TT
 >
 		  (replaced by <TT
@@ -2867,17 +2867,6 @@ CLASS="COMMAND"
 >.
 		  </P
 ></DD
-><DT
-><TT
-CLASS="COMMAND"
->--badblocks</TT
-></DT
-><DD
-><P
->Specifies that the partition should be checked for bad
-		    sectors.
-		  </P
-></DD
 ></DL
 ></DIV
 ><DIV
@@ -2889,6 +2878,11 @@ CLASS="NOTE"
 WIDTH="90%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -2927,6 +2921,8 @@ WIDTH="90%"
 ><TD
 ><PRE
 CLASS="SCREEN"
+><TT
+CLASS="COMMAND"
 >raid <TT
 CLASS="REPLACEABLE"
 ><I
@@ -2946,6 +2942,7 @@ CLASS="REPLACEABLE"
 CLASS="REPLACEABLE"
 ><I
 >&#60;partitions*&#62;</I
+></TT
 ></TT
 ></PRE
 ></TD
@@ -3045,7 +3042,17 @@ CLASS="COMMAND"
 ></DT
 ><DD
 ><P
->Do not format the RAID array.</P
+>Use an existing RAID device and do not format the
+		    RAID array.</P
+></DD
+><DT
+><TT
+CLASS="COMMAND"
+>--useexisting</TT
+></DT
+><DD
+><P
+>Use an existing RAID device and reformat it.</P
 ></DD
 ></DL
 ></DIV
@@ -3487,18 +3494,45 @@ CLASS="COMMAND"
 >volgroup <TT
 CLASS="REPLACEABLE"
 ><I
->name</I
+>&#60;name&#62;</I
 ></TT
 > <TT
 CLASS="REPLACEABLE"
 ><I
->partition</I
+>&#60;partition&#62;</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>&#60;options&#62;</I
 ></TT
 ></TT
 ></PRE
 ></TD
 ></TR
 ></TABLE
+><P
+>	      The options are as follows:
+	    </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+>--noformat</DT
+><DD
+><P
+>Use an existing volume group and do not format it.</P
+></DD
+><DT
+>--useexisting</DT
+><DD
+><P
+>Use an existing volume group and reformat it.</P
+></DD
+></DL
+></DIV
 ><P
 >Create the partition first, create the logical volume group,
 	      and then create the logical volume. For example:</P
@@ -3603,19 +3637,17 @@ CLASS="COMMAND"
       </P
 ><P
 >Packages can be specified by group or by individual package name.
-	The installation program defines several groups that contain
-	related packages.  See the
-	<TT
+	The installation program defines several groups that contain related
+	packages.  Refer to the <TT
 CLASS="FILENAME"
 >RedHat/base/comps.xml</TT
-> file on the first Red Hat Linux CD-ROM
-	for a list of groups.
-	Each group has an id, user visibility value, name, description, and
-	package list. In the package list, the packages marked as mandatory
-	are always installed if the group is selected, the packages marked
-	default are selected by default if the group is selected, and the
-	packages marked optional must be specifically selected even if the
-	group is selected to be installed.
+> file
+	on the first Red Hat Enterprise Linux CD-ROM for a list of groups.  Each group has an id,
+	user visibility value, name, description, and package list. In the
+	package list, the packages marked as mandatory are always installed if
+	the group is selected, the packages marked default are selected by
+	default if the group is selected, and the packages marked optional must
+	be specifically selected even if the group is selected to be installed.
       </P
 ><P
 >In most cases, it is only necessary to list the desired groups and
@@ -3654,7 +3686,7 @@ CLASS="COMMAND"
 @ GNOME Desktop Environment
 @ Graphical Internet
 @ Sound and Video
-galeon</TT
+dhcp</TT
 ></PRE
 ></TD
 ></TR
@@ -3664,17 +3696,21 @@ galeon</TT
 	an <TT
 CLASS="COMMAND"
 >@</TT
-> symbol, a space, and then the full group
-	name as given in the <TT
+> symbol, a space, and then the full group name as
+	given in the <TT
 CLASS="FILENAME"
 >comps.xml</TT
-> file.  Specify
-	individual packages with no additional characters (the
+> file.  Groups can also be
+	specified using the id for the group, such as
 	<TT
+CLASS="COMPUTEROUTPUT"
+>gnome-desktop</TT
+>. Specify individual
+	packages with no additional characters (the <TT
 CLASS="FILENAME"
->galeon</TT
-> line in the example above is an
-	individual package).
+>dhcp</TT
+>
+	line in the example above is an individual package).
       </P
 ><P
 >You can also specify which packages not to install from the default
@@ -3690,18 +3726,17 @@ WIDTH="100%"
 CLASS="SCREEN"
 ><TT
 CLASS="COMPUTEROUTPUT"
->@ Games and Entertainment
--kdegames</TT
+>-autofs</TT
 ></PRE
 ></TD
 ></TR
 ></TABLE
 ><P
->	Two options are available for the <TT
+>	The following options are available for the <TT
 CLASS="COMMAND"
 >%packages</TT
 >
-	option.
+	option:
       </P
 ><P
 ></P
@@ -3766,10 +3801,6 @@ CLASS="COMPUTEROUTPUT"
 ><TT
 CLASS="COMMAND"
 >--ignoremissing</TT
-><A
-NAME="AEN1289"
-HREF="#FTN.AEN1289"
->[1]</A
 ></DT
 ><DD
 ><P
@@ -3833,6 +3864,11 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -4004,6 +4040,11 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -4053,6 +4094,11 @@ CLASS="NOTE"
 WIDTH="100%"
 BORDER="0"
 ><TR
+><TD
+WIDTH="25"
+ALIGN="CENTER"
+VALIGN="TOP"
+></TD
 ><TH
 ALIGN="LEFT"
 VALIGN="CENTER"
@@ -4271,9 +4317,9 @@ CLASS="CITETITLE"
 > in the
 	  <I
 CLASS="CITETITLE"
->Red Hat Linux Installation Guide</I
+>Red Hat Enterprise Linux Installation Guide</I
 > for instruction on creating a boot
-	  diskette. Because the Red Hat Linux boot diskettes are in MS-DOS format, it is
+	  diskette. Because the boot diskettes are in MS-DOS format, it is
 	  easy to copy the kickstart file under Linux using the
 	  <TT
 CLASS="COMMAND"
@@ -4297,7 +4343,7 @@ CLASS="COMMAND"
 ></TABLE
 ><P
 >	  Alternatively, you can use Windows to copy the file.  You can also
-	  mount the MS-DOS boot diskette in Red Hat Linux with the file system type vfat
+	  mount the MS-DOS boot diskette in Red Hat Enterprise Linux with the file system type vfat
 	  and use the <TT
 CLASS="COMMAND"
 >cp</TT
@@ -4327,7 +4373,7 @@ CLASS="CITETITLE"
 	  Boot CD-ROM</I
 > section in the <I
 CLASS="CITETITLE"
->Red Hat Linux Installation Guide</I
+>Red Hat Enterprise Linux Installation Guide</I
 >
 	  for instruction on creating a boot CD-ROM; however, before making the
 	  <TT
@@ -4368,7 +4414,7 @@ NAME="S2-KICKSTART2-NETWORKBASED"
 >	  To perform a network-based kickstart installation, you must have a
 	  BOOTP/DHCP server on your network, and it must include configuration
 	  information for the machine on which you are attempting to install
-	  Red Hat Linux.  The BOOTP/DHCP server will provide the client with its
+	  Red Hat Enterprise Linux.  The BOOTP/DHCP server will provide the client with its
 	  networking information as well as the location of the kickstart file.
 	</P
 ><P
@@ -4383,7 +4429,7 @@ NAME="S2-KICKSTART2-NETWORKBASED"
 CLASS="FILENAME"
 >dhcpd.conf</TT
 >
-	  file for the DHCP server shipped with Red Hat Linux:
+	  file for the DHCP server:
 	</P
 ><TABLE
 BORDER="0"
@@ -4507,16 +4553,16 @@ NAME="S1-KICKSTART2-INSTALL-TREE"
 CLASS="FIRSTTERM"
 >installation
 	  tree</I
->. An installation tree is a copy of the binary Red Hat Linux
+>. An installation tree is a copy of the binary Red Hat Enterprise Linux
 	  CD-ROMs with the same directory structure.
       </P
 ><P
->	If you are performing a CD-based installation, insert the Red Hat Linux CD-ROM
+>	If you are performing a CD-based installation, insert the Red Hat Enterprise Linux CD-ROM
 	#1 into the computer before starting the kickstart installation.
       </P
 ><P
 >	If you are performing a hard-drive installation, make sure the ISO
-	images of the binary Red Hat Linux CD-ROMs are on a hard drive in the computer.
+	images of the binary Red Hat Enterprise Linux CD-ROMs are on a hard drive in the computer.
       </P
 ><P
 >	If you are performing a network-based (NFS, FTP, or HTTP) installation,
@@ -4527,7 +4573,7 @@ CLASS="CITETITLE"
 >
 	section of the <I
 CLASS="CITETITLE"
->Red Hat Linux Installation Guide</I
+>Red Hat Enterprise Linux Installation Guide</I
 > for details.
       </P
 ></DIV
@@ -4539,8 +4585,8 @@ NAME="S1-KICKSTART2-STARTINGINSTALL"
 ></A
 >Chapter 8. Starting a Kickstart Installation</H1
 ><P
->	To begin a kickstart installation, you must boot the system from a Red Hat Linux
-	boot diskette, Red Hat Linux boot CD-ROM, or the Red Hat Linux CD-ROM #1 and enter a
+>	To begin a kickstart installation, you must boot the system from a Red Hat Enterprise Linux
+	boot diskette, Red Hat Enterprise Linux boot CD-ROM, or the Red Hat Enterprise Linux CD-ROM #1 and enter a
 	special boot command at the boot prompt. The installation program looks
 	for a kickstart file if the <TT
 CLASS="COMMAND"
@@ -4602,11 +4648,11 @@ CLASS="USERINPUT"
 CLASS="FILENAME"
 >ks.cfg</TT
 > file is located on a vfat or
-	      ext2 file system on a diskette and you boot from the Red Hat Linux CD-ROM
+	      ext2 file system on a diskette and you boot from the Red Hat Enterprise Linux CD-ROM
 	      #1.
 	    </P
 ><P
->An alternate boot command is to boot off the Red Hat Linux CD-ROM #1
+>An alternate boot command is to boot off the Red Hat Enterprise Linux CD-ROM #1
 	      and have the kickstart file on a vfat or ext2 file system on a
 	      diskette. To do so, enter the following command at the
 	      <TT
@@ -4886,34 +4932,6 @@ CLASS="COMMAND"
 >ks=hd:sda3:/mydir/ks.cfg</TT
 >).
 	    </P
-><DIV
-CLASS="NOTE"
-><P
-></P
-><TABLE
-CLASS="NOTE"
-WIDTH="90%"
-BORDER="0"
-><TR
-><TH
-ALIGN="LEFT"
-VALIGN="CENTER"
-><B
->Note</B
-></TH
-></TR
-><TR
-><TD
->&nbsp;</TD
-><TD
-ALIGN="LEFT"
-VALIGN="TOP"
-><P
->The second colon is a syntax change for Red Hat Linux 9.</P
-></TD
-></TR
-></TABLE
-></DIV
 ></DD
 ><DT
 ><TT
@@ -4972,12 +4990,12 @@ CLASS="COMMAND"
 >If <TT
 CLASS="COMMAND"
 >ks</TT
-> is used alone, the installation program
-	      will configure the Ethernet card in the system using DHCP. The
-	      system will use the "bootServer" from the DHCP response as an NFS
-	      server to read the kickstart file from (by default, this is the
-	      same as the DHCP server).  The name of the kickstart file is one
-	      of the following:
+> is used alone, the installation
+	      program will configure the Ethernet card to use DHCP. The
+	      kickstart file is read from the "bootServer" from the DHCP
+	      response as if it is an NFS server sharing the kickstart file. By
+	      default, the bootServer is the same as the DHCP server.  The name
+	      of the kickstart file is one of the following:
 	    </P
 ><P
 ></P
@@ -5065,33 +5083,6 @@ CLASS="PROMPT"
 ></DIV
 ></DIV
 ></DIV
-><H3
-CLASS="FOOTNOTES"
->Notes</H3
-><TABLE
-BORDER="0"
-CLASS="FOOTNOTES"
-WIDTH="100%"
-><TR
-><TD
-ALIGN="LEFT"
-VALIGN="TOP"
-WIDTH="5%"
-><A
-NAME="FTN.AEN1289"
-HREF="#AEN1289"
->[1]</A
-></TD
-><TD
-ALIGN="LEFT"
-VALIGN="TOP"
-WIDTH="95%"
-><P
->This option is new to Red Hat Linux 9.
-	      </P
-></TD
-></TR
-></TABLE
 ></BODY
 ></HTML
 >
