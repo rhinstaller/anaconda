@@ -1,5 +1,8 @@
 2004-12-23  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (readSwapLabel_int): Update for newer swap label
+	format (#143447)
+
 	* network.py (Network.available): Work around kudzu not being able
 	to determine which netdev is which and set hwaddrs anyway (except
 	on s390 to avoid setting it on qeth) (#143535)
