@@ -58,7 +58,7 @@ class FirewallWindow:
 	
 	currentRow = 1
 	devices = network.available().keys()
-	self.netCBs = {}
+
 	if (devices):
 	    devices.sort()
 	    cols = len(devices)
@@ -67,26 +67,20 @@ class FirewallWindow:
 		cols = 4
 	    else:
 		rows = 1
-	    self.devGrid = Grid(cols, rows)
-
+		
             if devices != []:
-                bigGrid.setField (Label(_("Trusted Devices:")), 0, currentRow, (0, 0, 0, 1),
-                            anchorLeft = 1)
-                curcol = 0
-                currow = 0
-                for dev in devices:
+                bigGrid.setField (Label(_("Trusted Devices:")), 0,
+				  currentRow, (0, 0, 0, 1), anchorLeft = 1)
+
+		devicelist = CheckboxTree(height=3, scroll=1)
+                bigGrid.setField (devicelist, 1, currentRow,
+				  (1, 0, 0, 1), anchorLeft = 1)
+		currentRow = currentRow + 1
+		for dev in devices:
                     if network.netdevices[dev].get('bootproto') == 'dhcp':
                         firewall.dhcp = 1
-                    cb = Checkbox (dev, dev in firewall.trustdevs)
-                    self.devGrid.setField(cb, curcol, currow, (0, 0, 1, 0), anchorLeft = 1)
-                    self.netCBs[dev] = cb
-                    curcol = curcol + 1
-                    if curcol >= cols:
-                        currow = currow + 1
-                        curcol = 1
-                bigGrid.setField (self.devGrid, 1, currentRow, (1, 0, 0, 1), anchorLeft = 1)
-                currentRow = currentRow + 1
-	
+                    devicelist.append(dev, selected = (dev in firewall.trustdevs))
+		    
 	bigGrid.setField (Label(_("Allow incoming:")), 0, currentRow, (0, 0, 0, 0),
 		anchorTop = 1)
 	    
@@ -211,9 +205,9 @@ class FirewallWindow:
         screen.popWindow()
 
         firewall.trustdevs = []
-	for device in self.netCBs.keys():
-	    if self.netCBs[device].selected():
-		firewall.trustdevs.append(device)
+        for dev in devicelist.getSelection():
+	    firewall.trustdevs.append(dev)
+
 #	firewall.portlist = self.other.value()
 	firewall.dhcp = self.dhcp.selected()
 	firewall.ssh = self.ssh.selected()
