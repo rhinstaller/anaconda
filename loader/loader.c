@@ -1091,7 +1091,8 @@ static char * mountNfsImage(struct installMethod * method,
     initLoopback();
 
     memset(&netDev, 0, sizeof(netDev));
-
+    netDev.isDynamic = 1;
+    
     i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
     if (i) return NULL;
 
@@ -1253,6 +1254,7 @@ static char * mountUrlImage(struct installMethod * method,
 
     memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
+    netDev.isDynamic = 1;
 
     while (stage != URL_STAGE_DONE) {
         switch (stage) {
