@@ -576,13 +576,13 @@ if method:
     if method.startswith('cdrom://'):
         from image import CdromInstallMethod
         method = CdromInstallMethod(method[8:], intf.messageWindow,
-				    intf.progressWindow)
+				    intf.progressWindow, rootPath)
     elif method.startswith('nfs:/'):
         from image import NfsInstallMethod
-        method = NfsInstallMethod(method[5:])
+        method = NfsInstallMethod(method[5:], rootPath)
     elif method.startswith('nfsiso:/'):
         from image import NfsIsoInstallMethod
-        method = NfsIsoInstallMethod(method[8:], intf.messageWindow)
+        method = NfsIsoInstallMethod(method[8:], intf.messageWindow, rootPath)
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method, rootPath)
@@ -598,7 +598,8 @@ if method:
         dir = method[i+1:]
 
         from harddrive import HardDriveInstallMethod
-        method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow)
+        method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow,
+                                        rootPath)
     elif method.startswith('oldhd://'):
         method = method[8:]
 
@@ -611,7 +612,7 @@ if method:
         dir = method[i+1:]
         
         from harddrive import OldHardDriveInstallMethod
-        method = OldHardDriveInstallMethod(drive, type, dir)
+        method = OldHardDriveInstallMethod(drive, type, dir, rootPath)
     else:
         print "unknown install method:", method
         sys.exit(1)

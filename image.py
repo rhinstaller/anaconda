@@ -41,8 +41,8 @@ class ImageInstallMethod(InstallMethod):
     def getSourcePath(self):
         return self.tree
 
-    def __init__(self, tree):
-	InstallMethod.__init__(self)
+    def __init__(self, tree, rootPath):
+	InstallMethod.__init__(self, rootPath)
 	self.tree = tree
 
 class CdromInstallMethod(ImageInstallMethod):
@@ -175,18 +175,18 @@ class CdromInstallMethod(ImageInstallMethod):
 	except SystemError:
 	    pass
 
-    def __init__(self, url, messageWindow, progressWindow):
+    def __init__(self, url, messageWindow, progressWindow, rootPath):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
 	self.currentDisc = 1
         self.loopbackFile = None
-	ImageInstallMethod.__init__(self, "/" + tree)
+	ImageInstallMethod.__init__(self, "/" + tree, rootPath)
 
 class NfsInstallMethod(ImageInstallMethod):
 
-    def __init__(self, tree):
-	ImageInstallMethod.__init__(self, tree)
+    def __init__(self, tree, rootPath):
+	ImageInstallMethod.__init__(self, tree, rootPath)
 
 def findIsoImages(path, messageWindow):
     files = os.listdir(path)
@@ -269,7 +269,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     def filesDone(self):
 	self.umountImage()
 
-    def __init__(self, tree, messageWindow):
+    def __init__(self, tree, messageWindow, rootPath):
 	self.imageMounted = None
 	self.isoPath = tree
 
@@ -281,5 +281,5 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	self.discImages = findIsoImages(tree, messageWindow)
 	self.mountImage(1)
 
-	ImageInstallMethod.__init__(self, self.mntPoint)
+	ImageInstallMethod.__init__(self, self.mntPoint, rootPath)
 

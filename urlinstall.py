@@ -40,14 +40,8 @@ class UrlInstallMethod(InstallMethod):
 	return ComponentSet(self.baseUrl + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h, timer):
-	root = self.rootPath
-	pathlist = [ "/var/tmp", "/tmp",
-		     "/." ]
-	for p in pathlist:
-	    if (os.access(root + p, os.X_OK)):
-		tmppath = root + p + "/"
-		break
-
+        tmppath = self.getTempPath()
+        
 	# h doubles as a filename -- gross
 	if type("/") == type(h):
 	    fullPath = self.baseUrl + "/" + h
@@ -114,8 +108,7 @@ class UrlInstallMethod(InstallMethod):
 	os.unlink(fn)
 
     def __init__(self, url, rootPath):
-	InstallMethod.__init__(self)
-        self.rootPath = rootPath
+	InstallMethod.__init__(self, rootPath)
 
 	i = string.index(url, '://') + 2
 	self.baseUrl = url[0:i]

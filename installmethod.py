@@ -26,6 +26,21 @@ class InstallMethod:
 	    return self.readCompsViaMethod(hdlist)
 	pass
 
+    def getTempPath(self):
+	root = self.rootPath
+	pathlist = [ "/var/tmp", "/tmp",
+		     "/." ]
+        tmppath = None
+	for p in pathlist:
+	    if (os.access(root + p, os.X_OK)):
+		tmppath = root + p + "/"
+		break
+
+        if tmppath is None:
+            raise RuntimeError, "Unable to find temp path"
+
+        return tmppath
+
     def getFilename(self, h, timer):
 	pass
 
@@ -44,7 +59,8 @@ class InstallMethod:
     def unlinkFilename(self, fullName):
 	pass
 
-    def __init__(self):
+    def __init__(self, rootpath):
+        self.rootPath = rootpath
 	pass
 
     def getSourcePath(self):

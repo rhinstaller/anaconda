@@ -95,8 +95,8 @@ class OldHardDriveInstallMethod(InstallMethod):
         rc.append(self.device)
         return rc
     
-    def __init__(self, device, type, path):
-	InstallMethod.__init__(self)
+    def __init__(self, device, type, path, rootPath):
+	InstallMethod.__init__(self, rootPath)
 	self.device = device
 	self.path = path
 	self.fstype = type
@@ -207,8 +207,8 @@ class HardDriveInstallMethod(InstallMethod):
         rc.append(self.device)
         return rc
     
-    def __init__(self, device, type, path, messageWindow):
-	InstallMethod.__init__(self)
+    def __init__(self, device, type, path, messageWindow, rootPath):
+	InstallMethod.__init__(self, rootPath)
 	self.device = device
 	self.path = path
 	self.fstype = type
