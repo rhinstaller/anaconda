@@ -21,6 +21,9 @@ import gui
 
 class BootloaderPasswordWindow (InstallWindow):
 
+    windowTitle = N_("Boot Loader Password Configuration")
+    htmlTag = "grubpasswd"
+    
     def getNext (self):
         if self.usegrubpasscb.get_active():
             self.bl.setPassword(self.pw.get_text(), isCrypted = 0)
