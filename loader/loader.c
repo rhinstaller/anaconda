@@ -55,7 +55,11 @@
 #if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
 #define dev_t unsigned int
 #else
+#if defined(__x86_64__)
+#define dev_t unsigned long
+#else
 #define dev_t unsigned short
+#endif
 #endif
 #include <linux/loop.h>
 #undef dev_t
@@ -260,6 +264,7 @@ static void spawnShell(int flags) {
 
 	execl("/bin/sh", "-/bin/sh", NULL);
 	logMessage("exec of /bin/sh failed: %s", strerror(errno));
+	exit(1);
     }
 
     close(fd);
@@ -3641,8 +3646,13 @@ int main(int argc, char ** argv) {
      
 	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
+#if defined(__x86_64__)
+	unlink("/lib64");
+	symlink("mnt/runtime/lib64", "/lib64");
+#else
 	unlink("/lib");
 	symlink("mnt/runtime/lib", "/lib");
+#endif
 
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
