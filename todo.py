@@ -298,7 +298,10 @@ class ToDo:
         self.language = Language ()
         self.network = Network ()
         self.rootpassword = Password ()
-        self.mouse = Mouse (xmouseType = mouse)
+        if mouse:
+            self.mouse = Mouse (xmouseType = mouse)
+        else:
+            self.mouse = Mouse ()
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
         self.ddruid = None;
@@ -311,9 +314,7 @@ class ToDo:
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
-	self.lilo = LiloConfiguration ()
 	self.initrdsMade = {}
-	self.liloImages = {}
         self.initlevel = 3
 	self.expert = expert
 	if (not instClass):
@@ -341,20 +342,6 @@ class ToDo:
                 except:
                     # XXX
                     pass
-
-    def getLiloOptions(self):
-        if self.mounts.has_key ('/boot'):
-            bootpart = self.mounts['/boot'][0]
-        else:
-            bootpart = self.mounts['/'][0]
-        i = len (bootpart) - 1
-        while i < 0 and bootpart[i] in digits:
-            i = i - 1
-	drives = self.drives.available().keys()
-	drives.sort()
-        boothd = drives[0]
-
-	return (bootpart, boothd)
 
     def writeTimezone(self):
 	if (self.timezone):
@@ -384,6 +371,20 @@ class ToDo:
 
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
+
+    def getLiloOptions(self):
+        if self.mounts.has_key ('/boot'):
+            bootpart = self.mounts['/boot'][0]
+        else:
+            bootpart = self.mounts['/'][0]
+        i = len (bootpart) - 1
+        while i < 0 and bootpart[i] in digits:
+            i = i - 1
+	drives = self.drives.available().keys()
+	drives.sort()
+        boothd = drives[0]
+
+	return (bootpart, boothd)
 
     def setLiloImages(self, images):
 	self.liloImages = images
@@ -567,11 +568,13 @@ class ToDo:
 
     def installLilo (self):
         # XXX make me test mode
-        if not self.setupFilesystems: return
+#        if not self.setupFilesystems: return
+
+	lilo = LiloConfiguration ()
         
         # on upgrade read in the lilo config file
         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
-            self.lilo.read (self.instPath + '/etc/lilo.conf')
+            lilo.read (self.instPath + '/etc/lilo.conf')
         elif not self.liloDevice: return
 
 	(bootpart, boothd) = self.getLiloOptions()
@@ -581,26 +584,35 @@ class ToDo:
 	    self.liloDevice = bootpart
 
         if self.liloDevice:
-            self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
-	self.lilo.addEntry("map", "/boot/map")
-	self.lilo.addEntry("install", "/boot/boot.b")
-	self.lilo.addEntry("prompt")
-	self.lilo.addEntry("timeout", "50")
-	self.lilo.addEntry("default", "linux")        
-
-        if not self.mounts.has_key ('/'):
-            return
-        (rootDev, type, size) = self.mounts['/']
-
-	kernelList = []
-	label = "linux"
+            lilo.addEntry("boot", '/dev/' + self.liloDevice)
+	lilo.addEntry("map", "/boot/map")
+	lilo.addEntry("install", "/boot/boot.b")
+	lilo.addEntry("prompt")
+	lilo.addEntry("timeout", "50")
 
 	smpInstalled = (self.hdList.has_key('kernel-smp') and 
-		self.hdList['kernel-smp'].selected and isys.smpAvailable())
+                        self.hdList['kernel-smp'].selected and isys.smpAvailable())
+
+        if self.mounts.has_key ('/'):
+            (dev, type, format) = self.mounts['/']
+            rootDev = dev
+        else:
+            raise RuntimeError, "Installing lilo, but there is no root device"
+
+        kernelList = []
+        otherList = []
+
+        for (drive, (label, type)) in self.liloImages.items ():
+            if (drive == rootDev) and label:
+                main = label
+            elif label:
+                otherList.append (label, "/dev/" + drive)
+
+        lilo.addEntry("default", main)        
 
 	if (smpInstalled):
-	    kernelList.append((label, self.hdList['kernel-smp'], "smp"))
-	    label = "linux-up"
+	    kernelList.append((main, self.hdList['kernel-smp'], "smp"))
+	    label = main + "-up"
 
 	kernelList.append((label, self.hdList['kernel'], ""))
 
@@ -617,31 +629,36 @@ class ToDo:
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 	    kernelFile = "/boot/vmlinuz" + kernelTag
-	    self.lilo.addImage ("image", kernelFile, sl)
+	    lilo.addImage ("image", kernelFile, sl)
 
-        for (type, name, config) in self.lilo.images:
+	for (label, device) in otherList:
+	    sl = LiloConfiguration()
+	    sl.addEntry("label", label)
+	    lilo.addImage ("other", device, sl)
+
+        for (type, name, config) in lilo.images:
             # remove entries for missing kernels (upgrade)
             if type == "image":
                 if not os.access (self.instPath + name, os.R_OK):
-                    self.lilo.delImage (name)
+                    lilo.delImage (name)
             # remove entries for unbootable partitions
             if type == "other":
                 device = name[5:]
                 isys.makeDevInode(device, '/tmp/' + device)
                 if not isys.checkBoot ('/tmp/' + device):
-                    self.lilo.delImage (name)
+                    lilo.delImage (name)
                 os.remove ('/tmp/' + device)
 
         # pass 2, remove duplicate entries
         labels = []
 
-        for (type, name, config) in self.lilo.images:
+        for (type, name, config) in lilo.images:
             if not name in labels:
                 labels.append (name)
             else: # duplicate entry, first entry wins
-                self.lilo.delImage (name)                
+                lilo.delImage (name)                
 
-	self.lilo.write(self.instPath + "/etc/lilo.conf")
+	lilo.write(self.instPath + "/etc/lilo.conf")
 
 	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
 				"-r", self.instPath ], stdout = None)

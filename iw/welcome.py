@@ -1,6 +1,7 @@
 from gtk import *
 from iw import *
 from gui import _
+import GdkImlib
 
 class WelcomeWindow (InstallWindow):		
 
@@ -22,18 +23,14 @@ class WelcomeWindow (InstallWindow):
         
 
     def getScreen (self):
-        label = GtkLabel ("(insert neat logo graphic here)")
-
         box = GtkVBox (FALSE, 10)
-        box.pack_start (label, TRUE, TRUE, 0)
-
         try:
-            im = GdkImlib.Image ("shadowman-200.png")
+            im = GdkImlib.Image ("splash.png")
+        except:
+            print "Unable to load splash.png"
+        else:
             im.render ()
             pix = im.make_pixmap ()
             box.pack_start (pix, TRUE, TRUE, 0)
-
-        except:
-            print "Unable to load shadowman-200.png"
 
         return box

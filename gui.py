@@ -335,7 +335,7 @@ class InstallControlWindow (Thread):
         self.installFrame.add (self.currentScreen.getScreen ())
                           
         table.attach (self.installFrame, 1, 3, 0, 1)
-        table.set_col_spacing (0, 15)
+        table.set_col_spacing (0, 5)
 
         self.bin = GtkFrame ()
         self.bin.set_shadow_type (SHADOW_NONE)
@@ -363,7 +363,7 @@ class InstallControlState:
 
     def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):
-        self.prefix = '/usr/share/anaconda/'
+        self.searchPath = [ "/usr/share/anaconda/", "./" ]
         self.locale = 'C'
         self.ii = ii
         self.cw = cw
@@ -410,19 +410,25 @@ class InstallControlState:
 
     def readHTML (self, file):
         text = None
-        try:
-            text = open("%s/help/%s/s1-help-screens-%s.html" %
-                        (self.prefix, self.locale, file)).read ()
-        except IOError:
+        for path in self.searchPath:
             try:
-                text = open("%s/help/C/s1-help-screens-%s.html" %
-                            (self.prefix, file)).read ()
+                text = open("%s/help/%s/s1-help-screens-%s.html" %
+                            (path, self.locale, file)).read ()
             except IOError:
-                print "Unable to read %s help text" % (file,)
+                try:
+                    text = open("%s/help/C/s1-help-screens-%s.html" %
+                                (path, file)).read ()
+                except IOError:
+                    continue
+                
+            if text:
+                break
 
         if text:
             self.html = text
             self.cw.update (self)
+        else:
+            print "Unable to read %s help text" % (file,)
 
     def setHTML (self, text):
         self.html = text

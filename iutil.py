@@ -29,6 +29,9 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     stdout = getfd(stdout)
     stderr = getfd(stderr)
 
+    if not os.access (command, os.X_OK):
+        raise RuntimeError, command + " can not be run"
+
     childpid = os.fork()
     if (not childpid):
         if (root != '/'): isys.chroot (root)
@@ -55,6 +58,9 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 
 def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
+    if not os.access (command, os.X_OK):
+        raise RuntimeError, command + " can not be run"
+    
     (read, write) = os.pipe()
 
     childpid = os.fork()
