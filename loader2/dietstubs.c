@@ -5,6 +5,7 @@
 #include <setjmp.h>
 #include <ctype.h>
 #include <stdarg.h>
+#include <unistd.h>
 #ifdef GZLIB
 #include "../isys/gzlib/gzlib.h"
 #endif
@@ -158,10 +159,6 @@ void warn(char * format, ...) {
     errno = err;
 }
 
-int pwrite(int fd, const void *buf, size_t count, off_t offset) {
-    return __pwrite(fd, buf, count, offset);
-}
-
 void * __rawmemchr (void* s, int c) {
     while (*(char *)s != c)
 	s++;
@@ -169,7 +166,7 @@ void * __rawmemchr (void* s, int c) {
 }
 
 char * dcgettext (const char *domainname, const char *msgid, int category) {
-    return msgid;
+    return (char *) msgid;
 }
 
 int wcwidth (wchar_t c) {
