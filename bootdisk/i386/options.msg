@@ -17,4 +17,6 @@
 
  -  If you have an installer update disk, type: linux updates <ENTER>.
 
+ -  To install using a 640x480 resolution, type: linux lowres
+
 02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
