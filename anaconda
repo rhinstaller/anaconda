@@ -82,7 +82,8 @@ try:
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'module=', 'class=',
-	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount'])
+	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
+            'autostep'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -187,6 +188,8 @@ for n in args:
 	customClass = 'reconfig'
     elif (str == '--rescue'):
         progmode = 'rescue'
+    elif (str == "--autostep"):
+	flags.autostep = 1
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	flags.setupFilesystems = 0

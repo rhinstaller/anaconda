@@ -242,6 +242,10 @@ class MessageWindow:
         return self.rc
     
     def __init__ (self, title, text, type="ok"):
+        if flags.autostep:
+            print title, text, type
+            self.rc = 1
+            return
         self.rc = None
         if type == "ok":
             self.window = GnomeOkDialog (_(text))
@@ -486,7 +490,10 @@ class InstallControlWindow:
 
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
-        idle_remove(self.handle)
+        if flags.autostep:
+            self.nextClicked()
+        else:
+            idle_remove(self.handle)
 
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
@@ -703,7 +710,8 @@ class InstallControlWindow:
 	self.buildStockButtons()
 
         group = GtkAccelGroup()
-        self.nextButtonStock.add_accelerator ("clicked", group, GDK.F12, GDK.RELEASE_MASK, 0);
+        self.nextButtonStock.add_accelerator ("clicked", group, GDK.F12,
+                                              GDK.RELEASE_MASK, 0);
         self.window.add_accel_group (group)
         self.window.connect ("key-release-event", self.keyRelease)
 

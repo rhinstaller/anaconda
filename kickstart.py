@@ -5,6 +5,7 @@ from installclass import BaseInstallClass
 from partitioning import *
 from autopart import *
 from fsset import *
+from flags import flags
 import sys
 import string
 
@@ -457,6 +458,9 @@ class KickstartBase(BaseInstallClass):
     def doInteractive(self, id, args):
         self.interactive = 1
 
+    def doAutoStep(self, id, args):
+        flags.autostep = 1
+
     def readKickstart(self, id, file):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
@@ -492,6 +496,7 @@ class KickstartBase(BaseInstallClass):
 		     "xdisplay"		: None			,
 		     "zerombr"		: self.doZeroMbr	,
                      "interactive"      : self.doInteractive    ,
+                     "autostep"         : self.doAutoStep       ,
 		   }
 
 	where = "commands"
@@ -784,7 +789,7 @@ class KickstartBase(BaseInstallClass):
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch)
 
-        if self.interactive:
+        if self.interactive or flags.autostep:
             dispatch.skipStep("installtype")
             dispatch.skipStep("partitionmethod")
             dispatch.skipStep("partitionmethodsetup")
