@@ -4,13 +4,16 @@
 #include "../isys/probe.h"
 #include "modules.h"
 #include "moduledeps.h"
+#include "loader.h"
 
 struct installMethod {
     char * name;
+    char * shortname;
     int network;
     enum deviceClass deviceType;			/* for pcmcia */
     char * (*mountImage)(struct installMethod * method,
                          char * location, struct knownDevices * kd,
+                         struct loaderData_s * loaderData,
                          moduleInfoSet modInfo, moduleList modLoaded,
                          moduleDeps * modDepsPtr, int flags);
 };
@@ -32,5 +35,14 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
 void copyUpdatesImg(char * path);
 int copyDirectory(char * from, char * to);
+
+
+/* JKFIXME: nfs specific */
+struct nfsInstallData {
+    char * host;
+    char * directory;
+};
+void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+                     char ** argv, int * flagsPtr);
 
 #endif

@@ -19,8 +19,6 @@
  *
  */
 
-/* JKFIXME: clean this file up to get rid of crappy __standalone__ defines */
-
 #include <arpa/inet.h>
 #include <errno.h>
 #include <popt.h>
@@ -168,6 +166,68 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
     return LOADER_OK;
 }
 
+void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
+                              struct loaderData_s * loaderData) {
+    struct in_addr addr;
+
+    if (loaderData->ipinfo_set == 0) {
+        return;
+    }
+
+    if (loaderData->ip) {
+        /* this is how we specify dhcp */
+        if (!strncmp(loaderData->ip, "dhcp", 4)) {
+            char * chptr;
+            /* JKFIXME: this soooo doesn't belong here.  and it needs to
+             * be broken out into a function too */
+            logMessage("sending dhcp request through device %s", loaderData->netDev);
+            winStatus(50, 3, _("Dynamic IP"), 
+                      _("Sending request for IP information for %s"), 
+                      loaderData->netDev, 0);
+
+            chptr = pumpDhcpRun(loaderData->netDev, 0, 0, NULL, &cfg->dev, NULL);
+            newtPopWindow();
+            if (chptr) {
+                logMessage("pump told us: %s", chptr);
+                return;
+            }
+
+            cfg->isDynamic = 1;
+        } else if (inet_aton(loaderData->ip, &addr)) {
+            cfg->dev.ip = addr;
+            cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
+            cfg->isDynamic = 0;
+        }
+        cfg->preset = 1;
+    }
+
+    if (loaderData->netmask && (inet_aton(loaderData->netmask, &addr))) {
+        cfg->dev.netmask = addr;
+        cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
+    }
+
+    if (loaderData->gateway && (inet_aton(loaderData->gateway, &addr))) {
+        cfg->dev.gateway = addr;
+        cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
+    }
+
+    if (loaderData->dns && (inet_aton(loaderData->dns, &addr))) {
+        cfg->dev.dnsServers[0] = addr;
+        cfg->dev.numDns = 1;
+        cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
+    }
+
+    if (loaderData->hostname) {
+        logMessage("setting specified hostname of %s", loaderData->hostname);
+        cfg->dev.hostname = strdup(loaderData->hostname);
+        cfg->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
+    }
+
+    cfg->noDns = loaderData->noDns;
+
+    logMessage("we set up ip information via kickstart");
+}
+
 int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     newtComponent text, f, okay, back, answer, dhcpCheckbox;
     newtGrid grid, subgrid, buttons;
@@ -177,6 +237,18 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     struct in_addr addr;
     char dhcpChoice;
     char * chptr;
+
+    /* JKFIXME: this is horribly inconsistent -- all of the other loaderData
+     * gets acted on even if I'm not in kickstart... */
+    if (FL_KICKSTART(flags) && !FL_TESTING(flags) && cfg->preset) {
+        logMessage("doing kickstart... setting it up");
+        configureNetwork(cfg);
+        findHostAndDomain(cfg, flags);
+
+        if (!cfg->noDns)
+            writeResolvConf(cfg);
+        return 0;
+    }        
 
     /* JKFIXME: I do NOT like this crap */
 #if !defined(__s390__) && !defined(__s390x__)
@@ -515,147 +587,93 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     return 0;
 }
 
-/* JKFIXME: kickstart not implemented yet */
-#if 0
-int kickstartNetwork(char ** devicePtr, struct networkDeviceConfig * netDev, 
-                     char * bootProto, int flags) {
-    char ** ksArgv;
-    int ksArgc;
-    int netSet, rc;
-    char * arg, * chptr;
-    char * kshostname=NULL;
+void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
+                         char ** argv, int * flagsPtr) {
+    char * arg, * bootProto, * device;
+    int noDns = 0, rc;
     poptContext optCon;
-    struct in_addr * parseAddress;
-    int noDns = 0;
-    char * device;
+
     struct poptOption ksOptions[] = {
-            { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
-            { "device", '\0', POPT_ARG_STRING, devicePtr, 0 },
-            { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
-            { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
-            { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
-            { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
-            { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
-            { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
-            { 0, 0, 0, 0, 0 }
+        { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0 },
+        { "device", '\0', POPT_ARG_STRING, &device, 0 },
+        { "gateway", '\0', POPT_ARG_STRING, NULL, 'g' },
+        { "ip", '\0', POPT_ARG_STRING, NULL, 'i' },
+        { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
+        { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
+        { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
+        { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
+        { 0, 0, 0, 0, 0 }
     };
+    
+    logMessage("kickstartNetwork");
+    optCon = poptGetContext(NULL, argc, (const char **) argv, 
+                            ksOptions, 0);    
+    while ((rc = poptGetNextOpt(optCon)) >= 0) {
+        arg = (char *) poptGetOptArg(optCon);
 
-    if (!bootProto) {
-        if (ksGetCommand(KS_CMD_NETWORK, NULL, &ksArgc, &ksArgv)) {
-            /* This is for compatibility with RH 5.0 */
-            ksArgv = alloca(sizeof(*ksArgv) * 1);
-            ksArgv[0] = "network";
-            ksArgc = 1;
+        switch (rc) {
+        case 'g':
+            loaderData->gateway = strdup(arg);
+            break;
+        case 'i':
+            loaderData->ip = strdup(arg);
+            break;
+        case 'n':
+            loaderData->dns = strdup(arg);
+            break;
+        case 'm':
+            loaderData->netmask = strdup(arg);
+            break;
+        case 'h':
+            if (loaderData->hostname) 
+                free(loaderData->hostname);
+            loaderData->hostname = strdup(arg);
+            break;
         }
+    }
 
-        optCon = poptGetContext(NULL, ksArgc, (const char **) ksArgv, ksOptions, 0);
-        while ((rc = poptGetNextOpt(optCon)) >= 0) {
-            parseAddress = NULL;
-            netSet = 0;
-
-            arg = (char *) poptGetOptArg(optCon);
-
-            switch (rc) {
-              case 'g':
-                parseAddress = &netDev->dev.gateway;
-                netSet = PUMP_NETINFO_HAS_GATEWAY;
-                break;
-                    
-              case 'i':
-                parseAddress = &netDev->dev.ip;
-                netSet = PUMP_INTFINFO_HAS_IP;
-                break;
-                    
-              case 'n':
-                parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
-                netSet = PUMP_NETINFO_HAS_DNS;
-                break;
-
-              case 'm':
-                parseAddress = &netDev->dev.netmask;
-                netSet = PUMP_INTFINFO_HAS_NETMASK;
-                break;
-
-              case 'h':
-                if (kshostname)
-                    free(kshostname);
-                kshostname =  strdup(arg);
-                logMessage("netDev->dev.hostname = %s", kshostname);
-                break;
-            }
-
-            if (parseAddress && !inet_aton(arg, parseAddress)) {
-                logMessage("bad ip number in network command: %s", arg);
-                return -1;
-            }
-
-            netDev->dev.set |= netSet;
-        }
-
-        if (rc < -1) {
-            newtWinMessage(_("kickstart"),  _("OK"),
-                       _("bad argument to kickstart network command %s: %s"),
+    if (rc < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to kickstart network command %s: %s"),
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
-        } else {
-            poptFreeContext(optCon);
-        }
-    }
-
-    device = *devicePtr;
-
-    if (!bootProto)
-        bootProto = "dhcp";
-
-    if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {
-        logMessage("sending dhcp request through device %s", device);
-        winStatus(50, 3, _("Dynamic IP"), 
-                  _("Sending request for IP information..."),
-                    0);
-
-        chptr = pumpDhcpRun(device, 0, 0, NULL, &netDev->dev, NULL);
-        newtPopWindow();
-        if (chptr) {
-            logMessage("pump told us: %s", chptr);
-            return -1;
-        }
-        netDev->isDynamic = 1;
-    } else if (!strcmp(bootProto, "static")) {
-       strcpy(netDev->dev.device, device);
-    } else if (!strcmp(bootProto, "query")) {
-        strcpy(netDev->dev.device, device);
-        readNetConfig("eth0", netDev, flags);
     } else {
-        newtWinMessage(_("kickstart"), _("OK"),
-                    _("Bad bootproto %s specified in network command"),
-                    bootProto);
-        return -1;
+        poptFreeContext(optCon);
     }
 
-    fillInIpInfo(netDev);
-    configureNetwork(netDev);
-
-    logMessage("nodns is %d", noDns);
-
-    if (kshostname) {
-        logMessage("setting ks specified hostname of %s", kshostname);
-        netDev->dev.hostname=strdup(kshostname);
-        netDev->dev.set |= PUMP_NETINFO_HAS_HOSTNAME;
+    /* if they've specified dhcp/bootp or haven't specified anything, 
+     * use dhcp for the interface */
+    if (!strncmp(bootProto, "dhcp", 4) || !strncmp(bootProto, "bootp", 4) ||
+        (!bootProto && !loaderData->ip)) {
+        loaderData->ip = strdup("dhcp");
+        loaderData->ipinfo_set = 1;
+    } else if (loaderData->ip) {
+        /* JKFIXME: this assumes a bit... */
+        loaderData->ipinfo_set = 1;
     }
 
-    if (!noDns)
-        findHostAndDomain(netDev, flags);
+    /* now make sure the specified bootproto is valid */
+    if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
+        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad bootproto %s specified in network command"),
+                       bootProto);
+    } 
 
-    writeResolvConf(netDev);
+    if (device) {
+        loaderData->netDev = strdup(device);
+        loaderData->netDev_set = 1;
+    }
+
+    if (noDns) {
+        loaderData->noDns = 1;
+    }
     
-    return 0;
 }
 
-#endif /* 0 for no kickstart right now */
 
-
-
-int chooseNetworkInterface(struct knownDevices * kd, char ** devNamePtr,
+int chooseNetworkInterface(struct knownDevices * kd, 
+                           struct loaderData_s * loaderData,
                            int flags) {
     int i, rc;
     int deviceNums = 0;
@@ -669,6 +687,12 @@ int chooseNetworkInterface(struct knownDevices * kd, char ** devNamePtr,
             continue;
 
         devices[deviceNums++] = kd->known[i].name;
+
+        /* this device has been set and we don't really need to ask 
+         * about it again... */
+        if (loaderData->netDev && (loaderData->netDev_set == 1) &&
+            !strcmp(loaderData->netDev, kd->known[i].name))
+            return LOADER_NOOP;
     }
 
     devices[deviceNums] = NULL;
@@ -682,7 +706,7 @@ int chooseNetworkInterface(struct knownDevices * kd, char ** devNamePtr,
     /* JKFIXME: if we only have one interface and it doesn't have link,
      * do we go ahead? */
     if (deviceNums == 1) {
-        *devNamePtr = devices[0];
+        loaderData->netDev = devices[0];
         return LOADER_NOOP;
     }
 
@@ -698,7 +722,7 @@ int chooseNetworkInterface(struct knownDevices * kd, char ** devNamePtr,
     if (rc == 2)
         return LOADER_BACK;
 
-    *devNamePtr = devices[deviceNum];
+    loaderData->netDev = devices[deviceNum];
 
     return LOADER_OK;
 }

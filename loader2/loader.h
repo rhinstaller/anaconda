@@ -1,3 +1,6 @@
+#ifndef LOADER_H
+#define LOADER_H
+
 #define LOADER_OK 0
 #define LOADER_BACK 1
 #define LOADER_NOOP 2
@@ -74,4 +77,25 @@ int setupRamdisk(void);
 #define RAMDISK_DEVICE "/dev/ram"
 #else
 #define RAMDISK_DEVICE "/dev/ram2"
+#endif
+
+
+/* JKFIXME: I don't like all of the _set attribs, but without them,
+ * we can't tell if it was explicitly set by kickstart/cmdline or 
+ * if we just got it going through the install.   */
+struct loaderData_s {
+    char * lang;
+    int lang_set;
+    char * kbd;
+    int kbd_set;
+    char * netDev;
+    int netDev_set;
+    char * ip, * netmask, *gateway, *dns, *hostname;
+    int noDns;
+    int ipinfo_set;
+    char * ksFile;
+    char * method;
+    void * methodData;
+};
+
 #endif

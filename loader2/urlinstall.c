@@ -144,6 +144,7 @@ static char * getLoginName(char * login, struct iurlinfo ui) {
 
 char * mountUrlImage(struct installMethod * method,
                      char * location, struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDeps, int flags) {
     int rc;

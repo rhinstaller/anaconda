@@ -18,6 +18,7 @@
 
 #include <fcntl.h>
 #include <newt.h>
+#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -69,6 +70,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDepsPtr, int flags) {
     static struct networkDeviceConfig netDev;
@@ -90,17 +92,21 @@ char * mountNfsImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
+    setupNetworkDeviceConfig(&netDev, loaderData);
+
     /* JKFIXME: ASSERT -- we have a network device when we get here */
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
         case NFS_STAGE_IFACE:
             logMessage("going to pick interface");
-            rc = chooseNetworkInterface(kd, &devName, flags);
+            rc = chooseNetworkInterface(kd, loaderData, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
 
             stage = NFS_STAGE_IP;
             dir = 1;
+            logMessage("using interface %s", loaderData->netDev);
+            devName = loaderData->netDev;
             break;
             
         case NFS_STAGE_IP:
@@ -116,19 +122,39 @@ char * mountNfsImage(struct installMethod * method,
             
         case NFS_STAGE_NFS:
             logMessage("going to do nfsGetSetup");
-            if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
+            /* JKFIXME: this is a hack to get kickstart up quicker */
+            if (loaderData->method &&
+                !strncmp(loaderData->method, "nfs", 3) &&
+                loaderData->methodData) {
+                host = ((struct nfsInstallData *)loaderData->methodData)->host;
+                directory = ((struct nfsInstallData *)loaderData->methodData)->directory;
+
+                logMessage("host is %s, dir is %s", host, directory);
+
+                if (!host || !directory) {
+                    logMessage("missing host or directory specification");
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                    break;
+                }
+            } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
                 stage = NFS_STAGE_IP;
                 dir = -1;
                 break;
-            } else {
-                stage = NFS_STAGE_MOUNT;
-                dir = 1;
-                break;
             }
+             
+            stage = NFS_STAGE_MOUNT;
+            dir = 1;
+            break;
 
         case NFS_STAGE_MOUNT: {
             int foundinvalid = 0;
             char * buf;
+
+            fullPath = alloca(strlen(host) + strlen(directory) + 2);
+            sprintf(fullPath, "%s:%s", host, directory);
+
+            logMessage("mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
                 stage = NFS_STAGE_DONE;
@@ -136,22 +162,20 @@ char * mountNfsImage(struct installMethod * method,
                 break;
             }
 
-            fullPath = alloca(strlen(host) + strlen(directory) + 2);
-            sprintf(fullPath, "%s:%s", host, directory);
-
-            logMessage("mounting nfs path %s", fullPath);
-
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
-		logMessage("mounted %s on /mnt/source", fullPath);
+                logMessage("mounted %s on /mnt/source", fullPath);
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
-		    logMessage("can access stage2.img");
+                    logMessage("can access stage2.img");
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
-		    logMessage("after mountStage2, rc is %d", rc);
+                    logMessage("after mountStage2, rc is %d", rc);
                     if (rc) {
                         umount("/mnt/source");
-                        if (rc == -1) { foundinvalid = 1; logMessage("not the right one"); }
+                        if (rc == -1) { 
+                            foundinvalid = 1; 
+                            logMessage("not the right one"); 
+                        }
                     } else {
                         stage = NFS_STAGE_DONE;
                         url = "nfs://mnt/source/.";
@@ -194,6 +218,10 @@ char * mountNfsImage(struct installMethod * method,
                 newtWinMessage(_("Error"), _("OK"),
                                _("That directory could not be mounted from "
                                  "the server."));
+                if (loaderData->method) {
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                }
                 break;
             }
         }
@@ -208,4 +236,37 @@ char * mountNfsImage(struct installMethod * method,
     free(directory);
 
     return url;
+}
+
+
+void setKickstartNfs(struct loaderData_s * loaderData, int argc,
+                     char ** argv, int * flagsPtr) {
+    char * host, * dir;
+    poptContext optCon;
+    int rc;
+    struct poptOption ksNfsOptions[] = {
+        { "server", '\0', POPT_ARG_STRING, &host, 0 },
+        { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+
+    logMessage("kickstartFromNfs");
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to NFS kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+    loaderData->method = strdup("nfs");
+    loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
+    if (host)
+        ((struct nfsInstallData *)loaderData->methodData)->host = host;
+    if (dir)
+        ((struct nfsInstallData *)loaderData->methodData)->directory = dir;
+
+    logMessage("results of nfs, host is %s, dir is %s", host, dir);
 }

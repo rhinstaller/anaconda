@@ -362,6 +362,7 @@ char * findRedHatCD(char * location,
 /* look for a Red Hat CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct knownDevices * kd,
+                       struct loaderData_s * loaderData,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags) {
 

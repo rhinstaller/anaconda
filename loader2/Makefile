@@ -2,10 +2,10 @@ include ../Makefile.inc
 
 # JKFIXME: this should go somewhere common.  I need to know about diet in
 # a few locations.  and we should really just always use diet
-# should we use diet on this arch?
 ifeq (i386, $(ARCH))
 USEDIET=1
 endif
+# should we use diet on this arch?
 ifeq (ppc, $(ARCH))
 USEDIET=1
 endif
@@ -23,7 +23,7 @@ HWOBJS = pcmcia.o usb.o firewire.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modules.o modstubs.o driverdisk.o \
-	md5.o mediacheck.o \
+	md5.o mediacheck.o kickstart.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o telnet.o telnetd.o

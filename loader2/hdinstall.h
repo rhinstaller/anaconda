@@ -3,8 +3,9 @@
 
 
 char * mountHardDrive(struct installMethod * method,
-                             char * location, struct knownDevices * kd,
-                             moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr, int flags);
+                      char * location, struct knownDevices * kd,
+                      struct loaderData_s * loaderData,
+                      moduleInfoSet modInfo, moduleList modLoaded,
+                      moduleDeps * modDepsPtr, int flags);
 
 #endif

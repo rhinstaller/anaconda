@@ -24,11 +24,10 @@
 #include <sys/utsname.h>
 #include <sys/wait.h>
 
+#include "modstubs.h"
+
 #include "../isys/cpio.h"
 #include "../isys/stubs.h"
-
-/* hack */
-int combined_insmod_main(int argc, char ** argv);
 
 int ourInsmodCommand(int argc, char ** argv) {
     char * file;

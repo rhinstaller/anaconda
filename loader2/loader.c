@@ -45,6 +45,7 @@
 #include "log.h"
 #include "lang.h"
 #include "kbd.h"
+#include "kickstart.h"
 #include "windows.h"
 
 /* module stuff */
@@ -83,24 +84,26 @@ static int newtRunning = 0;
 #endif
 #ifdef INCLUDE_NETWORK
 char * mountNfsImage(struct installMethod * method,
-                            char * location, struct knownDevices * kd,
-                            moduleInfoSet modInfo, moduleList modLoaded,
-                            moduleDeps * modDepsPtr, int flags);
+                     char * location, struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
+                     moduleInfoSet modInfo, moduleList modLoaded,
+                     moduleDeps * modDepsPtr, int flags);
 char * mountUrlImage(struct installMethod * method,
-                            char * location, struct knownDevices * kd,
-                            moduleInfoSet modInfo, moduleList modLoaded,
-                            moduleDeps * modDepsPtr, int flags);
+                     char * location, struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
+                     moduleInfoSet modInfo, moduleList modLoaded,
+                     moduleDeps * modDepsPtr, int flags);
 #endif
 
 static struct installMethod installMethods[] = {
 #if defined(INCLUDE_LOCAL)
-    { N_("Local CDROM"), 0, CLASS_CDROM, mountCdromImage },
-    { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
+    { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
+    { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
 #endif
 #if defined(INCLUDE_NETWORK)
-    { N_("NFS image"), 1, CLASS_NETWORK, mountNfsImage },
-    { "FTP", 1, CLASS_NETWORK, mountUrlImage },
-    { "HTTP", 1, CLASS_NETWORK, mountUrlImage },
+    { N_("NFS image"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
+    { "FTP", "ftp", 1, CLASS_NETWORK, mountUrlImage },
+    { "HTTP", "http", 1, CLASS_NETWORK, mountUrlImage },
 #endif
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
@@ -454,7 +457,8 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
-static int parseCmdLineFlags(int flags, char * cmdLine, char * extraArgs[]) {
+static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
+                             char * cmdLine, char * extraArgs[]) {
     int fd;
     char buf[500];
     int len;
@@ -517,12 +521,48 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char * extraArgs[]) {
         else if (!strncasecmp(argv[i], "debug=", 6))
             setLogLevel(strtol(argv[i] + 6, (char **)NULL, 10));
         /*JKFIXME: add back kickstart stuff */
-        else if (!strncasecmp(argv[i], "ksdevice=", 9))
-            /* JKFIXME: *ksDevice = argv[i] + 9; */
-            argv[i] + 9;
+        else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
+            loaderData->netDev = strdup(argv[i] + 9);
+            loaderData->netDev_set = 1;
+        }
+        /* JKFIXME: this isn't quite right... */
+        else if (!strcasecmp(argv[i], "ks") || !strncasecmp(argv[i], "ks=", 3))
+            loaderData->ksFile = strdup(argv[i]);
         else if (!strncasecmp(argv[i], "display=", 8))
             setenv("DISPLAY", argv[i] + 8, 1);
-        /* JKFIXME: handle lang= somehow */
+        else if (!strncasecmp(argv[i], "lang=", 5)) {
+            loaderData->lang = strdup(argv[i] + 5);
+            loaderData->lang_set = 1;
+        } else if (!strncasecmp(argv[i], "keymap=", 7)) {
+            loaderData->kbd = strdup(argv[i] + 7);
+            loaderData->kbd_set = 1;
+        } else if (!strncasecmp(argv[i], "method=", 7)) {
+            char * c;
+            loaderData->method = strdup(argv[i] + 7);
+
+            c = loaderData->method;
+            /* : will let us delimit real information on the method */
+            if ((c = strtok(c, ":"))) {
+                c = strtok(NULL, ":");
+                /* JKFIXME: handle other methods too, and not here... */
+                if (!strcmp(loaderData->method, "nfs")) {
+                    loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
+                    ((struct nfsInstallData *)loaderData->methodData)->host = c;
+                    if ((c = strtok(NULL, ":"))) {
+                        ((struct nfsInstallData *)loaderData->methodData)->directory = c;
+                    }
+                }
+            }
+        } else if (!strncasecmp(argv[i], "ip=", 3)) {
+            loaderData->ip = strdup(argv[i] + 3);
+            /* JKFIXME: ??? */
+            loaderData->ipinfo_set = 1;
+        } else if (!strncasecmp(argv[i], "netmask=", 8)) 
+            loaderData->netmask = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "gateway=", 8))
+            loaderData->gateway = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "dns=", 4))
+            loaderData->dns = strdup(argv[i] + 4);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -642,6 +682,7 @@ static void checkForRam(int flags) {
 
 /* fsm for the basics of the loader. */
 static char *doLoaderMain(char * location,
+                          struct loaderData_s * loaderData,
                           struct knownDevices * kd,
                           moduleInfoSet modInfo,
                           moduleList modLoaded,
@@ -656,18 +697,19 @@ static char *doLoaderMain(char * location,
     char * installNames[10]; /* 10 install methods will be enough for anyone */
     int numValidMethods = 0;
     int validMethods[10];
-    int methodNum;
+    int methodNum = -1;
 
-    char *lang = NULL;
-    char * keymap = NULL;
     char * kbdtype = NULL;
 
-    /* JKFIXME: if this were the old code, we'd do checking about local
-     * vs network install methods here.  do we still want to do that or 
-     * just nuke that code? */
-    for (i = 0; i < numMethods; i++) {
+    for (i = 0; i < numMethods; i++, numValidMethods++) {
         installNames[numValidMethods] = _(installMethods[i].name);
-        validMethods[numValidMethods++] = i;
+        validMethods[numValidMethods] = i;
+
+        /* have we preselected this to be our install method? */
+        if (loaderData->method && 
+            !strcmp(loaderData->method, installMethods[i].shortname)) {
+            methodNum = numValidMethods;
+        }
     }
 
     installNames[numValidMethods] = NULL;
@@ -677,7 +719,6 @@ static char *doLoaderMain(char * location,
      * text mode.  */
     /* JKFIXME: what should we do about rescue mode here? */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        /* JKFIXME: this might not work right... */
         url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags);
         if (url) return url;
     }
@@ -689,13 +730,30 @@ static char *doLoaderMain(char * location,
     while (step != STEP_DONE) {
         switch(step) {
         case STEP_LANG:
-            chooseLanguage(&lang, flags);
-            /* JKFIXME: default lang stuff so that we only sometimes pass lang? */
+            if (loaderData->lang && (loaderData->lang_set == 1)) {
+                setLanguage(loaderData->lang, flags);
+            } else {
+                chooseLanguage(&loaderData->lang, flags);
+            }
             step = STEP_KBD;
             dir = 1;
             break;
         case STEP_KBD:
-            rc = chooseKeyboard(&keymap, &kbdtype, flags);
+            if (loaderData->kbd && (loaderData->kbd_set == 1)) {
+                /* JKFIXME: this is broken -- we should tell of the 
+                 * failure; best by pulling code out in kbd.c to use */
+                if (isysLoadKeymap(loaderData->kbd)) {
+                    logMessage("requested keymap %s is not valid, asking", loaderData->kbd);
+                    loaderData->kbd = NULL;
+                    loaderData->kbd_set = 0;
+                    break;
+                }
+                rc = LOADER_NOOP;
+            } else {
+                /* JKFIXME: should handle kbdtype, too probably... but it 
+                 * just matters for sparc */
+                rc = chooseKeyboard(&loaderData->kbd, &kbdtype, flags);
+            }
             if (rc == LOADER_NOOP) {
                 if (dir == -1)
                     step = STEP_LANG;
@@ -715,15 +773,19 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_METHOD:
-            rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
-                             _("Installation Method"),
-                             FL_RESCUE(flags) ?
-                             _("What type of media contains the rescue "
-                               "image?") :
-                             _("What type of media contains the packages to "
-                               "be installed?"),
-                             30, 10, 20, 6, installNames, &methodNum, 
-                             _("OK"), _("Back"), NULL);
+            if (loaderData->method && (methodNum != -1)) {
+                rc = 1;
+            } else {
+                rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
+                                 _("Installation Method"),
+                                 FL_RESCUE(flags) ?
+                                 _("What type of media contains the rescue "
+                                   "image?") :
+                                 _("What type of media contains the packages to "
+                                   "be installed?"),
+                                 30, 10, 20, 6, installNames, &methodNum, 
+                                 _("OK"), _("Back"), NULL);
+            } 
             if (rc && rc != 1) {
                 step = STEP_KBD;
                 dir = -1;
@@ -766,7 +828,7 @@ static char *doLoaderMain(char * location,
             logMessage("starting to STEP_URL");
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
-                                      location, kd, modInfo, modLoaded, 
+                                      location, kd, loaderData, modInfo, modLoaded, 
                                       modDepsPtr, flags);
             logMessage("got url %s", url);
             if (!url) {
@@ -808,6 +870,8 @@ int main(int argc, char ** argv) {
     char * anacondaArgs[50];
     int useRHupdates = 0;
 
+    struct loaderData_s loaderData;
+
     char * cmdLine = NULL;
     char * ksFile = NULL;
     int testing = 0;
@@ -828,22 +892,19 @@ int main(int argc, char ** argv) {
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
     secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");
     
-
-
-    /* JKFIXME: need to do multiplex command stuff for insmod, etc here */
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
-	return ourInsmodCommand(argc, argv);
+        return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
-	return ourInsmodCommand(argc, argv);
+        return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
-	return combined_insmod_main(argc, argv);
-
+        return combined_insmod_main(argc, argv);
+    
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
     if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136) {
-	if (ioctl (0, TIOCLINUX, &twelve) < 0)
-	    flags |= LOADER_FLAGS_SERIAL;
+        if (ioctl (0, TIOCLINUX, &twelve) < 0)
+            flags |= LOADER_FLAGS_SERIAL;
     }
 
     /* now we parse command line options */
@@ -873,10 +934,12 @@ int main(int argc, char ** argv) {
 
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
-	openlog("loader", 0, LOG_LOCAL0);
+        openlog("loader", 0, LOG_LOCAL0);
+
+    memset(&loaderData, 0, sizeof(loaderData));
 
     extraArgs[0] = NULL;
-    flags = parseCmdLineFlags(flags, cmdLine, extraArgs);
+    flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
         flags |= LOADER_FLAGS_TEXT;
@@ -936,11 +999,21 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 
-    /* JKFIXME: all sorts of crap to handle kickstart sources now... */
+    /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
+     * and then getKickstartFile() changes it and sets FL_KICKSTART.  
+     * kind of weird. */
+    if (loaderData.ksFile) {
+        logMessage("getting kickstart file");
+        getKickstartFile(&loaderData, &flags);
+        if (FL_KICKSTART(flags) && 
+            (ksReadCommands(loaderData.ksFile) != LOADER_ERROR)) {
+            setupKickstart(&loaderData, &flags);
+        }
+    }
 
     /* JKFIXME: telnetd */
 
-    url = doLoaderMain("/mnt/source", &kd, modInfo, modLoaded, &modDeps, flags);
+    url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         unlink("/usr");
@@ -1078,19 +1151,16 @@ int main(int argc, char ** argv) {
 
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";
-            *argptr++ = ksFile;
+            *argptr++ = loaderData.ksFile;
         }
 
-        /* JKFIXME: obviously this needs to come back... */
-#if 0        
-        if (!lang)
-            lang = getenv ("LC_ALL");
-        
-        if (lang && !defaultLang && !FL_NOPASS(flags)) {
+        if (loaderData.lang && (loaderData.lang_set == 1) && 
+            !FL_NOPASS(flags)) {
             *argptr++ = "--lang";
-            *argptr++ = lang;
+            *argptr++ = loaderData.lang;
         }
-        
+
+#if 0        
         if (keymap && !FL_NOPASS(flags)) {
             *argptr++ = "--keymap";
             *argptr++ = keymap;

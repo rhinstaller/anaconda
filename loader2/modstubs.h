@@ -5,4 +5,7 @@ int ourInsmodCommand(int argc, char ** argv);
 int rmmod(char * modName);
 int insmod(char * modName, char * path, char ** args);
 
+/* hack */
+int combined_insmod_main(int argc, char ** argv);
+
 #endif
