@@ -487,7 +487,6 @@ Section "Module"
         Load  "dbe"
         Load  "extmod"%(nonSparcMods)s%(pex5Mod)s%(driMod)s
         Load  "glx"
-        Load  "pex5"
         Load  "record"
         Load  "xie"
         Load  "freetype"
