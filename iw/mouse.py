@@ -167,8 +167,8 @@ class MouseWindow (InstallWindow):
 	self.locList.set_sensitive(FALSE)
 
         sw.add (self.ctree)
-
-	if (currentDev and currentDev[0:3] == "ttyS"):
+	
+	if (currentDev and currentDev[0:4] == "ttyS"):
 	    self.serialDevice = currentDev
 	    self.locList.select_row(int(self.serialDevice[4]), 1)
 	else:
