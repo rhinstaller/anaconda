@@ -5,7 +5,7 @@ all:
 depend:
 
 install:
-	install -m 644 keymaps-$(ARCH) $(RUNTIMEDIR)
+	install -m 644 keymaps-$(ARCH) $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:
 
