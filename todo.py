@@ -744,11 +744,13 @@ class ToDo:
 
 	if not self.liloImages:
 	    self.setLiloImages(self.getLiloImages())
-        
-        # on upgrade read in the lilo config file
-        if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
-            lilo.read (self.instPath + '/etc/lilo.conf')
-        elif not self.liloDevice: return
+
+        # OK - for this release we need to just blow away the old lilo.conf
+        # just like we used to.
+##         # on upgrade read in the lilo config file
+##         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
+##             lilo.read (self.instPath + '/etc/lilo.conf')
+##         elif not self.liloDevice: return
 
 	(bootpart, boothd) = self.getLiloOptions()
 	if (self.liloDevice == "mbr"):
