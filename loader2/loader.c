@@ -357,7 +357,7 @@ static void checkForHardDrives(struct knownDevices * kd, int * flagsPtr) {
     return;
 }
 
-static writeVNCPasswordFile(char *pfile, char *password) {
+static void writeVNCPasswordFile(char *pfile, char *password) {
     FILE *f;
 
     f = fopen(pfile, "w+");
