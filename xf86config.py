@@ -612,7 +612,15 @@ class XF86Config:
         if laptop:
             self.modes = laptop
             return
-        if string.atoi(self.vidRam) >= 4096:
+        if string.atoi(self.vidRam) >= 8192:
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+        elif string.atoi(self.vidRam) >= 6144:
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
+        elif string.atoi(self.vidRam) >= 4096:
             self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
@@ -879,6 +887,7 @@ class XF86Config:
     def laptop (self):
         if not self.descr:
             return None
+        # PCI descr, (horiz, vert), modes
         laptops = (("ATI|Rage Mobility",
                     ("30-60", "60-90"),
                     { "8" : ["1024x768"],
