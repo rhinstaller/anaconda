@@ -137,7 +137,9 @@ else:
     print "unknown install method:", method
     sys.exit(1)
 
+print "INSTANTIATE interface..."
 intf = InstallInterface()
+print "INSTANTIATE interface DONE"
 
 # set the default actions
 installPackages = 1
