@@ -3,7 +3,7 @@
 #
 # Mike Fulbright <msf@redhat.com>
 #
-# Copyright 1999-2001 Red Hat, Inc.
+# Copyright 1999-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,9 +15,9 @@
 
 import kudzu
 import string
-from simpleconfig import SimpleConfigFile
 
 from rhpl.log import log
+from rhpl.simpleconfig import SimpleConfigFile
 
 class Keyboard (SimpleConfigFile):
     # the *first* item in each of these wins conflicts

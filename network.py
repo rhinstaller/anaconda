@@ -16,7 +16,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from simpleconfig import SimpleConfigFile
 import string
 import isys
 import socket
@@ -24,6 +23,7 @@ import os
 
 from rhpl.log import log
 from rhpl.translate import _, N_
+from rhpl.simpleconfig import SimpleConfigFile
 
 def inStrRange(v, s):
     if string.find(s, v) == -1:

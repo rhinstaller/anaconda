@@ -3,7 +3,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,7 +27,7 @@ import partedUtils
 from flags import *
 from constants import *
 
-from simpleconfig import SimpleConfigFile
+from rhpl.simpleconfig import SimpleConfigFile
 
 class Boolean:
     def set(self, val):

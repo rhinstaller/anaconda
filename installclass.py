@@ -318,8 +318,8 @@ class BaseInstallClass:
 
 
     def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
-        import videocard
-        import monitor
+        import rhpl.videocard
+        import rhpl.monitor
 
 
         # XXX they could have sensitive hardware, but we need this info =\

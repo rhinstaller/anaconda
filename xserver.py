@@ -22,12 +22,13 @@ import sys
 import time
 from xf86config import *
 from kbd import Keyboard
-from mouse import Mouse
 from snack import *
-from rhpl.translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
-from videocard import VGA16Card, VESADriverCard
+
+from rhpl.translate import _
+from rhpl.mouse import Mouse
+from rhpl.videocard import VGA16Card, VESADriverCard
 
 serverPath = ""
 

@@ -275,10 +275,11 @@ if (debug):
 
 import isys
 import instdata
-import videocard
-import monitor
-import mouse
 import floppy
+
+import rhpl.videocard as videocard
+import rhpl.monitor as monitor
+import rhpl.mouse as mouse
 
 # handle traceonly and exit
 if traceOnly:

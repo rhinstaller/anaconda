@@ -12,11 +12,12 @@
 #
 
 import copy
-from monitor import isValidSyncRange
-from videocard import Videocard_blacklist
 from constants_text import *
 from snack import *
+
 from rhpl.translate import _
+from rhpl.monitor import isValidSyncRange
+from rhpl.videocard import Videocard_blacklist
 
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
