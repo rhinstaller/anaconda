@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-02-09 15:55-0500\n"
-"PO-Revision-Date: 2001-02-11 19:33GMT\n"
+"PO-Revision-Date: 2001-02-13 13:39GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -48,8 +48,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Tryk Ok for at fortsætte, eller Annullér for at gå tilbage og vælge "
-"formatering på disse partitioner (ANBEFALET)"
+"Tryk O.k. for at fortsætte, eller Annullér for at gå tilbage og vælge "
+"formatering på disse partitioner (ANBEFALES)."
 
 #: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
 msgid "Warning"
@@ -81,7 +81,7 @@ msgstr ""
 "Kernen er ikke i stand til at læse din nye partitionsinformation, nok fordi "
 "du har ændret udvidede partitioner. Selvom dette ikke er kritisk, skal du "
 "genstarte din maskine før du fortsætter. Indsæt Red Hat opstartsdisketten nu "
-"og tryk 'Ok' for at genstarte.\n"
+"og tryk \"O.k.\" for at genstarte.\n"
 
 #: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1210
 msgid "Formatting"
@@ -137,7 +137,7 @@ msgstr ""
 "Dette betyder højst sandsynligt at denne partition ikke er blevet "
 "formateret.\n"
 "\n"
-"Tryk OK for at genstarte, dit system."
+"Tryk O.k. for at genstarte, dit system."
 
 #: ../gui.py:173
 msgid ""
@@ -330,7 +330,7 @@ msgstr "cd-rom'en kunne ikke monteres."
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
-msgstr "Ok"
+msgstr "O.k."
 
 #: ../rescue.py:36
 msgid "WARNING: no valid block devices were found.\n"
@@ -433,7 +433,7 @@ msgstr "Dit system er monteret i kataloget /mnt/sysimage"
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205
 msgid "Ok"
-msgstr "Ok"
+msgstr "O.k."
 
 #: ../text.py:67
 msgid "What language would you like to use during the installation process?"
@@ -1822,7 +1822,7 @@ msgstr ""
 "opstartsdiskette, når installationsprogrammet tilbyder dette. Dette vil "
 "sikre at du har en måde at starte linux på, efter installationen.\n"
 "\n"
-"Tryk OK for at fortsætte, Fortryd for at gå tilbage og genudpege en "
+"Tryk O.k. for at fortsætte, Fortryd for at gå tilbage og genudpege en "
 "opstartspatition."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
@@ -2394,7 +2394,7 @@ msgid ""
 "installed."
 msgstr ""
 "Nogle af de pakker du har valgt at installere kræver pakker, som du ikke har "
-"valgt, for at virke. Hvis du trykker Ok, vil alle disse påkrævede pakker "
+"valgt, for at virke. Hvis du trykker O.k., vil alle disse påkrævede pakker "
 "blive installeret."
 
 #: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
@@ -3461,7 +3461,8 @@ msgstr "   Monterings punkt     Enhed      Ønsket      Reel           Type"
 #: ../libfdisk/newtfsedit.c:1491
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr "    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-Ok "
+msgstr ""
+"    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../libfdisk/newtfsedit.c:1494
 msgid "Drive Summaries"
@@ -3555,7 +3556,7 @@ msgid ""
 msgstr ""
 "Dette modul kan tilføres parametre som påvirker dets operation. Hvis du ikke "
 "ved hvilke parametre, der skal bruges, så spring denne side over ved at "
-"trykke på \"Ok\" knappen nu."
+"trykke på \"O.k.\"-knappen nu."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -3572,7 +3573,7 @@ msgstr "Har du en driverdiskette?"
 
 #: ../loader/devices.c:239
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Indsæt din driverdiskette og tryk \"Ok\" for at fortsætte."
+msgstr "Indsæt din driverdiskette og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader/devices.c:260
 msgid "Failed to mount driver disk."
@@ -3762,7 +3763,7 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Jeg kunne ikke finde en Red Hat Linux-cd-rom i nogen af dine cd-rom-drev. "
-"Indsæt venligst Red Hat-cd'en og tryk på \"Ok\" for at prøve igen."
+"Indsæt venligst Red Hat-cd'en og tryk på \"O.k.\" for at prøve igen."
 
 #: ../loader/loader.c:1108
 msgid "Networking Device"
@@ -3826,7 +3827,7 @@ msgstr "Opdateringsdiskette"
 
 #: ../loader/loader.c:2243
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Indsæt din opdateringsdiskette og tast \"Ok\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader/loader.c:2248
 msgid ""
