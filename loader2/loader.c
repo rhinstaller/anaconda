@@ -606,6 +606,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->ethtool = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "essid=", 6))
             loaderData->essid = strdup(argv[i] + 6);
+        else if (!strncasecmp(argv[i], "mtu=", 4))
+            loaderData->mtu = atoi(argv[i] + 4);
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))

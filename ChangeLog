@@ -1,3 +1,8 @@
+2005-03-28  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c (parseCmdLineFlags): Allow setting mtu on the
+	command line (#151789)
+
 2005-03-28  Chris Lumens  <clumens@redhat.com>
 
 	* language.py (setDefault):  Check all forms of the language nick in
