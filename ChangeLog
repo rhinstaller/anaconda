@@ -1,5 +1,8 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/network_gui.py (NetworkWindow.editDevice): Get rid of 
+	warning from pygtk
+
 	* Makefile.inc (PYTHON): devel now has python 2.4
 
 	* loader2/loader.c (parseCmdLineIp): Add patch from Bastien Nocera
