@@ -82,7 +82,7 @@ ts.order()
 
 try:
     pkgOrder = ts.getKeys()
-except AttributError:
+except AttributeError:
     print "you don't have the latest RPM!"
 
 for p in pkgOrder:
