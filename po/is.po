@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.7\n"
+"Project-Id-Version: install 1.9\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1999-09-08 04:00+0000\n"
+"PO-Revision-Date: 1999-09-08 21:41+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1605,7 +1605,7 @@ msgstr "Ólögleg RAID tegund fyrir /boot"
 
 #: ../libfdisk/gnomefsedit.c:1871
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Ræsisneiðar (/boot) mega einungis nota RAID-1"
 
 #: ../libfdisk/gnomefsedit.c:1972
 #, c-format
@@ -1614,26 +1614,29 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"Disksneiðin %s er þegar disksneið sem notuð er í þessu RAID tæki. "
+"Tengipunktur þess er /boot. Ertu viss um að það sé hægt að ræsa frá þessari "
+"disksneið?"
 
 #: ../libfdisk/gnomefsedit.c:1979
 msgid "Use Pre-existing Partition?"
-msgstr ""
+msgstr "Nota disksneið sem er þegar til?"
 
 #: ../libfdisk/gnomefsedit.c:2088
 msgid "Auto-Partition"
-msgstr ""
+msgstr "Sneiða diskinn sjálfvirkt"
 
 #: ../libfdisk/gnomefsedit.c:2095
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Nota núverandi diskapláss"
 
 #: ../libfdisk/gnomefsedit.c:2114
 msgid "Remove Linux partitions"
-msgstr ""
+msgstr "Fjarlægja Linux disksneiðar"
 
 #: ../libfdisk/gnomefsedit.c:2125
 msgid "Use existing free space"
-msgstr ""
+msgstr "Nota laust pláss"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2137
@@ -1674,19 +1677,23 @@ msgstr "<Ekki stillt>"
 
 #: ../libfdisk/gnomefsedit.c:2901
 msgid "Unallocated Partitions Exist..."
-msgstr ""
+msgstr "Sneiðar sem ekki fundust pláss fyrir..."
 
 #: ../libfdisk/gnomefsedit.c:2912
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
+"Þú verður að setja rótarsneiðina (/) á 'Linux native' (ext2) disksneið eða á "
+"RAID disksneið svo uppsetningin geti haldið áfram."
 
 #: ../libfdisk/gnomefsedit.c:2926 ../libfdisk/gnomefsedit.c:2939
 msgid ""
 "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
 "or a RAID-1 partition for the install to proceed."
 msgstr ""
+"Þú verður að setja ræsisneiðina (/boot) á 'Linux native' (ext2) disksneið "
+"eða á RAID-1 disksneið svo uppsetningin geti haldið áfram."
 
 #: ../libfdisk/gnomefsedit.c:2954
 msgid ""
@@ -1694,6 +1701,9 @@ msgid ""
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
 msgstr ""
+"Þar sem þú hefur sett rótarsneiðina (/) á RAID tæki verður þú að setja "
+"ræsisneiðina (/boot) á 'Linux native' disksneið (ext2) eða á RAID-1 "
+"disksneið svo uppsetningin geti haldið áfram."
 
 #: ../libfdisk/gnomefsedit.c:3027
 msgid "Partitions"
@@ -3029,8 +3039,9 @@ msgstr "Prentþjónn:"
 msgid "Remote queue:"
 msgstr "Fjartengd biðröð:"
 
+#, fuzzy
 msgid "Remote lpd Printer Options"
-msgstr "Viðföng fyrir lpd prentara"
+msgstr "Fjarlægja Linux disksneiðar"
 
 msgid ""
 "To use a remote lpd print queue, you need to supply the hostname of the "
