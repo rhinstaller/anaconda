@@ -1,6 +1,5 @@
 import kudzu
 from simpleconfig import SimpleConfigFile
-from snack import *
 import os
 
 class Mouse (SimpleConfigFile):
@@ -68,46 +67,39 @@ class Mouse (SimpleConfigFile):
 	}
 
     # XXX fixme - externalize
-    def __init__ (self, xmouseType = None, mouseType = None):
+    def __init__ (self):
         self.info = {}
         self.device = None
+        self.emulate = 0
+        self.set ("None - None")
 
-	if (xmouseType):
-	    (proto, emulate, device) = xmouseType
-	    mouseType = None
-	    mice = self.mice.keys()
-	    mice.sort()
-	    for desc in mice:
-		(gpm, x11, dev, em) = self.mice[desc]
-#		print "trying %s: '%s', '%s'" % (desc, x11, proto)
-		if (x11 == proto and emulate == em):
-		    if (desc[:7] == "Generic" or desc[:3] == "Sun"):
-			mouseType = (desc, emulate, device)
-			break
-	    self.device = device
-	    if not mouseType:
-		raise KeyError, "unknown X11 mouse type %s" % proto
+    def probe (self):
+        list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
+                           kudzu.PROBE_ONE)
+        if (list):
+            (device, module, desc) = list[0]
+            if device == 'psaux':
+            # kickstart some ps/2 mice.  Blame the kernel
+                try:
+                    f = open ('/dev/psaux')
+                    f.write ('1')
+                    f.close
+                except:
+                    pass
 
-        if (mouseType):
-	    if (len(mouseType) == 3):
-		apply(self.set, mouseType)
-	else:
-	    list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
-			       kudzu.PROBE_ONE)
-	    if (list):
-		(device, module, desc) = list[0]
+            if device == "sunmouse":
+                self.set("Sun - Mouse", 0)
+            elif device == "psaux":
+                self.set("Generic - 3 Button Mouse (PS/2)", 0)
+            else:
+                self.set("Generic - 2 Button Mouse (serial)", 1)
 
-		if device == "sunmouse":
-		    self.set("Sun - Mouse", 0)
-		elif device == "psaux":
-		    self.set("Generic - 3 Button Mouse (PS/2)", 0)
-		else:
-		    self.set("Generic - 2 Button Mouse (serial)", 1)
-
-		self.device = device
-	    else:
-		self.set("Generic - 2 Button Mouse (serial)", 1, 'ttyS0')
-
+            self.device = device
+            return 1
+        else:
+            self.set("None - None")
+            return 0
+    
     def available (self):
         return self.mice
 
@@ -146,3 +138,66 @@ class Mouse (SimpleConfigFile):
             self.emu = em
         if not self.device and thedev: self.device = thedev
 	if not self.device: self.device = dev
+
+    def setXProtocol (self):
+        import xmouse
+        try:
+            curmouse = xmouse.get()
+        except RuntimeError:
+            # ignore errors when switching mice
+            return None
+        curmouse[0] = "/dev/" + self.device
+        # XXX
+        # IntelliMouse requires a full mouse reinit - X does not
+        # handle this properly from the mouse extention at this time
+        # so leave it alone
+        if (not self.info["XMOUSETYPE"] == "IMPS/2"
+            and not self.info["XMOUSETYPE"] == "IntelliMouse"
+            and not self.info["XMOUSETYPE"] == "None"):
+            curmouse[1] = self.info["XMOUSETYPE"]
+
+        curmouse[6] = self.emulate
+        print curmouse
+        try:
+            apply (xmouse.set, curmouse)
+        except RuntimeError:
+            pass
+        except TypeError:
+            pass
+
+#  	if (xmouseType):
+#  	    (proto, emulate, device) = xmouseType
+#  	    mouseType = None
+#  	    mice = self.mice.keys()
+#  	    mice.sort()
+#  	    for desc in mice:
+#  		(gpm, x11, dev, em) = self.mice[desc]
+#  #		print "trying %s: '%s', '%s'" % (desc, x11, proto)
+#  		if (x11 == proto and emulate == em):
+#  		    if (desc[:7] == "Generic" or desc[:3] == "Sun"):
+#  			mouseType = (desc, emulate, device)
+#  			break
+#  	    self.device = device
+#  	    if not mouseType:
+#  		raise KeyError, "unknown X11 mouse type %s" % proto
+
+#          if (mouseType):
+#  	    if (len(mouseType) == 3):
+#  		apply(self.set, mouseType)
+#  	else:
+#  	    list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
+#  			       kudzu.PROBE_ONE)
+#  	    if (list):
+#  		(device, module, desc) = list[0]
+
+#  		if device == "sunmouse":
+#  		    self.set("Sun - Mouse", 0)
+#  		elif device == "psaux":
+#  		    self.set("Generic - 3 Button Mouse (PS/2)", 0)
+#  		else:
+#  		    self.set("Generic - 2 Button Mouse (serial)", 1)
+
+#  		self.device = device
+#  	    else:
+#  		self.set("Generic - 2 Button Mouse (serial)", 1, 'ttyS0')
+

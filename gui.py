@@ -614,7 +614,7 @@ class InstallControlWindow (Thread):
         self.mutex.acquire ()
         
 class InstallControlState:
-    def __init__ (self, cw, ii, todo, title = "Install Window",
+    def __init__ (self, cw, ii, todo, title = _("Install Window"),
                   prevEnabled = 1, nextEnabled = 0, html = ""):
         self.searchPath = [ "/usr/share/anaconda/", "./" ]
         self.ii = ii

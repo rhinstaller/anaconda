@@ -7,6 +7,7 @@ import time
 from xf86config import *
 from kbd import Keyboard
 from mouse import Mouse
+import time
 
 def startX():
     global serverPath
@@ -16,33 +17,14 @@ def startX():
     serverPath = None
 
     print "Probing for mouse type..."
-    mice = kudzu.probe (kudzu.CLASS_MOUSE,
-                        kudzu.BUS_UNSPEC,
-                        kudzu.PROBE_ONE);
-    if not mice:
-        raise RuntimeError, "Unable to find a mouse!"
 
-    device = None
-    mouseProtocol = None
-    (mouseDev, driver, descr) = mice[0]
-    if mouseDev == 'psaux':
-        mouseProtocol = "PS/2"
-	mouseEmulate = 0
-        # kickstart some ps/2 mice.  Blame the kernel
-        try:
-            f = open ('/dev/psaux')
-            f.write ('1')
-            f.close
-        except:
-            pass
-    elif mouseDev == 'sunmouse':
-	mouseProtocol = "sun"
-	mouseEmulate = 0
-    else:
-        mouseProtocol = "Microsoft"
-	mouseEmulate = 1
+    mouse = Mouse()
+    if not mouse.probe ():
+        print "No mouse detected, GUI startup can not continue."
+        time.sleep (1)
+        print "Falling back to Text mode"
 
-    x = XF86Config (Mouse((mouseProtocol, mouseEmulate, mouseDev)))
+    x = XF86Config (mouse)
     x.probe ()
     if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
 	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
@@ -86,117 +68,8 @@ def startX():
 	    symbols = symbols + "+iso9995-3(basic)"
 	elif kbd.layout != 'us':
 	    symbols = symbols + "+" + kbd.layout
-	    
-#      mouseEmulateStr="""
-#      Emulate3Buttons
-#      Emulate3Timeout    50
-#  """
-#      if not mouseEmulate:
-#  	mouseEmulateStr=""
-#      settings = { "mouseDev" : '/dev/' + mouseDev ,
-#                   "mouseProto" : mouseProtocol,
-#  		 "keycodes" : keycodes,
-#  		 "symbols" : symbols,
-#  		 "geometry" : geometry,
-#  		 "rules" : rules,
-#  		 "model" : model,
-#  		 "emulate" : mouseEmulateStr }
-#      f = open ('/tmp/XF86Config', 'w')
-#      f.write ("""
-#  Section "Files"
-#      RgbPath	"/usr/X11R6/lib/X11/rgb"
-#      FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
-#      FontPath	"/usr/X11R6/lib/X11/fonts/Type1/"
-#      FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
-#      FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
-#      FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
-#      FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic/"
-#      FontPath    "/usr/share/fonts/ISO8859-2/misc/"
-#      FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
-#      FontPath    "/usr/share/fonts/ISO8859-2/100dpi/"
-#      FontPath    "/usr/share/fonts/ISO8859-9/misc/"
-#      FontPath    "/usr/share/fonts/ISO8859-9/75dpi/"
-#      FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
-#  EndSection
 
-#  Section "ServerFlags"
-#  EndSection
-
-#  Section "Keyboard"
-#      Protocol    "Standard"
-#      AutoRepeat  500 5
-#      LeftAlt     Meta
-#      RightAlt    Meta
-#      ScrollLock  Compose
-#      RightCtl    Control
-#      XkbKeycodes     "%(keycodes)s"
-#      XkbTypes        "default"
-#      XkbCompat       "default"
-#      XkbSymbols      "%(symbols)s"
-#      XkbGeometry     "%(geometry)s"
-#      XkbRules        "%(rules)s"
-#      XkbModel        "%(model)s"
-#      XkbLayout       "us"
-#  EndSection
-
-#  Section "Pointer"
-#      Protocol    "%(mouseProto)s"
-#      Device      "%(mouseDev)s"
-#  %(emulate)s
-#  EndSection
-#  """ % settings)
-#      f.write (x.monitorSection (1))
-#      f.write (x.deviceSection ())
-#      if x.monSect:
-#  	bpp = x.bpp
-#      else:
-#          x.modes["32"] = [ ]
-#          x.modes["16"] = [ ]
-#          x.modes["8"] = [ "640x480" ]
-#  	bpp = None
-#      f.write (x.screenSection (1))
-    f = open ('/tmp/XF86Config', 'w')
-    f.write (x.Version4Config())
-    f.close ()
-
-    server = os.fork()
-    if not server:
-        print "starting", serverPath
-	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
-	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
-	    try:
-		os.unlink("/dev/mouse")
-	    except:
-		pass
-	    try:
-		f = open("/dev/tty5", "w")
-		f.write("\n")
-		f.close()
-	    except:
-		pass
-	    os.symlink(mouseDev, "/dev/mouse")
-	    if x.device:
-		args.append ("-dev")
-		args.append ('/dev/' + x.device)
-	    args.append("-fp")
-	    args.append("/usr/X11R6/lib/X11/fonts/misc/,"
-			"/usr/X11R6/lib/X11/fonts/75dpi/,"
-			"/usr/X11R6/lib/X11/fonts/100dpi/,"
-			"/usr/X11R6/lib/X11/fonts/cyrillic/,"
-			"/usr/share/fonts/ISO8859-2/misc/,"
-			"/usr/share/fonts/ISO8859-2/75dpi/,"
-			"/usr/share/fonts/ISO8859-2/100dpi/")
-	else:
-	    args.append("-xf86config")
-	    args.append("/tmp/XF86Config")
-#  	    if bpp:
-#  		args.append("-bpp")
-#  		args.append(bpp)
-        # XXX XFree86 4.0 fatal errors without a /var/log/ to place logfile
-	if serverPath[-7:] == 'XFree86':
-	    args.append("-logfile")
-	    args.append("/dev/null")
-	os.execv(serverPath, args)
+    server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
 
     # give time for the server to fail (if it is going to fail...)
     # FIXME: Should find out if X server is already running
@@ -221,9 +94,7 @@ def startX():
 
         sys.exit((status >> 8) & 0xf)
 
-    return ((mouseProtocol, mouseEmulate, mouseDev), x)
-
-
+    return (mouse, x)
 
 #
 # to start X server using existing XF86Config file (reconfig mode use only)

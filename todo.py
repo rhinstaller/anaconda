@@ -301,10 +301,7 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
-        if mouse:
-            self.mouse = Mouse (xmouseType = mouse)
-        else:
-            self.mouse = Mouse ()
+        self.mouse = Mouse ()
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
         self.desktop = Desktop ()
@@ -500,7 +497,7 @@ class ToDo:
 	    for n in packages:
 		self.selectPackage(n)
 
-	if self.x.server:
+        if self.x.server and not self.x.server == "XFree86":
 	    self.selectPackage('XFree86-' + self.x.server)
 
     def selectPackage(self, package):
@@ -1111,7 +1108,7 @@ class ToDo:
             self.hdList['yp-tools'].selected = 1
             self.hdList['portmap'].selected = 1
 
-        if self.x.server:
+        if self.x.server and not self.x.server == "XFree86":
             self.selectPackage ('XFree86-' + self.x.server)
 
         # make sure that all comps that include other comps are
@@ -1289,10 +1286,10 @@ class ToDo:
                     if os.access (self.instPath + "/etc/X11/X", os.R_OK):
                         os.rename (self.instPath + "/etc/X11/X",
                                    self.instPath + "/etc/X11/X.rpmsave")
-		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
+		    os.symlink ("../../usr/X11R6/bin/" + self.x.server,
 				self.instPath + "/etc/X11/X")
 
-		self.x.write (self.instPath + "/etc/X11/XF86Config")
+		self.x.write (self.instPath + "/etc/X11")
             self.setDefaultRunlevel ()
             # go ahead and depmod modules on alpha, as rtc modprobe
             # will complain loudly if we don't do it now.
