@@ -61,7 +61,7 @@ expandPackageSet() {
 
     for n in $RPMS; do 
 	echo -ne "\rExpanding packages..." $(basename $n)
-	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc" ] ; then
+	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
 	    GLIBC=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
