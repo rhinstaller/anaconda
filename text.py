@@ -179,7 +179,8 @@ class KeyboardWindow:
 	if not todo.serial:
             if todo.reconfigOnly:
                 iutil.execWithRedirect ("/bin/loadkeys",
-                                        ["/bin/loadkeys", keyboards[choice]])
+                                        ["/bin/loadkeys", keyboards[choice]],
+					stderr = "/dev/null")
             else:
                 try:
                     isys.loadKeymap(keyboards[choice])
