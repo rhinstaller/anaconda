@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-14 22:39-0400\n"
+"POT-Creation-Date: 2004-04-15 10:29-0400\n"
 "PO-Revision-Date: 2004-03-26 14:05+0100\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
@@ -3208,9 +3208,8 @@ msgid "_Trusted devices:"
 msgstr "Disposi_tius confiables:"
 
 #: ../iw/firewall_gui.py:279
-#, fuzzy
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
-msgstr "Exten_sions per a Linux amb millores de seguretat (SELinux):"
+msgstr "Exten_sions del Linux amb millores de seguretat (SELinux):"
 
 #: ../iw/firewall_gui.py:285
 msgid "Disabled"
@@ -3941,7 +3940,7 @@ msgstr "Mida total: "
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr "Seleccion_a tots el del grup"
+msgstr "Seleccion_a tots els del grup"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
@@ -4737,7 +4736,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "I_gnora l'actualització del carregador de l'arrencada"
+msgstr "_Omet l'actualització del carregador de l'arrencada"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4827,7 +4826,7 @@ msgstr "_Mida del fitxer d'intercanvi (MB):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr "No creïs un fitxer _d'intercanvi"
+msgstr "No creïs cap fitxer _d'intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4920,7 +4919,7 @@ msgid ""
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
 "No heu seleccionat cap tipus de monitor. Es recomana que escolliu el model "
-"que més s'hi assembli per obtenir la millor qualitat de visualització."
+"que més s'hi assembli per obtenir la visualització de millor qualitat."
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
@@ -4931,7 +4930,7 @@ msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
-"En molts casos, es pot detectar automàticament el monitor. Seleccioneu la "
+"En molts casos, es pot detectar el monitor automàticament. Seleccioneu la "
 "configuració adequada si els valors detectats no són els correctes per a "
 "aquest monitor."
 
@@ -4961,7 +4960,7 @@ msgstr "Configuració de la interfície gràfica (X)"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
-msgstr "Targeta de vídeo desconeguda"
+msgstr "La targeta de vídeo és desconeguda"
 
 #: ../iw/xconfig_gui.py:812
 #, python-format
@@ -4974,7 +4973,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr "Targeta de vídeo no especificada"
+msgstr "No s'ha especificat la targeta de vídeo"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4984,7 +4983,7 @@ msgid ""
 msgstr ""
 "Heu d'escollir una targeta de video abans de continuar amb la configuració "
 "d'X. Si voleu ignorar completament la configuració d'X escolliu el botó "
-"'Ignora la configuració d'X'."
+"'Omet la configuració d'X'."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -4993,8 +4992,7 @@ msgid ""
 "Configuration' below."
 msgstr ""
 "Aquest sistema usarà el controlador de frame buffer per al sistema de "
-"finestres X. Si no voleu configurar-lo, escolliu 'Ignora la configuració "
-"d'X'."
+"finestres X. Si no voleu configurar-lo, escolliu 'Omet la configuració d'X'."
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
@@ -5010,7 +5008,7 @@ msgid ""
 "detected settings are not correct for the hardware, select the right "
 "settings."
 msgstr ""
-"En molts casos, es pot detectar automàticament la targeta gràfica. "
+"En molts casos, es pot detectar la targeta gràfica automàticament. "
 "Seleccioneu la configuració adequada si els valors detectats no són els "
 "correctes per a la targeta."
 
@@ -5020,7 +5018,7 @@ msgstr "Memòria RAM de la targeta de _vídeo: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "_Ignora la configuració d'X"
+msgstr "_Omet la configuració d'X"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5108,7 +5106,7 @@ msgstr "Cap carregador de l'arrencada"
 
 #: ../textw/bootloader_text.py:72
 msgid "Skip Boot Loader"
-msgstr "Ignora el carregador de l'arrencada"
+msgstr "Omet el carregador de l'arrencada"
 
 #: ../textw/bootloader_text.py:73
 msgid ""
@@ -5119,12 +5117,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Heu decidit no instal·lar un carregador de l'arrencada. És molt recomanable "
-"que l'instal·leu a menys que tingueu necessitats avançades. Es necessita un "
-"carregador de l'arrencada per reiniciar aquest sistema en Linux des del disc "
+"Heu decidit no instal·lar cap carregador de l'arrencada. És molt recomanable "
+"que l'instal·leu a no ser que tingueu necessitats avançades. Es necessita un "
+"carregador de l'arrencada per reiniciar aquest sistema a Linux des del disc "
 "dur.\n"
 "\n"
-"Esteu segur que no voleu instal·lar un carregador de l'arrencada?"
+"Esteu segur que no voleu instal·lar cap carregador de l'arrencada?"
 
 #: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
 msgid ""
@@ -5133,17 +5131,17 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Uns pocs sistemes necessiten passar opcions especials al nucli durant "
-"l'arrencada per funcionar correctament. Podeu introduir ara aquestes "
+"Hi ha alguns sistemes que necessiten passar opcions especials al nucli "
+"durant l'arrencada per funcionar correctament. Podeu introduir ara aquestes "
 "opcions, en el cas que les necessiteu."
 
 #: ../textw/bootloader_text.py:119
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Usa LBA32 (no sol ser necessari)"
+msgstr "Força l'ús de LBA32 (no acostuma a ser necessari)"
 
 #: ../textw/bootloader_text.py:185
 msgid "Where do you want to install the boot loader?"
-msgstr "On s'ha d'instal·lar el carregador de l'arrencada"
+msgstr "On s'ha d'instal·lar el carregador de l'arrencada?"
 
 #: ../textw/bootloader_text.py:217 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
@@ -5160,7 +5158,7 @@ msgstr "L'etiqueta d'arrencada no és vàlida"
 
 #: ../textw/bootloader_text.py:244
 msgid "Boot label may not be empty."
-msgstr "L'etiqueta d'arrencada no ha de ser buida."
+msgstr "L'etiqueta d'arrencada no pot estar buida."
 
 #: ../textw/bootloader_text.py:249
 msgid "Boot label contains illegal characters."
@@ -5233,7 +5231,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr "Sortiu prement <retorn>"
+msgstr "Premeu <retorn> per sortir"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -5241,13 +5239,13 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Traieu els mitjans d'instal·lació usats durant el procés d'instal·lació "
-"(disquets i discos CD-ROM) i premeu <retorn> per reiniciar aquest sistema.\n"
+"Extraieu els mitjans d'instal·lació usats durant el procés d'instal·lació "
+"(disquets i discos CD-ROM) i premeu <retorn> per reiniciar el sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr "Torna a arrencar amb <retorn>"
+msgstr "Premeu <retorn> per tornar a arrencar"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -5380,7 +5378,7 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
-"Executar el dasdfmt significa la pèrdua de \n"
+"En executar el dasdfmt es perdran \n"
 "totes les dades de la unitat %s.\n"
 "\n"
 "Esteu segur que voleu fer això?"
@@ -5490,7 +5488,7 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
-"El Linux amb millores de seguretat (SELinuz) proporciona controls d'accessos "
+"El Linux amb millores de seguretat (SELinux) proporciona controls d'accessos "
 "més estrictes, per millorar la seguretat del sistema. Voldríeu habilitar-ho?"
 
 #: ../textw/firewall_text.py:261
@@ -5555,7 +5553,7 @@ msgstr "Voleu fer servir l'emulació de 3 botons?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
-msgstr "Selecció de ratolí"
+msgstr "Selecció del ratolí"
 
 #: ../textw/network_text.py:30
 msgid "Invalid IP string"
@@ -5607,7 +5605,8 @@ msgstr "Informació no vàlida"
 
 #: ../textw/network_text.py:164
 msgid "You must enter valid IP information to continue"
-msgstr "Heu d'indicar informació sobre IP vàlida per poder continuar"
+msgstr ""
+"Heu d'indicar informació sobre la IP que sigui vàlida per poder continuar"
 
 #: ../textw/network_text.py:245
 msgid "Gateway:"
@@ -5931,7 +5930,7 @@ msgstr "No hi ha partició arrel"
 
 #: ../textw/partition_text.py:1166
 msgid "Must have a / partition to install on."
-msgstr "Hi ha d'haver una partició / per instal·lar-hi."
+msgstr "Hi ha d'haver una partició / on instal·lar-hi."
 
 #: ../textw/partition_text.py:1233
 msgid "Which drive(s) do you want to use for this installation?"
@@ -6014,7 +6013,7 @@ msgstr ""
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
-msgstr "En quina zona horària esteu?"
+msgstr "En quin fus horari esteu?"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6097,7 +6096,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 "Els paquets informàtics que heu instal·lat, i altres paquets que són "
-"necessaris per satisfer les seves dependències, han estat seleccionats per "
+"necessaris per satisfer-ne les dependències, han estat seleccionats per "
 "instal·lar. Voleu personalitzar el conjunt de paquets que s'actualitzaran?"
 
 #: ../textw/userauth_text.py:29
@@ -6210,10 +6209,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Cal que feu servir el compte d'un usuari normal per a la majoria "
-"d'activitats en el sistema. Fer servir el compte del superusuari "
-"esporàdicament disminuirà les possibilitat de trencar la configuració del "
-"sistema."
+"Cal que feu servir el compte d'un usuari normal del sistema per a la majoria "
+"d'activitats. Fer servir el compte del superusuari esporàdicament disminuirà "
+"les possibilitat de trencar la configuració del sistema."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
@@ -6338,7 +6336,7 @@ msgstr "Seleccioneu la resolució que vulgueu utilitzar:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
-msgstr "Personalització de X"
+msgstr "Personalització d'X"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
@@ -6423,9 +6421,9 @@ msgstr ""
 "\n"
 "Una velocitat de sincronització vàlida és de la forma:\n"
 "\n"
-"      31.5                   un sol número\n"
-"    50.1-90.2                un rang de números\n"
-"31.5,25.0,39.3-40.0          una llista de números/rangs\n"
+"      31.5                   un sol nombre\n"
+"    50.1-90.2                un rang de nombres\n"
+"31.5,25.0,39.3-40.0          una llista de nombres/rangs\n"
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
@@ -6492,7 +6490,7 @@ msgid ""
 "the selection to the card the installer detected in your system."
 msgstr ""
 "Seleccioneu la targeta de vídeo d'aquest sistema. Escolliu '%s' per "
-"reiniciar amb els valors que ha detectat l'instal·lador per a aquest sistema."
+"reiniciar amb els valors que l'instal·lador ha detectat per a aquest sistema."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6847,8 +6845,8 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"No s'han trobat controladors per poder inserir manualment. Voleu usar un "
-"disquet de controladors?"
+"No s'han trobat controladors per inserir manualment. Voleu usar un disquet "
+"de controladors?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6980,7 +6978,7 @@ msgstr "CDROM local"
 
 #: ../loader2/loader.c:105
 msgid "Hard drive"
-msgstr "Unitat de disc dur"
+msgstr "Disc dur"
 
 #: ../loader2/loader.c:106
 msgid "NFS image"
@@ -7659,7 +7657,7 @@ msgstr "costa est, nord d'Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "east Dem. Rep. of Congo"
+msgstr "República Democràtica del Congo est"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
@@ -7833,59 +7831,59 @@ msgstr "Illes Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr "Moscú+00 - Russia oest"
+msgstr "Moscou+00 - Russia oest"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr "Moscú+01 - mar Caspi"
+msgstr "Moscou+01 - mar Caspi"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr "Moscú-01 - Kaliningrad"
+msgstr "Moscou-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr "Moscú+02 - Urals"
+msgstr "Moscou+02 - Urals"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr "Moscú+03 - Novosibirsk"
+msgstr "Moscou+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr "Moscú+03 - Siberia oest"
+msgstr "Moscou+03 - Siberia oest"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr "Moscú+04 - Yenisei River"
+msgstr "Moscou+04 - Yenisei River"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr "Moscú+05 - Llac Baikal"
+msgstr "Moscou+05 - Llac Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr "Moscú+06 - Lena River"
+msgstr "Moscou+06 - Lena River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr "Moscú+07 - Amur River"
+msgstr "Moscou+07 - Amur River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscú+07 - Illa Sakhalin"
+msgstr "Moscou+07 - Illa Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr "Moscú+08 - Magadan"
+msgstr "Moscou+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr "Moscú+09 - Kamchatka"
+msgstr "Moscou+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr "Moscú+10 - Mar Bering"
+msgstr "Moscou+10 - Mar Bering"
 
 #. generated from zone.tab
 msgid "most locations"
@@ -7992,7 +7990,7 @@ msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
+msgstr "Malàsia peninsular"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -8092,7 +8090,7 @@ msgstr "Victòria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr "Vostok Station, S Magnetic Pole"
+msgstr "Estació Vostok, pol S magnètic"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -8112,15 +8110,15 @@ msgstr "República Democràtica del Congo oest"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "Austràlia Oest"
+msgstr "Austràlia occidental"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr "Kazakhstan oest"
+msgstr "Kazakhstan occidental"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr "Uzbekistan oest"
+msgstr "Uzbekistan occidental"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -8136,12 +8134,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalí"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "Italià"
+msgstr "Català"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8174,10 +8171,6 @@ msgstr "Anglès"
 #. generated from lang-table
 msgid "Estonian"
 msgstr "Estonià"
-
-#. generated from lang-table
-msgid "Farsi"
-msgstr ""
 
 #. generated from lang-table
 msgid "Finnish"
@@ -8220,6 +8213,11 @@ msgid "Norwegian"
 msgstr "Noruec"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Persian"
+msgstr "Alemany"
+
+#. generated from lang-table
 msgid "Portuguese"
 msgstr "Portuguès"
 
@@ -8253,11 +8251,14 @@ msgstr "Ucraïnès"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Gal·lès"
 
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Farsi"
+#~ msgstr "Farsi"
 
 #~ msgid "Workstation Defaults"
 #~ msgstr "Predeterminats de l'estació de treball"
