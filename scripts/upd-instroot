@@ -95,7 +95,7 @@ if [ $ARCH = i386 ]; then
 fi
 
 if [ $ARCH = ia64 ]; then
-    PACKAGES="$PACKAGES slang"
+    PACKAGES="$PACKAGES elilo slang"
 fi
 
 # xpm is missing
@@ -143,11 +143,13 @@ if [ $ARCH = alpha ]; then
 fi
 
 if [ $ARCH = ia64 ]; then
-    PACKAGESGR="$PACKAGESGR slang"
+    PACKAGESGR="$PACKAGESGR elilo slang"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
+boot/efi/elilo.efi
+boot/efi/efi/boot/bootia64.efi
 bin/ash
 bin/fdisk*
 bin/mkfs*
@@ -231,6 +233,8 @@ EOF
 KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
+boot/efi/elilo.efi
+boot/efi/efi/boot/bootia64.efi
 bin/bash
 bin/cat
 bin/chmod
@@ -564,6 +568,12 @@ for p in $DEST $DESTGR; do
 	    mkdir -p $p/usr/lib/anaconda-runtime/boot
 	    cp -af $p/boot/bootlx $p/usr/lib/anaconda-runtime/boot
         fi
+	
+	# copy bootloader files for ia64
+	if [ $ARCH = ia64 -a $p = $DESTGR ]; then
+	    mkdir -p $p/usr/lib/anaconda-runtime/boot
+	    cp -af $p/boot/efi/* $p/usr/lib/anaconda-runtime/boot
+	fi    
 
 	rm -rf $p/boot $p/home $p/root $p/tmp
 

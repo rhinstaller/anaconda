@@ -3,20 +3,31 @@ USBMODS="usb-uhci hid keybdev"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 $LATEUSBMODS"
-NETMODULES="3c59x acenic e100 e1000 eepro100 sk98lin starfire tulip yellowfin"
-SCSIMODULES="DAC960 cciss cpqarray aic7xxx megaraid qla1280 qla2x00 sym53c8xx"
+NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin"
+SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2x00 sym53c8xx"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
-	gunzip < $BOOTDISKDIR/bootfs.gz > $MBD_TMPIMAGE
+	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
+	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
+	cp -a $IMGPATH/boot/efi/* $MBD_BOOTTREE/
 	cp $KERNELROOT/boot/efi/vmlinux-* $MBD_BOOTTREE/vmlinux
+	echo > $MBD_BOOTTREE/elilo.conf << EOF
+timeout=5
+
+image=vmlinux
+        label=linux
+        read-only
+	initrd=initrd.img
+EOF
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 	     --imagename boot.img \
+	     --bootdisksize 10240 \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \
