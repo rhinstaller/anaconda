@@ -166,7 +166,6 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-        print "id", self.todo.x.monID
         if not self.todo.x.monID:
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "

@@ -37,7 +37,7 @@ class LiloWindow (InstallWindow):
 
     def typeName(self, type):
 	if (type == 2):
-	    return "Linux extended"
+	    return "Linux Native"
 	elif (type == 1):
 	    return "DOS/Windows"
 	elif (type == 4):	
@@ -60,6 +60,11 @@ class LiloWindow (InstallWindow):
 
 	label = self.labelEntry.get_text()
 	self.imageList.set_text(index, 3, label)
+
+        if label:
+            self.defaultCheck.set_sensitive (TRUE)
+        else:
+            self.defaultCheck.set_sensitive (FALSE)
 
     def defaultUpdated(self, *args):
 	if self.ignoreSignals: return
@@ -88,6 +93,9 @@ class LiloWindow (InstallWindow):
 
 	self.typeLabel.set_text(_("Type") + ":" + self.typeName(type))
 	self.labelEntry.set_text(label)
+
+        if not label:
+            self.defaultCheck.set_sensitive (FALSE)
 
         self.ignoreSignals = 1
 	if index == self.default:

@@ -36,8 +36,7 @@ class InstallPathWindow (InstallWindow):
                     (WORKSTATION_KDE, _("KDE Workstation")),
                     (SERVER, _("Server")))
 
-    installSteps = [# ( XConfigWindow, "xconfig" ),
-                     ( PartitionWindow, "partition" ),
+    installSteps = [ ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( LiloWindow, "lilo" ),
 		     ( NetworkWindow, "network" ),
