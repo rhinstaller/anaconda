@@ -548,7 +548,7 @@ class InstallProgressWindow:
             return "%01d:%02d.%02d" % (int(hours) ,int(min), int(secs))
 
        	self.numComplete = self.numComplete + 1
-	self.sizeComplete = self.sizeComplete + header[rpm.RPMTAG_SIZE]
+	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024 / 1024)
 	self.numCompleteW.setText("%12d" % self.numComplete)
 	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
