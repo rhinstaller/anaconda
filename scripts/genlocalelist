@@ -35,6 +35,8 @@ $defaultTerritory{"Turkish"} = "Turkey";
 $defaultTerritory{"Thai"} = "Thailand";
 
 $charMap{"EUC-JP"} =  "iso01";
+$charMap{"KOI8-U"} =  "koi8-u";
+$charMap{"KOI8-R"} =  "koi8-u";
 $charMap{"ISO-8859-1"} =  "iso01";
 $charMap{"ISO-8859-2"} =  "iso02";
 $charMap{"ISO-8859-3"} =  "iso03";
@@ -46,6 +48,8 @@ $charMap{"ISO-8859-9"} =  "iso09";
 $charMap{"ISO-8859-15"} =  "iso15";
 
 $charFont{"EUC-JP"} =  "default8x16";
+$charFont{"KOI8-U"} =  "cyr-sun16";
+$charFont{"KOI8-R"} =  "cyr-sun16";
 $charFont{"ISO-8859-1"} =  "default8x16";
 $charFont{"ISO-8859-2"} =  "lat2-sun16";
 #$charFont{"ISO-8859-3"} =  "iso03";		mk_MK -- no font available
