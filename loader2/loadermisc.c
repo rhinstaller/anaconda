@@ -144,7 +144,7 @@ int totalMemory(void) {
     
     chptr = buf;
     while (*chptr && !total) {
-        if (*chptr != '\n' || strncmp(chptr + 1, "MemTotal:", 9)) {
+        if (strncmp(chptr, "MemTotal:", 9)) {
             chptr++;
             continue;
         }
