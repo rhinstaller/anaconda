@@ -278,6 +278,9 @@ class Package:
     def __getitem__(self, item):
         return self.hdr[item]
 
+    def keys(self):
+        return self.hdr.keys()
+
     def __repr__(self):
         return "%s" %(self.nevra(),)
 
