@@ -265,8 +265,13 @@ class UpgradeExamineWindow:
     def __call__ (self, dir, screen, todo):
 	if dir == -1:
 	    # Hack to let backing out of upgrades work properly
+	    from fstab import NewtFstab
 	    if todo.fstab:
 		todo.fstab.turnOffSwap()
+	    todo.fstab = NewtFstab(todo.setupFilesystems, 
+				       todo.serial, 0, 0,
+				       todo.intf.waitWindow,
+				       todo.intf.messageWindow)
 	    return INSTALL_NOOP
 
         parts = todo.upgradeFindRoot ()
