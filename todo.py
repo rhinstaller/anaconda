@@ -472,15 +472,16 @@ class ToDo:
 	    pass
 	elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
 	    # Look for the first IDE floppy device
-	    drives = isys.floppyDriveDict().keys()
+	    drives = isys.floppyDriveDict()
 	    if not drives:
 		log("no IDE floppy devices found")
 		return 0
 
-	    # We don't need to be picky about sort order as we toss
-	    # items that aren't hd* anyway
-	    drives.sort()
-	    floppyDrive = drives[0]
+            flopyyDrive = drives.keys()[0]
+            # need to go through and find if there is an LS-120
+            for dev in drives.keys():
+                if re.compile(".*[Ll][Ss]-120.*").search(drives[dev]):
+                    floppyDrive = dev
 
 	    # No IDE floppy's -- we're fine w/ /dev/fd0
 	    if not floppyDrive: return
