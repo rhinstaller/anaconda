@@ -39,7 +39,7 @@ class UpgradeBootloaderWindow:
         elif dispatch.stepInSkipList("instbootloader"):
             nobl = 1
         else:
-            if self.type != None:
+            if self.type != None and self.bootDev != None:
                 update = 1
             else:
                 nobl = 0
