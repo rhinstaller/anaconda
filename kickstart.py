@@ -279,8 +279,9 @@ class KickstartBase(BaseInstallClass):
         if upgrade:
             id.bootloader.kickstart = 1
             id.bootloader.doUpgradeOnly = 1
-        else:
-            self.showSteps.append("bootloadersetup")
+
+        
+        self.showSteps.append("bootloadersetup")
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
@@ -444,8 +445,21 @@ class KickstartBase(BaseInstallClass):
 
     def doLangSupport (self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'default=' ])
+	deflang = "en_US"
         if args:
-            self.setLanguageDefault (id, args[0][1])
+	    deflang = args[0][1]
+	else:
+	    # if they specified no default we default to en_US if
+	    # they installed support for more than one lang, otherwise
+	    # we default to the one language they specified support for
+	    if extra is None:
+		deflang = "en_US"
+	    elif len(extra) >= 1:
+		deflang = extra[0]
+	    else:
+		deflang = "en_US"
+		
+	self.setLanguageDefault (id, deflang)
         self.setLanguageSupport(id, extra)
 
         self.skipSteps.append("languagesupport")
@@ -996,7 +1010,7 @@ class KickstartBase(BaseInstallClass):
         if grow:
             request.grow = 1
         if maxSize:
-            request.maxSize = maxSize
+            request.maxSizeMB = maxSize
         if disk:
             request.drive = [ disk ]
         if primOnly:

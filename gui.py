@@ -610,6 +610,7 @@ class InstallControlWindow:
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
+        self.refreshHelp(recreate = 1)
 
     def prevClicked (self, *args):
 	try:
@@ -675,12 +676,19 @@ class InstallControlWindow:
         except SystemError:
             pass
         
-    def refreshHelp(self):
+    def refreshHelp(self, recreate = 0):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
-        self.help.set_buffer(textbuffer)
+        if recreate == 0:
+            self.help.set_buffer(textbuffer)
+        else:
+            self.help_sw.remove(self.help)
+            self.help = TextViewBrowser()
+            self.help_sw.add(self.help)
+            self.help.set_buffer(textbuffer)
+            self.help.show()
         # scroll to the top.  Do this with a mark so it's done in the idle loop
         iter = textbuffer.get_iter_at_offset(0)
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
@@ -953,9 +961,26 @@ class InstallControlWindow:
     def updateStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
-            button.label.set_text_with_mnemonic(_(text))
+
+            for child in button.get_children():
+                button.remove(child)
+
+            # FIXME: this is cut and pasted from above; make a nicer
+            # function that knows how to replace the contents in the
+            # button for a future release
+            box = gtk.HBox(gtk.FALSE, 0)
+            image = gtk.Image()
+            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
+            box.pack_start(image, gtk.FALSE, gtk.FALSE)
+            label = gtk.Label(_(text))
+            label.set_property("use-underline", gtk.TRUE)
+            box.pack_start(label, gtk.TRUE, gtk.TRUE)
+            button.add(box)
+            button.show_all()
+            button.label = label
             button.queue_resize()
 
+                
     def setup_window (self, runres):
         self.window = gtk.Window ()
         global mainWindow
@@ -1072,10 +1097,10 @@ class InstallControlWindow:
         self.box.set_spacing(0)
 
         self.box.pack_start (gtk.HSeparator (), gtk.FALSE)
-        sw = gtk.ScrolledWindow()
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        sw.add(self.help)
-        self.box.pack_start(sw, gtk.TRUE)
+        self.help_sw = gtk.ScrolledWindow()
+        self.help_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.help_sw.add(self.help)
+        self.box.pack_start(self.help_sw, gtk.TRUE)
         
         self.helpFrame.add (self.box)
 
@@ -1205,6 +1230,30 @@ class InstallControlState:
             iconset = gtk.IconSet()
             iconset.add_source(source)
             p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
+        return p
+
+    def readPixmapDithered(self, file, height = None, width = None):
+        fn = self.findPixmap(file)
+        if not fn:
+            log("unable to load %s", file)
+            return None
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+        except RuntimeError, msg:
+            log("unable to read %s: %s", file, msg)
+            return None
+        if (height is not None and width is not None
+            and height != pixbuf.get_height()
+            and width != pixbuf.get_width()):
+            pixbuf = pixbuf.scale_simple(height, width,
+                                         gtk.gdk.INTERP_BILINEAR)
+
+        (pixmap, mask) = pixbuf.render_pixmap_and_mask()
+        pixbuf.render_to_drawable(pixmap, gtk.gdk.gc_new(pixmap), 0, 0, 0, 0,
+                                  pixbuf.get_width(), pixbuf.get_height(),
+                                  gtk.gdk.RGB_DITHER_MAX, 0, 0)
+        p = gtk.Image()
+        p.set_from_pixmap(pixmap, mask)
         return p
 
     def readHTML (self, file):

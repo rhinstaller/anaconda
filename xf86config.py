@@ -87,7 +87,7 @@ Section "InputDevice"
 #
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
-#	Option	"XkbOptions"	"ctrl:nocaps"
+#	Option	"XkbOptions"	"ctrl:swapcaps"
 	Option	"XkbRules"	"%(XkbRules)s"
 	Option	"XkbModel"	"%(XkbModel)s"
 	Option	"XkbLayout"	"%(XkbLayout)s"

@@ -24,6 +24,10 @@
 #include "kudzu/kudzu.h"
 #include "isys/cpio.h"
 
+
+/* pulled in from loader.c */
+char *getCurrentFloppyDevice(void);
+
 void eject(char * deviceName) {
     int fd;
 
@@ -223,6 +227,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		      int askForExistence, char * device) {
     int rc;
     int done = 0;
+    char *origdev, *usedev;
     struct driverDiskInfo * ddi;
 
     ddi = calloc(sizeof(*ddi), 1);
@@ -246,11 +251,24 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	   device or IDE CD-ROM (i.e. it is only USB), they may have
 	   unplugged their CD-ROM at this point to plug in a USB floppy
 	   device. */
-	setFloppyDevice(flags);
 
-	ddi->device = strdup(device);
-	ddi->mntDevice = malloc(strlen(device) + 10);
-	sprintf(ddi->mntDevice, "/tmp/%s", device);
+	/* XXXX this is making the big assumption we are only pulling a
+	   driver disk from the floppy device.  setFloppyDevice() will
+	   set the extern char *floppyDevice to the proper device */
+
+	/* If floppyDevice changed after calling setFloppyDevice(), use
+	   the new value. Otherwise use the value we were passed. */
+	origdev = strdup(getCurrentFloppyDevice());
+	setFloppyDevice(flags);
+	if (strcmp(origdev, getCurrentFloppyDevice()))
+	    usedev = getCurrentFloppyDevice();
+	else
+	    usedev = device;
+	free(origdev);
+
+	ddi->device = strdup(usedev);
+	ddi->mntDevice = malloc(strlen(usedev) + 10);
+	sprintf(ddi->mntDevice, "/tmp/%s", usedev);
 
 	devMakeInode(ddi->device, ddi->mntDevice);
 

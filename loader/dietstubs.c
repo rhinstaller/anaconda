@@ -160,3 +160,7 @@ void * __rawmemchr (void* s, int c) {
 	s++;
     return s;
 }
+
+char * dcgettext (const char *domainname, const char *msgid, int category) {
+    return msgid;
+}

@@ -394,7 +394,6 @@ class Component:
                 
                 self.updateDependencyCountForAddition(p)
         elif isinstance(p, Component):
-            print "selecting component"
             p.select(forInclude = 1, toplevel = 0)
             self.metapkgs[p] = (PKGTYPE_OPTIONAL, 1)
         else:

@@ -141,18 +141,39 @@ class InstallData:
         else:
             f.write("\n")
 	packages = {}
+        forcedoff = {}
 	for comp in self.comps:
 	    if comp.isSelected():
-		if comp.isSelected(justManual = 1) and comp.name != "Base":
+		if (comp.isSelected(justManual = 1) and comp.name != "Base"
+                    and comp.name != "Core"):
 		    f.write("@ %s\n" % comp.name)
 
 		for pkg in comp.packages():
-		    packages[pkg] = 1
+                    # if it's in base or core, it really should be installed
+                    if comp.name == "Base" or comp.name == "Core":
+                        packages[pkg] = 1
+                    elif comp.newpkgDict.has_key(pkg):
+                        (type, installed) = comp.newpkgDict[pkg]
+                        # if it's mandatory, put it in the dict of ones
+                        # already handled
+                        if type == 0:
+                            packages[pkg] = 1
+                        elif comp.depsDict.has_key(pkg.name):
+                            packages[pkg] = 1
+                        else:
+                            # otherwise it's optional -- if it's off, we
+                            # should mark it as forced off so that it
+                            # gets listed as such in the comps file
+                            if installed == 0:
+                                forcedoff[pkg] = 1
+                    # or if it's there as a dep, pretend we don't care
+                    elif comp.depsDict.has_key(pkg.name):
+                        packages[pkg] = 1
 
 	for pkg in self.hdList.values():
 	    if not packages.has_key(pkg) and pkg.isSelected():
 		f.write("%s\n" % pkg.name)
-            if pkg.wasForcedOff():
+            if pkg.wasForcedOff() or forcedoff.has_key(pkg):
                 f.write("-%s\n" %(pkg.name))
 
 	f.write("\n%post\n")

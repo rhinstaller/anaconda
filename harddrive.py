@@ -22,6 +22,7 @@ import iutil
 import rpm404 as rpm
 import string
 from rhpl.translate import _, cat, N_
+from rhpl.log import log
 
 FILENAME = 1000000
 

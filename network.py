@@ -178,7 +178,7 @@ class Network:
 		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
                     self.isConfigured = 1
                     break
-		elif dev.get('ipaddr') and dev.get('netmask'):
+		elif dev.get('ipaddr') and dev.get('netmask') and self.gateway is not None:
                     try:
                         isys.configNetDevice(dev.get('device'),
                                              dev.get('ipaddr'),

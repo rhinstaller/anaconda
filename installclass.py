@@ -375,7 +375,12 @@ class BaseInstallClass:
         if usemon:
             try:
                 (model, eisa, vert, horiz) = id.monitor.lookupMonitorByName(usemon)
-                id.monitor.setSpecs(horiz, vert, id=model, name=model)
+		if id.monitor.getMonitorID() != "DDCPROBED":
+		    useid = model
+		else:
+		    useid = "DDCPROBED"
+		    
+                id.monitor.setSpecs(horiz, vert, id=useid, name=model)
                 setmonitor = 1
             except:
                 log("Couldnt lookup monitor type %s." % usemon)

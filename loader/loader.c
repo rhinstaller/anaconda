@@ -3050,6 +3050,10 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 #define loadUfs(kd,modLoaded,modDepsPtr,flags) do { } while (0)
 #endif
 
+/* return value of global floppyDevice */
+char *getCurrentFloppyDevice() {
+    return floppyDevice;
+}
 void setFloppyDevice(int flags) {
 #if defined(__i386__) || defined(__ia64__)
     struct device ** devices;

@@ -1,6 +1,12 @@
 #include <ctype.h>
 #include <stdio.h>
 
+#if __GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ > 2)
+# define __ctype_b (*__ctype_b_loc())
+# define __ctype_tolower (*__ctype_tolower_loc())
+# define __ctype_toupper (*__ctype_toupper_loc())
+#endif
+
 int main(int argc, char ** argv) {
     int i;
 
@@ -42,6 +48,10 @@ int main(int argc, char ** argv) {
 
     printf("\n};\n\n");
     printf("const int * __ctype_tolower = __ctype_tolower_internal + 128;\n\n");
+
+    printf ("const unsigned short int **__ctype_b_loc (void) { return &__ctype_b; }\n");
+    printf ("const int **__ctype_toupper_loc (void) { return &__ctype_toupper; }\n");
+    printf ("const int **__ctype_tolower_loc (void) { return &__ctype_tolower; }\n\n");
 
     return 0;
 };

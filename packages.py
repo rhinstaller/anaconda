@@ -552,17 +552,18 @@ def doPreInstall(method, id, intf, instPath, dir):
 #            log("Error making directory %s: %s" % (i, msg))
 
 
-    try:
-        if os.path.exists("/var/tmp") and not os.path.islink("/var/tmp"):
-            iutil.rmrf("/var/tmp")
-        if not os.path.islink("/var/tmp"):
-            os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
-        else:
-            log("/var/tmp already exists as a symlink to %s" %(os.readlink("/var/tmp"),))
-    except:
-        # how this could happen isn't entirely clear; log it in case
-        # it does and causes problems later
-        log("unable to create symlink for /var/tmp.  assuming already created")
+    if flags.setupFilesystems:
+	try:
+	    if os.path.exists("/var/tmp") and not os.path.islink("/var/tmp"):
+		iutil.rmrf("/var/tmp")
+	    if not os.path.islink("/var/tmp"):
+		os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
+	    else:
+		log("/var/tmp already exists as a symlink to %s" %(os.readlink("/var/tmp"),))
+	except:
+	    # how this could happen isn't entirely clear; log it in case
+	    # it does and causes problems later
+	    log("unable to create symlink for /var/tmp.  assuming already created")
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
