@@ -653,9 +653,12 @@ class MonitorWindow (InstallWindow):
         keys = monitorslist.keys ()
         keys.sort ()
 
-        # treat Generic monitors special
-        keys.remove("Generic")
-        keys.insert(0, "Generic")
+	idx = 0
+	for man in ["Generic LCD Display", "Generic CRT Display", "Generic"]:
+	    if man in keys:
+		keys.remove(man)
+		keys.insert(idx, man)
+		idx += 1
 
 	self.currentMonitor = None
 	toplevels={}
@@ -685,8 +688,8 @@ class MonitorWindow (InstallWindow):
 	# now insert rest of monitors, unless we match the ddc probed id
         for man in keys:
             models = monitorslist[man]
-            if man == "Generic":
-                title = _("Generic")
+	    if man in ["Generic LCD Display", "Generic CRT Display"]:
+                title = _(man)
 		# dont sort generic, present in order in file
             else:
                 title = man
