@@ -86,10 +86,11 @@ int _nl_current_LC_PAPER() { return 0; }
 int _nl_current_LC_ADDRESS() { return 0; }
 int __mpn_extract_long_double() { return 0; }
 int __mpn_extract_double() { return 0; }
-int __getgroups() { return -1; }
 int _nl_C_LC_TELEPHONE() { return 0; }
 int _nl_C_LC_MEASUREMENT() { return 0; }
 int _nl_C_LC_PAPER() { return 0; }
 int _nl_C_LC_ADDRESS() { return 0; }
+int _dl_clktck() { return 0;}
+int _dl_aux_init() { return 0;}
 
-
+int _dl_pagesize = 4096;
