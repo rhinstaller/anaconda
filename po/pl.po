@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2000-02-21 21:00+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish\n"
@@ -1398,8 +1398,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Katalog %s musi znajdowaæ siê na systemie plików root."
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Wyszukiwanie instalacji Linuxa Red Hat..."
 
 #: ../iw/examine_gui.py:85
@@ -5163,6 +5163,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Wyszukiwanie instalacji Linuxa Red Hat..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

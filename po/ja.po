@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-03-02 16:39-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
@@ -1144,8 +1144,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "ルートファイルシステムを含むデバイスを選択して下さい"
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Red Hat Linux をアップグレード中 - パーティション /dev/"
+#, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
+msgstr "Red Hat Linux をアップグレード中 - パーティション /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -4470,6 +4471,9 @@ msgstr "トルコ語"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ウクライナ語"
+
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Red Hat Linux をアップグレード中 - パーティション /dev/"
 
 #~ msgid "Going to upgrade partition /dev/"
 #~ msgstr "アップグレードするパーティション /dev/"

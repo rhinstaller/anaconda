@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2000-08-17 16:58+09:00\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team:  <blackcat-support@blackcatlinux.com>\n"
@@ -1418,8 +1418,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Вибер╕ть пристр╕й, що м╕стить кореневу файлову систему: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Пошук встановлених систем Red Hat Linux..."
 
 #: ../iw/examine_gui.py:85
@@ -5186,6 +5186,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Пошук встановлених систем Red Hat Linux..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -1428,8 +1428,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Direktori %s harus ada di filesystem root"
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Saya sedang mencari instalasi Red Hat Linux..."
 
 #: ../iw/examine_gui.py:85
@@ -5186,6 +5186,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Saya sedang mencari instalasi Red Hat Linux..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

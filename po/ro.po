@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -1423,8 +1423,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Selectaþi partiþia care conþine systemul de fiºiere rãdãcinã: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Se încearcã detectarea instalãrilor precedente de Linux..."
 
 #: ../iw/examine_gui.py:85
@@ -5237,6 +5237,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Se încearcã detectarea instalãrilor precedente de Linux..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-03-26 12:00-0500\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -1424,8 +1424,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/"
+#, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
+msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -5219,3 +5220,6 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/"

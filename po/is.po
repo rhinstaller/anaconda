@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-03-19 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -1421,8 +1421,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/"
+#, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
+msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -5208,6 +5209,9 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
+
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/"
 
 #~ msgid "Transdniestria"
 #~ msgstr "Transdniestria"

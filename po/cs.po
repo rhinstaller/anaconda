@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-02-18 22:30+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -1413,8 +1413,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Zvolte prosím zaøízení, které obsahuje koøenový systém souborù: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Hledám instalace Red Hat Linuxu..."
 
 #: ../iw/examine_gui.py:85
@@ -5183,6 +5183,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Hledám instalace Red Hat Linuxu..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

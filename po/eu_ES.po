@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -1778,8 +1778,8 @@ msgstr "Mesedez, erro fitxategitza daukan tramankulua hautatu."
 
 # ../todo.py:858
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Red Hat Linux-eko ezarketak bilatzen..."
 
 # ../iw/examine_gui.py:72
@@ -6145,6 +6145,11 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+# ../todo.py:858
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Red Hat Linux-eko ezarketak bilatzen..."
 
 # ../libfdisk/newtfsedit.c:208
 #, fuzzy

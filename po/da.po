@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-03-23 10:56GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -1420,8 +1420,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
+#, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
+msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -5216,6 +5217,9 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
+
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
 
 #~ msgid "Transdniestria"
 #~ msgstr "Transdniestria"

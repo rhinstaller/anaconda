@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
@@ -1369,8 +1369,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Kök bölümünü tutan aygýtý seçin: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "Red Hat Linux kurulumlarý taranýyor..."
 
 #: ../iw/examine_gui.py:85
@@ -5084,6 +5084,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "Red Hat Linux kurulumlarý taranýyor..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-03-27 22:12-0500\n"
+"POT-Creation-Date: 2001-03-28 00:50-0500\n"
 "PO-Revision-Date: 2001-02-09 15:55-0500\n"
 "Last-Translator: Anaconda Team <msw@redhat.com>\n"
 "Language-Team: Chinese-S <msw@redhat.com>\n"
@@ -1159,8 +1159,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "%s 目录必须位于根文件系统上。"
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#, fuzzy, c-format
+msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
 msgstr "正在搜索 Red Hat Linux 安装..."
 
 #: ../iw/examine_gui.py:85
@@ -4508,6 +4508,10 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
+#~ msgstr "正在搜索 Red Hat Linux 安装..."
 
 #, fuzzy
 #~ msgid "Going to upgrade partition /dev/"
