@@ -497,7 +497,7 @@ class PackageSelectionWindow (InstallWindow):
 
     def componentToggled(self, widget, data):
         # turn on all the comps we selected
-	(comp, lbl, al, ebutton) = data
+	(comp, lbl, count, al, ebutton) = data
 	if widget.get_active ():
             if ebutton:
                 al.add(ebutton)
@@ -512,6 +512,8 @@ class PackageSelectionWindow (InstallWindow):
 	
 	if lbl:
 	    self.setCompLabel(comp, lbl)
+        if count:
+            self.setCompCountLabel(comp, count)
 
         ### XXX - need to i18n??
         if comp.name == "Everything":
@@ -592,10 +594,17 @@ class PackageSelectionWindow (InstallWindow):
         if not comp.isSelected(justManual = 1):
             selpkg = 0
 
+	label.set_markup("<b>%s</b>" % (_(comp.name),))
+
+    def setCompCountLabel(self, comp, label):
+	(selpkg, totpkg) = self.getStats(comp)
+        if not comp.isSelected(justManual = 1):
+            selpkg = 0
+
 	if comp.name == u"Everything":
-	    txt = "<b>%s</b>" % (_(comp.name),)
+	    txt = ""
 	else:
-	    txt = "<b>%s [%d/%d]</b>" % (_(comp.name), selpkg, totpkg)
+	    txt = "<b>[%d/%d]</b>" % (selpkg, totpkg)
 	    
 	label.set_markup(txt)
 
@@ -644,7 +653,7 @@ class PackageSelectionWindow (InstallWindow):
 	# START OF editDetails
 	#
 	# backup state
-	(comp, hdrlbl) = data
+	(comp, hdrlbl, count) = data
 	origpkgselection = {}
 	for pkg in comp.packagesFullInfo().keys():
 	    val = comp.packagesFullInfo()[pkg]
@@ -814,32 +823,48 @@ class PackageSelectionWindow (InstallWindow):
 
 	if hdrlbl:
 	    self.setCompLabel(comp, hdrlbl)
+	if count:
+	    self.setCompCountLabel(comp, count)
 	    
         return
     
 
     def getScreen(self, comps, dispatch):
     # PackageSelectionWindow tag="sel-group"
+        ICON_SIZE = 32
+        
 	self.comps = comps
 	self.dispatch = dispatch
 
 	self.origSelection = self.comps.getSelectionState()
 
-        box = gtk.VBox (gtk.FALSE, 10)
-	box.set_border_width(5)
-
         self.checkButtons = []
 	(parlist, pardict) = orderPackageGroups(self.comps)
 
-	for par in parlist:
-	    vbox = gtk.VBox (gtk.FALSE, 2)
-	    box.pack_start(vbox, gtk.FALSE, gtk.FALSE)
-	    
-	    lbl = gtk.Label("")
-	    lbl.set_markup("<big><b>%s</b></big>" % (par,))
-	    lbl.set_alignment(0.0, 0.0)
-	    vbox.pack_start(lbl)
+        row = 0
 
+        topbox = gtk.VBox(gtk.FALSE, 3)
+        topbox.set_border_width(3)
+        
+        checkGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
+        countGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
+        detailGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
+        
+	for par in parlist:
+            # set the background to our selection color
+	    eventBox = gtk.EventBox()
+	    eventBox.modify_bg(gtk.STATE_NORMAL,
+                               gtk.gdk.color_parse("#727fb2"))
+	    lbl = gtk.Label("")
+	    lbl.set_markup("<span foreground='white'><big><b>"
+                           "%s</b></big></span>" % (par,))
+	    lbl.set_alignment(0.0, 0.0)
+            pad = gtk.Alignment(0.0, 0.0)
+            pad.add(lbl)
+            pad.set_border_width(3)
+            eventBox.add(pad)
+            topbox.pack_start(eventBox)
+            
 	    for comp in pardict[par]:
 		if comp.hidden:
 		    continue
@@ -851,58 +876,72 @@ class PackageSelectionWindow (InstallWindow):
 		    pix = None
 		else:
 		    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
-		    sclpix = rawpix.scale_simple(32, 32,
+		    sclpix = rawpix.scale_simple(ICON_SIZE, ICON_SIZE,
 						 gtk.gdk.INTERP_BILINEAR)
 		    pix = gtk.Image()
 		    pix.set_from_pixbuf(sclpix)
 
-		# vbox for everything
-		cvbox = gtk.VBox(gtk.FALSE)
+                compbox = gtk.HBox(gtk.FALSE, 5)                
+
+                spacer = gtk.Fixed()
+                spacer.set_size_request(30, -1)
+                compbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
 
 		# create check button and edit button
 		# make the comps title + edit button
-		hdrhbox=gtk.HBox(gtk.FALSE)
 		hdrlabel=gtk.Label("")
 		hdrlabel.set_alignment (0.0, 0.5)
 		self.setCompLabel(comp, hdrlabel)
 
 		checkButton = gtk.CheckButton()
 		checkButton.add(hdrlabel)
-		hdrhbox.pack_start(checkButton, gtk.FALSE, gtk.FALSE, 10)
+                checkGroup.add_widget(checkButton)
+                compbox.pack_start(checkButton)
 
-                buttonal = gtk.Alignment(1.0, 0.0)
-                buttonal.set_size_request(-1, 20)
-                hdrhbox.pack_start(buttonal, gtk.TRUE, gtk.TRUE, 50)
+		count=gtk.Label("")
+		count.set_alignment (1.0, 0.5)
+		self.setCompCountLabel(comp, count)
+                countGroup.add_widget(count)
+                compbox.pack_start(count, gtk.FALSE, gtk.FALSE)
+
+                spacer = gtk.Fixed()
+                spacer.set_size_request(15, -1)
+                compbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+                
+                buttonal = gtk.Alignment(0.5, 0.5)
+                detailGroup.add_widget(buttonal)
+                compbox.pack_start(buttonal, gtk.FALSE, gtk.FALSE)
 
 		# now make the url looking button for details
 		if comp.name != u"Everything":
 		    nlbl = gtk.Label("")
                     selected = comp.isSelected(justManual = 1)
-                    nlbl.set_markup('<span foreground="#3030c0"><u>%s</u></span>' % (_('Details'),))
+                    nlbl.set_markup('<span foreground="#3030c0"><u>'
+                                    '%s</u></span>' % (_('Details'),))
 		    editbutton = gtk.Button()
 		    editbutton.add(nlbl)
 		    editbutton.set_relief(gtk.RELIEF_NONE)
 		    editbutton.connect("clicked", self.editDetails,
-				       (comp, hdrlabel))
+				       (comp, hdrlabel, count))
                     if comp.isSelected(justManual = 1):
                         buttonal.add(editbutton)
 		else:
 		    editbutton = None
 
-		cvbox.pack_start(hdrhbox, gtk.FALSE, gtk.FALSE)
+                topbox.pack_start(compbox)
 
-		# now create the description
-		dhbox = gtk.HBox(gtk.FALSE)
-		dcrackhbox = gtk.HBox(gtk.FALSE)
-		dcrackhbox.set_size_request(15, -1)
-		dhbox.pack_start(dcrackhbox, gtk.FALSE, gtk.FALSE)
-		packed_dhbox = 0
+                detailbox = gtk.HBox(gtk.FALSE)
+
+                spacer = gtk.Fixed()
+                spacer.set_size_request(45, -1)
+                detailbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+                
+		# icon
 		if pix is not None:
 		    al = gtk.Alignment(0.5, 0.5)
 		    al.add(pix)
-		    packed_dhbox = 1
-		    dhbox.pack_start(al, gtk.FALSE, gtk.FALSE)
-
+                    detailbox.pack_start(al, gtk.FALSE, gtk.FALSE, 10)
+                    
 		# add description if it exists
 		descr = getCompGroupDescription(comp)
 		if descr is not None:
@@ -911,35 +950,29 @@ class PackageSelectionWindow (InstallWindow):
 		    label.set_line_wrap(gtk.TRUE)
 		    label.set_size_request(350, -1)
 		    label.set_markup("%s" % (_(descr),))
-		    packed_dhbox = 1
-		    dhbox.pack_start(label, gtk.TRUE, gtk.TRUE,10)
-
-		if packed_dhbox:
-		    cvbox.pack_start(dhbox, gtk.FALSE, gtk.FALSE)
-		else:
-		    dhbox = None
+                    detailbox.pack_start(label, gtk.TRUE)
+                topbox.pack_start(detailbox)
 
 		checkButton.set_active (comp.isSelected(justManual = 1))
 		checkButton.connect('toggled', self.componentToggled,
-				    (comp, hdrlabel, buttonal, editbutton))
-		self.checkButtons.append ((hdrhbox, dhbox, comp))
+				    (comp, hdrlabel, count, buttonal,
+                                     editbutton))
+		self.checkButtons.append ((compbox, detailbox, comp))
 
-		tmphbox = gtk.HBox(gtk.FALSE)
-		crackhbox = gtk.HBox(gtk.FALSE)
-		crackhbox.set_size_request(30, -1)
-		tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-		tmphbox.pack_start(cvbox, gtk.TRUE, gtk.TRUE)
-		vbox.pack_start (tmphbox)
+            # add some extra space to the end of each group
+            spacer = gtk.Fixed()
+            spacer.set_size_request(-1, 3)
+            topbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
 
         sw = gtk.ScrolledWindow()
-        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         viewport = gtk.Viewport(sw.get_hadjustment(), sw.get_vadjustment())
         sw.add(viewport)
-        viewport.add(box)
+        viewport.add(topbox)
         viewport.set_property('shadow-type', gtk.SHADOW_IN)
 	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-        box.set_focus_hadjustment(sw.get_hadjustment())
-        box.set_focus_vadjustment(sw.get_vadjustment())
+        topbox.set_focus_hadjustment(sw.get_hadjustment())
+        topbox.set_focus_vadjustment(sw.get_vadjustment())
 
         hbox = gtk.HBox (gtk.FALSE, 5)
 
