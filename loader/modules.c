@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
@@ -164,35 +165,37 @@ static int moduleLoaded(moduleList modList, const char * name) {
     return 0;
 }
 
-int mlLoadModule(struct moduleInfo * modInfo, moduleList modLoaded,
+int mlLoadModule(char * modName, moduleList modLoaded,
 	         moduleDeps modDeps, int testing) {
     moduleDeps dep;
     char ** nextDep;
-    char modName[80];
+    char fileName[80];
     int rc;
 
 
-    for (dep = modDeps; dep->name && strcmp(dep->name, modInfo->moduleName);
+    for (dep = modDeps; dep->name && strcmp(dep->name, modName);
     	 dep++);
 
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
 	    if (!moduleLoaded(modLoaded, *nextDep)) {
-		sprintf(modName, "%s.o", *nextDep);
-	    	if (!testing) insmod(*nextDep, NULL);
+		mlLoadModule(*nextDep, modLoaded, modDeps, testing);
 	    }
 
-	    dep++;
+	    nextDep++;
 	}
     }
 
     if (testing) return 0;
 
-    sprintf(modName, "%s.o", modInfo->moduleName);
+    sprintf(fileName, "%s.o", modName);
 
-    rc = insmod(modName, NULL);
-    sleep(2);
+    printf("loading %s\n", fileName);
+    rc = insmod(fileName, NULL);
+    if (!rc)
+	modLoaded->modules[modLoaded->numModules++] = strdup(modName);
+
     return rc;
 }
 
