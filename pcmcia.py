@@ -14,34 +14,23 @@
 #
 
 import iutil, string, os, kudzu
+from rhpl.log import log
 
 def pcicType(test = 0):
     devs = kudzu.probe(kudzu.CLASS_SOCKET, kudzu.BUS_PCI, 0)
     if devs:
+	log("Found a pcic controller of type: yenta_socket")
 	return "yenta_socket"
 
-    loc = "/sbin/probe"
-    if not os.access(loc, os.X_OK):
-	loc = "/usr/sbin/probe"
+    # lets look for non-PCI socket controllers now
+    devs = kudzu.probe(kudzu.CLASS_SOCKET, kudzu.BUS_MISC, 0)
 
-    try:
-        result = iutil.execWithCapture(loc, [ loc ])
-    except RuntimeError:
-        return None
+    if devs and devs[0].driver not in ["ignore", "unknown", "disabled"]:
+	log("Found a pcic controller of type: %s", devs[0].driver)
+	return devs[0].driver
 
-
-    # VERY VERY BAD - we're depending on the output of /sbin/probe
-    # to guess the PCMCIA controller.  Output has changed over the
-    # years and this tries to catch cases we know of
-    if (string.find(result, "TCIC-2 probe: not found") != -1):
-	return None
-    elif (string.find(result, "TCIC-2") != -1):
-	if (string.find(result, "not") == -1):
-	    return "tcic"
-	else:
-	    return None
-
-    return "i82365"
+    log("No pcic controller detected")
+    return None
 
 def createPcmciaConfig(path, test = 0):
     f = open(path, "w")
