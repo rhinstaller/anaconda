@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-10 09:38-0500\n"
-"PO-Revision-Date: 2001-03-10 19:14+00:00\n"
+"PO-Revision-Date: 2001-03-10 19:25+00:00\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: Portuguese <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,23 +86,20 @@ msgstr ""
 "do Red Hat e carregue em \"Ok\" para reiniciar o seu computador.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
-msgstr "Tamanho da memória virtual"
+msgstr "Memória Virtual"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "A formatar memória virtual em /dev/%s..."
+msgstr "A criar memória virtual..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formatando"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "A formatar memória virtual em /dev/%s..."
+msgstr "A formatar memória virtual..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -884,9 +881,8 @@ msgid "Examine System"
 msgstr "Examinar Sistema"
 
 #: ../text.py:1079
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Tamanho da memória virtual"
+msgstr "Tamanho da Memória Virtual"
 
 #: ../text.py:1086
 msgid "Customize Upgrade"
@@ -1058,10 +1054,18 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"Ocorreu um erro ao instalar o carregador de sistema.\n"
+"\n"
+"É ALTAMENTE recomendado que faço uma disquete de recuperação quando lhe for "
+"dada a oportunidade; de outro modo, pode não conseguir arrancar o Red Hat "
+"Linux.\n"
+"\n"
+"O erro foi:\n"
+"\n"
 
 #: ../todo.py:2002
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Erro do Carregador de Sistema"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -2077,15 +2081,15 @@ msgstr "Cores:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 Cores (8 Bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Muitas Cores (16 Bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Cor Real (24 Bit)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2133,7 +2137,7 @@ msgstr "Configuração do Monitor"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Monitor detectado por DDC"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2585,36 +2589,37 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"O kernel 2.4 precisa de mais memória virtual do que os kernels mais antigos, "
+"por vezes o dobro de memória virtual do que a RAM no seu computador. "
+"Actualmente tem %dMB de memória virtual configurada, mas pode criar mais "
+"memória virtual num dos seus sistemas de ficheiros agora."
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Espaço em Disco"
+msgstr "Espaço Livre"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Tamanho (MB)"
+msgstr "Tamanho sugerido (MB)"
 
 #: ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Tamanho da memória virtual:"
+msgstr "Tamanho da memória virtual (MB):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Memória Virtual"
+msgstr "Adicionar Memória Virtual"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "O tamanho tem que ser um número."
+msgstr "O valor que inseriu não é um número válido."
 
 #: ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"Não há espaço suficiente no dispositivo que seleccionou para a partição de "
+"memória virtual."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
@@ -5060,6 +5065,8 @@ msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5120,6 +5127,3 @@ msgstr "Turco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
-
-#~ msgid "German"
-#~ msgstr "Alemão"
