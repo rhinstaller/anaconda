@@ -4,7 +4,7 @@ msgstr ""
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
 "PO-Revision-Date: 2000-02-19 16:20+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
-"Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
+"Language-Team: Danish/Dansk <sslug-locale@sslug.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -434,10 +434,10 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"En opstartsdiskette giver mulighed for at opstarte dit Linux system uden at "
-"være afhængig af den normale bootindlæser. Dette er praktisk hvis du ikke "
-"ønsker at installere lilo på dit system, hvis et andet operativsystem har "
-"fjernet lilo eller lilo ikke virker med din maskines konfiguration. En "
+"En opstartsdiskette giver mulighed for at starte dit Linux system op uden at "
+"være afhængig af den normale opstartsindlæser. Dette er praktisk hvis du "
+"ikke ønsker at installere lilo på dit system, hvis et andet operativsystem "
+"har fjernet lilo eller lilo ikke virker med din maskines konfiguration. En "
 "opstartsdiskette kan desuden bruges sammen med Red Hat redningsdisketten, "
 "som gør det meget lettere at komme sig efter alvorlige systemfejl.\n"
 "\n"
@@ -450,7 +450,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"Opstart med diskette virker formentlig ikke med en Ultra maskine fra SMCC\n"
+"Disketteopstart virker formentlig ikke med en Ultra maskine fra SMCC\n"
 
 #: ../text.py:541 ../text.py:754
 msgid "Bootdisk"
@@ -958,7 +958,7 @@ msgstr "Opret opstartsdiskette"
 
 #: ../iw/bootdisk.py:68
 msgid "Skip boot disk creation"
-msgstr "Udelad oprettelse af opstartsdiskette"
+msgstr "Undlad oprettelse af opstartsdiskette"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
@@ -1117,7 +1117,7 @@ msgstr "Type"
 
 #: ../iw/lilo.py:164
 msgid "Install LILO boot record on:"
-msgstr "Installér LILO boot record på:"
+msgstr "Installér LILO 'boot record' på:"
 
 #: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
 msgid "Master Boot Record (MBR)"
@@ -1347,7 +1347,7 @@ msgstr "Silo-konfiguration"
 
 #: ../iw/silo.py:162
 msgid "Install SILO boot record on:"
-msgstr "Installér SILO boot record på:"
+msgstr "Installér SILO 'boot record' på:"
 
 #: ../iw/silo.py:175
 msgid "Create PROM alias"
@@ -1475,7 +1475,7 @@ msgstr ""
 
 #: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
-msgstr "Hvor vil du installere bootindlæseren"
+msgstr "Hvor vil du installere opstartsindlæseren"
 
 #: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
 msgid "Clear"
@@ -1491,9 +1491,9 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Opstartsprogram, som red Hat bruger, kan også starte andre operativsystemer. "
-"Skriv hvilke partitioner du gerne vil kunne starte samt et navn for hvert af "
-"disse operativsystemer."
+"Opstartsprogrammet, som Red Hat bruger, kan også starte andre "
+"operativsystemer. Skriv hvilke partitioner du gerne vil kunne starte samt et "
+"navn for hvert af disse operativsystemer."
 
 #: ../textw/packages.py:123
 msgid ""
@@ -2332,19 +2332,19 @@ msgstr "Du må kun slette NFS-monteringer."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Anden CDROM"
+msgstr "Anden cdrom"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "CDROM-type"
+msgstr "Cdrom-type"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Hvilken type CDROM har du?"
+msgstr "Hvilken type cdrom har du?"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr "Opstarter CDROM..."
+msgstr "Opstarter cdrom..."
 
 #: ../loader/devices.c:51
 msgid "Miscellaneous"
@@ -2358,7 +2358,7 @@ msgid ""
 msgstr ""
 "Dette modul kan tage parametre som påvirker dets operation. Hvis du ikke ved "
 "hvilke parametre, der skal bruges, så spring denne side over ved at trykke "
-"på \"Ok\"-knappen nu."
+"på \"Ok\" knappen nu."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
@@ -2391,7 +2391,7 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "Hvilken driver skal jeg prøve? Hvis driveren du mangler ikke findes på denne "
-"liste og du har en separat driverdisk, så tryk venligst på F2."
+"liste og du har en separat driverdisk, tryk venligst på F2."
 
 #: ../loader/devices.c:242
 msgid "Which driver should I try?"
@@ -2434,7 +2434,7 @@ msgstr "Hvilken slags tastatur har du?"
 
 #: ../loader/loader.c:101
 msgid "Local CDROM"
-msgstr "Lokal CDROM"
+msgstr "Lokal cdrom"
 
 #: ../loader/loader.c:104
 msgid "NFS image"
@@ -2510,7 +2510,7 @@ msgid ""
 msgstr ""
 "Hvilken partition, og hvilken mappe på denne partition, indeholder "
 "RedHat/RPMS og RedHat/base mapperne? Hvis du ikke kan se det diskdrev du "
-"bruger her, så tryk på F2 for at konfigurere yderligere enheder."
+"bruger her, tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:636
 msgid "Directory holding Red Hat:"
@@ -2530,7 +2530,7 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Jeg kunne ikke finde en Red Hat Linux CDROM i nogen af dine CDROM drev. "
+"Jeg kunne ikke finde en Red Hat Linux cdrom i nogen af dine cdromdrev. "
 "Indsæt venligst Red Hat CD'en og tryk på \"Ok\" for at prøve igen."
 
 #: ../loader/loader.c:911
@@ -2675,7 +2675,7 @@ msgstr "Dårlig bootproto %s angivet i netværkskommando"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
-msgstr "Bootprotokol at bruge"
+msgstr "Opstartsprotokol at bruge"
 
 #: ../loader/net.c:630
 msgid "Network gateway"
