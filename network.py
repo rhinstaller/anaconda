@@ -213,7 +213,7 @@ class Network:
 	    fn = "%s/etc/sysconfig/network-scripts/ifcfg-%s" % (instPath,
                                                                 device)
             f = open(fn, "w")
-	    os.chmod(fn, 0600)
+	    os.chmod(fn, 0644)
             f.write(str(dev))
             f.close()
 
