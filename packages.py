@@ -734,7 +734,10 @@ def doPreInstall(method, id, intf, instPath, dir):
 
         # SELinux hackery (#121369)
         if flags.selinux:
-            os.mkdir(instPath + "/selinux")
+            try:
+                os.mkdir(instPath + "/selinux")
+            except Exception, e:
+                pass
             try:
                 isys.mount("/selinux", instPath + "/selinux", "selinuxfs")
             except Exception, e:
