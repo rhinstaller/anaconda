@@ -26,6 +26,7 @@
 #include "loader.h"
 #include "lang.h"
 #include "loadermisc.h"
+#include "kickstart.h"
 #include "log.h"
 #include "method.h"
 #include "nfsinstall.h"
@@ -286,13 +287,34 @@ int kickstartFromNfs(char * url, struct knownDevices * kd,
         return 1;
     }
 
+    /* if they just did 'linux ks', they want us to figure it out from
+     * the dhcp/bootp information
+     */
+    if (url == NULL) {
+        if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
+            logMessage("no bootserver was found");
+            return 1;
+        }
+         
+        if (!(netCfg.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
+            url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
+                             "/kickstart/");
+            logMessage("bootp: no bootfile received");
+        } else {
+            url = sdupprintf("%s:%s", inet_ntoa(netCfg.dev.nextServer),
+                             netCfg.dev.bootFile);
+        }
+    } 
+      
+    logMessage("url is %s", url);
+
     getHostandPath(url, &host, &path, inet_ntoa(netCfg.dev.ip));
 
     /* nfs has to be a little bit different... split off the last part as
      * the file and then concatenate host + dir path */
     file = strrchr(path, '/');
     if (!file) {
-        file = "/";
+        file = path;
     } else {
         *file++ ='\0';
         host = sdupprintf("%s/%s", host, path);

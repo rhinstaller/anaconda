@@ -345,8 +345,9 @@ void getKickstartFile(struct knownDevices * kd,
     } else if (!strncmp(c, "ks=file:", 8)) {
         loaderData->ksFile = c + 8;
     } else if (!strcmp(c, "ks")) {
-        logMessage("grabbing kickstart from nfs with dhcp next-server currently unsupported");
-        return;
+        if (kickstartFromNfs(NULL, kd, loaderData, flags))
+            return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
     }
 
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_KICKSTART;
