@@ -1,5 +1,8 @@
 2004-11-16  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/net.c: Allow going back and manually changing the
+	network device used even if ksdevice= is passed (#136903)
+
 	* loader2/loader.c: Fix for serial console magic to work again
 	with just console= and not explicit serial (#137971)
 
