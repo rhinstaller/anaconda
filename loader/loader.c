@@ -1016,6 +1016,8 @@ static char * mountNfsImage(struct installMethod * method,
         }
     }
 
+logMessage("mount complete");
+
     writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     free(host);
@@ -1203,7 +1205,7 @@ static char * doMountImage(char * location,
 	free(class);
     }
 
-#if defined(__alpha__)
+#if defined(__alpha__) || defined(__ia64__)
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = installMethods[i].name;
 	validMethods[numValidMethods++] = i;
@@ -1322,6 +1324,7 @@ static char * doMountImage(char * location,
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDepsPtr, flags);
+	    logMessage("got url %s", url);
 	    if (!url) {
 		step = STEP_METHOD;
                 dir = -1;
@@ -2188,11 +2191,13 @@ int main(int argc, char ** argv) {
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
 
+#if !defined(__ia64__)
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
+#endif
 
     openLog(FL_TESTING(flags));
 
@@ -2277,6 +2282,7 @@ int main(int argc, char ** argv) {
 	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, &modDeps,
 			   &lang, &keymap, &kbdtype,
 			   flags);
+logMessage("found url image %s", url);
     }
 
     if (!FL_TESTING(flags)) {
@@ -2312,8 +2318,10 @@ int main(int argc, char ** argv) {
 	symlink("../mnt/runtime/modules/modules64.cgz",
 		"/modules/modules65.cgz");
 # endif
-#endif /* !__alpha__ */
+#endif /* !__alpha__ and !__ia32__ */
     }
+
+logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
 
@@ -2325,11 +2333,13 @@ int main(int argc, char ** argv) {
     pciReadDrivers("/modules/pcitable");
 
     /*modInfo = isysNewModuleInfoSet();*/
+#if !defined(__ia64__)
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
+#endif
 
     readExtraModInfo(modInfo);
 
