@@ -38,7 +38,7 @@ fileSystemTypes = {}
 if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
     availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 else:    
-    availRaidLevels = ['RAID0']
+    availRaidLevels = ['RAID0', 'RAID5']
 
 def fileSystemTypeGetDefault():
     if fileSystemTypeGet('ext3').isSupported():
