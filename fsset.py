@@ -407,7 +407,7 @@ class swapFileSystem(FileSystemType):
         self.linuxnativefs = 1
         self.supported = 1
 
-    def mount(self, device, mountpoint):
+    def mount(self, device, mountpoint, readOnly=0):
         isys.swapon (device)
 
     def umount(self, device, path):
