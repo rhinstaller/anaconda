@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-10-08 15:48-0400\n"
+"POT-Creation-Date: 1999-10-12 21:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,13 +14,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../gui.py:257 ../gui.py:472
+#: ../gui.py:263 ../gui.py:509
 msgid "Next"
 msgstr ""
 
-#: ../gui.py:258 ../gui.py:471 ../libfdisk/newtfsedit.c:1291
+#: ../gui.py:264 ../gui.py:508 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:508
+#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:530
 #: ../loader/loader.c:245 ../loader/loader.c:593 ../loader/loader.c:629
 #: ../loader/loader.c:732 ../loader/loader.c:1095 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87
@@ -40,28 +40,42 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../gui.py:259 ../gui.py:476
+#: ../gui.py:265 ../gui.py:513
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:260 ../gui.py:475
+#: ../gui.py:266 ../gui.py:512
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:261 ../gui.py:474
+#: ../gui.py:267 ../gui.py:511
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:264 ../gui.py:498
+#: ../gui.py:270 ../gui.py:535
 msgid "Online Help"
 msgstr ""
 
-#: ../gui.py:265 ../iw/language.py:10 ../text.py:49 ../text.py:925
+#: ../gui.py:271 ../iw/language.py:10 ../text.py:49 ../text.py:925
 msgid "Language Selection"
 msgstr ""
 
-#: ../gui.py:465
+#: ../gui.py:475
 msgid "Red Hat Linux Installer"
+msgstr ""
+
+#: ../gui.py:479
+msgid "Red Hat Linux Install Shell"
+msgstr ""
+
+#: ../gui.py:490
+#, c-format
+msgid "Red Hat Linux Installer on %s"
+msgstr ""
+
+#: ../gui.py:491
+#, c-format
+msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
 
 #: ../installclass.py:248
@@ -82,11 +96,11 @@ msgstr ""
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:246 ../loader/lang.c:508 ../loader/loader.c:245
+#: ../loader/lang.c:270 ../loader/lang.c:530 ../loader/loader.c:245
 #: ../loader/loader.c:461 ../loader/loader.c:471 ../loader/loader.c:629
 #: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
 #: ../loader/loader.c:870 ../loader/loader.c:956 ../loader/loader.c:1095
-#: ../loader/loader.c:1587 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/loader.c:1601 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:107
 #: ../text.py:160 ../text.py:205 ../text.py:248 ../text.py:293 ../text.py:384
@@ -202,9 +216,9 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:461 ../loader/loader.c:471
 #: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
-#: ../loader/loader.c:870 ../loader/loader.c:1587 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:358
-#: ../todo.py:499 ../todo.py:1039 ../todo.py:1348
+#: ../loader/loader.c:870 ../loader/loader.c:1601 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:362
+#: ../todo.py:503 ../todo.py:1043 ../todo.py:1362
 msgid "Error"
 msgstr ""
 
@@ -590,124 +604,124 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:359
+#: ../todo.py:363
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../todo.py:500
+#: ../todo.py:504
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
 
-#: ../todo.py:521 ../todo.py:710
+#: ../todo.py:525 ../todo.py:714
 msgid "Creating"
 msgstr ""
 
-#: ../todo.py:522
+#: ../todo.py:526
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../todo.py:571 ../todo.py:584
+#: ../todo.py:575 ../todo.py:588
 msgid "Formatting"
 msgstr ""
 
-#: ../todo.py:572 ../todo.py:585
+#: ../todo.py:576 ../todo.py:589
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../todo.py:710
+#: ../todo.py:714
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:841
+#: ../todo.py:845
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:842
+#: ../todo.py:846
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:996 ../todo.py:1006
+#: ../todo.py:1000 ../todo.py:1010
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:1012
+#: ../todo.py:1016
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:1013
+#: ../todo.py:1017
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:1040
+#: ../todo.py:1044
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
 
-#: ../todo.py:1059
+#: ../todo.py:1063
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:1060
+#: ../todo.py:1064
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:1248
+#: ../todo.py:1252
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:1249
+#: ../todo.py:1253
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1343
+#: ../todo.py:1357
 msgid "Rebuilding"
 msgstr ""
 
-#: ../todo.py:1344
+#: ../todo.py:1358
 msgid "Rebuilding RPM database..."
 msgstr ""
 
-#: ../todo.py:1349
+#: ../todo.py:1363
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../todo.py:1399
+#: ../todo.py:1413
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1401
+#: ../todo.py:1415
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1422
+#: ../todo.py:1436
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1425
+#: ../todo.py:1439
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1425
+#: ../todo.py:1439
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1439
+#: ../todo.py:1453
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1462
+#: ../todo.py:1476
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1463
+#: ../todo.py:1477
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -943,7 +957,7 @@ msgstr ""
 msgid "Test your selection here:"
 msgstr ""
 
-#: ../iw/language.py:16 ../loader/lang.c:244
+#: ../iw/language.py:16 ../loader/lang.c:268
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -1204,7 +1218,7 @@ msgstr ""
 msgid "Test failed"
 msgstr ""
 
-#: ../iw/xconfig.py:23 ../iw/xconfig.py:228
+#: ../iw/xconfig.py:23 ../iw/xconfig.py:231
 msgid "Customize X Configuration"
 msgstr ""
 
@@ -1212,30 +1226,30 @@ msgstr ""
 msgid "Bits per Pixel"
 msgstr ""
 
-#: ../iw/xconfig.py:90 ../iw/xconfig.py:224
+#: ../iw/xconfig.py:90 ../iw/xconfig.py:227
 msgid "Test this configuration"
 msgstr ""
 
-#: ../iw/xconfig.py:172
+#: ../iw/xconfig.py:175
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
 
-#: ../iw/xconfig.py:180
+#: ../iw/xconfig.py:183
 msgid "Autoprobe results:"
 msgstr ""
 
-#: ../iw/xconfig.py:194
+#: ../iw/xconfig.py:197
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
 
-#: ../iw/xconfig.py:231
+#: ../iw/xconfig.py:234
 msgid "Use Graphical Login"
 msgstr ""
 
-#: ../iw/xconfig.py:233
+#: ../iw/xconfig.py:236
 msgid "Skip X Configuration"
 msgstr ""
 
@@ -2027,15 +2041,15 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:244
+#: ../loader/lang.c:268
 msgid "Choose a Language"
 msgstr ""
 
-#: ../loader/lang.c:506
+#: ../loader/lang.c:528
 msgid "Keyboard Type"
 msgstr ""
 
-#: ../loader/lang.c:507
+#: ../loader/lang.c:529
 msgid "What type of keyboard do you have?"
 msgstr ""
 
@@ -2162,15 +2176,15 @@ msgstr ""
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1588
+#: ../loader/loader.c:1602
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1749
+#: ../loader/loader.c:1769
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1749
+#: ../loader/loader.c:1769
 msgid "Initializing PC Card Devices..."
 msgstr ""
 
