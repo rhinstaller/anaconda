@@ -1,5 +1,7 @@
 include ../Makefile.inc
 
+ARCH := $(patsubst i%86,i386,$(shell uname -m))
+ARCH := $(patsubst sparc%,sparc,$(ARCH))
 CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
 
 OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
@@ -7,19 +9,18 @@ OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
 	  lang.o isofs.o pdc.o dns.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
-DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
 PYMODULES = _isys.so
 SUBDIRS = modutils gzlib
 DIET = diet
 
+DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))
+
 GENERATED = nfs_mountversion.h
 
-STATICLIB=libisys.a($(OBJECTS))
-
 ifeq ($(ARCH),i386)
-STATICLIB=libisys-diet.a($(DOBJECTS))
+DIETLIB=libisys-diet.a
 endif
 
 ifeq ($(ARCH),sparc)
@@ -35,7 +36,7 @@ endif
 
 everything: $(TARGET)
 
-all: subdirs $(PYMODULES) $(STATICLIB)
+all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
@@ -51,9 +52,10 @@ _silo.so: silo.c
 
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
+libisys-diet.a: libisys-diet.a($(DOBJECTS))
+
 clean:
-	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) 
-	rm -f $(GENERATED) $(DOBJECTS)
+	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all

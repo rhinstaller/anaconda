@@ -4,9 +4,6 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 ISYSLIB=isys
-ifeq ($(ARCH),i386)
-ISYSLIB=isys-diet
-endif
 
 LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
 CFLAGS = -Wall -g -I/usr/include/rpm -I..
