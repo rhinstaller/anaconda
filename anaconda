@@ -305,6 +305,7 @@ if forceMount:
 
 if kickstart:
     instClass = Kickstart(kickstart)
+    os.unlink(kickstart)
 elif reconfigOnly:
     instClass = ReconfigStation(expert)
 else:
