@@ -162,6 +162,9 @@ class XConfigWindow (InstallWindow):
 	   not self.todo.hdList.packages['XFree86'].selected: return None
 
         self.todo.x.probe ()
+
+	if self.todo.serial: return None
+
         self.todo.x.filterModesByMemory ()
  
         box = GtkVBox (FALSE, 5)
