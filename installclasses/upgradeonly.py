@@ -19,6 +19,8 @@ class InstallClass(BaseInstallClass):
 
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("language")
+	self.addToSkipList("languagesupport")
+	self.addToSkipList("languagedefault")
 	self.addToSkipList("keyboard")
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")

@@ -1065,9 +1065,9 @@ class InstallInterface:
                 [N_("Language Selection"), LanguageWindow, 
                  (self.screen, todo, self), "language" ],
 #                [N_("Language Support"), LanguageSupportWindow, 
-#                 (self.screen, todo), "lanugagesupport" ],
+#                 (self.screen, todo), "languagesupport" ],
 #                [N_("Language Default"), LanguageDefaultWindow, 
-#                 (self.screen, todo), "lanugagedefault" ],
+#                 (self.screen, todo), "languagedefault" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
@@ -1126,9 +1126,9 @@ class InstallInterface:
 		    "mouse" ],
 
             [N_("Language Support"), LanguageSupportWindow, 
-             (self.screen, todo), "lanugagesupport" ],
+             (self.screen, todo), "languagesupport" ],
             [N_("Language Default"), LanguageDefaultWindow, 
-             (self.screen, todo), "lanugagedefault" ],
+             (self.screen, todo), "languagedefault" ],
 
             [N_("Time Zone Setup"), TimezoneWindow, 
 		    (self.screen, todo, test), "timezone" ],
