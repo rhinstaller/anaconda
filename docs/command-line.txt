@@ -1,0 +1,63 @@
+8-23-2001
+---------
+
+Boot time command args:
+-----------------------
+
+expert          Turns on special features:
+                    - allows partitioning of removable media
+                    - others?
+
+noshell         Do not put a shell on tty2 during install.
+
+lowres          Force GUI installer to run at 640x480.
+
+nofb            Do not use frame buffer for GUI install.
+
+nousb           Do not load USB support (helps if install hangs 
+                early sometimes).
+
+noprobe         Do not attempt to detect hw, prompts user instead.
+
+nopcmcia        Ignore PCMCIA controller in system.
+
+text            Force text mode install.
+
+updates         Prompt for floppy containing updates (bug fixes).
+
+isa             Prompt user for ISA devices configuration.
+
+dd              Use a driver disk.
+
+driverdisk      Same as 'dd'.
+
+rescue          Run rescue environment.
+
+nomount         Don't automatically mount any installed Linux partitions 
+                in rescue mode.
+
+nopass          Don't pass keyboard/mouse info to stage 2 installer, good for
+                testing keyboard and mouse config screens in stage2 installer
+                during network installs.
+
+ksdevice        Takes an argument like 'eth0', tells install what network
+                device to use for kickstart from network.
+
+serial          Turns on serial console support.
+
+ks              Kickstart over NFS.
+
+ks=cdrom:       Kickstart from CDROM
+
+ks=nfs:<path>   Kickstart from NFS.
+
+ks=<url>        Kickstart via HTTP.
+
+ks=hd:<dev>     Kickstart via harddrive (dev = 'hda1', for example)
+
+ks=file:<path>  Kickstart from a file (path = 'fd0/ks.cfg')
+
+
+
+
+
