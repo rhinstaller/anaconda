@@ -923,6 +923,7 @@ fi
 
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
+    mv $DESTGR/usr/bin/gtk-query-immodules-2.0* $DESTGR/usr/bin/gtk-query-immodules-2.0
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
 	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/gtk.immodules"
     else
@@ -933,6 +934,7 @@ fi
 
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
+    mv $DESTGR/usr/bin/gtk-pixbuf-query-loaders* $DESTGR/usr/bin/gtk-pixbuf-query-loaders
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
 	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders"
     else
