@@ -921,7 +921,7 @@ ModuleFiles=/etc/pango/pango.modules
 EOF
 fi
 
-host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
+host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.$ARCH.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
 
 case "$host" in
   *linux) canonhost="$host-gnu"
