@@ -103,7 +103,7 @@ int devMakeInode(char * devName, char * path) {
     } else if (!strncmp(devName, "ida/", 4)) {
 	/* Compaq Smart Array "ida/c0d0{p1} */
 	type = S_IFBLK;
-	major = 72;                    /* controller */
+	major = 72 + devName[5] - '0';    /* controller */
 	minor = (devName[7] - '0') * 16;  /* disk */
 	if (strlen(devName) > 8)          /* partition */
 	    minor += atoi(devName + 9);
