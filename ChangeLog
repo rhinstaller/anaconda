@@ -1,3 +1,28 @@
+2005-01-21  Peter Jones  <pjones@redhat.com>
+
+	* lvm.py (lvlist): return size in MB.
+	* lvm.py (pvlist): return size in MB.
+	* lvm.py (vglist): return size in MB, and pesize in KB.
+	* lvm.py (clampLVSizeRequest): use math.ceil and math.floor for
+	"roundup", so we don't need to special case "size % pe == 0"
+	* lvm.py (clampPVSize): replace the completely broken code that
+	fails to implement a size heuristic for lvm1.  We still need to guess
+	at the available size, but not here.
+	* partRequest.py: add PartitionSpec.getPVSize, which returns a size
+	for a Physical Volume given a partition.  If there's no PV in the
+	real partition, it guesses the size based on the free space.
+	Make VolumeGroupRequestSpec.getActualSize use PartitonSpec.getPVSize
+	instead of PartitionSpec.getActualSize
+	* partitions.py: make Partitions.setFromDisk use the PE size from
+	the volume group, so we don't give the wrong pesize to clamp later
+	and create an LV with an invalid size.  Also make it handle lv size
+	in MB.
+	make Partitions.getAvailLVMPartitions use the PV's size, not the
+	partition's size.  It'll estimate the size from the partition's size
+	if there's no LV created yet.
+	* iw/lvm_dialog_gui.py: use getPVSize instead of getActualSize for
+	LVM physical volume sizes.
+	                  
 2005-01-20  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (growLogicalVolumes):  Properly grow logical partitions

@@ -192,11 +192,9 @@ class Partitions:
         lvm.vgactivate()
 
         pvs = lvm.pvlist()
-        for (vg, size) in lvm.vglist():
-            # FIXME: need to find the pe size of the vg
-            pesize = 4096
+        for (vg, size, pesize) in lvm.vglist():
             try:
-                preexist_size = float(size) / (1024.0 * 1024.0)
+                preexist_size = float(size)
             except:
                 log("preexisting size for %s not a valid integer, ignoring" %(vg,))
                 preexist_size = None
@@ -224,7 +222,7 @@ class Partitions:
                     continue
                 
                 # size is number of bytes, we want size in megs
-                lvsize = float(size) / (1024.0 * 1024.0)
+                lvsize = float(size)
 
                 theDev = "/dev/%s/%s" %(vg, lv)
                 fs = partedUtils.sniffFilesystemType(theDev)
@@ -522,7 +520,15 @@ class Partitions:
 
                     if used:
                         break
-                size = partedUtils.getPartSizeMB(part)                    
+                size = None
+                for pvpart, pvvg, pvsize in lvm.pvlist():
+                    if pvpart == "/dev/%s" % (partname,):
+                        size = pvsize
+                if size is None:
+                    # if we get here, there's no PV data in the partition,
+                    # so clamp the partition's size to 64M
+                    size = partedUtils.getPartSizeMB(part)
+                    size = clampPVSize(size, 65536)
 
                 if used == 0:
                     rc.append((partrequest.uniqueID, size, 0))

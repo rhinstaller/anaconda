@@ -72,7 +72,7 @@ class VolumeGroupEditor:
         pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    pvsize = pvreq.getPVSize(self.partitions, self.diskset)
 	    if first:
 		minpvsize = pvsize
 		first = 0
@@ -768,7 +768,7 @@ class VolumeGroupEditor:
 	availSpaceMB = 0
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    pvsize = pvreq.getPVSize(self.partitions, self.diskset)
 	    pvsize = lvm.clampPVSize(pvsize, curpe)
 
 	    # have to clamp pvsize to multiple of PE

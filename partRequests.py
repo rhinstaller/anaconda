@@ -466,6 +466,39 @@ class PartitionSpec(RequestSpec):
             raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
         return partedUtils.getPartSizeMB(part)
 
+    def getPVSize(self, partitions, diskset):
+        """Return the size of the physical volume in the request in megabytes."""
+
+        part = partedUtils.get_partition_by_name(diskset.disks, self.device)
+        if not part:
+            # XXX kickstart might still call this before allocating the partitions
+            raise RuntimeError, "Checking the size of a partition which hasn't been allocated yet"
+
+        for pvpart, pvvg, pvsize in lvm.pvlist():
+            if pvpart == "/dev/%s" % (self.device):
+                size = pvsize
+                return size;
+
+        # If we get here, the PV and/or VG hasn't been created yet, so we
+        # have to guess.
+
+        # you can't tell what the size of a PV until you've created a volume
+        # group, because the PV uses a PE to store metadata in, and it's 
+        # got no PEs until there's a VG.  So until you put something IN 
+        # a PV, it has undefined size.  Brilliant.
+        #
+        # From looking at what happens if we create it, we basically always
+        # use 1 PE.  So right now, I'm assuming 64M PEs, since they're the
+        # biggest we create.
+        #
+        # The big downside here is that if the user chooses 4M, at this point
+        # he's losing 60M to 64M of space.  I _think_ he'll actually get this
+        # back as soon as it's created though, since we don't give a max size
+        # to vgcreate, and we call getPVSize pretty often.
+        size = self.getActualSize(partitions, diskset)
+        size = long((math.floor(size / 64)-1) * 64)
+        return size
+        
     def doSizeSanityCheck(self):
         """Sanity check that the size of the partition is sane."""
         if not self.fstype:
@@ -770,7 +803,7 @@ class VolumeGroupRequestSpec(RequestSpec):
             totalspace = 0
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
-                size = pvreq.getActualSize(partitions, diskset)
+                size = pvreq.getPVSize(partitions, diskset)
                 size = lvm.clampPVSize(size, self.pesize)
                 totalspace = totalspace + size
 

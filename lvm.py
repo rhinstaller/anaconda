@@ -182,6 +182,8 @@ def lvlist():
             (lv, vg, attr, size) = line.strip()[:-1].split()
         except:
             continue
+        size = long(size)
+        size = long(math.floor(size / (1024 * 1024)))
         log("lv is %s/%s, size of %s" %(vg, lv, size))
         lvs.append( (vg, lv, size) )
 
@@ -201,7 +203,8 @@ def pvlist():
             (dev, vg, format, attr, size, free) = line.strip()[:-1].split()
         except:
             continue
-        size = size[:-1]
+        size = long(size[:-1])
+        size = long(math.floor(size / (1024 * 1024)))
         log("pv is %s in vg %s, size is %s" %(dev, vg, size))
         pvs.append( (dev, vg, size) )
 
@@ -213,17 +216,20 @@ def vglist():
         return []
 
     vgs = []
-    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b", "-v"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
-            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
+            (vg, attr, pesize, numpv, numlv, numsn, size, free, uuid) = line.strip().split()
         except:
             continue
-        size = size[:-1]
-        log("vg %s, size is %s" %(vg, size))
-        vgs.append( (vg, size) )
+        size = long(size[:-1])
+        size = long(math.floor(size / (1024 * 1024)))
+        pesize = long(pesize[:-1])
+        pesize /= 1024
+        log("vg %s, size is %s, pesize is %s" %(vg, size, pesize))
+        vgs.append( (vg, size, pesize) )
 
     return vgs
 
@@ -306,13 +312,10 @@ def clampLVSizeRequest(size, pe, roundup=0):
     """
 
     if roundup:
-	factor = 1
+        func = math.ceil
     else:
-	factor = 0
-    if ((size*1024L) % pe) == 0:
-	return size
-    else:
-	return ((long((size*1024L)/pe)+factor)*pe)/1024
+        func = math.floor
+    return (long(func((size*1024L)/pe))*pe)/1024
 
 def clampPVSize(pvsize, pesize):
     """Given a PV size and a PE, returns the usable space of the PV.
@@ -323,27 +326,9 @@ def clampPVSize(pvsize, pesize):
     pesize - PE size (in KB)
     """
 
-    # calculate the number of physical extents.  this is size / pesize
-    # with an appropriate factor for kb/mb matchup
-    numpes = math.floor(pvsize * 1024 / pesize)
-
-    # now, calculate our "real" overhead.  4 bytes for each PE + 128K
-    overhead = (4 * numpes / 1024) + 128
-
-    # now, heuristically, the max of ceil(pesize + 2*overhead) and
-    # ceil(2*overhead) is greater than the real overhead, so we won't
-    # get people in a situation where they overcommit the vg
-    one = math.ceil(pesize + 2 * overhead)
-    two = math.ceil(2 * overhead)
-
-    # now we have to do more unit conversion since our overhead in in KB
-    if one > two:
-        usable = pvsize - math.ceil(one / 1024.0)
-    else:
-        usable = pvsize - math.ceil(two / 1024.0)
-
-    # finally, clamp to being at a pesize boundary
-    return (long(usable*1024/pesize)*pesize)/1024
+    # we want Kbytes as a float for our math
+    pvsize *= 1024.0
+    return long((math.floor(pvsize / pesize) * pesize) / 1024)
 
 def getMaxLVSize(pe):
     """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
