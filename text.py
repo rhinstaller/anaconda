@@ -72,22 +72,57 @@ class InstallPathWindow:
 
 class UpgradeExamineWindow:
     def __call__ (self, screen, todo):
-        parts = todo.findInstalledSystem ()
+        parts = todo.upgradeFindRoot ()
 
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("System to Upgrade"),
-                                _("Which partition do you wish to upgrade?"), parts, 
-                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8)
+        if not parts:
+            ButtonChoiceWindow(screen, _("Error"),
+                               _("You don't have any Linux partitions. You "
+                                 "can't upgrade this system!")
+                               [ _("Back") ], width = 50)
+            return INSTALL_BACK
+        
+        if len (parts) > 1:
+            height = min (len (parts), 12)
+            if height == 12:
+                scroll = 1
+
+            (button, choice) = \
+                ListboxChoiceWindow(screen, _("System to Upgrade"),
+                                    _("What partition holds the root partition "
+                                      "of your installation?"), parts, 
+                                    [ _("OK"), _("Back") ], width = 30,
+                                    scroll = scroll, height = height)
+            if button == string.lower (_("Back")):
+                return INSTALL_BACK
+            else:
+                root = parts[choice]
+        else:
+            root = parts[0]
+
+        todo.upgradeFindPackages (root)
 
 class CustomizeUpgradeWindow:
-    def __call__ (self, screen, todo):
-        parts = todo.findInstalledSystem ()
+    def __call__ (self, screen, todo, indiv):
+        rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
+                                 _("The packages you have installed, "
+                                   "and any other packages which are "
+                                   "needed to satisfy their "
+                                   "dependencies, have been selected "
+                                   "for installation. Would you like "
+                                   "to customize the set of packages "
+                                   "that will be upgraded?"),
+                                 buttons = [ _("Yes"), _("No"), _("Back") ])
 
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("System to Upgrade"),
-                                _("Which partition do you wish to upgrade?"), parts, 
-                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
-                                default = default)
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+
+        if rc == string.lower (_("No")):
+            indiv.set (0)
+        else:
+            indiv.set (1)
+
+        return INSTALL_OK
+
         
 class RootPasswordWindow:
     def __call__ (self, screen, todo):

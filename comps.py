@@ -36,6 +36,7 @@ class HeaderList:
 
     def __init__(self, path):
 	hdlist = rpm.readHeaderList(path)
+        self.hdlist = hdlist
 	self.packages = {}
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]

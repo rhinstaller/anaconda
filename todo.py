@@ -688,22 +688,49 @@ class ToDo:
         for (who, dep) in deps:
             self.hdList[dep].selected = 1
 
-    def findInstalledSystem (self):
+    def upgradeFindRoot (self):
         win = self.intf.waitWindow ("Examining System",
-                                    "Searching for previous installations")
+                                    "Searching for Red Hat Linux installations")
         rootparts = []
         drives = self.drives.available ().keys ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
             table = _balkan.readTable ('/tmp/' + drive)
-            for (type, sector, size) in table:
-                if size and type == 0x83:
-                    isys.mount( '/tmp/' + drive, '/mnt/sysimage')
+            for i in range (len (table)):
+                (type, sector, size) = table[i]
+                # 2 is ext2 in balkan speek
+                if size and type == 2:
+                    dev = drive + str (i + 1)
+                    isys.makeDevInode(dev, '/tmp/' + dev)                    
+                    isys.mount('/tmp/' + dev, '/mnt/sysimage')
                     if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                        rootparts.append (drive)
+                        rootparts.append (dev)
+                    isys.umount('/mnt/sysimage')
+                    os.remove ('/tmp/' + dev)
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts
+
+    def readFstab (self, path):
+        f = open (path, "r")
+        lines = f.readlines ()
+        f.close
+        fstab = {}
+        for line in lines:
+            fields = string.split (line)
+            if fstab[2] == "ext2" or fstab[2] == "swap":
+                fstab[fields[0][4:]] = (fields[1], fields[2], 0)
+
+    def upgradeFindPackages (self, root):
+	self.getHeaderList()
+        isys.makeDevInode(root, '/tmp/' + root)
+        isys.mount('/tmp/' + root, '/mnt/sysimage')
+        self.mounts = self.readFstab ('/mnt/sysimage')
+        self.mountFilesystems ()
+        packages = rpm.findUpgradeSet (self.hdList.hdlist, '/mnt/sysimage')
+        self.umountFilesystems ()
+        for package in packages:
+            self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
         
     def doInstall(self):
 	# make sure we have the header list and comps file
