@@ -116,7 +116,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         SHOW_WATCH_MIN = 200
         if len(packages) > SHOW_WATCH_MIN:
             cw = self.ics.getICW()
-            cw.busyIconPush()
+            cw.busyCursorPush()
         
         for header in packages:
             name = header[rpm.RPMTAG_NAME]
@@ -137,7 +137,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	self.packageList.store.set_sort_column_id(self.sort_id, not self.sort_order)
 	self.packageList.store.set_sort_column_id(self.sort_id, self.sort_order)
         if len(packages) > SHOW_WATCH_MIN:
-            cw.busyIconPop()
+            cw.busyCursorPop()
 
     def select_group(self, selection):
         (model, iter) = selection.get_selected()
@@ -550,7 +550,7 @@ class PackageSelectionWindow (InstallWindow):
 	if self.ignoreComponentToggleEvents:
 	    return
 
-        cw.busyIconPush()
+        cw.busyCursorPush()
         # turn on all the comps we selected
 	if newstate:
             if ebutton:
@@ -613,7 +613,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	# after all this we need to recompute total size
 	self.setSize()
-        cw.busyIconPop()
+        cw.busyCursorPop()
 
     def pkgGroupMemberToggled(self, widget, data):
 	(comp, sizeLabel, pkg) = data

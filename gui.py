@@ -166,6 +166,26 @@ def growToParent(widget, rect, growTo=None):
     else:
         widget.ignoreEvents = 0
 
+_busyCursor = 0
+
+def rootPushBusyCursor(process=1):
+    global _busyCursor
+    _busyCursor += 1
+    if _busyCursor > 0:
+        root = gtk.gdk.get_default_root_window()
+        cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+        root.set_cursor(cursor)
+    if process:
+        processEvents()
+
+def rootPopBusyCursor():
+    global _busyCursor
+    _busyCursor -= 1
+    if _busyCursor <= 0:
+        root = gtk.gdk.get_default_root_window()
+        cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+        root.set_cursor(cursor)
+
 class MnemonicLabel(gtk.Label):
     def __init__(self, text=""):
         gtk.Label.__init__(self, "")
@@ -268,10 +288,11 @@ class WaitWindow:
         frame.add (box)
 	self.window.add(frame)
 	self.window.show_all()
-        processEvents()
+        rootPushBusyCursor()
             
     def pop(self):
         self.window.destroy()
+        rootPopBusyCursor()
 
 class ProgressWindow:
     def __init__(self, title, text, total):
@@ -295,7 +316,7 @@ class ProgressWindow:
         frame.add (box)
 	self.window.add (frame)
 	self.window.show_all ()
-        processEvents ()
+        rootPushBusyCursor()
 
     def set (self, amount):
 	self.progress.set_fraction (float (amount) / self.total)
@@ -303,6 +324,7 @@ class ProgressWindow:
     
     def pop(self):
         self.window.destroy ()
+        rootPopBusyCursor()
 
 class ExceptionWindow:
     def __init__ (self, text):
@@ -857,8 +879,6 @@ class InstallControlWindow:
             nextButton.grab_focus ()
 
     def __init__ (self, ii, dispatch, locale):
-        self.busyIcon = 0
-        
         self.prevButtonStock = None
         self.nextButtonStock = None
         self.releaseButton = None
@@ -1071,22 +1091,12 @@ class InstallControlWindow:
 
         splashScreenPop()
 
-    def busyIconPush(self):
-        self.busyIcon += 1
-        if self.busyIcon > 0:
-            root = gtk.gdk.get_default_root_window()
-            cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-            root.set_cursor(cursor)
-        processEvents()
+    def busyCursorPush(self):
+        rootPushBusyCursor()
         
-    def busyIconPop(self):
-        self.busyIcon -= 1
-        if self.busyIcon <= 0:
-            root = gtk.gdk.get_default_root_window()
-            cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
-            root.set_cursor(cursor)
-        processEvents()
-
+    def busyCursorPop(self):
+        rootPopBusyCursor()
+        
     def run (self, runres, configFileData):
         self.configFileData = configFileData
         self.setup_window(runres)
