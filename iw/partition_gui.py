@@ -894,7 +894,7 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(migfstype, 1, 2, row, row + 1)
                 row = row + 1
 
-                migraterb.connect("toggled", formatOptionCB, migfstype)
+                migraterb.connect("toggled", formatOptionCB, (migfstype, migfstypeMenu, mountCombo))
                 
             else:
                 migraterb = None
@@ -1063,7 +1063,7 @@ class PartitionWindow(InstallWindow):
                     if not queryFormatPreExisting(self.intf):
                         continue
 
-                if not request.format and request.mountpoint and isFormatOnByDefault(origrequest):
+                if not request.format and request.mountpoint and isFormatOnByDefault(request):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
             

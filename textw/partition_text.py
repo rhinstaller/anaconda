@@ -716,7 +716,7 @@ class PartitionWindow:
                     if not queryFormatPreExisting(self.intf):
                         continue
 
-                if not request.format and request.mountpoint and isFormatOnByDefault(origrequest):
+                if not request.format and request.mountpoint and isFormatOnByDefault(request):
                     if not queryNoFormatPreExisting(self.intf):
                         continue
 
