@@ -201,8 +201,8 @@ makeBootImages() {
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
 
 	# copy in memtest if present
-	if [ -f $IMGPATH/usr/lib/memtest86/memtest86 ]; then
-           cp $IMGPATH/usr/lib/memtest86/memtest86 $MBD_BOOTTREE/memtest
+	if [ -f $IMGPATH/boot/memtest86+* ]; then
+           cp $IMGPATH/boot/memtest86+-* $MBD_BOOTTREE/memtest
            echo -e "label memtest86\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
 	fi
 

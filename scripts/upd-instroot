@@ -171,7 +171,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 openssh openssh-clients pciutils rsh traceroute tar"
 
 if [ $ARCH = i386 ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE memtest86"
+    PACKAGESRESCUE="$PACKAGESRESCUE memtest86+"
 fi
 
 # turn off options we dont want, ie. set package list to something harmless
@@ -744,7 +744,7 @@ usr/kerberos/$LIBDIR/libgssapi*
 usr/kerberos/$LIBDIR/libkrb5*
 usr/kerberos/$LIBDIR/libk5crypto*
 usr/kerberos/$LIBDIR/libcom_err*
-usr/lib/memtest86/memtest86
+boot/memtest86+-*
 usr/sbin/mtr
 usr/sbin/traceroute
 EOF
