@@ -793,7 +793,7 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
-	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
+	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
 	mv $p/usr/lib/anaconda-runtime/collage $p/usr/bin
 
