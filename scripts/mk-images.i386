@@ -131,14 +131,14 @@ BOOTDIR="ja"
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/boot.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2600 \
+			    --initrdsize 2800 \
 			    --loaderbin loader-local-kon \
 			    --modules "$LOCALMODULES"'
 
 makebootdisk --bootdisksize 1440 \
 	     --imagename ja/bootnet.img \
 	     --initrdflags '--japanese
-			    --initrdsize 2600 \
+			    --initrdsize 2800 \
 			    --loaderbin loader-network-kon \
 		 	    --modules "$NETWORKMODULES"'
 
@@ -146,7 +146,7 @@ makebootdisk --imagename ja/pcmcia.img \
 	     --bootdisksize 1440 \
 	     --initrdflags '--japanese
 			    --pcmcia \
-		     	    --initrdsize 2600 \
+		     	    --initrdsize 2800 \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "nfs vfat"'
 
