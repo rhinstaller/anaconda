@@ -1233,9 +1233,11 @@ class ToDo:
         self.writeMouse ()
         self.writeKeyboard ()
         self.writeNetworkConfig ()
-        self.setupAuthentication ()
         self.writeRootPassword ()
         self.createAccounts ()
+
+        # should do this AFTER created accounts
+        self.setupAuthentication ()
         self.writeTimezone()
 
     def sortPackages(self, first, second):
