@@ -1010,7 +1010,14 @@ done
 
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
-    rm -rf $DEST/usr/lib/anaconda-runtime
+rm -rf $DEST/usr/lib/anaconda-runtime
+
+# remove *.py in /usr/lib/anaconda since we compile everything
+find $DESTGR/usr/lib/anaconda/ -name "*.py" | while read fn; do
+    if [ -f ${fn}c ]; then
+	rm -f $fn
+done
+
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
    if [ $NEEDGR ]; then
