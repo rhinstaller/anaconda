@@ -136,7 +136,7 @@ class IndividualPackageWindow:
 	    self.groupSelCount[key] = self.groupSelCount[key] + 1
 	    self.ct.setEntry(header, "%-*s %s" % (self.length,
 						  header[rpm.RPMTAG_NAME],
-						  self.printSize(header[rpm.RPMTAG_SIZE])))
+						  self.printSize(header[rpm.RPMTAG_SIZE] / 1024)))
 	else:
 	    self.groupSize[key] = self.groupSize[key] - (header[rpm.RPMTAG_SIZE] / 1024)
 	    self.total = self.total - header[rpm.RPMTAG_SIZE]
@@ -223,7 +223,7 @@ class IndividualPackageWindow:
 	    ct.append (name, key)
 	    for header in self.groups[key]:
 		if header.isSelected():
-		    name = "%-*s %s" % (self.length, header[rpm.RPMTAG_NAME], self.printSize(header[rpm.RPMTAG_SIZE]))
+		    name = "%-*s %s" % (self.length, header[rpm.RPMTAG_NAME], self.printSize(header[rpm.RPMTAG_SIZE] / 1024))
 		else:
 		    name = "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME])
 		ct.addItem (name, (index, snackArgs["append"]),
