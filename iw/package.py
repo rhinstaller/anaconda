@@ -6,6 +6,9 @@ from xpms import *
 from thread import *
 import rpm
 import GdkImlib
+import string
+import sys
+import xpms
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -384,10 +387,34 @@ class PackageSelectionWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-        box = GtkVBox (FALSE, 10)
+        box = GtkVBox (FALSE, 0)
+
         for comp in self.todo.comps:
             if not comp.hidden:
-                checkButton = GtkCheckButton (comp.name)
+                pixname = string.replace (comp.name, ' ', '_')
+                pixname = string.replace (pixname, '/', '_')
+                pixname = string.replace (pixname, '.', '_')
+                pixname = string.replace (pixname, '(', '_')
+                pixname = string.replace (pixname, ')', '_')
+                pixname = string.upper (pixname) + "_XPM"
+                print pixname
+                picture = None
+                checkButton = None
+                if pixname in xpms.__dict__.keys ():
+                    picture = xpms.__dict__[pixname]
+                if picture:
+                    im = GdkImlib.create_image_from_xpm (picture)
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    hbox = GtkHBox (FALSE, 5)
+                    hbox.pack_start (pix, FALSE, FALSE, 0)
+                    label = GtkLabel (comp.name)
+                    label.set_alignment (0.0, 0.5)
+                    hbox.pack_start (label, TRUE, TRUE, 0)
+                    checkButton = GtkCheckButton ()
+                    checkButton.add (hbox)
+                else:
+                    checkButton = GtkCheckButton (comp.name)
                 checkButton.set_active (comp.selected)
 
                 def toggled (widget, comp):
