@@ -1001,8 +1001,14 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         intf.messageWindow(_("Partition Request Sanity Check Errors"),
                            _("The following errors occurred with your "
                              "partitioning:\n\n%s\n\n"
-                             "Press OK to reboot your system.") % (errortxt))
-        sys.exit(0)
+			     "This can happen when there is not enough "
+			     "space on your disk drive(s) for autopartitioning "
+			     "to succeed.  You may need to manually "
+			     "partition your drives to complete the install.\n\n"
+                             "Press OK to continue.") % (errortxt))
+	return DISPATCH_BACK
+#                             "Press OK to reboot your system.") % (errortxt))
+#        sys.exit(0)
 
 def autoCreatePartitionRequests(autoreq):
     """Return a list of requests created with a shorthand notation.
