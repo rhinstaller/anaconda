@@ -241,8 +241,9 @@ class Language (SimpleConfigFile):
             self.abbrevMap[value] = key
 
         self.japanesehack = 0
-        if self.abbrevMap.has_key ("ja_JP.eucJP"):
-            self.japanesehack = 1
+#  XXX we're in the same product now, this would be rude...
+#        if self.abbrevMap.has_key ("ja_JP.eucJP"):
+#            self.japanesehack = 1
             
         self.setByAbbrev("en_US")
 
