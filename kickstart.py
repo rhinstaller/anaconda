@@ -283,6 +283,7 @@ class Kickstart(InstallClass):
                         n = string.strip (n)
 			groups.append(n)
 		    else:
+                        n = string.strip (n)
 			packages.append(n)
 
 	self.setGroups(groups)
