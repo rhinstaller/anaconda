@@ -322,10 +322,6 @@ if (not flags.test):
 	display_mode = 't'
         time.sleep(2)
 
-# Force text mode on IBM s390/s390x
-#if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-#	display_mode = 't'
-        
 
 if iutil.memInstalled() < isys.MIN_RAM:
     from snack import *
