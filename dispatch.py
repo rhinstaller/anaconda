@@ -46,10 +46,6 @@ from network import networkDeviceCheck
 # in the second case, the function is called directly from the dispatcher
 
 installSteps = [
-    ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",
-                                                      "id.partitions",
-                                                      "dir", "intf")),
-    ("partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
     ("welcome", ("id.configFileData",)),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xconfig")),
