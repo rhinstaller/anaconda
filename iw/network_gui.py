@@ -1,7 +1,9 @@
 #
 # network_gui.py: Network configuration dialog
 #
-# Copyright 2001 Red Hat, Inc.
+# Michael Fulbright <msf@redhat.com>
+#
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -11,10 +13,17 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import string
 import gtk
 from iw_gui import *
 from isys import *
+import gui
 from translate import _, N_
+import checklist
+import ipwidget
+
+global_options = [_("Hostname"), _("Gateway"), _("Primary DNS"),
+		  _("Secondary DNS"), _("Tertiary DNS")]
 
 class NetworkWindow(InstallWindow):		
 
@@ -24,123 +33,60 @@ class NetworkWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
 
-        self.calcNMHandler = None
-
-	# XXX
-	#
-        #for dev in self.network.available().values():
-	    #if not dev.get('onboot'):
-		#dev.set(("onboot", "yes"))
-
     def getNext(self):
-	if not self.__dict__.has_key("gw"):
-	    return None
-        self.network.gateway = self.gw.get_text()
-        self.network.primaryNS = self.ns.get_text()
-        self.network.secondaryNS = self.ns2.get_text()
-        self.network.ternaryNS = self.ns3.get_text()
+	# XXX huh?
+#	if not self.__dict__.has_key("gw"):
+#	    return None
 
+	tmpvals = {}
+	for t in range(len(global_options)):
+	    if t == 0:
+		tmpvals[t] = self.hostname.get_text()
+	    else:
+		try:
+		    tmpvals[t] = self.globals[global_options[t]].dehydrate()
+		except ipwidget.IPError, msg:
+		    tmpvals[t] = None
+		    pass
+#		    self.handleIPError(global_options[t], msg[0])
+#		    raise gui.StayOnScreen 
 
-        if(self.hostname.get_text() != ""):
-            self.network.hostname = self.hostname.get_text()
+        if(tmpvals[0] != ""):
+            self.network.hostname = string.strip(tmpvals[0])
+
+	if tmpvals[1]:
+	    self.network.gateway = tmpvals[1]
+	if tmpvals[2]:
+	    self.network.primaryNS = tmpvals[2]
+	if tmpvals[3]:
+	    self.network.secondaryNS = tmpvals[3]
+	if tmpvals[4]:
+	    self.network.ternaryNS = tmpvals[4]
             
+        iter = self.ethdevices.store.get_iter_root()
+	next = 1
+	while next:
+	    model = self.ethdevices.store
+	    dev = model.get_value(iter, 1)
+	    bootproto = model.get_value(iter, 2)
+	    onboot = model.get_value(iter, 0)
+
+	    if onboot:
+		onboot = "yes"
+	    else:
+		onboot = "no"
+		
+	    if bootproto == "DHCP":
+		bootproto = 'dhcp'
+	    else:
+		bootproto = 'static'
+		
+	    self.devices[dev].set(("ONBOOT", onboot))
+	    self.devices[dev].set(("bootproto", bootproto))
+            next = self.ethdevices.store.iter_next(iter)
+
         return None
-
-    def focusInIP(self, widget, event, (ip, nm)):
-        if nm.get_text() == "":
-            self.calcNetmask(None, (ip, nm))
-            
-        ip.calcNMHandler = ip.connect("changed", self.calcNetmask, (ip, nm))
         
-    def focusOutIP(self, widget, event, ip):
-        if(self.hostname.get_text() == ""
-            and self.network.hostname != "localhost.localdomain"):
-
-            hs = self.network.hostname
-            tmp = string.split(hs, ".")
-
-            self.hostname.set_text(tmp[0])
-            count = 0
-            domain = ""
-            for token in tmp:
-                if count == 0:
-                    pass
-                elif count == 1:
-                    domain = domain + token
-                else:
-                    domain = domain + "." + token
-                count = count + 1
-
-            self.hostname.set_text(self.network.hostname)
-
-        if ip.calcNMHandler != None:
-            ip.disconnect(ip.calcNMHandler)
-            ip.calcNMHandler = None
-
-    def focusOutNM(self, widget, event, (dev, ip, nm, nw, bc)):
-        try:
-            network, broadcast = inet_calcNetBroad(ip.get_text(),
-                                                   nm.get_text())
-            if nw.get_text() == "":
-                nw.set_text(network)
-                dev.set(("network", network))
-            if bc.get_text() == "":
-                bc.set_text(broadcast)
-                dev.set(("broadcast", broadcast))
-        except:
-            pass
-
-    def focusOutBC(self, widget, event, dev):
-        if self.gw.get_text() == "":
-            try:
-                gw = inet_calcGateway(widget.get_text())
-                self.gw.set_text(gw)
-            except:
-                pass
-
-    def focusOutNW(self, widget, event, dev):
-        if self.ns.get_text() == "":
-            try:
-                ns = inet_calcNS(widget.get_text())
-                self.ns.set_text(ns)
-            except:
-                pass
-            
-    def calcNWBC(self, widget, (dev, ip, nm, nw, bc)):
-        for addr in(ip, nm):
-            dots = 0
-            for ch in addr.get_text():
-                if ch == '.':
-                    dots = dots + 1
-            if dots != 3: return
-
-        dev.set(("ipaddr", ip.get_text()))
-        dev.set(("netmask", nm.get_text()))
-
-        
-    def calcNetmask(self, widget, (ip, nm)):
-        ip = ip.get_text()
-        dots = 0
-        valid_list = ("1", "2", "3", "4", "5", "6", "7", "8" , "9", "0", ".")
-        valid_ip = gtk.TRUE
-
-        for x in ip:
-            if x == '.':
-                dots = dots + 1
-            #-if there's an invalid char in the widget, don't calculate netmask
-            if x not in valid_list:
-                print "found invalid char"
-                valid_ip = gtk.FALSE
-        if dots != 3: return
-
-        if valid_ip == gtk.TRUE:
-            try:
-                new_nm = "255.255.255.0"
-                if(new_nm != nm.get_text()):
-                    nm.set_text(new_nm)
-            except:
-                pass
-
     def DHCPtoggled(self, widget, (dev, table)):
 	active = widget.get_active()
         table.set_sensitive(not active)
@@ -156,143 +102,258 @@ class NetworkWindow(InstallWindow):
 	    onboot = "yes"
 	else:
 	    onboot = "no"
-	dev.set(("onboot", onboot))
+	dev.set(("ONBOOT", onboot))
+
+    def handleIPError(self, field, errmsg):
+	self.intf.messageWindow(_("Error With Data"),
+				_("An error occurred converting "
+				  " the value entered for %s:\n\n%s" % (field, errmsg)))
+
+    def handleBroadCastError(self):
+	self.intf.messageWindow(_("Error With Data"),
+				_("The IP information you have entered is "
+				  "invalid."))
+
+    def editDevice(self, data):
+	if self.ignoreEvents:
+	    return
+	
+	selection = self.ethdevices.get_selection()
+        rc = selection.get_selected()
+        if not rc:
+            return None
+        model, iter = rc
+
+        dev = model.get_value(iter, 1)
+	bootproto = model.get_value(iter, 2)
+	onboot = model.get_value(iter, 0)
+
+	# create dialog box
+        editWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+        gui.addFrame(editWin)
+        editWin.set_modal(gtk.TRUE)
+#        editWin.set_size_request(350, 200)
+        editWin.set_position (gtk.WIN_POS_CENTER)
+	
+	# create contents
+	devbox = gtk.VBox()
+	align = gtk.Alignment()
+	DHCPcb = gtk.CheckButton(_("Configure using DHCP"))
+
+	align.add(DHCPcb)
+	devbox.pack_start(align, gtk.FALSE)
+
+	align = gtk.Alignment()
+	bootcb = gtk.CheckButton(_("Activate on boot"))
+
+	bootcb.connect("toggled", self.onBootToggled, self.devices[dev])
+	bootcb.set_active(onboot)
+	align.add(bootcb)
+
+	devbox.pack_start(align, gtk.FALSE)
+	devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
+
+	options = [(_("IP Address"), "ipaddr"),
+		   (_("Netmask"),    "netmask")]
+
+	if len(dev) >= 3 and dev[:3] == 'ctc':
+	    newopt = (_("Point to Point (IP)"), "remip")
+	    options.append(newopt)
+            
+        ipTable = gtk.Table(len(options), 2)
+	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
+	# go ahead and set up DHCP on the first device
+	DHCPcb.set_active(bootproto == 'DHCP')
+	entrys = {}
+	for t in range(len(options)):
+	    label = gtk.Label("%s:" %(options[t][0],))
+	    label.set_alignment(0.0, 0.5)
+	    ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
+
+	    entry = ipwidget.IPEditor()
+	    entry.hydrate(self.devices[dev].get(options[t][1]))
+	    entrys[t] = entry
+	    ipTable.attach(entry.getWidget(), 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
+
+	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
+
+	frame = gtk.Frame(_("Configure %s" % (dev,)))
+	frame.add(devbox)
+	editWin.vbox.pack_start(frame, padding=5)
+        editWin.set_position(gtk.WIN_POS_CENTER)
+	editWin.show_all()
+	editWin.add_button('gtk-ok', 1)
+        editWin.add_button('gtk-cancel', 2)
+
+	while 1:
+	    rc = editWin.run()
+
+	    if rc == 2:
+                editWin.destroy()
+                return
+
+	    if DHCPcb.get_active():
+		bootproto = 'dhcp'
+	    else:
+		bootproto = 'static'
+
+
+	    if bootcb.get_active():
+		onboot = 'yes'
+	    else:
+		onboot = 'no'
+
+	    if bootproto != 'dhcp':
+		valsgood = 1
+		tmpvals = {}
+		for t in range(len(options)):
+		    try:
+			tmpvals[t] = entrys[t].dehydrate()
+		    except ipwidget.IPError, msg:
+			self.handleIPError(options[t][1], msg[0])
+			valsgood = 0
+
+		try:
+                    (net, bc) = inet_calcNetBroad (tmpvals[0], tmpvals[1])
+		except:
+		    self.handleBroadCastError()
+		    valsgood = 0
+
+		if not valsgood:
+		    continue
+
+		for t in range(len(options)):
+		    self.devices[dev].set((options[t][1], tmpvals[t]))
+
+		self.devices[dev].set(('network', net), ('broadcast', bc))
+
+	    self.devices[dev].set(('bootproto', bootproto))
+	    self.devices[dev].set(('ONBOOT', onboot))
+	    model.set_value(iter, 0, onboot == 'yes')
+	    model.set_value(iter, 2, self.createIPRepr(self.devices[dev]))
+	    editWin.destroy()
+	    return
+
+    def createIPRepr(self, device):
+	bootproto = device.get("bootproto")
+	if bootproto == "dhcp":
+	    ip = "DHCP"
+	else:
+	    ip = "%s/%s" % (device.get("ipaddr"), device.get("netmask"))
+
+	return ip
+
+    def setupDevices(self):
+	devnames = self.devices.keys()
+	devnames.sort()
+
+	self.ethdevices = checklist.CheckList(2)
+
+        num = 0
+        for device in devnames:
+	    onboot = self.devices[device].get("ONBOOT")
+	    if ((num == 0 and not onboot) or onboot == "yes"):
+		active = gtk.TRUE
+	    else:
+		active = gtk.FALSE
+
+	    bootproto = self.devices[device].get("bootproto")
+	    if not bootproto:
+		bootproto = 'dhcp'
+		self.devices[device].set(("bootproto", bootproto))
+		
+	    ip = self.createIPRepr(self.devices[device])
+
+	    self.ethdevices.append_row((device, ip), active)
+
+	self.ethdevices.set_column_title(0, (_("Active on Boot")))
+        self.ethdevices.set_column_sizing (0, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+	self.ethdevices.set_column_title(1, (_("Device")))
+        self.ethdevices.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+	self.ethdevices.set_column_title(2, (_("IP/Netmask")))
+        self.ethdevices.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
+        self.ethdevices.set_headers_visible(gtk.TRUE)
+
+	self.ignoreEvents = 1
+	iter = self.ethdevices.store.get_iter_root()
+	selection = self.ethdevices.get_selection()
+	selection.set_mode(gtk.SELECTION_BROWSE)
+	selection.select_iter(iter)
+	self.ignoreEvents = 0
+
+	return self.ethdevices
 
 
     # NetworkWindow tag="netconf"
-    def getScreen(self, network, dispatch):
-        box = gtk.VBox()
+    def getScreen(self, network, dispatch, intf):
+	self.intf = intf
+        box = gtk.VBox(gtk.FALSE)
         box.set_border_width(5)
 	self.network = network
         
-        notebook = gtk.Notebook()
-        devs = self.network.available()
-        if not devs: return None
+        self.devices = self.network.available()
+        if not self.devices:
+	    return None
 
-	devnames = devs.keys()
-	devnames.sort()
+	devhbox = gtk.HBox(gtk.FALSE)
 
-        num = 0
-        for i in devnames:
-            devbox = gtk.VBox()
-            align = gtk.Alignment()
-            DHCPcb = gtk.CheckButton(_("Configure using DHCP"))
+	self.devlist = self.setupDevices()
 
-            align.add(DHCPcb)
-            devbox.pack_start(align, gtk.FALSE)
+	devlistSW = gtk.ScrolledWindow()
+        devlistSW.set_border_width(5)
+        devlistSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        devlistSW.set_shadow_type(gtk.SHADOW_IN)
+        devlistSW.add(self.devlist)
+	devlistSW.set_size_request(-1, 175)
+	devhbox.pack_start(devlistSW, gtk.FALSE, padding=10)
 
-            align = gtk.Alignment()
-            bootcb = gtk.CheckButton(_("Activate on boot"))
-	    onboot = devs[i].get("onboot")
-
-	    bootcb.connect("toggled", self.onBootToggled, devs[i])
-            bootcb.set_active((num == 0 and not onboot)
-                               or onboot == "yes")
-            align.add(bootcb)
-
-            devbox.pack_start(align, gtk.FALSE)
-
-            devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
-
-            options = [(_("IP Address"), "ipaddr"),
-                       (_("Netmask"),    "netmask"),
-                       (_("Network"),    "network"),
-                       (_("Broadcast"),  "broadcast")]
-
-            if len(i) >= 3 and i[:3] == 'ctc':
-                newopt = (_("Point to Point (IP)"), "remip")
-                options.append(newopt)
-            
-            ipTable = gtk.Table(len(options), 2)
-            # this is the iptable used for DNS, et. al
-            self.ipTable = gtk.Table(len(options), 2)
-
-            DHCPcb.connect("toggled", self.DHCPtoggled, (devs[i], ipTable))
-            bootproto = devs[i].get("bootproto")
-
-            # go ahead and set up DHCP on the first device
-            DHCPcb.set_active((num == 0 and not bootproto) or
-                              bootproto == "dhcp")
-            
-            num = num + 1
-
-            forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
-
-            for t in range(len(options)):
-                label = gtk.Label("%s:" %(options[t][0],))
-                label.set_alignment(0.0, 0.5)
-                ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
-                entry = gtk.Entry(15)
-          # entry.set_size_request(gdk_char_width(entry.get_style().font, '0')*15, -1)
-                entry.set_size_request(7 * 15, -1)
-                entry.connect("activate", forward)
-
-                entry.set_text(devs[i].get(options[t][1]))
-                options[t] = entry
-                ipTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
-
-            for t in range(len(options)):
-                if t == 0 or t == 1:
-                    options[t].connect("changed", self.calcNWBC,
-                                       (devs[i],) + tuple(options))
-
-            options[0].ipCalcNMHandler = None
-            
-            self.focusOutNM(None, None, (devs[i],) + tuple(options))
-
-            # add event handlers for the main IP widget to calcuate the netmask
-            options[0].connect("focus_in_event", self.focusInIP,
-                               (options[0], options[1]))
-            options[0].connect("focus_out_event", self.focusOutIP, options[0])
-            options[1].connect("focus_out_event", self.focusOutNM,
-                               (devs[i],) + tuple(options))
-            options[2].connect("focus_out_event", self.focusOutNW, devs[i])
-            options[3].connect("focus_out_event", self.focusOutBC, devs[i])
-
-            devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
-
-            devbox.show_all()
-            notebook.append_page(devbox, gtk.Label(i))
-
-        box.pack_start(notebook, gtk.FALSE)
+        buttonbar = gtk.VButtonBox()
+        buttonbar.set_layout(gtk.BUTTONBOX_START)
+        buttonbar.set_border_width(5)
+	edit = gtk.Button(_("_Edit"))
+        edit.connect("clicked", self.editDevice)
+	buttonbar.pack_start(edit, gtk.FALSE)
+	devhbox.pack_start(buttonbar, gtk.FALSE)
+	
+	box.pack_start(devhbox, gtk.FALSE, padding=10)
+	
         box.pack_start(gtk.HSeparator(), gtk.FALSE, padding=10)
 
-        options = [_("Hostname"), _("Gateway"), _("Primary DNS"),
-                   _("Secondary DNS"), _("Tertiary DNS")]
-
-        for i in range(len(options)):
-            label = gtk.Label("%s:" %(options[i],))
+	# this is the iptable used for DNS, et. al
+	self.ipTable = gtk.Table(len(global_options), 2)
+	options = {}
+        for i in range(len(global_options)):
+            label = gtk.Label("%s:" %(global_options[i],))
             label.set_alignment(0.0, 0.0)
             self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
+            align = gtk.Alignment(0, 0.5)
             if i == 0:
                 options[i] = gtk.Entry()
                 options[i].set_size_request(7 * 30, -1)
+		align.add(options[i])
             else:
-                options[i] = gtk.Entry(15)
-                options[i].set_size_request(7 * 15, -1)
-            options[i].connect("activate", forward)
-            align = gtk.Alignment(0, 0.5)
-            align.add(options[i])
+                options[i] = ipwidget.IPEditor()
+		align.add(options[i].getWidget())
+
             self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
         self.ipTable.set_row_spacing(0, 5)
 
-        self.hostname = options[0]
+	self.globals = {}
+	for t in range(len(global_options)):
+	    if t == 0:
+		self.hostname = options[0]
+	    else:
+		self.globals[global_options[t]] = options[t]
 
         # bring over the value from the loader
         if(self.network.hostname != "localhost.localdomain"):
             self.hostname.set_text(self.network.hostname)
 
-        self.gw = options[1]
-        self.gw.set_text(self.network.gateway)
-
-        self.ns = options[2]
-        self.ns.set_text(self.network.primaryNS)
-
-        self.ns2 = options[3]
-        self.ns2.set_text(self.network.secondaryNS)
-
-        self.ns3 = options[4]
-        self.ns3.set_text(self.network.ternaryNS)
+        self.globals[_("Gateway")].hydrate(self.network.gateway)
+        self.globals[_("Primary DNS")].hydrate(self.network.primaryNS)
+        self.globals[_("Secondary DNS")].hydrate(self.network.secondaryNS)
+        self.globals[_("Tertiary DNS")].hydrate(self.network.ternaryNS)
+	
         box.pack_start(self.ipTable, gtk.FALSE, gtk.FALSE, 5)
 
         return box
