@@ -13,7 +13,7 @@
 
 import iutil
 from iw_gui import *
-from gtk import *
+import gtk
 from translate import _, N_
 from constants import *
 
@@ -24,7 +24,7 @@ class BootdiskWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setPrevEnabled (FALSE)
+        ics.setPrevEnabled (gtk.FALSE)
 
     def getNext (self):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
@@ -41,13 +41,13 @@ class BootdiskWindow (InstallWindow):
     def getScreen (self, dir, disp, fsset):
 	self.dispatch = disp
 
-        box = GtkVBox (FALSE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
         pix = self.ics.readPixmap ("gnome-floppy.png")
         if pix:
-            a = GtkAlignment ()
+            a = gtk.Alignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)
-            box.pack_start (a, FALSE)
+            box.pack_start (a, gtk.FALSE)
         
         label = None
 
@@ -61,17 +61,17 @@ class BootdiskWindow (InstallWindow):
             text = text + _("\n\nA boot disk is REQUIRED to boot a "
                             "partitionless install.")
 
-        label = GtkLabel (text)
+        label = gtk.Label (text)
 
-        label.set_line_wrap (TRUE)
-        box.pack_start (label, FALSE)
+        label.set_line_wrap (gtk.TRUE)
+        box.pack_start (label, gtk.FALSE)
         
-        self.skipBootdisk = GtkCheckButton (_("Skip boot disk creation"))
-        self.skipBootdisk.set_active (FALSE)
-        box.pack_start (GtkHSeparator (), FALSE, padding=3)
-        box.pack_start (self.skipBootdisk, FALSE)
+        self.skipBootdisk = gtk.CheckButton (_("Skip boot disk creation"))
+        self.skipBootdisk.set_active (gtk.FALSE)
+        box.pack_start (gtk.HSeparator (), gtk.FALSE, padding=3)
+        box.pack_start (self.skipBootdisk, gtk.FALSE)
 
 	if fsset.rootOnLoop():
-	    self.skipBootdisk.set_sensitive(FALSE)
+	    self.skipBootdisk.set_sensitive(gtk.FALSE)
 
         return box
