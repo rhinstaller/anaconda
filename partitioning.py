@@ -1782,12 +1782,17 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         fsset.add (entry)
     if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
         return
-    rc = intf.messageWindow(_("Low Memory"),
+    # XXX this attribute is probably going away
+    if not partitions.isKickstart:
+        rc = intf.messageWindow(_("Low Memory"),
                             _("As you don't have much memory in this "
                               "machine, we need to turn on swap space "
                               "immediately. To do this we'll have to "
                               "write your new partition table to the disk "
                               "immediately. Is that okay?"), "okcancel")
+    else:
+        rc = 0
+        
     if rc:
         fsset.setActive(diskSet)
         diskSet.savePartitions ()
