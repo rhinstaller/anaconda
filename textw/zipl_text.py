@@ -62,9 +62,9 @@ class ZiplWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-	if entry.value():
-            bl.args.set(string.strip(entry.value()))
-	else:
-            bl.args.set(string.strip(None))
+#	if entry.value():
+#            bl.args.set(string.strip(entry.value()))
+#	else:
+#            bl.args.set(string.strip(None))
 
 	return INSTALL_OK
