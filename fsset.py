@@ -402,6 +402,9 @@ class ext3FileSystem(extFileSystem):
         except OSError:
             isys.mount(device, mountpoint, fstype = "ext3", 
                        readOnly = readOnly)
+        except SystemError:
+            isys.mount(device, mountpoint, fstype = "ext3", 
+                       readOnly = readOnly)
 
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
