@@ -343,4 +343,6 @@ int loadDriverDisks(int class, moduleList modLoaded,
         loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
                             kd, flags, 1);
     } while (1);
+
+    return LOADER_OK;
 }
