@@ -113,7 +113,8 @@ def get_partition_by_name(disks, partname):
 def get_partition_name(partition):
     """Return the device name for the PedPartition partition."""
     if (partition.geom.dev.type == parted.DEVICE_DAC960
-        or partition.geom.dev.type == parted.DEVICE_CPQARRAY):
+        or partition.geom.dev.type == parted.DEVICE_CPQARRAY
+        or partition.geom.dev.type == parted.DEVICE_SX8):
         return "%sp%d" % (partition.geom.dev.path[5:],
                           partition.num)
     return "%s%d" % (partition.geom.dev.path[5:],
