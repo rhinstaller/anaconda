@@ -12,7 +12,6 @@ BTERMLIB = -lbterm -lbogl
 WLITELIB = -lwlite
 ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
-MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 BINS = loader
 
@@ -119,8 +118,7 @@ loader-net.o: loader.c
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	$(HWLIBS) $(ISYSLIB) \
-	$(MODULELINKAGE) $(GUNZIP) \
+	$(HWLIBS) $(ISYSLIB) $(GUNZIP) \
 	-lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(BTERMLIB) $(WLITELIB)
 
 clean:

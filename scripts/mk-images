@@ -165,7 +165,7 @@ findmodule () {
         find $KERNELROOT/lib/modules/ > $CACHE
     fi
     
-    grep "/$1\.o" $CACHE
+    grep "/$1\.ko" $CACHE
 }
 
 rundepmod () {
@@ -202,7 +202,7 @@ rundepmod () {
     # So we use an ugly hack. :-(
 
     PARIDE="aten bpck bpck6 comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
-    cat $final.foo | $FILTERMODDEPS | sed -e 's/\.o//g' \
+    cat $final.foo | $FILTERMODDEPS | sed -e 's/\.ko//g' \
 	  -e 's/: parport$/: parport_pc/g' \
 	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
 	  -e "s/^pcd:.*/pcd: $PARIDE/" > $final 
@@ -214,7 +214,7 @@ getmoddeps () {
     final=$2
 
     for mod in $what ; do
-	mod=$(echo $mod | sed 's/\.o  */|^/g;s/\.o$//;s/.*\///')
+	mod=$(echo $mod | sed 's/\.ko  */|^/g;s/\.ko$//;s/.*\///')
 	egrep $mod $MODDEPS >> $final.foo
     done
     mv $final.foo $final
@@ -330,21 +330,16 @@ makemoduleball() {
 
     pushd $MMB_DIR/modules > /dev/null
 
-    GZIPPED=$(find . -name '*.o.gz')
-    if [ -n "$GZIPPED" ]; then
-	echo $GZIPPED | xargs gunzip
-    fi
-
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
 
-    getmoddeps "$(find . -name *.o)" ../modules.dep
+    getmoddeps "$(find . -name *.ko)" ../modules.dep
 
     # create the pcitable
-    $TRIMPCITABLE $(find . -name *.o -exec basename {} \;) < $PCITABLE > ../pcitable
+    $TRIMPCITABLE $(find . -name *.ko -exec basename {} \;) < $PCITABLE > ../pcitable
     
     # create the modules.pcimap
-    $TRIMMODMAP $PCITABLE $(find . -name *.o -exec basename {} \;) < $MODMAPS > ../modules.pcimap
+    $TRIMMODMAP $PCITABLE $(find . -name *.ko -exec basename {} \;) < $MODMAPS > ../modules.pcimap
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
@@ -369,7 +364,7 @@ makemainmodules() {
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" \
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.ko" \
           -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
@@ -739,7 +734,7 @@ makeinstimage () {
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" \
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.ko" \
          -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $tmpdir/modules "$modlist"
@@ -937,14 +932,10 @@ for KERNELARCH in $arches; do
     if [ -f $KERNELROOT/etc/pcmcia/config ]; then
 	# This gets everything mentioned in /etc/pcmcia/config.  We probably
 	# want to do some module-info stuff here too
-	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi|ide).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
+	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi|ide).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.ko//g') | sort -u)
     fi
 
-    GZIPPED=$(find $KERNELROOT/lib/modules/$version -name "*.o.gz")
-    if [ -n "$GZIPPED" ]; then
-	echo $GZIPPED |xargs gunzip
-    fi
-    allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
+    allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
 
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo

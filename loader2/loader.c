@@ -1082,7 +1082,7 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
         return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
-        return combined_insmod_main(argc, argv);
+        return ourRmmodCommand(argc, argv);
 
     if (!testing && !access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell."));

@@ -20,30 +20,72 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <sys/utsname.h>
 #include <sys/wait.h>
 
+#include "log.h"
 #include "modstubs.h"
 #include "modules.h"
 
 #include "../isys/cpio.h"
 #include "../isys/stubs.h"
 
+extern long init_module(void *, unsigned long, const char *);
+extern long delete_module(const char *, unsigned int);
+
 static int usage() {
     fprintf(stderr, "usage: insmod [-p <path>] <module>.o\n");
     return 1;
 }
 
+static int rmmod_usage() {
+    fprintf(stderr, "usage: rmmod <module>\n");
+    return 1;
+}
+
+static char * extractModule(char * file, char * ballPath, int version, 
+                            int *rmObj) {
+    gzFile fd;
+    char finalName[100], fullName[100];
+    char * chptr = NULL;
+
+    if (access(file, R_OK)) {
+        /* it might be having a ball */
+        fd = gunzip_open(ballPath);
+        if (!fd) {
+            free(ballPath);
+            return NULL;
+        }
+        
+        chptr = strrchr(file, '/');
+        if (chptr) file = chptr + 1;
+        sprintf(finalName, "/tmp/%s", file);
+        
+        /* XXX: leak */
+        sprintf(fullName, "%s/%s", getModuleLocation(version), file);
+        
+        if (installCpioFile(fd, fullName, finalName, 0)) {
+            free(ballPath);
+            return NULL;
+        }
+        
+        *rmObj = 1;
+        file = finalName;
+    }
+
+    return file;
+}
+
 int ourInsmodCommand(int argc, char ** argv) {
     char * file;
-    char finalName[100];
-    char * chptr;
-    gzFile fd;
     int rc, rmObj = 0;
     char * ballPath = NULL;
-    char fullName[100];
     int version = 1;
+    int fd;
+    char * modbuf = NULL;
+    struct stat sb;
 
     if (argc < 2) {
         return usage();
@@ -68,53 +110,47 @@ int ourInsmodCommand(int argc, char ** argv) {
         ballPath = strdup("/modules/modules.cgz");
     }
 
-    file = argv[1];
-
-    if (access(file, R_OK)) {
-        /* it might be having a ball */
-        fd = gunzip_open(ballPath);
-        if (!fd) {
-            free(ballPath);
-            return 1;
-        }
-        
-        chptr = strrchr(file, '/');
-        if (chptr) file = chptr + 1;
-        sprintf(finalName, "/tmp/%s", file);
-        
-        /* XXX: leak */
-        sprintf(fullName, "%s/%s", getModuleLocation(version), file);
-        
-        if (installCpioFile(fd, fullName, finalName, 0)) {
-            free(ballPath);
-            return 1;
-        }
-        
-        rmObj = 1;
-        file = finalName;
-    }
-
+    file = extractModule(argv[1], ballPath, version, &rmObj);
     free(ballPath);
 
-    argv[0] = "insmod";
-    argv[1] = file;
+    if (stat(file, &sb) == -1) {
+        logMessage("unable to stat file %s: %s", file, strerror(errno));
+        return 1;
+    }
 
-    rc = combined_insmod_main(argc, argv);
-    
-    if (rmObj) unlink(file);
+    fd = open(file, O_RDONLY);
+    if (fd < 0) {
+        logMessage("unable to open file %s: %s", file, strerror(errno));
+        return 1;
+    }
 
+    modbuf = malloc(sb.st_size);
+    if (read(fd, modbuf, sb.st_size) < sb.st_size) {
+        logMessage("error reading file %s: %s", file, strerror(errno));
+        return 1;
+    }
+
+    rc = init_module(file, sb.st_size, "");
+    if (rc != 0)
+        logMessage("failed to insert module (%d)", errno);
     return rc;
+}
+
+int ourRmmodCommand(int argc, char ** argv) {
+    if (argc < 2) {
+        return rmmod_usage();
+    }
+
+    return rmmod(argv[2]);
 }
 
 int rmmod(char * modName) {
     pid_t child;
     int status;
-    char * argv[] = { "/bin/rmmod", modName, NULL };
-    int argc = 2;
     int rc = 0;
 
     if ((child = fork()) == 0) {
-        exit(combined_insmod_main(argc, argv));
+        exit(delete_module(modName, O_NONBLOCK|O_EXCL));
     }
 
     waitpid(child, &status, 0);
@@ -158,8 +194,7 @@ int insmod(char * modName, char * path, char ** args) {
     argc += count;
 
     if ((child = fork()) == 0) {
-        execv("/bin/loader", argv);
-        exit(1);
+        exit(ourInsmodCommand(argc, argv));
     }
 
     waitpid(child, &status, 0);
