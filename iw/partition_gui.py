@@ -563,7 +563,7 @@ class PartitionWindow(InstallWindow):
 
             commentstr = ""
             for (dev, type, mntpt) in formatWarnings:
-                commentstr = commentstr +
+                commentstr = commentstr + \
                         "/dev/%s         %s         %s\n" % (dev,type,mntpt)
 
             commentstr = string.join(formatWarnings, "\n")
