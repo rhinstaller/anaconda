@@ -705,8 +705,8 @@ class ComponentSet:
 
 		    if conflicts:
 			log ("%s-%s-%s conflicts with to-be-installed "
-                             "package %s-%s, removing from set",
-                             name, version, release, reqname, reqversion)
+                             "package %s-%s, removing %s from set",
+                             name, version, release, reqname, reqversion, reqname)
 			if self.packages.packages.has_key (reqname):
 			    self.packages.packages[reqname].selected = 0
 			    log ("... removed")
