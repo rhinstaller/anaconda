@@ -34,8 +34,10 @@ def raidstop(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
     os.remove("/tmp/md")
-    _isys.raidstop(fd)
-    os.close(fd)
+    try:
+        _isys.raidstop(fd)
+    finally:
+        os.close(fd)
 
 def raidstart(mdDevice, aMember):
     if raidCount.has_key(mdDevice) and raidCount[mdDevice]:
@@ -48,15 +50,19 @@ def raidstart(mdDevice, aMember):
     makeDevInode(aMember, "/tmp/member")
     fd = os.open("/tmp/md", os.O_RDONLY)
     os.remove("/tmp/md")
-    _isys.raidstart(fd, "/tmp/member")
-    os.close(fd)
-    os.remove("/tmp/member")
+    try:
+        _isys.raidstart(fd, "/tmp/member")
+    finally:
+        os.close(fd)
+        os.remove("/tmp/member")
 
 def raidsb(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
-    rc = _isys.getraidsb(fd)
-    os.close(fd)
+    try:
+        rc = _isys.getraidsb(fd)
+    finally:
+        os.close(fd)
     return rc
 
 def losetup(device, file, readOnly = 0):
@@ -66,21 +72,27 @@ def losetup(device, file, readOnly = 0):
 	mode = os.O_RDWR
     targ = os.open(file, mode)
     loop = os.open(device, mode)
-    _isys.losetup(loop, targ, file)
-    os.close(loop)
-    os.close(targ)
+    try:
+        _isys.losetup(loop, targ, file)
+    finally:
+        os.close(loop)
+        os.close(targ)
 
 def lochangefd(device, file):
     loop = os.open(device, os.O_RDONLY)
     targ = os.open(file, os.O_RDONLY)
-    _isys.lochangefd(loop, targ)
-    os.close(loop)
-    os.close(targ)
+    try:
+        _isys.lochangefd(loop, targ)
+    finally:
+        os.close(loop)
+        os.close(targ)
 
 def unlosetup(device):
     loop = os.open(device, os.O_RDONLY)
-    _isys.unlosetup(loop)
-    os.close(loop)
+    try:
+        _isys.unlosetup(loop)
+    finally:
+        os.close(loop)
 
 def ddfile(file, megs, pw = None):
     fd = os.open("/dev/zero", os.O_RDONLY);
