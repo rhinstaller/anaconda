@@ -680,7 +680,7 @@ def doInstall(method, id, intf, instPath):
     ts = rpm.TransactionSet(instPath)
 
     ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-    ts.setFlags(rpm.RPMTRANS_FLAG_CHAINSAW)
+    ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
 
     total = 0
     totalSize = 0
@@ -720,7 +720,7 @@ def doInstall(method, id, intf, instPath):
         del ts
         ts = rpm.TransactionSet(instPath)
         ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
-        ts.setFlags(rpm.RPMTRANS_FLAG_CHAINSAW)
+        ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
 
     i = 0
     for p in l:
@@ -818,6 +818,7 @@ def doInstall(method, id, intf, instPath):
 	    nodeprob = rpm.RPMPROB_DISKNODES
 
 	for (descr, (type, mount, need)) in problems:
+            log("(%s, (%s, %s, %s))" %(descr, type, mount, need))
             if mount and mount.startswith(instPath):
 		mount = mount[len(instPath):]
             if not mount:
@@ -850,6 +851,7 @@ def doInstall(method, id, intf, instPath):
                                               _("Space Needed"))
 
 	    for (mount, need) in spaceneeded.items ():
+                log("(%s, %s)" %(mount, need))
 		if need > (1024*1024):
 		    need = (need + 1024 * 1024 - 1) / (1024 * 1024)
 		    suffix = "M"

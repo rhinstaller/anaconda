@@ -171,8 +171,8 @@ testpath = '/tmp/pkgorder-' + str (os.getpid ())
 os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 
 ts = rpm.TransactionSet(testpath)
-ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
-ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_CHAINSAW)
+ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_ANACONDA)
 for h in pkgOrder:
     #print "in:", h[1000000]
     ts.addInstall(h, h, 'i')
