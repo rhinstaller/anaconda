@@ -161,6 +161,11 @@ if os.environ.has_key ("ANACONDAARGS"):
 else:
     theargs = sys.argv[1:]
 
+# we can't let the LD_PRELOAD hang around because it will leak into
+# rpm %post and the like.  ick :/
+if os.environ.has_key("LD_PRELOAD"):
+    del os.environ["LD_PRELOAD"]
+
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
           [ 'text', 'xmode', 'test', 'debug', 'nofallback',
