@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2001-02-07 13:19-0500\n"
-"PO-Revision-Date: 2001-02-08 09:40+0100\n"
+"PO-Revision-Date: 2001-02-08 11:46+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -129,6 +129,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Chyba pøi pøipojování zaøízení %s jako %s: %s\n"
+"\n"
+"Chyba je obvykle zpùsobena tím, ¾e zaøízení není naformátováno\n"
+"\n"
+"Stisknìte OK pro restart systému."
 
 #: ../gui.py:173
 msgid ""
@@ -210,11 +215,11 @@ msgstr "Zavøít"
 
 #: ../gui.py:522 ../gui.py:773
 msgid "Release Notes"
-msgstr ""
+msgstr "Poznámky k vydání"
 
 #: ../gui.py:553
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Nemohu pøeèíst soubor!"
 
 #: ../gui.py:694
 msgid "Red Hat Linux Installer"
@@ -241,7 +246,7 @@ msgstr "Instalaèní okno"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Chybí CD #%d, které je pro instalaci potøeba."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -355,6 +360,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Vá¹ systém byl pøipojen do adresáøe /mnt/sysimage.\n"
+"\n"
+"Stisknìte <Enter> pro vstup do shellu. Systém bude po jeho ukonèení "
+"automaticky restartován."
 
 #: ../rescue.py:89
 msgid ""
@@ -364,6 +373,11 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Pøi pøipojování oddílù va¹eho systému nastala chyba. Nìkteré z nich mohou "
+"být pøipojeny v adresáøi /mnt/sysimage.\n"
+"\n"
+"Stisknìte <Enter> pro vstup do shellu. Systém bude po jeho ukonèení "
+"automaticky restartován."
 
 #: ../rescue.py:95
 msgid "Rescue Mode"
@@ -374,10 +388,12 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Ve va¹em systému nejsou ¾ádné oddíly s Linuxem. Stisknìte <Enter> pro vstup "
+"do shellu. Systém bude po jeho ukonèení automaticky restartován."
 
 #: ../rescue.py:108
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Vá¹ systém je pøipojen v adresáøi /mnt/sysimage."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:918 ../libfdisk/fsedit.c:925
@@ -618,6 +634,8 @@ msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
+"                              <Enter> pro restart                            "
+" "
 
 #: ../text.py:642 ../text.py:665
 msgid "Complete"
@@ -953,6 +971,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Následující soubory jsou absolutní symbolické linky, které nejsou pøi "
+"aktualizaci podporovány. Zmìòte je prosím na relativní a spus»te aktualizaci "
+"znovu.\n"
+"\n"
 
 #: ../todo.py:1116
 msgid "Finding"
@@ -985,6 +1007,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Soubor %s nemù¾e být otevøen, proto¾e není pøítomen, balíèek je po¹kozen "
+"nebo je vadné médium. Stisknìte <Enter> pro nový pokus."
 
 #: ../todo.py:1758
 #, c-format
@@ -1235,7 +1259,7 @@ msgstr "Povolit LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Pou¾ít TLS lookup"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
@@ -1589,7 +1613,7 @@ msgstr "Emulovat 3 tlaèítka"
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
@@ -1682,12 +1706,19 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
+"Pøi ètení souboru hdlist nastala následující chyba:\n"
+"\n"
+"%s\n"
+"\n"
+"Instalátor se nyní ukonèí."
 
 #: ../iw/package_gui.py:563
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
 msgstr ""
+"Pøi ètení souboru hdlist nastala chyba. Instalaèní médium nebo jeho obraz je "
+"pravdìpodobnì po¹kozen. Instalátor bude nyní ukonèen."
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1700,7 +1731,7 @@ msgstr "Instaluji balíèky"
 #: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s KByte"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -1773,6 +1804,17 @@ msgid ""
 "\n"
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
+"Oddíl, který obsahuje jádro systému, pøesahuje hranici 1024 cylindrù. "
+"Zároveò se zdá, ¾e vá¹ BIOS nepodporuje zavádìní systému z oblasti nad touto "
+"hranicí. Pokud nezmìníte rozdìlení oddílù, vá¹ systém pravdìpodobnì z disku "
+"nenastartuje.\n"
+"\n"
+"Pokud chcete pokraèovat, doporuèujeme vytvoøení zavádìcí diskety pomocí "
+"instalaèního programu. Disketa vám zabezpeèí mo¾nost startu systému po "
+"ukonèení instalace.\n"
+"\n"
+"Stisknìte OK pro pokraèování a Zru¹it pokud chcete vrátit zpìt a zmìnit "
+"rozdìlení disku."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
@@ -1785,6 +1827,12 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Umístili jste jádro na oddíl, který se rozkládá nad hranicí 1024 cylindrù. "
+"Zdá se, ¾e vá¹ BIOS podporuje zavádìní systému z oblasti nad tímto limitem.\n"
+"\n"
+"Pøesto doporuèujeme vytvoøení zavádìcí diskety, proto¾e mù¾e dojít k "
+"neèekaným obtí¾ím s va¹í základní deskou. Disketa umo¾ní zavedení systému po "
+"ukonèení instalace."
 
 #: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:334
 #, c-format
@@ -1876,7 +1924,7 @@ msgstr "Ruèní dìlení diskù pomocí fdisk [pouze experti]"
 
 #: ../iw/rootpartition_gui.py:448
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Varování o bootovacím oddílu"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
 msgid ""
@@ -1891,6 +1939,16 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Oddíl, který obsahuje jádro systému, pøesahuje hranici 1024 cylindrù. "
+"Zároveò se zdá, ¾e vá¹ BIOS nepodporuje zavádìní systému z oblasti nad touto "
+"hranicí. Pokud nezmìníte rozdìlení oddílù, vá¹ systém pravdìpodobnì z disku "
+"nenastartuje.\n"
+"\n"
+"Pokud chcete pokraèovat, doporuèujeme vytvoøení zavádìcí diskety pomocí "
+"instalaèního programu. Disketa vám zabezpeèí mo¾nost startu systému po "
+"ukonèení instalace.\n"
+"\n"
+"Jste si jisti, ¾e chcete pokraèovat?"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -2116,6 +2174,10 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"Firewall chrání proti neoprávnìnému pøístupu. Vysoké zabezpeèení blokuje "
+"ve¹kerý pøíchozí provoz. Støední zabespeèení blokuje pøístup k systémovým "
+"slu¾bám (napøíklad telnet nebo tisk), ale umo¾òuje ostatní spojení. Pokud "
+"firewall nepou¾ijete, jsou povolena v¹echna spojení (nedoporuèujeme)."
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
@@ -2173,6 +2235,10 @@ msgid ""
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
 msgstr ""
+"Vlastní nastavení firewallu mù¾ete provést dvìma zpùsoby. První varianta "
+"umo¾òuje povolit v¹echen provoz z daných sí»ových rozhraní. Druhá varianta "
+"umo¾òuje nastavit prùchod urèitých protokolù firewallem. Doplòující porty "
+"lze zadávat ve formì 'service:protocol', napø. 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
 #, c-format
@@ -2300,7 +2366,7 @@ msgstr "Velikost:"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KByte"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -2582,7 +2648,7 @@ msgstr "Dotazovat server v¹esmìrovým vysíláním"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Pou¾ít TSL spojení"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2595,7 +2661,7 @@ msgstr "Døívìj¹í instalace Linuxu na va¹em poèítaèi bude nyní smazána."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Laptop"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2805,6 +2871,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Tato chyba nastala, proto¾e geometrie disku detekovaná jádrem a pou¾itá "
+"instalaèním programem je odli¹ná od geometrie pou¾ité pøi dìlìní disku na "
+"oddíly. Problém lze odstranit zadáním geometrie disku na pøíkazovou øádku "
+"jádra, kdy¾ je zavádìn instalaèní program."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2830,6 +2900,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Velikost koøenového RAID odílu (/) pøekroèila limit 1024 cylindrù. Pokud se "
+"chcete vyhnout problémùm, vytvoøte pod hranicí 1024 cylidrù malý oddíl pro "
+"/boot (staèí 50 MB), èím¾ umo¾níte bezpeèné pou¾ívání tak velkého koøenového "
+"oddílu."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2837,6 +2911,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Velikost koøenového odílu (/) pøekroèila limit 1024 cylindrù. Pokud se "
+"chcete vyhnout problémùm, vytvoøte pod hranicí 1024 cylidrù malý oddíl pro "
+"/boot (staèí 50 MB), èím¾ umo¾níte bezpeèné pou¾ívání tak velkého koøenového "
+"oddílu."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -2975,10 +3053,14 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Doporuèujeme, aby koøenový oddíl (/) mìl velikost nejménì %ld MB. Vytváøíte "
+"právì oddíl o velikosti %ld MB, co¾ mù¾e vést k selhání instalace.\n"
+"\n"
+"Jste si jisti, ¾e to chcete provést?"
 
 #: ../libfdisk/gnomefsedit.c:1374 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
-msgstr ""
+msgstr "Varování: Velikost koøenového FS"
 
 #: ../libfdisk/gnomefsedit.c:1386
 msgid "No Drives Specified"
@@ -3040,13 +3122,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1650
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Nelze odstranit /boot"
 
 #: ../libfdisk/gnomefsedit.c:1651
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
+"Nelze oststranit \"/boot\", pokud je koøen \"/\" na RAID zaøízení. Pøepnìte "
+"nejprve \"/\" na zaøízení, které není typu RAID."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1737
@@ -3354,7 +3438,7 @@ msgstr "Aktuální diskové oddíly"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "   Pøípojný bod         Zaøízení   Po¾adováno  Stav           Typ "
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
@@ -3696,6 +3780,8 @@ msgstr "Nelze získat druhý instalaèní obraz"
 #: ../loader/loader.c:1277
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
+"Instalce pomocí FTP a HTTP protokolu potøebuje o zhruba 20MB více systémové "
+"pamìti."
 
 #: ../loader/loader.c:1501
 msgid "Rescue Method"
@@ -3750,7 +3836,7 @@ msgstr "Ètení updatù pro anakondu..."
 
 #: ../loader/loader.c:2470
 msgid "You don't have enough system memory to install Red Hat on this machine."
-msgstr ""
+msgstr "Ve va¹em systému není dostek pamìti pro instalaèní program."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4066,7 +4152,7 @@ msgstr "Ji¾ní Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indian Rim"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
