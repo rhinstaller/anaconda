@@ -35,10 +35,21 @@ def raidsb(mdDevice):
     os.close(fd)
     return rc
 
-def losetup(device, file):
-    loop = os.open(device, os.O_RDONLY)
-    targ = os.open(file, os.O_RDWR)
+def losetup(device, file, readonly = 0):
+    if readonly:
+	mode = os.O_RDONLY
+    else:
+	mode = os.O_RDWR
+    targ = os.open(file, mode)
+    loop = os.open(device, mode)
     _isys.losetup(loop, targ, file)
+    os.close(loop)
+    os.close(targ)
+
+def lochangefd(device, file):
+    loop = os.open(device, os.O_RDONLY)
+    targ = os.open(file, os.O_RDONLY)
+    _isys.lochangefd(loop, targ)
     os.close(loop)
     os.close(targ)
 

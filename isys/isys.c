@@ -39,7 +39,7 @@
 long long llseek(int fd, long long offset, int whence);
 
 /* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
-moduleInfoSet modInfoList;
+moduleInfoSet modInfoList = NULL;
 
 static PyObject * doFindModInfo(PyObject * s, PyObject * args);
 static PyObject * doGetOpt(PyObject * s, PyObject * args);
@@ -62,6 +62,7 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args);
 static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
+static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
@@ -85,6 +86,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
+    { "lochangefd", (PyCFunction) doLoChangeFd, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
@@ -230,6 +232,9 @@ static PyObject * getModuleList(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
+    if (!modInfoList)
+	modInfoList = isysNewModuleInfoSet();
+
     modules = isysGetModuleList(modInfoList, major);
     if (!modules) {
 	Py_INCREF(Py_None);
@@ -352,6 +357,21 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+static PyObject * doLoChangeFd(PyObject * s, PyObject * args) {
+    int loopfd;
+    int targfd;
+
+    if (!PyArg_ParseTuple(args, "ii", &loopfd, &targfd)) 
+	return NULL;
+    if (ioctl(loopfd, LOOP_CHANGE_FD, targfd)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 static PyObject * doLoSetup(PyObject * s, PyObject * args) {
     int loopfd;
     int targfd;
@@ -382,6 +402,9 @@ static PyObject * doFindModInfo(PyObject * s, PyObject * args) {
     struct moduleInfo * mi;
 
     if (!PyArg_ParseTuple(args, "s", &mod)) return NULL;
+
+    if (!modInfoList)
+	modInfoList = isysNewModuleInfoSet();
 
     mi = isysFindModuleInfo(modInfoList, mod);
     if (!mi) {
@@ -540,6 +563,9 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
     char * fn;
 
     if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
+
+    if (!modInfoList)
+	modInfoList = isysNewModuleInfoSet();
 
     if (isysReadModuleInfo(fn, modInfoList, MI_LOCATION_NONE, NULL)) {
 	PyErr_SetFromErrno(PyExc_IOError);
@@ -714,8 +740,6 @@ static PyObject * smpAvailable(PyObject * s, PyObject * args) {
 }
 
 void init_isys(void) {
-    modInfoList = isysNewModuleInfoSet();
-
     Py_InitModule("_isys", isysModuleMethods);
 }
 
