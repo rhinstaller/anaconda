@@ -74,6 +74,8 @@
 #include "net.h"
 #include "telnetd.h"
 
+#include "selinux.h"
+
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 #include "../isys/stubs.h"
@@ -110,20 +112,12 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 /* JKFIXME: bad hack for second stage modules without module-info */
 struct moduleBallLocation * secondStageModuleLocation;
 
-#if defined(__x86_64__) || defined(__s390x__) || defined(__ppc64__)
-#define LIBPATH "/lib64:/usr/lib64:/usr/X11R6/lib64:/usr/kerberos/lib64:/mnt/usr/lib64:/mnt/sysimage/lib64:/mnt/sysimage/usr/lib64"
-#else
-#define LIBPATH "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib"
-#endif
-
-
 #if 0
 #if !defined(__s390__) && !defined(__s390x__)
 #define RAMDISK_DEVICE "/dev/ram"
 #else
 #define RAMDISK_DEVICE "/dev/ram2"
 #endif
-
 
 int setupRamdisk(void) {
     gzFile f;
@@ -1335,32 +1329,13 @@ int main(int argc, char ** argv) {
     /* now load SELinux policy before exec'ing anaconda (unless we've
      * specified not to */
     if (!FL_NOSELINUX(flags)) {
-        char * fn;
-        int pid;
-
-        if (!access("/tmp/updates/policy.15", R_OK))
-            fn = strdup("/tmp/updates/policy.15");
-        else if (!access("/mnt/source/RHupdates/policy.15", R_OK))
-            fn = strdup("/mnt/source/RHupdates/policy.15");
-        else 
-            fn = strdup("/mnt/runtime/etc/security/selinux/policy.15");
-
-        logMessage("Loading SELinux policy from %s", fn);
-        if (!(pid = fork())) {
-            setenv("LD_LIBRARY_PATH", LIBPATH, 1);
-            if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-                logMessage("failed to mount /selinux: %s", strerror(errno));
-                exit(1);
-            } else {
-                execl("/usr/sbin/load_policy", 
-                      "/usr/sbin/load_policy", fn, NULL);
-                logMessage("exec of load_policy failed: %s", strerror(errno));
-                exit(1);
+        if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
+            logMessage("failed to mount /selinux: %s", strerror(errno));
+        } else {
+            if (loadpolicy() == 0) {
+                setexeccon(ANACONDA_CONTEXT);
             }
         }
-
-        waitpid(pid, NULL, 0);
-        free(fn);
     }
 
     logMessage("Running anaconda script %s", *(argptr-1));
