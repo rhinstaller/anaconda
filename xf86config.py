@@ -22,8 +22,8 @@ class XF86Config:
         self.vidRam = None
         self.monEisa = None
         self.monName = None
-        self.monHoriz = None
-        self.monVert = None
+        self.monHoriz = ""
+        self.monVert = ""
 	self.monSect = None
         self.monID = "Generic Monitor"
         self.devID = None

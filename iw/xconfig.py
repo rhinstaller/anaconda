@@ -150,9 +150,12 @@ class MonitorWindow (InstallWindow):
         if (self.todo.reconfigOnly
             or (not self.todo.hdList.packages.has_key('XFree86')
                 or not self.todo.hdList.packages['XFree86'].selected
-                or self.todo.serial):
+                or self.todo.serial)):
             self.skipme = TRUE
             return None
+        else:
+            self.skipme = FALSE
+        
         
         self.todo.x.probe ()
         box = GtkVBox (FALSE, 5)
@@ -196,7 +199,10 @@ class MonitorWindow (InstallWindow):
             ctree.select (select)
             ctree.expand (selParent)
             ctree.connect ("draw", self.moveto, select)
-        
+
+        self.hEntry.set_text (self.todo.x.monHoriz)
+        self.vEntry.set_text (self.todo.x.monVert)        
+
         sw = GtkScrolledWindow ()
         sw.add (ctree)
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
@@ -248,7 +254,7 @@ class XConfigWindow (InstallWindow):
     def getNext (self):
         if self.skipme:
             return None
-        
+
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -267,7 +273,7 @@ class XConfigWindow (InstallWindow):
         pass
     
     def skipToggled (self, widget, *args):
-        self.autoBox.set_sensitive (not widget.get_active ())
+        self.configbox.set_sensitive (not widget.get_active ())
         self.todo.x.skip = widget.get_active ()
 
     def testPressed (self, widget, *args):
@@ -278,7 +284,11 @@ class XConfigWindow (InstallWindow):
             pass
         else:
             self.didTest = 1
-            
+
+    def memory_cb (self, widget, size):
+        self.todo.x.vidRam = size[:-1]
+        self.todo.x.filterModesByMemory ()
+    
     def getScreen (self):
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
@@ -286,9 +296,11 @@ class XConfigWindow (InstallWindow):
         if (self.todo.reconfigOnly
             or (not self.todo.hdList.packages.has_key('XFree86')
                 or not self.todo.hdList.packages['XFree86'].selected
-                or self.todo.serial):
+                or self.todo.serial)):
             self.skipme = TRUE
             return None
+        else:
+            self.skipme = FALSE
 
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
@@ -298,26 +310,55 @@ class XConfigWindow (InstallWindow):
 
         self.autoBox = GtkVBox (FALSE, 5)
 
-        label = GtkLabel (_("In most cases your video hardware can "
-                            "be probed to automatically determine the "
-                            "best settings for your display."))
-        label.set_justify (JUSTIFY_LEFT)
-        label.set_line_wrap (TRUE)        
-        label.set_alignment (0.0, 0.5)
-        label.set_usize (400, -1)
-        self.autoBox.pack_start (label, FALSE)
-        
-        label = GtkLabel (_("Autoprobe results:"))
-        label.set_alignment (0.0, 0.5)
-        self.autoBox.pack_start (label, FALSE)
+        if iutil.getArch() == "alpha":
+            label = GtkLabel (_("You video ram size can not be autodetected.  "
+                                "Choose your video ram size from the choices below:"))
+            label.set_justify (JUSTIFY_LEFT)
+            label.set_line_wrap (TRUE)        
+            label.set_alignment (0.0, 0.5)
+            label.set_usize (400, -1)
+            box.pack_start (label, FALSE)
+            table = GtkTable()
+            group = None
+            count = 0
+            for size in ("256k", "512k", "1024k", "2048k", "4096k",
+                         "8192k", "16384k"):
+                button = GtkRadioButton (group, size)
+                button.connect ('clicked', self.memory_cb, size)
+                if size[:-1] == self.todo.x.vidRam:
+                    button.set_active (1)
+                if not group:
+                    group = button
+                table.attach (button, count % 3, (count % 3) + 1,
+                              count / 3, (count / 3) + 1)
+                count = count + 1
+                
+            box.pack_start (table, FALSE)
+        else:
+            # but we can on everything else
+            self.autoBox = GtkVBox (FALSE, 5)
 
-        report = self.todo.x.probeReport ()
-        report = string.replace (report, '\t', '       ')
-        
-        result = GtkLabel (report)
-        result.set_alignment (0.2, 0.5)
-        result.set_justify (JUSTIFY_LEFT)
-        self.autoBox.pack_start (result, FALSE)
+            label = GtkLabel (_("In most cases your video hardware can "
+                                "be probed to automatically determine the "
+                                "best settings for your display."))
+            label.set_justify (JUSTIFY_LEFT)
+            label.set_line_wrap (TRUE)        
+            label.set_alignment (0.0, 0.5)
+            label.set_usize (400, -1)
+            self.autoBox.pack_start (label, FALSE)
+
+            label = GtkLabel (_("Autoprobe results:"))
+            label.set_alignment (0.0, 0.5)
+            self.autoBox.pack_start (label, FALSE)
+
+            report = self.todo.x.probeReport ()
+            report = string.replace (report, '\t', '       ')
+
+            result = GtkLabel (report)
+            result.set_alignment (0.2, 0.5)
+            result.set_justify (JUSTIFY_LEFT)
+            self.autoBox.pack_start (result, FALSE)
+            box.pack_start (self.autoBox, FALSE)
 
 	if not self.sunServer:
 	    test = GtkAlignment ()
@@ -327,20 +368,21 @@ class XConfigWindow (InstallWindow):
         
 	    self.custom = GtkCheckButton (_("Customize X Configuration"))
 	    self.custom.connect ("toggled", self.customToggled)
+	    box.pack_start (test, FALSE)
+	    box.pack_start (self.custom, FALSE)
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
-
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-	if not self.sunServer:
-	    self.autoBox.pack_start (test, FALSE)
-	    self.autoBox.pack_start (self.custom, FALSE)
-        self.autoBox.pack_start (self.xdm, FALSE)
+        box.pack_start (self.xdm, FALSE)
 
-        box.pack_start (self.autoBox, TRUE, TRUE)
-        box.pack_start (self.skip, FALSE)
+        self.topbox = GtkVBox (FALSE, 5)
+        self.topbox.pack_start (box, TRUE, TRUE)
+        self.topbox.pack_start (self.skip, FALSE)
+
+        self.configbox = box
 
         self.skip.set_active (self.todo.x.skip)
 
-        return box
+        return self.topbox
