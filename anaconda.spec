@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.24
+Version: 10.2.0.25
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar  6 2005 Peter Jones <pjones@redhat.com> 10.2.0.25-1
+- Empty blacklist in upgrade.py (notting, #142893)
+- Add new font package names (katzj)
+- Yet another fix of autopart with lvm (pjones)
+
 * Tue Mar  1 2005 Peter Jones <pjones@redhat.com> 10.2.0.24-1
 - gcc4 fixes (clumens, pjones)
 - build C files with -D_FORTIFY_SOURCE=2 (pjones)
