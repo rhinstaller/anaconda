@@ -18,6 +18,7 @@
 #include <sys/io.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "lrmi.h"
 #include "edd.h"
@@ -116,7 +117,7 @@ edd_supported(int drive)
       if (strstr(buf, "lba32")) {
 	  EDDCapability *ec = malloc (sizeof (EDDCapability));
 	  ec->edd = 1;
-	  return rc;
+	  return ec;
       }
       return NULL;
   }
