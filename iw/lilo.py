@@ -20,6 +20,11 @@ class LiloWindow (InstallWindow):
         self.type = None
 
     def getNext (self):
+        if self.bootdisk.get_active ():
+            self.todo.bootdisk = 1
+        else:
+            self.todo.bootdisk = 0
+
 	return
         if self.lilo.get_active ():
             self.todo.setLiloLocation (None)
@@ -29,11 +34,6 @@ class LiloWindow (InstallWindow):
                 self.todo.setLiloLocation ("mbr")
             else:
                 self.todo.setLiloLocation ("partition")
-
-        if self.bootdisk.get_active ():
-            self.todo.bootdisk = 1
-        else:
-            self.todo.bootdisk = 0
 
 	self.todo.setLiloImages(self.images)
 
