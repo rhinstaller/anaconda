@@ -137,8 +137,8 @@ class UpgradeExamineWindow (InstallWindow):
         self.upgradecombo.pack_start(cell, True)
         self.upgradecombo.set_attributes(cell, markup=0)
 
-        iter = model.append()
 	for (part, filesystem, desc) in self.parts:
+            iter = model.append()
 	    if (desc is None) or len(desc) < 1:
 		desc = _("Unknown Linux system")
 	    if part[:5] != "/dev/":
@@ -146,7 +146,6 @@ class UpgradeExamineWindow (InstallWindow):
 	    else:
 		devname = part
             model[iter][0] = "<small>%s (%s)</small>" %(desc, devname)
-            iter = model.append ()
 
 	upboxtmp.pack_start(self.uplabel)
 
