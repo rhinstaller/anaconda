@@ -124,7 +124,9 @@ class Network:
                     hostname = ""
                 if hostname:
                     dev.hostname = hostname
-                    self.domains.append (string.joinfields (string.splitfields (hostname, '.')[1:], '.'))
+                    if '.' in hostname:
+                        # chop off everything before the leading '.'
+                        self.domains.append (hostname[(string.find (hostname, '.') + 1):])
             else:
                 dev.hostname = "localhost.localdomain"
         if not self.domains:
@@ -486,10 +488,15 @@ class ToDo:
     def installLilo(self):
 	if not self.liloDevice: return
 
-        kernelVersion = str(self.kernelPackage[rpm.RPMTAG_VERSION]) + \
-                        str(self.kernelPackage[rpm.RPMTAG_RELEASE])
+        kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
+                                   self.kernelPackage[rpm.RPMTAG_RELEASE])
 
-        util.execWithRedirect("/sbin/mkinitrd", [ kernelVersion ],
+        initrd = "/boot/initrd-%s.img" % (kernelVersion,)
+
+        util.execWithRedirect("/sbin/mkinitrd",
+                              [ "/sbin/mkinitrd",
+                                initrd,
+                                kernelVersion ],
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
 
@@ -502,6 +509,8 @@ class ToDo:
 
 	sl = LiloConfiguration()
 	sl.addEntry("label", "linux")
+        if os.access (self.instPath + initrd, os.R_OK):
+            sl.addEntry("initrd", initrd)
 
         if not self.mounts.has_key ('/'):
             return
