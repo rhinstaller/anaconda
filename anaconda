@@ -185,7 +185,7 @@ EndSection
     server = os.fork()
     if (not server):
 	os.execv(serverPath, [serverPath, ':1', '-xf86config', 
-                 '/tmp/XF86Config'], 'vt5')
+                 '/tmp/XF86Config', 'vt5'])
     child = os.fork()
     if (child):
 	os.waitpid(child, 0)
