@@ -447,7 +447,7 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
 
-    if (isysReadModuleInfo(fn, modInfoList)) {
+    if (isysReadModuleInfo(fn, modInfoList, NULL)) {
 	PyErr_SetFromErrno(PyExc_IOError);
 	return NULL;
     }
