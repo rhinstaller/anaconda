@@ -9,15 +9,14 @@
 int loadDriverFromMedia(int class, moduleList modLoaded, 
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                         struct knownDevices * kd, int flags, int usecancel);
+
 int loadDriverDisks(int class, moduleList modLoaded, 
                     moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                     struct knownDevices * kd, int flags);
 
 int getRemovableDevices(char *** devNames);
 
-
 int chooseManualDriver(int class, moduleList modLoaded, 
                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                        struct knownDevices * kd, int flags);
-
 #endif
