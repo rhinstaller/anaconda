@@ -271,6 +271,9 @@ class AccountWindow (InstallWindow):
             hbox.pack_start (a, FALSE)
 
         label = GtkLabel (_("Enter the password for the root user (administrator) of this system."))
+        label.set_line_wrap(TRUE)
+        label.set_usize(350, -1)
+
         a = GtkAlignment ()
         a.add (label)
         a.set (0.0, 0.5, 0.0, 0.0)
@@ -359,7 +362,7 @@ class AccountWindow (InstallWindow):
                             "system. Use the <Add> button to enter additional "
                             "user accounts."))
         label.set_line_wrap(TRUE)
-        label.set_usize(400, -1)
+        label.set_usize(350, -1)
         a.add(label)
         hbox.pack_start(a, FALSE)
 
