@@ -40,7 +40,6 @@ class PartitionWindow (InstallWindow):
 	if not self.skippedScreen:
 	    win = self.todo.ddruid.getConfirm ()
 	    if win:
-		print "confirm"
 		bin = GtkFrame (None, _obj = win)
 		bin.set_shadow_type (SHADOW_NONE)
 		window = ConfirmPartitionWindow
@@ -52,18 +51,13 @@ class PartitionWindow (InstallWindow):
             self.todo.addMount(partition, mount, fsystem)
 
         (drives, raid) = self.todo.ddruid.partitionList()
-	print "drives", drives
-	print "raid", raid
 
 	for (mount, device, type, other) in raid:
 	    self.todo.addMount(device, mount, "ext2")
 
-	print "self.todo.mounts", self.todo.mounts
-
         return None
 
     def enableCallback (self, value):
-        print "enable", value
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
