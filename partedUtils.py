@@ -340,7 +340,29 @@ def getRedHatReleaseString(mountpoint):
         lines = f.readlines()
         f.close()
         # return the first line with the newline at the end stripped
-        return lines[0][:-1]
+	relstr = string.strip(lines[0][:-1])
+
+	# clean it up some
+	#
+	# see if it fits expected form:
+	#
+	#   'Red Hat Linux release 6.2 (Zoot)'
+	#
+	#
+
+	if relstr[:13] == 'Red Hat Linux':
+	    try:
+		# look for version string
+		vers = string.split(relstr[14:])[1]
+		for a in string.split(vers, '.'):
+		    anum = string.atof(a)
+
+		relstr = "Red Hat Linux " + vers
+	    except:
+		# didnt pass test dont change relstr
+		pass
+
+        return relstr
     return ""
 
 class DiskSet:
