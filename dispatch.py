@@ -88,7 +88,10 @@ installSteps = [
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
     ("network", ("id.network", "dispatch", "intf")),
     ("firewall", ("intf", "id.network", "id.firewall")),
-    ("languagesupport", ("id.langSupport",)),
+#
+# XXXX - we're removing the language support screen
+#
+#    ("languagesupport", ("id.langSupport",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("id.rootPassword", "id.accounts")),
     ("authentication", ("id.auth",)),
