@@ -407,6 +407,10 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo, availablefstypes=None):
         names = availablefstypes
     else:
         names = types.keys()
+    if fstype and fstype.isSupported() and fstype.isFormattable():
+        default = fstype
+    else:
+        default = fileSystemTypeGetDefault()
         
     names.sort()
     defindex = None
@@ -419,7 +423,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo, availablefstypes=None):
             item = GtkMenuItem(name)
             item.set_data ("type", types[name])
             fstypeoptionMenu.add(item)
-            if fstype and fstype.getName() == name:
+            if default and default.getName() == name:
                 defindex = i
                 defismountable = types[name].isMountable()
             if fstypechangeCB and mountCombo:
