@@ -567,6 +567,21 @@ class MonitorWindow (InstallWindow):
             self.ctree.thaw ()
             pass
 
+    def insert (self, pos, text, len, data):
+        text = text[:1]
+        
+        list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", " ", "."]
+
+        found = "FALSE"
+
+        for item in list:
+            if text == item:
+                found = "TRUE"
+
+        if found == "FALSE":
+            self.hEntry.emit_stop_by_name ("insert_text")
+            self.hEntry.emit_stop_by_name ("insert_text")
+
     def getScreen (self):
 
         # Don't configure X in reconfig mode.
@@ -761,9 +776,13 @@ class MonitorWindow (InstallWindow):
         frame.add (hbox)
         syncbox.pack_start (frame)
 
+        self.hEntry.connect ("insert_text", self.insert)
+        self.vEntry.connect ("insert_text", self.insert)        
+
         self.reset = GtkButton (_("Restore original values"))
         self.reset.connect ("clicked", self.resetCb)
         syncbox.pack_start (self.reset, FALSE, 25)
+
 
 
         box.pack_start (syncbox, FALSE, FALSE)
