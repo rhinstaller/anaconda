@@ -314,7 +314,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
         if (!cfg->noDns)
             writeResolvConf(cfg);
-        return 0;
+        return LOADER_NOOP;
     }        
 
     text = newtTextboxReflowed(-1, -1, 
@@ -489,12 +489,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
         writeResolvConf(cfg);
     }
 
-    /* JKFIXME: this is a hack */
-#if !defined(__s390__) && !defined(__s390x__)
     return 0;
-#else
-    return LOADER_NOOP;
-#endif
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
