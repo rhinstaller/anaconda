@@ -1427,7 +1427,7 @@ class FileSystemSet:
             dir = rootDev[:string.rfind(rootDev, "/")]
             if not os.access(instPath + dir, os.X_OK):
                 os.makedirs(instPath + dir)
-            if not os.access(instPath + rootDev):
+            if not os.access(instPath + rootDev, os.R_OK):
                 iutil.copyDeviceNode(rootDev, instPath + rootDev)
 
 #        raise RuntimeError
