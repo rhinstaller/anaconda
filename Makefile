@@ -19,7 +19,7 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all:  subdirs mini-wm _xkb.so xmouse.so $(CATALOGS) lang-table lang-names product.py
+all:  subdirs mini-wm _xkb.so xmouse.so xutils.so $(CATALOGS) lang-table lang-names product.py
 
 product.py: product.py.in Makefile.inc
 	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
@@ -37,6 +37,10 @@ _xkb.so: xkb.c
 xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c 
 	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/lib/libXxf86misc.a -L/usr/X11R6/lib -lX11 -lXext
+
+xutils.so: xutils.c
+	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c 
+	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/lib -lX11
 
 depend:
 	rm -f *.o *.so *.pyc
