@@ -31,6 +31,18 @@ from rhpl.videocard import Videocard_blacklist
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
 
+ENABLE_DESKTOP_CHOICE = 0
+try:
+    f = open("/proc/cmdline")
+    line = f.readline()
+    if string.find(line, " kde") != -1:
+	ENABLE_DESKTOP_CHOICE = 1
+    else:
+	ENABLE_DESKTOP_CHOICE = 0
+    del f
+except:
+    ENABLE_DESKTOP_CHOICE = 0
+
 class XCustomWindow (InstallWindow):
 
     htmlTag = "xcustom"
@@ -46,8 +58,9 @@ class XCustomWindow (InstallWindow):
         newmodes[self.selectedDepth].append (self.selectedRes)
 
         self.xconfig.setManualModes(newmodes)
-        
-        self.desktop.setDefaultDesktop (self.newDesktop)
+
+	if ENABLE_DESKTOP_CHOICE:
+	    self.desktop.setDefaultDesktop (self.newDesktop)
 
         if self.text.get_active ():
             rl = 3
@@ -313,7 +326,7 @@ class XCustomWindow (InstallWindow):
         self.newDesktop = ""
         self.origDesktop = self.desktop.getDefaultDesktop()
 
-        if gnomeSelected or kdeSelected:
+	if (ENABLE_DESKTOP_CHOICE) and (gnomeSelected or kdeSelected):
             hsep = gtk.HSeparator ()
             self.box.pack_start (hsep)
 
