@@ -1117,6 +1117,7 @@ class ToDo:
 
         self.getCompsList ()
 	self.getHeaderList ()
+	self.method.mergeFullHeaders(self.hdList)
 
         win = self.intf.waitWindow (_("Finding"),
                                     _("Finding packages to upgrade..."))
