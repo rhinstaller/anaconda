@@ -833,12 +833,18 @@ class ToDo:
 			      isCrypted = todo.instClass.rootPasswordCrypted)
 	if todo.instClass.language:
 	    todo.language.setByAbbrev(todo.instClass.language)
+
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)
             if todo.instClass.keyboard != "us":
                 xkb = todo.keyboard.getXKB ()
+
                 if xkb:
                     apply (todo.x.setKeyboard, xkb)
+
+                    # hack - apply to instclass preset if present as well
+                    if (todo.instClass.x):
+                        apply (todo.instClass.x.setKeyboard, xkb)
 
 	(bootProto, ip, netmask, gateway, nameserver) = \
 		todo.instClass.getNetwork()
@@ -1282,6 +1288,7 @@ class ToDo:
                                    self.instPath + "/etc/X11/X.rpmsave")
 		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
 				self.instPath + "/etc/X11/X")
+
 		self.x.write (self.instPath + "/etc/X11/XF86Config")
             self.setDefaultRunlevel ()
             # go ahead and depmod modules on alpha, as rtc modprobe
