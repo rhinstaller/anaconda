@@ -29,37 +29,37 @@ class UpgradeExamineWindow (InstallWindow):
         parts = self.todo.upgradeFindRoot ()
         threads_enter ()
 
-        # if there is only one partition, go on.
-        if parts and len (parts) == 1:
-            self.root = parts[0]
-            return None
-
 	box = GtkVBox (FALSE)
         if not parts:
             box.pack_start (GtkLabel (_("You don't have any Linux partitions.\n You can't upgrade this sytem!")),
                             FALSE)
             return box
 
-        self.ics.setNextEnabled (TRUE)
-        self.root = parts[0]
-        group = None
-        for part in parts:
-            group = GtkRadioButton (group, part)
-            group.connect ("toggled", self.toggled, part)
-            box.pack_start (group, FALSE)
-
-        sw = GtkScrolledWindow ()
-        sw.set_border_width (5)
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        sw.add_with_viewport (box)
-
         vbox = GtkVBox (FALSE, 5)
+
+        if parts and len (parts) > 1:
+            self.ics.setNextEnabled (TRUE)
+            self.root = parts[0]
+            group = None
+            for part in parts:
+                group = GtkRadioButton (group, part)
+                group.connect ("toggled", self.toggled, part)
+                box.pack_start (group, FALSE)
+
+            sw = GtkScrolledWindow ()
+            sw.set_border_width (5)
+            sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+            sw.add_with_viewport (box)
+            vbox.pack_start (sw, TRUE)
+        else:
+            # if there is only one partition, go on.
+            self.root = parts[0]
+            
         self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
         self.individualPackages.set_active (FALSE)
         align = GtkAlignment (0.5, 0.5)
         align.add (self.individualPackages)
 
-        vbox.pack_start (sw, TRUE)
         vbox.pack_start (align, FALSE)
 
         return vbox
