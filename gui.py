@@ -490,9 +490,10 @@ class InstallControlWindow:
             text.set_buffer(self.releaseNotesBuffer)
             text.set_property("editable", gtk.FALSE)
             text.set_property("cursor_visible", gtk.FALSE)
+            text.set_wrap_mode(gtk.WRAP_WORD)
             
             sw = gtk.ScrolledWindow()
-            sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+            sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
             sw.set_shadow_type(gtk.SHADOW_IN)
             sw.add(text)
             vbox1.pack_start(sw)
