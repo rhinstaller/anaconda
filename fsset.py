@@ -892,6 +892,12 @@ class SysfsFileSystem(PsudoFileSystem):
 
 fileSystemTypeRegister(SysfsFileSystem())
 
+class SelinuxfsFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "selinuxfs")
+
+fileSystemTypeRegister(SelinuxfsFileSystem())
+
 class DevptsFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "devpts")
