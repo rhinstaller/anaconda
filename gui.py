@@ -1197,6 +1197,7 @@ class InstallControlState:
 
     def findPixmap(self, file):
         for path in ("/usr/share/anaconda/pixmaps/", "pixmaps/",
+                     "/usr/share/pixmaps/comps/",
                      "/usr/share/anaconda/", "",
                      "/mnt/source/RHupdates/pixmaps/",
                      "/mnt/source/RHupdates/"):
