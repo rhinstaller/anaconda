@@ -277,9 +277,11 @@ def sortPackages(first, second):
 	return -1
     elif one > two:
 	return 1
-    elif string.lower(first[rpm.RPMTAG_NAME]) < string.lower(second[rpm.RPMTAG_NAME]):
+    elif (string.lower(first[rpm.RPMTAG_NAME])
+          < string.lower(second[rpm.RPMTAG_NAME])):
 	return -1
-    elif string.lower(first[rpm.RPMTAG_NAME]) > string.lower(second[rpm.RPMTAG_NAME]):
+    elif (string.lower(first[rpm.RPMTAG_NAME])
+          > string.lower(second[rpm.RPMTAG_NAME])):
 	return 1
 
     return 0
@@ -393,7 +395,9 @@ def doInstall(method, id, intf, instPath):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
-	    # self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
+            #self.intf.messageWindow("Error",
+            #                        "Error making directory %s: "
+            #                        "%s" % (i, msg))
 	    pass
 
     db = rpm.opendb(1, instPath)
@@ -413,11 +417,20 @@ def doInstall(method, id, intf, instPath):
 	l.append(p)
     l.sort(sortPackages)
 
+    progress = intf.progressWindow(_("Processing"),
+                                   _("Setting up RPM transaction..."),
+                                   len(l))
+
+    i = 0
     for p in l:
 	ts.add(p.h, p.h, how)
 	total = total + 1
-	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024 )
+	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
+        i = i + 1
+        progress.set(i)
 
+    progress.pop()
+    
     if not id.hdList.preordered():
 	log ("WARNING: not all packages in hdlist had order tag")
 	ts.order()
@@ -457,7 +470,8 @@ def doInstall(method, id, intf, instPath):
 
     problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
 
-#        problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, self.instCallback, 0)
+    # force test mode install
+    # problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, self.instCallback, 0)
 
     if problems:
 	spaceneeded = {}
@@ -487,15 +501,18 @@ def doInstall(method, id, intf, instPath):
 		else:
 		    nodeneeded[mount] = need
 	    else:
-		log ("WARNING: unhandled problem returned from transaction set type %d",
+		log ("WARNING: unhandled problem returned from "
+                     "transaction set type %d",
 		     type)
 
 	probs = ""
 	if spaceneeded:
-	    probs = probs + _("You don't appear to have enough disk space to install "
-			      "the packages you've selected. You need more space on the "
-			      "following filesystems:\n\n")
-	    probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Space Needed"))
+	    probs = probs + _("You don't appear to have enough disk space "
+                              "to install the packages you've selected. "
+                              "You need more space on the following "
+                              "filesystems:\n\n")
+	    probs = probs + ("%-15s %s\n") % (_("Mount Point"),
+                                              _("Space Needed"))
 
 	    for (mount, need) in spaceneeded.items ():
 		if need > (1024*1024):
@@ -510,10 +527,12 @@ def doInstall(method, id, intf, instPath):
 	if nodeneeded:
 	    if probs:
 		probs = probs + '\n'
-	    probs = probs + _("You don't appear to have enough file nodes to install "
-			      "the packages you've selected. You need more file nodes on the "
-			      "following filesystems:\n\n")
-	    probs = probs + ("%-15s %s\n") % (_("Mount Point"), _("Nodes Needed"))
+	    probs = probs + _("You don't appear to have enough file nodes "
+                              "to install the packages you've selected. "
+                              "You need more file nodes on the following "
+                              "filesystems:\n\n")
+	    probs = probs + ("%-15s %s\n") % (_("Mount Point"),
+                                              _("Nodes Needed"))
 
 	    for (mount, need) in nodeneeded.items ():
 		prob = "%-15s %d\n" % (mount, need)
@@ -542,7 +561,8 @@ def doInstall(method, id, intf, instPath):
     del p
 
     if upgrade:
-	instLog.write ("\n\nThe following packages were available on the CD but NOT upgraded:\n")
+	instLog.write ("\n\nThe following packages were available on the "
+                       "CD but NOT upgraded:\n")
 	for p in id.hdList.packages.values ():
 	    if not p.selected:
 		instLog.write("%s-%s-%s.%s.rpm\n" %
