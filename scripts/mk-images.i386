@@ -138,10 +138,10 @@ for m in $PCMCIAMODULES_EXCLUDED
 do
    PCMCIAMODULES_EXCLUDED_SED="$PCMCIAMODULES_EXCLUDED_SED -e 's/$m//g'"
 done
-PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
+BOOTPCMCIAMODULES=`echo $BOOTPCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 # need to make sure the base modules are included
-PCMCIAMODULES="$PCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
+BOOTPCMCIAMODULES="$BOOTPCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 
 makeBootImages() {
  if [ "$KERNELARCH" = "i386" ]; then
@@ -170,7 +170,7 @@ makeBootImages() {
     [ $? = 0 ] || echo "ERROR: failed to write drvnet"
 
     echo "Building $KERNELARCH pcmciadd.img"
-    makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
+    makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$BOOTPCMCIAMODULES"
     [ $? = 0 ] || echo "ERROR: failed to write pcmciadd" 
 
   fi
@@ -184,7 +184,7 @@ makeBootImages() {
 	--pcmcia \
 	--initrdsize 7000 \
 	--loaderbin loader \
-	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
+	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $BOOTPCMCIAMODULES $ISOLINUXMODULES =scsi =net"
     [ $? = 0 ] || exit 1
 
     if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
