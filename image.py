@@ -34,7 +34,9 @@ class CdromInstallMethod(ImageInstallMethod):
 		break
 	if changeloop == 0:
 	    return
-	self.mntPoint = mntPoint
+
+	self.mntPoint = fstab.filesystemSpace()[0][0]
+
 	target = "%s/rhinstall-stage2.img" % mntPoint
 	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, target,
 			(self.progressWindow, _("Copying File"),
@@ -82,15 +84,16 @@ class CdromInstallMethod(ImageInstallMethod):
 	    # this isn't the exact right place, but it's close enough
 	    target = "%s/rhinstall-stage2.img" % self.mntPoint
 	    os.unlink(target)
-            isys.umount("/mnt/source")
-            isys.ejectCdrom(self.device)
 	except SystemError:
 	    pass
 
     def writeCleanupPath(self, f):
 	isys.makeDevInode("loop0", "/tmp/loop0")
+	isys.makeDevInode(self.device, "/tmp/cdrom")
 	f.write("umount /mnt/runtime\n")
 	f.write("lounsetup /tmp/loop0\n")
+	f.write("umount /mnt/source\n")
+	f.write("eject /tmp/cdrom\n")
 
     def __init__(self, url, messageWindow, progressWindow):
 	(self.device, tree) = string.split(url, "/", 1)
