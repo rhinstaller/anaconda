@@ -847,24 +847,18 @@ class ComponentSet:
 
         self.verifiedState = None
 
-        if upgrade:
-            db = rpm.opendb (0, instPath)
-            how = 'u'
-        else:
-            db = None
-            ts = rpm.TransactionSet()
-            how = 'i'
-
 	checkDeps = 1
 	rc = []
         extras = {}
 	while checkDeps:
             if upgrade:
-                ts = rpm.TransactionSet(instPath, db)
+                ts = rpm.TransactionSet(instPath, rpm.RPMVSF_NOHDRCHK)
                 how = 'u'
             else:
                 ts = rpm.TransactionSet()
                 how = 'i'
+
+            ts.setVSFlags(rpm.RPMVSF_NODSA|rpm.RPMVSF_NORSA)
 
             for p in self.packages.values():
                 if p.selected:
