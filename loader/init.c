@@ -72,7 +72,7 @@
 #define ENV_DEBUG		4
 
 char * env[] = {
-    "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/usr/bin:"
+    "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/bin:"
     "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin",
     /* we set a nicer ld library path specifically for bash -- a full
        one makes anaconda unhappy */
