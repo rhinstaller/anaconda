@@ -147,6 +147,12 @@ class ComponentSet:
 		    comp.addInclude(self.compsDict[l])
 		else:
 		    comp.addPackage(packages[l])
+                    
+        everything = Component("Everything", 0, 0)
+        for package in packages.keys ():
+            everything.addPackage (packages[package])
+        self.comps.append (everything)
+
 
     def __repr__(self):
 	s = ""

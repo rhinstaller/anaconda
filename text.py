@@ -25,7 +25,7 @@ class LanguageWindow:
             ListboxChoiceWindow(screen, _("Language Selection"),
                                 _("What language would you like to use during the "
                                   "installation process?"), descriptions, 
-                                buttons = [_("Ok")], width = 30, default = default)
+                                buttons = [_("OK")], width = 30, default = default)
         langs = gettext.getlangs ()
         langs = [languages [languages.keys()[choice]]] + langs
         gettext.setlangs (langs)
@@ -44,7 +44,7 @@ class KeyboardWindow:
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
                                 _("Which model keyboard is attached to this computer?"), keyboards, 
-                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8,
+                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
                                 default = default)
         
         if button == string.lower (_("Back")):
@@ -111,7 +111,7 @@ class WelcomeWindow:
                                   "If you have purchased Official Red Hat Linux, be sure to "
                                   "register your purchase through our web site, "
                                   "http://www.redhat.com/."),
-                                buttons = [_("Ok"), _("Back")], width = 50)
+                                buttons = [_("OK"), _("Back")], width = 50)
 
 	if rc == string.lower(_("Back")):
 	    return INSTALL_BACK
@@ -279,7 +279,7 @@ class NetworkWindow:
                 except:
                     ButtonChoiceWindow(screen, _("Invalid information"),
                                        _("You must enter valid IP information to continue"),
-                                       buttons = [ _("Ok") ])
+                                       buttons = [ _("OK") ])
                     continue
 
                 dev.set (("bootproto", "static"))
@@ -481,7 +481,7 @@ class MouseWindow:
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Mouse Selection"),
                                 _("Which model mouse is attached to this computer?"), mice, 
-                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8,
+                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
                                 default = default)
         
         if button == string.lower (_("Back")):
@@ -489,6 +489,38 @@ class MouseWindow:
         todo.mouse.set (mice[choice])
         return INSTALL_OK
 
+class LiloWindow:
+    def run(self, screen, todo):
+        if '/' not in todo.mounts.keys (): return INSTALL_NOOP
+
+        if todo.mounts.has_key ('/boot'):
+            bootpart = todo.mounts['/boot'][0]
+        else:
+            bootpart = todo.mounts['/'][0]
+        i = len (bootpart) - 1
+        while i < 0 and bootpart[i] in digits:
+            i = i - 1
+        boothd = bootpart[0:i]
+            
+        format = "/dev/%-11s %s" 
+        locations = []
+        locations.append (format % (boothd, "Master Boot Record (MBR)"))
+        locations.append (format % (bootpart, "First sector of boot partition"))
+
+        # XXX fixme restore state
+        (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
+                                         _("Where do you want to install the bootloader?"),
+                                         locations,
+                                         buttons = [ _("OK"), _("Back") ])
+
+        if sel == 0:
+            todo.setLiloLocation(boothd)
+        else:
+            todo.setLiloLocation(bootpart)
+
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+        return INSTALL_OK
 
 class BeginInstallWindow:
     def run(self, screen, todo):
@@ -496,7 +528,7 @@ class BeginInstallWindow:
                                 _("A complete log of your installation will be in "
                                   "/tmp/install.log after rebooting your system. You "
                                   "may want to keep this file for later reference."),
-                                buttons = [ _("Ok"), _("Back") ])
+                                buttons = [ _("OK"), _("Back") ])
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
         return INSTALL_OK
@@ -664,7 +696,7 @@ class InstallInterface:
     def messageWindow(self, title, text):
         self.screen.drawRootText(0 - len(title), 0, title)
 	ButtonChoiceWindow(self.screen, title, text,
-                           buttons = [ _("Ok") ])
+                           buttons = [ _("OK") ])
         self.screen.drawRootText(0 - len(title), 0,
                                  (self.screen.width - len(title)) * " ")
     
@@ -698,6 +730,7 @@ class InstallInterface:
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
+            [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
         ]
         
@@ -717,8 +750,6 @@ class InstallInterface:
                 dir = 1
             step = step + dir
                 
-        todo.setLiloLocation("hda")
-
 def killSelf(screen):
     screen.finish()
     os._exit(0)
