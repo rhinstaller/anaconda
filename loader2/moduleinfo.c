@@ -191,6 +191,8 @@ int readModuleInfo(const char * filename, moduleInfoSet mis,
                     nextModule->major = DRIVER_FS;
                 } else if (!strcmp(chptr, "cdrom")) {
                     nextModule->major = DRIVER_CDROM;
+                } else {
+                    nextModule->major = DRIVER_OTHER;
                 }
             } else if (!nextModule->description) {
                 chptr = start + strlen(start) - 1;
