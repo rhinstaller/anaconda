@@ -55,10 +55,12 @@ fi
 %defattr(-,root,root)
 %doc COPYING
 /usr/sbin/anaconda
-/usr/sbin/ddcprobe
 /usr/share/anaconda/*
 /usr/share/locale/*/*/*
 /usr/lib/anaconda/*
+%ifarch i386
+/usr/sbin/ddcprobe
+%endif
 
 %config /etc/rc.d/init.d/reconfig
 
