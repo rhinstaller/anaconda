@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.12
+Version: 10.0.3.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Oct  4 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.14-1
+- Some zfcp fixes
+- Don't traceback if we have a %%include inside a scriptlet (#120252)
+- Fix SELinux for text-mode ftp/http installs (#134549)
+
 * Mon Oct  4 2004 Mike McLean <mikem@redhat.com> - 10.0.3.12-1
 - add command line options to pkgorder (mikem)
 
