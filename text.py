@@ -5,10 +5,10 @@ import os
 import iutil
 import rpm
 import time
-import gettext
+import gettext_rh
 import glob
 
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
 def _(string):
     return cat.gettext (string)
@@ -56,9 +56,9 @@ class LanguageWindow:
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])
-        gettext.setlangs (newlangs)
+        gettext_rh.setlangs (newlangs)
         global cat
-        cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+        cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
         todo.language.set (choice)
         return INSTALL_OK
 
