@@ -5,7 +5,7 @@ include ../Makefile.inc
 OBJECTS = rw.o dos.o sun.o bsdlabel.o
 CFLAGS=-I$(PYTHONINCLUDE) -Os 
 
-ifneq($(ARCH), ppc)
+ifneq ($(ARCH), ppc)
 CFLAGS+=-D_FILE_OFFSET_BITS=64
 endif
 
