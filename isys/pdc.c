@@ -87,6 +87,9 @@ static unsigned long calc_pdcblock_offset (int fd) {
 	if (ioctl(fd, BLKSSZGET, &sector_size))
 	    return -1;
 
+	if (!sector_size || !sectors || !g.cylinders || !g.heads || !g.sectors)
+	    return -1;
+
 	sector_size /= 512;
 	g.cylinders = (sectors / (g.heads * g.sectors)) / sector_size;
 
