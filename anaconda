@@ -194,7 +194,7 @@ if kickstart:
 else:
     instClass = CustomInstall()
 
-if lang
+if lang:
     instClass.addToSkipList("language")
     instClass.setLanguage(lang):
             
