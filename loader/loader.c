@@ -2825,8 +2825,23 @@ int main(int argc, char ** argv) {
 
     if (!access("/tmp/updates/anaconda", X_OK))
 	*argptr++ = "/tmp/updates/anaconda";
+    else if (!access("/mnt/source/RHupdates/anaconda", X_OK))
+	*argptr++ = "/mnt/source/RHupdates/anaconda";
     else
 	*argptr++ = "/usr/bin/anaconda";
+
+    *argptr++ = "-m";
+    if (strncmp(url, "ftp:", 4)) {
+	*argptr++ = url;
+    } else {
+	int fd;
+
+	fd = open("/tmp/method", O_CREAT | O_TRUNC | O_RDWR, 0600);
+	write(fd, url, strlen(url));
+	write(fd, "\r", 1);
+	close(fd);
+	*argptr++ = "@/tmp/method";
+    }
 
     if (FL_RESCUE(flags)) {
 	startNewt(flags);
@@ -2842,19 +2857,6 @@ int main(int argc, char ** argv) {
 	}
 	*argptr++ = "--rescue";
     } else {
-	*argptr++ = "-m";
-	if (strncmp(url, "ftp:", 4)) {
-	    *argptr++ = url;
-	} else {
-	    int fd;
-
-	    fd = open("/tmp/method", O_CREAT | O_TRUNC | O_RDWR, 0600);
-	    write(fd, url, strlen(url));
-	    write(fd, "\r", 1);
-	    close(fd);
-	    *argptr++ = "@/tmp/method";
-	}
-
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";
 	if (FL_MCHECK(flags))
@@ -2935,8 +2937,7 @@ int main(int argc, char ** argv) {
     closeLog();
 
     if (!FL_TESTING(flags)) {
-	if (!FL_RESCUE(flags))
-	    printf("Running anaconda - please wait...\n");
+	printf(_("Running anaconda - please wait...\n"));
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
