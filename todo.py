@@ -540,7 +540,7 @@ class ToDo:
 	kernel = self.hdList['kernel']
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
-        self.makeInitrd ()
+        self.makeInitrd (kernelTag)
         w = self.intf.waitWindow ("Creating", "Creating boot disk...")
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
                                     [ "/sbin/mkbootdisk",
