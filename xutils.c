@@ -259,7 +259,8 @@ setRootResource(PyObject *s, PyObject *args)
     }
 
     XChangeProperty(dpy, root, XA_RESOURCE_MANAGER, XA_STRING, 
-		    8, PropModeReplace, rstring, strlen(rstring));
+		    8, PropModeReplace, (unsigned char *)rstring,
+		    strlen(rstring));
 
     free(rstring);
     freeResources(resources);
