@@ -60,10 +60,11 @@ class Script:
 	    (self.script, self.interp, self.inChroot)
 	return string.replace(str, "\n", "|")
 
-    def __init__(self, script, interp, inChroot):
+    def __init__(self, script, interp, inChroot, logfile = None):
 	self.script = script
 	self.interp = interp
 	self.inChroot = inChroot
+        self.logfile = logfile
 
     def run(self, chroot, serial):
 	scriptRoot = "/"
@@ -77,7 +78,9 @@ class Script:
 	f.close()
 	os.chmod(path, 0700)
 
-	if serial:
+        if self.logfile is not None:
+            messages = self.logfile
+	elif serial:
 	    messages = "/tmp/ks-script.log"
 	else:
 	    messages = "/dev/tty3"
@@ -729,7 +732,7 @@ class KickstartBase(BaseInstallClass):
 	    if args and (args[0] in ["%pre", "%post", "%traceback"]):
 		if ((where =="pre" and parsePre) or
 		    (where in ["post", "traceback"] and not parsePre)):
-		    s = Script(script, scriptInterp, scriptChroot)
+		    s = Script(script, scriptInterp, scriptChroot, scriptLog)
 		    if where == "pre":
                         self.preScripts.append(s)
 		    elif where == "post":
@@ -741,6 +744,7 @@ class KickstartBase(BaseInstallClass):
 		args = isys.parseArgv(n)
 
 		scriptInterp = "/bin/sh"
+                scriptLog = None
 		if where == "pre" or where == "traceback":
 		    scriptChroot = 0
 		else:
@@ -760,6 +764,8 @@ class KickstartBase(BaseInstallClass):
 			scriptChroot = 0
 		    elif str == "--interpreter":
 			scriptInterp = arg
+                    elif str == "--log" or str == "--logfile":
+                        scriptLog = arg
 
             elif args and args[0] == "%include" and not parsePre:
                 if len(args) < 2:
@@ -770,7 +776,7 @@ class KickstartBase(BaseInstallClass):
             elif args and args[0] == "%packages":
 		if ((where =="pre" and parsePre) or
 		    (where in ["post", "traceback"] and not parsePre)):
-		    s = Script(script, scriptInterp, scriptChroot)
+		    s = Script(script, scriptInterp, scriptChroot, scriptLog)
 		    if where == "pre":
                         self.preScripts.append(s)
 		    elif where == "post":
@@ -852,7 +858,7 @@ class KickstartBase(BaseInstallClass):
                 
 	if ((where =="pre" and parsePre) or
 	    (where in ["post", "traceback"] and not parsePre)):
-	    s = Script(script, scriptInterp, scriptChroot)
+	    s = Script(script, scriptInterp, scriptChroot, scriptLog)
 	    if where == "pre":
 		self.preScripts.append(s)
 	    elif where == "post":
