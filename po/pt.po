@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-04 10:12+0000\n"
+"PO-Revision-Date: 2005-04-01 09:46+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -607,27 +607,20 @@ msgid "Installing %s-%s-%s... "
 msgstr "A instalar %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
-msgstr ""
-"Ocorreu um erro não recuperável. Provavelmente encontrou um 'bug'. Por favor "
-"copie o texto da excepção ocorrida ou grave o relatório do erro para uma "
-"disquete. De seguida, comunique um erro no componente 'anaconda' em http://"
-"bugzilla.redhat.com/bugzilla/"
+msgstr "Ocorreu um erro não recuperável. Provavelmente encontrou um 'bug'. Por favor copie o texto da excepção ocorrida ou grave o relatório do erro para uma disquete. De seguida, comunique um erro no componente 'anaconda' em %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
-msgstr ""
-"Ocorreu um erro não recuperável.  Provavelmente isto é um 'bug'.  Por favor "
-"copie o texto da excepção ocorrida e comunique um erro no componente "
-"'anaconda' em http://bugzilla.redhat.com/bugzilla/"
+msgstr "Ocorreu um erro não recuperável.  Provavelmente isto é um 'bug'.  Por favor copie o texto da excepção ocorrida e comunique um erro no componente 'anaconda' em %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1077,7 +1070,6 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "Ocorreu uma Excepção"
 
@@ -1087,7 +1079,7 @@ msgstr "_Depurar"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Gravar para disquete"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1620,7 +1612,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Aviso! Esta versão é beta!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1634,15 +1626,13 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Obrigado por ter obtido esta versão beta do %s.\n"
+"Obrigado por experimentar esta versão de desenvolvimento do %s.\n"
 "\n"
-"Esta não é uma versão final e como tal não se pretende usar nos sistemas em "
-"produção.  O objectivo desta versão é reunir opiniões dos utilizadores que "
-"realizam os testes e não é conveniente para uma utilização no dia-a-dia.\n"
+"Esta não é uma versão final e como tal não deve ser usada em sistemas de produção.  O objectivo desta versão é reunir opiniões de utilizadores que realizam testes e não é recomendada para uma utilização no dia-a-dia.\n"
 "\n"
 "Para fazer comentários visite por favor:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "e envie um relatório sobre '%s'.\n"
 
@@ -3186,7 +3176,6 @@ msgid "Congratulations"
 msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
@@ -5144,13 +5133,11 @@ msgid "Unknown video card"
 msgstr "Placa de video desconhecida"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"Ocorreu um erro ao seleccionar a placa gráfica %s. Por favor comunique este "
-"erro em bugzilla.redhat.com."
+msgstr "Ocorreu um erro ao seleccionar a placa gráfica %s. Por favor comunique este erro em %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6202,9 +6189,8 @@ msgid "What time zone are you located in?"
 msgstr "Em que fuso horário está localizado?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "O relógio do sistema utiliza _UTC"
+msgstr "O relógio do sistema utiliza UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8455,12 +8441,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Árabe"
+msgstr "Amharico"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8543,9 +8528,8 @@ msgid "Icelandic"
 msgstr "Islandês"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Macedónio"
+msgstr "Indonésio"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8572,9 +8556,8 @@ msgid "Norwegian"
 msgstr "Norueguês"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Território do Norte"
+msgstr "Sotho do Norte"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8601,9 +8584,8 @@ msgid "Russian"
 msgstr "Russo"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Esloveno"
+msgstr "Eslovaco"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8622,9 +8604,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Tailândes"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8645,171 +8626,3 @@ msgstr "Galês"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Para informações sobre a errata (actualizações e correcções de erros), "
-#~ "visite:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Para informações sobre a actualizações automáticas através da Red Hat "
-#~ "Network, visite:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Para informações sobre como usar e configurar o sistema, visite:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Para registar o produto e obter suporte, visite:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Configuração do SILO"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Instalar o gestor de arranque SILO em:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Criar entrada na PROM"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Alterar o dispositivo de arranque por omissão da PROM para Linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Parâmetros do kernel"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Criar disquete de arranque"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Não instalar o SILO"
-
-#~ msgid "Partition type"
-#~ msgstr "Tipo da partição"
-
-#~ msgid "Default boot image"
-#~ msgstr "Imagem de arranque por omissão"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "Configuração do SILO"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Criar entrada `linux' na PROM"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Alterar o dispositivo de arranque por omissão da PROM"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Onde deve ser instalado o gestor de arranque?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "O gestor de arranque que o Red Hat usa pode também iniciar outros "
-#~ "sistemas operativos. Indique quais as partições que deseja ser capaz de "
-#~ "iniciar e que nome deseja usar para cada uma delas."
-
-#~ msgid "no suggestion"
-#~ msgstr "sem sugestão"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Utilizar o _LILO como gestor de arranque"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Não é Possível Alterar a Ordenação"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr "Não é possível alterar a ordenação das unidades com o LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Utilizar como gestor de arranque o LILO"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "Instalador do %s em %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "O utilizador optou por não instalar um gestor de arranque no seu sistema. "
-#~ "Terá de criar uma disquete de arranque para iniciar o seu sistema com "
-#~ "esta opção.\n"
-#~ "\n"
-#~ "Deseja continuar e não instalar um gestor de arranque?"
-
-#~ msgid "Total"
-#~ msgstr "Total"
-
-#~ msgid "Remaining"
-#~ msgstr "Falta"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "A instalar %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Evolução do pacote: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Evolução total:  "
-
-#~ msgid "Status"
-#~ msgstr "Estado"
-
-#~ msgid "Packages"
-#~ msgstr "Pacotes"
-
-#~ msgid "Time"
-#~ msgstr "Tempo"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Tamanho físico:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "O Security Enhanced Linux (SELinux) implementa um controlo de acessos "
-#~ "mais rígido, o que aumenta a segurança do seu sistema.  Deseja activá-lo?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Desactivar o SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Avisos ao violar"
-
-#~ msgid "Device number:"
-#~ msgstr "Número do dispositivo:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "ID SCSI:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "LUN SCSI:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "LUN FCP:"
