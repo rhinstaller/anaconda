@@ -793,6 +793,7 @@ static char *doLoaderMain(char * location,
                 for (i = 0; i < numMethods; i++) {
                     installNames[i] = _(installMethods[i].name);
                 }
+                installNames[i] = NULL;
 
                 rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
                                  _("Installation Method"),
