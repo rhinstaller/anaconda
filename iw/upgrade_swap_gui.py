@@ -39,7 +39,7 @@ class UpgradeSwapWindow (InstallWindow):
             threads_enter()
             raise gui.StayOnScreen
 
-        elif val > size:
+        elif (val-16) > size:
             threads_leave()
             rc = self.swapTooBig()
             threads_enter()
