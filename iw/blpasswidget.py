@@ -102,7 +102,7 @@ class BootloaderPasswordWidget:
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
         
-        label = gui.WrappingLabel(_("Enter a boot loader password and then confirm it."))
+        label = gui.WrappingLabel(_("Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"))
         label.set_alignment(0.0, 0.0)
         dialog.vbox.pack_start(label)
 
