@@ -6,4 +6,5 @@ struct pciDevice {
 };
 
 int probePciReadDrivers(const char *fn);
+void probePciFreeDrivers(void);
 struct pciDevice **probePci(unsigned int type, int all);

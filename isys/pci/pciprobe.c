@@ -56,6 +56,22 @@ char *getVendor(unsigned int vendor) {
     }
 }
 
+void probePciFreeDrivers(void) {
+    int i;
+
+    if (!pciDeviceList) return;
+
+    for (i = 0; i < numPciDevices; i++) {
+    	free(pciDeviceList[i].driver);
+    	free(pciDeviceList[i].desc);
+    }
+
+    free(pciDeviceList);
+
+    pciDeviceList = NULL;
+    numPciDevices = 0;
+}
+
 int probePciReadDrivers(const char * fn) {
     int fd;
     struct stat sb;
