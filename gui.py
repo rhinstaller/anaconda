@@ -8,19 +8,27 @@ from GDK import *
 
 im = None
 splashwindow = None
-#print "Hello"
-#print self.todo.test
+print "Hello"
 
-#print self.todo.lowres
+width = screen_width()
 
-#if self.todo.intf.runres == '640x480':
-try:
-    im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
-except:
+if width >= 800:
     try:
-        im = GdkImlib.Image ("pixmaps/first-lowres.png")
+        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
     except:
-        print "Unable to load", file
+        try:
+            im = GdkImlib.Image ("pixmaps/first-lowres.png")
+        except:
+            print "Unable to load", file
+
+else:
+    try:
+        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
+    except:
+        try:
+            im = GdkImlib.Image ("pixmaps/first-lowres.png")
+        except:
+            print "Unable to load", file
 
 #else:
 #    try:
@@ -54,6 +62,9 @@ if im:
     threads_leave ()        
 
 root = _root_window ()
+
+
+
 cursor = cursor_new (LEFT_PTR)
 root.set_cursor (cursor)
 
