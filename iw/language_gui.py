@@ -26,33 +26,6 @@ class LanguageWindow (InstallWindow):
         if self.lang:
             self.icw.setLanguage (self.lang)
 
-            #--Go ahead and pull the release notes into memory.  This allows them to be viewed
-            #--during package installation
-            self.icw.buff = ""
-            try:
-                filename = "/mnt/source/RELEASE-NOTES." + self.languages[self.lang]
-                file = open(filename, "r")
-                for line in file.readlines():
-                    self.icw.buff = self.icw.buff + line
-                file.close()
-
-            except:
-                try:
-                    filename = "/RELEASE-NOTES." + self.languages[self.lang]
-                    file = open(filename, "r")
-                    for line in file.readlines():
-                        self.icw.buff = self.icw.buff + line
-                    file.close()
-                except:
-                    try:
-                        filename = "/RELEASE-NOTES"
-                        file = open(filename, "r")
-                        for line in file.readlines():
-                            self.icw.buff = self.icw.buff + line
-                        file.close()
-                    except:
-                        pass
-
         return None
 
     def select_row (self, clist, row, col, event):

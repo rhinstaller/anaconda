@@ -413,6 +413,7 @@ class InstallControlWindow:
             label.set_text (text)
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
+	self.loadReleaseNotes()
 
     def instantiateWindow (self, windowClass):
         ics = InstallControlState (self, self.ii, self.todo)
@@ -558,6 +559,22 @@ class InstallControlWindow:
             self.textWin.set_border_width(0)
             self.textWin.show_all()
 
+    def loadReleaseNotes(self):
+        self.buff = ""
+	langList = self.todo.instTimeLanguage.getCurrentLangSearchList()
+	langList = langList + [ "" ]
+	for lang in langList:
+	    fn = "/mnt/source/RELEASE-NOTES"
+	    if len(lang):
+		fn = fn + "." + lang
+
+	    if os.access(fn, os.R_OK):
+		file = open(fn, "r")
+		self.buff = string.join(file.readlines(), '')
+		file.close()
+		return
+
+	self.buff = "Release notes are missing.\n"
 
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
@@ -743,23 +760,7 @@ class InstallControlWindow:
                         print "Unable to load anaconda_header.png"
 
 
-        #--Go ahead and pull the release notes into memory.  This allows them to be viewed
-        #--during package installation
-        self.buff = ""
-        try:
-            file = open("/mnt/source/RELEASE-NOTES", "r")
-            for line in file.readlines():
-                self.buff = self.buff + line
-            file.close()
-
-        except:
-            try:
-                file = open("/RELEASE-NOTES", "r")
-                for line in file.readlines():
-                    self.buff = self.buff + line
-                file.close()
-            except:
-                pass
+	self.loadReleaseNotes()
 
         vbox.set_spacing(0)
 
