@@ -1984,7 +1984,7 @@ class ToDo:
 
                 # XXX - rpm 4.0.2 %post braindeadness support
                 try:
-                    os.unlink ("/etc/rpm/macros.db1")
+                    os.unlink (self.instPath + "/etc/rpm/macros.db1")
                 except OSError:
                     pass
 
