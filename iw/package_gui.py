@@ -113,6 +113,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def add_packages(self, packages):
         """Adds the packages provided (list of headers) to the package
            list"""
+        SHOW_WATCH_MIN = 200
+        if len(packages) > SHOW_WATCH_MIN:
+            cw = self.ics.getICW()
+            cw.busyIconPush()
         
         for header in packages:
             name = header[rpm.RPMTAG_NAME]
@@ -131,7 +135,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	### XXX Hack to get around fact treeview doesn't seem to resort
 	###     when data is store is changed. By jostling it we can make it
 	self.packageList.store.set_sort_column_id(self.sort_id, not self.sort_order)
-	self.packageList.store.set_sort_column_id(self.sort_id, self.sort_order)	
+	self.packageList.store.set_sort_column_id(self.sort_id, self.sort_order)
+        if len(packages) > SHOW_WATCH_MIN:
+            cw.busyIconPop()
 
     def select_group(self, selection):
         (model, iter) = selection.get_selected()
@@ -275,7 +281,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 for key in self.pkgs.keys():
                     self.allPkgs.append(self.pkgs[key])
             packages = self.allPkgs
-
             self.packageTreeView.set_model(gtk.ListStore(gobject.TYPE_STRING))
 
 
