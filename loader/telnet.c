@@ -38,6 +38,7 @@
 #define ECHO "\x01"
 #define SUPPRESS_GO_AHEAD "\x03"
 #define TERMINAL_TYPE "\x18"
+#define NAWS "\x1f"
 #define LINEMODE "\x22"
 #define NEWENVIRON "\x27"
 #define MODE "\x01"
@@ -54,20 +55,26 @@
  * too.
  */
 void
-telnet_negotiate(int socket, char ** term_type_ptr) {
+telnet_negotiate(int socket, char ** term_type_ptr, int * heightPtr,
+		 int * widthPtr) {
     char ch;
     int done = 0;
     char * termType = NULL;
     int termLength = 0, termAlloced = 0;
-    enum { ST_NONE, ST_TERMTYPE, ST_TERMSIZE } state;
+    enum { ST_NONE, ST_TERMTYPE, ST_WINDOWSIZE } state;
+    char sizeBuf[4];
+    int height = -1, width = -1;
+    char * sizePtr = sizeBuf;
     char request[]=
       IAC DONT ECHO
       IAC WILL ECHO
+      IAC WILL NAWS
       IAC WILL SUPPRESS_GO_AHEAD
       IAC DO SUPPRESS_GO_AHEAD
       IAC DONT NEWENVIRON
       IAC WONT NEWENVIRON
       IAC WONT LINEMODE
+      IAC DO NAWS
       IAC SB TERMINAL_TYPE "\x01" IAC SE
       ;
 
@@ -80,36 +87,29 @@ telnet_negotiate(int socket, char ** term_type_ptr) {
     do {
 	read(socket, &ch, 1);
 	if (ch != '\xff') {
-	    printf("got 0x%x\n", ch);
 	    abort();
 	}
 
-	printf("got IAC\n");
-	
 	read(socket, &ch, 1);	    /* command */
 
-	printf("command %d\n", (unsigned char) ch);
-	
 	if (ch != '\xfa') {
 	    read(socket, &ch, 1);   /* verb */
-	    printf("verb %d\n", (unsigned char) ch);
 	    continue;
 	}
 
 	read(socket, &ch, 1);   /* suboption */
-	printf("suboption %d\n", (unsigned char) ch);
 	if (ch == '\x18') {
 	    state = ST_TERMTYPE;
 	    read(socket, &ch, 1);	    /* should be 0x0! */
 	    done = 1;
+	} else if (ch == '\x1f') {
+	    state = ST_WINDOWSIZE;
 	} else {
 	    state = ST_NONE;;
 	}
 
 	read(socket, &ch, 1);   /* data */
 	while (ch != '\xff') {
-	    printf("got %d '%c'\n", (unsigned char) ch, ch);
-
 	    if (state == ST_TERMTYPE) {
 		if (termAlloced == termLength) {
 		    termAlloced += 10;
@@ -117,21 +117,27 @@ telnet_negotiate(int socket, char ** term_type_ptr) {
 		}
 
 		termType[termLength++] = tolower(ch);
+	    } else if (state == ST_WINDOWSIZE) {
+		if ((sizePtr - sizeBuf) < sizeof(sizeBuf))
+		    *sizePtr++ = ch;
 	    }
 
 	    read(socket, &ch, 1);   /* data */
 	}
 
 	read(socket, &ch, 1);   /* should be a SE */
-	printf("ended on %d\n", (unsigned char) ch);
-
-	printf("---\n");
-
-	termType[termLength] = '\0';
 
     } while (!done);
 
-    printf("term is %s\n", termType);
+    termType[termLength] = '\0';
+
+    if (sizePtr - sizeBuf == sizeof(sizeBuf)) {
+	width = (sizeBuf[0] << 8) + sizeBuf[1];
+	height = (sizeBuf[2] << 8) + sizeBuf[3];
+    }
+
+    if (heightPtr) *heightPtr = height;
+    if (widthPtr) *widthPtr = width;
 
     if (term_type_ptr) *term_type_ptr = termType;
 }

@@ -30,7 +30,8 @@ typedef enum {
 } telnet_state;
 
 void
-telnet_negotiate(int socket, char ** term_type_ptr);
+telnet_negotiate(int socket, char ** term_type_ptr, int * heightPtr,
+		 int * widthPtr);
 int
 telnet_process_input(telnet_state * ts, char *data, int len);
 void
