@@ -80,9 +80,18 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
             self.cbs.append((cb, entry))
 
+        sw = GtkScrolledWindow()
+        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
+        sw.add_with_viewport(cbox)
+        sw.set_usize(-1, 175)
+        
+        viewport = sw.children()[0]
+        viewport.set_shadow_type(SHADOW_ETCHED_IN)
+        
         a = GtkAlignment(0.25, 0.5)
-        a.add(cbox)
-        box.pack_start(a)
+        a.add(sw)
+
+        box.pack_start(a, TRUE)
         
         a = GtkAlignment(0.5, 0.5)
         a.add(box)
