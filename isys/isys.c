@@ -102,6 +102,7 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
+static PyObject * getLinkStatus(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -158,6 +159,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
+    { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1609,6 +1611,18 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
 
 static PyObject * doGetPageSize(PyObject * s, PyObject * args) {
     return Py_BuildValue("i", getpagesize());
+}
+
+static PyObject * getLinkStatus(PyObject * s, PyObject * args) {
+    char *dev;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &dev))
+	return NULL;
+
+    ret = get_link_status(dev);
+    /* returns 1 for link, 0 for no link, -1 for unknown */
+    return Py_BuildValue("i", ret);
 }
 
 static PyObject * printObject (PyObject * o, PyObject * args) {

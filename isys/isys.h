@@ -56,4 +56,7 @@ int rmmod(char * modName);
 /* returns 0 for true, !0 for false */
 int fileIsIso(const char * file);
 
+/* returns 1 for link, 0 for no link, -1 for unknown */
+int get_link_status(char *ifname);
+
 #endif

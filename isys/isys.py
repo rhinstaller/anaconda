@@ -501,6 +501,9 @@ def ideCdRwList():
 def getpagesize():
     return _isys.getpagesize()
 
+def getLinkStatus(dev):
+    return _isys.getLinkStatus(dev)
+
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset
 
