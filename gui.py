@@ -304,7 +304,11 @@ class InstallControlWindow (Thread):
         self.displayHelp = TRUE
 
         self.helpFrame = GtkFrame (_("Online Help"))
-        self.helpFrame.add (self.html)
+        box = GtkVBox (FALSE, 0)
+        
+        box.pack_start (GtkHSeparator (), FALSE)
+        box.pack_start (self.html, TRUE)
+        self.helpFrame.add (box)
 
         table = GtkTable (1, 3, TRUE)
         table.attach (self.helpFrame, 0, 1, 0, 1)
@@ -347,6 +351,8 @@ class InstallControlState:
 
     def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):
+        self.prefix = '/usr/share/anaconda/'
+        self.locale = 'C'
         self.ii = ii
         self.cw = cw
         self.todo = todo
@@ -389,6 +395,22 @@ class InstallControlState:
         if (self.nextEnabled != 0):
             return TRUE
         return FALSE
+
+    def readHTML (self, file):
+        text = None
+        try:
+            text = open("%s/help/%s/s1-help-screens-%s.html" %
+                        (self.prefix, self.locale, file)).read ()
+        except IOError:
+            try:
+                text = open("%s/help/C/s1-help-screens-%s.html" %
+                            (self.prefix, file)).read ()
+            except IOError:
+                print "Unable to read %s help text" % (file,)
+
+        if text:
+            self.html = text
+            self.cw.update (self)
 
     def setHTML (self, text):
         self.html = text
