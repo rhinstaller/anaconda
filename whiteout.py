@@ -28,6 +28,7 @@ else:
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
 	XFree86>Mesa			\
+        xorg-x11>Mesa			\
 	compat-glibc>db2		\
 	compat-glibc>db1		\
 	pam>initscripts			\
@@ -45,6 +46,7 @@ whiteout="""
         kdemultimedia-arts>kdemultimedia-libs \
         initscripts>util-linux          \
         XFree86-libs>XFree86-Mesa-libGL \
+        xorg-x11-libs>xorg-x11-Mesa-libGL \
         mysql>perl-DBD-MySQL            \
         ghostscript>gimp-print          \
         bind>bind-utils                 \
@@ -55,6 +57,7 @@ whiteout="""
         perl-Date-Calc>perl-Bit-Vector  \
         glibc-debug>glibc-devel \
 	xinitrc>XFree86 \
+        xinitrc>xorg-x11 \
 	xemacs>apel-xemacs \
 	gstreamer-tools>gstreamer \
 	gimp>gimp-print-plugin \
