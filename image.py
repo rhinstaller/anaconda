@@ -300,7 +300,7 @@ class CdromInstallMethod(ImageInstallMethod):
         
 
     def __init__(self, url, messageWindow, progressWindow, rootPath):
-	(self.device, tree) = string.split(url, "/", 1)
+	(self.device, tree) = string.split(url, ":", 1)
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
         self.loopbackFile = None
