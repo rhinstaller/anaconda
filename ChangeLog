@@ -1,3 +1,10 @@
+2004-11-02  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (readJFSLabel_int): Better handling of errors while
+	trying to read the label (#137846).
+	(readXFSLabel_int): Likewise.
+	(readSwapLabel_int): Likewise.
+
 2004-11-02  Tim Waugh  <twaugh@redhat.com>
 
 	* loader2/hdinstall.c (mountHardDrive): Pass the correct pointer to
