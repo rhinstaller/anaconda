@@ -20,11 +20,14 @@ class AccountWindow (InstallWindow):
 
         self.todo.rootpassword.set (self.pw.get_text ())
 	accounts = []
+
 	for n in range(len(self.passwords.keys())):
 	    accounts.append((self.userList.get_text(n, 0),
                              self.userList.get_text(n, 1),
                              self.passwords[self.userList.get_text(n, 0)]))
+            
 	self.todo.setUserList(accounts)
+
         return None
 
     def rootPasswordsMatch (self, *args):
@@ -107,10 +110,12 @@ class AccountWindow (InstallWindow):
 	    index = self.editingUser
 	    self.userList.set_text(index, 0, accountName)
 	    self.userList.set_text(index, 1, fullName)
+
 	else:
 	    index = self.userList.append((accountName, fullName))
         self.accountName.grab_focus ()
 	self.passwords[accountName] = password1
+
 	self.newUser()
 
     def editUser(self, widget, *args):
@@ -236,7 +241,7 @@ class AccountWindow (InstallWindow):
         self.accountName.set_usize (50, -1)
 
         self.fullName = GtkEntry ()
-        self.fullName.connect ("activate", self.addUser)
+#        self.fullName.connect ("activate", self.addUser)
         self.userPass1 = GtkEntry (128)
         self.userPass1.connect ("activate", forward)
         self.userPass1.connect ("changed", self.userOkay)
