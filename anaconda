@@ -2,6 +2,7 @@
 
 import sys, getopt, os
 import gettext
+import traceback
 
 gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
@@ -229,7 +230,6 @@ try:
     intf.run(todo)
 except:
     (type, value, tb) = sys.exc_info()
-    import traceback
     from string import joinfields
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
