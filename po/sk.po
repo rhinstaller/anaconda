@@ -2,12 +2,14 @@
 # Stanislav Meduna <stano@eunet.sk>, 2000.
 # Marcel Telka <marcel@telka.sk>, 2003, 2004.
 #
+# $Id$
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-04-19 22:18+0200\n"
+"PO-Revision-Date: 2004-10-06 06:49+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -187,9 +189,8 @@ msgid "Using mouse type: %s"
 msgstr "Použijem typ myši: %s"
 
 #: ../anaconda:969
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Vyhľadávanie inštalácií %s..."
+msgstr "Spúšťa sa grafická inštalácia..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -241,12 +242,12 @@ msgstr ""
 "nebude môcť zaviesť túto inštaláciu."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Zavádzací oddiel %s nemusí spĺňať zavádzacie podmienky pre vašu "
-"architektúru. Vytvorenie zavádzacieho disku je veľmi odporúčané."
+"architektúru."
 
 #: ../autopart.py:1056
 #, python-format
@@ -595,20 +596,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Vzdialené prihlásenie (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "WWW server (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Prenos súborov (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Pošta (SMTP)"
+msgstr "Poštový server (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -619,6 +619,8 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Veľkosť modulov jadra potrebných pre váš počítač robí nemožným vytvorenie "
+"zavádzacieho disku, ktorý sa zmestí na disketu."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -979,11 +981,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Nasledujúca chyba bola nájdená pri analýze vašej kickstart konfigurácie:\n"
+"\n"
+"%s"
 
 #: ../gui.py:658 ../text.py:286
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Chyba pri otváraní kickstart súboru %s: %s"
+msgstr "Chyba pri analýze kickstart konfigurácie"
 
 #: ../gui.py:666 ../text.py:296
 msgid ""
@@ -994,9 +998,8 @@ msgstr ""
 "vašu disketu opatrne."
 
 #: ../gui.py:763
-#, fuzzy
 msgid "default:LTR"
-msgstr "Predvoľba"
+msgstr "štandardne:LTR"
 
 #: ../gui.py:837 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1148,9 +1151,9 @@ msgid "Change CDROM"
 msgstr "Vymeniť CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Pre pokračovanie vložte, prosím, disk %d."
+msgstr "Pre pokračovanie vložte, prosím, %s disk %d."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1163,7 +1166,7 @@ msgstr "To je nesprávna CDROM %s."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Nepodaril sa prístup k CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1502,14 +1505,12 @@ msgstr ""
 "Chcete inicializovať tento disk?"
 
 #: ../partedUtils.py:317
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorovať"
+msgstr "_Ignorovať disk"
 
 #: ../partedUtils.py:318
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formátovať"
+msgstr "_Formátovať disk"
 
 #: ../partedUtils.py:651
 #, python-format
@@ -1526,7 +1527,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Prosím počkajte, kým sa naformátuje zariadenie %s...\n"
 
 #: ../partedUtils.py:831
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1537,7 +1538,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Tabuľka rozdelenia na zariadení %s bola nečitateľná. Pre vytvorenie nových "
+"Tabuľka rozdelenia na zariadení %s (%s) bola nečitateľná. Pre vytvorenie nových "
 "oddielov musí byť inicializovaná, čo spôsobí stratu VŠETKÝCH ÚDAJOV na tomto "
 "disku.\n"
 "\n"
@@ -2382,9 +2383,8 @@ msgid "Connecting..."
 msgstr "Pripájanie..."
 
 #: ../vnc.py:54
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Nepodarilo sa načítať súbor!"
+msgstr "Nepodarilo sa spustiť X"
 
 #: ../vnc.py:55
 msgid ""
@@ -2395,22 +2395,19 @@ msgstr ""
 
 #: ../vnc.py:62 ../vnc.py:65
 msgid "Use text mode"
-msgstr ""
+msgstr "Použiť textový režim"
 
 #: ../vnc.py:63
-#, fuzzy
 msgid "Start VNC"
-msgstr "Spúšťanie VNC..."
+msgstr "Spustiť VNC"
 
 #: ../vnc.py:73
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Konfigurácia Silo"
+msgstr "Konfigurácia VNC"
 
 #: ../vnc.py:77
-#, fuzzy
 msgid "No password"
-msgstr "Heslo správcu"
+msgstr "Bez hesla"
 
 #: ../vnc.py:80
 msgid ""
@@ -2440,9 +2437,8 @@ msgid "Password Length"
 msgstr "Dĺžka hesla"
 
 #: ../vnc.py:118
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Heslo musí mať aspoň 6 znakov."
+msgstr "Heslo musí mať aspoň šesť znakov."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2457,50 +2453,44 @@ msgid ""
 msgstr ""
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Zariadenie"
+msgstr "Číslo zariadenia"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Nezadali ste meno hostiteľa."
+msgstr "Nezadali ste číslo zariadenia, alebo je číslo neplatné"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Nezadali ste meno hostiteľa."
+msgstr "Nezadali ste SCSI ID, alebo je ID neplatné."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nezadali ste meno hostiteľa."
+msgstr "Nezadali ste celosvetový názov portu, alebo je názov neplatný."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Nezadali ste meno hostiteľa."
+msgstr "Nezadali ste SCSI LUN, alebo je číslo neplatné."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Nezadali ste meno hostiteľa."
+msgstr "Nezadali ste FCP LUN, alebo je číslo neplatné."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
