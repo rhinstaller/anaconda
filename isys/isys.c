@@ -53,6 +53,7 @@ static PyObject * doRmmod(PyObject * s, PyObject * args);*/
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
+static PyObject * pyMakeDev(PyObject * s, PyObject * args);
 static PyObject * doMknod(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * htAvailable(PyObject * s, PyObject * args);
@@ -110,6 +111,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getopt", (PyCFunction) doGetOpt, METH_VARARGS, NULL },
     { "poptParseArgv", (PyCFunction) doPoptParse, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
+    { "makedev", (PyCFunction) pyMakeDev, METH_VARARGS, NULL },
     { "mknod", (PyCFunction) doMknod, METH_VARARGS, NULL },
     { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
@@ -190,6 +192,13 @@ static PyTypeObject probedListType = {
 	&probedListAsSequence,		/* tp_as_sequence */
 	0,				/* tp_as_mapping */
 };
+
+static PyObject * pyMakeDev(PyObject * s, PyObject * args) {
+    int major, minor;
+
+    if (!PyArg_ParseTuple(args, "ii", &major, &minor)) return NULL;
+    return Py_BuildValue("i", makedev(major, minor));
+}
 
 static PyObject * makeDevInode(PyObject * s, PyObject * args) {
     char * devName, * where;

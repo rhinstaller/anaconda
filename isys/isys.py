@@ -272,6 +272,9 @@ def makeDevInode(name, fn=None):
         _isys.mkdevinode(name, path)
     return path
 
+def makedev(major, minor):
+    return _isys.makedev(major, minor)
+
 def mknod(pathname, mode, dev):
     return _isys.mknod(pathname, mode, dev)
 
