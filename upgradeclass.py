@@ -24,8 +24,6 @@ class InstallClass(BaseInstallClass):
 		    "findinstall",
                     "partitionobjinit",
                     "upgrademount",
-                    "upgradeswapsuggestion",
-		    "addswap",
                     "upgrademigfind",
                     "upgrademigratefs",
                     "upgradecontinue",
