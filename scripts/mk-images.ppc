@@ -9,7 +9,7 @@ NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too olympic
 	   de4x5 acenic pcnet32 tulip natsemi e100 e1000 airport"
 
 SCSIMODULES="$SCSIMODS advansys aic7xxx initio sym53c8xx ipr"
-ISERIESMODULES="veth viodasd viocd ipr"
+ISERIESMODULES="iseries_veth veth viodasd viocd ipr"
 
 # images we only want on the CD (usually for space reasons)
 ISOMODULES="ehci-hcd ieee1394 ohci1394 sbp2"

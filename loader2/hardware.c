@@ -211,7 +211,7 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
     /* this is a hack since we can't really probe on iSeries */
 #ifdef __powerpc__
     if (!access("/proc/iSeries", X_OK)) {
-	mlLoadModuleSet("veth:viodasd:viocd", modLoaded, modDeps, modInfo, flags);
+	mlLoadModuleSet("iseries_veth:veth:viodasd:viocd", modLoaded, modDeps, modInfo, flags);
     }
 #endif
     return 0;
