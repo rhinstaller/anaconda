@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2003-03-19 14:30+0600\n"
 "Last-Translator: Progga <abulfazl@juniv.edu>\n"
 "Language-Team: Bangla <redhat-tran@bengalinux.org>\n"
@@ -114,7 +114,7 @@ msgstr "অনুগ্রহপূর্বক ইনস্টল প্রক�
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -156,7 +156,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr "কোন ভিডিও হার্ডওয়ার পাওয়া যায়নি, ধরে নেয়া হচ্ছে মস্তকবিহীন (Headless)"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "কোন এক্স (X Window) হার্ডওয়ার অবস্থাসূচক (State) অবজেক্ট প্রস্তুত করা যায়নি।"
 
@@ -1748,8 +1748,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "আপনি একটি পুরনো পার্টিশনকে ফরম্যাট না করেই এই ইনস্টলেশনের জন্য বেছে নিয়েছে। "
 "এক্ষেত্রে রেড হ্যাটের পরামর্শ হল, আপনি এই পার্টিশনটিকে ফরম্যাট করুন যেন পুরনো "
@@ -2569,28 +2569,6 @@ msgstr "কার্বারোস ৫"
 msgid "SMB"
 msgstr "এস.এম.বি. (SMB)"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "স্বয়ংক্রিয় পার্টিশন প্রক্রিয়া"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "%s ইনস্টল করার জন্য আপনাকে অন্তত একটি হার্ড ড্রাইভ বেছে নিতে হবে।"
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "আমি স্বয়ংক্রিয় পার্টিশন প্রক্রিয়া ব্যবহার করতে চাই:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "এই ইনস্টলেশনের জন্য ড্রাইভ (বা ড্রাইভসমূহ) বেছে নিন:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "তৈরিকৃত পার্টিশনগুলো পু_নঃপরীক্ষা (প্রয়োজনে পরিবর্তন) করুন"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -3148,45 +3126,63 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "সতর্কতা: ত্রুটিপূর্ণ টোকেন"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 #, fuzzy
 msgid "_Custom firewall"
 msgstr "ফায়ারওয়ালবি_হীন"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "যেসব অন্তর্মুখী যোগাযোগ _অনুমোদন করা হবে:"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "অন্যান্য _পোর্ট:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "_বিশ্বস্থ ডিভাইস:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "একর"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "সতর্কবাণী"
+
+#: ../iw/firewall_gui.py:288
+msgid "Disabled"
+msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4246,6 +4242,27 @@ msgstr "_এল.ভি.এম. (LVM)"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "রেইড ডিভাইস/এলভিএম ফাইল সিস্টেম _গ্রুপের সদস্যদের আড়াল করা হোক"
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "স্বয়ংক্রিয় পার্টিশন প্রক্রিয়া"
+
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "%s ইনস্টল করার জন্য আপনাকে অন্তত একটি হার্ড ড্রাইভ বেছে নিতে হবে।"
+
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "আমি স্বয়ংক্রিয় পার্টিশন প্রক্রিয়া ব্যবহার করতে চাই:"
+
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "এই ইনস্টলেশনের জন্য ড্রাইভ (বা ড্রাইভসমূহ) বেছে নিন:"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "তৈরিকৃত পার্টিশনগুলো পু_নঃপরীক্ষা (প্রয়োজনে পরিবর্তন) করুন"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5278,7 +5295,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6970,35 +6987,35 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "এই কম্পিউটারে %s ইনস্টল করার মত যথেষ্ট RAM নেই"
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "রেস্কিঊ-এর উপায়"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "ইনস্টলেশনের উপায়"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "রেস্কিউ ইমেজটি কি ধরনের মিডিয়ায় আছে?"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "যে প্যাকেজগুলি ইনস্টল করবেন সেগুলি কি ধরনের মিডিয়ায় আছে?"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "কোনো ড্রাইভার পাওয়া যায়নি"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "ড্রাইভার বাছাই করুন"
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "ড্রাইভার ডিস্ক ব্যবহার করুন"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7006,11 +7023,11 @@ msgstr ""
 "এই ধরনের ইনস্টলেশনের জন্য প্রয়োজনীয় কোনো ডিভাইস পাওয়া যায় নি।আপনি কি নিজে কোনো "
 "ড্রাইভার বাছাই করতে চান বা কোনো ড্রাইভার ডিস্ক ব্যবহার করতে চান?"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "আপনার সিস্টেম-এ এই ডিভাইস-গুলি পাওয়া গেছে"
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7018,29 +7035,28 @@ msgstr ""
 "আপনার সিস্টেম-এর জন্য কোনো ডিভাইস ড্রাইভার লোড করা হয় নি। আপনি কি কিছু লোড করতে "
 "চান?"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "ডিভাইস"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "হয়ে গিয়েছে"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "ডিভাইস যোগ করুন"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "ইতিমধ্যেই লোডার চালানো হয়েছে।  এখন শেল চালু করা হচ্ছে।"
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "%s সিস্টেম ইনস্টলার অ্যানাকোণ্ডা চালানো হচ্ছে -- অনুগ্রহ করে অপেক্ষা করুন...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "%s সিস্টেম ইনস্টলার অ্যানাকোণ্ডা চালানো হচ্ছে -- অনুগ্রহ করে অপেক্ষা করুন...\n"
@@ -7059,7 +7075,6 @@ msgid "Checking \"%s\"..."
 msgstr "\"%s\" পরীক্ষা করছি"
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "মিডিয়া পরীক্ষা করা হচ্ছে..."
 

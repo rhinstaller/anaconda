@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2004-01-10 17:25+0330\n"
 "Last-Translator: Abbas Izad <abbasizad@hotmail.com>\n"
 "Language-Team: Persian <fa@li.org>\n"
@@ -116,7 +116,7 @@ msgstr "لطفا برای شروع به نصب ارتباط برقرار کنی�
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -157,7 +157,7 @@ msgstr "رده‌ی نصب حالت نصب متنی را اجباری می‌ک�
 msgid "No video hardware found, assuming headless"
 msgstr "هیچ سخت‌افزار ویدیو یافت نشد. فرض بر بی‌سر گذاشته می‌شود"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "ناتوان در بوجود آوردن یک شیئ وضعیت سخت‌افزار اکس."
 
@@ -1738,8 +1738,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "شما استفاده از یک قسمت‌بندی موجود بدون قالب‌بندی کردن آن را برای نصب انتخاب "
 "کرده‌اید. ردهت سفارش می‌کند که شما این قسمت‌بندی را برای اطمینان آن که "
@@ -2546,29 +2546,6 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "قسمت‌بندی خودکار"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"شما نیاز به انتخاب کردن حداقل یک دیسک‌سخت برای نصب کردن %s بر رویش دارید."
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "قسمت‌بندی خودکار را می‌خواهم:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "انتخاب کردن دیسک‌(های) برای استفاده در این نصب:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "بازنگری (و تغییر در صورت نیاز) قسمت‌بندی‌های ایجاد شده"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -3112,7 +3089,7 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "هشدار: نشان بد"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3120,39 +3097,57 @@ msgstr ""
 "دیوارآتش می‌تواند از دستیابی غیرمجاز از دنیای بیرون جلوگیری کند. آیا می‌خواهید "
 "دیوارآتش را بکار بیاندازید؟"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "ـ‌بدون دیوارآتش"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 msgid "_Enable firewall"
 msgstr "به ـ‌کار انداختن دیوارآتش"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 msgid "_Custom firewall"
 msgstr "ـ‌سفارشی‌سازی دیوارآتش"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "چه سرویس‌هایی باید اجازه‌ی عبور از میان دیوارآتش را داشته باشند؟"
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "اجازه دادن به آمدنی::"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "ـدرگاه‌های دیگر:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "اگر می‌خواهید همه‌ی عبور و مرورها را از دستگاهی اجازه دهید، آن را در پایین "
 "انتخاب کنید."
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "دستگاه‌های ـ‌مورد اعتماد:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "آکره"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "هشدار"
+
+#: ../iw/firewall_gui.py:288
+msgid "Disabled"
+msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4196,6 +4191,28 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "پنهان کردن دستگاه RAID/اعضای ـگروه حجمی LVM"
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "قسمت‌بندی خودکار"
+
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"شما نیاز به انتخاب کردن حداقل یک دیسک‌سخت برای نصب کردن %s بر رویش دارید."
+
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "قسمت‌بندی خودکار را می‌خواهم:"
+
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "انتخاب کردن دیسک‌(های) برای استفاده در این نصب:"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "بازنگری (و تغییر در صورت نیاز) قسمت‌بندی‌های ایجاد شده"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5226,7 +5243,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6924,35 +6941,35 @@ msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "شما به اندازه‌ی کافی حافظه‌ی موقت برای نصب کردن %s بر روی این رایانه ندارید."
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "روش نجات"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "روش نصب"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "چه نوع رسانه‌ای دارای تصویر نجات است؟"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "چه نوع رسانه‌ای دارای بسته‌های برای نصب شدن است؟"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "هیچ راه‌اندازی یافت نشد"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "انتخاب کردن راه‌انداز"
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "استفاده از دیسک راه‌انداز"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6961,11 +6978,11 @@ msgstr ""
 "می‌خواهید راه‌انداز خود را بطور دستی انتخاب کرده یا از یک دیسکچه‌ی راه‌انداز "
 "استفاده کنید؟"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "دستگاه‌های بدنبال آمده بر روی سیستم شما یافت شده‌اند."
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6973,29 +6990,28 @@ msgstr ""
 "هیچ راه‌انداز دستگاهی برای سیستم‌تان بارگذاری نشده است.  آیا می‌خواهید "
 "راه‌اندازی را بارگذاری کنید؟"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "دستگاه‌ها"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "انجام شد"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "افزودن دستگاه"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "بارگذار از قبل اجرا شده است.  راه‌اندازی پوسته."
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "در حال اجرای آناکوندا، نصب کننده‌ی سیستم %s - لطفا صبر کنید...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "در حال اجرای آناکوندا، نصب کننده‌ی سیستم %s - لطفا صبر کنید...\n"
@@ -7014,7 +7030,6 @@ msgid "Checking \"%s\"..."
 msgstr "در حال کنترل \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "در حال کنترل کردن رسانه..."
 

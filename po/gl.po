@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2001-03-25 17:21+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -106,7 +106,7 @@ msgstr ""
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -148,7 +148,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
@@ -1641,8 +1641,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 
 #: ../partIntfHelpers.py:409
@@ -2416,30 +2416,6 @@ msgstr "Activar Kerberos"
 msgid "SMB"
 msgstr ""
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Particionamento automático"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Ten que seleccionar polo menos unha lingua para instalar."
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-#, fuzzy
-msgid "I want to have automatic partitioning:"
-msgstr "Particionamento automático"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "¿Onde quere instalar o cargador de arrinque?"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2943,49 +2919,68 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "Aviso: "
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 #, fuzzy
 msgid "N_o firewall"
 msgstr "Sen firewall"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "Sen firewall"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 #, fuzzy
 msgid "_Custom firewall"
 msgstr "Sen firewall"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 #, fuzzy
 msgid "_Allow incoming:"
 msgstr "Permitir acceso entrante:"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 #, fuzzy
 msgid "Other _ports:"
 msgstr "Outros portos:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 #, fuzzy
 msgid "_Trusted devices:"
 msgstr "Dispositivos seguros:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "Acre"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "Aviso"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Disabled"
+msgstr "Desactivar teclas de tiles"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4046,6 +4041,29 @@ msgstr ""
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Particionamento automático"
+
+#: ../iw/partition_gui.py:1444
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Ten que seleccionar polo menos unha lingua para instalar."
+
+#: ../iw/partition_gui.py:1486
+#, fuzzy
+msgid "I want to have automatic partitioning:"
+msgstr "Particionamento automático"
+
+#: ../iw/partition_gui.py:1517
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "¿Onde quere instalar o cargador de arrinque?"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr ""
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5041,7 +5059,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6756,49 +6774,49 @@ msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Non ten memoria de sistema dabondo para instalar Red Hat nesta máquina."
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "Método de recuperación"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "Método de instalación"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "¿Que tipo de dispositivo contén a imaxe de rescate?"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "¿Que tipo de dispositivo contén os paquetes para instalar?"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 #, fuzzy
 msgid "No driver found"
 msgstr "Non se atopou ningunha unidade"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 #, fuzzy
 msgid "Select driver"
 msgstr "Escolla a unidade na que executar fdisk"
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "¿Ten un disquete de controlador?"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Atopáronse os seguintes dispositivos no seu sistema:"
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6807,29 +6825,28 @@ msgstr ""
 "Non hai ningún controlador de dispositivo especial cargado no seu sistema. "
 "¿Quere cargar algún agora?"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "Dispositivos"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "Feito"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "Engadir dispositivo"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Executando anaconda - por favor, agarde...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Executando anaconda - por favor, agarde...\n"
@@ -6846,7 +6863,6 @@ msgid "Checking \"%s\"..."
 msgstr ""
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr ""
 
@@ -8734,9 +8750,6 @@ msgstr "Ucraíno"
 
 #~ msgid "Enable dead keys"
 #~ msgstr "Activar teclas de tiles"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Desactivar teclas de tiles"
 
 #~ msgid "Test your selection here:"
 #~ msgstr "Probe aquí a súa escolla:"

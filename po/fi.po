@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2004-02-22 15:00+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
@@ -150,7 +150,7 @@ msgstr "Muodosta yhteys, jotta asennus voi alkaa..."
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -194,7 +194,7 @@ msgstr "Asennusluokka pakottaa tekstitila-asennuksen"
 msgid "No video hardware found, assuming headless"
 msgstr "Näytönohjainta ei löytynyt, oletetaan kortiton"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X-laitteistotilaolion ilmentymää ei voida luoda."
 
@@ -2015,8 +2015,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "Olet valinnut vanhan osion asennuksen kohteeksi ilman alustusta. Red Hat "
 "suosittelee, että osio alustetaan, jotta edellisen asennuksen tiedostot "
@@ -2935,32 +2935,6 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-# ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Automaattinen osiointi"
-
-# ../iw/partition_gui.py:1609
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Sinun pitää valita ainakin yksi levy, jolle %s asennetaan."
-
-# ../iw/partition_gui.py:1648
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Haluan automaattisen osioinnin:"
-
-# ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Mitä levyä tai levyjä haluat käyttää asennukseen?"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
-
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -3562,7 +3536,7 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "Varoitus: väärä syöte"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3571,42 +3545,69 @@ msgstr ""
 "käyttöön?"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "Ei pal_omuuria"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 msgid "_Enable firewall"
 msgstr "Ota palomuuri käyttöön"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 msgid "_Custom firewall"
 msgstr "Mukauta pal_omuuria"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Mitkä palvelut pitäisi päästää palomuurin läpi?"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "S_alli sisääntuleva:"
 
 # ../iw/firewall_gui.py:314
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "Muut _portit:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr "Jos haluat sallia kaiken liikenteen tietystä laitteesta, valitse se."
 
 # ../iw/firewall_gui.py:260
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "Luo_tetut laitteet:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "Acre"
+
+# ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
+# ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
+# ../iw/partition_gui.py:1280 ../iw/partition_gui.py:1608
+# ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
+# ../iw/upgrade_swap_gui.py:186 ../partitioning.py:694
+# ../partitioning.py:1406 ../textw/bootloader_text.py:133
+# ../textw/bootloader_text.py:434 ../textw/partition_text.py:167
+# ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
+# ../upgrade.py:376
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "Varoitus"
+
+#: ../iw/firewall_gui.py:288
+msgid "Disabled"
+msgstr ""
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4827,6 +4828,31 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "_Piilota RAID-laitteet/loogiset taltioryhmät"
 
+# ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Automaattinen osiointi"
+
+# ../iw/partition_gui.py:1609
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Sinun pitää valita ainakin yksi levy, jolle %s asennetaan."
+
+# ../iw/partition_gui.py:1648
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Haluan automaattisen osioinnin:"
+
+# ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Mitä levyä tai levyjä haluat käyttää asennukseen?"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
+
 # ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
 # ../iw/partition_gui.py:336 ../textw/partition_text.py:186
 # ../textw/partition_text.py:188 ../textw/partition_text.py:190
@@ -6013,7 +6039,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -8013,41 +8039,41 @@ msgstr ""
 "Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa."
 
 # ../loader/loader.c:1482
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "Pelastusmenetelmä"
 
 # ../loader/loader.c:1483
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "Asennusmenetelmä"
 
 # ../loader/loader.c:1485
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "Minkälainen tallenne sisältää pelastusdatan?"
 
 # ../loader/loader.c:1487
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "Minkälainen tallenne sisältää asennettavat paketit?"
 
 # ../partitioning.py:1493
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "Ajuria ei löytynyt"
 
 # ../iw/fdisk_gui.py:93
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "Valitse ajuri"
 
 # ../loader/devices.c:232
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "Käytä ajurilevykettä"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -8055,12 +8081,12 @@ msgstr ""
 "Tälle asennustyypille tarvittavia laitteita ei löytynyt. Haluatko "
 "manuualisesti valita ajurin tai käyttää ajurilevykettä?"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "Järjestelmästä löydettiin seuraavat laitteet."
 
 # ../loader/loader.c:399
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -8070,33 +8096,32 @@ msgstr ""
 
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "Laitteet"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "Valmis"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "Lisää laite"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "latain on jo ajettu. Käynnistetään kuori."
 
 # ../loader/loader.c:3019
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Käynnistän anacondaa, %sn asennusohjelmaa - odota hetki...\n"
 
 # ../loader/loader.c:3019
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Käynnistän anacondaa, %sn asennusohjelmaa - odota hetki...\n"
@@ -8115,7 +8140,6 @@ msgid "Checking \"%s\"..."
 msgstr "Tarkastetaan \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "Tarkastetaan tallennetta..."
 

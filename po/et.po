@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2004-02-12 22:04+0200\n"
 "Last-Translator: Antti Markus <antti.markus@starman.ee>\n"
 "Language-Team: Estonian\n"
@@ -121,7 +121,7 @@ msgstr "Palun ühenda installeerimise alustamiseks..."
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -163,7 +163,7 @@ msgid "No video hardware found, assuming headless"
 msgstr ""
 "Ei leitud videoseadet, eeldatavasti on tegemist monitorita installatsiooniga."
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Ei suudetud luua X riistvaralise oleku objekti."
 
@@ -1727,13 +1727,14 @@ msgstr ""
 "Kas soovid selle partitsiooni saalealaks vormindada?"
 
 #: ../partIntfHelpers.py:401
+#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "Oled otsustanud installeerida olemasolevale vormindatud partitsioonile. "
 "Sellisel juhul on soovitatav partitsiooni uuesti vormindada, et eelneva "
@@ -2515,28 +2516,6 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Automaatne partitsioneerimine"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "%s installeerimiseks peab valima vähemalt ühe kõvaketta."
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Soovin automaatset partitsioneerimist:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Vali ketas (kettad), mida kasutatakse installeerimiseks:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Loodud partitsioonide ülevaatus (vajadusel muutmine)"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -3069,7 +3048,7 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "Hoiatus: vigane lausend (token)"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3077,37 +3056,55 @@ msgstr ""
 "Tulemüür aitab ära hoida võrgu kaudu toimuvaid ründeid. Kas soovid tulemüüri "
 "kasutusele võtta?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "Tulemüüri ei kasutata"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 msgid "_Enable firewall"
 msgstr "Kasuta tulemüüri"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 msgid "_Custom firewall"
 msgstr "Tulemüüri seadistamine"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Millised teenused lubatakse läbi tulemüüri?"
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "Lubatud sisenevad:"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "Muud pordid:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr "Vali võrguseade mille liiklust ei takistata."
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "Usaldusväärsed seadmed:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "Acre"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "Hoiatus"
+
+#: ../iw/firewall_gui.py:288
+msgid "Disabled"
+msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4141,6 +4138,27 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Peida RAID seadme/LVM kettagrupi liikmed"
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Automaatne partitsioneerimine"
+
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "%s installeerimiseks peab valima vähemalt ühe kõvaketta."
+
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Soovin automaatset partitsioneerimist:"
+
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Vali ketas (kettad), mida kasutatakse installeerimiseks:"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Loodud partitsioonide ülevaatus (vajadusel muutmine)"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5143,7 +5161,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6816,35 +6834,35 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "%s installeerimiseks pole piisavalt mälu."
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "Päästeviis"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "Installatsiooniviis"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "Mis tüüpi andmekandja sisaldab päästetõmmist?"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "Mis tüüpi andmekandja sisaldab installeeritavaid pakette?"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "Draiverit ei leitud"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "Vali draiver"
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "Kasuta draiveriketast"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6852,39 +6870,38 @@ msgstr ""
 "Ei leitud installatsioonitüübile vastavaid seadmeid.  Kas soovid draiveri "
 "käsitsi valida või kasutada draiveriketast?"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "Arvutis tuvastati järgmised seadmed."
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "Hetkel ei ole laetud ühtegi draiverit.  Kas soovid mõnda laadida?"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "Seadmed"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "Valmis"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "Lisa seade"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "laadija on juba käivitatud.  Shell-i laadimine."
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "%s installatsiooniprogrammi anaconda käivitamine - palun oota...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "%s installatsiooniprogrammi anaconda käivitamine - palun oota...\n"
@@ -6903,7 +6920,6 @@ msgid "Checking \"%s\"..."
 msgstr "\"%s\" kontrollimine..."
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "Andmekandja kontrollimine..."
 

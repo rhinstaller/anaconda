@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2004-03-01 12:02+1000\n"
 "Last-Translator: David Sungmin Joo <djoo@redhat.com>\n"
 "Language-Team: korean <ko@li.org>\n"
@@ -117,7 +117,7 @@ msgstr "설치를 시작하기 위해 연결하시기 바랍니다..."
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -158,7 +158,7 @@ msgstr "텍스트 모드 설치를 사용하는 설치 유형"
 msgid "No video hardware found, assuming headless"
 msgstr "비디오 하드웨어를 찾을 수 없어, 없는 것으로 취급합니다."
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X 하드웨어 상태 객체를 인스턴스화하지 못했습니다."
 
@@ -1742,8 +1742,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "기존-파티션을 포맷하지 않고 사용하기로 하셨습니다. 이전 운영 체제 설치 과정에"
 "서 만들어진 파일로 인해 Linux 설치 과정에서 문제가 발생하지 않도록 이 파티션"
@@ -2546,28 +2546,6 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "자동 파티션 설정"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "%s 설치를 위해 최소한 하나의 드라이브는 선택해 주셔야 합니다. "
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "자동으로 파티션을 설정합니다:"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "설치에 사용할 드라이브를 지정해 주십시오:"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "생성된 파티션 재확인 (만일 필요하다면 수정)"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -3108,7 +3086,7 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "경고: 잘못된 토큰"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3116,39 +3094,58 @@ msgstr ""
 "방화벽을 사용하여 외부에서 여러분의 컴퓨터에 허가없이 접근하는 것을 방지할 "
 "수 있습니다.  방화벽을 사용하시겠습니까?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "방화벽을 사용하지 않음(_O)"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 msgid "_Enable firewall"
 msgstr "방화벽을 사용함(_E)"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 msgid "_Custom firewall"
 msgstr "방화벽을 사용자 설정함(_C)"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "어떤 서비스를 방화벽을 통과할 수 있게 허용하시겠습니까?"
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "허용할 서비스(_A):"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "그 외의 포트(_P):"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "특정 장치에서 들어오는 모든 트래픽을 허용하시려면, 아래에서 장치를 선택해 주"
 "십시오."
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "신뢰하는 장치(_T):"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "Acre"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "경고"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Disabled"
+msgstr "Dead keys를 사용하지 않음"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4193,6 +4190,27 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "RAID 장치 감추기/LVM 볼륨 그룹 요소(_G)"
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "자동 파티션 설정"
+
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "%s 설치를 위해 최소한 하나의 드라이브는 선택해 주셔야 합니다. "
+
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "자동으로 파티션을 설정합니다:"
+
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "설치에 사용할 드라이브를 지정해 주십시오:"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "생성된 파티션 재확인 (만일 필요하다면 수정)"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5210,7 +5228,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6899,35 +6917,35 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "현재 이 시스템의 램 용량으로는 %s를 설치하실 수 없습니다."
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "복구 방법"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "설치 방법"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "복구 이미지가 있는 매체를 지정해 주십시오"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "설치할 패키지가 있는 매체를 지정해 주십시오"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "드라이버를 찾을 수 없음"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "드라이버를 선택해 주십시오."
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "드라이버 디스켓을 사용"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6937,11 +6955,11 @@ msgstr ""
 "직접 드라이버를 선택하시겠습니까? \n"
 "아니면 드라이버 디스켓을 사용할까요?"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "여러분의 시스템에서 다음의 장치를 찾았습니다."
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6949,30 +6967,29 @@ msgstr ""
 "여러분의 시스템에 어떠한 장치 드라이버도 로딩되지 않았습니다. 지금 장치를 로"
 "딩하시겠습니까? "
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "장치"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "완료"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr "장치 추가"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "로더는 이미 실행 중입니다.  쉘을 시작합니다."
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6992,7 +7009,6 @@ msgid "Checking \"%s\"..."
 msgstr "\"%s\"를 확인 중..."
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "현재 미디어를 확인중입니다..."
 
@@ -9137,9 +9153,6 @@ msgstr "우크라니아어"
 
 #~ msgid "Enable dead keys"
 #~ msgstr "Dead Keys 사용"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Dead keys를 사용하지 않음"
 
 #~ msgid "Test your selection here:"
 #~ msgstr "선택하신 키보드를 이곳에서 테스트해 보십시요:"

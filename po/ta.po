@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"POT-Creation-Date: 2004-03-12 17:04-0500\n"
 "PO-Revision-Date: 2004-02-26 16:16+0530\n"
 "Last-Translator: ambalam <tamilpc@ambalam.com>\n"
 "Language-Team: Tamil <en@li.org>\n"
@@ -111,7 +111,7 @@ msgstr "நிறுவுதலை தொடங்குவதற்கு த
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -152,7 +152,7 @@ msgstr "நிறுவு class forcing உரை வகை ¿¢Èுவு"
 msgid "No video hardware found, assuming headless"
 msgstr "ஒளதகத்தோற்ற வன்பொருளை கண்டுபிடிக்க முடியவில்லை,முனையற்றதாக கருதப்படுகிர்அது"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:813 ../anaconda:1060
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X வன்பொருள் நிலை பொருளை நிறுவமுடியவில்லை"
 
@@ -1717,8 +1717,8 @@ msgid ""
 "without formatting it. We recommend that you format this partition to make "
 "sure files from a previous operating system installation do not cause "
 "problems with this installation of Linux. However, if this partition "
-"contains files that you need to keep, such as a users home directories, then "
-"you should continue without formatting this partition."
+"contains files that you need to keep, such as home directories, then  "
+"continue without formatting this partition."
 msgstr ""
 "இந்த நிறுவலுக்கு வடிவமைக்கப்படாத முன்நிருந்த பாகுபடுத்தலை பயன்படுத்த தேர்வுசெய்துள்ளீர். "
 "இந்த பகுதியை தூயமை செய்வதன் மூலம் லினக்ஸை நிறுவுவதால் ஏற்கெனவே உள்ள இயங்கு தளத்துக்கு "
@@ -2519,28 +2519,6 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
-#: ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "தானியங்கு பாகுபடுத்தல்கள்"
-
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "%s இங்கு நிறுவ குறைந்தது ஒரு வன்பொருளை தேர்வு செய்க"
-
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "பாகபடுத்துவது தானாக இயங்குவதை  எனக்கு வேண்டும்"
-
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்"
-
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "பாகுபடுத்தலி(மற்றும்தேவைப்பட்டால் மற்றுக) மறுபார்வையிடு"
-
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -3077,7 +3055,7 @@ msgstr ""
 msgid "Warning: Bad Token"
 msgstr "எச்சரிக்கை: தவறான வில்லை"
 
-#: ../iw/firewall_gui.py:157 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3085,39 +3063,57 @@ msgstr ""
 "அனுமதிக்கப்படாத வெளியாட்கள் உங்கள் கணினியை பயன்படுத்துவதை தீச்சுவரைக்கொண்டு தடுக்கலாம்.  "
 "தீச்சுவரைப் பயன்படுத்த விருப்பமா?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:171
 msgid "N_o firewall"
 msgstr "தீச்சுவர் இல்லை"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:173
 msgid "_Enable firewall"
 msgstr "தீச்சுவரை செயல்படுத்தவும்"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:175
 msgid "_Custom firewall"
 msgstr "தீச்சுவரை வடிவமைக்கவும்"
 
-#: ../iw/firewall_gui.py:190
+#: ../iw/firewall_gui.py:193
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "நெருப்புசுவரை கடந்து செல்ல எந்த சேவைகள் அனுமதிக்கப்பட வேண்டும்?"
 
-#: ../iw/firewall_gui.py:198
+#: ../iw/firewall_gui.py:201
 msgid "_Allow incoming:"
 msgstr "உள்வரவை அனுமதிக்கவும்:"
 
-#: ../iw/firewall_gui.py:223
+#: ../iw/firewall_gui.py:226
 msgid "Other _ports:"
 msgstr "மற்ற துறைகள்:"
 
-#: ../iw/firewall_gui.py:231
+#: ../iw/firewall_gui.py:234
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "ஒரு கருவியிலிருந்து எல்லா தகவல் நெரிசலையும் அனுமதிக்க விருப்பமா,கீழெ அதை "
 "த்தெர்வுசெய்யவும். "
 
-#: ../iw/firewall_gui.py:240
+#: ../iw/firewall_gui.py:243
 msgid "_Trusted devices:"
 msgstr "நம்பகமான கருவிகள்:"
+
+#: ../iw/firewall_gui.py:282
+msgid "_Security Enhanced Linux (SELinux) Extentions:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Active"
+msgstr "ஏக்கர்"
+
+#: ../iw/firewall_gui.py:288
+#, fuzzy
+msgid "Warn"
+msgstr "எச்சரிக்கை"
+
+#: ../iw/firewall_gui.py:288
+msgid "Disabled"
+msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4155,6 +4151,27 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "RAID கருவியை மறைக்கவும்/LVM  தொகுதி_குழு உருப்பினர்கள்"
 
+#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "தானியங்கு பாகுபடுத்தல்கள்"
+
+#: ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "%s இங்கு நிறுவ குறைந்தது ஒரு வன்பொருளை தேர்வு செய்க"
+
+#: ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "பாகபடுத்துவது தானாக இயங்குவதை  எனக்கு வேண்டும்"
+
+#: ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்"
+
+#: ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "பாகுபடுத்தலி(மற்றும்தேவைப்பட்டால் மற்றுக) மறுபார்வையிடு"
+
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5157,7 +5174,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -6830,35 +6847,35 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "%sஐ உங்கள் கணினியில் நிறுவ போதுமான RAM இடமில்லை"
 
-#: ../loader2/loader.c:785
+#: ../loader2/loader.c:793
 msgid "Rescue Method"
 msgstr "மீட்பு முறைகள்"
 
-#: ../loader2/loader.c:786
+#: ../loader2/loader.c:794
 msgid "Installation Method"
 msgstr "நிறுவல் பாணிகள்"
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:796
 msgid "What type of media contains the rescue image?"
 msgstr "எவ்வகை ஊடகம் மீட்டு நிரலுவத்தை கொண்டுள்ளது?"
 
-#: ../loader2/loader.c:790
+#: ../loader2/loader.c:798
 msgid "What type of media contains the packages to be installed?"
 msgstr "எவ்வகை ஊடகம் நிறுவவேண்டிய பொதி உள்ளது?"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "No driver found"
 msgstr "இயக்கிகள் ஏதும் இல்லை"
 
-#: ../loader2/loader.c:814
+#: ../loader2/loader.c:822
 msgid "Select driver"
 msgstr "இயக்கியை தேர்வு செய்"
 
-#: ../loader2/loader.c:815
+#: ../loader2/loader.c:823
 msgid "Use a driver disk"
 msgstr "இயக்கி தட்டை பயன்படுத்து"
 
-#: ../loader2/loader.c:816
+#: ../loader2/loader.c:824
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6866,41 +6883,40 @@ msgstr ""
 "நிறுவல் வகைக்கு தேவையான வகை கருவியை கண்டுபிடிக்க முடியவில்லை.நீங்கள் கையால் இயக்கியை "
 "தேர்வுசெய்ய விருப்பமா அல்லது இயக்கி தட்டை பயன்படுத்த விருப்பமா?"
 
-#: ../loader2/loader.c:976
+#: ../loader2/loader.c:984
 msgid "The following devices have been found on your system."
 msgstr "கீழ்க்கண்ட கருகள் உங்கள் கணினியில் கண்டுபிடிக்கப்பட்டுள்ளன."
 
-#: ../loader2/loader.c:978
+#: ../loader2/loader.c:986
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்பட்வில்லை. எப்படியாவது ஏற்றவேண்டுமா?"
 
-#: ../loader2/loader.c:982
+#: ../loader2/loader.c:990
 msgid "Devices"
 msgstr "சாதனங்கள்"
 
-#: ../loader2/loader.c:983
+#: ../loader2/loader.c:991
 msgid "Done"
 msgstr "செய்தாயிற்று"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:992
 msgid "Add Device"
 msgstr " சாதனத்தை சேர்"
 
-#: ../loader2/loader.c:1084
-#, c-format
+#: ../loader2/loader.c:1092
 msgid "loader has already been run.  Starting shell."
 msgstr "ஏற்றி ஏற்கெனவே இயக்கப்பட்டது. ஷெல் துவங்குகிறது."
 
-#: ../loader2/loader.c:1440
+#: ../loader2/loader.c:1448
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "அனக்கோன்டா செயல்படுத்தபடுகிறது, %s முறைமை நிறுவி-தயவு செய்து காத்திருக்கவும்...\n"
 
-#: ../loader2/loader.c:1442
+#: ../loader2/loader.c:1450
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6920,7 +6936,6 @@ msgid "Checking \"%s\"..."
 msgstr "\"%s\" ஐ சோதிக்கிறது..."
 
 #: ../loader2/mediacheck.c:266
-#, c-format
 msgid "Checking media now..."
 msgstr "இப்போது ஊடகத்தை சோதித்துக்கொண்டிருக்கிறது.."
 
