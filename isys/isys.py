@@ -301,19 +301,19 @@ def getopt(*args):
     return apply(_isys.getopt, args)
 
 def compareDrives(first, second):
-    type1 = first[0:3]
-    type2 = second[0:3]
+    type1 = first[0:2]
+    type2 = second[0:2]
 
-    if type1 == "hda":
+    if type1 == "hd":
 	type1 = 0
-    elif type1 == "sda":
+    elif type1 == "sd":
 	type1 = 1
     else:
 	type1 = 2
 
-    if type2 == "hda":
+    if type2 == "hd":
 	type2 = 0
-    elif type2 == "sda":
+    elif type2 == "sd":
 	type2 = 1
     else:
 	type2 = 2
