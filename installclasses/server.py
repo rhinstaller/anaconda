@@ -29,7 +29,7 @@ class InstallClass(BaseInstallClass):
                             "DNS Name Server" ]
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', (32, -1, 0), (None, -1, 0), (0,0))
+	    self.addNewPartition('/boot', (48, -1, 0), (None, -1, 0), (0,0))
 	self.addNewPartition('/', (256, -1, 0), (None, -1, 0), (0,0))
 	self.addNewPartition('/usr', (512, -1, 1), (None, -1, 0), (0,0))
 	self.addNewPartition('/var', (256, -1, 0), (None, -1, 0), (0,0))

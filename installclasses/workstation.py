@@ -24,7 +24,7 @@ class InstallClass(BaseInstallClass):
                             "Games" ]
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', (32, -1, 0), (None,-1,0), (0,0))
+	    self.addNewPartition('/boot', (48, -1, 0), (None,-1,0), (0,0))
 	self.addNewPartition('/', (1100, -1, 1), (None, -1, 0), (0,0))
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 #	    warningText = N_("You are about to erase any preexisting Linux "
