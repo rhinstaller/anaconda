@@ -9,9 +9,9 @@ MINISLANG=minislang
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) loader po text-help \
+SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
 	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts gnome-map iw help pixmaps $(STUBS)
+	    keymaps fonts gnome-map iw pixmaps $(STUBS)
 SUBDIRS = $(SUBDIRSHD)
 
 
