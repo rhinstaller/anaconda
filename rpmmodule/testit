@@ -16,7 +16,9 @@ import os
 
 db = rpm.opendb ()
 
-rc = db.findpackage ("Xconfigurator")
+rc = db.findbyname ("XFree86d")
+    
+print len(rc)
 for rec in rc:
     print db[rec]
     print db[rec]['name']
