@@ -345,6 +345,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 		}
 	    }
 #ifndef HD_USE_LOOPBACK_STAGE2
+	    /* if we copied stage2 into RAM we can now umount image */
 	    umountLoopback("/tmp/loopimage", "loop0");
 #endif
 
@@ -353,7 +354,12 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	}
 
 #ifndef HD_USE_LOOPBACK_STAGE2
+	/* if we copied stage2 into RAM we can now umount partition */
 	umount("/tmp/hdimage");
+#else
+	/* only unmount if there was an error */
+	if (rc)
+	    umount("/tmp/hdimage");
 #endif
 
 	if (rc)
