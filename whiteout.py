@@ -27,7 +27,8 @@ whiteout="""
         initscripts>util-linux          \
         XFree86-libs>XFree86-Mesa-libGL \
         mysql>perl-DBD-MySQL            \
-        ghostscript>gimp-print          
+        ghostscript>gimp-print          \
+        bind>bind-utils
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
