@@ -5,8 +5,6 @@ if [ ! -f $SYSLINUX ]; then
     exit 1
 fi
 
-SECSTAGE="vfat raid0 raid1 raid5"
-
 prepareBootImage() {
         dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 	gunzip < $BOOTDISKDIR/template.img.gz |
@@ -33,7 +31,12 @@ prepareBootImage() {
 	fi
 }
 
-USBMODS="usb-ohci uhci hid keybdev mousedev"
+# LATEUSBMODS go in the second stage
+USBMODS="usb-ohci uhci hid keybdev"
+LATEUSBMODS="mousedev"
+
+SECSTAGE="vfat raid0 raid1 raid5 $LATEUSBMODS"
+
 COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray
 	     aacraid aic7xxx BusLogic qlogicisp advansys eata_dma initio"
