@@ -486,6 +486,15 @@ if display_mode == 'g':
                                          monitorhw, mousehw, kbd, runres)
                 testxcfg = xserver.startX(runres, nofbmode, videohw, monitorhw,
 					  mousehw, kbd)
+
+		# start up mini-wm
+		if not flags.test:
+		    try:
+			xserver.startMiniWM()
+		    except:
+			print "Unable to start mini-wm"
+			log("Unable to start mini-wm")
+		    
         except RuntimeError:
             print " X startup failed, falling back to text mode"
             log(" X startup failed, falling back to text mode")
