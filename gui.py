@@ -174,6 +174,8 @@ class GtkMainThread (Thread):
         threads_enter ()
         try:
             mainloop ()
+        except SystemExit:
+            pass
         except:
             ExceptionWindow ()
         threads_leave ()
@@ -672,6 +674,8 @@ class InstallControlWindow (Thread):
         threads_enter ()
         try:
             self.main ()
+        except SystemExit:
+            pass
         except:
             threads_leave()
             mainquit()
