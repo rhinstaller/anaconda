@@ -42,7 +42,7 @@ void winStatus(int width, int height, char * title,
     newtFormDestroy(f);
 }
 
-void scsiWindow(char * driver) {
+void scsiWindow(const char * driver) {
     winStatus(40, 3, _("Loading SCSI driver"), 
 	      _("Loading %s driver..."), driver);
 }
