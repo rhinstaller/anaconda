@@ -606,7 +606,7 @@ msgstr "Fjarvinnsla (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Vefþjónn (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -1549,14 +1549,12 @@ msgstr ""
 "Viltu frumstilla töfluna?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Hunsa"
+msgstr "_Hunsa drif"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Forsníða"
+msgstr "_Forsníða drif"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -3240,9 +3238,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Slökkva á SELinux"
+msgstr "Virkja _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3799,14 +3796,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Stað í stað (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Dulritunarlykill"
+msgstr "Dulritunar_lykill"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5470,9 +5465,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Sérsníða grafískar stillingar"
+msgstr "Sérsníða stillingar eldveggs"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -6956,9 +6950,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Óleyfilegt viðfang við HD skipun hraðuppsetningar %s: %s"
+msgstr "Óleyfilegt viðfang við shutdown skipun hraðuppsetningar %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -8147,7 +8141,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabíska"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8202,9 +8196,8 @@ msgid "German"
 msgstr "Þýska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Leita"
+msgstr "Hindí"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8228,7 +8221,7 @@ msgstr "Kóreska"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedónía"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8252,7 +8245,7 @@ msgstr "Brasílísk Postúgalska"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8271,9 +8264,8 @@ msgid "Swedish"
 msgstr "Sænska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
