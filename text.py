@@ -34,6 +34,7 @@ from textw.partitioning import FormatWindow
 from textw.packages import PackageGroupWindow
 from textw.packages import IndividualPackageWindow
 from textw.packages import PackageDepWindow
+from textw.timezone import TimezoneWindow
 import installclass
 
 class LanguageWindow:
@@ -845,114 +846,6 @@ class WaitWindow:
 	g.add(t, 0, 0)
 	g.draw()
 	self.screen.refresh()
-
-
-#
-# do these belong here or should they be made nested functions in
-# the TimeZoneWindow below, or perhaps put in a utility module?
-#
-def makerelname(relpath, filename):
-    if relpath != '':
-        return relpath+'/'+filename
-    else:
-        return filename
-    
-    
-def findtz(basepath, relpath):
-    tzdata = []
-    for n in os.listdir(basepath+'/'+relpath):
-        timezone = makerelname(relpath, n)
-        if relpath != '':
-            timezone = relpath+'/'+n
-        else:
-            timezone = n
-            
-        filestat = os.lstat(basepath+'/'+timezone)
-        [filemode] = filestat[:1]
-        
-        if (not (stat.S_ISLNK(filemode) or
-                 stat.S_ISREG(filemode) or
-                 stat.S_ISDIR(filemode))):
-            continue
-        elif n[:1] >= 'A' and n[:1] <= 'Z':
-            if stat.S_ISDIR(filemode):
-                tmptzdata = findtz(basepath, timezone)
-            else:
-                tmptzdata = [timezone]
-                    
-        for m in tmptzdata:
-            if tzdata == []:
-                tzdata = [m]
-            else:
-                tzdata.append(m)
-
-        tzdata.sort()
-                            
-    return tzdata
-
-
-class TimezoneWindow:
-
-    def getTimezoneList(self, test):
-	if not os.access("/usr/lib/timezones.gz", os.R_OK):
-            if test:
-                cmd = "./gettzlist"
-                stdin = None
-            else:
-                zoneList = findtz('/usr/share/zoneinfo', '')
-                cmd = ""
-                stdin = None
-	else:
-	    cmd = "/usr/bin/gunzip"
-	    stdin = os.open("/usr/lib/timezones.gz", 0)
-
-        if cmd != "":
-            zones = iutil.execWithCapture(cmd, [ cmd ], stdin = stdin)
-            zoneList = string.split(zones)
-
-	if (stdin != None):
-            os.close(stdin)
-
-	return zoneList
-
-    def __call__(self, screen, todo, test):
-	timezones = self.getTimezoneList(test)
-	rc = todo.getTimezoneInfo()
-	if rc:
-	    (default, asUtc, asArc) = rc
-	else:
-	    default = "US/Eastern"
-	    asUtc = 0
-
-	bb = ButtonBar(screen, [_("OK"), _("Back")])
-	t = TextboxReflowed(30, 
-			_("What time zone are you located in?"))
-		
-	l = Listbox(8, scroll = 1, returnExit = 0)
-
-        for tz in timezones:
-	    l.append(tz, tz)
-
-	l.setCurrent(default)
-
-	c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
-
-	g = GridForm(screen, _("Time Zone Selection"), 1, 4)
-	g.add(t, 0, 0)
-	g.add(c, 0, 1, padding = (0, 1, 0, 1), anchorLeft = 1)
-	g.add(l, 0, 2, padding = (0, 0, 0, 1))
-	g.add(bb, 0, 3, growx = 1)
-
-	rc = g.runOnce()
-
-        button = bb.buttonPressed(rc)
-        
-        if button == string.lower (_("Back")):
-            return INSTALL_BACK
-
-	todo.setTimezoneInfo(l.current(), asUtc = c.selected())
-
-	return INSTALL_OK
 
 class Flag:
     """a quick mutable boolean class"""

@@ -116,7 +116,7 @@ class LiloWindow (InstallWindow):
 	self.images = self.todo.getLiloImages()
         self.ignoreSignals = 0
 
-        if '/' not in self.todo.mounts.keys (): return None
+	if self.todo.fstab.mountList()[0][0] != '/': return None
 	(bootpart, boothd) = self.todo.getLiloOptions()
             
         format = "/dev/%s"

@@ -1340,7 +1340,7 @@ class ToDo:
         if not self.upgrade:
 	    self.createCdrom()
 	    self.copyExtraModules()
-	    self.findFdDevice()
+	    self.setFdDevice()
             self.fstab.write (self.instPath, fdDevice = self.fdDevice)
             self.writeConfiguration ()
             self.writeDesktop ()

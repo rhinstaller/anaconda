@@ -61,15 +61,16 @@ class PartitionWindow (InstallWindow):
 
     def getNext (self):
 	self.todo.fstab.runDruidFinished()
-        
-	if not self.skippedScreen:
-	    win = self.todo.ddruid.getConfirm ()
-	    if win:
-		bin = GtkFrame (None, _obj = win)
-		bin.set_shadow_type (SHADOW_NONE)
-		window = ConfirmPartitionWindow
-		window.window = bin
-		return window
+
+        # FIXME
+	#if not self.skippedScreen:
+	    #win = self.todo.ddruid.getConfirm ()
+	    #if win:
+		#bin = GtkFrame (None, _obj = win)
+		#bin.set_shadow_type (SHADOW_NONE)
+		#window = ConfirmPartitionWindow
+		#window.window = bin
+		#return window
 
 	bootPartition = None
 	rootPartition = None
@@ -83,6 +84,13 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
+	if not self.todo.fstab:
+	    from fstab import GuiFstab
+
+	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
+				       self.todo.serial, 0, 0,
+				       self.todo.intf.waitWindow)
+
 	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
 	    fstab = self.todo.ddruid.getFstab ()
@@ -126,6 +134,8 @@ class AutoPartitionWindow(InstallWindow):
     def getScreen (self):   
         from gnomepyfsedit import fsedit
         from installpath import InstallPathWindow
+
+	return None
 
         if (InstallPathWindow.fdisk and
             InstallPathWindow.fdisk.get_active ()):

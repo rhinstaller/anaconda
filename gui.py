@@ -476,8 +476,6 @@ class InstallControlWindow (Thread):
         Thread.__init__ (self)
         self.ii = ii
         self.todo = todo
-	self.todo.fstab = GuiFstab(todo.setupFilesystems, todo.serial, 0, 0,
-				   todo.intf.waitWindow)
         self.steps = steps
         if os.environ.has_key ("LC_ALL"):
             self.locale = os.environ["LC_ALL"][:2]
@@ -601,7 +599,6 @@ class InstallControlWindow (Thread):
 
         self.mutex.acquire ()
         
-
 class InstallControlState:
     def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):

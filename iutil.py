@@ -1,5 +1,5 @@
 
-import types, os, sys, isys, select, string
+import types, os, sys, isys, select, string, stat
 
 def getArch ():
     arch = os.uname ()[4]
@@ -168,3 +168,42 @@ def getDefaultRunlevel ():
             return fields[1]
 
     return None
+
+def makerelname(relpath, filename):
+    if relpath != '':
+        return relpath+'/'+filename
+    else:
+        return filename
+    
+    
+def findtz(basepath, relpath):
+    tzdata = []
+    for n in os.listdir(basepath+'/'+relpath):
+        timezone = makerelname(relpath, n)
+        if relpath != '':
+            timezone = relpath+'/'+n
+        else:
+            timezone = n
+            
+        filestat = os.lstat(basepath+'/'+timezone)
+        [filemode] = filestat[:1]
+        
+        if (not (stat.S_ISLNK(filemode) or
+                 stat.S_ISREG(filemode) or
+                 stat.S_ISDIR(filemode))):
+            continue
+        elif n[:1] >= 'A' and n[:1] <= 'Z':
+            if stat.S_ISDIR(filemode):
+                tmptzdata = findtz(basepath, timezone)
+            else:
+                tmptzdata = [timezone]
+                    
+        for m in tmptzdata:
+            if tzdata == []:
+                tzdata = [m]
+            else:
+                tzdata.append(m)
+
+        tzdata.sort()
+                            
+    return tzdata
