@@ -1292,6 +1292,10 @@ class PartitionWindow(InstallWindow):
         self.numCols = len(titles)
         self.tree = GtkCTree (self.numCols, 0, titles)
         self.tree.set_selection_mode (SELECTION_BROWSE)
+        self.tree.column_titles_passive()
+        for i in range(self.numCols):
+            self.tree.set_column_resizeable(i, 0)
+            
         self.tree.set_column_justification(1, JUSTIFY_RIGHT)
         self.tree.set_column_justification(2, JUSTIFY_RIGHT)
         self.tree.set_column_justification(3, JUSTIFY_RIGHT)
