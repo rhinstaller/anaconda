@@ -1,5 +1,7 @@
 import isys
 from installclass import InstallClass
+from installclass import FSEDIT_CLEAR_LINUX
+from installclass import FSEDIT_CLEAR_ALL
 import getopt
 import sys
 
@@ -121,6 +123,7 @@ class Kickstart(InstallClass):
 	handlers = { 
 		     "authconfig"	: self.doAuthconfig	,
 		     "cdrom"		: None			,
+		     "clearpart"	: self.doClearPart	,
 		     "install"		: self.doInstall	,
 		     "network"		: self.doNetwork	,
 		     "lilo"		: self.doLilo		,
@@ -141,6 +144,13 @@ class Kickstart(InstallClass):
 
 	    cmd = args[0]
 	    if handlers[cmd]: handlers[cmd](args[1:])
+
+    def doClearPart(self, args):
+	if args[0] == '--linux'
+	    clear = FSEDIT_CLEAR_LINUX
+	elif args[0] == '--all'
+	    clear = FSEDIT_CLEAR_ALL
+	self.setClearPart(clear)
 
     def definePartition(self, args):
 	# we just set up the desired partitions -- magic in our base class 

@@ -4,6 +4,10 @@
 # The interface to InstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 
+FSEDIT_CLEAR_LINUX  = (1 << 0)
+FSEDIT_CLEAR_ALL    = (1 << 2)
+FSEDIT_USE_EXISTING = (1 << 3)
+
 class InstallClass:
 
     # ummm, HACK
@@ -23,7 +27,7 @@ class InstallClass:
 	    attempt.append((mntpoint, size, type, grow, -1))
 
 	try:
-	    ddruid.attempt (attempt, "Junk Argument", 0)
+	    ddruid.attempt (attempt, "Junk Argument", self.createParts)
 	    return 1
 	except:
 	    # life's a female dog <shrug> -- we should log something though
@@ -42,6 +46,9 @@ class InstallClass:
 	["mbr", "partition", "none"].index(location)
 
 	self.lilo = (location, linear, appendLine)
+
+    def setClearPart(self, clear):
+	self.clearPart = clear
 
     def getLiloInformation(self):
 	return self.lilo
@@ -122,6 +129,7 @@ class InstallClass:
 	self.nameserver = ""
 	self.partitions = []
 	self.skipPartitioning = 0
+	self.clearPart = 0
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
