@@ -37,4 +37,9 @@ gzip -9 < $INITRD > $INITRD.new
 cp $INITRD.new $MNTPOINT/initrd.img
 umount $MNTPOINT
 
+if [ -n "$3" -a -f "$3" ]; then
+    echo "Replacing $3"
+    cp -f $INITRD.new $3
+fi
+
 rm -rf $MNTPOINT $LOOPMNT $INITRD $INITRD.new
