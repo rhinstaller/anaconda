@@ -89,8 +89,8 @@ findPackage() {
     dir=$1
     name=$2
     
-    for n in $dir/$name*; do
-	thisName=$(rpm --qf '%{NAME}' -qp $n.{${BUILDARCH},noarch}.rpm)
+    for n in $dir/$name*{${BUILDARCH},noarch}.rpm; do
+	thisName=$(rpm --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    return
 	fi
