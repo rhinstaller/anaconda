@@ -233,7 +233,7 @@ def partialvgs():
         return []
     
     vgs = []
-    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "vgdisplay", "-C", "-P", "--noheadings", "--units", "b"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
                                     stderr = "/dev/tty6")
     for line in scanout.split("\n"):
