@@ -14,6 +14,8 @@
 #include <wlite_wchar.h>
 #include <wlite_wctype.h>
 
+int __libc_enable_secure = 0;
+
 struct glibc_stat {
     long long st_dev;
     unsigned short int __pad1;
@@ -175,6 +177,11 @@ int wcwidth (wchar_t c) {
 
 size_t mbrtowc (wchar_t *pwc, const char *s, size_t n, void *ps) {
     return wlite_mbrtowc (pwc, s, n, ps);
+}
+
+#define mbstate_t wlite_mbstate_t
+size_t mbsrtowcs(wchar_t *pwc, const char **src, size_t n, mbstate_t *ps) {
+    return wlite_mbsrtowcs (pwc, src, n, ps);
 }
 
 int iswspace (wchar_t c) {
