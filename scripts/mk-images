@@ -180,9 +180,10 @@ intcopymodules () {
     for n in $1; do
 	m=$(findmodule $n)
 	if [ -z "$m" ]; then
-            echo "Module $n not found in kernel rpm"
+            echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
+	    echo $n
 	    if ! cp $m $dir ; then
 		echo "Failed to copy $m to $dir (for module $n)"
 	    fi
@@ -265,7 +266,7 @@ makemoduleball() {
 	   $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
     mkdir -p $MMB_DIR/modules
 
-    intcopymodules "$MMB_MODULESET" $MMB_DIR/modules
+    MMB_MODULESET=$(intcopymodules "$MMB_MODULESET" $MMB_DIR/modules)
 
     pushd $MMB_DIR/modules > /dev/null
 
