@@ -7,9 +7,9 @@ all:	collage
 collage:	collage.o commands.o idmap.o ls.o
 
 install:
-	install -s collage $(DESTDIR)/usr/bin
-	(a=`pwd`; cd $(DESTDIR)/usr/bin; ./collage | 	\
-		$$a/mkcollagelinks collage)
+	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
+	install -s collage $(DESTDIR)/$(RUNTIMEDIR)
+	install mkcollagelinks $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:
 	rm -f collage *.o
