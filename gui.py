@@ -976,7 +976,6 @@ class InstallControlWindow:
             label.set_property("use-underline", gtk.TRUE)
             box.pack_start(label, gtk.TRUE, gtk.TRUE)
             button.add(box)
-            button.connect("clicked", action)
             button.show_all()
             button.label = label
             button.queue_resize()
