@@ -234,14 +234,13 @@ msgid "Creating boot disk..."
 msgstr "Oppretter oppstartsdiskett..."
 
 #: ../fsset.py:141
-#, fuzzy
 msgid "Checking for Bad Blocks"
-msgstr "Sjekk etter dårlige blokker"
+msgstr "Lter etter dårlige blokker"
 
 #: ../fsset.py:142
-#, fuzzy, c-format
+#, c-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Sjekk etter dårlige blokker"
+msgstr "Leter etter dårlige blokker på /dev/%s..."
 
 #: ../fsset.py:654 ../iw/silo_gui.py:168 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -1093,9 +1092,8 @@ msgid ""
 msgstr ""
 
 #: ../partitioning.py:1740
-#, fuzzy
 msgid "Format Warning"
-msgstr "Formaterer"
+msgstr "Formateringsadvarsel"
 
 #: ../iw/account_gui.py:149 ../iw/account_gui.py:160
 #: ../iw/partition_gui.py:481 ../iw/partition_gui.py:823
@@ -1724,7 +1722,6 @@ msgid "Password is too short."
 msgstr "Passordet er for kort."
 
 #: ../iw/bootloaderpassword_gui.py:50
-#, fuzzy
 msgid "Passwords do not match.asdfasdfdsafasdfdf"
 msgstr "Passordene er ikke like."
 
@@ -2186,9 +2183,8 @@ msgid "Partitioning Warnings"
 msgstr "Advarsler fra partisjonering"
 
 #: ../iw/partition_gui.py:574
-#, fuzzy
 msgid "Format Warnings"
-msgstr "Formater som:"
+msgstr "Formateringsadvarsler"
 
 #: ../iw/partition_gui.py:627 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:100
