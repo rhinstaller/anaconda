@@ -549,6 +549,7 @@ class ComponentSet:
                             list.append(expression)
                         else:
                             self.expressions[packages[l]] = [ expression ]
+                        comp.addPackageWithExpression (expression, packages[l])
                     else:
                         # if this package is listed anywhere without an
                         # expression, it can go in Everything.
