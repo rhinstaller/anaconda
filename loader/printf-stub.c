@@ -15,17 +15,10 @@
 #include <string.h>
 #include <ctype.h>
 
-#define ASM_GLOBAL_DIRECTIVE .globl
-#define __SYMBOL_PREFIX
-
 /* Define ALIAS as a strong alias for ORIGINAL.  */
-#define strong_alias(original, alias) \
-  asm (__string_1 (ASM_GLOBAL_DIRECTIVE) " " __SYMBOL_PREFIX #alias "\n" \
-       ".set " __SYMBOL_PREFIX #alias "," __SYMBOL_PREFIX #original);
-
-/* Helper macros used above.  */
-#define __string_1(x) __string_0(x)
-#define __string_0(x) #x
+# define strong_alias(name, aliasname) _strong_alias(name, aliasname)
+# define _strong_alias(name, aliasname) \
+  extern __typeof (name) aliasname __attribute__ ((alias (#name)));
 
 #define do_div(n,base) ({ \
 	int __res; \
