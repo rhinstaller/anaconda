@@ -83,8 +83,8 @@ class BootloaderWindow (InstallWindow):
     # get the bootloader password
     def passwordWindow(self, *args):
         dialog = gtk.Dialog(_("Enter Boot Loader Password"), self.parent)
-        dialog.add_button('gtk-ok', 1)
         dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
         
