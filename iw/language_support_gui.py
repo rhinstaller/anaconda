@@ -142,6 +142,7 @@ class LanguageSupportWindow (InstallWindow):
             self.origLangs.append(self.defaultLang)
         
         vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox.set_border_width(5)
         hbox = gtk.HBox (gtk.FALSE)
         
         self.combo = gtk.Combo ()
@@ -164,7 +165,7 @@ class LanguageSupportWindow (InstallWindow):
         label.set_size_request(400, -1)
         vbox.pack_start (label, gtk.FALSE)
         
-        hbox = gtk.HBox (gtk.FALSE)
+        hbox = gtk.HBox (gtk.FALSE, 5)
 
         # langs we want to support
         self.languageList = checklist.CheckList(1)
@@ -198,7 +199,6 @@ class LanguageSupportWindow (InstallWindow):
         self.combo.entry.set_property("editable", gtk.FALSE)
 
         sw = gtk.ScrolledWindow ()
-        sw.set_border_width (5)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add (self.languageList)
         sw.set_shadow_type(gtk.SHADOW_IN)
