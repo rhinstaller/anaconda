@@ -247,7 +247,8 @@ class PartitionEditor:
 	self.dialog = None
 
 
-    def __init__(self, partitions, diskset, intf, parent, origrequest, isNew = 0):
+    def __init__(self, partitions, diskset, intf, parent, origrequest,
+                 isNew = 0, restrictfs = None):
 	self.partitions = partitions
 	self.diskset = diskset
 	self.origrequest = origrequest
@@ -293,7 +294,8 @@ class PartitionEditor:
 
             (self.newfstype, self.newfstypeMenu) = createFSTypeMenu(self.origrequest.fstype,
                                                           fstypechangeCB,
-                                                          self.mountCombo)
+                                                          self.mountCombo,
+                                                          availablefstypes = restrictfs)
 	    lbl.set_mnemonic_widget(self.newfstype)
             maintable.attach(self.newfstype, 1, 2, row, row + 1)
         else:

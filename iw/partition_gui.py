@@ -1082,13 +1082,14 @@ class PartitionWindow(InstallWindow):
 	raideditor.destroy()		
 
 
-    def editPartitionRequest(self, origrequest, isNew = 0):
+    def editPartitionRequest(self, origrequest, isNew = 0, restrictfs = None):
 	parteditor = partition_dialog_gui.PartitionEditor(self.partitions,
 							  self.diskset,
 							  self.intf,
 							  self.parent,
 							  origrequest,
-							  isNew)
+							  isNew = isNew,
+                                                          restrictfs = restrictfs)
 
 	while 1:
 	    request = parteditor.run()
@@ -1297,7 +1298,7 @@ class PartitionWindow(InstallWindow):
 	# see which option they choose
 	if createRAIDpart.get_active():
 	    rdrequest = NewPartitionSpec(fileSystemTypeGet("software RAID"), size = 100)
-	    rc = self.editPartitionRequest(rdrequest, isNew = 1)
+	    rc = self.editPartitionRequest(rdrequest, isNew = 1, restrictfs=["software RAID"])
 	elif createRAIDdev.get_active():
 	    self.editRaidRequest(request, isNew=1)
 	else:
