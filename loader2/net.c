@@ -413,8 +413,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 #else /* s390 now */
    char * env;
-   /* quick and dirty hack by opaukstadt@millenux.com for s390 */
-   /* ctc stores remoteip in broadcast-field until pump.h is changed */
    memset(&newCfg, 0, sizeof(newCfg));
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
