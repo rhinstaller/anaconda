@@ -1,3 +1,8 @@
+2005-02-08  Paul Nasrat <pnasrat@redhat.com>
+
+	* findpackageset.py:
+	Don't use rpm.archscore as iseries upgrades don't work (#146915)
+
 2005-01-25  Chris Lumens  <clumens@redhat.com>
 
 	* autopart.py (growLogicalVolumes):  Properly grow logical partitions
