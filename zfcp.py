@@ -104,6 +104,10 @@ class ZFCP:
         for dev in self.fcpdevices:
             f.write("%s %s %s %s %s\n" % (dev[0], dev[1], dev[2], dev[3], dev[4],))
         f.close()
+        fn = "%s/etc/modprobe.conf" % (instpath,)
+        f = open(fn, "w")
+        f.write("alias scsi_hostadapter zfcp")
+        f.close()
 
     def writeKS(self,fcpdevices):
         # FIXME KH not implemented yet
