@@ -945,12 +945,13 @@ class ToDo:
         inittab = open (self.instPath + '/etc/inittab', 'r')
         lines = inittab.readlines ()
         inittab.close ()
+        inittab = open (self.instPath + '/etc/inittab', 'w')        
         for line in lines:
             if len (line) > 3 and line[:3] == "id:":
-                line[4] = str (self.initlevel)
-                break
-        inittab = open (self.instPath + '/etc/inittab', 'w')
-        inittab.write (string.join (lines), '\n')
+                fields = string.split (line, ':')
+                fields[1] = str (self.initlevel)
+                line = string.join (fields, ':')
+            inittab.write (line)
         inittab.close ()
 
     def doInstall(self):
