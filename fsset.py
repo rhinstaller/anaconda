@@ -96,7 +96,7 @@ class LabelFactory:
         if self.labels == None:
 
             self.labels = {}
-            diskset = partitioning.DiskSet()            
+            diskset = partedUtils.DiskSet()            
             diskset.openDevices()
             diskset.stopAllRaid()
             diskset.startAllRaid()
@@ -1583,7 +1583,7 @@ def readFstab (path):
     # first, we look at all the disks on the systems and get any ext2/3
     # labels off of the filesystem.
     # temporary, to get the labels
-    diskset = partitioning.DiskSet()
+    diskset = partedUtils.DiskSet()
     diskset.openDevices()
     labels = diskset.getLabels()
 

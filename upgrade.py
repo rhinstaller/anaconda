@@ -20,6 +20,7 @@ import time
 import rpm
 import sys
 import os.path
+import partedUtils
 from flags import flags
 from fsset import *
 from partitioning import *
@@ -36,7 +37,7 @@ def findRootParts(intf, id, dir, chroot):
 def findExistingRoots(intf, id, chroot):
     if not flags.setupFilesystems: return [(chroot, 'ext2')]
 
-    diskset = DiskSet()
+    diskset = partedUtils.DiskSet()
     diskset.openDevices()
     
     win = intf.waitWindow(_("Searching"),
@@ -51,7 +52,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 		       raiseErrors = 0):
     (root, rootFs) = rootInfo
 
-    diskset = DiskSet()
+    diskset = partedUtils.DiskSet()
     diskset.openDevices()
     diskset.startAllRaid()
 

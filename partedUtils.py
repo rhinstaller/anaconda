@@ -17,9 +17,14 @@
 """Helper functions for use when dealing with parted objects."""
 
 import parted
-import fsset
 import math
+import os, sys, string
 
+import fsset
+import iutil, isys
+import raid
+from log import log
+from flags import flags
 from partErrors import *
 from translate import _
 
@@ -194,6 +199,474 @@ def get_lvm_partitions(disk):
     func = lambda part: (part.is_active()
                          and part.get_flag(parted.PARTITION_LVM) == 1)
     return filter_partitions(disk, func)
+
+
+def getDefaultDiskType():
+    """Get the default partition table type for this architecture."""
+    if iutil.getArch() == "i386":
+        return parted.disk_type_get("msdos")
+    elif iutil.getArch() == "ia64":
+        return parted.disk_type_get("GPT")
+    elif iutil.getArch() == "s390":
+        return parted.disk_type_get("dasd")
+    else:
+        # XXX fix me for alpha at least
+        return parted.disk_type_get("msdos")
+
+archLabels = {'i386': ['msdos'],
+              'alpha': ['bsd'],
+              's390': ['dasd'],
+              'ia64': ['msdos', 'GPT']}
+
+def checkDiskLabel(disk, intf):
+    """Check that the disk label on disk is valid for this machine type."""
+    arch = iutil.getArch()
+    if arch in archLabels.keys():
+        if disk.type.name in archLabels[arch]:
+            return 0
+    else:
+        if disk.type.name == "msdos":
+            return 0
+
+    if intf:
+        rc = intf.messageWindow(_("Warning"),
+                       _("The partition table on device /dev/%s is of an "
+                         "unexpected type %s for your architecture.  To "
+                         "use this disk for installation of Red Hat Linux, "
+                         "it must be re-initialized causing the loss of "
+                         "ALL DATA on this drive.\n\n"
+                         "Would you like to initialize this drive?")
+                       % (disk.dev.path[5:], disk.type.name), type = "yesno")
+        if rc == 0:
+            return 1
+        else:
+            return -1
+    else:
+        return 1
+
+class DiskSet:
+    """The disks in the system."""
+
+    skippedDisks = []
+    mdList = []
+    def __init__ (self):
+        self.disks = {}
+
+    def startAllRaid(self):
+        """Start all of the raid devices associated with the DiskSet."""
+        driveList = []
+        origDriveList = self.driveList()
+        for drive in origDriveList:
+            if not drive in DiskSet.skippedDisks:
+                driveList.append(drive)
+        DiskSet.mdList.extend(raid.startAllRaid(driveList))
+
+    def stopAllRaid(self):
+        """Stop all of the raid devices associated with the DiskSet."""
+        raid.stopAllRaid(DiskSet.mdList)
+        while DiskSet.mdList:
+            DiskSet.mdList.pop()
+
+    def getLabels(self):
+        """Return a list of all of the labels used on partitions."""
+        labels = {}
+        
+        drives = self.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            disk = self.disks[drive]
+            func = lambda part: (part.is_active() and
+                                 not (part.get_flag(parted.PARTITION_RAID)
+                                      or part.get_flag(parted.PARTITION_LVM))
+                                 and part.fs_type
+                                 and (part.fs_type.name == "ext2"
+                                      or part.fs_type.name == "ext3"))
+            parts = filter_partitions(disk, func)
+            for part in parts:
+                node = get_partition_name(part)
+                label = isys.readExt2Label(node)
+                if label:
+                    labels[node] = label
+
+        for dev, devices, level, numActive in DiskSet.mdList:
+            label = isys.readExt2Label(dev)
+            if label:
+                labels[dev] = label
+
+        return labels
+
+    def findExistingRootPartitions(self, intf, mountpoint):
+        """Return a list of all of the partitions which look like a root fs."""
+        rootparts = []
+
+        self.startAllRaid()
+
+        for dev, devices, level, numActive in self.mdList:
+            (errno, msg) = (None, None)
+            found = 0
+            for fs in fsset.getFStoTry(dev):
+                try:
+                    isys.mount(dev, mountpoint, fs, readOnly = 1)
+                    found = 1
+                    break
+                except SystemError, (errno, msg):
+                    pass
+
+            if not found:
+                intf.messageWindow(_("Error"),
+                                   _("Error mounting filesystem "
+                                     "on %s: %s") % (dev, msg))
+                continue
+
+            if os.access (mountpoint + '/etc/fstab', os.R_OK):
+                rootparts.append ((dev, fs))
+            isys.umount(mountpoint)
+
+        self.stopAllRaid()
+
+        drives = self.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            disk = self.disks[drive]
+            part = disk.next_partition ()
+            while part:
+                if (part.is_active()
+                    and (part.get_flag(parted.PARTITION_RAID)
+                         or part.get_flag(parted.PARTITION_LVM))):
+                    # skip RAID and LVM partitions.
+                    # XXX check for raid superblocks on non-autoraid partitions
+                    #  (#32562)
+                    pass
+                elif part.fs_type and part.fs_type.name in fsset.getUsableLinuxFs():
+                    node = get_partition_name(part)
+		    try:
+			isys.mount(node, mountpoint, part.fs_type.name)
+		    except SystemError, (errno, msg):
+			intf.messageWindow(_("Error"),
+                                           _("Error mounting filesystem on "
+                                             "%s: %s") % (node, msg))
+                        part = disk.next_partition(part)
+			continue
+		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
+			rootparts.append ((node, part.fs_type.name))
+		    isys.umount(mountpoint)
+                elif part.fs_type and (part.fs_type.name == "FAT"):
+                    node = get_partition_name(part)
+                    try:
+                        isys.mount(node, mountpoint, fstype = "vfat",
+                                   readOnly = 1)
+                    except:
+			log("failed to mount vfat filesystem on %s\n" 
+                            % node)
+                        part = disk.next_partition(part)
+			continue
+                        
+		    if os.access(mountpoint + '/redhat.img', os.R_OK):
+                        rootparts.append((node, "vfat"))
+
+		    isys.umount(mountpoint)
+                    
+                part = disk.next_partition(part)
+        return rootparts
+
+    def driveList (self):
+        """Return the list of drives on the system."""
+	drives = isys.hardDriveDict().keys()
+	drives.sort (isys.compareDrives)
+	return drives
+
+    def drivesByName (self):
+        """Return a dictionary of the drives on the system."""
+	return isys.hardDriveDict()
+
+    def addPartition (self, device, type, spec):
+        """Add a new partition to the device. - UNUSED."""
+        if not self.disks.has_key (device):
+            raise PartitioningError, ("unknown device passed to "
+                                      "addPartition: %s" % (device,))
+        disk = self.disks[device]
+
+        part = disk.next_partition ()
+        status = 0
+        while part:
+            if (part.type == parted.PARTITION_FREESPACE
+                and part.geom.length >= spec.size):
+                newp = disk.partition_new (type, spec.fs_type,
+                                           part.geom.start,
+                                           part.geom.start + spec.size)
+                constraint = disk.constraint_any ()
+                try:
+                    disk.add_partition (newp, constraint)
+                    status = 1
+                    break
+                except parted.error, msg:
+                    raise PartitioningError, msg
+            part = disk.next_partition (part)
+        if not status:
+            raise PartitioningError, ("Not enough free space on %s to create "
+                                      "new partition" % (device,))
+        return newp
+    
+    def deleteAllPartitions (self):
+        """Delete all partitions from all disks. - UNUSED."""
+        for disk in self.disks.values():
+            disk.delete_all ()
+
+    def savePartitions (self):
+        """Write the partition tables out to the disks."""
+        for disk in self.disks.values():
+            disk.write()
+            del disk
+        self.refreshDevices()
+
+    def refreshDevices (self, intf = None, initAll = 0, zeroMbr = 0):
+        """Reread the state of the disks as they are on disk."""
+        self.disks = {}
+        self.openDevices(intf, initAll, zeroMbr)
+
+    def closeDevices (self):
+        """Close all of the disks which are open."""
+        for disk in self.disks.keys():
+            del self.disks[disk]
+
+    def dasdFmt (self, intf = None, drive = None):
+        "Format dasd devices (s390)."""
+        w = intf.progressWindow (_("Initializing"),
+                             _("Please wait while formatting drive %s...\n"
+                               ) % (drive,), 100)
+        try:
+            isys.makeDevInode(drive, '/tmp/' + drive)
+        except:
+            pass
+
+        argList = [ "/sbin/dasdfmt",
+                    "-y",
+                    "-b", "4096",
+                    "-d", "cdl",
+                    "-P",
+                    "-f",
+                    "/tmp/%s" % drive]
+        
+        fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
+        p = os.pipe()
+        childpid = os.fork()
+        if not childpid:
+            os.close(p[0])
+            os.dup2(p[1], 1)
+            os.dup2(fd, 2)
+            os.close(p[1])
+            os.close(fd)
+            os.execv(argList[0], argList)
+            log("failed to exec %s", argList)
+            sys.exit(1)
+			    
+        os.close(p[1])
+
+        num = ''
+        sync = 0
+        s = 'a'
+        while s:
+            try:
+                s = os.read(p[0], 1)
+                os.write(fd, s)
+
+                if s != '\n':
+                    try:
+                        num = num + s
+                    except:
+                        pass
+                else:
+                    if num:
+                        val = string.split(num)
+                        if (val[0] == 'cyl'):
+                            # printf("cyl %5d of %5d |  %3d%%\n",
+                            val = int(val[5][:-1])
+                            w and w.set(val)
+                            # sync every 10%
+                            if sync + 10 <= val:
+                                isys.sync()
+                                sync = val
+                    num = ''
+            except OSError, args:
+                (errno, str) = args
+                if (errno != 4):
+                    raise IOError, args
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError, (num, msg):
+            print __name__, "waitpid:", msg
+            
+        os.close(fd)
+
+        w and w.pop()
+        
+        isys.flushDriveDict()
+            
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return 0
+
+        return 1
+
+    def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
+        """Open the disks on the system and skip unopenable devices."""
+        if self.disks:
+            return
+        for drive in self.driveList ():
+            if drive in DiskSet.skippedDisks and not initAll:
+                continue
+            deviceFile = isys.makeDevInode(drive)
+            if isys.driveIsRemovable(drive) and not flags.expert:
+                DiskSet.skippedDisks.append(drive)
+                continue
+            try:
+                dev = parted.PedDevice.get (deviceFile)
+            except parted.error, msg:
+                DiskSet.skippedDisks.append(drive)
+                continue
+            if initAll and not flags.test:
+                try:
+                    dev.disk_create(getDefaultDiskType())
+                    disk = parted.PedDisk.open(dev)
+                    self.disks[drive] = disk
+                except parted.error, msg:
+                    DiskSet.skippedDisks.append(drive)
+                continue
+                
+            try:
+                disk = parted.PedDisk.open(dev)
+                self.disks[drive] = disk
+            except parted.error, msg:
+                recreate = 0
+                if zeroMbr:
+                    log("zeroMBR was set and invalid partition table found "
+                        "on %s" % (dev.path[5:]))
+                    recreate = 1
+                elif not intf:
+                    DiskSet.skippedDisks.append(drive)
+                    continue
+                else:
+                    rc = intf.messageWindow(_("Warning"),
+                             _("The partition table on device %s was unreadable. "
+                               "To create new partitions it must be initialized, "
+                               "causing the loss of ALL DATA on this drive.\n\n"
+                               "Would you like to initialize this drive?")
+                                           % (drive,), type = "yesno")
+                    if rc == 0:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
+                    else:
+                        recreate = 1
+
+                if recreate == 1 and not flags.test:
+                    if iutil.getArch() == "s390":
+                        if (self.dasdFmt(intf, drive)):
+                            DiskSet.skippedDisks.append(drive)
+                            continue
+                    else:                    
+                        try:
+                            dev.disk_create(getDefaultDiskType())
+                        except parted.error, msg:
+                            DiskSet.skippedDisks.append(drive)
+                            continue
+                    try:
+                        disk = parted.PedDisk.open(dev)
+                        self.disks[drive] = disk
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
+
+            # check that their partition table is valid for their architecture
+            ret = checkDiskLabel(disk, intf)
+            if ret == 1:
+                DiskSet.skippedDisks.append(drive)
+                continue
+            elif ret == -1:
+                if iutil.getArch() == "s390":
+                    if (self.dasdFmt(intf, drive)):
+                        DiskSet.skippedDisks.append(drive)
+                        continue                    
+                else:
+                    try:
+                        dev.disk_create(getDefaultDiskType())
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
+                try:
+                    disk = parted.PedDisk.open(dev)
+                    self.disks[drive] = disk
+                except parted.error, msg:
+                    DiskSet.skippedDisks.append(drive)
+                    continue
+
+    def partitionTypes (self):
+        """Return list of (partition, partition type) tuples for all parts."""
+        rc = []
+        drives = self.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            disk = self.disks[drive]
+            part = disk.next_partition ()
+            while part:
+                if part.type in (parted.PARTITION_PRIMARY,
+                                 parted.PARTITION_LOGICAL):
+                    device = get_partition_name(part)
+                    if part.fs_type:
+                        ptype = part.fs_type.name
+                    else:
+                        ptype = None
+                    rc.append((device, ptype))
+                part = disk.next_partition (part)
+      
+        return rc
+
+    def diskState (self):
+        """Print out current disk state.  DEBUG."""
+        rc = ""
+        for disk in self.disks.values():
+            rc = rc + ("%s: %s length %ld, maximum "
+                       "primary partitions: %d\n" %
+                       (disk.dev.path,
+                        disk.dev.model,
+                        disk.dev.length,
+                        disk.max_primary_partition_count))
+
+            part = disk.next_partition()
+            if part:
+                rc = rc + ("Device    Type         Filesystem   Start      "
+                           "End        Length        Flags\n")
+                rc = rc + ("------    ----         ----------   -----      "
+                           "---        ------        -----\n")
+            while part:
+                if not part.type & parted.PARTITION_METADATA:
+                    device = ""
+                    fs_type_name = ""
+                    if part.num > 0:
+                        device = get_partition_name(part)
+                    if part.fs_type:
+                        fs_type_name = part.fs_type.name
+                    partFlags = get_flags (part)
+                    rc = rc + ("%-9s %-12s %-12s %-10ld %-10ld %-10ld %7s\n"
+                               % (device, part.type_name, fs_type_name,
+                              part.geom.start, part.geom.end, part.geom.length,
+                              partFlags))
+                part = disk.next_partition(part)
+        return rc
+
+    def checkNoDisks(self, intf):
+        """Check that there are valid disk devices."""
+        if len(self.disks.keys()) == 0:
+            intf.messageWindow(_("No Drives Found"),
+                               _("An error has occurred - no valid devices were "
+                                 "found on which to create new filesystems. "
+                                 "Please check your hardware for the cause "
+                                 "of this problem."))
+            sys.exit(0)
+
+    
 
 
 

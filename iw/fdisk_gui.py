@@ -29,7 +29,7 @@ class FDiskWindow (InstallWindow):
     def getNext(self):
         # reread partitions
         self.diskset.refreshDevices(self.intf)
-        partitioning.checkNoDisks(self.diskset, self.intf)
+        self.diskset.checkNoDisks(self.intf)
         self.partrequests.setFromDisk(self.diskset)
 
         return None

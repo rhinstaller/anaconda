@@ -66,7 +66,7 @@ class fdiskPartitionWindow:
 
 
         diskset.refreshDevices(intf)
-        partitioning.checkNoDisks(diskset, intf)
+        diskset.checkNoDisks(intf)
         partrequests.setFromDisk(diskset)
 
         if button == TEXT_BACK_CHECK:

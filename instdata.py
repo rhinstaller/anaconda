@@ -23,6 +23,7 @@ import users
 import fsset
 import bootloader
 import partitioning
+import partedUtils
 from flags import *
 
 from simpleconfig import SimpleConfigFile
@@ -62,7 +63,7 @@ class InstallData:
 	self.upgrade = Boolean()
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
-        self.diskset = partitioning.DiskSet()
+        self.diskset = partedUtils.DiskSet()
         self.partitions = partitioning.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
