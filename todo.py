@@ -718,7 +718,7 @@ class ToDo:
         fstab = {}
         for line in lines:
             fields = string.split (line)
-            if fstab[2] == "ext2" or fstab[2] == "swap":
+            if fields and fields[2] == "ext2" or fields[2] == "swap":
                 fstab[fields[0][4:]] = (fields[1], fields[2], 0)
 
     def upgradeFindPackages (self, root):
