@@ -813,7 +813,8 @@ class ToDo:
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
 
-        del db
+        if self.upgrade:
+            del db
         del ts
         self.fstab.umountFilesystems (self.instPath)            
         return rc
