@@ -26,8 +26,8 @@ def vgscan():
     if flags.test:
         return
 
-    rc = iutil.execWithRedirect("/usr/sbin/vgscan",
-                                ["/usr/sbin/vgscan", "-v"],
+    rc = iutil.execWithRedirect("vgscan",
+                                ["vgscan", "-v"],
                                 stdout = output,
                                 stderr = output,
                                 searchPath = 1)
@@ -42,7 +42,7 @@ def vgactivate(volgroup = None):
     if flags.test:
         return
 
-    args = ["/usr/sbin/vgchange", "-ay", "-An"]
+    args = ["vgchange", "-ay", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -60,7 +60,7 @@ def vgdeactivate(volgroup = None):
     if flags.test:
         return
 
-    args = ["/usr/sbin/vgchange", "-an", "-An"]
+    args = ["vgchange", "-an", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -80,7 +80,7 @@ def lvremove(lvname, vgname):
     if flags.test:
         return
 
-    args = ["/usr/sbin/lvremove", "-f", "-An"]
+    args = ["lvremove", "-f", "-An"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
@@ -107,7 +107,7 @@ def vgremove(vgname):
     except:
         pass
 
-    args = ["/usr/sbin/vgremove", vgname]
+    args = ["vgremove", vgname]
 
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
