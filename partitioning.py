@@ -1404,6 +1404,9 @@ class DiskSet:
         if rc:
             intf.messageWindow( _("Error"),
                                 _("An error occured while running dasdfmt on drive %s.") % (drive))
+        else:
+            isys.flushDriveDict()
+            
         return rc
 
     def openDevices (self, intf = None, initAll = 0):
