@@ -11,11 +11,12 @@ struct intfInfo {
     int isPtp, isUp;
     int set, manuallySet;
     struct in_addr ip, netmask, broadcast, network;
-    struct in_addr bootServer;
+    struct in_addr bootServer, gateway;
     char * bootFile;
     int bootProto;
 };
 
 int configureNetDevice(struct intfInfo * intf);
+int addDefaultRoute(struct intfInfo * net);
 
 #endif /* _INET_H_ */
