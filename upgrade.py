@@ -96,7 +96,7 @@ def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
 
     if not allowDirty and theFstab.hasDirtyFilesystems():
         import sys
-	intf.messageWindow(("Dirty Filesystems"),
+	intf.messageWindow(_("Dirty Filesystems"),
 	    _("One or more of the filesystems for your Linux system "
 	      "was not unmounted cleanly. Please boot your Linux "
 	      "installation, let the filesystems be checked, and "
