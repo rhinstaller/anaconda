@@ -92,14 +92,20 @@ class UrlInstallMethod(InstallMethod):
 	    log("Comps not in update dirs, using %s",fname)
         return groupSetFromCompsFile(fname, hdlist)
 
-    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1,
+                    disc = 1):
 
 	if destdir is None:
 	    tmppath = self.getTempPath()
 	else:
 	    tmppath = destdir
+
+        if self.multiDiscs:
+            base = "%s/disc%d" %(self.pkgUrl, disc)
+        else:
+            base = self.pkgUrl
         
-	fullPath = self.baseUrl + "/" + filename
+	fullPath = base + "/" + filename
 
 	file = tmppath + "/" + os.path.basename(fullPath)
 
@@ -127,14 +133,9 @@ class UrlInstallMethod(InstallMethod):
 
     def getRPMFilename(self, h, timer, callback=None):
 
-	if self.multiDiscs:
-	    base = "disc%d" % (h[DISCNUM],)
-	else:
-	    base = ""
+	fullPath = "/RedHat/RPMS/" + h[FILENAME]
 
-	fullPath = base + "/RedHat/RPMS/" + h[FILENAME]
-
-	return self.getFilename(fullPath, callback=callback)
+	return self.getFilename(fullPath, callback=callback, disc = h[DISCNUM])
 
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
