@@ -983,6 +983,11 @@ class XF86Config:
         return None
 
     def test (self, serverflags=None, spawn=0):
+        if not self.server:
+#            print "self.server was None, doing nothing in test"
+            return
+
+
         files = self.files
         modes = self.modes
         laptop = self.laptop()
@@ -1044,13 +1049,17 @@ class XF86Config:
 		pass
 
             os.execv(args[0], args)
-	    print "exec failed"
+#	    print "exec failed"
 #	    time.sleep(5)
      	    os.exit (1)
 
 #        time.sleep (10)
 #	print "Here"
+
+#        print "server is", server
 #	time.sleep (5)
+
+
 
         if spawn:
             return server
