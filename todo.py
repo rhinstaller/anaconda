@@ -1170,7 +1170,7 @@ class ToDo:
 		path = "/tmp/ks-script"
 
 	    f = open(path, "w")
-	    f.write("#!/bin/bash\n\n")
+	    f.write("#!/bin/sh\n\n")
 	    f.write(self.instClass.postScript)
 	    f.close()
 
