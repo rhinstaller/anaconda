@@ -70,7 +70,7 @@ static int configureNetDevice(struct intfInfo * intf) {
     memcpy(&ia, &intf->network, sizeof(intf->network));
     strcpy(nw, inet_ntoa(ia));
 
-    printf("configuring %s ip: %s nm: %s nw: %s bc: %s", intf->device,
+    printf("configuring %s ip: %s nm: %s nw: %s bc: %s\n", intf->device,
 	   ip, nm, nw, bc);
 
     s = socket(AF_INET, SOCK_DGRAM, 0);
@@ -123,6 +123,7 @@ static int configureNetDevice(struct intfInfo * intf) {
         return 1;
     }
 
+#if 0 /* kernel 2.0 only */
     memset(&route, 0, sizeof(route));
     route.rt_dev = intf->device;
     route.rt_flags = RTF_UP;
@@ -139,7 +140,8 @@ static int configureNetDevice(struct intfInfo * intf) {
         return 1;
 
     }
-
+#endif
+    
     intf->isUp = 1;
 
     return 0;
