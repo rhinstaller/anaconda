@@ -16,7 +16,7 @@
 import upgrade
 from snack import *
 from constants_text import *
-from text import WaitWindow, OkCancelWindow
+from text import WaitWindow, OkCancelWindow, ProgressWindow
 import sys
 import os
 import isys
@@ -26,6 +26,8 @@ from rhpl.log import log
 from rhpl.translate import _
 
 class RescueInterface:
+    def progressWindow(self, title, text, total):
+        return ProgressWindow(self.screen, title, text, total)
 
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
