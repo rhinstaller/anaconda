@@ -9,6 +9,9 @@
 
 #include "probe.h"
 
+int dac960GetDevices(struct knownDevices * devices);
+static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
+
 static int sortDevices(const void * a, const void * b) {
     const struct kddevice * one = a;
     const struct kddevice * two = b;
@@ -296,6 +299,9 @@ int kdFindScsiList(struct knownDevices * devices) {
 	start = next;
     }
 
+    dac960GetDevices(devices);
+    CompaqSmartArrayGetDevices(devices);
+
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
 
@@ -308,4 +314,87 @@ struct knownDevices kdInit(void) {
     memset(&kd, 0, sizeof(kd));
 
     return kd;
+}
+
+static int dac960GetDevices(struct knownDevices * devices) {
+    const char *filename;
+    char buf[256];
+    char *ptr, *iptr;
+    int numMatches = 0;
+    int numIDIs = 0;
+    FILE* f;
+    struct kddevice newDevice;
+
+    if (!access("/var/log/dmesg", R_OK))
+	filename = "/var/log/dmesg";
+    else
+	filename = "/tmp/syslog";
+
+    if (!(f = fopen(filename, "r"))) {
+	return 1;
+    }
+
+    /* We are looking for lines of this format:
+DAC960#0:     /dev/rd/c0d0: RAID-7, Online, 17928192 blocks, Write Thru
+0123456790123456789012
+    */
+    buf [sizeof(buf) - 1] = '\0';
+    while (fgets(buf, sizeof(buf) - 1, f)) {
+	ptr = strstr (buf, "/dev/rd/");
+	if (ptr) {
+	    iptr = strchr (ptr, ':');
+	    if (iptr) {
+		/* put a NULL at the ':' */
+		*iptr = '\0';
+
+		if (!deviceKnown(devices, ptr + 5)) {
+		    newDevice.name = strdup(ptr + 5);
+		    newDevice.class = CLASS_HD;
+
+		    ptr = iptr;
+		    while (*ptr != ',')
+			ptr++;
+		    *ptr = '\0';
+
+		    newDevice.model = strdup(iptr + 2);
+
+		    addDevice(devices, newDevice);
+		}
+	    }
+	}
+    }
+
+    return 0;
+}
+
+static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
+    struct kddevice newDevice;
+    FILE *f;
+    char buf[256];
+    char *ptr;
+    int numMatches = 0, ctlNum = 0;
+    char ctl[20];
+
+    printf("here\n");
+    
+    sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+		
+    while ((f = fopen(ctl, "r"))){
+	while (fgets(buf, sizeof(buf) - 1, f)) {
+	    if (!strncmp(buf, "ida/", 4)) {
+		ptr = strchr(buf, ':');
+		*ptr = '\0';
+
+		if (!deviceKnown(devices, buf)) {
+		    newDevice.name = strdup(buf);
+		    newDevice.model = strdup("Compaq RAID logical disk");
+		    newDevice.class = CLASS_HD;
+		    addDevice(devices, newDevice);
+		}
+	    }
+	}
+	sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+    }
+    
+    return 0;
 }
