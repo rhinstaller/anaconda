@@ -117,7 +117,7 @@ char *getDasdPorts() {
                 if ((strstr(line, "unknown") != NULL)) {
                         continue;
                 }
-                ret = sscanf (line, "%[A-Za-z0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
+                ret = sscanf (line, "%[A-Za-z.0-9](ECKD) at ( %*d: %*d) is %s : %*s", port, devname);
 		if (ret == 2) {
 			if(!ports) {
 				ports = (char *)malloc(strlen(port) + 1);
