@@ -1194,11 +1194,16 @@ Section "Screen"
 	Subsection "Display"
         	Depth       %s
                 Modes       """ % depth
-            
+
+	    # put in all modes up to selected mode
+	    tmpmodes = self.availableModes()[depth]
+	    tmpmodes.reverse()
+
             modes = xmodes[depth]
             modes.sort (self.areaCompare)
-            for res in modes:
-                screens = screens + '"' + res + '" '
+            for res in tmpmodes:
+		if self.areaCompare(res, modes[0]) > -1:
+		    screens = screens + '"' + res + '" '
             screens = screens + """
 	EndSubsection
 """

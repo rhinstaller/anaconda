@@ -444,9 +444,11 @@ else: # s390 checks
 # startup X server is we're not already running under an X session
 #
 startXServer = 0
+
+
 if display_mode == 'g':
     import xf86config
-    
+
     if not os.environ.has_key('DISPLAY'):
         startXServer = 1
         import xserver
