@@ -258,7 +258,7 @@ class Language (SimpleConfigFile):
     def getSupported (self):
         if self.info["SUPPORTED"]:
             return string.split (self.info["SUPPORTED"], ':')
-        return []
+        return None
 
     def setSupported (self, langlist):
         if langlist:
@@ -429,6 +429,7 @@ class ToDo:
         self.depthState = ""
         self.initState = ""
         self.dhcpState = ""
+
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
