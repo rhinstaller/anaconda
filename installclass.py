@@ -429,7 +429,7 @@ class BaseInstallClass:
         primary = id.videocard.primaryCard()
 
         if card:
-            db = id.videocard.CardsDB()
+            db = id.videocard.cardsDB()
             if db.has_key(card):
                 vcdata = db[card]
                 primary.setCardData(vcdata)
