@@ -260,6 +260,22 @@ for p in $DEST $DESTGR; do
 		gzip -9) > $p/usr/lib/timezones.gz
 done
 
+# always use passive mode for ftp installs
+cd $DEST/usr/lib/python1.5
+patch -p0 <<EOF
+--- ./urllib.py.pasv	Sun Sep 26 16:45:24 1999
++++ ./urllib.py	Sun Sep 26 16:47:56 1999
+@@ -563,6 +563,7 @@
+         self.ftp = ftplib.FTP()
+         self.ftp.connect(self.host, self.port)
+         self.ftp.login(self.user, self.passwd)
++	self.ftp.set_pasv (1)
+         for dir in self.dirs:
+             self.ftp.cwd(dir)
+     def retrfile(self, file, type):
+
+EOF
+
 pythondeps $DEST
 
 for p in $DEST $DESTGR; do
