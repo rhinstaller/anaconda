@@ -258,15 +258,16 @@ class WelcomeWindow:
         return INSTALL_OK
 
 class NetworkWindow:
+    def setsensitive (self):
+        if self.cb.selected ():
+            sense = FLAGS_SET
+        else:
+            sense = FLAGS_RESET
+
+        for n in self.ip, self.nm, self.gw, self.ns:
+            n.setFlags (FLAG_DISABLED, sense)
+
     def __call__(self, screen, todo):
-        def setsensitive (self):
-            if self.cb.selected ():
-                sense = FLAGS_SET
-            else:
-                sense = FLAGS_RESET
-            
-            for n in self.ip, self.nm, self.gw, self.ns:
-                n.setFlags (FLAG_DISABLED, sense)
 
         def calcNM (self):
             ip = self.ip.value ()
@@ -330,7 +331,7 @@ class NetworkWindow:
         self.ns = Entry (16)
         self.ns.set (todo.network.primaryNS)
 
-        self.cb.setCallback (setsensitive, self)
+        self.cb.setCallback (self.setsensitive)
         self.ip.setCallback (calcNM, self)
         self.nm.setCallback (calcGW, self)
 
@@ -346,7 +347,7 @@ class NetworkWindow:
         toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
         toplevel.add (bb, 0, 2, growx = 1)
 
-        setsensitive (self)
+        self.setsensitive ()
 
         while 1:
             result = toplevel.run ()
