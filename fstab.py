@@ -115,7 +115,7 @@ class Fstab:
                 # specified --dontformat 
                 for (mntpoint, (dev, fstype, reformat)) in prefstab:
                     if mntpoint == mount and reformat != 0 and fsystem != fstype:
-                    raise ValueError, "--onpart specified for mount point %s on non-ext2 partition without --dontformat option" % mntpoint
+                        raise ValueError, "--onpart specified for mount point %s on non-ext2 partition without --dontformat option" % mntpoint
 
             return ddruid
         else:
