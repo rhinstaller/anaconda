@@ -168,11 +168,20 @@ class AutoPartitionWindow(InstallWindow):
 	if not self.beingDisplayed: return
 
 	if not self.__dict__.has_key("manuallyPartition"):
+            # if druid wasn't running, must have been in autopartition mode
+            # clear fstab cache so we don't get junk from attempted
+            # autopartitioning
+            clearcache = not self.todo.fstab.getRunDruid()
 	    self.todo.fstab.setRunDruid(1)
+            #print "Rescanning partitions 1 - ", clearcache
+            self.todo.fstab.rescanPartitions(clearcache)
 	    self.todo.instClass.removeFromSkipList("format")
 	elif self.manuallyPartition.get_active():
+            # see comment above about clearing cache
+            clearcache = not self.todo.fstab.getRunDruid()
 	    self.todo.fstab.setRunDruid(1)
-	    self.todo.fstab.rescanPartitions()
+            #print "Rescanning partitions 2 - ", clearcache
+	    self.todo.fstab.rescanPartitions(clearcache)
 	    self.todo.instClass.removeFromSkipList("format")
 	else:
 	    self.todo.fstab.setRunDruid(0)

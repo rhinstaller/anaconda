@@ -123,9 +123,9 @@ class Fstab:
 		fsystem = "ext2"
 	    self.addNewRaidDevice(mntPoint, raidDev, fsystem, level, devices)
 	    
-    def rescanPartitions(self):
+    def rescanPartitions(self, clearFstabCache = 0):
 	if self.ddruid:
-	    self.closeDrives()
+	    self.closeDrives(clearFstabCache)
 
         fstab = []
 	for (mntpoint, dev, fstype, reformat, size) in self.cachedFstab:
@@ -135,9 +135,12 @@ class Fstab:
 				  self.readOnly)
 	del self.cachedFstab
 
-    def closeDrives(self):
+    def closeDrives(self, clearFstabCache = 0):
 	# we expect a rescanPartitions() after this!!!
-	self.cachedFstab = self.mountList(skipExtra = 1)
+        if clearFstabCache:
+            self.cachedFstab = []
+        else:
+	    self.cachedFstab = self.mountList(skipExtra = 1)
 	self.ddruid = None
 
     def setReadonly(self, readOnly):

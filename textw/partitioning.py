@@ -136,8 +136,12 @@ class AutoPartitionWindow:
 	    return INSTALL_BACK
 
         if (choice == 1):
+            # if druid wasn't running, must have been in autopartition mode
+            # clear fstab cache so we don't get junk from attempted
+            # autopartitioning
+            clearcache = not self.todo.fstab.getRunDruid()
 	    todo.fstab.setRunDruid(1)
-	    todo.fstab.rescanPartitions()
+	    todo.fstab.rescanPartitions(clearcache)
 	    todo.instClass.removeFromSkipList("format")
 	else:
 	    todo.fstab.setRunDruid(0)
