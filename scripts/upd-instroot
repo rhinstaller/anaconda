@@ -450,7 +450,7 @@ rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zo
 rm -rf $TZDIR
 
 chown -R root:root $DEST $DESTGR
-chmod -R a+r a-w $DEST $DESTGR
+chmod -R a+rX-w $DEST $DESTGR
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
