@@ -7,6 +7,10 @@ def getConfigFile():
 
     if os.access("custom/anaconda.conf", os.O_RDONLY):
         f = open("custom/anaconda.conf", "r")
+    elif os.access("/tmp/product/anaconda.conf", os.O_RDONLY):
+        f = open("/tmp/product/anaconda.conf", "r")
+    elif os.access("/tmp/updates/anaconda.conf", os.O_RDONLY):
+        f = open("/tmp/updates/anaconda.conf", "r")
     elif os.access("/usr/share/anaconda/custom/anaconda.conf", os.O_RDONLY):
         f = open("/usr/share/anaconda/custom/anaconda.conf", "r")
     elif os.access("anaconda.conf", os.O_RDONLY):
