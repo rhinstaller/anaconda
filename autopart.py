@@ -1374,15 +1374,29 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
 
                             if valid:
                                 req.physicalVolumes.append(r.uniqueID)
+                    # FIXME: this is a hack so that autopartition'd vgs
+                    # can have a unique name
+                    if req.autoname == 1 and req.volumeGroupName == "lvm":
+                        n = lvm.createSuggestedVGName(partitions)
+                        req.volumeGroupName = n
+                        
+                        
             if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
                 # if the volgroup is set to a string, we probably need
                 # to find that volgroup and use it's id
                 if type(req.volumeGroup) == type(""):
-                    r = partitions.getRequestByVolumeGroupName(req.volumeGroup)
+                    r = None
+                    if req.volumeGroup == "lvm":
+                        for p in partitions.requests:
+                            if isinstance(p, partRequests.VolumeGroupRequestSpec) and p.autoname == 1:
+                                r = p
+                                break
+                    else:
+                        r = partitions.getRequestByVolumeGroupName(req.volumeGroup)
                     if r is not None:
                         req.volumeGroup = r.uniqueID
                     else:
-                        raise RuntimeError, "we got screwed"
+                        raise RuntimeError, "Unable to find the volume group for logical volume %s" %(req.logicalVolumeName,)
                         
             partitions.addRequest(req)
 
@@ -1510,12 +1524,11 @@ def autoCreateLVMPartitionRequests(autoreq):
                                     format = 1,
                                     multidrive = 1)
     requests.append(nr)
-    # FIXME: need to make this name change since they could have an existing
-    # VolGroup00
     nr = partRequests.VolumeGroupRequestSpec(fstype = None,
-                                             vgname = "VolGroup00",
+                                             vgname = "lvm",
                                              physvols = [],
                                              format = 1)
+    nr.autoname = 1
     requests.append(nr)
 
     volnum = 0
@@ -1540,7 +1553,7 @@ def autoCreateLVMPartitionRequests(autoreq):
                                                                grow = grow,
                                                                format = format,
                                                                lvname = "LogVol%02d" %(volnum,),
-                                                               volgroup = "VolGroup00")
+                                                               volgroup = "lvm")
             volnum += 1
 
         

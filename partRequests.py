@@ -702,6 +702,10 @@ class VolumeGroupRequestSpec(RequestSpec):
         self.pesize = pesize
         self.preexist = preexist
 
+        # FIXME: this is a hack so that we can set the vg name automagically
+        # with autopartitioning to not conflict with existing vgs
+        self.autoname = 0
+
         if preexist and preexist_size:
             self.preexist_size = preexist_size
         else:

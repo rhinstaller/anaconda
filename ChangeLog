@@ -1,5 +1,11 @@
 2004-10-19  Jeremy Katz  <katzj@redhat.com>
 
+	* autopart.py (doAutoPartition): Don't hard code VG name for
+	auto-partitioned volume groups as VolGroup00 (#134263)
+
+	* partRequests.py (VolumeGroupRequestSpec.__init__): Add autoname
+	hack for autopart + lvm.
+
 	* packages.py (handleX11Packages): Make sure that we don't do a
 	graphical startup if people run out of space and then go back to
 	unselect stuff (#135895)
