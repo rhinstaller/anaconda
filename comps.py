@@ -1,6 +1,7 @@
 import sys
 import rpm
 import os
+from os import environ
 from string import *
 import types
 import iutil
@@ -174,6 +175,48 @@ class ComponentSet:
     def keys(self):
 	return self.compsDict.keys()
 
+    def exprMatch(self, expr, arch1, arch2):
+	if environ.has_key('LANG'):
+	    lang = environ['LANG']
+	else:
+	    lang = None
+
+	if expr[0] != '(':
+	    raise ValueError, "leading ( expected"
+	expr = expr[1:]
+	if expr[len(expr) - 1] != ')':
+	    raise ValueError, "bad kickstart file [missing )]"
+	expr = expr[:len(expr) - 1]
+
+	exprList = split(expr, 'and')
+	truth = 1
+	for expr in exprList:
+	    l = split(expr)
+
+	    if l[0] == "lang":
+		if len(l) != 2:
+		    raise ValueError, "too many arguments for lang"
+		if l[1] != lang:
+		    newTruth = 0
+		newTruth = 1
+	    elif l[0] == "arch":
+		if len(l) != 2:
+		    raise ValueError, "too many arguments for arch"
+		newTruth = self.archMatch(l[1], arch1, arch2)
+	    else:
+		s = "unknown condition type %s" % (l[0],)
+		raise ValueError, s
+
+	    truth = truth and newTruth
+
+	return truth
+
+    # this checks to see if "item" is one of the archs
+    def archMatch(self, item, arch1, arch2):
+	if item == arch1 or (arch2 and item == arch2): 
+	    return 1
+	return 0
+
     def readCompsFile(self, filename, packages):
 	arch = iutil.getArch()
 	arch2 = None
@@ -185,8 +228,8 @@ class ComponentSet:
 	file.close()
 	top = lines[0]
 	lines = lines[1:]
-	if (top != "3\n"):
-	    raise TypeError, "comp file version 3 expected"
+	if (top != "3\n" and top != "4\n"):
+	    raise TypeError, "comp file version 3 or 4 expected"
 	
 	comp = None
         conditional = None
@@ -198,21 +241,26 @@ class ComponentSet:
 
 	    if (find(l, ":") > -1):
 		(archList, l) = split(l, ":", 1)
-		while (l[0] == " "): l = l[1:]
+		if archList[0] == '(':
+		    l = strip(l)
+		    if not self.exprMatch(archList, arch, arch2):
+			continue
+		else:
+		    while (l[0] == " "): l = l[1:]
 
-		skipIfFound = 0
-		if (archList[0] == '!'):
-		    skipIfFound = 1
-		    archList = archList[1:]
-		archList = split(archList)
-		found = 0
-		for n in archList:
-		    if n == arch or (arch2 and n == arch2): 
-			found = 1
-			break
-		if ((found and skipIfFound) or 
-                    (not found and not skipIfFound)):
-		    continue
+		    skipIfFound = 0
+		    if (archList[0] == '!'):
+			skipIfFound = 1
+			archList = archList[1:]
+		    archList = split(archList)
+		    found = 0
+		    for n in archList:
+			if self.archMatch(n, arch, arch2):	
+			    found = 1
+			    break
+		    if ((found and skipIfFound) or 
+			(not found and not skipIfFound)):
+			continue
 
 	    if (find(l, "?") > -1):
                 (trash, cond) = split (l, '?', 1)
@@ -248,6 +296,7 @@ class ComponentSet:
                     if conditional:
                         comp.addConditional (conditional, packages[l])
                     else:
+			print "adding", packages[l]
                         comp.addPackage(packages[l])
                     
         everything = Component("Everything", 0, 0)
