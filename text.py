@@ -926,7 +926,7 @@ class LiloWindow:
 	elif (todo.getLiloLocation == "partition"):
 	    default = bootpart
 	else:
-	    default = None
+	    default = 0
             
         format = "/dev/%-11s %s" 
         locations = []
