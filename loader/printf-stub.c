@@ -377,10 +377,15 @@ int sprintf(char * buf, const char *fmt, ...)
 
 int _IO_vfprintf(FILE *f, const char *fmt, va_list args)
 {
+	int i;
+
 	buf = bigbuf;
 	lim = buf + 1024;
 	xprintf(fmt, args);
-	fputs(buf, f);
+
+	for (i = 0; i < str - buf - 1; i++)
+	    fputc(buf[i], f);
+
 	if (buf != bigbuf)
 		free(buf);
 	return str - buf - 1;
