@@ -322,10 +322,10 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 def doUIRAIDLVMChecks(request):
     fstype = request.fstype
     
-    if fstype and fstype.getName() == "physical volume (LVM)":
-	if request.grow:
-	    return (_("Partitions of type '%s' must be of fixed size, and "
-		     "cannot be marked to fill to use available space.")) % (fstype.getName(),)
+##     if fstype and fstype.getName() == "physical volume (LVM)":
+## 	if request.grow:
+## 	    return (_("Partitions of type '%s' must be of fixed size, and "
+## 		     "cannot be marked to fill to use available space.")) % (fstype.getName(),)
 
     if fstype and fstype.getName() in ["physical volume (LVM)", "software RAID"]:
 	if request.drive is None or len(request.drive) > 1:
