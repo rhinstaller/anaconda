@@ -214,8 +214,10 @@ for n in args:
 	display_mode = 't'
     elif (str == '-x' or str == '--xmode'):
 	xmode = 1
-    elif iutil.getArch() == "s390":
-        logFile = "/tmp/anaconda-s390.log"
+
+# s390s don't have ttys
+if iutil.getArch() == "s390":
+    logFile = "/tmp/anaconda-s390.log"
 
 #
 # must specify install, rescue mode
