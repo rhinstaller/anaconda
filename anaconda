@@ -246,11 +246,12 @@ if (debug):
     import pdb
     pdb.set_trace()
 
-# don't let folks do anything stupid
-if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
-    sys.stderr.write(
-	"You're running me on a live system! that's incredibly stupid.\n")
-    sys.exit(1)
+# let people be stupid
+### don't let folks do anything stupid
+## if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
+##     sys.stderr.write(
+## 	"You're running me on a live system! that's incredibly stupid.\n")
+##     sys.exit(1)
 
 import isys
 import instdata
