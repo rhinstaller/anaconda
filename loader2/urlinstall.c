@@ -177,9 +177,6 @@ char * mountUrlImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
-    /* populate netDev based on any kickstart data */
-    setupNetworkDeviceConfig(&netDev, loaderData, flags);
-
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
         case URL_STAGE_IFACE:
@@ -189,12 +186,17 @@ char * mountUrlImage(struct installMethod * method,
                 ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
 
             devName = loaderData->netDev;
+            strcpy(netDev.dev.device, devName);
             stage = URL_STAGE_IP;
             dir = 1;
             break;
 
         case URL_STAGE_IP:
             logMessage("going to do getNetConfig");
+
+	    /* populate netDev based on any kickstart data */
+	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
+
             rc = readNetConfig(devName, &netDev, flags);
             if (rc) {
                 stage = URL_STAGE_IFACE;

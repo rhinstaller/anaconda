@@ -185,20 +185,39 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
     return LOADER_OK;
 }
 
+void printLoaderDataIPINFO(struct loaderData_s *loaderData) {
+    logMessage("loaderData->ipinfo_set = %d", loaderData->ipinfo_set);
+    logMessage("loaderData->ip         = %s", loaderData->ip);
+    logMessage("loaderData->netmask    = %s", loaderData->netmask);
+    logMessage("loaderData->gateway    = %s", loaderData->gateway);
+    logMessage("loaderData->dns        = %s", loaderData->dns);
+    logMessage("loaderData->hostname   = %s", loaderData->hostname);
+    logMessage("loaderData->noDns      = %d", loaderData->noDns);
+    logMessage("loaderData->netDev_set = %d", loaderData->netDev_set);
+    logMessage("loaderData->netDev     = %s", loaderData->netDev);
+}
+
 /* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
                               struct loaderData_s * loaderData, 
                               int flags) {
     struct in_addr addr;
 
+
     if (loaderData->ipinfo_set == 0) {
         return;
     }
+    
+    /* set to 1 to get ks network struct logged */
+#if 0
+    printLoaderDataIPINFO(loaderData);
+#endif
 
     if (loaderData->ip) {
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
             char * chptr;
+
             /* JKFIXME: this soooo doesn't belong here.  and it needs to
              * be broken out into a function too */
             logMessage("sending dhcp request through device %s", loaderData->netDev);
@@ -261,7 +280,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     char * chptr;
 
     /* JKFIXME: we really need a way to override this and be able to change
-     * our netowrk config */
+     * our network config */
     if (!FL_TESTING(flags) && cfg->preset) {
         logMessage("doing kickstart... setting it up");
         configureNetwork(cfg);
@@ -492,7 +511,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 int configureNetwork(struct networkDeviceConfig * dev) {
 #if !defined(__s390__) && !defined(__s390x__)
-    pumpSetupInterface(&dev->dev);
+    char *rc;
+
+    rc = pumpSetupInterface(&dev->dev);
+    if (rc)
+	logMessage("result of pumpSetupInterface is %s", rc);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);

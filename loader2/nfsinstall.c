@@ -94,15 +94,13 @@ char * mountNfsImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
-    /* populate netDev based on any kickstart data */
-    setupNetworkDeviceConfig(&netDev, loaderData, flags);
-
     /* JKFIXME: ASSERT -- we have a network device when we get here */
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
         case NFS_STAGE_IFACE:
             logMessage("going to pick interface");
             rc = chooseNetworkInterface(kd, loaderData, flags);
+
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
 
@@ -110,10 +108,15 @@ char * mountNfsImage(struct installMethod * method,
             dir = 1;
             logMessage("using interface %s", loaderData->netDev);
             devName = loaderData->netDev;
+            strcpy(netDev.dev.device, devName);
             break;
             
         case NFS_STAGE_IP:
             logMessage("going to do getNetConfig");
+
+	    /* populate netDev based on any kickstart data */
+	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
+
             rc = readNetConfig(devName, &netDev, flags);
             if (rc) {
                 stage = NFS_STAGE_IFACE;
