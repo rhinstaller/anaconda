@@ -26,8 +26,11 @@ from fsset import *
 from partitioning import *
 from log import log
 from translate import _
+from constants import *
 
-def findRootParts(intf, id, chroot):
+def findRootParts(intf, id, dir, chroot):
+    if dir == DISPATCH_BACK:
+        return
     parts = findExistingRoots(intf, id, chroot)
     id.upgradeRoot = parts
 
