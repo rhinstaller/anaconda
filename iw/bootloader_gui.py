@@ -90,14 +90,12 @@ class BootloaderWindow (InstallWindow):
         
 
     def typeName(self, type):
-        if (type == "ext2"):
-            return "Linux Native"
-        elif (type == "FAT"):
+        if (type == "FAT"):
             return "DOS/Windows"
         elif (type == "hpfs"):       
             return "OS/2 / Windows NT"
         else:
-            return "Other"
+            return type
 
     def checkLiloReqs(self):
         if self.default == None:
@@ -239,6 +237,24 @@ class BootloaderWindow (InstallWindow):
             self.defaultCheck.set_active(0)
         self.ignoreSignals = 0
 
+    def bootloaderchange(self, widget):
+        if self.lilo_radio.get_active():
+            selected = "lilo"
+        elif self.grub_radio.get_active():
+            selected = "grub"
+
+        if not self.lastselected or selected == self.lastselected:
+            return
+        self.lastselected = selected
+
+        # swap the label for what it was "last"...  this is conveniently
+        # also the long form if we're switching back to grub or vice versa
+        for index in range(self.numImages):
+            tmp = self.oldLabels[index]
+            self.oldLabels[index] = self.imageList.get_text(index, 3)
+            self.imageList.set_text(index, 3, tmp)
+        self.labelSelected()
+
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
 	self.dispatch = dispatch
@@ -325,6 +341,9 @@ class BootloaderWindow (InstallWindow):
         label = GtkLabel(_("Boot Loader To Be Installed:"))
         self.grub_radio = GtkRadioButton(None, (_("GRUB")))
         self.lilo_radio = GtkRadioButton(self.grub_radio, (_("LILO")))
+        self.lastselected = None
+        self.lilo_radio.connect("toggled", self.bootloaderchange)
+        self.grub_radio.connect("toggled", self.bootloaderchange)
 
         self.radio_hbox = GtkHBox(FALSE, 5)
         self.radio_hbox.set_border_width(5)
@@ -343,19 +362,29 @@ class BootloaderWindow (InstallWindow):
         sortedKeys.sort()
         self.numImages = len(sortedKeys)
 
+        if not bl.useGrub():
+            self.lilo_radio.set_active(1)
+            self.lastselected = "lilo"
+        else:
+            self.grub_radio.set_active(1)
+            self.lastselected = "grub"
+                
         self.default = None
         self.count = 0
         self.types = []
+        self.oldLabels = []
         for n in sortedKeys:
             (label, longlabel, type) = imageList[n]
             self.types.append(type)
             if label == None:
                 print "label is None!!"
                 label = ""
-            if not bl.useGrub():
+            if self.lastselected == "lilo":
                 row = ("", "/dev/" + n, self.typeName(type), label)
+                self.oldLabels.append(longlabel)
             else:
                 row = ("", "/dev/" + n, self.typeName(type), longlabel)
+                self.oldLabels.append(label)
             self.imageList.append(row)
 
             if (n == defaultDevice):
