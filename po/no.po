@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 1999-09-19 11:17-0400\n"
-"PO-Revision-Date: 1999-09-18 23:32+02:00\n"
+"PO-Revision-Date: 1999-09-20 16:30+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -672,13 +672,12 @@ msgid "Skip boot disk creation"
 msgstr "Hopp over oppstartsdiskett"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Installér"
+msgstr "Starter installasjonen"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Klikk neste for å starte installasjonen av Red Hat Linux."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -766,9 +765,8 @@ msgid "Upgrade"
 msgstr "Oppgradér"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Bruk fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -1953,23 +1951,27 @@ msgstr "Enheter"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Sett inn driverdisketten og trykk \"OK\" for å fortsette."
 
 #: ../loader/devices.c:175
 msgid "Failed to mount floppy disk."
-msgstr ""
+msgstr "Kunne ikke montere disketten."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Disketten du satte inn er ikke en gyldig driverdiskett for denne utgaven av "
+"Red Hat Linux."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Hvilken driver skal jeg forsøke? Hvis driveren du trenger ikke finnes på "
+"denne listen, og du har en separat driverdiskett, vennligst trykk F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
@@ -2377,6 +2379,3 @@ msgstr "HTTP-proxy-port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Laster SCSI-driver..."
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "Bruk fdisk til å formatere disker"
