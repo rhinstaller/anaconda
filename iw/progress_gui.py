@@ -17,6 +17,7 @@ import os
 import gui
 import sys
 import timer
+import gobject
 import gtk
 from iw_gui import *
 from translate import _, N_, utf8
@@ -46,13 +47,19 @@ class InstallProgressWindow (InstallWindow):
 	# only update widget if we've changed by 1%, otherwise
 	# we update widget hundreds of times a seconds because RPM
 	# calls us back ALOT
-	curval = self.progress.get_current_percentage()
+	curval = self.progress.get_fraction()
 	newval = float (amount) / total
 	if (newval - curval) < 0.01 and newval > curval:
 	    return
                  
-	self.progress.set_percentage (newval)
+	self.progress.set_fraction (newval)
 	self.processEvents()
+
+    def setStatusRow(self, iter, vals):
+	i = 0;
+	for val in vals:
+	    self.progstore.set_value(iter, i, val)
+	    i = i + 1
 
     def completePackage(self, header, timer):
         def formatTime(amt):
@@ -66,38 +73,39 @@ class InstallProgressWindow (InstallWindow):
 
         self.numComplete = self.numComplete + 1
 
-        apply (self.clist.set_text, self.status["completed"]["packages"] + ("%d" % self.numComplete,))
-
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE]/1024)
-
-        apply (self.clist.set_text, self.status["completed"]["size"] +
-               ("%d M" % (self.sizeComplete/1024),))
-
-        apply (self.clist.set_text, self.status["remaining"]["packages"] +
-               ("%d" % (self.numTotal - self.numComplete),))
-
-        apply (self.clist.set_text, self.status["remaining"]["size"] +
-               ("%d M" % (self.totalSize/1024 - self.sizeComplete/1024),))
 
         # check to see if we've started yet
 	elapsedTime = timer.elapsed()
 	if not elapsedTime:
 	    elapsedTime = 1
-
-        apply (self.clist.set_text, self.status["completed"]["time"] + ("%s" % formatTime(elapsedTime),))
-
+	
         if self.sizeComplete != 0:
             finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
         else:
             finishTime = (float (self.totalSize) / (self.sizeComplete+1)) * elapsedTime
 
-
-        apply (self.clist.set_text, self.status["total"]["time"] + ("%s" % formatTime(finishTime),))
-
 	remainingTime = finishTime - elapsedTime
-        apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
-        self.totalProgress.update (float (self.sizeComplete) / self.totalSize)
+	self.setStatusRow(self.completed_iter,
+			  [_("Completed"),
+			   "%d" % (self.numComplete,),
+			   "%d M" % (self.sizeComplete/1024,),
+			   "%s" % (formatTime(elapsedTime),)])
+	
+	self.setStatusRow(self.total_iter,
+			  [_("Total"),
+			   "%d" % (self.numTotal,),
+			   "%d M" % (self.totalSize/1024,),
+			   "%s" % (formatTime(finishTime),)])
+	
+	self.setStatusRow(self.remaining_iter,
+			  [_("Remaining"),
+			   "%d" % ((self.numTotal - self.numComplete),),
+			   "%d M" % ((self.totalSize/1024 - self.sizeComplete/1024),),
+			   "%s" % (formatTime(remainingTime),)])
+	
+        self.totalProgress.set_fraction(float (self.sizeComplete) / self.totalSize)
         
         return
 
@@ -135,20 +143,17 @@ class InstallProgressWindow (InstallWindow):
         self.totalSize = totalSize
         self.timeStarted = -1
 
-        apply (self.clist.set_text, self.status["total"]["packages"] + (("%d" % total),))
-        apply (self.clist.set_text, self.status["total"]["size"] +
-                                    (("%d M" % (totalSize/1024)),))
-
     def renderCallback(self):
 	self.intf.icw.nextClicked()
 
     def allocate (self, widget, *args):
-        if self.frobnicatingClist: return
+        if self.sizingprogview: return
         
-        self.frobnicatingClist = 1
+        self.sizingprogview = 1
+	print widget.get_allocation()
         width = widget.get_allocation ()[2] - 50
-        for x in range (4):
-            widget.set_column_width (x, width / 4)
+#        for x in range (4):
+#            widget.set_column_width (x, width / 4)
 
     # InstallProgressWindow tag="installing"
     def getScreen (self, dir, intf, id):
@@ -239,47 +244,51 @@ class InstallProgressWindow (InstallWindow):
         progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
         progressTable.attach (self.totalProgress, 1, 2, 1, 2)
 
-        self.status =  {
-            "total" :     { "packages" : (0, 1),
-                            "size"     : (0, 2),
-                            "time"     : (0, 3) },
-            "completed" : { "packages" : (1, 1),
-                            "size"     : (1, 2),
-                            "time"     : (1, 3) },
-            "remaining" : { "packages" : (2, 1),
-                            "size"     : (2, 2),
-                            "time"     : (2, 3) }
-            }
+	self.progstore = gtk.ListStore(gobject.TYPE_STRING,
+				       gobject.TYPE_STRING,
+				       gobject.TYPE_STRING,
+				       gobject.TYPE_STRING)
 
-        clist = gtk.CList (4, (_("Status"), _("Packages"), _("Size"), _("Time")))
-        clist.column_titles_passive ()
-        clist.set_column_resizeable (0, gtk.FALSE)
-        clist.set_column_resizeable (1, gtk.FALSE)
-        clist.set_column_resizeable (2, gtk.FALSE)
-        clist.set_column_resizeable (3, gtk.FALSE)
-        clist.set_column_justification (0, gtk.JUSTIFY_LEFT)
-        clist.set_column_justification (1, gtk.JUSTIFY_RIGHT)
-        clist.set_column_justification (2, gtk.JUSTIFY_RIGHT)
-        clist.set_column_justification (3, gtk.JUSTIFY_RIGHT)
-        clist.append ((_("Total"),     "0", "0 M", "0:00:00"))
-        clist.append ((_("Completed"), "0", "0 M", "0:00:00"))
-        clist.append ((_("Remaining"), "0", "0 M", "0:00:00"))
-        self.frobnicatingClist = 0
-        
-	clist.connect_after ("size_allocate", self.allocate)
-        for x in range (4):
-            clist.column_title_passive (x)
-        for x in range (3):
-            clist.set_selectable (x, gtk.FALSE)
-        clist.set_property('can_focus', gtk.FALSE)
-        self.clist = clist
-#        align = gtk.Alignment (0.5, 0.5)
-#        align.add (clist)
-#        vbox.pack_start (align, gtk.FALSE)
+	self.total_iter = self.progstore.append()
+	self.completed_iter = self.progstore.append()
+	self.remaining_iter = self.progstore.append()
+
+	self.setStatusRow(self.total_iter, [_("Total"),"0", "0 M", "0:00:00"])
+	self.setStatusRow(self.completed_iter, [_("Completed"),"0", "0 M", "0:00:00"])
+	self.setStatusRow(self.remaining_iter, [_("Remaining"),"0", "0 M", "0:00:00"])
+	 
+	self.progview = gtk.TreeView(self.progstore)
+
+
+	if gtk.gdk.screen_width() > 640:
+	    cwidth = 128
+	else:
+	    cwidth = 96
+	
+	i = 0
+	for title in [_("Status"), _("Packages"), _("Size"), _("Time")]:
+	    renderer = gtk.CellRendererText()
+	    col = gtk.TreeViewColumn(title, renderer, text=i)
+	    col.set_min_width(cwidth)
+	    self.progview.append_column(col)
+	    if i > 0:
+		val = 1.0
+	    else:
+		val = 0.0
+	    renderer.set_property("xalign", val)
+	    col.set_alignment(val)
+	    i = i + 1
+
         hbox = gtk.HBox (gtk.FALSE, 5)
         
         vbox.pack_start (progressTable, gtk.FALSE)
-        hbox.pack_start (clist, gtk.TRUE)
+	sw = gtk.ScrolledWindow()
+	sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+	sw.set_shadow_type(gtk.SHADOW_IN)
+	sw.add(self.progview)
+	self.sizingprogview = 0
+	sw.connect_after("size-allocate", self.allocate)
+        hbox.pack_start (sw, gtk.TRUE)
         vbox.pack_start (hbox, gtk.FALSE)
         
         pix = self.ics.readPixmap ("progress_first.png")
