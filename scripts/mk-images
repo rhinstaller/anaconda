@@ -4,14 +4,14 @@ PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M)
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch> <productname> <version>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version>"
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
 
-PRODUCT=$5
-VERSION=$6
+PRODUCT=$6
+VERSION=$7
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -23,15 +23,15 @@ TOPDIR=$(cd $TOPDIR; pwd)
 # Set, verify, and create paths
     KERNELPATH=$1
     TOPDESTPATH=$2
-    IMAGEPATH=$2/images
+    IMAGEPATH=$TOPDESTPATH/images
     FULLMODPATH=/tmp/instimagemods.$$
-    FINALFULLMODPATH=$2/RedHat/instimage/modules
-    INSTIMGPATH=$2/RedHat/base
+    FINALFULLMODPATH=$4/modules
+    INSTIMGPATH=$TOPDESTPATH/RedHat/base
     INSTIMGTEMPLATE=$3
-    IMGPATH=$2/RedHat/instimage
+    IMGPATH=$4
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
-    BUILDARCH=$4
+    BUILDARCH=$5
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	KERNELNAME=vmlinux
@@ -709,7 +709,8 @@ makeinstimage () {
     makeproductfile $tmpdir
 
     echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
-    mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img
+    mkcramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
+    cp /tmp/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
