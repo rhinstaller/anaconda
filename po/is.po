@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
 "POT-Creation-Date: 2001-07-10 23:31-0400\n"
-"PO-Revision-Date: 2001-07-09 16:00+0000\n"
+"PO-Revision-Date: 2001-07-12 16:00+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -81,7 +81,7 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Fjarlægja engar sneiðar og nota einungis laust pláss"
 
 #: ../autopart.py:870
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -89,8 +89,11 @@ msgid ""
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Þú hefur sett upp RAID disksneið án þess að binda hana við eitt drif.\n"
-" Ertu viss um að þú viljir gera þetta?"
+"AÐVÖRUN!!\tAÐVÖRUN!!\n"
+"\n"
+"Þú hefur kosið að eyða öllum disksneiðum (ÖLLUM GÖGNUM) á eftirtöldum "
+"drifum:%s\n"
+"Ertu viss um að þú viljir gera þetta?"
 
 #: ../autopart.py:875
 #, c-format
@@ -101,6 +104,11 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"AÐVÖRUN!!\tAÐVÖRUN!!\n"
+"\n"
+"Þú hefur kosið að eyða öllum Linux disksneiðum (og ÖLLUM GÖGNUM á þeim) á "
+"eftirtöldum drifum:%s\n"
+"Ertu viss um að þú viljir gera þetta?"
 
 #: ../bootloader.py:562
 msgid "Bootloader"
@@ -197,15 +205,15 @@ msgstr ""
 "Veldu Í lagi til að endurræsa vélina."
 
 #: ../fsset.py:669
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að forsníða %s.   Þetta er alverlegt vandamál "
-"sem veldur því að uppsetningin getur ekki haldið áfram.\n"
+"Villa kom upp við leit að skemdum blokkum á %s.   Þetta er alverlegt "
+"vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
@@ -261,7 +269,7 @@ msgstr "Forsníð %s skráakerfið..."
 
 #: ../gui.py:103 ../text.py:268
 msgid "Fix"
-msgstr ""
+msgstr "Laga"
 
 #: ../gui.py:104 ../iw/partition_gui.py:523 ../iw/partition_gui.py:581
 #: ../iw/welcome_gui.py:101 ../libfdisk/fsedit.c:953
@@ -349,16 +357,16 @@ msgid "Cancel"
 msgstr "Hætta við"
 
 #: ../gui.py:191 ../text.py:250
-#, fuzzy
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
-"a detailed bug report against anaconda at http://bugzilla.redhat.com/"
-"bugzilla/"
+"a detailed bug report against anaconda at "
+"http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
-"uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna og sendu "
-"inn villutilkynningu um anaconda á http://bugzilla.redhat.com/bugzilla"
+"uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna eða "
+"vistaðu honum á diskling og sendu inn villutilkynningu um anaconda á "
+"http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:305 ../text.py:240
 msgid ""
@@ -538,7 +546,7 @@ msgstr ""
 
 #: ../packages.py:443
 msgid "Setting up RPM transaction..."
-msgstr ""
+msgstr "Set upp RPM færslu..."
 
 #: ../packages.py:479
 #, c-format
@@ -681,23 +689,22 @@ msgid "Error mounting filesystem on %s: %s"
 msgstr "Villa við tengingu skráakerfis á %s: %s"
 
 #: ../partitioning.py:997
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til nýjar "
-"disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
-"tapast."
+"Disksneiðataflan á tæki %s er ólæsileg.  Til þess að hægt sé að búa til "
+"nýjar disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á "
+"disknum tapast."
 
 #: ../libfdisk/fsedit.c:1052 ../partitioning.py:1074
 msgid "No Drives Found"
 msgstr "Engin drif fundust"
 
 #: ../partitioning.py:1075
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -745,15 +752,12 @@ msgid ""
 msgstr "Ertu viss um að þú viljir frumstilla disksneiðatöfluna ?"
 
 #: ../partitioning.py:1186
-#, fuzzy
 msgid "the partition in use by the installer."
-msgstr ""
-"Þú getur ekki breytt þessari disksneið þar sem hún er í notkun af "
-"uppsetningarforritinu."
+msgstr "disksneiðin er í notkun af uppsetningarforritinu."
 
 #: ../partitioning.py:1189
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "disksneið sem er í RAID tæki."
 
 #: ../partitioning.py:1198 ../partitioning.py:1204 ../partitioning.py:1212
 #: ../partitioning.py:1223 ../partitioning.py:1230
@@ -769,11 +773,13 @@ msgid "You cannot remove free space."
 msgstr "Þú getur ekki fjarlægt laust pláss."
 
 #: ../partitioning.py:1213
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
-msgstr "Þú getur ekki fjarlægt þessa sneið þar sem hún er hluti af RAID tæki."
+msgstr ""
+"Þú getur ekki fjarlægt þessa sneið þar sem hún er \"extended\" disksneið sem "
+"inniheldur %s"
 
 #: ../partitioning.py:1224
 msgid ""
@@ -796,13 +802,13 @@ msgid "You must select a partition to edit"
 msgstr "Þú verður að velja disksneið til að breyta"
 
 #: ../partitioning.py:1282
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
-"Þú getur ekki breytt þessari disksneið þar sem hún er í notkun af "
-"uppsetningarforritinu."
+"Þú getur ekki breytt þessari disksneið því hún er \"extended\" disksneið sem "
+"inniheldur %s"
 
 #: ../partitioning.py:1290 ../partitioning.py:1295
 msgid "Unable to Edit"
@@ -820,20 +826,20 @@ msgstr ""
 "Þú getur ekki breytt þessari disksneið þar sem hún er hluti af RAID tæki"
 
 #: ../partitioning.py:1317
-#, fuzzy
 msgid "Format?"
-msgstr "Forsníða"
+msgstr "Forsníða?"
 
 #: ../partitioning.py:1318
-#, fuzzy
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Þú hefur sett upp RAID disksneið án þess að binda hana við eitt drif.\n"
-" Ertu viss um að þú viljir gera þetta?"
+"Þú hefur kosið að forsníða disksneið sem þegar var til. Það mun eyða öllum "
+"gögnum sem eru á henni.\n"
+"\n"
+"Ertu viss um að þú viljir gera þetta?"
 
 #: ../iw/account_gui.py:134 ../iw/account_gui.py:144
 #: ../iw/bootloader_gui.py:281 ../iw/partition_gui.py:693
@@ -1183,9 +1189,9 @@ msgstr "Eyða"
 #: ../iw/account_gui.py:340
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
-"accounts could be for a personal login account, or for other non-"
-"administrative users who need to use this system. Use the <Add> button to "
-"enter additional user accounts."
+"accounts could be for a personal login account, or for other "
+"non-administrative users who need to use this system. Use the <Add> button "
+"to enter additional user accounts."
 msgstr ""
 "Hægt er að búa til fleiri aðganga fyrir aðra notendur þessarar vélar. Slíkir "
 "aðgangar gætu til dæmis verið fyrir vini eða fjölskyldu eða hvaða notanda "
@@ -1338,24 +1344,20 @@ msgid "Type"
 msgstr "Tegund"
 
 #: ../iw/bootloader_gui.py:280
-#, fuzzy
 msgid "GRUB Password"
-msgstr "Rótarlykilorð"
+msgstr "GRUB lykilorð"
 
 #: ../iw/bootloader_gui.py:289
-#, fuzzy
 msgid "Bootloader Password: "
-msgstr "Rótarlykilorð: "
+msgstr "Ræsistjóralykilorð: "
 
 #: ../iw/bootloader_gui.py:319 ../textw/bootloader_text.py:379
-#, fuzzy
 msgid "Passwords Do Not Match"
-msgstr "Lykilorðin stemma ekki."
+msgstr "Lykilorðin stemma ekki"
 
 #: ../iw/bootloader_gui.py:320 ../textw/bootloader_text.py:380
-#, fuzzy
 msgid "Passwords do not match"
-msgstr "Lykilorðin stemma ekki."
+msgstr "Lykilorðin stemma ekki"
 
 #: ../iw/bootloader_gui.py:351
 msgid "Install Boot Loader record on:"
@@ -1417,20 +1419,21 @@ msgstr "Ekki setja upp ræsistjóra"
 
 #: ../iw/bootloader_gui.py:432
 msgid ""
-"A GRUB password prevents users from passing arbitrary options to the "
-"kernel.  For highest security, we recommend setting a password, but this is "
-"not necessary for more casual users."
+"A GRUB password prevents users from passing arbitrary options to the kernel. "
+" For highest security, we recommend setting a password, but this is not "
+"necessary for more casual users."
 msgstr ""
+"GRUB lykilorð varnar notendum frá því að gefa kjarnanum einhver viðföng. Við "
+"mælum með að þetta sé notað til að auka öryggi. Þetta er þó ekki nauðsynlegt "
+"fyrir almenna notkun."
 
 #: ../iw/bootloader_gui.py:439
-#, fuzzy
 msgid "Use a GRUB Password?"
-msgstr "Nota falin lykilorð"
+msgstr "Nota GRUB lykilorð?"
 
 #: ../iw/bootloader_gui.py:441
-#, fuzzy
 msgid "Set Password"
-msgstr "Rótarlykilorð"
+msgstr "Setja lykilorð"
 
 #: ../iw/bootloader_gui.py:509 ../iw/silo_gui.py:288
 msgid "Default boot image"
@@ -1448,12 +1451,12 @@ msgstr "Veldu áfram-örina til að byrja uppsetningu  Red Hat Linux."
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
-"kickstart file representing the choices you have made will be in /root/"
-"anaconda-ks.cfg."
+"kickstart file representing the choices you have made will be in "
+"/root/anaconda-ks.cfg."
 msgstr ""
 "Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
-"Honum ættir þú að halda til haga. Kickstart skrá verður búin til fyrir þig "
-"í /root/anaconda-ks.cfg eftir því sem þú hefur valið hér."
+"Honum ættir þú að halda til haga. Kickstart skrá verður búin til fyrir þig í "
+"/root/anaconda-ks.cfg eftir því sem þú hefur valið hér."
 
 #: ../iw/confirm_gui.py:56
 msgid "About to Upgrade"
@@ -1476,7 +1479,6 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:35
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -1486,8 +1488,8 @@ msgid ""
 "If you created a boot disk to use to boot your Red Hat Linux system, insert "
 "it before you press <Enter> to reboot.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
@@ -1508,12 +1510,11 @@ msgstr ""
 "finna í Red Hat Linux handbókunum."
 
 #: ../iw/congrats_gui.py:85
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals.at http://www.redhat.com/support/manuals."
@@ -1525,7 +1526,7 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum."
+"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
 
 #: ../iw/dependencies_gui.py:7
 msgid "Unresolved Dependencies"
@@ -1950,7 +1951,7 @@ msgstr "Breyta disksneiðinni í:"
 
 #: ../iw/partition_gui.py:862 ../iw/partition_gui.py:900
 msgid "Check for bad blocks?"
-msgstr ""
+msgstr "Leita að skemmdum blokkum?"
 
 #: ../iw/partition_gui.py:893 ../textw/partition_text.py:542
 msgid "Force to be a primary partition"
@@ -2030,7 +2031,6 @@ msgid ""
 msgstr "Þú verður að velja amk. eitt drif til að setja Red Hat Linux upp á."
 
 #: ../iw/partition_gui.py:1420
-#, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
@@ -2039,17 +2039,15 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvaða harðadiska viltu nota fyrir Linux?"
 
 #: ../iw/partition_gui.py:1468
-#, fuzzy
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
-msgstr "Leyfa mér að skoða og breyta sjálfvirku disksneiðingunni"
+msgstr "Endurskoða (leyfir þér að skoða og breyta sjálfvirku disksneiðingunni)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
 msgstr "Stillingar disksneiðingar"
 
 #: ../iw/partmethod_gui.py:59
-#, fuzzy
 msgid "Have the installer automatically partition for you"
 msgstr "Láta uppsetningarforritið sneiða diskinn sjálfvirkt"
 
@@ -2195,8 +2193,8 @@ msgid ""
 "file systems now."
 msgstr ""
 "Linux 2.4 kjarninn þarfnast talvert meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
 "diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../iw/upgrade_swap_gui.py:105
@@ -2522,16 +2520,17 @@ msgid ""
 "For highest security, werecommend setting a password, but this is "
 "notnecessary for more casual users."
 msgstr ""
+"GRUB lykilorð varnar notendum frá því að gefa kjarnanum einhver viðföng. Við "
+"mælum með að þetta sé notað til að auka öryggi. Þetta er þó ekki nauðsynlegt "
+"fyrir almenna notkun."
 
 #: ../textw/bootloader_text.py:337
-#, fuzzy
 msgid "Use a GRUB Password"
-msgstr "Nota falin lykilorð"
+msgstr "Nota GRUB lykilorð"
 
 #: ../textw/bootloader_text.py:349
-#, fuzzy
 msgid "Boot Loader Password:"
-msgstr "Rótarlykilorð: "
+msgstr "Ræsistjóralykilorð:"
 
 #: ../textw/complete_text.py:20
 msgid "<Return> to reboot"
@@ -2542,7 +2541,6 @@ msgid "Complete"
 msgstr "Lokið"
 
 #: ../textw/complete_text.py:24
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -2552,8 +2550,8 @@ msgid ""
 "If you created a boot disk to use to boot your Red Hat Linux system, insert "
 "it before you press <Enter> to reboot.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
@@ -2571,22 +2569,21 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum."
+"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
 
 #: ../textw/complete_text.py:43
 msgid "<Return> to exit"
 msgstr "<Return> til að hætta"
 
 #: ../textw/complete_text.py:47
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
-"Information on using your system is available in the Red Hat Linux manuals."
-"http://www.redhat.com/support/manuals."
+"Information on using your system is available in the Red Hat Linux "
+"manuals.http://www.redhat.com/support/manuals."
 msgstr ""
 "Til hamingju, uppsetningu er lokið.\n"
 "\n"
@@ -2595,7 +2592,7 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í Red Hat Linux handbókunum."
+"finna í Red Hat Linux handbókunum á http://www.redhat.com/support/manuals."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -2866,7 +2863,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:417 ../textw/partition_text.py:545
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "Leita að skemmdum blokkum"
 
 #: ../textw/partition_text.py:428
 msgid "Format as:"
@@ -3010,8 +3007,8 @@ msgid ""
 "file systems now."
 msgstr ""
 "Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
-"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
-"Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
 "diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../textw/upgrade_text.py:112
@@ -3112,8 +3109,8 @@ msgstr "Ólöglegt notandanafn"
 
 #: ../textw/userauth_text.py:108
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, a-"
-"z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
 msgstr ""
 "Notandanöfn verða að vera minna en 8 stafir að lengd og mega einungis \n"
 "innihalda stafina A-Z, a-z og 0-9."
@@ -3280,8 +3277,8 @@ msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
 msgstr ""
-"Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni. Notaðu '%"
-"s' hnappinn til að prófa."
+"Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni. Notaðu "
+"'%s' hnappinn til að prófa."
 
 #: ../textw/xconfig_text.py:172 ../textw/xconfig_text.py:179
 #: ../textw/xconfig_text.py:388 ../textw/xconfig_text.py:399
@@ -3401,8 +3398,9 @@ msgstr "Skjáminni"
 #: ../textw/xconfig_text.py:490
 #, c-format
 msgid ""
-"Please select the amount of video RAM present on your video card. Choose '%"
-"s' to reset the selection to the amount the installer detected on your card."
+"Please select the amount of video RAM present on your video card. Choose "
+"'%s' to reset the selection to the amount the installer detected on your "
+"card."
 msgstr ""
 "Vinsamlegast veldu það magn skjáminnis sem er til staðar á skjákortinu þínu. "
 "Notaðu '%s' hnappinn til að endurstilla gildin sem sjálfvirka leitin fann."
@@ -3500,8 +3498,8 @@ msgstr ""
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using Linux-"
-"native partitions. Do you want to continue?"
+"system. Additionally, there will be a speed penalty for not using "
+"Linux-native partitions. Do you want to continue?"
 msgstr ""
 "Þú hefur farið fram á að hafa rótarskráarkerfið (/) á DOS FAT disksneið. "
 "Þetta er mögulegt, en þá er ekki hægt að nota aðrar gerðir skráarkerfa í "
@@ -4505,8 +4503,8 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Red Hat Linux geisladiskurinn fannst ekki í neinu tiltæku geisladrifi. "
-"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í lagi"
-"\" til að reyna aftur."
+"Vinsamlegast settu Red Hat geisladiskinn í viðeigandi drif og veldu \"Í "
+"lagi\" til að reyna aftur."
 
 #: ../loader/loader.c:1057
 msgid "Networking Device"
@@ -5738,31 +5736,3 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid ""
-#~ "An internal error occurred in the installation program. Please report "
-#~ "this error to Red Hat (through the bugzilla.redhat.com web site) as soon "
-#~ "as possible. The information on this failure may be saved to a floppy "
-#~ "disk, and will help Red Hat in fixing the problem.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Það kom upp villa í uppsetningarforritinu. Vinsamlegast láttu Red Hat "
-#~ "vita af þessari villu (á bugzilla.redhat.com vefsetrinu) eins fljótt og "
-#~ "unnt er. Nánari upplýsingum um þessa villu er hægt að vista á diskling og "
-#~ "það mun hjálpa Red Hat við að lagfæra vandamálið.\n"
-#~ "\n"
-
-#~ msgid "RAID Partition defined without RAID level"
-#~ msgstr "RAID disksneið skilgreind án RAID stigs"
-
-#~ msgid "RAID Partition defined without any RAID members"
-#~ msgstr "RAID disksneið skilgreind án RAID meðlima"
-
-#~ msgid "Filesystem Missing"
-#~ msgstr "Tegund skráarkerfis vantar"
-
-#~ msgid "You cannot edit partitions without a filesystem type."
-#~ msgstr "Þú getur ekki breytt disksneiðum sem eru án skráarkerfistegundar."
-
-#~ msgid "All Packages"
-#~ msgstr "Allir pakkar"
