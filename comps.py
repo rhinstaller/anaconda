@@ -543,10 +543,12 @@ class ComponentSet:
 		else:
                     if expression:
                         # this is a package with some qualifier prefixing it
-                        # XXX last expression noted wins when setting up
-                        # Everything.
-                        self.expressions[packages[l]] = expression
-                        comp.addPackageWithExpression (expression, packages[l])
+
+                        list = self.expressions.get(packages[l])
+                        if type(list) == type([]):
+                            list.append(expression)
+                        else:
+                            self.expressions[packages[l]] = [ expression ]
                     else:
                         # if this package is listed anywhere without an
                         # expression, it can go in Everything.
@@ -558,11 +560,16 @@ class ComponentSet:
         for package in packages.keys ():
 	    if ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
                 continue
-            if self.expressions.has_key (packages[package]):
-                expression = self.expressions[packages[package]]
-                everything.addPackageWithExpression (expression,
-                                                     packages[package])
-            else:
+            if self.expressions.has_key (packages[package]): 
+                expressions = self.expressions[packages[package]]
+                if expressions == None:
+                    everything.addPackageWithExpression (None,
+                                                         packages[package])
+                else:
+                    for expression in expressions:
+                        everything.addPackageWithExpression (expression,
+                                                             packages[package])
+           else:
                 everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
