@@ -20,11 +20,11 @@ import partitioning
 import isys
 import os
 
-class FDiskWindow (InstallWindow):		
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("Partitioning with fdisk"))
-        ics.readHTML ("fdisk")
+class FDiskWindow(InstallWindow):		
+    def __init__(self, ics):
+	InstallWindow.__init__(self, ics)
+        ics.setTitle(_("Partitioning with fdisk"))
+        ics.readHTML("fdisk")
 
     def getNext(self):
         # reread partitions
@@ -35,31 +35,34 @@ class FDiskWindow (InstallWindow):
         return None
         
 
-    def child_died (self, widget, button):
-        self.windowContainer.remove (self.windowContainer.get_children ()[0])
-        self.windowContainer.pack_start (self.buttonBox)
-        button.set_state (gtk.STATE_NORMAL)
+    def child_died(self, widget, button):
+        self.windowContainer.remove(self.windowContainer.get_children()[0])
+        self.windowContainer.pack_start(self.buttonBox)
+        button.set_state(gtk.STATE_NORMAL)
         try:
-            os.remove ('/tmp/' + self.drive)
+            os.remove('/tmp/' + self.drive)
         except:
             # XXX fixme
             pass
 
-        self.ics.readHTML ("fdisk")
-        self.ics.setPrevEnabled (1)
-        self.ics.setNextEnabled (1)
+        self.ics.readHTML("fdisk")
+        self.ics.setPrevEnabled(1)
+        self.ics.setNextEnabled(1)
         cw = self.ics.getICW()
         if cw.displayHelp:
             cw.refreshHelp()
 #        self.ics.setHelpEnabled (1)
 
 
-    def button_clicked (self, widget, drive):
+    def button_clicked(self, widget, drive):
         term = vte.Terminal()
         term.set_encoding("UTF-8")
-        term.set_font_from_string("monospace")
-
+        term.set_font_from_string("monospace 10")
+        term.set_color_background(gtk.gdk.color_parse('white'))
+        term.set_color_foreground(gtk.gdk.color_parse('black'))
         term.connect("child_exited", self.child_died, widget)
+        term.reset(gtk.TRUE, gtk.TRUE)
+
         self.drive = drive
 
 	# free our fd's to the hard drive -- we have to 
@@ -73,7 +76,7 @@ class FDiskWindow (InstallWindow):
 
         term.fork_command(path, (path, '/tmp/' + drive))
         term.show()
-
+        
         self.windowContainer.remove(self.buttonBox)
         self.windowContainer.pack_start(term)
 
@@ -86,18 +89,18 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled(0)
 
     # FDiskWindow tag="fdisk"
-    def getScreen (self, diskset, partrequests, intf):
+    def getScreen(self, diskset, partrequests, intf):
         
         self.diskset = diskset
         self.partrequests = partrequests
         self.intf = intf
         
-        self.windowContainer = gtk.VBox (gtk.FALSE)
-        self.buttonBox = gtk.VBox (gtk.FALSE, 5)
-        self.buttonBox.set_border_width (5)
-        box = gtk.VButtonBox ()
+        self.windowContainer = gtk.VBox(gtk.FALSE)
+        self.buttonBox = gtk.VBox(gtk.FALSE, 5)
+        self.buttonBox.set_border_width(5)
+        box = gtk.VButtonBox()
         box.set_layout("start")
-        label = gtk.Label (_("Select a drive to partition with fdisk:"))
+        label = gtk.Label(_("Select a drive to partition with fdisk:"))
 
         drives =  self.diskset.driveList()
         
@@ -105,9 +108,9 @@ class FDiskWindow (InstallWindow):
         self.diskset.closeDevices()
 
         for drive in drives:
-            button = gtk.Button (drive)
-            button.connect ("clicked", self.button_clicked, drive)
-            box.pack_start (button)
+            button = gtk.Button(drive)
+            button.connect("clicked", self.button_clicked, drive)
+            box.pack_start(button)
 
         # put the button box in a scrolled window in case there are
         # a lot of drives
@@ -118,10 +121,10 @@ class FDiskWindow (InstallWindow):
         viewport.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         sw.set_size_request(-1, 400)
 
-        self.buttonBox.pack_start (label, gtk.FALSE)
-        self.buttonBox.pack_start (sw, gtk.FALSE)
-        self.windowContainer.pack_start (self.buttonBox)
+        self.buttonBox.pack_start(label, gtk.FALSE)
+        self.buttonBox.pack_start(sw, gtk.FALSE)
+        self.windowContainer.pack_start(self.buttonBox)
 
-        self.ics.setNextEnabled (1)
+        self.ics.setNextEnabled(1)
 
         return self.windowContainer
