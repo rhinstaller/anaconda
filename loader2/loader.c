@@ -534,8 +534,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 !strncasecmp(argv[i], "skipddc", 7) ||
                 !strncasecmp(argv[i], "nomount", 7) ||
                 !strncasecmp(argv[i], "vnc", 3) ||
-		!strncasecmp(argv[i], "vncconnecthost=", 15) ||
-		!strncasecmp(argv[i], "vncconnectport=", 15) ||
+		!strncasecmp(argv[i], "vncconnect=", 11) ||
                 !strncasecmp(argv[i], "headless", 8)) {
                 int arglen;
 

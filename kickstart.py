@@ -568,6 +568,7 @@ class KickstartBase(BaseInstallClass):
                      "interactive"      : self.doInteractive    ,
                      "autostep"         : self.doAutoStep       ,
                      "firstboot"        : self.doFirstboot      ,
+                     "vnc"              : None                  ,
 		   }
 
 	packages = []
@@ -1318,6 +1319,57 @@ def Kickstart(file, serial):
 
     return ksClass
 
+
+# see if any vnc parameters are specified in the kickstart file
+def parseKickstartVNC(ksfile):
+    try:
+	f = open(ksfile, "r")
+    except:
+	raise KSAppendException("Unable to open ks file %s" % (ksfile,))
+
+    lines = f.readlines()
+    f.close()
+
+    usevnc = 0
+    vnchost = None
+    vncport = None
+    vncpasswd = None
+    for l in lines:
+	args = isys.parseArgv(l)
+	
+	if args:
+	    if args[0] != 'vnc':
+		continue
+	else:
+	    continue
+
+	idx = 1
+	while idx < len(args):
+	    if args[idx] == "--password":
+		try:
+		    vncpasswd = args[idx+1]
+		except:
+		    raise RuntimeError, "Missing argument to vnc --password option"
+		idx += 2
+	    elif args[idx] == "--connect":
+		try:
+		    connectspec = args[idx+1]
+		except:
+		    raise RuntimeError, "Missing argument to vnc --connect option"
+		cargs = string.split(connectspec, ":")
+		vnchost = cargs[0]
+		if len(cargs) > 1:
+		    if len(cargs[1]) > 0:
+			vncport = cargs[1]
+		    
+		idx += 2
+	    else:
+		raise RuntimeError, "Unknown vnc option %s" % (args[idx],)
+
+	usevnc = 1
+	break
+
+    return (usevnc, vncpasswd, vnchost, vncport)
 
 #
 # look through ksfile and if it contains a line:
