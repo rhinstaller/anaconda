@@ -15,3 +15,6 @@ class configFileData:
 
     def getTitle (self):
         return self.data["Title"]
+
+    def getWelcomeScreen (self):
+        return self.data["WelcomeScreen"]
