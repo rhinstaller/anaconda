@@ -144,6 +144,9 @@ install: all
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
 
+dirbrowser:
+	gcc -DSTANDALONE -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang
+
 ifeq (.depend,$(wildcard .depend))
 include .depend
 endif
