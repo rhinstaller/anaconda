@@ -538,7 +538,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
         writeResolvConf(cfg);
     }
 
+    /* JKFIXME: this is a hack */
+#if !defined(__s390__) && !defined(__s390x__)
     return 0;
+#else
+    return LOADER_NOOP;
+#endif
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
