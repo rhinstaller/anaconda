@@ -28,6 +28,7 @@ from rhpl.log import log
 
 import fsset
 import raid
+import lvm
 import partedUtils
 import partIntfHelpers
 
@@ -703,6 +704,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         for pvid in self.physicalVolumes:
             pvreq = partitions.getRequestByID(pvid)
             size = pvreq.getActualSize(partitions, diskset)
+	    size = lvm.clampPVSize(size, self.pesize)
             totalspace = totalspace + size
 
         return totalspace
@@ -784,7 +786,10 @@ class LogicalVolumeRequestSpec(RequestSpec):
         """Return the actual size allocated for the request in megabytes."""
         if self.percent:
             vgreq = partitions.getRequestByID(self.volumeGroup)
-            return int(self.percent * 0.01 * vgreq.size)
+	    vgsize = vgreq.getActualSize(partitions, diskset)
+	    lvsize = int(self.percent * 0.01 * vgsize)
+	    lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
+            return lvsize
         else:
             return self.size
 
