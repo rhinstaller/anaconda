@@ -733,15 +733,6 @@ int main(int argc, char **argv) {
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
 
-    /* If /dev/cdrom exists, eject it */
-    if ((fd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
-	printf("ejecting cdrom\n");
-	if (ioctl(fd, CDROMEJECT, 0)) {
-	    printf("eject failed\n");
-	}
-	close(fd);
-    }
-
     if (doReboot) {
 	printf("rebooting system\n");
 	sleep(2);
