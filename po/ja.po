@@ -5,9 +5,9 @@
 # James Hashida <khashida@redhat.com>, 2002
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 8.0\n"
+"Project-Id-Version: ja\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-26 10:51GMT+10:00\n"
+"PO-Revision-Date: 2002-08-28 09:29GMT+10:00\n"
 "Last-Translator: James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <i18-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -356,7 +356,7 @@ msgid ""
 "groups on this page."
 msgstr ""
 "このグループには、利用可能なすべてのパッケージが含まれています。このページの "
-"すべての他のパッケージグループにあるものよりもかなり大きな パッケージで ある"
+"すべての他のパッケージグループにあるものよりもかなり大きなパッケージである"
 "ことに注意して下さい。"
 
 #: ../comps.py:1074
@@ -953,8 +953,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"次のパッケージは自動的に\n"
-"インストール用に選択されていました。 %s\n"
+"次のパッケージは自動的にインストール用に\n "
+"選択されました:\n "
+"%s\n"
 "\n"
 
 #: ../packages.py:714
@@ -1011,7 +1012,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"次のパッケージはこのバージョンで入手可能でした。未アップグレードです。\n"
+"次のパッケージはこのバージョンで入手可能でした。未アップグレードです:\n"
 
 #: ../packages.py:829
 msgid "Post Install"
@@ -2119,7 +2120,7 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"ブートローダ パスワードによってユーザがオプションの変更をカーネルに渡すこと"
+"ブートローダパスワードによってユーザがオプションの変更をカーネルに渡すこと"
 "を 防げます。  より高度なセキュリティ確保のためにはパスワードの設定を 推奨し"
 "ます。"
 
@@ -2497,8 +2498,8 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"ディフォルトのワークステーション環境には、新規ユーザー用に私共の推薦項目が 含"
-"まれていて、以下の物があります。\n"
+"ディフォルトのワークステーション環境には、新規ユーザー用に私共の推薦項目が "
+"含まれていて、以下の物があります。\n"
 "\n"
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -2511,11 +2512,11 @@ msgstr ""
 "\tAdministration Tools\n"
 "\n"
 "インストールの後で、'redhat-config-package'ツールを使用して追加のソフトウェア"
-"を 追加したり、削除したりすることが出来ます。\n"
+"を追加したり、削除したりすることが出来ます。\n"
 " \n"
-"%sに慣れている場合は、インストールをしたりインストールを避けたりする 特定の "
+"%sに慣れている場合は、インストールをしたりインストールを避けたりする特定の "
 "パッケージを持つことも出来ます。下にあるボックスにチェックを入れてインストー"
-"ルを カスタマイズします。 "
+"ルをカスタマイズします。 "
 
 #: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
 msgid "Personal Desktop"
@@ -2547,7 +2548,7 @@ msgid ""
 "installation."
 msgstr ""
 "ディフォルトのパーソナルデスクトップ環境には、新規ユーザー用に私共の推薦項目"
-"が 含まれていて、以下の物があります。\n"
+"が含まれていて、以下の物があります。\n"
 "\n"
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -2558,18 +2559,18 @@ msgstr ""
 "\tGames\n"
 "\n"
 "インストールの後で、'redhat-config-package'ツールを使用して追加のソフトウェア"
-"を 追加したり、削除したりすることが出来ます。\n"
+"を追加したり、削除したりすることが出来ます。\n"
 " \n"
-"%sに慣れている場合は、インストールをしたりインストールを避けたりする 特定の "
+"%sに慣れている場合は、インストールをしたりインストールを避けたりする特定の "
 "パッケージを持つことも出来ます。下にあるボックスにチェックを入れてインストー"
-"ルを カスタマイズします。 "
+"ルをカスタマイズします。 "
 
 #: ../iw/desktop_choice_gui.py:98
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
-"インストールされるディフォルトのパッケージを変更する場合は、下で カスタマイズ"
+"インストールされるディフォルトのパッケージを変更する場合は、下でカスタマイズ"
 "を選択できます。 "
 
 #: ../iw/desktop_choice_gui.py:106
@@ -3418,10 +3419,10 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 "1つのパッケージグループは基本とオプションの両方のパッケージメンバーを持つこと"
-"が 出来ます。 パッケージグループが選択される限り基本パッケージはいつも選択さ"
+"が出来ます。パッケージグループが選択される限り基本パッケージはいつも選択さ"
 "れます。\n"
-" \n"
-"インストールするオプションパッケージを選択して下さい。"
+"\n"
+"インストールするオプションパッケージを選択して下さい:"
 
 #: ../iw/package_gui.py:821
 msgid "Base Packages"
@@ -3840,7 +3841,7 @@ msgstr "説明"
 
 #: ../iw/progress_gui.py:241
 msgid "Package Progress: "
-msgstr "パッケージ進捗状況"
+msgstr "パッケージ進捗状況:"
 
 #: ../iw/progress_gui.py:246
 msgid "Total Progress:   "
@@ -5035,7 +5036,7 @@ msgstr "個々のパッケージを選択"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr "パッケージ :"
+msgstr "パッケージ:"
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
@@ -5052,7 +5053,7 @@ msgstr "合計容量"
 
 #: ../textw/packages_text.py:245
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "   <Space>、<+>、<->選択| <F1> ヘルプ>| <F2> パッケージの説明"
+msgstr "   <Space>、<+>、<->選択  |  <F1> ヘルプ   |   <F2> パッケージの説明"
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
@@ -5476,7 +5477,7 @@ msgstr "パスワード:"
 
 #: ../textw/userauth_text.py:38
 msgid "Password (confirm):"
-msgstr "パスワード ()"
+msgstr "パスワード (確認):"
 
 #: ../textw/userauth_text.py:54 ../textw/userauth_text.py:126
 msgid "Password Length"
@@ -5898,7 +5899,7 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
 msgstr ""
-"このインストールタイプを選択すると、ソフトウェアパッケージ選択や 認証の個人設"
+"このインストールタイプを選択すると、ソフトウェアパッケージ選択や認証の個人設"
 "定を含むインストールプロセス上での完全なコントロールができます。"
 
 #: ../installclasses/personal_desktop.py:12
@@ -6264,7 +6265,7 @@ msgstr "レスキューイメージが保存されているメディアタイプを指定して下さい"
 
 #: ../loader/loader.c:1995
 msgid "What type of media contains the packages to be installed?"
-msgstr "インストール対象のパッケージが保存されているメディアタイプを指定して下さい"
+msgstr "インストール対象のパッケージを含むメディアを指定して下さい"
 
 #: ../loader/loader.c:2793
 msgid "Cannot find ks.cfg on boot floppy."
