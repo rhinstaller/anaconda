@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-02-18 13:19+0200\n"
+"PO-Revision-Date: 2004-04-02 13:19+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1034,11 +1034,11 @@ msgstr "При_мітки до випуску"
 
 #: ../gui.py:1186
 msgid "Show _Help"
-msgstr "Показати _довідку"
+msgstr "Показати д_овідку"
 
 #: ../gui.py:1188
 msgid "Hide _Help"
-msgstr "Сховати _довідку"
+msgstr "Сховати д_овідку"
 
 #: ../gui.py:1190
 msgid "_Debug"
@@ -1730,7 +1730,6 @@ msgstr ""
 "Форматувати цей розділ як розділ підкачки?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -2673,7 +2672,7 @@ msgstr ""
 "Наполегливо рекомендується створити завантажувальну дискету, на відповідному "
 "етапі встановлення.\n"
 "\n"
-"Ви дійсно хочете ввімкнути режим LBA32?"
+"Ви дійсно хочете увімкнути режим LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
@@ -3117,7 +3116,7 @@ msgid ""
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 "Брандмауер може запобігти несанкціонованому доступу до вашого комп'ютера із "
-"зовнішнього світу. Ввімкнути брандмауер?"
+"зовнішнього світу. Увімкнути брандмауер?"
 
 #: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
@@ -3125,7 +3124,7 @@ msgstr "_Без брандмауера"
 
 #: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
-msgstr "_Ввімкнути брандмауер"
+msgstr "_Увімкнути брандмауер"
 
 #: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
@@ -3155,20 +3154,19 @@ msgstr "_Довірені пристрої:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "_Розширення Security Enhanced Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Вимкнено"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Увага"
+msgstr "Попереджувати"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Активно"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5327,7 +5325,7 @@ msgstr "Доповнення"
 
 #: ../textw/firewall_text.py:46
 msgid "Enable firewall"
-msgstr "Ввімкнути брандмауер"
+msgstr "Увімкнути брандмауер"
 
 #: ../textw/firewall_text.py:49
 msgid "No firewall"
@@ -5398,7 +5396,7 @@ msgstr "Увага: %s не є допустимим портом."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Linux с вдосконаленою безпекою"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5406,14 +5404,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Linux с вдосконаленою безпекою (SELinux) забезпечує більш жорсткий контроль "
+"доступу для підвищення безпеки вашої системи. У якому варіанту ви бажаєте "
+"увімкнути цю підтримку?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Вимкнути SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Попереджати при порушеннях"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -8141,29 +8142,4 @@ msgstr "Українська"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CDROM не може бути підключений."
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "Робоча станція"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Ласкаво просимо до %s!\n"
-#~ "\n"
-#~ "Процес встановлення докладно описаний в офіційному посібнику %s. Його "
-#~ "можна одержати від Red Hat, Inc. Якщо ви маєте доступ до цього посібника, "
-#~ "радимо прочитати його перед подальшим встановленням.\n"
-#~ "\n"
-#~ "Якщо ви придбали офіційний %s, не забудьте зареєструвати його на нашому "
-#~ "сайті, http://www.redhat.com."
+msgstr "Зулу"

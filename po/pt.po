@@ -3,10 +3,10 @@
 # José Nuno Pires <jncp@netcabo.pt>
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-10 12:29+0000\n"
+"PO-Revision-Date: 2004-03-24 17:57+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1802,7 +1802,6 @@ msgstr ""
 "Deseja formatar esta partição para paginação?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -2604,7 +2603,7 @@ msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "Servidor de _admin.:"
+msgstr "Servidor de _admin:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
@@ -3251,20 +3250,19 @@ msgstr "Dispositivos de _confiança:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "Extensões _Security Enhanced Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Inactivo"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Aviso"
+msgstr "Avisar"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Activo"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5525,22 +5523,22 @@ msgstr "Aviso: %s não é um porto válido."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
-msgstr ""
+msgstr "O Security Enhanced Linux (SELinux) implementa um controlo de acessos mais rígido, o que aumenta a segurança do seu sistema.  Deseja activá-lo?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Desactivar o SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Avisos ao violar"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -8282,4 +8280,4 @@ msgstr "Ucraniano"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"

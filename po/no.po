@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-02-15 16:34+0100\n"
+"PO-Revision-Date: 2004-04-01 21:57+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -866,7 +866,7 @@ msgid "Duplicate Labels"
 msgstr "Dupliserte etiketter"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
@@ -1734,7 +1734,6 @@ msgstr ""
 "Ønsker du å formatere denne partisjonen som en swappartisjon?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1742,13 +1741,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
-"Du har valgt å bruke en eksisterende partisjonen for denne installasjonen, "
-"men valgt ikke å formatere den. Det anbefales at du formaterer denne "
-"partisjonen for å unngå at filer fra en tidligere operativsysteminstallasjon "
-"skaper problemer for denne installasjonen. Hvis denne partisjonen inneholder "
-"filer du ønsker å behold, som hjemmekateloger for bruker, bør du velge å "
-"fortsette uten å formatere denne partisjonen."
+msgstr "Du har valgt å bruke en eksisterende partisjonen for denne installasjonen, men valgt ikke å formatere den. Det anbefales at du formatterer denne partisjonen for å unngå at filer fra en tidligere operativsysteminstallasjon skaper problemer for denne installasjonen. Hvis denne partisjonen inneholder filer du ønsker å beholde, slik som hjemmekateloger for brukere, bør du velge å fortsette uten å formattere denne partisjonen."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -2079,7 +2072,7 @@ msgid "Rescue"
 msgstr "Redning"
 
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2212,7 +2205,7 @@ msgid "Debug"
 msgstr "Debug"
 
 #: ../text.py:347
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s © 2004 Red Hat, Inc."
 
@@ -2371,7 +2364,7 @@ msgstr ""
 "fortsette oppgraderingen?"
 
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2381,16 +2374,12 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Dette systemet ser ut til å ha pakker fra tredjepart installert som "
-"overlapper med pakker inkludert i %s. Da disse pakkene overlapper er det "
-"mulig at du vil oppleve at disse ikke fungerer eller at systemet blir "
-"ustabilt hvis du fortsetter med oppgraderingen. Vennligst les merknadene for "
-"denne utgaven for mer informasjon.\n"
+"Dette systemet ser ut til å ha pakker fra tredjepart installert som overlapper med pakker inkludert i %s. Da disse pakkene overlapper er det mulig at du vil oppleve at disse ikke fungerer eller at systemet blir ustabilt hvis du fortsetter med oppgraderingen. Vennligst les merknadene for denne utgaven for mer informasjon.\n"
 "\n"
-"Vil du fortsette med oppgraderingsprosessen?"
+"Vil du fortsette med oppgraderingen?"
 
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
@@ -2956,7 +2945,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -3037,7 +3026,6 @@ msgstr ""
 "konfigurasjonen."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
 msgstr "Følgende installert system vil bli oppgradert:"
 
@@ -3158,20 +3146,19 @@ msgstr "Enhe_ter vi stoler på:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "Utvidelser for _Security Enhanced Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktivert"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Advarsel"
+msgstr "Advar"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5259,7 +5246,7 @@ msgstr ""
 "systemet. Du vil kanskje beholde denne filen som referansepunkt til senere."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5412,22 +5399,22 @@ msgstr "Advarsel: %s er ikke en gyldig port."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
-msgstr ""
+msgstr "Security Enhanced Linux (SELinux gir strengere tilgangskontroll for å øke sikkerheten på ditt system. Hvordan ønsker du at denne funskjonen skal aktiveres?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Deaktiver SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Advar ved overtramp"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6501,7 +6488,6 @@ msgstr ""
 "som er ideelt for hjemmebruk."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6546,7 +6532,6 @@ msgstr ""
 "programvareutvikling og systemadministrasjon."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6839,7 +6824,7 @@ msgid "Select Partition"
 msgstr "Velg partisjon"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Enhet %s ser ikke ut til å inneholde CD-ROM bilder for %s."
 
@@ -7019,9 +7004,9 @@ msgid "loader has already been run.  Starting shell."
 msgstr "laster er allerede kjørt. Starter skall."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Kjører anaconda, installeringsprogrammet for %s...\n"
+msgstr "Kjører anaconda, feilrettingsmodus for %s - vennligst vent...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7256,7 +7241,7 @@ msgid "NFS server name:"
 msgstr "Navn på NFS-tjener:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
 msgstr "Katalog for %s:"
 
@@ -8079,12 +8064,11 @@ msgstr "Engelsk"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Dansk"
+msgstr "Finsk"
 
 #. generated from lang-table
 msgid "French"
@@ -8096,7 +8080,7 @@ msgstr "Tysk"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarsk"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8116,7 +8100,7 @@ msgstr "Koreansk"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malay"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8152,16 +8136,8 @@ msgstr "Tyrkisk"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainsk"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
-
-#, fuzzy
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Den katalogen kunne ikke monteres fra tjeneren."
-
-#, fuzzy
-#~ msgid "Workstation Defaults"
-#~ msgstr "_Arbeidsstasjon"
+msgstr "Zulu"

@@ -1,4 +1,4 @@
-# Anaconda Bahasa Melayu (ms)
+# Anaconda Bahasa Melayu (Malay) (ms)
 # Jika takut risiko, Jangan bicara tentang Perjuangan
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
 # Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003,2004
@@ -6,15 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-15 19:56+0800\n"
-"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
-"Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2004-03-28 23:12+0730\n"
+"Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -999,7 +997,7 @@ msgstr "Nota keluaran hilang.\n"
 
 #: ../gui.py:980
 msgid "The release notes are missing."
-msgstr "Nota keluaran tidak dijumpai."
+msgstr "Nota keluaran hilang."
 
 #: ../gui.py:1080
 msgid "Error!"
@@ -1040,7 +1038,7 @@ msgstr "_Undur"
 
 #: ../gui.py:1182
 msgid "_Next"
-msgstr "_Maju"
+msgstr "_Berikutnya"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
@@ -1744,7 +1742,6 @@ msgstr ""
 "Adakah anda ingin format partisyen ini sebagai partisyen swap?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1754,11 +1751,11 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 "Anda telah memilih untuk menggunakan partisyen sedia ada untuk pemasangan "
-"ini tanpa mengformatnya. Kami mencadangkan anda memformat partisyen ini "
-"untuk memastikan fail drpd pemasangan sistem pengoperasian terdahulu "
-"menyebabkan masalah kepada pemasangan Linux ini. Walaubagaimanapun, jika "
-"partisyen ini mengandungi fail yang anda ingin simpan, seperti direktori "
-"rumah pengguna, maka anda patut teruskan tanpa mengformat partisyen ini."
+"ini tanpa memformat. Kami menggalakkan anda format partisyen ini untuk "
+"memastikan fail dari pemasangan sistem operasi terdahulu tidak menyebabkan "
+"masalah dengan pamasangan Linux ini. Walaubagaimanapun, jika partisyen ini "
+"mengandungi fail yang anda hendak simpan, seperti direktori home, maka "
+"teruskan tanpa memformat partisyen ini."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -3174,20 +3171,19 @@ msgstr "_Peranti dipercayai:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "Tambahan _Security Enhanced Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Dimatikan"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
 msgstr "Amaran"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktif"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -4567,19 +4563,18 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
-"Alat Penklonan Pemacu\n"
+"Alat Pengklonan Pemacu\n"
 "\n"
-"Alat ini membolehkan anda untuk mengurangkan jumlah usaha yang diperlukan "
-"untuk menetapkan array RAID.  Ideanya adalah untuk mengambil pemacu sumber "
-"yang telah disediakan dengan susunatur partisyen yang diingini, dan klon "
-"susunatur ini ke dalam pemacu lain yang sama saiz.  Kemudian peranti RAID "
-"boleh dihasilkan.\n"
+"Alat ini membolehkan anda mengurangkan kesusahan mengkonfigurasi array.  "
+"Caranya ialah mengambil pemacu sumber yang telah disediakan dengan susunatur "
+"pempartisyenan disukai, dan klonkan susunatur ini ke pemacu yang hampir sama "
+"saiz yg lain.  Kemudian peranti RAID boleh dicipta.\n"
 "\n"
 "NOTA: Pemacu sumber mesti mempunyai partisyen yang dihadkan untuk berada "
-"pada pemacu tersebut sahaja, dan hanya boleh mengandungi partisyen RAID "
-"perisian yang tidak digunakan.  Jenis partisyen lain tidak dibenarkan.\n"
+"dipemacu itu sahaja, dan hanya mengandungi partisyen RAID perisian yg tak "
+"digunakan.  Jenis partisyen lain tak diizinkan.\n"
 "\n"
-"SEMUA maklumat pada pemacu sasaran akan termusnah oleh proses ini."
+"SEMUA BENDA pada pemacu sasaran akan dimusnahkan oleh proses ini."
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
@@ -4684,7 +4679,7 @@ msgstr "Ini akan mengemaskini pemuat but semasa anda."
 #, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Pemasang mengesan pemuat but %s kini dipasang üada %s."
+msgstr "Pemasang mengesan pemuat but %s kini dipasang Ã¼ada %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -5452,7 +5447,7 @@ msgstr "Amaran:%s adalah liang yang tidak sah."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5460,14 +5455,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Security Enhanced Linux (SELinux) menyediakan kawalan akses lebih ketat "
+"untuk meningkatkan keselamatan sistem anda.  Bagaimana anda hendak "
+"menghidupkan sokongan ini?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "SELinux Dimatikan"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Amaran pada percanggahan"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5998,7 +5996,6 @@ msgid "Create new boot loader configuration"
 msgstr "Cipta konfigurasi pemuat but baru"
 
 #: ../textw/upgrade_text.py:94
-#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
@@ -8208,4 +8205,4 @@ msgstr "Ukraine"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"

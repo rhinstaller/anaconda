@@ -12,16 +12,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda-9.91\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-12 21:31+0100\n"
+"PO-Revision-Date: 2004-04-08 20:30+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -902,11 +902,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Meerdere apparaten op uw systeem hebben het label %s.  Labels bij gebruik "
-"van meerdere apparaten moeten uniek zijn voor uw systeem om goed te "
-"functioneren.\n"
+"Meerdere apparaten op uw systeem hebben het label %s.  Labels bij gebruik van meerdere apparaten moeten uniek zijn voor uw systeem om goed te functioneren.\n"
 "\n"
-"Verhelp dit probleem alstublieft en start het installatie proces opnieuw."
+"Verhelp dit probleem alstublieft en start het installatieproces opnieuw."
 
 #: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
 #: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
@@ -918,10 +916,13 @@ msgstr "_Herstarten"
 msgid "Formatting"
 msgstr "Bezig met formatteren"
 
+# dubbele punt toegevoegd om verwarring te voorkomen: bijv:
+# Bestandssysteem / wordt nu geformatteerd
+# Misschien ook nog aanhalingstekens gebruiken?
 #: ../fsset.py:2330
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Bestandssysteem %s wordt nu geformatteerd..."
+msgstr "Bestandssysteem: %s wordt nu geformatteerd..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -1253,18 +1254,14 @@ msgstr "Lezen"
 
 #: ../packages.py:144
 msgid "Reading package information..."
-msgstr "Pakket-informatie wordt nu gelezen..."
+msgstr "Pakket-informatie wordt gelezen..."
 
 # return? moet dit niet enter zijn?
 #: ../packages.py:151
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
-msgstr ""
-"Het was niet mogelijk om de zogenaamde \"header list\" te lezen. Dit kan "
-"veroorzaakt worden door een ontbrekend bestand of door een beschadigde media-"
-"drager. Kies <Enter> om het installatie programma een nieuwe poging te laten "
-"doen."
+msgstr "Het was niet mogelijk om de zogenaamde \"header list\" te lezen. Dit kan veroorzaakt worden door een ontbrekend bestand of door een beschadigde media-drager. Kies <Enter> om het installatieprogramma een nieuwe poging te laten doen."
 
 # return? moet dit niet enter zijn?
 #: ../packages.py:164
@@ -1791,7 +1788,6 @@ msgstr ""
 "Wilt u deze partitie formatteren als een wisselgeheugen-partitie?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -3083,7 +3079,7 @@ msgstr ""
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
-msgstr "_Installeer standaard software pakketten"
+msgstr "_Installeer standaard softwarepakketten"
 
 #: ../iw/desktop_choice_gui.py:74
 msgid "_Customize software packages to be installed"
@@ -3104,7 +3100,7 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr "Upgrade Onderzoek"
+msgstr "Upgrade onderzoek"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
@@ -3230,7 +3226,7 @@ msgstr "_Geen firewall gebruiken"
 
 #: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
-msgstr "_Zet firewall aan"
+msgstr "_Firewall aanzetten"
 
 #: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
@@ -3251,8 +3247,7 @@ msgstr "Andere _poorten:"
 
 #: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
-"Als u alle verkeer van een apparaat wilt toestaan, selecteert u deze beneden."
+msgstr "Als u alle verkeer van een apparaat wilt toestaan, selecteert u deze hieronder."
 
 #: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
@@ -3260,20 +3255,19 @@ msgstr "Veilige ver_bindingen:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "_Security Enhanced Linux (SELinux) Extensies:"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Uitgezet"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Waarschuwing"
+msgstr "Waarschuwen"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Actief"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3321,7 +3315,7 @@ msgstr "_Alleen standaard selecteren"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "Rese_tten"
+msgstr "_Resetten"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -5490,7 +5484,7 @@ msgstr "Aanpassen"
 
 #: ../textw/firewall_text.py:46
 msgid "Enable firewall"
-msgstr "Zet firewall aan"
+msgstr "Firewall aanzetten"
 
 #: ../textw/firewall_text.py:49
 msgid "No firewall"
@@ -5540,7 +5534,7 @@ msgstr "U kunt een firewall die is uitgezet niet aanpassen."
 
 #: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
-msgstr "Firewall Configureren - Aanpassen"
+msgstr "Firewall configureren - Aanpassen"
 
 #: ../textw/firewall_text.py:129
 msgid ""
@@ -5562,7 +5556,7 @@ msgstr "Waarschuwing: %s is geen geldige poort."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5570,14 +5564,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Security Enhanced Linux (SELinux) biedt strictere toegangscontroles om "
+"de veiligheid van uw systeem te verbeteren.  Hoe wilt u de ondersteuning "
+"hiervoor gebruiken?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "SELinux uitzetten"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Waarschuwen bij overtredingen"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -8330,7 +8327,7 @@ msgstr "Oekraïns"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
 #~ msgid "The CDROM could not be mounted."
 #~ msgstr "De CDROM kon niet worden aangekoppeld."

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-12 11:34+0200\n"
+"PO-Revision-Date: 2004-04-07 11:34+0200\n"
 "Last-Translator: Tamas Szanto <tszanto@mol.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -1028,7 +1028,7 @@ msgstr "_Vissza"
 
 #: ../gui.py:1182
 msgid "_Next"
-msgstr "Követke_ző"
+msgstr "_Tovább"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
@@ -1036,7 +1036,7 @@ msgstr "Kibocsátási m_egjegyzések"
 
 #: ../gui.py:1186
 msgid "Show _Help"
-msgstr "_Tájékoztató megjelenítése"
+msgstr "A _tájékoztató megjelenítése"
 
 #: ../gui.py:1188
 msgid "Hide _Help"
@@ -1736,7 +1736,6 @@ msgstr ""
 "Meg szeretné formázni a partíciót lapozási partíciónak?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1747,7 +1746,7 @@ msgid ""
 msgstr ""
 "Egy már létező partíciót választott ki a telepítéshez, újraformázás nélkül. "
 "Erősen ajánlott azonban ilyen esetben mégis leformázni a partíciót, mert a "
-"korábbi rendszerhez tartozó fájl esetleg problémákat okozhatnak az új "
+"korábbi rendszerhez tartozó fájlok problémákat okozhatnak az új "
 "rendszer működésében. Azonban ha a partíción olyan fájlok találhatók, "
 "amelyeket meg szeretne őrizni, például felhasználói saját könyvtárak, akkor "
 "kihagyhatja a formázást."
@@ -3169,20 +3168,19 @@ msgstr "Me_gbízható eszközök:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "_SELinux-bővítmények (Security Enhanced Linux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Letiltva"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
 msgstr "Figyelmeztetés"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktív"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3392,9 +3390,9 @@ msgid "Mount point in use"
 msgstr "Használt csatlakoztatási pont"
 
 #: ../iw/lvm_dialog_gui.py:536
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "A csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -4806,7 +4804,7 @@ msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához.
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
-msgstr "Azonosítatlan monitor"
+msgstr "Ismeretlen monitor"
 
 #: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
@@ -4878,7 +4876,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr "_Válassza ki a monitor típusát"
+msgstr "A monitortípus ki_választása"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -5430,7 +5428,7 @@ msgstr "Figyelem: %s egy érvénytelen port."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "SELinux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5438,14 +5436,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"A SELinux (Security Enhanced Linux) szigorúbb jogosultságkezelést tesz lehetővé "
+"a rendszer nagyobb biztonsága érdekében. Be szeretné kapcsolni ezt a "
+"lehetőséget?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "A SELinux letiltása"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Figyelmeztetés a jogosultságsértésekre"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6497,7 +6498,7 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Válassza ezt a telepítési típust, ha maximális rugalmasságot szeretne a "
+"Akkor válassza ezt a telepítési típust, ha maximális rugalmasságot szeretne a "
 "telepítés folyamán, beleértve a csomagok kiválasztását és a partícionálást."
 
 #: ../installclasses/personal_desktop.py:11
@@ -6510,7 +6511,7 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Személyi felhasználásra szánt gép vagy notebook esetén ajánlott. A telepítés "
+"Személyi felhasználásra szánt gép vagy noteszgép esetén ajánlott. A telepítés "
 "magában foglalja a grafikus felhasználói környezetet, a gép beállításai "
 "otthoni/irodai felhasználásra lesznek optimalizálva."
 
@@ -6542,9 +6543,9 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Akkor válassza ezt a telepítési típust, ha fájlmegosztást, "
-"nyomtatómegosztást és webszolgáltatásokat szeretne használni. További "
-"szolgáltatásokat is lehet engedélyezni, és megadható, hogy legyen-e grafikus "
+"Akkor válassza ezt a telepítési típust, ha fájlmegosztási, "
+"nyomtatási vagy webes szolgáltatásokat szeretne működtetni. További "
+"szolgáltatások is engedélyezhetők, és megadható, hogy telepítve legyen-e grafikus "
 "környezet."
 
 #: ../installclasses/workstation.py:8
@@ -6777,7 +6778,7 @@ msgstr "Nem található meghajtó"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
-msgstr "Meghajtót tartalmazó lemez használata"
+msgstr "Meghajtólemez használata"
 
 #: ../loader2/driverselect.c:187
 msgid ""
@@ -6796,7 +6797,7 @@ msgstr ""
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
-msgstr "Adja meg a modul paramétereit"
+msgstr "Modulargumentumok megadása"
 
 #: ../loader2/driverselect.c:234
 msgid "Select Device Driver to Load"
@@ -6868,7 +6869,7 @@ msgstr "Nem található Kickstart-fájl a merevlemezen."
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
-msgstr "Billentyűzet típus"
+msgstr "Billentyűzettípus"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
@@ -6995,7 +6996,7 @@ msgstr "Válassza ki a meghajtót"
 
 #: ../loader2/loader.c:823
 msgid "Use a driver disk"
-msgstr "Meghajtót tartalmazó lemez használata"
+msgstr "Meghajtólemez használata"
 
 #: ../loader2/loader.c:824
 msgid ""
@@ -8168,4 +8169,4 @@ msgstr "ukrán"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "zulu"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-10 14:11+0100\n"
+"PO-Revision-Date: 2004-03-17 20:50+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1734,7 +1734,6 @@ msgstr ""
 "Chcete tento oddíl naformátovat jako swap?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1742,13 +1741,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
-msgstr ""
-"Rozhodli jste se pro tuto instalaci použít existující oddíl bez jeho "
-"naformátování. Doporučujeme vám tento oddíl naformátovat, aby soubory z "
-"instalace předchozího operačního systému nemohly v této instalaci Linuxu "
-"způsobit problémy. Pokud ale tento oddíl obsahuje data, která potřebujete "
-"zachovat, např. domovské adresáře uživatelů, tak byste měli pokračovat bez "
-"formátování tohoto oddílu."
+msgstr "Rozhodli jste se pro tuto instalaci použít existující oddíl bez jeho naformátování. Doporučujeme vám tento oddíl naformátovat, aby soubory z instalace předchozího operačního systému nemohly v této instalaci Linuxu způsobit problémy. Pokud ale tento oddíl obsahuje data, která potřebujete zachovat, např. domovské adresáře uživatelů, tak byste měli pokračovat bez formátování tohoto oddílu."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -3152,20 +3145,19 @@ msgstr "Důvěry_hodná zařízení:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "Rozšíření _Security Enhanced Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Zakázány"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Varování"
+msgstr "Varovat"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktivní"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5401,22 +5393,22 @@ msgstr "Varování: %s není platný port."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
-msgstr ""
+msgstr "Security Enhanced Linux (SELinux) poskytuje přísnější ovládání přístupu pro zlepšení zabezpečení vašeho systému. Jak chcete tuto podporu povolit?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Zakázat SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Varovat při porušeních"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -8133,7 +8125,7 @@ msgstr "Ukrajiština"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
 #~ msgid "Workstation Defaults"
 #~ msgstr "Implicitní pro pracovní stanici"

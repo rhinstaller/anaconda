@@ -6,14 +6,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-11 00:00+0100\n"
+"PO-Revision-Date: 2004-03-18 23:13+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Report-Msgid-Bugs-To: \n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -1411,13 +1411,17 @@ msgstr "Noder som behövs"
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
+# För många klagomål på "postinstallation", det får bli "efterinstallation"
+# istället.
 #: ../packages.py:1008
 msgid "Post Install"
-msgstr "Postinstallation"
+msgstr "Efterinstallation"
 
+# För många klagomål på "postinstallationskonfiguration", det får bli
+# "efterinstallationskonfiguration" istället.
 #: ../packages.py:1009
 msgid "Performing post install configuration..."
-msgstr "Utför postinstallationskonfiguration..."
+msgstr "Utför efterinstallationskonfiguration..."
 
 #: ../packages.py:1179
 msgid ""
@@ -1744,7 +1748,6 @@ msgstr ""
 "Vill du formatera denna partition som en växlingspartition?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1757,8 +1760,8 @@ msgstr ""
 "att formatera den. Vi rekommenderar att du formaterar denna partition för "
 "att försäkra dig om att filer från en tidigare operativsystemsinstallation "
 "inte orsakar problem med denna version av Linux. Om denna partition "
-"innehåller filer som du vill behålla, som till exempel användares "
-"hemkataloger, bör du dock fortsätta utan att formatera denna partition."
+"innehåller filer som du vill behålla, som till exempel hemkataloger, bör du "
+"dock fortsätta utan att formatera denna partition."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -2889,7 +2892,7 @@ msgid ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Ta bort alla installationsmedia (disketter eller cd-romskivor) som användes "
+"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
 "under installationen och tryck på knappen \"Starta om\" för att starta om "
 "din maskin.\n"
 "\n"
@@ -3183,21 +3186,19 @@ msgstr "_Pålitliga enheter:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "_Tillägg för säkerhetsförbättrat Linux (SELinux):"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Disabled"
-msgstr "Använd inte stumma tangenter"
+msgstr "Inaktiverad"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Varning"
+msgstr "Varna"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktiv"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -5449,7 +5450,7 @@ msgstr "Varning: %s är inte en giltig port."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Säkerhetsförbättrat Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5457,14 +5458,17 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Säkerhetsförbättrat Linux (SELinux) tillhandahåller striktare "
+"åtkomstkontroll för att förbättra säkerheten på ditt system. Hur vill du att "
+"detta stöd ska vara aktiverat?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Inaktivera SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Varna vid överträdelser"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -7341,11 +7345,11 @@ msgstr "Kan inte hämta installationsavbilden."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
-msgstr "Media upptäcktes"
+msgstr "Medium upptäcktes"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr "Lokal installationsmedia upptäcktes..."
+msgstr "Lokalt installationsmedium upptäcktes..."
 
 #: ../loader2/urlinstall.c:432
 #, c-format
@@ -8195,7 +8199,19 @@ msgstr "Ukrainska"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
+
+#~ msgid "Enabled"
+#~ msgstr "Aktiverad"
+
+#~ msgid "Enable SELinux"
+#~ msgstr "Aktivera SELinux"
+
+#~ msgid "Disable"
+#~ msgstr "Inaktivera"
+
+#~ msgid "Enable"
+#~ msgstr "Aktivera"
 
 #~ msgid ""
 #~ "Multiple devices on your system have are labelled %s.  Labels across "

@@ -1,14 +1,17 @@
+# translation of anaconda.po to Finnish
 # Finnish translation of Anaconda.
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
 # Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
 # Lauri Nurmi <lanurmi@iki.fi>, 2004.
 # Mikko Ikola <ikola@iki.fi>, 2004.
+# 
+# liitoskohta -> liitospiste!
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-15 19:06+0200\n"
+"PO-Revision-Date: 2004-04-04 02:05+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -269,8 +272,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"Käynnistysosio %s ei ole VFAT-osio. EFI ei voi käynnistyä tältä osiolta."
+msgstr "Käynnistysosio %s ei ole VFAT-osio. EFI ei voi käynnistyä tältä osiolta."
 
 #: ../autopart.py:1010
 msgid ""
@@ -513,7 +515,7 @@ msgstr ""
 "Manuaalisella Disk Druid -levyosiointityökalulla voit määritellä osiot "
 "vuorovaikutteisesti. Tällä helppokäyttöisellä ja tehokkaalla "
 "käyttöliittymällä voit valita muun muassa tiedostojärjestelmien tyypit, "
-"liitoskohdat ja koot."
+"liitospisteet ja koot."
 
 # ../autopart.py:970
 #: ../autopart.py:1481
@@ -889,7 +891,7 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"¡Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
+"Virhe otettaessa käyttöön sivutuslaitetta %s: %s\n"
 "\n"
 "Tämä johtuu luultavasti siitä, ettei sivutusosiota ole alustettu.\n"
 "\n"
@@ -953,7 +955,7 @@ msgstr ""
 # ../fsset.py:929 ../fsset.py:938
 #: ../fsset.py:1431 ../fsset.py:1440
 msgid "Invalid mount point"
-msgstr "Virheellinen liitoskohta"
+msgstr "Virheellinen liitospiste"
 
 # ../fsset.py:930
 #: ../fsset.py:1432
@@ -1022,7 +1024,7 @@ msgstr ""
 #: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "_Käynnistä"
+msgstr "_Käynnistä uudelleen"
 
 # ../fsset.py:1495
 #: ../fsset.py:2329
@@ -1033,7 +1035,7 @@ msgstr "Alustetaan"
 #: ../fsset.py:2330
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Luodaan %s-tiedostojärjestelmän..."
+msgstr "Luodaan %s-tiedostojärjestelmää..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
@@ -1303,9 +1305,9 @@ msgstr ""
 "Asennettavaksi merkityt ohjelmat tarvitsevat seuraavat CD-levyt.\n"
 "\n"
 "%s\n"
-"Jatka asennusta vasta kun sinulla nämä CD-levyt. Jos haluat keskeyttää "
-"asennukset ja käynnistää järjestelmän uudelleen, valitse \"Käynnistä "
-"uudelleen\""
+"Jatka asennusta vasta kun nämä CD-levyt ovat saatavilla. Jos haluat "
+"keskeyttää asennukset ja käynnistää järjestelmän uudelleen, "
+"valitse \"Käynnistä uudelleen\"."
 
 # ../rescue.py:99
 #: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
@@ -1361,7 +1363,7 @@ msgstr "Vaihda CD-levy"
 #: ../image.py:288
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr "Syötä levy %d jatkaaksesi."
+msgstr "Syötä levy %d."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1407,8 +1409,7 @@ msgstr "Konenimen tulee olla alle 65 merkkiä pitkä."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Konenimen ensimmäinen merkki on oltava kirjain väliltä \"a-z\" tai \"A-Z\""
+msgstr "Konenimen ensimmäinen merkki on oltava kirjain väliltä \"a-z\" tai \"A-Z\""
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1443,7 +1444,7 @@ msgstr "Luetaan"
 # ../packages.py:100
 #: ../packages.py:144
 msgid "Reading package information..."
-msgstr "Luetaan paketin tietoja..."
+msgstr "Luetaan pakettitietoja..."
 
 # ../packages.py:241
 #: ../packages.py:151
@@ -1544,7 +1545,7 @@ msgstr ""
 # ../packages.py:481
 #: ../packages.py:764
 msgid "Preparing RPM transaction..."
-msgstr "Valmistelen RPM-toimia..."
+msgstr "Valmistellaan RPM-toimia..."
 
 #: ../packages.py:847
 #, python-format
@@ -1619,7 +1620,7 @@ msgstr ""
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
-msgstr "Liitoskohta"
+msgstr "Liitospiste"
 
 # ../packages.py:589
 #: ../packages.py:927
@@ -1851,13 +1852,13 @@ msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
-"Liitoskohta ei kelpaa. Liitoskohtien pitää alkaa \"/\"-merkillä ja sisältää "
-"tulostuvia merkkejä. Ne eivät saa loppua \"/\"-merkkiin."
+"Liitospiste ei kelpaa. Liitospisteiden pitää alkaa merkillä \"/\" ja "
+"sisältää tulostuvia merkkejä. Ne eivät saa loppua \"/\"-merkkiin."
 
 # ../partitioning.py:360
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr "Valitse tämän osion liitoskohta."
+msgstr "Valitse tämän osion liitospiste."
 
 # ../partitioning.py:1657
 #: ../partIntfHelpers.py:109
@@ -1985,8 +1986,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Tätä osiota ei voi muokata, koska se on laajennettu osio, joka sisältää %s"
+msgstr "Tätä osiota ei voi muokata, koska se on laajennettu osio, joka sisältää %s"
 
 # ../partitioning.py:1779
 #: ../partIntfHelpers.py:379
@@ -2008,7 +2008,6 @@ msgstr ""
 "Haluatko alustaa tämän osion sivutusosioksi?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -2017,7 +2016,7 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Olet valinnut vanhan osion asennuksen kohteeksi ilman alustusta. On "
+"Olet valinnut olemassa olevan osion asennuksen kohteeksi ilman alustusta. On "
 "suositeltavaa alustaa osio, jotta edellisen asennuksen tiedostot eivät "
 "häiritse uutta asennusta. Jos osiolla kuitenkin on tiedostoja, jotka "
 "halutaan säilyttää (esimerkiksi kotihakemistot), jatka alustamatta osiota."
@@ -2138,8 +2137,7 @@ msgstr "Vahvista palautus"
 
 # ../partitioning.py:1595
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Haluatko varmasti palauttaa osiotaulun alkuperäiseen tilaansa?"
 
 # ../partitioning.py:1739
@@ -2195,8 +2193,7 @@ msgstr ""
 
 # ../partitioning.py:574
 #: ../partitions.py:768
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "On luotava /boot/efi-osio, jonka tyyppi on FAT ja koko 50 megatavua."
 
 #: ../partitions.py:791
@@ -2239,8 +2236,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"Olet valinnut yli 32 sivutuslaitetta. %sn ydin tukee vain 32 sivutuslaitetta."
+msgstr "Olet valinnut yli 32 sivutuslaitetta. %sn ydin tukee vain 32 sivutuslaitetta."
 
 # ../partitioning.py:622
 #: ../partitions.py:875
@@ -2270,10 +2266,9 @@ msgstr "osio, joka kuuluu taltioryhmään."
 # ../partitioning.py:436
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
-"Liitoskohta on virheellinen. Hakemiston %s pitää sijaita /-"
+"Liitospiste on virheellinen. Hakemiston %s pitää sijaita /-"
 "tiedostojärjestelmässä."
 
 # ../partitioning.py:379
@@ -2283,13 +2278,13 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Liitoskohtaa \"%s\" ei voida käyttää. Sen pitää olla symbolinen linkki. "
-"Valitse jokin muu liitoskohta."
+"Liitospistettä \"%s\" ei voida käyttää. Sen pitää olla symbolinen "
+"linkki. Valitse jokin muu liitospiste."
 
 # ../partitioning.py:441
 #: ../partRequests.py:243
 msgid "This mount point must be on a linux file system."
-msgstr "Tämän liitoskohdan pitää sijaita Linux-tiedostojärjestelmässä."
+msgstr "Tämän liitospisteen pitää sijaita Linux-tiedostojärjestelmässä."
 
 # ../partitioning.py:379
 #: ../partRequests.py:264
@@ -2297,7 +2292,7 @@ msgstr "Tämän liitoskohdan pitää sijaita Linux-tiedostojärjestelmässä."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr "Liitoskohta \"%s\" on jo käytössä. Valitse jokin muu liitoskohta."
+msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
 
 # ../partitioning.py:454
 #: ../partRequests.py:278
@@ -2383,8 +2378,7 @@ msgstr "Ei voida siirtyä tästä aikaisempaan vaiheeseen. Yritä uudelleen."
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Kun olet valmis, sulje komentotulkki ja järjestelmä käynnistetään uudelleen."
+msgstr "Kun olet valmis, sulje komentotulkki ja järjestelmä käynnistetään uudelleen."
 
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
@@ -2556,18 +2550,15 @@ msgstr "%s © 2004 Red Hat, Inc."
 
 # ../text.py:304
 #: ../text.py:354
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> ohje | <Tab> vaihtaa elementtiä | <Välil.> valitsee | <F12> seuraava   "
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> ohje | <Tab> vaihtaa elementtiä | <Välil.> valitsee | <F12> seuraava   "
 
 # ../text.py:306
 #: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> vaihtaa elementtiä | <Välil.> valitsee | <F12> seuraava "
+msgstr "  <Tab>/<Alt-Tab> vaihtaa elementtiä | <Välil.> valitsee | <F12> seuraava "
 
 # ../installclasses/upgradeclass.py:8
 #: ../upgradeclass.py:8
@@ -2588,12 +2579,12 @@ msgstr "Etsitään"
 #: ../upgrade.py:63
 #, python-format
 msgid "Searching for %s installations..."
-msgstr "Etsitään asennettua %sia..."
+msgstr "Etsitään %s -asennuksia..."
 
 # ../upgrade.py:76
 #: ../upgrade.py:115 ../upgrade.py:123
 msgid "Dirty File Systems"
-msgstr "Likaisesti suljetut tiedostojärjestelmät"
+msgstr "Likaiset tiedostojärjestelmät"
 
 # ../upgrade.py:77
 #: ../upgrade.py:116
@@ -2990,8 +2981,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Syötä käynnistyslataimen salasana ja vahvista se. (Huomaa, että BIOS:n "
-"näppäimistöasettelu voi erota käyttämästäsi näppäimistöstä)"
+"Syötä käynnistyslataimen salasana ja vahvista se. (Huomaa, että BIOSin "
+"näppäimistöasettelu voi erota nyt käytetystä näppäimistöasettelusta)"
 
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
@@ -3180,7 +3171,7 @@ msgstr "_Vaihda käynnistyslatainta"
 # ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
-msgstr "Käynnistyslataimen _lisäasetukset"
+msgstr "Käynnistyslataimen l_isäasetukset"
 
 # ../iw/bootloader_gui.py:305
 #: ../iw/bootlocwidget.py:39
@@ -3250,7 +3241,7 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Asennuksen loki löytyy tiedostosta %s käynnistyksen jälkeen.\n"
+"Asennuksen loki löytyy käynnistyksen jälkeen tiedostosta %s.\n"
 "\n"
 "Kickstart-tiedosto, jossa on asennuksessa käytetyt valinnat löytyy "
 "tiedostosta %s käynnistyksen jälkeen."
@@ -3272,7 +3263,8 @@ msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"Täydellinen loki päivityksestä löytyy tiedostosta %s käynnistyksen jälkeen."
+"Täydellinen loki päivityksestä löytyy käynnistyksen jälkeen "
+"tiedostosta %s."
 
 # ../iw/congrats_gui.py:22 ../iw/congrats_gui.py:83
 #: ../iw/congrats_gui.py:23
@@ -3290,8 +3282,8 @@ msgid ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Poista asennuslevyt (levyke tai CD-ROM) ja käynnistä kone uudelleen "
-"painamalla \"Käynnistä uudelleen\".\n"
+"Poista asennuslevyt (levyke tai CD-ROM), ja käynnistä kone uudelleen "
+"painikkeella \"Käynnistä uudelleen\".\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -3414,8 +3406,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
-"Jos haluat muuttaa asennettavien pakettien listaa, voit tehdä valinnan nyt."
+msgstr "Jos haluat muuttaa asennettavien pakettien listaa, voit tehdä valinnan nyt."
 
 # ../iw/progress_gui.py:28
 #: ../iw/desktop_choice_gui.py:73
@@ -3458,8 +3449,8 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Valitse tämä, jos haluat päivittää vanhan %s-asennuksen. Tämä valinta "
-"säilyttää vanhat tiedot."
+"Valitse tämä, jos haluat päivittää vanhan %s -asennuksen. Tämä "
+"valinta säilyttää vanhat tiedot."
 
 # ../installclass.py:28
 #: ../iw/examine_gui.py:67
@@ -3473,7 +3464,7 @@ msgid ""
 "data may be overwritten depending on your configuration choices."
 msgstr ""
 "Valitse tämä tehdäksesi puhtaan asennuksen. Olemassa olevat ohjelmat ja "
-"tiedot saatetaan ylikirjoittaa riippuen asetusvalinnoistasi."
+"tiedot saatetaan ylikirjoittaa riippuen asetusvalinnoista."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3540,7 +3531,7 @@ msgstr "_Aseta palomuuri"
 #: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:202
 msgid "_Proceed"
-msgstr "_Hyväksy"
+msgstr "_Jatka"
 
 #: ../iw/firewall_gui.py:129
 #, python-format
@@ -3571,12 +3562,12 @@ msgstr ""
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
-msgstr "Ei pal_omuuria"
+msgstr "_Ei palomuuria"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
-msgstr "Ota palomuuri käyttöön"
+msgstr "Ota _palomuuri käyttöön"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:171
@@ -3585,7 +3576,7 @@ msgstr "Mukauta pal_omuuria"
 
 #: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
-msgstr "Mitkä palvelut pitäisi päästää palomuurin läpi?"
+msgstr "Mitkä palvelut päästetään palomuurin läpi?"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 #: ../iw/firewall_gui.py:197
@@ -3599,7 +3590,8 @@ msgstr "Muut _portit:"
 
 #: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr "Jos haluat sallia kaiken liikenteen tietystä laitteesta, valitse se."
+msgstr ""
+"Jos haluat sallia kaiken liikenteen tietystä laitteesta, valitse laite alta."
 
 # ../iw/firewall_gui.py:260
 #: ../iw/firewall_gui.py:239
@@ -3608,11 +3600,11 @@ msgstr "Luo_tetut laitteet:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "_Turvaparannettu Linux (SELinux) -laajennokset:"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Ei käytössä"
 
 # ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
 # ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
@@ -3624,13 +3616,12 @@ msgstr ""
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Varoitus"
+msgstr "Varoita"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktiivinen"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -3707,12 +3698,12 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Fyysisen soiron kokoa ei voida muuttaa, koska muuten määriteltyjen loogisten "
+"Fyysisen varausyksikön kokoa ei voida muuttaa, koska muuten määriteltyjen loogisten "
 "taltioiden koko kasvaa suuremmaksi kuin käytettävissä oleva tila."
 
 #: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
-msgstr "Vahvista fyysisen soiron muutos"
+msgstr "Vahvista fyysisen varausyksikön muutos"
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid ""
@@ -3722,8 +3713,8 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"Tämä muutos fyysisen soiron kokoon vaatii nykyisten loogisten taltioiden "
-"kokovarausten pyöristämistä ylöspäin fyysisten soirojen monikertaan.\n"
+"Tämä muutos fyysisen varausyksikön kokoon vaatii nykyisten loogisten taltioiden "
+"kokovarausten pyöristämistä ylöspäin fyysisten varausyksikköjen koon monikertaan.\n"
 "\n"
 "Tämä muutos tulee voimaan välittömästi."
 
@@ -3740,7 +3731,7 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"Fyysisen soiron kokoa ei voi muuttaa, koska valittu arvo (%10.2f Mt) on "
+"Fyysisen varausyksikön kokoa ei voi muuttaa, koska valittu arvo (%10.2f Mt) on "
 "suurempi kuin pienin fyysinen taltio (%10.2f Mt) taltioryhmässä."
 
 #: ../iw/lvm_dialog_gui.py:165
@@ -3750,7 +3741,7 @@ msgid ""
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
-"Fyysisen soiron kokoa ei voi muuttaa, koska valittu arvo (%10.2f Mt) on "
+"Fyysisen varausyksikön kokoa ei voi muuttaa, koska valittu arvo (%10.2f Mt) on "
 "liian suuri suhteessa pienimpään fyysiseen taltioon (%10.2f Mt) "
 "taltioryhmässä."
 
@@ -3763,7 +3754,7 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Tämä muutos fyysisen soiron kokoon tuhlaa merkittävästi tilaa yhdellä tai "
+"Tämä muutos fyysisen varausyksikön kokoon tuhlaa merkittävästi tilaa yhdellä tai "
 "useammalla fyysisellä taltiolla taltioryhmässä."
 
 #: ../iw/lvm_dialog_gui.py:205
@@ -3773,7 +3764,7 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"Fyysisen soiron kokoa ei voi muuttaa, koska tuloksena syntyvä suurin "
+"Fyysisen varausyksikön kokoa ei voi muuttaa, koska tuloksena syntyvä suurin "
 "mahdollinen loogisen taltion koko (%10.2f MB) on pienempi kuin yksi tai "
 "useampi määritelty looginen taltio."
 
@@ -3804,7 +3795,7 @@ msgstr "Muokkaa loogista taltiota"
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr "_Liitoskohta:"
+msgstr "_Liitospiste:"
 
 # ../iw/partition_gui.py:871 ../textw/partition_text.py:604
 #: ../iw/lvm_dialog_gui.py:384
@@ -3868,13 +3859,13 @@ msgstr "Pyydetty koko ei kelpaa."
 # ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
-msgstr "Liitoskohta on käytössä"
+msgstr "Liitospiste on käytössä"
 
 # ../partitioning.py:379
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "Liitoskohta \"%s\" on jo käytössä. Valitse jokin muu liitoskohta."
+msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -3897,7 +3888,7 @@ msgid ""
 "Extent size for this Volume Group."
 msgstr ""
 "Pyydetty koko (%10.2f Mt) on suurempi kuin loogisen taltion enimmäiskoko (%"
-"10.2f Mt). Voit muuttaa rajaa nostamalla tämän taltioryhmän fyysisen soiron "
+"10.2f Mt). Voit muuttaa rajaa nostamalla tämän taltioryhmän fyysisen varausyksikön "
 "kokoa."
 
 # ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
@@ -4009,11 +4000,11 @@ msgstr "Taltioryhmän nimi:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "_Fyysinen soiro:"
+msgstr "_Fyysinen varausyksikkö:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
-msgstr "Fyysinen soiro:"
+msgstr "Fyysinen varausyksikkö:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
@@ -4225,9 +4216,9 @@ msgstr ""
 "Aktiivisia verkkolaitteita ei ole. Järjestelmä ei pysty käyttämään verkkoa "
 "hyväkseen ilman aktiivisia verkkolaitteita.\n"
 "\n"
-"HUOM: Jos sinulla on PCMCIA-liitäntäinen verkkokortti, se pitäisi jättää "
-"aktivoimatta tässä vaiheessa. Kun kone käynnistyy asennuksen jälkeen, se "
-"aktivoidaan automaattisesti."
+"HUOM: Jos koneessa on PCMCIA-liitäntäinen verkkokortti, se on syytä "
+"jättää aktivoimatta tässä vaiheessa. Kun kone käynnistyy asennuksen "
+"jälkeen, kortti aktivoidaan automaattisesti."
 
 #: ../iw/network_gui.py:202
 #, python-format
@@ -4308,7 +4299,7 @@ msgstr "_käsin"
 
 #: ../iw/network_gui.py:514
 msgid "(ex. \"host.domain.com\")"
-msgstr "(esim. \"kone.domain.com\")"
+msgstr "(\"kone.esimerkki.fi\")"
 
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
@@ -4622,7 +4613,7 @@ msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
-"Liitoskohta/\n"
+"Liitospiste/\n"
 "RAID/taltio"
 
 #
@@ -4642,15 +4633,13 @@ msgstr "Osiointi"
 
 # ../iw/partition_gui.py:543
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Pyytämäsi osiointijärjestely tuotti seuraavia vakavia virheitä."
 
 # ../iw/partition_gui.py:546
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Nämä virheet pitää korjata ennen %sn asennuksen jatkamista."
 
 # ../iw/partition_gui.py:553
@@ -5347,8 +5336,7 @@ msgstr "Tämä päivittää nykyisen käynnistyslataimen."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Asennusohjelma havaitsi käynnistyslataimen %s asennettuna osiolla %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -5500,8 +5488,7 @@ msgstr "Sivutustiedoston sallittu koko on 1 - 2000 Mt."
 
 # ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:168
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Sivutusosioksi valitulla laitteella ei ole tarpeeksi tilaa."
 
 # ../iw/xconfig_gui.py:583
@@ -5892,8 +5879,7 @@ msgstr ""
 "nimiöitä niille käytetään."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Väli> valitsee | <F2> valitsee oletuksen | <F12> seuraava ruutu>"
 
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
@@ -6235,7 +6221,7 @@ msgstr "Varoitus: %s ei kelpaa portiksi."
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Turvaparannettu Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -6243,14 +6229,16 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Turvaparannettu Linux (SELinux) tarjoaa tarkemmat käytönvalvonnan, mikä "
+"parantaa järjestelmän turvallisuutta. Otetaanko tämä tuki käyttöön?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Poista SELinux käytöstä"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Varoita loukkauksista"
 
 # ../textw/installpath_text.py:46
 #: ../textw/installpath_text.py:49
@@ -6451,8 +6439,7 @@ msgstr "Valikoi yksittäisiä paketteja"
 
 # ../textw/packages_text.py:245
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Väli>,<+>,<-> valinta |   <F2> paketin kuvaus    |   <F12> seuraava"
 
 #: ../textw/packages_text.py:117
@@ -6483,8 +6470,7 @@ msgstr "Yhteensä"
 
 # ../textw/packages_text.py:245
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "  <Väli>,<+>,<-> valinta |   <F1> ohje   |   <F2> paketin kuvaus     "
 
 # ../textw/packages_text.py:293
@@ -6760,10 +6746,8 @@ msgstr "RAID"
 
 # ../textw/partition_text.py:992
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Ohje     F2-Lisää   F3-Muokkaa  F4-Poista  F5-Tyhjennä   F12-Ok       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Ohje     F2-Lisää   F3-Muokkaa  F4-Poista  F5-Tyhjennä   F12-Ok       "
 
 # ../textw/partition_text.py:1019
 #: ../textw/partition_text.py:1165
@@ -7092,14 +7076,12 @@ msgstr "Käyttäjä on olemassa"
 
 # ../textw/userauth_text.py:146
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "Pääkäyttäjä on jo määritelty. Pääkäyttäjää ei tarvitse lisätä tästä."
 
 # ../textw/userauth_text.py:146
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Tämä järjestelmän käyttäjä on jo määritelty. Tätä käyttäjää ei tarvitse "
 "lisätä tästä."
@@ -7275,8 +7257,7 @@ msgstr "Mukauta X-asetuksia"
 # ../textw/xconfig_text.py:165
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"Valitse värisyvyys ja näyttötila, joita haluat järjestelmässä käyttää. "
+msgstr "Valitse värisyvyys ja näyttötila, joita haluat järjestelmässä käyttää. "
 
 # ../iw/xconfig_gui.py:190 ../textw/xconfig_text.py:171
 #: ../textw/xconfig_text.py:138
@@ -7974,8 +7955,7 @@ msgstr "%s - tervetuloa"
 
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: ../loader2/lang.c:53 ../loader2/loader.c:174
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> vaihtaa kohtaa  | <Väli> valitsee | <F12> seuraava "
 
 #
@@ -8052,8 +8032,7 @@ msgstr ""
 #: ../loader2/loader.c:623
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa."
+msgstr "Tässä koneessa ei ole tarpeeksi keskusmuistia, jotta %s voitaisiin asentaa."
 
 # ../loader/loader.c:1482
 #: ../loader2/loader.c:793
@@ -8603,8 +8582,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantin aika - Itä-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantin aika - Nova Scotia (useimmat paikat), NB, Länsi-Labrador, Itä-"
 "Québec ja PEI"
@@ -8792,8 +8770,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Itäinen aikavyöhyke - Ontario - useimmat paikat"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Itäinen aikavyöhyke - Ontario ja Québec - paikat, jotka eivät huomioineet "
 "kesäaikaa 1967-1973"
@@ -8981,10 +8958,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Vuoriston aikavyöhyke - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Vuoriston aikavyöhyke - Dawson Creek ja Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Vuoriston aikavyöhyke - Dawson Creek ja Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -9324,7 +9299,7 @@ msgstr "ukraina"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "zulu"
 
 # ../image.py:143
 #~ msgid "The CDROM could not be mounted."
@@ -9333,3 +9308,4 @@ msgstr ""
 # ../installclasses/workstation.py:9
 #~ msgid "Workstation Defaults"
 #~ msgstr "Työaseman oletukset"
+

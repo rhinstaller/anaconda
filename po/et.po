@@ -1,4 +1,9 @@
 # 
+#
+#
+#
+#
+#
 # translation of et.po to Estonian
 #
 # Anaconda eesti keele tõlge.
@@ -13,7 +18,7 @@ msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-17 01:34-0500\n"
-"PO-Revision-Date: 2004-03-10 18:56+0200\n"
+"PO-Revision-Date: 2004-04-08 22:55+0300\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <Eesti>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +42,7 @@ msgstr "%s %s installeerimine"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
-msgstr "vnc parooli seadmine ebaõnnestus - parooli ei kasutata"
+msgstr "vnc parooli seadmine ebaõnnestus - parooli ei kasutata!"
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
@@ -153,16 +158,15 @@ msgid ""
 "mode."
 msgstr ""
 "Arvutil pole piisavalt mälu graafiliselt installeerimiseks. "
-"Käivitataksetekstiresiimis."
+"Käivitataksetekstirežiimis."
 
 #: ../anaconda:775
 msgid "Install class forcing text mode installation"
-msgstr "Installatsioon sunniti jätkuma tekstiresiimis"
+msgstr "Installatsioon sunniti jätkuma tekstirežiimis"
 
 #: ../anaconda:802
 msgid "No video hardware found, assuming headless"
-msgstr ""
-"Ei leitud videoseadet, eeldatavasti on tegemist monitorita installatsiooniga."
+msgstr "Ei leitud videoseadet, eeldatavasti on tegemist monitorita installatsiooniga."
 
 #: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
@@ -170,8 +174,7 @@ msgstr "Ei suudetud luua X riistvaralise oleku objekti."
 
 #: ../anaconda:837
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Graafiline installeerimine ei ole võimalik... Käivitatakse tekstiresiimis."
+msgstr "Graafiline installeerimine ei ole võimalik... Käivitatakse tekstirežiimis."
 
 #: ../anaconda:852
 msgid ""
@@ -179,7 +182,7 @@ msgid ""
 "Starting text mode."
 msgstr ""
 "Hiirt ei tuvastatud. Graafiliselt installeerimiseks on vaja hiirt.  "
-"Käivitatakse tekstiresiimis."
+"Käivitatakse tekstirežiimis."
 
 #: ../anaconda:862
 #, c-format
@@ -519,11 +522,11 @@ msgstr "Töötlemisel...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr "Käsurearesiimis ei ole küsimused lubatud!"
+msgstr "Käsurearežiimis ei ole küsimused lubatud!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr "Parted vigu ei saa käsurearesiimis töödelda!"
+msgstr "Parted vigu ei saa käsurearežiimis töödelda!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -598,8 +601,7 @@ msgstr "Tõmmis (dump) kirjutatud"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"Arvuti olek salvestati edukalt disketile. Arvuti lähtestatakse (reset)."
+msgstr "Arvuti olek salvestati edukalt disketile. Arvuti lähtestatakse (reset)."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -664,8 +666,7 @@ msgstr "Viga"
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr ""
-"Buutdiski tegemisel tekkis viga. Kas esimeses flopiseadmes on ikka diskett?"
+msgstr "Buutdiski tegemisel tekkis viga. Kas esimeses flopiseadmes on ikka diskett?"
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -1187,8 +1188,7 @@ msgstr "Arvuti nimi peab algama suure või väikese tähega (va täpitäht)."
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Arvuti nimes võivad olla ainult tähed (va täpitähed), miinus või punkt."
+msgstr "Arvuti nimes võivad olla ainult tähed (va täpitähed), miinus või punkt."
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1245,8 +1245,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
-"Püüad installeerida arvutisse, mis ei ole %s antud versiooni poolt toetatud."
+msgstr "Püüad installeerida arvutisse, mis ei ole %s antud versiooni poolt toetatud."
 
 #: ../packages.py:289
 msgid "Dependency Check"
@@ -1254,8 +1253,7 @@ msgstr "Sõltuvuste kontroll"
 
 #: ../packages.py:290
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"Kontrollitakse paigaldamiseks valitud pakettide omavahelisi sõltuvusi..."
+msgstr "Kontrollitakse paigaldamiseks valitud pakettide omavahelisi sõltuvusi..."
 
 #: ../packages.py:349 ../packages.py:763
 msgid "Processing"
@@ -1597,8 +1595,7 @@ msgstr "Palun määra partitsiooni ühenduspunkt."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Siin partitsioonil hoitakse kõvakettale installeerimiseks vajalikku infot."
+msgstr "Siin partitsioonil hoitakse kõvakettale installeerimiseks vajalikku infot."
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1728,7 +1725,6 @@ msgstr ""
 "Kas soovid selle partitsiooni saalealaks vormindada?"
 
 #: ../partIntfHelpers.py:401
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1737,11 +1733,11 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Oled otsustanud installeerida olemasolevale vormindatud partitsioonile. "
-"Sellisel juhul on soovitatav partitsiooni uuesti vormindada, et eelneva "
-"installatsiooni failid probleeme ei tekitaks. Kui aga antud partitsioon "
-"sisaldab vajalikke andmeid (nt kasutajate kodukataloogid vms), siis tuleks "
-"jätkata ilma seda partitsiooni vormindamata."
+"Oled otsustanud installeerida olemasolevale vormindatud partitsioonile ilma seda "
+"uuesti vormindamata. Sellisel juhul on soovitatav partitsiooni uuesti vormindada, "
+"et eelneva installatsiooni failid probleeme ei tekitaks. Kui aga antud "
+"partitsioon sisaldab vajalikke andmeid (nt kasutajate kodukataloogid vms), "
+"siis tuleks jätkata ilma seda partitsiooni vormindamata."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -1801,8 +1797,7 @@ msgstr "Järgmised olemasolevad partitsioonid vormindatakse (andmed hävivad)."
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"Partitsioonide vormindamiseks vali 'Jah'. Valikute muutmiseks vali 'Ei'."
+msgstr "Partitsioonide vormindamiseks vali 'Jah'. Valikute muutmiseks vali 'Ei'."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -1842,10 +1837,8 @@ msgid "Confirm Reset"
 msgstr "Muudatuste tühistamise kinnitamine"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Oled kindel, et soovid partitsioonitabelis tehtud muudatused tühistada?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Oled kindel, et soovid partitsioonitabelis tehtud muudatused tühistada?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -1878,8 +1871,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"%s installeerimiseks hädavajalik juurpartitsioon (/) on jäetud määramata."
+msgstr "%s installeerimiseks hädavajalik juurpartitsioon (/) on jäetud määramata."
 
 #: ../partitions.py:761
 #, python-format
@@ -1891,8 +1883,7 @@ msgstr ""
 "installeerimiseks piisav."
 
 #: ../partitions.py:768
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Tuleb luua FAT vormingus ja 50MB suurune /boot/efi partitsioon."
 
 #: ../partitions.py:791
@@ -1929,8 +1920,7 @@ msgstr ""
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
-msgstr ""
-"Määratud on rohkem kui 32 saaleala. %s kernel toetab ainult 32 saaleala."
+msgstr "Määratud on rohkem kui 32 saaleala. %s kernel toetab ainult 32 saaleala."
 
 #: ../partitions.py:875
 #, python-format
@@ -1955,8 +1945,7 @@ msgstr "partitsioon on osa LVM kettagrupist."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "Ühenduspunkt on vigane. Kataloog %s peab asuma / failisüsteemis."
 
 #: ../partRequests.py:236
@@ -2153,7 +2142,7 @@ msgstr ""
 
 #: ../rescue.py:411
 msgid "Rescue Mode"
-msgstr "Päästeresiim"
+msgstr "Päästerežiim"
 
 #: ../rescue.py:412
 msgid ""
@@ -2194,10 +2183,8 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:354
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> abi | <Tab> elementide vahel | <Tühik> valimine | <F12> järgmine ekraan"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> abi | <Tab> elementide vahel | <Tühik> valimine | <F12> järgmine ekraan"
 
 #: ../text.py:356
 msgid ""
@@ -2639,7 +2626,7 @@ msgstr ""
 "Arvuti ei pruugi startida, kui alglaadur kasutab LBA32, kuid BIOS seda ei "
 "toeta. Käivitusketta tegemine on VÄGA soovitatav.\n"
 "\n"
-"Kas soovid kasutada LBA32 resiimi?"
+"Kas soovid kasutada LBA32 režiimi?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
@@ -3113,20 +3100,19 @@ msgstr "Usaldusväärsed seadmed:"
 
 #: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
-msgstr ""
+msgstr "Suurendatud turvalisusega Linux (SELinux) ulatused:"
 
 #: ../iw/firewall_gui.py:283
 msgid "Disabled"
-msgstr ""
+msgstr "Keelatud"
 
 #: ../iw/firewall_gui.py:283
-#, fuzzy
 msgid "Warn"
-msgstr "Hoiatus"
+msgstr "Hoiatama"
 
 #: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
 msgid "Active"
-msgstr ""
+msgstr "Aktiivne"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3977,14 +3963,12 @@ msgid "Partitioning"
 msgstr "Partitsioneerimine"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Partitsioneerimisel tekkisid kriitilised vead."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Enne %s installeerimise jätkamist tuleb need vead kõrvaldada."
 
 #: ../iw/partition_gui.py:648
@@ -4587,8 +4571,7 @@ msgstr "See uuendab olemasolevat alglaadurit."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Installatsiooniprogramm tuvastas alglaaduri %s, mis asub %s-l."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4693,8 +4676,7 @@ msgstr "Vaba ruum (MB)"
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr ""
-"Saalefaili soovitatav suurus on vähemalt %d MB. Sisesta saalefaili suurus:"
+msgstr "Saalefaili soovitatav suurus on vähemalt %d MB. Sisesta saalefaili suurus:"
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
@@ -4718,8 +4700,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Saalefaili suurus peab olema 1...2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Valitud kettal ei ole saaleala jaoks piisavalt vaba ruumi."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -4869,8 +4850,7 @@ msgstr ""
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
-"Videokaardi mälumahtu ei suudetud tuvastada.  Vali videokaardi mälumaht:"
+msgstr "Videokaardi mälumahtu ei suudetud tuvastada.  Vali videokaardi mälumaht:"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
@@ -5045,8 +5025,7 @@ msgstr ""
 "lipikuid soovitakse kasutada."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Tühik> valib nupu | <F2> vali vaikimisi buutkanne | <F12> järgmine>"
 
 #: ../textw/bootloader_text.py:394
@@ -5151,8 +5130,7 @@ msgstr "Installeerimise alustamine"
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
-"Installatsioonilogi asub %s. Faili võib säilitada hilisemaks vaatamiseks."
+msgstr "Installatsioonilogi asub %s. Faili võib säilitada hilisemaks vaatamiseks."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
@@ -5332,7 +5310,7 @@ msgstr "Hoiatus - port %s on vigane"
 
 #: ../textw/firewall_text.py:246
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Suurendatud turvalisusega Linux"
 
 #: ../textw/firewall_text.py:248
 msgid ""
@@ -5340,14 +5318,16 @@ msgid ""
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
+"Suurendatud turvalisusega Linux (SELinux) aitab kontrollida piiratud ligipääsu "
+"parandamaks süsteemi turvalisust. Soovid sa seda toetust lubada?"
 
 #: ../textw/firewall_text.py:256
 msgid "Disable SELinux"
-msgstr ""
+msgstr "Keela SELinux"
 
 #: ../textw/firewall_text.py:258
 msgid "Warn on violations"
-msgstr ""
+msgstr "Vägivalla hoiatus"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5513,13 +5493,12 @@ msgid "Select individual packages"
 msgstr "Vali üksikud paketid"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Tühik>,<+>,<-> valik   |   <F2> grupi detailid   |   <F12> edasi"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
-msgstr "Paketigrupi detailid"
+msgstr "Paketigrupi kirjeldus"
 
 #: ../textw/packages_text.py:172
 msgid "Package :"
@@ -5539,8 +5518,7 @@ msgid "Total size"
 msgstr "Suurus kokku"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Tühik>,<+>,<-> valik   |   <F1> abi   |   <F2> paketi kirjeldus"
 
 #: ../textw/packages_text.py:374
@@ -5763,8 +5741,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Abi      F2-Uus      F3-Muuda   F4-Kustuta    F5-Algolek    F12-"
 "OK        "
@@ -6029,14 +6006,11 @@ msgid "User Exists"
 msgstr "Kasutaja olemas"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Kasutaja 'root' on juba olemas. Selle kasutaja tegemine ei ole vajalik."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Kasutaja 'root' on juba olemas. Selle kasutaja tegemine ei ole vajalik."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "See kasutaja on juba seadistatud ja seda ei ole vaja uuesti sisestada."
 
 #: ../textw/userauth_text.py:171
@@ -6121,7 +6095,7 @@ msgstr "LDAP server:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr "LDAP põhiDN:"
+msgstr "LDAP peamine eristuse nimi:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
@@ -6179,7 +6153,7 @@ msgstr "X seadistamine"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "Sisesta kasutatav värvisügavus ja videoresiim. "
+msgstr "Sisesta kasutatav värvisügavus ja videorežiim. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6571,14 +6545,12 @@ msgstr "Draiveriketta asukoht"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
-"Draiveriketta asukohaks sobivaid seadmeid on mitu.  Millist soovid kasutada?"
+msgstr "Draiveriketta asukohaks sobivaid seadmeid on mitu.  Millist soovid kasutada?"
 
 #: ../loader2/driverdisk.c:263
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Sisesta draiveriketas seadmesse /dev/%s ja vajuta jätkamiseks \"Olgu\"."
+msgstr "Sisesta draiveriketas seadmesse /dev/%s ja vajuta jätkamiseks \"Olgu\"."
 
 #: ../loader2/driverdisk.c:265
 msgid "Insert Driver Disk"
@@ -6640,8 +6612,7 @@ msgstr "Tundmatu draiveriketta kiirstardi asukoht: %s"
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"Kiirstardi draiveriketta käsule edastati järgmine vigane korraldus: %s:%s"
+msgstr "Kiirstardi draiveriketta käsule edastati järgmine vigane korraldus: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6702,8 +6673,7 @@ msgstr "Laetakse draiverit %s..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
-"Antud kataloogis olev %s installatsioonipuu ei klapi buutandmekandjaga."
+msgstr "Antud kataloogis olev %s installatsioonipuu ei klapi buutandmekandjaga."
 
 #: ../loader2/hdinstall.c:355
 msgid ""
@@ -6787,8 +6757,7 @@ msgid "Welcome to %s"
 msgstr "%s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:174
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> elementide vahel  | <Tühik> valib | <F12> edasi "
 
 #: ../loader2/lang.c:371
@@ -6815,14 +6784,12 @@ msgstr "Uuendustega ketta asukoht"
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr ""
-"Mitu seadet võib sisaldada uuendustega ketast. Millist neist soovid kasutada?"
+msgstr "Mitu seadet võib sisaldada uuendustega ketast. Millist neist soovid kasutada?"
 
 #: ../loader2/loader.c:333
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Sisesta uuendustega ketas seadmesse /dev/%s ja vajuta jätkamiseks \"Olgu\"."
+msgstr "Sisesta uuendustega ketas seadmesse /dev/%s ja vajuta jätkamiseks \"Olgu\"."
 
 #: ../loader2/loader.c:335
 msgid "Updates Disk"
@@ -7145,8 +7112,7 @@ msgstr "Võrguseade"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"Arvutis on mitu võrguseadet. Millist soovid installeerimiseks kasutada?"
+msgstr "Arvutis on mitu võrguseadet. Millist soovid installeerimiseks kasutada?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
@@ -7336,10 +7302,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlandi aeg - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlandi aeg - Nova Scotia (enamus kohti), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlandi aeg - Nova Scotia (enamus kohti), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7522,8 +7486,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Eastern Time - Ontario - enamus kohti"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Eastern Time - Ontario & Quebec - kohad, kus DST ei kehtinud 1967-1973"
 
 #. generated from zone.tab
@@ -7707,10 +7670,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7942,111 +7903,111 @@ msgstr "Zaporožje, Ida-Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Hiina keel (lihtsustatud)"
+msgstr "hiina keel (lihtsustatud)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Hiina keel (traditsiooniline)"
+msgstr "hiina keel (traditsiooniline)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr "Horvaatia keel"
+msgstr "horvaatia keel"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr "Tšehhi keel"
+msgstr "tšehhi keel"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr "Taani keel"
+msgstr "taani keel"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "Hollandi keel"
+msgstr "hollandi keel"
 
 #. generated from lang-table
 msgid "English"
-msgstr "Inglise keel"
+msgstr "inglise keel"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr "Eesti keel"
+msgstr "eesti keel"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr "Soome keel"
+msgstr "soome keel"
 
 #. generated from lang-table
 msgid "French"
-msgstr "Prantsuse keel"
+msgstr "prantsuse keel"
 
 #. generated from lang-table
 msgid "German"
-msgstr "Saksa keel"
+msgstr "saksa keel"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr "Ungari keel"
+msgstr "ungari keel"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "Islandi keel"
+msgstr "islandi keel"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr "Itaalia keel"
+msgstr "itaalia keel"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "Jaapani keel"
+msgstr "jaapani keel"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "Korea keel"
+msgstr "korea keel"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr "Malai"
+msgstr "malai keel"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "Norra keel"
+msgstr "norra keel"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr "Portugali keel"
+msgstr "portugali keel"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Portugali keel"
+msgstr "portugali keel"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr "Vene keel"
+msgstr "vene keel"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr "Sloveenia keel"
+msgstr "sloveenia keel"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr "Hispaania keel"
+msgstr "hispaania keel"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr "Rootsi keel"
+msgstr "rootsi keel"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr "Türgi keel"
+msgstr "türgi keel"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr "Ukraina"
+msgstr "ukraina"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "suulu keel"
 
 #~ msgid "The CDROM could not be mounted."
 #~ msgstr "CD-ROM-i ei saa ühendada."
@@ -8072,3 +8033,4 @@ msgstr ""
 #~ "\n"
 #~ "Kui tegemist on ostetud Official %s-ga, siis registreeri ost kindlasti "
 #~ "aadressil http://www.redhat.com/."
+
