@@ -36,6 +36,14 @@ class LiloConfigFile:
     def getEntry(self, item):
 	return self.items[item]
 
+    def delEntry(self, item):
+	newOrder = []
+	for i in self.order:
+	    if item != i: newOrder.append(i)
+	self.order = newOrder
+
+	del self.items[item]
+
     def testEntry(self, item):
         if self.items.has_key(item):
             return 1
@@ -368,6 +376,34 @@ class LiloConfiguration:
 
 	    sl.addEntry("label", label)
 	    lilo.addImage (sl)
+
+	# Sanity check #1. There could be aliases in sections which conflict
+	# with the new images we just created. If so, erase those aliases
+	imageNames = {}
+	for label in lilo.listImages():
+	    imageNames[label] = 1
+
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
+	    if sl.testEntry('alias'):
+		alias = sl.getEntry('alias')
+		if imageNames.has_key(alias):
+		    sl.delEntry('alias')
+		imageNames[alias] = 1
+
+	# Sanity check #2. If single-key is turned on, go through all of
+	# the image names (including aliases) (we just built the list) and
+	# see if single-key will still work.
+	if lilo.testEntry('single-key'):
+	    singleKeys = {}
+	    turnOff = 0
+	    for label in imageNames.keys():
+		l = label[0]
+		if singleKeys.has_key(l):
+		    turnOff = 1
+		singleKeys[l] = 1
+	    if turnOff:
+		lilo.delEntry('single-key')
 
 	lilo.write(instRoot + "/etc/lilo.conf", perms = perms)
 
