@@ -123,7 +123,6 @@ class Kickstart(InstallClass):
 		     "cdrom"		: None			,
 		     "install"		: self.doInstall	,
 		     "network"		: self.doNetwork	,
-		     "lang"		: self.doLanguage	,
 		     "lilo"		: self.doLilo		,
 		     "network"		: None			,
 		     "nfs"		: None			,
