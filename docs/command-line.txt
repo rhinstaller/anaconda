@@ -17,6 +17,9 @@ resolution=<mode> Run installer in mode specified, '1024x768' for example.
 nousb           Do not load USB support (helps if install hangs 
                 early sometimes).
 
+nofb		Do not load the VGA16 framebuffer required for doing 
+		text-mode installation in some languages
+
 nofirewire      Do not load support for firewire devices
 
 askmethod       Do not automatically use the CD-ROM as the install
@@ -73,5 +76,36 @@ ks=hd:<dev>     Kickstart via harddrive (dev = 'hda1', for example)
 
 ks=file:<path>  Kickstart from a file (path = 'fd0/ks.cfg')
 
+ks=ftp://<path> Kickstart from FTP.
+
+ks=http://<path> Kickstart from HTTP.
+
 upgradeany	Don't require an /etc/redhat-release that matches the 
 		expected syntax to upgrade.
+
+lang=<lang>	Language to use for the installation.  This should be a
+		language which is valid to be used with the 'lang' kickstart
+		command.
+
+keymap=<keymap> Keyboard layout to use.  Valid values are those which can be 
+		used for the 'keyboard' kickstart command.
+
+ip=<ip>		IP to use for a network installation, use 'dhcp' for DHCP.
+
+netmask=<nm> 	Netmask to use for a network installation.
+		
+gateway=<gw>	Gateway to use for a network installation.
+
+dns=<dns>	Comma separated list of nameservers to use for a network
+		installation.
+
+method=nfs:<path> Use <path> for an NFS installation.
+
+method=http://<path> Use <path> for an HTTP installation
+
+method=ftp://<path> Use <path> for an FTP installation
+
+method=hd://<dev>/<path> Use <path> on <dev> for a hard drive installation
+
+method=cdrom     Do a CDROM based installation.
+
