@@ -934,9 +934,7 @@ void ejectCdrom(void) {
 /* XXX this ignores "location", which should be fixed */
 static char * mediaCheckCdrom(char *cddriver, int flags) {
 
-    int i;
     int rc;
-    char * buf;
 
     devMakeInode(cddriver, "/tmp/cdrom");
 
