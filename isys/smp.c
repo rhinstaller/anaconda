@@ -557,8 +557,8 @@ static inline unsigned int cpuid_ebx(int op)
 {
     unsigned int eax, ebx;
 
-    __asm__("cpuid"
-            : "=a" (eax), "=b" (ebx)
+    __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
+            : "=a" (eax), "=g" (ebx)
             : "0" (op)
             : "cx", "dx");
     return ebx;
