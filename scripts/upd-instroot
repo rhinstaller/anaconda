@@ -9,12 +9,18 @@ if [ -z "$1" ]; then
 fi
 
 if [ ! -d $1 ]; then
+	if [ -z "$ARCH" ]; then
+		echo "ARCH must be set" >&2
+		exit 1
+	fi
 	LATEST="latest --arch $ARCH"
 fi
 
 PACKAGEDIR=$1
 
-ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+if [ -z "$ARCH" ]; then
+	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+fi
 
 NEEDGR=yes
 if [ $ARCH = ia64 ]; then
@@ -27,6 +33,11 @@ prunePackageList() {
 
 	if [ -n "$LATEST" ]; then
 	    $LATEST $PACKAGEPATH $PACKAGES
+	    if [ $? != 0 ]; then
+		$LATEST $PACKAGEPATH $PACKAGES >&2
+		kill -9 $$
+	    fi
+		
 	    return
 	fi
 
@@ -36,13 +47,14 @@ prunePackageList() {
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
 	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
 	done
+
 	# gtk+, enough said
 	PATTERN=$(echo $PATTERN | sed 's,[\+\*],\\&,g')
 
 	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
 
 	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
-		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //'
+		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
 }
 
 expandPackageSet() {
@@ -79,7 +91,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db1 db2 db3 rpm-python bzip2"
+	 kudzu-devel kudzu db3 rpm-python bzip2"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -101,7 +113,12 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
            pygnome-applet pygnome-capplet gdk-pixbuf"
 
+if [ -z "$NEEDGR" ]; then
+    PACKAGESGR="bash"
+fi
+
 if [ $ARCH != ia64 ]; then
+    PACKAGES="$PACKAGES db1 db2"
     PACKAGESGR="$PACKAGESGR mtools pine modutils"
 fi
 
