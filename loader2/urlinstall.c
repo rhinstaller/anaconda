@@ -6,7 +6,7 @@
  * Michael Fulbright <msf@redhat.com>
  * Jeremy Katz <katzj@redhat.com>
  *
- * Copyright 1997 - 2002 Red Hat, Inc.
+ * Copyright 1997 - 2003 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * General Public License.
