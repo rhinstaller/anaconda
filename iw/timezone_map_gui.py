@@ -193,6 +193,7 @@ class TimezoneMap(gtk.VBox):
     def canvasEvent(self, widget, event=None):
         if event.type == gtk.gdk.LEAVE_NOTIFY:
             self.arrow.hide()
+            self.status.push(self.statusContext, "")            
         
     def map2canvas(self, lat, long):
         x2 = self.mapWidth
