@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2002-2003 Red Hat, Inc.
+# Copyright 2002-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
