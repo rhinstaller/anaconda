@@ -389,6 +389,14 @@ class Fstab:
     def clearExistingRaid(self):
 	self.existingRaid = []
 
+    def startExistingRaid(self):
+	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
+	    isys.raidstart(raidDevice, deviceList[0])
+
+    def stopExistingRaid(self):
+	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
+	    isys.raidstop(raidDevice)
+
     def addExistingRaidDevice(self, raidDevice, mntPoint, fsystem, deviceList):
         self.existingRaid.append(raidDevice, mntPoint, fsystem, deviceList)
 
@@ -463,8 +471,7 @@ class Fstab:
 	    isys.makeDevInode("loop1", '/tmp/' + "loop1")
 	    isys.unlosetup("/tmp/loop1")
 
-	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
-	    isys.raidstop(raidDevice)
+	self.stopExistingRaid()
 
     def readLabels(self, skipList = []):
 	labels = {}
@@ -516,8 +523,7 @@ class Fstab:
 	    # XXX remove extraneous inodes here
 #	    print "created raid"
 
-	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
-	    isys.raidstart(raidDevice, deviceList[0])
+	self.startExistingRaid()
 
         if not self.setupFilesystems: return
 
@@ -625,6 +631,8 @@ class Fstab:
 
             os.remove('/tmp/' + device)
 
+	self.stopExistingRaid()
+
     def hasDirtyFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -645,6 +653,8 @@ class Fstab:
 
     def mountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
+
+	self.startExistingRaid()
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
             if fsystem == "swap":
