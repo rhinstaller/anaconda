@@ -701,6 +701,40 @@ void writeScsiDisks(moduleList list) {
     return;
 }
 
+static char * getModuleLocation(int version) {
+    struct utsname u;
+    static char * arch = NULL;
+    const char * archfile = "/etc/arch";
+    char * ret;
+
+    uname(&u);
+
+    if (!arch) {
+        struct stat sb;
+        int fd;
+
+        stat(archfile, &sb);
+        arch = malloc(sb.st_size + 1);
+
+        fd = open(archfile, O_RDONLY);
+        read(fd, arch, sb.st_size);
+        if (arch[sb.st_size -1 ] == '\n')
+            sb.st_size--;
+        arch[sb.st_size] = '\0';
+        close(fd);
+    }
+
+    if (version == 1) {
+        ret = malloc(strlen(u.release) + strlen(arch) + 1);
+        sprintf(ret, "%s/%s", u.release, arch);
+        return ret;
+    } else {
+        ret = malloc(strlen(u.release) + 1);
+        strcpy(ret, u.release);
+        return ret;
+    }
+}
+
 /* JKFIXME: needs a way to know about module locations.  also, we should
  * extract them to a ramfs instead of /tmp */
 static struct extractedModule * extractModules (char * const * modNames,
@@ -715,15 +749,15 @@ static struct extractedModule * extractModules (char * const * modNames,
     char fn[255];
     const char * failedFile;
     struct stat sb;
-    struct utsname u;
+    char * modpath;
 
-    uname(&u);
-
-    /* JKFIXME: handle driver disk path somehow */
-    if (!location)
+    if (!location) {
         ballPath = strdup("/modules/modules.cgz");
-    else
+        modpath = getModuleLocation(CURRENT_MODBALLVER);
+    } else {
         ballPath = strdup(location->path);
+        modpath = getModuleLocation(location->version);
+    }
 
     fd = gunzip_open(ballPath);
     if (!fd) {
@@ -744,9 +778,9 @@ static struct extractedModule * extractModules (char * const * modNames,
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
         /* if we don't know the path of this module yet, "figure" it out */
         if (!oldPaths[i].path) {
-            map[numMaps].archivePath = alloca(strlen(u.release) + 
+            map[numMaps].archivePath = alloca(strlen(modpath) + 
                                               strlen(*m) + 25);
-            sprintf(map[numMaps].archivePath, "%s/%s.o", u.release, *m);
+            sprintf(map[numMaps].archivePath, "%s/%s.o", modpath, *m);
             map[numMaps].fsPath = alloca(10 + strlen(*m));
             sprintf(map[numMaps].fsPath, "/tmp/%s.o", *m);
             unlink(map[numMaps].fsPath);
@@ -758,6 +792,7 @@ static struct extractedModule * extractModules (char * const * modNames,
     if (!numMaps) {
         gunzip_close(fd);
         free(ballPath);
+        free(modpath);
         return oldPaths;
     }
 
@@ -787,6 +822,7 @@ static struct extractedModule * extractModules (char * const * modNames,
     }
 
     free(ballPath);
+    free(modpath);
     return oldPaths;
 }
 
@@ -963,3 +999,4 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     mlLoadModule(module, loaderData->modLoaded, *(loaderData->modDepsPtr),
                  loaderData->modInfo, args, flags);
 }
+

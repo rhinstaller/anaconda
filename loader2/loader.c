@@ -983,6 +983,7 @@ int main(int argc, char ** argv) {
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
     secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");
+    secondStageModuleLocation->version = CURRENT_MODBALLVER;
     
     if (!strcmp(argv[0] + strlen(argv[0]) - 6, "insmod"))
         return ourInsmodCommand(argc, argv);

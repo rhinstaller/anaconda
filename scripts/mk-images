@@ -228,9 +228,9 @@ intcopymodules () {
 	    for o in $m ; do 
 		echo $n
 		ver=$(echo $o |cut -d / -f 6)
-		if ! [ -d $dir/$ver ] ; then mkdir $dir/$ver ; fi
-		if ! cp $o $dir/$ver; then
-		    echo "Failed to copy $o to $dir/$ver (for module $n)" >&2
+		if ! [ -d $dir/$ver/$arch ] ; then mkdir -p $dir/$ver/$arch ; fi
+		if ! cp $o $dir/$ver/$arch; then
+		    echo "Failed to copy $o to $dir/$ver/$arch (for module $n)" >&2
 		fi
 	    done
         fi
@@ -330,7 +330,7 @@ makemoduleball() {
     $TRIMPCITABLE $(find . -name *.o -exec basename {} \;) < $PCITABLE > ../pcitable
 
     if [ -n "$MMB_DD" ]; then
-	echo $MMB_DD > $MMB_DIR/rhdd-6.1
+	echo $MMB_DD > $MMB_DIR/rhdd
     fi
 
     find . -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
@@ -468,6 +468,9 @@ makeinitrd() {
     cat > $MBD_DIR/etc/passwd << EOF
     root::0:0:root:/:/bin/bash
 EOF
+
+    # set up the arch bits
+    echo $arch > $MBD_DIR/etc/arch
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
@@ -877,7 +880,8 @@ for kernelvers in $vertag; do
     fi
 
     version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
-    echo "unpacking $kpackage"
+    arch=$(rpm --qf '%{ARCH}\n' -qp $kpackage)
+    echo "unpacking $kpackage.$arch"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     if [ ! -z $ppackage ]; then 
