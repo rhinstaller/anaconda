@@ -627,6 +627,7 @@ chmod -R a+rX-w $DEST $DESTGR
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     for i in $DEST $DESTGR; do
 	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
+	mv $i/bin/sed $i/bin/sed_save
 	mv $i/bin/mount $i/bin/mount_save
 	mv $i/bin/sort $i/bin/sort_save
     done
