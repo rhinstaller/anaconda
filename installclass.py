@@ -97,6 +97,13 @@ class InstallClass:
     def getGroups(self):
 	return self.groups
 
+    # This is a list of packages -- it is combined with the group list
+    def setPackages(self, packages):
+	self.packages = packages
+
+    def getPackages(self):
+	return self.packages
+
     def doRootPw(self, pw, isCrypted = 0):
 	self.rootPassword = pw
 
@@ -119,6 +126,7 @@ class InstallClass:
 	self.hostname = None
 	self.lilo = ("mbr", 0, "")
 	self.groups = None
+	self.packages = None
 	self.makeBootdisk = 0
 	self.timezone = None
 	self.setAuthentication(1, 1, 0)
