@@ -42,6 +42,8 @@ class XCustomWindow (InstallWindow):
         self.todo.resState = self.selectedRes
         self.todo.depthState = self.selectedDepth
 
+        self.todo.instClass.setDesktop (self.newDesktop)
+
 #        print "Res", self.todo.resState
 #        print "Depth", self.todo.depthState
 
@@ -371,8 +373,6 @@ class XCustomWindow (InstallWindow):
 #        self.box.pack_start (hbox, FALSE)
         self.box.pack_start (test, FALSE)
 
-
-
         #--If both KDE and GNOME are selected
         if ((self.todo.hdList.has_key('gnome-core')
              and self.todo.hdList['gnome-core'].selected)
@@ -393,25 +393,40 @@ class XCustomWindow (InstallWindow):
             self.vbox4 = GtkVBox()
 
             gnome_radio = GtkRadioButton (None, (_("GNOME")))
-            gnome_radio.connect ("clicked", self.desktop_cb, "GNOME")        
             vbox3.pack_start (gnome_radio, TRUE, FALSE, 2)
-
-            im = self.ics.readPixmap ("gnome.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
-                a.set (0.5, 0.5, 1.0, 1.0)
-                self.vbox4.pack_start (a, TRUE, TRUE)
-
-            kde_radio = GtkRadioButton(gnome_radio, (_("KDE")))
-            kde_radio.connect ("clicked", self.desktop_cb, "KDE")
-            
+            kde_radio = GtkRadioButton(gnome_radio, (_("KDE")))            
             vbox3.pack_start (kde_radio, TRUE, FALSE, 2)
-
             self.hbox4.pack_start (vbox3)
-            self.hbox4.pack_start (self.vbox4)
+
+
+            #--Set the desktop GUI widget to what the user has selected
+            if self.todo.instClass.getDesktop () == "GNOME":
+                self.newDesktop = "GNOME"
+                gnome_radio.set_active (TRUE)
+                im = self.ics.readPixmap ("gnome.png")
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    a = GtkAlignment ()
+                    a.add (pix)
+                    a.set (0.5, 0.5, 1.0, 1.0)
+                    self.vbox4.pack_start (a, TRUE, TRUE)
+                    self.hbox4.pack_start (self.vbox4)
+
+            elif self.todo.instClass.getDesktop () == "KDE":
+                kde_radio.set_active (TRUE)
+                im = self.ics.readPixmap ("kde.png")
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    a = GtkAlignment ()
+                    a.add (pix)
+                    a.set (0.5, 0.5, 1.0, 1.0)
+                    self.vbox4.pack_start (a, TRUE, TRUE)
+                    self.hbox4.pack_start (self.vbox4)
+
+            gnome_radio.connect ("clicked", self.desktop_cb, "GNOME")        
+            kde_radio.connect ("clicked", self.desktop_cb, "KDE")                
             self.box.pack_start (hbox3, FALSE, TRUE, 2)
             
         elif ((self.todo.hdList.has_key('gnome-core')
