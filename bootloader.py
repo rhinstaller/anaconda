@@ -333,11 +333,11 @@ class bootloaderInfo:
 
             options = ""
             device = None
-            cmdlineargs = cmdline.split(" ")
+            cmdlineargs = string.split(cmdline, " ")
             for arg in cmdlineargs:
                 # found a console argument
                 if arg.startswith("console="):
-                    (foo, console) = arg.split("=")
+                    (foo, console) = string.aplit(arg, "=")
                     # the options are everything after the comma
                     comma = console.find(",")
                     if comma != -1:
