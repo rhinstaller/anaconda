@@ -270,6 +270,12 @@ class BootloaderWindow (InstallWindow):
         else:
             self.passbutton.set_sensitive(FALSE)
 
+            try:
+                if self.checkLiloReqs():
+                    self.ics.setNextEnabled (1)
+            except:
+                pass
+
     def passwordDialog(self, *args):
         dialog = GnomeDialog(_("GRUB Password"))
         dialog.append_button (_("OK"))
@@ -315,7 +321,8 @@ class BootloaderWindow (InstallWindow):
                 continue
 
             self.password = pw
-            self.ics.setNextEnabled(1)                            
+            if self.checkLiloReqs():
+                self.ics.setNextEnabled(1)                            
             dialog.close()
             break
 
