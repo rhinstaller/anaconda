@@ -72,9 +72,10 @@ class NetworkDeviceWindow:
 	    options.append(newopt)
 
 	descr = dev.get("desc")
-	if descr is not None:
+	if descr is not None and len(descr) > 0:
 	    toprows = 2
 	else:
+	    descr = None
 	    toprows = 1
 
 	topgrid = Grid(1, toprows)
