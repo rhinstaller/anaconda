@@ -23,9 +23,6 @@ if [ -z "$ARCH" ]; then
 fi
 
 NEEDGR=yes
-if [ $ARCH = ia64 ]; then
-    NEEDGR=""
-fi
 
 prunePackageList() {
 	PACKAGEPATH=$1
@@ -222,6 +219,7 @@ usr/lib/rpm/rpmrc
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
 usr/sbin/anaconda-runrescue
+usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
 usr/share/kudzu/pcitable
 usr/share/pci.ids
@@ -579,7 +577,7 @@ for p in $DEST $DESTGR; do
 
 	if [ -x /usr/bin/runroot ]; then
 	    REALPATH=`(cd $p; /bin/pwd)`
-            runroot dist-7.0 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+            runroot dist-7.1 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -628,7 +626,7 @@ cd -
 echo -n -e "Removing unused python files in hdimage... "
 if [ -x /usr/bin/runroot ]; then
     REALPATH=`(cd $DEST; /bin/pwd)`
-    runroot dist-7.0 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+    runroot dist-7.1 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
