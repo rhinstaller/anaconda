@@ -691,7 +691,7 @@ const char * myCpioStrerror(int rc)
     return msg;
 }
 
-static int copyfile(struct ourfd * inFd, struct ourfd * outFd, 
+static int copyFile(struct ourfd * inFd, struct ourfd * outFd, 
 	     struct cpioHeader * chp, struct cpioCrcPhysicalHeader * pHdr) {
     char buf[8192];
     int amount;
