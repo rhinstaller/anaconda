@@ -262,11 +262,12 @@ class KickstartBase(BaseInstallClass):
             raise RuntimeError, "Selected upgrade mode for bootloader but not doing an upgrade"
 
         if upgrade:
-            id.bl.kickstart = 1
-            id.bl.doUpgradeOnly = 1
+            id.bootloader.kickstart = 1
+            id.bootloader.doUpgradeOnly = 1
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
+        self.skipSteps.append("upgbootloader")
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderpassword")
 
