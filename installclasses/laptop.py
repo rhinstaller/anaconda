@@ -5,9 +5,9 @@ import os
 
 class InstallClass(BaseInstallClass):
     name = N_("Laptop")
-    pixmap = "workstation.png"
+    pixmap = "laptop-support.png"
 
-    sortPriority = 1
+    sortPriority = 5000
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self)
