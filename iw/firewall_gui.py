@@ -19,45 +19,67 @@ class FirewallWindow (InstallWindow):
 #	    if not dev.get('onboot'):
 #		dev.set (("onboot", "yes"))
 
+    def activate_firewall (self, widget):
+        if self.radio3.get_active ():            
+            active = not (self.radio3.get_active())
 
-    def activate (self, widget, args):
-#        print "Inside activate"
-#        print self.radio4.get_active()
+            self.radio4.set_sensitive (active)
+            self.radio5.set_sensitive (active)        
+            self.trusted.set_sensitive(active)
+            self.incoming.set_sensitive(active)
+            self.ports.set_sensitive(active)
+            self.label1.set_sensitive(active)
+            self.label2.set_sensitive(active)
+            self.label3.set_sensitive(active)
+        else:
+            self.radio4.set_sensitive (TRUE)
+            self.radio5.set_sensitive (TRUE) 
 
-        self.trusted.set_sensitive(self.radio5.get_active())
-        self.incoming.set_sensitive(self.radio5.get_active())
-        self.ports.set_sensitive(self.radio5.get_active())
-        self.label1.set_sensitive(self.radio5.get_active())
-        self.label2.set_sensitive(self.radio5.get_active())
-        self.label3.set_sensitive(self.radio5.get_active())
+            if self.radio5.get_active ():
+                self.trusted.set_sensitive(self.radio5.get_active())
+                self.incoming.set_sensitive(self.radio5.get_active())
+                self.ports.set_sensitive(self.radio5.get_active())
+                self.label1.set_sensitive(self.radio5.get_active())
+                self.label2.set_sensitive(self.radio5.get_active())
+                self.label3.set_sensitive(self.radio5.get_active())
+
+            else:
+                self.trusted.set_sensitive(self.radio5.get_active())
+                self.incoming.set_sensitive(self.radio5.get_active())
+                self.ports.set_sensitive(self.radio5.get_active())
+                self.label1.set_sensitive(self.radio5.get_active())
+                self.label2.set_sensitive(self.radio5.get_active())
+                self.label3.set_sensitive(self.radio5.get_active())
 
             
     def getScreen (self):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
-        label = GtkLabel (_("Please choose your level of security.  "))
-        label.set_alignment (0.2, 0.5)
+        label = GtkLabel (_("Please choose your security level:  "))
+        label.set_alignment (0.0, 0.5)
 
         label.set_line_wrap (TRUE)
         
         box.pack_start(label, FALSE)
 
-        hbox = GtkHBox ()
+        hbox = GtkHBox (FALSE)
 
-        label = GtkLabel (_("Security level:"))
+        self.radio1 = GtkRadioButton (None, (_("High")))
+        self.radio2 = GtkRadioButton (self.radio1, (_("Medium")))
+        self.radio3 = GtkRadioButton (self.radio1, (_("No firewall")))
 
-        hbox.pack_start(label)
+        self.radio3.connect ("clicked", self.activate_firewall)
 
-        radio1 = GtkRadioButton (None, (_("High")))
-        radio2 = GtkRadioButton (radio1, (_("Medium")))
-        radio3 = GtkRadioButton (radio1, (_("None")))
+        hbox.pack_start (self.radio1)
+        hbox.pack_start (self.radio2)
+        hbox.pack_start (self.radio3)
 
-        hbox.pack_start (radio1)
-        hbox.pack_start (radio2)
-        hbox.pack_start (radio3)
+        a = GtkAlignment ()
+        a.add (hbox)
+        a.set (1.0, 0.5, 0.7, 1.0)
 
-        box.pack_start (hbox, FALSE)
+        box.pack_start (a, FALSE)
 
         hsep = GtkHSeparator ()
         box.pack_start (hsep, FALSE)
@@ -66,13 +88,11 @@ class FirewallWindow (InstallWindow):
         self.radio5 = GtkRadioButton (self.radio4, (_("Customize")))
         self.radio4.set_active (TRUE)
 
-        self.radio4.connect ("draw", self.activate)
-        self.radio4.connect ("clicked", self.activate, None)
-        self.radio5.connect ("clicked", self.activate, None)
+        self.radio4.connect ("clicked", self.activate_firewall)
+        self.radio5.connect ("clicked", self.activate_firewall)
         
         box.pack_start (self.radio4, FALSE)
         box.pack_start (self.radio5, FALSE)
-
 
         table = GtkTable (2, 3)
         box.pack_start (table)
@@ -86,7 +106,6 @@ class FirewallWindow (InstallWindow):
 
         self.trusted.append_row (("cipcb0", ""), FALSE)
         self.trusted.append_row (("wvlan0", ""), FALSE)
-
 
         hbox = GtkHBox(FALSE, 10)        
         self.label2 = GtkLabel (_("Allow incoming:"))
@@ -105,6 +124,15 @@ class FirewallWindow (InstallWindow):
 
         table.attach (self.label3, 0, 1, 2, 3, FILL, FILL, 5, 5)
         table.attach (self.ports, 1, 2, 2, 3, EXPAND|FILL, FILL, 5, 5)
+
+
+        self.trusted.set_sensitive(FALSE)
+        self.incoming.set_sensitive(FALSE)
+        self.ports.set_sensitive(FALSE)
+        self.label1.set_sensitive(FALSE)
+        self.label2.set_sensitive(FALSE)
+        self.label3.set_sensitive(FALSE)
+
 
         return box
 
