@@ -1,3 +1,6 @@
+import sys
+sys.path.append ("rpmmodule")
+sys.path.append ("isys")
 import rpm
 from string import *
 import types
@@ -62,7 +65,6 @@ class HeaderListFD (HeaderList):
 	HeaderList.__init__(self, hdlist)
 
 class Component:
-
     def __len__(self):
 	return len(self.items)
 
@@ -72,6 +74,12 @@ class Component:
     def addPackage(self, package):
 	self.items[package] = package
 
+    def addConditional (self, condition, package):
+        if self.conditional.has_key (condition):
+            self.conditional[condition].append (package)
+        else:
+            self.conditional[condition] = [ package ]
+
     def addInclude(self, component):
 	self.includes.append(component)
 	
@@ -80,8 +88,14 @@ class Component:
 
     def select(self, recurse = 1):
         self.selected = 1
-	for n in self.items.keys ():
-	    self.items[n].selected = 1
+	for pkg in self.items.keys ():
+	    self.items[pkg].selected = 1
+        conds = self.conditional.keys ()
+        if conds:
+            for condition in conds:
+                if condition.selected:
+                    for pkg in self.conditional[condition]:
+                        pkg.selected = 1
 	if recurse:
 	    for n in self.includes:
 		if n.requires:
@@ -108,11 +122,11 @@ class Component:
 	self.hidden = hidden
 	self.selected = selected
 	self.items = {}
+        self.conditional = {}
 	self.requires = None
 	self.includes = []
 
 class ComponentSet:
-
     def __len__(self):
 	return len(self.comps)
 
@@ -132,14 +146,15 @@ class ComponentSet:
 	file.close()
 	top = lines[0]
 	lines = lines[1:]
-	if (top != "2.1\n" and top != "2\n" and top != "0.1\n"):
-	    raise TypeError, "comp file version 2.1 expected"
+	if (top != "3\n"):
+	    raise TypeError, "comp file version 3 expected"
 	
 	comp = None
+        conditional = None
 	self.comps = []
 	self.compsDict = {}
 	for l in lines:
-	    l = l[:len(l) - 1]
+	    l = strip (l)
 	    if (not l): continue
 
 	    if (find(l, ":") > -1):
@@ -157,34 +172,42 @@ class ComponentSet:
 			found = 1
 			break
 		if ((found and skipIfFound) or 
-				(not found and not skipIfFound)):
+                    (not found and not skipIfFound)):
 		    continue
-	    
+
+	    if (find(l, "?") > -1):
+                (trash, cond) = split (l, '?', 1)
+                (cond, trash) = split (cond, '{', 1)
+                conditional = self.compsDict[strip (cond)]
+                continue
+
 	    if (comp == None):
 		(default, l) = split(l, None, 1)
 		hidden = 0
 		if (l[0:6] == "--hide"):
 		    hidden = 1
 		    (foo, l) = split(l, None, 1)
+                (l, trash) = split(l, '{', 1)
+                l = strip (l)
                 if l == "Base":
                     hidden = 1
 		comp = Component(l, default == '1', hidden)
-	    elif (l == "end"):
-		self.comps.append(comp)
-		self.compsDict[comp.name] = comp
-		comp = None
+	    elif (l == "}"):
+                if conditional:
+                    conditional = None
+                else:
+                    self.comps.append(comp)
+                    self.compsDict[comp.name] = comp
+                    comp = None
 	    else:
 		if (l[0] == "@"):
 		    (at, l) = split(l, None, 1)
 		    comp.addInclude(self.compsDict[l])
-		elif (find(l, "?") > -1):
-		    (reqComp, l) = split(l, "?", 1)
-		    reqComp = reqComp[:-1]
-		    while (l[0] == " "): l = l[1:]
-		    comp.addInclude(self.compsDict[l])
-		    self.compsDict[l].addRequires(self.compsDict[reqComp])
 		else:
-		    comp.addPackage(packages[l])
+                    if conditional:
+                        comp.addConditional (conditional, packages[l])
+                    else:
+                        comp.addPackage(packages[l])
                     
         everything = Component("Everything", 0, 0)
         for package in packages.keys ():
@@ -206,6 +229,5 @@ class ComponentSet:
 	return s
 
     def __init__(self, file, hdlist):
-	self.list = []
 	self.packages = hdlist
 	self.readCompsFile(file, self.packages)
