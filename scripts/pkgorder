@@ -159,12 +159,14 @@ pkgOrder = []
 pkgHash = {}
 
 # We always want all the kernels-.* in our package list, except for a few
-for package in hdlist.keys():
+for p in hdlist.values():
+    package = p['name']
     if (package.startswith("kernel") and
-        not package.startswith("kernel-doc") and
-        not package.startswith("kernel-source") and
-        not package.startswith("kernel-debug")):
+        package in hdrlist.EverythingExclude.keys() and
+        not package.endswith("-unsupported")):
         try:
+            # FIXME: since we do unselect all at the end of the loop, these
+            # stay selected for the first time through
             hdlist[package].select()
         except:
             print package
@@ -219,7 +221,6 @@ for id in complist:
     group = grpset.groups[id]
     list = []
 
-    grpset.unselectAll()
     group.select()
 
     # append what got turned on to our order.
@@ -233,6 +234,8 @@ for id in complist:
         addIfNeeded(item)
 
     runTsAndOutput(list)
+    grpset.unselectAll()
+    
     
 # add all of the packages that haven't been added yet.
 list = []
