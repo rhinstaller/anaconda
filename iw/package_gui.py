@@ -424,7 +424,8 @@ class PackageSelectionWindow (InstallWindow):
             if not comp.hidden: comp.unselect(0)
 
 	# it's a shame component selection sucks
-        self.todo.comps['Base'].select (1)
+#        self.todo.comps['Base'].select (1)
+        self.todo.updateInstClassComps()
 
         # turn on all the comps we selected
         for (button, comp) in self.checkButtons:

@@ -11,6 +11,7 @@ class InstallClass(BaseInstallClass):
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self)
+	self.setGroups(["Workstation Common"])
 	self.setHostname("localhost.localdomain")
 	if not expert:
 	    self.addToSkipList("lilo")

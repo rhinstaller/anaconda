@@ -10,14 +10,15 @@ class PackageGroupWindow:
 	return _("Total install size: %s") % comps.sizeStr()
     
     def updateSize(self, args):
-	(label, comps, ct) = args
+	(label, todo, ct) = args
 
         # turn off all the comps
-        for comp in comps:
+        for comp in todo.comps:
             if not comp.hidden: comp.unselect(0)
 
 	# it's a shame component selection sucks
-        comps['Base'].select (1)
+#        comps['Base'].select (1)
+        todo.updateInstClassComps()
 
         # turn on all the comps we selected
         for comp in ct.getSelection():
@@ -52,7 +53,7 @@ class PackageGroupWindow:
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 	la = Label(self.size(todo.comps))
 
-	ct.setCallback(self.updateSize, (la, todo.comps, ct))
+	ct.setCallback(self.updateSize, (la, todo, ct))
 
         g = GridFormHelp (screen, _("Package Group Selection"), 
 			  "components", 1, 4)
