@@ -141,6 +141,8 @@ int setupRemote(struct iurlinfo * ui) {
     ui->address = strdup(env);
     if (ui->address && (d = index (ui->address, '/')))
 	*d = '\0';
+    if (ui->address && (d = index (ui->address, ':')))
+	*d = '\0';
 
     return 0;
 }
