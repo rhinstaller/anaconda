@@ -270,7 +270,7 @@ if (display_mode == 'g'):
     if not test and not localInstall and not reconfigOnly:
         for i in ( "imrc", "im_palette.pal", "gtk" ):
             try:
-                os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
+                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
     from gui import InstallInterface
