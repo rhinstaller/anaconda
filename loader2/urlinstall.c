@@ -17,6 +17,7 @@
  */
 
 #include <newt.h>
+#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -171,6 +172,9 @@ char * mountUrlImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
+    /* populate netDev based on any kickstart data */
+    setupNetworkDeviceConfig(&netDev, loaderData, flags);
+
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
         case URL_STAGE_IFACE:
@@ -196,15 +200,38 @@ char * mountUrlImage(struct installMethod * method,
             dir = 1;
 
         case URL_STAGE_MAIN:
-            rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
-            if (rc) {
+            if (loaderData->method &&
+                (!strncmp(loaderData->method, "ftp", 3) ||
+		 !strncmp(loaderData->method, "http", 3)) &&
+                loaderData->methodData) {
+		
+                url = ((struct urlInstallData *)loaderData->methodData)->url;
+
+                logMessage("URL_STAGE_MAIN - url is %s", url);
+
+                if (!url) {
+                    logMessage("missing url specification");
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                    break;
+                }
+		
+		/* explode url into ui struct */
+		convertURLToUI(url, &ui);
+
+		/* ks info was adequate, lets skip to fetching image */
+		stage = URL_STAGE_FETCH;
+		dir = 1;
+		break;
+	    } else if (urlMainSetupPanel(&ui, proto, &needsSecondary)) {
                 stage = URL_STAGE_IP;
                 dir = -1;
-            } else { 
-                stage = (needsSecondary != ' ') ? URL_STAGE_SECOND : 
-                    URL_STAGE_FETCH;
-                dir = 1;
             }
+
+	    /* got required information from user, proceed */
+	    stage = (needsSecondary != ' ') ? URL_STAGE_SECOND : 
+		URL_STAGE_FETCH;
+	    dir = 1;
             break;
 
         case URL_STAGE_SECOND:
@@ -258,6 +285,7 @@ char * mountUrlImage(struct installMethod * method,
     return url;
 }
 
+/* pull kickstart configuration file via http */
 int kickstartFromUrl(char * url, struct knownDevices * kd,
                      struct loaderData_s * loaderData, int flags) {
     struct iurlinfo ui;
@@ -334,3 +362,49 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
 
     return 0;
 }
+
+void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+		    char ** argv, int * flagsPtr) {
+
+    char *url;
+    poptContext optCon;
+    int rc;
+    struct poptOption ksHDOptions[] = {
+        { "url", '\0', POPT_ARG_STRING, &url, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+
+    logMessage("kickstartFromUrl");
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to Url kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+    if (!url) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Must supply a --url argument to Url kickstart method."));
+        return;
+    }
+
+    /* determine install type */
+    if (strstr(url, "http://"))
+	loaderData->method = strdup("http");
+    else if (strstr(url, "ftp://"))
+	loaderData->method = strdup("http");
+    else {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Unknown Url method %s"), url);
+        return;
+    }
+
+    loaderData->methodData = calloc(sizeof(struct urlInstallData *), 1);
+    ((struct urlInstallData *)loaderData->methodData)->url = url;
+
+    logMessage("results of url ks, url %s", url);
+}
+
