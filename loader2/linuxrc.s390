@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2000,2001,2002 by
+# Copyright (C) 2000-2003 by
 #        Bernhard Rosenkraenzer <bero@redhat.com>
 #        Oliver Paukstadt <opaukstadt@millenux.com>
 #        Karsten Hopp <karsten@redhat.de>
@@ -114,7 +114,7 @@ LO=""
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
-while [ -z "$HOSTNAME" ]; do
+while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
 	echo $"Please enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
 	read HOSTNAME
 done
@@ -160,15 +160,15 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
    [ -n "$QETHPARM" ] && echo "$QETHPARM" >/proc/chandev
 	[ -n "$CHANDEV" ]  && echo "reprobe" >/proc/chandev
 fi
+while [ -z "$IPADDR" ]; do
+  echo $"Please enter the IP address of your new Linux guest:"
+  read IPADDR
+done
+while [ -z "$NETWORK" ]; do
+  echo $"Enter the network address of the new Linux guest:"
+  read NETWORK
+done
 if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ]; then
-	 while [ -z "$IPADDR" ]; do
-		  echo $"Please enter the IP address of your new Linux guest:"
-		  read IPADDR
-	 done
-	 while [ -z "$NETWORK" ]; do
-		  echo $"Enter the network address of the new Linux guest:"
-		  read NETWORK
-	 done
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK

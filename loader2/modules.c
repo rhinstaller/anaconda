@@ -582,7 +582,6 @@ static int writeModulesConf(moduleList list, int fd) {
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
         if (!lm->weLoaded) continue;
         if (lm->written) continue;
-        lm->written = 1;
 
         /* JKFIXME: this is a hack for the fact that these are now
          * DRIVER_SCSI so we can get /tmp/scsidisks, but we don't
@@ -608,6 +607,7 @@ static int writeModulesConf(moduleList list, int fd) {
                 strcat(buf, lm->name);
                 strcat(buf, "\n");
                 write(fd, buf, strlen(buf));
+                lm->written = 1;
 
                 break;
 
@@ -637,6 +637,7 @@ static int writeModulesConf(moduleList list, int fd) {
                 strcat(buf, lm->name);
                 strcat(buf, "\n");
                 write(fd, buf, strlen(buf));
+                lm->written = 1;
 
                 break;
 
@@ -655,6 +656,7 @@ static int writeModulesConf(moduleList list, int fd) {
             }
             strcat(buf, "\n");
             write(fd, buf, strlen(buf));
+            lm->written = 1;
         }
     }
 
