@@ -133,13 +133,14 @@ void loadLanguage (char * file, int flags) {
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
 
-    if (!key || !strcmp(key, "en")) {
-        if (strings) {
-            free(strings), strings = NULL;
-            numStrings = allocedStrings = 0;
-        }
-        return;
+    if (strings) {
+	free(strings), strings = NULL;
+	numStrings = allocedStrings = 0;
     }
+    
+    /* english requires no files */
+    if (!strcmp(key, "en"))
+        return;
 
     if (!file) {
         file = filename;
