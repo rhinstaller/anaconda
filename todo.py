@@ -470,6 +470,7 @@ class ToDo:
 	self.mouse.makeLink(self.instPath)
 
     def writeDesktop(self):
+        self.desktop.set (self.instClass.getDesktop())
 	f = open(self.instPath + "/etc/sysconfig/desktop", "w")
 	f.write(str (self.desktop))
 	f.close()
@@ -1024,7 +1025,6 @@ class ToDo:
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
-        todo.desktop.set (todo.instClass.getDesktop())
 
         arch = iutil.getArch ()
 	if arch == "i386":	
