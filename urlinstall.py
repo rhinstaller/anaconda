@@ -80,6 +80,7 @@ class UrlInstallMethod(InstallMethod):
             base = "%s/disc1" % (self.pkgUrl,)
         else:
             base = self.pkgUrl
+	    
         fullPath = base + "/" + filename
 
         file = tmppath + "/" + os.path.basename(fullPath)
@@ -102,6 +103,7 @@ class UrlInstallMethod(InstallMethod):
 
     def readHeaders(self):
         connected = 0
+
         while not connected:
             try:
                 url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
@@ -150,6 +152,9 @@ class UrlInstallMethod(InstallMethod):
         if rem and rem[-1] == "/":
             rem = rem[:-1]
 	self.baseUrl = self.baseUrl + rem
+
+	# self.baseUrl points at the path which contains the 'RedHat'
+	# directory with the hdlist.
 
 	if self.baseUrl[-6:] == "/disc1":
 	    self.multiDiscs = 1
