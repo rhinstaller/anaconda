@@ -26,6 +26,10 @@
 void eject(char * deviceName) {
     int fd;
 
+#if !defined(__sparc__)
+    if (!strncmp(deviceName, "fd", 2)) return;
+#endif
+
     logMessage("ejecting floppy");
 
     devMakeInode(deviceName, "/tmp/ejectDevice");
@@ -191,7 +195,7 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps *modDepsPtr, int flags, int cancelNotBack,
-		      char * device) {
+		      int askForExistence, char * device) {
     int rc;
     int done = 0;
     struct driverDiskInfo * ddi;
@@ -199,7 +203,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     ddi = calloc(sizeof(*ddi), 1);
 
     do { 
-	if (FL_EXPERT(flags)) {
+	if (askForExistence) {
 	    rc = newtWinChoice(_("Devices"), _("Yes"),
 			       _("No"),
 			       _("Do you have a driver disk?"));
@@ -286,6 +290,15 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	    }
 	}	
 
+	if (!numSorted) {
+	    /* If nothing appears in this list, force them to insert
+	       a driver disk. */
+	    i = devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0,
+				  1, ddDevice);
+	    if (i) return i;
+	    continue;
+	}
+
 	qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
 
 	text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
@@ -332,7 +345,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return LOADER_BACK;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0,
+	    devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0, 0,
 			      ddDevice);
 	    continue;
 	} else {
