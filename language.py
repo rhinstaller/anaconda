@@ -82,7 +82,7 @@ class InstallTimeLanguage:
 	    l = string.split(line)
 
             # throw out invalid lines
-            if len(l) < 8:
+            if len(l) < 7:
                 continue
 	    
 	    longName = l[0]
@@ -131,7 +131,7 @@ class InstallTimeLanguage:
             if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
                 return self.getLangNameByNick(main)
 
-        #raise KeyError, "language %s not found" % lang
+#        raise KeyError, "language %s not found" % lang
         return self.getLangNameByNick("en_US.UTF-8")
 
     def getDefaultKeyboard(self):
