@@ -147,11 +147,11 @@ class NetworkWindow(InstallWindow):
 
     def handleMissingHostname(self):
 	return not self.intf.messageWindow(_("Error With Data"),
-				_("You have not specified a hostname.  Depending on your network environment this may cause problems later."), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+				_("You have not specified a hostname.  Depending on your network environment this may cause problems later."), type="custom", custom_buttons=["gtk-cancel", _("Continue")])
 
     def handleMissingOptionalIP(self, field):
 	return not self.intf.messageWindow(_("Error With Data"),
-				_("You have not specified the field \"%s\".  Depending on your network environment this may cause problems later.") % (field,), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+				_("You have not specified the field \"%s\".  Depending on your network environment this may cause problems later.") % (field,), type="custom", custom_buttons=["gtk-cancel", _("Continue")])
 
     def handleBadHostname(self, hostname, error):
 	self.intf.messageWindow(_("Error With Data"),
@@ -172,7 +172,7 @@ class NetworkWindow(InstallWindow):
 				  "invalid."))
 
     def handleNoActiveDevices(self):
-	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to commuciate over a network by default without at least one device active."), type="custom", custom_buttons=[_("Cancel"), _("Continue")])
+	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to commuciate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("Continue")])
     
     def setHostnameRadioState(self):
 	pass
