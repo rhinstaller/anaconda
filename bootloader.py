@@ -531,18 +531,26 @@ class x86BootloaderInfo(bootloaderInfo):
 	f.close()
         os.chmod(instRoot + "/boot/grub/grub.conf", self.perms)
 
-        # make a symlink for menu.lst since it's the default config file name
-        if os.access (instRoot + "/boot/grub/menu.lst", os.R_OK):
-	    os.rename(instRoot + "/boot/grub/menu.lst",
-		      instRoot + "/boot/grub/menu.lst.rpmsave")
-        os.symlink("./grub.conf", instRoot + "/boot/grub/menu.lst")
- 
-        # make a symlink for /etc/grub.conf since config files belong in /etc
-        if os.access (instRoot + "/etc/grub.conf", os.R_OK):
-	    os.rename(instRoot + "/etc/grub.conf",
-		      instRoot + "/etc/grub.conf.rpmsave")
-        os.symlink("../boot/grub/grub.conf", instRoot + "/etc/grub.conf")
-       
+        try:
+            # make a symlink for menu.lst (the default config file name)
+            if os.access (instRoot + "/boot/grub/menu.lst", os.R_OK):
+                os.rename(instRoot + "/boot/grub/menu.lst",
+                          instRoot + "/boot/grub/menu.lst.rpmsave")
+            os.symlink("./grub.conf", instRoot + "/boot/grub/menu.lst")
+        except:
+            # if the symlinks fail, oh well
+            pass
+
+        try:
+            # make a symlink for /etc/grub.conf (config files belong in /etc)
+            if os.access (instRoot + "/etc/grub.conf", os.R_OK):
+                os.rename(instRoot + "/etc/grub.conf",
+                          instRoot + "/etc/grub.conf.rpmsave")
+            os.symlink("../boot/grub/grub.conf", instRoot + "/etc/grub.conf")
+        except:
+            # if the symlinks fail, oh well
+            pass
+
 
         if not os.access(instRoot + "/boot/grub/device.map", os.R_OK):
             f = open(instRoot + "/boot/grub/device.map", "w+")
