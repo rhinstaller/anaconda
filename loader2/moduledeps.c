@@ -73,6 +73,27 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
     moduleDepList = realloc(moduleDepList, sizeof(*moduleDepList) * numItems);
     for (nextDep = moduleDepList; nextDep->name; nextDep++) ;
 
+    /* We have to remove `\' first. */
+    start = buf;
+    start = strchr(start, '\\');
+    while (start) {
+	/* Replace `\\' with a space. */
+	*start++ = ' ';
+	/* Replace the following `\n' and `\r' with a space. */
+        if (*start == '\n') {
+	    *start++ = ' ';
+            if (*start == '\r')
+                *start++ = ' ';
+	}
+	else if (*start == '\r') {
+            *start++ = ' ';
+            if (*start == '\n')
+                *start++ = ' ';
+        }
+	start = strchr(start, '\\');
+
+    }
+
     start = buf;
     while (start < (buf + sb.st_size) && *start) {
         end = strchr(start, '\n');
@@ -133,7 +154,7 @@ char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
 }
 
 /* fun test cases... */
-#if 0
+#ifdef TESTING
 
 void printDeps(moduleDeps modDeps) {
     moduleDeps dep;
@@ -169,5 +190,6 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&deps, "modules.dep.2");
     printDeps(deps);
 
+    return 0;
 }
 #endif
