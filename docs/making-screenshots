@@ -1,0 +1,20 @@
+How to make screenshots:
+
+
+- boot install with:
+
+     boot: text display=<remove X display>:0
+
+Be sure you do a 'xhost +' on the remote machine.
+
+then go through the loader to the first stage 2 screen.
+
+On VC2 enter:
+
+   anaconda -m nfs://mnt/source --xmode (GUI mode)
+
+or
+
+   anaconda -m nfs://mnt/source --text --xmode (TUI mode)
+
+
