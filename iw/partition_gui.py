@@ -453,7 +453,8 @@ class PartitionWindow(InstallWindow):
         self.parent = ics.getICW().window
         
     def getNext(self):
-        self.diskStripeGraph.shutDown()    
+        self.diskStripeGraph.shutDown()
+        self.tree.freeze()
         self.clearTree()
         del self.parent
         return None
