@@ -39,7 +39,7 @@ msgid ""
 "because you modified extended partitions. While this is not critical, you "
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
-msgstr ""
+msgstr "Systemul de instalare nu poate citi informaþiile din tabela de partiþii, probabil din cauzã cã aþi modificat setãrile partiþiilor de tip extins. Deºi aceasta nu este o eroare criticã, acest system trebuie reîncãrcat înainte ca programul de instalare sã poatã continua. Introduceþi discul de boot Red Hat si selectaþi \"OK\" pentru resetarea sistemului.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -186,7 +186,7 @@ msgstr "Se transferã imaginea de instalare pe hard disc..."
 msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
+msgstr "Eroare la transferul imaginii de instalare pe hard disk. Cel mai probabil nu existã suficient spaþiu pentru operaþia de copiere."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -562,7 +562,7 @@ msgid ""
 "possible. The information on this failure may be saved to a floppy disk, and "
 "will help Red Hat in fixing the problem.\n"
 "\n"
-msgstr ""
+msgstr "Programul de instalare nu poate continua din cauza unei erori interne critice. Vã rugãm sa raportaþi aceastã eroare cãtre Red Hat cît mai curînd posibil. Pentru aceasta puteþi folosi interfaþa de raportare a erorilor aflatã la http://bugzilla.redhat.com/bugzilla. Informaþiile referitoare la aceastã eroare pot fi salvate pe o dischetã ºi pot ajuta foarte mult Red Hat la detectarea acestei erori.\n\n"
 
 #: ../text.py:827 ../text.py:830
 msgid "Save"
@@ -763,13 +763,13 @@ msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
-msgstr ""
+msgstr "Unul sau mai multe din sistemele de fiºiere montate pe acest sistem nu a putut fi dezactivat corect. Trebuie sã porniþi sistemul Red Hat Linux existent pe acest calculator pentru ca sistemele de fiºiere sã poatã fi verificate pentru erori. Dupã ce verificarea va fi completã puteþi porni din nou programul de instalare."
 
 #: ../todo.py:923
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "Unul sau mai multe din sistemele de fiºiere activate în /etc/fstab nu poate fi montat. Corectaþi aceastã problemã ºi reporniþi programul de instalare."
 
 #: ../todo.py:936
 msgid "Finding"
@@ -879,7 +879,7 @@ msgid ""
 "installation mode, please proceed to the next screen and provide your mouse "
 "information. You may also use text mode installation which does not require "
 "a mouse."
-msgstr ""
+msgstr "Nu s-a putut detecta automat ce tip de mouse este conectat la acest calculator. Dacã doriþi sã continuaþi în instalarea în mediul grafic, avansaþi la ecranul urmãtor ºi selectaþi tipul de mouse care este ataºat la acest calculator. De asemenea, puteþi sã continuaþi instalarea în mod grafic care nu necesitã prezenþa unui mouse."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
@@ -1475,6 +1475,10 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Nu aveþi suficient spaþiu pe disc pentru partiþionarea automatã. Va trebui sã partiþionaþi acest sistem în mod manual pentru ca Red Hat linux sã poatã fi instalat.\n"
+"\n"
+"Selectaþi ce utilitar doriþi sã folosiþi pentru partiþionarea manualã."
 
 #: ../iw/rootpartition_gui.py:313
 msgid "Manual Partitioning"
@@ -2236,7 +2240,7 @@ msgid ""
 "An error has occurred why trying to create device nodes for the hard drives "
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
-msgstr ""
+msgstr "S-a detectat o eroare la crearea nodurilor necesare pentru acesul programului de instalare la hard discurile instalate în sistem. O posibilã cauzã este lipsa de spaþiu suficient în partiþia /tmp."
 
 #: ../libfdisk/fsedit.c:1096
 msgid "No Drives Found"
@@ -2404,7 +2408,7 @@ msgid ""
 "cannot do this now because mount points have been assigned to ext2 "
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
-msgstr ""
+msgstr "Aþi încercat sã atribuiþi directorul rãdãcinã (/) unei partiþii de tip FAT. Nu puteþi face aceasta acum din cauzã ca alte directoare au fost atribuite unor partiþii de tip ext2. Eliminaþi acele directoare si atunci veþi putea atribui directorul '/' acestei partiþii."
 
 #: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
 msgid ""
@@ -2565,6 +2569,9 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"Partiþia RAID selectatã pentru /boot poate include partiþii numai de pe primele douã hard discuri din sistem.\n"
+"\n"
+"Aceste hard discuri sunt: "
 
 #: ../libfdisk/gnomefsedit.c:2175
 msgid "Booting From RAID Warning"
@@ -3232,7 +3239,7 @@ msgid ""
 "not include a DNS nameserver. If you know what your nameserver is, please "
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
-msgstr ""
+msgstr "Cererea pentru o adresã de IP dinamicã a obþinut informaþii pentru configurarea parametrilor IP, dar rãspunsul serverului nu a inclus ºi o adresã pentru un server DNS. Dacã cunoasteþi care este adresa acelui server DNS, introduceþi-o acum. Dacã nu aveþi acestã informaþie, lãsaþi acest cîmp gol ºi programul de instaare va continua."
 
 #: ../loader/net.c:254
 msgid "Invalid IP Information"
