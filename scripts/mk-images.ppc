@@ -40,6 +40,7 @@ elif [ "$kernelvers" = "iseries" ]; then
                --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
     cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+    cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
 
     # FIXME: need to do addRamdisk here
 else
