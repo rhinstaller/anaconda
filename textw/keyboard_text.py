@@ -2,6 +2,7 @@ from snack import *
 from constants_text import *
 from translate import _
 import isys
+import iutil
 from log import *
 from flags import flags
 
@@ -31,15 +32,14 @@ class KeyboardWindow:
         kbd.set (keyboards[choice])
 	self.beenRun = 1
 
-	# XXX
-	#if todo.reconfigOnly:
-	    #iutil.execWithRedirect ("/bin/loadkeys",
-				    #["/bin/loadkeys", keyboards[choice]],
-				    #stderr = "/dev/null")
+	if flags.reconfig:
+	    iutil.execWithRedirect ("/bin/loadkeys",
+				    ["/bin/loadkeys", keyboards[choice]],
+				    stderr = "/dev/null")
 
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
 		log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
-    
+
