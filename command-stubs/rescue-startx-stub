@@ -19,5 +19,5 @@ else:
     mode = '800x600'
 
 xserver.probeHWandStartXServer(mode)
-os.system("twm&")
-os.system("xterm")
+os.system("xterm&")
+os.system("twm")
