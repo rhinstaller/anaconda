@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 7.0\n"
+"Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-01-19 10:09-0500\n"
-"PO-Revision-Date: 2000-08-20 02:19+0200\n"
+"PO-Revision-Date: 2001-01-23 15:40+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnu.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr "Uventet hendelse oppstod"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr ""
+msgstr "Dump skrevet?"
 
 #: ../exception.py:92
 msgid ""
@@ -43,9 +43,8 @@ msgid ""
 msgstr ""
 
 #: ../fstab.py:74
-#, fuzzy
 msgid "Warning"
-msgstr "Søker"
+msgstr "Advarsel"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -208,7 +207,7 @@ msgstr ""
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Kan ikke lese filen!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -235,7 +234,7 @@ msgstr "Installasjonsvindu"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Mangler CD #%d, som kreves for å fullføre installsjonen."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -283,9 +282,8 @@ msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr ""
 
 #: ../rescue.py:54
-#, fuzzy
 msgid "System to Rescue"
-msgstr "System som skal oppgraderes"
+msgstr "System som skal reddes"
 
 #: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
@@ -339,9 +337,8 @@ msgid "Exit"
 msgstr "Avslutt"
 
 #: ../rescue.py:70 ../rescue.py:76
-#, fuzzy
 msgid "Rescue"
-msgstr "_Nullstill"
+msgstr "Redning"
 
 #: ../rescue.py:71
 msgid ""
@@ -361,9 +358,8 @@ msgid ""
 msgstr ""
 
 #: ../rescue.py:83
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Redningsmetode"
+msgstr "Redningsmodus"
 
 #: ../rescue.py:84
 msgid ""
@@ -414,24 +410,20 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket språk ønsker du å bruke under installasjonen?"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Hvilken type media inneholder pakkene som skal installeres?"
+msgstr "Velg språk som skal installeres:"
 
 #: ../text.py:158 ../text.py:1124
-#, fuzzy
 msgid "Language Support"
-msgstr "Støtte for bærbare"
+msgstr "Språkstøtte"
 
 #: ../text.py:205
-#, fuzzy
 msgid "Default Language"
-msgstr "Velg et språk"
+msgstr "Standardspråk"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Velg et språk"
+msgstr "Velg standard språk: "
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -617,7 +609,6 @@ msgid "Complete"
 msgstr "Ferdig"
 
 #: ../iw/congrats_gui.py:34 ../text.py:639
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -647,7 +638,6 @@ msgid ""
 msgstr ""
 
 #: ../text.py:662
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -662,8 +652,8 @@ msgstr ""
 "For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
 "Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om videre konfigurasjon av systemet er tilgjengelig i \"post "
-"install\"-kapittelet i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om videre konfigurasjon av systemet er tilgjengelig i på "
+"http://www.redhat.com/support/manuals/"
 
 #: ../text.py:729
 msgid "Package Installation"
@@ -777,9 +767,8 @@ msgstr "Oppsett av nettverk"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "LILO-konfigurasjon"
+msgstr "Brannvegg-konfigurasjon"
 
 #: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
@@ -834,9 +823,8 @@ msgstr "Swap"
 
 #: ../text.py:1100 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Automatisk partisjonering"
+msgstr "Advarsel om oppstartspartisjon"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -847,9 +835,8 @@ msgid "Mouse Configuration"
 msgstr "Konfigurasjon av mus"
 
 #: ../text.py:1126
-#, fuzzy
 msgid "Language Default"
-msgstr "Valg av språk"
+msgstr "Standardspråk"
 
 #: ../text.py:1137
 msgid "Package Groups"
@@ -1012,20 +999,17 @@ msgid "Space Needed"
 msgstr "Nødvendig plass"
 
 #: ../todo.py:1705
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
-"valgt. Du må ha mer plass på de følgende filsystemene:\n"
-"\n"
+"Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
+"valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
 #: ../todo.py:1708
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Nødvendig plass"
+msgstr "Manglende noder"
 
 #: ../todo.py:1714
 msgid "Disk Space"
@@ -1308,7 +1292,6 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1323,8 +1306,9 @@ msgstr ""
 "For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
 "Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om konfigurasjon av systemet er tilgjengelig i kapittelet "
-"\"Etter installasjonen\" i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om konfigurasjon av systemet er tilgjengelig i de offisielle Red "
+"Hat Linux brukerhåndbøkene som finnes på "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1403,25 +1387,23 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Bruk standard regelsett for brannvegg"
 
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Tilpass oppgradering"
+msgstr "Tilpass"
 
 #: ../iw/firewall_gui.py:101
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Brukt RAID-enhet"
+msgstr "Enheter vi stoler på:"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Tillat innkommende:"
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "Andre porter:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1476,28 +1458,24 @@ msgid "What language should be used during the installation process?"
 msgstr "Hvilket språk skal brukes under installasjonen?"
 
 #: ../iw/language_support_gui.py:145
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Velg et språk"
+msgstr "Velg et standardspråk:   "
 
 #: ../iw/language_support_gui.py:156
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Velg et språk"
+msgstr "Velg språk som skal installeres:"
 
 #: ../iw/language_support_gui.py:211
-#, fuzzy
 msgid "Select all"
-msgstr "Velg alle i gruppen"
+msgstr "Velg alle"
 
 #: ../iw/language_support_gui.py:217
-#, fuzzy
 msgid "Reset"
-msgstr "_Nullstill"
+msgstr "Nullstill"
 
 #: ../iw/language_support_gui.py:231
 msgid "Select as default"
-msgstr ""
+msgstr "Velg som standard"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1709,14 +1687,12 @@ msgid "Summary"
 msgstr "Sammendrag"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Pakkegrupper"
+msgstr "Pakke for pakker: "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
-msgstr "Total    :"
+msgstr "Fremgang totalt:  "
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
@@ -1980,14 +1956,12 @@ msgid "Please choose your login type:"
 msgstr ""
 
 #: ../iw/xconfig_gui.py:519
-#, fuzzy
 msgid "Text"
-msgstr "Neste"
+msgstr "Tekst"
 
 #: ../iw/xconfig_gui.py:520
-#, fuzzy
 msgid "Graphical"
-msgstr "Bruk grafisk pålogging"
+msgstr "Grafisk"
 
 #: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
@@ -2010,22 +1984,20 @@ msgid "Restore original values"
 msgstr ""
 
 #: ../iw/xconfig_gui.py:964
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Horisontal synkronisering"
+msgstr "Horisontal synkronisering:"
 
 #: ../iw/xconfig_gui.py:966
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Vertikal synkronisering"
+msgstr "Vertikal synkronisering:"
 
 #: ../iw/xconfig_gui.py:972
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:975
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:1165
 msgid ""
@@ -2126,30 +2098,28 @@ msgid "Security Level:"
 msgstr ""
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Brukt RAID-enhet"
+msgstr "Enheter vi stoler på:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Slett"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "E-post (SMTP)"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
@@ -2157,23 +2127,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Skriverstøtte"
+msgstr "Andre porter"
 
 #: ../textw/firewall_text.py:120
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Ugyldig oppstartsnavn"
+msgstr "Ugyldig valg"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Du kan ikke tilpasse en deaktivert brannvegg."
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Konfigurasjonen fullført"
+msgstr "Konfigurasjon av brannvegg - Tilpass"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2725,7 +2692,6 @@ msgid "Error Creating Device Nodes"
 msgstr "Feil under oppretting av enhetsnoder"
 
 #: ../libfdisk/fsedit.c:1030
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -3019,7 +2985,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Kan ikke fjerne /boot"
 
 #: ../libfdisk/gnomefsedit.c:1556
 msgid ""
@@ -3141,7 +3107,6 @@ msgid "Illegal RAID mountpoint"
 msgstr "Ugyldig RAID monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:2276
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3615,7 +3580,6 @@ msgstr ""
 "konfigurere noen tilleggsenheter?"
 
 #: ../loader/loader.c:825
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3626,18 +3590,17 @@ msgstr ""
 "denne listen, trykk F2 for å konfigurere tilleggsenheter."
 
 #: ../loader/loader.c:839
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Katalog som inneholder Red Hat:"
+msgstr "Katalog som inneholder bilder:"
 
 #: ../loader/loader.c:859
 msgid "Select Partition"
 msgstr "Velg partisjon"
 
 #: ../loader/loader.c:907
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat installasjonstre."
+msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat CDROM-bilde."
 
 #: ../loader/loader.c:962
 msgid ""
@@ -3712,13 +3675,12 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Sett inn oppdateringsdisketten og trykk \"OK\" for å fortsette."
 
 #: ../loader/loader.c:2255
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Disketten du satte inn er ikke en gyldig driverdiskett for denne utgaven av "
-"Red Hat Linux."
+"Disketten du satte inn er ikke en gyldig oppdateringsdiskett for denne "
+"utgaven av Red Hat Linux."
 
 #: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
@@ -3899,17 +3861,15 @@ msgstr "Initierer enheter på PC-kort..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Vennligst sett inn %s-driverdisketten nå."
+msgstr "Vennligst sett inn PCMCIA-driverdisketten i diskettstasjonen nå."
 
 #: ../loader/pcmcia.c:114
-#, fuzzy
 msgid "Failed to mount disk."
-msgstr "Kunne ikke montere driverdisketten."
+msgstr "Kunne ikke montere disken."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
@@ -3999,7 +3959,6 @@ msgid "%s is not a valid hostname."
 msgstr "%s er ikke et gyldig vertsnavn."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -4166,59 +4125,3 @@ msgstr "Kjerneutvikling"
 
 msgid "Utilities"
 msgstr "Verktøy"
-
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Ferdig"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Swap-partisjon"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Test denne konfigurasjonen"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "Tilpass konfigurasjon av X"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Standard skrivebord:"
-
-#~ msgid "Pacific Rim"
-#~ msgstr "Stillehavet"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Feil under montering av %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Ikke installér LILO"
-
-#~ msgid "Up"
-#~ msgstr "Opp"
-
-#~ msgid "Name: "
-#~ msgstr "Navn: "
-
-#~ msgid "Package Details"
-#~ msgstr "Pakkedetaljer"
-
-#~ msgid "Size: "
-#~ msgstr "Størr.: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Velg pakke for installasjon"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Bekreft valg av partisjonering"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
-#~ "også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
-#~ "fra og hvilken etikett du vil gi hver av dem.\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres-tjener (SQL)"
