@@ -231,6 +231,9 @@ class AutoPartitionWindow(InstallWindow):
         elif AutoPartitionWindow.manuallyPartitionfdisk.get_active():
             self.todo.fstab.setRunDruid(1)
             self.todo.fstab.setReadonly(1)
+            if self.druid:
+                del self.druid
+                
             self.lastChoice = CHOICE_FDISK
 	else:
 	    self.todo.fstab.setRunDruid(0)

@@ -712,7 +712,7 @@ class Fstab:
 		    isys.mount(device, instPath + mntpoint, fstype = fsystem)
 		except SystemError, (errno, msg):
 		    self.messageWindow(_("Error"), 
-			_("Error mounting %s: %s") % (device, msg))
+			_("Error mounting %s: %s\n\nThis may mean this partition has not been formatted.") % (device, msg))
 		    raise SystemError, (errno, msg)
 
         try:
