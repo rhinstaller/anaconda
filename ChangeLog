@@ -1,3 +1,12 @@
+2005-02-08  Chris Lumens  <clumens@redhat.com>
+
+	* dispatch.py:  Pass a handle to the interface into doPostAction.
+	* kickstart.py:  Support --erroronfail as an option for %pre and
+	%post.  This option will display an error dialog to the screen and
+	terminate installation (#124386).
+	* packages.py (doPostAction):  Accept a handle to the interface so we
+	can pass it into the %post kickstart handler.
+
 2005-02-08  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py: Fix segfault if we have to order packages.

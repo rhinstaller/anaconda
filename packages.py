@@ -54,8 +54,8 @@ def queryUpgradeContinue(intf, dir):
         sys.exit(0)
     return DISPATCH_FORWARD
 
-def doPostAction(id, instPath):
-    id.instClass.postAction(instPath, flags.serial)
+def doPostAction(id, instPath, intf = None):
+    id.instClass.postAction(instPath, flags.serial, intf)
 
 def firstbootConfiguration(id, instPath):
     if id.firstboot == FIRSTBOOT_RECONFIG:

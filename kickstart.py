@@ -60,13 +60,15 @@ class Script:
 	    (self.script, self.interp, self.inChroot)
 	return string.replace(str, "\n", "|")
 
-    def __init__(self, script, interp, inChroot, logfile = None):
+    def __init__(self, script, interp, inChroot, logfile = None,
+                 errorOnFail = False):
 	self.script = script
 	self.interp = interp
 	self.inChroot = inChroot
         self.logfile = logfile
+	self.errorOnFail = errorOnFail
 
-    def run(self, chroot, serial):
+    def run(self, chroot, serial, intf = None):
 	scriptRoot = "/"
 	if self.inChroot:
 	    scriptRoot = chroot
@@ -90,18 +92,31 @@ class Script:
 				    stdout = messages, stderr = messages,
 				    root = scriptRoot)
 
+        # Always log an error.  Only fail if we have a handle on the
+	# windowing system and the kickstart file included --erroronfail.
 	if rc != 0:
-	    log("WARNING - Error code %s encountered running a kickstart %%pre/%%post script", rc)
+            log("WARNING - Error code %s encountered running a kickstart %%pre/%%post script", rc)
+
+            if self.errorOnFail:
+	        if intf != None:
+                    intf.messageWindow(_("Scriptlet Failure"),
+                                       _("There was an error running the "
+                                         "scriptlet.  You may examine the "
+                                         "output in %s.  This is a fatal error "
+                                         "and your install will be aborted.\n\n"
+                                         "Press the OK button to reboot your "
+                                         "system.") % (messages,))
+                sys.exit(0)
 
 	os.unlink(path)
 
 class KickstartBase(BaseInstallClass):
     name = "kickstart"
     
-    def postAction(self, rootPath, serial):
+    def postAction(self, rootPath, serial, intf = None):
 	log("Running kickstart %%post script(s)")
 	for script in self.postScripts:
-	    script.run(rootPath, serial)
+	    script.run(rootPath, serial, intf)
 	log("All kickstart %%post script(s) have been run")
 
     def doRootPw(self, id, args):
@@ -726,6 +741,7 @@ class KickstartBase(BaseInstallClass):
         script = ""
         scriptInterp = "/bin/sh"
         scriptLog = None
+	errorOnFail = False
         if where == "pre" or where == "traceback":
             scriptChroot = 0
         else:
@@ -741,7 +757,8 @@ class KickstartBase(BaseInstallClass):
 	    if args and (args[0] in ["%pre", "%post", "%traceback"]):
 		if ((where =="pre" and parsePre) or
 		    (where in ["post", "traceback"] and not parsePre)):
-		    s = Script(script, scriptInterp, scriptChroot, scriptLog)
+		    s = Script(script, scriptInterp, scriptChroot, scriptLog,
+                               errorOnFail)
 		    if where == "pre":
                         self.preScripts.append(s)
 		    elif where == "post":
@@ -755,12 +772,13 @@ class KickstartBase(BaseInstallClass):
                 script = ""
                 scriptInterp = "/bin/sh"
                 scriptLog = None
+		errorOnFail = False
                 if where == "pre" or where == "traceback":
                     scriptChroot = 0
                 else:
                     scriptChroot = 1
 
-		argList = [ 'interpreter=', "log=", "logfile=" ]
+		argList = [ 'interpreter=', "log=", "logfile=", "erroronfail" ]
 		if where == "post":
 		    argList.append('nochroot')
 
@@ -774,6 +792,8 @@ class KickstartBase(BaseInstallClass):
 			scriptInterp = arg
                     elif str == "--log" or str == "--logfile":
                         scriptLog = arg
+                    elif str == "--erroronfail":
+                        errorOnFail = True
 
             elif args and args[0] == "%include" and not parsePre:
                 if len(args) < 2:
@@ -784,7 +804,8 @@ class KickstartBase(BaseInstallClass):
             elif args and args[0] == "%packages":
 		if ((where =="pre" and parsePre) or
 		    (where in ["post", "traceback"] and not parsePre)):
-		    s = Script(script, scriptInterp, scriptChroot, scriptLog)
+		    s = Script(script, scriptInterp, scriptChroot, scriptLog,
+	                       errorOnFail)
 		    if where == "pre":
                         self.preScripts.append(s)
 		    elif where == "post":
@@ -866,7 +887,8 @@ class KickstartBase(BaseInstallClass):
                 
 	if ((where =="pre" and parsePre) or
 	    (where in ["post", "traceback"] and not parsePre)):
-	    s = Script(script, scriptInterp, scriptChroot, scriptLog)
+	    s = Script(script, scriptInterp, scriptChroot, scriptLog,
+	               errorOnFail)
 	    if where == "pre":
 		self.preScripts.append(s)
 	    elif where == "post":
@@ -1448,7 +1470,7 @@ class KickstartBase(BaseInstallClass):
 
 	log("Running kickstart %%pre script(s)")
 	for script in self.preScripts:
-	    script.run("/", self.serial)
+	    script.run("/", self.serial, intf)
 	log("All kickstart %%pre script(s) have been run")
 
         # now read the kickstart file for real

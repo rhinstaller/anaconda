@@ -157,7 +157,7 @@ installSteps = [
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
     ("copylogs", copyAnacondaLogs, ("instPath",)),
-    ("dopostaction", doPostAction, ("id", "instPath")),
+    ("dopostaction", doPostAction, ("id", "instPath", "intf")),
     ("methodcomplete", doMethodComplete, ("method",)),
     ("complete", ()),
     ]
