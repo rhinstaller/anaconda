@@ -47,7 +47,7 @@ class BootloaderPasswordWindow (InstallWindow):
             elif len (pw) < 6:
                 self.rootStatus.set_text (_("Password is too short."))
             else:
-                self.rootStatus.set_text (_("Passwords do not match."))
+                self.rootStatus.set_text (_("Passwords do not match.asdfasdfdsafasdfdf"))
                 
             self.ics.setNextEnabled (FALSE)
         
@@ -59,7 +59,7 @@ class BootloaderPasswordWindow (InstallWindow):
 
         self.forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
-        self.passtable = GtkTable (3, 3)
+        self.passtable = GtkTable (2, 2)
         self.passtable.set_row_spacings (5)
 	self.passtable.set_col_spacings (5)
         grubpassinfo = GtkLabel(_("A GRUB password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
@@ -95,8 +95,11 @@ class BootloaderPasswordWindow (InstallWindow):
         self.usegrubpasscb.connect("toggled", self.toggle)
 
         self.rootStatus = GtkLabel(_("Please enter password"))
-        self.passtable.attach(self.rootStatus, 1, 2, 4, 5, FILL, 0, 10)
+        a = GtkAlignment (0.2, 0.5)
+        a.add(self.rootStatus)
         box.pack_start(self.passtable, FALSE)
+        box.pack_start(a, FALSE)
+
 
         return box
 
