@@ -487,7 +487,6 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/umount $MBD_DIR/sbin/umount
        ln -s gzip $MBD_DIR/sbin/zcat
        cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
-       cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
        cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
        cp -df $IMGPATH/lib/libtermcap* $MBD_DIR/lib/
        install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
