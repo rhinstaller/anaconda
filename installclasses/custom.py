@@ -5,6 +5,8 @@ from translate import N_
 class InstallClass(BaseInstallClass):
 
     name = N_("Install Custom System")
+    pixmap = "custom.png"
+    
     sortPriority = 10000
 
     def __init__(self, expert):
