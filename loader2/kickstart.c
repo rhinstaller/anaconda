@@ -282,9 +282,9 @@ int getKickstartFromBlockDevice(char *device, char *path) {
     if (devMakeInode(device, "/tmp/kssrcdev"))
         return 1;
 
-    if ((doPwMount("/tmp/kssrcdev", "/tmp/ks", "vfat", 1, 0, NULL, NULL, 0)) && 
-        doPwMount("/tmp/kssrcdev", "/tmp/ks", "ext2", 1, 0, NULL, NULL, 0) && 
-        doPwMount("/tmp/kssrcdev", "/tmp/ks", "iso9660", 1, 0, NULL, NULL, 0)) {
+    if ((doPwMount("/tmp/kssrcdev", "/tmp/ks", "vfat", 1, 0, NULL, NULL, 0, 0)) && 
+        doPwMount("/tmp/kssrcdev", "/tmp/ks", "ext2", 1, 0, NULL, NULL, 0, 0) && 
+        doPwMount("/tmp/kssrcdev", "/tmp/ks", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
         logMessage("failed to mount /dev/%s: %s", device, strerror(errno));
         return 2;
     }

@@ -234,9 +234,9 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 
             devMakeInode(device, "/tmp/dddev");
             logMessage("trying to mount %s", device);
-            if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0)) {
-              if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0)) {
-                if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0)) {
+            if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
+              if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0, 0)) {
+                if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
                     newtWinMessage(_("Error"), _("OK"),
                                    _("Failed to mount driver disk."));
                     stage = DEV_INSERT;
@@ -410,15 +410,15 @@ void useKickstartDD(struct loaderData_s * loaderData, int argc,
     devMakeInode(dev, "/tmp/dddev");
     if (fstype) {
         if (!doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
-                       NULL, NULL, 0)) {
+                       NULL, NULL, 0, 0)) {
             logMessage("unable to mount %s as %s", dev, fstype);
             return;
         }
     }
 
-    if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0)) {
-        if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0)) {
-            if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0)) {
+    if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
+        if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0, 0)) {
+            if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
                 logMessage("unable to mount driver disk %s", dev);
                 return;
             }

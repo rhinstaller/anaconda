@@ -151,7 +151,7 @@ static void mountCdromStage2(char *cddev) {
     do {
 	do {
 	    if (doPwMount("/tmp/cdrom", "/mnt/source", 
-			  "iso9660", 1, 0, NULL, NULL, 0)) {
+			  "iso9660", 1, 0, NULL, NULL, 0, 0)) {
 		ejectCdrom();
 		wrongCDMessage();
 	    } else {
@@ -313,7 +313,7 @@ char * setupCdrom(char * location,
             logMessage("trying to mount device %s", kd->known[i].name);
             devMakeInode(kd->known[i].name, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
-                           NULL, NULL, 0)) {
+                           NULL, NULL, 0, 0)) {
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK) &&
 		    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");

@@ -120,11 +120,11 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     close(loopfd);
 
     if (doPwMount(filename, mntpoint, "iso9660", 1,
-                  0, NULL, NULL, 0)) {
+                  0, NULL, NULL, 0, 0)) {
         if (doPwMount(filename, mntpoint, "ext2", 1,
-                      0, NULL, NULL, 0)) {
+                      0, NULL, NULL, 0, 0)) {
             if (doPwMount(filename, mntpoint, "cramfs", 1,
-                          0, NULL, NULL, 0)) {
+                          0, NULL, NULL, 0, 0)) {
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
                 ioctl(loopfd, LOOP_CLR_FD, 0);
@@ -199,7 +199,7 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     if (S_ISBLK(sb.st_mode)) {
 	filetype = 1;
 	if (doPwMount(file, "/tmp/testmnt",
-		      "iso9660", 1, 0, NULL, NULL, 0)) {
+		      "iso9660", 1, 0, NULL, NULL, 0, 0)) {
 	    logMessage("Failed to mount device %s to get description", file);
 	    return -1;
 	}

@@ -170,7 +170,7 @@ char * mountNfsImage(struct installMethod * method,
 
             stage = NFS_STAGE_NFS;
 
-            if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0)) {
+            if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL, 0, 0)) {
                 logMessage("mounted %s on /mnt/source", fullPath);
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
                     logMessage("can access stage2.img");
@@ -330,7 +330,7 @@ int kickstartFromNfs(char * url, struct knownDevices * kd,
 
     logMessage("ks location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/ks", "nfs", 1, 0, NULL, NULL, 0)) {
+    if (!doPwMount(host, "/tmp/ks", "nfs", 1, 0, NULL, NULL, 0, 0)) {
         char * buf;
 
         buf = alloca(strlen(file) + 10);
