@@ -1,10 +1,12 @@
 2005-03-22  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* dispatch.py (installSteps):  Pass id down to network.
 	* iw/network_gui.py (getNext, getScreen):  If we're using an
 	interactive kickstart install and using DHCP for networking, don't
 	obliterate the nameserver settings so we write out a good
-	/etc/resolv.conf.
+	/etc/resolv.conf (#151472).
 	* textw/network_text.py:  Accept id parameter.
 	* scripts/upd-instroot (PACKAGES):  List libstdc++ in PACKAGES to
 	hopefully really fix the tree scrubbing problem.
