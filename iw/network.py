@@ -130,9 +130,13 @@ class NetworkWindow (InstallWindow):
         notebook = GtkNotebook ()
         devs = self.todo.network.available ()
         if not devs: return None
-        
+
+        print "devs:"
+        print devs
         devs.keys ().sort ()
         for i in devs.keys ():
+            print "processing device:"
+            print i
             devbox = GtkVBox ()
             align = GtkAlignment ()
             DHCPcb = GtkCheckButton (_("Configure using DHCP"))
@@ -181,6 +185,7 @@ class NetworkWindow (InstallWindow):
 
             devbox.pack_start (ipTable, FALSE, FALSE, 5)
 
+            devbox.show_all ()
             notebook.append_page (devbox, GtkLabel (i))
 
         box.pack_start (notebook, FALSE)
