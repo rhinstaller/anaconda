@@ -28,6 +28,8 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
     int_32 size;
     DIR * dir;
     struct stat sb;
+    int_32 * fileSizes;
+    int fileCount;
 
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
@@ -94,6 +96,23 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 		headerAddEntry(h, FILENAME_TAG, RPM_STRING_TYPE, ent->d_name, 1);
 		headerAddEntry(h, FILESIZE_TAG, RPM_INT32_TYPE, 
 				&size, 1);
+
+		/* Recaclulate the package size based on a 4k block size */
+		if (headerGetEntry(h, RPMTAG_FILESIZES, NULL, 
+				   (void **) &fileSizes, &fileCount)) {
+		    int fileNum;
+		    int newSize = 0;
+		    int * p;
+
+		    for (fileNum = 0; fileNum < fileCount; fileNum++)
+			newSize += ((fileSizes[fileNum] + 4093) / 4096) * 4096;
+
+		    headerGetEntry(h, RPMTAG_SIZE, NULL, &p, NULL);
+
+		    headerRemoveEntry(h, RPMTAG_SIZE);
+		    headerAddEntry(h, RPMTAG_SIZE, RPM_INT32_TYPE, 
+				    &newSize, 1);
+		}
 
 		if (cdNum > -1)
 		    headerAddEntry(h, CDNUM_TAG, RPM_INT32_TYPE, 
