@@ -57,11 +57,11 @@ class LiloConfigFile:
 	    l.append(label)
 	return l
 
-    def write(self, file):
+    def write(self, file, perms = 0644):
 	f = open(file, "w")
 	f.write(self.__repr__())
 	f.close()
-	os.chmod(file, 0644)
+	os.chmod(file, perms)
 
     def read (self, file):
 	f = open(file, "r")
@@ -214,7 +214,9 @@ class LiloConfiguration:
 
         # on upgrade read in the lilo config file
 	lilo = LiloConfigFile ()
+	perms = 0644
         if os.access (instRoot + '/etc/lilo.conf', os.R_OK):
+	    perms = os.stat(instRoot + '/etc/lilo.conf')[0] & 0777
 	    lilo.read (instRoot + '/etc/lilo.conf')
 	    os.rename(instRoot + '/etc/lilo.conf',
 		      instRoot + '/etc/lilo.conf.rpmsave')
@@ -324,7 +326,7 @@ class LiloConfiguration:
 	    sl.addEntry("label", label)
 	    lilo.addImage ("other", device, sl)
 
-	lilo.write(instRoot + "/etc/lilo.conf")
+	lilo.write(instRoot + "/etc/lilo.conf", perms = perms)
 
 	iutil.execWithRedirect(instRoot + '/sbin/lilo' ,
 			       [ "lilo", "-r", instRoot ],
