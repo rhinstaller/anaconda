@@ -20,7 +20,7 @@ class ZiplWindow:
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
         t = TextboxReflowed(53,
                          _("The z/IPL Boot Loader will be installed "
-                           "on your system after installations is complete. "
+                           "on your system after installation is complete. "
                            "You can now enter any additional kernel and "
                            "chandev parameters which your machine or your "
                            "setup may require."))
