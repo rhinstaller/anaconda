@@ -128,12 +128,12 @@ class SiloInstall:
     def getSiloMbrDefault(self, fstab):
 	# Check partition at cylinder 0 on the boot disk
 	# is /, /boot or Linux swap
-	bootpart = self.todo.fstab.getBootDevice()
+	bootpart = fstab.getBootDevice()
 	i = len (bootpart) - 1
 	while i > 0 and bootpart[i] in string.digits:
 	    i = i - 1
 	boothd = bootpart[:i+1]
-	(drives, raid) = self.todo.fstab.partitionList()
+	(drives, raid) = fstab.partitionList()
 	for (dev, devName, type, start, size) in drives:
 	    i = len (dev) - 1
 	    while i > 0 and dev[i] in string.digits:
@@ -145,7 +145,7 @@ class SiloInstall:
 		elif type == 2:
 		    if dev == bootpart:
 			return "mbr"
-		    elif dev == self.todo.fstab.getRootDevice()[0]:
+		    elif dev == fstab.getRootDevice()[0]:
 			return "mbr"
 		return "partition"
 	return "partition"
@@ -250,10 +250,10 @@ class SiloInstall:
 
 	label = main
 	if (smpInstalled):
-	    kernelList.append((main, self.todo.hdList['kernel-smp'], "smp"))
+	    kernelList.append((main, hdList['kernel-smp'], "smp"))
 	    label = main + "-up"
 
-	kernelList.append((label, self.todo.hdList['kernel'], ""))
+	kernelList.append((label, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
