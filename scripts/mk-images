@@ -754,9 +754,16 @@ makedriverdisk () {
     kpackage=$($LATEST $KERNELPATH kernel-BOOT)
     vertag=BOOT
     if [ ! -f "$kpackage" ]; then
-	echo 'kernel-BOOT does not exist -- using kernel package'
-	kpackage=$($LATEST $KERNELPATH kernel)
-	vertag=""
+	if [ "$BUILDARCH" == "ia64" ]; then
+	    # XXX remove me post beta
+	    echo 'kernel-BOOT does not exist -- using kernel-smp package on ia64'
+	    kpackage=$($LATEST $KERNELPATH kernel-smp)
+	    vertag="smp"
+	else
+	    echo 'kernel-BOOT does not exist -- using kernel package'
+	    kpackage=$($LATEST $KERNELPATH kernel)
+	    vertag=""
+	fi
     fi
 
     ppackage=$($LATEST $KERNELPATH kernel-pcmcia-cs)
