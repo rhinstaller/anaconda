@@ -13,7 +13,8 @@ _ = gettext.gettext
 
 (args, extra) = getopt.getopt(sys.argv[1:], 'GTtdr:fm:', 
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=', 
-	    'testpath=', 'mountfs', 'traceonly', 'kickstart=' ])
+	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
+	    'expert'])
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
@@ -32,6 +33,7 @@ traceOnly = 0
 mouseInfo = None
 x = None
 kickstart = None
+expert = 0
 
 for n in args:
     (str, arg) = n
@@ -55,6 +57,8 @@ for n in args:
 	forceMount = 1
     elif (str == '--traceonly'):
 	traceOnly = 1
+    elif (str == '--expert'):
+	expert = 1
 
 if (not method):
     print "no install method specified"
@@ -174,7 +178,7 @@ else:
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass, x = x)
+		instClass = instClass, x = x, expert = expert)
     intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()

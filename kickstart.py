@@ -132,6 +132,7 @@ class Kickstart(InstallClass):
 		     "nfs"		: None			,
 		     "part"		: self.definePartition	,
 		     "rootpw"		: self.doRootPw		,
+		     "text"		: None			,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
 		     "xdisplay"		: None			,

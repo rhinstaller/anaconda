@@ -278,7 +278,8 @@ class Drives:
 
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1, mouse = None, instClass = None, x = None):
+		 installSystem = 1, mouse = None, instClass = None, x = None,
+		 expert = 0):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -306,6 +307,7 @@ class ToDo:
 	self.initrdsMade = {}
 	self.liloImages = {}
         self.initlevel = 3
+	self.expert = expert
 	if (not instClass):
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
@@ -487,7 +489,7 @@ class ToDo:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
+	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext', 'noauto', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 	f.close ()
