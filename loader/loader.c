@@ -659,8 +659,9 @@ static char * mountHardDrive(struct installMethod * method,
 	
 	newtGridWrappedWindow(grid, _("Select Partition"));
 	
-	form = newtForm(NULL, NULL, NEWT_FLAG_NOF12);
+	form = newtForm(NULL, NULL, 0);
 	newtFormAddHotKey(form, NEWT_KEY_F2);
+	newtFormAddHotKey(form, NEWT_KEY_F12);
 
 	newtGridAddComponentsToForm(grid, form, 1);
 	newtGridFree(grid, 1);
