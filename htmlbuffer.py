@@ -89,6 +89,9 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag = self.buffer.create_tag('em')
         tag.set_property('style', pango.STYLE_ITALIC)
 
+        tag = self.buffer.create_tag('sub')
+        tag.set_property('rise', -2500)
+
         tag = self.buffer.create_tag('ul')
         tag.set_property('left-margin', 20)
 
