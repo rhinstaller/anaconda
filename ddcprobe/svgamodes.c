@@ -18,7 +18,8 @@
 #include "bioscall.h"
 #ident "$Id$"
 
-int compare_16(const void *i1, const void *i2)
+/* Callback for qsort(). */
+static int compare_16(const void *i1, const void *i2)
 {
 	const u_int16_t *I1, *I2;
 	I1 = (const u_int16_t*) i1;
