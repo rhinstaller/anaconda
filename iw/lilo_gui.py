@@ -349,6 +349,8 @@ class LiloWindow (InstallWindow):
             if (label == defaultLabel):
                 self.default = count
                 self.imageList.set_pixmap(count, 0, self.checkMark)
+            else:
+                self.imageList.set_pixmap(count, 0, self.checkMark_Off)
             count = count + 1
 
         self.imageList.connect("select_row", self.labelSelected)
