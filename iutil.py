@@ -404,7 +404,7 @@ def makeDriveDeviceNodes():
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
         if drive[:2] == "hd":
-            num = 64
+            num = 32
         else:
             num = 16
 
