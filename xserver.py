@@ -181,8 +181,6 @@ def testx(x):
         sys.stdout.write("%s..." % (i+1))
         sys.stdout.flush()
         
-    sys.stdout.write("\n")
-
     while count < 60:
 	sys.stdout.write(".")
 	sys.stdout.flush()
