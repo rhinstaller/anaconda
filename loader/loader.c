@@ -804,6 +804,10 @@ int main(int argc, char ** argv) {
 		"/modules/modules.cgz");
 	symlink("../mnt/source/RedHat/instimage/modules/pcitable",
 		"/modules/pcitable");
+	symlink("../mnt/source/RedHat/instimage/etc/imrc",
+		"/etc/imrc");
+	symlink("../mnt/source/RedHat/instimage/etc/im_palette.pal",
+		"/etc/im_palette.pal");
     }
 
     spawnShell();			/* we can attach gdb now :-) */
