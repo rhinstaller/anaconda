@@ -7,6 +7,12 @@ import rpm
 import time
 import gettext
 import glob
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+
+def _(string):
+    return cat.gettext (string)
+
 from textw.constants import *
 from textw.lilo import LiloWindow
 from textw.lilo import LiloAppendWindow
@@ -24,9 +30,6 @@ from textw.packages import PackageGroupWindow
 from textw.packages import IndividualPackageWindow
 from textw.packages import PackageDepWindow
 import installclass
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
 
 class LanguageWindow:
     def __call__(self, screen, todo):

@@ -22,18 +22,6 @@ class LanguageWindow (InstallWindow):
         label = GtkLabel (self.question)
         label.set_alignment (0.5, 0.5)
         
-##         box = GtkVBox (FALSE, 5)
-## 	language_keys = self.todo.language.available ().keys ()
-##         language1 = GtkRadioButton (None, language_keys[0])
-##         language1.connect ("clicked", self.languageSelected, language_keys[0])
-##         self.todo.language.set (language_keys[0])
-
-##         box.pack_start (language1, FALSE)
-##         for locale in language_keys[1:]:
-##             language = GtkRadioButton (language1, locale)
-##             language.connect ("clicked", self.languageSelected, locale)
-##             box.pack_start (language, FALSE)
-
  	language_keys = self.todo.language.available ().keys ()
 
         self.language = GtkCList ()

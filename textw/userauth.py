@@ -1,9 +1,7 @@
 import gettext
 from snack import *
 from textw.constants import *
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from text import _
         
 class RootPasswordWindow:
     def __call__ (self, screen, todo):

@@ -5,9 +5,7 @@ import isys
 from snack import *
 from textw.constants import *
 from newtpyfsedit import fsedit        
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from text import _
 
 class PartitionMethod:
     def __call__(self, screen, todo):
