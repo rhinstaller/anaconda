@@ -104,7 +104,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted
 	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
-	 elfutils-libelf bogl-bterm db1 db2"
+	 elfutils-libelf bogl-bterm db1 db2 krb5-libs"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -305,6 +305,10 @@ usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
 usr/lib/anaconda/textw/*
 usr/lib/booty/*
+usr/kerberos/$LIBDIR/libkrb5.so*
+usr/kerberos/$LIBDIR/libk5crypto.so*
+usr/kerberos/$LIBDIR/libcom_err.so*
+usr/kerberos/$LIBDIR/libgssapi_krb5.so*
 usr/$LIBDIR/gconv/ISO8859-1.so
 usr/$LIBDIR/gconv/gconv-modules
 usr/$LIBDIR/libglib*
