@@ -95,6 +95,8 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
+	if not self.__dict__.has_key("monlist"): return None
+
         if self.monlist:
             if self.monlist.selection:
                 row = self.monlist.selection[0]
@@ -138,6 +140,9 @@ class XConfigWindow (InstallWindow):
         self.setNext ()
 
     def getScreen (self):
+	if not self.todo.hdList.packages.has_key('XFree86') or \
+	   not self.todo.hdList.packages['XFree86'].selected: return None
+
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
  
