@@ -29,6 +29,7 @@
 #include <sys/vt.h>
 #include <sys/types.h>
 #include <linux/hdreg.h>
+#include <linux/fb.h>
 
 #include "Python.h"
 
@@ -89,6 +90,7 @@ static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * dogetGeometry(PyObject * s, PyObject * args);
+static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -137,6 +139,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
+    { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1382,6 +1385,8 @@ static PyObject * doSync(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+int fileIsIso(const char * file);
+
 static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     char * fn;
     int rc;
@@ -1392,11 +1397,9 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     
     return Py_BuildValue("i", rc);
 }
-int fileIsIso(const char * file);
 
 static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
     int fd;
-    int rc;
     char *dev;
     char cylinders[16], heads[16], sectors[16];
     char errstr[200];
@@ -1424,3 +1427,25 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
     
     return Py_BuildValue("(sss)", cylinders, heads, sectors);
 }
+
+static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
+    int fd;
+    struct fb_var_screeninfo fb;
+
+    fd = open("/dev/fb0", O_RDONLY);
+    if (fd < 0) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    if (ioctl(fd, FBIOGET_VSCREENINFO, &fb)) {
+	close(fd);
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    close(fd);
+
+    return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
+}
+
