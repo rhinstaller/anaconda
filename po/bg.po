@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-16 12:07-0700\n"
+"PO-Revision-Date: 2004-09-22 11:23-0700\n"
 "Last-Translator: Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>\n"
 "Language-Team: Български <bg@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -938,7 +938,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "_Рестартиране"
+msgstr "П_резареждане"
 
 #: ../fsset.py:2389
 msgid "Formatting"
@@ -1112,7 +1112,7 @@ msgstr "_Назад"
 
 #: ../gui.py:1216
 msgid "_Next"
-msgstr "_Следваща"
+msgstr "_Следващ"
 
 #: ../gui.py:1218
 msgid "_Release Notes"
@@ -1120,11 +1120,11 @@ msgstr "_Бележки"
 
 #: ../gui.py:1220
 msgid "Show _Help"
-msgstr "Показване на _помощ"
+msgstr "Показване на _поясненията"
 
 #: ../gui.py:1222
 msgid "Hide _Help"
-msgstr "Скриване на _помощ"
+msgstr "Скриване на _поясненията"
 
 #: ../gui.py:1224
 msgid "_Debug"
@@ -1235,7 +1235,7 @@ msgstr "Не може да прочете CDROM-а."
 
 #: ../installclass.py:59
 msgid "Install on System"
-msgstr "Инсталира на системата"
+msgstr "Инсталира на машината"
 
 #: ../kickstart.py:1399
 msgid "Missing Package"
@@ -1413,7 +1413,7 @@ msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
-"Инсталиране %s пакетите\n"
+"Инсталиране на пакетите %s\n"
 "\n"
 
 #: ../packages.py:909 ../packages.py:1209
@@ -1424,7 +1424,7 @@ msgstr "Обновяване %s-%s-%s.%s.\n"
 #: ../packages.py:911 ../packages.py:1211
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "Инсталиране %s-%s-%s.%s.\n"
+msgstr "Инсталиране на %s-%s-%s.%s.\n"
 
 #: ../packages.py:927
 #, python-format
@@ -1445,7 +1445,7 @@ msgstr ""
 
 #: ../packages.py:933
 msgid "Install Starting"
-msgstr "Стартиране на Инсталацията"
+msgstr "Стартиране на инсталацията"
 
 #: ../packages.py:934
 msgid "Starting install process, this may take several minutes..."
@@ -1962,13 +1962,11 @@ msgstr "Дела, които сте избрали ще бъде премахн�
 
 #: ../partIntfHelpers.py:527
 msgid "Confirm Reset"
-msgstr "Потвърдете възстановяването"
+msgstr "Потвърдете"
 
 #: ../partIntfHelpers.py:528
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното "
-"състояние?"
+msgstr "Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното състояние?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -3212,16 +3210,13 @@ msgstr "Проверка за обновление"
 #: ../iw/examine_gui.py:59
 #, python-format
 msgid "_Install %s"
-msgstr "Инсталира %s"
+msgstr "_Инсталиране на %s"
 
 #: ../iw/examine_gui.py:61
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"Изберете тази опция за нова инсталация на системата. Съществуващия софтуер и "
-"информация може да бъде припокрият, в зависимост от зададената от Вас "
-"конфигурация."
+msgstr "Изберете тази опция за нова инсталация на системата. Съществуващия софтуер и информация може да бъдат припокрити, в зависимост от зададената от Вас конфигурация."
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
@@ -3232,9 +3227,7 @@ msgstr "Обновление на съществуваща система"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
-"Изберете тази опция, ако желаете да обновите съществуващата %s система.  "
-"Тази опция ще запази съществуващата на устройствата Ви информация."
+msgstr "Изберете тази опция, ако желаете да обновите съществуващата %s система.  Опцията ще запази информацията съществуващата на устройствата."
 
 #: ../iw/examine_gui.py:130 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3270,7 +3263,7 @@ msgstr "Изберете устройство за разделяне с fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
 msgid "Disabled"
-msgstr "Деактивиран"
+msgstr "Изключено"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:175
 msgid "Warn"
@@ -3278,7 +3271,7 @@ msgstr "Предупреждение"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:177
 msgid "Active"
-msgstr "Активен"
+msgstr "Активно"
 
 #: ../iw/firewall_gui.py:27 ../textw/firewall_text.py:29
 msgid "Firewall"
@@ -3323,7 +3316,7 @@ msgstr "Без защитна стена"
 
 #: ../iw/firewall_gui.py:92
 msgid "_Enable firewall"
-msgstr "Активирай Защитната Стена"
+msgstr "Включи защитната ст_ена"
 
 #: ../iw/firewall_gui.py:109
 msgid ""
@@ -3348,7 +3341,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
-msgstr "Активиране на SELinux?:"
+msgstr "Включване на _SELinux?:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3368,7 +3361,7 @@ msgstr "IP Адресите трябва да съдържат числа меж
 
 #: ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
-msgstr "Избор на Езика"
+msgstr "Избор на езика"
 
 #: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
@@ -3411,10 +3404,7 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
-"Физическия размер не може да бъде променен, защото иначе размера необходим "
-"за дефинираните по настоящем логически томове ще стане над наличното "
-"пространство."
+msgstr "Физическия размер не може да бъде променен, защото иначе размера необходим за дефинираните по настоящем логически томове ще стане над наличното пространство."
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid "Confirm Physical Extent Change"
@@ -3437,7 +3427,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:128 ../iw/lvm_dialog_gui.py:188
 #: ../iw/network_gui.py:158 ../iw/network_gui.py:162 ../iw/network_gui.py:185
 msgid "C_ontinue"
-msgstr "Продължение"
+msgstr "Продължаване"
 
 #: ../iw/lvm_dialog_gui.py:156
 #, python-format
@@ -4509,7 +4499,7 @@ msgstr "Сваляне %s"
 #: ../iw/progress_gui.py:223
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Инсталиране %s-%s-%s.%s (%s)"
+msgstr "Инсталиране на %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:352 ../iw/progress_gui.py:603
 msgid "Summary"
@@ -4536,7 +4526,7 @@ msgstr "Остават"
 #: ../iw/progress_gui.py:516
 #, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Инсталира %s-%s-%s.%s"
+msgstr "Инсталиране на %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
@@ -5628,7 +5618,7 @@ msgstr "Избери Всички"
 
 #: ../textw/language_text.py:108
 msgid "Reset"
-msgstr "Първоначално Състояние"
+msgstr "Анулиране"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
@@ -6079,9 +6069,7 @@ msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Върни    F12-"
-"Добре     "
+msgstr "    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    F12-Добре     "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6587,9 +6575,7 @@ msgstr "ВСинх честота: "
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
-"Изберете монитор за системата. Използвайте бутона '%s' за да възстановите "
-"намерените стойности."
+msgstr "Изберете монитор за системата. Използвайте бутона '%s' за да възстановите намерените стойности."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
