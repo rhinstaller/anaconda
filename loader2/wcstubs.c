@@ -54,7 +54,6 @@ const char * __dcgettext(const char * domainname, const char * msgid,
 strong_alias (__dgettext, dgettext);
 strong_alias (__dcgettext, dcgettext);
 
-#ifdef DIET
 /* lie to slang to trick it into using unicode chars for linedrawing */
 char * setlocale (int category, const char *locale) {
     if (locale == NULL || *locale == '\0')
@@ -62,9 +61,47 @@ char * setlocale (int category, const char *locale) {
     return 0;
 }
 
+#  define __libc_freeres_fn_section \
+  __attribute__ ((section ("__libc_freeres_fn")))
+
+void __libc_freeres_fn_section ___nl_locale_subfreeres (void) {}
+strong_alias (___nl_locale_subfreeres, _nl_locale_subfreeres);
+
+void libc_freeres_fn (void * free_mem) {}
+
+const char *const _nl_category_names[] = {
+    [LC_COLLATE] = "LC_COLLATE",
+    [LC_CTYPE] = "LC_CTYPE",
+    [LC_MONETARY] = "LC_MONETARY",
+    [LC_NUMERIC] = "LC_NUMERIC",
+    [LC_TIME] = "LC_TIME",
+    [LC_MESSAGES] = "LC_MESSAGES",
+    [LC_PAPER] = "LC_PAPER",
+    [LC_NAME] = "LC_NAME",
+    [LC_ADDRESS] = "LC_ADDRESS",
+    [LC_TELEPHONE] = "LC_TELEPHONE",
+    [LC_MEASUREMENT] = "LC_MEASUREMENT",
+    [LC_IDENTIFICATION] = "LC_IDENTIFCATION",
+    [LC_ALL] = "LC_ALL"
+};
+
+const size_t _nl_category_name_sizes[] = {
+    [LC_COLLATE] = sizeof("LC_COLLATE") - 1,
+    [LC_CTYPE] = sizeof("LC_CTYPE") -1,
+    [LC_MONETARY] = sizeof("LC_MONETARY") -1,
+    [LC_NUMERIC] = sizeof("LC_NUMERIC") -1,
+    [LC_TIME] = sizeof("LC_TIME") -1,
+    [LC_MESSAGES] = sizeof("LC_MESSAGES") -1,
+    [LC_PAPER] = sizeof("LC_PAPER") -1,
+    [LC_NAME] = sizeof("LC_NAME") -1,
+    [LC_ADDRESS] = sizeof("LC_ADDRESS") -1,
+    [LC_TELEPHONE] = sizeof("LC_TELEPHONE") -1,
+    [LC_MEASUREMENT] = sizeof("LC_MEASUREMENT") -1,
+    [LC_IDENTIFICATION] = sizeof("LC_IDENTIFCATION") -1,
+    [LC_ALL] = sizeof("LC_ALL")
+};
+
 /* avoid bringing in glibc's setlocale.o - we want to use our
    fake setlocale() */
 typedef pthread_mutex_t __libc_lock_t;
 __libc_lock_t __libc_setlocale_lock;
-
-#endif
