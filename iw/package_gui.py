@@ -39,7 +39,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
             elif isinstance (x, UpgradeExamineWindow):
                 return UpgradeExamineWindow
         return None
-    
 
     def build_tree (self, x):
         if (x == ()): return ()
@@ -438,11 +437,12 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.checkButtons = []
         klass = self.todo.getClass ()
+        showgroups = klass.getOptionalGroups ()
         for comp in self.todo.comps:
             show = 0
-            if klass.showgroups:
+            if showgroups:
                 try:
-                    klass.showgroups.index (comp.name)
+                    showgroups.index (comp.name)
                     show = 1
                 except ValueError:
                     # comp not in show list
