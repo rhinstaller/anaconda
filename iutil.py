@@ -188,9 +188,34 @@ def copyFile(source, to, pw = None):
 	if pw:
 	    win.pop()
 
+# return size of directory (and subdirs) in kilobytes
+def getDirSize(dir):
+    def getSubdirSize(dir):
+	# returns size in bytes
+        dsize = 0
+        for f in os.listdir(dir):
+	    curpath = '%s/%s' % (dir, f)
+	    sinfo = os.stat(curpath)
+            if stat.S_ISDIR(sinfo[stat.ST_MODE]):
+                dsize += getSubdirSize(curpath)
+            elif stat.S_ISREG(sinfo[stat.ST_MODE]):
+                dsize += sinfo[stat.ST_SIZE]
+            else:
+                pass
+
+        return dsize
+    return getSubdirSize(dir)/1024
+
+# this is in kilobytes - returns amount of RAM not used by /tmp
+def memAvailable():
+    tram = memInstalled()
+
+    ramused = getDirSize("/tmp")
+
+    return tram - ramused
 
 # this is in kilobytes
-def memInstalled(corrected = 1):
+def memInstalled():
     if not os.access('/proc/e820info', os.R_OK):
         f = open("/proc/meminfo", "r")
         mem = f.readlines()[1]
@@ -206,12 +231,12 @@ def memInstalled(corrected = 1):
             fields = string.split(line)
             if fields[3] == "(usable)":
                 mem = mem + (string.atol(fields[0], 16) / 1024)
-                
+
     return int(mem)
 
 # try to keep 2.4 kernel swapper happy!
 def swapSuggestion(quiet=0):
-    mem = memInstalled(corrected=0)/1024
+    mem = memInstalled()/1024
     mem = ((mem/16)+1)*16
     if not quiet:
 	log("Detected %sM of memory", mem)
