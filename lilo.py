@@ -307,6 +307,7 @@ class LiloConfiguration:
 	    mainLabelUsed = 1
 	    kernelList.append((main,
 			      hdList['kernel-enterprise'], "enterprise"))
+
 	if (smpInstalled):
 	    thisLabel = main
 	    if mainLabelUsed:
@@ -317,7 +318,7 @@ class LiloConfiguration:
 
 	thisLabel = main
 	if mainLabelUsed:
-	    thisLabel = thisLabel + '-smp'
+	    thisLabel = thisLabel + '-up'
 
 	kernelList.append((thisLabel, hdList['kernel'], ""))
 
