@@ -101,6 +101,25 @@ LO=""
 
 [ -L /sbin/insmod ] && LO=".o"
 
+# read in configuration as set by the parm fil
+if [ -n "$HOST" ]; then
+        set -- `echo $HOST |sed 's/:/ /g'`
+        HOSTNAME=$1
+        DEVICE=$2
+        NETTYPE=`echo $DEVICE |sed -e 's/[0-9].*//'`
+        IPADDR=$3
+        if [ ":$NETTYPE" = ":iucv" ]; then
+                IUCV="iucv=$4"
+                GATEWAY=$5
+                MTU=$6
+        elif [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
+                GATEWAY=$4
+                MTU=$5
+        else
+                echo $4 | grep -q "\." && MTU=$4 || echo "Invalid MTU $4, skipping"
+        fi
+fi
+
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
 while [ -z "$HOSTNAME" ]; do
