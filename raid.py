@@ -19,6 +19,7 @@
 import _balkan
 import isys
 import os
+from log import log
 
 def scanForRaid(drives):
     raidSets = {}
@@ -51,9 +52,11 @@ def scanForRaid(drives):
 		if knownLevel != level or knownDisks != totalDisks or \
 		   knownMinor != mdMinor:
                     # Raise hell
-		    raise SystemError, ("raid set inconsistency for md%d: "
-                                        "all drives in this raid set do not "
-                                        "agree on raid parameters" % (mdMinor,))
+		    log("raid set inconsistency for md%d: "
+                        "all drives in this raid set do not "
+                        "agree on raid parameters.  Skipping raid device",
+                        mdMinor)
+                    continue
 		knownDevices.append(dev)
 		raidSets[raidSet] = (knownLevel, knownDisks, knownMinor,
 				     knownDevices)
@@ -62,10 +65,11 @@ def scanForRaid(drives):
 
 	    if raidDevices.has_key(mdMinor):
 	    	if (raidDevices[mdMinor] != raidSet):
-		    raise SystemError, ("raid set inconsistency for md%d: "
-                                        "found members of multiple raid sets "
-                                        "that claim to be md%d"
-                                        % (mdMinor, mdMinor))
+		    log("raid set inconsistency for md%d: "
+                        "found members of multiple raid sets "
+                        "that claim to be md%d.  Using only the first "
+                        "array found.", mdMinor, mdMinor)
+                    continue
 	    else:
 	    	raidDevices[mdMinor] = raidSet
 
@@ -73,10 +77,11 @@ def scanForRaid(drives):
     for key in raidSets.keys():
 	(level, totalDisks, mdMinor, devices) = raidSets[key]
 	if len(devices) < totalDisks:
-	    str = ("missing components of raid device md%d.  The "
-                   "raid device needs %d drives and only %d were found."
-                   % (mdMinor, len(devices), totalDisks))
-	    raise SystemError, str
+            log("missing components of raid device md%d.  The "
+                "raid device needs %d drives and only %d were found. "
+                "This raid device will not be started.", mdMinor,
+                len(devices), totalDisks)
+	    continue
 	raidList.append((mdMinor, devices))
 
     return raidList
