@@ -1654,5 +1654,3 @@ class ToDo:
         finally:
             w.pop ()
 
-        w.pop ()
-
