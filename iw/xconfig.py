@@ -131,6 +131,9 @@ class MonitorWindow (InstallWindow):
             self.monitor = monitor
 
     def getNext (self):
+        if self.skipme:
+            return None
+        
         if self.monitor:
             self.todo.x.setMonitor ((self.monitor[0],
                                     (self.hEntry.get_text (),
@@ -142,14 +145,14 @@ class MonitorWindow (InstallWindow):
 
     def getScreen (self):
         # Don't configure X in reconfig mode.
-        if self.todo.reconfigOnly:
-            return None
-        else:
-            # in regular install, check to see if the XFree86 package is
-            # installed.  If it isn't return None.
-            if (not self.todo.hdList.packages.has_key('XFree86')
+        # in regular install, check to see if the XFree86 package is
+        # installed.  If it isn't return None.
+        if (self.todo.reconfigOnly
+            or (not self.todo.hdList.packages.has_key('XFree86')
                 or not self.todo.hdList.packages['XFree86'].selected
-                or self.todo.serial): return None
+                or self.todo.serial):
+            self.skipme = TRUE
+            return None
         
         self.todo.x.probe ()
         box = GtkVBox (FALSE, 5)
@@ -243,6 +246,9 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
+        if self.skipme:
+            return None
+        
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -275,14 +281,14 @@ class XConfigWindow (InstallWindow):
             
     def getScreen (self):
         # Don't configure X in reconfig mode.
-        if self.todo.reconfigOnly:
-            return None
-        else:
-            # in regular install, check to see if the XFree86 package is
-            # installed.  If it isn't return None.
-            if (not self.todo.hdList.packages.has_key('XFree86')
+        # in regular install, check to see if the XFree86 package is
+        # installed.  If it isn't return None.
+        if (self.todo.reconfigOnly
+            or (not self.todo.hdList.packages.has_key('XFree86')
                 or not self.todo.hdList.packages['XFree86'].selected
-                or self.todo.serial): return None
+                or self.todo.serial):
+            self.skipme = TRUE
+            return None
 
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
