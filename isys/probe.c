@@ -573,12 +573,12 @@ static int I2OGetDevices(struct knownDevices * devices) {
 			start++;
 		    }
 		ctl[i] = '\0';
-		/* We don't want partitions just the disks ! */
     		if (i < 1) { 
 		    free (buf);
 		    return 1; 
 		}
-		if ( !isdigit(ctl[i-2]) ){
+		/* We don't want partitions just the disks ! */
+		if ( !isdigit(ctl[i-1]) ){
 		    if (!deviceKnown(devices, ctl)) {
 			newDevice.name = strdup(ctl);
 			newDevice.model = strdup("I2O Block Device");
