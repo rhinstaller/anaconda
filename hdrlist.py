@@ -588,11 +588,18 @@ class Group:
         
 
     # forInclude is whether this group is an include from a previous
-    # subAsInclude allows us to say that included groups shouldn't be
-    #    forInclude  (useful for Workstation Common, etc)
-    def select(self, forInclude = 0, subAsInclude = 0):
+    # asMeta means that we should include the members of the group,
+    # but not this one (useful for Workstation Common, etc)
+    def select(self, forInclude = 0, asMeta = 0):
         hdrlist = self.grpset.hdrlist
 
+        # if we're being selected as a meta group, then just select
+        # the members.  otherwise, we end up in weirdo states
+        if asMeta:
+            for grpid in self.groupreqs:
+                self.grpset.groups[grpid].select(forInclude = 0)
+            return
+                
         # update the usecount.  if this is manual, change the state if needed
         # if we were already previously selected, we don't need to bump up
         # refcounts (which makes things faster)
@@ -601,7 +608,7 @@ class Group:
             self.manual_state = MANUAL_ON
 
         for grpid in self.groupreqs:
-            self.grpset.groups[grpid].select(forInclude = (not subAsInclude))
+            self.grpset.groups[grpid].select(forInclude = 1)
 
         if self.usecount > 1:
             return
@@ -755,11 +762,11 @@ class GroupSet:
 
     def selectGroup(self, group, asMeta = 0):
         if self.groups.has_key(group):
-            self.groups[group].select(subAsInclude = asMeta)
+            self.groups[group].select(asMeta = asMeta)
             return
         for grp in self.compsxml.groups.values():
             if (grp.name == group) and self.groups.has_key(grp.id):
-                self.groups[grp.id].select(subAsInclude = asMeta)
+                self.groups[grp.id].select(asMeta = asMeta)
                 return
         raise KeyError, "No such group %s" %(group,)
 
