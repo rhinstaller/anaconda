@@ -319,6 +319,7 @@ if not instClass:
 
 # we like to have a way to shoot text mode back at a display
 if xmode:
+    os.environ["TERM"] = "xterm"
     from gtk import *
     from gnome.zvt import *
 
