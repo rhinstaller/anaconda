@@ -290,8 +290,6 @@ if traceOnly:
     import xserver
     import configFileData
     import kickstart
-    if iutil.getArch() == "i386":
-        import edd
 
     installclass.availableClasses()
 
