@@ -6,7 +6,6 @@ Copyright: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-Obsoletes: anaconda-reconfig
 BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python, newt-devel, rpm-devel, gettext, dietlibc, modutils-devel
 Prereq: chkconfig /etc/init.d
 Requires: rpm-python
@@ -15,9 +14,8 @@ Excludearch: sparc sparc64
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
 %description
-The anaconda package contains portions of the Red Hat Linux
-installation program which can then be run by the user for
-reconfiguration and advanced installation options.
+The anaconda package contains the Red Hat Linux installation program.  
+These files are of little use on an already installed system.
 
 %package runtime
 Summary: Red Hat Linux installer portions needed only for fresh installs.
