@@ -1,6 +1,7 @@
 # translation of es.po to 
 # translation of es.po to
 # translation of es.po to
+# translation of es.po to
 # translation of es.po to Español
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
@@ -16,9 +17,9 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-06 15:41+1000\n"
-"Last-Translator:  <ccheng@brisbane.redhat.com>\n"
-"Language-Team:  <en@li.org>\n"
+"PO-Revision-Date: 2004-07-27 13:45+1000\n"
+"Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -852,7 +853,7 @@ msgstr "Conexión remota (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Servidor Web (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -2297,7 +2298,7 @@ msgstr ""
 # ../partitioning.py:692
 # ../partitioning.py:695
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -2305,28 +2306,26 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"La tabla de particiones del dispositivo /dev/%s es de tipo no esperado %s "
-"para su arquitectura. Si quiere usar este disco para la instalación de %s, "
-"deberá volver a iniciarlo y como consecuencia perderà TODOS LOS DATOS de la "
+"Actualmente /dev/%s tiene un formato de partición %s. Para "
+"usar este disco para la instalación de %s, "
+"deberá reiniciarlo y como consecuencia perderà TODOS LOS DATOS de la "
 "unidad.\n"
 "\n"
-"¿Desea inicializar esta unidad?"
+"¿Desea formatear esta unidad?"
 
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:285
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorar"
+msgstr "_Ignorar unidad"
 
 # ../iw/partition_gui.py:1533
 # ../iw/partition_gui.py:1535
 # ../iw/partition_gui.py:1543
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formateo"
+msgstr "_Formatear unidad"
 
 # ../partitioning.py:1236 ../partitioning.py:1267
 # ../partitioning.py:1256 ../partitioning.py:1287
@@ -2352,7 +2351,7 @@ msgstr "Espere mientras formatea la unidad %s...\n"
 # ../partitioning.py:1399
 # ../partitioning.py:1402
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -2363,14 +2362,14 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"La tabla de particiones del dispositivo %s está dañada. Para crear nuevas "
-"particiones debe ser inicializado, provocando la pérdida de TODOS LOS DATOS "
+"No se puede leer la tabla de particiones del dispositivo %s (%s). Para crear nuevas "
+"particiones debe ser inicializada, provocando la pérdida de TODOS LOS DATOS "
 "de esta unidad.\n"
 "\n"
-"Esta operación sobreescribirá cualquier selección previa sobre que unidades "
-"se deben ignorar.\n"
+"Esta operación ignorará cualquier selección previa de instalación "
+"sobre las unidades que se deben ignorar.\n"
 "\n"
-"¿Desea inicializar esta unidad y eliminar toda los datos?"
+"¿Desea inicializar esta unidad y eliminar TODOS LOS DATOS?"
 
 # ../partitioning.py:1379
 # ../partitioning.py:1399
@@ -4735,6 +4734,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Con un cortafuegos, puede desear permitir el acceso a otros a servicios específicos "
+"en su computador. ¿A qué servicios le gustaría otorgar el acceso?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -4743,11 +4744,14 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) proporciona controles de seguridad más "
+"refinados que los que están disponibles en un sistema Linux tradicional. Se puede "
+"configurar en un estado inhabilitado, un estado que solamente le advierte sobre lo "
+"que se debería rechazar, o un estado completamente activo."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Inhabilitar SELinux"
+msgstr "Habilitar _SELinux"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -5565,14 +5569,12 @@ msgstr "_Punto a punto (IP)"
 # ../loader/loader.c:308
 # ../loader/loader.c:308
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Llave de cifrado"
+msgstr "Llave de _cifrado"
 
 # ../loader/net.c:373
 # ../loader/net.c:373
@@ -8133,9 +8135,8 @@ msgstr "No puede personalizar un cortafuegos inhabilitado."
 # ../iw/xconfig_gui.py:32
 # ../iw/xconfig_gui.py:32
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Personalizar la configuración gráfica "
+msgstr "Personalizar la configuración del cortafuegos"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -10457,9 +10458,9 @@ msgstr "No puedo encontrar ks.cfg en el disco de inicio."
 # ../loader/net.c:723
 # ../loader/net.c:723
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Argumento erróneo para el comando HD kickstart %s: %s"
+msgstr "Argumento erróneo para apagar el comando de método  kickstart %s: %s"
 
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
@@ -11912,7 +11913,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Árabe"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -11973,9 +11974,8 @@ msgstr "Alemán"
 # ../upgrade.py:263
 # ../upgrade.py:263
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Búsqueda"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -11999,7 +11999,7 @@ msgstr "Coreano"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonio"
 
 #. generated from lang-table
 msgid "Malay"
@@ -12029,7 +12029,7 @@ msgstr "Portugués(Brasileño)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -12048,9 +12048,8 @@ msgid "Swedish"
 msgstr "Sueco"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -12062,7 +12061,7 @@ msgstr "Ucraniano"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #. generated from lang-table
 msgid "Welsh"
