@@ -105,10 +105,17 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    plainLabelUsed = 1
 
 
-    bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
+    try:
+        bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
                  justConfigFile, intf)
-
-    w.pop()
+        w.pop()
+    except BootyNoKernelWarning:
+        w.pop()
+        if intf:
+            intf.messageWindow(_("Warning"),
+                               _("No kernel packages were installed on your "
+                                 "system.  Your boot loader configuration "
+                                 "will not be changed."))
 
 # note that this function no longer actually creates an initrd.
 # the kernel's %post does this now
