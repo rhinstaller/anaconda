@@ -94,7 +94,6 @@ class Network:
         self.domains = []
         for dev in self.netdevices.values ():
             ip = dev.get ("ipaddr")
-            print ip
             if ip:
                 try:
                     (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
