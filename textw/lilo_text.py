@@ -209,7 +209,6 @@ class LiloImagesWindow:
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
-	g.addHotKey(" ")
 
 	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
 
