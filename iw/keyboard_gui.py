@@ -6,6 +6,7 @@ import string
 from translate import _
 from kbd import Keyboard
 import iutil
+import isys
 
 class KeyboardWindow (InstallWindow):
 
