@@ -23,6 +23,7 @@ HWOBJS = pcmcia.o usb.o firewire.o
 METHOBJS = method.o cdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modules.o modstubs.o \
+	md5.o mediacheck.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o telnet.o telnetd.o
