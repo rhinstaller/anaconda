@@ -1202,6 +1202,15 @@ int main(int argc, char ** argv) {
                         modInfo, &kd, flags);
     }
 
+    /* this allows us to do an early load of modules specified on the
+     * command line to allow automating the load order of modules so that
+     * eg, certain scsi controllers are definitely first.
+     * FIXME: this syntax is likely to change in a future release
+     *        but is done as a quick hack for the present.
+     */
+    earlyModuleLoad(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    
+
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     /* JKFIXME: should probably not be doing this, but ... */

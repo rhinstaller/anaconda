@@ -18,6 +18,7 @@
 
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
+#include <popt.h>
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -213,6 +214,45 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
 	updateKnownDevices(kd);
     }
 #endif
+    return 0;
+}
+
+/* this allows us to do an early load of modules specified on the
+ * command line to allow automating the load order of modules so that
+ * eg, certain scsi controllers are definitely first.
+ * FIXME: this syntax is likely to change in a future release
+ *        but is done as a quick hack for the present.
+ */
+int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
+                    moduleDeps modDeps, int justProbe, 
+                    struct knownDevices * kd, int flags) {
+    int fd, len, i;
+    char buf[1024], *cmdLine;
+    int argc;
+    char ** argv;
+
+    /* FIXME: reparsing /proc/cmdline to avoid major loader changes.  
+     * should probably be done in loader.c:parseCmdline() like everything 
+     * else
+     */
+    if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return 1;
+    len = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
+    if (len <= 0) return 1;
+        
+    buf[len] = '\0';
+    cmdLine = buf;
+    
+    if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
+        return 1;
+    
+    for (i=0; i < argc; i++) {
+        if (!strncasecmp(argv[i], "driverload=", 11)) {
+            logMessage("loading %s early", argv[i] + 11);
+            mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo, flags);
+        }
+    }
+    updateKnownDevices(kd);
     return 0;
 }
 
