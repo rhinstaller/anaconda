@@ -35,7 +35,7 @@ class RootPasswordWindow:
         entry2 = Entry (24, password = 1, text = pw)
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (Label (_("Password (again):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (entry1, 1, 0)
         passgrid.setField (entry2, 1, 1)
         toplevel.add (passgrid, 0, 1, (0, 0, 0, 1))
@@ -75,7 +75,7 @@ class UsersWindow:
 	if (not cancelText):
 	    cancelText = _("Cancel")
 
-        userid = Entry (8, user["id"], scroll=0)
+        userid = Entry (16, user["id"], scroll=0)
         currentid = user["id"]
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
@@ -97,7 +97,7 @@ class UsersWindow:
 
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
-			 [ (_("User ID"), userid),
+			 [ (_("User Name"), userid),
 			   (_("Password"), pass1),
 			   (_("Password (confirm)"), pass2),
 			   (_("Full Name"), fullname) ],
