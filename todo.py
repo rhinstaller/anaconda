@@ -923,9 +923,11 @@ class ToDo:
         # if we have X but not gmc, we need to turn on GNOME.  We only
         # want to turn on packages we don't have installed already, though.
         if hasX and not hasgmc:
+            self.log ("Has X but not GNOME")
             for package in self.comps['GNOME'].items.keys ():
                 rec = db.findbyname (package)
                 if not rec:
+                    self.log ("GNOME: Adding %s", package)
                     self.comps['GNOME'].items[package].selected = 1
             
         # new package dependency fixup
