@@ -1174,7 +1174,7 @@ class ToDo:
         if self.setupFilesystems:
             if not self.upgrade:
 		if (self.ddruidAlreadySaved):
-		    self.makeFilesystems ()
+		    self.fstab.makeFilesystems ()
 		else:
 		    self.fstab.savePartitions ()
 		    self.fstab.turnOnSwap()
