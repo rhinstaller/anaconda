@@ -37,8 +37,20 @@ class NetworkDevice (SimpleConfigFile):
         keys = self.info.keys ()
         keys.sort ()
         keys.remove ("DEVICE")
+
+	# Don't let onboot be turned on unless we have config information
+	# to go along with it
+	if self.get('bootproto') != 'dhcp' and not self.get('ipaddr'):
+	    forceOffOnBoot = 1
+	else:
+	    forceOffOnBoot = 0
+
         for key in keys:
-            s = s + key + "=" + self.info[key] + "\n"
+	    if key == 'ONBOOT' and forceOffOnBoot:
+		s = s + key + "=" + 'no' + "\n"
+	    else:
+		s = s + key + "=" + self.info[key] + "\n"
+
         return s
 
     def __init__ (self, dev):
