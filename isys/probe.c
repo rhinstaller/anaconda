@@ -2,11 +2,15 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <linux/cdrom.h>
+#include <linux/hdreg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/ioctl.h>
 #include <unistd.h>
 
+#include "isys.h"
 #include "probe.h"
 
 static int dac960GetDevices(struct knownDevices * devices);
@@ -150,6 +154,10 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
     int fd, i;
     struct dirent * ent;
     struct kddevice device;
+    struct hd_driveid hdId;
+    char devChar;
+    char name[10];
+    struct cdrom_volctrl vol;
 
     if (access("/proc/ide", R_OK)) return 0;
 
@@ -197,6 +205,33 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
     }
 
     closedir(dir);
+
+    for (devChar = 'a'; devChar <= 'h'; devChar++) {
+	sprintf(name, "hd%c", devChar);
+	if (deviceKnown(devices, name)) continue;
+	
+	devMakeInode(name, "/tmp/ideprobe");
+	fd = open("/tmp/ideprobe", O_RDONLY | O_NONBLOCK);
+
+	if (fd < 0) continue;
+
+	device.name = strdup(name);
+
+	ioctl(fd, HDIO_GET_IDENTITY, &hdId);
+	close(fd);
+
+	if (!ioctl(fd, CDROMVOLCTRL, &vol))
+		device.class = CLASS_CDROM;
+	else if (hdId.command_set_1 & 4)
+		device.class = CLASS_FLOPPY;
+	else
+		device.class = CLASS_HD;
+
+	if (*hdId.model)
+		device.model = strdup(hdId.model);
+
+	addDevice(devices, device);
+    }
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
