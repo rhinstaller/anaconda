@@ -65,7 +65,7 @@ class AuthWindow (InstallWindow):
         self.todo.auth.useLdapauth = self.ldap.get_active ()
         self.todo.auth.ldapServer = self.ldapServer.get_text ()
         self.todo.auth.ldapBasedn = self.ldapBasedn.get_text ()
-        self.todo.auth.ldapTSL = self.ldapTLS.get_active ()
+        self.todo.auth.ldapTLS = self.ldapTLS.get_active ()
 
         self.todo.auth.useKrb5 = self.krb5.get_active ()
         self.todo.auth.krb5Realm = self.krb5Realm.get_text ()
@@ -141,8 +141,6 @@ class AuthWindow (InstallWindow):
         self.ldapServerLabel.set_alignment (0, 0)
         self.ldapBasednLabel = GtkLabel (_("LDAP Base DN:"))
         self.ldapBasednLabel.set_alignment (0, 0)
-        self.ldapTLSLabel = GtkLabel (_("Enable LDAP TLS"))
-        self.ldapTLSLabel.set_alignment (0,0)
 
 	# restore ldap settings
         self.ldap.set_active (self.todo.auth.useLdap)
