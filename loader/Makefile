@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-VERSION = 7.0
+VERSION = 7.2
 
 DESTDIR = ../../trees/initrd
 
