@@ -16,7 +16,9 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
-static int I2OGetDevices(struct knownDevices * devices, int code);
+/* Added support for I2O Block devices: Boji Kannanthanam 
+	<boji.t.Kannanthanam@intel.com> */
+static int I2OGetDevices(struct knownDevices * devices);
 
 static int readFD (int fd, char **buf)
 {
@@ -263,7 +265,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
-	I2OGetDevices(devices, code);
+	I2OGetDevices(devices);
 	return 0;
     }
 
@@ -282,7 +284,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
-	I2OGetDevices(devices, code);
+	I2OGetDevices(devices);
 	goto bye;
     }
 
@@ -409,7 +411,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
-    I2OGetDevices(devices, code);
+    I2OGetDevices(devices);
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -517,46 +519,80 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     return 0;
 }
 
-
-static int I2OGetDevices(struct knownDevices * devices, int code) {
+static int I2OGetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;
-    FILE *f;
-    char buf[256];
-    char *ptr;
-    int numMatches = 0, ctlNum = 0;
+    int fd, i;
+    char *buf;
+    char * start, *chptr, *next;
     char ctl[40];
-/*
-TODO:
- Currently just allowing user to install on the
- first I2O volume created. Look at I2O code,
- it will guarantee that a bootable volume
- always shows up as /dev/i2o/hda. The other
- volumes may change device names if there is 
- TID reuse.
- Other reason is that currently in 2.2 kernels
- we cannot determine how many I2O volumes were 
- created via the /proc file system. Too cumbersome
- to wade thru the syslog !
-*/
-    sprintf(ctl, "i2o/hda");
 
-/*
-TODO:
- There is currently no checking to see if
- the I2O Block device /dev/i2o/hda ACTUALLY
- exists. Consequently this hack should be used
- only when installing on I2O devices. Otherwise
- it will complain !
-*/
-                if (!deviceKnown(devices, ctl)) {
-/*                      newDevice.name = strdup(ctl); */
-/*                      newDevice.model = strdup("I2O Block Device"); */
-/*                      newDevice.class = CLASS_HD; */
-/*                      addDevice(devices, newDevice); */
-                }
+    /* Read from /proc/partitions */
+    fd = open("/proc/partitions", O_RDONLY);
+    if (fd < 0) 
+	{
+	    fprintf(stderr, "failed to open /proc/partitions!\n");
+	    return 1;
+	}
+
+    i = readFD(fd, &buf);
+    if (i < 1) {
+        close(fd);
+        free (buf);
+	fprintf(stderr, "error reading /proc/partitions!\n");
+        return 1;
+    }
+    close(fd);
+    buf[i] = '\0';
+
+    /* skip the first two lines */
+    start = strchr(buf, '\n');
+    if (!start) goto bye;
+
+    start = strchr(start + 1, '\n');
+    if (!start) goto bye;
+
+    start++;
+    while (*start) {
+	/* parse till end of line and store the start of next line. */
+	chptr = start;
+	while (*chptr != '\n') chptr++;
+	*chptr = '\0';
+	next = chptr + 1;
+
+	/*get rid of anything which is not alpha */
+	while ( !(isalpha(*start)) ) start++;
+		
+	/* See if it is an I2O Block device */
+	if( ! strncmp("i2o/", start, 4))
+	    {
+		i = 0;
+		while( !(isspace(*start)) ) 
+		    {
+			ctl[i] = *start;
+			i++;
+			start++;
+		    }
+		ctl[i] = '\0';
+		/* We don't want partitions just the disks ! */
+    		if (i < 1) { 
+		    free (buf);
+		    return 1; 
+		}
+		if ( !isdigit(ctl[i-2]) ){
+		    if (!deviceKnown(devices, ctl)) {
+			newDevice.name = strdup(ctl);
+			newDevice.model = strdup("I2O Block Device");
+			newDevice.class = CLASS_HD;
+			addDevice(devices, newDevice);
+		    }
+		}
+	    } /* end of if it is an i2o device */
+	start = next;
+    } /* end of while */
+ bye:
+    free (buf);
     return 0;
 }
-
 
 
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
