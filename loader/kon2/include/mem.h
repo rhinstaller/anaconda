@@ -54,7 +54,6 @@ static __inline__
     return value;
 }
 
-extern u_char PortInb(u_short);
 extern void wzero(void *, int);
 extern void wmove(void *, void *, int);
 extern void lmove(void *, void *, int);
