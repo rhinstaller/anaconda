@@ -78,7 +78,7 @@ class XF86Config:
         if not self.vidRam:
             return
         if string.atoi(self.vidRam) >= 4096:
-            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200", "1920x1200"]
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
         elif string.atoi(self.vidRam) >= 2048:

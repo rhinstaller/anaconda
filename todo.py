@@ -706,6 +706,7 @@ class ToDo:
 	if not self.initrdsMade.has_key(initrd):
             iutil.execWithRedirect("/sbin/mkinitrd",
                                   [ "/sbin/mkinitrd",
+				    "--ifneeded",
                                     initrd,
                                     kernelTag[1:] ],
                                   stdout = None, stderr = None, searchPath = 1,
