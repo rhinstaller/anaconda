@@ -1163,7 +1163,7 @@ static char * mountUrlImage(struct installMethod * method,
 
     if (totalMemory() < 18000) {
 	newtWinMessage(_("Error"), _("OK"), _("FTP and HTTP installs "
-			"require 20M or more of system memory."));
+			"require 20MB or more of system memory."));
 
 	return NULL;
     }
