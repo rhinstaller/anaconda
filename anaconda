@@ -42,7 +42,14 @@ def dup_log(format, *args):
 def startMiniWM(root='/'):
     childpid = os.fork()
     if not childpid:
-	args = [root + '/usr/bin/mini-wm', '--display', ':1']
+        if os.access("./mini-wm", os.X_OK):
+            cmd = "./mini-wm"
+        elif os.access(root + "/usr/bin/mini-wm", os.X_OK):
+            cmd = root + "/usr/bin/mini-wm"
+        else:
+            return None
+        
+	args = [cmd, '--display', ':1']
 	os.execv(args[0], args)
 	sys.exit (1)
 
