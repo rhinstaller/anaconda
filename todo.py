@@ -402,7 +402,7 @@ class Language (SimpleConfigFile):
 	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
 	    print os.environ["LINGUAS"]
 	else:
-	    del os.environ ["LINGUAS"]
+	    os.environ ["LINGUAS"] = ""
     
 class Firewall:
     def __init__ (self):
