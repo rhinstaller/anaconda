@@ -58,7 +58,23 @@ COPTS += -DUSE_LOGDEV
 ISYSLIB += -lrpc
 endif
 
-all: $(BINS)
+# translation stuff
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
+
+TR = $(patsubst %,tr/%.tr,$(LANGS))
+TRFILES = $(patsubst %,%.tr,$(LANGS))
+
+all: $(BINS) loader.tr
+
+loader.tr: $(TR) ../lang-table
+	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o |gzip -9) > $@
+
+tr/%.tr: ../po/%.po loader.po
+	msgmerge $< loader.po | ./simplemot > $@
+
+loader.po: $(wildcard *.c)
+	xgettext --default-domain=loader --add-comments \
+		--keyword=_ --keyword=N_ *.c
 
 init: init.o
 	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ init.o
