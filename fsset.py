@@ -1120,17 +1120,6 @@ class FileSystemSet:
             dev = entry.device.getDevice()
             if not dev or dev == "none":
                 continue
-            label = isys.readExt2Label(dev)
-            if label:
-                entry.setLabel(label)
-            else:
-                self.labelEntry(entry, chroot)
-
-        # go through and have labels for the ones we don't format
-        for entry in notformatted:
-            dev = entry.device.getDevice()
-            if not dev or dev == "none":
-                continue
             if not entry.mountpoint:
                 continue
             label = isys.readExt2Label(dev)
