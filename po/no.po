@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-08-14 18:40-0400\n"
+"POT-Creation-Date: 2001-08-17 14:41-0400\n"
 "PO-Revision-Date: 2001-08-15 09:01+0200\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
-#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1323 ../loader/cdrom.c:34
+#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1325 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
@@ -89,24 +89,24 @@ msgstr ""
 msgid "Using mouse type: "
 msgstr "Bruker mustype: "
 
-#: ../autopart.py:682
+#: ../autopart.py:684
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
 "Kunne ikke allokere sylinder-baserte partisjoner som primære partisjoner"
 
-#: ../autopart.py:685
+#: ../autopart.py:687
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Kunne ikke allokere partisjoner som primære partisjoner"
 
-#: ../autopart.py:688
+#: ../autopart.py:690
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Kunne ikke allokere sylinder-baserte partisjoner"
 
-#: ../autopart.py:691
+#: ../autopart.py:693
 msgid "Could not allocate partitions"
 msgstr "Kunne ikke allokere partisjoner"
 
-#: ../autopart.py:739
+#: ../autopart.py:741
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -115,11 +115,11 @@ msgstr ""
 "Oppstartspartisjon %s møter muligens ikke oppstartsbegrensningene for din "
 "arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
 
-#: ../autopart.py:853
+#: ../autopart.py:856
 msgid "Requested Partition Does Not Exist"
 msgstr "Forespurt partisjon eksisterer ikke"
 
-#: ../autopart.py:854
+#: ../autopart.py:857
 #, c-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -130,11 +130,11 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../autopart.py:887
+#: ../autopart.py:890
 msgid "Partition Request Sanity Check Errors"
 msgstr "Feil under sjekk av partisjonsforespørsel"
 
-#: ../autopart.py:888
+#: ../autopart.py:891
 #, c-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -149,11 +149,11 @@ msgstr ""
 "\n"
 "Trykk OK for å starte systemet på nytt."
 
-#: ../autopart.py:897
+#: ../autopart.py:900
 msgid "Warnings During Automatic Partitioning"
 msgstr "Advarsler under automatisk partisjonering"
 
-#: ../autopart.py:898
+#: ../autopart.py:901
 #, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -164,12 +164,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:910 ../iw/partition_gui.py:1275
+#: ../autopart.py:913 ../iw/partition_gui.py:1275
 #: ../textw/partition_text.py:163
 msgid "Error Partitioning"
 msgstr "Feil under partisjonering"
 
-#: ../autopart.py:911
+#: ../autopart.py:914
 #, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -180,18 +180,18 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
+#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
+#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
 msgid "Warning"
 msgstr "Advarsel"
 
-#: ../autopart.py:951
+#: ../autopart.py:954
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -215,7 +215,7 @@ msgstr ""
 "av Red Hat. Selv om dette kan være noe vanskeligere i bruk, finnes det "
 "tilfeller hvor fdisk er å foretrekke."
 
-#: ../autopart.py:967
+#: ../autopart.py:970
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -223,19 +223,19 @@ msgstr ""
 "Før automatisk partisjonering utføres av installasjonsprogrammet må du velge "
 "hvordan plassen på harddiskene skal brukes."
 
-#: ../autopart.py:972
+#: ../autopart.py:975
 msgid "Remove all partitions on this system"
 msgstr "Fjern alle partisjoner på dette systemet"
 
-#: ../autopart.py:973
+#: ../autopart.py:976
 msgid "Remove all Linux Partitions on this system"
 msgstr "Fjern alle Linux-partisjoner på dette systemet"
 
-#: ../autopart.py:974
+#: ../autopart.py:977
 msgid "Keep all partitions and use existing free space"
 msgstr "Behold alle partisjoner og bruk eksisterende ledig plass"
 
-#: ../autopart.py:976
+#: ../autopart.py:979
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -250,7 +250,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil gjøre dette?"
 
-#: ../autopart.py:981
+#: ../autopart.py:984
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -277,19 +277,19 @@ msgstr "Installerer bootloader..."
 msgid "Everything"
 msgstr "Alt"
 
-#: ../comps.py:672 ../upgrade.py:442
+#: ../comps.py:672 ../upgrade.py:457
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../exception.py:83 ../text.py:219
+#: ../exception.py:95 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Uventet hendelse oppstod"
 
-#: ../exception.py:150
+#: ../exception.py:162
 msgid "Dump Written"
 msgstr "Dump skrevet"
 
-#: ../exception.py:151
+#: ../exception.py:163
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -308,7 +308,7 @@ msgstr ""
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -514,7 +514,7 @@ msgid "Ignore"
 msgstr "Ignorer"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
-#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1324
+#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
 #: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
@@ -698,31 +698,31 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Vil du fortsette med oppgradering?"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading"
 msgstr "Leser"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading package information..."
 msgstr "Leser pakkeinformasjon..."
 
-#: ../packages.py:154
+#: ../packages.py:157
 msgid "Dependency Check"
 msgstr "Sjekk av avhengigheter"
 
-#: ../packages.py:155
+#: ../packages.py:158
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
-#: ../packages.py:203 ../packages.py:474
+#: ../packages.py:206 ../packages.py:477
 msgid "Processing"
 msgstr "Arbeider"
 
-#: ../packages.py:204
+#: ../packages.py:207
 msgid "Preparing to install..."
 msgstr "Forbereder installasjon..."
 
-#: ../packages.py:238
+#: ../packages.py:241
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -731,21 +731,21 @@ msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
-#: ../packages.py:475
+#: ../packages.py:478
 msgid "Setting up RPM transaction..."
 msgstr "Setter opp RPM-transaksjon..."
 
-#: ../packages.py:516
+#: ../packages.py:519
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../packages.py:518
+#: ../packages.py:521
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../packages.py:578
+#: ../packages.py:581
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -755,16 +755,16 @@ msgstr ""
 "valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../packages.py:583
+#: ../packages.py:586
 msgid "Space Needed"
 msgstr "Nødvendig plass"
 
-#: ../packages.py:598
+#: ../packages.py:601
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -773,19 +773,19 @@ msgstr ""
 "Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
 "valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
-#: ../packages.py:603
+#: ../packages.py:606
 msgid "Nodes Needed"
 msgstr "Manglende noder"
 
-#: ../packages.py:609
+#: ../packages.py:612
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../packages.py:647
+#: ../packages.py:650
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../packages.py:648
+#: ../packages.py:651
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
@@ -977,7 +977,7 @@ msgstr ""
 "En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
 "ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
 
-#: ../partitioning.py:1571
+#: ../partitioning.py:1576
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -987,7 +987,7 @@ msgstr ""
 "\n"
 "Er du sikker?"
 
-#: ../partitioning.py:1574
+#: ../partitioning.py:1579
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -998,47 +998,47 @@ msgstr ""
 "\n"
 "Er du sikker?"
 
-#: ../partitioning.py:1578
+#: ../partitioning.py:1583
 msgid "Are you sure you want to delete this partition?"
 msgstr "Er du sikker på at du vil slette denne partisjonen?"
 
-#: ../partitioning.py:1580
+#: ../partitioning.py:1585
 msgid "Confirm Delete"
 msgstr "Bekreft sletting"
 
-#: ../partitioning.py:1584
+#: ../partitioning.py:1589
 msgid "Confirm Reset"
 msgstr "Bekreft nullstilling"
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1590
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nullstille partisjonstabellen til opprinelig "
 "tilstand?"
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1614
 msgid "the partition in use by the installer."
 msgstr "partisjonen er i bruk av installasjonsprogrammet."
 
-#: ../partitioning.py:1612
+#: ../partitioning.py:1617
 msgid "a partition which is a member of a RAID array."
 msgstr "en partisjon som er medlem av en RAID-array."
 
-#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
-#: ../partitioning.py:1646 ../partitioning.py:1653
+#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
+#: ../partitioning.py:1651 ../partitioning.py:1658
 msgid "Unable To Remove"
 msgstr "Kan ikke fjerne"
 
-#: ../partitioning.py:1622
+#: ../partitioning.py:1627
 msgid "You must first select a partition to remove."
 msgstr "Du må først velge en partisjon som skal fjernes."
 
-#: ../partitioning.py:1628
+#: ../partitioning.py:1633
 msgid "You cannot remove free space."
 msgstr "Du kan ikke fjerne ledig plass."
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1641
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1047,7 +1047,7 @@ msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den er en utvidet partisjon som "
 "inneholder %s"
 
-#: ../partitioning.py:1647
+#: ../partitioning.py:1652
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1055,20 +1055,20 @@ msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den inneholder data for harddisk "
 "installasjonen."
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1659
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
 
-#: ../partitioning.py:1685 ../partitioning.py:1707
+#: ../partitioning.py:1690 ../partitioning.py:1712
 msgid "Unable To Edit"
 msgstr "Kan ikke redigere"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1691
 msgid "You must select a partition to edit"
 msgstr "Du må velge en partisjon for redigering"
 
-#: ../partitioning.py:1708
+#: ../partitioning.py:1713
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1077,20 +1077,20 @@ msgstr ""
 "Du kan ikke redigere denne partisjonen siden den er en utvidet partisjon som "
 "inneholder %s"
 
-#: ../partitioning.py:1716
+#: ../partitioning.py:1721
 msgid "Unable to Edit"
 msgstr "Kan ikke redigere"
 
-#: ../partitioning.py:1717
+#: ../partitioning.py:1722
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
 
-#: ../partitioning.py:1729
+#: ../partitioning.py:1734
 msgid "Installation cannot continue."
 msgstr "Installasjonen kan ikke fortsette."
 
-#: ../partitioning.py:1730
+#: ../partitioning.py:1735
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1100,11 +1100,11 @@ msgstr ""
 "kunne gå tilbake til skjermen for redigering av disker. Vil du fortsette "
 "installasjonsprosessen?"
 
-#: ../partitioning.py:1750
+#: ../partitioning.py:1755
 msgid "Low Memory"
 msgstr "Lite minne"
 
-#: ../partitioning.py:1751
+#: ../partitioning.py:1756
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1114,11 +1114,11 @@ msgstr ""
 "med en gang. For å gjøre dette må vi skrive den nye partisjonstabellen til "
 "disken nå. Er dette ok?"
 
-#: ../partitioning.py:1769
+#: ../partitioning.py:1774
 msgid "Format as Swap?"
 msgstr "Formater som swap?"
 
-#: ../partitioning.py:1770
+#: ../partitioning.py:1775
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1131,11 +1131,11 @@ msgstr ""
 "\n"
 "Ønsker du å formatere denne partisjonen som en swappartisjon?"
 
-#: ../partitioning.py:1789 ../partitioning.py:1807
+#: ../partitioning.py:1794 ../partitioning.py:1812
 msgid "Format?"
 msgstr "Formatere?"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1795
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1147,7 +1147,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil gjøre dette?"
 
-#: ../partitioning.py:1798
+#: ../partitioning.py:1803
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1165,11 +1165,11 @@ msgstr ""
 "\n"
 "Er du sikker på at du ikke ønsker å formatere?"
 
-#: ../partitioning.py:1814
+#: ../partitioning.py:1819
 msgid "Error with Partitioning"
 msgstr "Feil under partisjonering"
 
-#: ../partitioning.py:1815
+#: ../partitioning.py:1820
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1184,11 +1184,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1833
 msgid "Partitioning Warning"
 msgstr "Advarsel fra partisjonering"
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1834
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1203,7 +1203,7 @@ msgstr ""
 "\n"
 "Vil du fortsette med det forespurte partisjoneringsopplegget?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1841
+#: ../iw/partition_gui.py:576 ../partitioning.py:1846
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1211,7 +1211,7 @@ msgstr ""
 "Disse eksisterende partisjonene er merket for formatering, som vil ødelegge "
 "alle data."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1844
+#: ../iw/partition_gui.py:579 ../partitioning.py:1849
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1219,7 +1219,7 @@ msgstr ""
 "Velg 'Ja' for å fortsette med formatering av disse partisjonene, eller 'Nei' "
 "for å tilbake og endre disse innstillingene."
 
-#: ../partitioning.py:1850
+#: ../partitioning.py:1855
 msgid "Format Warning"
 msgstr "Formateringsadvarsel"
 
@@ -1438,7 +1438,7 @@ msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 msgid "An error occured when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../upgrade.py:350
+#: ../upgrade.py:359
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1452,7 +1452,7 @@ msgstr ""
 "ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med "
 "oppgraderingsprosessen?"
 
-#: ../upgrade.py:367
+#: ../upgrade.py:378
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1464,7 +1464,7 @@ msgstr ""
 "risikere at systemet ender som ubrukelig. Vil du fortsette "
 "oppgraderingsprosessen?"
 
-#: ../videocard.py:401
+#: ../videocard.py:418
 msgid "Unknown Card"
 msgstr "Ukjent kort"
 
@@ -1596,13 +1596,13 @@ msgid "Add"
 msgstr "Legg til"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:987
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Slett"
@@ -1765,7 +1765,7 @@ msgid "Partition"
 msgstr "Partisjon"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1545 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Type"
 
@@ -1800,7 +1800,7 @@ msgid "Default"
 msgstr "Standard"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -1980,30 +1980,30 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Uløste avhengigheter"
 
-#: ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, c-format
 msgid "Total install size: %s"
 msgstr "Total størrelse for installasjon: %s"
 
-#: ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Pakke"
 
-#: ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../textw/packages_text.py:301
 msgid "Requirement"
 msgstr "Avhengighet"
 
-#: ../iw/dependencies_gui.py:81 ../textw/packages_text.py:316
+#: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
 msgstr "Installér pakker for å tilfredstille avhengigheter"
 
-#: ../iw/dependencies_gui.py:84 ../textw/packages_text.py:317
+#: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
 msgstr "Ikke installer pakker som har avhengigheter"
 
-#: ../iw/dependencies_gui.py:88 ../textw/packages_text.py:318
+#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
 msgstr "Ignorér pakkeavhengigheter"
 
@@ -2261,7 +2261,7 @@ msgstr "Trevisning"
 msgid "Flat View"
 msgstr "Flat visning"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1545
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
 
@@ -2376,7 +2376,7 @@ msgstr "Fyll opp til maksimal tillatt størrelse"
 msgid "Add Partition"
 msgstr "Legg til partisjon"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1349
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
@@ -2449,7 +2449,7 @@ msgid "Check for bad blocks"
 msgstr "Sjekk etter dårlige blokker"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2473,84 +2473,84 @@ msgstr "Legg til likevel"
 msgid "Warning: %s."
 msgstr "Advarsel: %s."
 
-#: ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
+#: ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 msgid "Make RAID Device"
 msgstr "Lag RAID-enhet"
 
-#: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
+#: ../iw/partition_gui.py:1341 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
 msgstr "Minst to partisjoner med programvare-RAID kreves."
 
-#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1356 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "Filsystemtype:"
 
-#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID-nivå:"
 
-#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:400
 msgid "RAID Members:"
 msgstr "RAID-medlemmer:"
 
-#: ../iw/partition_gui.py:1412
+#: ../iw/partition_gui.py:1414
 msgid "Number of spares:"
 msgstr "Antall reservedisker:"
 
-#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1421 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "Formater partisjon?"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1525
 msgid "_New"
 msgstr "_Ny"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1526
 msgid "_Edit"
 msgstr "R_ediger"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1527
 msgid "_Delete"
 msgstr "_Slett"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1528
 msgid "_Reset"
 msgstr "_Nullstill"
 
-#: ../iw/partition_gui.py:1527
+#: ../iw/partition_gui.py:1529
 msgid "Make _RAID"
 msgstr "Lag _RAID"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "End"
 msgstr "Slutt"
 
-#: ../iw/partition_gui.py:1543
+#: ../iw/partition_gui.py:1545
 msgid "Format"
 msgstr "Formater"
 
-#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
 msgid "Automatic Partitioning"
 msgstr "Automatisk partisjonering"
 
-#: ../iw/partition_gui.py:1607
+#: ../iw/partition_gui.py:1609
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Du må velge minst en stasjon du skal installere Red Hat Linux på."
 
-#: ../iw/partition_gui.py:1646
+#: ../iw/partition_gui.py:1648
 msgid "I want to have automatic partitioning:"
 msgstr "Jeg vil bruke automatisk partisjonering:"
 
-#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hvilke stasjoner vil du bruke for denne installasjonen?"
 
-#: ../iw/partition_gui.py:1699
+#: ../iw/partition_gui.py:1701
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2842,7 +2842,7 @@ msgstr "Grafisk"
 msgid "Monitor Configuration"
 msgstr "Skjermkonfigurasjon"
 
-#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:874
+#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:867
 msgid "Generic"
 msgstr "Vanlig"
 
@@ -2854,7 +2854,7 @@ msgstr "DDC-monitor"
 msgid "Unprobed Monitor"
 msgstr "Ikke-gjenkjent monitor"
 
-#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
+#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:982
 msgid "Restore original values"
 msgstr "Gjenopprett originale verdier"
 
@@ -2878,11 +2878,11 @@ msgstr "Hz"
 msgid "Graphical Interface (X) Configuration"
 msgstr "Konfigurasjon av grafisk grensesnitt (X)"
 
-#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
+#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 msgid "Unspecified video card"
 msgstr "Ikke-spesifisert skjermkort"
 
-#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
+#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:609
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -2892,7 +2892,7 @@ msgstr ""
 "ønsker å hoppe over X-konfigurasjonen velg 'Hopp over konfigurasjon av X'-"
 "knappen."
 
-#: ../iw/xconfig_gui.py:835
+#: ../iw/xconfig_gui.py:828
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2900,7 +2900,7 @@ msgstr ""
 "Mengden videominne kunne ikke finnes av autosøk. Velg mengden videoram fra "
 "listen under:"
 
-#: ../iw/xconfig_gui.py:843
+#: ../iw/xconfig_gui.py:836
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2908,7 +2908,7 @@ msgstr ""
 "I de fleste tilfeller kan grafikk-maskinvaren finnes automatisk for å "
 "bestemme de beste innstillingene for din skjerm."
 
-#: ../iw/xconfig_gui.py:849
+#: ../iw/xconfig_gui.py:842
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
@@ -2916,15 +2916,15 @@ msgstr ""
 "Hvis innstillingene fra autosøk ikke er riktig for din maskinvare, velg de "
 "riktige innstillingene for maskinvaren under:"
 
-#: ../iw/xconfig_gui.py:879
+#: ../iw/xconfig_gui.py:872
 msgid "Other"
 msgstr "Andre"
 
-#: ../iw/xconfig_gui.py:967
+#: ../iw/xconfig_gui.py:960
 msgid "Video card RAM: "
 msgstr "Minne på skjermkort: "
 
-#: ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
+#: ../iw/xconfig_gui.py:986 ../textw/xconfig_text.py:566
 msgid "Skip X Configuration"
 msgstr "Hopp over konfigurasjon av X"
 
@@ -3476,29 +3476,29 @@ msgstr "For mange reservedisker"
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksimalt antall reservedisker med for en RAID0-array er 0."
 
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:979
 msgid "Partitioning"
 msgstr "Partisjonering"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "New"
 msgstr "Ny"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:990
+#: ../textw/partition_text.py:992
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hjelp    F2-Ny     F3-Rediger F4-Slett    F5-Nullstill F12-OK       "
 
-#: ../textw/partition_text.py:1017
+#: ../textw/partition_text.py:1019
 msgid "No Root Partition"
 msgstr "Ingen rotpartisjon"
 
-#: ../textw/partition_text.py:1018
+#: ../textw/partition_text.py:1020
 msgid "Must have a / partition to install on."
 msgstr "Må ha en \"/\"-partisjon å installere på."
 
@@ -3868,7 +3868,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
 #: ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
+#: ../textw/xconfig_text.py:585 ../textw/xconfig_text.py:592
 msgid "Change"
 msgstr "Endre"
 
@@ -3998,23 +3998,23 @@ msgstr ""
 "Vennligst velg mengden video-RAM som finnes på ditt skjermkort. Velg '%s' "
 "for å gå tilbake til mengden installasjonsprogrammet fant på ditt kort."
 
-#: ../textw/xconfig_text.py:565
+#: ../textw/xconfig_text.py:569
 msgid "Video Card Configuration"
 msgstr "Konfigurasjon av skjermkort"
 
-#: ../textw/xconfig_text.py:568
+#: ../textw/xconfig_text.py:572
 msgid "Select the video card and video RAM for your system."
 msgstr "Velg skjermkort og video-RAM for ditt system."
 
-#: ../textw/xconfig_text.py:571
+#: ../textw/xconfig_text.py:575
 msgid "Video Card:"
 msgstr "Skjermkort:"
 
-#: ../textw/xconfig_text.py:576
+#: ../textw/xconfig_text.py:580
 msgid "Unknown card"
 msgstr "Ukjent kort"
 
-#: ../textw/xconfig_text.py:584
+#: ../textw/xconfig_text.py:588
 msgid "Video RAM:"
 msgstr "Video-RAM:"
 
@@ -4559,12 +4559,13 @@ msgid "Retrieving"
 msgstr "Henter"
 
 #: ../loader/urls.c:163
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"      Red Hat Linux for your architecture\n"
 msgstr ""
 "Vennligst skriv inn følgende informasjon:\n"
 "\n"
@@ -4841,10 +4842,6 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "Amundsen-Scott-basen, Sydpolen"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlanterhavsøyene"
-
-#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "\"Atlantic Time\" - østre Labrador"
 
@@ -4859,6 +4856,10 @@ msgstr ""
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 "\"Atlantisk Tid\" - steder i Nova Scotia som ikke hadde sommertid i 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Atlanterhavsøyene"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -4879,14 +4880,6 @@ msgstr "Casey-stasjonen, Bailey-halvøyen"
 #. generated from zone.tab
 msgid "Catamarca (CT)"
 msgstr "Catamarca (CT)"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "sentrale Krim"
-
-#. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr "midt-Kazakhstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -4917,16 +4910,16 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "\"Central Time\" - Michigan - grensen mot Wisconsin"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "De fleste steder med \"Central Time\""
-
-#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "\"Central Time\" - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "\"Central Time\" - Rainy River og Fort Frances, Ontario"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "De fleste steder med \"Central Time\""
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -4969,28 +4962,12 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr "Østre Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "østre Kongo"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Påskeøyene & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr "\"Eastern Standard Time\" - midt-Nunavut."
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
-msgstr "\"Eastern Standard Time\" - østre-Nunavut"
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
 msgstr "\"Eastern Standard Time\" - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "\"Eastern Standard Time\" - de fleste steder i Indiana"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -5001,8 +4978,20 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "\"Eastern Standard Time\" - Indiana - Switzerland County"
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr "\"Eastern Standard Time\" - de fleste steder i Indiana"
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr "\"Eastern Standard Time\" - Pangnirtung, Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr "\"Eastern Standard Time\" - midt-Nunavut."
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr "\"Eastern Standard Time\" - østre-Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -5038,22 +5027,6 @@ msgstr "\"Eastern Time\" - Thunder Bay, Ontario"
 #. generated from zone.tab
 msgid "Eastern Turkestan"
 msgstr "Østre Turkmenistan"
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr "øst-Grønland"
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr "øst-Kazakhstan"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "øst-Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -5148,10 +5121,6 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "Moskva+01 - det kaspiske hav"
 
 #. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moskva-01 - Kaliningrad"
-
-#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr "Moskva+02 - Uralfjellene"
 
@@ -5192,6 +5161,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Beringstredet"
 
 #. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Moskva-01 - Kaliningrad"
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "\"Mountain Standard Time\" - Arizona"
 
@@ -5215,10 +5188,6 @@ msgstr ""
 "\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "\"Mountain Time\" - midt-\"Northwest Territories\""
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "\"Mountain Time\" - Chihuahua"
 
@@ -5229,6 +5198,10 @@ msgstr "\"Mountain Time\" - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "\"Mountain Time\" - S Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "\"Mountain Time\" - midt-\"Northwest Territories\""
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -5247,20 +5220,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "Nordøstre Brasil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland"
+msgid "New South Wales - Yancowinna"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "De fleste steder i New South Wales"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr "nordøstre Mali"
+msgid "Newfoundland Island"
+msgstr "Newfoundland"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -5269,14 +5238,6 @@ msgstr "Nord-Irland"
 #. generated from zone.tab
 msgid "Northern Territory"
 msgstr "Nordterritoriet"
-
-#. generated from zone.tab
-msgid "north Manchuria"
-msgstr "nord-Mandsjuria"
-
-#. generated from zone.tab
-msgid "northwest Greenland"
-msgstr "nordvestre Grønland"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -5293,10 +5254,6 @@ msgstr "\"Pacific Time\" - vestre British Columbia"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Palmer Station, Anvers-øya"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -5327,6 +5284,10 @@ msgid "Ruthenia"
 msgstr "Ruthenia"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Syd- og Sydøst-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah og Sarawak"
 
@@ -5337,18 +5298,6 @@ msgstr "Society Islands"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "Syd-Australia"
-
-#. generated from zone.tab
-msgid "southwest Greenland"
-msgstr "sydvest-Grønland"
-
-#. generated from zone.tab
-msgid "southwest Mali"
-msgstr "sydvest-Mali"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Syd- og Sydøst-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5383,16 +5332,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Vostok-stasjonen, den sydlige magnetiske pol"
 
 #. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wake Island"
-
-#. generated from zone.tab
 msgid "W Amazonas"
 msgstr "vestre Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "Vest-Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "Vest-Para, Rondonia"
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr "Wake Island"
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr "Vest-Australia"
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr "Yap"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, østre Lugansk"
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "sentrale Krim"
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr "midt-Kazakhstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "Øst- og syd-Borneo, Celebes, Bali, Nusa Tengarra, vest-Timor"
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "østre Kongo"
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr "øst-Grønland"
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr "øst-Kazakhstan"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "øst-Uzbekistan"
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr "nord-Mandsjuria"
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr "nordøstre Mali"
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr "nordvestre Grønland"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "Malaysia"
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr "sydvest-Grønland"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr "sydvest-Mali"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5403,28 +5420,12 @@ msgid "west Dem. Rep. of Congo"
 msgstr "vest-Kongo"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Vest-Australia"
-
-#. generated from zone.tab
 msgid "west Kazakhstan"
 msgstr "vest-Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
 msgstr "vest-Uzbekistan"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "Vest-Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr "Yap"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, østre Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"

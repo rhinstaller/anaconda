@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2001-08-14 18:40-0400\n"
-"PO-Revision-Date: 2001-08-14 16:00+0000\n"
+"POT-Creation-Date: 2001-08-17 14:41-0400\n"
+"PO-Revision-Date: 2001-08-16 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
-#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1323 ../loader/cdrom.c:34
+#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1325 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
@@ -63,7 +63,7 @@ msgstr "Leita að skjá: "
 
 #: ../anaconda:392
 msgid "Probing for mouse type:   "
-msgstr "Gái að tegund músar:   "
+msgstr "Leita að tegund músar:   "
 
 #: ../anaconda:396
 msgid "Skipping mouse probe.\n"
@@ -81,30 +81,30 @@ msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"Engin mús fanst. Mús er nauðsynleg fyrir myndræna uppsetningu. Fer í "
+"Engin mús fannst. Mús er nauðsynleg fyrir myndræna uppsetningu. Fer í "
 "textaham."
 
 #: ../anaconda:425
 msgid "Using mouse type: "
 msgstr "Nota þessa músartegund: "
 
-#: ../autopart.py:682
+#: ../autopart.py:684
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Gat ekki búið til disksneiðina sem \"primary\" disksneið"
 
-#: ../autopart.py:685
+#: ../autopart.py:687
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Gat ekki búið til umbeðnar disksneiðar sem \"primary\" disksneiðar"
 
-#: ../autopart.py:688
+#: ../autopart.py:690
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Gat ekki búið til umbeðnar disksneiðar"
 
-#: ../autopart.py:691
+#: ../autopart.py:693
 msgid "Could not allocate partitions"
 msgstr "Gat ekki búið til disksneiðar"
 
-#: ../autopart.py:739
+#: ../autopart.py:741
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -113,11 +113,11 @@ msgstr ""
 "Ræsidisksneiðin %s uppfyllir líklega ekki ræsikröfur vélarinnar þinnar.  Við "
 "mælum eindregið með að þú útbúir ræsidiskling."
 
-#: ../autopart.py:853
+#: ../autopart.py:856
 msgid "Requested Partition Does Not Exist"
 msgstr "Disksneiðin er ekki til"
 
-#: ../autopart.py:854
+#: ../autopart.py:857
 #, c-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -128,11 +128,11 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa."
 
-#: ../autopart.py:887
+#: ../autopart.py:890
 msgid "Partition Request Sanity Check Errors"
 msgstr "Disksneiðavillur"
 
-#: ../autopart.py:888
+#: ../autopart.py:891
 #, c-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -147,11 +147,11 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa."
 
-#: ../autopart.py:897
+#: ../autopart.py:900
 msgid "Warnings During Automatic Partitioning"
 msgstr "Aðvaranir við sjálfvirka disksneiðingu"
 
-#: ../autopart.py:898
+#: ../autopart.py:901
 #, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -162,12 +162,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:910 ../iw/partition_gui.py:1275
+#: ../autopart.py:913 ../iw/partition_gui.py:1275
 #: ../textw/partition_text.py:163
 msgid "Error Partitioning"
 msgstr "Villa við disksneiðingu"
 
-#: ../autopart.py:911
+#: ../autopart.py:914
 #, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -178,18 +178,18 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
+#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
+#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
 msgid "Warning"
 msgstr "Aðvörun"
 
-#: ../autopart.py:951
+#: ../autopart.py:954
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -210,9 +210,9 @@ msgstr ""
 "tengipunkta, stærðir og fleira í þessu handhæga og einfalda tóli.\n"
 "\n"
 "fdisk er hefðbundið tól með textaskilum sem er öflugast sneiðingatóla. Þó "
-"það sé ekki auðveldast í notkun eru tilfelli þar sem fdisk er nauðsyunlegt."
+"það sé ekki auðveldast í notkun eru tilfelli þar sem fdisk er nauðsynlegt."
 
-#: ../autopart.py:967
+#: ../autopart.py:970
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -220,19 +220,19 @@ msgstr ""
 "Áður en unnt er að sneiða diskinn sjálfvirkt þarft þú að gefa upp hvernig þú "
 "vilt að diskurinn þinn sé nýttur."
 
-#: ../autopart.py:972
+#: ../autopart.py:975
 msgid "Remove all partitions on this system"
 msgstr "Fjarlægja allar disksneiðar á þessari vél"
 
-#: ../autopart.py:973
+#: ../autopart.py:976
 msgid "Remove all Linux Partitions on this system"
 msgstr "Fjarlægja allar Linux disksneiðar á þessari vél"
 
-#: ../autopart.py:974
+#: ../autopart.py:977
 msgid "Keep all partitions and use existing free space"
 msgstr "Fjarlægja engar sneiðar og nota einungis laust pláss"
 
-#: ../autopart.py:976
+#: ../autopart.py:979
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -247,7 +247,7 @@ msgstr ""
 "%s\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../autopart.py:981
+#: ../autopart.py:984
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -274,19 +274,19 @@ msgstr "Set upp ræsistjórann..."
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:672 ../upgrade.py:442
+#: ../comps.py:672 ../upgrade.py:457
 msgid "no suggestion"
 msgstr "engin tillaga"
 
-#: ../exception.py:83 ../text.py:219
+#: ../exception.py:95 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Óeðlilegt ástand"
 
-#: ../exception.py:150
+#: ../exception.py:162
 msgid "Dump Written"
 msgstr "Dump ritað"
 
-#: ../exception.py:151
+#: ../exception.py:163
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -305,7 +305,7 @@ msgstr ""
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -368,7 +368,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 "Villa kom upp þegar reynt var að forsníða diskminni á %s.   Þetta er "
-"alverlegt vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
+"alvarlegt vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
@@ -395,7 +395,7 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp við leit að skemdum blokkum á %s.   Þetta er alverlegt "
+"Villa kom upp við leit að skemdum blokkum á %s.   Þetta er alvarlegt "
 "vandamál sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
@@ -408,7 +408,7 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að forsníða %s.   Þetta er alverlegt vandamál "
+"Villa kom upp þegar reynt var að forsníða %s.   Þetta er alvarlegt vandamál "
 "sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
@@ -421,7 +421,7 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að breyta %s.   Þetta er alverlegt vandamál "
+"Villa kom upp þegar reynt var að breyta %s.   Þetta er alvarlegt vandamál "
 "sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
@@ -439,7 +439,7 @@ msgid ""
 "Press Enter to reboot your system."
 msgstr ""
 "Villa kom upp þegar reynt var að búa %s til. Eitthvað í slóðinni er ekki "
-"mappa. Þetta er alverlegt vandamál sem veldur því að uppsetningin getur ekki "
+"mappa. Þetta er alvarlegt vandamál sem veldur því að uppsetningin getur ekki "
 "haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
@@ -452,7 +452,7 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Villa kom upp þegar reynt var að búa %s til.  Þetta er alverlegt vandamál "
+"Villa kom upp þegar reynt var að búa %s til.  Þetta er alvarlegt vandamál "
 "sem veldur því að uppsetningin getur ekki haldið áfram.\n"
 "\n"
 "Sláðu á enter til að endurræsa vélina."
@@ -511,7 +511,7 @@ msgid "Ignore"
 msgstr "Hunsa"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
-#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1324
+#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
 #: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
@@ -529,9 +529,9 @@ msgid ""
 "bugzilla/"
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
-"uppsetningarforritinu. Vinsamlegast afritaðu allann textann hérna eða "
-"vistaðu honum á diskling og sendu inn villutilkynningu um anaconda á http://"
-"bugzilla.redhat.com/bugzilla"
+"uppsetningarforritinu. Vinsamlegast afritaðu allan textann hérna eða vistaðu "
+"hann á diskling og sendu inn villutilkynningu um anaconda á http://bugzilla."
+"redhat.com/bugzilla"
 
 #: ../gui.py:317 ../text.py:248
 msgid ""
@@ -694,31 +694,31 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Viltu halda áfram með uppfærsluna?"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading"
 msgstr "Les"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading package information..."
 msgstr "Les upplýsingar um pakkana..."
 
-#: ../packages.py:154
+#: ../packages.py:157
 msgid "Dependency Check"
 msgstr "Athuga pakkaskilyrði"
 
-#: ../packages.py:155
+#: ../packages.py:158
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Athuga skilyrði pakkanna sem voru valdir til uppsetningar..."
 
-#: ../packages.py:203 ../packages.py:474
+#: ../packages.py:206 ../packages.py:477
 msgid "Processing"
 msgstr "Vinnsla"
 
-#: ../packages.py:204
+#: ../packages.py:207
 msgid "Preparing to install..."
 msgstr "Undirbý uppsetningu..."
 
-#: ../packages.py:238
+#: ../packages.py:241
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -727,21 +727,21 @@ msgstr ""
 "Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
-#: ../packages.py:475
+#: ../packages.py:478
 msgid "Setting up RPM transaction..."
 msgstr "Set upp RPM færslu..."
 
-#: ../packages.py:516
+#: ../packages.py:519
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppfæri %s.\n"
 
-#: ../packages.py:518
+#: ../packages.py:521
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Set inn %s.\n"
 
-#: ../packages.py:578
+#: ../packages.py:581
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -751,16 +751,16 @@ msgstr ""
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Tengipunktur"
 
-#: ../packages.py:583
+#: ../packages.py:586
 msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
-#: ../packages.py:598
+#: ../packages.py:601
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -770,19 +770,19 @@ msgstr ""
 "valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
 "\n"
 
-#: ../packages.py:603
+#: ../packages.py:606
 msgid "Nodes Needed"
 msgstr "Vantar inóður"
 
-#: ../packages.py:609
+#: ../packages.py:612
 msgid "Disk Space"
 msgstr "Diskpláss"
 
-#: ../packages.py:647
+#: ../packages.py:650
 msgid "Post Install"
 msgstr "Eftir uppsetningu"
 
-#: ../packages.py:648
+#: ../packages.py:651
 msgid "Performing post install configuration..."
 msgstr "Breyta stillingum eftir uppsetningu..."
 
@@ -807,7 +807,7 @@ msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr ""
-"Tengipunkturinn %s er þegar í notkun. Vinsamlegast veldu annann tengipunkt."
+"Tengipunkturinn %s er þegar í notkun. Vinsamlegast veldu annan tengipunkt."
 
 #: ../partitioning.py:436
 msgid ""
@@ -866,7 +866,7 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Þetta RAID tæki getur haft mest %s væradrif. Til að bæta við varadrifum þarf "
+"Þetta RAID tæki getur haft mest %s varadrif. Til að bæta við varadrifum þarf "
 "að bæta fleiri drifum við þetta RAID tæki."
 
 #: ../partitioning.py:566
@@ -923,7 +923,7 @@ msgid ""
 "system.  This could negatively impact performance."
 msgstr ""
 "Þú hefur skilgreint minna diskminnispláss (%dM) en minnið í vélinni (%dM). "
-"Þetta getur haft neikvæð áhrif á áfköst vélarinnar."
+"Þetta getur haft neikvæð áhrif á afköst vélarinnar."
 
 #: ../partitioning.py:695
 #, c-format
@@ -935,11 +935,11 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 "Disksneiðataflan á tæki %s er af gerð sem ekki passar fyrir vélbúnað þinn. "
-"Til þess að hægt sé að nota diskinn fyrir þessa uppsettningu af Red Hat "
-"Linux þarf að frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á "
-"disknum tapast.\n"
+"Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af Red Hat Linux "
+"þarf að frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á disknum "
+"tapast.\n"
 "\n"
-"Villtu frumstilla töfluna?"
+"Viltu frumstilla töfluna?"
 
 #: ../partitioning.py:1259 ../partitioning.py:1290
 #, c-format
@@ -956,7 +956,9 @@ msgid ""
 msgstr ""
 "Disksneiðataflan á tæki %s er ólæsileg.  Til þess að hægt sé að búa til "
 "nýjar disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á "
-"disknum tapast."
+"disknum tapast.\n"
+"\n"
+"Viltu frumstilla þennan disk?"
 
 #: ../partitioning.py:1488
 msgid "No Drives Found"
@@ -970,7 +972,7 @@ msgstr ""
 "Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný skráakerfi "
 "á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir."
 
-#: ../partitioning.py:1571
+#: ../partitioning.py:1576
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -980,7 +982,7 @@ msgstr ""
 "\n"
 "Ertu viss?"
 
-#: ../partitioning.py:1574
+#: ../partitioning.py:1579
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -991,45 +993,45 @@ msgstr ""
 "\n"
 "Ertu viss?"
 
-#: ../partitioning.py:1578
+#: ../partitioning.py:1583
 msgid "Are you sure you want to delete this partition?"
 msgstr "Ertu viss um að þú viljir eyða þessari disksneið?"
 
-#: ../partitioning.py:1580
+#: ../partitioning.py:1585
 msgid "Confirm Delete"
 msgstr "Staðfesta eyðingu"
 
-#: ../partitioning.py:1584
+#: ../partitioning.py:1589
 msgid "Confirm Reset"
 msgstr "Staðfesta frumstillingu"
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1590
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Ertu viss um að þú viljir frumstilla disksneiðatöfluna ?"
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1614
 msgid "the partition in use by the installer."
 msgstr "disksneiðin er í notkun af uppsetningarforritinu."
 
-#: ../partitioning.py:1612
+#: ../partitioning.py:1617
 msgid "a partition which is a member of a RAID array."
 msgstr "disksneið sem er í RAID tæki."
 
-#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
-#: ../partitioning.py:1646 ../partitioning.py:1653
+#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
+#: ../partitioning.py:1651 ../partitioning.py:1658
 msgid "Unable To Remove"
 msgstr "Get ekki fjarlægt"
 
-#: ../partitioning.py:1622
+#: ../partitioning.py:1627
 msgid "You must first select a partition to remove."
 msgstr "Þú verður að velja disksneið sem á að fjarlægja."
 
-#: ../partitioning.py:1628
+#: ../partitioning.py:1633
 msgid "You cannot remove free space."
 msgstr "Þú getur ekki fjarlægt laust pláss."
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1641
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1038,7 +1040,7 @@ msgstr ""
 "Þú getur ekki fjarlægt þessa sneið þar sem hún er \"extended\" disksneið sem "
 "inniheldur %s"
 
-#: ../partitioning.py:1647
+#: ../partitioning.py:1652
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1046,19 +1048,19 @@ msgstr ""
 "Þú getur ekki fjarlægt þessa disksneið því hún inniheldur gögnin fyrir "
 "uppsetningu frá hörðum disk."
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1659
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr "Þú getur ekki fjarlægt þessa sneið þar sem hún er hluti af RAID tæki."
 
-#: ../partitioning.py:1685 ../partitioning.py:1707
+#: ../partitioning.py:1690 ../partitioning.py:1712
 msgid "Unable To Edit"
 msgstr "Get ekki breytt skrá"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1691
 msgid "You must select a partition to edit"
 msgstr "Þú verður að velja disksneið til að breyta"
 
-#: ../partitioning.py:1708
+#: ../partitioning.py:1713
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1067,20 +1069,20 @@ msgstr ""
 "Þú getur ekki breytt þessari disksneið því hún er \"extended\" disksneið sem "
 "inniheldur %s"
 
-#: ../partitioning.py:1716
+#: ../partitioning.py:1721
 msgid "Unable to Edit"
 msgstr "Get ekki breytt skrá"
 
-#: ../partitioning.py:1717
+#: ../partitioning.py:1722
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Þú getur ekki breytt þessari disksneið þar sem hún er hluti af RAID tæki"
 
-#: ../partitioning.py:1729
+#: ../partitioning.py:1734
 msgid "Installation cannot continue."
 msgstr "Uppsetningin getur ekki haldið áfram."
 
-#: ../partitioning.py:1730
+#: ../partitioning.py:1735
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1089,25 +1091,25 @@ msgstr ""
 "Þessir rofar við disksneiðingu hafa þegar verið virkjaðir. Þú getur ekki "
 "lengur farið til baka í disksýsluskjáinn. Viltu halda uppsetningunni áfram?"
 
-#: ../partitioning.py:1750
+#: ../partitioning.py:1755
 msgid "Low Memory"
 msgstr "Of lítið minni"
 
-#: ../partitioning.py:1751
+#: ../partitioning.py:1756
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 "Þar sem þú ert ekki með mjög mikið minni í þessari vél þarf að setja af stað "
-"diskminni núna. Til að það sé hægt þarf að vista disksneiðatöflunni á "
-"diskinn strax. Er það í lagi?"
+"diskminni núna. Til að það sé hægt þarf að vista disksneiðatöfluna á diskinn "
+"strax. Er það í lagi?"
 
-#: ../partitioning.py:1769
+#: ../partitioning.py:1774
 msgid "Format as Swap?"
 msgstr "Forsniða sem diskminni?"
 
-#: ../partitioning.py:1770
+#: ../partitioning.py:1775
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1120,11 +1122,11 @@ msgstr ""
 "\n"
 "Viltu forsníða þessa disksneið sem diskminnissneið?"
 
-#: ../partitioning.py:1789 ../partitioning.py:1807
+#: ../partitioning.py:1794 ../partitioning.py:1812
 msgid "Format?"
 msgstr "Forsníða?"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1795
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1136,7 +1138,7 @@ msgstr ""
 "\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../partitioning.py:1798
+#: ../partitioning.py:1803
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1154,11 +1156,11 @@ msgstr ""
 "\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../partitioning.py:1814
+#: ../partitioning.py:1819
 msgid "Error with Partitioning"
 msgstr "Villa við disksneiðingu"
 
-#: ../partitioning.py:1815
+#: ../partitioning.py:1820
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1173,11 +1175,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1833
 msgid "Partitioning Warning"
 msgstr "Disksneiðaaðvörun"
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1834
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1191,17 +1193,17 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Viltu halda áfram með þessar disksneiðar."
+"Viltu halda áfram með þessar disksneiðar?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1841
+#: ../iw/partition_gui.py:576 ../partitioning.py:1846
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Efitfarandi disksneiðar sem voru til fyrir hefur þú kosið að forsníða og "
+"Eftirfarandi disksneiðar sem voru til fyrir hefur þú kosið að forsníða og "
 "eyða á öllum gögnum."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1844
+#: ../iw/partition_gui.py:579 ../partitioning.py:1849
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1209,14 +1211,15 @@ msgstr ""
 "Veldu 'Já' til að halda áfram og forsníða þessar sneiðar eða 'Nei' til að "
 "fara til baka og breyta þessum stillingum."
 
-#: ../partitioning.py:1850
+#: ../partitioning.py:1855
 msgid "Format Warning"
 msgstr "Forsniðsaðvörun"
 
 #: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
-"Vinsamlegast hættu í skelinni þegar þú ert búin(n) og þá endurræsir vélin."
+"Vinsamlegast hættu í skelinni þegar þú ert búin(n) og þá mun vélin endurræsa "
+"sig."
 
 #: ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 msgid "Rescue"
@@ -1378,7 +1381,7 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
-"Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttann "
+"Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttan "
 "máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
 "og keyrðu svo vélina rétt niður til að uppfæra."
 
@@ -1409,7 +1412,7 @@ msgstr ""
 #: ../upgrade.py:241
 #, c-format
 msgid "%s not found"
-msgstr "%s fanst ekki"
+msgstr "%s fannst ekki"
 
 #: ../upgrade.py:263
 msgid "Finding"
@@ -1427,7 +1430,7 @@ msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
 
-#: ../upgrade.py:350
+#: ../upgrade.py:359
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1440,7 +1443,7 @@ msgstr ""
 "uppfærslan ollið því að þeir hætti að virka eða valdið öðrum vandræðum. "
 "Viltu halda áfram með uppfærsluna ?"
 
-#: ../upgrade.py:367
+#: ../upgrade.py:378
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1451,7 +1454,7 @@ msgstr ""
 "því ekki Red Hat Linux vél. Ef þú heldur áfram með uppfærsluna getur það "
 "ollið því að véæin verður ónothæf. Viltu halda áfram með uppfærsluna ?"
 
-#: ../videocard.py:401
+#: ../videocard.py:418
 msgid "Unknown Card"
 msgstr "Óþekkt kort"
 
@@ -1501,7 +1504,7 @@ msgstr "Rótarlykilorð móttekið."
 
 #: ../iw/account_gui.py:54
 msgid "Root password is too short."
-msgstr "Rótarlykilorðið er of stutt "
+msgstr "Rótarlykilorðið er of stutt."
 
 #: ../iw/account_gui.py:56
 msgid "Root passwords do not match."
@@ -1521,7 +1524,7 @@ msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
 
 #: ../iw/account_gui.py:79
 msgid "User password is too short."
-msgstr "Lykilorðið er of stutt "
+msgstr "Lykilorðið er of stutt."
 
 #: ../iw/account_gui.py:81
 msgid "User passwords do not match."
@@ -1583,13 +1586,13 @@ msgid "Add"
 msgstr "Bæta við"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Breyta"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:987
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Eyða"
@@ -1708,7 +1711,7 @@ msgid ""
 msgstr ""
 "Ræsidisklingurinn gerir þér kleyft að ræsa vélina upp frá disklingadrifi. \n"
 "\n"
-"Vinsamlegast taktu burt disklinga úr drifunum og settu inn tómann diskling. "
+"Vinsamlegast taktu burt disklinga úr drifunum og settu inn tóman diskling. "
 "Öllum gögnum á disklingnum verður EYTT þegar ræsidisklingurinn er búinn til."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
@@ -1740,7 +1743,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Ef þú neyðir ræsistjórann til að nota LBA32 ham þegar BIOS vélarinnar styður "
-"það ekki getur það leytt til þess að vélin geti ekki ræst. Við mælum "
+"það ekki getur það leitt til þess að vélin geti ekki ræst. Við mælum "
 "eindregið með að þú útbúir ræsidiskling síðar þegar þér er boðið upp á að "
 "gera það.\n"
 "\n"
@@ -1753,7 +1756,7 @@ msgid "Partition"
 msgstr "Disksneið"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1545 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Tegund"
 
@@ -1788,7 +1791,7 @@ msgid "Default"
 msgstr "Sjálfgefið"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -1867,7 +1870,7 @@ msgstr "Nota GRUB lykilorð?"
 
 #: ../iw/bootloaderpassword_gui.py:109
 msgid "Please enter password"
-msgstr "Vinsamlegast sláðu lykilorð"
+msgstr "Vinsamlegast sláðu inn lykilorð"
 
 #: ../iw/confirm_gui.py:54
 msgid "About to Install"
@@ -1967,30 +1970,30 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Óuppfyllt pakkaskilyrði"
 
-#: ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, c-format
 msgid "Total install size: %s"
 msgstr "Samanlögð stærð uppsetningar: %s"
 
-#: ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Pakki"
 
-#: ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../textw/packages_text.py:301
 msgid "Requirement"
 msgstr "Þarfnast"
 
-#: ../iw/dependencies_gui.py:81 ../textw/packages_text.py:316
+#: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
-msgstr "Setja inn pakka til að uppfylla þarfir annara pakka"
+msgstr "Setja inn pakka til að uppfylla þarfir annarra pakka"
 
-#: ../iw/dependencies_gui.py:84 ../textw/packages_text.py:317
+#: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
 msgstr "Ekki setja inn pakka sem þarfnast annara pakka"
 
-#: ../iw/dependencies_gui.py:88 ../textw/packages_text.py:318
+#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
 msgstr "Hunsa pakkaskilyrði"
 
@@ -2248,7 +2251,7 @@ msgstr "Trjáarhamur"
 msgid "Flat View"
 msgstr "Flatur hamur"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1545
 msgid "Size (MB)"
 msgstr "Stærð (MB)"
 
@@ -2364,7 +2367,7 @@ msgstr "Stækka upp í mestu leyfilegu stærð"
 msgid "Add Partition"
 msgstr "Bæta við disksneið"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1349
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Tengipunktur:"
@@ -2437,7 +2440,7 @@ msgid "Check for bad blocks"
 msgstr "Leita að skemmdum blokkum"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2461,84 +2464,84 @@ msgstr "Bæta samt við"
 msgid "Warning: %s."
 msgstr "Aðvörun: %s."
 
-#: ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
+#: ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 msgid "Make RAID Device"
 msgstr "Búa til RAID tæki"
 
-#: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
+#: ../iw/partition_gui.py:1341 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
 msgstr "Þú þarft að minnsta kosti tvær RAID disksneiðar."
 
-#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1356 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "Tegund skráarkerfis:"
 
-#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID tegund:"
 
-#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:400
 msgid "RAID Members:"
 msgstr "RAID drif:"
 
-#: ../iw/partition_gui.py:1412
+#: ../iw/partition_gui.py:1414
 msgid "Number of spares:"
 msgstr "Fjöldi varadrifa:"
 
-#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1421 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "Forsníða disksneiðina?"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1525
 msgid "_New"
 msgstr "_Nýr"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1526
 msgid "_Edit"
 msgstr "_Breyta"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1527
 msgid "_Delete"
 msgstr "_Eyða"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1528
 msgid "_Reset"
 msgstr "_Endurstilla"
 
-#: ../iw/partition_gui.py:1527
+#: ../iw/partition_gui.py:1529
 msgid "Make _RAID"
 msgstr "Búa til _RAID"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "Start"
 msgstr "Byrjun"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "End"
 msgstr "Endir"
 
-#: ../iw/partition_gui.py:1543
+#: ../iw/partition_gui.py:1545
 msgid "Format"
 msgstr "Forsníða"
 
-#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
 msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
-#: ../iw/partition_gui.py:1607
+#: ../iw/partition_gui.py:1609
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Þú verður að velja amk. eitt drif til að setja Red Hat Linux upp á."
 
-#: ../iw/partition_gui.py:1646
+#: ../iw/partition_gui.py:1648
 msgid "I want to have automatic partitioning:"
 msgstr "Ég vil sneiða diskinn sjálfvirkt:"
 
-#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "Hvaða harðadiska viltu nota fyrir Linux?"
+msgstr "Hvaða harða diska viltu nota fyrir Linux?"
 
-#: ../iw/partition_gui.py:1699
+#: ../iw/partition_gui.py:1701
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr "Endurskoða (leyfir þér að skoða og breyta sjálfvirku disksneiðingunni)"
@@ -2566,7 +2569,7 @@ msgstr "Set inn pakka"
 #: ../iw/progress_gui.py:119
 #, c-format
 msgid "%s KBytes"
-msgstr "%s Kbæti"
+msgstr "%s KBæti"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -2831,7 +2834,7 @@ msgstr "Myndræn"
 msgid "Monitor Configuration"
 msgstr "Stillingar skjás"
 
-#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:874
+#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:867
 msgid "Generic"
 msgstr "Almennur"
 
@@ -2843,7 +2846,7 @@ msgstr "Skjár fundinn með DDC"
 msgid "Unprobed Monitor"
 msgstr "Unprobed skjár"
 
-#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
+#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:982
 msgid "Restore original values"
 msgstr "Endurheimta fyrri gildi"
 
@@ -2867,11 +2870,11 @@ msgstr "Hz"
 msgid "Graphical Interface (X) Configuration"
 msgstr "Myndræn (X) stilling"
 
-#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
+#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 msgid "Unspecified video card"
 msgstr "Ótilgreint skjákort"
 
-#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
+#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:609
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -2880,7 +2883,7 @@ msgstr ""
 "Þú þarft að velja skjákort áður en hægt er að stilla X gluggakerfið. Ef þú "
 "vilt sleppa því að stilla X getur þú valið 'Sleppa að stilla X' hnappinn."
 
-#: ../iw/xconfig_gui.py:835
+#: ../iw/xconfig_gui.py:828
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2888,7 +2891,7 @@ msgstr ""
 "Ekki var hægt að finna magn skjáminnis sjálfvirkt. Veldu magn skjáminnis úr "
 "listanum að neðan:"
 
-#: ../iw/xconfig_gui.py:843
+#: ../iw/xconfig_gui.py:836
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2896,7 +2899,7 @@ msgstr ""
 "Í flestum tilfellum er hægt að leita sjálfvirkt eftir bestu stillingunum "
 "fyrir skjáinn þinn."
 
-#: ../iw/xconfig_gui.py:849
+#: ../iw/xconfig_gui.py:842
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
@@ -2904,15 +2907,15 @@ msgstr ""
 "Ef útkoma leitarinnar passar ekki við vélbúnaðinn þinn, veldu réttar "
 "stillingar hér:"
 
-#: ../iw/xconfig_gui.py:879
+#: ../iw/xconfig_gui.py:872
 msgid "Other"
 msgstr "Önnur"
 
-#: ../iw/xconfig_gui.py:967
+#: ../iw/xconfig_gui.py:960
 msgid "Video card RAM: "
 msgstr "Vinnsluminni skjákorts: "
 
-#: ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
+#: ../iw/xconfig_gui.py:986 ../textw/xconfig_text.py:566
 msgid "Skip X Configuration"
 msgstr "Sleppa að stilla X"
 
@@ -2954,7 +2957,7 @@ msgstr "Nota LILO ræsistjórann"
 
 #: ../textw/bootloader_text.py:47
 msgid "No Boot Loader"
-msgstr "Engann ræsistjóra"
+msgstr "Engan ræsistjóra"
 
 #: ../textw/bootloader_text.py:66
 msgid "Skip Boot Loader"
@@ -2970,7 +2973,7 @@ msgid ""
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
 "Þú hefur kosið að setja ekki upp ræsistjóra. Við mælum eindregið með að "
-"ræsistjóri sé uppsettur nema þú hafir einhverjar sérþarfir. Ræsistjóra er "
+"ræsistjóri sé uppsettur nema þú hafir einhverjar sérþarfir. Ræsistjóri er "
 "nauðsynlegur til þess að ræsa upp Linux beint af harða disknum þínum. \n"
 "\n"
 "Ertu viss um að þú viljir sleppa uppsetningu ræsistjóra?"
@@ -3039,7 +3042,7 @@ msgstr "Lykilorðin stemma ekki"
 
 #: ../textw/bootloader_text.py:424
 msgid "Password Too Short"
-msgstr "Lkilorðið er of stutt"
+msgstr "Lykilorðið er of stutt"
 
 #: ../textw/bootloader_text.py:425
 msgid "Boot loader password is too short"
@@ -3464,29 +3467,29 @@ msgstr "Of mörg varadrif"
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Hámarksfjöldi varadiska í RAID0 drifi er 0."
 
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:979
 msgid "Partitioning"
 msgstr "Disksneiðing"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "New"
 msgstr "Nýr"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:990
+#: ../textw/partition_text.py:992
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hjálp    F2-Nýr    F3-Breyta   F4-Eyða   F5-Frumstilla  F12-Í lagi    "
 
-#: ../textw/partition_text.py:1017
+#: ../textw/partition_text.py:1019
 msgid "No Root Partition"
 msgstr "Engin rótarsneið"
 
-#: ../textw/partition_text.py:1018
+#: ../textw/partition_text.py:1020
 msgid "Must have a / partition to install on."
 msgstr "Þú verður að hafa / disksneið til að setja upp á."
 
@@ -3575,7 +3578,7 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
+"Linux 2.4 kjarninn þarfnast meira diskminnis en eldri kjarnar. Magn "
 "diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að stærð."
 "Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
 "diskminni á einhverju af skráarkerfunum þínum núna."
@@ -3622,7 +3625,7 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Pakkarnir sem þegar eru á vélinni og aðrir pakkar sem þeir eru háðir til að "
+"Pakkarnir sem þegar eru á vélinni og aðrir pakkar sem þeim eru háðir til að "
 "uppfylla skilyrði þeirra hafa verið valdir til uppsetningar. Viltu skoða "
 "listann og kannski breyta honum?"
 
@@ -3814,7 +3817,7 @@ msgid ""
 msgstr ""
 "Velkomin(n) í Red Hat Linux!\n"
 "\n"
-"þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
+"Þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
 "vélarinnar að breyttum aðstæðum. \n"
 "\n"
 "Ef þú vilt hætta án þess að gera neinar breytingar veldu þá Hætta við "
@@ -3826,7 +3829,7 @@ msgstr "Litadýpt"
 
 #: ../textw/xconfig_text.py:24
 msgid "Please select the color depth you would like to use:"
-msgstr "Vinsamlegast veldu þá litadýpt sem þú villt nota:"
+msgstr "Vinsamlegast veldu þá litadýpt sem þú vilt nota:"
 
 #: ../textw/xconfig_text.py:42
 msgid "Resolution"
@@ -3855,7 +3858,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
 #: ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
+#: ../textw/xconfig_text.py:585 ../textw/xconfig_text.py:592
 msgid "Change"
 msgstr "Breyta"
 
@@ -3961,7 +3964,7 @@ msgstr "VSync tíðni:"
 
 #: ../textw/xconfig_text.py:423
 msgid "You cannot go back from this step."
-msgstr "Þú getur ekki farið til bara úr þessu þrepi."
+msgstr "Þú getur ekki farið til baka úr þessu þrepi."
 
 #: ../textw/xconfig_text.py:477
 #, c-format
@@ -3985,23 +3988,23 @@ msgstr ""
 "Vinsamlegast veldu það magn skjáminnis sem er til staðar á skjákortinu þínu. "
 "Notaðu '%s' hnappinn til að endurstilla gildin sem sjálfvirka leitin fann."
 
-#: ../textw/xconfig_text.py:565
+#: ../textw/xconfig_text.py:569
 msgid "Video Card Configuration"
 msgstr "Stillingar skjákorts"
 
-#: ../textw/xconfig_text.py:568
+#: ../textw/xconfig_text.py:572
 msgid "Select the video card and video RAM for your system."
 msgstr "Veldu skjákortið og skjáminnið sem það hefur."
 
-#: ../textw/xconfig_text.py:571
+#: ../textw/xconfig_text.py:575
 msgid "Video Card:"
 msgstr "Skjákort:"
 
-#: ../textw/xconfig_text.py:576
+#: ../textw/xconfig_text.py:580
 msgid "Unknown card"
 msgstr "Óþekkt kort"
 
-#: ../textw/xconfig_text.py:584
+#: ../textw/xconfig_text.py:588
 msgid "Video RAM:"
 msgstr "Vinnsluminni skjákorts:"
 
@@ -4241,13 +4244,13 @@ msgid ""
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"Hvaða disksneið og mappa á þeirri sneið inniheldur diskmyndinar (iso9660) af "
-"Red Hat Linux? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að bæta "
-"við tækjum."
+"Hvaða disksneið og mappa á þeirri sneið inniheldur diskmyndirnar (iso9660) "
+"af Red Hat Linux? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að "
+"bæta við tækjum."
 
 #: ../loader/loader.c:845
 msgid "Directory holding images:"
-msgstr "Mappa sem inniheldur diskmyndinar:"
+msgstr "Mappa sem inniheldur diskmyndirnar:"
 
 #: ../loader/loader.c:865
 msgid "Select Partition"
@@ -4276,8 +4279,8 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Þú hefur fleiri en eitt netkort í vélinni þinni. Hvert þeirra villtu nota "
-"við uppsetninguna?"
+"Þú hefur fleiri en eitt netkort í vélinni þinni. Hvert þeirra viltu nota við "
+"uppsetninguna?"
 
 #: ../loader/loader.c:1141
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -4303,7 +4306,7 @@ msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
 #: ../loader/loader.c:1244
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
-"FTP og HTTP uppsetningaraðferðirnar þarfnar 20MB eða meira af vinnsluminni."
+"FTP og HTTP uppsetningaraðferðirnar þarfnast 20MB eða meira af vinnsluminni."
 
 #: ../loader/loader.c:1482
 msgid "Rescue Method"
@@ -4407,7 +4410,7 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"Beiðninni um lausbundnar IP stillingar var svarað en það innihelt ekki "
+"Beiðninni um lausbundnar IP stillingar var svarað en það innihélt ekki "
 "upplýsingar um nafnaþjóna. Ef þú veist hver nafnaþjónninn þinn er máttu slá "
 "það inn hérna. Ef þú veist það ekki máttu skilja þetta eftir autt og "
 "uppsetningin mun halda áfram."
@@ -4549,12 +4552,13 @@ msgid "Retrieving"
 msgstr "Sæki"
 
 #: ../loader/urls.c:163
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"      Red Hat Linux for your architecture\n"
 msgstr ""
 "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
 "\n"
@@ -4825,10 +4829,6 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "Amundsen-Scott Station, suðurskautið"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantic islands"
-
-#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
@@ -4841,6 +4841,10 @@ msgstr ""
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr "Atlantic Time - Nova Scotia - staðir sem fóru ekki eftir DST 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -4861,14 +4865,6 @@ msgstr "Casey Station, Bailey Peninsula"
 #. generated from zone.tab
 msgid "Catamarca (CT)"
 msgstr "Catamarca (CT)"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "Central Crimea"
-
-#. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr "Central Kazakhstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -4899,16 +4895,16 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Central Time - most locations"
-
-#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Central Time - Rainy River & Fort Frances, Ontario"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -4951,28 +4947,12 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "east Dem. Rep. of Congo"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr "Eastern Standard Time - central Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
 msgstr "Eastern Standard Time - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - flestir staðir"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -4983,8 +4963,20 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr "Eastern Standard Time - Indiana - flestir staðir"
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr "Eastern Standard Time - central Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -5019,22 +5011,6 @@ msgstr "Eastern Time - Thunder Bay, Ontario"
 #. generated from zone.tab
 msgid "Eastern Turkestan"
 msgstr "Eastern Turkestan"
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr "east Greenland"
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr "east Kazakhstan"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "east Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -5129,10 +5105,6 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "Moscow+01 - Caspian Sea"
 
 #. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moscow-01 - Kaliningrad"
-
-#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr "Moscow+02 - Urals"
 
@@ -5173,6 +5145,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Moscow-01 - Kaliningrad"
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
@@ -5195,10 +5171,6 @@ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - central Northwest Territories"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "Mountain Time - Chihuahua"
 
@@ -5209,6 +5181,10 @@ msgstr "Mountain Time - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -5227,20 +5203,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "NE Brazil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland Island"
+msgid "New South Wales - Yancowinna"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr "northeast Mali"
+msgid "Newfoundland Island"
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -5249,14 +5221,6 @@ msgstr "Northern Ireland"
 #. generated from zone.tab
 msgid "Northern Territory"
 msgstr "Northern Territory"
-
-#. generated from zone.tab
-msgid "north Manchuria"
-msgstr "north Manchuria"
-
-#. generated from zone.tab
-msgid "northwest Greenland"
-msgstr "northwest Greenland"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -5273,10 +5237,6 @@ msgstr "Pacific Time - west British Columbia"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Palmer Station, Anvers Island"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -5307,6 +5267,10 @@ msgid "Ruthenia"
 msgstr "Ruthenia"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah & Sarawak"
 
@@ -5317,18 +5281,6 @@ msgstr "Society Islands"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "South Australia"
-
-#. generated from zone.tab
-msgid "southwest Greenland"
-msgstr "southwest Greenland"
-
-#. generated from zone.tab
-msgid "southwest Mali"
-msgstr "southwest Mali"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5363,16 +5315,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wake Island"
-
-#. generated from zone.tab
 msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "W Para, Rondonia"
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr "Wake Island"
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr "Western Australia"
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr "Yap"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk"
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "Central Crimea"
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr "Central Kazakhstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "east Dem. Rep. of Congo"
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr "east Greenland"
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr "east Kazakhstan"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "east Uzbekistan"
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr "north Manchuria"
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr "northeast Mali"
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr "northwest Greenland"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "peninsular Malaysia"
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr "southwest Greenland"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5383,10 +5403,6 @@ msgid "west Dem. Rep. of Congo"
 msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Western Australia"
-
-#. generated from zone.tab
 msgid "west Kazakhstan"
 msgstr "west Kazakhstan"
 
@@ -5394,25 +5410,13 @@ msgstr "west Kazakhstan"
 msgid "west Uzbekistan"
 msgstr "west Uzbekistan"
 
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr "Yap"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, E Lugansk"
-
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Chinese(Simplified)"
+msgstr "Kínverska(Simplified)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Chinese(Traditional)"
+msgstr "Kínverska(Traditional)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5444,7 +5448,7 @@ msgstr "Japanska"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "Korean"
+msgstr "Kóreska"
 
 #. generated from lang-table
 msgid "Norwegian"

@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2001-08-14 18:40-0400\n"
+"POT-Creation-Date: 2001-08-17 14:41-0400\n"
 "PO-Revision-Date: 2001-08-09 16:39-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
-#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1323 ../loader/cdrom.c:34
+#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1325 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
@@ -92,24 +92,24 @@ msgstr ""
 msgid "Using mouse type: "
 msgstr "使用するマウスタイプ: "
 
-#: ../autopart.py:682
+#: ../autopart.py:684
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
 "シリンダベースパーティションを第一パーティションとして確保できませんでした"
 
-#: ../autopart.py:685
+#: ../autopart.py:687
 msgid "Could not allocate partitions as primary partitions"
 msgstr "パーティションを第一パーティションとして確保できませんでした"
 
-#: ../autopart.py:688
+#: ../autopart.py:690
 msgid "Could not allocate cylinder-based partitions"
 msgstr "シリンダベースパーティションを確保できませんでした"
 
-#: ../autopart.py:691
+#: ../autopart.py:693
 msgid "Could not allocate partitions"
 msgstr "パーティションを確保できませんでした"
 
-#: ../autopart.py:739
+#: ../autopart.py:741
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -118,11 +118,11 @@ msgstr ""
 "ブートパーティション%sはこのアーキテクチャではブートに適していません。ブート"
 "ディスクの作成を強くお勧めします。"
 
-#: ../autopart.py:853
+#: ../autopart.py:856
 msgid "Requested Partition Does Not Exist"
 msgstr "要求されたパーティションが存在しません"
 
-#: ../autopart.py:854
+#: ../autopart.py:857
 #, c-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -133,11 +133,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します"
 
-#: ../autopart.py:887
+#: ../autopart.py:890
 msgid "Partition Request Sanity Check Errors"
 msgstr "パーティション設定確認チェックエラー"
 
-#: ../autopart.py:888
+#: ../autopart.py:891
 #, c-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -152,11 +152,11 @@ msgstr ""
 "\n"
 "OK を押すとシステムを再起動します"
 
-#: ../autopart.py:897
+#: ../autopart.py:900
 msgid "Warnings During Automatic Partitioning"
 msgstr "自動パーティション設定中に警告"
 
-#: ../autopart.py:898
+#: ../autopart.py:901
 #, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -167,12 +167,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:910 ../iw/partition_gui.py:1275
+#: ../autopart.py:913 ../iw/partition_gui.py:1275
 #: ../textw/partition_text.py:163
 msgid "Error Partitioning"
 msgstr "パーティション設定エラー"
 
-#: ../autopart.py:911
+#: ../autopart.py:914
 #, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -183,18 +183,18 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
+#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
+#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
 msgid "Warning"
 msgstr "警告"
 
-#: ../autopart.py:951
+#: ../autopart.py:954
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -217,7 +217,7 @@ msgstr ""
 "fdisk は伝統的なテキストベースのパーティション設定ツールです。簡単に使えるわ"
 "けではありませんが、こちらの方が好まれる場合もあります。"
 
-#: ../autopart.py:967
+#: ../autopart.py:970
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -225,19 +225,19 @@ msgstr ""
 "インストールプログラムが自動パーティション設定を行う前に、ハードディスクをど"
 "のように使うかを必ず選択しておかなければなりません。"
 
-#: ../autopart.py:972
+#: ../autopart.py:975
 msgid "Remove all partitions on this system"
 msgstr "システムのすべてのパーティションを削除"
 
-#: ../autopart.py:973
+#: ../autopart.py:976
 msgid "Remove all Linux Partitions on this system"
 msgstr "システムのすべてのLinux パーティションを削除"
 
-#: ../autopart.py:974
+#: ../autopart.py:977
 msgid "Keep all partitions and use existing free space"
 msgstr "すべてのパーティションを保持し、既存の空き領域を使用"
 
-#: ../autopart.py:976
+#: ../autopart.py:979
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -252,7 +252,7 @@ msgstr ""
 "ています:%s\n"
 "本当にすべて削除しますか?"
 
-#: ../autopart.py:981
+#: ../autopart.py:984
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -279,19 +279,19 @@ msgstr "ブートローダをインストール中..."
 msgid "Everything"
 msgstr "すべて"
 
-#: ../comps.py:672 ../upgrade.py:442
+#: ../comps.py:672 ../upgrade.py:457
 msgid "no suggestion"
 msgstr "推奨事項はありません"
 
-#: ../exception.py:83 ../text.py:219
+#: ../exception.py:95 ../text.py:219
 msgid "Exception Occurred"
 msgstr "例外が発生しました"
 
-#: ../exception.py:150
+#: ../exception.py:162
 msgid "Dump Written"
 msgstr "dump が書き込まれました"
 
-#: ../exception.py:151
+#: ../exception.py:163
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -308,7 +308,7 @@ msgstr "システム状態のフロッピーへの書き込みに成功。システムを再起動します"
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -515,7 +515,7 @@ msgid "Ignore"
 msgstr "無視"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
-#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1324
+#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
 #: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
@@ -695,31 +695,31 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "アップグレードを続行しますか?"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading"
 msgstr "読み込み中"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading package information..."
 msgstr "パッケージ情報読み込み中..."
 
-#: ../packages.py:154
+#: ../packages.py:157
 msgid "Dependency Check"
 msgstr "依存関係チェック"
 
-#: ../packages.py:155
+#: ../packages.py:158
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "インストール対象パッケージの依存関係をチェック中..."
 
-#: ../packages.py:203 ../packages.py:474
+#: ../packages.py:206 ../packages.py:477
 msgid "Processing"
 msgstr "処理中"
 
-#: ../packages.py:204
+#: ../packages.py:207
 msgid "Preparing to install..."
 msgstr "インストール準備中..."
 
-#: ../packages.py:238
+#: ../packages.py:241
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -728,21 +728,21 @@ msgstr ""
 "ファイル %s を開けません。原因はファイルの欠落、パッケージ、またはメディアの"
 "不良です。<return> を押してやり直して下さい"
 
-#: ../packages.py:475
+#: ../packages.py:478
 msgid "Setting up RPM transaction..."
 msgstr "RPMトランザクションを設定中..."
 
-#: ../packages.py:516
+#: ../packages.py:519
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s をアップグレード中\n"
 
-#: ../packages.py:518
+#: ../packages.py:521
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s をインストール中\n"
 
-#: ../packages.py:578
+#: ../packages.py:581
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -752,16 +752,16 @@ msgstr ""
 "ファイルシステム上に空き領域が必要です:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "マウントポイント"
 
-#: ../packages.py:583
+#: ../packages.py:586
 msgid "Space Needed"
 msgstr "領域不足"
 
-#: ../packages.py:598
+#: ../packages.py:601
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -771,19 +771,19 @@ msgstr ""
 "次のファイルシステム上により多くのファイルノードが必要です:\n"
 "\n"
 
-#: ../packages.py:603
+#: ../packages.py:606
 msgid "Nodes Needed"
 msgstr "ノード数不足"
 
-#: ../packages.py:609
+#: ../packages.py:612
 msgid "Disk Space"
 msgstr "ディスク容量"
 
-#: ../packages.py:647
+#: ../packages.py:650
 msgid "Post Install"
 msgstr "インストール後の設定"
 
-#: ../packages.py:648
+#: ../packages.py:651
 msgid "Performing post install configuration..."
 msgstr "インストール後の設定を実行中..."
 
@@ -971,7 +971,7 @@ msgstr ""
 "エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。"
 "ハードウェアをチェックして、この問題の原因を調査して下さい"
 
-#: ../partitioning.py:1571
+#: ../partitioning.py:1576
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -981,7 +981,7 @@ msgstr ""
 "\n"
 "本当に削除しますか?"
 
-#: ../partitioning.py:1574
+#: ../partitioning.py:1579
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -992,52 +992,52 @@ msgstr ""
 "\n"
 "本当に削除しますか?"
 
-#: ../partitioning.py:1578
+#: ../partitioning.py:1583
 msgid "Are you sure you want to delete this partition?"
 msgstr "パーティションを削除してよろしいですか?"
 
-#: ../partitioning.py:1580
+#: ../partitioning.py:1585
 msgid "Confirm Delete"
 msgstr "削除の確認"
 
-#: ../partitioning.py:1584
+#: ../partitioning.py:1589
 msgid "Confirm Reset"
 msgstr "リセットの確認"
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1590
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元に戻しますか?"
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1614
 msgid "the partition in use by the installer."
 msgstr "このパーティションはインストーラが使用中です"
 
-#: ../partitioning.py:1612
+#: ../partitioning.py:1617
 msgid "a partition which is a member of a RAID array."
 msgstr "RAIDアレイのメンバーである、パーティション"
 
-#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
-#: ../partitioning.py:1646 ../partitioning.py:1653
+#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
+#: ../partitioning.py:1651 ../partitioning.py:1658
 msgid "Unable To Remove"
 msgstr "削除できません"
 
-#: ../partitioning.py:1622
+#: ../partitioning.py:1627
 msgid "You must first select a partition to remove."
 msgstr "最初に削除するパーティションを選択しなければなりません"
 
-#: ../partitioning.py:1628
+#: ../partitioning.py:1633
 msgid "You cannot remove free space."
 msgstr "自由領域は削除できません"
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1641
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr "これは %s を含む拡張パーティションなので削除できません"
 
-#: ../partitioning.py:1647
+#: ../partitioning.py:1652
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1045,38 +1045,38 @@ msgstr ""
 "このパーティションにはハードディスクインストール用のデータがあるので、削除で"
 "きません"
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1659
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr "これは RAIDデバイスの一部なので削除できません"
 
-#: ../partitioning.py:1685 ../partitioning.py:1707
+#: ../partitioning.py:1690 ../partitioning.py:1712
 msgid "Unable To Edit"
 msgstr "編集できません"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1691
 msgid "You must select a partition to edit"
 msgstr "編集するパーティションを選択しなければなりません"
 
-#: ../partitioning.py:1708
+#: ../partitioning.py:1713
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "これは %s を含む拡張パーティションなので編集できません"
 
-#: ../partitioning.py:1716
+#: ../partitioning.py:1721
 msgid "Unable to Edit"
 msgstr "編集できません"
 
-#: ../partitioning.py:1717
+#: ../partitioning.py:1722
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "RAIDデバイスの一部なので編集できません"
 
-#: ../partitioning.py:1729
+#: ../partitioning.py:1734
 msgid "Installation cannot continue."
 msgstr "インストール続行不能"
 
-#: ../partitioning.py:1730
+#: ../partitioning.py:1735
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1085,11 +1085,11 @@ msgstr ""
 "指定されたパーティション設定オプションは既に選択されています。もうディスク編"
 "集画面には戻れません。インストールを続けますか?"
 
-#: ../partitioning.py:1750
+#: ../partitioning.py:1755
 msgid "Low Memory"
 msgstr "メモリ不足"
 
-#: ../partitioning.py:1751
+#: ../partitioning.py:1756
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1098,11 +1098,11 @@ msgstr ""
 "メモリが不足しています。ただちにスワップ領域を有効にする必要があります。この"
 "ため新しいパーティションテーブルをディスクに書き込みます。よろしいですか?"
 
-#: ../partitioning.py:1769
+#: ../partitioning.py:1774
 msgid "Format as Swap?"
 msgstr "スワップパーティションとしてフォーマットしますか?"
 
-#: ../partitioning.py:1770
+#: ../partitioning.py:1775
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1115,11 +1115,11 @@ msgstr ""
 "\n"
 "このパーティションをスワップパーティションとしてフォーマットしますか?"
 
-#: ../partitioning.py:1789 ../partitioning.py:1807
+#: ../partitioning.py:1794 ../partitioning.py:1812
 msgid "Format?"
 msgstr "フォーマットしますか?"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1795
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1131,7 +1131,7 @@ msgstr ""
 "\n"
 "本当にフォーマットしますか?"
 
-#: ../partitioning.py:1798
+#: ../partitioning.py:1803
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1148,11 +1148,11 @@ msgstr ""
 "\n"
 "本当にフォーマットしますか?"
 
-#: ../partitioning.py:1814
+#: ../partitioning.py:1819
 msgid "Error with Partitioning"
 msgstr "パーティション設定エラー"
 
-#: ../partitioning.py:1815
+#: ../partitioning.py:1820
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1166,11 +1166,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1833
 msgid "Partitioning Warning"
 msgstr "パーティション設定、警告"
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1834
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1185,7 +1185,7 @@ msgstr ""
 "\n"
 "このパーティション設定のままで続けますか?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1841
+#: ../iw/partition_gui.py:576 ../partitioning.py:1846
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1193,7 +1193,7 @@ msgstr ""
 "次の既存のパーティションはフォーマットし、すべてのデータを消去するように選択"
 "されています"
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1844
+#: ../iw/partition_gui.py:579 ../partitioning.py:1849
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1201,7 +1201,7 @@ msgstr ""
 "'はい'を選択すると処理を続け、これらのパーティションをフォーマットします。'い"
 "いえ'なら前に戻ってこれらの設定を変更できます"
 
-#: ../partitioning.py:1850
+#: ../partitioning.py:1855
 msgid "Format Warning"
 msgstr "フォーマット警告"
 
@@ -1419,7 +1419,7 @@ msgstr ""
 msgid "An error occured when finding the packages to upgrade."
 msgstr "アップグレードするパッケージを検索中にエラーが起りました"
 
-#: ../upgrade.py:350
+#: ../upgrade.py:359
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1432,7 +1432,7 @@ msgstr ""
 "グレードによってそれらが正しく動作しなくなるか、他のシステムがインストールで"
 "きなくなる恐れがあります。アップグレードを続けますか?"
 
-#: ../upgrade.py:367
+#: ../upgrade.py:378
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1443,7 +1443,7 @@ msgstr ""
 "Linuxシステムではありません。アップグレードプロセスの続行はシステムを動作不能"
 "な状態にしてしまいます。アップグレードを続けますか?"
 
-#: ../videocard.py:401
+#: ../videocard.py:418
 msgid "Unknown Card"
 msgstr "不明なカード"
 
@@ -1575,13 +1575,13 @@ msgid "Add"
 msgstr "追加"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "編集"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:987
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "削除"
@@ -1744,7 +1744,7 @@ msgid "Partition"
 msgstr "パーティション"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1545 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "タイプ"
 
@@ -1779,7 +1779,7 @@ msgid "Default"
 msgstr "デフォルト"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -1955,30 +1955,30 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "未解決の依存"
 
-#: ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, c-format
 msgid "Total install size: %s"
 msgstr "インストール合計容量： %s"
 
-#: ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "パッケージ"
 
-#: ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../textw/packages_text.py:301
 msgid "Requirement"
 msgstr "要件"
 
-#: ../iw/dependencies_gui.py:81 ../textw/packages_text.py:316
+#: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
 msgstr "依存を解決するパッケージをインストール"
 
-#: ../iw/dependencies_gui.py:84 ../textw/packages_text.py:317
+#: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
 msgstr "依存関係のあるパッケージをインストールしない"
 
-#: ../iw/dependencies_gui.py:88 ../textw/packages_text.py:318
+#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
 msgstr "パッケージの依存関係を無視"
 
@@ -2237,7 +2237,7 @@ msgstr "ツリー表示"
 msgid "Flat View"
 msgstr "フラット表示"
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1545
 msgid "Size (MB)"
 msgstr "容量 (メガバイト):"
 
@@ -2352,7 +2352,7 @@ msgstr "可能な最大容量まで拡大"
 msgid "Add Partition"
 msgstr "パーティション追加"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1349
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "マウントポイント:"
@@ -2425,7 +2425,7 @@ msgid "Check for bad blocks"
 msgstr "不良ブロックをチェック"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2449,84 +2449,84 @@ msgstr "とにかく追加"
 msgid "Warning: %s."
 msgstr "警告: %s."
 
-#: ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
+#: ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 msgid "Make RAID Device"
 msgstr "RAID デバイス作成"
 
-#: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
+#: ../iw/partition_gui.py:1341 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
 msgstr "少なくとも二つのソフトウェアRAIDパーティションが必要です"
 
-#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1356 ../textw/partition_text.py:226
 msgid "Filesystem type:"
 msgstr "ファイルシステムタイプ:"
 
-#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
 msgid "RAID Level:"
 msgstr "RAID レベル:"
 
-#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:400
 msgid "RAID Members:"
 msgstr "RAID メンバー:"
 
-#: ../iw/partition_gui.py:1412
+#: ../iw/partition_gui.py:1414
 msgid "Number of spares:"
 msgstr "スペア数:"
 
-#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1421 ../textw/partition_text.py:842
 msgid "Format partition?"
 msgstr "パーティションをフォーマットしますか?"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1525
 msgid "_New"
 msgstr "新規(_N)"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1526
 msgid "_Edit"
 msgstr "編集(_E)"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1527
 msgid "_Delete"
 msgstr "削除(_D)"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1528
 msgid "_Reset"
 msgstr "リセット(_R)"
 
-#: ../iw/partition_gui.py:1527
+#: ../iw/partition_gui.py:1529
 msgid "Make _RAID"
 msgstr "RAID 作成(_R)"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "Start"
 msgstr "開始"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "End"
 msgstr "終了"
 
-#: ../iw/partition_gui.py:1543
+#: ../iw/partition_gui.py:1545
 msgid "Format"
 msgstr "フォーマット"
 
-#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
 msgid "Automatic Partitioning"
 msgstr "自動パーティション設定"
 
-#: ../iw/partition_gui.py:1607
+#: ../iw/partition_gui.py:1609
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "インストールするドライブは少なくとも一つ選択しなければなりません"
 
-#: ../iw/partition_gui.py:1646
+#: ../iw/partition_gui.py:1648
 msgid "I want to have automatic partitioning:"
 msgstr "自動パーティション設定するドライブ:"
 
-#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "このインストール方法をどのドライブに使用しますか?"
 
-#: ../iw/partition_gui.py:1699
+#: ../iw/partition_gui.py:1701
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr "レビュー(自動パーティション設定の結果を確認し、変更できます)"
@@ -2816,7 +2816,7 @@ msgstr "グラフィカル"
 msgid "Monitor Configuration"
 msgstr "モニタの設定"
 
-#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:874
+#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:867
 msgid "Generic"
 msgstr "汎用"
 
@@ -2828,7 +2828,7 @@ msgstr "DDC 検出モニター"
 msgid "Unprobed Monitor"
 msgstr "モニター未検出"
 
-#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
+#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:982
 msgid "Restore original values"
 msgstr "元の値に戻す"
 
@@ -2853,11 +2853,11 @@ msgstr "Hz"
 msgid "Graphical Interface (X) Configuration"
 msgstr "グラフィカルインターフェース(X)の設定"
 
-#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
+#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 msgid "Unspecified video card"
 msgstr "ビデオカード未指定"
 
-#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
+#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:609
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -2866,7 +2866,7 @@ msgstr ""
 "X の設定を続けるにはビデオカードを選択する必要があります。X 設定を完全にとば"
 "したいなら [X 設定をスキップ] を選択して下さい"
 
-#: ../iw/xconfig_gui.py:835
+#: ../iw/xconfig_gui.py:828
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2874,7 +2874,7 @@ msgstr ""
 "ビデオメモリのサイズを自動検出することができません。ビデオメモリのサイズを選"
 "択して下さい:"
 
-#: ../iw/xconfig_gui.py:843
+#: ../iw/xconfig_gui.py:836
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2882,7 +2882,7 @@ msgstr ""
 "ほとんどの場合には自動的にビデオカードを検出して、ディスプレイに最適な設定を"
 "判断できます。"
 
-#: ../iw/xconfig_gui.py:849
+#: ../iw/xconfig_gui.py:842
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
@@ -2891,15 +2891,15 @@ msgstr ""
 "して下さい:"
 
 # ../comps/comps-master:146
-#: ../iw/xconfig_gui.py:879
+#: ../iw/xconfig_gui.py:872
 msgid "Other"
 msgstr "その他"
 
-#: ../iw/xconfig_gui.py:967
+#: ../iw/xconfig_gui.py:960
 msgid "Video card RAM: "
 msgstr "ビデオカード RAM:"
 
-#: ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
+#: ../iw/xconfig_gui.py:986 ../textw/xconfig_text.py:566
 msgid "Skip X Configuration"
 msgstr "X の設定を行わない"
 
@@ -3448,30 +3448,30 @@ msgstr "スペア数が多過ぎます"
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "RAID0 アレイでの最大スペア数は 0 です"
 
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:979
 msgid "Partitioning"
 msgstr "パーティション設定"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "New"
 msgstr "新規"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:990
+#: ../textw/partition_text.py:992
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    <F1> - ヘルプ   <F2> - 新規    <F3> - 編集   <F4> - 削除  <F5> - リセッ"
 "ト  <F12> - OK        "
 
-#: ../textw/partition_text.py:1017
+#: ../textw/partition_text.py:1019
 msgid "No Root Partition"
 msgstr "ルートパーティションがありません"
 
-#: ../textw/partition_text.py:1018
+#: ../textw/partition_text.py:1020
 msgid "Must have a / partition to install on."
 msgstr "インストールするには / パーティションが必要です"
 
@@ -3836,7 +3836,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
 #: ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
+#: ../textw/xconfig_text.py:585 ../textw/xconfig_text.py:592
 msgid "Change"
 msgstr "変更"
 
@@ -3965,23 +3965,23 @@ msgstr ""
 "ビデオカードのビデオ RAM 容量を選択します。インストーラの検出値をリセットする"
 "には '%s' ボタンを押します"
 
-#: ../textw/xconfig_text.py:565
+#: ../textw/xconfig_text.py:569
 msgid "Video Card Configuration"
 msgstr "ビデオカードの設定"
 
-#: ../textw/xconfig_text.py:568
+#: ../textw/xconfig_text.py:572
 msgid "Select the video card and video RAM for your system."
 msgstr "システムのビデオカードとビデオメモリ容量を選択して下さい"
 
-#: ../textw/xconfig_text.py:571
+#: ../textw/xconfig_text.py:575
 msgid "Video Card:"
 msgstr "ビデオカード:"
 
-#: ../textw/xconfig_text.py:576
+#: ../textw/xconfig_text.py:580
 msgid "Unknown card"
 msgstr "不明なカード"
 
-#: ../textw/xconfig_text.py:584
+#: ../textw/xconfig_text.py:588
 msgid "Video RAM:"
 msgstr "ビデオメモリ容量:"
 
@@ -4525,12 +4525,13 @@ msgid "Retrieving"
 msgstr "取得"
 
 #: ../loader/urls.c:163
+#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"      Red Hat Linux for your architecture\n"
 msgstr ""
 "次の情報を入力して下さい:\n"
 "\n"
@@ -4829,10 +4830,6 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "アムンゼン-スコット基地、南極"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "アトランティック諸島"
-
-#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "アトランティック時間 - E Labrador"
 
@@ -4848,6 +4845,10 @@ msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 "アトランティック時間 - Nova Scotia - places that did not observe DST 1966-"
 "1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "アトランティック諸島"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -4868,14 +4869,6 @@ msgstr "Casey Station, Bailey Peninsula"
 #. generated from zone.tab
 msgid "Catamarca (CT)"
 msgstr "カタマルカ (CT)"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "中央クリミア"
-
-#. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr "中央カザフスタン"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -4907,16 +4900,16 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "中央時間 - ミシガン・ウィスコンシン境界"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "中央時間 - 一般"
-
-#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "中央時間 - キンタナロー"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "中央時間 - レイニー川、フォートフランセス、オンタリオ"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "中央時間 - 一般"
 
 # イヌイット自治州
 #. generated from zone.tab
@@ -4964,28 +4957,12 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr "東アルゼンチン (BA, DF, SC, TF)"
 
 #. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "東コンゴ民主共和国"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "イースター諸島"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr "東部時間 - 中央ヌナブット"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
-msgstr "東部時間 - 東ヌナブット"
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
 msgstr "東部時間 - インディアナ、クロフォード郡"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "東部時間 - インディアナ、一般"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -4996,8 +4973,20 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "東部時間 - インディアナ、スイス郡"
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr "東部時間 - インディアナ、一般"
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr "東部時間 - パングニルチュング、ヌナブット"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr "東部時間 - 中央ヌナブット"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr "東部時間 - 東ヌナブット"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -5031,22 +5020,6 @@ msgstr "東部時間 - サンダーベイ、オンタリオ"
 #. generated from zone.tab
 msgid "Eastern Turkestan"
 msgstr "東トルキスタン"
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr "東グリーンランド"
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr "東カザフスタン"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "東ウズベキスタン"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -5142,10 +5115,6 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "モスクワ+01 - カスピ海"
 
 #. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "モスクワ-01 - カリニングラッド"
-
-#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr "モスクワ+01 - ウラル"
 
@@ -5186,6 +5155,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "モスクワ+10 - ベーリング海"
 
 #. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr "モスクワ-01 - カリニングラッド"
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "米国山岳標準時 - アリゾナ"
 
@@ -5209,10 +5182,6 @@ msgstr ""
 "米国山岳標準時 - アルベルタ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "米国山岳標準時 - 中央北西地方"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "米国山岳標準時 - チワワ"
 
@@ -5223,6 +5192,10 @@ msgstr "米国山岳標準時 - ナバホ"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "米国山岳標準時 - 南バハ、ナヤリット、シナロア"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "米国山岳標準時 - 中央北西地方"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -5241,20 +5214,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "NE ブラジル (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "ニューファンドランド諸島"
+msgid "New South Wales - Yancowinna"
+msgstr "ニューサウスウェールズ - ブロークンヒル"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "ニューサウスウェールズ - most locations"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "ニューサウスウェールズ - ブロークンヒル"
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr "北東マリ"
+msgid "Newfoundland Island"
+msgstr "ニューファンドランド諸島"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -5263,14 +5232,6 @@ msgstr "ノーザーン諸島"
 #. generated from zone.tab
 msgid "Northern Territory"
 msgstr "北部地方"
-
-#. generated from zone.tab
-msgid "north Manchuria"
-msgstr "北マンチュリア"
-
-#. generated from zone.tab
-msgid "northwest Greenland"
-msgstr "北西グリーンランド"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -5287,10 +5248,6 @@ msgstr "太平洋時間 - 西ブリティッシュコロンビア"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "パーマーステーション、アンバーズ島"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "西マレーシア"
 
 # ブラジルの州名らしい
 #. generated from zone.tab
@@ -5321,6 +5278,10 @@ msgstr "ロライマ"
 msgid "Ruthenia"
 msgstr "ルテニア"
 
+#. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE ブラジル(BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
 # ボルネオ半島、東マレーシア
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
@@ -5333,18 +5294,6 @@ msgstr "ソシエテ諸島"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "南オーストラリア"
-
-#. generated from zone.tab
-msgid "southwest Greenland"
-msgstr "南西グリーンランド"
-
-#. generated from zone.tab
-msgid "southwest Mali"
-msgstr "南西マリ"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE ブラジル(BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 # Norway
 #. generated from zone.tab
@@ -5380,16 +5329,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "ヴォストーク基地、南極"
 
 #. generated from zone.tab
-msgid "Wake Island"
-msgstr "ウェイク諸島"
-
-#. generated from zone.tab
 msgid "W Amazonas"
 msgstr "西アマゾン"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "西アルゼンチン (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "東パラ、ロンドニア"
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr "ウェイク諸島"
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr "西部オーストラリア"
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr "ヤップ"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "ウクライナ/ルガンスク州"
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "中央クリミア"
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr "中央カザフスタン"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "東コンゴ民主共和国"
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr "東グリーンランド"
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr "東カザフスタン"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "東ウズベキスタン"
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr "北マンチュリア"
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr "北東マリ"
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr "北西グリーンランド"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "西マレーシア"
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr "南西グリーンランド"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr "南西マリ"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5400,28 +5417,12 @@ msgid "west Dem. Rep. of Congo"
 msgstr "西コンゴ民主共和国"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "西部オーストラリア"
-
-#. generated from zone.tab
 msgid "west Kazakhstan"
 msgstr "西カザフスタン"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
 msgstr "西ウズベキスタン"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "東パラ、ロンドニア"
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr "ヤップ"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "ウクライナ/ルガンスク州"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"

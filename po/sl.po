@@ -1,26 +1,32 @@
+# SLOVENIAN TRANSLATION OF ANACONDA.
+# Copyright (C) 2001 Free Software Foundation, Inc.
+# Roman Maurer <roman.maurer@amis.net>, 2001.
+# $Id$
+# $Source$
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.2\n"
-"POT-Creation-Date: 2001-08-14 18:40-0400\n"
-"PO-Revision-Date: 2001-06-17 12:00+0100\n"
-"Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
+"POT-Creation-Date: 2001-08-17 14:41-0400\n"
+"PO-Revision-Date: 2001-08-16 23:22+0200\n"
+"Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-2\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.8\n"
 
 #: ../anaconda:313
-#, fuzzy
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"V tem stroju nimate dovolj sistemskega pomnilnika, da bi namestili "
-"distribucijo Red Hat."
+"Nimate dovolj sistemskega pomnilnika, da bi name¹èali sistem v grafiènem "
+"naèinu. Namestitev se zaganja v besedilnem naèinu."
 
 #: ../anaconda:332 ../gui.py:111 ../iw/account_gui.py:150
 #: ../iw/account_gui.py:161 ../iw/partition_gui.py:496
-#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1323 ../loader/cdrom.c:34
+#: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1325 ../loader/cdrom.c:34
 #: ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532
@@ -52,89 +58,88 @@ msgstr "V redu"
 
 #: ../anaconda:375
 msgid "Probing for video card:   "
-msgstr ""
+msgstr "Ugotavlja se grafièna kartica: "
 
 #: ../anaconda:383
-#, fuzzy
 msgid "Unable to probe\n"
-msgstr "Datoteke ni moè nalo¾iti!"
+msgstr "Ni bilo moè zaznati\n"
 
 #: ../anaconda:385
-#, fuzzy
 msgid "Probing for monitor type: "
-msgstr "Ugotavlja se vrsta mi¹ke..."
+msgstr "Ugotavlja se vrsta monitorja: "
 
 #: ../anaconda:392
-#, fuzzy
 msgid "Probing for mouse type:   "
-msgstr "Ugotavlja se vrsta mi¹ke..."
+msgstr "Ugotavlja se vrsta mi¹ke: "
 
 #: ../anaconda:396
 msgid "Skipping mouse probe.\n"
-msgstr ""
+msgstr "Preskakujem zaznavanje mi¹ke.\n"
 
 #: ../anaconda:410
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
+"Grafièna namestitev ni dostopna za namestitev %s. Zaganja se besedilni naèin."
 
 #: ../anaconda:420
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
+"Mi¹ka ni bila zaznana. Za grafièno namestitev potrebujete mi¹ko. Zaganja se "
+"besedilni naèin."
 
 #: ../anaconda:425
-#, fuzzy
 msgid "Using mouse type: "
-msgstr "Ugotavlja se vrsta mi¹ke..."
+msgstr "Uporablja se vrsta mi¹ke: "
 
-#: ../autopart.py:682
-#, fuzzy
+#: ../autopart.py:684
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr "Razdelkov, temeljeèih na cilindrih, ni moè proglasiti za primarne"
 
-#: ../autopart.py:685
-#, fuzzy
+#: ../autopart.py:687
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr "Razdelkov ni moè proglasiti za primarne"
 
-#: ../autopart.py:688
-#, fuzzy
+#: ../autopart.py:690
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr "Razdelkov, temeljeèih na cilindrih, ni bilo moè dodeliti"
 
-#: ../autopart.py:691
-#, fuzzy
+#: ../autopart.py:693
 msgid "Could not allocate partitions"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr "Ni bilo moè dodeliti razdelkov"
 
-#: ../autopart.py:739
+#: ../autopart.py:741
 #, c-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
+"Zagonski razdelek %s morda ne ustreza omejitvam va¹e arhitekture za zagon. "
+"Moèno priporoèamo, da naredite zagonsko disketo."
 
-#: ../autopart.py:853
-#, fuzzy
+#: ../autopart.py:856
 msgid "Requested Partition Does Not Exist"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr "Zahtevani razdelek ne obstaja"
 
-#: ../autopart.py:854
+#: ../autopart.py:857
 #, c-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Ni moè najti razdelka %s, da bi ga uporabljali za %s.\n"
+"\n"
+"Pritisnite V redu za vnovièen zagon sistema."
 
-#: ../autopart.py:887
+#: ../autopart.py:890
 msgid "Partition Request Sanity Check Errors"
-msgstr ""
+msgstr "Napake pri preverjanju pravilnosti zahteve po razdelku"
 
-#: ../autopart.py:888
+#: ../autopart.py:891
 #, c-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -143,46 +148,55 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Pri va¹em razdeljevanju je pri¹lo do naslednjih napak:\n"
+"\n"
+"%s\n"
+"\n"
+"Pritisnite V redu za vnovièen zagon sistema."
 
-#: ../autopart.py:897
-#, fuzzy
+#: ../autopart.py:900
 msgid "Warnings During Automatic Partitioning"
-msgstr "Samodejna razdelitev"
+msgstr "Opozorila med samodejno razdelitvijo"
 
-#: ../autopart.py:898
-#, fuzzy, c-format
+#: ../autopart.py:901
+#, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
 "%s"
-msgstr "Samodejna razdelitev"
+msgstr ""
+"Med samodejno razdelitvijo je pri¹lo do naslednjih opozoril:\n"
+"\n"
+"%s"
 
-#: ../autopart.py:910 ../iw/partition_gui.py:1275
+#: ../autopart.py:913 ../iw/partition_gui.py:1275
 #: ../textw/partition_text.py:163
-#, fuzzy
 msgid "Error Partitioning"
-msgstr "Razdelitev diska"
+msgstr "Napaka pri razdelitvi"
 
-#: ../autopart.py:911
-#, fuzzy, c-format
+#: ../autopart.py:914
+#, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%s.%s"
-msgstr "Obstajajo nerazporejene razdelitve..."
+msgstr ""
+"Ni moè dodeliti zahtevanih razdelkov: \n"
+"\n"
+"%s.%s"
 
-#: ../autopart.py:945 ../harddrive.py:236 ../iw/bootloader_gui.py:58
+#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1606 ../iw/upgrade_swap_gui.py:171
+#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
+#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: ../autopart.py:951
+#: ../autopart.py:954
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -194,30 +208,39 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
+"Samodejno razdeljevanje nastavi razdeljevanje glede na vrsto namestitve. "
+"Rezultirajoèe razdelke lahko tudi prikrojite, da ustrezajo va¹im potrebam.\n"
+"\n"
+"Orodje za roèno razdeljevanje, Disk Druid, vam omogoèa, da ustvarite "
+"razdelke interaktivno. S tem preprostim in zmogljivim vmesnikom lahko "
+"nastavite vrste datoteènih sistemov, toèke priklopa, velikost in ¹e veè.\n"
+"\n"
+"Program fdisk je tradicionalno, v besedilnem naèinu delujoèe, orodje, ki ga "
+"ponuja Red Hat. Èeprav ga ni preprosto uporabljati,ga je v doloèenih "
+"primerih bolje uporabiti."
 
-#: ../autopart.py:967
+#: ../autopart.py:970
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
 msgstr ""
+"Preden lahko namestitveni program nastavi samodejno razdeljevanje, morate "
+"izbrati, kako porabiti prostor v diskih."
 
-#: ../autopart.py:972
-#, fuzzy
+#: ../autopart.py:975
 msgid "Remove all partitions on this system"
-msgstr "Odstranimo razdelitve Linuxa"
-
-#: ../autopart.py:973
-#, fuzzy
-msgid "Remove all Linux Partitions on this system"
-msgstr "Odstranimo razdelitve Linuxa"
-
-#: ../autopart.py:974
-#, fuzzy
-msgid "Keep all partitions and use existing free space"
-msgstr "Uporabimo obstojeèi prosti prostor"
+msgstr "Odstranimo vse razdelke v tem sistemu"
 
 #: ../autopart.py:976
-#, fuzzy, c-format
+msgid "Remove all Linux Partitions on this system"
+msgstr "Odstrani vse razdelke z Linuxom v tem sistemu"
+
+#: ../autopart.py:977
+msgid "Keep all partitions and use existing free space"
+msgstr "Obdr¾i vse razdelke in uporabi obstojeèi prosti prostor"
+
+#: ../autopart.py:979
+#, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -225,10 +248,13 @@ msgid ""
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Nastavili ste razdelitev RAID ne da bi omejili razdelitev na en sam disk.\n"
-" Ali ste preprièani, da ¾elite res to storiti?"
+"POZOR!!\tPOZOR!!\n"
+"\n"
+"Izbrali ste, da ¾elite odstraniti vse razdelke (VSE PODATKE) v naslednjih "
+"pogonih:%s\n"
+"Ste preprièani, da to ¾elite tudi res storiti?"
 
-#: ../autopart.py:981
+#: ../autopart.py:984
 #, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
@@ -237,34 +263,37 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"POZOR!!\tPOZOR!!\n"
+"\n"
+"Izbrali ste, da ¾elite odstraniti vse razdelke za Linux (in VSE PODATKE v "
+"njih) v naslednjih pogonih:%s\n"
+"Ste preprièani, da to ¾elite tudi res storiti?"
 
 #: ../bootloader.py:710
-#, fuzzy
 msgid "Bootloader"
-msgstr "Napake v zagonskem nalagalniku"
+msgstr "Zagonski nalagalnik"
 
 #: ../bootloader.py:710
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "Name¹èa se %s.\n"
+msgstr "Zagonski nalagalnik se name¹èa..."
 
 #: ../comps.py:562
 msgid "Everything"
 msgstr "Vse"
 
-#: ../comps.py:672 ../upgrade.py:442
+#: ../comps.py:672 ../upgrade.py:457
 msgid "no suggestion"
 msgstr "ni predloga"
 
-#: ../exception.py:83 ../text.py:219
+#: ../exception.py:95 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Pri¹lo je do izjeme"
 
-#: ../exception.py:150
+#: ../exception.py:162
 msgid "Dump Written"
 msgstr "Posmrtni ostanek zapisan"
 
-#: ../exception.py:151
+#: ../exception.py:163
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -283,7 +312,7 @@ msgstr ""
 #: ../loader/loader.c:2207 ../loader/loader.c:2237 ../loader/loader.c:2315
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
-#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:237
+#: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
@@ -308,14 +337,13 @@ msgid "Creating boot disk..."
 msgstr "Ustvarjamo zagonski disk..."
 
 #: ../fsset.py:145
-#, fuzzy
 msgid "Checking for Bad Blocks"
-msgstr "Iskanje slabih blokov med formatiranjem"
+msgstr "Iskanje slabih blokov"
 
 #: ../fsset.py:146
-#, fuzzy, c-format
+#, c-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Iskanje slabih blokov med formatiranjem"
+msgstr "Iskanje slabih blokov v /dev/%s..."
 
 #: ../fsset.py:372
 #, c-format
@@ -325,6 +353,10 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"Pri prenosu %s v ext3 je pri¹lo do napake. Èe ¾elite, lahko nadaljujete, ne "
+"da bi ta datoteèni sistem prenesli.\n"
+"\n"
+"Ali ¾elite nadaljevati brez prenosa %s?"
 
 #: ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -335,20 +367,20 @@ msgid "First sector of boot partition"
 msgstr "Prvi sektor zaganjalne razdelitve"
 
 #: ../fsset.py:784
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
-"se namestitev ne more veè nadaljevati.\n"
+"Med poskusom inicializacije izmenjalnega prostora na napravi %s je pri¹lo do "
+"napake. To je resna te¾ava, zato se namestitev ne more veè nadaljevati.\n"
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fsset.py:803
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -356,27 +388,27 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Napaka pri prilopu naprave %s kot %s: %s\n"
+"Napaka pri omogoèanju izmenjalne naprave %s: %s\n"
 "\n"
-"To najverjetneje pomeni, da se ta razdelitev ni formatirala.\n"
+"To najverjetneje pomeni, da se ta izmenjalni razdelek ni inicializiral.\n"
 "\n"
 "Pritisnite V redu za vnovièen zagon sistema."
 
 #: ../fsset.py:848
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
-"se namestitev ne more veè nadaljevati.\n"
+"Med iskanjem slabim blokov na %s je pri¹lo do napake. To je resna te¾ava, "
+"zato se namestitev ne more veè nadaljevati.\n"
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fsset.py:868
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -389,46 +421,45 @@ msgstr ""
 "Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fsset.py:902
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
-"se namestitev ne more veè nadaljevati.\n"
+"Med poskusom prenosa %s je pri¹lo do napake. To je resna te¾ava, zato se "
+"namestitev ne more veè nadaljevati.\n"
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fsset.py:922 ../fsset.py:931
-#, fuzzy
 msgid "Invalid mount point"
 msgstr "Nepravilna toèka priklopa"
 
 #: ../fsset.py:923
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
-"se namestitev ne more veè nadaljevati.\n"
+"Med poskusom ustvarjanja %s je pri¹lo do napake. Nek sestavni del te poti ni "
+"imenik. To je usodna napaka, zato se namestitev ne more veè nadaljevati.\n"
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fsset.py:932
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
-"se namestitev ne more veè nadaljevati.\n"
+"Med poskusom ustvarjanja %s je pri¹lo do napake: %s. To je usodna napaka, "
+"zato se namestitev ne more veè nadaljevati.\n"
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
@@ -441,9 +472,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Napaka pri prilopu naprave %s kot %s: %s\n"
+"Napaka pri priklopu naprave %s kot %s: %s\n"
 "\n"
-"To najverjetneje pomeni, da se ta razdelitev ni formatirala.\n"
+"To najverjetneje pomeni, da se ta razdelek ni formatiral.\n"
 "\n"
 "Pritisnite V redu za vnovièen zagon sistema."
 
@@ -458,7 +489,7 @@ msgstr "Formatira se datoteèni sistem %s..."
 
 #: ../gui.py:108 ../text.py:280
 msgid "Fix"
-msgstr ""
+msgstr "Popravi"
 
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
@@ -483,10 +514,10 @@ msgstr "Ponovno"
 
 #: ../gui.py:113 ../text.py:285
 msgid "Ignore"
-msgstr ""
+msgstr "Prezri"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
-#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1324
+#: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
 #: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
@@ -497,7 +528,6 @@ msgid "Cancel"
 msgstr "Preklièi"
 
 #: ../gui.py:196 ../text.py:258
-#, fuzzy
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
@@ -505,8 +535,9 @@ msgid ""
 "bugzilla/"
 msgstr ""
 "Pri¹lo je do izjemnega pogoja, najverjetneje do hro¹èa. Prosimo, prepi¹ite "
-"vso besedilo te izjeme in izpolnite poroèilo o hro¹èu na http://bugzilla."
-"redhat.com/bugzilla"
+"vse besedilo te izjeme in shranite posmrtne ostanke procesa na disketo, nato "
+"pa izpolnite podrobno poroèilo o hro¹èu v programu anaconda na http://"
+"bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:317 ../text.py:248
 msgid ""
@@ -538,7 +569,7 @@ msgstr "Datoteke ni moè nalo¾iti!"
 
 #: ../gui.py:497
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Manjkajo zapiski ob izdaji.\n"
 
 #: ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:608
@@ -574,9 +605,8 @@ msgid "Red Hat Linux Installer on %s"
 msgstr "Namestitveni program Red Hat Linuxa na %s"
 
 #: ../gui.py:706
-#, fuzzy
 msgid "Unable to load title bar"
-msgstr "Datoteke ni moè nalo¾iti!"
+msgstr "Naslovne vrstice ni moè nalo¾iti"
 
 #: ../gui.py:791
 msgid "Install Window"
@@ -629,13 +659,12 @@ msgid "Install"
 msgstr "Namestitev"
 
 #: ../monitor.py:152 ../mouse.py:184 ../videocard.py:135
-#, fuzzy
 msgid "Unable to probe"
-msgstr "Datoteke ni moè nalo¾iti!"
+msgstr "Ni moè presku¹ati"
 
 #: ../mouse.py:274 ../xserver.py:44
 msgid "Mouse Not Detected"
-msgstr "Izbira mi¹ke"
+msgstr "Mi¹ka ni bila zaznana"
 
 #: ../mouse.py:275 ../xserver.py:45
 msgid ""
@@ -671,31 +700,31 @@ msgstr ""
 msgid "Would you like to continue with the upgrade?"
 msgstr "Bi radi nadaljevali z nadgradnjo?"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading"
 msgstr "Branje"
 
-#: ../packages.py:97
+#: ../packages.py:100
 msgid "Reading package information..."
 msgstr "Beremo podatke o paketih..."
 
-#: ../packages.py:154
+#: ../packages.py:157
 msgid "Dependency Check"
 msgstr "Preverjanje odvisnosti"
 
-#: ../packages.py:155
+#: ../packages.py:158
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Preverjam odvisnosti v paketih, izbranih za namestitev..."
 
-#: ../packages.py:203 ../packages.py:474
+#: ../packages.py:206 ../packages.py:477
 msgid "Processing"
 msgstr "Obdelujemo"
 
-#: ../packages.py:204
+#: ../packages.py:207
 msgid "Preparing to install..."
 msgstr "Pripravljamo se na namestitev..."
 
-#: ../packages.py:238
+#: ../packages.py:241
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -704,21 +733,21 @@ msgstr ""
 "Datoteke %s ni moè odpreti. To je lahko zato, ker manjka ali zaradi slabega "
 "paketa ali nosilca. Pritisnite <Enter> za vnovièen poskus."
 
-#: ../packages.py:475
+#: ../packages.py:478
 msgid "Setting up RPM transaction..."
-msgstr ""
+msgstr "Vzpostavljam prenos RPM..."
 
-#: ../packages.py:516
+#: ../packages.py:519
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr "Nadgrajuje se %s.\n"
+msgstr "Nadgrajujem %s.\n"
 
-#: ../packages.py:518
+#: ../packages.py:521
 #, c-format
 msgid "Installing %s.\n"
-msgstr "Name¹èa se %s.\n"
+msgstr "Name¹èam %s.\n"
 
-#: ../packages.py:578
+#: ../packages.py:581
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -728,16 +757,16 @@ msgstr ""
 "Potrebujete veè prostora na naslednjem datoteènem sistemu:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
+#: ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:585 ../packages.py:605 ../textw/upgrade_text.py:106
 msgid "Mount Point"
 msgstr "Toèka priklopa"
 
-#: ../packages.py:583
+#: ../packages.py:586
 msgid "Space Needed"
 msgstr "Potreben prostor"
 
-#: ../packages.py:598
+#: ../packages.py:601
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -747,59 +776,54 @@ msgstr ""
 "Potrebujete veè datoteènih vozlov na naslednjih datoteènih sistemih:\n"
 "\n"
 
-#: ../packages.py:603
+#: ../packages.py:606
 msgid "Nodes Needed"
 msgstr "Potrebni vozli"
 
-#: ../packages.py:609
+#: ../packages.py:612
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
-#: ../packages.py:647
+#: ../packages.py:650
 msgid "Post Install"
 msgstr "Po namestitvi"
 
-#: ../packages.py:648
+#: ../packages.py:651
 msgid "Performing post install configuration..."
 msgstr "Izvajamo nastavitve po namestitvi..."
 
 #: ../partitioning.py:171
-#, fuzzy
 msgid "Foreign"
-msgstr "norve¹èina"
+msgstr "Tuje"
 
 #: ../partitioning.py:353
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters."
 msgstr ""
-"Toèka priklopa %s ni dobra.\n"
-"\n"
-"Toèke priklopa lahko vsebujejo le izpisljive znake."
+"Toèka priklopa ni dobra. Toèke priklopa se morajo zaèeti z znakom ,/` in se "
+"z njim ne smejo konèati, vsebujejo pa lahko le izpisljive znake."
 
 #: ../partitioning.py:360
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "Prosim, doloèite toèko priklopa za ta razdelek."
 
 #: ../partitioning.py:379
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr ""
-"Zahtevana toèka priklopa je uporabljena. Prosim, izberite veljavno toèko "
-"priklopa."
+"Toèka priklopa %s je ¾e uporabljena, prosim, izberite drugo toèko priklopa."
 
 #: ../partitioning.py:436
-#, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
-msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
+msgstr ""
+"Ta toèka priklopa ni veljavna. Ta imenik mora biti v datoteènem sistemu /."
 
 #: ../partitioning.py:441
-#, fuzzy
 msgid "This mount point must be on a linux filesystem."
-msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
+msgstr "Ta toèka priklopa mora biti v datoteènem sistemu za linux."
 
 #: ../partitioning.py:454
 #, c-format
@@ -807,6 +831,7 @@ msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr ""
+"Velikost razdelka %s (velikost = %s MB) presega najveèjo velikost %s MB."
 
 #: ../partitioning.py:461
 #, c-format
@@ -814,33 +839,34 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
+"Velikost zahtevanega razdelka (velikost = %s MB) presega najveèjo velikost %"
+"s MB."
 
 #: ../partitioning.py:466
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "Velikost zahtevanega razdelka je negativna! (velikost = %s MB)"
 
 #: ../partitioning.py:470
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "Razdelki se ne morejo zaèeti pod prvim cilindrom."
 
 #: ../partitioning.py:473
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "Razdelki se ne morejo konèati z negativnim cilindrom."
 
 #: ../partitioning.py:506
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "Ni èlanov v zahtevku RAID, ali pa raven RAID ni doloèena."
 
 #: ../partitioning.py:524 ../partitioning.py:605
-#, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Zagonske razdelitve (/boot) so dovoljene le z RAID-1."
+msgstr "Zagonski razdelki so lahko le na napravah RAID1."
 
 #: ../partitioning.py:528
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "Naprava RAID vrste %s zahteva vsaj %s èlanov."
 
 #: ../partitioning.py:534
 #, c-format
@@ -854,17 +880,22 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of Red Hat Linux to continue."
 msgstr ""
+"Niste doloèili korenskega razdelka (/), ki je obvezen za nadaljevanje "
+"namestitve Red Hat Linuxa."
 
 #: ../partitioning.py:569
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install Red Hat Linux."
 msgstr ""
+"Va¹ korenski razdelek je manj¹i od 250 megabajtov, kar je obièajno premalo "
+"za namestitev Red Hat Linuxa."
 
 #: ../partitioning.py:574
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
+"Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
 #: ../partitioning.py:582
 #, c-format
@@ -872,18 +903,24 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal Red Hat Linux install."
 msgstr ""
+"Va¹ razdelek %s je manj¹i od %s megabajtov, kar je manj od priporoèene "
+"velikosti za obièajno namestitev Red Hat Linuxa."
 
 #: ../partitioning.py:609
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
+"Niste doloèili izmenjalnega razdelka. Èeprav v vseh primerih ni nujen, pa v "
+"veèini namestitev znatno izbolj¹a odzivnost sistema."
 
 #: ../partitioning.py:613
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for Red Hat Linux "
 "only supports 32 swap devices."
 msgstr ""
+"Doloèili ste veè kot 32 izmenjevalnih naprav.  Jedro Red Hat Linux podpira "
+"le do 32 izmenjevalnih naprav."
 
 #: ../partitioning.py:622
 #, c-format
@@ -891,9 +928,11 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
+"Dodelili ste manj izmenjevalnega prostora (%dM) kot je v va¹em sistemu "
+"dostopnega pomnilnika RAM (%dM). To lahko slabo vpliva na odzivnost."
 
 #: ../partitioning.py:695
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of Red Hat Linux, it must "
@@ -901,33 +940,36 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Razdelitvena tabela naprave %s je po¹kodovana.  Èe ¾elite ustvarjati na njej "
-"nove razdelitve, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
-"PODATKOV na tem pogonu."
+"Razdelitvena tabela naprave /dev/%s je neprièakovane vrste za to "
+"arhitekturo.  Èe ¾elite v tem disku namestiti Red Hat Linux, ga morate znova "
+"inicializirati, kar bo povzroèilo izgubo VSEH PODATKOV na tem pogonu.\n"
+"\n"
+"Ali ¾elite ta pogon inicializirati?"
 
 #: ../partitioning.py:1259 ../partitioning.py:1290
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting filesystem on %s: %s"
-msgstr "Napaka pri priklapljanju datoteènega sistema ext2 na %s: %s"
+msgstr "Napaka pri priklapljanju datoteènega sistema na %s: %s"
 
 #: ../partitioning.py:1402
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Razdelitvena tabela naprave %s je po¹kodovana.  Èe ¾elite ustvarjati na njej "
-"nove razdelitve, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
-"PODATKOV na tem pogonu."
+"Razdelitvena tabela naprave %s ni berljiva.  Èe ¾elite ustvarjati na njej "
+"nove razdelke, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
+"PODATKOV na tem pogonu.\n"
+"\n"
+"Ali ¾elite ta pogon inicializirati?"
 
 #: ../partitioning.py:1488
 msgid "No Drives Found"
 msgstr "Noben pogon ni bil najden"
 
 #: ../partitioning.py:1489
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -936,68 +978,70 @@ msgstr ""
 "ustvarili nove datoteène sisteme. Prosim preverite va¹o strojno opremo za "
 "razlog te te¾ave."
 
-#: ../partitioning.py:1571
-#, fuzzy
+#: ../partitioning.py:1576
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
 "Are you sure?"
-msgstr "Izbrati morate napravo RAID."
+msgstr ""
+"Ste na tem, da boste izbrisali napravo RAID.\n"
+"\n"
+"Ste preprièani, da jo ¾elite izbrisati?"
 
-#: ../partitioning.py:1574
-#, fuzzy, c-format
+#: ../partitioning.py:1579
+#, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
 "\n"
 "Are you sure?"
-msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
+msgstr ""
+"Ste na tem, da boste odstranili razdelek /dev/%s.\n"
+"\n"
+"Ste preprièani, da ¾elite ta razdelek odstraniti?"
 
-#: ../partitioning.py:1578
+#: ../partitioning.py:1583
 msgid "Are you sure you want to delete this partition?"
-msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
-
-#: ../partitioning.py:1580
-#, fuzzy
-msgid "Confirm Delete"
-msgstr "Potrditev: "
-
-#: ../partitioning.py:1584
-#, fuzzy
-msgid "Confirm Reset"
-msgstr "Potrditev: "
+msgstr "Ste preprièani, da ¾elite odstraniti ta razdelek?"
 
 #: ../partitioning.py:1585
+msgid "Confirm Delete"
+msgstr "Potrdite odstranitev"
+
+#: ../partitioning.py:1589
+msgid "Confirm Reset"
+msgstr "Potrdite resetiranje"
+
+#: ../partitioning.py:1590
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1614
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr ""
 "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
 
-#: ../partitioning.py:1612
+#: ../partitioning.py:1617
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "razdelek, ki je èlan polja RAID."
 
-#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
-#: ../partitioning.py:1646 ../partitioning.py:1653
-#, fuzzy
+#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
+#: ../partitioning.py:1651 ../partitioning.py:1658
 msgid "Unable To Remove"
-msgstr "Datoteke ni moè nalo¾iti!"
+msgstr "Ni moè odstraniti"
 
-#: ../partitioning.py:1622
+#: ../partitioning.py:1627
 #, fuzzy
 msgid "You must first select a partition to remove."
 msgstr "Prvi sektor zaganjalne razdelitve"
 
-#: ../partitioning.py:1628
+#: ../partitioning.py:1633
 msgid "You cannot remove free space."
-msgstr ""
+msgstr "Praznega prostora ni moè odstraniti."
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1641
 #, fuzzy, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1006,30 +1050,28 @@ msgstr ""
 "Imenika \"/boot\" ne morete odstraniti, èe je \"/\" na napravi RAID. Najprej "
 "prestavite \"/\" na napravo, ki ni RAID."
 
-#: ../partitioning.py:1647
+#: ../partitioning.py:1652
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
+"Tega razdelka ne morete odstraniti, saj vsebuje podatke za namestitev v trdi "
+"disk."
 
-#: ../partitioning.py:1654
-#, fuzzy
+#: ../partitioning.py:1659
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr ""
-"Imenika \"/boot\" ne morete odstraniti, èe je \"/\" na napravi RAID. Najprej "
-"prestavite \"/\" na napravo, ki ni RAID."
+msgstr "Tega razdelka ne morete odstraniti, saj je del naprave RAID."
 
-#: ../partitioning.py:1685 ../partitioning.py:1707
-#, fuzzy
+#: ../partitioning.py:1690 ../partitioning.py:1712
 msgid "Unable To Edit"
-msgstr "Datoteke ni moè nalo¾iti!"
+msgstr "Ni moè urediti"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1691
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
 
-#: ../partitioning.py:1708
+#: ../partitioning.py:1713
 #, fuzzy, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1037,34 +1079,37 @@ msgid ""
 msgstr ""
 "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
 
-#: ../partitioning.py:1716
+#: ../partitioning.py:1721
 #, fuzzy
 msgid "Unable to Edit"
 msgstr "Datoteke ni moè nalo¾iti!"
 
-#: ../partitioning.py:1717
+#: ../partitioning.py:1722
 #, fuzzy
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
 
-#: ../partitioning.py:1729
+#: ../partitioning.py:1734
 #, fuzzy
 msgid "Installation cannot continue."
 msgstr "Zaèetek namestitve"
 
-#: ../partitioning.py:1730
+#: ../partitioning.py:1735
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
+"Razdelitvene mo¾nosti, ki ste jih izbrali, so bile ¾e aktivirane. Ne morete "
+"se veè vrniti v zaslon za urejevanje diska. Bi radi nadaljevali postopek "
+"namestitve?"
 
-#: ../partitioning.py:1750
+#: ../partitioning.py:1755
 msgid "Low Memory"
 msgstr "Premajhen pomnilnik"
 
-#: ../partitioning.py:1751
+#: ../partitioning.py:1756
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1073,12 +1118,11 @@ msgstr ""
 "Ker nimate dovolj pomnilnika, moramo takoj ugasniti izmenjalni prostor. Za "
 "to bomo morali takoj zapisati razdelitveno tabelo na disk.  Je to v redu?"
 
-#: ../partitioning.py:1769
-#, fuzzy
+#: ../partitioning.py:1774
 msgid "Format as Swap?"
-msgstr "Formatiranje"
+msgstr "Formatiraj kot izmenjalno?"
 
-#: ../partitioning.py:1770
+#: ../partitioning.py:1775
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1086,13 +1130,16 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s ima vrsto razdelka 0x82 (izmenjevalni za Linux, angl. swap), vendar "
+"ni videti, da bi bil formatiran kot izmenjalni razdelek za Linux.\n"
+"\n"
+"Bi radi formatirali ta razdelek kot izmenjevalnega?"
 
-#: ../partitioning.py:1789 ../partitioning.py:1807
-#, fuzzy
+#: ../partitioning.py:1794 ../partitioning.py:1812
 msgid "Format?"
-msgstr "Formatiranje"
+msgstr "Formatiranje?"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1795
 #, fuzzy
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
@@ -1103,7 +1150,7 @@ msgstr ""
 "Nastavili ste razdelitev RAID ne da bi omejili razdelitev na en sam disk.\n"
 " Ali ste preprièani, da ¾elite res to storiti?"
 
-#: ../partitioning.py:1798
+#: ../partitioning.py:1803
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1114,12 +1161,12 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1814
+#: ../partitioning.py:1819
 #, fuzzy
 msgid "Error with Partitioning"
 msgstr "Razdelitev diska"
 
-#: ../partitioning.py:1815
+#: ../partitioning.py:1820
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1129,12 +1176,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partitioning.py:1828
-#, fuzzy
+#: ../partitioning.py:1833
 msgid "Partitioning Warning"
-msgstr "Opozorilo o zagonski razdelitvi"
+msgstr "Opozorilo o razdelitvi"
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1834
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1144,22 +1190,23 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1841
+#: ../iw/partition_gui.py:576 ../partitioning.py:1846
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
+"Naslednji obstojeèi razdelki so bili izbrani za formatiranje, kar bo unièilo "
+"vse podatke na njih."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1844
+#: ../iw/partition_gui.py:579 ../partitioning.py:1849
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partitioning.py:1850
-#, fuzzy
+#: ../partitioning.py:1855
 msgid "Format Warning"
-msgstr "Formatiranje"
+msgstr "Opozorilo pri formatiranju"
 
 #: ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1367,7 +1414,7 @@ msgstr ""
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Med iskanjem paketov, ki jih je treba nadgraditi, je pri¹lo do napake."
 
-#: ../upgrade.py:350
+#: ../upgrade.py:359
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1376,7 +1423,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:367
+#: ../upgrade.py:378
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1384,7 +1431,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../videocard.py:401
+#: ../videocard.py:418
 #, fuzzy
 msgid "Unknown Card"
 msgstr "Neznan gostitelj"
@@ -1522,13 +1569,13 @@ msgid "Add"
 msgstr "Dodajmo"
 
 #: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
-#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
+#: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Uredimo"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:987
+#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Pobri¹imo"
@@ -1680,7 +1727,7 @@ msgid "Partition"
 msgstr "Razdelitev diska"
 
 #: ../iw/bootloader_gui.py:245 ../iw/bootloader_gui.py:433
-#: ../iw/partition_gui.py:1543 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:1545 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 msgid "Type"
 msgstr "Vrsta"
 
@@ -1714,7 +1761,7 @@ msgid "Default"
 msgstr "Privzeta"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
-#: ../iw/partition_gui.py:1542 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
@@ -1888,30 +1935,30 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Nerazre¹ene odvisnosti"
 
-#: ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, c-format
 msgid "Total install size: %s"
 msgstr "Skupna velikost namestitve: %s"
 
-#: ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Paket"
 
-#: ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../textw/packages_text.py:301
 msgid "Requirement"
 msgstr "Potrebuje"
 
-#: ../iw/dependencies_gui.py:81 ../textw/packages_text.py:316
+#: ../iw/dependencies_gui.py:83 ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
 msgstr "Namésti pakete tako, da zadovolji¹ odvisnostim"
 
-#: ../iw/dependencies_gui.py:84 ../textw/packages_text.py:317
+#: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
 msgstr "Ne namésti paketov, ki so odvisni od drugih"
 
-#: ../iw/dependencies_gui.py:88 ../textw/packages_text.py:318
+#: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
 msgstr "Odvisnosti paketov"
 
@@ -2175,7 +2222,7 @@ msgstr ""
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1545
 msgid "Size (MB)"
 msgstr "Velikost (MB)"
 
@@ -2296,7 +2343,7 @@ msgstr ""
 msgid "Add Partition"
 msgstr "Razdelitev diska"
 
-#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:863 ../iw/partition_gui.py:1349
 #: ../textw/partition_text.py:205
 msgid "Mount Point:"
 msgstr "Toèka priklopa:"
@@ -2378,7 +2425,7 @@ msgid "Check for bad blocks"
 msgstr "Iskanje slabih blokov med formatiranjem"
 
 #: ../iw/partition_gui.py:1162 ../iw/partition_gui.py:1171
-#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1477
+#: ../iw/partition_gui.py:1209 ../iw/partition_gui.py:1479
 #: ../textw/partition_text.py:750 ../textw/partition_text.py:772
 #: ../textw/partition_text.py:901
 msgid "Error With Request"
@@ -2404,97 +2451,97 @@ msgstr "Dodaj izmenjalni prostor"
 msgid "Warning: %s."
 msgstr "Opozorilo: "
 
-#: ../iw/partition_gui.py:1321 ../textw/partition_text.py:806
+#: ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #, fuzzy
 msgid "Make RAID Device"
 msgstr "_Izdelajmo napravo RAID"
 
-#: ../iw/partition_gui.py:1339 ../textw/partition_text.py:830
+#: ../iw/partition_gui.py:1341 ../textw/partition_text.py:830
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
-#: ../iw/partition_gui.py:1354 ../textw/partition_text.py:226
+#: ../iw/partition_gui.py:1356 ../textw/partition_text.py:226
 #, fuzzy
 msgid "Filesystem type:"
 msgstr "Velikost korenskega datoteènega sistema"
 
-#: ../iw/partition_gui.py:1366 ../textw/partition_text.py:382
+#: ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
 #, fuzzy
 msgid "RAID Level:"
 msgstr "Vrsta RAID:"
 
-#: ../iw/partition_gui.py:1401 ../textw/partition_text.py:400
+#: ../iw/partition_gui.py:1403 ../textw/partition_text.py:400
 #, fuzzy
 msgid "RAID Members:"
 msgstr "Vrsta RAID:"
 
-#: ../iw/partition_gui.py:1412
+#: ../iw/partition_gui.py:1414
 msgid "Number of spares:"
 msgstr ""
 
-#: ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
+#: ../iw/partition_gui.py:1421 ../textw/partition_text.py:842
 #, fuzzy
 msgid "Format partition?"
 msgstr "Korenski razdelek"
 
-#: ../iw/partition_gui.py:1523
+#: ../iw/partition_gui.py:1525
 #, fuzzy
 msgid "_New"
 msgstr "Nov"
 
-#: ../iw/partition_gui.py:1524
+#: ../iw/partition_gui.py:1526
 #, fuzzy
 msgid "_Edit"
 msgstr "Uredimo"
 
-#: ../iw/partition_gui.py:1525
+#: ../iw/partition_gui.py:1527
 msgid "_Delete"
 msgstr "_Pobri¹imo"
 
-#: ../iw/partition_gui.py:1526
+#: ../iw/partition_gui.py:1528
 msgid "_Reset"
 msgstr "_Resetirajmo"
 
-#: ../iw/partition_gui.py:1527
+#: ../iw/partition_gui.py:1529
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Uporabljena naprava RAID"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 #, fuzzy
 msgid "Start"
 msgstr "Stanje"
 
-#: ../iw/partition_gui.py:1542
+#: ../iw/partition_gui.py:1544
 msgid "End"
 msgstr ""
 
-#: ../iw/partition_gui.py:1543
+#: ../iw/partition_gui.py:1545
 #, fuzzy
 msgid "Format"
 msgstr "Formatiranje"
 
-#: ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
+#: ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
 msgid "Automatic Partitioning"
 msgstr "Samodejna razdelitev"
 
-#: ../iw/partition_gui.py:1607
+#: ../iw/partition_gui.py:1609
 #, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
 msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
 
-#: ../iw/partition_gui.py:1646
+#: ../iw/partition_gui.py:1648
 #, fuzzy
 msgid "I want to have automatic partitioning:"
 msgstr "Samodejna razdelitev"
 
-#: ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
+#: ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
 #, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Kam bi radi namestili zaganjalnik sistema?"
 
-#: ../iw/partition_gui.py:1699
+#: ../iw/partition_gui.py:1701
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
@@ -2780,7 +2827,7 @@ msgstr "Grafièna"
 msgid "Monitor Configuration"
 msgstr "Nastavitev monitorja"
 
-#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:874
+#: ../iw/xconfig_gui.py:544 ../iw/xconfig_gui.py:867
 msgid "Generic"
 msgstr ""
 
@@ -2793,7 +2840,7 @@ msgstr "DDC je preskusil monitor"
 msgid "Unprobed Monitor"
 msgstr "DDC je preskusil monitor"
 
-#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
+#: ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:982
 msgid "Restore original values"
 msgstr "Obnovi izvirne vrednosti"
 
@@ -2818,19 +2865,19 @@ msgstr "Hz"
 msgid "Graphical Interface (X) Configuration"
 msgstr "Obdelava slik"
 
-#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
+#: ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:608
 #, fuzzy
 msgid "Unspecified video card"
 msgstr "Ne moremo zaznati grafiène kartice"
 
-#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:605
+#: ../iw/xconfig_gui.py:703 ../textw/xconfig_text.py:609
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:835
+#: ../iw/xconfig_gui.py:828
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2838,7 +2885,7 @@ msgstr ""
 "Velikosti pomnilnika na kartici ne moremo samodejno zaznati.  Prosimo, "
 "izberite velikost pomnilnika kartice iz spodnjih izbir:"
 
-#: ../iw/xconfig_gui.py:843
+#: ../iw/xconfig_gui.py:836
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2846,7 +2893,7 @@ msgstr ""
 "V veèini primerov lahko samodejno preizkusimo grafièno strojno opremo in "
 "ugotovimo najbolj¹e nastavitve za va¹ zaslon."
 
-#: ../iw/xconfig_gui.py:849
+#: ../iw/xconfig_gui.py:842
 #, fuzzy
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
@@ -2855,16 +2902,16 @@ msgstr ""
 "Èe zaznane nastavitve ne ustrezajo va¹i strojni opremi, spodaj izberite "
 "pravilno nastavitev:"
 
-#: ../iw/xconfig_gui.py:879
+#: ../iw/xconfig_gui.py:872
 #, fuzzy
 msgid "Other"
 msgstr "Druga vrata"
 
-#: ../iw/xconfig_gui.py:967
+#: ../iw/xconfig_gui.py:960
 msgid "Video card RAM: "
 msgstr "RAM grafiène kartice: "
 
-#: ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
+#: ../iw/xconfig_gui.py:986 ../textw/xconfig_text.py:566
 msgid "Skip X Configuration"
 msgstr "Preskok nastavitve X"
 
@@ -3437,32 +3484,32 @@ msgstr "Preveè pogonov"
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
-#: ../textw/partition_text.py:977
+#: ../textw/partition_text.py:979
 #, fuzzy
 msgid "Partitioning"
 msgstr "Razdelitev diska"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 msgid "New"
 msgstr "Nov"
 
-#: ../textw/partition_text.py:987
+#: ../textw/partition_text.py:989
 #, fuzzy
 msgid "RAID"
 msgstr "<RAID>"
 
-#: ../textw/partition_text.py:990
+#: ../textw/partition_text.py:992
 #, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Pomoè   F2-Dodaj    F3-Uredi   F4-Zbri¹i    F5-Povrni   F12-V redu    "
 
-#: ../textw/partition_text.py:1017
+#: ../textw/partition_text.py:1019
 msgid "No Root Partition"
 msgstr "Korenske razdelitve ni"
 
-#: ../textw/partition_text.py:1018
+#: ../textw/partition_text.py:1020
 #, fuzzy
 msgid "Must have a / partition to install on."
 msgstr ""
@@ -3840,7 +3887,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:175 ../textw/xconfig_text.py:182
 #: ../textw/xconfig_text.py:391 ../textw/xconfig_text.py:402
-#: ../textw/xconfig_text.py:581 ../textw/xconfig_text.py:588
+#: ../textw/xconfig_text.py:585 ../textw/xconfig_text.py:592
 #, fuzzy
 msgid "Change"
 msgstr "Spremeni CDROM"
@@ -3961,26 +4008,26 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 
-#: ../textw/xconfig_text.py:565
+#: ../textw/xconfig_text.py:569
 #, fuzzy
 msgid "Video Card Configuration"
 msgstr "Nastavitev nastavitve"
 
-#: ../textw/xconfig_text.py:568
+#: ../textw/xconfig_text.py:572
 msgid "Select the video card and video RAM for your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:571
+#: ../textw/xconfig_text.py:575
 #, fuzzy
 msgid "Video Card:"
 msgstr "Grafièna kartica"
 
-#: ../textw/xconfig_text.py:576
+#: ../textw/xconfig_text.py:580
 #, fuzzy
 msgid "Unknown card"
 msgstr "Neznan gostitelj"
 
-#: ../textw/xconfig_text.py:584
+#: ../textw/xconfig_text.py:588
 #, fuzzy
 msgid "Video RAM:"
 msgstr "RAM grafiène kartice: "
@@ -4536,7 +4583,7 @@ msgid ""
 "\n"
 "    o the name or IP number of your FTP server\n"
 "    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"      Red Hat Linux for your architecture\n"
 msgstr ""
 "Prosimo, vnesite naslednje informacije:\n"
 "\n"
@@ -4826,10 +4873,6 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "Postaja Amundsen-Scott, Ju¾ni teèaj"
 
 #. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantski otoki"
-
-#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "Atlantski èas - V. Labrador"
 
@@ -4844,6 +4887,10 @@ msgstr ""
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 "Atlantski èas - Nova ©kotska - kraji, ki jih ni upo¹teval DST 1966-1971"
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr "Atlantski otoki"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -4865,14 +4912,6 @@ msgstr "Postaja Casey, Bailey Peninsula"
 #. generated from zone.tab
 msgid "Catamarca (CT)"
 msgstr "Katamarka (CT)"
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "centralna Crimea"
-
-#. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr "centralni Kazahstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -4903,16 +4942,16 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "Srednjeameri¹ki èas - Michigan - meja Wisconsina"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Srednjeameri¹ki èas - veèina krajev"
-
-#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "Srednjeameri¹ki èas - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Srednjeameri¹ki èas - Rainy River & Fort Frances, Ontario"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Srednjeameri¹ki èas - veèina krajev"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -4955,29 +4994,13 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr "V. Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "vzhodna Dem. Rep. Kongo"
-
-#. generated from zone.tab
 #, fuzzy
 msgid "Easter Island & Sala y Gomez"
 msgstr "Velikonoèni otok"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr "Vzhodnjeameri¹ki èas - central Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
-msgstr "Vzhodnjeameri¹ki èas - centralni Nunavut"
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
 msgstr "Vzhodnjeameri¹ki èas - Indiana - okro¾je Crawford"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Vzhodnjeameri¹ki èas - Indiana - veèina krajev"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -4988,8 +5011,20 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Vzhodnjeameri¹ki èas - Indiana - okro¾je Switzerland"
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr "Vzhodnjeameri¹ki èas - Indiana - veèina krajev"
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr "Vzhodnjeameri¹ki èas - Pangnirtung, Nunavu"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr "Vzhodnjeameri¹ki èas - central Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr "Vzhodnjeameri¹ki èas - centralni Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -5023,22 +5058,6 @@ msgstr "Vzhodnjeameri¹ki èas - Thunder Bay, Ontario"
 #. generated from zone.tab
 msgid "Eastern Turkestan"
 msgstr "Vzhodni Turkestan"
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr "vzhodna Grenlandija"
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr "vzhodni Kazahstan"
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "vzhodni Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -5133,10 +5152,6 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "Moskva+01 - Kaspijsko morje"
 
 #. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moskva-01 - Kaliningrad"
-
-#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr "Moskva+02 - Ural"
 
@@ -5177,6 +5192,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Beringovo morje"
 
 #. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Moskva-01 - Kaliningrad"
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Standardni gorski èas - Arizona"
 
@@ -5200,10 +5219,6 @@ msgstr ""
 "Gorski èas - Alberta, vzhodna Britanska Kolumbija in zahodni Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Gorski èas - centralna Severozahodna podroèja"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "Gorski èas - Chihuahua"
 
@@ -5214,6 +5229,10 @@ msgstr "Gorski èas - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Gorski èas - J. Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Gorski èas - centralna Severozahodna podroèja"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -5232,20 +5251,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "SV Brazilija (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Novofundlansko otoèje"
+msgid "New South Wales - Yancowinna"
+msgstr "Novi Ju¾ni Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "Novi Ju¾ni Wales - veèina krajev"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "Novi Ju¾ni Wales - Yancowinna"
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr "severovzhodni Mali"
+msgid "Newfoundland Island"
+msgstr "Novofundlansko otoèje"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -5254,14 +5269,6 @@ msgstr "Severna Irska"
 #. generated from zone.tab
 msgid "Northern Territory"
 msgstr "Severno podroèje"
-
-#. generated from zone.tab
-msgid "north Manchuria"
-msgstr "severna Mand¾urija"
-
-#. generated from zone.tab
-msgid "northwest Greenland"
-msgstr "severozahodna Grenlandija"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -5278,10 +5285,6 @@ msgstr "Pacifi¹ki èas - zahodna Britanska Kolumbija"
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Postaja Palmer, otok Anvers"
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "poloto¹ka Malezija"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -5312,6 +5315,10 @@ msgid "Ruthenia"
 msgstr "Rutenija"
 
 #. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "J & JV Brazilija (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+
+#. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah in Sarawak"
 
@@ -5322,18 +5329,6 @@ msgstr "Society Islands"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "Ju¾na Avstralija"
-
-#. generated from zone.tab
-msgid "southwest Greenland"
-msgstr "jugozahodna Grenlandija"
-
-#. generated from zone.tab
-msgid "southwest Mali"
-msgstr "jugozahodni Mali"
-
-#. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "J & JV Brazilija (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5368,16 +5363,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Postaja Vostok, J magnetni pol"
 
 #. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wake Island"
-
-#. generated from zone.tab
 msgid "W Amazonas"
 msgstr "Z. Amazonka"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "Z. Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "Z. Para, Rondonija"
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr "Wake Island"
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr "Zahodna Avstralija"
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr "Jap"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporo¾je, V. Lugansk"
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "centralna Crimea"
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr "centralni Kazahstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "vzhodna Dem. Rep. Kongo"
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr "vzhodna Grenlandija"
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr "vzhodni Kazahstan"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "vzhodni Uzbekistan"
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr "severna Mand¾urija"
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr "severovzhodni Mali"
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr "severozahodna Grenlandija"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "poloto¹ka Malezija"
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr "jugozahodna Grenlandija"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr "jugozahodni Mali"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5388,10 +5451,6 @@ msgid "west Dem. Rep. of Congo"
 msgstr "zahodna Dem. Rep. Kongo"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Zahodna Avstralija"
-
-#. generated from zone.tab
 msgid "west Kazakhstan"
 msgstr "zahodni Kazahstan"
 
@@ -5399,25 +5458,13 @@ msgstr "zahodni Kazahstan"
 msgid "west Uzbekistan"
 msgstr "zahodni Uzbekistan"
 
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "Z. Para, Rondonija"
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr "Yap"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporo¾je, V. Lugansk"
-
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "kitaj¹èina (poenostavljena)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "kitaj¹èina (tradicionalna)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5448,9 +5495,8 @@ msgid "Japanese"
 msgstr "japon¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Korean"
-msgstr "Kosrae"
+msgstr "korej¹èina"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -5471,1328 +5517,3 @@ msgstr "¹pan¹èina"
 #. generated from lang-table
 msgid "Swedish"
 msgstr "¹ved¹èina"
-
-#~ msgid "Danish"
-#~ msgstr "dan¹èina"
-
-#~ msgid "Hungarian"
-#~ msgstr "mad¾ar¹èina"
-
-#~ msgid "Portuguese"
-#~ msgstr "portugal¹èina"
-
-#~ msgid "Romanian"
-#~ msgstr "romun¹èina"
-
-#~ msgid "Serbian"
-#~ msgstr "srb¹èina"
-
-#~ msgid "Slovak"
-#~ msgstr "slova¹èina"
-
-#~ msgid "Turkish"
-#~ msgstr "tur¹èina"
-
-#~ msgid "Ukrainian"
-#~ msgstr "ukrajin¹èina"
-
-#, fuzzy
-#~ msgid "You cannot edit this partition, as it is in use by the installer."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#~ msgid "Ok"
-#~ msgstr "V redu"
-
-#~ msgid "partitioning did not meet requirements"
-#~ msgstr "razdeljevanje ni zadostilo zahtevam"
-
-#~ msgid "The %s directory must be on the root filesystem."
-#~ msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points must begin with a leading /."
-#~ msgstr ""
-#~ "Toèka priklopa %s ni dobra.\n"
-#~ "\n"
-#~ "Vse toèke priklopa se morajo zaèeti z znakom /."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may not end with a /."
-#~ msgstr ""
-#~ "Toèka priklopa %s ni dobra.\n"
-#~ "\n"
-#~ "Toèke priklopa se ne smejo konèati z /."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may only printable characters."
-#~ msgstr ""
-#~ "Toèka priklopa %s ni dobra.\n"
-#~ "\n"
-#~ "Toèke priklopa lahko vsebujejo le izpisljive znake."
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
-#~ "partition. You can do this, but you may not use any other filesystems for "
-#~ "your Linux system. Additionally, there will be a speed penalty for not "
-#~ "using Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Za svoj korenski datoteèni sistem (/) ste izbrali dosovski razdelek vrste "
-#~ "FAT.  To sicer lahko storite, a morda v va¹em sistemu Linux ne boste "
-#~ "mogli uporabljati drugih datoteènih sistemov.  Poleg tega je raba "
-#~ "poèasnej¹a od rabe domorodnih razdelkov za Linux.  Ali ¾elite nadaljevati?"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "System partitions must be on Linux Native partitions."
-#~ msgstr ""
-#~ "Toèka priklopa %s ni dobra.\n"
-#~ "\n"
-#~ "Sistemske razdelitve morajo biti v razdelitvah tipa Linux."
-
-#~ msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-#~ msgstr "Na tej platformi mora biti /boot v dosovskem datoteènem sistemu %x."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr ""
-#~ "Toèka priklopa %s ni dovoljena.\n"
-#~ "\n"
-#~ "/usr mora biti na razdelitvi tipa Linux ali NFS."
-
-#~ msgid "Too Many Drives"
-#~ msgstr "Preveè pogonov"
-
-#~ msgid ""
-#~ "You have more drives than this program supports. Please use the standard "
-#~ "fdisk program to setup your drives and please notify Red Hat Software "
-#~ "that you saw this message."
-#~ msgstr ""
-#~ "Imate veè diskov kot jih podpira ta program. Prosim uporabite obièajni "
-#~ "program fdisk za nastavitev va¹ih diskov in prosim obvestite Red Hat "
-#~ "Software, da ste videli to sporoèilo."
-
-#~ msgid "Error Creating Device Nodes"
-#~ msgstr "Napaka pri ustvarjanju nodov naprav"
-
-#~ msgid ""
-#~ "An error has occurred while trying to create device nodes for the hard "
-#~ "drives in your system.  This may be because you have run out of disk "
-#~ "space on the /tmp partition."
-#~ msgstr ""
-#~ "Med ustvarjanjem nodov naprav za va¹e diske je pri¹lo do napake. Morda "
-#~ "vam je zmanjkalo prostora v disku, v razdelitvi /tmp."
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems.  Please check your hardware for the cause of this "
-#~ "problem."
-#~ msgstr ""
-#~ "Pri¹lo je do napake - nismo na¹li veljavne naprave, na kateri bi lahko "
-#~ "ustvarili nove datoteène sisteme. Prosim preverite va¹o strojno opremo za "
-#~ "razlog te te¾ave."
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  "
-#~ "The error was"
-#~ msgstr ""
-#~ "Med branjem razdelitvene tabele blokovne naprave je pri¹lo do napake. "
-#~ "Napaka je bila"
-
-#~ msgid "Skip Drive"
-#~ msgstr "Preskoèi pogon"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive."
-#~ msgstr ""
-#~ "Razdelitvena tabela naprave %s je po¹kodovana.  Èe ¾elite ustvarjati na "
-#~ "njej nove razdelitve, jo morate inicializirati, kar bo povzroèilo izgubo "
-#~ "VSEH PODATKOV na tem pogonu."
-
-#~ msgid "Bad Partition Table"
-#~ msgstr "Slaba razdelitvena tabela"
-
-#~ msgid "Initialize"
-#~ msgstr "Inicializirajmo"
-
-#~ msgid "BSD Disklabel"
-#~ msgstr "Oznaka diska BSD"
-
-#~ msgid ""
-#~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
-#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
-#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
-#~ "Disklabels."
-#~ msgstr ""
-#~ "Najden je bil disk z oznako diska BSD. Namestitev Red Hat podpira oznake "
-#~ "diska BSD le v naèinu samo za branje, zato morate za stroje z oznakami "
-#~ "diska BSD uporabiti prilagojeno namestitev in fdisk (ne Disk Druida)."
-
-#~ msgid "System error %d"
-#~ msgstr "Sistemska napaka %d"
-
-#~ msgid "Fdisk Error"
-#~ msgstr "Napaka v fdisku"
-
-#~ msgid ""
-#~ "This occurs because the drive geometry detected by the kernel used by the "
-#~ "installer is different than the drive geometry used when the drive was "
-#~ "partitioned.  This can be corrected by specifying the drive geometry on "
-#~ "the kernel command line when booting the installer."
-#~ msgstr ""
-#~ "To se pojavlja, ker se geometrija pogona, ki jo je zaznalo jedro, "
-#~ "razlikuje od geometrije pogona, ko je bil ta razdeljen.  To lahko "
-#~ "odpravite tako, da med zaganjanjem programa za namestitev v ukazno "
-#~ "vrstico za jedro vpi¹ete podatke o geometriji pogona."
-
-#~ msgid ""
-#~ "This error has occurred because there is a logical partition on the drive "
-#~ "which has a partition type of zero (0).  A partition type of zero means "
-#~ "that the drive's partitioning is not completely defined, and may have "
-#~ "been caused by another operating system's partitioning program.  This "
-#~ "condition is not supported by the anaconda installer.  You may be able to "
-#~ "set the partition type correctly using your other operating system's "
-#~ "partitioning program."
-#~ msgstr ""
-#~ "Do te napake je pri¹lo, ker v pogonu obstaja logièni razdelek, ki ima "
-#~ "vrsto razdelka enako niè (0). Razdelek vrste niè pomeni, da razdelitev "
-#~ "diska ni popolnoma definirana in da jo je lahko naredil program za "
-#~ "razdelitev diska v kak¹nem drugem operacijskem sistemu. Tega primera "
-#~ "name¹èevalnik anaconda ne podpira. Morda lahko popravite vrsto razdelka s "
-#~ "programom za razdeljevanje diska v drugem operacijskem sistemu."
-
-#~ msgid "<Swap Partition>"
-#~ msgstr "<Izmenjalna razdelitev>"
-
-#~ msgid "Couldnt find partition named %s\n"
-#~ msgstr "Razdelka %s ni moè najti.\n"
-
-#~ msgid "Root partition"
-#~ msgstr "Korenski razdelek"
-
-#~ msgid ""
-#~ "The growth of the root (/) RAID array appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
-#~ msgstr ""
-#~ "Videti je, da je rast korenskega (/) polja RAID omejena s tem, da se "
-#~ "sistem lahko za¾ene le z dela diska do 1024 cilindra.  Èe je to res, si "
-#~ "lahko morda pomagate tako, da naredite posebni zagonski razdelek /boot "
-#~ "(50 MB zadostuje), preostanek korenskega razdelka pa potem lahko napolni "
-#~ "ves disk."
-
-#~ msgid ""
-#~ "The growth of the root (/) partition appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
-#~ msgstr ""
-#~ "Videti je, da je rast korenskega razdelka (/) omejena s tem, da se sistem "
-#~ "lahko za¾ene le z dela diska do 1024 cilindra.  Èe je to res, si lahko "
-#~ "morda pomagate tako, da naredite posebni zagonski razdelek /boot (50 MB "
-#~ "zadostuje), preostanek korenskega razdelka pa potem lahko napolni ves "
-#~ "disk."
-
-#~ msgid "Delete Partition"
-#~ msgstr "Odstranitev razdelitve"
-
-#~ msgid "Cannot Edit Partitions"
-#~ msgstr "Ne moremo urediti razdelitev"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit other partitions."
-#~ msgstr ""
-#~ "Korenski datoteèni sistem ,/` ste definirali na razdelitvi, ki ni vrste "
-#~ "ext2, zato zdaj ne morete urejati drugih razdelitev."
-
-#~ msgid "Edit Partition"
-#~ msgstr "Uredi razdelitev"
-
-#~ msgid "Size (Megs):"
-#~ msgstr "Velikost (MB):"
-
-#~ msgid "Use remaining space?"
-#~ msgstr "Uporabi obstojeèi prostor?"
-
-#~ msgid "Allocation Status:"
-#~ msgstr "Status dodelitve:"
-
-#~ msgid "Successful"
-#~ msgstr "Uspe¹no"
-
-#~ msgid "Failed"
-#~ msgstr "Neuspe¹no"
-
-#~ msgid "Failure Reason:"
-#~ msgstr "Razlog neuspeha:"
-
-#~ msgid "Partition Type:"
-#~ msgstr "Vrsta razdelitve:"
-
-#~ msgid "No Mount Point"
-#~ msgstr "Ni toèke priklopa"
-
-#~ msgid ""
-#~ "You have not selected a mount point for this partition. Are you sure you "
-#~ "want to do this?"
-#~ msgstr ""
-#~ "Niste izbrali toèke priklopa za to razdelitev. Ste preprièani, da ¾elite "
-#~ "to storiti?"
-
-#~ msgid "Mount Point Error"
-#~ msgstr "Napaka zaradi toèke priklopa"
-
-#~ msgid ""
-#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
-#~ "You cannot do this now because mount points have been assigned to ext2 "
-#~ "partitions also.  Clear those mount points and then you will be able to "
-#~ "assign '/' to this partition."
-#~ msgstr ""
-#~ "Toæko priklopa za ,/` ste ¾eleli prirediti razdelitvi vrste FAT.  Tega "
-#~ "zdaj ne morete storiti, ker so bile nekatere toèke priklopa ¾e prirejene "
-#~ "razdelitvam vrste ext2.  Odstranite te toèke priklopa, potem pa boste "
-#~ "lahko priredili ,/` tej razdelitvi."
-
-#~ msgid ""
-#~ "The mount point requested is either an illegal path or is already in use. "
-#~ "Please select a valid mount point."
-#~ msgstr ""
-#~ "Zahtevana toèka priklopa je bodisi nedovoljena pot ali je ¾e v uporabi. "
-#~ "Prosim izberite veljavno toèko priklopa."
-
-#~ msgid "Size Error"
-#~ msgstr "Napaka zaradi velikosti"
-
-#~ msgid ""
-#~ "The size requested is illegal. Make sure the size is greater and zero "
-#~ "(0), and is specified int decimal (base 10) format."
-#~ msgstr ""
-#~ "Zahtevana velikost ni dovoljena. Proverite, da je velikost veèja od niè "
-#~ "(0) in da je navedena v decimalnem zapisu (v bazi 10)."
-
-#~ msgid "Swap Size Error"
-#~ msgstr "Napaka zaradi velikosti izmenjalnega prostora"
-
-#~ msgid ""
-#~ "You have created a swap partition which is too large. The maximum size of "
-#~ "a swap partition is %ld Megabytes."
-#~ msgstr ""
-#~ "Napravili ste preveliko izmenjalno razdelitev. Maksimalna velikost te "
-#~ "razdelitve je %ld megabajtov."
-
-#~ msgid ""
-#~ "It is recommended that the root (/) partition have a minimum size of %ld "
-#~ "Megabytes. You are trying to create one which is %ld Megabytes, which "
-#~ "could cause the install to fail.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Priporoèljivo je, da je korenska razdelitev (/) velika vsaj %ld "
-#~ "megabajtov. Sku¹ate ustvariti tak¹no, ki ima %ld megabajtov, namestitev "
-#~ "pa lahko zaradi tega ne uspe.\n"
-#~ "\n"
-#~ "Ste preprièani, da bi radi to storili?"
-
-#~ msgid "Warning: Root FS Size"
-#~ msgstr "Opozorilo: Velikost korenskega datoteènega sistema"
-
-#~ msgid "No Drives Specified"
-#~ msgstr "Noben pogon ni bil podan"
-
-#~ msgid "You must constrain this partition to at least one drive."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#~ msgid "No RAID Drive Constraint"
-#~ msgstr "Ni omejitev za pogone RAID"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive.\n"
-#~ " Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Nastavili ste razdelitev RAID ne da bi omejili razdelitev na en sam "
-#~ "disk.\n"
-#~ " Ali ste preprièani, da ¾elite res to storiti?"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive. Please select one drive to constrain this partition to."
-#~ msgstr ""
-#~ "Nastavili ste razdelitev RAID ne da bi omejili razdelitev na en sam disk. "
-#~ "Prosimo, izberite disk na katerega boste omejili razdelitev."
-
-#~ msgid "Cannot Add Partitions"
-#~ msgstr "Razdelitev ni moæ dodajati"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add other partitions."
-#~ msgstr ""
-#~ "Korenski datoteèni sistem ,/` ste ustvarili na razdelitvi, ki ni vrste "
-#~ "ext2, zato ne morete dodajati drugih razdelitev."
-
-#~ msgid "RAID Entry Incomplete"
-#~ msgstr "Vnos za RAID nepopoln"
-
-#~ msgid ""
-#~ "The raid device /dev/%s now contains partitions which are unallocated. "
-#~ "The raid device /dev/%s will now be decomposed into its component "
-#~ "partitions. Please recompose the raid device with allocated partitions."
-#~ msgstr ""
-#~ "Naprava RAID /dev/%s zdaj vsebuje nedodeljene razdelitve. Naprava RAID bo "
-#~ "razbita na njene sestavne razdelitve. Prosim, preuredite napravo RAID z "
-#~ "dodeljenimi razdelitvami."
-
-#~ msgid "Cannot Remove /boot"
-#~ msgstr "Ni moè odstraniti /boot"
-
-#~ msgid ""
-#~ "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" "
-#~ "to a non-RAID device first."
-#~ msgstr ""
-#~ "Imenika \"/boot\" ne morete odstraniti, èe je \"/\" na napravi RAID. "
-#~ "Najprej prestavite \"/\" na napravo, ki ni RAID."
-
-#~ msgid "Unallocated Partitions"
-#~ msgstr "Nedodeljene razdelitve"
-
-#~ msgid ""
-#~ "There are currently unallocated partition(s) present in the list of "
-#~ "requested partitions. The unallocated partition(s) are shown below, along "
-#~ "with the reason they were not allocated."
-#~ msgstr ""
-#~ "Trenutno spisek zahtevanih razdelitev vsebuje nedodeljene razdelitve. Te "
-#~ "so prikazane spodaj, skupaj z razlogom, zakaj niso bile dodeljene."
-
-#~ msgid "Cannot Edit Raid"
-#~ msgstr "Naprav RAID ni moæ urediti"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit RAID devices."
-#~ msgstr ""
-#~ "Korenski datoteèni sistem ,/` ste priredili razdelitvi, ki ni vrste ext2, "
-#~ "zato zdaj ne morete urejati naprav RAID."
-
-#~ msgid "RAID Device: /dev/"
-#~ msgstr "Naprava RAID: /dev/"
-
-#~ msgid "RAID Type:"
-#~ msgstr "Vrsta RAID:"
-
-#~ msgid "Partitions For RAID Array:"
-#~ msgstr "Razdelitve za polje RAID:"
-
-#~ msgid "You have not selected a mount point. A mount point is required."
-#~ msgstr "Niste izbrali toèke priklopa, ki je nujno potrebna."
-
-#~ msgid ""
-#~ "The mount point requested is already in use. Please select a valid mount "
-#~ "point."
-#~ msgstr ""
-#~ "Zahtevana toèka priklopa je uporabljena. Prosim, izberite veljavno toèko "
-#~ "priklopa."
-
-#~ msgid ""
-#~ "The bootable raid device can only include partitions from the first two "
-#~ "drives on your system.\n"
-#~ "\n"
-#~ "These drives are: "
-#~ msgstr ""
-#~ "Zaganjalna naprava RAID lahko vsebuje le razdelitve v prvih dveh pogonih "
-#~ "va¹ega sistema.\n"
-#~ "\n"
-#~ "Ta pogona sta: "
-
-#~ msgid "Booting From RAID Warning"
-#~ msgstr "Opozorilo zaganjanja z RAID"
-
-#~ msgid "No RAID Device"
-#~ msgstr "Ni naprave RAID"
-
-#~ msgid "You need to selected a RAID device."
-#~ msgstr "Izbrati morate napravo RAID."
-
-#~ msgid "Used Raid Device"
-#~ msgstr "Uporabljena naprava RAID"
-
-#~ msgid ""
-#~ "The raid device \"/dev/%s\" is already configured as a raid device. "
-#~ "Please select another."
-#~ msgstr ""
-#~ "Naprava RAID \"/dev/%s\" je ¾e nastavljena kot naprava RAID.  Prosim, "
-#~ "izberite drugo."
-
-#~ msgid "Not Enough Partitions"
-#~ msgstr "Ni dovolj razdelitev"
-
-#~ msgid ""
-#~ "You have not configured enough partitions for the RAID type you have "
-#~ "selected."
-#~ msgstr "Niste nastavili dovolj razdelitev za vrsto RAID, ki ste jo izbrali."
-
-#~ msgid "Illegal /boot RAID Type"
-#~ msgstr "Neveljavna vrsta RAID /boot"
-
-#~ msgid "Boot partitions (/boot) are only allowed on RAID-1."
-#~ msgstr "Zagonske razdelitve (/boot) so dovoljene le z RAID-1."
-
-#~ msgid "Illegal RAID mountpoint"
-#~ msgstr "Neveljavna toèka priklopa polja RAID"
-
-#~ msgid ""
-#~ "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-#~ "partition (non-RAID) as well."
-#~ msgstr ""
-#~ "Razdelitve RAID na Alphi ne morejo biti priklopljene kot korenske (/) "
-#~ "brez razdelitve /boot (ki ni RAID)."
-
-#~ msgid ""
-#~ "The partition %s is a pre-existing partition in the set of partitions for "
-#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
-#~ "is possible to boot from this partition?"
-#~ msgstr ""
-#~ "Razdelitev %s je ¾e obstojeèa razdelitev v naboru razdelitev za to "
-#~ "napravo RAID.  Toèka priklopa je nastavljena na /boot.  Ste preprièani, "
-#~ "da je s te razdelitve mogoèe zagnati sistem?"
-
-#~ msgid "Use Pre-existing Partition?"
-#~ msgstr "Uporabimo obstojeèo razdelitev?"
-
-#~ msgid "Cannot Add RAID Devices"
-#~ msgstr "Naprav RAID ni moè dodajati"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add RAID devices."
-#~ msgstr ""
-#~ "Korenski datoteèni sistem ,/` ste doloèili na razdelitvi, ki ni vrste "
-#~ "ext2, zato ne morete dodajati naprav RAID."
-
-#~ msgid "Auto-Partition"
-#~ msgstr "Samodejna razdelitev"
-
-#~ msgid "Using Existing Disk Space"
-#~ msgstr "Uporaba obstojeèega diskovnega prostora"
-
-#~ msgid "Remove Linux partitions"
-#~ msgstr "Odstranimo razdelitve Linuxa"
-
-#~ msgid "Use existing free space"
-#~ msgstr "Uporabimo obstojeèi prosti prostor"
-
-#~ msgid "Intended Use"
-#~ msgstr "Nameravana uporaba"
-
-#~ msgid "Delete RAID Device?"
-#~ msgstr "Pobri¹emo napravo RAID?"
-
-#~ msgid "Are you sure you want to remove this RAID device?"
-#~ msgstr "Ste preprièani, da ¾elite odstraniti to napravo RAID?"
-
-#~ msgid "Reset Partition Table"
-#~ msgstr "Povrnimo razdelitveno tabelo"
-
-#~ msgid "Reset partition table to original contents? "
-#~ msgstr "Vzpostavimo prvotno stanje razdelitvene tabele?"
-
-#~ msgid "<Swap>"
-#~ msgstr "<Izmenjalna>"
-
-#~ msgid "<RAID>"
-#~ msgstr "<RAID>"
-
-#~ msgid "<not set>"
-#~ msgstr "<ni nastavljena>"
-
-#~ msgid "Requested"
-#~ msgstr "Zahtevano"
-
-#~ msgid "Actual"
-#~ msgstr "Pravo"
-
-#~ msgid "Drive"
-#~ msgstr "Pogon"
-
-#~ msgid "Geom [C/H/S]"
-#~ msgstr "Geom [C/G/S]"
-
-#~ msgid "Total (M)"
-#~ msgstr "Skupno (MB)"
-
-#~ msgid "Free (M)"
-#~ msgstr "Prosto (MB)"
-
-#~ msgid "Used (M)"
-#~ msgstr "Poraba (MB)"
-
-#~ msgid "Used (%)"
-#~ msgstr "Poraba (%)"
-
-#~ msgid "Unallocated Partitions Exist..."
-#~ msgstr "Obstajajo nerazporejene razdelitve..."
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "or a RAID partition for the install to proceed."
-#~ msgstr ""
-#~ "Eni od razdelitev Linuxa (ext2) morate dodeliti korensko razdelitev (/) "
-#~ "ali razdelitev RAID, da se namestitev lahko nadaljuje."
-
-#~ msgid "Partitions"
-#~ msgstr "Razdelitve"
-
-#~ msgid "_Add..."
-#~ msgstr "_Dodajmo..."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Uredimo..."
-
-#~ msgid "_Make RAID Device"
-#~ msgstr "_Izdelajmo napravo RAID"
-
-#~ msgid "Auto Partition"
-#~ msgstr "Samodejna razdelitev"
-
-#~ msgid "Drive Summary"
-#~ msgstr "Povzetki vsebine diskov"
-
-#~ msgid "Swap Partition"
-#~ msgstr "Izmenjalna razdelitev"
-
-#~ msgid "Raid Partition"
-#~ msgstr "Uredimo razdelitev"
-
-#~ msgid "Edit New Partition"
-#~ msgstr "Uredimo razdelitev"
-
-#~ msgid "Use remaining space?:"
-#~ msgstr "Uporabimo obstojeèi prosti prostor"
-
-#~ msgid "Type:"
-#~ msgstr "Vrsta"
-
-#~ msgid "Current Disk Partitions"
-#~ msgstr "Trenutne razdelitve diska"
-
-#~ msgid "   Mount Point          Device     Requested   Actual         Type"
-#~ msgstr "   Toèka prilopa        Naprava    Zahtevano   Dejansko       Vrsta"
-
-#~ msgid ""
-#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "Ok        "
-#~ msgstr ""
-#~ "    F1-Pomoè   F2-Dodaj    F3-Uredi   F4-Zbri¹i    F5-Povrni   F12-V "
-#~ "redu    "
-
-#~ msgid "Drive Summaries"
-#~ msgstr "Povzetki vsebine diskov"
-
-#~ msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-#~ msgstr "  Pogon      Geom [C/H/S]      Skupaj   Poraba  Prosto"
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "for the install to proceed."
-#~ msgstr ""
-#~ "Eni od razdelitev tipa Linux morate dodeliti korensko (/) razdelitev, da "
-#~ "se lahko namestitev nadaljuje."
-
-#~ msgid "No Swap Partition"
-#~ msgstr "Izmenjalne razdelitve ni"
-
-#~ msgid "You must assign a swap partition for the install to proceed."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#~ msgid "No /boot/efi Partition"
-#~ msgstr "Korenske razdelitve ni"
-
-#~ msgid ""
-#~ "You must assign the mount point /boot/efi to a FAT-style primary "
-#~ "partition for the install to proceed."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#~ msgid ""
-#~ "There are unallocated partitions left. If you quit now they will not be "
-#~ "written to the disk.\n"
-#~ "\n"
-#~ "Are you sure you want to exit?"
-#~ msgstr ""
-#~ "©e nekaj nedodeljenih razdelitev je ostalo. Èe zapustimo program, ne bodo "
-#~ "zapisane na disk.\n"
-#~ "\n"
-#~ "Naj res zapustimo program?"
-
-#~ msgid "Save Changes"
-#~ msgstr "Shranimo spremembe"
-
-#~ msgid "Save changes to partition table(s)?"
-#~ msgstr "Shrani spremembe v razdelitveno tabelo"
-
-#~ msgid "You may only delete NFS mounts."
-#~ msgstr "Zbri¹ete lahko samo priklope NFS."
-
-#, fuzzy
-#~ msgid "Passwords do not match.asdfasdfdsafasdfdf"
-#~ msgstr "Gesli za root se ne ujemata."
-
-#~ msgid "Horizontal Frequency Range"
-#~ msgstr "Obseg horizontalnih frekvenc"
-
-#~ msgid "Vertical Frequency Range"
-#~ msgstr "Obseg vertikalnih frekvenc"
-
-#, fuzzy
-#~ msgid "Make Raid Device"
-#~ msgstr "Uporabljena naprava RAID"
-
-#, fuzzy
-#~ msgid "Could not allocated requested partitions: %s."
-#~ msgstr "Obstajajo nerazporejene razdelitve..."
-
-#, fuzzy
-#~ msgid "Samba Server:"
-#~ msgstr "Stre¾nik SMB (Samba)"
-
-#, fuzzy
-#~ msgid "Samba"
-#~ msgstr "Svalbard"
-
-#, fuzzy
-#~ msgid "GRUB Password"
-#~ msgstr "Geslo za root"
-
-#, fuzzy
-#~ msgid "Bootloader Password: "
-#~ msgstr "Geslo za root: "
-
-#, fuzzy
-#~ msgid "Set Password"
-#~ msgstr "Geslo za root"
-
-#~ msgid ""
-#~ "An internal error occurred in the installation program. Please report "
-#~ "this error to Red Hat (through the bugzilla.redhat.com web site) as soon "
-#~ "as possible. The information on this failure may be saved to a floppy "
-#~ "disk, and will help Red Hat in fixing the problem.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "V namestitvenem programu se je zgodila notranja napaka. Prosimo, èimprej "
-#~ "sporoèite to napako Red Hatu (prek spletne strani bugzilla.redhat.com). "
-#~ "Podatke o tej te¾avi lahko shranite na disketo in tako pomagate Red Hatu "
-#~ "pri odpravljanju napake.\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "Filesystem Missing"
-#~ msgstr "Formatiranje datoteènega sistema"
-
-#, fuzzy
-#~ msgid "You cannot edit partitions without a filesystem type."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#, fuzzy
-#~ msgid "All Packages"
-#~ msgstr "Paketi"
-
-#, fuzzy
-#~ msgid "Navigation"
-#~ msgstr "Razdelitev diska"
-
-#, fuzzy
-#~ msgid "Please enter a password for the root user."
-#~ msgstr "Prosimo, vnesite skrbnikovo (root) geslo."
-
-#~ msgid ""
-#~ "Please remove the install floppy (if used) and insert a blank floppy in "
-#~ "the first floppy drive. All data on this disk will be erased during "
-#~ "creation of the boot disk."
-#~ msgstr ""
-#~ "Prosimo, odstranite namestitveno disketo (èe ste jo uporabljali) in "
-#~ "vstavite prazno disketo.  Med izdelavo zagonske diskete bodo na njej "
-#~ "izbrisani vsi obstojeèi podatki."
-
-#~ msgid ""
-#~ "Congratulations, installation is complete.\n"
-#~ "\n"
-#~ "Press return to reboot, and be sure to remove your boot medium after the "
-#~ "system reboots, or your system will rerun the install. For information on "
-#~ "fixes which are available for this release of Red Hat Linux, consult the "
-#~ "Errata available from http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the Red Hat Linux manuals."
-#~ msgstr ""
-#~ "Èestitamo, namestitev je konèana.\n"
-#~ "\n"
-#~ "Pritisnite <Enter>, da se bo raèunalnik resetiral, ¹e prej pa odstranite "
-#~ "zagonski nosilec, da se ne bo ponovno pognala namestitev. Za informacije "
-#~ "o popravkih te razlièice Red Hat Linuxa, ki so na voljo, poglejte errata "
-#~ "na http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Informacije o prikrojitvi in rabi sistema lahko najdete v priroènikih za "
-#~ "Red Hat Linux."
-
-#~ msgid "Install Type"
-#~ msgstr "Vrsta namestitve"
-
-#~ msgid "Choose the languages to install:"
-#~ msgstr "Izberite jezike, ki naj se namestijo:"
-
-#, fuzzy
-#~ msgid "You must first select an existing partition or free space to edit."
-#~ msgstr ""
-#~ "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
-
-#, fuzzy
-#~ msgid "Automatic Disk Setup"
-#~ msgstr "Prikrojitev diska"
-
-#, fuzzy
-#~ msgid ""
-#~ "Autopartitioning sets up your partitioning in a reasonable way depending "
-#~ "on your installation type and then gives you a chance to customize this "
-#~ "setup.\n"
-#~ "\n"
-#~ "Disk Druid is a tool designed for partitioning and setting up mount "
-#~ "points.  It is designed to be easier to use than Linux's traditional disk "
-#~ "partitioning software, fdisk, as well as more powerful.  However, there "
-#~ "are some cases where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Èarovnik za diske je orodje za razdelitev in vzpostavljanje toèk "
-#~ "priklopa. Zasnovano je tako, da ga bo la¾je uporabljati kot obièajni "
-#~ "program za razdelitev diska za Linux, fdisk, in da bo bolj zmogljivo. "
-#~ "Vendar obstajajo doloèeni primeri, kjer je lahko fdisk bolj za¾elen.\n"
-#~ "\n"
-#~ "Katero orodje ¾elite uporabljati?"
-
-#~ msgid "X Configuration"
-#~ msgstr "Nastavitev X"
-
-#~ msgid ""
-#~ "\n"
-#~ "On SMCC made Ultra machines floppy booting probably does not work\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Zaganjanje z diskete verjetno ne deluje na strojih SMCC Ultra\n"
-#~ "\n"
-
-#~ msgid "Bootdisk"
-#~ msgstr "Zagonska disketa"
-
-#~ msgid ""
-#~ "If you have the install floppy in your drive, first remove it. Then "
-#~ "insert a blank floppy in the first floppy drive. All data on this disk "
-#~ "will be erased during creation of the boot disk."
-#~ msgstr ""
-#~ "V prvi disketnik vstavite prazno disketo.  Med izdelavo zagonske diskete "
-#~ "bodo na njej izbrisani vsi obstojeèi podatki."
-
-#~ msgid "Choose the languages to be installed:"
-#~ msgstr "Izberite jezike, ki naj se namestijo:"
-
-#~ msgid "Choose the default language: "
-#~ msgstr "Izberite privzeti jezik: "
-
-#, fuzzy
-#~ msgid "Add partition"
-#~ msgstr "Korenski razdelek"
-
-#, fuzzy
-#~ msgid "Not a Partition"
-#~ msgstr "Izmenjalne razdelitve ni"
-
-#, fuzzy
-#~ msgid "You cannot remove this partition as it is part of a RAID device"
-#~ msgstr ""
-#~ "Imenika \"/boot\" ne morete odstraniti, èe je \"/\" na napravi RAID. "
-#~ "Najprej prestavite \"/\" na napravo, ki ni RAID."
-
-#, fuzzy
-#~ msgid "Remove no partitions"
-#~ msgstr "Odstranimo razdelitve Linuxa"
-
-#~ msgid "Custom System"
-#~ msgstr "Namestitev sistema po meri"
-
-#~ msgid "Server System"
-#~ msgstr "Stre¾ni¹ki sistem"
-
-#~ msgid ""
-#~ "The following partitions are newly created, but you have chosen not to "
-#~ "format them. This will probably cause an error later in the install.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Naslednje razdelitve so ustvarjene na novo, a ste izbrali, da jih ne "
-#~ "boste formatirali. To bo med namestitvijo pozneje verjetno povzroèilo "
-#~ "napako.\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Press OK to continue, or Cancel to go back and select these partitions to "
-#~ "be formatted (RECOMMENDED)."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Pritisnite ,V redu` za nadaljevanje ali ,Preklièi`, da se vrnete in "
-#~ "izberete razdelitve, ki naj se formatirajo (PRIPOROÈENO)."
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
-#~ "now and press \"Ok\" to reboot your system.\n"
-#~ msgstr ""
-#~ "Jedro ne more prebrati va¹ih novih podatkov o razdelitvi, verjetno zato, "
-#~ "ker ste spremenili raz¹irjene razdelitve. To sicer ni kritièno, preden "
-#~ "nadaljujete pa morate vseeno vnoviè zagnati stroj. Zdaj vstavite zagonsko "
-#~ "disketo Red Hat in pritisnite \"V redu\", da boste vnoviè zagnali "
-#~ "sistem.\n"
-
-#~ msgid "Swap Space"
-#~ msgstr "Izmenjalni prostor"
-
-#~ msgid "Creating swap space..."
-#~ msgstr "Izdeluje se izmenjalni prostor..."
-
-#~ msgid "Formatting swap space..."
-#~ msgstr "Formatira se izmenjalni prostor..."
-
-#~ msgid "Error creating swap on device "
-#~ msgstr "Napaka pri ustvarjanju izmenjalnega prostora na napravi "
-
-#~ msgid "Error unmounting %s: %s"
-#~ msgstr "Napaka pri odklapljanju %s: %s"
-
-#~ msgid "Creating RAID devices..."
-#~ msgstr "Ustvarjajo se naprave RAID..."
-
-#~ msgid "Loopback"
-#~ msgstr "Zaprta zanka"
-
-#~ msgid "Creating loopback filesystem on device /dev/%s..."
-#~ msgstr "Ustvarja se zaprtozanèni datoteèni sistem na napravi /dev/%s..."
-
-#~ msgid "Finish"
-#~ msgstr "Konec"
-
-#~ msgid "Red Hat Linux Install Shell"
-#~ msgstr "Namestitvena lupina Red Hat Linuxa"
-
-#~ msgid "Red Hat Linux Install Shell on %s"
-#~ msgstr "Namestitvena lupina Red Hat Linuxa na %s"
-
-#~ msgid "WARNING: no valid block devices were found.\n"
-#~ msgstr "POZOR: ni moè najti veljavnih blokovnih naprav.\n"
-
-#~ msgid "ERROR: unknown error encountered reading partition tables.\n"
-#~ msgstr ""
-#~ "NAPAKA: med branjem razdelitvene tabele je pri¹lo do neznane napake.\n"
-
-#~ msgid "Upgrade Existing Installation"
-#~ msgstr "Nadgraditev obstojeèe namestitve"
-
-#~ msgid "X probe results"
-#~ msgstr "Izidi preisku¹anja X"
-
-#~ msgid "Unlisted Card"
-#~ msgstr "Nena¹teta kartica"
-
-#~ msgid "Video Card Selection"
-#~ msgstr "Izbira grafiène kartice"
-
-#~ msgid "Which video card do you have?"
-#~ msgstr "Katero grafièno kartico imate?"
-
-#~ msgid "X Server Selection"
-#~ msgstr "Izbira stre¾nika X"
-
-#~ msgid "Choose a server"
-#~ msgstr "Izberite stre¾nik"
-
-#~ msgid " "
-#~ msgstr " "
-
-#~ msgid "Hostname Setup"
-#~ msgstr "Nastavitev imena raèunalnika"
-
-#~ msgid "Language Default"
-#~ msgstr "Privzet jezik"
-
-#~ msgid "Time Zone Setup"
-#~ msgstr "Nastavitev èasovnega pasu"
-
-#~ msgid "Configuration Complete"
-#~ msgstr "Nastavitev konèana"
-
-#~ msgid "LILO Configuration"
-#~ msgstr "Nastavitev LILO"
-
-#~ msgid "Automatic Partition"
-#~ msgstr "Samodejna razdelitev"
-
-#~ msgid "Manually Partition"
-#~ msgstr "Roèna razdelitev"
-
-#~ msgid "Swap"
-#~ msgstr "Izmenjalna"
-
-#~ msgid "Package Groups"
-#~ msgstr "Skupina paketov"
-
-#~ msgid "Individual Packages"
-#~ msgstr "Posamezni paketi"
-
-#~ msgid "Installation Begins"
-#~ msgstr "Zaèetek namestitve"
-
-#~ msgid "Installation Complete"
-#~ msgstr "Namestitev je konèana"
-
-#~ msgid "Examine System"
-#~ msgstr "Prei¹èi sistem"
-
-#~ msgid "System Swap Space"
-#~ msgstr "Sistemski izmenjalni prostor"
-
-#~ msgid "Customize Upgrade"
-#~ msgstr "Prilagodi nadgradnjo"
-
-#~ msgid "Upgrade Begins"
-#~ msgstr "Prei¹èimo nadgradnjo"
-
-#~ msgid "Upgrade Complete"
-#~ msgstr "Popolnoma nadgradi"
-
-#~ msgid ""
-#~ "An error occured while installing the bootloader.\n"
-#~ "\n"
-#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
-#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
-#~ "\n"
-#~ "The error reported was:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Med name¹èanjem zagonskega nalagalnika je pri¹lo do napake.\n"
-#~ "\n"
-#~ "MOÈNO priporoèamo, da naredite re¹ilno zagonsko disketo, ko vam sistem to "
-#~ "predlaga, sicer morda ne boste mogli zagnati Red Hat Linuxa.\n"
-#~ "\n"
-#~ "Sporoèena je bila napaka:\n"
-#~ "\n"
-
-#~ msgid "Plug and Play Monitor"
-#~ msgstr "Monitor vrste Plug and Play"
-
-#~ msgid "Horizontal frequency range"
-#~ msgstr "Obseg horizontalne frekvence"
-
-#~ msgid "Vertical frequency range"
-#~ msgstr "Obseg vertikalne frekvence"
-
-#~ msgid "Aborting upgrade"
-#~ msgstr "Nadgradnja je prekinjena"
-
-#~ msgid "Check for bad blocks while formatting"
-#~ msgstr "Iskanje slabih blokov med formatiranjem"
-
-#~ msgid "Lilo Configuration"
-#~ msgstr "Nastavitev LILO"
-
-#~ msgid "Use linear mode (needed for some SCSI drives)"
-#~ msgstr "Uporaba linearnega naèina (nujna za nekatere diske SCSI)"
-
-#~ msgid "Install LILO"
-#~ msgstr "Namesti LILO"
-
-#~ msgid ""
-#~ "The following error occurred while retreiving hdlist file:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Installer will exit now."
-#~ msgstr ""
-#~ "Med pobiranjem datoteke hdlist je pri¹lo do naslednje napake:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Namestitveni program se bo zdaj konèal."
-
-#~ msgid ""
-#~ "An error has occurred while retreiving the hdlist file.  The installation "
-#~ "media or image is probably corrupt.  Installer will exit now."
-#~ msgstr ""
-#~ "Med pobiranjem datoteke hdlist je pri¹lo do napake. Namestitveni nosilec "
-#~ "ali pa slika sta verjetno pokvarjena. Namestitveni program se bo zdaj "
-#~ "konèal."
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
-#~ msgstr ""
-#~ "Razdelitev, ki vsebuje jedro (zagonsko razdelitev) ste postavili nad "
-#~ "omejitvijo 1024 cilindrov, in videti je, da sistemski BIOS ne podpira "
-#~ "zaganjanje nad to mejo. Èe nadaljujete, sistem najverjetneje ne bo zmogel "
-#~ "zagnati Linuxa.\n"
-#~ "\n"
-#~ "Èe se odloèite za nadaljevanje, je ZELO priporoèeno, da naredite zagonsko "
-#~ "disketo, ko vam program to predlaga. Tako boste po namestitvi zagotovo "
-#~ "lahko zagnali sistem.\n"
-#~ "\n"
-#~ "Pritisnite ,V redu` za nadaljevanje ali ,Preklièi`, da se vrnete in "
-#~ "prerazporedite zagonsko razdelitev."
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
-#~ "booting from above this limit. \n"
-#~ "\n"
-#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
-#~ "installer, as this is a new feature in recent motherboards and is not "
-#~ "always reliable. Making a boot disk will guarantee you can boot your "
-#~ "system once installed."
-#~ msgstr ""
-#~ "Razdelitev, ki vsebuje jedro (zagonsko razdelitev) ste postavili nad "
-#~ "omejitvijo 1024 cilindrov.  Videti je, da sistemski BIOS podpira tudi "
-#~ "zaganjanje nad to mejo.\n"
-#~ "\n"
-#~ "ZELO je priporoèeno, da naredite zagonsko disketo, ko vam program to "
-#~ "predlaga, saj je to nova odlika novej¹ih matiènih plo¹è in ni vedno "
-#~ "zanesljiva. Z narejeno zagonsko disketo boste va¹ sistem po namestitvi "
-#~ "zagotovo lahko zagnali."
-
-#~ msgid ""
-#~ "You've chosen to put your root filesystem in a file on an already-"
-#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
-#~ "you like the root filesystem to be, and how much swap space would you "
-#~ "like? They must total less then %d megabytes in size."
-#~ msgstr ""
-#~ "Va¹ korenski datoteèni sistem ste se odloèili polo¾iti v datoteko na ¾e "
-#~ "obstojeèem datoteènem sistemu za DOS ali za Windows. Kako velik, v "
-#~ "megabajtih, korenski datoteèni sistem bi radi imeli in koliko "
-#~ "izmenjalnega prostora bi radi imeli? Obojega skupaj mora biti manj kot %d "
-#~ "megabajtov."
-
-#~ msgid "Root filesystem size:"
-#~ msgstr "Velikost korenskega datoteènega sistema:"
-
-#~ msgid "Swap space size:"
-#~ msgstr "Velikost izmenjalnega prostora:"
-
-#~ msgid ""
-#~ "Please select the type of disk partitioning you would like to use.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Selecting manual partitioning allows you to create the partitions by hand."
-#~ msgstr ""
-#~ "Prosimo, izberite ¾eleni naèin razdeljevanja diska.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Èe izberete roèno razdelitev, lahko sami roèno dodate razdelke."
-
-#~ msgid "Automatic Partitioning Failed"
-#~ msgstr "Samodejna razdelitev"
-
-#~ msgid ""
-#~ "\n"
-#~ "There is not sufficient disk space in order to automatically partition "
-#~ "your disk. You will need to manually partition your disks for Red Hat "
-#~ "Linux to install.\n"
-#~ "\n"
-#~ "Please choose the tool you would like to use to partition your system for "
-#~ "Red Hat Linux."
-#~ msgstr ""
-#~ "\n"
-#~ "Za samodejno razdelitev va¹ega diska v njem ni dovolj prostora. Èe ¾elite "
-#~ "namestiti Red Hat Linux, boste moreli va¹e diske razdeliti roèno.\n"
-#~ "\n"
-#~ "Prosimo, izberite orodje, ki bi ga radi uporabljali za razdelitev va¹ega "
-#~ "diska za Red Hat Linux."
-
-#~ msgid "Manual Partitioning"
-#~ msgstr "Roèna razdelitev"
-
-#~ msgid "Automatically partition and REMOVE DATA"
-#~ msgstr "Samodejna razdelitev in ODSTRANITEV PODATKOV"
-
-#~ msgid "Boot Partition Location Warning"
-#~ msgstr "Opozorilo o mestu zagonske razdelitve"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Are you sure you want to proceed?"
-#~ msgstr ""
-#~ "Razdelitev, ki vsebuje jedro (zagonsko razdelitev) ste postavili nad "
-#~ "omejitvijo 1024 cilindrov, in videti je, da sistemski BIOS ne podpira "
-#~ "zaganjanje nad to mejo. Èe nadaljujete, sistem najverjetneje ne bo zmogel "
-#~ "vnoviè zagnati Linuxa.\n"
-#~ "\n"
-#~ "Èe se odloèite za nadaljevanje, je ZELO priporoèeno, da naredite zagonsko "
-#~ "disketo, ko vam program to predlaga. Tako boste po namestitvi zagotovo "
-#~ "lahko zagnali sistem.\n"
-#~ "\n"
-#~ "Ste preprièani, da ¾elite nadaljevati?"
-
-#~ msgid "Bits per Pixel"
-#~ msgstr "Bitov na piko"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Izidi samodejnega preizkusa:"
-
-#~ msgid "Skip LILO"
-#~ msgstr "Preskoèi LILO"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Za namestitev Red Hat Linuxa, morate imeti zanj posveèeno najmanj eno "
-#~ "razdelitev velikosti 150 MB. Priporoèamo vam, da je ta razdelitev na enem "
-#~ "od prvih dveh diskov v va¹em sistemu, da boste lahko zaganjali Linux z "
-#~ "nalagalnikom LILO."
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "If you don't want to do this, you can continue with this install by "
-#~ "partitioning manually, or you can go back and perform a fully customized "
-#~ "installation."
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Èe ne ¾elite storiti tega, lahko nadaljujete z namestitvijo tako, da "
-#~ "roèno razdelite disk, ali pa se lahko vrnete in izberete popolnoma "
-#~ "prilagojeno namestitev."
-
-#~ msgid "Manually partition"
-#~ msgstr "Roèna razdelitev"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting "
-#~ "all of the system partitions, including /, /usr, and /var. There is no "
-#~ "need to format /home or /usr/local if they have already been configured "
-#~ "during a previous install."
-#~ msgstr ""
-#~ "Katere razdelitve bi ¾eleli formatirati? Moèno priporoèamo formatiranje "
-#~ "vseh sistemskih razdelitev, vkljuèno z /, /usr in /var. Formatiranje "
-#~ "razdelitev /home ali /usr/local ni potrebno, èe so bile nastavljene med "
-#~ "prej¹no namestitvijo."
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Izberite razdelitve za formatiranje"
-
-#~ msgid "Root filesystem size"
-#~ msgstr "Velikost korenskega datoteènega sistema"
-
-#~ msgid "Swap space"
-#~ msgstr "Izmenjalni prostor"
-
-#~ msgid "The size you enter must be a number."
-#~ msgstr "Velikost, ki jo vnesete, mora biti ¹tevilèna."
-
-#~ msgid ""
-#~ "The total size must be smaller then the amount of free space on the disk, "
-#~ "which is %d megabytes."
-#~ msgstr ""
-#~ "Skupna velikost mora biti manj¹a od kolièine nezasedenega prostora na "
-#~ "disku, ki je %d megabajtov."
-
-#~ msgid ""
-#~ "Neither the root file system size nor the swap space size may be greater "
-#~ "then 2000 megabytes."
-#~ msgstr ""
-#~ "Niti korenski datoteèni sistem, niti izmenjalni prostor, ne smeta biti "
-#~ "veèja od 2000 megabajtov."
-
-#~ msgid ""
-#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
-#~ "continue with the upgrade."
-#~ msgstr ""
-#~ "Èe ¾elite zapustiti nadgradnjo, izberite Izhod, sicer izberite V redu in "
-#~ "nadaljujte z nadgradnjo."
-
-#~ msgid ""
-#~ "Automatic partitioning will erase any preexisting Linux installations on "
-#~ "your system."
-#~ msgstr ""
-#~ "Samodejna razdelitev bo zbrisala vse obstojeèe namestitve Linuxa v "
-#~ "sistemu."
-
-#~ msgid ""
-#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
-#~ "room for your Linux installation."
-#~ msgstr ""
-#~ "Samodejna razdelitev bo zbrisala VSE PODATKE na va¹em disku, da bo dovolj "
-#~ "prostora za namestitev Linuxa."
-
-#~ msgid "Loading %s ramdisk..."
-#~ msgstr "Nalagamo drugo stopnjo pomnilni¹kega diska..."
-
-#~ msgid "Error loading ramdisk."
-#~ msgstr "Napaka pri nalaganju pomnilni¹kega diska."
-
-#~ msgid "Unable to retrieve the second install image"
-#~ msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
-
-#~ msgid "Mail/WWW/News Tools"
-#~ msgstr "Orodja za po¹to/splet/novice"
-
-#~ msgid "DOS/Windows Connectivity"
-#~ msgstr "Povezljivost z DOS/Windows"
-
-#~ msgid "Games"
-#~ msgstr "Igre"
-
-#~ msgid "Networked Workstation"
-#~ msgstr "Delovna postaja na mre¾i"
-
-#~ msgid "Dialup Workstation"
-#~ msgstr "Delovna postaja na klic"
-
-#~ msgid "IPX/Netware(tm) Connectivity"
-#~ msgstr "Povezljivost z IPX/Netware"
-
-#~ msgid "Development"
-#~ msgstr "Razvoj"
-
-#~ msgid "Borneo & Celebes"
-#~ msgstr "Borneo & Celebes"
