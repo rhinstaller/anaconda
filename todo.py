@@ -756,9 +756,10 @@ class ToDo:
             return None
 
     def selectDeps (self, deps):
-        for (who, dep) in deps:
-            if dep != _("no suggestion"):
-                self.hdList[dep].selected = 1
+        if deps:
+            for (who, dep) in deps:
+                if dep != _("no suggestion"):
+                    self.hdList[dep].selected = 1
 
     def upgradeFindRoot (self):
         win = self.intf.waitWindow ("Examining System",
