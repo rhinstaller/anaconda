@@ -2,6 +2,8 @@
 
 	* iw/congrats_gui.py:  Kill the big empty box on the congrats screen
 	to fix word wrap (#149526).
+	* scripts/upd-instroot:  rpm needs libstdc++.so.6 in the network
+	install images.
 	* ui/anaconda.glade:  Don't constrain the button bar so much so the
 	buttons can grow a bit for wordy translations (#151208).
 
