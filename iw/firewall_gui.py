@@ -84,11 +84,15 @@ class FirewallWindow (InstallWindow):
                             #- if there's a colon in the token, it's valid
                             if string.index(token,':'):         
                                 parts = string.split(token, ':')
-				portnum = int(parts[0])
+				try:
+				    portnum = string.atoi(parts[0])
+				except:
+				    portnum = None
+				    
                                 if len(parts) > 2: # more than one colon
                                     bad_token_found = 1
                                     bad_token = token
-				elif portnum < 1 or portnum > 65535:
+				elif portnum is not None and (portnum < 1 or portnum > 65535):
 				    bad_token_found = 1
 				    bad_token = token
                                 else:
@@ -105,8 +109,12 @@ class FirewallWindow (InstallWindow):
                         except:
                             if token != "":
 				try:
-				    portnum = int(token)
-				    if portnum < 1 or portnum > 65535:
+				    try:
+					portnum = string.atoi(token)
+				    except:
+					portnum = None
+				    
+				    if portnum is not None and (portnum < 1 or portnum > 65535):
 					bad_token_found = 1
 					bad_token = token
 				    else:
