@@ -73,7 +73,9 @@ from flags import flags
 from anaconda_log import anaconda_log
 
 from rhpl.log import log
-from rhpl.translate import _
+from rhpl.translate import _, textdomain
+
+textdomain("anaconda")
 
 # reset python's default SIGINT handler
 signal.signal(signal.SIGINT, signal.SIG_DFL)
