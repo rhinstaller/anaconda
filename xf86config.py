@@ -956,6 +956,10 @@ class XF86Config:
 #        elif self.videocard.hasFixedMode():
 #            self.manualModes = self.videocard.FixedMode()
 
+	# needed for VGA16 to work?
+        if self.videocard.hasFixedMode():
+            self.manualModes = self.videocard.FixedMode()
+
         # save current manually selected mode, override if non-existant
         manmodes = self.manualModes
         if not manmodes:
@@ -1267,7 +1271,7 @@ Section "Screen"
 	# only works when starting X server in real install environment
 	displaySizeOpts = ""
 	fdpi = self.getForcedDPI()
-	if fdpi and self.res:
+	if fdpi and self.res and (carddata.has_key("DRIVER") and carddata["DRIVER"] != "vesa"):
 	    try:
 		idx = string.find(self.res, 'x')
 		if idx >= 0:
