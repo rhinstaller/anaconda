@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.4
+Version: 10.1.1.5
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,18 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 15 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.5-1
+- Fix exception handling reading jfs, xfs and swap labels
+- Don't ask for input if PORTNAME is set (from karsten)
+- Fallback to English on langs that can't do text-mode (#138308)
+- Better handling of out of space (#133773)
+- Fix for obsoletes E being long (nasrat, #138485)
+- serial should imply nofb (#134167)
+- Set fstype to vfat if user selected /boot/efi in the mountpoint dropdown (#138580)
+- Copy X logs to the installed system
+- Add patch from HJ Lu to fix hang if no boot loader being installed (#138932)
+- Ignore IBM *STMF disks (#137920)
+
 * Thu Nov  4 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.4-1
 - Fix traceback with CJK upgrades (#137345)
 - Allow 128 bit WEP keys (#137447)
