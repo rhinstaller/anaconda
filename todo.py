@@ -1348,28 +1348,7 @@ class ToDo:
 	    else:
 		raise RuntimeError, "What kind of machine is this, anyway?!"
 
-	if self.instClass.postScript:
-	    scriptRoot = "/"
-	    if self.instClass.postInChroot:
-		scriptRoot = self.instPath	
-
-	    path = scriptRoot + "/tmp/ks-script"
-
-	    f = open(path, "w")
-	    f.write("#!/bin/sh\n\n")
-	    f.write(self.instClass.postScript)
-	    f.close()
-	    os.chmod(path, 0700)
-
-	    if self.serial:
-		messages = "/tmp/ks-script.log"
-	    else:
-		messages = "/dev/tty3"
-	    iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
-		    "/tmp/ks-script" ], stdout = messages,
-		    stderr = messages, root = scriptRoot)
-				    
-	    os.unlink(path)
+	self.instClass.postAction(self.instPath, self.serial)
 
         del syslog
         
