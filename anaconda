@@ -8,7 +8,7 @@ mode = None
 test = 0
 force = 0
 debug = 0
-rootPath = '/mnt'
+rootPath = '/mnt/sysimage'
 runLive = 0
 
 for n in args:
@@ -84,16 +84,3 @@ intf.run(todo)
 todo.installSystem()
 
 del intf
-
-l = lilo.LiloConfiguration()
-l.addEntry('boot', '/dev/hda')
-l.addEntry('map', '/boot/map')
-l.addEntry('install', '/boot/boot.b')
-l.addEntry('prompt')
-l.addEntry('timeout', 50)
-s = lilo.LiloConfiguration()
-s.addEntry('label', 'linux')
-s.addEntry('root', '/dev/hda8')
-s.addEntry('read-only')
-l.addImage('/boot/vmlinuz', s)
-#l.write('/etc/lilo.conf')

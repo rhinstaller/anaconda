@@ -64,7 +64,7 @@ class ComponentSet:
 	file.close()
 	top = lines[0]
 	lines = lines[1:]
-	if (top != "2\n"):
+	if (top != "2\n" and top != "0.1\n"):
 	    raise TypeError, "comp file version 2 expected"
 	
 	comp = None

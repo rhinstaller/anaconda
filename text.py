@@ -1,5 +1,6 @@
 from snack import *
 import _balkan
+import sys
 
 class WelcomeWindow:
     def run(self, screen):
@@ -95,6 +96,7 @@ class InstallInterface:
 
     def __init__(self):
         self.screen = SnackScreen()
+	#self.screen.suspendCallback(killSelf, self)
 
     def __del__(self):
         self.screen.finish()
@@ -114,3 +116,10 @@ class InstallInterface:
             else:
 		dir = 1
 	    step = step + dir
+
+	todo.liloLocation("/dev/hda")
+
+def killSelf(screen):
+    print "HERE"
+    del screen
+    sys.exit(0) 

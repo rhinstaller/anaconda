@@ -1,8 +1,11 @@
 # For an install to proceed, the following todo fields must be filled in
 #
-#	mount list via addMount()		(unless todo.runLive)
+#	mount list (unless todo.runLive)		addMount()
+#	lilo boot.b installation (may be None)		liloLocation()
 
 import rpm, os
+import util, isys
+from lilo import LiloConfiguration
 
 def instCallback(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
@@ -15,17 +18,41 @@ def instCallback(what, amount, total, key, data):
     elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
 	data.setPackageScale(amount, total)
 
-
 class ToDo:
+
+    def umountFilesystems(self):
+	self.mounts.sort(mountListCmp)
+	self.mounts.reverse()
+	for n in self.mounts:
+	    isys.umount(n)
+
+    def makeFilesystems(self):
+	self.mounts.sort(mountListCmp)
+	for n in self.mounts:
+	    (device, mntpoint, format) = n
+	    if not format: continue
+	    w = self.intf.waitWindow("Formatting", 
+			"Formatting %s filesystem..." % (mntpoint,))
+	    util.execWithRedirect("mke2fs", [ "mke2fs", device ],
+				  stdout = None, searchPath = 1)
+	    w.pop()
+
+    def mountFilesystems(self):
+	for n in self.mounts:
+	    (device, mntpoint, format) = n
+	    isys.mount(device, self.instPath + mntpoint)
 
     def installSystem(self):
 	# make sure we have the header list and comps file
 	self.headerList()
 	comps = self.compsList()
 
-	os.mkdir(self.instPath + '/var')
-	os.mkdir(self.instPath + '/var/lib')
-	os.mkdir(self.instPath + '/var/lib/rpm')
+	self.makeFilesystems()
+	self.mountFilesystems()
+
+	#os.mkdir(self.instPath + '/var')
+	#os.mkdir(self.instPath + '/var/lib')
+	#os.mkdir(self.instPath + '/var/lib/rpm')
 
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
@@ -34,11 +61,33 @@ class ToDo:
 	    ts.add(p.h, (p.h, self.method))
 
 	ts.order()
-	p = self.intf.packageProgessWindow()
-	ts.run(0, 0, instCallback, p)
+	#p = self.intf.packageProgessWindow()
+	#ts.run(0, 0, instCallback, p)
 
-    def addMount(self, device, location):
-	self.mounts.append((device, location))
+	self.installLilo()
+
+    def installLilo(self):
+	if not self.liloDevice: return
+
+	# FIXME: make an initrd here
+
+	l = LiloConfiguration()
+	l.addEntry("boot", self.liloDevice)
+	l.addEntry("map", "/boot/map")
+	l.addEntry("install", "/boot/boot.b")
+	l.addEntry("prompt")
+	l.addEntry("timeout", "50")
+
+	sl = LiloConfiguration()
+	sl.addEntry("label", "linux")
+	sl.addEntry("root", "/dev/hda8")
+	sl.addEntry("read-only")
+
+	l.addImage("/boot/vmlinuz-2.2.2", sl)
+	l.write(self.instPath + "/etc/lilo.conf")
+
+    def addMount(self, device, location, reformat = 1):
+	self.mounts.append((device, location, reformat))
 
     def freeHeaders(self):
 	if (self.hdList):
@@ -51,6 +100,9 @@ class ToDo:
 	    self.hdList = self.method.readHeaders()
 	    w.pop()
 	return self.hdList
+
+    def liloLocation(self, device):
+	self.liloDevice = device
 
     def compsList(self):
 	if (not self.comps):
@@ -68,3 +120,12 @@ class ToDo:
 	self.instPath = rootPath
 	self.runLive = runLive
 	pass
+
+def mountListCmp(first, second):
+    mnt1 = first[1]
+    mnt2 = first[2]
+    if (first < second):
+	return -1
+    elif (first == second):
+	return 0
+    return 1
