@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-04-21 13:38+0200\n"
-"Last-Translator: Jean-Paul Aubry <jpaubry@redhat.com>\n"
+"PO-Revision-Date: 2004-06-13 09:14+0200\n"
+"Last-Translator: Vincent Schultz <vincent.schultz@wanadoo.fr> (contacter almacha@altern.org)\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1016,11 +1016,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"L'erreur suivante est apparue lors de l'analyse de votre configuration kickstart :\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Erreur lors de l'ouverture du fichier kickstart %s : %s "
+msgstr "Erreur d'analyse du fichier kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1031,9 +1033,8 @@ msgstr ""
 "donc soigneusement votre disquette."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Par défaut"
+msgstr "Par défaut:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1189,9 +1190,9 @@ msgid "Change CDROM"
 msgstr "Changer de CD-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Insérer le disque %d pour continuer."
+msgstr "Insérer le disque %d de %s pour continuer."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1204,7 +1205,7 @@ msgstr "Il ne s'agit pas du CD-ROM %s approprié."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Impossible d'accéder au CD-ROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2519,42 +2520,38 @@ msgid "Connecting..."
 msgstr "Connexion en cours..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Impossible de charger le fichier !"
+msgstr "Impossible de démarrer X"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "X n'a pas pu démarrer sur votre machine. Voulez vous démarrer VNC afin de vous connecter à cet ordinateur depuis un autre ordinateur et ainsi effectuer une installation en mode graphique ou alors continuer avec une installation en mode texte ?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Utiliser le mode texte"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Démarrage de VNC..."
+msgstr "Démarrer VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Configuration de SILO"
+msgstr "Configuration de VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Mot de passe root"
+msgstr "Pas de mot de passe"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Un mot de passe empêchera les personnes non autorisées de se connecter et de regarder votre processus d'installation.  Veuillez entrer un mot de passe à utiliser pour cette installation."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2577,9 +2574,8 @@ msgid "Password Length"
 msgstr "Nombre de caractères du mot de passe"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Le mot de passe doit compter au minimum 6 caractères."
+msgstr "Le mot de passe doit compter au minimum six caractères."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2623,7 +2619,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "Le compte root est utilisé pour administrer le système. Entrez un mot de passe pour l'utilisateur root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3297,7 +3293,7 @@ msgstr "Activ_er le pare-feu"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Autoriser les internautes à accéder à ces services."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3305,21 +3301,19 @@ msgstr "_Autoriser l'entrée :"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Connexion à distance (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Serveur"
+msgstr "Serveur Web"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Courrier (SMTP)"
+msgstr "Serveur de courrier (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transfert de fichiers (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -6918,32 +6912,26 @@ msgstr ""
 "de pilotes.Lequel voulez-vous utiliser ?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"De multiples périphériques pourraient servir de sources pour une disquette "
-"de pilotes.Lequel voulez-vous utiliser ?"
+msgstr "Il y a plusieurs partitions sur ce périphérique qui pourraient contenir l'image de disque du pilote.  Lequel voulez-vous utiliser ?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Impossible de monter la disquette de mises à jour"
+msgstr "Échec du montage de la partition."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Sélectionner le pilote"
+msgstr "Sélectionner l'image de disquette du pilote"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Choisissez le fichier qui correspond à l'image de votre disquette de pilote."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Impossible de monter la disquette de pilotes."
+msgstr "Impossible de lire la disquette de pilotes depuis le fichier."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7299,9 +7287,9 @@ msgid "Add Device"
 msgstr "Ajouter périphérique"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Le chargeur a déja été exécuté. Démarrage du shell."
+msgstr "Le chargeur a déja été exécuté. Démarrage du shell.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
@@ -7445,19 +7433,21 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s est un adaptateur de réseau sans fil. Veuillez fournir l'ESSID et la clé\n"
+"de chiffrement nécessaires pour accèder à votre réseau. Si aucune clé n'est \n"
+"nécessaire laissez ce champs vide et l'installation se poursuivra."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Clé de chiffrement"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Divers"
+msgstr "Paramétrage du réseau sans fil"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
