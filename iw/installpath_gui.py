@@ -76,10 +76,10 @@ class InstallPathWindow (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
 	vbox.set_border_width (8)
 
-	r = self.createInstallTypeOption()
-	b = r.render()
+	self.r = self.createInstallTypeOption()
+	b = self.r.render()
 
-	r.setToggleCallback(self.optionToggled)
+	self.r.setToggleCallback(self.optionToggled)
 
 	# figure out current class as well as default
 	defaultClass = None
@@ -103,7 +103,7 @@ class InstallPathWindow (InstallWindow):
 	else:
 	    self.currentClassName = currentClass.name
 
-	r.setCurrent(self.currentClassName)
+	self.r.setCurrent(self.currentClassName)
 	
 	box = gtk.VBox (gtk.FALSE)
         box.pack_start(b, gtk.FALSE)
