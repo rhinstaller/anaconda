@@ -160,8 +160,11 @@ edd_supported(int drive)
       ec->version.major = 3;
       ec->version.minor = 0;
     } else {
-      fprintf (stderr, "WARNING: Unknown EDD version 0x%x supported\n",
-	       regs.eax & 0xff00);
+/*       fprintf (stderr, "WARNING: Unknown EDD version 0x%x supported\n", */
+/* 	       regs.eax & 0xff00); */
+      /* XXX hack, get rid of stderr output */
+      ec->version.major = 1;
+      ec->version.minor = 0;
     }
     if (regs.ecx & EDD_CAPABILITY_EDA)
       ec->eda = 1;
