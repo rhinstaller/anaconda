@@ -29,7 +29,8 @@ class InstallClass(BaseInstallClass):
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
-        BaseInstallClass.setDefaultPartitioning(self, id, CLEARPART_TYPE_ALL)
+        BaseInstallClass.setDefaultPartitioning(self, id.partitions,
+                                                CLEARPART_TYPE_ALL)
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
