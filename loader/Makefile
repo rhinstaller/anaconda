@@ -10,8 +10,8 @@ BINS = loader init
 DIRS = 
 
 ifeq (i386, $(ARCH))
-BINS = $(BINS) loader-pcmcia
-DIRS = $(DIRS) pcmcia-install
+BINS += loader-pcmcia
+DIRS += pcmcia-install
 endif
 
 ifeq (.depend,$(wildcard .depend))
