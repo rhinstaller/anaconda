@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 2000-02-17 18:41-0500\n"
+"POT-Creation-Date: 2000-03-01 17:24-0500\n"
 "PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
@@ -13,135 +13,135 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../fstab.py:235 ../fstab.py:394
+#: ../fstab.py:233 ../fstab.py:396
 msgid "Formatting"
 msgstr "Biçimlendiriliyor"
 
-#: ../fstab.py:236
+#: ../fstab.py:234
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "%s aygýtýnda takas alaný oluþturuluyor..."
 
-#: ../fstab.py:246 ../fstab.py:326 ../fstab.py:460
-#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:182
-#: ../loader/devices.c:187 ../loader/lang.c:89 ../loader/loader.c:471
-#: ../loader/loader.c:481 ../loader/loader.c:701 ../loader/loader.c:753
-#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1692
-#: ../loader/loader.c:1738 ../loader/loader.c:1809 ../loader/urls.c:70
+#: ../fstab.py:244 ../fstab.py:328 ../fstab.py:462
+#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:184
+#: ../loader/devices.c:189 ../loader/lang.c:89 ../loader/loader.c:475
+#: ../loader/loader.c:485 ../loader/loader.c:705 ../loader/loader.c:757
+#: ../loader/loader.c:914 ../loader/loader.c:919 ../loader/loader.c:1695
+#: ../loader/loader.c:1741 ../loader/loader.c:1812 ../loader/urls.c:70
 #: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
-#: ../loader/urls.c:228 ../text.py:281 ../text.py:765 ../todo.py:336
-#: ../todo.py:654 ../todo.py:685
+#: ../loader/urls.c:228 ../text.py:286 ../text.py:770 ../todo.py:343
+#: ../todo.py:662 ../todo.py:693 ../todo.py:748
 msgid "Error"
 msgstr "Hata"
 
-#: ../fstab.py:246
+#: ../fstab.py:244
 msgid "Error creating swap on device "
 msgstr "Aygýt üzerinde takas alaný oluþturulmasýnda hata: "
 
-#: ../fstab.py:327
+#: ../fstab.py:329
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "%s aygýtýnýn ayrýlmasýnda hata: %s"
 
-#: ../fstab.py:349 ../todo.py:419
+#: ../fstab.py:351 ../todo.py:426
 msgid "Creating"
 msgstr "Yaratýlýyor"
 
-#: ../fstab.py:349
+#: ../fstab.py:351
 msgid "Creating RAID devices..."
 msgstr "RAID aygýtlar yaratýlýyor..."
 
-#: ../fstab.py:395
+#: ../fstab.py:397
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s dosya sistemi formatlanýyor..."
 
-#: ../fstab.py:417
+#: ../fstab.py:419
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:418
+#: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "/dev/%s aygýtýnda loopback dosya sistemi yaratýlýyor..."
 
-#: ../fstab.py:461
+#: ../fstab.py:463
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr "%s aygýtýnýn baðlanmasýnda hata: %s"
 
-#: ../gui.py:277 ../gui.py:523
+#: ../gui.py:269 ../gui.py:520
 msgid "Next"
 msgstr "Ýleri"
 
-#: ../gui.py:278 ../gui.py:522 ../libfdisk/newtfsedit.c:1292
-#: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:171 ../loader/devices.c:249 ../loader/lang.c:548
-#: ../loader/loader.c:255 ../loader/loader.c:608 ../loader/loader.c:644
-#: ../loader/loader.c:753 ../loader/loader.c:1160 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
-#: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
-#: ../text.py:173 ../text.py:176 ../text.py:230 ../text.py:284 ../text.py:298
-#: ../text.py:300 ../text.py:319 ../text.py:321 ../text.py:343 ../text.py:345
-#: ../text.py:452 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
-#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
-#: ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10
+#: ../gui.py:270 ../gui.py:519 ../libfdisk/newtfsedit.c:1292
+#: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:68
+#: ../loader/devices.c:172 ../loader/devices.c:251 ../loader/lang.c:548
+#: ../loader/loader.c:259 ../loader/loader.c:612 ../loader/loader.c:648
+#: ../loader/loader.c:757 ../loader/loader.c:1163 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:49
+#: ../text.py:60 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
+#: ../text.py:173 ../text.py:176 ../text.py:235 ../text.py:289 ../text.py:303
+#: ../text.py:305 ../text.py:324 ../text.py:326 ../text.py:348 ../text.py:350
+#: ../text.py:457 ../text.py:507 ../text.py:509 ../text.py:522 ../text.py:540
+#: ../text.py:553 ../text.py:590 ../text.py:592 ../text.py:618 ../text.py:621
+#: ../text.py:630 ../text.py:690 ../text.py:691 ../textw/constants.py:10
 #: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
 #: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:64
-#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
+#: ../textw/partitioning.py:233 ../textw/partitioning.py:282
 #: ../textw/silo.py:26 ../textw/silo.py:98 ../textw/silo.py:205
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
 msgstr "Geri"
 
-#: ../gui.py:279 ../gui.py:527
+#: ../gui.py:271 ../gui.py:524
 msgid "Show Help"
 msgstr "Yardýmý Göster"
 
-#: ../gui.py:280 ../gui.py:526
+#: ../gui.py:272 ../gui.py:523
 msgid "Hide Help"
 msgstr "Yardýmý Kapat"
 
-#: ../gui.py:281 ../gui.py:525
+#: ../gui.py:273 ../gui.py:522
 msgid "Finish"
 msgstr "Bitti"
 
-#: ../gui.py:284 ../gui.py:552
+#: ../gui.py:276 ../gui.py:550
 msgid "Online Help"
 msgstr "Çevrimiçi Yardým"
 
-#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1005
-#: ../text.py:1034
+#: ../gui.py:277 ../iw/language.py:10 ../text.py:54 ../text.py:1012
+#: ../text.py:1041
 msgid "Language Selection"
 msgstr "Dil Seçimi"
 
-#: ../gui.py:489
+#: ../gui.py:486
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Kurucusu"
 
-#: ../gui.py:493
+#: ../gui.py:490
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux Kurulum Kabuðu"
 
-#: ../gui.py:504
+#: ../gui.py:501
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "%s Üzerinde Red Hat Linux Kurucusu"
 
-#: ../gui.py:505
+#: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "%s Üzerinde Red Hat Linux Kurulum Kabuðu"
 
-#: ../installclass.py:252
+#: ../installclass.py:250
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr "Sistemde daha önce varolan tüm Linux kurulumlarýný silmek üzeresiniz."
 
-#: ../installclass.py:289
+#: ../installclass.py:287
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
@@ -166,14 +166,14 @@ msgstr "Linux'a yer açmak için diskinizdeki TÜM bilgiler silinecektir."
 #: ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
-#: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
+#: ../loader/urls.c:234 ../text.py:49 ../text.py:51 ../text.py:100
+#: ../text.py:630 ../textw/constants.py:10 ../textw/lilo.py:105
 #: ../textw/lilo.py:177 ../textw/silo.py:135 ../textw/silo.py:148
 #: ../textw/silo.py:204
 msgid "Ok"
 msgstr "Tamam"
 
-#: ../text.py:60
+#: ../text.py:55
 msgid "What language would you like to use during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
@@ -203,25 +203,25 @@ msgstr "Aygýt"
 msgid "What device is your mouse located on? %s %i"
 msgstr "Fare hangi aygýt üzerinde bulunuyor? %s %i"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:170
-#: ../loader/devices.c:182 ../loader/devices.c:187 ../loader/devices.c:249
+#: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:171
+#: ../loader/devices.c:184 ../loader/devices.c:189 ../loader/devices.c:251
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 #: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
-#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:644 ../loader/loader.c:701 ../loader/loader.c:753
-#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1004
-#: ../loader/loader.c:1160 ../loader/loader.c:1692 ../loader/loader.c:1738
-#: ../loader/loader.c:1801 ../loader/loader.c:1809 ../loader/net.c:162
+#: ../loader/loader.c:259 ../loader/loader.c:475 ../loader/loader.c:485
+#: ../loader/loader.c:648 ../loader/loader.c:705 ../loader/loader.c:757
+#: ../loader/loader.c:914 ../loader/loader.c:919 ../loader/loader.c:1007
+#: ../loader/loader.c:1163 ../loader/loader.c:1695 ../loader/loader.c:1741
+#: ../loader/loader.c:1804 ../loader/loader.c:1812 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
 #: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:230
-#: ../text.py:298 ../text.py:343 ../text.py:360 ../text.py:452 ../text.py:472
-#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
-#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
-#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:235
+#: ../text.py:303 ../text.py:348 ../text.py:365 ../text.py:457 ../text.py:477
+#: ../text.py:507 ../text.py:590 ../text.py:618 ../text.py:690 ../text.py:715
+#: ../text.py:729 ../text.py:749 ../text.py:762 ../text.py:774 ../text.py:969
+#: ../text.py:973 ../text.py:1172 ../textw/lilo.py:30 ../textw/lilo.py:87
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
-#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
-#: ../textw/partitioning.py:290 ../textw/partitioning.py:298
+#: ../textw/partitioning.py:233 ../textw/partitioning.py:282
+#: ../textw/partitioning.py:292 ../textw/partitioning.py:300
 #: ../textw/silo.py:25 ../textw/silo.py:98 ../textw/timezone.py:66
 #: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
 #: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
@@ -242,7 +242,7 @@ msgstr "3 Tuþ Emülasyonu"
 msgid "Mouse Selection"
 msgstr "Fare Seçimi"
 
-#: ../text.py:171 ../text.py:1007 ../text.py:1036
+#: ../text.py:171 ../text.py:1014 ../text.py:1043
 msgid "Keyboard Selection"
 msgstr "Tuþtakýmý Seçimi"
 
@@ -250,51 +250,51 @@ msgstr "Tuþtakýmý Seçimi"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Ne tip bir klavye kullanýyorsunuz?"
 
-#: ../text.py:223
+#: ../text.py:228
 msgid "Install GNOME Workstation"
 msgstr "GNOME Ýþistasyonu Kur"
 
-#: ../text.py:224
+#: ../text.py:229
 msgid "Install KDE Workstation"
 msgstr "KDE Ýþistasyonu"
 
-#: ../text.py:225
+#: ../text.py:230
 msgid "Install Server System"
 msgstr "Sunucu Sistemi Kur"
 
-#: ../text.py:226
+#: ../text.py:231
 msgid "Install Custom System"
 msgstr "Özel Sistem Kur"
 
-#: ../text.py:227
+#: ../text.py:232
 msgid "Upgrade Existing Installation"
 msgstr "Eski Sistemi Güncelle"
 
-#: ../text.py:228 ../text.py:1039
+#: ../text.py:233 ../text.py:1046
 msgid "Installation Type"
 msgstr "Kurulum Tipi"
 
-#: ../text.py:229
+#: ../text.py:234
 msgid "What type of system would you like to install?"
 msgstr "Ne tür bir sistem kurmak istiyorsunuz?"
 
-#: ../text.py:282
+#: ../text.py:287
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Diskinizde hiç Linux bölümü yok. Sistem güncellenemez."
 
-#: ../text.py:295
+#: ../text.py:300
 msgid "System to Upgrade"
 msgstr "Güncellenecek Sistem"
 
-#: ../text.py:296
+#: ../text.py:301
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kurulumun tepe dizini hangi disk bölümünde bulunuyor?"
 
-#: ../text.py:311
+#: ../text.py:316
 msgid "Customize Packages to Upgrade"
 msgstr "Güncellenecek Paketlerin Seçimi"
 
-#: ../text.py:312
+#: ../text.py:317
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -310,8 +310,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:319 ../text.py:517
-#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:192
+#: ../loader/loader.c:612 ../loader/net.c:719 ../text.py:324 ../text.py:522
+#: ../text.py:540 ../text.py:547 ../textw/partitioning.py:194
 msgid "Yes"
 msgstr "Evet"
 
@@ -321,16 +321,16 @@ msgstr "Evet"
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:719 ../text.py:319 ../text.py:324 ../text.py:517
-#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:192
+#: ../loader/net.c:719 ../text.py:324 ../text.py:329 ../text.py:522
+#: ../text.py:540 ../text.py:550 ../textw/partitioning.py:194
 msgid "No"
 msgstr "Hayýr"
 
-#: ../text.py:334 ../text.py:352
+#: ../text.py:339 ../text.py:357
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:335
+#: ../text.py:340
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -351,7 +351,7 @@ msgstr ""
 "Resmi Red Hat Linux daðýtýmýný aldýysanýz, bunu web sitemiz aracýlýðýyla "
 "kaydettirmeyi unutmayýn: http://www.redhat.com"
 
-#: ../text.py:353
+#: ../text.py:358
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -368,49 +368,49 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
-#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:171
-#: ../loader/loader.c:1801 ../text.py:360 ../text.py:362 ../textw/lilo.py:106
+#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:172
+#: ../loader/loader.c:1804 ../text.py:365 ../text.py:367 ../textw/lilo.py:106
 #: ../textw/silo.py:135 ../textw/silo.py:153 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr "Vazgeç"
 
-#: ../text.py:424
+#: ../text.py:429
 msgid "Use bootp/dhcp"
 msgstr "bootp/dhcp kullan"
 
-#: ../loader/net.c:234 ../text.py:429
+#: ../loader/net.c:234 ../text.py:434
 msgid "IP address:"
 msgstr "IP adresi:"
 
-#: ../loader/net.c:237 ../text.py:430
+#: ../loader/net.c:237 ../text.py:435
 msgid "Netmask:"
 msgstr "Að maskesi:"
 
-#: ../loader/net.c:240 ../text.py:431
+#: ../loader/net.c:240 ../text.py:436
 msgid "Default gateway (IP):"
 msgstr "Yönlendirici (IP):"
 
-#: ../loader/net.c:243 ../text.py:432
+#: ../loader/net.c:243 ../text.py:437
 msgid "Primary nameserver:"
 msgstr "Birincil DNS sunucusu:"
 
-#: ../iw/network.py:11 ../text.py:454
+#: ../iw/network.py:11 ../text.py:459
 msgid "Network Configuration"
 msgstr "Að Ayarlarý"
 
-#: ../text.py:470
+#: ../text.py:475
 msgid "Invalid information"
 msgstr "Hatalý bilgi"
 
-#: ../text.py:471
+#: ../text.py:476
 msgid "You must enter valid IP information to continue"
 msgstr "Devam etmek için geçerli bir IP adresi girmelisiniz."
 
-#: ../text.py:498
+#: ../text.py:503
 msgid "Hostname Configuration"
 msgstr "Makina Adý Yapýlandýrmasý"
 
-#: ../text.py:499
+#: ../text.py:504
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -418,11 +418,11 @@ msgstr ""
 "Makinanýzýn bir adý bulunmalýdýr. Eðer bir aða baðlýysanýz, að yöneticinize "
 "danýþmanýz gerekebilir."
 
-#: ../iw/network.py:207 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
+#: ../iw/network.py:207 ../loader/net.c:459 ../loader/net.c:638 ../text.py:507
 msgid "Hostname"
 msgstr "Makine Adý"
 
-#: ../text.py:518
+#: ../text.py:523
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -442,7 +442,7 @@ msgstr ""
 "\n"
 "Sisteminiz için bir açýlýþ disketi oluþturmak ister misiniz?"
 
-#: ../text.py:537
+#: ../text.py:542
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
@@ -453,39 +453,39 @@ msgstr ""
 "çalýþmayacaktýr\n"
 "\n"
 
-#: ../text.py:540 ../text.py:753
+#: ../text.py:545 ../text.py:758
 msgid "Bootdisk"
 msgstr "Açýlýþ disketi"
 
-#: ../text.py:583
+#: ../text.py:588
 msgid "X probe results"
 msgstr "X tarama sonuçlarý"
 
-#: ../text.py:602 ../text.py:621
+#: ../text.py:607 ../text.py:626
 msgid "Unlisted Card"
 msgstr "Listede Bulunmayan Kart"
 
-#: ../text.py:610
+#: ../text.py:615
 msgid "Video Card Selection"
 msgstr "Ekran Kartý Seçimi"
 
-#: ../text.py:611
+#: ../text.py:616
 msgid "Which video card do you have?"
 msgstr "Ne tip bir ekran kartýnýz var?"
 
-#: ../text.py:623
+#: ../text.py:628
 msgid "X Server Selection"
 msgstr "X Sunucu Seçimi"
 
-#: ../text.py:623
+#: ../text.py:628
 msgid "Choose a server"
 msgstr "Bir sunucu seçin"
 
-#: ../text.py:681
+#: ../text.py:686
 msgid "Installation to begin"
 msgstr "Kuruluma baþlangýç"
 
-#: ../iw/confirm.py:33 ../text.py:682
+#: ../iw/confirm.py:33 ../text.py:687
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -493,11 +493,11 @@ msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
 "sonra /tmp/install.log dosyasýnda bulabilirsiniz."
 
-#: ../text.py:699 ../text.py:714 ../text.py:734
+#: ../text.py:704 ../text.py:719 ../text.py:739
 msgid "Complete"
 msgstr "Bitti"
 
-#: ../iw/congrats.py:32 ../text.py:700
+#: ../iw/congrats.py:32 ../text.py:705
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -518,7 +518,7 @@ msgstr ""
 "Sisteminizi nasýl ayarlayacaðýnýza iliþkin bilgiler resmi Red Hat Linux "
 "Kullaným Kýlavuzu'nun 'Kurulum Sonrasý' baþlýklý bölümünde ele alýnmaktadýr."
 
-#: ../text.py:715 ../text.py:735
+#: ../text.py:720 ../text.py:740
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -536,7 +536,7 @@ msgstr ""
 "Daha ilerideki aþamalarda sistemde yapabileceðiniz ayarlamalar için Red Hat "
 "Linux Kullanýcý Kýlavuzu'na göz atýnýz."
 
-#: ../iw/bootdisk.py:57 ../text.py:754
+#: ../iw/bootdisk.py:57 ../text.py:759
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -544,12 +544,12 @@ msgstr ""
 "Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ "
 "disketininyaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
 
-#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
+#: ../text.py:762 ../text.py:763 ../text.py:774 ../text.py:775
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Atla"
 
-#: ../iw/bootdisk.py:61 ../text.py:766
+#: ../iw/bootdisk.py:61 ../text.py:771
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -557,55 +557,55 @@ msgstr ""
 "Açýlýþ disketi yaratýlýrken bir hata oluþtu. Birinci disket sürücüsünde (A:) "
 "disketin bulunduðuna emin olun."
 
-#: ../text.py:828
+#: ../text.py:833
 msgid "Package Installation"
 msgstr "Paket Kurulumu"
 
-#: ../text.py:830
+#: ../text.py:835
 msgid "Name   : "
 msgstr "Ýsim   :"
 
-#: ../text.py:831
+#: ../text.py:836
 msgid "Size   : "
 msgstr "Boy    :"
 
-#: ../text.py:832
+#: ../text.py:837
 msgid "Summary: "
 msgstr "Özet   :"
 
-#: ../text.py:858
+#: ../text.py:863
 msgid "    Packages"
 msgstr "       Paket"
 
-#: ../text.py:859
+#: ../text.py:864
 msgid "       Bytes"
 msgstr "        Bayt"
 
-#: ../text.py:860
+#: ../text.py:865
 msgid "        Time"
 msgstr "       Zaman"
 
-#: ../text.py:862
+#: ../text.py:867
 msgid "Total    :"
 msgstr "Toplam   :"
 
-#: ../text.py:869
+#: ../text.py:874
 msgid "Completed:   "
 msgstr "Biten:       "
 
-#: ../text.py:879
+#: ../text.py:884
 msgid "Remaining:  "
 msgstr "Kalan:      "
 
-#: ../text.py:968 ../text.py:969
+#: ../text.py:973 ../text.py:974
 msgid "Debug"
 msgstr "Hata Ayýklama"
 
-#: ../text.py:981
+#: ../text.py:986
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:983
+#: ../text.py:988
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -613,194 +613,200 @@ msgstr ""
 "  <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki "
 "ekran"
 
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1010 ../text.py:1045
 msgid "Welcome"
 msgstr "Hoþgeldiniz"
 
-#: ../text.py:1009 ../text.py:1077
+#: ../text.py:1016 ../text.py:1084
 msgid "Hostname Setup"
 msgstr "Makina Adý Belirlenmesi"
 
-#: ../text.py:1011 ../text.py:1079
+#: ../text.py:1018 ../text.py:1086
 msgid "Network Setup"
 msgstr "Að Ayarlarý"
 
-#: ../text.py:1017 ../text.py:1085
+#: ../text.py:1024 ../text.py:1092
 msgid "Time Zone Setup"
 msgstr "Zaman Dilimi Ayarlarý"
 
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
+#: ../text.py:1026 ../text.py:1094 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr "root Parolasý"
 
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
+#: ../text.py:1028 ../text.py:1096 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr "Kullanýcý Hesabý Ýþlemleri"
 
-#: ../text.py:1023 ../text.py:1091
+#: ../text.py:1030 ../text.py:1098
 msgid "Authentication"
 msgstr "Kimlik sýnama"
 
-#: ../text.py:1029
+#: ../text.py:1036
 msgid "Configuration Complete"
 msgstr "Yapýlandýrma Tamamlandý"
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:100
+#: ../text.py:1054 ../textw/silo.py:28 ../textw/silo.py:100
 #: ../textw/silo.py:212
 msgid "SILO Configuration"
 msgstr "SILO Yapýlandýrmasý"
 
-#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
+#: ../text.py:1060 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr "LILO Yapýlandýrmasý"
 
 #: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:277
-#: ../text.py:1057 ../text.py:1063
+#: ../text.py:1064 ../text.py:1070
 msgid "Partition"
 msgstr "Bölümlendirme"
 
-#: ../text.py:1059
+#: ../text.py:1066
 msgid "Manually Partition"
 msgstr "Elle Bölümlendir"
 
-#: ../text.py:1061
+#: ../text.py:1068
 msgid "Automatic Partition"
 msgstr "Otomatik Bölümlendir"
 
-#: ../text.py:1065 ../textw/partitioning.py:272
+#: ../text.py:1072 ../textw/partitioning.py:274
 msgid "Root Filesystem Size"
 msgstr "Kök Dosya Sistemi Büyüklüðü:"
 
-#: ../text.py:1067
+#: ../text.py:1074
 msgid "Swap"
 msgstr "Takas"
 
-#: ../text.py:1069
+#: ../text.py:1076
 msgid "Filesystem Formatting"
 msgstr "Dosya Sistemi Biçimlendirme"
 
-#: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
+#: ../iw/mouse.py:55 ../text.py:1088 ../text.py:1090
 msgid "Mouse Configuration"
 msgstr "Fare Yapýlandýrmasý"
 
-#: ../text.py:1093
+#: ../text.py:1100
 msgid "Package Groups"
 msgstr "Paket Gruplarý"
 
-#: ../text.py:1095 ../text.py:1123
+#: ../text.py:1102 ../text.py:1130
 msgid "Individual Packages"
 msgstr "Ayrý Paketler"
 
-#: ../text.py:1097 ../textw/packages.py:122
+#: ../text.py:1104 ../textw/packages.py:122
 msgid "Package Dependencies"
 msgstr "Paket Baðýmlýlýðý"
 
-#: ../iw/xconfig.py:250 ../text.py:1099 ../text.py:1107
+#: ../iw/xconfig.py:250 ../text.py:1106 ../text.py:1114
 msgid "X Configuration"
 msgstr "X Yapýlandýrmasý"
 
-#: ../text.py:1101
+#: ../text.py:1108
 msgid "Installation Begins"
 msgstr "Kurulum Baþlýyor"
 
-#: ../text.py:1103
+#: ../text.py:1110
 msgid "Install System"
 msgstr "Sistemi Kur"
 
-#: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
+#: ../text.py:1111 ../text.py:1113 ../text.py:1132 ../text.py:1134
 msgid "Boot Disk"
 msgstr "Açýlýþ Disketi"
 
-#: ../text.py:1109
+#: ../text.py:1116
 msgid "Installation Complete"
 msgstr "Kurulum Bitti"
 
-#: ../text.py:1114
+#: ../text.py:1121
 msgid "Examine System"
 msgstr "Sistemi Ýncele"
 
-#: ../text.py:1121
+#: ../text.py:1128
 msgid "Customize Upgrade"
 msgstr "Güncellemeyi Ayarla"
 
-#: ../text.py:1124
+#: ../text.py:1131
 msgid "Upgrade System"
 msgstr "Sistemi Güncelle"
 
-#: ../text.py:1128
+#: ../text.py:1135
 msgid "Upgrade Complete"
 msgstr "Güncelleme Bitti"
 
-#: ../text.py:1162
+#: ../text.py:1169
 msgid "Cancelled"
 msgstr "Vazgeçildi"
 
-#: ../text.py:1163
+#: ../text.py:1170
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adýmdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
-#: ../todo.py:337
+#: ../todo.py:344
 #, c-format
 msgid "Error copying file: %s"
 msgstr "Dosya kopyalanmasýnda hata: %s"
 
-#: ../todo.py:419
+#: ../todo.py:426
 msgid "Creating boot disk..."
 msgstr "Açýlýþ disketi yaratýlýyor..."
 
-#: ../todo.py:439
+#: ../todo.py:446
 msgid "Reading"
 msgstr "Okunuyor"
 
-#: ../todo.py:440
+#: ../todo.py:447
 msgid "Reading package information..."
 msgstr "Paket bilgisi okunuyor..."
 
-#: ../todo.py:624 ../todo.py:637
+#: ../todo.py:631 ../todo.py:644
 msgid "no suggestion"
 msgstr "öneri yok"
 
-#: ../todo.py:643
+#: ../todo.py:650
 msgid "Searching"
 msgstr "Taranýyor"
 
-#: ../todo.py:644
+#: ../todo.py:651
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Red Hat Linux kurulumlarý taranýyor..."
 
-#: ../todo.py:655 ../todo.py:686
+#: ../todo.py:663 ../todo.py:694
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "%s üzerine ext2 dosya sistemi baðlanmasýnda hata: %s"
 
-#: ../todo.py:697
+#: ../todo.py:705
 msgid "Finding"
 msgstr "Bulunuyor"
 
-#: ../todo.py:698
+#: ../todo.py:706
 msgid "Finding packages to upgrade..."
 msgstr "Güncellenecek paketler belirleniyor..."
 
-#: ../todo.py:954
+#: ../todo.py:749
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr ""
+"RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir "
+"mi?"
+
+#: ../todo.py:967
 msgid "Processing"
 msgstr "Ýþleniyor"
 
-#: ../todo.py:955
+#: ../todo.py:968
 msgid "Preparing to install..."
 msgstr "Kuruluma hazýrlýk yapýlýyor..."
 
-#: ../todo.py:1134
+#: ../todo.py:1165
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s güncelleniyor.\n"
 
-#: ../todo.py:1136
+#: ../todo.py:1167
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s kuruluyor.\n"
 
-#: ../todo.py:1157
+#: ../todo.py:1188
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -810,55 +816,55 @@ msgstr ""
 "diskbölümlerinde daha fazla disk alanýna ihtiyacýnýz var:\n"
 "\n"
 
-#: ../todo.py:1160
+#: ../todo.py:1191
 msgid "Mount Point"
 msgstr "Baðlama Noktasý"
 
-#: ../todo.py:1160
+#: ../todo.py:1191
 msgid "Space Needed"
 msgstr "Gerekli Alan"
 
-#: ../todo.py:1173
+#: ../todo.py:1204
 msgid "Disk Space"
 msgstr "Disk Alaný"
 
-#: ../todo.py:1197
+#: ../todo.py:1228
 msgid "Post Install"
 msgstr "Kurulum Sonrasý"
 
-#: ../todo.py:1198
+#: ../todo.py:1229
 msgid "Performing post install configuration..."
 msgstr "Kurulum sonrasý ayarlar yapýlýyor..."
 
-#: ../iw/xconfig.py:10 ../xf86config.py:257
+#: ../iw/xconfig.py:10 ../xf86config.py:256
 msgid "Video Card"
 msgstr "Ekran Kartý"
 
-#: ../iw/xconfig.py:12 ../xf86config.py:259
+#: ../iw/xconfig.py:12 ../xf86config.py:258
 msgid "Video Ram"
 msgstr "Ekran Belleði"
 
-#: ../xf86config.py:261
+#: ../xf86config.py:260
 msgid "X server"
 msgstr "X Sunucu"
 
-#: ../xf86config.py:263
+#: ../xf86config.py:262
 msgid "Unable to detect video card"
 msgstr "Ekran kartý tanýtýlamadý"
 
-#: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
+#: ../iw/xconfig.py:11 ../xf86config.py:269 ../xf86config.py:271
 msgid "Monitor"
 msgstr "Monitör"
 
-#: ../xf86config.py:272
+#: ../xf86config.py:271
 msgid "Plug and Play Monitor"
 msgstr "Tak ve Çalýþtýr Monitör"
 
-#: ../xf86config.py:274
+#: ../xf86config.py:273
 msgid "Horizontal frequency range"
 msgstr "Yatay tazeleme hýzý"
 
-#: ../xf86config.py:276
+#: ../xf86config.py:275
 msgid "Vertical frequency range"
 msgstr "Düþey tazeleme hýzý"
 
@@ -1029,7 +1035,7 @@ msgstr "Güncellenecek paketlerin seçimi"
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk.py:80
+#: ../iw/fdisk.py:87
 msgid "Select drive to run fdisk on"
 msgstr "fdisk çalýþtýrýlacak sürücüyü seçin"
 
@@ -1178,7 +1184,7 @@ msgstr "IP Adresi"
 msgid "Netmask"
 msgstr "Að maskesi"
 
-#: ../iw/network.py:163 ../loader/loader.c:240
+#: ../iw/network.py:163 ../loader/loader.c:244
 msgid "Network"
 msgstr "Að"
 
@@ -1278,11 +1284,11 @@ msgstr "Bölümlendirme Seçimini Onayla"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../iw/rootpartition.py:43 ../textw/partitioning.py:187
+#: ../iw/rootpartition.py:43 ../textw/partitioning.py:189
 msgid "Low Memory"
 msgstr "Düþük Bellek"
 
-#: ../iw/rootpartition.py:44 ../textw/partitioning.py:188
+#: ../iw/rootpartition.py:44 ../textw/partitioning.py:190
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1292,7 +1298,7 @@ msgstr ""
 "kullanmamýz gerekiyor. Bunun için disk üzerindeki bölümlendirme bilgilerini "
 "de deðiþtirmek gerekiyor. Yapalým mý?"
 
-#: ../iw/rootpartition.py:115 ../textw/partitioning.py:273
+#: ../iw/rootpartition.py:115 ../textw/partitioning.py:275
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1313,11 +1319,11 @@ msgstr "Kök dosya sistemi büyüklüðü:"
 msgid "Swap space size:"
 msgstr "Takas alaný büyüklüðü:"
 
-#: ../iw/rootpartition.py:159 ../textw/partitioning.py:125
+#: ../iw/rootpartition.py:159 ../textw/partitioning.py:126
 msgid "Automatic Partitioning"
 msgstr "Otomatik Bölümlendirme"
 
-#: ../iw/rootpartition.py:234 ../textw/partitioning.py:126
+#: ../iw/rootpartition.py:235 ../textw/partitioning.py:127
 #, c-format
 msgid ""
 "%s\n"
@@ -1332,11 +1338,11 @@ msgstr ""
 "yaparak devam edebilir, ya da geriye dönüp tamamen özelleþtirilmiþ bir "
 "kuruluma baþlayabirsiniz. "
 
-#: ../iw/rootpartition.py:248
+#: ../iw/rootpartition.py:249
 msgid "Remove data"
 msgstr "Uzak veri"
 
-#: ../iw/rootpartition.py:251 ../textw/partitioning.py:130
+#: ../iw/rootpartition.py:252 ../textw/partitioning.py:131
 msgid "Manually partition"
 msgstr "Elle bölümlendir"
 
@@ -1531,15 +1537,15 @@ msgstr ""
 "bölümü gerekiyor. Sistem yüklemede LILO kullanabilmeniz için bu bölümü ilk "
 "iki sabit diskten birinde ayýrmanýzý öneririz."
 
-#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:63
+#: ../loader/loader.c:307 ../loader/loader.c:332 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Yapýldý"
 
-#: ../textw/partitioning.py:130 ../textw/partitioning.py:131
+#: ../textw/partitioning.py:131 ../textw/partitioning.py:132
 msgid "Continue"
 msgstr "Devam"
 
-#: ../textw/partitioning.py:207
+#: ../textw/partitioning.py:209
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -1550,31 +1556,31 @@ msgstr ""
 "biçimlendirmenizi öneriririz. /home ve /usr/local gibi dizinler daha önceden "
 "kurulmuþ ise biçimlendirilmeleri gerekmez."
 
-#: ../textw/partitioning.py:228
+#: ../textw/partitioning.py:230
 msgid "Check for bad blocks during format"
 msgstr "Hatalý disk bloklarý sýnansýn"
 
-#: ../textw/partitioning.py:233
+#: ../textw/partitioning.py:235
 msgid "Choose Partitions to Format"
 msgstr "Biçimlendirilecek Bölümleri Seçin"
 
-#: ../textw/partitioning.py:278
+#: ../textw/partitioning.py:280
 msgid "Root filesystem size"
 msgstr "Kök dosya sistemi büyüklüðü"
 
-#: ../textw/partitioning.py:279
+#: ../textw/partitioning.py:281
 msgid "Swap space"
 msgstr "Takas alaný"
 
-#: ../textw/partitioning.py:288 ../textw/partitioning.py:294
+#: ../textw/partitioning.py:290 ../textw/partitioning.py:296
 msgid "Bad Size"
 msgstr "Hatalý boyut"
 
-#: ../textw/partitioning.py:289
+#: ../textw/partitioning.py:291
 msgid "The size you enter must be a number."
 msgstr "Girilen büyüklük bir sayý olmalýdýr."
 
-#: ../textw/partitioning.py:295
+#: ../textw/partitioning.py:297
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -2338,11 +2344,11 @@ msgstr "CDROM sürücünüzün tipi nedir?"
 msgid "Initializing CDROM..."
 msgstr "CDROM hazýrlanýyor..."
 
-#: ../loader/devices.c:51
+#: ../loader/devices.c:52
 msgid "Miscellaneous"
 msgstr "Çeþitli"
 
-#: ../loader/devices.c:60
+#: ../loader/devices.c:61
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -2352,24 +2358,24 @@ msgstr ""
 "parametreleri kullanacaðýnýzý bilmiyorsanýz, bu bölümü atlamak için þimdi "
 "\"Tamam\" tuþuna basýn."
 
-#: ../loader/devices.c:65
+#: ../loader/devices.c:66
 msgid "Module Parameters"
 msgstr "Modül Parametreleri"
 
-#: ../loader/devices.c:170 ../loader/devices.c:272 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1801
+#: ../loader/devices.c:171 ../loader/devices.c:274 ../loader/loader.c:257
+#: ../loader/loader.c:316 ../loader/loader.c:332 ../loader/loader.c:1804
 msgid "Devices"
 msgstr "Aygýtlar"
 
-#: ../loader/devices.c:172
+#: ../loader/devices.c:173
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/devices.c:183 ../loader/loader.c:1810
+#: ../loader/devices.c:185 ../loader/loader.c:1813
 msgid "Failed to mount floppy disk."
 msgstr "Disket baðlanamadý."
 
-#: ../loader/devices.c:188
+#: ../loader/devices.c:190
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -2377,7 +2383,7 @@ msgstr ""
 "Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel sürücüler "
 "içermiyor."
 
-#: ../loader/devices.c:237
+#: ../loader/devices.c:239
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2386,11 +2392,11 @@ msgstr ""
 "varsa, ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþuna "
 "basýn."
 
-#: ../loader/devices.c:242
+#: ../loader/devices.c:244
 msgid "Which driver should I try?"
 msgstr "Hangi sürücü denensin?"
 
-#: ../loader/devices.c:250
+#: ../loader/devices.c:252
 msgid "Specify module parameters"
 msgstr "Modül parametrelerini belirtin"
 
@@ -2425,45 +2431,45 @@ msgstr "Klavye Tipi"
 msgid "What type of keyboard do you have?"
 msgstr "Klavyenizin tipi nedir?"
 
-#: ../loader/loader.c:101
+#: ../loader/loader.c:102
 msgid "Local CDROM"
 msgstr "Yerel CD sürücü"
 
-#: ../loader/loader.c:104
+#: ../loader/loader.c:105
 msgid "NFS image"
 msgstr "NFS görüntüsü"
 
-#: ../loader/loader.c:109
+#: ../loader/loader.c:110
 msgid "Hard drive"
 msgstr "Sabit Disk"
 
-#: ../loader/loader.c:128
+#: ../loader/loader.c:129
 msgid "Welcome to Red Hat Linux"
 msgstr "Red Hat Linux'a Hoþgeldiniz"
 
-#: ../loader/loader.c:130
+#: ../loader/loader.c:131
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 " <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
 
-#: ../loader/loader.c:240
+#: ../loader/loader.c:244
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:254
+#: ../loader/loader.c:258
 msgid "What kind of device would you like to add"
 msgstr "Ne tür bir aygýt eklemek istiyorsunuz?"
 
-#: ../loader/loader.c:301
+#: ../loader/loader.c:305
 msgid "I have found the following devices in your system:"
 msgstr "Sisteminizde aþaðýdaki aygýtlar bulundu:"
 
-#: ../loader/loader.c:303 ../loader/loader.c:328
+#: ../loader/loader.c:307 ../loader/loader.c:332
 msgid "Add Device"
 msgstr "Aygýt Ekle"
 
-#: ../loader/loader.c:329
+#: ../loader/loader.c:333
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -2471,23 +2477,23 @@ msgstr ""
 "Sistemde yüklü herhangi bir özel aygýt sürücüsü yok. Bunlarý þimdi yüklemek "
 "ister misiniz?"
 
-#: ../loader/loader.c:413 ../loader/loader.c:415
+#: ../loader/loader.c:417 ../loader/loader.c:419
 msgid "Loading"
 msgstr "Yükleniyor"
 
-#: ../loader/loader.c:467
+#: ../loader/loader.c:471
 msgid "Loading second stage ramdisk..."
 msgstr "Ýkinci kýsým ramdisk'i yükleniyor"
 
-#: ../loader/loader.c:471
+#: ../loader/loader.c:475
 msgid "Error loading ramdisk."
 msgstr "Ramdisk yüklenmesinde hata."
 
-#: ../loader/loader.c:608
+#: ../loader/loader.c:612
 msgid "Hard Drives"
 msgstr "Sabit Diskler"
 
-#: ../loader/loader.c:609
+#: ../loader/loader.c:613
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -2495,7 +2501,7 @@ msgstr ""
 "Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak ister "
 "misiniz?"
 
-#: ../loader/loader.c:622
+#: ../loader/loader.c:626
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -2505,20 +2511,20 @@ msgstr ""
 "içeriyor? Eðer kullandýðýnýz diski bu listede göremiyorsanýz, F2 tuþuna "
 "basýp ek aygýt sürücülerini yapýlandýrabilirsiniz."
 
-#: ../loader/loader.c:636
+#: ../loader/loader.c:640
 msgid "Directory holding Red Hat:"
 msgstr "RedHat bulunan dizin:"
 
-#: ../loader/loader.c:656
+#: ../loader/loader.c:660
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
-#: ../loader/loader.c:702
+#: ../loader/loader.c:706
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "%s aygýtýnda bir Red Hat kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:754
+#: ../loader/loader.c:758
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -2526,67 +2532,67 @@ msgstr ""
 "CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat CD'sini "
 "sürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
 
-#: ../loader/loader.c:911
+#: ../loader/loader.c:915
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Bu dizinde Red Hat kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:916
+#: ../loader/loader.c:920
 msgid "I could not mount that directory from the server"
 msgstr "Sunucudan bu dizin baðlanamadý."
 
-#: ../loader/loader.c:1004
+#: ../loader/loader.c:1007
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:1005
+#: ../loader/loader.c:1008
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Ýkinci kýsým ramdisk alýnamýyor"
 
-#: ../loader/loader.c:1152
+#: ../loader/loader.c:1155
 msgid "Rescue Method"
 msgstr "Kurtarma Yöntemi"
 
-#: ../loader/loader.c:1153
+#: ../loader/loader.c:1156
 msgid "Installation Method"
 msgstr "Kurulum Yöntemi"
 
-#: ../loader/loader.c:1155
+#: ../loader/loader.c:1158
 msgid "What type of media contains the rescue image?"
 msgstr "Kurtarma görüntüsü nerede bulunuyor?"
 
-#: ../loader/loader.c:1157
+#: ../loader/loader.c:1160
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kurulacak paketler nerede bulunuyor?"
 
-#: ../loader/loader.c:1693
+#: ../loader/loader.c:1696
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
-#: ../loader/loader.c:1739
+#: ../loader/loader.c:1742
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s dizini okunamadý: %s"
 
-#: ../loader/loader.c:1802
+#: ../loader/loader.c:1805
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1815
+#: ../loader/loader.c:1818
 msgid "Updates"
 msgstr "Güncellemeler"
 
-#: ../loader/loader.c:1815
+#: ../loader/loader.c:1818
 msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
-#: ../loader/loader.c:1969
+#: ../loader/loader.c:1972
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1969
+#: ../loader/loader.c:1972
 msgid "Initializing PC Card Devices..."
 msgstr "PC Kart Sürücüleri Hazýrlanýyor..."
 
@@ -2840,11 +2846,6 @@ msgstr "SCSI sürücüsü yükleniyor..."
 
 #~ msgid "Rebuilding RPM database..."
 #~ msgstr "RPM veritabaný oluþturuluyor..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir "
-#~ "mi?"
 
 #~ msgid "Variant"
 #~ msgstr "Tip"
