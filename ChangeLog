@@ -1,3 +1,10 @@
+2005-02-23  Peter Jones  <pjones@redhat.com>
+
+	* iw/lvm_dialog_gui.py iw/raid_dialog_gui.py textw/partition_text.py:
+	Add Apple Bootstrap partitions to the lvm/raid ignore lists
+	* kickstart.py/partitions.py: kickstart support for the Apple
+	Bootstrap part
+	
 2005-02-23  Chris Lumens  <clumens@redhat.com>
 
 	* iw/account_gui.py, iw/bootdisk_gui.py, iw/confirm_gui.py,
