@@ -466,6 +466,12 @@ class Fstab:
 		# for swap, the mntpoint doubles as the size
 		fstab.append((device, relative, mntpoint))
 
+        # we need to find existing raid swap as well
+        existing = self.existingRaidList()
+        for (raidDevice, mntPoint, fileSystem, deviceList) in existing:
+            if fileSystem == "swap":
+                fstab.append(raidDevice, 1, None)
+
 	return fstab
 
     def turnOffSwap(self, devices = 1, files = 0):
