@@ -527,7 +527,6 @@ def doPreInstall(method, id, intf, instPath, dir):
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
         elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
-            print "selecting kernel-pseries"
             select(id.hdList, 'kernel-pseries')
                 
 	if isys.smpAvailable() or isys.htavailable():
