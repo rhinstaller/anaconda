@@ -21,6 +21,7 @@ import rpm
 import sys
 import os.path
 import partedUtils
+import string
 from flags import flags
 from fsset import *
 from partitioning import *
@@ -414,9 +415,23 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             except rpm.error:
                 continue
 
+    currentVersion = 0.0
+    try:
+        recs = db.findbyprovides('redhat-release')
+    except rpm.error:
+        recs = None
+    for rec in recs:
+        try:
+            vers = string.atof(db[rec][rpm.RPMTAG_VERSION])
+        except ValueError:
+            vers = 0.0
+        if vers > currentVersion:
+            currentVersion = vers
+
     # if we have X but not gmc, we need to turn on GNOME.  We only
     # want to turn on packages we don't have installed already, though.
-    if hasX and not hasFileManager:
+    # Only do this mess if user is upgrading from version older than 6.0.
+    if hasX and not hasFileManager and currentVersion < 6.0:
         text = "Upgrade: System has X but no desktop -- Installing GNOME"
         id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
 	log(text)
