@@ -280,7 +280,7 @@ class AuthConfigWindow:
         result = toplevel.runOnce ()
 
         todo.auth.useMD5 = self.md5.value ()
-        todo.auth.shadow = self.shadow.value ()
+        todo.auth.useShadow = self.shadow.value ()
         todo.auth.useNIS = self.nis.selected ()
         todo.auth.domain = self.domain.value ()
         todo.auth.useBroadcast = self.broadcast.selected ()
