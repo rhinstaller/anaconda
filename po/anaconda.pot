@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-10-12 21:01-0400\n"
+"POT-Creation-Date: 1999-10-18 15:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,9 @@ msgstr ""
 
 #: ../gui.py:264 ../gui.py:508 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:530
-#: ../loader/loader.c:245 ../loader/loader.c:593 ../loader/loader.c:629
-#: ../loader/loader.c:732 ../loader/loader.c:1095 ../loader/net.c:162
+#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:531
+#: ../loader/loader.c:248 ../loader/loader.c:596 ../loader/loader.c:632
+#: ../loader/loader.c:735 ../loader/loader.c:1103 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87
 #: ../text.py:88 ../text.py:107 ../text.py:130 ../text.py:160 ../text.py:163
 #: ../text.py:205 ../text.py:234 ../text.py:248 ../text.py:250 ../text.py:269
@@ -96,11 +96,11 @@ msgstr ""
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:270 ../loader/lang.c:530 ../loader/loader.c:245
-#: ../loader/loader.c:461 ../loader/loader.c:471 ../loader/loader.c:629
-#: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
-#: ../loader/loader.c:870 ../loader/loader.c:956 ../loader/loader.c:1095
-#: ../loader/loader.c:1601 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/lang.c:271 ../loader/lang.c:531 ../loader/loader.c:248
+#: ../loader/loader.c:464 ../loader/loader.c:474 ../loader/loader.c:632
+#: ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873
+#: ../loader/loader.c:878 ../loader/loader.c:964 ../loader/loader.c:1103
+#: ../loader/loader.c:1609 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:107
 #: ../text.py:160 ../text.py:205 ../text.py:248 ../text.py:293 ../text.py:384
@@ -214,9 +214,9 @@ msgid "What type of system would you like to install?"
 msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:461 ../loader/loader.c:471
-#: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
-#: ../loader/loader.c:870 ../loader/loader.c:1601 ../loader/urls.c:201
+#: ../loader/devices.c:183 ../loader/loader.c:464 ../loader/loader.c:474
+#: ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873
+#: ../loader/loader.c:878 ../loader/loader.c:1609 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:362
 #: ../todo.py:503 ../todo.py:1043 ../todo.py:1362
 msgid "Error"
@@ -250,7 +250,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2305 ../libfdisk/gnomefsedit.c:2358
 #: ../libfdisk/newtfsedit.c:498 ../libfdisk/newtfsedit.c:691
 #: ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1495
-#: ../libfdisk/newtfsedit.c:1580 ../loader/loader.c:593 ../loader/net.c:701
+#: ../libfdisk/newtfsedit.c:1580 ../loader/loader.c:596 ../loader/net.c:701
 #: ../text.py:269 ../text.py:446 ../text.py:464 ../text.py:471
 #: ../textw/partitioning.py:165
 msgid "Yes"
@@ -325,7 +325,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:201 ../loader/net.c:458 ../loader/net.c:620 ../text.py:435
+#: ../iw/network.py:209 ../loader/net.c:458 ../loader/net.c:620 ../text.py:435
 msgid "Hostname"
 msgstr ""
 
@@ -485,7 +485,7 @@ msgid ""
 "screen"
 msgstr ""
 
-#: ../iw/welcome.py:11 ../text.py:929
+#: ../iw/welcome.py:10 ../text.py:929
 msgid "Welcome"
 msgstr ""
 
@@ -725,35 +725,35 @@ msgstr ""
 msgid "Performing post install configuration..."
 msgstr ""
 
-#: ../iw/xconfig.py:10 ../xf86config.py:231
+#: ../iw/xconfig.py:10 ../xf86config.py:235
 msgid "Video Card"
 msgstr ""
 
-#: ../iw/xconfig.py:12 ../xf86config.py:233
+#: ../iw/xconfig.py:12 ../xf86config.py:237
 msgid "Video Ram"
 msgstr ""
 
-#: ../xf86config.py:235
+#: ../xf86config.py:239
 msgid "X server"
 msgstr ""
 
-#: ../xf86config.py:237
+#: ../xf86config.py:241
 msgid "Unable to detect video card"
 msgstr ""
 
-#: ../iw/xconfig.py:11 ../xf86config.py:242 ../xf86config.py:244
+#: ../iw/xconfig.py:11 ../xf86config.py:246 ../xf86config.py:248
 msgid "Monitor"
 msgstr ""
 
-#: ../xf86config.py:244
+#: ../xf86config.py:248
 msgid "Plug and Play Monitor"
 msgstr ""
 
-#: ../xf86config.py:246
+#: ../xf86config.py:250
 msgid "Horizontal frequency range"
 msgstr ""
 
-#: ../xf86config.py:248
+#: ../xf86config.py:252
 msgid "Vertical frequency range"
 msgstr ""
 
@@ -957,7 +957,7 @@ msgstr ""
 msgid "Test your selection here:"
 msgstr ""
 
-#: ../iw/language.py:16 ../loader/lang.c:268
+#: ../iw/language.py:16 ../loader/lang.c:269
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -1017,43 +1017,43 @@ msgstr ""
 msgid "Emulate 3 Buttons"
 msgstr ""
 
-#: ../iw/network.py:141
+#: ../iw/network.py:148
 msgid "Configure using DHCP"
 msgstr ""
 
-#: ../iw/network.py:147
+#: ../iw/network.py:154
 msgid "Activate on boot"
 msgstr ""
 
-#: ../iw/network.py:155
+#: ../iw/network.py:163
 msgid "IP Address"
 msgstr ""
 
-#: ../iw/network.py:156 ../loader/net.c:618
+#: ../iw/network.py:164 ../loader/net.c:618
 msgid "Netmask"
 msgstr ""
 
-#: ../iw/network.py:157 ../loader/loader.c:230
+#: ../iw/network.py:165 ../loader/loader.c:233
 msgid "Network"
 msgstr ""
 
-#: ../iw/network.py:158
+#: ../iw/network.py:166
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Gateway"
 msgstr ""
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Primary DNS"
 msgstr ""
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Secondary DNS"
 msgstr ""
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Ternary DNS"
 msgstr ""
 
@@ -1317,7 +1317,7 @@ msgid ""
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
 
-#: ../loader/loader.c:293 ../loader/loader.c:318 ../textw/partitioning.py:63
+#: ../loader/loader.c:296 ../loader/loader.c:321 ../textw/partitioning.py:63
 msgid "Done"
 msgstr ""
 
@@ -1989,8 +1989,8 @@ msgstr ""
 msgid "Module Parameters"
 msgstr ""
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:243
-#: ../loader/loader.c:302 ../loader/loader.c:318
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:246
+#: ../loader/loader.c:305 ../loader/loader.c:321
 msgid "Devices"
 msgstr ""
 
@@ -2041,15 +2041,15 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:268
+#: ../loader/lang.c:269
 msgid "Choose a Language"
 msgstr ""
 
-#: ../loader/lang.c:528
+#: ../loader/lang.c:529
 msgid "Keyboard Type"
 msgstr ""
 
-#: ../loader/lang.c:529
+#: ../loader/lang.c:530
 msgid "What type of keyboard do you have?"
 msgstr ""
 
@@ -2065,126 +2065,126 @@ msgstr ""
 msgid "Hard drive"
 msgstr ""
 
-#: ../loader/loader.c:124
+#: ../loader/loader.c:127
 msgid "Welcome to Red Hat Linux"
 msgstr ""
 
-#: ../loader/loader.c:126
+#: ../loader/loader.c:129
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
-#: ../loader/loader.c:230
+#: ../loader/loader.c:233
 msgid "SCSI"
 msgstr ""
 
-#: ../loader/loader.c:244
+#: ../loader/loader.c:247
 msgid "What kind of device would you like to add"
 msgstr ""
 
-#: ../loader/loader.c:291
+#: ../loader/loader.c:294
 msgid "I have found the following devices in your system:"
 msgstr ""
 
-#: ../loader/loader.c:293 ../loader/loader.c:318
+#: ../loader/loader.c:296 ../loader/loader.c:321
 msgid "Add Device"
 msgstr ""
 
-#: ../loader/loader.c:319
+#: ../loader/loader.c:322
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
 
-#: ../loader/loader.c:403 ../loader/loader.c:405
+#: ../loader/loader.c:406 ../loader/loader.c:408
 msgid "Loading"
 msgstr ""
 
-#: ../loader/loader.c:457
+#: ../loader/loader.c:460
 msgid "Loading second stage ramdisk..."
 msgstr ""
 
-#: ../loader/loader.c:461
+#: ../loader/loader.c:464
 msgid "Error loading ramdisk."
 msgstr ""
 
-#: ../loader/loader.c:593
+#: ../loader/loader.c:596
 msgid "Hard Drives"
 msgstr ""
 
-#: ../loader/loader.c:594
+#: ../loader/loader.c:597
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
 
-#: ../loader/loader.c:607
+#: ../loader/loader.c:610
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 
-#: ../loader/loader.c:621
+#: ../loader/loader.c:624
 msgid "Directory holding Red Hat:"
 msgstr ""
 
-#: ../loader/loader.c:641
+#: ../loader/loader.c:644
 msgid "Select Partition"
 msgstr ""
 
-#: ../loader/loader.c:688
+#: ../loader/loader.c:691
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:733
+#: ../loader/loader.c:736
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:866
+#: ../loader/loader.c:874
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:871
+#: ../loader/loader.c:879
 msgid "I could not mount that directory from the server"
 msgstr ""
 
-#: ../loader/loader.c:956
+#: ../loader/loader.c:964
 msgid "FTP"
 msgstr ""
 
-#: ../loader/loader.c:957
+#: ../loader/loader.c:965
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1087
+#: ../loader/loader.c:1095
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1088
+#: ../loader/loader.c:1096
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1090
+#: ../loader/loader.c:1098
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1092
+#: ../loader/loader.c:1100
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1602
+#: ../loader/loader.c:1610
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1769
+#: ../loader/loader.c:1774
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1769
+#: ../loader/loader.c:1774
 msgid "Initializing PC Card Devices..."
 msgstr ""
 
