@@ -298,22 +298,28 @@ class LiloConfiguration:
             elif label:
                 otherList.append (label, "/dev/" + drive)
 
-	upKernelLabel = main
-	defaultKernel = main
+	lilo.addEntry("default", self.default)
+
+	mainLabelUsed = 0
 
 	if (isys.smpAvailable() and hdList.has_key('kernel-enterprise') and 
                         hdList['kernel-enterprise'].selected):
-	    kernelList.append(('linux-ent', 
+	    mainLabelUsed = 1
+	    kernelList.append((main,
 			      hdList['kernel-enterprise'], "enterprise"))
-	    upKernelLabel = main + "-up"
-	    defaultKernel = 'linux-ent'
 	if (smpInstalled):
-	    kernelList.append((main, hdList['kernel-smp'], "smp"))
-	    upKernelLabel = main + "-up"
+	    thisLabel = main
+	    if mainLabelUsed:
+		thisLabel = thisLabel + '-smp'
+	    mainLabelUsed = 1
 
-	kernelList.append((upKernelLabel, hdList['kernel'], ""))
+	    kernelList.append((thisLabel, hdList['kernel-smp'], "smp"))
 
-        lilo.addEntry("default", defaultKernel)
+	thisLabel = main
+	if mainLabelUsed:
+	    thisLabel = thisLabel + '-smp'
+
+	kernelList.append((thisLabel, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel[rpm.RPMTAG_VERSION],
