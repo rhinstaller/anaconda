@@ -1361,7 +1361,9 @@ class PartitionWindow(InstallWindow):
 
 	vpaned = gtk.VPaned()
 
-        sw = gtk.ScrolledWindow()
+        hadj = gtk.Adjustment(step_incr = 5.0)
+        vadj = gtk.Adjustment(step_incr = 5.0)
+        sw = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
         sw.add(self.diskStripeGraph.getCanvas())
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
