@@ -63,8 +63,8 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     os.environ['DISPLAY'] = ':0'
     server = os.fork()
     if (not server):
-	os.execv('/usr/X11R6/bin/XF86_FBDev', ['/usr/X11R6/bin/XF86_FBDev',
-                 '-xf86conifg', imagepath + '/etc/X11/XF86Config'])
+	os.execv('/usr/X11R6/bin/XF86_VGA16', ['/usr/X11R6/bin/XF86_VGA16',
+                 '-xf86config', imagepath + '/etc/X11/XF86Config'])
     child = os.fork()
     if (child):
 	os.waitpid(child, 0)
