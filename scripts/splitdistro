@@ -123,10 +123,9 @@ if not os.path.isdir(srcDir):
 disc1Dir = distDir + "-disc1"
 disc2Dir = distDir + "-disc2"
 disc3Dir = distDir + "-disc3"
-disc1SrcDir = distDir + "-disc4"
-disc2SrcDir = distDir + "-disc5"
-# we have leftover space on the third disc to use for sources
-disc3SrcDir = distDir + "-disc3"
+disc1SrcDir = distDir + "-disc3"
+disc2SrcDir = distDir + "-disc4"
+disc3SrcDir = distDir + "-disc5"
 
 id = 0
 
@@ -210,6 +209,7 @@ disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList,
 moveFiles("%s/RedHat/RPMS" % disc2Dir, 
 	  "%s/RedHat/RPMS" % disc3Dir, 
 	  disc3pkgs);
+disc3used = spaceUsed(disc3Dir)
 
 print "Creating first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
@@ -221,7 +221,7 @@ stamp(disc2SrcDir, releasestr, "disc5", arch, startedAt)
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
 disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
-			targetSize - fudgeFactor)
+			targetSize - disc3used - fudgeFactor)
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
@@ -229,7 +229,7 @@ srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
 disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
-                        srcDisc1Size + targetSize - fudgeFactor)
+                        srcDisc1Size - disc3used + targetSize - fudgeFactor)
 moveFiles("%s/SRPMS" % disc2SrcDir,
           "%s/SRPMS" % disc3SrcDir,
           disc3pkgs)
@@ -239,4 +239,4 @@ moveFiles("%s/SRPMS" % disc2SrcDir,
 sys.stdout.flush()
 
 os.system("du -sh %s %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
-                                     disc1SrcDir, disc2SrcDir))
+                                     disc2SrcDir, disc3SrcDir))
