@@ -5,7 +5,6 @@ VERSION = 7.0
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-SUBDIRSRECFG = balkan help isys iw pixmaps po textw gnome-map
 SUBDIRSHD = rpmmodule kudzu balkan isys libfdisk collage loader po \
 	    minislang textw utils
 BUILDONLYSUBDIRS = pump
@@ -18,17 +17,11 @@ endif
 
 ifeq (i386, $(ARCH))
 SUBDIRS += ddcprobe
-#SUBDIRSRECFG += ddcprobe
 endif
 
 
-#
-# TOPDIR         - ?
 # DESTDIR        - destination for install image for install purposes
-# RECFGDESTDIR   - root of destination for install image for reconfig purposes
-TOPDIR = ../../..
 DESTDIR = ../../../RedHat/instimage
-RECFGDESTDIR = /
 
 CATALOGS = po/anaconda.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
@@ -47,33 +40,33 @@ xmouse.so: xmouse.c
 
 clean:
 	rm -f *.o *.so *.pyc
-	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
+	for d in $(ALLSUBDIRS); do make -C $$d clean; done
 
 subdirs:
-	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
+	for d in $(ALLSUBDIRS); do make -C $$d; done
 
-install: all
-	@if [ "$(RECFGDESTDIR)" = "" ]; then \
+install: 
+	@if [ "$(DESTDIR)" = "" ]; then \
 		echo " "; \
 		echo "ERROR: A destdir is required"; \
 		exit 1; \
 	fi
 
-	mkdir -p $(RECFGDESTDIR)/usr/sbin
-	mkdir -p $(RECFGDESTDIR)/etc/rc.d/init.d
-	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	mkdir -p $(RECFGDESTDIR)/$(RUNTIMEDIR)
+	mkdir -p $(DESTDIR)/usr/sbin
+	mkdir -p $(DESTDIR)/etc/rc.d/init.d
+	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
+	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 
-	install -m 755 upd-instroot $(RECFGDESTDIR)/$(RUNTIMEDIR)
+	install -m 755 upd-instroot $(DESTDIR)/$(RUNTIMEDIR)
 
-	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
-	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda
-	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	cp -a lang-table $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
-	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	cp -a kudzu/kudzumodule.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	for d in $(SUBDIRSRECFG); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(RECFGDESTDIR); pwd` -C $$d install; done
+	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
+	cp -a anaconda $(DESTDIR)/usr/sbin/anaconda
+	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
+	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
+	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a kudzu/kudzumodule.so $(DESTDIR)/$(PYTHONLIBDIR)
+	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 archive: create-archive
 

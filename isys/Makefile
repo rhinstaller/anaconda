@@ -33,10 +33,10 @@ libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
 	rm -f *.o *.so *.a *.pyc $(TARGET) $(OBJECTS)
-	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
+	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
 	install $(PYMODULES) isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
 subdirs:
-	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
+	for d in $(SUBDIRS); do make -C $$d; done
