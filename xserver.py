@@ -146,14 +146,17 @@ def fb_check ():
     cards = kudzu.probe (kudzu.CLASS_VIDEO,
                          kudzu.BUS_UNSPEC,
                          kudzu.PROBE_ALL);
-   
-    for card in cards: 
-        (junk, man, junk2) = card
+    
+    if cards != []:
+        for card in cards: 
+            (junk, man, junk2) = card
 
-    if man[:13] == "Card:NeoMagic":
-	return 1
-    else:
+        if man[:13] == "Card:NeoMagic":
+            return 1
+        else:
 	return 0
+    else:
+        return 0
 
 def testx(mouse, x):
 #    print "going to test the x server"
