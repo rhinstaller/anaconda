@@ -386,17 +386,14 @@ msgstr ""
 "отформатированная дискета вставлена в первый дисковод."
 
 #: ../text.py:625
-#, fuzzy
 msgid "Package Installation"
 msgstr "Инсталляция пакета"
 
 #: ../text.py:627
-#, fuzzy
 msgid "Name   : "
 msgstr "Имя    :"
 
 #: ../text.py:628
-#, fuzzy
 msgid "Size   : "
 msgstr "Размер :"
 
@@ -525,7 +522,6 @@ msgid "Package Dependencies"
 msgstr "Зависимости пакетов"
 
 #: ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
-#, fuzzy
 msgid "X Configuration"
 msgstr "Настройка Х"
 
@@ -1146,7 +1142,6 @@ msgid ""
 msgstr ""
 
 #: ../loader/urls.c:298 ../textw/userauth.py:25
-#, fuzzy
 msgid "Password:"
 msgstr "Пароль:"
 
@@ -1221,18 +1216,16 @@ msgid "Change the information for this user."
 msgstr ""
 
 #: ../textw/userauth.py:249
-#, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Установка пароля пользователя root"
+msgstr "Использовать скрытые пароли"
 
 #: ../textw/userauth.py:251
-#, fuzzy
 msgid "Enable MD5 Passwords"
-msgstr "Установка пароля пользователя root"
+msgstr "Использовать пароли MD5"
 
 #: ../textw/userauth.py:258
 msgid "NIS Domain:"
-msgstr ""
+msgstr "Домен NIS:"
 
 #: ../textw/userauth.py:260
 msgid "NIS Server:"
@@ -1240,11 +1233,11 @@ msgstr "Сервер NIS:"
 
 #: ../textw/userauth.py:262
 msgid "or use:"
-msgstr ""
+msgstr "или использовать:"
 
 #: ../textw/userauth.py:265
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Запрос сервера через бродкаст"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1538,9 +1531,8 @@ msgstr ""
 "точки монтирования?"
 
 #: ../libfdisk/gnomefsedit.c:1087
-#, fuzzy
 msgid "Close"
-msgstr "Очистить"
+msgstr "Закрыть"
 
 #: ../libfdisk/gnomefsedit.c:1088
 msgid ""
@@ -1750,7 +1742,6 @@ msgstr ""
 "Linux Native (ext2)."
 
 #: ../libfdisk/gnomefsedit.c:3067
-#, fuzzy
 msgid "Partitions"
 msgstr "Разделы"
 
@@ -1847,9 +1838,8 @@ msgid "CDROM type"
 msgstr ""
 
 #: ../loader/cdrom.c:32
-#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "Укажите тип видеокарты"
+msgstr "Укажите тип CD-ROM"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
@@ -1860,7 +1850,6 @@ msgid "Miscellaneous"
 msgstr ""
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid "Module Parameters"
 msgstr "Параметры модуля"
 
@@ -1876,70 +1865,63 @@ msgid "Which driver should I try?"
 msgstr ""
 
 #: ../loader/devices.c:135
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Параметры модуля"
+msgstr "Укажите параметры модуля"
 
 #: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
 #: ../loader/loader.c:311
-#, fuzzy
 msgid "Devices"
-msgstr "Устройство"
+msgstr "Устройства"
 
 #: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
 #, fuzzy
 msgid "Kickstart Error"
-msgstr "Ошибка fdisk"
+msgstr "Ошибка Kickstart"
 
 #: ../loader/kickstart.c:57
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr ""
+msgstr "Ошибка открытия: файл kickstart %s: %s"
 
 #: ../loader/kickstart.c:67
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
 
 #: ../loader/kickstart.c:106
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr ""
+msgstr "Ошибка в строке %d файла kickstart %s"
 
 #: ../loader/lang.c:245
-#, fuzzy
 msgid "Choose a Language"
-msgstr "Выберите сервер"
+msgstr "Выберите язык"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
 msgstr "Тип клавиатуры"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Укажите тип видеокарты"
+msgstr "Укажите тип клавиатуры"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
-msgstr ""
+msgstr "Локальный CD-ROM"
 
 #: ../loader/loader.c:101
 msgid "NFS image"
-msgstr ""
+msgstr "Образ NFS"
 
 #: ../loader/loader.c:106
 msgid "Hard drive"
-msgstr ""
+msgstr "Жесткий диск"
 
 #: ../loader/loader.c:122
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
 msgstr "Добро пожаловать в Red Hat Linux"
 
 #: ../loader/loader.c:124
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -1947,21 +1929,19 @@ msgstr ""
 
 #: ../loader/loader.c:226
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:238
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Система какого типа должна быть установлена?"
+msgstr "Устройство какого типа вы хотите добавить?"
 
 #: ../loader/loader.c:285
 msgid "I have found the following devices in your system:"
-msgstr ""
+msgstr "В вашей системе удалось обнаружить следующие устройства:"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
-#, fuzzy
 msgid "Add Device"
-msgstr "Устройство"
+msgstr "Добавить устройство"
 
 #: ../loader/loader.c:312
 msgid ""
@@ -1970,9 +1950,8 @@ msgid ""
 msgstr ""
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
-#, fuzzy
 msgid "Loading"
-msgstr "Расположение"
+msgstr "Загрузка"
 
 #: ../loader/loader.c:447
 msgid "Loading second stage ramdisk..."
@@ -1983,9 +1962,8 @@ msgid "Error loading ramdisk."
 msgstr ""
 
 #: ../loader/loader.c:572
-#, fuzzy
 msgid "Hard Drives"
-msgstr "Слишком много дисков"
+msgstr "Жесткие диски"
 
 #: ../loader/loader.c:573
 msgid ""
@@ -2005,9 +1983,8 @@ msgid "Directory holding Red Hat:"
 msgstr ""
 
 #: ../loader/loader.c:620
-#, fuzzy
 msgid "Select Partition"
-msgstr "Удалить этот раздел?"
+msgstr "Выбор раздела"
 
 #: ../loader/loader.c:664
 #, c-format
@@ -2041,42 +2018,38 @@ msgid "Rescue Method"
 msgstr ""
 
 #: ../loader/loader.c:1058
-#, fuzzy
 msgid "Installation Method"
-msgstr "Тип инсталляции"
+msgstr "Метод инсталляции"
 
 #: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
 #: ../loader/loader.c:1062
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Система какого типа должна быть установлена?"
+msgstr "Носитель какого типа содержит пакеты для инсталляции?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "Невозможно найти ks.cfg на загрузочной дискете"
 
 #: ../loader/loader.c:1500
 msgid "PC Card"
-msgstr ""
+msgstr "Карта PCMCIA"
 
 #: ../loader/loader.c:1500
 msgid "Initializing PC Card Devices..."
 msgstr ""
 
 #: ../loader/net.c:147
-#, fuzzy
 msgid "NFS server name:"
-msgstr "Сервер NIS:"
+msgstr "Имя cервера NIS:"
 
 #: ../loader/net.c:150 ../loader/urls.c:160
 msgid "Red Hat directory:"
-msgstr ""
+msgstr "Каталог Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
 msgstr "Настройка NFS"
 
@@ -2105,9 +2078,8 @@ msgid "Configure TCP/IP"
 msgstr "Использовать DHCP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "Неверная информация"
+msgstr "Пропущена информация"
 
 #: ../loader/net.c:330
 #, fuzzy
@@ -2140,9 +2112,8 @@ msgid "Boot protocol to use"
 msgstr ""
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "Настройка NFS"
+msgstr "Шлюз сети"
 
 #: ../loader/net.c:611
 #, fuzzy
@@ -2150,21 +2121,18 @@ msgid "IP address"
 msgstr "IP адрес:"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "Сервер"
+msgstr "Сервер имен"
 
 #: ../loader/net.c:620
 msgid "Domain name"
-msgstr ""
+msgstr "Имя домена"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "Настройка NFS"
+msgstr "Сетевое устройство"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2186,9 +2154,8 @@ msgid "Would you like to set up networking?"
 msgstr ""
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
-#, fuzzy
 msgid "Retrieving"
-msgstr "Переиндексация"
+msgstr "Получение"
 
 #: ../loader/urls.c:129
 msgid ""
