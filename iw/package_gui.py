@@ -484,7 +484,10 @@ class PackageSelectionWindow (InstallWindow):
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 
-        sw.add_with_viewport (box)
+        wrapper = GtkVBox (FALSE, 0)
+        wrapper.pack_start (box, FALSE)
+        
+        sw.add_with_viewport (wrapper)
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
