@@ -661,14 +661,15 @@ class FinishedWindow:
         if not todo.reconfigOnly:
             rc = ButtonChoiceWindow (screen, _("Complete"), 
                      _("Congratulations, installation is complete.\n\n"
-                      "Remove the boot media and "
-                      "press return to reboot. For information on fixes which "
+                       "Press return to reboot, and be sure to remove your "
+		       "boot medium as the system reboots, or your system "
+		       "will rerun the install. For information on fixes which "
                        "are available for this release of Red Hat Linux, "
                        "consult the "
-                       "Errata available from http://www.redhat.com.\n\n"
-                       "Information on configuring your system is available "
-                       "in the post install chapter of the Official Red Hat "
-                       "Linux User's Guide."),
+                       "Errata available from http://www.redhat.com/errata.\n\n"
+                       "Information on configuring and using your Red Hat "
+		       "Linux system is contained in the Red Hat Linux "
+		       "manuals."),
                     [ _("OK") ])
         else:
             todo.writeConfiguration()

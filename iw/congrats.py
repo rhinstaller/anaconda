@@ -28,13 +28,17 @@ class CongratulationWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
-        label = GtkLabel(_("Congratulations, installation is complete.\n\n"
-                           "Remove the boot media and "
-                           "press return to reboot. For information on fixes which are "
-                           "available for this release of Red Hat Linux, consult the "
-                           "Errata available from http://www.redhat.com.\n\n"
-                           "Information on configuring your system is available in the post "
-                           "install chapter of the Official Red Hat Linux User's Guide."))
+	label = GtkLabel(
+                     _("Congratulations, installation is complete.\n\n"
+                       "Press return to reboot, and be sure to remove your "
+		       "boot medium as the system reboots, or your system "
+		       "will rerun the install. For information on fixes which "
+                       "are available for this release of Red Hat Linux, "
+                       "consult the "
+                       "Errata available from http://www.redhat.com/errata.\n\n"
+                       "Information on configuring and using your Red Hat "
+		       "Linux system is contained in the Red Hat Linux "
+		       "manuals."))
                 
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
