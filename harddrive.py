@@ -1,32 +1,46 @@
 # Install method for disk image installs (CD & NFS)
 
 from comps import ComponentSet, HeaderList
+import os
 import isys
+import rpm
+
+import todo
+
+FILENAME = 1000000
 
 class InstallMethod:
 
     def readComps(self, hdlist):
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
-	cs = ComponentSet('i386', "/tmp/hdimage/" + self.tree + 
+	cs = ComponentSet('i386', "/tmp/hdimage/" + self.path + 
 		'/RedHat/base/comps', hdlist)
 	isys.umount("/tmp/hdimage")
 	return cs
 
     def getFilename(self, h):
-	return self.tree + "/RedHat/RPMS/" + h[1000000]
+	return self.tree + "/RedHat/RPMS/" + h[FILENAME]
 
     def readHeaders(self):
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
-	hl = HeaderList("/tmp/hdimage/" + self.path + "/RedHat/base/hdlist")
+	hl = []
+	path = "/tmp/hdimage" + self.path + "/RedHat/RPMS"
+	for n in os.listdir(path):
+	    if (n[len(n) - 4:] == '.rpm'):
+		fd = os.open(path + "/" + n, 0)
+		(h, isSource) = rpm.headerFromPackage(fd)
+		hl.append(h)
+		os.close(fd)
+		
 	isys.umount("/tmp/hdimage")
-	return hl
+	return HeaderList(hl)
 
     def targetFstab(self, fstab):
 	self.isMounted = 0
-	for (device, fsystem, reformat) in fstab.items():
+	for (mntpoint, (device, fsystem, reformat)) in fstab.items():
 	    if (device == self.device):
 		self.isMounted = 1
-		self.tree = "/mnt/sysimage" + fsystem + "/" + self.path
+		self.tree = "/mnt/sysimage" + mntpoint + "/" + self.path
 		self.needsUnmount = 0
 
 	if (not self.isMounted):
@@ -37,7 +51,11 @@ class InstallMethod:
     def filesDone(self):
 	if (self.needsUnmount):
 	    isys.umount("/tmp/hdimage")
+
+    def unlinkFilename(self, fullName):
+	pass
 	    
     def __init__(self, device, path):
 	self.device = device
 	self.path = path
+	isys.makeDevInode(device, '/tmp/' + device)
