@@ -414,7 +414,7 @@ class ToDo:
 		match = "Floppy drive(s): "
 		if match == line[:len(match)]:
 		    # Good enough
-		    floppyDrive = fd0
+		    floppyDrive = "fd0"
 		    break
 
 	    self.fdDevice = floppyDrive
