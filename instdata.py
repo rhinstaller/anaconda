@@ -103,8 +103,10 @@ class InstallData:
         self.xsetup = xsetup
 
     def write(self, instPath):
-        self.langSupport.write (instPath) 
-	self.mouse.write(instPath)
+        self.langSupport.write (instPath)
+        if self.mouse is not None:
+            self.mouse.write(instPath)
+            
         self.keyboard.write (instPath)
         self.network.write (instPath)
         self.timezone.write (instPath)
@@ -126,8 +128,10 @@ class InstallData:
 	self.instLanguage.writeKS(f)
 	self.langSupport.writeKS(f)
 	self.keyboard.writeKS(f)
-        self.mouse.writeKS(f)
-        self.xsetup.writeKS(f, self.desktop)
+        if self.mouse is not None:
+            self.mouse.writeKS(f)
+        if self.xsetup is not None:
+            self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)

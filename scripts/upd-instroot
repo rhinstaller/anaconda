@@ -28,7 +28,7 @@ if [ -z "$ARCH" ]; then
 	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
 fi
 
-if [ $ARCH = x86_64 ]; then
+if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib
@@ -115,10 +115,11 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
-	net-tools inetd openssh openssh-server coreutils modutils
-	initscripts gawk xauth
-	portmap telnet-server login ssh_keys"
+    PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
+              sed net-tools xinetd openssl openssh openssh-server coreutils
+              login initscripts XFree86-xauth bash portmap pam 
+              libcrack telnet-server login mount grep modutils gawk 
+              XFree86-libs"
 fi
 
 # xpm is missing
@@ -179,16 +180,6 @@ fi
 
 if [ $ARCH = ia64 ]; then
     PACKAGESGR="$PACKAGESGR elilo"
-fi
-
-#
-# special packages for particular arches
-#
-if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
-	net-tools inetd openssh openssh-server coreutils login 
-	wget initscripts xauth
-	modutils portmap openssl telnet-server strace ssh_keys"
 fi
 
 if [ $ARCH = ppc ]; then
@@ -362,7 +353,6 @@ EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
-linuxrc
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/s/screen
@@ -384,8 +374,8 @@ usr/bin/pkgsrc
 usr/sbin/chroot
 usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
-usr/sbin/inetd
 usr/sbin/in.telnetd
+usr/sbin/xinetd
 sbin/busybox.anaconda
 sbin/consoletype
 sbin/rhsetup
@@ -398,11 +388,13 @@ sbin/swapon
 sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
+bin/bash
 bin/dd
-bin/gawk-3.1.0
+bin/gawk
+bin/mount
+bin/umount
 bin/mknod
 bin/login
-bin/ksh
 bin/cat
 bin/chmod
 bin/sort
@@ -419,16 +411,27 @@ $LIBDIR/libutil-*.so*
 $LIBDIR/libcrypt*
 $LIBDIR/libc.so*
 $LIBDIR/libc-*so*
-$LIBDIR/ld.so*
-$LIBDIR/ld-*.so*
+lib/ld*.so*
+$LIBDIR/ld*.so*
 $LIBDIR/libresolv.so*
 $LIBDIR/libresolv-*.so*
 $LIBDIR/libvtoc*.so*
-$LIBDIR/modules/ibm*
-etc/inetd.conf
-etc/ssh/*
-etc/motd
-etc/issue.net
+lib/modules/ibm/*
+etc/xinetd.conf
+etc/xinetd.d/telnet
+etc/pam.d/sshd
+etc/pam.d/login
+etc/pam.d/system-auth
+etc/pam.d/other
+etc/security/limits.conf
+etc/security/pam_env.conf
+lib/security
+$LIBDIR/security/pam_*
+usr/$LIBDIR/libcrack.so*
+usr/$LIBDIR/libwrap.so*
+usr/X11R6/$LIBDIR/libXmuu.so*
+usr/X11R6/$LIBDIR/libX11.so*
+usr/X11R6/$LIBDIR/libXext.so*
 usr/X11R6/bin/xauth
 EOF
 fi
@@ -752,28 +755,26 @@ chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     for i in $DEST $DESTGR; do
-	(cd $i/etc/ssh; chmod og-r ssh_host*key primes sshd_config)
 	mv $i/bin/sed $i/bin/sed_save
 	mv $i/bin/sort $i/bin/sort_save
-	mv $i/bin/mknod $i/bin/mknod_save
     done
 fi
 
 # Remove locales unused during the install
 cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
-{ gsub("-", "", $5);
-  print $5;
-  print gensub(/\..*$/,"","",$5);
-  print gensub(/_.*$/,"","",$5);
-  if (split ($5, a, "\.") > 1) {
-    print gensub(/\..*$/,tolower("." a[2]),"",$5);
+{ gsub("-", "", $4);
+  print $4;
+  print gensub(/\..*$/,"","",$4);
+  print gensub(/_.*$/,"","",$4);
+  if (split ($4, a, "\.") > 1) {
+    print gensub(/\..*$/,tolower("." a[2]),"",$4);
   };
-  gsub("-", "", $8);
-  print $8;
-  print gensub(/\..*$/,"","",$8);
-  print gensub(/_.*$/,"","",$8);
-  if (split ($8, a, "\.") > 1) {
-    print gensub(/\..*$/,tolower("." a[2]),"",$8);
+  gsub("-", "", $7);
+  print $7;
+  print gensub(/\..*$/,"","",$7);
+  print gensub(/_.*$/,"","",$7);
+  if (split ($7, a, "\.") > 1) {
+    print gensub(/\..*$/,tolower("." a[2]),"",$7);
   };
 }
 ' | LC_ALL=C sort -u > $DESTGR/locales
@@ -842,8 +843,7 @@ fi
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/pango-querymodules 2> $REALPATH/etc/pango/pango.modules"
+    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
@@ -853,8 +853,7 @@ fi
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 2> $REALPATH/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/gtk.immodules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
     fi
@@ -864,12 +863,11 @@ fi
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-
 fi
 
 # make the changes we want to fonts.conf for anaconda (#65913)
@@ -950,8 +948,7 @@ for p in $DEST $DESTGR; do
 		gzip -9) > $p/usr/$LIBDIR/timezones.gz
 
 	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	    REALPATH=`(cd $p; /bin/pwd | sed 's,/md1/,/,g')`
-            runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+            runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $p"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -969,8 +966,7 @@ fi
 echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/fc-cache -v"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
     fi
@@ -1011,8 +1007,7 @@ cd -
 echo -n -e "Removing unused python files in hdimage... "
 
 if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
-    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+    runroot $COMPONENT --onlyone --arch $ARCH "cd $DEST\; usr/lib/anaconda-runtime/pythondeps $DEST"
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
@@ -1030,9 +1025,10 @@ done
 
 # do some stripping of debugging symbols
 if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
-    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH; find $DESTGR -type f -name '*.so' -exec strip -g '{}' ';'"
+    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DEST -type f -name '*.so' -exec strip -g '{}' ';'\""
+    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DESTGR -type f -name '*.so' -exec strip -g '{}' ';'\""
 else
+    find $DEST -type f -name '*.so' |xargs strip -g
     find $DESTGR -type f -name '*.so' |xargs strip -g
 fi
 

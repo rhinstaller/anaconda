@@ -237,12 +237,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             }
             
             cfg->isDynamic = 1;
+            cfg->preset = 1;
         } else if (inet_aton(loaderData->ip, &addr)) {
             cfg->dev.ip = addr;
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
+            cfg->preset = 1;
         }
-        cfg->preset = 1;
     }
 
     if (loaderData->netmask && (inet_aton(loaderData->netmask, &addr))) {
@@ -291,6 +292,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     struct in_addr addr;
     char dhcpChoice;
     char * chptr;
+
+    memset(&c, 0, sizeof(c));
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
@@ -445,8 +448,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 #else /* s390 now */
    char * env;
-   /* quick and dirty hack by opaukstadt@millenux.com for s390 */
-   /* ctc stores remoteip in broadcast-field until pump.h is changed */
+
+   /* JKFIXME: this is something of a hack... will go away better once
+    * we start just reading this into the ip info in loaderdata */
+   winStatus(50, 3, _("Setting up networking"), 
+             _("Setting up networking for %s..."), device, 0);
+
    memset(&newCfg, 0, sizeof(newCfg));
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
@@ -477,18 +484,23 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-     env = getenv("REMIP");
-     if (env && *env) {
-       if(inet_aton(env, &newCfg.dev.gateway))
-         newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
-     }
-   }
    env = getenv("BROADCAST");
    if (env && *env) {
      if(inet_aton(env, &newCfg.dev.broadcast))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
+   env = getenv("MTU");
+   if (env && *env) {
+       newCfg.dev.mtu = atoi(env);
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
+   }
+   env = getenv("REMIP");
+   if (env && *env) {
+       if (inet_aton(env, &newCfg.dev.ptpaddr))
+           newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+   }
+
+   sleep(1);
 #endif   /* s390 */
 
     /* preserve extra dns servers for the sake of being nice */
@@ -504,23 +516,22 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     fillInIpInfo(cfg);
 
-#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (*c.gw && inet_aton(c.gw, &addr)) {
+        if (c.gw && *c.gw && inet_aton(c.gw, &addr)) {
             cfg->dev.gateway = addr;
             cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
         }
     }
 
     if (!(cfg->dev.numDns)) {
-        if (*c.ns && inet_aton(c.ns, &addr)) {
+        if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
             cfg->dev.dnsServers[0] = addr;
             cfg->dev.numDns = 1;
         }
     }
 
     newtPopWindow();
-#endif
+
     if (!FL_TESTING(flags)) {
         configureNetwork(cfg);
         findHostAndDomain(cfg, flags);
@@ -531,7 +542,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
-#if !defined(__s390__) && !defined(__s390x__)
     char *rc;
 
     rc = pumpSetupInterface(&dev->dev);
@@ -541,7 +551,6 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
 
-#endif
     return 0;
 }
 
@@ -566,12 +575,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "BOOTPROTO=static\n");
         fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
         fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
-        if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
-          fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-          if (!strncmp(dev->dev.device, "ctc", 3) || \
-              !strncmp(dev->dev.device, "iucv", 4)) 
-            fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
-        }
+        if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+            fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
         if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
           fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
     }
@@ -580,6 +585,10 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+    if (dev->dev.set & PUMP_INTFINFO_HAS_MTU)
+        fprintf(f, "MTU=%d\n", dev->dev.mtu);
+    if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
+        fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.ptpaddr));
 
     fclose(f);
 

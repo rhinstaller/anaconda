@@ -43,7 +43,6 @@ stepToClasses = {
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
-    "fdasd" : ("fdasd_text", "fdasdPartitionWindow"),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
     "partition": ("partition_text", ("PartitionWindow")),
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
@@ -55,7 +54,8 @@ stepToClasses = {
                                         "BootloaderPasswordWindow")),
     "bootloaderadvanced" : ("bootloader_text", ("BootloaderImagesWindow",
                                                 "BootloaderLocationWindow")),
-    "network" : ("network_text", ("NetworkWindow", "HostnameWindow")),
+    "network" : ("network_text", ("NetworkDeviceWindow", "NetworkGlobalWindow",
+                                  "HostnameWindow")),
     "firewall" : ("firewall_text", "FirewallWindow"),
     "languagesupport" : ("language_text", ("LanguageSupportWindow",
                                            "LanguageDefaultWindow")),
@@ -380,7 +380,7 @@ class InstallInterface:
         if DEBUG:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	if flags.serial:
+	if flags.serial or isys.isPsudoTTY(0):
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
 	# clear out the old root text by writing spaces in the blank
@@ -389,13 +389,6 @@ class InstallInterface:
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
         lang = id.instLanguage.getCurrent()
-        # if we don't have any way to display the preselected language,
-        # fall back to English.
-        if ((id.instLanguage.getFontFile(lang) == "Kon" and not
-             isys.isPsudoTTY(0)) or
-            id.instLanguage.getFontFile(lang) == "None"):
-            lang = "English"
-            id.instLanguage.setRuntimeLanguage(lang)
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage

@@ -30,14 +30,14 @@ SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 HWLIBS = -lkudzu_loader  -lpci
 
 DEBUG = -ggdb
-COPTS = $(DEBUG) -Os -Wall -DVERSION='"$(VERSION)"'
+COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"'
 CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H 
 STATIC = -static
+REALCC=gcc
 
 ifeq (1, $(USEDIET))
 CFLAGS += -DGZLIB=1
 DIET=diet
-REALCC=gcc
 CC=$(DIET) $(REALCC)
 BTERMLIB = -lbtermdiet -lbogldiet 
 WLITELIB = -lwlitediet
@@ -51,8 +51,8 @@ else
 OBJS += wcstubs.o
 endif
 
-ifeq (i386, $(ARCH))
-COPTS += -DUSE_LOGDEV
+ifneq (,$(filter s390 s390x,$(ARCH)))
+BINS += linuxrc.s390
 endif
 
 # translation stuff
@@ -79,6 +79,9 @@ tr/%.tr: ../po/%.po loader.po
 loader.po: $(wildcard *.c)
 	xgettext --default-domain=loader --add-comments \
 		--keyword=_ --keyword=N_ *.c
+
+linuxrc.s390:
+	@echo "Nothing to do for $@"
 
 init: init.o
 	$(CC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ init.o
@@ -118,7 +121,7 @@ install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
 	for n in $(BINS); do \
 	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
-	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n; \
+	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n || :; \
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader

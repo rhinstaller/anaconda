@@ -143,12 +143,6 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
 			   custom_icon="error")
         return 0
 
-    if iutil.getArch() == "s390" and type(partition) != type("RAID"):
-	intf.messageWindow(_("Error"),
-				_("DASD partitions can only be deleted "
-				  "with fdasd"))
-	return
-
     if type(partition) == type("RAID"):
         device = partition
     elif partition.type & parted.PARTITION_FREESPACE:
@@ -328,11 +322,6 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	    return ("LVMLV", request)
 	else:
 	    return (None, None)
-    elif iutil.getArch() == "s390":
-	intf.messageWindow(_("Error"),
-				_("You must go back and use fdasd to "
-				  "inititalize this partition"))
-	return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
             start = partedUtils.start_sector_to_cyl(part.geom.dev,

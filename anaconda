@@ -212,6 +212,15 @@ progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 logFile = None			# may be a file object or a file name
 
+# should we ever try to probe for X stuff?  this will give us a convenient
+# out eventually to circumvent all probing and just fall back to text mode
+# on hardware where we break things if we probe
+doXProbe = 1
+
+# probing for hardware on an s390 seems silly...
+if iutil.getArch() == "s390":
+    doXProbe = 0
+
 #
 # xcfg       - xserver info (?)
 # mousehw    - mouseinfo info
@@ -346,9 +355,10 @@ if (debug):
 import isys
 import instdata
 import floppy
-import xsetup
 
-import rhpl.xhwstate as xhwstate
+if doXProbe:
+    import xsetup
+    import rhpl.xhwstate as xhwstate
 import rhpl.keyboard as keyboard
 
 # handle traceonly and exit
@@ -458,29 +468,34 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-#
-# Probe what is available for X and setup a hardware state
-#
-# try to probe interesting hw
-import rhpl.xserver as xserver
-skipddcprobe = (skipddc or (x_already_set and flags.test))
-skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
+if doXProbe:
+    #
+    # Probe what is available for X and setup a hardware state
+    #
+    # try to probe interesting hw
+    import rhpl.xserver as xserver
+    skipddcprobe = (skipddc or (x_already_set and flags.test))
+    skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
 
-(videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
-						skipMouseProbe = skipmouseprobe)
+    (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
+                                                    skipMouseProbe = skipmouseprobe)
+
+    # setup a X hw state for use later with configuration.  
+    try:
+        xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
+    except Exception, e:
+        print _("Unable to instantiate a X hardware state object.")
+        xcfg = None
+else:
+    videohw = None
+    monitorhw = None
+    mousehw = None
+    xcfg = None
 
 # keyboard
 kbd = keyboard.Keyboard()
 if keymap:
     kbd.set(keymap)
-
-# setup a X hw state for use later with configuration
-xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
-try:
-    xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
-except:
-    print _("Unable to instantiate a X hardware state object.")
-    xcfg = None
 
 #
 # delay to let use see status of attempt to probe hw 
@@ -501,8 +516,7 @@ if (display_mode != 't' and method and
     display_mode = 't'
     time.sleep(2)
 
-# XXX should be fixed to be more generic instead of just ifarching
-if iutil.getArch() != "s390":
+if doXProbe:
     # if no mouse we force text mode
     mousedev = mousehw.get()
     if display_mode != 't' and mousedev[0] == "No - mouse":
@@ -602,7 +616,7 @@ if (display_mode == 'g'):
 	    splashScreenShow(configFileData)
 	    
             from gui import InstallInterface
-        except:
+        except Exception, e:
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
 	    if not x_already_set:
@@ -612,18 +626,14 @@ if (display_mode == 'g'):
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
             time.sleep(2)            
-            from text import InstallInterface
 
 if (display_mode == 't'):
     from text import InstallInterface
     from text import stepToClasses
 
 
-if display_mode == "t":
-    intf = InstallInterface ()
-else:
-    # determine the mode we actually ended up in
-    intf = InstallInterface ()
+# go ahead and set up the interface
+intf = InstallInterface ()
 
 # imports after setting up the path
 if method:
@@ -693,10 +703,10 @@ if monitorhw:
 #
 # not sure what to do here - somehow we didnt detect anything
 #
-if xcfg is None:
+if xcfg is None and doXProbe:
     try:
 	xcfg = xhwstate.XF86HardwareState()
-    except:
+    except Exception, e:
 	print _("Unable to instantiate a X hardware state object.")
 	xcfg = None
 

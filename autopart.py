@@ -137,7 +137,9 @@ def bestPartType(disk, request):
         raise PartitioningError, "Unable to create additional primary partitions on /dev/%s" % (disk.dev.path[5:])
     if request.primary:
         return parted.PARTITION_PRIMARY
-    if (numPrimary == (maxPrimary - 1)) and not disk.extended_partition:
+    if ((numPrimary == (maxPrimary - 1)) and
+        not disk.extended_partition and
+        disk.type.check_feature(parted.DISK_TYPE_EXTENDED)):
         return parted.PARTITION_EXTENDED
     return parted.PARTITION_PRIMARY
 

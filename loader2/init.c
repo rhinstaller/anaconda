@@ -744,6 +744,9 @@ int main(int argc, char **argv) {
     dup2(fd, 1);
     dup2(fd, 2);
     close(fd);
+#else
+    dup2(0, 1);
+    dup2(0, 2);
 #endif
 
     setsid();

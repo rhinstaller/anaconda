@@ -304,6 +304,12 @@ def cdromList():
     list.sort()
     return list
 
+def getDasdPorts():
+    return _isys.getDasdPorts()
+
+def isUsableDasd(device):
+    return _isys.isUsableDasd(device)
+
 def makeDevInode(name, fn=None):
     if fn:
         _isys.mkdevinode(name, fn)

@@ -44,13 +44,6 @@ static struct extractedModule * extractModules (char * const * modNames,
                                                 struct extractedModule * oldPaths,
                                                 struct moduleBallLocation * location);
 
-
-static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
-                                    int flags);
-static int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                                int flags);
-
-
 /* pass in the type of device (eth or tr) that you're looking for */
 static int ethCount(const char * type) {
     int fd;
@@ -517,7 +510,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     if (reloadUsbStorage) {
-        reloadUnloadedModule("usb-storage", modLoaded, flags);
+        reloadUnloadedModule("usb-storage", modLoaded, NULL, flags);
         /* JKFIXME: here's the rest of the hacks.  basically do the reverse
          * of what we did before.
          */
@@ -804,7 +797,7 @@ static struct extractedModule * extractModules (char * const * modNames,
  * but we do update the loadedModuleInfo to reflect the fact that its using
  * no devices anymore.
  */
-static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
                                     int flags) {
     int status, rc = 0;
     pid_t child;
@@ -851,8 +844,8 @@ static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
  * if we think it was already loaded.  we also update firstDevNum and 
  * lastDevNum to be current
  */
-static int reloadUnloadedModule(char * modName, moduleList modLoaded, 
-                                int flags) {
+int reloadUnloadedModule(char * modName, moduleList modLoaded, 
+                         char ** args, int flags) {
     char fileName[200];
     int rc, status;
     pid_t child;
@@ -890,7 +883,7 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
 	    dup2(fd, 2);
 	    close(fd);
 
-	    rc = insmod(fileName, NULL, NULL);
+	    rc = insmod(fileName, NULL, args);
 	    _exit(rc);
 	}
 
@@ -913,7 +906,7 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     char * opts = NULL;
     char * module = NULL;
     char * type = NULL;
-    char ** args;
+    char ** args = NULL;
     poptContext optCon;
     int rc;
     int flags = *flagsPtr;

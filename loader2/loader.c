@@ -839,6 +839,29 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
     return 0;
 }
 
+/* JKFIXME: I don't really like this, but at least it isolates the ifdefs */
+/* Either move dirname to %s_old or unlink depending on arch (unlink on all
+ * !s390{,x} arches).  symlink to /mnt/runtime/dirname.  dirname *MUST* start
+ * with a '/' */
+static void migrate_runtime_directory(char * dirname) {
+    char * runtimedir;
+
+    runtimedir = sdupprintf("/mnt/runtime%s", dirname);
+    if (!access(runtimedir, X_OK)) {
+#if !defined(__s390__) && !defined(__s390x__)
+        unlink(dirname);
+#else
+        char * olddir;
+
+        olddir = sdupprintf("%s_old", dirname);
+        rename(dirname, olddir);
+        free(olddir);
+#endif
+        symlink(runtimedir, dirname);
+    }
+    free(runtimedir);
+}
+
 
 int main(int argc, char ** argv) {
     int flags = 0;
@@ -954,6 +977,7 @@ int main(int argc, char ** argv) {
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
     scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
+    dasdSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
@@ -962,17 +986,13 @@ int main(int argc, char ** argv) {
     /* now let's initialize any possible firewire.  fun */
     firewireInitialize(modLoaded, modDeps, modInfo, flags);
 
-    kdFindIdeList(&kd, 0);
-    kdFindScsiList(&kd, 0);
-    kdFindNetList(&kd, 0);
+    updateKnownDevices(&kd);
 
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
     pciReadDrivers("/modules/pcitable");
 
-    if ((access("/proc/bus/pci/devices", R_OK) &&
-         access("/proc/openprom", R_OK) &&
-         access("/proc/iSeries", R_OK)) || FL_MODDISK(flags)) {
+    if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt(flags);
 
         loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
@@ -1011,14 +1031,10 @@ int main(int argc, char ** argv) {
     url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
-        unlink("/usr");
-        symlink("/mnt/runtime/usr", "/usr");
-        unlink("/lib");
-        symlink("/mnt/runtime/lib", "/lib");
-        if (!access("/mnt/runtime/lib64", X_OK)) {
-            unlink("/lib64");
-            symlink("/mnt/runtime/lib64", "/lib64");
-        }
+        /* unlink dirs and link to the ones in /mnt/runtime */
+        migrate_runtime_directory("/usr");
+        migrate_runtime_directory("/lib");
+        migrate_runtime_directory("/lib64");
     }
 
     logMessage("getting ready to spawn shell now");
@@ -1045,10 +1061,8 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives(&kd, &flags);
 
-    if (((access("/proc/bus/pci/devices", R_OK) &&
-          access("/proc/openprom", R_OK) &&
-          access("/proc/iSeries", R_OK)) ||
-         FL_ISA(flags) || FL_NOPROBE(flags)) && !loaderData.ksFile) {
+    if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
+        && !loaderData.ksFile) {
         startNewt(flags);
         manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }

@@ -20,10 +20,8 @@ import gettext
 import gtk
 import gobject
 import gui
+import network
 from rhpl.translate import _, N_
-
-ip_re = re.compile('^([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])$')
-_=gettext.gettext
 
 ip_fields = ['entry1', 'entry2', 'entry3', 'entry4']
 
@@ -72,18 +70,8 @@ class IPEditor:
     def hydrate (self, ip_string):
         self.clear_entries()
 
-        #Sanity check the string
-        m = ip_re.match (ip_string)
-        try:
-            if not m:
-                return
-            octets = m.groups()
-            if len(octets) != 4:
-                return
-            for octet in octets:
-                if (int(octet) < 0) or (int(octet) > 255):
-                    return
-        except TypeError:
+        octets = network.sanityCheckIPString(ip_string)
+        if octets is None:
             return
 
 	i = 0

@@ -95,11 +95,14 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ -n "$dieLater" ]; then exit 1; fi
 
-    # go ahead and create the keymaps so we only have to do it once
-    $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
-    if [ $? != 0 ]; then
-        echo "Unable to create keymaps and thus can't create initrd."
-	exit 1
+    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
+       # go ahead and create the keymaps so we only have to do it once
+       echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+       $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+       if [ $? != 0 ]; then
+           echo "Unable to create keymaps and thus can't create initrd."
+	   exit 1
+       fi
     fi
  
 findPackage() {
@@ -314,7 +317,8 @@ makemainmodules() {
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" \
+          -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $extraargs $FULLMODPATH "$modlist"
     cp -ar $FULLMODPATH $FINALFULLMODPATH
@@ -426,8 +430,10 @@ EOF
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
-    install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
-    install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
+    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
+       install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
+       install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
+    fi
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
@@ -507,7 +513,7 @@ EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000
-    mke2fs -Fq $MBD_DIR/etc/ramfs.img.big
+    mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
 
@@ -518,7 +524,7 @@ EOF
 
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
-    echo y | /sbin/mke2fs -i 1024 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
+    /sbin/mke2fs -F -i 1024 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
 
     rm -rf $MBD_MNTPOINT
     mkdir $MBD_MNTPOINT
@@ -633,7 +639,7 @@ makeImage () {
     mkdir -p $MI_MNTPOINT
 
     dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
-    echo y | /sbin/mke2fs -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
+    /sbin/mke2fs -F -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
     mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
     (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
 
@@ -662,7 +668,8 @@ makeinstimage () {
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $KERNELROOT/lib/modules/misc
-       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
+       find $KERNELROOT/lib/modules/*/kernel/drivers/s390/ -name "*.o" \
+         -exec cp -f {} $KERNELROOT/lib/modules/misc \;
     fi
     makemoduleball $tmpdir/modules "$modlist"
     makeproductfile $tmpdir
@@ -702,7 +709,7 @@ makemainimage () {
 	    SIZE=$(expr $SIZE - $ERROR)
         fi
         dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage
-        echo y | mke2fs $mmi_tmpimage > /dev/null 
+        mke2fs -F $mmi_tmpimage > /dev/null 
         mount -o loop $mmi_tmpimage $mmi_mntpoint
 
         (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
@@ -754,7 +761,7 @@ makedriverdisk () {
     fi
 
     dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
-    echo y | /sbin/mke2fs -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
+    /sbin/mke2fs -F -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
     mkdir -p /tmp/mkdd.$$
     mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
     rmdir /tmp/mkdd.$$/lost+found
@@ -801,7 +808,7 @@ for kernelvers in $vertag; do
     if [ ! -f "$kpackage" ]; then
 	echo 'kernel-$kernelvers does not exist -- using kernel package'
 	kpackage=$($LATEST $KERNELPATH kernel)
-	vertag=""
+	kernelvers=""
     fi
 
     ppackage=$($LATEST $KERNELPATH hwdata)
@@ -809,7 +816,7 @@ for kernelvers in $vertag; do
 	ppackage=""
     fi
 
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
     echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
@@ -839,7 +846,12 @@ for kernelvers in $vertag; do
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
 
-. $TOPDIR/mk-images.${BUILDARCH}
+  # this is a bad hack, but better than copying for now
+  if [ ${BUILDARCH} = s390x ]; then
+      . $TOPDIR/mk-images.s390
+  else
+      . $TOPDIR/mk-images.${BUILDARCH}
+  fi
 
 rm -rf $KERNELROOT
 done

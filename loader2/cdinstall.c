@@ -26,10 +26,7 @@
 #include <sys/mount.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-
-#if !defined(__s390__) && !defined(__s390x__)
 #include <linux/cdrom.h>
-#endif
 
 #include "kickstart.h"
 #include "loader.h"
@@ -49,9 +46,6 @@ static int getISOStatusFromFD(int isofd, char *mediasum);
 
 /* ejects the CD device the device node /tmp/cdrom points at */
 void ejectCdrom(void) {
-#if defined(__s390__) || defined(__s390x__)
-    return;
-#else
   int ejectfd;
 
   logMessage("ejecting /tmp/cdrom...");
@@ -62,7 +56,6 @@ void ejectCdrom(void) {
   } else {
       logMessage("eject failed %d ", errno);
   }
-#endif
 }
 
 /*
