@@ -452,3 +452,5 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 	rm -f [a-r]*
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
+
+utils/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
