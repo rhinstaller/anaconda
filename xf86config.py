@@ -7,7 +7,6 @@ import iutil
 import kudzu
 import time
 import os
-import _xkb
 
 def _(x):
     return x
@@ -29,14 +28,14 @@ class XF86Config:
         self.skip = 0
         self.modes = { "8" :  ["640x480"] }
 	self.device = None
+        self.keyRules = "xfree86"
         self.keyModel = "pc101"
         self.keyLayout = "us"
         self.keyVariant = ""
         self.keyOptions = ""
-        rules = _xkb.get_rulesbase ()
-        self.keyRules = rules[string.rfind (rules, "/")+1:]
 
-    def setKeyboard (self, model, layout, variant, options):
+    def setKeyboard (self, rules, model, layout, variant, options):
+        self.keyRules = rules
         self.keyModel = model
         self.keyLayout = layout
         self.keyVariant = variant
