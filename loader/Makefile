@@ -10,7 +10,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
        misc.o ftp.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
-SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
+SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 BINS = init
 DIRS = 
 NETOBJS = net.o 
