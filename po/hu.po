@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-06-01 11:33-0400\n"
-"PO-Revision-Date: 2000-03-06 23:45+0100\n"
+"PO-Revision-Date: 2000-06-27 00:11+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -73,6 +73,9 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
+"Kivételes helyzet lépett fel. Valószínüleg ez egy programhiba. Kérem másolja "
+"le a kívétel teljes szövegét, és jelentse a hibát a "
+"http://bugzilla.redhat.com/bugzilla címen."
 
 #: ../gui.py:344 ../gui.py:597
 msgid "Next"
@@ -145,40 +148,37 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux Telepítõ Shell: %s"
 
 #: ../gui.py:685
-#, fuzzy
 msgid "Install Window"
-msgstr "Telepítés"
+msgstr "Telepõ ablak"
 
 #: ../image.py:33
 msgid "Copying File"
-msgstr ""
+msgstr "File másolása"
 
 #: ../image.py:34
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Telepitõ image másolása a merevlemezre..."
 
 #: ../image.py:51
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Más CDROM"
+msgstr "Cseréljen CDROM-ot"
 
 #: ../image.py:52
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Helyezze be a %d. lemezt a folytatáshoz."
 
 #: ../image.py:61
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Más CDROM"
+msgstr "Rossz CDROM"
 
 #: ../image.py:62
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "Ez nem a megfelelõ Red Hat CDROM"
 
 #: ../image.py:67
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "A CDROM-ot nem lehet mountolni."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:824 ../libfdisk/fsedit.c:831
@@ -449,17 +449,15 @@ msgstr ""
 "file-ra."
 
 #: ../text.py:555
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Rendszer frissítés"
+msgstr "Frissítés kezdése"
 
 #: ../iw/confirm_gui.py:40 ../text.py:556
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"A telepítés teljes jegyzõkönyve megtalálható lesz a /tmp/install.log "
+"A frissítés teljes jegyzõkönyve megtalálható lesz a /tmp/upgrade.log "
 "file-ban a rendszer újraindítása után. Késõbb esetleg szüksége lehet erre a "
 "file-ra."
 
@@ -549,15 +547,15 @@ msgstr "Hátralévõ:  "
 
 #: ../text.py:806
 msgid "Help not available"
-msgstr ""
+msgstr "Nincs súgó"
 
 #: ../text.py:807
 msgid "No help is available for this install."
-msgstr ""
+msgstr "Nincsen súgó ehhez a teleptéshez."
 
 #: ../text.py:848
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Kivétel történt"
 
 #: ../text.py:863 ../text.py:864
 msgid "Debug"
@@ -568,12 +566,11 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:878
-#, fuzzy
 msgid ""
 " <F1> for help> | <Tab> between elements | <Space> selects | <F12> next "
 "screen"
 msgstr ""
-" <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következõ képernyõ "
+" <F1> Súgó |<Tab> elemek között |<Space> kiválaszt |<F12> következõ képernyõ"
 
 #: ../text.py:880
 msgid ""
@@ -695,9 +692,8 @@ msgid "Customize Upgrade"
 msgstr "Egyéni frissítés"
 
 #: ../text.py:1032
-#, fuzzy
 msgid "Upgrade Begins"
-msgstr "Frissítés vizsgálata"
+msgstr "Frissítés kezdése"
 
 #: ../text.py:1034
 msgid "Upgrade System"
@@ -716,9 +712,9 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Innen nem tudok visszalépni. Sajna újra kell próbálkoznia."
 
 #: ../todo.py:350
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying timezone (from %s): %s"
-msgstr "Hiba a %s file másolásánál"
+msgstr "Hiba az idõzóna másolásánál (%s-bõl): %s"
 
 #: ../todo.py:417
 msgid "Creating boot disk..."
@@ -734,11 +730,11 @@ msgstr "Csomag információ olvasása..."
 
 #: ../todo.py:590
 msgid "Dependency Check"
-msgstr ""
+msgstr "Függöség ellenõrzés"
 
 #: ../todo.py:591
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "A telepítésre kiválasztott csomagok közötti függöségek ellenõrzése..."
 
 #: ../todo.py:618 ../todo.py:641 ../todo.py:647 ../todo.py:664
 msgid "no suggestion"
@@ -771,6 +767,9 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
+"A Linux rendszer egy vagy több partíciója nem lett tisztán unmountolva. "
+"Kérem indítsa el a Linux rendszerét, ellenõriztesse a filerendszereket, majd "
+"tisztán állítsa le a rendszert, a frissítés megkezdéséhez."
 
 #: ../todo.py:777
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -865,34 +864,31 @@ msgstr "Root jelszó elfogadva."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Adja meg a root jelszót."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "Root jelszó túl rövid."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
 msgstr "Root jelszók nem egyeznek."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "A root accountot itt nem adhatja meg."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
-msgstr ""
+msgstr "Adja meg a felhasználói jelszót."
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
-msgstr "Root jelszó túl rövid."
+msgstr "Felhasználói jelszó túl rövid."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
-msgstr "Root jelszók nem egyeznek."
+msgstr "Felhasználói jelszók nem egyeznek."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
@@ -974,14 +970,14 @@ msgid "Bootdisk Creation"
 msgstr "Boot lemez létrehozása"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"Helyezzen be egy üres floppyt az elsõ floppy meghajtóba. Ezen a lemezen "
-"minden adat el fog veszni a boot lemez létrehozása során."
+"Távolítsa el a telepítõ floppyt (ha használt ilyet), és helyezzen be egy "
+"üres floppyt az elsõ floppy meghajtóba. Ezen a lemezen minden adat el fog "
+"veszni a boot lemez létrehozása során."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:66
 msgid ""
@@ -996,18 +992,16 @@ msgid "Skip boot disk creation"
 msgstr "Boot lemez létrehozásának kihagyása"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
-msgstr "Frissítendõ rendszer"
+msgstr "A frissítés megkezdése"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
 msgstr "A telepítés megkezdése"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Kattintson a Következõ-re a Red Hat Linux telepítés elkezdéséhez."
+msgstr "Kattintson a Következõ-re a Red Hat Linux frissítés elkezdéséhez."
 
 #: ../iw/confirm_gui.py:35
 msgid "Click next to begin installation of Red Hat Linux."
@@ -1047,7 +1041,7 @@ msgstr "Feloldatlan függõségek"
 #: ../textw/packages_text.py:12
 #, c-format
 msgid "Total install size: %s"
-msgstr ""
+msgstr "Teljes telepítési méret: %s"
 
 #: ../iw/dependencies_gui.py:67 ../iw/progress_gui.py:128
 #: ../textw/packages_text.py:286
@@ -1063,14 +1057,12 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Csomagok telepítése a függõségek szerint"
 
 #: ../iw/dependencies_gui.py:88
-#, fuzzy
 msgid "Do not install packages that have dependencies"
-msgstr "Csomagok telepítése a függõségek szerint"
+msgstr "Ne telepítsen függõséggel rendelkezõ csomagokat"
 
 #: ../iw/dependencies_gui.py:92
-#, fuzzy
 msgid "Ignore package dependencies"
-msgstr "Csomag függõségek"
+msgstr "Csomag függõségek figyelmen kívül hagyása"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1280,7 +1272,7 @@ msgstr "Válassza ki a telepítendõ csomagot"
 
 #: ../iw/package_gui.py:353
 msgid "Total install size: "
-msgstr ""
+msgstr "Teljes telepítési méret: "
 
 #: ../iw/package_gui.py:390 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
@@ -1389,9 +1381,8 @@ msgstr ""
 "vagy visszaléphet, és választhatja a teljesen egyéni telepítést."
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
-msgstr "Automatikus Particionálás"
+msgstr "Automatikus particionálás nem sikerült"
 
 #: ../iw/rootpartition_gui.py:276
 msgid ""
@@ -1403,9 +1394,13 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Nincs elegendõ lemezterület az automatikus partícionáláshoz. Kézzel kell "
+"partícionálnia a lemezeit a Red Hat Linux telepítéséhez.\n"
+"\n"
+"Válassza ki az önnek megfelelõ eszközt a partícionáláshoz."
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
 msgstr "Kézi particionálás"
 
@@ -1415,20 +1410,20 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Válassza ki az önnek megfelelõ eszközt a partícionáláshoz."
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Automatikus Particionálás"
+msgstr "Automatikus particionálás, és az ADATOK ELTÁVOLÍTÁSA"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
-msgstr "Kézi particionálás"
+msgstr "Kézi particionálás Disk Druid-dal"
 
 #: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
-msgstr ""
+msgstr "Kézi particionálás fdisk-kel [csak haladóknak]"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1585,14 +1580,14 @@ msgid "Bootdisk"
 msgstr "Boot lemez"
 
 #: ../textw/bootdisk_text.py:52
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Helyezzen be egy üres floppyt az elsõ floppy meghajtóba. Ezen a lemezen "
-"minden adat el fog veszni a boot lemez létrehozása során."
+"Ha a telepítõ floppy a meghajtóban van, távolítsa el, majd helyezzen be egy "
+"üres floppyt az elsõ floppy meghajtóba. Ezen a lemezen minden adat el fog "
+"veszni a boot lemez létrehozása során."
 
 #: ../textw/bootdisk_text.py:57 ../textw/bootdisk_text.py:58
 #: ../textw/bootdisk_text.py:69 ../textw/bootdisk_text.py:70
@@ -1621,25 +1616,22 @@ msgid "Clear"
 msgstr "Töröl"
 
 #: ../textw/lilo_text.py:115
-#, fuzzy
 msgid "Edit Boot Label Please"
-msgstr "Boot címke szerkesztése"
+msgstr "Kérem irja be a boot címkét"
 
 #: ../textw/lilo_text.py:135 ../textw/lilo_text.py:140
-#, fuzzy
 msgid "Invalid Boot Label"
-msgstr "Boot címke szerkesztése"
+msgstr "Érvénytelen boot címke"
 
 #: ../textw/lilo_text.py:136
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "A boot címke nem lehet üres."
 
 #: ../textw/lilo_text.py:141
 msgid "Boot labels cannot contain space(s)."
-msgstr ""
+msgstr "A boot címke nem tartalmazhat szóközt."
 
 #: ../textw/lilo_text.py:197
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1648,7 +1640,8 @@ msgid ""
 msgstr ""
 "A Red Hat által használt boot betöltõ más operációs rendszerek indítására is "
 "képes. Adja meg, melyik partíciókról akar bootolni, és milyen címkét akar "
-"használni hozzájuk."
+"használni hozzájuk.\n"
+"\n"
 
 #: ../textw/network_text.py:64
 msgid "Use bootp/dhcp"
@@ -1691,24 +1684,22 @@ msgstr ""
 "ezt a hálózat rendszergazdája jelölheti ki."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
-msgstr "Csomag"
+msgstr "Csomag  :"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
-msgstr "Méret  : "
+msgstr "Méret   :"
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
-msgstr "Összes"
+msgstr "Teljes méret"
 
 #: ../textw/packages_text.py:249
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
+"      <Space>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomag leírás"
 
 #: ../textw/packages_text.py:280
 msgid ""
@@ -1814,6 +1805,8 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
+"Sem a root filerendszer, sem a swap mérete nem haladhatja meg a 2000 "
+"megabyte-ot."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -1922,7 +1915,7 @@ msgstr "A felhasználó létezik"
 #: ../textw/userauth_text.py:126
 msgid ""
 "The root user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "A root felhasználó már be van állítva. Nem kell itt megadnia."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -2055,6 +2048,8 @@ msgstr ""
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
+"Ezen a platformon a /boot -nak DOS kompatibilis filerendszeren (%x) kell "
+"lennie."
 
 #: ../libfdisk/fsedit.c:891
 #, c-format
@@ -2082,9 +2077,8 @@ msgstr ""
 "értesítse a Red Hat Software-t errõl az üzenetrõl."
 
 #: ../libfdisk/fsedit.c:929
-#, fuzzy
 msgid "Error Creating Device Nodes"
-msgstr "Hiba a swap létrehozásánál a köv. eszközön: "
+msgstr "Hiba az eszköz node-ok létrehozásánál"
 
 #: ../libfdisk/fsedit.c:930
 msgid ""
@@ -2092,6 +2086,8 @@ msgid ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
+"Hiba történt a merevelemezek eszköz node-jainak létrehozásánál. Ennek az "
+"lehet az oka, hogy megtelt a /tmp partíció."
 
 #: ../libfdisk/fsedit.c:946
 msgid "No Drives Found"
@@ -2177,15 +2173,16 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
 #: ../libfdisk/gnomefsedit.c:793 ../libfdisk/newtfsedit.c:295
-#, fuzzy
 msgid "Cannot Edit Partitions"
-msgstr "Partíció-szerkesztés"
+msgstr "Partíciók nem szerkeszthetõk"
 
 #: ../libfdisk/gnomefsedit.c:794 ../libfdisk/newtfsedit.c:296
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud más "
+"partíciókat szerkeszteni."
 
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:818
 #: ../libfdisk/gnomefsedit.c:822 ../libfdisk/gnomefsedit.c:824
@@ -2204,9 +2201,8 @@ msgid "Size (Megs):"
 msgstr "Méret (MB) :"
 
 #: ../libfdisk/gnomefsedit.c:913
-#, fuzzy
 msgid "Use remaining space?"
-msgstr "Meglévõ szabad terület használata"
+msgstr "Maradék terület használata?"
 
 #: ../libfdisk/gnomefsedit.c:932 ../libfdisk/newtfsedit.c:391
 msgid "Allocation Status:"
@@ -2256,6 +2252,9 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
+"Megpróbálta a '/' mount pontot egy FAT-stílusú partícióhoz hozzárendelni. "
+"Ezt most nem teheti meg, mivel ext2 partíciókhoz is vannak rendelve mount "
+"pontok. Ha azokat kitörli, hozzárendelheti a '/'-ot ehhez a partícióhoz."
 
 #: ../libfdisk/gnomefsedit.c:1217 ../libfdisk/newtfsedit.c:617
 msgid ""
@@ -2320,15 +2319,16 @@ msgstr ""
 "hozzárendeli ezt a partíciót."
 
 #: ../libfdisk/gnomefsedit.c:1415 ../libfdisk/newtfsedit.c:759
-#, fuzzy
 msgid "Cannot Add Partitions"
-msgstr "Lekötetlen partíciók"
+msgstr "Nem lehet partíciókat hozzáadni"
 
 #: ../libfdisk/gnomefsedit.c:1416 ../libfdisk/newtfsedit.c:760
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud más "
+"partíciókat szerkeszteni."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2365,13 +2365,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1888
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "Raid nem szerkeszthetõ"
 
 #: ../libfdisk/gnomefsedit.c:1889
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
+"eszközöket szerkeszteni."
 
 #: ../libfdisk/gnomefsedit.c:1926
 msgid "<Swap Partition"
@@ -2407,6 +2409,10 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"A bootolható RAID eszköz csak a rendszer elsõ két meghajtójáról tartalmazhat "
+"partíciókat.\n"
+"\n"
+"Ezek a meghajtók: "
 
 #: ../libfdisk/gnomefsedit.c:2187
 msgid "Booting From RAID Warning"
@@ -2474,15 +2480,16 @@ msgid "Use Pre-existing Partition?"
 msgstr "Meglévõ partíció használata?"
 
 #: ../libfdisk/gnomefsedit.c:2405
-#, fuzzy
 msgid "Cannot Add RAID Devices"
-msgstr "Nem RAID eszköz"
+msgstr "Nem lehet RAID eszközt hozzáadni"
 
 #: ../libfdisk/gnomefsedit.c:2406
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
+"A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
+"eszközöket hozzáadni."
 
 #: ../libfdisk/gnomefsedit.c:2446
 msgid "Auto-Partition"
@@ -2543,37 +2550,35 @@ msgstr "<nincs beállítva>"
 
 #: ../libfdisk/gnomefsedit.c:2985
 msgid "Requested"
-msgstr ""
+msgstr "Igényelt"
 
 #: ../libfdisk/gnomefsedit.c:2986
 msgid "Actual"
-msgstr ""
+msgstr "Valós"
 
 #: ../libfdisk/gnomefsedit.c:3159
-#, fuzzy
 msgid "Drive"
-msgstr "Meghajtó kihagyása"
+msgstr "Meghajtó"
 
 #: ../libfdisk/gnomefsedit.c:3160
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3161
-#, fuzzy
 msgid "Total (M)"
-msgstr "Összes"
+msgstr "Összes (M)"
 
 #: ../libfdisk/gnomefsedit.c:3162
 msgid "Free (M)"
-msgstr ""
+msgstr "Szabad (M)"
 
 #: ../libfdisk/gnomefsedit.c:3163
 msgid "Used (M)"
-msgstr ""
+msgstr "Használt (M)"
 
 #: ../libfdisk/gnomefsedit.c:3164
 msgid "Used (%)"
-msgstr ""
+msgstr "Használt (%)"
 
 #: ../libfdisk/gnomefsedit.c:3369
 msgid "Unallocated Partitions Exist..."
@@ -2625,24 +2630,20 @@ msgid "Swap Partition"
 msgstr "Swap partíció"
 
 #: ../libfdisk/newtfsedit.c:314
-#, fuzzy
 msgid "Edit New Partition"
-msgstr "Partíció-szerkesztés"
+msgstr "Új partíció szerkesztés"
 
 #: ../libfdisk/newtfsedit.c:379
-#, fuzzy
 msgid "Use remaining space?:"
-msgstr "Meglévõ szabad terület használata"
+msgstr "Maradék terület használata?:"
 
 #: ../libfdisk/newtfsedit.c:423
-#, fuzzy
 msgid "Type:"
-msgstr "Típus"
+msgstr "Típus:"
 
 #: ../libfdisk/newtfsedit.c:437
-#, fuzzy
 msgid "Unknown"
-msgstr "Ismeretlen host"
+msgstr "Ismeretlen"
 
 #: ../libfdisk/newtfsedit.c:1371
 msgid "Current Disk Partitions"
@@ -2652,6 +2653,7 @@ msgstr "Jelenlegi lemez-partíciók"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"   F1-Súgó  F2-Hozzáad  F3-Szerkeszt  F4-Töröl  F5-Alaphelyzet  F12-Ok       "
 
 #: ../libfdisk/newtfsedit.c:1406
 msgid "Drive Summaries"
@@ -2659,7 +2661,7 @@ msgstr "Meghajtók összefoglalása"
 
 #: ../libfdisk/newtfsedit.c:1408
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Meghajtó   Geom [C/H/S]      Össz     Tele    Szabad"
 
 #: ../libfdisk/newtfsedit.c:1522
 msgid "No Root Partition"
@@ -2745,7 +2747,7 @@ msgstr "Eszközök"
 
 #: ../loader/devices.c:199
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Rendelkezik driver lemezzel?"
 
 #: ../loader/devices.c:206
 msgid "Insert your driver disk and press \"OK\" to continue."
@@ -2753,9 +2755,8 @@ msgstr ""
 "Helyezze be a driver lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
 
 #: ../loader/devices.c:218 ../loader/devices.c:417
-#, fuzzy
 msgid "Failed to mount driver disk."
-msgstr "Nem sikerült mount-olni a floppyt."
+msgstr "Nem sikerült mount-olni a driver lemezt."
 
 #: ../loader/devices.c:223
 msgid ""
@@ -2778,23 +2779,22 @@ msgid "Specify module parameters"
 msgstr "Adja meg a modul-paramétereket"
 
 #: ../loader/devices.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
-msgstr "Hiba %s-re történõ bejelentkezéskor: %s"
+msgstr "Hiba a %s modul beillesztésénél."
 
 #: ../loader/devices.c:437
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Rossz lemezt helyezett be."
 
 #: ../loader/devices.c:462
-#, fuzzy
 msgid "Driver Disk"
-msgstr "Meghajtók összefoglalása"
+msgstr "Driver lemez"
 
 #: ../loader/devices.c:463
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Kérem most helyezze be a %s driver lemezt."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -2878,9 +2878,9 @@ msgid "Loading"
 msgstr "Betöltés"
 
 #: ../loader/loader.c:485
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Második fázis ramdisk-jének betöltése..."
+msgstr "%s ramdisk betöltése..."
 
 #: ../loader/loader.c:495
 msgid "Error loading ramdisk."
@@ -2930,16 +2930,16 @@ msgstr ""
 "Hat CD-t, és nyomja meg az \"OK\"-t a folytatáshoz."
 
 #: ../loader/loader.c:925
-#, fuzzy
 msgid "Networking Device"
 msgstr "Hálózati eszköz"
 
 #: ../loader/loader.c:926
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Milyen típusú rendszert szeretne telepíteni?"
+msgstr ""
+"Több hálózati eszköz van a rendszerben. Melyiken keresztül szeretné "
+"elvégezni a telepítést?"
 
 #: ../loader/loader.c:1008
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2955,17 +2955,15 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1054 ../loader/loader.c:1063
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1055
-#, fuzzy
 msgid "Unable to retrieve the first install image"
-msgstr "Nem tudom beolvasni a második fázis ramdisk-jét"
+msgstr "Nem tudom beolvasni az elsõ telepító image-et"
 
 #: ../loader/loader.c:1064
-#, fuzzy
 msgid "Unable to retrieve the second install image"
-msgstr "Nem tudom beolvasni a második fázis ramdisk-jét"
+msgstr "Nem tudom beolvasni a második telepítõ image-et"
 
 #: ../loader/loader.c:1305
 msgid "Rescue Method"
@@ -2993,9 +2991,8 @@ msgid "Failed to read directory %s: %s"
 msgstr "Hiba a %s könyvtár olvasásánál: %s"
 
 #: ../loader/loader.c:2028
-#, fuzzy
 msgid "Updates Disk"
-msgstr "Updates"
+msgstr "Updates lemez"
 
 #: ../loader/loader.c:2029
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3052,9 +3049,8 @@ msgstr ""
 "      tartalmazó könyvtár a szerveren"
 
 #: ../loader/net.c:237
-#, fuzzy
 msgid "Nameserver IP"
-msgstr "Névszerver"
+msgstr "Névszerver IP"
 
 #: ../loader/net.c:241 ../loader/net.c:719
 msgid "Nameserver"
@@ -3067,16 +3063,18 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"A dinamikus IP kérelmére érkezett IP konigurációs válaszinformáció, de ez "
+"nem tartalmazta a DNS névszervert. Ha tudja mi a návszervere, adja meg most. "
+"Ha nem rendelkezik ezzel az információval, üresen is hagyhatja ezt a mezõt, "
+"a telepítés folytatódik."
 
 #: ../loader/net.c:252
-#, fuzzy
 msgid "Invalid IP Information"
-msgstr "Érvénytelen információ"
+msgstr "Érvénytelen IP információ"
 
 #: ../loader/net.c:253
-#, fuzzy
 msgid "You entered an invalid IP address."
-msgstr "A folytatáshoz érvényes IP címet és alhálózati maszkot kell megadnia."
+msgstr "Érvénytelen IP címet adott meg."
 
 #: ../loader/net.c:276
 msgid ""
@@ -3292,9 +3290,8 @@ msgid "Loading SCSI driver"
 msgstr "SCSI meghajtó betöltése"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
-msgstr "Egyedi rendszer telepítése"
+msgstr "Egyedi rendszer"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3311,144 +3308,83 @@ msgstr ""
 "Arra készül, hogy minden meglévõ Linux rendszert eltávolítson a "
 "számítógéprõl."
 
-# ../comps/comps-master:3
 msgid "Base"
-msgstr ""
+msgstr "Alap"
 
-# ../comps/comps-master:150
 msgid "Printer Support"
-msgstr ""
+msgstr "Nyomtató támogatás"
 
-#, fuzzy
 msgid "X Window System"
-msgstr "Rendszer vizsgálata"
+msgstr "X Window rendszer"
 
-# ../comps/comps-master:259
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
-# ../comps/comps-master:315
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Levelzés/WWW/News eszközök"
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "DOS/Windows kapcsolat"
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Grafikai mûveletek"
 
-# ../comps/comps-master:389
 msgid "Games"
-msgstr ""
+msgstr "Játékok"
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Multimédia támogatás"
 
-#, fuzzy
 msgid "Networked Workstation"
-msgstr "Hálózati beállítások"
+msgstr "Hálózatos munkaállomás"
 
-#, fuzzy
 msgid "Dialup Workstation"
 msgstr "KDE munkaállomás"
 
-#, fuzzy
 msgid "News Server"
-msgstr "Névszerver"
+msgstr "News szerver"
 
-#, fuzzy
 msgid "NFS Server"
-msgstr "NIS szerver:"
+msgstr "NFS szerver"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "SMB (Samba) szerver"
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "IPX/Netware(tm) kapcsolat"
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Anonymous FTP szerver"
 
-#, fuzzy
 msgid "Web Server"
-msgstr "Szerver"
+msgstr "Web szerver"
 
-#, fuzzy
 msgid "DNS Name Server"
-msgstr "Névszerver"
+msgstr "DNS névszerver"
 
-# ../comps/comps-master:557
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Postgres (SQL) szerver"
 
-#, fuzzy
 msgid "Network Management Workstation"
-msgstr "Hálózati beállítások"
+msgstr "Hálózat felügyeleti munkaállomás"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Kiadványkészítés"
 
-# ../comps/comps-master:597
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
-# ../comps/comps-master:610
 msgid "Development"
-msgstr ""
+msgstr "Fejlesztés"
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Kernel paraméterek"
+msgstr "Kernel fejlesztés"
 
-# ../comps/comps-master:722
 msgid "Clustering"
-msgstr ""
+msgstr "Clustering"
 
-# ../comps/comps-master:738
 msgid "Utilities"
-msgstr ""
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "GNOME munkaállomás telepítése"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "KDE munkaállomás telepítése"
-
-#~ msgid "Install Server System"
-#~ msgstr "Szerver rendszer telepítése"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "GNOME munkaállomás"
-
-#~ msgid "Custom"
-#~ msgstr "Egyéni"
-
-#~ msgid "Use fdisk"
-#~ msgstr "fdisk használata"
-
-#~ msgid "Remove data"
-#~ msgstr "Adatok törlése"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Növelés a lemez megtöltéséig?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Boot partícióként mountolta ezt a RAID eszközt. Gyõzõdjön meg, hogy a RAID "
-#~ "minden rész-partíciója bootolható."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Melyik meghajtót próbáljam?"
+msgstr "Segédeszközök"
