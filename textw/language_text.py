@@ -25,8 +25,6 @@ class LanguageWindow:
     def __call__(self, screen, textInterface, instLanguage):
         languages = instLanguage.available ()
 
-        haveKon = os.access ("/sbin/continue", os.X_OK)
-
         current = instLanguage.getCurrent()
 
         height = min((screen.height - 16, len(languages)))
@@ -47,7 +45,7 @@ class LanguageWindow:
 
         choice = languages[choice]
         
-        if ((not haveKon and instLanguage.getFontFile(choice) == "Kon") or
+        if ((instLanguage.getFontFile(choice) == "bterm") or
             instLanguage.getFontFile(choice) == "None"):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
