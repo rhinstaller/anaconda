@@ -150,6 +150,13 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
                            _("You cannot delete free space."),
 			   custom_icon="error")
         return 0
+    elif partition.type & parted.PARTITION_PROTECTED:
+        # LDL formatted DASDs always have one partition, you'd have to reformat the
+        # DASD in CDL mode to get rid of it
+        intf.messageWindow(_("Unable To Delete"),
+                           _("You cannot delete a partition of a LDL formatted DASD."),
+			   custom_icon="error")
+        return 0
     else:
         device = partedUtils.get_partition_name(partition)
 
@@ -235,7 +242,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
     reqIDs = []
     for req in requests:
 	part = partedUtils.get_partition_by_name(diskset.disks, req.device)
-	if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+	if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
 	    continue
 	reqIDs.append(req.uniqueID)
 
@@ -262,7 +269,7 @@ def doDeletePartitionsByDevice(intf, requestlist, diskset, device,
 	leftIDs = []
 	for req in left_requests:
 	    part = partedUtils.get_partition_by_name(diskset.disks, req.device)
-	    if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+	    if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA or part.type & parted.PARTITION_PROTECTED:
 		continue
 	    leftIDs.append(req.uniqueID)
 
