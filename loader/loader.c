@@ -761,9 +761,6 @@ int main(int argc, char ** argv) {
     doMountImage("/mnt/source", numKnownDevices, knownDevices, 
     		 modLoaded, modDeps, testing);
 
-    newtFinished();
-    exit(0);
-    
     if (!testing) {
      
 	symlink("mnt/source/RedHat/instimage/usr", "/usr");
