@@ -94,6 +94,7 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
+static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -141,6 +142,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
+    { "hasIdeRaidMagic", (PyCFunction) hasIdeRaidMagic, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -561,24 +563,18 @@ static PyObject * doSwapon (PyObject * s, PyObject * args) {
 }
 
 static PyObject * smpAvailable(PyObject * s, PyObject * args) {
-    int result;
-
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     return Py_BuildValue("i", detectSMP());
 }
 
 static PyObject * htAvailable(PyObject * s, PyObject * args) {
-    int result;
-
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     return Py_BuildValue("i", detectHT());
 }
 
 static PyObject * summitAvailable(PyObject * s, PyObject * args) {
-    int result;
-
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     return Py_BuildValue("i", detectSummit());
@@ -706,64 +702,8 @@ static PyObject * probedListDasd(probedListObject * o, PyObject * args) {
     return Py_None;
 }
 
-int pdc_dev_running_raid(int fd);
-
-#ifdef __i386__
-static int ideFilter(struct kddevice * dev) {
-    char where[50];
-    int fd;
-    int rc;
-    int i;
-
-    sprintf(where, "/tmp/%s", dev->name);
-    if (devMakeInode(dev->name, where)) return 1;
-
-    if ((fd = open(where, O_RDONLY)) == -1) return 1;
-    rc = pdc_dev_running_raid(fd);
-
-    /* no pdc magic, so include this device */
-    if (rc != 1) {
-	close(fd);
-	return 1;
-    }
-
-    /* JKFIXME: this needs to be fixed better */
-    /* ewww, this used balkan.  just ignore pdc devices with pdc magic now */
-    return 0;
-
-#if 0
-    /* it's a pdc device w/o a valid partition table, skip it (probably
-       raid 5) */
-    if (balkanReadTable(fd, &table)) {
-	close(fd);
-	return 0;
-    }
-
-    close(fd);
-
-    /* we have a pdc device with a valid partition table. if there are
-       windows partitions on it, ignore this device */
-    for (i = 0; i < table.maxNumPartitions; i++) {
-	if (table.parts[i].type == BALKAN_PART_DOS ||
-	    table.parts[i].type == BALKAN_PART_NTFS) {
-	    return 0;
-	}
-    }
-
-    /* otherwise we have a pdc device with partition table, but no windows
-       filesystems */
-
-    return 1;
-#endif
-}
-#endif
-
 static PyObject * probedListIde(probedListObject * o, PyObject * args) {
     kdFilterType filter = NULL;
-
-#ifdef __i386__
-    filter = ideFilter;
-#endif
 
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
@@ -791,7 +731,7 @@ static PyObject *indexerr;
 static PyObject * probedListSubscript(probedListObject * o, int item) {
     probedListObject * po = (probedListObject *) o;
     char * model = "";
-    char * class;
+    char * class = NULL;
 
     if (item > o->list.numKnown - 1) {
 	indexerr = PyString_FromString("list index out of range");
@@ -824,6 +764,9 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
       case CLASS_CAPTURE:
       case CLASS_KEYBOARD:
       case CLASS_MONITOR:
+      case CLASS_USB:
+      case CLASS_SOCKET:
+      case CLASS_FIREWIRE:
 	break;
     }
 
@@ -1448,4 +1391,61 @@ py_bind_textdomain_codeset(PyObject * o, PyObject * args) {
 
     PyErr_SetFromErrno(PyExc_SystemError);
     return NULL;
+}
+
+int pdc_dev_running_raid(int fd);
+int hpt_dev_running_raid(int fd);
+int silraid_dev_running_raid(int fd);
+
+static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args) {
+#ifndef __i386__
+    return Py_BuildValue("i", 0);
+#else
+    char *dev;
+    char * path;
+    int ret, fd;
+
+    if (!PyArg_ParseTuple(args, "s", &dev))
+	return NULL;
+
+    path = malloc((strlen(dev) + 10) * sizeof(char *));
+    sprintf(path, "/tmp/%s", dev);
+    if (devMakeInode(dev, path)) return Py_None;
+
+    if ((fd = open(path, O_RDONLY)) == -1) return Py_None;
+
+    ret = pdc_dev_running_raid(fd);
+    if (ret == 1) {
+        close(fd);
+        unlink(path);
+        //	fprintf(stderr, "found promise magic\n");
+	return Py_BuildValue("s", "pdc");
+    }
+
+    /* we can't really sanely do these until we can do matchups between
+     * ataraid/dX and hdX devices so that things can be thrown out 
+     * appropriately.  the same would be true for pdcraid, except that
+     * we've been doing it for a while anyway (#82847)
+     */
+#if 0
+    ret = silraid_dev_running_raid(fd);
+    if (ret == 1) {
+        close(fd);
+        unlink(path);
+        //        fprintf(stderr, "found silicon image magic\n");
+	return Py_BuildValue("s", "sil");
+    }
+
+    ret = hpt_dev_running_raid(fd);
+    if (ret == 1) {
+        close(fd);
+        unlink(path);
+        //        fprintf(stderr, "found highpoint magic\n");
+	return Py_BuildValue("s", "hpt");
+    }
+#endif
+
+    close(fd);
+    return Py_None;
+#endif
 }

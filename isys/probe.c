@@ -16,6 +16,7 @@
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
+static int ataraidGetDevices(struct knownDevices * devices);
 /* Added support for I2O Block devices: Boji Kannanthanam 
 	<boji.t.Kannanthanam@intel.com> */
 static int ProcPartitionsGetDevices(struct knownDevices * devices);
@@ -394,6 +395,10 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
+    /* we can't really sanely do ataraid devs yet (#82848) */
+#if 0
+    ataraidGetDevices(devices);
+#endif
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -599,8 +604,6 @@ static int ProcPartitionsGetDevices(struct knownDevices * devices) {
 	    
 	if (!strncmp("i2o/", start, 4))
 	   model = "I2O Block Device";
-	else if (!strncmp("ataraid/", start, 8))
-	    model = "ATARAID Block Device";
 
 	if (model) {
 	    i = 0;
@@ -626,6 +629,97 @@ static int ProcPartitionsGetDevices(struct knownDevices * devices) {
 	} /* end of if it is an /proc/partition device */
 	start = next;
 	end = start + strlen(start);
+    } /* end of while */
+ bye:
+    free (buf);
+    return 0;
+}
+
+static int ataraidGetDevices(struct knownDevices * devices) {
+    struct kddevice newDevice;
+    int fd, i;
+    char *buf;
+    char * start, *chptr, *next, *end, *model;
+    char ctl[40];
+
+    return 0;
+
+    /* since the ataraid stuff doesn't have its own proc file, we have
+     * to use /proc/partitions and be "smart" for now */
+    /* the following is bsaed on the /proc/partitions reading code above,
+     * but can hopefully be replaced by a nice ataraid probe at some point */
+    fd = open("/proc/partitions", O_RDONLY);
+    if (fd < 0) 
+        {
+            fprintf(stderr, "failed to open /proc/partitions!\n");
+            return 1;
+        }
+
+    i = readFD(fd, &buf);
+    if (i < 1) {
+        close(fd);
+        free (buf);
+        fprintf(stderr, "error reading /proc/partitions!\n");
+        return 1;
+    }
+    close(fd);
+    buf[i] = '\0';
+
+    /* skip the first two lines */
+    start = strchr(buf, '\n');
+    if (!start) goto bye;
+
+    start = strchr(start + 1, '\n');
+    if (!start) goto bye;
+
+    start++;
+    end = start + strlen(start);
+    while (*start && start < end) {
+        /* parse till end of line and store the start of next line. */
+        chptr = start;
+        while (*chptr != '\n') chptr++;
+        *chptr = '\0';
+        next = chptr + 1;
+
+        /* get rid of anything which is not alpha */
+        while (!(isalpha(*start))) start++;
+
+        model = NULL;
+            
+        if (!strncmp("ataraid/", start, 8)) 
+            model = "ATARAID Block Device";
+
+        if (model) {
+            i = 0;
+            while(!(isspace(*start))) {
+                ctl[i] = *start;
+                i++;
+                start++;
+            }
+            ctl[i] = '\0';
+            if (i < 1) { 
+                free (buf);
+                return 1; 
+            }
+        
+            /* we just want the disks.  form is ataraid/d0p12 */
+            for (i = strlen(ctl); i > 0; i--) {
+              if (isdigit(ctl[i - 1]))
+                continue;
+              if (ctl[i - 1] == 'p')
+                break;
+              if (ctl[i - 1] == 'd') {
+                if (!deviceKnown(devices, ctl)) {
+                    newDevice.name = strdup(ctl);
+                    newDevice.model = strdup(model);
+                    newDevice.class = CLASS_HD;
+                    addDevice(devices, newDevice);
+                }
+              }
+            }
+        } /* end of if it is an /proc/partition device */
+        start = next;
+        end = start + strlen(start);
     } /* end of while */
  bye:
     free (buf);
