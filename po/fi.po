@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2 \n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date:  2000-03-01 17:24-0500\n"
 "Last-Translator: Raimo Koski <rkoski@pp.weppi.fi>\n"
 "Language-Team: Finnish <linux@sot.com>\n"
@@ -953,6 +953,11 @@ msgstr "Pääkäyttäjän salasana"
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Salasanat poikkeavat"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Pääkäyttäjän salasana"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3570,6 +3575,11 @@ msgstr "Lataan lisälevykettä..."
 msgid "Custom System"
 msgstr "Asenna"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Asenna"
+
 #: ../installclasses/server.py:34
 #, fuzzy
 msgid ""
@@ -3701,10 +3711,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Työasema"
-
-#, fuzzy
-#~ msgid "Install Server System"
-#~ msgstr "Asenna"
 
 #, fuzzy
 #~ msgid "GNOME Workstation"

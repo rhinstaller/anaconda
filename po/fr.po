@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1 \n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 1999-04-13 12:44 \n"
 "Last-Translator: Logiciels du Soleil <joel@ldsol.com> \n"
 "Language-Team: French <fr@li.org> \n"
@@ -907,6 +907,11 @@ msgstr "Mot de passe root trop court."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Mot de passe root incorrect."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Mot de passe root accepté."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3495,6 +3500,11 @@ msgstr "Chargement du pilote SCSI"
 msgid "Custom System"
 msgstr "Personnalisée"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Serveur"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3627,9 +3637,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Poste de travail KDE"
-
-#~ msgid "Install Server System"
-#~ msgstr "Serveur"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "Poste de travail GNOME"

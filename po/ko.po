@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-02-11 12:55+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -704,6 +704,11 @@ msgstr "ROOT 패스워드가 너무 짧음."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "ROOT 패스워드가 일치하지 않음."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "ROOT 패스워드 인정됨."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2901,6 +2906,11 @@ msgstr "SCSI 드라이버 읽는 중"
 msgid "Custom System"
 msgstr "사용자 정의 시스템 설치"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "서버 시스템 설치"
+
 #: ../installclasses/server.py:34
 msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
 msgstr ""
@@ -3026,9 +3036,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "KDE 웍스테이션 설치"
-
-#~ msgid "Install Server System"
-#~ msgstr "서버 시스템 설치"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME 웍스테이션"

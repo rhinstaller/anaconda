@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -900,6 +900,11 @@ msgstr "Parola de root este prea scurtã."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Parolele introduse sînt diferite."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Parola de root acceptatã"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3492,6 +3497,11 @@ msgstr "Încãrcare Driver SCSI..."
 msgid "Custom System"
 msgstr "Instalare system personalizatã"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Instalare Server"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3624,9 +3634,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Instalare Workstation KDE"
-
-#~ msgid "Install Server System"
-#~ msgstr "Instalare Server"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME Workstation"

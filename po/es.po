@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-03-09 10:30+1\n"
 "Last-Translator: Tullio Dovera <tdovera@redhat.it>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -897,6 +897,11 @@ msgstr "Clave de Root demasiado corta."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Las claves de Root no se corresponden"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Clave de Root aceptada"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3461,6 +3466,11 @@ msgstr "Cargando los driver SCSI."
 msgid "Custom System"
 msgstr "Instalar un sistema personalizado"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Instalar un Sistema Servidor"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3591,9 +3601,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Instalar una Estación KDE"
-
-#~ msgid "Install Server System"
-#~ msgstr "Instalar un Sistema Servidor"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "Estación GNOME"

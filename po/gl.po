@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-07-13 22:56+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
@@ -903,6 +903,11 @@ msgstr "O contrasinal de root é demasiado curto."
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "Os contrasinais de root non coinciden."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Contrasinal de root aceptado."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3453,6 +3458,11 @@ msgstr "Cargando o controlador SCSI"
 #: ../installclasses/custom.py:7
 msgid "Custom System"
 msgstr "Sistema Personalizado"
+
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Actualizar Sistema"
 
 #: ../installclasses/server.py:34
 msgid ""

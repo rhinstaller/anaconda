@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-02-21 21:00+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish\n"
@@ -890,6 +890,11 @@ msgstr "Has³o roota za krótkie."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Ró¿ne has³a."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Has³o roota zaakceptowane."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3428,6 +3433,11 @@ msgstr "£adowanie sterownika SCSI"
 msgid "Custom System"
 msgstr "Instalacja pakietów wybranych przez u¿ytkownika"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Instalacja serwera"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3558,9 +3568,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Instalacja stascji roboczej z KDE"
-
-#~ msgid "Install Server System"
-#~ msgstr "Instalacja serwera"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "Stacja robocza GNOME"

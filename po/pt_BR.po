@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 6.2\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-03-01 17:24-0500\n"
 "Last-Translator: Arnaldo Carvalho de Melo <acme@conectiva.com.br>\n"
 "Language-Team: Portugese Brasil <LL@li.org>\n"
@@ -949,6 +949,11 @@ msgstr "Senha do Root"
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Erro na Digitação da Senha"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Senha do Root"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3564,6 +3569,11 @@ msgstr ""
 msgid "Custom System"
 msgstr "Instalar sistema"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Instalar sistema"
+
 #: ../installclasses/server.py:34
 #, fuzzy
 msgid ""
@@ -3689,10 +3699,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Error copying timezone (from %s): %s"
 #~ msgstr "erro na abertura do arquivo header: %s"
-
-#, fuzzy
-#~ msgid "Install Server System"
-#~ msgstr "Instalar sistema"
 
 #, fuzzy
 #~ msgid "Use fdisk"

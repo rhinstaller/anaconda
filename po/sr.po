@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install $Revision$\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-02-21 24:00-0500\n"
 "Last-Translator: Zoltan Èala <zolika@sezampro.yu>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -886,6 +886,11 @@ msgstr "Root lozinka je suvi¹e kratka."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Root lozinka ne odgovara."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Root lozinka je prihvaæena."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3428,6 +3433,11 @@ msgstr "Uèitavanje SCSI drajvera"
 msgid "Custom System"
 msgstr "Instalacija po volji korisnika"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Instalacija server-sistema"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3559,9 +3569,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Instalacija KDE radne stanice"
-
-#~ msgid "Install Server System"
-#~ msgstr "Instalacija server-sistema"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME radna stanica"

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -708,6 +708,11 @@ msgstr "根口令： "
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "口令不符"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "根口令： "
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2916,6 +2921,11 @@ msgstr "正在装载 SCSI 驱动程序"
 msgid "Custom System"
 msgstr "安装定制系统"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "安装服务器系统"
+
 #: ../installclasses/server.py:34
 msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
 msgstr "即将清除硬盘驱动器中的所有数据，以清出空间用于 Linux 安装。"
@@ -3041,9 +3051,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "安装 KDE 工作站"
-
-#~ msgid "Install Server System"
-#~ msgstr "安装服务器系统"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME 工作站"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-03-07 18:15+01:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -888,6 +888,11 @@ msgstr "Heslo root-a je príli¹ krátke."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Heslo root-a nesúhlasí."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Heslo root-a akceptované."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3435,6 +3440,11 @@ msgstr "Naèítava sa SCSI ovládaè"
 msgid "Custom System"
 msgstr "In¹talova» systém podµa vlastnej ¹pecifikácie"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "In¹talova» serverový systém"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3565,9 +3575,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "In¹talova» KDE pracovnú stanicu"
-
-#~ msgid "Install Server System"
-#~ msgstr "In¹talova» serverový systém"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "Pracovná stanica GNOME"

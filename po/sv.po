@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-07-14 00:49+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -906,6 +906,11 @@ msgstr "Rootlösenordet är för kort."
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "Rootlösenorden stämmer inte överens."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Rootlösenordet accepterat."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3456,6 +3461,11 @@ msgstr "Laddar SCSI-drivrutin"
 #: ../installclasses/custom.py:7
 msgid "Custom System"
 msgstr "Anpassat system"
+
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Uppgradera system"
 
 #: ../installclasses/server.py:34
 msgid ""

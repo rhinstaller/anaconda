@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-06-27 00:11+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -889,6 +889,11 @@ msgstr "Root jelszó túl rövid."
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "Root jelszók nem egyeznek."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Root jelszó elfogadva."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3427,6 +3432,11 @@ msgstr "SCSI meghajtó betöltése"
 #: ../installclasses/custom.py:7
 msgid "Custom System"
 msgstr "Egyedi rendszer"
+
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Rendszer frissítés"
 
 #: ../installclasses/server.py:34
 msgid ""

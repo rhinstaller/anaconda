@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -703,6 +703,11 @@ msgstr "root パスワードの文字数が足りません。"
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "root パスワードが一致していません。"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "root パスワードが設定されました。"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2860,6 +2865,11 @@ msgstr "SCSI ドライバをロードしています"
 #: ../installclasses/custom.py:7
 msgid "Custom System"
 msgstr "カスタムシステム"
+
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "システムのアップグレード"
 
 #: ../installclasses/server.py:34
 msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."

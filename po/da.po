@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-06-29 06:17+01:00\n"
 "Last-Translator: KC and BL and KS <dansk@klid.dk>\n"
 "Language-Team: Danish/Dansk <dansk@klid.dk>\n"
@@ -899,6 +899,11 @@ msgstr "'Root'-adgangskoden er for kort."
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "'Root'-adgangskoder stemmer ikke."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "'Root'-adgangskode accepteret."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3442,6 +3447,11 @@ msgstr "Indlæser SCSI-driver"
 #: ../installclasses/custom.py:7
 msgid "Custom System"
 msgstr "Installér egendefineret system"
+
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Opgradér system"
 
 #: ../installclasses/server.py:34
 msgid ""

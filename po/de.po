@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Install 6.2\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 2000-02-17 18:41-0500\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: German <LL@li.org>\n"
@@ -909,6 +909,11 @@ msgstr "Root-Paßwort ist zu kurz."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Root-Paßwörter stimmen nicht überein."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Root-Paßwort wurde akzeptiert."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3507,6 +3512,11 @@ msgstr "SCSI-Treiber wird geladen"
 msgid "Custom System"
 msgstr "Benutzerdefiniertes System installieren"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Server-System installieren"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3639,9 +3649,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "KDE Workstation installieren"
-
-#~ msgid "Install Server System"
-#~ msgstr "Server-System installieren"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME Workstation"

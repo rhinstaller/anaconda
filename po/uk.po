@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 1999-04-09 12:20+0300\n"
 "Last-Translator: Antonchuk Serg <anchuk@comizdat.com>\n"
 "Language-Team: Comizdat <anchuk@comizdat.com>\n"
@@ -882,6 +882,11 @@ msgstr "Пароль користувача root закороткий."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Парол╕ Root не сп╕впадають"
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Пароль користувача root прийнято."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3412,6 +3417,11 @@ msgstr "Завантаження SCSI драйвера"
 msgid "Custom System"
 msgstr "Своя конф╕гурац╕я системи"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Встановлення серверно╖ системи"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3544,9 +3554,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "KDE cтанц╕я для роботи"
-
-#~ msgid "Install Server System"
-#~ msgstr "Встановлення серверно╖ системи"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME станц╕я для роботи"

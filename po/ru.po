@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2000-07-15 15:36-0400\n"
+"POT-Creation-Date: 2000-07-16 14:00-0400\n"
 "PO-Revision-Date: 1999-04-03 12:20+0200\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Black Cat Linux Team <blackcat-support@blackcatlinux.com>\n"
@@ -888,6 +888,11 @@ msgstr "Пароль пользователя root слишком краток."
 #, fuzzy
 msgid "Root passwords do not match."
 msgstr "Введенные пароли не совпадают."
+
+#: ../iw/account_gui.py:56
+#, fuzzy
+msgid "User password accepted."
+msgstr "Пароль пользователя root принят"
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -3435,6 +3440,11 @@ msgstr "Загрузка драйвера SCSI"
 msgid "Custom System"
 msgstr "Установить систему по выбору"
 
+#: ../installclasses/server.py:8
+#, fuzzy
+msgid "Server System"
+msgstr "Установить сервер"
+
 #: ../installclasses/server.py:34
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
@@ -3565,9 +3575,6 @@ msgstr ""
 
 #~ msgid "Install KDE Workstation"
 #~ msgstr "Установить рабочую станцию KDE"
-
-#~ msgid "Install Server System"
-#~ msgstr "Установить сервер"
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "Рабочая станция GNOME"
