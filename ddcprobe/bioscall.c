@@ -250,6 +250,13 @@ void do_vm86(struct vm86_struct *vm, char *memory, unsigned stop_eip) {
 				vm->regs.eip++;
 				break;
 			}
+			case 0x59: { /* pop cx -- Banshee */
+				vm->regs.ecx &= 0xffff0000;
+				vm->regs.ecx |= *(u_int16_t*)
+					&memory[vm->regs.ss*16 + vm->regs.esp];
+				vm->regs.esp += 2;
+				vm->regs.eip++;
+			}
 			case 0xc3: { /* ret near, just pop ip */
 				vm->regs.eip &= 0xffff0000;
 				vm->regs.eip |= *(u_int16_t*)
