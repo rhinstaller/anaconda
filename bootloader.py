@@ -141,7 +141,7 @@ class x86BootloaderInfo:
 		f.write('\tinitrd %s\n' % (cfPath + initrd[len(cfPath):]))
 
 	for (label, device) in chainList:
-	    f.write('title %s\n' % (label)
+	    f.write('title %s\n' % (label))
 	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
             f.write('\tmakeactive\n')
             f.write('\tchainloader +1')
