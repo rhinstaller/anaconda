@@ -495,6 +495,10 @@ class InstallControlWindow:
 
 	self.buff = _("Release notes are missing.\n")
 
+    def handleRenderCallback(self):
+        self.currentWindow.renderCallback()
+        idle_remove(self.handle)
+
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
 	if not step:
@@ -527,7 +531,8 @@ class InstallControlWindow:
         self.installFrame.set_label (ics.getTitle ())
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
-	self.currentWindow.renderCallback()
+
+	self.handle = idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:
             self.window.reset_rc_styles ()
@@ -590,6 +595,7 @@ class InstallControlWindow:
         self.dispatch = dispatch
 	self.setLanguage(locale)
         self.helpWin = None
+        self.handle = None
 
     def keyRelease (self, window, event):
         if ((event.keyval == GDK.KP_Delete or event.keyval == GDK.Delete)
