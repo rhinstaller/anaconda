@@ -1,23 +1,15 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
-arch = iutil.getArch ()
-if arch == "sparc":
-    from silo import SiloInstall
-elif arch == "alpha":
-    from milo import MiloInstall, onMILO
 import string
 import socket
 import crypt
 import whrandom
 import pcmcia
 import _balkan
-import kudzu
-from kbd import Keyboard
 from simpleconfig import SimpleConfigFile
 from mouse import Mouse
 from xf86config import XF86Config
-import errno
 
 def _(x):
     return x
@@ -33,16 +25,13 @@ class FakeDDruid:
             if size and type != -1:
                 self.partitions.append ((name + str (i + 1)),
                                         "Existing000" + str(len (self.partitions)),
-                                        type, sector, size)
+                                        type)
     def __init__ (self):
         self.partitions = []
         
 class LogFile:
-    def __init__ (self, serial):
-	if serial:
-	    self.logFile = open("/tmp/install.log", "w")
-	else:
-	    self.logFile = open("/dev/tty3", "w")
+    def __init__ (self):
+        self.logFile = open("/dev/tty3", "w")
 
     def __call__ (self, format, *args):
         if args:
@@ -98,28 +87,14 @@ class Network:
                 self.netdevices [info["DEVICE"]].set (("BOOTPROTO", info["BOOTPROTO"]))
             if info.has_key ("GATEWAY"):
                 self.gateway = info["GATEWAY"]
+            if info.has_key ("NS1"):
+                self.primaryNS = info["NS1"]
             if info.has_key ("DOMAIN"):
                 self.domains.append(info["DOMAIN"])
             if info.has_key ("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
             
             self.readData = 1
-	try:
-	    f = open ("/etc/resolv.conf", "r")
-	except:
-	    pass
-	else:
-	    lines = f.readlines ()
-	    f.close ()
-	    for line in lines:
-		resolv = string.split (line)
-		if resolv[0] == 'nameserver':
-		    if self.primaryNS == "":
-			self.primaryNS = resolv[1]
-		    elif self.secondaryNS == "":
-			self.secondaryNS = resolv[1]
-		    elif self.ternaryNS == "":
-			self.ternaryNS = resolv[1]
     
     def available (self):
         f = open ("/proc/net/dev")
@@ -184,23 +159,21 @@ class Password:
 class Desktop (SimpleConfigFile):
     def __init__ (self):
         SimpleConfigFile.__init__ (self)
-
+        
     def set (self, desktop):
         self.info ['DESKTOP'] = desktop
-
+            
 class Language (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
         self.langs = {
             "Czech"	 : "cs_CZ" ,
             "English"	 : "en_US" ,
-            "French"	 : "fr_FR" ,
             "German"	 : "de_DE" ,
             "Hungarian"	 : "hu_HU" ,
             "Icelandic"	 : "is_IS" ,
             "Indonesian" : "id_ID" ,
             "Italian"	 : "it_IT" ,
-            "Japanese"	 : "ja_JP.ujis" ,
             "Norwegian"	 : "no_NO" ,
             "Polish"	 : "pl_PL" ,
             "Romanian"	 : "ro_RO" ,
@@ -231,10 +204,180 @@ class Language (SimpleConfigFile):
         self.info["LINGUAS"] = self.langs[lang]
         os.environ["LINGUAS"] = self.langs[lang]        
         self.info["LC_ALL"] = self.langs[lang]
-        os.environ["LC_ALL"] = self.langs[lang]
+        os.environ["LC_ALL"] = self.langs[lang]        
         
     def get (self):
 	return self.lang
+
+class Keyboard (SimpleConfigFile):
+    console2x = {
+            "be-latin1"		: ('pc102', 'be'),
+            "be2-latin1"	: ('pc102', 'be'),
+            "fr-latin0"		: ('pc102', 'fr'),
+            "fr-latin1"		: ('pc102', 'fr'),
+            "fr-pc"		: ('pc102', 'fr'),
+            "fr"		: ('pc102', 'fr'),
+            "bg"		: ('pc102', 'bg'),
+            "cf"		: ('pc102', 'cf'),
+            "cz-lat2-prog" 	: ('pc102', 'cs'),
+            "cz-lat2"		: ('pc102', 'cs'),
+            "dk-latin1"		: ('pc102', 'dk'),
+            "dk"		: ('pc102', 'dk'),
+            "es"		: ('pc102', 'es'),
+            "fi-latin1"		: ('pc102', 'fi'),
+            "fi"		: ('pc102', 'fi'),
+            "hu101"		: ('pc102', 'hu'),
+            "it-ibm"		: ('pc101', 'it'),
+            "it"		: ('pc102', 'it'),
+            "it2"		: ('pc102', 'it'),
+            "jp106"	        : ('jp106', 'jp'),
+            "no-latin1"  	: ('pc102', 'no'),
+            "no"		: ('pc102', 'no'),
+            "pl"		: ('pc102', 'pl'),
+            "pt-latin1"		: ('pc102', 'pt'),
+            "ru-cp1251" 	: ('pc102', 'ru'),
+            "ru-ms"		: ('microsoft', 'ru'),
+            "ru"		: ('pc102', 'ru'),
+            "ru1"		: ('pc102', 'ru'),
+            "ru2"		: ('pc102', 'ru'),
+            "ru_win"		: ('pc105', 'ru'),
+            "se-latin1"		: ('pc102', 'se'),
+            "us"		: ('pc101', 'us'),
+            "de-latin1-nodeadkeys" : ('pc102', 'de'),
+            "de-latin1"		: ('pc102', 'de'),
+            "de"		: ('pc102', 'de'),
+            "fr_CH-latin1" 	: ('pc102', 'fr_CH'),
+            "fr_CH"		: ('pc102', 'fr_CH'),
+            "hu"		: ('pc102', 'fr_CH'),
+            }
+    # XXX fixme - externalize
+    def __init__ (self):
+	self.type = "PC"
+        self.info = {}
+        try:
+            f = open ("/dev/kbd", "r")
+	    f.close()
+	    self.type = "Sun"
+        except:
+	    pass
+
+    def available (self):
+	if self.type == "Sun":
+	    return [
+		"sun-pl-altgraph",
+		"sun-pl",
+		"sundvorak",
+		"sunkeymap",
+		"sunt4-es",
+		"sunt4-no-latin1.map.gz",
+		"sunt5-cz-us",
+		"sunt5-de-latin1",
+		"sunt5-es",
+		"sunt5-fi-latin1",
+		"sunt5-fr-latin1",
+		"sunt5-ru",
+		"sunt5-uk",
+		"sunt5-us-cz",
+	    ]
+        return [
+            "azerty",
+            "be-latin1",
+            "be2-latin1",
+            "fr-latin0",
+            "fr-latin1",
+            "fr-pc",
+            "fr",
+            "wangbe",
+            "ANSI-dvorak",
+            "dvorak-l",
+            "dvorak-r",
+            "dvorak",
+            "pc-dvorak-latin1",
+            "tr_f-latin5",
+            "trf",
+            "bg",
+            "cf",
+            "cz-lat2-prog",
+            "cz-lat2",
+            "defkeymap",
+            "defkeymap_V1.0",
+            "dk-latin1",
+            "dk",
+            "emacs",
+            "emacs2",
+            "es",
+            "fi-latin1",
+            "fi",
+            "gr-pc",
+            "gr",
+            "hebrew",
+            "hu101",
+            "is-latin1",
+            "it-ibm",
+            "it",
+            "it2",
+            "jp106",
+            "la-latin1",
+            "lt",
+            "lt.l4",
+            "nl",
+            "no-latin1",
+            "no",
+            "pc110",
+            "pl",
+            "pt-latin1",
+            "pt-old",
+            "ro",
+            "ru-cp1251",
+            "ru-ms",
+            "ru-yawerty",
+            "ru",
+            "ru1",
+            "ru2",
+            "ru_win",
+            "se-latin1",
+            "sk-prog-qwerty",
+            "sk-prog",
+            "sk-qwerty",
+            "tr_q-latin5",
+            "tralt",
+            "trf",
+            "trq",
+            "ua",
+            "uk",
+            "us",
+            "croat",
+            "cz-us-qwertz",
+            "de-latin1-nodeadkeys",
+            "de-latin1",
+            "de",
+            "fr_CH-latin1",
+            "fr_CH",
+            "hu",
+            "sg-latin1-lk450",
+            "sg-latin1",
+            "sg",
+            "sk-prog-qwertz",
+            "sk-qwertz",
+            "slovene",
+            ]
+
+    def set (self, keytable):
+        self.info["KEYTABLE"] = keytable
+
+    def get (self):
+        if self.info.has_key ("KEYTABLE"):
+            return self.info["KEYTABLE"]
+        else:
+	    if self.type == "Sun":
+		return "sunkeymap"
+	    else:
+		return "us"
+
+    def getXKB (self):
+        if Keyboard.console2x.has_key (self.get ()):
+            (model, keylayout) = Keyboard.console2x[self.get ()]
+            return ("xfree86", model, keylayout, "", "")
 
 class Authentication:
     def __init__ (self):
@@ -267,7 +410,7 @@ class InstSyslog:
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
-		 expert = 0, serial = 0, extraModules = []):
+		 expert = 0, extraModules = []):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -277,8 +420,7 @@ class ToDo:
 	self.setupFilesystems = setupFilesystems
 	self.installSystem = installSystem
         self.language = Language ()
-	self.serial = serial
-        self.log = LogFile (serial)
+        self.log = LogFile ()
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -296,11 +438,6 @@ class ToDo:
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
-        arch = iutil.getArch ()
-	if arch == "sparc":
-	    self.silo = SiloInstall (self)
-        elif arch == "alpha":
-            self.milo = MiloInstall (self)
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -309,7 +446,6 @@ class ToDo:
 	self.expert = expert
         self.progressWindow = None
 	self.swapCreated = 0
-	self.fdDevice = None
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -322,26 +458,6 @@ class ToDo:
 
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
-
-        if self.setupFilesystems:
-            try:
-                f = open("/dev/tty5")
-                f.close ()
-            except:
-                pass
-
-    def setFdDevice(self):
-	if self.fdDevice:
-	    return
-	self.fdDevice = "/dev/fd0"
-	if iutil.getArch() == "sparc":
-	    try:
-		f = open(self.fdDevice, "r")
-	    except IOError, (errnum, msg):
-		if errno.errorcode[errnum] == 'ENXIO':
-		    self.fdDevice = "/dev/fd1"
-	    else:
-		f.close()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -426,7 +542,7 @@ class ToDo:
 
 	self.liloImages = {}
         foundDos = 0
-	for (dev, devName, type, start, size) in drives:
+	for (dev, devName, type) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -455,11 +571,11 @@ class ToDo:
 	if not raid: return
 
 	deviceDict = {}
-	for (device, name, type, start, size) in devices:
+	for (device, name, type) in devices:
 	    deviceDict[name] = device
 
 	rt = open(file, "w")
-	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
+	for (mntpoint, device, fstype, raidType, makeup) in raid:
 
 	    if createDevices:
 		isys.makeDevInode(device, devPrefix + '/' + device)
@@ -525,7 +641,7 @@ class ToDo:
 	    w = self.intf.waitWindow(_("Creating"),
 			  _("Creating RAID devices..."))
 
-	    for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
+	    for (mntpoint, device, fsType, raidType, makeup) in raid:
                 iutil.execWithRedirect ("/usr/sbin/mkraid", 
 			[ 'mkraid', '--really-force', '--configfile', 
 			  '/tmp/raidtab', '/tmp/' + device ])
@@ -537,29 +653,15 @@ class ToDo:
         keys = self.mounts.keys ()
 
 	keys.sort()
-
-        arch = iutil.getArch ()
-
-        if arch == "alpha":
-            if '/boot' in keys:
-                kernelPart = '/boot'
-            else:
-                kernelPart = '/'
-        
 	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
                 args = [ "mke2fs", '/tmp/' + device ]
-                # FORCE the partition that MILO has to read
-                # to have 1024 block size.  It's the only
-                # thing that our milo seems to read.
-                if arch == "alpha" and mntpoint == kernelPart:
-                    args = args + ["-b", "1024"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
-                    for (rmnt, rdevice, fsType, raidType, start, size, makeup) in raid:
+                    for (rmnt, rdevice, fsType, raidType, makeup) in raid:
                         if rdevice == device:
                             rtype = raidType
                             rdisks = len (makeup)
@@ -575,13 +677,9 @@ class ToDo:
 		w = self.intf.waitWindow(_("Formatting"),
 			      _("Formatting %s filesystem...") % (mntpoint,))
 
-		if self.serial:
-		    messages = "/tmp/mke2fs.log"
-		else:
-		    messages = "/dev/tty5"
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
-                                        stdout = messages, stderr = messages,
+                                        stdout = "/dev/tty5", stderr = "/dev/tty5",
                                         searchPath = 1)
 		w.pop()
             elif fsystem == "swap" and createSwap:
@@ -629,7 +727,6 @@ class ToDo:
 	f = open (self.instPath + "/etc/fstab", "w")
         keys = self.mounts.keys ()
 	keys.sort ()
-	self.setFdDevice ()
 	for mntpoint in keys: 
 	    (dev, fs, reformat) = self.mounts[mntpoint]
 	    if (mntpoint == '/'):
@@ -641,7 +738,7 @@ class ToDo:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % (self.fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
+	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 	f.close ()
@@ -664,7 +761,7 @@ class ToDo:
             # all valid fstab entries have 6 fields
             if not len (fields) < 4 and len (fields) <= 6:
                 if fields and (fields[2] == "ext2" or fields[2] == "swap") \
-                   and fields[3] != "noauto":
+                   and fields[3] == "defaults":
                     format = 0
                     # XXX always format swap. 
                     if fields[2] == "swap": format = 1
@@ -677,7 +774,6 @@ class ToDo:
 	f.close()
 
     def writeMouse(self):
-	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self.mouse))
 	f.close()
@@ -689,7 +785,6 @@ class ToDo:
 	f.close()
 
     def writeKeyboard(self):
-	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
 	f.write(str (self.keyboard))
 	f.close()
@@ -712,12 +807,11 @@ class ToDo:
 
         self.makeInitrd (kernelTag)
         w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
-	self.setFdDevice ()
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
                                     [ "/sbin/mkbootdisk",
                                       "--noprompt",
                                       "--device",
-                                      self.fdDevice,
+                                      "/dev/fd0",
                                       kernelTag[1:] ],
                                     stdout = None, stderr = None, 
 				    searchPath = 1, root = self.instPath)
@@ -925,15 +1019,6 @@ class ToDo:
                 f.write ("%s\t\t%s\n" % (ip, dev.hostname))
         f.close ()
 
-	# If the hostname was not looked up, but typed in by the user,
-	# domain might not be computed, so do it now.
-	if self.network.domains == [ "localdomain" ] or not self.network.domains:
-	    if self.network.hostname != "localhost.localdomain":
-		if '.' in self.network.hostname:
-		    # chop off everything before the leading '.'
-		    domain = self.network.hostname[(string.find(self.network.hostname, '.') + 1):]
-		    self.network.domains = [ domain ]
-
         # /etc/resolv.conf
         f = open (self.instPath + "/etc/resolv.conf", "w")
         f.write ("search " + string.joinfields (self.network.domains, ' ') + "\n")
@@ -1051,7 +1136,6 @@ class ToDo:
                         except SystemError, (errno, msg):
                             self.intf.messageWindow(_("Error"),
                                                     _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-                            continue
                         if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
@@ -1174,11 +1258,6 @@ class ToDo:
 
 	if (todo.instClass.x):
 	    todo.x = todo.instClass.x
-
-        if iutil.getArch () == "alpha":
-            instClass.addToSkipList("bootdisk")
-            instClass.addToSkipList("lilo")
-            instClass.addToSkipList("silo")
 
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)
@@ -1322,18 +1401,6 @@ class ToDo:
 	# make sure we have the header list and comps file
 	self.getHeaderList()
 	self.getCompsList()
-
-        arch = iutil.getArch ()
-
-        if arch == "alpha":
-            # if were're on alpha with ARC console, set the clock
-            # so that our installed files won't be in the future
-            if onMILO ():
-                args = ("clock", "-A", "-s")
-                try:
-                    iutil.execWithRedirect('/usr/sbin/clock', args)
-                except:
-                    pass
 
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
@@ -1501,40 +1568,18 @@ class ToDo:
 	    if (self.instClass.defaultRunlevel):
 		self.initlevel = self.instClass.defaultRunlevel
 		self.setDefaultRunlevel ()
-            
-            # pcmcia is supported only on i386 at the moment
-            if arch == "i386":
-                pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
+	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
-		if len (self.x.server) >= 3 and self.x.server[0:3] == 'Sun':
-                    try:
-                        os.unlink(self.instPath + "/etc/X11/X")
-                    except:
-                        pass
-		    script = open(self.instPath + "/etc/X11/X","w")
-		    script.write("#!/bin/bash\n")
-		    script.write("exec /usr/X11R6/bin/Xs%s -fp unix/:-1 $@\n" % self.x.server[1:])
-		    script.close()
-		    os.chmod(self.instPath + "/etc/X11/X", 0755)
-		else:
-		    self.x.write (self.instPath + "/etc/X11/XF86Config")
-		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
-				self.instPath + "/etc/X11/X")
+                self.x.write (self.instPath + "/etc/X11/XF86Config")
+                os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
+                            self.instPath + "/etc/X11/X")
             self.setDefaultRunlevel ()
             argv = [ "/usr/sbin/kudzu", "-q" ]
 	    devnull = os.open("/dev/null", os.O_RDWR)
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
-        
-        if arch == "sparc":
-            self.silo.installSilo ()
-        elif arch == "i386":
-            self.installLilo ()
-        elif arch == "alpha":
-            self.milo.write ()
-        else:
-            raise RuntimeError, "What kind of machine is this, anyway?!"
+	self.installLilo ()
 
 	if self.instClass.postScript:
 	    scriptRoot = "/"
@@ -1548,13 +1593,9 @@ class ToDo:
 	    f.write(self.instClass.postScript)
 	    f.close()
 
-	    if self.serial:
-		messages = "/tmp/ks-script.log"
-	    else:
-		messages = "/dev/tty3"
 	    iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
-		    "/tmp/ks-script" ], stdout = messages,
-		    stderr = messages, root = scriptRoot)
+		    "/tmp/ks-script" ], stdout = "/dev/tty3",
+		    stderr = "/dev/tty3", root = scriptRoot)
 				    
 	    #os.unlink(path)
 

@@ -10,7 +10,7 @@ FSEDIT_CLEAR_LINUX  = (1 << 1)
 FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
-import gettext, os
+import gettext
 from xf86config import XF86Config
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
@@ -90,7 +90,7 @@ class InstallClass:
 
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
-	[ "lilo", "silo", "mouse", "network", "authentication", "complete", "complete",
+	[ "lilo", "mouse", "network", "authentication", "complete", "complete",
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
 	  "welcome", "installtype", "mouse", "confirm-install" ].index(type)
@@ -233,15 +233,13 @@ class Workstation(InstallClass):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
-	self.addToSkipList("silo")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("format")
 
-	if os.uname ()[4] != 'sparc64':
-	    self.partitions.append(('/boot', 16, 16, 0))
+	self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 500, 500, 1))
 	self.partitions.append(('swap', 64, 64, 0))
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
@@ -270,21 +268,19 @@ class Server(InstallClass):
 	self.setGroups(["Server"])
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
-	self.addToSkipList("silo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
 	self.addToSkipList("format")
 
-	if os.uname ()[4] != 'sparc64':
-	    self.partitions.append(('/boot', 16, 16, 0))
+	self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 256, 256, 0))
 	self.partitions.append(('/usr', 512, 512, 1))
 	self.partitions.append(('/var', 256, 256, 0))
 	self.partitions.append(('/home', 512, 512, 1))
 	self.partitions.append(('swap', 64, 64, 1))
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
-	    warningText = _("You are about to erase ALL DATA on your hard "
+	    warningText = _("You are about to erase ALL DATA on your hard " + \
 			    "drive to make room for your Linux installation."))
 
