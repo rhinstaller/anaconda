@@ -134,7 +134,7 @@ class KickstartBase(BaseInstallClass):
                                useNis, nisDomain, nisBroadcast, nisServer,
                                useLdap, useLdapauth, ldapServer, ldapBasedn,
                                useKrb5, krb5Realm, krb5Kdc, krb5Admin,
-                               useHesiod, hesiodlhs, hesiodrhs )
+                               useHesiod, hesiodLhs, hesiodRhs )
         
 	self.addToSkipList("authentication")
 

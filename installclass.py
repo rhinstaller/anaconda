@@ -119,13 +119,13 @@ class BaseInstallClass:
                           ldapBasedn = "",
                           useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
                           krb5Admin = "",
-                          useHesiod = 0, hesiodlhs = "", hesiodrhs = ""):
+                          useHesiod = 0, hesiodLhs = "", hesiodRhs = ""):
         
 	self.auth = ( useShadow, useMd5,
                       useNIS, nisDomain, nisBroadcast, nisServer,
                       useLdap, useLdapauth, ldapServer, ldapBasedn,
                       useKrb5, krb5Realm, krb5Kdc, krb5Admin,
-                      useHesiod, hesiodlhs, hesiodrhs)
+                      useHesiod, hesiodLhs, hesiodRhs)
 
     def getAuthentication(self):
 	return self.auth
