@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 17:06+0530\n"
+"PO-Revision-Date: 2004-07-22 18:11+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -1248,36 +1248,45 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"લિનક્સના સ્થાપન માટે તમે પસંદ કરેલ ફાઈલ સિસ્ટમ પહેલાથી જ માઉન્ટ "
+"થયેલ છે. તમે આ બિંદુની પાછળના પાને જઈ શકશો નહિં.\n"
+"\n"
 
 #: ../packages.py:51 ../iw/package_gui.py:46
 msgid "Would you like to continue with the upgrade?"
-msgstr ""
+msgstr "શું તમે સુધારાની ક્રિયા સાથે ચાલુ રાખવા માંગો છો?"
 
 #: ../packages.py:144
 msgid "Reading"
-msgstr ""
+msgstr "વાંચી રહ્યા છીએ"
 
 #: ../packages.py:144
 msgid "Reading package information..."
-msgstr ""
+msgstr "પેકેજની જાણકારી વાંચી રહ્યા છીએ"
 
 #: ../packages.py:151
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
+"હેડરની યાદી વાંચવામાં અસમર્થ. આ મોટે ભાગે ખોવાયેલ ફાઈલ અથવા "
+"ખરાબ માધ્યમને લીધે છે. ફરીથી પ્રયત્ન કરવા માટે એન્ટર દબાવો."
 
 #: ../packages.py:164
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
+"કોમ્પ્સ ફાઈલ વાંચવા માટે અસમર્થ. આ મોટે ભાગે ખોવાયેલ ફાઈલ અથવા "
+"ખરાબ માધ્યમને લીધે છે. ફરીથી પ્રયત્ન કરવા માટે એન્ટર દબાવો."
 
 #: ../packages.py:176 ../packages.py:677 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
+"હેડરની યાદી ભેગી કરવામાં અસમર્થ. આ મોટે ભાગે ખોવાયેલ ફાઈલ અથવા "
+"ખરાબ માધ્યમને લીધે છે. ફરીથી પ્રયત્ન કરવા માટે એન્ટર દબાવો."
 
 #: ../packages.py:183 ../packages.py:592
 #, python-format
@@ -1285,22 +1294,24 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
+"તમે મશીન કે જેને %s ની આ આવૃત્તિનો ારા  નથી તેના ઉપર સ્થાપન "
+"કરવાનો પ્રયત્ન કરી રહ્યા છો.ારિત "
 
 #: ../packages.py:289
 msgid "Dependency Check"
-msgstr ""
+msgstr "આધારભૂત ચકાસણી"
 
 #: ../packages.py:290
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "સ્થાપન માટે પસંદ થયેલ પેકેજો માટે આધારિતપણું ચકાસી રહ્યા છીએ..."
 
 #: ../packages.py:349 ../packages.py:798
 msgid "Processing"
-msgstr ""
+msgstr "પ્રક્રિયા કરી રહ્યા છીએ"
 
 #: ../packages.py:350
 msgid "Preparing to install..."
-msgstr ""
+msgstr "સ્થાપન માટે તૈયારી કરી રહ્યા છીએ"
 
 #: ../packages.py:409
 #, python-format
@@ -1311,14 +1322,20 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"પેકેજ %s-%s-%s ખોલી શકાતું નથી. આ ખોવાયેલ ફાઈલને લીધે અથવા"
+"બગડેલા પેકેજને લીધે છે. જો તમે CD માંથી સ્થાપન કરી રહ્યા છો તો"
+"CD માધ્યમ બગડેલું છે, અથવા CD ડ્રાઈવ એ આ માધ્યમને વાંચવા માટે "
+"અસમર્થ છે.\n"
+"\n"
+"ફરીથી પ્રયત્ન કરવા માટે એન્ટર દબાવો."
 
 #: ../packages.py:417
 msgid "Installing..."
-msgstr ""
+msgstr "સ્થાપિત કરી રહ્યા છીએ..."
 
 #: ../packages.py:438
 msgid "Error Installing Package"
-msgstr ""
+msgstr "પેકેજો સ્થાપિત કરવામાં ભૂલ"
 
 #: ../packages.py:439
 #, python-format
@@ -1330,10 +1347,16 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"%s નું સ્થાપન કરવામાં ભૂલ હતી. આ માધ્યમની નિષ્ફળતા સૂચવે છે, "
+"ડિસ્કની જગ્યાની અછત, અને/અથવા હાર્ડવેરની સમસ્યાઓ.  આ મોટી "
+"સમસ્યા છે અને તમારુ સ્થાપન અડધેથી બંધ થઈ જશે. મહેરબાની કરીને"
+"તમારુ માધ્યમ ચકાસો અને ફરીથી સ્થાપન કરવાનો પ્રયત્ન કરો.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../packages.py:799
 msgid "Preparing RPM transaction..."
-msgstr ""
+msgstr "RPM પરિવહન માટે તૈયારી કરી રહ્યા છીએ..."
 
 #: ../packages.py:882
 #, python-format
@@ -1341,6 +1364,8 @@ msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
+"%s પેકેજો સુધારી રહ્યા છીએ\n"
+"\n"
 
 #: ../packages.py:884
 #, python-format
@@ -1348,16 +1373,18 @@ msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
+"%s પેકેજો સ્થાપિત કરી રહ્યા છીએ\n"
+"\n"
 
 #: ../packages.py:892 ../packages.py:1192
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "%s-%s-%s.%s. સુધારી રહ્યા છીએ\n"
 
 #: ../packages.py:894 ../packages.py:1194
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr ""
+msgstr "%s-%s-%s.%s. સ્થાપન કરી રહ્યા છીએ\n"
 
 #: ../packages.py:910
 #, python-format
@@ -1369,14 +1396,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"નીચેના પેકેજો આપોઆપ\n"
+"સ્થાપન માટે પસંદ થઈ જશે:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:916
 msgid "Install Starting"
-msgstr ""
+msgstr "શરુઆતથી સ્થાપન કરો"
 
 #: ../packages.py:917
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "સ્થાપનની પ્રક્રિયા શરુ કરી રહ્યા છીએ, આ થોડી મિનિટો લેશે..."
 
 #: ../packages.py:957
 msgid ""
@@ -1384,16 +1417,19 @@ msgid ""
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
+"તમારી પસંદ કરેલ જેટલી પૂરતી જગ્યા હોય એમ લાગતું નથી. "
+"તમારે નીચેની સિસ્ટમો પર વધુ જગ્યા જોઈએ:\n"
+"\n"
 
 #: ../packages.py:961 ../packages.py:982 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1130 ../textw/upgrade_text.py:111
 msgid "Mount Point"
-msgstr ""
+msgstr "માઉન્ટ બિંદુ"
 
 #: ../packages.py:962
 msgid "Space Needed"
-msgstr ""
+msgstr "જગ્યા જરુરી છે"
 
 #: ../packages.py:978
 msgid ""
@@ -1401,22 +1437,25 @@ msgid ""
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
+"તમે સ્થાપન માટે પસંદ કરેલ પેકેજો માટે જરુરી જગ્યા હોય એમ જણાતુ નથી. "
+"ફાઈલ સિસ્ટમ પર તમને વધુ ફાઈલ નોડ જરુરી છે:\n"
+"\n"
 
 #: ../packages.py:983
 msgid "Nodes Needed"
-msgstr ""
+msgstr "નોડ જરુરી છે"
 
 #: ../packages.py:994
 msgid "Disk Space"
-msgstr ""
+msgstr "ડિસ્ક જગ્યા"
 
 #: ../packages.py:1043
 msgid "Post Install"
-msgstr ""
+msgstr "પોસ્ટ સ્થાપન"
 
 #: ../packages.py:1044
 msgid "Performing post install configuration..."
-msgstr ""
+msgstr "પોસ્ટ સ્થાપન રુપરેખાંકન કરી રહ્યા છીએ..."
 
 #: ../packages.py:1218
 msgid ""
@@ -1424,6 +1463,9 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"નીચેના પેકેજો આ આવૃત્તિ માટે ઉપ્લબ્ધ છે પરંતુ સુધારાયેલ નથી:\n"
 
 #: ../packages.py:1221
 msgid ""
@@ -1431,10 +1473,13 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT installed:\n"
 msgstr ""
+"\n"
+"\n"
+"નીચેના પેકેજો આ આવૃત્તિ માટે ઉપ્લબ્ધ છે પરંતુ સ્થાપિત થયેલ નથી:\n"
 
 #: ../packages.py:1465
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "ચેતવણી! આ પહેલા-રીલીઝ થયેલ સોફ્ટવેર છે!"
 
 #: ../packages.py:1466
 #, python-format
@@ -1451,14 +1496,25 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"%s ની પહેલી રીલીઝ ડાઉનલોડ કરવા માટે તમારો આભાર.\n"
+"\n"
+"આ અંતિમ રીલીઝ નથી અને ઉત્પાદન સિસ્ટમ પર વાપરવા માટે નથી "
+"બનાવાયેલ. આ રીલીઝ બનાવવાનો મુખ્ય હેતુ ચકાસનારા પાસે યોગ્ય "
+"વળતર મેળવવાનો છે, અને તે રોજિંદા વપરાશ માટે યોગ્ય નથી.\n"
+"\n"
+"વળતર આપવા માટે, મહેરબાની કરીને:\n"
+"\n"
+"   http://bugzilla.redhat.com/bugzilla ની મુલાકાત લો\n"
+"\n"
+"'%s' વિરુદ્ધ અહેવાલ મોકલો.\n"
 
 #: ../packages.py:1479
 msgid "_Install anyway"
-msgstr ""
+msgstr "કોઈપણ રીતે સ્થાપન કરવા માંગો છો (_I)"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:502
 msgid "Foreign"
-msgstr ""
+msgstr "વિદેશ"
 
 #: ../partedUtils.py:274
 #, python-format
@@ -1470,6 +1526,13 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"ઉપકરણ %s એ LDL બંધારણવાળુ છે CDL ની જગ્યાએ. LDL બંધારણવાળી "
+"DASD એ %s ના સ્થાપન દરમ્યાન આધાર માટે ઉપયોગી નથી. જો તમે"
+"આ ડિસ્ક સ્થાપન માટે ઉપયોગ કરવા માંગતા હોય, તો એ ફરીથી પ્રારંભ"
+"થયેલ હોવી જોઈએ કારણકે બધી માહિતી આ ડ્રાઈવ પર છે.\n"
+"\n"
+"શું તમે આ DASD ને CDL બંધારણની મદદથી ફરીથી ફોર્મેટ કરવા "
+"માંગો છો?"
 
 #: ../partedUtils.py:304
 #, python-format
@@ -1480,28 +1543,34 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"/dev/%s પાસે હમણા %s પાર્ટીશન લેઆઉટ છે. %s ના સ્થાપન માટે આ ડિસ્કનો "
+"ઉપયોગ કરવા માટે, તેનો ફરીથી પ્રારંભ થયેલ હોવો જોઈએ, "
+"કારણકે બધી "
+"માહિતી આ ડ્રાઈવ પર હોય છે.\n"
+"\n"
+"શું તમે આ ડ્રાઈવ ફોર્મેટ કરવા માંગો છો?"
 
 #: ../partedUtils.py:313
 msgid "_Ignore drive"
-msgstr ""
+msgstr "ડ્રાઈવ અવગણઓ (_I)"
 
 #: ../partedUtils.py:314
 msgid "_Format drive"
-msgstr ""
+msgstr "ડ્રાઈવ ફોર્મેટ કરો (_F)"
 
 #: ../partedUtils.py:633
 #, python-format
 msgid "Error mounting file system on %s: %s"
-msgstr ""
+msgstr "%s પર ફાઈલ સિસ્ટમ માઉન્ટ કરવામાં ભૂલ આવી: %s"
 
 #: ../partedUtils.py:721
 msgid "Initializing"
-msgstr ""
+msgstr "પ્રારંભ કરી રહ્યા છીએ"
 
 #: ../partedUtils.py:722
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "મહેરબાની કરીને ડ્રાઈવ %s ફોર્મેટ કરતી વખતે રાહ જુઓ...\n"
 
 #: ../partedUtils.py:813
 #, python-format
@@ -1515,6 +1584,15 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"ઉપકરણ %s (%s) પરનું પાર્ટીશન કોષ્ટક વાંચી શકાય એવું નથી. નવા"
+"પાર્ટીશન બનાવવા માટે તેનો પ્રારંભ થયેલો હોવો જ જોઈએ, "
+"કે જે આ ડ્રાઈવ "
+"પર માહિતી ખોવાઈ જવાનું કારણ બને છે.\n"
+"\n"
+"આ પ્રક્રિયા પહેલાના સ્થાપનની વસ્તુઓ પર ફરીથી લખી નાંખશે કે જે"
+"અવગણવાનું હોય.\n"
+"\n"
+"શું તમે આ ડ્રાઈવનો પ્રારંભ કરવા માંગો છો, બધી માહિતી ભૂંસી કાઢશે?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -1527,104 +1605,123 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"ઉપકરણ %s પરનું પાર્ટીશન કોષ્ટક વાંચી શકાય એવું નથી. નવા"
+"પાર્ટીશન બનાવવા માટે તેનો પ્રારંભ થયેલો હોવો જ જોઈએ, "
+"કે જે આ ડ્રાઈવ "
+"પર માહિતી ખોવાઈ જવાનું કારણ બને છે.\n"
+"\n"
+"આ પ્રક્રિયા પહેલાના સ્થાપનની વસ્તુઓ પર ફરીથી લખી નાંખશે કે જે"
+"અવગણવાનું હોય.\n"
+"\n"
+"શું તમે આ ડ્રાઈવનો પ્રારંભ કરવા માંગો છો, બધી માહિતી ભૂંસી કાઢશે?"
 
 #: ../partedUtils.py:988 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
-msgstr ""
+msgstr "કોઈ ડ્રાઈવ મળી નથી"
 
 #: ../partedUtils.py:989
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
+"ભૂલ ઉદ્ભવી - કોઈ માન્ય ઉપકરણો મળ્યા નથી કે જેના ઉપર નવી ફાઈલ "
+"સિસ્ટમ બનાવી શકાય. મહેરબાની કરીને તમારા હાર્ડવેરને ચકાસો "
+"આ સમસ્યાને ટાળવા માટે."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr ""
+msgstr "મહેરબાની કરીને કદ જૂથ નામ દાખલ કરો."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr ""
+msgstr "કદ જૂથ નામ ૧૨૮ અક્ષરો કરતાં નાનું જ હોવુ જોઈએ"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr ""
+msgstr "ભૂલ - કદ જૂથ નામ %s એ માન્ય નથી."
 
 #: ../partIntfHelpers.py:47
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"ભૂલ - કદ જૂથ નામ અયોગ્ય અક્ષરો અથવા ખાલી જગ્યાઓ સમાવે છે. "
+"સ્વીકાર્ય અક્ષરો બારાક્ષરો, આંકડાઓ, '.' અથવા '_' છે."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr ""
+msgstr "મહેરબાની કરીને લોજિકલ કદ નામ દાખલ કરો."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr ""
+msgstr "લોજિકલ કદ નામો ૧૨૮ અક્ષરો કરતાં નાનું જ હોવું જોઈએ"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr ""
+msgstr "ભૂલ - લોજિકલ કદ નામ %s એ માન્ય નથી."
 
 #: ../partIntfHelpers.py:71
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"ભૂલ - લોજિકલ કદ નામ અયોગ્ય અક્ષરો અથવા ખાલી જગ્યાઓ સમાવે છે. "
+"માન્ય અક્ષરો બારાક્ષરો, આંકડાઓ, '.' અથવા '_' છે."
 
 #: ../partIntfHelpers.py:94
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
+"માઉન્ટ બિંદુ એ અમાન્ય છે. માઉન્ટ બિંદુઓ '/' થી જ શરુ થવા જોઈએ અને "
+"'/' જ અંત થવા જોઈએ અને છાપી શકાય તેવા અક્ષરો જ સમાવતા હોવા "
+"જોઈએ અને ખાલી જગ્યાઓ પણ નહિ હોવી જોઈએ."
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "મહેરબાની કરીને આ પાર્ટીશન માટે માઉન્ટ બિંદુ સ્પષ્ટ કરો."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "આ પાર્ટીશન હાર્ડ ડ્રાઈવ પર સ્થાપન કરવા માટે માહિતી ધરાવે છે."
 
 #: ../partIntfHelpers.py:115
 #, python-format
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr ""
+msgstr "આ પાર્ટીશન એ RAID ઉપકરણનો ભાગ છે /dev/md%s."
 
 #: ../partIntfHelpers.py:118
 msgid "This partition is part of a RAID device."
-msgstr ""
+msgstr "આ પાર્ટીશન એ RAID ઉપકરણનો ભાગ છે."
 
 #: ../partIntfHelpers.py:123
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr ""
+msgstr "આ પાર્ટીશન એ LVM કદ જૂથ '%s' નો ભાગ છે."
 
 #: ../partIntfHelpers.py:126
 msgid "This partition is part of a LVM volume group."
-msgstr ""
+msgstr "આ પાર્ટીશન એ LVM કદ જૂથનો ભાગ છે."
 
 #: ../partIntfHelpers.py:141 ../partIntfHelpers.py:149
 #: ../partIntfHelpers.py:156 ../partIntfHelpers.py:166
 #: ../partIntfHelpers.py:183
 msgid "Unable To Delete"
-msgstr ""
+msgstr "કાઢી નાખવા માટે અસમર્થ"
 
 #: ../partIntfHelpers.py:142
 msgid "You must first select a partition to delete."
-msgstr ""
+msgstr "તમારે કાઢી નાખવા માટે પહેલા પાર્ટીશન પસંદ કરવો પડશે."
 
 #: ../partIntfHelpers.py:150
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "તમે ખાલી જગ્યા કાઢી શકશો નહિં."
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
+msgstr "તમે LDL ના પાર્ટીશન કે જે DASD થી ફોર્મેટ થયેલ છે તેને કાઢી શકસો નહિં."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1632,32 +1729,36 @@ msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"તમે આ પાર્ટીશનને કાઢી શકશો નહિં, કારણકે તે વિસ્તૃત પાર્ટીશન છે "
+"કે જે %s સમાવે છે"
 
 #: ../partIntfHelpers.py:184
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
+"તમે આ પાર્ટીશન કાઢી શકશો નહિં:\n"
+"\n"
 
 #: ../partIntfHelpers.py:228 ../partIntfHelpers.py:519
 #: ../iw/lvm_dialog_gui.py:730
 msgid "Confirm Delete"
-msgstr ""
+msgstr "કાઢી નાખવાની ખાતરી છે"
 
 #: ../partIntfHelpers.py:229
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
+msgstr "તમે ઉપકરણ '/dev/%s' પરના બધા પાર્ટીશનો કાઢી નાંખવા માંગો છો."
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1361
 msgid "_Delete"
-msgstr ""
+msgstr "કાઢી નાંખો (_D)"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
-msgstr ""
+msgstr "સૂચના"
 
 #: ../partIntfHelpers.py:291
 #, python-format
@@ -1666,21 +1767,26 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"નીચેના પાર્ટીશનો કાઢી નાંખવામાં આવ્યા કારણકે તેઓ વપરાશમાં હતા:\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:307 ../partIntfHelpers.py:320
 #: ../partIntfHelpers.py:346 ../partIntfHelpers.py:357
 msgid "Unable To Edit"
-msgstr ""
+msgstr "ફેરફાર કરવા માટે અસમર્થ"
 
 #: ../partIntfHelpers.py:308
 msgid "You must select a partition to edit"
-msgstr ""
+msgstr "તમારે ફેરફાર કરવા માટે પાર્ટીશન પસંદ કરવું જ જોઈએ"
 
 #: ../partIntfHelpers.py:320 ../partIntfHelpers.py:358
 msgid ""
 "You cannot edit this partition:\n"
 "\n"
 msgstr ""
+"તમે આ પાર્ટીશનમાં ફેરફાર કરી શકો નહિં:\n"
+"\n"
 
 #: ../partIntfHelpers.py:347
 #, python-format
@@ -1688,10 +1794,12 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"તમે આ પાર્ટીશનમાં ફેરફાર કરી શકો નહિં, તે એક્સટેન્ડેડ પાર્ટીશન છે "
+"જે %s સમાવે છે"
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
-msgstr ""
+msgstr "સ્વેપ તરીકે ફોર્મેટ કરવું છે?"
 
 #: ../partIntfHelpers.py:380
 #, python-format
@@ -1701,6 +1809,11 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s પાસે પાર્ટીશન પ્રકાર 0x82 (લિનક્સ સ્વેપ) છે પરંતુ"
+"તે લિનક્સ સ્વેપ "
+"પાર્ટીશન તરીકે ફોર્મેટ થયેલ હોય એમ લાગતું નથી.\n"
+"\n"
+"શું તમે આ પાર્ટીશનને સ્વેપ પાર્ટીશન તરીકે ફોર્મેટ કરવા માંગો છો?"
 
 #: ../partIntfHelpers.py:401
 msgid ""
