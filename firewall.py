@@ -49,7 +49,7 @@ class Service:
 class Firewall:
     def __init__ (self):
 	self.enabled = 1
-        self.trusteddevs = []
+        self.trustdevs = []
 	self.portlist = []
         self.services = [ Service("ssh", N_("Remote Login (SSH)"), "22:tcp"),
                           Service("http", N_("Web Server (HTTP, HTTPS)"), "80:tcp"),
