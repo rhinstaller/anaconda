@@ -25,6 +25,280 @@ from packages import doInstall
 from constants import *
 from rhpl.log import log
 
+class InstallProgressWindow_NEW (InstallWindow):
+
+    windowTitle = N_("Installing Packages")
+    htmlTag = "installing"
+
+    def __init__ (self, ics):
+	InstallWindow.__init__ (self, ics)
+
+        ics.setPrevEnabled (gtk.FALSE)
+        ics.setNextEnabled (gtk.FALSE)
+        
+        ics.setHelpButtonEnabled (gtk.FALSE)
+
+	self.numComplete = 0
+	self.sizeComplete = 0
+
+    def processEvents(self):
+	gui.processEvents()
+        
+    def setPackageStatus(self, state, amount):
+	if self.pkgstatus is None:
+	    return
+	
+	if state == "downloading":
+	    msgstr = _("Downloading - %s") % (amount,)
+	else:
+	    msgstr = state
+	self.pkgstatus.set_text(msgstr)
+	self.processEvents()
+
+    def setPackageScale (self, amount, total):
+	# only update widget if we've changed by 5%, otherwise
+	# we update widget hundreds of times a seconds because RPM
+	# calls us back ALOT
+	curval = self.progress.get_fraction()
+	newval = float (amount) / total
+	if newval < 0.998:
+	    if (newval - curval) < 0.05 and newval > curval:
+		return
+                 
+	self.progress.set_fraction (newval)
+	self.processEvents()
+
+    def completePackage(self, header, timer):
+        def formatTime(amt):
+            hours = amt / 60 / 60
+            amt = amt % (60 * 60)
+            min = amt / 60
+            amt = amt % 60
+            secs = amt
+
+            return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
+
+        self.numComplete = self.numComplete + 1
+
+	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE]/1024)
+
+        # check to see if we've started yet
+	elapsedTime = timer.elapsed()
+	if not elapsedTime:
+	    elapsedTime = 1
+	
+        if self.sizeComplete != 0:
+            finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
+        else:
+            finishTime = (float (self.totalSize) / (self.sizeComplete+1)) * elapsedTime
+
+	remainingTime = finishTime - elapsedTime
+
+        self.totalProgress.set_fraction(float (self.sizeComplete) / self.totalSize)
+	
+        return
+
+    def setPackage(self, header):
+        if len(self.pixmaps):
+            # set to switch every N seconds
+            if self.pixtimer is None or self.pixtimer.elapsed() > 30:
+                if self.pixtimer is None:
+                    self.pixtimer = timer.Timer()
+                
+                num = self.pixcurnum
+                if num >= len(self.pixmaps):
+                    num = 0
+                pix = self.ics.readPixmapDithered (self.pixmaps[num], 425, 225)
+                if pix:
+		    if self.adpix:
+			self.adbox.remove (self.adpix)
+                    pix.set_alignment (0.5, 0.5)
+                    self.adbox.add (pix)
+                    self.adpix = pix
+                else:
+                    log("couldn't get a pix")
+                self.adbox.show_all()
+                self.pixcurnum = num + 1
+                self.pixtimer.reset()
+                
+        size = str (header[rpm.RPMTAG_SIZE] / 1024)
+        if len (size) > 3:
+            size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]
+
+        self.curPackage["package"].set_text ("%s-%s-%s.%s (%s KBytes)" % (header[rpm.RPMTAG_NAME],
+                                                              header[rpm.RPMTAG_VERSION],
+                                                              header[rpm.RPMTAG_RELEASE],
+                                                              header[rpm.RPMTAG_ARCH], size))
+	
+        summary = header[rpm.RPMTAG_SUMMARY]
+	if (summary == None):
+            summary = "(none)"
+        self.curPackage["summary"].set_text (summary)
+
+    def setSizes (self, total, totalSize):
+        self.numTotal = total
+        self.totalSize = totalSize
+        self.timeStarted = -1
+
+    def renderCallback(self):
+	self.intf.icw.nextClicked()
+
+    def allocate (self, widget, *args):
+        if self.sizingprogview: return
+        
+        self.sizingprogview = 1
+        width = widget.get_allocation ()[2] - 50
+
+    # InstallProgressWindow tag="installing"
+    def getScreen (self, dir, intf, id):
+        import glob
+
+	self.intf = intf
+
+	if dir == DISPATCH_BACK:
+	    intf.icw.prevClicked()
+
+	    return
+
+	files = []
+
+	# XXX this ought to search the lang path like everything else
+        if (os.environ.has_key('LANG')):
+            try:
+                shortlang = string.split(os.environ['LANG'], '_')[0]
+                longlang = string.split(os.environ['LANG'], '.')[0]
+            except:
+                shortlang = ''
+                longlang = os.environ['LANG']
+        else:
+            shortlang = ''
+            longlang = ''
+
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (shortlang,))
+
+	if len(pixmaps1) <= 0:
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (longlang,))
+
+	if len(pixmaps1) <= 0:
+	    # for beta try top level w/o lang
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png")
+
+        if len(pixmaps1) > 0:
+            files = pixmaps1
+        else:
+            files = ["progress_first.png"]
+
+        #--Need to merge with if statement above...don't show ads in lowres
+        if intf.runres != '800x600':
+            files = ["progress_first.png"]
+
+        # sort the list of filenames
+        files.sort()
+
+        pixmaps = []
+        for pixmap in files:
+            if string.find (pixmap, "progress_first.png") < 0:
+                pixmaps.append(pixmap[string.find(pixmap, "rnotes/"):])
+
+        self.pixmaps = pixmaps
+        self.pixtimer = None
+        self.pixcurnum = 0
+
+	# Create vbox to contain components of UI
+        vbox = gtk.VBox (gtk.FALSE, 10)
+
+        # Create rnote area
+        pix = self.ics.readPixmap ("progress_first.png")
+        if pix:
+            frame = gtk.Frame()
+#            frame.set_shadow_type(gtk.SHADOW_IN)
+            box = gtk.EventBox()
+            self.adpix = pix
+            box.modify_bg(gtk.STATE_NORMAL, box.get_style().white)
+            box.add(self.adpix)
+            self.adbox = box
+            frame.add (box)
+            vbox.pack_start(frame);
+
+	# Create progress bars for package and total progress
+	self.progress = gtk.ProgressBar ()
+        self.totalProgress = gtk.ProgressBar ()
+
+	progressTable = gtk.Table (2, 2, gtk.FALSE)
+#	label = gtk.Label (_("Total Progress:   "))
+#	label.set_alignment (1.0, 0.5)
+#	progressTable.attach (label, 0, 1, 0, 1, gtk.SHRINK)
+	progressTable.attach (self.totalProgress, 1, 2, 0, 1, ypadding=2)
+
+#	label = gtk.Label (_("Package Progress: "))
+#	label.set_alignment (1.0, 0.5)
+#	progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
+#	progressTable.attach (self.progress, 1, 2, 1, 2, ypadding=2)
+
+        vbox.pack_start (progressTable, gtk.FALSE)
+
+	# Create table for current package info
+	table = gtk.Table (3, 2)
+        vbox.pack_start (table, gtk.FALSE, gtk.FALSE)
+
+#        self.curPackage = { "package" : _("Package"),
+#                            "size"    : _("Size"),
+#                            "summary" : _("Summary") }
+
+        self.curPackage = { "package" : _("Package"),
+                            "summary" : _("Summary") }
+        i = 0
+#        for key in ("package", "size", "summary"):
+        for key in ("package", "summary"):
+            label = gtk.Label ("%s: " % (self.curPackage[key],))
+            label.set_alignment (0, 0)
+            if key == "summary":
+                fillopts = gtk.EXPAND|gtk.FILL
+            else:
+                fillopts = gtk.FILL
+
+            table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
+            label = gtk.Label ("")
+            label.set_alignment (0, 0)
+            label.set_line_wrap (gtk.TRUE)
+            if key == "summary":
+                label.set_text ("\n\n")
+                label.set_size_request(450, 35)
+#                label.set_size_request(-1, 1)
+            self.curPackage[key] = label
+            table.attach (label, 1, 2, i, i+1, gtk.FILL, fillopts)
+            i = i + 1
+
+	statusflag = 0
+	for m in ['http://', 'ftp://']:
+	    if id.methodstr.startswith(m):
+		statusflag = 1
+		break
+
+        # FIXME: including the status makes the rnotes different sizes which
+        # is bad.  temporarily disable download status for now
+#        statusflag = 0
+
+	if statusflag:
+	    statusTable = gtk.Table (2, 2, gtk.FALSE)
+	    self.pkgstatus = gtk.Label("")
+	    vbox.pack_start(statusTable, gtk.FALSE, gtk.FALSE)
+	    statusTable.attach (gtk.Label(_("Status: ")), 0, 1, 0, 1, gtk.SHRINK)
+	    statusTable.attach (self.pkgstatus, 1, 2, 0, 1, gtk.FILL, gtk.FILL, ypadding=2)
+	    vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
+	else:
+	    self.pkgstatus = None
+	
+	# All done with creating components of UI
+	intf.setPackageProgressWindow (self)
+	id.setInstallProgressClass(self)
+
+	vbox.set_border_width (5)
+
+	return vbox
+
+
+
 class InstallProgressWindow (InstallWindow):
 
     windowTitle = N_("Installing Packages")
