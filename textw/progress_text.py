@@ -78,12 +78,12 @@ class InstallProgressWindow:
 
         toplevel = GridForm(self.screen, _("Package Installation"), 1, 5)
         
-        name = _("Name   : ")
-        size = _("Size   : ")
-        sum =  _("Summary: ")
+        name = _(" Name   : ")
+        size = _(" Size   : ")
+        sum =  _(" Summary: ")
         
-        width = 40 + max (len (name), len (size), len (sum))
-	self.name = Label(" " * 40)
+        width = 47 + max (len (name), len (size), len (sum))
+	self.name = Label(" " * 48)
 	self.size = Label(" ")
 	detail = Grid(2, 2)
 	detail.setField(Label(name), 0, 0, anchorLeft = 1)
@@ -94,7 +94,7 @@ class InstallProgressWindow:
 
 	summary = Grid(2, 1)
 	summlabel = Label(sum)
-	self.summ = Textbox(40, 2, "", wrap = 1)
+	self.summ = Textbox(48, 2, "", wrap = 1)
 	summary.setField(summlabel, 0, 0)
 	summary.setField(self.summ, 1, 0)
 	toplevel.add(summary, 0, 1)
@@ -105,7 +105,7 @@ class InstallProgressWindow:
 	overall = Grid(4, 4)
 	# don't ask me why, but if this spacer isn"t here then the 
         # grid code gets unhappy
-	overall.setField (Label (" "), 0, 0, anchorLeft = 1)
+	overall.setField (Label (" " * 19), 0, 0, anchorLeft = 1)
 	overall.setField (Label (_("    Packages")), 1, 0, anchorLeft = 1)
 	overall.setField (Label (_("       Bytes")), 2, 0, anchorLeft = 1)
 	overall.setField (Label (_("        Time")), 3, 0, anchorLeft = 1)
