@@ -292,30 +292,40 @@ def upgradeFindPackages (intf, method, id, instPath):
     if hasX and not hasFileManager:
         for name in ("gmc", "kdebase"):
             try:
-                db.findbyname (name)
-                hasFileManager = 1
-                break
+                recs = db.findbyname (name)
+                if recs:
+                    hasFileManager = 1
+                    break
             except rpm.error:
                 continue
 
     # if we have X but not gmc, we need to turn on GNOME.  We only
     # want to turn on packages we don't have installed already, though.
     if hasX and not hasFileManager:
-	log ("Has X but no desktop -- Installing GNOME")
+	log ("Upgrade: System has X but no desktop -- Installing GNOME")
+        pkgs = ""
 	for package in id.comps['GNOME'].pkgs:
 	    try:
 		rec = db.findbyname (package.name)
 	    except rpm.error:
 		rec = None
 	    if not rec:
-		log ("GNOME: Adding %s", package)
+                pkgs = "%s %s" % (pkgs, package)
 		package.select()
+            log ("Upgrade: GNOME: Adding packages: %s", pkgs)
 
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
+	log ("Upgrade: User selected to use GRUB for bootloader")
         if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected():
+            log ("Upgrade: grub is not currently selected to be upgraded")
+            recs = None
             try:
-                db.findbyname ("grub")
+                recs = db.findbyname ("grub")
             except rpm.error:
+                pass
+            if not recs:
+                log("Upgrade: GRUB is not already installed on the system, "
+                    "selecting GRUB")
                 id.hdList["grub"].select()
 	
     del db
