@@ -65,8 +65,8 @@ def vgscan():
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgscan failed: %s.  disabling lvm" %(rc,))
-        lvmDevicePresent = 0
+        log("running vgscan failed: %s" %(rc,))
+#        lvmDevicePresent = 0
 
 def vgactivate(volgroup = None):
     """Activate volume groups by running vgchange -ay.
@@ -85,8 +85,8 @@ def vgactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgchange failed: %s.  disabling lvm" %(rc,))
-        lvmDevicePresent = 0
+        log("running vgchange failed: %s" %(rc,))
+#        lvmDevicePresent = 0
 
     # now make the device nodes
     args = ["lvm", "vgmknodes"]
@@ -97,8 +97,8 @@ def vgactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgmknodes failed: %s.  disabling lvm" %(rc,))
-        lvmDevicePresent = 0
+        log("running vgmknodes failed: %s" %(rc,))
+#        lvmDevicePresent = 0
 
 def vgdeactivate(volgroup = None):
     """Deactivate volume groups by running vgchange -an.
@@ -117,8 +117,8 @@ def vgdeactivate(volgroup = None):
                                 stderr = output,
                                 searchPath = 1)
     if rc:
-        log("running vgchange failed: %s.  disabling lvm" %(rc,))
-        lvmDevicePresent = 0
+        log("running vgchange failed: %s" %(rc,))
+#        lvmDevicePresent = 0
     
     
 def lvremove(lvname, vgname):
