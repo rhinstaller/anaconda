@@ -107,13 +107,6 @@ def isNotChangable(request, requestlist):
 	    return _("You cannot %s this partition as it is part of "
 		     "a RAID device")
 
-	if request.type == REQUEST_LV:
-	    # temporary message
-	    return _("The %s action on logical volumes from the "
-		     "treeview is not currently supported.\n\n"
-		     "To perform this action first edit the "
-		     "associated volume group.")
-
 	if requestlist.isLVMVolumeGroupMember(request):
 	    return _("You cannot %s this partition, as it is part of a LVM "
 		     "volume group.")
@@ -418,6 +411,9 @@ def confirmDeleteRequest(intf, request):
             errmsg = _("You are about to delete the volume group \"%s\"."
 		       "\n\nALL logical volumes in this volume group "
 		       "will be lost!" % (request.volumeGroupName,))
+	elif request.type == REQUEST_LV:
+            errmsg = _("You are about to delete the logical volume \"%s\"."
+		       % (request.logicalVolumeName,))
 	elif request.type == REQUEST_RAID:
             errmsg = _("You are about to delete a RAID device.")
         else:
