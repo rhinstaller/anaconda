@@ -80,7 +80,6 @@
 #include "../isys/isys.h"
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
-#include "../isys/eddsupport.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128
@@ -365,10 +364,6 @@ static void checkForHardDrives(int * flagsPtr) {
     int i;
     struct device ** devices;
 
-    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
-    if (devices)
-        return;
-
     /* If they're using kickstart, assume they might know what they're doing.
      * Worst case is we fail later */
     if (FL_KICKSTART(flags)) {
@@ -376,6 +371,10 @@ static void checkForHardDrives(int * flagsPtr) {
         return;
     }
     
+    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
+    if (devices)
+        return;
+
     startNewt(flags);
     i = newtWinChoice(_("Warning"), _("Yes"), _("No"),
                       _("No hard drives have been found.  You probably need "
@@ -1169,7 +1168,6 @@ int main(int argc, char ** argv) {
 
     memset(&loaderData, 0, sizeof(loaderData));
 
-
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine);
 
@@ -1197,8 +1195,8 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
 	setenv("TERM", "vt100", 1);
     
-    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy:edd", 
-                    modLoaded, modDeps, modInfo, flags);
+    mlLoadModuleSet("cramfs:nls_cp437:nls_ascii:vfat:nfs:loop:isofs:floppy", modLoaded, modDeps, 
+                    modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
     ideSetup(modLoaded, modDeps, modInfo, flags);
@@ -1254,7 +1252,6 @@ int main(int argc, char ** argv) {
     if (loaderData.ddsrc != NULL) {
         getDDFromSource(&loaderData, loaderData.ddsrc, flags);
     }
-
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  

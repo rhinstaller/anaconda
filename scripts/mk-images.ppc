@@ -1,5 +1,5 @@
-COMMONMODULES="nfs fat vfat cramfs loop floppy"
-FSMODS="msdos vfat ext3 reiserfs jfs xfs"
+COMMONMODULES="nfs fat vfat nls_cp437 nls_ascii cramfs loop floppy"
+FSMODS="msdos vfat nls_cp437 nls_ascii ext3 reiserfs jfs xfs"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
 USBMODS="ohci-hcd uhci-hcd hid usb-storage sd_mod sr_mod"

@@ -68,11 +68,11 @@ LATEUSBMODS="usb-storage"
 IDEMODS="cdrom ide-cd"
 SCSIMODS="cdrom scsi_mod sd_mod sg sr_mod st"
 
-FSMODS="fat msdos vfat ext3 reiserfs jfs xfs"
+FSMODS="fat msdos vfat nls_cp437 nls_ascii ext3 reiserfs jfs xfs"
 SECSTAGE="agpgart md raid0 raid1 raid5 raid6 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb vgastate"
-COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop edd $USBMODS $BTERMMODULES"
+COMMONMODULES="fat vfat nls_cp437 nls_ascii nfs sunrpc lockd floppy cramfs loop $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES 3c59x 
