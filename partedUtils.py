@@ -416,6 +416,24 @@ def getRedHatReleaseString(mountpoint):
         return relstr
     return ""
 
+def productMatches(oldproduct, newproduct):
+    """Determine if this is a reasonable product to upgrade old product"""
+    if oldproduct.startswith(newproduct):
+        return 1
+
+    if newproduct == "Red Hat Enterprise Linux AS":
+        acceptable = ( "Red Hat Linux Advanced Server", )
+    elif newproduct == "Red Hat Enterprise Linux WS":
+        acceptable = ( "Red Hat Linux Advanced Workstation", )
+    else:
+        acceptable = ()
+
+    for p in acceptable:
+        if oldproduct.startswith(p):
+            return 1
+
+    return 0
+
 class DiskSet:
     """The disks in the system."""
 
@@ -559,10 +577,10 @@ class DiskSet:
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
                         relstr = getRedHatReleaseString(mountpoint)
                         cmdline = open('/proc/cmdline', 'r').read()
-                        
-                        if (relstr.startswith(productName) or
-                            cmdline.find("upgradeany") != -1 or
-                            upgradeany == 1):
+
+                        if ((cmdline.find("upgradeany") != -1) or
+                            (upgradeany == 1) or
+                            (productMatches(relstr, productName))):
                             rootparts.append ((node, part.fs_type.name,
                                                relstr))
 		    isys.umount(mountpoint)
