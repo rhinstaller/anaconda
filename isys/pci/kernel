@@ -1,0 +1,140 @@
+# List of PCI cards supported by kernel modules
+#
+# Indented (tab or space) items are cards, unindented items are module names
+aic7xxx
+	Adaptec                  |AIC-7810
+	Adaptec                  |AIC-7821
+	Adaptec                  |AIC-7850
+	Adaptec                  |7851
+	Adaptec                  |7852
+	Adaptec                  |2930
+	Adaptec                  |AIC-7855
+	Adaptec                  |AIC-7860
+	Adaptec                  |AIC-7861
+	Adaptec                  |AIC-7860
+	Adaptec                  |AIC-7860
+	Adaptec                  |AIC-7870
+	Adaptec                  |AIC-7871
+	Adaptec                  |AIC-7872
+	Adaptec                  |AIC-7873
+	Adaptec                  |AIC-7874 [AHA-2944]
+	Adaptec                  |7875
+	Adaptec                  |7876
+	Adaptec                  |AIC-7895
+	Adaptec                  |AIC-7880U
+	Adaptec                  |AIC-7881U
+	Adaptec                  |AIC-7882U
+	Adaptec                  |AIC-7883U
+	Adaptec                  |AIC-7884U
+	Adaptec                  |7885
+	Adaptec                  |7886
+	Adaptec                  |7887
+	Adaptec                  |7888
+	Adaptec                  |2940U2
+	Adaptec                  |2930U2
+	Adaptec                  |78902
+	Adaptec                  |7890
+	Adaptec                  |3940U2
+	Adaptec                  |3950U2D
+	Adaptec                  |7896
+	Adaptec                  |7892A
+	Adaptec                  |7892B
+	Adaptec                  |7892D
+	Adaptec                  |7892P
+	Adaptec                  |7899A
+	Adaptec                  |7899B
+	Adaptec                  |7899D
+	Adaptec                  |7899P
+
+3c59x
+	3Com Corporation         |3c590 10BaseT [Vortex]
+	3Com Corporation         |3c595 100BaseTX [Vortex]
+	3Com Corporation         |3c595 100BaseT4 [Vortex]
+	3Com Corporation         |3c595 100Base-MII [Vortex]
+	3Com Corporation         |3c900 10BaseT [Boomerang]
+	3Com Corporation         |3c900 Combo [Boomerang]
+	3Com Corporation         |3c905 100BaseTX [Boomerang]
+	3Com Corporation         |3c905 100BaseT4
+	3Com Corporation         |3c905B 100BaseTX [Cyclone]
+53c7,8xx
+	Symbios                  |53c810
+	Symbios                  |53c820
+	Symbios                  |53c825
+	Symbios                  |53c815
+	Symbios                  |53c810AP
+	Symbios                  |53c860
+	Symbios                  |53c896
+	Symbios                  |53c895
+	Symbios                  |53c885
+	Symbios                  |53c875
+	Symbios                  |53c875J
+yellowfin
+	Symbios                  |Yellowfin G-NIC gigabit ethernet
+	Symbios                  |83C885 gigabit ethernet
+dac960
+	Mylex Corporation        |DAC960P
+qlogicisp
+	Q Logic                  |ISP1020
+	Q Logic                  |ISP1022
+	Q Logic                  |ISP2100
+tulip
+	DEC                      |DECchip 21041 [Tulip Pass 3]
+	DEC                      |DECchip 21140 [FasterNet]
+	DEC                      |DECchip 21050
+	DEC                      |DECchip 21040 [Tulip]
+	DEC                      |DECchip 21142/43
+	DEC                      |DECchip 21052
+	DEC                      |DECchip 21150
+	DEC                      |DECchip 21152
+	DEC                      |DECchip 21153
+lance
+	Advanced Micro Devices   |79c970 [PCnet LANCE]
+BusLogic
+	BusLogic                 |BT-946C (old) [multimaster 01]
+	BusLogic                 |BT-946C (BA80C30) [MultiMaster 10]
+	BusLogic                 |Flashpoint LT
+gdth
+	ICP Vortex               |GDT6000/6020/6050
+	ICP Vortex               |GDT6000b/6010
+	ICP Vortex               |GDT6110/6510
+	ICP Vortex               |GDT6120/6520
+	ICP Vortex               |GDT6530
+	ICP Vortex               |GDT6550
+	ICP Vortex               |GDT6x17
+	ICP Vortex               |GDT6x27
+	ICP Vortex               |GDT6537
+	ICP Vortex               |GDT5557
+	ICP Vortex               |GDT6x15
+	ICP Vortex               |GDT6x25
+	ICP Vortex               |GDT6535
+	ICP Vortex               |GDT6555
+	ICP Vortex               |GDT 6117RP/6517RP
+	ICP Vortex               |GDT 6127RP/6527RP
+	ICP Vortex               |GDT 6537RP
+	ICP Vortex               |GDT 6557RP
+	ICP Vortex               |GDT 6111RP/6511RP
+	ICP Vortex               |GDT 6121RP/6521RP
+	ICP Vortex               |GDT 6117RP1/6517RP1
+	ICP Vortex               |GDT 6127RP1/6527RP1
+	ICP Vortex               |GDT 6537RP1
+	ICP Vortex               |GDT 6557RP1
+	ICP Vortex               |GDT 6111RP1/6511RP1
+	ICP Vortex               |GDT 6121RP1/6521RP1
+	ICP Vortex               |GDT 6x18RD
+	ICP Vortex               |GDT 6x28RD
+	ICP Vortex               |GDT 6x38RD
+	ICP Vortex               |GDT 6x58RD
+	ICP Vortex               |GDT 6117RP2/6517RP2
+	ICP Vortex               |GDT 6127RP2/6527RP2
+	ICP Vortex               |GDT 6537RP2
+	ICP Vortex               |GDT 6557RP2
+	ICP Vortex               |GDT 6111RP2/6511RP2
+	ICP Vortex               |GDT 6121RP2/6521RP2
+	ICP Vortex               |GDT 7x18RN
+	ICP Vortex               |GDT 7x28RN
+	ICP Vortex               |GDT 7x38RN
+	ICP Vortex               |GDT 7x58RN
+	ICP Vortex               |GDT 6x19RD
+	ICP Vortex               |GDT 6x29RD
+	ICP Vortex               |GDT 7x19RN
+	ICP Vortex               |GDT 7x29RN
