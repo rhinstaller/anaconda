@@ -229,6 +229,7 @@ $LIBDIR/libcrypt*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
+$LIBDIR/liblaus.so*
 $LIBDIR/liblvm-10.so*
 $LIBDIR/libm[-.]*
 $LIBDIR/libnsl*
@@ -448,7 +449,7 @@ usr/X11R6/$LIBDIR/libXmuu.so*
 usr/X11R6/$LIBDIR/libX11.so*
 usr/X11R6/$LIBDIR/libXext.so*
 usr/X11R6/bin/xauth
-usr/$LIBDIR/liblaus.so*
+$LIBDIR/liblaus.so*
 EOF
 fi
       
