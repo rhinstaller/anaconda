@@ -34,6 +34,7 @@ PARTITION_SUCCESS = 0
 BOOT_ABOVE_1024 = -1
 BOOTEFI_NOT_VFAT = -2
 
+DEBUG_LVM_GROW = 0
 
 # check that our "boot" partition meets necessary constraints unless
 # the request has its ignore flag set
@@ -436,7 +437,9 @@ def growLogicalVolumes(diskset, requests):
 	    initsize[req.logicalVolumeName] = size
 	    cursize[req.logicalVolumeName] = size
 #	    print "init sizes",req.logicalVolumeName, size
-
+            if DEBUG_LVM_GROW:
+		log("init sizes for %s: %s",req.logicalVolumeName, size)
+	    
 	# now dolly out free space to all growing LVs
 	bailcount = 0
 	while 1:
@@ -444,28 +447,46 @@ def growLogicalVolumes(diskset, requests):
 	    completed = []
 	    for req in growreqs:
 #		print "considering ",req.logicalVolumeName, req.getStartSize()
-		
+                if DEBUG_LVM_GROW:
+		    log("considering %s, start size = %s",req.logicalVolumeName, req.getStartSize())
+		    
 		# get remaining free space
 		vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
 
 #		print "vgfree = ", vgfree
-		
+                if DEBUG_LVM_GROW:
+		    log("Free space in VG = %s",vgfree)
+		    
 		# compute fraction of remaining requests this
 		# particular request represents
 		totsize = 0.0
 		for otherreq in growreqs:
 		    if otherreq in completed:
 			continue
+
+		    if DEBUG_LVM_GROW:
+			log("adding in %s %s %s", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB)
 		    
 #		    print "adding in ", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB
 		    size = otherreq.getActualSize(requests, diskset)
 		    if otherreq.maxSizeMB:
 			if size < otherreq.maxSizeMB:
 			    totsize = totsize + otherreq.getStartSize()
+			else:
+			    if DEBUG_LVM_GROW:
+				log("%s is now at %s, and passed maxsize of %s", otherreq.logicalVolumeName, size, otherreq.maxSizeMB)
 		    else:
 			totsize = totsize + otherreq.getStartSize()
 
+		if DEBUG_LVM_GROW:
+		    log("totsize -> %s",totsize)
+
 #		print "totsize ->", totsize
+
+                # if totsize is zero we have no growable reqs left
+		if totsize == 0:
+		    break
+		
 		fraction = float(req.getStartSize())/float(totsize)
 
 		newsize = cursize[req.logicalVolumeName] + vgfree*fraction
@@ -473,13 +494,16 @@ def growLogicalVolumes(diskset, requests):
 		    newsize = min(newsize, req.maxSizeMB)
 		    
 		req.size = lvm.clampLVSizeRequest(newsize, vgreq.pesize)
-		cursize[req.logicalVolumeName] = req.size
-		
-#		print req.logicalVolumeName, req.size, vgfree, fraction
-		
 		if req.size != cursize[req.logicalVolumeName]:
 		    nochange = 0
 
+		cursize[req.logicalVolumeName] = req.size
+		
+#		print req.logicalVolumeName, req.size, vgfree, fraction
+
+                if DEBUG_LVM_GROW:
+		    log("Name, size, cursize, vgfree, fraction = %s %s %s %s %s", req.logicalVolumeName, req.size, cursize[req.logicalVolumeName], vgfree, fraction)
+		    
 		completed.append(req)
 
 	    if nochange:
