@@ -427,6 +427,11 @@ class BootDiskWindow:
 
 class XConfigWindow:
     def __call__(self, screen, todo):
+        # we need to get the package list here for things like
+        # workstation install - which will not have read the
+        # package list yet.
+        todo.getCompsList ()
+
 	if not todo.hdList.packages.has_key('XFree86') or \
 	   not todo.hdList.packages['XFree86'].selected: return None
 
@@ -529,7 +534,8 @@ class BeginInstallWindow:
 
 class InstallWindow:
     def __call__ (self, screen, todo):
-        todo.doInstall ()
+        if todo.doInstall ():
+            return INSTALL_BACK
         return INSTALL_OK
 
 class FinishedWindow:
@@ -784,7 +790,36 @@ class Flag:
     def get(self):
         return self.flag
 
+
+class ProgressWindow:
+    def pop(self):
+	self.screen.popWindow()
+	self.screen.refresh()
+
+    def set (self, amount):
+        self.scale.set (amount)
+	self.screen.refresh()
+
+    def __init__(self, screen, title, text, total):
+	self.screen = screen
+	width = 55
+	if (len(text) > width): width = len(text)
+
+	t = TextboxReflowed(width, text)
+
+	g = GridForm(self.screen, title, 1, 2)
+	g.add(t, 0, 0, (0, 0, 0, 1))
+
+        self.scale = Scale (width, total)
+        g.add(self.scale, 0, 1)
+                
+	g.draw()
+	self.screen.refresh()
+
 class InstallInterface:
+    def progressWindow(self, title, text, total):
+        return ProgressWindow (self.screen, title, text, total)
+
     def messageWindow(self, title, text):
 	ButtonChoiceWindow(self.screen, title, text,
                            buttons = [ _("OK") ])
@@ -910,10 +945,11 @@ class InstallInterface:
 					 0, step[0])
 		rc = apply (step[1](), step[2])
 
-	    if rc == -1:
+	    if rc == INSTALL_BACK:
 		dir = -1
-	    elif rc == 0:
+	    elif rc == INSTALL_OK:
 		dir = 1
+
 	    self.step = self.step + dir
         self.screen.finish ()
 
