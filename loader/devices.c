@@ -242,6 +242,12 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
+	/* re-probe for floppy device.  If the system has no legacy floppy
+	   device or IDE CD-ROM (i.e. it is only USB), they may have
+	   unplugged their CD-ROM at this point to plug in a USB floppy
+	   device. */
+	setFloppyDevice(flags);
+
 	ddi->device = strdup(device);
 	ddi->mntDevice = malloc(strlen(device) + 10);
 	sprintf(ddi->mntDevice, "/tmp/%s", device);
