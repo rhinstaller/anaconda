@@ -1,8 +1,14 @@
 2005-01-13  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Use busybox for our shell instead of ash
+
 	* gui.py (InstallControlWindow.prevClicked): Allow programatically
 	going back even if prev isn't active.
 	(InstallControlWindow.nextClicked): Likewise.
+	(InstallControlState.setHelpButtonEnabled): Fixup for newer help
+	handling.
+	(InstallControlWindow.refreshHelp): Don't try to show help for a
+	non-existent screen
 
 	* gui.py (InstallControlState.findPixmap): Fix warning syntax.
 	(InstallControlState.readPixmap): Likewise.

@@ -1014,7 +1014,7 @@ for p in $DEST $DESTGR; do
 	    rm -f $p/bin/ash
 	    ln -s bash $p/bin/sh
 	else
-	    ln -s ash $p/bin/sh
+	    ln -sf busybox $p/bin/sh
 	fi
 
 	[ -d $p/bin ] || die "ERROR: directory missing: $p/bin"
