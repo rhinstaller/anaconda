@@ -7,7 +7,7 @@ class Mouse (SimpleConfigFile):
 	"ALPS - GlidePoint (PS/2)" :
 		("ps/2", "GlidePointPS/2", "psaux", 1),
 	"ASCII - MieMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 1),
+		("ms3", "IntelliMouse", "ttyS", 0),
 	"ASCII - MieMouse (PS/2)" : 
 		("ps/2", "NetMousePS/2", "psaux", 1),
 	"ATI - Bus Mouse" :
@@ -51,7 +51,7 @@ class Mouse (SimpleConfigFile):
 	"Microsoft - Rev 2.1A or higher (serial)" :
 		("pnp", "Auto", "ttyS", 1),
 	"Microsoft - IntelliMouse (serial)" :
-		("ms3", "IntelliMouse", "ttyS", 1),
+		("ms3", "IntelliMouse", "ttyS", 0),
 	"Microsoft - IntelliMouse (PS/2)" :
 		("imps2", "IMPS/2", "psaux", 1), 
 	"Microsoft - Bus Mouse" :
