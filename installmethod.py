@@ -26,3 +26,6 @@ class InstallMethod:
 
     def __init__(self):
 	pass
+
+    def getSourcePath(self):
+        pass

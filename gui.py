@@ -485,14 +485,12 @@ class InstallControlWindow:
         
         self.textWin.set_position (gtk.WIN_POS_CENTER)
 
-        if self.buff != "":
-            buffer = gtk.TextBuffer(None)
-            buffer.set_text(self.buff)
+        if self.releaseNotesBuffer:
             text = gtk.TextView()
-            text.set_buffer(buffer)
+            text.set_buffer(self.releaseNotesBuffer)
             text.set_property("editable", gtk.FALSE)
             text.set_property("cursor_visible", gtk.FALSE)
-                
+            
             sw = gtk.ScrolledWindow()
             sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
             sw.set_shadow_type(gtk.SHADOW_IN)
@@ -526,20 +524,32 @@ class InstallControlWindow:
             self.textWin.show_all()
 
     def loadReleaseNotes(self):
-        self.buff = ""
 	langList = self.langSearchPath + [ "" ]
+        sourcepath = self.dispatch.method.getSourcePath()
 	for lang in langList:
-	    fn = "/mnt/source/RELEASE-NOTES"
-	    if len(lang):
-		fn = fn + "." + lang
-
-	    if os.access(fn, os.R_OK):
-		file = open(fn, "r")
-		self.buff = string.join(file.readlines(), '')
-		file.close()
-		return
-
-	self.buff = _("Release notes are missing.\n")
+	    if lang:
+                langpart = '.%s' % (lang,)
+            else:
+                langpart = ''
+                
+            for suffix in ('.html', ''):
+                fn = '%s/RELEASE-NOTES%s%s' % (sourcepath, langpart, suffix)
+                if os.access(fn, os.R_OK):
+                    file = open(fn, "r")
+                    if suffix == '.html':
+                        buffer = htmlbuffer.HTMLBuffer()
+                        buffer.feed(utf8(file.read()))
+                        self.releaseNotesBuffer = buffer.get_buffer()
+                    else:
+                        buffer = gtk.TextBuffer(None)
+                        buffer.set_text(utf8(file.read()))
+                        self.releaseNotesBuffer = buffer
+                    file.close()
+                    return
+            
+        buffer = gtk.TextBuffer(None)
+        buffer.set_text(_("Release notes are missing.\n"))
+        self.releaseNotesBuffer = buffer
 
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()

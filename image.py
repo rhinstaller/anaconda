@@ -25,6 +25,9 @@ class ImageInstallMethod(InstallMethod):
     def mergeFullHeaders(self, hdlist):
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 
+    def getSourcePath(self):
+        return self.tree
+
     def __init__(self, tree):
 	InstallMethod.__init__(self)
 	self.tree = tree
