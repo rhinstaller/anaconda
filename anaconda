@@ -13,7 +13,7 @@
 #
 # ... And many others
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -568,19 +568,6 @@ for n in args:
 anaconda_log.open (logFile)
 log.handler=anaconda_log
     
-# now let's set up our selinux stuff.  whee!
-if flags.setupFilesystems and 0:
-    os.mkdir("/selinux")
-    try:
-        isys.mount("/selinux", "/selinux", fstype="selinuxfs")
-    except:
-        log("Unable to mount selinuxfs")
-    if os.access("/selinux/load", os.W_OK):
-        dup_log("Loading selinux policy...")
-        args = ["/usr/sbin/load_policy",
-                "/mnt/runtime/etc/security/selinux/policy.15"]
-        iutil.execWithRedirect(args[0], args, stdout="/dev/tty5", stderr="/dev/tty5")
-
 #
 # must specify install, rescue mode
 #
