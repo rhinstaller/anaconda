@@ -214,9 +214,12 @@ if (progmode == 'rescue'):
 	sys.stderr.write('--method required for rescue mode\n')
 	sys.exit(1)
 
-    import rescue, instdata
+    import rescue, instdata, configFileData
     
     log.open (logFile)
+    configFile = configFileData.configFileData()
+    configFileData = configFile.getConfigData()
+    
     id = instdata.InstallData([], "fd0", configFileData)
     rescue.runRescue("/mnt/sysimage", not rescue_nomount, id)
 
