@@ -1,6 +1,6 @@
 COMMONMODULES="nfs fat vfat cramfs loop"
 FSMODS="msdos vfat ext3 reiserfs jfs"
-IDEMODULES="ide-cd"
+IDEMODS="ide-cd"
 SCSIMODS="sd_mod sr_mod st"
 LATEUSBMODS="mousedev usb-storage"
 SECSTAGE="raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
@@ -65,7 +65,7 @@ makeBootImages() {
     # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
     #            --initrdsize 8192 \
     #            --loaderbin loader \
-    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES"
     fi
 }
 
