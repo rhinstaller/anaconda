@@ -625,7 +625,9 @@ class ToDo:
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.network.netdevices.values ():
             device = dev.get ("device")
-            f = open (self.instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device, "w")
+	    fn = self.instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device
+            f = open (fn, "w")
+	    os.chmod(fn, 0600)
             f.write (str (dev))
             f.close ()
 
