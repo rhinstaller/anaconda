@@ -7,6 +7,7 @@
 #include "Python.h"
 
 #include "imount.h"
+#include "inet.h"
 #include "isys.h"
 #include "pci/pciprobe.h"
 #include "smp.h"
@@ -21,6 +22,7 @@ static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
 static PyObject * pciProbe(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
+static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
@@ -33,6 +35,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
+    { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -280,3 +283,29 @@ void init_isys(void) {
 static void emptyDestructor(PyObject * s) {
 }
 
+static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
+    char * dev, * ip, * netmask, * broadcast, * network;
+    int * isPtp, rc;
+    struct intfInfo device;
+    
+    if (!PyArg_ParseTuple(args, "sssssd", &dev, &ip, &netmask, &broadcast,
+			  &network, &isPtp)) return NULL;
+
+    strncpy(device.device, dev, sizeof(device.device) - 1);
+    device.ip.s_addr = inet_addr(ip);
+    device.netmask.s_addr = inet_addr(netmask);
+    device.broadcast.s_addr = inet_addr(broadcast);
+    device.network.s_addr = inet_addr(network);
+    device.isPtp = 0;
+    device.isUp = 0;
+    
+    rc = configureNetDevice(&device);
+    
+    if (rc == INET_ERR_ERRNO) 
+	PyErr_SetFromErrno(PyExc_SystemError);
+    else if (rc)
+	PyErr_SetString(PyExc_SystemError, "net configure failed");
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}

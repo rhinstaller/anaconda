@@ -1,6 +1,6 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = loader.o
+OBJS = loader.o log.o windows.o
 SOURCES = $(subst .o,.c,$(OBJS))
 BINS = loader init
 
@@ -46,7 +46,7 @@ loader: $(OBJS)
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
-        -lrpm -lz -lresolv
+        -lrpm -lz -lresolv -lnewt -lslang
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)

@@ -23,131 +23,17 @@
 #include <unistd.h>
 #include <popt.h>
 #include <newt.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <net/if.h>
-#include <net/route.h>
-#include <sys/ioctl.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
 
 #include "isys/imount.h"
+#include "isys/inet.h"
 #include "isys/isys.h"
 #include "isys/pci/pciprobe.h"
 
-#define _(x) x
-
-struct intfInfo {
-    char device[10];
-    int isPtp, isUp;
-    int set, manuallySet;
-    struct in_addr ip, netmask, broadcast, network;
-    struct in_addr bootServer;
-    char * bootFile;
-    int bootProto;
-};
-
-static int configureNetDevice(struct intfInfo * intf) {
-    struct ifreq req;
-    int s;
-    struct sockaddr_in addr;
-    struct in_addr ia;
-    char ip[20], nm[20], nw[20], bc[20];
-#if 0 /* 2.0 kernels only */
-    struct rtentry route;
-#endif
-	
-    addr.sin_family = AF_INET;
-    addr.sin_port = 0;
-
-    memcpy(&ia, &intf->ip, sizeof(intf->ip));
-    strcpy(ip, inet_ntoa(ia));
-
-    memcpy(&ia, &intf->netmask, sizeof(intf->netmask));
-    strcpy(nm, inet_ntoa(ia));
-
-    memcpy(&ia, &intf->broadcast, sizeof(intf->broadcast));
-    strcpy(bc, inet_ntoa(ia));
-
-    memcpy(&ia, &intf->network, sizeof(intf->network));
-    strcpy(nw, inet_ntoa(ia));
-
-    printf("configuring %s ip: %s nm: %s nw: %s bc: %s\n", intf->device,
-	   ip, nm, nw, bc);
-
-    s = socket(AF_INET, SOCK_DGRAM, 0);
-    if (s < 0) {
-	perror("socket");
-        return 1;
-    }
-    
-    strcpy(req.ifr_name, intf->device);
-    req.ifr_flags &= ~(IFF_UP | IFF_RUNNING); /* Take down iface */
-    if (ioctl(s, SIOCSIFFLAGS, &req)) {
-        perror("SIOCSIFFLAGS");
-        close(s);
-        return 1;
-    }
-
-    addr.sin_port = 0;
-    memcpy(&addr.sin_addr, &intf->ip, sizeof(intf->ip));
-    memcpy(&req.ifr_addr, &addr, sizeof(addr));
-    if (ioctl(s, SIOCSIFADDR, &req)) {
-        perror("SIOCSIFADDR");
-        close(s);
-        return 1;
-    }
-
-    memcpy(&addr.sin_addr, &intf->broadcast, sizeof(intf->broadcast));
-    memcpy(&req.ifr_broadaddr, &addr, sizeof(addr));
-    if (ioctl(s, SIOCSIFBRDADDR, &req)) {
-        perror("SIOCSIFNETMASK");
-        close(s);
-        return 1;
-    }
-
-    memcpy(&addr.sin_addr, &intf->netmask, sizeof(intf->netmask));
-    memcpy(&req.ifr_netmask, &addr, sizeof(addr));
-    if (ioctl(s, SIOCSIFNETMASK, &req)) {
-        perror("SIOCSIFNETMASK\n");
-        close(s);
-        return 1;
-    }
-
-    if (intf->isPtp)
-        req.ifr_flags = IFF_UP | IFF_RUNNING | IFF_POINTOPOINT | IFF_NOARP;
-    else
-        req.ifr_flags = IFF_UP | IFF_RUNNING | IFF_BROADCAST;
-
-    if (ioctl(s, SIOCSIFFLAGS, &req)) {
-        perror("SIOCSIFFLAGS");
-        close(s);
-        return 1;
-    }
-
-#if 0 /* kernel 2.0 only */
-    memset(&route, 0, sizeof(route));
-    route.rt_dev = intf->device;
-    route.rt_flags = RTF_UP;
-
-    memcpy(&addr.sin_addr, &intf->network, sizeof(intf->netmask));
-    memcpy(&route.rt_dst, &addr, sizeof(addr));
-
-    memcpy(&addr.sin_addr, &intf->netmask, sizeof(intf->netmask));
-    memcpy(&route.rt_genmask, &addr, sizeof(addr));
-
-    if (ioctl(s, SIOCADDRT, &route)) {
-        perror("SIOCADDRT");
-        close(s);
-        return 1;
-
-    }
-#endif
-    
-    intf->isUp = 1;
-
-    return 0;
-}
+#include "windows.h"
+#include "log.h"
+#include "lang.h"
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -184,6 +70,13 @@ int main(int argc, char ** argv) {
 	return 1;
     }
 
+    openLog(testing);
+    
+    newtInit();
+    newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
+    
+    newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
+	
     if (!testing) {
 	modules = probePciDriverList();
 	if (modules == NULL) {
@@ -191,8 +84,10 @@ int main(int argc, char ** argv) {
 	} else {
 	    while ((module = *modules++)) {
 		if (!testing) {
-		    printf("Inserting module %s\n", module);
+		    winStatus(60, 5, "Module Insertion",
+			      "Inserting module %s");
 		    insmod(module, NULL);
+		    newtPopWindow();
 		} else {
 		    printf("Test mode: I would run insmod(%s, args);\n",
 			   module);
@@ -200,14 +95,6 @@ int main(int argc, char ** argv) {
 	    }
 	}
     
-	/*
-    newtInit();
-    newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
-
-    newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
-
-    newtFinished();
-    */
 
 	strcpy(eth0.device, "eth0");
 	eth0.isPtp=0;
@@ -242,6 +129,8 @@ int main(int argc, char ** argv) {
     *argptr++ = "-p";
     *argptr++ = "/mnt/source";
 
+    newtFinished();
+    
     printf("Launching anaconda (%s), please wait...\n", anacondaArgs[0]);
     
     execv(anacondaArgs[0], anacondaArgs);

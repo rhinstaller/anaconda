@@ -7,7 +7,7 @@ import os
 class WelcomeWindow:
     def run(self, screen):
         ButtonChoiceWindow(screen, "Red Hat Linux", 
-		"Welcome to Red Hat Linux!\n\n"
+            "Welcome to Red Hat Linux!\n\n"
             "This installation process is outlined in detail in the "
 	    "Official Red Hat Linux Installation Guide available from "
 	    "Red Hat Software. If you have access to this manual, you "
