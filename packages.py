@@ -988,7 +988,10 @@ def doPostInstall(method, id, intf, instPath):
             try:
                 # ugly hack
                 path = id.compspkg.split("/mnt/sysimage")[1]
-                args = ["/bin/rpm", "-Uvh", path]
+                if iutil.getArch() != "s390":
+                    args = ["/bin/rpm", "-Uvh", path]
+                else:
+                    args = ["/bin/rpm", "-Uv", path]
                 rc = iutil.execWithRedirect(args[0], args,
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
