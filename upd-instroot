@@ -131,8 +131,6 @@ bin/gzip
 bin/ln
 bin/ls
 bin/mkdir
-bin/mknod
-bin/mount
 bin/mt
 bin/mv
 bin/ping
@@ -343,7 +341,7 @@ make install-hd DESTDIR=$DEST > /dev/null
 make install DESTDIR=$DESTGR > /dev/null
 
 # clean collage out of larger image so we can use real commands like 'ls'
-for i in collage cat chmod df gunzip ln ls lsmod mkdir mknod umount mount rm uncpio; do
+for i in cat chmod df gunzip ln ls lsmod mkdir umount mount; do
      rm -f $DESTGR/usr/bin/$i
 done
 
