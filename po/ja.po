@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-19 00:46+0900\n"
+"PO-Revision-Date: 2004-09-26 00:10+0900\n"
 "Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
-"Language-Team: Japanese <i18n-list@redhat.com>\n"
+"Language-Team: Fedora Trans Ja <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -6727,7 +6727,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6737,13 +6737,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tデスクトップシェル (GNOME)\n"
+"\t管理ツール\n"
+"\tサーバー設定ツール\n"
+"\tWeb サーバー\n"
+"\tWindows ファイルサーバー (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6756,22 +6760,22 @@ msgid ""
 msgstr ""
 "\tデスクトップ シェル (GNOME)\n"
 "\tオフィススィート (OpenOffice.org)\n"
-"\tWebブラウザ (Mozilla) \n"
+"\tWeb ブラウザ (Mozilla) \n"
 "\t電子メール (Evolution)\n"
 "\tインスタントメッセージング\n"
 "\tサウンドとビデオのアプリケーション\n"
 "\tゲーム\n"
+"\t管理ツール\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6785,7 +6789,7 @@ msgid ""
 msgstr ""
 "\tデスクトップ シェル (GNOME)\n"
 "\tオフィススィート (OpenOffice.org)\n"
-"\tWebブラウザ (Mozilla) \n"
+"\tWeb ブラウザ (Mozilla) \n"
 "\t電子メール (Evolution)\n"
 "\tインスタントメッセージング\n"
 "\tサウンドとビデオのアプリケーション\n"
