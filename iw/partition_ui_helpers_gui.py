@@ -191,3 +191,129 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
                             fstypeoptionMenu.get_active().get_data("type").isMountable())
 
     return (fstypeoption, fstypeoptionMenu)
+
+def formatOptionCB(widget, data):
+    (menuwidget, menu, mntptcombo, ofstype) = data
+    menuwidget.set_sensitive(widget.get_active())
+
+    # inject event for fstype menu
+    if widget.get_active():
+	fstype = menu.get_active().get_data("type")
+	setMntPtComboStateFromType(fstype, mntptcombo)
+    else:
+	setMntPtComboStateFromType(ofstype, mntptcombo)
+
+def noformatCB(widget, badblocks):
+    badblocks.set_sensitive(widget.get_active())
+
+def noformatCB2(widget, data):
+    (menuwidget, menu, mntptcombo, ofstype) = data
+    menuwidget.set_sensitive(not widget.get_active())
+
+    # inject event for fstype menu
+    if widget.get_active():
+	setMntPtComboStateFromType(ofstype, mntptcombo)
+
+
+""" createPreExistFSOptionSection: given inputs for a preexisting partition,
+    create a section that will provide format and migrate options
+
+    Returns the value of row after packing into the maintable,
+    and a dictionary consistenting of:
+       noformatrb    - radiobutton for 'leave fs unchanged'
+       formatrb      - radiobutton for 'format as new fs'
+       fstype        - part of format fstype menu
+       fstypeMenu    - part of format fstype menu
+       migraterb     - radiobutton for migrate fs
+       migfstype     - menu for migrate fs types
+       migfstypeMenu - menu for migrate fs types
+       badblocks     - toggle button for badblock check
+"""
+def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
+                                  showbadblocks=1):
+    ofstype = origrequest.fstype
+
+    maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
+    row = row + 1
+
+    label = gtk.Label(_("How would you like to prepare the filesystem "
+		       "on this partition?"))
+    label.set_line_wrap(1)
+    label.set_alignment(0.0, 0.0)
+
+    maintable.attach(label, 0, 2, row, row + 1)
+    row = row + 1
+
+    noformatrb = gtk.RadioButton(label=_("Leave unchanged "
+					 "(preserve data)"))
+    noformatrb.set_active(1)
+    maintable.attach(noformatrb, 0, 2, row, row + 1)
+    row = row + 1
+
+    formatrb = gtk.RadioButton(label=_("Format partition as:"),
+				    group=noformatrb)
+    formatrb.set_active(0)
+    if origrequest.format:
+	formatrb.set_active(1)
+
+    maintable.attach(formatrb, 0, 1, row, row + 1)
+    (fstype, fstypeMenu) = createFSTypeMenu(ofstype, fstypechangeCB,mountCombo)
+    fstype.set_sensitive(formatrb.get_active())
+    maintable.attach(fstype, 1, 2, row, row + 1)
+    row = row + 1
+
+    if not formatrb.get_active() and not origrequest.migrate:
+	mountCombo.set_data("prevmountable", ofstype.isMountable())
+
+    formatrb.connect("toggled", formatOptionCB,
+		     (fstype, fstypeMenu, mountCombo, ofstype))
+
+    noformatrb.connect("toggled", noformatCB2,
+		     (fstype, fstypeMenu, mountCombo, origrequest.origfstype))
+
+    if origrequest.origfstype.isMigratable():
+	migraterb = gtk.RadioButton(label=_("Migrate partition to:"),
+				    group=noformatrb)
+	migraterb.set_active(0)
+	if origrequest.migrate:
+	    migraterb.set_active(1)
+
+	migtypes = origrequest.origfstype.getMigratableFSTargets()
+
+	maintable.attach(migraterb, 0, 1, row, row + 1)
+	(migfstype, migfstypeMenu)=createFSTypeMenu(ofstype, None, None,
+						    availablefstypes = migtypes)
+	migfstype.set_sensitive(migraterb.get_active())
+	maintable.attach(migfstype, 1, 2, row, row + 1)
+	row = row + 1
+
+	migraterb.connect("toggled", formatOptionCB,
+			       (migfstype, migfstypeMenu, mountCombo, ofstype))
+    else:
+	migraterb = None
+	migfstype = None
+	migfstypeMenu = None
+
+    if showbadblocks:
+        badblocks = gtk.CheckButton(_("Check for bad blocks?"))
+        badblocks.set_active(0)
+        maintable.attach(badblocks, 0, 1, row, row + 1)
+        formatrb.connect("toggled", noformatCB, badblocks)
+        if not origrequest.format:
+            badblocks.set_sensitive(0)
+
+        if origrequest.badblocks:
+            badblocks.set_active(1)
+
+    else:
+        badblocks = None
+        
+    row = row + 1
+
+    rc = {}
+    for var in ['noformatrb', 'formatrb', 'fstype', 'fstypeMenu',
+	    'migraterb', 'migfstype', 'migfstypeMenu', 'badblocks' ]:
+	rc[var] = eval("%s" % (var,))
+
+    return (row, rc)
+    
