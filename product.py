@@ -14,7 +14,7 @@ import os
 
 if not os.access("/.buildstamp", os.R_OK):
     productName = "anaconda"
-    productVersion = "blueskyb"
+    productVersion = "bluesky"
 else:
     f = open("/.buildstamp", "r")
     lines = f.readlines()
