@@ -362,9 +362,15 @@ class Fstab:
 	space = []
 	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
 	    if fsystem == 'ext2':
-		space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
+                try:
+                    space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
+                except SystemError:
+                    pass
 	    elif mntpoint == '/' and fsystem == 'vfat':
-		space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
+                try:
+                    space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
+                except SystemError:
+                    pass
 
 	space.sort(self.spaceSort)
 	return space
