@@ -116,12 +116,12 @@ class AccountWindow (InstallWindow):
 	accountName = self.userstore.get_value(iter, 0)
 	fullName = self.userstore.get_value(iter, 1)
 	password = self.passwords[accountName]
-
 	return (accountName, fullName, password)
 
     def userSelected(self, selection, *args):
         self.edit.set_sensitive(gtk.TRUE)
         self.delete.set_sensitive(gtk.TRUE)
+
 
     def addUser_cb(self):
 	accountName = self.accountName.get_text()
@@ -133,6 +133,8 @@ class AccountWindow (InstallWindow):
             return
 	if accountName == "root":
 	    return
+        if len(password1) < 6:
+            return
 
         if self.passwords.has_key (accountName):
             return
