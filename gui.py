@@ -340,7 +340,7 @@ def titleBarMotionEventCB(widget, event, data):
 	
 	data["window"].move(newx, newy)
 
-def addFrame(dialog, title=None):
+def addFrame(dialog, title=None, showtitle = 1):
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
@@ -365,11 +365,15 @@ def addFrame(dialog, title=None):
 	    eventBox.add(titleBox)
 	    eventBox.modify_bg(gtk.STATE_NORMAL,
                                eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
-	    titlelbl = gtk.Label("")
-	    titlelbl.set_markup("<b>"+_(title)+"</b>")
-	    titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
-	    titlelbl.set_property("ypad", 4)
-	    titleBox.pack_start(titlelbl)
+            if showtitle:
+                titlelbl = gtk.Label("")
+                titlelbl.set_markup("<b>"+_(title)+"</b>")
+                titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
+                titlelbl.set_property("ypad", 4)
+                titleBox.pack_start(titlelbl)
+            else:
+                s = gtk.Label("")
+                titleBox.pack_start(s)
 	    box.pack_start(eventBox, gtk.FALSE, gtk.FALSE)
     except:
 	pass
@@ -399,7 +403,7 @@ class WaitWindow:
         box.add(label)
         box.set_shadow_type(gtk.SHADOW_NONE)
         self.window.add(box)
-        addFrame(self.window)
+        addFrame(self.window, showtitle = 0)
 	self.window.show_all()
         rootPushBusyCursor()
             
