@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-22 00:52+0200\n"
+"PO-Revision-Date: 2004-06-24 18:31+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -241,13 +241,15 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
+"Стартната партиција %s веројатно не ги задоволува условите за стартување на вашата архитектура.  "
+"Препорачливо е изработка на стартна дискета."
 
 #: ../autopart.py:1042
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
+msgstr "Со додавање на оваа партиција нема да остане доволно простор на дискот за веќе доделените логички дискови во %s."
 
 #: ../autopart.py:1208
 msgid "Requested Partition Does Not Exist"
@@ -322,6 +324,11 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Се појавија следниве грешки при вашето партиционирање:\n"
+"\n"
+"%s\n"
+"\n"
+"Притисни 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1344
 msgid "Warnings During Automatic Partitioning"
@@ -334,6 +341,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Се појавија следниве предупредувања при автоматското партиционирање:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1358 ../autopart.py:1375
 msgid ""
@@ -370,6 +380,11 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"\n"
+"\n"
+"Можете да одберете друг начин на автоматското партиционирање или кликнете 'Назад' за да одберете рачно партиционирање.\n"
+"\n"
+"Притиснете 'Во ред' за да продолжите."
 
 #: ../autopart.py:1382
 #, python-format
@@ -381,6 +396,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"Се појавија следниве грешки при вашето партиционирање:\n"
+"\n"
+"%s\n"
+"\n"
+"Ова може да се случи ако нема доволно простор за инсталирање на вашиот(те) диск(ови).%s"
 
 #: ../autopart.py:1393
 msgid "Unrecoverable Error"
@@ -412,6 +432,11 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"Автоматското партиционирање ги подеси партициите во согласност со избраниот тип на инсталирање. Еднаш креираните партиции можете да ги прилагодите на вашите потреби.\n"
+"\n"
+"Алатката за рачно партиционирање, Disk Druid, ви овозможува креирање на "
+"партиции во интерактивна околина. Можете да го подесите типот на датотечниот систем, "
+"монтирачките папки, големините на партициите и друго."
 
 #: ../autopart.py:1494
 msgid ""
@@ -421,7 +446,7 @@ msgstr ""
 
 #: ../autopart.py:1499
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "Отстрани ги сите партиции на овој систем"
 
 #: ../autopart.py:1500
 msgid "Remove all Linux partitions on this system"
@@ -917,11 +942,11 @@ msgstr ""
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
-msgstr ""
+msgstr "Назад"
 
 #: ../gui.py:1192
 msgid "_Next"
-msgstr ""
+msgstr "Следно"
 
 #: ../gui.py:1194
 msgid "_Release Notes"
@@ -942,12 +967,12 @@ msgstr ""
 #: ../gui.py:1282
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s Инсталер"
 
 #: ../gui.py:1297
 #, python-format
 msgid "%s Installer on %s"
-msgstr ""
+msgstr "%s Инсталер на %s"
 
 #: ../gui.py:1325
 msgid "Unable to load title bar"
@@ -4640,7 +4665,7 @@ msgstr ""
 #: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
 #: ../loader2/urls.c:444
 msgid "Back"
-msgstr ""
+msgstr "Назад"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
@@ -5133,27 +5158,27 @@ msgstr ""
 
 #: ../textw/partition_text.py:552
 msgid "Check for bad blocks"
-msgstr ""
+msgstr "Провери ги лошите блокови"
 
 #: ../textw/partition_text.py:556
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "Остави непроменето (сочувај ги податоците)"
 
 #: ../textw/partition_text.py:565
 msgid "Format as:"
-msgstr ""
+msgstr "Обликувај како:"
 
 #: ../textw/partition_text.py:585
 msgid "Migrate to:"
-msgstr ""
+msgstr "Пресели на:"
 
 #: ../textw/partition_text.py:697
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "Инсистирај да биде примарна партиција"
 
 #: ../textw/partition_text.py:714
 msgid "Not Supported"
-msgstr ""
+msgstr "Не е поддржано"
 
 #: ../textw/partition_text.py:715
 msgid "LVM Volume Groups can only be edited in the graphical installer."
@@ -5213,7 +5238,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1140
 msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
+msgstr "   F1-Помош    F2-Ново    F3-Уреди   F4-Бриши    F5-Ресет    F12-Во ред      "
 
 #: ../textw/partition_text.py:1169
 msgid "No Root Partition"
