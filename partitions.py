@@ -970,3 +970,21 @@ class Partitions:
             part = disk.next_partition(part)
         return None
 
+
+    def doMetaDeletes(self):
+        """Does the removal of all of the non-physical volumes in the delete list."""
+
+        # have to have lvm on first
+        lvm.vgactivate()
+
+        # now, go through and delete logical volumes
+        for delete in self.deletes:
+            if isinstance(delete, partRequests.DeleteLogicalVolumeSpec):
+                lvm.lvremove(delete.name, delete.vg)
+
+        # now, go through and delete volume groups
+        for delete in self.deletes:
+            if isinstance(delete, partRequests.DeleteVolumeGroupSpec):
+                lvm.vgremove(delete.name)
+
+        lvm.vgdeactivate()
