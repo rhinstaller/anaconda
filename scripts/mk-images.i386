@@ -87,14 +87,9 @@ ISOLINUXMODULES="usbcore ehci-hcd ieee1394 ohci1394 sbp2"
 # XXX hack hack
 PCMCIAMODULES_EXCLUDED="
 	apa1480_cb
-	airo
-	airo_cs
 	atmel
 	atmel_cs
 	atmel_pci
-	aironet4500_core
-	aironet4500_proc
-	hermes
 	iflash2+_mtd
 	iflash2_mtd
 	memory_cb
@@ -106,17 +101,6 @@ PCMCIAMODULES_EXCLUDED="
 	serial_cs
 	serial_cb
 	sram_mtd
-        aironet4500_cs
-        orinoco_cs
-        orinoco
-	orinoco_pci
-	orinoco_plx
-	orinoco_tmd
-	prism54
-        orinoco_old_cs
-	wavelan
-        wavelan_cs
-        wvlan_cs
 	wl3501_cs
 "
 PCMCIAMODULES_EXCLUDED_SED="sed"
