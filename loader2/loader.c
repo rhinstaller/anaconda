@@ -185,6 +185,7 @@ void stopNewt(void) {
 char * getProductName(void) {
     static char * productName = NULL;
     FILE *f;
+    int i;
 
     if (!productName) {
         f = fopen("/.buildstamp", "r");
@@ -194,6 +195,13 @@ char * getProductName(void) {
             productName = malloc(256);
             fgets(productName, 256, f); /* stamp time */
             fgets(productName, 256, f); /* product name */
+
+            i = strlen(productName) - 1;
+            while (isspace(*(productName + i))) {
+                *(productName + i) = '\0';
+                i--;
+            }
+
             return productName;
         }
     } else {
