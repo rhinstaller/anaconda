@@ -74,8 +74,8 @@ except rpm.error:
     print "Failed to read header list", f
     sys.exit(1)
 # and read the comps file
-comps = comps.ComponentSet(distDir + "/RedHat/base/comps.xml", hdlist, 
-			    arch = arch, matchAllLang = 0)
+comps = comps.ComponentSet("file://%s/RedHat/base/comps.xml" %(distDir,),
+                           hdlist, arch = arch, matchAllLang = 0)
 
 # work out the order we'd like to install everything in
 pkgOrder = []
