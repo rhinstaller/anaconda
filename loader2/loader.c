@@ -1354,6 +1354,8 @@ int main(int argc, char ** argv) {
         } else {
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
+            } else {
+                flags |= FL_NO_SELINUX;
             }
         }
     }
@@ -1406,6 +1408,8 @@ int main(int argc, char ** argv) {
             *argptr++ = "-C";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
+        if (FL_NOSELINUX(flags))
+            *argptr++ = "--noselinux";
         
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";

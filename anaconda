@@ -394,7 +394,7 @@ try:
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution=', 'skipddc',
+            'autostep', 'resolution=', 'skipddc', 'noselinux',
 	    'vnc', 'vncconnect=', 'cmdline', 'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
@@ -510,6 +510,8 @@ for n in args:
         # run native X server at specified resolution, ignore fb
         runres = arg
 	runres_override = 1
+    elif (str == '--noselinux'):
+        flags.selinux = 0
     elif (str == "--skipddc"):	
 	skipddc = 1
     elif (str == "--autostep"):
