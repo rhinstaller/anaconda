@@ -66,7 +66,7 @@ def startX(resolution, nofbmode):
     os.environ['DISPLAY'] = ':1'
     serverPath = None
 
-    print "Probing for mouse type..."
+    print _("Probing for mouse type...")
 
     mouse = Mouse()
     if not mouse.probe (frob=1):
