@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-21 11:19+0200\n"
+"PO-Revision-Date: 2004-07-23 13:35+0200\n"
 "Last-Translator: Eduard Pech <kongretkrassescheissendreck@simstim.net>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1588,7 +1588,7 @@ msgstr ""
 "Möchten Sie diese DASD im CDL-Format neu formatieren?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1596,17 +1596,13 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Die Partitionstabelle des Gerätes /dev/%s ist von einem nicht für Ihre "
-"Architektur vorgesehen Typ %s. Um auf dieser Festplatte %s zu installieren, "
-"muss diese erneut initialisiert werden, was den Verlust SÄMTLICHER DATEN auf "
-"dieser Festplatte bewirkt.\n"
+"Das Gerät /dev/%s hat momentan eine Partitionstabelle vom Typ '%s'. Um auf dieser Platte %s zu installieren, muss sie neu eingerichtet werden. Dabei gehen ALLE AUF IHR GESPEICHERTEN DATEN verloren.\n"
 "\n"
-"Möchten Sie das Laufwerk initialisieren?"
+"Mächten Sie das Laufwert formatieren?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Laufwerk übergehen (_ignorieren)"
+msgstr "Laufwerk _übergehen"
 
 #: ../partedUtils.py:314
 msgid "_Format drive"
@@ -1627,7 +1623,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Formatieren der Festplatte %s... Bitte warten.\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1638,14 +1634,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Die Partitionstabelle auf Gerät %s ist nicht lesbar. Um neue Partitionen zu "
-"erstellen, muss die Tabelle initialisiert werden, was den Verlust ALLER "
-"DATEN auf dieser Festplatte bewirkt.\n"
+"Die Partitionstabelle des Geräts %s (%s) war nicht lesbar. Um neue Partitionen zu erstellen, muss die Platte eingerichtet werden. Dabei gehen ALLE AUF IHR GESPEICHERTEN DATEN verloren.\n"
 "\n"
-"Diese Operation überschreibt alle in der vorangegangenen Installation "
-"gewählten Optionen der zu ignorierenden Laufwerke.\n"
+"Dieser Vorgang macht alle bisherigen Installationsentscheidungen bezüglich zu übergehender Laufwerke nichtig.\n"
 "\n"
-"Möchten Sie diese Festplatte initialisieren und ALLE DATEN löschen?"
+"Möchten Sie dieses Laufwerk einrichten und ALLE DATEN löschen?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -2576,15 +2569,11 @@ msgid "Unable to Start X"
 msgstr "Kann X nicht starten"
 
 #: ../vnc.py:37
-#, fuzzy
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
-"X konnte nicht gestartet werden. Möchten Sie VNC starten, um \n"
-"zu diesem Rechner von einem anderen Rechner zu verbinden und eine \n"
-"grafische Installation durchführen oder mit einer Text basierten Installation fortfahren?"
+msgstr "X konnte auf Ihrer Maschine nicht gestartet werden. Möchten Sie VNC starten, um von einem anderen Rechner zu diesem Rechner zu verbinden und so eine grafische Installation durchführen oder mit einer Installation im Textmodus fortfahren?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -6890,13 +6879,10 @@ msgstr ""
 "dienen könnten. Welches Gerät möchten Sie verwenden?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"Sie verfügen über mehrere Geräte, welche als Quelle für eine Treiberdiskette "
-"dienen könnten. Welches Gerät möchten Sie verwenden?"
+msgstr "Dieses Gerät enthält mehrere Partitionen, die das Abbild der Treiberdiskette enthalten könnten. Welche möchten Sie verwenden?"
 
 #: ../loader2/driverdisk.c:331
 msgid "Failed to mount partition."
@@ -7131,9 +7117,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ks.cfg konnte nicht auf der Bootdiskette gefunden werden."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Ungültiges Argument zum HD Kickstart-Befehl %s: %s"
+msgstr "Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7276,7 +7262,7 @@ msgid "Add Device"
 msgstr "Gerät hinzufügen"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Loader wurde bereits ausgeführt. Starte jetzt das Befehlsfenster.\n"
 
@@ -8508,7 +8494,6 @@ msgstr "Zulu"
 #~ msgid "Other _ports:"
 #~ msgstr "Andere _Ports:"
 
-#, fuzzy
 #~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
 #~ msgstr "_SicherheitsErweitertes Linux (SELinux) Erweiterungen:"
 
