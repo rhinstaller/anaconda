@@ -27,8 +27,3 @@ USEDIET=0
 ifeq (i386, $(ARCH))
 USEDIET=1
 endif
-# do we really want to use diet on ppc?
-ifeq (ppc, $(ARCH))
-USEDIET=1
-endif
-
