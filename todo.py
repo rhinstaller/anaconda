@@ -582,13 +582,13 @@ class ToDo:
             # remove entries for missing kernels (upgrade)
             if type == "image":
                 if not os.access (self.instPath + name, os.R_OK):
-                    self.lilo.delEntry (name)
+                    self.lilo.delImage (name)
             # remove entries for unbootable partitions
             if type == "other":
                 device = name[5:]
                 isys.makeDevInode(device, '/tmp/' + device)
                 if not isys.checkBoot ('/tmp/' + device):
-                    self.lilo.delEntry (name)
+                    self.lilo.delImage (name)
                 os.remove ('/tmp/' + device)
 
 	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
