@@ -11,7 +11,7 @@ NLSPACKAGE = anaconda
 CATALOGS = $(shell ls *.po)
 FMTCATALOGS = $(patsubst %.po,%.mo,$(CATALOGS))
 
-POTFILES  = ../text.py ../gui.py ../iw/*.py
+POTFILES  = ../text.py ../gui.py ../iw/*.py ../libfdisk/*.c
 
 all: $(NLSPACKAGE).pot $(FMTCATALOGS)
 

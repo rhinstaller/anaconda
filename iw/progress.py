@@ -4,10 +4,7 @@ import string
 import rpm
 import time
 from threading import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class DoInstall (Thread):
     def __init__ (self, icw, todo):

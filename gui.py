@@ -1,3 +1,10 @@
+print "GUI mode init..."
+
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
+
 from gtk import *
 from gnome.ui import *
 from gnome.xmhtml import *
@@ -31,10 +38,6 @@ import rpm
 from thread import *
 from threading import *
 import time
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -103,6 +106,8 @@ class InstallInterface:
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 
+        print "GUI mode run"
+
         commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow,
                        WelcomeWindow, InstallPathWindow]
 
@@ -110,8 +115,6 @@ class InstallInterface:
         self.icw = InstallControlWindow (self, commonSteps, todo)
         self.icw.start ()
         self.finishedTODO.wait ()
-
-	todo.setLiloLocation("hda")
 
 class InstallControlWindow (Thread):
 

@@ -1,9 +1,6 @@
 from gtk import *
 from iw import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class WelcomeWindow (InstallWindow):		
 
@@ -20,7 +17,7 @@ class WelcomeWindow (InstallWindow):
                     "should read the installation section before continuing.</P><P>"
                     "If you have purchased Official Red Hat Linux, be sure to "
                     "register your purchase through our web site, "
-                    "http://www.redhat.com/.</P></BODY></HTML>")
+                    "http://www.redhat.com/.</BODY></HTML>")
 
     def getScreen (self):
         label = GtkLabel ("(insert neat logo graphic here)")

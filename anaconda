@@ -153,6 +153,7 @@ if forceMount:
     setupFilesystems = 1
 
 try:
+    print "todo.init"
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo)
     intf.run(todo)

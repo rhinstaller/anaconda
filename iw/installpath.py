@@ -18,10 +18,7 @@ from dependencies import *
 from lilo import *
 from examine import *
 from bootdisk import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 UPGRADE = 0
 INSTALL = 1

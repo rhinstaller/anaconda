@@ -1,9 +1,6 @@
 from gtk import *
 from iw import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class AuthWindow (InstallWindow):
 

@@ -1,10 +1,7 @@
 from gtk import *
 from iw import *
 import xkb
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class KeyboardWindow (InstallWindow):
 

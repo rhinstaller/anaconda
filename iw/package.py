@@ -10,10 +10,7 @@ import GdkImlib
 import string
 import sys
 import xpms
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class IndividualPackageSelectionWindow (InstallWindow):
 

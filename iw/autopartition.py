@@ -1,10 +1,7 @@
 from gtk import *
 from iw import *
 from thread import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 FSEDIT_CLEAR_LINUX  = (1 << 0)
 FSEDIT_CLEAR_ALL    = (1 << 2)

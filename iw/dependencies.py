@@ -1,9 +1,6 @@
 from iw import *
 from gtk import *
-import gettext
-
-cat = gettext.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from gui import _
 
 class UnresolvedDependenciesWindow (InstallWindow):
 

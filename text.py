@@ -13,7 +13,7 @@ INSTALL_OK = 0
 INSTALL_BACK = -1
 INSTALL_NOOP = -2
 
-cat = gettext.Catalog ("anaconda-text", "/usr/share/locale")
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
 
 class LanguageWindow:
@@ -254,6 +254,132 @@ class RootPasswordWindow:
         screen.popWindow()
         todo.rootpassword.set (entry1.value ())
         return INSTALL_OK
+
+class UsersWindow:
+    def editWindow (self, user, edit = 0):
+        userid = Entry (8, user["id"])
+        currentid = user["id"]
+        fullname = Entry (30, user["name"])
+        pass1 = Entry (10, user["password"], hidden = 1)
+        pass2 = Entry (10, user["password"], hidden = 1)
+
+        while 1:
+            if edit:
+                title = _("Edit User")
+                pass1.setFlags (FLAG_DISABLED, FLAGS_SET)
+                pass2.setFlags (FLAG_DISABLED, FLAGS_SET)
+            else:
+                title = _("Add User")
+                
+            (rc, ent) = EntryWindow (self.screen, title, "",
+                                     [ (_("User ID"), userid),
+                                       (_("Full Name"), fullname),
+                                       (_("Password"), pass1),
+                                       (_("Password (confirm)"), pass2) ],
+                                     buttons = [ _("OK"), _("Cancel") ])
+            
+            if rc == string.lower (_("Cancel")):
+                return
+
+            if not edit:
+                if len (pass1.value ()) < 6:
+                    ButtonChoiceWindow(self.screen, _("Password Length"),
+                                       _("The password must be at least 6 characters "
+                                         "long."),
+                                       buttons = [ _("OK") ], width = 50)
+                    pass1.set ("")
+                    pass2.set ("")
+                    continue
+                elif pass1.value () != pass2.value ():
+                    ButtonChoiceWindow(self.screen, _("Password Mismatch"),
+                                       _("The passwords you entered were different. Please "
+                                         "try again."),
+                                       buttons = [ _("OK") ], width = 50)
+                    pass1.set ("")
+                    pass2.set ("")
+                    continue
+
+            if self.users.has_key (userid.value ()) and userid.value () != currentid:
+                ButtonChoiceWindow(self.screen, _("User Exists"),
+                                   _("This user id already exists.  Choose another."),
+                                     buttons = [ _("OK") ], width = 50)
+                continue
+
+            # XXX FIXME - more data validity checks
+            
+            user["id"] = userid.value ()
+            user["name"] = fullname.value ()
+            user["password"] = pass1.value ()
+            break
+
+    def __call__ (self, screen, todo):
+        self.users = {}
+        self.screen = screen
+        
+        g = GridForm (screen, _("User Account Setup"), 1, 3)
+
+        listformat = "%-15s  %-40s"
+        userformat = "%(id)-15s  %(name)-40s"
+
+        header = listformat % (_("User name"), _("Full Name"))
+        label = Label (header)
+        g.add (label, 0, 0, anchorLeft = 1)
+        listbox = Listbox (5, scroll = 1, returnExit = 1, width = 60)
+        g.add (listbox, 0, 1, (0, 0, 0, 1))
+
+        for user in self.users.values ():
+            listbox.append (userformat % user, user["id"])
+
+        bb = ButtonBar (screen, ((_("Add"), "add"), (_("Delete"), "delete"),
+                                 (_("Edit"), "edit"), (_("OK"), "ok"), (_("Back"), "back")))
+        
+        g.add (bb, 0, 2, growx = 1)
+
+        while 1:
+            result = g.run ()
+            
+            rc = bb.buttonPressed (result)
+
+            if rc == string.lower (_("Add")):
+                user = { "id" : "", "name" : "", "password" : "" }
+                self.editWindow (user)
+                listbox.append (userformat % user, user["id"])
+                listbox.setcurrent (user["id"])
+                self.users[user["id"]] = user
+            elif rc == string.lower (_("Delete")):
+                current = listbox.current ()
+                listbox.delete (current)
+                del self.users [current]
+            elif rc == string.lower (_("Edit")) or result == listbox:
+		current = listbox.current()
+                user = self.users[current]
+                self.editWindow (user, 1)
+                # if the user id changed, we need to delete the old key
+                # and insert this new one.
+                if user["id"] != current:
+                    del self.users [current]
+                    listbox.insert (userformat % user, user["id"], current)
+                    listbox.delete (current)
+                # and if the user id didn't change, just replace the old
+                # listbox entry.
+                else:
+                    listbox.replace (userformat % user, user["id"])
+                self.users [user["id"]] = user
+		listbox.setCurrent(user["id"])
+            elif rc == string.lower (_("OK")):
+                dir = INSTALL_OK
+                break
+            elif rc == string.lower (_("Back")):
+                dir = INSTALL_BACK
+                break
+            elif rc == "F12":
+                dir = INSTALL_OK
+                break
+            else:
+                raise NeverGetHereError, "I shouldn't be here..."
+                
+        screen.popWindow ()
+        return dir
 
 class WelcomeWindow:
     def __call__(self, screen):
@@ -719,6 +845,7 @@ class BootDiskWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
+
 class LiloWindow:
     def __call__(self, screen, todo):
         if '/' not in todo.mounts.keys (): return INSTALL_NOOP
@@ -753,7 +880,6 @@ class LiloWindow:
         return INSTALL_OK
 
 class LiloImagesWindow:
-
     def editItem(self, screen, partition, itemLabel):
 	devLabel = Label(_("Device") + ":")
 	bootLabel = Label(_("Boot label") + ":")
@@ -1137,8 +1263,8 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 1999 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
-#       self.screen.suspendCallback(killSelf, self.screen)
-	self.screen.suspendCallback(debugSelf, self.screen)
+	self.screen.suspendCallback(killSelf, self.screen)
+#	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
@@ -1156,16 +1282,17 @@ class InstallInterface:
         
         self.installSteps = [
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
-#            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
+            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
-            #[_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
-            #[_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
-            #[_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
+            [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
+            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo)],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
+            [_("User Account Setup"), UsersWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo)],
             [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
 	    [_("LILO Configuration"), LiloImagesWindow, (self.screen, todo)],
