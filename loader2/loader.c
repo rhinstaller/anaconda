@@ -1072,7 +1072,7 @@ static int hasGraphicalOverride() {
 }
 
 int main(int argc, char ** argv) {
-    int flags = 0;
+    int flags = LOADER_FLAGS_SELINUX;
     struct stat sb;
     int rc, i;
     char * arg;
