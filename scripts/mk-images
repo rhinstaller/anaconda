@@ -147,7 +147,7 @@ rundepmod () {
     #
     # So we use an ugly hack. :-(
 
-    PARIDE="aten bpck comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
+    PARIDE="aten bpck bpck6 comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
     cat $final.foo | $FILTERMODDEPS | sed -e 's/\.o//g' \
 	  -e 's/: parport$/: parport_pc/g' \
 	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
