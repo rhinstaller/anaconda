@@ -21,7 +21,8 @@ int mlReadLoadedList(moduleList * list);
 void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
-int mlLoadModule(char * modName, char * path, moduleList modLoaded,
+int mlLoadModule(char * modName, enum miLocationTypes locationType,
+		 char * location, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
 		 int flags);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);

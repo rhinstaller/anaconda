@@ -363,7 +363,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
 			mlLoadModule(modList[i]->moduleName, 
-				     modList[i]->locationID, 
+				     MI_LOCATION_NONE, modList[i]->locationID, 
 				     modLoaded, modDeps, NULL, modInfo, flags);
 		    }
 		}
@@ -375,6 +375,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 		    scsiWindow(modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, 
+				 MI_LOCATION_NONE,
 				 modList[i]->locationID, modLoaded, modDeps, 
 				 NULL, modInfo, flags);
 		    sleep(1);
@@ -566,7 +567,8 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+    mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, 
+		 NULL, modInfo, flags);
 
     while (!done) {
 	numPartitions = 0;
@@ -584,7 +586,9 @@ static char * mountHardDrive(struct installMethod * method,
 			      case BALKAN_PART_UFS:
 				if (!ufsloaded) {
 				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+				    mlLoadModule("ufs", MI_LOCATION_NONE, NULL, 
+						 modLoaded, *modDepsPtr, NULL, 
+						 modInfo, flags);
 				}
 				/* FALLTHROUGH */
 #endif
@@ -910,8 +914,8 @@ static char * mountNfsImage(struct installMethod * method,
 		break;
 	    }
 
-	    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, 
-			 flags);
+	    mlLoadModule("nfs", MI_LOCATION_NONE, NULL, modLoaded, 
+			 *modDepsPtr, NULL, modInfo, flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1287,8 +1291,8 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    } 
 
 	    if (!strcmp(fsType, "vfat"))
-		mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, 
-			     modInfo, flags);
+		mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, 
+			     *modDepsPtr, NULL, modInfo, flags);
 
 	    if (doPwMount(fs, "/tmp/drivers", fsType, 1, 0, NULL, NULL)) {
 		logMessage("failed to mount %s", fs);
@@ -1296,7 +1300,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    } 
 
 	    if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, flags,
-				  "/tmp/drivers")) {
+				  "/tmp/drivers", 1)) {
 		logMessage("driver information missing!");
 	    }
 
@@ -1335,8 +1339,8 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, mi->locationID, modLoaded, * modDepsPtr, 
-			  optv, modInfo, flags);
+	rc = mlLoadModule(device, mi->location, mi->locationID, modLoaded, 
+			  *modDepsPtr, optv, modInfo, flags);
 	if (optv) free(optv);
 
 	if (rc)
@@ -1474,7 +1478,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
-	mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+	mlLoadModule("nfs", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, 
+		     NULL, modInfo, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1745,7 +1750,8 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
 
     logMessage("ks server: %s file: %s", ksPath, file);
 
-    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("nfs", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, NULL, 
+		 NULL, flags);
 
     if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount %s", ksPath);
@@ -1769,9 +1775,11 @@ int kickstartFromHardDrive(char * location,
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, NULL, 
+		 NULL, flags);
 #ifdef __sparc__
-    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("ufs", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, NULL, 
+		 NULL, flags);
 #endif
 
     fileName = strchr(source, '/');
@@ -1802,7 +1810,8 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, *modDepsPtr, 
+		 NULL, NULL, flags);
 
     if (devMakeInode("fd0", "/tmp/fd0"))
 	return 1;
@@ -1838,7 +1847,7 @@ void readExtraModInfo(moduleInfoSet modInfo) {
 	dirName = malloc(50);
 	sprintf(dirName, "/tmp/DD-%d", num);
 
-	isysReadModuleInfo(fileName, modInfo, dirName);
+	isysReadModuleInfo(fileName, modInfo, MI_LOCATION_NONE, dirName);
 
 	sprintf(fileName, "/tmp/DD-%d/modinfo", ++num);
     }
@@ -1969,7 +1978,9 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
 			    if (!ufsloaded) {
-				mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+				mlLoadModule("ufs", MI_LOCATION_NONE, NULL, 
+					     modLoaded, *modDepsPtr, NULL, 
+					     NULL, flags);
 				ufsloaded = 1;
 			    }
 			}
@@ -2072,7 +2083,7 @@ int main(int argc, char ** argv) {
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
 
-    if (isysReadModuleInfo(arg, modInfo, NULL)) {
+    if (isysReadModuleInfo(arg, modInfo, MI_LOCATION_NONE, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
@@ -2209,7 +2220,7 @@ int main(int argc, char ** argv) {
     pciReadDrivers("/modules/pcitable");
 
     /*modInfo = isysNewModuleInfoSet();*/
-    if (isysReadModuleInfo(arg, modInfo, NULL)) {
+    if (isysReadModuleInfo(arg, modInfo, MI_LOCATION_NONE, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
@@ -2250,14 +2261,18 @@ int main(int argc, char ** argv) {
     }
 
 #ifndef __ia64__
-    mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("raid0", MI_LOCATION_NONE, NULL, modLoaded, modDeps, NULL, 
+		 modInfo, flags);
+    mlLoadModule("raid1", MI_LOCATION_NONE, NULL, modLoaded, modDeps, NULL, 
+		 modInfo, flags);
+    mlLoadModule("raid5", MI_LOCATION_NONE, NULL, modLoaded, modDeps, NULL, 
+		 modInfo, flags);
 #endif
 
     #ifdef __i386__
 	/* We need this for loopback installs */
-	mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+	mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, modDeps, 
+		     NULL, modInfo, flags);
     #endif
 
     stopNewt();

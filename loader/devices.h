@@ -10,7 +10,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		     moduleDeps *modDepsPtr, int flags, int cancelNotBack);
 int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
-		      moduleDeps *modDepsPtr, int flags, char * mntPoint);
+		      moduleDeps *modDepsPtr, int flags, char * mntPoint,
+		      int removeable);
 
 void ejectFloppy(void);
 char * extractModule(char * location, char * modName);

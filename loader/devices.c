@@ -137,7 +137,8 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 }
 
 int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
-		      moduleDeps *modDepsPtr, int flags, char * mntPoint) {
+		      moduleDeps *modDepsPtr, int flags, char * mntPoint,
+		      int removeable) {
     int badDisk = 0;
     char from[200];
     struct stat sb;
@@ -171,7 +172,12 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     close(fd);
 
     sprintf(from, "%s/modinfo", mntPoint);
-    fd = isysReadModuleInfo(from, modInfo, diskName);
+
+    if (removeable)
+	fd = isysReadModuleInfo(from, modInfo, MI_LOCATION_DISKNAME, diskName);
+    else
+	fd = isysReadModuleInfo(from, modInfo, MI_LOCATION_DIRECTORY, 
+				mntPoint);
 
     sprintf(from, "%s/modules.dep", mntPoint);
     mlLoadDeps(modDepsPtr, from);
@@ -201,8 +207,8 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, 
-		     modInfo, flags);
+	mlLoadModule("vfat", MI_LOCATION_NONE, NULL, modLoaded, (*modDepsPtr), 
+		     NULL, modInfo, flags);
 
 	devMakeInode("fd0", "/tmp/fd0");
 
@@ -212,7 +218,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 			       _("Failed to mount driver disk."));
 
 	if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, 
-			      flags, "/tmp/drivers"))
+			      flags, "/tmp/drivers", 1))
 	    newtWinMessage(_("Error"), _("OK"),
 		_("The floppy disk you inserted is not a valid driver disk "
 		  "for this release of Red Hat Linux."));
@@ -366,8 +372,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	scsiWindow(mod->moduleName);
 	sleep(1);
     }
-    rc = mlLoadModule(mod->moduleName, mod->locationID, modLoaded, *modDepsPtr, 
-			args, modInfo, flags);
+    rc = mlLoadModule(mod->moduleName, mod->location, mod->locationID, 
+			modLoaded, *modDepsPtr, args, modInfo, flags);
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {
