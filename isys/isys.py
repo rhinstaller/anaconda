@@ -473,6 +473,30 @@ def pumpNetDevice(device):
     # otherwise
     return _isys.pumpnetdevice(device)
 
+def readXFSLabel_int(device):
+    try:
+        fd = os.open(device, os.O_RDONLY)
+    except:
+        return None
+
+    buf = os.read(fd, 128)
+    os.close(fd)
+
+    xfslabel = None
+    if len(buf) == 128 and buf[0:4] == "XFSB":
+        xfslabel = string.rstrip(buf[108:120],"\0x00")
+
+    return xfslabel
+    
+def readXFSLabel(device, makeDevNode = 1):
+    if makeDevNode:
+        makeDevInode(device, "/tmp/disk")
+	label = readXFSLabel_int("/tmp/disk")
+	os.unlink("/tmp/disk")
+    else:
+        label = readXFSLabel_int(device)
+    return label
+
 def readExt2Label(device, makeDevNode = 1):
     if makeDevNode:
         makeDevInode(device, "/tmp/disk")
@@ -480,6 +504,12 @@ def readExt2Label(device, makeDevNode = 1):
         os.unlink("/tmp/disk")
     else:
         label = _isys.e2fslabel(device)
+    return label
+
+def readFSLabel(device, makeDevNode = 1):
+    label = readExt2Label(device, makeDevNode)
+    if label is None:
+        label = readXFSLabel(device, makeDevNode)
     return label
 
 def ext2IsDirty(device):

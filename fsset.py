@@ -1346,7 +1346,7 @@ class FileSystemSet:
             if not entry.mountpoint or entry.mountpoint == "swap":
                 continue
             try:
-                label = isys.readExt2Label(dev)
+                label = isys.readFSLabel(dev)
             except:
                 continue
             if label:
@@ -1655,7 +1655,7 @@ class Device:
 
     def getLabel(self):
         try:
-            return isys.readExt2Label(self.setupDevice(), makeDevNode = 0)
+            return isys.readFSLabel(self.setupDevice(), makeDevNode = 0)
         except:
             return ""
 
@@ -2224,6 +2224,25 @@ def isValidReiserFS(device):
     os.close(fd)
     return 0    
 
+def isValidJFS(device):
+    fd = getDevFD(device)
+    if fd == -1:
+        return 0
+
+    try:
+        os.lseek(fd, 32768, 0)
+        buf = os.read(fd, 128)
+    except:
+        buf = ""
+
+    os.close(fd)
+    if len(buf) < 4:
+        return 0
+
+    if (buf[0:4] == "JFS1"):
+	return 1
+
+    return 0    
 
 # this will return a list of types of filesystems which device
 # looks like it could be to try mounting as
@@ -2236,6 +2255,9 @@ def getFStoTry(device):
     if isValidReiserFS(device):
         rc.append("reiserfs")
 
+    if isValidJFS(device):
+        rc.append("jfs")
+
     if isValidExt2(device):
         if os.access(device, os.O_RDONLY):
             create = 0
@@ -2247,7 +2269,6 @@ def getFStoTry(device):
 
     # FIXME: need to check for swap
 
-    # XXX check for, jfs signature, and others ?
     return rc
 
 def allocateLoopback(file):

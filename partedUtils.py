@@ -421,7 +421,10 @@ def sniffFilesystemType(device):
     if fsset.isValidReiserFS(dev):
         return "reiserfs"
 
-    # FIXME:  we don't look for jfs, or vfat
+    if fsset.isValidJFS(dev):
+        return "jfs"
+
+    # FIXME:  we don't look for vfat
 
     return None
 
@@ -529,17 +532,17 @@ class DiskSet:
                                  not (part.get_flag(parted.PARTITION_RAID)
                                       or part.get_flag(parted.PARTITION_LVM))
                                  and part.fs_type
-                                 and (part.fs_type.name == "ext2"
-                                      or part.fs_type.name == "ext3"))
+                                 and (part.fs_type.name in ("ext2",
+                                                            "ext3", "xfs")))
             parts = filter_partitions(disk, func)
             for part in parts:
                 node = get_partition_name(part)
-                label = isys.readExt2Label(node)
+                label = isys.readFSLabel(node)
                 if label:
                     labels[node] = label
 
         for dev, devices, level, numActive in DiskSet.mdList:
-            label = isys.readExt2Label(dev)
+            label = isys.readFSLabel(dev)
             if label:
                 labels[dev] = label
 
