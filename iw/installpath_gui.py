@@ -184,4 +184,11 @@ class InstallPathWindow (InstallWindow):
 		
                 self.toggled(button)
 
+	# make sure we get sensitivity setup right
+	for (button, box, buttons) in self.topLevelButtonList:
+	    if not box:
+		continue
+	    sensitive = button.get_active()
+	    box.set_sensitive(sensitive)
+
         return finalVBox
