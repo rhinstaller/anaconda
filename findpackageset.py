@@ -83,15 +83,20 @@ def findpackageset(hdrlist, dbPath='/'):
                 mi = ts.dbMatch('name', obs)
                 oevr = strToVersion(obsver)
                 for h in mi:
-#                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
-                    if h[rpm.RPMTAG_EPOCH] is None:
-                        epoch = '0'
-                    else:
-                        epoch = str(h[rpm.RPMTAG_EPOCH])
-                    val= rpm.labelCompare(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
-                    if val > 0:
+                    if not obsver:
+#                    unversioned obsoletes win
                         addNewPackageToUpgSet(pkgDict, pkg)
                         break
+                    else:
+#                    dEBUG("adding %(name)s to the upgrade set for obsoletes" % pkg)
+                        if h[rpm.RPMTAG_EPOCH] is None:
+                            epoch = '0'
+                        else:
+                            epoch = str(h[rpm.RPMTAG_EPOCH])
+                        val = rpm.labelCompare(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
+                        if val > 0:
+                            addNewPackageToUpgSet(pkgDict, pkg)
+                            break
 
     return pkgDict.values()
 
