@@ -426,6 +426,8 @@ static int dac960GetDevices(struct knownDevices * devices) {
 	while (start && (start = strstr(start, "/dev/rd/"))) {
 	    start += 5;
 	    chptr = strchr(start, ':');
+	    if (!chptr)
+		continue;
 
 	    *chptr = '\0';
 	    if (!deviceKnown(devices, start)) {
