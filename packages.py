@@ -716,9 +716,9 @@ def copyExtraModules(instPath, comps, extraModules):
 	for (n, tag) in kernelVersions:
 	    pattern = pattern + " " + n + "/" + name + ".o"
 	    names = names + " " + name + ".o"
-	command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | " +
-		    "%s/bin/cpio  --quiet -iumd %s") % \
-	    (instPath, path, instPath, pattern)
+	command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | "
+                   "%s/bin/cpio  --quiet -iumd %s" % 
+                   (instPath, path, instPath, pattern))
 	log("running: '%s'" % (command, ))
 	os.system(command)
 
