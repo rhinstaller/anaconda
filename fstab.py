@@ -126,9 +126,10 @@ class Fstab:
 	self.ddruid.save()
 
     def runDruid(self):
-	self.ddruid.edit()
+	rc = self.ddruid.edit()
 	# yikes! this needs to be smarter
 	self.beenSaved = 0
+	return rc
 
     def updateFsCache(self):
 	realFs = {}
