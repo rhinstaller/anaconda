@@ -453,12 +453,16 @@ class PartitionEditor:
             maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
             row = row + 1
 
-            self.badblocks = gtk.CheckButton(_("Check for _bad blocks"))
-            self.badblocks.set_active(0)
-            maintable.attach(self.badblocks, 0, 1, row, row + 1)
-            row = row + 1
-            if self.origrequest.badblocks:
-                self.badblocks.set_active(1)
+	    # disable option for badblocks checking
+	    self.badblocks = None
+
+	    # uncomment to reenable
+            #self.badblocks = gtk.CheckButton(_("Check for _bad blocks"))
+            #self.badblocks.set_active(0)
+            #maintable.attach(self.badblocks, 0, 1, row, row + 1)
+            #row = row + 1
+            #if self.origrequest.badblocks:
+            #    self.badblocks.set_active(1)
             
         # put main table into dialog
         self.dialog.vbox.pack_start(maintable)
