@@ -37,8 +37,4 @@ void copyUpdatesImg(char * path);
 int copyDirectory(char * from, char * to);
 
 
-/* JKFIXME: move these to specific include files*/
-
-
-
 #endif

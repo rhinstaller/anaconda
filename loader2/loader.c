@@ -545,7 +545,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             }
         } else if (!strncasecmp(argv[i], "ip=", 3)) {
             loaderData->ip = strdup(argv[i] + 3);
-            /* JKFIXME: ??? */
             loaderData->ipinfo_set = 1;
         } else if (!strncasecmp(argv[i], "netmask=", 8)) 
             loaderData->netmask = strdup(argv[i] + 8);
@@ -788,7 +787,6 @@ static char *doLoaderMain(char * location,
         case STEP_DRIVER: {
             int found = 0;
 
-            /* JKFIXME: this is the nifty cool new step */
             for (i = 0; i < kd->numKnown; i++) {
                 if (installMethods[validMethods[methodNum]].deviceType == 
                     kd->known[i].class)
@@ -841,7 +839,6 @@ static char *doLoaderMain(char * location,
 
 int main(int argc, char ** argv) {
     int flags = 0;
-    int haveKon = 0; /* JKFIXME: this should be conditionalized... */
     struct stat sb;
     int rc, i;
     char * arg;
@@ -965,8 +962,6 @@ int main(int argc, char ** argv) {
     /* now let's initialize any possible firewire.  fun */
     firewireInitialize(modLoaded, modDeps, modInfo, flags);
 
-    /* JKFIXME: this is where we used to setFloppyDevice and do KS_FLOPPY */
-    
     /* JKFIXME: this is kind of a different way to handle pcmcia... I think
      * it's more correct, although it will require a little bit of kudzu
      * hacking */
@@ -1014,10 +1009,6 @@ int main(int argc, char ** argv) {
             unlink("/lib64");
             symlink("/mnt/runtime/lib64", "/lib64");
         }
-
-        /* JKFIXME: need to pull in the second stage modules and use
-         * them to update module-info, pcitable, etc just like with 
-         * driver disks */
     }
 
     logMessage("getting ready to spawn shell now");
@@ -1115,21 +1106,6 @@ int main(int argc, char ** argv) {
     }
     
     if (FL_RESCUE(flags)) {
-        startNewt(flags);
-        
-        /* JKFIXME: this seems broken... we should just ask these questions
-         * earlier for rescue mode and do the fast path check later */
-#if 0
-        if (!lang) {
-            int rc;
-            
-            do {
-                chooseLanguage(&lang, flags);
-                defaultLang = 0;
-                rc = chooseKeyboard (&keymap, &kbdtype, flags);
-            } while ((rc) && (rc != LOADER_NOOP));
-        }
-#endif
         *argptr++ = "--rescue";
     } else {
         if (FL_SERIAL(flags))
@@ -1138,29 +1114,21 @@ int main(int argc, char ** argv) {
             *argptr++ = "-T";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
-
+        
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";
             *argptr++ = loaderData.ksFile;
         }
 
-        if (loaderData.lang && (loaderData.lang_set == 1) && 
-            !FL_NOPASS(flags)) {
+        if ((loaderData.lang) && !FL_NOPASS(flags)) {
             *argptr++ = "--lang";
             *argptr++ = loaderData.lang;
         }
-
-#if 0        
-        if (keymap && !FL_NOPASS(flags)) {
-            *argptr++ = "--keymap";
-            *argptr++ = keymap;
-        }
         
-        if (kbdtype && !FL_NOPASS(flags)) {
-            *argptr++ = "--kbdtype";
-            *argptr++ = kbdtype;
+        if ((loaderData.kbd) && !FL_NOPASS(flags)) {
+            *argptr++ = "--keymap";
+            *argptr++ = loaderData.kbd;
         }
-#endif
         
         for (i = 0; i < modLoaded->numModules; i++) {
             struct moduleInfo * mi;

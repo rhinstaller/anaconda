@@ -746,7 +746,7 @@ int kickstartNetworkUp(struct knownDevices * kd,
         rc = chooseNetworkInterface(kd, loaderData, flags);
         
         if (rc == LOADER_ERROR) {
-            /* JKFIXME: ask for a driver disk */
+            /* JKFIXME: ask for a driver disk? */
             logMessage("no network drivers for doing kickstart");
             return -1;
         } else if (rc == LOADER_BACK) {

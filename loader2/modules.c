@@ -428,7 +428,6 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (!location && modLocation)
 	location = modLocation;
 
-    /* JKFIXME: do something to extract the modules */
     paths = extractModules(list, paths, location);
 
     i = 0;

@@ -124,7 +124,6 @@ char * mountNfsImage(struct installMethod * method,
             
         case NFS_STAGE_NFS:
             logMessage("going to do nfsGetSetup");
-            /* JKFIXME: this is a hack to get kickstart up quicker */
             if (loaderData->method &&
                 !strncmp(loaderData->method, "nfs", 3) &&
                 loaderData->methodData) {
