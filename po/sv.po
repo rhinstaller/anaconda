@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-18 22:20+0100\n"
+"PO-Revision-Date: 2000-02-18 22:37+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -916,7 +916,7 @@ msgstr "Lägg till"
 #: ../textw/partitioning.py:63 ../textw/silo.py:194 ../textw/silo.py:216
 #: ../textw/userauth.py:185
 msgid "Edit"
-msgstr "Ändra"
+msgstr "Redigera"
 
 #: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
@@ -1454,7 +1454,6 @@ msgstr ""
 "rätta nedan:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
 msgstr "X-testresutat"
 
@@ -1655,7 +1654,6 @@ msgid "User ID"
 msgstr "Användarid"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
 msgstr "Användarid"
 
@@ -1664,6 +1662,8 @@ msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Användarid måste innehålla färre än 8 tecken, och endast tecknen A-Z, a-z "
+"och 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -2797,7 +2797,7 @@ msgstr "Du måste ange en katalog."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr "Okänd värddator"
+msgstr "Okänd värd"
 
 #: ../loader/urls.c:235
 #, c-format
