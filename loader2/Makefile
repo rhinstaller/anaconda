@@ -14,7 +14,7 @@ ISYSLIB = ../isys/libisys.a
 GUNZIP = -lz
 MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
-BINS = init
+BINS = init loader
 
 HWOBJS = pcmcia.o usb.o firewire.o hardware.o
 METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
@@ -50,7 +50,6 @@ CTYPEDEP = ctype.c
 endif
 
 ifeq (i386, $(ARCH))
-BINS += loader
 COPTS += -DUSE_LOGDEV
 endif
 
