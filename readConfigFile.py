@@ -1,7 +1,6 @@
 #!/usr/bin/python
 import string
 
-
 def getConfigFile():
     import string
 
@@ -18,6 +17,6 @@ def getConfigFile():
             pass
         else:
             tokens = string.split(line)
-            dict[tokens[0]] = tokens[1]   
-
+            str = string.join(tokens[1:])
+            dict[tokens[0]] = str
     return dict
