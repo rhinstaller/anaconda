@@ -15,7 +15,7 @@ _isys.so: isys.o $(OBJECTS) $(STATICLIBS)
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
-	rm -f *.o $(TARGET) $(OBJECTS)
+	rm -f *.o *.so *.a $(TARGET) $(OBJECTS)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all

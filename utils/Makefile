@@ -15,4 +15,4 @@ install:
 	@echo "nothing to do"		
 
 clean:	
-	rm -f modlist
+	rm -f modlist *.o

@@ -27,7 +27,7 @@ subdirs:
 	done
 
 clean:
-	$(RM) -f *.o $(KON) *~ .depend
+	$(RM) -f *.o *.a $(KON) *~ .depend
 	@for i in $(SUBDIRS);\
 	do (cd $$i && echo cleaning all in $$i && $(MAKE) clean) || exit;\
 	done
