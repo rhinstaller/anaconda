@@ -75,13 +75,13 @@ msgstr "%s ファイルシステムのフォーマット中です..."
 # ../fstab.py:417
 #: ../fstab.py:419
 msgid "Loopback"
-msgstr ""
+msgstr "ループバック"
 
 # ../fstab.py:418
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "/dev/%s 上にループバック ファイルシステムを作成しています"
 
 # ../fstab.py:402
 # ../fstab.py:461
@@ -176,7 +176,7 @@ msgstr "%s 上の Red Hat Linux インストーラ"
 #: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "%s 上の Red Hat Linux インストール シェル"
+msgstr "%s 上の Red Hat Linux インストールシェル"
 
 # ../installclass.py:245
 # ../installclass.py:252
@@ -343,7 +343,7 @@ msgstr "サーバシステムのインストール"
 # ../text.py:226
 #: ../text.py:231
 msgid "Install Custom System"
-msgstr "カスタム システムのインストール"
+msgstr "カスタムシステムのインストール"
 
 # ../text.py:216
 # ../text.py:227
@@ -385,7 +385,7 @@ msgstr "ルートパーティションのあるパーティションを指定してください。"
 # ../text.py:311
 #: ../text.py:316
 msgid "Customize Packages to Upgrade"
-msgstr "アップグレードするパッケージをカスタマイズする"
+msgstr "アップグレードするパッケージのカスタマイズ"
 
 # ../text.py:276
 # ../text.py:312
@@ -617,7 +617,7 @@ msgstr "完全なインストールログは、システムの再起動後に /tmp/install.log に保存さ
 # ../text.py:699 ../text.py:714 ../text.py:734
 #: ../text.py:704 ../text.py:719 ../text.py:739
 msgid "Complete"
-msgstr "完了e"
+msgstr "完了"
 
 # ../iw/congrats.py:32
 # ../iw/congrats.py:32 ../text.py:700
@@ -655,7 +655,7 @@ msgstr ""
 # ../iw/bootdisk.py:57 ../text.py:754
 #: ../iw/bootdisk.py:57 ../text.py:759
 msgid "Insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "空のフロッピーディスクをプライマリ フロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
+msgstr "空のフロッピーディスクをプライマリフロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
 
 # ../text.py:719 ../text.py:720 ../text.py:731 ../text.py:732
 # ../textw/lilo.py:30 ../textw/silo.py:25
@@ -716,19 +716,19 @@ msgstr "        時間"
 # ../text.py:862
 #: ../text.py:867
 msgid "Total    :"
-msgstr "合計   :"
+msgstr "合計     :"
 
 # ../text.py:831
 # ../text.py:869
 #: ../text.py:874
 msgid "Completed:   "
-msgstr "完了:   "
+msgstr "完了    :   "
 
 # ../text.py:841
 # ../text.py:879
 #: ../text.py:884
 msgid "Remaining:  "
-msgstr "残り:  "
+msgstr "残り     :  "
 
 # ../text.py:930 ../text.py:931
 # ../text.py:968 ../text.py:969
@@ -746,7 +746,7 @@ msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 # ../text.py:983
 #: ../text.py:988
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
+msgstr "  <Tab>/<Alt-Tab> 項目間の移動      |  <Space> 選択      |  <F12> 次の画面"
 
 # ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:969 ../text.py:1004
 # ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
@@ -1037,7 +1037,7 @@ msgid ""
 "You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"選択したパッケージのインストールに必要なディスク容量が不足しているようです。以下のファイルシステム上に空き領域が必要です:\n"
+"選択したパッケージのインストールに必要なディスク容量が不足しているようです。以下のファイルシステム上に空き領域が必要です。"
 "\n"
 
 # ../todo.py:1326
@@ -3126,7 +3126,7 @@ msgstr "Red Hat Linux へようこそ"
 # ../loader/loader.c:130
 #: ../loader/loader.c:131
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面 "
+msgstr "  <Tab>/<Alt-Tab> 項目間の移動     |  <Space> 選択   |  <F12> 次の画面 "
 
 # ../loader/loader.c:236
 # ../loader/loader.c:240
@@ -3455,7 +3455,7 @@ msgstr "ネットワークデバイス"
 # ../loader/net.c:716
 #: ../loader/net.c:716
 msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
-msgstr " <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
+msgstr " <Tab>/<Alt-Tab> 項目間の移動      |  <Space> 選択      |  <F12> 次の画面"
 
 # ../loader/net.c:709
 # ../loader/net.c:717
