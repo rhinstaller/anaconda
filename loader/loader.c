@@ -2658,20 +2658,19 @@ logMessage("found url image %s", url);
 	symlink("../mnt/runtime/modules/pcitable",
 		"/modules/pcitable");
 
-# ifndef __sparc__
+#ifndef __sparc__
 	unlink("/modules/modules.cgz");
 
 	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
-# else
+#else
 	/* All sparc32 modules are on the first stage image, if it is sparc64,
 	   then we must keep both the old /modules/modules.cgz which may
 	   either contain all modules, or the basic set + one of net or scsi
 	   and we extend it with the full set of net + scsi modules. */
 	symlink("../mnt/runtime/modules/modules64.cgz",
 		"/modules/modules65.cgz");
-# endif
-#endif /* !__ia64__ */
+#endif
     }
 
     logMessage("getting ready to spawn shell now");
