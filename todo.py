@@ -644,6 +644,13 @@ class ToDo:
                         sugname = _("no suggestion")
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
+                elif sense == rpm.RPMDEP_SENSE_CONFLICTS:
+                    self.log ("%s-%s-%s conflicts with to-be-installed "
+                              "package %s, removing from set",
+                              name, version, release, reqname)
+                    if self.hdList.packages.has_key (reqname):
+                        self.hdList.packages[reqname].selected = 0
+                        self.log ("... removed")
 
         del ts
         if self.upgrade:
@@ -736,7 +743,9 @@ class ToDo:
             package.selected = 0
 
         # always upgrade all packages in Base package group
-	self.comps['Base'].select(1)
+        # XXX, well - people say this isn't a good idea, so we won't
+        # do it anymore.
+#	self.comps['Base'].select(1)
 
         hasX = 0
         hasgmc = 0
