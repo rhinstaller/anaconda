@@ -1045,7 +1045,7 @@ class ToDo:
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip:
-                self.x.write (self.instPath + "/etc/X11/XF96Config")
+                self.x.write (self.instPath + "/etc/X11/XF86Config")
                 os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
                             self.instPath + "/etc/X11/X")
                 # XXX fixup inittab
