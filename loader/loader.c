@@ -67,6 +67,23 @@ struct intfconfig_s {
     char * ip, * nm, * gw, * ns;
 };
 
+static int newtRunning = 0;
+
+static void startNewt(void) {
+    if (!newtRunning) {
+	newtInit();
+	newtCls();
+	newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
+
+	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
+	newtRunning = 1;
+    }
+}
+
+static void stopNewt(void) {
+    if (newtRunning) newtFinished();
+}
+
 static void spawnShell(void) {
     pid_t pid;
     int fd;
@@ -97,13 +114,10 @@ static void spawnShell(void) {
 	}
 
 	close(fd);
-
-	return pid;
     }
 
-    return -1;
+    return;
 }
-
 
 static void ipCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
@@ -238,7 +252,13 @@ int readNetConfig(char * device, struct intfInfo * dev) {
 	    *((int32 *) &dev->ip) &
 	    *((int32 *) &dev->netmask);
 
+    if (*c.gw && inet_aton(c.gw, &addr)) {
+	dev->gateway = addr;
+    }
+
     strcpy(dev->device, device);
+
+    newtPopWindow();
 
     return 0;
 }
@@ -504,13 +524,14 @@ static int detectHardware(moduleInfoSet modInfo,
     struct moduleInfo * mod, ** modList;
     int numMods, i;
 
+    probePciFreeDrivers();
     if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
 			              "/modules/pcitable")) {
         logMessage("An error occured while reading the PCI ID table");
 	return LOADER_ERROR;
     }
 
-    logMessage("looking for devices on pci bus\n");
+    logMessage("looking for devices on pci bus");
     
     devices = probePci(0, 0);
     if (devices == NULL) {
@@ -518,10 +539,13 @@ static int detectHardware(moduleInfoSet modInfo,
 	return LOADER_OK;
     }
 
+    logMessage("returned from probePci");
+
     modList = malloc(sizeof(*modList) * 50);	/* should be enough */
     numMods = 0;
 
     for (device = devices; *device; device++) {
+	logMessage("found %s device", (*device)->driver);
 	if ((mod = isysFindModuleInfo(modInfo, (*device)->driver))) {
 	    for (i = 0; i < numMods; i++) 
 	        if (modList[i] == mod) break;
@@ -543,24 +567,70 @@ static int detectHardware(moduleInfoSet modInfo,
     return LOADER_OK;
 }
 
+int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
+	     int justProbe) {
+    int i;
+    struct moduleInfo ** modList;
+
+    if (!access("/proc/bus/pci/devices", R_OK)) {
+        /* autodetect whatever we can */
+        if (detectHardware(modInfo, &modList)) {
+	    logMessage("failed to scan pci bus!");
+	    return 0;
+	} else if (modList) {
+	    logMessage("found devices");
+
+	    for (i = 0; modList[i]; i++) {
+		if (justProbe) {
+		    printf("%s\n", modList[i]->moduleName);
+		} else {
+		    if (modList[i]->major == DRIVER_NET) {
+			mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
+				     testing);
+		    }
+		}
+	    }
+
+	    for (i = 0; !justProbe && modList[i]; i++) {
+	    	if (modList[i]->major == DRIVER_SCSI) {
+		    startNewt();
+
+		    winStatus(40, 3, _("Loading SCSI driver"), 
+		    	      "Loading %s driver...", modList[i]->moduleName);
+		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
+				 testing);
+		    newtPopWindow();
+		}
+	    }
+
+	    findScsiList();
+	    findNetList();
+	} else 
+	    logMessage("found nothing");
+    }
+
+    return 0;
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
     char * arg;
     poptContext optCon;
     int network = 0;
+    int probeOnly = 0;
     moduleList modLoaded;
     moduleDeps modDeps;
     int local = 0;
     int i, rc;
     moduleInfoSet modInfo;
-    int newtRunning = 0;
     struct intfInfo netDev;
-    struct moduleInfo ** modList;
     struct poptOption optionTable[] = {
-	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
 	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
+	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
+	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
+	    POPT_AUTOHELP
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -597,77 +667,55 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(modDeps, "/modules/modules.dep");
 
-    if (!access("/proc/bus/pci/devices", R_OK)) {
-        /* autodetect whatever we can */
-        if (detectHardware(modInfo, &modList)) {
-	    fprintf(stderr, "failed to scan for pci devices\n");
-	    sleep(5);
-	    exit(1);
-	} else if (modList) {
-	    for (i = 0; modList[i]; i++) {
-	    	if (modList[i]->major == DRIVER_NET) {
-		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 testing);
-		}
-	    }
+    pciProbe(modInfo, modLoaded, modDeps, probeOnly);
+    if (probeOnly) exit(0);
 
-	    for (i = 0; modList[i]; i++) {
-	    	if (modList[i]->major == DRIVER_SCSI) {
-		    if (!newtRunning) {
-		    	newtInit();
-			newtCls();
-			newtRunning = 1;
-		    }
-
-		    winStatus(40, 3, _("Loading SCSI driver"), 
-		    	      "Loading %s driver...", modList[i]->moduleName);
-		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 testing);
-		    newtPopWindow();
-		}
-	    }
-
-	    findScsiList();
-	    findNetList();
-	}
-    }
-
+    startNewt();
     
-    if (!newtRunning) {
-	newtInit();
-	newtCls();
-	newtRunning = 1;
-    }
-
     readNetConfig("eth0", &netDev);
     netDev.isPtp = netDev.isUp = 0;
 
-    configureNetDevice(&netDev);
+    if (!testing) {
+	configureNetDevice(&netDev);
+	addDefaultRoute(&netDev);
 
-    mlLoadModule("nfs", modLoaded, modDeps, 
-		 testing);
+	mlLoadModule("nfs", modLoaded, modDeps, 
+		     testing);
 
-    doPwMount("207.175.42.68:/mnt/test/msw/i386",
-    	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
- 
-    symlink("mnt/source/RedHat/instimage/usr", "/usr");
-    symlink("mnt/source/RedHat/instimage/lib", "/lib");
+	doPwMount("207.175.42.68:/mnt/test/msw/i386",
+		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
+     
+	symlink("mnt/source/RedHat/instimage/usr", "/usr");
+	symlink("mnt/source/RedHat/instimage/lib", "/lib");
 
-    unlink("/modules/modules.dep");
-    unlink("/modules/module-info");
-    unlink("/modules/modules.cgz");
-    unlink("/modules/pcitable");
+	unlink("/modules/modules.dep");
+	unlink("/modules/module-info");
+	unlink("/modules/modules.cgz");
+	unlink("/modules/pcitable");
 
-    symlink("../mnt/source/RedHat/instimage/modules/modules.dep",
-	    "/modules/modules.dep");
-    symlink("../mnt/source/RedHat/instimage/modules/module-info",
-	    "/modules/module-info");
-    symlink("../mnt/source/RedHat/instimage/modules/modules.cgz",
-	    "/modules/modules.cgz");
-    symlink("../mnt/source/RedHat/instimage/modules/pcitable",
-	    "/modules/pcitable");
+	symlink("../mnt/source/RedHat/instimage/modules/modules.dep",
+		"/modules/modules.dep");
+	symlink("../mnt/source/RedHat/instimage/modules/module-info",
+		"/modules/module-info");
+	symlink("../mnt/source/RedHat/instimage/modules/modules.cgz",
+		"/modules/modules.cgz");
+	symlink("../mnt/source/RedHat/instimage/modules/pcitable",
+		"/modules/pcitable");
+    }
 
-    if (newtRunning) newtFinished();
+    /* XXX should free old Deps */
+    modDeps = mlNewDeps();
+    mlLoadDeps(modDeps, "/modules/modules.dep");
+
+    modInfo = isysNewModuleInfoSet();
+    if (isysReadModuleInfo(arg, modInfo)) {
+        fprintf(stderr, "failed to read %s\n", arg);
+	sleep(5);
+	exit(1);
+    }
+    pciProbe(modInfo, modLoaded, modDeps, 0);
+
+    stopNewt();
     closeLog();
 
     for (i = 0; i < numKnownDevices; i++) {
@@ -684,8 +732,6 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 
-    configureNetDevice(&netDev);
-
     spawnShell();
 
     argptr = anacondaArgs;
@@ -697,6 +743,8 @@ int main(int argc, char ** argv) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
+
+while (1);
 
     return 1;
 }
