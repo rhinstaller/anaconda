@@ -36,7 +36,7 @@ echo "DESTGR is $DESTGR"
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-75dpi-fonts XFree86-3. xpm-3 glib-
-          gtk+- gnome-libs slang python-1 newt imlib-1 libpng libtiff
+          gtk+- gnome-libs python-1 newt imlib-1 libpng libtiff
           libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk-
           pygnome- util-linux procps esound-0 audiofile-0
           kernel-pcmcia-cs"
@@ -62,7 +62,6 @@ lib/libNoVersion*
 etc/group
 etc/passwd
 etc/services
-usr/lib/libslang*
 usr/bin/python*
 usr/lib/python*
 usr/lib/libnewt*
