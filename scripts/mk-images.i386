@@ -198,6 +198,13 @@ makeBootImages() {
 
 	# isolinux needs the config file to be isolinux.cfg
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
+
+	# copy in memtest if present
+	if [ -f $IMGPATH/usr/lib/memtest86/memtest86 ]; then
+           cp $IMGPATH/usr/lib/memtest86/memtest86 $MBD_BOOTTREE/memtest
+           echo -e "label memtest86\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
+	fi
+
     else
 	echo "No isolinux binaries.  Skipping isolinux creation"
     fi
