@@ -15,11 +15,10 @@ one of the following options:
 
 Certain hardware configurations may have trouble with the automatic hardware
 detection done during the installation.  If you experience problems during the 
-installation, restart the installation using expert mode.  Press 05<F3>07 for more
-information on expert mode.
+installation, restart the installation adding the 'noprobe' option.
 
 There are a number of parameters that can be passed to the Linux kernel
-at boot time.  Press 05<F4>07 for more information. 
+at boot time.  Press 05<F3>07 for more information. 
 
 
-05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07
+05[F1-Main] [F2-General] [F3-Kernel] [F4-Rescue]07

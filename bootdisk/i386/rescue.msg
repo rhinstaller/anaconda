@@ -21,4 +21,4 @@ CDROM and type 0flinux rescue <ENTER>07.
 
 
 
-05[F1-Main] [F2-General] [F3-Expert] [F4-Kernel] [F5-Rescue]07
+05[F1-Main] [F2-General] [F3-Kernel] [F4-Rescue]07
