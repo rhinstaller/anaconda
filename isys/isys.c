@@ -246,7 +246,7 @@ static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
 
 /* XXX - msw */
 #ifndef LOOP_CHANGE_FD
-#define LOOP_CHANGE_FD	0x4C04
+#define LOOP_CHANGE_FD	0x4C06
 #endif
 
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args) {
