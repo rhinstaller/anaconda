@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-04-02 11:26-0400\n"
+"POT-Creation-Date: 2001-04-02 18:54-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,8 +66,8 @@ msgstr ""
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
-#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
+#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr ""
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:689 ../todo.py:740
+#: ../fstab.py:689 ../todo.py:741
 msgid "Creating"
 msgstr ""
 
@@ -174,8 +174,8 @@ msgstr ""
 #: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
 #: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:116
-#: ../textw/lilo_text.py:224 ../textw/mouse_text.py:27
+#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:118
+#: ../textw/lilo_text.py:226 ../textw/mouse_text.py:27
 #: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
 #: ../textw/mouse_text.py:81 ../textw/network_text.py:102
 #: ../textw/network_text.py:161 ../textw/network_text.py:164
@@ -188,8 +188,8 @@ msgstr ""
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
 #: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
 #: ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190
-#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206
-#: ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:213
+#: ../textw/upgrade_text.py:216 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
@@ -220,8 +220,8 @@ msgstr ""
 msgid "Language Selection"
 msgstr ""
 
-#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1394
-#: ../libfdisk/gnomefsedit.c:1411
+#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr ""
 
@@ -315,8 +315,8 @@ msgstr ""
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
-#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:167
-#: ../textw/lilo_text.py:173 ../textw/mouse_text.py:55
+#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:169
+#: ../textw/lilo_text.py:175 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
@@ -396,20 +396,20 @@ msgstr ""
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:762
-#: ../libfdisk/gnomefsedit.c:794 ../libfdisk/gnomefsedit.c:885
-#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:1268
-#: ../libfdisk/gnomefsedit.c:1305 ../libfdisk/gnomefsedit.c:1339
-#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:1532
-#: ../libfdisk/gnomefsedit.c:1607 ../libfdisk/gnomefsedit.c:1657
-#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1743
-#: ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/gnomefsedit.c:2279 ../libfdisk/gnomefsedit.c:2287
-#: ../libfdisk/gnomefsedit.c:2331 ../libfdisk/gnomefsedit.c:2341
-#: ../libfdisk/gnomefsedit.c:2348 ../libfdisk/gnomefsedit.c:2363
-#: ../libfdisk/gnomefsedit.c:2373 ../libfdisk/gnomefsedit.c:2383
-#: ../libfdisk/gnomefsedit.c:2422 ../libfdisk/gnomefsedit.c:2589
-#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
+#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
+#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
 #: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 #: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
@@ -418,8 +418,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:138
-#: ../textw/lilo_text.py:223 ../textw/mouse_text.py:27
+#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
+#: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:422
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
@@ -509,12 +509,12 @@ msgid ""
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:578
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
-#: ../text.py:882 ../textw/lilo_text.py:139 ../textw/silo_text.py:136
+#: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr ""
@@ -738,8 +738,8 @@ msgstr ""
 msgid "SILO Configuration"
 msgstr ""
 
-#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:105
-#: ../textw/lilo_text.py:232
+#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:107
+#: ../textw/lilo_text.py:234
 msgid "LILO Configuration"
 msgstr ""
 
@@ -842,42 +842,42 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:740
+#: ../todo.py:741
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:759
+#: ../todo.py:760
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:760
+#: ../todo.py:761
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:1057
+#: ../todo.py:1058
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:1058
+#: ../todo.py:1059
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1302
+#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
+#: ../todo.py:1308
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:1188 ../upgrade.py:99
+#: ../todo.py:1189 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr ""
 
-#: ../todo.py:1189
+#: ../todo.py:1190
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:1204
+#: ../todo.py:1205
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -885,87 +885,87 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1224
+#: ../todo.py:1226
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:1225
+#: ../todo.py:1227
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:1240
+#: ../todo.py:1244
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../todo.py:1253
+#: ../todo.py:1259
 msgid "An error occured when finding the packages to upgrade."
 msgstr ""
 
-#: ../todo.py:1538
+#: ../todo.py:1544
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:1539
+#: ../todo.py:1545
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1573
+#: ../todo.py:1579
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1828
+#: ../todo.py:1837
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1830
+#: ../todo.py:1839
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1875
+#: ../todo.py:1884
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3177
-#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
+#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:55 ../todo.py:1887 ../todo.py:1905
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1878
+#: ../todo.py:1887
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1893
+#: ../todo.py:1902
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1896
+#: ../todo.py:1905
 msgid "Nodes Needed"
 msgstr ""
 
-#: ../todo.py:1902
+#: ../todo.py:1911
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1937
+#: ../todo.py:1946
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1938
+#: ../todo.py:1947
 msgid "Performing post install configuration..."
 msgstr ""
 
-#: ../todo.py:2077
+#: ../todo.py:2086
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -976,7 +976,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2083
+#: ../todo.py:2092
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1131,7 +1131,7 @@ msgid "Add"
 msgstr ""
 
 #: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
-#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:223
+#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:225
 #: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
@@ -1449,7 +1449,7 @@ msgid "Aborting upgrade"
 msgstr ""
 
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3181
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr ""
 
@@ -1457,12 +1457,12 @@ msgstr ""
 msgid "Install LILO boot record on:"
 msgstr ""
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:102
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:104
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:103
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:105
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr ""
@@ -1483,25 +1483,25 @@ msgstr ""
 msgid "Install LILO"
 msgstr ""
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr ""
 
 #: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3178 ../textw/lilo_text.py:133
-#: ../textw/lilo_text.py:214 ../textw/mouse_text.py:25
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:135
+#: ../textw/lilo_text.py:216 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr ""
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr ""
 
 #: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
-#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:134 ../textw/lilo_text.py:214
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:136 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr ""
@@ -1835,10 +1835,10 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
-#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -1846,22 +1846,22 @@ msgstr ""
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
 #: ../textw/partitioning_text.py:221 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:213
 msgid "Yes"
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:512 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
-#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
+#: ../textw/upgrade_text.py:213 ../textw/upgrade_text.py:219
 msgid "No"
 msgstr ""
 
@@ -2223,32 +2223,32 @@ msgid ""
 "Are you sure you want to skip LILO installation?"
 msgstr ""
 
-#: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr ""
 
-#: ../textw/lilo_text.py:138 ../textw/silo_text.py:136
+#: ../textw/lilo_text.py:140 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr ""
 
-#: ../textw/lilo_text.py:147
+#: ../textw/lilo_text.py:149
 msgid "Edit Boot Label Please"
 msgstr ""
 
-#: ../textw/lilo_text.py:165 ../textw/lilo_text.py:170
+#: ../textw/lilo_text.py:167 ../textw/lilo_text.py:172
 msgid "Invalid Boot Label"
 msgstr ""
 
-#: ../textw/lilo_text.py:166
+#: ../textw/lilo_text.py:168
 msgid "Boot label may not be empty."
 msgstr ""
 
-#: ../textw/lilo_text.py:171
+#: ../textw/lilo_text.py:173
 msgid "Boot label contains illegal characters."
 msgstr ""
 
-#: ../textw/lilo_text.py:227 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:229 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2490,11 +2490,11 @@ msgstr ""
 msgid "Upgrade Partition"
 msgstr ""
 
-#: ../textw/upgrade_text.py:198
+#: ../textw/upgrade_text.py:205
 msgid "Customize Packages to Upgrade"
 msgstr ""
 
-#: ../textw/upgrade_text.py:199
+#: ../textw/upgrade_text.py:206
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2657,7 +2657,7 @@ msgid ""
 "for your Linux installation."
 msgstr ""
 
-#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2719
+#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr ""
 
@@ -2834,118 +2834,118 @@ msgid ""
 "type correctly using your other operating system's partitioning program."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:958
-#: ../libfdisk/gnomefsedit.c:2059
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
+#: ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:960
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:751
+#: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:761 ../libfdisk/gnomefsedit.c:793
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
 msgid "Root partition"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:763
+#: ../libfdisk/gnomefsedit.c:757
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:795
+#: ../libfdisk/gnomefsedit.c:789
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:835 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:836 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:885 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:886 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:904 ../libfdisk/gnomefsedit.c:910
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:916
+#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
+#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:931 ../libfdisk/gnomefsedit.c:2042
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:973 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1005
+#: ../libfdisk/gnomefsedit.c:999
 msgid "Use remaining space?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1028 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1031 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1043 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1057 ../libfdisk/gnomefsedit.c:2080
+#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1140 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:2279
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1244 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1268 ../libfdisk/gnomefsedit.c:1305
-#: ../libfdisk/gnomefsedit.c:2287 ../libfdisk/newtfsedit.c:639
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2953,28 +2953,28 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1306 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1339 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1340 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:2422
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1359 ../libfdisk/gnomefsedit.c:2423
+#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
 #: ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid ""
@@ -2982,7 +2982,7 @@ msgid ""
 "swap partition is %ld Megabytes."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1373 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -2992,40 +2992,40 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1381 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1393
+#: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1395
+#: ../libfdisk/gnomefsedit.c:1389
 msgid "You must constrain this partition to at least one drive."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1403 ../libfdisk/gnomefsedit.c:1410
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../libfdisk/gnomefsedit.c:1399
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1412
+#: ../libfdisk/gnomefsedit.c:1406
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1532 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1533 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3033,11 +3033,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1607
+#: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1608
+#: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -3045,23 +3045,23 @@ msgid ""
 "Please recompose the raid device with allocated partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1657
+#: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1658
+#: ../libfdisk/gnomefsedit.c:1652
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1744
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1729 ../libfdisk/gnomefsedit.c:1739
+#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -3069,39 +3069,39 @@ msgid ""
 "with the reason they were not allocated."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2025
+#: ../libfdisk/gnomefsedit.c:2016
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2125
+#: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2148
+#: ../libfdisk/gnomefsedit.c:2139
 msgid "RAID Type:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2185
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2280
+#: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2288
+#: ../libfdisk/gnomefsedit.c:2279
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2324
+#: ../libfdisk/gnomefsedit.c:2315
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -3109,58 +3109,58 @@ msgid ""
 "These drives are: "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2341
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2342
+#: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2348
+#: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2349
+#: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2362
+#: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2355
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2372
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2382
+#: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2384
+#: ../libfdisk/gnomefsedit.c:2375
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2468
+#: ../libfdisk/gnomefsedit.c:2459
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -3168,145 +3168,145 @@ msgid ""
 "possible to boot from this partition?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2475
+#: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2589
+#: ../libfdisk/gnomefsedit.c:2544
 msgid "Cannot Add RAID Devices"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2590
+#: ../libfdisk/gnomefsedit.c:2545
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2631
+#: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2638
+#: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2657
+#: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2668
+#: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
 msgstr ""
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2680
+#: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2699 ../libfdisk/gnomefsedit.c:2719
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2799
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2800
+#: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2853 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2855 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2891 ../libfdisk/gnomefsedit.c:2942
+#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2893
+#: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2895
+#: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3179
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3180
+#: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3353
+#: ../libfdisk/gnomefsedit.c:3308
 msgid "Drive"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3354
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3355
+#: ../libfdisk/gnomefsedit.c:3310
 msgid "Total (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3356
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3357
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3358
+#: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3606
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3612 ../libfdisk/gnomefsedit.c:3630
+#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3701
+#: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3731
+#: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3738
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3739
+#: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3744
+#: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr ""
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3757
+#: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3767
+#: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3776
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
 msgstr ""
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-04-02 11:26-0400\n"
+"POT-Creation-Date: 2001-04-02 18:54-0400\n"
 "PO-Revision-Date: 2001-03-20 14:45+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -70,8 +70,8 @@ msgstr "Varning"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
-#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
+#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Fel"
 
@@ -112,7 +112,7 @@ msgstr "Fel vid skapande av växlingsutrymme på enhet "
 msgid "Error unmounting %s: %s"
 msgstr "Fel vid avmontering av %s: %s"
 
-#: ../fstab.py:689 ../todo.py:740
+#: ../fstab.py:689 ../todo.py:741
 msgid "Creating"
 msgstr "Skapar"
 
@@ -192,8 +192,8 @@ msgstr "Nästa"
 #: ../text.py:419 ../text.py:445 ../text.py:449 ../text.py:458 ../text.py:531
 #: ../text.py:533 ../text.py:543 ../text.py:545 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:116
-#: ../textw/lilo_text.py:224 ../textw/mouse_text.py:27
+#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:118
+#: ../textw/lilo_text.py:226 ../textw/mouse_text.py:27
 #: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
 #: ../textw/mouse_text.py:81 ../textw/network_text.py:102
 #: ../textw/network_text.py:161 ../textw/network_text.py:164
@@ -206,8 +206,8 @@ msgstr "Nästa"
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
 #: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
 #: ../textw/upgrade_text.py:176 ../textw/upgrade_text.py:190
-#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:206
-#: ../textw/upgrade_text.py:209 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:191 ../textw/upgrade_text.py:213
+#: ../textw/upgrade_text.py:216 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
@@ -238,8 +238,8 @@ msgstr "Hjälp"
 msgid "Language Selection"
 msgstr "Språkval"
 
-#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1394
-#: ../libfdisk/gnomefsedit.c:1411
+#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Stäng"
 
@@ -335,8 +335,8 @@ msgstr "Cdromskivan kunde inte monteras."
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
-#: ../textw/lilo_text.py:108 ../textw/lilo_text.py:167
-#: ../textw/lilo_text.py:173 ../textw/mouse_text.py:55
+#: ../textw/lilo_text.py:110 ../textw/lilo_text.py:169
+#: ../textw/lilo_text.py:175 ../textw/mouse_text.py:55
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
@@ -427,20 +427,20 @@ msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:762
-#: ../libfdisk/gnomefsedit.c:794 ../libfdisk/gnomefsedit.c:885
-#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:1268
-#: ../libfdisk/gnomefsedit.c:1305 ../libfdisk/gnomefsedit.c:1339
-#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:1532
-#: ../libfdisk/gnomefsedit.c:1607 ../libfdisk/gnomefsedit.c:1657
-#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1743
-#: ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/gnomefsedit.c:2279 ../libfdisk/gnomefsedit.c:2287
-#: ../libfdisk/gnomefsedit.c:2331 ../libfdisk/gnomefsedit.c:2341
-#: ../libfdisk/gnomefsedit.c:2348 ../libfdisk/gnomefsedit.c:2363
-#: ../libfdisk/gnomefsedit.c:2373 ../libfdisk/gnomefsedit.c:2383
-#: ../libfdisk/gnomefsedit.c:2422 ../libfdisk/gnomefsedit.c:2589
-#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
+#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
+#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
 #: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 #: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
@@ -449,8 +449,8 @@ msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
-#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:138
-#: ../textw/lilo_text.py:223 ../textw/mouse_text.py:27
+#: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
+#: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:422
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
@@ -556,12 +556,12 @@ msgstr ""
 "Använd knappen Avbryt nedan för att avsluta utan att ändra dina "
 "inställningar."
 
-#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:2033
-#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:578
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
-#: ../text.py:882 ../textw/lilo_text.py:139 ../textw/silo_text.py:136
+#: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Avbryt"
@@ -822,8 +822,8 @@ msgstr "Konfigurationen är färdig"
 msgid "SILO Configuration"
 msgstr "SILO-konfiguration"
 
-#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:105
-#: ../textw/lilo_text.py:232
+#: ../text.py:992 ../textw/lilo_text.py:36 ../textw/lilo_text.py:107
+#: ../textw/lilo_text.py:234
 msgid "LILO Configuration"
 msgstr "LILO-konfiguration"
 
@@ -927,36 +927,36 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
-#: ../todo.py:740
+#: ../todo.py:741
 msgid "Creating boot disk..."
 msgstr "Skapar bootdiskett..."
 
-#: ../todo.py:759
+#: ../todo.py:760
 msgid "Reading"
 msgstr "Läser"
 
-#: ../todo.py:760
+#: ../todo.py:761
 msgid "Reading package information..."
 msgstr "Läser paketinformation..."
 
-#: ../todo.py:1057
+#: ../todo.py:1058
 msgid "Dependency Check"
 msgstr "Beroendekontroll"
 
-#: ../todo.py:1058
+#: ../todo.py:1059
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1302
+#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
+#: ../todo.py:1308
 msgid "no suggestion"
 msgstr "inget förslag"
 
-#: ../todo.py:1188 ../upgrade.py:99
+#: ../todo.py:1189 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr "Nedsmutsade filsystem"
 
-#: ../todo.py:1189
+#: ../todo.py:1190
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -965,7 +965,7 @@ msgstr ""
 "Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
 "prova sedan att uppgradera igen."
 
-#: ../todo.py:1204
+#: ../todo.py:1205
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -977,32 +977,32 @@ msgstr ""
 "starta om uppgraderingen.\n"
 "\n"
 
-#: ../todo.py:1224
+#: ../todo.py:1226
 msgid "Finding"
 msgstr "Letar"
 
-#: ../todo.py:1225
+#: ../todo.py:1227
 msgid "Finding packages to upgrade..."
 msgstr "Letar efter paket att uppgradera..."
 
-#: ../todo.py:1240
+#: ../todo.py:1244
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
-#: ../todo.py:1253
+#: ../todo.py:1259
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Ett fel inträffade vid sökning av paketen att uppgradera."
 
-#: ../todo.py:1538
+#: ../todo.py:1544
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../todo.py:1539
+#: ../todo.py:1545
 msgid "Preparing to install..."
 msgstr "Förbereder installation..."
 
-#: ../todo.py:1573
+#: ../todo.py:1579
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1011,17 +1011,17 @@ msgstr ""
 "Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
 "paket, eller felaktigt medium. Tryck <Enter> för att försöka igen."
 
-#: ../todo.py:1828
+#: ../todo.py:1837
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppgraderar %s.\n"
 
-#: ../todo.py:1830
+#: ../todo.py:1839
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerar %s.\n"
 
-#: ../todo.py:1875
+#: ../todo.py:1884
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1031,16 +1031,16 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3177
-#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
+#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:55 ../todo.py:1887 ../todo.py:1905
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1878
+#: ../todo.py:1887
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../todo.py:1893
+#: ../todo.py:1902
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1050,23 +1050,23 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../todo.py:1896
+#: ../todo.py:1905
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../todo.py:1902
+#: ../todo.py:1911
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../todo.py:1937
+#: ../todo.py:1946
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../todo.py:1938
+#: ../todo.py:1947
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
-#: ../todo.py:2077
+#: ../todo.py:2086
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1084,7 +1084,7 @@ msgstr ""
 "Felet som rapporterades var:\n"
 "\n"
 
-#: ../todo.py:2083
+#: ../todo.py:2092
 msgid "Bootloader Errors"
 msgstr "Fel med bootladdaren"
 
@@ -1246,7 +1246,7 @@ msgid "Add"
 msgstr "Lägg till"
 
 #: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
-#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:223
+#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:225
 #: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
@@ -1579,7 +1579,7 @@ msgid "Aborting upgrade"
 msgstr "Avbryter uppgraderingen"
 
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3181
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Typ"
 
@@ -1587,12 +1587,12 @@ msgstr "Typ"
 msgid "Install LILO boot record on:"
 msgstr "Installera LILO-bootpost på:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:102
+#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:104
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Huvudbootposten (MBR)"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:103
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:105
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Första sektorn av bootpartitionen"
@@ -1613,25 +1613,25 @@ msgstr "Skapa bootdiskett"
 msgid "Install LILO"
 msgstr "Installera LILO"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Standard"
 
 #: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3178 ../textw/lilo_text.py:133
-#: ../textw/lilo_text.py:214 ../textw/mouse_text.py:25
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:135
+#: ../textw/lilo_text.py:216 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Enhet"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:214
+#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Partitionstyp"
 
 #: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
-#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:134 ../textw/lilo_text.py:214
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:136 ../textw/lilo_text.py:216
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Bootetikett"
@@ -2027,10 +2027,10 @@ msgstr ""
 "Är du säker på att du vill fortsätta?"
 
 #: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
-#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -2038,22 +2038,22 @@ msgstr ""
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
 #: ../textw/partitioning_text.py:221 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:206
+#: ../textw/upgrade_text.py:213
 msgid "Yes"
 msgstr "Ja"
 
 #: ../iw/rootpartition_gui.py:512 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
-#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
-#: ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
+#: ../textw/upgrade_text.py:213 ../textw/upgrade_text.py:219
 msgid "No"
 msgstr "Nej"
 
@@ -2459,32 +2459,32 @@ msgid ""
 "Are you sure you want to skip LILO installation?"
 msgstr ""
 
-#: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
+#: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "Var vill du installera bootladdaren?"
 
-#: ../textw/lilo_text.py:138 ../textw/silo_text.py:136
+#: ../textw/lilo_text.py:140 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "Nollställ"
 
-#: ../textw/lilo_text.py:147
+#: ../textw/lilo_text.py:149
 msgid "Edit Boot Label Please"
 msgstr "Var vänlig och redigera bootetiketten"
 
-#: ../textw/lilo_text.py:165 ../textw/lilo_text.py:170
+#: ../textw/lilo_text.py:167 ../textw/lilo_text.py:172
 msgid "Invalid Boot Label"
 msgstr "Ogiltig bootetikett"
 
-#: ../textw/lilo_text.py:166
+#: ../textw/lilo_text.py:168
 msgid "Boot label may not be empty."
 msgstr "Bootetiketten får inte vara tom."
 
-#: ../textw/lilo_text.py:171
+#: ../textw/lilo_text.py:173
 msgid "Boot label contains illegal characters."
 msgstr "Bootetiketten innehåller ogiltiga tecken."
 
-#: ../textw/lilo_text.py:227 ../textw/silo_text.py:208
+#: ../textw/lilo_text.py:229 ../textw/silo_text.py:208
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -2758,11 +2758,11 @@ msgstr "System att uppgradera"
 msgid "Upgrade Partition"
 msgstr "Uppgradera partition"
 
-#: ../textw/upgrade_text.py:198
+#: ../textw/upgrade_text.py:205
 msgid "Customize Packages to Upgrade"
 msgstr "Välj paket att uppgradera"
 
-#: ../textw/upgrade_text.py:199
+#: ../textw/upgrade_text.py:206
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2945,7 +2945,7 @@ msgstr ""
 "Automatisk partitionering kommer att ta bort ALL DATA på din hårddisk för "
 "att göra plats åt din Linuxinstallation."
 
-#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2719
+#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Arbetsstation"
 
@@ -3163,25 +3163,25 @@ msgid ""
 "type correctly using your other operating system's partitioning program."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:958
-#: ../libfdisk/gnomefsedit.c:2059
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
+#: ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
 msgstr "<Växlingspartition (swap)>"
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:960
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
 msgstr "<RAID-partition>"
 
-#: ../libfdisk/gnomefsedit.c:751
+#: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr "Kunde inte hitta partitionen med namnet %s\n"
 
-#: ../libfdisk/gnomefsedit.c:761 ../libfdisk/gnomefsedit.c:793
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
 msgid "Root partition"
 msgstr "Rotpartition"
 
-#: ../libfdisk/gnomefsedit.c:763
+#: ../libfdisk/gnomefsedit.c:757
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -3192,7 +3192,7 @@ msgstr ""
 "/boot-partition (50 MB duger) tillåta att rotpartitionen växer så att den "
 "fyller disken."
 
-#: ../libfdisk/gnomefsedit.c:795
+#: ../libfdisk/gnomefsedit.c:789
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -3203,19 +3203,19 @@ msgstr ""
 "/boot-partition (50 MB duger) tillåta att rotpartitionen växer så att den "
 "fyller disken."
 
-#: ../libfdisk/gnomefsedit.c:835 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr "Ta bort partition"
 
-#: ../libfdisk/gnomefsedit.c:836 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr "Är du säker på att du vill ta bort denna partition?"
 
-#: ../libfdisk/gnomefsedit.c:885 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
 msgstr "Kan inte redigera partitioner"
 
-#: ../libfdisk/gnomefsedit.c:886 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -3223,56 +3223,56 @@ msgstr ""
 "Du har definierat \"/\"-filsystemet på en partition som inte är ext2 och kan "
 "därför inte ändra andra partitioner."
 
-#: ../libfdisk/gnomefsedit.c:904 ../libfdisk/gnomefsedit.c:910
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:916
+#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
+#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr "Redigera partition"
 
-#: ../libfdisk/gnomefsedit.c:931 ../libfdisk/gnomefsedit.c:2042
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr "Monteringspunkt:"
 
-#: ../libfdisk/gnomefsedit.c:973 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "Storlek (MB):"
 
-#: ../libfdisk/gnomefsedit.c:1005
+#: ../libfdisk/gnomefsedit.c:999
 msgid "Use remaining space?"
 msgstr "Använd återstående utrymme?"
 
-#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr "Allokeringsstatus:"
 
-#: ../libfdisk/gnomefsedit.c:1028 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr "Lyckades"
 
-#: ../libfdisk/gnomefsedit.c:1031 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr "Misslyckades"
 
-#: ../libfdisk/gnomefsedit.c:1043 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr "Felorsak:"
 
-#: ../libfdisk/gnomefsedit.c:1057 ../libfdisk/gnomefsedit.c:2080
+#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr "Partitionstyp:"
 
-#: ../libfdisk/gnomefsedit.c:1140 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr "Tillåtna enheter:"
 
-#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:2279
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr "Ingen monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:1244 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -3280,13 +3280,13 @@ msgstr ""
 "Du har inte valt någon monteringspunkt för denna partition. Är du säker på "
 "att det är det du vill?"
 
-#: ../libfdisk/gnomefsedit.c:1268 ../libfdisk/gnomefsedit.c:1305
-#: ../libfdisk/gnomefsedit.c:2287 ../libfdisk/newtfsedit.c:639
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr "Fel på monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -3298,7 +3298,7 @@ msgstr ""
 "knutits till ext2-partitioner. Ta bort de monteringspunkterna, så kan du "
 "sedan knyta \"/\" till denna partition."
 
-#: ../libfdisk/gnomefsedit.c:1306 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -3306,11 +3306,11 @@ msgstr ""
 "Monteringspunkten du bad om är antingen ogiltig eller används redan. Välj en "
 "giltig monteringspunkt."
 
-#: ../libfdisk/gnomefsedit.c:1339 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr "Felaktig storlek"
 
-#: ../libfdisk/gnomefsedit.c:1340 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -3318,12 +3318,12 @@ msgstr ""
 "Storleken du bad om är inte tillåten. Försäkra dig om att den är större än 0 "
 "och angiven i decimalt heltalsformat (basen 10)."
 
-#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:2422
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr "Felaktig storlek på växlingspartition"
 
-#: ../libfdisk/gnomefsedit.c:1359 ../libfdisk/gnomefsedit.c:2423
+#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
 #: ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid ""
@@ -3333,7 +3333,7 @@ msgstr ""
 "Du har skapat en för stor växlingspartition. Den maximala storleken på en "
 "växlingspartition är %ld megabyte."
 
-#: ../libfdisk/gnomefsedit.c:1373 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3348,23 +3348,23 @@ msgstr ""
 "\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../libfdisk/gnomefsedit.c:1381 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr "Varning: Storlek på rotfilsystemet"
 
-#: ../libfdisk/gnomefsedit.c:1393
+#: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
 msgstr "Inga hårddiskar angivna"
 
-#: ../libfdisk/gnomefsedit.c:1395
+#: ../libfdisk/gnomefsedit.c:1389
 msgid "You must constrain this partition to at least one drive."
 msgstr "Du måste begränsa denna partition till åtminstone en hårddisk."
 
-#: ../libfdisk/gnomefsedit.c:1403 ../libfdisk/gnomefsedit.c:1410
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
 msgstr "Ingen restriktion på RAID-enhet"
 
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../libfdisk/gnomefsedit.c:1399
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -3374,7 +3374,7 @@ msgstr ""
 "enda disk.\n"
 " Är du säker på att det är det du vill?"
 
-#: ../libfdisk/gnomefsedit.c:1412
+#: ../libfdisk/gnomefsedit.c:1406
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -3382,11 +3382,11 @@ msgstr ""
 "Du har konfigurerat en RAID-partition utan att binda partitionen till en "
 "enda disk. Välj en disk att binda denna partition till."
 
-#: ../libfdisk/gnomefsedit.c:1532 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
 msgstr "Kan inte läga till partitioner"
 
-#: ../libfdisk/gnomefsedit.c:1533 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3396,11 +3396,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1607
+#: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
 msgstr "RAID-information inkomplett"
 
-#: ../libfdisk/gnomefsedit.c:1608
+#: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -3411,11 +3411,11 @@ msgstr ""
 "Raidenheten /dev/%s kommer nu att delas upp i de partitioner den består av. "
 "Var vänlig och sätt samman raidenheten igen med allokerade partitioner."
 
-#: ../libfdisk/gnomefsedit.c:1657
+#: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
 msgstr "Kan inte ta bort /boot"
 
-#: ../libfdisk/gnomefsedit.c:1658
+#: ../libfdisk/gnomefsedit.c:1652
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
@@ -3424,12 +3424,12 @@ msgstr ""
 "\"/\"till en enhet som inte är RAID först."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1744
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr "Oallokerade partitioner"
 
-#: ../libfdisk/gnomefsedit.c:1729 ../libfdisk/gnomefsedit.c:1739
+#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -3440,11 +3440,11 @@ msgstr ""
 "över begärda partitioner. Dessa oallokerade partitioner visas nedan "
 "tillsammans med anledningen till varför de inte blev allokerade."
 
-#: ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
 msgstr "Kan inte redigera RAID"
 
-#: ../libfdisk/gnomefsedit.c:2025
+#: ../libfdisk/gnomefsedit.c:2016
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -3452,30 +3452,30 @@ msgstr ""
 "Du har definierat \"/\"-filsystemet på en partition som inte är ext2, så du "
 "kan inte redigera RAID-enheter."
 
-#: ../libfdisk/gnomefsedit.c:2125
+#: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
 msgstr "RAID-enhet: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2148
+#: ../libfdisk/gnomefsedit.c:2139
 msgid "RAID Type:"
 msgstr "RAID-typ:"
 
-#: ../libfdisk/gnomefsedit.c:2185
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
 msgstr "Partitioner för RAID-kedja:"
 
-#: ../libfdisk/gnomefsedit.c:2280
+#: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Du har inte valt någon monteringspunkt. En monteringspunkt krävs."
 
-#: ../libfdisk/gnomefsedit.c:2288
+#: ../libfdisk/gnomefsedit.c:2279
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
 "Monteringspunkten du bad om används redan. Välj en giltig monteringspunkt."
 
-#: ../libfdisk/gnomefsedit.c:2324
+#: ../libfdisk/gnomefsedit.c:2315
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -3487,23 +3487,23 @@ msgstr ""
 "\n"
 "Dessa hårddiskar är: "
 
-#: ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
 msgstr "Uppstart från RAID-varning"
 
-#: ../libfdisk/gnomefsedit.c:2341
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
 msgstr "Ingen RAID-enhet"
 
-#: ../libfdisk/gnomefsedit.c:2342
+#: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
 msgstr "Du måste välja en RAID-enhet."
 
-#: ../libfdisk/gnomefsedit.c:2348
+#: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
 msgstr "Använd RAID-enhet"
 
-#: ../libfdisk/gnomefsedit.c:2349
+#: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -3512,11 +3512,11 @@ msgstr ""
 "Raidenheten \"/dev/%s\" är redan konfigurerad som en raidenhet. Var vänlig "
 "och välj en annan."
 
-#: ../libfdisk/gnomefsedit.c:2362
+#: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
 msgstr "Inte tillräckligt med partitioner"
 
-#: ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2355
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
@@ -3524,19 +3524,19 @@ msgstr ""
 "Du har inte konfigurerat tillräckligt med partitioner för den RAID-typ du "
 "har valt."
 
-#: ../libfdisk/gnomefsedit.c:2372
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
 msgstr "Ogiltig RAID-typ för /boot"
 
-#: ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Bootpartitioner (/boot) är endast tillåtna på RAID-1."
 
-#: ../libfdisk/gnomefsedit.c:2382
+#: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
 msgstr "Ogiltig RAID-monteringspunkt"
 
-#: ../libfdisk/gnomefsedit.c:2384
+#: ../libfdisk/gnomefsedit.c:2375
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3544,7 +3544,7 @@ msgstr ""
 "RAID-partitioner kan inte monteras som rot (/) på Alpha utan att en "
 "/boot-partition (som inte är RAID) samtidigt också finns."
 
-#: ../libfdisk/gnomefsedit.c:2468
+#: ../libfdisk/gnomefsedit.c:2459
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -3555,15 +3555,15 @@ msgstr ""
 "för denna RAID-enhet. Monteringspunkten är satt till /boot. Är du säker på "
 "att det är möjligt att boota från denna partition?"
 
-#: ../libfdisk/gnomefsedit.c:2475
+#: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
 msgstr "Använd redan existerande partition?"
 
-#: ../libfdisk/gnomefsedit.c:2589
+#: ../libfdisk/gnomefsedit.c:2544
 msgid "Cannot Add RAID Devices"
 msgstr "Kan inte lägga till RAID-enheter"
 
-#: ../libfdisk/gnomefsedit.c:2590
+#: ../libfdisk/gnomefsedit.c:2545
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -3571,96 +3571,96 @@ msgstr ""
 "Du har definierat \"/\"-filsystemet på en partition som inte är ext2, så du "
 "kan inte lägga till RAID-enheter."
 
-#: ../libfdisk/gnomefsedit.c:2631
+#: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
 msgstr "Paritionera automatiskt"
 
-#: ../libfdisk/gnomefsedit.c:2638
+#: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
 msgstr "Använd existerande diskutrymme"
 
-#: ../libfdisk/gnomefsedit.c:2657
+#: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
 msgstr "Ta bort Linuxpartitioner"
 
-#: ../libfdisk/gnomefsedit.c:2668
+#: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
 msgstr "Använd existerande ledigt utrymme"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2680
+#: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
 msgstr "Avsedd användning"
 
-#: ../libfdisk/gnomefsedit.c:2699 ../libfdisk/gnomefsedit.c:2719
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr "Server"
 
-#: ../libfdisk/gnomefsedit.c:2799
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
 msgstr "Ta bort RAID-enhet?"
 
-#: ../libfdisk/gnomefsedit.c:2800
+#: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Är du säker på att du vill ta bort denna RAID-enhet?"
 
-#: ../libfdisk/gnomefsedit.c:2853 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr "Återställ partitionstabellen"
 
-#: ../libfdisk/gnomefsedit.c:2855 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr "Återställ partitionstabellen till originalinnehållet? "
 
-#: ../libfdisk/gnomefsedit.c:2891 ../libfdisk/gnomefsedit.c:2942
+#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2893
+#: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2895
+#: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
 msgstr "<inte angiven>"
 
-#: ../libfdisk/gnomefsedit.c:3179
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
 msgstr "Begärt"
 
-#: ../libfdisk/gnomefsedit.c:3180
+#: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
 msgstr "Faktisk"
 
-#: ../libfdisk/gnomefsedit.c:3353
+#: ../libfdisk/gnomefsedit.c:3308
 msgid "Drive"
 msgstr "Hårddisk"
 
-#: ../libfdisk/gnomefsedit.c:3354
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
 msgstr "Geom [C/H/S]"
 
-#: ../libfdisk/gnomefsedit.c:3355
+#: ../libfdisk/gnomefsedit.c:3310
 msgid "Total (M)"
 msgstr "Totalt"
 
-#: ../libfdisk/gnomefsedit.c:3356
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
 msgstr "Ledigt"
 
-#: ../libfdisk/gnomefsedit.c:3357
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
 msgstr "Använt"
 
-#: ../libfdisk/gnomefsedit.c:3358
+#: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
 msgstr "Använt (%)"
 
-#: ../libfdisk/gnomefsedit.c:3606
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
 msgstr "Det finns oallokerade partitioner..."
 
-#: ../libfdisk/gnomefsedit.c:3612 ../libfdisk/gnomefsedit.c:3630
+#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -3668,36 +3668,36 @@ msgstr ""
 "Du måste knyta en rotpartition (/) till en \"Linux native\"-partition (ext2) "
 "eller en RAID-partition innan du kan fortsätta."
 
-#: ../libfdisk/gnomefsedit.c:3701
+#: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
 msgstr "Partitioner"
 
-#: ../libfdisk/gnomefsedit.c:3731
+#: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
 msgstr "_Lägg till..."
 
-#: ../libfdisk/gnomefsedit.c:3738
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
 msgstr "_Redigera..."
 
-#: ../libfdisk/gnomefsedit.c:3739
+#: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr "_Återställ"
 
-#: ../libfdisk/gnomefsedit.c:3744
+#: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr "_Ta bort"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3757
+#: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
 msgstr "_Skapa RAID-enhet"
 
-#: ../libfdisk/gnomefsedit.c:3767
+#: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
 msgstr "Partitionera automatiskt"
 
-#: ../libfdisk/gnomefsedit.c:3776
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
 msgstr "Hårddisksammanfattning"
 
