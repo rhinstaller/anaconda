@@ -1,5 +1,9 @@
 2004-10-06  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/lvm_dialog_gui.py (VolumeGroupEditor.updateLogVolStore):
+	Don't show "0" as a mountpoint for an LV that's not being mounted
+	anywhere (#134867)
+
 	* partRequests.py (RequestSpec.sanityCheckRequest): Call
 	sanityCheckMountPoint with new option
 

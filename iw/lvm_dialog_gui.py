@@ -793,8 +793,11 @@ class VolumeGroupEditor:
             if lvname:
                 self.logvolstore.set_value(iter, 0, lvname)
                 
-            if lv.fstype and lv.fstype.isMountable() and mntpt:
-                self.logvolstore.set_value(iter, 1, mntpt)
+            if lv.fstype and lv.fstype.isMountable():
+                if mntpt:
+                    self.logvolstore.set_value(iter, 1, mntpt)
+                else:
+                    self.logvolstore.set_value(iter, 1, "")
 	    else:
 		self.logvolstore.set_value(iter, 1, "N/A")
                 
