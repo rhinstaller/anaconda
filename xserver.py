@@ -156,7 +156,7 @@ EndSection
     server = os.fork()
     if (not server):
         print "starting", serverPath
-	args = [serverPath, ':1', 'vt7', '-s', '1440']
+	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
 	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
 	    try:
 		os.unlink("/dev/mouse")
