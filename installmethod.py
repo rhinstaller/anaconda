@@ -15,6 +15,9 @@ class InstallMethod:
     def readHeaders(self):
 	pass
 
+    def systemUnmounted(self, fstab, mntPoint, selected):
+	pass
+
     def systemMounted(self, fstab, mntPoint, selected):
 	pass
 

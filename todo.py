@@ -1567,6 +1567,8 @@ class ToDo:
 	    self.instLog.close()
 	    del syslog
 
+	    
+	    self.method.systemUnmounted ()
 	    self.fstab.umountFilesystems(self.instPath)
             
             rpm.errorSetCallback (oldError)

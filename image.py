@@ -27,6 +27,13 @@ class ImageInstallMethod(InstallMethod):
 
 class CdromInstallMethod(ImageInstallMethod):
 
+    def systemUnmounted(self):
+	if self.loopbackFile:
+	    isys.makeDevInode("loop0", "/tmp/loop")
+	    isys.lochangefd("/tmp/loop", 
+			"%s/RedHat/base/stage2.img" % self.tree)
+	    self.loopbackFile = None
+
     def systemMounted(self, fstab, mntPoint, selected):
 	changeloop=0
 	for p in selected:
