@@ -139,6 +139,12 @@ class InstallPathWindow (InstallWindow):
 				       self.todo.intf.waitWindow,
 				       self.todo.intf.messageWindow)
 
+        # set state of disk druid to be read-only if needed
+        if (InstallPathWindow.fdisk.get_active()):
+            self.todo.fstab.setReadonly(1)
+        else:
+            self.todo.fstab.setReadonly(0)
+
 	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
 
     def toggled (self, widget, type):
