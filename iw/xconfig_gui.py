@@ -69,16 +69,16 @@ class XCustomWindow (InstallWindow):
 	if ENABLE_DESKTOP_CHOICE:
 	    self.desktop.setDefaultDesktop (self.newDesktop)
 
+	# if we gave them a choice on login style then store it
+	# otherwise we're just using default setup by
+	# packages.py::handleX11Packages()
 	if self.instClass.showLoginChoice:
 	    if self.text.get_active ():
 		rl = 3
 	    elif self.graphical.get_active ():
 		rl = 5
-	else:
-	    # default to 5 if we didnt give them a choice
-	    rl = 5
 
-        self.desktop.setDefaultRunLevel(rl)
+	    self.desktop.setDefaultRunLevel(rl)
 
 
     def testPressed (self, widget, *args):
