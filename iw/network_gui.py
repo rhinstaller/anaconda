@@ -195,6 +195,10 @@ class NetworkWindow(InstallWindow):
                        (_("Netmask"),    "netmask"),
                        (_("Network"),    "network"),
                        (_("Broadcast"),  "broadcast")]
+
+            if len(i) >= 3 and i[:3] == 'ctc':
+                options.append(_("Point to Point (IP)"), "remip")
+            
             ipTable = GtkTable(len(options), 2)
             # this is the iptable used for DNS, et. al
             self.ipTable = GtkTable(len(options), 2)

@@ -474,10 +474,18 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   env = getenv("BROADCAST");
-   if (env && strlen(env)) {
-     if(inet_aton(env, &newCfg.dev.broadcast))
-       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
+   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
+     env = getenv("REMIP");
+     if (env && strlen(env)) {
+       if(inet_aton(env, &newCfg.dev.broadcast))
+	 newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
+     }
+   } else {
+     env = getenv("BROADCAST");
+     if (env && strlen(env)) {
+       if(inet_aton(env, &newCfg.dev.broadcast))
+	 newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
+     }
    }
 #endif   /* s390 */
 
@@ -558,17 +566,20 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "IPADDR=%s\n", inet_ntoa(dev->dev.ip));
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+	  fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
+	if (!strncmp(dev->dev.device, "ctc", 3)) {
+	  if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.broadcast));
+	} else {
+	  if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+	    fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
+	}
     }
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
-     if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-       fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
-    if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-	fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
 
     fclose(f);
 

@@ -78,14 +78,22 @@ class NetworkWindow:
                             isOn = (boot == "dhcp"))
         firstg.setField (self.cb, 0, 0, anchorLeft = 1)
 
-        secondg = Grid (2, 6)
+        ask_ptp = None
+        if len(dev) >= 3 and dev[:3] == "ctc":
+            ask_ptp = 1
+            secondg = Grid (2, 7)
+        else:
+            secondg = Grid (2, 6)
+            
         secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)
 	secondg.setField (Label (_("Netmask:")), 0, 1, anchorLeft = 1)
 	secondg.setField (Label (_("Default gateway (IP):")), 0, 2, anchorLeft = 1)
         secondg.setField (Label (_("Primary nameserver:")), 0, 3, anchorLeft = 1)
         secondg.setField (Label (_("Secondary nameserver:")), 0, 4, anchorLeft = 1)
         secondg.setField (Label (_("Ternary nameserver:")), 0, 5, anchorLeft = 1)
-
+        if ask_ptp:            
+            secondg.setField (Label (_("Point to Point (IP):")), 0, 6, anchorLeft = 1)
+            
         self.ip = Entry (16)
         self.ip.set (dev.get ("ipaddr"))
         self.nm = Entry (16)
@@ -98,7 +106,12 @@ class NetworkWindow:
         self.ns2.set (network.secondaryNS)
         self.ns3 = Entry (16)
         self.ns3.set (network.ternaryNS)
+        if ask_ptp:            
+            self.ptp = Entry(16)
+            self.ptp.set (dev.get ("remip"))
+            secondg.setField (self.ptp, 1, 7, (1, 0, 0, 0))
 
+            
         self.cb.setCallback (self.setsensitive)
         self.ip.setCallback (self.calcNM)
         self.nm.setCallback (self.calcGW)
@@ -124,7 +137,7 @@ class NetworkWindow:
             result = toplevel.run ()
             if self.cb.selected ():
                 dev.set (("bootproto", "dhcp"))
-                dev.unset ("ipaddr", "netmask", "network", "broadcast")
+                dev.unset ("ipaddr", "netmask", "network", "broadcast", "remip")
             else:
                 try:
                     (net, bc) = isys.inet_calcNetBroad (self.ip.value (), self.nm.value ())
@@ -137,6 +150,8 @@ class NetworkWindow:
                 dev.set (("bootproto", "static"))
                 dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
                          ("network", net), ("broadcast", bc))
+                if ask_ptp:
+                    dev.set (("remip", ptp))
                 network.gateway = self.gw.value ()
                 network.primaryNS = self.ns.value ()
                 network.secondaryNS = self.ns2.value()
