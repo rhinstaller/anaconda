@@ -2,7 +2,7 @@
 
 ORIGDIR=`pwd`
 COMPONENT=""
-DEBUG=""
+DEBUG=1
 
 if [ "$1" == "--debug" ]; then
     DEBUG="--debug"
