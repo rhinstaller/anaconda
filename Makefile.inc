@@ -9,8 +9,8 @@ SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
 ANACONDADATADIR = /usr/share/anaconda
-PYTHON = python2.2
-PYTHONINCLUDE = /usr/include/python2.2
+PYTHON = python2.3
+PYTHONINCLUDE = /usr/include/$(PYTHON)
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
