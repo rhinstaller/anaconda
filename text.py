@@ -54,7 +54,7 @@ stepToClasses = {
                                         "BootloaderPasswordWindow")),
     "bootloaderadvanced" : ("bootloader_text", ("BootloaderImagesWindow",
                                                 "BootloaderLocationWindow")),
-    "network" : ("new_network_text", ("NetworkDeviceWindow", "NetworkGlobalWindow",
+    "network" : ("network_text", ("NetworkDeviceWindow", "NetworkGlobalWindow",
                                   "HostnameWindow")),
     "firewall" : ("firewall_text", "FirewallWindow"),
     "languagesupport" : ("language_text", ("LanguageSupportWindow",
