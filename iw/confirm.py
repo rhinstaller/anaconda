@@ -7,6 +7,7 @@ class ConfirmWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setNextEnabled (1)
+        ics.setPrevEnabled (1)
         ics.setTitle (_("About to Install"))
 
     def getScreen (self):
