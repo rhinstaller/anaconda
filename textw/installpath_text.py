@@ -37,27 +37,11 @@ class InstallPathWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-	needNewDruid = 0
-
-	if needNewDruid:
-	    # The last 0 on here means we don't know if it's an upgrade or
-	    # not.
-	    id.fstab = NewtFstab(flags.setupFilesystems(), 
-                                   flags.serial(), 0, 0,
-                                   intf.waitWindow,
-                                   intf.messageWindow,
-                                   intf.progressWindow,
-                                   not flags.expert,
-                                   method.protectedPartitions(),
-                                   flags.expert, 0)
-
-
 	if (choice != orig):
 	    (name, objectClass, logo) = classes[choice]
 	    c = objectClass(flags.expert)
 	    c.setSteps(dispatch)
 	    c.setInstallData(id)
-	    needNewDruid = 1
 
         return INSTALL_OK
 
