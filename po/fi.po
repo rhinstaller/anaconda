@@ -1176,9 +1176,8 @@ msgstr ""
 
 # ../loader/kickstart.c:59
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Virhe avattaessa kickstart-tiedostoa %s: %s"
+msgstr "Virhe jäsennettäessä kickstart-asetuksia"
 
 # ../gui.py:317 ../text.py:248
 #: ../gui.py:648 ../text.py:295
@@ -1791,7 +1790,7 @@ msgstr ""
 
 # ../partitioning.py:695
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1799,23 +1798,21 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Laitteen /dev/%s osiotaulun tyyppi %s poikkeaa arkkitehtuurisi normaalista "
-"osiotaulusta. Jos haluat asentaa %sn tälle levylle, se pitää alustaa "
-"uudelleen, jolloin tämän levyn KAIKKI TIEDOT häviävät.\n"
+"Laitteen /dev/%s osiotaulun tyyppi on nyt %s. Jotta %s voidaan asentaa "
+"tälle levylle, osiotaulu täytyy alustaa uudelleen, jolloin tämän levyn "
+"KAIKKI TIEDOT häviävät.\n"
 "\n"
 "Haluatko alustaa tämän levyn?"
 
 # ../gui.py:113 ../text.py:285
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Jätä huomiotta"
+msgstr "_Jätä asema huomiotta"
 
 # ../iw/partition_gui.py:1545
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Alusta"
+msgstr "_Alusta asema"
 
 # ../partitioning.py:1264 ../partitioning.py:1295
 #: ../partedUtils.py:633
@@ -1834,7 +1831,7 @@ msgstr "Alustetaan osio %s...\n"
 
 # ../partitioning.py:1407
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1845,12 +1842,14 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Laitteen %s osiotaulu on lukukelvoton. Jotta uusia osioita voitaisiin luoda, "
-"osiotaulu pitää alustaa, jolloin tältä levyltä häviävät KAIKKI TIEDOT.\n"
+"Laitteen %s (%s) osiotaulu on lukukelvoton. Jotta uusia osioita voitaisiin "
+"luoda, osiotaulu täytyy alustaa, jolloin tältä levyltä häviävät KAIKKI "
+"TIEDOT.\n"
 "\n"
-"Tämä valinta ohittaa kaikki aiemmat levyjä koskevat valinnat.\n"
+"Tämä toiminto ohittaa kaikki aiemmat huomiotta jätettäviä asemia koskevat "
+"valinnat.\n"
 "\n"
-"Haluatko alustaa tämän levyn ja poistaa kaiken tiedon?"
+"Haluatko alustaa tämän aseman osiotaulun ja poistaa KAIKEN TIEDON?"
 
 # ../partitioning.py:1407
 #: ../partedUtils.py:870
@@ -2856,9 +2855,8 @@ msgstr "Yhdistetään..."
 
 # ../gui.py:476
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Tiedoston lataus epäonnistui!"
+msgstr "X:n käynnistäminen epäonnistui!"
 
 #: ../vnc.py:37
 msgid ""
@@ -2869,7 +2867,7 @@ msgstr ""
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Käytä tekstitilaa"
 
 #: ../vnc.py:45
 msgid "Start VNC"
@@ -3703,9 +3701,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Poista SELinux käytöstä"
+msgstr "Ota _SELinux käyttöön?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -6304,9 +6301,8 @@ msgstr "Et voi mukauttaa pois kytkettyä palomuuria."
 
 # ../iw/xconfig_gui.py:32
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Mukauta X:n asetuksia"
+msgstr "Mukauta palomuuriasetuksia"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -7791,25 +7787,22 @@ msgstr ""
 
 # ../loader/loader.c:1058
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Koneessa on useita laitteita, jotka soveltuvat lähteiksi ajurilevykkeelle. "
-"Mitä niistä käytetään?"
+"Laitteella on useita osioita, jotka soveltuvat lähteiksi ajurilevykkeen "
+"levykuvalle. Mitä niistä käytetään?"
 
 # ../loader/devices.c:260
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Päivityslevykkeen liittäminen epäonnistui."
+msgstr "Osion liittäminen epäonnistui."
 
 # ../iw/fdisk_gui.py:93
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Valitse ajuri"
+msgstr "Valitse ajurilevykkeen levykuva"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
@@ -7817,9 +7810,8 @@ msgstr ""
 
 # ../loader/devices.c:260
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Ajurilevykkeen liittäminen epäonnistui."
+msgstr "Ajurilevykkeen lataaminen tiedostosta epäonnistui."
 
 # ../loader/devices.c:239
 #: ../loader2/driverdisk.c:379
@@ -8374,9 +8366,8 @@ msgstr ""
 
 # ../loader/devices.c:77
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Sekalaiset asetukset"
+msgstr "Langattomat asetukset"
 
 # ../loader/net.c:262
 #: ../loader2/net.c:203
