@@ -34,7 +34,7 @@ sun.o: sun.h
 
 install: all
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	install _balkanmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install -s _balkanmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
 
 
 depend:
