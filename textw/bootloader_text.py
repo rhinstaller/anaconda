@@ -12,41 +12,47 @@ import iutil
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 #_ = cat.gettext
 
-class BootloaderAppendWindow:
+class BootloaderChoiceWindow:
 
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
-	t = TextboxReflowed(53,
-		     _("A few systems will need to pass special options "
-		       "to the kernel at boot time for the system to function "
-		       "properly. If you need to pass boot options to the "
-		       "kernel, enter them now. If you don't need any or "
-		       "aren't sure, leave this blank."))
+        # XXX need more text here
+        t = TextboxReflowed(53,
+                   _("Which bootloader would you like to use?"))
 
-        cb = Checkbox(_("Use LILO Boot Loader (instead of GRUB)"),
-		      isOn = not bl.useGrub())
-	entry = Entry(48, scroll = 1, returnExit = 1)
-	entry.set(bl.args.get())
+        if dispatch.stepInSkipList("instbootloader"):
+            useGrub = 0
+            useLilo = 0
+            noBl = 1
+        elif not bl.useGrub():
+            useGrub = 0
+            useLilo = 1
+            noBl = 0
+        else:
+            useGrub = 1
+            useLilo = 0
+            noBl = 0
 
-	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
-			     TEXT_BACK_BUTTON ] )
+        blradio = RadioGroup()
+        grub = blradio.add(_("Use GRUB Boot Loader"), "grub", useGrub)
+        lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
+        skipbl = blradio.add(_("No Boot Loader"), "nobl", noBl)
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
 
-	grid = GridFormHelp(screen, _("Boot Loader Configuration"), "kernelopts", 1, 4)
-	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
+        grid = GridFormHelp(screen, _("Boot Loader Configuration"), "bootloader", 1, 5)
+        grid.add(t, 0, 0, (0,0,0,1))
+        grid.add(grub, 0, 1, (0,0,0,0))
+        grid.add(lilo, 0, 2, (0,0,0,0))
+        grid.add(skipbl, 0, 3, (0,0,0,1))
+        grid.add(buttons, 0, 4, growx = 1)
 
-# XXX
-#	if not edd.detect():
-#	    grid.add(cb, 0, 1, padding = (0, 0, 0, 1))
+        result = grid.runOnce()
 
-	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
-	grid.add(buttons, 0, 3, growx = 1)
-
-        result = grid.runOnce ()
         button = buttons.buttonPressed(result)
         
         if button == TEXT_BACK_CHECK:
-            return INSTALL_BACK
+            return INSTALL_BACK        
 
-	if button == "skip":
+        if blradio.getSelection() == "nobl":
             rc = ButtonChoiceWindow(screen, _("Skip Boot Loader"),
 				_("You have elected to not install "
 				  "any boot loader. It is strongly recommended "
@@ -60,11 +66,46 @@ class BootloaderAppendWindow:
 				[ (_("Yes"), "yes"), (_("No"), "no") ],
 				width = 50)
 	    dispatch.skipStep("instbootloader", skip = (rc == "yes"))
+        elif blradio.getSelection() == "lilo":
+            bl.setUseGrub(0)
+            dispatch.skipStep("instbootloader", 0)            
 	else:
-	    dispatch.skipStep("instbootloader", 0)
+            bl.setUseGrub(1)
+            dispatch.skipStep("instbootloader", 0)            
+
+        return INSTALL_OK
+        
+
+class BootloaderAppendWindow:
+
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):
+	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
+        
+	t = TextboxReflowed(53,
+		     _("A few systems will need to pass special options "
+		       "to the kernel at boot time for the system to function "
+		       "properly. If you need to pass boot options to the "
+		       "kernel, enter them now. If you don't need any or "
+		       "aren't sure, leave this blank."))
+
+	entry = Entry(48, scroll = 1, returnExit = 1)
+	entry.set(bl.args.get())
+
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
+
+	grid = GridFormHelp(screen, _("Boot Loader Configuration"), "kernelopts", 1, 4)
+	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
+
+	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
+	grid.add(buttons, 0, 3, growx = 1)
+
+        result = grid.runOnce ()
+        button = buttons.buttonPressed(result)
+        
+        if button == TEXT_BACK_CHECK:
+            return INSTALL_BACK
 
 	bl.args.set(entry.value())
-	bl.setUseGrub(not cb.value())
 
 	return INSTALL_OK
 
@@ -159,14 +200,10 @@ class BootloaderImagesWindow:
 	return newLabel.value()
 
     def formatDevice(self, type, label, device, default):
-	if (type == "ext2"):
-	    type = "Linux Native"
-	elif (type == "FAT"):
+	if (type == "FAT"):
 	    type = "DOS/Windows"
 	elif (type == "ntfs" or type == "hpfs"):	
 	    type = "OS/2 / Windows NT"
-	else:
-	    type = "Other"
 
 	if default == device:
 	    default = '*'
