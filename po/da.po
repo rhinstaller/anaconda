@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-29 15:03GMT\n"
+"PO-Revision-Date: 2001-01-30 20:37GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
-"Language-Team: Danish <dansk@klid.dk>\n"
+"Language-Team: dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1071,7 +1071,7 @@ msgstr "Fejl under montering af ext2-filsystem på %s: %s"
 
 #: ../upgrade.py:69
 msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr ""
+msgstr "Partitionsløse opgraderinger understøttes IKKE i denne beta"
 
 #: ../upgrade.py:101
 msgid ""
@@ -2752,6 +2752,11 @@ msgid ""
 "so do NOT report errors if you choose to do this.\n"
 " Do you want to continue?"
 msgstr ""
+"\n"
+"ADVARSEL: Det er en kendt fejl at partitionsløse installationer ofte "
+"mislykkes med denne BETA, så rapportér IKKE fejl, hvis du vælger at gøre "
+"dette.\n"
+" Vil du alligevel fortsætte?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -4234,14 +4239,3 @@ msgstr "Kerneudvikling"
 
 msgid "Utilities"
 msgstr "Tilbehør"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Du har bedt om at lægge dit rodfilsystem (/) på en DOS FAT partition... Det "
-#~ "er tilladt, men så kan du ikke bruge andre filsystemer under Linux. Desuden "
-#~ "vil systemet køre langsommere når du ikke bruger Linux's almindelige "
-#~ "filsystem.  Vil du fortsætte?"
