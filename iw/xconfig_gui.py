@@ -441,8 +441,8 @@ class MonitorWindow (InstallWindow):
 			      "model in order to have the highest possible "
 			      "display quality."),
 					     type="custom",
-					     custom_buttons = [_("Proceed"),
-					     _("Choose monitor type")],
+					     custom_buttons = [_("_Proceed"),
+					     _("_Choose monitor type")],
 					     custom_icon="warning")
 		if rc:
 		    raise gui.StayOnScreen

@@ -1,7 +1,7 @@
 #
 # firewall_gui.py: firewall setup screen
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -29,6 +29,13 @@ class FirewallWindow (InstallWindow):
     def getNext (self):
         if self.disabled_radio.get_active ():
             self.firewall.enabled = 0
+
+	    rc2 = self.intf.messageWindow(_("Warning - No Firewall"),
+					  _("You have elected to disable the firewall on this system.  This is not recomended if this system is attached directly to the Internet or is on a large public network. A firewall will help prevent unauthorized access to your system.\n\nAre you sure you want to turn off the firewall?"),
+					  type="custom", custom_icon="warning",
+					  custom_buttons=[_("_Back"), _("_Proceed")])
+	    if rc2 == 0:
+		raise gui.StayOnScreen
         else:
             self.firewall.enabled = 1
 
