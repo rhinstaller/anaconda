@@ -629,6 +629,7 @@ class InstallControlWindow:
             self.installFrame.remove (child)
             child.destroy ()
 
+        self.installFrame.set_label (_(screen.getICS ().getTitle ()))
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 

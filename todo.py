@@ -1213,8 +1213,7 @@ class ToDo:
             fstab.readFstab(self.instPath + '/etc/fstab', self.fstab)
             
 
-	self.fstab.turnOnSwap(self.instPath, self.intf.progressWindow,
-			      formatSwap = 0)
+	self.fstab.turnOnSwap(self.instPath, formatSwap = 0)
                     
     def upgradeFindPackages (self):
         self.getCompsList ()
@@ -1750,8 +1749,7 @@ class ToDo:
 		else:
 		    self.fstab.savePartitions ()
 		    self.fstab.makeFilesystems ()
-		    self.fstab.turnOnSwap(self.instPath, 
-					  self.intf.progressWindow)
+		    self.fstab.turnOnSwap(self.instPath)
 
 	    # We do this for upgrades, even though everything is already
 	    # mounted. While this may seem a bit strange, we reference

@@ -59,7 +59,7 @@ class PartitionWindow (InstallWindow):
 	    return 0
 
 	self.todo.fstab.savePartitions()
-	self.todo.fstab.turnOnSwap(self.todo.intf.waitWindow)
+	self.todo.fstab.turnOnSwap(self.todo.instPath)
 	self.todo.ddruidAlreadySaved = 1
 	PartitionWindow.swapon = 1
 

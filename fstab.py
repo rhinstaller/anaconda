@@ -478,7 +478,7 @@ class Fstab:
 	for n in enabledSwapDict().keys():
 	    isys.swapoff(n)
 
-    def turnOnSwap(self, instPath, progressWindow, formatSwap = 1):
+    def turnOnSwap(self, instPath, formatSwap = 1):
 	swaps = enabledSwapDict()
 
 	iutil.mkdirChain('/tmp/swap')
@@ -496,7 +496,7 @@ class Fstab:
 		
 		if not os.access(file, os.R_OK):
 		    if type(size) == type(1):
-			isys.ddfile(file, size, (progressWindow, 
+			isys.ddfile(file, size, (self.progressWindow, 
 					  _("Swap Space"),
 					  _("Creating swap space...")))
 
