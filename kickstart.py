@@ -575,9 +575,7 @@ class KickstartBase(BaseInstallClass):
 	groups = []
         excludedPackages = []
 	for n in open(file).readlines():
-	    print "n = ", n
 	    args = isys.parseArgv(n)
-	    print "args = ", args
 	    
 	    # don't eliminate white space or comments from scripts
 	    if where not in ["pre", "post", "traceback"]:
@@ -781,8 +779,6 @@ class KickstartBase(BaseInstallClass):
                 preexist = 1
             elif str == "--useexisting":
                 preexist = 1
-            else:
-                print str, " ", arg
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
