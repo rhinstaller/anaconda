@@ -700,13 +700,13 @@ class VolumeGroupEditor:
 
     def getSelectedPhysicalVolumes(self, model):
 	pv = []
-	iter = model.get_iter_first()
-	next = 1
+	next = model.get_iter_first()
 	currow = 0
-	while next:
+	while next is not None:
+	    iter = next
 	    val      = model.get_value(iter, 0)
 	    partname = model.get_value(iter, 1)
-
+	    
 	    if val:
 		pvreq = self.partitions.getRequestByDeviceName(partname)
 		id = pvreq.uniqueID
