@@ -7,6 +7,9 @@
 	* packages.py (doPostAction):  Accept a handle to the interface so we
 	can pass it into the %post kickstart handler.
 
+	* docs/kickstart-docs.html:  Removed.
+	* docs/kickstart-docs.txt:  Cleaned up in preparation for additions.
+
 2005-02-08  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py: Fix segfault if we have to order packages.
