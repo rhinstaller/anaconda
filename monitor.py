@@ -215,7 +215,6 @@ class MonitorInfo:
 		monVert = None
 		
                 if monitor:
-		    self.orig_use_probed = 1
                     monEisa = monitor[0].id
 
                     # only guess the timings if something is non-zero
@@ -228,12 +227,16 @@ class MonitorInfo:
                         monVert = "%d-%d" % (monitor[0].vertRefreshMin,
                                                   monitor[0].vertRefreshMax)
 
-		    monName = ""
 		    if monitor[0].desc != None:
 			monName = monitor[0].desc
 
-		    self.probedMonitor = (monEisa, monName, monHoriz, monVert)
-		    self.setSpecs(monHoriz, monVert, id="DDCPROBED", name=monName)
+		    if monVert != None and monHoriz != None and monitor[0].desc != None:
+			self.probedMonitor = (monEisa, monName, monHoriz, monVert)
+			self.setSpecs(monHoriz, monVert, id="DDCPROBED", name=monName)
+			self.orig_use_probed = 1
+		    else:
+			log("ddcprobe returned bogus values: %s" % (monitor,))
+		    
             except:
                 log("ddcprobe failed")
                 pass
