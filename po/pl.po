@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-20 15:36+0200\n"
+"PO-Revision-Date: 2004-07-22 00:10+0200\n"
 "Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,9 +166,8 @@ msgid "No video hardware found, assuming headless"
 msgstr "Urządzenia wideo nie zostały znalezione, pomyłka."
 
 #: ../anaconda:820 ../anaconda:1079
-#, fuzzy
 msgid "Unable to instantiate a X hardware state object."
-msgstr "Nie można utworzyć instancji obiektu stanu sprzętowego X."
+msgstr "Nie można zainicjować obiektu stanu urządzenia fizycznego obsługującego X."
 
 #: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
@@ -437,7 +436,7 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Automatyczne partycjonowanie dzieli dysk na partycje na podstawie wybranego "
+"Automatyczne Definiowanie Partycji dzieli dysk na partycje na podstawie wybranego "
 "typu instalacji. Po utworzeniu partycji można dopasować je do swoich "
 "wymagań.\n"
 "\n"
@@ -1003,13 +1002,12 @@ msgid "Error Parsing Kickstart Config"
 msgstr "Błąd Interpretacji Pliku Konfiguracyjnego Kickstart"
 
 #: ../gui.py:648 ../text.py:295
-#, fuzzy
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 "Włóż dyskietkę. Ponieważ cała zawartość dyskietki zostanie skasowana, "
-"zastanów się jaką dyskietkę wkładasz."
+"uważaj abyś włożył odpowiednią dyskietke."
 
 #: ../gui.py:746
 msgid "default:LTR"
@@ -1244,7 +1242,7 @@ msgstr "Czytanie"
 
 #: ../packages.py:144
 msgid "Reading package information..."
-msgstr "Czytanie informacji o pakiecie..."
+msgstr "Wczytywanie informacji o pakietach..."
 
 #: ../packages.py:151
 msgid ""
@@ -1488,7 +1486,6 @@ msgstr "Obca"
 
 #: ../partedUtils.py:274
 #, python-format
-#, fuzzy
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1496,7 +1493,13 @@ msgid ""
 "of ALL DATA on this drive.\n"
 "\n"
 "Would you like to reformat this DASD using CDL format?"
-msgstr "Tabela partycji w urządzeniu %s jest uszkodzona. Aby utworzyÄ nowÄ partycjÄ naleÅ¼y jÄ zainicjowaÄ, co spowoduje utratÄ WSZYSTKICH DANYCH na tym dysku."
+msgstr ""
+"Urządzenie %s jest zformatowane zgodnie ze standardem LDL zamiast z CDL. "
+"Urządzenia DASD zformatowane zgodnie z LDL nie są wspierane w trakcie "
+"instalacji %s. Jeśli chcesz wykorzystać ten dysk do instalacji, musisz go "
+"zreformatować co spowoduje utrate WSZYSTKICH DANYCH na tym dysku.\n"
+"\n"
+"Czy chcesz zreformatować urządzenie DASD zgodnie z formatem CDL?"
 
 #: ../partedUtils.py:304
 #, python-format
@@ -1679,9 +1682,8 @@ msgid "You cannot delete free space."
 msgstr "Nie można usunąć wolnego miejsca."
 
 #: ../partIntfHelpers.py:157
-#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Czy jesteś pewien, że chcesz usunąć tę partycje?"
+msgstr "Nie możesz usunąć partycji będącej elementem LDL zformatowanego urządzenia DASD."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -3089,7 +3091,7 @@ msgstr ""
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
-msgstr "Partycjonowanie przy pomocy fdisku"
+msgstr "Definiowanie partycji przy pomocy fdisku"
 
 #: ../iw/fdisk_gui.py:103
 msgid "Select a drive to partition with fdisk:"
@@ -3928,7 +3930,7 @@ msgstr "Pakiety opcjonalne"
 
 #: ../iw/package_gui.py:1031
 msgid "Details"
-msgstr "Szczegóły"
+msgstr "Detale"
 
 #: ../iw/package_gui.py:1125
 msgid "_Select individual packages"
@@ -4030,7 +4032,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1124
 msgid "Partitioning"
-msgstr "Partycjonowanie"
+msgstr "Definiowanie partycji"
 
 #: ../iw/partition_gui.py:639
 msgid "The following critical errors exist with your requested partitioning scheme."
@@ -4216,7 +4218,7 @@ msgstr "Ukryj składniki urządzeń RAID/_Grup Wolumenów LVM"
 
 #: ../iw/partition_gui.py:1420 ../textw/partition_text.py:1214
 msgid "Automatic Partitioning"
-msgstr "Automatyczne partycjonowanie"
+msgstr "Automatyczne Definiowanie Partycji"
 
 #: ../iw/partition_gui.py:1448
 #, python-format
@@ -4281,7 +4283,7 @@ msgstr "_Automatyczny podział na partycje"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr "Partycjonowanie ręczne _Disk Druidem"
+msgstr "Ręczne definiowanie partycji _Disk Druidem"
 
 #: ../iw/progress_gui.py:41
 #, python-format
@@ -5541,7 +5543,7 @@ msgstr "Wybierz poszczegÃ³lne pakiety"
 #: ../textw/packages_text.py:73
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"<Spacja>,<+>,<-> wybór      |   <F2> Szczegóły grupy  |   <F12> następny "
+"<Spacja>,<+>,<-> wybór      |   <F2> Detale grupy  |   <F12> następny "
 "ekran"
 
 #: ../textw/packages_text.py:117
@@ -5808,7 +5810,7 @@ msgstr "Których dysków chcesz użyć do instalacji?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr "Automatyczne partycjonowanie"
+msgstr "Automatyczne Definiowanie Partycji"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -5891,17 +5893,15 @@ msgid "Update boot loader configuration"
 msgstr "Aktualizuj Konfiguracje Boot Loadera"
 
 #: ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
 msgid "Skip boot loader updating"
 msgstr "Pomiń aktualizację boot loadera"
 
 #: ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
 msgid "Create new boot loader configuration"
 msgstr "Utwórz nową konfigurację boot loadera"
 
 #: ../textw/upgrade_text.py:94
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
@@ -5913,45 +5913,38 @@ msgstr ""
 "swapa, ale możesz utworzyć dodatkowy obszar swap w jednym z systemów plików."
 
 #: ../textw/upgrade_text.py:112
-#, fuzzy
 msgid "Free Space"
-msgstr "Wolna przestrzeń"
+msgstr "Wolna Przestrzeń"
 
 #: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
 msgstr "RAM wykryty (MB):"
 
 #: ../textw/upgrade_text.py:130
-#, fuzzy
 msgid "Suggested size (MB):"
 msgstr "Sugerowana wielkość (MB):"
 
 #: ../textw/upgrade_text.py:133
-#, fuzzy
 msgid "Swap file size (MB):"
 msgstr "Wielkość pliku swap (MB):"
 
 #: ../textw/upgrade_text.py:141
-#, fuzzy
 msgid "Add Swap"
-msgstr "Dodaj swap"
+msgstr "Dodaj Swap"
 
 #: ../textw/upgrade_text.py:166
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Podana wielkość musi być liczbą."
+msgstr "Podana wielkość nie jest liczbą."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Przeinstaluj system"
+msgstr "Przeinstaluj System"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
 msgstr "System do uaktualnienia"
 
 #: ../textw/upgrade_text.py:208
-#, fuzzy
 msgid ""
 "One or more existing Linux installations have been found on your system.\n"
 "\n"
@@ -5961,7 +5954,7 @@ msgstr ""
 "Na Twoim komputerze znaleziono co najmniej jedną instalację Linuksa.\n"
 "\n"
 "Proszę wybrać którąś z nich do aktualizacji lub zaznaczyć 'Przeinstaluj "
-"system', aby zainstalować system od nowa."
+"System', aby zainstalować system od nowa."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -6045,16 +6038,12 @@ msgid "User Exists"
 msgstr "użytkownik już istnieje"
 
 #: ../textw/userauth_text.py:156
-#, fuzzy
 msgid "The root user is already configured. You don't need to add this user here."
-msgstr "Root już został dodany. Nie trzeba dodawać takiego użytkownika tutaj."
+msgstr "Użytkownik root już został dodany. Nie trzeba dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:163
-#, fuzzy
 msgid "This system user is already configured. You don't need to add this user here."
-msgstr ""
-"Ten użytkownik już został dodany. Nie trzeba dodawać takiego użytkownika "
-"tutaj."
+msgstr "Ten użytkownik już został dodany. Nie trzeba dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6075,7 +6064,6 @@ msgid "User Account Setup"
 msgstr "Konfiguracja konta użytkownika"
 
 #: ../textw/userauth_text.py:211
-#, fuzzy
 msgid ""
 "What other user accounts would you like to have on the system? You should "
 "have at least one non-root account for normal work, but multi-user systems "
@@ -6158,9 +6146,8 @@ msgid "KDC:"
 msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
-#, fuzzy
 msgid "Admin Server:"
-msgstr "Serwer administratora:"
+msgstr "Serwer Administracyjny:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -6181,28 +6168,24 @@ msgid "Color Depth"
 msgstr "Głębia kolorów"
 
 #: ../textw/xconfig_text.py:36
-#, fuzzy
 msgid "Please select the color depth you would like to use:"
-msgstr "Wybierz liczbę kolorów, jakiej chcesz używać:"
+msgstr "Wybierz głębie kolorów, jakiej chcesz używać:"
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
 msgstr "Rozdzielczość"
 
 #: ../textw/xconfig_text.py:60
-#, fuzzy
 msgid "Please select the resolution you would like to use:"
 msgstr "Wybierz rozdzielczość, jakiej chcesz używać:"
 
 #: ../textw/xconfig_text.py:131
-#, fuzzy
 msgid "X Customization"
 msgstr "Konfiguracja X Window"
 
 #: ../textw/xconfig_text.py:134
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "Wybierz liczbę kolorów i tryb graficzny jakich chcesz używać. "
+msgstr "Wybierz głębie kolorów i tryb graficzny jakich chcesz używać. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6219,9 +6202,8 @@ msgid "Resolution:"
 msgstr "Rozdzielczość:"
 
 #: ../textw/xconfig_text.py:155
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Standardowy pulpit:"
+msgstr "Domyślny Pulpit:"
 
 # ../comps/comps-master:259
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
@@ -6250,7 +6232,6 @@ msgid "Monitor"
 msgstr "Monitor"
 
 #: ../textw/xconfig_text.py:229
-#, fuzzy
 msgid "Please select the monitor attached to your system."
 msgstr "Wybierz typ monitora podłączonego do systemu."
 
@@ -6263,12 +6244,11 @@ msgid "vertical"
 msgstr "pionowe"
 
 #: ../textw/xconfig_text.py:261
-#, fuzzy
 msgid "Invalid Sync Rates"
-msgstr "Błędna częstotliwość synchronizacji"
+msgstr "Błędna Częstotliwość Synchronizacji"
 
 #: ../textw/xconfig_text.py:262
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
 "\n"
@@ -6291,12 +6271,10 @@ msgstr ""
 "31.5,35.0,39.3-40.0          listę liczb/zakresów\n"
 
 #: ../textw/xconfig_text.py:276
-#, fuzzy
 msgid "Monitor Sync Rates"
-msgstr "Częstotliwość synchronizacji monitora"
+msgstr "Częstotliwość Synchronizacji Monitora"
 
 #: ../textw/xconfig_text.py:281
-#, fuzzy
 msgid ""
 "Please enter the sync rates for your monitor. \n"
 "\n"
@@ -6309,17 +6287,15 @@ msgstr ""
 "aby nie podać błędnych parametrów."
 
 #: ../textw/xconfig_text.py:286
-#, fuzzy
 msgid "HSync Rate: "
-msgstr "Cz. pozioma:"
+msgstr "Częst. Pozioma:"
 
 #: ../textw/xconfig_text.py:291
-#, fuzzy
 msgid "VSync Rate: "
-msgstr "Cz. pionowa:"
+msgstr "Częst. Pionowa:"
 
 #: ../textw/xconfig_text.py:419
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
@@ -6330,19 +6306,16 @@ msgid "Monitor:"
 msgstr "Monitor:"
 
 #: ../textw/xconfig_text.py:430
-#, fuzzy
 msgid "HSync Rate:"
-msgstr "Cz. pozioma:"
+msgstr "Częst. Pozioma:"
 
 #: ../textw/xconfig_text.py:440
-#, fuzzy
 msgid "VSync Rate:"
-msgstr "Cz. pionowa:"
+msgstr "Częst. Pionowa:"
 
 #: ../textw/xconfig_text.py:473
-#, fuzzy
 msgid "Choose monitor type"
-msgstr "<b>Typ drugiego monitora</b>:"
+msgstr "Wybierz typ monitora"
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
@@ -6410,17 +6383,14 @@ msgid "z/IPL Configuration"
 msgstr "Konfiguracja z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
-#, fuzzy
 msgid "Chandev line "
-msgstr "%s: linia %d: nieprawidłowa linia\n"
+msgstr "Linia Chandev"
 
 #: ../installclasses/custom.py:11
-#, fuzzy
 msgid "_Custom"
 msgstr "_Dowolny"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
@@ -6429,12 +6399,10 @@ msgstr ""
 "w tym nad wyborem pakietów z oprogramowaniem i sposobami uwierzytelniania."
 
 #: ../installclasses/personal_desktop.py:11
-#, fuzzy
 msgid "_Personal Desktop"
-msgstr "Biuro, szkoła i dom"
+msgstr "Osobisty _Pulpit"
 
 #: ../installclasses/personal_desktop.py:13
-#, fuzzy
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
@@ -6459,22 +6427,20 @@ msgid "_Server"
 msgstr "_Serwer"
 
 #: ../installclasses/server.py:13
-#, fuzzy
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
 "Wybierz ten typ instalacji, jeśli chcesz skonfigurować współdzielenie "
-"plików, współdzielenie drukarek i usługi WWW. Można włączyć dodatkowe usługi "
-"i wybrać, czy ma zostać zainstalowane graficzne środowisko pracy."
+"plików, współdzielenie drukarek i usługi WWW. Można włączyć rółnież "
+"inne usługi i wybrać, czy ma zostać zainstalowane graficzne środowisko pracy."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
 msgstr "S_tacja robocza"
 
 #: ../installclasses/workstation.py:10
-#, fuzzy
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
@@ -6497,9 +6463,8 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
-#, fuzzy
 msgid "Media Check"
-msgstr "Sprawdzanie nośnika"
+msgstr "Sprawdzanie Nośnika"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
@@ -6512,16 +6477,16 @@ msgid "Eject CD"
 msgstr "Wysunięcie CD"
 
 #: ../loader2/cdinstall.c:89
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Wybierz \"%s\", aby przetestować CD znajdujący się w napędzie,      lub \"%s"
-"\", aby wysunąć CD i włożyć inny do testowania."
+"Wybierz \"%s\", aby przetestować aktualnie znajdujący się w napędzie CD, "
+"lub \"%s\", aby wysunąć CD i włożyć inny do testowania."
 
 #: ../loader2/cdinstall.c:110
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
 "\". You do not have to test all CDs, although it is recommended you do so at "
@@ -6550,7 +6515,7 @@ msgid "CD Found"
 msgstr "Znaleziono CD"
 
 #: ../loader2/cdinstall.c:255
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
 "\n"
@@ -6574,26 +6539,22 @@ msgid "CD Not Found"
 msgstr "Nie znaleziono CD"
 
 #: ../loader2/cdinstall.c:448
-#, fuzzy
 msgid "Cannot find kickstart file on CDROM."
-msgstr "Nie można znaleźć pliku kickstart na płycie CD-ROM."
+msgstr "Nie można znaleźć pliku konfiguracji kickstart na płycie CD-ROM."
 
 #: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Wczytywanie"
 
 #: ../loader2/driverdisk.c:122
-#, fuzzy
 msgid "Reading driver disk..."
 msgstr "Czytanie dyskietki ze sterownikami..."
 
 #: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Dyskietka ze sterownikami"
+msgstr "Dyskietka ze Sterownikami"
 
 #: ../loader2/driverdisk.c:257
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6602,7 +6563,6 @@ msgstr ""
 "sterownikami. Którego chcesz użyć?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -6611,36 +6571,31 @@ msgstr ""
 "sterownikami. Którego chcesz użyć?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Nie udało się zamontować dyskietki aktualizującej"
+msgstr "Nie udało się zamontować partycji."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Wybierz sterownik"
+msgstr "Wybierz obraz dyskietki ze sterownikam"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Nie udało się zamontować dyskietki ze sterownikami."
+msgstr "Nie udało się załadować z pliku dyskietki ze sterownikami."
 
 #: ../loader2/driverdisk.c:379
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
 
 #: ../loader2/driverdisk.c:381
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Włóż dyskietkę ze sterownikami"
+msgstr "Włóż Dyskietkę ze Sterownikami"
 
 #: ../loader2/driverdisk.c:396
-#, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Nie udało się zamontować dyskietki ze sterownikami."
 
@@ -6649,38 +6604,32 @@ msgid "Manually choose"
 msgstr "Wybór ręczny"
 
 #: ../loader2/driverdisk.c:463
-#, fuzzy
 msgid "Load another disk"
-msgstr "Wgraj inną dyskietkę"
+msgstr "Włóż inną dyskietkę"
 
 #: ../loader2/driverdisk.c:464
-#, fuzzy
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 "Na dyskietce ze sterownikami nie znaleziono urządzeń odpowiedniego typu.  "
-"Czy chcesz samodzielnie wybrać sterownik, przejść dalej, czy wgrać inną "
+"Czy chcesz samodzielnie wybrać sterownik, przejść dalej lub wgrać inną "
 "dyskietkę ze sterownikami?"
 
 #: ../loader2/driverdisk.c:506
-#, fuzzy
 msgid "Driver disk"
 msgstr "Dyskietka ze sterownikami"
 
 #: ../loader2/driverdisk.c:507
-#, fuzzy
 msgid "Do you have a driver disk?"
 msgstr "Czy masz dyskietkę ze sterownikami?"
 
 #: ../loader2/driverdisk.c:517
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Więcej dyskietek ze sterownikami?"
+msgstr "Więcej Dyskietek ze Sterownikami?"
 
 #: ../loader2/driverdisk.c:518
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr "Czy chcesz wgrać więcej dyskietek ze sterownikami?"
 
@@ -6692,22 +6641,22 @@ msgstr "Czy chcesz wgrać więcej dyskietek ze sterownikami?"
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
-msgstr "Błąd kickstart"
+msgstr "Błąd Kickstart"
 
 #: ../loader2/driverdisk.c:571
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "bÅÄdny argument w komendzie network kickstart %s: %s"
+msgstr "Nieznana dyskietka ze sterownikami w konfiguracji kikstart: %s"
 
 #: ../loader2/driverdisk.c:604
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "bÅÄdny argument w komendzie network kickstart %s: %s"
+msgstr "Błędny argument komendy driver disk programu kickstart : %s: %s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
@@ -6728,30 +6677,26 @@ msgid "No drivers found"
 msgstr "Nie znaleziono sterowników"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
 msgstr "Wgraj dyskietkę ze sterownikami"
 
 #: ../loader2/driverselect.c:187
-#, fuzzy
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nie znaleziono sterowników, które można załadować na żądanie.  Czy chcesz "
-"użyć dyskietki ze sterownikami? "
+"Nie znaleziono sterowników, które można załadować na żądanie. "
+"Czy chcesz użyć dyskietki ze sterownikami? "
 
 #: ../loader2/driverselect.c:206
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Który sterownik wypróbować? Jeżeli potrzebnego sterownika nie ma na tej "
+"Który ze sterowników wypróbować? Jeżeli potrzebnego sterownika nie ma na tej "
 "liście, a masz osobny dysk ze sterownikami, naciśnij F2."
 
 #: ../loader2/driverselect.c:214
-#, fuzzy
 msgid "Specify optional module arguments"
 msgstr "Podaj opcjonalne parametry modułu"
 
@@ -6766,7 +6711,7 @@ msgstr "Ładowanie sterownika %s..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
@@ -6775,12 +6720,11 @@ msgstr ""
 "którego uruchomiono instalację."
 
 #: ../loader2/hdinstall.c:219
-#, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"Podczas czytania instalacji z obrazów ISO wystąpił błąd. Sprawdź swoje "
+"Podczas czytania instalacji z obrazów ISO wystąpił błąd. Zweryfikuj swoje "
 "obrazy ISO i spróbuj ponownie."
 
 #: ../loader2/hdinstall.c:327
@@ -6792,7 +6736,7 @@ msgstr ""
 "urządzenia?"
 
 #: ../loader2/hdinstall.c:343
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
@@ -6811,14 +6755,14 @@ msgid "Select Partition"
 msgstr "Wybierz partycję"
 
 #: ../loader2/hdinstall.c:432
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Urządzenie %s nie zawiera obrazów CDROM %s."
 
 #: ../loader2/hdinstall.c:464
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie HD kickstart %s: %s"
+msgstr "Błędny argument w komendzie HD programu kickstart %s: %s"
 
 #: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
@@ -6843,18 +6787,18 @@ msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Błąd odczytu zawartości pliku kickstart %s: %s"
 
 #: ../loader2/kickstart.c:172
-#, fuzzy, c-format
+#, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Błąd w %s w wierszu %d pliku kickstart %s."
+msgstr "Błąd w %s w wierszu %d pliku konfiguracyjnego kickstart %s."
 
 #: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nie mogę znaleźć ks.cfg na dyskietce startowej."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie HD kickstart %s: %s"
+msgstr "Błędny argument w komendzie shutdown programu kickstart %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -6882,12 +6826,10 @@ msgid "NFS image"
 msgstr "Obraz NFS"
 
 #: ../loader2/loader.c:319
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Dyskietka aktualizująca "
+msgstr "Lokalizacja Dyskietki Aktualizującej"
 
 #: ../loader2/loader.c:320
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6896,19 +6838,17 @@ msgstr ""
 "aktualizująca.  Którego chcesz użyć?"
 
 #: ../loader2/loader.c:335
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Włóż dyskietkę aktualizującą do /dev/%s, a potem naciśnij \"OK\" żeby "
 "kontynuować."
 
 #: ../loader2/loader.c:337
-#, fuzzy
 msgid "Updates Disk"
-msgstr "Dyskietka aktualizująca "
+msgstr "Dyskietka Aktualizująca "
 
 #: ../loader2/loader.c:349
-#, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Nie udało się zamontować dyskietki aktualizującej"
 
@@ -6921,7 +6861,6 @@ msgid "Reading anaconda updates..."
 msgstr "Wczytywanie aktualizacji anacondy..."
 
 #: ../loader2/loader.c:380
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6965,27 +6904,25 @@ msgid "Use a driver disk"
 msgstr "Użyj dyskietki ze sterownikami"
 
 #: ../loader2/loader.c:853
-#, fuzzy
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"Nie można znaleźć żadnych urządzeń potrzebnych do tego typu instalacji.  Czy "
-"chcesz własnoręcznie wybrać sterownik lub użyć dyskietki ze sterownikami?"
+"Nie można znaleźć żadnych urządzeń potrzebnych do tego typu instalacji.  "
+"Czy chcesz własnoręcznie wybrać sterownik lub użyć dyskietki "
+"ze sterownikami?"
 
 #: ../loader2/loader.c:1013
-#, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "W twoim systemie zostały znalezione następujące urządzenia."
 
 #: ../loader2/loader.c:1015
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"Nie załadowano żadnych specjalnych sterowników dla twojego systemu.  Czy "
-"chcesz dodać jakieś teraz?"
+"Nie załadowano żadnych specjalnych sterowników dla twojego systemu.  "
+"Czy chcesz dodać jakieś teraz?"
 
 #: ../loader2/loader.c:1019
 msgid "Devices"
@@ -7000,22 +6937,21 @@ msgid "Add Device"
 msgstr "Dodanie urządzenia"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "narzędzie ładowania zostało już uruchomione.  Uruchamiam powłokę."
+msgstr "narzędzie łądujące zostało już uruchomione.  Uruchamiam powłokę.\n"
 
 #: ../loader2/loader.c:1484
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Uruchamianie anacondy, programu instalacyjnego %s - proszę czekać...\n"
+msgstr "Uruchamianie anacondy, tryb ratunkowy %s - proszę czekać...\n"
 
 #: ../loader2/loader.c:1486
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Uruchamianie anacondy, programu instalacyjnego %s - proszę czekać...\n"
+msgstr "Uruchamianie anacondy, tryb instalacji systemu %s - proszę czekać...\n"
 
 #: ../loader2/mediacheck.c:256
-#, fuzzy
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
@@ -7117,12 +7053,12 @@ msgid "Checksum Test"
 msgstr "Sprawdzanie sumy kontrolnej"
 
 #: ../loader2/modules.c:920
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie HD kickstart %s: %s"
+msgstr "Błędny argument komendy device programu kickstart %s: %s"
 
 #: ../loader2/net.c:46
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -7145,9 +7081,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Inne ustawienia"
+msgstr "Ustawienia Sieci Bezprzewodowej"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -7158,7 +7093,6 @@ msgid "Nameserver"
 msgstr "Serwer nazw"
 
 #: ../loader2/net.c:208
-#, fuzzy
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7232,9 +7166,9 @@ msgid "Determining host name and domain..."
 msgstr "Ustalenie nazwy hosta i domeny..."
 
 #: ../loader2/net.c:858
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Błędny argument w komendzie network kickstart %s: %s"
+msgstr "Błędny argument komendy network programu kickstart %s: %s"
 
 #: ../loader2/net.c:881
 #, c-format
@@ -7246,7 +7180,6 @@ msgid "Networking Device"
 msgstr "Urządzenie sieciowe"
 
 #: ../loader2/net.c:1011
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7259,7 +7192,7 @@ msgid "NFS server name:"
 msgstr "Nazwa serwera NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
 msgstr "katalog %s:"
 
@@ -7268,19 +7201,18 @@ msgid "NFS Setup"
 msgstr "Ustawienia NFS"
 
 #: ../loader2/nfsinstall.c:197
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "Ten katalog nie zawiera drzewa instalacyjnego %s."
 
 #: ../loader2/nfsinstall.c:210
-#, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Nie można zamontować tego katalogu z serwera."
 
 #: ../loader2/nfsinstall.c:248
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie NFS kickstart %s: %s"
+msgstr "Błędny argument komendy NFS programu kickstart %s: %s"
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
@@ -7295,33 +7227,30 @@ msgid "Running anaconda via telnet..."
 msgstr "Uruchamianie anacondy poprzez telnet..."
 
 #: ../loader2/urlinstall.c:67
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Nie można pobrać %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:137
-#, fuzzy
 msgid "Unable to retrieve the install image."
 msgstr "Nie można pobrać obrazu instalacyjnego."
 
 #: ../loader2/urlinstall.c:272
-#, fuzzy
 msgid "Media Detected"
-msgstr "Automatycznie wykryte"
+msgstr "Wykryte Nośniki"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
 msgstr "Znaleziono lokalne medium instalacji..."
 
 #: ../loader2/urlinstall.c:432
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Błędny argument w komendzie Url kickstart %s: %s"
+msgstr "Błędny argument komendy Url programu kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:441
-#, fuzzy
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Musisz podać argument --url w metodzie Url kockstart."
+msgstr "Musisz podać argument --url w metodzie Url programu kickstart."
 
 #: ../loader2/urlinstall.c:452
 #, c-format
@@ -7336,12 +7265,11 @@ msgstr "Nie udało się zalogować do %s: %s"
 #: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Nie mogę załadować %s: %s"
+msgstr "Nie mogę pobrać %s: %s"
 
 #: ../loader2/urls.c:196
-#, fuzzy
 msgid "Retrieving"
-msgstr "Ładowanie"
+msgstr "Pobieranie"
 
 #: ../loader2/urls.c:280
 msgid "FTP site name:"
@@ -7404,9 +7332,8 @@ msgstr "Ładowanie sterownika SCSI"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Acre"
-msgstr "Brazil/Acre"
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
@@ -7414,15 +7341,13 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Alaska Time"
-msgstr "Czas stworzenia : %s"
+msgstr "Czas Alaski"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Alaska Time - Alaska panhandle"
-msgstr "Sygnał w czasie rzeczywistym %d"
+msgstr "Czas Alaski - Alaska Panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
@@ -7430,14 +7355,12 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Alaska Time - west Alaska"
-msgstr "Key West NAS"
+msgstr "Czas Alaski - Zachodnia Alaska"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Aleutian Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Aleuckie"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
@@ -7448,19 +7371,16 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Aqtobe (Aktobe)"
-msgstr "Azja/Aktyubińsk"
+msgstr "Aqtobe (Aktobe) / Kazachstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Atlantyckie"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - E Labrador"
-msgstr "Sygnał w czasie rzeczywistym %d"
+msgstr "Czas Atlantycki - E Labrador"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
@@ -7499,12 +7419,10 @@ msgid "Catamarca (CT)"
 msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 msgstr "Chiny środkowe - Gansu, Guizhou, Sichuan, Yunnan itd."
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central Crimea"
 msgstr "Krym środkowy"
 
@@ -7518,9 +7436,8 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time"
-msgstr "Czas stworzenia : %s"
+msgstr "Czas Centralny"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
@@ -7559,14 +7476,12 @@ msgid "Central Time - west Nunavut"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ceuta & Melilla"
-msgstr "Afryka/Ceuta"
+msgstr "Ceuta i Melilla"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Chatham Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Chatham"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7589,7 +7504,6 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
 msgstr "Chiny wschodnie - Pekin, Guangdong, Szanghaj itd."
 
@@ -7634,9 +7548,8 @@ msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time"
-msgstr "Czas stworzenia : %s"
+msgstr "Czas Wschodni"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
@@ -7675,19 +7588,16 @@ msgid "east Uzbekistan"
 msgstr "Uzbekistan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Galapagos Islands"
 msgstr "Wyspy Galapagos"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gambier Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Gambier"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gilbert Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Gilberta"
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -7730,31 +7640,26 @@ msgid "Kwajalein"
 msgstr "Kwajalein"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Line Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Line"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Lord Howe Island"
-msgstr "Australia/Lord_Howe"
+msgstr "Wyspa Lord Howe"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Madeira Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Madeira"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
 msgstr "kontynentalny"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Marquesas Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
@@ -7778,9 +7683,8 @@ msgstr "Mendoza (MZ)"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Midway Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Midway"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7850,14 +7754,12 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskwa+10 - Morze Beringa"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "większość miejsc"
+msgstr "większość lokalizacji"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr "większość miejsc (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "większość lokalizacji (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7872,9 +7774,8 @@ msgid "Mountain Standard Time - Sonora"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time"
-msgstr "Czas stworzenia : %s"
+msgstr "Czas Mountain"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
@@ -7885,15 +7786,13 @@ msgid "Mountain Time - central Northwest Territories"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - Chihuahua"
-msgstr "Sygnał w czasie rzeczywistym %d"
+msgstr "Czas Mountain - Chihuahua"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - Navajo"
-msgstr "Sygnał w czasie rzeczywistym %d"
+msgstr "Czas Mountain - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
@@ -7912,9 +7811,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PB)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Island"
-msgstr "Wyspa Bartera"
+msgstr "Wyspa Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7925,9 +7823,8 @@ msgid "New South Wales - Yancowinna"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "northeast Mali"
-msgstr "Wschód - północny wschód"
+msgstr "Północno-Wschodnia Mali"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7935,15 +7832,13 @@ msgid "Northern Ireland"
 msgstr "Irlandia Północna"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Northern Territory"
-msgstr "Autonomia Palestyńska"
+msgstr "Północne Terytoria"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Czas stworzenia : %s"
+msgstr "Czas Pacyfiku"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -7963,9 +7858,8 @@ msgid "Palmer Station, Anvers Island"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "peninsular Malaysia"
-msgstr "Malezja, ringgit"
+msgstr "Peninsular Malezja"
 
 #. generated from zone.tab
 msgid "Pernambuco"
@@ -7973,25 +7867,21 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Phoenix Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Phoenix"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ponape (Pohnpei)"
-msgstr "Pacyfik/Ponape"
+msgstr "Ponape (Pohnpei)"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Queensland - Holiday Islands"
-msgstr "Wyspy Kokosowe"
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Queensland - most locations"
-msgstr "Położenia pliku"
+msgstr "Queensland - większość lokalizacji"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -8014,14 +7904,12 @@ msgid "Sabah & Sarawak"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr "Arktyka/Scoresbysund"
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Society Islands"
-msgstr "Wyspy Kajmany"
+msgstr "Wyspy Society"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -8030,15 +7918,13 @@ msgstr "Południowa Australia"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "southwest Mali"
-msgstr "Południe - południowy zachód"
+msgstr "Południowo-Zachodnie Mali"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "southwest Xinjiang Uyghur"
-msgstr "Fort Myers (Południowozachodni port Florydy)"
+msgstr "Południowo_Zachodni Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -8050,9 +7936,8 @@ msgid "Svalbard"
 msgstr "Svalbard"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Syowa Station, E Ongul I"
-msgstr "Nowa stacja radia internetowego"
+msgstr "Stacja Syowa, E Ongul I"
 
 #  generated from zone.tab
 #. generated from zone.tab
@@ -8061,9 +7946,8 @@ msgstr "Tasmania"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Thule / Pituffik"
-msgstr "Ameryka/Thule"
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
@@ -8071,9 +7955,8 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "PoÅoÅ¼enie"
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
@@ -8089,9 +7972,8 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Wake Island"
-msgstr "Wyspa Bartera"
+msgstr "Wyspa Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -8099,9 +7981,8 @@ msgstr ""
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "west & central Borneo"
-msgstr "Republika Środkowoafrykańska"
+msgstr "Zachodnie i Centralne Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
@@ -8130,7 +8011,6 @@ msgstr "Yap"
 
 #  generated from zone.tab
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporoże, wsch. Lugańsk"
 
@@ -8144,9 +8024,8 @@ msgstr ""
 
 #  generated from lang-table
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "Włoski"
+msgstr "Kataloński"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8185,9 +8064,8 @@ msgstr ""
 
 #  generated from lang-table
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Duński"
+msgstr "Fiński"
 
 #. generated from lang-table
 msgid "French"
@@ -8198,9 +8076,8 @@ msgid "German"
 msgstr "Niemiecki"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Szukam"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8238,9 +8115,8 @@ msgid "Norwegian"
 msgstr "Norweski"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Niemiecki"
+msgstr "Perski"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8275,9 +8151,8 @@ msgstr "Szwedzki"
 
 #  generated from zone.tab
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamilski"
 
 #. generated from lang-table
 msgid "Turkish"
