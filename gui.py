@@ -75,37 +75,6 @@ elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 
 # setup globals
-
-def setupTreeViewFixupIdleHandler(view, store):
-    id = {}
-    id["id"] = gtk.idle_add(scrollToIdleHandler, (view, store, id))
-
-def scrollToIdleHandler((view, store, iddict)):
-    if not view or not store or not iddict:
-	return
-
-    try:
-	id = iddict["id"]
-    except:
-	return
-    
-    selection = view.get_selection()
-    if not selection:
-	return
-    
-    model, iter = selection.get_selected()
-    if not iter:
-	return
-
-    path = store.get_path(iter)
-    col = view.get_column(0)
-    view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
-
-    if id:
-	gtk.idle_remove(id)
-
-
-
 def processEvents():
     gtk.gdk.flush()
     while gtk.events_pending():
@@ -191,11 +160,15 @@ def titleBarMotionEventCB(widget, event, data):
     if data["state"]:
 	newx = event.x_root-data["deltax"]
 	newy = event.y_root-data["deltay"]
-	if newx < 0 or newy < 0:
-	    return
+	if newx < 0:
+	    newx = 0
+	if newy < 0:
+	    newy = 0
 	(w, h) = data["window"].get_size()
-	if (newx+w) > gtk.gdk.screen_width() or (newy > (gtk.gdk.screen_height()-10)):
-	    return
+	if (newx+w) > gtk.gdk.screen_width():
+	    newx = gtk.gdk.screen_width() - w
+	if (newy+20) > (gtk.gdk.screen_height()):
+	    newy = gtk.gdk.screen_height() - 20
 	
 	data["window"].move(newx, newy)
 
