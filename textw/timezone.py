@@ -60,7 +60,7 @@ class TimezoneWindow:
 	if rc:
 	    (default, asUtc, asArc) = rc
 	else:
-	    default = "US/Eastern"
+	    default = iutil.defaultZone()
 	    asUtc = 0
 
 	bb = ButtonBar(screen, [(_("OK"), "ok"), (_("Back"), "back")])

@@ -3,6 +3,7 @@ from iw import *
 import string
 from gnome.ui import GnomeCanvas
 from translate import _
+import iutil
 
 import timezonemap
 
@@ -123,7 +124,7 @@ class TimezoneWindow (InstallWindow):
 	if rc:
 	    (self.default, asUTC, asArc) = rc
 	else:
-	    self.default = "America/New_York"
+	    self.default = iutil.defaultZone ()
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):

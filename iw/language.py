@@ -30,7 +30,6 @@ class LanguageWindow (InstallWindow):
             self.icw.setLanguage (self.languages[self.lang])
         return None
 
-        
     def select_row (self, clist, row, col, event):
         if self.running:
             lang = clist.get_text (clist.selection[0], 0)

@@ -291,3 +291,42 @@ esac
     execWithRedirect('/bin/sh', args, stdin = None,
                      stdout = None, stderr = None,
                      root = root)
+
+def defaultZone():
+    if os.access("lang-table", os.R_OK):
+        f = open("lang-table", "r")
+    elif os.access("/etc/lang-table", os.R_OK):
+        f = open("/etc/lang-table", "r")
+    else:
+        f = open("/usr/lib/anaconda/lang-table", "r")
+        
+    lines = f.readlines ()
+    f.close()
+
+    for line in lines:
+        string.strip(line)
+        l = string.split(line)
+        if l[4] == os.environ["LANG"]:
+            return l[6]
+    
+    return "America/New_York"
+
+def defaultKeyboard():
+    if os.access("lang-table", os.R_OK):
+        f = open("lang-table", "r")
+    elif os.access("/etc/lang-table", os.R_OK):
+        f = open("/etc/lang-table", "r")
+    else:
+        f = open("/usr/lib/anaconda/lang-table", "r")
+        
+    lines = f.readlines ()
+    f.close()
+
+    for line in lines:
+        string.strip(line)
+        l = string.split(line)
+        if l[4] == os.environ["LANG"]:
+            return l[5]
+    
+    return "us"
+
