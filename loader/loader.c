@@ -1784,7 +1784,7 @@ int main(int argc, char ** argv) {
     }
     
     *argptr = NULL;
-    
+
     if (!FL_TESTING(flags)) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
