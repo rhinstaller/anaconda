@@ -19,31 +19,28 @@ msgstr "¤¹¤Ù¤Æ"
 
 #: ../exception.py:13 ../text.py:855
 msgid "Exception Occurred"
-msgstr "Îã³°¤¬È¯À¸¤·¤Þ¤·¤¿¡£"
+msgstr "Îã³°¤¬È¯À¸¤·¤Þ¤·¤¿"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr "dump ¤¬½ñ¤­¹þ¤Þ¤ì¤Þ¤·¤¿¡£"
+msgstr "dump ¤¬½ñ¤­¹þ¤Þ¤ì¤Þ¤·¤¿"
 
 #: ../exception.py:92
 msgid "Your system's state has been successfully written to the floppy. Your system will now be reset."
-msgstr "¥·¥¹¥Æ¥à¾õÂÖ¤Î¥Õ¥í¥Ã¥Ô¡¼¤Ø¤Î½ñ¤­¹þ¤ß¤¬À®¸ù¤·¤Þ¤·¤¿¡£¥·¥¹¥Æ¥à¤ò¥ê¥»¥Ã¥È¤·¤Þ¤¹¡£"
+msgstr "¥·¥¹¥Æ¥à¾õÂÖ¤Î¥Õ¥í¥Ã¥Ô¡¼¤Ø¤Î½ñ¤­¹þ¤ß¤ËÀ®¸ù¡£¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Þ¤¹"
 
 #: ../fstab.py:67
 msgid ""
 "The following partitions are newly created, but you have chosen not to format them. This will probably cause an error later in the install.\n"
 "\n"
-msgstr "¼¡¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¿·µ¬¤Ë¤Ä¤¯¤é¤ì¤Þ¤·¤¿¤¬¡¢¤Þ¤À¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤è¤¦¤ËÁªÂò¤·¤Æ¤¤¤Þ¤»¤ó¡£¤³¤ì¤Ï¥¤¥ó¥¹¥È¡¼¥ë¤ÎºÝ¤Ë¥¨¥é¡¼¤ò°ú¤­µ¯¤³¤¹¤«¤â¤·¤ì¤Þ¤»¤ó¡£\n"
+msgstr "¼¡¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¿·µ¬¤Ë¤Ä¤¯¤ê¤Þ¤·¤¿¤¬¡¢¤Þ¤À¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤è¤¦¤ËÁªÂò¤·¤Æ¤¤¤Þ¤»¤ó¡£¥¤¥ó¥¹¥È¡¼¥ë¤ÎºÝ¤Ë¥¨¥é¡¼¤ò°ú¤­µ¯¤³¤¹²ÄÇ½À­¤¬¤¢¤ê¤Þ¤¹\n"
 
 #: ../fstab.py:75
 msgid ""
 "\n"
 "\n"
 "Press OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED)."
-msgstr ""
-"\n"
-"\n"
-"Â³¤±¤ë¤Ë¤Ï [OK] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£¤·¤«¤·¡¢[¥­¥ã¥ó¥»¥ë] ¤ò²¡¤·¤ÆÌá¤Ã¤Æ¡¢¤³¤ì¤é¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤è¤¦¤ËÁªÂò¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹¡£"
+msgstr "\n\nÂ³¤±¤ë¤Ë¤Ï[OK]¤ò²¡¤·¤Æ²¼¤µ¤¤¡£¤·¤«¤·[¥­¥ã¥ó¥»¥ë] ¤ò²¡¤·¤ÆÌá¤Ã¤Æ¤³¤ì¤é¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤è¤¦¤ËÁªÂò¤¹¤ë¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹"
 
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174 ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190 ../textw/upgrade_text.py:100
 msgid "Warning"
@@ -55,23 +52,23 @@ msgstr "¥¨¥é¡¼"
 
 #: ../fstab.py:321
 msgid "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press \"Ok\" to reboot your system.\n"
-msgstr "¥«¡¼¥Í¥ë¤¬¿·µ¬¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¾ðÊó¤òÆÉ¤ß¹þ¤à¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£¤ª¤½¤é¤¯³ÈÄ¥¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬½¤Àµ¤µ¤ì¤¿¤¿¤á¤Ç¤¹¡£½ÅÂç¤ÊÌäÂê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¤¬¡¢¼ê½ç¤ò¿Ê¤á¤ëÁ°¤Ë¥Þ¥·¥ó¤òºÆµ¯Æ°¤·¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£Red Hat µ¯Æ°¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¡¢\"OK\" ¤ò²¡¤·¤Æ¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+msgstr "¥«¡¼¥Í¥ë¤¬¿·µ¬¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¾ðÊó¤òÆÉ¤ß¹þ¤à¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£¤ª¤½¤é¤¯³ÈÄ¥¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬½¤Àµ¤µ¤ì¤¿¤¿¤á¤Ç¤¹¡£½ÅÂç¤ÊÌäÂê¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¤¬¡¢¼ê½ç¤ò¿Ê¤á¤ëÁ°¤Ë¥Þ¥·¥ó¤òºÆµ¯Æ°¤·¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£Red Hat µ¯Æ°¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¡¢\"OK\" ¤ò²¡¤·¤Æ¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Æ²¼¤µ¤¤¡£\n"
 
 #: ../fstab.py:494
 msgid "Swap Space"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×ÎÎ°è"
 
 #: ../fstab.py:495
 msgid "Creating swap space..."
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×ÎÎ°è¤òÀ¸À®Ãæ..."
 
 #: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
 msgid "Formatting"
-msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤·¤Æ¤¤¤Þ¤¹"
+msgstr "¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ"
 
 #: ../fstab.py:514
 msgid "Formatting swap space..."
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×ÎÎ°è¤ò¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ..."
 
 #: ../fstab.py:523
 msgid "Error creating swap on device "
@@ -80,15 +77,15 @@ msgstr "¥Ç¥Ð¥¤¥¹¾å¤Ë¥¹¥ï¥Ã¥×ÎÎ°è¤òºîÀ®Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿ "
 #: ../fstab.py:624
 #, c-format
 msgid "Error unmounting %s: %s"
-msgstr "%s ¤Î¥¢¥ó¥Þ¥¦¥ó¥È¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿: %s"
+msgstr "%s ¤Î¥Þ¥¦¥ó¥È²ò½ü¤ÎºÝ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿: %s"
 
 #: ../fstab.py:677 ../todo.py:740
 msgid "Creating"
-msgstr "ºîÀ®Ãæ¤Ç¤¹"
+msgstr "ºîÀ®Ãæ"
 
 #: ../fstab.py:677
 msgid "Creating RAID devices..."
-msgstr "RAID ¥Ç¥Ð¥¤¥¹¤ÎºîÀ®Ãæ¤Ç¤¹..."
+msgstr "RAID ¥Ç¥Ð¥¤¥¹¤ÎºîÀ®Ãæ..."
 
 #: ../fstab.py:718
 msgid "Loopback"
@@ -97,7 +94,7 @@ msgstr "¥ë¡¼¥×¥Ð¥Ã¥¯"
 #: ../fstab.py:719
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "¥Ç¥Ð¥¤¥¹/dev/%s¾å¤Ë¥ë¡¼¥×¥Ð¥Ã¥¯¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òºîÀ®Ãæ¤Ç¤¹"
+msgstr "¥Ç¥Ð¥¤¥¹/dev/%s¾å¤Ë¥ë¡¼¥×¥Ð¥Ã¥¯¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òºîÀ®Ãæ..."
 
 #: ../fstab.py:775
 #, c-format
@@ -106,11 +103,14 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"%s ¤ò¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤Ë¥¨¥é¡¼È¯À¸¡£¿¼¹ï¤ÊÌäÂê¤Ê¤Î¤Ç¥¤¥ó¥¹¡¼¥ë¤òÂ³¹Ô¤Ç¤­¤Þ¤»¤ó\n"
+"\n"
+"[Enter]¤ò²¡¤·¤Æ¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Æ²¼¤µ¤¤"
 
 #: ../fstab.py:784 ../fstab.py:1243
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "%s ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤Ç¤¹..."
+msgstr "%s ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ..."
 
 #: ../fstab.py:842
 #, c-format
@@ -121,19 +121,19 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"¥Ç¥Ð¥¤¥¹ %s ¤Î(%s ¤È¤·¤Æ¤Î)¥Þ¥¦¥ó¥È¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿:%s\n"
+"¥Ç¥Ð¥¤¥¹ %s ¤ò %s ¤È¤·¤Æ¥Þ¥¦¥ó¥È¤¹¤ëºÝ¤Ë¥¨¥é¡¼È¯À¸:%s\n"
 "\n"
-"¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¡¢¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¥Õ¥©¡¼¥Þ¥Ã¥È¤µ¤ì¤Æ¤¤¤Ê¤¤¤³¤È¤ò°ÕÌ£¤·¤Þ¤¹¡£\n"
+"¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¥Õ¥©¡¼¥Þ¥Ã¥È¤µ¤ì¤Æ¤¤¤Ê¤¤¤³¤È¤ò°ÕÌ£¤·¤Þ¤¹\n"
 "\n"
-"OK ¤ò²¡¤·¤Æ¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"OK¤ò²¡¤·¤Æ¥·¥¹¥Æ¥à¤òºÆµ¯Æ°¤·¤Æ²¼¤µ¤¤"
 
 #: ../gui.py:178
 msgid "An exceptional condition has occured.  This is most likely a bug.  Please copy the full text of this exception and file a bug report at http://bugzilla.redhat.com/bugzilla"
-msgstr "Îã³°¾ò·ï¤¬È¯À¸¤·¤Þ¤·¤¿¡£¥Ð¥°¤Î²ÄÇ½À­¤¬¹Í¤¨¤é¤ì¤Þ¤¹¡£¤³¤ÎÎã³°¥á¥Ã¥»¡¼¥¸¤ÎÁ´¥Æ¥­¥¹¥È¤ò¥³¥Ô¡¼¤·¡¢http://bugzilla.redhat.com/bugzilla ¤Ë¥Ð¥°¥ì¥Ý¡¼¥È¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Îã³°È¯À¸¡£¥Ð¥°¤Î²ÄÇ½À­¤¬¹Í¤¨¤é¤ì¤Þ¤¹¡£¤³¤ÎÎã³°¤ÎÁ´¥á¥Ã¥»¡¼¥¸¤ò¥³¥Ô¡¼¤·¡¢http://bugzilla.redhat.com/bugzilla ¤Ë¥Ð¥°Êó¹ð¤·¤Æ²¼¤µ¤¤"
 
 #: ../gui.py:327 ../text.py:873
 msgid "Please insert a floppy now. All contents of the disk will be erased, so please choose your diskette carefully."
-msgstr "¤³¤³¤Ç¥Õ¥í¥Ã¥Ô¡¼¤òÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£ ¥Ç¥£¥¹¥¯¤ÎÆâÍÆ¤Ï¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤ë¤Î¤Ç¡¢Ãí°Õ¤·¤Æ¥Ç¥£¥¹¥±¥Ã¥È¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ²¼¤µ¤¤¡£¥Ç¥£¥¹¥¯¤ÎÆâÍÆ¤Ï¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤Þ¤¹¡£Ãí°Õ¤·¤Æ¥Ç¥£¥¹¥¯¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../gui.py:419 ../gui.py:788
 msgid "Next"
@@ -191,7 +191,7 @@ msgstr "%s ¾å¤Î Red Hat Linux ¥¤¥ó¥¹¥È¡¼¥é"
 #: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "%s ¾å¤Î Red Hat Linux ¥¤¥ó¥¹¥È¡¼¥ë ¥·¥§¥ë"
+msgstr "%s ¾å¤Î Red Hat Linux ¥¤¥ó¥¹¥È¡¼¥ë¥·¥§¥ë"
 
 #: ../gui.py:872
 msgid "Install Window"
@@ -200,40 +200,40 @@ msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥¦¥£¥ó¥É¥¦"
 #: ../harddrive.py:174
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "CD #%d ¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¤³¤Î CD ¤Ï¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤¿¤á¤ËÉ¬Í×¤Ç¤¹¡£"
+msgstr "CD #%d ¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¤¬¡¢¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤Ç¤¹"
 
 #: ../image.py:61
 msgid "Copying File"
-msgstr "¥Õ¥¡¥¤¥ë¤ò¥³¥Ô¡¼Ãæ¤Ç¤¹"
+msgstr "¥Õ¥¡¥¤¥ë¤ò¥³¥Ô¡¼Ãæ"
 
 #: ../image.py:62
 msgid "Transferring install image to hard drive..."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤ò¥Ï¡¼¥É¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤ËÅ¾Á÷Ãæ¤Ç¤¹¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤ò¥Ï¡¼¥É¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤ËÅ¾Á÷Ãæ"
 
 #: ../image.py:65
 msgid "An error occured transferring the install image to your hard drive. You are probably out of disk space."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤ò¥Ï¡¼¥É¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤ØÅ¾Á÷Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£¤ª¤½¤é¤¯¥Ç¥£¥¹¥¯ÍÆÎÌ¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤ò¥Ï¡¼¥É¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤ØÅ¾Á÷Ãæ¤Ë¥¨¥é¡¼È¯À¸¡£¤ª¤½¤é¤¯¥Ç¥£¥¹¥¯ÍÆÎÌ¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹"
 
 #: ../image.py:118
 msgid "Change CDROM"
-msgstr "CD-ROM ¤ÎÊÑ¹¹"
+msgstr "CD-ROMÊÑ¹¹"
 
 #: ../image.py:119
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr "Â³¹Ô¤¹¤ë¤Ë¤Ï¥Ç¥£¥¹¥¯ %d ¤òÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Â³¹Ô¤¹¤ë¤Ë¤Ï¥Ç¥£¥¹¥¯ %d ¤òÁÞÆþ¤·¤Æ²¼¤µ¤¤"
 
 #: ../image.py:136
 msgid "Wrong CDROM"
-msgstr "Àµ¤·¤¤ CD-ROM ¤Ç¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "ÉÔÅ¬ÀÚ¤Ê CD-ROM ¤Ç¤¹"
 
 #: ../image.py:137
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Àµ¤·¤¤ Red Hat CD-ROM ¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "Å¬ÀÚ¤Ê Red Hat CD-ROM ¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../image.py:142
 msgid "The CDROM could not be mounted."
-msgstr "CD-ROM ¤Î¥Þ¥¦¥ó¥È¤Ë¼ºÇÔ¤·¤Þ¤·¤¿¡£"
+msgstr "CD-ROM ¤Î¥Þ¥¦¥ó¥È¤Ë¼ºÇÔ¤·¤Þ¤·¤¿"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:435 ../loader/devices.c:480 ../loader/devices.c:500 ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910 ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241 ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519 ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228 ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678 ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92 ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174 ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414 ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591 ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875 ../text.py:890 ../text.py:1127 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347 ../textw/partitioning_text.py:358 ../textw/partitioning_text.py:366 ../textw/partitioning_text.py:373 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51 ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
@@ -241,11 +241,11 @@ msgstr "OK"
 
 #: ../rescue.py:39
 msgid "WARNING: no valid block devices were found.\n"
-msgstr "·Ù¹ð: Å¬ÀÚ¤Ê¥Ö¥í¥Ã¥¯¥Ç¥Ð¥¤¥¹¤¬¤ß¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿¡£\n"
+msgstr "·Ù¹ð: Å¬ÀÚ¤Ê¥Ö¥í¥Ã¥¯¥Ç¥Ð¥¤¥¹¤¬¤ß¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿\n"
 
 #: ../rescue.py:41
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr "¥¨¥é¡¼: ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤òÆÉ¤ß¹þ¤à´Ö¤ËÍ½´ü¤»¤Ì¥¨¥é¡¼¤¬µ¯¤ê¤Þ¤·¤¿¡£\n"
+msgstr "¥¨¥é¡¼: ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ëÆÉ¤ß¹þ¤àÃæ¤ËÍ½´ü¤»¤Ì¥¨¥é¡¼È¯À¸\n"
 
 #: ../rescue.py:89
 msgid "System to Rescue"
@@ -253,7 +253,7 @@ msgstr "¥ì¥¹¥­¥å¡¼ÂÐ¾Ý¥·¥¹¥Æ¥à"
 
 #: ../rescue.py:90 ../textw/upgrade_text.py:169
 msgid "What partition holds the root partition of your installation?"
-msgstr "¥ë¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Î¤¢¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥ë¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92 ../rescue.py:96 ../textw/upgrade_text.py:124
 msgid "Exit"
@@ -269,9 +269,9 @@ msgid ""
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
-"¥·¥¹¥Æ¥à¤Ï /mnt/sysimage ¤Î²¼¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Æ¤¤¤Þ¤¹¡£\n"
+"¥·¥¹¥Æ¥à¤Ï /mnt/sysimage ¤Î²¼¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Æ¤¤¤Þ¤¹\n"
 "\n"
-"¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹¡£"
+"¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ²¼¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹"
 
 #: ../rescue.py:122
 msgid ""
@@ -279,9 +279,9 @@ msgid ""
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
-"¥·¥¹¥Æ¥à¤Î¤¤¤¯¤Ä¤«¡¢¤¢¤ë¤¤¤Ï¤¹¤Ù¤Æ¤ò¥Þ¥¦¥ó¥È¤·¤è¤¦¤È»î¤ß¤Þ¤·¤¿¤¬¥¨¥é¡¼¤¬µ¯¤ê¤Þ¤·¤¿¡£¤¤¤¯¤Ä¤«¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ï /mnt/sysimage ¤Î²¼¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Æ¤¤¤Þ¤¹¡£\n"
+"¥·¥¹¥Æ¥à¤Î¤¤¤¯¤Ä¤«¡¢¤¢¤ë¤¤¤Ï¤¹¤Ù¤Æ¤ò¥Þ¥¦¥ó¥È¤·¤è¤¦¤È»î¤ß¤Æ¤¤¤ë´Ö¤Ë¥¨¥é¡¼È¯À¸¡£¤¤¤¯¤Ä¤«¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ï /mnt/sysimage ¤Î²¼¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Æ¤¤¤Þ¤¹¡£\n"
 "\n"
-"¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹¡£"
+"¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ²¼¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹"
 
 #: ../rescue.py:128
 msgid "Rescue Mode"
@@ -289,11 +289,11 @@ msgstr "¥ì¥¹¥­¥å¡¼¥â¡¼¥É"
 
 #: ../rescue.py:129
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
-msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó¡£¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹¡£"
+msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó¡£¥·¥§¥ë¤òµ¯Æ°¤¹¤ë¤Ë¤Ï [Return] ¤ò²¡¤·¤Æ²¼¤µ¤¤¡£¥·¥¹¥Æ¥à¤Ï¥·¥§¥ë¤òÈ´¤±¤ë¤È¼«Æ°Åª¤ËºÆµ¯Æ°¤·¤Þ¤¹¡£"
 
 #: ../rescue.py:141
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr "¥·¥¹¥Æ¥à¤Ï /mnt/sysimage ¥Ç¥£¥ì¥¯¥È¥ê¤Î²¼¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Þ¤·¤¿"
+msgstr "¥·¥¹¥Æ¥à¤ò /mnt/sysimage ¥Ç¥£¥ì¥¯¥È¥ê¤Î²¼¤Ë¥Þ¥¦¥ó¥È"
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024 ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051 ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:426 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205 ../textw/upgrade_text.py:124 ../textw/upgrade_text.py:188
@@ -302,7 +302,7 @@ msgstr "OK"
 
 #: ../text.py:70
 msgid "What language would you like to use during the installation process?"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë»þ¤Ë»ÈÍÑ¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë»þ¤Ë»ÈÍÑ¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:135
 msgid "Select All"
@@ -314,7 +314,7 @@ msgstr "¥ê¥»¥Ã¥È"
 
 #: ../text.py:137
 msgid "Choose the languages to be installed:"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 # ../comps/comps-master:446
 #: ../text.py:141 ../text.py:1030
@@ -327,15 +327,15 @@ msgstr "ÉÔÀµ¤ÊÁªÂò"
 
 #: ../text.py:173
 msgid "You must select at least one language to install."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤Ï¾¯¤Ê¤¯¤È¤â°ì¤ÄÁªÂò¤·¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤Ï¾¯¤Ê¤¯¤È¤â°ì¤ÄÁªÂò¤·¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../text.py:201
 msgid "Default Language"
-msgstr "¥Ç¥Õ¥©¥ë¥È¸À¸ì"
+msgstr "É¸½à¤Î¸À¸ì"
 
 #: ../text.py:202
 msgid "Choose the default language: "
-msgstr "¥Ç¥Õ¥©¥ë¥È¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤: "
+msgstr "É¸½à¤Î¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤: "
 
 #: ../text.py:226 ../text.py:945 ../text.py:970
 msgid "Keyboard Selection"
@@ -343,7 +343,7 @@ msgstr "¥­¡¼¥Ü¡¼¥É¤ÎÁªÂò"
 
 #: ../text.py:227
 msgid "Which model keyboard is attached to this computer?"
-msgstr "¥³¥ó¥Ô¥å¡¼¥¿¤ËÀÜÂ³¤µ¤ì¤Æ¤¤¤ë¥­¡¼¥Ü¡¼¥É¥â¥Ç¥ë¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥­¡¼¥Ü¡¼¥É¥â¥Ç¥ë¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:287
 msgid "Upgrade Existing Installation"
@@ -355,7 +355,7 @@ msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î¼ïÎà"
 
 #: ../text.py:310
 msgid "What type of system would you like to install?"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î¼ïÎà¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î¼ïÎà¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:345 ../text.py:364
 msgid "Red Hat Linux"
@@ -371,9 +371,9 @@ msgid ""
 msgstr ""
 "Red Hat Linux ¤Ø¤è¤¦¤³¤½¡ª\n"
 "\n"
-"¥¤¥ó¥¹¥È¡¼¥ë¼ê½ç¤Ë¤Ä¤¤¤Æ¤Ï¡¢Red Hat Software ¤«¤éÆþ¼ê²ÄÇ½¤Ê¡ØOfficial Red Hat Linux ¥¤¥ó¥¹¥È¡¼¥ë¥¬¥¤¥É¡Ù¤Ç¾Ü¤·¤¯ÀâÌÀ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤Î¥Þ¥Ë¥å¥¢¥ë¤ò¤ª»ý¤Á¤Î¾ì¹ç¤Ï¡¢¤¢¤é¤«¤¸¤á¥¤¥ó¥¹¥È¡¼¥ë¤Î¥»¥¯¥·¥ç¥ó¤ò¤ªÆÉ¤ß¤¯¤À¤µ¤¤¡£\n"
+"¥¤¥ó¥¹¥È¡¼¥ë¼ê½ç¤Ë¤Ä¤¤¤Æ¤Ï Red Hat Software ¤«¤éÆþ¼ê²ÄÇ½¤Ê¡ØOfficial Red Hat Linux ¥¤¥ó¥¹¥È¡¼¥ë¥¬¥¤¥É¡Ù¤Ç¾Ü¤·¤¯ÀâÌÀ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤Î¥Þ¥Ë¥å¥¢¥ë¤ò¤ª»ý¤Á¤Î¾ì¹ç¤Ï¤¢¤é¤«¤¸¤á¥¤¥ó¥¹¥È¡¼¥ë¤Î¾Ï¤ò¤ªÆÉ¤ß²¼¤µ¤¤¡£\n"
 "\n"
-"Official Red Hat Linux ¤ò¤ªÇã¤¤µá¤á¤¤¤¿¤À¤¤¤¿¾ì¹ç¤Ï¡¢ÊÀ¼Ò¤Î Web ¥µ¥¤¥Èhttp://www.redhat.com/ ¤ÇÅÐÏ¿¤ò¤ªºÑ¤Þ¤»¤¯¤À¤µ¤¤¡£"
+"Official Red Hat Linux ¤ò¤ªÇã¤¤µá¤á¤¤¤¿¤À¤¤¤¿¾ì¹ç¤ÏÊÀ¼Ò¤Î Web ¥µ¥¤¥Èhttp://www.redhat.com/ ¤ÇÅÐÏ¿¤ò¤ªºÑ¤Þ¤»²¼¤µ¤¤"
 
 #: ../text.py:365
 msgid ""
@@ -387,7 +387,7 @@ msgstr ""
 "\n"
 "ºÆÀßÄê¥â¡¼¥É¤ËÆþ¤ê¤Þ¤·¤¿¡£¤³¤Î¥â¡¼¥É¤Ç¤Ï¡¢¥³¥ó¥Ô¥å¡¼¥¿¤Î¥µ¥¤¥È¸ÇÍ­¥ª¥×¥·¥ç¥ó¤òÀßÄê¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£.\n"
 "\n"
-"ÀßÄêÆâÍÆ¤òÊÑ¹¹¤»¤º¤Ë½ªÎ»¤¹¤ë¤Ë¤Ï¡¢²¼¤Î [¥­¥ã¥ó¥»¥ë] ¥Ü¥¿¥ó¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"ÀßÄêÆâÍÆ¤òÊÑ¹¹¤»¤º¤Ë½ªÎ»¤¹¤ë¾ì¹ç¤Ï²¼¤Î[¼è¤ê¾Ã¤·]¥Ü¥¿¥ó¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104 ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875 ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
@@ -395,11 +395,11 @@ msgstr "¼è¤ê¾Ã¤·"
 
 #: ../text.py:412
 msgid "X probe results"
-msgstr "X ÀßÄê¤Î¸¡½Ð·ë²Ì"
+msgstr "X ¸¡½Ð·ë²Ì"
 
 #: ../text.py:432 ../text.py:452
 msgid "Unlisted Card"
-msgstr "ÉÔÌÀ¤Ê¥Ó¥Ç¥ª¥«¡¼¥É¤Ç¤¹"
+msgstr "ÉÔÌÀ¤Ê¥Ó¥Ç¥ª¥«¡¼¥É"
 
 #: ../text.py:440
 msgid "Video Card Selection"
@@ -407,7 +407,7 @@ msgstr "¥Ó¥Ç¥ª¥«¡¼¥É¤ÎÁªÂò"
 
 #: ../text.py:441
 msgid "Which video card do you have?"
-msgstr "¤ª»È¤¤¤Î¥Ó¥Ç¥ª¥«¡¼¥É¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¤ª»È¤¤¤Î¥Ó¥Ç¥ª¥«¡¼¥É¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:454
 msgid "X Server Selection"
@@ -415,15 +415,15 @@ msgstr "X ¥µ¡¼¥Ð¤ÎÁªÂò"
 
 #: ../text.py:454
 msgid "Choose a server"
-msgstr "¥µ¡¼¥Ð¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥µ¡¼¥Ð¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:525
 msgid "Installation to begin"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î³«»Ï"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë³«»Ï"
 
 #: ../iw/confirm_gui.py:45 ../text.py:526
 msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
-msgstr "´°Á´¤Ê¥¤¥ó¥¹¥È¡¼¥ë¥í¥°¤Ï¡¢¥·¥¹¥Æ¥à¤ÎºÆµ¯Æ°¸å¤Ë /tmp/install.log ¤ËÊÝÂ¸¤µ¤ì¤Þ¤¹¡£¸å¤Ç»²¾È¤Ç¤­¤ë¤è¤¦¤Ë¡¢¤³¤Î¥Õ¥¡¥¤¥ë¤òÊÝ´É¤·¤Æ¤ª¤¯¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹¡£"
+msgstr "´°Á´¤Ê¥¤¥ó¥¹¥È¡¼¥ëµ­Ï¿¤Ï¥·¥¹¥Æ¥à¤ÎºÆµ¯Æ°¸å¤Ç¤â /tmp/install.log ¤ËÊÝÂ¸¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¸å¤Ç»²¾È¤Ç¤­¤ë¤è¤¦¤Ë¤³¤Î¥Õ¥¡¥¤¥ë¤òÊÝ´É¤·¤Æ¤ª¤¯¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹"
 
 #: ../text.py:537
 msgid "Upgrade to begin"
@@ -431,11 +431,11 @@ msgstr "¥¢¥Ã¥×¥Ç¡¼¥È¤Î³«»Ï"
 
 #: ../iw/confirm_gui.py:41 ../text.py:538
 msgid "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting your system. You may want to keep this file for later reference."
-msgstr "´°Á´¤Ê¥¢¥Ã¥×¥°¥ì¡¼¥É¥í¥°¤Ï¡¢¥·¥¹¥Æ¥à¤ÎºÆµ¯Æ°¸å /tmp/upgrade.log ¤ËÊÝÂ¸¤µ¤ì¤Þ¤¹¡£¸å¤Ç»²¾È¤Ç¤­¤ë¤è¤¦¤Ë¡¢¤³¤Î¥Õ¥¡¥¤¥ë¤òÊÝ´É¤·¤Æ¤ª¤¯¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹¡£"
+msgstr "´°Á´¤Ê¥¢¥Ã¥×¥°¥ì¡¼¥Éµ­Ï¿¤Ï¥·¥¹¥Æ¥à¤ÎºÆµ¯Æ°¸å¤Ç¤â /tmp/upgrade.log ¤ËÊÝÂ¸¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¸å¤Ç»²¾È¤Ç¤­¤ë¤è¤¦¤Ë¤³¤Î¥Õ¥¡¥¤¥ë¤òÊÝ´É¤·¤Æ¤ª¤¯¤³¤È¤ò¤ª´«¤á¤·¤Þ¤¹"
 
 #: ../text.py:557
 msgid "                              <Return> to reboot                              "
-msgstr "                              ºÆµ¯Æ°¤¹¤ë¤Ë¤Ï <Return> ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤        "
+msgstr "                              ºÆµ¯Æ°¤¹¤ë¤Ë¤Ï <Return> ¤ò²¡¤·¤Æ²¼¤µ¤¤        "
 
 #: ../text.py:559 ../text.py:582
 msgid "Complete"
@@ -449,15 +449,15 @@ msgid ""
 "\n"
 "Information on configuring and using your Red Hat Linux system is contained in the Red Hat Linux manuals."
 msgstr ""
-"¥¤¥ó¥¹¥È¡¼¥ë¤¬´°Î»¤·¤Þ¤·¤¿¡£\n"
+"¥¤¥ó¥¹¥È¡¼¥ë¤¬´°Î»¤·¤Þ¤·¤¿\n"
 "\n"
-"[Return] ¥­¡¼¤ò²¡¤¹¤È¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤Þ¤¹¡£ºÆµ¯Æ°»þ¤Ë¥Ö¡¼¥È¥á¥Ç¥£¥¢¤ò¼è¤ê½ü¤¤¤Æ¤ª¤«¤Ê¤¤¤È¡¢¤â¤¦°ìÅÙ¥¤¥ó¥¹¥È¡¼¥ë¤¬³«»Ï¤µ¤ì¤Þ¤¹¤Î¤Ç¤´Ãí°Õ¤¯¤À¤µ¤¤¡£ËÜ¥ê¥ê¡¼¥¹¤ÎRed Hat Linux ½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï¡¢http://www.redhat.com/errata ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+"[Return] ¥­¡¼¤ò²¡¤¹¤È¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤Þ¤¹¡£ºÆµ¯Æ°»þ¤Ë¥Ö¡¼¥È¥á¥Ç¥£¥¢¤ò¼è¤ê½ü¤¤¤Æ¤ª¤«¤Ê¤¤¤È¤â¤¦°ìÅÙ¥¤¥ó¥¹¥È¡¼¥ë¤¬³«»Ï¤µ¤ì¤Þ¤¹¤Î¤Ç¤´Ãí°Õ²¼¤µ¤¤¡£ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï http://www.redhat.com/errata ¤ò»²¾È¤·¤Æ²¼¤µ¤¤\n"
 "\n"
-"Red Hat Linux ¤ÎÀßÄê¤È»ÈÍÑÊýË¡¤Ë´Ø¤¹¤ë¾ðÊó¤Ï¡¢Red Hat Linux ¤Î¥Þ¥Ë¥å¥¢¥ë¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"Red Hat Linux ¤ÎÀßÄê¤È»ÈÍÑÊýË¡¤Ë´Ø¤·¤Æ¤Ï Red Hat Linux ¤Î¥Þ¥Ë¥å¥¢¥ë¤ò»²¾È¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:578
 msgid "                                <Return> to exit                              "
-msgstr "                                ½ªÎ»¤¹¤ë¤Ë¤Ï <Return> ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤                              "
+msgstr "                                ½ªÎ»¤¹¤ë¤Ë¤Ï <Return> ¤ò²¡¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:583
 msgid ""
@@ -467,11 +467,11 @@ msgid ""
 "\n"
 "Information on further configuring your system is available at http://www.redhat.com/support/manuals/"
 msgstr ""
-"ÀßÄê¤¬´°Î»¤·¤Þ¤·¤¿¡£\n"
+"ÀßÄê¤¬´°Î»¤·¤Þ¤·¤¿\n"
 "\n"
-"ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ¤Î½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï¡¢http://www.redhat.com/errata ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+"ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ¤Î½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï http://www.redhat.com/errata ¤ò»²¾È¤·¤Æ²¼¤µ¤¤\n"
 "\n"
-"¥·¥¹¥Æ¥à¤ÎÄÉ²ÃÀßÄê¤Ë¤Ä¤¤¤Æ¤Ï¡¢¡ØOfficial Red Hat Linux ¥æ¡¼¥¶¡¼¥º¥¬¥¤¥É¡Ù¤Î¥¤¥ó¥¹¥È¡¼¥ë¸å¤Îºî¶È¤Ë¤Ä¤¤¤Æ¤Î¾Ï¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"¥·¥¹¥Æ¥à¤ÎÄÉ²ÃÀßÄê¤Ë¤Ä¤¤¤Æ¤Ï¡ØOfficial Red Hat Linux ¥æ¡¼¥¶¡¼¥º¥¬¥¤¥É¡Ù¤Î¥¤¥ó¥¹¥È¡¼¥ë¸å¤Îºî¶È¤Ë¤Ä¤¤¤Æ¤Î¾Ï¤ò»²¾È¤·¤Æ²¼¤µ¤¤"
 
 #: ../text.py:650
 msgid "Package Installation"
@@ -483,7 +483,7 @@ msgstr "Ì¾Á°: "
 
 #: ../text.py:653
 msgid "Size   : "
-msgstr "¥µ¥¤¥º   : "
+msgstr "ÍÆÎÌ   : "
 
 #: ../text.py:654
 msgid "Summary: "
@@ -515,11 +515,11 @@ msgstr "»Ä¤ê:  "
 
 #: ../text.py:813
 msgid "Help not available"
-msgstr "¥Ø¥ë¥×¾ðÊó¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "¥Ø¥ë¥×¾ðÊó¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../text.py:814
 msgid "No help is available for this install."
-msgstr "¤³¤Î¥¤¥ó¥¹¥È¡¼¥ë¤Ë´Ø¤¹¤ë¥Ø¥ë¥×¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "¤³¤Î¥¤¥ó¥¹¥È¡¼¥ë¤Ë´Ø¤¹¤ë¥Ø¥ë¥×¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../text.py:872
 msgid "Save Crash Dump"
@@ -529,9 +529,7 @@ msgstr "¥¯¥é¥Ã¥·¥å¥À¥ó¥×¤ÎÊÝÂ¸"
 msgid ""
 "An internal error occurred in the installation program. Please report this error to Red Hat (through the bugzilla.redhat.com web site) as soon as possible. The information on this failure may be saved to a floppy disk, and will help Red Hat in fixing the problem.\n"
 "\n"
-msgstr ""
-"¥¤¥ó¥¹¥È¡¼¥ë¥×¥í¥°¥é¥à¤ÇÆâÉô¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£¤Ç¤­¤ë¤À¤±Áá¤¯¤³¤Î¥¨¥é¡¼¤ò Red Hat ¤Þ¤Ç¤ªÃÎ¤é¤»¤¯¤À¤µ¤¤ (Web ¥µ¥¤¥È bugzilla.redhat.com ¤ò¤´ÍøÍÑ¤¯¤À¤µ¤¤)¡£¤³¤Î¥¨¥é¡¼¤Ë´Ø¤¹¤ë¾ðÊó¤ò¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤ËÊÝÂ¸¤·¤Æ¤¤¤¿¤À¤±¤ì¤Ð¡¢Red Hat ¤¬ÌäÂê¤ò²ò·è¤¹¤ë¾å¤Ç»²¹Í¤Ë¤Ê¤ê¤Þ¤¹¡£\n"
-"\n"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¥×¥í¥°¥é¥à¤ÇÆâÉô¥¨¥é¡¼È¯À¸¡£¤Ç¤­¤ë¤À¤±Áá¤¯¤³¤Î¥¨¥é¡¼¤ò Red Hat ¤Þ¤Ç¤ªÃÎ¤é¤»²¼¤µ¤¤ (Web ¥µ¥¤¥È bugzilla.redhat.com ¤ò¤´ÍøÍÑ²¼¤µ¤¤)¡£¤³¤Î¥¨¥é¡¼¤Ë´Ø¤¹¤ë¾ðÊó¤ò¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤ËÊÝÂ¸¤·¤Æ¤¤¤¿¤À¤±¤ì¤Ð Red Hat ¤¬ÌäÂê¤ò²ò·è¤¹¤ë¾å¤Ç»²¹Í¤Ë¤Ê¤ê¤Þ¤¹¡£\n\n"
 
 #: ../text.py:890 ../text.py:893
 msgid "Save"
@@ -575,7 +573,7 @@ msgstr "¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤ÎÀßÄê"
 
 #: ../text.py:953 ../text.py:1032
 msgid "Language Default"
-msgstr "¥Ç¥Õ¥©¥ë¥È¸À¸ì"
+msgstr "É¸½à¸À¸ì"
 
 #: ../text.py:955 ../text.py:1035
 msgid "Time Zone Setup"
@@ -619,7 +617,7 @@ msgstr "¼êÆ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 
 #: ../text.py:1002 ../textw/partitioning_text.py:339
 msgid "Root Filesystem Size"
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥µ¥¤¥º"
+msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥àÍÆÎÌ"
 
 #: ../text.py:1004
 msgid "Swap"
@@ -631,7 +629,7 @@ msgstr "µ¯Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥ó·Ù¹ð"
 
 #: ../text.py:1008
 msgid "Filesystem Formatting"
-msgstr "¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤·¤Æ¤¤¤Þ¤¹"
+msgstr "¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ"
 
 #: ../iw/mouse_gui.py:56 ../text.py:1025 ../text.py:1027
 msgid "Mouse Configuration"
@@ -675,7 +673,7 @@ msgstr "¥·¥¹¥Æ¥à¤Î¥Æ¥¹¥È"
 
 #: ../text.py:1065
 msgid "System Swap Space"
-msgstr ""
+msgstr "¥·¥¹¥Æ¥à¥¹¥ï¥Ã¥×ÎÎ°è"
 
 #: ../text.py:1072
 msgid "Customize Upgrade"
@@ -699,19 +697,19 @@ msgstr "¼è¤ê¾Ã¤µ¤ì¤Þ¤·¤¿"
 
 #: ../text.py:1125
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "¤³¤³¤«¤éÄ¾Á°¤Î¥¹¥Æ¥Ã¥×¤ËÌá¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£¤â¤¦°ìÅÙ¤ä¤êÄ¾¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Ä¾Á°¤Î¥¹¥Æ¥Ã¥×¤ËÌá¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£¤â¤¦°ìÅÙ¤ä¤êÄ¾¤·¤Æ²¼¤µ¤¤"
 
 #: ../todo.py:740
 msgid "Creating boot disk..."
-msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ç¤¹..."
+msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯ºîÀ®Ãæ..."
 
 #: ../todo.py:759
 msgid "Reading"
-msgstr "ÆÉ¤ß¹þ¤ßÃæ¤Ç¤¹"
+msgstr "ÆÉ¤ß¹þ¤ßÃæ"
 
 #: ../todo.py:760
 msgid "Reading package information..."
-msgstr "¥Ñ¥Ã¥±¡¼¥¸¾ðÊó¤òÆÉ¤ß¹þ¤ó¤Ç¤¤¤Þ¤¹..."
+msgstr "¥Ñ¥Ã¥±¡¼¥¸¾ðÊóÆÉ¤ß¹þ¤ßÃæ..."
 
 #: ../todo.py:1041
 msgid "Dependency Check"
@@ -719,29 +717,25 @@ msgstr "°ÍÂ¸´Ø·¸¥Á¥§¥Ã¥¯"
 
 #: ../todo.py:1042
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëÂÐ¾Ý¥Ñ¥Ã¥±¡¼¥¸¤Î°ÍÂ¸´Ø·¸¤ò¥Á¥§¥Ã¥¯¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥¤¥ó¥¹¥È¡¼¥ëÂÐ¾Ý¥Ñ¥Ã¥±¡¼¥¸¤Î°ÍÂ¸´Ø·¸¤ò¥Á¥§¥Ã¥¯Ãæ..."
 
 #: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138 ../todo.py:1269
 msgid "no suggestion"
 msgstr "¿ä¾©»ö¹à¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥µ¥¤¥º"
+msgstr "Ì¤¸¡ºº¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à"
 
 #: ../todo.py:1156
 msgid "One or more of the filesystems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "Linux ¥·¥¹¥Æ¥à¤Î /etc/fstab ¤ÎÃæ¤Ë¥ê¥¹¥È¤µ¤ì¤¿°ì¤Ä¤Þ¤¿¤ÏÊ£¿ô¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Þ¥¦¥ó¥È¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£ ÌäÂê¤ò²ò·è¤·¤Æ¤«¤éºÆÅÙ¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Linux ¥·¥¹¥Æ¥à¤Î /etc/fstab ¤ÎÃæ¤Ë¥ê¥¹¥È¤µ¤ì¤¿°ì¤Ä¤Þ¤¿¤ÏÊ£¿ô¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Þ¥¦¥ó¥È¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£ÌäÂê¤ò²ò·è¤·¤Æ¤«¤éºÆÅÙ¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Æ²¼¤µ¤¤"
 
 #: ../todo.py:1171
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
-msgstr ""
-"°Ê²¼¤Î¥Õ¥¡¥¤¥ë¤ÏÀäÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤Ç¤¹¡£¥¢¥Ã¥×¥°¥ì¡¼¥ÉÃæ¤ÎÀäÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤Ï¥µ¥Ý¡¼¥È¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¤³¤ì¤é¤òÁêÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤ËÊÑ¹¹¤·¤Æ¤«¤é¡¢¥¢¥Ã¥×¥°¥ì¡¼¥É¤ò\n"
-"ºÆ³«¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
-"\n"
+msgstr "¼¡¤Î¥Õ¥¡¥¤¥ë¤ÏÀäÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤Ç¤¹¡£¥¢¥Ã¥×¥°¥ì¡¼¥ÉÃæ¤ÎÀäÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤Ï¥µ¥Ý¡¼¥È¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¤³¤ì¤é¤òÁêÂÐ¥·¥ó¥Ü¥ê¥Ã¥¯¥ê¥ó¥¯¤ËÊÑ¹¹¤·¤Æ¤«¤é¥¢¥Ã¥×¥°¥ì¡¼¥É¤òºÆ³«¤·¤Æ²¼¤µ¤¤\n\n"
 
 #: ../todo.py:1191
 msgid "Finding"
@@ -749,7 +743,7 @@ msgstr "¸¡º÷Ãæ"
 
 #: ../todo.py:1192
 msgid "Finding packages to upgrade..."
-msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤ò¸¡º÷¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¥Ñ¥Ã¥±¡¼¥¸¤ò¸¡º÷Ãæ..."
 
 #: ../todo.py:1207
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -765,30 +759,28 @@ msgstr "½èÍýÃæ"
 
 #: ../todo.py:1506
 msgid "Preparing to install..."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î½àÈ÷¤ò¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë½àÈ÷Ãæ..."
 
 #: ../todo.py:1540
 #, c-format
 msgid "The file %s cannot be opened. This is due to a missing file, a bad package, or bad media. Press <return> to try again."
-msgstr "¥Õ¥¡¥¤¥ë %s ¤ò¥ª¡¼¥×¥ó¤Ç¤­¤Þ¤»¤ó¡£¸¶°ø¤Ï¥Õ¥¡¥¤¥ë¤Î·çÍî¡¢¥Ñ¥Ã¥±¡¼¥¸¡¢¤Þ¤¿¤Ï¥á¥Ç¥£¥¢¤ÎÉÔÎÉ¤Ç¤¹¡£<return> ¥­¡¼¤ò²¡¤·¤Æ¤ä¤êÄ¾¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Õ¥¡¥¤¥ë %s ¤ò³«¤±¤Þ¤»¤ó¡£¸¶°ø¤Ï¥Õ¥¡¥¤¥ë¤Î·çÍî¡¢¥Ñ¥Ã¥±¡¼¥¸¡¢¤Þ¤¿¤Ï¥á¥Ç¥£¥¢¤ÎÉÔÎÉ¤Ç¤¹¡£<return> ¤ò²¡¤·¤Æ¤ä¤êÄ¾¤·¤Æ²¼¤µ¤¤"
 
 #: ../todo.py:1795
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr "%s ¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Æ¤¤¤Þ¤¹¡£\n"
+msgstr "%s ¤ò¥¢¥Ã¥×¥°¥ì¡¼¥ÉÃæ\n"
 
 #: ../todo.py:1797
 #, c-format
 msgid "Installing %s.\n"
-msgstr "%s ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤·¤Æ¤¤¤Þ¤¹¡£\n"
+msgstr "%s ¤ò¥¤¥ó¥¹¥È¡¼¥ëÃæ\n"
 
 #: ../todo.py:1842
 msgid ""
 "You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
-msgstr ""
-"ÁªÂò¤·¤¿¥Ñ¥Ã¥±¡¼¥¸¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤Ê¥Ç¥£¥¹¥¯ÍÆÎÌ¤¬ÉÔÂ­¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£°Ê²¼¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¶õ¤­ÎÎ°è¤¬É¬Í×¤Ç¤¹¡£\n"
-"\n"
+msgstr "ÁªÂò¥Ñ¥Ã¥±¡¼¥¸¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤Ê¥Ç¥£¥¹¥¯ÍÆÎÌ¤¬ÉÔÂ­¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£¼¡¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¶õ¤­ÎÎ°è¤¬É¬Í×¤Ç¤¹:\n\n"
 
 #: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
 msgid "Mount Point"
@@ -802,9 +794,7 @@ msgstr "ÎÎ°èÉÔÂ­"
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've selected. You need more file nodes on the following filesystems:\n"
 "\n"
-msgstr ""
-"ÁªÂò¤·¤¿¥Ñ¥Ã¥±¡¼¥¸¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤Ê¥Õ¥¡¥¤¥ë¥Î¡¼¥É¿ô¤¬ÉÔÂ­¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£°Ê²¼¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¤è¤êÂ¿¤¯¤Î¥Õ¥¡¥¤¥ë¥Î¡¼¥É¤¬É¬Í×¤Ç¤¹¡£\n"
-"\n"
+msgstr "ÁªÂò¥Ñ¥Ã¥±¡¼¥¸¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤Ê¥Õ¥¡¥¤¥ë¥Î¡¼¥É¿ô¤¬ÉÔÂ­¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£¼¡¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¤è¤êÂ¿¤¯¤Î¥Õ¥¡¥¤¥ë¥Î¡¼¥É¤¬É¬Í×¤Ç¤¹:\n\n"
 
 #: ../todo.py:1863
 msgid "Nodes Needed"
@@ -820,7 +810,7 @@ msgstr "¥¤¥ó¥¹¥È¡¼¥ë¸å¤ÎÀßÄê"
 
 #: ../todo.py:1905
 msgid "Performing post install configuration..."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¸å¤ÎÀßÄê¤ò¼Â¹Ô¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¸å¤ÎÀßÄê¤ò¼Â¹ÔÃæ..."
 
 #: ../todo.py:2043
 msgid ""
@@ -831,10 +821,16 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"¥Ö¡¼¥È¥í¡¼¥À¤ò¥¤¥ó¥¹¥È¡¼¥ëÃæ¤Ë¥¨¥é¡¼È¯À¸\n"
+"\n"
+"¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤ËÉüµìÍÑ¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ò¤Ä¤¯¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤½¤¦¤·¤Ê¤¤¤È Red Hat Linux ¤òµ¯Æ°¤Ç¤­¤Þ¤»¤ó¡£\n"
+"\n"
+"¥¨¥é¡¼Êó¹ð:\n"
+"\n"
 
 #: ../todo.py:2049
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "¥Ö¡¼¥È¥í¡¼¥À¥¨¥é¡¼"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -842,16 +838,16 @@ msgstr "¸¡º÷Ãæ"
 
 #: ../upgrade.py:14
 msgid "Searching for Red Hat Linux installations..."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëºÑ¤Î Red Hat Linux ¤ò¸¡º÷¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥¤¥ó¥¹¥È¡¼¥ëºÑ¤Î Red Hat Linux ¤ò¸¡º÷Ãæ..."
 
 #: ../upgrade.py:25 ../upgrade.py:53
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "%s ¾å¤Ë ext2 ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Þ¥¦¥ó¥È¤·¤è¤¦¤È¤·¤Æ¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿: %s"
+msgstr "%s ¾å¤Ë ext2 ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò¥Þ¥¦¥ó¥È¤¹¤ëºÝ¤Ë¥¨¥é¡¼È¯À¸: %s"
 
 #: ../upgrade.py:100
 msgid "One or more of the filesystems for your Linux system was not unmounted cleanly. Please boot your Linux installation, let the filesystems be checked, and shut down cleanly to upgrade."
-msgstr "Àµ¾ï¤Ë¥¢¥ó¥Þ¥¦¥ó¥È¤µ¤ì¤Ê¤«¤Ã¤¿ Linux ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤¬¤¢¤ê¤Þ¤¹¡£¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤¿¤á¤Ë¤Ï¡¢Linux ¥¤¥ó¥¹¥È¡¼¥ë¤òµ¯Æ°¤·¡¢¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥Á¥§¥Ã¥¯¤ò¼Â¹Ô¤·¤Æ¤«¤éÀµ¾ï¤Ë¥·¥ã¥Ã¥È¥À¥¦¥ó¤ò¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Àµ¾ï¤Ë¥Þ¥¦¥ó¥È²ò½ü¤µ¤ì¤Ê¤«¤Ã¤¿ Linux ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤¬¤¢¤ê¤Þ¤¹¡£¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤¿¤á¤Ë¤Ï Linux ¥¤¥ó¥¹¥È¡¼¥ë¤òµ¯Æ°¤·¡¢¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥Á¥§¥Ã¥¯¤ò¼Â¹Ô¤·¤Æ¤«¤éÀµ¾ï¤Ë¥·¥ã¥Ã¥È¥À¥¦¥ó¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:933
 msgid "Video Card"
@@ -887,15 +883,15 @@ msgstr "¿âÄ¾¼þÇÈ¿ô¤ÎÈÏ°Ï"
 
 #: ../xserver.py:27
 msgid "Mouse Not Detected"
-msgstr "¥Þ¥¦¥¹¤ò¸¡½Ð¤Ç¤­¤Þ¤»¤ó¡£"
+msgstr "¥Þ¥¦¥¹¤ò¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿"
 
 #: ../xserver.py:28
 msgid "Your mouse was not automatically detected.  To proceed in the graphical installation mode, please proceed to the next screen and provide your mouse information. You may also use text mode installation which does not require a mouse."
-msgstr "¥Þ¥¦¥¹¤ò¼«Æ°¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£¥°¥é¥Õ¥£¥«¥ë¤Ê¥¤¥ó¥¹¥È¡¼¥ë¥â¡¼¥É¤ËÆþ¤ë¤Ë¤Ï¡¢¼¡²èÌÌ¤Ë¿Ê¤ó¤Ç¥Þ¥¦¥¹¤Î¾ðÊó¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£¤Þ¤¿¥Þ¥¦¥¹¤òÉ¬Í×¤È¤·¤Ê¤¤¥Æ¥­¥¹¥È¥â¡¼¥É¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ò¹Ô¤¦¤³¤È¤â¤Ç¤­¤Þ¤¹¡£"
+msgstr "¥Þ¥¦¥¹¤ò¼«Æ°¸¡½Ð¤Ç¤­¤Þ¤»¤ó¤Ç¤·¤¿¡£¥°¥é¥Õ¥£¥«¥ë¤Ê¥¤¥ó¥¹¥È¡¼¥ë¥â¡¼¥É¤ËÆþ¤ë¤Ë¤Ï¼¡²èÌÌ¤Ë¿Ê¤ó¤Ç¥Þ¥¦¥¹¤Î¾ðÊó¤òÀßÄê¤·¤Æ²¼¤µ¤¤¡£¤Þ¤¿¥Þ¥¦¥¹¤òÉ¬Í×¤È¤·¤Ê¤¤¥Æ¥­¥¹¥È¥â¡¼¥É¤Î¥¤¥ó¥¹¥È¡¼¥ë¤â²ÄÇ½¤Ç¤¹"
 
 #: ../xserver.py:34 ../xserver.py:35
 msgid "Use text mode"
-msgstr "¥Æ¥­¥¹¥È¥â¡¼¥É¤ò»ÈÍÑ¤¹¤ë"
+msgstr "¥Æ¥­¥¹¥È¥â¡¼¥É¤ò»ÈÍÑ"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
@@ -907,39 +903,39 @@ msgstr "¥¢¥«¥¦¥ó¥È¤ÎÀßÄê"
 
 #: ../iw/account_gui.py:39
 msgid "Root password accepted."
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤òÀßÄê¤·¤Þ¤·¤¿¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É³ÎÄê"
 
 #: ../iw/account_gui.py:42
 msgid "Please enter root password."
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/account_gui.py:44
 msgid "Root password is too short."
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤ÎÊ¸»ú¿ô¤¬Â­¤ê¤Þ¤»¤ó¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤¬Ã»¤«¤¹¤®¤Þ¤¹"
 
 #: ../iw/account_gui.py:46
 msgid "Root passwords do not match."
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Æ¤¤¤Þ¤»¤ó¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Æ¤¤¤Þ¤»¤ó"
 
 #: ../iw/account_gui.py:59
 msgid "User password accepted."
-msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤òÀßÄê¤·¤Þ¤·¤¿¡£"
+msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É³ÎÄê"
 
 #: ../iw/account_gui.py:64
 msgid "Root account can not be added here."
-msgstr "¤³¤³¤Ç¤Ï root ¥¢¥«¥¦¥ó¥È¤òÄÉ²Ã¤Ç¤­¤Þ¤»¤ó¡£"
+msgstr "¤³¤³¤Ç¤Ï root ¥¢¥«¥¦¥ó¥È¤òÄÉ²Ã¤Ç¤­¤Þ¤»¤ó"
 
 #: ../iw/account_gui.py:66
 msgid "Please enter user password."
-msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/account_gui.py:68
 msgid "User password is too short."
-msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤ÎÊ¸»ú¿ô¤¬Â­¤ê¤Þ¤»¤ó¡£"
+msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤¬Ã»¤¹¤®¤Þ¤¹"
 
 #: ../iw/account_gui.py:70
 msgid "User passwords do not match."
-msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Æ¤¤¤Þ¤»¤ó¡£"
+msgstr "¥æ¡¼¥¶¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Æ¤¤¤Þ¤»¤ó"
 
 #: ../iw/account_gui.py:192
 msgid "Root Password: "
@@ -979,11 +975,11 @@ msgstr "ºï½ü"
 
 #: ../iw/account_gui.py:290
 msgid "New"
-msgstr "¿·µ¬"
+msgstr "¥¯¥ê¥¢"
 
 #: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
 msgid "Authentication Configuration"
-msgstr "Ç§¾Ú¤ÎÀßÄê"
+msgstr "Ç§¾ÚÀßÄê"
 
 #: ../iw/auth_gui.py:78
 msgid "Enable MD5 passwords"
@@ -999,7 +995,7 @@ msgstr "NIS ¤òÍ­¸ú¤Ë¤¹¤ë"
 
 #: ../iw/auth_gui.py:83
 msgid "Use broadcast to find NIS server"
-msgstr "¥Ö¥í¡¼¥É¥­¥ã¥¹¥È¤ò»ÈÍÑ¤·¤Æ NIS ¥µ¡¼¥Ð¤ò¸¡º÷¤¹¤ë"
+msgstr "¥Ö¥í¡¼¥É¥­¥ã¥¹¥È¤Ç NIS ¥µ¡¼¥Ð¤ò¸¡º÷"
 
 #: ../iw/auth_gui.py:95
 msgid "NIS Domain: "
@@ -1015,7 +1011,7 @@ msgstr "LDAP ¤òÍ­¸ú¤Ë¤¹¤ë"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr "TLS ¥ë¥Ã¥¯¥¢¥Ã¥×¤ò»ÈÍÑ¤¹¤ë"
+msgstr "TLS ¥ë¥Ã¥¯¥¢¥Ã¥×¤ò»ÈÍÑ"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
@@ -1047,31 +1043,31 @@ msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®"
 
 #: ../iw/bootdisk_gui.py:58
 msgid "Please remove the install floppy (if used) and insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëÍÑ¥Õ¥í¥Ã¥Ô¡¼¤¬ÁÞÆþ¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï¼è¤ê½Ð¤·¤Æ¡¢¶õ¤Î¥Õ¥í¥Ã¥Ô¡¼¤ò¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥Ö¤ËÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥Ç¥£¥¹¥¯¾å¤Î¥Ç¡¼¥¿¤Ï¡¢¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ë¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤Þ¤¹¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ëÍÑ¥Õ¥í¥Ã¥Ô¡¼¤¬ÁÞÆþ¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï¼è¤ê½Ð¤·¤Æ¶õ¤Î¥Õ¥í¥Ã¥Ô¡¼¤ò¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥Ö¤ËÁÞÆþ¤·¤Æ²¼¤µ¤¤¡£¤³¤Î¥Ç¥£¥¹¥¯¾å¤Î¥Ç¡¼¥¿¤Ï¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ë¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤Þ¤¹¡£"
 
 #: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
 msgid "An error occured while making the boot disk. Please make sure that there is a formatted floppy in the first floppy drive."
-msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥ÖÆâ¤Î¥Õ¥í¥Ã¥Ô¡¼¤¬¥Õ¥©¡¼¥Þ¥Ã¥ÈºÑ¤Ç¤¢¤ë¤«¤É¤¦¤«³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯ºîÀ®Ãæ¤Ë¥¨¥é¡¼È¯À¸¡£¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥ÖÆâ¤Î¥Õ¥í¥Ã¥Ô¡¼¤¬¥Õ¥©¡¼¥Þ¥Ã¥ÈºÑ¤Ç¤¢¤ë¤«¤É¤¦¤«³ÎÇ§¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
-msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®¤ò¥¹¥­¥Ã¥×¤¹¤ë"
+msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯ºîÀ®¤ò¾ÊÎ¬"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
-msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤Î½àÈ÷¤¬¤Ç¤­¤Þ¤·¤¿"
+msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É½àÈ÷´°Î»"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤Î½àÈ÷¤¬¤Ç¤­¤Þ¤·¤¿"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë½àÈ÷´°Î»"
 
 #: ../iw/confirm_gui.py:34
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "[¼¡] ¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È Red Hat Linux ¤Î¥¢¥Ã¥×¥°¥ì¡¼¥É¤ò³«»Ï¤·¤Þ¤¹¡£"
+msgstr "[¼¡]¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È Red Hat Linux ¤Î¥¢¥Ã¥×¥°¥ì¡¼¥É¤ò³«»Ï¤·¤Þ¤¹"
 
 #: ../iw/confirm_gui.py:36
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "[¼¡] ¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È Red Hat Linux ¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ò³«»Ï¤·¤Þ¤¹¡£"
+msgstr "[¼¡]¤ò¥¯¥ê¥Ã¥¯¤¹¤ë¤È Red Hat Linux ¤Î¥¤¥ó¥¹¥È¡¼¥ë¤ò³«»Ï¤·¤Þ¤¹"
 
 #: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:60
 msgid "Congratulations"
@@ -1085,11 +1081,11 @@ msgid ""
 "\n"
 "Information on further configuring your system is available in the Official Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
 msgstr ""
-"ÀßÄê¤¬´°Î»¤·¤Þ¤·¤¿¡£\n"
+"ÀßÄê¤¬´°Î»¤·¤Þ¤·¤¿\n"
 "\n"
-"ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ¤Î½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï¡¢http://www.redhat.com/errata ¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+"ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ¤Î½¤Àµ¾ðÊó¤Ë¤Ä¤¤¤Æ¤Ï http://www.redhat.com/errata/ ¤ò»²¾È¤·¤Æ²¼¤µ¤¤\n"
 "\n"
-"¥·¥¹¥Æ¥à¤ÎÄÉ²ÃÀßÄê¤Ë¤Ä¤¤¤Æ¤Ï¡¢http://www.redhat.com/support/manuals/ ¤ÇÆþ¼ê¤Ç¤­¤ë¡ØRed Hat Linux ¥ª¥Õ¥£¥·¥ã¥ë¥Þ¥Ë¥å¥¢¥ë¡Ù¤ò»²¾È¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"¥·¥¹¥Æ¥à¤ÎÄÉ²ÃÀßÄê¤Ë¤Ä¤¤¤Æ¤Ï http://www.redhat.com/support/manuals/ ¤ÇÆþ¼ê¤Ç¤­¤ë¡ØRed Hat Linux ¥ª¥Õ¥£¥·¥ã¥ë¥Þ¥Ë¥å¥¢¥ë¡Ù¤ò»²¾È¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1110,7 +1106,7 @@ msgstr "Í×·ï"
 
 #: ../iw/dependencies_gui.py:87 ../textw/packages_text.py:327
 msgid "Install packages to satisfy dependencies"
-msgstr "°ÍÂ¸¤ò²ò·è¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë"
+msgstr "°ÍÂ¸¤ò²ò·è¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤ò¥¤¥ó¥¹¥È¡¼¥ë"
 
 #: ../iw/dependencies_gui.py:90 ../textw/packages_text.py:328
 msgid "Do not install packages that have dependencies"
@@ -1118,7 +1114,7 @@ msgstr "°ÍÂ¸´Ø·¸¤Î¤¢¤ë¥Ñ¥Ã¥±¡¼¥¸¤ò¥¤¥ó¥¹¥È¡¼¥ë¤·¤Ê¤¤"
 
 #: ../iw/dependencies_gui.py:94 ../textw/packages_text.py:329
 msgid "Ignore package dependencies"
-msgstr "¥Ñ¥Ã¥±¡¼¥¸¤Î°ÍÂ¸´Ø·¸¤òÌµ»ë¤¹¤ë"
+msgstr "¥Ñ¥Ã¥±¡¼¥¸¤Î°ÍÂ¸´Ø·¸¤òÌµ»ë"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1129,21 +1125,20 @@ msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó¡£\n"
-"¤³¤Î¥·¥¹¥Æ¥à¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£"
+"Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó\n"
+"¥¢¥Ã¥×¥°¥ì¡¼¥É¤Ç¤­¤Þ¤»¤ó!"
 
 #: ../iw/examine_gui.py:54
 msgid "Please select the device containing the root filesystem: "
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤¬´Þ¤Þ¤ì¤ë¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£ "
+msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ò´Þ¤à¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëºÑ¤Î Red Hat Linux ¤ò¸¡º÷¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "Red Hat Linux ¤ò¥¢¥Ã¥×¥°¥ì¡¼¥ÉÃæ - ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
-msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤ò¥«¥¹¥¿¥Þ¥¤¥º¤¹¤ë"
+msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¥Ñ¥Ã¥±¡¼¥¸¤ò¥«¥¹¥¿¥Þ¥¤¥º"
 
 #: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
 msgid "fdisk"
@@ -1151,7 +1146,7 @@ msgstr "fdisk"
 
 #: ../iw/fdisk_gui.py:105
 msgid "Select drive to run fdisk on"
-msgstr "fdisk ¤ò¼Â¹Ô¤¹¤ë¥É¥é¥¤¥Ö¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "fdisk ¤ò¼Â¹Ô¤¹¤ë¥É¥é¥¤¥Ö¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/firewall_gui.py:117
 msgid "Warning: "
@@ -1159,7 +1154,7 @@ msgstr "·Ù¹ð:  "
 
 #: ../iw/firewall_gui.py:117
 msgid " is an invalid port."
-msgstr "¤ÏÍ­¸ú¤Ê¥Ý¡¼¥È¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "¤ÏÌµ¸ú¤Ê¥Ý¡¼¥È¤Ç¤¹"
 
 #: ../iw/firewall_gui.py:120
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
@@ -1167,7 +1162,7 @@ msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤Ï 'port:protocol'¡¢Îã¤¨¤Ð '1234:udp' ¤Ç¤¹"
 
 #: ../iw/firewall_gui.py:204
 msgid "Please choose your security level:  "
-msgstr "¥»¥­¥å¥ê¥Æ¥£¥ì¥Ù¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤: "
+msgstr "¥»¥­¥å¥ê¥Æ¥£¥ì¥Ù¥ë¤òÁªÂò¤·¤Æ²¼¤µ¤¤: "
 
 #: ../iw/firewall_gui.py:213 ../textw/firewall_text.py:33
 msgid "High"
@@ -1191,11 +1186,11 @@ msgstr "¥«¥¹¥¿¥Þ¥¤¥º"
 
 #: ../iw/firewall_gui.py:245
 msgid "Trusted devices:"
-msgstr "¿®ÍÑ¤¹¤ë¥Ç¥Ð¥¤¥¹:"
+msgstr "¿®Íê¤¹¤ë¥Ç¥Ð¥¤¥¹:"
 
 #: ../iw/firewall_gui.py:270 ../textw/firewall_text.py:79
 msgid "Allow incoming:"
-msgstr "°Ê²¼¤Ë¤Ä¤¤¤Æ¤Ï¿¯Æþ¤òµö²Ä:"
+msgstr "¿¯Æþ¤òµö²Ä:"
 
 #: ../iw/firewall_gui.py:299
 msgid "Other ports:"
@@ -1203,11 +1198,11 @@ msgstr "Â¾¤Î¥Ý¡¼¥È:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
-msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/format_gui.py:61
 msgid "Check for bad blocks while formatting"
-msgstr "¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤ËÉÔÎÉ¥Ö¥í¥Ã¥¯¤ò¥Á¥§¥Ã¥¯¤¹¤ë"
+msgstr "¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤ËÉÔÎÉ¥Ö¥í¥Ã¥¯¤ò¥Á¥§¥Ã¥¯"
 
 #: ../iw/installpath_gui.py:99
 msgid "Install Type"
@@ -1247,23 +1242,23 @@ msgstr "¥Ç¥Ã¥É¥­¡¼¤òÌµ¸ú¤Ë¤¹¤ë"
 
 #: ../iw/keyboard_gui.py:151
 msgid "Test your selection here:"
-msgstr "¤³¤³¤ÇÁªÂò¤·¤¿ÀßÄê¤ò¥Æ¥¹¥È¤·¤Æ¤¯¤À¤µ¤¤:"
+msgstr "¤³¤³¤ÇÁªÂò¤·¤¿ÀßÄê¤ò¥Æ¥¹¥È¤·¤Æ²¼¤µ¤¤:"
 
 #: ../iw/language_gui.py:39 ../loader/lang.c:292
 msgid "What language should be used during the installation process?"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëÃæ¤Ë»ÈÍÑ¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ëÃæ¤Ë»ÈÍÑ¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/language_support_gui.py:144
 msgid "Choose the default language:   "
-msgstr "¥Ç¥Õ¥©¥ë¥È¤Î¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "É¸½à¤Î¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "¸½ºß¤Î¥¤¥ó¥¹¥È¡¼¥ëºÑ¤ß¸À¸ì:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/language_support_gui.py:203
 msgid "Select all"
@@ -1307,11 +1302,11 @@ msgstr "¥«¡¼¥Í¥ë¥Ñ¥é¥á¡¼¥¿"
 
 #: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
 msgid "Create boot disk"
-msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤òºîÀ®¤¹¤ë"
+msgstr "¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤òºîÀ®"
 
 #: ../iw/lilo_gui.py:334
 msgid "Install LILO"
-msgstr "LILO ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë"
+msgstr "LILO ¤ò¥¤¥ó¥¹¥È¡¼¥ë"
 
 #: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199 ../textw/silo_text.py:196
 msgid "Default"
@@ -1351,7 +1346,7 @@ msgstr "/dev/ttyS3 (DOS ¤Ç¤Ï COM4)"
 
 #: ../iw/mouse_gui.py:139
 msgid "Emulate 3 Buttons"
-msgstr "3 ¥Ü¥¿¥ó¥Þ¥¦¥¹¤Î¥¨¥ß¥å¥ì¡¼¥·¥ç¥ó¤òÀßÄê¤¹¤ë"
+msgstr "3 ¥Ü¥¿¥ó¥Þ¥¦¥¹¤Î¥¨¥ß¥å¥ì¡¼¥È"
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
@@ -1363,7 +1358,7 @@ msgstr "¥Í¥Ã¥È¥ï¡¼¥¯¤ÎÀßÄê"
 
 #: ../iw/network_gui.py:178
 msgid "Configure using DHCP"
-msgstr "DHCP ¤ò»ÈÍÑ¤·¤ÆÀßÄê¤¹¤ë"
+msgstr "DHCP ¤ò»ÈÍÑ¤·¤ÆÀßÄê"
 
 #: ../iw/network_gui.py:184
 msgid "Activate on boot"
@@ -1413,7 +1408,7 @@ msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤·¤Þ¤¹¤«?"
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
-msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤è¤¦¤ËÁªÂò¤·¤¿ Linux ¥¤¥ó¥¹¥È¡¼¥ë¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Ï´û¤Ë¥Þ¥¦¥ó¥È¤µ¤ì¤Æ¤¤¤Þ¤¹¡£\n"
+msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤è¤¦¤ËÁªÂò¤·¤¿ Linux ¥¤¥ó¥¹¥È¡¼¥ë¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Ï´û¤Ë¥Þ¥¦¥ó¥ÈºÑ¤ß¤Ç¤¹¡£¤³¤ì¤ò²ò·è¤¹¤ë¤³¤È¤Ê¤·¤ËÌá¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó\n"
 
 #: ../iw/package_gui.py:27
 msgid "Would you like to continue with the upgrade?"
@@ -1445,7 +1440,7 @@ msgstr "¥°¥ë¡¼¥×Æâ¤Î¤¹¤Ù¤Æ¤òÁªÂò²ò½ü"
 
 #: ../iw/package_gui.py:475
 msgid "File not found"
-msgstr "¥Õ¥¡¥¤¥ë¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó"
+msgstr "¥Õ¥¡¥¤¥ë¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿"
 
 #: ../iw/package_gui.py:518 ../textw/packages_text.py:60 ../textw/packages_text.py:241
 msgid "Package Group Selection"
@@ -1460,19 +1455,19 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
-"hdlist ¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß½Ð¤·Ãæ¤Ë°Ê²¼¤Î¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿:\n"
+"hdlist ¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß½Ð¤·Ãæ¤Ë¼¡¤Î¥¨¥é¡¼¤¬È¯À¸:\n"
 "\n"
 "%s\n"
 "\n"
-"¤³¤³¤Ç¥¤¥ó¥¹¥È¡¼¥é¤Ï½ªÎ»¤·¤Þ¤¹¡£"
+"¤¹¤°¤Ë¥¤¥ó¥¹¥È¡¼¥é¤ò½ªÎ»¤·¤Þ¤¹"
 
 #: ../iw/package_gui.py:583
 msgid "An error has occurred while retreiving the hdlist file.  The installation media or image is probably corrupt.  Installer will exit now."
-msgstr "hdlist ¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß½Ð¤·Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£¤ª¤½¤é¤¯¥¤¥ó¥¹¥È¡¼¥ë¥á¥Ç¥£¥¢¤Þ¤¿¤Ï¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤¬²õ¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤³¤Ç¥¤¥ó¥¹¥È¡¼¥é¤Ï½ªÎ»¤·¤Þ¤¹¡£"
+msgstr "hdlist ¥Õ¥¡¥¤¥ë¤ÎÆÉ¤ß½Ð¤·Ãæ¤Ë¥¨¥é¡¼È¯À¸¡£¤ª¤½¤é¤¯¥¤¥ó¥¹¥È¡¼¥ë¥á¥Ç¥£¥¢¤Þ¤¿¤Ï¥¤¥ó¥¹¥È¡¼¥ë¥¤¥á¡¼¥¸¤¬²õ¤ì¤Æ¤¤¤Þ¤¹¡£¤¹¤°¤Ë¥¤¥ó¥¹¥È¡¼¥é¤ò½ªÎ»¤·¤Þ¤¹"
 
 #: ../iw/package_gui.py:649 ../textw/packages_text.py:54
 msgid "Select individual packages"
-msgstr "¸Ä¡¹¤Î¥Ñ¥Ã¥±¡¼¥¸¤òÁªÂò¤¹¤ë"
+msgstr "¸Ä¡¹¤Î¥Ñ¥Ã¥±¡¼¥¸¤òÁªÂò"
 
 #: ../iw/progress_gui.py:55
 msgid "Installing Packages"
@@ -1485,7 +1480,7 @@ msgstr "%s K ¥Ð¥¤¥È"
 
 #: ../iw/progress_gui.py:206 ../iw/progress_gui.py:259
 msgid "Size"
-msgstr "¥µ¥¤¥º"
+msgstr "ÍÆÎÌ"
 
 #: ../iw/progress_gui.py:207
 msgid "Summary"
@@ -1533,7 +1528,7 @@ msgstr "¥á¥â¥êÉÔÂ­"
 
 #: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:221
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
-msgstr "¤³¤Î¥Þ¥·¥ó¤Ë¤Ï½½Ê¬¤Ê¥á¥â¥ê¤¬¤¢¤ê¤Þ¤»¤ó¡£¤¿¤À¤Á¤Ë¥¹¥ï¥Ã¥×ÎÎ°è¤òÍ­¸ú¤Ë¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£¤³¤Î¤¿¤á¡¢¿·¤·¤¤¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ò¥Ç¥£¥¹¥¯¤Ë½ñ¤­¹þ¤ß¤Þ¤¹¡£¤è¤í¤·¤¤¤Ç¤¹¤«?"
+msgstr "¥á¥â¥ê¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹¡£¤¿¤À¤Á¤Ë¥¹¥ï¥Ã¥×ÎÎ°è¤òÍ­¸ú¤Ë¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£¤³¤Î¤¿¤á¿·¤·¤¤¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ò¥Ç¥£¥¹¥¯¤Ë½ñ¤­¹þ¤ß¤Þ¤¹¡£¤è¤í¤·¤¤¤Ç¤¹¤«?"
 
 #: ../iw/rootpartition_gui.py:82
 msgid ""
@@ -1543,11 +1538,11 @@ msgid ""
 "\n"
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
-"¥«¡¼¥Í¥ë¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó (¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó) ¤¬ 1024 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¤¬¡¢¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¤½¤Î¤Þ¤ÞÀè¤Ë¿Ê¤ó¤Ç¤â¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤¿¸å¤Ë Linux ¤¬µ¯Æ°¤Ç¤­¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£\n"
+"¥«¡¼¥Í¥ë¥¤¥á¡¼¥¸¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó(¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó)¤¬ 1024 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¡£¤·¤«¤·¡¢¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¤½¤Î¤Þ¤ÞÀè¤Ë¿Ê¤ó¤Ç¤â¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤¿¸å¤Ë Linux ¤¬µ¯Æ°¤Ç¤­¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£\n"
 "\n"
-"Àè¤Ë¿Ê¤à¤Ê¤é¤Ð¡¢¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤½¤¦¤¹¤ë¤È¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤¹¤ë¼êÃÊ¤¬³ÎÊÝ¤µ¤ì¤Þ¤¹¡£\n"
+"Àè¤Ë¿Ê¤à¤Ê¤é¤Ð¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤½¤¦¤¹¤ë¤È¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£\n"
 "\n"
-"Àè¤Ë¿Ê¤à¤Ë¤Ï [OK] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£Á°¤ËÌá¤Ã¤Æ¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ÎºÆÀßÄê¤ò¹Ô¤¦¤Ë¤Ï [¥­¥ã¥ó¥»¥ë] ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"Àè¤Ë¿Ê¤à¤Ë¤Ï[OK]¤ò²¡¤·¤Æ²¼¤µ¤¤¡£Á°¤ËÌá¤Ã¤Æ¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ÎºÆÀßÄê¤ò¹Ô¤¦¤Ë¤Ï[¼è¤ê¾Ã¤·]¤ò²¡¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490 ../textw/partitioning_text.py:417
 msgid ""
@@ -1555,22 +1550,22 @@ msgid ""
 "\n"
 "It is HIGHLY recommended you make a boot floppy when asked by the installer, as this is a new feature in recent motherboards and is not always reliable. Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
-"¥«¡¼¥Í¥ë¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó (¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó) ¤¬1023 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¡£¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£\n"
+"¥«¡¼¥Í¥ë¥¤¥á¡¼¥¸¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó(¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó)¤¬1023 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¡£¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£\n"
 "\n"
-"¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤³¤ì¤ÏºÇ¶á¤Î¥Þ¥¶¡¼¥Ü¡¼¥É¤Î¿·µ¡Ç½¤Ç¤¢¤êÉ¬¤º¤·¤â¿®Íê¤Ç¤­¤Ê¤¤¤¿¤á¤Ç¤¹¡£µ¯Æ°¥Ç¥£¥¹¥¯¤òºîÀ®¤¹¤ë¤È¡¢¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤Ç¤­¤ë¤³¤È¤¬ÊÝ¾Ú¤µ¤ì¤Þ¤¹¡£"
+"¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤³¤ì¤ÏºÇ¶á¤Î¥Þ¥¶¡¼¥Ü¡¼¥É¤Î¿·µ¡Ç½¤Ç¤¢¤êÉ¬¤º¤·¤â¿®Íê¤Ç¤­¤Ê¤¤¤¿¤á¤Ç¤¹¡£µ¯Æ°¥Ç¥£¥¹¥¯¤òºîÀ®¤¹¤ë¤³¤È¤Ç¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤Ç¤­¤ë¤³¤È¤¬ÊÝ¾Ú¤µ¤ì¤Þ¤¹¡£"
 
 #: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:340
 #, c-format
 msgid "You've chosen to put your root filesystem in a file on an already-existing DOS or Windows filesystem. How large, in megabytes, should would you like the root filesystem to be, and how much swap space would you like? They must total less then %d megabytes in size."
-msgstr "´ûÂ¸¤Î DOS ¤Þ¤¿¤Ï Windows ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Î¥Õ¥¡¥¤¥ë¤Ë¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òÁÞÆþ¤¹¤ë¤è¤¦¤ËÁªÂò¤µ¤ì¤Þ¤·¤¿¡£¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ª¤è¤Ó¥¹¥ï¥Ã¥×ÎÎ°è¤ÎÍÆÎÌ¤ò¥á¥¬¥Ð¥¤¥ÈÃ±°Ì¤Ç»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£¹ç·× %d ¥á¥¬¥Ð¥¤¥ÈÌ¤Ëþ¤Ë¤Ê¤ë¤è¤¦¤Ë¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "´ûÂ¸¤Î DOS ¤Þ¤¿¤Ï Windows ¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Î¥Õ¥¡¥¤¥ë¤Ë¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òÁÞÆþ¤¹¤ë¤è¤¦¤ËÁªÂò¤µ¤ì¤Þ¤·¤¿¡£¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ª¤è¤Ó¥¹¥ï¥Ã¥×ÎÎ°è¤ÎÍÆÎÌ¤ò¥á¥¬¥Ð¥¤¥ÈÃ±°Ì¤Ç»ØÄê¤·¤Æ²¼¤µ¤¤¡£¹ç·× %d ¥á¥¬¥Ð¥¤¥ÈÌ¤Ëþ¤Ë¤Ê¤ë¤è¤¦¤Ë¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/rootpartition_gui.py:249
 msgid "Root filesystem size:"
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥µ¥¤¥º:"
+msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥àÍÆÎÌ:"
 
 #: ../iw/rootpartition_gui.py:254
 msgid "Swap space size:"
-msgstr "¥¹¥ï¥Ã¥×ÎÎ°è¤Î¥µ¥¤¥º:"
+msgstr "¥¹¥ï¥Ã¥×ÎÎ°èÍÆÎÌ:"
 
 #: ../iw/rootpartition_gui.py:329 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
@@ -1578,7 +1573,7 @@ msgstr "¼«Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 
 #: ../iw/rootpartition_gui.py:380
 msgid "Disk Partitioning"
-msgstr ""
+msgstr "¥Ç¥£¥¹¥¯¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 
 #: ../iw/rootpartition_gui.py:382
 #, c-format
@@ -1589,6 +1584,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"´õË¾¤Î¥Ç¥£¥¹¥¯¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄêÊýË¡¤òÁªÂò¤·¤Æ²¼¤µ¤¤\n"
+"\n"
+"%s\n"
+"\n"
+"¼êÆ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤Ç¤Ï´°Á´¤Ë¼«Í³¤ËÀßÄê¤Ç¤­¤Þ¤¹"
 
 #: ../iw/rootpartition_gui.py:388
 msgid "Automatic Partitioning Failed"
@@ -1604,7 +1604,7 @@ msgstr ""
 "\n"
 "¥Ç¥£¥¹¥¯¤Î¼«Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤ò¹Ô¤¦¤Î¤Ë½½Ê¬¤Ê¥Ç¥£¥¹¥¯ÍÆÎÌ¤¬¤¢¤ê¤Þ¤»¤ó¡£Red Hat Linux ¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤Ë¤Ï¡¢¥Ç¥£¥¹¥¯¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¼êÆ°¤ÇÀßÄê¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹¡£.\n"
 "\n"
-"Red Hat Linux¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥·¥¹¥Æ¥à¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë¤¿¤á¤Î¥Ä¡¼¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+"Red Hat Linux¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥·¥¹¥Æ¥à¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë¤¿¤á¤Î¥Ä¡¼¥ë¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../iw/rootpartition_gui.py:396
 msgid "Manual Partitioning"
@@ -1614,17 +1614,15 @@ msgstr "¼êÆ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for Red Hat Linux."
-msgstr ""
-"\n"
-"Red Hat Linux¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥·¥¹¥Æ¥à¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë¤¿¤á¤Î¥Ä¡¼¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "\nRed Hat Linux¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥·¥¹¥Æ¥à¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë¤¿¤á¤Î¥Ä¡¼¥ë¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/rootpartition_gui.py:411
 msgid "Automatically partition and REMOVE DATA"
-msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Î¼«Æ°ÀßÄê¤ò¼Â¹Ô¤·¡¢¥Ç¡¼¥¿¤òºï½ü¤¹¤ë"
+msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Î¼«Æ°ÀßÄê¤ò¼Â¹Ô¤·¡¢¥Ç¡¼¥¿¤òºï½ü"
 
 #: ../iw/rootpartition_gui.py:418
 msgid "Manually partition with Disk Druid"
-msgstr "Disk Druid ¤ò»ÈÍÑ¤·¤Æ¼êÆ°¤Ç¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë"
+msgstr "Disk Druid ¤ò»ÈÍÑ¤·¤Æ¼êÆ°¤Ç¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê"
 
 #: ../iw/rootpartition_gui.py:430
 msgid "Manually partition with fdisk [experts only]"
@@ -1632,7 +1630,7 @@ msgstr "fdisk ¤ò»ÈÍÑ¤·¤Æ¼êÆ°¤Ç¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀßÄê¤¹¤ë [¥¨¥¯¥¹¥Ñ¡¼¥È¤Î¤ß]"
 
 #: ../iw/rootpartition_gui.py:453
 msgid "Boot Partition Location Warning"
-msgstr "¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Î·Ù¹ð"
+msgstr "¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ÎÇÛÃÖ¤Ë¤Ä¤¤¤Æ·Ù¹ð"
 
 #: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:397
 msgid ""
@@ -1642,9 +1640,9 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
-"¥«¡¼¥Í¥ë¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó (¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó) ¤¬ 1024 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¤¬¡¢¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¤½¤Î¤Þ¤ÞÀè¤Ë¿Ê¤ó¤Ç¤â¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤¿¸å¤Ë Linux ¤¬µ¯Æ°¤Ç¤­¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£\n"
+"¥«¡¼¥Í¥ë¥¤¥á¡¼¥¸¤ò´Þ¤à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó(¥Ö¡¼¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó)¤¬ 1024 ¥·¥ê¥ó¥ÀÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤ËÀßÄê¤µ¤ì¤Þ¤·¤¿¤¬¡¢¤³¤Î¥·¥¹¥Æ¥à¤Î BIOS ¤Ï¤³¤ÎÀ©¸Â¤òÄ¶¤¨¤¿¾ì½ê¤«¤é¤Îµ¯Æ°¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£¤½¤Î¤Þ¤ÞÀè¤Ë¿Ê¤ó¤Ç¤â¤¿¤¤¤Æ¤¤¤Î¾ì¹ç¤Ï¥·¥¹¥Æ¥à¤¬ºÆµ¯Æ°¤·¤¿¸å¤Ë Linux ¤¬µ¯Æ°¤Ç¤­¤Ê¤¯¤Ê¤ê¤Þ¤¹¡£\n"
 "\n"
-"Àè¤Ë¿Ê¤à¤Ê¤é¤Ð¡¢¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤½¤¦¤¹¤ë¤È¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤¹¤ë¼êÃÊ¤¬³ÎÊÝ¤µ¤ì¤Þ¤¹¡£\n"
+"Àè¤Ë¿Ê¤à¤Ê¤é¤Ð¡¢¸å¤Ç¿Ò¤Í¤é¤ì¤¿¤È¤­¤Ëµ¯Æ°¥Õ¥í¥Ã¥Ô¡¼¤òºîÀ®¤¹¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¤½¤¦¤¹¤ë¤È¥¤¥ó¥¹¥È¡¼¥ë¸å¤Ë¥·¥¹¥Æ¥à¤òµ¯Æ°¤¬²ÄÇ½¤Ë¤Ê¤ê¤Þ¤¹¡£\n"
 "\n"
 "Àè¤Ë¿Ê¤ß¤Þ¤¹¤«?"
 
@@ -1666,11 +1664,11 @@ msgstr "SILO ¥Ö¡¼¥È¥ì¥³¡¼¥É¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¾ì½ê"
 
 #: ../iw/silo_gui.py:181
 msgid "Create PROM alias"
-msgstr "PROM ¥¨¥¤¥ê¥¢¥¹¤òºîÀ®¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "PROM ¥¨¥¤¥ê¥¢¥¹¤òºîÀ®¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/silo_gui.py:204
 msgid "Set default PROM boot device to linux"
-msgstr "¥Ç¥Õ¥©¥ë¥È¤Î PROM ¥Ö¡¼¥È¥Ç¥Ð¥¤¥¹¤ò linux ¤ËÀßÄê¤¹¤ë"
+msgstr "¥Ç¥Õ¥©¥ë¥È¤Î PROM ¥Ö¡¼¥È¥Ç¥Ð¥¤¥¹¤ò linux ¤ËÀßÄê"
 
 #: ../iw/silo_gui.py:236
 msgid "Do not install SILO"
@@ -1702,49 +1700,49 @@ msgstr "UTC ¥ª¥Õ¥»¥Ã¥È"
 
 #: ../iw/upgrade_swap_gui.py:18
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¹¹¿·"
 
 #: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
 #, c-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr ""
+msgstr "2.4 ·Ï¥«¡¼¥Í¥ë¤Ç¤Ï¸Å¤¤¥«¡¼¥Í¥ë¤è¤ê¤âÃø¤·¤¯Â¿¤¯¤Î¥¹¥ï¥Ã¥×ÎÎ°è¡¢¥·¥¹¥Æ¥à¤Î RAM ¤ÎÆóÇÜ¤Î¥¹¥ï¥Ã¥×ÎÎ°è¤¬É¬Í×¤Ç¤¹¡£¸½ºß %dMB¤Î¥¹¥ï¥Ã¥×ÎÎ°è¤ò³ÎÊÝ¤·¤Æ¤¤¤Þ¤¹¤¬º£¤µ¤é¤ËÎÎ°è¤òÄÉ²Ã¤¹¤ë¤³¤È¤â²ÄÇ½¤Ç¤¹¡£"
 
 #: ../iw/upgrade_swap_gui.py:115
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤òÀ¸À®¤·¤¿¤¤"
 
 #: ../iw/upgrade_swap_gui.py:124
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤òÃÖ¤¯¥Ñ¡¼¥Æ¥£¥·¥ç¥ó:"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "¼«Í³ÎÎ°è (MB)"
 
 #: ../iw/upgrade_swap_gui.py:144
 #, c-format
 msgid "It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:"
-msgstr ""
+msgstr "ºÇÄã¤Ç¤â %d MB¤Î¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤ò»ý¤Ä¤³¤È¤ò¿ä¾©¤·¤Þ¤¹¡£¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤ÎÍÆÎÌ¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤:"
 
 #: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ëÍÆÎÌ (MB):"
 
 #: ../iw/upgrade_swap_gui.py:165
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤ò¤Ä¤¯¤ê¤¿¤¯¤Ê¤¤"
 
 #: ../iw/upgrade_swap_gui.py:175
 msgid "It is stongly recommended that you create a swap file.  Failure to do so could cause the installer to abort abnormally.  Are you sure that you wish to continue?"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤ò¤Ä¤¯¤ë¤³¤È¤ò¶¯¤¯¿ä¾©¤·¤Þ¤¹¡£¼ºÇÔ¤¹¤ë¤È¥¤¥ó¥¹¥È¡¼¥é¤¬°Û¾ï½ªÎ»¤¹¤ë¤³¤È¤Ë¤Ê¤ê¤Þ¤¹¡£Â³¤±¤Þ¤¹¤«?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×¥Õ¥¡¥¤¥ë¤Ï 1 ¡Á 2000 MB ¤ÎÍÆÎÌ¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "¤½¤Î¥¹¥ï¥Ã¥×¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Î¤¿¤á¤Î½½Ê¬¤Ê¥Ç¥£¥¹¥¯ÎÎ°è¤¬»Ä¤Ã¤Æ¤¤¤Þ¤»¤ó"
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -1768,19 +1766,19 @@ msgstr "X ÀßÄê¤Î¥«¥¹¥¿¥Þ¥¤¥º"
 
 #: ../iw/xconfig_gui.py:233
 msgid "Color Depth:"
-msgstr "¿§¿ô:"
+msgstr "¿§¿¼ÅÙ:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 ¿§ (8bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "High Color (16 Bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "True Color (24 Bit)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -1792,7 +1790,7 @@ msgstr "   ÀßÄê¤Î¥Æ¥¹¥È   "
 
 #: ../iw/xconfig_gui.py:375
 msgid "Please choose your default desktop environment:"
-msgstr "¥Ç¥Õ¥©¥ë¥È¤Î¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤:"
+msgstr "¥Ç¥Õ¥©¥ë¥È¤Î¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­¤òÁªÂò¤·¤Æ²¼¤µ¤¤:"
 
 # ../comps/comps-master:252
 #: ../iw/xconfig_gui.py:385 ../iw/xconfig_gui.py:443
@@ -1810,7 +1808,7 @@ msgstr "ÁªÂò¤µ¤ì¤¿¥Ç¥¹¥¯¥È¥Ã¥×´Ä¶­:"
 
 #: ../iw/xconfig_gui.py:467
 msgid "Please choose your login type:"
-msgstr "¥í¥°¥¤¥ó¤Î¼ïÎà¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤:"
+msgstr "¥í¥°¥¤¥ó¤Î¼ïÎà¤òÁªÂò¤·¤Æ²¼¤µ¤¤:"
 
 #: ../iw/xconfig_gui.py:474
 msgid "Text"
@@ -1830,7 +1828,7 @@ msgstr "¥â¥Ë¥¿¤ÎÀßÄê"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC ¸¡½Ð¥â¥Ë¥¿¡¼"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -1854,7 +1852,7 @@ msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:980
 msgid "Your video ram size can not be autodetected.  Choose your video ram size from the choices below:"
-msgstr "¥Ó¥Ç¥ª¥á¥â¥ê¤Î¥µ¥¤¥º¤ò¼«Æ°¸¡½Ð¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£¥Ó¥Ç¥ª¥á¥â¥ê¤Î¥µ¥¤¥º¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤:"
+msgstr "¥Ó¥Ç¥ª¥á¥â¥ê¤Î¥µ¥¤¥º¤ò¼«Æ°¸¡½Ð¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤»¤ó¡£¥Ó¥Ç¥ª¥á¥â¥ê¤Î¥µ¥¤¥º¤òÁªÂò¤·¤Æ²¼¤µ¤¤:"
 
 #: ../iw/xconfig_gui.py:991 ../iw/xconfig_gui.py:1012
 msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
@@ -1862,7 +1860,7 @@ msgstr "¤Û¤È¤ó¤É¤Î¾ì¹ç¤Ë¤Ï¼«Æ°Åª¤Ë¥Ó¥Ç¥ª¥«¡¼¥É¤ò¸¡½Ð¤·¤Æ¡¢¥Ç¥£¥¹¥×¥ì¥¤¤ËºÇÅ¬¤ÊÀß
 
 #: ../iw/xconfig_gui.py:1000
 msgid "If the probed settings do not match your hardware select the correct setting below:"
-msgstr "¸¡½Ð¤µ¤ì¤¿ÀßÄê¤¬¥Ï¡¼¥É¥¦¥§¥¢¤ËÅ¬¤µ¤Ê¤¤¾ì¹ç¤Ë¤Ï¡¢°Ê²¼¤«¤éÀµ¤·¤¤ÀßÄê¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¸¡½Ð¤µ¤ì¤¿ÀßÄê¤¬¥Ï¡¼¥É¥¦¥§¥¢¤ËÅ¬¤µ¤Ê¤¤¾ì¹ç¤Ë¤Ï¼¡¤«¤éÀµ¤·¤¤ÀßÄê¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../iw/xconfig_gui.py:1021
 msgid "Autoprobe results:"
@@ -1906,7 +1904,7 @@ msgstr "¥¹¥­¥Ã¥×"
 
 #: ../textw/bootdisk_text.py:57
 msgid "If you have the install floppy in your drive, first remove it. Then insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "¥É¥é¥¤¥ÖÆâ¤Ë¥¤¥ó¥¹¥È¡¼¥ë¥Õ¥í¥Ã¥Ô¡¼¤¬Æþ¤Ã¤Æ¤¤¤ë¾ì¹ç¤Ë¤Ï¡¢ºÇ½é¤Ë¼è¤ê½Ð¤·¤Æ¤¯¤À¤µ¤¤¡£¼¡¤Ë¡¢¶õ¤Î¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤ò¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥Ö¤ËÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£¤³¤Î¥Ç¥£¥¹¥¯¾å¤Î¥Ç¡¼¥¿¤Ï¡¢¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ë¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤Þ¤¹¡£"
+msgstr "¥É¥é¥¤¥ÖÆâ¤Ë¥¤¥ó¥¹¥È¡¼¥ë¥Õ¥í¥Ã¥Ô¡¼¤¬Æþ¤Ã¤Æ¤¤¤ë¾ì¹ç¤Ë¤Ï¡¢ºÇ½é¤Ë¼è¤ê½Ð¤·¤Æ²¼¤µ¤¤¡£¼¡¤Ë¡¢¶õ¤Î¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤ò¥×¥é¥¤¥Þ¥ê¥Õ¥í¥Ã¥Ô¡¼¥É¥é¥¤¥Ö¤ËÁÞÆþ¤·¤Æ²¼¤µ¤¤¡£¤³¤Î¥Ç¥£¥¹¥¯¾å¤Î¥Ç¡¼¥¿¤Ï¡¢¥Ö¡¼¥È¥Ç¥£¥¹¥¯¤ÎºîÀ®Ãæ¤Ë¤¹¤Ù¤Æ¾Ãµî¤µ¤ì¤Þ¤¹¡£"
 
 #: ../textw/firewall_text.py:13
 msgid "A firewall protects against unauthorized network intrusions. High security blocks all incoming accesses. Medium blocks access to system services (such as telnet or printing), but allows other connections. No firewall allows all connections and is not recommended. "
@@ -1918,7 +1916,7 @@ msgstr "¥»¥­¥å¥ê¥Æ¥£¥ì¥Ù¥ë:"
 
 #: ../textw/firewall_text.py:59
 msgid "Trusted Devices:"
-msgstr "¿®ÍÑ¤¹¤ë¥Ç¥Ð¥¤¥¹:"
+msgstr "¿®Íê¤¹¤ë¥Ç¥Ð¥¤¥¹:"
 
 #: ../textw/firewall_text.py:84
 msgid "DHCP"
@@ -1951,28 +1949,28 @@ msgstr "Â¾¤Î¥Ý¡¼¥È"
 
 #: ../textw/firewall_text.py:125
 msgid "You cannot customize a disabled firewall."
-msgstr "Ìµ¸ú¤Ê¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤Ï¥«¥¹¥¿¥Þ¥¤¥º¤Ç¤­¤Þ¤»¤ó¡£"
+msgstr "Ìµ¸ú¤Ê¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤Ï¥«¥¹¥¿¥Þ¥¤¥º¤Ç¤­¤Þ¤»¤ó"
 
 #: ../textw/firewall_text.py:130
 msgid "Firewall Configuration - Customize"
-msgstr "¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ëÀßÄê - ¥«¥º¥¿¥Þ¥¤¥º"
+msgstr "¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ëÀßÄê - ¥«¥¹¥¿¥Þ¥¤¥º"
 
 #: ../textw/firewall_text.py:132
 msgid "You can customize your firewall in two ways. First, you can select to allow all traffic from certain network interfaces. Second, you can allow certain protocols explicitly through the firewall. Specify additional ports in the form 'service:protocol', such as 'imap:tcp'. "
-msgstr "2 ¼ïÎà¤ÎÊýË¡¤Ç¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤ò¥«¥¹¥¿¥Þ¥¤¥º¤Ç¤­¤Þ¤¹¡£¤Þ¤º¡¢°ìÄê¤Î¥Í¥Ã¥È¥ï¡¼¥¯¥¤¥ó¥¿¥Õ¥§¡¼¥¹¤«¤é¤Î¤¹¤Ù¤Æ¤Î¥È¥é¥Õ¥£¥Ã¥¯¤òµö²Ä¤¹¤ëÁªÂò¤¬¤Ç¤­¤Þ¤¹¡£¼¡¤Ë¡¢°ìÄê¥×¥í¥È¥³¥ë¤Î¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤ÎÄÌ²á¤òÌÀ¼¨Åª¤Ëµö²Ä¤Ç¤­¤Þ¤¹¡£ÄÉ²Ã¤Î¥Ý¡¼¥È¤ò'service:protocol' ¤Î·Á¼°¡¢¤¿¤È¤¨¤Ð 'imap:tcp' ¤È¤·¤Æ»ØÄê¤·¤Þ¤¹¡£ "
+msgstr "2 ¼ïÎà¤ÎÊýË¡¤Ç¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤ò¥«¥¹¥¿¥Þ¥¤¥º¤Ç¤­¤Þ¤¹¡£¤Þ¤º°ìÄê¤Î¥Í¥Ã¥È¥ï¡¼¥¯¥¤¥ó¥¿¥Õ¥§¡¼¥¹¤«¤é¤Î¤¹¤Ù¤Æ¤Î¥È¥é¥Õ¥£¥Ã¥¯¤òµö²Ä¤¹¤ëÁªÂò¤¬¤Ç¤­¤Þ¤¹¡£¼¡¤Ë°ìÄê¥×¥í¥È¥³¥ë¤Î¥Õ¥¡¥¤¥¢¥¦¥©¡¼¥ë¤ÎÄÌ²á¤òÌÀ¼¨Åª¤Ëµö²Ä¤Ç¤­¤Þ¤¹¡£ÄÉ²Ã¤Î¥Ý¡¼¥È¤ò'service:protocol' ¤Î·Á¼°¡¢¤¿¤È¤¨¤Ð 'imap:tcp' ¤È¤·¤Æ»ØÄê¤·¤Þ¤¹"
 
 #: ../textw/firewall_text.py:190
 #, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s ¤ÏÍ­¸ú¤Ê¥Ý¡¼¥È¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "%s ¤ÏÌµ¸ú¤Ê¥Ý¡¼¥È¤Ç¤¹"
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr "¥·¥¹¥Æ¥à¤¬Àµ¤·¤¯µ¡Ç½¤¹¤ë¤¿¤á¤Ë¤Ï¡¢µ¯Æ°»þ¤Ë¥«¡¼¥Í¥ë¤ËÂÐ¤·¤ÆÆÃÊÌ¤Ê¥ª¥×¥·¥ç¥ó¤òÅÏ¤¹É¬Í×¤¬¤¢¤ë¾ì¹ç¤¬¤¢¤ê¤Þ¤¹¡£¥«¡¼¥Í¥ë¤Ë¥Ö¡¼¥È¥ª¥×¥·¥ç¥ó¤òÅÏ¤¹É¬Í×¤¬¤¢¤ë¾ì¹ç¤Ë¤Ï¡¢¤³¤³¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£¥ª¥×¥·¥ç¥ó¤¬É¬Í×¤Ê¤¤¤«¡¢¤Þ¤¿¤ÏÉÔÌÀ¤Ê¾ì¹ç¤Ë¤Ï¡¢¶õÇò¤Ë¤·¤Æ¤ª¤¤¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥·¥¹¥Æ¥à¤¬Àµ¤·¤¯µ¡Ç½¤¹¤ë¤¿¤á¤Ë¤Ï¡¢µ¯Æ°»þ¤Ë¥«¡¼¥Í¥ë¤ËÂÐ¤·¤ÆÆÃÊÌ¤Ê¥ª¥×¥·¥ç¥ó¤òÅÏ¤¹É¬Í×¤¬¤¢¤ë¾ì¹ç¤¬¤¢¤ê¤Þ¤¹¡£¥«¡¼¥Í¥ë¤Ë¥Ö¡¼¥È¥ª¥×¥·¥ç¥ó¤òÅÏ¤¹É¬Í×¤¬¤¢¤ë¾ì¹ç¤Ë¤Ï¡¢¤³¤³¤ÇÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£¥ª¥×¥·¥ç¥ó¤¬É¬Í×¤Ê¤¤¤«¡¢¤Þ¤¿¤ÏÉÔÌÀ¤Ê¾ì¹ç¤Ë¤Ï¡¢¶õÇò¤Ë¤·¤Æ¤ª¤¤¤Æ²¼¤µ¤¤¡£"
 
 #: ../textw/lilo_text.py:91 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
-msgstr "¥Ö¡¼¥È¥í¡¼¥À¡¼¤ò¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¾ì½ê¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Ö¡¼¥È¥í¡¼¥À¡¼¤Î¥¤¥ó¥¹¥È¡¼¥ë¾ì½ê¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/lilo_text.py:123 ../textw/silo_text.py:136 ../textw/silo_text.py:157
 msgid "Clear"
@@ -1988,27 +1986,27 @@ msgstr "Ìµ¸ú¤Ê¥Ö¡¼¥È¥é¥Ù¥ë"
 
 #: ../textw/lilo_text.py:151
 msgid "Boot label may not be empty."
-msgstr "¥Ö¡¼¥È¥é¥Ù¥ë¤Ï¶õÇò¤Ë¤Ï¤Ç¤­¤Þ¤»¤ó¡£"
+msgstr "¥Ö¡¼¥È¥é¥Ù¥ë¤Ï¶õÇò¤Ë¤Ï¤Ç¤­¤Þ¤»¤ó"
 
 #: ../textw/lilo_text.py:156
 msgid "Boot label contains illegal characters."
-msgstr "¥Ö¡¼¥È¥é¥Ù¥ë¤ËÌµ¸ú¤ÊÊ¸»ú¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡£"
+msgstr "¥Ö¡¼¥È¥é¥Ù¥ë¤ËÉÔÅ¬ÀÚ¤ÊÊ¸»ú¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹"
 
 #: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
 msgid "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
-msgstr "Red Hat ¤¬»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥Þ¥Í¡¼¥¸¥ã¤Ï¡¢Â¾¤Î¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Îµ¯Æ°¤Ë»ÈÍÑ¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£¥Ö¡¼¥È²ÄÇ½¤Ë¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¡¢¤½¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥óÍÑ¤Ë»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥é¥Ù¥ë¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Red Hat ¤¬»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥Þ¥Í¡¼¥¸¥ã¤ÏÂ¾¤Î¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Îµ¯Æ°¤Ë»ÈÍÑ¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£¥Ö¡¼¥È²ÄÇ½¤Ë¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¤½¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥óÍÑ¤Ë»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥é¥Ù¥ë¤òÀßÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/mouse_text.py:26
 msgid "What device is your mouse located on?"
-msgstr "¥Þ¥¦¥¹¤òÀÜÂ³¤¹¤ë¥Ç¥Ð¥¤¥¹¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Þ¥¦¥¹¤òÀÜÂ³¤¹¤ë¥Ç¥Ð¥¤¥¹¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/mouse_text.py:57
 msgid "Which model mouse is attached to this computer?"
-msgstr "¥³¥ó¥Ô¥å¡¼¥¿¤ËÀÜÂ³¤µ¤ì¤Æ¤¤¤ë¥Þ¥¦¥¹¤Î¥â¥Ç¥ë¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Þ¥¦¥¹¤Î¥â¥Ç¥ë¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/mouse_text.py:68
 msgid "Emulate 3 Buttons?"
-msgstr "3 ¥Ü¥¿¥ó¥Þ¥¦¥¹¤Î¥¨¥ß¥å¥ì¡¼¥·¥ç¥ó¤òÀßÄê¤·¤Þ¤¹¤«?"
+msgstr "3 ¥Ü¥¿¥ó¥Þ¥¦¥¹¤ò¥¨¥ß¥å¥ì¡¼¥È¤·¤Þ¤¹¤«?"
 
 #: ../textw/mouse_text.py:71
 msgid "Mouse Selection"
@@ -2016,7 +2014,7 @@ msgstr "¥Þ¥¦¥¹¤ÎÁªÂò"
 
 #: ../textw/network_text.py:66
 msgid "Use bootp/dhcp"
-msgstr "bootp/dhcp ¤ò»ÈÍÑ¤¹¤ë"
+msgstr "bootp/dhcp ¤ò»ÈÍÑ"
 
 #: ../loader/net.c:307 ../textw/network_text.py:71
 msgid "IP address:"
@@ -2048,7 +2046,7 @@ msgstr "Ìµ¸ú¤Ê¥¢¥É¥ì¥¹¤Ç¤¹"
 
 #: ../textw/network_text.py:122
 msgid "You must enter valid IP information to continue"
-msgstr "Â³¹Ô¤¹¤ë¤Ë¤ÏÍ­¸ú¤Ê IP ¥¢¥É¥ì¥¹¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Â³¹Ô¤¹¤ë¤Ë¤ÏÍ­¸ú¤Ê IP ¥¢¥É¥ì¥¹¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/network_text.py:157
 msgid "Hostname Configuration"
@@ -2056,7 +2054,7 @@ msgstr "¥Û¥¹¥ÈÌ¾¤ÎÀßÄê"
 
 #: ../textw/network_text.py:158
 msgid "The hostname is the name of your computer.  If your computer is attached to a network, this may be assigned by your network administrator."
-msgstr "¥Û¥¹¥ÈÌ¾¤Ï»ÈÍÑ¤¹¤ë¥³¥ó¥Ô¥å¡¼¥¿¤ÎÌ¾Á°¤Ç¤¹¡£¤ª»È¤¤¤Î¥³¥ó¥Ô¥å¡¼¥¿¤¬¥Í¥Ã¥È¥ï¡¼¥¯¤ËÀÜÂ³¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï¥Í¥Ã¥È¥ï¡¼¥¯´ÉÍý¼Ô¤Ë¤è¤Ã¤Æ³ä¤êÅö¤Æ¤é¤ì¤Æ¤¤¤ë¤Ï¤º¤Ç¤¹¡£"
+msgstr "¥Û¥¹¥ÈÌ¾¤Ï¥³¥ó¥Ô¥å¡¼¥¿¤ÎÌ¾Á°¤Ç¤¹¡£¤´ÍøÍÑ¤Î¥³¥ó¥Ô¥å¡¼¥¿¤¬¥Í¥Ã¥È¥ï¡¼¥¯¤ËÀÜÂ³¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï¥Í¥Ã¥È¥ï¡¼¥¯´ÉÍý¼Ô¤Ë¤è¤Ã¤Æ³ä¤êÅö¤Æ¤é¤ì¤Æ¤¤¤ë¤Ï¤º¤Ç¤¹¡£"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
@@ -2073,7 +2071,7 @@ msgstr "%.1f K ¥Ð¥¤¥È"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr "¹ç·×¥µ¥¤¥º"
+msgstr "¹ç·×ÍÆÎÌ"
 
 #: ../textw/packages_text.py:249
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
@@ -2081,7 +2079,7 @@ msgstr "   <Space>¡¢<+>¡¢<->ÁªÂò| <F1> ¥Ø¥ë¥×>| <F2> ¥Ñ¥Ã¥±¡¼¥¸¤ÎÀâÌÀ"
 
 #: ../textw/packages_text.py:306
 msgid "Some of the packages you have selected to install require packages you have not selected. If you just select Ok all of those required packages will be installed."
-msgstr "ÁªÂò¤·¤¿¥Ñ¥Ã¥±¡¼¥¸¤ÎÃæ¤Ë¡¢Ì¤ÁªÂò¤Î¥Ñ¥Ã¥±¡¼¥¸¤òÉ¬Í×¤È¤¹¤ë¤â¤Î¤¬¤¢¤ê¤Þ¤¹¡£¤³¤³¤Ç [OK] ¤òÁªÂò¤¹¤ë¤È¡¢É¬Í×¤Ê¥Ñ¥Ã¥±¡¼¥¸¤¬¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤Þ¤¹¡£"
+msgstr "ÁªÂò¥Ñ¥Ã¥±¡¼¥¸¤ÎÃæ¤ËÌ¤ÁªÂò¤Î¥Ñ¥Ã¥±¡¼¥¸¤òÉ¬Í×¤È¤¹¤ë¤â¤Î¤¬¤¢¤ê¤Þ¤¹¡£¤³¤³¤Ç[OK]¤òÁªÂò¤¹¤ë¤ÈÉ¬Í×¤Ê¥Ñ¥Ã¥±¡¼¥¸¤â¥¤¥ó¥¹¥È¡¼¥ë¤·¤Þ¤¹"
 
 #: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
 msgid "Disk Setup"
@@ -2112,6 +2110,9 @@ msgid ""
 "\n"
 "If you don't want to do this, you can continue with this install by partitioning manually, or you can go back and perform a fully customized installation."
 msgstr ""
+"%s\n"
+"\n"
+"¤³¤Î¤è¤¦¤Ë¤·¤¿¤¯¤Ê¤¤¤Ê¤é¼êÆ°¤Ç¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤ò¹Ô¤Ê¤Ã¤Æ¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£¤½¤¦¤Ç¤Ê¤±¤ì¤ÐÌá¤Ã¤Æ´°Á´¤Ë¥«¥¹¥¿¥Þ¥¤¥º¤µ¤ì¤¿¥¤¥ó¥¹¥È¡¼¥ëÊýË¡¤ò¼Â¹Ô¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£"
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
@@ -2123,11 +2124,11 @@ msgstr "¼êÆ°¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 
 #: ../textw/partitioning_text.py:241
 msgid "What partitions would you like to format? We strongly suggest formatting all of the system partitions, including /, /usr, and /var. There is no need to format /home or /usr/local if they have already been configured during a previous install."
-msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£/¡¢/usr¡¢¤ª¤è¤Ó /var ¤ò´Þ¤à¡¢¤¹¤Ù¤Æ¤Î¥·¥¹¥Æ¥à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤³¤È¤ò¶¯¤¯¤ª´«¤á¤·¤Þ¤¹¡£¤¹¤Ç¤Ë°ÊÁ°¤Î¥¤¥ó¥¹¥È¡¼¥ë»þ¤ËÀßÄê¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢/home ¤Þ¤¿¤Ï /usr/local ¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£/¡¢/usr¡¢¤ª¤è¤Ó /var ¤ò´Þ¤à¤¹¤Ù¤Æ¤Î¥·¥¹¥Æ¥à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¤³¤È¤ò¶¯¤¯¤ª´«¤á¤·¤Þ¤¹¡£´û¤Ë°ÊÁ°¤Î¥¤¥ó¥¹¥È¡¼¥ë»þ¤ËÀßÄê¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¤Ï /home ¤Þ¤¿¤Ï /usr/local ¤ò¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../textw/partitioning_text.py:261
 msgid "Check for bad blocks during format"
-msgstr "¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤ËÉÔÎÉ¥Ö¥í¥Ã¥¯¤ò¥Á¥§¥Ã¥¯¤¹¤ë"
+msgstr "¥Õ¥©¡¼¥Þ¥Ã¥ÈÃæ¤ËÉÔÎÉ¥Ö¥í¥Ã¥¯¤ò¥Á¥§¥Ã¥¯"
 
 #: ../textw/partitioning_text.py:266
 msgid "Choose Partitions to Format"
@@ -2135,7 +2136,7 @@ msgstr "¥Õ¥©¡¼¥Þ¥Ã¥È¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ÎÁªÂò"
 
 #: ../textw/partitioning_text.py:345
 msgid "Root filesystem size"
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥µ¥¤¥º"
+msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ÎÍÆÎÌ"
 
 #: ../textw/partitioning_text.py:346
 msgid "Swap space"
@@ -2143,24 +2144,24 @@ msgstr "¥¹¥ï¥Ã¥×ÎÎ°è"
 
 #: ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:362 ../textw/partitioning_text.py:369
 msgid "Bad Size"
-msgstr "¥µ¥¤¥º¤¬ÉÔÅ¬Åö¤Ç¤¹"
+msgstr "ÍÆÎÌ¤¬ÉÔÅ¬Åö¤Ç¤¹"
 
 #: ../textw/partitioning_text.py:357
 msgid "The size you enter must be a number."
-msgstr "¥µ¥¤¥º¤Ï¿ô»ú¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "ÍÆÎÌ¤Ï¿ô»ú¤ÇÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/partitioning_text.py:363
 #, c-format
 msgid "The total size must be smaller then the amount of free space on the disk, which is %d megabytes."
-msgstr "¹ç·×¥µ¥¤¥º¤¬¥Ç¥£¥¹¥¯¤Î¶õ¤­ÎÎ°è¤è¤ê¾®¤µ¤¯¤Ê¤ë¤è¤¦¤Ë¤·¤Æ¤¯¤À¤µ¤¤¡£¶õ¤­ÎÎ°è¤Ï %d ¥á¥¬¥Ð¥¤¥È¤Ç¤¹¡£"
+msgstr "¹ç·×ÍÆÎÌ¤¬¥Ç¥£¥¹¥¯¤Î¶õ¤­ÎÎ°è¤è¤ê¾®¤µ¤¯¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó¡£¶õ¤­ÎÎ°è¤Ï %d ¥á¥¬¥Ð¥¤¥È¤Ç¤¹"
 
 #: ../textw/partitioning_text.py:370
 msgid "Neither the root file system size nor the swap space size may be greater then 2000 megabytes."
-msgstr "¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤Î¥µ¥¤¥º¤ª¤è¤Ó¥¹¥ï¥Ã¥×ÎÎ°è¤Î¥µ¥¤¥º¤Ï¡¢2000 ¥á¥¬¥Ð¥¤¥È¤òÄ¶¤¨¤Æ¤Ï¤¤¤±¤Þ¤»¤ó¡£"
+msgstr "/¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤ª¤è¤Ó¥¹¥ï¥Ã¥×ÎÎ°è¤ÎÍÆÎÌ¤Ï 2000 MByte¤òÄ¶¤¨¤Æ¤Ï¤¤¤±¤Þ¤»¤ó"
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
-msgstr "PROM ¥¨¥¤¥ê¥¢¥¹ 'linux' ¤òºîÀ®¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "PROM ¥¨¥¤¥ê¥¢¥¹ 'linux' ¤òºîÀ®¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/silo_text.py:67
 msgid "Set default PROM boot device"
@@ -2172,7 +2173,7 @@ msgstr "¥Ö¡¼¥È¥é¥Ù¥ë¤ÎÊÔ½¸"
 
 #: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
-msgstr "¥¿¥¤¥à¥¾¡¼¥ó¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¿¥¤¥à¥¾¡¼¥ó¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/timezone_text.py:86
 msgid "Hardware clock set to GMT?"
@@ -2180,27 +2181,27 @@ msgstr "¥Ï¡¼¥É¥¦¥§¥¢¥¯¥í¥Ã¥¯¤ò GMT ¤Ë¹ç¤ï¤»¤ÆÀßÄê¤·¤Þ¤¹¤«?"
 
 #: ../textw/upgrade_text.py:40
 msgid "Free Space"
-msgstr ""
+msgstr "¼«Í³ÎÎ°è"
 
 #: ../textw/upgrade_text.py:55
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "¿ä¾©ÍÆÎÌ (MB):"
 
 #: ../textw/upgrade_text.py:66
 msgid "Add Swap"
-msgstr ""
+msgstr "¥¹¥ï¥Ã¥×ÄÉ²Ã"
 
 #: ../textw/upgrade_text.py:91
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "ÆþÎÏÃÍ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹"
 
 #: ../textw/upgrade_text.py:121
 msgid "If you would like to exit the upgrade select Exit, or choose Ok to continue with the upgrade."
-msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤òÃæ»ß¤·¤¿¤¤¤Ê¤é [½ªÎ»] ¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£¤½¤¦¤Ç¤Ê¤±¤ì¤Ð [OK] ¤ò²¡¤·¤Æ¥¢¥Ã¥×¥°¥ì¡¼¥É¤òÂ³¹Ô¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤òÃæ»ß¤·¤¿¤¤¤Ê¤é[½ªÎ»]¤òÁªÂò¤·¡¢¤½¤¦¤Ç¤Ê¤±¤ì¤Ð [OK] ¤ò²¡¤·¤Æ¥¢¥Ã¥×¥°¥ì¡¼¥É¤òÂ³¹Ô¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/upgrade_text.py:151
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó¡£¤³¤Î¥·¥¹¥Æ¥à¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£"
+msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ê¤Þ¤»¤ó¡£¤³¤Î¥·¥¹¥Æ¥à¤ò¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó!"
 
 #: ../textw/upgrade_text.py:168
 msgid "System to Upgrade"
@@ -2220,7 +2221,7 @@ msgstr "¥¤¥ó¥¹¥È¡¼¥ëºÑ¤Î¥Ñ¥Ã¥±¡¼¥¸¡¢¤ª¤è¤Ó°ÍÂ¸´Ø·¸¤ò²ò·è¤¹¤ë¤¿¤á¤ËÉ¬Í×¤Ê¤½¤ÎÂ¾¤Î
 
 #: ../textw/userauth_text.py:11
 msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£¥Ñ¥¹¥ï¡¼¥É¤ò 2 ²óÆþÎÏ¤·¤Æ¡¢¥Ñ¥¹¥ï¡¼¥É¤òµ­²±¤·¡¢ÆþÎÏ¥ß¥¹¤Î¤Ê¤¤¤³¤È¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£root ¥Ñ¥¹¥ï¡¼¥É¤Ï¥·¥¹¥Æ¥à¥»¥­¥å¥ê¥Æ¥£¤Î½ÅÍ×¤ÊÉôÊ¬¤òÀê¤á¤ë¤³¤È¤òËº¤ì¤Ê¤¤¤Ç²¼¤µ¤¤¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤òÀßÄê¤·¤Æ²¼¤µ¤¤¡£¥Ñ¥¹¥ï¡¼¥É¤ò2²óÆþÎÏ¤·¤Æ¥Ñ¥¹¥ï¡¼¥É¤òµ­²±¤·ÆþÎÏ¥ß¥¹¤Î¤Ê¤¤¤³¤È¤ò³ÎÇ§¤·¤Æ²¼¤µ¤¤¡£root ¥Ñ¥¹¥ï¡¼¥É¤Ï¥·¥¹¥Æ¥à¥»¥­¥å¥ê¥Æ¥£¤Î½ÅÍ×¤ÊÉôÊ¬¤òÀê¤á¤ë¤³¤È¤òËº¤ì¤Ê¤¤¤Ç²¼¤µ¤¤"
 
 #: ../loader/urls.c:345 ../textw/userauth_text.py:24
 msgid "Password:"
@@ -2236,7 +2237,7 @@ msgstr "¥Ñ¥¹¥ï¡¼¥É¤ÎÄ¹¤µ"
 
 #: ../textw/userauth_text.py:42
 msgid "The root password must be at least 6 characters long."
-msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤ÎÄ¹¤µ¤Ï¾¯¤Ê¤¯¤È¤â 6 Ê¸»ú¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+msgstr "root ¥Ñ¥¹¥ï¡¼¥É¤Ï6Ê¸»ú°Ê¾å¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
 msgid "Password Mismatch"
@@ -2244,7 +2245,7 @@ msgstr "¥Ñ¥¹¥ï¡¼¥É¤¬°ìÃ×¤·¤Þ¤»¤ó"
 
 #: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
 msgid "The passwords you entered were different. Please try again."
-msgstr "ÆþÎÏ¤·¤¿¥Ñ¥¹¥ï¡¼¥É¤¬°Û¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£¤â¤¦°ìÅÙ¤ä¤êÄ¾¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "ÆþÎÏ¤·¤¿¥Ñ¥¹¥ï¡¼¥É¤¬°Û¤Ê¤Ã¤Æ¤¤¤Þ¤¹¡£ºÆÅÙ¤ä¤êÄ¾¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/userauth_text.py:72
 msgid "Edit User"
@@ -2264,7 +2265,7 @@ msgstr "Ìµ¸ú¤Ê¥æ¡¼¥¶ ID ¤Ç¤¹"
 
 #: ../textw/userauth_text.py:96
 msgid "User IDs must be less than 8 characters and contain only characters A-Z, a-z, and 0-9."
-msgstr "¥æ¡¼¥¶ ID¤Ï¡¢8 Ê¸»úÌ¤Ëþ¤Ë¤·¡¢A-Z¡¢a-z¡¢0-9 ¤Î¤ß¤ò»ÈÍÑ¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
+msgstr "¥æ¡¼¥¶ ID¤Ï8Ê¸»úÌ¤Ëþ¤Ë¤·¡¢A-Z¡¢a-z¡¢0-9¤À¤±¤¬ÍøÍÑ¤Ç¤­¤Þ¤¹"
 
 #: ../textw/userauth_text.py:103
 msgid "Missing User ID"
@@ -2272,11 +2273,11 @@ msgstr "¥æ¡¼¥¶ ID ¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Þ¤»¤ó"
 
 #: ../textw/userauth_text.py:104
 msgid "You must provide a user ID"
-msgstr "¥æ¡¼¥¶ ID ¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥æ¡¼¥¶ ID ¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/userauth_text.py:109
 msgid "The password must be at least 6 characters long."
-msgstr "¥Ñ¥¹¥ï¡¼¥É¤ÎÄ¹¤µ¤Ï¾¯¤Ê¤¯¤È¤â 6 Ê¸»ú¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+msgstr "¥Ñ¥¹¥ï¡¼¥É¤Ï6Ê¸»ú°Ê¾å¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
 msgid "User Exists"
@@ -2284,19 +2285,19 @@ msgstr "¥æ¡¼¥¶¤¬Â¸ºß¤·¤Þ¤¹"
 
 #: ../textw/userauth_text.py:126
 msgid "The root user is already configured. You don't need to add this user here."
-msgstr "root ¥æ¡¼¥¶¤¬´û¤ËÀßÄê¤µ¤ì¤Æ¤¤¤Þ¤¹¡£¤³¤Î¥æ¡¼¥¶¤òÄÉ²Ã¤¹¤ëÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "root ¥æ¡¼¥¶¤Ï´û¤ËÀßÄêºÑ¤ß¤Ç¤¹¡£¥æ¡¼¥¶ÄÉ²Ã¤ÎÉ¬Í×¤Ï¤¢¤ê¤Þ¤»¤ó"
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
-msgstr "¤³¤Î¥æ¡¼¥¶ ID ¤Ï´û¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ÊÌ¤Î ID ¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¤³¤Î¥æ¡¼¥¶ID¤Ï´û¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ÊÌ¤ÎID¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/userauth_text.py:161
 msgid "You should use a normal user account for most activities on your system. By not using the root account casually, you'll reduce the chance of disrupting your system's configuration."
-msgstr "¥·¥¹¥Æ¥à¤Ë´Ø¤¹¤ë¤Û¤È¤ó¤É¤Îºî¶È¤Ï¡¢ÄÌ¾ï¤Î¥æ¡¼¥¶¥¢¥«¥¦¥ó¥È¤ò»ÈÍÑ¤¹¤Ù¤­¤Ç¤¹¡£°Õ¼±Åª¤Ë root ¥¢¥«¥¦¥ó¥È¤ò»ÈÍÑ¤·¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤Ç¡¢¥·¥¹¥Æ¥à¤ÎÀßÄê¤ò²õ¤·¤Æ¤·¤Þ¤¦³ÎÎ¨¤òÄã¤¯¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
+msgstr "¤Û¤È¤ó¤É¤Îºî¶È¤ÏÄÌ¾ï¤Î¥æ¡¼¥¶¥¢¥«¥¦¥ó¥È¤ò»ÈÍÑ¤¹¤Ù¤­¤Ç¤¹¡£°Õ¼±Åª¤Ë root ¥¢¥«¥¦¥ó¥È¤ò»ÈÍÑ¤·¤Ê¤¤¤è¤¦¤Ë¤¹¤ë¤³¤È¤Ç¥·¥¹¥Æ¥à¤ÎÀßÄê¤ò²õ¤·¤Æ¤·¤Þ¤¦³ÎÎ¨¤òÄã¤¯¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹"
 
 #: ../textw/userauth_text.py:174
 msgid "What user account would you like to have on the system? You should have at least one non-root account for normal work, but multi-user systems can have any number of accounts set up."
-msgstr "¥æ¡¼¥¶¥¢¥«¥¦¥ó¥È¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£ÄÌ¾ïºî¶È¤Î¤¿¤á¤Ë¾¯¤Ê¤¯¤È¤â°ì¤Ä¤Î root °Ê³°¤Î¥¢¥«¥¦¥ó¥È¤òÀßÄê¤¹¤Ù¤­¤Ç¤¹¤¬¡¢¥Þ¥ë¥Á¥æ¡¼¥¶¥·¥¹¥Æ¥à¤Ç¤ÏÊ£¿ô¤Î¥¢¥«¥¦¥ó¥È¤òÀßÄê¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
+msgstr "¥æ¡¼¥¶¥¢¥«¥¦¥ó¥È¤òÀßÄê¤·¤Æ²¼¤µ¤¤¡£ÄÌ¾ïºî¶È¤Î¤¿¤á¤Ë¾¯¤Ê¤¯¤È¤â°ì¤Ä¤Î root °Ê³°¤Î¥¢¥«¥¦¥ó¥È¤òÀßÄê¤¹¤Ù¤­¤Ç¤¹¤¬¥Þ¥ë¥Á¥æ¡¼¥¶¥·¥¹¥Æ¥à¤Ç¤ÏÊ£¿ô¤Î¥¢¥«¥¦¥ó¥È¤òÀßÄê¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹"
 
 #: ../textw/userauth_text.py:184
 msgid "User name"
@@ -2304,7 +2305,7 @@ msgstr "¥æ¡¼¥¶Ì¾"
 
 #: ../textw/userauth_text.py:211
 msgid "Enter the information for the user."
-msgstr "¥æ¡¼¥¶¤Ë´Ø¤¹¤ë¾ðÊó¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥æ¡¼¥¶¤Ë´Ø¤¹¤ë¾ðÊó¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../textw/userauth_text.py:229
 msgid "Change the information for this user."
@@ -2312,7 +2313,7 @@ msgstr "¤³¤Î¥æ¡¼¥¶¤Î¾ðÊó¤òÊÑ¹¹¤¹¤ë"
 
 #: ../textw/userauth_text.py:301
 msgid "Use Shadow Passwords"
-msgstr "¥·¥ã¥É¥¦¥Ñ¥¹¥ï¡¼¥É¤ò»ÈÍÑ¤¹¤ë"
+msgstr "¥·¥ã¥É¥¦¥Ñ¥¹¥ï¡¼¥É¤ò»ÈÍÑ"
 
 #: ../textw/userauth_text.py:303
 msgid "Enable MD5 Passwords"
@@ -2328,15 +2329,15 @@ msgstr "NIS ¥µ¡¼¥Ð:"
 
 #: ../textw/userauth_text.py:318
 msgid "or use:"
-msgstr "¤Þ¤¿¤Ï¼¡¤ò»ÈÍÑ¤¹¤ë:"
+msgstr "¤Þ¤¿¤Ï¼¡¤ò»ÈÍÑ:"
 
 #: ../textw/userauth_text.py:321
 msgid "Request server via broadcast"
-msgstr "¥Ö¥í¡¼¥É¥­¥ã¥¹¥È·ÐÍ³¤Ç¥µ¡¼¥Ð¤òÍ×µá¤¹¤ë"
+msgstr "¥Ö¥í¡¼¥É¥­¥ã¥¹¥È·ÐÍ³¤Ç¥µ¡¼¥ÐÌä¤¤¹ç¤ï¤»"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
-msgstr "TLS ÀÜÂ³¤ò»ÈÍÑ¤¹¤ë"
+msgstr "TLS ÀÜÂ³¤ò»ÈÍÑ"
 
 #: ../installclasses/custom.py:10
 msgid "Custom System"
@@ -2344,7 +2345,7 @@ msgstr "¥«¥¹¥¿¥à¥·¥¹¥Æ¥à"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
 msgid "Automatic partitioning will erase any preexisting Linux installations on your system."
-msgstr ""
+msgstr "¼«Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤Ï¥·¥¹¥Æ¥à¤Ë¥¤¥ó¥¹¥È¡¼¥ë¤µ¤ì¤¿´ûÂ¸¤Î Linux ¥·¥¹¥Æ¥à¤ò¾Ãµî¤·¤Þ¤¹"
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2356,7 +2357,7 @@ msgstr "¥µ¡¼¥Ð¥·¥¹¥Æ¥à"
 
 #: ../installclasses/server.py:38
 msgid "Automatic partitioning will erase ALL DATA on your hard drive to make room for your Linux installation."
-msgstr ""
+msgstr "¼«Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤Ï Linux ¥¤¥ó¥¹¥È¡¼¥ë¤ËÉ¬Í×¤ÊÎÎ°è¤ò³ÎÊÝ¤¹¤ë¤¿¤á¤Ë¥Ï¡¼¥É¥Ç¥£¥¹¥¯¤ÎÁ´¥Ç¡¼¥¿¤ò¾Ãµî¤·¤Þ¤¹¡£"
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -2364,16 +2365,16 @@ msgstr "¥ï¡¼¥¯¥¹¥Æ¡¼¥·¥ç¥ó"
 
 #: ../libfdisk/fsedit.c:401
 msgid "partitioning did not meet requirements"
-msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥Ë¥ó¥°¤¬Í×·ï¤òËþ¤¿¤·¤Æ¤¤¤Þ¤»¤ó"
+msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤¬Í×·ï¤òËþ¤¿¤·¤Æ¤¤¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995
 msgid "Bad Mount Point"
-msgstr "¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬ÉÔÅ¬Åö¤Ç¤¹"
+msgstr "ÉÔÅ¬ÀÚ¤Ê¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È"
 
 #: ../libfdisk/fsedit.c:923
 #, c-format
 msgid "The %s directory must be on the root filesystem."
-msgstr "%s ¥Ç¥£¥ì¥¯¥È¥ê¤Ï¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+msgstr "%s ¥Ç¥£¥ì¥¯¥È¥ê¤Ï¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¾å¤Ë¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:930
 #, c-format
@@ -2382,9 +2383,9 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬Åö¤Ç¤¹¡£.\n"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹\n"
 "\n"
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÎÀèÆ¬¤Ï / ¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÎÀèÆ¬¤Ï / ¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:937
 #, c-format
@@ -2393,9 +2394,9 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬Åö¤Ç¤¹¡£.\n"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹\n"
 "\n"
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÎºÇ¸å¤Ë¤Ï / ¤ò»ÈÍÑ¤Ç¤­¤Þ¤»¤ó¡£"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÎºÇ¸å¤Ë¤Ï / ¤ò»ÈÍÑ¤Ç¤­¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:946
 #, c-format
@@ -2404,9 +2405,9 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬Åö¤Ç¤¹¡£.\n"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹\n"
 "\n"
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÏÉ½¼¨²ÄÇ½Ê¸»ú¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ÏÉ½¼¨²ÄÇ½Ê¸»ú¤Ç¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:954
 msgid "You've asked to put your root (/) filesystem on a DOS-style FAT partition. You can do this, but you may not use any other filesystems for your Linux system. Additionally, there will be a speed penalty for not using Linux-native partitions. Do you want to continue?"
@@ -2419,14 +2420,14 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬Åö¤Ç¤¹¡£.\n"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹\n"
 "\n"
-"¥·¥¹¥Æ¥à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ï Linux Native ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¾å¤Ë¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó¡£"
+"¥·¥¹¥Æ¥à¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ï Linux Native ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¾å¤Ë¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:986
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr "¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ç¤Ï¡¢/boot ¤Ï DOS ÂÐ±þ¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à %x ¾å¤Ë¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó¡£"
+msgstr "¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ç¤Ï¡¢/boot ¤Ï DOS ÂÐ±þ¤Î¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à %x ¾å¤Ë¤Ê¤±¤ì¤Ð¤¤¤±¤Þ¤»¤ó"
 
 #: ../libfdisk/fsedit.c:996
 #, c-format
@@ -2435,7 +2436,7 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬Åö¤Ç¤¹.\n"
+"¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È %s ¤¬ÉÔÅ¬ÀÚ¤Ç¤¹\n"
 "\n"
 "/usr ¤Ï Linux Native ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Þ¤¿¤Ï NFS ¥Ü¥ê¥å¡¼¥à¾å¤Ë¤Ê¤±¤ì¤Ð¤Ê¤ê¤Þ¤»¤ó"
 
@@ -2445,11 +2446,11 @@ msgstr "¥É¥é¥¤¥Ö¿ô¤¬Â¿²á¤®¤Þ¤¹"
 
 #: ../libfdisk/fsedit.c:1025
 msgid "You have more drives than this program supports. Please use the standard fdisk program to setup your drives and please notify Red Hat Software that you saw this message."
-msgstr "¥É¥é¥¤¥Ö¿ô¤¬¤³¤Î¥×¥í¥°¥é¥à¤Ç¥µ¥Ý¡¼¥È¤Ç¤­¤ë¿ô¤òÄ¶¤¨¤Æ¤¤¤Þ¤¹¡£É¸½à¤Î fdisk ¤ò»ÈÍÑ¤·¤Æ¥É¥é¥¤¥Ö¤Î¥»¥Ã¥È¥¢¥Ã¥×¤ò¹Ô¤Ê¤¤¡¢¤³¤Î¥á¥Ã¥»¡¼¥¸¤¬É½¼¨¤µ¤ì¤¿¤³¤È¤ò Red Hat Software ¤Ë¤´Ï¢Íí¤¯¤À¤µ¤¤¡£"
+msgstr "¥É¥é¥¤¥Ö¿ô¤¬¤³¤Î¥×¥í¥°¥é¥à¤Ç¥µ¥Ý¡¼¥È¤Ç¤­¤ë¿ô¤òÄ¶¤¨¤Æ¤¤¤Þ¤¹¡£É¸½à¤Î fdisk ¤ò»ÈÍÑ¤·¤Æ¥É¥é¥¤¥Ö¤Î¥»¥Ã¥È¥¢¥Ã¥×¤ò¹Ô¤Ê¤¤¡¢¤³¤Î¥á¥Ã¥»¡¼¥¸¤¬É½¼¨¤µ¤ì¤¿¤³¤È¤ò Red Hat Software ¤Ë¤´Ï¢Íí²¼¤µ¤¤¡£"
 
 #: ../libfdisk/fsedit.c:1034
 msgid "Error Creating Device Nodes"
-msgstr "¥Ç¥Ð¥¤¥¹¥Î¡¼¥É¤ÎºîÀ®Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£"
+msgstr "¥Ç¥Ð¥¤¥¹¥Î¡¼¥É¤ÎºîÀ®Ãæ¤Ë¥¨¥é¡¼È¯À¸"
 
 #: ../libfdisk/fsedit.c:1035
 msgid "An error has occurred while trying to create device nodes for the hard drives in your system.  This may be because you have run out of disk space on the /tmp partition."
@@ -2457,16 +2458,16 @@ msgstr "¥·¥¹¥Æ¥à¤Î¥Ï¡¼¥É¥Ç¥£¥¹¥¯¤ËÂÐ¤¹¤ë¥Ç¥Ð¥¤¥¹¥Î¡¼¥É¤ÎºîÀ®Ãæ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ
 
 #: ../libfdisk/fsedit.c:1051
 msgid "No Drives Found"
-msgstr "¥É¥é¥¤¥Ö¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó"
+msgstr "¥É¥é¥¤¥Ö¤¬¤ß¤Ä¤«¤ê¤Þ¤»¤ó¤Ç¤·¤¿"
 
 #: ../libfdisk/fsedit.c:1052
 msgid "An error has occurred - no valid devices were found on which to create new filesystems.  Please check your hardware for the cause of this problem."
-msgstr "¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿ - ¿·µ¬¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òºîÀ®¤¹¤ë¤¿¤á¤ÎÍ­¸ú¤Ê¥Ç¥Ð¥¤¥¹¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£¥Ï¡¼¥É¥¦¥§¥¢¤ò¥Á¥§¥Ã¥¯¤·¤Æ¡¢¤³¤ÎÌäÂê¤Î¸¶°ø¤òÄ´ºº¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿ - ¿·µ¬¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥à¤òºîÀ®¤¹¤ë¤¿¤á¤ÎÍ­¸ú¤Ê¥Ç¥Ð¥¤¥¹¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£¥Ï¡¼¥É¥¦¥§¥¢¤ò¥Á¥§¥Ã¥¯¤·¤Æ¡¢¤³¤ÎÌäÂê¤Î¸¶°ø¤òÄ´ºº¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/fsedit.c:1381 ../libfdisk/fsedit.c:1444
 #, c-format
 msgid "An error occurred reading the partition table for the block device %s.  The error was"
-msgstr "¥Ö¥í¥Ã¥¯¥Ç¥Ð¥¤¥¹ %s ¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£¥¨¥é¡¼¤ÎÆâÍÆ:"
+msgstr "¥Ö¥í¥Ã¥¯¥Ç¥Ð¥¤¥¹ %s ¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ÎÆÉ¤ß¹þ¤ß¤ÎºÝ¤Ë¥¨¥é¡¼È¯À¸¡£¥¨¥é¡¼ÆâÍÆ:"
 
 #: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1462 ../loader/net.c:277 ../loader/net.c:402
 msgid "Retry"
@@ -2474,7 +2475,7 @@ msgstr "ºÆ»î¹Ô"
 
 #: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1427 ../libfdisk/fsedit.c:1449 ../libfdisk/fsedit.c:1455 ../libfdisk/fsedit.c:1462
 msgid "Skip Drive"
-msgstr "¤³¤Î¥É¥é¥¤¥Ö¤ò¥¹¥­¥Ã¥×¤¹¤ë"
+msgstr "¥É¥é¥¤¥Ö¤ò¥¹¥­¥Ã¥×"
 
 #: ../libfdisk/fsedit.c:1421
 #, c-format
@@ -2483,11 +2484,11 @@ msgstr "¥Ç¥Ð¥¤¥¹ %s ¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤¬²õ¤ì¤Æ¤¤¤Þ¤¹¡£¿·¤·¤¤¥Ñ¡¼¥Æ¥£¥·¥ç¥ó
 
 #: ../libfdisk/fsedit.c:1426
 msgid "Bad Partition Table"
-msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤¬ÉÔÅ¬Åö¤Ç¤¹"
+msgstr "ÉÔÅ¬ÀÚ¤Ê¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë"
 
 #: ../libfdisk/fsedit.c:1427
 msgid "Initialize"
-msgstr "½é´ü²½¤¹¤ë"
+msgstr "½é´ü²½"
 
 #: ../libfdisk/fsedit.c:1475
 msgid "BSD Disklabel"
@@ -2495,7 +2496,7 @@ msgstr "BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ë"
 
 #: ../libfdisk/fsedit.c:1475
 msgid "A disk with a BSD disklabel has been found. The Red Hat installation only supports BSD Disklabels in read-only mode, so you must use a custom install and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr "BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ëÉÕ¤­¤Î¥Ç¥£¥¹¥¯¤¬¸«¤Ä¤«¤ê¤Þ¤·¤¿¡£Red Hat ¤Î¥¤¥ó¥¹¥È¡¼¥ë¤Ç¤Ï¡¢ÆÉ¤ß¹þ¤ßÀìÍÑ¥â¡¼¥É¤Î BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ë¤Î¤ß¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤¹¡£¤·¤¿¤¬¤Ã¤Æ¡¢BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ë¤ò»ÈÍÑ¤·¤¿¥Þ¥·¥ó¤Î¾ì¹ç¤Ë¤Ï¡¢¥«¥¹¥¿¥à¥¤¥ó¥¹¥È¡¼¥ë¤ª¤è¤Ó fdisk (Disk Druid ¤Ç¤Ï¤Ê¤¯) ¤ò»ÈÍÑ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ëÉÕ¤­¤Î¥Ç¥£¥¹¥¯¤¬¸«¤Ä¤«¤ê¤Þ¤·¤¿¡£Red Hat ¤Î¥¤¥ó¥¹¥È¡¼¥ë¤Ç¤Ï¡¢ÆÉ¤ß¹þ¤ßÀìÍÑ¥â¡¼¥É¤Î BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ë¤Î¤ß¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤¹¡£¤·¤¿¤¬¤Ã¤Æ¡¢BSD ¥Ç¥£¥¹¥¯¥é¥Ù¥ë¤ò»ÈÍÑ¤·¤¿¥Þ¥·¥ó¤Î¾ì¹ç¤Ë¤Ï¡¢¥«¥¹¥¿¥à¥¤¥ó¥¹¥È¡¼¥ë¤ª¤è¤Ó fdisk (Disk Druid ¤Ç¤Ï¤Ê¤¯) ¤ò»ÈÍÑ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/fsedit.c:1505 ../libfdisk/fsedit.c:1528 ../libfdisk/fsedit.c:1554
 #, c-format
@@ -2512,7 +2513,7 @@ msgstr "¤³¤ì¤Ï¥¤¥ó¥¹¥È¡¼¥é¤Î¥«¡¼¥Í¥ë¤¬¸¡½Ð¤·¤¿¥É¥é¥¤¥Ö¥¸¥ª¥á¥È¥ê¤È¥É¥é¥¤¥Ö¤¬¥Ñ¡¼
 
 #: ../libfdisk/fsedit.c:1564
 msgid "This occurs because there is a logical partition on the drive which has a partition type of zero (0). This is not supported by the anaconda installer. This logical partition was most likely created by the partitioning program of another OS, so you may be able to correct the problem using that utility."
-msgstr ""
+msgstr "¤³¤ì¤Ï¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥¿¥¤¥× 0 ¤Î¥É¥é¥¤¥Ö¾å¤ËÏÀÍý¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬¤¢¤ë¤¿¤á¤Ç¤¹¡£anaconda ¥¤¥ó¥¹¥È¡¼¥é¤Ï¤³¤ì¤ò¥µ¥Ý¡¼¥È¤·¤Æ¤¤¤Þ¤»¤ó¡£¤³¤ÎÏÀÍý¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ï¤¿¤¤¤Æ¤¤¤Î¾ì¹çÂ¾¤Î OS ¤Î¥×¥í¥°¥é¥à¤Ë¤è¤Ã¤Æ¤Ä¤¯¤é¤ì¤¿¤â¤Î¤Ç¤¹¤Î¤Ç¡¢¤³¤ÎÌäÂê¤Ï¤½¤Î¥æ¡¼¥Æ¥£¥ê¥Æ¥£¤ò»È¤Ã¤Æ½¤Àµ¤Ç¤­¤ë¤Ç¤·¤ç¤¦¡£"
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
@@ -2609,23 +2610,23 @@ msgstr "¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¥¨¥é¡¼"
 
 #: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid "You have tried to assign the '/' mount point to a FAT-style partition.  You cannot do this now because mount points have been assigned to ext2 partitions also.  Clear those mount points and then you will be able to assign '/' to this partition."
-msgstr "FAT ·Á¼°¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë '/' ¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ò³ä¤êÅö¤Æ¤è¤¦¤È¤·¤Þ¤·¤¿¡£ext2 ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë¡¢¤³¤Î¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬³ä¤êÅö¤Æ¤é¤ì¤Æ¤¤¤ë¤¿¤á¡¢¤³¤³¤Ç³ä¤êÅö¤Æ¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£¤³¤ì¤é¤Î¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ò¥¯¥ê¥¢¤·¤Æ¤«¤é¡¢¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë '/' ¤ò³ä¤êÅö¤Æ¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "FAT ·Á¼°¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë '/' ¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ò³ä¤êÅö¤Æ¤è¤¦¤È¤·¤Þ¤·¤¿¡£ext2 ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë¡¢¤³¤Î¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬³ä¤êÅö¤Æ¤é¤ì¤Æ¤¤¤ë¤¿¤á¡¢¤³¤³¤Ç³ä¤êÅö¤Æ¤ë¤³¤È¤Ï¤Ç¤­¤Þ¤»¤ó¡£¤³¤ì¤é¤Î¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤ò¥¯¥ê¥¢¤·¤Æ¤«¤é¡¢¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤Ë '/' ¤ò³ä¤êÅö¤Æ¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
-msgstr "»ØÄê¤·¤¿¤¿¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬ÉÔÅ¬Åö¤Ê¥Ñ¥¹¤Ç¤¢¤ë¤«¡¢¤¹¤Ç¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£Í­¸ú¤Ê¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "»ØÄê¤·¤¿¤¿¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬ÉÔÅ¬Åö¤Ê¥Ñ¥¹¤Ç¤¢¤ë¤«¡¢¤¹¤Ç¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£Í­¸ú¤Ê¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
-msgstr "¥µ¥¤¥º¥¨¥é¡¼"
+msgstr "ÍÆÎÌ¥¨¥é¡¼"
 
 #: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
-msgstr "Í×µá¤µ¤ì¤¿ÍÆÎÌ¤ÏÉÔÅ¬Åö¤Ç¤¹¡£ÍÆÎÌ¤¬¥¼¥í (0) ¤è¤êÂç¤­¤¯¡¢10 ¿ÊÀ°¿ô¤Ç»ØÄê¤µ¤ì¤Æ¤¤¤ë¤³¤È¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Í×µá¤µ¤ì¤¿ÍÆÎÌ¤ÏÉÔÅ¬Åö¤Ç¤¹¡£ÍÆÎÌ¤¬¥¼¥í (0) ¤è¤êÂç¤­¤¯¡¢10 ¿ÊÀ°¿ô¤Ç»ØÄê¤µ¤ì¤Æ¤¤¤ë¤³¤È¤ò³ÎÇ§¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
-msgstr "¥¹¥ï¥Ã¥×¥µ¥¤¥º¥¨¥é¡¼"
+msgstr "¥¹¥ï¥Ã¥×ÍÆÎÌ¥¨¥é¡¼"
 
 #: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414 ../libfdisk/newtfsedit.c:718
 #, c-format
@@ -2645,7 +2646,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
-msgstr "·Ù¹ð¡§¥ë¡¼¥È FS ¤Î¥µ¥¤¥º"
+msgstr "·Ù¹ð¡§¥ë¡¼¥È¥Õ¥¡¥¤¥ë¥·¥¹¥Æ¥àÍÆÎÌ"
 
 #: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
@@ -2667,7 +2668,7 @@ msgstr "°ì¤Ä¤Î¥É¥é¥¤¥Ö¤Ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀ©¸Â¤¹¤ë¤³¤È¤Ê¤¯ RAID ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¹½
 
 #: ../libfdisk/gnomefsedit.c:1406
 msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
-msgstr "°ì¤Ä¤Î¥É¥é¥¤¥Ö¤Ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀ©¸Â¤¹¤ë¤³¤È¤Ê¤¯ RAID ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¹½À®¤·¤è¤¦¤È¤·¤Æ¤¤¤Þ¤¹¡£¥É¥é¥¤¥Ö¤ò°ì¤ÄÁªÂò¤·¤Æ¡¢¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¤½¤Î¥É¥é¥¤¥Ö¤ËÀ©¸Â¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "°ì¤Ä¤Î¥É¥é¥¤¥Ö¤Ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÀ©¸Â¤¹¤ë¤³¤È¤Ê¤¯ RAID ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¹½À®¤·¤è¤¦¤È¤·¤Æ¤¤¤Þ¤¹¡£¥É¥é¥¤¥Ö¤ò°ì¤ÄÁªÂò¤·¤Æ¡¢¤³¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò¤½¤Î¥É¥é¥¤¥Ö¤ËÀ©¸Â¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
@@ -2686,7 +2687,7 @@ msgstr "RAID ¥¨¥ó¥È¥ê¤¬ÉÔ´°Á´¤Ç¤¹"
 #: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
-msgstr "RAID ¥Ç¥Ð¥¤¥¹ /dev/%s ¤Ë¡¢Ì¤³äÅö¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡£RAID ¥Ç¥Ð¥¤¥¹ /dev/%s ¤Ï¥³¥ó¥Ý¡¼¥Í¥ó¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó·²¤ËÊ¬³ä¤µ¤ì¤Þ¤¹¡£³äÅöºÑ¤ß¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò´Þ¤à RAID ¥Ç¥Ð¥¤¥¹¤òºÆÀ°Íý¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "RAID ¥Ç¥Ð¥¤¥¹ /dev/%s ¤Ë¡¢Ì¤³äÅö¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡£RAID ¥Ç¥Ð¥¤¥¹ /dev/%s ¤Ï¥³¥ó¥Ý¡¼¥Í¥ó¥È¥Ñ¡¼¥Æ¥£¥·¥ç¥ó·²¤ËÊ¬³ä¤µ¤ì¤Þ¤¹¡£³äÅöºÑ¤ß¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤ò´Þ¤à RAID ¥Ç¥Ð¥¤¥¹¤òºÆÀ°Íý¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
@@ -2694,7 +2695,7 @@ msgstr "/boot ¤òºï½ü¤Ç¤­¤Þ¤»¤ó¡£"
 
 #: ../libfdisk/gnomefsedit.c:1652
 msgid "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a non-RAID device first."
-msgstr "RAID ¥Ç¥Ð¥¤¥¹¾å¤Ë \"/\" ¤¬¤¢¤ë¾ì¹ç¤Ï \"/boot\" ¤òºï½ü¤Ç¤­¤Þ¤»¤ó¡£¤Þ¤º \"/\" ¤òÈó RAID ¥Ç¥Ð¥¤¥¹¤ËÀÚ¤êÂØ¤¨¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "RAID ¥Ç¥Ð¥¤¥¹¾å¤Ë \"/\" ¤¬¤¢¤ë¾ì¹ç¤Ï \"/boot\" ¤òºï½ü¤Ç¤­¤Þ¤»¤ó¡£¤Þ¤º \"/\" ¤òÈó RAID ¥Ç¥Ð¥¤¥¹¤ËÀÚ¤êÂØ¤¨¤Æ²¼¤µ¤¤¡£"
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738 ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
@@ -2731,7 +2732,7 @@ msgstr "¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬ÁªÂò¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤¬É¬Í×¤Ç¤¹¡£"
 
 #: ../libfdisk/gnomefsedit.c:2279
 msgid "The mount point requested is already in use. Please select a valid mount point."
-msgstr "Í×µá¤µ¤ì¤¿¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤Ï¤¹¤Ç¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£Í­¸ú¤Ê¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Í×µá¤µ¤ì¤¿¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤Ï¤¹¤Ç¤Ë»ÈÍÑ¤µ¤ì¤Æ¤¤¤Þ¤¹¡£Í­¸ú¤Ê¥Þ¥¦¥ó¥È¥Ý¥¤¥ó¥È¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:2315
 msgid ""
@@ -2762,7 +2763,7 @@ msgstr "»ÈÍÑºÑ¤Î RAID ¥Ç¥Ð¥¤¥¹¤Ç¤¹"
 #: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
-msgstr "RAID ¥Ç¥Ð¥¤¥¹ \"/dev/%s\" ¤Ï¤¹¤Ç¤Ë RAID ¥Ç¥Ð¥¤¥¹¤È¤·¤Æ¹½À®¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ÊÌ¤Î¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "RAID ¥Ç¥Ð¥¤¥¹ \"/dev/%s\" ¤Ï¤¹¤Ç¤Ë RAID ¥Ç¥Ð¥¤¥¹¤È¤·¤Æ¹½À®¤µ¤ì¤Æ¤¤¤Þ¤¹¡£ÊÌ¤Î¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
@@ -2770,7 +2771,7 @@ msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹"
 
 #: ../libfdisk/gnomefsedit.c:2355
 msgid "You have not configured enough partitions for the RAID type you have selected."
-msgstr "ÁªÂò¤·¤¿ RAID ¥¿¥¤¥×¤Î¤¿¤á¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹¡£"
+msgstr "ÁªÂò¤·¤¿ RAID ¥¿¥¤¥×¤Î¤¿¤á¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹"
 
 #: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
@@ -2811,20 +2812,20 @@ msgstr "¼«Æ°¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê"
 
 #: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
-msgstr "´ûÂ¸¤Î¥Ç¥£¥¹¥¯ÎÎ°è¤ò»ÈÍÑ¤¹¤ë"
+msgstr "´ûÂ¸¤Î¥Ç¥£¥¹¥¯ÎÎ°è¤ò»ÈÍÑ"
 
 #: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
-msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òºï½ü¤¹¤ë"
+msgstr "Linux ¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òºï½ü"
 
 #: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
-msgstr "´ûÂ¸¤Î¶õ¤­ÎÎ°è¤ò»ÈÍÑ¤¹¤ë"
+msgstr "´ûÂ¸¤Î¶õ¤­ÎÎ°è¤ò»ÈÍÑ"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
-msgstr "°Õ¼±Åª¤Ë»ÈÍÑ¤¹¤ë"
+msgstr "°Õ¼±Åª¤Ë»ÈÍÑ"
 
 #: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
@@ -2840,7 +2841,7 @@ msgstr "¤³¤Î RAID ¥Ç¥Ð¥¤¥¹¤òºï½ü¤·¤Æ¤è¤í¤·¤¤¤Ç¤¹¤«¡©"
 
 #: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
-msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ò¥ê¥»¥Ã¥È¤¹¤ë"
+msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¥Æ¡¼¥Ö¥ë¤ò¥ê¥»¥Ã¥È"
 
 #: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
@@ -3011,7 +3012,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1697
 msgid "Save Changes"
-msgstr "ÊÑ¹¹ÆâÍÆ¤òÊÝÂ¸¤¹¤ë"
+msgstr "ÊÑ¹¹ÆâÍÆ¤òÊÝÂ¸"
 
 #: ../libfdisk/newtfsedit.c:1699
 msgid "Save changes to partition table(s)?"
@@ -3031,11 +3032,11 @@ msgstr "CDROM ¥¿¥¤¥×"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "»ÈÍÑ¤¹¤ë CDROM ¤Î¼ïÎà¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "»ÈÍÑ¤¹¤ë CDROM ¤Î¼ïÎà¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
-msgstr "CDROM ¤ò½é´ü²½¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "CDROM ¤ò½é´ü²½Ãæ..."
 
 #: ../loader/devices.c:77
 msgid "Miscellaneous"
@@ -3043,7 +3044,7 @@ msgstr "¤½¤ÎÂ¾"
 
 #: ../loader/devices.c:86
 msgid "This module can take parameters which affects its operation. If you don't know what parameters to supply, just skip this screen by pressing the \"OK\" button now."
-msgstr "¤³¤Î¥â¥¸¥å¡¼¥ë¤Ë¥Ñ¥é¥á¡¼¥¿¤òÅÏ¤·¤Æ¥â¥¸¥å¡¼¥ë¤ÎÆ°¤­¤òÄ´À°¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£»ØÄê¤¹¤ë¥Ñ¥é¥á¡¼¥¿¤¬ÉÔÌÀ¤Ç¤¢¤ë¾ì¹ç¤Ï¡¢¤³¤³¤Ç [OK] ¥Ü¥¿¥ó¤ò²¡¤·¤Æ¤³¤Î²èÌÌ¤ò¥¹¥­¥Ã¥×¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¤³¤Î¥â¥¸¥å¡¼¥ë¤Ë¥Ñ¥é¥á¡¼¥¿¤òÅÏ¤·¤Æ¥â¥¸¥å¡¼¥ë¤ÎÆ°¤­¤òÄ´À°¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£»ØÄê¤¹¤ë¥Ñ¥é¥á¡¼¥¿¤¬ÉÔÌÀ¤Ç¤¢¤ë¾ì¹ç¤Ï¡¢¤³¤³¤Ç [OK] ¥Ü¥¿¥ó¤ò²¡¤·¤Æ¤³¤Î²èÌÌ¤ò¥¹¥­¥Ã¥×¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -3059,7 +3060,7 @@ msgstr "¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤¬¤¢¤ê¤Þ¤¹¤«?"
 
 #: ../loader/devices.c:239
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆÂ³¹Ô¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆÂ³¹Ô¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/devices.c:260
 msgid "Failed to mount driver disk."
@@ -3071,11 +3072,11 @@ msgstr "ÁÞÆþ¤µ¤ì¤¿¥Õ¥í¥Ã¥Ô¡¼¥Ç¥£¥¹¥¯¤Ï¡¢ËÜ¥ê¥ê¡¼¥¹¤Î Red Hat Linux ¤ÇÍ­¸ú¤Ê¥É¥é¥
 
 #: ../loader/devices.c:327
 msgid "Which driver should I try?. If the driver you need does not appear in this list, and you have a separate driver disk, please press F2."
-msgstr "¥É¥é¥¤¥Ð¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£É¬Í×¤Ê¥É¥é¥¤¥Ð¤¬°ìÍ÷Æâ¤ËÂ¸ºß¤·¤Ê¤¤¡¢¤Þ¤¿¤Ï¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤¬ÊÌ¤Ë¤¢¤ë¾ì¹ç¤Ï¡¢<F2> ¤ò²¡¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥É¥é¥¤¥Ð¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡£É¬Í×¤Ê¥É¥é¥¤¥Ð¤¬°ìÍ÷Æâ¤ËÂ¸ºß¤·¤Ê¤¤¡¢¤Þ¤¿¤Ï¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤¬ÊÌ¤Ë¤¢¤ë¾ì¹ç¤Ï¡¢<F2> ¤ò²¡¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/devices.c:336
 msgid "Specify module parameters"
-msgstr "¥â¥¸¥å¡¼¥ë¥Ñ¥é¥á¡¼¥¿¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥â¥¸¥å¡¼¥ë¥Ñ¥é¥á¡¼¥¿¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/devices.c:435
 #, c-format
@@ -3098,7 +3099,7 @@ msgstr "ÆÉ¤ß¹þ¤ßÃæ"
 #: ../loader/devices.c:513 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
-msgstr "%s ¥É¥é¥¤¥Ð¤òÆÉ¤ß¹þ¤ßÃæ¤Ç¤¹"
+msgstr "%s ¥É¥é¥¤¥Ð¤òÆÉ¤ß¹þ¤ßÃæ..."
 
 #: ../loader/devices.c:532
 msgid "Driver Disk"
@@ -3107,7 +3108,7 @@ msgstr "¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯"
 #: ../loader/devices.c:533
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "%s ¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "%s ¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3116,21 +3117,21 @@ msgstr "Kickstart ¥¨¥é¡¼"
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "¥ª¡¼¥×¥ó»þ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿:Kickstart ¥Õ¥¡¥¤¥ë %s: %s"
+msgstr "¥Õ¥¡¥¤¥ë¤ò³«¤¯ºÝ¤Ë¥¨¥é¡¼È¯À¸:Kickstart ¥Õ¥¡¥¤¥ë %s: %s"
 
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Kickstart ¥Õ¥¡¥¤¥ë %s ¤ÎÆÉ¤ß¹þ¤ß»þ¤Ë¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿: %s"
+msgstr "Kickstart ¥Õ¥¡¥¤¥ë %s ¤ÎÆÉ¤ß¹þ¤ß»þ¤Ë¥¨¥é¡¼È¯À¸: %s"
 
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Kickstart ¹Ô %d (¥Õ¥¡¥¤¥ë %s) ¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿¡£"
+msgstr "Kickstart ¹Ô %d (¥Õ¥¡¥¤¥ë %s) ¤Ç¥¨¥é¡¼È¯À¸"
 
 #: ../loader/lang.c:292
 msgid "Choose a Language"
-msgstr "¸À¸ì¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¸À¸ì¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/lang.c:344 ../loader/loader.c:155
 msgid "Welcome to Red Hat Linux"
@@ -3146,7 +3147,7 @@ msgstr "¥­¡¼¥Ü¡¼¥É¤Î¼ïÎà"
 
 #: ../loader/lang.c:584
 msgid "What type of keyboard do you have?"
-msgstr "¤´»ÈÍÑ¤Î¥­¡¼¥Ü¡¼¥É¤Î¼ïÎà¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¤´»ÈÍÑ¤Î¥­¡¼¥Ü¡¼¥É¤Î¼ïÎà¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:123
 msgid "Local CDROM"
@@ -3166,11 +3167,11 @@ msgstr "SCSI"
 
 #: ../loader/loader.c:290
 msgid "What kind of device would you like to add"
-msgstr "ÄÉ²Ã¤¹¤ë¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "ÄÉ²Ã¤¹¤ë¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:339
 msgid "I have found the following devices in your system:"
-msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Ë°Ê²¼¤Î¥Ç¥Ð¥¤¥¹¤ò¸¡½Ð¤·¤Þ¤·¤¿:"
+msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Î¼¡¤Î¥Ç¥Ð¥¤¥¹¤ò¸¡½Ð¤·¤Þ¤·¤¿:"
 
 #: ../loader/loader.c:341 ../loader/loader.c:366
 msgid "Add Device"
@@ -3183,28 +3184,28 @@ msgstr "ÆÃÊÌ¤Ê¥Ç¥Ð¥¤¥¹¥É¥é¥¤¥Ð¤ÏÆÉ¤ß¹þ¤Þ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥É¥é¥¤¥Ð¤òÆÉ¤ß¹þ¤ß¤Þ¤¹¤«?"
 #: ../loader/loader.c:510
 #, c-format
 msgid "Loading %s ramdisk..."
-msgstr "%s ramdisk ¤òÆÉ¤ß¹þ¤ßÃæ¤Ç¤¹"
+msgstr "¥é¥à¥Ç¥£¥¹¥¯%s¤òÆÉ¤ß¹þ¤ßÃæ..."
 
 #: ../loader/loader.c:520
 msgid "Error loading ramdisk."
-msgstr "ramdisk ¤ÎÆÉ¤ß¹þ¤ß¤Ç¥¨¥é¡¼¤¬È¯À¸¤·¤Þ¤·¤¿"
+msgstr "¥é¥à¥Ç¥£¥¹¥¯ÆÉ¤ß¹þ¤ßÃæ¤Ë¥¨¥é¡¼È¯À¸"
 
 #: ../loader/loader.c:585 ../loader/loader.c:2166
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "%s ¥Ç¥£¥ì¥¯¥È¥ê¤ÎÆÉ¤ß¹þ¤ß¤Ë¼ºÇÔ¤·¤Þ¤·¤¿: %s"
+msgstr "%s ¥Ç¥£¥ì¥¯¥È¥ê¤ÎÆÉ¤ß¹þ¤ß¤Ë¼ºÇÔ: %s"
 
 #: ../loader/loader.c:873
 msgid "Hard Drives"
-msgstr "¥Ï¡¼¥É¥É¥é¥¤¥Ö"
+msgstr "¥Ï¡¼¥É¥Ç¥£¥¹¥¯"
 
 #: ../loader/loader.c:874
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Ë¤Ï¥Ï¡¼¥É¥É¥é¥¤¥Ö¤¬¤Ê¤¤¤è¤¦¤Ç¤¹¡£ÄÉ²Ã¥Ç¥Ð¥¤¥¹¤ÎÀßÄê¤ò¹Ô¤¤¤Þ¤¹¤«?"
+msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Ë¤Ï¥Ï¡¼¥É¥Ç¥£¥¹¥¯¤¬¤Ê¤¤¤è¤¦¤Ç¤¹¡£ÄÉ²Ã¥Ç¥Ð¥¤¥¹¤ÎÀßÄê¤ò¹Ô¤¤¤Þ¤¹¤«?"
 
 #: ../loader/loader.c:888
 msgid "What partition and directory on that partition hold the CD (iso9660) images for Red Hat Linux? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "RedHat/RPMS ¤ª¤è¤Ó RedHat/base ¤Î¤¢¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¥Ç¥£¥ì¥¯¥È¥ê¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£»ÈÍÑ¤·¤Æ¤¤¤ë¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤¬¤³¤Î°ìÍ÷¤Ë´Þ¤Þ¤ì¤Æ¤¤¤Ê¤¤¾ì¹ç¤Ï¡¢[F2] ¤ò²¡¤·¤ÆÄÉ²Ã¥Ç¥Ð¥¤¥¹¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "RedHat/RPMS ¤ª¤è¤Ó RedHat/base ¤Î¤¢¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¥Ç¥£¥ì¥¯¥È¥ê¤ò»ØÄê¤·¤Æ²¼¤µ¤¤¡£»ÈÍÑ¤·¤Æ¤¤¤ë¥Ç¥£¥¹¥¯¥É¥é¥¤¥Ö¤¬¤³¤Î°ìÍ÷¤Ë´Þ¤Þ¤ì¤Æ¤¤¤Ê¤¤¾ì¹ç¤Ï¡¢[F2] ¤ò²¡¤·¤ÆÄÉ²Ã¥Ç¥Ð¥¤¥¹¤òÀßÄê¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/loader.c:902
 msgid "Directory holding images:"
@@ -3212,7 +3213,7 @@ msgstr "¥¤¥á¡¼¥¸¤ò´Þ¤à¥Ç¥£¥ì¥¯¥È¥ê:"
 
 #: ../loader/loader.c:922
 msgid "Select Partition"
-msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:970
 #, c-format
@@ -3221,7 +3222,7 @@ msgstr "¥Ç¥Ð¥¤¥¹ %s ¤Ë¤ÏRed Hat CDROM ¥¤¥á¡¼¥¸¤¬´Þ¤Þ¤ì¤Æ¤¤¤Ê¤¤¤è¤¦¤Ç¤¹¡£"
 
 #: ../loader/loader.c:1025
 msgid "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please insert the Red Hat CD and press \"OK\" to retry."
-msgstr "CDROM ¥É¥é¥¤¥Ö¤ÎÃæ¤Ë Red Hat Linux CDROM ¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£Red Hat CD ¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆºÆ»î¹Ô¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "CDROM ¥É¥é¥¤¥Ö¤ÎÃæ¤Ë Red Hat Linux CDROM ¤¬¸«¤Ä¤«¤ê¤Þ¤»¤ó¡£Red Hat CD ¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆºÆ»î¹Ô¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/loader.c:1112
 msgid "Networking Device"
@@ -3229,7 +3230,7 @@ msgstr "¥Í¥Ã¥È¥ï¡¼¥¯¥Ç¥Ð¥¤¥¹"
 
 #: ../loader/loader.c:1113
 msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Ë¤ÏÊ£¿ô¤Î¥Í¥Ã¥È¥ï¡¼¥¯¥Ç¥Ð¥¤¥¹¤¬Â¸ºß¤·¤Þ¤¹¡£¥¤¥ó¥¹¥È¡¼¥ë¤ÎºÝ¤Ë»ÈÍÑ¤¹¤ë¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¤³¤Î¥·¥¹¥Æ¥à¤Ë¤ÏÊ£¿ô¤Î¥Í¥Ã¥È¥ï¡¼¥¯¥Ç¥Ð¥¤¥¹¤¬Â¸ºß¤·¤Þ¤¹¡£¥¤¥ó¥¹¥È¡¼¥ë¤ÎºÝ¤Ë»ÈÍÑ¤¹¤ë¥Ç¥Ð¥¤¥¹¤òÁªÂò¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/loader.c:1195
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -3265,15 +3266,15 @@ msgstr "¥¤¥ó¥¹¥È¡¼¥ëÊýË¡"
 
 #: ../loader/loader.c:1514
 msgid "What type of media contains the rescue image?"
-msgstr "¥ì¥¹¥­¥å¡¼¥¤¥á¡¼¥¸¤¬ÊÝÂ¸¤µ¤ì¤Æ¤¤¤ë¥á¥Ç¥£¥¢¥¿¥¤¥×¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥ì¥¹¥­¥å¡¼¥¤¥á¡¼¥¸¤¬ÊÝÂ¸¤µ¤ì¤Æ¤¤¤ë¥á¥Ç¥£¥¢¥¿¥¤¥×¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:1516
 msgid "What type of media contains the packages to be installed?"
-msgstr "¥¤¥ó¥¹¥È¡¼¥ëÂÐ¾Ý¤Î¥Ñ¥Ã¥±¡¼¥¸¤¬ÊÝÂ¸¤µ¤ì¤Æ¤¤¤ë¥á¥Ç¥£¥¢¥¿¥¤¥×¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¤¥ó¥¹¥È¡¼¥ëÂÐ¾Ý¤Î¥Ñ¥Ã¥±¡¼¥¸¤¬ÊÝÂ¸¤µ¤ì¤Æ¤¤¤ë¥á¥Ç¥£¥¢¥¿¥¤¥×¤ò»ØÄê¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:2136
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "¥Ö¡¼¥È¥Õ¥í¥Ã¥Ô¡¼¤Ë¤Ï ks.cfg ¤¬¤¢¤ê¤Þ¤»¤ó¡£"
+msgstr "¥Ö¡¼¥È¥Õ¥í¥Ã¥Ô¡¼¤Ë¤Ï ks.cfg ¤¬¤¢¤ê¤Þ¤»¤ó"
 
 #: ../loader/loader.c:2228
 msgid "Updates Disk"
@@ -3281,7 +3282,7 @@ msgstr "¥Ç¥£¥¹¥¯¤Î¥¢¥Ã¥×¥Ç¡¼¥È"
 
 #: ../loader/loader.c:2229
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "¥¢¥Ã¥×¥Ç¡¼¥È¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆÂ³¹Ô¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥¢¥Ã¥×¥Ç¡¼¥È¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤«¤é [OK] ¤ò²¡¤·¤ÆÂ³¹Ô¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/loader.c:2234
 msgid "The floppy disk you inserted is not a valid update disk for this release of Red Hat Linux."
@@ -3300,7 +3301,7 @@ msgstr "¥¢¥Ã¥×¥Ç¡¼¥È"
 
 #: ../loader/loader.c:2249
 msgid "Reading anaconda updates..."
-msgstr "anaconda ¥¢¥Ã¥×¥Ç¡¼¥È¤òÆÉ¤ß¹þ¤ó¤Ç¤¤¤Þ¤¹..."
+msgstr "anaconda ¥¢¥Ã¥×¥Ç¡¼¥È¤òÆÉ¤ß¹þ¤ßÃæ..."
 
 #: ../loader/loader.c:2455
 msgid "You don't have enough system memory to install Red Hat on this machine."
@@ -3330,7 +3331,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
-"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤:\n"
+"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤:\n"
 "\n"
 "    o NFS ¥µ¡¼¥Ð¤ÎÌ¾Á°¤Þ¤¿¤Ï IP ¥¢¥É¥ì¥¹\n"
 "    o »ÈÍÑ¥¢¡¼¥­¥Æ¥¯¥Á¥ãÍÑ¤Î Red Hat Linux ¤ò´Þ¤à¡¢¤½¤Î¥µ¡¼¥Ð\n"
@@ -3346,19 +3347,19 @@ msgstr "¥Í¡¼¥à¥µ¡¼¥Ð"
 
 #: ../loader/net.c:267
 msgid "Your dynamic IP request returned IP configuration information, but it did not include a DNS nameserver. If you know what your nameserver is, please enter it now. If you don't have this information, you can leave this field blank and the install will continue."
-msgstr "Æ°Åª IP Í×µá¤Ë¤è¤Ã¤Æ IP ÀßÄê¾ðÊó¤¬ÊÖ¤µ¤ì¤Þ¤·¤¿¤¬¡¢¤½¤ÎÃæ¤Ë DNS ¥Í¡¼¥à¥µ¡¼¥Ð¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥Í¡¼¥à¥µ¡¼¥Ð¤¬Ê¬¤«¤Ã¤Æ¤¤¤ë¾ì¹ç¤Ë¤Ï¡¢¤³¤³¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£Ê¬¤«¤é¤Ê¤¤¾ì¹ç¤Ë¤Ï¡¢¤³¤Î¥Õ¥£¡¼¥ë¥É¤ò¶õÇò¤Ë¤·¤Æ¥¤¥ó¥¹¥È¡¼¥ë¤òÂ³¹Ô¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
+msgstr "Æ°Åª IP Í×µá¤Ë¤è¤Ã¤Æ IP ÀßÄê¾ðÊó¤¬ÊÖ¤µ¤ì¤Þ¤·¤¿¤¬¡¢¤½¤ÎÃæ¤Ë DNS ¥Í¡¼¥à¥µ¡¼¥Ð¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥Í¡¼¥à¥µ¡¼¥Ð¤¬Ê¬¤«¤Ã¤Æ¤¤¤ë¾ì¹ç¤Ë¤Ï¡¢¤³¤³¤ÇÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£Ê¬¤«¤é¤Ê¤¤¾ì¹ç¤Ë¤Ï¡¢¤³¤Î¥Õ¥£¡¼¥ë¥É¤ò¶õÇò¤Ë¤·¤Æ¥¤¥ó¥¹¥È¡¼¥ë¤òÂ³¹Ô¤¹¤ë¤³¤È¤¬¤Ç¤­¤Þ¤¹¡£"
 
 #: ../loader/net.c:277
 msgid "Invalid IP Information"
-msgstr "IP ¾ðÊó¤¬Ìµ¸ú¤Ç¤¹"
+msgstr "Ìµ¸ú¤Ê IP ¾ðÊó"
 
 #: ../loader/net.c:278
 msgid "You entered an invalid IP address."
-msgstr "Ìµ¸ú¤Ê IP ¥¢¥É¥ì¥¹¤¬ÆþÎÏ¤µ¤ì¤Þ¤·¤¿¡£"
+msgstr "Ìµ¸ú¤Ê IP ¥¢¥É¥ì¥¹¤¬ÆþÎÏ¤µ¤ì¤Þ¤·¤¿"
 
 #: ../loader/net.c:301
 msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr "¤³¤Î¥Þ¥·¥óÍÑ¤Î IP ¹½À®¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£³Æ¹àÌÜ¤ò¥É¥Ã¥È¤Ç¶èÀÚ¤é¤ì¤¿ 10 ¿ÊÉ½µ­¤Î IP ¥¢¥É¥ì¥¹¤È¤·¤ÆÆþÎÏ¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹ (¤¿¤È¤¨¤Ð¡¢1.2.3.4)¡£"
+msgstr "¤³¤Î¥Þ¥·¥óÍÑ¤Î IP ¹½À®¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£³Æ¹àÌÜ¤ò¥É¥Ã¥È¤Ç¶èÀÚ¤é¤ì¤¿ 10 ¿ÊÉ½µ­¤Î IP ¥¢¥É¥ì¥¹¤È¤·¤ÆÆþÎÏ¤¹¤ëÉ¬Í×¤¬¤¢¤ê¤Þ¤¹ (¤¿¤È¤¨¤Ð¡¢1.2.3.4)¡£"
 
 #: ../loader/net.c:343
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -3374,7 +3375,7 @@ msgstr "¾ðÊó¤¬ÉÔÂ­¤·¤Æ¤¤¤Þ¤¹"
 
 #: ../loader/net.c:403
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Í­¸ú¤Ê IP ¥¢¥É¥ì¥¹¤È¥Í¥Ã¥È¥Þ¥¹¥¯¤ÎÎ¾Êý¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Í­¸ú¤Ê IP ¥¢¥É¥ì¥¹¤È¥Í¥Ã¥È¥Þ¥¹¥¯¤ÎÎ¾Êý¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/net.c:411 ../loader/net.c:694
 msgid "Dynamic IP"
@@ -3382,11 +3383,11 @@ msgstr "Æ°Åª IP"
 
 #: ../loader/net.c:412 ../loader/net.c:695
 msgid "Sending request for IP information..."
-msgstr "IP ¾ðÊó¤Ë´Ø¤¹¤ëÍ×µá¤òÁ÷¿®¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "IP ¾ðÊó¤Ë´Ø¤¹¤ëÍ×µá¤òÁ÷¿®Ãæ..."
 
 #: ../loader/net.c:567
 msgid "Determining host name and domain..."
-msgstr "¥Û¥¹¥ÈÌ¾¤È¥É¥á¥¤¥ó¤ò·èÄê¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "¥Û¥¹¥ÈÌ¾¤È¥É¥á¥¤¥ó¤ò·èÄêÃæ..."
 
 #: ../loader/net.c:678 ../loader/net.c:711
 msgid "kickstart"
@@ -3445,7 +3446,7 @@ msgstr "PC ¥«¡¼¥É"
 
 #: ../loader/pcmcia.c:35
 msgid "Initializing PC Card Devices..."
-msgstr "PC ¥«¡¼¥É¥Ç¥Ð¥¤¥¹¤ò½é´ü²½¤·¤Æ¤¤¤Þ¤¹..."
+msgstr "PC ¥«¡¼¥É¥Ç¥Ð¥¤¥¹¤ò½é´ü²½Ãæ..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
@@ -3453,7 +3454,7 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "PCMCIA ¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "PCMCIA ¥É¥é¥¤¥Ð¥Ç¥£¥¹¥¯¤òÁÞÆþ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/pcmcia.c:114
 msgid "Failed to mount disk."
@@ -3485,7 +3486,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤:\n"
+"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤:\n"
 "\n"
 "    o FTP ¥µ¡¼¥Ð¤ÎÌ¾Á°¤Þ¤¿¤Ï IP ¥¢¥É¥ì¥¹\n"
 "    o »ÈÍÑ¥¢¡¼¥­¥Æ¥¯¥Á¥ãÍÑ¤Î Red Hat Linux ¤ò´Þ¤à¡¢¥µ¡¼¥Ð\n"
@@ -3499,7 +3500,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤:\n"
+"°Ê²¼¤Î¾ðÊó¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤:\n"
 "\n"
 "    o Web ¥µ¡¼¥ÐÌ¾¤Þ¤¿¤Ï IP ¥¢¥É¥ì¥¹\n"
 "    o »ÈÍÑ¥¢¡¼¥­¥Æ¥¯¥Á¥ãÍÑ¤Î Red Hat Linux ¤ò´Þ¤à¡¢¥µ¡¼¥Ð\n"
@@ -3515,11 +3516,11 @@ msgstr "Web ¥µ¥¤¥ÈÌ¾:"
 
 #: ../loader/urls.c:206
 msgid "Use non-anonymous ftp"
-msgstr "Èó anonymous (Æ¿Ì¾) FTP¤ò»ÈÍÑ¤¹¤ë"
+msgstr "Èó anonymous (Æ¿Ì¾) FTP¤ò»ÈÍÑ"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
-msgstr "¥×¥í¥­¥·¥µ¡¼¥Ð¤ò»ÈÍÑ¤¹¤ë"
+msgstr "¥×¥í¥­¥·¥µ¡¼¥Ð¤ò»ÈÍÑ"
 
 #: ../loader/urls.c:223
 msgid "FTP Setup"
@@ -3531,15 +3532,15 @@ msgstr "HTTP ¤Î¥»¥Ã¥È¥¢¥Ã¥×"
 
 #: ../loader/urls.c:234
 msgid "You must enter a server name."
-msgstr "¥µ¡¼¥ÐÌ¾¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥µ¡¼¥ÐÌ¾¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/urls.c:239
 msgid "You must enter a directory."
-msgstr "¥Ç¥£¥ì¥¯¥È¥ê¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "¥Ç¥£¥ì¥¯¥È¥ê¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤"
 
 #: ../loader/urls.c:244
 msgid "Unknown Host"
-msgstr "¥Û¥¹¥ÈÌ¾¤¬ÉÔÌÀ¤Ç¤¹"
+msgstr "ÉÔÌÀ¤Ê¥Û¥¹¥È"
 
 #: ../loader/urls.c:245
 #, c-format
@@ -3548,11 +3549,11 @@ msgstr "%s ¤ÏÍ­¸ú¤Ê¥Û¥¹¥ÈÌ¾¤Ç¤Ï¤¢¤ê¤Þ¤»¤ó¡£"
 
 #: ../loader/urls.c:316
 msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below."
-msgstr "Èó-anonymous (Æ¿Ì¾) FTP ¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë¥¢¥«¥¦¥ó¥ÈÌ¾¤ª¤è¤Ó¥Ñ¥¹¥ï¡¼¥É¤ò°Ê²¼¤ËÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£FTP ¥×¥í¥­¥·¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë FTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ÎÌ¾Á°¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "Èó-anonymous (Æ¿Ì¾) FTP ¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë¥¢¥«¥¦¥ó¥ÈÌ¾¤ª¤è¤Ó¥Ñ¥¹¥ï¡¼¥É¤ò°Ê²¼¤ËÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£FTP ¥×¥í¥­¥·¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë FTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ÎÌ¾Á°¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/urls.c:321
 msgid "If you are using a HTTP proxy server enter the name of the HTTP proxy server to use."
-msgstr "HTTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë HTTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ÎÌ¾Á°¤òÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£"
+msgstr "HTTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ò»ÈÍÑ¤·¤Æ¤¤¤ë¾ì¹ç¤Ï¡¢»ÈÍÑ¤¹¤ë HTTP ¥×¥í¥­¥·¥µ¡¼¥Ð¤ÎÌ¾Á°¤òÆþÎÏ¤·¤Æ²¼¤µ¤¤¡£"
 
 #: ../loader/urls.c:342
 msgid "Account name:"
@@ -3576,7 +3577,7 @@ msgstr "HTTP ¥×¥í¥­¥·¥Ý¡¼¥È:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "SCSI ¥É¥é¥¤¥Ð¤ò¥í¡¼¥É¤·¤Æ¤¤¤Þ¤¹"
+msgstr "SCSI ¥É¥é¥¤¥Ð¤òÆÉ¤ß¹þ¤ßÃæ"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
@@ -3620,7 +3621,7 @@ msgstr "¥¢¥¸¥¢"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr "¥¿¥¤¥à¥¾¡¼¥ó¥Ç¡¼¥¿¤ò¥í¡¼¥É¤Ç¤­¤Þ¤»¤ó"
+msgstr "¥¿¥¤¥à¥¾¡¼¥ó¥Ç¡¼¥¿¤òÆÉ¤ß¹þ¤á¤Þ¤»¤ó"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
@@ -3735,84 +3736,95 @@ msgid "Acre"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "¥¢¥é¥´¥¹¡¢¥»¥ë¥¸¥Ú"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "¥¢¥é¥¹¥«»þ´Ö"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "¥¢¥é¥¹¥«»þ´Ö - ¥¢¥é¥¹¥« ¥Ñ¥ó¥Ï¥ó¥É¥ë"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "¥¢¥é¥¹¥«»þ´Ö - ¥¢¥é¥¹¥« ¥Ñ¥ó¥Ï¥ó¥É¥ë ¥Í¥Ã¥¯"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "¥¢¥é¥¹¥«»þ´Ö - À¾¥¢¥é¥¹¥«"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "¥¢¥ê¥å¡¼¥·¥ã¥óÅç"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "¥¢¥à¥ó¥¼¥ó-¥¹¥³¥Ã¥È´ðÃÏ¡¢Æî¶Ë"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "¥¢¥È¥é¥ó¥Æ¥£¥Ã¥¯½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "¥¢¥È¥é¥ó¥Æ¥£¥Ã¥¯»þ´Ö - E Labrador"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
+msgstr "¥¢¥È¥é¥ó¥Æ¥£¥Ã¥¯»þ´Ö - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "¥¢¥È¥é¥ó¥Æ¥£¥Ã¥¯»þ´Ö - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Azores"
-msgstr ""
+msgstr "¥¢¥¾¥ì¥¹"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Borneo & Celebes"
-msgstr ""
+msgstr "¥Ü¥ë¥Í¥ª¡¢¥»¥ì¥Ù¥¹"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Canary Islands"
-msgstr ""
+msgstr "¥«¥Ê¥ê¥¢½ôÅç"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "¥«¥¿¥Þ¥ë¥« (CT)"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "central Crimea"
-msgstr ""
+msgstr "Ãæ±û¥¯¥ê¥ß¥¢"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "Ãæ±û¥«¥¶¥Õ¥¹¥¿¥ó"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -3883,8 +3895,9 @@ msgid "Dumont-d'Urville Base, Terre Adelie"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "E Amazonas"
-msgstr ""
+msgstr "E ¥¢¥Þ¥¾¥ó"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
@@ -3896,7 +3909,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Easter Island"
-msgstr ""
+msgstr "¥¤¡¼¥¹¥¿¡¼½ôÅç"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
@@ -3955,40 +3968,45 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "Åì¥È¥ë¥­¥¹¥¿¥ó"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "east Greenland"
-msgstr ""
+msgstr "Åì¥°¥ê¡¼¥ó¥é¥ó¥É"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
-msgstr ""
+msgstr "Åì¥«¥¶¥Õ¥¹¥¿¥ó"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "Åì¥¦¥º¥Ù¥­¥¹¥¿¥ó"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "¥¬¥é¥Ñ¥´¥¹½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Gambier Islands"
-msgstr ""
+msgstr "¥¬¥ó¥Ó¥¢½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "¥®¥ë¥Ð¡¼¥È½ôÅç"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "±Ñ¹ñ"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "¥Ï¥ï¥¤"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -4000,7 +4018,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "¥¸¥ã¥ï¡¢¥¹¥Þ¥È¥é"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -4011,8 +4029,9 @@ msgid "Jujuy (JY)"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Kosrae"
-msgstr ""
+msgstr "¥³¥¹¥é¥¨"
 
 #. generated from zone.tab
 msgid "Kwajalein"
@@ -4028,11 +4047,12 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "¥Þ¥Ç¥ê¥¢½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "¥Þ¥ë¥±¥µ¥¹½ôÅç"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
@@ -4047,8 +4067,9 @@ msgid "McMurdo Station, Ross Island"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "¥á¥ó¥É¡¼¥¶ (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
@@ -4056,55 +4077,61 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+00 - À¾¥í¥·¥¢"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+01 - ¥«¥¹¥Ô³¤"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï-01 - ¥«¥ê¥Ë¥ó¥°¥é¥Ã¥É"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+01 - ¥¦¥é¥ë"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+03 - ¥Î¥Ü¥·¥Ó¥ë¥¹¥¯"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+03 - À¾¥·¥Ù¥ê¥¢"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+06 - ¥ä¥Ë¥»¥¤Àî"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+05 - ¥Ð¥¤¥«¥ë¸Ð"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+06 - ¥ì¥ÊÀî"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+07 - ¥¢¥à¡¼¥ëÀî"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+08 - ¥Þ¥¬¥À¥ó¡¢¥µ¥Ï¥ê¥ó"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+09 - ¥«¥à¥Á¥ã¥Ã¥«"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "¥â¥¹¥¯¥ï+10 - ¥Ù¡¼¥ê¥ó¥°³¤"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -4143,40 +4170,46 @@ msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountatin Time - Æî¥¢¥¤¥À¥Û¡¢Åì¥ª¥ì¥´¥ó"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr ""
+msgstr "NE ¥¢¥ë¥¼¥ó¥Á¥ó (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
+msgstr "NE ¥Ö¥é¥¸¥ë (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "¥Ë¥å¡¼¥Õ¥¡¥ó¥É¥é¥ó¥É½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "New South Wales - Broken Hill"
-msgstr ""
+msgstr "¥Ë¥å¡¼¥µ¥¦¥¹¥¦¥§¡¼¥ë¥º - ¥Ö¥í¡¼¥¯¥ó¥Ò¥ë"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "¥Ë¥å¡¼¥µ¥¦¥¹¥¦¥§¡¼¥ë¥º - most locations"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "ËÌÅì¥Þ¥ê"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Northern Ireland"
-msgstr ""
+msgstr "¥Î¡¼¥¶¡¼¥ó½ôÅç"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -4187,20 +4220,24 @@ msgid "north Manchuria"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "northwest Greenland"
-msgstr ""
+msgstr "ËÌÀ¾¥°¥ê¡¼¥ó¥é¥ó¥É"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "ÂÀÊ¿ÍÎ»þ´Ö - ËÌ¥æ¡¼¥³¥ó"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "ÂÀÊ¿ÍÎ»þ´Ö - Æî¥æ¡¼¥³¥ó"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "ÂÀÊ¿ÍÎ»þ´Ö - À¾¥Ö¥ê¥Æ¥£¥Ã¥·¥å¥³¥í¥ó¥Ó¥¢"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
@@ -4216,19 +4253,21 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "¥Õ¥§¥Ë¥Ã¥¯¥¹½ôÅç"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "¥Ý¥Ê¥Ú (¥Ý¥ó¥Ú¥¤)"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "¥¯¥£¡¼¥ó¥º¥é¥ó¥É - ¥Û¥ê¥Ç¥£½ôÅç"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "¥¯¥£¡¼¥ó¥º¥é¥ó¥É - most locations"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -4248,15 +4287,17 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "Æî¥ª¡¼¥¹¥È¥é¥ê¥¢"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "southwest Greenland"
-msgstr ""
+msgstr "ÆîÀ¾¥°¥ê¡¼¥ó¥é¥ó¥É"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "southwest Mali"
-msgstr ""
+msgstr "ÆîÀ¾¥Þ¥ê"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
@@ -4267,12 +4308,13 @@ msgid "Svalbard"
 msgstr ""
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "¾¼ÏÂ´ðÃÏ¡¢E Engul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "¥¿¥¹¥Þ¥Ë¥¢"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
@@ -4292,11 +4334,12 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "¥ô¥£¥¯¥È¥ê¥¢"
 
 #. generated from zone.tab
+#, fuzzy
 msgid "Wake Island"
-msgstr ""
+msgstr "¥¦¥§¥¤¥¯½ôÅç"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -4312,15 +4355,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "À¾Éô¥ª¡¼¥¹¥È¥é¥ê¥¢"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
-msgstr ""
+msgstr "À¾¥«¥¶¥Õ¥¹¥¿¥ó"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "À¾¥¦¥º¥Ù¥­¥¹¥¿¥ó"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -4328,7 +4371,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "¥ä¥Ã¥×"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -4336,83 +4379,83 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "¥Á¥§¥³¸ì"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "±Ñ¸ì"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "¥Ç¥ó¥Þ¡¼¥¯¸ì"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Ê©¸ì"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "ÆÈ¸ì"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "¥Ï¥ó¥¬¥ê¡¼¸ì"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "¥¢¥¤¥¹¥é¥ó¥É¸ì"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "°Ë¸ì"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "ÆüËÜ¸ì"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "¥Î¥ë¥¦¥§¡¼¸ì"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "¥Ý¥ë¥È¥¬¥ë¸ì"
 
 #. generated from lang-table
 msgid "Romanian"
-msgstr ""
+msgstr "¥í¡¼¥Þ¸ì"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Ïª¸ì"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "¥»¥ë¥Ó¥¢¸ì"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "¥¹¥í¥ô¥¡¥­¥¢¸ì"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "¥¹¥í¥ô¥§¥Ë¥¢¸ì"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "¥¹¥Ú¥¤¥ó¸ì"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "¥¹¥¦¥§¡¼¥Ç¥ó¸ì"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "¥È¥ë¥³¸ì"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "¥¦¥¯¥é¥¤¥Ê¸ì"
 
 #~ msgid "Going to upgrade partition /dev/"
 #~ msgstr "¥¢¥Ã¥×¥°¥ì¡¼¥É¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó /dev/"
@@ -4473,16 +4516,16 @@ msgstr ""
 #~ msgstr "¥µ¥¤¥º: "
 
 #~ msgid "Select Package For Installation"
-#~ msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤òÁªÂò¤·¤Æ¤¯¤À¤µ¤¤"
+#~ msgstr "¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¥Ñ¥Ã¥±¡¼¥¸¤òÁªÂò¤·¤Æ²¼¤µ¤¤"
 
 #~ msgid "Confirm Partitioning Selection"
-#~ msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤ÎÁªÂòÆâÍÆ¤ò³ÎÇ§¤·¤Æ¤¯¤À¤µ¤¤"
+#~ msgstr "¥Ñ¡¼¥Æ¥£¥·¥ç¥óÀßÄê¤ÎÁªÂòÆâÍÆ¤ò³ÎÇ§¤·¤Æ²¼¤µ¤¤"
 
 #~ msgid ""
 #~ "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Red Hat ¤¬»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥Þ¥Í¡¼¥¸¥ã¤Ï¡¢Â¾¤Î¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Îµ¯Æ°¤Ë»ÈÍÑ¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£¥Ö¡¼¥È²ÄÇ½¤Ë¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¡¢¤½¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥óÍÑ¤Ë»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥é¥Ù¥ë¤òÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£\n"
+#~ "Red Hat ¤¬»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥Þ¥Í¡¼¥¸¥ã¤Ï¡¢Â¾¤Î¥ª¥Ú¥ì¡¼¥Æ¥£¥ó¥°¥·¥¹¥Æ¥à¤Îµ¯Æ°¤Ë»ÈÍÑ¤¹¤ë¤³¤È¤â¤Ç¤­¤Þ¤¹¡£¥Ö¡¼¥È²ÄÇ½¤Ë¤¹¤ë¥Ñ¡¼¥Æ¥£¥·¥ç¥ó¤È¡¢¤½¤Î¥Ñ¡¼¥Æ¥£¥·¥ç¥óÍÑ¤Ë»ÈÍÑ¤¹¤ë¥Ö¡¼¥È¥é¥Ù¥ë¤òÀßÄê¤·¤Æ²¼¤µ¤¤¡£\n"
 #~ "\n"
 
 # ../comps/comps-master:570
