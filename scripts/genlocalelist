@@ -89,6 +89,9 @@ while (<FILE>) {
     chop $territory;
     chop $charmap;
 
+    # We don't want UTF-8.
+    ($charmap eq "UTF-8") && next;
+
     # Some languages name's are the same as their ISO id's!
     ($name eq substr($lang, 0, 2)) && next;
 
