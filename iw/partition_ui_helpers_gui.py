@@ -18,6 +18,7 @@ import gobject
 import gtk
 import checklist
 import datacombo
+import iutil
 
 from constants import *
 from fsset import *
@@ -187,8 +188,14 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
     if mountCombo:
         mountCombo.set_data("prevmountable",
                             fstypecombo.get_active_value().isMountable())
+        mountCombo.connect("changed", mountptchangeCB, fstypecombo)
 
     return fstypecombo
+
+def mountptchangeCB(widget, fstypecombo):
+    if iutil.getArch() == "ia64" and widget.get_children()[0].get_text() == "/boot/efi":
+        
+        fstypecombo.set_active_text("vfat")
 
 def formatOptionCB(widget, data):
     (combowidget, mntptcombo, ofstype) = data
