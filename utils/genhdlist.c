@@ -176,7 +176,7 @@ int onePrePass(const char * dirName) {
     char * subdir = malloc(strlen(dirName) + 30);
     int rc;
 
-    sprintf(subdir, "%s/Updates/RPMS", dirName);
+    sprintf(subdir, "%s/RedHat/Updates", dirName);
     if (!access(subdir, X_OK)) {
         rc = doOnePrePass(subdir);
         if (rc) return rc;
@@ -440,7 +440,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum,
     char * subdir = malloc(strlen(dirName) + 30);
     int rc;
 
-    sprintf(subdir, "%s/Updates/RPMS", dirName);
+    sprintf(subdir, "%s/RedHat/Updates", dirName);
     if (!access(subdir, X_OK)) {
         rc = doOnePass(outfd, out2fd, subdir, cdNum, doSplit, 1);
         if (rc) return rc;
