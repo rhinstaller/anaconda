@@ -2916,6 +2916,8 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 #else
     if (FL_NOUSB(flags)) return;
 
+    if (access("/proc/bus/usb/devices", R_OK)) return;
+
     logMessage("looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
 	logMessage("USB mouse found, loading mousedev module");
