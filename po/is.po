@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.74\n"
 "POT-Creation-Date: 2000-12-14 13:43-0500\n"
-"PO-Revision-Date: 2000-08-15 15:36+0000\n"
+"PO-Revision-Date: 2000-12-17 13:18+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -19,13 +19,15 @@ msgstr "Óeðlilegt ástand"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr ""
+msgstr "Dump ritað"
 
 #: ../exception.py:92
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
+"Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
+"endurræsa."
 
 #: ../fstab.py:216 ../fstab.py:410 ../fstab.py:510 ../fstab.py:714
 #: ../harddrive.py:168 ../image.py:61 ../image.py:123
@@ -104,6 +106,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Villa kom upp þegar reynt var að tengja tæki %s á %s: %s\n"
+"\n"
+"Þetta þýðir líklega að disksneiðin hefur ekki verið forsniðin.\n"
+"\n"
+"Veldu Í lagi til að endurræsa vélina."
 
 #: ../gui.py:167
 msgid ""
@@ -197,7 +204,7 @@ msgstr "Red Hat Linux uppsetningaskel á %s"
 
 #: ../gui.py:745
 msgid "Release Notes"
-msgstr ""
+msgstr "Útgáfuupplýsingar"
 
 #: ../gui.py:827
 msgid "Install Window"
@@ -206,7 +213,7 @@ msgstr "Uppsetningargluggi"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Geisladisk nr. %d vantar, en hann er nauðsynlegur til uppsetningar."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -823,6 +830,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Eftirfarandi skrár eru tákntengi með fullum slóðum sem við styðjum ekki á "
+"meðan á uppfærslu stendur. Vinsamlegast breyttu þeim í hlekki sem ekki eru "
+"með \"Absolute\" slóð heldur \"Relative\" og reyndu uppfærsluna aftur.\n"
+"\n"
 
 #: ../todo.py:1003
 msgid "Finding"
@@ -854,6 +865,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
+"pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
 #: ../todo.py:1606
 #, c-format
@@ -1068,7 +1081,7 @@ msgstr "Nota LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Nota TLS uppflettingar"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:347
 msgid "LDAP Server:"
@@ -1310,9 +1323,8 @@ msgid "Create boot disk"
 msgstr "Búa til ræsidiskling"
 
 #: ../iw/lilo_gui.py:300
-#, fuzzy
 msgid "Install LILO"
-msgstr "Setja upp"
+msgstr "Setja upp LILO"
 
 #: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1338,9 +1350,8 @@ msgid "Boot label"
 msgstr "Ræsimerki"
 
 #: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Stilli sjálfgefna ræsitækið í PROM"
+msgstr "Sjálfgefin ræsimynd"
 
 #: ../iw/mouse_gui.py:132 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1364,7 +1375,7 @@ msgstr "Herma eftir þrem hnöppum"
 
 #: ../iw/mouse_gui.py:143
 msgid "Port"
-msgstr ""
+msgstr "Gátt"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:105
 msgid "Network Configuration"
@@ -1424,26 +1435,24 @@ msgid "Total install size: "
 msgstr "Samanlögð stærð uppsetningar: "
 
 #: ../iw/package_gui.py:367
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Stærð (Megab.):"
+msgstr "Stærð (MB)"
 
 #: ../iw/package_gui.py:396
-#, fuzzy
 msgid "Total size: "
-msgstr "Heildarstærð"
+msgstr "Heildarstærð: "
 
 #: ../iw/package_gui.py:399
 msgid "Select all in group"
-msgstr ""
+msgstr "Velja allt í hópnum"
 
 #: ../iw/package_gui.py:403
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Afvelja allt í hópnum"
 
 #: ../iw/package_gui.py:436
 msgid "File not found"
-msgstr ""
+msgstr "Skráin finnst ekki"
 
 #: ../iw/package_gui.py:479 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1455,6 +1464,8 @@ msgid ""
 "An error has occurred while retreiving hdlist file.  The installation media "
 "or image is probably corrupt.  Installer will exit now."
 msgstr ""
+"Villa kom upp við að sækja \"hdlist\" skrána. Uppsetningardiskurinn eða "
+"diskmyndin er líklega skemmd. Uppsetningarforritið mun nú hætta."
 
 #: ../iw/package_gui.py:592 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1467,7 +1478,7 @@ msgstr "Set inn pakka"
 #: ../iw/progress_gui.py:132
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s Kbæti"
 
 #: ../iw/progress_gui.py:182 ../iw/progress_gui.py:223
 msgid "Size"
@@ -1675,25 +1686,24 @@ msgid "Test failed"
 msgstr "Prófun mistókst"
 
 #: ../iw/xconfig_gui.py:24
-#, fuzzy
 msgid "Customize Graphics Configuration"
-msgstr "Sérsníða X stillingar"
+msgstr "Sérsníða grafískar stillingar"
 
 #: ../iw/xconfig_gui.py:214
 msgid "Color Depth:"
-msgstr ""
+msgstr "Litadýpt:"
 
 #: ../iw/xconfig_gui.py:242
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Upplausn skjás:"
 
 #: ../iw/xconfig_gui.py:318
 msgid "   Test Setting   "
-msgstr ""
+msgstr " Prófa stillingar "
 
 #: ../iw/xconfig_gui.py:336
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Vinsamlegast veldu sjálfgefið skjáborðsumhverfi:"
 
 #: ../iw/xconfig_gui.py:346 ../iw/xconfig_gui.py:395
 msgid "GNOME"
@@ -1705,11 +1715,11 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:376
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Sjálfgefið skjáborðsumhverfi er:"
 
 #: ../iw/xconfig_gui.py:428
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Vinsamlega veldu kveðju:"
 
 #: ../iw/xconfig_gui.py:478
 msgid "Bits per Pixel"
@@ -1729,7 +1739,7 @@ msgstr "Lóðrétt samhæfing"
 
 #: ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
 msgid "Restore original values"
-msgstr ""
+msgstr "Endurheimta fyrri gildi"
 
 #: ../iw/xconfig_gui.py:1027
 msgid ""
@@ -1760,9 +1770,8 @@ msgid "Autoprobe results:"
 msgstr "Útkoma X leitar:"
 
 #: ../iw/xconfig_gui.py:1553
-#, fuzzy
 msgid "Video card RAM: "
-msgstr "Skjákort"
+msgstr "Vinnsluminni skjákorts: "
 
 #: ../iw/xconfig_gui.py:1644
 msgid "Test this configuration"
@@ -1917,14 +1926,12 @@ msgid "Primary nameserver:"
 msgstr "Aðalnafnaþjónn:"
 
 #: ../textw/network_text.py:73
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Aðalnafnaþjónn:"
+msgstr "Annar nafnaþjónn:"
 
 #: ../textw/network_text.py:74
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Aðalnafnaþjónn:"
+msgstr "Þriðji nafnaþjónn:"
 
 #: ../textw/network_text.py:122
 msgid "Invalid information"
@@ -1957,7 +1964,7 @@ msgstr "Stærð   :"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f Kbæti"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -2238,7 +2245,7 @@ msgstr "Kalla eftir þjóni"
 
 #: ../textw/userauth_text.py:359
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Nota TLS tengingar"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2253,7 +2260,7 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Fartölvu"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2377,7 +2384,6 @@ msgid "Error Creating Device Nodes"
 msgstr "Villa við að búa til tækjanóður"
 
 #: ../libfdisk/fsedit.c:1029
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -2657,13 +2663,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1530
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Get ekki fjarlægt /boot"
 
 #: ../libfdisk/gnomefsedit.c:1531
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
+"Þú getur ekki fjarlægt \"/boot\" ef \"/\" er á RAID tæki. Færðu \"/\" á tæki "
+"sem er ekki RAID fyrst."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1595 ../libfdisk/gnomefsedit.c:1614
@@ -2784,11 +2792,12 @@ msgid "Illegal RAID mountpoint"
 msgstr "Óleyfilegur tengipunktur fyrir RAID"
 
 #: ../libfdisk/gnomefsedit.c:2240
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
-msgstr "RAID disksneiðar geta ekki verið rót (/) á Alpha vélum."
+msgstr ""
+"RAID disksneiðar geta ekki verið rót (/) á Alpha vélum án þess að hafa /boot "
+"sneið á tæki sem er ekki RAID."
 
 #: ../libfdisk/gnomefsedit.c:2323
 #, c-format
@@ -3137,9 +3146,9 @@ msgid "Loading"
 msgstr "Les inn"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "Les inn %s RAM-disklinginn..."
+msgstr "Les inn %s rekilinn..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3254,29 +3263,27 @@ msgstr ""
 "tæki?"
 
 #: ../loader/loader.c:812
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"Hvaða disksneið og mappa á þeirri sneið inniheldur RedHat/RPMS og "
-"RedHat/base möppurnar ? Ef þú sérð ekki harða diskinn sem þú ert að nota í "
-"listanum ýttu þá á F2 til að bæta við tækjum."
+"Hvaða disksneið og mappa á þeirri sneið inniheldur diskmyndinar (iso9660) af "
+"Red Hat Linux? Ef þú sérð ekki diskinn í listanum ýttu þá á F2 til að bæta "
+"við tækjum."
 
 #: ../loader/loader.c:826
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Mappa sem inniheldur Red Hat:"
+msgstr "Mappa sem inniheldur diskmyndinar:"
 
 #: ../loader/loader.c:846
 msgid "Select Partition"
 msgstr "Veldu disksneið"
 
 #: ../loader/loader.c:894
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Tæki %s virðist ekki innihalda Red Hat dreifingu."
+msgstr "Tæki %s virðist ekki innihalda Red Hat diskmyndir."
 
 #: ../loader/loader.c:949
 msgid ""
@@ -3326,6 +3333,7 @@ msgstr "Get ekki sótt seinni uppsetningardiskmyndina"
 #: ../loader/loader.c:1260
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
+"FTP og HTTP uppsetningaraðferðirnar þarfnar 20MB eða meira af vinnsluminni."
 
 #: ../loader/loader.c:1484
 msgid "Rescue Method"
@@ -3372,14 +3380,12 @@ msgid "Reading anaconda updates..."
 msgstr "Les inn uppfærslur fyrir anaconda..."
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "IDE"
-msgstr "KDE"
+msgstr "IDE"
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "Initializing IDE modules..."
-msgstr "Frumstilli geisladrifið..."
+msgstr "Frumstilli IDE einingarnar..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3535,21 +3541,19 @@ msgstr "Frumstilli tækin í PC kortum..."
 
 #: ../loader/pcmcia.c:91
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:92
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Vinsamlegast settu %s rekladiskinn í núna."
+msgstr "Vinsamlegast settu PCMCIA rekladiskinn í disklingadrifið núna."
 
 #: ../loader/pcmcia.c:101
-#, fuzzy
 msgid "Failed to mount disk."
-msgstr "Gat ekki tengt rekladisklinginn."
+msgstr "Gat ekki tengt disklinginn."
 
 #: ../loader/pcmcia.c:119
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
+msgstr "Þessi disklingur virðist ekki vera Red Hat PCMCIA rekladiskur."
 
 #: ../loader/urls.c:79
 #, c-format
@@ -3602,9 +3606,8 @@ msgid "Web site name:"
 msgstr "Vefþjónn:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
-msgstr "Nota \"non-anonymous\" FTP eða ftp-sel"
+msgstr "Nota \"non-anonymous\" ftp"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
@@ -3636,13 +3639,12 @@ msgid "%s is not a valid hostname."
 msgstr "%s er ekki gilt heiti vélar."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Ef þú ert ekki að nota nafnlaust FTP sláðu þá inn notandaheiti og lykilorð "
-"að neðan. Ef þú vilt nota FTP sel sláðu þá inn nafnið á FTP selinu."
+"Ef þú ert ekki að nota nafnlaust ftp sláðu þá inn notandaheiti og lykilorð "
+"að neðan."
 
 #: ../loader/urls.c:321
 msgid ""
@@ -3780,9 +3782,8 @@ msgstr "Vefþjónn"
 msgid "DNS Name Server"
 msgstr "DNS nafnaþjónn"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "NFS þjónn"
+msgstr "SQL þjónn"
 
 msgid "Network Management Workstation"
 msgstr "Vinnustöð til netumsjónar"
@@ -3801,40 +3802,3 @@ msgstr "Kjarnaþróun"
 
 msgid "Utilities"
 msgstr "Tól"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Villa við tengingu %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Ekki setja upp LILO"
-
-#~ msgid "Up"
-#~ msgstr "Upp"
-
-#~ msgid "Name: "
-#~ msgstr "Heiti: "
-
-#~ msgid "Package Details"
-#~ msgstr "Upplýsingar um pakka"
-
-#~ msgid "Size: "
-#~ msgstr "Stærð: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Velja pakka til uppsetningar"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Staðfestu val disksneiða"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ræsistjórinn sem fylgir Red Hat getur einnig ræst upp önnur stýrikerfi. Þú "
-#~ "þarft að láta vita hvaða sneiðar sem þú vilt geta ræst upp af og hvaða heiti "
-#~ "þær eiga að fá.\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres (SQL) þjónn"
