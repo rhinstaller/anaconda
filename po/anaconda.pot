@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-05 14:05-0500\n"
+"POT-Creation-Date: 2000-02-05 14:10-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -92,7 +92,7 @@ msgstr ""
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:194
+#: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
@@ -169,8 +169,8 @@ msgstr ""
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
 #: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
-#: ../textw/silo.py:193
+#: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
+#: ../textw/silo.py:194
 msgid "Ok"
 msgstr ""
 
@@ -195,7 +195,7 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:184
+#: ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:185
 msgid "Device"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/partitioning.py:273 ../textw/partitioning.py:281
-#: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
+#: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
 #: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
 #: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
 #: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
@@ -354,7 +354,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
 #: ../loader/loader.c:1792 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
-#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:63
+#: ../textw/silo.py:125 ../textw/silo.py:143 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr ""
 
@@ -592,8 +592,8 @@ msgstr ""
 msgid "Configuration Complete"
 msgstr ""
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
-#: ../textw/silo.py:201
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:90
+#: ../textw/silo.py:202
 msgid "SILO Configuration"
 msgstr ""
 
@@ -853,7 +853,7 @@ msgstr ""
 
 #: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:62 ../textw/silo.py:193 ../textw/silo.py:215
+#: ../textw/partitioning.py:62 ../textw/silo.py:194 ../textw/silo.py:216
 #: ../textw/userauth.py:185
 msgid "Edit"
 msgstr ""
@@ -1053,11 +1053,11 @@ msgstr ""
 msgid "Install LILO boot record on:"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -1078,18 +1078,18 @@ msgid "Do not install LILO"
 msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:184
+#: ../textw/silo.py:185
 msgid "Default"
 msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:184
+#: ../textw/silo.py:185
 msgid "Partition type"
 msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
-#: ../textw/silo.py:184
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
+#: ../textw/silo.py:185
 msgid "Boot label"
 msgstr ""
 
@@ -1381,19 +1381,19 @@ msgid ""
 "blank."
 msgstr ""
 
-#: ../textw/lilo.py:85 ../textw/silo.py:91
+#: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
 msgstr ""
 
-#: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
+#: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
 msgid "Clear"
 msgstr ""
 
-#: ../textw/lilo.py:114 ../textw/silo.py:132
+#: ../textw/lilo.py:114 ../textw/silo.py:133
 msgid "Edit Boot Label"
 msgstr ""
 
-#: ../textw/lilo.py:181 ../textw/silo.py:196
+#: ../textw/lilo.py:181 ../textw/silo.py:197
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1475,11 +1475,11 @@ msgid ""
 "which is %d megabytes."
 msgstr ""
 
-#: ../textw/silo.py:63
+#: ../textw/silo.py:64
 msgid "Create PROM alias `linux'"
 msgstr ""
 
-#: ../textw/silo.py:64
+#: ../textw/silo.py:65
 msgid "Set default PROM boot device"
 msgstr ""
 

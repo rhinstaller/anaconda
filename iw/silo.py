@@ -47,7 +47,7 @@ class SiloWindow (InstallWindow):
 		self.todo.silo.setDevice("partition")
 
 	self.todo.silo.setAppend(self.appendEntry.get_text())
-	self.todo.silo.setLiloImages(self.images)
+	self.todo.silo.setSiloImages(self.images)
 
 	linuxAlias = 0
 	bootDevice = 0

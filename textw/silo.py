@@ -38,7 +38,7 @@ class SiloAppendWindow:
 
 	if button == "skip":
 	    todo.skipLilo = 1
-            todo.lilo.setDevice(None)
+            todo.silo.setDevice(None)
 	else:
 	    todo.skipLilo = 0
 
@@ -240,7 +240,7 @@ class SiloImagesWindow:
 	if (result == "back"):
 	    return INSTALL_BACK
 
-	todo.silo.setLiloImages(images)
+	todo.silo.setSiloImages(images)
 	todo.silo.setDefault(label)
 
 	return INSTALL_OK
