@@ -47,17 +47,11 @@ if len(sys.argv) != 3:
     sys.exit(1)
 
 arch = sys.argv[2]
-distDir = os.path.normpath(sys.argv[1] + "/" + arch)
-srcDir = os.path.normpath(sys.argv[1] + "/SRPMS")
+distDir = os.path.normpath(sys.argv[1])
 
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
     sys.exit(1)
-
-if not os.path.isdir(srcDir):
-    print "error: %s is not a directory" % srcDir
-    sys.exit(1)
-
 
 disc1Dir = distDir + "-disc1"
 disc1SrcDir = distDir + "-srpms"
