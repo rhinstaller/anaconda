@@ -166,7 +166,11 @@ class InstallPathWindow:
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
 	    if (choice == 0):
-		todo.setClass(installclass.Workstation())
+		todo.setClass(installclass.GNOMEWorkstation())
+	    elif (choice == 1):
+		etodo.setClass(installclass.KDEWorkstation())
+	    elif (choice == 2):
+		etodo.setClass(installclass.Server())
         return INSTALL_OK
 
 class UpgradeExamineWindow:
