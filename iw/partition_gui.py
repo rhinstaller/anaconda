@@ -553,7 +553,7 @@ class PartitionWindow(InstallWindow):
 #            labelstr2 = _("Select 'Yes' to continue and format these "
 #                          "partitions, or 'No' to go back and change these "
 #                          "settings.")
-            laberstr2 = ""
+            labelstr2 = ""
             commentstr = ""
             for (dev, type, mntpt) in formatWarnings:
                 commentstr = commentstr + \
