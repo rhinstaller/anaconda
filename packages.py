@@ -935,3 +935,34 @@ def depmodModules(comps, instPath):
                                   "-F", "/boot/System.map-" + version ],
 				root = instPath, stderr = '/dev/null')
 
+
+def betaNagScreen(intf, dir):
+    if dir == DISPATCH_BACK:
+	return DISPATCH_NOOP
+    
+    while 1:
+	rc = intf.messageWindow( _("Warning! This is a beta!"),
+				 _("Thank you for downloading this "
+				   "Red Hat Beta release.\n\n"
+				   "As you know, this is not a final "
+				   "release and is not intended for use "
+				   "on production systems.  The purpose of "
+				   "this release is to collect feedback "
+				   "from testers, and it is not suitable "
+				   "for day to day usage."
+				   "\n\n"
+				   "If you do not want to install unstable "
+				   "software on this system, "
+				   "please choose 'Exit' now."),
+				 type="custom", custom_icon="warning",
+				 custom_buttons=[_("_Exit"), _("_Install BETA")])
+
+	if not rc:
+	    rc = intf.messageWindow( _("Rebooting System"),
+				 _("Your system will now be rebooted..."),
+				 type="custom", custom_icon="warning",
+				 custom_buttons=[_("_Back"), _("_Reboot")])
+	    if rc:
+		sys.exit(0)
+	else:
+	    break

@@ -24,6 +24,7 @@ from packages import queryUpgradeContinue
 from packages import doPreInstall, doPostInstall, doPostAction
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
+from packages import betaNagScreen
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -48,6 +49,7 @@ from network import networkDeviceCheck
 
 installSteps = [
     ("welcome", ("id.configFileData",)),
+    ("betanag", betaNagScreen, ("intf", "dir")),
     ("language", ("intf", "id.instLanguage")),
     ("keyboard", ("id.instLanguage.getDefaultKeyboard()", "id.keyboard", "id.xconfig")),
     ("mouse", ("id.mouse",)),

@@ -243,7 +243,7 @@ class InstallInterface:
         return ProgressWindow(self.screen, title, text, total)
 
     def messageWindow(self, title, text, type="ok", default = None,
-		      custom_buttons=[]):
+		      custom_icon=None, custom_buttons=[]):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, title, text,
 			       buttons=[TEXT_OK_BUTTON])
@@ -263,7 +263,8 @@ class InstallInterface:
 	    for but in custom_buttons:
 		tmpbut.append(string.replace(but,"_",""))
 
-	    rc = ButtonChoiceWindow(self.screen, title, text, buttons=tmpbut)
+	    rc = ButtonChoiceWindow(self.screen, title, text, width=60,
+				    buttons=tmpbut)
 
 	    idx = 0
 	    for b in tmpbut:

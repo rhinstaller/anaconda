@@ -81,6 +81,7 @@ class BaseInstallClass:
 		 "keyboard",
 		 "mouse",
 		 "welcome",
+		 "betanag",
 		 "installtype",
                  "partitionmethod",
                  "partitionobjinit",
