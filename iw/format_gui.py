@@ -40,12 +40,17 @@ class FormatWindow (InstallWindow):
 
 	if not gotOne: return None
 
+
         sw.add_with_viewport (box)
+        viewport = sw.children()[0]
+        viewport.set_shadow_type (SHADOW_ETCHED_IN)
+        
+
         
         vbox = GtkVBox (FALSE, 10)
         vbox.pack_start (sw, TRUE, TRUE)
 
-        vbox.pack_start (GtkHSeparator (), FALSE, padding=3)
+#        vbox.pack_start (GtkHSeparator (), FALSE, padding=3)
         
         self.check = GtkCheckButton (_("Check for bad blocks while formatting"))
         self.check.set_active (self.todo.fstab.getBadBlockCheck())
