@@ -459,7 +459,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 		  _("Determining host name and domain..."));
 #ifdef __STANDALONE__
 	he = gethostbyaddr( (char *) &dev->dev.ip, sizeof (dev->dev.ip), AF_INET);
-	name = he->h_name;
+	name = he ? he->h_name : 0;
 #else
 	name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
 #endif
