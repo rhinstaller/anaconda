@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.3
-Release: 3.RHEL
+Version: 9.1.4.0
+Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
@@ -72,6 +72,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Sep 24 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.0-1.RHEL
+- Support using ksdevice=macaddr (#130605)
+- Don't sig11 if nfs server isn't running (#131746)
+- Use pci.ids instead of requiring in pcitable (notting)
+- Update scripts to handle multilib gtk2/pango
+
 * Tue Oct  8 2002 Jeremy Katz <katzj@redhat.com>
 - back to mainstream rpm instead of rpm404
 
