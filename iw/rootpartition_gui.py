@@ -133,7 +133,7 @@ class LoopSizeWindow(InstallWindow):
             avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
         else:
             # test mode
-        avail = 5000
+            avail = 5000
 	(size, swapSize) = self.todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
