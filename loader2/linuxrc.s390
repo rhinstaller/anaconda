@@ -264,7 +264,7 @@ elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
 elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
    insmod ccwgroup$LO
 	insmod qdio$LO
-	insmod qeth_mod$LO
+	insmod qeth$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
