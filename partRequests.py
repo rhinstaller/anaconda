@@ -711,7 +711,7 @@ class VolumeGroupRequestSpec(RequestSpec):
         # if we have a preexisting size, use it
         if self.preexist and self.preexist_size:
             totalspace = ((self.preexist_size / self.pesize) *
-                          self.preexist_size)
+                          self.pesize)
         else:
             totalspace = 0
             for pvid in self.physicalVolumes:
