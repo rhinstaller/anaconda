@@ -16,7 +16,7 @@ class WelcomeWindow (InstallWindow):
     def getScreen (self):
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_IN)
-        im = self.ics.readPixmap ("splash.png")
+        im = self.ics.readPixmap ( self.ics.configFileData.getSplashscreen())
         
         if im:
             im.render ()
@@ -99,3 +99,5 @@ class ReconfigWelcomeWindow (InstallWindow):
 
 	return frame
     
+
+
