@@ -130,6 +130,16 @@ class FileSystemType:
     def registerDeviceArgumentFunction(self, klass, function):
         self.deviceArguments[klass] = function
 
+    def badblocksDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        args = [ "badblocks", "-vv", devicePath ]
+        
+        rc = iutil.execWithRedirect("/usr/sbin/badblocks", args,
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError        
+        
     def formatDevice(self, devicePath, device, progress, chroot='/'):
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
@@ -635,6 +645,9 @@ class FileSystemSet:
                     
     def formatEntry(self, entry, chroot):
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
+
+    def badblocksEntry(self, entry, chroot):
+        entry.fsystem.badblocksDevice(entry, self.progressWindow, chroot)
         
     def formattablePartitions(self):
         list = []
@@ -642,6 +655,24 @@ class FileSystemSet:
             if entry.fsystem.isFormattable():
                 list.append (entry)
         return list
+
+    def checkBadblocks(self, chroot='/'):
+        for entry in self.entries:
+            if (not entry.fsystem.isFormattable() or not entry.getBadblocks()
+                or entry.isMounted()):
+                continue
+            try:
+                self.badblocksEntry(entry, chroot)
+            except SystemError:
+                if self.messageWindow:
+                    self.messageWindow(_("Error"),
+                                       _("An error occurred searching for "
+                                         "bad blocks on %s.  This problem is "
+                                         "serious, and the install cannot "
+                                         "continue.\n\n"
+                                         "Press Enter to reboot your system.")
+                                       % (entry.device.getDevice(),))
+                sys.exit(0)
 
     def makeFilesystems (self, chroot='/'):
         for entry in self.entries:
@@ -766,7 +797,8 @@ class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
                   fsystem=None, options=None,
                   origfsystem=None, migrate=0,
-                  order=-1, fsck=-1, format=0):
+                  order=-1, fsck=-1, format=0,
+                  badblocks = 0):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
@@ -798,6 +830,7 @@ class FileSystemSetEntry:
                                  "but has been added to fsset with format "
                                  "flag on" % fsystem.getName())
         self.format = format
+        self.badblocks = badblocks
 
     def mount(self, chroot='/', devPrefix='/tmp'):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix) 
@@ -809,6 +842,12 @@ class FileSystemSetEntry:
             self.fsystem.umount(self.device, "%s/%s" % (chroot,
                                                         self.mountpoint))
             self.mountcount = self.mountcount - 1
+
+    def setBadblocks(self, state):
+        self.badblocks = state
+
+    def getBadblocks(self):
+        return self.badblocks
         
     def setFormat (self, state):
         if self.migrate:

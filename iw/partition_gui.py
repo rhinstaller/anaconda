@@ -626,6 +626,9 @@ class PartitionWindow(InstallWindow):
         def formatOptionCB(widget, menu):
             menu.set_sensitive(widget.get_active())
 
+        def noformatCB(widget, badblocks):
+            badblocks.set_sensitive(not widget.get_active())
+
         def sizespinchangedCB(widget, fillmaxszsb):
             size = widget.get_value_as_int()
             maxsize = fillmaxszsb.get_value_as_int()
@@ -855,6 +858,17 @@ class PartitionWindow(InstallWindow):
                 
             else:
                 migraterb = None
+
+            badblocks = GtkCheckButton(_("Check for bad blocks?"))
+            badblocks.set_active(0)
+            maintable.attach(badblocks, 0, 1, row, row + 1)
+            noformatrb.connect("toggled", noformatCB, badblocks)
+            noformatCB(noformatrb, badblocks)
+            if origrequest.badblocks:
+                badblocks.set_active(1)
+            
+            row = row + 1
+            
         else:
             noformatrb = None
             formatrb = None
@@ -882,6 +896,13 @@ class PartitionWindow(InstallWindow):
                 primonlycheckbutton.set_active(1)
             maintable.attach(primonlycheckbutton, 0, 2, row, row+1)
             row = row + 1
+
+            badblocks = GtkCheckButton(_("Check for bad blocks?"))
+            badblocks.set_active(0)
+            maintable.attach(badblocks, 0, 1, row, row + 1)
+            row = row + 1
+            if origrequest.badblocks:
+                badblocks.set_active(1)
             
         # put main table into dialog
         dialog.vbox.pack_start(maintable)
@@ -913,6 +934,11 @@ class PartitionWindow(InstallWindow):
                     primonly = TRUE
                 else:
                     primonly = None
+
+                if badblocks and badblocks.get_active():
+                    request.badblocks = TRUE
+                else:
+                    request.badblocks = None
 
                 if not newbycyl:
                     if fixedrb.get_active():
@@ -962,8 +988,14 @@ class PartitionWindow(InstallWindow):
                     request.format = formatrb.get_active()
                     if request.format:
                         request.fstype = fstypeMenu.get_active().get_data("type")
+                    if badblocks and badblocks.get_active():
+                        request.badblocks = TRUE
+                    else:
+                        request.badblocks = None
+                        
                 else:
                     request.format = 0
+                    request.badblocks = None
 
                 if migraterb:
                     request.migrate = migraterb.get_active()
@@ -1175,6 +1207,7 @@ class PartitionWindow(InstallWindow):
                 formatButton.set_active(0)
             maintable.attach(formatButton, 0, 2, row, row + 1)
             row = row + 1
+
         else:
             formatButton = None
             

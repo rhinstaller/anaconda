@@ -503,7 +503,7 @@ class PartitionSpec:
                  format = None, options = None, 
                  constraint = None, migrate = None,
                  raidmembers = None, raidlevel = None, 
-                 raidspares = None):
+                 raidspares = None, badblocks = None):
         #
         # requesttype: REQUEST_PREEXIST or REQUEST_NEW or REQUEST_RAID
         #
@@ -529,6 +529,7 @@ class PartitionSpec:
         self.drive = drive
         self.primary = primary
         self.format = format
+        self.badblocks = badblocks
         self.migrate = migrate
         self.options = options
         self.constraint = constraint
@@ -600,6 +601,10 @@ class PartitionSpec:
 
         if self.migrate:
             entry.setMigrate(self.migrate)
+
+        if self.badblocks:
+            entry.setBadblocks(self.badblocks)
+            
         return entry
 
 class Partitions:

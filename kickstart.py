@@ -681,12 +681,14 @@ class KickstartBase(BaseInstallClass):
         uniqueID = None
         start = None
         end = None
+        badblocks = None
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
                                         'type=', 'fstype=', 'asprimary',
-                                        'noformat', 'start=', 'end='])
+                                        'noformat', 'start=', 'end=',
+                                        'badblocks'])
 
 	for n in args:
 	    (str, arg) = n
@@ -719,6 +721,8 @@ class KickstartBase(BaseInstallClass):
                 start = arg
             elif str == "--end":
                 end = arg
+            elif str == "--badblocks":
+                badblocks = 1
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
@@ -756,6 +760,8 @@ class KickstartBase(BaseInstallClass):
             request.format = 0
         if id:
             request.uniqueID = uniqueID
+        if badblocks:
+            request.badblocks = badblocks
         
         id.partitions.autoPartitionRequests.append(request)
 
