@@ -46,6 +46,10 @@ class InstallClass(BaseInstallClass):
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderpassword")
+
+    def setInstallData(self, id):
+        BaseInstallClass.__init__(self, id)
+        id.upgrade.set(1)
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
