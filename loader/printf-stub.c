@@ -410,7 +410,7 @@ int printf(const char *fmt, ...)
 	int i;
 
 	va_start(args, fmt);
-	i=vfprintf(stderr,fmt,args);
+	i=vfprintf(stdout,fmt,args);
 	va_end(args);
 	return i;
 }
