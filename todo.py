@@ -1201,7 +1201,6 @@ class ToDo:
         if iutil.getArch () == "alpha":
             instClass.addToSkipList("bootdisk")
             instClass.addToSkipList("lilo")
-            instClass.addToSkipList("silo")
 
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)

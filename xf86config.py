@@ -78,7 +78,7 @@ class XF86Config:
         if not self.vidRam:
             return
         if string.atoi(self.vidRam) >= 4096:
-            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+            self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200", "1920x1200"]
             self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
             self.modes["32"] = ["640x480", "800x600", "1024x768", "1152x864"]
         elif string.atoi(self.vidRam) >= 2048:
@@ -728,6 +728,13 @@ Section "Monitor"
 # 1800x1440 @ 70Hz, 104.52 kHz hsync 
     ModeLine "1800X1440"  250    1800 1896 2088 2392
                                  1440 1441 1444 1490 +HSync +VSync
+
+# -- 1920x1200 --
+
+# 1920x1200 @ 70Hz, 87.50 KHz hsync
+    Modeline "1920x1200"  230    1920 1936 2096 2528
+                                 1200 1201 1204 1250 +HSync +VSync
+
 EndSection
 """ % info
 

@@ -312,6 +312,9 @@ for p in $DEST $DESTGR; do
 	    if [ -f ${fn}o ]; then
 		rm -f ${fn}o
 	    fi
+	    if [ $p = $DEST ]; then
+		ln -sf /dev/null ${fn}c
+	    fi
 	done
 done
 

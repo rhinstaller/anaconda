@@ -930,7 +930,18 @@ class InstallInterface:
             [_("Installation Type"), InstallPathWindow, 
 		    (self.screen, todo, self) ],
             ]
-        
+
+	if iutil.getArch() == 'sparc':
+	    BootloaderAppendWindow = SiloAppendWindow
+	    BootloaderWindow = SiloWindow
+	    BootloaderImagesWindow = SiloImagesWindow
+	    BootloaderConfiguration = _("SILO Configuration")
+	else:
+	    BootloaderAppendWindow = LiloAppendWindow
+	    BootloaderWindow = LiloWindow
+	    BootloaderImagesWindow = LiloImagesWindow
+	    BootloaderConfiguration = _("LILO Configuration")
+
         self.installSteps = [
             [_("Partition"), PartitionMethod,
 		    (self.screen, todo), "partition" ],
@@ -944,11 +955,11 @@ class InstallInterface:
 		    "partition" ],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
-            [_("LILO Configuration"), LiloAppendWindow, 
+            [BootloaderConfiguration, BootloaderAppendWindow, 
 		    (self.screen, todo), "lilo"],
-            [_("LILO Configuration"), LiloWindow, 
+            [BootloaderConfiguration, BootloaderWindow, 
 		    (self.screen, todo), "lilo"],
-	    [_("LILO Configuration"), LiloImagesWindow, 
+	    [BootloaderConfiguration, BootloaderImagesWindow, 
 		    (self.screen, todo), "lilo"],
             [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
 		    "network"],
@@ -986,28 +997,13 @@ class InstallInterface:
 		"complete" ]
             ]
 
-	if iutil.getArch() == 'sparc':
-	    for i in range(len(self.installSteps)):
-		step = self.installSteps[i]
-		if step[3] == 'lilo':
-		    self.installSteps[i] = [
-			_("SILO Configuration"), SiloAppendWindow, 
-			(self.screen, todo), "silo"]
-		    self.installSteps[i+1] = [
-			_("SILO Configuration"), SiloWindow, 
-			(self.screen, todo), "silo"]
-		    self.installSteps[i+2] = [
-			_("SILO Configuration"), SiloImagesWindow, 
-			(self.screen, todo), "silo"]
-		    break
-
 	self.upgradeSteps = [
 	    [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
-            [_("LILO Configuration"), LiloAppendWindow, 
+            [BootloaderConfiguration, BootloaderAppendWindow, 
 		    (self.screen, todo), "lilo"],
-            [_("LILO Configuration"), LiloWindow, 
+            [BootloaderConfiguration, BootloaderWindow, 
 		    (self.screen, todo), "lilo"],
-	    [_("LILO Configuration"), LiloImagesWindow, 
+	    [BootloaderConfiguration, BootloaderImagesWindow, 
 		    (self.screen, todo), "lilo"],
 	    [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
