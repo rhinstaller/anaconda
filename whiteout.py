@@ -6,6 +6,10 @@
 
 import rpm
 
+# set DB_PRIVATE to make rpm happy...  do it in here since we include
+# this with all of the useful rpm bits
+rpm.addMacro("__dbi_cdb", "create private")
+
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
 	XFree86>Mesa			\
@@ -30,7 +34,11 @@ whiteout="""
         ghostscript>gimp-print          \
         bind>bind-utils                 \
         perl>mod_perl                   \
-        perl>perl-Filter             
+        perl>perl-Filter                \
+        coreutils>pam                   \
+        perl>mrtg                       \
+        perl-Dat3-Calc>perl-Bit-Vector  \
+        perl-Bit-Vector
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
