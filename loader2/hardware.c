@@ -277,8 +277,6 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
      * if using noprobe */
     initializePcmciaController(modLoaded, modDeps, modInfo, flags);
 
-    if (FL_NOPROBE(flags)) return 0;
-
     /* we can't really *probe* on iSeries, but we can pretend */
     probeiSeries(modInfo, modLoaded, modDeps, flags);
     

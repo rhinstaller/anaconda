@@ -512,7 +512,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "nostorage"))
             flags |= LOADER_FLAGS_NOSTORAGE;
         else if (!strcasecmp(argv[i], "noprobe"))
-            flags |= (LOADER_FLAGS_NONET | LOADER_FLAGS_NOSTORAGE);
+            flags |= (LOADER_FLAGS_NONET | LOADER_FLAGS_NOSTORAGE | LOADER_FLAGS_NOUSB | LOADER_FLAGS_NOIEEE1394);
         else if (!strcasecmp(argv[i], "nopcmcia"))
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text")) {
