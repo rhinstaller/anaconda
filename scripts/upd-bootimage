@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ ! -f $1 ]; then
+    echo "$1 doesn't exist"
+    exit 1
+fi
+
+MNTPOINT=/tmp/updboottree.$$
+INITRD=/tmp/updboottree.$$.initrd
+LOOPMNT=/tmp/updboottree.$$.initrdmnt
+
+rm -rf $MNTPOINT $LOOPMNT
+mkdir $MNTPOINT $LOOPMNT
+mount -o loop $1 $MNTPOINT
+
+gunzip < $MNTPOINT/initrd.img > $INITRD
+
+mount -o loop $INITRD $LOOPMNT
+
+if [ ! -x $LOOPMNT/sbin/$2 ]; then
+    echo "$LOOPMNT/sbin/$2 doesn't exist"
+else
+    install -s $2 $LOOPMNT/sbin/$2
+fi
+
+umount $LOOPMNT
+gzip -9 < $INITRD > $MNTPOINT/initrd.img
+umount $MNTPOINT
+
+rm -rf $MNTPOINT $LOOPMNT $INITRD
