@@ -1,4 +1,3 @@
-#import gettext
 import iutil
 import os
 import isys
