@@ -5,10 +5,14 @@ import lang
 
 _=lang.gettext 
 
-# fixme - first stage install passes --method
 (args, extra) = getopt.getopt(sys.argv[1:], 'p:GTtdr:f', 
           [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
-	    'testpath=', 'mountfs', 'method' ])
+	    'testpath=', 'mountfs' ])
+
+# remove the arguments - gnome_init doesn't understand them
+for arg in sys.argv[1:]:
+    sys.argv.remove (arg)
+sys.argc = 1
 
 mode = None
 test = 0
