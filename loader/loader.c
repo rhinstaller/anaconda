@@ -2355,7 +2355,7 @@ int main(int argc, char ** argv) {
 	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
 	    && !ksFile) {
 	    startNewt(flags);
-	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1,
+	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1, 1,
 			      floppyDevice);
 	}
 
