@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "Søger"
+msgstr "Altsammen"
 
 #: ../exception.py:13 ../text.py:768
 msgid "Exception Occurred"
@@ -541,7 +540,6 @@ msgid "Save Crash Dump"
 msgstr "Gem krash-information"
 
 #: ../text.py:793
-#, fuzzy
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -901,9 +899,8 @@ msgid "Root passwords do not match."
 msgstr "'Root'-adgangskoder stemmer ikke."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "'Root'-adgangskode accepteret."
+msgstr "Brugeradgangskode accepteret."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2897,7 +2894,7 @@ msgstr "Enheder"
 
 #: ../loader/devices.c:205
 msgid "Do you have a driver disk?"
-msgstr "Har du en driver-diskette?"
+msgstr "Har du en driverdiskette?"
 
 #: ../loader/devices.c:212
 msgid "Insert your driver disk and press \"OK\" to continue."
@@ -2905,7 +2902,7 @@ msgstr "Indsæt din driverdiskette og tryk \"Ok\" for at fortsætte."
 
 #: ../loader/devices.c:233
 msgid "Failed to mount driver disk."
-msgstr "Kunne ikke montere driver-diskette."
+msgstr "Kunne ikke montere driverdiskette."
 
 #: ../loader/devices.c:240
 msgid ""
@@ -2933,9 +2930,9 @@ msgid "Failed to insert %s module."
 msgstr "Kunne ikke indsætte %s modul."
 
 #: ../loader/devices.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Kunne ikke montere driver-diskette."
+msgstr "Kunne ikke montere driverdisketten: %s."
 
 #: ../loader/devices.c:463
 msgid "The wrong diskette was inserted."
@@ -2967,7 +2964,7 @@ msgstr "Fejl ved læsning af indhold af kickstartsfil %s: %s"
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Fejl på linie %d i kickstartsfilen %s."
+msgstr "Fejl på linje %d i kickstartsfilen %s."
 
 #: ../loader/lang.c:280
 msgid "Choose a Language"
@@ -3165,7 +3162,7 @@ msgstr "Opdateringer"
 
 #: ../loader/loader.c:2081
 msgid "Reading anaconda updates..."
-msgstr "Læser anaconda opdateringer..."
+msgstr "Læser anaconda-opdateringer..."
 
 #: ../loader/loader.c:2337
 msgid "PC Card"
@@ -3446,12 +3443,11 @@ msgstr "Indlæser SCSI-driver"
 
 #: ../installclasses/custom.py:7
 msgid "Custom System"
-msgstr "Installér egendefineret system"
+msgstr "Egendefineret system"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Opgradér system"
+msgstr "Tjenersystem (server)"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3510,7 +3506,7 @@ msgid "News Server"
 msgstr "Nyhedstjener"
 
 msgid "NFS Server"
-msgstr "NIS-tjener:"
+msgstr "NIS-tjener"
 
 msgid "SMB (Samba) Server"
 msgstr "Samba SMB-tjener"
