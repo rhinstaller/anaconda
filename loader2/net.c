@@ -716,8 +716,13 @@ int chooseNetworkInterface(struct knownDevices * kd,
 
         devices[deviceNums++] = kd->known[i].name;
 
+        /* FIXME: blah, if we turn off s390 interfaces, we lose the 
+         * ability to actually do anything useful.
+         */
+#if !defined(__s390__) && !defined(__s390x__)
         /* make sure that this device is disabled */
         pumpDisableInterface(kd->known[i].name);
+#endif
 
         /* this device has been set and we don't really need to ask 
          * about it again... */
