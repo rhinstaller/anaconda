@@ -1150,10 +1150,11 @@ class PartitionWindow(InstallWindow):
 
 	availminors = self.partitions.getAvailableRaidMinors()
 	if len(availminors) < 1:
-	    self.intf.messageWindow(_("No RAID minors available"),
+	    self.intf.messageWindow(_("No RAID minor device numbers available"),
 				    _("A software RAID device cannot "
 				      "be created because all of the "
-				      "available minors have been used."),
+				      "available RAID minor device numbers "
+				      "have been used."),
 				    type="ok", custom_icon="error")
 	    return
 	    
