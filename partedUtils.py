@@ -236,7 +236,10 @@ def getDefaultDiskType():
     elif iutil.getArch() == "sparc":
         return parted.disk_type_get("sun")
     elif iutil.getArch() == "ppc":
-        return parted.disk_type_get("msdos")
+        if iutil.getPPCMachine() == "PMac":
+            return parted.disk_type_get("mac")
+        else:
+            return parted.disk_type_get("msdos")
     else:
         return parted.disk_type_get("msdos")
 
