@@ -914,7 +914,7 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
       case CLASS_PRINTER:
       case CLASS_CAPTURE:
       case CLASS_KEYBOARD:
-      case CLASS_PCMCIA:
+      case CLASS_MONITOR:
 	break;
     }
 
