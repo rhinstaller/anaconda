@@ -384,7 +384,7 @@ class VideoCardInfo:
         self.primary = None
 
         if self.readCardsDB() < 0:
-            return None
+            return
 
         for card in cards:
             (device, server, descr) = card
