@@ -19,6 +19,7 @@ f.close()
 if os.path.exists("/selinux/load") and line.find(" selinux=0") == -1:
     for fn in ("/tmp/updates/file_contexts",
                "/mnt/source/RHupdates/file_contexts",
+               "/etc/security/selinux/src/policy/file_contexts/file_contexts",
                "/mnt/runtime/etc/security/selinux/src/policy/file_contexts/file_contexts"):
         if os.access(fn, os.R_OK):
             break
