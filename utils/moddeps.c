@@ -7,6 +7,9 @@
 #include "../isys/isys.h"
 #include "../loader/modules.h"
 
+void setFloppyDevice(int flags) {
+}
+
 int extractModule(location, modName) {
     return 0;
 }
