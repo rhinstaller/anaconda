@@ -282,12 +282,12 @@ class NetworkWindow:
                                        buttons = [ _("Ok") ])
                     continue
 
-            dev.set (("bootproto", "static"))
-            dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
-                     ("network", network), ("broadcast", broadcast))
-            todo.network.gateway = self.gw.value ()
-            todo.network.primaryNS = self.ns.value ()
-            todo.network.guessHostnames ()
+                dev.set (("bootproto", "static"))
+                dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
+                         ("network", network), ("broadcast", broadcast))
+                todo.network.gateway = self.gw.value ()
+                todo.network.primaryNS = self.ns.value ()
+                todo.network.guessHostnames ()
             screen.popWindow()
             break
                      
