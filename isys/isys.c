@@ -351,6 +351,7 @@ static PyObject * doDdFile(PyObject * s, PyObject * args) {
 		free(ptr);
 		return NULL;
 	    }
+	    sync();
 	}
     }
 
