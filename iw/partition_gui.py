@@ -144,8 +144,8 @@ class DiskStripe:
         self.slices = []
         self.hash = {}
         self.selected = None
-        group.add ("rect", x1=0.0, y1=0.0, x2=CANVAS_WIDTH,
-                   y2=STRIPE_HEIGHT, fill_color='white',
+        group.add ("rect", x1=0.0, y1=10.0, x2=CANVAS_WIDTH,
+                   y2=STRIPE_HEIGHT, fill_color='green',
                    outline_color='grey71', width_units=1.0)
         group.lower_to_bottom()
 
@@ -205,7 +205,9 @@ class DiskStripeGraph:
     def __init__(self, diskset, ctree):
         self.canvas = GnomeCanvas()
         self.diskStripes = []
+        self.textlabels = []
         self.ctree = ctree
+        self.next_ypos = 0.0
 
     def __del__(self):
         self.shutDown()
@@ -215,6 +217,12 @@ class DiskStripeGraph:
         while self.diskStripes:
             stripe = self.diskStripes.pop()
             stripe.shutDown()
+
+        while self.textlabels:
+            lab = self.textlabels.pop()
+            lab.destroy()
+
+        self.next_ypos = 0.0
 
     def getCanvas(self):
         return self.canvas
@@ -236,10 +244,24 @@ class DiskStripeGraph:
                 return stripe.getDisk()
 
     def add (self, drive, disk):
-        yoff = len(self.diskStripes) * (STRIPE_HEIGHT + 5)
-        group = self.canvas.root().add("group", x=0, y=yoff)
+#        yoff = len(self.diskStripes) * (STRIPE_HEIGHT + 5)
+        yoff = self.next_ypos
+        text = self.canvas.root().add ("text", x=0.0, y=yoff,
+                          fontset="-*-helvetica-bold-r-normal-*-*-120-*-*-p-*-iso8859-1")
+        drivetext = "Drive %s (Geom: %s/%s/%s) (Model: %s)" % ('/dev/' + drive,
+                                       disk.dev.cylinders,
+                                       disk.dev.heads,
+                                       disk.dev.sectors,
+                                       disk.dev.model)
+        text.set(text=drivetext, fill_color='black', anchor=ANCHOR_NW)
+        (xxx1, yyy1, xxx2, yyy2) =  text.get_bounds()
+        textheight = yyy2 - yyy1
+        self.textlabels.append(text)
+
+        group = self.canvas.root().add("group", x=0, y=yoff+textheight)
         stripe = DiskStripe (drive, disk, group, self.ctree, self.canvas)
         self.diskStripes.append(stripe)
+        self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
         return stripe
 
 
