@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: redhat-install\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-03-22 21:33+00:00\n"
+"PO-Revision-Date: 2000-08-01 22:43+01:00\n"
 "Last-Translator: Pedro Morais <morais@poli.org>\n"
 "Language-Team: Portuguese <morais@poli.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,13 +10,12 @@ msgstr ""
 "Content-Transfer-Encoding: none\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "A procurar"
+msgstr "Tudo"
 
 #: ../exception.py:13 ../text.py:788
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Ocorreu uma Excepção"
 
 #: ../fstab.py:379 ../fstab.py:604 ../fstab.py:614 ../fstab.py:638
 msgid "Formatting"
@@ -161,40 +160,37 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Instalador do Red Hat Linux em %s"
 
 #: ../gui.py:678
-#, fuzzy
 msgid "Install Window"
-msgstr "Instalar"
+msgstr "Janela de Instalação"
 
 #: ../image.py:40
 msgid "Copying File"
-msgstr ""
+msgstr "A Copiar Ficheiro"
 
 #: ../image.py:41
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "A transferir imagem de instalação para o disco rígido..."
 
 #: ../image.py:58
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Outro CDROM"
+msgstr "Mudar CDROM"
 
 #: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Por favor insira o disco %d para continuar."
 
 #: ../image.py:68
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Outro CDROM"
+msgstr " CDROM Errado"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "Este não é o CDROM Red Hat correcto."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "Não foi possível montar CDROM."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -432,17 +428,15 @@ msgstr ""
 "referência futura."
 
 #: ../text.py:492
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Actualizar Sistema"
+msgstr "Actualização vai começar"
 
 #: ../iw/confirm_gui.py:40 ../text.py:493
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Um relatório completo da sua instalação ficará em /tmp/install.log após a "
+"Um relatório completo da sua actualização ficará em /tmp/install.log após a "
 "reinicialização de seu sistema. Pode desejar manter este arquivo para "
 "referência futura."
 
@@ -534,15 +528,15 @@ msgstr "Falta:      "
 
 #: ../text.py:746
 msgid "Help not available"
-msgstr ""
+msgstr "Ajuda não disponível"
 
 #: ../text.py:747
 msgid "No help is available for this install."
-msgstr ""
+msgstr "Nenhuma ajuda disponível nesta instalação."
 
 #: ../text.py:802
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Gravar Informações do Estoiro"
 
 #: ../text.py:813
 msgid ""
@@ -554,9 +548,8 @@ msgid ""
 msgstr ""
 
 #: ../text.py:820 ../text.py:823
-#, fuzzy
 msgid "Save"
-msgstr "Servidor"
+msgstr "Gravar"
 
 #: ../text.py:820 ../text.py:821
 msgid "Debug"
@@ -567,11 +560,11 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:837
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> entre elementos    | <Espaço> selecciona | <F12> continuar "
+"  <F1> ajuada | <Tab> entre elementos | <Espaço> selecciona | <F12> "
+"continuar "
 
 #: ../text.py:839
 msgid ""
@@ -693,9 +686,8 @@ msgid "Customize Upgrade"
 msgstr "Personalizar Actualização"
 
 #: ../text.py:991
-#, fuzzy
 msgid "Upgrade Begins"
-msgstr "Examinar Actualização"
+msgstr "Actualização Começou"
 
 #: ../text.py:993
 msgid "Upgrade System"
@@ -729,11 +721,11 @@ msgstr "A ler informações sobre pacotes..."
 
 #: ../todo.py:710
 msgid "Dependency Check"
-msgstr ""
+msgstr "Verificação de Dependências"
 
 #: ../todo.py:711
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "A verificar depedências dos pacotes seleccionados..."
 
 #: ../todo.py:738 ../todo.py:777 ../todo.py:783 ../todo.py:800
 msgid "no suggestion"
@@ -863,9 +855,8 @@ msgid "Vertical frequency range"
 msgstr "Gama de frequências verticais"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Seleccione o rato"
+msgstr "Rato Não Detectado"
 
 #: ../xserver.py:27
 msgid ""
@@ -877,7 +868,7 @@ msgstr ""
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Utilizar modo texto"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -889,39 +880,35 @@ msgstr "Senha de root aceite."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Por favor insira senha root."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "A senha de root é demasiado curta."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
 msgstr "A senha de root não é a mesma."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Senha de root aceite."
+msgstr "Senha do utilizador aceite."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "A conta root não pode ser adicionada aqui."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
-msgstr ""
+msgstr "Por favor insira senha do utilizador."
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
-msgstr "A senha de root é demasiado curta."
+msgstr "A senha do utilizador é demasiado curta."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
-msgstr "A senha de root não é a mesma."
+msgstr "A senha do utilizador não é a mesma."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
@@ -999,50 +986,46 @@ msgid "NIS Server: "
 msgstr "Servidor NIS: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Activar NIS"
+msgstr "Activar LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "Servidor NIS:"
+msgstr "Servidor LDAP:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "DN Base de LDAP:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Activar teclas \"mortas\""
+msgstr "Activar Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Reino:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "Servidor NIS:"
+msgstr "Servidor Admin:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
 msgstr "Disquete de Arranque"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"Insira uma disquete vazia na primeira drive de disquetes. Todos os dados "
-"neste disquete serão apagados ao criar o disco de arranque."
+"Retire a disquete de instalaçao (se utilizada) e insira uma disquete vazia "
+"na primeira drive de disquetes. Todos os dados neste disquete serão apagados "
+"ao criar o disco de arranque."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:70
 msgid ""
@@ -1057,22 +1040,20 @@ msgid "Skip boot disk creation"
 msgstr "Saltar criação de disquete de arranque"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
-msgstr "Sistema a Actualizar"
+msgstr "Prester a Actualizar"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
 msgstr "Prestes a Instalar"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Carregue em Próximo para começar a instalar o Red Hat Linux."
+msgstr "Carregue em próximo para começar a actualizar o Red Hat Linux."
 
 #: ../iw/confirm_gui.py:35
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Carregue em Próximo para começar a instalar o Red Hat Linux."
+msgstr "Carregue em próximo para começar a instalar o Red Hat Linux."
 
 #: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:59
 msgid "Congratulations"
@@ -1108,7 +1089,7 @@ msgstr "Dependências Não Resolvidas"
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr ""
+msgstr "Tamanho total da instalação: %s"
 
 #: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:167
 #: ../textw/packages_text.py:312
@@ -1124,14 +1105,12 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Instalar pacotes, satisfazendo dependências"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
-#, fuzzy
 msgid "Do not install packages that have dependencies"
-msgstr "Instalar pacotes, satisfazendo dependências"
+msgstr "Não instalar pacotes que têm dependências"
 
 #: ../iw/dependencies_gui.py:93 ../textw/packages_text.py:329
-#, fuzzy
 msgid "Ignore package dependencies"
-msgstr "Dependências dos Pacotes"
+msgstr "Ignorar dependências dos pacotes"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1146,9 +1125,8 @@ msgstr ""
 "Não é possível actualizar a sua máquina!"
 
 #: ../iw/examine_gui.py:44
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "O directório %s deve estar no sistema de arquivos raiz."
+msgstr "Seleccione o dispositivo que contém o sistema de ficheiro root: "
 
 #: ../iw/examine_gui.py:72
 msgid "Customize packages to be upgraded"
@@ -1353,7 +1331,7 @@ msgstr "Seleccionar Pacote para Instalar"
 
 #: ../iw/package_gui.py:359
 msgid "Total install size: "
-msgstr ""
+msgstr "Tamanho total da instalação: "
 
 #: ../iw/package_gui.py:396 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
@@ -1463,9 +1441,8 @@ msgstr ""
 "pode voltar atrás e fazer uma instalação completamente personalizada. "
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
-msgstr "Particionamento automático"
+msgstr "Particionamento Automático Falhou"
 
 #: ../iw/rootpartition_gui.py:276
 msgid ""
@@ -1479,7 +1456,6 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
 msgstr "Particionamento Manual"
 
@@ -1489,20 +1465,21 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Por favor escolha a ferramente que deseja utilizar para particionar o seu "
+"computador para o Red Hat Linux."
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Particionamento automático"
+msgstr "Particionamento automático e APAGAR DADOS"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
-msgstr "Particionar manualmente"
+msgstr "Particionar manualmente com o Disk Druid"
 
 #: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
-msgstr ""
+msgstr "Particionar manualmente com o fdisk [só para peritos]"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1623,9 +1600,8 @@ msgid "Skip X Configuration"
 msgstr "Saltar Configuração X"
 
 #: ../iw/xconfig_gui.py:491
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Por omissão"
+msgstr "Ambiente de trabalho por omissão:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1670,13 +1646,13 @@ msgid "Skip"
 msgstr "Ignore"
 
 #: ../textw/bootdisk_text.py:57
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Insira uma disquete vazia na primeira drive de disquetes. Todos os dados "
+"Se tem a disquete de instalação na sua unidade de disquete, retire-a. Insira "
+"então uma disquete vazia na primeira drive de disquetes. Todos os dados "
 "neste disquete serão apagados ao criar o disco de arranque."
 
 #: ../textw/lilo_text.py:18 ../textw/silo_text.py:14
@@ -1701,25 +1677,22 @@ msgid "Clear"
 msgstr "Limpar"
 
 #: ../textw/lilo_text.py:126
-#, fuzzy
 msgid "Edit Boot Label Please"
-msgstr "Editar Nome"
+msgstr "Editar Etiqueta de Arranque"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#, fuzzy
 msgid "Invalid Boot Label"
-msgstr "Editar Nome"
+msgstr "Etiqueta de Arranque Inválida"
 
 #: ../textw/lilo_text.py:145
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "A etiqueta de arranque não pode estar vazia."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "A etiqueta de arranque contém caracteres ilegais."
 
 #: ../textw/lilo_text.py:206
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1728,7 +1701,8 @@ msgid ""
 msgstr ""
 "O gestor de arranque que o Red Hat usa pode também iniciar outros sistemas "
 "operativos. Insira quais as partições que deseja ser capaz de iniciar e que "
-"nome deseja usar para cada uma delas."
+"nome deseja usar para cada uma delas.\n"
+"\n"
 
 #: ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1747,9 +1721,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 em DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "Em que dispositivo está o seu rato? %s %i"
+msgstr "Em que dispositivo está o seu rato?"
 
 #: ../textw/mouse_text.py:47
 msgid "Which model mouse is attached to this computer?"
@@ -1804,24 +1777,22 @@ msgstr ""
 "uma rede, este pode ter sido atribuido pelo seu administrador de rede."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
-msgstr "Pacote"
+msgstr "Pacote  :"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
-msgstr "Tamanho: "
+msgstr "Tamanho :"
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
-msgstr "Total"
+msgstr "Tamanho total"
 
 #: ../textw/packages_text.py:249
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
+"   <Espaço>,<+>,<-> seleccionar  |   <F1> ajuda  |   <F2> descrição do pacote"
 
 #: ../textw/packages_text.py:306
 msgid ""
@@ -1927,6 +1898,8 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
+"Nem o sistema de sistemas root nem o espaço para paginação pode ser maior do "
+"que 2000 megabytes."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2030,12 +2003,13 @@ msgstr "A senha deve ter pelo menos 6 caracteres."
 
 #: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
 msgid "User Exists"
-msgstr "Utilizar existe"
+msgstr "Utilizador existe"
 
 #: ../textw/userauth_text.py:126
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"O utilizador root já está configuado. Não necessita de o adicionar aqui."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -2099,7 +2073,7 @@ msgstr "Pedir servidor por broadcast"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "o particionamento não satisfez requesitos"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2171,7 +2145,7 @@ msgstr ""
 #: ../libfdisk/fsedit.c:1029
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
+msgstr "Nesta plataforma, /boot deve esta num sistema de ficheiro DOS %x."
 
 #: ../libfdisk/fsedit.c:1039
 #, c-format
@@ -2199,9 +2173,8 @@ msgstr ""
 "Software que você viu esta mensagem."
 
 #: ../libfdisk/fsedit.c:1077
-#, fuzzy
 msgid "Error Creating Device Nodes"
-msgstr "Erro ao criar memória virtual no dispositivo "
+msgstr "Erro ao Criar Ficheiros de Dispositivos"
 
 #: ../libfdisk/fsedit.c:1078
 msgid ""
@@ -2299,9 +2272,8 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Tem certeza que quer apagar esta partição?"
 
 #: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
-#, fuzzy
 msgid "Cannot Edit Partitions"
-msgstr "Editar Partição"
+msgstr "Não Consigo Editar Partição"
 
 #: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
 msgid ""
@@ -2326,9 +2298,8 @@ msgid "Size (Megs):"
 msgstr "Tamanho (Mb):"
 
 #: ../libfdisk/gnomefsedit.c:897
-#, fuzzy
 msgid "Use remaining space?"
-msgstr "Utilizar espaço livre"
+msgstr "Utilizar espaço livre?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2417,20 +2388,16 @@ msgstr ""
 "para uma partição de memória virtual é %ld Megabytes."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Nenhuma Drive Encontrada"
+msgstr "Nenhuma Unidade Especificada"
 
 #: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Fechar"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr ""
-"Você deve indicar uma partição para memória virtual para a instalação "
-"continuar."
+msgstr "Deve limitar esta partição pelo menos a uma unidade."
 
 #: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
@@ -2454,15 +2421,16 @@ msgstr ""
 "drive. Por favor seleccione uma drive para a qual restringir esta partição."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
-#, fuzzy
 msgid "Cannot Add Partitions"
-msgstr "Partições não Alocadas"
+msgstr "Não Consigo Adicionar Partições"
 
 #: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"Escolheu colocar o sistema de ficheiros '/' numa partição não ext2, por isso "
+"não pode adicionar outras partições."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2500,13 +2468,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "Não é Possível Editar Raid"
 
 #: ../libfdisk/gnomefsedit.c:1878
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"Colocou o sistema de ficheiros '/' numa partição não ext2, por isso não pode "
+"editar dispositivos RAID."
 
 #: ../libfdisk/gnomefsedit.c:1915
 msgid "<Swap Partition"
@@ -2610,9 +2580,8 @@ msgid "Use Pre-existing Partition?"
 msgstr "Utilizar partição já existente?"
 
 #: ../libfdisk/gnomefsedit.c:2394
-#, fuzzy
 msgid "Cannot Add RAID Devices"
-msgstr "Nenhum Dispositivo RAID"
+msgstr "Não Consigo Adicionar Dispositivos RAID"
 
 #: ../libfdisk/gnomefsedit.c:2395
 msgid ""
@@ -2678,39 +2647,36 @@ msgid "<not set>"
 msgstr "<vazio>"
 
 #: ../libfdisk/gnomefsedit.c:2977
-#, fuzzy
 msgid "Requested"
-msgstr "Requisito"
+msgstr "Pedido"
 
 #: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
-msgstr ""
+msgstr "Real"
 
 #: ../libfdisk/gnomefsedit.c:3151
-#, fuzzy
 msgid "Drive"
-msgstr "Ignorar Drive"
+msgstr "Unidade"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3153
-#, fuzzy
 msgid "Total (M)"
-msgstr "Total"
+msgstr "Total (M)"
 
 #: ../libfdisk/gnomefsedit.c:3154
 msgid "Free (M)"
-msgstr ""
+msgstr "Livre (M)"
 
 #: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (M)"
-msgstr ""
+msgstr "Utilizado (M)"
 
 #: ../libfdisk/gnomefsedit.c:3156
 msgid "Used (%)"
-msgstr ""
+msgstr "Utilizado (%)"
 
 #: ../libfdisk/gnomefsedit.c:3392
 msgid "Unallocated Partitions Exist..."
@@ -2755,36 +2721,31 @@ msgstr "Auto Particionar"
 
 #: ../libfdisk/gnomefsedit.c:3558
 msgid "Drive Summary"
-msgstr "Sumário das Drives"
+msgstr "Sumário das Unidades"
 
 #: ../libfdisk/newtfsedit.c:202
 msgid "Swap Partition"
 msgstr "Partição de Memória Virtual"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Editar Partição"
+msgstr "Partição Raid"
 
 #: ../libfdisk/newtfsedit.c:363
-#, fuzzy
 msgid "Edit New Partition"
-msgstr "Editar Partição"
+msgstr "Editar Nova Partição"
 
 #: ../libfdisk/newtfsedit.c:428
-#, fuzzy
 msgid "Use remaining space?:"
-msgstr "Utilizar espaço livre"
+msgstr "Utilizar espaço livre?:"
 
 #: ../libfdisk/newtfsedit.c:472
-#, fuzzy
 msgid "Type:"
-msgstr "Tipo"
+msgstr "Tipo:"
 
 #: ../libfdisk/newtfsedit.c:486
-#, fuzzy
 msgid "Unknown"
-msgstr "Servidor desconhecido"
+msgstr "Desconhecido"
 
 #: ../libfdisk/newtfsedit.c:1422
 msgid "Current Disk Partitions"
@@ -2794,14 +2755,16 @@ msgstr "Partições de Disco Actuais"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"    F1-Ajuda    F2-Adicionar  F3-Editar  F4-Apagar   F5-Reiniciar   F12-Ok   "
+" "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
-msgstr "Sumário das Drives"
+msgstr "Sumário das Unidades"
 
 #: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Unidade    Geom [C/H/S]     Total  Utilizado  Livre"
 
 #: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
@@ -2826,18 +2789,16 @@ msgstr ""
 "continuar."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Nenhuma Partição Root"
+msgstr "Nenhuma Partição /boot/efi"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Você deve indicar uma partição para memória virtual para a instalação "
-"continuar."
+"Tem que atribuir o ponto de montagem /boot/efi a uma partição primária FAT "
+"para a instalação continuar."
 
 #: ../libfdisk/newtfsedit.c:1640
 msgid ""
@@ -2903,16 +2864,15 @@ msgstr "Dispositivos"
 
 #: ../loader/devices.c:209
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Tem uma disquete com controladores?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Insira o disco com controladores e carregue em \"OK\" para continuar."
 
 #: ../loader/devices.c:237
-#, fuzzy
 msgid "Failed to mount driver disk."
-msgstr "Não consegui montar disquete."
+msgstr "Não consegui montar disquete de controladores."
 
 #: ../loader/devices.c:244
 msgid ""
@@ -2936,28 +2896,27 @@ msgid "Specify module parameters"
 msgstr "Especifique parâmetros do módulo"
 
 #: ../loader/devices.c:410
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
-msgstr "Não consegui ligar-me a %s: %s"
+msgstr "Não consegui inserir o módulo %s"
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Não consegui obter %s: %s"
+msgstr "Não consegui montar a disquete de controladores: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Foi inserida a disquete errada."
 
 #: ../loader/devices.c:503
-#, fuzzy
 msgid "Driver Disk"
-msgstr "Sumário das Drives"
+msgstr "Disquete de Controladores"
 
 #: ../loader/devices.c:504
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Por favor insira o controlador %s agora."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3041,13 +3000,13 @@ msgid "Loading"
 msgstr "A carregar"
 
 #: ../loader/loader.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
-msgstr "A carregar o \"ramdisk\" da segunda fase..."
+msgstr "A carregar o ramdisk %s..."
 
 #: ../loader/loader.c:504
 msgid "Error loading ramdisk."
-msgstr "Erro ao carregar o \"ramdisk\"."
+msgstr "Erro ao carregar o ramdisk."
 
 #: ../loader/loader.c:656
 msgid "Hard Drives"
@@ -3094,16 +3053,16 @@ msgstr ""
 "para continuar."
 
 #: ../loader/loader.c:940
-#, fuzzy
 msgid "Networking Device"
-msgstr "Dispositivo de rede"
+msgstr "Dispositivo de Rede"
 
 #: ../loader/loader.c:941
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Que tipo de sistema deseja instalar?"
+msgstr ""
+"Tem vários dispositivos de rede neste computador. Através de qual é que "
+"deseja realizar a instalação?"
 
 #: ../loader/loader.c:1023
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -3119,17 +3078,15 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1072
-#, fuzzy
 msgid "Unable to retrieve the first install image"
-msgstr "Não consegui obter o \"ramdisk\" de segunda fase"
+msgstr "Não consegui obter a primeira imagem de instalação"
 
 #: ../loader/loader.c:1081
-#, fuzzy
 msgid "Unable to retrieve the second install image"
-msgstr "Não consegui obter o \"ramdisk\" de segunda fase"
+msgstr "Não consegui obter a segunda imagem de instalação"
 
 #: ../loader/loader.c:1322
 msgid "Rescue Method"
@@ -3157,14 +3114,13 @@ msgid "Failed to read directory %s: %s"
 msgstr "Não conseguir ler directoria %s: %s"
 
 #: ../loader/loader.c:2069
-#, fuzzy
 msgid "Updates Disk"
-msgstr "Actualizações"
+msgstr "Disco de Actualizações"
 
 #: ../loader/loader.c:2070
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
-"Insira o disco com a actualizações e carregue em \"OK\" para continuar."
+"Insira o disco com as actualizações e carregue em \"OK\" para continuar."
 
 #: ../loader/loader.c:2078
 msgid "Failed to mount floppy disk."
@@ -3216,9 +3172,8 @@ msgstr ""
 "      Red Hat Linux para a sua arquitectura"
 
 #: ../loader/net.c:239
-#, fuzzy
 msgid "Nameserver IP"
-msgstr "Servidor de nomes"
+msgstr "Servidor de nomes IP"
 
 #: ../loader/net.c:243 ../loader/net.c:725
 msgid "Nameserver"
@@ -3233,14 +3188,12 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:254
-#, fuzzy
 msgid "Invalid IP Information"
-msgstr "Informação inválida"
+msgstr "Informação IP Inválida"
 
 #: ../loader/net.c:255
-#, fuzzy
 msgid "You entered an invalid IP address."
-msgstr "Deve inserir um endereço IP válido e uma máscara"
+msgstr "Inserir um endereço IP inválido."
 
 #: ../loader/net.c:278
 msgid ""
@@ -3456,14 +3409,12 @@ msgid "Loading SCSI driver"
 msgstr "A carregar controlador SCSI"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
-msgstr "Instalar sistema personalizado"
+msgstr "Instalação Personalizada"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Instalar servidor"
+msgstr "Servidor"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3480,144 +3431,83 @@ msgstr ""
 "Está prestes a apagar quaisquer instalações anteriores de Linux presentes no "
 "sistema."
 
-# ../comps/comps-master:3
 msgid "Base"
-msgstr ""
+msgstr "Base"
 
-# ../comps/comps-master:145
 msgid "Printer Support"
-msgstr ""
+msgstr "Suporte a Impressoras"
 
-#, fuzzy
 msgid "X Window System"
-msgstr "Examinar Sistema"
+msgstr "X Window System"
 
-# ../comps/comps-master:248
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
-# ../comps/comps-master:303
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
-# ../comps/comps-master:321
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Ferramentas Correio/WWW/Notícias"
 
-# ../comps/comps-master:351
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "Ligação a DOS/Windows"
 
-# ../comps/comps-master:362
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Manipulação Gráfica"
 
-# ../comps/comps-master:381
 msgid "Games"
-msgstr ""
+msgstr "Jogos"
 
-# ../comps/comps-master:408
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Suporte multimédia"
 
-# ../comps/comps-master:447
 msgid "Laptop Support"
-msgstr ""
+msgstr "Suporte a portáteis"
 
-#, fuzzy
 msgid "Networked Workstation"
-msgstr "Configuração da Rede"
+msgstr "Estação de Trabalho ligada a uma Rede"
 
-#, fuzzy
 msgid "Dialup Workstation"
-msgstr "Estação de trabalho KDE"
+msgstr "Estação de Trabalho ligada por Modem"
 
-#, fuzzy
 msgid "News Server"
-msgstr "Servidor de nomes"
+msgstr "Servidor de Notícias"
 
-#, fuzzy
 msgid "NFS Server"
-msgstr "Servidor NIS:"
+msgstr "Servidor NFS"
 
-# ../comps/comps-master:538
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "Servidor SMB (Samba)"
 
-# ../comps/comps-master:545
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "Ligação a IPX/Netware(tm)"
 
-# ../comps/comps-master:552
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Servidor FTP Anónimo"
 
-#, fuzzy
 msgid "Web Server"
-msgstr "Servidor"
+msgstr "Servidor Web"
 
-#, fuzzy
 msgid "DNS Name Server"
-msgstr "Servidor de nomes"
+msgstr "Servidor de Nomes DNS"
 
-# ../comps/comps-master:577
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Servidor SQL Postgres"
 
-#, fuzzy
 msgid "Network Management Workstation"
-msgstr "Configuração da Rede"
+msgstr "Estação de Trabalho de Gestão de Rede"
 
-# ../comps/comps-master:595
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Publicação"
 
-# ../comps/comps-master:618
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
-# ../comps/comps-master:631
 msgid "Development"
-msgstr ""
+msgstr "Desenvolvimento"
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Parâmetros do núcleo"
+msgstr "Desenvolvimento do Kernel"
 
-# ../comps/comps-master:751
 msgid "Utilities"
-msgstr ""
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "Instalar estação de trabalho GNOME"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "Inslalar estação de trabalho KDE"
-
-#~ msgid "Error copying file: %s"
-#~ msgstr "Erro ao copiar ficheiro: %s"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "Estação de trabalho GNOME"
-
-#~ msgid "Custom"
-#~ msgstr "Personalizada"
-
-#~ msgid "Use fdisk"
-#~ msgstr "Utilizar fdisk"
-
-#~ msgid "Remove data"
-#~ msgstr "Apagar dados"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Crescer para encher?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Montou este dispositivo raid como partição de arranque. Certifique-se "
-#~ "quetodas as partições que o constituem podem arrancar."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Quer controlador devo tentar utilizar?"
+msgstr "Utilitários"
