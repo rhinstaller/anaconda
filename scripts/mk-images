@@ -44,11 +44,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     MODMAPS=$KERNELBASE/modules.pcimap
     BUILDARCH=$5
 
-    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-	KERNELNAME=vmlinux
-    else
-	KERNELNAME=vmlinuz
-    fi
+    KERNELNAME=vmlinuz
 
     if [ "$BUILDARCH" = "ia64" ]; then
 	KERNELDIR="/boot/efi/EFI/redhat"
