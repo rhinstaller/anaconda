@@ -116,6 +116,7 @@ class KickstartBase(BaseInstallClass):
 		  'enablemd5',
                   'enablenis', 'nisdomain=', 'nisserver=',
                   'enableldap', 'enableldapauth', 'ldapserver=', 'ldapbasedn=',
+                  'enableldaptls', 
                   'enablekrb5', 'krb5realm=', 'krb5kdc=', 'krb5adminserver=',
                   'enablehesiod', 'hesiodlhs=', 'hesiodrhs=',
                   'enablesmbauth', 'smbservers=', 'smbworkgroup='])
@@ -131,6 +132,7 @@ class KickstartBase(BaseInstallClass):
 
         useLdap = 0
         useLdapauth = 0
+        useLdaptls = 0
         ldapServer = ""
         ldapBasedn = ""
 
@@ -167,6 +169,8 @@ class KickstartBase(BaseInstallClass):
                 ldapServer = arg
             elif (str == '--ldapbasedn'):
                 ldapBasedn = arg
+            elif (str == '--enableldaptls'):
+                useLdaptls = 1
             elif (str == '--enablekrb5'):
                 useKrb5 = 1
             elif (str == '--krb5realm'):
