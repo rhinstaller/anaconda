@@ -112,7 +112,8 @@ class AutoPartitionWindow(InstallWindow):
             drives = todo.drives.available ().keys ()
             drives.sort (isys.compareDrives)
             todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr)
-	    todo.instClass.finishPartitioning(todo.ddruid)
+            if not todo.instClass.finishPartitioning(todo.ddruid):
+                self.todo.log ("Autopartitioning FAILED\n")
 
 	if not todo.getPartitionWarningText(): 
 	    return None
