@@ -33,14 +33,17 @@ WORKSTATION_GNOME = 3
 WORKSTATION_KDE = 4
 SERVER = 5
 
+def D_(x):
+    return x
+
 class InstallPathWindow (InstallWindow):		
 
-    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation"),
+    installTypes = ((WORKSTATION_GNOME, D_("GNOME Workstation"),
                      "gnome-workstation.png"),
-                    (WORKSTATION_KDE, _("KDE Workstation"),
+                    (WORKSTATION_KDE, D_("KDE Workstation"),
                      "kde-workstation.png"),
-                    (SERVER, _("Server"), "server.png"),
-                    (CUSTOM, _("Custom"), "custom.png"))
+                    (SERVER, D_("Server"), "server.png"),
+                    (CUSTOM, D_("Custom"), "custom.png"))
 
     def __init__ (self, ics):
 	if iutil.getArch() == 'sparc':
@@ -217,7 +220,7 @@ class InstallPathWindow (InstallWindow):
         group = None
 	self.installClasses = []
 	for (type, name, pixmap) in self.installTypes:
-            group = self.pixRadioButton (group, name, pixmap)
+            group = self.pixRadioButton (group, _(name), pixmap)
             self.installBox.pack_start (group, FALSE)
 	    self.installClasses.append ((group, type))
 	    if (type == default):
