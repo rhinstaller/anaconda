@@ -39,12 +39,13 @@
 #include "../isys/cpio.h"
 
 static int mlModuleInList(const char * modName, moduleList list);
-static int mlWriteConfModules(moduleList list, int fd);
+static int writeModulesConf(moduleList list, int fd);
 static struct extractedModule * extractModules (char * const * modNames,
                                                 struct extractedModule * oldPaths,
                                                 struct moduleBallLocation * location);
 
-static int ethCount(void) {
+/* pass in the type of device (eth or tr) that you're looking for */
+static int ethCount(const char * type) {
     int fd;
     char buf[16384];
     int i;
@@ -60,15 +61,33 @@ static int ethCount(void) {
     chptr = strchr(chptr, '\n') + 1;
 
     while (chptr) {
-	while (*chptr && isspace(*chptr)) chptr++;
-	if (!strncmp(chptr, "eth", 3))
-	    count++;
-	chptr = strchr(chptr, '\n');
-	if (chptr) chptr++;
+        while (*chptr && isspace(*chptr)) chptr++;
+        if (!strncmp(chptr, type, strlen(type)))
+            count++;
+        chptr = strchr(chptr, '\n');
+        if (chptr) chptr++;
     }
-
+    
+    logMessage("there are %d %s devices", count, type);
     return count;
 }
+
+static int scsiCount(void) {
+    FILE *f;
+    char buf[16384];
+    int count = 0;
+    
+    f = fopen("/tmp/modules.conf", "r");
+    if (!f)
+        return 0;
+    while (fgets(buf, sizeof(buf) - 1, f)) {
+        if (!strncmp(buf, "alias scsi_hostadapter", 22))
+            count++;
+    }
+    fclose(f);
+    return count;
+}
+
 
 static int scsiDiskCount(void) {
     struct device ** devices, ** device;
@@ -223,8 +242,10 @@ static int loadModule(const char * modName, struct extractedModule * path,
         return 0;
 
     if (modInfo && (mi = findModuleInfo(modInfo, modName))) {
-        if (mi->major == DRIVER_NET && mi->minor == DRIVER_MINOR_ETHERNET) {
-            deviceCount = ethCount();
+        if ((mi->major == DRIVER_NET) && (mi->minor == DRIVER_MINOR_ETHERNET)) {
+            deviceCount = ethCount("eth");
+        } else if ((mi->major == DRIVER_NET) && (mi->minor == DRIVER_MINOR_TR)) {
+            deviceCount = ethCount("tr");
         }
 
         if (mi->major == DRIVER_SCSI) {
@@ -272,21 +293,26 @@ static int loadModule(const char * modName, struct extractedModule * path,
         modLoaded->mods[num].weLoaded = 1;
         modLoaded->mods[num].path =
             path->location ? strdup(path->location) : NULL;
-	modLoaded->mods[num].firstDevNum = -1;
-	modLoaded->mods[num].lastDevNum = -1;
-	modLoaded->mods[num].written = 0;
-
+        modLoaded->mods[num].firstDevNum = -1;
+        modLoaded->mods[num].lastDevNum = -1;
+        modLoaded->mods[num].written = 0;
+        
         if (mi) {
-	    modLoaded->mods[num].major = mi->major;
-	    modLoaded->mods[num].minor = mi->minor;
-
+            modLoaded->mods[num].major = mi->major;
+            modLoaded->mods[num].minor = mi->minor;
+            
             if (deviceCount >= 0) {
-                if (mi->major == DRIVER_NET) {
+                if ((mi->major == DRIVER_NET) && 
+                    (mi->minor == DRIVER_MINOR_ETHERNET)) {
                     modLoaded->mods[num].firstDevNum = deviceCount;
-                    modLoaded->mods[num].firstDevNum = ethCount() - 1;
+                    modLoaded->mods[num].lastDevNum = ethCount("eth") - 1;
+                } else if ((mi->major == DRIVER_NET) && 
+                           (mi->minor == DRIVER_MINOR_TR)) {
+                    modLoaded->mods[num].firstDevNum = deviceCount;
+                    modLoaded->mods[num].lastDevNum = ethCount("tr") - 1;
                 } else if (mi->major == DRIVER_SCSI) {
                     modLoaded->mods[num].firstDevNum = deviceCount;
-                    modLoaded->mods[num].firstDevNum = scsiDiskCount() - 1;
+                    modLoaded->mods[num].lastDevNum = scsiDiskCount() - 1;
                 }
             }
 	} else {
@@ -303,15 +329,15 @@ static int loadModule(const char * modName, struct extractedModule * path,
         } else {
             newArgs = NULL;
         }
-
+        
         modLoaded->mods[modLoaded->numModules++].args = newArgs;
     }
-
+    
     if (popWindow) {
         sleep(1);
         newtPopWindow();
     }
-
+    
     return rc;
 }
 
@@ -462,7 +488,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
             logMessage("error appending to /tmp/modules.conf: %s\n",
                        strerror(errno));
         } else {
-            mlWriteConfModules(modLoaded, fd);
+            writeModulesConf(modLoaded, fd);
             close(fd);
         }
     }
@@ -500,8 +526,84 @@ int mlLoadModuleSetLocation(const char * modNames,
                          flags, NULL, NULL, location);
 }
 
-static int mlWriteConfModules(moduleList list, int fd) {
-    /* JKFIXME: add code to do stuff here... */
+static int writeModulesConf(moduleList list, int fd) {
+    int i;
+    struct loadedModuleInfo * lm;
+    int ethNum;
+    int scsiNum = scsiCount();
+    char buf[16384], buf2[512]; /* these will be enough for anyone... */
+    char * tmp, ** arg;
+
+    if (!list) return 0;
+
+    for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
+        if (!lm->weLoaded) continue;
+        if (lm->written) continue;
+        lm->written = 1;
+
+        if (lm->major != DRIVER_NONE) {
+            strcpy(buf, "alias ");
+            switch (lm->major) {
+            case DRIVER_SCSI:
+                /* originally set to # of scsi_hostadapter already in 
+                 * /tmp/modules.conf.  then we increment ourselves */
+                if (scsiNum)
+                    sprintf(buf2, "scsi_hostadapter%d ", scsiNum);
+                else
+                    strcpy(buf2, "scsi_hostadapter ");
+                scsiNum++;
+                strcat(buf, buf2);
+                break;
+
+            case DRIVER_NET:
+                switch(lm->minor) {
+                case DRIVER_MINOR_ETHERNET:
+                    tmp = "eth";
+                    logMessage("got a %s device, first is %d, last is %d", tmp, lm->firstDevNum, lm->lastDevNum);
+                    break;
+                case DRIVER_MINOR_TR:
+                    tmp = "tr";
+                    break;
+                default:
+                    logMessage("WARNING: got net driver that's not ethernet or tr");
+                    tmp = "";
+                }
+
+                for (ethNum = lm->firstDevNum; 
+                     ethNum <= lm->lastDevNum; ethNum++) {
+                    sprintf(buf2, "%s%d ", tmp, ethNum);
+                    if (ethNum != lm->lastDevNum) {
+                        strcat(buf2, lm->name);
+                        strcat(buf2, "\nalias ");
+                    }
+                }
+
+                strcat(buf, buf2);
+                break;
+
+            default:
+                break;
+            }
+
+            strcat(buf, lm->name);
+            strcat(buf, "\n");
+            write(fd, buf, strlen(buf));
+        }
+            
+        if (lm->args) {
+            strcpy(buf, "options ");
+            strcat(buf, lm->name);
+            for (arg = lm->args; *arg; arg++) {
+                strcat(buf, " ");
+                strcat(buf, *arg);
+            }
+            strcat(buf, "\n");
+            write(fd, buf, strlen(buf));
+        }
+    }
+
+    /* JKFIXME: used to have special casing for iucv stuff on s390 */
+
     return 0;
 }
 
