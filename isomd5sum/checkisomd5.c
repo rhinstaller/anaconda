@@ -279,6 +279,34 @@ int mediaCheckFile(char *file) {
     return rc;
 }
 
+int printMD5SUM(char *file) {
+    int isofd;
+    char mediasum[64];
+    char computedsum;
+    long long isosize;
+    int supported;
+    int rc;
+    int llen;
+    int skipsectors;
+
+    isofd = open(file, O_RDONLY);
+
+    if (isofd < 0) {
+	fprintf(stderr, "%s: Unable to find install image.\n", file);
+	exit(1);
+    }
+
+    if (parsepvd(isofd, mediasum, &skipsectors, &isosize, &supported) < 0) {
+	fprintf(stderr, "%s: Could not get pvd data", file);
+	exit(1);
+    }
+
+    close(isofd);
+    
+    printf("%s:   %s\n", file, mediasum);
+}
+
+
 
 int main(int argc, char **argv) {
     int rc;
@@ -286,6 +314,12 @@ int main(int argc, char **argv) {
     if (argc < 2) {
 	printf("Usage: checkisomd5  <isofilename>\n\n");
 	exit(1);
+    }
+
+    /* see if they just want md5sum */
+    if (strcmp(argv[1], "--md5sumonly") == 0) {
+	printMD5SUM(argv[2]);
+	exit(0);
     }
 
     rc = mediaCheckFile(argv[1]);
