@@ -468,8 +468,7 @@ EndSection
 Section "Module"
         Load  "GLcore"
         Load  "dbe"
-        Load  "dri"
-        Load  "extmod"%(nonSparcMods)s%(pex5Mod)s
+        Load  "extmod"%(nonSparcMods)s%(pex5Mod)s%(driMod)s
         Load  "glx"
         Load  "pex5"
         Load  "record"
@@ -1277,6 +1276,7 @@ Section "Screen"
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
 		 "pex5Mod"	: '\n\tLoad "pex5"',
+		 "driMod"	: '\n\tLoad "dri"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
@@ -1312,6 +1312,9 @@ Section "Screen"
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
             if data["cardDriver"] == "i810":
                 data["videoRam"] = "\tVideoRam %s\n" % self.vidRam
+	    # DRI HACK!
+	    if data["cardDriver"] == "r128" or data["cardDriver"] == "mga":
+		data["driMod"] = '\n\t#Load "dri"'
         else:
             raise RuntimeError, "Don't know which XFree86-4.0 video driver to use!"
 	return XF86Config_4_template % data
