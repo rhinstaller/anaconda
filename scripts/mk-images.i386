@@ -190,7 +190,7 @@ makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
 
 makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
 
-makedriverdisk --padsize 1440 "rhpcmcia" "pcmciadd" "$PCMCIAMODULES"
+makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
 
 unset BOOTLANG
 unset BOOTDIR
