@@ -34,9 +34,12 @@ class XCustomWindow (InstallWindow):
         newmodes[self.selectedDepth] = []
         newmodes[self.selectedDepth].append (self.selectedRes)
 
+        print newmodes
         self.todo.x.manualModes = newmodes
         self.todo.x.setModes (newmodes)
 
+        print "Res", self.todo.resState
+        print "Depth", self.todo.depthState
         self.todo.resState = self.selectedRes
         self.todo.depthState = self.selectedDepth
 
@@ -202,7 +205,7 @@ class XCustomWindow (InstallWindow):
                 self.res_combo.list.select_item (count)
                 self.selectedRes = res
             else:
-                self.selectedDepth = "640x480"
+                self.selectedRes = "640x480"
             count = count + 1
 
         self.res_combo.list.connect ("select-child", self.res_cb)
