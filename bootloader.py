@@ -301,6 +301,32 @@ class bootloaderInfo:
         self.above1024 = 0
 
 class ia64BootloaderInfo(bootloaderInfo):
+    # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
+    def removeOldEfiEntries(self, instRoot):
+        p = os.pipe()
+        iutil.execWithRedirect('/usr/sbin/efibootmgr', ["efibootmgr"],
+                               root = instRoot, stdout = p[1])
+        os.close(p[1])
+
+        c = os.read(p[0], 1)
+        buf = c
+        while (c):
+            c = os.read(p[0], 1)
+            buf = buf + c
+        os.close(p[0])
+        lines = string.split(buf, '\n')
+        for line in lines:
+            fields = string.split(line)
+            if len(fields) < 4:
+                continue
+            if fields[1:4] == ["Red","Hat","Linux"]:
+                entry = fields[0][4:8]
+                iutil.execWithRedirect('/usr/sbin/efibootmgr',
+                                       ["efibootmgr", "-b", entry, "-B"],
+                                       root = instRoot,
+                                       stdout="/dev/tty5", stderr="/dev/tty5")
+            
+
     def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
                   chainList, defaultDev, justConfig):
         config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
@@ -329,6 +355,8 @@ class ia64BootloaderInfo(bootloaderInfo):
         bootpart = bootdev[ind:]
         if bootdisk[0:4] == "ida/" or bootdisk[0:6] == "cciss/" or bootdisk[0:3] == "rd/":
             bootdisk = bootdisk[:-1]
+
+        self.removeOldEfiEntries(instRoot)            
                     
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  "Red Hat Linux", "-d", "/dev/%s" % bootdisk, "-p", bootpart ]
