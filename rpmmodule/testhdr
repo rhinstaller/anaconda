@@ -29,3 +29,7 @@ print "-------------- compress --------------------"
 h.compressFilelist()
 printlist (h, 'oldfilenames')
 printlist (h, 'filenames')
+print "-------------- full --------------------"
+h.fullFilelist()
+printlist (h, 'oldfilenames')
+printlist (h, 'filenames')
