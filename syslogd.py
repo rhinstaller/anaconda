@@ -47,6 +47,7 @@ class Syslogd:
                 msg = string.replace(msg, chr(0), "\n")
 		if (msg):
 		    output.write(msg)
+                    output.flush()
 		else:
 		    acceptedFds.remove(fd)
 		    fd.close()
