@@ -127,7 +127,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
 	sed net-tools inetd openssh openssh-server fileutils modutils
-	initscripts mount gawk xauth
+	initscripts mount gawk xauth gettext
 	portmap textutils sh-utils telnet-server login ssh_keys"
 fi
 
@@ -319,6 +319,7 @@ sbin/mkswap
 sbin/tune2fs
 bin/dd
 bin/gawk-3.1.0
+bin/gettext
 bin/mknod
 bin/login
 bin/ksh
@@ -349,6 +350,10 @@ lib/libvtoc*.so*
 lib/modules/ibm*
 etc/inetd.conf
 etc/ssh/*
+etc/locale/*
+usr/lib/locale/de_DE/*
+usr/lib/locale/en_US/*
+usr/lib/locale/ja_JP*/*
 etc/motd
 etc/issue.net
 usr/X11R6/bin/xauth

@@ -452,8 +452,12 @@ makeinitrd() {
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $MBD_DIR/lib $MBD_DIR/mnt1 \
-	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh  $MBD_DIR/mnt/source
-       ln -sf mnt/runtime/usr $MBD_DIR/usr
+        $MBD_DIR/usr/lib/locale/{de_DE,en_US,ja_JP.eucjp} \
+	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh $MBD_DIR/mnt/source \
+	$MBD_DIR/etc/locale/{de,en,ja}/LC_MESSAGES
+       for links in X11R6 bin sbin share; do
+          ln -sf mnt/runtime/usr/$links $MBD_DIR/usr/$links
+       done
        cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
@@ -462,6 +466,7 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/gawk-3.1.0 $MBD_DIR/sbin/awk
        cp -f $IMGPATH/usr/bin/formatmnt $MBD_DIR/sbin/formatmnt
        cp -f $IMGPATH/usr/bin/netsetup $MBD_DIR/sbin/netsetup
+       cp -f $IMGPATH/usr/bin/gettext $MBD_DIR/sbin/gettext
        #cp -f $IMGPATH/usr/bin/rpm $MBD_DIR/sbin/rpm
        cp -f $IMGPATH/usr/bin/pkgsrc $MBD_DIR/sbin/pkgsrc
        cp -f $IMGPATH/usr/bin/pkgselect $MBD_DIR/sbin/pkgselect
@@ -500,9 +505,18 @@ makeinitrd() {
        cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
        cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
        cp -pf $IMGPATH/etc/ssh/* $MBD_DIR/etc/ssh/
+       for loc in de en ja; do 
+          cp -pRf $IMGPATH/etc/locale/$loc/* \
+            $MBD_DIR/etc/locale/$loc/
+       done
+       for loc in de_DE en_US ja_JP.eucjp; do
+          cp -pRf $IMGPATH/usr/lib/locale/$loc/* \
+		$MBD_DIR/usr/lib/locale/$loc/
+       done
+       ln -sf $MBD_DIR/usr/lib/locale/ja_JP.eucjp ja_JP
        cp -f $IMGPATH/etc/services $MBD_DIR/etc/
-       cp -f $IMGPATH/etc/motd $MBD_DIR/etc/
-       cp -f $IMGPATH/etc/issue.net $MBD_DIR/etc/
+       #cp -f $IMGPATH/etc/motd $MBD_DIR/etc/
+       #cp -f $IMGPATH/etc/issue.net $MBD_DIR/etc/
        cp -df $IMGPATH/lib/libpam.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libdl-*.so* $MBD_DIR/lib
