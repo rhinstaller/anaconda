@@ -30,7 +30,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
     htmlTag = "upmigfs"
 
     def getNext (self):
-        for entry in migent:
+        for entry in self.migent:
             entry.setFormat(0)
             entry.setMigrate(0)
             entry.fsystem = entry.origfsystem
