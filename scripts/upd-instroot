@@ -2,6 +2,12 @@
 
 ORIGDIR=`pwd`
 COMPONENT=""
+DEBUG=""
+
+if [ "$1" == "--debug" ]; then
+    DEBUG="--debug"
+    shift
+fi
 
 if [ "$1" == "--comp" ]; then
     COMPONENT=$2
@@ -25,7 +31,7 @@ fi
 PACKAGEDIR=$1
 
 if [ -z "$ARCH" ]; then
-	ARCH=`rpm -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
+	ARCH=`rpm --nodigest --nosignature -qp --qf "%{ARCH}" $PACKAGEDIR/anaconda-runtime*.rpm`
 fi
 
 if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
@@ -62,7 +68,7 @@ prunePackageList() {
 
 	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
 
-	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
+	rpm --nodigest --nosignature --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
 }
 
@@ -72,12 +78,12 @@ expandPackageSet() {
     KEEPFILES=$3
 
     for n in $RPMS; do 
-	echo -ne "\rExpanding packages..." $(basename $n)
-	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
+	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
+	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
 	    GLIBC=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
-	echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
+	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
 }
 
@@ -102,7 +108,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 procps rpm XFree86 Xconfigurator anaconda
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
-	 busybox-anaconda rpm-python booty hdparm lvm
+	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
 	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils"
 
@@ -728,7 +734,9 @@ EOF
 
 echo "Assembling package list..."
 RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
+[ -n "$DEBUG" ] && echo "RPMS are $RPMS"
 RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR $PACKAGESRESCUE")
+[ -n "$DEBUG" ] && echo "RPMSGR are $RPMSGR"
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/lib
@@ -747,13 +755,13 @@ for file in $KEEPFILE $KEEPFILEGR; do
    mv -f $file- $file
 done
 
-echo -n "Expanding packages..."
+echo "Expanding text packages..."
 expandPackageSet "$RPMS" $DEST $KEEPFILE
 
 (cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
 
 expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
-echo -e "\rExpanding packages..."
+echo "Expanding graphical packages..."
 
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
@@ -848,7 +856,7 @@ fi
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
-    /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-9/*
+    /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* 
     rm -f $DESTGR/usr/X11R6/bin/mkfontdir
 fi
 
@@ -884,16 +892,15 @@ fi
 
 # make the changes we want to fonts.conf for anaconda (#65913)
 if [ -n "$NEEDGR" ]; then
-    echo -n "Munging fonts.conf"
+    echo "Munging fonts.conf"
     sed s/AR\ PL\ SungtiL\ GB/Fangsong\ ti/g $DESTGR/etc/fonts/fonts.conf > $DESTGR/etc/fonts/fonts.conf.foo
     mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
 fi
 
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
-echo -n "Scrubbing trees..."
 for p in $DEST $DESTGR; do
-	echo -n -e "\rScrubbing trees..." "$p"
+	echo "Scrubbing trees..." "$p"
 	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
@@ -957,17 +964,16 @@ for p in $DEST $DESTGR; do
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
-		gzip -9) > $p/usr/$LIBDIR/timezones.gz
+		gzip -9) > $p/usr/lib/timezones.gz
 
 	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-            runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $p"
+            runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $DEBUG $p"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
-	echo -n -e "\rScrubbing trees..." "$(echo $p | sed 's/./ /g')"
 done
 
-echo -e "\nCompressing .mo files in stage2 images..."
+echo "Compressing .mo files in stage2 images..."
 if [ -d $DEST/usr/share/locale ]; then
     for i in `find $DEST/usr/share/locale -name anaconda.mo`; do
 	gzip -9 $i
@@ -978,7 +984,7 @@ fi
 echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
     fi

@@ -6,11 +6,13 @@ usage() {
 }
 
 COMPNAME=dist-7.0
+RUN=1
 
 while [ $# -gt 0 ]; do
     case $1 in
 	--pkgorder)
 	    PKGORDER=$2
+	    PKGORDERSTR="--pkgorder $2"
 	    shift; shift
 	    ;;
 	--comp)
@@ -29,6 +31,18 @@ while [ $# -gt 0 ]; do
 	    PRODUCTSTR=$2
 	    shift; shift
 	    ;;
+	--debug)
+	    DEBUGSTR="--debug"
+	    shift
+	    ;;
+	--second)
+	    RUN=2
+	    shift
+	    ;;
+	--buildinstdir)
+	    BUILDINSTDIR=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
 		usage
@@ -44,7 +58,7 @@ if [ -z "$PRODUCTSTR" ]; then
 fi
 
 if [ -z "$VERSION" ]; then
-    usage
+    VERSION=$(rpm --qf '%{VERSION}' -qp $DIR/RedHat/RPMS/redhat-release-*.rpm)
 fi
 
 if [ -z "$DIR" ]; then
@@ -57,47 +71,62 @@ fi
 
 p=`cd $DIR; /bin/pwd`
 
-BUILDINSTDIR=$p/buildinstall.tree.$$
+if [ -z "$BUILDINSTDIR" ]; then
+    BUILDINSTDIR=$p/buildinstall.tree.$$
+    rm -rf $BUILDINSTDIR
+    mkdir -p $BUILDINSTDIR
+fi
 TREEDIR=/tmp/treedir.$$
 
-rm -rf $BUILDINSTDIR
-mkdir -p $BUILDINSTDIR
-
-UPD_INSTROOT=./upd-instroot
-MK_IMAGES=./mk-images
+UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
+MK_IMAGES=$BUILDINSTDIR/mk-images
+MK_STAMP=$BUILDINSTDIR/makestamp.py
+BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
 BUILDARCH=`rpm -qp --qf "%{ARCH}" $p/RedHat/RPMS/anaconda-runtime-[0-9]*`
 
-if [ ! -f $UPD_INSTROOT ]; then
-    cd $BUILDINSTDIR
-    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/upd-instroot usr/lib/anaconda-runtime/upd-instroot
-    mv usr/lib/anaconda-runtime/upd-instroot .
-    rm -rf usr
-else
-    cp -a $UPD_INSTROOT $BUILDINSTDIR/upd-instroot
-fi
+firstRun() {
+echo "Running buildinstall..."
+
+pushd $BUILDINSTDIR
+rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd './usr*'
+popd
+
+UPD_INSTROOT=./upd-instroot
+MK_IMAGES=./mk-images
+MK_STAMP=./makestamp.py
+BUILDINSTALL=./buildinstall
+
+for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $BUILDINSTALL; do
+    if [ ! -f $f ]; then
+	cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+    else
+	cp -a $f* $BUILDINSTDIR/
+    fi
+done
+
 UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
-
-if [ ! -f $MK_IMAGES ]; then
-    cd $BUILDINSTDIR
-    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/mk-images* usr/lib/anaconda-runtime/mk-images*
-    mv usr/lib/anaconda-runtime/mk-images* .
-    rm -rf usr
-else
-    cp $MK_IMAGES* $BUILDINSTDIR/
-fi
 MK_IMAGES=$BUILDINSTDIR/mk-images
+MK_STAMP=$BUILDINSTDIR/makestamp.py
+BUILDINSTALL=$BUILDINSTDIR/buildinstall
 
+rm -rf $BUILDINSTDIR/usr
+
+echo "Going to run buildinstall again"
+# run it again for the second half
+if [ -x /usr/bin/runroot ]; then
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' $DIR" 
+else
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\" $DIR
+fi
+}
+
+secondRun() {
 echo "Building images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage"
 else
-    $UPD_INSTROOT --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage
-fi
-
-# XXX hack - msw
-if [ $BUILDARCH = "sparc" ]; then
-    BUILDARCH=sparc64
+    $UPD_INSTROOT $DEBUGSTR --comp $COMPNAME $p/RedHat/RPMS $TREEDIR/image-template $TREEDIR/instimage
 fi
 
 if [ -n "$PKGORDER" ]; then
@@ -112,23 +141,12 @@ fi
 
 echo "Making images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
 else
-    $MK_IMAGES $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION
+    $MK_IMAGES $DEBUGSTR $p/RedHat/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION
 fi
 
-MK_STAMP=./makestamp.py
 echo "Writing .discinfo file"
-if [ ! -f $MK_STAMP ]; then
-    cd $BUILDINSTDIR
-    rpm2cpio $p/RedHat/RPMS/anaconda-runtime-[0-9]* | cpio --quiet -iumd ./usr/lib/anaconda-runtime/makestamp* usr/lib/anaconda-runtime/makestamp*
-    mv usr/lib/anaconda-runtime/makestamp* .
-    rm -rf usr
-else
-    cp $MK_STAMP* $BUILDINSTDIR/
-fi
-MK_STAMP=$BUILDINSTDIR/makestamp.py
-
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
 
 rm -rf $BUILDINSTDIR
@@ -136,4 +154,11 @@ if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
 else
     rm -rf $TREEDIR/image-template $TREEDIR/instimage
+fi
+}
+
+if [ $RUN == 1 ]; then
+    firstRun
+else
+    secondRun
 fi

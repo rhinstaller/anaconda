@@ -51,19 +51,26 @@ def addIfNeeded(pkg):
     else:
         # this is a biarch arch.  we want to just have a primary package
         # for each here
+        add = -1
         for p in pkgHash[pkg.name]:
             arch1 = p['arch']
             arch2 = pkg['arch']
             # same arch, don't worry about it
             if arch1 == arch2:
-                continue
+                add = 0
+                break
             # if one of them doesn't work for the canon arch and the other
             # does, then one of them is for the secondary arch and we want
             # to add it.  
-            if ( ((diff(prim, arch1) == 0) and (diff(second, arch2) != 0)) or
-                 ((diff(prim, arch2) == 0) and (diff(second, arch1) != 0)) ):
-                pkgHash[pkg.name].append(pkg)
-                pkgOrder.append(pkg.nevra())
+            if ((((diff(prim, arch1) == 0) and (diff(second, arch2) != 0)) or
+                 ((diff(prim, arch2) == 0) and (diff(second, arch1) != 0))) and
+                add == -1):
+                add = 1
+                
+        if add == 1:
+            pkgHash[pkg.name].append(pkg)
+            pkgOrder.append(pkg.nevra())
+
         
 
 # set PKGORDER_DEBUG to get rpm debugging
@@ -182,7 +189,8 @@ for p in hdlist.pkgs.values():
         list.append(p)
 list.sort(cmpHeaderByName)
 for item in list:
-    pkgOrder.append(item.nevra())
+    if item.nevra() not in pkgOrder:
+        pkgOrder.append(item.nevra())
 
 # Now set up rpm to run the transaction deporder
 testpath = '/tmp/pkgorder-' + str (os.getpid ())
@@ -191,6 +199,11 @@ os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 ts = rpm.TransactionSet(testpath)
 ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+# ts coloring, more hacks to workaround #92285
+if (rhpl.arch.canonArch.startswith("ppc64") or
+    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+    ts.setColor(3)
+
 i = 0
 for h in pkgOrder:
 #    sys.stderr.write("%s: %s\n" %(i, h))
@@ -225,6 +238,7 @@ for p in pkgOrder:
     
     if p['name'] in outputted:
         continue
+    outputted.append(p['name'])
     pkgs = hdlist.pkgnames[p['name']]
     pkgs.sort(archSort)
     for pnevra in pkgs:

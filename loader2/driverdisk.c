@@ -39,7 +39,7 @@
 #include "../isys/probe.h"
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
-                                    "modules.cgz", "rhdd-6.1", NULL };
+                                    "modules.cgz", NULL };
 
 
 
@@ -58,10 +58,10 @@ static int verifyDriverDisk(char *mntpt, int flags) {
 
     /* check for both versions */
     sprintf(file, "%s/rhdd", mntpt);
-    if (!access(file, R_OK)) {
+    if (access(file, R_OK)) {
         logMessage("not a new format driver disk, checking for old");
         sprintf(file, "%s/rhdd-6.1", mntpt);
-        if (!access(file, R_OK)) {
+        if (access(file, R_OK)) {
             logMessage("can't find either driver disk identifier, bad "
                        "driver disk");
         }
@@ -90,10 +90,10 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
     /* check for both versions */
     sprintf(file, "%s/rhdd", mntpt);
-    if (!access(file, R_OK)) {
+    if (access(file, R_OK)) {
         version = 0;
         sprintf(file, "%s/rhdd-6.1", mntpt);
-        if (!access(file, R_OK)) {
+        if (access(file, R_OK)) {
             /* this can't happen, we already verified it! */
             return LOADER_BACK;
         } 

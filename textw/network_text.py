@@ -184,7 +184,8 @@ class NetworkDeviceWindow:
 
         while currentDev < devLen and currentDev >= 0:
             rc = self.runScreen(screen, network,
-                                self.devices[list[currentDev]], showonboot)
+                                self.devices[list[currentDev]],
+                                showonboot)
             if rc == INSTALL_BACK:
                 currentDev = currentDev - 1
             else:

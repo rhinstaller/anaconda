@@ -8,6 +8,11 @@ usage () {
     exit 0
 }
 
+DEBUG=""
+if [ "$1" == "--debug" ]; then
+    DEBUG="--debug"
+fi
+
 if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
 
 PRODUCT=$6
@@ -121,7 +126,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 	   echo "Found keymap override, using it"
 	   cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
        else
-	   echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+	   echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
 	   $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
 	   if [ $? != 0 ]; then
 	       echo "Unable to create keymaps and thus can't create initrd."
@@ -135,7 +140,7 @@ findPackage() {
     name=$2
     
     for n in $dir/$name*{${KERNELARCH},noarch}.rpm; do
-	thisName=$(rpm --qf '%{NAME}' -qp $n)
+	thisName=$(rpm --nodigest --nosignature --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
 	fi
@@ -220,7 +225,7 @@ intcopymodules () {
     for n in $1; do
 	m=$(findmodule $n)
 	if [ -z "$m" ]; then
-            echo "Module $n not found in kernel rpm" >&2
+            [ -n "$DEBUG" ] && echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
 	    for o in $m ; do 
@@ -482,7 +487,6 @@ EOF
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     install -m 644 $IMGPATH/usr/share/terminfo/x/xterm $MBD_DIR/etc/terminfo/x/xterm
-    install -m 644 $IMGPATH/usr/share/terminfo/x/xterm-color $MBD_DIR/etc/terminfo/x/xterm-color
     install -m 644 $IMGPATH/usr/share/terminfo/v/vt100 $MBD_DIR/etc/terminfo/v/vt100
     makeproductfile $MBD_DIR
 
@@ -559,13 +563,13 @@ EOF
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
-    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000
+    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000 2>/dev/null
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
 
 cat > $MBD_DIR/.profile <<EOF
-PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sbin:/mnt/usr/sbin:/mnt/bin:/mnt/usr/bin
+PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH
 EOF
 
@@ -686,7 +690,7 @@ makeImage () {
     mkdir -p $MI_MNTPOINT
 
     dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
-    /sbin/mke2fs -F -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
+    /sbin/mke2fs -q -F -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
     mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
     (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
 
@@ -757,8 +761,8 @@ makemainimage () {
 	    ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
 	    SIZE=$(expr $SIZE - $ERROR)
         fi
-        dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage
-        mke2fs -F $mmi_tmpimage > /dev/null 
+        dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage 2>/dev/null
+        mke2fs -q -F $mmi_tmpimage > /dev/null 
         mount -o loop $mmi_tmpimage $mmi_mntpoint
 
         (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
@@ -811,7 +815,7 @@ makedriverdisk () {
     fi
 
     dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
-    /sbin/mke2fs -F -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
+    /sbin/mke2fs -q -F -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
     mkdir -p /tmp/mkdd.$$
     mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
     rmdir /tmp/mkdd.$$/lost+found
@@ -879,8 +883,8 @@ for KERNELARCH in $arches; do
 	ppackage=""
     fi
 
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
-    arch=$(rpm --qf '%{ARCH}\n' -qp $kpackage)
+    version=$(rpm --nodigest --nosignature --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
+    arch=$(rpm --nodigest --nosignature --qf '%{ARCH}\n' -qp $kpackage)
     echo "unpacking $kpackage.$arch"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
@@ -924,3 +928,4 @@ find $KERNELBASE/*/lib/modules/ > $CACHE
 makeSecondStage
 rm -rf $KERNELBASE
 
+cd $TOPDIR

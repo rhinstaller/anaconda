@@ -1,8 +1,8 @@
 #
 # define destination locations
 #
-VERSION = 9.0.91
-RELEASE = 5
+VERSION = 9.0.92
+RELEASE = 1
 TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
 SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 

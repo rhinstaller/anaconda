@@ -43,7 +43,8 @@ whiteout="""
 	xinitrc>XFree86 \
 	xemacs>apel-xemacs \
 	gstreamer-tools>gstreamer \
-	gimp>gimp-print-plugin
+	gimp>gimp-print-plugin \
+        redhat-lsb>redhat-lsb
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)

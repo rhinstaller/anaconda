@@ -184,7 +184,7 @@ makeBootImages() {
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
 	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.img
-	mkdir $MBD_BOOTTREE
+	mkdir $MBD_BOOTTREE 2>/dev/null
 	cp $IMGPATH/usr/lib/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
 
 	prepareBootTree

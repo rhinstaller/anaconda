@@ -1,5 +1,12 @@
 #!/bin/bash
 
+DEBUG=""
+
+if [ "$1" == "--debug" ]; then
+    DEBUG="--debug"
+    shift
+fi
+
 if [ -z "$1" ]; then
     echo "Usage: $0 /path/to/tree"
     exit 1
@@ -48,7 +55,7 @@ while [ -n "$1" ]; do
 	if [ ! -f "$1" ]; then
 	    ln -sf ./busybox $1
 	else
-	    echo "Overriding busybox version of $1"
+	    [ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
 	fi
     fi
     shift
