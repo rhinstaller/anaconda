@@ -399,11 +399,6 @@ class PackageSelectionWindow (InstallWindow):
 	if not self.__dict__.has_key ("individualPackages"):
 	    return None
 
-        # turn off all the comps
-        for comp in self.todo.comps:
-            if not comp.hidden:
-                comp.unselect(0)
-
         gotoIndividualPackages = self.individualPackages.get_active ()
         del self.individualPackages
         

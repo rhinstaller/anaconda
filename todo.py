@@ -444,9 +444,9 @@ class ToDo:
 	    for comp in self.comps:
 		if comp.selected:
 		    comp.select (1)
-	self.comps['Base'].select(1)
+            self.comps['Base'].select(1)
 
-	self.updateInstClassComps()
+            self.updateInstClassComps()
             
 	return self.comps
 
@@ -604,7 +604,6 @@ class ToDo:
             else:
                 ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
 
-	ts.order()
         deps = ts.depcheck()
         rc = []
         if deps:
