@@ -552,8 +552,6 @@ class ToDo:
 	smpInstalled = (self.hdList.has_key('kernel-smp') and 
                         self.hdList['kernel-smp'].selected)
 	if (self.upgrade and not isys.smpAvailable()):
-	    self.log("upgrading to a smp kernel on a up system; configuring "
-		     "up in lilo")
 	    smpInstalled = 0
 
         rootDev = self.fstab.getRootDevice ()
