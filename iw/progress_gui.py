@@ -23,6 +23,7 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from packages import doInstall
 from constants import *
+from rhpl.log import log
 
 class InstallProgressWindow (InstallWindow):
 
@@ -113,7 +114,10 @@ class InstallProgressWindow (InstallWindow):
     def setPackage(self, header):
         if len(self.pixmaps):
             # set to switch every N seconds
-            if self.pixtimer.elapsed() > 30:
+            if self.pixtimer is None or self.pixtimer.elapsed() > 30:
+                if self.pixtimer is None:
+                    self.pixtimer = timer.Timer()
+                
                 num = self.pixcurnum
                 if num >= len(self.pixmaps):
                     num = 0
@@ -124,6 +128,8 @@ class InstallProgressWindow (InstallWindow):
                     pix.set_alignment (0.5, 0.5)
                     self.adbox.add (pix)
                     self.adpix = pix
+                else:
+                    log("couldn't get a pix")
                 self.adbox.show_all()
                 self.pixcurnum = num + 1
                 self.pixtimer.reset()
@@ -173,12 +179,18 @@ class InstallProgressWindow (InstallWindow):
         if (os.environ.has_key('LANG')):
             try:
                 shortlang = string.split(os.environ['LANG'], '_')[0]
+                longlang = string.split(os.environ['LANG'], '.')[0]
             except:
                 shortlang = ''
+                longlang = os.environ['LANG']
         else:
             shortlang = ''
-                
-        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
+            longlang = ''
+
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (shortlang,))
+
+	if len(pixmaps1) <= 0:
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (longlang,))
 
 	if len(pixmaps1) <= 0:
 	    # for beta try top level w/o lang
@@ -202,7 +214,7 @@ class InstallProgressWindow (InstallWindow):
                 pixmaps.append(pixmap[string.find(pixmap, "rnotes/"):])
 
         self.pixmaps = pixmaps
-        self.pixtimer = timer.Timer()
+        self.pixtimer = None
         self.pixcurnum = 0
         
 	table = gtk.Table (3, 2)
