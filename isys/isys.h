@@ -3,8 +3,8 @@
 
 #define MIN_ROOTPART_SIZE_MB	250
 
-#define MIN_RAM			17000	    /* 20M or so */
-#define MIN_GUI_RAM		48000
+#define MIN_RAM			32000	    /* 20M or so */
+#define MIN_GUI_RAM		56000
 #define EARLY_SWAP_RAM		72000
 
 /* returns -2 for errno, -1 for unknown device */
