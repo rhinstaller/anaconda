@@ -1193,7 +1193,7 @@ def doPostInstall(method, id, intf, instPath):
     # just vgscan if they have /sbin/lvm and some appearance of volumes
     if (os.access(instPath + "/sbin/lvm", os.X_OK) and
         os.access(instPath + "/dev/mapper", os.X_OK) and
-        len(os.listdir("/dev/mapper") > 1)):
+        len(os.listdir("/dev/mapper")) > 1):
         rc = iutil.execWithRedirect("/sbin/lvm",
                                     ["lvm", "vgscan", "-v"],
                                     stdout = "/dev/tty5",
