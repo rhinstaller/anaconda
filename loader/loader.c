@@ -1437,6 +1437,7 @@ static char * mountUrlImage(struct installMethod * method,
     char * url;
     char * login;
     char * finalPrefix;
+    int dir = 1;
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
@@ -1465,34 +1466,50 @@ static char * mountUrlImage(struct installMethod * method,
 		return NULL;
 	    }
 #if defined (__s390__) || defined (__s390x__)
+	    if (dir == -1) {
+	      return NULL;
+	    }
 	    setupRemote(&ui);
 #endif
 	    stage = URL_STAGE_MAIN;
+	    dir = 1;
 
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
-	    if (rc) 
+	    if (rc) {
 			stage = URL_STAGE_IP;
-	    else
+			dir = -1;
+	    } else {
 			stage = needsSecondary != ' ' ? URL_STAGE_SECOND : URL_STAGE_FETCH;
+			dir = 1;
+	    }
 	    break;
 
 	  case URL_STAGE_SECOND:
 	    rc = urlSecondarySetupPanel(&ui, proto);
-	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
+	    if (rc) {
+	        stage = URL_STAGE_MAIN;
+		dir = -1;
+	    } else {
+	        stage = URL_STAGE_FETCH;
+	        dir = 1;
+	    }
 	    break;
 
 	  case URL_STAGE_FETCH:
 	    if (FL_TESTING(flags)) {
 		stage = URL_STAGE_DONE;
+		dir = 1;
 		break;
 	    }
 
-	    if (loadUrlImages(&ui, flags))
+	    if (loadUrlImages(&ui, flags)) {
 		stage = URL_STAGE_MAIN;
-	    else
+		dir = -1;
+	    } else { 
 		stage = URL_STAGE_DONE;
-	    
+		dir = 1;
+	    }
 	    break;
         }
     }
@@ -1570,8 +1587,15 @@ static char * doMountImage(char * location,
 	free(class);
     }
 
-#if defined(__alpha__) || defined(__ia64__)
-    for (i = 0; i < numMethods; i++) {
+#if defined(__s390__) || defined(__s390x__)
+    #define STARTMETHOD 1
+#else
+    #define STARTMETHOD 0
+#endif
+
+#if defined(__alpha__) || defined(__ia64__) \
+    || defined(__s390__ ) || defined(__s390x__)
+    for (i = ; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
