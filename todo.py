@@ -75,6 +75,27 @@ class Network:
         self.secondaryNS = ""
         self.ternaryNS = ""
         self.domains = []
+        try:
+            f = open ("/tmp/netinfo", "r")
+        except:
+            pass
+        else:
+            lines = f.readlines ()
+            info = {}
+            for line in lines:
+                netinf = string.splitfields (line, '=')
+                info [netinf[0]] = netinf[1]
+            self.netdevices [info["DEVICE"]] = NetworkDevice (info["DEVICE"])
+            if info.has_key ("IPADDR"):
+                self.netdevices [info["DEVICE"]].set (("IPADDR", info["IPADDR"]))
+            if info.has_key ("NETMASK"):
+                self.netdevices [info["DEVICE"]].set (("NETMASK", info["NETMASK"]))
+            if info.has_key ("BOOTPROTO"):
+                self.netdevices [info["DEVICE"]].set (("BOOTPROTO", info["BOOTPROTO"]))
+            if info.has_key ("GATEWAY"):
+                self.gateway = info["GATEWAY"]
+            if info.has_key ("NS1"):
+                self.primaryNS = info["NS1"]
     
     def available (self):
         if self.netdevices:
@@ -86,7 +107,7 @@ class Network:
         lines = lines[2:]
         for line in lines:
             dev = string.strip (line[0:6])
-            if dev != "lo":
+            if dev != "lo" and not self.netdevices.has_hey (dev):
                 self.netdevices[dev] = NetworkDevice (dev)
         return self.netdevices
 
@@ -454,7 +475,12 @@ class ToDo:
     def installLilo(self):
 	if not self.liloDevice: return
 
-	# FIXME: make an initrd here
+        kernelVersion = str(self.kernelPackage[rpm.RPMTAG_VERSION]) + \
+                        str(self.kernelPackage[rpm.RPMTAG_RELEASE])
+
+        util.execWithRedirect("/sbin/mkinitrd", [ kernelversion ],
+                              stdout = None, stderr = None, searchPath = 1,
+                              root = self.instPath)
 
 	l = LiloConfiguration()
 	l.addEntry("boot", '/dev/' + self.liloDevice)
@@ -470,9 +496,7 @@ class ToDo:
         sl.addEntry("root", '/dev/' + dev)
 	sl.addEntry("read-only")
 
-	kernelFile = '/boot/vmlinuz-' +  \
-		str(self.kernelPackage[rpm.RPMTAG_VERSION]) + "-" + \
-		str(self.kernelPackage[rpm.RPMTAG_RELEASE])
+	kernelFile = "/boot/vmlinuz-" + kernelVersion
 	    
 	l.addImage(kernelFile, sl)
 	l.write(self.instPath + "/etc/lilo.conf")

@@ -13,13 +13,14 @@ def getfd(filespec, readOnly = 0):
     return os.open(filespec, flags)
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
-		     searchPath = 0):
+		     searchPath = 0, root = '/'):
     stdin = getfd(stdin)
     stdout = getfd(stdout)
     stderr = getfd(stderr)
 
     childpid = os.fork()
     if (not childpid):
+        os.chroot (root)
 	if stdin != 0:
 	    os.dup2(stdin, 0)
 	    os.close(stdin)

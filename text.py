@@ -226,7 +226,7 @@ class NetworkWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
-#	if (not todo.setupFilesystems): return INSTALL_NOOP
+	if (not todo.setupFilesystems): return INSTALL_NOOP
         from newtpyfsedit import fsedit        
 
         fstab = []
