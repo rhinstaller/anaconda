@@ -834,7 +834,7 @@ int main(int argc, char ** argv) {
     int mediacheck = 0;
     poptContext optCon;
     struct poptOption optionTable[] = {
-            { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
+	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
         { "test", '\0', POPT_ARG_NONE, &testing, 0 },
         { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
