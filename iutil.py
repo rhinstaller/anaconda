@@ -318,9 +318,6 @@ def rmrf (path):
     os.rmdir (path)
 
 def validUser (user):
-    if len (user) > 8:
-        return 0
-    
     if not user[0] in string.letters:
         return 0
 

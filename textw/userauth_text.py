@@ -80,7 +80,7 @@ class UsersWindow:
                        'mailnull', 'rpm', 'ident', 'rpc', 'rpcuser', 'radvd', 'xfs', 'gdm', 'apache',
                        'squid']
 
-        username = Entry (8, user["id"], scroll=0)
+        username = Entry (32, user["id"], scroll=0)
         currentid = user["id"]
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
@@ -116,10 +116,10 @@ class UsersWindow:
 	       not len(username.value()) and not len(fullname.value()):
                 return INSTALL_OK
 
-            if (not len(username.value()) or not iutil.validUser(username.value())):
+            if (not iutil.validUser(username.value())):
 		ButtonChoiceWindow(self.screen, _("Bad User Name"),
-                                   _("User names must be less than 8 "
-                                     "characters and contain only characters "
+                                   _("User names must "
+                                     "contain only characters "
                                      "A-Z, a-z, and 0-9."),
                                    buttons = [ TEXT_OK_BUTTON ], width = 50)
 		continue
