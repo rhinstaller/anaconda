@@ -19,14 +19,14 @@ msgid "Starting VNC..."
 msgstr "Ræsi VNC..."
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s uppsetningarforrit á %s"
+msgstr "%s %s uppsetning á vélinni %s"
 
 #: ../anaconda:133
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "Uppsetning pakka"
+msgstr "%s %s uppsetning"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
@@ -45,39 +45,42 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"AÐVÖRUN!!! VNC þjónninn er keyrandi ÁN LYKILORÐS!\n"
+"Þú getur notað 'vncpassword=<lykilorð>' ræsirofann\n"
+"ef þú vilt gera þjóninn öruggari.\n"
+"\n"
 
 #: ../anaconda:179
-#, fuzzy
 msgid "The VNC server is now running."
 msgstr "VNC þjónninn er nú í gangi."
 
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Reyni að tengjast vnc biðlara á vélinni %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Gefst upp á tengingu eftir 50 tilraunir!\n"
 
 #: ../anaconda:198
-#, fuzzy, c-format
+#, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Vinsamlegast tengist %s til að hefja uppsetningu..."
+msgstr "Vinsamlegast tengist með vnc biðlara við %s til að hefja uppsetningu."
 
 #: ../anaconda:200
-#, fuzzy
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Vinsamlegast tengist %s til að hefja uppsetningu..."
+msgstr "Vinsamlegast tengist með vnc biðlara til að hefja uppsetningu."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Mun reyna að tengjast aftur eftir 15 sekúndur..."
 
 #: ../anaconda:208
-#, fuzzy
 msgid "Connected!"
-msgstr "Lokið"
+msgstr "Tengt!"
 
 #: ../anaconda:212
 #, c-format
@@ -367,7 +370,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1164,9 +1166,8 @@ msgstr ""
 "ekki til. Viltu halda áfram eða hætta uppsetningu?"
 
 #: ../network.py:41
-#, fuzzy
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Rótarlykilorðið verður að vera a.m.k. 6 stafir að lengd."
+msgstr "Vélarheitið má ekki vera lengra en 64 stafir."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1452,7 +1453,7 @@ msgid "Foreign"
 msgstr "Ókunnugt"
 
 #: ../partedUtils.py:274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1461,7 +1462,7 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Tækið /dev/%s er LDL forsniðið en ekki CDL forsniðið. DASD diskar sem eru "
+"Tækið %s er LDL forsniðið en ekki CDL forsniðið. DASD diskar sem eru "
 "LDL forsniðnir eru ekki studdir við uppsetningu %s.  Til þess að hægt sé að "
 "nota diskinn fyrir þessa uppsetningu þarf að frumstilla disksneiðatöfluna, "
 "sem veldur því að ÖLL GÖGN á disknum tapast.\n"
@@ -2575,6 +2576,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"Sláðu inn lykilorð ræsistjórans og staðfestu það.  (Athugaðu að lyklaborðs"
+"vörpunin í BIOS getur verið önnur en þú átt að venjast)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2782,7 +2785,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Veldu áfram-örina til að byrja uppsetningu %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
@@ -2790,9 +2793,9 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Annál um þessa uppsetningu verður að finna í %s eftir endurræsinguna.\n"
+"Annál um þessa uppsetningu verður að finna í skránni '%s' eftir endurræsinguna.\n"
 "\n"
-"Hraðuppsetningarskrá sem lýsir þessari uppsetningu verður í %s eftir "
+"Hraðuppsetningarskrá sem lýsir þessari uppsetningu verður í '%s' eftir "
 "endurræsinguna."
 
 #: ../iw/confirm_gui.py:68
@@ -2805,11 +2808,11 @@ msgid "Click next to begin upgrade of %s."
 msgstr "Veldu áfram-örina til að byrja uppsetningu %s.."
 
 #: ../iw/confirm_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr "Annál um þessa uppsetningu verður að finna í %s eftir endurræsinguna."
+msgstr "Annál um þessa uppfærslu verður að finna í '%s' eftir endurræsinguna."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -2906,9 +2909,8 @@ msgid "I_gnore package dependencies"
 msgstr "_Hunsa pakkaskilyrði"
 
 #: ../iw/desktop_choice_gui.py:25
-#, fuzzy
 msgid "Package Defaults"
-msgstr "Upplýsingar um pakkahóp"
+msgstr "Sjálfgefnir pakkar"
 
 #: ../iw/desktop_choice_gui.py:51
 msgid ""
@@ -2916,9 +2918,11 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"Sjálfgefna uppsetningin inniheldur alla þá pakka sem við mælum með fyrir "
+"þessa gerð uppsetningar eins og:\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2929,16 +2933,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Sjálfgefna einkatölvuuppsetningin inniheldur það sem við mælum með fyrir "
-"nýja notendur, og innifelur amk:\n"
 "\n"
-"\tMyndrænt vinnuumhverfi (GNOME)\n"
-"\tSkrifstofutól (OpenOffice)\n"
-"\tVefrápara (Mozilla) \n"
-"\tPóstforrit (Evolution)\n"
-"\tInstant messaging\n"
-"\tHljóð og myndtól\n"
-"\tLeiki\n"
 "\n"
 "Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka með "
 "'redhat-config-packages' tólinu.\n"
@@ -3038,9 +3033,8 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Veldu disk til að keyra fdisk á:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-#, fuzzy
 msgid "Firewall"
-msgstr "Enginn eldveggur"
+msgstr "Eldveggur"
 
 #: ../iw/firewall_gui.py:115
 #, python-format
@@ -3050,8 +3044,8 @@ msgid ""
 "\n"
 "For example, '1234:udp'"
 msgstr ""
-"Þú gafst upp ógilt port: %s. Rétt snið á þessu er 'port:prótókollur' þar sem "
-"port er á milli 1 og 65535 og prótókollur er annaðhvort 'tcp' eða 'udp'.\n"
+"Þú gafst upp ógilda gátt: %s. Rétt snið á þessu er 'gátt:prótókollur' þar sem "
+"gátt er á milli 1 og 65535 og prótókollur er annaðhvort 'tcp' eða 'udp'.\n"
 "\n"
 "Til dæmis '1234:udp'"
 
@@ -3064,24 +3058,24 @@ msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
+"Eldveggur getur komið í veg fyrir að óprúttnir aðilar geti tengst tölvunni "
+"þinni af Internetinu.  Viltu virkja eldvegginn?"
 
 #: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "En_ginn eldveggur"
 
 #: ../iw/firewall_gui.py:157
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "En_ginn eldveggur"
+msgstr "_Virkja eldvegginn"
 
 #: ../iw/firewall_gui.py:159
-#, fuzzy
 msgid "_Custom firewall"
-msgstr "En_ginn eldveggur"
+msgstr "_Sérsniðinn eldveggur"
 
 #: ../iw/firewall_gui.py:178
 msgid "What services should be allowed to pass through the firewall?"
-msgstr ""
+msgstr "Hvaða þjónustur viltu leyfa að komast í gegnum eldvegginn?"
 
 #: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
@@ -3089,11 +3083,11 @@ msgstr "_Leyfa tengingar inn:"
 
 #: ../iw/firewall_gui.py:211
 msgid "Other _ports:"
-msgstr "Önnur _port:"
+msgstr "Aðrar _gáttir:"
 
 #: ../iw/firewall_gui.py:219
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
+msgstr "Ef þú vilt leyfa alla umferð frá einhverju netkorti skaltu velja það að neðan."
 
 #: ../iw/firewall_gui.py:228
 msgid "_Trusted devices:"
@@ -5133,7 +5127,7 @@ msgid "Workstation Defaults"
 msgstr "Sjálfgefin gildi vinnustöðvar"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5142,9 +5136,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Einkatölvu- og vinnustöðvaruppsetningarnar gera þér kleift að flakka um "
-"internetið, senda og taka við pósti og búa til og breyta skjölum á %s "
-"vélinni þinni.\n"
+"Sjálfgefna uppsetningin inniheldur alla þá pakka sem við mælum með fyrir "
+"þá gerð uppsetningar sem þú velur. Eftir að uppsetningu er lokið getur þú "
+"bætt við eða hent út hugbúnaði með 'redhat-config-packages' tólinu.\n"
 "\n"
 "Með %s fylgir hinsvegar miklu meira af hugbúnaði og þó getur sérsniðið hvaða "
 "hugbúnað þú vilt nota."
@@ -5214,9 +5208,8 @@ msgid "Customize"
 msgstr "Sérsníða"
 
 #: ../textw/firewall_text.py:45
-#, fuzzy
 msgid "Enable firewall"
-msgstr "Enginn eldveggur"
+msgstr "Virkja eldvegginn"
 
 #: ../textw/firewall_text.py:48
 msgid "No firewall"
@@ -5253,7 +5246,7 @@ msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
 msgid "Other ports"
-msgstr "Önnur port"
+msgstr "Aðrar gáttir"
 
 #: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
 #: ../textw/language_text.py:145
@@ -5277,7 +5270,7 @@ msgid ""
 msgstr ""
 "Þú getur sérsniðið eldvegginn á tvo vegu. Þú getur valið að leyfa allar "
 "tengingar frá tilteknum netkortum eða að leyfa tilteknum prótokollum "
-"eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka port á "
+"eingungu að komast í gegnum eldvegginn. Þú getur tiltekið auka gátt á "
 "sniðinu 'þjónusta:prótókollur' eins og til dæmis 'imap:tcp'."
 
 #: ../textw/firewall_text.py:184
@@ -6363,6 +6356,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tSkjáborðsumhverfi (GNOME)\n"
+"\tSkrifstofutól (OpenOffice)\n"
+"\tVafri (Mozilla) \n"
+"\tPóstforrit (Evolution)\n"
+"\tHraðskilaboð (tInstant messaging)\n"
+"\tHljóð og myndtól\n"
+"\tLeikir\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6402,6 +6402,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tSkjáborðsumhverfi (GNOME)\n"
+"\tSkrifstofutól (OpenOffice)\n"
+"\tVafri (Mozilla) \n"
+"\tPóstforrit (Evolution)\n"
+"\tHraðskilaboð (tInstant messaging)\n"
+"\tHljóð og myndtól\n"
+"\tLeikir\n"
+"\tTól til hugbúnaðarþróunar\n"
+"\tKerfisstjórnunartól\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -7935,119 +7944,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "AÐVÖRUN!!! VNC þjónninn keyrir án AÐGANGSORÐS!"
-
-#~ msgid "You can use the vncpasswd=<password> boot option"
-#~ msgstr "Þú getur notað vncpasswd=<lykilorð> ræsirofann"
-
-#~ msgid ""
-#~ "if you would like to secure the server.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ef þú vilt gera þjónustuna örugga.\n"
-#~ "\n"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "Sláðu inn lykilorð ræsistjórans og staðfestu það."
-
-#~ msgid ""
-#~ "The default workstation environment includes our recommendations for new "
-#~ "users, including:\n"
-#~ "\n"
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'redhat-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "Sjálfgefna vinnustöðvaruppsetningin inniheldur það sem við mælum með "
-#~ "fyrir nýja notendur, og innifelur amk:\n"
-#~ "\n"
-#~ "\tMyndrænt vinnuumhverfi (GNOME)\n"
-#~ "\tSkrifstofutól (OpenOffice)\n"
-#~ "\tVefrápara (Mozilla) \n"
-#~ "\tPóstforrit (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tHljóð og myndtól\n"
-#~ "\tLeiki\n"
-#~ "\tTól til hugbúnaðarþróunar\n"
-#~ "\tKerfisstjórnunartól\n"
-#~ "\n"
-#~ "Eftir að uppsetningu lýkur má bæta við fleiri pökkum eða taka út pakka "
-#~ "með 'redhat-config-packages' tólinu.\n"
-#~ "\n"
-#~ "Ef þú ert vanur að nota %s getur þú valið pakka sem þú vilt setja inn eða "
-#~ "ekki setja inn með því að haka við í boxið hér að neðan."
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "Sjálfgefnir eiginleikar skjáborðs"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "Stillingar eldveggjar"
-
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "Veldu öryggisstig þessarar vélar:  "
-
-#~ msgid "Hi_gh"
-#~ msgstr "Há_tt"
-
-#~ msgid "_Medium"
-#~ msgstr "_Miðlungs"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "Nota s_jálfgefnar eldveggjarreglur"
-
-#~ msgid "_Customize"
-#~ msgstr "_Sérsníða"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Vélin þín verður stillt þannig að hún ræsir 'frame buffer' rekilinn fyrir "
-#~ "X gluggakerfið. Ef þú vilt ekki setja upp X gluggakerfið skaltu velja "
-#~ "'Sleppa að stilla X' hnappinn að neðan."
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "Eldveggur ver vélina gegn óæskilegum nettengingum. Hátt öryggisstig "
-#~ "stöðvar allar tengingar sem eru á leið inn. Miðlungsöryggi lokar á "
-#~ "tengingar á ýmsar kerfisþjónustur (eins og til dæmis telnet og prentun) "
-#~ "en leyfir aðrar tengingar. Ef enginn eldveggur er valinn er öllum "
-#~ "tengingum hleypt inn og það er ekki mælt með því."
-
-#~ msgid "Security Level:"
-#~ msgstr "Öryggisstig:"
-
-#~ msgid "High"
-#~ msgstr "Hátt"
-
-#~ msgid "Medium"
-#~ msgstr "Miðlungs"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-08-13 22:03-0400\n"
-"PO-Revision-Date: 2003-08-12 23:34+0200\n"
+"PO-Revision-Date: 2003-08-15 15:44+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,14 +19,14 @@ msgid "Starting VNC..."
 msgstr "Startar VNC..."
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation on host %s"
-msgstr "Installationsprogram för %s på %s"
+msgstr "Installationsprogram för %s %s på värden %s"
 
 #: ../anaconda:133
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "_Avbryt installation"
+msgstr "Installation av %s %s"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
@@ -37,7 +37,6 @@ msgid "Make sure your password is at least 6 characters in length."
 msgstr "Försäkra dig om att ditt lösenord är minst 6 tecken långt."
 
 #: ../anaconda:175
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -46,42 +45,45 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"VARNING!!! VNC-servern kör UTAN LÖSENORD!\n"
 "Du kan använda uppstartsflaggan vncpasswd=<lösenord>\n"
 "om du vill säkra servern.\n"
 "\n"
 
 #: ../anaconda:179
-#, fuzzy
 msgid "The VNC server is now running."
 msgstr "VNC-servern kör nu."
 
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Försöker ansluta till vnc-klienten på värden %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Ger upp försök att ansluta efter 50 försök!\n"
 
 #: ../anaconda:198
-#, fuzzy, c-format
+#, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Anslut till %s för att påbörja installationen..."
+msgstr "Anslut din vnc-klient manuellt till %s för att påbörja installationen."
 
 #: ../anaconda:200
-#, fuzzy
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Anslut till %s för att påbörja installationen..."
+msgstr "Anslut din vnc-klient manuellt för att påbörja installationen."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Försöker igen om 15 sekunder..."
 
 #: ../anaconda:208
-#, fuzzy
 msgid "Connected!"
-msgstr "Färdigt"
+msgstr "Ansluten!"
+
+msgid "Connected"
+msgstr "Ansluten"
 
 #: ../anaconda:212
 #, c-format
@@ -371,7 +373,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1172,9 +1173,8 @@ msgstr ""
 "Vill du fortsätta eller avbryta din installation?"
 
 #: ../network.py:41
-#, fuzzy
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Försäkra dig om att ditt lösenord är minst 6 tecken långt."
+msgstr "Värdnamnet får vara högst 64 tecken långt."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1464,7 +1464,7 @@ msgid "Foreign"
 msgstr "Främmande"
 
 #: ../partedUtils.py:274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1473,10 +1473,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Enheten /dev/%s är LDL_formaterad istället för CDL-formaterad. LDL-"
-"formaterade DASD:er stöds inte för användning under en installation av %s. "
-"Om du vill använda denna hårddisk för installation måste den initieras om, "
-"vilket kommer att förstöra ALL DATA på denna hårddisk.\n"
+"Enheten %s är LDL_formaterad istället för CDL-formaterad. LDL-formaterade "
+"DASD:er stöds inte för användning under en installation av %s. Om du vill "
+"använda denna hårddisk för installation måste den initieras om, vilket "
+"kommer att förstöra ALL DATA på denna hårddisk.\n"
 "\n"
 "Vill du formatera om denna DASD med CDL-format?"
 
@@ -2604,6 +2604,11 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"Ange ett lösenord för startprogrammet och bekräfta det sedan (observera att "
+"din BIOS-tangentbordstabell kan skilja sig från den du är van vid)."
+
+msgid "Enter a boot loader password and then confirm it. "
+msgstr "Ange ett lösenord för startprogrammet och bekräfta det sedan. "
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2814,7 +2819,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Klicka på Nästa för att starta installationen av %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
@@ -2822,11 +2827,11 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"En komplett logg av installationen kan hittas i filen %s efter omstart av "
-"systemet.\n"
+"En komplett logg av installationen kan hittas i filen \"%s\" efter omstart "
+"av systemet.\n"
 "\n"
 "En kickstartfil som innehåller de installationsalternativ som valdes kan "
-"hittas i filen %s efter omstart av systemet."
+"hittas i filen \"%s\" efter omstart av systemet."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -2838,12 +2843,12 @@ msgid "Click next to begin upgrade of %s."
 msgstr "Klicka på Nästa för att starta uppgraderingen av %s."
 
 #: ../iw/confirm_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"En komplett logg av din uppgradering kommer att finnas i filen %s efter "
+"En komplett logg av din uppgradering kommer att finnas i filen \"%s\" efter "
 "omstart av systemet."
 
 #: ../iw/congrats_gui.py:23
@@ -2941,9 +2946,8 @@ msgid "I_gnore package dependencies"
 msgstr "I_gnorera paketberoenden"
 
 #: ../iw/desktop_choice_gui.py:25
-#, fuzzy
 msgid "Package Defaults"
-msgstr "Standardspråk"
+msgstr "Paketstandardalternativ"
 
 #: ../iw/desktop_choice_gui.py:51
 msgid ""
@@ -2951,9 +2955,12 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"Standardinstallationsmiljön inkluderar våra rekommenderade paketval, "
+"inklusive:\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2964,16 +2971,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Den personliga standardskrivbordsmiljön innehåller våra rekommendationer för "
-"nya användare och bland annat:\n"
 "\n"
-"\tSkrivbordsskal (GNOME)\n"
-"\tKontorsprogramvara (OpenOffice)\n"
-"\tWebbläsare (Mozilla) \n"
-"\tE-post (Evolution)\n"
-"\tSnabbmeddelanden\n"
-"\tProgram för ljud och video\n"
-"\tSpel\n"
 "\n"
 "Efter installationen kan ytterligare programvara läggas till eller tas bort "
 "genom användning av verktyget \"redhat-config-packages\".\n"
@@ -3075,9 +3073,8 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Välj en hårddisk att partitionera med fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-#, fuzzy
 msgid "Firewall"
-msgstr "Ingen brandvägg"
+msgstr "Brandvägg"
 
 #: ../iw/firewall_gui.py:115
 #, python-format
@@ -3101,24 +3098,24 @@ msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
+"En brandvägg kan hjälpa till att förhindra otillåten åtkomst till din dator "
+"från världen utanför. Vill du aktivera en brandvägg?"
 
 #: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "_Ingen brandvägg"
 
 #: ../iw/firewall_gui.py:157
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "_Ingen brandvägg"
+msgstr "_Aktivera brandvägg"
 
 #: ../iw/firewall_gui.py:159
-#, fuzzy
 msgid "_Custom firewall"
-msgstr "_Ingen brandvägg"
+msgstr "An_passad brandvägg"
 
 #: ../iw/firewall_gui.py:178
 msgid "What services should be allowed to pass through the firewall?"
-msgstr ""
+msgstr "Vilka tjänster ska tillåtas att släppas igenom brandväggen?"
 
 #: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
@@ -3130,7 +3127,7 @@ msgstr "Andra p_ortar:"
 
 #: ../iw/firewall_gui.py:219
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
+msgstr "Om du vill tillåta all trafik från en enhet, välj den nedan."
 
 #: ../iw/firewall_gui.py:228
 msgid "_Trusted devices:"
@@ -5185,7 +5182,7 @@ msgid "Workstation Defaults"
 msgstr "Standardalternativ för arbetsstationer"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5194,11 +5191,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Installationsalternativen personligt skrivbord och arbetsstation installerar "
-"en standardsamling med program som låter dig surfa på Internet, skicka och "
-"ta emot e-post, och skapa och redigera dokument på ditt %s-system. "
-"Arbetsstationsalternativet innehåller förutom detta utvecklings- och "
-"administrationsverktyg.\n"
+"Standardinstallationsmiljön innehåller vårt rekommenderade paketval. Efter "
+"installationen kan ytterligare programvara läggas till eller tas bort genom "
+"användning av verktyget \"redhat-config-packages\".\n"
 "\n"
 "Med %s följer dock många fler program, och du kan anpassa valet av program "
 "som installeras om du vill."
@@ -5268,9 +5263,8 @@ msgid "Customize"
 msgstr "Anpassa"
 
 #: ../textw/firewall_text.py:45
-#, fuzzy
 msgid "Enable firewall"
-msgstr "Ingen brandvägg"
+msgstr "Aktivera brandvägg"
 
 #: ../textw/firewall_text.py:48
 msgid "No firewall"
@@ -6421,6 +6415,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tSkrivbordsskal (GNOME)\n"
+"\tKontorsprogramvara (OpenOffice)\n"
+"\tWebbläsare (Mozilla) \n"
+"\tE-post (Evolution)\n"
+"\tSnabbmeddelanden\n"
+"\tProgram för ljud och video\n"
+"\tSpel\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6460,6 +6461,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tSkrivbordsskal (GNOME)\n"
+"\tKontorsprogramvara (OpenOffice)\n"
+"\tWebbläsare (Mozilla) \n"
+"\tE-post (Evolution)\n"
+"\tSnabbmeddelanden\n"
+"\tProgram för ljud och video\n"
+"\tSpel\n"
+"\tProgramutvecklingsverktyg\n"
+"\tAdministrationsverktyg\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272

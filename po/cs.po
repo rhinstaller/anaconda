@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install VERSION\n"
 "POT-Creation-Date: 2003-08-13 22:03-0400\n"
-"PO-Revision-Date: 2003-07-31 02:59+0200\n"
+"PO-Revision-Date: 2003-08-14 21:21+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,14 +17,14 @@ msgid "Starting VNC..."
 msgstr "Startuji VNC..."
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s Instalační program na %s"
+msgstr "Instalace %s %s na počítač %s"
 
 #: ../anaconda:133
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "Instalace balíčků"
+msgstr "Instalace %s %s"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
@@ -43,39 +43,42 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"VAROVÁNÍ!!! VNC server běží BEZ HESLA!\n"
+"Pokud chcete server zabezpečit, můžete použít\n"
+"při zavádění volbu vncpassword=<heslo>.\n"
+"\n"
 
 #: ../anaconda:179
-#, fuzzy
 msgid "The VNC server is now running."
 msgstr "VNC server nyní běží."
 
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Pokouším se připojit ke klientovi vnc na počítači %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Vzdávám snahu připojit se po 50 pokusech!\n"
 
 #: ../anaconda:198
-#, fuzzy, c-format
+#, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Pro spuštění instalace se prosím připojte k %s..."
+msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta k %s."
 
 #: ../anaconda:200
-#, fuzzy
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Pro spuštění instalace se prosím připojte k %s..."
+msgstr "Pro spuštění instalace prosím ručně připojte svého vnc klienta."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Znovu se zkusím připojit za 15 sekund..."
 
 #: ../anaconda:208
-#, fuzzy
 msgid "Connected!"
-msgstr "Hotovo"
+msgstr "Připojen!"
 
 #: ../anaconda:212
 #, c-format
@@ -367,7 +370,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1157,9 +1159,8 @@ msgstr ""
 "Chcete pokračovat nebo přerušit instalaci?"
 
 #: ../network.py:41
-#, fuzzy
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Zkontrolujte, zda je vaše heslo alespoň 6 znaků dlouhé."
+msgstr "Jméno počítače musí být dlouhé nejvýše 64 znaků."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1451,7 +1452,7 @@ msgid "Foreign"
 msgstr "Cizí"
 
 #: ../partedUtils.py:274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1460,9 +1461,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Zařízení /dev/%s má formát LDL místo CDL. DASD s formátem LDL nejsou "
-"podporovány při instalaci %s. Pokud chcete tento disk použít pro instalaci, "
-"musí být znovu inicializován, což způsobí ztrátu VŠECH DAT na tomto disku.\n"
+"Zařízení %s má formát LDL místo CDL. DASD s formátem LDL nejsou podporovány "
+"při instalaci %s. Pokud chcete tento disk použít pro instalaci, musí být "
+"znovu inicializován, což způsobí ztrátu VŠECH DAT na tomto disku.\n"
 "\n"
 "Chcete toto DASD přeformátovat pomocí formátu CDL?"
 
@@ -2573,6 +2574,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"Zadejte heslo zavaděče systému a potvrďte ho. (Všimněte si, že mapa kláves "
+"vašeho BIOSu může být jiná, než aktuální mapa kláves, na kterou jste zvyklí.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2780,7 +2783,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Klikněte na Další pro zahájení instalace distribuce %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
@@ -2788,10 +2791,10 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Úplný záznam instalace najdete po restartu systému v souboru %s.\n"
+"Úplný záznam instalace najdete po restartu systému v souboru '%s'.\n"
 "\n"
 "Soubor kickstart obsahující zvolené volby instalace najdete po restartu "
-"systému v souboru %s."
+"systému v souboru '%s'."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -2803,11 +2806,11 @@ msgid "Click next to begin upgrade of %s."
 msgstr "Klikněte na Další pro zahájení aktualizace distribuce %s."
 
 #: ../iw/confirm_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
-msgstr "Úplný záznam aktualizace najdete po restartu systému v souboru %s."
+msgstr "Úplný záznam aktualizace najdete po restartu systému v souboru '%s'."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -2904,9 +2907,8 @@ msgid "I_gnore package dependencies"
 msgstr "Nebrat _ohled na závislosti balíčků"
 
 #: ../iw/desktop_choice_gui.py:25
-#, fuzzy
 msgid "Package Defaults"
-msgstr "Detaily skupiny balíčků"
+msgstr "Implicitní balíčky"
 
 #: ../iw/desktop_choice_gui.py:51
 msgid ""
@@ -2914,9 +2916,12 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"Implicitní instalované prostředí obsahuje námi doporučovaný výběr balíčků, "
+"zahrnující:\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2927,21 +2932,13 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Implicitní prostředí pro osobní systém obsahuje naše doporučení pro nové "
-"uživatele, zahrnující:\n"
 "\n"
-"\tProstředí pracovní plochy (GNOME)\n"
-"\tKancelářský balík (OpenOffice)\n"
-"\tWWW prohlížeč (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tAplikace pro zvuk a video\n"
-"\tHry\n"
 "\n"
-"Po instalaci lze přidat nebo odebrat balíčky s programy nástrojem 'redhat-"
-"config-packages'.\n"
+"Po instalaci lze přidat nebo odebrat sofware pomocí nástroje 'redhat-config-"
+"packages'.\n"
+"\n"
 "Pokud znáte %s, možná budete chtít nainstalovat nebo se vyhnout instalaci "
-"konkrétních balíčků. Pro upravení vaší instalace zaškrtněte volbu níže."
+"konkrétních balíčků. Pro upravení své instalace zaškrtněte volbu níže."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -3035,9 +3032,8 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Vyberte jednotku, na kterou spustit fdisk:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-#, fuzzy
 msgid "Firewall"
-msgstr "Žádný firewall"
+msgstr "Firewall"
 
 #: ../iw/firewall_gui.py:115
 #, python-format
@@ -3061,24 +3057,24 @@ msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
+"Firewall může pomoci zabránit neautorizovanému přístupu k vašemu počítači "
+"zvnějšku. Chcete povolit firewall?"
 
 #: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "Žádný _firewall"
 
 #: ../iw/firewall_gui.py:157
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "Žádný _firewall"
+msgstr "_Povolit firewall"
 
 #: ../iw/firewall_gui.py:159
-#, fuzzy
 msgid "_Custom firewall"
-msgstr "Žádný _firewall"
+msgstr "_Vlastní firewall"
 
 #: ../iw/firewall_gui.py:178
 msgid "What services should be allowed to pass through the firewall?"
-msgstr ""
+msgstr "Které služby by měly mít povolen průchod firewallem?"
 
 #: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
@@ -3091,6 +3087,8 @@ msgstr "_Ostatní porty:"
 #: ../iw/firewall_gui.py:219
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
+"Pokud byste chtěli povolit všechen provoz z nějakého zařízení, vyberte je "
+"níže."
 
 #: ../iw/firewall_gui.py:228
 msgid "_Trusted devices:"
@@ -5131,7 +5129,7 @@ msgid "Workstation Defaults"
 msgstr "Implicitní pro pracovní stanici"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5140,13 +5138,12 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Možnosti Osobní systém a Pracovní stanice nainstalují implicitní sadu "
-"aplikací, která vám na vašem systém %s umožní používat WWW, posílat a číst "
-"email a vytvářet a měnit dokumenty. Možnost Pracovní stanice obsahuje i "
-"nástroje pro vývoj a administraci.\n"
+"Implicitní instalované prostředí obsahuje námi doporučovaný výběr balíků. Po "
+"instalaci lze přidat nebo odebrat sofware pomocí nástroje 'redhat-config-"
+"packages'.\n"
 "\n"
-"%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete jejich "
-"výběr upravit."
+"%s je ale dodáván s mnohem více aplikacemi a jestliže chcete, můžete výběr "
+"instalovaného software upravit."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5213,9 +5210,8 @@ msgid "Customize"
 msgstr "Upravit"
 
 #: ../textw/firewall_text.py:45
-#, fuzzy
 msgid "Enable firewall"
-msgstr "Žádný firewall"
+msgstr "Povolit firewall"
 
 #: ../textw/firewall_text.py:48
 msgid "No firewall"
@@ -6365,6 +6361,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tProstředí pracovní plochy (GNOME)\n"
+"\tKancelářský balík (OpenOffice)\n"
+"\tWWW prohlížeč (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tAplikace pro zvuk a video\n"
+"\tHry\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6404,6 +6407,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tProstředí pracovní plochy (GNOME)\n"
+"\tKancelářský balík (OpenOffice)\n"
+"\tWWW prohlížeč (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tAplikace pro zvuk a video\n"
+"\tHry\n"
+"\tNástroje pro vývoj programů\n"
+"\tNástroje pro administraci\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -7933,28 +7945,6 @@ msgid "Turkish"
 msgstr "Turečtina"
 
 #~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "VAROVÁNÍ!!! VNC server běží BEZ HESLA!"
-
-#~ msgid "You can use the vncpasswd=<password> boot option"
-#~ msgstr "Můžete při zavádění použít přepínač vncpasswd=<heslo>"
-
-#~ msgid ""
-#~ "if you would like to secure the server.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "pokud byste chtěli zabezpečit server.\n"
-#~ "\n"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "Vložte heslo pro zavaděč a pak je potvrďte."
-
-#~ msgid ""
 #~ "The default workstation environment includes our recommendations for new "
 #~ "users, including:\n"
 #~ "\n"
@@ -8000,15 +7990,6 @@ msgstr "Turečtina"
 #~ msgid "Firewall Configuration"
 #~ msgstr "Nastavení firewallu"
 
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "Zvolte úroveň zabezpečení systému:  "
-
-#~ msgid "Hi_gh"
-#~ msgstr "_Vysoká"
-
-#~ msgid "_Medium"
-#~ msgstr "_Střední"
-
 #~ msgid "Use _default firewall rules"
 #~ msgstr "Použít _implicitní pravidla pro firewall"
 
@@ -8045,9 +8026,6 @@ msgstr "Turečtina"
 #~ msgid "Medium"
 #~ msgstr "Střední"
 
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
 #~ msgid "Generic"
 #~ msgstr "Obecný"
 
@@ -8065,9 +8043,6 @@ msgstr "Turečtina"
 
 #~ msgid "You must go back and use fdasd to inititalize this partition"
 #~ msgstr "Musíte se vrátit a pro inicializaci tohoto oddílu použít fdasd"
-
-#~ msgid "Root password accepted."
-#~ msgstr "Heslo správce systému nastaveno."
 
 #~ msgid "Root password is too short."
 #~ msgstr "Heslo správce systému je příliš krátké."

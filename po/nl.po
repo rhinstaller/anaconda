@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda-9.0.93\n"
 "POT-Creation-Date: 2003-08-13 22:03-0400\n"
-"PO-Revision-Date: 2003-07-31 23:35+0200\n"
+"PO-Revision-Date: 2003-08-15 23:06+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +27,14 @@ msgid "Starting VNC..."
 msgstr "Bezig met opstarten van VNC..."
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s Installatie op %s"
+msgstr "%s %s installatie op %s"
 
 #: ../anaconda:133
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "%s nieuw installeren"
+msgstr "%s %s installatie"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
@@ -55,39 +55,42 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"WAARSCHUWING!!! VNC-server draait ZONDER WACHTWOORD!\n"
+"U kunt de boot-optie vncpasswd=<wachtwoord> gebruiken\n"
+"als u de server wilt beveiligen.\n"
+"\n"
 
 #: ../anaconda:179
-#, fuzzy
 msgid "The VNC server is now running."
 msgstr "De VNC-server is nu opgestart."
 
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Bezig een verbinding te maken met de vnc client op %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Stoppen met verbinding maken na het 50 keer te hebben geprobeerd!\n"
 
 #: ../anaconda:198
-#, fuzzy, c-format
+#, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Maak een verbinding met %s om de installatie te beginnen..."
+msgstr "Maak met uw vnc client verbinding met %s om de installatie te beginnen."
 
 #: ../anaconda:200
-#, fuzzy
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Maak een verbinding met %s om de installatie te beginnen..."
+msgstr "Maak met uw vnc client verbinding om de installatie te beginnen."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "Zal over 15 seconden opnieuw proberen te verbinden..."
 
 #: ../anaconda:208
-#, fuzzy
 msgid "Connected!"
-msgstr "Voltooid"
+msgstr "Verbonden!"
 
 #: ../anaconda:212
 #, c-format
@@ -144,8 +147,7 @@ msgstr "Onbekende Fout"
 #: ../anaconda:602
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Fout bij het lezen van het tweede deel van de kickstartconfiguratie: %s!"
+msgstr "Fout bij het lezen van het tweede deel van de kickstartconfiguratie: %s!"
 
 #: ../anaconda:696
 msgid ""
@@ -170,8 +172,7 @@ msgstr "Er ging wat mis in de X installatie."
 
 #: ../anaconda:810
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
+msgstr "Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
 
 #: ../anaconda:823
 msgid ""
@@ -188,8 +189,7 @@ msgstr "Muistype dat nu wordt gebruikt: %s"
 
 #: ../autopart.py:933
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren als primaire partities"
+msgstr "Kon cylinder-gebaseerde partities niet alloceren als primaire partities"
 
 #: ../autopart.py:936
 msgid "Could not allocate partitions as primary partitions"
@@ -382,7 +382,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -394,7 +393,7 @@ msgstr ""
 "\n"
 "\n"
 "U kunt een andere automatische partitioneringsoptie kiezen, of op 'Terug' "
-"klikken om een handmatige partitionering te kiezen.\n"
+"klikken om handmatige partitionering te kiezen.\n"
 "\n"
 "Geef 'OK' om door te gaan."
 
@@ -527,8 +526,7 @@ msgstr "Op de opdrachtregel geen vraagtekens gebruiken!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
+msgstr "Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -1192,19 +1190,16 @@ msgstr ""
 "bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
 
 #: ../network.py:41
-#, fuzzy
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Zorg ervoor dat uw wachtwoord tenminste 6 tekens lang is."
+msgstr "Computernaam moet 64 -of minder- tekens lang zijn."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
+msgstr "Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten."
+msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten."
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1259,8 +1254,7 @@ msgstr "Afhankelijkheden controle"
 
 #: ../packages.py:251
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
+msgstr "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
 
 #: ../packages.py:310 ../packages.py:718
 msgid "Processing"
@@ -1386,8 +1380,7 @@ msgstr "De installatie gaat nu beginnen"
 
 #: ../packages.py:824
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
-"Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
+msgstr "Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
 
 #: ../packages.py:864
 msgid ""
@@ -1499,7 +1492,7 @@ msgid "Foreign"
 msgstr "Vreemd"
 
 #: ../partedUtils.py:274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1508,10 +1501,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Het /dev/%s device is geformatteerd met LDL in plaats van CDL.  LDL "
+"Het apparaat %s is geformatteerd met LDL in plaats van CDL.  LDL "
 "geformatteerde DASDs zijn niet ondersteund voor gebruik gedurende een "
 "installatie van %s.  Als u deze disk voor installatie wilt gebruiken dient "
-"deze opnieuw geinitialiseerd te worden wat inhoud dat ALLE DATA op deze "
+"deze opnieuw geïnitialiseerd te worden wat inhoud dat ALLE DATA op deze "
 "drive verloren zal gaan.\n"
 "\n"
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
@@ -1699,8 +1692,7 @@ msgstr "Verwijderen Bevestigen"
 #: ../partIntfHelpers.py:229
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"U staat op het punt alle partities op het device '/dev/%s' te verwijderen."
+msgstr "U staat op het punt alle partities op het device '/dev/%s' te verwijderen."
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
@@ -1889,8 +1881,7 @@ msgid "Confirm Reset"
 msgstr "Resetten bevestigen"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Weet u zeker dat u de partitietabel wilt herstellen naar de oorspronkelijke "
 "toestand?"
@@ -1942,8 +1933,7 @@ msgstr ""
 "s te installeren."
 
 #: ../partitions.py:819
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "U moet een partitie /boot/efi aanmaken, van type FAT en met een grootte van "
 "50 megabytes."
@@ -2010,8 +2000,7 @@ msgstr "een partitie die deel uitmaakt van een LVM-Volumegroep."
 
 #: ../partRequests.py:219
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dit koppelpunt is ongeldig.  De map %s moet zich op het / -bestandssysteem "
 "bevinden."
@@ -2044,8 +2033,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
+msgstr "De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
 
 #: ../partRequests.py:455
 #, python-format
@@ -2113,13 +2101,11 @@ msgstr "Geannuleerd"
 
 #: ../rescue.py:220 ../text.py:468
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
+msgstr "Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
 
 #: ../rescue.py:236 ../rescue.py:271 ../rescue.py:425
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Indien gereed, verlaat dan de shell en uw systeem zal opnieuw opstarten."
+msgstr "Indien gereed, verlaat dan de shell en uw systeem zal opnieuw opstarten."
 
 #: ../rescue.py:255 ../rescue.py:324 ../rescue.py:332 ../rescue.py:403
 msgid "Rescue"
@@ -2270,10 +2256,8 @@ msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:353
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> hulp | <Tab> tussen items | <Space> selecteren | <F12> volgend scherm"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> hulp | <Tab> tussen items | <Space> selecteren | <F12> volgend scherm"
 
 #: ../text.py:355
 msgid ""
@@ -2494,8 +2478,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:44
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+msgstr "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../iw/account_gui.py:51
 msgid "The root password must be at least six characters long."
@@ -2665,6 +2648,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"Voer een bootloader-wachtwoord in en bevestig deze.  (Hou er rekening mee "
+"dat uw BIOS 'keymap' instelling anders kan zijn dan de huidige 'keymap'.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2842,8 +2827,7 @@ msgstr "Niet in staat de Stationsvolgorde te veranderen voor LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"We ondersteunen het wisselen van stationsvolgorde niet voor gebruik met LILO."
+msgstr "We ondersteunen het wisselen van stationsvolgorde niet voor gebruik met LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -2877,7 +2861,7 @@ msgid "Click next to begin installation of %s."
 msgstr "Kies 'Volgende' om te beginnen met de installatie van %s."
 
 #: ../iw/confirm_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
 "rebooting your system.\n"
@@ -2886,10 +2870,10 @@ msgid ""
 "in the file '%s' after rebooting the system."
 msgstr ""
 "Na het herstarten van uw systeem vindt u een compleet logboek van de "
-"installatie in het bestand %s.\n"
+"installatie in het bestand '%s'.\n"
 "\n"
 "Een kickstart-bestand met de gekozen installatieopties vindt u vervolgens in "
-"bestand %s."
+"het bestand '%s'."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -2901,13 +2885,13 @@ msgid "Click next to begin upgrade of %s."
 msgstr "Kies 'Volgende' om te beginnen met de upgrade van %s."
 
 #: ../iw/confirm_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
 "Nadat uw systeem opnieuw is opgestart vindt u een compleet logboek van de "
-"upgrade in het bestand %s."
+"upgrade in het bestand '%s'."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -3005,9 +2989,8 @@ msgid "I_gnore package dependencies"
 msgstr "Pakket-afhankelijkheden _negeren"
 
 #: ../iw/desktop_choice_gui.py:25
-#, fuzzy
 msgid "Package Defaults"
-msgstr "Pakket Groep Details"
+msgstr "Pakket-standaarden"
 
 #: ../iw/desktop_choice_gui.py:51
 msgid ""
@@ -3015,9 +2998,12 @@ msgid ""
 "selection, including:\n"
 "\n"
 msgstr ""
+"De standaard installatie omgeving bevat onze aanbevolen pakket selectie "
+"waaronder:\n"
+"\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -3028,16 +3014,7 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"De standaard personal desktop omgeving bevat onze aanbevelingen voor nieuwe "
-"gebruikers, inclusief:\n"
 "\n"
-"\tDesktop-shell (GNOME)\n"
-"\tKantoor-pakket (OpenOffice)\n"
-"\tWebbrowser (Mozilla)\n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tGeluid en video-toepassingen\n"
-"\tSpellen\n"
 "\n"
 "Na de installatie kunt u aanvullende software toevoegen of verwijderen met "
 "het programma 'redhat-config-packages'\n"
@@ -3140,9 +3117,8 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Kies een station dat met fdisk moet worden gepartitioneerd:"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
-#, fuzzy
 msgid "Firewall"
-msgstr "Geen firewall"
+msgstr "Firewall"
 
 #: ../iw/firewall_gui.py:115
 #, python-format
@@ -3166,24 +3142,24 @@ msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
+"Een firewall kan helpen tegen ongeautoriseerde toegang tot uw computer vanaf "
+"de buitenwereld.  Wilt u een firewall aanzetten?"
 
 #: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
 msgstr "_Geen firewall"
 
 #: ../iw/firewall_gui.py:157
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "_Geen firewall"
+msgstr "_Zet firewall aan"
 
 #: ../iw/firewall_gui.py:159
-#, fuzzy
 msgid "_Custom firewall"
-msgstr "_Geen firewall"
+msgstr "Firewall _aanpassen"
 
 #: ../iw/firewall_gui.py:178
 msgid "What services should be allowed to pass through the firewall?"
-msgstr ""
+msgstr "Welke diensten mogen door de firewall worden doorgelaten?"
 
 #: ../iw/firewall_gui.py:186
 msgid "_Allow incoming:"
@@ -3195,7 +3171,7 @@ msgstr "Andere _poorten:"
 
 #: ../iw/firewall_gui.py:219
 msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
+msgstr "Als u al het verkeer van een apparaat wilt toestaan, selecteer het beneden."
 
 #: ../iw/firewall_gui.py:228
 msgid "_Trusted devices:"
@@ -3493,8 +3469,7 @@ msgstr "Naam in gebruik"
 #: ../iw/lvm_dialog_gui.py:877
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"De volumegroep-naam \"%s\" is reeds in gebruik. Kies alstublieft een andere."
+msgstr "De volumegroep-naam \"%s\" is reeds in gebruik. Kies alstublieft een andere."
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
@@ -4073,14 +4048,12 @@ msgid "Partitioning"
 msgstr "Partitioneren"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Er zijn de volgende kritieke fouten met uw opgegeven partitieschema."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Deze fouten moeten worden hersteld voordat u kunt verdergaan met de "
 "installatie van %s."
@@ -4229,8 +4202,7 @@ msgstr "Een RAID-_opstelling maken (standaard=/dev/md%s)."
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
+msgstr "Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -4238,8 +4210,7 @@ msgstr "Kon de 'Stationskloon-editor' niet aanmaken."
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
+msgstr "De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
 
 #: ../iw/partition_gui.py:1354
 msgid "Ne_w"
@@ -4529,8 +4500,7 @@ msgstr "Kloonstations"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
+msgstr "Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4663,8 +4633,7 @@ msgstr "Dit zal uw huidige bootloader vernieuwen."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Het installatieprogramma heeft de bootloader %s gedetecteerd, momenteel op %"
 "s geïnstalleerd."
@@ -4802,8 +4771,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "De grootte van het wisselbestand moet liggen tussen 1 en 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Er is niet voldoende ruimte vrij op het device dat u selecteerde voor de "
 "wissel-partitie."
@@ -5152,8 +5120,7 @@ msgstr ""
 "welk label u elk van deze partities wilt geven."
 
 #: ../textw/bootloader_text.py:316
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> selecteert knop | <F2> opstart-standaard kiezen| <F12> volgend "
 "scherm>"
@@ -5279,7 +5246,7 @@ msgid "Workstation Defaults"
 msgstr "Werkstation Standaarden"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5288,11 +5255,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"De opties Personal Desktop en Werkstation installeren een standaard "
-"verzameling toepassingen zodat u met uw %s systeem over het internet kunt "
-"surfen, email kunt verzenden en ontvangen en documenten kunt maken en "
-"bewerken. De optie Werkstation omvat ook gereedschap voor software- "
-"ontwikkeling en administratie-gereedschap.\n"
+"De standaard installatie omgeving bevat onze aangeraden pakket selectie.  "
+"Na de installatie kan additionele software worden toegevoegd of verwijderd "
+"door gebruik te maken van de tool 'redhat-config-packages'.\n"
 "\n"
 "%s heeft echter veel meer toepassingen en u kunt de verzameling "
 "geïnstalleerde software desgewenst aanpassen."
@@ -5363,9 +5328,8 @@ msgid "Customize"
 msgstr "Aanpassen"
 
 #: ../textw/firewall_text.py:45
-#, fuzzy
 msgid "Enable firewall"
-msgstr "Geen firewall"
+msgstr "Zet firewall aan"
 
 #: ../textw/firewall_text.py:48
 msgid "No firewall"
@@ -5603,10 +5567,8 @@ msgid "Select individual packages"
 msgstr "Individuele pakketten kiezen"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> selectie   |   <F2> Groep Details   |   <F12> volgend scherm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> selectie   |   <F2> Groep Details   |   <F12> volgend scherm"
 
 #: ../textw/packages_text.py:110
 msgid "Package Group Details"
@@ -5630,10 +5592,8 @@ msgid "Total size"
 msgstr "Totale grootte"
 
 #: ../textw/packages_text.py:319
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> selectie   |   <F1> hulp   |   <F2> pakket-beschrijving"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> selectie   |   <F1> hulp   |   <F2> pakket-beschrijving"
 
 #: ../textw/packages_text.py:367
 msgid "Package Dependencies"
@@ -5801,8 +5761,7 @@ msgstr "Niet ondersteund"
 
 #: ../textw/partition_text.py:711
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM Volumegroepen kunnen alleen bij een grafische installatie bewerkt worden."
+msgstr "LVM Volumegroepen kunnen alleen bij een grafische installatie bewerkt worden."
 
 #: ../textw/partition_text.py:787 ../textw/partition_text.py:840
 msgid "Invalid Entry for Partition Size"
@@ -5857,8 +5816,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Hulp    F2-Nieuw    F3-Bewerken    F4-Verwijderen    F5-Resetten    "
 "F12-OK  "
@@ -6122,15 +6080,13 @@ msgid "User Exists"
 msgstr "Gebruiker bestaat"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "De gebruiker root is reeds geconfigureerd. U hoeft deze gebruiker hier niet "
 "toe te voegen."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Deze systeem-gebruiker is reeds geconfigureerd. U hoeft deze gebruiker hier "
 "niet toe te voegen."
@@ -6289,8 +6245,7 @@ msgstr "X Configureren"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"Kies kleurdiepte en de videomodus die u voor uw systeem wilt gebruiken. "
+msgstr "Kies kleurdiepte en de videomodus die u voor uw systeem wilt gebruiken. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6525,6 +6480,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tBureaublad schil (GNOME)\n"
+"\tKantoor pakket (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tGeluid en video applicaties\n"
+"\tSpelletjes\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6564,6 +6526,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tBureaublad schil (GNOME)\n"
+"\tKantoor pakket (OpenOffice)\n"
+"\tWeb browser (Mozilla) \n"
+"\tEmail (Evolution)\n"
+"\tInstant messaging\n"
+"\tGeluid en video applicaties\n"
+"\tSpelletjes\n"
+"\tHulpmiddelen voor software ontwikkeling\n"
+"\tBeheer hulpmiddelen\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -6670,8 +6641,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:261
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Voer uw stuurprogramma-diskette in /dev/%s en geef \"OK\" om door te gaan."
+msgstr "Voer uw stuurprogramma-diskette in /dev/%s en geef \"OK\" om door te gaan."
 
 #: ../loader2/driverdisk.c:263
 msgid "Insert Driver Disk"
@@ -6885,10 +6855,8 @@ msgid "Welcome to %s"
 msgstr "Welkom bij %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:173
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> tussen items | <Spatie> selecteert | <F12> volgend scherm "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> tussen items | <Spatie> selecteert | <F12> volgend scherm "
 
 #: ../loader2/lang.c:371
 msgid "Choose a Language"
@@ -6952,8 +6920,7 @@ msgstr ""
 #: ../loader2/loader.c:598
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"U heeft te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
+msgstr "U heeft te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
 
 #: ../loader2/loader.c:752
 msgid "Rescue Method"
@@ -7000,8 +6967,7 @@ msgstr "De volgende apparaten zijn op uw systeem gevonden."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
+msgstr "Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
 
 #: ../loader2/loader.c:951
 msgid "Devices"
@@ -7440,8 +7406,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantische Tijd - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantische Tijd - Nova Scotia (meeste plaatsen), NB, W Labrador, E Quebec & "
 "PEI"
@@ -7625,8 +7590,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - meeste lokaties"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Eastern Time - Ontario & Quebec - plaatsen die DST 1967-1973 niet in acht "
 "namen"
@@ -7804,10 +7768,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8687,3 +8649,4 @@ msgstr "Turks"
 
 #~ msgid "Upgrade Partition"
 #~ msgstr "Upgrade Partitie"
+
