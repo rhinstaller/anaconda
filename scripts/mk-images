@@ -516,7 +516,7 @@ makebootdisk() {
 
     if [ -n "$EXTRAKERNELPATH" ]; then
 	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -af $KERNELROOT/boot/${KERNELNAME}-* $EXTRAKERNELPATH
+	cp -f $KERNELROOT/boot/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
     mkdir -p `dirname $MBD_FILENAME`
