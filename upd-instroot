@@ -338,7 +338,7 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 
 	cd $DEST/usr
 	find X11R6 | cpio --quiet -H crc -o | gzip -9 > X11R6.cgz
-	rm -rf X11R5
+	rm -rf X11R6
 
 	cd $DEST/usr/sbin
 	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
