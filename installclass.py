@@ -138,6 +138,12 @@ class InstallClass:
 	return (self.bootProto, self.ip, self.netmask, self.gateway, 
 		self.nameserver)
 
+    def setLanguage(self, lang):
+	self.language = lang
+
+    def setKeyboard(self, kb):
+	self.keyboard = kb
+
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
@@ -160,6 +166,9 @@ class InstallClass:
 	self.clearText = None
 	self.clearPartText = None
 	self.zeroMbr = 0
+	self.language = None
+	self.keyboard = None
+	self.mouse = None
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
@@ -212,6 +221,7 @@ class Server(InstallClass):
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 	self.addToSkipList("partition")
+	self.addToSkipList("format")
 
 	self.partitions.append(('/boot', 16, 16, 0))
 	self.partitions.append(('/', 256, 256, 0))

@@ -103,7 +103,7 @@ class Kickstart(InstallClass):
 	ip = None
 	netmask = None
 	gateway = None
-	nameserve = None
+	nameserver = None
 	for n in args:
 	    (str, arg) = n
 	    if str == "--bootproto":
@@ -117,10 +117,73 @@ class Kickstart(InstallClass):
 	    elif str == "--nameserver":
 		nameserver = arg
 	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
+        self.addToSkipList("network")
+
+    def doLang(self, args):
+        self.setLanguage(args[0])
+        self.addToSkipList("language")
+
+    def doKeyboard(self, args):
+        self.setKeyboard(args[0])
+        self.addToSkipList("keyboard")
 
     def doZeroMbr(self, args):
 	if args[0] == "yes":
 	    self.setZeroMbr(1)
+
+    def doMouse(self, args):
+	mouseToMouse = {
+	     "alpsps/2" : "ALPS - GlidePoint (PS/2)",
+	     "ascii" : "ASCII - MieMouse (serial)",
+	     "asciips/2" : "ASCII - MieMouse (PS/2)",
+	     "atibm" : "ATI - Bus Mouse",
+	     "generic" : "Generic - 2 Button Mouse (serial)" ,
+	     "generic3" : "Generic - 3 Button Mouse (serial)" ,
+	     "genericps/2" : "Generic - 2 Button Mouse (PS/2)" ,
+	     "generic3ps/2" : "Generic - 3 Button Mouse (PS/2)" ,
+	     "geniusnm" : "Generic - 2 Button Mouse (PS/2)" ,
+	     "geniusnmps/2" : "Genius - NetMouse (PS/2)" ,
+	     "geniusnsps/2" : "Genius - NetScroll (PS/2)" ,
+	     "thinking" : "" ,
+	     "thinkingps/2" : "" ,
+	     "logitech" : "Logitech - C7 Mouse (serial, old C7 type)" ,
+	     "logitechcc" : "Logitech - CC Series (serial)" ,
+	     "logibm" : "Logitech - Bus Mouse" ,
+	     "logimman" : "Logitech - MouseMan/FirstMouse (serial)" ,
+	     "logimmanps/2" : "Logitech - MouseMan/FirstMouse (ps/2)" ,
+	     "logimman+" : "Logitech - MouseMan+/FirstMouse+ (serial)" ,
+	     "logimman+ps/2" : "Logitech - MouseMan+/FirstMouse+ (PS/2)" ,
+	     "microsoft" : "Microsoft - Compatible Mouse (serial)" ,
+	     "msnew" : "Microsoft - Rev 2.1A or higher (serial)" ,
+	     "msintelli" : "Microsoft - IntelliMouse (serial)" ,
+	     "msintellips/2" : "Microsoft - IntelliMouse (PS/2)" ,
+	     "msbm" : "Microsoft - Bus Mouse" ,
+	     "mousesystems" : "Mouse Systems - Mouse (serial)" ,
+	     "mmseries" : "MM - Series (serial)" ,
+	     "mmhittab" : "MM - HitTablet (serial)" 
+	}
+
+	(args, extra) = isys.getopt(args, '', [ 'device', 'emulthree' ])
+        mouseType = "none"
+	device = None
+	emulThree = 0
+
+	for n in args:
+	    (str, arg) = n
+	    if str == "--device":
+		device = arg
+	    elif str == "--emulthree":
+		emulThree = 1
+
+	if extra:
+	    mouseType = extra[0]
+
+	print "mouseType is", mouseType
+
+	if mouseType != "none":
+	    self.setMouseType(mouseToMouse[mouseType], device, emulThree)
+
+        self.addToSkipList("mouse")
 
     def readKickstart(self, file):
 	handlers = { 
@@ -129,9 +192,11 @@ class Kickstart(InstallClass):
 		     "clearpart"	: self.doClearPart	,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
-		     "network"		: self.doNetwork	,
+		     "keyboard"		: self.doKeyboard	,
+		     "lang"		: self.doLang		,
 		     "lilo"		: self.doLilo		,
-		     "network"		: None			,
+		     "mouse"		: self.doMouse		,
+		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,
 		     "part"		: self.definePartition	,
 		     "rootpw"		: self.doRootPw		,

@@ -149,9 +149,16 @@ class Language (SimpleConfigFile):
             "English" : "C",
             "German" : "de",
             }
+	self.abbrevMap = {		# kickstart needs this
+	    "en": "English",
+	    "de": "German"
+	    }
 
     def available (self):
         return self.langs
+
+    def setByAbbrev(self, lang):
+	self.set(self.abbrevMap[lang])
     
     def set (self, lang):
         self.lang = self.langs[lang]
@@ -487,6 +494,8 @@ class ToDo:
 	    else:
                 if (fs == "ext2"):
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
+                elif fs == "iso9660":
+                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,ro', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
 	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext', 'noauto', 0, 0))
@@ -905,6 +914,10 @@ class ToDo:
 	todo.users = []
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword)
+	if todo.instClass.language:
+	    todo.language.setByAbbrev(todo.instClass.language)
+	if todo.instClass.keyboard:
+	    todo.keyboard.set(todo.instClass.keyboard)
 
 	(bootProto, ip, netmask, gateway, nameserver) = \
 		todo.instClass.getNetwork()
@@ -923,6 +936,10 @@ class ToDo:
 		dev.set (("ipaddr", ip))
 	    if (netmask):
 		dev.set (("netmask", netmask))
+
+	if (todo.instClass.mouse):
+	    (type, device, emulateThreeButtons) = todo.instClass.mouse
+	    todo.mouse.set(type, emulateThreeButtons, thedev = device)
 
     def getSkipPartitioning(self):
 	return self.instClass.skipPartitioning
@@ -976,6 +993,8 @@ class ToDo:
 	    count = count + 1
 
 	    os.symlink(device, self.instPath + "/dev/" + cdname)
+	    mntpoint = "/mnt/" + cdname
+	    self.mounts[mntpoint] = ("/dev/" + cdname, "iso9660", 0)
 
     def setDefaultRunlevel (self):
         inittab = open (self.instPath + '/etc/inittab', 'r')
@@ -1103,6 +1122,7 @@ class ToDo:
                                  _("Performing post install configuration..."))
 
         if not self.upgrade:
+	    self.createCdrom()
             self.writeFstab ()
             self.writeLanguage ()
             self.writeMouse ()
@@ -1111,7 +1131,6 @@ class ToDo:
             self.writeRootPassword ()
             self.setupAuthentication ()
 	    self.createAccounts ()
-	    self.createCdrom()
 	    self.writeTimezone()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()

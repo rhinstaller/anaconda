@@ -90,6 +90,7 @@ class MouseWindow (InstallWindow):
         return name
 
     def getNext (self):
+	if not self.__dict__.has_key("availableMice"): return
 	cur = self.getCurrentKey()
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
         self.todo.mouse.set (cur, self.emulate3.get_active ())
