@@ -6,10 +6,13 @@ from thread import *
 from examine_gui import *
 import rpm
 import GdkImlib
+import GtkExtra
 import string
 import sys
 import xpms_gui
 from translate import _
+#import checkbutton_xpms
+import checklist
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -27,10 +30,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.updatingIcons = FALSE
 
-	self.idirImage = GdkImlib.create_image_from_xpm (xpms_gui.I_DIRECTORY_XPM)
-	self.idirUpImage = GdkImlib.create_image_from_xpm (xpms_gui.I_DIRECTORY_UP_XPM)
-	self.packageImage = GdkImlib.create_image_from_xpm (xpms_gui.PACKAGE_XPM)
-	self.packageSelectedImage = GdkImlib.create_image_from_xpm (xpms_gui.PACKAGE_SELECTED_XPM)
 
     def getPrev (self):
         for x in self.ics.getICW ().stateList:
@@ -39,6 +38,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             elif isinstance (x, UpgradeExamineWindow):
                 return UpgradeExamineWindow
         return None
+    
 
     def build_tree (self, x):
         if (x == ()): return ()
@@ -72,16 +72,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.ctree.node_set_row_data (node, cur_path)
             self.build_ctree (list[1:], cur_parent, node, path)
 
-    def draw_root_icons (self):
-        self.iconList.freeze ()
-        self.iconList.clear ()
-        for x in self.ctree.base_nodes ():
-            dirName = self.ctree.get_node_info (x)[0]
-            pos = self.iconList.append_imlib (self.idirImage, dirName)
-            self.iconList.set_icon_data (pos, (self.DIR, x))
-        self.iconList.thaw ()
-
-
     def get_rpm_desc (self, header):
         desc = replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
         desc = replace (desc, "\n", " ")
@@ -90,155 +80,275 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def clear_package_desc (self):
         self.currentPackage = None
-        self.packageName.set_text ("")
-        self.packageSize.set_text ("")                 
         self.packageDesc.freeze ()
         self.packageDesc.delete_text (0, -1)
         self.packageDesc.thaw ()
-        self.cbutton.set_active (FALSE)
-        self.cbutton.set_sensitive (FALSE)
-
     
-    def select_icon (self, iconList, arg1, event, *args):
-        if event and event.type != GDK._2BUTTON_PRESS and event.type != GDK.BUTTON_PRESS:
+    def sort_list (self, args, col):
+        self.packageList.freeze ()
+
+        if col == 2:
+            self.bubblesort(args, col)
+            min = 0
+            max = self.maxrows - 1
+#            self.mergesort (min, max)            
+#            self.quicksort (min, max, col)
+            self.sortType = "Size"
+
+        elif col == 1:
+            self.packageList.set_sort_column (col)
+            self.packageList.sort ()
+            self.sortType = "Package"
+
+        self.packageList.thaw () 
+
+    def quicksort (self, lo, hi, col):
+
+        if lo >= hi:
             return
-        icon_data = iconList.get_icon_data (arg1)
-        if not icon_data: return
+        
+        total = lo + hi
+        mid = total / 2   
 
-        if event and iconList.icon_is_visible (arg1) != VISIBILITY_FULL:
-            allocation = iconList.get_allocation ()
-            if (event.y - self.iconListAdj.value) < (allocation[3]/2):
-                self.iconList.moveto (arg1, 0.0)
-            else:
-                self.iconList.moveto (arg1, 1.0)
+        i = lo
+        j = hi
 
-        if event == None or event.type == GDK.BUTTON_PRESS:
-            if icon_data[0] == self.RPM:
-                header = icon_data[1]
-                # if we're already displaying the current package, don't redraw
-                if self.packageName.get () == "%s-%s-%s" % (header[rpm.RPMTAG_NAME],
-                                                            header[rpm.RPMTAG_VERSION],
-                                                            header[rpm.RPMTAG_RELEASE]):
-                    return
-                
-                self.currentPackage = header
-                self.currentPackagePos = arg1
-                self.cbutton.set_sensitive (TRUE)
-                if header.selected:
-                    self.cbutton.set_active (TRUE)
-                else:
-                    self.cbutton.set_active (FALSE)
+#        a = self.packageList.get_text(i, col)
+#        b = self.packageList.get_text(j, col)
+        x = self.packageList.get_text(mid, col)
+
+        while i < j:
+            print "Inside first while"
+            print "I=", i, "   J=", j, "  Mid=", mid
+
+            while self.packageList.get_text(i, col) < x:
+                print "Inside second while", "  I=", i
+                i = i + 1
+
+            while self.packageList.get_text(j, col) > x:
+                print "Inside third while", "  J=", j
+                j = j - 1
+
+            if i < j:
+                print "About to swap i & j  ",
+                print "I=", i, "   J=", j
+                self.packageList.swap_rows(i, j)
+                i = i + 1
+                j = j - 1
+                break
+
+            self.packageList.swap_rows(i, mid)
+            
+#            if i > j:
+#                break
+
+        if lo < j:
+            self.quicksort(lo, j, 2)
+        if i < hi:
+            self.quicksort(i, hi, 2)
+
+
+
+    def bubblesort (self, args, col):
+        count = 0
+        print "self.rownum = ", self.rownum
+
+        #--For empty groups, don't sort.  Just return.
+        if self.rownum == 0:
+            return
+
+        for i in range(self.rownum):
+            for j in range(self.rownum-i):
                     
-                self.packageName.set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
-                                                         header[rpm.RPMTAG_VERSION],
-                                                         header[rpm.RPMTAG_RELEASE]))
-                self.packageSize.set_text (_("%.1f KBytes") % (header[rpm.RPMTAG_SIZE] / 1024.0))
+                    
+                currow = j
+                nextrow = j + 1
+                
+                curr = self.packageList.get_text(currow, col)
+                curr = string.atoi(curr)
+                next = self.packageList.get_text(nextrow, col)
+                next = string.atoi(next)
+                
+                if curr < next:
+                    self.packageList.swap_rows(currow, nextrow)
+                    count = count + 1
+#                    print count
+                    self.packageList._update_row(currow)
+                    self.packageList._update_row(nextrow)
+
+        print count, " swaps for BubbleSort"
+
+#    def merge (self, min, max):
+#        mid = total / 2
+#        tempList = self.packageList
+        
+#        for i in range(mid):
+
+    def mergesort (self, min, max):
+        if min < max:
+            total = min + max
+            mid = total / 2
+            print "Min=", min, " Max=", max, " Mid=", mid
+            self.mergesort (min, mid)
+            self.mergesort (mid + 1, max)
+            self.merge (min, max)
+
+
+
+    def select_all (self, rownum):
+        self.packageDesc.freeze ()
+        self.packageDesc.delete_text (0, -1)
+        self.packageDesc.thaw ()
+        
+        for i in range(self.rownum + 1):
+             (val, row_data, header) = self.packageList.get_row_data (i)
+             header.select ()
+             self.packageList.set_row_data (i, (TRUE, row_data, header)) 
+             self.packageList._update_row (i)
+
+        self.updateSize()
+
+    def unselect_all (self, rownum):
+        self.packageDesc.freeze ()
+        self.packageDesc.delete_text (0, -1)
+        self.packageDesc.thaw ()
+
+        for i in range (self.rownum + 1):
+             (val, row_data, header) = self.packageList.get_row_data(i)
+             header.unselect()
+             self.packageList.set_row_data(i, (FALSE, row_data, header)) 
+             self.packageList._update_row (i)
+
+        self.updateSize()
+
+    def button_press (self, packageList, event):
+        row, col  = self.packageList.get_selection_info (event.x, event.y)
+        if row != None:
+            if col == 0:   #--If click on checkbox, then toggle
+                self.toggle_row (row)
+            elif col == 1 or col == 2:  #--If click pkg name, show description
+
+                packageName = self.packageList.get_text(row, col)
+
+                (val, row_data, header) = self.packageList.get_row_data(row)
+                description = header[rpm.RPMTAG_DESCRIPTION]
+                
                 self.packageDesc.freeze ()
                 self.packageDesc.delete_text (0, -1)
-                self.packageDesc.insert_defaults (self.get_rpm_desc (header))
+
+                #-- Remove various end of line characters
+                description = string.replace (description, "\n\n", "\x00")
+                description = string.replace (description, "\n", " ")
+                description = string.replace (description, "\x00", "\n\n")
+
+                self.packageDesc.insert_defaults (description)
                 self.packageDesc.thaw ()
-            else:
-                self.clear_package_desc ()
-            return
 
-        if icon_data[0] == self.RPM:
-            active = self.cbutton.get_active ()
-            if active == TRUE:
-                self.cbutton.set_active (FALSE)
-            else:
-                self.cbutton.set_active (TRUE)
 
-        if icon_data[0] == self.DIR_UP:
-            current_node = icon_data[1].parent
-            if current_node:
-                self.ctree.select (current_node)
-            else:
-                # handle the imaginary root node
-                current_node = self.ctree.base_nodes ()[0]
-                self.ctree.unselect (icon_data[1])
-                self.draw_root_icons ()
-                
-        elif icon_data[0] == self.DIR:
-            current_node = icon_data[1]
-            self.ctree.select (current_node)
-            if (current_node.parent):
-                self.ctree.expand_to_depth (current_node.parent, 1)
-	else: return
+    def toggle_row (self, row):
+        (val, row_data, header) = self.packageList.get_row_data(row)
 
-        if self.ctree.node_is_visible (current_node) != VISIBILITY_FULL:
-            self.ctree.node_moveto (current_node, 0, 0.5, 0.0)
+        val = not val
+        self.packageList.set_row_data(row, (val, row_data, header))
+        self.packageList._update_row (row)
+
+        packageName = self.packageList.get_text(row, 1)
+
+        description = header[rpm.RPMTAG_DESCRIPTION]
+
+        self.packageDesc.freeze ()
+        self.packageDesc.delete_text (0, -1)
+
+        #-- Remove various end of line characters
+        description = string.replace (description, "\n\n", "\x00")
+        description = string.replace (description, "\n", " ")
+        description = string.replace (description, "\x00", "\n\n")
+
+        self.packageDesc.insert_defaults (description)
+        self.packageDesc.thaw ()
+
+
+        if val == 0:
+            header.unselect()
+        else:
+            header.select()
+        
+        if self.packageList.toggled_func != None:
+            self.packageList.toggled_func(val, row_data)
+
+        self.updateSize()
+
+    def key_press_cb (self, clist, event):
+        if event.keyval == ord(" ") and self.packageList.focus_row != -1:
+            self.toggle_row (self.packageList.focus_row)
+#            self.emit_stop_by_name ("key_press_event")
+#            return 1
+
+#        return 0
+
+
+
+#    def toggle_row (self, data):
+#        print "Row toggled " , data
 
     def select (self, ctree, node, *args):
         self.clear_package_desc ()
-        self.iconList.freeze ()
-        self.iconList.clear ()
-        self.iconList.append_imlib (self.idirUpImage, _("Up"))
-        self.iconList.set_icon_data (0, (self.DIR_UP, node))
+        self.packageList.freeze ()
+        self.packageList.clear ()
+
+        self.maxrows = 0
+        self.rownum = 0
+
         for x in node.children:
             dirName = ctree.get_node_info (x)[0]
-            pos = self.iconList.append_imlib (self.idirImage, dirName)
-            self.iconList.set_icon_data (pos, (self.DIR, x))
+            self.packageList.column_titles_passive ()
+                
 
         try:
-            # this code is wrapped in a generic exception handler since we dont
-            # care if we access a namespace that lacks rpms
-            
+#            self.packageList.column_titles_active ()
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
-                if header.isSelected():
-                    packageIcon = self.packageSelectedImage
-                    self.cbutton.set_active (TRUE)
+                dirName = header[rpm.RPMTAG_NAME] 
+
+                dirSize = header[rpm.RPMTAG_SIZE]
+
+                dirDesc = header[rpm.RPMTAG_DESCRIPTION]
+
+                dirSize = dirSize/1000000
+                if dirSize > 1:
+                    row = [ "", dirName, "%s" % dirSize]
+                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), TRUE, dirDesc)
+                    
                 else:
-                    packageIcon = self.packageImage
-                    self.cbutton.set_active (FALSE)
-                
-                pos = self.iconList.append_imlib (packageIcon, header[rpm.RPMTAG_NAME])
-                self.iconList.set_icon_data (pos, (self.RPM, header))
+                    row = [ "", dirName, "1"]
+                    self.rownum = self.packageList.append_row((dirName, "1"), TRUE, dirDesc)
+
+
+                if header.isSelected():
+                    self.packageList.set_row_data(self.rownum, (1, dirDesc, header))
+                    self.maxrows = self.maxrows + 1
+                else:
+                    self.packageList._toggle_row(self.rownum)
+                    self.packageList.set_row_data(self.rownum, (0, dirDesc, header))
+                    self.maxrows = self.maxrows + 1
+
+            if self.sortType == "Package":
+                pass
+            elif self.sortType == "Size":
+                self.sort_list (args, 2)
+
+            self.packageList.column_titles_active ()
+            
         except:
+            print "Except called"
             pass
 
-	# make sure that the iconList is reset to show the initial files in a dir,
-        # unless we re rebuilding the icons because one has been selected for install
-        if not self.updatingIcons:
-            self.iconListSW.get_vadjustment ().set_value (0.0)
-        self.iconList.thaw ()
-        self.iconList.show_all ()
+        self.packageList.thaw ()
+        self.packageList.show_all ()
 
     def updateSize(self):
-        self.totalPackageSize.set_text (str(self.todo.comps.sizeStr()))
-
-    def installButtonToggled (self, cbutton, *args):
-        if not self.currentPackage: return
-        oldSelectedStatus = self.currentPackage.isSelected()
-        
-        if cbutton.get_active ():
-            self.currentPackage.select()
-        else:
-            self.currentPackage.unselect()
-
-	self.updateSize()
-
-        if oldSelectedStatus != self.currentPackage.isSelected():
-            self.updatingIcons = TRUE
-            self.ctree.select (self.ctree.selection[0])
-            self.iconList.select_icon (self.currentPackagePos)
-            self.updatingIcons = FALSE
-            
-#            self.iconList.freeze ()
-#            if self.currentPackage.isSelected()
-#                packageIcon = "/home/devel/pnfisher/gnome-package-checked.png"
-#            else:
-#                packageIcon = "/usr/src/gnorpm/gnome-package.xpm"
-
-#            print self.currentPackagePos
-#            self.iconList.remove (self.currentPackagePos)
-#            print _("got here")
-#            self.iconList.insert (self.currentPackagePos, packageIcon,
-#                                  self.currentPackage[rpm.RPMTAG_NAME])
-#            self.iconList.set_icon_data (self.currentPackagePos, (self.RPM, self.currentPackage))
-            
-#            self.iconList.thaw ()
-
+        self.totalSizeLabel.set_text("Total install size: "+ str(self.todo.comps.sizeStr()))
+#        pass
 
     def getScreen (self):
         threads_leave ()
@@ -303,58 +413,63 @@ class IndividualPackageSelectionWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
         sw.add (self.ctree)
-        iconHBox = GtkHBox ()
-        iconHBox.pack_start (sw, FALSE)
+        packageHBox = GtkHBox ()
+        packageHBox.pack_start (sw, FALSE)
 
-        self.iconList = GnomeIconList (90)
-        self.iconList.set_selection_mode (SELECTION_MULTIPLE)
-	self.iconList.connect ("select_icon", self.select_icon)
-        self.draw_root_icons ()
+        self.packageList = checklist.CheckList(2)
 
-        self.iconListSW = GtkScrolledWindow ()
-        self.iconListSW.set_border_width (5)
-        self.iconListSW.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
-        self.iconListSW.add (self.iconList)
-        self.iconListAdj = self.iconListSW.get_vadjustment ()
-        iconHBox.pack_start (self.iconListSW)
+        pix, msk = create_pixmap_from_xpm (self.packageList, None, "iw/checkbox.xpm")
+        self.pixmap = GtkPixmap(pix, msk)
+        
+        self.sortType = "Package"
+
+        self.packageList.set_column_widget (0, self.pixmap)
+        self.packageList.set_column_title (1, ("Package"))
+        self.packageList.set_column_auto_resize (1, TRUE)
+        self.packageList.set_column_title (2, ("Size (MB)"))
+        self.packageList.set_column_auto_resize (2, TRUE)
+        self.packageList.column_titles_show ()
+
+        self.packageList.column_title_active (0)
+        self.packageList.column_title_active (1)
+        self.packageList.column_title_active (2)
+        self.packageList.connect ('click-column', self.sort_list)
+        self.packageList.connect ('button_press_event', self.button_press)
+        self.packageList.connect ("key_press_event", self.key_press_cb)
+
+        self.packageListSW = GtkScrolledWindow ()
+        self.packageListSW.set_border_width (5)
+        self.packageListSW.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.packageListSW.add(self.packageList)
+
+        self.packageListVAdj = self.packageListSW.get_vadjustment ()
+        self.packageListSW.set_vadjustment(self.packageListVAdj)
+        self.packageListHAdj = self.packageListSW.get_hadjustment () 
+        self.packageListSW.set_hadjustment(self.packageListHAdj)
+
+        packageHBox.pack_start (self.packageListSW)
+
 
         descVBox = GtkVBox ()        
-        descVBox.pack_start (GtkHSeparator (), FALSE, padding=3)
+        descVBox.pack_start (GtkHSeparator (), FALSE, padding=2)
+
+        hbox = GtkHButtonBox ()
+#        hbox.set_layout(BUTTONBOX_SPREAD)
+
+        self.totalSizeLabel = GtkLabel("Total size: ")
+#        self.totalSize = GtkLabel("")
+        hbox.pack_start(self.totalSizeLabel, FALSE, FALSE, 0)
+#        hbox.pack_start(self.totalSize, FALSE, FALSE, 0)
+
+        selectAllButton = GtkButton("Select all in directory")
+        hbox.pack_start(selectAllButton, FALSE)
+        selectAllButton.connect('clicked', self.select_all)
+
+        unselectAllButton = GtkButton("Unselect all in directory")
+        hbox.pack_start(unselectAllButton, FALSE)
+        unselectAllButton.connect('clicked', self.unselect_all)        
 
 
-        hbox = GtkHBox ()
-        label = GtkLabel (_("Name: "))
-        self.packageName = GtkLabel ()
-        self.packageName.set_alignment (0.0, 0.0)
-        hbox.pack_start (label, FALSE, padding=5)
-        hbox.pack_start (self.packageName, FALSE)
-        label = GtkLabel (_("Package Details"))
-        label.set_alignment (1.0, 1.0)
-        hbox.pack_start (label, padding=5)
-        descVBox.pack_start (hbox, FALSE)
-
-        hbox = GtkHBox ()
-        label = GtkLabel (_("Size: "))
-        self.packageSize = GtkLabel ()
-        self.packageSize.set_alignment (0.0, 0.5)
-        hbox.pack_start (label, FALSE, padding=5)
-        hbox.pack_start (self.packageSize, FALSE)
-        align = GtkAlignment (1.0, 0.0)
-        self.cbutton = GtkCheckButton (_("Select Package For Installation"))
-        self.cbutton.set_sensitive (FALSE)
-        self.cbutton.connect ("toggled", self.installButtonToggled)
-        self.cbutton.children()[0].set_alignment (1.0, 0.5)
-        align.add (self.cbutton)
-        hbox.pack_start (align, padding=5)
-        descVBox.pack_start (hbox, FALSE)
-
-        hbox = GtkHBox ()
-        label = GtkLabel (_("Total install size: "))
-        self.totalPackageSize = GtkLabel ()
-        self.totalPackageSize.set_alignment (0.0, 0.5)
-        hbox.pack_start (label, FALSE, padding=5)
-        hbox.pack_start (self.totalPackageSize, FALSE)
-        self.updateSize ()
         descVBox.pack_start (hbox, FALSE)
 
         descSW = GtkScrolledWindow ()
@@ -370,12 +485,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         descVBox.pack_start (descSW)
 
-#        descFrame = GtkFrame (_("Package Details"))
-#        descFrame.set_border_width (5)
-#        descFrame.add (descVBox)
-        
         vbox = GtkVBox ()
-        vbox.pack_start (iconHBox)
+        vbox.pack_start (packageHBox)
         vbox.pack_start (descVBox, FALSE)
 
 	self.updateSize()
@@ -437,12 +548,11 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.checkButtons = []
         klass = self.todo.getClass ()
-        showgroups = klass.getOptionalGroups ()
         for comp in self.todo.comps:
             show = 0
-            if showgroups:
+            if klass.showgroups:
                 try:
-                    showgroups.index (comp.name)
+                    klass.showgroups.index (comp.name)
                     show = 1
                 except ValueError:
                     # comp not in show list
@@ -499,4 +609,73 @@ class PackageSelectionWindow (InstallWindow):
         vbox.pack_start (hbox, FALSE)
         
         return vbox
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
