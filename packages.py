@@ -354,7 +354,12 @@ def doPreInstall(method, id, intf, instPath, dir):
     if not upgrade:
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
-	if isys.smpAvailable():
+	if arch == "s390" or arch == "s390x":
+	    if (string.find(os.uname()[2], "vrdr") > -1):
+		select(id.hdList, 'kernel-vrdr')
+	    if (string.find(os.uname()[2], "tape") > -1):
+		select(id.hdList, 'kernel-tape')
+	elif isys.smpAvailable():
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-enterprise')):
@@ -664,7 +669,8 @@ def doPostInstall(method, id, intf, instPath):
 
 	    # XXX currently Bad Things (X async reply) happen when doing
 	    # Mouse Magic on Sparc (Mach64, specificly)
-	    if os.environ.has_key ("DISPLAY") and not arch == "sparc":
+	    # The s390 doesn't even have a mouse!
+	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390" or arch == "s390x"):
 		import xmouse
 		try:
 		    mousedev = xmouse.get()[0]
@@ -681,32 +687,33 @@ def doPostInstall(method, id, intf, instPath):
 		except RuntimeError:
 		    pass
 
-	    unmountUSB = 0
-	    try:
-		isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
-		unmountUSB = 1
-	    except:
-		log("Mount of /proc/bus/usb failed")
-		pass
+	    if arch != "s390" and arch != "s390x":
+		    unmountUSB = 0
+		    try:
+			isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
+			unmountUSB = 1
+		    except:
+			log("Mount of /proc/bus/usb failed")
+			pass
 
-		
-	    argv = [ "/usr/sbin/kudzu", "-q" ]
-	    devnull = os.open("/dev/null", os.O_RDWR)
-	    iutil.execWithRedirect(argv[0], argv, root = instPath,
-				   stdout = devnull)
-	    # turn it back on            
-	    if mousedev:
-		try:
-		    os.rename ("/dev/disablemouse", mousedev)
-		except OSError:
-		    pass
-		try:
-		    xmouse.reopen()
-		except RuntimeError:
-		    pass
+			
+		    argv = [ "/usr/sbin/kudzu", "-q" ]
+		    devnull = os.open("/dev/null", os.O_RDWR)
+		    iutil.execWithRedirect(argv[0], argv, root = instPath,
+					   stdout = devnull)
+		    # turn it back on            
+		    if mousedev:
+			try:
+			    os.rename ("/dev/disablemouse", mousedev)
+			except OSError:
+			    pass
+			try:
+			    xmouse.reopen()
+			except RuntimeError:
+			    pass
 
-	    if unmountUSB:
-		isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+		    if unmountUSB:
+			isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
 
 	w.set(4)
 

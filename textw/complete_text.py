@@ -14,8 +14,13 @@
 from snack import *
 from constants_text import *
 from translate import _
+import iutil
+
 
 class FinishedWindow:
+
+  if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
+
     def __call__ (self, screen):
         screen.pushHelpLine (string.center(_("<Return> to reboot"),
                                            screen.width))
@@ -36,6 +41,20 @@ class FinishedWindow:
 		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
+
+  else:
+
+    def __call__ (self, screen):
+	screen.pushHelpLine (string.center(_("<Return> to continue"),
+				screen.width))
+	rc = ButtonChoiceWindow (screen, _("Complete"),
+		_("Congratulations, package installation is complete.\n\n"
+		"Press return to continue.\n\n"
+		"Information on configuring and using your Red Hat "
+		"Linux system is contained in the Red Hat Linux "
+		"manuals."),
+		[ _("OK") ], help = "finished")
+	return INSTALL_OK
 
 
 class ReconfigFinishedWindow:

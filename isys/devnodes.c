@@ -162,6 +162,20 @@ int devMakeInode(char * devName, char * path) {
 	minor = 1;
 	if (devName[3])
 	    minor += devName[3] - '1';
+#if defined (__s390__) || defined (__s390x__)
+    } else if (!strncmp(devName, "dasd", 4)) {
+	/* IBM Dasd Drives */
+	type = S_IFBLK;
+	major = 94;
+	minor = ( devName[4] - 'a' ) * 4;
+	if (devName[5])
+		minor += devName[5] - '0';
+    } else if (!strncmp(devName, "mnd", 4)) {
+	/* IBM MiniDisk Drives */
+	type = S_IFBLK;
+	major = 95;
+	minor = devName[3] - 'a';
+#endif
     } else if (!strncmp(devName, "rd/", 3)) {
 	/* dac 960 "/rd/c0d0{p1}" */
 	int c, d, p;

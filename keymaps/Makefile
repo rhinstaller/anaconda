@@ -17,3 +17,9 @@ alpha:
 
 sparc:
 	./updkmaps sparc
+
+s390:
+	./updkmaps s390
+
+s390x:
+	./updkmaps s390

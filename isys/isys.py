@@ -183,6 +183,7 @@ def driveDict(klassArg):
         probedList = _isys.ProbedList()
         probedList.updateIde()
         probedList.updateScsi()
+        probedList.updateDasd()
 
     dict = {}
     for (klass, dev, descr) in probedList:

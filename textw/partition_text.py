@@ -1026,3 +1026,9 @@ class AutoPartitionWindow:
                 screen.popWindow()
                 
                 return INSTALL_OK
+
+class DasdPreparation:
+    def __call__(self, screen, todo):
+	todo.skipFdisk = 1
+	return INSTALL_NOOP
+

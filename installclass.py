@@ -112,6 +112,21 @@ class BaseInstallClass:
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderpassword")
 
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+	    dispatch.skipStep("bootdisk")
+	    dispatch.skipStep("lilo")
+	    dispatch.skipStep("partition")
+	    dispatch.skipStep("format")
+	    dispatch.skipStep("mouse")
+	    dispatch.skipStep("network")
+	    dispatch.skipStep("firewall")
+	    dispatch.skipStep("authentication")
+	    # dispatch.skipStep("accounts")
+	    dispatch.skipStep("language")
+	    dispatch.skipStep("keyboard")
+	    dispatch.skipStep("xconfig")
+	    dispatch.skipStep("lba32warning")
+
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist):
 	pass

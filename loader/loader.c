@@ -1445,13 +1445,16 @@ static char * doMountImage(char * location,
     while (step != STEP_DONE) {
 	switch (step) {
 	case STEP_LANG:
+#if !defined (__s390__) && !defined (__s390x__)
 	    chooseLanguage(lang, flags);
+#endif
 	    defaultLang = 0;
 	    step = STEP_KBD;
             dir = 1;
 	    break;
 	    
 	case STEP_KBD:
+#if !defined (__s390__) && !defined (__s390x__)
 	    rc = chooseKeyboard (keymap, kbdtype, flags);
 
             if (rc == LOADER_NOOP) {
@@ -1469,6 +1472,10 @@ static char * doMountImage(char * location,
 		step = STEP_METHOD;
                 dir = 1;
             }
+#else
+	    step = STEP_METHOD;
+            dir = 1;
+#endif
 	    break;
 	    
 	case STEP_METHOD:

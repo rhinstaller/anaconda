@@ -36,6 +36,8 @@ def probeFloppyDevice():
 	    f.close()
     elif iutil.getArch() == "alpha":
 	pass
+    elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+	pass
     elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
 	# Look for the first IDE floppy device
 	drives = isys.floppyDriveDict()

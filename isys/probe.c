@@ -403,6 +403,43 @@ bye:
     return val;
 }
 
+int kdFindDasdList(struct knownDevices * devices, int code) {
+   /* patch for s390 by Oliver Paukstadt <oliver.paukstadt@millenux.com> */
+   /* based upon code by Erik Tews <erik.tews@gmx.net> */
+   FILE * fd;
+   struct kddevice device;
+   char line[200];
+   char name[10];
+   char status[10];
+   char model[30];
+
+   if (access("/proc/dasd/devices", R_OK)) return 0;
+   /* a system without /proc/dasd/devices is nothing to worry about */
+
+   fd = fopen ("/proc/dasd/devices", "r");
+   if (fd == NULL) return 1;
+
+   /* Every line in this file is a harddisk */
+   while ((fgets(line, 190, fd)) != NULL) {
+      sscanf(line, "%*X %*[(A-Z)] at (%*d:%*d) is %[a-z0-9]:%s ", name, status);
+      /* Take every dasd, formated and unformated */
+
+      if (!deviceKnown(devices, name)) {
+         snprintf(model, sizeof(model), "IBM DASD (%s)", status);
+         device.class = CLASS_HD;
+         device.name = strdup(name);
+         device.model = strdup(model);
+         device.code = code;
+         addDevice(devices, device);
+      }
+   }
+   fclose (fd);
+
+   qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+	sortDevices);
+   return 0;
+}
+
 struct knownDevices kdInit(void) {
     struct knownDevices kd;
 
