@@ -216,7 +216,7 @@ class KickstartBase(BaseInstallClass):
 
     def doBootloader (self, id, args, useLilo = 0):
         (args, extra) = isys.getopt(args, '',
-                [ 'append=', 'location=', 'useLilo', '--lba32',
+                [ 'append=', 'location=', 'useLilo', 'lba32',
                   'password=', 'md5pass=', 'linear', 'nolinear'])
 
         validLocations = [ "mbr", "partition", "none" ]
