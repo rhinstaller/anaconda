@@ -1,4 +1,5 @@
 import isys
+import os
 from installclass import InstallClass
 from installclass import FSEDIT_CLEAR_LINUX
 from installclass import FSEDIT_CLEAR_ALL
@@ -15,6 +16,9 @@ class Kickstart(InstallClass):
 	    (str, arg) = n
 	    if (str == '--iscrypted'):
 		isCrypted = 1
+
+	if len(extra[0]) != 1:
+	    raise ValueError, "a single argument is expected to rootPw"
 
 	InstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
 	self.addToSkipList("accounts")
@@ -76,6 +80,18 @@ class Kickstart(InstallClass):
 	self.setLiloInformation(location, linear, appendLine)
 	self.addToSkipList("lilo")
 
+    def doLiloCheck (self, args):
+        drives = isys.hardDriveList ().keys()
+	drives.sort(isys.compareDrives)
+	device = drives[0]
+	isys.makeDevInode(device, '/tmp/' + device)
+	fd = os.open('/tmp/' + device, os.O_RDONLY)
+	os.unlink('/tmp/' + device)
+	block = os.read(fd, 512)
+	os.close(fd)
+	if block[6:10] == "LILO":
+	    sys.exit(0)
+
     def doTimezone(self, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'utc' ])
@@ -91,10 +107,14 @@ class Kickstart(InstallClass):
 
 	self.addToSkipList("timezone")
 
+
     def doXconfig(self, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'server=', 'card=', 'monitor=', 'hsync=', 'vsync=',
 		  'startxonboot', 'noprobe' ])
+
+	if extra:
+	    raise ValueError, "unexpected arguments to xconfig command"
 
 	server = None
 	card = None
@@ -233,11 +253,13 @@ class Kickstart(InstallClass):
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
 		     "device"		: None			,
+		     "driverdisk"	: None			,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
 		     "keyboard"		: self.doKeyboard	,
 		     "lang"		: self.doLang		,
 		     "lilo"		: self.doLilo		,
+		     "lilocheck"	: self.doLiloCheck	,
 		     "mouse"		: self.doMouse		,
 		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,
@@ -340,6 +362,9 @@ class Kickstart(InstallClass):
 		onPart = arg
 	    elif str == '--ondisk':
 		device = arg
+
+	if len(extra) != 1:
+	    raise ValueError, "partition command requires one anonymous argument"
 
 	if onPart:
 	    self.addToFstab(extra[0], onPart)
