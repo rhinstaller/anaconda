@@ -880,6 +880,17 @@ if xcfg is None and not isHeadless:
 	xcfg = None
 
 if xcfg is not None:
+    #
+    # XXX - hack - here we want to enforce frame buffer requirement on ppc
+    #       pick 640x480x8bpp cause that is what frame buffer inits to
+    #       when the machine reboots
+    if iutil.getArch() == "ppc":
+	cardname = "Framebuffer driver (generic)"
+	xcfg.set_videocard_card(cardname)
+	xcfg.set_videocard_name(cardname)
+	xcfg.set_colordepth(8)
+	xcfg.set_resolution("640x480")
+	
     xsetup = xsetup.XSetup(xcfg)
     id.setXSetup(xsetup)
 
