@@ -708,9 +708,6 @@ class XF86Config:
 
         if not vidRam:
             return modes
-        laptop = self.laptop()
-        if laptop:
-            return laptop
         if string.atoi(vidRam) >= 8192:
             modes["8"] = ["640x480", "800x600", "1024x768","1152x864",
                           "1280x1024", "1400x1050", "1600x1200"]
@@ -917,30 +914,6 @@ class XF86Config:
 
         return args
 
-
-    def laptop (self):
-
-        if self.videocard == None:
-            return None
-        
-        descr = self.videocard.getDescription() 
-        if not descr:
-            return None
-
-        # PCI descr, (horiz, vert), modes
-        laptops = (("ATI|Rage Mobility",
-                    ("30-110", "60-110"),
-                    { "8" : ["800x600", "1024x768", "1400x1050"],
-                      "16" : ["800x600", "1024x768", "1400x1050"],
-                      "32" : ["800x600", "1024x768", "1400x1050"]}),
-                   )
-        for (card, (horiz, vert), modes) in laptops:
-            if (len(descr) >= len (card)
-                and descr[:len(card)] == card):
-                self.monitor.setSpecs(horiz, vert, id="Laptop Screen")
-                return modes
-        return None
-
     def test (self, serverflags=None, spawn=0, root='/'):
 
         if self.videocard == None:
@@ -952,11 +925,6 @@ class XF86Config:
             return None
 
         files = self.files
-        laptop = self.laptop()
-
-        # override modes if on a laptop
-        if laptop:
-            self.manualModes = laptop
 
         # if we're forcing framebuffer, use those modes if available
         fbmonsect = None
