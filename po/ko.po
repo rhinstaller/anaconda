@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1999-09-14 02:31+0900\n"
+"PO-Revision-Date: 1999-09-15 20:51+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -702,9 +702,8 @@ msgid "Customize packages to be upgraded"
 msgstr "업그레이드할 패키지 선택"
 
 #: ../iw/fdisk.py:11 ../textw/partitioning.py:25
-#, fuzzy
 msgid "fdisk"
-msgstr "부트디스크"
+msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
 msgid "Select drive to run fdisk on"
@@ -934,7 +933,7 @@ msgstr "파티션 선택 확인"
 
 #: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
 msgid "Disk Druid"
-msgstr ""
+msgstr "디스크 드루이드"
 
 #: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
@@ -1054,12 +1053,11 @@ msgstr ""
 
 #: ../textw/lilo.py:62
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "부트로더를 어느 것에 설치할까요?"
 
 #: ../textw/lilo.py:82 ../textw/lilo.py:102
-#, fuzzy
 msgid "Clear"
-msgstr "닫기"
+msgstr "정리"
 
 #: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
 #: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
@@ -1069,9 +1067,8 @@ msgid "Cancel"
 msgstr "취소"
 
 #: ../textw/lilo.py:90
-#, fuzzy
 msgid "Edit Boot Label"
-msgstr "부트 레이블"
+msgstr "부트 레이블 수정"
 
 #: ../textw/lilo.py:153
 msgid ""
@@ -1088,9 +1085,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/partitioning.py:17 ../textw/partitioning.py:56
-#, fuzzy
 msgid "Disk Setup"
-msgstr "NFS 설정"
+msgstr "디스크 설정"
 
 #: ../textw/partitioning.py:18
 msgid ""
@@ -1115,7 +1111,7 @@ msgstr "완료"
 
 #: ../textw/partitioning.py:102 ../textw/partitioning.py:103
 msgid "Continue"
-msgstr ""
+msgstr "계속"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
@@ -1137,12 +1133,10 @@ msgid ""
 msgstr ""
 
 #: ../textw/partitioning.py:170
-#, fuzzy
 msgid "Check for bad blocks during format"
 msgstr "포맷 중에 배드 블럭을 체크함"
 
 #: ../textw/partitioning.py:174
-#, fuzzy
 msgid "Choose Partitions to Format"
 msgstr "포맷할 파티션 선택"
 
@@ -1158,53 +1152,48 @@ msgid "Password:"
 msgstr "패스워드:"
 
 #: ../textw/userauth.py:26
-#, fuzzy
 msgid "Password (again):"
-msgstr "패스워드:"
+msgstr "패스워드 (다시):"
 
 #: ../textw/userauth.py:42 ../textw/userauth.py:93
-#, fuzzy
 msgid "Password Length"
-msgstr "패스워드"
+msgstr "패스워드 길이"
 
 #: ../textw/userauth.py:43
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "ROOT 패스워드는 최소한 6자 이상이어야 합니다."
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:101
-#, fuzzy
 msgid "Password Mismatch"
-msgstr "패스워드"
+msgstr "패스워드가 일치하지 않음"
 
 #: ../textw/userauth.py:48 ../textw/userauth.py:102
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "패스워드가 입력한 것과 맞지 않습니다. 다시 하시기 바랍니다."
 
 #: ../textw/userauth.py:73
-#, fuzzy
 msgid "Edit User"
-msgstr "수정"
+msgstr "사용자 수정"
 
 #: ../textw/userauth.py:75
-#, fuzzy
 msgid "Add User"
-msgstr "원하는 용도"
+msgstr "사용자 추가"
 
 #: ../textw/userauth.py:80
 msgid "User ID"
-msgstr ""
+msgstr "사용자 ID"
 
 #: ../textw/userauth.py:94
 msgid "The password must be at least 6 characters long."
-msgstr ""
+msgstr "패스워드는 최소한 6자 이상이어야 합니다."
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
-msgstr ""
+msgstr "사용자가 존재함"
 
 #: ../textw/userauth.py:112
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "사용자 ID가 이미 존재합니다. 다른 ID를 선택하십시오."
 
 #: ../textw/userauth.py:139
 msgid ""
@@ -1221,45 +1210,40 @@ msgid ""
 msgstr ""
 
 #: ../textw/userauth.py:162
-#, fuzzy
 msgid "User name"
-msgstr "NFS 서버명: "
+msgstr "사용자 이름"
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "사용자에 대한 정보를 입력하십시오."
 
 #: ../textw/userauth.py:198
 msgid "Change the information for this user."
-msgstr ""
+msgstr "사용자에 대한 정보를 변경합니다."
 
 #: ../textw/userauth.py:249
-#, fuzzy
 msgid "Use Shadow Passwords"
 msgstr "세도우 패스워드 사용"
 
 #: ../textw/userauth.py:251
-#, fuzzy
 msgid "Enable MD5 Passwords"
 msgstr "MD5 패스워드 사용"
 
 #: ../textw/userauth.py:258
-#, fuzzy
 msgid "NIS Domain:"
-msgstr "NIS 도메인: "
+msgstr "NIS 도메인:"
 
 #: ../textw/userauth.py:260
-#, fuzzy
 msgid "NIS Server:"
-msgstr "NIS 서버: "
+msgstr "NIS 서버:"
 
 #: ../textw/userauth.py:262
 msgid "or use:"
-msgstr ""
+msgstr "또는:"
 
 #: ../textw/userauth.py:265
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "브로드캐스트롤 통해 서버에 요청"
 
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
@@ -1870,13 +1854,12 @@ msgid "Module Parameters"
 msgstr "모듈 매개 변수"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"이 모듈에 매개변수를 설정 할수 있으며, 그것은 잗동에 영향을 줍니다. 설정할 "
+"이 모듈에 매개변수를 설정 할수 있으며, 그것은 작동에 영향을 줍니다. 설정할 "
 "매개 변수가 정확하지 않다면 \"OK\"를 누르고 이 설정을 넘어가시기 바랍니다."
 
 #: ../loader/devices.c:120
@@ -1916,14 +1899,12 @@ msgid "Choose a Language"
 msgstr "언어를 선택하세요"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "키보드 선택"
+msgstr "키보드 종류"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "어떤 CDROM을 사용하십니까?"
+msgstr "어떤 키보드를 사용하십니까?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
@@ -2019,13 +2000,12 @@ msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "%s 장치는 레드햇 설치 트리를 포함하고 있지 않습니다."
 
 #: ../loader/loader.c:709
-#, fuzzy
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"레드햇 리눅스 CDROM을 CDROM 드라이브에서 찾지 못했습니다. 레드햇 CD를넣으신 "
-"후에 \"확인\" 버튼을 눌러 주십시오."
+"레드햇 리눅스 CDROM을 어떤 CDROM 드라이브에서도 찾지 못했습니다. 레드햇 CD를 "
+"넣으신 후에 \"확인\" 버튼을 눌러 재시도하십시오."
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2290,9 +2270,3 @@ msgstr "HTTP 프록시 포트:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "SCSI 드라이버 읽는 중"
-
-#~ msgid "Root Partition Selection"
-#~ msgstr "루트 파티션 선택"
-
-#~ msgid "Welcome to Red Hat Linux!"
-#~ msgstr "레드햇 리눅스에 오신것을 환영합니다."
