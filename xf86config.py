@@ -7,6 +7,7 @@ import iutil
 import kudzu
 import time
 import os
+import _xkb
 
 def _(x):
     return x
@@ -28,6 +29,18 @@ class XF86Config:
         self.skip = 0
         self.modes = { "8" :  ["640x480"] }
 	self.device = None
+        self.keyModel = None
+        self.keyLayout = None
+        self.keyVariant = None
+        self.keyOptions = None
+        rules = _xkb.get_rulesbase ()
+        self.keyRules = rules[string.rfind (rules, "/")+1:]
+
+    def setKeyboard (self, model, layout, variant, options):
+        self.keyModel = model
+        self.keyLayout = layout
+        self.keyVariant = variant
+        self.keyOptions = options
 
     def setMouse(self, mouse):
         if mouse:
@@ -212,7 +225,7 @@ class XF86Config:
     def write (self, path):
         config = open (path, 'w')
         config.write (self.preludeSection ())
-        config.write (self.inputSection ())
+        config.write (self.keyboardSection ())
         config.write (self.mouseSection ())
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
@@ -235,7 +248,7 @@ EndSection
 Section "ServerFlags"
 EndSection
 """)
-        config.write (self.inputSection ())
+        config.write (self.keyboardSection ())
         config.write (
 """
 Section "Pointer"
@@ -327,7 +340,36 @@ Section "ServerFlags"
 EndSection
 """
 
-    def inputSection (self):
+    def mouseSection (self):
+        return """
+# **********************************************************************
+# Pointer section
+# **********************************************************************
+
+Section "Pointer"
+    Protocol    "%(mouseProto)s"
+    Device      "/dev/mouse"
+
+# When using XQUEUE, comment out the above two lines, and uncomment
+# the following line.
+#    Protocol	"Xqueue"
+
+# Baudrate and SampleRate are only for some Logitech mice
+#    BaudRate	9600
+#    SampleRate	150
+
+# Emulate3Buttons is an option for 2-button Microsoft mice
+# Emulate3Timeout is the timeout in milliseconds (default is 50ms)
+    Emulate3Buttons
+    Emulate3Timeout    50
+
+# ChordMiddle is an option for some 3-button Logitech mice
+#    ChordMiddle
+
+EndSection
+""" % self.mouse
+
+    def keyboardSection (self):
         return """
 # **********************************************************************
 # Keyboard section
@@ -379,51 +421,14 @@ Section "Keyboard"
      XkbOptions  "ctrl:nocaps"
 
 # These are the default XKB settings for XFree86
-#    XkbRules    "xfree86"
-#    XkbModel    "pc101"
-#    XkbLayout   "us"
-#    XkbVariant  ""
-#    XkbOptions  ""
-
-    XkbKeycodes     "xfree86"
-    XkbTypes        "default"
-    XkbCompat       "default"
-    XkbSymbols      "us(pc101)"
-    XkbGeometry     "pc"
-    XkbRules        "xfree86"
-    XkbModel        "pc101"
-    XkbLayout       "us"
+    XkbRules    "%s"
+    XkbModel    "%s"
+    XkbLayout   "%s"
+    XkbVariant  "%s"
+    XkbOptions  "%s"
 EndSection
-"""
+""" % (self.keyRules, self.keyModel, self.keyLayout, self.keyVariant, self.keyOptions)
 
-    def mouseSection (self):
-        return """
-# **********************************************************************
-# Pointer section
-# **********************************************************************
-
-Section "Pointer"
-    Protocol    "%(mouseProto)s"
-    Device      "/dev/mouse"
-
-# When using XQUEUE, comment out the above two lines, and uncomment
-# the following line.
-#    Protocol	"Xqueue"
-
-# Baudrate and SampleRate are only for some Logitech mice
-#    BaudRate	9600
-#    SampleRate	150
-
-# Emulate3Buttons is an option for 2-button Microsoft mice
-# Emulate3Timeout is the timeout in milliseconds (default is 50ms)
-    Emulate3Buttons
-    Emulate3Timeout    50
-
-# ChordMiddle is an option for some 3-button Logitech mice
-#    ChordMiddle
-
-EndSection
-""" % self.mouse
         
     def monitorSection (self):
         info = {}
@@ -776,7 +781,7 @@ if __name__ == "__main__":
 #    x.probe ()
     sys.exit (0)
     print x.preludeSection ()
-    print x.inputSection ()
+    print x.keyboardSection ()
     print x.mouseSection ()
     print x.monitorSection ()
     print x.deviceSection ()

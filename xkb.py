@@ -4,7 +4,7 @@ import string
 
 class XKB:
     def __init__ (self):
-        self.rules = _xkb.list_rules ()
+        self.rules = _xkb.list_rules ()                            
 
     def getRules (self):
         return self.rules
@@ -33,7 +33,6 @@ class XKB:
 
         return _xkb.set_rule (model, layout, variant, options)
 
-        
-        
-        
-        
+    def getRulesBase (self):
+        return _xkb.get_rulesbase ()
+

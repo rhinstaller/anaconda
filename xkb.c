@@ -18,11 +18,14 @@ static XkbRF_RulesPtr rules;
 
 PyObject *list_rules ();
 PyObject *set_rule (PyObject *, PyObject *);
+PyObject * py_get_rulesbase ();
+
 char * get_rulesbase ();
 
 static PyMethodDef _xkbMethods[] = {
     { "list_rules", list_rules, 1 },
-    { "set_rule", set_rule, 1},
+    { "set_rule", set_rule, 1 },
+    { "get_rulesbase", py_get_rulesbase, 1 },
     { NULL, NULL }
 };
 
@@ -40,6 +43,12 @@ get_rulesbase ()
 #endif
 
   return rulesbase;
+}
+
+PyObject *
+py_get_rulesbase ()
+{
+  return Py_BuildValue ("s", get_rulesbase ());
 }
   
 void 
