@@ -104,13 +104,11 @@ class Partitions:
                     ptype = fsset.fileSystemTypeGet("software RAID")
                 elif part.get_flag(parted.PARTITION_LVM) == 1:
                     ptype = fsset.fileSystemTypeGet("physical volume (LVM)")
-                elif part.fs_type:
+                else:
                     ptype = partedUtils.get_partition_file_system_type(part)
-                    if part.fs_type.name == "linux-swap":
+                    if part.fs_type and part.fs_type.name == "linux-swap":
                         # XXX this is a hack
                         format = 1
-                else:
-                    ptype = fsset.fileSystemTypeGet("foreign")
                     
                 start = part.geom.start
                 end = part.geom.end

@@ -41,7 +41,8 @@ ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'kernel-smp' : None,	'kernel-bigmem' : None,
                     'kernel-vrdr' : None,	'kernel-tape' : None,
                     'kernel-BOOTtape' : None,	'kernel-BOOTvrdr' : None,
-                    'kernel-summit' : None,
+                    'kernel-summit' : None,     'kernel-pseries': None,
+                    'kernel-iseries': None,
 
                     'kinput2-canna' : None,	'kinput-canna-wnn4' : None,
                     'kinput2-wnn4' : None,	'kinput2-wnn6' : None }
@@ -209,6 +210,11 @@ class HeaderList:
                 continue
             if name == "kernel-iseries" and iutil.getPPCMachine() != "iSeries":
                 continue
+
+            # FIXME: this is a really bad hack so that we can try to avoid
+            # weirdness with kernel packages
+            if name == "kernel-iseries" or name == "kernel-pseries":
+                self.packages["kernel"] = Package(h)
             
             if noscore:
                 self.packages[name] = Package(h)

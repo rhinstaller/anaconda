@@ -25,11 +25,6 @@ prepareBootTree() {
 	cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
 	rm -f $MBD_BOOTTREE/syslinux-splash.png
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
-	    # fb console and kon don't get along...
-	    if [ "$BOOTLANG" = "ja_JP" ]; then
-		sed -e "s/ vga=[0-9]*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
-		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
-	    fi
 	    for file in $BOOTDISKDIR/$BOOTLANG/*.msg; do
 		filename=`basename $file`
 		sed -e "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
@@ -151,7 +146,7 @@ PCMCIAMODULES="$PCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 makeBootImages() {
     echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--pcmcia \
+	--pcmcia --nobogl \
 	--initrdsize 4750 \
 	--loaderbin loader \
 	--modules "$COMMONMODULES"

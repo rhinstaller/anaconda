@@ -149,7 +149,8 @@ class BaseInstallClass:
 
         if iutil.getArch() != "i386":
             dispatch.skipStep("bootdisk")
-
+            dispatch.skipStep("bootloader")
+            
         if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
             iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
             dispatch.skipStep("bootloader")

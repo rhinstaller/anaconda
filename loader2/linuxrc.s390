@@ -28,6 +28,18 @@ VERSION=1.01
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
 
+doshutdown()
+{
+	 exec /sbin/shutdown
+	 exit 0
+}
+
+doreboot()
+{
+	 exec /sbin/shutdown -r
+	 exit 0
+}
+
 startinetd()
 {
 	echo
@@ -35,15 +47,14 @@ startinetd()
    echo $"Welcome to the Red Hat Linux install environment $VERSION for $S390ARCH" > /etc/issue.net
    echo $"Welcome to the Red Hat Linux install environment $VERSION for $S390ARCH" > /etc/motd
    echo >> /etc/motd
-   echo $"Now run 'loader' to install Red Hat Linux." >> /etc/motd
-   echo >> /etc/motd
 
 	/sbin/xinetd -stayalive -reuse -pidfile /tmp/xinetd.pid
 	/sbin/sshd
 	if [ -z "$RUNKS" ]; then
+	  echo 
+	  echo $"Please connect now to $IPADDR to start the installation."
+	  read
   	  while : ; do
-			echo
-			echo $"Please connect now to $IPADDR and start 'loader' from this shell."
 			/bin/sh --login
 			[ $? = 0 ] || break
 	  done
@@ -348,12 +359,12 @@ MTU=$MTU
 EOF
 
 # so that the vars get propagated into the sshd shells
-cat >> /etc/profile <<EOF
+mkdir /.ssh
+cat >> /.ssh/environment <<EOF
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 PATH=$PATH
 HOME=$HOME
 PYTHONPATH=$PYTHONPATH
-export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
 if [ "$NETTYPE" = "ctc" ]; then
@@ -364,16 +375,20 @@ fi
 # I'm tired of typing this out...
 echo "loader" >> /.bash_history
 
+echo -n $$ > /var/run/init.pid
+# shutdown (halt) on SIGUSR1
+trap doshutdown SIGUSR1
+# reboot on SIGUSR2
+trap doreboot SIGUSR2
+
 startinetd
 
 if [ -n "$RUNKS" ]; then
 	 /sbin/loader
 fi
 
-umount -a
-umount /proc
+doshutdown
 
-exit 0
 # ;;; Local Variables: ***
 # ;;; mode: sh ***
 # ;;; tab-width:3 ***

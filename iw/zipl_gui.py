@@ -71,6 +71,9 @@ class ZiplWindow (InstallWindow):
 
         box  = gtk.VBox(gtk.FALSE, 5)
         box.set_border_width(5)
+
+        label = gtk.Label(_("The z/IPL boot loader will be installed on your "
+                            "system."))
         label = gtk.Label(_("The z/IPL Boot Loader will now be installed "
                            "on your system."
                            "\n"
@@ -107,10 +110,18 @@ class ZiplWindow (InstallWindow):
         clabel2 = gtk.Label(_("Chandev Parameters") + ":")
         clabel2.set_alignment(0.0, 0.5)
         self.chandeventry2 = gtk.Entry()
+
         if bl.args and bl.args.get():
-            self.kernelEntry.set_text(bl.args.get())
-        if isys.getDasdPorts():
-            self.kernelEntry.set_text(self.kernelEntry.get_text() + " dasd=" + isys.getDasdPorts())
+            kernelparms = bl.args.get()
+        else:
+            kernelparms = ""
+        if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
+            if len(kernelparms) > 0:
+                kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
+            else:
+                kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
+        self.kernelEntry.set_text(kernelparms)
+        
         if bl.args and bl.args.chandevget():
             cdevs = bl.args.chandevget()
             self.chandeventry1.set_text('')

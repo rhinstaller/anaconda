@@ -259,6 +259,34 @@ def doShutdownX11Actions():
 	    pass
 
 
+def setupRhplUpdates():
+    try:
+        os.mkdir("/tmp/updates")
+    except:
+        pass
+    try:
+        os.mkdir("/tmp/updates/rhpl")
+    except:
+        pass
+    if os.access("/mnt/source/RHupdates/rhpl", os.X_OK):
+        for f in os.listdir("/mnt/source/RHupdates/rhpl"):
+            os.symlink("/mnt/source/RHupdates/rhpl/%s" %(f,),
+                       "/tmp/updates/rhpl/%s" %(f,))
+
+        if os.access("/usr/lib64/python2.2/site-packages/rhpl", os.X_OK):
+            libdir = "lib64"
+        else:
+            libdir = "lib"
+            
+        for f in os.listdir("/usr/%s/python2.2/site-packages/rhpl" %(libdir,)):
+            if os.access("/tmp/updates/rhpl/%s" %(f,), os.R_OK):
+                continue
+	    elif f.endswith(".pyc") and os.access("/tmp/updates/rhpl/%s" %(f[:-1],), os.R_OK):
+		# dont copy .pyc files we are replacing with updates
+		continue
+	    
+            os.symlink("/usr/%s/python2.2/site-packages/rhpl/%s" %(libdir, f),
+                       "/tmp/updates/rhpl/%s" %(f,))
     
 # For anaconda in test mode
 if (os.path.exists('isys')):
@@ -299,6 +327,11 @@ if len(sys.argv) > 1:
         output = sys.argv[3]
         syslog = Syslogd (root, open (output, "a"))
 	# this never returns
+
+# this handles setting up RHupdates for rhpl to minimize the set needed
+if (os.access("/mnt/source/RHupdates/rhpl", os.X_OK) or
+    os.access("/tmp/updates/rhpl", os.X_OK)):
+    setupRhplUpdates()
 
 import signal, traceback, string, isys, iutil, time
 
@@ -467,7 +500,7 @@ for n in args:
 	flags.setupFilesystems = 0
 	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
-	display_mode = 't'
+        display_mode = 't'
     elif (str == "-C" or str == "--cmdline"):
         display_mode = 'c'
     elif (str == '--kbdtype'):
@@ -947,6 +980,17 @@ if xcfg is None and not isHeadless:
 	xcfg = None
 
 if xcfg is not None:
+    #
+    # XXX - hack - here we want to enforce frame buffer requirement on ppc
+    #       pick 640x480x8bpp cause that is what frame buffer inits to
+    #       when the machine reboots
+    if iutil.getArch() == "ppc":
+	cardname = "Framebuffer driver (generic)"
+	xcfg.set_videocard_card(cardname)
+	xcfg.set_videocard_name(cardname)
+	xcfg.set_colordepth(8)
+	xcfg.set_resolution("640x480")
+	
     xsetup = xsetup.XSetup(xcfg)
     id.setXSetup(xsetup)
 

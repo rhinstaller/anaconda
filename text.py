@@ -367,6 +367,18 @@ class InstallInterface:
 	    self.screen.finish()
 
     def run(self, id, dispatch, configFileData):
+        # set up for CJK text mode if needed
+        if (flags.setupFilesystems and
+            id.instLanguage.getFontFile(id.instLanguage.getCurrent())
+            and not isys.isPsudoTTY(0)
+            and not flags.serial):
+            log("starting bterm")
+            try:
+                rc = isys.startBterm()
+                time.sleep(1)
+            except Exception, e:
+                log("got an exception starting bterm: %s" %(e,))
+        
         self.screen = SnackScreen()
         self.configFileData = configFileData
 	self.screen.helpCallback(self.helpWindow)
@@ -387,8 +399,9 @@ class InstallInterface:
 	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
-        lang = id.instLanguage.getCurrent()
-        lang = id.instLanguage.getLangNick(lang)
+        langname = id.instLanguage.getCurrent()
+        lang = id.instLanguage.getLangNick(langname)
+
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage
 

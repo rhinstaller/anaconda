@@ -4,14 +4,14 @@ PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M)
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch> <productname> <version>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version>"
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
 
-PRODUCT=$5
-VERSION=$6
+PRODUCT=$6
+VERSION=$7
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -23,15 +23,15 @@ TOPDIR=$(cd $TOPDIR; pwd)
 # Set, verify, and create paths
     KERNELPATH=$1
     TOPDESTPATH=$2
-    IMAGEPATH=$2/images
+    IMAGEPATH=$TOPDESTPATH/images
     FULLMODPATH=/tmp/instimagemods.$$
-    FINALFULLMODPATH=$2/RedHat/instimage/modules
-    INSTIMGPATH=$2/RedHat/base
+    FINALFULLMODPATH=$4/modules
+    INSTIMGPATH=$TOPDESTPATH/RedHat/base
     INSTIMGTEMPLATE=$3
-    IMGPATH=$2/RedHat/instimage
+    IMGPATH=$4
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
-    BUILDARCH=$4
+    BUILDARCH=$5
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	KERNELNAME=vmlinux
@@ -39,6 +39,12 @@ TOPDIR=$(cd $TOPDIR; pwd)
     else
 	KERNELNAME=vmlinuz
 	KERNELARCH=$BUILDARCH
+    fi
+
+    if [ "$BUILDARCH" = "ia64" ]; then
+	KERNELDIR="/boot/efi/EFI/redhat"
+    else
+	KERNELDIR="/boot"
     fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
@@ -113,11 +119,16 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        # go ahead and create the keymaps so we only have to do it once
-       echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
-       $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
-       if [ $? != 0 ]; then
-           echo "Unable to create keymaps and thus can't create initrd."
-	   exit 1
+       if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH ]; then
+	   echo "Found keymap override, using it"
+	   cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
+       else
+	   echo "Running: GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
+	   $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+	   if [ $? != 0 ]; then
+	       echo "Unable to create keymaps and thus can't create initrd."
+	       exit 1
+	   fi
        fi
     fi
  
@@ -305,7 +316,10 @@ makemoduleball() {
 
     pushd $MMB_DIR/modules > /dev/null
 
-    find . -name '*.o.gz' |xargs gunzip
+    GZIPPED=$(find . -name '*.o.gz')
+    if [ -n "$GZIPPED" ]; then
+	echo $GZIPPED | xargs gunzip
+    fi
 
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
@@ -366,6 +380,7 @@ makeinitrd() {
     MODULEBALLNAME="modules.cgz"
     MYLANGTABLE=$LANGTABLE
     MYLOADERTR=loader.tr
+    BOGL=yes
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
@@ -398,6 +413,10 @@ makeinitrd() {
 	elif [ $1 = "--moduleballname" ]; then
 	    MODULEBALLNAME=$2
 	    shift; shift
+	    continue
+	elif [ $1 = "--nobogl" ]; then
+	    BOGL=""
+	    shift
 	    continue
 	fi
 	echo "Unknown option passed to makeinitrd"
@@ -434,6 +453,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/terminfo/x
     mkdir -p $MBD_DIR/etc/terminfo/v
     mkdir -p $MBD_DIR/var/state
+    mkdir -p $MBD_DIR/var/run
     ln -s /tmp $MBD_DIR/var/state/xkb
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
@@ -466,7 +486,9 @@ EOF
 
     mkdir -p $MBD_DIR/etc/terminfo/b
     install -m 644 $IMGPATH/usr/share/terminfo/b/bterm $MBD_DIR/etc/terminfo/b/bterm
-    install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
+    if [ -n "$BOGL" ]; then
+	install -m 644 $LOADERBINDIR/font.bgf.gz $MBD_DIR/etc
+    fi
 
     if [ -n "$PCMCIA" ]; then
 	mkdir -p $MBD_BOOTTREE/etc
@@ -638,7 +660,7 @@ makebootdisk() {
 
     if [ -n "$EXTRAKERNELPATH" ]; then
 	mkdir -p `dirname $EXTRAKERNELPATH`
-	cp -f $KERNELROOT/boot/${KERNELNAME}-* $EXTRAKERNELPATH
+	cp -f $KERNELROOT/$KERNELDIR/${KERNELNAME}-* $EXTRAKERNELPATH
     fi
 
     mkdir -p `dirname $MBD_FILENAME`
@@ -698,7 +720,8 @@ makeinstimage () {
     makeproductfile $tmpdir
 
     echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
-    mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img
+    mkcramfs $CRAMBS $tmpdir /tmp/${imagename}2.img.$$
+    cp /tmp/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
@@ -843,7 +866,7 @@ for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
     mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
-	echo 'kernel-$kernelvers does not exist -- using kernel package'
+	echo "kernel-$kernelvers does not exist -- using kernel package"
 	kpackage=$($LATEST $KERNELPATH kernel)
 	kernelvers=""
     fi
@@ -866,8 +889,8 @@ for kernelvers in $vertag; do
 	usage
     fi
 
-    if [ ! -f "$KERNELROOT/boot/${KERNELNAME}-$version" ]; then
-	echo "$KERNELROOT/boot/${KERNELNAME}-$version does not exist"
+    if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
+	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
 	usage
     fi
 
@@ -877,7 +900,10 @@ for kernelvers in $vertag; do
 	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*(network|scsi|ide).*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config | sed 's/\.o//g') | sort -u)
     fi
 
-    find $KERNELROOT/lib/modules/$version -name "*.o.gz" |xargs gunzip
+    GZIPPED=$(find $KERNELROOT/lib/modules/$version -name "*.o.gz")
+    if [ -n "$GZIPPED" ]; then
+	echo $GZIPPED |xargs gunzip
+    fi
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
 
     rundepmod "$allmods" $MODDEPS

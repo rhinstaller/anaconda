@@ -348,7 +348,7 @@ class HostnameWindow:
             if rc == TEXT_BACK_CHECK:
                 return INSTALL_BACK
 
-            if radio.getSelection != "manual":
+            if radio.getSelection() != "manual":
                 network.overrideDHCPhostname = 0
                 network.hostname = "localhost.localdomain"
             else:

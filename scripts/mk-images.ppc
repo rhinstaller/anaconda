@@ -1,3 +1,4 @@
+COMMONMODULES="nfs fat vfat cramfs loop"
 FSMODS="msdos vfat ext3 reiserfs jfs"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sr_mod st"
@@ -8,6 +9,7 @@ NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too
 	   de4x5 acenic pcnet32 tulip natsemi eepro100 airport"
 
 SCSIMODULES="advansys aic7xxx initio sym53c8xx"
+ISERIESMODULES="veth viodasd viocd"
 
 # images we only want on the CD (usually for space reasons)
 ISOMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
@@ -25,22 +27,25 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
 	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
 
 	# we also want to make a boot.iso here 
 	mkdir -p $TOPDESTPATH/isopath/ppc/chrp $TOPDESTPATH/isopath/etc
 	cp $TOPDESTPATH/etc/* $TOPDESTPATH/isopath/etc/
 	cp $TOPDESTPATH/ppc/chrp/* $TOPDESTPATH/isopath/ppc/chrp
+	cp $TOPDESTPATH/ppc/bootinfo.txt $TOPDESTPATH/isopath/ppc/bootinfo.txt
 
-	# FIXME: still need the magic boot_image file
-	# mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -V "PBOOT" -J -R -v -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
-	# rm -rf $TOPDESTPATH/isopath/
+	# FIXME: this assumes the file gets there by magic
+	cp $TOPDESTPATH/boot_image $TOPDESTPATH/isopath/boot_image
+	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -v -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
+	rm -rf $TOPDESTPATH/isopath/
     elif [ "$kernelvers" = "iseries" ]; then
 	mkdir -p $TOPDESTPATH/ppc/iSeries
 
@@ -48,7 +53,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES $ISERIESMODULES"
 
 	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map

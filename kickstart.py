@@ -1383,4 +1383,4 @@ def pullRemainingKickstartConfig(ksfile):
 	url.close()
 	
     return None
-    
+

@@ -496,6 +496,8 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         except OSError, (errno, msg):
             log("Error copying timezone (from %s): %s" %(tzfile, msg))
 
+    if iutil.getArch() == "s390":
+        return
     args = [ "/usr/sbin/hwclock", "--hctosys" ]
     if timezone.utc:
         args.append("-u")
@@ -1239,7 +1241,7 @@ def betaNagScreen(intf, dir):
     while 1:
 	rc = intf.messageWindow( _("Warning! This is a beta!"),
 				 _("Thank you for downloading this "
-				   "Red Hat Beta release.\n\n"
+				   "%s Beta release.\n\n"
 				   "This is not a final "
 				   "release and is not intended for use "
 				   "on production systems.  The purpose of "
@@ -1247,9 +1249,9 @@ def betaNagScreen(intf, dir):
 				   "from testers, and it is not suitable "
 				   "for day to day usage.\n\n"
 				   "To report feedback, please visit:\n\n"
-				   "    http://bugzilla.redhat.com/bugzilla\n\n"
-				   "and file a report against 'Red Hat Public "
-				   "Beta'.\n"),
+				   "   http://bugzilla.redhat.com/bugzilla\n\n"
+				   "and file a report against '%s Beta'.\n"
+                                   %(productName, productName,)),
 				   type="custom", custom_icon="warning",
 				   custom_buttons=[_("_Exit"), _("_Install BETA")])
 

@@ -37,6 +37,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 #include <linux/fb.h>
 
@@ -365,36 +366,52 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
     fclose(f);
 }
 
-/* read information that's passed as environmental variables */
-static void readEnvVars(int flags, struct loaderData_s ** ld) {
-  struct loaderData_s * loaderData = *ld;
-   char * env;
+/* read information from /tmp/netinfo (written by linuxrc) */
+static void readNetInfo(int flags, struct loaderData_s ** ld) {
+   struct loaderData_s * loaderData = *ld;
+   FILE *f;
+   char *end;
+   char buf[100], *vname, *vparm;
 
-   env = getenv("IPADDR");
-   if (env && *env) {
-     loaderData->ip = strdup(env);
-     loaderData->ipinfo_set = 1;
+   f = fopen("/tmp/netinfo", "r");
+   if (!f) {
+       return;
    }
-   env = getenv("NETMASK");
-   if (env && *env) {
-     loaderData->netmask = strdup(env);
+   vname = (char *)malloc(sizeof(char)*15);
+   vparm = (char *)malloc(sizeof(char)*85);
+
+   while(fgets(buf, 100, f)) {
+       if ((vname = strtok(buf, "="))) {
+           vparm = strtok(NULL, "=");
+           while (isspace(*vparm))
+               vparm++;
+           end = strchr(vparm, '\0');
+           while (isspace(*end))
+               end--;
+           end++;
+           *end = '\0';
+           if (strstr(vname, "IPADDR")) {
+               loaderData->ip = strdup(vparm);
+               loaderData->ipinfo_set = 1;
+           }
+           if (strstr(vname, "NETMASK")) {
+               loaderData->netmask = strdup(vparm);
+           }
+           if (strstr(vname, "GATEWAY")) {
+               loaderData->gateway = strdup(vparm);
+           }
+           if (strstr(vname, "DNS")) {
+               loaderData->dns = strdup(vparm);
+           }
+           if (strstr(vname, "MTU")) {
+               loaderData->mtu = atoi(vparm);
+           }
+           if (strstr(vname, "REMIP")) {
+               loaderData->ptpaddr = strdup(vparm);
+           }
+       }
    }
-   env = getenv("GATEWAY");
-   if (env && *env) {
-     loaderData->gateway = strdup(env);
-   }
-   env = getenv("DNS");
-   if (env && *env) {
-     loaderData->dns = strdup(env);
-   }
-   env = getenv("MTU");
-   if (env && *env) {
-     loaderData->mtu = atoi(env);
-   }
-   env = getenv("REMIP");
-   if (env && *env) {
-     loaderData->ptpaddr = strdup(env);
-   }
+   fclose(f);
 }
 
 /* parses /proc/cmdline for any arguments which are important to us.  
@@ -528,7 +545,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 	}
     }
 
-    readEnvVars(flags, &loaderData);
+    readNetInfo(flags, &loaderData);
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
@@ -912,6 +929,19 @@ static void migrate_runtime_directory(char * dirname) {
 }
 
 
+static int hasGraphicalOverride(char *extraArgs[]) {
+    int i;
+
+    if (getenv("DISPLAY"))
+        return 1;
+
+    for (i = 0; extraArgs[i] != NULL; i++) {
+        if (!strncasecmp(extraArgs[i], "--vnc", 5))
+            return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char ** argv) {
     int flags = 0;
     struct stat sb;
@@ -958,6 +988,14 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return combined_insmod_main(argc, argv);
 
+    if (!testing && !access("/var/run/loader.run", R_OK)) {
+        printf(_("loader has already been run.  Starting shell."));
+        execl("/bin/sh", "-/bin/sh", NULL);
+        exit(0);
+    }
+    i = open("/var/run/loader.run", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    close(i);
+
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
@@ -999,7 +1037,7 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
 
-    if (FL_SERIAL(flags) && !getenv("DISPLAY"))
+    if (FL_SERIAL(flags) && !hasGraphicalOverride(extraArgs))
         flags |= LOADER_FLAGS_TEXT;
 
     setupRamfs();
@@ -1173,6 +1211,11 @@ int main(int argc, char ** argv) {
     else
         *argptr++ = "/usr/bin/anaconda";
 
+    /* make sure /tmp/updates exists so that magic in anaconda to */
+    /* symlink rhpl/ will work                                    */
+    if (access("/tmp/updates", F_OK))
+	mkdirChain("/tmp/updates");
+
     logMessage("Running anaconda script %s", *(argptr-1));
     
     *argptr++ = "-m";
@@ -1265,10 +1308,42 @@ int main(int argc, char ** argv) {
     closeLog();
     
     if (!FL_TESTING(flags)) {
+        int pid, status, rc;
+
         char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
         printf("%s", buf);
-    	execv(anacondaArgs[0], anacondaArgs);
-        perror("exec");
+
+        if (!(pid = fork())) {
+            execv(anacondaArgs[0], anacondaArgs);
+            fprintf(stderr, "exec of anaconda failed: %s", strerror(errno));
+            exit(1);
+        }
+
+        waitpid(pid, &status, 0);
+
+        if (!WIFEXITED(status) || WEXITSTATUS(status))
+            rc = 1;
+        else
+            rc = 0;
+
+#if defined(__s390__) || defined(__s390x__)
+        /* FIXME: we have to send a signal to linuxrc on s390 so that shutdown
+         * can happen.  this is ugly */
+        FILE * f;
+        f = fopen("/var/run/init.pid", "r");
+        if (!f) {
+            logMessage("can't find init.pid, guessing that init is pid 1");
+            pid = 1;
+        } else {
+            char * buf = malloc(256);
+            fgets(buf, 256, f);
+            pid = atoi(buf);
+        }
+        kill(pid, SIGUSR1);
+        return rc;
+#else
+        return rc;
+#endif
     }
 #if 0
     else {
