@@ -139,11 +139,12 @@ class HeaderList:
 	return self.packages.values()
 
     def mergeFullHeaders(self, file):
-        if not self.hasFullHeaders:
-            fd = os.open(file, os.O_RDONLY)
-            rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
-            os.close(fd)
-            self.hasFullHeaders = 1
+        if self.hasFullHeaders:
+            return
+        fd = os.open(file, os.O_RDONLY)
+        rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
+        os.close(fd)
+        self.hasFullHeaders = 1
 
     def preordered(self):
         preordered = 1
