@@ -21,7 +21,14 @@ msgstr "Formatare filesystem"
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Formatare spatiu pentru memoria swap in partitia %s..."
 
-#: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456 ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228 ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
+#: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
+#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
+#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
+#: ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711
+#: ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79
+#: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
+#: ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
 msgid "Error"
 msgstr "Eroare"
 
@@ -67,7 +74,26 @@ msgstr "Eroare la scriere în fiºierul %s: %s"
 msgid "Next"
 msgstr "Urmãtorul"
 
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639 ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162 ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54 ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143 ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297 ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344 ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535 ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616 ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10 ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94 ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/packages.py:153 ../textw/partitioning.py:23 ../textw/partitioning.py:63 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145 ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
+#: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
+#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
+#: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
+#: ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
+#: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
+#: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
+#: ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344
+#: ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
+#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
+#: ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10
+#: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
+#: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
+#: ../textw/packages.py:144 ../textw/packages.py:153
+#: ../textw/partitioning.py:23 ../textw/partitioning.py:63
+#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
+#: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186
+#: ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145
+#: ../textw/userauth.py:176 ../textw/userauth.py:248
 msgid "Back"
 msgstr "Înapoi"
 
@@ -87,7 +113,8 @@ msgstr "Finalizare"
 msgid "Online Help"
 msgstr "Detalii instalare"
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005 ../text.py:1034
+#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
+#: ../text.py:1034
 msgid "Language Selection"
 msgstr "Selecþie limbã de instalare"
 
@@ -111,22 +138,49 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Program de Instalare Red Hat Linux"
 
 #: ../installclass.py:251
-msgid "You are about to erase any preexisting Linux installations on your system."
+msgid ""
+"You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
 #: ../installclass.py:289
 #, fuzzy
-msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
-msgstr "Sînteti pe cale de a sterge irevocabil date de pe hard disk! Sînteþi sigur cã doriþi sã continuaþi?"
+msgid ""
+"You are about to erase ALL DATA on your hard drive to make room for your "
+"Linux installation."
+msgstr ""
+"Sînteti pe cale de a sterge irevocabil date de pe hard disk! Sînteþi sigur "
+"cã doriþi sã continuaþi?"
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742 ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788 ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:833 ../libfdisk/fsedit.c:1224 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1532 ../libfdisk/gnomefsedit.c:1770 ../libfdisk/gnomefsedit.c:2005 ../libfdisk/gnomefsedit.c:2013 ../libfdisk/gnomefsedit.c:2027 ../libfdisk/gnomefsedit.c:2038 ../libfdisk/gnomefsedit.c:2045 ../libfdisk/gnomefsedit.c:2060 ../libfdisk/gnomefsedit.c:2069 ../libfdisk/gnomefsedit.c:2078 ../libfdisk/gnomefsedit.c:2117 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:462 ../libfdisk/newtfsedit.c:540 ../libfdisk/newtfsedit.c:558 ../libfdisk/newtfsedit.c:576 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426 ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100 ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105 ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137 ../textw/silo.py:185
+#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
+#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
+#: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:833 ../libfdisk/fsedit.c:1224
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158
+#: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202
+#: ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514
+#: ../libfdisk/gnomefsedit.c:1532 ../libfdisk/gnomefsedit.c:1770
+#: ../libfdisk/gnomefsedit.c:2005 ../libfdisk/gnomefsedit.c:2013
+#: ../libfdisk/gnomefsedit.c:2027 ../libfdisk/gnomefsedit.c:2038
+#: ../libfdisk/gnomefsedit.c:2045 ../libfdisk/gnomefsedit.c:2060
+#: ../libfdisk/gnomefsedit.c:2069 ../libfdisk/gnomefsedit.c:2078
+#: ../libfdisk/gnomefsedit.c:2117 ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:462
+#: ../libfdisk/newtfsedit.c:540 ../libfdisk/newtfsedit.c:558
+#: ../libfdisk/newtfsedit.c:576 ../libfdisk/newtfsedit.c:1292
+#: ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426
+#: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
+#: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
+#: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
+#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
+#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
+#: ../textw/silo.py:185
 msgid "Ok"
 msgstr "Ok"
 
 #: ../text.py:60
 msgid "What language would you like to use during the installation process?"
-msgstr "Ce limbã doriþi sã folosiþi în timpul rulãrii programului de instalare?"
+msgstr ""
+"Ce limbã doriþi sã folosiþi în timpul rulãrii programului de instalare?"
 
 #: ../text.py:80
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -144,7 +198,8 @@ msgstr "/dev/ttyS2 (COM3 sub DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 sub DOS)"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100 ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
+#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
 msgid "Device"
 msgstr "Partiþie"
 
@@ -153,7 +208,30 @@ msgstr "Partiþie"
 msgid "What device is your mouse located on? %s %i"
 msgstr "Unde este conectat mouse-ul? %s %i"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139 ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774 ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/partitioning.py:273 ../textw/partitioning.py:281 ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98 ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
+#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
+#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
+#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
+#: ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139
+#: ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774
+#: ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146
+#: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
+#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
+#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
+#: ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744
+#: ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165
+#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
+#: ../textw/packages.py:85 ../textw/packages.py:144
+#: ../textw/partitioning.py:214 ../textw/partitioning.py:263
+#: ../textw/partitioning.py:273 ../textw/partitioning.py:281
+#: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
+#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
+#: ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98
+#: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
+#: ../textw/userauth.py:248
 msgid "OK"
 msgstr "OK"
 
@@ -207,7 +285,8 @@ msgstr "Ce tip de system doriþi sã instalaþi?"
 
 #: ../text.py:281
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Acest calculator nu are nici o partiþie Linux. Actualizarea nu este posibilã!"
+msgstr ""
+"Acest calculator nu are nici o partiþie Linux. Actualizarea nu este posibilã!"
 
 #: ../text.py:294
 msgid "System to Upgrade"
@@ -222,14 +301,34 @@ msgid "Customize Packages to Upgrade"
 msgstr "Selectaþi pachetele pentru actualizare"
 
 #: ../text.py:311
-msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
-msgstr "Pachetele pe care le aveþi instalate, ºi orice alte pachete necesare pentru satisfacerea dependinþelor acestora au fost selectate pentru instalare. Doriþi sã modificaþi setul de pachete care vor fi actualizate?"
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"Pachetele pe care le aveþi instalate, ºi orice alte pachete necesare pentru "
+"satisfacerea dependinþelor acestora au fost selectate pentru instalare. "
+"Doriþi sã modificaþi setul de pachete care vor fi actualizate?"
 
-#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713 ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220 ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440 ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/loader.c:603 ../loader/net.c:719 ../text.py:318 ../text.py:517 ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
+#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
+#: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
+#: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
+#: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
+#: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
+#: ../loader/loader.c:603 ../loader/net.c:719 ../text.py:318 ../text.py:517
+#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
 msgid "Yes"
 msgstr "Da"
 
-#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713 ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220 ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440 ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/net.c:719 ../text.py:318 ../text.py:323 ../text.py:517 ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
+#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
+#: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
+#: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
+#: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
+#: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
+#: ../loader/net.c:719 ../text.py:318 ../text.py:323 ../text.py:517
+#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
 msgid "No"
 msgstr "Nu"
 
@@ -241,26 +340,38 @@ msgstr "Red Hat Linux"
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
-"This installation process is outlined in detail in the Official Red Hat Linux Installation Guide available from Red Hat Software. If you have access to this manual, you should read the installation section before continuing.\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
 "\n"
-"If you have purchased Official Red Hat Linux, be sure to register your purchase through our web site, http://www.redhat.com/."
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com/."
 msgstr ""
 "Vã mulþumim pentru alegerea Red Hat Linux!\n"
 "\n"
-"Aceastã procedurã de instalare este descrisã în detaliu în Official Red Hat Linux Installation Guide, care se poate procura de la Red Hat, Inc. Dacã aveþi acces la acest manual este recomandat sa citiþi secþiunea dedicatã procesului de instalare înainte de a continua.\n"
+"Aceastã procedurã de instalare este descrisã în detaliu în Official Red Hat "
+"Linux Installation Guide, care se poate procura de la Red Hat, Inc. Dacã "
+"aveþi acces la acest manual este recomandat sa citiþi secþiunea dedicatã "
+"procesului de instalare înainte de a continua.\n"
 "\n"
-"Dacã aþi cumpãrat Official Red Hat Linux, vã rugam sa ne vizitaþi pagina de web la http://www.redhat.com ºi sã vã inregistraþi ca utilizator oficial."
+"Dacã aþi cumpãrat Official Red Hat Linux, vã rugam sa ne vizitaþi pagina de "
+"web la http://www.redhat.com ºi sã vã inregistraþi ca utilizator oficial."
 
 #: ../text.py:352
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
-"You have entered reconfiguration mode, which will allow you to configure site-specific options of your computer.\n"
+"You have entered reconfiguration mode, which will allow you to configure "
+"site-specific options of your computer.\n"
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463 ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168 ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106 ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
+#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
+#: ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
+#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Abandon"
 
@@ -301,8 +412,13 @@ msgid "Hostname Configuration"
 msgstr "Configurare Nume Host"
 
 #: ../text.py:499
-msgid "The hostname is the name of your computer.  If your computer is attached to a network, this may be assigned by your network administrator."
-msgstr "Introduceþi numele de host al acestui calculator. Dacã acest calculator este ataºat unei reþele, numele de host este asignat de cãtre administratorul de reþea."
+msgid ""
+"The hostname is the name of your computer.  If your computer is attached to "
+"a network, this may be assigned by your network administrator."
+msgstr ""
+"Introduceþi numele de host al acestui calculator. Dacã acest calculator este "
+"ataºat unei reþele, numele de host este asignat de cãtre administratorul de "
+"reþea."
 
 #: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
 msgid "Hostname"
@@ -310,11 +426,23 @@ msgstr "Nume host"
 
 #: ../text.py:518
 msgid ""
-"A custom boot disk provides a way of booting into your Linux system without depending on the normal bootloader. This is useful if you don't want to install lilo on your system, another operating system removes lilo, or lilo doesn't work with your hardware configuration. A custom boot disk can also be used with the Red Hat rescue image, making it much easier to recover from severe system failures.\n"
+"A custom boot disk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom boot disk can also "
+"be used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Un disc de boot personalizat pentru sistemul dumneavoastrã permite încãrcarea Linux farã a depinde de bootloader. Aceasta este folositor dacã nu doriþi sã instalaþi lilo pe sistemul dumneavoastrã, sau în caz cã lilo este ºters mai mult sau mai puþin accidental de cãtre un alt sistem de operare sau eroare operator, sau dacã (mai rar) lilo nu funcþioneaza corect în configuraþia hardware a acestui calculator. Un disc de boot poate fi folosit de asemenea cu imaginea de rescue, în caz cã sistemul trebuie restaurat.\n"
+"Un disc de boot personalizat pentru sistemul dumneavoastrã permite "
+"încãrcarea Linux farã a depinde de bootloader. Aceasta este folositor dacã "
+"nu doriþi sã instalaþi lilo pe sistemul dumneavoastrã, sau în caz cã lilo "
+"este ºters mai mult sau mai puþin accidental de cãtre un alt sistem de "
+"operare sau eroare operator, sau dacã (mai rar) lilo nu funcþioneaza corect "
+"în configuraþia hardware a acestui calculator. Un disc de boot poate fi "
+"folosit de asemenea cu imaginea de rescue, în caz cã sistemul trebuie "
+"restaurat.\n"
 "\n"
 "Doriþi sã creaþi un disc de boot pentru acest sistem?"
 
@@ -358,8 +486,13 @@ msgid "Installation to begin"
 msgstr "Începutul instalãrii"
 
 #: ../iw/confirm.py:31 ../text.py:682
-msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
-msgstr "Un log complet al acestei instalãri va fi creat în /tmp/install.log, accesibil dupã reiniþializarea sistemului. Este recomandat sã pãstraþi acest fiºier pentru referinþe viitoare."
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"Un log complet al acestei instalãri va fi creat în /tmp/install.log, "
+"accesibil dupã reiniþializarea sistemului. Este recomandat sã pãstraþi acest "
+"fiºier pentru referinþe viitoare."
 
 #: ../text.py:699 ../text.py:714 ../text.py:734
 msgid "Complete"
@@ -370,42 +503,65 @@ msgstr "Complet"
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
-"Press return to reboot, and be sure to remove your boot medium as the system reboots, or your system will rerun the install. For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com/errata.\n"
+"Press return to reboot, and be sure to remove your boot medium as the system "
+"reboots, or your system will rerun the install. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com/errata.\n"
 "\n"
-"Information on configuring and using your Red Hat Linux system is contained in the Red Hat Linux manuals."
+"Information on configuring and using your Red Hat Linux system is contained "
+"in the Red Hat Linux manuals."
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi "
+"actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam "
+"sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
 
 #: ../text.py:715 ../text.py:735
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-" For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com.\n"
+" For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available in the post install chapter of the Official Red Hat Linux User's Guide."
+"Information on further configuring your system is available in the post "
+"install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi "
+"actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam "
+"sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
 
 #: ../iw/bootdisk.py:50 ../text.py:754
-msgid "Insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "Introduceþi o dischetã nouã în prima unitate de floppy-disk. Datele de pe aceastã dischetã vor fi ºterse în timpul creãrii discului de boot."
+msgid ""
+"Insert a blank floppy in the first floppy drive. All data on this disk will "
+"be erased during creation of the boot disk."
+msgstr ""
+"Introduceþi o dischetã nouã în prima unitate de floppy-disk. Datele de pe "
+"aceastã dischetã vor fi ºterse în timpul creãrii discului de boot."
 
-#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770 ../textw/lilo.py:30 ../textw/silo.py:25
+#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
+#: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Urmãtoarea etapã"
 
 #: ../iw/bootdisk.py:54 ../text.py:766
-msgid "An error occured while making the boot disk. Please make sure that there is a formatted floppy in the first floppy drive."
-msgstr "S-a detectat o eroare la crearea discului de boot. Asiguraþi-vã cã in prima unitate de floppy-disk existã o dischetã formatatã."
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
+msgstr ""
+"S-a detectat o eroare la crearea discului de boot. Asiguraþi-vã cã in prima "
+"unitate de floppy-disk existã o dischetã formatatã."
 
 #: ../text.py:828
 msgid "Package Installation"
@@ -457,8 +613,12 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:983
-msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul ecran "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
+"ecran "
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
 msgid "Welcome"
@@ -493,15 +653,18 @@ msgstr "Configurare Autentificare"
 msgid "Configuration Complete"
 msgstr "Configurare X Windows"
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89 ../textw/silo.py:193
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
+#: ../textw/silo.py:193
 msgid "SILO Configuration"
 msgstr "Configurare SILO"
 
-#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84 ../textw/lilo.py:186
+#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
+#: ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr "Configurare LILO"
 
-#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269 ../text.py:1057 ../text.py:1063
+#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269
+#: ../text.py:1057 ../text.py:1063
 msgid "Partition"
 msgstr "Partiþionare"
 
@@ -654,10 +817,13 @@ msgstr "Instalare Aplicaþii"
 
 #: ../todo.py:1135
 msgid ""
-"You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Pe acest sistem nu exista suficient spatiu pe disc pentru a instala packetele selectate. Programul de instalare are nevoie de mai mult spatiu in urmatoarele sisteme de fisiere:\n"
+"Pe acest sistem nu exista suficient spatiu pe disc pentru a instala "
+"packetele selectate. Programul de instalare are nevoie de mai mult spatiu in "
+"urmatoarele sisteme de fisiere:\n"
 "\n"
 
 #: ../todo.py:1138
@@ -758,7 +924,8 @@ msgstr "Parola"
 msgid "Password (confirm)"
 msgstr "Parola (din nou)"
 
-#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78 ../textw/userauth.py:164
+#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
+#: ../textw/userauth.py:164
 msgid "Full Name"
 msgstr "Nume Complet"
 
@@ -766,11 +933,15 @@ msgstr "Nume Complet"
 msgid "Add"
 msgstr "Adãugare"
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199 ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207 ../textw/userauth.py:176
+#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
+#: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
+#: ../textw/userauth.py:176
 msgid "Edit"
 msgstr "Editare"
 
-#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
+#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
 msgid "Delete"
 msgstr "ªtergere"
 
@@ -835,15 +1006,21 @@ msgstr "Exit"
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com.\n"
+"For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available in the post install chapter of the Official Red Hat Linux User's Guide."
+"Information on further configuring your system is available in the post "
+"install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi "
+"actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam "
+"sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -901,7 +1078,8 @@ msgstr "GNOME Workstation"
 msgid "KDE Workstation"
 msgstr "KDE Workstation"
 
-#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346 ../libfdisk/gnomefsedit.c:2366
+#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346
+#: ../libfdisk/gnomefsedit.c:2366
 msgid "Server"
 msgstr "Server"
 
@@ -993,15 +1171,19 @@ msgstr "Creare disc boot"
 msgid "Do not install LILO"
 msgstr "Fãrã instalare LILO"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
+#: ../textw/silo.py:176
 msgid "Default"
 msgstr "Implicit"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
+#: ../textw/silo.py:176
 msgid "Partition type"
 msgstr "Tip partiþie"
 
-#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281 ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
+#: ../textw/silo.py:176
 msgid "Boot label"
 msgstr "Eticheta"
 
@@ -1130,12 +1312,24 @@ msgid "Low Memory"
 msgstr "Memorie insuficientã"
 
 #: ../iw/rootpartition.py:44 ../textw/partitioning.py:171
-msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
-msgstr "Acest calculator nu are suficientã memorie pentru a permite programului de instalare sã continue. Pentru a obþine memorie adiþionalã este necesarã activarea imediatã a spaþiului de swap. Pentru a face acest lucru trebuie ca tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua tabelã de partiþii sã fie scrisã?"
+msgid ""
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
+msgstr ""
+"Acest calculator nu are suficientã memorie pentru a permite programului de "
+"instalare sã continue. Pentru a obþine memorie adiþionalã este necesarã "
+"activarea imediatã a spaþiului de swap. Pentru a face acest lucru trebuie ca "
+"tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua "
+"tabelã de partiþii sã fie scrisã?"
 
 #: ../iw/rootpartition.py:115 ../textw/partitioning.py:256
 #, c-format
-msgid "You've chosen to put your root filesystem in a file on an already-existing DOS or Windows filesystem. How large, in megabytes, should would you like the root filesystem to be, and how much swap space would you like? They must total less then %d megabytes in size."
+msgid ""
+"You've chosen to put your root filesystem in a file on an already-existing "
+"DOS or Windows filesystem. How large, in megabytes, should would you like "
+"the root filesystem to be, and how much swap space would you like? They must "
+"total less then %d megabytes in size."
 msgstr ""
 
 #: ../iw/rootpartition.py:135
@@ -1157,11 +1351,15 @@ msgstr "Partiþionare Automatã"
 msgid ""
 "%s\n"
 "\n"
-"If you don't want to do this, you can continue with this install by partitioning manually, or you can go back and perform a fully customized installation."
+"If you don't want to do this, you can continue with this install by "
+"partitioning manually, or you can go back and perform a fully customized "
+"installation."
 msgstr ""
 "%s\n"
 "\n"
-"Dacã nu asta este ceea ce doriþi, puteþi continua aceastã sesiune de instalare prin selectarea partiþionãrii manuale, sau puteþi sã selectaþi ecranul precedent ºi sã selectaþi o instalare personalizatã"
+"Dacã nu asta este ceea ce doriþi, puteþi continua aceastã sesiune de "
+"instalare prin selectarea partiþionãrii manuale, sau puteþi sã selectaþi "
+"ecranul precedent ºi sã selectaþi o instalare personalizatã"
 
 #: ../iw/rootpartition.py:239
 msgid "Remove data"
@@ -1260,15 +1458,25 @@ msgstr ""
 
 #: ../iw/xconfig.py:329
 #, fuzzy
-msgid "Your video ram size can not be autodetected.  Choose your video ram size from the choices below:"
-msgstr "Acest monitor nu a putut fi autodetectat. Selectaþi monitorul ataºat acestui calculator din lista de mai jos:"
+msgid ""
+"Your video ram size can not be autodetected.  Choose your video ram size "
+"from the choices below:"
+msgstr ""
+"Acest monitor nu a putut fi autodetectat. Selectaþi monitorul ataºat acestui "
+"calculator din lista de mai jos:"
 
 #: ../iw/xconfig.py:340
-msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
-msgstr "În cele mai multe cazuri placa video si monitorul pot fi autodetectatã pentru determinarea setãrilor optime în folosire."
+msgid ""
+"In most cases your video hardware can be probed to automatically determine "
+"the best settings for your display."
+msgstr ""
+"În cele mai multe cazuri placa video si monitorul pot fi autodetectatã "
+"pentru determinarea setãrilor optime în folosire."
 
 #: ../iw/xconfig.py:361
-msgid "If the probed settings do not match your hardware select the correct setting below:"
+msgid ""
+"If the probed settings do not match your hardware select the correct setting "
+"below:"
 msgstr ""
 
 #: ../iw/xconfig.py:418
@@ -1280,8 +1488,17 @@ msgid "Skip X Configuration"
 msgstr "Fãrã configurare X Windows"
 
 #: ../textw/lilo.py:18 ../textw/silo.py:14
-msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr "În unele cazuri este necesar ca la încãrcarea sistemului de operare Linux sã se paseze parametri kernelului pentru a avea o funcþionare corectã. Dacã doriþi sã daþi opþiuni speciale kernelului, introduceþi-le acum. Dacã nu aveþi nevoie de opþiuni speciale sau nu sînteþi sigur nu introduceþi nimic ºi mergeþi mai departe în procesul de instalare."
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"În unele cazuri este necesar ca la încãrcarea sistemului de operare Linux sã "
+"se paseze parametri kernelului pentru a avea o funcþionare corectã. Dacã "
+"doriþi sã daþi opþiuni speciale kernelului, introduceþi-le acum. Dacã nu "
+"aveþi nevoie de opþiuni speciale sau nu sînteþi sigur nu introduceþi nimic "
+"ºi mergeþi mai departe în procesul de instalare."
 
 #: ../textw/lilo.py:85 ../textw/silo.py:91
 msgid "Where do you want to install the bootloader?"
@@ -1296,12 +1513,25 @@ msgid "Edit Boot Label"
 msgstr "Editare eticheta boot"
 
 #: ../textw/lilo.py:181 ../textw/silo.py:188
-msgid "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
-msgstr "Managerul pentru încãrcarea Linux folosit de Red Hat Linux poate încãrca ºi alte sisteme de operare. Trebuie sã selectaþi ce partiþii conþin celelalte sisteme de operare pe care doriþi sã le puteþi selecta la pornirea sistemului ºi sã alegeþi o eticheta pentru fiecare dintre ele."
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Managerul pentru încãrcarea Linux folosit de Red Hat Linux poate încãrca ºi "
+"alte sisteme de operare. Trebuie sã selectaþi ce partiþii conþin celelalte "
+"sisteme de operare pe care doriþi sã le puteþi selecta la pornirea "
+"sistemului ºi sã alegeþi o eticheta pentru fiecare dintre ele."
 
 #: ../textw/packages.py:123
-msgid "Some of the packages you have selected to install require packages you have not selected. If you just select Ok all of those required packages will be installed."
-msgstr "Cîteva din pachetele pe care le-aþi selectat necesitã instalarea altor pachete care nu apar în selecþie. Dacã selectaþi Ok toate aceste extra pachete vor fi instalate."
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Cîteva din pachetele pe care le-aþi selectat necesitã instalarea altor "
+"pachete care nu apar în selecþie. Dacã selectaþi Ok toate aceste extra "
+"pachete vor fi instalate."
 
 #: ../textw/partitioning.py:14 ../textw/partitioning.py:56
 msgid "Disk Setup"
@@ -1309,17 +1539,31 @@ msgstr "Setare Disc"
 
 #: ../textw/partitioning.py:15
 msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is designed to be easier to use than Linux's traditional disk partitioning sofware, fdisk, as well as more powerful. However, there are some cases where fdisk may be preferred.\n"
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk Druid este un program pentru partiþionare ºi setare a modului în care partiþiile sînt accesate în sistemul de directoare. Este conceput nu numai pentru a fi mai uºor de folosit decît tradiþionalul program fdisk standard în Linux, ci ºi pentru a oferi mai multe facilitãþi. Existã, totuºi, unele cazuri în care tradiþionalul fdisk este de preferat sã fie folosit.\n"
+"Disk Druid este un program pentru partiþionare ºi setare a modului în care "
+"partiþiile sînt accesate în sistemul de directoare. Este conceput nu numai "
+"pentru a fi mai uºor de folosit decît tradiþionalul program fdisk standard "
+"în Linux, ci ºi pentru a oferi mai multe facilitãþi. Existã, totuºi, unele "
+"cazuri în care tradiþionalul fdisk este de preferat sã fie folosit.\n"
 "\n"
 "Ce program doriti sa folositi?"
 
 #: ../textw/partitioning.py:57
-msgid "To install Red Hat Linux, you must have at least one partition of 150 MB dedicated to Linux. We suggest placing that partition on one of the first two hard drives in your system so you can boot into Linux with LILO."
-msgstr "Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de minim 150 MB dedicatã pentru Linux. Vã sugerãm plasarea acelei partiþii pe unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea folosi LILO pentru lansarea sistemului Linux."
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de "
+"minim 150 MB dedicatã pentru Linux. Vã sugerãm plasarea acelei partiþii pe "
+"unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea "
+"folosi LILO pentru lansarea sistemului Linux."
 
 #: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:62
 msgid "Done"
@@ -1330,8 +1574,16 @@ msgid "Continue"
 msgstr "Continuare"
 
 #: ../textw/partitioning.py:190
-msgid "What partitions would you like to format? We strongly suggest formatting all of the system partitions, including /, /usr, and /var. There is no need to format /home or /usr/local if they have already been configured during a previous install."
-msgstr "Ce partiþii doriþi sa formataþi ? Vã sugeram sã formataþi toate partiþiile sistem definite, inclusiv cele alocate pentru directoarele /, /usr, /var. Formatarea partiþiilor pentru /home sau /usr/local nu este necesarã dacã aceste partiþii au fost deja configurate la o instalare anterioarã."
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Ce partiþii doriþi sa formataþi ? Vã sugeram sã formataþi toate partiþiile "
+"sistem definite, inclusiv cele alocate pentru directoarele /, /usr, /var. "
+"Formatarea partiþiilor pentru /home sau /usr/local nu este necesarã dacã "
+"aceste partiþii au fost deja configurate la o instalare anterioarã."
 
 #: ../textw/partitioning.py:211
 msgid "Check for bad blocks during format"
@@ -1363,7 +1615,9 @@ msgstr "eroare: portul %s trebuis sa fie un numar\n"
 
 #: ../textw/partitioning.py:278
 #, c-format
-msgid "The total size must be smaller then the amount of free space on the disk, which is %d megabytes."
+msgid ""
+"The total size must be smaller then the amount of free space on the disk, "
+"which is %d megabytes."
 msgstr ""
 
 #: ../textw/silo.py:63
@@ -1385,8 +1639,15 @@ msgid "Hardware clock set to GMT?"
 msgstr "Ceasul system setat pentru GMT?"
 
 #: ../textw/userauth.py:10
-msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "Alegeþi o parolã de root. Aceastã parolã trebuie tiparitã mai jos de douã ori pentru a fi siguri ca aþi tipãrit-o corect ºi pentru a evita eventualele erori de tastare. Este important sã vã amintiþi cã parola de root este o parte criticã a securitãþii sistemului dumneavoastrã!"
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Alegeþi o parolã de root. Aceastã parolã trebuie tiparitã mai jos de douã "
+"ori pentru a fi siguri ca aþi tipãrit-o corect ºi pentru a evita eventualele "
+"erori de tastare. Este important sã vã amintiþi cã parola de root este o "
+"parte criticã a securitãþii sistemului dumneavoastrã!"
 
 #: ../loader/urls.c:337 ../textw/userauth.py:23
 msgid "Password:"
@@ -1410,7 +1671,9 @@ msgstr "Parolele sînt diferite"
 
 #: ../textw/userauth.py:46 ../textw/userauth.py:104
 msgid "The passwords you entered were different. Please try again."
-msgstr "Parolele pe care le-aþi introdus sînt diferite (probabil dintr-o eroare de tastare). Încercaþi din nou."
+msgstr ""
+"Parolele pe care le-aþi introdus sînt diferite (probabil dintr-o eroare de "
+"tastare). Încercaþi din nou."
 
 #: ../textw/userauth.py:71
 msgid "Edit User"
@@ -1444,15 +1707,30 @@ msgstr "Utilizator Existemt"
 
 #: ../textw/userauth.py:114
 msgid "This user id already exists.  Choose another."
-msgstr "Acest calculator conþine utlizatorul selectat. Selectaþi un cont diferit."
+msgstr ""
+"Acest calculator conþine utlizatorul selectat. Selectaþi un cont diferit."
 
 #: ../textw/userauth.py:141
-msgid "You should use a normal user account for most activities on your system. By not using the root account casually, you'll reduce the chance of disrupting your system's configuration."
-msgstr "Este recomandat sã folosiþi un cont normal de utilizator pentru majoritatea aplicaþiilor pe care le veþi rula pe acest calculator. Prin folosirea contului de root numai în cazul cînd este absolut necesar reduceþi riscurile de modificare neaºteptatã a configuraþiei sistemului."
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"Este recomandat sã folosiþi un cont normal de utilizator pentru majoritatea "
+"aplicaþiilor pe care le veþi rula pe acest calculator. Prin folosirea "
+"contului de root numai în cazul cînd este absolut necesar reduceþi riscurile "
+"de modificare neaºteptatã a configuraþiei sistemului."
 
 #: ../textw/userauth.py:154
-msgid "What user account would you like to have on the system? You should have at least one non-root account for normal work, but multi-user systems can have any number of accounts set up."
-msgstr "Ce cont de utilizator doriþi sã folosiþi pe acest calculator? Trebuie sã configuraþi cel puþin un utilizator diferit de root pentru activitãþile normale. Bineînþeles cã puteþi configura mai mult de un singur cont în acest moment dacã doriþi."
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"Ce cont de utilizator doriþi sã folosiþi pe acest calculator? Trebuie sã "
+"configuraþi cel puþin un utilizator diferit de root pentru activitãþile "
+"normale. Bineînþeles cã puteþi configura mai mult de un singur cont în acest "
+"moment dacã doriþi."
 
 #: ../textw/userauth.py:164
 msgid "User name"
@@ -1490,7 +1768,8 @@ msgstr "sau folosiþi:"
 msgid "Request server via broadcast"
 msgstr "Detectare server prin broadcast"
 
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742 ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
+#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
+#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
 msgid "Bad Mount Point"
 msgstr "Director montare invalid"
 
@@ -1533,7 +1812,11 @@ msgstr ""
 "Directoarele trebuie sã conþinã numai caractere printabile."
 
 #: ../libfdisk/fsedit.c:762
-msgid "You've asked to put your root (/) filesystem on a DOS-style FAT partition. You can do this, but you may not use any other filesystems for your Linux system. Additionally, there will be a speed penalty for not using Linux-native partitions. Do you want to continue?"
+msgid ""
+"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
+"You can do this, but you may not use any other filesystems for your Linux "
+"system. Additionally, there will be a speed penalty for not using "
+"Linux-native partitions. Do you want to continue?"
 msgstr ""
 
 #: ../libfdisk/fsedit.c:779
@@ -1545,7 +1828,8 @@ msgid ""
 msgstr ""
 "Directorul %s de montare a partiþiei este invalid.\n"
 "\n"
-"Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de tip Linux Native."
+"Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de tip "
+"Linux Native."
 
 #: ../libfdisk/fsedit.c:789
 #, c-format
@@ -1556,33 +1840,53 @@ msgid ""
 msgstr ""
 "Directorul %s de montare a partiþiei este invalid.\n"
 "\n"
-"Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau montat prin NFS."
+"Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau montat "
+"prin NFS."
 
 #: ../libfdisk/fsedit.c:817
 msgid "Too Many Drives"
 msgstr "Prea multe discuri"
 
 #: ../libfdisk/fsedit.c:818
-msgid "You have more drives than this program supports. Please use the standard fdisk program to setup your drives and please notify Red Hat Software that you saw this message."
-msgstr "Aveþi instalate mai multe discuri decît acest program poate controla. Vã rugãm sã folositi programul fdisk standard pentru a partiþiona discurile dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Aveþi instalate mai multe discuri decît acest program poate controla. Vã "
+"rugãm sã folositi programul fdisk standard pentru a partiþiona discurile "
+"dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
 
 #: ../libfdisk/fsedit.c:833
 msgid "No Drives Found"
 msgstr "Nu s-a identificat nici un disc"
 
 #: ../libfdisk/fsedit.c:834
-msgid "An error has occurred - no valid devices were found on which to create new filesystems.  Please check your hardware for the cause of this problem."
-msgstr "Eroare - nu s-au putut identifica nici un hard disc pentru crearea de partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi hardware-ul pentru posibile cauze ale acestei probleme."
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"Eroare - nu s-au putut identifica nici un hard disc pentru crearea de "
+"partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi "
+"hardware-ul pentru posibile cauze ale acestei probleme."
 
 #: ../libfdisk/fsedit.c:1146 ../libfdisk/fsedit.c:1208
 #, c-format
-msgid "An error occurred reading the partition table for the block device %s.  The error was"
-msgstr "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este"
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este"
 
 #: ../libfdisk/fsedit.c:1185
 #, c-format
-msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized, causing the loss of ALL DATA on this drive."
-msgstr "Tabela de partiþii pe discul %s este invalidã. Pentru a crea noi partiþii aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR informaþiilor de pe acest disc."
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"Tabela de partiþii pe discul %s este invalidã. Pentru a crea noi partiþii "
+"aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
+"informaþiilor de pe acest disc."
 
 #: ../libfdisk/fsedit.c:1190
 msgid "Bad Partition Table"
@@ -1605,8 +1909,15 @@ msgid "BSD Disklabel"
 msgstr "BSD Disklabel"
 
 #: ../libfdisk/fsedit.c:1224
-msgid "A disk with a BSD disklabel has been found. The Red Hat installation only supports BSD Disklabels in read-only mode, so you must use a custom install and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr "S-a gãsit un disc avînd identificatorul de volum BSD. Red Hat Linux suportã BSD disklabel numai în mod read-only, de aceea va trebui sã folosiþi modul de instalare Custom ºi utilitarul fdisk (în loc de Disk Druid) pentru calculatoarele care au BSD disklabel instalat."
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"S-a gãsit un disc avînd identificatorul de volum BSD. Red Hat Linux suportã "
+"BSD disklabel numai în mod read-only, de aceea va trebui sã folosiþi modul "
+"de instalare Custom ºi utilitarul fdisk (în loc de Disk Druid) pentru "
+"calculatoarele care au BSD disklabel instalat."
 
 #: ../libfdisk/fsedit.c:1254
 #, c-format
@@ -1633,7 +1944,10 @@ msgstr "ªtergere partiþie"
 msgid "Are you sure you want to delete this partition?"
 msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
 
-#: ../libfdisk/gnomefsedit.c:772 ../libfdisk/gnomefsedit.c:778 ../libfdisk/gnomefsedit.c:782 ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266 ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
+#: ../libfdisk/gnomefsedit.c:772 ../libfdisk/gnomefsedit.c:778
+#: ../libfdisk/gnomefsedit.c:782 ../libfdisk/gnomefsedit.c:784
+#: ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266
+#: ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
 msgid "Edit Partition"
 msgstr "Editare partiþie"
 
@@ -1673,38 +1987,58 @@ msgstr "Tip Partiþie:"
 msgid "Allowable Drives:"
 msgstr "Discuri Permise:"
 
-#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005 ../libfdisk/newtfsedit.c:499
+#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005
+#: ../libfdisk/newtfsedit.c:499
 msgid "No Mount Point"
 msgstr "Director de montare nespecificat"
 
 #: ../libfdisk/gnomefsedit.c:1115 ../libfdisk/newtfsedit.c:500
-msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
-msgstr "Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi sigur cã aceasta este ceea ce doriþi?"
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
+"sigur cã aceasta este ceea ce doriþi?"
 
-#: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013 ../libfdisk/newtfsedit.c:540
+#: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013
+#: ../libfdisk/newtfsedit.c:540
 msgid "Mount Point Error"
 msgstr "Eroare - Director de montare"
 
 #: ../libfdisk/gnomefsedit.c:1159 ../libfdisk/newtfsedit.c:541
-msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
-msgstr "Directorul de montare specificat este o cale ilegalã sau este deja utilizat. Selectaþi un director de activare valid."
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Directorul de montare specificat este o cale ilegalã sau este deja utilizat. "
+"Selectaþi un director de activare valid."
 
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
 msgid "Size Error"
 msgstr "Eroare mãrime"
 
 #: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
-msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
-msgstr "Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero (0) ºi este un numãr natural specificat în baza 10."
+msgid ""
+"The size requested is illegal. Make sure the size is greater and zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero (0) "
+"ºi este un numãr natural specificat în baza 10."
 
-#: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117 ../libfdisk/newtfsedit.c:576
+#: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
+#: ../libfdisk/newtfsedit.c:576
 msgid "Swap Size Error"
 msgstr "Eroare mãrime swap"
 
-#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118 ../libfdisk/newtfsedit.c:577
+#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
+#: ../libfdisk/newtfsedit.c:577
 #, c-format
-msgid "You have created a swap partition which is too large. The maximum size of a swap partition is %ld Megabytes."
-msgstr "Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei partiþii de swap este de %ld MB."
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei "
+"partiþii de swap este de %ld MB."
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
@@ -1712,7 +2046,8 @@ msgstr "Limitãri Disc RAID Inexistente"
 
 #: ../libfdisk/gnomefsedit.c:1221
 msgid ""
-"You have configured a RAID partition without constraining the partition to a single drive.\n"
+"You have configured a RAID partition without constraining the partition to a "
+"single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
 "Aþi configurat o partiþie RAID fãrã a o limita la un singur hard disc.\n"
@@ -1723,8 +2058,12 @@ msgid "Close"
 msgstr "Închide"
 
 #: ../libfdisk/gnomefsedit.c:1228
-msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
-msgstr "Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur disc. Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
+msgid ""
+"You have configured a RAID partition without constraining the partition to a "
+"single drive. Please select one drive to constrain this partition to."
+msgstr ""
+"Aþi configurat o partiþie de RAID fãrã a impune limitãri la un singur disc. "
+"Selectaþi un disc pentru a folosi ca limitã a sistemului RAID."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -1734,17 +2073,31 @@ msgstr "Configurare RAID incompletã"
 
 #: ../libfdisk/gnomefsedit.c:1415
 #, c-format
-msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
-msgstr "Partiþia RAID /dev/%s conþine partiþii care nu sînt alocate. Partiþia RAID /dev/%s va fi decompusã în partiþiile care o compun. Recompuneþi partiþia RAID folosind numai partiþii care au fost alocate."
+msgid ""
+"The raid device /dev/%s now contains partitions which are unallocated. The "
+"raid device /dev/%s will now be decomposed into its component partitions. "
+"Please recompose the raid device with allocated partitions."
+msgstr ""
+"Partiþia RAID /dev/%s conþine partiþii care nu sînt alocate. Partiþia RAID "
+"/dev/%s va fi decompusã în partiþiile care o compun. Recompuneþi partiþia "
+"RAID folosind numai partiþii care au fost alocate."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533 ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
+#: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
+#: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
 msgstr "Partiþii nealocate"
 
-#: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528 ../libfdisk/newtfsedit.c:85
-msgid "There are currently unallocated partition(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
-msgstr "În acest moment existã partiþii nealocate prezente în lista de partiþii selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, împreunã cu motivul pentru care nu au fost alocate."
+#: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
+#: ../libfdisk/newtfsedit.c:85
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"În acest moment existã partiþii nealocate prezente în lista de partiþii "
+"selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, "
+"împreunã cu motivul pentru care nu au fost alocate."
 
 #: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
@@ -1764,19 +2117,29 @@ msgstr "Partiþii pentru systemul RAID:"
 
 #: ../libfdisk/gnomefsedit.c:2006
 msgid "You have not selected a mount point. A mount point is required."
-msgstr "Nu aþi selectat un director de montare pentru aceastã partiþie. Este necesar sã selectaþi un director de montare."
+msgstr ""
+"Nu aþi selectat un director de montare pentru aceastã partiþie. Este necesar "
+"sã selectaþi un director de montare."
 
 #: ../libfdisk/gnomefsedit.c:2014
-msgid "The mount point requested is already in use. Please select a valid mount point."
-msgstr "Directorul de montare specificat este deja utilizat. Selectaþi un director de montare valid."
+msgid ""
+"The mount point requested is already in use. Please select a valid mount "
+"point."
+msgstr ""
+"Directorul de montare specificat este deja utilizat. Selectaþi un director "
+"de montare valid."
 
 #: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
 msgstr "Avertisment pentru startarea de pe o partiþie RAID"
 
 #: ../libfdisk/gnomefsedit.c:2028
-msgid "You have made this raid device mount as a booting partition.  Please make sure all the component partitions are bootable."
-msgstr "Aþi selectat aceastã partiþie de RAID ca partiþia de boot. Asiguraþi-vã ca toate partiþiile de disc constituente sînt la rindul lor bootabile."
+msgid ""
+"You have made this raid device mount as a booting partition.  Please make "
+"sure all the component partitions are bootable."
+msgstr ""
+"Aþi selectat aceastã partiþie de RAID ca partiþia de boot. Asiguraþi-vã ca "
+"toate partiþiile de disc constituente sînt la rindul lor bootabile."
 
 #: ../libfdisk/gnomefsedit.c:2038
 msgid "No RAID Device"
@@ -1792,16 +2155,24 @@ msgstr "Partiþie de RAID folositã"
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
-msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
-msgstr "Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. Selectaþi o altã partiþie."
+msgid ""
+"The raid device \"/dev/%s\" is already configured as a raid device. Please "
+"select another."
+msgstr ""
+"Partiþia RAID \"/dev/%s\" este configuratã deja pentru un sistem RAID. "
+"Selectaþi o altã partiþie."
 
 #: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
 msgstr "Nu existã suficiente partiþii"
 
 #: ../libfdisk/gnomefsedit.c:2061
-msgid "You have not configured enough partitions for the RAID type you have selected."
-msgstr "Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care l-aþi selectat."
+msgid ""
+"You have not configured enough partitions for the RAID type you have "
+"selected."
+msgstr ""
+"Nu aþi configurat suficiente partiþii pentru tipul de sistem RAID pe care "
+"l-aþi selectat."
 
 #: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
@@ -1822,8 +2193,14 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
-msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
-msgstr "Partiþia %s din acest RAID sistem este o partiþie configuratã înainte de instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur cã este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
+msgid ""
+"The partition %s is a pre-existing partition in the set of partitions for "
+"this RAID device.  The mount point is set to /boot. Are you sure that it is "
+"possible to boot from this partition?"
+msgstr ""
+"Partiþia %s din acest RAID sistem este o partiþie configuratã înainte de "
+"instalare. Directorul de montare este setat pentru /boot. Sînteþi sigur cã "
+"este posibil sã se iniþializeze sistemul de pe aceastã partiþie?"
 
 #: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
@@ -1887,8 +2264,12 @@ msgid "Unallocated Partitions Exist..."
 msgstr "Existã Partiþii Nealocate..."
 
 #: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
-msgid "You must assign a root (/) partition to a Linux native partition (ext2) or a RAID partition for the install to proceed."
-msgstr "O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei de root (/) înainte ca procesul de instalare sã continue."
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) or a "
+"RAID partition for the install to proceed."
+msgstr ""
+"O partiþie de tip Linux Native (ext2) sau RAID trebuie asignatã partiþiei de "
+"root (/) înainte ca procesul de instalare sã continue."
 
 #: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
@@ -1940,8 +2321,12 @@ msgid "No Root Partition"
 msgstr "Partiþia root nedefinita"
 
 #: ../libfdisk/newtfsedit.c:1427
-msgid "You must assign a root (/) partition to a Linux native partition (ext2) for the install to proceed."
-msgstr "O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) înainte ca procesul de instalare sã continue."
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
+"înainte ca procesul de instalare sã continue."
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
@@ -1949,15 +2334,19 @@ msgstr "Nu s-a definit nici o partiþie de swap"
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
-msgstr "Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã poatã continua."
+msgstr ""
+"Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
+"poatã continua."
 
 #: ../libfdisk/newtfsedit.c:1480
 msgid ""
-"There are unallocated partitions left. If you quit now they will not be written to the disk.\n"
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise pe disc.\n"
+"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise "
+"pe disc.\n"
 "\n"
 "Sînteti sigur cã doriþi sã ieºiþi din program?"
 
@@ -1994,14 +2383,21 @@ msgid "Miscellaneous"
 msgstr "Alte Opþiuni"
 
 #: ../loader/devices.c:60
-msgid "This module can take parameters which affects its operation. If you don't know what parameters to supply, just skip this screen by pressing the \"OK\" button now."
-msgstr "Acest driver poate avea parametri care afecteazã funcþionalitatea sa. Dacã nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi \"OK\" ºi treceþi la urmãtorul ecran."
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
+"button now."
+msgstr ""
+"Acest driver poate avea parametri care afecteazã funcþionalitatea sa. Dacã "
+"nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi "
+"\"OK\" ºi treceþi la urmãtorul ecran."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
 msgstr "Parametri Driver"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253 ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
 msgid "Devices"
 msgstr "Devices"
 
@@ -2014,12 +2410,21 @@ msgid "Failed to mount floppy disk."
 msgstr "Discheta nu are un sistem de fiºiere suportat"
 
 #: ../loader/devices.c:184
-msgid "The floppy disk you inserted is not a valid driver disk for this release of Red Hat Linux."
-msgstr "Discheta introdusã nu este o dischetã de drivere validã pentru aceastã versiune de Red Hat Linux."
+msgid ""
+"The floppy disk you inserted is not a valid driver disk for this release of "
+"Red Hat Linux."
+msgstr ""
+"Discheta introdusã nu este o dischetã de drivere validã pentru aceastã "
+"versiune de Red Hat Linux."
 
 #: ../loader/devices.c:206
-msgid "Which driver should I try?. If the driver you need does not appear in this list, and you have a separate driver disk, please press F2."
-msgstr "Ce driver trebuie încercat? Dacã driverul dorit nu se regãseºte în lista de mai jos ºi aveþi o dischetã de drivere separatã, selectaþi F2 pentru a continua"
+msgid ""
+"Which driver should I try?. If the driver you need does not appear in this "
+"list, and you have a separate driver disk, please press F2."
+msgstr ""
+"Ce driver trebuie încercat? Dacã driverul dorit nu se regãseºte în lista de "
+"mai jos ºi aveþi o dischetã de drivere separatã, selectaþi F2 pentru a "
+"continua"
 
 #: ../loader/devices.c:211
 msgid "Which driver should I try?"
@@ -2077,8 +2482,11 @@ msgid "Welcome to Red Hat Linux"
 msgstr "Bun venit în Red Hat Linux!"
 
 #: ../loader/loader.c:130
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul ecran "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
+"ecran "
 
 #: ../loader/loader.c:240
 msgid "SCSI"
@@ -2097,8 +2505,13 @@ msgid "Add Device"
 msgstr "Adaugã Periferic"
 
 #: ../loader/loader.c:329
-msgid "I don't have any special device drivers loaded for your system. Would you like to load some now?"
-msgstr "Nu s-a încãrcat nici un driver specific penbtru periferice acestui sistem. În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în acest moment?"
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+"Nu s-a încãrcat nici un driver specific penbtru periferice acestui sistem. "
+"În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în "
+"acest moment?"
 
 #: ../loader/loader.c:413 ../loader/loader.c:415
 msgid "Loading"
@@ -2117,12 +2530,22 @@ msgid "Hard Drives"
 msgstr "Hard Discuri"
 
 #: ../loader/loader.c:604
-msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã configuraþi alte periferice?"
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã "
+"configuraþi alte periferice?"
 
 #: ../loader/loader.c:617
-msgid "What partition and directory on that partition hold the RedHat/RPMS and RedHat/base directories? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, apãsaþi F2 pentru a configura periferice adiþionale."
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
+"ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, "
+"apãsaþi F2 pentru a configura periferice adiþionale."
 
 #: ../loader/loader.c:631
 msgid "Directory holding Red Hat:"
@@ -2138,8 +2561,13 @@ msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
 
 #: ../loader/loader.c:749
-msgid "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please insert the Red Hat CD and press \"OK\" to retry."
-msgstr "Nu s-a putut detecta un CD cu Red Hat Linux în nici una dintre unitãþile de CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi selectaþi \"OK\" pentru a reîncerca."
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"OK\" to retry."
+msgstr ""
+"Nu s-a putut detecta un CD cu Red Hat Linux în nici una dintre unitãþile de "
+"CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi "
+"selectaþi \"OK\" pentru a reîncerca."
 
 #: ../loader/loader.c:906
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2232,8 +2660,13 @@ msgstr ""
 "      pachetele Red Hat Linux pentru acest sistem"
 
 #: ../loader/net.c:228
-msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr "Introduceþi configuraþia IP oentru acest calculator. Fiecare valoare trebuie introdusã ca o adresã de IP în notaþie decimalã cu punct (de exemplu, 1.2.3.4)."
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Introduceþi configuraþia IP oentru acest calculator. Fiecare valoare trebuie "
+"introdusã ca o adresã de IP în notaþie decimalã cu punct (de exemplu, "
+"1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -2302,8 +2735,12 @@ msgid "Network device"
 msgstr "Placã de reþea"
 
 #: ../loader/net.c:716
-msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul ecran "
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
+"ecran "
 
 #: ../loader/net.c:717
 #, c-format
@@ -2404,12 +2841,22 @@ msgid "%s is not a valid hostname."
 msgstr ""
 
 #: ../loader/urls.c:307
-msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below. If you are using an FTP proxy enter the name of the FTP proxy server to use."
-msgstr "Dacã folosiþi non-anonymous ftp, introduceþi mai jos contul si parola pe care doriþi sã le folosiþi. Dacã folosiþi un proxy server pentru FTP introduceþi numele sau adresa de IP a serverului proxy pe care doriþi sã-l folosiþi."
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Dacã folosiþi non-anonymous ftp, introduceþi mai jos contul si parola pe "
+"care doriþi sã le folosiþi. Dacã folosiþi un proxy server pentru FTP "
+"introduceþi numele sau adresa de IP a serverului proxy pe care doriþi sã-l "
+"folosiþi."
 
 #: ../loader/urls.c:313
-msgid "If you are using a HTTP proxy server enter the name of the HTTP proxy server to use."
-msgstr "Daca folositi un proxy server pentru HTTP introduceti numele serverului."
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Daca folositi un proxy server pentru HTTP introduceti numele serverului."
 
 #: ../loader/urls.c:334
 msgid "Account name:"
@@ -2443,7 +2890,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Reconstruire baza de date RPM..."
 
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Reconstructia bazei de date RPM a esuat. Aveti destul spatiu pe hard disc?"
+#~ msgstr ""
+#~ "Reconstructia bazei de date RPM a esuat. Aveti destul spatiu pe hard disc?"
 
 #~ msgid "Variant"
 #~ msgstr "Variantã"
@@ -2451,17 +2899,34 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Autoprobe results:"
 #~ msgstr "Rezultatele autodetecþiei:"
 
-#~ msgid "A disk with a corrupt Sun disklabel has been found while reading block device %s.  You must use fdisk to create and write a new label to this device."
-#~ msgstr "S-a gãsit un disc avînd un identificator de volum (disklabel) corupt citind device-ul %s. Trebuie sã folosiþi fdisk pentru a crea un nou identificator de volum pentru acest disc."
+#~ msgid ""
+#~ "A disk with a corrupt Sun disklabel has been found while reading block "
+#~ "device %s.  You must use fdisk to create and write a new label to this "
+#~ "device."
+#~ msgstr ""
+#~ "S-a gãsit un disc avînd un identificator de volum (disklabel) corupt citind "
+#~ "device-ul %s. Trebuie sã folosiþi fdisk pentru a crea un nou identificator "
+#~ "de volum pentru acest disc."
 
 #~ msgid "Corrupt Sun disklabel"
 #~ msgstr "Identificator de volum Sun corupt"
 
-#~ msgid "You must assign a boot (/boot) partition to a Linux native partition (ext2) or a RAID-1 partition for the install to proceed."
-#~ msgstr "O partiþie de tip Linux Native (ext2) sau RAID-1 trebuie asignatã partiþiei de boot (/boot) înainte ca procesul de instalare sã continue."
+#~ msgid ""
+#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
+#~ "or a RAID-1 partition for the install to proceed."
+#~ msgstr ""
+#~ "O partiþie de tip Linux Native (ext2) sau RAID-1 trebuie asignatã partiþiei "
+#~ "de boot (/boot) înainte ca procesul de instalare sã continue."
 
-#~ msgid "Because you have assigned the root partition (/) to a RAID device, you must also assign a boot (/boot) partition to a Linux native partition (ext2) or a RAID-1 partition for the install to proceed."
-#~ msgstr "Întrucît aþi asignat partiþia de root (/) unui sistem RAID, trebuie sã asignaþi o directorul de boot (/boot) unei partiþii de tip Linux native (ext2) sau unui alt sistem de tip RAID-1 Inainte ca procesul de instalare sã poatã continua."
+#~ msgid ""
+#~ "Because you have assigned the root partition (/) to a RAID device, you must "
+#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
+#~ "RAID-1 partition for the install to proceed."
+#~ msgstr ""
+#~ "Întrucît aþi asignat partiþia de root (/) unui sistem RAID, trebuie sã "
+#~ "asignaþi o directorul de boot (/boot) unei partiþii de tip Linux native "
+#~ "(ext2) sau unui alt sistem de tip RAID-1 Inainte ca procesul de instalare sã "
+#~ "poatã continua."
 
 #~ msgid "Use fdisk to format drives"
 #~ msgstr "Foloseºte fdisk pentru partiþionare discuri"
@@ -2532,11 +2997,29 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "I can't find the device anywhere on your system!"
 #~ msgstr "Nu se poate identifica adaptorul în acest calculator!"
 
-#~ msgid "In some cases, the %s driver needs to have extra information to work properly, although it normally works fine without. Would you like to specify extra options for it or allow the driver to probe your machine for the information it needs? Occasionally, probing will hang a computer, but it should not cause any damage."
-#~ msgstr "În unele cazuri, driverul %s are nevoie de informaþii în plus pentru a funcþiona corect, deºi în majoritatea cazurilor nu este nevoie de extra parametri. Doriþi sã specificaþi opþiuni cãtre driver sau sã lãsaþi driverul sã detecteze informaþia de care are nevoie ? În unele cazuri, detecþia poate bloca un calculator, dar nu poate cauza nici un fel de pierderi de date."
+#~ msgid ""
+#~ "In some cases, the %s driver needs to have extra information to work "
+#~ "properly, although it normally works fine without. Would you like to specify "
+#~ "extra options for it or allow the driver to probe your machine for the "
+#~ "information it needs? Occasionally, probing will hang a computer, but it "
+#~ "should not cause any damage."
+#~ msgstr ""
+#~ "În unele cazuri, driverul %s are nevoie de informaþii în plus pentru a "
+#~ "funcþiona corect, deºi în majoritatea cazurilor nu este nevoie de extra "
+#~ "parametri. Doriþi sã specificaþi opþiuni cãtre driver sau sã lãsaþi driverul "
+#~ "sã detecteze informaþia de care are nevoie ? În unele cazuri, detecþia poate "
+#~ "bloca un calculator, dar nu poate cauza nici un fel de pierderi de date."
 
-#~ msgid "In many cases, the %s driver needs to be provided with extra information on your hardware. If you prefer, some common values for those parameters will be tried. This process can hang a machine, although it should not cause any damage."
-#~ msgstr "În unele cazuri, driverul %s are nevoie de extra informaþii despre configuraþia hardware a acestui sistem. Dacã doriþi, citeva valori comune pentru acei parametri vor fi încercate. Acest proces poate bloca calculatorul, ºi nu poate cauza pierderi de date."
+#~ msgid ""
+#~ "In many cases, the %s driver needs to be provided with extra information on "
+#~ "your hardware. If you prefer, some common values for those parameters will "
+#~ "be tried. This process can hang a machine, although it should not cause any "
+#~ "damage."
+#~ msgstr ""
+#~ "În unele cazuri, driverul %s are nevoie de extra informaþii despre "
+#~ "configuraþia hardware a acestui sistem. Dacã doriþi, citeva valori comune "
+#~ "pentru acei parametri vor fi încercate. Acest proces poate bloca "
+#~ "calculatorul, ºi nu poate cauza pierderi de date."
 
 #~ msgid "Module options:"
 #~ msgstr "Opþiuni pentru Modul:"
@@ -2569,7 +3052,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "ªtergere fiºiere vechi..."
 
 #~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "Eroare la instalarea pachetului: fiºierul RPM pentru %s nu existã: %s"
+#~ msgstr ""
+#~ "Eroare la instalarea pachetului: fiºierul RPM pentru %s nu existã: %s"
 
 #~ msgid "Force supplemental disk"
 #~ msgstr "Force supplemental disk"
@@ -2598,8 +3082,13 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "PCMCIA Disk"
 #~ msgstr "PCMCIA Disk"
 
-#~ msgid "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or choose Cancel to pick a different installation process."
-#~ msgstr "Discul nu a putut fi citit. Introduceþi discul pentru Red Hat PCMCIA install, sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+#~ "choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Discul nu a putut fi citit. Introduceþi discul pentru Red Hat PCMCIA "
+#~ "install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
+#~ "diferitã."
 
 #~ msgid "Loading PCMCIA Support"
 #~ msgstr "Se încarcã suportul pentru PCMCIA..."
@@ -2607,8 +3096,13 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Supplemental Disk"
 #~ msgstr "Supplemental Disk"
 
-#~ msgid "I failed to mount the floppy. Please insert the Red Hat Supplementary Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Supplementary Install, sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
+#~ "Install disk, or choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Supplementary "
+#~ "Install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
+#~ "diferitã."
 
 #~ msgid "Loading Supplemental Disk..."
 #~ msgstr "Încãrcare Supplemental Disk..."
@@ -2616,14 +3110,29 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Driver Disk"
 #~ msgstr "Driver Disk"
 
-#~ msgid "This install method requires a driver disk. Please remove the supplemental disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr "Aceastã metodã de instalare necesitã un Driver Disk. Schimbaþi Supplemental Disk aflat în acest moment în unitatea de floppy cu discul denumit Red Hat Modules Disk."
+#~ msgid ""
+#~ "This install method requires a driver disk. Please remove the supplemental "
+#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
+#~ msgstr ""
+#~ "Aceastã metodã de instalare necesitã un Driver Disk. Schimbaþi Supplemental "
+#~ "Disk aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
+#~ "Modules Disk."
 
-#~ msgid "I failed to mount the floppy. Please insert the Red Hat Module disk, or choose Cancel to pick a different installation process."
-#~ msgstr "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Modules Disk, sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+#~ "choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Modules Disk, "
+#~ "sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
 
-#~ msgid "This install method requires two additional disks. Please remove the boot disk currently in your drive and replace it with the Red Hat Supplementary Install disk."
-#~ msgstr "Aceastã metodã de instalare necesitã douã floppy-discuri adiþionale. Schimbaþi discul de boot aflat în acest moment în unitatea de floppy cu discul denumit Red Hat Supplementary Install."
+#~ msgid ""
+#~ "This install method requires two additional disks. Please remove the boot "
+#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
+#~ "Install disk."
+#~ msgstr ""
+#~ "Aceastã metodã de instalare necesitã douã floppy-discuri adiþionale. "
+#~ "Schimbaþi discul de boot aflat în acest moment în unitatea de floppy cu "
+#~ "discul denumit Red Hat Supplementary Install."
 
 #~ msgid "hd command"
 #~ msgstr "hd command"
@@ -2662,7 +3171,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Partiþiile sistemului trebuie sã fie de tip Linux Native."
 
 #~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr "Directorul /usr trebuie sã fie pe o partiþie Linux Native sau un director NFS"
+#~ msgstr ""
+#~ "Directorul /usr trebuie sã fie pe o partiþie Linux Native sau un director NFS"
 
 #~ msgid "Edit Network Mount Point"
 #~ msgstr "Editare director de montare în reþea"
@@ -2676,8 +3186,15 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "mount failed: %s"
 #~ msgstr "eroare montare: %s"
 
-#~ msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized. You can specify \"zerombr yes\" in the kickstart file to have this done automatically"
-#~ msgstr "Tabela de partiþii de pe discul %s este invalidã. Pentru a crea noi partiþii aceasta trebuie initializata. Puteþi specifica \"zerombr yes\" în fiºierul de configurare kickstart pentru iniþializarea automatã de catre programul de instalare."
+#~ msgid ""
+#~ "The partition table on device %s is corrupted.  To create new partitions it "
+#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+#~ "to have this done automatically"
+#~ msgstr ""
+#~ "Tabela de partiþii de pe discul %s este invalidã. Pentru a crea noi partiþii "
+#~ "aceasta trebuie initializata. Puteþi specifica \"zerombr yes\" în fiºierul "
+#~ "de configurare kickstart pentru iniþializarea automatã de catre programul de "
+#~ "instalare."
 
 #~ msgid "Zero Partition Table"
 #~ msgstr "Initializare Tabela de partiþii"
@@ -2687,13 +3204,15 @@ msgstr "Încãrcare Driver SCSI..."
 #~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
 #~ msgstr ""
 #~ "parametru invalid pentru comanda zerombr în mod kickstart: %s.\n"
-#~ "Parametrul valid este 'on', '1', sau 'yes' pentru activare, 'off', '0', sau 'no' pentru dezactivare."
+#~ "Parametrul valid este 'on', '1', sau 'yes' pentru activare, 'off', '0', sau "
+#~ "'no' pentru dezactivare."
 
 #~ msgid "Clear Partition Command"
 #~ msgstr "Comanda Iniþializare partitie"
 
 #~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "parametru %s este invalid pentru comanda clearpart în mod kickstart: %s"
+#~ msgstr ""
+#~ "parametru %s este invalid pentru comanda clearpart în mod kickstart: %s"
 
 #~ msgid "Partition Command"
 #~ msgstr "Comanda de Partiþionare"
@@ -2704,8 +3223,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Option Ignored"
 #~ msgstr "Opþiune Ignoratã"
 
-#~ msgid "The --maxsize option for the partition %s was ignored. Check that it is larger than the --size option."
-#~ msgstr "Opþiunea --maxsize pentru partiþia %s a fost ignoratã. Verificaþi dacã este mai mare decît valoarea specificatã la optiunea --size."
+#~ msgid ""
+#~ "The --maxsize option for the partition %s was ignored. Check that it is "
+#~ "larger than the --size option."
+#~ msgstr ""
+#~ "Opþiunea --maxsize pentru partiþia %s a fost ignoratã. Verificaþi dacã este "
+#~ "mai mare decît valoarea specificatã la optiunea --size."
 
 #~ msgid "The mount point %s is already in use."
 #~ msgstr "Directorul de montare %s este folosit deja."
@@ -2737,8 +3260,13 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "The partition %s could not be allocated."
 #~ msgstr "Partiþia %s nu a putut fi alocatã."
 
-#~ msgid "There are partitions that can be resized nondestructively to make room for your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr "Pe acest sistem exista partitii care pot fi redimensionate pentru a face loc pentru instalarea Red Hat Linux. Doriti sa redimensionati aceste partitii acum?"
+#~ msgid ""
+#~ "There are partitions that can be resized nondestructively to make room for "
+#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
+#~ msgstr ""
+#~ "Pe acest sistem exista partitii care pot fi redimensionate pentru a face loc "
+#~ "pentru instalarea Red Hat Linux. Doriti sa redimensionati aceste partitii "
+#~ "acum?"
 
 #~ msgid "Success"
 #~ msgstr "Succes"
@@ -2803,11 +3331,19 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Inspectare hard discuri..."
 
-#~ msgid "You don't have any hard drives available! You probably forgot to configure a SCSI controller."
-#~ msgstr "Nu aveþi nici un hard disc disponibil! Probabil aþi uitat sã configuraþi o placã SCSI."
+#~ msgid ""
+#~ "You don't have any hard drives available! You probably forgot to configure a "
+#~ "SCSI controller."
+#~ msgstr ""
+#~ "Nu aveþi nici un hard disc disponibil! Probabil aþi uitat sã configuraþi o "
+#~ "placã SCSI."
 
-#~ msgid "To install Red Hat Linux, you must have at least one partition of 150 MB dedicated to Linux."
-#~ msgstr "Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de minim 150 MB dedicatã Linux."
+#~ msgid ""
+#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
+#~ "dedicated to Linux."
+#~ msgstr ""
+#~ "Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de "
+#~ "minim 150 MB dedicatã Linux."
 
 #~ msgid "Partition Disks"
 #~ msgstr "Partiþionare discuri"
@@ -2816,13 +3352,22 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Resetare Necesara"
 
 #~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press Return to reboot your system.\n"
+#~ "The kernel is unable to read your new partitioning information, probably "
+#~ "because you modified extended partitions. While this is not critical, you "
+#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+#~ "and press Return to reboot your system.\n"
 #~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an empty SCSI drive can also cause this problem."
+#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+#~ "empty SCSI drive can also cause this problem."
 #~ msgstr ""
-#~ "Kernel-ul nu poate citi noua tabelã de partiþii, probabil din cauzã cã aþi modificat structura partiþiilor extinse. Aceastã eroare nu este fatalã, însã calculatorul trebuie resetat înainte de a continua cu instalarea. Încãrcaþi acum Red Hat boot disk în unitatea floppy ºi apãsaþi Enter pentru a reseta systemul.\n"
+#~ "Kernel-ul nu poate citi noua tabelã de partiþii, probabil din cauzã cã aþi "
+#~ "modificat structura partiþiilor extinse. Aceastã eroare nu este fatalã, însã "
+#~ "calculatorul trebuie resetat înainte de a continua cu instalarea. Încãrcaþi "
+#~ "acum Red Hat boot disk în unitatea floppy ºi apãsaþi Enter pentru a reseta "
+#~ "systemul.\n"
 #~ "\n"
-#~ "Dacã aveþi un drive ZIP sau JAZ asiguraþi-vã ca în unitate este un disk; un drive SCSI fãrã disk poate de asemenea cauza aceastã problemã"
+#~ "Dacã aveþi un drive ZIP sau JAZ asiguraþi-vã ca în unitate este un disk; un "
+#~ "drive SCSI fãrã disk poate de asemenea cauza aceastã problemã"
 
 #~ msgid "lilo command"
 #~ msgstr "comanda lilo"
@@ -2833,14 +3378,27 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "PCMCIA Support"
 #~ msgstr "Suport pentru PCMCIA"
 
-#~ msgid "Do you need to use PCMCIA devices during the install? Answer no to this question if only need PCMCIA support after the install. You do not need install-time PCMCIA support if you are installing Red Hat Linux on a laptop with a built-in CDROM drive."
-#~ msgstr "Aveþi nevoie de suport pentru PCMCIA în timpul instalãrii? Rãspundeþi Nu la aceastã întrebare numai dacã aveþi nevoie de suport pentru PCMCIA dupã instalare. Nu aveþi nevoie de suport pentru PCMCIA în timpul instalãrii dacã instalaþi Red Hat Linux pe un laptop care are o unitate CD-ROM internã."
+#~ msgid ""
+#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
+#~ "question if only need PCMCIA support after the install. You do not need "
+#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+#~ "with a built-in CDROM drive."
+#~ msgstr ""
+#~ "Aveþi nevoie de suport pentru PCMCIA în timpul instalãrii? Rãspundeþi Nu la "
+#~ "aceastã întrebare numai dacã aveþi nevoie de suport pentru PCMCIA dupã "
+#~ "instalare. Nu aveþi nevoie de suport pentru PCMCIA în timpul instalãrii dacã "
+#~ "instalaþi Red Hat Linux pe un laptop care are o unitate CD-ROM internã."
 
 #~ msgid "PCMCIA Support Disk"
 #~ msgstr "Suport pentru PCMCIA"
 
-#~ msgid "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr "Aceastã metodã de instalare necesitã un disc secundar. Schimbaþi discul de boot aflat în acest moment în unitatea de floppy cu discul denumit Red Hat PCMCIA support disk."
+#~ msgid ""
+#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
+#~ msgstr ""
+#~ "Aceastã metodã de instalare necesitã un disc secundar. Schimbaþi discul de "
+#~ "boot aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
+#~ "PCMCIA support disk."
 
 #~ msgid "Starting PCMCIA services..."
 #~ msgstr "Se iniþializeazã  serviciile PCMCIA..."
@@ -2915,8 +3473,15 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Upgrade log"
 #~ msgstr "Log actualizare"
 
-#~ msgid "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade is finished. After rebooting, please read it to ensure configuration files are properly updated."
-#~ msgstr "Un istoric complet al acestei actualizãri se va gasi în /tmp/upgrade.log la sfîrºitul procesului de actualizare. Dupa reiniþializarea sistemului consultaþi acest fiºier pentru a fi sigur cã fiºierele de configurare a sistemului au fost actualizate corect."
+#~ msgid ""
+#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+#~ "is finished. After rebooting, please read it to ensure configuration files "
+#~ "are properly updated."
+#~ msgstr ""
+#~ "Un istoric complet al acestei actualizãri se va gasi în /tmp/upgrade.log la "
+#~ "sfîrºitul procesului de actualizare. Dupa reiniþializarea sistemului "
+#~ "consultaþi acest fiºier pentru a fi sigur cã fiºierele de configurare a "
+#~ "sistemului au fost actualizate corect."
 
 #~ msgid "rootpw command"
 #~ msgstr "rootpw command"
@@ -2930,11 +3495,19 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Installation Path"
 #~ msgstr "Directorul de instalare"
 
-#~ msgid "Would you like to install a new system or upgrade a system which already contains Red Hat Linux 2.0 or later?"
-#~ msgstr "Doriþi sã instalaþi un nou sistem sau sã actualizaþi un sistem care conþine deja Red Hat Linux versiunea 2.0 sau mai recentã?"
+#~ msgid ""
+#~ "Would you like to install a new system or upgrade a system which already "
+#~ "contains Red Hat Linux 2.0 or later?"
+#~ msgstr ""
+#~ "Doriþi sã instalaþi un nou sistem sau sã actualizaþi un sistem care conþine "
+#~ "deja Red Hat Linux versiunea 2.0 sau mai recentã?"
 
-#~ msgid "What type of machine are you installing? For maximum flexibility, choose \"Custom\"."
-#~ msgstr "Ce tip de calculator instalaþi? Pentru flexibilitate maximã în configurare, alegeþi \"Custom\"."
+#~ msgid ""
+#~ "What type of machine are you installing? For maximum flexibility, choose "
+#~ "\"Custom\"."
+#~ msgstr ""
+#~ "Ce tip de calculator instalaþi? Pentru flexibilitate maximã în configurare, "
+#~ "alegeþi \"Custom\"."
 
 #~ msgid "Converting RPM database..."
 #~ msgstr "Baza de date RPM se actualizeazã..."
@@ -2948,17 +3521,28 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid ""
 #~ "An error occured during step \"%s\" of the install.\n"
 #~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see a menu of installation steps which will allow you to move around in the install more freely. It is not recommended to use the menu unless you are already familiar with Red Hat Linux. What would you like to do?"
+#~ "You may retry that step, return to the previous step in the install, or see "
+#~ "a menu of installation steps which will allow you to move around in the "
+#~ "install more freely. It is not recommended to use the menu unless you are "
+#~ "already familiar with Red Hat Linux. What would you like to do?"
 #~ msgstr ""
 #~ "A apãrut o eroare în timpul pasului \"%s\" al programului de instalare\n"
 #~ "\n"
-#~ "Puteþi reîncerca aceastã etapã, sã vã întoarceþi la o etapã anterioarã în procesul de instalare, sau sã obþineþi un menu cu toate etapele de instalare care vã va permite sã executaþi diferite etape din procesul de instalare la alegerea dumneavoastrã. Nu este recomandat lucrul cu meniul etapelor de instalare decît dacã sînteþi familiar cu Red Hat Linux. Care este opþiunea dumneavoastrã?"
+#~ "Puteþi reîncerca aceastã etapã, sã vã întoarceþi la o etapã anterioarã în "
+#~ "procesul de instalare, sau sã obþineþi un menu cu toate etapele de instalare "
+#~ "care vã va permite sã executaþi diferite etape din procesul de instalare la "
+#~ "alegerea dumneavoastrã. Nu este recomandat lucrul cu meniul etapelor de "
+#~ "instalare decît dacã sînteþi familiar cu Red Hat Linux. Care este opþiunea "
+#~ "dumneavoastrã?"
 
 #~ msgid "  Continue with install"
 #~ msgstr "Continuarea instalãrii"
 
-#~ msgid "What step would you like to run? Steps with a * next to them have already been completed."
-#~ msgstr "Ce anume doriþi sã executaþi? Etapele marcate cu * au fost deja executate."
+#~ msgid ""
+#~ "What step would you like to run? Steps with a * next to them have already "
+#~ "been completed."
+#~ msgstr ""
+#~ "Ce anume doriþi sã executaþi? Etapele marcate cu * au fost deja executate."
 
 #~ msgid "Insert a blank floppy in the first drive /dev/fd0."
 #~ msgstr "Incãrcaþi un floppy disc în prima unitate de disc (/dev/fd0)."
@@ -2972,7 +3556,9 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Kernel"
 #~ msgstr "Kernel"
 
-#~ msgid "Please insert your boot disk in your first disk drive if it's not already present."
+#~ msgid ""
+#~ "Please insert your boot disk in your first disk drive if it's not already "
+#~ "present."
 #~ msgstr "Introduceþi diskul de boot în drive dacã nu este deja prezent"
 
 #~ msgid "Copying kernel from floppy..."
@@ -2985,7 +3571,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Eroare la crearea /mnt/tmp/ks.script: %s"
 
 #~ msgid "Failed to write ks post script: %s"
-#~ msgstr "Eroare la scrierea fiºierului de comenzi pentru post-instalarea kickstart: %s"
+#~ msgstr ""
+#~ "Eroare la scrierea fiºierului de comenzi pentru post-instalarea kickstart: %s"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Eroare la crearea symlink pentru sursa de pachete."
@@ -3017,8 +3604,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Bootable Partitions"
 #~ msgstr "Partiþii valide"
 
-#~ msgid "What partitions would you like to use for swap space? This will destroy any information already on the partition."
-#~ msgstr "Ce partiþii doriþi sã utilizaþi ca spaþiu pentru memoria swap? Informatþia existentã în partiþiile selectate va fi pierdutã în urma acestei selecþii."
+#~ msgid ""
+#~ "What partitions would you like to use for swap space? This will destroy any "
+#~ "information already on the partition."
+#~ msgstr ""
+#~ "Ce partiþii doriþi sã utilizaþi ca spaþiu pentru memoria swap? Informatþia "
+#~ "existentã în partiþiile selectate va fi pierdutã în urma acestei selecþii."
 
 #~ msgid "Active Swap Space"
 #~ msgstr "Spaþiu de Swap Activ"
@@ -3035,8 +3626,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Ethernet Probe"
 #~ msgstr "Detecþie Ethernet"
 
-#~ msgid "The Ethernet probe failed to find a card on your system. Press <Enter> to manually configure one."
-#~ msgstr "Detecþia Ethernet nu a identificat un adaptor de reþea în acest calculator. Apãsaþi <Enter> pentru a configurare manualã."
+#~ msgid ""
+#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
+#~ "manually configure one."
+#~ msgstr ""
+#~ "Detecþia Ethernet nu a identificat un adaptor de reþea în acest calculator. "
+#~ "Apãsaþi <Enter> pentru a configurare manualã."
 
 #~ msgid "Static IP address"
 #~ msgstr "Adresã IP staticã"
@@ -3050,8 +3645,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "comenzii network în kickstart îi lipseºte adresa de ip"
 
-#~ msgid "How should the IP information be set? If your system administrator gave you an IP address, choose static IP."
-#~ msgstr "Cum trebuie setatã adresa de IP? Dacã administratorul de reþea v-a furnizat o adresã de IP, selectaþi IP static."
+#~ msgid ""
+#~ "How should the IP information be set? If your system administrator gave you "
+#~ "an IP address, choose static IP."
+#~ msgstr ""
+#~ "Cum trebuie setatã adresa de IP? Dacã administratorul de reþea v-a furnizat "
+#~ "o adresã de IP, selectaþi IP static."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Trimitere cerere BOOTP..."
@@ -3060,16 +3659,29 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Nu se poate crea %s: %s\n"
 
 #~ msgid "cannot create network device config file: %s"
-#~ msgstr "nu s-a putu crea fiºierul de configurare pentru adaptorul de reþea: %s"
+#~ msgstr ""
+#~ "nu s-a putu crea fiºierul de configurare pentru adaptorul de reþea: %s"
 
 #~ msgid "cannot open file: %s"
 #~ msgstr "nu s-a putut deschide fiºierul: %s"
 
-#~ msgid "I cannot automatically determine the hostname. Press <Enter> to enter hostname information."
-#~ msgstr "Nu s-a putut determina numele de host automat. Apasaþi <Enter> pentru a introduce informaþiile despre numele de host."
+#~ msgid ""
+#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
+#~ "hostname information."
+#~ msgstr ""
+#~ "Nu s-a putut determina numele de host automat. Apasaþi <Enter> pentru a "
+#~ "introduce informaþiile despre numele de host."
 
-#~ msgid "Please enter your domain name, host name, and the IP addresses of any additional nameservers. Your host name should be a fully-qualified host name, such as mybox.mylab.myco.com. If you don't have any additional nameservers, leave the nameserver entries blank."
-#~ msgstr "Introduceti numele de domeniu, numele de host, adresele de IP ale serverelor DNS adiþionale. Numele de host trebuie sã fie în forma completã, ca de exemplu mybox.mylab.myco.com. Dacã nu aveþi nevoie de servere de DNS adiþionale, nu introduceþi nimic în cîmpurile de editare."
+#~ msgid ""
+#~ "Please enter your domain name, host name, and the IP addresses of any "
+#~ "additional nameservers. Your host name should be a fully-qualified host "
+#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
+#~ "nameservers, leave the nameserver entries blank."
+#~ msgstr ""
+#~ "Introduceti numele de domeniu, numele de host, adresele de IP ale serverelor "
+#~ "DNS adiþionale. Numele de host trebuie sã fie în forma completã, ca de "
+#~ "exemplu mybox.mylab.myco.com. Dacã nu aveþi nevoie de servere de DNS "
+#~ "adiþionale, nu introduceþi nimic în cîmpurile de editare."
 
 #~ msgid "Host name:"
 #~ msgstr "Nume host:"
@@ -3092,7 +3704,9 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Reþeaua LAN a fost deja configuratã. Cum doriþi sã continuaþi?"
 
-#~ msgid "Do you want to configure LAN (not dialup) networking for your installed system?"
+#~ msgid ""
+#~ "Do you want to configure LAN (not dialup) networking for your installed "
+#~ "system?"
 #~ msgstr "Doriþi sã configuraþi reþeau LAN (nu dialup!) pentru acest sistem?"
 
 #~ msgid "Cannot open components file: %s"
@@ -3128,8 +3742,13 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "GNOME"
 #~ msgstr "GNOME"
 
-#~ msgid "Would you like to have the GNOME desktop installed? It provides an easy to use interface, including a drag and drop capability and an integrated help system."
-#~ msgstr "Doriþi sã instalaþi interfaþa graficã GNOME? GNOME este o interfaþã graficã uºor de folosit cu facilitãþi de drag and drop ºi documentaþie integratã."
+#~ msgid ""
+#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
+#~ "use interface, including a drag and drop capability and an integrated help "
+#~ "system."
+#~ msgstr ""
+#~ "Doriþi sã instalaþi interfaþa graficã GNOME? GNOME este o interfaþã graficã "
+#~ "uºor de folosit cu facilitãþi de drag and drop ºi documentaþie integratã."
 
 #~ msgid "Choose components to install:"
 #~ msgstr "Selectaþi componentele pentru instalare:"
@@ -3153,7 +3772,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Actualizare Pachete"
 
 #~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr "<F1> va produce informaþii auxiliare despre un model anume de imprimantã"
+#~ msgstr ""
+#~ "<F1> va produce informaþii auxiliare despre un model anume de imprimantã"
 
 #~ msgid "Configure Printer"
 #~ msgstr "Configurare Imprimantã"
@@ -3161,8 +3781,11 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "<F1> will give you information on this printer driver."
 #~ msgstr "<F1> va produce informaþii despre driverul de imprimantã selectat."
 
-#~ msgid "You may now configure the paper size and resolution for this printer."
-#~ msgstr "Acum puteþi configura dimensiunile paginii standard si rezoluþia acestei imprimante."
+#~ msgid ""
+#~ "You may now configure the paper size and resolution for this printer."
+#~ msgstr ""
+#~ "Acum puteþi configura dimensiunile paginii standard si rezoluþia acestei "
+#~ "imprimante."
 
 #~ msgid "Paper Size"
 #~ msgstr "Dimensiunile paginei"
@@ -3174,7 +3797,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgstr "Corecþie a efectului de imprimare în scarã?"
 
 #~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Acum puteþi configura opþiunile de culoare pentru aceastã imprimantã."
+#~ msgstr ""
+#~ "Acum puteþi configura opþiunile de culoare pentru aceastã imprimantã."
 
 #~ msgid "You may now configure the uniprint options for this printer."
 #~ msgstr "Acum puteþi configura opþiunile uniprint pentru aceastã imprimantã."
@@ -3185,8 +3809,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Configure Uniprint Driver"
 #~ msgstr "Configurare Driver Uniprint"
 
-#~ msgid "What device is your printer connected to (note that /dev/lp0 is equivalent to LPT1:)?"
-#~ msgstr "Pe ce port este imprimanta dumneavoastrã conectatã (atenþie, /dev/lp0 este echivalent cu LPT1:)?"
+#~ msgid ""
+#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
+#~ "to LPT1:)?"
+#~ msgstr ""
+#~ "Pe ce port este imprimanta dumneavoastrã conectatã (atenþie, /dev/lp0 este "
+#~ "echivalent cu LPT1:)?"
 
 #~ msgid ""
 #~ "Auto-detected ports:\n"
@@ -3216,8 +3844,14 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Remote lpd Printer Options"
 #~ msgstr "Opþiuni pentru serverul lpd"
 
-#~ msgid "To use a remote lpd print queue, you need to supply the hostname of the printer server and the queue name on that server which jobs should be placed in."
-#~ msgstr "Pentru a folosi o imprimantã de pe un server lpd va trebui sã introduceþi numele serverului ºi numele cozii de imprimare disponibilã pe acel server pentru acest calculator."
+#~ msgid ""
+#~ "To use a remote lpd print queue, you need to supply the hostname of the "
+#~ "printer server and the queue name on that server which jobs should be placed "
+#~ "in."
+#~ msgstr ""
+#~ "Pentru a folosi o imprimantã de pe un server lpd va trebui sã introduceþi "
+#~ "numele serverului ºi numele cozii de imprimare disponibilã pe acel server "
+#~ "pentru acest calculator."
 
 #~ msgid "Printer Server:"
 #~ msgstr "Server imprimantã:"
@@ -3228,8 +3862,18 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "NetWare Printer Options"
 #~ msgstr "Opþiuni imprimantã Netware"
 
-#~ msgid "To print to a NetWare printer, you need to provide the NetWare print server name (this is not always the same as the machines TCP/IP hostname) as well as the print queue name for the printer you wish to access and any applicable user name and password."
-#~ msgstr "Pentru a folosi o imprimantã accesibilã pe un server Netware, va trebui sã introduceþi numele serverului Netware care pune la dispoziþie aceastã imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a serverului), adresa de IP a serverului, numele imprimantei partajate în reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de cont ºi parola care vã permit accesul la aceastã imprimantã."
+#~ msgid ""
+#~ "To print to a NetWare printer, you need to provide the NetWare print server "
+#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
+#~ "as the print queue name for the printer you wish to access and any "
+#~ "applicable user name and password."
+#~ msgstr ""
+#~ "Pentru a folosi o imprimantã accesibilã pe un server Netware, va trebui sã "
+#~ "introduceþi numele serverului Netware care pune la dispoziþie aceastã "
+#~ "imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
+#~ "serverului), adresa de IP a serverului, numele imprimantei partajate în "
+#~ "reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
+#~ "cont ºi parola care vã permit accesul la aceastã imprimantã."
 
 #~ msgid "SMB server host:"
 #~ msgstr "Nume server SMB:"
@@ -3246,8 +3890,19 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "SMB/Windows 95/NT Printer Options"
 #~ msgstr "Opþiuni pentru imprimantã SMB/Windows 95/NT"
 
-#~ msgid "To print to a SMB printer, you need to provide the SMB host name (this is not always the same as the machines TCP/IP hostname) and possibly the IP address of the print server, as well as the share name for the printer you wish to access and any applicable user name, password, and workgroup information."
-#~ msgstr "Pentru a folosi o imprimantã accesibilã prin protocolul de reþea SMB, va trebui sã introduceþi numele serverului SMB care pune la dispoziþie aceastã imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a serverului), adresa de IP a serverului, numele imprimantei partajate în reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de cont ºi parola care vã permit accesul la aceastã imprimantã."
+#~ msgid ""
+#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
+#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
+#~ "address of the print server, as well as the share name for the printer you "
+#~ "wish to access and any applicable user name, password, and workgroup "
+#~ "information."
+#~ msgstr ""
+#~ "Pentru a folosi o imprimantã accesibilã prin protocolul de reþea SMB, va "
+#~ "trebui sã introduceþi numele serverului SMB care pune la dispoziþie aceastã "
+#~ "imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
+#~ "serverului), adresa de IP a serverului, numele imprimantei partajate în "
+#~ "reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
+#~ "cont ºi parola care vã permit accesul la aceastã imprimantã."
 
 #~ msgid "Spool directory:"
 #~ msgstr "Director pentru fiºiere temporare"
@@ -3255,8 +3910,15 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "Standard Printer Options"
 #~ msgstr "Opþiuni standard pentru imprimantã"
 
-#~ msgid "Every print queue (which print jobs are directed to) needs a name (often lp) and a spool directory associated with it. What name and directory should be used for this queue?"
-#~ msgstr "Fiecare coadã de imprimare (care primeºte documente în vederea printãrii) are nevoie de un nume (de cele mai mute ori lp) ºi de un director în care se vor pãstra fiºiere temporare în timpul printãrii. Ce nume ºi ce director doriþi sã folosiþi pentru aceastã coadã de imprimare?"
+#~ msgid ""
+#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
+#~ "and a spool directory associated with it. What name and directory should be "
+#~ "used for this queue?"
+#~ msgstr ""
+#~ "Fiecare coadã de imprimare (care primeºte documente în vederea printãrii) "
+#~ "are nevoie de un nume (de cele mai mute ori lp) ºi de un director în care se "
+#~ "vor pãstra fiºiere temporare în timpul printãrii. Ce nume ºi ce director "
+#~ "doriþi sã folosiþi pentru aceastã coadã de imprimare?"
 
 #~ msgid "Would you like to add another printer?"
 #~ msgstr "Doriþi sã configuraþi o altã imprimantã?"
@@ -3298,7 +3960,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ "Please verify that this printer information is correct:\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Verificati dacã urmãtoarele informaþii despre aceastã imprimantã sînt corecte:\n"
+#~ "Verificati dacã urmãtoarele informaþii despre aceastã imprimantã sînt "
+#~ "corecte:\n"
 #~ "\n"
 
 #~ msgid "Printer device"
@@ -3367,8 +4030,12 @@ msgstr "Încãrcare Driver SCSI..."
 #~ "Eroare la transferul fiºierului %s:\n"
 #~ "%s"
 
-#~ msgid "An error occurred reading the partition table for the block device %s.  The error was:"
-#~ msgstr "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este:"
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was:"
+#~ msgstr ""
+#~ "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare "
+#~ "este:"
 
 #~ msgid "LAN manager host:"
 #~ msgstr "Nume Server LAN manager:"
@@ -3397,7 +4064,8 @@ msgstr "Încãrcare Driver SCSI..."
 #~ msgid "I cannot log into machine: %s\n"
 #~ msgstr "Autentificarea a eºuat: %s\n"
 
-#~ msgid "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
 #~ msgstr "Doriþi sã instalaþi ºi/sau configuraþi SILO pe acest sistem?"
 
 #~ msgid "Other"
