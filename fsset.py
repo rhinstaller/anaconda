@@ -145,13 +145,16 @@ class FileSystemType:
         if rc:
             raise SystemError        
         
-    def formatDevice(self, devicePath, device, progress, chroot='/'):
+    def formatDevice(self, entry, progress, chroot='/'):
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
 
     def migrateFileSystem(self, device):
         if self.isMigratable():
             raise RuntimeError, "migrateFileSystem method not defined"
+
+    def labelDevice(self, entry, chroot):
+        pass
             
     def isFormattable(self):
         return self.formattable
@@ -263,12 +266,21 @@ class extFileSystem(FileSystemType):
         self.maxSize = 2 * 1024 * 1024
         self.extraFormatArgs = []
 
+    def labelDevice(self, entry, chroot):
+        devicePath = entry.device.setupDevice(chroot)
+        label = labelFactory.createLabel(entry.mountpoint)
+        rc = iutil.execWithRedirect("/usr/sbin/e2label",
+                                    ["e2label", devicePath, label],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
+        
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        label = labelFactory.createLabel(entry.mountpoint)
-        entry.setLabel(label)
-        args = [ "/usr/sbin/mke2fs", devicePath, '-L', label ]
+        args = [ "/usr/sbin/mke2fs", devicePath]
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
@@ -661,7 +673,10 @@ class FileSystemSet:
                                              "system.")
                                            % (entry.device.getDevice(), msg))
                     sys.exit(0)
-                    
+
+    def labelEntry(self, entry, chroot):
+        entry.fsystem.labelDevice(entry, chroot)
+    
     def formatEntry(self, entry, chroot):
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
@@ -694,12 +709,14 @@ class FileSystemSet:
                 sys.exit(0)
 
     def makeFilesystems (self, chroot='/'):
+        formatted = []
         for entry in self.entries:
             if (not entry.fsystem.isFormattable() or not entry.getFormat()
                 or entry.isMounted()):
                 continue
             try:
                 self.formatEntry(entry, chroot)
+                formatted.append(entry)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -710,6 +727,14 @@ class FileSystemSet:
                                          "Press Enter to reboot your system.")
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
+
+        for entry in formatted:
+            try:
+                self.labelEntry(entry, chroot)
+            except SystemError:
+                # should be OK, we'll still use the device name to mount.
+                pass
+
 
     def migrateFilesystems (self, chroot='/'):
         for entry in self.entries:
