@@ -1196,7 +1196,7 @@ def copyExtraModules(instPath, grpset, extraModules):
     except IOError:
         arch = os.uname()[2]
 
-    for (path, subdir, name) in extraModules:
+    for (path, name) in extraModules:
         if not path:
             path = "/modules.cgz"
 	pattern = ""

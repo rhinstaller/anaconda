@@ -487,8 +487,8 @@ for n in args:
 	    method = method[:len(method) - 1]
 	    os.unlink(filename)
     elif (str == '--module'):
-	(path, subdir, name) = string.split(arg, ":")
-	extraModules.append((path, subdir, name))
+	(path, name) = string.split(arg, ":")
+	extraModules.append((path, name))
     elif (str == '--nofallback'):
 	nofallback = 1
     elif (str == "--nomount"):
