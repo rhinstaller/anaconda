@@ -57,7 +57,8 @@ libisys-diet.a: libisys-diet.a($(DOBJECTS))
 filtertest: filtertest.o libisys.a
 
 clean:
-	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
+	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(DOBJECTS) 
+	rm -f $(DIETLIBS) $(OBJECTS) $(GENERATED)
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
