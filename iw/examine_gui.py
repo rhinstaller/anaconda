@@ -55,17 +55,17 @@ class UpgradeExamineWindow (InstallWindow):
 
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
-	r.addEntry(UPGRADE_STR, N_("Upgrade Existing Installation"),
+	r.addEntry(UPGRADE_STR, N_("Upgrade an existing installation"),
 		   pixmap=self.ics.readPixmap("upgrade.png"),
 		   descr=_("Choose this option if you would like to upgrade your "
 		   "existing Red Hat Linux system.  This option will preserve the "
-		   "data on your driver."))
+		   "existing data on your drives."))
 
-	r.addEntry(REINSTALL_STR, N_("Reinstall %s") % (productName,),
+	r.addEntry(REINSTALL_STR, N_("Perform a fresh install of %s") % (productName,),
 		   pixmap=self.ics.readPixmap("install.png"),
-		   descr=_("Choose this option to reinstall your system.  "
-		   "Depending on how you partition your system your previous data "
-		   "may or may not be lost."))
+		   descr=_("Choose this option to install your system from scratch.  "
+		   "Depending on how you choose to partition your system the existing data "
+		   "on your drives may or may not be preserved."))
 
 	return r
 
