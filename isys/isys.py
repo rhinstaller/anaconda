@@ -75,7 +75,10 @@ def raidstart(mdDevice, aMember):
 
 def raidsb(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
-    fd = os.open("/tmp/md", os.O_RDONLY)
+    return raidsbFromDevice("/tmp/md")
+
+def raidsbFromDevice(device):
+    fd = os.open(device, os.O_RDONLY)
     rc = 0
     try:
         rc = _isys.getraidsb(fd)
@@ -474,6 +477,9 @@ def ideCdRwList():
 	if dev[0:2] == 'hd': newList.append(dev)
 
     return newList
+
+def getpagesize():
+    return _isys.getpagesize()
 
 printObject = _isys.printObject
 

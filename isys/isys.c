@@ -98,6 +98,7 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * dogetGeometry(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
+static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -150,6 +151,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
+    { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { NULL }
 } ;
@@ -1590,6 +1592,10 @@ static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
     close(fd);
 
     return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
+}
+
+static PyObject * doGetPageSize(PyObject * s, PyObject * args) {
+    return Py_BuildValue("i", getpagesize());
 }
 
 static PyObject * printObject (PyObject * o, PyObject * args) {
