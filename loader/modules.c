@@ -254,6 +254,7 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
     struct moduleInfo * mi;
     int scsiNum = 0;
     int ethNum = 0;
+    int trNum = 0;
     char ** arg;
 
     if (!list) return 0;
@@ -283,7 +284,8 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 		      strcat(buf, buf2);
 		      break;
 		  case DRIVER_MINOR_TR:
-		      strcat(buf, "tr ");
+		      sprintf(buf2, "tr%d ", trNum++);
+		      strcat(buf, buf2);
 		      break;
 		  default:
 		}
