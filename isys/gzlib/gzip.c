@@ -240,8 +240,10 @@ int (*work) OF((int infile, int outfile)) = zip;
 
 #define strequ(s1, s2) (strcmp((s1),(s2)) == 0)
 
-local void progerror (string)
-    char *string;
+local void progerror (char * string) __attribute__ ((unused));
+
+local void progerror (string) 
+     char *string; 
 {
     int e = errno;
     fprintf(stderr, "%s: ", progname);
@@ -255,9 +257,9 @@ int gunzip_main (int do_decompress_arg)
 {
     int file_count;     /* number of files to precess */
     int proglen;        /* length of progname */
-    int optc;           /* current option */
-    int argc = 1;
-    char *argv[] = { "gunzip ", NULL };
+    int optc __attribute__ ((unused));           /* current option */
+    int argc __attribute__ ((unused)) = 1;
+    char *argv[] __attribute__ ((unused)) = { "gunzip ", NULL };
 
     EXPAND(argc, argv); /* wild card expansion if necessary */
 
