@@ -794,7 +794,7 @@ class PartitionSpec:
                  drive = None, primary = None,
                  format = None, options = None, 
                  constraint = None, migrate = None,
-                 raidmembers = None, raidlevel = None, 
+                 raidmembers = None, raidlevel = None, raidminor = None,
                  raidspares = None, badblocks = None, fslabel = None,
                  physvolumes = None, vgname = None,
                  volgroup = None, volname = None):
@@ -834,6 +834,7 @@ class PartitionSpec:
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
+        self.raidminor = raidminor
 
         # volume group specific.  physicalVolumes are unique ids of requests
         self.physicalVolumes = physvolumes
@@ -892,7 +893,7 @@ class PartitionSpec:
             for member in self.raidmembers:
                 raidmems.append(partitions.getRequestByID(member).device)
             device = fsset.RAIDDevice(int(self.raidlevel[-1:]),
-                                      raidmems,
+                                      raidmems, minor = self.raidminor,
                                       spares = self.raidspares)
         # XXX need to handle this obviously
         elif self.type == REQUEST_VG:
@@ -900,15 +901,11 @@ class PartitionSpec:
             for pv in self.physicalVolumes:
                 pvs.append(partitions.getRequestByID(pv).device)
             device = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
-            print "found volume group %s" % (self.volumeGroupName)
-            print "pvs are ", pvs
         elif self.type == REQUEST_LV:
             device = fsset.LogicalVolumeDevice(
                 partitions.getRequestByID(self.volumeGroup).volumeGroupName,
                                                self.size,
                                                self.logicalVolumeName)
-            print "found logical volume %s, vg is %s" % (self.logicalVolumeName,
-                                                         self.volumeGroup)
         else:
             device = fsset.PartitionDevice(self.device)
 
@@ -2091,11 +2088,6 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
             fsset.add (entry)
         else:
             raise RuntimeError, "Managed to not get an entry back from request.toEntry"
-        print entry, entry.fsystem.name,
-        if entry.mountpoint:
-            print entry.mountpoint
-        else:
-            print ""
         
     if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
         return
