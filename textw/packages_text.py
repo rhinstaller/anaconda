@@ -36,7 +36,7 @@ class PackageGroupWindow:
 
         ct = CheckboxTree(height = 8, scroll = 1)
         klass = todo.getClass ()
-        showgrouns = klass.getOptionalGroups()
+        showgroups = klass.getOptionalGroups()
         for comp in todo.comps:
             show = 0
             if showgroups:
