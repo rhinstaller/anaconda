@@ -465,8 +465,6 @@ class InstallControlWindow:
         self.textWin.add(vbox1)
 
         try:
-#            self.textWin.set_default_size (520, 400)
-#            self.textWin.set_usize (520, 400)
             self.textWin.set_position (WIN_POS_CENTER)
         
             text = GtkText()
@@ -486,7 +484,6 @@ class InstallControlWindow:
             sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
             sw.add(text)
 
-#            vbox1 = GtkVBox()
             vbox1.pack_start(sw, TRUE, TRUE)
 
             try:
@@ -511,7 +508,6 @@ class InstallControlWindow:
             self.textWin.show_all()
 
         except:
-#            print "Unable to load file"
             self.textWin.set_position (WIN_POS_CENTER)
             label = GtkLabel("Unable to load file!")
 
