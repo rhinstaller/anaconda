@@ -403,6 +403,7 @@ bye:
     return val;
 }
 
+#if defined (__s390__) || defined (__s390x__)
 int kdFindDasdList(struct knownDevices * devices, int code) {
    /* patch for s390 by Oliver Paukstadt <oliver.paukstadt@millenux.com> */
    /* based upon code by Erik Tews <erik.tews@gmx.net> */
@@ -439,6 +440,7 @@ int kdFindDasdList(struct knownDevices * devices, int code) {
 	sortDevices);
    return 0;
 }
+#endif
 
 struct knownDevices kdInit(void) {
     struct knownDevices kd;

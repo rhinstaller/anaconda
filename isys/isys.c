@@ -862,7 +862,10 @@ static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
 
 static PyObject * probedListDasd(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
+
+#if defined (__s390__) || defined (__s390x__)
     kdFindDasdList(&o->list, 0);
+#endif
 
     Py_INCREF(Py_None);
     return Py_None;
