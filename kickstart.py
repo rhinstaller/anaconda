@@ -75,7 +75,7 @@ class KickstartBase(BaseInstallClass):
 	policy = 0
 	enable = -1
 	trusts = []
-	ports = None
+	ports = ""
 	
 	for n in args:
 	    (str, arg) = n
@@ -125,27 +125,27 @@ class KickstartBase(BaseInstallClass):
 	useMd5 = 0
 
 	useNis = 0
-	nisServer = None
-	nisDomain = None
+	nisServer = ""
+	nisDomain = ""
 	nisBroadcast = 0
 
         useLdap = 0
         useLdapauth = 0
-        ldapServer = None
-        ldapBasedn = None
+        ldapServer = ""
+        ldapBasedn = ""
 
         useKrb5 = 0
-        krb5Realm = None
-        krb5Kdc = None
-        krb5Admin = None
+        krb5Realm = ""
+        krb5Kdc = ""
+        krb5Admin = ""
 
         useHesiod = 0
-        hesiodLhs = None
-        hesiodRhs = None
+        hesiodLhs = ""
+        hesiodRhs = ""
 
         useSamba = 0
-        smbServers = None
-        smbWorkgroup = None
+        smbServers = ""
+        smbWorkgroup = ""
 	
 	for n in args:
 	    (str, arg) = n
@@ -202,11 +202,15 @@ class KickstartBase(BaseInstallClass):
 
     def doBootloader (self, id, args):
         (args, extra) = isys.getopt(args, '',
-                [ 'append=', 'location=', 'useLilo' ])
+                [ 'append=', 'location=', 'useLilo', '--lba32',
+                  'password=', 'md5pass='])
 
         appendLine = None
         location = "mbr"
         useLilo = 0
+        password = None
+        md5pass = None
+        forceLBA = 0
 
         for n in args:
             (str, arg) = n
@@ -217,17 +221,24 @@ class KickstartBase(BaseInstallClass):
                 pass
             elif str == '--useLilo':
                 useLilo = 1
+            elif str == '--lba32':
+                forceLBA = 1
+            elif str == '--password':
+                password = arg
+            elif str == '--md5pass':
+                md5pass = arg
                 
-        self.setBootloader(id, useLilo, appendLine)
+        self.setBootloader(id, useLilo, forceLBA, password, md5pass, appendLine)
         self.skipSteps.append("bootloader")
 
     def doLilo	(self, id, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'append=', 'location=', 'linear', 'nolinear' ])
+		[ 'append=', 'location=', 'linear', 'nolinear', 'lba32' ])
 
 	appendLine = None
 	location = "mbr"
 	linear = 1
+        forceLBA = 0
 
 	for n in args:
 	    (str, arg) = n
@@ -237,6 +248,8 @@ class KickstartBase(BaseInstallClass):
 		linear = 1
 	    elif str == '--nolinear':
 		linear = 0
+            elif str == '--lba32':
+                forceLBA = 1
 	    elif str == '--location':
                 # XXX this doesn't really do anything right now
 	        if arg == 'mbr' or arg == 'partition':
@@ -247,7 +260,7 @@ class KickstartBase(BaseInstallClass):
 		    raise ValueError, ("mbr, partition or none expected for "+
 			"lilo command")
 
-	self.setLiloInformation(id, location, linear, appendLine)
+	self.setLiloInformation(id, location, linear, forceLBA, appendLine)
         self.skipSteps.append("bootloader")        
 
     def doLiloCheck (self, args):
@@ -429,6 +442,9 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("handleX11pkgs")
         self.skipSteps.append("writexconfig")
 
+    def doInteractive(self, id, args):
+        self.interactive = 1
+
     def readKickstart(self, id, file):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
@@ -463,6 +479,7 @@ class KickstartBase(BaseInstallClass):
 		     "xconfig"		: self.doXconfig	,
 		     "xdisplay"		: None			,
 		     "zerombr"		: self.doZeroMbr	,
+                     "interactive"      : self.doInteractive    ,
 		   }
 
 	where = "commands"
@@ -590,12 +607,15 @@ class KickstartBase(BaseInstallClass):
         self.setClearParts(id, type, None)
 
     def defineRaid(self, id, args):
-	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=', 'spares=' ] )
+	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
+                                                'spares=', 'fstype=',
+                                                'noformat'] )
 
         level = None
         raidDev = None
         spares = 0
         fstype = None
+        format = 1
 					
 	for n in args:
 	    (str, arg) = n
@@ -605,6 +625,10 @@ class KickstartBase(BaseInstallClass):
 		raidDev = arg
             elif str == "--spares":
                 spares = arg
+            elif str == "--noformat":
+                format = 0
+            elif str == "--fstype":
+                fstype = arg
 
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
@@ -619,12 +643,23 @@ class KickstartBase(BaseInstallClass):
 
         raidmems = extra[1:]
 
+        # XXX this shouldn't have to happen =\
+        if isRaid0(level):
+            level = "RAID0"
+        elif isRaid1(level):
+            level = "RAID1"
+        elif isRaid5(level):
+            level = "RAID5"
+
         if not level:
             raise ValueError, _("RAID Partition defined without RAID level")
         if len(raidmems) == 0:
             raise ValueError, _("RAID Partition defined without any RAID members")
 
-        request = PartitionSpec(filesystem, REQUEST_RAID, mountpoint = mountpoint, raidmembers = raidmems, raidlevel = level, raidspares = spares)
+        request = PartitionSpec(filesystem, REQUEST_RAID,
+                                mountpoint = mountpoint,
+                                raidmembers = raidmems, raidlevel = level,
+                                raidspares = spares, format = format)
         id.partitions.autoPartitionRequests.append(request)
 
 
@@ -633,23 +668,23 @@ class KickstartBase(BaseInstallClass):
 	size = None
 	grow = None
 	maxSize = None
-	device = None
+	disk = None
 	onPart = None
         fsopts = None
         type = None
-        partNum = None
         primOnly = None
-        active = None
         format = 1
         fstype = None
         mountpoint = None
         uniqueID = None
+        start = None
+        end = None
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
-                                        'onprimary=', 'active', 'type=',
-                                        'fstype=', 'asprimary', 'noformat'])
+                                        'type=', 'fstype=', 'asprimary',
+                                        'noformat', 'start=', 'end='])
 
 	for n in args:
 	    (str, arg) = n
@@ -659,14 +694,15 @@ class KickstartBase(BaseInstallClass):
 		maxSize = int(arg)
 	    elif str == '--grow':
 		grow = 1
+            # XXX hook this back up again
 	    elif str == '--onpart' or str == '--usepart':
 		onPart = arg
-	    elif str == '--ondisk':
-		device = arg
+	    elif str == '--ondisk' or str == '--ondrive':
+		disk = arg
+            # XXX hook this back up again
             elif str == '--bytes-per-inode':
                 fsopts = ['-i', arg]
-            elif str == '--onprimary':
-                partNum = int(arg)
+            # XXX this doesn't do anything right now
             elif str == '--type':
                 type = int(arg)
             elif str == "--active":
@@ -677,6 +713,10 @@ class KickstartBase(BaseInstallClass):
                 format = 0
             elif str == "--fstype":
                 fstype = arg
+            elif str == "--start":
+                start = arg
+            elif str == "--end":
+                end = arg
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
@@ -695,17 +735,20 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGetDefault()
                 mountpoint = extra[0]                
 
-        if not size:
-            raise ValueError, "temporarily requiring a size to be specified"
-
-        request = PartitionSpec(filesystem, size = size, mountpoint = mountpoint, format=1)
+        request = PartitionSpec(filesystem, mountpoint = mountpoint, format=1)
+        if size:
+            request.size = size
+        if start:
+            request.start = start
+        if end:
+            request.end = end
         if grow:
             request.grow = 1
         if maxSize:
             request.maxSize = maxSize
-        if device:
-            request.drive = [ device ]
-        if partNum or primOnly:
+        if disk:
+            request.drive = [ disk ]
+        if primOnly:
             request.primary = 1
         if not format:
             request.format = 0
@@ -723,6 +766,14 @@ class KickstartBase(BaseInstallClass):
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch)
 
+        if self.interactive:
+            dispatch.skipStep("installtype")
+            dispatch.skipStep("partitionmethod")
+            dispatch.skipStep("partitionmethodsetup")
+            dispatch.skipStep("fdisk")
+            dispatch.skipStep("autopartition")
+            return
+        
 	dispatch.skipStep("bootdisk")
         dispatch.skipStep("welcome")
         dispatch.skipStep("package-selection")
@@ -775,6 +826,7 @@ class KickstartBase(BaseInstallClass):
 	self.serial = serial
 	self.file = file
 	self.skipSteps = []
+        self.interactive = 0
 	BaseInstallClass.__init__(self, 0)
 
 def Kickstart(file, serial):
