@@ -196,7 +196,6 @@ traceOnly = 0			# don't run, just list modules we use
 nofallback = 0			# if GUI mode fails, exit
 rescue = 0			# run in rescue mode
 rescue_nomount = 0		# don't automatically mount device in rescue
-overhead = 0			# kilobytes of memory used already
 runres = '800x600'		# resolution to run the GUI install in
 skipddc = 0			# if true skip ddcprobe (locks some machines)
 instClass = None		# the install class to use
@@ -261,8 +260,6 @@ for n in args:
 	nofallback = 1
     elif (str == "--nomount"):
         rescue_nomount = 1
-    elif (str == '--overhead'):
-	overhead = int(arg)
     elif (str == '--rescue'):
         progmode = 'rescue'
     elif (str == '--resolution'):
@@ -388,8 +385,6 @@ if traceOnly:
                 print bar[3]
         
     sys.exit(0)
-
-iutil.setMemoryOverhead(overhead)
 
 #
 # override display mode if machine cannot nicely run X
