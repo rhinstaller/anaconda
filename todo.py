@@ -1245,6 +1245,8 @@ class ToDo:
 	    todo.language.setSupported([langName])
 	    todo.language.setDefault(langName)
 	    os.environ['LANG'] = todo.instClass.language
+	    os.environ['LC_ALL'] = todo.instClass.language
+	    os.environ['LC_NUMERIC'] = 'C'
 
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)
