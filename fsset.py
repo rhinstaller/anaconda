@@ -1002,7 +1002,9 @@ class FileSystemSet:
 	    if entry.fsystem.getName() != "ext2": continue
 	    if entry.getFormat(): continue
 
-	    if isys.ext2IsDirty(entry.device.getDevice()): return 1
+	    if isys.ext2IsDirty(entry.device.getDevice()):
+		log("%s is a dirty ext2 partition" % entry.device.getDevice())
+		return 1
 
 	return 0
 
