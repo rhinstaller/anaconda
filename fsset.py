@@ -269,7 +269,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.partedPartitionFlags = [ parted.PARTITION_RAID ]
         self.formattable = 1
         self.checked = 0
-        self.linuxnativefs = 0
+        self.linuxnativefs = 1
         self.name = "software raid component"
         self.maxSize = 4 * 1024 * 1024
         self.supported = 1
@@ -289,6 +289,7 @@ class swapFileSystem(FileSystemType):
         self.formattable = 1
         self.name = "swap"
         self.maxSize = 2 * 1024
+        self.linuxnativefs = 1
         self.supported = 1
 
     def mount(self, device, mountpoint):
