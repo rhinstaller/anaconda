@@ -103,8 +103,8 @@ class DesktopChoiceWindow (InstallWindow):
 	hbox.pack_start (label, gtk.FALSE, gtk.FALSE, 0)
 	vbox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 0)
 	
-	self.acceptRadio = gtk.RadioButton (None, _("_Accept the current package list"))
-	self.customizeRadio = gtk.RadioButton (self.acceptRadio, _("_Customize the set of packages to be installed"))
+	self.acceptRadio = gtk.RadioButton (None, _("_Install default software packages"))
+	self.customizeRadio = gtk.RadioButton (self.acceptRadio, _("_Customize software packages to be installed"))
 	vbox2 = gtk.VBox (gtk.FALSE)
 	vbox2.pack_start (self.acceptRadio, gtk.FALSE, gtk.FALSE, 0)
 	vbox2.pack_start (self.customizeRadio, gtk.FALSE, gtk.FALSE, 0)
