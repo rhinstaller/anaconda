@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-27 23:21+0700\n"
+"PO-Revision-Date: 2004-07-28 15:49+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <l10n@opentle.org>\n"
+"Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3218,7 +3218,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
-msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่กว่าโวลูมทางกายภาพที่เล็กที่สุด (%10.2f MB) ใน volume group"
+msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่กว่าโวลูมกายภาพที่เล็กที่สุด (%10.2f MB) ใน volume group"
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -3226,7 +3226,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
-msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่มาก เมื่อเปรียบเทียบกับขนาดที่เล็กที่สุดของโวลูมทางกายภาพ (%10.2f MB) ใน volume group"
+msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่มาก เมื่อเปรียบเทียบกับขนาดที่เล็กที่สุดของโวลูมกายภาพ (%10.2f MB) ใน volume group"
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -3236,7 +3236,7 @@ msgstr "เล็กเกินไป"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr "การเปลี่ยนค่าของส่วนยืดขยายทางกายภาพนี้ จะสูญเสียพื้นที่เปล่าอย่างถาวรบนโวลูมทางกายภาพใน volume group อย่างน้อย 1 ตัว"
+msgstr "การเปลี่ยนค่าของส่วนยืดขยายทางกายภาพนี้ จะสูญเสียพื้นที่เปล่าอย่างถาวรบนโวลูมกายภาพใน volume group อย่างน้อย 1 ตัว"
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -3250,7 +3250,7 @@ msgstr "ขนาดของส่วนยืดขยายทางกาย
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr "คุณไม่สามารถลบโวลูมทางกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume ที่กำหนดไว้สามารถคงอยู่ได้"
+msgstr "คุณไม่สามารถลบโวลูมกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume ที่กำหนดไว้สามารถคงอยู่ได้"
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
@@ -3377,7 +3377,7 @@ msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
-msgstr "XXX"
+msgstr "ไม่มีพื้นที่ว่างเหลือใน volume group พอที่จะสร้าง logical volume ได้  เพื่อจะเพิ่ม logical volume คุณจำเป็นต้องลดขนาดของ logical volume อื่นๆ ที่มีอยู่แล้วลง"
 
 #: ../iw/lvm_dialog_gui.py:731
 #, python-format
@@ -3390,7 +3390,7 @@ msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
 
 #: ../iw/lvm_dialog_gui.py:876
 msgid "Name in use"
-msgstr "ชื่อที่ใช้อยู่ "
+msgstr "ชื่อถูกใช้แล้ว"
 
 #: ../iw/lvm_dialog_gui.py:877
 #, python-format
@@ -3399,7 +3399,7 @@ msgstr "ชื่อของ volume group  %s ได้ถูกใช้ไป
 
 #: ../iw/lvm_dialog_gui.py:921
 msgid "Not enough physical volumes"
-msgstr "physical volumes ไม่เพียงพอ"
+msgstr "โวลูมกายภาพไม่เพียงพอ"
 
 #: ../iw/lvm_dialog_gui.py:922
 msgid ""
@@ -3409,6 +3409,9 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
+"มีพาร์ทิชันของโวลูมกายภาพที่ไม่ได้ใช้อย่างน้อย 1 ตัว ที่จำเป็นต้องสร้าง LVM Volume Group\n"
+"\n"
+"สร้างพาร์ทิชันหรืออาเรย์ RAID เป็นชนิด \"โวลูมกายภาพ (LVM)\" แล้วเลือกตัวเลือก \"LVM\" อีกครั้ง"
 
 #: ../iw/lvm_dialog_gui.py:933
 msgid "Make LVM Volume Group"
@@ -3417,7 +3420,7 @@ msgstr "สร้าง LVM Volume Group "
 #: ../iw/lvm_dialog_gui.py:936
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "แก้ไข LVM Volume Group: %s "
+msgstr "แก้ไข LVM Volume Group: %s"
 
 #: ../iw/lvm_dialog_gui.py:938
 msgid "Edit LVM Volume Group"
@@ -3425,27 +3428,27 @@ msgstr "แก้ไข LVM Volume Group"
 
 #: ../iw/lvm_dialog_gui.py:954
 msgid "_Volume Group Name:"
-msgstr "ชื่อ Volume Group:"
+msgstr "ชื่อ _Volume Group:"
 
 #: ../iw/lvm_dialog_gui.py:962
 msgid "Volume Group Name:"
-msgstr "ชื่อ Volume Group: "
+msgstr "ชื่อ Volume Group:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "Physical Extent:"
+msgstr "_ส่วนขยายกายภาพ:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
-msgstr ""
+msgstr "ส่วนขยายกายภาพ:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr "Physical Volumes to Use:"
+msgstr "โวลูมกายภาพที่ใ_ช้:"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
-msgstr "พื้นที่ที่ถูกใช้:"
+msgstr "พื้นที่ที่ใช้แล้ว:"
 
 #: ../iw/lvm_dialog_gui.py:1014
 msgid "Free Space:"
@@ -3457,7 +3460,7 @@ msgstr "พื้นที่ทั้งหมด: "
 
 #: ../iw/lvm_dialog_gui.py:1061
 msgid "Logical Volume Name"
-msgstr "ชื่อ Logical Volume "
+msgstr "ชื่อ Logical Volume"
 
 #: ../iw/lvm_dialog_gui.py:1067 ../iw/partition_gui.py:363
 msgid "Size (MB)"
@@ -3465,16 +3468,16 @@ msgstr "ขนาด (เมกะไบต์)"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/osbootwidget.py:95
 msgid "_Add"
-msgstr "เพิ่ม "
+msgstr "เ_พิ่ม"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
-msgstr "แก้ไข"
+msgstr "แ_ก้ไข"
 
 #: ../iw/lvm_dialog_gui.py:1099
 msgid "Logical Volumes"
-msgstr ""
+msgstr "Logical Volumes"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -3498,19 +3501,19 @@ msgstr "/dev/ttyS3 (COM4 ภายใต้ DOS)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
-msgstr "อุปกรณ์ "
+msgstr "_ดีไวซ์"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr "โมเดล"
+msgstr "_รุ่น"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "จำลองเป็นแบบ 3 ปุ่ม"
+msgstr "_จำลองเป็นแบบ 3 ปุ่ม"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr "เลือกเมาส์ที่เหมาะสมกับระบบของคุณ"
+msgstr "เลือกเมาส์ที่เหมาะสมกับระบบนี้"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:598
 msgid "Gateway"
@@ -3530,19 +3533,19 @@ msgstr "DNS ตัวที่ 3"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "เกตเวย์"
+msgstr "เ_กตเวย์"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "DNS หลัก "
+msgstr "DNS _หลัก "
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "DNS รอง "
+msgstr "DNS _รอง "
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "DNS ตัวที่ 3"
+msgstr "DNS _ตัวที่ 3"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -3558,14 +3561,14 @@ msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr "คุณไม่ได้ระบุชื่อโฮสต์  ซึ่งอาจจะทำให้เกิดปัญหาตามมาภายหลัง "
+msgstr "คุณไม่ได้ระบุชื่อโฮสต์  ซึ่งอาจจะทำให้เกิดปัญหาตามมาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
 #: ../iw/network_gui.py:160
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr "คุณไม่ได้ระบุในช่อง \"%s\" ซึ่งอาจก่อให้เกิดปัญหาภายหลัง "
+msgstr "คุณไม่ได้ระบุในช่อง \"%s\" ซึ่งอาจก่อให้เกิดปัญหาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:410
 #, python-format
@@ -3590,7 +3593,7 @@ msgstr ""
 #: ../iw/network_gui.py:175
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr "ค่าที่ต้องการสำหรับช่อง \"%s\"."
+msgstr "จำเป็นต้องป้อนค่าในช่อง \"%s\"."
 
 #: ../iw/network_gui.py:179
 msgid "The IP information you have entered is invalid."
@@ -3605,44 +3608,42 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
-"คุณไม่ได้กำหนดให้อุปกรณ์เน็ตเวิร์กทำงาน ทำให้ระบบของคุณจะไม่สามารถเชื่อมต่อกับเครือข่ายได้\n"
+"คุณมีอุปกรณ์เน็ตเวิร์กที่ไม่ได้ตั้งให้ทำงาน  ระบบของคุณจะไม่สามารถสื่อสารบนเครือข่ายได้ในทันที ถ้าไม่มีการกำหนดให้อุปกรณ์อย่างน้อยหนึ่งตัวทำงาน\n"
 "\n"
-"ข้อควรสังเกต: ถ้าคุณมีอุปกรณ์เน็ตเวิร์กแบบ PCMCIA มันอาจไม่ทำงานขณะนี้ แต่เมื่อคุณรีบูตระบบ "
-"มันจะทำงานเองอัตโนมัติ"
+"ข้อควรสังเกต: ถ้าคุณมีอุปกรณ์เน็ตเวิร์กแบบ PCMCIA มันอาจไม่ทำงานขณะนี้ แต่เมื่อคุณรีบูตระบบ มันจะทำงานเองอัตโนมัติ"
 
 #: ../iw/network_gui.py:202
 #, python-format
 msgid "Edit Interface %s"
-msgstr "แก้ไขอินเทอร์เฟซ %s "
+msgstr "แก้ไขอินเทอร์เฟซ %s"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr "ตั้งค่าโดยใช้ DHCP"
+msgstr "ตั้งค่าโดยใช้ _DHCP"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr "ทำงานเมื่อบูต "
+msgstr "ให้_ทำงานเมื่อบูต "
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr "หมายเลขไอพี "
+msgstr "หมายเลขไ_อพี "
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr "เน็ตมาสก์ "
+msgstr "เน็ต_มาสก์ "
 
 #: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
-msgstr "Point to Point (IP)"
+msgstr "_จุดต่อจุด (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "SCSI"
+msgstr "_ESCSI"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "_กุญแจเข้ารหัส"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -3651,7 +3652,7 @@ msgstr "ตั้งค่า %s"
 
 #: ../iw/network_gui.py:451
 msgid "Active on Boot"
-msgstr "ทำงานเมื่อบูต"
+msgstr "ให้ทำงานเมื่อบูต"
 
 #: ../iw/network_gui.py:453 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3675,15 +3676,15 @@ msgstr "ตั้งชื่อโฮสต์:"
 
 #: ../iw/network_gui.py:529
 msgid "_automatically via DHCP"
-msgstr "ผ่าน DHCP แบบอัตโนมัติ"
+msgstr "โดย_อัตโนมัติด้วย DHCP "
 
 #: ../iw/network_gui.py:535
 msgid "_manually"
-msgstr "ทำด้วยตัวเอง "
+msgstr "ทำด้วย_ตัวเอง"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(เช่น \"host.domain.com\")"
 
 #: ../iw/network_gui.py:548 ../loader2/net.c:772
 msgid "Hostname"
@@ -3703,8 +3704,8 @@ msgid ""
 msgstr ""
 "คุณสามารถกำหนดค่าบูตโหลดเดอร์ ให้บูตระบบปฏิบัติการอื่นๆ ได้ \n"
 "คุณสามารถเลือกระบบปฏิบัติการจากรายการ "
-"ในการเพิ่มระบบปฏิบัติการเพิ่มเติมซึ่งไม่ได้มีการค้นหาให้อัตโนมัติให้คุณคลิ้กที่ปุ่ม เพิ่ม "
-"ในการที่จะเปลี่ยนให้ระบบปฏิบัติการเป็นค่าปริยาย ให้คลิ้กที่ปุ่ม ค่าปริยาย"
+"การเพิ่มระบบปฏิบัติการเพิ่มเติม ซึ่งตรวจหาอัตโนมัติไม่พบ ให้คุณคลิ้กที่ปุ่ม เพิ่ม "
+"การเปลี่ยนระบบปฏิบัติการที่จะบูตโดยปริยาย ให้เลือก ปริยาย ที่ระบบปฏิบัติการที่ต้องการ"
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3712,11 +3713,11 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr "ค่าปริยาย"
+msgstr "บูตปริยาย"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
-msgstr "ชื่อ "
+msgstr "ชื่อระบบปฏิบัติการ"
 
 #: ../iw/osbootwidget.py:132
 msgid "Image"
@@ -3726,17 +3727,15 @@ msgstr "อิมเมจ"
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
-msgstr ""
-"ใส่ชื่อสำหรับแสดงในเมนูบูตโหลดเดอร์ โดยดีไวซ์ที่แสดง (หรือฮาร์ดไดรฟ์และหมายเลขพาร์ทิชัน) "
-"คือดีไวซ์ตัวที่จะบูต"
+msgstr "ใส่ชื่อสำหรับแสดงในเมนูบูตโหลดเดอร์ โดยอุปกรณ์ที่แสดง (หรือฮาร์ดไดรฟ์และหมายเลขพาร์ทิชัน) คืออุปกรณ์ตัวที่มันจะบูต"
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "ชื่อ "
+msgstr "_ชื่อ "
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr "เป้าหมายของการบูตโดยปริยาย"
+msgstr "_ตัวที่จะบูตโดยปริยาย"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
@@ -7943,6 +7942,7 @@ msgid "Welsh"
 msgstr ""
 
 #. generated from lang-table
+#, fuzzy
 msgid "Zulu"
-msgstr ""
+msgstr "ซูลู"
 
