@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.1
+Version: 10.1.1.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 26 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.2-1
+- Handle our LVM autopart lines slightly better (#137120)
+- Use busybox sleep for s390 since sleep requires librt again (#131167)
+- Handle onboot in ks.cfg properly in the loader (#136903)
+- Punjabi shouldn't try to do text mode (#137030)
+- Add sgiioc4 driver for Altix CD installs (#136730)
+- pci.ids trimming (notting)
+
 * Wed Oct 20 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.1-1
 - Create a netboot.img again for ppc64 (#125129)
 
