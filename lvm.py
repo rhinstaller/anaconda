@@ -132,17 +132,22 @@ def getPossiblePhysicalExtents(floor=0):
 
     return possiblePE
 
-def clampLVSizeRequest(size, pe):
+def clampLVSizeRequest(size, pe, roundup=0):
     """Given a size and a PE, returns the actual size of logical volumne.
 
     size - size (in MB) of logical volume request
     pe   - PE size (in KB)
+    roundup - round sizes up or not
     """
 
+    if roundup:
+	factor = 1
+    else:
+	factor = 0
     if ((size*1024L) % pe) == 0:
 	return size
     else:
-	return ((long((size*1024L)/pe))*pe)/1024
+	return ((long((size*1024L)/pe)+factor)*pe)/1024
 
 def clampPVSize(pvsize, pesize):
     """Given a PV size and a PE, returns the usable space of the PV.
