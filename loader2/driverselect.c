@@ -191,7 +191,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
                 return LOADER_BACK;
             
             loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
-                                flags, 1);
+                                flags, 1, 1);
             continue;
         } else {
             break;
@@ -266,7 +266,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
         return LOADER_BACK;
     if (done == -2) {
         loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
-                            flags, 1);
+                            flags, 1, 1);
         return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo, 
                                   kd, flags);
     }

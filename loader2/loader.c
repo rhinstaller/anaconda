@@ -726,7 +726,7 @@ static char *doLoaderMain(char * location,
                 dir = -1;
                 break;
             }
-
+            
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
                                     modLoaded, modDepsPtr, modInfo, kd, flags);
             /* it doesn't really matter what we return here; we just want
@@ -739,7 +739,7 @@ static char *doLoaderMain(char * location,
 
             rc = loadDriverFromMedia(installMethods[validMethods[methodNum]].deviceType,
                                      modLoaded, modDepsPtr, modInfo, kd, 
-                                     flags, 0);
+                                     flags, 0, 0);
             if (rc == LOADER_BACK) {
                 step = STEP_DRIVER;
                 dir = -1;

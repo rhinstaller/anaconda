@@ -178,7 +178,8 @@ int getRemovableDevices(char *** devNames) {
  */
 int loadDriverFromMedia(int class, moduleList modLoaded, 
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                        struct knownDevices * kd, int flags, int usecancel) {
+                        struct knownDevices * kd, int flags, 
+                        int usecancel, int noprobe) {
 
     char * device = NULL;
     char ** devNames = NULL;
@@ -271,6 +272,13 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             stage = DEV_PROBE;
 
         case DEV_PROBE:
+            /* if they didn't specify that we should probe, then we should
+             * just fall out */
+            if (noprobe) {
+                stage = DEV_DONE;
+                break;
+            }
+
             busProbe(modInfo, modLoaded, *modDepsPtr, 0, kd, flags);
 
             if (class != CLASS_UNSPEC) {
@@ -343,7 +351,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
         return LOADER_OK;
 
     rc = loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                             kd, flags, 1);
+                             kd, flags, 1, 0);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -353,7 +361,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
         if (rc != 1)
             break;
         loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                            kd, flags, 0);
+                            kd, flags, 0, 0);
     } while (1);
 
     return LOADER_OK;

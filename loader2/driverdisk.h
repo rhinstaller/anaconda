@@ -8,7 +8,8 @@
 
 int loadDriverFromMedia(int class, moduleList modLoaded, 
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                        struct knownDevices * kd, int flags, int usecancel);
+                        struct knownDevices * kd, int flags, 
+                        int usecancel, int noprobe);
 
 int loadDriverDisks(int class, moduleList modLoaded, 
                     moduleDeps * modDepsPtr, moduleInfoSet modInfo, 

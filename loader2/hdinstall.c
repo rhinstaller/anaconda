@@ -373,7 +373,7 @@ char * mountHardDrive(struct installMethod * method,
 		return NULL;
 
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, kd, flags, 0);
+				     modInfo, kd, flags, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
@@ -459,7 +459,7 @@ char * mountHardDrive(struct installMethod * method,
 	    return NULL;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, kd, flags, 0);
+				     modInfo, kd, flags, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
