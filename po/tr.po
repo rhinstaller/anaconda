@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda \n"
-"POT-Creation-Date: 2002-09-02 23:28-0400\n"
+"POT-Creation-Date: 2002-12-04 14:34-0500\n"
 "PO-Revision-Date: 2002-08-10 17:45+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: ../anaconda:341 ../anaconda:343
+#: ../anaconda:394
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -18,29 +18,29 @@ msgstr ""
 "Grafik kip kurulumu için donanýmýnýz yetersiz.  Metin kipi kuruluma "
 "geçilecek."
 
-#: ../anaconda:358 ../gui.py:140 ../rescue.py:36 ../rescue.py:143
-#: ../rescue.py:166 ../rescue.py:176 ../rescue.py:192 ../rescue.py:198
-#: ../text.py:314 ../text.py:443 ../xserver.py:55 ../textw/complete_text.py:54
+#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:145
+#: ../rescue.py:173 ../rescue.py:183 ../rescue.py:199 ../rescue.py:205
+#: ../text.py:314 ../text.py:443 ../xserver.py:51 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdasd_text.py:32
 #: ../textw/fdisk_text.py:41 ../textw/network_text.py:154
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160 ../loader/cdrom.c:33 ../loader/devices.c:94
-#: ../loader/devices.c:239 ../loader/devices.c:264 ../loader/devices.c:271
-#: ../loader/devices.c:340 ../loader/devices.c:435 ../loader/kickstart.c:59
+#: ../textw/silo_text.py:160 ../loader/cdrom.c:33 ../loader/devices.c:98
+#: ../loader/devices.c:244 ../loader/devices.c:282 ../loader/devices.c:289
+#: ../loader/devices.c:358 ../loader/devices.c:453 ../loader/kickstart.c:59
 #: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
 #: ../loader/lang.c:96 ../loader/lang.c:308 ../loader/lang.c:634
-#: ../loader/loader.c:335 ../loader/loader.c:476 ../loader/loader.c:493
-#: ../loader/loader.c:602 ../loader/loader.c:934 ../loader/loader.c:1207
-#: ../loader/loader.c:1266 ../loader/loader.c:1363 ../loader/loader.c:1364
-#: ../loader/loader.c:1413 ../loader/loader.c:1416 ../loader/loader.c:1487
-#: ../loader/loader.c:1488 ../loader/loader.c:1584 ../loader/loader.c:1701
-#: ../loader/loader.c:1706 ../loader/loader.c:1748 ../loader/loader.c:1787
-#: ../loader/loader.c:1849 ../loader/loader.c:2097 ../loader/loader.c:2891
-#: ../loader/loader.c:2921 ../loader/loader.c:2984 ../loader/loader.c:2999
-#: ../loader/loader.c:3289 ../loader/loader.c:3321 ../loader/mediacheck.c:255
+#: ../loader/loader.c:342 ../loader/loader.c:484 ../loader/loader.c:501
+#: ../loader/loader.c:610 ../loader/loader.c:942 ../loader/loader.c:1215
+#: ../loader/loader.c:1274 ../loader/loader.c:1371 ../loader/loader.c:1372
+#: ../loader/loader.c:1421 ../loader/loader.c:1424 ../loader/loader.c:1495
+#: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:1709
+#: ../loader/loader.c:1714 ../loader/loader.c:1756 ../loader/loader.c:1795
+#: ../loader/loader.c:1857 ../loader/loader.c:2099 ../loader/loader.c:2893
+#: ../loader/loader.c:2923 ../loader/loader.c:2986 ../loader/loader.c:3001
+#: ../loader/loader.c:3323 ../loader/loader.c:3361 ../loader/mediacheck.c:255
 #: ../loader/mediacheck.c:312 ../loader/mediacheck.c:347
-#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:449
+#: ../loader/modules.c:390 ../loader/modules.c:410 ../loader/modules.c:450
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
 #: ../loader/net.c:736 ../loader/net.c:769 ../loader/pcmcia.c:107
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
@@ -50,42 +50,11 @@ msgstr ""
 msgid "OK"
 msgstr "Tamam"
 
-#: ../anaconda:409
-msgid "Unable to probe"
-msgstr "Algýlama baþarýsýz"
+#: ../anaconda:474 ../anaconda:683
+msgid "Unable to instantiate a X hardware state object."
+msgstr ""
 
-#: ../anaconda:411
-msgid "Probing for video card:   "
-msgstr "Ekran kartý için algýlama: "
-
-#: ../anaconda:412
-#, c-format
-msgid "Probing for video card:   %s"
-msgstr "Ekran kartý algýlamasý:   %s"
-
-#: ../anaconda:416
-msgid "Probing for monitor type: "
-msgstr "Monitör türü için algýlama: "
-
-#: ../anaconda:417
-#, c-format
-msgid "Probing for monitor type: %s"
-msgstr "Monitör türü algýlamasý:  %s"
-
-#: ../anaconda:426
-msgid "Probing for mouse type:   "
-msgstr "Fare türü için algýlama:   "
-
-#: ../anaconda:430
-#, c-format
-msgid "Probing for mouse type:   %s"
-msgstr "Fare türü algýlamasý:     %s"
-
-#: ../anaconda:432 ../anaconda:433
-msgid "Skipping mouse probe."
-msgstr "Fare algýlamasý atlanýyor."
-
-#: ../anaconda:440 ../anaconda:442
+#: ../anaconda:491
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
@@ -93,7 +62,7 @@ msgstr ""
 "%s kurulumlarýnda grafik kipi kurulum yapýlamýyor.  Metin kipi kuruluma "
 "geçiliyor."
 
-#: ../anaconda:454 ../anaconda:456
+#: ../anaconda:505
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -101,31 +70,51 @@ msgstr ""
 "Bir fare algýlanamadý. Grafik kipte kurulum faresiz olmaz.  Metin kipinde "
 "kuruluma geçiliyor."
 
-#: ../anaconda:461
-msgid "Using mouse type: "
+#: ../anaconda:510
+#, fuzzy, c-format
+msgid "Using mouse type: %s"
 msgstr "Kullanýlan fare türü: "
 
-#: ../anaconda:465
-msgid "DISPLAY variable not set. Starting text mode!"
-msgstr "DISPLAY deðiþkeni belirlenemedi. Metin kipine geçiliyor!"
-
-#: ../autopart.py:853
+#: ../autopart.py:891
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr "Silindir bazlý disk bölümleri birincil bölümler olarak kullanýlamaz."
 
-#: ../autopart.py:856
+#: ../autopart.py:894
 msgid "Could not allocate partitions as primary partitions"
 msgstr "Bu bölümler birincil disk bölümü olamýyor."
 
-#: ../autopart.py:859
+#: ../autopart.py:897
 msgid "Could not allocate cylinder-based partitions"
 msgstr "Silindir bazlý bölümler kullanýlamýyor"
 
-#: ../autopart.py:862
+#: ../autopart.py:900
 msgid "Could not allocate partitions"
 msgstr "Bölümleme yapýlamadý"
 
-#: ../autopart.py:925
+#: ../autopart.py:962
+#, python-format
+msgid ""
+"Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
+"boot from this paritition. Use a partition belonging to a BSD disk label or "
+"change this device disk label to BSD."
+msgstr ""
+
+#: ../autopart.py:964
+#, python-format
+msgid ""
+"Boot partition %s doesn't belong to a disk with enough free space at its "
+"beginning for the bootloader to live on. Make sure that there's at least 5MB "
+"of free space at the beginning of the disk that contains /boot"
+msgstr ""
+
+#: ../autopart.py:966
+#, python-format
+msgid ""
+"Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
+"this partition."
+msgstr ""
+
+#: ../autopart.py:969
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
@@ -134,7 +123,7 @@ msgstr ""
 "Önyükleme bölümü %s mimarinizin gerektirdiði koþullarý saðlayamýyor. Bir "
 "açýlýþ disketinin oluþturulmasý kaçýnýlmaz görünüyor."
 
-#: ../autopart.py:950
+#: ../autopart.py:994
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
@@ -143,11 +132,11 @@ msgstr ""
 "Bu bölümün eklenmesi ile önceden ayrýlmýþ %s mantýksal oylumlarýnda yeterli "
 "disk alaný kalmayacaktý."
 
-#: ../autopart.py:1094
+#: ../autopart.py:1140
 msgid "Requested Partition Does Not Exist"
 msgstr "Ýstenen Disk Bölümü Mevcut Deðil"
 
-#: ../autopart.py:1095
+#: ../autopart.py:1141
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -158,11 +147,11 @@ msgstr ""
 "\n"
 "'Tamam' düðmesini seçtiðinizde sistem yeniden baþlatýlacak."
 
-#: ../autopart.py:1126 ../autopart.py:1166
+#: ../autopart.py:1172 ../autopart.py:1212
 msgid "Automatic Partitioning Errors"
 msgstr "Otomatik Bölümlendirme Hatalarý"
 
-#: ../autopart.py:1127
+#: ../autopart.py:1173
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -177,11 +166,11 @@ msgstr ""
 "\n"
 "'Tamam' düðmesine bastýðýnýzda sistem yeniden baþlatýlacaktýr."
 
-#: ../autopart.py:1136
+#: ../autopart.py:1182
 msgid "Warnings During Automatic Partitioning"
 msgstr "Otomatik Bölümlendirme Sýrasýndaki Uyarýlar"
 
-#: ../autopart.py:1137
+#: ../autopart.py:1183
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -192,7 +181,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1150
+#: ../autopart.py:1196
 msgid ""
 "\n"
 "\n"
@@ -202,12 +191,12 @@ msgstr ""
 "\n"
 "Sisteminizi yeniden baþlatmak için 'Tamam' düðmesine týklayýnýz."
 
-#: ../autopart.py:1151 ../iw/partition_gui.py:980
+#: ../autopart.py:1197 ../iw/partition_gui.py:980
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Hatalý Bölümlendirme"
 
-#: ../autopart.py:1152
+#: ../autopart.py:1198
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -218,7 +207,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1167
+#: ../autopart.py:1213
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -241,29 +230,27 @@ msgstr ""
 "\n"
 "Devam etmek için 'Tamam' düðmesine týklayýnýz."
 
-#: ../autopart.py:1245 ../bootloader.py:123 ../image.py:336
-#: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
-#: ../upgrade.py:389 ../upgrade.py:408 ../upgrade.py:431
+#: ../autopart.py:1291 ../bootloader.py:123 ../image.py:375
+#: ../partedUtils.py:247 ../partedUtils.py:671 ../upgrade.py:280
+#: ../upgrade.py:417 ../upgrade.py:436 ../upgrade.py:477
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
-#: ../textw/upgrade_text.py:175 ../loader/loader.c:3721
+#: ../textw/upgrade_text.py:177 ../loader/loader.c:3762
 msgid "Warning"
 msgstr "Uyarý"
 
-#: ../autopart.py:1251
+#: ../autopart.py:1297
+#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
 "\n"
 "The manual disk partitioning tool, Disk Druid, allows you to create "
 "partitions in an interactive environment. You can set the file system types, "
-"mount points, partition sizes, and more.\n"
-"\n"
-"The partitioning tool, fdisk, is a text-based utility only recommended for "
-"advanced users who need to perform specialized tasks."
+"mount points, partition sizes, and more."
 msgstr ""
 "Otomatik bölümlendirme kurulum türüne baðlý olarak farklý yapýlýr. Bu "
 "ayarlarý ihtiyaçlarýnýza göre deðiþtirmeniz de mümkündür.\n"
@@ -276,7 +263,7 @@ msgstr ""
 "fdisk ise geleneksel, metin tabanlý, kullanýmý zor ancak bazý durumlarda "
 "özellikle uzman kullanýcýlar için önerilen bir disk bölümleme aracýdýr."
 
-#: ../autopart.py:1265
+#: ../autopart.py:1308
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
@@ -284,19 +271,19 @@ msgstr ""
 "Otomatik bölümlendirme öncesi, sabit disk alanlarýnýn nasýl kullanýlacaðýný "
 "belirtmelisiniz."
 
-#: ../autopart.py:1270
+#: ../autopart.py:1313
 msgid "Remove all partitions on this system"
 msgstr "Tüm disk bölümlerini sil"
 
-#: ../autopart.py:1271
+#: ../autopart.py:1314
 msgid "Remove all Linux Partitions on this system"
 msgstr "Tüm Linux disk bölümlerini sil"
 
-#: ../autopart.py:1272
+#: ../autopart.py:1315
 msgid "Keep all partitions and use existing free space"
 msgstr "Disk bölümlerine dokunma, sadece boþ alaný kullan"
 
-#: ../autopart.py:1274
+#: ../autopart.py:1317
 #, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -308,7 +295,7 @@ msgstr ""
 "SÝLÝNMESÝNÝ) seçtiniz.\n"
 "Böyle yapmak istediðinizden emin misiniz?"
 
-#: ../autopart.py:1278
+#: ../autopart.py:1321
 #, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -339,15 +326,15 @@ msgstr ""
 msgid "Everything"
 msgstr "Tüm paketler"
 
-#: ../comps.py:898 ../comps.py:964 ../upgrade.py:611
+#: ../comps.py:892 ../comps.py:956 ../upgrade.py:582
 msgid "no suggestion"
 msgstr "öneri yok"
 
-#: ../comps.py:1059 ../loader/devices.c:79
+#: ../comps.py:1051 ../loader/devices.c:83
 msgid "Miscellaneous"
 msgstr "Çeþitli"
 
-#: ../comps.py:1075
+#: ../comps.py:1067
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
@@ -356,7 +343,7 @@ msgstr ""
 "Bu grup mümkün olan tüm paketleri içerir. Yalnýz dikkat, bu grup, bu "
 "sayfadaki tüm paketlerden biraz daha fazlasýný (temel paketleri de) içerir."
 
-#: ../comps.py:1079
+#: ../comps.py:1071
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -415,28 +402,28 @@ msgstr "Ýp_tal"
 msgid "_Make boot disk"
 msgstr "_Açýlýþ disketi oluþtur"
 
-#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:554 ../fsset.py:1015
-#: ../fsset.py:1034 ../fsset.py:1081 ../fsset.py:1092 ../fsset.py:1128
-#: ../fsset.py:1178 ../fsset.py:1221 ../harddrive.py:208 ../image.py:68
-#: ../image.py:102 ../image.py:220 ../packages.py:308 ../partedUtils.py:458
-#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:316
-#: ../upgrade.py:334 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:555 ../fsset.py:1027
+#: ../fsset.py:1046 ../fsset.py:1093 ../fsset.py:1104 ../fsset.py:1140
+#: ../fsset.py:1190 ../fsset.py:1233 ../harddrive.py:208 ../image.py:68
+#: ../image.py:102 ../image.py:238 ../packages.py:128 ../packages.py:142
+#: ../packages.py:331 ../packages.py:544 ../partedUtils.py:475
+#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:336
+#: ../upgrade.py:362 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
-#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:163
-#: ../textw/upgrade_text.py:170 ../textw/upgrade_text.py:193
-#: ../loader/devices.c:264 ../loader/devices.c:271 ../loader/devices.c:435
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:476
-#: ../loader/loader.c:493 ../loader/loader.c:602 ../loader/loader.c:934
-#: ../loader/loader.c:1266 ../loader/loader.c:1364 ../loader/loader.c:1488
-#: ../loader/loader.c:1701 ../loader/loader.c:1706 ../loader/loader.c:1748
-#: ../loader/loader.c:1849 ../loader/loader.c:2891 ../loader/loader.c:2921
-#: ../loader/loader.c:2999 ../loader/loader.c:3289 ../loader/loader.c:3321
-#: ../loader/mediacheck.c:255 ../loader/mediacheck.c:312
-#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/pcmcia.c:117
-#: ../loader/pcmcia.c:134 ../loader/telnetd.c:68 ../loader/urls.c:81
-#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
-#: ../loader/urls.c:273
+#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
+#: ../textw/upgrade_text.py:172 ../loader/devices.c:282
+#: ../loader/devices.c:289 ../loader/devices.c:453 ../loader/lang.c:28
+#: ../loader/lang.c:96 ../loader/loader.c:484 ../loader/loader.c:501
+#: ../loader/loader.c:610 ../loader/loader.c:942 ../loader/loader.c:1274
+#: ../loader/loader.c:1372 ../loader/loader.c:1496 ../loader/loader.c:1709
+#: ../loader/loader.c:1714 ../loader/loader.c:1756 ../loader/loader.c:1857
+#: ../loader/loader.c:2893 ../loader/loader.c:2923 ../loader/loader.c:3001
+#: ../loader/loader.c:3323 ../loader/loader.c:3361 ../loader/mediacheck.c:255
+#: ../loader/mediacheck.c:312 ../loader/modules.c:390 ../loader/modules.c:410
+#: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
+#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:268 ../loader/urls.c:273
 msgid "Error"
 msgstr "Hata"
 
@@ -465,7 +452,7 @@ msgstr "Hatalý disk bloklarý için sýnama"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "/dev/%s üzerinde hatalý disk bloðu sýnamasý yapýlýyor..."
 
-#: ../fsset.py:555
+#: ../fsset.py:556
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -478,19 +465,19 @@ msgstr ""
 "\n"
 "%s dönüþtürülmeden kuruluma devam etmek ister misiniz?"
 
-#: ../fsset.py:948
+#: ../fsset.py:960
 msgid "RAID Device"
 msgstr "RAID Aygýtý"
 
-#: ../fsset.py:951 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:963 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Açýlýþ bölümünün ilk sektörü"
 
-#: ../fsset.py:952 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:964 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Ana Açýlýþ Kaydý (MBR)"
 
-#: ../fsset.py:1016
+#: ../fsset.py:1028
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -504,7 +491,7 @@ msgstr ""
 "\n"
 "Sistem <Enter> tuþuna bastýðýnýzda yeniden baþlatýlacaktýr."
 
-#: ../fsset.py:1035
+#: ../fsset.py:1047
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -519,7 +506,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için Tamam'a týklayýnýz."
 
-#: ../fsset.py:1082
+#: ../fsset.py:1094
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -531,7 +518,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1093
+#: ../fsset.py:1105
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -544,7 +531,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1129
+#: ../fsset.py:1141
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -557,7 +544,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1179
+#: ../fsset.py:1191
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -570,11 +557,11 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1199 ../fsset.py:1208
+#: ../fsset.py:1211 ../fsset.py:1220
 msgid "Invalid mount point"
 msgstr "Hatalý baðlama noktasý"
 
-#: ../fsset.py:1200
+#: ../fsset.py:1212
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -587,7 +574,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1209
+#: ../fsset.py:1221
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -600,7 +587,7 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için <Enter> tuþuna basýnýz."
 
-#: ../fsset.py:1222
+#: ../fsset.py:1234
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -615,11 +602,11 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için Enter tuþuna basýnýz."
 
-#: ../fsset.py:1966
+#: ../fsset.py:1981
 msgid "Formatting"
 msgstr "Biçimlendiriliyor"
 
-#: ../fsset.py:1967
+#: ../fsset.py:1982
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s dosya sistemi biçemlendiriliyor..."
@@ -630,16 +617,16 @@ msgstr "Düzelt"
 
 #: ../gui.py:138 ../text.py:312 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:255 ../loader/devices.c:232
-#: ../loader/loader.c:1137 ../loader/loader.c:3721 ../loader/net.c:907
+#: ../textw/upgrade_text.py:247 ../loader/devices.c:237
+#: ../loader/loader.c:1145 ../loader/loader.c:3762 ../loader/net.c:907
 msgid "Yes"
 msgstr "Evet"
 
 #: ../gui.py:139 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
-#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:255
-#: ../textw/upgrade_text.py:262 ../loader/devices.c:233
-#: ../loader/loader.c:3721 ../loader/net.c:907
+#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:247
+#: ../textw/upgrade_text.py:254 ../loader/devices.c:238
+#: ../loader/loader.c:3762 ../loader/net.c:907
 msgid "No"
 msgstr "Hayýr"
 
@@ -657,8 +644,8 @@ msgstr "Yoksay"
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:76 ../loader/devices.c:240
-#: ../loader/loader.c:2984 ../loader/modules.c:449 ../loader/pcmcia.c:107
+#: ../textw/userauth_text.py:76 ../loader/devices.c:245
+#: ../loader/loader.c:2986 ../loader/modules.c:450 ../loader/pcmcia.c:107
 msgid "Cancel"
 msgstr "Ýptal"
 
@@ -707,13 +694,16 @@ msgid "Error!"
 msgstr "Hata!"
 
 #: ../gui.py:814
+#, fuzzy, python-format
 msgid ""
-"An error occured when attempting to load an installer interface component."
+"An error occurred when attempting to load an installer interface component.\n"
+"\n"
+"className = %s"
 msgstr ""
 "Kurulum programýnýn bir arabirim elemaný yüklenmeye çalýþýlýrken bir hata "
 "oluþtu."
 
-#: ../gui.py:818 ../packages.py:1134 ../iw/congrats_gui.py:29
+#: ../gui.py:818 ../packages.py:1152 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "Çý_kýþ"
 
@@ -721,19 +711,19 @@ msgstr "Çý_kýþ"
 msgid "_Retry"
 msgstr "_Tekrar dene"
 
-#: ../gui.py:821 ../packages.py:1137
+#: ../gui.py:821 ../packages.py:1155
 msgid "Rebooting System"
 msgstr "Sistemin Yeniden Baþlatýlmasý"
 
-#: ../gui.py:822 ../packages.py:1138
+#: ../gui.py:822 ../packages.py:1156
 msgid "Your system will now be rebooted..."
 msgstr "Sisteminiz yeniden baþlatýlacak..."
 
-#: ../gui.py:825 ../packages.py:1140
+#: ../gui.py:825 ../packages.py:1158
 msgid "_Reboot"
 msgstr "Yeniden _Baþlat"
 
-#: ../gui.py:916 ../packages.py:1140
+#: ../gui.py:916 ../packages.py:1158
 msgid "_Back"
 msgstr "_Geri"
 
@@ -803,31 +793,53 @@ msgstr ""
 "Kurulum dosyalarý sabit diske aktarýlýrken bir hata oluþtu. Bu sorun diskte "
 "yer kalmamasýndan kaynaklanabilir."
 
-#: ../image.py:178
+#: ../image.py:196
 msgid "Change CDROM"
 msgstr "CDROM'u deðiþtir"
 
-#: ../image.py:179
+#: ../image.py:197
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Lütfen %d numaralý CD'yi yerleþtirin."
 
-#: ../image.py:214
+#: ../image.py:232
 msgid "Wrong CDROM"
 msgstr "Hatalý CDROM"
 
-#: ../image.py:215
+#: ../image.py:233
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Bu doðru %s CD'si deðil."
 
-#: ../image.py:221
+#: ../image.py:239
 msgid "The CDROM could not be mounted."
 msgstr "CDROM baðlanamadý."
 
-#: ../installclass.py:44
+#: ../installclass.py:45
 msgid "Install on System"
 msgstr "Sistemde Kurulum"
+
+#: ../installclass.py:426
+#, python-format
+msgid "Resolution requested %s is not supported."
+msgstr ""
+
+#: ../installclass.py:427
+#, python-format
+msgid "Falling back to %s."
+msgstr ""
+
+#: ../installclass.py:428
+msgid "To avoid this you may need to specify the videocard and "
+msgstr ""
+
+#: ../installclass.py:429
+msgid "monitor specs on the xconfig ks directive if they were "
+msgstr ""
+
+#: ../installclass.py:430
+msgid "not probed correctly."
+msgstr ""
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -840,11 +852,11 @@ msgstr ""
 "Makina isimleri harfler, '-' ve '.' karaterlerini içerebilir. Türkçeye özgü "
 "harfleri kullanmayýnýz."
 
-#: ../packages.py:40 ../iw/package_gui.py:37
+#: ../packages.py:41 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
 msgstr "Güncellemeye devam edilsin mi?"
 
-#: ../packages.py:41 ../iw/package_gui.py:38
+#: ../packages.py:42 ../iw/package_gui.py:38
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -854,48 +866,67 @@ msgstr ""
 "baðlý. Bu noktadan daha geriye gidilemez.\n"
 "\n"
 
-#: ../packages.py:45 ../iw/package_gui.py:42
+#: ../packages.py:46 ../iw/package_gui.py:42
 msgid "Would you like to continue with the upgrade?"
 msgstr "Güncellemeye devam etmek istiyor musunuz?"
 
-#: ../packages.py:114
+#: ../packages.py:122
 msgid "Reading"
 msgstr "Okunuyor"
 
-#: ../packages.py:114
+#: ../packages.py:122
 msgid "Reading package information..."
 msgstr "Paket bilgisi okunuyor..."
 
-#: ../packages.py:191
-msgid "Dependency Check"
-msgstr "Baðýmlýlýk Denetimi"
-
-#: ../packages.py:192
-msgid "Checking dependencies in packages selected for installation..."
-msgstr "Kurulumdaki paketlerdeki baðýmlýlýklar denetleniyor..."
-
-#: ../packages.py:257 ../packages.py:645
-msgid "Processing"
-msgstr "Ýþleniyor"
-
-#: ../packages.py:258
-msgid "Preparing to install..."
-msgstr "Kuruluma hazýrlýk yapýlýyor..."
-
-#: ../packages.py:309
-#, python-format
+#: ../packages.py:129
+#, fuzzy
 msgid ""
-"The file %s cannot be opened. This is due to a missing file, a bad package, "
-"or bad media. Press <return> to try again."
+"Unable to read header list.  This may be due to a missing file or bad "
+"media.  Press <return> to try again."
 msgstr ""
 "%s dosyasý açýlamýyor. Bu, bir eksik dosya, bir hatalý paket ya da hatalý "
 "bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuþuna basýnýz."
 
-#: ../packages.py:344
+#: ../packages.py:143
+#, fuzzy
+msgid ""
+"Unable to read comps file.  This may be due to a missing file or bad media.  "
+"Press <return> to try again."
+msgstr ""
+"%s dosyasý açýlamýyor. Bu, bir eksik dosya, bir hatalý paket ya da hatalý "
+"bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuþuna basýnýz."
+
+#: ../packages.py:217
+msgid "Dependency Check"
+msgstr "Baðýmlýlýk Denetimi"
+
+#: ../packages.py:218
+msgid "Checking dependencies in packages selected for installation..."
+msgstr "Kurulumdaki paketlerdeki baðýmlýlýklar denetleniyor..."
+
+#: ../packages.py:283 ../packages.py:663
+msgid "Processing"
+msgstr "Ýþleniyor"
+
+#: ../packages.py:284
+msgid "Preparing to install..."
+msgstr "Kuruluma hazýrlýk yapýlýyor..."
+
+#: ../packages.py:332
+#, python-format
+msgid ""
+"The package %s-%s-%s cannot be opened. This is due to a missing file or "
+"perhaps a corrupt package.  If you are installing from CD media this usually "
+"means the CD media is corrupt, or the CD drive is unable to read the media.\n"
+"\n"
+"Press <return> to try again."
+msgstr ""
+
+#: ../packages.py:372
 msgid "Error Installing Package"
 msgstr "Paketler Kurulumunda Hata"
 
-#: ../packages.py:345
+#: ../packages.py:373
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -912,11 +943,20 @@ msgstr ""
 "\n"
 "Sistemi yeniden baþlatmak için 'Tamam' düðmesine týklayýn."
 
-#: ../packages.py:646
+#: ../packages.py:545
+#, fuzzy
+msgid ""
+"Unable to merge header list.  This may be due to a missing file or bad "
+"media.  Press <return> to try again."
+msgstr ""
+"%s dosyasý açýlamýyor. Bu, bir eksik dosya, bir hatalý paket ya da hatalý "
+"bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuþuna basýnýz."
+
+#: ../packages.py:664
 msgid "Setting up RPM transaction..."
 msgstr "RPM iþlemleri ayarlanýyor..."
 
-#: ../packages.py:683
+#: ../packages.py:703
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -925,7 +965,7 @@ msgstr ""
 "%s paketleri güncelleniyor.\n"
 "\n"
 
-#: ../packages.py:685
+#: ../packages.py:705
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -934,17 +974,17 @@ msgstr ""
 "%s paketleri kuruluyor\n"
 "\n"
 
-#: ../packages.py:692 ../packages.py:976
+#: ../packages.py:712 ../packages.py:993
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s-%s-%s güncelleniyor.\n"
 
-#: ../packages.py:694 ../packages.py:978
+#: ../packages.py:714 ../packages.py:995
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s-%s-%s kuruluyor.\n"
 
-#: ../packages.py:710
+#: ../packages.py:731
 #, python-format
 msgid ""
 "\n"
@@ -961,15 +1001,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:716
+#: ../packages.py:737
 msgid "Install Starting"
 msgstr "Kurulum Baþlýyor"
 
-#: ../packages.py:717
+#: ../packages.py:738
 msgid "Starting install process, this may take several minutes..."
 msgstr "Kurulum baþlatýlýyor. Baþlatma bir kaç dakika sürebilir..."
 
-#: ../packages.py:762
+#: ../packages.py:780
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -979,17 +1019,17 @@ msgstr ""
 "Aþaðýdaki dosya sistemlerinde daha fazla alana ihtiyacýnýz var:\n"
 "\n"
 
-#: ../packages.py:766 ../packages.py:786 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:784 ../packages.py:804 ../iw/lvm_dialog_gui.py:1048
 #: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:109
+#: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Baðlama Noktasý"
 
-#: ../packages.py:767
+#: ../packages.py:785
 msgid "Space Needed"
 msgstr "Gerekli Alan"
 
-#: ../packages.py:782
+#: ../packages.py:800
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -999,15 +1039,15 @@ msgstr ""
 "Aþaðýdaki dosya sistemlerinde daha fazla alana ihtiyacýnýz var:\n"
 "\n"
 
-#: ../packages.py:787
+#: ../packages.py:805
 msgid "Nodes Needed"
 msgstr "Gerekli Düðümler"
 
-#: ../packages.py:793
+#: ../packages.py:811
 msgid "Disk Space"
 msgstr "Disk Alaný"
 
-#: ../packages.py:814
+#: ../packages.py:830
 msgid ""
 "\n"
 "\n"
@@ -1017,19 +1057,19 @@ msgstr ""
 "\n"
 "Aþaðýdaki paketler bu sürümde var ama güncel deðil:\n"
 
-#: ../packages.py:831
+#: ../packages.py:847
 msgid "Post Install"
 msgstr "Kurulum Sonrasý"
 
-#: ../packages.py:832
+#: ../packages.py:848
 msgid "Performing post install configuration..."
 msgstr "Kurulum sonrasý ayarlar yapýlýyor..."
 
-#: ../packages.py:1120
+#: ../packages.py:1138
 msgid "Warning! This is a beta!"
 msgstr "Uyarý! Bu bir beta sürümüdür!"
 
-#: ../packages.py:1121
+#: ../packages.py:1139
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1056,15 +1096,15 @@ msgstr ""
 "adresini kullanýnýz ve 'Red Hat Public Beta' konu baþlýðý ile raporunuzu "
 "gönderiniz.\n"
 
-#: ../packages.py:1134
+#: ../packages.py:1152
 msgid "_Install BETA"
 msgstr "_BETA Kurulumu"
 
-#: ../partedUtils.py:171 ../textw/partition_text.py:491
+#: ../partedUtils.py:172 ../textw/partition_text.py:491
 msgid "Foreign"
 msgstr "Yabancý"
 
-#: ../partedUtils.py:241
+#: ../partedUtils.py:248
 #, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
@@ -1079,21 +1119,21 @@ msgstr ""
 "\n"
 "Bu aygýtýn tüm disk bölümlerinin yeniden yapýlandýrýlmasýný istiyor musunuz?"
 
-#: ../partedUtils.py:459
+#: ../partedUtils.py:476
 #, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "%s üzerine dosya sistemi baðlanýrken hata: %s"
 
-#: ../partedUtils.py:551
+#: ../partedUtils.py:554
 msgid "Initializing"
 msgstr "Hazýrlanýyor"
 
-#: ../partedUtils.py:552
+#: ../partedUtils.py:555
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr "%s sürücüsü biçemlendiriliyor. Lütfen bekleyiniz...\n"
 
-#: ../partedUtils.py:669
+#: ../partedUtils.py:672
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1107,11 +1147,11 @@ msgstr ""
 "\n"
 "Bunun yapýlmasýný istiyor musunuz?"
 
-#: ../partedUtils.py:779 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:784 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Hiç Sürücü Bulunamadý"
 
-#: ../partedUtils.py:780
+#: ../partedUtils.py:785
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1240,9 +1280,9 @@ msgid "You are about to delete all partitions on the device '/dev/%s'."
 msgstr "/dev/%s üzerindeki tüm bölümleri silmek üzeresiniz."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
-#: ../iw/account_gui.py:426 ../iw/lvm_dialog_gui.py:717
-#: ../iw/lvm_dialog_gui.py:1071 ../iw/osbootwidget.py:102
-#: ../iw/partition_gui.py:1336 ../iw/partition_gui.py:1342
+#: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
+#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1336
+#: ../iw/partition_gui.py:1342
 msgid "_Delete"
 msgstr "_Sil"
 
@@ -1594,15 +1634,15 @@ msgstr ""
 "Bu RAID aygýtý en çok %s yedek içerebilir. Daha fazla yedeðe ihtiyacýnýz "
 "varsa RAID aygýtýna yeni üyeler eklemelisiniz."
 
-#: ../rescue.py:70 ../rescue.py:113 ../rescue.py:208
+#: ../rescue.py:72 ../rescue.py:115 ../rescue.py:215
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Bittiðinde lütfen 'exit' ile kabuktan çýkýp sistemi yeniden baþlatýn."
 
-#: ../rescue.py:97 ../rescue.py:161 ../rescue.py:169 ../rescue.py:187
+#: ../rescue.py:99 ../rescue.py:168 ../rescue.py:176 ../rescue.py:194
 msgid "Rescue"
 msgstr "Kurtar"
 
-#: ../rescue.py:98
+#: ../rescue.py:100
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1625,34 +1665,34 @@ msgstr ""
 "geçebilir ve doðrudan kabuða düþebilirsiniz.\n"
 "\n"
 
-#: ../rescue.py:108 ../iw/partition_gui.py:559 ../loader/loader.c:1338
-#: ../loader/loader.c:1346
+#: ../rescue.py:110 ../iw/partition_gui.py:559 ../loader/loader.c:1346
+#: ../loader/loader.c:1354
 msgid "Continue"
 msgstr "Devam Et"
 
-#: ../rescue.py:108 ../rescue.py:117
+#: ../rescue.py:110 ../rescue.py:119
 msgid "Read-Only"
 msgstr "Salt-Okunur"
 
-#: ../rescue.py:108 ../rescue.py:110 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:121 ../loader/loader.c:955 ../loader/loader.c:1414
-#: ../loader/loader.c:1416
+#: ../rescue.py:110 ../rescue.py:112 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader/loader.c:963 ../loader/loader.c:1422
+#: ../loader/loader.c:1424
 msgid "Skip"
 msgstr "Atla"
 
-#: ../rescue.py:140
+#: ../rescue.py:142
 msgid "System to Rescue"
 msgstr "Kurtarýlacak Sistem"
 
-#: ../rescue.py:141 ../textw/upgrade_text.py:212
+#: ../rescue.py:143
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kurulumun kök dizini hangi disk bölümünde bulunuyor?"
 
-#: ../rescue.py:143 ../rescue.py:147
+#: ../rescue.py:145 ../rescue.py:149
 msgid "Exit"
 msgstr "Çýkýþ"
 
-#: ../rescue.py:162
+#: ../rescue.py:169
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1663,7 +1703,7 @@ msgstr ""
 "sisteminizi baðlayabilirsiniz.  Kabuðu 'exit' yazarak býraktýðýnýzda sistem "
 "kendiliðinden yeniden baþlatýlacaktýr."
 
-#: ../rescue.py:170
+#: ../rescue.py:177
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1685,7 +1725,7 @@ msgstr ""
 "komutunu girmelisiniz.\n"
 "Kabuðu 'exit' ile býrakýrsanýz sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:188
+#: ../rescue.py:195
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1700,11 +1740,11 @@ msgstr ""
 "<Enter> tuþuna bastýðýnýzda kabuða düþeceksiniz. Kabuktan 'exit' yazarak "
 "çýktýðýnýzda sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:194
+#: ../rescue.py:201
 msgid "Rescue Mode"
 msgstr "Kurtarma Kipi"
 
-#: ../rescue.py:195
+#: ../rescue.py:202
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1712,7 +1752,7 @@ msgstr ""
 "Bir Linux dosya sistemi bulunamadý. Kabuða düþmek için enter tuþuna basýnýz. "
 "Kabuktan 'exit' ile çýktýðýnýzda sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:205
+#: ../rescue.py:212
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Dosya sisteminiz %s altýna baðlandý."
@@ -1763,20 +1803,28 @@ msgstr "Vazgeçildi"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adýmdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
-#: ../upgrade.py:46
+#: ../upgradeclass.py:8
+msgid "Upgrade Existing System"
+msgstr "Mevcut Sistemi Güncelle"
+
+#: ../upgradeclass.py:12
+msgid "Upgrade"
+msgstr "Güncelleme"
+
+#: ../upgrade.py:55
 msgid "Searching"
 msgstr "Taranýyor"
 
-#: ../upgrade.py:47
+#: ../upgrade.py:56
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "%s kurulumlarý aranýyor..."
 
-#: ../upgrade.py:88 ../upgrade.py:96
+#: ../upgrade.py:108 ../upgrade.py:116
 msgid "Dirty File Systems"
 msgstr "Karýþýk Dosya Sistemleri"
 
-#: ../upgrade.py:89
+#: ../upgrade.py:109
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1789,7 +1837,7 @@ msgstr ""
 "saðladýktan sonra güncellemek üzere sistemi normal þekilde kapatýn.\n"
 "%s"
 
-#: ../upgrade.py:97
+#: ../upgrade.py:117
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1800,11 +1848,11 @@ msgstr ""
 "oldu.  Bunlarýn yine de baðlanmasýný istiyor musunuz?\n"
 "%s"
 
-#: ../upgrade.py:226 ../upgrade.py:232
+#: ../upgrade.py:246 ../upgrade.py:252
 msgid "Mount failed"
 msgstr "Baðlama baþarýsýz oldu"
 
-#: ../upgrade.py:227
+#: ../upgrade.py:247
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1812,7 +1860,7 @@ msgstr ""
 "/etc/fstab dosyasýnda yer alan dosya sistemlerinden bazýlarý baðlanamadý. "
 "Lütfen bu sorunu giderdikten sonra güncellemeyi yeniden baþlatýn."
 
-#: ../upgrade.py:233
+#: ../upgrade.py:253
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -1822,7 +1870,7 @@ msgstr ""
 "olduðundan baðlanamadý. Lütfen bu sorunu giderdikten sonra güncellemeyi "
 "tekrarlayýn."
 
-#: ../upgrade.py:250
+#: ../upgrade.py:270
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1834,29 +1882,29 @@ msgstr ""
 "dönüþtürdükten sonra güncelleme iþlemine yeniden baþlayýnýz.\n"
 "\n"
 
-#: ../upgrade.py:261
+#: ../upgrade.py:281
 #, python-format
 msgid "%s not found"
 msgstr "%s bulunamadý"
 
-#: ../upgrade.py:283
+#: ../upgrade.py:303
 msgid "Finding"
 msgstr "Bulunuyor"
 
-#: ../upgrade.py:284
+#: ../upgrade.py:304
 msgid "Finding packages to upgrade..."
 msgstr "Güncellenecek paketler belirleniyor..."
 
-#: ../upgrade.py:317
+#: ../upgrade.py:337
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir."
 
-#: ../upgrade.py:335
+#: ../upgrade.py:363
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Güncellenecek paketler belirlenirken bir hata oluþtu."
 
-#: ../upgrade.py:390
+#: ../upgrade.py:418
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1869,7 +1917,7 @@ msgstr ""
 "sisteminiz bu iþlemden sonra kararsýz duruma gelebilir. Yine de güncelleme "
 "iþlemine devam edilsin mi?"
 
-#: ../upgrade.py:409
+#: ../upgrade.py:437
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1880,7 +1928,7 @@ msgstr ""
 "Linux sistemi deðil. Güncelleme iþlemi sisteminizin karasýz duruma gelmesi "
 "ile sonuçlanabilir. Yine de güncelleme iþlemine devam edilsin mi?"
 
-#: ../upgrade.py:432
+#: ../upgrade.py:478
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -1888,11 +1936,11 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: ../xserver.py:48
+#: ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "Fare Seçilmedi"
 
-#: ../xserver.py:49
+#: ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -1903,140 +1951,56 @@ msgstr ""
 "sonraki ekrana geçin ve fare ile ilgili donaným bilgilerinizi verin. Diðer "
 "seçenek de fareye gereksinim duymayan metin tabanlý kurulum yapmak."
 
-#: ../xserver.py:55 ../xserver.py:56
+#: ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "Metin tabanlý kurulum yap"
 
-#: ../xserver.py:111
+#: ../xserver.py:104
 msgid "Attempting to start native X server"
 msgstr "X sunucusu baþlatýlmaya çalýþýlýyor."
 
-#: ../xserver.py:118
+#: ../xserver.py:111
 msgid "Attempting to start VESA driver X server"
 msgstr "VESA sürücülü X sunucusu baþlatýlmaya çalýþýlýyor"
 
-#: ../xserver.py:189
+#: ../xserver.py:180
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
 msgstr ""
 "X sunucusunun baþlamasý bekleniyor... Ýþlemler /tmp/X.log dosyasýna "
 "kaydediliyor.\n"
 
-#: ../xserver.py:216
+#: ../xserver.py:207
 msgid " X server started successfully."
 msgstr " X sunucusu baþarýyla çalýþtýrýldý."
 
-#: ../iw/account_gui.py:27
-msgid "Account Configuration"
-msgstr "Hesap Yapýlandýrmasý"
+#: ../iw/account_gui.py:25
+#, fuzzy
+msgid "Set Root Password"
+msgstr "root Parolasý"
 
-#: ../iw/account_gui.py:58
+#: ../iw/account_gui.py:40
 msgid "Root password accepted."
 msgstr "Root Parolasý kabul edildi."
 
-#: ../iw/account_gui.py:63
+#: ../iw/account_gui.py:45
 msgid "Root password is too short."
 msgstr "Root parolasý çok kýsa."
 
-#: ../iw/account_gui.py:65
+#: ../iw/account_gui.py:47
 msgid "Root passwords do not match."
 msgstr "Root parolalarý uyuþmuyor."
 
-#: ../iw/account_gui.py:85
-msgid "User password accepted."
-msgstr "Kullanýcý parolasý kabul edildi."
-
-#: ../iw/account_gui.py:91
-msgid "Root account can not be added here."
-msgstr "Buraya root hesabý kaydedilemez."
-
-#: ../iw/account_gui.py:94
-msgid "System accounts can not be added here."
-msgstr "Buraya sistem hesaplarý eklenemez."
-
-#: ../iw/account_gui.py:96
-msgid "Please enter user password."
-msgstr "Lütfen kullanýcý parolasýný girin."
-
-#: ../iw/account_gui.py:98
-msgid "User password is too short."
-msgstr "Kullanýcý parolasý çok kýsa."
-
-#: ../iw/account_gui.py:100
-msgid "User passwords do not match."
-msgstr "Kullanýcý parolalarý uyuþmuyor."
-
-#: ../iw/account_gui.py:190
-msgid "Add a New User"
-msgstr "Yeni Kullanýcý Ekle"
-
-#: ../iw/account_gui.py:198 ../textw/userauth_text.py:90
-msgid "Edit User"
-msgstr "Kullanýcý Deðiþtir"
-
-#: ../iw/account_gui.py:212
-msgid "Add a User Account"
-msgstr "Kullanýcý Hesabý Eklenmesi"
-
-#: ../iw/account_gui.py:229
-msgid "Enter a user _name:"
-msgstr "Bir _kullanýcý adý girin:"
-
-#: ../iw/account_gui.py:237
-msgid "Enter a user _password:"
-msgstr "Bir kullanýcý _Parolasýný girin:"
-
-#: ../iw/account_gui.py:246
-msgid "Pass_word (confirm):"
-msgstr "Parola (_onay):"
-
-#: ../iw/account_gui.py:255
-msgid "_Full Name:"
-msgstr "_Adý ve Soyadý:"
-
-#: ../iw/account_gui.py:263
-msgid "Please enter user name"
-msgstr "Lütfen kullanýcý adýný girin"
-
-#: ../iw/account_gui.py:346
+#: ../iw/account_gui.py:68
 msgid "Enter the root (administrator) password for the system."
 msgstr "root (sistem yöneticisi) parolasýný girin."
 
-#: ../iw/account_gui.py:363
+#: ../iw/account_gui.py:84
 msgid "Root _Password: "
 msgstr "Root _Parolasý: "
 
-#: ../iw/account_gui.py:366
+#: ../iw/account_gui.py:87
 msgid "_Confirm: "
 msgstr "O_nayla : "
-
-#: ../iw/account_gui.py:408
-msgid "Account Name"
-msgstr "Hesap Adý"
-
-#: ../iw/account_gui.py:411 ../textw/userauth_text.py:101
-#: ../textw/userauth_text.py:210
-msgid "Full Name"
-msgstr "Adý ve Soyadý"
-
-#: ../iw/account_gui.py:421 ../iw/lvm_dialog_gui.py:1065
-#: ../iw/osbootwidget.py:94
-msgid "_Add"
-msgstr "_Ekle"
-
-#: ../iw/account_gui.py:423 ../iw/lvm_dialog_gui.py:1068
-#: ../iw/network_gui.py:488 ../iw/osbootwidget.py:98
-#: ../iw/partition_gui.py:1335 ../iw/partition_gui.py:1341
-msgid "_Edit"
-msgstr "_Düzenle"
-
-#: ../iw/account_gui.py:447
-msgid ""
-"It is recommended that you create a personal account for normal (non-"
-"administrative) use. Accounts can also be created for additional users."
-msgstr ""
-"Normal, günlük kullaným için bir kiþisel hesap (root haklarý olmayan) "
-"oluþturmanýz önerilir. Burada, sistemi kullanacak herkes için ayrý ayrý "
-"hesaplar da oluþturabilirsiniz."
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:325
 msgid "Authentication Configuration"
@@ -2489,7 +2453,7 @@ msgstr "Paket baðýmlýlýklarýný _Yoksay"
 msgid "Workstation Defaults"
 msgstr "Ýþistasyonu Öntanýmlýlarý"
 
-#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:6
+#: ../iw/desktop_choice_gui.py:52 ../installclasses/workstation.py:7
 msgid "Workstation"
 msgstr "Ýþistasyonu"
 
@@ -2534,7 +2498,7 @@ msgstr ""
 "%s tecrübeniz varsa, istediðiniz paketleri kendiniz de seçebilirsiniz "
 "Kurulumunuzu özelleþtirmek isterseniz aþaðýdaki onay kutusunu iþaretleyin."
 
-#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:10
+#: ../iw/desktop_choice_gui.py:75 ../installclasses/personal_desktop.py:11
 msgid "Personal Desktop"
 msgstr "Kiþisel Masaüstü"
 
@@ -2608,28 +2572,18 @@ msgstr "Boy"
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/examine_gui.py:24
+#: ../iw/examine_gui.py:28
 msgid "Upgrade Examine"
 msgstr "Güncelleme Araþtýrýlýyor"
 
-#: ../iw/examine_gui.py:51
+#: ../iw/examine_gui.py:72
+#, fuzzy
 msgid ""
-"You don't have any Linux partitions.\n"
-"You can't upgrade this sytem!"
-msgstr ""
-"Diskinizde hiç Linux bölümü yok.\n"
-"Bu sistem güncellenemez!"
+"The following root partitions have been found on your system.  FIXME: I NEED "
+"BETTER TEXT HERE."
+msgstr "Sisteminizde aþaðýdaki aygýtlar bulundu:"
 
-#: ../iw/examine_gui.py:61
-msgid "Please select the device containing the root filesystem: "
-msgstr "Kök bölümünü tutan aygýtý seçin: "
-
-#: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:226
-#, python-format
-msgid "Upgrading the %s installation on partition /dev/%s"
-msgstr "%s kurulumu /dev/%s de güncelleniyor"
-
-#: ../iw/examine_gui.py:95
+#: ../iw/examine_gui.py:91
 msgid "_Customize packages to be upgraded"
 msgstr "_Güncellenecek paketlerin seçimi"
 
@@ -2731,11 +2685,11 @@ msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 msgid "Additional Language Support"
 msgstr "Ek Dil Desteði"
 
-#: ../iw/language_support_gui.py:149
+#: ../iw/language_support_gui.py:150
 msgid "Select the _default language for the system:   "
 msgstr "Sistem ö_ntanýmlý dilini seçiniz:     "
 
-#: ../iw/language_support_gui.py:159
+#: ../iw/language_support_gui.py:160
 msgid "Select _additional languages to install on the system:"
 msgstr "Bu sistemde kullanacaðýnýz _ek dilleri seçiniz:"
 
@@ -3069,6 +3023,16 @@ msgstr "Mantýksal Oylum Ýsmi"
 msgid "Size (MB)"
 msgstr "Boy (MB):"
 
+#: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
+msgid "_Add"
+msgstr "_Ekle"
+
+#: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
+#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1335
+#: ../iw/partition_gui.py:1341
+msgid "_Edit"
+msgstr "_Düzenle"
+
 #: ../iw/lvm_dialog_gui.py:1082
 msgid "Logical Volumes"
 msgstr "Mantýksal Oylumlar"
@@ -3101,11 +3065,11 @@ msgstr "_Aygýt"
 msgid "_Model"
 msgstr "_Model"
 
-#: ../iw/mouse_gui.py:221
+#: ../iw/mouse_gui.py:236
 msgid "_Emulate 3 buttons"
 msgstr "3. _Tuþ Öykünümü"
 
-#: ../iw/mouse_gui.py:235
+#: ../iw/mouse_gui.py:251
 msgid "Select the appropriate mouse for the system."
 msgstr "Sisteminizdeki fareye en uygununu seçiniz."
 
@@ -3305,9 +3269,9 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:277 ../textw/silo_text.py:207
-#: ../textw/xconfig_text.py:438 ../textw/xconfig_text.py:445
-#: ../textw/xconfig_text.py:551 ../textw/xconfig_text.py:552
-#: ../textw/xconfig_text.py:571 ../textw/xconfig_text.py:572
+#: ../textw/xconfig_text.py:388 ../textw/xconfig_text.py:395
+#: ../textw/xconfig_text.py:506 ../textw/xconfig_text.py:507
+#: ../textw/xconfig_text.py:526 ../textw/xconfig_text.py:527
 msgid "Default"
 msgstr "Öntanýmlý"
 
@@ -3609,7 +3573,7 @@ msgstr "RAID Aygýtlarý"
 msgid "None"
 msgstr "Hiçbiri"
 
-#: ../iw/partition_gui.py:790 ../loader/loader.c:1137
+#: ../iw/partition_gui.py:790 ../loader/loader.c:1145
 msgid "Hard Drives"
 msgstr "Sabit Diskler"
 
@@ -3822,17 +3786,13 @@ msgstr ""
 msgid "Disk Partitioning Setup"
 msgstr "Disk Bölümleme Ayarlarý"
 
-#: ../iw/partmethod_gui.py:58
+#: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
 msgstr "_Otomatik olarak bölümlendir"
 
-#: ../iw/partmethod_gui.py:61
+#: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
 msgstr "_Disk Druid yardýmýyla elle bölümlendir"
-
-#: ../iw/partmethod_gui.py:64
-msgid "Manually partition with _fdisk (experts only)"
-msgstr "_fdisk yardýmýyla elle bölümlendir [sadece uzmanlar]"
 
 #: ../iw/progress_gui.py:29
 msgid "Installing Packages"
@@ -4088,7 +4048,7 @@ msgid "Silo Configuration"
 msgstr "Silo Yapýlandýrmasý"
 
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
-#: ../textw/upgrade_text.py:110
+#: ../textw/upgrade_text.py:112
 msgid "Partition"
 msgstr "Bölümlendirme"
 
@@ -4142,11 +4102,11 @@ msgstr "Sistem saati _UTC kullanýyor"
 msgid "Location"
 msgstr "Yer"
 
-#: ../iw/timezone_gui.py:218
+#: ../iw/timezone_gui.py:219
 msgid "Use _daylight saving time (US only)"
 msgstr "Ýleri Saat _Uygulamasý (sadece ABD için)"
 
-#: ../iw/timezone_gui.py:231
+#: ../iw/timezone_gui.py:232
 msgid "UTC Offset"
 msgstr "UTC Ofseti"
 
@@ -4214,11 +4174,11 @@ msgstr ""
 msgid "What would you like to do?"
 msgstr "Ne yapmak istersiniz?"
 
-#: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:32
+#: ../iw/upgrade_migratefs_gui.py:30 ../textw/upgrade_text.py:34
 msgid "Migrate File Systems"
 msgstr "Dosya Sistemlerini Dönüþtür"
 
-#: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:34
+#: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:36
 #, python-format
 msgid ""
 "This release of %s supports the ext3 journalling file system.  It has "
@@ -4301,11 +4261,11 @@ msgstr ""
 "kurulum programýný kontrol dýþý sonlandýrabilir. Devam etmek istediðinize "
 "emin misiniz?"
 
-#: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:176
+#: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Bir takas dosyasý 1-2000 MB arasýnda olabilir."
 
-#: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:171
+#: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr "Takas bölümünün seçildiði aygýtta yeterli yer yok."
@@ -4314,75 +4274,71 @@ msgstr "Takas bölümünün seçildiði aygýtta yeterli yer yok."
 msgid "Welcome"
 msgstr "Hoþ Geldiniz"
 
-#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
+#: ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:23
 msgid "DDC Probed Monitor"
 msgstr "DDC Algýlamalý Monitör"
 
-#: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:25
+#: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:24
 msgid "Unprobed Monitor"
 msgstr "Algýlanmamýþ Monitör"
 
-#: ../iw/xconfig_gui.py:52
+#: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
 msgstr "Grafik Yapýlandýrmasýný Özelleþtir"
 
-#: ../iw/xconfig_gui.py:219
+#: ../iw/xconfig_gui.py:231
 msgid "_Color Depth:"
 msgstr "_Renk Derinliði:"
 
-#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:240 ../textw/xconfig_text.py:108
 msgid "256 Colors (8 Bit)"
 msgstr "256 Renk (8 Bit)"
 
-#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:241 ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
 msgstr "Çok Renkli (16 Bit)"
 
-#: ../iw/xconfig_gui.py:225 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:242 ../textw/xconfig_text.py:110
 msgid "True Color (24 Bit)"
 msgstr "Gerçek Renkler (24 Bit)"
 
-#: ../iw/xconfig_gui.py:235
+#: ../iw/xconfig_gui.py:256
 msgid "_Screen Resolution:"
 msgstr "_Ekran Çözünürlüðü:"
 
-#: ../iw/xconfig_gui.py:322
-msgid "   _Test Setting   "
-msgstr "  Ayarlarý _Dene  "
-
-#: ../iw/xconfig_gui.py:345
+#: ../iw/xconfig_gui.py:310
 msgid "Please choose your default desktop environment:"
 msgstr "Öntanýmlý masaüstü ortamýnýzý seçin:"
 
-#: ../iw/xconfig_gui.py:347
+#: ../iw/xconfig_gui.py:312
 msgid "Your desktop environment is:"
 msgstr "Masaüstü ortamýnýz:"
 
-#: ../iw/xconfig_gui.py:362
+#: ../iw/xconfig_gui.py:327
 msgid "GNO_ME"
 msgstr "GNO_ME"
 
-#: ../iw/xconfig_gui.py:364
+#: ../iw/xconfig_gui.py:329
 msgid "_KDE"
 msgstr "_KDE"
 
-#: ../iw/xconfig_gui.py:393
+#: ../iw/xconfig_gui.py:360
 msgid "Please choose your login type:"
 msgstr "Sisteme giriþ türünü seçin:"
 
-#: ../iw/xconfig_gui.py:400
+#: ../iw/xconfig_gui.py:367
 msgid "T_ext"
 msgstr "M_etin"
 
-#: ../iw/xconfig_gui.py:401
+#: ../iw/xconfig_gui.py:368
 msgid "_Graphical"
 msgstr "_Grafiksel"
 
-#: ../iw/xconfig_gui.py:418 ../textw/xconfig_text.py:441
+#: ../iw/xconfig_gui.py:385 ../textw/xconfig_text.py:391
 msgid "Monitor Configuration"
 msgstr "Monitör Yapýlandýrmasý"
 
-#: ../iw/xconfig_gui.py:601
+#: ../iw/xconfig_gui.py:579
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
@@ -4390,39 +4346,39 @@ msgstr ""
 "Genellikle, monitör otomatik olarak algýlanýr. Eðer algýlanan monitör "
 "sizinki deðilse kendiniz bir monitör belirtebilirsiniz."
 
-#: ../iw/xconfig_gui.py:662
+#: ../iw/xconfig_gui.py:640
 msgid "Generic"
 msgstr "Genel"
 
-#: ../iw/xconfig_gui.py:709 ../iw/xconfig_gui.py:1053
+#: ../iw/xconfig_gui.py:687 ../iw/xconfig_gui.py:1028
 msgid "Restore _original values"
 msgstr "_Orjinal deðerlerine dön"
 
-#: ../iw/xconfig_gui.py:717
+#: ../iw/xconfig_gui.py:695
 msgid "Hori_zontal Sync:"
 msgstr "_Yatay Tazeleme:"
 
-#: ../iw/xconfig_gui.py:720
+#: ../iw/xconfig_gui.py:698
 msgid "_Vertical Sync:"
 msgstr "_Dikey Tazeleme:"
 
-#: ../iw/xconfig_gui.py:727
+#: ../iw/xconfig_gui.py:705
 msgid "kHz"
 msgstr "kHz"
 
-#: ../iw/xconfig_gui.py:730
+#: ../iw/xconfig_gui.py:708
 msgid "Hz"
 msgstr "Hz"
 
-#: ../iw/xconfig_gui.py:750
+#: ../iw/xconfig_gui.py:728
 msgid "Graphical Interface (X) Configuration"
 msgstr "Grafik Arayüz (X) Yapýlandýrmasý"
 
-#: ../iw/xconfig_gui.py:775
+#: ../iw/xconfig_gui.py:753
 msgid "Unknown video card"
 msgstr "Bilinmeyen ekran kartý"
 
-#: ../iw/xconfig_gui.py:776
+#: ../iw/xconfig_gui.py:754
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
@@ -4431,11 +4387,11 @@ msgstr ""
 "Ekran kartý %s seçildiðinde bir hata oluþtu. Lütfen bu hatayý bugzilla."
 "redhat.com adresinde bildiriniz."
 
-#: ../iw/xconfig_gui.py:800 ../textw/xconfig_text.py:679
+#: ../iw/xconfig_gui.py:778 ../textw/xconfig_text.py:627
 msgid "Unspecified video card"
 msgstr "Ekran kartý belirtilmedi"
 
-#: ../iw/xconfig_gui.py:801 ../textw/xconfig_text.py:680
+#: ../iw/xconfig_gui.py:779 ../textw/xconfig_text.py:628
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -4445,13 +4401,13 @@ msgstr ""
 "yapýlandýrmasýný kurulumdan sonra kendiniz yapmak isterseniz 'X "
 "yapýlandýrmasýný Atla' düðmesine týklayýnýz."
 
-#: ../iw/xconfig_gui.py:930
+#: ../iw/xconfig_gui.py:910
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr "Ekran kartý bellek miktarý bulunamadý. Lütfen listeden seçim yapýnýz:"
 
-#: ../iw/xconfig_gui.py:938
+#: ../iw/xconfig_gui.py:918
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
@@ -4460,11 +4416,11 @@ msgstr ""
 "Çoðu zaman ekran donanýmý otomatik olarak tanýnacak ve en uygun çözünürlük "
 "ayarlanacaktýr. Bu iþlem doðru sonuç vermezse siz doðrusunu seçebilirsiniz."
 
-#: ../iw/xconfig_gui.py:1031
+#: ../iw/xconfig_gui.py:1006
 msgid "_Video card RAM: "
 msgstr "Ekran Kartý _Belleði: "
 
-#: ../iw/xconfig_gui.py:1057
+#: ../iw/xconfig_gui.py:1032
 msgid "_Skip X configuration"
 msgstr "X Yapýlandýrmasýný _Atla"
 
@@ -4726,10 +4682,10 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:190 ../loader/cdrom.c:33 ../loader/devices.c:95
-#: ../loader/devices.c:240 ../loader/devices.c:340 ../loader/lang.c:634
-#: ../loader/loader.c:335 ../loader/loader.c:1137 ../loader/loader.c:1207
-#: ../loader/loader.c:1488 ../loader/loader.c:1584 ../loader/loader.c:2097
+#: ../textw/userauth_text.py:190 ../loader/cdrom.c:33 ../loader/devices.c:99
+#: ../loader/devices.c:245 ../loader/devices.c:358 ../loader/lang.c:634
+#: ../loader/loader.c:342 ../loader/loader.c:1145 ../loader/loader.c:1215
+#: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:2099
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
 #: ../loader/urls.c:198 ../loader/urls.c:419
 msgid "Back"
@@ -4883,7 +4839,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "E-posta (SMTP)"
 
-#: ../textw/firewall_text.py:100 ../loader/loader.c:1787
+#: ../textw/firewall_text.py:100 ../loader/loader.c:1795
 msgid "FTP"
 msgstr "FTP"
 
@@ -5331,10 +5287,6 @@ msgstr "Otomatik Bölümlendirme"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../textw/partmethod_text.py:28
-msgid "fdisk"
-msgstr "fdisk"
-
 #: ../textw/progress_text.py:79
 msgid "Package Installation"
 msgstr "Paket Kurulumu"
@@ -5413,7 +5365,7 @@ msgstr "Önyükleyici güncellemesini atla"
 msgid "Create new boot loader configuration"
 msgstr "Yeni önyükleyici yapýlandýrmasý oluþtur"
 
-#: ../textw/upgrade_text.py:92
+#: ../textw/upgrade_text.py:94
 #, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -5426,47 +5378,46 @@ msgstr ""
 "anda %dMB takas alaný belirttiniz. Bu alaný bozmadan daha fazla sayýda yeni "
 "takas alanlarý da belirtmeniz mümkündür."
 
-#: ../textw/upgrade_text.py:110
+#: ../textw/upgrade_text.py:112
 msgid "Free Space"
 msgstr "Boþ Alan"
 
-#: ../textw/upgrade_text.py:125
+#: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
 msgstr "Algýlanan bellek (MB):"
 
-#: ../textw/upgrade_text.py:128
+#: ../textw/upgrade_text.py:130
 msgid "Suggested size (MB):"
 msgstr "Önerilen Boy (MB):"
 
-#: ../textw/upgrade_text.py:131
+#: ../textw/upgrade_text.py:133
 msgid "Swap file size (MB):"
 msgstr "Takas alaný (MB):"
 
-#: ../textw/upgrade_text.py:139
+#: ../textw/upgrade_text.py:141
 msgid "Add Swap"
 msgstr "Takas Ekle"
 
-#: ../textw/upgrade_text.py:164
+#: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
 msgstr "Girilen deðer geçerli bir sayý deðil."
 
-#: ../textw/upgrade_text.py:194
-msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Diskinizde hiç Linux bölümü yok. Sistem güncellenemez."
-
-#: ../textw/upgrade_text.py:211
+#: ../textw/upgrade_text.py:203
 msgid "System to Upgrade"
 msgstr "Güncellenecek Sistem"
 
-#: ../textw/upgrade_text.py:225
-msgid "Upgrade Partition"
-msgstr "Disk Bölümü Güncellemesi"
+#: ../textw/upgrade_text.py:204
+#, fuzzy
+msgid ""
+"The following root partitions have been found on your system. FIXME: I NEED "
+"BETTER TEXT HERE."
+msgstr "Sisteminizde aþaðýdaki aygýtlar bulundu:"
 
-#: ../textw/upgrade_text.py:247
+#: ../textw/upgrade_text.py:239
 msgid "Customize Packages to Upgrade"
 msgstr "Güncellenecek Paketlerin Seçimi"
 
-#: ../textw/upgrade_text.py:248
+#: ../textw/upgrade_text.py:240
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -5514,6 +5465,10 @@ msgstr "Parola Uyumsuzluðu"
 msgid "The passwords you entered were different. Please try again."
 msgstr "Verdiðiniz parolalar birbirini tutmuyor. Lütfen yeniden deneyin."
 
+#: ../textw/userauth_text.py:90
+msgid "Edit User"
+msgstr "Kullanýcý Deðiþtir"
+
 #: ../textw/userauth_text.py:93
 msgid "Add User"
 msgstr "Kullanýcý Ekle"
@@ -5529,6 +5484,10 @@ msgstr "Parola"
 #: ../textw/userauth_text.py:100
 msgid "Password (confirm)"
 msgstr "Parola (tekrar)"
+
+#: ../textw/userauth_text.py:101 ../textw/userauth_text.py:210
+msgid "Full Name"
+msgstr "Adý ve Soyadý"
 
 #: ../textw/userauth_text.py:113
 msgid "Bad User Name"
@@ -5698,100 +5657,92 @@ msgstr ""
 "Kutulu %s ürünü satýn aldýysanýz kaydetmek için lütfen http://www.redhat.com "
 "adresine göz atýn."
 
-#: ../textw/xconfig_text.py:31
+#: ../textw/xconfig_text.py:37
 msgid "Color Depth"
 msgstr "Renk Derinliði"
 
-#: ../textw/xconfig_text.py:32
+#: ../textw/xconfig_text.py:38
 msgid "Please select the color depth you would like to use:"
 msgstr "Kullanmak istediðiniz renk derinliðini seçiniz:"
 
-#: ../textw/xconfig_text.py:50
+#: ../textw/xconfig_text.py:61
 msgid "Resolution"
 msgstr "Çözünürlük"
 
-#: ../textw/xconfig_text.py:51
+#: ../textw/xconfig_text.py:62
 msgid "Please select the resolution you would like to use:"
 msgstr "Kullanmak istediðiniz çözünürlüðü seçiniz:"
 
-#: ../textw/xconfig_text.py:180 ../textw/xconfig_text.py:189
-#: ../loader/loader.c:955 ../loader/loader.c:1317 ../loader/loader.c:1320
-#: ../loader/loader.c:1338 ../loader/loader.c:1346
-msgid "Test"
-msgstr "Test"
-
-#: ../textw/xconfig_text.py:183
+#: ../textw/xconfig_text.py:133
 msgid "X Customization"
 msgstr "X Özelleþtirmesi"
 
-#: ../textw/xconfig_text.py:186
-#, python-format
-msgid ""
-"Select the color depth and video mode you want to use for your system. Use "
-"the '%s' button to test the video mode."
+#: ../textw/xconfig_text.py:136
+#, fuzzy
+msgid "Select the color depth and video mode you want to use for your system. "
 msgstr ""
 "Sisteminizde kullanmak istediðiniz renk derinliði ve çözünürlüðü seçiniz. '%"
 "s' düðmesi ile seçimlerinizi test edebilirsiniz."
 
-#: ../textw/xconfig_text.py:192
+#: ../textw/xconfig_text.py:140
 msgid "Color Depth:"
 msgstr "Renk Derinliði:"
 
-#: ../textw/xconfig_text.py:196 ../textw/xconfig_text.py:203
-#: ../textw/xconfig_text.py:452 ../textw/xconfig_text.py:463
-#: ../textw/xconfig_text.py:656 ../textw/xconfig_text.py:663
+#: ../textw/xconfig_text.py:144 ../textw/xconfig_text.py:151
+#: ../textw/xconfig_text.py:402 ../textw/xconfig_text.py:413
+#: ../textw/xconfig_text.py:604 ../textw/xconfig_text.py:611
 msgid "Change"
 msgstr "Deðiþtir"
 
-#: ../textw/xconfig_text.py:199
+#: ../textw/xconfig_text.py:147
 msgid "Resolution:"
 msgstr "Çözünürlük:"
 
-#: ../textw/xconfig_text.py:209
+#: ../textw/xconfig_text.py:157
 msgid "Default Desktop:"
 msgstr "Öntanýmlý Masaüstü:"
 
-#: ../textw/xconfig_text.py:213 ../textw/xconfig_text.py:222
+#: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "GNOME"
 msgstr "GNOME Masaüstü Ortamý"
 
-#: ../textw/xconfig_text.py:215 ../textw/xconfig_text.py:224
+#: ../textw/xconfig_text.py:163 ../textw/xconfig_text.py:172
 msgid "KDE"
 msgstr "KDE - K Masaüstü Ortamý"
 
-#: ../textw/xconfig_text.py:229
+#: ../textw/xconfig_text.py:178
 msgid "Default Login:"
 msgstr "Öntanýmlý Sisteme Giriþ:"
 
-#: ../textw/xconfig_text.py:231
+#: ../textw/xconfig_text.py:180
 msgid "Graphical"
 msgstr "Grafiksel"
 
-#: ../textw/xconfig_text.py:233
+#: ../textw/xconfig_text.py:182
 msgid "Text"
 msgstr "Metin"
 
-#: ../textw/xconfig_text.py:280
+#: ../textw/xconfig_text.py:230
 msgid "Monitor"
 msgstr "Monitör"
 
-#: ../textw/xconfig_text.py:281
+#: ../textw/xconfig_text.py:231
 msgid "Please select the monitor attached to your system."
 msgstr "Monitörünüzü seçin: "
 
-#: ../textw/xconfig_text.py:306
+#: ../textw/xconfig_text.py:256
 msgid "horizontal"
 msgstr "yatay"
 
-#: ../textw/xconfig_text.py:309
+#: ../textw/xconfig_text.py:259
 msgid "vertical"
 msgstr "düþey"
 
-#: ../textw/xconfig_text.py:313
+#: ../textw/xconfig_text.py:263
 msgid "Invalid Sync Rates"
 msgstr "Geçersiz Eþzamanlama Frekansý"
 
-#: ../textw/xconfig_text.py:314
+#: ../textw/xconfig_text.py:264
 #, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
@@ -5814,11 +5765,11 @@ msgstr ""
 "    50.1-90.2                bir aralýk\n"
 "31.5,35.0,39.3-40.0          sayý ve aralýklarýn virgüllü listesi\n"
 
-#: ../textw/xconfig_text.py:328
+#: ../textw/xconfig_text.py:278
 msgid "Monitor Sync Rates"
 msgstr "Monitör eþzamanlama frekanslarý"
 
-#: ../textw/xconfig_text.py:333
+#: ../textw/xconfig_text.py:283
 msgid ""
 "Please enter the sync rates for your monitor. \n"
 "\n"
@@ -5830,15 +5781,15 @@ msgstr ""
 "NOT: Bu bilgileri monitörünüzün kullaným kitapçýðýnda bulabilirsiniz. Ancak "
 "bu deðerlerin elle girilmesi hatta çok da doðru girilmesi gerekmiyor."
 
-#: ../textw/xconfig_text.py:338
+#: ../textw/xconfig_text.py:288
 msgid "HSync Rate: "
 msgstr "HSync Frekansý: "
 
-#: ../textw/xconfig_text.py:343
+#: ../textw/xconfig_text.py:293
 msgid "VSync Rate: "
 msgstr "VSync Frekansý: "
 
-#: ../textw/xconfig_text.py:444
+#: ../textw/xconfig_text.py:394
 #, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
@@ -5847,23 +5798,23 @@ msgstr ""
 "Kullandýðýnýz monitörü seçiniz. '%s' düðmesi ile algýlanan deðerleri "
 "sýfýrlayabilirsiniz."
 
-#: ../textw/xconfig_text.py:448
+#: ../textw/xconfig_text.py:398
 msgid "Monitor:"
 msgstr "Monitör:"
 
-#: ../textw/xconfig_text.py:455
+#: ../textw/xconfig_text.py:405
 msgid "HSync Rate:"
 msgstr "HSync Frk.(kHz):"
 
-#: ../textw/xconfig_text.py:465
+#: ../textw/xconfig_text.py:415
 msgid "VSync Rate:"
 msgstr "VSync Frk.(Hz):"
 
-#: ../textw/xconfig_text.py:547
+#: ../textw/xconfig_text.py:502
 msgid "Video Card"
 msgstr "Ekran Kartý"
 
-#: ../textw/xconfig_text.py:548
+#: ../textw/xconfig_text.py:503
 #, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
@@ -5872,11 +5823,11 @@ msgstr ""
 "Lütfen ekran kartýnýzý seçiniz. Kurulum programý tarafýndan algýlanan kartý "
 "seçimden kaldýrmak için '%s' seçiniz."
 
-#: ../textw/xconfig_text.py:566
+#: ../textw/xconfig_text.py:521
 msgid "Video RAM"
 msgstr "Ekran Kartý Belleði"
 
-#: ../textw/xconfig_text.py:567
+#: ../textw/xconfig_text.py:522
 #, python-format
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
@@ -5885,27 +5836,27 @@ msgstr ""
 "Lütfen ekran kartýnýzýn belleðini seçiniz. Kurulum programý tarafýndan "
 "algýlananbellek miktarýný seçimden kaldýrmak için '%s' seçiniz."
 
-#: ../textw/xconfig_text.py:637
+#: ../textw/xconfig_text.py:585
 msgid "Skip X Configuration"
 msgstr "X Ayarlamalarýný Atla"
 
-#: ../textw/xconfig_text.py:640
+#: ../textw/xconfig_text.py:588
 msgid "Video Card Configuration"
 msgstr "Ekran Kartý Ayarlarý"
 
-#: ../textw/xconfig_text.py:643
+#: ../textw/xconfig_text.py:591
 msgid "Select the video card and video RAM for your system."
 msgstr "Ekran kartýnýzý ve belleðini seçiniz."
 
-#: ../textw/xconfig_text.py:646
+#: ../textw/xconfig_text.py:594
 msgid "Video Card:"
 msgstr "Ekran Kartý:"
 
-#: ../textw/xconfig_text.py:651
+#: ../textw/xconfig_text.py:599
 msgid "Unknown card"
 msgstr "Bilinmeyen Kart"
 
-#: ../textw/xconfig_text.py:659
+#: ../textw/xconfig_text.py:607
 msgid "Video RAM:"
 msgstr "Ekran Kartý Belleði:"
 
@@ -5917,7 +5868,7 @@ msgstr "z/IPL Yapýlandýrmasý"
 msgid "Custom"
 msgstr "Özel"
 
-#: ../installclasses/custom.py:13
+#: ../installclasses/custom.py:14
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and authentication preferences."
@@ -5926,7 +5877,7 @@ msgstr ""
 "Kimlik kanýtlama yapýlandýrmasý tercihleri ve paket seçimi yapabilmek gibi "
 "uzman kullanýcýlara yönelik yapýlandýrmalara olanak saðlanmýþtýr."
 
-#: ../installclasses/personal_desktop.py:12
+#: ../installclasses/personal_desktop.py:13
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
@@ -5935,11 +5886,11 @@ msgstr ""
 "Kiþisel bilgisayar ve dizüstü kullanýcýlarý için masüstü ortamýnýn "
 "kurulumunu da içeren bu kurulum türü en idealidir. "
 
-#: ../installclasses/server.py:10
+#: ../installclasses/server.py:11
 msgid "Server"
 msgstr "Sunucu"
 
-#: ../installclasses/server.py:12
+#: ../installclasses/server.py:13
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
@@ -5949,15 +5900,7 @@ msgstr ""
 "istiyorsanýz bu kurulum türünü seçin. Ek hizmetleri de seçebileceðiniz gibi "
 "bir masaüstü ortamý isteyip istemediðinizi de belirtebilirsiniz."
 
-#: ../installclasses/upgradeclass.py:8
-msgid "Upgrade Existing System"
-msgstr "Mevcut Sistemi Güncelle"
-
-#: ../installclasses/upgradeclass.py:12
-msgid "Upgrade"
-msgstr "Güncelleme"
-
-#: ../installclasses/workstation.py:8
+#: ../installclasses/workstation.py:9
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
@@ -5977,7 +5920,7 @@ msgstr "CDROM sürücünüzün tipi nedir?"
 msgid "Initializing CDROM..."
 msgstr "CDROM hazýrlanýyor..."
 
-#: ../loader/devices.c:88
+#: ../loader/devices.c:92
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -5987,28 +5930,28 @@ msgstr ""
 "parametreleri kullanacaðýnýzý bilmiyorsanýz, \"Tamam\" düðmesine basarak bu "
 "adýmý geçebilirsiniz."
 
-#: ../loader/devices.c:93
+#: ../loader/devices.c:97
 msgid "Module Parameters"
 msgstr "Modül Parametreleri"
 
-#: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:363
-#: ../loader/loader.c:333 ../loader/loader.c:394 ../loader/loader.c:410
+#: ../loader/devices.c:237 ../loader/devices.c:244 ../loader/devices.c:381
+#: ../loader/loader.c:340 ../loader/loader.c:401 ../loader/loader.c:417
 msgid "Devices"
 msgstr "Aygýtlar"
 
-#: ../loader/devices.c:234
+#: ../loader/devices.c:239
 msgid "Do you have a driver disk?"
 msgstr "Bir sürücü disketiniz var mý?"
 
-#: ../loader/devices.c:241
+#: ../loader/devices.c:246
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/devices.c:265
+#: ../loader/devices.c:283
 msgid "Failed to mount driver disk."
 msgstr "Sürücü disketi baðlanamadý."
 
-#: ../loader/devices.c:272
+#: ../loader/devices.c:290
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of %"
@@ -6017,7 +5960,7 @@ msgstr ""
 "Sürücüye yerleþtirilen disket %s'un bu sürümü için güncel sürücüler "
 "içermiyor."
 
-#: ../loader/devices.c:332
+#: ../loader/devices.c:350
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -6026,11 +5969,11 @@ msgstr ""
 "varsa, ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþuna "
 "basýn."
 
-#: ../loader/devices.c:341
+#: ../loader/devices.c:359
 msgid "Specify module parameters"
 msgstr "Modül parametrelerini belirtin"
 
-#: ../loader/devices.c:435
+#: ../loader/devices.c:453
 #, c-format
 msgid "Failed to insert %s module."
 msgstr "%s modülü yüklenemedi."
@@ -6050,16 +5993,16 @@ msgid "Error reading contents of kickstart file %s: %s"
 msgstr "kickstart %s dosyasýnýn içeriði okunamadý: %s"
 
 #: ../loader/kickstart.c:109
-#, c-format
-msgid "Error on line %d of kickstart file %s."
+#, fuzzy, c-format
+msgid "Error in %s on line %d of kickstart file %s."
 msgstr "%d numaralý satýrda hata (kickstart dosyasý %s)"
 
-#: ../loader/lang.c:41 ../loader/loader.c:204
+#: ../loader/lang.c:41 ../loader/loader.c:210
 #, c-format
 msgid "Welcome to %s"
 msgstr "%s'a Hoþ Geldiniz"
 
-#: ../loader/lang.c:42 ../loader/loader.c:210
+#: ../loader/lang.c:42 ../loader/loader.c:216
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6077,43 +6020,43 @@ msgstr "Klavye Tipi"
 msgid "What type of keyboard do you have?"
 msgstr "Klavyenizin tipi nedir?"
 
-#: ../loader/loader.c:140
+#: ../loader/loader.c:144
 msgid "Local CDROM"
 msgstr "Yerel CD sürücü"
 
-#: ../loader/loader.c:143
+#: ../loader/loader.c:147
 msgid "NFS image"
 msgstr "NFS görüntüsü"
 
-#: ../loader/loader.c:148
+#: ../loader/loader.c:153
 msgid "Hard drive"
 msgstr "Sabit Disk"
 
-#: ../loader/loader.c:320
+#: ../loader/loader.c:327
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:320
+#: ../loader/loader.c:327
 msgid "Network"
 msgstr "Að"
 
-#: ../loader/loader.c:334
+#: ../loader/loader.c:341
 msgid "What kind of device would you like to add"
 msgstr "Ne tür bir aygýt eklemek istiyorsunuz?"
 
-#: ../loader/loader.c:383
+#: ../loader/loader.c:390
 msgid "The following devices have been found on your system:"
 msgstr "Sisteminizde aþaðýdaki aygýtlar bulundu:"
 
-#: ../loader/loader.c:385 ../loader/loader.c:410
+#: ../loader/loader.c:392 ../loader/loader.c:417
 msgid "Done"
 msgstr "Yapýldý"
 
-#: ../loader/loader.c:385 ../loader/loader.c:410
+#: ../loader/loader.c:392 ../loader/loader.c:417
 msgid "Add Device"
 msgstr "Aygýt Ekle"
 
-#: ../loader/loader.c:411
+#: ../loader/loader.c:418
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
@@ -6121,12 +6064,12 @@ msgstr ""
 "Sistemde yüklü herhangi bir özel aygýt sürücüsü yok. Bunlarý þimdi yüklemek "
 "ister misiniz?"
 
-#: ../loader/loader.c:494 ../loader/loader.c:935 ../loader/loader.c:2922
+#: ../loader/loader.c:502 ../loader/loader.c:943 ../loader/loader.c:2924
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s dizini okunamadý: %s"
 
-#: ../loader/loader.c:603
+#: ../loader/loader.c:611
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6134,7 +6077,7 @@ msgstr ""
 "ISO kayýtlarýndan kurulum okunurken bir hata oluþtu. ISO kayýtlarýný kontrol "
 "ettikten sonra tekrar deneyiniz."
 
-#: ../loader/loader.c:952
+#: ../loader/loader.c:960
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6145,11 +6088,16 @@ msgstr ""
 "\n"
 "   %s"
 
-#: ../loader/loader.c:955
+#: ../loader/loader.c:963
 msgid "Checksum Test"
 msgstr "Toplama saðlamasý Testi"
 
-#: ../loader/loader.c:1138
+#: ../loader/loader.c:963 ../loader/loader.c:1325 ../loader/loader.c:1328
+#: ../loader/loader.c:1346 ../loader/loader.c:1354
+msgid "Test"
+msgstr "Test"
+
+#: ../loader/loader.c:1146
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6157,7 +6105,7 @@ msgstr ""
 "Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak ister "
 "misiniz?"
 
-#: ../loader/loader.c:1183
+#: ../loader/loader.c:1191
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6168,28 +6116,28 @@ msgstr ""
 "diski bu listede göremiyorsanýz, F2 tuþuna basýp ek aygýt sürücülerini "
 "yapýlandýrabilirsiniz."
 
-#: ../loader/loader.c:1199
+#: ../loader/loader.c:1207
 msgid "Directory holding images:"
 msgstr "Görüntülerin bulunduðu dizin:"
 
-#: ../loader/loader.c:1219
+#: ../loader/loader.c:1227
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
-#: ../loader/loader.c:1267
+#: ../loader/loader.c:1275
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s aygýtýnda bir Red Hat Linux kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:1317 ../loader/loader.c:1338 ../loader/mediacheck.c:272
+#: ../loader/loader.c:1325 ../loader/loader.c:1346 ../loader/mediacheck.c:272
 msgid "Media Check"
 msgstr "Ortam Sýnamasý"
 
-#: ../loader/loader.c:1317 ../loader/loader.c:1321
+#: ../loader/loader.c:1325 ../loader/loader.c:1329
 msgid "Eject CD"
 msgstr "CD'yi çýkart"
 
-#: ../loader/loader.c:1318
+#: ../loader/loader.c:1326
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -6198,7 +6146,7 @@ msgstr ""
 "Sürücüdeki CD'nin test edilmesi için \"%s\", çýkartýp baþka birini "
 "yerleþtirmekiçin ise \"%s\" seçiniz. "
 
-#: ../loader/loader.c:1339
+#: ../loader/loader.c:1347
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -6214,7 +6162,7 @@ msgstr ""
 "\n"
 "Kuruluma baþlamak için 1. CD'yi sürücüye yerleþtirip \"%s\" tuþuna basýnýz."
 
-#: ../loader/loader.c:1360 ../loader/loader.c:1484
+#: ../loader/loader.c:1368 ../loader/loader.c:1492
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6223,11 +6171,11 @@ msgstr ""
 "CD sürücülerinizde %s CD'si bulunamadý. Lütfen %s CD'sini sürücüye "
 "yerleþtirin ve tekrar %s tuþuna basýn."
 
-#: ../loader/loader.c:1413
+#: ../loader/loader.c:1421
 msgid "CD Found"
 msgstr "CD Bulundu"
 
-#: ../loader/loader.c:1415
+#: ../loader/loader.c:1423
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6238,11 +6186,11 @@ msgstr ""
 "\n"
 "CD kontrolünü atlayýp doðrudan kuruluma baþlamak için %s tuþlayýnýz."
 
-#: ../loader/loader.c:1580
+#: ../loader/loader.c:1588
 msgid "Networking Device"
 msgstr "Að Aygýtý"
 
-#: ../loader/loader.c:1581
+#: ../loader/loader.c:1589
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6250,60 +6198,60 @@ msgstr ""
 "Sistemde birden fazla að aygýtý bulunuyor. Hangisi üzerinden kurulum yapmak "
 "istiyorsunuz?"
 
-#: ../loader/loader.c:1702
+#: ../loader/loader.c:1710
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Bu dizinde Red Hat Linux kurulum aðacý bulunamadý."
 
-#: ../loader/loader.c:1707
+#: ../loader/loader.c:1715
 msgid "That directory could not be mounted from the server"
 msgstr "Bu dizin sunucudan baðlanamadý."
 
-#: ../loader/loader.c:1749
+#: ../loader/loader.c:1757
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "%s/%s dosyasý sunucuda bulunamadý"
 
-#: ../loader/loader.c:1787
+#: ../loader/loader.c:1795
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1796
 msgid "Unable to retrieve the first install image"
 msgstr "Birinci kýsým kurulum dosyasý alýnamýyor"
 
-#: ../loader/loader.c:1849
+#: ../loader/loader.c:1857
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "FTP ve HTTP kurulumlarý 20MB dan fazla sistem belleði gerektirir."
 
-#: ../loader/loader.c:2089
+#: ../loader/loader.c:2091
 msgid "Rescue Method"
 msgstr "Kurtarma Yöntemi"
 
-#: ../loader/loader.c:2090
+#: ../loader/loader.c:2092
 msgid "Installation Method"
 msgstr "Kurulum Yöntemi"
 
-#: ../loader/loader.c:2092
+#: ../loader/loader.c:2094
 msgid "What type of media contains the rescue image?"
 msgstr "Kurtarma görüntüsü nerede bulunuyor?"
 
-#: ../loader/loader.c:2094
+#: ../loader/loader.c:2096
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kurulacak paketler nerede bulunuyor?"
 
-#: ../loader/loader.c:2892
+#: ../loader/loader.c:2894
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
-#: ../loader/loader.c:2984
+#: ../loader/loader.c:2986
 msgid "Updates Disk"
 msgstr "Güncelleme Disketi"
 
-#: ../loader/loader.c:2985
+#: ../loader/loader.c:2987
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/loader.c:2990
+#: ../loader/loader.c:2992
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
@@ -6312,33 +6260,33 @@ msgstr ""
 "Sürücüye yerleþtirilen disket %s'un bu sürümü için güncel sürücüler "
 "içermiyor."
 
-#: ../loader/loader.c:3000
+#: ../loader/loader.c:3002
 msgid "Failed to mount floppy disk."
 msgstr "Disket baðlanamadý."
 
-#: ../loader/loader.c:3005
+#: ../loader/loader.c:3007
 msgid "Updates"
 msgstr "Güncellemeler"
 
-#: ../loader/loader.c:3005
+#: ../loader/loader.c:3007
 msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
-#: ../loader/loader.c:3147 ../loader/modules.c:423
+#: ../loader/loader.c:3181 ../loader/modules.c:424
 msgid "Loading"
 msgstr "Yükleniyor"
 
-#: ../loader/loader.c:3147 ../loader/modules.c:423 ../loader/windows.c:47
+#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
 msgstr "%s sürücüsü yükleniyor..."
 
-#: ../loader/loader.c:3286
+#: ../loader/loader.c:3320
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Bu makinada %s kurulumu için yeterli bellek yok."
 
-#: ../loader/loader.c:3322
+#: ../loader/loader.c:3362
 msgid ""
 "The second stage of the install which you have selected does not match the "
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
@@ -6347,7 +6295,7 @@ msgstr ""
 "Seçtiðiniz kurulumun ikinci adýmý kullandýðýnýz önyükleme diski ile uyumsuz. "
 "Bir yanlýþlýk olmalý, Sistem yeniden baþlatýlacak."
 
-#: ../loader/loader.c:3722
+#: ../loader/loader.c:3763
 msgid ""
 "No hard drives have been found. You probably need to manually choose device "
 "drivers for the installation to succeed. Would you like to select drivers "
@@ -6356,7 +6304,7 @@ msgstr ""
 "Bir sabit disk bulunamadý. Kurulum yapýlacak diski kendiniz belirteceksiniz. "
 "Bir disk seçmek ister misiniz?"
 
-#: ../loader/loader.c:3908
+#: ../loader/loader.c:3950
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6437,20 +6385,20 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "Ortam sýnamasý %stamamlandý. Sonucu: %s\n"
 
-#: ../loader/modules.c:390
+#: ../loader/modules.c:391
 #, c-format
 msgid "Failed to mount driver disk: %s."
 msgstr "Sürücü disketi baðlanmadý: %s."
 
-#: ../loader/modules.c:410
+#: ../loader/modules.c:411
 msgid "The wrong diskette was inserted."
 msgstr "Hatalý disket yerleþtirilmiþ."
 
-#: ../loader/modules.c:449
+#: ../loader/modules.c:450
 msgid "Driver Disk"
 msgstr "Sürücü Disketi"
 
-#: ../loader/modules.c:450
+#: ../loader/modules.c:451
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr "%s sürücü disketini sürücüye yerleþtirin."
@@ -7446,6 +7394,114 @@ msgstr "Ýsveççe"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukraynaca"
+
+#~ msgid "Unable to probe"
+#~ msgstr "Algýlama baþarýsýz"
+
+#~ msgid "Probing for video card:   "
+#~ msgstr "Ekran kartý için algýlama: "
+
+#~ msgid "Probing for video card:   %s"
+#~ msgstr "Ekran kartý algýlamasý:   %s"
+
+#~ msgid "Probing for monitor type: "
+#~ msgstr "Monitör türü için algýlama: "
+
+#~ msgid "Probing for monitor type: %s"
+#~ msgstr "Monitör türü algýlamasý:  %s"
+
+#~ msgid "Probing for mouse type:   "
+#~ msgstr "Fare türü için algýlama:   "
+
+#~ msgid "Probing for mouse type:   %s"
+#~ msgstr "Fare türü algýlamasý:     %s"
+
+#~ msgid "Skipping mouse probe."
+#~ msgstr "Fare algýlamasý atlanýyor."
+
+#~ msgid "DISPLAY variable not set. Starting text mode!"
+#~ msgstr "DISPLAY deðiþkeni belirlenemedi. Metin kipine geçiliyor!"
+
+#~ msgid "Account Configuration"
+#~ msgstr "Hesap Yapýlandýrmasý"
+
+#~ msgid "User password accepted."
+#~ msgstr "Kullanýcý parolasý kabul edildi."
+
+#~ msgid "Root account can not be added here."
+#~ msgstr "Buraya root hesabý kaydedilemez."
+
+#~ msgid "System accounts can not be added here."
+#~ msgstr "Buraya sistem hesaplarý eklenemez."
+
+#~ msgid "Please enter user password."
+#~ msgstr "Lütfen kullanýcý parolasýný girin."
+
+#~ msgid "User password is too short."
+#~ msgstr "Kullanýcý parolasý çok kýsa."
+
+#~ msgid "User passwords do not match."
+#~ msgstr "Kullanýcý parolalarý uyuþmuyor."
+
+#~ msgid "Add a New User"
+#~ msgstr "Yeni Kullanýcý Ekle"
+
+#~ msgid "Add a User Account"
+#~ msgstr "Kullanýcý Hesabý Eklenmesi"
+
+#~ msgid "Enter a user _name:"
+#~ msgstr "Bir _kullanýcý adý girin:"
+
+#~ msgid "Enter a user _password:"
+#~ msgstr "Bir kullanýcý _Parolasýný girin:"
+
+#~ msgid "Pass_word (confirm):"
+#~ msgstr "Parola (_onay):"
+
+#~ msgid "_Full Name:"
+#~ msgstr "_Adý ve Soyadý:"
+
+#~ msgid "Please enter user name"
+#~ msgstr "Lütfen kullanýcý adýný girin"
+
+#~ msgid "Account Name"
+#~ msgstr "Hesap Adý"
+
+#~ msgid ""
+#~ "It is recommended that you create a personal account for normal (non-"
+#~ "administrative) use. Accounts can also be created for additional users."
+#~ msgstr ""
+#~ "Normal, günlük kullaným için bir kiþisel hesap (root haklarý olmayan) "
+#~ "oluþturmanýz önerilir. Burada, sistemi kullanacak herkes için ayrý ayrý "
+#~ "hesaplar da oluþturabilirsiniz."
+
+#~ msgid ""
+#~ "You don't have any Linux partitions.\n"
+#~ "You can't upgrade this sytem!"
+#~ msgstr ""
+#~ "Diskinizde hiç Linux bölümü yok.\n"
+#~ "Bu sistem güncellenemez!"
+
+#~ msgid "Please select the device containing the root filesystem: "
+#~ msgstr "Kök bölümünü tutan aygýtý seçin: "
+
+#~ msgid "Upgrading the %s installation on partition /dev/%s"
+#~ msgstr "%s kurulumu /dev/%s de güncelleniyor"
+
+#~ msgid "Manually partition with _fdisk (experts only)"
+#~ msgstr "_fdisk yardýmýyla elle bölümlendir [sadece uzmanlar]"
+
+#~ msgid "   _Test Setting   "
+#~ msgstr "  Ayarlarý _Dene  "
+
+#~ msgid "fdisk"
+#~ msgstr "fdisk"
+
+#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
+#~ msgstr "Diskinizde hiç Linux bölümü yok. Sistem güncellenemez."
+
+#~ msgid "Upgrade Partition"
+#~ msgstr "Disk Bölümü Güncellemesi"
 
 #~ msgid "Romanian"
 #~ msgstr "Romence"
