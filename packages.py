@@ -1246,7 +1246,7 @@ def setFileCons(instPath):
 
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
                  "/etc/lilo.conf", "/etc/lilo.conf.anaconda",
-                 "/etc/mtab", "/etc/resolv.conf",
+                 "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
                  "/var/lib/rpm", "/"] + rpmfiles
