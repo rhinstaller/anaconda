@@ -4,13 +4,13 @@ VERSION = 7.1
 RELEASE = 1
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
-SUBDIRSHD = balkan isys libfdisk collage minislang loader po text-help \
+SUBDIRSHD = balkan isys libfdisk collage loader po text-help \
 	    textw utils scripts bootdisk installclasses \
 	    keymaps fonts gnome-map iw help pixmaps
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
-SUBDIRSHD += stubs
+SUBDIRSHD += stubs minislang
 endif
 
 ifeq (i386, $(ARCH))
