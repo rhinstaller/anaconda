@@ -429,7 +429,7 @@ class ProgressWindow:
         box.pack_start (self.progress, gtk.TRUE)
         self.window.add(box)
 
-        addFrame(self.window)
+        addFrame(self.window, showtitle = 0)
 	self.window.show_all ()
         rootPushBusyCursor()
 
