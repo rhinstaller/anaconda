@@ -423,7 +423,7 @@ class ToDo:
         keys = self.mounts.keys ()
 	keys.sort()
         for mntpoint in keys:
-            (device, filesystem, format) = self.mounts[mntpoint]
+            (device, fsystem, format) = self.mounts[mntpoint]
             isys.makeDevInode(device, '/tmp/' + device)
             try:
                 os.mkdir (self.instPath + mntpoint)
