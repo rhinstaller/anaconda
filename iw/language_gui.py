@@ -25,10 +25,21 @@ class LanguageWindow (InstallWindow):
     def getScreen (self, intf, instLang):
         self.running = 0
         mainBox = GtkVBox (FALSE, 10)
-        label = GtkLabel (_("What language should be used during the "
+
+        hbox = GtkHBox(FALSE, 5)
+        im = self.ics.readPixmap ("gnome-globe.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.0, 0.0, 0.0, 0.0)
+            hbox.pack_start (a, FALSE)
+            
+        label = GtkLabel (_("What language would you like to use during the "
                          "installation process?"))
-        label.set_alignment (0.5, 0.5)
         label.set_line_wrap (TRUE)
+        hbox.pack_start(label, FALSE)
         
         self.language = GtkCList ()
         self.language.set_selection_mode (SELECTION_BROWSE)
@@ -54,7 +65,7 @@ class LanguageWindow (InstallWindow):
         sw.set_policy (POLICY_NEVER, POLICY_NEVER)
         sw.add (self.language)
         
-        mainBox.pack_start (label, FALSE, FALSE, 10)
+        mainBox.pack_start (hbox, FALSE, FALSE, 10)
         mainBox.pack_start (sw, TRUE)
 
         self.running = 1
