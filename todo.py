@@ -427,13 +427,7 @@ class ToDo:
             (device, fsystem, format) = self.mounts[mntpoint]
             isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "swap":
-                try:
-                    isys.swapon ('/tmp/' + device)
-                except:
-                    # XXX
-                    pass
-                os.remove ('/tmp/' + device);
-                break
+		continue
 	    try:
 		os.mkdir (self.instPath + mntpoint)
 	    except:
@@ -470,6 +464,7 @@ class ToDo:
                                              searchPath = 1)
                 if rc:
                     raise RuntimeError, "error making swap on " + device
+		isys.swapon ('/tmp/' + device)
             else:
                 pass
 
