@@ -3,7 +3,7 @@
 PATH=$PATH:/sbin:/usr/sbin
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch> <version>"
     exit 0
 }
 

@@ -1,6 +1,6 @@
 
  
-                09Bienvenido a 0cRed Hat09 Linux 7.107
+                09Bienvenido a 0cRed Hat09 Linux @VERSION@07
 
  o  Para instalar o actualizar un sistema que funcione con 0cRed Hat07
     Linux 3.0.3 o con una versi¢n posterior en modo gr fico (graphic), pulse:

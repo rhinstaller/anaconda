@@ -25,7 +25,10 @@ prepareBootImage() {
 		sed -e "s/initrd.img/initrd.img lang=$BOOTDIR/g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
 		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
 	    fi
-	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
+	    for file in $BOOTDISKDIR/$BOOTLANG/*.msg; do
+		filename=`basename $file`
+		sed -s "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
+	    done
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR/$BOOTLANG to $MBD_BOOTTREE.
 		umount $MBD_BOOTTREE
@@ -33,7 +36,10 @@ prepareBootImage() {
 		exit 1
 	    fi
 	else
-	    cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+	    for file in $BOOTDISKDIR/*.msg; do
+		filename=`basename $file`
+		sed -s "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
+	    done
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR to $MBD_BOOTTREE.
 		umount $MBD_BOOTTREE
