@@ -558,27 +558,15 @@ class KickstartBase(BaseInstallClass):
 
     def doClearPart(self, id, args):
         if args[0] == '--linux':
-            linuxOnly = 1
+            type = CLEARPART_TYPE_LINUX
         elif args[0] == '--all':
-            linuxOnly = 0
+            type = CLEARPART_TYPE_ALL
         else:
             # XXX invalid clearpart arguments
             return
-        drives = id.diskset.disks.keys()
-        drives.sort()
-        for drive in drives:
-            disk = id.diskset.disks[drive]
-            part = disk.next_partition()
-            while part:
-                if part.fs_type and ( (linuxOnly == 0) or (part.fs_type.isLinuxNativeFS()) ):
-                    old = id.partrequests.getRequestByDeviceName(get_partition_name(part))
-                    id.partrequests.removeRequest(old)
-                    
-                    drive = part.geom.disk.dev.path[5:]
-                    delete = DeleteSpec(drive, part.geom.start, part.geom.end)
-                    id.partrequests.addDelete(delete)
-                part = disk.next_partition(part)
 
+        # XXX need to include list of drive to restrict clear to!
+        doClearPartAction(id, type, None)
 
     def defineRaid(self, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=' ] )
