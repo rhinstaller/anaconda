@@ -21,16 +21,16 @@ from rhpl.log import log
 from rhpl.translate import _
 
 class KeyboardWindow:
-    def __call__(self, screen, instLang, kbd, xconfig):
+    def __call__(self, screen, defaultByLang, kbd, xconfig):
 	if flags.serial:
 	    return INSTALL_NOOP
-        keyboards = kbd.available ()
+        keyboards = kbd.modelDict.keys()
         keyboards.sort ()
 
 	if kbd.beenset:
 	    default = kbd.get ()
 	else:
-	    default = instLang.getDefaultKeyboard()
+	    default = defaultByLang
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
@@ -44,9 +44,11 @@ class KeyboardWindow:
         kbd.set (keyboards[choice])
 	kbd.beenset = 1
 
-        if (xconfig != (None, None)) and (xconfig != None):
-            apply(xconfig.setKeyboard, kbd.getXKB())
-            
+        kbd.activate()
+##         if (xconfig != (None, None)) and (xconfig != None):
+##             apply(xconfig.setKeyboard, kbd.getXKB())
+
+        # FIXME: eventually, kbd.activate will do this
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
