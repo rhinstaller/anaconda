@@ -7,7 +7,8 @@ class SimpleConfigFile:
         keys.sort ()
         for key in keys:
             # FIXME - use proper escaping
-            s = s + key + "=\"" + self.info[key] + "\"\n"
+            if type (self.info[key]) == type(""):
+                s = s + key + "=\"" + self.info[key] + "\"\n"
         return s
             
     def __init__ (self):
