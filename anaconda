@@ -467,8 +467,8 @@ configFileData = configFile.getConfigData()
 #
 if (display_mode == 'g'):
     if not flags.test and flags.setupFilesystems:
-        for i in ( "imrc", "im_palette.pal", "gtk", "services",
-                   "protocol"):
+        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "services",
+                   "protocol", "pango"):
             try:
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
