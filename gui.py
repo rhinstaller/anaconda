@@ -84,6 +84,7 @@ class InstallInterface:
 
     def exceptionWindow(self, title, text):
         print text
+        return 1
 
     def getDDruid (self, drives):
         return fsedit (1, drives)

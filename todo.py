@@ -777,9 +777,11 @@ class ToDo:
                     self.hdList[dep].selected = 1
 
     def upgradeFindRoot (self):
+        rootparts = []
+        if not self.setupFilesystems: return [ self.instPath ]
         win = self.intf.waitWindow ("Examining System",
                                     "Searching for Red Hat Linux installations...")
-        rootparts = []
+        
         drives = self.drives.available ().keys ()
         for drive in drives:
             isys.makeDevInode(drive, '/tmp/' + drive)
@@ -808,19 +810,27 @@ class ToDo:
     def upgradeFindPackages (self, root):
         win = self.intf.waitWindow ("Examining System",
                                     "Finding packages to upgrade...")
-	self.getHeaderList()
-        isys.makeDevInode(root, '/tmp/' + root)
-        isys.mount('/tmp/' + root, '/mnt/sysimage')
-        self.mounts = self.readFstab ('/mnt/sysimage/etc/fstab')
-        isys.umount('/mnt/sysimage')        
-        self.mountFilesystems ()
-        packages = rpm.findUpgradeSet (self.hdList.hdlist, '/mnt/sysimage')
+        self.getCompsList ()
+	self.getHeaderList ()
+        if self.setupFilesystems:
+            isys.makeDevInode(root, '/tmp/' + root)
+            isys.mount('/tmp/' + root, '/mnt/sysimage')
+            self.mounts = self.readFstab ('/mnt/sysimage/etc/fstab')
+            isys.umount('/mnt/sysimage')        
+            self.mountFilesystems ()
+        packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         self.umountFilesystems ()
+        # unselect all packages
+        for package in self.hdList.packages.values ():
+            package.selected = 0
+        # always upgrade all packages in Base package group
+	self.comps['Base'].select(1)
+        # turn on the packages in the upgrade set
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
         win.pop ()
 
-    def rpmError (self):
+    def rpmError (todo):
         todo.instLog.write (rpm.errorString () + "\n")
         
     def doInstall(self):
