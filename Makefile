@@ -1,3 +1,4 @@
+# Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
 ifneq (ia64, $(ARCH))
