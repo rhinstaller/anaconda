@@ -599,7 +599,12 @@ class PartitionWindow:
             srow = srow + 1
             tmpLbl = Label(_("Filesystem Option:"))
             subgrid.setField(tmpLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-            fsoptLbl = Label("")
+            if origrequest.format:
+                fsoptLbl = Label(_("Format as %s") % (newfstype.getName()))
+            elif origrequest.migrate:
+                fsoptLbl = Label(_("Migrate to %s") %(newfstype.getName()))
+            else:
+                fsoptLbl = Label(_("Leave unchanged"))
             subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
@@ -617,18 +622,10 @@ class PartitionWindow:
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
                                             (_("Filesystem Options"), "fsopts"),
                                             TEXT_CANCEL_BUTTON))
-        poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
+        poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)
 
         while 1:
             
-            if fsoptLbl:
-                if format:
-                    fsoptLbl.setText(_("Format as %s") % (newfstype.getName()))
-                elif migrate:
-                    fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
-                else:
-                    fsoptLbl.setText(_("Leave unchanged"))
-
             res = poplevel.run()
 
             # if the user hit cancel, do nothing
@@ -640,6 +637,15 @@ class PartitionWindow:
                 (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(origrequest, format, migrate, newfstype, badblocks)
                 self.fstypeSet((newfstype, self.mount))
                 type.setText(newfstype.getName())
+
+                if fsoptLbl:
+                    if format:
+                        fsoptLbl.setText(_("Format as %s") % (newfstype.getName()))
+                    elif migrate:
+                        fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
+                    else:
+                        fsoptLbl.setText(_("Leave unchanged"))
+                
                 continue
 
             if origrequest.type == REQUEST_NEW:
