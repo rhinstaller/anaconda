@@ -1638,6 +1638,7 @@ class ToDo:
                         mousedev = xmouse.get()[0]
                     except RuntimeError:
                         pass
+
                 if mousedev:
                     try:
                         os.rename (mousedev, "/dev/disablemouse")
@@ -1647,6 +1648,16 @@ class ToDo:
                         xmouse.reopen()
                     except RuntimeError:
                         pass
+
+                log("Mounting /proc/bus/usb in install path")
+                try:
+                    isys.mount('/usbdevfs', self.instPath+'/proc/bus/usb', 'usbdevfs')
+                    log("Mount of USB suceeded")
+                except:
+                    log("Mount of USB failed")
+                    pass
+
+                    
                 argv = [ "/usr/sbin/kudzu", "-q" ]
                 devnull = os.open("/dev/null", os.O_RDWR)
                 iutil.execWithRedirect(argv[0], argv, root = self.instPath,
@@ -1709,4 +1720,6 @@ class ToDo:
 
         finally:
             w.pop ()
+
+
 
