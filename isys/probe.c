@@ -477,11 +477,21 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     char buf[256];
     char *ptr;
     int numMatches = 0, ctlNum = 0;
-    char ctl[40];
+    char ctl[64];
+    char *path;
+	
+    path = "/proc/driver/ida";
 
-    sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+    sprintf(ctl, "%s/ida%d", path, ctlNum++);
 		
-    while ((f = fopen(ctl, "r"))){
+    f = fopen(ctl, "r");
+    if (!f) {
+	    path = "/proc/ida";
+	    sprintf(ctl, "%s/ida%d", path, ctlNum++);
+	    f = fopen(ctl, "r");
+    }
+
+    if (f) {
 	while (fgets(buf, sizeof(buf) - 1, f)) {
 	    if (!strncmp(buf, "ida/", 4)) {
 		ptr = strchr(buf, ':');
@@ -495,8 +505,9 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
 		}
 	    }
 	}
-	sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+	sprintf(ctl, "%s/ida%d", path, ctlNum++);
     }
+    fclose(f);
     
     return 0;
 }
@@ -507,11 +518,21 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
     char buf[256];
     char *ptr;
     int numMatches = 0, ctlNum = 0;
-    char ctl[40];
+    char ctl[64];
+    char *path;
+	
+    path = "/proc/driver/cciss";
 
-    sprintf(ctl, "/proc/cciss/cciss%d", ctlNum++);
+    sprintf(ctl, "%s/cciss%d", path, ctlNum++);
 		
-    while ((f = fopen(ctl, "r"))){
+    f = fopen(ctl, "r");
+    if (!f) {
+	    path = "/proc/cciss";
+	    sprintf(ctl, "%s/cciss%d", path, ctlNum++);
+	    f = fopen(ctl, "r");
+    }
+
+    if (f) {
 	while (fgets(buf, sizeof(buf) - 1, f)) {
 	    if (!strncmp(buf, "cciss/", 6)) {
 		ptr = strchr(buf, ':');
@@ -525,8 +546,9 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
 		}
 	    }
 	}
-	sprintf(ctl, "/proc/cciss/cciss%d", ctlNum++);
+	sprintf(ctl, "%s/cciss%d", path, ctlNum++);
     }
+    fclose(f);
     
     return 0;
 }
