@@ -192,7 +192,6 @@ bin/ash
 bin/fdisk*
 bin/mkfs*
 etc/group
-etc/nsswitch.conf
 etc/passwd
 etc/protocols
 etc/services
@@ -737,6 +736,28 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 # Remove unneeded XFree86 modules
 rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
+
+echo "Creating nsswitch.conf"
+cat > $DEST/etc/nsswitch.conf <<EOF
+# munged nsswitch.conf with just what anaconda needs
+# created by upd-instroot
+#
+passwd:     files
+shadow:     files
+group:      files
+hosts:      files dns
+ethers:     files
+netmasks:   files
+networks:   files
+protocols:  files
+rpc:        files
+services:   files
+netgroup:   files
+automount:  files
+aliases:    files
+EOF
+
+cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
