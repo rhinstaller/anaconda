@@ -218,11 +218,18 @@ class InstallControlWindow (Thread):
             direction ()
             return
 
+        # if we're the initial screen (because of kickstart), make sure we can't go back.
+        if not self.initialScreenShown:
+            self.initialScreenShown = 1
+            screen.getICS ().setPrevEnabled (FALSE)
+            
         self.update (screen.getICS ())
 
-        child = self.installFrame.children ()[0]
-        self.installFrame.remove (child)
-        child.destroy ()
+        children = self.installFrame.children ()
+        if children:
+            child = children[0]
+            self.installFrame.remove (child)
+            child.destroy ()
 
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
@@ -232,7 +239,7 @@ class InstallControlWindow (Thread):
         # EEEEEEEEEEEEEEEEEEEEEEEK!  GTK Deadlock
 ## 	while events_pending ():
 ##             mainiteration ()
-	screen.fixUp ()
+#	screen.fixUp ()
 
     def update (self, ics):
         if self.buildingWindows or ics != self.currentScreen.getICS ():
@@ -330,8 +337,8 @@ class InstallControlWindow (Thread):
 
         self.setStateList (steps, 0)
         self.currentScreen = self.stateList[self.stateListIndex]
-        self.update (self.currentScreen.getICS ())
-        self.installFrame.add (self.currentScreen.getScreen ())
+        self.initialScreenShown = 0
+        self.setScreen (self.currentScreen, self.nextClicked)
                           
         table.attach (self.installFrame, 1, 3, 0, 1)
         table.set_col_spacing (0, 5)
