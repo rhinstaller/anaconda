@@ -219,7 +219,8 @@ void initLoopback(void) {
     inet_aton("127.0.0.1", &dev.ip);
     inet_aton("255.0.0.0", &dev.netmask);
     inet_aton("127.0.0.0", &dev.network);
-    dev.set = PUMP_INTFINFO_HAS_NETMASK | PUMP_INTFINFO_HAS_IP;
+    dev.set = PUMP_INTFINFO_HAS_NETMASK | PUMP_INTFINFO_HAS_IP
+		| PUMP_INTFINFO_HAS_NETWORK;
 
     pumpSetupInterface(&dev);
 }
