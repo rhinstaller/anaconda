@@ -45,23 +45,6 @@ class ImageInstallMethod(InstallMethod):
             raise FileCopyException
 	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
-	# Make sure all of the correct CD images are available
-	missing_images = []
-	for h in hl.values():
-	    if not self.discImages.has_key(h[1000002]):
-		if h[1000002] not in missing_images:
-		    missing_images.append(h[1000002])
-
-	if len(missing_images) > 0:
-	    missing_images.sort()
-	    missing_string = ""
-	    for missing in missing_images:
-		missing_string += "\t\t\tCD #%d\n" % (missing,)
-		
-	    self.messageWindow(_("Error"),
-			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
-	    sys.exit(0)
-
 	return hl
     
     def mergeFullHeaders(self, hdlist):
@@ -431,6 +414,29 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 	    self.mountImage(h[1000002])
 
 	return self.mntPoint + "/RedHat/RPMS/" + h[1000000]
+
+    def readHeaders(self):
+	hl = NfsInstallMethod.readHeaders(self)
+
+	# Make sure all of the correct CD images are available
+	missing_images = []
+	for h in hl.values():
+	    if not self.discImages.has_key(h[1000002]):
+		if h[1000002] not in missing_images:
+		    missing_images.append(h[1000002])
+
+	if len(missing_images) > 0:
+	    missing_images.sort()
+	    missing_string = ""
+	    for missing in missing_images:
+		missing_string += "\t\t\tCD #%d\n" % (missing,)
+
+	    self.messageWindow(_("Error"),
+			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
+	    sys.exit(0)
+
+	return hl
+
 
     def umountImage(self):
 	if self.imageMounted:
