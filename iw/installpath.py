@@ -32,16 +32,33 @@ class InstallPathWindow (InstallWindow):
         ics.setTitle (_("Install Path"))
         ics.setNextEnabled (1)
 
-        self.commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow,
-                            WelcomeWindow, InstallPathWindow]
+        self.commonSteps = [ LanguageWindow,
+                             KeyboardWindow,
+                             MouseWindow,
+                             WelcomeWindow,
+                             InstallPathWindow
+                             ]
 
-        self.installSteps = [TimezoneWindow, NetworkWindow, PartitionWindow, FormatWindow, PackageSelectionWindow,
-	                     UnresolvedDependenciesWindow, LiloWindow, AuthWindow, AccountWindow,
-                             InstallProgressWindow, BootdiskWindow, CongratulationWindow]
+        self.installSteps = [ InstallTypeWindow,
+                              TimezoneWindow,
+	                      NetworkWindow,
+                              PartitionWindow,
+	                      FormatWindow,
+                              PackageSelectionWindow,
+	                      UnresolvedDependenciesWindow,
+	                      LiloWindow,
+                              AuthWindow,
+                              AccountWindow,
+	                      InstallProgressWindow,
+                              BootdiskWindow,
+	                      CongratulationWindow
+                              ]
 
-	self.upgradeSteps = [UpgradeExamineWindow,
-	                     UnresolvedDependenciesWindow, InstallProgressWindow,
-                             CongratulationWindow]
+	self.upgradeSteps = [ UpgradeExamineWindow,
+	                      UnresolvedDependenciesWindow,
+	                      InstallProgressWindow,
+	                      CongratulationWindow
+                              ]
 
     def toggled (self, widget, type):
         if not widget.get_active (): return

@@ -1,6 +1,7 @@
 from gtk import *
 from iw import *
 from thread import *
+from gui import _
 
 WORKSTATION_GNOME = 1
 WORKSTATION_KDE   = 2
@@ -16,8 +17,8 @@ class InstallTypeWindow (InstallWindow):
         ics.setTitle (_("Installation Type"))
 	ics.setNextEnabled (TRUE)
 
-        self.installTypes = ((WORKSTATION_GNOME, _("Workstation (Gnome)")),
-                             (WORKSTATION_KDE, _("Workstation (KDE)")),
+        self.installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation")),
+                             (WORKSTATION_KDE, _("KDE Workstation")),
                              (SERVER, _("Server")),
                              (CUSTOM, _("Custom")))
 

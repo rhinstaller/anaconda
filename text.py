@@ -78,7 +78,7 @@ class MouseWindow:
 	bb = ButtonBar(screen, [_("OK"), _("Back")])
 	t = TextboxReflowed(30, 
 		_("Which model mouse is attached to this computer?"))
-	l = Listbox(7, scroll = 1, returnExit = 0)
+	l = Listbox(8, scroll = 1, returnExit = 0, anchorLeft = 1)
 
         key = 0
         for mouse in mice:

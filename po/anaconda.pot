@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-08-27 01:03-0400\n"
+"POT-Creation-Date: 1999-08-27 10:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,7 +80,7 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:268 ../libfdisk/fsedit.c:972 ../libfdisk/newtfsedit.c:1303
+#: ../gui.py:272 ../libfdisk/fsedit.c:972 ../libfdisk/newtfsedit.c:1303
 #: ../libfdisk/newtfsedit.c:1311 ../text.py:62 ../text.py:63 ../text.py:78
 #: ../text.py:101 ../text.py:129 ../text.py:132 ../text.py:143 ../text.py:145
 #: ../text.py:163 ../text.py:177 ../text.py:179 ../text.py:198 ../text.py:200
@@ -122,11 +122,11 @@ msgid ""
 "contains Red Hat Linux 2.0 or later?"
 msgstr ""
 
-#: ../iw/installpath.py:56 ../text.py:143
+#: ../iw/installpath.py:57 ../text.py:143
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:60 ../text.py:143 ../text.py:147
+#: ../iw/installpath.py:61 ../text.py:143 ../text.py:147
 msgid "Upgrade"
 msgstr ""
 
@@ -632,23 +632,23 @@ msgstr ""
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../gui.py:261
+#: ../gui.py:265
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:271
+#: ../gui.py:275
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:272
+#: ../gui.py:276
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:273
+#: ../gui.py:277
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:294
+#: ../gui.py:298
 msgid "Online Help"
 msgstr ""
 
@@ -724,17 +724,17 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr ""
 
-#: ../iw/examine.py:10
+#: ../iw/examine.py:11
 msgid "Upgrade Examine"
 msgstr ""
 
-#: ../iw/examine.py:34
+#: ../iw/examine.py:35
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
 
-#: ../iw/examine.py:52
+#: ../iw/examine.py:53
 msgid "Customize packages to be upgraded"
 msgstr ""
 
@@ -746,7 +746,7 @@ msgstr ""
 msgid "Check for bad blocks while formatting"
 msgstr ""
 
-#: ../iw/installpath.py:31
+#: ../iw/installpath.py:32
 msgid "Install Path"
 msgstr ""
 
@@ -921,6 +921,14 @@ msgstr ""
 
 #: ../iw/rootpartition.py:28
 msgid "Root Partition Selection"
+msgstr ""
+
+#: ../iw/timezone.py:29
+msgid "Time Zone Selection"
+msgstr ""
+
+#: ../iw/timezone.py:50
+msgid "View"
 msgstr ""
 
 #: ../iw/welcome.py:10

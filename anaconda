@@ -69,6 +69,7 @@ if (os.path.exists('rpmmodule')):
     sys.path.append('libfdisk')
     sys.path.append('balkan')
     sys.path.append('kudzu')
+    sys.path.append('gnome-map')
 #elif (mode == None):
 #      try:
 #          f = open('/dev/fb0', 'r')
