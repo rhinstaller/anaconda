@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <zlib.h>
 #include <fcntl.h>
+#include <stdlib.h>
 #include <sys/utsname.h>
 #include <sys/wait.h>
 
@@ -18,7 +19,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     char * file;
     char finalName[100];
     char * chptr;
-    FD_t fd;
+    gzFile fd;
     int rc, rmObj = 0;
     int sparc64 = 0, i;
     char * ballPath = NULL;
@@ -56,8 +57,8 @@ int ourInsmodCommand(int argc, char ** argv) {
 	/* Try two balls on sparc64, one elsewhere */
 	for (i = 0; ; i++) {
 	    /* it might be having a ball */
-	    fd = Fopen(ballPath, "r.fdio");
-	    if (!fd || Ferror(fd)) {
+	    fd = gzopen(ballPath, "r");
+	    if (!fd) {
 		free(ballPath);
 		return 1;
 	    }

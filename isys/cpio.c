@@ -7,11 +7,10 @@
 
 #include "cpio.h"
 
-int installCpioFile(FD_t fd, char * cpioName, char * outName, int inWin) {
+int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin) {
     struct cpioFileMapping map;
     int rc;
     const char * failedFile;
-    FD_t cfd;
 
     if (outName) {
 	map.archivePath = cpioName;
@@ -19,12 +18,8 @@ int installCpioFile(FD_t fd, char * cpioName, char * outName, int inWin) {
 	map.mapFlags = CPIO_MAP_PATH;
     }
 
-    (void) Fflush(fd);
-    cfd = Fdopen(fdDup(Fileno(fd)), "r.gzdio");
-
-    rc = cpioInstallArchive(cfd, outName ? &map : NULL, 1, NULL, NULL, 
+    rc = cpioInstallArchive(fd, outName ? &map : NULL, 1, NULL, NULL, 
 			    &failedFile);
-    Fclose(cfd);
 
     if (rc || access(outName, R_OK)) {
 	return -1;

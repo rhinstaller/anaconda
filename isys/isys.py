@@ -3,6 +3,15 @@ import _isys
 import string
 import os
 
+def spaceAvailable(device, fsystem = "ext2"):
+    makeDevInode(device, "/tmp/spaceDev")
+    mount("/tmp/spaceDev", "/mnt/space", fstype = fsystem)
+    space = _isys.devSpaceFree("/mnt/space/.")
+    umount("/mnt/space")
+    os.rmdir("/mnt/space")
+    os.remove("/tmp/spaceDev")
+    return space
+
 def raidstop(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
@@ -26,6 +35,7 @@ def raidsb(mdDevice):
     os.close(fd)
     return rc
 
+>>>>>>> 1.24
 def losetup(device, file):
     loop = os.open(device, os.O_RDONLY)
     targ = os.open(file, os.O_RDWR)

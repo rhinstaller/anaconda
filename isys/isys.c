@@ -6,6 +6,7 @@
 #include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/time.h>
+#include <sys/vfs.h>
 #include <unistd.h>
 
 #include "Python.h"
@@ -47,12 +48,20 @@ static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
+<<<<<<< isys.c
+static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
+=======
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
+>>>>>>> 1.30
 
 static PyMethodDef isysModuleMethods[] = {
+<<<<<<< isys.c
+    { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
+=======
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
+>>>>>>> 1.30
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
@@ -946,6 +955,20 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     return Py_BuildValue("(iiiiiii)", sb.major_version, sb.minor_version,
 			 sb.set_magic, sb.level, sb.nr_disks,
 			 sb.raid_disks, sb.md_minor);
+}
+
+static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {
+    char * path;
+    struct statfs sb;
+
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if (statfs(path, &sb)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    return Py_BuildValue("i", sb.f_bfree * (sb.f_bsize / 1024) / (1024));
 }
 
 static PyObject * doRaidStop(PyObject * s, PyObject * args) {

@@ -2,12 +2,12 @@ include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH)) 
-CFLAGS = -I/usr/include/python1.5 -I.. -g -I/usr/include/rpm
+CFLAGS = -I/usr/include/python1.5 -I.. -g 
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
-          smp.o moduleinfo.o devnodes.o cpio.o probe.o
+          smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o
 STATICOBJS = otherinsmod.o
 STATICLIBS = ../kudzu/kudzumodule.so
-LOADLIBES = -lrpm -lbz2 -lresolv -lz -lpci -lpopt
+LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt
 SUBDIRS = modutils pci
 #PYTHONLIBDIR = $(DESTDIR)/Pusr/lib/python1.5/site-packages
 PYMODULES = _isys.so
