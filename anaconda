@@ -276,7 +276,7 @@ if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
     try:
         if (reconfigOnly == 0):
-            result = xserver.startX ()
+            result = xserver.startX (runres)
         else:
             result = xserver.start_existing_X ()
             
@@ -303,6 +303,7 @@ if (display_mode == 'g'):
             from gui import InstallInterface
         except:
             print "GUI installer startup failed, falling back to text mode."
+            display_mode = 't'
             from text import InstallInterface
 elif (display_mode == 't'):
     from text import InstallInterface
@@ -372,10 +373,11 @@ if xmode:
             pass
         sys.exit (0)
 
+#print runres
 if display_mode == "t":
     intf = InstallInterface ()
 else:
-    intf = InstallInterface(runres = runres)
+    intf = InstallInterface (runres = runres)
 
 # imports after setting up the path
 if not reconfigOnly:
