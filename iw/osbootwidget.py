@@ -345,14 +345,10 @@ class OSBootWidget:
         self.editOther(dev, label, isDefault, isRoot)
 
     # the default os was changed in the treeview
-    def toggledDefault(self, widget, *args):
-        if widget.get_active():
-            return
-
-        rc = self.getSelected()
-        if not rc:
-            return
-        self.defaultDev = rc[0]
+    def toggledDefault(self, data, row):
+        iter = self.osStore.get_iter((int(row),))
+        dev = self.osStore.get_value(iter, 2)
+        self.defaultDev = dev[5:]
         self.fillOSList()
 
     # fill in the os list tree view
