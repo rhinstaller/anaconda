@@ -131,7 +131,7 @@ static int parse_wep_key(char * in, unsigned char * key) {
     if (!strncmp(in, "s:", 2)) {
         /* the key is a string */
         len = strlen(in + 2);
-        strncpy(key, in + 2, len);
+	memmove(key, in + 2, len);
     } else {
         char *buff, *hex, *out, *p;
 
