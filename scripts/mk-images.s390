@@ -137,7 +137,6 @@ EOF
     done
     cat > $MBD_DIR/etc/pam.d/login << EOF
 #%PAM-1.0
-auth       required     pam_securetty.so
 auth       required     pam_stack.so service=system-auth
 auth       required     pam_nologin.so
 account    required     pam_stack.so service=system-auth
