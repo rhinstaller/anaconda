@@ -574,6 +574,10 @@ aic79xx
 	scsi_hostadapter
 	"Adaptec Aic79xx SCSI Host Bus Adapter driver"
 
+ata_piix
+        scsi_hostadapter
+        "Intel PIIX/ICH ATA controllers"
+
 atp870u
 	scsi_hostadapter
 	"ACARD ATP870U PCI scsi controller"
