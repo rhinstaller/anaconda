@@ -636,9 +636,9 @@ class XF86Config:
 #        time.sleep (5)
 
         if self.res == "640x480":
-            self.modes = { "8" :  ["640x480"] }
+            modes = { "8" :  ["640x480"] }
         else:
-            self.modes = { "16" :  ["800x600"] }
+            modes = { "16" :  ["800x600"] }
             
 #        modes = { "8" : [ "640x480" ] }
 #        modes = { "16" : [ "800x600" ] }
