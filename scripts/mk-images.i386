@@ -18,7 +18,7 @@ prepareBootImage() {
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
 	    # fb console and kon don't get along...
 	    if [ "$BOOTLANG" = "ja_JP" ]; then
-		sed -e "s/ vga=.*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
+		sed -e "s/ vga=[0-9]*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
 		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
 	    fi
 	    if [ -n $BOOTDIR ]; then
