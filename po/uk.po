@@ -68,7 +68,7 @@ msgstr "Створення"
 
 #: ../fstab.py:551
 msgid "Creating RAID devices..."
-msgstr "Створення RAID пристрою..."
+msgstr "Створення пристрою RAID..."
 
 #: ../fstab.py:621 ../fstab.py:631 ../fstab.py:655
 #, c-format
@@ -82,7 +82,7 @@ msgstr "Loopback"
 #: ../fstab.py:644
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "Створення Loopback файлово╖ системи на пристро╖ /dev/%s..."
+msgstr "Створення файлово╖ системи Loopback на пристро╖ /dev/%s..."
 
 #: ../fstab.py:712
 #, c-format
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ../gui.py:361 ../gui.py:601
 msgid "Next"
-msgstr "Наступний"
+msgstr "Далi"
 
 #: ../gui.py:362 ../gui.py:600 ../libfdisk/newtfsedit.c:1438
 #: ../libfdisk/newtfsedit.c:1446 ../loader/cdrom.c:34 ../loader/devices.c:93
@@ -162,7 +162,7 @@ msgstr "Виб╕р мови"
 
 #: ../gui.py:567
 msgid "Red Hat Linux Installer"
-msgstr "Установщик Red Hat Linux"
+msgstr "Програма встановлення Red Hat Linux"
 
 #: ../gui.py:571
 msgid "Red Hat Linux Install Shell"
@@ -171,7 +171,7 @@ msgstr "Оболонка встановлення Red Hat Linux"
 #: ../gui.py:582
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux iнсталятор на %s"
+msgstr "Програма встановлення Red Hat Linux на %s"
 
 #: ../gui.py:583
 #, c-format
@@ -254,7 +254,7 @@ msgstr "Гаразд"
 
 #: ../text.py:63
 msgid "What language would you like to use during the installation process?"
-msgstr "Яка мова буде використовуватись п╕д час установки?"
+msgstr "Яка мова буде використовуватись п╕д час встановлення?"
 
 #: ../text.py:118 ../text.py:883 ../text.py:912
 msgid "Keyboard Selection"
@@ -420,7 +420,7 @@ msgstr "Результат випробування Х"
 
 #: ../text.py:394 ../text.py:414
 msgid "Unlisted Card"
-msgstr "╤нша плата"
+msgstr "╤нша карта"
 
 #: ../text.py:402
 msgid "Video Card Selection"
@@ -447,7 +447,7 @@ msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Повний протокол встановлення Вашо╖ системи п╕сля перевантаження буде у "
+"Повний протокол встановлення Вашо╖ системи п╕сля перевантаження буде в "
 "/tmp/install.log. Можливо, ви потребуватимете його згодом."
 
 #: ../text.py:495
@@ -459,7 +459,7 @@ msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Повний протокол поновлення вашо╖ системи п╕сля перевантаження буде "
+"Повний протокол поновлення вашо╖ системи п╕сля перевантаження буде в "
 "/tmp/upgrade.log. Можливо, ви потребуватимете його згодом."
 
 #: ../text.py:513 ../text.py:534
@@ -478,7 +478,7 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
-"В╕та╓мо, установка зак╕нчена.\n"
+"В╕та╓мо, встановлення зак╕нчено.\n"
 "\n"
 "Витягн╕ть дискету з дисководу та натисн╕ть <Enter> для перевантаження. "
 "╤нформац╕ю про виправлення, доступну для цього випуску Red Hat Linux, "
@@ -540,7 +540,7 @@ msgstr "Всього   :"
 
 #: ../text.py:646
 msgid "Completed:   "
-msgstr "Зроблено:    "
+msgstr " Зроблено:   "
 
 #: ../text.py:656
 msgid "Remaining:  "
@@ -625,7 +625,7 @@ msgstr "Встановленя бюджету користувача"
 
 #: ../text.py:899 ../text.py:967
 msgid "Authentication"
-msgstr "Ототоження"
+msgstr "Ототожнення"
 
 #: ../text.py:905
 msgid "Configuration Complete"
@@ -700,7 +700,7 @@ msgstr "Диск завантаження"
 
 #: ../text.py:985
 msgid "Installation Complete"
-msgstr "Установка зак╕нчена"
+msgstr "Встановлення зак╕нчено"
 
 #: ../text.py:990
 msgid "Examine System"
@@ -894,7 +894,7 @@ msgid ""
 msgstr ""
 "Вашу мишу не вдалося виявити автоматично.  Для продовження встановлення в "
 "граф╕чному режим╕, перейд╕ть на наступний екран та вкаж╕ть ╕нформац╕ю про "
-"Вашу мишу. Ви також можете продовжити встановлення у текстовому режим╕, що "
+"вашу мишу. Ви також можете продовжити встановлення у текстовому режим╕, що "
 "не вимага╓ конф╕гурац╕╖ миш╕."
 
 #: ../xserver.py:33 ../xserver.py:34
@@ -927,7 +927,7 @@ msgstr "Пароль користувача прийнято."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr "Рахунок для користувача root не можна додавати тут."
+msgstr "Бюджет для користувача root не можна додавати тут."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
