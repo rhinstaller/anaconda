@@ -1287,9 +1287,6 @@ class DiskSet:
                     pass
 
             if not found:
-                intf.messageWindow(_("Error"),
-                                   _("Error mounting filesystem "
-                                     "on %s: %s") % (dev, msg))
                 continue
 
             if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
