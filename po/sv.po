@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-03-22 10:27-0500\n"
+"POT-Creation-Date: 2001-03-22 15:24-0500\n"
 "PO-Revision-Date: 2001-03-20 14:45+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -200,8 +200,8 @@ msgstr "Nästa"
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:225
+#: ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
 #: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
@@ -340,9 +340,9 @@ msgstr "Cdromskivan kunde inte monteras."
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:259
-#: ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353
-#: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:264
+#: ../textw/partitioning_text.py:347 ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:366 ../textw/partitioning_text.py:373
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
 #: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
@@ -427,7 +427,7 @@ msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -451,7 +451,7 @@ msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:426
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
 #: ../textw/upgrade_text.py:188
@@ -841,7 +841,7 @@ msgstr "Partition"
 msgid "Manually Partition"
 msgstr "Manuell partitionering"
 
-#: ../text.py:1002 ../textw/partitioning_text.py:334
+#: ../text.py:1002 ../textw/partitioning_text.py:339
 msgid "Root Filesystem Size"
 msgstr "Storlek på rotfilsystem"
 
@@ -849,8 +849,8 @@ msgstr "Storlek på rotfilsystem"
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1006 ../textw/partitioning_text.py:391
-#: ../textw/partitioning_text.py:411
+#: ../text.py:1006 ../textw/partitioning_text.py:396
+#: ../textw/partitioning_text.py:416
 msgid "Boot Partition Warning"
 msgstr "Varning angående bootpartition"
 
@@ -1836,11 +1836,11 @@ msgstr "Återstår"
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:220
 msgid "Low Memory"
 msgstr "Ont om minne"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:221
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1876,7 +1876,7 @@ msgstr ""
 "bootpartitionen någon annanstans."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
-#: ../textw/partitioning_text.py:412
+#: ../textw/partitioning_text.py:417
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1895,7 +1895,7 @@ msgstr ""
 "nyare moderkort som inte alltid är tillförlitlig. Att skapa en bootdiskett "
 "garanterar att du kan starta systemet efter installationen."
 
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:335
+#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:340
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1991,7 +1991,7 @@ msgstr "Partitionera manuellt med fdisk [endast avancerade användare]"
 msgid "Boot Partition Location Warning"
 msgstr "Varning angående plats för bootpartition"
 
-#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:397
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2025,8 +2025,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:225
+#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Ja"
 
@@ -2040,7 +2040,7 @@ msgstr "Ja"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
 #: ../textw/upgrade_text.py:210
 msgid "No"
 msgstr "Nej"
@@ -2621,7 +2621,7 @@ msgstr "Fortsätt"
 msgid "Manually partition"
 msgstr "Partitionera manuellt"
 
-#: ../textw/partitioning_text.py:236
+#: ../textw/partitioning_text.py:241
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -2633,32 +2633,32 @@ msgstr ""
 "formatera /home eller /usr/local om de redan har konfigurerats under en "
 "tidigare installation."
 
-#: ../textw/partitioning_text.py:256
+#: ../textw/partitioning_text.py:261
 msgid "Check for bad blocks during format"
 msgstr "Sök efter skadade block under formateringen"
 
-#: ../textw/partitioning_text.py:261
+#: ../textw/partitioning_text.py:266
 msgid "Choose Partitions to Format"
 msgstr "Välj partitioner att formatera"
 
-#: ../textw/partitioning_text.py:340
+#: ../textw/partitioning_text.py:345
 msgid "Root filesystem size"
 msgstr "Storlek på rotfilsystem"
 
-#: ../textw/partitioning_text.py:341
+#: ../textw/partitioning_text.py:346
 msgid "Swap space"
 msgstr "Växlingsutrymme (swap)"
 
-#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
-#: ../textw/partitioning_text.py:364
+#: ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:362
+#: ../textw/partitioning_text.py:369
 msgid "Bad Size"
 msgstr "Felaktig storlek"
 
-#: ../textw/partitioning_text.py:352
+#: ../textw/partitioning_text.py:357
 msgid "The size you enter must be a number."
 msgstr "Storleken du anger måste vara ett tal."
 
-#: ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:363
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -2667,7 +2667,7 @@ msgstr ""
 "Den totala storleken måste vara mindre än mängden ledigt utrymme på disken, "
 "som är %d megabyte."
 
-#: ../textw/partitioning_text.py:365
+#: ../textw/partitioning_text.py:370
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -3051,7 +3051,7 @@ msgstr ""
 "nya filsystem kunde hittas. Var vänlig och undersök din hårdvara för orsaken "
 "till problemet."
 
-#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
+#: ../libfdisk/fsedit.c:1381 ../libfdisk/fsedit.c:1444
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -3060,17 +3060,18 @@ msgstr ""
 "Det inträffade ett fel vid läsning av partitionstabellen för blockenhet %s. "
 "Felet var"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1462 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Försök igen"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
-#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
+#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1427
+#: ../libfdisk/fsedit.c:1449 ../libfdisk/fsedit.c:1455
+#: ../libfdisk/fsedit.c:1462
 msgid "Skip Drive"
 msgstr "Hoppa över hårddisk"
 
-#: ../libfdisk/fsedit.c:1420
+#: ../libfdisk/fsedit.c:1421
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3079,19 +3080,19 @@ msgstr ""
 "Partitionstabellen på enhet %s är trasig. För att skapa nya partitioner "
 "måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet."
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1426
 msgid "Bad Partition Table"
 msgstr "Felaktig partitionstabell"
 
-#: ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1427
 msgid "Initialize"
 msgstr "Initiera"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1475
 msgid "BSD Disklabel"
 msgstr "BSD-hårddisketikett"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1475
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3102,17 +3103,18 @@ msgstr ""
 "anpassad installation och fdisk (istället för Disk Druid) för maskiner med "
 "BSD-etiketter."
 
-#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
+#: ../libfdisk/fsedit.c:1505 ../libfdisk/fsedit.c:1528
+#: ../libfdisk/fsedit.c:1554
 #, c-format
 msgid "System error %d"
 msgstr "Systemfel %d"
 
-#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
-#: ../libfdisk/fsedit.c:1536
+#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516
+#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1570
 msgid "Fdisk Error"
 msgstr "Fdisk-fel"
 
-#: ../libfdisk/fsedit.c:1531
+#: ../libfdisk/fsedit.c:1538
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3123,6 +3125,14 @@ msgstr ""
 "används i installationsprogrammet skiljer sig från den diskgeometri som "
 "användes när disken partitionerades. Detta kan korrigeras genom att ange "
 "diskgeometrin på kommandoraden vid uppstarten av installationsprogrammet."
+
+#: ../libfdisk/fsedit.c:1564
+msgid ""
+"This occurs because there is a logical partition on the drive which has a "
+"partition type of zero (0). This is not supported by the anaconda installer. "
+"This logical partition was most likely created by the partitioning program "
+"of another OS, so you may be able to correct the problem using that utility."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050

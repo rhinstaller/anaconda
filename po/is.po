@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
-"POT-Creation-Date: 2001-03-22 10:27-0500\n"
+"POT-Creation-Date: 2001-03-22 15:24-0500\n"
 "PO-Revision-Date: 2001-03-19 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -201,8 +201,8 @@ msgstr "Áfram"
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:225
+#: ../textw/partitioning_text.py:264 ../textw/partitioning_text.py:347
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
 #: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
@@ -341,9 +341,9 @@ msgstr "Ekki var hægt að tengja geisladiskinn."
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:259
-#: ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353
-#: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:264
+#: ../textw/partitioning_text.py:347 ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:366 ../textw/partitioning_text.py:373
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
 #: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
@@ -428,7 +428,7 @@ msgstr "Diskurinn þinn er tengdur undir /mnt/sysimage möppunni."
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -452,7 +452,7 @@ msgstr "Diskurinn þinn er tengdur undir /mnt/sysimage möppunni."
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:456 ../textw/lilo_text.py:123
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:426
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
 #: ../textw/upgrade_text.py:188
@@ -836,7 +836,7 @@ msgstr "Disksneið"
 msgid "Manually Partition"
 msgstr "Sneiða handvirkt"
 
-#: ../text.py:1002 ../textw/partitioning_text.py:334
+#: ../text.py:1002 ../textw/partitioning_text.py:339
 msgid "Root Filesystem Size"
 msgstr "Stærð rótarskráarkerfisins"
 
@@ -844,8 +844,8 @@ msgstr "Stærð rótarskráarkerfisins"
 msgid "Swap"
 msgstr "Diskminni"
 
-#: ../text.py:1006 ../textw/partitioning_text.py:391
-#: ../textw/partitioning_text.py:411
+#: ../text.py:1006 ../textw/partitioning_text.py:396
+#: ../textw/partitioning_text.py:416
 msgid "Boot Partition Warning"
 msgstr "Ræsisneiðaraðvörun"
 
@@ -1830,11 +1830,11 @@ msgstr "Eftir"
 msgid "Disk Druid"
 msgstr "Diska Drúídi"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:220
 msgid "Low Memory"
 msgstr "Of lítið minni"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:221
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1869,7 +1869,7 @@ msgstr ""
 "Ertu viss um að þú viljir halda áfram?"
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
-#: ../textw/partitioning_text.py:412
+#: ../textw/partitioning_text.py:417
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1888,7 +1888,7 @@ msgstr ""
 "áreiðanlegur. Að búa til ræsidiskling tryggir að þú hafir leið til að ræsa "
 "upp linux að uppsetningu lokinni."
 
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:335
+#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:340
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1984,7 +1984,7 @@ msgstr "Sneiða handvirkt með fdisk [fyrir sérfræðinga]"
 msgid "Boot Partition Location Warning"
 msgstr "Aðvörun um staðsetningu ræsisneiðar"
 
-#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:397
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2018,8 +2018,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
-#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:225
+#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
 msgid "Yes"
 msgstr "Já"
 
@@ -2033,7 +2033,7 @@ msgstr "Já"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/partitioning_text.py:408 ../textw/upgrade_text.py:204
 #: ../textw/upgrade_text.py:210
 msgid "No"
 msgstr "Nei"
@@ -2614,7 +2614,7 @@ msgstr "Halda áfram"
 msgid "Manually partition"
 msgstr "Sneiða handvirkt"
 
-#: ../textw/partitioning_text.py:236
+#: ../textw/partitioning_text.py:241
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -2626,32 +2626,32 @@ msgstr ""
 "forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið settar upp í "
 "fyrri uppsetningum."
 
-#: ../textw/partitioning_text.py:256
+#: ../textw/partitioning_text.py:261
 msgid "Check for bad blocks during format"
 msgstr "Athuga með gallaðar blokkir um leið og forsniðið er"
 
-#: ../textw/partitioning_text.py:261
+#: ../textw/partitioning_text.py:266
 msgid "Choose Partitions to Format"
 msgstr "Veldu disksneiðar sem á að forsníða"
 
-#: ../textw/partitioning_text.py:340
+#: ../textw/partitioning_text.py:345
 msgid "Root filesystem size"
 msgstr "Stærð rótarskráarkerfis"
 
-#: ../textw/partitioning_text.py:341
+#: ../textw/partitioning_text.py:346
 msgid "Swap space"
 msgstr "Diskminni"
 
-#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
-#: ../textw/partitioning_text.py:364
+#: ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:362
+#: ../textw/partitioning_text.py:369
 msgid "Bad Size"
 msgstr "Ólögleg stærð"
 
-#: ../textw/partitioning_text.py:352
+#: ../textw/partitioning_text.py:357
 msgid "The size you enter must be a number."
 msgstr "Þú verður að slá inn tölu."
 
-#: ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:363
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -2660,7 +2660,7 @@ msgstr ""
 "Samanlögð stærð disksneiða verður að vera minni en laust diskpláss á disknum "
 "sem er %d megabæti."
 
-#: ../textw/partitioning_text.py:365
+#: ../textw/partitioning_text.py:370
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -3040,7 +3040,7 @@ msgstr ""
 "Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný skráakerfi "
 "á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir."
 
-#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
+#: ../libfdisk/fsedit.c:1381 ../libfdisk/fsedit.c:1444
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -3048,17 +3048,18 @@ msgid ""
 msgstr ""
 "Villa kom upp við lestur disksneiðatöflunnar á blokkatæki %s. Villan var"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1462 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Reyna aftur"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
-#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
+#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1427
+#: ../libfdisk/fsedit.c:1449 ../libfdisk/fsedit.c:1455
+#: ../libfdisk/fsedit.c:1462
 msgid "Skip Drive"
 msgstr "Sleppa drifi"
 
-#: ../libfdisk/fsedit.c:1420
+#: ../libfdisk/fsedit.c:1421
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3068,19 +3069,19 @@ msgstr ""
 "disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
 "tapast."
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1426
 msgid "Bad Partition Table"
 msgstr "Skemmd disksneiðatafla"
 
-#: ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1427
 msgid "Initialize"
 msgstr "Frumstilla"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1475
 msgid "BSD Disklabel"
 msgstr "BSD diskmerki"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1475
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3090,17 +3091,18 @@ msgstr ""
 "einungis BSD diskmerki í ritvörðum ham svo þú verður að velja 'Sérsniðna' "
 "uppsetningu og fdisk (ekki Diska Drúídann)."
 
-#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
+#: ../libfdisk/fsedit.c:1505 ../libfdisk/fsedit.c:1528
+#: ../libfdisk/fsedit.c:1554
 #, c-format
 msgid "System error %d"
 msgstr "Kerfisvilla %d"
 
-#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
-#: ../libfdisk/fsedit.c:1536
+#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516
+#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1570
 msgid "Fdisk Error"
 msgstr "Fdisk villa"
 
-#: ../libfdisk/fsedit.c:1531
+#: ../libfdisk/fsedit.c:1538
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3111,6 +3113,14 @@ msgstr ""
 "diskinn öðruvísi (önnur C/H/S gildi) en þegar diskurinn var sneiddur.Þetta "
 "má leiðrétta með því að gefa kjarnanum upp rétt gildi þegar "
 "uppsetningakjarninn er ræstur."
+
+#: ../libfdisk/fsedit.c:1564
+msgid ""
+"This occurs because there is a logical partition on the drive which has a "
+"partition type of zero (0). This is not supported by the anaconda installer. "
+"This logical partition was most likely created by the partitioning program "
+"of another OS, so you may be able to correct the problem using that utility."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
