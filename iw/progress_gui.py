@@ -134,9 +134,10 @@ class InstallProgressWindow (InstallWindow):
                 self.pixcurnum = num + 1
                 self.pixtimer.reset()
                 
-        self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
-                                                           header[rpm.RPMTAG_VERSION],
-                                                           header[rpm.RPMTAG_RELEASE]))
+        self.curPackage["package"].set_text ("%s-%s-%s.%s" % (header[rpm.RPMTAG_NAME],
+                                                              header[rpm.RPMTAG_VERSION],
+                                                              header[rpm.RPMTAG_RELEASE],
+                                                              header[rpm.RPMTAG_ARCH]))
         size = str (header[rpm.RPMTAG_SIZE] / 1024)
         if len (size) > 3:
             size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]

@@ -57,9 +57,10 @@ class InstallProgressWindow:
 	self.screen.refresh()
 
     def setPackage(self, header):
-	self.name.setText("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
-                                        header[rpm.RPMTAG_VERSION],
-                                        header[rpm.RPMTAG_RELEASE]))
+	self.name.setText("%s-%s-%s-%s" % (header[rpm.RPMTAG_NAME],
+                                           header[rpm.RPMTAG_VERSION],
+                                           header[rpm.RPMTAG_RELEASE],
+                                           header[rpm.RPMTAG_ARCH]))
 	self.size.setText("%dk" % (header[rpm.RPMTAG_SIZE] / 1024))
 	summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary != None):
