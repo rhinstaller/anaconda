@@ -998,7 +998,9 @@ if (display_mode == 'g'):
 	    
             from gui import InstallInterface
         except Exception, e:
-            log("Exception starting GUI installer: %s" %(e,))
+            dup_log("Exception starting GUI installer: %s" %(e,))
+            if flags.test:
+                sys.exit(1)
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
 	    if not x_already_set:

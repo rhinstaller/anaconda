@@ -1,3 +1,8 @@
+2005-01-12  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda: If graphics mode fails to start in test mode, print
+	the exception and then exit.
+
 2005-01-11  Jeremy Katz  <katzj@redhat.com>
 
 	* packages.py (readPackages): Ensure that the Core group exists in
