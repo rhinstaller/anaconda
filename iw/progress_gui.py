@@ -91,7 +91,7 @@ class InstallProgressWindow (InstallWindow):
         if self.sizeComplete != 0:
             finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
         else:
-            finishTime = (float (self.totalSize) / self.sizeComplete+1) * elapsedTime
+            finishTime = (float (self.totalSize) / (self.sizeComplete+1)) * elapsedTime
 
 
         apply (self.clist.set_text, self.status["total"]["time"] + ("%s" % formatTime(finishTime),))
