@@ -944,6 +944,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
         os.write(fd, s)
 
     num = ''
+    sync = 0
     while s:
         try:
             s = os.read(p[0], 1)
@@ -957,8 +958,12 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
             else:
                 if num:
                     l = string.split(num, '/')
-                    w and w.set((int(l[0]) * 100) / int(l[1]))
-                    isys.sync()
+                    val = (int(l[0]) * 100) / int(l[1])
+                    w and w.set(val)
+                    # sync every 10%
+                    if sync + 10 < val:
+                        isys.sync()
+                        sync = val
                 num = ''
         except OSError, args:
             (num, str) = args
