@@ -842,7 +842,7 @@ class Partitions:
 
             if bestreq is not None:
                 if (iutil.getPPCMachine() == "pSeries"):
-                    minsize = 4
+                    minsize = 2
                 else:
                     minsize = 16
                 if bestreq.getActualSize(self, diskset) < minsize:
