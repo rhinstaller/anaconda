@@ -1223,7 +1223,7 @@ static char * doMountImage(char * location,
 
 #if defined(__alpha__) || defined(__ia64__)
     for (i = 0; i < numMethods; i++) {
-	installNames[numValidMethods] = installMethods[i].name;
+	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
 #elif defined(INCLUDE_PCMCIA)
@@ -1236,7 +1236,7 @@ static char * doMountImage(char * location,
 	if (j < kd->numKnown) {
 	    if (i == defaultMethod) methodNum = numValidMethods;
 
-	    installNames[numValidMethods] = installMethods[i].name;
+	    installNames[numValidMethods] = _(installMethods[i].name);
 	    validMethods[numValidMethods++] = i;
 	}
     }
@@ -1246,7 +1246,7 @@ static char * doMountImage(char * location,
 		(localAvailable && !installMethods[i].network)) {
 	    if (i == defaultMethod) methodNum = numValidMethods;
 
-	    installNames[numValidMethods] = installMethods[i].name;
+	    installNames[numValidMethods] = _(installMethods[i].name);
 	    validMethods[numValidMethods++] = i;
 	}
     }
