@@ -707,7 +707,7 @@ class ToDo:
 
 	    if self.fstab.hasDirtyFilesystems():
 		win.pop()
-		todo.intf.messageWindow(("Dirty Filesystems"),
+		self.intf.messageWindow(("Dirty Filesystems"),
 		    _("One or more of the filesystems for your Linux system "
 		      "was not unmounted cleanly. Please boot your Linux "
 		      "installation, let the filesystems be checked, and "

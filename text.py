@@ -850,6 +850,10 @@ class InstallInterface:
 	else:
 	    self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 
+    def shutdown(self):
+	self.screen.finish()
+	self.screen = None
+
     def __init__(self):
         self.screen = SnackScreen()
 	self.screen.helpCallback(self.helpWindow)

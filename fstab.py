@@ -505,7 +505,7 @@ class Fstab:
 
 	    log("checking device %s\n", device)
 
-	    if isys.ext2dirty(device): return 1
+	    if isys.ext2IsDirty(device): return 1
 
 	    log("clean\n")
 

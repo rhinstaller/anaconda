@@ -348,6 +348,11 @@ try:
                 serial = serial, reconfigOnly = reconfigOnly, test = test,
                 extraModules = extraModules)
     intf.run(todo, test = test)
+
+    if not todo.reconfigOnly:
+	todo.fstab.umountFilesystems(rootPath, ignoreErrors = 1)
+except SystemExit, code:
+    intf.shutdown()
 except:
     (type, value, tb) = sys.exc_info()
     from string import joinfields
@@ -359,8 +364,5 @@ except:
         import pdb
         pdb.post_mortem (tb)
     os._exit (1)
-
-if not todo.reconfigOnly:
-    todo.fstab.umountFilesystems(rootPath, ignoreErrors = 1)
 
 del intf
