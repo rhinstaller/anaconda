@@ -516,6 +516,7 @@ class PartitionWindow:
 
         row = row + 1
 
+        self.drivelist = None
         if origrequest.type == REQUEST_NEW:
             subgrid = Grid(2, 1)
             (fstype, fsgrid) = self.makeFsList(origrequest)
@@ -538,7 +539,6 @@ class PartitionWindow:
 
                 poplevel.add(allsize, 0, row, (0,1,0,0), growx=1)
             else: # explicit add via cylinder
-                self.drivelist = None
                 poplevel.add(subgrid, 0, row, (0,1,0,0))
 
                 row = row + 1
