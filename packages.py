@@ -642,34 +642,6 @@ def doPreInstall(method, id, intf, instPath, dir):
             iutil.copyFile("/tmp/modules.conf", 
                            instPath + "/etc/modules.conf")
 
-    if not upgrade:
-    # add lines for usb to modules.conf
-    # these aren't handled in the loader since usb is built into kernel
-    # so we don't insert the modules there
-        try:
-	    usbcontrollers = kudzu.probe(kudzu.CLASS_USB, kudzu.BUS_PCI, kudzu.PROBE_ALL)
-        except:
-	    usbcontrollers = []
-	
-        ohcifnd = 0
-        ehcifnd = 0
-        for u in usbcontrollers:
-	    if u.driver == "usb-ohci":
-	        ohcifnd = 1
-	    elif u.driver == "ehci-hcd":
-	        ehcifnd = 1
-
-        if ohcifnd or ehcifnd:
-	    f = open(instPath + "/etc/modules.conf", "a")
-	    if ohcifnd:
-	        f.write("alias usb-controller usb-ohci\n")
-	    if ehcifnd:
-	        if ohcifnd:
-		    f.write("alias usb-controller1 ehci-hcd\n")
-	        else:
-		    f.write("alias usb-controller ehci-hcd\n")
-	    f.close()
-	    
     # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
     f = open(instPath + "/etc/mtab", "w+")
     f.write(id.fsset.mtab())
