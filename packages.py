@@ -627,7 +627,7 @@ def doInstall(method, id, intf, instPath):
     ts = rpm.TransactionSet(instPath)
 
     ts.setVSFlags(~rpm.RPMVSF_NORSA|~rpm.RPMVSF_NODSA)
-    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|~rpm.RPMTRANS_FLAG_CHAINSAW)
+    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_CHAINSAW)
 
     total = 0
     totalSize = 0
@@ -724,7 +724,6 @@ def doInstall(method, id, intf, instPath):
     problems = ts.run(cb.cb, 0)
 
     if problems:
-
         # restore old fstab if we did anything for migrating
         if upgrade:
             id.fsset.restoreMigratedFstab(instPath)
@@ -809,7 +808,7 @@ def doInstall(method, id, intf, instPath):
 #    rpm.errorSetCallback (oldError)
     
     method.filesDone ()
-    
+
     if upgrade:
         instLog.write(_("\n\nThe following packages were available in "
                         "this version but NOT upgraded:\n"))
