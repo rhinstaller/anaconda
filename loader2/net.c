@@ -1,5 +1,5 @@
 /*
- * Copyright 1999-2001 Red Hat, Inc.
+ * Copyright 1999-2003 Red Hat, Inc.
  * 
  * All Rights Reserved.
  * 
@@ -492,10 +492,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 #endif   /* s390 */
 
     /* preserve extra dns servers for the sake of being nice */
-    for (i = newCfg.dev.numDns; i < cfg->dev.numDns; i++) {
-        newCfg.dev.dnsServers[i] = cfg->dev.dnsServers[i];
+    if (cfg->dev.numDns > newCfg.dev.numDns) {
+        for (i = newCfg.dev.numDns; i < cfg->dev.numDns; i++) {
+            newCfg.dev.dnsServers[i] = cfg->dev.dnsServers[i];
+        }
+        newCfg.dev.numDns = cfg->dev.numDns;
     }
-    newCfg.dev.numDns = cfg->dev.numDns;
 
     cfg->isDynamic = newCfg.isDynamic;
     memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
