@@ -111,7 +111,7 @@ class RaidEditor:
 	raidlevel = widget.get_data("level")
 	numparts = sparesb.get_data("numparts")
 	maxspares = raid.get_raid_max_spares(raidlevel, numparts)
-	print maxspares, raidlevel, numparts
+
 	if maxspares > 0 and raidlevel != "RAID0":
 	    adj = sparesb.get_adjustment() 
 	    value = adj.value 
@@ -134,7 +134,6 @@ class RaidEditor:
 	
 	while 1:
 	    rc = self.dialog.run()
-	    print rc
 
 	    # user hit cancel, do nothing
 	    if rc == 2:
@@ -148,10 +147,10 @@ class RaidEditor:
                 filesystem = self.fstypeoptionMenu.get_active().get_data("type")
                 request.fstype = filesystem
 
-	    if request.fstype.isMountable():
-		request.mountpoint = self.mountCombo.entry.get_text()
-	    else:
-		request.mountpoint = None
+		if request.fstype.isMountable():
+		    request.mountpoint = self.mountCombo.entry.get_text()
+		else:
+		    request.mountpoint = None
 
 	    raidmembers = []
 	    model = self.raidlist.get_model()
@@ -177,16 +176,60 @@ class RaidEditor:
                 else:
                     request.raidspares = 0
 
-	    if self.formatButton:
-		request.format = self.formatButton.get_active()
+		if self.formatButton:
+		    request.format = self.formatButton.get_active()
+		else:
+		    request.format = 0
 	    else:
-		request.format = 0
+		if self.fsoptionsDict.has_key("formatrb"):
+		    formatrb = self.fsoptionsDict["formatrb"]
+		else:
+		    formatrb = None
+
+		if formatrb:
+                    request.format = formatrb.get_active()
+                    if request.format:
+                        request.fstype = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                    if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
+                        request.badblocks = gtk.TRUE
+                    else:
+                        request.badblocks = None
+                else:
+                    request.format = 0
+                    request.badblocks = None
+
+		if self.fsoptionsDict.has_key("migraterb"):
+		    migraterb = self.fsoptionsDict["migraterb"]
+		else:
+		    migraterb = None
+		    
+		if migraterb:
+                    request.migrate = migraterb.get_active()
+                    if request.migrate:
+                        request.fstype =self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
+                else:
+                    request.migrate = 0
+
+                # set back if we are not formatting or migrating
+		origfstype = self.origrequest.origfstype
+                if not request.format and not request.migrate:
+                    request.fstype = origfstype
+
+                if request.fstype.isMountable():
+                    request.mountpoint =  self.mountCombo.entry.get_text()
+                else:
+                    request.mountpoint = None
 
 	    err = request.sanityCheckRequest(self.partitions)
 	    if err:
 		self.intf.messageWindow(_("Error With Request"),
 					"%s" % (err))
 		continue
+
+	    if (not request.format and
+		request.mountpoint and request.formatByDefault()):
+		if not queryNoFormatPreExisting(self.intf):
+		    continue
 
 	    # everything ok, break out
 	    break
@@ -211,7 +254,7 @@ class RaidEditor:
 	self.dialog = None
 
 	#
-	# start of editRaidRuquest
+	# start of editRaidRequest
 	#
 	availraidparts = self.partitions.getAvailRaidPartitions(origrequest,
 								self.diskset)
@@ -270,7 +313,7 @@ class RaidEditor:
 
 	# raid minors
 	maintable.attach(createAlignedLabel(_("RAID Device:")),
-					    0, 1, row, row + 1)
+                         0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():
             availminors = self.partitions.getAvailableRaidMinors()[:16]
@@ -349,7 +392,9 @@ class RaidEditor:
 	row = row + 1
 
 	# format or not?
-	if origrequest.fstype and origrequest.fstype.isFormattable():
+	self.formatButton = None
+	self.fsoptionsDict = {}
+	if (origrequest.fstype and origrequest.fstype.isFormattable()) and not origrequest.getPreExisting():
 	    self.formatButton = gtk.CheckButton(_("Format partition?"))
 	    if origrequest.format == None or origrequest.format != 0:
 		self.formatButton.set_active(1)
@@ -359,9 +404,8 @@ class RaidEditor:
             if origrequest.getPreExisting():
                 maintable.attach(self.formatButton, 0, 2, row, row + 1)
                 row = row + 1
-
 	else:
-	    self.formatButton = None
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)
