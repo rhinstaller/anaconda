@@ -332,11 +332,15 @@ def doPreInstall(method, id, intf, instPath, dir):
     # shorthand
     upgrade = id.upgrade.get()
 
+    def select(hdList, name):
+        if hdList.has_key(name):
+            id.hdList[name].selected = 1
+
     if not upgrade:
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
-	if (id.hdList.has_key('kernel-smp') and isys.smpAvailable()):
-	    id.hdList['kernel-smp'].selected = 1
+	if isys.smpAvailable():
+            select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-enterprise')):
 	    import lilo
@@ -345,28 +349,30 @@ def doPreInstall(method, id, intf, instPath, dir):
 		id.hdList['kernel-enterprise'].selected = 1
 
 	# we *always* need a kernel installed
-	if (id.hdList.has_key('kernel')):
-	    id.hdList['kernel'].selected = 1
+        select(id.hdList, 'kernel')
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:
-	    id.hdList['ypbind'].selected = 1
-	    id.hdList['yp-tools'].selected = 1
-	    id.hdList['portmap'].selected = 1
+            select(id.hdList, 'ypbind')
+            select(id.hdList, 'yp-tools')
+            select(id.hdList, 'portmap')
 
 	if id.auth.useLdap:
-	    id.hdList['nss_ldap'].selected = 1
-	    id.hdList['openldap'].selected = 1
-	    id.hdList['perl'].selected = 1
+            select(id.hdList, 'nss_ldap')
+            select(id.hdList, 'openldap')
+            select(id.hdList, 'perl')
 
 	if id.auth.useKrb5:
-	    id.hdList['pam_krb5'].selected = 1
-	    id.hdList['krb5-workstation'].selected = 1
-	    id.hdList['krbafs'].selected = 1
-	    id.hdList['krb5-libs'].selected = 1
+            select(id.hdList, 'pam_krb5')
+            select(id.hdList, 'krb5-workstation')
+            select(id.hdList, 'krbafs')
+            select(id.hdList, 'krb5-libs')
 
         if id.auth.useSamba:
-            id.hdList['pam_smb'].selected = 1
+            select(id.hdList, 'pam_smb')
+
+        if pcmcia.pcicType():
+            select(id.hdList, 'kernel-pcmcia-cs')
 
         xserver = id.videocard.primaryCard().getXServer()
         if (xserver and id.comps.packages.has_key('XFree86')
