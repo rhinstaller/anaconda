@@ -1149,7 +1149,7 @@ class ToDo:
                     need = (need + 1024 * 1024 - 1) / (1024 * 1024)
                     suffix = "M"
                 else:
-                    need = (need + 1023) / 1024,
+                    need = (need + 1023) / 1024
                     suffix = "k"
 
                 prob = "%-15s %d %c\n" % (mount, need, suffix)
