@@ -56,7 +56,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     diskset.startAllRaid()
 
     if rootFs == "vfat":
-	mountLoopbackRoot(root)
+	mountLoopbackRoot(root, mountpoint = instPath)
     else:
 	isys.mount(root, instPath, rootFs)
 
@@ -66,7 +66,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         oldfsset.add(entry)
 
     if rootFs == "vfat":
-	unmountLoopbackRoot()
+	unmountLoopbackRoot(mountpoint = instPath)
     else:
 	isys.umount(instPath)        
 

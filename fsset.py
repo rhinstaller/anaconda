@@ -988,12 +988,13 @@ class FileSystemSet:
 	space.sort(spaceSort)
 	return space
 
-    def hasDirtyFilesystems(self):
+    def hasDirtyFilesystems(self, mountpoint):
 	if self.rootOnLoop():
             entry = self.getEntryByMountPoint('/')
-            mountLoopbackRoot(entry.device.host[5:], skipMount = 1)
+            mountLoopbackRoot(entry.device.host[5:], skipMount = 1,
+                              mountpoint = mountpoint)
 	    dirty = isys.ext2IsDirty("loop1")
-	    unmountLoopbackRoot(skipMount = 1)
+	    unmountLoopbackRoot(skipMount = 1, mountpoint = mountpoint)
 	    if dirty: return 1
 
 	for entry in self.entries:
@@ -1477,17 +1478,17 @@ def allocateLoopback(file):
     return None
 
 _loopbackRootDevice = None
-def mountLoopbackRoot(device, skipMount=0):
+def mountLoopbackRoot(device, skipMount=0, mountpoint="/mnt/sysimage"):
     global _loopbackRootDevice
     isys.mount(device, '/mnt/loophost', fstype = "vfat")
     _loopbackRootDevice = allocateLoopback("/mnt/loophost/redhat.img")
     if not skipMount:
-        isys.mount(_loopbackRootDevice, '/mnt/sysimage')
+        isys.mount(_loopbackRootDevice, mountpoint)
     
-def unmountLoopbackRoot(skipMount=0):
+def unmountLoopbackRoot(skipMount=0, mountpoint="/mnt/sysimage"):
     global _loopbackRootDevice
     if not skipMount:
-        isys.umount('/mnt/sysimage')
+        isys.umount(mountpoint)
     path = '/tmp/' + _loopbackRootDevice
     isys.makeDevInode(_loopbackRootDevice, path)
     isys.unlosetup(path)
