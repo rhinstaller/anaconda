@@ -49,6 +49,30 @@ prepareBootImage() {
 	fi
 }
 
+mkdir -p $TOPDESTPATH/images
+cat > $TOPDESTPATH/images/README <<EOF
+
+The files in this directory are raw disk images.  Some are boot disks
+for booting into the Red Hat Linux Installation Program.  The others
+are driver disks to support loading the Installation Program from less
+common hardware.
+
+Follow the instructions in the Red Hat Linux Installation Guide,
+Chapter 2, section "Making Installation Disks" to create the disks.
+
+The drivers.img driver disk image has been split into several disks
+because of the increasing size of the supported modules.
+
+The following boot images images available:
+
+boot.img - boot image for CD and hard drive based install
+bootnet.img - boot image for network based install
+pcmcia.img - boot image for installing on laptops
+
+The following driver disks are available:
+
+EOF
+
 # LATEUSBMODS go in the second stage
 USBMODS="usb-ohci usb-uhci hid keybdev usb-storage"
 LATEUSBMODS="mousedev"
