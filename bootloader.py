@@ -343,7 +343,8 @@ class x86BootloaderInfo(bootloaderInfo):
 
         f.write('default=0\n')
         f.write('timeout=30\n')
-        f.write('splashimage=%s/grub/splash.xpm.gz' % (grubbyPartitionName(bootDev),))
+        f.write('splashimage=%s/grub/splash.xpm.gz\n'
+                % (grubbyPartitionName(bootDev),))
         
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
