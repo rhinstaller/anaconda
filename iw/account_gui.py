@@ -210,7 +210,7 @@ class AccountWindow (InstallWindow):
 	self.win.show_all()
 
     def userWindow (self, title, editting):
-        userWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+        userWin = gtk.Dialog(_("Add a User Account"), flags=gtk.DIALOG_MODAL)
         gui.addFrame(userWin)
         userWin.set_modal(gtk.TRUE)
         userWin.set_size_request(350, 200)		
