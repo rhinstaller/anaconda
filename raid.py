@@ -22,8 +22,12 @@ def scanForRaid(drives):
 
 	    dev = "%s%d" % (d, i + 1)
 
-	    (major, minor, raidSet, level, nrDisks, totalDisks, mdMinor) = \
-	    	isys.raidsb(dev)
+            try:
+                (major, minor, raidSet, level, nrDisks, totalDisks, mdMinor) =\
+                        isys.raidsb(dev)
+            except ValueError:
+                # bad magic, this can't be part of our raid set
+                continue
 
 	    if raidSets.has_key(raidSet):
 	    	(knownLevel, knownDisks, knownMinor, knownDevices) = \
