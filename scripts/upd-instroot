@@ -523,6 +523,7 @@ usr/bin/chattr*
 usr/bin/ftp
 usr/bin/fc-cache
 usr/bin/gtk-query*
+usr/bin/gdk-pixbuf-query-loaders
 usr/bin/head
 usr/bin/less
 usr/bin/lsattr*
@@ -763,11 +764,23 @@ echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 2> $REALPATH/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 > $REALPATH/etc/gtk-2.0/gtk.immodules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
     fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
+fi
+
+echo "Getting gtk2 gdk-pixbuf loaders"
+if [ -n "$NEEDGR" ]; then
+    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+	/usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
+    else
+	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
+    fi
+    rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
+
 fi
 
 # make the changes we want to fonts.conf for anaconda (#65913)
