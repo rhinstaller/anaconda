@@ -31,6 +31,14 @@ class XF86Config:
         self.keyRules = "xfree86"
         self.keyModel = "pc101"
         self.keyLayout = "us"
+        # XXX temp hack to get GUI installs working on sparc
+        try:
+            f = open ("/dev/kbd", "r")
+            f.close()
+            self.keyRules = "sun"
+            self.keyModel = "type5"
+        except:
+            pass
         self.keyVariant = ""
         self.keyOptions = ""
         
