@@ -373,6 +373,7 @@ class DiskTreeModel(gtk.TreeStore):
               ("PyObject", gobject.TYPE_PYOBJECT, 0.0, 1, 0))
     
     def __init__(self):
+	self.hiddenPartitions = []
         self.titleSlot = {}
         i = 0
         types = [self]
@@ -419,7 +420,17 @@ class DiskTreeModel(gtk.TreeStore):
     def getTreeView(self):
         return self.view
 
+    def clearHiddenPartitionsList(self):
+	self.hiddenPartitions = []
+
+    def appendToHiddenPartitionsList(self, member):
+	self.hiddenPartitions.append(member)
+
     def selectPartition(self, partition):
+	# if we've hidden this partition in the tree view just return
+	if partition in self.hiddenPartitions:
+	    return
+	
         pyobject = self.titleSlot['PyObject']
         iter = self.get_iter_first()
 	parentstack = [None,]
@@ -644,7 +655,6 @@ class PartitionWindow(InstallWindow):
         return None
 
     def getShortFSTypeName(self, name):
-	print name
 	if name == "physical volume (LVM)":
 	    return "LVM PV"
 
@@ -656,6 +666,8 @@ class PartitionWindow(InstallWindow):
         drives.sort()
 
         self.tree.resetSelection()
+
+	self.tree.clearHiddenPartitionsList()
 
 	# first do LVM
         lvmrequests = self.partitions.getLVMRequests()
@@ -787,6 +799,7 @@ class PartitionWindow(InstallWindow):
 			if self.show_uneditable:
 			    self.tree[iter]['Mount Point'] = vgreq.volumeGroupName
 			else:
+			    self.tree.appendToHiddenPartitionsList(part)
 			    part = disk.next_partition(part)
 			    self.tree.remove(iter)
 			    continue
@@ -992,7 +1005,6 @@ class PartitionWindow(InstallWindow):
 
 	while 1:
 	    request = parteditor.run()
-	    print request
 
 	    if request is None:
 		return
@@ -1095,7 +1107,7 @@ class PartitionWindow(InstallWindow):
         self.editRaidRequest(request, isNew = 1)
 
     def viewButtonCB(self, widget):
-	self.show_uneditable = widget.get_active()
+	self.show_uneditable = not widget.get_active()
         self.diskStripeGraph.shutDown()
 	self.tree.clear()
 	self.populate()
@@ -1172,8 +1184,8 @@ class PartitionWindow(InstallWindow):
         box.pack_start(sw, gtk.TRUE)
 
 	self.show_uneditable = 0
-	self.toggleViewButton = gtk.CheckButton(_("Show RAID device/LVM Volume Group members"))
-	self.toggleViewButton.set_active(self.show_uneditable)
+	self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume Group members"))
+	self.toggleViewButton.set_active(not self.show_uneditable)
 	self.toggleViewButton.connect("toggled", self.viewButtonCB)
 	box.pack_start(self.toggleViewButton, gtk.FALSE, gtk.FALSE)
 	
