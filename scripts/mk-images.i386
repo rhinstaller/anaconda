@@ -174,7 +174,7 @@ makeBootImages() {
 
 	# copy in memtest if present
 	if [ -f $IMGPATH/boot/memtest86+* ]; then
-           cp $IMGPATH/boot/memtest86+-* $MBD_BOOTTREE/memtest
+           cp $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* $MBD_BOOTTREE/memtest
            echo -e "label memtest86\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
 	fi
 

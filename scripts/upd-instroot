@@ -986,6 +986,14 @@ for p in $DEST $DESTGR; do
 	    cp -af $p/boot/efi/EFI/redhat//* $p/usr/lib/anaconda-runtime/boot
 	fi    
 
+	# copy bootloader files for i386/x86_64
+	if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
+	    if [ $p = $DESTGR ]; then
+		mkdir -p $p/usr/lib/anaconda-runtime/boot
+		cp -af $p/boot/memtest* $p/usr/lib/anaconda-runtime/boot
+	    fi
+	fi
+
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	find $p -name "*.a" | grep -v "usr/X11R6/$LIBDIR/modules" | xargs rm -rf
