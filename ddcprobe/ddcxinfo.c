@@ -19,13 +19,19 @@ int main(int argc, char **argv)
 	for(i = 1; i < argc; i++) {
 		if(strcmp(argv[i], "-hsync") == 0) {
 			vbe_get_edid_ranges(&hmin, &hmax, &vmin, &vmax);
-			if(hmin || hmax)
+			if(hmin || hmax) {
 				printf("%d-%d\n", hmin, hmax);
+			} else {
+				return 1;
+			}
 		}
 		if(strcmp(argv[i], "-vsync") == 0) {
 			vbe_get_edid_ranges(&hmin, &hmax, &vmin, &vmax);
-			if(vmin || vmax)
+			if(vmin || vmax) {
 				printf("%d-%d\n", vmin, vmax);
+			} else {
+				return 1;
+			}
 		}
 		if(strcmp(argv[i], "-modelines") == 0) {
 			struct vbe_modeline* modelines;
@@ -36,13 +42,15 @@ int main(int argc, char **argv)
 					       modelines[j].width,
 					       modelines[j].height,
 					       modelines[j].refresh,
-					       modelines[j].modeline,
-					       modelines[j].interlaced?"i":"");
+					       modelines[j].interlaced?"i":"",
+					       modelines[j].modeline);
 					free(modelines[j].modeline);
 				}
 			}
 			if(modelines) {
 				free(modelines);
+			} else {
+				return 1;
 			}
 		}
 	}
