@@ -850,6 +850,12 @@ class XF86Config:
 		except:
 		    pass
 
+            # kludge to handle i810 displays which require at least 16 Meg
+            if (self.vidCards[self.primary].has_key("DRIVER") and
+                (self.vidCards[self.primary]["DRIVER"] == "i810")):
+                self.vidRam = "16384"
+
+
     def probeReport (self):
         probe = ""
         if self.vidCards:
