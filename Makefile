@@ -93,7 +93,8 @@ tag:
 archive: create-archive
 
 src: create-archive
-	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
+	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2 || exit 1
+	@rm -f anaconda-$(VERSION).tar.bz2
 
 build: src
 	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
@@ -116,7 +117,7 @@ create-snapshot:
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
-	make SNAPRELEASE=$(RELEASE) create-snapshot
+	make create-snapshot
 
 pycheck:
 	PYTHONPATH=isys:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
