@@ -56,7 +56,7 @@ class XSetup:
 	    if monname[:len(ddc_monitor_string)] == ddc_monitor_string:
 		self.xhwstate.set_monitor_name(monname[len(ddc_monitor_string)+3:])
 		
-	outfile = fn + "/XF86Config"
+	outfile = fn + "/xorg.conf"
 	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard,
 			     standalone = 0)
 
