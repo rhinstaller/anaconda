@@ -475,7 +475,7 @@ class PackageSelectionWindow (InstallWindow):
         
         sw.add_with_viewport (wrapper)
         viewport = sw.children()[0]
-        viewport.set_shadow_type (SHADOW_ETCHED_IN)
+        viewport.set_shadow_type (gtk.SHADOW_IN)
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
