@@ -9,6 +9,9 @@ class InstallClass(BaseInstallClass):
     pixmap = "upgrade.png"
     sortPriority = 999999
 
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+	hidden = 1
+
     parentClass = ( _("Upgrade"), "upgrade.png" )
 
     def requiredDisplayMode(self):
