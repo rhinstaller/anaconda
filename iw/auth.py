@@ -1,5 +1,9 @@
 from gtk import *
 from iw import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class AuthWindow (InstallWindow):
 
@@ -7,7 +11,7 @@ class AuthWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Authentication Configuration")
+        ics.setTitle (_("Authentication Configuration"))
         ics.setHTML ("<HTML><BODY>Select authentication methods"
                      "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)
@@ -42,11 +46,11 @@ class AuthWindow (InstallWindow):
 
     def getScreen (self):
         box = GtkVBox (FALSE, 10)
-        self.md5 = GtkCheckButton ("Enable MD5 passwords")
-        self.shadow = GtkCheckButton ("Enable shadow passwords")
+        self.md5 = GtkCheckButton (_("Enable MD5 passwords"))
+        self.shadow = GtkCheckButton (_("Enable shadow passwords"))
 
-        self.nis = GtkCheckButton ("Enable NIS")
-        self.nisBroadcast = GtkCheckButton ("Use broadcast to find NIS server")
+        self.nis = GtkCheckButton (_("Enable NIS"))
+        self.nisBroadcast = GtkCheckButton (_("Use broadcast to find NIS server"))
         self.nisDomain = GtkEntry ()
         self.nisServer = GtkEntry ()
 
@@ -58,9 +62,9 @@ class AuthWindow (InstallWindow):
         self.nisBroadcast.set_active (self.todo.auth.useBroadcast)
         self.nisServer.set_text (self.todo.auth.server )
 
-        self.domainLabel = GtkLabel ("NIS Domain: ")
+        self.domainLabel = GtkLabel (_("NIS Domain: "))
         self.domainLabel.set_alignment (0, 0)
-        self.serverLabel = GtkLabel ("NIS Server: ")
+        self.serverLabel = GtkLabel (_("NIS Server: "))
         self.serverLabel.set_alignment (0, 0)
 
 	self.setSensitivities()

@@ -2,9 +2,10 @@ from gtk import *
 from iw import *
 from thread import *
 import isys
+import gettext
 
-def _(x):
-    return x
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class FormatWindow (InstallWindow):
     def __init__ (self, ics):

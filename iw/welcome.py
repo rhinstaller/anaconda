@@ -1,12 +1,16 @@
 from gtk import *
 from iw import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class WelcomeWindow (InstallWindow):		
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Welcome to Red Hat Linux!")
+        ics.setTitle (_("Welcome to Red Hat Linux!"))
         ics.setNextEnabled (1)
         ics.setHTML("<HTML><BODY><CENTER><H2>Welcome to<br>Red Hat Linux!</H2></CENTER>"
                     ""
@@ -19,7 +23,7 @@ class WelcomeWindow (InstallWindow):
                     "http://www.redhat.com/.</P></BODY></HTML>")
 
     def getScreen (self):
-        label = GtkLabel("(insert neat logo graphic here)")
+        label = GtkLabel ("(insert neat logo graphic here)")
 
         box = GtkVBox (FALSE, 10)
         box.pack_start (label, TRUE, TRUE, 0)

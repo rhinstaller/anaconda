@@ -1,6 +1,10 @@
 from gtk import *
 from iw import *
 from thread import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 FSEDIT_CLEAR_LINUX  = (1 << 0)
 FSEDIT_CLEAR_ALL    = (1 << 2)
@@ -12,7 +16,7 @@ class AutoPartitionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Auto partition")
+        ics.setTitle (_("Auto partition"))
 	ics.setNextEnabled (TRUE)
 
     def getNext (self):
@@ -25,7 +29,7 @@ class AutoPartitionWindow (InstallWindow):
         ( "Swap-auto",  64,     0x82,   0, -1 ),
         ]
 
-        ret = self.todo.ddruid.attempt (attempt, "Workstation", self.type)
+        ret = self.todo.ddruid.attempt (attempt, _("Workstation"), self.type)
         return None
 
     def typeSelected (self, button, data):
@@ -34,13 +38,13 @@ class AutoPartitionWindow (InstallWindow):
     def getScreen (self):
 	box = GtkVBox (FALSE)
 
-	group = GtkRadioButton (None, "Remove all data")
+	group = GtkRadioButton (None, _("Remove all data"))
         group.connect ("clicked", self.typeSelected, FSEDIT_CLEAR_ALL)
 	box.pack_start (group, FALSE)
-	item = GtkRadioButton (group, "Remove Linux partitions")
+	item = GtkRadioButton (group, _("Remove Linux partitions"))
         item.connect ("clicked", self.typeSelected, FSEDIT_CLEAR_LINUX)
 	box.pack_start (item, FALSE)
-	item = GtkRadioButton (group, "Use existing free space")
+	item = GtkRadioButton (group, _("Use existing free space"))
         item.connect ("clicked", self.typeSelected, FSEDIT_USE_EXISTING)
 	box.pack_start (item, FALSE)
 	item.set_active (TRUE)

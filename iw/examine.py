@@ -7,7 +7,7 @@ class UpgradeExamineWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Upgrade Examine")
+        ics.setTitle (_("Upgrade Examine"))
 
     def toggled (self, widget, part):
         if widget.get_active ():
@@ -31,7 +31,7 @@ class UpgradeExamineWindow (InstallWindow):
 
 	box = GtkVBox (FALSE)
         if not parts:
-            box.pack_start (GtkLabel ("You don't have any Linux partitions.\n You can't upgrade this sytem!"),
+            box.pack_start (GtkLabel (_("You don't have any Linux partitions.\n You can't upgrade this sytem!")),
                             FALSE)
             return box
 
@@ -49,7 +49,7 @@ class UpgradeExamineWindow (InstallWindow):
         sw.add_with_viewport (box)
 
         vbox = GtkVBox (FALSE, 5)
-        self.individualPackages = GtkCheckButton ("Customize packages to be upgraded")
+        self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
         self.individualPackages.set_active (FALSE)
         align = GtkAlignment (0.5, 0.5)
         align.add (self.individualPackages)

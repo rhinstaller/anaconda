@@ -1,13 +1,17 @@
 from gtk import *
 from iw import *
 import xkb
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class KeyboardWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Keyboard Configuration")
+        ics.setTitle (_("Keyboard Configuration"))
         ics.setHTML ("<HTML><BODY>Select your keyboard."
                      "</BODY></HTML>")
         ics.setNextEnabled (TRUE)
@@ -22,7 +26,7 @@ class KeyboardWindow (InstallWindow):
         print self.todo.keyboard.available ()
 	box = GtkVBox (FALSE)
         
-	box.pack_start (GtkLabel ("Model"), FALSE)
+	box.pack_start (GtkLabel (_("Model")), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
@@ -34,7 +38,7 @@ class KeyboardWindow (InstallWindow):
         sw.add (self.modelList)
 	box.pack_start (sw, TRUE)
 
-	box.pack_start (GtkLabel ("Layout"), FALSE)
+	box.pack_start (GtkLabel (_("Layout")), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
@@ -48,7 +52,7 @@ class KeyboardWindow (InstallWindow):
         sw.add (self.layoutList)
 	box.pack_start (sw, TRUE)
 
-	box.pack_start (GtkLabel ("Variant"), FALSE)
+	box.pack_start (GtkLabel (_("Variant")), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)

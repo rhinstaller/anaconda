@@ -1,19 +1,23 @@
 from gtk import *
 from iw import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class LanguageWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Language Selection")
+        ics.setTitle (_("Language Selection"))
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.setHTML ("<HTML><BODY>Select which language you would like"
                      "to use for the system default.</BODY></HTML>")
         
-        self.question = ("What language should be used during the "
-                         "installation process?")
+        self.question = (_("What language should be used during the "
+                         "installation process?"))
 
     def languageSelected (self, button, locale):
         self.todo.language.set (locale)

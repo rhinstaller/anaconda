@@ -13,13 +13,13 @@ class InstallTypeWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Installation Type")
+        ics.setTitle (_("Installation Type"))
 	ics.setNextEnabled (TRUE)
 
-        self.installTypes = ((WORKSTATION_GNOME, "Workstation (Gnome)"),
-                             (WORKSTATION_KDE, "Workstation (KDE)"),
-                             (SERVER, "Server"),
-                             (CUSTOM, "Custom"))
+        self.installTypes = ((WORKSTATION_GNOME, _("Workstation (Gnome)")),
+                             (WORKSTATION_KDE, _("Workstation (KDE)")),
+                             (SERVER, _("Server")),
+                             (CUSTOM, _("Custom")))
 
         self.type = self.installTypes[0][0]
 

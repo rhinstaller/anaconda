@@ -1,13 +1,17 @@
 from gtk import *
 from iw import *
 from isys import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class NetworkWindow (InstallWindow):		
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Network Configuration")
+        ics.setTitle (_("Network Configuration"))
         ics.setNextEnabled (1)
         self.todo = ics.getToDo ()
         self.calcNMHandler = None
@@ -63,20 +67,20 @@ class NetworkWindow (InstallWindow):
     def devSelected (self, widget, key):
         self.setupTODO ()
         self.dev = self.devs[key]
-        if self.dev.get ("bootproto") == "dhcp":
+        if self.dev.get (_("bootproto")) == "dhcp":
             self.DHCPcb.set_active (TRUE)
             self.ip.set_text ("")
             self.nm.set_text ("")
         else:
             self.DHCPcb.set_active (FALSE)
-            self.ip.set_text (self.dev.get ("ipaddr"))
-            self.nm.set_text (self.dev.get ("netmask"))
+            self.ip.set_text (self.dev.get (_("ipaddr")))
+            self.nm.set_text (self.dev.get (_("netmask")))
 
     def getScreen (self):
         box = GtkVBox ()
         
         devLine = GtkHBox ()
-        devLabel = GtkLabel ("Device: ")
+        devLabel = GtkLabel (_("Device: "))
         devLabel.set_alignment (0, 0)
         devLine.pack_start (devLabel)
         menu = GtkMenu ()
@@ -94,7 +98,7 @@ class NetworkWindow (InstallWindow):
             devLine.pack_start (devMenu)
             box.pack_start (devLine, FALSE)
 
-            self.DHCPcb = GtkCheckButton ("Configure using DHCP")
+            self.DHCPcb = GtkCheckButton (_("Configure using DHCP"))
             self.DHCPcb.set_active (TRUE)
 
             box.pack_start (self.DHCPcb, FALSE)
@@ -102,8 +106,8 @@ class NetworkWindow (InstallWindow):
             
             ipTable = GtkTable (2, 2)
             self.ipTable = ipTable
-            ipTable.attach (GtkLabel ("IP Address:"), 0, 1, 0, 1)
-            ipTable.attach (GtkLabel ("Netmask:"), 0, 1, 1, 2)
+            ipTable.attach (GtkLabel (_("IP Address:")), 0, 1, 0, 1)
+            ipTable.attach (GtkLabel (_("Netmask:")), 0, 1, 1, 2)
             self.ip = GtkEntry (15)
             self.ip.connect ("focus_in_event", self.focusInIP)
             self.ip.connect ("focus_out_event", self.focusOutIP)
@@ -117,10 +121,10 @@ class NetworkWindow (InstallWindow):
             box.pack_start (GtkHSeparator (), FALSE, padding=3)
         
             ipTable = GtkTable (5, 2)
-            ipTable.attach (GtkLabel ("Gateway: "), 0, 1, 0, 1)
-            ipTable.attach (GtkLabel ("Primary DNS: "), 0, 1, 2, 3)
-            ipTable.attach (GtkLabel ("Secondary DNS: "), 0, 1, 3, 4)
-            ipTable.attach (GtkLabel ("Ternary DNS: "), 0, 1, 4, 5)
+            ipTable.attach (GtkLabel (_("Gateway: ")), 0, 1, 0, 1)
+            ipTable.attach (GtkLabel (_("Primary DNS: ")), 0, 1, 2, 3)
+            ipTable.attach (GtkLabel (_("Secondary DNS: ")), 0, 1, 3, 4)
+            ipTable.attach (GtkLabel (_("Ternary DNS: ")), 0, 1, 4, 5)
             self.gw = GtkEntry (15)
             self.gw.connect ("activate", lambda widget, box=box: box.focus (DIR_TAB_FORWARD))
             self.dns1 = GtkEntry (15)

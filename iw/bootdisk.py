@@ -2,7 +2,7 @@ from iw import *
 from gtk import *
 import gettext
 
-cat = gettext.Catalog ("anaconda-text", "/usr/share/locale")
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
 
 class BootdiskWindow (InstallWindow):
@@ -10,7 +10,7 @@ class BootdiskWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Bootdisk Creation")
+        ics.setTitle (_("Bootdisk Creation"))
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         BootdiskWindow.initial = 1
@@ -51,7 +51,7 @@ class BootdiskWindow (InstallWindow):
         label.set_line_wrap (TRUE)
         box.pack_start (label, FALSE)
         
-        self.bootdisk = GtkCheckButton ("Skip boot disk creation")
+        self.bootdisk = GtkCheckButton (_("Skip boot disk creation"))
         self.bootdisk.set_active (FALSE)
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
         box.pack_start (self.bootdisk, FALSE)

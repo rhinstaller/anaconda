@@ -18,6 +18,10 @@ from dependencies import *
 from lilo import *
 from examine import *
 from bootdisk import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 UPGRADE = 0
 INSTALL = 1
@@ -27,7 +31,7 @@ class InstallPathWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Install Path")
+        ics.setTitle (_("Install Path"))
         ics.setNextEnabled (1)
 
         self.commonSteps = [LanguageWindow, KeyboardWindow, 
@@ -52,11 +56,11 @@ class InstallPathWindow (InstallWindow):
 
     def getScreen (self):
 	box = GtkVBox (FALSE, 5)
-	group = GtkRadioButton (None, "Install")
+	group = GtkRadioButton (None, _("Install"))
         group.connect ("toggled", self.toggled, INSTALL)
         self.toggled (group, INSTALL)
 	box.pack_start (group, FALSE)
-	group = GtkRadioButton (group, "Upgrade")
+	group = GtkRadioButton (group, _("Upgrade"))
         group.connect ("toggled", self.toggled, UPGRADE)
         box.pack_start (group, FALSE)
 

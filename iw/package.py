@@ -10,6 +10,10 @@ import GdkImlib
 import string
 import sys
 import xpms
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -17,7 +21,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Individual Package Selection")
+        ics.setTitle (_("Individual Package Selection"))
         ics.setNextEnabled (1)
         ics.setHTML ("<HTML><BODY>Next you must select which packages to install."
                      "</BODY></HTML>")
@@ -174,7 +178,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.clear_package_desc ()
         self.iconList.freeze ()
         self.iconList.clear ()
-        self.iconList.append_imlib (self.idirUpImage, "Up")
+        self.iconList.append_imlib (self.idirUpImage, _("Up"))
         self.iconList.set_icon_data (0, (self.DIR_UP, node))
         for x in node.children:
             dirName = ctree.get_node_info (x)[0]
@@ -182,7 +186,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.iconList.set_icon_data (pos, (self.DIR, x))
 
         try:
-            # this code is wrapped in a generic exception handler since we don't
+            # this code is wrapped in a generic exception handler since we dont
             # care if we access a namespace that lacks rpms
             
             # drop the leading slash off the package namespace
@@ -200,7 +204,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             pass
 
 	# make sure that the iconList is reset to show the initial files in a dir,
-        # unless we're rebuilding the icons because one has been selected for install
+        # unless we re rebuilding the icons because one has been selected for install
         if not self.updatingIcons:
             self.iconListSW.get_vadjustment ().set_value (0.0)
         self.iconList.thaw ()
@@ -231,7 +235,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 #            print self.currentPackagePos
 #            self.iconList.remove (self.currentPackagePos)
-#            print "got here"
+#            print _("got here")
 #            self.iconList.insert (self.currentPackagePos, packageIcon,
 #                                  self.currentPackage[rpm.RPMTAG_NAME])
 #            self.iconList.set_icon_data (self.currentPackagePos, (self.RPM, self.currentPackage))
@@ -247,7 +251,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.path_mapping = {}
         self.ctree = GtkCTree ()
         self.ctree.set_selection_mode (SELECTION_BROWSE)
-        # Kludge to get around CTree's extremely broken focus behavior
+        # Kludge to get around CTree s extremely broken focus behavior
         self.ctree.unset_flags (CAN_FOCUS)
 
         if (not self.__dict__.has_key ("open_p")):
@@ -272,7 +276,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.flat_groups = groups
         index = 0
 
-        # now insert the groups into the list, then each group's packages
+        # now insert the groups into the list, then each group s packages
         # after sorting the list
         def cmpHdrName(first, second):
             if first[rpm.RPMTAG_NAME] < second[rpm.RPMTAG_NAME]:
@@ -320,24 +324,24 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 
         hbox = GtkHBox ()
-        label = GtkLabel ("Name: ")
+        label = GtkLabel (_("Name: "))
         self.packageName = GtkLabel ()
         self.packageName.set_alignment (0.0, 0.0)
         hbox.pack_start (label, FALSE, padding=5)
         hbox.pack_start (self.packageName, FALSE)
-        label = GtkLabel ("Package Details")
+        label = GtkLabel (_("Package Details"))
         label.set_alignment (1.0, 1.0)
         hbox.pack_start (label, padding=5)
         descVBox.pack_start (hbox, FALSE)
 
         hbox = GtkHBox ()
-        label = GtkLabel ("Size: ")
+        label = GtkLabel (_("Size: "))
         self.packageSize = GtkLabel ()
         self.packageSize.set_alignment (0.0, 0.5)
         hbox.pack_start (label, FALSE, padding=5)
         hbox.pack_start (self.packageSize, FALSE)
         align = GtkAlignment (1.0, 0.0)
-        self.cbutton = GtkCheckButton ("Select Package For Installation")
+        self.cbutton = GtkCheckButton (_("Select Package For Installation"))
         self.cbutton.set_sensitive (FALSE)
         self.cbutton.connect ("toggled", self.installButtonToggled)
         self.cbutton.children()[0].set_alignment (1.0, 0.5)
@@ -358,7 +362,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         descVBox.pack_start (descSW)
 
-#        descFrame = GtkFrame ("Package Details")
+#        descFrame = GtkFrame (_("Package Details"))
 #        descFrame.set_border_width (5)
 #        descFrame.add (descVBox)
         
@@ -373,7 +377,7 @@ class PackageSelectionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Package Group Selection")
+        ics.setTitle (_("Package Group Selection"))
         ics.setNextEnabled (1)
         ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
                      "</BODY></HTML>")
@@ -437,7 +441,7 @@ class PackageSelectionWindow (InstallWindow):
         sw.add_with_viewport (box)
 
         vbox = GtkVBox (FALSE, 5)
-        self.individualPackages = GtkCheckButton ("Select individual packages")
+        self.individualPackages = GtkCheckButton (_("Select individual packages"))
         self.individualPackages.set_active (FALSE)
         align = GtkAlignment (0.5, 0.5)
         align.add (self.individualPackages)

@@ -2,13 +2,17 @@ from gtk import *
 from iw import *
 from thread import *
 import isys
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Confirm Partitioning Selection")
+        ics.setTitle (_("Confirm Partitioning Selection"))
         ics.setHTML ("<HTML><BODY>Select a root partition"
                      "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)
@@ -24,7 +28,7 @@ class PartitionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle ("Root Partition Selection")
+        ics.setTitle (_("Root Partition Selection"))
         ics.setHTML ("<HTML><BODY>Select a root partition"
                      "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)

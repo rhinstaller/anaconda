@@ -4,6 +4,10 @@ import string
 import rpm
 import time
 from threading import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class DoInstall (Thread):
     def __init__ (self, icw, todo):
@@ -22,7 +26,7 @@ class InstallProgressWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Installing Packages")
+        ics.setTitle (_("Installing Packages"))
         ics.setPrevEnabled (0)
 
         self.todo = ics.getToDo ()
@@ -73,7 +77,7 @@ class InstallProgressWindow (InstallWindow):
 
 #        self.clist.set_text ("%d" % self.numComplete,
 #                             status["completed"]["packages"]["row"],
-#                             status["completed"]["packages"]["
+#                             status["completed"]["packages"]["xxx"]
 
 
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
@@ -101,7 +105,7 @@ class InstallProgressWindow (InstallWindow):
 
     def getScreen (self):
 	table = GtkTable (3, 3)
-	label = GtkLabel ("Package")
+	label = GtkLabel (_("Package"))
         label.set_alignment (0.0, 0.0)
 	table.attach (label, 0, 1, 0, 1, FILL, 0)
 	label = GtkLabel (":")
@@ -111,10 +115,10 @@ class InstallProgressWindow (InstallWindow):
 	label = GtkLabel (":")
 	label.set_alignment (0.0, 0.0)
 	table.attach (label, 1, 2, 2, 3, 0, FILL | EXPAND, 5)
-	label = GtkLabel ("Size")
+	label = GtkLabel (_("Size"))
         label.set_alignment (0.0, 0.0)
 	table.attach (label, 0, 1, 1, 2, FILL, 0)
-	label = GtkLabel ("Summary")
+	label = GtkLabel (_("Summary"))
         label.set_alignment (0.0, 0.0)
 	table.attach (label, 0, 1, 2, 3, FILL, FILL | EXPAND)
 
@@ -148,14 +152,14 @@ class InstallProgressWindow (InstallWindow):
                             "time"     : (2, 3) }
             }
 
-        clist = GtkCList (4, ("Status", "Packages", "Size", "Time"))
+        clist = GtkCList (4, (_("Status"), _("Packages"), _("Size"), _("Time")))
         clist.set_column_justification (0, JUSTIFY_LEFT)
         clist.set_column_justification (1, JUSTIFY_RIGHT)
         clist.set_column_justification (2, JUSTIFY_RIGHT)
         clist.set_column_justification (3, JUSTIFY_RIGHT)
-        clist.append (("Total", "0", "0", "0:00.00"))
-        clist.append (("Completed", "0", "0", "0:00.00"))
-        clist.append (("Remaining", "0", "0", "0:00.00"))
+        clist.append ((_("Total"), "0", "0", "0:00.00"))
+        clist.append ((_("Completed"), "0", "0", "0:00.00"))
+        clist.append ((_("Remaining"), "0", "0", "0:00.00"))
 #        clist.set_column_auto_resize (0, TRUE)
 	clist.columns_autosize ()
         self.clist = clist

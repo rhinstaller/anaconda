@@ -1,12 +1,16 @@
 from iw import *
 from gtk import *
+import gettext
+
+cat = gettext.Catalog ("anaconda", "/usr/share/locale")
+_ = cat.gettext
 
 class LiloWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Lilo Configuration")
+        ics.setTitle (_("Lilo Configuration"))
         ics.setNextEnabled (1)
         self.type = None
 
@@ -49,10 +53,10 @@ class LiloWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-        self.list = GtkCList (2, ("Device", "Location"))
+        self.list = GtkCList (2, (_("Device"), _("Location")))
         self.list.freeze ()
-        self.list.append ((format % (self.boothd,), "Master Boot Record (MBR)"))
-        self.list.append ((format % (self.bootpart,), "First sector of boot partition"))
+        self.list.append ((format % (self.boothd,), _("Master Boot Record (MBR)")))
+        self.list.append ((format % (self.bootpart,), _("First sector of boot partition")))
         self.list.columns_autosize ()
         self.list.set_selection_mode (SELECTION_BROWSE)
         self.list.set_column_resizeable (0, FALSE)
@@ -64,12 +68,12 @@ class LiloWindow (InstallWindow):
         sw.add (self.list)
 
         box = GtkVBox (FALSE, 5)
-        self.bootdisk = GtkCheckButton ("Create boot disk")
+        self.bootdisk = GtkCheckButton (_("Create boot disk"))
         self.bootdisk.set_active (TRUE)
         box.pack_start (self.bootdisk, FALSE)
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
 
-        self.lilo = GtkCheckButton ("Skip LILO install")
+        self.lilo = GtkCheckButton (_("Skip LILO install"))
         self.lilo.set_active (FALSE)
         self.lilo.connect ("toggled", self.toggled)
         box.pack_start (self.lilo, FALSE)
