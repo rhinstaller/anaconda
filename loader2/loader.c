@@ -37,6 +37,7 @@
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 
 #include <linux/fb.h>
 
@@ -1303,10 +1304,42 @@ int main(int argc, char ** argv) {
     closeLog();
     
     if (!FL_TESTING(flags)) {
+        int pid, status, rc;
+
         char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
         printf("%s", buf);
-    	execv(anacondaArgs[0], anacondaArgs);
-        perror("exec");
+
+        if (!(pid = fork())) {
+            execv(anacondaArgs[0], anacondaArgs);
+            fprintf(stderr, "exec of anaconda failed: %s", strerror(errno));
+            exit(1);
+        }
+
+        waitpid(pid, &status, 0);
+
+        if (!WIFEXITED(status) || WEXITSTATUS(status))
+            rc = 1;
+        else
+            rc = 0;
+
+#if defined(__s390__) || defined(__s390x__)
+        /* FIXME: we have to send a signal to linuxrc on s390 so that shutdown
+         * can happen.  this is ugly */
+        FILE * f;
+        f = fopen("/var/run/init.pid", "r");
+        if (!f) {
+            logMessage("can't find init.pid, guessing that init is pid 1");
+            pid = 1;
+        } else {
+            char * buf = malloc(256);
+            fgets(buf, 256, f);
+            pid = atoi(buf);
+        }
+        kill(pid, SIGUSR1);
+        return rc;
+#else
+        return rc;
+#endif
     }
 #if 0
     else {
