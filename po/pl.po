@@ -96,11 +96,11 @@ msgstr "Nawiązano połączenie!"
 #: ../anaconda:220
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr "Połącz się z %s aby rozpocząć instalację..."
+msgstr "Połącz się z %s, aby rozpocząć instalację..."
 
 #: ../anaconda:222
 msgid "Please connect to begin the install..."
-msgstr "Połącz się aby rozpocząć instalację..."
+msgstr "Połącz się, aby rozpocząć instalację..."
 
 #: ../anaconda:575 ../anaconda:760 ../gui.py:244 ../gui.py:1072
 #: ../rescue.py:41 ../rescue.py:228 ../rescue.py:308 ../rescue.py:336
@@ -238,7 +238,7 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "Partycja startowa %s należy do dysku mającego na początku zbyt mało wolnego "
-"miejsca aby można było umieścić na nim program startowy. Zapewnij co "
+"miejsca, aby można było umieścić na nim program startowy. Zapewnij co "
 "najmniej 5MB wolnego miejsca na początku dysku zawierającego /boot"
 
 #: ../autopart.py:1026
@@ -318,7 +318,7 @@ msgid ""
 msgstr ""
 "Nie można zlokalizować grupy woluminów %s dla %s.\n"
 "\n"
-"Wciśnij 'OK' aby zrestartować system."
+"Wciśnij 'OK', aby zrestartować system."
 
 #: ../autopart.py:1321
 msgid "Requested Logical Volume Does Not Exist"
@@ -333,7 +333,7 @@ msgid ""
 msgstr ""
 "Nie można zlokalizować logiczego woluminu %s dla %s.\n"
 "\n"
-"Wciśnij 'OK' aby zrestartować system."
+"Wciśnij 'OK', aby zrestartować system."
 
 #: ../autopart.py:1414 ../autopart.py:1462
 msgid "Automatic Partitioning Errors"
@@ -409,7 +409,7 @@ msgstr ""
 "Możesz wybrać inną opcję automatycznego podziału na partycje lub nacisnąć "
 "'Wstecz' i wybrać opcję ręcznego podziału dysku.\n"
 "\n"
-"Naciśnij 'OK' aby kontynuować."
+"Naciśnij 'OK', aby kontynuować."
 
 #: ../autopart.py:1463
 #, python-format
@@ -756,7 +756,7 @@ msgstr ""
 "Wystąpił błąd podczas inicjalizacji przestrzeni wymiany na urządzeniu %s.  Problem "
 "jest poważny i instalacja nie może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1365
 #, python-format
@@ -773,7 +773,7 @@ msgstr ""
 "Plik /etc/fstab na aktualizowanej partycji wskazuje na niepoprawną partycję "
 "wymiany.\n"
 "\n"
-"Naciśnij OK aby zrestartować system."
+"Naciśnij OK, aby zrestartować system."
 
 #: ../fsset.py:1376
 #, python-format
@@ -788,7 +788,7 @@ msgstr ""
 "\n"
 "Prawdopodobnie ta partycja wymiany nie została zainicjalizowana.\n"
 "\n"
-"Naciśnij OK aby zrestartować system."
+"Naciśnij OK, aby zrestartować system."
 
 #: ../fsset.py:1426
 #, python-format
@@ -801,7 +801,7 @@ msgstr ""
 "Na urządzeniu /dev/%s wykryto uszkodzone bloki. Używanie tego urządzenia nie "
 "jest zalecane.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system"
+"Naciśnij <Enter>, aby zrestartować system"
 
 #: ../fsset.py:1437
 #, python-format
@@ -814,7 +814,7 @@ msgstr ""
 "Podczas poszukania uszkodzonych bloków na %s wystąpił błąd. Jest to poważny "
 "problem i instalacja nie może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1472
 #, python-format
@@ -827,7 +827,7 @@ msgstr ""
 "Podczas formatowania %s wystąpił błąd. Jest to poważny problem i instalacja "
 "nie może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1522
 #, python-format
@@ -840,7 +840,7 @@ msgstr ""
 "Podczas migracji %s wystąpił błąd.  Jest to poważny problem i instalacja nie "
 "może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1543 ../fsset.py:1552
 msgid "Invalid mount point"
@@ -857,7 +857,7 @@ msgstr ""
 "Podczas tworzenia %s wystąpił błąd. Pewien element ścieżki nie jest "
 "folderem. Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1553
 #, python-format
@@ -870,7 +870,7 @@ msgstr ""
 "Podczas tworzenia %s wystąpił błąd: %s. Jest to błąd krytyczny i instalacja "
 "nie może być kontynuowana.\n"
 "\n"
-"Naciśnij <Enter> aby zrestartować system."
+"Naciśnij <Enter>, aby zrestartować system."
 
 #: ../fsset.py:1566
 #, python-format
@@ -885,7 +885,7 @@ msgstr ""
 "\n"
 "Prawdopodobnie ta partycja nie została sformatowana.\n"
 "\n"
-"Naciśnij OK aby zrestartować system."
+"Naciśnij OK, aby zrestartować system."
 
 #: ../fsset.py:1585
 msgid ""
@@ -899,7 +899,7 @@ msgstr ""
 "\n"
 "Najprawdopodobniej masz błędny wpis w pliku fstab.\n"
 "\n"
-"Naciśnij OK aby zrestartować system."
+"Naciśnij OK, aby zrestartować system."
 
 #: ../fsset.py:2226
 msgid "Duplicate Labels"
@@ -914,7 +914,7 @@ msgid ""
 "Please fix this problem and restart the installation process."
 msgstr ""
 "Kilka urządzeń w systemie posiada etykietę %s. Wszystkie etykiety "
-"urządzeń muszą być unikalne aby system mógł poprawnie działać.\n"
+"urządzeń muszą być unikalne, aby system mógł poprawnie działać.\n"
 "\n"
 "Proszę rozwiązać problem i ponowić proces instalacji."
 
@@ -1135,7 +1135,7 @@ msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
-"Wybierz tę grupę aby uzyskać najmniejszy możliwy zbiór pakietów. Jest to "
+"Wybierz tę grupę, aby uzyskać najmniejszy możliwy zbiór pakietów. Jest to "
 "przydatne na przykład do tworzenia małych routerów/zapór ogniowych."
 
 #: ../hdrlist.py:990
@@ -1174,7 +1174,7 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 "Podczas odmontowywania CD wystąpił błąd. Sprawdź na powłoce tty2 czy nie "
-"korzystasz z lokalizacji %s, a następnie kliknij OK aby spróbować ponownie."
+"korzystasz z lokalizacji %s, a następnie kliknij OK, aby spróbować ponownie."
 
 #: ../image.py:188
 msgid "Copying File"
@@ -1199,7 +1199,7 @@ msgstr "Zmień płytę CD-ROM"
 #: ../image.py:284
 #, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Proszę włożyć płytę systemu %s numer %d aby kontynuować."
+msgstr "Proszę włożyć płytę systemu %s numer %d, żeby kontynuować."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1233,7 +1233,7 @@ msgstr ""
 "Wystąpił błąd podczas uruchamiania scriptletu. Możesz sprawdzić wyjście w %"
 "s. Jest to krytyczny błąd, więc instalacja zostanie przerwana.\n"
 "\n"
-"Naciśnij przycisk OK aby zrestartować system."
+"Naciśnij przycisk OK, aby zrestartować system."
 
 #: ../kickstart.py:1489
 msgid "Missing Package"
@@ -1310,7 +1310,7 @@ msgid ""
 "media.  Press <return> to try again."
 msgstr ""
 "Nie można odczytać listy nagłówków. Powodem może być brak pliku lub "
-"uszkodzony nośnik.  Naciśnij <Enter> aby spróbować ponownie."
+"uszkodzony nośnik.  Naciśnij <Enter>, aby spróbować ponownie."
 
 #: ../packages.py:176
 msgid ""
@@ -1318,7 +1318,7 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 "Nie można odczytać pliku comps.  Powodem może być brak pliku lub uszkodzony "
-"nośnik.  Naciśnij <Enter> aby spróbować ponownie."
+"nośnik.  Naciśnij <Enter>, aby spróbować ponownie."
 
 #: ../packages.py:185
 msgid ""
@@ -1366,7 +1366,7 @@ msgstr ""
 "uszkodzenie pakietu.  Jeśli instalacja prowadzona jest z płyt CD, zwykle "
 "oznacza to, że płyta jest uszkodzona lub napęd CD nie może jej odczytać.\n"
 "\n"
-"Naciśnij <Enter> aby spróbować ponownie."
+"Naciśnij <Enter>, aby spróbować ponownie."
 
 #: ../packages.py:443
 msgid "Re_boot"
@@ -1404,7 +1404,7 @@ msgstr ""
 "co oznacza przerwanie instalacji.  Sprawdź nośnik i spróbuj ponowić "
 "instalację.\n"
 " \n"
-"Naciśnij przycisk OK aby zrestartować system."
+"Naciśnij przycisk OK, aby zrestartować system."
 
 #: ../packages.py:735 ../upgrade.py:350
 msgid ""
@@ -1412,7 +1412,7 @@ msgid ""
 "media.  Press <return> to try again."
 msgstr ""
 "Nie można połączyć list nagłówków. Powodem może być: brak pliku lub "
-"uszkodzony nośnik.  Naciśnij <Enter> aby spróbować ponownie."
+"uszkodzony nośnik.  Naciśnij <Enter>, aby spróbować ponownie."
 
 #: ../packages.py:870
 msgid "Preparing RPM transaction..."
@@ -1478,7 +1478,7 @@ msgid ""
 "\n"
 msgstr ""
 "Wygląda na to, że nie posiadasz wystarczającej ilości miejsca na twardym "
-"dysku aby dokonać instalacji wybranych pakietów. Potrzebujesz więcej miejsca "
+"dysku, aby dokonać instalacji wybranych pakietów. Potrzebujesz więcej miejsca "
 "w następujących systemach plików:\n"
 "\n"
 
@@ -1955,7 +1955,7 @@ msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Wybierz 'Tak' aby sformatować te partycje, lub 'Nie' aby wrócić i zmienić "
+"Wybierz 'Tak', aby sformatować te partycje, lub 'Nie', aby wrócić i zmienić "
 "ustawienia."
 
 #: ../partIntfHelpers.py:457
@@ -2287,7 +2287,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "System zawiera nieczysto zamknięte systemy plików, których nie "
-"zamontowałeś. Naciśnij <Enter> aby uzyskać powłokę, z której będziesz mógł "
+"zamontowałeś. Naciśnij <Enter>, aby uzyskać powłokę, z której będziesz mógł "
 "uruchomić fsck i zamontować partycje. System zrestartuje się automatycznie, "
 "kiedy wyjdziesz z powłoki."
 
@@ -2336,7 +2336,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Nie masz żadnych partycji linuksowych. Naciśnij <Enter> aby uzyskać powłokę. "
+"Nie masz żadnych partycji linuksowych. Naciśnij <Enter>, aby uzyskać powłokę. "
 "System zrestartuje się automatycznie kiedy wyjdziesz z powłoki."
 
 #: ../rescue.py:435
@@ -2559,7 +2559,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Zdaje się, że chcesz aktualizować system, który jest za stary aby można było "
+"Zdaje się, że chcesz aktualizować system, który jest za stary, aby można było "
 "go zaktualizować do tej wersji systemu %s. Czy jesteś pewien, że chcesz "
 "kontynuować proces aktualizacji?"
 
@@ -2577,7 +2577,7 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"X nie mógł wystartować.  Czy chcesz uruchomić VNC aby połączyć się z tym "
+"X nie mógł wystartować.  Czy chcesz uruchomić VNC, aby połączyć się z tym "
 "komputerem z innego i wykonać instalację w trybie graficznym, czy też wolisz "
 "kontynuować instalację w trybie tekstowym?"
 
@@ -3082,7 +3082,7 @@ msgstr "Za chwilę rozpocznie się aktualizacja"
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Naciśnij 'Dalej' aby rozpocząć aktualizację %s."
+msgstr "Naciśnij 'Dalej', aby rozpocząć aktualizację %s."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
@@ -3104,7 +3104,7 @@ msgid ""
 "\n"
 msgstr ""
 "Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i "
-"wciśnij \"Restart\" aby zrestartować system.\n"
+"wciśnij \"Restart\", aby zrestartować system.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -3336,7 +3336,7 @@ msgstr ""
 "Jeśli system jest podłączony do Internetu lub innej dużej sieci publicznej, "
 "zalecana jest konfiguracja zapory ogniowej w celu ochrony przed nieautoryzowanym "
 "dostępem.  Jednakże zdecydowałeś się nie konfigurować zapory.  Wybierz "
-"\"Dalej\" aby kontynuować bez zapory ogniowej."
+"\"Dalej\", aby kontynuować bez zapory ogniowej."
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
@@ -4418,7 +4418,7 @@ msgstr "Utworzyć urzą_dzenie RAID [domyślnie=/dev/md%s]."
 #: ../iw/partition_gui.py:1270
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "Sklonować napę_d aby utworzyć urządzenie RAID [domyślnie=/dev/md%s]."
+msgstr "Sklonować napę_d, aby utworzyć urządzenie RAID [domyślnie=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1309
 msgid "Couldn't Create Drive Clone Editor"
@@ -5295,7 +5295,7 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Zdecydowałeś aby nie instalować żadnego programu startowego. Zainstalowanie "
+"Zdecydowałeś, aby nie instalować żadnego programu startowego. Zainstalowanie "
 "programu startowego jest zdecydowanie zalecane, chyba, że masz jakieś "
 "specjalne wymagania. Program startowy jest niemal zawsze konieczny do "
 "wystartowania systemu Linux bezpośrednio z dysku twardego.\n"
@@ -5405,12 +5405,12 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Wciśnij <Enter> aby zakończyć proces instalacji.\n"
+"Wciśnij <Enter>, aby zakończyć proces instalacji.\n"
 "\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr "Wciśnij <Enter> aby wyjść"
+msgstr "Wciśnij <Enter>, aby wyjść"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -5419,7 +5419,7 @@ msgid ""
 "\n"
 msgstr ""
 "Usuń wszystkie nośniki wykorzystywane w trakcie instalacji i "
-"wciśnij <Enter> aby ponownie uruchomić system.\n"
+"wciśnij <Enter>, aby ponownie uruchomić system.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5843,7 +5843,7 @@ msgstr ""
 
 #: ../textw/packages_text.py:399
 msgid "Install packages to satisfy dependencies"
-msgstr "Zainstaluj pakiety aby spełnić zależności"
+msgstr "Zainstaluj pakiety, aby spełnić zależności"
 
 #: ../textw/packages_text.py:400
 msgid "Do not install packages that have dependencies"
@@ -6105,7 +6105,7 @@ msgstr "Brak głównej partycji"
 
 #: ../textw/partition_text.py:1475
 msgid "Must have a / partition to install on."
-msgstr "Musisz mieć partycję / aby zainstalować system."
+msgstr "Musisz mieć partycję /, aby zainstalować system."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
@@ -6612,7 +6612,7 @@ msgstr "Częst. pionowa: "
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr "Wybierz monitor. Użyj przycisku '%s' aby przywrócić wykryte wartości."
+msgstr "Wybierz monitor. Użyj przycisku '%s', aby przywrócić wykryte wartości."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6644,7 +6644,7 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
-"Wybierz kartę graficzną zainstalowaną w systemie. Wybierz '%s' aby anulować "
+"Wybierz kartę graficzną zainstalowaną w systemie. Wybierz '%s', aby anulować "
 "wybór i powrócić do karty wykrytej przez program instalacyjny."
 
 #: ../textw/xconfig_text.py:562
@@ -6657,7 +6657,7 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
-"Wybierz ilość pamięci karty graficznej. Wybierz '%s' aby anulować wybór i "
+"Wybierz ilość pamięci karty graficznej. Wybierz '%s', aby anulować wybór i "
 "powrócić do ilości wykrytej przez program instalacyjny."
 
 #: ../textw/xconfig_text.py:629
@@ -6883,7 +6883,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "Nie mogę znaleźć płyty systemu %s w żadnym napędzie CD-ROM. Proszę włożyć "
-"płytę systemu %s i nacisnąć %s aby ponowić próbę."
+"płytę systemu %s i nacisnąć %s, aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6907,7 +6907,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "Nie mogę znaleźć płyty systemu %s. Proszę włożyć płytę systemu %s i nacisnąć "
-"%s aby ponowić próbę."
+"%s, aby ponowić próbę."
 
 #: ../loader2/cdinstall.c:382
 msgid "CD Not Found"
@@ -6965,7 +6965,7 @@ msgstr "Nie udało się załadować z pliku dyskietki ze sterownikami."
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
+"Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\", aby kontynuować."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -7120,7 +7120,7 @@ msgid ""
 msgstr ""
 "Na jakiej partycji i w jakim folderze na tej partycji znajdują się obrazy CD "
 "(ISO9660) dla systemu %s? Jeśli nie widzisz potrzebnego dysku na tej liście, "
-"naciśnij F2 aby skonfigurować dodatkowe urządzenia."
+"naciśnij F2, aby skonfigurować dodatkowe urządzenia."
 
 #: ../loader2/hdinstall.c:369
 msgid "Directory holding images:"
@@ -7467,7 +7467,7 @@ msgid ""
 "field blank and the install will continue."
 msgstr ""
 "%s jest bezprzewodową kartą sieciową.  Proszę wskazać ESSID oraz klucz "
-"szyfrujący aby uzyskać dostęp do sieci bezprzewodowej.  Jeśli klucz nie jest "
+"szyfrujący, aby uzyskać dostęp do sieci bezprzewodowej.  Jeśli klucz nie jest "
 "wymagany proszę jego pole zostawić puste a instalacja będzie kontynuowana."
 
 #: ../loader2/net.c:230
