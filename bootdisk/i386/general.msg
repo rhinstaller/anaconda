@@ -16,7 +16,7 @@ installation, restart the installation adding the 'noprobe' option.  The
 'skipddc' option will also prevent some automatic probing.
 
 There are a number of parameters that can be passed to the Linux kernel
-at boot time.  Press <F3> for more information. 
+at boot time.  Press <F4> for more information. 
 
 
 02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
