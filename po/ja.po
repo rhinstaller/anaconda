@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-02-19 18:55-0500\n"
-"PO-Revision-Date: 2001-02-04 07:47-05:00\n"
+"PO-Revision-Date: 2001-02-28 21:59-05:00\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -311,9 +311,8 @@ msgid "Invalid Choice"
 msgstr "不正な選択"
 
 #: ../text.py:167
-#, fuzzy
 msgid "You must select at least one language to install."
-msgstr "インストールする言語を選択してください。"
+msgstr "インストールする言語は少なくとも一つ選択しなければなりません。"
 
 #: ../text.py:195
 msgid "Default Language"
@@ -906,7 +905,7 @@ msgstr "root パスワードが一致していません。"
 
 #: ../iw/account_gui.py:59
 msgid "User password accepted."
-msgstr "root パスワードを設定しました。"
+msgstr "ユーザパスワードを設定しました。"
 
 #: ../iw/account_gui.py:64
 msgid "Root account can not be added here."
@@ -2363,14 +2362,18 @@ msgid "Root partition"
 msgstr "ルートパーティション"
 
 #: ../libfdisk/gnomefsedit.c:757
-#, fuzzy
 msgid "The growth of the root (/) RAID array appears to have been stunted by the 1024 cylinder boot limit. If this is the case then adding a /boot partition (50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr "ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。この場合は /boot パーティションを追加することでディスク一杯までルートパーティションを大きくすることができます。"
+msgstr ""
+"ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。"
+"この場合は /boot パーティション(50 MB がいいでしょう)を追加することで"
+"ディスク一杯までルートパーティションを大きくすることができます。"
 
 #: ../libfdisk/gnomefsedit.c:789
-#, fuzzy
 msgid "The growth of the root (/) partition appears to have been stunted by the 1024 cylinder boot limit. If this is the case then adding a /boot partition (50 MB is fine) may allow the root partition to grow to fill the disk."
-msgstr "ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。この場合は /boot パーティションを追加することでディスク一杯までルートパーティションを大きくすることができます。"
+msgstr ""
+"ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。"
+"この場合は /boot パーティション(50 MB がいいでしょう)を追加することで"
+"ディスク一杯までルートパーティションを大きくすることができます。"
 
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -3137,7 +3140,7 @@ msgstr "anaconda アップデートを読み込んでいます..."
 
 #: ../loader/loader.c:2472
 msgid "You don't have enough system memory to install Red Hat on this machine."
-msgstr ""
+msgstr "Red Hat をこのマシンにインストールするのに十分なメモリがありません。"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
