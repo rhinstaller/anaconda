@@ -176,6 +176,7 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd-ja.img \
 	   --initrdsize 4100 \
 	   --japanese \
+	   --loaderbin loader-local-kon \
 	   --pcmcia \
 	   --loaderbin loader-pcmcia \
 	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
