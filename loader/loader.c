@@ -1165,15 +1165,39 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 			char * dest, char * mntpoint, char * device) {
     int fd;
     int rc;
+    char * newFile = NULL;
 
-    fd = urlinstStartTransfer(ui, file);
+    fd = urlinstStartTransfer(ui, file, 1);
 
-    if (fd < 0)
-	return 1;
+    if (fd == -2) return 1;
+
+    if (fd < 0) {
+	/* file not found */
+
+	newFile = alloca(strlen(device) + 20);
+	sprintf(newFile, "disc1/%s", file);
+
+	fd = urlinstStartTransfer(ui, newFile, 1);
+
+	if (fd == -2) return 1;
+	if (fd < 0) {
+	    newtWinMessage(_("Error"), _("OK"),
+			    _("File %s/%s not found on server."), 
+			    ui->prefix, file);
+	    return 1;
+	}
+    }
 
     rc = setupStage2Image(fd, dest, flags, device, mntpoint);
 
     urlinstFinishTransfer(ui, fd);
+
+    if (newFile) {
+	newFile = malloc(strlen(ui->prefix ) + 20);
+	sprintf(newFile, "%s/disc1", ui->prefix);
+	free(ui->prefix);
+	ui->prefix = newFile;
+    }
 
     return rc;
 }
@@ -1181,7 +1205,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
     setupRamdisk();
 
-    if (loadSingleUrlImage(ui, "base/netstg1.img", flags, 
+    if (loadSingleUrlImage(ui, "RedHat/base/netstg1.img", flags, 
 			   "/tmp/ramfs/netstg1.img",
 			   "/mnt/runtime", "loop0")) {
 	newtWinMessage(ui->protocol == URL_METHOD_FTP ?
