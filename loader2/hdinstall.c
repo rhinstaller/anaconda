@@ -50,7 +50,7 @@ int isPartitionName(char *pname) {
 	return 0;
 
     /* if it has a '/' in it then treat it specially */
-    if (strchr(pname, '/')) {
+    if (strchr(pname, '/') && !strstr(pname, "iseries")) {
 	/* assume its either a /dev/ida/ or /dev/cciss device */
 	/* these have form of c?d?p? if its a partition */
 	return strchr(pname, 'p') != NULL;
@@ -160,6 +160,7 @@ int lenPartitionsList(char **list) {
     char **part;
     int  rc;
 
+    if (!list) return 0;
     for (rc = 0, part = list; *part; rc++, part++);
 
     return rc;
@@ -417,7 +418,7 @@ char * mountHardDrive(struct installMethod * method,
 
 	label = newtLabel(-1, -1, _("Directory holding images:"));
 
-	dirEntry = newtEntry(28, 11, dir, 28, &tmpDir, NEWT_ENTRY_SCROLL);
+	dirEntry = newtEntry(28, 11, dir, 28, (const char **) &tmpDir, NEWT_ENTRY_SCROLL);
 
 	/* if we had ks data around use it to prime entry, then get rid of it*/
 	if (ksdirectory) {
