@@ -451,7 +451,7 @@ class KickstartBase(BaseInstallClass):
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
                                         'onprimary=', 'active', 'type=',
-                                        'asprimary', 'dontformat'])
+                                        'asprimary', 'noformat'])
 
 	for n in args:
 	    (str, arg) = n
@@ -475,7 +475,7 @@ class KickstartBase(BaseInstallClass):
                 active = 1
             elif str == "--asprimary":
                 primOnly = 1
-            elif str == "--dontformat":
+            elif str == "--noformat":
                 format = 0
 
 	if len(extra) != 1:
@@ -487,7 +487,7 @@ class KickstartBase(BaseInstallClass):
                self.addToFstab(extra[0], onPart, 'swap',1)
            else:
                if format == 0:
-                   self.addToFstab(extra[0], onPart)
+                   self.addToFstab(extra[0], onPart, reformat = 0)
                else:
                    self.addToFstab(extra[0], onPart, 'ext2', 1)
 	else:
