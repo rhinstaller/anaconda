@@ -116,9 +116,15 @@ class CdromInstallMethod(ImageInstallMethod):
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
 
-	    f = open("/mnt/source/.discinfo")
-	    timestamp = f.readline().strip()
-	    f.close()
+            if os.access("/mnt/source/.discinfo", os.R_OK):
+                f = open("/mnt/source/.discinfo")
+                timestamp = f.readline().strip()
+                f.close()
+            else:
+                timestamp = self.timestamp
+
+            if self.timestamp is None:
+                self.timestamp = timestamp
 
 	    needed = h[1000002]
             self.unmountCD()
@@ -222,6 +228,16 @@ class CdromInstallMethod(ImageInstallMethod):
 
 	    timer.start()
 
+        # if we haven't read a timestamp yet, let's try to get one
+        if (self.timestamp is None and
+            os.access("/mnt/source/.discinfo", os.R_OK)):
+            try:
+                f = open("/mnt/source/.discinfo")
+                self.timestamp = f.readline().strip()
+                f.close()
+            except:
+                pass
+
         tmppath = self.getTempPath()
         copied = 0
         # FIXME: should retry a few times then prompt for new cd
@@ -269,13 +285,14 @@ class CdromInstallMethod(ImageInstallMethod):
         if os.access("/mnt/source/.discinfo", os.O_RDONLY):
             try:
                 f = open("/mnt/source/.discinfo")
-                f.readline() # stamp
+                self.timestamp = f.readline().strip()
                 f.readline() # descr
                 f.readline() # arch
                 self.currentDisc = getDiscNums(f.readline().strip())
                 f.close()
             except:
                 self.currentDisc = [ 1 ]
+                self.timestamp = None
         else:                
             self.currentDisc = [ 1 ]
         
