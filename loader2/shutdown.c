@@ -14,9 +14,11 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <fcntl.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/reboot.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -59,15 +61,15 @@ void shutDown(int noKill, int doReboot) {
 #if USE_MINILIBC
 	reboot(0xfee1dead, 672274793, 0x1234567);
 #else
-# ifdef __alpha__
-	reboot(RB_HALT_SYSTEM);
-# else
 	reboot(RB_AUTOBOOT);
-# endif
 #endif
     } else {
 	printf("you may safely reboot your system\n");
+#if !defined(__s390__) && !defined(__s390x__)
 	while (1);
+#else
+	reboot(RB_HALT_SYSTEM);
+#endif
     }
 
     exit(0);
@@ -77,6 +79,30 @@ void shutDown(int noKill, int doReboot) {
 
 #ifdef AS_SHUTDOWN
 int main(int argc, char ** argv) {
-    shutDown(0, 0);
+    int fd;
+    int doReboot = 0;
+    int i = 1;
+
+    while (i < argc) {
+      if (!strncmp("-r", argv[i], 2))
+	doReboot = 1;
+      i++;
+    }
+
+    /* ignore some signals so we don't kill ourself */
+    signal(SIGINT, SIG_IGN);
+    signal(SIGTSTP, SIG_IGN);
+
+    /* now change to / */
+    chdir("/");
+
+    /* redirect output to the real console */
+    fd = open("/dev/console", O_RDWR);
+    dup2(fd, 0);
+    dup2(fd, 1);
+    dup2(fd, 2);
+    close(fd);
+
+    shutDown(0, doReboot);
 }
 #endif
