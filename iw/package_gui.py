@@ -163,6 +163,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.updateSize()
 
+	# if they hit space bar stop that event from happening
+	self.ignoreKeypress = (package, val)
+	
+
     def select_package(self, selection):
         (model, iter) = selection.get_selected()
         if iter:
@@ -271,7 +275,38 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	self.sort_id = widget.get_sort_column_id()
 	self.sort_order = widget.get_sort_order()
 
-            
+    def keypressCB(self, widget, val):
+	if val.keyval == gtk.keysyms.space:
+	    selection = self.packageList.get_selection()
+	    (model, iter) = selection.get_selected()
+	    if iter:
+		self.select_package(selection)
+		package = self.packageList.store.get_value(iter, 1)
+		val = self.packageList.store.get_value(iter, 0)
+
+		# see if we just got this because of focus being on
+		# checkbox toggle and they hit space bar
+		if self.ignoreKeypress:
+		    if (package, val) == self.ignoreKeypress:
+			self.ignoreKeypress = None
+			return gtk.TRUE
+		    else:
+			# didnt match for some reason, lets plow ahead
+			self.ignoreKeypress = None
+		
+		self.packageList.store.set_value(iter, 0, not val)
+
+		if not val:
+		    self.pkgs[package].select()
+		else:
+		    self.pkgs[package].unselect()
+
+		self.updateSize()
+                return gtk.TRUE
+
+	return gtk.FALSE
+	    
+		
     # IndividualPackageSelectionWindow tag="sel-indiv"
     def getScreen (self, comps, hdList):
 	self.comps = comps
@@ -355,6 +390,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         selection = self.packageList.get_selection()
         selection.connect("changed", self.select_package)
+
+	self.packageList.connect("key-release-event", self.keypressCB)
+	self.ignoreKeypress = None
 
         self.packageListSW = gtk.ScrolledWindow ()
         self.packageListSW.set_border_width (5)
