@@ -180,20 +180,39 @@ void freePartitionsList(char **list) {
     free(list);
 }
 
-/* set to 0 and set ifdef around test code at bottom to test partitionList */
-#if 1
-
 /* pull in second stage image for hard drive install */
 static int loadHDImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
-    int fd, rc;
-    char * path;
-
-    /*setupRamdisk();*/
+    int fd, rc, idx;
+    char *path, *target, *dest;
+    char *stg2list[] = {"stage2.img", "hdstg2.img", NULL};
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
-    sprintf(path, "%s/%s/RedHat/base/hdstg2.img", prefix, dir ? dir : "");
+    if (totalMemory() < 128000)
+	idx = 1;
+    else
+	idx = 0;
+
+    target = NULL;
+    for (; stg2list[idx]; idx++) {
+	target = stg2list[idx];
+	sprintf(path, "%s/%s/RedHat/base/%s", prefix, dir ? dir : "", target);
+
+	logMessage("Looking for hd stage2 image %s", path);
+	if (!access(path, F_OK))
+	    break;
+	logMessage("%s does not exist: %s, trying next target", path, strerror(errno));
+    }
+
+    if (!(*target)) {
+	logMessage("failed to find hd stage 2 image%s: %s", path, strerror(errno));
+	return 1;
+    } 
+
+    logMessage("Found hd stage2");
+
+    logMessage("Copying %s in RAM as stage 2", path);
 
     if ((fd = open(path, O_RDONLY)) < 0) {
 	logMessage("failed to open %s: %s", path, strerror(errno));
@@ -205,8 +224,9 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
     copyUpdatesImg(path);
 
-    rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg2.img", flags, 
-				  device, mntpoint);
+    dest = alloca(strlen(target) + 50);
+    sprintf(dest,"/tmp/ramfs/%s", target);
+    rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
     close(fd);
 
     if (!verifyStamp(mntpoint)) {
@@ -320,22 +340,10 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	    
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
 	    if (!rc) {
-/* define HD_USE_LOOPBACK_STAGE2 to loopback mount stage2 instead of    */
-/* copying into RAM. Uses less memory and should work with newer parted */
-#define HD_USE_LOOPBACK_STAGE2
-#ifdef HD_USE_LOOPBACK_STAGE2
-		/* This code mounts the stage2 via loopback and doesnt  */
-		/* use any RAM. Catch is we dont unmount the partition  */
-		/* holding the ISOs, which used to cause trouble during */
-		/* partitioning, but parted fixes all this now.         */
-		rc = mountHDImages("/tmp/loopimage", "/", flags, "loop1",
-				  "/mnt/runtime", 1);
-#else
 		/* This code is for copying small stage2 into ram */
 		/* and mounting                                   */
 		rc = loadHDImages("/tmp/loopimage", "/", flags, "loop1",
 				  "/mnt/runtime");
-#endif
 		if (rc) {
 		  newtWinMessage(_("Error"), _("OK"),
 			_("An error occured reading the install "
@@ -345,24 +353,16 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 		    queryIsoMediaCheck(path, flags);
 		}
 	    }
-#ifndef HD_USE_LOOPBACK_STAGE2
-	    /* if we copied stage2 into RAM we can now umount image */
+
+	    /* we copied stage2 into RAM so we can now umount image */
 	    umountLoopback("/tmp/loopimage", "loop0");
-#endif
 
 	} else {
 	    rc = 1;
 	}
 
-#ifndef HD_USE_LOOPBACK_STAGE2
-	/* if we copied stage2 into RAM we can now umount partition */
+	/* we copied stage2 into RAM so now umount partition */
 	umount("/tmp/hdimage");
-#else
-	/* only unmount if there was an error */
-	if (rc)
-	    umount("/tmp/hdimage");
-#endif
-
 	if (rc)
 	    return NULL;
     } else {
@@ -649,20 +649,3 @@ int kickstartFromHD(char *kssrc, int flags) {
 
     return 0;
 }
-
-
-#endif
-
-/* use for testing */
-#if 0
-int main() {
-    char **rc, **p;
-
-    rc = getPartitionsList();
-
-    printf("rc: %d\n", lenPartitionsList(rc));
-    for (p=rc; *p; p++)
-	printf("%s\n", *p);
-    freePartitionsList(rc);
-}
-#endif
