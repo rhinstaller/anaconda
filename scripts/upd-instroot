@@ -102,7 +102,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm rhpl libxml2 libxml2-python rdate"
+         hdparm lvm rhpl libxml2 libxml2-python rdate libelf"
 
 if [ $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES libgcc libstdc++"
@@ -300,6 +300,7 @@ usr/$LIBDIR/libbz2*
 usr/$LIBDIR/libdb.so.2
 usr/$LIBDIR/libdb.so.3
 usr/$LIBDIR/libdb1*
+usr/$LIBDIR/libelf*
 usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libparted*
 usr/$LIBDIR/libpopt*
