@@ -150,7 +150,7 @@ findPackage() {
     dir=$1
     name=$2
     
-    for n in $dir/$name*{$KERNELARCH},noarch}.rpm; do
+    for n in $dir/$name*{$KERNELARCH,noarch}.rpm; do
 	thisName=$(rpm --nodigest --nosignature --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
