@@ -172,41 +172,11 @@ rundepmod () {
     what=$1
     final=$2
 
-    exclpattern="tc90x|FPT|BusLogic|Pci2000|Pci2220i"
-
-    $FAKEARCH /sbin/depmod -e -F $KERNELROOT/boot/System.map-$version \
-	    -b $KERNELROOT $version $what > $final.foo 2>&1 | 
-	    egrep -v "modprobe: (${exclpattern}) multiply defined"
     $FAKEARCH /sbin/depmod -a -F $KERNELROOT/boot/System.map-$version \
             -b $KERNELROOT $version
     mv $KERNELROOT/lib/modules/$version/modules.pcimap $MODMAPS
 
-    # For paride we need to change this:
-    # aten: paride
-    # ...
-    # paride: parport
-    # imm: parport
-    # ppa: parport
-    # parport_pc: parport
-    # pcd: paride
-    #
-    # into this:
-    # aten: paride
-    # ...
-    # paride: parport_pc
-    # imm: parport_pc
-    # ppa: parport_pc
-    # parport_pc: parport
-    # pcd: aten ...
-    #
-    # So we use an ugly hack. :-(
-
-    PARIDE="aten bpck bpck6 comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
-    cat $final.foo | $FILTERMODDEPS | sed -e 's/\.ko//g' \
-	  -e 's/: parport$/: parport_pc/g' \
-	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
-	  -e "s/^pcd:.*/pcd: $PARIDE/" > $final 
-    rm -f $final.foo
+    cat $KERNELROOT/lib/modules/$version/modules.dep | $FILTERMODDEPS > $final 
 }
 
 getmoddeps () {
@@ -939,7 +909,6 @@ for KERNELARCH in $arches; do
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.ko)
 
     rundepmod "$allmods" $MODDEPS
-    rm -f $MODDEPS.foo
     find $KERNELROOT/lib/modules/$version > $CACHE
 
     # make the boot images
