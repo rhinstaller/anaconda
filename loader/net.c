@@ -116,6 +116,17 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
+void initLoopback(void) {
+    struct pumpNetIntf dev;
+
+    strcpy(dev.device, "lo");
+    inet_aton("127.0.0.1", &dev.ip);
+    inet_aton("255.0.0.0", &dev.netmask);
+    dev.set = PUMP_INTFINFO_HAS_NETMASK | PUMP_INTFINFO_HAS_IP;
+
+    pumpSetupInterface(&dev);
+}
+
 static void dhcpBoxCallback(newtComponent co, void * ptr) {
     struct intfconfig_s * c = ptr;
 
@@ -401,7 +412,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     char ** ksArgv;
     int ksArgc;
     int netSet, rc;
-    char * bootProto = NULL;
+    char * bootProto = "dhcp";
     char * arg, * chptr;
     poptContext optCon;
     struct in_addr * parseAddress;
