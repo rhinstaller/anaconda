@@ -201,7 +201,6 @@ class FileSystemType:
             os.write(fd, s)
 
         num = ''
-        sync = 0
         while s:
             try:
                 s = os.read(p[0], 1)
@@ -215,11 +214,8 @@ class FileSystemType:
                 else:
                     if num:
                         l = string.split(num, '/')
-                        val = (int(l[0]) * 100) / int(l[1])
+                        val = (long(l[0]) * 100) / long(l[1])
                         w and w.set(val)
-                        if sync + 10 < val:
-                            isys.sync()
-                            sync = val
                     num = ''
             except OSError, args:
                 (num, str) = args
@@ -1732,8 +1728,17 @@ def readFstab (path):
 	    # skip all comments
 	    continue
 
-	# all valid fstab entries have 6 fields
-	if len (fields) < 4 or len (fields) > 6: continue
+	# all valid fstab entries have 6 fields; if the last two are missing
+        # they are assumed to be zero per fstab(5)
+        if len(fields) < 4:
+            continue
+        elif len(fields) == 4:
+            fields[4] = 0
+            fields[5] = 0
+        elif len(fields) == 5:
+            fields[5] = 0
+        elif len(fields) > 6:
+            continue
 
         # if we don't support mounting the filesystem, continue
         if not fileSystemTypes.has_key(fields[2]):
