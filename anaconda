@@ -574,7 +574,7 @@ if flags.setupFilesystems:
     try:
         isys.mount("/selinux", "/selinux", fstype="selinuxfs")
     except:
-        pass
+        log("Unable to mount selinuxfs")
     if os.access("/selinux/load", os.W_OK):
         dup_log("Loading selinux policy...")
         args = ["/usr/sbin/load_policy",
