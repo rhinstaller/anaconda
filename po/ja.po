@@ -27,7 +27,8 @@ msgstr "dump が書き込まれました。"
 
 #: ../exception.py:92
 msgid "Your system's state has been successfully written to the floppy. Your system will now be reset."
-msgstr "システム状態のフロッピーへの書き込みが成功しました。"
+msgstr ""
+"システム状態のフロッピーへの書き込みが成功しました。"
 "システムをリセットします。"
 
 #: ../fstab.py:251 ../fstab.py:445 ../fstab.py:545 ../fstab.py:749 ../harddrive.py:168 ../image.py:61 ../image.py:138 ../libfdisk/newtfsedit.c:1729 ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475 ../loader/lang.c:97 ../loader/loader.c:510 ../loader/loader.c:520 ../loader/loader.c:574 ../loader/loader.c:893 ../loader/loader.c:948 ../loader/loader.c:1118 ../loader/loader.c:1123 ../loader/loader.c:1260 ../loader/loader.c:2127 ../loader/loader.c:2173 ../loader/loader.c:2249 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:368 ../textw/bootdisk_text.py:69 ../todo.py:960 ../todo.py:988 ../todo.py:1090 ../todo.py:1103 ../todo.py:1473
@@ -36,7 +37,8 @@ msgstr "エラー"
 
 #: ../fstab.py:252
 msgid "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press \"Ok\" to reboot your system.\n"
-msgstr "カーネルが新規パーティション情報を読み込むことができません。"
+msgstr ""
+"カーネルが新規パーティション情報を読み込むことができません。"
 "おそらく拡張パーティションが修正されたためです。"
 "重大な問題ではありませんが、手順を進める前にマシンを"
 "再起動しなければなりません。Red Hat 起動ディスクを"
