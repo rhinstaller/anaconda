@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ -z "$1" -o ! -d "$1" ]; then
+	echo "$0: updates instimage from a Red Hat RPMS directory"
+	echo "usage: $0 <dir>"
+	exit 1
+fi
+
+SRC=$1/RedHat/RPMS
+DEST=../../../RedHat/instimage
+
+PACKAGES="glibc-2 ldconfig filesystem basesystem setup fileutils
+          XFree86-libs glib- gtk+- gnome-libs slang python-1 newt
+          imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm bash-
+          pygtk- pygnome-"
+
+for I in $PACKAGES; do
+    for J in `ls $SRC/$I*`; do
+	if ! echo $J | grep devel > /dev/null; then
+	    RPMS="$RPMS $J"
+	fi
+    done
+done
+
+if [ ! -e $DEST/var/lib/rpm/packages.rpm ]; then
+    mkdir -p $DEST/var/lib/rpm
+    rpm --initdb -r `pwd`/$DEST
+fi
+rpm -Uvh $RPMS -r `pwd`/$DEST --relocate /bin=/usr/bin --badreloc \
+                              --excludedocs --noscripts --nodeps --force
+
+rm -rf $DEST/bin $DEST/boot $DEST/home $DEST/root $DEST/tmp
+
+make install
+
+chroot $DEST ldconfig -v
