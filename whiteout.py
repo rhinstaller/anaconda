@@ -7,16 +7,14 @@
 import os
 import rpm
 import rhpl.arch
+from flags import flags
 
 # set DB_PRIVATE to make rpm happy...  do it in here since we include
 # this with all of the useful rpm bits
 rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
 
 # assuming that SELinux is set up, tell rpm where to pull file contexts from
-f = open("/proc/cmdline", "r")
-line = f.readline()
-f.close()
-if os.path.exists("/selinux/load") and line.find(" selinux=0") == -1:
+if flags.selinux:
     for fn in ("/tmp/updates/file_contexts",
                "/mnt/source/RHupdates/file_contexts",
                "/etc/security/selinux/src/policy/file_contexts/file_contexts",
