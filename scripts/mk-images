@@ -472,11 +472,13 @@ EOF
 
     umount $MBD_MNTPOINT
 
-    echo "Wrote initrd.img (${left}k free)"
-
     mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
     gzip -9 < $MBD_FSIMAGE.uncompressed > $MBD_FSIMAGE
     rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
+
+    size=$(du $MBD_FSIMAGE | awk '{ print $1 }')
+
+    echo "Wrote $MBD_BOOTTREE (${size}k compressed, ${left}k free)"
 
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
 
