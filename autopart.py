@@ -751,7 +751,8 @@ def doClearPartAction(partitions, diskset):
                 ptype = get_partition_file_system_type(part)
             else:
                 ptype = None
-            if (linuxOnly == 0) or (ptype and (ptype.isLinuxNativeFS())):
+            if (linuxOnly == 0) or (ptype and ptype.isLinuxNativeFS()) or \
+               (not ptype and query_is_linux_native_by_numtype(part.native_type)):
                 old = partitions.getRequestByDeviceName(get_partition_name(part))
                 if old.type == REQUEST_PROTECTED:
                     part = disk.next_partition(part)
@@ -825,12 +826,16 @@ def doAutoPartition(dir, diskset, partitions, intf):
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)
+    except PartitioningWarning, msg:
+        intf.messageWindow(_("Warnings During Automatic Partitioning"),
+                           _("Following warnings occurred during automatic "
+                           "partitioning:\n\n%s") % (msg.value))
     except PartitioningError, msg:
         # restore drives to original state
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
         intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocated requested partitions: %s.") % (msg.value))
+               _("Could not allocated requested partitions: \n\n%s.") % (msg.value))
 
 
 def queryAutoPartitionOK(intf, diskset, partitions):

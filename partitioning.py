@@ -164,6 +164,15 @@ def map_foreign_to_fsname(type):
     else:
         return _("Foreign")
 
+def query_is_linux_native_by_numtype(numtype):
+    linuxtypes = [0x82, 0x83, 0xfd]
+
+    for t in linuxtypes:
+        if int(numtype) == t:
+            return 1
+
+    return 0
+
 def filter_partitions(disk, func):
     rc = []
     part = disk.next_partition ()
