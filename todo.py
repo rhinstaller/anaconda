@@ -430,12 +430,12 @@ class ToDo:
 			"Formatting %s filesystem..." % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
-                util.execWithRedirect ("/usr/sbin/mke2fs",
+                iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                        [ "mke2fs", '/tmp/' + device ],
                                        stdout = None, stderr = None,
                                        searchPath = 1)
             elif fsystem == "swap":
-                util.execWithRedirect ("/usr/sbin/mkswap",
+                iutil.execWithRedirect ("/usr/sbin/mkswap",
                                        [ "mkswap", '/tmp/' + device ],
                                        stdout = None, stderr = None,
                                        searchPath = 1)
@@ -492,7 +492,7 @@ class ToDo:
         if not self.__dict__.has_key ("madeinitrd"):
             initrd = "/boot/initrd-%s.img" % (self.kernelVersion,)
             
-            util.execWithRedirect("/sbin/mkinitrd",
+            iutil.execWithRedirect("/sbin/mkinitrd",
                                   [ "/sbin/mkinitrd",
                                     initrd,
                                     self.kernelVersion ],
@@ -503,7 +503,7 @@ class ToDo:
     def makeBootdisk (self):
         self.makeInitrd ()
         w = self.intf.waitWindow ("Creating", "Creating boot disk")
-        util.execWithRedirect("/sbin/mkbootdisk",
+        iutil.execWithRedirect("/sbin/mkbootdisk",
                               [ "/sbin/mkbootdisk",
                                 "--noprompt",
                                 "--device",
@@ -545,7 +545,7 @@ class ToDo:
 	l.addImage(kernelFile, sl)
 	l.write(self.instPath + "/etc/lilo.conf")
 
-	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
+	iutil.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
 				"-r", self.instPath ], stdout = None)
 
     def freeHeaderList(self):
@@ -641,7 +641,7 @@ class ToDo:
             if not self.auth.useBroadcast:
                 args.append ("--nisserver")
                 args.append (self.auth.server)
-        util.execWithRedirect(args[0], args,
+        iutil.execWithRedirect(args[0], args,
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
 
