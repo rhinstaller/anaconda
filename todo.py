@@ -475,6 +475,16 @@ class ToDo:
 	if self.bootdisk or self.fstab.rootOnLoop(): return 1
 
     def makeBootdisk (self):
+	# this is faster then waiting on mkbootdisk to fail
+	device = self.fdDevice[5:]
+	file = "/tmp/floppy"
+	isys.makeDevInode(device, file)
+	try:
+	    fd = os.open(file, os.O_RDONLY)
+	except:
+            raise RuntimeError, "boot disk creation failed"
+	os.close(fd)
+
 	kernel = self.hdList['kernel']
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
@@ -679,6 +689,9 @@ class ToDo:
 	    self.selectPackage('XFree86-' + self.x.server)
 
     def selectPackage(self, package):
+	if not self.hdList.packages.has_key(package):
+	    str = "package %s is not available" % (package,)
+	    raise ValueError, str
 	self.hdList.packages[package].selected = 1
 
     def writeNetworkConfig (self):
