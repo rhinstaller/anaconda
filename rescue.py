@@ -422,7 +422,10 @@ def runRescue(instPath, mountroot, id):
     print
     if rootmounted and not readOnly:
         makeMtab(instPath, fs)
-        makeResolvConf(instPath)
+        try:
+            makeResolvConf(instPath)
+        except Exception, e:
+            log("error making a resolv.conf: %s" %(e,))
         print _("Your system is mounted under the %s directory.") % (instPath,)
         print
 
