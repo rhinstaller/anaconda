@@ -11,6 +11,7 @@ BUILDONLYSUBDIRS = pump
 
 ifeq (i386, $(ARCH))
 SUBDIRS += ddcprobe
+SUBDIRSUNCFG += ddcprobe
 endif
 
 
@@ -46,6 +47,7 @@ install-unconfig: all
 		echo "ERROR: A destdir is required"; \
 		exit 1; \
 	fi
+
 	mkdir -p $(UNCFGDESTDIR)/usr/sbin
 	mkdir -p $(UNCFGDESTDIR)/$(PYTHONLIBDIR)
 	cp -a anaconda $(UNCFGDESTDIR)/usr/sbin/anaconda-unconfig
