@@ -497,6 +497,13 @@ class PartitionWindow:
             self.screen.popWindow()
             return (format, migrate, newfstype, badblocksCB.selected())
         
+    def shutdownUI(self):
+        # XXX remove parted object refs
+        #     need to put in clear() method for checkboxtree in snack
+        if self.drivelist:
+            self.drivelist.key2item = {}
+            self.drivelist.item2key = {}
+
     def editPartitionRequest(self, origrequest):
         self.oldMount = None
         
@@ -515,7 +522,7 @@ class PartitionWindow:
             subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
 
             if origrequest.start == None:
-                (drivelist, drivegrid) = self.makeDriveList(origrequest)
+                (self.drivelist, drivegrid) = self.makeDriveList(origrequest)
                 subgrid.setField(drivegrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
                 poplevel.add(subgrid, 0, row, (0,1,0,0), growx=1)
 
@@ -531,6 +538,7 @@ class PartitionWindow:
 
                 poplevel.add(allsize, 0, row, (0,1,0,0), growx=1)
             else: # explicit add via cylinder
+                self.drivelist = None
                 poplevel.add(subgrid, 0, row, (0,1,0,0))
 
                 row = row + 1
@@ -641,11 +649,11 @@ class PartitionWindow:
                     request.grow = grow
                     request.maxSize = maxsize
 
-                    if len(drivelist.getSelection()) == len(self.diskset.disks.keys()):
+                    if len(self.drivelist.getSelection()) == len(self.diskset.disks.keys()):
                         allowdrives = None
                     else:
                         allowdrives = []
-                        for i in drivelist.getSelection():
+                        for i in self.drivelist.getSelection():
                             allowdrives.append(i) 
                     request.drive = allowdrives
                 else:
@@ -702,8 +710,8 @@ class PartitionWindow:
                 break
 
         # clean up
+        self.shutdownUI()
         self.screen.popWindow()
-#        self.refresh()
 
 
     def editRaidRequest(self, raidrequest):
@@ -724,7 +732,7 @@ class PartitionWindow:
 
         row = row + 1
         drivegrid = Grid(2, 1)
-        (drivelist, drivesubgrid) = self.makeRaidDriveList(raidrequest)
+        (self.drivelist, drivesubgrid) = self.makeRaidDriveList(raidrequest)
         drivegrid.setField(drivesubgrid, 0, 0, (0,0,4,0), anchorLeft = 1, anchorTop = 1)
 
         miscgrid = Grid(1, 2)
@@ -763,7 +771,7 @@ class PartitionWindow:
                 request.mountpoint = None
 
             raidmembers = []
-            for drive in drivelist.getSelection():
+            for drive in self.drivelist.getSelection():
                 id = self.partitions.getRequestByDeviceName(drive).uniqueID
                 raidmembers.append(id)
             request.raidmembers = raidmembers
@@ -801,8 +809,8 @@ class PartitionWindow:
             break
 
         # clean up
+        self.shutdownUI()
         self.screen.popWindow()
-#        self.refresh()
         
     def newCb(self):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
@@ -838,6 +846,9 @@ class PartitionWindow:
         self.diskset.refreshDevices()
         self.partitions.setFromDisk(self.diskset)        
         self.populate()
+
+    def shutdownMainUI(self):
+        self.lb.clear()
 
 
     def __call__(self, screen, fsset, diskset, partitions, intf):
@@ -881,6 +892,9 @@ class PartitionWindow:
             elif res == "reset" or rc == "F5":
                 self.resetCb()
             elif res == TEXT_BACK_CHECK:
+                # remove refs to parted objects
+                self.shutdownMainUI()
+                
                 screen.popHelpLine()
                 screen.popWindow()
                 return INSTALL_BACK
@@ -889,6 +903,9 @@ class PartitionWindow:
                     self.intf.messageWindow(_("No Root Partition"),
                         _("Must have a / partition to install on."))
                     continue
+
+                # remove refs to parted objects
+                self.shutdownMainUI()
 
                 screen.popHelpLine()
                 screen.popWindow()                
@@ -902,6 +919,12 @@ class AutoPartitionWindow:
         if typebox.current() == CLEARPART_TYPE_NONE:
             flag = FLAGS_SET
         # XXX need a way to disable the checkbox tree
+
+    def shutdownUI(self):
+        # XXX remove parted object refs
+        #     need to put in clear() method for checkboxtree in snack
+        self.drivelist.key2item = {}
+        self.drivelist.item2key = {}
         
     def __call__(self, screen, diskset, partitions, intf, dispatch):
         if not partitions.useAutopartitioning:
@@ -954,17 +977,22 @@ class AutoPartitionWindow:
         bb = ButtonBar(screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
         self.g.add(bb, 0, 4, (0,1,0,0))
 
+        self.drivelist = drivelist
         while 1:
             rc = self.g.run()
             res = bb.buttonPressed(rc)
 
             if res == TEXT_BACK_CHECK:
                 screen.popWindow()
+                self.shutdownUI()
+                
                 return INSTALL_BACK
 
             partitions.autoClearPartType = typebox.current()
-            partitions.autoClearPartDrives = drivelist.getSelection()
+            partitions.autoClearPartDrives = self.drivelist.getSelection()
 
             if queryAutoPartitionOK(intf, diskset, partitions):
+                self.shutdownUI()
+                
                 screen.popWindow()
                 return INSTALL_OK
