@@ -17,7 +17,6 @@ import string
 import gui
 from iw_gui import *
 from rhpl.translate import _, N_
-from installclass import DEFAULT_DESKTOP_LABEL_1, DEFAULT_DESKTOP_LABEL_2
 from constants import productName
 from flags import flags
 
@@ -29,6 +28,7 @@ class DesktopChoiceWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setGrabNext (1)
+	self.ics = ics
 
     def getNext(self):
 	if self.customizeRadio.get_active():
@@ -39,7 +39,7 @@ class DesktopChoiceWindow (InstallWindow):
 	return None
     
     # WelcomeWindow tag="wel"
-    def getScreen (self, intf, dispatch):
+    def getScreen (self, intf, instclass, dispatch):
 
 	self.intf = intf
 	self.dispatch = dispatch
@@ -48,27 +48,56 @@ class DesktopChoiceWindow (InstallWindow):
 	vbox.set_border_width (5)
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
-#	label1 = DEFAULT_DESKTOP_LABEL_1
-#	label2 = "\tGNOME Desktop\t\t\tNautilus file manager\n"+"\tMozilla web browser\t\tEvolution mail client\n"+"\tCD authoring software\t\tMultimedia applications\n"+"\tOpen Office(tm) office suite"
-#	label3 = DEFAULT_DESKTOP_LABEL_2 % (productName, productName)
-#	label = gui.WrappingLabel(label1+"\n\n"+label2+"\n\n"+label3)
-
-        labeltxt = _(
-     "The default workstation environment includes our recommendations for "
-     "new users, including:\n\n"
-     "\tDesktop shell (GNOME)\n"
-     "\tOffice suite (OpenOffice)\n"
-     "\tWeb browser (Mozilla) \n"
-     "\tEmail (Evolution)\n"
-     "\tInstant messaging\n"
-     "\tSound and video applications\n"
-     "\tGames\n\n"
-     "After installation, additional software can be added or removed using "
-     "the 'redhat-config-package' tool.\n\n"
-     "If you are familiar with %s, you may have specific packages "
-     "you would like to install or avoid installing. Check the box below to "
-     "customize your installation.") % (productName,)
-
+	# ugly hack
+	if instclass.name == N_("Workstation"):
+	    self.windowTitle = N_("Workstation Defaults")
+	    self.ics.setTitle (_(self.windowTitle))
+	    self.htmlTag = "workstation-pkgs"
+	    self.ics.readHTML (self.htmlTag)
+	    labeltxt = _(
+		"The default workstation environment includes our recommendations for "
+		"new users, including:\n\n"
+		"\tDesktop shell (GNOME)\n"
+		"\tOffice suite (OpenOffice)\n"
+		"\tWeb browser (Mozilla) \n"
+		"\tEmail (Evolution)\n"
+		"\tInstant messaging\n"
+		"\tSound and video applications\n"
+		"\tGames\n"
+		"\tSoftware Development Tools\n"
+		"\tAdministration Tools\n"
+		"\n"
+		"After installation, additional software can be added or removed using "
+		"the 'redhat-config-package' tool.\n\n"
+		"If you are familiar with %s, you may have specific packages "
+		"you would like to install or avoid installing. Check the box below to "
+		"customize your installation.") % (productName,)
+	elif instclass.name == N_("Personal Desktop"):
+	    self.windowTitle = N_("Personal Desktop Defaults")
+	    self.ics.setTitle (_(self.windowTitle))
+	    self.htmlTag = "pdesktop-pkgs"
+	    self.ics.readHTML (self.htmlTag)
+	    labeltxt = _(
+		"The default personal desktop environment includes our recommendations for "
+		"new users, including:\n\n"
+		"\tDesktop shell (GNOME)\n"
+		"\tOffice suite (OpenOffice)\n"
+		"\tWeb browser (Mozilla) \n"
+		"\tEmail (Evolution)\n"
+		"\tInstant messaging\n"
+		"\tSound and video applications\n"
+		"\tGames\n"
+		"\n"
+		"After installation, additional software can be added or removed using "
+		"the 'redhat-config-package' tool.\n\n"
+		"If you are familiar with %s, you may have specific packages "
+		"you would like to install or avoid installing. Check the box below to "
+		"customize your installation.") % (productName,)
+	else:
+	    labeltxt = _(
+		"If you would like to change the default package set to be "
+		"installed you can choose to customize this below.")
+	    
 	label = gui.WrappingLabel(labeltxt)
 
 	hbox.pack_start (label, gtk.FALSE, gtk.FALSE, 0)
