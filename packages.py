@@ -305,7 +305,8 @@ class InstallCallback:
                                  "can indicate media failure, lack of disk "
                                  "space, and/or hardware problems.  This is "
                                  "a fatal error and your install will be "
-                                 "aborted.  Please verify your media and try "+                                  "your install again.\n\n"
+                                 "aborted.  Please verify your media and try "
+                                 "your install again.\n\n"
                                  "Press the OK button to reboot "
                                  "your system.") % (pkg,))
             sys.exit(0)
