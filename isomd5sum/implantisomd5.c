@@ -95,10 +95,9 @@ int main(int argc, char **argv) {
     int forceit=0;
     int supported=0;
     int help=0;
-    long long isosize;
+    long long isosize, total;
     const char **args;
     unsigned char md5sum[16];
-    unsigned int total;
     unsigned int loc;
     unsigned char *fname;
     unsigned char buf[2048];
