@@ -260,6 +260,38 @@ def checkDiskLabel(disk, intf):
     else:
         return 1
 
+# attempt to associate a parted filesystem type on a partition that
+# didn't probe as one type or another.
+def validateFsType(part):
+    # we only care about primary and logical partitions
+    if not part.type in (parted.PARTITION_PRIMARY,
+                         parted.PARTITION_LOGICAL):
+        return
+    # if the partition already has a type, no need to search
+    if part.fs_type:
+        return
+    
+    # first fsystem to probe wins, so sort the types into a preferred
+    # order.
+    fsnames = fsTypes.keys()
+    goodTypes = ['ext3', 'ext2']
+    badTypes = ['linux-swap',]
+    for fstype in goodTypes:
+        fsnames.remove(fstype)
+    fsnames = goodTypes + fsnames
+    for fstype in badTypes:
+        fsnames.remove(fstype)
+    fsnames.extend(badTypes)
+
+    # now check each type, and set the partition system accordingly.
+    for fsname in fsnames:
+        fstype = fsTypes[fsname]
+        if fstype.probe_specific(part.geom) != None:
+            # XXX verify that this will not modify system type
+            # in the case where a user does not modify partitions
+            part.set_system(fstype)
+            return
+            
 def isLinuxNativeByNumtype(numtype):
     """Check if the type is a 'Linux native' filesystem."""
     linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
@@ -731,6 +763,9 @@ class DiskSet:
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
+
+            # MSWFIXME: enable once parted binding complete
+            # filter_partitions(disk, validateFsType)
 
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
