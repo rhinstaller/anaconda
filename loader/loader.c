@@ -2115,12 +2115,16 @@ int kickstartFromHardDrive(char * location,
 #endif
 
     fileName = strchr(source, '/');
+    /* XXX FIX ME FOR THE NEXT RELEASE */
+    /* change syntax to ks=hd:[device]:/path/to/ks.cfg */
     if (!strncmp (source, "cciss", 5) ||
 	!strncmp (source, "ida", 3) ||
 	!strncmp (source, "i2o", 3) ||
-	!strncmp (source, "rd", 2))
+	!strncmp (source, "rd", 2)) {
 	/* chomp in the next part */
+	fileName++;
 	fileName = strchr(fileName, '/');
+    }
     *fileName = '\0';
     fileName++;
     device = source;
