@@ -229,13 +229,11 @@ if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 	insmod fsm$LO
 	insmod ctc$LO
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-	route add -host $IPADDR dev $DEVICE 2>/dev/null
 elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod fsm$LO
 	insmod iucv$LO
 	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-	route add -host $IPADDR dev $DEVICE 2>/dev/null
 	if [ -n "$IUCV" ]; then
 		 echo "options netiucv $IUCV" >> /tmp/modules.conf
 	fi
