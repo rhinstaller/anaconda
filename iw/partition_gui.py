@@ -785,6 +785,13 @@ class PartitionWindow(InstallWindow):
                         adj.page_size)
             fillmaxszsb.set_adjustment(adj)
 
+        def cylspinchangedCB(widget, data):
+            (dev, startcylspin, endcylspin, bycyl_sizelabel) = data
+            startsec = start_cyl_to_sector(dev, startcylspin.get_value_as_int())
+            endsec = end_cyl_to_sector(dev, endcylspin.get_value_as_int())
+            cursize = (endsec - startsec)/2048
+            bycyl_sizelabel.set_text("%s" % (int(cursize))) 
+
         def fillmaxszCB(widget, spin):
             spin.set_sensitive(widget.get_active())
 
@@ -928,9 +935,16 @@ class PartitionWindow(InstallWindow):
                     sizespin.set_value(origrequest.size)
 
                 maintable.attach(sizespin, 1, 2, row, row + 1)
+                bycyl_sizelabel = None
             else:
                 # XXX need to add partition by size and
                 #     wire in limits between start and end
+                dev = self.diskset.disks[origrequest.drive[0]].dev
+                maintable.attach(createAlignedLabel(_("Size (MB):")),
+                                 0, 1, row, row + 1)
+                bycyl_sizelabel = createAlignedLabel("")
+                maintable.attach(bycyl_sizelabel, 1, 2, row, row + 1)
+                row = row + 1
                 maintable.attach(createAlignedLabel(_("Start Cylinder:")),
                                  0, 1, row, row + 1)
 
@@ -952,6 +966,15 @@ class PartitionWindow(InstallWindow):
                 endcylspin = GtkSpinButton(endcylAdj, digits = 0)
                 maintable.attach(endcylspin, 1, 2, row, row + 1)
 
+                startcylspin.connect("changed", cylspinchangedCB,
+                            (dev, startcylspin, endcylspin, bycyl_sizelabel))
+                endcylspin.connect("changed", cylspinchangedCB,
+                             (dev, startcylspin, endcylspin, bycyl_sizelabel))
+                
+                startsec = start_cyl_to_sector(dev, origrequest.start)
+                endsec = end_cyl_to_sector(dev, origrequest.end)
+                cursize = (endsec - startsec)/2048
+                bycyl_sizelabel.set_text("%s" % (int(cursize)))
         else:
             maintable.attach(createAlignedLabel(_("Size (MB):")),
                              0, 1, row, row + 1)
