@@ -310,6 +310,7 @@ class InstSyslog:
 
     def __del__ (self):
         os.kill (self.pid, 15)
+	os.wait (self.pid)
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
@@ -951,22 +952,24 @@ class ToDo:
             package.selected = 0
 
         hasX = 0
-        hasgmc = 0
+        hasFileManager = 0
         # turn on the packages in the upgrade set
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
             if package[rpm.RPMTAG_NAME] == "XFree86":
                 hasX = 1
             if package[rpm.RPMTAG_NAME] == "gmc":
-                hasgmc = 1
+                hasFileManager = 1
+            if package[rpm.RPMTAG_NAME] == "kdebase":
+                hasFileManager = 1
 
         # open up the database to check dependencies
         db = rpm.opendb (0, self.instPath)
 
         # if we have X but not gmc, we need to turn on GNOME.  We only
         # want to turn on packages we don't have installed already, though.
-        if hasX and not hasgmc:
-            log ("Has X but not GNOME")
+        if hasX and not hasFileManager:
+            log ("Has X but no desktop -- Installing GNOME")
             for package in self.comps['GNOME'].pkgs:
                 try:
                     rec = db.findbyname (package.name)
