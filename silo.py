@@ -315,8 +315,8 @@ class SiloInstall:
 		initrdFile = initrd[5:]
 
 	    try:
-		(fsType, sl) = lilo.getImage(label)
-		lilo.delImage(label)
+		(fsType, sl) = silo.getImage(label)
+		silo.delImage(label)
 	    except IndexError, msg:
 		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
@@ -336,7 +336,7 @@ class SiloInstall:
 	    except IndexError:
                 sl = LiloConfigFile(imageType = "other", path = device)
 	    sl.addEntry("label", label)
-	    lilo.addImage (sl)
+	    silo.addImage (sl)
 
 	# for (siloType, name, config) in silo.images:
 	#    # remove entries for missing kernels (upgrade)
