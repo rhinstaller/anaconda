@@ -27,7 +27,7 @@ class LogFile:
             self.logFile.write (format)
 
     def getFile (self):
-        return self.logFile.filenum ()
+        return self.logFile.fileno ()
             
 class SimpleConfigFile:
     def __str__ (self):
