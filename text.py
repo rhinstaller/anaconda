@@ -28,7 +28,7 @@ class InstallProgressWindow:
 
     def __del__(self):
 	self.screen.popWindow()
-	screen.refresh()
+	self.screen.refresh()
 
     def __init__(self, screen):
 	self.screen = screen
@@ -42,8 +42,8 @@ class InstallProgressWindow:
 	screen.refresh()
 
 class PartitionWindow:
-    def run(self, screen, rootPath):
-	if (rootPath): return -2
+    def run(self, screen, todo):
+	if (todo.runLive): return -2
 
         device = 'hda';
 
@@ -63,14 +63,18 @@ class PartitionWindow:
 	if rc[0] == 'back':
 	    return -1
 
+	todo.addMount(rc[1], '/')
+
         return 0
 
-class InstallInterface:
+class WaitWindow:
 
-    def packageProgessWindow(self):
-	return InstallProgressWindow(self.screen)
+    def pop(self):
+	self.screen.popWindow()
+	self.screen.refresh()
 
-    def waitWindow(self, title, text):
+    def __init__(self, screen, title, text):
+	self.screen = screen
 	width = 40
 	if (len(text) < width): width = len(text)
 
@@ -81,9 +85,13 @@ class InstallInterface:
 	g.draw()
 	self.screen.refresh()
 
-    def popWaitWindow(self, arg):
-	self.screen.popWindow()
-	self.screen.refresh()
+class InstallInterface:
+
+    def waitWindow(self, title, text):
+	return WaitWindow(self.screen, title, text)
+
+    def packageProgessWindow(self):
+	return InstallProgressWindow(self.screen)
 
     def __init__(self):
         self.screen = SnackScreen()
@@ -91,10 +99,10 @@ class InstallInterface:
     def __del__(self):
         self.screen.finish()
 
-    def run(self, hdlist, rootPath):
+    def run(self, todo):
         steps = [
             ["Welcome", WelcomeWindow, (self.screen,)],
-            ["Partition", PartitionWindow, (self.screen, rootPath)]
+            ["Partition", PartitionWindow, (self.screen, todo)]
         ]
 
         step = 0

@@ -8,7 +8,8 @@ mode = None
 test = 0
 force = 0
 debug = 0
-rootPath = None
+rootPath = '/mnt'
+runLive = 0
 
 for n in args:
     (str, arg) = n
@@ -22,8 +23,9 @@ for n in args:
 	debug = 1
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
-    elif (str == '-p' or str == '--testpath'):
-	testPath = arg
+	runLive = 1
+    elif (str == '-p' or str == '--imagepath'):
+	imagepath = arg
     elif (str == '--force'):
 	force = 1
 
@@ -38,6 +40,7 @@ if (not test and os.getpid() > 10 and not force):
 if (test):
     sys.path.append('balkan')
     sys.path.append('rpmmodule')
+    sys.path.append('isys')
 elif (mode == None):
     try:
         f = open('/dev/fb0', 'r')
@@ -48,19 +51,10 @@ elif (mode == None):
 
 # imports after setting up the path
 from image import InstallMethod
-from comps import ComponentSet
 import rpm
-
-def cb(what, amount, total, key, data):
-    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-	(h, method) = key
-	data.setPackage(h[rpm.RPMTAG_NAME])
-	data.setPackageScale(0, 1)
-	fn = method.getFilename(h)
-	d = os.open(fn, os.O_RDONLY)
-	return d
-    elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-	data.setPackageScale(amount, total)
+import lilo
+from todo import ToDo
+import isys
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     os.environ['DISPLAY'] = ':0'
@@ -81,32 +75,25 @@ else:
     print "No mode was specified"
     sys.exit(1)
 
-method = InstallMethod(testPath)
+method = InstallMethod(imagepath)
 
 intf = InstallInterface()
+todo = ToDo(intf, method, rootPath, runLive)
 
-w = intf.waitWindow("Reading", "Reading package information...")
-hdlist = method.readHeaders()
-comps = ComponentSet('i386', 'comps', hdlist)
-intf.popWaitWindow(w)
+intf.run(todo)
+todo.installSystem()
 
-intf.run(hdlist, rootPath)
+del intf
 
-comps['Base'].select(1)
-
-try:
-    os.mkdir(rootPath + '/var')
-    os.mkdir(rootPath + '/var/lib')
-    os.mkdir(rootPath + '/var/lib/rpm')
-except:
-    print "error creating directory"
-
-db = rpm.opendb(1, rootPath)
-ts = rpm.TransactionSet(rootPath, db)
-
-for p in comps.selected():
-    ts.add(p.h, (p.h, method))
-
-ts.order()
-p = intf.packageProgessWindow()
-print "run", ts.run(0, 0, cb, p)
+l = lilo.LiloConfiguration()
+l.addEntry('boot', '/dev/hda')
+l.addEntry('map', '/boot/map')
+l.addEntry('install', '/boot/boot.b')
+l.addEntry('prompt')
+l.addEntry('timeout', 50)
+s = lilo.LiloConfiguration()
+s.addEntry('label', 'linux')
+s.addEntry('root', '/dev/hda8')
+s.addEntry('read-only')
+l.addImage('/boot/vmlinuz', s)
+#l.write('/etc/lilo.conf')
