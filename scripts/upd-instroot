@@ -839,8 +839,7 @@ fi
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/pango-querymodules 2> $REALPATH/etc/pango/pango.modules"
+    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
@@ -850,8 +849,7 @@ fi
 echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 2> $REALPATH/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 2> $DESTGR/etc/gtk-2.0/gtk.immodules"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
     fi
@@ -861,7 +859,7 @@ fi
 echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders 2> $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
     fi
@@ -947,8 +945,7 @@ for p in $DEST $DESTGR; do
 		gzip -9) > $p/usr/$LIBDIR/timezones.gz
 
 	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-	    REALPATH=`(cd $p; /bin/pwd | sed 's,/md1/,/,g')`
-            runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+            runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $p"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -966,8 +963,7 @@ fi
 echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/fc-cache -v"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v"
     else
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
     fi
@@ -1008,8 +1004,7 @@ cd -
 echo -n -e "Removing unused python files in hdimage... "
 
 if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
-    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+    runroot $COMPONENT --onlyone --arch $ARCH "cd $DEST\; usr/lib/anaconda-runtime/pythondeps $DEST"
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
@@ -1027,9 +1022,10 @@ done
 
 # do some stripping of debugging symbols
 if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
-    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
-    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH; find $DESTGR -type f -name '*.so' -exec strip -g '{}' ';'"
+    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DEST -type f -name '*.so' -exec strip -g '{}' ';'\""
+    runroot $COMPONENT --onlyone --arch $ARCH "\"find $DESTGR -type f -name '*.so' -exec strip -g '{}' ';'\""
 else
+    find $DEST -type f -name '*.so' |xargs strip -g
     find $DESTGR -type f -name '*.so' |xargs strip -g
 fi
 
