@@ -1,6 +1,7 @@
 from gtk import *
 from iw_gui import *
 from language_gui import *
+from language_support_gui import *
 from welcome_gui import *
 from progress_gui import *
 from package_gui import *
@@ -58,6 +59,7 @@ class InstallPathWindow (InstallWindow):
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     ( NetworkWindow, "network" ),
                      ( FirewallWindow, "firewall" ),
+                     ( LanguageSupportWindow, "languagesupport" ),
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
