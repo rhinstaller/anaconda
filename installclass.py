@@ -4,12 +4,6 @@
 # The interface to BaseInstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 
-# putting these here is a bit of a hack, but we can't switch between
-# newtfsedit and gnomefsedit right now, so we have to put up with this
-FSEDIT_CLEAR_LINUX  = (1 << 1)
-FSEDIT_CLEAR_ALL    = (1 << 2)
-FSEDIT_USE_EXISTING = (1 << 3)
-
 import gettext_rh, os, iutil
 import string
 from xf86config import XF86Config
@@ -58,9 +52,6 @@ class BaseInstallClass:
     def getLiloInformation(self):
 	return self.lilo
 
-    def getFstab(self):
-	return self.fstab
-
     def addRaidEntry(self, mntPoint, raidDev, level, devices):
 	# throw an exception for bad raid levels
 	[ 0, 1, 5 ].index(level)
@@ -98,6 +89,8 @@ class BaseInstallClass:
 		 "mouse",
 		 "welcome",
 		 "installtype",
+                 "autopartition",
+                 "autopartitionexecute",
                  "partition",
 		 "partitiondone",
 		 "bootloader",
