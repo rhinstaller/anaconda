@@ -127,7 +127,7 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     static int diskNum = 0;
     char from[200], to[200];
 
-    sprintf(from, "%s/rhdd-6.1", mntPoint);
+    sprintf(from, "%s/rhdd-6.2", mntPoint);
     if (access(from, R_OK))
 	badDisk = 1;
 
