@@ -1,3 +1,5 @@
+include ../Makefile.inc
+
 CFLAGS=-Wall -O -g -fpic -I/usr/include/python1.5# -DDEBUG
 
 TARGETS=eddmodule.so libedd.a(edd.o lrmi.o)
@@ -11,6 +13,9 @@ endif
 everything: $(TARGET)
 
 all: $(TARGETS)
+
+install: all
+	install eddmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
 
 edd: lrmi.c edd.c
 	gcc -DDEBUG -o edd lrmi.c edd.c
