@@ -439,6 +439,12 @@ Section "Files"
 EndSection
 
 Section "Module"
+        Load  "dbe"
+        Load  "extmod"
+        Load  "fbdevhw"
+        Load  "pex5"
+        Load  "record"
+        Load  "xie"
 EndSection
 
 Section "InputDevice"
