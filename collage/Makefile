@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -I/usr/include/rpm
 LDFLAGS = -g
 LOADLIBES = -L../isys -lpopt -lz -lisys -lresolv -lrpm -lbz2
 
