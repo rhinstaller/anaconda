@@ -1,4 +1,8 @@
+2004-11-30  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/modules.c (lateModuleSort): Fix the list to be big
+	enough (#140541, #140876)
+	
 2004-11-29  Paul Nasrat  <pnasrat@redhat.com>
 
 	* autopart.py: Fix LVM with add new in autopartitioning (#141268)

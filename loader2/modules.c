@@ -379,7 +379,8 @@ static char ** lateModuleSort(char **allmods, int num) {
                           "lpfc", "ibmvscsic", NULL };
     char ** lateMods;
 
-    modList = malloc(sizeof(*modList) * (num + 1));
+    for (i=0; allmods[i]; i++) {}
+    modList = malloc(sizeof(*modList) * (num + i + 1));
 
     lateMods = alloca(sizeof(*lateMods) * 10);
     lateMods = memset(lateMods, 0, 10);
@@ -585,6 +586,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     free(paths);
+    free(list);
 
     logMessage("load module set done");
 
