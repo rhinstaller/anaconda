@@ -85,10 +85,10 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc setup openssl python newt libtermcap zlib ash kon2
-	 e2fsprogs util-linux raidtools popt mount procps
-	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
-	 kudzu-devel kudzu db3 rpm-python bzip2 dosfstools pciutils"
+PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
+	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
+	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
+	 kudzu db3 rpm-python bzip2 dosfstools pciutils"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -107,12 +107,13 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            XFree86-ISO8859-2-75dpi-fonts glib gtk+ gtk-engines
            XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
            XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
-           XFree86-xfs e2fsprogs fileutils glibc rsh less ftp readline
-           gzip popt specspo util-linux rpm rpm-devel open grep
-           net-tools traceroute tar procps textutils sed ncurses bash
-           cpio mt-st iputils sh-utils XFree86-cyrillic-fonts XFree86
-           Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
-           pygnome-applet pygnome-capplet gdk-pixbuf XFree86-KOI8-R
+           XFree86-xfs e2fsprogs fileutils glibc glibc-common rsh less
+           ftp readline gzip popt specspo util-linux rpm rpm-devel
+           open grep net-tools traceroute tar procps textutils sed
+           ncurses bash cpio mt-st iputils sh-utils
+           XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
+           pygtk-libglade pygnome-libglade pygnome-applet
+           pygnome-capplet gdk-pixbuf XFree86-KOI8-R
            XFree86-KOI8-R-75dpi-fonts pciutils pam"
 
 if [ -z "$NEEDGR" ]; then
