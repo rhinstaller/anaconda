@@ -87,56 +87,58 @@ def startX(resolution, nofbmode, video, monitor, mouse):
     #--see if framebuffer works on this card
     fbavail = isys.fbinfo()
 
-    if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
-        card = FrameBufferCard()
-        serverPath = '/usr/X11R6/bin/' + card.getXServer()
+    if fbavail:
+        attempt = 'FB'
     else:
+        attempt = 'PROBED'
+
+    failed = 1
+    next_attempt = None
+    while next_attempt != 'END':
         card = None
-        if video.primaryCard():
-            fallbackcard = video.primaryCard()
-        else:
+        if attempt == 'FB':
+            if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
+                print _("Attempting to start framebuffer based X server")
+                card = FrameBufferCard()
+            else:
+                card = None
+
+            next_attempt = 'PROBED'
+        elif attempt == 'PROBED':
+            if video.primaryCard():
+                print _("Attempting to start native X server")
+                card = video.primaryCard()
+            else:
+                card = None
+            next_attempt = 'VGA16'
+        elif attempt == 'VGA16':
             # if no xserver then try falling back to VGA16 in no fb
-            fallbackcard = VGA16Card()
+            card = VGA16Card()
+            print _("Attempting to start VGA16 X server")
+            next_attempt = 'END'
+        else:
+            print "Got off end somehow!"
+            break
 
-#        x = XF86Config (card, monitor, mouse, resolution)
+        if card and card.getXServer() != None:
+            serverPath = '/usr/X11R6/bin/' + card.getXServer()
 
-    #--If framebuffer server isn't there...try original probed server
-    if card and not os.access (serverPath, os.X_OK) and fallbackcard != None:
-        serverPath = '/usr/X11R6/bin/' + fallbackcard.getXServer()
-        
-        #--If original server isn't there...send them to text mode
-        if not os.access (serverPath, os.X_OK):
-            raise RuntimeError, "No X server binaries found to run"
-
-    if card:
-        try:
-            #-- If can't access /dev/fb0, we're not in framebuffer mode
-            fbdevice = open("/dev/fb0", "r")
-            fbdevice.close()
+            if os.access (serverPath, os.X_OK):
+                try:
+                    x = XF86Config (card, monitor, mouse, resolution)
+                    testx(x)
+                    failed = 0
+                    break
             
-            x = XF86Config (card, monitor, mouse, resolution)
-            testx(x)
-            
-        except (RuntimeError, IOError):
-            if fallbackcard == None:
-                raise RuntimeError, "Unable to start X for unknown card"
+                except (RuntimeError, IOError):
+                    pass
 
-            x = XF86Config (fallbackcard, monitor, mouse, resolution)
-
-            # if this fails, we want the exception to go back to anaconda to
-            # it knows that this didn't work
-            testx(x)
-
-    else:  #-We're in nofb mode
-        if fallbackcard == None:
-            raise RuntimeError, "Unable to start X for unknown card"
-
-        x = XF86Config (fallbackcard, monitor, mouse, resolution)
+        attempt = next_attempt
         
-	# if this fails, we want the exception to go back to anaconda to
-	# it knows that this didn't work
-	testx(x)
-
+    #--If original server isn't there...send them to text mode
+    if failed:
+        raise RuntimeError, "No X server binaries found to run"
+    
     return x
 
 def canUseFrameBuffer (videocard):
