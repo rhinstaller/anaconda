@@ -334,6 +334,11 @@ class ia64BootloaderInfo(bootloaderInfo):
 	
 class x86BootloaderInfo(bootloaderInfo):
     def setPassword(self, val, isCrypted = 1):
+        if not val:
+            self.password = val
+            self.pure = val
+            return
+        
         if isCrypted:
             self.password = val
         else:
@@ -345,6 +350,7 @@ class x86BootloaderInfo(bootloaderInfo):
                                                string.digits + './')
 
             self.password = crypt.crypt (val, salt)
+            self.pure = val
         
     def setForceLBA(self, val):
         self.forceLBA32 = val
@@ -509,6 +515,7 @@ class x86BootloaderInfo(bootloaderInfo):
         self.kernelLocation = "/boot/"
         self.configfile = "/etc/lilo.conf"
         self.password = None
+        self.pure = None
 
 def availableBootDevices(diskSet, fsset):
     devs = []

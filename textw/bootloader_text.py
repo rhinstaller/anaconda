@@ -307,3 +307,80 @@ class BootloaderImagesWindow:
 
 	return INSTALL_OK
 
+class bootloaderPassword:
+    def usepasscb(self, *args):
+        flag = FLAGS_RESET
+        if not self.checkbox.selected():
+            flag = FLAGS_SET
+        self.entry1.setFlags(FLAG_DISABLED, flag)
+        self.entry2.setFlags(FLAG_DISABLED, flag)        
+    
+    def __call__(self, screen, dispatch, bl, fsset, diskSet):    
+        if not bl.useGrub:
+            return
+
+        self.bl = bl
+
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
+
+	text = TextboxReflowed(55,
+		    _("A GRUB password prevents users from passing arbitrary"
+                      "options to the kernel.  For highest security, we"
+                      "recommend setting a password, but this is not"
+                      "necessary for more casual users."))
+
+	g = GridFormHelp(screen, _("Boot Loader Configuration"), 
+			 "grubpass", 1, 6)
+	g.add(text, 0, 0, (0,0,0,1), anchorLeft = 1)
+
+
+        self.checkbox = Checkbox(_("Use a GRUB Password"))
+        g.add(self.checkbox, 0, 1, (0,0,0,1))
+
+        if self.bl.password:
+            self.checkbox.setValue("*")
+
+        pw = self.bl.pure
+	if not pw: pw = ""
+
+        self.entry1 = Entry (24, password = 1, text = pw)
+        self.entry2 = Entry (24, password = 1, text = pw)
+        passgrid = Grid (2, 2)
+        passgrid.setField (Label (_("Boot Loader Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (Label (_("Confirm:")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (self.entry1, 1, 0)
+        passgrid.setField (self.entry2, 1, 1)
+        g.add (passgrid, 0, 2, (0, 0, 0, 1))
+
+        self.checkbox.setCallback(self.usepasscb, None)
+        self.usepasscb()
+
+        g.add(buttons, 0, 3, growx=1)
+
+        while 1:
+            result = g.run()
+
+	    if (buttons.buttonPressed(result)):
+		result = buttons.buttonPressed(result)
+
+	    if (result == "cancel"):
+		screen.popWindow()
+                return INSTALL_BACK
+
+            if not self.checkbox.selected():
+                bl.setPassword(None)
+                screen.popWindow()
+                return INSTALL_OK
+
+            pw = self.entry1.value()
+            confirm = self.entry2.value()
+
+            if pw != confirm:
+                dispatch.intf.messageWindow(_("Passwords Do Not Match"),
+                        _("Passwords do not match"))
+                continue
+
+            bl.setPassword(pw, isCrypted = 0)            
+
+            screen.popWindow()
+            return INSTALL_OK
