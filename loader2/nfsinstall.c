@@ -92,6 +92,7 @@ char * mountNfsImage(struct installMethod * method,
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
 
+    /* populate netDev based on any kickstart data */
     setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
     /* JKFIXME: ASSERT -- we have a network device when we get here */

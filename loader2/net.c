@@ -166,6 +166,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
     return LOADER_OK;
 }
 
+/* given loader data from kickstart, populate network configuration struct */
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
                               struct loaderData_s * loaderData, 
                               int flags) {
@@ -668,10 +669,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     if (noDns) {
         loaderData->noDns = 1;
     }
-    
 }
 
-
+/* if multiple interfaces get one to use from user.   */
+/* NOTE - uses kickstart data available in loaderData */
 int chooseNetworkInterface(struct knownDevices * kd, 
                            struct loaderData_s * loaderData,
                            int flags) {
