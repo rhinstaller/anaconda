@@ -315,7 +315,7 @@ class Drives:
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
-		 expert = 0):
+		 expert = 0, extraModules = []):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -327,6 +327,7 @@ class ToDo:
         self.language = Language ()
         self.network = Network ()
         self.rootpassword = Password ()
+        self.extraModules = extraModules
         if mouse:
             self.mouse = Mouse (xmouseType = mouse)
         else:
@@ -1180,11 +1181,43 @@ class ToDo:
         elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
             intf.setPackageScale(amount, total)
         elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-            (h, self) = key
             os.close (self.rpmFD)
             intf.completePackage(h)
         else:
             pass
+
+    def copyExtraModules(self):
+	kernelVersions = []
+	
+	if (self.hdList.has_key('kernel-smp') and 
+	    self.hdList['kernel-smp'].selected):
+	    version = (self.hdList['kernel-smp']['version'] + "-" +
+		       self.hdList['kernel-smp']['release'] + "smp")
+	    kernelVersions.append(version)
+
+	version = (self.hdList['kernel']['version'] + "-" +
+		   self.hdList['kernel']['release'])
+	kernelVersions.append(version)
+
+        for (path, subdir, name) in self.extraModules:
+	    pattern = ""
+	    names = ""
+	    for n in kernelVersions:
+		pattern = pattern + " " + n + "/" + name + ".o"
+		names = names + " " + name + ".o"
+	    command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | " +
+			"%s/bin/cpio  --quiet -iumd %s") % \
+		(self.instPath, path, self.instPath, pattern)
+	    self.log("running: '%s'\n" % (command, ))
+	    os.system(command)
+
+	    for n in kernelVersions:
+		self.log("from %s/lib/modules/%s/%s.o\n" % (self.instPath, n, name))
+		self.log("to %s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
+							subdir, name))
+		os.rename("%s/lib/modules/%s/%s.o" % (self.instPath, n, name),
+			  "%s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
+							subdir, name))
 
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -1324,6 +1357,7 @@ class ToDo:
 
         if not self.upgrade:
 	    self.createCdrom()
+	    self.copyExtraModules()
             self.writeFstab ()
             self.writeLanguage ()
             self.writeMouse ()
