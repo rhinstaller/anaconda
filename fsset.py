@@ -524,7 +524,7 @@ class FileSystemSet:
         return new
     
     def fstab (self):
-	format = "%-23s %-23s %-7s %-15s %d %d\n";
+	format = "%-23s %-23s %-7s %-15s %d %d\n"
         fstab = ""
         for entry in self.entries:
             if entry.mountpoint:
@@ -564,6 +564,51 @@ class FileSystemSet:
         open (prefix + "/etc/mtab", "w+")
         f.close ()
 
+    def migratewrite(self, prefix):
+        fname = prefix + "/etc/fstab"
+        f = open (fname, "r")
+        lines = f.readlines()
+        f.close()
+
+        perms = os.stat(fname)[0] & 0777
+        os.rename(fname, fname + ".rpmsave")
+        f = open (fname, "w+")
+        os.chmod(fname, perms)
+        
+        for line in lines:
+            fields = string.split(line)
+
+            # try to be smart like in fsset.py::readFstab()
+            if not fields or line[0] == "#":
+                f.write(line)
+                continue
+            
+            if len (fields) < 4 or len (fields) > 6:
+                f.write(line)
+                continue
+                
+            if string.find(fields[3], "noauto") != -1:
+                f.write(line)
+                continue
+            
+            mntpt = fields[1]
+            entry = self.getEntryByMountPoint(mntpt)
+            if not entry or not entry.getMigrate():
+                f.write(line)
+            elif entry.origfsystem.getName() != fields[2]:
+                f.write(line)
+            else:
+                fields[2] = entry.fsystem.getName()
+                newline = "%-23s %-23s %-7s %-15s %s %s\n" % (fields[0],
+                                                              fields[1],
+                                                              fields[2],
+                                                              fields[3],
+                                                              fields[4],
+                                                              fields[5])
+                f.write(newline)
+
+        f.close()
+        
     def rootOnLoop (self):
         for entry in self.entries:
             if (entry.mountpoint == '/'
@@ -745,9 +790,8 @@ class FileSystemSet:
         for entry in self.entries:
             if not entry.origfsystem:
                 continue
-            
-            if (not entry.origfsystem.isMigratable() or not entry.getMigrate()
-                or entry.isMounted()):
+
+            if not entry.origfsystem.isMigratable() or not entry.getMigrate():
                 continue
             try: 
                 entry.origfsystem.migrateFileSystem(entry, self.progressWindow,
@@ -893,6 +937,9 @@ class FileSystemSetEntry:
                                                         self.mountpoint))
             self.mountcount = self.mountcount - 1
 
+    def setFileSystemType(self, fstype):
+        self.fsystem = fstype
+        
     def setBadblocks(self, state):
         self.badblocks = state
 
@@ -900,7 +947,7 @@ class FileSystemSetEntry:
         return self.badblocks
         
     def setFormat (self, state):
-        if self.migrate:
+        if self.migrate and state:
             raise ValueError, "Trying to set format bit on when migrate is set!"
         self.format = state
 
@@ -908,7 +955,7 @@ class FileSystemSetEntry:
         return self.format
 
     def setMigrate (self, state):
-        if self.format:
+        if self.format and state:
             raise ValueError, "Trying to set migrate bit on when format is set!"
 
         self.migrate = state
@@ -1206,7 +1253,8 @@ def readFstab (path):
 	else:
             continue
         
-        entry = FileSystemSetEntry(device, fields[1], fsystem, fields[3])
+        entry = FileSystemSetEntry(device, fields[1], fsystem, fields[3],
+                                   origfsystem=fsystem)
         if label:
             entry.setLabel(label)
         fsset.add(entry)

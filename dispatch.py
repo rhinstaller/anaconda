@@ -19,6 +19,7 @@ from constants import *
 from packages import readPackages, checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
+from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
 from packages import doPreInstall, doPostInstall
 from autopart import doAutoPartition
@@ -71,7 +72,7 @@ installSteps = [
     ("partitiondone", partitioningComplete, ("id.bootloader", "id.fsset",
                                              "id.diskset", "id.partitions",
                                              "intf", "instPath", "dir")),
-    ("upgrademigfind", upgradeMigrateFind, ("dispatch", "id.partitions")),
+    ("upgrademigfind", upgradeMigrateFind, ("dispatch", "id.partitions", "id.fsset")),
     ("upgrademigratefs",  ("id.fsset", "id.partitions")),
     ("bootloadersetup", bootloaderSetupChoices, ("dispatch", "id.bootloader",
                                                  "id.fsset", "id.diskset",
@@ -99,6 +100,9 @@ installSteps = [
     ("confirmupgrade", ()),
     ("install", ("dir", "intf", "id")),
     ("enablefilesystems", turnOnFilesystems, ("dir", "id.fsset",
+                                              "id.diskset", "id.upgrade",
+                                              "instPath")),
+    ("migratefilesystems", doMigrateFilesystems, ("dir", "id.fsset",
                                               "id.diskset", "id.upgrade",
                                               "instPath")),
     ("preinstallconfig", doPreInstall, ("method", "id", "intf", "instPath",

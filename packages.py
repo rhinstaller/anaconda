@@ -304,6 +304,10 @@ class rpmErrorClass:
     def __init__(self, f):
 	self.f = f
 
+def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
+    thefsset.migrateFilesystems (instPath)
+    
+
 def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
     if dir == DISPATCH_BACK:
 	thefsset.umountFilesystems(instPath)
@@ -317,7 +321,6 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
             thefsset.checkBadblocks(instPath)
             thefsset.formatSwap(instPath)
             thefsset.turnOnSwap(instPath)
-            thefsset.migrateFilesystems (instPath)
 	    thefsset.makeFilesystems (instPath)
             thefsset.mountFilesystems (instPath)
 
@@ -425,6 +428,8 @@ def doPreInstall(method, id, intf, instPath, dir):
     # write out the fstab
     if not upgrade:
         id.fsset.write(instPath)
+    else:
+        id.fsset.migratewrite(instPath)
 
 def doInstall(method, id, intf, instPath):
     if flags.test:

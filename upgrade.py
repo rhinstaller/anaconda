@@ -78,8 +78,8 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         oldfsset.mountFilesystems (instPath)
 
 # returns None if no filesystem exist to migrate
-def upgradeMigrateFind(dispatch, partitions):
-    migratereq = partitions.getMigratableRequests()
+def upgradeMigrateFind(dispatch, partitions, thefsset):
+    migratereq = partitions.getMigratableRequests(thefsset)
     if not migratereq or len(migratereq) < 1:
         dispatch.skipStep("upgrademigratefs")
     else:

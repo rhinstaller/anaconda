@@ -41,13 +41,19 @@ class UpgradeMigrateFSWindow (InstallWindow):
                 req.format = 0
                 req.migrate = 1
                 req.fstype = fileSystemTypeGet("ext3")
-
+                
+                entry = self.fsset.getEntryByDeviceName(req.device)
+                entry.setFileSystemType(fileSystemTypeGet("ext3"))
+                entry.setFormat(0)
+                entry.setMigrate(1)
+                
         return None
 
     def getScreen (self, fsset, partitions):
       
-        self.migratereq = partitions.getMigratableRequests()
-                
+        self.migratereq = partitions.getMigratableRequests(fsset)
+        self.fsset = fsset
+        
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
@@ -74,9 +80,10 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
             entry = fsset.getEntryByDeviceName(req.device)
             if not entry:
-                mntpt = ""
+                # only show partitions in current fstab
+                continue
             else:
-                mntpt =entry.mountpoint
+                mntpt = entry.mountpoint
 
             cb = GtkCheckButton("%s - %s - %s" % (req.device,
                                               req.origfstype.getName(),

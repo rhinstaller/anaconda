@@ -25,7 +25,7 @@ from translate import _
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, fsset, partitions):
       
-        migratereq = partitions.getMigratableRequests()
+        migratereq = partitions.getMigratableRequests(fsset)
 
 	g = GridFormHelp(screen, _("Migrate Filesystems"), "upmigfs", 1, 4)
 
@@ -48,9 +48,9 @@ class UpgradeMigrateFSWindow:
 
             entry = fsset.getEntryByDeviceName(req.device)
             if not entry:
-                mntpt = ""
+                # only show partitions in current fstab
             else:
-                mntpt =entry.mountpoint
+                mntpt = entry.mountpoint
 
             partlist.append("%s - %s - %s" % (req.device,
                                               req.origfstype.getName(),

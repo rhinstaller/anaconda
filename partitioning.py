@@ -822,7 +822,7 @@ class Partitions:
                     return 1
         return 0
 
-    def getMigratableRequests(self):
+    def getMigratableRequests(self, thefsset):
         retval = []
         for request in self.requests:
             if request.type != REQUEST_PREEXIST:
@@ -830,7 +830,9 @@ class Partitions:
             
             if request.origfstype:
                 if request.origfstype.isMigratable():
-                    retval.append(request)
+                    entry = thefsset.getEntryByDeviceName(request.device)
+                    if entry:
+                        retval.append(request)
 
         return retval
     
