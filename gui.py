@@ -76,6 +76,33 @@ elif iutil.getArch() == 's390':
 
 # setup globals
 
+def setupTreeViewFixupIdleHandler(view, store):
+    id = {}
+    id["id"] = gtk.idle_add(scrollToIdleHandler, (view, store, id))
+
+def scrollToIdleHandler((view, store, iddict)):
+    if not view or not store or not iddict:
+	return
+
+    try:
+	id = iddict["id"]
+    except:
+	return
+    
+    selection = view.get_selection()
+    model, iter = selection.get_selected()
+    if not iter:
+	return
+
+    path = store.get_path(iter)
+    col = view.get_column(0)
+    view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+
+    if id:
+	gtk.idle_remove(id)
+
+
+
 def processEvents():
     gtk.gdk.flush()
     while gtk.events_pending():

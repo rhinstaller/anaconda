@@ -19,6 +19,8 @@ from re import *
 from rhpl.translate import _, N_
 from flags import flags
 
+from gui import setupTreeViewFixupIdleHandler
+
 class MouseWindow(InstallWindow):
     windowTitle = N_("Mouse Configuration")
     htmlTag = "mouse"
@@ -243,6 +245,9 @@ class MouseWindow(InstallWindow):
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add(self.mouseview)
         box.pack_start(sw)
+
+	# ok hack to see if we can get scroll_to_cell to work
+	setupTreeViewFixupIdleHandler(self.mouseview, self.mousestore)
         
         # then the port list
         frame = gtk.Frame()
