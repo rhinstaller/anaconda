@@ -275,6 +275,8 @@ class VideoCardInfo:
 
         for card in cards:
             (device, server, descr) = card
+
+            info = None
             
             if len (server) > 9 and server[0:10] == "Server:Sun" and descr[0:4] == "Sun|":
                 server = "Card:Sun " + descr[4:]
