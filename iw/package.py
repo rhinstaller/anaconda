@@ -36,7 +36,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         if (x == ()): return ()
         if (len (x) == 1): return (x[0],)
         else: return (x[0], self.build_tree (x[1:]))
-        
+
     def merge (self, a, b):
         if a == (): return self.build_tree (b)
         if b == (): return a
@@ -369,7 +369,7 @@ class PackageSelectionWindow (InstallWindow):
                      "</BODY></HTML>")
 
     def getNext (self):
-	if self.individualPackages.get_active ():
+        if self.individualPackages.get_active ():
             return IndividualPackageSelectionWindow
         else:
             return None
@@ -384,33 +384,23 @@ class PackageSelectionWindow (InstallWindow):
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-        self.groupList = GtkCList ()
-        self.groupList.set_selection_mode (SELECTION_MULTIPLE)
-
-        self.groupList.freeze ()
+        box = GtkVBox (FALSE, 10)
         for comp in self.todo.comps:
             if not comp.hidden:
-                row = self.groupList.append ((comp.name,))
-                if comp.selected:
-                    self.groupList.select_row (row, 0)
+                checkButton = GtkCheckButton (comp.name)
+                checkButton.set_active (comp.selected)
 
-                self.groupList.set_row_data (row, comp)
+                def toggled (widget, comp):
+                  if widget.get_active ():
+                    comp.select (0)
+                  else:
+                    comp.unselect (0)
+                    
+                checkButton.connect ("toggled", toggled, comp)
 
-        self.groupList.columns_autosize ()
-        self.groupList.thaw ()
+                box.pack_start (checkButton)
 
-        def selectRow (widget, row, *args):
-            comp = widget.get_row_data (row)
-            comp.select (0)
-
-        def unselectRow (widget, row, *args):
-            comp = widget.get_row_data (row)
-            comp.unselect (0)
-
-        self.groupList.connect ("select-row", selectRow)
-        self.groupList.connect ("unselect-row", unselectRow)
-        
-        sw.add (self.groupList)
+        sw.add_with_viewport (box)
 
         vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton ("Select individual packages")
@@ -423,19 +413,3 @@ class PackageSelectionWindow (InstallWindow):
         
         return vbox
 
-
-#        box = GtkVBox (FALSE, 10)
-
-#                  checkButton = GtkCheckButton (comp.name)
-#                  checkButton.set_active (comp.selected)
-
-#                  def selectRow (widget, row, *args):
-#                    if widget.get_active ():
-#                      comp.select (0)
-#                    else:
-#                      comp.unselect (0)
-                    
-#                  self.groupList.connect ("select-row", toggled, comp)
-#                  self.groupList.connect ("unselect-row", toggled, comp)
-
-#                  box.pack_start (checkButton)
