@@ -1152,7 +1152,7 @@ class ToDo:
                                            self.fstab, self.instPath,
 					   allowDirty = 0)
 	    except SystemError, msg:
-		intf.messageWindow(("Dirty Filesystems"),
+		self.intf.messageWindow(_("Dirty Filesystems"),
 		    _("One or more of the filesystems listed in the "
 		      "/etc/fstab on your Linux system cannot be mounted. "
 		      "Please fix this problem and try to upgrade again."))
