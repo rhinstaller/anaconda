@@ -118,6 +118,7 @@ class InstallProgressWindow (InstallWindow):
                 im.render ()
                 pix = im.make_pixmap ()
                 self.adbox.remove (self.adpix)
+                pix.set_alignment (0, 0)
                 self.adbox.add (pix)
                 self.adpix = pix
                 self.adbox.show_all()
@@ -255,6 +256,7 @@ class InstallProgressWindow (InstallWindow):
             style = box.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             box.set_style (style)
+            self.adpix.set_alignment (0, 0)
             box.add (self.adpix)
             self.adbox = box
             frame.add (box)
