@@ -397,9 +397,10 @@ class Group:
             if (self.description is None and
                 xmlgrp.translated_description.has_key(lang)):
                 self.description = xmlgrp.translated_description[lang]
-        # fall back to english if they're not set
+        # fall back to english if they're not set and try to see if the
+        # translation is in the anaconda.po (eg, Everything)
         if self.name is None:
-            self.name = xmlgrp.name
+            self.name = _(xmlgrp.name)
         if self.description is None:
             self.description = xmlgrp.description
 
@@ -700,7 +701,7 @@ class GroupSet:
 
         # build up an Everything group 
         everything = rhpl.comps.Group(self.compsxml)
-        everything.name = _("Everything")
+        everything.name = N_("Everything")
         everything.id = "everything"
         everything.description = EVERYTHING_DESCRIPTION
         for pkgname in hdrlist.pkgnames.keys():
