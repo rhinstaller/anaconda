@@ -1072,7 +1072,7 @@ class FileSystemSet:
             if not entry.fsystem.isMountable():
 		continue
             try:
-                entry.mount(instPath)
+                entry.mount(instPath, readOnly = readOnly)
                 self.mountcount = self.mountcount + 1
             except OSError, (num, msg):
                 if self.messageWindow:
@@ -1209,9 +1209,10 @@ class FileSystemSetEntry:
         self.format = format
         self.badblocks = badblocks
 
-    def mount(self, chroot='/', devPrefix='/tmp'):
+    def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
-        self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint))
+        self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+                           readOnly = readOnly)
         self.mountcount = self.mountcount + 1
 
     def umount(self, chroot='/'):
