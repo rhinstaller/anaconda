@@ -722,11 +722,17 @@ class ToDo:
             if not self.auth.nisuseBroadcast:
                 args.append ("--nisserver")
                 args.append (self.auth.nisServer)
+        else:
+            args.append ("--disablenis")
 
         if self.auth.useLdap:
             args.append ("--enableldap")
+        else:
+            args.append ("--disableldap")
         if self.auth.useLdapauth:
             args.append ("--enableldapauth")
+        else:
+            args.append ("--disableldapauth")
         if self.auth.useLdap or self.auth.useLdapauth:
             args.append ("--ldapserver")
             args.append (self.auth.ldapServer)
@@ -745,6 +751,8 @@ class ToDo:
             args.append (self.auth.krb5Kdc)
             args.append ("--krb5adminserver")
             args.append (self.auth.krb5Admin)
+        else:
+            args.append ("--disablekrb5")
 
         if self.auth.useHesiod:
             args.append ("--enablehesiod")
@@ -752,6 +760,8 @@ class ToDo:
             args.append (self.auth.hesiodLhs)
             args.append ("--hesiodrhs")
             args.append (self.auth.hesiodRhs)
+        else:
+            args.append ("--disablehesiod")
 
 
         log ("running authentication cmd |%s|" % args)
