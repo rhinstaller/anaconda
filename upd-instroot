@@ -9,28 +9,135 @@ fi
 SRC=$1/RedHat/RPMS
 DEST=../../../RedHat/instimage
 
-PACKAGES="glibc-2 ldconfig filesystem basesystem setup fileutils
+PACKAGES="e2fsprogs-1 glibc-2 ldconfig setup 
           XFree86-libs XFree86-SVGA XFree86-FBDev XFree86-75dpi-fonts
           XFree86-3. xpm-3 glib- gtk+- gnome-libs slang python-1 newt
-          imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm bash-
-          pygtk- pygnome- util-linux procps e2fsprogs-1 esound-0
-          audiofile-0"
+          imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm
+          rpm-devel bash- pygtk- pygnome- util-linux procps
+          esound-0 audiofile-0 bzip2"
+
+KEEPFILE=/tmp/keepfile.$$
+cat > $KEEPFILE <<EOF
+etc/im_palette.pal
+etc/imrc
+sbin/e2fsck
+sbin/mke2fs
+sbin/fsck*
+etc/nsswitch.conf
+lib/ld-*
+lib/libNoVersion*
+lib/libc*
+lib/libm*
+lib/libcrypt*
+lib/libdl*
+lib/libdb1*
+lib/libnss_files*
+lib/libpthread*
+lib/libresolv*
+sbin/ldconfig
+etc/group
+etc/passwd
+etc/services
+usr/X11R6/lib/libICE*
+usr/X11R6/lib/libSM*
+usr/X11R6/lib/libX11*
+usr/X11R6/lib/libXext*
+usr/X11R6/bin/XF86_SVGA
+usr/X11R6/bin/XF86_FBDev
+usr/X11R6/lib/X11/fonts/75dpi/cour*
+usr/X11R6/lib/X11/fonts/75dpi/helv*
+usr/X11R6/lib/X11/fonts/75dpi/fonts*
+usr/X11R6/lib/X11/fonts/misc/6x13.pcf.gz
+usr/X11R6/lib/X11/fonts/misc/fonts*
+usr/X11R6/lib/X11/fonts/misc/cursor*
+usr/X11R6/lib/X11/fonts/misc/olcursor*
+usr/X11R6/lib/X11/xkb/*
+usr/X11R6/lib/libXpm*
+usr/lib/libglib*
+usr/lib/libmodule*
+usr/lib/libthread*
+etc/gtk/gtkrc
+usr/lib/libgtk*
+usr/lib/libgdk*
+usr/lib/libart*
+usr/lib/libgnome*
+usr/lib/libgmodule*
+usr/lib/libgthread*
+usr/lib/libgnomesupport*
+usr/lib/libgnomeui*
+usr/lib/libgnorba*
+usr/lib/libgnorbagtk*
+usr/lib/libgtkxmhtml*
+usr/share/pixmaps/gnome-default-dlg.png
+usr/share/pixmaps/gnome-error.png
+usr/share/pixmaps/gnome-info.png
+usr/share/pixmaps/gnome-question.png
+usr/share/pixmaps/gnome-warning.png
+usr/share/pixmaps/no.xpm
+usr/share/pixmaps/yes.xpm
+usr/lib/libslang*
+usr/bin/python*
+usr/lib/python*
+usr/lib/libnewt*
+usr/lib/libImlib*
+usr/lib/gdkimlib*
+usr/lib/libimlib-pnm*
+usr/lib/libimlib-xpm*
+usr/lib/libpng*
+lib/libtermcap*
+usr/lib/libtiff*
+usr/lib/libjpeg*
+usr/lib/libz.*
+bin/rpm
+usr/lib/rpm/*
+usr/lib/librpm*
+bin/bash
+bin/sh
+bin/mkfs*
+bin/fdisk*
+bin/ps
+lib/libproc*
+sbin/badblocks
+lib/libcom_err*
+lib/libe2p*
+lib/libext2fs*
+lib/libss*
+lib/libuuid*
+usr/bin/chattr*
+usr/bin/lsattr*
+usr/lib/libesd*
+usr/lib/libaudio*
+usr/lib/libbz2.so*
+EOF
 
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
-	if ! echo $J | grep devel > /dev/null; then
-	    RPMS="$RPMS $J"
+	if [ "$I" != "rpm-devel" ]; then
+            if ! echo $J | grep devel > /dev/null; then
+	        RPMS="$RPMS $J"
+            fi
+        else
+                RPMS="$RPMS $J"
 	fi
     done
 done
 
-if [ ! -e $DEST/var/lib/rpm/packages.rpm ]; then
-    mkdir -p $DEST/var/lib/rpm
-    rpm --initdb -r `pwd`/$DEST
-fi
-rpm -Uvh $RPMS -r `pwd`/$DEST --relocate /bin=/usr/bin \
-                              --relocate /sbin=/usr/sbin --badreloc \
-                              --excludedocs --noscripts --nodeps --force
+rm -rf $DEST
+mkdir -p $DEST/usr/sbin
+
+for n in $RPMS; do 
+    echo "expanding $n"
+    rpm2cpio $n | (cd `pwd`/$DEST; cpio -E $KEEPFILE --quiet -ivumd)
+done
+
+find $DEST -type d | xargs chmod 755
+
+rm -f $KEEPFILE
+
+mv $DEST/bin/* $DEST/usr/bin
+mv $DEST/sbin/* $DEST/usr/sbin
+rmdir $DEST/bin
+rmdir $DEST/sbin
 
 rm -rf $DEST/bin $DEST/sbin $DEST/boot $DEST/home $DEST/root $DEST/tmp
 
@@ -40,4 +147,4 @@ ln -s /tmp $DEST/usr/X11R6/lib/X11/xkb/compiled
 
 make install
 
-chroot $DEST ldconfig -v
+(cd $DEST; chroot . usr/sbin/ldconfig -v /usr/X11R6/lib )
