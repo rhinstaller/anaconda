@@ -157,40 +157,30 @@ def set_partition_file_system_type(part, fstype):
 def get_partition_drive(partition):
     return "%s" %(partition.geom.disk.dev.path[5:])
 
-def get_logical_partitions(disk):
+def filter_partitions(disk, func):
     rc = []
     part = disk.next_partition ()
     while part:
-        if not part.is_active():
-            part = disk.next_partition(part)
-            continue
-        if part.type & parted.PARTITION_LOGICAL:
+        if func(part):
             rc.append(part)
         part = disk.next_partition (part)
 
     return rc
 
-def get_primary_partitions(disk):
-    rc = []
-    part = disk.next_partition()
-    while part:
-        if part.type == parted.PARTITION_PRIMARY:
-            rc.append(part)
-        part = disk.next_partition(part)
+def get_logical_partitions(disk):
+    func = lambda part: (part.is_active()
+                         and part.type & parted.PARTITION_LOGICAL)
+    return filter_partitions(disk, func)
 
-    return rc
+def get_primary_partitions(disk):
+    func = lambda part: part.type == parted.PARTITION_PRIMARY
+    return filter_partitions(disk, func)
 
 # returns a list of partitions which can make up RAID devices
 def get_raid_partitions(disk):
-    rc = []
-    part = disk.next_partition()
-    while part:
-        if part.is_active() and part.get_flag(parted.PARTITION_RAID) == 1:
-            rc.append(part)
-        part = disk.next_partition(part)
-
-    return rc
-
+    func = lambda part: (part.is_active()
+                         and part.get_flag(parted.PARTITION_RAID) == 1)
+    return filter_partitions(disk, func)
 
 # returns a list of the actual raid device requests
 def get_raid_devices(requests):
