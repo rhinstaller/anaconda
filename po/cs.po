@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-16 19:44+0200\n"
+"PO-Revision-Date: 2004-09-25 02:47+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6713,7 +6713,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6723,13 +6723,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tProstředí pracovní plochy (GNOME)\n"
+"\tNástroje pro administraci\n"
+"\tNástroje pro nastavování serverů\n"
+"\tWWW server\n"
+"\tSouborový server pro Windows (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6741,23 +6745,23 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tProstředí pracovní plochy (GNOME)\n"
-"\tKancelářský balík (OpenOffice.org)\n"
+"\tKancelářský balík (OpenOffice)\n"
 "\tWWW prohlížeč (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
+"\tNástroje pro administraci\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6776,7 +6780,7 @@ msgstr ""
 "\tInstant messaging\n"
 "\tAplikace pro zvuk a video\n"
 "\tHry\n"
-"\tNástroje pro vývoj programů\n"
+"\tNástroje pro vývoj software\n"
 "\tNástroje pro administraci\n"
 
 #: ../installclasses/server.py:11
