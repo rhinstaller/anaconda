@@ -475,13 +475,8 @@ EOF
        cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
-       if [ "${version:0:3}" = "2.2" ]; then
-          cp -f $KERNELROOT/lib/modules/*/misc/* $MBD_DIR/lib/modules/misc
-          cp -f $IMGPATH/lib/modules/ibm-2.2*/net/* $MBD_DIR/lib/modules/misc
-       else
-          cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
-          cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
-       fi
+       cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
+       cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
        sed -e "s/PermitEmptyPasswords no/PermitEmptyPasswords yes/; \
 	  s/^Gssapi/\# Gssapi/; s/X11Forwarding yes/X11Forwarding no/" \
                 < $IMGPATH/etc/ssh/sshd_config > $MBD_DIR/etc/ssh/sshd_config

@@ -14,6 +14,7 @@
 #
 
 import sys
+import iutil
 
 class LogFile:
     def __init__ (self):
