@@ -106,7 +106,7 @@ def startX(resolution, nofbmode, video, monitor, mouse):
 # we're removing framebuffer support
 #	
 #        if attempt == 'FB':
-#            if fbavail and nofbmode == 0 and canUseFrameBuffer(video.primaryCard()):
+#            if fbavail and nofbmode == 0:
 #                print _("Attempting to start framebuffer based X server")
 #                card = FrameBufferCard()
 #            else:
@@ -165,17 +165,6 @@ def startX(resolution, nofbmode, video, monitor, mouse):
         raise RuntimeError, "No X server binaries found to run"
     
     return x
-
-def canUseFrameBuffer (videocard):
-#    if videocard:
-#        carddata = videocard.getProbedCard()
-#
-#    return 1
-
-#
-# we're turning off framebuffer support
-#
-    return 0
 
 def testx(x):
     try:
