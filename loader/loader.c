@@ -1329,7 +1329,7 @@ static char * setupCdrom(struct installMethod * method,
 			  NULL)) {
 		/* if probe quickly, then we're looking for a kickstart config
 		 * and should just return if we can mount it */
-		if (probeQuickly) {
+		if (probeQuickly && !needRedHatCD) {
 		    buf = malloc(200);
 		    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
 		    return buf;
