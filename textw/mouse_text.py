@@ -39,7 +39,9 @@ class MouseWindow:
             self.c.setValue(" ")
             
     def __call__(self, screen, mouse):
-	if mouse.probed(): return
+#       XXX ewt changed this and we can't figure out why -- we always
+#       want to display this dialog so that you can turn on 3 button emu
+#	if mouse.probed(): return
 
         self.mice = mouse.available ()
         mice = self.mice.keys ()
