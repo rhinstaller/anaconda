@@ -41,8 +41,8 @@ class PackageGroupWindow:
             show = 0
             if showgroups:
                 try:
-                    showgroups.index (comp.name)
-                    show = 1
+                    if klass.findOptionalGroup (comp.name):
+			show = 1
                 except ValueError:
                     # comp not in show list
                     pass

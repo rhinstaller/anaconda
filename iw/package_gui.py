@@ -589,10 +589,10 @@ class PackageSelectionWindow (InstallWindow):
     def getScreen (self):
 #            threads_leave ()
         try:
-            threads_leave ()
-            self.todo.getHeaderList ()
-            self.todo.getCompsList()
-            threads_enter ()
+	    threads_leave ()
+	    self.todo.getHeaderList ()
+	    self.todo.getCompsList()
+	    threads_enter ()
 
         except:
             print "Cannot read either header or comps or both"
@@ -621,17 +621,19 @@ class PackageSelectionWindow (InstallWindow):
 
         self.checkButtons = []
         klass = self.todo.getClass ()
+	showList = klass.getOptionalGroups()
         for comp in self.todo.comps:
             show = 0
-            if klass.showgroups:
+            if showList:
                 try:
-                    klass.showgroups.index (comp.name)
-                    show = 1
+                    if klass.findOptionalGroup (comp.name):
+			show = 1
                 except ValueError:
                     # comp not in show list
                     pass
             else:
                 show = not comp.hidden
+
             if show:
                 pixname = string.replace (comp.name, ' ', '-')
                 pixname = string.replace (pixname, '/', '-')
