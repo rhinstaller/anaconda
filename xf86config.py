@@ -472,7 +472,7 @@ Section "Module"
         Load  "glx"
         Load  "pex5"
         Load  "record"
-        Load  "xie"%(ia64Mods)s
+        Load  "xie"
 EndSection
 
 Section "InputDevice"
@@ -1242,7 +1242,6 @@ Section "Screen"
                  "monitorVert"  : self.monVert,
                  "files"        : self.files,
                  "screenModes"  : screens,
-                 "ia64Mods"     : "",
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
 		 "pex5Mod"	: '\n\tLoad "pex5"',
                  "XkbRules"     : self.keyRules,
@@ -1276,14 +1275,6 @@ Section "Screen"
 	    data["autorepeat"] = '#	Option	"AutoRepeat"	"200 20"'
         else:
             data["autorepeat"] = '#	Option	"AutoRepeat"	"500 5"'
-	if iutil.getArch() == "ia64":
-	    data["ia64Mods"] = """
-        Load  "mfb"
-        Load  "cfb"
-        Load  "cfb16"
-        Load  "cfb24"
-        Load  "cfb32"
-"""				
         if self.vidCards[self.primary].has_key ("DRIVER"):
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
             if data["cardDriver"] == "i810":
