@@ -1,18 +1,22 @@
+# translation of id.po to 
+# translation of id.po to
 # anaconda Bahasa Indonesia (id)
-# Teguh DC <dheche@brawijaya.ac.id>, 2004
 # $Id$
+# Teguh DC <dheche@brawijaya.ac.id>, 2004.
+# tambahan Erwin, Sofyan
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-11-30 12:00+0700\n"
+"PO-Revision-Date: 2005-01-05 17:02+0700\n"
 "Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
-"Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
+"Language-Team: BlankOn <http://www.blankonlinux.or.id>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Indonesian\n"
 "X-Poedit-Country: INDONESIA\n"
+"X-Generator: KBabel 1.9\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -214,7 +218,7 @@ msgstr "Tidak ada hardware video yang ditemukan, diasumsikan tanpa monitor"
 #: ../anaconda:827
 #: ../anaconda:1087
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Tidak bisa instantiasi obyek X hardware state"
 
 #: ../anaconda:851
 msgid "Graphical installation not available...  Starting text mode."
@@ -545,7 +549,7 @@ msgstr "TIdak ada pertanyaan pada mode command line"
 
 #: ../cmdline.py:87
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Eksepsi parted tidak bisa ditangani pada modus command line!"
 
 #: ../cmdline.py:132
 #, python-format
@@ -1215,7 +1219,7 @@ msgstr "Lanjutkan (_Continue)"
 #: ../image.py:155
 #, python-format
 msgid "An error occurred unmounting the CD.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr ""
+msgstr "Terjadi error saat melepaskan CD. Pastika Anda tidak mengakses %s dari shell di tty2 dan klik OK untuk coba lagi."
 
 #: ../image.py:188
 msgid "Copying File"
@@ -1563,6 +1567,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"/dev/%s punya layout partisi %s. Untuk menggunakan disk ini sebagai instalasi %s, divais tersebut harus di re-inisialisasi, menyebabkan SEMUA DATA akan hilang.\n"
+"\n"
+"Anda ingin format drive in?"
 
 #: ../partedUtils.py:317
 msgid "_Ignore drive"
@@ -1595,6 +1602,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Tabel partisi pada divais %s (%s) tidak bisa dibaca. Untuk membuat partisi baru, divais harus di re-inisialisasi, menyebabkan SEMUA DATA akan hilang.\n"
+"\n"
+"Proses ini akan menghapus semua pilihan instalasi sebelumnya drive mana yang diabaikan.\n"
+"\n"
+"Anda ingin insialisasi drive ini, dan hapus SEMUA DATA?"
 
 #: ../partedUtils.py:888
 #, python-format
@@ -1605,6 +1617,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Tabel partisi pada divais %s tidak bisa dibaca. Untuk membuat partisi baru, divais harus di re-inisialisasi, menyebabkan SEMUA DATA akan hilang.\n"
+"\n"
+"Proses ini akan menghapus semua pilihan instalasi sebelumnya drive mana yang diabaikan.\n"
+"\n"
+"Anda ingin insialisasi drive ini, dan hapus SEMUA DATA?"
 
 #: ../partedUtils.py:1006
 #: ../textw/fdasd_text.py:100
@@ -1613,7 +1630,7 @@ msgstr "Tidak ditemukan Drive satu pun"
 
 #: ../partedUtils.py:1007
 msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
-msgstr ""
+msgstr "Terjadi Error - tidak ada divais yang valid untuk membuat sistem file baru. Mohon cek hardware untuk cari sebab masalah ini."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1630,7 +1647,7 @@ msgstr "Kesalahan - nama grup volume %s tidak valid."
 
 #: ../partIntfHelpers.py:47
 msgid "Error - the volume group name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "Error- grup volume diberi nama dengan karakter tidak benar atau spasi. Karakter yang benar adalah huruf, angka,'.' atau '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1647,11 +1664,11 @@ msgstr "Kesalahan - nama volume logikal %s tidak valid."
 
 #: ../partIntfHelpers.py:71
 msgid "Error - the logical volume name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
+msgstr "Error- volume logikal diberi nama dengan karakter tidak benar atau spasi. Karakter yang benar adalah huruf, angka,'.' atau '_'."
 
 #: ../partIntfHelpers.py:94
 msgid "The mount point is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "Mount point tidak valid. Mount point harus dimulai dengan / dan jangan diakhiri dengan /, dan harus berisi karakter yang bisa dicetak, tanpa spasi."
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
@@ -1659,7 +1676,7 @@ msgstr "Tentukan mount point untuk partisi ini."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
+msgstr "Partisi ini menyimpan data untuk instal hard drive"
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1789,7 +1806,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:401
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then  continue without formatting this partition."
-msgstr ""
+msgstr "Anda memilih untuk menggunakan partisi yang ada untuk instalasi tanpa memformatnya. Kami rekomendasikanAnda untuk format partisi ini guna memastikan file dari sistem operasi sebelumnya tidak menyebabkan masalah untuk instal Linux. Bagaimanapun juga, jika partisi ini berisi file yang ingin Anda simpan, seperti data pribadi, instalasi dapat dilanjutkan tanpa format partisi."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -1815,6 +1832,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Error kritis berikut ada untuk skim partisi yang Anda minta. Error ini harus diperbaiki sebelum melanjutkan instalasi %s.\n"
+"\n"
+"%s"
 
 #: ../partIntfHelpers.py:432
 msgid "Partitioning Warning"
@@ -1829,11 +1849,16 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"Peringatan berikut muncul mengikuti skim partisi yang Anda minta.\n"
+"\n"
+"%s\n"
+"\n"
+"Anda ingin melanjutkan dengan skim partisi ini?"
 
 #: ../partIntfHelpers.py:447
 #: ../iw/partition_gui.py:660
 msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
-msgstr ""
+msgstr "Partisi yang sudah ada berikut ini telah dipilih untuk diformat, menghapus semua data"
 
 #: ../partIntfHelpers.py:450
 msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
@@ -1850,6 +1875,9 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
+"Anda akan menghapus grup volume \"%s\".\n"
+"\n"
+"SEMUA volume logikal pada grup volume ini akan hilang!"
 
 #: ../partIntfHelpers.py:508
 #, python-format
@@ -1883,7 +1911,7 @@ msgstr "Instalasi tidak dapat dilanjutkan."
 
 #: ../partitioning.py:78
 msgid "The partitioning options you have chosen have already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr ""
+msgstr "Pilihan partisi yang Anda pilih sudah diaktifkan. Anda tidak bisa kembali ke layar edit disk. Apakah Anda ingin melanjutkan proses instalasi?"
 
 #: ../partitioning.py:108
 msgid "Low Memory"
@@ -1891,7 +1919,7 @@ msgstr "Kekurangan Memory"
 
 #: ../partitioning.py:109
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that OK?"
-msgstr ""
+msgstr "Mengingat Anda tidak punya memori cukup, kami harus mengaktifkan swap segera. Untuk ini kami akan menuliskan tabel partisi baru Anda ke disk segera. Apakah ini OK?"
 
 #: ../partitions.py:761
 #, python-format
@@ -1928,7 +1956,7 @@ msgstr "Partisi bootable tidak dapat berada dalam logical volume."
 
 #: ../partitions.py:862
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "Anda tidak menentukan partisi swap.  Meskipun tidak secara kaku dibutuhkan di semua kasus, Swap akan meningkatkan kinerja instalasi secara signifikan."
 
 #: ../partitions.py:869
 #, python-format
@@ -1938,7 +1966,7 @@ msgstr "Anda telah menspesifikasikan lebih dari 32 device swap. Kernel untuk %s 
 #: ../partitions.py:880
 #, python-format
 msgid "You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance."
-msgstr ""
+msgstr "Anda mengalokasikan swap (%dM) lebih kecil dari RAM (%dM) yang tersedia. Ini akan memberikan dampak negatif terhadap kinerja."
 
 #: ../partitions.py:1167
 msgid "the partition in use by the installer."
@@ -1950,7 +1978,7 @@ msgstr "Partisi ini adalah anggota array dari RAID."
 
 #: ../partitions.py:1173
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr ""
+msgstr "partisi yang merupakan anggata Grup Volume LVM"
 
 #: ../partRequests.py:233
 #, python-format
@@ -1960,7 +1988,7 @@ msgstr "Mount point ini tidak valid. Direktori %s harus berada dalam file system
 #: ../partRequests.py:236
 #, python-format
 msgid "The mount point %s cannot be used.  It must be a symbolic link for proper system operation.  Please select a different mount point."
-msgstr ""
+msgstr "Mount point %s tidak bisa digunakan. Point tersebut harus link simbolik untuk sistem operasi yang layak. Mohon pilih mount point lainnya."
 
 #: ../partRequests.py:243
 msgid "This mount point must be on a linux file system."
@@ -1996,7 +2024,7 @@ msgstr "Partisi tidak dapat diakhiri dengan silinder negatif."
 
 #: ../partRequests.py:644
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "Tdak ada anggota pada RAID yang diminta, atau level RAID tidak ditentukan"
 
 #: ../partRequests.py:656
 #, python-format
@@ -2006,7 +2034,7 @@ msgstr "Devais RAID dengan tipe %s membutuhkan paling tidak %s anggota."
 #: ../partRequests.py:662
 #, python-format
 msgid "This RAID device can have a maximum of %s spares. To have more spares you will need to add members to the RAID device."
-msgstr ""
+msgstr "Divais RAID hanya bisa menyisihkan maksimum %s. Untuk memperoleh cadangan lebih, Anda harus menambah divais RAID baru."
 
 #: ../rescue.py:123
 msgid "Starting Interface"
@@ -2056,6 +2084,10 @@ msgid ""
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"Lingkungan penyelamatan akan mencari instalasi Linux Anda dan mengaitkan di direktori %s. Anda bisa membuat perubahan yang dibutuhkan untuk sistem Anda. Jika ingin dilanjutkan, pilih 'Lanjutkan'. Anda bisa juga pilih kaitkan file sistem Anda read-only dengan memilih 'Read-Only.\n"
+"\n"
+"Jika karena satu alasan proses ini gagal Anda bisa memilih 'Lewati', dan langkah ini akan dilewati, anda langsung menuju shell perintah.\n"
+"\n"
 
 #: ../rescue.py:270
 #: ../iw/partition_gui.py:562
@@ -2095,7 +2127,7 @@ msgstr "Keluar"
 
 #: ../rescue.py:329
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
-msgstr ""
+msgstr "Sistem Anda memiliki sistem file kotor sehingga dipilih untuk tidak dikaitkan. Tekan Enter untuk memperoleh shell sehingga Anda dapat 'fsck' dan mengaitkan partisi. Sistem akan otomatis reboot saat Anda keluar dari shell."
 
 #: ../rescue.py:337
 #, python-format
@@ -2123,6 +2155,9 @@ msgid ""
 "\n"
 "Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Terjadi error saat coba mengaitkan beberapa atau semua sistem Anda. Beberapa diantaranya dikaitkan pada %s.\n"
+"\n"
+"Tekan <return> untuk memperoleh shell. Sistem akan reboot otomatis saat Anda keluar dari shell."
 
 #: ../rescue.py:414
 msgid "Rescue Mode"
@@ -2201,6 +2236,8 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
+"Sistem File untuk Linux Anda tidak dilepas secara bersih. Mohon boot instalasi Linux, dan biarkan sistem file dicek dan dimatikan secara bersih untuk upgrade.\n"
+"%s"
 
 #: ../upgrade.py:132
 #, python-format
@@ -2208,6 +2245,8 @@ msgid ""
 "The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
+"Sistem file Linux Anda tidak dilepas secara bersih. Anda tetap akan mengaitkannya?\n"
+"%s"
 
 #: ../upgrade.py:266
 #: ../upgrade.py:272
@@ -2216,17 +2255,19 @@ msgstr "Gagal me-mount"
 
 #: ../upgrade.py:267
 msgid "One or more of the file systems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "Satu atau lebih sistem file terdaftar di /etc/fstab pada sistem Linux Anda dan tidak bisa dikaitkan. Mohon perbaiki masalah ini dan upgrade lagi."
 
 #: ../upgrade.py:273
 msgid "One or more of the file systems listed in the /etc/fstab of your Linux system are inconsistent and cannot be mounted.  Please fix this problem and try to upgrade again."
-msgstr ""
+msgstr "Satu atau lebih sistem file terdaftar di /etc/fstab pada sistem Linux Anda dan tidak bisa dikaitkan. Mohon perbaiki masalah ini dan upgrade lagi."
 
 #: ../upgrade.py:290
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"File berikut merupakan link simbolik absolut, yang tidak dapat disupport selama upgrade. Mohon ganti ke link simbolik relatif dan restart proses upgrade. \n"
+"\n"
 
 #: ../upgrade.py:296
 msgid "Absolute Symlinks"
@@ -2237,6 +2278,8 @@ msgid ""
 "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
+"Direktori berikut merupakan link simbolik yang akan menyebabkan masalah saat upgrade. Mohon kembali ke sistem Anda semula, ganti link simbolik dan jalankan kembali upgrade.\n"
+"\n"
 
 #: ../upgrade.py:313
 msgid "Invalid Directories"
@@ -2257,7 +2300,7 @@ msgstr "Mencari paket untuk diupgrade..."
 
 #: ../upgrade.py:375
 msgid "The installation program is unable to upgrade systems with a pre-rpm 4.x database. Please install the errata rpm packages for your release as described in the release notes and then run the upgrade procedure."
-msgstr ""
+msgstr "Installer tidak bisa mengupgrade sistem dengan rpm sebelum 4.x. Mohon instal paket errata rpm untuk rilis ini sebagaimana dijelaskan pada release-notes, lalu jalankan kembali prosedur upgrade."
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
@@ -2266,7 +2309,7 @@ msgstr "Terjadi kesalahan ketika mencari paket yang akan diupgrade."
 #: ../upgrade.py:430
 #, python-format
 msgid "The arch of the release of %s you are upgrading to appears to be %s which does not match your previously installed arch of %s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Arsitektur rillis %s yang akan Anda upgrade adalah %s, dan tidak cocok dengan arsitektur %s Anda sebelumnya. Anda yakin ingin melanjutkan proses upgrade?"
 
 #: ../upgrade.py:483
 #, python-format
@@ -2275,6 +2318,9 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
+"Sistem ini kelihatannya memiliki paket pihak ketiga yang akan overlap dengan paket %s. Karena itu, melanjutkan proses upgrade akan menghentikan berfungsinya program tersebut dan menyebabkan instabilitas. Mohon lihat release-notes untuk informasi lebih lanjut.\n"
+"\n"
+"Anda ingin melanjutkan proses upgrade?"
 
 #: ../upgrade.py:506
 #, python-format
@@ -2284,7 +2330,7 @@ msgstr "Sistem ini tidak memiliki file /etc/redhat-release. Kemungkinan sistem i
 #: ../upgrade.py:546
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Anda menguprade dari sistem yang terlalu tua untuk diupgrade ke sistem %s. Anda yakin ingin melanjutkan proses upgrade?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2296,7 +2342,7 @@ msgstr "Tidak dapat menjalankan X"
 
 #: ../vnc.py:55
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr ""
+msgstr "X tidak dapat dijalankan. Apakah Anda ingin menjalankan VNC untuk menyambung ke komputer ini dari komputer lain dan menjalankan instal grafik atau melanjutkan instalasi modus teks?"
 
 #: ../vnc.py:62
 #: ../vnc.py:65
@@ -2317,7 +2363,7 @@ msgstr "Tanpa pasword"
 
 #: ../vnc.py:80
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr ""
+msgstr "Password akan menghalangi pendengar yang tidak diinginkan memonitor jalannya instalasi Anda. Mohon masukkan password yang digunakan untuk instalasi."
 
 #: ../vnc.py:88
 #: ../textw/userauth_text.py:44
@@ -2360,7 +2406,7 @@ msgstr "DDC Probed Monitor"
 
 #: ../zfcp.py:27
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "Mesin zSeries dapat mengakses standar divais SCSI lewat Kanal Fiber (FCP). Anda perlu memberi 5 parameter pada masing-masing device: nomor divais 16bit, 16bit SCSI ID, dan 64 bit World Wide Port Name (WWPN), 16 bit SCSI LUN dan 64 bit FCP LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -2368,7 +2414,7 @@ msgstr "Nomer Devais"
 
 #: ../zfcp.py:30
 msgid "You have not specified a device number or the number is invalid"
-msgstr ""
+msgstr "Anda tidak memasukkan nomor divais atau nomor invalid."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
@@ -2385,7 +2431,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "anda tidak memasukkan worldwide port name atau nama invalid"
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
@@ -2552,7 +2598,7 @@ msgstr "Masukkan Password Boot Loader"
 
 #: ../iw/blpasswidget.py:105
 msgid "Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"
-msgstr ""
+msgstr "Masukkan password boot loader dan konfirmasikan. (Catat bahwa keymap BIOS  mungkin beda dengan keymap yang sesungguhnya Anda gunakan)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2593,6 +2639,9 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot diskette.\n"
 msgstr ""
+"Disket boot dapat digunakan untuk boot sistem %s dari disket. Disket boot juga dapat digunakan untuk boot saat bootloader tidak berjalan, jika boot loader tidak diinstal atau boot loader pihak ketiga tidak mendukung Linux.\n"
+"\n"
+"Sangat direkomendasikan Anda membuat disket boot.\n"
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
@@ -2613,6 +2662,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"Memaksa pakai LBA32 untuk boot loader yang tidak didukung BIOS dapat menyebabkan mesin tidak bisa diboot. Kami sangat merekomendasikan Anda membuat disket boot saat ditanya nanti pada proses instal. \n"
+"\n"
+"Anda ingi lanjut dan paksa modus LBA32?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
@@ -2716,6 +2768,9 @@ msgid ""
 "\n"
 "Changing the drive order will change where the installation program locates the Master Boot Record (MBR)."
 msgstr ""
+"Urutan drive sama urutannya dengan BIOS. Mengganti urutan drive mungkin berguna jika punya adaptor SCSI lebihdari satu atau punya adaptor SCSI dan IDE dan ingin boot dari divais SCSI.\n"
+"\n"
+"Mengganti urutan drive akan diganti dimana installer diletakkan pada Master Boot Record."
 
 #: ../iw/confirm_gui.py:57
 msgid "About to Install"
@@ -2747,6 +2802,9 @@ msgid ""
 "\n"
 "A kickstart file containing the installation options selected can be found in the file '%s' after rebooting the system."
 msgstr ""
+"Log lengkap dari instalasi ini dapat ditemuka di file '%s' setelah reboot sistem.\n"
+"\n"
+"File kickstart yang berisi pilihan instalasi juga bisa diteukan di '%s' setelah reboot sistem."
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
@@ -2930,7 +2988,7 @@ msgstr "_Upgrade instalasi yang ada"
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your drives."
-msgstr ""
+msgstr "Pilih ini jika ingin mengupgrade sistem %s yang sudah ada. Pilihan ini akan menyimpan data yang sudah ada dalam drive Anda."
 
 #: ../iw/examine_gui.py:130
 #: ../iw/pixmapRadioButtonGroup_gui.py:197
@@ -2951,7 +3009,7 @@ msgstr "Pilih drive untuk mengaktifkan fdasd"
 
 #: ../iw/fdasd_gui.py:93
 msgid "Formatting the selected DASD device will destroy all contents of the device. Do you really want to format the selected DASD device?"
-msgstr ""
+msgstr "Format DASD divais akan menghapus semua isinya. Anda yakin ingin memformat DASD tersebut?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -2989,7 +3047,7 @@ msgstr "Peringatan - Tanpa Firewall"
 #: ../iw/firewall_gui.py:38
 #: ../textw/firewall_text.py:113
 msgid "If this system is attached directly to the Internet or is on a large public network, it is recommended that a firewall be configured to help prevent unauthorized access.  However, you have selected not to configure a firewall.  Choose \"Proceed\" to continue without a firewall."
-msgstr ""
+msgstr "Jika sistem ini tersambung langsung ke Internet, atau jaringan umum, direkomendasikan firewall dikonfigurasikan untuk melindungi akses yang tidak diinginkan. Anda memilih tidak konfigurasi firewall. Klik '\"Proses\" untuk lanjut tanpa firewall."
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
@@ -3004,7 +3062,7 @@ msgstr "_Proses"
 #: ../iw/firewall_gui.py:79
 #: ../textw/firewall_text.py:31
 msgid "A firewall can help prevent unauthorized access to your computer from the outside world.  Would you like to enable a firewall?"
-msgstr ""
+msgstr "Firewall dapat membantu melindungi akses yang tidak diinginkan terhadap komputer Anda. Ingin mengaktifkan firewall?"
 
 #: ../iw/firewall_gui.py:90
 msgid "N_o firewall"
@@ -3016,12 +3074,12 @@ msgstr "Aktifkan fir_ewall"
 
 #: ../iw/firewall_gui.py:109
 msgid "You can use a firewall to allow access to specific services on your computer from other computers. Which services, if any, do you wish to allow access to ?"
-msgstr ""
+msgstr "Anda dapat memilih firewall untuk membolehkan akses pada layanan tertentu dari komputer lain. Layanan mana, jika ada, yang ingin Anda perbolehkan?"
 
 #: ../iw/firewall_gui.py:146
 #: ../textw/firewall_text.py:161
 msgid "Security Enhanced Linux (SELinux) provides finer-grained security controls than those available in a traditional Linux system.  It can be set up in a disabled state, a state which only warns about things which would be denied, or a fully active state."
-msgstr ""
+msgstr "Security Enhanced Linux(SELinux) memberikan kontrol keamanan lebih baik daripada Linux umumnya. Dapat disetup dengan kondisi non-aktif, peringatan, atau aktif penuh."
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
@@ -3095,7 +3153,7 @@ msgstr "space tidak mencukupi"
 
 #: ../iw/lvm_dialog_gui.py:109
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
-msgstr ""
+msgstr "Ukuran fisik maksimal tidak bisa diubah, sebab akan mengakibatkan volume logikal yang telah didefinisikan meningkat melebihi space yang ada."
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid "Confirm Physical Extent Change"
@@ -3107,6 +3165,9 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"Perubahan nilai fisik membutuhkan ukuran volume logikal dibulatkan keatas dengan ukuran dua kali lipat dari ukuran fisiknya.\n"
+"\n"
+"Perubahan ini akan berefek langsung."
 
 #: ../iw/lvm_dialog_gui.py:128
 #: ../iw/lvm_dialog_gui.py:188
@@ -3119,12 +3180,12 @@ msgstr "Lanjutkan"
 #: ../iw/lvm_dialog_gui.py:156
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "Ukuran fisik tambahan tidak dapat diganti sebab nilai yang dipilih (%10.2f MB) lebih besar dari ukuran terkecil dari volue fisik (%10.2f MB) pada grup volume."
 
 #: ../iw/lvm_dialog_gui.py:167
 #, python-format
 msgid "The physical extent size cannot be changed because the value selected (%10.2f MB) is too large compared to the size of the smallest physical volume (%10.2f MB) in the volume group."
-msgstr ""
+msgstr "Ukuran fisik tambahan tidak dapat diganti sebab nilai yang dipilih (%10.2f MB) lebih besar dari ukuran terkecil dari volue fisik (%10.2f MB) pada grup volume."
 
 #: ../iw/lvm_dialog_gui.py:181
 msgid "Too small"
@@ -3132,16 +3193,16 @@ msgstr "Terlalu kecil"
 
 #: ../iw/lvm_dialog_gui.py:182
 msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "Nilai yang diganti dari penambahan ukuran fisik akan membuang ukuran substansial dari satu atau lebih volume fisik pada grup volume"
 
 #: ../iw/lvm_dialog_gui.py:207
 #, python-format
 msgid "The physical extent size cannot be changed because the resulting maximum logical volume size (%10.2f MB) is smaller than one or more of the currently defined logical volumes."
-msgstr ""
+msgstr "Perubahan ukuran fisik tidak dapat diganti sebab mengakibatkan ukuran volum logikal maksimal (%10.2f MB) lebih kecil dari volume logikal yang telah didefinisikan."
 
 #: ../iw/lvm_dialog_gui.py:283
 msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "Anda tidak dapat menghapus volume fisik sebab grup volume terlalu kecil untuk menampung volume logikal yang telah didefinisikan."
 
 #: ../iw/lvm_dialog_gui.py:354
 #: ../textw/partition_text.py:1134
@@ -3214,7 +3275,7 @@ msgstr "ukuran tidak legal"
 
 #: ../iw/lvm_dialog_gui.py:498
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
+msgstr "Ukuran yang diminta tidak valid. Harus lebih besar dari 0."
 
 #: ../iw/lvm_dialog_gui.py:531
 msgid "Mount point in use"
@@ -3244,7 +3305,7 @@ msgstr "Nama logical volume \"%s\" sudah terpakai. Silahkan pilih nama lain."
 #: ../iw/lvm_dialog_gui.py:577
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). To increase this limit you can increase the Physical Extent size for this Volume Group."
-msgstr ""
+msgstr "Ukuran yang diminta (%10.2f MB) lebih besar dari ukuran volume logikal maksimum (%10.2f MB). Untuk meningkatkan batas ini Anda dapat meningkatkan ukuran grup volume."
 
 #: ../iw/lvm_dialog_gui.py:620
 #: ../iw/partition_dialog_gui.py:179
@@ -3262,7 +3323,7 @@ msgstr "Kesalahan Dengan Permintaan"
 #: ../iw/lvm_dialog_gui.py:851
 #, python-format
 msgid "The logical volumes you have configured require %g MB, but the volume group only has %g MB.  Please either make the volume group larger or make the logical volume(s) smaller."
-msgstr ""
+msgstr "Volume logika yang dikonfigurasi perlu %g MB, tapi grup volume cuma punya %gMB. Tolong tambahkan ukuran grup volume atau perkecil volume logikal."
 
 #: ../iw/lvm_dialog_gui.py:694
 msgid "No free slots"
@@ -3271,7 +3332,7 @@ msgstr "Tidak ada slot bebas"
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "Anda tidak dapat membuat volume logikal lebih dari %s per grup."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -3279,12 +3340,12 @@ msgstr "Tidak ada ruang (space) bebas"
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you will need to reduce the size of one or more of the currently existing logical volumes"
-msgstr ""
+msgstr "Tidak ada ruang tersisa di grup volume untuk membuat volume logikal baru. Untuk menambah volume logikal Anda perlu mengurangi ukuran satu atau lebih volume logikal yang ada."
 
 #: ../iw/lvm_dialog_gui.py:730
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr ""
+msgstr "anda yakin ingin menghapus volume logikal \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:862
 msgid "Invalid Volume Group Name"
@@ -3297,7 +3358,7 @@ msgstr "Nama sudah terpakai"
 #: ../iw/lvm_dialog_gui.py:876
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "Nama grup volume \"%s\" sudah dipakai. Pilih yang lain."
 
 #: ../iw/lvm_dialog_gui.py:920
 msgid "Not enough physical volumes"
@@ -3309,6 +3370,9 @@ msgid ""
 "\n"
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
 msgstr ""
+"Untuk membuat Grup Volume LVM minimal ada satu partisi volume fisik.\n"
+"\n"
+" Buat partisi atau arrayRAID dengan tipa \"volume fisikal(LVM)\" dan pilih \"LVM\" lagi."
 
 #: ../iw/lvm_dialog_gui.py:932
 msgid "Make LVM Volume Group"
@@ -3474,12 +3538,12 @@ msgstr "Kesalahan Dengan Data"
 
 #: ../iw/network_gui.py:158
 msgid "You have not specified a hostname.  Depending on your network environment this may cause problems later."
-msgstr ""
+msgstr "Anda tidak memilih hostname. Ini mungkin akan menyebabkan masalah nantinya, tergantung dari lingkungan jaringan Anda."
 
 #: ../iw/network_gui.py:162
 #, python-format
 msgid "You have not specified the field \"%s\".  Depending on your network environment this may cause problems later."
-msgstr ""
+msgstr "Anda tidak tentukan isian \"%s\". Ini dapat menimbulkan masalah nanti, tergantung lingkungan keluarga Anda."
 
 #: ../iw/network_gui.py:166
 #: ../textw/network_text.py:410
@@ -3489,6 +3553,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Hostname \"%s\" tidak valid karena alasan berikut:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:171
 #, python-format
@@ -3496,6 +3563,8 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"Terjadi error konversi nilai yang dimasukkan \"%s\":\n"
+"%s"
 
 #: ../iw/network_gui.py:177
 #, python-format
@@ -3504,7 +3573,7 @@ msgstr "Sebuah nilai diperlukan untuk field \"%s\"."
 
 #: ../iw/network_gui.py:181
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "Informasi IP yang dimasukkan tidak valid."
 
 #: ../iw/network_gui.py:185
 msgid ""
@@ -3512,6 +3581,9 @@ msgid ""
 "\n"
 "NOTE: If you have a PCMCIA-based network adapter you should leave it inactive at this point. When you reboot your system the adapter will be activated automatically."
 msgstr ""
+"Anda tidak punya divais jaringan aktif. Sistem Anda secara default tidak bisa komunikasi lewat jaringan tanpa ada divais yang aktif.\n"
+"\n"
+"CATATAN: Jika Anda punya kartu jaringan PCMCIA, biarkan inaktif saat ini. Saat reboot sistem, kartu akan diaktifkan secara otomatis."
 
 #: ../iw/network_gui.py:204
 #, python-format
@@ -3603,7 +3675,7 @@ msgstr "Setting Lain-lain"
 
 #: ../iw/osbootwidget.py:43
 msgid "You can configure the boot loader to boot other operating systems. It will allow you to select an operating system to boot from the list. To add additional operating systems, which are not automatically detected, click 'Add.' To change the operating system booted by default, select 'Default' by the desired operating system."
-msgstr ""
+msgstr "Anda dapat konfigurasi boot loader untuk boot sistem operasi lain. Dari situ Anda bisa pilih sistem operasi dari daftar. Untuk menambah sistem operasi yang tidak terdeteksi otomatis, klik 'Tambah'. Untuk mengganti sistem operasi yang diboot secara default, pilih 'Default' pada sistem operasi yang diinginkan."
 
 #: ../iw/osbootwidget.py:67
 #: ../iw/silo_gui.py:263
@@ -3628,7 +3700,7 @@ msgstr "Image"
 
 #: ../iw/osbootwidget.py:140
 msgid "Enter a label to be displayed in the boot loader menu. The device (or hard drive and partition number) is the device from which it boots."
-msgstr ""
+msgstr "Masukkan label untuk ditampilkan pada menu boot loader. Divais (atau harddrive dan nomor partisi) adalah tempat dimana akan boot."
 
 #: ../iw/osbootwidget.py:152
 msgid "_Label"
@@ -3737,6 +3809,9 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"Grup paket bisa memiliki paket Base dan Optional. Paket Base akan selalu terpilih selama grup dipilih.\n"
+"\n"
+"Pilih paket tambahan untuk diinstal:"
 
 #: ../iw/package_gui.py:792
 msgid "Base Packages"
@@ -3861,12 +3936,12 @@ msgstr "Partisi"
 
 #: ../iw/partition_gui.py:628
 msgid "The following critical errors exist with your requested partitioning scheme."
-msgstr ""
+msgstr "Error kritis berikut mengikuti skim partisi yang Anda minta."
 
 #: ../iw/partition_gui.py:631
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+msgstr "Error ini harus diperbaiki sebelum melanjutkan instal %s"
 
 #: ../iw/partition_gui.py:637
 msgid "Partitioning Errors"
@@ -3878,7 +3953,7 @@ msgstr "Peringatan ini muncul dari skema paritisi yang anda minta"
 
 #: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
+msgstr "Apakah Anda ingin melanjutkan dengan skim partisi ini?"
 
 #: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
@@ -3962,7 +4037,7 @@ msgstr "Tdak ada nomor divais RAID minor yang tersedia"
 
 #: ../iw/partition_gui.py:1207
 msgid "A software RAID device cannot be created because all of the available RAID minor device numbers have been used."
-msgstr ""
+msgstr "Divais RAID software tidak dapat dibuat sebab semua nomor divais RAID minor telah digunakan"
 
 #: ../iw/partition_gui.py:1221
 msgid "RAID Options"
@@ -3976,12 +4051,18 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
+"Software RAID memungkinkan kombinasi beberapa disk ke dalam satu divais RAID besar. Divais ini dapat dikonfigurasi untuk menambah kecepatan dan reliabilitas dibandingkan dengan satu drive. Untuk informasi lebih lanjut, silakan rujuk dokumentasi %s.\n"
+"\n"
+"Anda punya partisi RAIDsoftware %s kosong untuk digunakan.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1243
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device which can be formatted and mounted.\n"
 "\n"
 msgstr ""
+"Untuk menggunakan RAID, minimal buat dua partisi software RAID. Lalu Anda bisa membuat divais RAID yang bisa diformat dan kaitkan.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1249
 msgid "What do you want to do now?"
@@ -4084,7 +4165,7 @@ msgstr "Cek untuk _bad blok?"
 #: ../iw/partition_ui_helpers_gui.py:332
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  This is done by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "Jenis partisi '%s' harus dibatasi ke dalam satu drive. Ini bisa dilakukan dengan memilih drive pada cek list 'Allowable Drives'"
 
 #: ../iw/partmethod_gui.py:25
 #: ../textw/partmethod_text.py:24
@@ -4197,6 +4278,9 @@ msgid ""
 "\n"
 "First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
 msgstr ""
+"Ada minimal dua partisi software RAID yang kosong untuk membuat divais RAID.\n"
+"\n"
+"Pertama buat minimal dua jenis partisi \"software RAID\", dan pilih \"RAID\" lagi."
 
 #: ../iw/raid_dialog_gui.py:264
 #: ../iw/raid_dialog_gui.py:668
@@ -4236,7 +4320,7 @@ msgstr "_Format partisi?"
 
 #: ../iw/raid_dialog_gui.py:475
 msgid "The source drive has no partitions to be cloned.  You must first define partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
+msgstr "Drive sumber tidak punya partisi untuk digandakan. Anda harus mendefinisikan tipe 'Software RAID' pada drive ini untuk bisa digandakan."
 
 #: ../iw/raid_dialog_gui.py:479
 #: ../iw/raid_dialog_gui.py:485
@@ -4251,6 +4335,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned. "
 msgstr ""
+"Drive terpilih memiliki partisi, dan tidak ada satupun yang berjenis 'Software RAId'.\n"
+"\n"
+"Partisi ini arus dihapus sebelum drive bisa digandakan."
 
 #: ../iw/raid_dialog_gui.py:498
 #, python-format
@@ -4259,6 +4346,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed or restricted to this drive before this drive can be cloned. "
 msgstr ""
+"Drive sumber yang dipilih punya partisi yang tidak terikat ke drive /dev/%s.\n"
+"\n"
+"Partisi ini harus dihapus atau diikat ke drive ini sebelum drive digandakan."
 
 #: ../iw/raid_dialog_gui.py:511
 msgid ""
@@ -4266,6 +4356,9 @@ msgid ""
 "\n"
 "These partitions will have to be removed before this drive can be cloned."
 msgstr ""
+"Drive sumber yang dipilih punya partisi software RAID yang merupakan anggota divais software RAID aktif.\n"
+"\n"
+"Partisi ini harus dihapus sebelum drive bisa digandakan."
 
 #: ../iw/raid_dialog_gui.py:524
 #: ../iw/raid_dialog_gui.py:530
@@ -4275,12 +4368,12 @@ msgstr "Target Drive, Salah"
 
 #: ../iw/raid_dialog_gui.py:525
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "Pilih drive target untuk proses penggandaan."
 
 #: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Drive /dev/%s tidak dapat dipilih sebagai sumber sekaligus target."
 
 #: ../iw/raid_dialog_gui.py:544
 #, python-format
@@ -4291,6 +4384,10 @@ msgid ""
 "\n"
 "This partition must be removed before this drive can be a target."
 msgstr ""
+"Drive tujuan /dev/%s memiliki partisi yang tidak dapat dihapus karena:\n"
+"\n"
+"\"%s\"\n"
+"Partisi ini harus dihapus sebelum drive digunakan sebagai tujuan."
 
 #: ../iw/raid_dialog_gui.py:605
 msgid "Please select a source drive."
@@ -4337,6 +4434,13 @@ msgid ""
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
+"Alat Pengganda Drive\n"
+"\n"
+"Program ini dapat mengurangi usaha yang dibutuhkan untuk membuat array RAID. Idenya adalah mengambil drive sumber yang telah disiapkan dengan layout partisi tertentu, dan menggandakan layout ini ke drive dengan ukuran sama, sehingga divais RAID dapat dibuat.\n"
+"\n"
+"CATATAN: Drive sumber harus punya partisi yang terbatas hanya untuk driver tersebut, dan hanya dapat berisi partisi software RAID yang tidak terpakai. Jenis lain tidak diperbolehkan.\n"
+"\n"
+"SEMUA drive tujuan akan dihapus lewat proses ini."
 
 #: ../iw/raid_dialog_gui.py:698
 msgid "Source Drive:"
@@ -4458,7 +4562,7 @@ msgstr "INi adalah opsi yang direkomendasikan"
 #: ../iw/upgrade_bootloader_gui.py:80
 #: ../textw/upgrade_bootloader_text.py:57
 msgid "The installer is unable to detect the boot loader currently in use on your system."
-msgstr ""
+msgstr "Instaler tidak dapat mendeteksi boot loader yang digunakan sistem Anda"
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4466,7 +4570,7 @@ msgstr "Buat(_create) konfigurasi loader boot yang baru"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid "This will let you create a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr ""
+msgstr "Ini akan membuat konfigurasi boot loader baru. Jika ingin mengganti boot loader, pilih ini."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4474,7 +4578,7 @@ msgstr "Lewatkan perbaruan loader boot"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid "This will make no changes to boot loader configuration.  If you are using a third party boot loader, you should choose this."
-msgstr ""
+msgstr "Ini tidak akan membuat perubahan konfigurasi boot loader. Jika Anda menggunakan boot loader pihak kegita, Anda harus pilih ini."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -4493,6 +4597,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"Ini akan melepaskan dukungan %s terhadap sistem file jurnal ext3. Ext3 punya beberapa kelebihan daripada ext2 yang biasa digunakan di %s. Dapat dimungkinkan migrasi format ext2 ke ext3 tanpa kehilangan data.\n"
+"\n"
+"Partisi mana yang Anda inginkan untuk migrasi?"
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
@@ -4501,7 +4608,7 @@ msgstr "Upgrade Partisi Swap"
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr ""
+msgstr "Kernel 2.4 butuh swap lebih banyak dari kernel lama, sebanyak dua kali RAM fisik. Saat ini Anda punya %dMB swap, tapi Anda bisa menambah swap pada sistem file saat ini."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4668,7 +4775,7 @@ msgstr "video card tidak diketahui"
 #: ../iw/xconfig_gui.py:812
 #, python-format
 msgid "An error has occurred selecting the video card %s. Please report this error to bugzilla.redhat.com."
-msgstr ""
+msgstr "Terjadi error saat memilih kartu vide %s. Mohon laporkan ke blankon.or.id"
 
 #: ../iw/xconfig_gui.py:838
 #: ../textw/xconfig_text.py:684
@@ -4678,20 +4785,20 @@ msgstr "Kartu vidio tak terspesifikasi"
 #: ../iw/xconfig_gui.py:839
 #: ../textw/xconfig_text.py:685
 msgid "You need to pick a video card before X configuration can continue.  If you want to skip X configuration entirely choose the 'Skip X Configuration' button."
-msgstr ""
+msgstr "Anda harus memilih kartu video sebelum konfigurasi X berlanjut. Jika ingin diabaikan seluruhnya, klik tombol 'Abaikan Konfigurasi X'"
 
 #: ../iw/xconfig_gui.py:974
 #: ../textw/xconfig_text.py:637
 msgid "Your system will be setup to use the frame buffer driver for the X Window System.  If you do not want to setup the X Window System, choose 'Skip X Configuration' below."
-msgstr ""
+msgstr "Sistem akan disetup dengan driver frame buffer untuk sistem X Window. Jika Anda tidak ingin mensetup Sistem X Window, pilih 'Abaikan Konfigurasi X' berikut."
 
 #: ../iw/xconfig_gui.py:983
 msgid "Your video ram size can not be autodetected.  Choose your video ram size from the choices below:"
-msgstr ""
+msgstr "Ukuran video ram Anda tidak bisa dideteksi otomatis. Pilih ukuran dari pilihan berikut:"
 
 #: ../iw/xconfig_gui.py:990
 msgid "In most cases, the video hardware can be automatically detected. If the detected settings are not correct for the hardware, select the right settings."
-msgstr ""
+msgstr "Dalam banyak kasus, hardware video dapat terdeteksi otomatis. Jika seting yang terdeteksi tidak cocok, pilih seting yang ccok."
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
@@ -4725,7 +4832,7 @@ msgstr "Edit FCP Devais %s"
 
 #: ../iw/zfcp_gui.py:240
 msgid "You're about to remove a FCP disk from your configuration. Are you sure that you wish to continue?"
-msgstr ""
+msgstr "Anda akan menghapus disk FCP dari konfigurasi. Yakin ingin melanjutkan?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -4747,6 +4854,15 @@ msgid ""
 "\n"
 "You can now enter any additional kernel parameters which your machine or your setup may require."
 msgstr ""
+"Boot Loader z/IPL akan diinstal ke dalam sistem.\n"
+"\n"
+"Partisi rootnya adalah yang telah Anda pilih pada setup partisi sebelumnya.\n"
+"\n"
+"Kernel yang digunakan untuk menjalankan mesin akan diinstal secara default.\n"
+"\n"
+"Jika ingin mengganti setelah instalasi, ganti pada file konfigurasi /etc/zipl.conf.\n"
+"\n"
+"Anda sekarang dapat memasukkan parameter kernel tambahan yang dibutuhkan oleh mesin."
 
 #: ../iw/zipl_gui.py:104
 #: ../textw/zipl_text.py:60
@@ -4767,6 +4883,11 @@ msgid ""
 "\n"
 "Would you like to create a boot diskette?"
 msgstr ""
+"Disket boot dapat boot sistem %s Anda dari disket. Disket boot dapat boot sistem mesekipun konfigurasi bootloader tidak berjalan.\n"
+"\n"
+"Sangat direkomendasikan membuat disket boot.\n"
+"\n"
+"Anda ingin membuat disket boot?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
@@ -4798,11 +4919,14 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
+"Anda telah memilih tidak menginstal boot loader sama sekali. Sangat dianjurkan untuk menginstal boot loader kecuali jika punya kebutuhan khusus. Booat loader biasa selalu dibutuhkan untuk reboot Linux ke hard drive.\n"
+"\n"
+"Anda yakin ingin melewat instalasi boot loader?"
 
 #: ../textw/bootloader_text.py:110
 #: ../textw/silo_text.py:25
 msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr ""
+msgstr "Beberapa sistem perlu menambahkan pilihan khusus kepada kernel saat boot sistem agar berfungsi benar. Jika ingin menambahkan pilihan boot pada kernel, masukkan sekarang. Jika tidak perlu atau tidak yakin, biarkan kosong."
 
 #: ../textw/bootloader_text.py:119
 msgid "Force use of LBA32 (not normally required)"
@@ -4857,7 +4981,7 @@ msgstr " <Space> tombol pilih | <F2> pilih default boot entry | <F12> lanyar sel
 
 #: ../textw/bootloader_text.py:394
 msgid "A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."
-msgstr ""
+msgstr "Password boot loader mencegah pengguna memasukkan pilihan ke kernel. Untuk keamanan tertinggi, kami rekomendasikan password, tapi ini tidak perlu untuk pengguna umum."
 
 #: ../textw/bootloader_text.py:404
 msgid "Use a GRUB Password"
@@ -4900,6 +5024,8 @@ msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Keluarkan media instalasi (disket atau CD-ROM) yang digunakan untuk instalasi dan tekan <Enter> untuk reboot sistem.\n"
+"\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
@@ -4923,6 +5049,9 @@ msgid ""
 "\n"
 "Information on using your system is available in the %s manuals at http://www.redhat.com/docs/."
 msgstr ""
+"Infomrasi tentang errata (update dan perbaikan), datangi http://www.blankon.or.id/errata.\n"
+"\n"
+"Informasi menggunakan sistem tersedia di manual %s pada http://www.blankon.or.id/docs/"
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
@@ -4939,7 +5068,7 @@ msgstr "Proses instalasi akan dimulai"
 #: ../textw/confirm_text.py:23
 #, python-format
 msgid "A complete log of your installation will be in %s after rebooting your system. You may want to keep this file for later reference."
-msgstr ""
+msgstr "Log lengkap dari instalasi akan ada di %s setelah reboot sistem. Anda bisa simpan file ini untuk referensi nanti."
 
 #: ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28
@@ -4978,7 +5107,7 @@ msgstr "Pengupgretan dimulai"
 #: ../textw/confirm_text.py:49
 #, python-format
 msgid "A complete log of your upgrade will be in %s after rebooting your system. You may want to keep this file for later reference."
-msgstr ""
+msgstr "Log lengkap dari upgrade akan ada di %s setelah reboot sistem. Anda bisa simpan file ini untuk referensi nanti."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -4987,6 +5116,9 @@ msgid ""
 "\n"
 "However %s ships with many more applications, and you may customize the selection of software installed if you want."
 msgstr ""
+"Instalasi default memasukkan pilihan paket yang kami rekomendasikan. Setelah instalasi, software tambahan dapat ditambahkan atau dihapus lewat 'system-config-packages'.\n"
+"\n"
+"Bagaimanapun juga %s dikirim dengan banyak aplikasi, dan Anda bisa memilih software yang diinginkan."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5036,6 +5168,9 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
+"Terjadi error - tidak ada divais yang valid untuk membuat sistem file baru. Cek hardware Anda, atau gunakan dasdfmt. \n"
+"\n"
+"Kembali ke layar fdasd?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -5072,7 +5207,7 @@ msgstr "Kostumisasi Konfigurasi Firewall"
 
 #: ../textw/firewall_text.py:94
 msgid "With a firewall, you may wish to allow access to specific services on your computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Dengan firewall, Anda bisa memperbolehkan akses layanan tertentu bagi user lain. Perbolehkan user lain akses layanan ini?"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5230,7 +5365,7 @@ msgstr "Konfigurasi nama host"
 
 #: ../textw/network_text.py:377
 msgid "If your system is part of a larger network where hostnames are assigned by DHCP, select automatically via DHCP. Otherwise, select manually and enter in a hostname for your system. If you do not, your system will be known as 'localhost.'"
-msgstr ""
+msgstr "Jika sistem Anda bagian dari jaringan lebih besar dimana nama host diberikan oleh DHCP, pilih otomatis DHCP. Atau, pilih manual dan masukkan hostname di sistem Anda. Jika tidak, sistem anda dikenal dengan 'localhost'."
 
 #: ../textw/network_text.py:403
 #: ../textw/network_text.py:409
@@ -5280,7 +5415,7 @@ msgstr "Dependensi Paket"
 
 #: ../textw/packages_text.py:376
 msgid "Some of the packages you have selected to install require packages you have not selected. If you just select OK all of those required packages will be installed."
-msgstr ""
+msgstr "Sebagian paket yang dipilih membutuhkan paket lain yang tidak Anda pilih. Jika Anda klik OK semua paket yang dibutuhkan akan diinstal."
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
@@ -5416,7 +5551,7 @@ msgstr "Opsi Sistem FIle"
 
 #: ../textw/partition_text.py:597
 msgid "Please choose how you would like to prepare the file system on this partition."
-msgstr ""
+msgstr "Mohon pilih bagaimana Anda ingin menyiapkan sistem file pada partisi ini."
 
 #: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
@@ -5444,7 +5579,7 @@ msgstr "Tidak disupport"
 
 #: ../textw/partition_text.py:768
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
+msgstr "Grup Volume LVM hanya bisa diedit pada installer grafik."
 
 #: ../textw/partition_text.py:844
 #: ../textw/partition_text.py:897
@@ -5499,12 +5634,12 @@ msgstr "Tidak ada group volume dalam pembuatan volume logical"
 #: ../textw/partition_text.py:1289
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than maximum logical volume size (%10.2f MB). "
-msgstr ""
+msgstr "Ukuran yang diminta sekarang (%10.2f MB) lebih besar dari ukuran maksimum volume logikal (%10.2fMB)"
 
 #: ../textw/partition_text.py:1308
 #, python-format
 msgid "The current requested size (%10.2f MB) is larger than the available size in the volume group (%10.2f MB)."
-msgstr ""
+msgstr "Ukuran yang diminta sekarang (%10.2f MB) lebih besar dari ukuran maksimum volume logikal (%10.2fMB)"
 
 #: ../textw/partition_text.py:1362
 msgid "New Partition or Logical Volume?"
@@ -5549,7 +5684,7 @@ msgstr "Harus mempunyasi partisi / untuk menginstallnya."
 
 #: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr ""
+msgstr "Drive mana yang ingin digunakan untuk instalasi ini?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -5641,7 +5776,7 @@ msgstr "Buat konfigurasi boot loader baru"
 #: ../textw/upgrade_text.py:94
 #, python-format
 msgid "The 2.4 kernel needs significantly more swap than older kernels, as much as twice as much swap space as RAM on the system. You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr ""
+msgstr "Kernel 2.4 butuh swap lebih besar dari kernel lama, sebanyak dua kali RAM Anda. Anda sekarang punya %dMB swap, tapi Anda bisa menambah swap sekarang."
 
 #: ../textw/upgrade_text.py:112
 msgid "Free Space"
@@ -5681,6 +5816,9 @@ msgid ""
 "\n"
 "Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
 msgstr ""
+"Ditemukan satu atau lebih instalasi Linux dalam sistem Anda.\n"
+"\n"
+"Tolong pilih upgrade atau 'Reinstall Sistem' untuk instal sistem baru."
 
 #: ../textw/upgrade_text.py:246
 msgid "Customize Packages to Upgrade"
@@ -5688,7 +5826,7 @@ msgstr "Kostumisasi Paket yang akan diupgrade"
 
 #: ../textw/upgrade_text.py:247
 msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
-msgstr ""
+msgstr "Paket yang diinstal, dan paket lain yang dibutuhkan untuk dependensi, telah dipilih untuk instalasi. Apakah Anda ingin mengedit set paket yang akan diupgrade?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -5696,11 +5834,11 @@ msgstr "Password Root"
 
 #: ../textw/userauth_text.py:31
 msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr ""
+msgstr "Pilih password root. Anda harus ketik dua kali untuk memastikan tidak ada salah ketik. Ingat bahwa password root sangat penting dalam keamanan sistem."
 
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Password root minimal 6 karakter"
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
@@ -5733,7 +5871,7 @@ msgstr "Nama User yang Buruk"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
+msgstr "Nama user harus berisi karakter A-Z, a-z dan 0-9"
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
@@ -5759,7 +5897,7 @@ msgstr "User root sudah dikonfigurasi. Anda tidak perlu menambahkan user ini di 
 
 #: ../textw/userauth_text.py:163
 msgid "This system user is already configured. You don't need to add this user here."
-msgstr ""
+msgstr "User sistem telah dikonfigurasi. Anda tidak perlu menambah user disini."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -5767,7 +5905,7 @@ msgstr "ID user sudah ada. Pilih yang lain"
 
 #: ../textw/userauth_text.py:198
 msgid "You should use a normal user account for most activities on your system. By not using the root account casually, you'll reduce the chance of disrupting your system's configuration."
-msgstr ""
+msgstr "Anda seharusnya menggunakan akun user untuk kegiatan sehari-hari. Dengan tidak membiasakan pakai akun root, Anda mengurangi kemungkinan merusakkan sistem."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
@@ -5775,7 +5913,7 @@ msgstr "Setup Account User"
 
 #: ../textw/userauth_text.py:211
 msgid "What other user accounts would you like to have on the system? You should have at least one non-root account for normal work, but multi-user systems can have any number of accounts set up."
-msgstr ""
+msgstr "Ada user lain yang ingin ditambahkan dalam sistem? Anda harus punya minimal satu akun non root untuk kerja normal, tapi bisa saja ditambahkan user sebanyak yang Anda mau."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -5882,7 +6020,7 @@ msgstr "Resolusi"
 
 #: ../textw/xconfig_text.py:60
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "Please select the resolution you would like to use:"
 
 #: ../textw/xconfig_text.py:131
 msgid "X Customization"
@@ -5890,7 +6028,7 @@ msgstr "Kontumisasi X"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
+msgstr "Pilih kedalaman warna dan mode video yang ingin Anda gunakan untuk sistem."
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -5968,6 +6106,15 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
+"Sync Rate %s invalid:\n"
+"\n"
+"      %s\n"
+"\n"
+"Sync rate valid dapat berbentuk:\n"
+"\n"
+"      31.5                   satu angka\n"
+"    50.1-90.2                range angka\n"
+"31.5,35.0,39.3-40.0          daftar angka/range\n"
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
@@ -5978,7 +6125,7 @@ msgid ""
 "Please enter the sync rates for your monitor. \n"
 "\n"
 "NOTE - it is not usually necessary to edit sync rates manually, and care should be taken to make sure the values entered are accurate."
-msgstr ""
+msgstr "Masukkan sync rate untuk monitor Anda"
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
@@ -5991,7 +6138,7 @@ msgstr "VSync Rate: "
 #: ../textw/xconfig_text.py:419
 #, python-format
 msgid "Select the monitor for your system.  Use the '%s' button to reset to the probed values."
-msgstr ""
+msgstr "Pilih monitor untuk sistem Anda. Gunakan tombol %s untuk reset nilai yang terdeteksi."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6020,7 +6167,7 @@ msgstr "Kartu Video"
 #: ../textw/xconfig_text.py:544
 #, python-format
 msgid "Please select the video card present in your system.  Choose '%s' to reset the selection to the card the installer detected in your system."
-msgstr ""
+msgstr "Pilih kartu video sistem Anda. Pilih '%s' untuk reset pilihan kartu yang terdeteksi oleh installer."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6029,7 +6176,7 @@ msgstr "Video RAM"
 #: ../textw/xconfig_text.py:563
 #, python-format
 msgid "Please select the amount of video RAM present on your video card. Choose '%s' to reset the selection to the amount the installer detected on your card."
-msgstr ""
+msgstr "Pilih jumlah RAM video yang dimiliki kartu video Anda. Pilih '%s' untuk reset jumlah yang telah dideteksi oleh installer."
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
@@ -6041,7 +6188,7 @@ msgstr "Konfigurasi Kartu Video"
 
 #: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "Pilih kartu video dan RAM video untuk sistem Anda."
 
 #: ../textw/xconfig_text.py:647
 msgid "Video Card:"
@@ -6069,7 +6216,7 @@ msgstr "Pindahkan"
 
 #: ../textw/zipl_text.py:24
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup may require."
-msgstr ""
+msgstr "Bootloader z/IPL akan diinstal ke sistem setelah instalasi selesai. Anda dapat memasukkan parameter kernel dan chandev tambahan sekarang."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -6086,7 +6233,7 @@ msgstr "_Custom"
 
 #: ../installclasses/custom.py:13
 msgid "Select this installation type to gain complete control over the installation process, including software package selection and partitioning."
-msgstr ""
+msgstr "Pilih jenis instalasi untuk memperoleh kontrol penuh terhadap proses instalasi, termasuk pemilihan paket dan partisi."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6094,7 +6241,7 @@ msgstr "Desktop _Personal"
 
 #: ../installclasses/personal_desktop.py:13
 msgid "Perfect for personal computers or laptops, select this installation type to install a graphical desktop environment and create a system ideal for home or desktop use."
-msgstr ""
+msgstr "Cocok untuk komputer pribadi atau laptop. Pilih jenis instalasi ini untuk menginstal lingkungan desktop dan ideal untuk pengguna rumah atau desktop."
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
@@ -6179,7 +6326,7 @@ msgstr "_Server"
 
 #: ../installclasses/server.py:13
 msgid "Select this installation type if you would like to set up file sharing, print sharing, and Web services. Additional services can also be enabled, and you can choose whether or not to install a graphical environment."
-msgstr ""
+msgstr "Pilih jenis instalasi ini jika ingin setup sharing file, sharing printer dan web. Layanan lain dapat ditambahakan dan Anda dapat memilih tidak menginstal grafik"
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -6187,7 +6334,7 @@ msgstr "_Workstation"
 
 #: ../installclasses/workstation.py:10
 msgid "This option installs a graphical desktop environment with tools for software development and system administration. "
-msgstr ""
+msgstr "Pilihan menginstal grafik dengan aplikasi development serta sistem administrasi."
 
 #: ../loader2/cdinstall.c:88
 #: ../loader2/cdinstall.c:109
@@ -6211,7 +6358,7 @@ msgstr "Keluarkan CD"
 #: ../loader2/cdinstall.c:89
 #, c-format
 msgid "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the CD and insert another for testing."
-msgstr ""
+msgstr "Pilih \"%s\" untuk test CD yang ada di drive atau \"%s\" untuk eject CD dan memasukkan CD lain guna pengetesan."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -6220,12 +6367,15 @@ msgid ""
 "\n"
 "To begin the installation process insert CD #1 into the drive and press \"%s\"."
 msgstr ""
+"Jika ingin test media tambahan, masukkan CD berikut dan tekan \"%s\". Anda tidak perlu tes semua CD meskipun kami rekomendasikan test sekali.\n"
+"\n"
+"Untuk mulai proses instalasi masukkan CD#1 ke drive dan tekan \"%s\""
 
 #: ../loader2/cdinstall.c:133
 #: ../loader2/cdinstall.c:376
 #, c-format
 msgid "The %s CD was not found in any of your CDROM drives. Please insert the %s CD and press %s to retry."
-msgstr ""
+msgstr "CD %s tidak ditemukan di drive CDROM. Mohon masukkan CD %s dan tekan %s untuk lanjut."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6238,11 +6388,14 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"Untuk mulai testing CD sebelum instal, tekan %s\n"
+"\n"
+"Pilih %s untuk melewati test media dan mulai instalasi."
 
 #: ../loader2/cdinstall.c:371
 #, c-format
 msgid "No %s CD was found which matches your boot media.  Please insert the %s CD and press %s to retry."
-msgstr ""
+msgstr "Tidak ada CD %s yang cocok dengan media boot Anda. Masukkan CD %s dan tekan %s untuk coba lagi."
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
@@ -6268,11 +6421,11 @@ msgstr "Sourcer Disk Driver"
 
 #: ../loader2/driverdisk.c:263
 msgid "You have multiple devices which could serve as sources for a driver disk.  Which would you like to use?"
-msgstr ""
+msgstr "Anda punya divais lebih dari satu yang bisa digunakan sebagai sumber atau disket driver. Yang mana ingin Anda gunakan?"
 
 #: ../loader2/driverdisk.c:295
 msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
-msgstr ""
+msgstr "Ada partisi lebih dari satu yang bisa saja berisi disk driver. Mana yang ingin digunakan?"
 
 #: ../loader2/driverdisk.c:338
 msgid "Failed to mount partition."
@@ -6284,7 +6437,7 @@ msgstr "Pilih driver disk image"
 
 #: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Pilih file yang berisi image disk driver."
 
 #: ../loader2/driverdisk.c:376
 msgid "Failed to load driver disk from file."
@@ -6313,7 +6466,7 @@ msgstr "Gunakan disk yang lain"
 
 #: ../loader2/driverdisk.c:471
 msgid "No devices of the appropriate type were found on this driver disk.  Would you like to manually select the driver, continue anyway, or load another driver disk?"
-msgstr ""
+msgstr "Tidak ada divais dengen jenis yang cocok dengan driver. Apakah Anda ingin memilih manual, lanjut, atau masukkan disk driver lain?"
 
 #: ../loader2/driverdisk.c:513
 msgid "Driver disk"
@@ -6356,12 +6509,12 @@ msgstr "Tidak diketahui disk driver sumber kickstart: %s"
 #: ../loader2/driverdisk.c:611
 #, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s:%s"
-msgstr ""
+msgstr "Argument berikut invalid untuk perintah driver disk kickstart: %s %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button.  A list of available options can be obtained by pressing the F1 key."
-msgstr ""
+msgstr "Masukkan parameter apa saja yang ingin diberikan untuk driver %s, dipisahkan dengan spasi. Jika tidak tahu parameter yang diperlukan, lewati layar ini dengan menekan \"OK\". Daftar pilihan yang tersedia dapat dilihat dengan menekan F1."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
@@ -6377,11 +6530,11 @@ msgstr "MenLoad disk driver"
 
 #: ../loader2/driverselect.c:187
 msgid "No drivers were found to manually insert.  Would you like to use a driver disk?"
-msgstr ""
+msgstr "Tidak ada driver yangditemukan. Apakah Anda ingin menggunakan disk driver?"
 
 #: ../loader2/driverselect.c:206
 msgid "Please select the driver below which you wish to load.  If it does not appear and you have a driver disk, press F2."
-msgstr ""
+msgstr "Pilih driver berikut yang akan diaktifkan. Jika tidak muncul, dan anda punya disk driver, tekan F2."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
@@ -6403,11 +6556,11 @@ msgstr "MenLoad driver %s ..."
 #: ../loader2/urlinstall.c:145
 #, c-format
 msgid "The %s installation tree in that directory does not seem to match your boot media."
-msgstr ""
+msgstr "Tree instalasi %s tidak cocok dengan media boot Anda."
 
 #: ../loader2/hdinstall.c:218
 msgid "An error occured reading the install from the ISO images. Please check your ISO images and try again."
-msgstr ""
+msgstr "Terjadi error saat membaca image ISO. Mohon cek file ISO Anda dan coba lagi."
 
 #: ../loader2/hdinstall.c:330
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
