@@ -482,7 +482,7 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
 	    f = fopen(ctl, "r");
     }
 
-    if (f) {
+    while (f) {
 	while (fgets(buf, sizeof(buf) - 1, f)) {
 	    if (!strncmp(buf, "ida/", 4)) {
 		ptr = strchr(buf, ':');
@@ -498,6 +498,7 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
 	}
 	sprintf(ctl, "%s/ida%d", path, ctlNum++);
         fclose(f);
+	f = fopen(ctl, "r");
     }
 
     
@@ -602,7 +603,7 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
 	    f = fopen(ctl, "r");
     }
 
-    if (f) {
+    while (f) {
 	while (fgets(buf, sizeof(buf) - 1, f)) {
 	    if (!strncmp(buf, "cciss/", 6)) {
 		ptr = strchr(buf, ':');
@@ -618,6 +619,7 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
 	}
 	sprintf(ctl, "%s/cciss%d", path, ctlNum++);
 	fclose(f);
+	f = fopen (ctl, "r");
     }
 
     
