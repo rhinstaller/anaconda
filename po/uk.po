@@ -53,7 +53,7 @@ msgstr ""
 
 #: ../fstab.py:74
 msgid "Warning"
-msgstr "Попередження"
+msgstr "Увага!"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -154,7 +154,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Вставте дискету. Весь вм╕ст дискети буде знищено, то ж вибирайте дискету "
+"Вставте дискету. Весь зм╕ст дискети буде знищено, то ж вибирайте дискету "
 "обережно."
 
 #: ../gui.py:413 ../gui.py:781
@@ -390,6 +390,9 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Ви не ма╓те жодного розд╕лу Linux. Натисн╕ть <Enter> для повернення в "
+"оболонку. Систему буде перезавантажено автоматично п╕сля вашого виходу з "
+"оболонки."
 
 #: ../rescue.py:95
 msgid "Your system is mounted under the /mnt/sysimage directory."
@@ -806,7 +809,7 @@ msgstr "Встановленя бюджету користувача"
 
 #: ../text.py:1050 ../text.py:1135
 msgid "Authentication"
-msgstr "Ототожнення"
+msgstr "Автентикац╕я"
 
 #: ../text.py:1056
 msgid "Configuration Complete"
@@ -942,7 +945,7 @@ msgstr "Перев╕рка залежностей пакет╕в, що вибран╕ для встановлення..."
 
 #: ../todo.py:886 ../todo.py:928 ../todo.py:934 ../todo.py:951 ../todo.py:1076
 msgid "no suggestion"
-msgstr "жодних пропозиц╕й"
+msgstr "жодних вар╕ант╕в"
 
 #: ../todo.py:966
 msgid ""
@@ -959,6 +962,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Наступн╕ файли ╓ абсолютними символ╕чними зв'язками, як╕ ми не п╕дтриму╓мо "
+"п╕д час оновлення. Треба зм╕нити ╖х на в╕дносн╕ символ╕чн╕ зв'язки та "
+"рестартувати оновлення.\n"
+"\n"
 
 #: ../todo.py:998
 msgid "Finding"
@@ -1241,7 +1248,7 @@ msgstr "Дозволити LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Використовувати пошук TLS"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
@@ -1393,7 +1400,7 @@ msgstr "Вибер╕ть пристр╕й для пуску fdisk"
 
 #: ../iw/firewall_gui.py:59
 msgid "Please choose your security level:  "
-msgstr ""
+msgstr "Вибер╕ть р╕вень безпеки"
 
 #: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
@@ -1421,11 +1428,11 @@ msgstr "Дов╕рений пристр╕й"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Дозволити вх╕дн╕"
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "╤нш╕ порти"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1587,7 +1594,7 @@ msgstr "Емулювати 3 кнопки"
 
 #: ../iw/mouse_gui.py:145
 msgid "Port"
-msgstr ""
+msgstr "Порт"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
@@ -1656,15 +1663,15 @@ msgstr "Загальний розм╕р"
 
 #: ../iw/package_gui.py:416
 msgid "Select all in group"
-msgstr ""
+msgstr "Встановити всю групу"
 
 #: ../iw/package_gui.py:420
 msgid "Unselect all in group"
-msgstr ""
+msgstr "В╕дм╕нити все в груп╕"
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
-msgstr ""
+msgstr "Файл не найдено"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1680,12 +1687,19 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
+"При отриманн╕ файлу hdlist сталася наступна помилка:\n"
+"\n"
+"%s\n"
+"\n"
+"Роботу программи встановлення завершено."
 
 #: ../iw/package_gui.py:563
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
 msgstr ""
+"Сталася помилка при отриманн╕ файлу hdlist. Найб╕льш вероятна причина - "
+"пошкодження нос╕я. Роботу программи встановлення завершено."
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1698,7 +1712,7 @@ msgstr "Встановлення пакет╕в"
 #: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s КБайт"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -1800,7 +1814,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:313
 msgid "Automatic Partitioning Failed"
-msgstr "Автоматичний розпод╕л зазнав збою"
+msgstr "Зб╕й автоматичного розпод╕лу"
 
 #: ../iw/rootpartition_gui.py:314
 msgid ""
@@ -1844,7 +1858,7 @@ msgstr "Ручний розпод╕л за допомогою Disk Druid"
 
 #: ../iw/rootpartition_gui.py:355
 msgid "Manually partition with fdisk [experts only]"
-msgstr "Ручний розпод╕л задопомогою fdisk [лише експертам]"
+msgstr "Ручний розпод╕л за допомогою fdisk [лише експертам]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
@@ -1863,6 +1877,15 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Ви пом╕стили розд╕л, який м╕стить ядро (розд╕л завантаження) вище н╕ж "
+"обмеження в 1024 цил╕ндра, та зда╓ться що системний Б╤ОС не п╕дтриму╓ "
+"завантаження з таких розд╕л╕в. Продовження може привести до того, що Linux "
+"буде неможливо завантажити.\n"
+"Якщо ви виберете продовження, НАПОЛЕГЛИВО рекоменду╓мо зробити "
+"завантажувальну дискету, коли буде запитано програмой встановлення. Це буде "
+"╜арантувати усп╕шну загрузку Linux п╕сля встановлення.\n"
+"\n"
+"Продовжити?"
 
 #: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:386
 msgid ""
@@ -1874,6 +1897,15 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Ви пом╕стили розд╕л, який м╕стить ядро (розд╕л завантаження) вище н╕ж "
+"обмеження в 1024 цил╕ндра. Зда╓ться, що системний Б╤ОС п╕дтриму╓ "
+"завантаження з таких розд╕л╕в. Продовження може привести до того, що Linux "
+"буде неможливо завантажити. \n"
+"\n"
+"НАПОЛЕГЛИВО рекоменду╓мо зробити завантажувальну дискету, коли буде запитано "
+"програмой встановлення, тому що це нова можлив╕сть останн╕х системних плат, "
+"яка не завжди працю╓ над╕йно. Завантажувальний диск буде ╜арантувати усп╕шну "
+"загрузку Linux п╕сля встановлення."
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1903,7 +1935,7 @@ msgstr "Виб╕р часового поясу"
 #: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
 #: ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
 msgid "America/New_York"
-msgstr "Америка/Н'ю_Йорк"
+msgstr "America/New_York"
 
 #: ../iw/timezone_gui.py:157
 msgid "View:"
@@ -1927,15 +1959,15 @@ msgstr "Зсув в╕д UTC"
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
-msgstr "Чи бажа╓те Ви сконф╕гурувати вашу систему?"
+msgstr "Чи бажа╓те ви сконф╕гурувати вашу систему?"
 
 #: ../iw/xconfig_gui.py:15
 msgid "Horizontal Frequency Range"
-msgstr "Д╕апазон частот горизонтально╖ розгортки"
+msgstr "Частоти розгортки рядк╕в"
 
 #: ../iw/xconfig_gui.py:16
 msgid "Vertical Frequency Range"
-msgstr "Д╕апазон частот вертикально╖ розгортки"
+msgstr "Частоти розгортки кадр╕в"
 
 #: ../iw/xconfig_gui.py:17
 msgid "Test failed"
@@ -1947,19 +1979,19 @@ msgstr "Виб╕р конф╕гурац╕╕ Х"
 
 #: ../iw/xconfig_gui.py:255
 msgid "Color Depth:"
-msgstr ""
+msgstr "Глибина кольору:"
 
 #: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Розд╕льна зд╕бн╕сть:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
-msgstr ""
+msgstr " Перев╕рити "
 
 #: ../iw/xconfig_gui.py:410
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Вибер╕ть отожнення робочого столу"
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
@@ -1971,11 +2003,11 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Вашим отожненням буде:"
 
 #: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Вибер╕ть зас╕б входу в систему"
 
 #: ../iw/xconfig_gui.py:519
 msgid "Text"
@@ -1995,11 +2027,11 @@ msgstr "Конф╕гурац╕я мон╕тору"
 
 #: ../iw/xconfig_gui.py:931
 msgid "Horizontal Sync"
-msgstr "Горизонтальна синхрон╕зац╕я"
+msgstr "Частота рядк╕в"
 
 #: ../iw/xconfig_gui.py:940
 msgid "Vertical Sync"
-msgstr "Вертикальна синхрон╕зац╕я"
+msgstr "Частота кадр╕в"
 
 #: ../iw/xconfig_gui.py:952 ../iw/xconfig_gui.py:1763
 msgid "Restore original values"
@@ -2007,11 +2039,11 @@ msgstr "В╕дновити початков╕ значення"
 
 #: ../iw/xconfig_gui.py:964
 msgid "Horizontal Sync:"
-msgstr "Горизонтальна розгортка:"
+msgstr "Частота рядк╕в:"
 
 #: ../iw/xconfig_gui.py:966
 msgid "Vertical Sync:"
-msgstr "Вертикальна розгортка:"
+msgstr "Частота кадр╕в:"
 
 #: ../iw/xconfig_gui.py:972
 msgid "Hz"
@@ -2575,7 +2607,7 @@ msgstr "Запит сервера через трансляц╕ю"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Використовувати п╕д'╓днання TLS"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2590,7 +2622,7 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Лептоп"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2939,6 +2971,11 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Рекомендовано, щоб кореневий розд╕л (/) був не меншим н╕ж %d мегабайт. Ви "
+"намага╓тесь створити розд╕л з %ld мегабайт, який може визвати помилку "
+"програми встановлення.\n"
+"\n"
+"Ви впевнен╕ що в╕рно вибрали розм╕р?"
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
@@ -3004,13 +3041,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Неможливо видалити /boot"
 
 #: ../libfdisk/gnomefsedit.c:1556
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
+"Неможливо видалити \"/boot\", якщо \"/\" на пристрою RAID. Треба ран╕ше "
+"перенести \"/\" на пристр╕й, який не ╓ пристро╓м RAID."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
@@ -3224,7 +3263,7 @@ msgstr "Диск"
 
 #: ../libfdisk/gnomefsedit.c:3210
 msgid "Geom [C/H/S]"
-msgstr "Геометр╕я [Ц/Г/С]"
+msgstr "╫еометр╕я [Ц/Г/С]"
 
 #: ../libfdisk/gnomefsedit.c:3211
 msgid "Total (M)"
@@ -3317,7 +3356,7 @@ msgstr "╤снуюч╕ розд╕ли на диску"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "Точка монтування       Пристр╕й    Запрошено   Д╕йсно         Тип "
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
@@ -3683,7 +3722,7 @@ msgstr "Не можу знайти ks.cfg на дискет╕ завантаження."
 
 #: ../loader/loader.c:2249
 msgid "Updates Disk"
-msgstr "Диск поновлення"
+msgstr "Диск з оновленням"
 
 #: ../loader/loader.c:2250
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3936,7 +3975,7 @@ msgstr "Назва сервера FTP:"
 
 #: ../loader/urls.c:188
 msgid "Web site name:"
-msgstr "Назва Web-сервера :"
+msgstr "Назва Web-сервера:"
 
 #: ../loader/urls.c:206
 msgid "Use non-anonymous ftp"
@@ -3969,7 +4008,7 @@ msgstr "Нев╕домий хост"
 #: ../loader/urls.c:245
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s не ╓ коректним ╕менем хосту"
+msgstr "%s не ╓ коректним ╕менем хосту."
 
 #: ../loader/urls.c:316
 msgid ""
@@ -4038,7 +4077,7 @@ msgstr "П╕вденна Америка"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indian Rim"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
