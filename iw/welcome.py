@@ -1,4 +1,5 @@
 from gtk import *
+from GTK import *
 from iw import *
 from gui import _
 
@@ -19,8 +20,13 @@ class WelcomeWindow (InstallWindow):
         
         if im:
             im.render ()
+            box = GtkEventBox ()
             pix = im.make_pixmap ()
-            frame.add (pix)
+            style = box.get_style ().copy ()
+            style.bg[STATE_NORMAL] = style.white
+            box.set_style (style)
+            box.add (pix)
+            frame.add (box)
 
         return frame
 
