@@ -633,7 +633,23 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 static int mountCdromImage(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
 		      moduleDeps modDeps, int testing) {
-    return LOADER_BACK;
+    int i;
+
+    for (i = 0; i < numKnownDevices; i++) {
+	if (knownDevices[i].class == DEVICE_CDROM) break;
+    }
+
+    if (i == numKnownDevices) {
+    	/* XXX we might need to look for SCSI devices here, we definitely
+	   need to look for non-SCSI, non-IDE ones */
+	return LOADER_BACK;
+    }
+
+    logMessage("trying to mount device %s\n", knownDevices[i].name);
+    devMakeInode(knownDevices[i].name, "/tmp/cdrom");
+    doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, NULL);
+
+    return 0;
 }
 
 static int mountNfsImage(char * location, int numKnownDevices, 
