@@ -43,9 +43,13 @@ def splashScreenShow(configFileData):
 
     def load_image(file):
         p = gtk.Image()
-        pixbuf = gtk.gdk.pixbuf_new_from_file("/usr/share/anaconda/" + file)
-        if pixbuf is None:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(file)
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file("/usr/share/anaconda/" + file)
+        except RuntimeError:
+            try:
+                pixbuf = gtk.gdk.pixbuf_new_from_file(file)
+            except RuntimeError:
+                pixbuf = None
         if pixbuf:
             p.set_from_pixbuf(pixbuf)
         return p

@@ -923,9 +923,10 @@ class InstallControlState:
         if not fn:
             log("unable to load %s", file)
             return None
-        pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-        if pixbuf is None:
-            log("unable to read %s", file)
+        try:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+        except RuntimeError, msg:
+            log("unable to read %s: %s", file, msg)
             return None
         source = gtk.IconSource()
         source.set_pixbuf(pixbuf)
