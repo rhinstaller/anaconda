@@ -14,7 +14,6 @@ PYTHONINCLUDE = /usr/include/python2.2
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
-ARCH := $(patsubst ppc%,ppc,$(ARCH))
 
 ifneq (,$(filter ppc64 x86_64 s390x,$(ARCH)))
 LIBDIR = lib64
