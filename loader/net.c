@@ -492,11 +492,10 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 
 #ifndef __STANDALONE__
 int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
-		     int flags) {
+		     char * bootProto, int flags) {
     char ** ksArgv;
     int ksArgc;
     int netSet, rc;
-    char * bootProto = "dhcp";
     char * arg, * chptr;
     poptContext optCon;
     struct in_addr * parseAddress;
@@ -509,57 +508,62 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    { 0, 0, 0, 0, 0 }
     };
 
-    if (ksGetCommand(KS_CMD_NETWORK, NULL, &ksArgc, &ksArgv)) {
-	/* This is for compatibility with RH 5.0 */
-	ksArgv = alloca(sizeof(*ksArgv) * 1);
-	ksArgv[0] = "network";
-	ksArgc = 1;
-    }
+    if (!bootProto)
+	bootProto = "dhcp";
 
-    optCon = poptGetContext(NULL, ksArgc, ksArgv, ksOptions, 0);
-    while ((rc = poptGetNextOpt(optCon)) >= 0) {
-	parseAddress = NULL;
-	netSet = 0;
-
-	arg = poptGetOptArg(optCon);
-
-	switch (rc) {
-	  case 'g':
-	    parseAddress = &netDev->dev.gateway;
-	    netSet = PUMP_NETINFO_HAS_GATEWAY;
-	    break;
-		
-	  case 'i':
-	    parseAddress = &netDev->dev.ip;
-	    netSet = PUMP_INTFINFO_HAS_IP;
-	    break;
-		
-	  case 'n':
-	    parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
-	    netSet = PUMP_NETINFO_HAS_DNS;
-	    break;
-
-	  case 'm':
-	    parseAddress = &netDev->dev.netmask;
-	    netSet = PUMP_INTFINFO_HAS_NETMASK;
-	    break;
+    if (!bootProto) {
+	if (ksGetCommand(KS_CMD_NETWORK, NULL, &ksArgc, &ksArgv)) {
+	    /* This is for compatibility with RH 5.0 */
+	    ksArgv = alloca(sizeof(*ksArgv) * 1);
+	    ksArgv[0] = "network";
+	    ksArgc = 1;
 	}
 
-	if (!inet_aton(arg, parseAddress)) {
-	    logMessage("bad ip number in network command: %s", arg);
-	    return -1;
+	optCon = poptGetContext(NULL, ksArgc, ksArgv, ksOptions, 0);
+	while ((rc = poptGetNextOpt(optCon)) >= 0) {
+	    parseAddress = NULL;
+	    netSet = 0;
+
+	    arg = poptGetOptArg(optCon);
+
+	    switch (rc) {
+	      case 'g':
+		parseAddress = &netDev->dev.gateway;
+		netSet = PUMP_NETINFO_HAS_GATEWAY;
+		break;
+		    
+	      case 'i':
+		parseAddress = &netDev->dev.ip;
+		netSet = PUMP_INTFINFO_HAS_IP;
+		break;
+		    
+	      case 'n':
+		parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
+		netSet = PUMP_NETINFO_HAS_DNS;
+		break;
+
+	      case 'm':
+		parseAddress = &netDev->dev.netmask;
+		netSet = PUMP_INTFINFO_HAS_NETMASK;
+		break;
+	    }
+
+	    if (!inet_aton(arg, parseAddress)) {
+		logMessage("bad ip number in network command: %s", arg);
+		return -1;
+	    }
+
+	    netDev->dev.set |= netSet;
 	}
 
-	netDev->dev.set |= netSet;
-    }
-
-    if (rc < -1) {
-	newtWinMessage(_("kickstart"),  _("OK"),
-		   _("bad argument to kickstart network command %s: %s"),
-		   poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-		   poptStrerror(rc));
-    } else {
-	poptFreeContext(optCon);
+	if (rc < -1) {
+	    newtWinMessage(_("kickstart"),  _("OK"),
+		       _("bad argument to kickstart network command %s: %s"),
+		       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		       poptStrerror(rc));
+	} else {
+	    poptFreeContext(optCon);
+	}
     }
 
     if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {

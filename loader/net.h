@@ -21,7 +21,7 @@ int writeResolvConf(struct networkDeviceConfig * net);
 #ifndef __STANDALONE__
 int nfsGetSetup(char ** hostptr, char ** dirptr);
 int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
-		     int flags);
+		     char * bootProto, int flags);
 void initLoopback(void);
 #endif
 

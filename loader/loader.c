@@ -1311,7 +1311,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);
-	if (kickstartNetwork(device, &netDev, flags)) return NULL;
+	if (kickstartNetwork(device, &netDev, NULL, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
     } else if (ksType == KS_CMD_URL) {
 	abort();
@@ -1436,10 +1436,69 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
     return flags;
 }
 
-struct moduleDependency_s {
-    char * name;
-    char ** deps;
-};
+#ifdef INCLUDE_NETWORK
+int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps, 
+		     int flags) {
+    struct networkDeviceConfig netDev;
+    char * file, * fullFn;
+    char * ksPath;
+
+    if (kickstartNetwork("eth0", &netDev, "dhcp", flags)) {
+        logMessage("no dhcp response received");
+	return 1;
+    }
+
+    writeNetInfo("/tmp/netinfo", &netDev);
+
+    if (!(netDev.dev.set & PUMP_INTFINFO_HAS_BOOTSERVER)) {
+	logMessage("no bootserver was found");
+	return 1;
+    }
+
+    if (!(netDev.dev.set & PUMP_INTFINFO_HAS_BOOTFILE)) {
+	file = "/kickstart/";
+	logMessage("bootp: no bootfile received");
+    } else {
+	file = netDev.dev.bootFile;
+    }
+
+    ksPath = alloca(strlen(file) + strlen(netDev.dev.hostname) + 70);
+    strcpy(ksPath, inet_ntoa(netDev.dev.bootServer));
+    strcat(ksPath, ":");
+    strcat(ksPath, file);
+
+    if (ksPath[strlen(ksPath) - 1] == '/') {
+	ksPath[strlen(ksPath) - 1] = '\0';
+	file = malloc(30);
+	sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));
+    } else {
+	file = strrchr(ksPath, '/');
+	if (!file) {
+	    file = ksPath;
+	    ksPath = "/";
+	} else {
+	    *file++ = '\0';
+	}
+    }
+
+    logMessage("ks server: %s file: %s", ksPath, file);
+
+    mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, flags);
+
+    if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
+	logMessage("failed to mount %s", ksPath);
+	return 1;
+    }
+
+    fullFn = malloc(strlen(file) + 20);
+    sprintf(fullFn, "/tmp/ks/%s", file);
+    copyFile(fullFn, location);
+
+    umount("/tmp/nfs");
+
+    return 0;
+}
+#endif
 
 int kickstartFromHardDrive(char * location, 
 			   moduleList modLoaded, moduleDeps modDeps, 
@@ -1610,10 +1669,7 @@ int main(int argc, char ** argv) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
-    } else if (FL_KICKSTART(flags)) {
-	/* XXX we need to get our ks file from the network */
     }
-
 
 #ifdef INCLUDE_PCMCIA
     startNewt(flags);
@@ -1641,7 +1697,15 @@ int main(int argc, char ** argv) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromHardDrive(ksFile, modLoaded, modDeps, ksSource, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
+    } 
+    
+#ifdef INCLUDE_NETWORK
+    if (FL_KICKSTART(flags)) {
+	ksFile = "/tmp/ks.cfg";
+	startNewt(flags);
+	kickstartFromNfs(ksFile, modLoaded, modDeps, flags);
     }
+#endif
 
     if (ksFile) {
 	ksReadCommands(ksFile);
