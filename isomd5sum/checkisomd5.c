@@ -41,7 +41,8 @@ int main(int argc, char **argv) {
 
     rc = mediaCheckFile(argv[filearg], !verbose);
 
-    if (rc == 0)
+    /* 1 means it passed, 0 means it failed, -1 means we couldnt find chksum */
+    if (rc == 1)
 	exit(0);
     else
 	exit(1);
