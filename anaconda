@@ -5,6 +5,7 @@ signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 # For anaconda in test mode
 if (os.path.exists('isys')):
+    sys.path.append('edd')
     sys.path.append('libfdisk')
     sys.path.append('balkan')
     sys.path.append('gnome-map')
@@ -269,12 +270,15 @@ if traceOnly:
 
 # imports after setting up the path
 if not reconfigOnly:
-    if (method[0:5] == "dir:/"):
-        from image import InstallMethod
-        method = InstallMethod(method[5:])
+    if (method[0:7] == "cdrom:/"):
+        from image import CdromInstallMethod
+        method = CdromInstallMethod(method[7:])
+    elif (method[0:5] == "nfs:/"):
+        from image import NfsInstallMethod
+        method = NfsInstallMethod(method[5:])
     elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
-        from urlinstall import InstallMethod
-        method = InstallMethod(method)
+        from urlinstall import UrlInstallMethod
+        method = UrlInstallMethod(method)
     elif (method[0:5] == "hd://"):
         method = method[5:]
         i = string.index(method, '/')
@@ -285,8 +289,8 @@ if not reconfigOnly:
         drive = driveAndType[0:i]
         type = driveAndType[i + 1:]
         
-        from harddrive import InstallMethod
-        method = InstallMethod(drive, type, dir)
+        from harddrive import HardDriveInstallMethod
+        method = HardDriveInstallMethod(drive, type, dir)
     else:
         print "unknown install method:", method
         sys.exit(1)
