@@ -950,6 +950,7 @@ int main(int argc, char ** argv) {
     struct stat sb;
     int rc, i;
     char * arg;
+    FILE *f;
 
     char twelve = 12;
     char * extraArgs[MAX_EXTRA_ARGS];
@@ -997,8 +998,10 @@ int main(int argc, char ** argv) {
         execl("/bin/sh", "-/bin/sh", NULL);
         exit(0);
     }
-    i = open("/var/run/loader.run", O_CREAT | O_TRUNC | O_RDWR, 0600);
-    close(i);
+    
+    f = fopen("/var/run/loader.run", "w+");
+    fprintf(f, "%d\n", getpid());
+    fclose(f);
 
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
