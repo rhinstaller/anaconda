@@ -674,8 +674,7 @@ class PackageSelectionWindow (InstallWindow):
 	lbl.set_alignment(0.0, 0.5)
 	lblhbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
 
-	pixname = string.lower(comp.id) + ".png"
-	fn = self.ics.findPixmap("comps/"+pixname)
+	fn = self.ics.findPixmap("package-selection.png")
 	if not fn:
 	    pix = None
 	else:
