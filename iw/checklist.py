@@ -74,11 +74,24 @@ class CheckList (GtkCList):
 
         draw_rectangle(self.on_pixmap,base_gc,1,0,0,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
         draw_rectangle(self.on_pixmap,text_gc,0,0,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1)
-        draw_line(self.on_pixmap,text_gc,0,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1)
-        draw_line(self.on_pixmap,text_gc,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1,0)
+
+        draw_line(self.on_pixmap,text_gc,2, CheckList.CHECK_SIZE/2,CheckList.CHECK_SIZE/3,CheckList.CHECK_SIZE-5)
+        draw_line(self.on_pixmap,text_gc,2, CheckList.CHECK_SIZE/2+1,CheckList.CHECK_SIZE/3,CheckList.CHECK_SIZE-4)
         
+        draw_line(self.on_pixmap,text_gc,CheckList.CHECK_SIZE/3, CheckList.CHECK_SIZE-5, CheckList.CHECK_SIZE-3, 3)
+        draw_line(self.on_pixmap,text_gc,CheckList.CHECK_SIZE/3, CheckList.CHECK_SIZE-4, CheckList.CHECK_SIZE-3, 2)
+
         draw_rectangle(self.off_pixmap,base_gc,1,0,0,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
         draw_rectangle(self.off_pixmap,text_gc,0,0,0,CheckList.CHECK_SIZE-1,CheckList.CHECK_SIZE-1)
+
+
+
+
+
+
+
+
+
 
     def _realize_cb (self, clist):
         self.on_pixmap = create_pixmap(self.get_window(), CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
