@@ -357,7 +357,7 @@ class BaseInstallClass:
                      "videocard and monitor specs on the xconfig ks "
                      "directive if they were not probed correctly."
                      %(resolution, availableRes[-1]))
-		 resolution = availebleRes[-1]
+		 resolution = availableRes[-1]
             id.xsetup.xhwstate.set_resolution(resolution)
 
         if not resolution and not depth:
