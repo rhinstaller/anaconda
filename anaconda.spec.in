@@ -7,7 +7,7 @@ Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.gz
 Obsoletes: anaconda-reconfig
 BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel
-Prereq: chkconfig
+Prereq: chkconfig /etc/init.d
 Requires: rpm-python
 
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
@@ -66,7 +66,7 @@ fi
 /usr/sbin/ddcprobe
 %endif
 
-%config /etc/init.d/reconfig
+%config /etc/rc.d/init.d/reconfig
 
 %files runtime
 %defattr(-,root,root)
@@ -80,6 +80,8 @@ fi
 
 * Fri Jul 14 2000 Matt Wilson <msw@redhat.com>
 - moved init script for reconfig mode to /etc/init.d/reconfig
+- move the initscript back to /etc/rc.d/init.d
+- Prereq: /etc/init.d
 
 * Thu Feb 03 2000 Michael Fulbright <drmike@redhat.com>
 - strip files
