@@ -607,10 +607,10 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
                     errors.append(rc)
 
     bootreq = requests.getBootableRequest()
-    if (bootreq and (bootreq.type == REQUEST_RAID) and
-        (not isRaid1(bootreq.raidlevel))):
-        errors.append(_("Bootable partitions can only be on RAID1 devices."))
-                
+    if not (iutil.getArch() == "s390" or iutil.getArch() == "s390x"):
+        if (bootreq and (bootreq.type == REQUEST_RAID) and
+            (not isRaid1(bootreq.raidlevel))):
+            errors.append(_("Bootable partitions can only be on RAID1 devices."))                
         
     if foundSwap == 0:
         warnings.append(_("You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."))
