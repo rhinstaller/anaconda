@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-27 19:49+0200\n"
+"PO-Revision-Date: 2004-06-28 20:57+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -937,28 +937,31 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"При парсирањето на вашата kickstart конфигурацијата беше пронајдена следнава грешка:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "Грешка при парсирање на kickstart конфигурацијата"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
+msgstr "Ставете ја дискетата сега ве молам. Целата содржина на дискетата ќе биде избришана па затоа ве молам одберете ја вашата дискета внимателно."
 
 #: ../gui.py:746
 msgid "default:LTR"
-msgstr ""
+msgstr "вообичаено:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Недостасуваат белешки за изданието.\n"
 
 #: ../gui.py:990
 msgid "The release notes are missing."
-msgstr ""
+msgstr "Недостасуваат белешките за изданието."
 
 #: ../gui.py:1090
 msgid "Error!"
@@ -974,11 +977,11 @@ msgstr ""
 
 #: ../gui.py:1095 ../packages.py:187 ../packages.py:596 ../packages.py:1479
 msgid "_Exit"
-msgstr ""
+msgstr "_Излез"
 
 #: ../gui.py:1096
 msgid "_Retry"
-msgstr ""
+msgstr "_Повтори"
 
 #: ../gui.py:1098 ../packages.py:1482
 msgid "Rebooting System"
@@ -986,33 +989,33 @@ msgstr "Рестартирање на системот"
 
 #: ../gui.py:1099 ../packages.py:1483
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "Вашиот систем сега ќе се рестартира..."
 
 #: ../gui.py:1190 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
-msgstr "Назад"
+msgstr "_Назад"
 
 #: ../gui.py:1192
 msgid "_Next"
-msgstr "Следно"
+msgstr "_Следно"
 
 #: ../gui.py:1194
 msgid "_Release Notes"
-msgstr ""
+msgstr "_Белешки за изданието"
 
 #: ../gui.py:1196
 msgid "Show _Help"
-msgstr ""
+msgstr "Прикажи _помош"
 
 #: ../gui.py:1198
 msgid "Hide _Help"
-msgstr ""
+msgstr "Скриј _помош"
 
 #: ../gui.py:1200
 msgid "_Debug"
-msgstr ""
+msgstr "_Дебагирај"
 
 #: ../gui.py:1282
 #, python-format
@@ -1026,11 +1029,11 @@ msgstr "%s Инсталер на %s"
 
 #: ../gui.py:1325
 msgid "Unable to load title bar"
-msgstr ""
+msgstr "Неможам да ја вчитам насловната линија"
 
 #: ../gui.py:1432
 msgid "Install Window"
-msgstr ""
+msgstr "Инсталациски прозор"
 
 #: ../harddrive.py:166 ../image.py:524
 #, python-format
@@ -2542,7 +2545,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:79
 #, python-format
 msgid "Click next to begin installation of %s."
-msgstr ""
+msgstr "Притиснете следно за да започне инсталација на %s."
 
 #: ../iw/confirm_gui.py:80
 #, python-format
@@ -2561,7 +2564,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
+msgstr "Притиснете следно за да започне надградба на %s."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
@@ -4749,7 +4752,7 @@ msgstr ""
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr ""
+msgstr "Следно"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
