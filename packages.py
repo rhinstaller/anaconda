@@ -645,6 +645,11 @@ def doPreInstall(method, id, intf, instPath, dir):
         if pcmcia.pcicType():
             select(id.grpset.hdrlist, 'pcmcia-cs')
 
+        for entry in id.fsset.entries:
+            for pkg in entry.fsystem.getNeededPackages():
+                if select(id.grpset.hdrlist, pkg):
+                    log("Needed %s for %s" %(pkg, entry.getMountPoint()))
+
     if flags.test:
 	return
 

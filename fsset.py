@@ -152,6 +152,7 @@ class FileSystemType:
         self.migratetofs = None
         self.extraFormatArgs = []
         self.maxLabelChars = 16
+        self.packages = []
 
     def mount(self, device, mountpoint, readOnly=0, bindMount=0):
         if not self.isMountable():
@@ -165,6 +166,9 @@ class FileSystemType:
 
     def getName(self):
         return self.name
+
+    def getNeededPackages(self):
+        return self.packages
 
     def registerDeviceArgumentFunction(self, klass, function):
         self.deviceArguments[klass] = function
@@ -365,6 +369,7 @@ class reiserfsFileSystem(FileSystemType):
         except:
             self.supported = 0
         self.name = "reiserfs"
+        self.packages = [ "reiserfs-utils" ]
 
         self.maxSizeMB = 1024 * 1024
 
@@ -411,6 +416,8 @@ class xfsFileSystem(FileSystemType):
             del f
         except:
             self.supported = 0
+
+        self.packages = [ "xfsprogs" ]
         
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -466,6 +473,7 @@ class jfsFileSystem(FileSystemType):
             self.supported = 0
             
         self.name = "jfs"
+        self.packages = [ "jfsutils" ]
 
         self.maxSizeMB = 1024 * 1024
 
@@ -502,6 +510,7 @@ class extFileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.maxSizeMB = 1024 * 1024
+        self.packages = [ "e2fsprogs" ]
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
@@ -620,6 +629,8 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.maxSizeMB = 1024 * 1024
         self.supported = 1
 
+        self.packages = [ "raidtools", "mdadm" ]
+
     def formatDevice(self, entry, progress, chroot='/'):
         # mkraid did all we need to format this partition...
         pass
@@ -637,6 +648,7 @@ class lvmPhysicalVolumeDummyFileSystem(FileSystemType):
         self.name = "physical volume (LVM)"
         self.maxSizeMB = 1024 * 1024
         self.supported = 1
+        self.packages = [ "lvm2" ]
 
     def isMountable(self):
         return 0
@@ -657,6 +669,7 @@ class lvmVolumeGroupDummyFileSystem(FileSystemType):
         self.name = "volume group (LVM)"
         self.supported = 0
         self.maxSizeMB = 1024 * 1024
+        self.packages = [ "lvm2" ]
 
     def isMountable(self):
         return 0
@@ -706,6 +719,7 @@ class FATFileSystem(FileSystemType):
         self.checked = 0
         self.maxSizeMB = 1024 * 1024
         self.name = "vfat"
+        self.packages = [ "dosfstools" ]
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -1265,6 +1279,7 @@ class FileSystemSet:
             entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
+        log("formatting %s as %s" %(entry.mountpoint, entry.fsystem.name))
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
     def badblocksEntry(self, entry, chroot):
