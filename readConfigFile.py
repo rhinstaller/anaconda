@@ -1,10 +1,14 @@
 #!/usr/bin/python
 import string
+import os
 
 def getConfigFile():
     import string
 
-    f = open("anaconda.conf", "r")
+    if os.access("anaconda.conf", os.O_RDONLY):
+        f = open("anaconda.conf", "r")
+    else:
+        f = open("/usr/lib/anaconda/anaconda.conf", "r")
     lines = f.readlines()
     f.close()
 
