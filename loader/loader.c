@@ -1104,6 +1104,7 @@ static char * mountNfsImage(struct installMethod * method,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps * modDepsPtr, int flags) {
     static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
     char * devName;
     int i, rc;
     char * host = NULL;
@@ -1113,6 +1114,7 @@ static char * mountNfsImage(struct installMethod * method,
 
     initLoopback();
 
+    memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
     
@@ -1128,6 +1130,11 @@ logMessage("in mountNfsImage NFS_STAGE_IP");
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+	    host = ui.address;
+	    dir = ui.prefix;
+#endif
 	    stage = NFS_STAGE_NFS;
 	    break;
 
