@@ -9,13 +9,9 @@ if [ $(uname -m) = ia64 ]; then
     STRIP=echo
 fi
 
-# latest is a script which returns the file containing the most recent
-# binary RPM for the given package names
-LATEST="rsh porkchop latest"
-
-if [ -z "$1" ]; then
-	echo "$0: updates instimage from a Red Hat RPMS directory"
-	echo "usage: $0 <component>"
+if [ -z "$1" -o ! -d "$1" ]; then
+	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
+	echo "usage:        $0 <packagedir>"
 	exit 1
 fi
 
@@ -26,7 +22,6 @@ if [ "$ARCH" = sparc64 ]; then
 fi
 
 HOMEDIR=`pwd`
-echo HOMEDIR $HOMEDIR
 
 # remove all non unused python files
 pythondeps() {
@@ -48,7 +43,39 @@ pythondeps() {
 	rm -rf $DIR/dev
 }
 
-COMPONENT=$1
+prunePackageList() {
+	PACKAGEPATH=$1
+	PACKAGES="$2"
+
+	PATTERN=""
+	PACKAGEFILES=""
+	for PKG in $PACKAGES; do
+	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
+	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*)"
+	done
+
+	PACKAGEFILES=$(ls $PACKAGEFILES | sort -u)
+
+	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
+		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //'
+}
+
+expandPackageSet() {
+    RPMS=$1
+    PKGDEST=$2
+    KEEPFILE=$3
+
+    for n in $RPMS; do 
+	echo -ne "\rExpanding packages..." $(basename $n)
+	if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc" ] ; then
+	    GLIBC=$n
+	fi 
+	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILE --quiet -iumd)
+	echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
+    done
+}
+
+PACKAGEDIR=$1
 
 mkdir -p ../trees/hdimage
 cd ../trees/hdimage
@@ -60,42 +87,36 @@ cd ../../../RedHat/instimage
 DESTGR=$PWD
 cd -
 
-echo "DEST is $DEST"
-echo "DESTGR is $DESTGR"
-
-PACKAGES="glibc ldconfig setup e2fsprogs  
-          python newt
-          libtermcap zlib rpm rpm-devel rpm-python ash bash 
-	  util-linux procps
-          raidtools locale-ja open
-          cpio tar fileutils net-tools grep sed mt-st gzip
-          iputils traceroute sh-utils textutils less rsh
-          ncurses popt ftp readline mount
-          specspo"
+PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash e2fsprogs
+	  util-linux raidtools locale-ja popt mount procps rpm XFree86
+	  Xconfigurator"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
 fi
 
-if [ $ARCH != ia64 ]; then
-    PACKAGES="$PACKAGES mtools pine modutils"
-fi
+# Some packages are listed twice, but that's okay
+PACKAGESGR="XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
+      XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
+      XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
+      XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts glib gtk+
+      XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
+      XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
+      e2fsprogs fileutils glibc rsh less ftp readline gzip
+      popt specspo util-linux
+      rpm rpm-devel rpm-python open grep net-tools traceroute 
+      tar procps textutils sed ncurses bash cpio mt-st iputils sh-utils
+      XFree86-cyrillic-fonts XFree86 xpm Xconfigurator pygnome pygtk
+      pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
 
-if [ -n "$NEEDGR" ]; then
-    PACKAGES="$PACKAGES XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
-          XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
-          XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
-          XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts glib gtk+
-	  XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
-          XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
-          XFree86-cyrillic-fonts XFree86 xpm Xconfigurator pygnome pygtk
-	  pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
+if [ $ARCH != ia64 ]; then
+    PACKAGESGR="$PACKAGESGR mtools pine modutils"
 fi
 
 if [ $ARCH = sparc ]; then
-    PACKAGES="$PACKAGES XFree86-Sun"
+    PACKAGESGR="$PACKAGESGR XFree86-Sun"
 elif [ $ARCH = alpha ]; then
-    PACKAGES="$PACKAGES XFree86-TGA"
+    PACKAGESGR="$PACKAGESGR XFree86-TGA"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -350,22 +371,20 @@ usr/share/fonts/ISO8859-2/100dpi/fonts*
 EOF
 fi
 
-RPMS=$($LATEST --arch $ARCH $COMPONENT $PACKAGES)
+echo "Assembling package list..."
+RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
+RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR")
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin
 
-for n in $RPMS; do 
-    echo "expanding $n"
-    if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc" ] ; then
-	GLIBC=$n
-    fi 
-    rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
+echo -n "Expanding packages..."
+expandPackageSet "$RPMS" $DEST $KEEPFILE
 
-    if [ -n "NEEDGR" ]; then
-	rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
-    fi
-done
+(cd $DEST; tar cSpf - .) | (cd $DESTGR; tar xSpf -)
+
+expandPackageSet "$RPMSGR" $DESTGR $KEEPFILEGR
+echo -e "\rExpanding packages..."
 
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
@@ -383,6 +402,7 @@ if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
 fi
 
+echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
     for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*; do
 	mkfontdir $I
@@ -391,11 +411,14 @@ fi
 
 rm -f $KEEPFILE $KEEPFILEGR
 
+echo "Installing anaconda..."
 make install-hd DESTDIR=$DEST > /dev/null
 rm -rf $DEST/usr/share/locale
 make install DESTDIR=$DESTGR > /dev/null
 
-for p in $DESTGR $DEST; do
+echo -n "Scrubbing trees..."
+for p in $DEST $DESTGR; do
+	echo -n -e "\rScrubbing trees..." "$p"
 	rm -f $p/usr/lib/anaconda/lang-table
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
@@ -423,7 +446,7 @@ for p in $DESTGR $DEST; do
 	(cd $p; chroot $p usr/sbin/ldconfig )
 	rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
-	for l in `find $p -exec file {} \; | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
+	for l in `find $p -type f -perm +100 | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
 	    $STRIP $l -R .comment -R .note `objdump -h $l | \
 		sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 	done
@@ -439,11 +462,15 @@ for p in $DESTGR $DEST; do
 		mv -f $i.gz $i
 	    done
 	fi
+	echo -n -e "\rScrubbing trees..." "$(echo $p | sed 's/./ /g')"
 done
+echo -e "\rScrubbing trees..."
+
+echo "Patching python library..."
 
 # always use passive mode for ftp installs
 cd $DEST/usr/lib/python1.5
-patch -p0 <<EOF
+patch -p0 > /dev/null <<EOF
 --- ./urllib.py.pasv	Sun Sep 26 16:45:24 1999
 +++ ./urllib.py	Sun Sep 26 16:47:56 1999
 @@ -563,6 +563,7 @@
@@ -456,6 +483,7 @@ patch -p0 <<EOF
      def retrfile(self, file, type):
 
 EOF
+cd -
 
 pythondeps $DEST
 
@@ -480,6 +508,7 @@ if [ $NEED_GR ]; then
 fi
 
 # this is only for the minimal second stage
+echo "Compressing ramdisk install images..."
 
 	cd $DEST/usr/lib
 	find python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
