@@ -138,6 +138,8 @@ class NetworkDevice(SimpleConfigFile):
 	    self.info["TYPE"] = "IUCV"
 	elif dev.startswith('escon'):
 	    self.info["TYPE"] = "ESCON"
+	elif dev.startswith('lcs'):
+	    self.info["TYPE"] = "LCS"
 	elif dev.startswith('tr'):
 	    self.info["TYPE"] = "\"Token Ring\""
 	else:
@@ -172,12 +174,16 @@ class Network:
 	    self.isConfigured = 1
             for line in lines:
                 netinf = string.splitfields(line, '=')
-                info [netinf[0]] = string.strip(netinf[1])
+                if len(netinf) >= 2:
+                    info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
-                        "REMIP"):
+                        "REMIP", "QETH", "SUBCHANNELS", "PORTNAME"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
+            # KH: Hack for special case qeth devices which show up as ethX:
+            if info.has_key("QETH"):
+                self.netdevices [info["DEVICE"]].info["TYPE"] = "QETH";
             if info.has_key("GATEWAY"):
                 self.gateway = info["GATEWAY"]
             if info.has_key("DOMAIN"):
