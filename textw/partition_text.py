@@ -538,7 +538,7 @@ class PartitionWindow:
             subgrid.setField(size, 1, 1, (0,1,0,0), anchorRight = 1)
             tmpLbl = Label(_("Filesystem Option:"))
             subgrid.setField(tmpLbl, 0, 2, (0,1,2,0), anchorLeft = 1)
-            fsoptLbl = Label(_(""))
+            fsoptLbl = Label("")
             subgrid.setField(fsoptLbl, 1, 2, (0,1,2,0), anchorLeft = 1)
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
