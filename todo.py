@@ -561,6 +561,9 @@ class ToDo:
             raise RuntimeError, "boot disk creation failed"
 
     def installLilo (self):
+        # XXX make me test mode
+        if not self.setupFilesystems: return
+        
         # on upgrade read in the lilo config file
         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
             self.lilo.read (self.instPath + '/etc/lilo.conf')
@@ -623,7 +626,15 @@ class ToDo:
                 if not isys.checkBoot ('/tmp/' + device):
                     self.lilo.delImage (name)
                 os.remove ('/tmp/' + device)
-            # XXX remove duplicate entries
+
+        # pass 2, remove duplicate entries
+        labels = []
+
+        for (type, name, config) in self.lilo.images:
+            if not name in labels:
+                labels.append (name)
+            else: # duplicate entry, first entry wins
+                self.lilo.delImage (name)                
 
 	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
@@ -852,14 +863,20 @@ class ToDo:
             self.mountFilesystems ()
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         self.umountFilesystems ()
+
         # unselect all packages
         for package in self.hdList.packages.values ():
             package.selected = 0
+
         # always upgrade all packages in Base package group
 	self.comps['Base'].select(1)
+
         # turn on the packages in the upgrade set
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
+            
+        # new package dependency fixup
+        self.selectDeps (self.verifyDeps ())
         win.pop ()
 
     def rpmError (todo):
@@ -1103,7 +1120,7 @@ class ToDo:
                 os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
                             self.instPath + "/etc/X11/X")
             self.setDefaultRunlevel ()
-            
+        
 	self.installLilo ()
 
 	del syslog
