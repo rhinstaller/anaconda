@@ -66,29 +66,19 @@ class OldHardDriveInstallMethod(InstallMethod):
 	return cs
 
     def getFilename(self, h, timer):
-	return self.tree + self.path + "/RedHat/RPMS/" + self.fnames[h]
+	return self.tree + self.path + "/RedHat/RPMS/" + h[FILENAME]
 
     def readHeaders(self):
 	self.mountMedia()
-	hl = []
-	path = self.tree + self.path + "/RedHat/RPMS"
-	for n in os.listdir(path):
-            fd = os.open(path + "/" + n, 0)
-            try:
-                (h, isSource) = rpm.headerFromPackage(fd)
-		if (h and not isSource):
-		    self.fnames[h] = n
-		    hl.append(h)
-            except:
-		pass
-            os.close(fd)
-		
+	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 	self.umountMedia()
-	return HeaderList(hl)
-
+	return hl
+	
     def mergeFullHeaders(self, hdlist):
-	# since we read headers from the disk, we don't need to do this
-	pass
+	self.mountMedia()
+	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+	self.umountMedia()
+
 
     def systemMounted(self, fsset, chroot, selected):
 	self.mountMedia()
