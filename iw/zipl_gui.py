@@ -12,6 +12,7 @@
 #
 
 # must replace with explcit form so update disks will work
+import isys
 import gtk
 import gui
 import iutil
@@ -108,6 +109,8 @@ class ZiplWindow (InstallWindow):
         self.chandeventry2 = gtk.Entry()
         if bl.args and bl.args.get():
             self.kernelEntry.set_text(bl.args.get())
+        if isys.getDasdPorts():
+            self.kernelEntry.set_text(self.kernelEntry.get_text() + " dasd=" + isys.getDasdPorts())
         if bl.args and bl.args.chandevget():
             cdevs = bl.args.chandevget()
             self.chandeventry1.set_text('')
