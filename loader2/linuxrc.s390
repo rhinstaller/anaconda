@@ -40,6 +40,21 @@ doreboot()
 	 exit 0
 }
 
+sysecho () {
+	file=$1
+	shift
+	i=1
+	while [ $i -le 10 ] ; do
+      if [ ! -f $file ]; then
+			sleep 1
+			i=$((i+1))
+		else 
+			break
+		fi
+	done
+	[ -f $file ] && echo $* > $file
+}
+
 startinetd()
 {
 	echo
@@ -75,7 +90,7 @@ readcmsfile() # $1=dasdport $2=filename
    elif [ ${#1} == 4 ]; then
       dev="0.0.${1}"
    fi
-   echo 0 > /sys/bus/ccw/drivers/dasd-eckd/$dev/online
+   sysecho /sys/bus/ccw/drivers/dasd-eckd/$dev/online 0
    rmmod dasd_eckd_mod
    rmmod dasd_mod
 }
@@ -87,9 +102,9 @@ setupdevice()
       exit 1
    fi
    SYSDIR=${SUBCHANNELS//,*/}   # get first subchannel. This is where the device can be brought online
-   echo "$SUBCHANNELS"  >/sys/bus/ccwgroup/drivers/${DIRNAME}/group
-   [ -n "$PORTNAME" ] && echo "$PORTNAME" > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname
-   echo 1 > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online
+   sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/group "$SUBCHANNELS"
+   [ -n "$PORTNAME" ] && sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname "$PORTNAME"
+   sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online 1
 }
 
 convertchandev()
@@ -271,7 +286,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod fsm$LO
 	insmod iucv$LO
 	insmod netiucv$LO
-	echo $PEERID > /sys/bus/iucv/drivers/netiucv/connection
+	sysecho /sys/bus/iucv/drivers/netiucv/connection $PEERID
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
    echo "alias $DEVICE iucv" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
