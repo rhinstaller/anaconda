@@ -92,6 +92,7 @@ class FileSystemType:
         self.partedFileSystemType = None
         self.partedPartitionFlags = []
         self.maxSize = 2 * 1024 * 1024
+        self.supported = -1
         
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -110,7 +111,8 @@ class FileSystemType:
         self.deviceArguments[klass] = function
 
     def formatDevice(self, devicePath, device, progress, message, chroot='/'):
-        raise RuntimeError, "formatDevice method not defined"
+        if self.isFormattable():
+            raise RuntimeError, "formatDevice method not defined"
 
     def isFormattable(self):
         return self.formattable
@@ -138,7 +140,9 @@ class FileSystemType:
         return FileSystemType.kernelFilesystems.has_key(self.getName())
 
     def isSupported(self):
-        return self.isMountable()
+        if self.supported == -1:
+            return self.isMountable()
+        return self.supported
         
     def isChecked(self):
         return self.checked
@@ -158,6 +162,19 @@ class FileSystemType:
     # note that this returns the maximum size of a filesystem in megabytes
     def getMaxSize(self):
         return self.maxSize
+
+class reiserfsFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("reiserfs")
+        self.formattable = 0
+        self.checked = 1
+        self.linuxnativefs = 1
+        self.name = "reiserfs"
+        self.maxSize = 4 * 1024 * 1024
+        self.supported = 0
+    
+fileSystemTypeRegister(reiserfsFileSystem())
 
 class ext2FileSystem(FileSystemType):
     def __init__(self):
@@ -246,10 +263,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.linuxnativefs = 0
         self.name = "software raid component"
         self.maxSize = 4 * 1024 * 1024
-
-    def isSupported(self):
-        # XXX look at /proc/mdstat ?
-        return 1
+        self.supported = 1
 
     def formatDevice(self, entry, progress, message, chroot='/'):
         # mkraid did all we need to format this partition...
@@ -266,6 +280,7 @@ class swapFileSystem(FileSystemType):
         self.formattable = 1
         self.name = "swap"
         self.maxSize = 2 * 1024
+        self.supported = 1
 
     def mount(self, device, mountpoint):
         isys.swapon (device)
@@ -273,9 +288,6 @@ class swapFileSystem(FileSystemType):
     def umount(self, device, path):
         # unfortunately, turning off swap is bad.
         pass
-
-    def isSupported(self):
-        return 1
     
     def formatDevice(self, entry, progress, message, chroot='/'):
         file = entry.device.setupDevice(chroot)
@@ -314,12 +326,7 @@ class PsudoFileSystem(FileSystemType):
         self.formattable = 0
         self.checked = 0
         self.name = name
-
-    def formatDevice(self, entry, progress, message, chroot='/'):
-        return
-
-    def isSupported(self):
-        return 0
+        self.supported = 0
 
 class ProcFileSystem(PsudoFileSystem):
     def __init__(self):
