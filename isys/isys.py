@@ -259,6 +259,8 @@ def driveDict(klassArg):
     devs = kudzu.probe(kudzu.CLASS_HD | kudzu.CLASS_CDROM | kudzu.CLASS_FLOPPY,
                        kudzu.BUS_UNSPEC, kudzu.PROBE_SAFE)
     for dev in devs:
+        if dev.device is None: # none devices make no sense
+            continue
         if dev.deviceclass == classMap[klassArg]:
             ret[dev.device] = dev.desc
 
