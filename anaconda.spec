@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.22
+Version: 10.2.0.23
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Feb 28 2005 Chris Lumens <clumens@redhat.com> 10.2.0.23-1 
+- Don't write out filesystems to fstab we haven't mounted (katzj, #149091).
+- Deal with multiple Apple Bootstrap partitions (pnasrat).
+- Set hostname sensitivity UI bug.
+- Eject CD when failing (pnasrat, #147272).
+- Better handling of Apple Bootstrap throughout (pjones).
+- Do ethtool setup everywhere (pnasrat, #145522).
+- Fix "debug" command line arg (pjones).
+- Import new libkrb5support library (#149856).
+- Add -once to ensure Xvnc exits (katzj, #137337).
+
 * Sun Feb 20 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.22-1
 - revert some of the ppc changes so that lvm is used (nasrat)
 - Try to fix bogl stuff some more (#149039)
