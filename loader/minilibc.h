@@ -27,6 +27,7 @@ extern int errno;
 #include <linux/time.h>
 #include <linux/if.h>
 #include <linux/un.h>
+#include <linux/loop.h>
 #include <linux/net.h>
 #include <asm/posix_types.h>
 #include <asm/termios.h>

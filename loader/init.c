@@ -445,6 +445,60 @@ void disableSwap(void) {
     }
 }
 
+int handleCleanup(void) {
+    int i;
+    char buf[4096];
+    int fd;
+    int loopfd;
+    char * start, * end;
+
+    fd = open("/tmp/cleanup", O_RDONLY, 0);
+    if (fd < 0) return 1;
+
+    i = read(fd, buf, sizeof(buf) - 1);
+    buf[i] = '\0';
+    close(fd);
+
+    start = buf;
+    while (*start) {
+	end = start;
+	while (*end && *end != '\n') end++;
+	if (!*end) return 0;
+	*end = '\0';
+
+	if (!strncmp(start, "lounsetup ", 10)) {
+	    start += 10;
+	    while (isspace(*start) && start < end) start++;
+	    if (start == end) return 1;
+
+	    loopfd = open(start, O_RDONLY, 0);
+	    if (loopfd < 0) {
+		printf("\terror opening %s: %d\n", start, errno);
+	    } else {
+		printf("disabling %s", start);
+		if (ioctl(loopfd, LOOP_CLR_FD, 0))
+		    printf(" failed: %d", errno);
+		printf("\n");
+	    }
+
+	    close(loopfd);
+	} else if (!strncmp(start, "umount ", 7)) {
+	    start += 7;
+	    while (isspace(*start) && start < end) start++;
+	    if (start == end) return 1;
+
+	    printf("unmounting %s...", start);
+	    if (umount(start) < 0)
+		printf(" failed (%d)", errno);
+	    printf("\n");
+	}
+
+	start = end + 1;
+    }
+
+    return 0;
+}
+
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -662,6 +716,8 @@ int main(int argc, char **argv) {
 
     printf("disabling swap...\n");
     disableSwap();
+
+    handleCleanup();
 
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
