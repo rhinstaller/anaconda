@@ -273,7 +273,7 @@ class IndividualPackageWindow:
         rc = bb.buttonPressed (result)
 
         # turn off all the packages
-        for key in todo.hdList.keys ():
+        for key in todo.hdList.packages.keys ():
             todo.hdList.packages[key].selected = 0
 
         # turn on all the packages we selected
