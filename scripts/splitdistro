@@ -21,9 +21,10 @@ import getopt
 import time
 import types
 
-def stamp(path, name, arch, startedAt):
+def stamp(path, releasestr, name, arch, startedAt):
     f = open("%s/.%s-%s" % (path, name, arch), "w")
     f.write("%f\n" % startedAt)
+    f.write("%s %s\n" % (releasestr, name))
     f.close()
 
 def moveFiles(srcDir, destDir, files):
@@ -85,13 +86,16 @@ fns = {}
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', [ 'fileorder=' ])
 if len(extra) != 2:
-    print "splitdistro --fileorder <file> <toppath> <arch>"
+    print "splitdistro --fileorder <file> [--release <comment>] <toppath> <arch>"
     sys.exit(1)
 
+releasestr = ""
 for n in args:
     (str, arg) = n
     if str == '--fileorder':
 	packageOrderFile = arg
+    if str == '--release':
+	releasestr = arg
 
 arch = extra[1]
 distDir = os.path.normpath(extra[0] + "/" + arch)
@@ -157,10 +161,10 @@ os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" %
 print "Creating disc1..."
 
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
-stamp(disc1Dir, "disc1", arch, startedAt)
+stamp(disc1Dir, releasestr, "disc1", arch, startedAt)
 
 print "Creating disc2..."
-stamp(disc2Dir, "disc2", arch, startedAt)
+stamp(disc2Dir, releasestr, "disc2", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -178,7 +182,7 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 	  disc2pkgs);
 
 print "Creating disc3..."
-stamp(disc3Dir, "disc3", arch, startedAt)
+stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -197,10 +201,10 @@ moveFiles("%s/RedHat/RPMS" % disc2Dir,
 
 print "Creating first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
-stamp(disc1SrcDir, "disc4", arch, startedAt)
+stamp(disc1SrcDir, releasestr, "disc4", arch, startedAt)
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, "disc5", arch, startedAt)
+stamp(disc2SrcDir, releasestr, "disc5", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
