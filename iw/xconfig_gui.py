@@ -112,21 +112,18 @@ class XCustomWindow (InstallWindow):
 	self.ignore_res_cb = 0
 
     def res_cb (self, widget, data):
-	print "in res_cb"
-
 	if self.ignore_res_cb:
 	    print "ignored"
 	    return
 	
         newres = self.res_combo.list.child_position (data)
-	print "curres, newres = ", self.currentRes, newres
         if self.currentRes == newres:
             return
         
         self.currentRes = self.res_combo.list.child_position (data)
         self.selectedRes = self.avail_res[self.currentRes]
 	self.xsetup.xhwstate.set_resolution(self.selectedRes)
-	print "curres, selectedres = ", self.currentRes, self.selectedRes
+
         self.swap_monitor (self.currentRes)
 
     def load_monitor_preview_pixmap(self, file):
