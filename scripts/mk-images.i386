@@ -197,7 +197,8 @@ makeBootImages() {
     $SYSLINUX $TOPDESTPATH/images/diskboot.img
     mount -o loop $TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
     cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
-    mv $TOPDESTPATH/images/fobpath/isolinux.cfg $TOPDESTPATH/images/fobpath/syslinux.cfg
+    grep -v local $TOPDESTPATH/images/fobpath/isolinux.cfg > $TOPDESTPATH/images/fobpath/syslinux.cfg
+    rm -f $TOPDESTPATH/images/fobpath/isolinux.cfg
     umount -f $TOPDESTPATH/images/fobpath
     rmdir $TOPDESTPATH/images/fobpath
     

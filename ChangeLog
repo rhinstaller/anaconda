@@ -1,5 +1,9 @@
 2004-10-12  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images.x86_64:
+	* scripts/mk-images.i386:
+	Remove localboot option from syslinux.cfg for diskboot.img (#135263)
+
 	* upgrade.py (upgradeFindPackages): Handle the great input method
 	switch (#129218)
 
