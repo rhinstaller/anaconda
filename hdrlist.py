@@ -474,7 +474,7 @@ class Group:
                           continue
                       if dep in pkg[rpm.RPMTAG_PROVIDENAME]:
                           continue
-                      if dep.startsiwth("rpmlib("):
+                      if dep.startswith("rpmlib("):
                           continue
                       p = depMatch(dep, self.grpset.hdrlist)
                       if p in checked:
