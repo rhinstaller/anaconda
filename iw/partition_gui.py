@@ -805,7 +805,7 @@ class PartitionWindow(InstallWindow):
             maintable.attach(label, 0, 2, row, row + 1)
             row = row + 1
             
-            noformatrb = GtkRadioButton (label=_("Do not format"))
+            noformatrb = GtkRadioButton (label=_("Leave unchanged (preserve data)"))
             noformatrb.set_active(1)
             maintable.attach(noformatrb, 0, 2, row, row + 1)
             row = row + 1
