@@ -151,12 +151,12 @@ def set_partition_file_system_type(part, fstype):
     if fstype == None:
         return
     try:
-        part.set_system(fstype.getPartedFileSystemType())
         for flag in fstype.getPartedPartitionFlags():
             if not part.is_flag_available(flag):
                 raise PartitioningError, ("requested FileSystemType needs "
                                           "a flag that is not available.")
             part.set_flag(flag, 1)
+        part.set_system(fstype.getPartedFileSystemType())
     except:
         print "Failed to set partition type to ",fstype.getName()
         pass
@@ -1674,7 +1674,7 @@ def partitionSanityWarnings(intf, warnings):
                                        "your requested partition scheme.\n\n%s"
                                        "\n\nWould you like to continue with "
                                        "your requested partitioning "
-                                       "scheme.") % (warningstr),
+                                       "scheme?") % (warningstr),
                                      type="yesno")
     return rc
 
