@@ -23,6 +23,7 @@
 
 #include "loader.h"
 #include "hardware.h"
+#include "pcmcia.h"
 #include "log.h"
 
 /* JKFIXME: this is the same hack as in loader.c for second stage modules */
@@ -38,7 +39,8 @@ static int detectHardware(moduleInfoSet modInfo,
     logMessage("probing buses");
     
     devices = probeDevices(CLASS_UNSPEC,
-                           BUS_PCI | BUS_SBUS,
+                           BUS_PCI | BUS_SBUS | 
+                           (has_pcmcia() ? BUS_PCMCIA : 0),
                            PROBE_ALL);
     
     logMessage("finished bus probing");
@@ -174,7 +176,9 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
-    
+
+            startPcmciaDevices(modLoaded, flags);
+
             updateKnownDevices(kd);
         } else 
             logMessage("found nothing");
