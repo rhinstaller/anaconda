@@ -119,7 +119,7 @@ class KickstartBase(BaseInstallClass):
     def doFirewall(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp', 'enabled',
-                  'enable' 'port=', 'high', 'medium', 'disabled', 'disable',
+                  'enable', 'port=', 'high', 'medium', 'disabled', 'disable',
                   'trust=' ])
 		  
 	ssh = 0
