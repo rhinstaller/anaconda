@@ -107,37 +107,54 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     *argPtr = args;
 
     return 0;
-
 }
 
-static struct moduleInfo * pickModule(moduleInfoSet modInfo, 
-				      enum driverMajor type,
-				      moduleList modLoaded, 
-				      struct moduleInfo * suggestion) {
-    char ** devNames;
-    int * modules;
-    int numModules = 0, i, rc;
+static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
+		      moduleList modLoaded, struct moduleInfo * suggestion,
+		      struct moduleInfo ** modp, int * specifyParams) {
+    int i;
+    newtComponent form, text, listbox, answer, checkbox, ok, back;
+    newtGrid buttons, grid, subgrid;
+    char specifyParameters = *specifyParams ? '*' : ' ';
 
-    devNames = alloca(sizeof(*devNames) * (modInfo->numModules + 1));
-    modules = alloca(sizeof(*modules) * modInfo->numModules);
+    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?"),
+				20, 0, 10, 0);
+    listbox = newtListbox(-1, -1, 6, NEWT_FLAG_SCROLL);
 
     for (i = 0; i < modInfo->numModules; i++) {
 	if (modInfo->moduleList[i].major == type && 
 	    !mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
-	    modules[numModules] = i;
-	    devNames[numModules++] = modInfo->moduleList[i].description;
+	    newtListboxAppendEntry(listbox, modInfo->moduleList[i].description,
+				   (void *) i);
+	    if (modp && (modInfo->moduleList + i) == *modp)
+		newtListboxSetCurrentByKey(listbox, (void *) i);
 	}
     }
 
-    devNames[numModules] = NULL;
+    buttons = newtButtonBar(_("Ok"), &ok, _("Back"), &back, NULL);
+    checkbox = newtCheckbox(-1, -1, _("Specify module parameters"),
+			    specifyParameters, NULL, &specifyParameters);
+    subgrid = newtGridVStacked(NEWT_GRID_COMPONENT, listbox,
+			       NEWT_GRID_COMPONENT, checkbox, NULL);
+    grid = newtGridBasicWindow(text, subgrid, buttons);
 
-    i = 0;
-    rc = newtWinMenu(_("Load module"), _("Which driver should I try?"),
-		     20, 0, 10, 6, devNames, &i, _("Ok"), _("Back"), NULL);
+    newtGridWrappedWindow(grid, _("Devices"));
 
-    if (rc == 2) return NULL;
+    form = newtForm(NULL, NULL, 0);
+    newtGridAddComponentsToForm(grid, form, 1);
 
-    return modInfo->moduleList + modules[i];
+    answer = newtRunForm(form);
+    newtPopWindow();
+
+    newtGridFree(grid, 1);
+    newtFormDestroy(form);
+
+    if (answer == back) return LOADER_BACK;
+    
+    *specifyParams = (specifyParameters != ' ');
+    *modp = modInfo->moduleList + (int) newtListboxGetCurrent(listbox);
+
+    return 0;
 }
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
@@ -147,17 +164,19 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     enum { S_MODULE, S_ARGS, S_DONE } stage = S_MODULE;
     int rc;
     char ** args = NULL, ** arg;
+    int specifyArgs = 0;
 
     while (stage != S_DONE) {
     	switch (stage) {
 	  case S_MODULE:
-	    mod = pickModule(modInfo, type, modLoaded, mod);
-	    if (!mod) return LOADER_BACK;
+	    if ((rc = pickModule(modInfo, type, modLoaded, mod, &mod, 
+				 &specifyArgs)))
+		return LOADER_BACK;
 	    stage = S_ARGS;
 	    break;
 
 	  case S_ARGS:
-	    if (mod->numArgs) {
+	    if (specifyArgs) {
 		rc = getModuleArgs(mod, &args);
 		if (rc) {
 		    stage = S_MODULE;
