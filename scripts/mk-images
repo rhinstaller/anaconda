@@ -20,7 +20,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELPATH=$1
     TOPDESTPATH=$2
     IMAGEPATH=$2/images
-    FULLMODPATH=$2/RedHat/instimage/modules
+    FULLMODPATH=/tmp/instimagemods.$$
+    FINALFULLMODPATH=$2/RedHat/instimage/modules
     INSTIMGPATH=$2/RedHat/base
     INSTIMGTEMPLATE=$3
     IMGPATH=$2/RedHat/instimage
@@ -47,9 +48,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     rm -rf $IMAGEPATH
     rm -rf $FULLMODPATH
+    rm -rf $FINALFULLMODPATH
     rm -rf $KERNELROOT
     mkdir -p $IMAGEPATH
     mkdir -p $FULLMODPATH
+    mkdir -p $FINALFULLMODPATH
     mkdir -p $KERNELROOT
     mkdir -p $INSTIMGPATH
 
@@ -274,8 +277,11 @@ makemainmodules() {
     fi
 
     rm -rf $FULLMODPATH
+    rm -rf $FINALFULLMODPATH
 
     makemoduleball $extraargs $FULLMODPATH "$modlist"
+    cp -ar $FULLMODPATH $FINALFULLMODPATH
+    rm -rf $FULLMODPATH
 }
 
 makeinitrd() {
