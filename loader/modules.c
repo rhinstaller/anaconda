@@ -165,25 +165,35 @@ static int moduleLoaded(moduleList modList, const char * name) {
 }
 
 int mlLoadModule(struct moduleInfo * modInfo, moduleList modLoaded,
-	         moduleDeps modDeps) {
+	         moduleDeps modDeps, int testing) {
     moduleDeps dep;
     char ** nextDep;
+    char modName[80];
+    int rc;
+
 
     for (dep = modDeps; dep->name && strcmp(dep->name, modInfo->moduleName);
     	 dep++);
 
-    if (dep) {
+    if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
 	    if (!moduleLoaded(modLoaded, *nextDep)) {
-	    	insmod(*nextDep, NULL);
+		sprintf(modName, "%s.o", *nextDep);
+	    	if (!testing) insmod(*nextDep, NULL);
 	    }
 
 	    dep++;
 	}
     }
 
-    return insmod(modInfo->moduleName, NULL);
+    if (testing) return 0;
+
+    sprintf(modName, "%s.o", modInfo->moduleName);
+
+    rc = insmod(modName, NULL);
+    sleep(2);
+    return rc;
 }
 
 char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
