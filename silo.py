@@ -385,7 +385,9 @@ class SiloInstall:
 	    linuxAlias = ""
 	    for alias in linuxAliases:
 		if alias and alias != "":
-		    linuxAlias = linuxAlias + ";" + alias
+		    if linuxAlias != "":
+			linuxAlias = linuxAlias + ";"
+		    linuxAlias = linuxAlias + alias
 	elif self.siloDevice == "mbr":
 	    device = boothd
 	    try:
