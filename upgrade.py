@@ -539,7 +539,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             else:
                 supportedUpgradeVersion = 1
 
-    if supportedUpgradeVersion == 0:
+    if 0 and supportedUpgradeVersion == 0:
         rc = intf.messageWindow(_("Warning"),
                                 _("Upgrades for this version of %s "
                                   "are only supported from Red Hat Linux "
