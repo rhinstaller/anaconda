@@ -21,6 +21,7 @@ struct moduleInfo {
     int numArgs;
     struct moduleArg * args;
     int flags;
+    char * path;
 };
 
 struct moduleInfoSet_s {
@@ -32,7 +33,8 @@ typedef struct moduleInfoSet_s * moduleInfoSet;
 
 moduleInfoSet isysNewModuleInfoSet(void);
 void isysFreeModuleInfoSet(moduleInfoSet mis);
-int isysReadModuleInfo(const char * filename, moduleInfoSet mis);
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
+		       char * path);
 struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis, 
 				       const char * moduleName);
 
@@ -43,7 +45,7 @@ struct moduleInfo * isysGetModuleList(moduleInfoSet mis,
 /* returns -2 for errno, -1 for unknown device */
 int devMakeInode(char * devName, char * path);
 
-int insmod(char * modName, char ** args);
+int insmod(char * modName, char * path, char ** args);
 int rmmod(char * modName);
 
 #endif

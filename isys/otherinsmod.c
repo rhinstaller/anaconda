@@ -21,6 +21,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     FD_t fd;
     int rc, rmObj = 0;
     int sparc64 = 0;
+    char * ballPath = NULL;
 #ifdef __sparc__
 
     struct utsname u;
@@ -30,16 +31,26 @@ int ourInsmodCommand(int argc, char ** argv) {
 #endif
 
     if (argc < 2) {
-	fprintf(stderr, "usage: insmod <module>.o [params]\n");
+	fprintf(stderr, "usage: insmod [-p <path>] <module>.o [params]\n");
 	return 1;
     }
 
+    if (!strcmp(argv[1], "-p")) {
+	ballPath = malloc(strlen(argv[2]) + 30);
+	sprintf(ballPath, "%s/%s", argv[2], sparc64 ?
+		    "/modules/modules64.cgz" : "/modules/modules.cgz");
+	argv += 2;
+    } else {
+	ballPath = sparc64 ?
+		    "/modules/modules64.cgz" : "/modules/modules.cgz";
+
+    }
+
     file = argv[1];
+
     if (access(file, R_OK)) {
 	/* it might be having a ball */
-	fd = fdOpen(sparc64 ?
-		    "/modules/modules64.cgz" : "/modules/modules.cgz",
-		    O_RDONLY, 0);
+	fd = fdOpen(ballPath, O_RDONLY, 0);
 	if (fdFileno(fd) < 0) {
 	    return 1;
 	}
@@ -90,25 +101,35 @@ int rmmod(char * modName) {
     return rc;
 }
 
-int insmod(char * modName, char ** args) {
+int insmod(char * modName, char * path, char ** args) {
     int argc;
     char ** argv;
     int rc = 0;
     pid_t child;
     int status;
-
+    int count;
 
     argc = 0;
     for (argv = args; argv && *argv; argv++, argc++);
 
-    argv = alloca(sizeof(*argv) * (argc + 3));
+    argv = alloca(sizeof(*argv) * (argc + 5));
     argv[0] = "/bin/insmod";
-    argv[1] = modName;
-    if (args)
-	memcpy(argv + 2, args, sizeof(*args) * argc);
-    argv[argc + 2] = NULL;
+    count = 1;
+    if (path) {
+	argv[1] = "-p";
+	argv[2] = path;
+	count += 2;
+    }
 
-    argc += 2;
+    argv[1] = modName;
+    count++;
+
+    if (args)
+	memcpy(argv + count, args, sizeof(*args) * argc);
+
+    argv[argc + count] = NULL;
+
+    argc += count;
 
     if ((child = fork()) == 0) {
 	exit(ourInsmodCommand(argc, argv));
