@@ -834,7 +834,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
     char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int noDns = 0, rc;
+    int noDns = 0, noksdev = 0, rc;
     poptContext optCon;
 
     struct poptOption ksOptions[] = {
@@ -851,6 +851,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "essid", '\0', POPT_ARG_STRING, &essid, 0 },
         { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0 },
         { "onboot", '\0', POPT_ARG_STRING, &onboot, 0 },
+        { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
@@ -909,35 +910,37 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                        bootProto);
     } 
 
-    if (device) {
-        loaderData->netDev = strdup(device);
-        loaderData->netDev_set = 1;
-    }
+    if (!noksdev) {
+        if (device) {
+            loaderData->netDev = strdup(device);
+            loaderData->netDev_set = 1;
+        }
 
-    if (class) {
-        loaderData->netCls = strdup(class);
-        loaderData->netCls_set = 1;
-    }
+        if (class) {
+            loaderData->netCls = strdup(class);
+            loaderData->netCls_set = 1;
+        }
 
-    if (ethtool) {
-        if (loaderData->ethtool)
-            free(loaderData->ethtool);
-        loaderData->ethtool = strdup(ethtool);
-        free(ethtool);
-    }
+        if (ethtool) {
+            if (loaderData->ethtool)
+                free(loaderData->ethtool);
+            loaderData->ethtool = strdup(ethtool);
+            free(ethtool);
+        }
 
-    if (essid) {
-        if (loaderData->essid)
-            free(loaderData->essid);
-        loaderData->essid = strdup(essid);
-        free(essid);
-    }
-
-    if (wepkey) {
-        if (loaderData->wepkey)
-            free(loaderData->wepkey);
-        loaderData->wepkey = strdup(wepkey);
-        free(wepkey);
+        if (essid) {
+            if (loaderData->essid)
+                free(loaderData->essid);
+            loaderData->essid = strdup(essid);
+            free(essid);
+        }
+        
+        if (wepkey) {
+            if (loaderData->wepkey)
+                free(loaderData->wepkey);
+            loaderData->wepkey = strdup(wepkey);
+            free(wepkey);
+        }
     }
 
     if (noDns) {
