@@ -1,3 +1,8 @@
+2001-01-09  Matt Wilson  <msw@redhat.com>
+
+	* text.py (LanguageWindow.__call__): don't show Japanese if we
+	don't have kon available
+
 2000-11-20  Michael Fulbright  <msf@avatar.devel.redhat.com>
 
 	* Enabled edd support in libfdisk. Required passing new flag when
