@@ -369,7 +369,7 @@ mousehw    = mouse.Mouse(skipProbe = 1)
 if 1:
     sys.stdout.write(    _("Probing for video card:   "))
     fbdev = None
-    videohw    = videocard.VideoCardInfo()
+    videohw    = videocard.VideoCardInfo(skipDDCProbe = flags.test)
 
     if videohw and videohw.primaryCard():
         sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
@@ -378,7 +378,7 @@ if 1:
         sys.stdout.write(_("Unable to probe\n"))
 
     sys.stdout.write(    _("Probing for monitor type: "))
-    monitorhw  = monitor.MonitorInfo(fbDevice=fbdev)
+    monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = flags.test)
     sys.stdout.write(monitorhw.shortDescription()+'\n')
 
     # only probe if we're installing a real box or
