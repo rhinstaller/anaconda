@@ -6,7 +6,7 @@ class LogFile:
         self.logFile.close ()
     
     def open (self, serial, reconfigOnly, test):
-	if serial or reconfigOnly:
+        if serial:
 	    self.logFile = open("/tmp/install.log", "w")
 	elif reconfigOnly:
 	    self.logFile = open("/tmp/reconfig.log", "w")

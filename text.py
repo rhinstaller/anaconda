@@ -855,7 +855,7 @@ class InstallInterface:
 	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-	self.screen.suspendCallback(killSelf, self.screen)
+#	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
 	#self.screen.suspendCallback(debugSelf, self.screen)
