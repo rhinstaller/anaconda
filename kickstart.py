@@ -485,7 +485,7 @@ class KickstartBase(BaseInstallClass):
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
 		  'nodns', 'device=', 'hostname=', 'ethtool=', 'onboot=',
-		  'dhcpclass='])
+		  'dhcpclass=', 'essid=', 'wepkey='])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
@@ -493,6 +493,8 @@ class KickstartBase(BaseInstallClass):
 	nameserver = ""
 	hostname = ""
         ethtool = ""
+        essid = ""
+        wepkey = ""
 	onboot = 1
         device = None
         dhcpclass = None
@@ -514,6 +516,10 @@ class KickstartBase(BaseInstallClass):
 		hostname = arg
             elif str== "--ethtool":
                 ethtool = arg
+            elif str == "--essid":
+                essid = arg
+            elif str == "--wepkey":
+                wepkey = arg
             elif str== "--onboot":
 		if arg == 'no':
 		    onboot = 0
@@ -522,7 +528,7 @@ class KickstartBase(BaseInstallClass):
 	    elif str == "--class":
 		dhcpclass = arg
 
-	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device, onboot=onboot, dhcpclass=dhcpclass)
+	self.setNetwork(id, bootProto, ip, netmask, ethtool, device=device, onboot=onboot, dhcpclass=dhcpclass, essid=essid, wepkey=wepkey)
 	if hostname != "":
 	    self.setHostname(id, hostname, override = 1)
         if nameserver != "":

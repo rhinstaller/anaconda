@@ -297,7 +297,7 @@ class BaseInstallClass:
 
         id.auth.enableCache = enableCache
 
-    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None):
+    def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey + None):
 	if bootProto:
 	    devices = id.network.available ()
 	    if (devices and bootProto):
@@ -317,8 +317,13 @@ class BaseInstallClass:
                         dev.set (("ipaddr", ip))
                     if (netmask):
                         dev.set (("netmask", netmask))
-                    if (ethtool):
-                        dev.set (("ethtool_opts", ethtool))
+                if ethtool:
+                    dev.set (("ethtool_opts", ethtool))
+                if isys.isWireless(device):
+                    if essid:
+                        dev.set(("essid", essid))
+                    if wepkey:
+                        dev.set(("wepkey", wepkey))
 
     def setLanguageSupport(self, id, langlist):
 	if len (langlist) == 0:
