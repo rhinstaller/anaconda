@@ -745,6 +745,15 @@ class KickstartBase(BaseInstallClass):
         # if you want it
         self.setDefaultPartitioning(id, doClear = 0)
 
+        id.partitions.isKickstart = 1
+
+        self.skipSteps.append("partition")
+        self.skipSteps.append("partitionmethod")
+        self.skipSteps.append("partitionmethodsetup")
+        self.skipSteps.append("fdisk")
+        self.skipSteps.append("autopartition")
+        
+
     def defineLogicalVolume(self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',
                                                 'size=',
