@@ -37,7 +37,7 @@ DISCNUM  = 1000002
 class UrlInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
-	return ComponentSet(self.baseUrl + '/RedHat/base/comps', hdlist)
+	return ComponentSet(self.baseUrl + '/RedHat/base/comps.xml', hdlist)
 
     def getFilename(self, h, timer):
         tmppath = self.getTempPath()

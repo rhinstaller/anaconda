@@ -27,7 +27,7 @@ from rhpl.translate import _
 class ImageInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
-	return ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
+	return ComponentSet(self.tree + '/RedHat/base/comps.xml', hdlist)
 
     def getFilename(self, h, timer):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
