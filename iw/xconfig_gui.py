@@ -423,10 +423,13 @@ class MonitorWindow (InstallWindow):
 
 	    if self.currentMonitor[:len(ddc_monitor_string)] == ddc_monitor_string:
 		idname = "DDCPROBED"
+		monname = self.currentMonitor[len(ddc_monitor_string)+3:]
 	    elif self.currentMonitor == unprobed_monitor_string:
 		idname = "Unprobed Monitor"
+		monname = "Unprobed Monitor"
 	    else:
 		idname = self.currentMonitor
+		monname = self.currentMonitor
 
 	    # XXX - this is messed up - we set the monitor object in instdata
 	    #       to the current values, then we have to push it into the
@@ -434,7 +437,7 @@ class MonitorWindow (InstallWindow):
             self.monitor.setSpecs(monHoriz,
                                   monVert,
                                   id=idname,
-                                  name=self.currentMonitor)
+                                  name=monname)
 
 	    # shove into hw state object, force it to recompute available modes
 	    self.xsetup.xhwstate.monitor = self.monitor
@@ -645,20 +648,22 @@ class MonitorWindow (InstallWindow):
         #--Add a category for a DDC probed monitor if a DDC monitor was probed
 	self.ddcmon = self.monitor.getDDCProbeResults()
 	if self.ddcmon:
-	    title = ddc_monitor_string + " - " + self.ddcmon[1]
+	    title = ddc_monitor_string
+	    monentry = title + " - " + self.ddcmon[1]
 	else:
 	    title = unprobed_monitor_string
+	    monentry = title
 
 	man = title
 	toplevels[man] = self.monitorstore.append(None)
 	self.monitorstore.set_value(toplevels[man], 0, title)
 	iter = self.monitorstore.append(toplevels[man])
-	self.monitorstore.set_value(iter, 0, title)
+	self.monitorstore.set_value(iter, 0, monentry)
 
 	# set as current monitor if necessary
 	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
-	    self.currentMonitor = title
-	    self.origMonitorName = title
+	    self.currentMonitor = monentry
+	    self.origMonitorName = monentry
 
 	# now insert rest of monitors, unless we match the ddc probed id
         for man in keys:

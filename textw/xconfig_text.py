@@ -384,6 +384,13 @@ class MonitorWindow:
 			      "31.5", "50-61")
 	    else:
 		selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
+
+		# if lookup failed fail back to unprobed monitor
+		# should fix reports of tracebacks because selMonitor was None
+		if selMonitor is None:
+		    selMonitor = (unprobed_monitor_string,
+				  unprobed_monitor_string,
+				  "31.5", "50-61")
             
             bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Default"), "default"),
                                      TEXT_BACK_BUTTON))
@@ -453,16 +460,19 @@ class MonitorWindow:
         # store results
         selMonitorName = self.currentMonitor
 	if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
-	    selMonitor = self.ddcmon
+	    selMonitor = ("DDCPROBED",) + self.ddcmon[1:]
+
 	elif selMonitorName == unprobed_monitor_string:
 	    selMonitor = (unprobed_monitor_string, unprobed_monitor_string,
 			  "31.5", "50-61")
 	else:
 	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
+	    # field 1 and two are reverse apparently from what ddcmon returns?!
+	    selMonitor = (selMonitor[1], selMonitor[0], selMonitor[2], selMonitor[3])
 	if selMonitor:
 	    self.monitor.setSpecs(hval, vval, id=selMonitor[0],
-				  name=selMonitor[0])
+				  name=selMonitor[1])
         
 	    # shove into hw state object, force it to recompute available modes
 	    self.xsetup.xhwstate.monitor = self.monitor
