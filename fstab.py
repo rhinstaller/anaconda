@@ -222,7 +222,7 @@ class Fstab:
 
     def turnOnSwap(self, formatSwap = 1):
 	# we could be smarter about this
-	if self.swapOn: return
+	if self.swapOn or self.rootOnLoop(): return
 	self.swapOn = 1
 
 	iutil.mkdirChain('/tmp/swap')
