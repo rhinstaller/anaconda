@@ -289,6 +289,7 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 {
     TimeZoneLocation *loc;
     GnomeCanvasPoints *points;
+    char *status_text;
 
     g_return_if_fail ( index >= 0 );
 
@@ -335,11 +336,18 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 				       "fill_color", SELECTED_COLOR, 
 				       NULL);
 	    
-	    gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
-	    gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, loc->zone );
 	}
+
 	mapdata->hiliteindex = index;
     }
+
+    /* keep status bar from flickering */
+    gtk_label_get (GTK_LABEL (GTK_STATUSBAR (mapdata->statusbar)->label), &status_text);
+    if (strcmp (status_text, loc->zone) != 0)
+      {
+	gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
+	gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, loc->zone);
+      }
     
     gnome_canvas_points_free (points);
 }
