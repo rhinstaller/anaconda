@@ -130,6 +130,12 @@ class PartitionWindow:
 
 
 class InstallProgressWindow:
+    def setPackageScale(self, amount, total):
+	self.progress.update((amount * 1.0)/ total)
+  	while events_pending():
+	    mainiteration(FALSE)
+	
+
     def setPackage(self, name):
 	print name
         self.label.set_text (name)
@@ -144,9 +150,13 @@ class InstallProgressWindow:
         self.window.set_border_width(10)
         self.window.set_title('Installing Packages')
         self.window.set_position(WIN_POS_CENTER)
+	self.progress = GtkProgressBar()
+	vbox = GtkVBox()
         self.label = GtkLabel()
         self.label.set_line_wrap (TRUE)
-	self.window.add(self.label)
+        vbox.pack_start(self.label, TRUE, TRUE, 0)
+        vbox.pack_start(self.progress, TRUE, TRUE, 0)
+	self.window.add(vbox)
 	self.window.show_all()
 
 class InstallInterface:
