@@ -87,7 +87,10 @@ class Network:
         for dev in self.netdevices.values ():
             ip = dev.get ("ipaddr")
             if ip:
-                (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
+                try:
+                    (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
+                except socket.error:
+                    hostname = ""
                 if hostname:
                     dev.hostname = hostname
                     self.domains.append (string.joinfields (string.splitfields (hostname, '.')[1:], '.'))
@@ -136,7 +139,82 @@ class Language (SimpleConfigFile):
         
     def get (self):
         return self.lang
+
+class Mouse (SimpleConfigFile):
+    # XXX fixme - externalize
+    def __init__ (self):
+        self.info = {}
+        self.mice = {
+            "PS/2" :
+                    ("ps/2", "PS/2", "psaux"),
+            "ALPS GlidePoint (PS/2)" :
+                    ("ps/2", "GlidePointPS/2", "psaux"),
+            "ASCII MieMouse (serial)" :
+                    ("ms3", "IntelliMouse", "ttyS"),
+            "ASCII MieMouse (PS/2)" : 
+                    ("ps/2", "NetMousePS/2", "psaux"),
+            "ATI Bus Mouse" :
+                    ("Busmouse", "BusMouse", "atibm"),
+            "Generic Mouse (serial)" :
+                    ("Microsoft", "Microsoft", "ttyS"),
+            "Generic 3 Button Mouse (serial)" :
+                    ("Microsoft", "Microsoft", "ttyS"),
+            "Generic Mouse (PS/2)" :
+                    ("ps/2", "PS/2", "psaux"),
+            "Generic 3 Button Mouse (PS/2)" :
+	            ("ps/2", "PS/2", "psaux"),
+            "Genius NetMouse (serial)",
+        	   ("ms3", "IntelliMouse", "ttyS"),
+            "Genius NetMouse (PS/2)" :
+	            ("netmouse", "NetMousePS/2", "psaux"),
+            "Genius NetMouse Pro (PS/2)" :
+	            ("netmouse", "NetMousePS/2", "psaux"),
+            "Genius NetScroll (PS/2)" :
+	            ("netmouse", "NetScrollPS/2", "psaux"),
+            "Kensington Thinking Mouse (PS/2)" :
+            	    ("ps/2", "ThinkingMousePS/2", "psaux"),
+            "Logitech Mouse (serial, old C7 type)" :
+            	    ("Logitech", "Logitech", "ttyS"),
+            "Logitech CC Series (serial)" :
+	            ("logim", "MouseMan", "ttyS"),
+            "Logitech Bus Mouse" :
+            	    ("Busmouse", "BusMouse", "logibm"),
+            "Logitech MouseMan/FirstMouse (serial)" :
+            	    ("MouseMan", "MouseMan", "ttyS"),
+            "Logitech MouseMan/FirstMouse (ps/2)" :
+            	    ("ps/2", "PS/2", "psaux"),
+            "Logitech MouseMan+/FirstMouse+ (serial)" :
+	            ("pnp", "IntelliMouse", "ttyS"),
+            "Logitech MouseMan+/FirstMouse+ (PS/2)" :
+	            ("ps/2", "MouseManPlusPS/2", "psaux"),
+            "Microsoft compatible (serial)" :
+            	    ("Microsoft",    "Microsoft", "ttyS"),
+            "Microsoft Rev 2.1A or higher (serial)" :
+                    ("pnp", "Auto", "ttyS"),
+            "Microsoft IntelliMouse (serial)" :
+                    ("ms3", "IntelliMouse", "ttyS"),
+            "Microsoft IntelliMouse (PS/2)" :
+            	    ("imps2", "IMPS/2", "psaux"), 
+            "Microsoft Bus Mouse" :
+	            ("Busmouse", "BusMouse", "inportbm"),
+            "Mouse Systems (serial)" :
+            	    ("MouseSystems", "MouseSystems", "ttyS"), 
+            "MM Series (serial)" :
+	            ("MMSeries", "MMSeries", "ttyS"),
+            "MM HitTablet (serial)" :
+	            ("MMHitTab", "MMHittab", "ttyS"),
+            }
             
+
+    def available (self):
+        return self.mice.keys ()
+
+    def set (self, mouse):
+        (gpm, x11, dev) = self.mice[mouse]
+        self.info["MOUSETYPE"] = gpm
+        self.info["XMOUSETYPE"] = x11
+        self.info["FULLNAME"] = mouse
+        
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1):
@@ -151,6 +229,7 @@ class ToDo:
         self.language = Language ()
         self.network = Network ()
         self.rootpassword = Password ()
+        self.mouse = Mouse ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -208,6 +287,11 @@ class ToDo:
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
 	f.write(str (self.language))
+	f.close()
+
+    def writeMouse(self):
+	f = open(self.instPath + "/etc/sysconfig/mouse", "w")
+	f.write(str (self.mouse))
 	f.close()
 
     def installLilo(self):
