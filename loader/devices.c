@@ -120,7 +120,8 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 
 int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint) {
-    char * files[] = { "modules.cgz", "modinfo", "modules.dep", NULL };
+    char * files[] = { "pcitable", "modules.cgz", "modinfo", "modules.dep", 
+			NULL };
     char * dirName;
     char ** file;
     int badDisk = 0;
@@ -152,6 +153,8 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     isysReadModuleInfo(from, modInfo, dirName);
     sprintf(from, "%s/modules.dep", dirName);
     mlLoadDeps(modDepsPtr, from);
+    sprintf(from, "%s/pcitable", dirName);
+    pciReadDrivers(from);
 
     diskNum++;
 
@@ -175,8 +178,9 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	devMakeInode("fd0", "/tmp/fd0");
 
 	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
-	    newtWinMessage(_("Error"), _("OK"), 
-			   _("Failed to mount floppy disk."));
+	    if (doPwMount("/tmp/fd0", "/tmp/drivers", "ext2", 1, 0, NULL, NULL))
+		newtWinMessage(_("Error"), _("OK"), 
+			       _("Failed to mount floppy disk."));
 
 	if (devCopyDriverDisk(modInfo, modLoaded, modDepsPtr, 
 			      flags, "/tmp/drivers"))
