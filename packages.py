@@ -176,6 +176,16 @@ def readPackages(intf, method, id):
                                _("Unable to merge header list.  This may be "
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
+
+    # this is a crappy hack, but I don't want bug reports from these people
+    if (arch == "i386") and (not grpset.hdrlist.has_key("kernel")):
+        intf.messageWindow(_("Error"),
+                           _("You are trying to install on a machine "
+                             "which isn't supported by this release of "
+                             "%s.") %(productName,),
+                           type="custom", custom_icon="error",
+                           custom_buttons=[_("_Exit")])
+        sys.exit(0)
         
     id.grpset = grpset
 
