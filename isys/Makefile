@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
-CFLAGS = -I/usr/include/python1.5 -I.. -Wall -O2 -g -fPIC -DHAVE_NFS -DHAVE_NFSV3
+CFLAGS = -I/usr/include/python1.5 -I.. -Wall -O2 -g -fPIC -DHAVE_NFS
 OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o
