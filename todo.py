@@ -131,6 +131,8 @@ class Network:
 
     def lookupHostname (self):
 	# can't look things up if they don't exist!
+	if not self.hostname: return None
+
 	if not self.isConfigured:
 	    for dev in self.netdevices.values():
 		if dev.get('bootproto'):
