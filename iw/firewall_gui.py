@@ -130,7 +130,7 @@ class FirewallWindow (InstallWindow):
 
                 if bad_token_found == 1: # raise a warning
                     text = _("Invalid port given: %s.  The proper format is "
-                             "'port:protocol', where port is between 1 and 65535, and port is either 'tcp' or 'udp'.\n\nFor example, "
+                             "'port:protocol', where port is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n\nFor example, "
                              "'1234:udp'") % (bad_token,)
 
                     self.intf.messageWindow(_("Warning: Bad Token"),
