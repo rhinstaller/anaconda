@@ -256,7 +256,7 @@ class BootloaderImagesWindow:
         if not label:
             label = ""
 	    
-	return "     %-12s  %-7s %-25s" % ( "/dev/" + device, default, label)
+	return "   %-4s  %-25s %-25s" % ( default, label, "/dev/" + device)
 
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
 	if dispatch.stepInSkipList("instbootloader"): return INSTALL_NOOP
@@ -271,8 +271,8 @@ class BootloaderImagesWindow:
         
         self.bl = bl
 
-	listboxLabel = Label(     "%-12s  %-7s %-25s" % 
-		( _("Device"), _("Default"), _("Boot label")))
+	listboxLabel = Label(     "%-7s  %-25s %-12s" % 
+		( _("Default"), _("Boot label"), _("Device")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
 
 	sortedKeys = images.keys()
