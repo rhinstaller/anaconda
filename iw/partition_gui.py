@@ -306,7 +306,7 @@ def createMountPointCombo(request):
 	mntptlist.append(request.fslabel)
 
     for p in defaultMountPoints:
-	if not p in mntptlist:
+	if not p in mntptlist and (p[0] == "/"):
 	    mntptlist.append(p)
 
     mountCombo.set_popdown_strings (mntptlist)
