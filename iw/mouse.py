@@ -48,6 +48,22 @@ class MouseWindow (InstallWindow):
             self.ctree.node_set_row_data (node, list[0])
             self.build_ctree (list[1:], cur_parent, node)
 
+   
+    def selectMouse (self, ctreeNode, mouseNode):
+        if len (ctreeNode) == 0 or len (mouseNode) == 0: return
+        
+        nodeLabel = self.ctree.get_node_info (ctreeNode[0])[0]
+        if nodeLabel == mouseNode[0]:
+            if len (mouseNode) == 1:
+                self.ctree.select (ctreeNode[0])
+                return
+            else:
+                self.ctree.expand (ctreeNode[0])
+                self.selectMouse (ctreeNode[0].children, mouseNode[1:])
+        else:
+            self.selectMouse (ctreeNode[1:], mouseNode)
+
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
@@ -88,7 +104,9 @@ class MouseWindow (InstallWindow):
 	self.ics.setNextEnabled (TRUE)
 
     def selectMouseType (self, widget, node, *args):
-	if not node.is_leaf:
+        if not node.is_leaf:
+	    self.locList.unselect_all ()
+	    self.locList.set_sensitive (FALSE)
             self.ics.setNextEnabled (FALSE)
 	    return
 
@@ -108,7 +126,7 @@ class MouseWindow (InstallWindow):
 		print "disabling next"
 		self.ics.setNextEnabled (FALSE)
 
-	    self.locList.set_sensitive(TRUE)
+	    self.locList.set_sensitive (TRUE)
 	else:
 	    self.locList.unselect_all()
 	    self.locList.set_sensitive(FALSE)
@@ -169,10 +187,22 @@ class MouseWindow (InstallWindow):
 	    self.locList.unselect_all();
 	    self.serialDevice = None
 
+	splitv = string.split (currentMouse, " - ", 1)
+	nodes = self.ctree.base_nodes ()
+        # do a simple search on the root nodes, since leaf reduction creates
+        # a special case
+        found = 0
+	for x in nodes:
+            if self.ctree.get_node_info (x)[0] == "%s %s" % tuple (splitv):
+                found = 1
+                self.ctree.select (x)
+                break
+
+        if not found:
+            self.selectMouse (nodes, splitv)
+                
         box.pack_start (sw)
         box.pack_start (self.locList, FALSE)
 
         return box
 
-
-   
