@@ -475,6 +475,11 @@ class InstallControlWindow (Thread):
         else:
             self.locale = "C"
 
+    def keyRelease (self, window, event):
+        if ((event.keyval == KP_Delete or event.keyval == Delete)
+            and (event.state & (CONTROL_MASK | MOD1_MASK))):
+            os.kill (os.getpid(), 9)
+
     def run (self):
         threads_enter ()
         self.window = GtkWindow ()
@@ -533,6 +538,7 @@ class InstallControlWindow (Thread):
         group = GtkAccelGroup()
         self.nextButtonStock.add_accelerator ("clicked", group, F12, RELEASE_MASK, 0);
         self.window.add_accel_group (group)
+        self.window.connect_after ("key-release-event", self.keyRelease)
 
         self.buttonBox.add (self.prevButtonStock)
         self.buttonBox.add (self.nextButtonStock)
