@@ -50,7 +50,7 @@ class InstallProgressWindow (InstallWindow):
 	newval = float (amount) / total
 	if newval < 0.998:
 	    if (newval - self.curScaleValue) < 0.10 and newval > self.curScaleValue:
-	    return
+                return
 
 	self.progress.update (newval)
 	self.curScaleValue = newval
