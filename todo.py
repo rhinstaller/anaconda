@@ -734,12 +734,20 @@ class ToDo:
 	# don't load it just for this
 	if not self.comps: return
 
+        
 	group = self.instClass.getGroups()
         optional = self.instClass.getOptionalGroups()
 	packages = self.instClass.getPackages()
-	if (group == None and packages == None): return 0
-	for n in self.comps.keys():
-	    self.comps[n].unselect()
+        print group,optional,packages
+	for comp in self.comps:
+	    comp.unselect()
+
+	if group == None and packages == None:
+            # this comp has no special groups, set up the defaults
+            # and exit
+            for comp in self.comps:
+                comp.setDefaultSelection()
+            return
 
 	self.comps['Base'].select()
 	if group:
