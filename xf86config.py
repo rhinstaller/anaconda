@@ -446,7 +446,7 @@ EndSection
         if self.monEisa:
             info["EISA"] = self.monEisa
         else:
-            info["EISA"] = "My Monitor"
+            info["EISA"] = "Generic Monitor"
 
         self.monID = info["EISA"]
 
@@ -466,6 +466,17 @@ EndSection
 # **********************************************************************
 
 # Any number of monitor sections may be present
+Section "Monitor"
+    Identifier  "Generic Monitor"
+    VendorName  "Unknown"
+    ModelName   "Unknown"
+    HorizSync   31.5
+    VertRefresh 60
+    Mode "640x480"        25.175  640 664 760 800
+                                  480 491 493 525
+    EndMode
+EndSection
+
 Section "Monitor"
 
     Identifier  "%(EISA)s"

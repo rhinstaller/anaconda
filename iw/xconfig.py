@@ -37,6 +37,15 @@ class XCustomWindow (InstallWindow):
         self.todo.x.modes = newmodes
         
     def testPressed (self, widget, *args):
+        newmodes = {}
+
+        for depth in self.toggles.keys ():
+            newmodes[depth] = []
+            for (res, button) in self.toggles[depth]:
+                if button.get_active ():
+                    newmodes[depth].append (res)
+
+        self.todo.x.modes = newmodes
         try:
             self.todo.x.test ()
         except RuntimeError:
@@ -169,7 +178,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-        if self.todo.x.monID == "My Monitor":
+        if self.todo.x.monID == "Generic Monitor":
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))
