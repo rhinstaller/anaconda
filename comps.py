@@ -1019,10 +1019,28 @@ def orderPackageGroups(curgroups):
     ignorelst = []
     retlist = []
     retdict = {}
-
+ 
+    if os.environ.has_key("LANG"):
+        langs = language.expandLangs(os.environ["LANG"])
+    else:
+        langs = []
+   
     for key in compsParents:
-        retlist.append(key)
-        retdict[key] = []
+
+        # get the translated name
+        myname = None
+        if not compsHierarchy.translations.has_key(key):
+            myname = key
+        else:
+            for lang in langs:
+                if compsHierarchy.translations[key].has_key(lang):
+                    myname = compsHierarchy.translations[key][lang]
+                    break
+            if myname is None:
+                myname = key
+        
+        retlist.append(myname)
+        retdict[myname] = []
         
 	compslist = compsHierarchy[key]
 	for grp in compslist:
@@ -1030,9 +1048,9 @@ def orderPackageGroups(curgroups):
 	    if grp in grpids:
                 thecomp = curgroups.compsById[grp]
 		ignorelst.append(grp)
-                retdict[key].append(thecomp)
+                retdict[myname].append(thecomp)
 
-    miscgrp = "Miscellaneous"
+    miscgrp = _("Miscellaneous")
     for grp in grpids:
 	if grp in ignorelst:
 	    continue
