@@ -14,7 +14,6 @@ class InstallClass(BaseInstallClass):
 
     def setSteps(self, dispatch):
 	dispatch.setStepList(
-		    "mouse",
                     "findrootparts",
 		    "findinstall",
                     "partitionobjinit",
