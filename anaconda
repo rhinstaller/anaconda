@@ -43,7 +43,7 @@ for n in args:
     elif (str == '--mountfs'):
 	forceMount = 1
     elif (str == '--traceonly'):
-	forceMount = 1
+	traceOnly = 1
 
 if (debug):
     import pdb
@@ -219,7 +219,7 @@ if test:
 if forceMount:
     setupFilesystems = 1
 
-if traceonly:
+if traceOnly:
     sys.exit(0)
 
 try:
