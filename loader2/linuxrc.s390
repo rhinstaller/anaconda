@@ -166,7 +166,7 @@ fi
 # Check for missing parameters, prompt for them if necessary
 while [ -z "$NETTYPE" ]; do
    echo $"Which kind of network device do you intend to use"
-   echo $"  (e.g. ctc, escon, iucv, eth, hsi, lcs)."
+   echo $"  (e.g. ctc, iucv, eth, hsi, lcs)."
    echo $"Enter 'eth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
    echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
    echo $"  (running Ethernet LAN emulation) features in QDIO mode."
@@ -175,7 +175,6 @@ while [ -z "$NETTYPE" ]; do
    echo $"Enter 'lcs' for OSA­2 Ethernet/Token Ring, OSA-Express Fast Ethernet in"
    echo $"  non-QDIO mode, OSA-Express High Speed Token Ring in non-QDIO mode and"
    echo $"  Gigabit Ethernet in non-QDIO mode."
-
 	read NETTYPE
 done
 DEVICE=${NETTYPE}0
@@ -188,7 +187,7 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 	fi
    while [ -z "$SUBCHANNELS" ]; do
 		echo $"Enter the bus ID and the device number of your CCW devices."
-		echo $"CTC, ESCON and LCS need two subchannels:"
+		echo $"CTC/ESCON and LCS need two subchannels:"
 		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
 		echo $"with the subchannels 0x600 and 0x601)"
 		echo $"QETH and HSI need three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
@@ -204,7 +203,7 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 			read PORTNAME
 		fi
       DIRNAME="qeth"
-   elif [ "$NETTYPE" = "ctc" -o "$NETTYPE" = "escon" ]; then
+   elif [ "$NETTYPE" = "ctc" ]; then
       DIRNAME="ctc"
    elif [ "$NETTYPE" = "lcs" ]; then
       DIRNAME="lcs"
@@ -238,7 +237,7 @@ if [ "$NETTYPE" = "eth" ] || [ "$NETTYPE" = "hsi" ] || [ "$NETTYPE" = "lcs" ]; t
 		  echo $"Enter your default gateway:"
 		  read GATEWAY
 	 done
-else  # ctc0, escon0, iucv0
+else  # ctc0, iucv0
     if [ -z "$NETMASK" ]; then
         # If the user did not supply netmask, we add the right one.
         # Netmask MUST be present, or pumpSetupInterface() blows routes.
@@ -272,7 +271,7 @@ if [ -n "$MTU" -a -z "$MMTU" ]; then
 fi
 
 # configure network-interface
-if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
+if [ ":$NETTYPE" = ":ctc" ]; then
    insmod ccwgroup$LO
 	insmod cu3088$LO
 	insmod fsm$LO
