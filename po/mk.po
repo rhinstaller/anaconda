@@ -1,22 +1,22 @@
 # translation of mk.po to Macedonian
 # translation of anaconda.po to Macedonian
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# This file is distributed under the same license as the mk package.
+# Copyright (C) 2004 THE mk'S COPYRIGHT HOLDER.
 # Blagoja Gjakovski <blgj@freemail.com.mk>, 2004.
 # Arangel Angov <ufo@linux.net.mk>, 2004.
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-12 01:03+0200\n"
+"PO-Revision-Date: 2004-10-12 00:43+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -2521,15 +2521,12 @@ msgstr ""
 "надоградба?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Архитектурата на верзијата на %s која што ја надградувате, изгледа дека е %"
-"s, и како таква не одговара на Вашата претходно инсталирана архитектура на %"
-"s.  Ова најверојатно нема да успее.  Дали сте сигурни дека сакате да го "
-"продолжите со надоградба?"
+"Изгледа дека правите надградба на систем кој што е престар за да биде надграден на оваа верзија на %s  Дали сте сигурни дека сакате да продолжите со надградбата?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2622,7 +2619,7 @@ msgstr "You have not specified a device number or the number is invalid"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
 msgid "You have not specified a SCSI ID or the ID is invalid."
@@ -2630,15 +2627,15 @@ msgstr "Не одредивте ID за SCSI или пак тоа не е вал
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
+msgstr "Не одредивте порта или пак името е невалидно."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 msgid "You have not specified a SCSI LUN or the number is invalid."
@@ -3352,14 +3349,13 @@ msgid "_Enable firewall"
 msgstr "_Вклучи огнен ѕид"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Со огнениот ѕид можете да дозволите пристап до одредени сервиси на Вашиот "
-"компјутер.  До кои сервиси да дозволам пристап?"
+"Можете да го користите огнениот ѕид за да дозволите пристап до одредени сервиси на Вашиот "
+"компјутер.  До кои сервиси сакате да дозволите пристап ?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -3682,7 +3678,7 @@ msgstr "_Физичко проширување:"
 
 #: ../iw/lvm_dialog_gui.py:984
 msgid "Physical Volumes to _Use:"
-msgstr ""
+msgstr "Физички простори за _користење:"
 
 #: ../iw/lvm_dialog_gui.py:990
 msgid "Used Space:"
@@ -4303,13 +4299,13 @@ msgstr "Софтверски RAID НЕ Е поддржан на оваа пла�
 
 #: ../iw/partition_gui.py:1206
 msgid "No RAID minor device numbers available"
-msgstr ""
+msgstr "Не се достапни броеви за помал RAID уред"
 
 #: ../iw/partition_gui.py:1207
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr ""
+msgstr "Уред за софтверски RAID не може да биде креиран поради тоа што сите достапни броеви за помали RAID уреди се зафатени."
 
 #: ../iw/partition_gui.py:1221
 msgid "RAID Options"
@@ -4333,7 +4329,8 @@ msgid ""
 "RAID'.  Then you can create a RAID device which can be formatted and "
 "mounted.\n"
 "\n"
-msgstr ""
+msgstr "За да користите RAID прво мора да креирате најмалку две партиции од типот „софтверски RAID“.  Потоа можете да скреирате RAID уред кој што понатаму може да биде форматиран и монтиран.\n"
+"\n"
 
 #: ../iw/partition_gui.py:1249
 msgid "What do you want to do now?"
@@ -4341,7 +4338,7 @@ msgstr "Што сакате да направите сега?"
 
 #: ../iw/partition_gui.py:1258
 msgid "Create a software RAID _partition."
-msgstr ""
+msgstr "Креирај партиција 'Софтверски RAID'."
 
 #: ../iw/partition_gui.py:1261
 #, python-format
@@ -4355,7 +4352,7 @@ msgstr "Клонирај _уред за создавање на RAID уред [�
 
 #: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
+msgstr "Не можам да креирам уредувач за клонирање на драјвови"
 
 #: ../iw/partition_gui.py:1305
 msgid "The drive clone editor could not be created for some reason."
@@ -4409,7 +4406,7 @@ msgstr "Прегледај ги (и промени ги ако е потребн
 #: ../textw/partition_text.py:250 ../textw/partition_text.py:252
 #: ../textw/partition_text.py:277
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<Не е променливо>"
 
 #: ../iw/partition_ui_helpers_gui.py:238
 msgid "How would you like to prepare the file system on this partition?"
@@ -4436,7 +4433,7 @@ msgstr "Проверка за лоши сектори?"
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
+msgstr "Типот на партицијата '%s' мора да биде ограничен на еден драјв.  Ова се прави со избирање на драјвот во листата на 'Дозволени драјвови'."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4588,7 +4585,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:479 ../iw/raid_dialog_gui.py:485
 #: ../iw/raid_dialog_gui.py:497 ../iw/raid_dialog_gui.py:510
 msgid "Source Drive Error"
-msgstr ""
+msgstr "Грешка со изворниот драјв"
 
 #: ../iw/raid_dialog_gui.py:486
 msgid ""
@@ -4628,7 +4625,7 @@ msgstr "Ве молам одберете ги целните уред за оп�
 #: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
+msgstr "Изворниот драјв /dev/%s исто така не може да биде одбран како целен драјв."
 
 #: ../iw/raid_dialog_gui.py:544
 #, python-format
@@ -4639,18 +4636,25 @@ msgid ""
 "\"%s\"\n"
 "\n"
 "This partition must be removed before this drive can be a target."
-msgstr ""
+msgstr "Целниот драјв /dev/%s има партиција која што не може да биде отстранета поради "
+"следниве причини:\n"
+"\n"
+"\"%s\"'\n"
+"\n"
+"Оваа партиција мора да биде отстранета."
+""
 
 #: ../iw/raid_dialog_gui.py:605
 msgid "Please select a source drive."
-msgstr ""
+msgstr "Ве молам изберете изворен драјв."
 
 #: ../iw/raid_dialog_gui.py:625
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
 "\n"
-msgstr ""
+msgstr "Драјвот /dev/%s ќе биде клониран на следниве драјвови:\n"
+"\n"
 
 #: ../iw/raid_dialog_gui.py:630
 msgid ""
@@ -4693,7 +4697,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:698
 msgid "Source Drive:"
-msgstr ""
+msgstr "Изворен драјв:"
 
 #: ../iw/raid_dialog_gui.py:706
 msgid "Target Drive(s):"
@@ -4851,7 +4855,9 @@ msgid ""
 "loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
-msgstr ""
+msgstr "Ова издание на %s има поддршка за ext3 journaling датотечниот систем.  Има неколку предности за разлика од ext2 датотечниот систем кој што традиционално беше испорачуван со %s.  Moжна е миграција од ext2 до ext3 форматирана партиција без загуба на податоци.\n"
+"\n"
+"Која од овие партиции сакате да ја мигрирате?"
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
@@ -4864,7 +4870,7 @@ msgid ""
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
+msgstr "Кернелот 2.4 има потреба од поголем swap простор за разлика од постарите кернели. Тој има потреба од два пати повеќе RAM и swap простор на системот.  Моментално имате %dMB swap простор, но можете да креирате и додатен swap простор на еден од вашите датотечни системи."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -5005,7 +5011,7 @@ msgstr "_Одбери тип на монитор"
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
-msgstr ""
+msgstr "Во повеќето случаи мониторот е детектиран автоматски. Ако детектираните подесувања за мониторот не се точни, тогаш изберете ги правите подесувања."
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
@@ -5053,7 +5059,7 @@ msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
-msgstr ""
+msgstr "Мора да одберете графичка картичка пред да продолжи конфигурацијата за X.  Ако сакате да ја прескокнете конфигурацијата на X одберете го копчето 'Прескокни конфигурација на X'."
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
@@ -5122,7 +5128,7 @@ msgstr "z/IPL конфигурација на подигнувачот"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr ""
+msgstr "На вашиот систем ќе биде инсталиран подигнувачот z/IPL."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -5147,7 +5153,7 @@ msgstr "Параметри на кернелот"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "Параметри за каналот на уредот"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5159,7 +5165,12 @@ msgid ""
 "It is highly recommended you create a boot diskette.\n"
 "\n"
 "Would you like to create a boot diskette?"
-msgstr ""
+msgstr "Дискетата за подигнување Ви овозможува да го подигнете Вашиот %s систем од флопи дискета.  "
+"Дискетата за подигнување Ви овозможува да го подигнете Вашиот систем во случај на неработење на постоечката конфигурација.\n"
+"\n"
+"Препорачливо е да креирате дискета за подигнување.\n"
+"\n"
+"Дали сакате да креирате дискета за подигнување?"
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
@@ -5201,7 +5212,7 @@ msgid ""
 "for the system to function properly. If you need to pass boot options to the "
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
-msgstr ""
+msgstr "Неколку системи ќе треба да му пренесат специјални опции на кернелот при неговото подигнување за истиот да функционира како што треба. Ако сакате да му додадете додатни опции на кернелот внесете ги сега. Ако пак не сте сигурни, оставете го ова празно."
 
 #: ../textw/bootloader_text.py:119
 msgid "Force use of LBA32 (not normally required)"
@@ -5303,6 +5314,8 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Отстранете било каков инсталационен медиум (дискети или ЦД-иња) користени при процесот за инсталација и притиснете <Enter> за да го рестартирате Вашиот систем.\n"
+"\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
@@ -5328,6 +5341,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
+"За информации за errata (надградби и закрпи), посетете ја http://www.redhat."
+"com/errata/.\n"
+"\n"
+"Информации за користење на Вашиот систем можете да најдете во %s упатствата на http://"
+"www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
@@ -5375,6 +5393,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
+"Комплетен лог од Вашата надградба ќе можете да најдето во %s веднаш по рестартирање на Вашиот систем. "
+"Препорачливо е да ја зачувате оваа датотека за понатаму."
 
 #: ../textw/desktop_choice_text.py:27
 #, python-format
@@ -5414,7 +5434,7 @@ msgstr "Поставки на дискот"
 #: ../textw/fdasd_text.py:74
 #, python-format
 msgid "An error occurred while running %s on drive %s."
-msgstr ""
+msgstr "Се појави грешка при извршување на %s на уредот %s."
 
 #: ../textw/fdasd_text.py:85
 #, python-format
@@ -5424,6 +5444,10 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
+"Со извршување на dasdfmt значи дека ќе \n"
+"ги изгубите сите податоци на уредот %s.\n"
+"\n"
+"Дали навистина го сакате ова?"
 
 #: ../textw/fdasd_text.py:101
 msgid ""
@@ -5476,7 +5500,7 @@ msgstr ""
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
-msgstr ""
+msgstr "Security Enhanced Linux"
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5900,9 +5924,8 @@ msgid "No Volume Groups"
 msgstr ""
 
 #: ../textw/partition_text.py:1173
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Стартувачките партиции не можат да бидат на логички дискови."
+msgstr "Нема каде да се креира логички простор"
 
 #: ../textw/partition_text.py:1289
 #, python-format
@@ -5910,6 +5933,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
+"Тековната потребна големина (%10.2f MB) е поголема од максималната големина на логичкиот простор (%10.2f MB). "
 
 #: ../textw/partition_text.py:1308
 #, python-format
@@ -6420,11 +6444,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
-msgstr ""
+msgstr "Хоризонтално:"
 
 #: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
-msgstr ""
+msgstr "Вертикално:"
 
 #: ../textw/xconfig_text.py:419
 #, python-format
@@ -6432,6 +6456,7 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
+"Одберете монитор за Вашиот систем.  Користете го копчето '%s' за да се вратите на старите вредности."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6463,6 +6488,7 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
+"Ве молам одберете ја видео картичката присутна на Вашиот систем.  Одберете '%s' за да ја ресетирате вредноста на онаа која што ја детектираше инсталерот."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6474,6 +6500,8 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
+"Ве молам изберете ја количината на видео РАМ присутна на Вашата видео картичка. Одберете '%"
+"s' за да ја ресетирате вредноста на онаа која што ја пронајде инсталерот."
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
@@ -6554,7 +6582,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6565,16 +6592,16 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\tШколка за работа околина (Гном)\n"
-"\tКанцелариски пакет (OpenOffice.org)\n"
-"\tПрелистувач за веб (Mozilla) \n"
-"\tЕ-пошта (Evolution)\n"
+"\tКанцелариски пакет (ОупенОфис.орг)\n"
+"\tПрелистувач за веб \n"
+"\tЕ-пошта (Еволушн)\n"
 "\tИнстант пораки\n"
 "\tАпликации за звук и видео\n"
 "\tИгри\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6584,21 +6611,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tШколка за работна околина (Гном)\n"
+"\tАлатки за администрација\n"
+"\tАлатки за конфигурација на сервер\n"
+"\tВеб сервер\n"
+"\tВиндоус датотечен сервер (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6611,9 +6642,9 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tШколка за работа околина (Гном)\n"
-"\tКанцелариски пакет (OpenOffice.org)\n"
-"\tПрелистувач за веб (Mozilla) \n"
-"\tЕ-пошта (Evolution)\n"
+"\tКанцелариски пакет (ОупенОфис.орг)\n"
+"\tПрелистувач за веб \n"
+"\tЕ-пошта (Еволушн)\n"
 "\tИнстант пораки\n"
 "\tАпликации за звук и видео\n"
 "\tИгри\n"
@@ -6668,6 +6699,7 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"Одберете \"%s\" за да го тестирате ЦД-то во драјвот, или \"%s\" за да го извадите ЦД-то и да внесете друго за тестирање."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -6685,7 +6717,8 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
+msgstr "ЦД-то %s не беше пронајдено во ниеден од Вашите ЦДРОМ уреди. Ве молам внесете го ЦД-то %s "
+"и притиснете %s за да пробате повторно."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6697,7 +6730,9 @@ msgid ""
 "To begin testing the CD media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
-msgstr ""
+msgstr "За да започнете со тестирање на медиумите пред инсталацијата притиснете %s.\n"
+"\n"
+"Одберете %s за да го прескокнете тестот и да ја започнете инсталацијата."
 
 #: ../loader2/cdinstall.c:371
 #, c-format
@@ -6705,6 +6740,7 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"Не беше пронајдено %s ЦД кое што се совпаѓа со медиумот за подигнување.  Ве молам внесете го ЦД-то %s и притиснете %s за да пробате повторно."
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
@@ -6720,11 +6756,11 @@ msgstr "Вчитувам"
 
 #: ../loader2/driverdisk.c:123
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "Го читам дискот со драјвер..."
 
 #: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:294
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "Извор на дискот со драјвер"
 
 #: ../loader2/driverdisk.c:263
 msgid ""
@@ -6744,28 +6780,28 @@ msgstr "Не успеав да ја монтирам партицијата."
 
 #: ../loader2/driverdisk.c:346
 msgid "Select driver disk image"
-msgstr ""
+msgstr "Одберете слика на дискот со драјвер"
 
 #: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Одберете ја датотеката која што претставува слика на Вашиот диск со драјвер."
 
 #: ../loader2/driverdisk.c:376
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "Не успеав да го вчитам дискот со драјвер од датотека."
 
 #: ../loader2/driverdisk.c:386
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "Внесете го Вашиот диск со драјвери во /dev/%s и притиснете „Во ред“ за да продолжите."
 
 #: ../loader2/driverdisk.c:388
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "Внесете диск со драјвери"
 
 #: ../loader2/driverdisk.c:403
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "Не успеав да го монтирам дискот со драјвери."
 
 #: ../loader2/driverdisk.c:469
 msgid "Manually choose"
@@ -6784,19 +6820,19 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:513
 msgid "Driver disk"
-msgstr ""
+msgstr "Диск со драјвер"
 
 #: ../loader2/driverdisk.c:514
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Дали имате диск со драјвери?"
 
 #: ../loader2/driverdisk.c:524
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "Уште дискови со драјвери?"
 
 #: ../loader2/driverdisk.c:525
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "Дали сакате да вчитате уште дискови со драјвери?"
 
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:118
@@ -6811,7 +6847,7 @@ msgstr "Грешка во kickstart"
 #: ../loader2/driverdisk.c:578
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "Непознат извор на дискот со драјвери за kickstart: %s"
 
 #: ../loader2/driverdisk.c:611
 #, c-format
@@ -6819,6 +6855,7 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
+"Следниов аргумент беше одреден за командата на дискот со драјвер за kickstart: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6839,19 +6876,20 @@ msgstr "Не беа пронајдени драјвери"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
-msgstr ""
+msgstr "Вчитај диск со драјвер"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "Не беа пронајдени драјвери за рачно внесување.  Дали сакате да пробате со диск со драјвери?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
+msgstr "Ве молам одберете го драјверот кој што сакате да го вчитате.  Доколку тој не "
+"се појави, а Вие имате диск со драјвер, притиснете F2."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
@@ -6872,19 +6910,20 @@ msgstr "Вчитувам %s драјвер..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "Инсталационото %s дрво во тој директориум не се совпаѓа со Вашиот медиум за подигнување."
 
 #: ../loader2/hdinstall.c:218
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
+msgstr "Се појави грешка при читање на инсталацијата од ISO сликите. Ве молам проверете ги ISO сликите и пробајте повторно."
 
 #: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
+msgstr "Изгледа дека немате тврди дискови на Вашиот систем! Дали сакате да конфигурирате "
+"додатни уреди?"
 
 #: ../loader2/hdinstall.c:346
 #, c-format
@@ -6905,7 +6944,7 @@ msgstr "Одбери партиција"
 #: ../loader2/hdinstall.c:435
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "Уредот %s изгледа дека не содржи %s ЦДРОМ слики."
 
 #: ../loader2/hdinstall.c:470
 #, c-format
@@ -6919,7 +6958,7 @@ msgstr "Не можам да ја најдам датотеката за kicksta
 #: ../loader2/hdinstall.c:581
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Не можам да го најдам тврдиот диск за BIOS дискот %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -6983,13 +7022,14 @@ msgstr "NFS слика"
 
 #: ../loader2/loader.c:321
 msgid "Update Disk Source"
-msgstr ""
+msgstr "Извор за диск за надградба"
 
 #: ../loader2/loader.c:322
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr ""
+msgstr "Имате повеќе уреди кои што би можеле да служат како извори за диск за надградба.  "
+"Кои сакате да ги користите?"
 
 #: ../loader2/loader.c:337
 #, c-format
@@ -7056,13 +7096,14 @@ msgstr "Одбери драјвер"
 
 #: ../loader2/loader.c:861
 msgid "Use a driver disk"
-msgstr ""
+msgstr "Користи диск со драјвери"
 
 #: ../loader2/loader.c:862
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "Не можам да пронајдам уреди потребни за овој тип на инсталација.  "
+"Дали сакате рачно да одберете драјвер или пак да внесете диск со драјвер?"
 
 #: ../loader2/loader.c:1022
 msgid "The following devices have been found on your system."
@@ -7156,6 +7197,9 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"NA.\n"
+"\n"
+"Нема достапни информации за проверката. Не сум во можност да ги проверам податоците."
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
@@ -7202,7 +7246,7 @@ msgstr "Тест за проверка на податоците"
 #: ../loader2/modules.c:920
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "Лош аргумент на командата за kicksatart методот %s: %s"
 
 #: ../loader2/net.c:47
 #, c-format
@@ -7319,7 +7363,7 @@ msgstr "Лош аргумент за мрежната команда за kickst
 #: ../loader2/net.c:906
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "Лош bootproto %s одреден во мрежната команда"
 
 #: ../loader2/net.c:1048
 msgid "Networking Device"
@@ -7358,7 +7402,7 @@ msgstr "Директориумот не може да биде монтиран 
 #: ../loader2/nfsinstall.c:248
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "Лош аргумент на командата за NFS kickstart методот: %s: %s"
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
@@ -7392,11 +7436,11 @@ msgstr "Детектиран е локален инсталационен уре
 #: ../loader2/urlinstall.c:432
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Лош аргумент на командата за url kickstart методот %s: %s"
 
 #: ../loader2/urlinstall.c:441
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Морате да му додадете аргумент --url на kickstart методот."
 
 #: ../loader2/urlinstall.c:452
 #, c-format
@@ -8164,9 +8208,8 @@ msgid "Bengali"
 msgstr "Бенгалски"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Бенгалски"
+msgstr "Бенгалски(Индија)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8222,7 +8265,7 @@ msgstr "German"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
