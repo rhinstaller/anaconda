@@ -16,10 +16,10 @@
 moduleInfoSet modInfoList;
 
 static PyObject * doFindModInfo(PyObject * s, PyObject * args);
-static PyObject * doInsmod(PyObject * s, PyObject * args);
+/*static PyObject * doInsmod(PyObject * s, PyObject * args);
+static PyObject * doRmmod(PyObject * s, PyObject * args);*/
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doReadModInfo(PyObject * s, PyObject * args);
-static PyObject * doRmmod(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
@@ -35,13 +35,17 @@ static PyObject * doSwapon(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
+/*
     { "insmod", (PyCFunction) doInsmod, METH_VARARGS, NULL },
+*/
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
     { "pciprobe", (PyCFunction) doPciProbe, METH_VARARGS, NULL },
     { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
+/*
     { "rmmod", (PyCFunction) doRmmod, METH_VARARGS, NULL },
+*/
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
@@ -194,6 +198,7 @@ static PyObject * makeDevInode(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+#if 0
 static PyObject * doRmmod(PyObject * s, PyObject * pyargs) {
     char * modName;
 
@@ -242,6 +247,7 @@ static PyObject * doInsmod(PyObject * s, PyObject * pyargs) {
     Py_INCREF(Py_None);
     return Py_None;
 }
+#endif
 
 static PyObject * doFindModInfo(PyObject * s, PyObject * args) {
     char * mod;
