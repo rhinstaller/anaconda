@@ -606,18 +606,13 @@ if (display_mode == 'g'):
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
             time.sleep(2)            
-            from text import InstallInterface
 
 if (display_mode == 't'):
     from text import InstallInterface
     from text import stepToClasses
 
 
-if display_mode == "t":
-    intf = InstallInterface ()
-else:
-    # determine the mode we actually ended up in
-    intf = InstallInterface ()
+intf = InstallInterface ()
 
 # imports after setting up the path
 if method:
