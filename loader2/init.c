@@ -114,6 +114,28 @@ char * env[] = {
 
 int testing=0;
 
+int mystrstr(char *str1, char *str2) {
+    char *p;
+    int rc=0;
+
+    for (p=str1; *p; p++) {
+	if (*p == *str2) {
+	    char *s, *t;
+
+	    rc = 1;
+	    for (s=p, t=str2; *s && *t; s++, t++)
+		if (*s != *t) {
+		    rc = 0;
+		    p++;
+		}
+
+	    if (rc)
+		return rc;
+	} 
+    }
+    return rc;
+}
+
 void printstr(char * string) {
     write(1, string, strlen(string));
 }
@@ -314,6 +336,8 @@ void doklog(char * fn) {
 
 int setupTerminal(int fd) {
     struct winsize winsize;
+    int fdn, len;
+    char buf[65535];
 
     if (ioctl(fd, TIOCGWINSZ, &winsize)) {
 	printf("failed to get winsize");
@@ -328,7 +352,16 @@ int setupTerminal(int fd) {
 	fatal_error(1);
     }
 
-    env[ENV_TERM] = "TERM=vt100";
+    /* use the no-advanced-video vt100 definition */
+    env[ENV_TERM] = "TERM=vt100-nav";
+
+    /* unless the user specifies that they want utf8 */
+    if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
+	len = read(fdn, buf, sizeof(buf) - 1);
+	close(fdn);
+	if (len > 0 && mystrstr(buf, "utf8"))
+	    env[ENV_TERM] = "TERM=vt100";
+    }
 
     return 0;
 }
@@ -535,30 +568,6 @@ void ejectCdrom(void) {
     printf("\n");
   }
 }
-
-int mystrstr(char *str1, char *str2) {
-    char *p;
-    int rc=0;
-
-    for (p=str1; *p; p++) {
-	if (*p == *str2) {
-	    char *s, *t;
-
-	    rc = 1;
-	    for (s=p, t=str2; *s && *t; s++, t++)
-		if (*s != *t) {
-		    rc = 0;
-		    p++;
-		}
-
-	    if (rc)
-		return rc;
-	} 
-    }
-    return rc;
-}
-
-
 
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
