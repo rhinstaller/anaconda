@@ -352,6 +352,9 @@ class InstallInterface:
 
     def setScreen(self, screen):
         self.screen = screen
+
+    def getScreen(self):
+        return self.screen
         
     def shutdown(self):
 	self.screen.finish()
