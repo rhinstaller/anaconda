@@ -447,7 +447,7 @@ makeinitrd() {
        cp -f $IMGPATH/usr/bin/ps $MBD_DIR/sbin/ps
        cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
        cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
-       cp -f $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
+       #cp -f $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
        cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
        cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
        cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
