@@ -259,7 +259,7 @@ int activate_pcmcia_device(struct pcmciaDevice *pdev) {
         return -1;
     }
 
-    bind = calloc(1, sizeof(struct bind_info_t *));
+    bind = calloc(1, sizeof(struct bind_info_t));
     strcpy(bind->dev_info,pdev->driver);
     bind->function = pdev->function;
     logMessage("device is %s, function is %d", bind->dev_info, bind->function);
