@@ -75,11 +75,12 @@ LANGS = $(shell awk '{ print $$2 }' ../lang-table | grep -v '^en$$')
 endif
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
+TRFILES = $(patsubst %,%.tr,$(LANGS))
 
 all: dirs $(BINS) loader.tr
 
 loader.tr: $(TR)
-	(cd tr; ls *.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
+	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po: *.c
 	xgettext --default-domain=loader --add-comments \
