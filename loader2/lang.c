@@ -379,6 +379,7 @@ int chooseLanguage(char ** lang, int flags) {
     buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
     newtDrawRootText(0, 0, buf);
     free(buf);
+    newtPopHelpLine();
     newtPushHelpLine(_(bottomHelpLine));
 
     return 0;
