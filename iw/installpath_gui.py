@@ -25,6 +25,7 @@ from rootpartition_gui import *
 from confirm_gui import *
 import iutil
 from translate import _
+from upgrade_swap_gui import *
 import installclass
 
 UPGRADE = 0
@@ -74,6 +75,7 @@ class InstallPathWindow (InstallWindow):
 
 	self.upgradeSteps = [
 		     ( UpgradeExamineWindow, "custom-upgrade"),
+                     ( UpgradeSwapWindow, "System Swap Space"),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     UnresolvedDependenciesWindow,
                      ( ConfirmWindow, "confirm" ),
@@ -104,7 +106,7 @@ class InstallPathWindow (InstallWindow):
 	    return
 
 	# Hack to let backing out of upgrades work properly
-	if self.todo.fstab:
+	if self.todo.setupFilesystems and self.todo.fstab:
 	    self.todo.fstab.turnOffSwap()
 
 	needNewDruid = 0
