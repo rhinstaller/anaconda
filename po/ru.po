@@ -13,14 +13,13 @@ msgstr ""
 "Date: 1999-04-03 12:20+0200\n"
 
 #: ../fstab.py:234 ../fstab.py:390
-#, fuzzy
 msgid "Formatting"
-msgstr "Форматирование файловых систем"
+msgstr "Форматирование"
 
 #: ../fstab.py:235
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr ""
+msgstr "Форматирование раздела свопинга на /dev/%s..."
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
@@ -35,44 +34,43 @@ msgstr "Ошибка"
 
 #: ../fstab.py:245
 msgid "Error creating swap on device "
-msgstr ""
+msgstr "Ошибка создания свопинга на устройстве "
 
 #: ../fstab.py:323
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "Ошибка открытия: файл kickstart %s: %s"
+msgstr "Ошибка отмонтирования %s: %s"
 
 #: ../fstab.py:345 ../todo.py:410
 msgid "Creating"
-msgstr ""
+msgstr "Создание"
 
 #: ../fstab.py:345
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "Удалить устройство RAID?"
+msgstr "Создаются устройств RAID..."
 
 #: ../fstab.py:391
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr ""
+msgstr "Форматирование файловой системы %s..."
 
 #: ../fstab.py:413
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:414
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Создание файловой системы loopback на устройстве /dev/%s..."
 
 #: ../fstab.py:457
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "Ошибка открытия: файл kickstart %s: %s"
+msgstr "Ошибка монтирования %s: %s"
 
 #: ../gui.py:270 ../gui.py:516
 msgid "Next"
-msgstr "Следующий"
+msgstr "Далее"
 
 #: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
@@ -107,7 +105,7 @@ msgstr "Скрыть помощь"
 
 #: ../gui.py:274 ../gui.py:518
 msgid "Finish"
-msgstr "Завершить"
+msgstr "Готово"
 
 #: ../gui.py:277 ../gui.py:545
 msgid "Online Help"
@@ -123,30 +121,31 @@ msgid "Red Hat Linux Installer"
 msgstr "Инсталляторr Red Hat Linux"
 
 #: ../gui.py:486
-#, fuzzy
 msgid "Red Hat Linux Install Shell"
-msgstr "Инсталляторr Red Hat Linux"
+msgstr "Оболочка инсталлятора Red Hat Linux"
 
 #: ../gui.py:497
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Инсталляторr Red Hat Linux"
+msgstr "Инсталлятор Red Hat Linux на %s"
 
 #: ../gui.py:498
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Инсталляторr Red Hat Linux"
+msgstr "Оболочка инсталлятора Red Hat Linux на %s"
 
 #: ../installclass.py:251
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
-msgstr ""
+msgstr "Вы собираетесь удалить все существующие инсталляции Linux."
 
 #: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
+"Вы собираетесь удалить ВСЕ ДАННЫЕ с ваших жестких дисков для новой "
+"инсталляции Linux."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
@@ -398,7 +397,7 @@ msgstr "Неверная информация"
 
 #: ../text.py:470
 msgid "You must enter valid IP information to continue"
-msgstr "Необходимо ввести правильные параметры IP для продолжения."
+msgstr "Необходимо ввести правильные параметры IP для продолжения"
 
 #: ../text.py:498
 msgid "Hostname Configuration"
