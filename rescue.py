@@ -3,6 +3,7 @@ from snack import *
 from text import WaitWindow, OkCancelWindow
 from translate import _
 import _balkan
+import sys
 import raid
 import os
 from log import log
@@ -108,7 +109,15 @@ def runRescue(url, serial):
 		  "automatically when you exit from the shell."),
 		  [_("OK")] )
             rootmounted = 1
-	except SystemError:
+	except:
+	    # This looks horrible, but all it does is catch every exception,
+	    # and reraise those in the tuple check. This lets programming
+	    # errors raise exceptions, while any runtime error will
+	    # still result in a shell. 
+	    (exc, val) = sys.exc_info()[0:2]
+	    if exc in (IndexError, ValueError, SyntaxError):
+		raise exc, val, sys.exc_info()[2]
+
 	    ButtonChoiceWindow(screen, _("Rescue").
 		_("An error occured trying to mount some or all of your "
 		  "system. Some of it may be mounted under /mnt/sysimage.\n\n"
