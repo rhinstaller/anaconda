@@ -1,4 +1,4 @@
-#
+;#
 # xf866config.py - XFree86 configuration file generator for 3.3.x and 4.x
 #
 # Matt Wilson <msw@redhat.com>
@@ -486,7 +486,6 @@ Section "Module"
         Load  "dbe"
         Load  "extmod"%(nonSparcMods)s%(pex5Mod)s%(driMod)s
         Load  "glx"
-        Load  "pex5"
         Load  "record"
         Load  "xie"
         Load  "freetype"
