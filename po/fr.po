@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2001-08-13 10:39-0400\n"
+"POT-Creation-Date: 2001-08-10 12:18-0400\n"
 "PO-Revision-Date: 2001-08-10 10:33+0100\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -40,9 +40,9 @@ msgstr ""
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
-#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:281 ../rescue.py:34
+#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:280 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:65
+#: ../text.py:282 ../text.py:399 ../textw/bootdisk_text.py:65
 #: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
 #: ../textw/complete_text.py:62 ../textw/complete_text.py:78
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -191,7 +191,7 @@ msgstr ""
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
 #: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
-#: ../partitioning.py:694 ../partitioning.py:1401
+#: ../partitioning.py:691 ../partitioning.py:1398
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
@@ -290,7 +290,7 @@ msgstr "Tout"
 msgid "no suggestion"
 msgstr "Pas de suggestion"
 
-#: ../exception.py:83 ../text.py:219
+#: ../exception.py:83 ../text.py:218
 msgid "Exception Occurred"
 msgstr "Une exception s'est produite"
 
@@ -307,9 +307,9 @@ msgstr ""
 "L'état de votre système a été copié sur la disquette. Votre système va "
 "maintenant être réinitialisé."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:358 ../fsset.py:764
-#: ../fsset.py:783 ../fsset.py:828 ../fsset.py:848 ../fsset.py:882
-#: ../fsset.py:925 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:345 ../fsset.py:751
+#: ../fsset.py:770 ../fsset.py:815 ../fsset.py:835 ../fsset.py:869
+#: ../fsset.py:912 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -319,7 +319,7 @@ msgstr ""
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
-#: ../partitioning.py:1258 ../partitioning.py:1289
+#: ../partitioning.py:1255 ../partitioning.py:1286
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
 #: ../upgrade.py:305
@@ -352,7 +352,7 @@ msgstr "Vérification des blocs défectueux"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Vérification des blocs défectueux sur /dev/%s..."
 
-#: ../fsset.py:359
+#: ../fsset.py:346
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -365,15 +365,15 @@ msgstr ""
 "\n"
 "Souhaitez-vous continuer sans migrer %s?"
 
-#: ../fsset.py:705 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:692 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Bloc de démarrage maître (MBR)"
 
-#: ../fsset.py:706 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:693 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Premier secteur de la partition de démarrage"
 
-#: ../fsset.py:765
+#: ../fsset.py:752
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -387,7 +387,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:784
+#: ../fsset.py:771
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -402,7 +402,7 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
-#: ../fsset.py:829
+#: ../fsset.py:816
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -415,7 +415,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:849
+#: ../fsset.py:836
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -428,7 +428,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:883
+#: ../fsset.py:870
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -441,11 +441,11 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:903 ../fsset.py:912
+#: ../fsset.py:890 ../fsset.py:899
 msgid "Invalid mount point"
 msgstr "Point de montage non valide"
 
-#: ../fsset.py:904
+#: ../fsset.py:891
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -459,7 +459,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:913
+#: ../fsset.py:900
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -472,7 +472,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:926
+#: ../fsset.py:913
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -487,22 +487,22 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
-#: ../fsset.py:1466
+#: ../fsset.py:1453
 msgid "Formatting"
 msgstr "Formatage"
 
-#: ../fsset.py:1467
+#: ../fsset.py:1454
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formatage du système de fichiers %s ..."
 
-#: ../gui.py:108 ../text.py:280
+#: ../gui.py:108 ../text.py:279
 msgid "Fix"
 msgstr "Fixer"
 
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
-#: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
+#: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:280
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
@@ -510,45 +510,45 @@ msgstr "Oui"
 
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:25
+#: ../loader/net.c:889 ../text.py:281 ../textw/bootdisk_text.py:25
 #: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
 msgstr "Non"
 
-#: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
+#: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 msgid "Retry"
 msgstr "Réessayer"
 
-#: ../gui.py:113 ../text.py:285
+#: ../gui.py:113 ../text.py:284
 msgid "Ignore"
 msgstr "Ignorer"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1318
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
-#: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
-#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
+#: ../loader/pcmcia.c:104 ../text.py:114 ../text.py:115 ../text.py:249
+#: ../text.py:251 ../text.py:285 ../textw/bootloader_text.py:197
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 #: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 msgid "Cancel"
 msgstr "Annuler"
 
-#: ../gui.py:196 ../text.py:258
+#: ../gui.py:196 ../text.py:257
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
-"a detailed bug report against anaconda at http://bugzilla.redhat.com/"
-"bugzilla/"
+"a detailed bug report against anaconda at "
+"http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Une exception inexpliquée s'est produite. Il s'agit très probablement d'un "
 "bogue. Copiez le texte complet de cette exception ou sauvegardez le message "
-"d'erreur sur une disquette et signalez le bogue à l'adresse http://bugzilla."
-"redhat.com/bugzilla"
+"d'erreur sur une disquette et signalez le bogue à l'adresse "
+"http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:317 ../text.py:248
+#: ../gui.py:317 ../text.py:247
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -671,11 +671,11 @@ msgstr "Installation"
 msgid "Unable to probe"
 msgstr "Impossible d'effectuer la détection !"
 
-#: ../mouse.py:274 ../xserver.py:44
+#: ../mouse.py:273 ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "Souris non détectée"
 
-#: ../mouse.py:275 ../xserver.py:45
+#: ../mouse.py:274 ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -687,7 +687,7 @@ msgstr ""
 "informations relatives à votre souris. Vous pouvez également effectuer "
 "l'installation en mode caractère ; celle-ci ne requiert pas de souris."
 
-#: ../mouse.py:281 ../mouse.py:282 ../xserver.py:51 ../xserver.py:52
+#: ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "Utiliser le mode caractère"
 
@@ -843,16 +843,16 @@ msgstr ""
 msgid "This mount point must be on a linux filesystem."
 msgstr "Ce point de montage doit être sur un système de fichiers Linux."
 
-#: ../partitioning.py:454
+#: ../partitioning.py:451
 #, c-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr ""
-"La taille de la partition %s (taille = %s Mo) dépasse la taille maximum de %"
-"s Mo."
+"La taille de la partition %s (taille = %s Mo) dépasse la taille maximum de "
+"%s Mo."
 
-#: ../partitioning.py:461
+#: ../partitioning.py:458
 #, c-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -861,36 +861,36 @@ msgstr ""
 "La taille de la partition requise (taille = %s Mo) dépasse la taille maximum "
 "de %s Mo."
 
-#: ../partitioning.py:466
+#: ../partitioning.py:463
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "La taille de la partition requise est négative ! (size = %s Mo)"
 
-#: ../partitioning.py:470
+#: ../partitioning.py:467
 msgid "Partitions can't start below the first cylinder."
 msgstr "Les partitions ne peuvent commencer en dessous du premier cylindre."
 
-#: ../partitioning.py:473
+#: ../partitioning.py:470
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Les partitions ne peuvent se terminer sur un cylindre négatif."
 
-#: ../partitioning.py:506
+#: ../partitioning.py:503
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Aucun élément dans la requête RAID, ou niveau RAID non spécifié."
 
-#: ../partitioning.py:524 ../partitioning.py:605
+#: ../partitioning.py:521 ../partitioning.py:602
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
 "Les partitions de démarrage ne peuvent être que sur des périphériques RAID1."
 
-#: ../partitioning.py:528
+#: ../partitioning.py:525
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr ""
 "Un périphérique RAID de type %s requiert au moins %s éléments "
 "supplémentaires."
 
-#: ../partitioning.py:534
+#: ../partitioning.py:531
 #, c-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -899,7 +899,7 @@ msgstr ""
 "Ce périphérique RAID peut avoir au max. %s baies. Pour avoir plus de baies, "
 "vous devrez ajouter des éléments supplémentaires au périphérique RAID."
 
-#: ../partitioning.py:566
+#: ../partitioning.py:563
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of Red Hat Linux to continue."
@@ -907,7 +907,7 @@ msgstr ""
 "Aucune partition racine n'a été définie (/). Cette partition est requise "
 "pour que l'installation de Red Hat Linux puisse continuer."
 
-#: ../partitioning.py:569
+#: ../partitioning.py:566
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install Red Hat Linux."
@@ -915,13 +915,13 @@ msgstr ""
 "Votre partition racine est inférieure à 250 Mo, ce qui est normalement trop "
 "petit pour installer Red Hat Linux."
 
-#: ../partitioning.py:574
+#: ../partitioning.py:571
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Vous devez créer une partition /boot/efi de type FAT et de 50 méga-octets."
 
-#: ../partitioning.py:582
+#: ../partitioning.py:579
 #, c-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -930,7 +930,7 @@ msgstr ""
 "Votre partition %s est inférieure à %s Mo, ce qui est inférieur à la taille "
 "recommandée pour une installation Red Hat Linux normale."
 
-#: ../partitioning.py:609
+#: ../partitioning.py:606
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -939,7 +939,7 @@ msgstr ""
 "indispensable, elle améliore nettement les performances pour la plupart des "
 "installations."
 
-#: ../partitioning.py:613
+#: ../partitioning.py:610
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for Red Hat Linux "
 "only supports 32 swap devices."
@@ -947,17 +947,17 @@ msgstr ""
 "Vous avez spécifié plus de 32 périphériques swap. Le noyau de Red Hat Linux "
 "ne supporte que 32 périphériques swap."
 
-#: ../partitioning.py:622
+#: ../partitioning.py:619
 #, c-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Vous avez alloué moins d'espace swap (%dM) que de mémoire vive disponible (%"
-"dM) sur votre système. Ceci pourrait avoir une impacte négative sur les "
+"Vous avez alloué moins d'espace swap (%dM) que de mémoire vive disponible "
+"(%dM) sur votre système. Ceci pourrait avoir une impacte négative sur les "
 "performances."
 
-#: ../partitioning.py:695
+#: ../partitioning.py:692
 #, c-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
@@ -973,12 +973,12 @@ msgstr ""
 "\n"
 "Voulez-vous initialiser la table des partitions ?"
 
-#: ../partitioning.py:1259 ../partitioning.py:1290
+#: ../partitioning.py:1256 ../partitioning.py:1287
 #, c-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Erreur lors du montage du système de fichiers sur %s : %s"
 
-#: ../partitioning.py:1402
+#: ../partitioning.py:1399
 #, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -991,11 +991,11 @@ msgstr ""
 "provoquera la perte de TOUTES LES DONNEES de ce disque.\n"
 "Voulez-vous initialiser ce disque ?"
 
-#: ../partitioning.py:1488
+#: ../partitioning.py:1485
 msgid "No Drives Found"
 msgstr "Aucun disque n'a été trouvé"
 
-#: ../partitioning.py:1489
+#: ../partitioning.py:1486
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -1004,7 +1004,7 @@ msgstr ""
 "nouveaux systèmes de fichiers n'a pu être trouvé. Vérifiez votre matériel "
 "pour déterminer la cause de ce problème."
 
-#: ../partitioning.py:1571
+#: ../partitioning.py:1568
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -1014,7 +1014,7 @@ msgstr ""
 "\n"
 "Etes-vous sûr de vouloir continuer ?"
 
-#: ../partitioning.py:1574
+#: ../partitioning.py:1571
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -1025,46 +1025,46 @@ msgstr ""
 "\n"
 "Etes-vous s de vouloir continuer ?"
 
-#: ../partitioning.py:1578
+#: ../partitioning.py:1575
 msgid "Are you sure you want to delete this partition?"
 msgstr "Etes-vous sûr de vouloir supprimer cette partition ?"
 
-#: ../partitioning.py:1580
+#: ../partitioning.py:1577
 msgid "Confirm Delete"
 msgstr "Confirmer la suppression "
 
-#: ../partitioning.py:1584
+#: ../partitioning.py:1581
 msgid "Confirm Reset"
 msgstr "Confirmer la réinitialisation "
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1582
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Etes-vous sûr de vouloir reporter la table de partition à son état initial ?"
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1606
 msgid "the partition in use by the installer."
 msgstr "la partition utilisée par le programme d'installation."
 
-#: ../partitioning.py:1612
+#: ../partitioning.py:1609
 msgid "a partition which is a member of a RAID array."
 msgstr "une partition qui fait partie d'un RAID array."
 
-#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
-#: ../partitioning.py:1646 ../partitioning.py:1653
+#: ../partitioning.py:1618 ../partitioning.py:1624 ../partitioning.py:1632
+#: ../partitioning.py:1643 ../partitioning.py:1650
 msgid "Unable To Remove"
 msgstr "Impossible d'effectuer la suppression"
 
-#: ../partitioning.py:1622
+#: ../partitioning.py:1619
 msgid "You must first select a partition to remove."
 msgstr "Vous devez commencer par sélectionner une partition à supprimer."
 
-#: ../partitioning.py:1628
+#: ../partitioning.py:1625
 msgid "You cannot remove free space."
 msgstr "Vous ne pouvez pas supprimer de l'espace libre."
 
-#: ../partitioning.py:1636
+#: ../partitioning.py:1633
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1073,7 +1073,7 @@ msgstr ""
 "Vous ne pouvez pas supprimer cette partition car il s'agit d'une partition "
 "étendue qui contient %s."
 
-#: ../partitioning.py:1647
+#: ../partitioning.py:1644
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1081,21 +1081,21 @@ msgstr ""
 "Vous ne pouvez pas supprimer cette partition car elle contient les données "
 "pour l'installation du disque dur."
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1651
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "Vous ne pouvez pas supprimer cette partition car elle fait partie d'un "
 "périphérique RAID."
 
-#: ../partitioning.py:1685 ../partitioning.py:1707
+#: ../partitioning.py:1682 ../partitioning.py:1704
 msgid "Unable To Edit"
 msgstr "Impossible d'effectuer la  modification"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1683
 msgid "You must select a partition to edit"
 msgstr "Sélectionnez une partition à modifier"
 
-#: ../partitioning.py:1708
+#: ../partitioning.py:1705
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1104,41 +1104,41 @@ msgstr ""
 "Vous ne pouvez pas modifier cette partition car il s'agit d'une partition "
 "étendue qui contient %s"
 
-#: ../partitioning.py:1716 ../partitioning.py:1721
+#: ../partitioning.py:1713 ../partitioning.py:1718
 msgid "Unable to Edit"
 msgstr "Impossible d'effectuer la modification"
 
-#: ../partitioning.py:1717
+#: ../partitioning.py:1714
 msgid "You cannot edit this partition, as it is in use by the installer."
 msgstr ""
 "Vous ne pouvez pas modifier cette partition car elle est utilisée par le "
 "programme d'installation."
 
-#: ../partitioning.py:1722
+#: ../partitioning.py:1719
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Vous ne pouvez pas modifier cette partition car elle fait partie d'un "
 "périphérique RAID."
 
-#: ../partitioning.py:1734
+#: ../partitioning.py:1731
 msgid "Installation cannot continue."
 msgstr "L'installation ne peut pas continuer."
 
-#: ../partitioning.py:1735
+#: ../partitioning.py:1732
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 "Les options de partitionnement que vous avez choisie ont déjà été activées. "
-"Vous ne pouvez plus retourner à l'écran de modification du disque. Voulez-"
-"vous poursuivre le processus d'installation ?"
+"Vous ne pouvez plus retourner à l'écran de modification du disque. "
+"Voulez-vous poursuivre le processus d'installation ?"
 
-#: ../partitioning.py:1755
+#: ../partitioning.py:1752
 msgid "Low Memory"
 msgstr "Mémoire faible"
 
-#: ../partitioning.py:1756
+#: ../partitioning.py:1753
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1149,11 +1149,11 @@ msgstr ""
 "votre nouvelle table des partitions doit être immédiatement enregistrée sur "
 "le disque. OK ?"
 
-#: ../partitioning.py:1768 ../partitioning.py:1786
+#: ../partitioning.py:1765 ../partitioning.py:1783
 msgid "Format?"
 msgstr "Formater ?"
 
-#: ../partitioning.py:1769
+#: ../partitioning.py:1766
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1164,7 +1164,7 @@ msgstr ""
 "détruira toutes les données qu'elle contient.\n"
 "Etes-vous sûr de vouloir continuer ?"
 
-#: ../partitioning.py:1777
+#: ../partitioning.py:1774
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1182,11 +1182,11 @@ msgstr ""
 "\n"
 "Etes-vous sûr de vouloir poursuivre ?"
 
-#: ../partitioning.py:1793
+#: ../partitioning.py:1790
 msgid "Error with Partitioning"
 msgstr "Erreur de partitionnement"
 
-#: ../partitioning.py:1794
+#: ../partitioning.py:1791
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1201,11 +1201,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1807
+#: ../partitioning.py:1804
 msgid "Partitioning Warning"
 msgstr "Avertissement de partitionnement"
 
-#: ../partitioning.py:1808
+#: ../partitioning.py:1805
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1221,7 +1221,7 @@ msgstr ""
 "\n"
 "Souhaitez-vous continuer avec le schéma de partitionnement requis ?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1820
+#: ../iw/partition_gui.py:576 ../partitioning.py:1817
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1229,7 +1229,7 @@ msgstr ""
 "Les partitions pré-existantes ci-dessous ont été sélectionnées pour être "
 "formatées. Ceci causera la destruction de toutes les données."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1823
+#: ../iw/partition_gui.py:579 ../partitioning.py:1820
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
@@ -1237,7 +1237,7 @@ msgstr ""
 "Sélectionnez 'Oui' pour continuer et formater ces partitions ou 'Non' pour "
 "retourner en arrière et changer cette configuration."
 
-#: ../partitioning.py:1829
+#: ../partitioning.py:1826
 msgid "Format Warning"
 msgstr "Avertissement de formatage"
 
@@ -1344,48 +1344,48 @@ msgstr ""
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Le système a été monté sous le répertoire /mnt/sysimage."
 
-#: ../text.py:175
+#: ../text.py:174
 msgid "Help not available"
 msgstr "Aide non disponible"
 
-#: ../text.py:176
+#: ../text.py:175
 msgid "No help is available for this step of the install."
 msgstr "Aucune aide n'est disponible pour cette étape de l'installation."
 
-#: ../text.py:247
+#: ../text.py:246
 msgid "Save Crash Dump"
 msgstr "Sauvegarde d'une image système en raison d'un crash"
 
-#: ../text.py:266 ../text.py:269
+#: ../text.py:265 ../text.py:268
 msgid "Save"
 msgstr "Enregistrer"
 
-#: ../text.py:266 ../text.py:267
+#: ../text.py:265 ../text.py:266
 msgid "Debug"
 msgstr "Déboguer"
 
-#: ../text.py:301
+#: ../text.py:300
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:304
+#: ../text.py:303
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <F1> Aide|<Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
-#: ../text.py:306
+#: ../text.py:305
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> Changer d'élément|<Espace> Sélectionner|<F12> Ecran suivant"
 
-#: ../text.py:396
+#: ../text.py:395
 msgid "Cancelled"
 msgstr "Annulé"
 
-#: ../text.py:397
+#: ../text.py:396
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
@@ -1449,8 +1449,8 @@ msgstr "Recherche des paquetages à mettre à jour..."
 #: ../upgrade.py:294
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"Impossible de reconstruire la base de données RPM. Votre disque est peut-"
-"être plein."
+"Impossible de reconstruire la base de données RPM. Votre disque est "
+"peut-être plein."
 
 #: ../upgrade.py:306
 msgid "An error occured when finding the packages to upgrade."
@@ -1631,14 +1631,14 @@ msgstr "Supprimer"
 #: ../iw/account_gui.py:355
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
-"accounts could be for a personal login account, or for other non-"
-"administrative users who need to use this system. Use the <Add> button to "
-"enter additional user accounts."
+"accounts could be for a personal login account, or for other "
+"non-administrative users who need to use this system. Use the <Add> button "
+"to enter additional user accounts."
 msgstr ""
-"Il est possible de créer des comptes pour d'autres utilisateurs du système."
-"Ces comptes peuvent servir pour des connexions personnelles ou pour des "
-"utilisateurs non administratifs qui doivent utiliser ce système. Utilisez le "
-"bouton <Ajouter> pour créer de nouveaux comptes utilisateurs."
+"Il est possible de créer des comptes pour d'autres utilisateurs du "
+"système.Ces comptes peuvent servir pour des connexions personnelles ou pour "
+"des utilisateurs non administratifs qui doivent utiliser ce système. "
+"Utilisez le bouton <Ajouter> pour créer de nouveaux comptes utilisateurs."
 
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 msgid "Authentication Configuration"
@@ -1919,11 +1919,11 @@ msgstr "Cliquer sur Suivant pour commencer l'installation de Red Hat Linux."
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
-"kickstart file representing the choices you have made will be in /root/"
-"anaconda-ks.cfg."
+"kickstart file representing the choices you have made will be in "
+"/root/anaconda-ks.cfg."
 msgstr ""
-"Un historique complet de votre installation figurera dans le fichier "
-"journal /tmp/install.log après le redémarrage de votre système. Vous pouvez "
+"Un historique complet de votre installation figurera dans le fichier journal "
+"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement. Un fichier kickstart "
 "contenant les choix que vous avez faits figurera dans /root/anaconda-ks.cfg."
 
@@ -1940,9 +1940,9 @@ msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Un historique complet de votre mise à jour figurera dans le fichier journal /"
-"tmp/upgrade.log après le redémarrage de votre système. Vous pouvez conserver "
-"ce fichier pour le consulter ultérieurement."
+"Un historique complet de votre mise à jour figurera dans le fichier journal "
+"/tmp/upgrade.log après le redémarrage de votre système. Vous pouvez "
+"conserver ce fichier pour le consulter ultérieurement."
 
 #: ../iw/congrats_gui.py:22 ../iw/congrats_gui.py:83
 msgid "Congratulations"
@@ -1966,8 +1966,8 @@ msgid ""
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
@@ -1981,15 +1981,15 @@ msgstr ""
 "corrections), visitez le site http://www.redhat.com/errata.\n"
 "\n"
 "Des informations sur l'utilisation et la configuration de votre système "
-"figurent dans les manuels Red Hat Linux à l'adresse http://www.redhat.com/"
-"support/manuals/."
+"figurent dans les manuels Red Hat Linux à l'adresse "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/congrats_gui.py:102
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
@@ -2000,8 +2000,8 @@ msgstr ""
 "visitez le site http://www.redhat.com/errata.\n"
 "\n"
 "Des informations sur l'utilisation et la configuration de votre système "
-"figurent dans les manuels de Red Hat Linux disponibles à l'adresse http://"
-"www.redhat.com/support/manuals."
+"figurent dans les manuels de Red Hat Linux disponibles à l'adresse "
+"http://www.redhat.com/support/manuals."
 
 #: ../iw/dependencies_gui.py:20
 msgid "Unresolved Dependencies"
@@ -2742,10 +2742,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux "
-"précédents ; deux fois la mémoire vive du système. Actuellement vous avez %"
-"dMo d'espace swap configuré, mais vous pouvez créer un autre espace swap sur "
-"l'un de vos systèmes de fichiers."
+"Le noyau 2.4 requiert beaucoup plus d'espace swap que les noyaux précédents "
+"; deux fois la mémoire vive du système. Actuellement vous avez %dMo d'espace "
+"swap configuré, mais vous pouvez créer un autre espace swap sur l'un de vos "
+"systèmes de fichiers."
 
 #: ../iw/upgrade_swap_gui.py:97
 #, c-format
@@ -2942,8 +2942,8 @@ msgid ""
 "from the choices below:"
 msgstr ""
 "Le système ne peut pas détecter automatiquement la taille de votre mémoire "
-"vidéo. Choisissez la taille de la mémoire vidéo parmi les propositions ci-"
-"dessous :"
+"vidéo. Choisissez la taille de la mémoire vidéo parmi les propositions "
+"ci-dessous :"
 
 #: ../iw/xconfig_gui.py:843
 msgid ""
@@ -3123,8 +3123,8 @@ msgid ""
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
@@ -3168,20 +3168,20 @@ msgstr "<Entrée> pour quitter"
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
 msgstr ""
 "Félicitations, la configuration est terminée.\n"
 "\n"
-"Pour plus d'informations sur les Errata (mises à jour et corrections),"
-"visitez le site http://www.redhat.com/errata.\n"
+"Pour plus d'informations sur les Errata (mises à jour et "
+"corrections),visitez le site http://www.redhat.com/errata.\n"
 "\n"
 "Des informations sur l'utilisation de votre système figurent dans les "
-"manuels Red Hat Linux disponibles à l'adresse http://www.redhat.com/support/"
-"manuals."
+"manuels Red Hat Linux disponibles à l'adresse "
+"http://www.redhat.com/support/manuals."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -3192,8 +3192,8 @@ msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Un historique complet de votre installation figurera dans le fichier "
-"journal /tmp/install.log après le redémarrage de votre système. Vous pouvez "
+"Un historique complet de votre installation figurera dans le fichier journal "
+"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
 #: ../textw/confirm_text.py:32
@@ -3214,8 +3214,8 @@ msgstr ""
 "Un pare-feu bloque les accès au réseau non autorisés. Le niveau de sécurité "
 "élevé protège contre tous les accès en entrée. Le niveau moyen bloque "
 "l'accès aux services du système (comme les connexions via telnet ou vers des "
-"imprimantes réseau), mais permet d'effectuer d'autres connexions. Un pare-"
-"feu autorisant toutes les connexions n'est pas recommandé."
+"imprimantes réseau), mais permet d'effectuer d'autres connexions. Un "
+"pare-feu autorisant toutes les connexions n'est pas recommandé."
 
 #: ../textw/firewall_text.py:43
 msgid "Security Level:"
@@ -3547,8 +3547,8 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"  F1-Aide     F2-Ajouter     F3-Modifier    F4-Effacer     F5-"
-"Réinitialiser     F12-Ok  "
+"  F1-Aide     F2-Ajouter     F3-Modifier    F4-Effacer     F5-Réinitialiser  "
+"   F12-Ok  "
 
 #: ../textw/partition_text.py:1006
 msgid "No Root Partition"
@@ -3754,8 +3754,8 @@ msgstr "ID utilisateur incorrect"
 
 #: ../textw/userauth_text.py:116
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, a-"
-"z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
 msgstr ""
 "Les noms d'utilisateurs doivent comporter moins de 8 caractères et ne "
 "contenir que les caractères A-Z, a-z et 0-9."
@@ -3876,8 +3876,8 @@ msgstr ""
 "de poursuivre.\n"
 "\n"
 "Si vous avez acheté la distribution officielle de Red Hat Linux, pensez à "
-"enregistrer votre achat sur notre site Web à l'adresse http://www.redhat."
-"com/."
+"enregistrer votre achat sur notre site Web à l'adresse "
+"http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:41
 msgid ""
@@ -4059,8 +4059,9 @@ msgstr "Mémoire vive"
 #: ../textw/xconfig_text.py:496
 #, c-format
 msgid ""
-"Please select the amount of video RAM present on your video card. Choose '%"
-"s' to reset the selection to the amount the installer detected on your card."
+"Please select the amount of video RAM present on your video card. Choose "
+"'%s' to reset the selection to the amount the installer detected on your "
+"card."
 msgstr ""
 "Sélectionnez la quantité de mémoire vive présente dans votre carte vidéo. "
 "Choisissez '%s' pour reporter la sélection à la quantité de mémoire vive "
@@ -4326,8 +4327,8 @@ msgid ""
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"Quelle partition, et quel répertoire sur celle-ci, contient les images de CD-"
-"ROM (iso9660) pour Red Hat Linux ? Si le disque dur que vous utilisez ne "
+"Quelle partition, et quel répertoire sur celle-ci, contient les images de "
+"CD-ROM (iso9660) pour Red Hat Linux ? Si le disque dur que vous utilisez ne "
 "figure pas dans cette liste, appuyez sur F2 pour configurer des disques "
 "supplémentaires."
 
@@ -4350,8 +4351,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Le système n'a détecté aucun CD-ROM Red Hat Linux dans vos lecteurs de CD-"
-"ROM. Insérez le CD-ROM Red Hat et cliquez sur \"OK\" pour réessayer."
+"Le système n'a détecté aucun CD-ROM Red Hat Linux dans vos lecteurs de "
+"CD-ROM. Insérez le CD-ROM Red Hat et cliquez sur \"OK\" pour réessayer."
 
 #: ../loader/loader.c:1057
 msgid "Networking Device"
@@ -5682,16 +5683,16 @@ msgstr "Ukrainian"
 #~ "Les points de montage ne peuvent contenir que des caractères imprimables."
 
 #~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
-#~ "partition. You can do this, but you may not use any other filesystems for "
-#~ "your Linux system. Additionally, there will be a speed penalty for not "
-#~ "using Linux-native partitions. Do you want to continue?"
+#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
+#~ "You can do this, but you may not use any other filesystems for your Linux "
+#~ "system. Additionally, there will be a speed penalty for not using "
+#~ "Linux-native partitions. Do you want to continue?"
 #~ msgstr ""
 #~ "Vous avez choisi de placer votre système de fichiers root (/) sur une "
 #~ "partition DOS (FAT). Cela est possible mais vous ne pourrez pas utiliser "
-#~ "d'autres systèmes de fichiers avec votre système Linux. En outre, un "
-#~ "système Linux est moins rapide lorsqu'il n'utilise pas une partition "
-#~ "Linux Native. Voulez-vous continuer ?"
+#~ "d'autres systèmes de fichiers avec votre système Linux. En outre, un système "
+#~ "Linux est moins rapide lorsqu'il n'utilise pas une partition Linux Native. "
+#~ "Voulez-vous continuer ?"
 
 #~ msgid ""
 #~ "The mount point %s is illegal.\n"
@@ -5721,8 +5722,8 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "You have more drives than this program supports. Please use the standard "
-#~ "fdisk program to setup your drives and please notify Red Hat Software "
-#~ "that you saw this message."
+#~ "fdisk program to setup your drives and please notify Red Hat Software that "
+#~ "you saw this message."
 #~ msgstr ""
 #~ "Vous avez plus de disques que ce programme ne peut en gérer. Utilisez le "
 #~ "programme fdisk standard pour configurer vos disques et informez Red Hat "
@@ -5733,35 +5734,34 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "An error has occurred while trying to create device nodes for the hard "
-#~ "drives in your system.  This may be because you have run out of disk "
-#~ "space on the /tmp partition."
+#~ "drives in your system.  This may be because you have run out of disk space "
+#~ "on the /tmp partition."
 #~ msgstr ""
 #~ "Une erreur s'est produite lors de la tentative de création de noeuds de "
-#~ "périphérique pour les disques durs de votre système. Elle peut être due à "
-#~ "un espace disque insuffisant sur la partition /tmp."
+#~ "périphérique pour les disques durs de votre système. Elle peut être due à un "
+#~ "espace disque insuffisant sur la partition /tmp."
 
 #~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems.  Please check your hardware for the cause of this "
-#~ "problem."
+#~ "An error has occurred - no valid devices were found on which to create new "
+#~ "filesystems.  Please check your hardware for the cause of this problem."
 #~ msgstr ""
-#~ "Une erreur s'est produite - aucun périphérique valide permettant de créer "
-#~ "de nouveaux systèmes de fichiers n'a pu être trouvé. Vérifiez votre "
-#~ "matériel pour déterminer la cause de ce problème."
+#~ "Une erreur s'est produite - aucun périphérique valide permettant de créer de "
+#~ "nouveaux systèmes de fichiers n'a pu être trouvé. Vérifiez votre matériel "
+#~ "pour déterminer la cause de ce problème."
 
 #~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  "
-#~ "The error was"
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was"
 #~ msgstr ""
-#~ "Une erreur s'est produite lors de la lecture de la table des partitions "
-#~ "du périphérique bloc %s. L'erreur était"
+#~ "Une erreur s'est produite lors de la lecture de la table des partitions du "
+#~ "périphérique bloc %s. L'erreur était"
 
 #~ msgid "Skip Drive"
 #~ msgstr "Ignorer le disque"
 
 #~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive."
+#~ "The partition table on device %s is corrupted.  To create new partitions it "
+#~ "must be initialized, causing the loss of ALL DATA on this drive."
 #~ msgstr ""
 #~ "La table des partitions du périphérique %s est endommagée. Elle doit être "
 #~ "initialisée pour créer de nouvelles partitions. Cette initialisation "
@@ -5778,14 +5778,13 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
-#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
-#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
-#~ "Disklabels."
+#~ "supports BSD Disklabels in read-only mode, so you must use a custom install "
+#~ "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 #~ msgstr ""
-#~ "Un disque avec un label BSD a été trouvé. L'installation Red Hat ne gère "
-#~ "les labels BSD qu'en lecture ; vous devez donc utiliser une installation "
-#~ "personnalisée et fdisk (au lieu de Disk Druid) pour les machines ayant "
-#~ "des labels BSD."
+#~ "Un disque avec un label BSD a été trouvé. L'installation Red Hat ne gère les "
+#~ "labels BSD qu'en lecture ; vous devez donc utiliser une installation "
+#~ "personnalisée et fdisk (au lieu de Disk Druid) pour les machines ayant des "
+#~ "labels BSD."
 
 #~ msgid "System error %d"
 #~ msgstr "Erreur système %d"
@@ -5796,32 +5795,30 @@ msgstr "Ukrainian"
 #~ msgid ""
 #~ "This occurs because the drive geometry detected by the kernel used by the "
 #~ "installer is different than the drive geometry used when the drive was "
-#~ "partitioned.  This can be corrected by specifying the drive geometry on "
-#~ "the kernel command line when booting the installer."
+#~ "partitioned.  This can be corrected by specifying the drive geometry on the "
+#~ "kernel command line when booting the installer."
 #~ msgstr ""
 #~ "Cela se produit lorsque le noyau remarque que la géométrie du disque de\n"
 #~ "l'utilisateur est différente de la géométrie du disque alors qu'il était\n"
-#~ "partitionné. Cette erreur peut être corrigée en spécifiant la géométrie "
-#~ "du\n"
+#~ "partitionné. Cette erreur peut être corrigée en spécifiant la géométrie du\n"
 #~ "disque sur la ligne de commande du noyau au moment du démarrage\n"
 #~ "l'installation."
 
 #~ msgid ""
 #~ "This error has occurred because there is a logical partition on the drive "
-#~ "which has a partition type of zero (0).  A partition type of zero means "
-#~ "that the drive's partitioning is not completely defined, and may have "
-#~ "been caused by another operating system's partitioning program.  This "
-#~ "condition is not supported by the anaconda installer.  You may be able to "
-#~ "set the partition type correctly using your other operating system's "
-#~ "partitioning program."
+#~ "which has a partition type of zero (0).  A partition type of zero means that "
+#~ "the drive's partitioning is not completely defined, and may have been caused "
+#~ "by another operating system's partitioning program.  This condition is not "
+#~ "supported by the anaconda installer.  You may be able to set the partition "
+#~ "type correctly using your other operating system's partitioning program."
 #~ msgstr ""
 #~ "L'erreur s'est produite car le lecteur contient une partition logique de "
 #~ "type zéro (0). Cette partition indique que le partitionnement du lecteur "
-#~ "n'est pas complètement défini et peut avoir été causée par le programme "
-#~ "de partitionnement d'un autre système d'exploitation. Cette condition "
-#~ "n'est pas prise en charge par le programme d'installation anaconda. Pour "
-#~ "configurer correctement la partition, utilisez le programme de "
-#~ "partitionnement de l'autre système d'exploitation."
+#~ "n'est pas complètement défini et peut avoir été causée par le programme de "
+#~ "partitionnement d'un autre système d'exploitation. Cette condition n'est pas "
+#~ "prise en charge par le programme d'installation anaconda. Pour configurer "
+#~ "correctement la partition, utilisez le programme de partitionnement de "
+#~ "l'autre système d'exploitation."
 
 #~ msgid "<Swap Partition>"
 #~ msgstr "<Partition swap>"
@@ -5834,9 +5831,8 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "The growth of the root (/) RAID array appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
+#~ "1024 cylinder boot limit. If this is the case then adding a /boot partition "
+#~ "(50 MB is fine) may allow the root partition to grow to fill the disk."
 #~ msgstr ""
 #~ "L'augmentation de la matrice RAID root(/)semble avoir été gênée par la\n"
 #~ "limite du cylindre 1024 boot. Si cet événement se produit, ajoutez une\n"
@@ -5845,14 +5841,13 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "The growth of the root (/) partition appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
+#~ "1024 cylinder boot limit. If this is the case then adding a /boot partition "
+#~ "(50 MB is fine) may allow the root partition to grow to fill the disk."
 #~ msgstr ""
 #~ "L'agrandissement de la partition root (/) semble avoir été gênée par la "
-#~ "limite boot du cylindre 1024. Si c'est le cas, ajoutez une partition boot"
-#~ "(50 Mo suffisent). La partition root pourra alors s'agrandir pour remplir "
-#~ "le disque."
+#~ "limite boot du cylindre 1024. Si c'est le cas, ajoutez une partition boot(50 "
+#~ "Mo suffisent). La partition root pourra alors s'agrandir pour remplir le "
+#~ "disque."
 
 #~ msgid "Delete Partition"
 #~ msgstr "Suppression de la partition"
@@ -5861,8 +5856,8 @@ msgstr "Ukrainian"
 #~ msgstr "Impossible de modifier les partitions"
 
 #~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit other partitions."
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+#~ "edit other partitions."
 #~ msgstr ""
 #~ "Vous avez défini le système de fichiers '/' sur une partition non-ext2 ; "
 #~ "vous ne pouvez donc pas modifier d'autres partitions."
@@ -5898,36 +5893,36 @@ msgstr "Ukrainian"
 #~ "You have not selected a mount point for this partition. Are you sure you "
 #~ "want to do this?"
 #~ msgstr ""
-#~ "Vous n'avez pas choisi de point de montage pour cette partition. Etes-"
-#~ "vous sûr de vouloir faire cela ?"
+#~ "Vous n'avez pas choisi de point de montage pour cette partition. Etes-vous "
+#~ "sûr de vouloir faire cela ?"
 
 #~ msgid "Mount Point Error"
 #~ msgstr "Erreur de point de montage"
 
 #~ msgid ""
-#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
-#~ "You cannot do this now because mount points have been assigned to ext2 "
+#~ "You have tried to assign the '/' mount point to a FAT-style partition.  You "
+#~ "cannot do this now because mount points have been assigned to ext2 "
 #~ "partitions also.  Clear those mount points and then you will be able to "
 #~ "assign '/' to this partition."
 #~ msgstr ""
 #~ "Vous avez essayé d'assigner le point de montage '/' à une partition FAT. "
-#~ "Cela n'est plus possible maintenant car des points de montage ont "
-#~ "également été affectés à des partitions ext2. Supprimez ces points de "
-#~ "montage afin d'être en mesure d'assigner '/' à cette partition."
+#~ "Cela n'est plus possible maintenant car des points de montage ont également "
+#~ "été affectés à des partitions ext2. Supprimez ces points de montage afin "
+#~ "d'être en mesure d'assigner '/' à cette partition."
 
 #~ msgid ""
 #~ "The mount point requested is either an illegal path or is already in use. "
 #~ "Please select a valid mount point."
 #~ msgstr ""
-#~ "Le point de montage demandé possède un chemin illégal ou est déjà "
-#~ "utilisé. Choisissez un point de montage valide."
+#~ "Le point de montage demandé possède un chemin illégal ou est déjà utilisé. "
+#~ "Choisissez un point de montage valide."
 
 #~ msgid "Size Error"
 #~ msgstr "Erreur de taille"
 
 #~ msgid ""
-#~ "The size requested is illegal. Make sure the size is greater and zero "
-#~ "(0), and is specified int decimal (base 10) format."
+#~ "The size requested is illegal. Make sure the size is greater and zero (0), "
+#~ "and is specified int decimal (base 10) format."
 #~ msgstr ""
 #~ "La taille demandée n'est pas valide. Assurez-vous que la taille est "
 #~ "supérieure à zéro (0) et qu'elle est indiquée au format décimal (base 10)."
@@ -5936,16 +5931,16 @@ msgstr "Ukrainian"
 #~ msgstr "Erreur de taille du fichier swap"
 
 #~ msgid ""
-#~ "You have created a swap partition which is too large. The maximum size of "
-#~ "a swap partition is %ld Megabytes."
+#~ "You have created a swap partition which is too large. The maximum size of a "
+#~ "swap partition is %ld Megabytes."
 #~ msgstr ""
 #~ "Vous avez créé une partition swap trop grande. La taille maximale d'une "
 #~ "partition swap est de %ld Mo."
 
 #~ msgid ""
 #~ "It is recommended that the root (/) partition have a minimum size of %ld "
-#~ "Megabytes. You are trying to create one which is %ld Megabytes, which "
-#~ "could cause the install to fail.\n"
+#~ "Megabytes. You are trying to create one which is %ld Megabytes, which could "
+#~ "cause the install to fail.\n"
 #~ "\n"
 #~ "Are you sure you want to do this?"
 #~ msgstr ""
@@ -5968,28 +5963,28 @@ msgstr "Ukrainian"
 #~ msgstr "Pas de limitation du lecteur RAID"
 
 #~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive.\n"
+#~ "You have configured a RAID partition without constraining the partition to a "
+#~ "single drive.\n"
 #~ " Are you sure you want to do this?"
 #~ msgstr ""
-#~ "Vous avez configuré une partition RAID sans limiter la partition à un "
-#~ "disque dur unique.\n"
+#~ "Vous avez configuré une partition RAID sans limiter la partition à un disque "
+#~ "dur unique.\n"
 #~ "Etes-vous sûr de vouloir faire cela ?"
 
 #~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive. Please select one drive to constrain this partition to."
+#~ "You have configured a RAID partition without constraining the partition to a "
+#~ "single drive. Please select one drive to constrain this partition to."
 #~ msgstr ""
-#~ "Vous avez configuré une partition RAID sans limiter la partition à un "
-#~ "disque dur unique. Sélectionnez le disque que vous voulez utiliser pour "
-#~ "cette partition."
+#~ "Vous avez configuré une partition RAID sans limiter la partition à un disque "
+#~ "dur unique. Sélectionnez le disque que vous voulez utiliser pour cette "
+#~ "partition."
 
 #~ msgid "Cannot Add Partitions"
 #~ msgstr "Impossible d'ajouter des partitions"
 
 #~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add other partitions."
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+#~ "add other partitions."
 #~ msgstr ""
 #~ "Vous avez défini le système de fichiers '/' sur une partition non-ext2 ; "
 #~ "vous ne pouvez donc pas ajouter de partitions."
@@ -5998,20 +5993,20 @@ msgstr "Ukrainian"
 #~ msgstr "Entrée RAID incomplète"
 
 #~ msgid ""
-#~ "The raid device /dev/%s now contains partitions which are unallocated. "
-#~ "The raid device /dev/%s will now be decomposed into its component "
-#~ "partitions. Please recompose the raid device with allocated partitions."
+#~ "The raid device /dev/%s now contains partitions which are unallocated. The "
+#~ "raid device /dev/%s will now be decomposed into its component partitions. "
+#~ "Please recompose the raid device with allocated partitions."
 #~ msgstr ""
 #~ "Le périphérique RAID /dev/%s contient maintenant des partitions non "
-#~ "allouées. /dev/%s va maintenant être décomposé en ses partitions "
-#~ "internes. Recomposez le périphérique RAID avec des partitions allouées."
+#~ "allouées. /dev/%s va maintenant être décomposé en ses partitions internes. "
+#~ "Recomposez le périphérique RAID avec des partitions allouées."
 
 #~ msgid "Cannot Remove /boot"
 #~ msgstr "Impossible de supprimer /boot"
 
 #~ msgid ""
-#~ "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" "
-#~ "to a non-RAID device first."
+#~ "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
+#~ "non-RAID device first."
 #~ msgstr ""
 #~ "Vous ne pouvez pas supprimer \"/boot\" si \"/\" se trouve sur un "
 #~ "périphérique RAID. Changez \"/\" en un périphérique non RAID."
@@ -6024,16 +6019,16 @@ msgstr "Ukrainian"
 #~ "requested partitions. The unallocated partition(s) are shown below, along "
 #~ "with the reason they were not allocated."
 #~ msgstr ""
-#~ "Il y a actuellement une ou plusieurs partitions non allouées dans la "
-#~ "liste des partitions demandées. Les partitions non allouées sont "
-#~ "affichées ci-dessous avec la raison de cette non-allocation."
+#~ "Il y a actuellement une ou plusieurs partitions non allouées dans la liste "
+#~ "des partitions demandées. Les partitions non allouées sont affichées "
+#~ "ci-dessous avec la raison de cette non-allocation."
 
 #~ msgid "Cannot Edit Raid"
 #~ msgstr "Impossible de modifier Raid"
 
 #~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit RAID devices."
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+#~ "edit RAID devices."
 #~ msgstr ""
 #~ "Vous avez défini le système de fichiers '/' sur une partition non-ext2 ; "
 #~ "vous ne pouvez donc pas modifier les périphériques RAID."
@@ -6049,15 +6044,15 @@ msgstr "Ukrainian"
 
 #~ msgid "You have not selected a mount point. A mount point is required."
 #~ msgstr ""
-#~ "Vous n'avez pas sélectionné de point de montage. La sélection d'un point "
-#~ "de montage est obligatoire."
+#~ "Vous n'avez pas sélectionné de point de montage. La sélection d'un point de "
+#~ "montage est obligatoire."
 
 #~ msgid ""
 #~ "The mount point requested is already in use. Please select a valid mount "
 #~ "point."
 #~ msgstr ""
-#~ "Le point de montage demandé est déjà utilisé. Choisissez un point de "
-#~ "montage valide."
+#~ "Le point de montage demandé est déjà utilisé. Choisissez un point de montage "
+#~ "valide."
 
 #~ msgid ""
 #~ "The bootable raid device can only include partitions from the first two "
@@ -6065,8 +6060,8 @@ msgstr "Ukrainian"
 #~ "\n"
 #~ "These drives are: "
 #~ msgstr ""
-#~ "Le périphérique RAID amorçable ne peut comprendre que des partitions "
-#~ "issues des deux premiers disques du système.\n"
+#~ "Le périphérique RAID amorçable ne peut comprendre que des partitions issues "
+#~ "des deux premiers disques du système.\n"
 #~ "\n"
 #~ "Ces disques sont: "
 
@@ -6083,8 +6078,8 @@ msgstr "Ukrainian"
 #~ msgstr "Périphérique RAID utilisé"
 
 #~ msgid ""
-#~ "The raid device \"/dev/%s\" is already configured as a raid device. "
-#~ "Please select another."
+#~ "The raid device \"/dev/%s\" is already configured as a raid device. Please "
+#~ "select another."
 #~ msgstr ""
 #~ "Le périphérique \"/dev/%s\" est déjà configuré comme périphérique RAID. "
 #~ "Sélectionnez un autre périphérique."
@@ -6096,8 +6091,8 @@ msgstr "Ukrainian"
 #~ "You have not configured enough partitions for the RAID type you have "
 #~ "selected."
 #~ msgstr ""
-#~ "Vous n'avez pas configuré suffisamment de partitions pour le type RAID "
-#~ "que vous avez sélectionné."
+#~ "Vous n'avez pas configuré suffisamment de partitions pour le type RAID que "
+#~ "vous avez sélectionné."
 
 #~ msgid "Illegal /boot RAID Type"
 #~ msgstr "Type de RAID non valide pour /boot"
@@ -6118,12 +6113,12 @@ msgstr "Ukrainian"
 
 #~ msgid ""
 #~ "The partition %s is a pre-existing partition in the set of partitions for "
-#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
-#~ "is possible to boot from this partition?"
+#~ "this RAID device.  The mount point is set to /boot. Are you sure that it is "
+#~ "possible to boot from this partition?"
 #~ msgstr ""
 #~ "La partition %s existe déjà dans l'ensemble des partitions de ce "
-#~ "périphérique RAID. Le point de montage défini est /boot. Etes-vous sûr "
-#~ "que le système peut démarrer à partir de cette partition ?"
+#~ "périphérique RAID. Le point de montage défini est /boot. Etes-vous sûr que "
+#~ "le système peut démarrer à partir de cette partition ?"
 
 #~ msgid "Use Pre-existing Partition?"
 #~ msgstr "Utiliser la partition existante ?"
@@ -6132,8 +6127,8 @@ msgstr "Ukrainian"
 #~ msgstr "Impossible d'ajouter des périphériques RAID"
 
 #~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add RAID devices."
+#~ "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+#~ "add RAID devices."
 #~ msgstr ""
 #~ "Vous avez défini le système de fichiers '/' sur une partition non-ext2 ; "
 #~ "vous ne pouvez donc pas ajouter de périphériques RAID."
@@ -6203,8 +6198,8 @@ msgstr "Ukrainian"
 #~ msgstr "Il existe des partitions non allouées..."
 
 #~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "or a RAID partition for the install to proceed."
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) or a "
+#~ "RAID partition for the install to proceed."
 #~ msgstr ""
 #~ "Vous devez affecter une partition root (/) à une partition Linux Native "
 #~ "(ext2) ou à une partition RAID pour que l'installation puisse continuer."
@@ -6249,11 +6244,10 @@ msgstr "Ukrainian"
 #~ msgstr "  Point de montage     Périphérique  Requis   Actuel          Type"
 
 #~ msgid ""
-#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "Ok        "
+#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 #~ msgstr ""
-#~ "  F1-Aide     F2-Ajouter     F3-Modifier    F4-Effacer     F5-RAZ     F12-"
-#~ "Ok  "
+#~ "  F1-Aide     F2-Ajouter     F3-Modifier    F4-Effacer     F5-RAZ     F12-Ok "
+#~ " "
 
 #~ msgid "Drive Summaries"
 #~ msgstr "Résumés disque"
@@ -6262,8 +6256,8 @@ msgstr "Ukrainian"
 #~ msgstr "  Lecteur    Geom [C/H/S]      Total    Utilisé Libre"
 
 #~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "for the install to proceed."
+#~ "You must assign a root (/) partition to a Linux native partition (ext2) for "
+#~ "the install to proceed."
 #~ msgstr ""
 #~ "Vous devez affecter une partition root (/) à une partition Linux Native "
 #~ "(ext2) pour que l'installation puisse continuer."
@@ -6280,11 +6274,11 @@ msgstr "Ukrainian"
 #~ msgstr "Pas de partition /boot/efi"
 
 #~ msgid ""
-#~ "You must assign the mount point /boot/efi to a FAT-style primary "
-#~ "partition for the install to proceed."
+#~ "You must assign the mount point /boot/efi to a FAT-style primary partition "
+#~ "for the install to proceed."
 #~ msgstr ""
-#~ "Vous devez attribuer le point de montage /boot/efi à une partition "
-#~ "primaire de style FAT pour que l'installation puisse continuer."
+#~ "Vous devez attribuer le point de montage /boot/efi à une partition primaire "
+#~ "de style FAT pour que l'installation puisse continuer."
 
 #~ msgid ""
 #~ "There are unallocated partitions left. If you quit now they will not be "
@@ -6292,8 +6286,8 @@ msgstr "Ukrainian"
 #~ "\n"
 #~ "Are you sure you want to exit?"
 #~ msgstr ""
-#~ "Il reste des partitions non allouées. Si vous quittez maintenant, elles "
-#~ "ne seront pas écrites sur le disque.\n"
+#~ "Il reste des partitions non allouées. Si vous quittez maintenant, elles ne "
+#~ "seront pas écrites sur le disque.\n"
 #~ "\n"
 #~ "Etes-vous sûr de vouloir quitter ?"
 
@@ -6338,16 +6332,16 @@ msgstr "Ukrainian"
 #~ msgstr "Mot de passe root"
 
 #~ msgid ""
-#~ "An internal error occurred in the installation program. Please report "
-#~ "this error to Red Hat (through the bugzilla.redhat.com web site) as soon "
-#~ "as possible. The information on this failure may be saved to a floppy "
-#~ "disk, and will help Red Hat in fixing the problem.\n"
+#~ "An internal error occurred in the installation program. Please report this "
+#~ "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
+#~ "possible. The information on this failure may be saved to a floppy disk, and "
+#~ "will help Red Hat in fixing the problem.\n"
 #~ "\n"
 #~ msgstr ""
 #~ " Une erreur interne s'est produite dans le programme d'installation. "
 #~ "Signalez cette erreur à Red Hat (sur le site Web bugzilla.redhat.com) au "
-#~ "plus tôt. Vous pouvez enregistrer les informations relatives à cette "
-#~ "panne sur disquette ; cela aidera Red Hat à résoudre le problème.\n"
+#~ "plus tôt. Vous pouvez enregistrer les informations relatives à cette panne "
+#~ "sur disquette ; cela aidera Red Hat à résoudre le problème.\n"
 
 #~ msgid "Filesystem Missing"
 #~ msgstr "Création du système de fichiers"
@@ -6365,14 +6359,14 @@ msgstr "Ukrainian"
 #~ msgstr "Entrer un mot de passe root."
 
 #~ msgid ""
-#~ "Please remove the install floppy (if used) and insert a blank floppy in "
-#~ "the first floppy drive. All data on this disk will be erased during "
-#~ "creation of the boot disk."
+#~ "Please remove the install floppy (if used) and insert a blank floppy in the "
+#~ "first floppy drive. All data on this disk will be erased during creation of "
+#~ "the boot disk."
 #~ msgstr ""
 #~ "Retirer la disquette d'installation (le cas échéant) et insérer une "
-#~ "disquette vierge dans le premier lecteur de disquettes. Toutes les "
-#~ "données de cette disquette seront supprimées lors de la création de la "
-#~ "disquette d'amorçage."
+#~ "disquette vierge dans le premier lecteur de disquettes. Toutes les données "
+#~ "de cette disquette seront supprimées lors de la création de la disquette "
+#~ "d'amorçage."
 
 #~ msgid ""
 #~ "Congratulations, installation is complete.\n"
@@ -6382,19 +6376,19 @@ msgstr "Ukrainian"
 #~ "fixes which are available for this release of Red Hat Linux, consult the "
 #~ "Errata available from http://www.redhat.com/errata.\n"
 #~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the Red Hat Linux manuals."
+#~ "Information on configuring and using your Red Hat Linux system is contained "
+#~ "in the Red Hat Linux manuals."
 #~ msgstr ""
 #~ "Félicitations, l'installation est terminée.\n"
 #~ "\n"
-#~ "Appuyez sur Quitter pour redémarrer ; n'oubliez pas de retirer la "
-#~ "disquette après le redémarrage afin d'éviter que le système n'exécute à "
-#~ "nouveau l'installation. Pour plus d'informations sur les corrections "
-#~ "disponibles pour cette version de Red Hat Linux, consultez les Errata à "
-#~ "l'adresse http://www.redhat.com/errata.\n"
+#~ "Appuyez sur Quitter pour redémarrer ; n'oubliez pas de retirer la disquette "
+#~ "après le redémarrage afin d'éviter que le système n'exécute à nouveau "
+#~ "l'installation. Pour plus d'informations sur les corrections disponibles "
+#~ "pour cette version de Red Hat Linux, consultez les Errata à l'adresse "
+#~ "http://www.redhat.com/errata.\n"
 #~ "\n"
-#~ "Des informations sur la configuration et l'utilisation de votre système "
-#~ "Red Hat Linux sont disponibles dans les manuels Red Hat Linux."
+#~ "Des informations sur la configuration et l'utilisation de votre système Red "
+#~ "Hat Linux sont disponibles dans les manuels Red Hat Linux."
 
 #~ msgid "Install Type"
 #~ msgstr "Type d'installation"
@@ -6411,22 +6405,20 @@ msgstr "Ukrainian"
 #~ msgstr "Configuration disque"
 
 #~ msgid ""
-#~ "Autopartitioning sets up your partitioning in a reasonable way depending "
-#~ "on your installation type and then gives you a chance to customize this "
-#~ "setup.\n"
+#~ "Autopartitioning sets up your partitioning in a reasonable way depending on "
+#~ "your installation type and then gives you a chance to customize this setup.\n"
 #~ "\n"
-#~ "Disk Druid is a tool designed for partitioning and setting up mount "
-#~ "points.  It is designed to be easier to use than Linux's traditional disk "
-#~ "partitioning software, fdisk, as well as more powerful.  However, there "
-#~ "are some cases where fdisk may be preferred.\n"
+#~ "Disk Druid is a tool designed for partitioning and setting up mount points.  "
+#~ "It is designed to be easier to use than Linux's traditional disk "
+#~ "partitioning software, fdisk, as well as more powerful.  However, there are "
+#~ "some cases where fdisk may be preferred.\n"
 #~ "\n"
 #~ "Which tool would you like to use?"
 #~ msgstr ""
-#~ "Disk Druid est un outil de partitionnement et de configuration des points "
-#~ "de montage. Il est conçu pour être plus facile à utiliser que fdisk, "
-#~ "l'outil de partitionnement traditionnel de Linux. Il est également plus "
-#~ "puissant. Cependant, dans certains cas, il est préférable d'utiliser "
-#~ "fdisk.\n"
+#~ "Disk Druid est un outil de partitionnement et de configuration des points de "
+#~ "montage. Il est conçu pour être plus facile à utiliser que fdisk, l'outil de "
+#~ "partitionnement traditionnel de Linux. Il est également plus puissant. "
+#~ "Cependant, dans certains cas, il est préférable d'utiliser fdisk.\n"
 #~ "\n"
 #~ "Quel outil voulez-vous utiliser ?"
 
@@ -6439,22 +6431,22 @@ msgstr "Ukrainian"
 #~ "\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Le démarrage à partir d'une disquette risque de ne pas être possible sur "
-#~ "les stations de travail Ultra SMCC.\n"
+#~ "Le démarrage à partir d'une disquette risque de ne pas être possible sur les "
+#~ "stations de travail Ultra SMCC.\n"
 #~ "\n"
 
 #~ msgid "Bootdisk"
 #~ msgstr "Disquette d'amorçage"
 
 #~ msgid ""
-#~ "If you have the install floppy in your drive, first remove it. Then "
-#~ "insert a blank floppy in the first floppy drive. All data on this disk "
-#~ "will be erased during creation of the boot disk."
+#~ "If you have the install floppy in your drive, first remove it. Then insert a "
+#~ "blank floppy in the first floppy drive. All data on this disk will be erased "
+#~ "during creation of the boot disk."
 #~ msgstr ""
-#~ "Si la disquette d'installation se trouve dans le lecteur, commencez par "
-#~ "la retirer. Insérez ensuite une disquette vierge dans le premier lecteur. "
-#~ "Toutes les données de cette disquette seront supprimées lors de la "
-#~ "création de la disquette d'amorçage."
+#~ "Si la disquette d'installation se trouve dans le lecteur, commencez par la "
+#~ "retirer. Insérez ensuite une disquette vierge dans le premier lecteur. "
+#~ "Toutes les données de cette disquette seront supprimées lors de la création "
+#~ "de la disquette d'amorçage."
 
 #~ msgid "Choose the languages to be installed:"
 #~ msgstr "Choisir la langue à installer :"
@@ -6487,27 +6479,27 @@ msgstr "Ukrainian"
 #~ "format them. This will probably cause an error later in the install.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Les partitions suivants viennent d'être créées, mais vous avez choisi de "
-#~ "ne pas les formater. Cela causera probablement une erreur au cours de "
+#~ "Les partitions suivants viennent d'être créées, mais vous avez choisi de ne "
+#~ "pas les formater. Cela causera probablement une erreur au cours de "
 #~ "l'installation.\n"
 #~ "\n"
 
 #~ msgid ""
 #~ "\n"
 #~ "\n"
-#~ "Press OK to continue, or Cancel to go back and select these partitions to "
-#~ "be formatted (RECOMMENDED)."
+#~ "Press OK to continue, or Cancel to go back and select these partitions to be "
+#~ "formatted (RECOMMENDED)."
 #~ msgstr ""
 #~ "\n"
 #~ "\n"
-#~ "Appuyer sur OK pour continuer ou sur Supprimer pour retourner en arrière "
-#~ "et sélectionner les partitions à formater (RECOMMANDE)."
+#~ "Appuyer sur OK pour continuer ou sur Supprimer pour retourner en arrière et "
+#~ "sélectionner les partitions à formater (RECOMMANDE)."
 
 #~ msgid ""
 #~ "The kernel is unable to read your new partitioning information, probably "
 #~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
-#~ "now and press \"Ok\" to reboot your system.\n"
+#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+#~ "and press \"Ok\" to reboot your system.\n"
 #~ msgstr ""
 #~ "Le noyau est incapable de lire vos nouvelles informations de "
 #~ "partitionnement, probablement parce que vous avez modifié des partitions "
@@ -6633,18 +6625,17 @@ msgstr "Ukrainian"
 #~ msgid ""
 #~ "An error occured while installing the bootloader.\n"
 #~ "\n"
-#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
-#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
+#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, otherwise "
+#~ "you may not be able to reboot into Red Hat Linux.\n"
 #~ "\n"
 #~ "The error reported was:\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Une erreur s'est produite lors de l'installation du chargeur de "
-#~ "démarrage.\n"
+#~ "Une erreur s'est produite lors de l'installation du chargeur de démarrage.\n"
 #~ "\n"
 #~ "Nous vous recommandons FORTEMENT de créer une disquette d'amorçage de "
-#~ "récupération à l'invite. Sinon, vous risquez de ne plus pouvoir démarrer "
-#~ "Red Hat Linux.\n"
+#~ "récupération à l'invite. Sinon, vous risquez de ne plus pouvoir démarrer Red "
+#~ "Hat Linux.\n"
 #~ "\n"
 #~ "L'erreur est :\n"
 #~ "\n"
@@ -6680,8 +6671,7 @@ msgstr "Ukrainian"
 #~ "\n"
 #~ "Installer will exit now."
 #~ msgstr ""
-#~ "L'erreur suivante s'est produite lors de l'extraction du fichier "
-#~ "hdlist :\n"
+#~ "L'erreur suivante s'est produite lors de l'extraction du fichier hdlist :\n"
 #~ "\n"
 #~ "%s\n"
 #~ "\n"
@@ -6691,26 +6681,26 @@ msgstr "Ukrainian"
 #~ "An error has occurred while retreiving the hdlist file.  The installation "
 #~ "media or image is probably corrupt.  Installer will exit now."
 #~ msgstr ""
-#~ "Une erreur s'est produite durant l'extraction du fichier hdlist. L'image "
-#~ "ou le support d'installation est probablement endommagé. Fin du programme "
+#~ "Une erreur s'est produite durant l'extraction du fichier hdlist. L'image ou "
+#~ "le support d'installation est probablement endommagé. Fin du programme "
 #~ "d'installation."
 
 #~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
+#~ "You have put the partition containing the kernel (the boot partition) above "
+#~ "the 1024 cylinder limit, and it appears that this systems BIOS does not "
+#~ "support booting from above this limit. Proceeding will most likely make the "
+#~ "system unable to reboot into Linux.\n"
 #~ "\n"
 #~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
+#~ "when asked. This will guarantee you have a way to boot into the system after "
+#~ "installation.\n"
 #~ "\n"
 #~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 #~ msgstr ""
-#~ "Vous avez placé la partition contenant le noyau (la partition de "
-#~ "démarrage) au-delà de la limite du 1024ème cylindre. Le BIOS de ce "
-#~ "système ne permet pas de démarrer dans ces conditions. Si vous continuez, "
-#~ "le système ne pourra pas redémarrer Linux depuis le disque dur.\n"
+#~ "Vous avez placé la partition contenant le noyau (la partition de démarrage) "
+#~ "au-delà de la limite du 1024ème cylindre. Le BIOS de ce système ne permet "
+#~ "pas de démarrer dans ces conditions. Si vous continuez, le système ne pourra "
+#~ "pas redémarrer Linux depuis le disque dur.\n"
 #~ "\n"
 #~ "Si vous choisissez de continuer, il est FORTEMENT conseillé de créer une "
 #~ "disquette d'amorçage quand cela vous est demandé. De cette façon, vous "
@@ -6720,36 +6710,34 @@ msgstr "Ukrainian"
 #~ "renommer la partition d'amorçage."
 
 #~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
-#~ "booting from above this limit. \n"
+#~ "You have put the partition containing the kernel (the boot partition) above "
+#~ "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
+#~ "from above this limit. \n"
 #~ "\n"
-#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
-#~ "installer, as this is a new feature in recent motherboards and is not "
-#~ "always reliable. Making a boot disk will guarantee you can boot your "
-#~ "system once installed."
+#~ "It is HIGHLY recommended you make a boot floppy when asked by the installer, "
+#~ "as this is a new feature in recent motherboards and is not always reliable. "
+#~ "Making a boot disk will guarantee you can boot your system once installed."
 #~ msgstr ""
 #~ "Vous avez placé la partition contenant le noyau (la partition d'amorçage) "
 #~ "au-delà de la limite du 1024ème cylindre. Le BIOS de ce système gère le "
 #~ "démarrage dans ces conditions.\n"
 #~ "\n"
 #~ "Il est FORTEMENT conseillé de créer une disquette d'amorçage lorsque cela "
-#~ "vous est demandé par le programme d'installation. S'agissant en effet "
-#~ "d'une nouvelle caractéristique des cartes mères, elle n'est pas toujours "
-#~ "fiable. La disquette d'amorçage vous garantit que vous arriverez à "
-#~ "accéder à votre système après l'installation."
+#~ "vous est demandé par le programme d'installation. S'agissant en effet d'une "
+#~ "nouvelle caractéristique des cartes mères, elle n'est pas toujours fiable. "
+#~ "La disquette d'amorçage vous garantit que vous arriverez à accéder à votre "
+#~ "système après l'installation."
 
 #~ msgid ""
-#~ "You've chosen to put your root filesystem in a file on an already-"
-#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
-#~ "you like the root filesystem to be, and how much swap space would you "
-#~ "like? They must total less then %d megabytes in size."
+#~ "You've chosen to put your root filesystem in a file on an already-existing "
+#~ "DOS or Windows filesystem. How large, in megabytes, should would you like "
+#~ "the root filesystem to be, and how much swap space would you like? They must "
+#~ "total less then %d megabytes in size."
 #~ msgstr ""
 #~ "Vous avez choisi de placer votre système de fichiers root dans un fichier "
-#~ "situé dans un système de fichiers DOS ou Windows existant. Quelle doit "
-#~ "être la taille (en méga-octets) du système de fichiers root et combien "
-#~ "d'espace swap voulez-vous utiliser ? Le total doit être inférieur à %d "
-#~ "méga-octets."
+#~ "situé dans un système de fichiers DOS ou Windows existant. Quelle doit être "
+#~ "la taille (en méga-octets) du système de fichiers root et combien d'espace "
+#~ "swap voulez-vous utiliser ? Le total doit être inférieur à %d méga-octets."
 
 #~ msgid "Root filesystem size:"
 #~ msgstr "Taille du système de fichiers root :"
@@ -6764,30 +6752,29 @@ msgstr "Ukrainian"
 #~ "\n"
 #~ "Selecting manual partitioning allows you to create the partitions by hand."
 #~ msgstr ""
-#~ "Sélectionnez le type de partitionnement de disque que vous voulez "
-#~ "utiliser.\n"
+#~ "Sélectionnez le type de partitionnement de disque que vous voulez utiliser.\n"
 #~ "\n"
 #~ "%s\n"
 #~ "\n"
-#~ "En sélectionnant le partitionnement manuel vous pourrez créer vous-même "
-#~ "les partitions."
+#~ "En sélectionnant le partitionnement manuel vous pourrez créer vous-même les "
+#~ "partitions."
 
 #~ msgid "Automatic Partitioning Failed"
 #~ msgstr "Le partitionnement automatique a échoué"
 
 #~ msgid ""
 #~ "\n"
-#~ "There is not sufficient disk space in order to automatically partition "
-#~ "your disk. You will need to manually partition your disks for Red Hat "
-#~ "Linux to install.\n"
+#~ "There is not sufficient disk space in order to automatically partition your "
+#~ "disk. You will need to manually partition your disks for Red Hat Linux to "
+#~ "install.\n"
 #~ "\n"
 #~ "Please choose the tool you would like to use to partition your system for "
 #~ "Red Hat Linux."
 #~ msgstr ""
 #~ "\n"
 #~ "Espace disque insuffisant pour un partitionnement automatique du disque. "
-#~ "Vous devez partitionner manuellement vos disques pour l'installation de "
-#~ "Red Hat Linux.\n"
+#~ "Vous devez partitionner manuellement vos disques pour l'installation de Red "
+#~ "Hat Linux.\n"
 #~ "\n"
 #~ "Choisissez l'outil à utiliser afin de partitionner votre système pour Red "
 #~ "Hat Linux."
@@ -6802,21 +6789,21 @@ msgstr "Ukrainian"
 #~ msgstr "Emplacement de la partition d'amorçage"
 
 #~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
+#~ "You have put the partition containing the kernel (the boot partition) above "
+#~ "the 1024 cylinder limit, and it appears that this systems BIOS does not "
+#~ "support booting from above this limit. Proceeding will most likely make the "
+#~ "system unable to reboot into Linux.\n"
 #~ "\n"
 #~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
+#~ "when asked. This will guarantee you have a way to boot into the system after "
+#~ "installation.\n"
 #~ "\n"
 #~ "Are you sure you want to proceed?"
 #~ msgstr ""
 #~ "Vous avez placé la partition contenant le noyau (la partition d'amorçage) "
 #~ "au-delà de la limite du 1024ème cylindre. Le BIOS de ce système ne permet "
-#~ "pas de démarrer dans ces conditions. Si vous continuez, le système ne "
-#~ "pourra pas redémarrer Linux depuis le disque dur.\n"
+#~ "pas de démarrer dans ces conditions. Si vous continuez, le système ne pourra "
+#~ "pas redémarrer Linux depuis le disque dur.\n"
 #~ "\n"
 #~ "Si vous choisissez de continuer, il est FORTEMENT conseillé de créer une "
 #~ "disquette d'amorçage quand cela vous est demandé. De cette façon, vous "
@@ -6860,15 +6847,15 @@ msgstr "Ukrainian"
 #~ msgstr "Partitionnement manuel"
 
 #~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting "
-#~ "all of the system partitions, including /, /usr, and /var. There is no "
-#~ "need to format /home or /usr/local if they have already been configured "
-#~ "during a previous install."
+#~ "What partitions would you like to format? We strongly suggest formatting all "
+#~ "of the system partitions, including /, /usr, and /var. There is no need to "
+#~ "format /home or /usr/local if they have already been configured during a "
+#~ "previous install."
 #~ msgstr ""
-#~ "Quelles partitions voulez-vous formater ? Nous vous conseillons fortement "
-#~ "de formater toutes les partitions système, notamment /, /usr et /var. "
-#~ "Vous n'avez pas besoin de formater /home ou /usr/local si elles ont déjà "
-#~ "été configurées lors d'une installation précédente."
+#~ "Quelles partitions voulez-vous formater ? Nous vous conseillons fortement de "
+#~ "formater toutes les partitions système, notamment /, /usr et /var. Vous "
+#~ "n'avez pas besoin de formater /home ou /usr/local si elles ont déjà été "
+#~ "configurées lors d'une installation précédente."
 
 #~ msgid "Choose Partitions to Format"
 #~ msgstr "Choix des partitions à formater"
@@ -6886,22 +6873,22 @@ msgstr "Ukrainian"
 #~ "The total size must be smaller then the amount of free space on the disk, "
 #~ "which is %d megabytes."
 #~ msgstr ""
-#~ "La taille totale doit être inférieure à l'espace disque disponible qui "
-#~ "est de %d méga-octets."
+#~ "La taille totale doit être inférieure à l'espace disque disponible qui est "
+#~ "de %d méga-octets."
 
 #~ msgid ""
 #~ "Neither the root file system size nor the swap space size may be greater "
 #~ "then 2000 megabytes."
 #~ msgstr ""
-#~ "La taille du système de fichiers root et celle de l'espace swap ne "
-#~ "doivent pas dépasser 2000 méga-octets."
+#~ "La taille du système de fichiers root et celle de l'espace swap ne doivent "
+#~ "pas dépasser 2000 méga-octets."
 
 #~ msgid ""
-#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
-#~ "continue with the upgrade."
+#~ "If you would like to exit the upgrade select Exit, or choose Ok to continue "
+#~ "with the upgrade."
 #~ msgstr ""
-#~ "Pour quitter la mise à jour appuyez sur Quitter, pour poursuivre la mise "
-#~ "à jour appuyez sur OK."
+#~ "Pour quitter la mise à jour appuyez sur Quitter, pour poursuivre la mise à "
+#~ "jour appuyez sur OK."
 
 #~ msgid ""
 #~ "Automatic partitioning will erase any preexisting Linux installations on "
@@ -6911,11 +6898,11 @@ msgstr "Ukrainian"
 #~ "préexistantes de votre système."
 
 #~ msgid ""
-#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
-#~ "room for your Linux installation."
+#~ "Automatic partitioning will erase ALL DATA on your hard drive to make room "
+#~ "for your Linux installation."
 #~ msgstr ""
-#~ "Le partitionnement automatique effacera TOUTES LES DONNEES de votre "
-#~ "disque dur afin de créer de l'espace pour votre installation Linux."
+#~ "Le partitionnement automatique effacera TOUTES LES DONNEES de votre disque "
+#~ "dur afin de créer de l'espace pour votre installation Linux."
 
 #~ msgid "Loading %s ramdisk..."
 #~ msgstr "Chargement du disque virtuel %s..."
@@ -7013,15 +7000,15 @@ msgstr "Ukrainian"
 #~ msgstr "Confirmez la sélection des partitions"
 
 #~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them.\n"
+#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
+#~ "need to tell me what partitions you would like to be able to boot and what "
+#~ "label you want to use for each of them.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Le gestionnaire de démarrage de Red Hat peut aussi lancer d'autres "
-#~ "systèmes d'exploitation. Vous devez indiquer les partitions que vous "
-#~ "souhaitez pouvoir lancer et l'étiquette que vous voulez utiliser pour "
-#~ "chacune d'elles.\n"
+#~ "Le gestionnaire de démarrage de Red Hat peut aussi lancer d'autres systèmes "
+#~ "d'exploitation. Vous devez indiquer les partitions que vous souhaitez "
+#~ "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune "
+#~ "d'elles.\n"
 #~ "\n"
 
 # ../comps/comps-master:570
