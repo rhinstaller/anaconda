@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2001-03-29 18:52-0500\n"
+"POT-Creation-Date: 2001-04-02 11:26-0400\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -86,8 +86,8 @@ msgstr "Bilatzen"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
-#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
+#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Akatsa"
 
@@ -140,7 +140,7 @@ msgid "Error unmounting %s: %s"
 msgstr "%s erauztean akatsa:%s"
 
 # ../fstab.py:553 ../todo.py:531
-#: ../fstab.py:689 ../todo.py:741
+#: ../fstab.py:689 ../todo.py:740
 msgid "Creating"
 msgstr "Sortzen"
 
@@ -192,7 +192,7 @@ msgstr ""
 "Onartu zaztatu eta zure ordenagailua berpiztu."
 
 # ../gui.py:142
-#: ../gui.py:178
+#: ../gui.py:183
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -204,7 +204,7 @@ msgstr ""
 "bidal ezazu mesedez."
 
 # ../gui.py:275 ../text.py:810
-#: ../gui.py:327 ../text.py:878
+#: ../gui.py:332 ../text.py:878
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -213,7 +213,7 @@ msgstr ""
 "izango da, beraz disketea aukeratzerakoan argi ibili."
 
 # ../gui.py:365 ../gui.py:605
-#: ../gui.py:419 ../gui.py:794
+#: ../gui.py:424 ../gui.py:799
 msgid "Next"
 msgstr "Hurrengoa"
 
@@ -242,7 +242,7 @@ msgstr "Hurrengoa"
 # ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 # ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:287
-#: ../gui.py:420 ../gui.py:793 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
@@ -261,9 +261,9 @@ msgstr "Hurrengoa"
 #: ../textw/network_text.py:161 ../textw/network_text.py:164
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
-#: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
+#: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:66
+#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:221
+#: ../textw/partitioning_text.py:260 ../textw/partitioning_text.py:343
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:68
 #: ../textw/upgrade_text.py:155 ../textw/upgrade_text.py:173
@@ -276,71 +276,71 @@ msgid "Back"
 msgstr "Atzera"
 
 # ../gui.py:745
-#: ../gui.py:421 ../gui.py:541 ../gui.py:796
+#: ../gui.py:426 ../gui.py:546 ../gui.py:801
 msgid "Release Notes"
 msgstr "Oharrak Zabaldu"
 
 # ../gui.py:367 ../gui.py:609
-#: ../gui.py:422 ../gui.py:799
+#: ../gui.py:427 ../gui.py:804
 msgid "Show Help"
 msgstr "Laguntza Azaldu"
 
 # ../gui.py:368 ../gui.py:608
-#: ../gui.py:423 ../gui.py:798
+#: ../gui.py:428 ../gui.py:803
 msgid "Hide Help"
 msgstr "Laguntza Ezkutatu"
 
 # ../gui.py:369 ../gui.py:607
-#: ../gui.py:424 ../gui.py:797
+#: ../gui.py:429 ../gui.py:802
 msgid "Finish"
 msgstr "Amaitu"
 
 # ../gui.py:372 ../gui.py:635
-#: ../gui.py:428 ../gui.py:829
+#: ../gui.py:433 ../gui.py:834
 msgid "Online Help"
 msgstr "Zuzeneko Laguntza"
 
 # ../gui.py:373 ../iw/language_gui.py:10 ../text.py:62 ../text.py:881
 # ../text.py:910
-#: ../gui.py:429 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:434 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:69 ../text.py:973
 msgid "Language Selection"
 msgstr "Hizkuntzaren Hautaketa"
 
 # ../libfdisk/gnomefsedit.c:1267 ../libfdisk/gnomefsedit.c:1284
-#: ../gui.py:536 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../gui.py:541 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1394
+#: ../libfdisk/gnomefsedit.c:1411
 msgid "Close"
 msgstr "Itxi"
 
-#: ../gui.py:572
+#: ../gui.py:577
 msgid "Unable to load file!"
 msgstr ""
 
 # ../gui.py:571
-#: ../gui.py:717
+#: ../gui.py:722
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux-eko Ezartzailea"
 
 # ../gui.py:575
-#: ../gui.py:721
+#: ../gui.py:726
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux-eko Ezarketako Agindu-Geruza (shell)"
 
 # ../gui.py:586
-#: ../gui.py:732
+#: ../gui.py:737
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux-eko Ezartzailea %s-ean"
 
 # ../gui.py:587
-#: ../gui.py:733
+#: ../gui.py:738
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux-eko Ezarketa Agindu-Geruza %s-ean"
 
 # ../gui.py:682
-#: ../gui.py:878
+#: ../gui.py:883
 msgid "Install Window"
 msgstr "Ezarketa Lehioa"
 
@@ -459,9 +459,9 @@ msgstr "Ezinezkoa CDROM-a lotzea."
 #: ../textw/network_text.py:102 ../textw/network_text.py:123
 #: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
-#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:259
-#: ../textw/partitioning_text.py:342 ../textw/partitioning_text.py:353
-#: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:260
+#: ../textw/partitioning_text.py:343 ../textw/partitioning_text.py:354
+#: ../textw/partitioning_text.py:362 ../textw/partitioning_text.py:369
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:67
 #: ../textw/upgrade_text.py:173 ../textw/userauth_text.py:30
@@ -572,20 +572,20 @@ msgstr ""
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
 #: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
-#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
-#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
-#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
-#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
-#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:762
+#: ../libfdisk/gnomefsedit.c:794 ../libfdisk/gnomefsedit.c:885
+#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1305 ../libfdisk/gnomefsedit.c:1339
+#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:1532
+#: ../libfdisk/gnomefsedit.c:1607 ../libfdisk/gnomefsedit.c:1657
+#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1743
+#: ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2033
+#: ../libfdisk/gnomefsedit.c:2279 ../libfdisk/gnomefsedit.c:2287
+#: ../libfdisk/gnomefsedit.c:2331 ../libfdisk/gnomefsedit.c:2341
+#: ../libfdisk/gnomefsedit.c:2348 ../libfdisk/gnomefsedit.c:2363
+#: ../libfdisk/gnomefsedit.c:2373 ../libfdisk/gnomefsedit.c:2383
+#: ../libfdisk/gnomefsedit.c:2422 ../libfdisk/gnomefsedit.c:2589
+#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
 #: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 #: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
@@ -596,7 +596,7 @@ msgstr ""
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:138
 #: ../textw/lilo_text.py:223 ../textw/mouse_text.py:27
-#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
+#: ../textw/partitioning_text.py:157 ../textw/partitioning_text.py:422
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205 ../textw/upgrade_text.py:22
 #: ../textw/upgrade_text.py:141 ../textw/upgrade_text.py:190
@@ -732,8 +732,8 @@ msgstr ""
 # ../text.py:337 ../text.py:812 ../text.py:814 ../textw/lilo_text.py:118
 # ../textw/silo_text.py:136 ../textw/silo_text.py:154
 # ../textw/userauth_text.py:63
-#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
+#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/gnomefsedit.c:2033
+#: ../libfdisk/gnomefsedit.c:2631 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
@@ -1068,7 +1068,7 @@ msgid "Manually Partition"
 msgstr "Disko Zatiteka eskuz egin"
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../text.py:1007 ../textw/partitioning_text.py:334
+#: ../text.py:1007 ../textw/partitioning_text.py:335
 msgid "Root Filesystem Size"
 msgstr "Erro Fitxategitzaren Neurria"
 
@@ -1079,8 +1079,8 @@ msgstr "Disko-Trukagunea"
 
 # ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
 # ../textw/partitioning_text.py:149
-#: ../text.py:1011 ../textw/partitioning_text.py:391
-#: ../textw/partitioning_text.py:411
+#: ../text.py:1011 ../textw/partitioning_text.py:392
+#: ../textw/partitioning_text.py:412
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "Berekasakako Disko Zatiketa"
@@ -1177,44 +1177,44 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Aurreko urratsera joatea ezinezkoa da. Berriz saiatu beharko duzu."
 
 # ../todo.py:531
-#: ../todo.py:741
+#: ../todo.py:740
 msgid "Creating boot disk..."
 msgstr "Abiatze Diskoa Sortzen..."
 
 # ../todo.py:550
-#: ../todo.py:760
+#: ../todo.py:759
 msgid "Reading"
 msgstr "Irakurtzen"
 
 # ../todo.py:551
-#: ../todo.py:761
+#: ../todo.py:760
 msgid "Reading package information..."
 msgstr "Programa Sortei buruzko azalpenak irakurtzen..."
 
 # ../todo.py:756
-#: ../todo.py:1058
+#: ../todo.py:1057
 msgid "Dependency Check"
 msgstr "Menpekotasunak Egiztatu"
 
 # ../todo.py:757
-#: ../todo.py:1059
+#: ../todo.py:1058
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Ezarketarako hautatuako programa sorten menpekotasunak egiaztatzen..."
 
 # ../todo.py:784 ../todo.py:826 ../todo.py:832 ../todo.py:849
-#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
-#: ../todo.py:1308
+#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
+#: ../todo.py:1302
 msgid "no suggestion"
 msgstr "aholkurik ez dago"
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../todo.py:1189 ../upgrade.py:99
+#: ../todo.py:1188 ../upgrade.py:99
 #, fuzzy
 msgid "Dirty Filesystems"
 msgstr "Erro Fitxategitzaren Neurria"
 
 # ../todo.py:951
-#: ../todo.py:1190
+#: ../todo.py:1189
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1224,7 +1224,7 @@ msgstr ""
 "eguneratu berriz."
 
 # ../todo.py:989
-#: ../todo.py:1205
+#: ../todo.py:1204
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1238,37 +1238,37 @@ msgstr ""
 "\n"
 
 # ../todo.py:964
-#: ../todo.py:1226
+#: ../todo.py:1224
 msgid "Finding"
 msgstr "Bilatzen..."
 
 # ../todo.py:965
-#: ../todo.py:1227
+#: ../todo.py:1225
 msgid "Finding packages to upgrade..."
 msgstr "Eguneratuko diren sortak bilatzen..."
 
 # ../todo.py:980
-#: ../todo.py:1244
+#: ../todo.py:1240
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "RPM datu basearen sorreran akatsa. Diskoan lekurik ba al dago?"
 
 # ../todo.py:993
-#: ../todo.py:1259
+#: ../todo.py:1253
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Eguneratuko diren sortak bilatzerakoan akats bat gertatu da."
 
 # ../todo.py:1302
-#: ../todo.py:1544
+#: ../todo.py:1538
 msgid "Processing"
 msgstr "Burutzen"
 
 # ../todo.py:1303
-#: ../todo.py:1545
+#: ../todo.py:1539
 msgid "Preparing to install..."
 msgstr "Ezarketarako prestatzen..."
 
 # ../todo.py:1377
-#: ../todo.py:1579
+#: ../todo.py:1573
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1279,19 +1279,19 @@ msgstr ""
 "(Return) zapaldu."
 
 # ../todo.py:1556
-#: ../todo.py:1833
+#: ../todo.py:1828
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s eguneratzen.\n"
 
 # ../todo.py:1558
-#: ../todo.py:1835
+#: ../todo.py:1830
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s ezartzen.\n"
 
 # ../todo.py:1583
-#: ../todo.py:1880
+#: ../todo.py:1875
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1302,18 +1302,18 @@ msgstr ""
 "\n"
 
 # ../libfdisk/gnomefsedit.c:2992 ../todo.py:1586
-#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1883 ../todo.py:1901
+#: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3177
+#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
 msgid "Mount Point"
 msgstr "Loturagunea"
 
 # ../todo.py:1586
-#: ../todo.py:1883
+#: ../todo.py:1878
 msgid "Space Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1583
-#: ../todo.py:1898
+#: ../todo.py:1893
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1325,27 +1325,27 @@ msgstr ""
 "\n"
 
 # ../todo.py:1586
-#: ../todo.py:1901
+#: ../todo.py:1896
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1599
-#: ../todo.py:1907
+#: ../todo.py:1902
 msgid "Disk Space"
 msgstr "Diskaren Zabaltegia"
 
 # ../todo.py:1634
-#: ../todo.py:1942
+#: ../todo.py:1937
 msgid "Post Install"
 msgstr "Ezarketa Ondorengoa"
 
 # ../todo.py:1635
-#: ../todo.py:1943
+#: ../todo.py:1938
 msgid "Performing post install configuration..."
 msgstr "Ezarketa ondorengo egokitzaketa lantzen..."
 
-#: ../todo.py:2082
+#: ../todo.py:2077
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1356,7 +1356,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2088
+#: ../todo.py:2083
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1458,6 +1458,10 @@ msgstr ""
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
 msgstr ""
 
+#: ../xserver.py:211
+msgid " X server started successfully."
+msgstr ""
+
 # ../iw/account_gui.py:15
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1554,7 +1558,7 @@ msgstr "Gehitu"
 # ../textw/userauth_text.py:196
 #: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
 #: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:223
-#: ../textw/partitioning_text.py:64 ../textw/silo_text.py:205
+#: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "Argitatu"
@@ -1737,7 +1741,7 @@ msgstr "Ezarketaren Neurri Guztia: %s"
 # ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:175
 # ../textw/packages_text.py:312
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
-#: ../iw/progress_gui.py:205 ../textw/packages_text.py:312
+#: ../iw/progress_gui.py:209 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Sorta"
 
@@ -1964,7 +1968,7 @@ msgstr "Eguneraketari Buruz"
 # ../iw/lilo_gui.py:192 ../iw/lilo_gui.py:332 ../iw/silo_gui.py:132
 # ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2996
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3181
 msgid "Type"
 msgstr "Mota"
 
@@ -2019,7 +2023,7 @@ msgstr "Jatorrizkoa"
 # ../textw/lilo_text.py:193 ../textw/mouse_text.py:25
 # ../textw/silo_text.py:131 ../textw/silo_text.py:196
 #: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:133
+#: ../libfdisk/gnomefsedit.c:3178 ../textw/lilo_text.py:133
 #: ../textw/lilo_text.py:214 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
@@ -2241,54 +2245,54 @@ msgid "%s KBytes"
 msgstr "%s KByte"
 
 # ../iw/progress_gui.py:176 ../iw/progress_gui.py:217
-#: ../iw/progress_gui.py:206 ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:210 ../iw/progress_gui.py:263
 msgid "Size"
 msgstr "Neurria"
 
 # ../iw/progress_gui.py:177
-#: ../iw/progress_gui.py:207
+#: ../iw/progress_gui.py:211
 msgid "Summary"
 msgstr "Laburpena"
 
 # ../text.py:969
-#: ../iw/progress_gui.py:237
+#: ../iw/progress_gui.py:241
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Sorta Taldea"
 
 # ../text.py:639
-#: ../iw/progress_gui.py:242
+#: ../iw/progress_gui.py:246
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Guztira  :"
 
 # ../iw/progress_gui.py:217
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:263
 msgid "Status"
 msgstr "Egoera"
 
 # ../iw/progress_gui.py:217
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:263
 msgid "Packages"
 msgstr "Sortak"
 
 # ../iw/progress_gui.py:217
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:263
 msgid "Time"
 msgstr "Denbora"
 
 # ../iw/progress_gui.py:222
-#: ../iw/progress_gui.py:269
+#: ../iw/progress_gui.py:273
 msgid "Total"
 msgstr "Guztira"
 
 # ../iw/progress_gui.py:223
-#: ../iw/progress_gui.py:270
+#: ../iw/progress_gui.py:274
 msgid "Completed"
 msgstr "Osatuta"
 
 # ../iw/progress_gui.py:224
-#: ../iw/progress_gui.py:271
+#: ../iw/progress_gui.py:275
 msgid "Remaining"
 msgstr "Gainerakoa"
 
@@ -2298,12 +2302,12 @@ msgid "Disk Druid"
 msgstr "Disk Druid"
 
 # ../iw/rootpartition_gui.py:48 ../textw/partitioning_text.py:213
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:215
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:216
 msgid "Low Memory"
 msgstr "Memoria Gutxi"
 
 # ../iw/rootpartition_gui.py:49 ../textw/partitioning_text.py:214
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:216
+#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:217
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -2328,7 +2332,7 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:492
-#: ../textw/partitioning_text.py:412
+#: ../textw/partitioning_text.py:413
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -2340,7 +2344,7 @@ msgid ""
 msgstr ""
 
 # ../iw/rootpartition_gui.py:145 ../textw/partitioning_text.py:302
-#: ../iw/rootpartition_gui.py:221 ../textw/partitioning_text.py:335
+#: ../iw/rootpartition_gui.py:221 ../textw/partitioning_text.py:336
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -2364,7 +2368,7 @@ msgstr "Disko trukagunearen neurria:"
 
 # ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
 # ../textw/partitioning_text.py:149
-#: ../iw/rootpartition_gui.py:331 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:331 ../textw/partitioning_text.py:150
 msgid "Automatic Partitioning"
 msgstr "Berekasakako Disko Zatiketa"
 
@@ -2441,7 +2445,7 @@ msgstr "Eskuzko disko zatiketa, fdisk-ekin [Adituak soilik]"
 msgid "Boot Partition Location Warning"
 msgstr ""
 
-#: ../iw/rootpartition_gui.py:479 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:479 ../textw/partitioning_text.py:393
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2466,17 +2470,17 @@ msgstr ""
 # ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 # ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
 #: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
+#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
+#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
-#: ../textw/partitioning_text.py:220 ../textw/partitioning_text.py:403
+#: ../textw/partitioning_text.py:221 ../textw/partitioning_text.py:404
 #: ../textw/upgrade_text.py:206
 msgid "Yes"
 msgstr "Bai"
@@ -2492,16 +2496,16 @@ msgstr "Bai"
 # ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 # ../textw/partitioning_text.py:218
 #: ../iw/rootpartition_gui.py:512 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
-#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
-#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
+#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:835
+#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:1382
+#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:2476
+#: ../libfdisk/gnomefsedit.c:2799 ../libfdisk/gnomefsedit.c:2854
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:403
+#: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
 #: ../textw/upgrade_text.py:206 ../textw/upgrade_text.py:212
 msgid "No"
 msgstr "Ez"
@@ -3122,7 +3126,7 @@ msgstr ""
 "daukate. 'Onartu' sakatuz beharrezkoak direnak ere ezarriko dira."
 
 # ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
-#: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
+#: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:59
 msgid "Disk Setup"
 msgstr "Diskoaren Egituraketa"
 
@@ -3144,7 +3148,7 @@ msgstr ""
 "Zein tresna erabiltzea nahi duzu?"
 
 # ../textw/partitioning_text.py:59
-#: ../textw/partitioning_text.py:59
+#: ../textw/partitioning_text.py:60
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
@@ -3158,12 +3162,12 @@ msgstr ""
 # ../loader/loader.c:327 ../loader/loader.c:352
 # ../textw/partitioning_text.py:64
 #: ../loader/loader.c:341 ../loader/loader.c:366
-#: ../textw/partitioning_text.py:64
+#: ../textw/partitioning_text.py:65
 msgid "Done"
 msgstr "Amaituta"
 
 # ../iw/rootpartition_gui.py:299 ../textw/partitioning_text.py:150
-#: ../textw/partitioning_text.py:150
+#: ../textw/partitioning_text.py:151
 #, fuzzy, c-format
 msgid ""
 "%s\n"
@@ -3179,17 +3183,17 @@ msgstr ""
 "nahietara egokitutako ezarketa landu dezakezu."
 
 # ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:155
-#: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
+#: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:158
 msgid "Continue"
 msgstr "Jarraitu"
 
 # ../textw/partitioning_text.py:154
-#: ../textw/partitioning_text.py:155
+#: ../textw/partitioning_text.py:156
 msgid "Manually partition"
 msgstr "Disko Zatiketa Zuk Egin"
 
 # ../textw/partitioning_text.py:234
-#: ../textw/partitioning_text.py:236
+#: ../textw/partitioning_text.py:237
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -3201,39 +3205,39 @@ msgstr ""
 "/usr/local aurrez ezarritakoak badira zer egituratu beharrik ez daukate."
 
 # ../textw/partitioning_text.py:254
-#: ../textw/partitioning_text.py:256
+#: ../textw/partitioning_text.py:257
 msgid "Check for bad blocks during format"
 msgstr "Tangulu (bloke) txarrak begiztatu"
 
 # ../textw/partitioning_text.py:259
-#: ../textw/partitioning_text.py:261
+#: ../textw/partitioning_text.py:262
 msgid "Choose Partitions to Format"
 msgstr "Egituratu beharreko Disko-zatiak Hautatu"
 
 # ../textw/partitioning_text.py:307
-#: ../textw/partitioning_text.py:340
+#: ../textw/partitioning_text.py:341
 msgid "Root filesystem size"
 msgstr "Erro fitxategitzaren neurria"
 
 # ../textw/partitioning_text.py:308
-#: ../textw/partitioning_text.py:341
+#: ../textw/partitioning_text.py:342
 msgid "Swap space"
 msgstr "Disko trukegunearen Edukiera"
 
 # ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:324
 # ../textw/partitioning_text.py:331
-#: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
-#: ../textw/partitioning_text.py:364
+#: ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:365
 msgid "Bad Size"
 msgstr "Neurri Okerra"
 
 # ../textw/partitioning_text.py:319
-#: ../textw/partitioning_text.py:352
+#: ../textw/partitioning_text.py:353
 msgid "The size you enter must be a number."
 msgstr "Idatzi beharrekoak zenbaki bat izan behar du."
 
 # ../textw/partitioning_text.py:325
-#: ../textw/partitioning_text.py:358
+#: ../textw/partitioning_text.py:359
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -3243,7 +3247,7 @@ msgstr ""
 "behar du. Erabiligabekoa %d MByte-takoa da."
 
 # ../textw/partitioning_text.py:332
-#: ../textw/partitioning_text.py:365
+#: ../textw/partitioning_text.py:366
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -3549,7 +3553,7 @@ msgstr ""
 "ezabatzera doa"
 
 # ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2537
-#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
+#: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2719
 msgid "Workstation"
 msgstr "Lantokia (Lanestazioa)"
 
@@ -3792,35 +3796,35 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:550 ../libfdisk/gnomefsedit.c:851
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
-#: ../libfdisk/gnomefsedit.c:2050
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:958
+#: ../libfdisk/gnomefsedit.c:2059
 msgid "<Swap Partition>"
 msgstr "<Disko-Trukagune Zatia>"
 
 # ../libfdisk/gnomefsedit.c:558 ../libfdisk/gnomefsedit.c:853
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:960
 msgid "<RAID Partition>"
 msgstr "<RAID Zatia>"
 
-#: ../libfdisk/gnomefsedit.c:745
+#: ../libfdisk/gnomefsedit.c:751
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr ""
 
 # ../libfdisk/newtfsedit.c:1571
-#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
+#: ../libfdisk/gnomefsedit.c:761 ../libfdisk/gnomefsedit.c:793
 #, fuzzy
 msgid "Root partition"
 msgstr "Erro disko-zatirik ez dago"
 
-#: ../libfdisk/gnomefsedit.c:757
+#: ../libfdisk/gnomefsedit.c:763
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:789
+#: ../libfdisk/gnomefsedit.c:795
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -3828,22 +3832,22 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:836
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:835 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr "Disko Zatia Ezabatu"
 
 # ../libfdisk/gnomefsedit.c:729 ../libfdisk/newtfsedit.c:837
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:836 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr "Disko zati hau ezabatzea gura dozu?"
 
 # ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:344
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:885 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
 msgstr "Disko Zatiak Ezin Argitatu"
 
 # ../libfdisk/gnomefsedit.c:779 ../libfdisk/newtfsedit.c:345
-#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:886 ../libfdisk/newtfsedit.c:348
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -3855,8 +3859,8 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:807 ../libfdisk/gnomefsedit.c:809
 # ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
 # ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
-#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
-#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
+#: ../libfdisk/gnomefsedit.c:904 ../libfdisk/gnomefsedit.c:910
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:916
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
@@ -3864,60 +3868,60 @@ msgstr "Disko Zatia Argitatu"
 
 # ../libfdisk/gnomefsedit.c:824 ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/newtfsedit.c:389
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
+#: ../libfdisk/gnomefsedit.c:931 ../libfdisk/gnomefsedit.c:2042
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr "Loturagunea:"
 
 # ../libfdisk/gnomefsedit.c:866 ../libfdisk/newtfsedit.c:408
-#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:973 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "Neurria (MB):"
 
 # ../libfdisk/gnomefsedit.c:898
-#: ../libfdisk/gnomefsedit.c:999
+#: ../libfdisk/gnomefsedit.c:1005
 msgid "Use remaining space?"
 msgstr "Erabili gebako leku huts osoa hartu?"
 
 # ../libfdisk/gnomefsedit.c:917 ../libfdisk/newtfsedit.c:440
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr "Esleipenaren Egoera:"
 
 # ../libfdisk/gnomefsedit.c:921 ../libfdisk/newtfsedit.c:442
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1028 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr "Egokia"
 
 # ../libfdisk/gnomefsedit.c:924 ../libfdisk/newtfsedit.c:444
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1031 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr "Porrot"
 
 # ../libfdisk/gnomefsedit.c:936 ../libfdisk/newtfsedit.c:449
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1043 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr "Porrotaren Zergatia:"
 
 # ../libfdisk/gnomefsedit.c:950 ../libfdisk/gnomefsedit.c:1943
-#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
+#: ../libfdisk/gnomefsedit.c:1057 ../libfdisk/gnomefsedit.c:2080
 msgid "Partition Type:"
 msgstr "Disko Zati Mota:"
 
 # ../libfdisk/gnomefsedit.c:1033 ../libfdisk/newtfsedit.c:519
-#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1140 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr "Disko Gogor Zillegituak:"
 
 # ../libfdisk/gnomefsedit.c:1136 ../libfdisk/gnomefsedit.c:2137
 # ../libfdisk/newtfsedit.c:610
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
+#: ../libfdisk/gnomefsedit.c:1243 ../libfdisk/gnomefsedit.c:2279
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr "Loturagunerik Ez dago"
 
 # ../libfdisk/gnomefsedit.c:1137 ../libfdisk/newtfsedit.c:611
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1244 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -3928,14 +3932,14 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:1161 ../libfdisk/gnomefsedit.c:1198
 # ../libfdisk/gnomefsedit.c:2145 ../libfdisk/newtfsedit.c:634
 # ../libfdisk/newtfsedit.c:667
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
+#: ../libfdisk/gnomefsedit.c:1268 ../libfdisk/gnomefsedit.c:1305
+#: ../libfdisk/gnomefsedit.c:2287 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr "Loturagunean Akatsa"
 
 # ../libfdisk/gnomefsedit.c:1162 ../libfdisk/newtfsedit.c:635
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/newtfsedit.c:640
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -3948,7 +3952,7 @@ msgstr ""
 "duzu."
 
 # ../libfdisk/gnomefsedit.c:1199 ../libfdisk/newtfsedit.c:668
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1306 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -3957,12 +3961,12 @@ msgstr ""
 "Loturagune baliagarri bat hautatu, mesedez."
 
 # ../libfdisk/gnomefsedit.c:1232 ../libfdisk/newtfsedit.c:693
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1339 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr "Neurrian Akatsa"
 
 # ../libfdisk/gnomefsedit.c:1233 ../libfdisk/newtfsedit.c:694
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1340 ../libfdisk/newtfsedit.c:699
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -3972,14 +3976,14 @@ msgstr ""
 
 # ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2278
 # ../libfdisk/newtfsedit.c:712
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
+#: ../libfdisk/gnomefsedit.c:1358 ../libfdisk/gnomefsedit.c:2422
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr "Disko Trukagunearen Neurri Okerra"
 
 # ../libfdisk/gnomefsedit.c:1252 ../libfdisk/gnomefsedit.c:227
 # ../libfdisk/newtfsedit.c:713
-#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
+#: ../libfdisk/gnomefsedit.c:1359 ../libfdisk/gnomefsedit.c:2423
 #: ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid ""
@@ -3989,7 +3993,7 @@ msgstr ""
 "Disko Trukagune handiegi bat sortu duzu. Gehieneko neurria %ld MByte-takoa "
 "izan daiteke."
 
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1373 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3999,27 +4003,27 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1381 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:1266
-#: ../libfdisk/gnomefsedit.c:1387
+#: ../libfdisk/gnomefsedit.c:1393
 msgid "No Drives Specified"
 msgstr "Tramankulu zehazturik ez dago"
 
 # ../libfdisk/gnomefsedit.c:1268
-#: ../libfdisk/gnomefsedit.c:1389
+#: ../libfdisk/gnomefsedit.c:1395
 msgid "You must constrain this partition to at least one drive."
 msgstr "Zati hau disko batekin behintzat llluto behar duzu."
 
 # ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:1283
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
+#: ../libfdisk/gnomefsedit.c:1403 ../libfdisk/gnomefsedit.c:1410
 msgid "No RAID Drive Constraint"
 msgstr "RAID diskoa Izendatubarik dago"
 
 # ../libfdisk/gnomefsedit.c:1278
-#: ../libfdisk/gnomefsedit.c:1399
+#: ../libfdisk/gnomefsedit.c:1405
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -4029,7 +4033,7 @@ msgstr ""
 "Horrela gertatzea nahi al duzu?"
 
 # ../libfdisk/gnomefsedit.c:1285
-#: ../libfdisk/gnomefsedit.c:1406
+#: ../libfdisk/gnomefsedit.c:1412
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -4038,12 +4042,12 @@ msgstr ""
 "beharreko diskoa hautatu."
 
 # ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:810
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1532 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
 msgstr "Zehaztugabeko Disko Zatiak"
 
 # ../libfdisk/gnomefsedit.c:1406 ../libfdisk/newtfsedit.c:811
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1533 ../libfdisk/newtfsedit.c:849
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -4054,12 +4058,12 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:1480
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1601
+#: ../libfdisk/gnomefsedit.c:1607
 msgid "RAID Entry Incomplete"
 msgstr "RAID-eko Sarrera Osatubarik"
 
 # ../libfdisk/gnomefsedit.c:1481
-#: ../libfdisk/gnomefsedit.c:1602
+#: ../libfdisk/gnomefsedit.c:1608
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -4071,12 +4075,12 @@ msgstr ""
 "mesedez."
 
 # ../libfdisk/gnomefsedit.c:1530
-#: ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1657
 msgid "Cannot Remove /boot"
 msgstr "/boot ezin ezabatu"
 
 # ../libfdisk/gnomefsedit.c:1531
-#: ../libfdisk/gnomefsedit.c:1652
+#: ../libfdisk/gnomefsedit.c:1658
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
@@ -4088,14 +4092,14 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:1593 ../libfdisk/gnomefsedit.c:1612
 # ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1638
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
+#: ../libfdisk/gnomefsedit.c:1725 ../libfdisk/gnomefsedit.c:1744
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr "Zehaztugabeko Disko Zatiak"
 
 # ../libfdisk/gnomefsedit.c:1597 ../libfdisk/gnomefsedit.c:1607
 # ../libfdisk/newtfsedit.c:140
-#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
+#: ../libfdisk/gnomefsedit.c:1729 ../libfdisk/gnomefsedit.c:1739
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -4107,12 +4111,12 @@ msgstr ""
 "zerrendatzen dira."
 
 # ../libfdisk/gnomefsedit.c:1891
-#: ../libfdisk/gnomefsedit.c:2015
+#: ../libfdisk/gnomefsedit.c:2024
 msgid "Cannot Edit Raid"
 msgstr "RAID ezin argitatu"
 
 # ../libfdisk/gnomefsedit.c:1892
-#: ../libfdisk/gnomefsedit.c:2016
+#: ../libfdisk/gnomefsedit.c:2025
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -4121,27 +4125,27 @@ msgstr ""
 "tramankulurik argitatu."
 
 # ../libfdisk/gnomefsedit.c:1988
-#: ../libfdisk/gnomefsedit.c:2116
+#: ../libfdisk/gnomefsedit.c:2125
 msgid "RAID Device: /dev/"
 msgstr "RAID Tramankulua: /dev/"
 
 # ../libfdisk/gnomefsedit.c:2011
-#: ../libfdisk/gnomefsedit.c:2139
+#: ../libfdisk/gnomefsedit.c:2148
 msgid "RAID Type:"
 msgstr "RAID Mota:"
 
 # ../libfdisk/gnomefsedit.c:2048
-#: ../libfdisk/gnomefsedit.c:2176
+#: ../libfdisk/gnomefsedit.c:2185
 msgid "Partitions For RAID Array:"
 msgstr "RAID multzoaren zatiketak:"
 
 # ../libfdisk/gnomefsedit.c:2138
-#: ../libfdisk/gnomefsedit.c:2271
+#: ../libfdisk/gnomefsedit.c:2280
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Loturagunerik hautatubarik dago. Loturagune bat behar da."
 
 # ../libfdisk/gnomefsedit.c:2146
-#: ../libfdisk/gnomefsedit.c:2279
+#: ../libfdisk/gnomefsedit.c:2288
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
@@ -4150,7 +4154,7 @@ msgstr ""
 "hautatu mesedez."
 
 # ../libfdisk/gnomefsedit.c:2182
-#: ../libfdisk/gnomefsedit.c:2315
+#: ../libfdisk/gnomefsedit.c:2324
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -4163,27 +4167,27 @@ msgstr ""
 "Diskoak hauek dira: "
 
 # ../libfdisk/gnomefsedit.c:2189
-#: ../libfdisk/gnomefsedit.c:2322
+#: ../libfdisk/gnomefsedit.c:2331
 msgid "Booting From RAID Warning"
 msgstr "RAID-etik abiaketaren Oharra"
 
 # ../libfdisk/gnomefsedit.c:2199
-#: ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2341
 msgid "No RAID Device"
 msgstr "RAID tramankulurik ez da ageri"
 
 # ../libfdisk/gnomefsedit.c:2200
-#: ../libfdisk/gnomefsedit.c:2333
+#: ../libfdisk/gnomefsedit.c:2342
 msgid "You need to selected a RAID device."
 msgstr "RAID tramankulu bat hautatu behar duzu."
 
 # ../libfdisk/gnomefsedit.c:2206
-#: ../libfdisk/gnomefsedit.c:2339
+#: ../libfdisk/gnomefsedit.c:2348
 msgid "Used Raid Device"
 msgstr "RAID tramankulua beste batek darabil"
 
 # ../libfdisk/gnomefsedit.c:2207
-#: ../libfdisk/gnomefsedit.c:2340
+#: ../libfdisk/gnomefsedit.c:2349
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -4193,12 +4197,12 @@ msgstr ""
 "mesedez."
 
 # ../libfdisk/gnomefsedit.c:2220
-#: ../libfdisk/gnomefsedit.c:2353
+#: ../libfdisk/gnomefsedit.c:2362
 msgid "Not Enough Partitions"
 msgstr "Behar haina disko zatirik ez daude"
 
 # ../libfdisk/gnomefsedit.c:2222
-#: ../libfdisk/gnomefsedit.c:2355
+#: ../libfdisk/gnomefsedit.c:2364
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
@@ -4206,29 +4210,29 @@ msgstr ""
 "Hautatutako RAID motarentzat behar haina egokituriko disko zatirik ez dago."
 
 # ../libfdisk/gnomefsedit.c:2229
-#: ../libfdisk/gnomefsedit.c:2363
+#: ../libfdisk/gnomefsedit.c:2372
 msgid "Illegal /boot RAID Type"
 msgstr "/boot-entzako RAID mota hau desegokia da"
 
 # ../libfdisk/gnomefsedit.c:2231
-#: ../libfdisk/gnomefsedit.c:2365
+#: ../libfdisk/gnomefsedit.c:2374
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Abiatzeko disko-zatiak (/boot) RAID-1.ean egon behar dute."
 
 # ../libfdisk/gnomefsedit.c:2238
-#: ../libfdisk/gnomefsedit.c:2373
+#: ../libfdisk/gnomefsedit.c:2382
 msgid "Illegal RAID mountpoint"
 msgstr "RAID-arentzako loturagune desegokia da"
 
 # ../libfdisk/gnomefsedit.c:2240
-#: ../libfdisk/gnomefsedit.c:2375
+#: ../libfdisk/gnomefsedit.c:2384
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
 msgstr "Alpha batean RAID-zati batek erro (/) bezala lotuta ezin du egon."
 
 # ../libfdisk/gnomefsedit.c:2323
-#: ../libfdisk/gnomefsedit.c:2459
+#: ../libfdisk/gnomefsedit.c:2468
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -4240,17 +4244,17 @@ msgstr ""
 "daitekeela?"
 
 # ../libfdisk/gnomefsedit.c:2330
-#: ../libfdisk/gnomefsedit.c:2466
+#: ../libfdisk/gnomefsedit.c:2475
 msgid "Use Pre-existing Partition?"
 msgstr "Aurrez zegoen Zatia Erabili?"
 
 # ../libfdisk/gnomefsedit.c:2407
-#: ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2589
 msgid "Cannot Add RAID Devices"
 msgstr "RAID tramankulurik ez da ageri"
 
 # ../libfdisk/gnomefsedit.c:2408
-#: ../libfdisk/gnomefsedit.c:2545
+#: ../libfdisk/gnomefsedit.c:2590
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -4259,118 +4263,118 @@ msgstr ""
 "duzu RAID tramankulurik gehitu."
 
 # ../libfdisk/gnomefsedit.c:2449
-#: ../libfdisk/gnomefsedit.c:2586
+#: ../libfdisk/gnomefsedit.c:2631
 msgid "Auto-Partition"
 msgstr "Bere kasa Zatikatu"
 
 # ../libfdisk/gnomefsedit.c:2456
-#: ../libfdisk/gnomefsedit.c:2593
+#: ../libfdisk/gnomefsedit.c:2638
 msgid "Using Existing Disk Space"
 msgstr "Diskako leku hutsa erabiltzen"
 
 # ../libfdisk/gnomefsedit.c:2475
-#: ../libfdisk/gnomefsedit.c:2612
+#: ../libfdisk/gnomefsedit.c:2657
 msgid "Remove Linux partitions"
 msgstr "Linux disko-zatiak ezabatu"
 
 # ../libfdisk/gnomefsedit.c:2486
-#: ../libfdisk/gnomefsedit.c:2623
+#: ../libfdisk/gnomefsedit.c:2668
 msgid "Use existing free space"
 msgstr "Diskoko leku hutsa erabili"
 
 # ../libfdisk/gnomefsedit.c:2498
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2635
+#: ../libfdisk/gnomefsedit.c:2680
 msgid "Intended Use"
 msgstr "Erabilkeraren Asmoa"
 
 # ../libfdisk/gnomefsedit.c:2517 ../libfdisk/gnomefsedit.c:253
-#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
+#: ../libfdisk/gnomefsedit.c:2699 ../libfdisk/gnomefsedit.c:2719
 msgid "Server"
 msgstr "Zerbitzaria"
 
 # ../libfdisk/gnomefsedit.c:2617
-#: ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2799
 msgid "Delete RAID Device?"
 msgstr "RAID tramankulua ezabatu?"
 
 # ../libfdisk/gnomefsedit.c:2618
-#: ../libfdisk/gnomefsedit.c:2755
+#: ../libfdisk/gnomefsedit.c:2800
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "RAID tramankulu hau ezabatzera zoazela ziur zaude?"
 
 # ../libfdisk/gnomefsedit.c:2669 ../libfdisk/newtfsedit.c:1741
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2853 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr "Disko-zatien Taula Berrezarri"
 
 # ../libfdisk/gnomefsedit.c:2671 ../libfdisk/newtfsedit.c:1743
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2855 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr "Disko-zatien taula jatorrizko balioekin ezartzea nahi al duzu?"
 
 # ../libfdisk/gnomefsedit.c:2707 ../libfdisk/gnomefsedit.c:2758
-#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
+#: ../libfdisk/gnomefsedit.c:2891 ../libfdisk/gnomefsedit.c:2942
 msgid "<Swap>"
 msgstr "<Disko Trukagunea>"
 
 # ../libfdisk/gnomefsedit.c:270
-#: ../libfdisk/gnomefsedit.c:2848
+#: ../libfdisk/gnomefsedit.c:2893
 msgid "<RAID>"
 msgstr "<RAID>"
 
 # ../libfdisk/gnomefsedit.c:2711
-#: ../libfdisk/gnomefsedit.c:2850
+#: ../libfdisk/gnomefsedit.c:2895
 msgid "<not set>"
 msgstr "<egituratubarik>"
 
 # ../libfdisk/gnomefsedit.c:2994
-#: ../libfdisk/gnomefsedit.c:3134
+#: ../libfdisk/gnomefsedit.c:3179
 msgid "Requested"
 msgstr "Betebeharrekoak"
 
 # ../libfdisk/gnomefsedit.c:299
-#: ../libfdisk/gnomefsedit.c:3135
+#: ../libfdisk/gnomefsedit.c:3180
 msgid "Actual"
 msgstr "Oraingoa"
 
 # ../libfdisk/gnomefsedit.c:3168
-#: ../libfdisk/gnomefsedit.c:3308
+#: ../libfdisk/gnomefsedit.c:3353
 msgid "Drive"
 msgstr "Diskoa"
 
 # ../libfdisk/gnomefsedit.c:3169
-#: ../libfdisk/gnomefsedit.c:3309
+#: ../libfdisk/gnomefsedit.c:3354
 msgid "Geom [C/H/S]"
 msgstr "Geometria [Z/B/S]"
 
 # ../libfdisk/gnomefsedit.c:317
-#: ../libfdisk/gnomefsedit.c:3310
+#: ../libfdisk/gnomefsedit.c:3355
 msgid "Total (M)"
 msgstr "Guztira"
 
 # ../libfdisk/gnomefsedit.c:3171
-#: ../libfdisk/gnomefsedit.c:3311
+#: ../libfdisk/gnomefsedit.c:3356
 msgid "Free (M)"
 msgstr "Erabiligabekoa (M)"
 
 # ../libfdisk/gnomefsedit.c:317
-#: ../libfdisk/gnomefsedit.c:3312
+#: ../libfdisk/gnomefsedit.c:3357
 msgid "Used (M)"
 msgstr "Erabilia (M)"
 
 # ../libfdisk/gnomefsedit.c:3173
-#: ../libfdisk/gnomefsedit.c:3313
+#: ../libfdisk/gnomefsedit.c:3358
 msgid "Used (%)"
 msgstr "Erabilia (%)"
 
 # ../libfdisk/gnomefsedit.c:3409
-#: ../libfdisk/gnomefsedit.c:3561
+#: ../libfdisk/gnomefsedit.c:3606
 msgid "Unallocated Partitions Exist..."
 msgstr "Izendatubariko Disko-zatiak daude..."
 
 # ../libfdisk/gnomefsedit.c:3415 ../libfdisk/gnomefsedit.c:3429
-#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
+#: ../libfdisk/gnomefsedit.c:3612 ../libfdisk/gnomefsedit.c:3630
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -4379,43 +4383,43 @@ msgstr ""
 "duzu, edo ezarketarekin jarraitzeko RAID-zati bat eduki behar duzu."
 
 # ../libfdisk/gnomefsedit.c:3500
-#: ../libfdisk/gnomefsedit.c:3656
+#: ../libfdisk/gnomefsedit.c:3701
 msgid "Partitions"
 msgstr "Disko-zatiak"
 
 # ../libfdisk/gnomefsedit.c:3530
-#: ../libfdisk/gnomefsedit.c:3686
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "_Add..."
 msgstr "_Gehitu..."
 
 # ../libfdisk/gnomefsedit.c:3537
-#: ../libfdisk/gnomefsedit.c:3693
+#: ../libfdisk/gnomefsedit.c:3738
 msgid "_Edit..."
 msgstr "_Argitatu..."
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../libfdisk/gnomefsedit.c:3694
+#: ../libfdisk/gnomefsedit.c:3739
 msgid "_Reset"
 msgstr "_Garbitu"
 
 # ../libfdisk/gnomefsedit.c:3543
-#: ../libfdisk/gnomefsedit.c:3699
+#: ../libfdisk/gnomefsedit.c:3744
 msgid "_Delete"
 msgstr "_Ezabatu"
 
 # ../libfdisk/gnomefsedit.c:3556
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3712
+#: ../libfdisk/gnomefsedit.c:3757
 msgid "_Make RAID Device"
 msgstr "RAID Tramankulua _Sortu"
 
 # ../libfdisk/gnomefsedit.c:3566
-#: ../libfdisk/gnomefsedit.c:3722
+#: ../libfdisk/gnomefsedit.c:3767
 msgid "Auto Partition"
 msgstr "Berekasakako Disko Zatiketa"
 
 # ../libfdisk/gnomefsedit.c:3575
-#: ../libfdisk/gnomefsedit.c:3731
+#: ../libfdisk/gnomefsedit.c:3776
 msgid "Drive Summary"
 msgstr "Diskoen Laburpena"
 
