@@ -18,8 +18,10 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-if [ "$#" = "0" -o  "$1" != "-gui" ]; then
-  unset DISPLAY
+if [ "$S390ARCH" = "zSeries" ]; then
+  if [ "$#" = "0" -o  "$1" != "-gui" ]; then
+    unset DISPLAY
+  fi
 fi
 
 mv /usr/lib /usr/lib_rd 2>/dev/null
