@@ -94,8 +94,8 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu hwdata db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
-	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
+	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
+	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
          hdparm lvm jfsutils librpm404 rhpl"
 
 if [ $ARCH = i386 ]; then
