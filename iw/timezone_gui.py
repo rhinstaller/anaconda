@@ -152,20 +152,21 @@ class TimezoneWindow(InstallWindow):
         self.systemUTC.set_active(asUTC)
 
         hbox = gtk.HBox(gtk.FALSE, 5)
+#        pix = self.ics.readPixmap("timezone.png")
+#        if pix:
+#            a = gtk.Alignment()
+#            a.add(pix)
+#            a.set(1.0, 0.0, 0.0, 0.0)
+#            hbox.pack_start(a, gtk.TRUE)
+        
+        mainBox.pack_start(self.tz, gtk.TRUE, gtk.TRUE)
+        mainBox.set_border_width(5)
+
         align = gtk.Alignment(0.5, 0.5)
         align.add(self.systemUTC)
         hbox.pack_start(align, gtk.FALSE)
-
-        pix = self.ics.readPixmap("timezone.png")
-        if pix:
-            a = gtk.Alignment()
-            a.add(pix)
-            a.set(1.0, 0.0, 0.0, 0.0)
-            hbox.pack_start(a, gtk.TRUE)
-        
         mainBox.pack_start(hbox, gtk.FALSE)
-        mainBox.pack_start(self.tz, gtk.TRUE, gtk.TRUE)
-        mainBox.set_border_width(5)
+
        	nb.append_page(mainBox, gtk.Label(_("Location")))
         
         # set up page 2
