@@ -210,24 +210,35 @@ void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
         isysSetUnicodeKeymap();
 }
 
-static void spawnShell(int flags) {
-    pid_t pid;
+static int getShellTty(int flags) {
     int fd;
 
     if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
         logMessage("not spawning a shell");
-        return;
+        return -1;
     }
 
-    fd = open("/dev/tty2", O_RDWR);
+    fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
     if (fd < 0) {
         logMessage("cannot open /dev/tty2 -- no shell will be provided");
-        return;
-    } else if (access("/bin/sh",  X_OK))  {
+        return -1;
+    }
+
+    return fd;
+}
+
+static void spawnShell(int fd, int flags) {
+    pid_t pid;
+
+    /* getShellTty() reported the error for us already */
+    if (fd < 0)
+	return;
+
+    if (access("/bin/sh",  X_OK))  {
         logMessage("cannot open shell - /bin/sh doesn't exist");
         return;
     }
-    
+
     if (!(pid = fork())) {
         dup2(fd, 0);
         dup2(fd, 1);
@@ -249,6 +260,7 @@ static void spawnShell(int flags) {
         signal(SIGTSTP, SIG_DFL);
 
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
+	setenv("LANG", "C", 1);
         
         execl("/bin/sh", "-/bin/sh", NULL);
         logMessage("exec of /bin/sh failed: %s", strerror(errno));
@@ -1121,6 +1133,7 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0 },
         { 0, 0, 0, 0, 0 }
     };
+    int tty2;
 
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
@@ -1298,6 +1311,10 @@ int main(int argc, char ** argv) {
 
     url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps, flags);
 
+    /* We have to do this before we init bogl(), which doLoaderMain will do
+     * when setting fonts for different languages. */
+    tty2 = getShellTty(flags);
+
     if (!FL_TESTING(flags)) {
         /* unlink dirs and link to the ones in /mnt/runtime */
         migrate_runtime_directory("/usr");
@@ -1325,7 +1342,7 @@ int main(int argc, char ** argv) {
 
     logMessage("getting ready to spawn shell now");
     
-    spawnShell(flags);  /* we can attach gdb now :-) */
+    spawnShell(tty2, flags);  /* we can attach gdb now :-) */
 
     /* setup the second stage modules; don't over-ride any already existing
      * modules because that would be rude 
