@@ -171,6 +171,7 @@ def createSwapFile(instPath, thefsset, mntPoint, size):
 	    0, 0))
     f.close()
 
+# XXX handle going backwards
 def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
     # mount everything and turn on swap
 

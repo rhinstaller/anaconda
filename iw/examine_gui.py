@@ -16,8 +16,7 @@ class UpgradeExamineWindow (InstallWindow):
 	    self.root = newPart
 
     def getNext (self):
-        upgradeMountFilesystems (self.intf, self.root, self.id.fsset,
-                                 self.chroot)
+        self.id.upgradeRoot = self.root
 	if self.individualPackages.get_active():
 	    self.dispatch.skipStep("indivpackage", skip = 0)
 	else:

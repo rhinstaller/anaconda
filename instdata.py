@@ -73,6 +73,7 @@ class InstallData:
         self.dbpath = None
         self.useFdisk = 0
         self.useAutopartitioning = 1
+        self.upgradeRoot = None
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c

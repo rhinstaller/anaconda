@@ -398,7 +398,8 @@ def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
             continue
         entry = request.toEntry()
         fsset.add (entry)
-    
+
+def bootloaderSetupChoices(dispatch, bl, fsset, diskSet):
     choices = fsset.bootloaderChoices(diskSet)
     if not choices:
 	dispatch.skipStep("instbootloader")
@@ -409,7 +410,6 @@ def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
 
     if bl.setDefaultDevice and choices:
         bl.setDevice(choices[0][0])
-    
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     justConfigFile = not flags.setupFilesystems

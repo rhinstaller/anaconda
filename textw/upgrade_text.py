@@ -153,8 +153,7 @@ class UpgradeExamineWindow:
             if rc == TEXT_BACK_CHECK:
                 return INSTALL_BACK
                 
-        upgrade.upgradeMountFilesystems (intf, root, id.fsset, chroot)
-
+        id.upgradeRoot = root
 
         # if root is on vfat we want to always display boot floppy screen
         # otherwise they can't boot!

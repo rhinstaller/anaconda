@@ -103,6 +103,7 @@ class BaseInstallClass:
                  "fdisk",
                  "partition",
 		 "partitiondone",
+		 "bootloadersetup",                 
 		 "bootloader",
 		 "network",
 		 "firewall",

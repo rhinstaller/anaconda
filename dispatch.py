@@ -24,8 +24,9 @@ from autopart import doAutoPartition
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from floppy import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
+from bootloader import bootloaderSetupChoices
 from flags import flags
-from upgrade import upgradeFindPackages
+from upgrade import upgradeFindPackages, upgradeMountFilesystems
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -57,9 +58,13 @@ installSteps = [
     ( "autopartitionexecute", doAutoPartition, ("dir", "id", "intf")),
     ( "fdisk", ("id.useFdisk", "id.diskset", "id.partrequests")),
     ( "partition", ("id.fsset", "id.diskset", "id.partrequests", "intf")),
+    ( "upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",
+                                                "id.fsset", "instPath")),
     ( "partitiondone", partitioningComplete, ("dispatch", "id.bootloader",
                                               "id.fsset", "id.diskset",
                                               "id.partrequests") ),
+    ( "bootloadersetup", bootloaderSetupChoices, ("dispatch", "id.bootloader",
+                                                  "id.fsset", "id.diskset") ),
     ( "bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset") ),
     ( "network", ("id.network",) ),
     ( "firewall", ("id.network", "id.firewall") ),
