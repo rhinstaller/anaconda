@@ -589,8 +589,13 @@ class KickstartBase(BaseInstallClass):
 
         self.setClearParts(id, type, None)
 
-    def defineRaid(self, args):
-	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=' ] )
+    def defineRaid(self, id, args):
+	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=', 'spares=' ] )
+
+        level = None
+        raidDev = None
+        spares = 0
+        fstype = None
 					
 	for n in args:
 	    (str, arg) = n
@@ -598,12 +603,30 @@ class KickstartBase(BaseInstallClass):
 		level = int(arg)
 	    elif str == "--device":
 		raidDev = arg
+            elif str == "--spares":
+                spares = arg
 
-	mntPoint = extra[0]
-	extra = extra[1:]
+        if extra[0] == 'swap':
+            filesystem = fileSystemTypeGet('swap')
+            mountpoint = None
+        else:
+            if fstype:
+                filesystem = fileSystemTypeGet(fstype)
+            else:
+                filesystem = fileSystemTypeGetDefault()
 
-        # XXX reimplement
-        #	self.addRaidEntry(mntPoint, raidDev, level, extra)
+            mountpoint = extra[0]
+
+        raidmems = extra[1:]
+
+        if not level:
+            raise ValueError, _("RAID Partition defined without RAID level")
+        if len(raidmems) == 0:
+            raise ValueError, _("RAID Partition defined without any RAID members")
+
+        request = PartitionSpec(filesystem, REQUEST_RAID, mountpoint = mountpoint, raidmembers = raidmems, raidlevel = level, raidspares = spares)
+        id.partitions.autoPartitionRequests.append(request)
+
 
     def definePartition(self, id, args):
 	# we set up partition requests (whee!)
@@ -620,6 +643,7 @@ class KickstartBase(BaseInstallClass):
         format = 1
         fstype = None
         mountpoint = None
+        uniqueID = None
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
@@ -660,12 +684,16 @@ class KickstartBase(BaseInstallClass):
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
             mountpoint = None
-        elif not fstype:
-            filesystem = fileSystemTypeGetDefault()
-            mountpoint = extra[0]
         else:
-            filesystem = fileSystemTypeGet(fstype)
-            mountpoint = extra[0]            
+            if fstype:
+                filesystem = fileSystemTypeGet(fstype)
+                mountpoint = extra[0]                
+            elif extra[0][:5] == "raid.":
+                filesystem = fileSystemTypeGet("software RAID")
+                uniqueID = extra[0]
+            else:
+                filesystem = fileSystemTypeGetDefault()
+                mountpoint = extra[0]                
 
         if not size:
             raise ValueError, "temporarily requiring a size to be specified"
@@ -681,6 +709,8 @@ class KickstartBase(BaseInstallClass):
             request.primary = 1
         if not format:
             request.format = 0
+        if id:
+            request.uniqueID = uniqueID
         
         id.partitions.autoPartitionRequests.append(request)
 

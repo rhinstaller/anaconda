@@ -243,23 +243,45 @@ def get_available_raid_partitions(diskset, requests, request):
                 rc.append((partname, getPartSizeMB(part), 1))
     return rc
 
+# set of functions to determine if the given level is RAIDX or X
+def isRaid5(raidlevel):
+    if raidlevel == "RAID5":
+        return 1
+    elif raidlevel == 5:
+        return 1
+    return 0
+
+def isRaid1(raidlevel):
+    if raidlevel == "RAID1":
+        return 1
+    elif raidlevel == 1:
+        return 1
+    return 0
+
+def isRaid0(raidlevel):
+    if raidlevel == "RAID0":
+        return 1
+    elif raidlevel == 0:
+        return 1
+    return 0
+
 
 # return minimum numer of raid members required for a raid level
 def get_raid_min_members(raidlevel):
-    if raidlevel == "RAID0":
+    if isRaid0(raidlevel):
         return 2
-    elif raidlevel == "RAID1":
+    elif isRaid1(raidlevel):
         return 2
-    elif raidlevel == "RAID5":
+    elif isRaid5(raidlevel):
         return 3
     else:
         raise ValueError, "invalid raidlevel in get_raid_min_members"
 
 # return max num of spares available for raidlevel and total num of members
 def get_raid_max_spares(raidlevel, nummembers):
-    if raidlevel == "RAID0":
+    if isRaid0(raidlevel):
         return 0
-    elif raidlevel == "RAID1" or raidlevel == "RAID5":
+    elif isRaid1(raidlevel) or isRaid5(raidlevel):
         return max(0, nummembers - get_raid_min_members(raidlevel))
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"
@@ -278,7 +300,7 @@ def get_raid_device_size(raidrequest, partitions, diskset):
         part = get_partition_by_name(diskset.disks, device)
         partsize =  part.geom.length * part.geom.disk.dev.sector_size
 
-        if raidlevel == "RAID0":
+        if isRaid0(raidlevel):
             sum = sum + partsize
         else:
             if not smallest:
@@ -286,11 +308,11 @@ def get_raid_device_size(raidrequest, partitions, diskset):
             elif partsize < smallest:
                 smallest = partsize
 
-    if raidlevel == "RAID0":
+    if isRaid0(raidlevel):
         return sum
-    elif raidlevel == "RAID1":
+    elif isRaid1(raidlevel):
         return smallest
-    elif raidlevel == "RAID5":
+    elif isRaid5(raidlevel):
         return (nummembers-1) * smallest
     else:
         raise ValueError, "Invalid raidlevel in get_raid_device_size()"
@@ -445,7 +467,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
     if not bootreq and newraid.mountpoint:
-        if (newraid.mountpoint == "/boot" or newraid.mountpoint == "/") and newraid.raidlevel != "RAID1":
+        if (newraid.mountpoint == "/boot" or newraid.mountpoint == "/") and not isRaid1(newraid.raidlevel):
             return _("Bootable partitions can only be on RAID1 devices.")
 
     minmembers = get_raid_min_members(newraid.raidlevel)
