@@ -784,9 +784,15 @@ class ToDo:
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
-	todo.lilo.setDevice(where)
-	todo.lilo.setLinear(linear)
-	todo.lilo.setAppend(append)
+
+        arch = iutil.getArch ()
+	if arch == "i386":	
+	    todo.lilo.setDevice(where)
+	    todo.lilo.setLinear(linear)
+	    todo.lilo.setAppend(append)
+ 	elif arch == "sparc":
+	    todo.silo.setDevice(where)
+	    todo.silo.setAppend(append)
 
 	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
 	    todo.addMount(dev, mntpoint, fstype, reformat)
