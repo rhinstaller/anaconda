@@ -247,8 +247,25 @@ def checkMonitorOK(monitor, dispatch):
 def setSaneXSettings(xsetup):
     if xsetup is not None and xsetup.xhwstate is not None:
 	if not xsetup.imposed_sane_default:
-	    xsetup.xhwstate.choose_sane_default()
-	    xsetup.imposed_sane_default = 1
+	    # XXX HACK see if we have a user specified LCD display
+	    import re
+	    
+	    regx = re.compile("LCD Panel .*x.*")
+	    monid = xsetup.xhwstate.monitor.getMonitorID()
+	    lcdres = None
+	    if regx.match(monid):
+		for testres in ["640x480", "800x600", "1024x480", "1024x768",
+				"1280x960", "1280x1024", "1400x1050",
+				"1600x1200"]:
+		    if string.find(monid, testres) != -1:
+			lcdres = testres
+			break
+		
+	    if lcdres is not None:
+		xsetup.xhwstate.set_resolution(lcdres)
+	    else:
+		xsetup.xhwstate.choose_sane_default()
+		xsetup.imposed_sane_default = 1
 	    
 def getAnacondaTS(instPath = None):
     if instPath:
