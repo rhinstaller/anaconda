@@ -434,10 +434,11 @@ class XConfigWindow (InstallWindow):
         self.skip.connect ("toggled", self.skipToggled) 
 
         box.pack_start (self.xdm, FALSE)
+        box.pack_start (self.skip, FALSE)
 
         self.topbox = GtkVBox (FALSE, 5)
         self.topbox.pack_start (box, TRUE, TRUE)
-        self.topbox.pack_start (self.skip, FALSE)
+#        self.topbox.pack_start (self.skip, FALSE)
 
         self.configbox = box
 
