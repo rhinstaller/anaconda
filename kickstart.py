@@ -101,9 +101,9 @@ class Kickstart(InstallClass):
 		[ 'bootproto', 'ip', 'netmask', 'gateway', 'nameserver' ])
 	bootProto = "dhcp"
 	ip = None
-	netmask = None
-	gateway = None
-	nameserver = None
+	netmask = ""
+	gateway = ""
+	nameserver = ""
 	for n in args:
 	    (str, arg) = n
 	    if str == "--bootproto":
@@ -177,8 +177,6 @@ class Kickstart(InstallClass):
 
 	if extra:
 	    mouseType = extra[0]
-
-	print "mouseType is", mouseType
 
 	if mouseType != "none":
 	    self.setMouseType(mouseToMouse[mouseType], device, emulThree)
