@@ -221,7 +221,7 @@ msgstr "Что нового"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Невозможно загрузить файл!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -289,11 +289,11 @@ msgstr "CD-ROM не может быть смонтирован."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "ВНИМАНИЕ! Подходящие блочные устройства не найдены.\n"
 
 #: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "ОШИБКА: неизвестная ошибка при чтении таблиц разделов.\n"
 
 #: ../rescue.py:54
 msgid "System to Rescue"
@@ -446,9 +446,8 @@ msgid "Default Language"
 msgstr "Основной язык"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Выберите основной язык:"
+msgstr "Выберите основной язык: "
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
