@@ -2819,13 +2819,19 @@ DB
 DB
 
     if (!FL_TESTING(flags)) {
-     
+      int fd;
 	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
 #if !defined (__s390__) && !defined (__s390x__)
 	unlink("/lib");
 #else
-	symlink("../usr/sbin/ldconfig", "/sbin/ldconfig");
+	fd = open("/etc/ld.so.conf", O_WRONLY|O_CREAT, 0);
+        if (fd >= 0) {
+#define LD_SO_CONF_STR "/lib/\n/mnt/runtime/lib\n/usr/lib\n/usr/X11R6/lib\n"
+	  const char *buf = LD_SO_CONF_STR;
+	  write(buf, LD_SO_CONF_STR, sizeof(LD_SO_CONF_STR));
+	  close(fd);
+	}
 	system("/sbin/ldconfig 2>/dev/null >/dev/null");
 #endif
 	unlink("/modules/modules.dep");
