@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 1999-09-19 11:17-0400\n"
+"POT-Creation-Date: 1999-09-20 20:40-0400\n"
 "PO-Revision-Date: 1999-09-18 08:45+02:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -11,11 +11,11 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../iw/language.py:10 ../text.py:39 ../text.py:856
+#: ../iw/language.py:10 ../text.py:46 ../text.py:866
 msgid "Language Selection"
 msgstr "Výber jazyka"
 
-#: ../text.py:40
+#: ../text.py:47
 msgid "What language would you like to use during the installation process?"
 msgstr "Ktorý jazyk má by» pou¾itý poèas procesu in¹talácie?"
 
@@ -28,40 +28,40 @@ msgstr "Ktorý jazyk má by» pou¾itý poèas procesu in¹talácie?"
 #: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
 #: ../loader/loader.c:1490 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
-#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
-#: ../text.py:363 ../text.py:394 ../text.py:443 ../text.py:465 ../text.py:530
-#: ../text.py:551 ../text.py:563 ../text.py:575 ../text.py:753 ../text.py:825
-#: ../text.py:829 ../textw/lilo.py:20 ../textw/lilo.py:65
-#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
-#: ../textw/partitioning.py:184 ../textw/userauth.py:31
-#: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
-#: ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
-#: ../textw/userauth.py:174 ../textw/userauth.py:246
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:49 ../text.py:100
+#: ../text.py:151 ../text.py:177 ../text.py:218 ../text.py:263 ../text.py:353
+#: ../text.py:373 ../text.py:404 ../text.py:453 ../text.py:475 ../text.py:540
+#: ../text.py:561 ../text.py:573 ../text.py:585 ../text.py:763 ../text.py:835
+#: ../text.py:839 ../textw/lilo.py:21 ../textw/lilo.py:66
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
+#: ../textw/partitioning.py:182 ../textw/userauth.py:29
+#: ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:82
+#: ../textw/userauth.py:94 ../textw/userauth.py:102 ../textw/userauth.py:111
+#: ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "OK"
 msgstr "OK"
 
-#: ../text.py:54
+#: ../text.py:64
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr "/dev/ttyS0 (COM1 v DOS-e)"
 
-#: ../text.py:55
+#: ../text.py:65
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr "/dev/ttyS1 (COM2 v DOS-e)"
 
-#: ../text.py:56
+#: ../text.py:66
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr "/dev/ttyS2 (COM3 v DOS-e)"
 
-#: ../text.py:57
+#: ../text.py:67
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 v DOS-e)"
 
-#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:78 ../textw/lilo.py:137
+#: ../iw/lilo.py:174 ../text.py:82 ../textw/lilo.py:79 ../textw/lilo.py:138
 msgid "Device"
 msgstr "Zariadenie"
 
-#: ../text.py:73
+#: ../text.py:83
 #, c-format
 msgid "What device is your mouse located on? %s %i"
 msgstr "Na ktoré zariadenie je va¹a my¹ pripojená? %s %i"
@@ -70,91 +70,91 @@ msgstr "Na ktoré zariadenie je va¹a my¹ pripojená? %s %i"
 #: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 #: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
 #: ../libfdisk/fsedit.c:679 ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:1048
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1000
-#: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/gnomefsedit.c:1062
-#: ../libfdisk/gnomefsedit.c:1267 ../libfdisk/gnomefsedit.c:1361
-#: ../libfdisk/gnomefsedit.c:1379 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:1846 ../libfdisk/gnomefsedit.c:1854
-#: ../libfdisk/gnomefsedit.c:1868 ../libfdisk/gnomefsedit.c:1879
-#: ../libfdisk/gnomefsedit.c:1886 ../libfdisk/gnomefsedit.c:1901
-#: ../libfdisk/gnomefsedit.c:1910 ../libfdisk/gnomefsedit.c:1967
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:116
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1001
+#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/gnomefsedit.c:1063
+#: ../libfdisk/gnomefsedit.c:1268 ../libfdisk/gnomefsedit.c:1362
+#: ../libfdisk/gnomefsedit.c:1380 ../libfdisk/gnomefsedit.c:1620
+#: ../libfdisk/gnomefsedit.c:1847 ../libfdisk/gnomefsedit.c:1855
+#: ../libfdisk/gnomefsedit.c:1869 ../libfdisk/gnomefsedit.c:1880
+#: ../libfdisk/gnomefsedit.c:1887 ../libfdisk/gnomefsedit.c:1902
+#: ../libfdisk/gnomefsedit.c:1911 ../libfdisk/gnomefsedit.c:1968
+#: ../libfdisk/gnomefsedit.c:2129 ../libfdisk/newtfsedit.c:116
 #: ../libfdisk/newtfsedit.c:449 ../libfdisk/newtfsedit.c:527
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:477
-#: ../textw/constants.py:10 ../textw/lilo.py:83 ../textw/lilo.py:96
-#: ../textw/lilo.py:146
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:84 ../text.py:487
+#: ../textw/constants.py:10 ../textw/lilo.py:84 ../textw/lilo.py:97
+#: ../textw/lilo.py:147
 msgid "Ok"
 msgstr "OK"
 
-#: ../gui.py:405 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:423 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:66
 #: ../loader/devices.c:165 ../loader/devices.c:210 ../loader/lang.c:503
 #: ../loader/loader.c:242 ../loader/loader.c:579 ../loader/loader.c:615
 #: ../loader/loader.c:715 ../loader/loader.c:1072 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:443 ../text.py:445
-#: ../text.py:465 ../text.py:468 ../text.py:477 ../text.py:530 ../text.py:531
-#: ../text.py:753 ../text.py:775 ../textw/constants.py:10 ../textw/lilo.py:21
-#: ../textw/lilo.py:65 ../textw/lilo.py:72 ../textw/lilo.py:147
-#: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
-#: ../textw/packages.py:147 ../textw/partitioning.py:27
-#: ../textw/partitioning.py:64 ../textw/partitioning.py:184
-#: ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
-#: ../textw/userauth.py:246
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:84
+#: ../text.py:85 ../text.py:100 ../text.py:123 ../text.py:151 ../text.py:154
+#: ../text.py:177 ../text.py:204 ../text.py:218 ../text.py:220 ../text.py:239
+#: ../text.py:241 ../text.py:263 ../text.py:265 ../text.py:353 ../text.py:404
+#: ../text.py:406 ../text.py:425 ../text.py:434 ../text.py:453 ../text.py:455
+#: ../text.py:475 ../text.py:478 ../text.py:487 ../text.py:540 ../text.py:541
+#: ../text.py:763 ../text.py:785 ../textw/constants.py:10 ../textw/lilo.py:22
+#: ../textw/lilo.py:66 ../textw/lilo.py:73 ../textw/lilo.py:148
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
+#: ../textw/packages.py:145 ../textw/partitioning.py:25
+#: ../textw/partitioning.py:62 ../textw/partitioning.py:182
+#: ../textw/userauth.py:29 ../textw/userauth.py:141 ../textw/userauth.py:172
+#: ../textw/userauth.py:244
 msgid "Back"
 msgstr "Spä»"
 
-#: ../text.py:92
+#: ../text.py:102
 msgid "Which model mouse is attached to this computer?"
 msgstr "Aký model my¹i je pripojený k tomuto poèítaèu?"
 
-#: ../text.py:101
+#: ../text.py:111
 msgid "Emulate 3 Buttons?"
 msgstr "Emulova» 3 tlaèítka?"
 
-#: ../text.py:103
+#: ../text.py:113
 msgid "Mouse Selection"
 msgstr "Výber my¹i"
 
-#: ../text.py:139 ../text.py:858
+#: ../text.py:149 ../text.py:868
 msgid "Keyboard Selection"
 msgstr "Výber klávesnice"
 
-#: ../text.py:140
+#: ../text.py:150
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Aký model klávesnice je pripojený k tomuto poèítaèu?"
 
-#: ../text.py:160
+#: ../text.py:170
 msgid "Install GNOME Workstation"
 msgstr "In¹talova» GNOME pracovnú stanicu"
 
-#: ../text.py:161
+#: ../text.py:171
 msgid "Install KDE Workstation"
 msgstr "In¹talova» KDE pracovnú stanicu"
 
-#: ../text.py:162
+#: ../text.py:172
 msgid "Install Server System"
 msgstr "In¹talova» serverový systém"
 
-#: ../text.py:163
+#: ../text.py:173
 msgid "Install Custom System"
 msgstr "In¹talova» systém podµa vlastnej ¹pecifikácie"
 
-#: ../text.py:164
+#: ../text.py:174
 msgid "Upgrade Existing Installation"
 msgstr "Aktualizova» existujúcu in¹taláciu"
 
-#: ../text.py:165 ../text.py:861
+#: ../text.py:175 ../text.py:871
 msgid "Installation Type"
 msgstr "Typ in¹talácie"
 
-#: ../text.py:166
+#: ../text.py:176
 msgid "What type of system would you like to install?"
 msgstr "Aký typ systému si ¾eláte nain¹talova»?"
 
@@ -162,27 +162,27 @@ msgstr "Aký typ systému si ¾eláte nain¹talova»?"
 #: ../loader/devices.c:178 ../loader/loader.c:458 ../loader/loader.c:468
 #: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
 #: ../loader/loader.c:853 ../loader/loader.c:1490 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:191 ../text.py:571
+#: ../loader/urls.c:206 ../text.py:201 ../text.py:581
 msgid "Error"
 msgstr "Chyba"
 
-#: ../text.py:192
+#: ../text.py:202
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Nemáte ¾iadny Linux oddiel. Tento systém aktualizova» nemô¾ete!"
 
-#: ../text.py:205
+#: ../text.py:215
 msgid "System to Upgrade"
 msgstr "Systém pre aktualizáciu"
 
-#: ../text.py:206
+#: ../text.py:216
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ktorý oddiel obsahuje koreòový oddiel va¹ej in¹talácie?"
 
-#: ../text.py:221
+#: ../text.py:231
 msgid "Customize Packages to Upgrade"
 msgstr "Výber balíkov pre aktualizáciu"
 
-#: ../text.py:222
+#: ../text.py:232
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -192,31 +192,31 @@ msgstr ""
 "zvolené pre in¹taláciu. ®eláte si upravi» zoznam balíkov, ktoré majú by» "
 "aktualizované?"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:956
-#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:2020
-#: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
+#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:957
+#: ../libfdisk/gnomefsedit.c:1081 ../libfdisk/gnomefsedit.c:2021
+#: ../libfdisk/gnomefsedit.c:2291 ../libfdisk/gnomefsedit.c:2344
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:698
-#: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:147
+#: ../text.py:239 ../text.py:425 ../text.py:428 ../textw/partitioning.py:145
 msgid "Yes"
 msgstr "Áno"
 
-#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:956
-#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:2020
-#: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
+#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:957
+#: ../libfdisk/gnomefsedit.c:1081 ../libfdisk/gnomefsedit.c:2021
+#: ../libfdisk/gnomefsedit.c:2291 ../libfdisk/gnomefsedit.c:2344
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
-#: ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:147
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:239
+#: ../text.py:244 ../text.py:425 ../text.py:431 ../textw/partitioning.py:145
 msgid "No"
 msgstr "Nie"
 
-#: ../text.py:244
+#: ../text.py:254
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:245
+#: ../text.py:255
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -237,43 +237,43 @@ msgstr ""
 "Pokiaµ ste si zakúpili Official Red Hat Linux, nezabudnite svoju kúpu "
 "zaregistrova» prostredníctvom na¹ej Web stránky http://www.redhat.com/."
 
-#: ../text.py:315
+#: ../text.py:325
 msgid "Use bootp/dhcp"
 msgstr "Pou¾i» bootp/dhcp"
 
-#: ../loader/net.c:234 ../text.py:320
+#: ../loader/net.c:234 ../text.py:330
 msgid "IP address:"
 msgstr "IP adresa:"
 
-#: ../loader/net.c:237 ../text.py:321
+#: ../loader/net.c:237 ../text.py:331
 msgid "Netmask:"
 msgstr "Maska siete:"
 
-#: ../loader/net.c:240 ../text.py:322
+#: ../loader/net.c:240 ../text.py:332
 msgid "Default gateway (IP):"
 msgstr "Brána (IP):"
 
-#: ../loader/net.c:243 ../text.py:323
+#: ../loader/net.c:243 ../text.py:333
 msgid "Primary nameserver:"
 msgstr "Primárny nameserver:"
 
-#: ../text.py:345
+#: ../iw/network.py:11 ../text.py:355
 msgid "Network Configuration"
 msgstr "Konfigurácia siete"
 
-#: ../text.py:361
+#: ../text.py:371
 msgid "Invalid information"
 msgstr "Neprípustná informácia"
 
-#: ../text.py:362
+#: ../text.py:372
 msgid "You must enter valid IP information to continue"
 msgstr "Aby ste mohli pokraèova», musíte zada» platnú IP informáciu."
 
-#: ../text.py:390
+#: ../text.py:400
 msgid "Hostname Configuration"
 msgstr "Konfigurácia názvu poèítaèa"
 
-#: ../text.py:391
+#: ../text.py:401
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -281,15 +281,15 @@ msgstr ""
 "Názov poèítaèa pomenováva vá¹ poèítaè. Pokiaµ je pripojený do siete, je "
 "mo¾né, ¾e názov prideµuje správca siete."
 
-#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:183 ../loader/net.c:460 ../loader/net.c:617 ../text.py:404
 msgid "Hostname"
 msgstr "Názov poèítaèa"
 
-#: ../text.py:405 ../text.py:559 ../text.py:913
+#: ../text.py:415 ../text.py:569 ../text.py:923
 msgid "Bootdisk"
 msgstr "Zavádzacia disketa"
 
-#: ../text.py:406
+#: ../text.py:416
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -309,35 +309,35 @@ msgstr ""
 "\n"
 "®eláte si vytvori» zavádzaciu disketu pre vá¹ systém?"
 
-#: ../text.py:441
+#: ../text.py:451
 msgid "X probe results"
 msgstr "Výsledky X skú¹ky"
 
-#: ../text.py:454 ../text.py:473
+#: ../text.py:464 ../text.py:483
 msgid "Unlisted Card"
 msgstr "Neznáma karta"
 
-#: ../text.py:462
+#: ../text.py:472
 msgid "Video Card Selection"
 msgstr "Výber grafickej karty"
 
-#: ../text.py:463
+#: ../text.py:473
 msgid "Which video card do you have?"
 msgstr "Aký typ grafickej karty máte?"
 
-#: ../text.py:475
+#: ../text.py:485
 msgid "X Server Selection"
 msgstr "Výber X servera"
 
-#: ../text.py:475
+#: ../text.py:485
 msgid "Choose a server"
 msgstr "Vyberte server"
 
-#: ../text.py:526
+#: ../text.py:536
 msgid "Installation to begin"
 msgstr "Zaèiatok in¹talácie"
 
-#: ../iw/confirm.py:18 ../text.py:527
+#: ../iw/confirm.py:19 ../text.py:537
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -345,11 +345,11 @@ msgstr ""
 "Kompletný protokol o in¹talácii nájdete po re¹tartovaní systému v súbore "
 "/tmp/install.log. Tento súbor sa mô¾e hodi» pre neskor¹iu referenciu."
 
-#: ../text.py:543
+#: ../text.py:553
 msgid "Complete"
 msgstr "Hotovo"
 
-#: ../iw/congrats.py:17 ../text.py:544
+#: ../iw/congrats.py:17 ../text.py:554
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -369,7 +369,7 @@ msgstr ""
 "Informácie o konfigurácii vá¹ho systému je dostupná v post install kapitole "
 "príruèky Official Red Hat Linux User's Guide."
 
-#: ../iw/bootdisk.py:41 ../text.py:560
+#: ../iw/bootdisk.py:41 ../text.py:570
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -377,12 +377,12 @@ msgstr ""
 "Vlo¾te prázdnu disketu do prvej disketovej mechaniky. Poèas tvorby "
 "zavádzacej diskety budú v¹etky údaje na nej vymazané."
 
-#: ../text.py:563 ../text.py:564 ../text.py:575 ../text.py:576
-#: ../textw/lilo.py:20
+#: ../text.py:573 ../text.py:574 ../text.py:585 ../text.py:586
+#: ../textw/lilo.py:21
 msgid "Skip"
 msgstr "Vynecha»"
 
-#: ../iw/bootdisk.py:45 ../text.py:572
+#: ../iw/bootdisk.py:45 ../text.py:582
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -390,67 +390,67 @@ msgstr ""
 "Poèas tvorby zavádzacej diskety sa vyskytla chyba. Uistite sa, ¾e je v prvej "
 "disketovej mechanike vlo¾ená naformátovaná disketa."
 
-#: ../text.py:634
+#: ../text.py:644
 msgid "Package Installation"
 msgstr "In¹talácia balíkov"
 
-#: ../text.py:636
+#: ../text.py:646
 msgid "Name   : "
 msgstr "Názov   : "
 
-#: ../text.py:637
+#: ../text.py:647
 msgid "Size   : "
 msgstr "Veµkos» :"
 
-#: ../text.py:638
+#: ../text.py:648
 msgid "Summary: "
 msgstr "Súhrn   :"
 
-#: ../text.py:664
+#: ../text.py:674
 msgid "    Packages"
 msgstr "    Balíkov"
 
-#: ../text.py:665
+#: ../text.py:675
 msgid "       Bytes"
 msgstr "       Bajtov"
 
-#: ../text.py:666
+#: ../text.py:676
 msgid "        Time"
 msgstr "        Èas"
 
-#: ../text.py:668
+#: ../text.py:678
 msgid "Total    :"
 msgstr "Spolu    :"
 
-#: ../text.py:675
+#: ../text.py:685
 msgid "Completed:   "
 msgstr "Hotových :   "
 
-#: ../text.py:685
+#: ../text.py:695
 msgid "Remaining:  "
 msgstr "Zostáva  :  "
 
-#: ../text.py:755
+#: ../text.py:765
 msgid "What time zone are you located in?"
 msgstr "V ktorom èasovom pásme sa nachádzate?"
 
-#: ../text.py:763
+#: ../text.py:773
 msgid "Hardware clock set to GMT?"
 msgstr "Nastavi» hardwérové hodiny na GMT?"
 
-#: ../iw/timezone.py:29 ../text.py:765
+#: ../iw/timezone.py:29 ../text.py:775
 msgid "Time Zone Selection"
 msgstr "Výber èasového pásma"
 
-#: ../text.py:829 ../text.py:830
+#: ../text.py:839 ../text.py:840
 msgid "Debug"
 msgstr "Ladenie"
 
-#: ../text.py:842
+#: ../text.py:852
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:844
+#: ../text.py:854
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -458,128 +458,132 @@ msgstr ""
 "  <Tab>/<Alt-Tab> medzi polo¾kami    |  <Space> vyberá    |  <F12> nasl. "
 "obr. "
 
-#: ../text.py:860
+#: ../iw/welcome.py:10 ../text.py:870
 msgid "Welcome"
 msgstr "Vitajte"
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:866 ../text.py:872
+#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:876 ../text.py:882
 msgid "Partition"
 msgstr "Oddiel"
 
-#: ../text.py:868
+#: ../text.py:878
 msgid "Manually Partition"
 msgstr "Manuálne rozdelenie"
 
-#: ../text.py:870
+#: ../text.py:880
 msgid "Automatic Partition"
 msgstr "Automatický oddiel"
 
-#: ../text.py:874
+#: ../text.py:884
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:876
+#: ../text.py:886
 msgid "Filesystem Formatting"
 msgstr "Formátovanie súborového systému"
 
-#: ../text.py:878 ../text.py:880 ../text.py:882 ../textw/lilo.py:23
-#: ../textw/lilo.py:62 ../textw/lilo.py:154
+#: ../text.py:888 ../text.py:890 ../text.py:892 ../textw/lilo.py:24
+#: ../textw/lilo.py:63 ../textw/lilo.py:155
 msgid "LILO Configuration"
 msgstr "Konfigurácia LILO"
 
-#: ../text.py:884
+#: ../text.py:894
 msgid "Hostname Setup"
 msgstr "Nastavenie názvu poèítaèa"
 
-#: ../text.py:886
+#: ../text.py:896
 msgid "Network Setup"
 msgstr "Nastavenie siete"
 
-#: ../text.py:888 ../text.py:890
+#: ../iw/mouse.py:55 ../text.py:898 ../text.py:900
 msgid "Mouse Configuration"
 msgstr "Konfigurácia my¹i"
 
-#: ../text.py:892
+#: ../text.py:902
 msgid "Time Zone Setup"
 msgstr "Nastavenie èasového pásma"
 
-#: ../text.py:894 ../textw/userauth.py:10
+#: ../text.py:904 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr "Heslo superpou¾ívateµa"
 
-#: ../text.py:896 ../textw/userauth.py:150
+#: ../text.py:906 ../textw/userauth.py:148
 msgid "User Account Setup"
 msgstr "Nastavenie pou¾ívateµského úètu"
 
-#: ../text.py:898
+#: ../text.py:908
 msgid "Authentication"
 msgstr "Autentifikácia"
 
-#: ../text.py:900
+#: ../text.py:910
 msgid "Package Groups"
 msgstr "Skupiny balíkov"
 
-#: ../text.py:902 ../text.py:923
+#: ../text.py:912 ../text.py:933
 msgid "Individual Packages"
 msgstr "Jednotlivé balíky"
 
-#: ../text.py:904 ../textw/packages.py:116
+#: ../text.py:914 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr "Závislosti balíkov"
 
-#: ../iw/xconfig.py:89 ../text.py:906 ../text.py:914
+#: ../iw/xconfig.py:89 ../text.py:916 ../text.py:924
 msgid "X Configuration"
 msgstr "Konfigurácia X"
 
-#: ../text.py:908
+#: ../text.py:918
 msgid "Boot Disk"
 msgstr "Zavádzacia disketa"
 
-#: ../text.py:910
+#: ../text.py:920
 msgid "Installation Begins"
 msgstr "In¹talácia zaèína"
 
-#: ../text.py:912
+#: ../text.py:922
 msgid "Install System"
 msgstr "In¹talácia systému"
 
-#: ../text.py:916
+#: ../text.py:926
 msgid "Installation Complete"
 msgstr "In¹talácia ukonèená"
 
-#: ../text.py:921
+#: ../text.py:931
 msgid "Examine System"
 msgstr "Prehliadanie systému"
 
-#: ../text.py:922
+#: ../text.py:932
 msgid "Customize Upgrade"
 msgstr "Úprava aktualizácie"
 
-#: ../text.py:924
+#: ../text.py:934
 msgid "Upgrade System"
 msgstr "Aktualizácia systému"
 
-#: ../text.py:925
+#: ../text.py:935
 msgid "Upgrade Complete"
 msgstr "Aktualizácia ukonèená"
 
-#: ../gui.py:399
+#: ../gui.py:417
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux in¹talátor"
 
-#: ../gui.py:408
+#: ../gui.py:424
+msgid "Next"
+msgstr ""
+
+#: ../gui.py:426
 msgid "Finish"
 msgstr "Ukonèi»"
 
-#: ../gui.py:409
+#: ../gui.py:427
 msgid "Hide Help"
 msgstr "Skry» pomôcky"
 
-#: ../gui.py:410
+#: ../gui.py:428
 msgid "Show Help"
 msgstr "Zobrazi» pomôcky"
 
-#: ../gui.py:432
+#: ../gui.py:450
 msgid "Online Help"
 msgstr "Online pomôcky"
 
@@ -599,31 +603,31 @@ msgstr "Znovu: "
 msgid "Account Name"
 msgstr "Názov úètu"
 
-#: ../iw/account.py:187 ../textw/userauth.py:82
+#: ../iw/account.py:187 ../textw/userauth.py:80
 msgid "Password"
 msgstr "Heslo"
 
-#: ../iw/account.py:191 ../textw/userauth.py:83
+#: ../iw/account.py:191 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr "Heslo (znovu)"
 
-#: ../iw/account.py:195 ../iw/account.py:226 ../textw/userauth.py:81
-#: ../textw/userauth.py:162
+#: ../iw/account.py:195 ../iw/account.py:226 ../textw/userauth.py:79
+#: ../textw/userauth.py:160
 msgid "Full Name"
 msgstr "Úplné meno"
 
-#: ../iw/account.py:204 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
+#: ../iw/account.py:204 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:171
 msgid "Add"
 msgstr "Prida»"
 
 #: ../iw/account.py:206 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:146 ../textw/lilo.py:167
-#: ../textw/partitioning.py:63 ../textw/userauth.py:174
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:147 ../textw/lilo.py:168
+#: ../textw/partitioning.py:61 ../textw/userauth.py:172
 msgid "Edit"
 msgstr "Upravi»"
 
 #: ../iw/account.py:208 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:173
+#: ../libfdisk/newtfsedit.c:1304 ../textw/userauth.py:171
 msgid "Delete"
 msgstr "Zru¹i»"
 
@@ -631,7 +635,7 @@ msgstr "Zru¹i»"
 msgid "New"
 msgstr "Nový"
 
-#: ../iw/auth.py:11 ../textw/userauth.py:248
+#: ../iw/auth.py:11 ../textw/userauth.py:246
 msgid "Authentication Configuration"
 msgstr "Konfigurácia autentifikácie"
 
@@ -643,7 +647,7 @@ msgstr "Povoli» MD5 heslá"
 msgid "Enable shadow passwords"
 msgstr "Povoli» shadow heslá"
 
-#: ../iw/auth.py:53 ../textw/userauth.py:253
+#: ../iw/auth.py:53 ../textw/userauth.py:251
 msgid "Enable NIS"
 msgstr "Povoli» NIS"
 
@@ -667,11 +671,11 @@ msgstr "Vytvorenie zavádzacej diskety"
 msgid "Skip boot disk creation"
 msgstr "Vynecha» vytvorenie zavádzacej diskety"
 
-#: ../iw/confirm.py:10
+#: ../iw/confirm.py:11
 msgid "About to Install"
 msgstr "Chystám sa in¹talova»"
 
-#: ../iw/confirm.py:15
+#: ../iw/confirm.py:16
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr "Kliknite tlaèítko pre zaèatie in¹talácie Red Hat Linuxu."
 
@@ -687,15 +691,15 @@ msgstr "Ukonèi»"
 msgid "Unresolved Dependencies"
 msgstr "Nevyrie¹ené závislosti"
 
-#: ../iw/dependencies.py:30 ../iw/progress.py:117 ../textw/packages.py:123
+#: ../iw/dependencies.py:30 ../iw/progress.py:117 ../textw/packages.py:121
 msgid "Package"
 msgstr "Balík"
 
-#: ../iw/dependencies.py:30 ../textw/packages.py:123
+#: ../iw/dependencies.py:30 ../textw/packages.py:121
 msgid "Requirement"
 msgstr "Vy¾aduje"
 
-#: ../iw/dependencies.py:37 ../textw/packages.py:135
+#: ../iw/dependencies.py:37 ../textw/packages.py:133
 msgid "Install packages to satisfy dependencies"
 msgstr "In¹taluj balíky pre vyrie¹enie závislostí"
 
@@ -715,11 +719,11 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr "Výber balíkov pre aktualizáciu"
 
-#: ../iw/fdisk.py:12 ../textw/partitioning.py:26
+#: ../iw/fdisk.py:12 ../textw/partitioning.py:24
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk.py:43
+#: ../iw/fdisk.py:63
 msgid "Select drive to run fdisk on"
 msgstr "Vyberte disk, na ktorý sa má pou¾i» fdisk"
 
@@ -739,8 +743,8 @@ msgstr "Pracovná stanica GNOME"
 msgid "KDE Workstation"
 msgstr "Pracovná stanica KDE"
 
-#: ../iw/installpath.py:40 ../libfdisk/gnomefsedit.c:2196
-#: ../libfdisk/gnomefsedit.c:2216
+#: ../iw/installpath.py:40 ../libfdisk/gnomefsedit.c:2197
+#: ../libfdisk/gnomefsedit.c:2217
 msgid "Server"
 msgstr "Server"
 
@@ -748,19 +752,19 @@ msgstr "Server"
 msgid "Custom"
 msgstr "Vlastný výber"
 
-#: ../iw/installpath.py:78
+#: ../iw/installpath.py:79
 msgid "Install Type"
 msgstr "Typ in¹talácie"
 
-#: ../iw/installpath.py:146
+#: ../iw/installpath.py:147
 msgid "Install"
 msgstr "In¹talova»"
 
-#: ../iw/installpath.py:148
+#: ../iw/installpath.py:149
 msgid "Upgrade"
 msgstr "Aktualizova»"
 
-#: ../iw/installpath.py:188
+#: ../iw/installpath.py:189
 msgid "Use fdisk"
 msgstr "Pou¾i» fdisk"
 
@@ -768,19 +772,19 @@ msgstr "Pou¾i» fdisk"
 msgid "Keyboard Configuration"
 msgstr "Konfigurácia klávesnice"
 
-#: ../iw/keyboard.py:45
+#: ../iw/keyboard.py:48
 msgid "Model"
 msgstr "Model"
 
-#: ../iw/keyboard.py:62
+#: ../iw/keyboard.py:67
 msgid "Layout"
 msgstr "Rozlo¾enie"
 
-#: ../iw/keyboard.py:79
+#: ../iw/keyboard.py:86
 msgid "Variant"
 msgstr "Varianta"
 
-#: ../iw/keyboard.py:95
+#: ../iw/keyboard.py:101
 msgid "Test your selection here:"
 msgstr "Otestujte tu vá¹ výber:"
 
@@ -808,7 +812,7 @@ msgstr "Hlavný zavádzaè (MBR)"
 msgid "First sector of boot partition"
 msgstr "Prvý sektor zavádzacieho oddielu"
 
-#: ../iw/lilo.py:141 ../textw/lilo.py:18
+#: ../iw/lilo.py:141 ../textw/lilo.py:19
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Pou¾i» lineárny re¾im (potrebné pre niektoré SCSI jednotky)"
 
@@ -824,20 +828,25 @@ msgstr "Vytvori» zavádzaciu disketu"
 msgid "Do not install LILO"
 msgstr "Nein¹talova» LILO"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:137
+#: ../iw/lilo.py:174 ../textw/lilo.py:138
 msgid "Default"
 msgstr "Predvoµba"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:137
+#: ../iw/lilo.py:174 ../textw/lilo.py:138
 msgid "Partition type"
 msgstr "Typ oddielu"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:79
-#: ../textw/lilo.py:137
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:80
+#: ../textw/lilo.py:138
 msgid "Boot label"
 msgstr "Popis"
 
-#: ../iw/network.py:131
+#: ../iw/mouse.py:134
+#, fuzzy
+msgid "Emulate 3 Buttons"
+msgstr "Emulova» 3 tlaèítka?"
+
+#: ../iw/network.py:132
 msgid "Configure using DHCP"
 msgstr "Konfigurácia s pou¾itím DHCP"
 
@@ -861,19 +870,19 @@ msgstr "Sie»"
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network.py:188
+#: ../iw/network.py:184
 msgid "Gateway"
 msgstr "Brána"
 
-#: ../iw/network.py:188
+#: ../iw/network.py:184
 msgid "Primary DNS"
 msgstr "Primárny DNS"
 
-#: ../iw/network.py:188
+#: ../iw/network.py:184
 msgid "Secondary DNS"
 msgstr "Sekundárny DNS"
 
-#: ../iw/network.py:188
+#: ../iw/network.py:184
 msgid "Ternary DNS"
 msgstr "Terciárny DNS"
 
@@ -901,11 +910,11 @@ msgstr "Veµkos»:"
 msgid "Select Package For Installation"
 msgstr "Vyberte balíky pre in¹taláciu"
 
-#: ../iw/package.py:377 ../textw/packages.py:24 ../textw/packages.py:89
+#: ../iw/package.py:377 ../textw/packages.py:22 ../textw/packages.py:87
 msgid "Package Group Selection"
 msgstr "Výber skupín balíkov"
 
-#: ../iw/package.py:442 ../textw/packages.py:20
+#: ../iw/package.py:444 ../textw/packages.py:18
 msgid "Select individual packages"
 msgstr "Vyberte jednotlivé balíky"
 
@@ -949,15 +958,15 @@ msgstr "Zostáva"
 msgid "Confirm Partitioning Selection"
 msgstr "Potvrïte výber rozdelenia"
 
-#: ../iw/rootpartition.py:29 ../textw/partitioning.py:26
+#: ../iw/rootpartition.py:29 ../textw/partitioning.py:24
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../iw/rootpartition.py:91 ../textw/partitioning.py:109
+#: ../iw/rootpartition.py:82 ../textw/partitioning.py:107
 msgid "Automatic Partitioning"
 msgstr "Automatické rozdelenie oddielov"
 
-#: ../iw/rootpartition.py:130 ../textw/partitioning.py:110
+#: ../iw/rootpartition.py:121 ../textw/partitioning.py:108
 #, c-format
 msgid ""
 "%s\n"
@@ -971,31 +980,31 @@ msgstr ""
 "Pokiaµ to nechcete urobi», mô¾ete vykona» rozdelenie ruène, alebo sa mô¾ete "
 "vráti» spä» a vykona» in¹taláciu podµa vlastného výberu."
 
-#: ../iw/rootpartition.py:142
+#: ../iw/rootpartition.py:133
 msgid "Remove data"
 msgstr "Odstráni» údaje"
 
-#: ../iw/rootpartition.py:145 ../textw/partitioning.py:114
+#: ../iw/rootpartition.py:136 ../textw/partitioning.py:112
 msgid "Manually partition"
 msgstr "Manuálne rozdelenie"
 
-#: ../iw/timezone.py:111
+#: ../iw/timezone.py:114
 msgid "View:"
 msgstr "Prezrie»:"
 
-#: ../iw/timezone.py:149
+#: ../iw/timezone.py:152
 msgid "Use Daylight Saving Time"
 msgstr "Pou¾íva» letný èas"
 
-#: ../iw/timezone.py:156
+#: ../iw/timezone.py:159
 msgid "Location"
 msgstr "Poloha"
 
-#: ../iw/timezone.py:157
+#: ../iw/timezone.py:160
 msgid "UTC Offset"
 msgstr "Èasový posun vzhµadom na UTC"
 
-#: ../iw/timezone.py:161
+#: ../iw/timezone.py:164
 msgid "System clock uses UTC"
 msgstr "Systémové hodiny pou¾ívajú UTC"
 
@@ -1061,7 +1070,7 @@ msgstr "Pou¾íva» grafické prihlasovanie sa"
 msgid "Skip X Configuration"
 msgstr "Vynecha» konfiguráciu X"
 
-#: ../textw/lilo.py:12
+#: ../textw/lilo.py:13
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -1072,26 +1081,26 @@ msgstr ""
 "Pokiaµ ich potrebujete, zadajte ich; pokiaµ nie alebo neviete, nezadávajte "
 "niè."
 
-#: ../textw/lilo.py:63
+#: ../textw/lilo.py:64
 msgid "Where do you want to install the bootloader?"
 msgstr "Kam si ¾eláte nain¹talova» zavádzaè?"
 
-#: ../textw/lilo.py:83 ../textw/lilo.py:104
+#: ../textw/lilo.py:84 ../textw/lilo.py:105
 msgid "Clear"
 msgstr "Vynulova»"
 
-#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
-#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:165 ../textw/lilo.py:83
-#: ../textw/lilo.py:101 ../textw/userauth.py:64
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1620
+#: ../libfdisk/gnomefsedit.c:2129 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:165 ../textw/lilo.py:84
+#: ../textw/lilo.py:102 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Zru¹i»"
 
-#: ../textw/lilo.py:91
+#: ../textw/lilo.py:92
 msgid "Edit Boot Label"
 msgstr "Upravi» zavádzací popis"
 
-#: ../textw/lilo.py:149
+#: ../textw/lilo.py:150
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1101,7 +1110,7 @@ msgstr ""
 "systémy. Potrebujete zada» oddiely, na ktorých sa nachádzajú zavediteµné "
 "systémy a popis, ktorý pre ne chcete pou¾i»."
 
-#: ../textw/packages.py:117
+#: ../textw/packages.py:115
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
@@ -1110,11 +1119,11 @@ msgstr ""
 "Niektoré vami vybrané balíky potrebujú ku svojej èinnosti balíky, ktoré ste "
 "nevybrali. Pokiaµ zvolíte OK, potrebné balíky sa nain¹talujú."
 
-#: ../textw/partitioning.py:18 ../textw/partitioning.py:57
+#: ../textw/partitioning.py:16 ../textw/partitioning.py:55
 msgid "Disk Setup"
 msgstr "Nastavenie diskov"
 
-#: ../textw/partitioning.py:19
+#: ../textw/partitioning.py:17
 msgid ""
 "Disk Druid is a tool for partitioning and setting up mount points. It is "
 "designed to be easier to use than Linux's traditional disk partitioning "
@@ -1130,7 +1139,7 @@ msgstr ""
 "\n"
 "Ktorý nástroj chcete pou¾i»?"
 
-#: ../textw/partitioning.py:58
+#: ../textw/partitioning.py:56
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
@@ -1141,19 +1150,19 @@ msgstr ""
 "dvoch pevných diskov vo va¹om systéme, aby bolo mo¾né zavies» Linux pomocou "
 "LILO zavádzaèa."
 
-#: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:63
+#: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:61
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../textw/partitioning.py:114 ../textw/partitioning.py:115
+#: ../textw/partitioning.py:112 ../textw/partitioning.py:113
 msgid "Continue"
 msgstr "Pokraèova»"
 
-#: ../textw/partitioning.py:142
+#: ../textw/partitioning.py:140
 msgid "Low Memory"
 msgstr "Málo pamäti"
 
-#: ../textw/partitioning.py:143
+#: ../textw/partitioning.py:141
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1163,7 +1172,7 @@ msgstr ""
 "odkladací priestor u¾ teraz. Aby to bolo mo¾né urobi», va¹a nová tabuµka "
 "rozdelenia sa zapí¹e na disk okam¾ite. Je to v poriadku?"
 
-#: ../textw/partitioning.py:162
+#: ../textw/partitioning.py:160
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -1175,15 +1184,15 @@ msgstr ""
 "/home alebo /usr/local, pokiaµ boli u¾ nakonfigurované poèas predchádzajúcej "
 "in¹talácie."
 
-#: ../textw/partitioning.py:182
+#: ../textw/partitioning.py:180
 msgid "Check for bad blocks during format"
 msgstr "Poèas formátovania kontrolova» na chybné bloky"
 
-#: ../textw/partitioning.py:186
+#: ../textw/partitioning.py:184
 msgid "Choose Partitions to Format"
 msgstr "Výber oddielov pre formátovanie"
 
-#: ../textw/userauth.py:12
+#: ../textw/userauth.py:10
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1193,55 +1202,55 @@ msgstr ""
 "poznáte a ¾e ste pri zápise neurobili preklep. Pamätajte na top, ¾e toto "
 "heslo je kritickou èas»ou bezpeènosti systému!"
 
-#: ../loader/urls.c:298 ../textw/userauth.py:25
+#: ../loader/urls.c:298 ../textw/userauth.py:23
 msgid "Password:"
 msgstr "Heslo:"
 
-#: ../textw/userauth.py:26
+#: ../textw/userauth.py:24
 msgid "Password (again):"
 msgstr "Heslo (znovu):"
 
-#: ../textw/userauth.py:42 ../textw/userauth.py:93
+#: ../textw/userauth.py:40 ../textw/userauth.py:91
 msgid "Password Length"
 msgstr "Då¾ka hesla"
 
-#: ../textw/userauth.py:43
+#: ../textw/userauth.py:41
 msgid "The root password must be at least 6 characters long."
 msgstr "Heslo root-a musí ma» aspoò 6 znakov."
 
-#: ../textw/userauth.py:47 ../textw/userauth.py:101
+#: ../textw/userauth.py:45 ../textw/userauth.py:99
 msgid "Password Mismatch"
 msgstr "Heslo nesúhlasí"
 
-#: ../textw/userauth.py:48 ../textw/userauth.py:102
+#: ../textw/userauth.py:46 ../textw/userauth.py:100
 msgid "The passwords you entered were different. Please try again."
 msgstr "Zadané heslá neboli rovnaké. Skúste znovu."
 
-#: ../textw/userauth.py:73
+#: ../textw/userauth.py:71
 msgid "Edit User"
 msgstr "Upravi» pou¾ívateµa"
 
-#: ../textw/userauth.py:75
+#: ../textw/userauth.py:73
 msgid "Add User"
 msgstr "Prida» pou¾ívateµa"
 
-#: ../textw/userauth.py:80
+#: ../textw/userauth.py:78
 msgid "User ID"
 msgstr "ID pou¾ívateµa"
 
-#: ../textw/userauth.py:94
+#: ../textw/userauth.py:92
 msgid "The password must be at least 6 characters long."
 msgstr "Heslo musí ma» aspoò 6 znakov."
 
-#: ../textw/userauth.py:111
+#: ../textw/userauth.py:109
 msgid "User Exists"
 msgstr "Pou¾ívateµ existuje"
 
-#: ../textw/userauth.py:112
+#: ../textw/userauth.py:110
 msgid "This user id already exists.  Choose another."
 msgstr "Toto id pou¾ívateµa u¾ existuje - zvoµte iné."
 
-#: ../textw/userauth.py:139
+#: ../textw/userauth.py:137
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
@@ -1251,7 +1260,7 @@ msgstr ""
 "pou¾ívateµský úèet. Pokiaµ si zvyknete nepracova» be¾ne ako superpou¾ívateµ, "
 "zmen¹íte tým pravdepodobnos» po¹kodenia konfigurácie vá¹ho systému."
 
-#: ../textw/userauth.py:152
+#: ../textw/userauth.py:150
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
@@ -1261,39 +1270,39 @@ msgstr ""
 "jeden nie-superpou¾ívateµský úèet pre be¾nú prácu, ale viacpou¾ívateµské "
 "systémy ich mô¾u ma» µubovoµné mno¾stvo."
 
-#: ../textw/userauth.py:162
+#: ../textw/userauth.py:160
 msgid "User name"
 msgstr "Meno pou¾ívateµa"
 
-#: ../textw/userauth.py:186
+#: ../textw/userauth.py:184
 msgid "Enter the information for the user."
 msgstr "Zada» informáciu o pou¾ívateµovi."
 
-#: ../textw/userauth.py:198
+#: ../textw/userauth.py:196
 msgid "Change the information for this user."
 msgstr "Zmei» informáciu o tomto pou¾ívateµovi."
 
-#: ../textw/userauth.py:249
+#: ../textw/userauth.py:247
 msgid "Use Shadow Passwords"
 msgstr "Pou¾íva» shadow heslá"
 
-#: ../textw/userauth.py:251
+#: ../textw/userauth.py:249
 msgid "Enable MD5 Passwords"
 msgstr "Povoli» MD5 heslá"
 
-#: ../textw/userauth.py:258
+#: ../textw/userauth.py:256
 msgid "NIS Domain:"
 msgstr "NIS doména: "
 
-#: ../textw/userauth.py:260
+#: ../textw/userauth.py:258
 msgid "NIS Server:"
 msgstr "NIS server:"
 
-#: ../textw/userauth.py:262
+#: ../textw/userauth.py:260
 msgid "or use:"
 msgstr "alebo pou¾i»:"
 
-#: ../textw/userauth.py:265
+#: ../textw/userauth.py:263
 msgid "Request server via broadcast"
 msgstr "Po¾iada» o server broadcastom"
 
@@ -1484,7 +1493,7 @@ msgstr "Skutoène chcete zru¹i» tento oddiel?"
 msgid "Edit Partition"
 msgstr "Úprava oddielu"
 
-#: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
+#: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1629
 msgid "Mount Point:"
 msgstr "Bod pripojenia:"
 
@@ -1512,7 +1521,7 @@ msgstr "Zlyhalo"
 msgid "Failure Reason:"
 msgstr "Dôvod zlyhania:"
 
-#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
+#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1655
 msgid "Partition Type:"
 msgstr "Typ oddielu:"
 
@@ -1520,23 +1529,23 @@ msgstr "Typ oddielu:"
 msgid "Allowable Drives:"
 msgstr "Povolené jednotky:"
 
-#: ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
+#: ../libfdisk/gnomefsedit.c:957 ../libfdisk/gnomefsedit.c:1847
 #: ../libfdisk/newtfsedit.c:486
 msgid "No Mount Point"
 msgstr "Chýba bod pripojenia"
 
-#: ../libfdisk/gnomefsedit.c:957 ../libfdisk/newtfsedit.c:487
+#: ../libfdisk/gnomefsedit.c:958 ../libfdisk/newtfsedit.c:487
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr "Nezadali ste bod pripojenia tohoto oddielu. Naozaj to tak chcete?"
 
-#: ../libfdisk/gnomefsedit.c:1000 ../libfdisk/gnomefsedit.c:1854
+#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1855
 #: ../libfdisk/newtfsedit.c:527
 msgid "Mount Point Error"
 msgstr "Chyba bodu pripojenia"
 
-#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/newtfsedit.c:528
+#: ../libfdisk/gnomefsedit.c:1002 ../libfdisk/newtfsedit.c:528
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -1544,11 +1553,11 @@ msgstr ""
 "Bod pripojenia buï chybnú cestu, alebo je u¾ pou¾itý. Zadajte platný bod "
 "pripojenia."
 
-#: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
+#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
 msgstr "Chybná veµkos»"
 
-#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
+#: ../libfdisk/gnomefsedit.c:1028 ../libfdisk/newtfsedit.c:546
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -1556,12 +1565,12 @@ msgstr ""
 "Po¾adovaná veµkos» je chybná. Uistite sa, ¾e je veµkos» väè¹ia ako nula (0) "
 "a je zadaná ako celé èíslo v dekadickej sústave."
 
-#: ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
+#: ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
 #: ../libfdisk/newtfsedit.c:581
 msgid "Swap Size Error"
 msgstr "Chybná veµkos» odkladacieho priestoru"
 
-#: ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
+#: ../libfdisk/gnomefsedit.c:1064 ../libfdisk/gnomefsedit.c:1969
 #: ../libfdisk/newtfsedit.c:582
 #, c-format
 msgid ""
@@ -1571,11 +1580,11 @@ msgstr ""
 "Vytvorili ste oddiel odkladacieho priestoru, ktorý je príli¹ veµký. "
 "Maximálna veµkos» je %ld megabajtov."
 
-#: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
+#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:1087
 msgid "No RAID Drive Constraint"
 msgstr "®iadne obmedzenie RAID disku"
 
-#: ../libfdisk/gnomefsedit.c:1081
+#: ../libfdisk/gnomefsedit.c:1082
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -1584,11 +1593,11 @@ msgstr ""
 "Nakonfigurovali ste RAID oddiel bez jeho obmedzenia na jeden disk.\n"
 " Urèite to tak chcete?"
 
-#: ../libfdisk/gnomefsedit.c:1087
+#: ../libfdisk/gnomefsedit.c:1088
 msgid "Close"
 msgstr "Zavrie»"
 
-#: ../libfdisk/gnomefsedit.c:1088
+#: ../libfdisk/gnomefsedit.c:1089
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -1598,11 +1607,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1267
+#: ../libfdisk/gnomefsedit.c:1268
 msgid "RAID Entry Incomplete"
 msgstr "RAID polo¾ka neúplná"
 
-#: ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1269
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -1614,12 +1623,12 @@ msgstr ""
 "prosím raid zariadenie z pridelených oddielov."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
+#: ../libfdisk/gnomefsedit.c:1362 ../libfdisk/gnomefsedit.c:1381
 #: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1482
 msgid "Unallocated Partitions"
 msgstr "Nepridelené oddiely"
 
-#: ../libfdisk/gnomefsedit.c:1365 ../libfdisk/gnomefsedit.c:1375
+#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/newtfsedit.c:88
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -1629,38 +1638,38 @@ msgstr ""
 "V zozname ¾iadaných oddielov existuje nepridelený oddiel. Nepridelené "
 "oddiely sú zobrazené ni¾¹ie spolu s dôvodom, preèo neboli pridelené."
 
-#: ../libfdisk/gnomefsedit.c:1640
+#: ../libfdisk/gnomefsedit.c:1641
 msgid "<Swap Partition"
 msgstr "<Oddiel odkladacieho priestoru>"
 
-#: ../libfdisk/gnomefsedit.c:1698
+#: ../libfdisk/gnomefsedit.c:1699
 msgid "RAID Device: /dev/"
 msgstr "RAID zariadenie: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:1721
+#: ../libfdisk/gnomefsedit.c:1722
 msgid "RAID Type:"
 msgstr "RAID typ:"
 
-#: ../libfdisk/gnomefsedit.c:1758
+#: ../libfdisk/gnomefsedit.c:1759
 msgid "Partitions For RAID Array:"
 msgstr "Oddiely pre RAID pole:"
 
-#: ../libfdisk/gnomefsedit.c:1847
+#: ../libfdisk/gnomefsedit.c:1848
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Nezadali ste bod pripojenia. Bod pripojenia je vy¾adovaný."
 
-#: ../libfdisk/gnomefsedit.c:1855
+#: ../libfdisk/gnomefsedit.c:1856
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
 "Po¾adovaný bod pripojenia je u¾ pou¾itý. Zadajte platný bod pripojenia."
 
-#: ../libfdisk/gnomefsedit.c:1868
+#: ../libfdisk/gnomefsedit.c:1869
 msgid "Booting From RAID Warning"
 msgstr "Varovanie zavádzania z RAID"
 
-#: ../libfdisk/gnomefsedit.c:1869
+#: ../libfdisk/gnomefsedit.c:1870
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
@@ -1669,19 +1678,19 @@ msgstr ""
 "systém. Skontrolujte prosím, èi sú v¹etky oddiely, z ktorých je zlo¾ené, "
 "zavádzacie."
 
-#: ../libfdisk/gnomefsedit.c:1879
+#: ../libfdisk/gnomefsedit.c:1880
 msgid "No RAID Device"
 msgstr "®iadne RAID zariadenie"
 
-#: ../libfdisk/gnomefsedit.c:1880
+#: ../libfdisk/gnomefsedit.c:1881
 msgid "You need to selected a RAID device."
 msgstr "Potrebujete vybra» RAID zariadenie."
 
-#: ../libfdisk/gnomefsedit.c:1886
+#: ../libfdisk/gnomefsedit.c:1887
 msgid "Used Raid Device"
 msgstr "Pou¾ité RAID zariadenie"
 
-#: ../libfdisk/gnomefsedit.c:1887
+#: ../libfdisk/gnomefsedit.c:1888
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -1690,25 +1699,25 @@ msgstr ""
 "Raid zariadenie \"/dev/%s\" je u¾ nakonfigurované ako raid zariadenie. "
 "Vyberte prosím iné."
 
-#: ../libfdisk/gnomefsedit.c:1900
+#: ../libfdisk/gnomefsedit.c:1901
 msgid "Not Enough Partitions"
 msgstr "Nie je dostatok oddielov"
 
-#: ../libfdisk/gnomefsedit.c:1902
+#: ../libfdisk/gnomefsedit.c:1903
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr "Nenakonfigurovali ste dostatok oddielov pre vybraný typ RAID."
 
-#: ../libfdisk/gnomefsedit.c:1909
+#: ../libfdisk/gnomefsedit.c:1910
 msgid "Illegal /boot RAID Type"
 msgstr "Chybný RAID typ pre /boot"
 
-#: ../libfdisk/gnomefsedit.c:1911
+#: ../libfdisk/gnomefsedit.c:1912
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Zavádzacie oddiely (/boot) sú povolené iba na RAID-1."
 
-#: ../libfdisk/gnomefsedit.c:2012
+#: ../libfdisk/gnomefsedit.c:2013
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -1719,68 +1728,68 @@ msgstr ""
 "pripojenia je nastavený na /boot. Ste si istý/á, ¾e je mo¾né z tohoto "
 "oddielu zavádza» systém?"
 
-#: ../libfdisk/gnomefsedit.c:2019
+#: ../libfdisk/gnomefsedit.c:2020
 msgid "Use Pre-existing Partition?"
 msgstr "Pou¾i» existujúci oddiel?"
 
-#: ../libfdisk/gnomefsedit.c:2128
+#: ../libfdisk/gnomefsedit.c:2129
 msgid "Auto-Partition"
 msgstr "Automatické rozdelenie"
 
-#: ../libfdisk/gnomefsedit.c:2135
+#: ../libfdisk/gnomefsedit.c:2136
 msgid "Using Existing Disk Space"
 msgstr "Pou¾íva sa existujúci diskový priestor"
 
-#: ../libfdisk/gnomefsedit.c:2154
+#: ../libfdisk/gnomefsedit.c:2155
 msgid "Remove Linux partitions"
 msgstr "Zru¹i» Linux oddiely"
 
-#: ../libfdisk/gnomefsedit.c:2165
+#: ../libfdisk/gnomefsedit.c:2166
 msgid "Use existing free space"
 msgstr "Pou¾i» existujúci voµný priestor"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2177
+#: ../libfdisk/gnomefsedit.c:2178
 msgid "Intended Use"
 msgstr "Zamý¹µané pou¾itie"
 
-#: ../libfdisk/gnomefsedit.c:2216
+#: ../libfdisk/gnomefsedit.c:2217
 msgid "Workstation"
 msgstr "Pracovná stanica"
 
-#: ../libfdisk/gnomefsedit.c:2290
+#: ../libfdisk/gnomefsedit.c:2291
 msgid "Delete RAID Device?"
 msgstr "Zru¹i» RAID zariadenie?"
 
-#: ../libfdisk/gnomefsedit.c:2291
+#: ../libfdisk/gnomefsedit.c:2292
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Skutoène chcete zru¹i» toto RAID zariadenie?"
 
-#: ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
+#: ../libfdisk/gnomefsedit.c:2343 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
 msgstr "Vráti» tabuµku rozdelenia"
 
-#: ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
+#: ../libfdisk/gnomefsedit.c:2345 ../libfdisk/newtfsedit.c:1587
 msgid "Reset partition table to original contents? "
 msgstr "Vráti» tabuµku rozdelenia do pôvodného stavu?"
 
-#: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
+#: ../libfdisk/gnomefsedit.c:2381 ../libfdisk/gnomefsedit.c:2432
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2382
+#: ../libfdisk/gnomefsedit.c:2383
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2384
+#: ../libfdisk/gnomefsedit.c:2385
 msgid "<not set>"
 msgstr "<nenastavené>"
 
-#: ../libfdisk/gnomefsedit.c:2941
+#: ../libfdisk/gnomefsedit.c:2942
 msgid "Unallocated Partitions Exist..."
 msgstr "Existujú nepridelené oddiely..."
 
-#: ../libfdisk/gnomefsedit.c:2952
+#: ../libfdisk/gnomefsedit.c:2953
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -1788,7 +1797,7 @@ msgstr ""
 "Musíte priradi» koreòový (/) oddiel oddielu typu Linux native (ext2) alebo "
 "RAID oddiel, aby bolo mo¾né pokraèova» v in¹talácii."
 
-#: ../libfdisk/gnomefsedit.c:2966 ../libfdisk/gnomefsedit.c:2979
+#: ../libfdisk/gnomefsedit.c:2967 ../libfdisk/gnomefsedit.c:2980
 msgid ""
 "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
 "or a RAID-1 partition for the install to proceed."
@@ -1796,7 +1805,7 @@ msgstr ""
 "Musíte priradi» zavádzací (/boot) oddiel oddielu typu Linux native (ext2) "
 "alebo RAID-1 oddiel, aby bolo mo¾né pokraèova» v in¹talácii."
 
-#: ../libfdisk/gnomefsedit.c:2994
+#: ../libfdisk/gnomefsedit.c:2995
 msgid ""
 "Because you have assigned the root partition (/) to a RAID device, you must "
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
@@ -1806,35 +1815,35 @@ msgstr ""
 "zavázdací (/boot) oddiel oddielu typu Linux native (ext2) alebo RAID-1 "
 "oddielu, aby bolo mo¾né pokraèova» v in¹talácii."
 
-#: ../libfdisk/gnomefsedit.c:3067
+#: ../libfdisk/gnomefsedit.c:3068
 msgid "Partitions"
 msgstr "Oddiely"
 
-#: ../libfdisk/gnomefsedit.c:3111
+#: ../libfdisk/gnomefsedit.c:3112
 msgid "_Add..."
 msgstr "Prida»..."
 
-#: ../libfdisk/gnomefsedit.c:3123
+#: ../libfdisk/gnomefsedit.c:3124
 msgid "_Edit..."
 msgstr "Upravi»..."
 
-#: ../libfdisk/gnomefsedit.c:3124
+#: ../libfdisk/gnomefsedit.c:3125
 msgid "_Delete"
 msgstr "_Zru¹i»"
 
-#: ../libfdisk/gnomefsedit.c:3125
+#: ../libfdisk/gnomefsedit.c:3126
 msgid "_Reset"
 msgstr "_Vráti»"
 
-#: ../libfdisk/gnomefsedit.c:3154
+#: ../libfdisk/gnomefsedit.c:3155
 msgid "_Make RAID Device"
 msgstr "Vytvori» RAID zariadenie"
 
-#: ../libfdisk/gnomefsedit.c:3163
+#: ../libfdisk/gnomefsedit.c:3164
 msgid "Auto Partition"
 msgstr "Automatické rozdelenie"
 
-#: ../libfdisk/gnomefsedit.c:3176
+#: ../libfdisk/gnomefsedit.c:3177
 msgid "Drive Summary"
 msgstr "Súhrn pre disk"
 
