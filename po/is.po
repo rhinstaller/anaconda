@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-02-05 12:49-0500\n"
-"PO-Revision-Date: 2001-02-02 11:52+0000\n"
+"PO-Revision-Date: 2001-02-06 01:57+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -438,7 +438,6 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
 msgstr "Velja öll"
 
@@ -2744,6 +2743,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Þú hefur farið fram á að hafa rótarskráarkerfið (/) á DOS FAT disksneið. "
+"Þetta er mögulegt, en þá er ekki hægt að nota aðrar gerðir skráarkerfa í "
+"Linux kerfinu þínu. Þar að auki mun Linux keyra hægar en þegar hann lifir á "
+"Linux-native disksneið. Villtu halda áfram?"
 
 #: ../libfdisk/fsedit.c:969
 #, c-format
@@ -2878,6 +2881,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Þessi villa á sér stað þegar kjarninn sem uppsetningarforritið notar sér "
+"diskinn öðruvísi (önnur C/H/S gildi) en þegar diskurinn var sneiddur.Þetta "
+"má leiðrétta með því að gefa kjarnanum upp rétt gildi þegar "
+"uppsetningakjarninn er ræstur."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2891,12 +2898,11 @@ msgstr "<RAID disksneið>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Gat ekki fundið disksneið nefnda %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Engin rótarsneið"
+msgstr "Rótarsneið"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -2904,6 +2910,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Stækkun rótardiskasafnsins (RAID) virðist hafa stöðvast útaf 1024 cyl. "
+"þakinu á ræsingu. Ef þetta er rétt getur þú reynt að búa til /boot disksneið "
+"og reyna þá að stækka rótardiskasafnið."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2911,6 +2920,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Stækkun rótardiskasafnsins (RAID) virðist hafa stöðvast útaf 1024 cyl. "
+"þakinu á ræsingu. Ef þetta er rétt getur þú reynt að búa til /boot disksneið "
+"og reyna þá að stækka rótardiskasafnið."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -4262,24 +4274,3 @@ msgstr "Kjarnaþróun"
 
 msgid "Utilities"
 msgstr "Tól"
-
-#~ msgid "Partitionless upgrades are NOT supported in this beta"
-#~ msgstr "Disksneiðalausar uppfærslur er ekki studdar í þessari betu"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Lárétt samhæfing"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Lóðrétt samhæfing"
-
-#~ msgid ""
-#~ "\n"
-#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
-#~ "so do NOT report errors if you choose to do this.\n"
-#~ " Do you want to continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "AÐVÖRUN: Disksneiðalausar uppsetningar klikka oft í þessari BETA útgáfu svo "
-#~ "þú þarft ekkert að hafa fyrir að senda inn villutilkynningu ef þú þýst að "
-#~ "reyna þetta.\n"
-#~ " Villtu halda áfram ?"
