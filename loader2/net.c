@@ -293,6 +293,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     char dhcpChoice;
     char * chptr;
 
+    memset(&c, 0, sizeof(c));
+
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
     if (!FL_TESTING(flags) && cfg->preset) {
@@ -510,14 +512,14 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     fillInIpInfo(cfg);
 
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
-        if (*c.gw && inet_aton(c.gw, &addr)) {
+        if (c.gw && *c.gw && inet_aton(c.gw, &addr)) {
             cfg->dev.gateway = addr;
             cfg->dev.set |= PUMP_NETINFO_HAS_GATEWAY;
         }
     }
 
     if (!(cfg->dev.numDns)) {
-        if (*c.ns && inet_aton(c.ns, &addr)) {
+        if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
             cfg->dev.dnsServers[0] = addr;
             cfg->dev.numDns = 1;
         }
