@@ -389,7 +389,7 @@ def copyDeviceNode(src, dest):
     mode = filestat[stat.ST_MODE]
     if stat.S_ISBLK(mode):
         type = stat.S_IFBLK
-    elif stat.ISCHR(mode):
+    elif stat.S_ISCHR(mode):
         type = stat.S_IFCHR
     else:
         # XXX should we just fallback to copying normally?
