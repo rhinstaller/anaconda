@@ -23,6 +23,7 @@ from network import sanityCheckHostname
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+from rhpl.log import log
 
 
 def badIPDisplay(screen, the_ip):
@@ -54,8 +55,13 @@ class NetworkDeviceWindow:
     def runScreen(self, screen, network, dev):
         boot = dev.get("bootproto")
         onboot = dev.get("onboot")
-        onbootIsOn = ((dev == network.available().values()[0] and not onboot)
-                      or onboot == "yes")
+
+        devnames = self.devices.keys()
+        devnames.sort()
+        if devnames.index(dev.get("DEVICE")) == 0:
+            onbootIsOn = 1
+        else:
+            onbootIsOn = (onboot == "yes")
         if not boot:
             boot = "dhcp"
 
@@ -154,11 +160,11 @@ class NetworkDeviceWindow:
 
     def __call__(self, screen, network, dir, intf):
 
-        devices = network.available()
-        if not devices:
+        self.devices = network.available()
+        if not self.devices:
             return INSTALL_NOOP
 
-        list = devices.keys()
+        list = self.devices.keys()
         list.sort()
         devLen = len(list)
         if dir == 1:
@@ -167,7 +173,7 @@ class NetworkDeviceWindow:
             currentDev = devLen - 1
 
         while currentDev < devLen and currentDev >= 0:
-            rc = self.runScreen(screen, network, devices[list[currentDev]])
+            rc = self.runScreen(screen, network, self.devices[list[currentDev]])
             if rc == INSTALL_BACK:
                 currentDev = currentDev - 1
             else:
