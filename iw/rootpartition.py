@@ -71,11 +71,10 @@ class PartitionWindow (InstallWindow):
 		window.window = bin
 		return window
 
-        fstab = self.todo.ddruid.getFstab ()
-
 	bootPartition = None
 	rootPartition = None
 
+        fstab = self.todo.ddruid.getFstab ()
 	self.todo.resetMounts()
         for (partition, mount, fsystem, size) in fstab:
             self.todo.addMount(partition, mount, fsystem)
@@ -118,6 +117,14 @@ class PartitionWindow (InstallWindow):
 
 	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
+	    fstab = self.todo.ddruid.getFstab ()
+	    self.todo.resetMounts()
+	    for (partition, mount, fsystem, size) in fstab:
+		self.todo.addMount(partition, mount, fsystem)
+		if mount == "/":
+		    rootPartition = partition
+		elif mount == "/boot":
+		    bootPartition = partition
             if not self.checkSwap ():
                 return AutoPartitionWindow
 	    return None
