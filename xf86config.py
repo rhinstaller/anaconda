@@ -5,6 +5,7 @@ if __name__ == "__main__":
 import string
 import iutil
 import kudzu
+import isys
 import time
 import os
 from kbd import Keyboard
@@ -82,7 +83,7 @@ class XF86Config:
             self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024"]
             self.modes["16"] = ["640x480", "800x600", "1024x768", "1152x864"]
             self.modes["32"] = ["640x480", "800x600"]
-        elif string.atoi(self.vidRam) >= 2048:
+        elif string.atoi(self.vidRam) >= 1024:
             self.modes["8"] = ["640x480", "800x600", "1024x768", "1152x864"]
             self.modes["16"] = ["640x480", "800x600"]
             self.modes["32"] = ["640x480"]
@@ -172,10 +173,10 @@ class XF86Config:
         for card in cards:
             section = ""
             (device, server, descr) = card
-            if len (server) > 5 and server[0:5] == "Card:":
-                self.vidCards.append (self.cards (server[5:]))
 	    if len (self.vidCards) == 0:
 		self.device = device
+            if len (server) > 5 and server[0:5] == "Card:":
+                self.vidCards.append (self.cards (server[5:]))
             if len (server) > 7 and server[0:7] == "Server:":
                 info = { "NAME" : string.split (descr, '|')[1],
                          "SERVER" : server[7:] }
@@ -215,6 +216,11 @@ class XF86Config:
 			self.vidCards[0]["VENDOR"] = self.cardMan
 	    except:
 		pass
+	    if not self.vidRam and self.device:
+		try:
+		    self.vidRam = "%d" % isys.fbconProbe("/dev/" + self.device)
+		except:
+		    pass
 
     def probeReport (self):
         probe = ""

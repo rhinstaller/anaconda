@@ -9,7 +9,7 @@ class SiloInstall:
     def __init__ (self, todo):
 	self.todo = todo
 	self.linuxAlias = 1
-	self.bootBevice = 1
+	self.bootDevice = 1
 
     def checkUFS(self, dev):
 	f = open("/proc/mounts","r")
