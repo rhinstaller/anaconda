@@ -441,8 +441,8 @@ class DiskSet:
                 isys.umount(mountpoint)
 
         # now, look for candidate lvm roots
-        lvm.vgscan()
-        lvm.vgactivate()
+	lvm.vgscan()
+	lvm.vgactivate()
 
         vgs = []
         if os.path.isdir("/proc/lvm/VGs"):
@@ -469,7 +469,7 @@ class DiskSet:
                                            getRedHatReleaseString(mountpoint)))
                     isys.umount(mountpoint)
 
-        lvm.vgdeactivate()
+	lvm.vgdeactivate()
 
         # don't stop raid until after we've looked for lvm on top of it
         self.stopAllRaid()
