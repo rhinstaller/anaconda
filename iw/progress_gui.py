@@ -178,9 +178,9 @@ class InstallProgressWindow_NEW (InstallWindow):
 	    return
 	
 	if state == "downloading":
-	    self.pkgstatus = N_("Downloading %s")
+	    msgstr = N_("Downloading %s") % (amount,)
 	else:
-	    self.pkgstatus = state
+	    msgstr = state
 	self.pkgstatus.set_text(msgstr)
 	self.processEvents()
 
@@ -369,14 +369,9 @@ class InstallProgressWindow_NEW (InstallWindow):
 		statusflag = 1
 		break
 
-        # FIXME: including the status makes the rnotes different sizes which
-        # is bad.  temporarily disable download status for now
-        statusflag = 0
-
 	if statusflag:
 	    statusTable = gtk.Table (2, 2, gtk.FALSE)
 	    self.pkgstatus = gtk.Label("")
-	    vbox.pack_start(statusTable, gtk.FALSE, gtk.FALSE)
 	    statusTable.attach (gtk.Label(_("Status: ")), 0, 1, 0, 1, gtk.SHRINK)
 	    statusTable.attach (self.pkgstatus, 1, 2, 0, 1, gtk.FILL, gtk.FILL, ypadding=2)
 	    vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
@@ -420,6 +415,7 @@ class InstallProgressWindow (InstallWindow):
 	    msgstr = _("Downloading - %s") % (amount,)
 	else:
 	    msgstr = state
+	    
 	self.pkgstatus.set_text(msgstr)
 	self.processEvents()
 
@@ -714,7 +710,6 @@ class InstallProgressWindow (InstallWindow):
             box = gtk.EventBox()
             self.adpix = pix
             box.modify_bg(gtk.STATE_NORMAL, box.get_style().white)
-#            self.adpix.set_alignment (0, 0)
             box.add(self.adpix)
             self.adbox = box
             frame.add (box)
