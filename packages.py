@@ -340,6 +340,8 @@ def checkDependencies(dir, intf, disp, id, instPath):
     else:
 	disp.skipStep("dependencies")
 
+    f.close()
+
     return
     # FIXME: I BROKE IT
     # this is kind of hackish, but makes kickstart happy
@@ -911,6 +913,11 @@ def doInstall(method, id, intf, instPath):
 
     progress.pop()
 
+    # set the rpm log file to /dev/null to start with so we don't segfault
+    f = open("/dev/null", "w+")
+    rpm.setLogFile(f)
+    ts.scriptFd = f.fileno()
+
     depcheck = DependencyChecker(id.grpset)
     if not id.grpset.hdrlist.preordered():
 	log ("WARNING: not all packages in hdlist had order tag")
@@ -919,6 +926,8 @@ def doInstall(method, id, intf, instPath):
         ts.order()
     else:
         ts.check(depcheck.callback)
+
+    f.close()
 
     if upgrade:
 	logname = '/root/upgrade.log'

@@ -1,5 +1,7 @@
 2005-02-08  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py: Fix segfault if we have to order packages.
+
 	* scripts/upd-instroot: Add new deps of rpm 4.4 (sqlite3 and neon)
 	as well as relevant libs needed for rpm-python 4.4
 
