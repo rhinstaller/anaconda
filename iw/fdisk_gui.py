@@ -68,9 +68,6 @@ class FDiskWindow (InstallWindow):
         if zvt.forkpty() == 0:
             lang = self.ics.getICW().locale
             env = os.environ
-            if lang[:2] == "ja":
-                env["LC_ALL"] = "C"
-                env["LANG"] = "C"
             os.execve (path, (path, '/tmp/' + drive), env)
         zvt.show ()
 
