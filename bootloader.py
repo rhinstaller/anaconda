@@ -62,8 +62,11 @@ class BootImages:
 
 	# These have appeared
 	for (dev, type) in devs:
-	    if not self.images.has_key(dev): 
-		self.images[dev] = (None, type)
+	    if not self.images.has_key(dev):
+                if type == "FAT":
+                    self.images[dev] = ("DOS", type)
+                else:
+                    self.images[dev] = (None, type)
 
 	if not self.images.has_key(self.default):
 	    entry = fsset.getEntryByMountPoint('/')
@@ -105,7 +108,6 @@ class x86BootloaderInfo:
 
 	f = open(instRoot + cf, "w+")
 
-
 	bootDev = fsset.getEntryByMountPoint("/boot")
 	grubPath = "/grub"
 	cfPath = ""
@@ -128,15 +130,22 @@ class x86BootloaderInfo:
 
 	    initrd = makeInitrd (kernelTag, instRoot)
 
-	    f.write('title Red Hat Linux 7.2 (%s)\n' % version)
-	    f.write('\troot %s\n' % bootDev)
+	    f.write('title %s (%s)\n' % (label, version))
+	    f.write('\troot %s\n' % grubbyPartitionName(bootDev))
 	    f.write('\tkernel %s ro root=/dev/%s' % (kernelFile, rootDev))
 	    if self.args.get():
 		f.write(' %s' % self.args.get())
 	    f.write('\n')
 
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write('\tinitrd %s\n' % (cfPath + initrd[len(cfPath):]))
+		f.write('\tinitrd %s\n' % (initrd[len(cfPath):], ))
+
+	for (label, device) in chainList:
+	    f.write('title %s (%s)\n' % (label, version))
+	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
+            f.write('\tmakeactive')
+            f.write('\tchainloader +1')
+	    f.write('\n')
 
 	f.close()
 
