@@ -67,7 +67,9 @@ class XSetup:
 	vc = self.xhwstate.videocard
 
         args = args + [ "--card", '"' + vc.primaryCard().shortDescription() + '"' ]
-        args = args + [ "--videoram", vc.primaryCard().getVideoRam() ]
+	vram = vc.primaryCard().getVideoRam()
+	if vram is not None:
+	    args = args + [ "--videoram", vram]
         args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
         args = args + [ "--vsync", monitor.getMonitorVertSync() ]
 
