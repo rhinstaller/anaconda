@@ -30,6 +30,7 @@ from rhpl.translate import _, N_
 from comps import orderPackageGroups, getCompGroupDescription
 from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
 from comps import Package, Component
+from rhpl.log import log
 import packages
 
 
