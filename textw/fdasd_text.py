@@ -29,7 +29,7 @@ class fdasdPartitionWindow:
 
         fdisk_name = "fdasd"
         listboxtext = _("Choose a disk to run fdasd or dasdfmt on")
-        buttons = [ (_("OK"), "done"), (_("Edit Partitions"), "edit"),
+        buttons = [ (_("Next"), "done"), (_("Edit Partitions"), "edit"),
                     (_("Format DASD"), "dasdfmt"),
                     TEXT_BACK_BUTTON ]        
         drives =  diskset.driveList()        
@@ -93,7 +93,7 @@ class fdasdPartitionWindow:
 
             elif button == "done" or button == TEXT_BACK_CHECK:
                 diskset.refreshDevices(intf)
-                partitioning.checkNoDisks(diskset, intf)            
+                diskset.checkNoDisks(intf)            
                 partrequests.setFromDisk(diskset)
 
                 if len(diskset.disks.keys()) == 0:
@@ -113,7 +113,7 @@ class fdasdPartitionWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        partitioning.checkNoDisks(diskset, intf)            
+        diskset.checkNoDisks(intf)            
         partrequests.setFromDisk(diskset)
         
         return INSTALL_OK
