@@ -69,8 +69,11 @@ class i18n:
     def gettext(self, string):
         if self.unicode:
             if not self.cat:
-                return self.utf8(string)
-            return self.utf8(self.cat.gettext(string))
+                return string
+            translation = self.cat._catalog.get(string)
+            if translation:
+                return self.utf8(translation)
+            return string
         else: 
             if not self.cat:
                 return string
