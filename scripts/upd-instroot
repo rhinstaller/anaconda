@@ -78,6 +78,7 @@ expandPackageSet() {
     PKGDEST=$2
     KEEPFILES=$3
 
+    [ -d $PKGDEST ] || die "ERROR: directory missing: $PKGDEST"
     for n in $RPMS; do 
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
 	if [ "$(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n)" = "tzdata" ] ; then
@@ -86,6 +87,12 @@ expandPackageSet() {
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
+}
+
+die () {
+    echo "$@"
+    echo "Aborting instroot creation..."
+    exit 1
 }
 
 if [ -z "$2" ]; then
@@ -805,11 +812,7 @@ echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
 rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
-if [ $? != 0 ]; then
-    echo "ERROR: Unable to expand timezone data ($TZDATA)"
-    echo "Aborting instroot creation..."
-    exit 1
-fi
+[ $? = 0 ] || die "ERROR: Unable to expand timezone data ($TZDATA)"
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 
@@ -1002,6 +1005,8 @@ for p in $DEST $DESTGR; do
 	    ln -s ash $p/bin/sh
 	fi
 
+	[ -d $p/bin ] || die "ERROR: directory missing: $p/bin"
+	[ -d $p/sbin ] || die "ERROR: directory missing: $p/sbin"
 	(cd $p/bin; find) | (cd $p/bin; /bin/cpio --quiet -pdmu $p/usr/bin)
 	(cd $p/sbin; find) | (cd $p/sbin; /bin/cpio --quiet -pdmu $p/usr/sbin)
 	rm -rf $p/bin
@@ -1010,6 +1015,7 @@ for p in $DEST $DESTGR; do
 	# copy bootloader files for sparc
 	if [ $ARCH = sparc -a $p = $DESTGR ]; then
 	    mkdir -p $p/usr/lib/anaconda-runtime/boot
+	    [ -d $p/boot ] || die "ERROR: directory missing: $p/boot"
 	    (cd $p/boot; find -name "*.b") | (cd $p/boot; /bin/cpio --quiet -pdmu $p/usr/lib/anaconda-runtime/boot)
         fi
 
@@ -1042,7 +1048,7 @@ for p in $DEST $DESTGR; do
 	done
 
 	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
-	   (cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+	   (cd $p/lib && rm -f libnss_files.so.1 libnss_dns.so.1)
 	fi
 
 	if [ -d $DEST/usr/share/zoneinfo ]; then
