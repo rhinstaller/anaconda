@@ -14,6 +14,9 @@ class NetworkWindow (InstallWindow):
         self.todo = ics.getToDo ()
         self.calcNMHandler = None
 
+        for dev in self.todo.network.available ().values ():
+            dev.set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
+
     def getNext (self):
 	if not self.__dict__.has_key("gw"):
 	    return None
@@ -131,22 +134,18 @@ class NetworkWindow (InstallWindow):
         devs = self.todo.network.available ()
         if not devs: return None
 
-        print "devs:"
-        print devs
         devs.keys ().sort ()
         for i in devs.keys ():
-            print "processing device:"
-            print i
             devbox = GtkVBox ()
             align = GtkAlignment ()
             DHCPcb = GtkCheckButton (_("Configure using DHCP"))
+            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 
             align.add (DHCPcb)
             devbox.pack_start (align, FALSE)
 
             align = GtkAlignment ()
             bootcb = GtkCheckButton (_("Activate on boot"))
-            devs[i].set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
             bootcb.set_active (devs[i].get ("onboot") == "yes")
             align.add (bootcb)
 
@@ -154,7 +153,10 @@ class NetworkWindow (InstallWindow):
 
             devbox.pack_start (GtkHSeparator (), FALSE, padding=3)
 
-            options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
+            options = [(_("IP Address"), "ipaddr"),
+                       (_("Netmask"),    "netmask"),
+                       (_("Network"),    "network"),
+                       (_("Broadcast"),  "broadcast") ]
             ipTable = GtkTable (len (options), 2)
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
@@ -162,19 +164,23 @@ class NetworkWindow (InstallWindow):
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
             for t in range (len (options)):
-                label = GtkLabel ("%s:" % (options[t],))
+                label = GtkLabel ("%s:" % (options[t][0],))
                 label.set_alignment (0.0, 0.5)
                 ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
                 entry = GtkEntry (15)
                 # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
                 entry.set_usize (7 * 15, -1)
                 entry.connect ("activate", forward)
+                entry.set_text (devs[i].get (options[t][1]))
                 options[t] = entry
                 ipTable.attach (entry, 1, 2, t, t+1, 0, FILL|EXPAND)
 
             for t in range (len (options)):
                 if t == 0 or t == 1:
                     options[t].connect ("changed", self.calcNWBC, (devs[i],) + tuple (options))
+
+            self.focusOutNM (None, None, (devs[i],) + tuple (options))
+            self.todo.network.guessHostnames ()
 
             # add event handlers for the main IP widget to calcuate the netmask
             options[0].connect ("focus_in_event", self.focusInIP, (options[0], options[1]))
@@ -211,21 +217,19 @@ class NetworkWindow (InstallWindow):
         ipTable.set_row_spacing (0, 5)
 
         self.ipTable = ipTable
-        # guranteed to have at least one dev
-        DHCPcb.set_active (devs.values ()[0].get ("bootproto") == "dhcp")
-
         self.hostname = options[0]
+
+        # bring over the value from the loader
+        if (self.todo.network.hostname != "localhost.localdomain"):
+            self.hostname.set_text (self.todo.network.hostname)
+
         self.gw = options[1]
+#        self.gw.set_text (self.todo.network.gateway)
+
         self.ns = options[2]
+#        self.ns.set_text (self.todo.network.primaryNS)
+
         self.ns2 = options[3]
         self.ns3 = options[4]
         box.pack_start (ipTable, FALSE, FALSE, 5)
         return box
-
-    
-
-
-
-
-
-
