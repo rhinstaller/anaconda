@@ -699,7 +699,15 @@ fi
 
 # pick Raleigh theme as default
 if [ -n "$NEEDGR" ]; then
+    cat <<EOF >> $DESTGR/etc/gtk/gtkrc
 
-    echo '' >> $DESTGR/etc/gtk/gtkrc
-    echo 'include "/usr/share/themes/Raleigh/gtk/gtkrc"' >> /$DESTGR/etc/gtk/gtkrc
+style "default"
+{
+  engine "raleigh" 
+    {
+    }
+}
+
+class "GtkWidget" style "default"
+EOF
 fi
