@@ -477,7 +477,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    }
    env = getenv("REMIP");
    if (env && *env) {
-     if inet_aton(env, &newCfg.dev.ptpaddr)
+     if (inet_aton(env, &newCfg.dev.ptpaddr))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
    }
    env = getenv("BROADCAST");
@@ -487,7 +487,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    }
    env = getenv("MTU");
    if (env && *env) {
-       numCfg.dev.mtu = atoi(env);
+       newCfg.dev.mtu = atoi(env);
        newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
    }
 #endif   /* s390 */
