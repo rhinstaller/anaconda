@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-02-19 18:55-0500\n"
-"PO-Revision-Date: 2001-02-17 16:16GMT\n"
+"PO-Revision-Date: 2001-02-21 22:53GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1108,7 +1108,7 @@ msgstr "Video-hukommelse"
 
 #: ../xf86config.py:965
 msgid "X server"
-msgstr "X-tjener"
+msgstr "X-server"
 
 #: ../xf86config.py:968
 msgid "Unable to detect video card"
@@ -1254,7 +1254,7 @@ msgstr "Anvend NIS"
 
 #: ../iw/auth_gui.py:83
 msgid "Use broadcast to find NIS server"
-msgstr "Benyt rundkastning til at finde NIS-tjener"
+msgstr "Benyt rundkastning til at finde NIS-server"
 
 #: ../iw/auth_gui.py:95
 msgid "NIS Domain: "
@@ -1799,7 +1799,7 @@ msgid ""
 msgstr ""
 "Da du ikke har ret megen hukommelse på denne maskine, bliver vi nødt til slå "
 "swap til med det samme. For at gøre det er vi nødt at skrive den nye "
-"partitionstabel på disken. Er det ok?"
+"partitionstabel på disken. Er det o.k.?"
 
 #: ../iw/rootpartition_gui.py:82
 msgid ""
@@ -2335,15 +2335,15 @@ msgstr "Standard-gateway (IP):"
 
 #: ../loader/net.c:316 ../textw/network_text.py:74
 msgid "Primary nameserver:"
-msgstr "Primær navnetjener:"
+msgstr "Primær navneserver:"
 
 #: ../textw/network_text.py:75
 msgid "Secondary nameserver:"
-msgstr "Sekundær navnetjener:"
+msgstr "Sekundær navneserver:"
 
 #: ../textw/network_text.py:76
 msgid "Ternary nameserver:"
-msgstr "Tertiær navnetjener:"
+msgstr "Tertiær navneserver:"
 
 #: ../textw/network_text.py:121
 msgid "Invalid information"
@@ -2653,7 +2653,7 @@ msgstr "eller brug:"
 
 #: ../textw/userauth_text.py:321
 msgid "Request server via broadcast"
-msgstr "Spørg efter tjener via rundkastning"
+msgstr "Spørg efter server via rundkastning"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
@@ -3784,7 +3784,7 @@ msgstr "Det katalog ser ikke ud til at indeholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:1197
 msgid "I could not mount that directory from the server"
-msgstr "Jeg kunne ikke montere dette katalog fra tjener"
+msgstr "Jeg kunne ikke montere dette katalog fra server"
 
 #: ../loader/loader.c:1238 ../loader/loader.c:1247
 msgid "HTTP"
@@ -3859,7 +3859,7 @@ msgstr "Du har ikke hukommelse nok til at installere Red Hat på denne maskine."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
-msgstr "NFS-tjener navn:"
+msgstr "NFS-server navn:"
 
 #: ../loader/net.c:173 ../loader/urls.c:191
 msgid "Red Hat directory:"
@@ -3879,17 +3879,17 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navn eller IP nummer på din NFS-tjener\n"
-"    o navnet på kataloget til den tjener der indeholder\n"
+"    o navn eller IP nummer på din NFS-server\n"
+"    o navnet på kataloget til den server der indeholder\n"
 "      Red Hat Linux til din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:262
 msgid "Nameserver IP"
-msgstr "Navnetjener- IP"
+msgstr "Navneserver-IP"
 
 #: ../loader/net.c:266 ../loader/net.c:750
 msgid "Nameserver"
-msgstr "Navnetjener"
+msgstr "Navneserver"
 
 #: ../loader/net.c:267
 msgid ""
@@ -3899,7 +3899,7 @@ msgid ""
 "blank and the install will continue."
 msgstr ""
 "Din dynamiske IP-anmodning returnerede IP-konfigurationsinformation, men "
-"dette indeholdt ikke en DNS navnetjener. Hvis du ved hvor din navnetjener "
+"dette indeholdt ikke en DNS navneserver. Hvis du ved hvor din navneserver "
 "er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
 "felt være blankt, og installationen vil fortsætte."
 
@@ -4049,8 +4049,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din ftp-tjener\n"
-"    o kataloget på tjeneren som indeholder\n"
+"    o navnet eller IP-nummeret på din ftp-server\n"
+"    o kataloget på serveren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:169
@@ -4063,8 +4063,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din webtjener\n"
-"    o kataloget på tjeneren som indeholder\n"
+"    o navnet eller IP-nummeret på din webserver\n"
+"    o kataloget på serveren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:187
@@ -4233,22 +4233,22 @@ msgid "Dialup Workstation"
 msgstr "opkalds-arbejdsstation"
 
 msgid "News Server"
-msgstr "Nyhedstjener"
+msgstr "Nyhedsserver"
 
 msgid "NFS Server"
-msgstr "NFS-tjener"
+msgstr "NFS-server"
 
 msgid "SMB (Samba) Server"
-msgstr "Samba SMB-tjener"
+msgstr "Samba SMB-server"
 
 msgid "IPX/Netware(tm) Connectivity"
 msgstr "IPX/Netware(tm)-forbindelse"
 
 msgid "Anonymous FTP Server"
-msgstr "Anonym ftp-tjener"
+msgstr "Anonym ftp-server"
 
 msgid "SQL Server"
-msgstr "SQL-tjener"
+msgstr "SQL-server"
 
 msgid "Web Server"
 msgstr "Web-Server"
