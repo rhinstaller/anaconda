@@ -89,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 * Thu Feb 24 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.14-1
 - Fix multiple DNS servers being specified on the command line.  Patch 
   from mattdm (#84409)
-- Fix dhcpclass specification on the command-line (#144066)
+- Fix dhcpclass specification on the command-line (#144006)
 - Fix formatting of new fcp disks (#144199)
 - Support parsing pxelinux IPAPPEND (bnocera, #134054)
 - Reset package selection to defaults when selected (#142415)
