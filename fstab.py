@@ -256,7 +256,8 @@ class Fstab:
     def filesystemSpace(self, topMount):
 	space = []
 	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
-	    space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
+	    if fsystem == 'ext2':
+		space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
 
 	space.sort(self.spaceSort)
 	return space
