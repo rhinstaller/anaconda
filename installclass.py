@@ -300,8 +300,8 @@ class BaseInstallClass:
                         dev.set (("ipaddr", ip))
                     if (netmask):
                         dev.set (("netmask", netmask))
-                    if (ethtool):
-                        dev.set (("ethtool_opts", ethtool))
+                if (ethtool):
+                    dev.set (("ethtool_opts", ethtool))
 
     def setLanguageSupport(self, id, langlist):
 	if len (langlist) == 0:
