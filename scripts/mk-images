@@ -390,6 +390,7 @@ EOF
     if [ -n "$JAPANESE" ]; then
 	install -m 644 $LOADERBINDIR/kon.cfg $MBD_DIR/etc
 	install -m 644 $LOADERBINDIR/minikon.fnt $MBD_DIR/etc
+	ln -s loader $MBD_DIR/sbin/continue
     fi
 
     if [ -n "$PCMCIA" ]; then
