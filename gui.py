@@ -70,7 +70,7 @@ class PartitionWindow:
         self.rc = 0
 
     def run(self, todo):
-	if (todo.runLive): return -2
+	if (not todo.setupFilesystems): return -2
 
         window = GtkWindow()
         window.set_border_width(10)
