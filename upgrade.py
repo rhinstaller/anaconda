@@ -53,7 +53,7 @@ def findRootParts(intf, id, dispatch, dir, chroot):
         dispatch.skipStep("findinstall", skip = 1)
         dispatch.skipStep("installtype", skip = 0)
 
-def findExistingRoots(intf, id, chroot):
+def findExistingRoots(intf, id, chroot, upgradeany = 0):
     if not flags.setupFilesystems: return [(chroot, 'ext2', "")]
 
     diskset = partedUtils.DiskSet()
@@ -63,7 +63,8 @@ def findExistingRoots(intf, id, chroot):
                               _("Searching for %s installations...") %
                               (productName,), 5)
 
-    rootparts = diskset.findExistingRootPartitions(intf, chroot)
+    rootparts = diskset.findExistingRootPartitions(intf, chroot,
+                                                   upgradeany = upgradeany)
     for i in range(1, 6):
         time.sleep(0.5)
         win.set(i)
