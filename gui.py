@@ -224,12 +224,18 @@ class InstallInterface:
         gtkThread.start ()
 
         # This is the same as the file
-	commonSteps = [ ( LanguageWindow, "language" ), 
-			( KeyboardWindow, "keyboard" ),
-			( MouseWindow, "mouse" ),
-			( WelcomeWindow, "welcome" ),
-			( InstallPathWindow, "installtype" ),
-		      ]
+	if todo.serial:
+	    commonSteps = [ ( LanguageWindow, "language" ), 
+			    ( WelcomeWindow, "welcome" ),
+			    ( InstallPathWindow, "installtype" ),
+			  ]
+	else:
+	    commonSteps = [ ( LanguageWindow, "language" ), 
+			    ( KeyboardWindow, "keyboard" ),
+			    ( MouseWindow, "mouse" ),
+			    ( WelcomeWindow, "welcome" ),
+			    ( InstallPathWindow, "installtype" ),
+			  ]
 
         self.finishedTODO = Event ()
         self.icw = InstallControlWindow (self, commonSteps, todo)
@@ -465,7 +471,35 @@ class InstallControlWindow (Thread):
         _root_window ().set_cursor (cursor)
 
         self.window.set_border_width (10)
-        self.window.set_title (_("Red Hat Linux Installer"))
+
+	title = _("Red Hat Linux Installer")
+	if os.environ["DISPLAY"][:1] != ':':
+	    # from gnome.zvt import *
+	    # zvtwin = GtkWindow ()
+	    shtitle = _("Red Hat Linux Install Shell")
+	    try:
+		f = open ("/tmp/netinfo", "r")
+	    except:
+		pass
+	    else:
+		lines = f.readlines ()
+		f.close ()
+		for line in lines:
+		    netinf = string.splitfields (line, '=')
+		    if netinf[0] == "HOSTNAME":
+			title = _("Red Hat Linux Installer on %s") % string.strip (netinf[1])
+			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
+			break
+
+	    # zvtwin.set_title (shtitle)
+	    # zvt = ZvtTerm (80, 24)
+	    # if zvt.forkpty() == 0:
+	    #     os.execv ("/bin/sh", [ "/bin/sh" ])
+	    # zvt.show ()
+	    # zvtwin.add (zvt)
+	    # zvtwin.show_all ()
+
+	self.window.set_title (title)
         self.window.set_position (WIN_POS_CENTER)
         vbox = GtkVBox (FALSE, 10)
 

@@ -297,24 +297,6 @@ patch -p0 <<EOF
 
 EOF
 
-# fix xkb/rules/sun if needed
-( cd $DESTGR/usr/X11R6/lib/X11/xkb/rules
-patch -p0 <<EOF
---- ./sun.jj	Thu Sep 30 21:59:40 1999
-+++ ./sun	Mon Oct  4 12:13:33 1999
-@@ -4,7 +4,7 @@
-   type4   		=    sun(type4)			sun(type4)
-   type5   		=    sun(type5)			sun
-   type5_euro		=    sun(type5_euro)		sun(type5euro)
--  type5_unix		=    sun(type5_unix)		sun(type5unix)
-+  type5_unix		=    sun(type5)			sun(type5unix)
- 
- ! model		layout	=  symbols
-   type4		us	=  sun/us(sun4)
-EOF
-rm -rf sun.orig sun.rej
-)
-
 pythondeps $DEST
 
 for p in $DEST $DESTGR; do
