@@ -108,7 +108,10 @@ do-beehive-build:
 	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
 	[ x"$$TAG" != x ] && tag=$$TAG; \
 	cvsroot=`cat CVS/Root |cut -d @ -f 2-` 2>/dev/null; \
-        echo "*** Building $$tag from $$cvsroot!"; \
+	host=`echo $$cvsroot |cut -d : -f 1`; \
+	root=`echo $$cvsroot |cut -d : -f 2`; \
+	cvsroot=$$host$$root ;\
+	echo "*** Building $$tag from $$cvsroot!"; \
 	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
 
 build: 
