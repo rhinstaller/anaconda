@@ -8,9 +8,13 @@ class ConfirmWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         ics.setNextEnabled (1)
         ics.setPrevEnabled (1)
-        ics.setTitle (_("About to Install"))
-#        ics.setHelpEnabled (FALSE)
-        ics.readHTML ("aboutinstall")
+
+        if self.ics.todo.upgrade:
+            ics.setTitle (_("About to Upgrade"))
+            ics.readHTML ("aboutupgrade")
+        else:
+            ics.setTitle (_("About to Install"))
+            ics.readHTML ("aboutinstall")
 
     def getScreen (self):
         hbox = GtkHBox (TRUE, 5)
@@ -24,16 +28,23 @@ class ConfirmWindow (InstallWindow):
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
-        
-        label = GtkLabel (_("Click next to begin installation of Red Hat Linux."))
+
+        if self.ics.todo.upgrade:
+            label = GtkLabel (_("Click next to begin upgrade of Red Hat Linux."))
+        else:
+            label = GtkLabel (_("Click next to begin installation of Red Hat Linux."))
         label.set_line_wrap (TRUE)
         label.set_usize(190, -1)
 
-        
-        label2 = GtkLabel (_("A complete log of your installation will be in "
+        if self.ics.todo.upgrade:
+            label2 = GtkLabel (_("A complete log of your upgrade will be in "
+                              "/tmp/upgrade.log after rebooting your system. You "
+                              "may want to keep this file for later reference."))
+        else:
+            label2 = GtkLabel (_("A complete log of your installation will be in "
                               "/tmp/install.log after rebooting your system. You "
                               "may want to keep this file for later reference."))
-
+            
         label2.set_line_wrap (TRUE)
         label2.set_usize(190, -1)
         
@@ -43,7 +54,7 @@ class ConfirmWindow (InstallWindow):
 
         a = GtkAlignment ()
         a.add (box)
-        a.set (0.5, 0.5, 0.0, 0.0)        
+        a.set (0.5, 0.5, 0.0, 0.0)
 
         hbox.pack_start (a)
         return hbox

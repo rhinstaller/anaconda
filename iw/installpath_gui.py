@@ -72,6 +72,7 @@ class InstallPathWindow (InstallWindow):
 		     ( UpgradeExamineWindow, "custom-upgrade"),
 		     ( BootloaderWindow, BootloaderSkipname ),
 		     UnresolvedDependenciesWindow,
+                     ( ConfirmWindow, "confirm" ),
 		     InstallProgressWindow,
 		     ( BootdiskWindow, "bootdisk" ),
 		     CongratulationWindow

@@ -536,6 +536,18 @@ class BeginInstallWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
+class BeginUpgradeWindow:
+    def __call__ (self, screen, todo):
+        rc = ButtonChoiceWindow (screen, _("Upgrade to begin"),
+                                _("A complete log of your upgrade will be in "
+                                  "/tmp/upgrade.log after rebooting your system. You "
+                                  "may want to keep this file for later reference."),
+                                buttons = [ _("OK"), _("Back") ],
+				help = "beginupgrade")
+        if rc == string.lower (_("Back")):
+            return INSTALL_BACK
+        return INSTALL_OK
+
 class InstallWindow:
     def __call__ (self, screen, todo):
         if todo.doInstall ():
@@ -1003,6 +1015,8 @@ class InstallInterface:
 	    [_("Customize Upgrade"), CustomizeUpgradeWindow, 
 		    (self.screen, todo, self.individual), "custom-upgrade" ],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [N_("Upgrade Begins"), BeginUpgradeWindow, 
+		(self.screen, todo), "confirm-upgrade" ],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
