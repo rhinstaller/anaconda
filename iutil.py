@@ -26,8 +26,12 @@ def getfd(filespec, readOnly = 0):
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
 		     searchPath = 0, root = '/'):
     stdin = getfd(stdin)
-    stdout = getfd(stdout)
-    stderr = getfd(stderr)
+    if stdout == stderr:
+	stdout = getfd(stdout)
+	stderr = stdout
+    else:
+	stdout = getfd(stdout)
+	stderr = getfd(stderr)
 
     if not os.access (root + command, os.X_OK):
         raise RuntimeError, command + " can not be run"
@@ -48,7 +52,8 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	    os.close(stdin)
 	if stdout != 1:
 	    os.dup2(stdout, 1)
-	    os.close(stdout)
+	    if stdout != stderr:
+		os.close(stdout)
 	if stderr != 2:
 	    os.dup2(stderr, 2)
 	    os.close(stderr)

@@ -30,7 +30,7 @@ _ = gettext.gettext
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
-	    'expert'])
+	    'expert', 'serial' ])
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
@@ -49,6 +49,7 @@ traceOnly = 0
 mouseInfo = None
 x = None
 kickstart = None
+serial = 0
 expert = 0
 lang = None
 keymap = None
@@ -83,6 +84,8 @@ for n in args:
 	traceOnly = 1
     elif (str == '--expert'):
 	expert = 1
+    elif (str == '--serial'):
+	serial = 1
     elif (str == '--lang'):
         lang = arg
     elif (str == '--keymap'):
@@ -229,7 +232,7 @@ if iutil.getArch() == "sparc":
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass, x = x, expert = expert,
+		instClass = instClass, x = x, expert = expert, serial = serial,
 		extraModules = extraModules)
     intf.run(todo, test = test)
 except:

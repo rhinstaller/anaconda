@@ -35,8 +35,11 @@ class FakeDDruid:
         self.partitions = []
         
 class LogFile:
-    def __init__ (self):
-        self.logFile = open("/dev/tty3", "w")
+    def __init__ (self, serial):
+	if serial:
+	    self.logFile = open("/tmp/install.log", "w")
+	else:
+	    self.logFile = open("/dev/tty3", "w")
 
     def __call__ (self, format, *args):
         if args:
@@ -240,7 +243,7 @@ class InstSyslog:
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
-		 expert = 0, extraModules = []):
+		 expert = 0, serial = 0, extraModules = []):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -250,7 +253,8 @@ class ToDo:
 	self.setupFilesystems = setupFilesystems
 	self.installSystem = installSystem
         self.language = Language ()
-        self.log = LogFile ()
+	self.serial = serial
+        self.log = LogFile (serial)
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -538,9 +542,13 @@ class ToDo:
 		w = self.intf.waitWindow(_("Formatting"),
 			      _("Formatting %s filesystem...") % (mntpoint,))
 
+		if self.serial:
+		    messages = "/tmp/mke2fs.log"
+		else:
+		    messages = "/dev/tty5"
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
-                                        stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                        stdout = messages, stderr = messages,
                                         searchPath = 1)
 		w.pop()
             elif fsystem == "swap" and createSwap:
@@ -1472,9 +1480,13 @@ class ToDo:
 	    f.write(self.instClass.postScript)
 	    f.close()
 
+	    if self.serial:
+		messages = "/tmp/ks-script.log"
+	    else:
+		messages = "/dev/tty3"
 	    iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
-		    "/tmp/ks-script" ], stdout = "/dev/tty3",
-		    stderr = "/dev/tty3", root = scriptRoot)
+		    "/tmp/ks-script" ], stdout = messages,
+		    stderr = messages, root = scriptRoot)
 				    
 	    #os.unlink(path)
 

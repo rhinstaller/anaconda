@@ -298,6 +298,10 @@ class SiloInstall:
 
 	# XXX make me "not test mode"
 	if todo.setupFilesystems:
+	    if todo.serial:
+		messages = "/tmp/silo.log"
+	    else:
+		messages = "/dev/tty3"
 	    iutil.execWithRedirect('/sbin/silo',
 				   args,
 				   stdout = None,
