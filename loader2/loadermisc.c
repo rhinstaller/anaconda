@@ -72,9 +72,9 @@ int copyFile(char * source, char * dest) {
 }
 
 char * readLine(FILE * f) {
-    char buf[1024];
+    char buf[1024], *ret;
 
-    fgets(buf, sizeof(buf), f);
+    ret = fgets(buf, sizeof(buf), f);
 
     /* chop */
     buf[strlen(buf) - 1] = '\0';
