@@ -5,6 +5,7 @@
 #
 
 import rpm
+import rhpl.arch
 
 # set DB_PRIVATE to make rpm happy...  do it in here since we include
 # this with all of the useful rpm bits
