@@ -73,7 +73,10 @@ class CdromInstallMethod(ImageInstallMethod):
                                    % ("/mnt/source",))
 
     def ejectCD(self):
-        isys.ejectCdrom("/tmp/cdrom", makeDevice = 0)
+        try:
+            isys.ejectCdrom("/tmp/cdrom", makeDevice = 0)
+        except:
+            pass
 
     def systemUnmounted(self):
 	if self.loopbackFile:
