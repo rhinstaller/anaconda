@@ -1,8 +1,12 @@
-SYSLINUX=$IMGPATH/usr/bin/syslinux
+SYSLINUX=$IMGPATH/usr/lib/syslinux/syslinux-nomtools
 
 if [ ! -f $SYSLINUX ]; then
+  echo "Warning: nomtools syslinux doesn't exist"
+  SYSLINUX=$IMGPATH/usr/bin/syslinux
+  if [ ! -f $SYSLINUX ]; then
     echo "$SYSLINUX doesn't exist"
     exit 1
+  fi
 fi
 
 # prepare a directory with the kernel, initrd, and various message files
