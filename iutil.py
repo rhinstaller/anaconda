@@ -223,11 +223,14 @@ def memAvailable():
 def memInstalled():
     if not os.access('/proc/e820info', os.R_OK):
         f = open("/proc/meminfo", "r")
-        mem = f.readlines()[1]
-        del f
+        lines = f.readlines()
+        f.close()
 
-        fields = string.split(mem)
-        mem = int(long(fields[1]) / 1024)
+        for l in lines:
+            if l.startswith("MemTotal:"):
+                fields = string.split(l)
+                mem = fields[1]
+                break
     else:
         f = open("/proc/e820info", "r")
         lines = f.readlines()
