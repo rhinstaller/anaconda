@@ -33,6 +33,8 @@ CFLAGS = $(DEBUG) $(OPTS) -ffunction-sections -Wall -D_GNU_SOURCE=1 -I/usr/inclu
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)|(^ja$$)')
+
 # XXX Japanese is i386 only at the moment
 ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
@@ -55,14 +57,14 @@ endif
 
 ifeq (s390, $(ARCH))
 BINS += loader
-#OBJS += stubs.o
 S390FILES = module-info.s390 load_anaconda
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
 endif
 
 ifeq (s390x, $(ARCH))
 BINS += loader
-#OBJS += stubs.o
 S390FILES = module-info.s390 load_anaconda
+LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
 endif
 
 ifeq (sparc, $(ARCH))
@@ -95,7 +97,6 @@ STATIC=-static
 endif
 endif
 
-LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)|(^ja$$)')
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
