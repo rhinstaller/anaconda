@@ -1709,6 +1709,7 @@ class ToDo:
             totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024 )
 
         if not self.hdList.preordered:
+            log ("WARNING: not all packages in hdlist had order tag")
             ts.order()
 
         if self.upgrade:
