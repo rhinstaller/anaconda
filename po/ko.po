@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-12 13:09-0400\n"
-"PO-Revision-Date: 1999-09-13 23:05+0900\n"
+"PO-Revision-Date: 1999-09-14 02:31+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -285,8 +285,8 @@ msgstr ""
 "부트 디스크는 일반적인 부트 로더와는 별도로 리눅스 시스템으로 부팅 할 수 "
 "있게 해 줍니다. 이 방법은 시스템에 LILO의 설치를 원치 않거나, 다른 OS가 "
 "LILO를 지울때, 또는 LILO가 현 시스템 하드웨어 설정에서 동작하지 않을 때 "
-"유용합니다. 부트 디스크는 레드햇 응급 디스크와 함께 시스템 복구를 쉽게 해줄 "
-"수 있습니다.\n"
+"유용합니다. 부트 디스크는 레드햇 응급 복구 디스크와 함께 시스템 복구를 쉽게 "
+"해줄 수 있습니다.\n"
 "이 시스템을 위한 부트 디스크를 만들겠습니까?"
 
 #: ../text.py:433
@@ -438,7 +438,7 @@ msgstr ""
 
 #: ../text.py:822
 msgid "Welcome"
-msgstr "환엽합니다."
+msgstr "환영합니다."
 
 #: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
 msgid "Partition"
@@ -664,7 +664,7 @@ msgstr "필요한 파일"
 
 #: ../iw/dependencies.py:36
 msgid "Install packages to satisfy dependencies"
-msgstr "의존성을 만족 시키기 위한 패키시 설치"
+msgstr "의존성을 만족 시키기 위한 패키지 설치"
 
 #: ../iw/examine.py:11
 msgid "Upgrade Examine"
@@ -1215,11 +1215,11 @@ msgstr "크기 (메가):"
 
 #: ../libfdisk/gnomefsedit.c:732
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "남는 공간을 모두 사용함?"
 
 #: ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
-msgstr ""
+msgstr "할당 상황:"
 
 #: ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
 msgid "Successful"
@@ -1231,7 +1231,7 @@ msgstr "실패"
 
 #: ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
 msgid "Failure Reason:"
-msgstr ""
+msgstr "실패 분석:"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
 msgid "Partition Type:"
@@ -1239,7 +1239,7 @@ msgstr "파티션 유형:"
 
 #: ../libfdisk/gnomefsedit.c:851
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "사용 가능한 드라이브:"
 
 #: ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
 #: ../libfdisk/newtfsedit.c:486
@@ -1262,6 +1262,8 @@ msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
+"요청된 마운트 위치가 잘못된 패스이거나 이미 사용 중입니다. 정확한 마운트 "
+"위치를 선택하십시오."
 
 #: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
@@ -1338,6 +1340,8 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
+"요청한 파티션중 현재 할당되지 못한 파티션이 있습니다. 할당 되지 못한 "
+"파티션과이유는 다음과 같습니다."
 
 #: ../libfdisk/gnomefsedit.c:1640
 msgid "<Swap Partition"
@@ -1369,7 +1373,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1868
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "RAID로의 부팅 경고"
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid ""
@@ -1400,13 +1404,13 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1900
 msgid "Not Enough Partitions"
-msgstr ""
+msgstr "충분하지 않은 파티션"
 
 #: ../libfdisk/gnomefsedit.c:1902
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
-msgstr ""
+msgstr "선택한 RAID 방식을 위한 충분한 파티션을 설정하지 않았습니다."
 
 #: ../libfdisk/gnomefsedit.c:1909
 msgid "Illegal /boot RAID Type"
@@ -1423,10 +1427,12 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"파티션 %s는 RAID 장치 파티션에 이미 존재합니다. 마운트 위치가 /boot로 "
+"설정되어 있습니다. 이 파티션에서 부팅이 가능합니까?"
 
 #: ../libfdisk/gnomefsedit.c:2019
 msgid "Use Pre-existing Partition?"
-msgstr ""
+msgstr "기존의 파티션을 사용할까요?"
 
 #: ../libfdisk/gnomefsedit.c:2128
 msgid "Auto-Partition"
@@ -1442,12 +1448,12 @@ msgstr "리눅스 파티션 없앰"
 
 #: ../libfdisk/gnomefsedit.c:2165
 msgid "Use existing free space"
-msgstr ""
+msgstr "현재의 남은 공간 이용"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2177
 msgid "Intended Use"
-msgstr ""
+msgstr "원하는 용도"
 
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Workstation"
@@ -1483,7 +1489,7 @@ msgstr "<설정안됨>"
 
 #: ../libfdisk/gnomefsedit.c:2941
 msgid "Unallocated Partitions Exist..."
-msgstr ""
+msgstr "할당안된 파티션 존재함..."
 
 #: ../libfdisk/gnomefsedit.c:2952
 msgid ""
@@ -1507,6 +1513,9 @@ msgid ""
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
 msgstr ""
+"루트 파티션(/)을 RAID 장치에 할당 했지 때문에 부트 파티션(/boot)을 리눅스 "
+"네이티브 파티션(ext2) 또는 RAID-1 파티션에 할당해야 설치를 계속할 수 "
+"있습니다."
 
 #: ../libfdisk/gnomefsedit.c:3067
 msgid "Partitions"
@@ -1579,6 +1588,10 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
+"할당되지 않은 파티션이 남아 있습니다. 여기에서 종료하면 할당되지 않은 "
+"파티션정보는 디스크에 기록되지 않을 것입니다.\n"
+"\n"
+"종료 하시겠습니까?"
 
 #: ../libfdisk/newtfsedit.c:1500
 msgid "Save Changes"
@@ -1622,6 +1635,8 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"Ok\" "
 "button now."
 msgstr ""
+"이 모듈에 매개변수를 설정 할수 있으며, 그것은 잗동에 영향을 줍니다. 설정할 "
+"매개 변수가 정확하지 않다면 \"OK\"를 누르고 이 설정을 넘어가시기 바랍니다."
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
@@ -1673,7 +1688,7 @@ msgstr "하드 드라이브"
 
 #: ../loader/loader.c:122
 msgid "Welcome to Red Hat Linux"
-msgstr ""
+msgstr "레드햇 리눅스에 오신것을 환영합니다."
 
 #: ../loader/loader.c:124
 msgid ""
@@ -1706,6 +1721,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"현재 시스템을 위해서 적제된 장치 드라이버가 없습니다. 다른 장치 "
+"드라이버를지금 적제 하시겠습니까?"
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
 msgid "Loading"
@@ -1728,6 +1745,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
+"현재 시스템에 하드 드라이브가 없는 것으로 보입니다! 다른 장치를 "
+"설정하시겠습니까?"
 
 #: ../loader/loader.c:586
 msgid ""
@@ -1735,10 +1754,13 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
+"RedHat/RPMS와 RedHat/base가 어느 파티션과 디렉토리에 있습니까? 현재 이용하는 "
+"디스크 드라이브이브가 아래 항목에서 보이지 않으면 F2를 누르고 장치를 설정해 "
+"주십시요"
 
 #: ../loader/loader.c:600
 msgid "Directory holding Red Hat:"
-msgstr ""
+msgstr "레드햇이 있는 디렉토리:"
 
 #: ../loader/loader.c:622
 msgid "Select Partition"
@@ -1771,11 +1793,11 @@ msgstr "FTP"
 
 #: ../loader/loader.c:935
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "두번째 단계의 렘 디스크를 읽지 못함"
+msgstr "두번째 단계의 램디스크를 읽지 못함"
 
 #: ../loader/loader.c:1038
 msgid "Rescue Method"
-msgstr "복구 방법"
+msgstr "응급 복구 방법"
 
 #: ../loader/loader.c:1039
 msgid "Installation Method"
@@ -1783,7 +1805,7 @@ msgstr "설치 방법"
 
 #: ../loader/loader.c:1041
 msgid "What type of media contains the rescue image?"
-msgstr "복구 이미지가 어떤 저장 장치에 있습니까?"
+msgstr "응급 복구 이미지가 어떤 저장 장치에 있습니까?"
 
 #: ../loader/loader.c:1043
 msgid "What type of media contains the packages to be installed?"
