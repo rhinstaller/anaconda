@@ -62,7 +62,7 @@ static int scsiCount(void) {
     if (!f)
 	return 0;
     while (fgets(buf, sizeof(buf) - 1, f)) {
-	if (!strncmp(buf, "scsi_hostadapter", 16))
+	if (!strncmp(buf, "alias scsi_hostadapter", 22))
 	    count++;
     }
     fclose(f);
