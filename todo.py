@@ -74,6 +74,8 @@ class Network:
                 self.netdevices [info["DEVICE"]].set (("NETMASK", info["NETMASK"]))
             if info.has_key ("BOOTPROTO"):
                 self.netdevices [info["DEVICE"]].set (("BOOTPROTO", info["BOOTPROTO"]))
+            if info.has_key ("ONBOOT"):
+                self.netdevices [info["DEVICE"]].set (("ONBOOT", info["ONBOOT"]))
             if info.has_key ("GATEWAY"):
                 self.gateway = info["GATEWAY"]
             if info.has_key ("DOMAIN"):
