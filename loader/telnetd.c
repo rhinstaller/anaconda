@@ -1,6 +1,7 @@
 /* Glue to tie telnet.c from ttywatch to the loader */
 
 #include <arpa/inet.h>
+#include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <netinet/in.h>
@@ -40,6 +41,8 @@ int beTelnet(int flags) {
     struct pollfd fds[3];
     telnet_state ts = TS_DATA;
     char * termType;
+    int height, width;
+    struct winsize ws;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
 	logMessage("socket: %s", strerror(errno));
@@ -74,12 +77,11 @@ int beTelnet(int flags) {
 
     close(sock);
 
-    telnet_negotiate(conn, &termType);
+    telnet_negotiate(conn, &termType, &height, &width);
 
+#ifdef DEBUG
     printf("got term type %s\n", termType);
-    printf("term is currently %s\n", getenv("TERM"));
-
-    sleep(3);
+#endif
 
     masterFd = open("/dev/ptyp0", O_RDWR);
     if (masterFd < 0) {
@@ -88,12 +90,25 @@ int beTelnet(int flags) {
 	return -1;
     }
 
+    if (height != -1 && width != -1) {
+#ifdef DEBUF
+	printf("setting window size to %d x %d\n", width, height);
+#endif
+	ws.ws_row = height;
+	ws.ws_col = width;
+	ioctl(masterFd, TIOCSWINSZ, &ws);
+    }
+
+
     child = fork();
 
     if (child) {
 #ifndef DEBUG
 	startNewt(flags);
 	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
+#else
+	close(1);
+	open("LOG", O_RDWR | O_CREAT);
 #endif
 
 	fds[0].events = POLLIN;
@@ -106,6 +121,28 @@ int beTelnet(int flags) {
 	    if (fds[0].revents) {
 		i = read(masterFd, buf, sizeof(buf));
 
+#ifdef DEBUG
+		{
+		    int j;
+		    int row;
+
+		    for (row = 0; row < (i / 12) + 1; row++) {
+			printf("wrote:");
+			for (j = (row * 12); j < i && j < ((row + 1) * 12); j++)
+			    printf(" 0x%2x", (unsigned char) buf[j]);
+			printf("\n");
+			printf("wrote:");
+			for (j = (row * 12); j < i && j < ((row + 1) * 12); j++)
+			{
+			    if (isprint(buf[j]))
+				printf("   %c ", buf[j]);
+			    else
+				printf("     ");
+			}
+			printf("\n");
+		    }
+		}
+#endif
 		/* child died */
 		if (i < 0)
 		    break;
@@ -142,7 +179,7 @@ int beTelnet(int flags) {
 	    logMessage("poll: %s", strerror(errno));
 	} 
 
-#ifdef DEBUG
+#ifndef DEBUG
 	stopNewt();
 #endif
 
