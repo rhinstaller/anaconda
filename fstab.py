@@ -142,6 +142,7 @@ class Fstab:
 
     def setReadonly(self, readOnly):
 	self.readOnly = readOnly
+        self.ddruid.setReadOnly(readOnly)
 
     def savePartitions(self):
 	self.ddruid.save()
