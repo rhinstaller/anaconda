@@ -13,6 +13,7 @@ class CongratulationWindow (InstallWindow):
         ics.setPrevEnabled (FALSE)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
         ics.setHelpButtonEnabled (FALSE)
+        ics.setHelpEnabled(FALSE)
 	ics.setGrabNext (1)
 
     # CongratulationWindow tag=NA
@@ -41,7 +42,8 @@ class CongratulationWindow (InstallWindow):
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using and configuring your "
-               "system is available in the Red Hat Linux manuals."),
+               "system is available in the Red Hat Linux manuals "
+               "at http://www.redhat.com/support/manuals."),
              )
                 
         label.set_line_wrap (TRUE)
@@ -84,7 +86,8 @@ class ReconfigCongratulationWindow (InstallWindow):
                   "For information on errata (updates and bug fixes), visit "
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using and configuring your "
-                  "system is available in the Red Hat Linux manuals."))
+                  "system is available in the Red Hat Linux manuals."
+                  "at http://www.redhat.com/support/manuals."))
         
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)

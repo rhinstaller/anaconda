@@ -30,8 +30,9 @@ class FinishedWindow:
                "system, insert it before you press <Enter> to reboot.\n\n"
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
-               "Information on using and configuring your "
-               "system is available in the Red Hat Linux manuals."),
+               "Information on using your "
+               "system is available in the Red Hat Linux manuals at "
+               "http://www.redhat.com/support/manuals."),
 		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
@@ -46,8 +47,9 @@ class ReconfigFinishedWindow:
                 _("Congratulations, configuration is complete.\n\n"
                   "For information on errata (updates and bug fixes), visit "
                   "http://www.redhat.com/errata.\n\n"
-                  "Information on using and configuring your "
-                  "system is available in the Red Hat Linux manuals."),
+                  "Information on using your "
+                  "system is available in the Red Hat Linux manuals."
+                  "http://www.redhat.com/support/manuals."),
                    [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK
