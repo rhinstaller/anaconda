@@ -368,6 +368,7 @@ class ToDo:
         self.madeFilesystems = 0
 	self.installSystem = installSystem
         self.language = Language ()
+        self.log = LogFile ()
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -380,7 +381,6 @@ class ToDo:
         self.ddruid = None;
         self.drives = Drives ()
         self.badBlockCheck = 0
-        self.log = LogFile ()
         self.bootdisk = 0
 	self.liloImages = {}
         self.liloDevice = None
@@ -1134,21 +1134,21 @@ class ToDo:
 
 	(bootProto, ip, netmask, gateway, nameserver) = \
 		todo.instClass.getNetwork()
+	if bootProto:
+	    todo.network.gateway = gateway
+	    todo.network.primaryNS = nameserver
 
-        todo.network.gateway = gateway
-        todo.network.primaryNS = nameserver
+	    devices = todo.network.available ()
+	    if (devices and bootProto):
+		list = devices.keys ()
+		list.sort()
+		dev = devices[list[0]]
+		dev.set (("bootproto", bootProto))
 
-        devices = todo.network.available ()
-	if (devices and bootProto):
-	    list = devices.keys ()
-	    list.sort()
-	    dev = devices[list[0]]
-	    dev.set (("bootproto", bootProto))
-
-	    if (ip):
-		dev.set (("ipaddr", ip))
-	    if (netmask):
-		dev.set (("netmask", netmask))
+		if (ip):
+		    dev.set (("ipaddr", ip))
+		if (netmask):
+		    dev.set (("netmask", netmask))
 
 	if (todo.instClass.mouse):
 	    (type, device, emulateThreeButtons) = todo.instClass.mouse
