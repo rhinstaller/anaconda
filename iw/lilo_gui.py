@@ -88,6 +88,14 @@ class LiloWindow (InstallWindow):
 	    self.part.set_sensitive(0)
 	    self.linearCheck.set_sensitive(0)
 
+    def labelInsertText(self, text, len, data):
+        i = 0
+        while i < len:
+            if text[i] == ' ':
+                self.emit_stop_by_name ("insert_text");
+                return;
+            i = i + 1
+
     def labelUpdated(self, *args):
 	index = self.imageList.selection[0]
 	device = self.imageList.get_text(index, 1)
@@ -255,10 +263,12 @@ class LiloWindow (InstallWindow):
 	self.defaultCheck = GtkCheckButton("Default boot image")
 	self.defaultCheck.connect("toggled", self.defaultUpdated)
 
+
 	# Alliteration!
 	self.labelLabel = GtkLabel(_("Boot label") + ":")
 	self.labelEntry = GtkEntry(15)
 	self.labelEntry.connect("changed", self.labelUpdated)
+	self.labelEntry.connect("insert_text", self.labelInsertText)
 
 	tempBox2 = GtkHBox(FALSE, 5)
 	self.labelLabel.set_alignment(0.0, 0.5)
