@@ -197,6 +197,8 @@ class HardDriveInstallMethod(InstallMethod):
 
     def getFilename(self, h, timer):
 	if self.mediaIsMounted != h[1000002]:
+            log("switching from iso %s to %s" %(self.mediaIsMounted,
+                                                h[1000002]))
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
 
