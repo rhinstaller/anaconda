@@ -409,7 +409,7 @@ class NetworkWindow(InstallWindow):
 
 # only if we want descriptions in the master device list
 # currently too wide, but might be able to do it with a tooltip on
-# each row once I figure out how
+# each row once I figure out how (can't be done: b.g.o #80980)
 # would require adding extra text field to end of store above as well
 #
 #	    descr = self.devices[device].get("desc")
