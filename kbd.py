@@ -49,7 +49,7 @@ class Keyboard (SimpleConfigFile):
 	    "sun-pl"		: 'pl',
 	    "sunt4-es"		: 'es',
 	    "sunt5-cz-us"	: 'cs',
-	    "sunt5-de-latin1"	: 'cs',
+	    "sunt5-de-latin1"	: 'de',
 	    "sunt5-es"		: 'es',
 	    "sunt5-fi-latin1"	: 'fi',
 	    "sunt5-fr-latin1"	: 'fr',
@@ -58,13 +58,17 @@ class Keyboard (SimpleConfigFile):
 	    "sunt5-us-cz"	: 'cs',
 	    }
     x2console = {}
-    for (key, value) in console2x.items():
+    tmp = console2x.items()
+    tmp.reverse()
+    for (key, value) in tmp:
         x2console [value] = key
 
     xsun2console = {}
-    for (key, value) in console2xsun.items():
+    tmp = console2xsun.items()
+    tmp.reverse()
+    for (key, value) in tmp:
         xsun2console [value] = key
-    
+    del tmp
     
     def __init__ (self):
 	self.type = "PC"
@@ -232,10 +236,10 @@ class Keyboard (SimpleConfigFile):
                 lay = key;
             if model == mod and layout == lay:
                 self.info["KEYTABLE"] = mapping[key]
-                break
+                return
             if layout == lay:
                 fuzzy = key
-
+        
         if fuzzy:
             self.info["KEYTABLE"] = mapping[fuzzy]
         else:
