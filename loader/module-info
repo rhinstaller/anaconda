@@ -485,17 +485,18 @@ dtc
 	"DTC 3180/3280"
 
 # deprecated
-#eata
-	#scsi_hostadapter
-	#"All DMA-capable DPT SCSI"
-
-eata_dma
+eata
 	scsi_hostadapter
 	"All DMA-capable DPT SCSI"
+# deprecated
+#eata_dma
+#	scsi_hostadapter
+#	"All DMA-capable DPT SCSI"
 
-eata_pio
-	scsi_hostadapter
-	"All PIO-capable DPT SCSI"
+# deprecated
+#eata_pio
+#	scsi_hostadapter
+#	"All PIO-capable DPT SCSI"
 
 fcal
 	scsi_hostadapter
@@ -559,9 +560,10 @@ qlogicfas
 	scsi_hostadapter
 	"Qlogic FAS408 SCSI"
 
-qlogicfc
-	scsi_hostadapter
-	"Qlogic ISP2x00 SCSI"
+# XXX fixme - need space
+#qlogicfc
+#	scsi_hostadapter
+#	"Qlogic ISP2x00 SCSI"
 
 qlogicisp
 	scsi_hostadapter
