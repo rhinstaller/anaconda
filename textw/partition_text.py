@@ -706,8 +706,12 @@ class PartitionWindow:
                                             "%s" % (err))
                     continue
 
-                if origrequest.format == None and request.format:
+                if not origrequest.format and request.format:
                     if not queryFormatPreExisting(self.intf):
+                        continue
+
+                if not request.format and request.mountpoint and isFormatOnByDefault(origrequest):
+                    if not queryNoFormatPreExisting(self.intf):
                         continue
 
             # backup current (known working) configuration

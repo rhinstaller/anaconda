@@ -1343,7 +1343,19 @@ def queryFormatPreExisting(intf):
                               "partition.  This will destroy all data "
                               "that was previously on it.\n\n"
                               "Are you sure you want to do this?"),
-                            type = "yesno")
+                            type = "yesno", default = "no")
+    return rc
+
+def queryNoFormatPreExisting(intf):
+    rc = intf.messageWindow(_("Format?"),
+                            _("You have chosen not to format a pre-existing "
+                              "partition which is being mounted as a "
+                              "system directory.  It is highly "
+                              "recommended you format this partition to "
+                              "guarantee the data formerly on the partition "
+                              "does not corrupt your new installation.\n\n"
+                              "Are you sure you want to do this?"),
+                            type = "yesno", default = "no")
     return rc
 
 

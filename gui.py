@@ -241,7 +241,7 @@ class MessageWindow:
     def getrc (self):
         return self.rc
     
-    def __init__ (self, title, text, type="ok"):
+    def __init__ (self, title, text, type="ok", default=None):
         if flags.autostep:
             print title, text, type
             self.rc = 1
@@ -299,8 +299,8 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text, type="ok"):
-        rc = MessageWindow (title, text, type).getrc()
+    def messageWindow(self, title, text, type="ok", default = None):
+        rc = MessageWindow (title, text, type, default).getrc()
         return rc
 
     def exceptionWindow(self, title, text):

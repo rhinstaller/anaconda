@@ -858,8 +858,6 @@ class PartitionWindow(InstallWindow):
             formatrb.set_active(0)
             if origrequest.format:
                 formatrb.set_active(1)
-            elif origrequest.format == None and not origrequest.migrate:
-                formatrb.set_active(isFormatOnByDefault(origrequest))
 
             maintable.attach(formatrb, 0, 1, row, row + 1)
             (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
@@ -1056,8 +1054,12 @@ class PartitionWindow(InstallWindow):
                                             "%s" % (err))
                     continue
 
-                if origrequest.format == None and request.format:
+                if not origrequest.format and request.format:
                     if not queryFormatPreExisting(self.intf):
+                        continue
+
+                if not request.format and request.mountpoint and isFormatOnByDefault(origrequest):
+                    if not queryNoFormatPreExisting(self.intf):
                         continue
             
             # backup current (known working) configuration

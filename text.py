@@ -221,13 +221,17 @@ class InstallInterface:
     def progressWindow(self, title, text, total):
         return ProgressWindow(self.screen, _(title), _(text), total)
 
-    def messageWindow(self, title, text, type="ok"):
+    def messageWindow(self, title, text, type="ok", default = None):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
 			       buttons=[TEXT_OK_BUTTON])
         elif type == "yesno":
+            if default and default == "no":
+                btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
+            else:
+                btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
 	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons=[TEXT_YES_BUTTON, TEXT_NO_BUTTON])
+			       buttons=btnlist)
             if rc == "yes":
                 return 1
             else:
