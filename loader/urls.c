@@ -117,43 +117,6 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
     return 0;
 }
 
-#if defined (__s390__) || defined (__s390x__)
-int setupRemote(struct iurlinfo * ui) {
-    char *env, *d;
-     
-    if (!(env = getenv("RPMSERVER"))) {
-	ui->address = "";
-	ui->prefix = "";
-	return 0;
-    }
-
-    if (!strncmp(env, "ftp://",6))
-	env += 6;
-    else if (!strncmp(env, "http://",7))
-	env += 7;
-
-    if (!(d = index (env, '/'))) {
-	d = "";
-        ui->prefix = strdup(d);
-    }
-    else   /* make sure the path either starts with a / or a ~ */
-	if(*d != '/') {
-		ui->prefix = (char *)malloc(strlen(d)+2);
-		*ui->prefix = '/';
-		strcat(ui->prefix, d);
-	}
-	else ui->prefix = strdup(d);
-
-    ui->address = strdup(env);
-    if (ui->address && (d = index (ui->address, '/')))
-	*d = '\0';
-    if (ui->address && (d = index (ui->address, ':')))
-	*d = '\0';
-
-    return 0;
-}
-#endif /* #if defined (__s390__) || defined (__s390x__) */
-
 char * addrToIp(char * hostname) {
     struct in_addr ad;
     char * chptr;
