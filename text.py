@@ -427,6 +427,9 @@ class BootDiskWindow:
 
 class XConfigWindow:
     def __call__(self, screen, todo):
+	if not todo.hdList.packages.has_key('XFree86') or \
+	   not todo.hdList.packages['XFree86'].selected: return None
+
         todo.x.probe (probeMonitor = 0)
 
         if todo.x.server:
