@@ -77,29 +77,100 @@ class FirewallWindow (InstallWindow):
                     elif row_data == "FTP":
                         self.todo.firewall.ftp = val
                     
-                self.todo.firewall.portlist = self.ports.get_text()    
+                portstring = string.strip(self.ports.get_text())
+                portlist = ""
+                bad_token_found = 0
+                bad_token = ""
+                if portstring != "":
+                    tokens = string.split(portstring, ',')
+                    for token in tokens:
+#                        print "token is ", token
+                        try:
+                            if string.index(token,':'):         #- if there's a colon in the token, it's valid
+                                parts = string.split(token, ':')
+                                if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
+#                                    print "too many colons"
+                                    bad_token_found = 1
+                                    bad_token = token
+                                else:
+                                    if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
+#                                        print "appending ports", token
+                                        if portlist == "":
+                                            portlist = token
+                                        else:
+                                            portlist = portlist + ',' + token
+                                    else:                        #- Found a protocol other than tcp or udp.  Break loop
+                                        bad_token_found = 1
+                                        bad_token = token
+                                        pass
+                        except:
+#                            print "no colons found"                #-assume that the protocol is tcp
+                            if token != "":
+                                if portlist == "":
+                                    portlist = token + ":tcp"
+                                else:
+                                    portlist = portlist + ',' + token + ':tcp'
 
-#                print "self.todo.firewall.dhcp", self.todo.firewall.dhcp 
-#                print "self.todo.firewall.ssh", self.todo.firewall.ssh 
-#                print "self.todo.firewall.telnet", self.todo.firewall.telnet
-#                print "self.todo.firewall.http", self.todo.firewall.http
-#                print "self.todo.firewall.smtp", self.todo.firewall.smtp
-#                print "self.todo.firewall.ftp", self.todo.firewall.ftp
+                else:
+#                    print "no ports selected"
+                    pass
 
-#                    self.packageList.set_row_data (i, (TRUE, row_data, header)) 
-#                    self.packageList._update_row (i)
+                if bad_token_found == 1:         #- We've found a bad token...raise a warning
+                    from gnome.ui import *
+                    import gui
+                    self.textWin = GnomeDialog ()
+                    self.textWin.set_modal (TRUE)
+
+                    vbox = GtkVBox()
+                    hbox = GtkHBox()
+
+                    hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), FALSE)
+                    self.textWin.vbox.pack_start(hbox)
+                    hbox.pack_start(vbox)
                     
 
-#                print "self.todo.firewall.portlist", self.todo.firewall.portlist
+                    
+                    self.textWin.set_default_size (500, 200)
+                    self.textWin.set_usize (500, 200)
+                    self.textWin.set_position (WIN_POS_CENTER)
+
+                    label = GtkLabel((_("Warning: ")) + bad_token + (_(" is an invalid port.")))
+                    #self.textWin.vbox.pack_start(label)
+                    vbox.pack_start(label)
+
+                    label = GtkLabel(_("The format is 'port:protocol'.  For example, '1234:udp'"))
+                    #self.textWin.vbox.pack_start(label)
+                    vbox.pack_start(label)
+                    
+                    self.textWin.append_button(_("Close"))
+                    self.textWin.button_connect (0, self.textWin.destroy)
+
+                    self.textWin.set_border_width(0)
+                    self.textWin.show_all()
+
+                    raise gui.StayOnScreen
+                else:                             #-all the port data looks good.  Pass it on to todo.
+                    self.todo.firewall.portlist = portlist
+#                    print self.todo.firewall.portlist
+
+
+
+#                self.todo.firewall.portlist = self.ports.get_text()    
+
+
+
+#        print "self.todo.firewall.dhcp", self.todo.firewall.dhcp 
+#        print "self.todo.firewall.ssh", self.todo.firewall.ssh 
+#        print "self.todo.firewall.telnet", self.todo.firewall.telnet
+#        print "self.todo.firewall.http", self.todo.firewall.http
+#        print "self.todo.firewall.smtp", self.todo.firewall.smtp
+#        print "self.todo.firewall.ftp", self.todo.firewall.ftp
+
+#        print "self.todo.firewall.portlist", self.todo.firewall.portlist
 
 #        print "self.todo.firewall.policy", self.todo.firewall.policy
 #        print "self.todo.firewall.enabled", self.todo.firewall.enabled 
         
-#        self.radio2 = GtkRadioButton (self.radio1, (_("Medium")))
-#        self.radio3
-        self.todo.firewall.portlist = self.ports.get_text () 
-
-
 
     def activate_firewall (self, widget):
         if self.radio3.get_active ():            
