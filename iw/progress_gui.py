@@ -182,7 +182,7 @@ class InstallProgressWindow (InstallWindow):
 
 	if len(pixmaps1) <= 0:
 	    # for beta try top level w/o lang
-	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png" % shortlang)
+	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png")
 
         if len(pixmaps1) > 0:
             files = pixmaps1
@@ -239,12 +239,12 @@ class InstallProgressWindow (InstallWindow):
 
         progressTable = gtk.Table (2, 2, gtk.FALSE)
         label = gtk.Label (_("Package Progress: "))
-        label.set_alignment (0, 0)
+        label.set_alignment (1.0, 0.5)
         progressTable.attach (label, 0, 1, 0, 1, gtk.SHRINK)
         progressTable.attach (self.progress, 1, 2, 0, 1)
 
         label = gtk.Label (_("Total Progress:   "))
-        label.set_alignment (0, 0)
+        label.set_alignment (1.0, 0.5)
         progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
         progressTable.attach (self.totalProgress, 1, 2, 1, 2)
 
