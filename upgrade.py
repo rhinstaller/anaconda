@@ -85,7 +85,7 @@ def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
     else:
 	isys.mount(root, '/mnt/sysimage')
 
-    fstab.readFstab('/mnt/sysimage/etc/fstab', theFstab)
+    fstab.readFstab(instPath + '/etc/fstab', theFstab)
 
     if rootFs == "vfat":
 	fstab.unmountLoopbackRoot()

@@ -1048,9 +1048,13 @@ class ToDo:
         else:
             ts = rpm.TransactionSet()
             
+        if self.upgrade:
+            how = 'u'
+        else:
+            how = 'i'
 	for p in self.hdList.packages.values ():
             if p.selected:
-                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]))
+                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
             else:
                 ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
 
@@ -1172,6 +1176,9 @@ class ToDo:
 		    message = message + '\t' + n + '\n'
 		self.intf.messageWindow(("Absolute Symlinks"), message)
 		sys.exit(0)
+        else:
+            fstab.readFstab(self.instPath + '/etc/fstab', self.fstab)
+            
 
 	self.fstab.turnOnSwap(self.instPath, self.intf.progressWindow,
 			      formatSwap = 0)
