@@ -6,6 +6,7 @@
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <pump.h>
 
 #ifdef __STANDALONE__
 #include <netdb.h>
@@ -22,7 +23,6 @@
 #else
 
 # include "isys/dns.h"
-#include "pump/pump.h"
 
 #include "kickstart.h"
 #include "lang.h"
