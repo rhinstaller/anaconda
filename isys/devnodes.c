@@ -4,6 +4,8 @@
 #include <sys/sysmacros.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <ctype.h>
+#include <string.h>
 
 struct devnum {
     char * name;
@@ -47,14 +49,36 @@ int devMakeInode(char * devName, char * path) {
     char *ptr;
     char *dir;
 
+    /* scsi devices sda - sdp: major 8, minor 0 - 255 */
+    /* scsi devices sdq - sdaf: major 65, minor 0 - 255 */
+    /* scsi devices sdqg - sdav: major 66, minor 0 - 255 */
+    /* etc... */
     if (devName[0] == 's' && devName[1] == 'd') {
+	int drive = 0;
+	char *num = NULL;
 	type = S_IFBLK;
-	major = 8;
-	minor = (devName[2] - 'a') << 4;
-	if (devName[3] && devName[4])
-	   minor += (devName[3] - '0') * 10 + (devName[4] - '0');
-	else if (devName[3])
-	   minor += (devName[3] - '0');
+
+	if (devName[3] && isdigit(devName[3])) {
+	    drive = devName[2] - 'a';
+	    num = devName + 3;
+	} else if (devName[3] && islower(devName[3])) {
+	    drive = ((devName[2] - 'a' + 1) * 26) + devName[3] - 'a';
+	    num = devName + 4;	    
+	}
+	/* only 128 SCSI drives, sorry */
+	if (drive > 128)
+	    return -1;
+	else if (drive < 16)
+	    major = 8;
+	else
+	    major = 64 + (drive) / 16;
+	minor = (drive * 16) % 256;
+	if (num && num[0] && num[1])
+	   minor += (num[0] - '0') * 10 + (num[1] - '0');
+	else if (num && num[0])
+	   minor += (num[0] - '0');
+	if (minor > 255)
+	    return -1;
     } else if (devName[0] == 'm' && devName[1] == 'd') {
 	type = S_IFBLK;
 	major = 9;
