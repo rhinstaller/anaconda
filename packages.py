@@ -209,6 +209,12 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
 class InstallCallback:
     def cb(self, what, amount, total, h, (param)):
+	# first time here means we should pop the window telling
+	# user to wait until we get here
+	if not self.beenCalled:
+	    self.beenCalled = 1
+	    self.initWindow.pop()
+
 	if (what == rpm.RPMCALLBACK_TRANS_START):
 	    # step 6 is the bulk of the transaction set
 	    # processing time
@@ -279,6 +285,8 @@ class InstallCallback:
 	self.progressWindow = None
 	self.instLog = instLog
 	self.modeText = modeText
+	self.beenCalled = 0
+	self.initWindow = None
 
 def sortPackages(first, second):
     # install packages in cd order (cd tag is 1000002)
@@ -572,7 +580,8 @@ def doInstall(method, id, intf, instPath):
                         "%s"
                         "\n\n") % (id.upgradeDeps,))
         
-
+    cb.initWindow = intf.waitWindow(_("Install Starting"),
+				      _("Starting install process, may take several minutes..."))
     problems = ts.run(0, ~rpm.RPMPROB_FILTER_DISKSPACE, cb.cb, 0)
 
     # force test mode install
