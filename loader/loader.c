@@ -146,7 +146,7 @@ static int configureNetDevice(struct intfInfo * intf) {
 }
 
 int main(int argc, char ** argv) {
-    char * arg;
+    char * arg, **args;
     poptContext optCon;
     int testing, network, local, rc;
     char ** modules, *module;
@@ -182,16 +182,14 @@ int main(int argc, char ** argv) {
     if (modules == NULL) {
 	printf("No PCI devices found :(\n");
     } else {
-	module = *modules;
-	while (module) {
+	while (module = *modules++) {
 	    if (!testing) {
 		printf("Inserting module %s\n", module);
 		insmod(module, NULL);
 	    } else {
-		printf("If I were not testing, I would run insmod(%s, NULL);\n",
+		printf("Test mode: I would run insmod(%s, args);\n",
 		       module);
 	    }
-	    module = *modules++;
 	}
     }
     
