@@ -287,4 +287,4 @@ typedef struct md_disk_info_s {
 #define RAID5_ALGORITHM_LEFT_SYMMETRIC		2
 #define RAID5_ALGORITHM_RIGHT_SYMMETRIC		3
 
-#endif _MD_H
+#endif /* _MD_H */
