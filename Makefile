@@ -9,7 +9,7 @@ endif
 
 SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader po \
 	    textw utils scripts bootdisk installclasses \
-	    fonts iw pixmaps $(STUBS) isomd5sum
+	    fonts iw pixmaps $(STUBS) isomd5sum command-stubs
 SUBDIRS = $(SUBDIRSHD)
 
 # DESTDIR        - destination for install image for install purposes
@@ -71,7 +71,6 @@ install:
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
 
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
-	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 644 anaconda.conf $(DESTDIR)/$(ANACONDADATADIR)
 
 	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm
@@ -83,11 +82,6 @@ install:
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	strip $(DESTDIR)/$(PYTHONLIBDIR)/*.so
-	cp -a raid*stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a losetup-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a pump-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a list-harddrives-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	cp -a kudzu-probe-stub $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 archive: create-archive
@@ -120,7 +114,7 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py | grep -v "__init__() not called" 
+	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
 
 pycheck-file:
 	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
