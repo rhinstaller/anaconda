@@ -260,7 +260,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
                 for part in free[drive]:
 #                    print "Trying partition", printFreespaceitem(part)
-                    partSize = getPartSize(part)
+                    partSize = getPartSizeMB(part)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
