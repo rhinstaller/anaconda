@@ -37,4 +37,4 @@ $UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage $BUILDARCH
 $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 
 rm -rf $BUILDINSTDIR
-#rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
+rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
