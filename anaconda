@@ -217,7 +217,7 @@ if (progmode == 'rescue'):
     import rescue, instdata
     
     log.open (logFile)
-    id = instdata.InstallData([], "fd0")
+    id = instdata.InstallData([], "fd0", configFileData)
     rescue.runRescue("/mnt/sysimage", not rescue_nomount, id)
 
     # shouldn't get back here
