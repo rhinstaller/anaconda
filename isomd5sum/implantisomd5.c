@@ -64,6 +64,17 @@ int parsepvd(int isofd, char *mediasum, long long *isosize) {
 }
 
 
+unsigned int writeAppData(unsigned char *appdata, char *valstr, unsigned int loc) {
+    if (loc + strlen(valstr) > 511) {
+	printf("Attempted to write too much appdata, exiting...\n");
+	exit(-1);
+    }
+
+    memcpy(appdata + loc, valstr, strlen(valstr));
+
+    return loc+strlen(valstr);
+}
+
 
 int main(int argc, char **argv) {
     int isofd;
@@ -75,6 +86,7 @@ int main(int argc, char **argv) {
     long long isosize;
     unsigned char md5sum[16];
     unsigned int total;
+    unsigned int loc;
     unsigned char *fname;
     unsigned char buf[2048];
     unsigned char orig_appdata[512];
@@ -122,9 +134,18 @@ int main(int argc, char **argv) {
 	    fprintf(stderr, "Application data has been used - not implanting md5sum!\n");
 	    exit(1);
 	}
+    } else {
+	/* write out blanks to erase old app data */
+	lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
+	memset(new_appdata, ' ', 512);
+	i = write(isofd, new_appdata, 512);
+	if (i<0) {
+	    printf("write failed %d\n", i);
+	    perror("");
+	}
     }
 
-
+    /* now do md5sum */
     lseek(isofd, 0L, SEEK_SET);
 
     MD5_Init(&md5ctx);
@@ -154,10 +175,16 @@ int main(int argc, char **argv) {
     printf("md5 = %s\n", md5str);
     /*    memcpy(new_appdata, orig_appdata, 512); */
     memset(new_appdata, ' ', 512);
-    memcpy(new_appdata, "ISO MD5SUM = ", 13);
-    memcpy(new_appdata+13, md5str, 33);
-    memcpy(new_appdata+47, "THIS IS NOT THE SAME AS RUNNING MD5SUM ON THIS ISO!!", 51);
 
+    loc = 0;
+    loc = writeAppData(new_appdata, "ISO MD5SUM = ", loc);
+    loc = writeAppData(new_appdata, md5str, loc);
+    loc = writeAppData(new_appdata, ";", loc);
+    snprintf(buf, sizeof(buf), "SKIPSECTORS = %d", SKIPSECTORS);
+    loc = writeAppData(new_appdata, buf, loc);
+    loc = writeAppData(new_appdata, ";", loc);
+    loc = writeAppData(new_appdata, "THIS IS NOT THE SAME AS RUNNING MD5SUM ON THIS ISO!!", loc);
+    
     i = lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
     if (i<0)
 	printf("seek failed\n");
