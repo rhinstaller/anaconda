@@ -1231,7 +1231,8 @@ class PartitionDevice(Device):
 
 class PartedPartitionDevice(PartitionDevice):
     def __init__(self, partition):
-        PartitionDevice.__init__(self, None)
+        Device.__init__(self)
+        self.device = None
         self.partition = partition
 
     def getDevice(self, asBoot = 0):
