@@ -1,3 +1,9 @@
+2005-03-30  Chris Lumens  <clumens@redhat,com>
+
+	* loader2/lang.c (loadLanguageList):  Language names may now contain
+	spaces, which sscanf splits on.  Change what it's looking for.
+	* loader2/lang.c (setLangEnv):  Don't set $LANG to the language's name.
+
 2005-03-29  Chris Lumens  <clumens@redhat.com>
 
 	* language.py (InstallTimeLanguage.__init__):  Fix string split.

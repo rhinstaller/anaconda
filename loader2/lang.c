@@ -108,8 +108,8 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
         lineNum++;
         languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-        if (sscanf(line, "%s\t%s\t%s\t%s\t%s\t%s\n", name, key, font, 
-                   code, keyboard, timezone) != 6) {
+        if (sscanf(line, "%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\t%[^\t]\n",
+                   name, key, font, code, keyboard, timezone) != 6) {
             printf("bad line %d in lang-table", lineNum);
             logMessage("bad line %d in lang-table", lineNum);
         } else {
@@ -215,7 +215,7 @@ static void setLangEnv (int i, int flags) {
     if (!strcmp(languages[i].font, "None"))
         return;
 
-    setenv("LANG", languages[i].lang, 1);
+    setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
     setenv("LINGUAS", languages[i].lang, 1);
     loadLanguage (NULL, flags);
