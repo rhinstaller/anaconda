@@ -286,17 +286,11 @@ def findtz(basepath, relpath):
             continue
         elif n[:1] >= 'A' and n[:1] <= 'Z':
             if stat.S_ISDIR(filemode):
-                tmptzdata = findtz(basepath, timezone)
+                tzdata.extend(findtz(basepath, timezone))
             else:
-                tmptzdata = [timezone]
-                    
-        for m in tmptzdata:
-            if tzdata == []:
-                tzdata = [m]
-            else:
-                tzdata.append(m)
+                tzdata.append(timezone)
 
-        tzdata.sort()
+    tzdata.sort()
                             
     return tzdata
 
