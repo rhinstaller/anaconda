@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-CFLAGS = -Wall -g 
+CFLAGS = -Wall -g -O2
 LDFLAGS = -g
 LOADLIBES = -L../isys -lz -lisys -lresolv -lpopt
 

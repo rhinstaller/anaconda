@@ -3,7 +3,7 @@ include ../Makefile.inc
 #PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
 OBJECTS = rw.o dos.o sun.o bsdlabel.o
-CFLAGS=-I/usr/include/python1.5
+CFLAGS=-I/usr/include/python1.5 -O2
 
 TARGET = libbalkan.a
 

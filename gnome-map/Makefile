@@ -2,12 +2,12 @@ include ../Makefile.inc
 
 all: gglobe-canvas timezonemapmodule.so
 
-CFLAGS=-g -Wall -fPIC `gnome-config --cflags gnomeui` -I/usr/include/python1.5
+CFLAGS=-g -O2 -Wall -fPIC `gnome-config --cflags gnomeui` -I/usr/include/python1.5
 LDFLAGS=`gnome-config --libs gnomeui`
 
 install: timezonemapmodule.so
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	install timezonemapmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install -s timezonemapmodule.so $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
 	install map480.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
 

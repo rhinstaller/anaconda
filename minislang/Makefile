@@ -3,7 +3,7 @@ include ../Makefile.inc
 OBJS = sldisply.o slerr.o slgetkey.o slmisc.o slsignal.o slsmg.o    \
 	sltermin.o slutty.o
 
-CFLAGS = -fPIC
+CFLAGS = -fPIC -O2
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
