@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <fcntl.h>
 #include "vbe.h"
+#ident "$Id$"
 
 #define VESA_MODE 0x112
 
