@@ -1050,24 +1050,6 @@ class Partitions:
 
         return retval
 
-    def getLVMRequests(self):
-        retval = {}
-        for request in self.requests:
-            if request.type == REQUEST_VG:
-                if request.volumeGroupName not in retval.keys():
-                    retval[request.volumeGroupName] = []
-            elif request.type == REQUEST_LV:
-                vg = self.getRequestByID(request.volumeGroup)
-                if not vg:
-                    raise RuntimeError, "Have a logical volume without a volume group"
-                vgname = vg.volumeGroupName
-                if vgname in retval.keys():
-                    retval[vgname].append(request)
-                else:
-                    retval[vgname] = [ request ] 
-
-        return retval
-
     def isRaidMember(self, request):
         raiddev = self.getRaidRequests()
         if not raiddev or not request.device:
@@ -1079,6 +1061,34 @@ class Partitions:
                 if request.device == self.getRequestByID(member).device:
                     return 1
         return 0
+
+    # LVM helpers
+    def getLVForPV(self, pvrequest):
+	retval = []
+	pvid = pvrequest.uniqueID
+	for request in self.requests:
+	    if request.type == REQUEST_LV:
+		print "in getLVForPV:", request
+		if request.volumeGroup == pvid:
+		    retval.append(request)
+
+	return retval
+		
+    def getLVMRequests(self):
+        retval = {}
+        for request in self.requests:
+            if request.type == REQUEST_VG:
+                retval[request.volumeGroupName] = self.getLVForPV(request)
+	    
+        return retval
+
+    def getLVMLVRequests(self):
+        retval = []
+        for request in self.requests:
+            if request.type == REQUEST_LV:
+                retval.append(request)
+
+        return retval
 
     # return name of boot mount point in current requests
     def getBootableRequest(self):
