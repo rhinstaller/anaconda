@@ -435,6 +435,7 @@ Section "ServerLayout"
 EndSection
 
 Section "Files"
+%(files)s
 EndSection
 
 Section "Module"
@@ -456,6 +457,8 @@ Section "Monitor"
         Identifier   "Monitor0"
         VendorName   "Monitor Vendor"
         ModelName    "Monitor Model"
+        HorizSync   %(monitorHoriz)s
+        VertRefresh %(monitorVert)s
 EndSection
 
 Section "Device"
@@ -990,6 +993,7 @@ Section "Screen"
                  "cardID"       : self.vidCards[self.primary]["NAME"],
                  "cardVendor"   : self.vidCards[self.primary]["NAME"],
                  "cardBoardName": self.vidCards[self.primary]["NAME"]
+                 "files"              : self.files }
                  }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if self.vidCards[self.primary].has_key ("DRIVER"):
