@@ -159,6 +159,9 @@ def depMatch(dep, hdrlist):
             if (dep in l):
                 hdr = betterPackageForProvides(h, hdr)
         if hdr is not None:
+            # cache all binaries from this package.  helps with, eg, coreutils
+            for f in hdr.hdr.fiFromHeader():
+                if f[0].find("bin") != -1: cached[f[0]] = nevra(hdr)
             cached[dep] = nevra(hdr)
             return nevra(hdr)
     else:
@@ -497,6 +500,9 @@ class Group:
                       if ((pkg[rpm.RPMTAG_PROVIDENAME] is not None) and
                           (dep in pkg[rpm.RPMTAG_PROVIDENAME])):
                           continue
+                      for f in pkg.hdr.fiFromHeader():
+                          if f[0] == dep:
+                              continue
                       # ignore rpmlib stuff
                       if dep.startswith("rpmlib("):
                           continue
