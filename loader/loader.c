@@ -3768,8 +3768,8 @@ int main(int argc, char ** argv) {
     /* only use RHupdates if we're NFS, otherwise we'll use files on */
     /* the first ISO image and we won't be able to umount it */
     useRHupdates = 0;
-    if (strncmp(url, "nfs:", 4)) {
-	logMessage("NFS install method detectde, will use RHupdates/");
+    if (!strncmp(url, "nfs:", 4)) {
+	logMessage("NFS install method detected, will use RHupdates/");
 	useRHupdates = 1;
     }
 	
