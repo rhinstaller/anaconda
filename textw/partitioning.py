@@ -138,7 +138,7 @@ class AutoPartitionWindow:
 	    todo.instClass.removeFromSkipList("format")
 	else:
 	    todo.fstab.setRunDruid(0)
-	    todo.fstab.setDruid(druid)
+	    todo.fstab.setDruid(druid, todo.instClass.raidList)
 	    todo.allowLiloLocationConfig()
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
@@ -197,9 +197,13 @@ class FormatWindow:
         
         ct = CheckboxTree(height = height)
 
+	gotOne = 0
 	for (mount, dev, fstype, format, size) in mounts:
             if fstype == "ext2":
+		gotOne = 1
                 ct.append("/dev/%s   %s" % (dev, mount), dev, format)
+
+	if not gotOne: return INSTALL_NOOP
 
         cb = Checkbox (_("Check for bad blocks during format"),
 			todo.fstab.getBadBlockCheck())
@@ -228,3 +232,50 @@ class FormatWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
+
+class LoopSizeWindow:
+
+    def __call__(self, screen, todo):
+	if not todo.fstab.rootOnLoop():
+	    return INSTALL_NOOP
+
+	avail = apply(isys.spaceAvailable, todo.fstab.getRootDevice())
+	size = todo.fstab.getLoopbackSize()
+	if not size:
+	    size = avail / 2
+
+	sizeEntry = Entry(6, "%d" % (size,))
+
+	while 1:
+	    (rc, ent) = EntryWindow(screen, _("Root Filesystem Size"),
+		_("You've chosen to put your root filesystem in a file on "
+		  "an already-existing DOS or Windows filesystem. How large "
+		  "would you like to make the root filesystem? You may make it "
+		  "up to %d megabytes in size.") % (avail, ),
+		    [ ( _("Size (in megabytes)"), sizeEntry ) ],
+		    buttons = [ (_("OK"), "ok"), (_("Back"), "back") ] )
+
+	    if rc == "back": return INSTALL_BACK
+
+	    try:
+		size = int(sizeEntry.value())
+	    except:
+		ButtonChoiceWindow(screen, _("Bad Size"),
+			_("The size you enter must be a number."),
+			buttons = [ _("OK") ])
+		continue
+
+	    if size >= avail:
+		ButtonChoiceWindow(screen, _("Bad Size"),
+			_("The size must be smaller then the amount of free"
+			  " space on the disk, which is %d megabytes."
+				% (avail, )),
+			buttons = [ _("OK") ])
+		continue
+
+	    break
+
+	todo.fstab.setLoopbackSize(size)
+
+	return INSTALL_NOOP
+	
