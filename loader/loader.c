@@ -155,6 +155,8 @@ int haveKon = 0;
 #endif
 static int defaultLang = 0;
 
+#define MAX_EXTRA_ARGS 128
+
 void doSuspend(void) {
     newtFinished();
     exit(1);
@@ -2391,13 +2393,14 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
-			     char ** ksDevice, char ** instClass, char **xres) {
+			     char ** ksDevice, char ** instClass, char *extraArgs[]) {
     int fd;
     char buf[500];
     int len;
     char ** argv;
     int argc;
     int i;
+    int numExtraArgs = 0;
 
     logMessage("here with cmdLine %s", cmdLine);
 
@@ -2420,12 +2423,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_TELNETD;
         else if (!strcasecmp(argv[i], "noshell"))
 	    flags |= LOADER_FLAGS_NOSHELL;
-        else if (!strcasecmp(argv[i], "lowres"))
-	    flags |= LOADER_FLAGS_LOWRES;
 	else if (!strcasecmp(argv[i], "mediacheck"))
             flags |= LOADER_FLAGS_MEDIACHECK;
-	else if (!strcasecmp(argv[i], "nofb"))
-	    flags |= LOADER_FLAGS_NOFB;
 	else if (!strcasecmp(argv[i], "nousbstorage"))
   	    flags |= LOADER_FLAGS_NOUSBSTORAGE;
         else if (!strcasecmp(argv[i], "nousb"))
@@ -2450,8 +2449,6 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
-        else if (!strcasecmp(argv[i], "nomount"))
-	    flags |= LOADER_FLAGS_RESCUE_NOMOUNT;
         else if (!strcasecmp(argv[i], "nopass"))
 	    flags |= LOADER_FLAGS_NOPASS;
 	else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
@@ -2487,10 +2484,32 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    setLanguage (argv[i] + 5, flags);
 	    defaultLang = 1;
 #endif
-	} else if (!strncasecmp(argv[i], "resolution=", 11)) {
-	    *xres = argv[i]+11;
+	} else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
+	    /* go through and append args we just want to pass on to */
+	    /* the anaconda script, but don't want to represent as a */
+	    /* LOADER_FLAG_XXX since loader doesn't care about these */
+	    /* particular options.                                   */
+	    if (!strncasecmp(argv[i], "resolution=", 11) ||
+		!strncasecmp(argv[i], "lowres", 6) ||
+		!strncasecmp(argv[i], "skipddc", 7) ||
+		!strncasecmp(argv[i], "nomount", 7)) {
+		int arglen;
+
+		arglen = strlen(argv[i])+3;
+		extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
+		snprintf(extraArgs[numExtraArgs], arglen, "--%s", argv[i]);
+		numExtraArgs = numExtraArgs + 1;
+		
+		if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
+		    logMessage("Too many command line arguments (128), "
+			       "rest will be dropped.");
+		}
+	    }
 	}
     }
+
+    /* NULL terminate the array of extra args */
+    extraArgs[numExtraArgs] = NULL;
 
     return flags;
 }
@@ -3130,6 +3149,7 @@ int main(int argc, char ** argv) {
     struct knownDevices kd;
     moduleInfoSet modInfo;
     char * where;
+    char ** tmparg;
 #ifdef INCLUDE_PCMCIA
     char pcic[20] = "";
 #endif
@@ -3137,12 +3157,11 @@ int main(int argc, char ** argv) {
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
     char * ksNetDevice = NULL;
-    char * xres = NULL;
+    char * extraArgs[MAX_EXTRA_ARGS];
     struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
-	    { "resolution", '\0', POPT_ARG_STRING, &xres, 0},
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
@@ -3225,10 +3244,10 @@ int main(int argc, char ** argv) {
 #if defined (__s390__) && !defined (__s390x__)
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
-
-
+    
+    extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
-			      &instClass, &xres);
+			      &instClass, extraArgs);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
@@ -3545,6 +3564,24 @@ int main(int argc, char ** argv) {
 	*argptr++ = "@/tmp/method";
     }
 
+    /* add extra args - this potentially munges extraArgs */
+    tmparg = extraArgs;
+    while (*tmparg) {
+	char *idx;
+
+	logMessage("adding extraArg %s", *tmparg);
+	idx = strchr(*tmparg, '=');
+	if (idx &&  ((idx-*tmparg) < strlen(*tmparg))) {
+	    *idx = '\0';
+	    *argptr++ = *tmparg;
+	    *argptr++ = idx+1;
+	} else {
+	    *argptr++ = *tmparg;
+	}
+
+	tmparg++;
+    }
+
     if (FL_RESCUE(flags)) {
 	startNewt(flags);
 
@@ -3558,8 +3595,6 @@ int main(int argc, char ** argv) {
 	    } while ((rc) && (rc != LOADER_NOOP));
 	}
 	*argptr++ = "--rescue";
-	if (FL_RESCUE_NOMOUNT(flags))
-	    *argptr++ = "--nomount";
     } else {
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";
@@ -3569,10 +3604,6 @@ int main(int argc, char ** argv) {
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))
 	    *argptr++ = "--expert";
-	if (FL_LOWRES(flags))
-	    *argptr++ = "--lowres";
-	if (FL_NOFB(flags))
-	    *argptr++ = "--nofb";
 
 	if (FL_KICKSTART(flags)) {
 	    *argptr++ = "--kickstart";
@@ -3607,11 +3638,6 @@ int main(int argc, char ** argv) {
 	    *argptr = malloc(20);
 	    sprintf(*argptr, "%d", memoryOverhead);
 	    argptr++;
-	}
-
-	if (xres) {
-	    *argptr++ = "--resolution";
-	    *argptr++ = xres;
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {
