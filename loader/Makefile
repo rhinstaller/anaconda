@@ -28,12 +28,17 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)' -DGZLIB=1
+CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -I/usr/include/kudzu -I/usr/include/rpm -I.. -I../isys -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)'
+
+# XXX diet is i386 only at the moment
+ifeq (i386, $(ARCH))
+CFLAGS += -DGZLIB=1
+endif
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
 ISYS = ../isys/libisys.a
-GUNZIP = ../isys/gzlib/libgunzip.a
+GUNZIP = -lz
 LOADERLIBS = -lpci
 
 # XXX Japanese is i386 only at the moment
@@ -95,6 +100,7 @@ REALCC=gcc
 CC=$(DIET) $(REALCC)
 STATIC=-static
 else
+REALCC=$(CC)
 ifeq (sparc, $(ARCH))
 MINILIBC=minilibc.o /usr/lib/libc.a
 CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
@@ -148,13 +154,13 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-	-lpump -lz $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+	-lpump $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-        -L ../stubs -lz $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+        -L ../stubs $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -168,7 +174,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
-        -lpump -lz -lresolv $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
+        -lpump -lresolv $(NEWTLIB) $(SLANGLIB) $(LOADERLIBS) $(KONOBJS)
 
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<

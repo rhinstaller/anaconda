@@ -1,21 +1,23 @@
 # LATEUSBMODS go in the second stage
-USBMODS="usb-uhci hid keybdev"
+USBMODS="usb-uhci usb-ohci hid keybdev"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
-NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin"
-SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2x00 qla2200 qla2300 sym53c8xx"
+NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
+SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx sym53c8xx_2 mptscsih mptbase"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
 	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
 	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
-	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
+	mkdir -p $MBD_BOOTTREE/EFI/boot
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/EFI/boot/initrd.img
 
-	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
-	cp $KERNELROOT/boot/efi/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-	cat > $MBD_BOOTTREE/elilo.conf << EOF
+	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/EFI/boot/
+	cp $KERNELROOT/boot/efi/EFI/redhat/vmlinuz-* $MBD_BOOTTREE/EFI/boot/vmlinuz
+	cp $MBD_BOOTTREE/EFI/boot/elilo.efi $MBD_BOOTTREE/EFI/boot/bootia64.efi
+	cat > $MBD_BOOTTREE/EFI/boot/elilo.conf << EOF
 prompt	
 timeout=50
 
@@ -25,11 +27,14 @@ image=vmlinuz
 	append="ramdisk_size=12288 maxcpus=1"
 	initrd=initrd.img
 EOF
+
+	# make a copy in the root of the image
+	cp $MBD_BOOTTREE/EFI/boot/* $MBD_BOOTTREE/
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	     --imagename boot.img \
-	     --bootdisksize 10240 \
+	     --bootdisksize 20480 \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \

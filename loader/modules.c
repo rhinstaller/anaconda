@@ -24,6 +24,7 @@
 #include "moduledeps.h"
 #include "devices.h"
 #include "windows.h"
+#include "stubs.h"
 
 static int ethCount(void);
 static int scsiCount(void);

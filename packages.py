@@ -1090,7 +1090,7 @@ def copyExtraModules(instPath, comps, extraModules):
 def recreateInitrd (kernelTag, instRoot):
     log("recreating initrd for %s" % (kernelTag,))
     if iutil.getArch() == 'ia64':
-        initrd = "/boot/efi/initrd-%s.img" % (kernelTag, )
+        initrd = "/boot/efi/EFI/redhat/initrd-%s.img" % (kernelTag, )
     else:
         initrd = "/boot/initrd-%s.img" % (kernelTag, )
 

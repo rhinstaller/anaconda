@@ -21,7 +21,7 @@
 #include "log.h"
 #include "misc.h"
 #include "windows.h"
-#include "isys/gzlib/gzlib.h"
+#include "stubs.h"
 #include "kickstart.h"
 
 #define errorWindow(String) \

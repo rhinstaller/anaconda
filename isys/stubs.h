@@ -14,6 +14,7 @@
 #define gunzip_close gzclose
 #define gunzip_read gzread
 #define gzip_write gzwrite
+#define gzip_open(x, y, z) gzopen(x, "w")
 
 #else
 #include "gzlib/gzlib.h"
