@@ -554,7 +554,6 @@ class PartitionWindow(InstallWindow):
 
             defaultchoice = rid - 1
 	    
-
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
         hbox = gtk.HBox(gtk.FALSE, 9)
