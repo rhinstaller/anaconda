@@ -388,8 +388,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Açýlýþ disketi yaratýlýrken bir hata oluþtu. Birinci disket sürücüsünde "
-"(A:)disketin bulunduðuna emin olun."
+"Açýlýþ disketi yaratýlýrken bir hata oluþtu. Birinci disket sürücüsünde (A:) "
+"disketin bulunduðuna emin olun."
 
 #: ../text.py:644
 msgid "Package Installation"
@@ -570,7 +570,7 @@ msgstr "Red Hat Linux Kurucusu"
 
 #: ../gui.py:424
 msgid "Next"
-msgstr ""
+msgstr "Ýleri"
 
 #: ../gui.py:426
 msgid "Finish"
@@ -678,7 +678,7 @@ msgstr "Kuruluma Baþlanýyor"
 
 #: ../iw/confirm.py:16
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Red Hat Linux kurulumuna baþlamak için sonraki ekrana gecin."
+msgstr "Red Hat Linux kurulumuna baþlamak için ileri'ye týklayýn."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -843,7 +843,6 @@ msgid "Boot label"
 msgstr "Açýlýþ Etiketi"
 
 #: ../iw/mouse.py:134
-#, fuzzy
 msgid "Emulate 3 Buttons"
 msgstr "3 Tuþ Emülasyonu"
 
@@ -978,9 +977,9 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Eðer bunu yapmak istemiyorsanýz, kurulum iþlemini elle disk "
-"bölümlendirmesiyaparak devam edebilir, ya da geriye dönüp tamamen "
-"özelleþtirilmiþ birkuruluma baþlayabirsiniz."
+"Eðer bunu yapmak istemiyorsanýz, kurulum iþlemini elle disk bölümlendirmesi "
+"yaparak devam edebilir, ya da geriye dönüp tamamen özelleþtirilmiþ bir "
+"kuruluma baþlayabirsiniz. "
 
 #: ../iw/rootpartition.py:133
 msgid "Remove data"
@@ -1170,8 +1169,8 @@ msgid ""
 "disk immediately. Is that okay?"
 msgstr ""
 "Bu sistemde yeteri kadar bellek olmadýðý için hemen takas alanýný açýp "
-"kullanmamýz gerekiyor. Bunun için disk üzerindeki bölümlendirme "
-"bilgilerinide deðiþtirmek gerekiyor. Yapalým mý?"
+"kullanmamýz gerekiyor. Bunun için disk üzerindeki bölümlendirme bilgilerini "
+"de deðiþtirmek gerekiyor. Yapalým mý?"
 
 #: ../textw/partitioning.py:160
 msgid ""
@@ -1256,9 +1255,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Sistemdeki güncel iþlemleriniz için normal bir kullanýcý hesabý "
-"seçmenizgerekiyor. Eðer root kullanýcýsýný sürekli kullanmazsanýz, sistemin "
-"bir hataesnasýnda çökmesini de engellemiþ olursunuz."
+"Sistemdeki güncel iþlemleriniz için normal bir kullanýcý hesabý seçmeniz "
+"gerekiyor. Eðer root hesabýný sürekli kullanmazsanýz, yapacaðýný olasý bir "
+"yanlýþlýk sonucunda sistemin çökmesini de engellemiþ olursunuz."
 
 #: ../textw/userauth.py:150
 msgid ""
@@ -1268,7 +1267,7 @@ msgid ""
 msgstr ""
 "Sistemde hangi kullanýcýlarýn hesaplarýnýn bulunmasýný istiyorsunuz? "
 "Enazýndan root kullanýcýsý dýþýnda bir normal kullanýcý hesabý açmanýz "
-"tavsiyeedilir. Ýstediðiniz kadar kullanýcýyý þimdi, ya da daha sonra "
+"tavsiye edilir. Ýstediðiniz kadar kullanýcýyý þimdi, ya da daha sonra "
 "ekleyebilirsiniz"
 
 #: ../textw/userauth.py:160
@@ -1623,9 +1622,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"/dev/%s RAID sürücüsü henüz tanýmlanmamýþ disk bölümleri içeriyor. "
-"/dev/%saygýtý þimdi alt bölümlerine ayrýlacak. Lütfen RAID aygýtýný "
-"tanýmlanmýþdisk bölümleriyle tekrar belirleyin."
+"/dev/%s RAID sürücüsü henüz tanýmlanmamýþ disk bölümleri içeriyor. /dev/%s "
+"aygýtý þimdi alt bölümlerine ayrýlacak. Lütfen RAID aygýtýný tanýmlanmýþ "
+"disk bölümleriyle tekrar belirleyin."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1362 ../libfdisk/gnomefsedit.c:1381
@@ -1678,8 +1677,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
-"Bu RAID aygýtýný bir açýlýþ disk bölümü olarak belirlediniz. Tüm "
-"birimlerinaçýlabilir olduðuna emin olmalýsýnýz."
+"Bu RAID aygýtýný bir açýlýþ disk bölümü olarak belirlediniz. Tüm birimlerin "
+"açýlabilir (bootable) olduðuna emin olmalýsýnýz."
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "No RAID Device"
@@ -1699,8 +1698,8 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"\"/dev/%s\" RAID aygýtý zaten bir RAID aygýtý olarak tanýmlý. Lütfen "
-"baþkabir aygýt seçiniz."
+"\"/dev/%s\" RAID aygýtý zaten bir RAID aygýtý olarak tanýmlý. Lütfen baþka "
+"bir aygýt seçiniz."
 
 #: ../libfdisk/gnomefsedit.c:1901
 msgid "Not Enough Partitions"
@@ -1727,9 +1726,9 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"%s disk bölümü, bu RAID aygýtý için daha önceden mevcut. Baðlama noktasý "
-"ise/boot olarak tanýmlanmýþ durumda. Sistemin disk bölümü üzerinden "
-"açýlacaðýnaemin misiniz?"
+"%s disk bölümü, bu RAID aygýtý için daha önceden mevcut. Baðlama noktasý ise "
+"/boot olarak tanýmlanmýþ durumda. Sistemin disk bölümü üzerinden açýlacaðýna "
+"emin misiniz?"
 
 #: ../libfdisk/gnomefsedit.c:2020
 msgid "Use Pre-existing Partition?"
@@ -1814,8 +1813,8 @@ msgid ""
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
 msgstr ""
-"Kök bölümünü bir RAID aygýtýna baðladýðýnýz için, /boot açýlýþ bölümünü "
-"debir RAID-1 disk bölümüne ayýrmalýsýnýz. Aksi takdirde kurulum devam "
+"Kök bölümünü bir RAID aygýtýna baðladýðýnýz için, /boot açýlýþ bölümünü de "
+"bir RAID-1 disk bölümüne ayýrmalýsýnýz. Aksi takdirde kurulum devam "
 "etmeyecektir."
 
 #: ../libfdisk/gnomefsedit.c:3068
@@ -1916,7 +1915,7 @@ msgstr "CDROM Tipi"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "CDROM sürücünüzün tipi ne?"
+msgstr "CDROM sürücünüzün tipi nedir?"
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
@@ -1958,8 +1957,8 @@ msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel "
-"sürücüleriçermiyor."
+"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel sürücüler "
+"içermiyor."
 
 #: ../loader/devices.c:198
 msgid ""
@@ -1967,7 +1966,8 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "Hangi sürücü denensin? Eðer listede bulunmayan bir sürücüye ihtiyacýnýz "
-"varsa,ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþun basýn."
+"varsa, ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþuna "
+"basýn."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
@@ -2051,8 +2051,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
-"Sistemde yüklü herhangi bir özel aygýt sürücüsü yok. Bunlarý þimdi "
-"yüklemekister misiniz?"
+"Sistemde yüklü herhangi bir özel aygýt sürücüsü yok. Bunlarý þimdi yüklemek "
+"ister misiniz?"
 
 #: ../loader/loader.c:400 ../loader/loader.c:402
 msgid "Loading"
@@ -2075,7 +2075,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak istermisiniz?"
+"Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak ister "
+"misiniz?"
 
 #: ../loader/loader.c:593
 msgid ""
@@ -2085,7 +2086,7 @@ msgid ""
 msgstr ""
 "Bu diskteki hangi bölüm ve dizin RedHat/RPMS ve RedHat/base dizinlerini "
 "içeriyor? Eðer kullandýðýnýz diski bu listede göremiyorsanýz, F2 tuþuna "
-"basýpek aygýt sürücülerini yapýlandýrabilirsiniz."
+"basýp ek aygýt sürücülerini yapýlandýrabilirsiniz."
 
 #: ../loader/loader.c:607
 msgid "Directory holding Red Hat:"
@@ -2105,8 +2106,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat "
-"CD'sinisürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
+"CD sürücülerinizde Red Hat Linux CD'si bulunamadý. Lütfen Red Hat CD'sini "
+"sürücüye yerleþtirin ve \"Tamam\" tuþuna basýn."
 
 #: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
