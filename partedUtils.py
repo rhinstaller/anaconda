@@ -651,7 +651,7 @@ class DiskSet:
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test):
                 try:
-                    dev.disk_create(getDefaultDiskType())
+                    dev.disk_new_fresh(getDefaultDiskType())
                     disk = parted.PedDisk.new(dev)
                     self.disks[drive] = disk
                 except parted.error, msg:
@@ -690,7 +690,7 @@ class DiskSet:
                             continue
                     else:                    
                         try:
-                            dev.disk_create(getDefaultDiskType())
+                            dev.disk_new_fresh(getDefaultDiskType())
                         except parted.error, msg:
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -713,7 +713,7 @@ class DiskSet:
                         continue                    
                 else:
                     try:
-                        dev.disk_create(getDefaultDiskType())
+                        dev.disk_new_fresh(getDefaultDiskType())
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
                         continue
