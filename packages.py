@@ -712,7 +712,7 @@ def doInstall(method, id, intf, instPath):
         ts.run(install_callback, 0)
 
         # new transaction set
-        ts.dbClose()
+        ts.closeDB()
         del ts
         ts = rpm.TransactionSet(instPath)
         ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
