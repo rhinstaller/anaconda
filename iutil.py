@@ -560,3 +560,14 @@ def getPPCMacBook():
       if not string.find(string.lower(line), 'book') == -1:
         return 1
     return 0
+
+def writeRpmPlatform(root="/"):
+    import rhpl.arch
+    
+    if os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
+        return
+    if not os.access("%s/etc/rpm" %(root,), os.X_OK):
+        os.mkdir("%s/etc/rpm" %(root,))
+    f = open("%s/etc/rpm/platform" %(root,), 'w+')
+    f.write("%s-redhat-linux\n" %(rhpl.arch.canonArch,))
+    f.close()

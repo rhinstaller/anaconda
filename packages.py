@@ -583,7 +583,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11', '/root', '/var/tmp' ):
+	       '/etc/X11', '/root', '/var/tmp', '/etc/rpm' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
@@ -592,6 +592,9 @@ def doPreInstall(method, id, intf, instPath, dir):
 
 
     if flags.setupFilesystems:
+        # setup /etc/rpm/platform for the post-install environment
+        iutil.writeRpmPlatform(instPath)
+        
 	try:
             # FIXME: making the /var/lib/rpm symlink here is a hack to
             # workaround db->close() errors from rpm

@@ -327,6 +327,10 @@ else:
 if os.environ.has_key("LD_PRELOAD"):
     del os.environ["LD_PRELOAD"]
 
+# we need to do this really early so we make sure its done before rpm
+# is imported
+iutil.writeRpmPlatform()
+
 try:
     (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
           [ 'text', 'test', 'debug', 'nofallback',
