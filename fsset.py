@@ -1566,10 +1566,10 @@ def readFstab (path):
         if len(fields) < 4:
             continue
         elif len(fields) == 4:
-            fields[4] = 0
-            fields[5] = 0
+            fields.append(0)
+            fields.append(0)
         elif len(fields) == 5:
-            fields[5] = 0
+            fields.append(0)
         elif len(fields) > 6:
             continue
 
