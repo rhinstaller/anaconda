@@ -1887,7 +1887,7 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
 			    if (!ufsloaded) {
-				mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+				mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
 				ufsloaded = 1;
 			    }
 			}
