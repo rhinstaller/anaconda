@@ -100,7 +100,7 @@ class PartitionWindow:
                 size = request.size
                 self.lb.append(["%s" %(device),
                                 "", "", "%dM" %(size),
-                                "%s" %(ptype), "%s" %(mount)], request.device,
+                                "%s" %(ptype), "%s" %(mount)], str(request.uniqueID),
                                [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                 raidcounter = raidcounter + 1
         
@@ -461,6 +461,44 @@ class PartitionWindow:
         subgrid.setField(entry, 0, 0, (0,0,1,0))
         return (entry, subgrid)
 
+    def fsOptionsGrid(self, origrequest, newfstype):
+	subgrid = Grid(2, 4)
+	# filesystem type selection
+	srow = 0
+	typeLbl = Label(_("Filesystem Type:"))
+	subgrid.setField(typeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
+	ptype = origrequest.fstype.getName()
+	if ptype == "foreign":
+	    part = get_partition_by_name(self.diskset.disks, origrequest.device)
+	    ptype = map_foreign_to_fsname(part.native_type)
+	type = Label(ptype)
+	subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
+	srow = srow +1
+	if origrequest.type != REQUEST_NEW and origrequest.fslabel:
+	    fsLbl = Label(_("Filesystem Label:"))
+	    subgrid.setField(fsLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
+	    label = Label(origrequest.fslabel)
+	    subgrid.setField(label, 1, srow, (0,0,0,1), anchorRight = 1)
+	    srow = srow + 1
+
+	sizeLbl = Label(_("Size (MB):"))
+	subgrid.setField(sizeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
+	size = Label("%s" %(int(origrequest.size)))
+	subgrid.setField(size, 1, srow, (0,0,0,1), anchorRight = 1)
+	srow = srow + 1
+	tmpLbl = Label(_("Filesystem Option:"))
+	subgrid.setField(tmpLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
+	if origrequest.format:
+	    fsoptLbl = Label(_("Format as %s") % (newfstype.getName()))
+	elif origrequest.migrate:
+	    fsoptLbl = Label(_("Migrate to %s") %(newfstype.getName()))
+	else:
+	    fsoptLbl = Label(_("Leave unchanged"))
+	subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
+
+	return (subgrid, fsoptLbl, type)
+	
+
     def fsOptionsDialog(self, origrequest, format, migrate, newfstype, badblocks):
 
         def formatChanged((formatrb, badblocksCB)):
@@ -639,40 +677,7 @@ class PartitionWindow:
             newfstype = origrequest.fstype
             badblocks = origrequest.badblocks
 
-            subgrid = Grid(2, 4)
-            # filesystem type selection
-            srow = 0
-            typeLbl = Label(_("Filesystem Type:"))
-            subgrid.setField(typeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-            ptype = origrequest.fstype.getName()
-            if ptype == "foreign":
-                part = get_partition_by_name(self.diskset.disks, origrequest.device)
-                ptype = map_foreign_to_fsname(part.native_type)
-            type = Label(ptype)
-            subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
-            srow = srow +1
-            if origrequest.type != REQUEST_NEW and origrequest.fslabel:
-                fsLbl = Label(_("Filesystem Label:"))
-                subgrid.setField(fsLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-                label = Label(origrequest.fslabel)
-                subgrid.setField(label, 1, srow, (0,0,0,1), anchorRight = 1)
-                srow = srow + 1
-                
-            sizeLbl = Label(_("Size (MB):"))
-            subgrid.setField(sizeLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-            size = Label("%s" %(int(origrequest.size)))
-            subgrid.setField(size, 1, srow, (0,0,0,1), anchorRight = 1)
-            srow = srow + 1
-            tmpLbl = Label(_("Filesystem Option:"))
-            subgrid.setField(tmpLbl, 0, srow, (0,0,0,1), anchorLeft = 1)
-            if origrequest.format:
-                fsoptLbl = Label(_("Format as %s") % (newfstype.getName()))
-            elif origrequest.migrate:
-                fsoptLbl = Label(_("Migrate to %s") %(newfstype.getName()))
-            else:
-                fsoptLbl = Label(_("Leave unchanged"))
-            subgrid.setField(fsoptLbl, 1, srow, (0,0,0,1), anchorLeft = 1)
-            
+            (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(origrequest, newfstype)
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
 
@@ -697,7 +702,7 @@ class PartitionWindow:
             if popbb.buttonPressed(res) == 'fsopts':
                 (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(origrequest, format, migrate, newfstype, badblocks)
                 self.fstypeSet((newfstype, self.mount))
-                type.setText(newfstype.getName())
+                fstypeLbl.setText(newfstype.getName())
 
                 if fsoptLbl:
                     if format:
@@ -842,55 +847,77 @@ class PartitionWindow:
 
     # isNew implies that this request has never been successfully used before
     def editRaidRequest(self, raidrequest, isNew = 0):
-        poplevel = GridFormHelp(self.screen, _("Make RAID Device"), "makeraid", 1, 6)
+
+	preexist = raidrequest and raidrequest.preexist
+	if preexist:
+	    tmpstr = _("Edit RAID Device")
+	else:
+	    tmpstr = _("Make RAID Device")
+        poplevel = GridFormHelp(self.screen, tmpstr, "makeraid", 1, 6)
 
         # mount point entry
         row = 0
         (self.mount, mountgrid) = self.makeMountEntry(raidrequest)
         poplevel.add(mountgrid, 0, row)
+        row = row + 1
+
+	if preexist:
+            # set some defaults
+            format = raidrequest.format
+            migrate = raidrequest.migrate
+            newfstype = raidrequest.fstype
+            badblocks = raidrequest.badblocks
+
+            (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(raidrequest, newfstype)
+            poplevel.add(subgrid, 0, row, (0,1,0,0))
+	    self.drivelist = None
+	else:
+	    subgrid = Grid(2, 1)
+	    (fstype, fsgrid) = self.makeFsList(raidrequest, ignorefs = ["software RAID"])
+	    subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
+	    (raidtype, raidgrid) = self.makeRaidList(raidrequest)
+	    subgrid.setField(raidgrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
+	    poplevel.add(subgrid, 0, row, (0,1,0,0))
+
+	    row = row + 1
+	    drivegrid = Grid(2, 1)
+
+	    #Let's see if we have any RAID partitions to make a RAID device with
+	    avail = self.partitions.getAvailRaidPartitions(raidrequest, self.diskset)
+
+	    #If we don't, then tell the user that none exist
+	    if len(avail) < 2:
+		ButtonChoiceWindow (self.screen, _("No RAID partitions"),
+				    _("At least two software RAID partitions are needed."),
+				    [ TEXT_OK_BUTTON ])
+		return
+
+	    (self.drivelist, drivesubgrid) = self.makeRaidDriveList(raidrequest)
+	    drivegrid.setField(drivesubgrid, 0, 0, (0,0,4,0), anchorLeft = 1, anchorTop = 1)
+
+	    miscgrid = Grid(1, 2)
+	    (spares, sparegrid) = self.makeSpareEntry(raidrequest)
+	    miscgrid.setField(sparegrid, 0, 0, anchorRight=1, anchorTop=1)
+
+	    if raidrequest.fstype and raidrequest.fstype.isFormattable():
+		format = Checkbox(_("Format partition?"))
+		miscgrid.setField(format, 0, 1)
+	    else:
+		format = None
+
+	    if raidrequest.format == 1 or raidrequest.format == None:
+		format.setValue("*")
+
+	    drivegrid.setField(miscgrid, 1, 0, anchorTop=1)
+	    poplevel.add(drivegrid, 0, row, (0,1,0,0))        
 
         row = row + 1
-        subgrid = Grid(2, 1)
-        (fstype, fsgrid) = self.makeFsList(raidrequest, ignorefs = ["software RAID"])
-        subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
-        (raidtype, raidgrid) = self.makeRaidList(raidrequest)
-        subgrid.setField(raidgrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
-        poplevel.add(subgrid, 0, row, (0,1,0,0))
-
-        row = row + 1
-        drivegrid = Grid(2, 1)
-
-        #Let's see if we have any RAID partitions to make a RAID device with
-        avail = self.partitions.getAvailRaidPartitions(raidrequest, self.diskset)
-        
-        #If we don't, then tell the user that none exist
-        if len(avail) < 2:
-            ButtonChoiceWindow (self.screen, _("No RAID partitions"),
-                                _("At least two software RAID partitions are needed."),
-                                [ TEXT_OK_BUTTON ])
-            return
-
-        (self.drivelist, drivesubgrid) = self.makeRaidDriveList(raidrequest)
-        drivegrid.setField(drivesubgrid, 0, 0, (0,0,4,0), anchorLeft = 1, anchorTop = 1)
-
-        miscgrid = Grid(1, 2)
-        (spares, sparegrid) = self.makeSpareEntry(raidrequest)
-        miscgrid.setField(sparegrid, 0, 0, anchorRight=1, anchorTop=1)
-
-        if raidrequest.fstype and raidrequest.fstype.isFormattable():
-            format = Checkbox(_("Format partition?"))
-            miscgrid.setField(format, 0, 1)
-        else:
-            format = None
-
-        if raidrequest.format == 1 or raidrequest.format == None:
-            format.setValue("*")
-
-        drivegrid.setField(miscgrid, 1, 0, anchorTop=1)
-        poplevel.add(drivegrid, 0, row, (0,1,0,0))        
-        
-        row = row + 1
-        popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON))
+	if preexist:
+            popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
+                                            (_("Filesystem Options"), "fsopts"),
+                                            TEXT_CANCEL_BUTTON))
+	else:
+	    popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON))
         poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
 
         while 1:
@@ -900,40 +927,63 @@ class PartitionWindow:
                 self.screen.popWindow()
                 return
 
+            if popbb.buttonPressed(res) == 'fsopts':
+                (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(raidrequest, format, migrate, newfstype, badblocks)
+                self.fstypeSet((newfstype, self.mount))
+                fstypeLbl.setText(newfstype.getName())
+
+                if fsoptLbl:
+                    if format:
+                        fsoptLbl.setText(_("Format as %s") % (newfstype.getName()))
+                    elif migrate:
+                        fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
+                    else:
+                        fsoptLbl.setText(_("Leave unchanged"))
+                
+                continue
+
             request = copy.copy(raidrequest)
 
-            request.fstype = fstype.current()
+	    if not preexist:
+		request.fstype = fstype.current()
+	    else:
+		request.fstype = newfstype
 
             if request.fstype.isMountable():
                 request.mountpoint = self.mount.value()
             else:
                 request.mountpoint = None
 
-            raidmembers = []
-            for drive in self.drivelist.getSelection():
-                id = self.partitions.getRequestByDeviceName(drive).uniqueID
-                raidmembers.append(id)
+	    if not preexist:
+		raidmembers = []
+		for drive in self.drivelist.getSelection():
+		    id = self.partitions.getRequestByDeviceName(drive).uniqueID
+		    raidmembers.append(id)
 
-            request.raidmembers = raidmembers
-            if invalidInteger(spares.value()):
-                self.intf.messageWindow(_("Invalid Entry for RAID Spares"),
-                                        invalidInteger(spares.value()))
-                continue
-            
-            request.raidspares = int(spares.value())
-            request.raidlevel = raidtype.current()
+		request.raidmembers = raidmembers
+		if invalidInteger(spares.value()):
+		    self.intf.messageWindow(_("Invalid Entry for RAID Spares"),
+					    invalidInteger(spares.value()))
+		    continue
 
-            if format:
-                request.format = format.selected()
-            else:
-                request.format = 0
+		request.raidspares = int(spares.value())
+		request.raidlevel = raidtype.current()
 
-            if request.raidlevel == "RAID0" and request.raidspares > 0:
-                self.intf.messageWindow(_("Too many spares"),
-                                          _("The maximum number of spares with "
-                                          "a RAID0 array is 0."))
-                continue
-                
+		if format:
+		    request.format = format.selected()
+		else:
+		    request.format = 0
+
+		if request.raidlevel == "RAID0" and request.raidspares > 0:
+		    self.intf.messageWindow(_("Too many spares"),
+					      _("The maximum number of spares with "
+					      "a RAID0 array is 0."))
+		    continue
+	    else:                
+		request.format = format
+		request.migrate = migrate
+		request.fstype = newfstype
+		request.badblocks = badblocks
 
             err = request.sanityCheckRequest(self.partitions)
             if err:
@@ -967,11 +1017,9 @@ class PartitionWindow:
         request = NewPartitionSpec(fileSystemTypeGetDefault(), 1)
         self.editPartitionRequest(request, isNew = 1)
 
-
     def makeraidCb(self):
         request = RaidRequestSpec(fileSystemTypeGetDefault())
         self.editRaidRequest(request, isNew = 1)
-
 
     def editCb(self):
         part = self.lb.current()
