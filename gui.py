@@ -8,6 +8,7 @@ def _(string):
 
 from gtk import *
 from gtk import _root_window
+from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
 
@@ -44,31 +45,16 @@ from gnome.ui import *
 from gnome.xmhtml import *
 from iw.language import *
 from iw.welcome import *
-from iw.progress import *
-from iw.package import *
-from iw.network import *
-from iw.account import *
-from iw.rootpartition import *
-from iw.auth import *
 from iw.mouse import *
 from iw.keyboard import *
-from iw.format import *
-from iw.congrats import *
-from iw.dependencies import *
-from iw.lilo import *
 from iw.installpath import *
-
-import sys
 
 import isys
 import sys
 
-import thread
 import rpm
 from thread import *
 from threading import *
-import time
-from _gtk import gtk_set_locale
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -546,7 +532,6 @@ class InstallControlWindow (Thread):
         vbox.pack_end (self.hbox, FALSE)
 
         self.html = GtkXmHTML()
-#        html.set_dithering(FALSE)  # this forces creation of CC
         self.html.set_allow_body_colors(TRUE)
         self.html.source ("<HTML><BODY>HTML Help Window</BODY></HTML>")
         self.displayHelp = TRUE
