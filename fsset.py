@@ -160,21 +160,78 @@ class FileSystemType:
         if windowCreator:
             w = windowCreator(_("Checking for Bad Blocks"),
                               _("Checking for bad blocks on /dev/%s...")
-                         % (entry.device.getDevice(),))
+                         % (entry.device.getDevice(),), 100)
         else:
             w = None
         
         devicePath = entry.device.setupDevice(chroot)
-        args = [ "badblocks", "-vv", devicePath ]
-        
-        rc = iutil.execWithRedirect("/usr/sbin/badblocks", args,
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+        args = [ "/usr/sbin/badblocks", "-vv", devicePath ]
+
+        # entirely too much cutting and pasting from ext2FormatFileSystem
+        fd = os.open("/dev/tty5", os.O_RDWR | os.O_CREAT | os.O_APPEND)
+        p = os.pipe()
+        childpid = os.fork()
+        if not childpid:
+            os.close(p[0])
+            os.dup2(p[1], 1)
+            os.dup2(p[1], 2)
+            os.close(p[1])
+            os.close(fd)
+            os.execv(args[0], args)
+            log("failed to exec %s", args)
+            sys.exit(1)
+
+        os.close(p[1])
+
+        s = 'a'
+        while s and s != ':':
+            try:
+                s = os.read(p[0], 1)
+            except OSError, args:
+                (num, str) = args
+                if (num != 4):
+                    raise IOError, args
+
+            os.write(fd, s)
+
+        num = ''
+        sync = 0
+        while s:
+            try:
+                s = os.read(p[0], 1)
+                os.write(fd, s)
+
+                if s != '\b':
+                    try:
+                        num = num + s
+                    except:
+                        pass
+                else:
+                    if num:
+                        l = string.split(num, '/')
+                        val = (int(l[0]) * 100) / int(l[1])
+                        w and w.set(val)
+                        if sync + 10 < val:
+                            isys.sync()
+                            sync = val
+                    num = ''
+            except OSError, args:
+                (num, str) = args
+                if (num != 4):
+                    raise IOError, args
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError, (num, msg):
+            print __name__, "waitpid:", msg
+        os.close(fd)
 
         w and w.pop()
-        
-        if rc:
-            raise SystemError        
+
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return
+
+        raise SystemError        
         
     def formatDevice(self, entry, progress, chroot='/'):
         if self.isFormattable():
@@ -910,7 +967,7 @@ class FileSystemSet:
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
     def badblocksEntry(self, entry, chroot):
-        entry.fsystem.badblocksDevice(entry, self.waitWindow, chroot)
+        entry.fsystem.badblocksDevice(entry, self.progressWindow, chroot)
         
     def getMigratableEntries(self):
         retval = []
