@@ -19,11 +19,27 @@ import sys
 import timer
 import gobject
 import gtk
+import locale
 from iw_gui import *
 from rhpl.translate import _, N_
 from packages import doInstall
 from constants import *
 from rhpl.log import log
+
+# FIXME: from redhat-config-packages.  perhaps move to common location
+def size_string (size):
+    if size > 1024 * 1024:
+        size = size / (1024*1024)
+        units_str = _(" MB")
+    elif size > 1024:
+        size = size / 1024
+        units_str = _(" KB")
+    else:
+        if size == 1:
+            units_str = _(" Byte")
+        else:
+            units_str = _(" Bytes")
+    return locale.format ("%s", size, 1) + units_str
 
 class InstallProgressWindow_NEW (InstallWindow):
 
@@ -44,17 +60,6 @@ class InstallProgressWindow_NEW (InstallWindow):
     def processEvents(self):
 	gui.processEvents()
         
-    def setPackageStatus(self, state, amount):
-	if self.pkgstatus is None:
-	    return
-	
-	if state == "downloading":
-	    msgstr = _("Downloading - %s") % (amount,)
-	else:
-	    msgstr = state
-	self.pkgstatus.set_text(msgstr)
-	self.processEvents()
-
     def setPackageScale (self, amount, total):
 	# only update widget if we've changed by 5%, otherwise
 	# we update widget hundreds of times a seconds because RPM
@@ -98,6 +103,17 @@ class InstallProgressWindow_NEW (InstallWindow):
 	
         return
 
+    def setPackageStatus(self, state, amount):
+	if self.pkgstatus is None:
+	    return
+	
+	if state == "downloading":
+	    self.pkgstatus = N_("Downloading %s")
+	else:
+	    self.pkgstatus = state
+	self.pkgstatus.set_text(msgstr)
+	self.processEvents()
+
     def setPackage(self, header):
         if len(self.pixmaps):
             # set to switch every N seconds
@@ -121,14 +137,13 @@ class InstallProgressWindow_NEW (InstallWindow):
                 self.pixcurnum = num + 1
                 self.pixtimer.reset()
                 
-        size = str (header[rpm.RPMTAG_SIZE] / 1024)
-        if len (size) > 3:
-            size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]
-
-        self.curPackage["package"].set_text ("%s-%s-%s.%s (%s KBytes)" % (header[rpm.RPMTAG_NAME],
-                                                              header[rpm.RPMTAG_VERSION],
-                                                              header[rpm.RPMTAG_RELEASE],
-                                                              header[rpm.RPMTAG_ARCH], size))
+        size = size_string(header[rpm.RPMTAG_SIZE])
+        self.curPackage["package"].set_text (_("Installing %s-%s-%s.%s (%s)")
+                                             % (header[rpm.RPMTAG_NAME],
+                                                header[rpm.RPMTAG_VERSION],
+                                                header[rpm.RPMTAG_RELEASE],
+                                                header[rpm.RPMTAG_ARCH],
+                                                size))
 	
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
@@ -211,10 +226,9 @@ class InstallProgressWindow_NEW (InstallWindow):
         pix = self.ics.readPixmap ("progress_first.png")
         if pix:
             frame = gtk.Frame()
-#            frame.set_shadow_type(gtk.SHADOW_IN)
+            frame.set_shadow_type(gtk.SHADOW_NONE)
             box = gtk.EventBox()
             self.adpix = pix
-            box.modify_bg(gtk.STATE_NORMAL, box.get_style().white)
             box.add(self.adpix)
             self.adbox = box
             frame.add (box)
@@ -225,9 +239,6 @@ class InstallProgressWindow_NEW (InstallWindow):
         self.totalProgress = gtk.ProgressBar ()
 
 	progressTable = gtk.Table (2, 2, gtk.FALSE)
-#	label = gtk.Label (_("Total Progress:   "))
-#	label.set_alignment (1.0, 0.5)
-#	progressTable.attach (label, 0, 1, 0, 1, gtk.SHRINK)
 	progressTable.attach (self.totalProgress, 1, 2, 0, 1, ypadding=2)
 
 #	label = gtk.Label (_("Package Progress: "))
@@ -238,35 +249,26 @@ class InstallProgressWindow_NEW (InstallWindow):
         vbox.pack_start (progressTable, gtk.FALSE)
 
 	# Create table for current package info
-	table = gtk.Table (3, 2)
+	table = gtk.Table (3, 1)
         vbox.pack_start (table, gtk.FALSE, gtk.FALSE)
-
-#        self.curPackage = { "package" : _("Package"),
-#                            "size"    : _("Size"),
-#                            "summary" : _("Summary") }
 
         self.curPackage = { "package" : _("Package"),
                             "summary" : _("Summary") }
         i = 0
 #        for key in ("package", "size", "summary"):
         for key in ("package", "summary"):
-            label = gtk.Label ("%s: " % (self.curPackage[key],))
-            label.set_alignment (0, 0)
-            if key == "summary":
-                fillopts = gtk.EXPAND|gtk.FILL
-            else:
-                fillopts = gtk.FILL
-
-            table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
             label = gtk.Label ("")
             label.set_alignment (0, 0)
             label.set_line_wrap (gtk.TRUE)
             if key == "summary":
                 label.set_text ("\n\n")
                 label.set_size_request(450, 35)
-#                label.set_size_request(-1, 1)
+                fillopts = gtk.EXPAND|gtk.FILL
+            else:
+                fillopts = gtk.FILL
+                
             self.curPackage[key] = label
-            table.attach (label, 1, 2, i, i+1, gtk.FILL, fillopts)
+            table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
             i = i + 1
 
 	statusflag = 0
@@ -277,7 +279,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 
         # FIXME: including the status makes the rnotes different sizes which
         # is bad.  temporarily disable download status for now
-#        statusflag = 0
+        statusflag = 0
 
 	if statusflag:
 	    statusTable = gtk.Table (2, 2, gtk.FALSE)
@@ -419,14 +421,14 @@ class InstallProgressWindow (InstallWindow):
                 self.pixcurnum = num + 1
                 self.pixtimer.reset()
                 
-        self.curPackage["package"].set_text ("%s-%s-%s.%s" % (header[rpm.RPMTAG_NAME],
+        self.curPackage["package"].set_text (_("Installing %s-%s-%s.%s") % (header[rpm.RPMTAG_NAME],
                                                               header[rpm.RPMTAG_VERSION],
                                                               header[rpm.RPMTAG_RELEASE],
                                                               header[rpm.RPMTAG_ARCH]))
         size = str (header[rpm.RPMTAG_SIZE] / 1024)
         if len (size) > 3:
             size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]
-        self.curPackage["size"].set_text (_("%s KBytes") % size)
+        self.curPackage["size"].set_text (size)
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
             summary = "(none)"
