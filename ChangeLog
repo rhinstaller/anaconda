@@ -1,3 +1,9 @@
+2005-01-25  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (growLogicalVolumes):  Properly grow logical partitions
+	in cases where there's more than one volume group defined (#144280,
+	#145145).
+
 2005-01-19  Chris Lumens  <clumens@redhat.com>
 
 	* iw/partition_gui.py (PartitionWindow.refresh):  Only repopulate the
