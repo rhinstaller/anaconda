@@ -756,13 +756,7 @@ class PackageSelectionWindow (InstallWindow):
 	lbl.set_alignment(0.0, 0.5)
 	lblhbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
 
-	fn = self.ics.findPixmap("package-selection.png")
-	if not fn:
-	    pix = None
-	else:
-	    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
-	    pix = gtk.Image()
-	    pix.set_from_pixbuf(rawpix)
+        pix = gui.readImageFromFile("package-selection.png")
 
 	if pix is not None:
 	    al = gtk.Alignment(0.0, 0.0)
@@ -982,16 +976,9 @@ class PackageSelectionWindow (InstallWindow):
 			    continue
 			
 		pixname = string.lower(comp.id) + ".png"
-		fn = self.ics.findPixmap("comps/"+pixname)
-		if not fn:
-		    log("could not load pix: %s " %(pixname,))
-		    pix = None
-		else:
-		    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
-		    sclpix = rawpix.scale_simple(ICON_SIZE, ICON_SIZE,
-						 gtk.gdk.INTERP_BILINEAR)
-		    pix = gtk.Image()
-		    pix.set_from_pixbuf(sclpix)
+                pix = gui.readImageFromFile("comps/"+pixname,
+                                            height = ICON_SIZE,
+                                            width = ICON_SIZE)
 
                 compbox = gtk.HBox(gtk.FALSE, 5)                
 

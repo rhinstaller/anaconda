@@ -28,6 +28,7 @@ import htmlbuffer
 import rpm
 import kudzu
 import gettext
+import warnings
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
@@ -406,6 +407,64 @@ def findGladeFile(file):
         if os.access(fn, os.R_OK):
             return fn
     raise RuntimeError, "Unable to find glade file %s"  %(fn,)
+
+def findPixmap(file):
+    for dir in ("/mnt/source/RHupdates/pixmaps/",
+                 "/mnt/source/RHupdates/",
+                 "/tmp/updates/pixmaps/", "/tmp/updates/",
+                 "/tmp/product/pixmaps/", "/tmp/product/",
+                 "/usr/share/anaconda/pixmaps/", "pixmaps/",
+                 "/usr/share/pixmaps/",
+                 "/usr/share/anaconda/", ""):
+        fn = dir + file
+        if os.access(fn, os.R_OK):
+            return fn
+    return None
+
+def getPixbuf(file):
+    fn = findPixmap(file)
+    if not fn:
+        log("unable to load %s" %(file,))
+        return None
+    
+    try:
+        pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+    except RuntimeError, msg:
+        log("unable to read %s: %s" %(file, msg))
+        return None
+    
+    return pixbuf
+
+def readImageFromFile(file, height = None, width = None, dither = None):
+    pixbuf = getPixbuf(file)
+    if pixbuf is None:
+        return None
+
+    if (height is not None and width is not None
+        and height != pixbuf.get_height()
+        and width != pixbuf.get_width()):
+        pixbuf = pixbuf.scale_simple(height, width,
+                                     gtk.gdk.INTERP_BILINEAR)
+
+    p = gtk.Image()
+    if dither:
+        (pixmap, mask) = pixbuf.render_pixmap_and_mask()
+        pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap), 0, 0, 0, 0,
+                                  pixbuf.get_width(), pixbuf.get_height(),
+                                  gtk.gdk.RGB_DITHER_MAX, 0, 0)
+        p = gtk.Image()
+        p.set_from_pixmap(pixmap, mask)
+    else:
+        source = gtk.IconSource()
+        source.set_pixbuf(pixbuf)
+        source.set_size(gtk.ICON_SIZE_DIALOG)
+        source.set_size_wildcarded(gtk.FALSE)
+        iconset = gtk.IconSet()
+        iconset.add_source(source)
+        p.set_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
+
+    return p
+    
 
 class WaitWindow:
     def __init__(self, title, text):
@@ -1208,9 +1267,7 @@ class InstallControlWindow:
         self.window.set_title(_("%s Installer") %(productName,))
         
         # FIXME: doesn't handle the lowres case
-        # FIXME: and this is a hack...
-        ics = InstallControlState (self)
-        p = ics.readPixmapDithered("anaconda_header.png")
+        p = readImageFromFile("anaconda_header.png", dither = 1)        
         if p is not None:
             i = self.mainxml.get_widget("headerImage")
             apply(i.set_from_pixmap, p.get_pixmap())
@@ -1315,68 +1372,16 @@ class InstallControlState:
         return self.helpButtonEnabled
 
     def findPixmap(self, file):
-        for path in ("/mnt/source/RHupdates/pixmaps/",
-                     "/mnt/source/RHupdates/",
-                     "/tmp/updates/pixmaps/", "/tmp/updates/",
-                     "/tmp/product/pixmaps/", "/tmp/product/",
-                     "/usr/share/anaconda/pixmaps/", "pixmaps/",
-                     "/usr/share/pixmaps/",
-                     "/usr/share/anaconda/", ""):
-            fn = path + file
-            if os.access(fn, os.R_OK):
-                return fn
-        return None
+        warnings.warn("ics.findPixmap is deprecated, use gui.findPixmap instead", DeprecationWarning, level=2)
+        return findPixmap(file)
         
     def readPixmap (self, file, height = None, width = None):
-        fn = self.findPixmap(file)
-        if not fn:
-            log("unable to load %s", file)
-            return None
-        try:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-        except RuntimeError, msg:
-            log("unable to read %s: %s", file, msg)
-            return None
-        if (height is not None and width is not None
-            and height != pixbuf.get_height()
-            and width != pixbuf.get_width()):
-            sclpix = pixbuf.scale_simple(height, width,
-                                         gtk.gdk.INTERP_BILINEAR)
-            p = gtk.Image()
-            p.set_from_pixbuf(sclpix)
-        else:
-            source = gtk.IconSource()
-            source.set_pixbuf(pixbuf)
-            source.set_size(gtk.ICON_SIZE_DIALOG)
-            source.set_size_wildcarded(gtk.FALSE)
-            iconset = gtk.IconSet()
-            iconset.add_source(source)
-            p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
-        return p
+        warnings.warn("ics.readPixmap is deprecated, use gui.readImageFromFile instead", DeprecationWarning, level=2)        
+        return readImageFromFile(file, height, width)
 
     def readPixmapDithered(self, file, height = None, width = None):
-        fn = self.findPixmap(file)
-        if not fn:
-            log("unable to load %s", file)
-            return None
-        try:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-        except RuntimeError, msg:
-            log("unable to read %s: %s", file, msg)
-            return None
-        if (height is not None and width is not None
-            and height != pixbuf.get_height()
-            and width != pixbuf.get_width()):
-            pixbuf = pixbuf.scale_simple(height, width,
-                                         gtk.gdk.INTERP_BILINEAR)
-
-        (pixmap, mask) = pixbuf.render_pixmap_and_mask()
-        pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap), 0, 0, 0, 0,
-                                  pixbuf.get_width(), pixbuf.get_height(),
-                                  gtk.gdk.RGB_DITHER_MAX, 0, 0)
-        p = gtk.Image()
-        p.set_from_pixmap(pixmap, mask)
-        return p
+        warnings.warn("ics.readPixmapDithered is deprecated, use gui.readImageFromFile instead", DeprecationWarning, level=2)                
+        return readImageFromFile(file, height, width, dither = 1)
 
     def readHTML (self, file):
         self.htmlFile = file

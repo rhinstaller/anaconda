@@ -1,3 +1,24 @@
+2005-01-13  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/package_gui.py (PackageSelectionWindow.getScreen): Use
+	gui.readImageFromFile instead of deprecated ics methods.
+
+	* splashscreen.py (splashScreenShow): Use gui.readImageFromFile to
+	find the splashscreen.
+
+	* gui.py (readImageFromFile): Pull pixbuf handling out of ICS into
+	stand-alone methods.
+	(getPixbuf): Likewise.
+	(findPixbuf): Likewise.
+	(InstallControlWindow.createWidgets): Remove the hack of using ics
+	for finding the header image.
+	(InstallControlState.findPixmap): Deprecate.
+	(InstallControlState.readPixmap): Deprecate.
+	(InstallControlState.readPixmapDithered): Deprecate.
+
+	* gui.py (findGladeFile): Look for the glade file in the
+	appropriate places
+
 2005-01-12  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/congrats_gui.py (CongratulationWindow.__init__): Change the

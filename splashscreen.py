@@ -27,6 +27,8 @@ cat.setunicode(1)
 splashwindow = None
 
 def splashScreenShow(configFileData):
+    from gui import readImageFromFile
+    
     #set the background to a dark gray
     if flags.setupFilesystems:
         path = ("/usr/X11R6/bin/xsetroot",)
@@ -44,37 +46,6 @@ def splashScreenShow(configFileData):
     cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
     root.set_cursor(cursor)
 
-    def load_image(file):
-        # FIXME: this should use findPixmap() in gui.py
-        fn = None
-        for path in ("/mnt/source/RHupdates/pixmaps/",
-                     "/mnt/source/RHupdates/",
-                     "/tmp/updates/pixmaps/", "/tmp/updates/",
-                     "/tmp/product/pixmaps/", "/tmp/product/",
-                     "/usr/share/anaconda/pixmaps/", "pixmaps/",
-                     "/usr/share/pixmaps/",
-                     "/usr/share/anaconda/", ""):
-            if os.access(path + file, os.R_OK):
-                fn = path + file
-                break
-
-        p = gtk.Image()
-        if fn is None:
-            return p
-        try:
-            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
-        except RuntimeError:
-            pixbuf = None
-        if pixbuf:
-            (pixmap, mask) = pixbuf.render_pixmap_and_mask()
-            pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap),
-                                      0, 0, 0, 0,
-                                      pixbuf.get_width(), pixbuf.get_height(),
-                                      gtk.gdk.RGB_DITHER_MAX, 0, 0)
-            
-            p.set_from_pixmap(pixmap, mask)
-        return p
-
     global splashwindow
     
     width = gtk.gdk.screen_width()
@@ -83,9 +54,9 @@ def splashScreenShow(configFileData):
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
-        p = load_image("pixmaps/first.png")
+        p = readImageFromFile("pixmaps/first.png", dither = 1)
     else:
-        p = load_image('pixmaps/first-lowres.png')
+        p = readImageFromFile("pixmaps/first-lowres.png", dither = 1)        
                         
     if p:
         splashwindow = gtk.Window()
