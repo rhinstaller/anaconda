@@ -489,9 +489,23 @@ class FileSystemSet:
 
     def formatSwap (self, chroot):
         for entry in self.entries:
-            if (entry.fsystem and entry.fsystem.getName() == "swap"
-                and entry.getFormat()):
-                entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
+            if (not entry.fsystem or not entry.fsystem.getName() == "swap"
+                or not entry.getFormat()):
+                continue
+            try:
+                entry.fsystem.formatDevice(entry, self.progressWindow
+                                           chroot)
+            except SystemError:
+                if self.messageWindow:
+                    self.messageWindow(_("Error"),
+                                       _("An error occurred trying to "
+                                         "initialize swap on device %s.  This "
+                                         "problem is serious, and the install "
+                                         "cannot continue.\n\n"
+                                         "Press Enter to reboot your system.")
+                                       % (entry.device.getDevice(),))
+                sys.exit(0)
+                    
                 
     def turnOnSwap (self, chroot):
         for entry in self.entries:
