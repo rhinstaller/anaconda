@@ -563,6 +563,8 @@ for p in $DEST $DESTGR; do
 	    rm -f $p/usr/lib/lib$f.so
 	done
 
+	(cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
