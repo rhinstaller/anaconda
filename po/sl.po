@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1999-09-10 01:30+0200\n"
+"PO-Revision-Date: 1999-09-15 12:30+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -478,9 +478,8 @@ msgid "Automatic Partition"
 msgstr "Samodejna razdelitev"
 
 #: ../text.py:836
-#, fuzzy
 msgid "Swap"
-msgstr "<izmenjalna>"
+msgstr "Izmenjalna"
 
 #: ../text.py:838
 msgid "Filesystem Formatting"
@@ -716,9 +715,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Izbor tiskalni¹ke povezave"
+msgstr "Izberite pogon na katerem boste poganjali fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -1823,12 +1821,10 @@ msgid "_Reset"
 msgstr "_Resetiraj"
 
 #: ../libfdisk/gnomefsedit.c:3154
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Ni naprave RAID"
+msgstr "_Izdelaj napravo RAID"
 
 #: ../libfdisk/gnomefsedit.c:3163
-#, fuzzy
 msgid "Auto Partition"
 msgstr "Samodejna razdelitev"
 
@@ -1910,14 +1906,12 @@ msgid "Initializing CDROM..."
 msgstr "Inicializiramo CDROM..."
 
 #: ../loader/devices.c:45
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Razliène izbire:"
+msgstr "Razlièno"
 
 #: ../loader/devices.c:54
-#, fuzzy
 msgid "Module Parameters"
-msgstr "Parametri jedra"
+msgstr "Parametri modulov"
 
 #: ../loader/devices.c:54
 msgid ""
@@ -1925,21 +1919,22 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Tem modulu lahko podate parametre, ki vplivajo na njegovo obna¹anje.  Èe ne "
+"veste kak¹ne parametre bi podali, le preskoèite ta zaslon s pritiskom gumba "
+"\"V redu\"."
 
 #: ../loader/devices.c:120
 msgid "Which driver should I try?"
 msgstr "Kateri gonilnik poskusimo?"
 
 #: ../loader/devices.c:135
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Parametri jedra"
+msgstr "Doloèitev modulov jedra"
 
 #: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
 #: ../loader/loader.c:311
-#, fuzzy
 msgid "Devices"
-msgstr "Naprava"
+msgstr "Naprave"
 
 #: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
 msgid "Kickstart Error"
@@ -1965,35 +1960,30 @@ msgid "Choose a Language"
 msgstr "Izberite jezik"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Izbira tipkovnice"
+msgstr "Vrsta tipkovnice"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Katero vrsto tiskalnika imate?"
+msgstr "Kak¹no tipkovnico imate?"
 
 #: ../loader/loader.c:98
 msgid "Local CDROM"
-msgstr ""
+msgstr "Lokalni CD-ROM"
 
 #: ../loader/loader.c:101
 msgid "NFS image"
-msgstr ""
+msgstr "Slika NFS"
 
 #: ../loader/loader.c:106
-#, fuzzy
 msgid "Hard drive"
-msgstr "trdi diski"
+msgstr "Trdi disk"
 
 #: ../loader/loader.c:122
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
-msgstr "Dobrodo¹li v Red Hat Linuxu!"
+msgstr "Dobrodo¹li v Red Hat Linuxu"
 
 #: ../loader/loader.c:124
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -2004,21 +1994,16 @@ msgid "SCSI"
 msgstr ""
 
 #: ../loader/loader.c:238
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Katero vrsto sistema bi radi namestili?"
+msgstr "Kak¹no napravo bi radi dodali?"
 
 #: ../loader/loader.c:285
-#, fuzzy
 msgid "I have found the following devices in your system:"
-msgstr ""
-"V sistemu so bili najdeni naslednji prikljuèki SCSI:\n"
-"\n"
+msgstr "V sistemu so bile najdene naslednje naprave:"
 
 #: ../loader/loader.c:287 ../loader/loader.c:311
-#, fuzzy
 msgid "Add Device"
-msgstr "Naprava"
+msgstr "Dodaj napravo"
 
 #: ../loader/loader.c:312
 msgid ""
@@ -2027,50 +2012,46 @@ msgid ""
 msgstr ""
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
-#, fuzzy
 msgid "Loading"
-msgstr "Lokacija"
+msgstr "Nalaganje"
 
 #: ../loader/loader.c:447
 msgid "Loading second stage ramdisk..."
 msgstr "Nalagamo drugo stopnjo pomnilni¹kega diska..."
 
 #: ../loader/loader.c:451
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Napaka pri branju drugostopenjskega pomnilni¹kega diska."
+msgstr "Napaka pri nalaganju pomnilni¹kega diska."
 
 #: ../loader/loader.c:572
 msgid "Hard Drives"
-msgstr "trdi diski"
+msgstr "Trdi diski"
 
 #: ../loader/loader.c:573
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Nobenega definiranega izmenjalnega prostora ni. Bi radi nadaljevali ali "
-"razdelili disk?"
+"Ni videti, da bi imeli na sistemu trde diske!  Bi radi nastavili dodatne "
+"naprave?"
 
 #: ../loader/loader.c:586
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 "Na kateri particiji in v katerem imeniku se nahajata imenika RedHat/RPMS in "
-"RedHat/base?"
+"RedHat/base?  Èe ne vidite diskovnega pogona, ki ste ga tukaj navedli, "
+"pritisnite F2 za nastavitev dodatnih naprav."
 
 #: ../loader/loader.c:600
 msgid "Directory holding Red Hat:"
 msgstr "Imenik z Red Hatom:"
 
 #: ../loader/loader.c:620
-#, fuzzy
 msgid "Select Partition"
-msgstr "Odstranitev particije"
+msgstr "Izberite particijo"
 
 #: ../loader/loader.c:664
 #, c-format
@@ -2093,16 +2074,15 @@ msgstr "Priklop imenika v stre¾nik ni uspel"
 
 #: ../loader/loader.c:932
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:933
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Ne moremo obnoviti drugostopenjskega pomnilni¹kega diska: %s"
+msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
 
 #: ../loader/loader.c:1057
 msgid "Rescue Method"
-msgstr ""
+msgstr "Metoda re¹itve"
 
 #: ../loader/loader.c:1058
 msgid "Installation Method"
@@ -2113,9 +2093,8 @@ msgid "What type of media contains the rescue image?"
 msgstr ""
 
 #: ../loader/loader.c:1062
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Katero vrsto sistema bi radi namestili?"
+msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2123,12 +2102,11 @@ msgstr "Ne morem najti ks.cfg na zagonski disketi."
 
 #: ../loader/loader.c:1500
 msgid "PC Card"
-msgstr ""
+msgstr "Kartica za PC"
 
 #: ../loader/loader.c:1500
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "Inicializiramo CDROM..."
+msgstr "Inicializiramo kartice za PC..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2139,9 +2117,8 @@ msgid "Red Hat directory:"
 msgstr "Imenik z Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "Nastavitev SMB"
+msgstr "Nastavitev NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2174,23 +2151,20 @@ msgid "Configure TCP/IP"
 msgstr "Nastavitev TCP/IP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "Podatki o tiskalniku"
+msgstr "Manjkajoèi podatki"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Za nadaljevanje morate vnesti podatke s pravilnimi IP."
+msgstr "Vnesti morate veljaven naslov IP in mre¾no masko."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Dinamièni IP"
 
 #: ../loader/net.c:339 ../loader/net.c:570
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Po¹iljam zahtevo DHCP..."
+msgstr "Po¹iljam zahtevo po podatkih IP..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
@@ -2206,37 +2180,30 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "slab argument za hitri zagon omre¾nega ukaza %s: %s"
 
 #: ../loader/net.c:607
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Zagonski protokol"
+msgstr "Zagonski protokol, ki naj se uporablja"
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "Nastavitev omre¾ja"
+msgstr "Omre¾ni prehod"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "Naslov IP:"
+msgstr "Naslov IP"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "Stre¾nik"
+msgstr "Imenski tre¾nik"
 
 #: ../loader/net.c:620
-#, fuzzy
 msgid "Domain name"
-msgstr "Domena NIS: "
+msgstr "Ime domene"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "Nastavitev omre¾ja"
+msgstr "Omre¾na naprava"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2244,19 +2211,17 @@ msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
 #: ../loader/net.c:696
-#, fuzzy, c-format
+#, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "netconfig %s (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "Mre¾ne nastavitve"
 
 #: ../loader/net.c:699
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Ne usposabljaj vmre¾evanja"
+msgstr "Bi radi vzpostavili vmre¾evanje?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
@@ -2303,9 +2268,8 @@ msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Uporaba neanonimnega FTP-ja ali nadomestnega stre¾nika (proxy)"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Izberite stre¾nik"
+msgstr "Uporabljaj nadomestni stre¾nik"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
@@ -2342,9 +2306,8 @@ msgstr ""
 "stre¾nika HTTP, ki ga uporabljate."
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
-msgstr "Ime raèuna"
+msgstr "Ime raèuna:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
@@ -2363,9 +2326,8 @@ msgid "HTTP Proxy Port:"
 msgstr "Vrata nadomestnega HTTP:"
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Nalagam gonilnike z diskete..."
+msgstr "Nalagam gonilnik za SCSI"
 
 #~ msgid "Root Partition Selection"
 #~ msgstr "Izbira korenske razdelitve"
@@ -2701,9 +2663,8 @@ msgstr "Nalagam gonilnike z diskete..."
 #~ "tem naredi prostor za va¹o namestitev Red Hat Linuxa. Ali ¾elite zdaj "
 #~ "spremeniti velikost teh particij?"
 
-#, fuzzy
 #~ msgid "Success"
-#~ msgstr "Uspe¹no"
+#~ msgstr "Uspeh"
 
 #~ msgid "Bad server response"
 #~ msgstr "Slab odgovor stre¾nika"
