@@ -564,7 +564,7 @@ static void rpmdbDealloc(rpmdbObject * s) {
 static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args) {
     int first;
 
-    if (!PyArg_Parse(args, "")) return NULL;
+    if (!PyArg_ParseTuple (args, "")) return NULL;
 
     first = rpmdbFirstRecNum(s->db);
 
@@ -579,7 +579,7 @@ static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args) {
 static PyObject * rpmdbNext(rpmdbObject * s, PyObject * args) {
     int where;
 
-    if (!PyArg_Parse(args, "i", &where)) return NULL;
+    if (!PyArg_ParseTuple (args, "i", &where)) return NULL;
 
     where = rpmdbNextRecNum(s->db, where);
 
