@@ -1277,7 +1277,10 @@ class AutoPartitionWindow(InstallWindow):
     def getNext(self):
         pass
 
-    def getScreen(self, type, cleardrives, diskset, intf):
+    def getScreen(self, id, intf):
+        type = id.autoClearPartType
+        cleardrives = id.autoClearPartDrives
+        
         vbox = GtkVBox(FALSE, 5)
         if type == CLEARPART_TYPE_LINUX:
             clearstring = "all Linux partitions"
