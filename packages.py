@@ -1256,7 +1256,7 @@ def setFileCons(instPath):
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab"]
 
         # ugh, this is ugly
-        for dir in ("/var/lib/rpm", "/etc/lvm"):
+        for dir in ("/var/lib/rpm", "/etc/lvm", "/dev/mapper"):
             def addpath(x): return dir + "/" + x
 
             if not os.path.isdir(instPath + dir):
