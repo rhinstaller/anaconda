@@ -63,9 +63,10 @@ class pixmapRadioButtonGroup:
         return button
 
     # add a entry to end of list
-    def addEntry(self, name, pixmap=None, descr=None, userdata=None):
+    def addEntry(self, name, label, pixmap=None, descr=None, userdata=None):
 	node = {}
 	node["name"] = name
+	node["label"] = label
 	node["descr"] = descr
 	node["pixmap"] = pixmap
 	node["userdata"] = userdata
@@ -120,9 +121,10 @@ class pixmapRadioButtonGroup:
 	for item in self.entries:
 	    box = gtk.VBox (gtk.FALSE, 9)
 	    name = item["name"]
+	    label = item["label"]
 	    pixmap = item["pixmap"]
 	    descr = item["descr"]
-	    radioGroup = self.pixRadioButton(radioGroup, _(name), pixmap,
+	    radioGroup = self.pixRadioButton(radioGroup, _(label), pixmap,
 					     description=_(descr))
 	    buttons.append(radioGroup)
 	    self.buttonToEntry[radioGroup] = name
