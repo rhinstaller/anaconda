@@ -1,3 +1,9 @@
+2005-02-10  Chris Lumens  <clumens@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow.getScreen):  Always put the
+	hostname we got from DHCP (or localhost.localdomain) in the hostname
+	entry box (#132826).
+
 2005-02-08  Paul Nasrat  <pnasrat@redhat.com>
 
 	* upgradeclass.py:
