@@ -170,7 +170,7 @@ int devMakeInode(char * devName, char * path) {
 	type = S_IFBLK;
 	major = 94;
 	minor = ( devName[4] - 'a' ) * 4;
-        if (devname[5] && isalpha(devName[5])) {
+        if (devName[5] && isalpha(devName[5])) {
             minor += 26 * 4 + ( devName[5] - 'a' ) * 4;
             if (devName[6] && isdigit(devName[6]) )
                 minor += devName[6] - '0';
