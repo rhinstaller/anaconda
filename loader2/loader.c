@@ -41,6 +41,7 @@
 #include <sys/wait.h>
 
 #include <linux/fb.h>
+#include <linux/serial.h>
 
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
@@ -1075,6 +1076,7 @@ static int hasGraphicalOverride() {
 int main(int argc, char ** argv) {
     int flags = LOADER_FLAGS_SELINUX;
     struct stat sb;
+    struct serial_struct si;
     int rc, i;
     char * arg;
     FILE *f;
@@ -1097,12 +1099,15 @@ int main(int argc, char ** argv) {
     char * ksFile = NULL;
     int testing = 0;
     int mediacheck = 0;
+    int physcon = 0;
     poptContext optCon;
     struct poptOption optionTable[] = {
 	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
         { "test", '\0', POPT_ARG_NONE, &testing, 0 },
         { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
+        /* FIXME: this is a temporary hack to work around #130906 */
+        { "physconsole", '\0', POPT_ARG_NONE, &physcon, 0 },
         { 0, 0, 0, 0, 0 }
     };
 
@@ -1146,8 +1151,9 @@ int main(int argc, char ** argv) {
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
-    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136) {
-        if (ioctl (0, TIOCLINUX, &twelve) < 0)
+    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136 && (physcon != 1)){
+        if ((ioctl (0, TIOCLINUX, &twelve) < 0) && 
+            (ioctl(0, TIOCGSERIAL, &si) != -1))
             flags |= LOADER_FLAGS_SERIAL;
     }
 

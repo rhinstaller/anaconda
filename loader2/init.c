@@ -658,6 +658,9 @@ int main(int argc, char **argv) {
     if (!(installpid = fork())) {
 	/* child */
 	*argvp++ = "/sbin/loader";
+        if (isSerial == 3) {
+            *argvp++ = "--physconsole";
+        }
 	*argvp++ = NULL;
 
 	printf("running %s\n", argvc[0]);
