@@ -845,6 +845,8 @@ def doClearPartAction(partitions, diskset):
 def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     if instClass.name and instClass.name == "kickstart":
         isKickstart = 1
+	# XXX hack
+	setProtected(partitions, dispatch)
     else:
         isKickstart = 0
         
