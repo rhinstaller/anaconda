@@ -76,7 +76,7 @@ static int scsiCount(void) {
     char buf[16384];
     int count = 0;
     
-    f = fopen("/tmp/modules.conf", "r");
+    f = fopen("/tmp/modprobe.conf", "r");
     if (!f)
         return 0;
     while (fgets(buf, sizeof(buf) - 1, f)) {
@@ -521,9 +521,9 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (!FL_TESTING(flags)) {
         int fd;
 
-        fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
+        fd = open("/tmp/modprobe.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
         if (fd == -1) {
-            logMessage("error appending to /tmp/modules.conf: %s\n",
+            logMessage("error appending to /tmp/modprobe.conf: %s\n",
                        strerror(errno));
         } else {
             writeModulesConf(modLoaded, fd);
@@ -587,7 +587,7 @@ static int writeModulesConf(moduleList list, int fd) {
 
         /* JKFIXME: this is a hack for the fact that these are now
          * DRIVER_SCSI so we can get /tmp/scsidisks, but we don't
-         * want them in modules.conf  :/ */
+         * want them in modprobe.conf  :/ */
         if (!strcmp(lm->name, "usb-storage") ||
             !strcmp(lm->name, "sbp2")) {
             continue;
@@ -598,7 +598,7 @@ static int writeModulesConf(moduleList list, int fd) {
             switch (lm->major) {
             case DRIVER_SCSI:
                 /* originally set to # of scsi_hostadapter already in 
-                 * /tmp/modules.conf.  then we increment ourselves */
+                 * /tmp/modprobe.conf.  then we increment ourselves */
                 if (scsiNum)
                     sprintf(buf2, "scsi_hostadapter%d ", scsiNum);
                 else

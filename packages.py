@@ -714,9 +714,9 @@ def doPreInstall(method, id, intf, instPath, dir):
     if not upgrade:
         id.fsset.write(instPath)
         # rootpath mode doesn't have this file around
-        if os.access("/tmp/modules.conf", os.R_OK):
-            iutil.copyFile("/tmp/modules.conf", 
-                           instPath + "/etc/modules.conf")
+        if os.access("/tmp/modprobe.conf", os.R_OK):
+            iutil.copyFile("/tmp/modprobe.conf", 
+                           instPath + "/etc/modprobe.conf")
 
     # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
     f = open(instPath + "/etc/mtab", "w+")
