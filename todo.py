@@ -589,10 +589,11 @@ class ToDo:
 	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
-	    w = self.intf.waitWindow(_("Formatting"),
-                          _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
+		w = self.intf.waitWindow(_("Formatting"),
+			      _("Formatting %s filesystem...") % (mntpoint,))
+
                 args = [ "mke2fs", '/tmp/' + device ]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
@@ -613,7 +614,11 @@ class ToDo:
                                         args,
                                         stdout = "/dev/tty5", stderr = "/dev/tty5",
                                         searchPath = 1)
+		w.pop()
             elif fsystem == "swap" and createSwap:
+		w = self.intf.waitWindow(_("Formatting"),
+			      _("Formatting %s filesystem...") % (mntpoint,))
+
                 rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                              [ "mkswap", '-v1', '/tmp/' + device ],
                                              stdout = None, stderr = None,
@@ -621,11 +626,11 @@ class ToDo:
                 if rc:
                     raise RuntimeError, "error making swap on " + device
 		isys.swapon ('/tmp/' + device)
+		w.pop()
             else:
                 pass
 
             os.remove('/tmp/' + device)
-	    w.pop()
 
 	if createFs:
 	    self.madeFilesystems = 1
