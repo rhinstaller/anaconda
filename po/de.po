@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda-text 1.0\n"
-"POT-Creation-Date: 1999-09-06 11:04-0400\n"
+"POT-Creation-Date: 1999-09-07 19:01-0400\n"
 "PO-Revision-Date: 1999-07-29 17:11-0400\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
-#: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
-#: ../libfdisk/fsedit.c:678 ../libfdisk/fsedit.c:693 ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:679 ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:1022
 #: ../libfdisk/gnomefsedit.c:615 ../libfdisk/gnomefsedit.c:960
 #: ../libfdisk/gnomefsedit.c:986 ../libfdisk/gnomefsedit.c:1022
 #: ../libfdisk/gnomefsedit.c:1227 ../libfdisk/gnomefsedit.c:1321
@@ -30,26 +30,26 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1017
-#: ../text.py:1030 ../text.py:1085 ../text.py:1178
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1087
+#: ../text.py:1100 ../text.py:1155 ../text.py:1248
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:286 ../libfdisk/fsedit.c:927 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:292 ../libfdisk/fsedit.c:929 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../text.py:19 ../text.py:64 ../text.py:65
 #: ../text.py:80 ../text.py:103 ../text.py:131 ../text.py:134 ../text.py:157
 #: ../text.py:184 ../text.py:198 ../text.py:200 ../text.py:219 ../text.py:221
 #: ../text.py:255 ../text.py:367 ../text.py:398 ../text.py:466 ../text.py:468
-#: ../text.py:488 ../text.py:621 ../text.py:672 ../text.py:674 ../text.py:748
-#: ../text.py:788 ../text.py:853 ../text.py:904 ../text.py:913 ../text.py:929
-#: ../text.py:938 ../text.py:955 ../text.py:999 ../text.py:1006
-#: ../text.py:1086 ../text.py:1144 ../text.py:1146 ../text.py:1166
-#: ../text.py:1169 ../text.py:1178 ../text.py:1230 ../text.py:1231
-#: ../text.py:1452 ../text.py:1474
+#: ../text.py:488 ../text.py:621 ../text.py:672 ../text.py:674 ../text.py:696
+#: ../text.py:733 ../text.py:818 ../text.py:858 ../text.py:923 ../text.py:974
+#: ../text.py:983 ../text.py:999 ../text.py:1008 ../text.py:1025
+#: ../text.py:1069 ../text.py:1076 ../text.py:1156 ../text.py:1214
+#: ../text.py:1216 ../text.py:1236 ../text.py:1239 ../text.py:1248
+#: ../text.py:1300 ../text.py:1301 ../text.py:1522 ../text.py:1544
 msgid "Back"
 msgstr ""
 
-#: ../iw/language.py:10 ../text.py:29 ../text.py:1529
+#: ../iw/language.py:10 ../text.py:29 ../text.py:1599
 msgid "Language Selection"
 msgstr "Wählen Sie eine Sprache aus"
 
@@ -60,10 +60,11 @@ msgstr ""
 #: ../text.py:32 ../text.py:80 ../text.py:131 ../text.py:157 ../text.py:198
 #: ../text.py:255 ../text.py:269 ../text.py:274 ../text.py:308 ../text.py:320
 #: ../text.py:328 ../text.py:337 ../text.py:398 ../text.py:466 ../text.py:488
-#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:748 ../text.py:788
-#: ../text.py:853 ../text.py:904 ../text.py:954 ../text.py:999 ../text.py:1144
-#: ../text.py:1166 ../text.py:1230 ../text.py:1250 ../text.py:1262
-#: ../text.py:1274 ../text.py:1452 ../text.py:1496 ../text.py:1502
+#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:818 ../text.py:858
+#: ../text.py:923 ../text.py:974 ../text.py:1024 ../text.py:1069
+#: ../text.py:1214 ../text.py:1236 ../text.py:1300 ../text.py:1320
+#: ../text.py:1332 ../text.py:1344 ../text.py:1522 ../text.py:1566
+#: ../text.py:1572
 msgid "OK"
 msgstr ""
 
@@ -83,7 +84,7 @@ msgstr ""
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1012 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1082 ../text.py:1140
 msgid "Device"
 msgstr ""
 
@@ -105,7 +106,7 @@ msgstr ""
 msgid "Mouse Selection"
 msgstr "Wählen Sie eine Sprache aus"
 
-#: ../text.py:129 ../text.py:1531
+#: ../text.py:129 ../text.py:1601
 #, fuzzy
 msgid "Keyboard Selection"
 msgstr "Wählen Sie eine Sprache aus"
@@ -134,7 +135,7 @@ msgstr ""
 msgid "Upgrade Existing Installation"
 msgstr ""
 
-#: ../text.py:155 ../text.py:1534
+#: ../text.py:155 ../text.py:1604
 msgid "Installation Type"
 msgstr ""
 
@@ -142,7 +143,7 @@ msgstr ""
 msgid "What type of system would you like to install?"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1270
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1340
 msgid "Error"
 msgstr ""
 
@@ -174,7 +175,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2250 ../libfdisk/gnomefsedit.c:2303
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:929 ../text.py:932
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:999 ../text.py:1002
 msgid "Yes"
 msgstr ""
 
@@ -183,12 +184,12 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2250 ../libfdisk/gnomefsedit.c:2303
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:929
-#: ../text.py:935
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:999
+#: ../text.py:1005
 msgid "No"
 msgstr ""
 
-#: ../text.py:234 ../text.py:1561
+#: ../text.py:234 ../text.py:1635
 msgid "Root Password"
 msgstr ""
 
@@ -225,8 +226,8 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:615 ../libfdisk/gnomefsedit.c:1579
 #: ../libfdisk/gnomefsedit.c:2088 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1017
-#: ../text.py:1035
+#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1087
+#: ../text.py:1105
 msgid "Cancel"
 msgstr ""
 
@@ -273,7 +274,7 @@ msgid ""
 "your system's configuration."
 msgstr ""
 
-#: ../text.py:374 ../text.py:1563
+#: ../text.py:374 ../text.py:1637
 msgid "User Account Setup"
 msgstr ""
 
@@ -298,8 +299,8 @@ msgid "Delete"
 msgstr ""
 
 #: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:1085
-#: ../text.py:1106
+#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:732 ../text.py:1155
+#: ../text.py:1176
 msgid "Edit"
 msgstr ""
 
@@ -414,11 +415,44 @@ msgstr ""
 msgid "Hostname"
 msgstr ""
 
-#: ../iw/rootpartition.py:75 ../text.py:697
+#: ../text.py:687 ../text.py:726
+msgid "Disk Setup"
+msgstr ""
+
+#: ../text.py:688
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+
+#: ../text.py:695
+msgid "Disk Druid"
+msgstr ""
+
+#: ../text.py:695
+msgid "fdisk"
+msgstr ""
+
+#: ../text.py:727
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+
+#: ../text.py:732
+msgid "Done"
+msgstr ""
+
+#: ../iw/rootpartition.py:75 ../text.py:767
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:111 ../text.py:698
+#: ../iw/rootpartition.py:111 ../text.py:768
 #, c-format
 msgid ""
 "%s\n"
@@ -428,15 +462,15 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../text.py:702 ../text.py:703
+#: ../text.py:772 ../text.py:773
 msgid "Continue"
 msgstr ""
 
-#: ../iw/rootpartition.py:126 ../text.py:702
+#: ../iw/rootpartition.py:126 ../text.py:772
 msgid "Manually partition"
 msgstr ""
 
-#: ../text.py:726
+#: ../text.py:796
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -444,50 +478,50 @@ msgid ""
 "previous install."
 msgstr ""
 
-#: ../text.py:746
+#: ../text.py:816
 msgid "Check for bad blocks during format"
 msgstr ""
 
-#: ../text.py:750
+#: ../text.py:820
 msgid "Choose Partitions to Format"
 msgstr ""
 
-#: ../iw/package.py:445 ../text.py:786
+#: ../iw/package.py:445 ../text.py:856
 msgid "Select individual packages"
 msgstr "Einzelne Pakete auswählen"
 
-#: ../iw/package.py:377 ../text.py:790 ../text.py:855
+#: ../iw/package.py:377 ../text.py:860 ../text.py:925
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:882 ../text.py:1571
+#: ../text.py:952 ../text.py:1645
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../text.py:883
+#: ../text.py:953
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:889
+#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:959
 msgid "Package"
 msgstr ""
 
-#: ../iw/dependencies.py:29 ../text.py:889
+#: ../iw/dependencies.py:29 ../text.py:959
 msgid "Requirement"
 msgstr ""
 
-#: ../iw/dependencies.py:36 ../text.py:901
+#: ../iw/dependencies.py:36 ../text.py:971
 msgid "Install packages to satisfy dependencies"
 msgstr ""
 
-#: ../text.py:919 ../text.py:1258 ../text.py:1580
+#: ../text.py:989 ../text.py:1328 ../text.py:1654
 msgid "Bootdisk"
 msgstr ""
 
-#: ../text.py:920
+#: ../text.py:990
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -499,7 +533,7 @@ msgid ""
 "Would you like to create a bootdisk for your system?"
 msgstr ""
 
-#: ../text.py:946
+#: ../text.py:1016
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -507,92 +541,92 @@ msgid ""
 "blank."
 msgstr ""
 
-#: ../iw/lilo.py:138 ../text.py:952
+#: ../iw/lilo.py:138 ../text.py:1022
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr ""
 
-#: ../text.py:954 ../text.py:1262 ../text.py:1263 ../text.py:1274
-#: ../text.py:1275
+#: ../text.py:1024 ../text.py:1332 ../text.py:1333 ../text.py:1344
+#: ../text.py:1345
 msgid "Skip"
 msgstr ""
 
-#: ../text.py:957 ../text.py:996 ../text.py:1093 ../text.py:1545
-#: ../text.py:1547 ../text.py:1549
+#: ../text.py:1027 ../text.py:1066 ../text.py:1163 ../text.py:1619
+#: ../text.py:1621 ../text.py:1623
 msgid "LILO Configuration"
 msgstr ""
 
-#: ../text.py:997
+#: ../text.py:1067
 msgid "Where do you want to install the bootloader?"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1013 ../text.py:1070
+#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1083 ../text.py:1140
 msgid "Boot label"
 msgstr ""
 
-#: ../text.py:1017 ../text.py:1037
+#: ../text.py:1087 ../text.py:1107
 msgid "Clear"
 msgstr ""
 
-#: ../text.py:1025
+#: ../text.py:1095
 msgid "Edit Boot Label"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:1140
 msgid "Partition type"
 msgstr ""
 
-#: ../iw/lilo.py:171 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:1140
 msgid "Default"
 msgstr ""
 
-#: ../text.py:1088
+#: ../text.py:1158
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
 
-#: ../text.py:1142
+#: ../text.py:1212
 msgid "X probe results"
 msgstr ""
 
-#: ../text.py:1155 ../text.py:1174
+#: ../text.py:1225 ../text.py:1244
 msgid "Unlisted Card"
 msgstr ""
 
-#: ../text.py:1163
+#: ../text.py:1233
 #, fuzzy
 msgid "Video Card Selection"
 msgstr "Wählen Sie eine Sprache aus"
 
-#: ../text.py:1164
+#: ../text.py:1234
 msgid "Which video card do you have?"
 msgstr ""
 
-#: ../text.py:1176
+#: ../text.py:1246
 #, fuzzy
 msgid "X Server Selection"
 msgstr "Wählen Sie eine Sprache aus"
 
-#: ../text.py:1176
+#: ../text.py:1246
 msgid "Choose a server"
 msgstr ""
 
-#: ../text.py:1226
+#: ../text.py:1296
 msgid "Installation to begin"
 msgstr ""
 
-#: ../text.py:1227
+#: ../text.py:1297
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:1242
+#: ../text.py:1312
 msgid "Complete"
 msgstr ""
 
-#: ../iw/congrats.py:17 ../text.py:1243
+#: ../iw/congrats.py:17 ../text.py:1313
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -604,183 +638,187 @@ msgid ""
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../iw/bootdisk.py:40 ../text.py:1259
+#: ../iw/bootdisk.py:40 ../text.py:1329
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../iw/bootdisk.py:44 ../text.py:1271
+#: ../iw/bootdisk.py:44 ../text.py:1341
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:1333
+#: ../text.py:1403
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:1335
+#: ../text.py:1405
 msgid "Name   : "
 msgstr "Name           :"
 
-#: ../text.py:1336
+#: ../text.py:1406
 msgid "Size   : "
 msgstr "Größe          :"
 
-#: ../text.py:1337
+#: ../text.py:1407
 msgid "Summary: "
 msgstr "Zusammenfassung:"
 
-#: ../text.py:1363
+#: ../text.py:1433
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:1364
+#: ../text.py:1434
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:1365
+#: ../text.py:1435
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:1367
+#: ../text.py:1437
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:1374
+#: ../text.py:1444
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:1384
+#: ../text.py:1454
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:1454
+#: ../text.py:1524
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../text.py:1462
+#: ../text.py:1532
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../iw/timezone.py:29 ../text.py:1464
+#: ../iw/timezone.py:29 ../text.py:1534
 #, fuzzy
 msgid "Time Zone Selection"
 msgstr "Wählen Sie eine Sprache aus"
 
-#: ../text.py:1502 ../text.py:1503
+#: ../text.py:1572 ../text.py:1573
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:1515
+#: ../text.py:1585
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:1517
+#: ../text.py:1587
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:1533
+#: ../text.py:1603
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:1539
-msgid "Automatic Partition"
-msgstr ""
-
-#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1541
+#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1609 ../text.py:1615
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:1543
+#: ../text.py:1611
+msgid "Manually Partition"
+msgstr ""
+
+#: ../text.py:1613
+msgid "Automatic Partition"
+msgstr ""
+
+#: ../text.py:1617
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../text.py:1551
+#: ../text.py:1625
 msgid "Hostname Setup"
 msgstr ""
 
-#: ../text.py:1553
+#: ../text.py:1627
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:1555 ../text.py:1557
+#: ../text.py:1629 ../text.py:1631
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:1559
+#: ../text.py:1633
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:1565
+#: ../text.py:1639
 msgid "Authentication"
 msgstr ""
 
-#: ../text.py:1567
+#: ../text.py:1641
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:1569 ../text.py:1589
+#: ../text.py:1643 ../text.py:1663
 msgid "Individual Packages"
 msgstr ""
 
-#: ../iw/xconfig.py:91 ../text.py:1573 ../text.py:1581
+#: ../iw/xconfig.py:91 ../text.py:1647 ../text.py:1655
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:1575
+#: ../text.py:1649
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:1577
+#: ../text.py:1651
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:1579
+#: ../text.py:1653
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:1582
+#: ../text.py:1656
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:1587
+#: ../text.py:1661
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:1588
+#: ../text.py:1662
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1590
+#: ../text.py:1664
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:1591
+#: ../text.py:1665
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../gui.py:280
+#: ../gui.py:286
 #, fuzzy
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux/German"
 
-#: ../gui.py:289
+#: ../gui.py:295
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:290
+#: ../gui.py:296
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:291
+#: ../gui.py:297
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:312
+#: ../gui.py:318
 msgid "Online Help"
 msgstr ""
 
@@ -1064,23 +1102,23 @@ msgstr ""
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/timezone.py:109
+#: ../iw/timezone.py:110
 msgid "View:"
 msgstr ""
 
-#: ../iw/timezone.py:139
+#: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
 msgstr ""
 
-#: ../iw/timezone.py:146
+#: ../iw/timezone.py:147
 msgid "Location"
 msgstr ""
 
-#: ../iw/timezone.py:147
+#: ../iw/timezone.py:148
 msgid "UTC Offset"
 msgstr ""
 
-#: ../iw/timezone.py:151
+#: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr ""
 
@@ -1148,17 +1186,17 @@ msgstr ""
 msgid "Skip X Configuration"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
-#: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
 msgid "Bad Mount Point"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:605
+#: ../libfdisk/fsedit.c:606
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:612
+#: ../libfdisk/fsedit.c:613
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1166,7 +1204,7 @@ msgid ""
 "Mount points must begin with a leading /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:620
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1174,7 +1212,7 @@ msgid ""
 "Mount points may not end with a /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:629
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1182,7 +1220,7 @@ msgid ""
 "Mount points may only printable characters."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:640
+#: ../libfdisk/fsedit.c:641
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1190,7 +1228,7 @@ msgid ""
 "System partitions must be on Linux Native partitions."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:651
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1198,28 +1236,28 @@ msgid ""
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:678
+#: ../libfdisk/fsedit.c:679
 msgid "Too Many Drives"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:679
+#: ../libfdisk/fsedit.c:680
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:693
+#: ../libfdisk/fsedit.c:695
 msgid "No Drives Found"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:694
+#: ../libfdisk/fsedit.c:696
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:922
+#: ../libfdisk/fsedit.c:924
 #, c-format
 msgid ""
 "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -1227,57 +1265,57 @@ msgid ""
 "device."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:926
+#: ../libfdisk/fsedit.c:928
 msgid "Corrupt Sun disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:927 ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:1004
+#: ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:1010
 msgid "Skip Drive"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:1000
+#: ../libfdisk/fsedit.c:938 ../libfdisk/fsedit.c:1006
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:974
+#: ../libfdisk/fsedit.c:979
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:984
 msgid "Bad Partition Table"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:980
+#: ../libfdisk/fsedit.c:985
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1004
+#: ../libfdisk/fsedit.c:1010
 msgid "Retry"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:1022
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:1022
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1046
+#: ../libfdisk/fsedit.c:1052
 #, c-format
 msgid "System error %d"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1055 ../libfdisk/fsedit.c:1057
+#: ../libfdisk/fsedit.c:1061 ../libfdisk/fsedit.c:1063
 msgid "Fdisk Error"
 msgstr ""
 

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.11\n"
-"POT-Creation-Date: 1999-09-06 11:04-0400\n"
+"POT-Creation-Date: 1999-09-07 19:01-0400\n"
 "PO-Revision-Date: 1999-09-08 23:26+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
-#: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
-#: ../libfdisk/fsedit.c:678 ../libfdisk/fsedit.c:693 ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:679 ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:1022
 #: ../libfdisk/gnomefsedit.c:615 ../libfdisk/gnomefsedit.c:960
 #: ../libfdisk/gnomefsedit.c:986 ../libfdisk/gnomefsedit.c:1022
 #: ../libfdisk/gnomefsedit.c:1227 ../libfdisk/gnomefsedit.c:1321
@@ -31,26 +31,26 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1017
-#: ../text.py:1030 ../text.py:1085 ../text.py:1178
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:19 ../text.py:64 ../text.py:1087
+#: ../text.py:1100 ../text.py:1155 ../text.py:1248
 msgid "Ok"
 msgstr "Í lagi"
 
-#: ../gui.py:286 ../libfdisk/fsedit.c:927 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:292 ../libfdisk/fsedit.c:929 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../text.py:19 ../text.py:64 ../text.py:65
 #: ../text.py:80 ../text.py:103 ../text.py:131 ../text.py:134 ../text.py:157
 #: ../text.py:184 ../text.py:198 ../text.py:200 ../text.py:219 ../text.py:221
 #: ../text.py:255 ../text.py:367 ../text.py:398 ../text.py:466 ../text.py:468
-#: ../text.py:488 ../text.py:621 ../text.py:672 ../text.py:674 ../text.py:748
-#: ../text.py:788 ../text.py:853 ../text.py:904 ../text.py:913 ../text.py:929
-#: ../text.py:938 ../text.py:955 ../text.py:999 ../text.py:1006
-#: ../text.py:1086 ../text.py:1144 ../text.py:1146 ../text.py:1166
-#: ../text.py:1169 ../text.py:1178 ../text.py:1230 ../text.py:1231
-#: ../text.py:1452 ../text.py:1474
+#: ../text.py:488 ../text.py:621 ../text.py:672 ../text.py:674 ../text.py:696
+#: ../text.py:733 ../text.py:818 ../text.py:858 ../text.py:923 ../text.py:974
+#: ../text.py:983 ../text.py:999 ../text.py:1008 ../text.py:1025
+#: ../text.py:1069 ../text.py:1076 ../text.py:1156 ../text.py:1214
+#: ../text.py:1216 ../text.py:1236 ../text.py:1239 ../text.py:1248
+#: ../text.py:1300 ../text.py:1301 ../text.py:1522 ../text.py:1544
 msgid "Back"
 msgstr "Til baka"
 
-#: ../iw/language.py:10 ../text.py:29 ../text.py:1529
+#: ../iw/language.py:10 ../text.py:29 ../text.py:1599
 msgid "Language Selection"
 msgstr "Veljið tungumál"
 
@@ -61,10 +61,11 @@ msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 #: ../text.py:32 ../text.py:80 ../text.py:131 ../text.py:157 ../text.py:198
 #: ../text.py:255 ../text.py:269 ../text.py:274 ../text.py:308 ../text.py:320
 #: ../text.py:328 ../text.py:337 ../text.py:398 ../text.py:466 ../text.py:488
-#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:748 ../text.py:788
-#: ../text.py:853 ../text.py:904 ../text.py:954 ../text.py:999 ../text.py:1144
-#: ../text.py:1166 ../text.py:1230 ../text.py:1250 ../text.py:1262
-#: ../text.py:1274 ../text.py:1452 ../text.py:1496 ../text.py:1502
+#: ../text.py:621 ../text.py:641 ../text.py:672 ../text.py:818 ../text.py:858
+#: ../text.py:923 ../text.py:974 ../text.py:1024 ../text.py:1069
+#: ../text.py:1214 ../text.py:1236 ../text.py:1300 ../text.py:1320
+#: ../text.py:1332 ../text.py:1344 ../text.py:1522 ../text.py:1566
+#: ../text.py:1572
 msgid "OK"
 msgstr "Í lagi"
 
@@ -84,7 +85,7 @@ msgstr "/dev/ttyS2 (COM3 í DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 í DOS)"
 
-#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1012 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:62 ../text.py:1082 ../text.py:1140
 msgid "Device"
 msgstr "Tæki"
 
@@ -105,7 +106,7 @@ msgstr "Herma eftir þrem hnöppum?"
 msgid "Mouse Selection"
 msgstr "Stillingar músar"
 
-#: ../text.py:129 ../text.py:1531
+#: ../text.py:129 ../text.py:1601
 msgid "Keyboard Selection"
 msgstr "Stilingar lyklaborðs"
 
@@ -133,7 +134,7 @@ msgstr "Setja upp sérsniðið kerfi"
 msgid "Upgrade Existing Installation"
 msgstr "Uppfæra kerfi sem er þegar til staðar"
 
-#: ../text.py:155 ../text.py:1534
+#: ../text.py:155 ../text.py:1604
 msgid "Installation Type"
 msgstr "Tegund uppsetningar"
 
@@ -141,7 +142,7 @@ msgstr "Tegund uppsetningar"
 msgid "What type of system would you like to install?"
 msgstr "Hverskonar kerfi villtu setja upp?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1270
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1340
 msgid "Error"
 msgstr "Villa"
 
@@ -176,7 +177,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2250 ../libfdisk/gnomefsedit.c:2303
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:929 ../text.py:932
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:999 ../text.py:1002
 msgid "Yes"
 msgstr "Já"
 
@@ -185,12 +186,12 @@ msgstr "Já"
 #: ../libfdisk/gnomefsedit.c:2250 ../libfdisk/gnomefsedit.c:2303
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:929
-#: ../text.py:935
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:219 ../text.py:224 ../text.py:999
+#: ../text.py:1005
 msgid "No"
 msgstr "Nei"
 
-#: ../text.py:234 ../text.py:1561
+#: ../text.py:234 ../text.py:1635
 msgid "Root Password"
 msgstr "Rótarlykilorð"
 
@@ -230,8 +231,8 @@ msgstr "Lykilorðin sem þú slóst inn eru ekki þau sömu. Reyndu aftur."
 
 #: ../libfdisk/gnomefsedit.c:615 ../libfdisk/gnomefsedit.c:1579
 #: ../libfdisk/gnomefsedit.c:2088 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1017
-#: ../text.py:1035
+#: ../libfdisk/newtfsedit.c:1501 ../text.py:288 ../text.py:1087
+#: ../text.py:1105
 msgid "Cancel"
 msgstr "Hætta við"
 
@@ -281,7 +282,7 @@ msgstr ""
 "vélinni. Með því að nota rótaraðganginn sem minnst minnkar þú hættuna á að "
 "valda skemmdum á uppsetningunni þinni."
 
-#: ../text.py:374 ../text.py:1563
+#: ../text.py:374 ../text.py:1637
 msgid "User Account Setup"
 msgstr "Búa til notanda"
 
@@ -309,8 +310,8 @@ msgid "Delete"
 msgstr "Eyða"
 
 #: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:1085
-#: ../text.py:1106
+#: ../libfdisk/newtfsedit.c:1304 ../text.py:398 ../text.py:732 ../text.py:1155
+#: ../text.py:1176
 msgid "Edit"
 msgstr "Breyta"
 
@@ -426,11 +427,54 @@ msgstr ""
 msgid "Hostname"
 msgstr "Vélarheiti"
 
-#: ../iw/rootpartition.py:75 ../text.py:697
+#: ../text.py:687 ../text.py:726
+msgid "Disk Setup"
+msgstr "Stillingar diska"
+
+#: ../text.py:688
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
+"tengipunktum. Það er hannað til þess að vera einfaldara í notkun en gamla "
+"góða Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem betra "
+"er að nota fdisk.\n"
+"\n"
+"Hvort tólið viltu nota?"
+
+#: ../text.py:695
+msgid "Disk Druid"
+msgstr "Diska Drúídi"
+
+#: ../text.py:695
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../text.py:727
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
+"disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að hafa "
+"hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé hægt að "
+"ræsa Linux með LILO."
+
+#: ../text.py:732
+msgid "Done"
+msgstr "Búið"
+
+#: ../iw/rootpartition.py:75 ../text.py:767
 msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
-#: ../iw/rootpartition.py:111 ../text.py:698
+#: ../iw/rootpartition.py:111 ../text.py:768
 #, c-format
 msgid ""
 "%s\n"
@@ -445,15 +489,15 @@ msgstr ""
 "sneiða niður diskinn sjálf(ur) eða fara til baka og setja upp sérsniðið "
 "kerfi."
 
-#: ../text.py:702 ../text.py:703
+#: ../text.py:772 ../text.py:773
 msgid "Continue"
 msgstr "Halda áfram"
 
-#: ../iw/rootpartition.py:126 ../text.py:702
+#: ../iw/rootpartition.py:126 ../text.py:772
 msgid "Manually partition"
 msgstr "Sneiða handvirkt"
 
-#: ../text.py:726
+#: ../text.py:796
 msgid ""
 "What partitions would you like to format? We strongly suggest formatting all "
 "of the system partitions, including /, /usr, and /var. There is no need to "
@@ -465,27 +509,27 @@ msgstr ""
 "forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið settar upp í "
 "fyrri uppsetningum."
 
-#: ../text.py:746
+#: ../text.py:816
 msgid "Check for bad blocks during format"
 msgstr "Athuga hvort diskurinn hafi gallaðar blokkir"
 
-#: ../text.py:750
+#: ../text.py:820
 msgid "Choose Partitions to Format"
 msgstr "Veldu disksneiðar sem á að forsníða"
 
-#: ../iw/package.py:445 ../text.py:786
+#: ../iw/package.py:445 ../text.py:856
 msgid "Select individual packages"
 msgstr "Velja pakka fyrir pakka"
 
-#: ../iw/package.py:377 ../text.py:790 ../text.py:855
+#: ../iw/package.py:377 ../text.py:860 ../text.py:925
 msgid "Package Group Selection"
 msgstr "Velja pakkahópa"
 
-#: ../text.py:882 ../text.py:1571
+#: ../text.py:952 ../text.py:1645
 msgid "Package Dependencies"
 msgstr "Pakkaskilyrði"
 
-#: ../text.py:883
+#: ../text.py:953
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select Ok all of those required packages will be "
@@ -495,23 +539,23 @@ msgstr ""
 "valdir ekki. Ef þú velur Í lagi mun öllum þessum pökkum sem uppá vantar "
 "verða bætt við."
 
-#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:889
+#: ../iw/dependencies.py:29 ../iw/progress.py:112 ../text.py:959
 msgid "Package"
 msgstr "Pakki"
 
-#: ../iw/dependencies.py:29 ../text.py:889
+#: ../iw/dependencies.py:29 ../text.py:959
 msgid "Requirement"
 msgstr "Þarfnast"
 
-#: ../iw/dependencies.py:36 ../text.py:901
+#: ../iw/dependencies.py:36 ../text.py:971
 msgid "Install packages to satisfy dependencies"
 msgstr "Setja inn pakka til að uppfylla þarfir annara pakka"
 
-#: ../text.py:919 ../text.py:1258 ../text.py:1580
+#: ../text.py:989 ../text.py:1328 ../text.py:1654
 msgid "Bootdisk"
 msgstr "Ræsidisklingur"
 
-#: ../text.py:920
+#: ../text.py:990
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -531,7 +575,7 @@ msgstr ""
 "\n"
 "Viltu búa til ræsidiskling fyrir vélina þína?"
 
-#: ../text.py:946
+#: ../text.py:1016
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -542,45 +586,45 @@ msgstr ""
 "svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
 "viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
 
-#: ../iw/lilo.py:138 ../text.py:952
+#: ../iw/lilo.py:138 ../text.py:1022
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
 
-#: ../text.py:954 ../text.py:1262 ../text.py:1263 ../text.py:1274
-#: ../text.py:1275
+#: ../text.py:1024 ../text.py:1332 ../text.py:1333 ../text.py:1344
+#: ../text.py:1345
 msgid "Skip"
 msgstr "Sleppa"
 
-#: ../text.py:957 ../text.py:996 ../text.py:1093 ../text.py:1545
-#: ../text.py:1547 ../text.py:1549
+#: ../text.py:1027 ../text.py:1066 ../text.py:1163 ../text.py:1619
+#: ../text.py:1621 ../text.py:1623
 msgid "LILO Configuration"
 msgstr "Stillingar LILO"
 
-#: ../text.py:997
+#: ../text.py:1067
 msgid "Where do you want to install the bootloader?"
 msgstr "Hvert viltu setja ræsistjórann?"
 
-#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1013 ../text.py:1070
+#: ../iw/lilo.py:171 ../iw/lilo.py:206 ../text.py:1083 ../text.py:1140
 msgid "Boot label"
 msgstr "Ræsimerki:"
 
-#: ../text.py:1017 ../text.py:1037
+#: ../text.py:1087 ../text.py:1107
 msgid "Clear"
 msgstr "Hreinsa"
 
-#: ../text.py:1025
+#: ../text.py:1095
 msgid "Edit Boot Label"
 msgstr "Breyta ræsimerki"
 
-#: ../iw/lilo.py:171 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:1140
 msgid "Partition type"
 msgstr "Tegund sneiðar"
 
-#: ../iw/lilo.py:171 ../text.py:1070
+#: ../iw/lilo.py:171 ../text.py:1140
 msgid "Default"
 msgstr "Sjálfgefið"
 
-#: ../text.py:1088
+#: ../text.py:1158
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -590,35 +634,35 @@ msgstr ""
 "þarft að að merkja við þær sneiðar sem þú vilt geta ræst upp af og hvaða "
 "heiti þær eiga að fá."
 
-#: ../text.py:1142
+#: ../text.py:1212
 msgid "X probe results"
 msgstr "Útkoma X leitar"
 
-#: ../text.py:1155 ../text.py:1174
+#: ../text.py:1225 ../text.py:1244
 msgid "Unlisted Card"
 msgstr "Óþekkt kort"
 
-#: ../text.py:1163
+#: ../text.py:1233
 msgid "Video Card Selection"
 msgstr "Val skjákorts"
 
-#: ../text.py:1164
+#: ../text.py:1234
 msgid "Which video card do you have?"
 msgstr "Hvaða skjákort ertu með?"
 
-#: ../text.py:1176
+#: ../text.py:1246
 msgid "X Server Selection"
 msgstr "Val X þjóns"
 
-#: ../text.py:1176
+#: ../text.py:1246
 msgid "Choose a server"
 msgstr "Veldu þjón"
 
-#: ../text.py:1226
+#: ../text.py:1296
 msgid "Installation to begin"
 msgstr "Uppsetning að byrja"
 
-#: ../text.py:1227
+#: ../text.py:1297
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -626,11 +670,11 @@ msgstr ""
 "Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
 "Honum ættir þú að halda til haga."
 
-#: ../text.py:1242
+#: ../text.py:1312
 msgid "Complete"
 msgstr "Lokið"
 
-#: ../iw/congrats.py:17 ../text.py:1243
+#: ../iw/congrats.py:17 ../text.py:1313
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -651,7 +695,7 @@ msgstr ""
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
 "finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
 
-#: ../iw/bootdisk.py:40 ../text.py:1259
+#: ../iw/bootdisk.py:40 ../text.py:1329
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -659,7 +703,7 @@ msgstr ""
 "Settu tóman diskling í fyrsta disklingadrifið. Öllum gögnum á disklingnum "
 "verður eytt þegar ræsidisklingurinn er útbúinn."
 
-#: ../iw/bootdisk.py:44 ../text.py:1271
+#: ../iw/bootdisk.py:44 ../text.py:1341
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -667,170 +711,175 @@ msgstr ""
 "Það kom upp villa þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
 "gaktu úr skugga um að forsniðin disketta sé í fyrsta disklingadrifinu."
 
-#: ../text.py:1333
+#: ../text.py:1403
 msgid "Package Installation"
 msgstr "Uppsetning pakka"
 
-#: ../text.py:1335
+#: ../text.py:1405
 msgid "Name   : "
 msgstr "Heiti  : "
 
-#: ../text.py:1336
+#: ../text.py:1406
 msgid "Size   : "
 msgstr "Stærð  : "
 
-#: ../text.py:1337
+#: ../text.py:1407
 msgid "Summary: "
 msgstr "Lýsing : "
 
-#: ../text.py:1363
+#: ../text.py:1433
 msgid "    Packages"
 msgstr "    Pakkar"
 
-#: ../text.py:1364
+#: ../text.py:1434
 msgid "       Bytes"
 msgstr "       Bæti"
 
-#: ../text.py:1365
+#: ../text.py:1435
 msgid "        Time"
 msgstr "        Tími"
 
-#: ../text.py:1367
+#: ../text.py:1437
 msgid "Total    :"
 msgstr "Alls     :"
 
-#: ../text.py:1374
+#: ../text.py:1444
 msgid "Completed:   "
 msgstr "Lokið    :   "
 
-#: ../text.py:1384
+#: ../text.py:1454
 msgid "Remaining:  "
 msgstr "Eftir    :  "
 
-#: ../text.py:1454
+#: ../text.py:1524
 msgid "What time zone are you located in?"
 msgstr "Í hvaða tímabelti ertu?"
 
-#: ../text.py:1462
+#: ../text.py:1532
 msgid "Hardware clock set to GMT?"
 msgstr "Vélbúnaðarklukkan stillt á GMT"
 
-#: ../iw/timezone.py:29 ../text.py:1464
+#: ../iw/timezone.py:29 ../text.py:1534
 msgid "Time Zone Selection"
 msgstr "Val tímabeltis"
 
-#: ../text.py:1502 ../text.py:1503
+#: ../text.py:1572 ../text.py:1573
 msgid "Debug"
 msgstr "Aflúsun"
 
-#: ../text.py:1515
+#: ../text.py:1585
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:1517
+#: ../text.py:1587
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
-#: ../text.py:1533
+#: ../text.py:1603
 msgid "Welcome"
 msgstr "Velkomin(n)"
 
-#: ../text.py:1539
-msgid "Automatic Partition"
-msgstr "Sjálfvirk disksneiðing"
-
-#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1541
+#: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1609 ../text.py:1615
 msgid "Partition"
 msgstr "Disksneið"
 
-#: ../text.py:1543
+#: ../text.py:1611
+#, fuzzy
+msgid "Manually Partition"
+msgstr "Sneiða handvirkt"
+
+#: ../text.py:1613
+msgid "Automatic Partition"
+msgstr "Sjálfvirk disksneiðing"
+
+#: ../text.py:1617
 msgid "Filesystem Formatting"
 msgstr "Forsníða skráarkerfi"
 
-#: ../text.py:1551
+#: ../text.py:1625
 msgid "Hostname Setup"
 msgstr "Stillingar vélarheitis"
 
-#: ../text.py:1553
+#: ../text.py:1627
 msgid "Network Setup"
 msgstr "Stillingar nets"
 
-#: ../text.py:1555 ../text.py:1557
+#: ../text.py:1629 ../text.py:1631
 msgid "Mouse Configuration"
 msgstr "Stillingar músar"
 
-#: ../text.py:1559
+#: ../text.py:1633
 msgid "Time Zone Setup"
 msgstr "Stillingar tímabeltis"
 
-#: ../text.py:1565
+#: ../text.py:1639
 msgid "Authentication"
 msgstr "Auðkenning"
 
-#: ../text.py:1567
+#: ../text.py:1641
 msgid "Package Groups"
 msgstr "Pakkahópar"
 
-#: ../text.py:1569 ../text.py:1589
+#: ../text.py:1643 ../text.py:1663
 msgid "Individual Packages"
 msgstr "Stakir pakkar"
 
-#: ../iw/xconfig.py:91 ../text.py:1573 ../text.py:1581
+#: ../iw/xconfig.py:91 ../text.py:1647 ../text.py:1655
 msgid "X Configuration"
 msgstr "Stillingar X"
 
-#: ../text.py:1575
+#: ../text.py:1649
 msgid "Boot Disk"
 msgstr "Ræsidisklingur"
 
-#: ../text.py:1577
+#: ../text.py:1651
 msgid "Installation Begins"
 msgstr "Hefja uppsetningu"
 
-#: ../text.py:1579
+#: ../text.py:1653
 msgid "Install System"
 msgstr "Setja upp kerfi"
 
-#: ../text.py:1582
+#: ../text.py:1656
 msgid "Installation Complete"
 msgstr "Uppsetningu lokið"
 
-#: ../text.py:1587
+#: ../text.py:1661
 msgid "Examine System"
 msgstr "Rannsaka kerfið"
 
-#: ../text.py:1588
+#: ../text.py:1662
 msgid "Customize Upgrade"
 msgstr "Sérsníða uppfærslu"
 
-#: ../text.py:1590
+#: ../text.py:1664
 msgid "Upgrade System"
 msgstr "Uppfæra kerfi"
 
-#: ../text.py:1591
+#: ../text.py:1665
 msgid "Upgrade Complete"
 msgstr "Uppfærslu lokið"
 
-#: ../gui.py:280
+#: ../gui.py:286
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux uppsetningarforritið"
 
-#: ../gui.py:289
+#: ../gui.py:295
 msgid "Finish"
 msgstr "Klára"
 
-#: ../gui.py:290
+#: ../gui.py:296
 msgid "Hide Help"
 msgstr "Fela hjálp"
 
-#: ../gui.py:291
+#: ../gui.py:297
 msgid "Show Help"
 msgstr "Sýna hjálp"
 
-#: ../gui.py:312
+#: ../gui.py:318
 msgid "Online Help"
 msgstr "Onlæn hjálp"
 
@@ -1111,23 +1160,23 @@ msgstr "Val rótardisksneiðar"
 msgid "Remove data"
 msgstr "Fjarlægja gögn"
 
-#: ../iw/timezone.py:109
+#: ../iw/timezone.py:110
 msgid "View:"
 msgstr "Skoða:"
 
-#: ../iw/timezone.py:139
+#: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
 msgstr "Nota hvaðabullerþetta tíma"
 
-#: ../iw/timezone.py:146
+#: ../iw/timezone.py:147
 msgid "Location"
 msgstr "Staðsetning"
 
-#: ../iw/timezone.py:147
+#: ../iw/timezone.py:148
 msgid "UTC Offset"
 msgstr "Frávik frá UTC"
 
-#: ../iw/timezone.py:151
+#: ../iw/timezone.py:152
 msgid "System clock uses UTC"
 msgstr "Klukkan í vélinni er á UTC"
 
@@ -1198,17 +1247,17 @@ msgstr "Nota grafíska auðkenningu"
 msgid "Skip X Configuration"
 msgstr "Sleppa að stila X"
 
-#: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
-#: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
 msgid "Bad Mount Point"
 msgstr "Ólöglegur tengipunktur"
 
-#: ../libfdisk/fsedit.c:605
+#: ../libfdisk/fsedit.c:606
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Skráarsafnið %s verður að vera á rótarskráarkerfinu."
 
-#: ../libfdisk/fsedit.c:612
+#: ../libfdisk/fsedit.c:613
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1219,7 +1268,7 @@ msgstr ""
 "\n"
 "Heiti tengipunkta verður að byrja á /."
 
-#: ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:620
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1230,7 +1279,7 @@ msgstr ""
 "\n"
 "Heiti tengipunkta má ekki enda á /."
 
-#: ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:629
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1241,7 +1290,7 @@ msgstr ""
 "\n"
 "Heiti tengipunkta má bara innihalda prentanlega stafi."
 
-#: ../libfdisk/fsedit.c:640
+#: ../libfdisk/fsedit.c:641
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1252,7 +1301,7 @@ msgstr ""
 "\n"
 "Kerfissneiðar verða að vera á 'Linux Native' disksneiðum."
 
-#: ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:651
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1263,11 +1312,11 @@ msgstr ""
 "\n"
 "/usr verður að vera á 'Linux Native' disksneið eða NFS tengt."
 
-#: ../libfdisk/fsedit.c:678
+#: ../libfdisk/fsedit.c:679
 msgid "Too Many Drives"
 msgstr "Of mörg drif"
 
-#: ../libfdisk/fsedit.c:679
+#: ../libfdisk/fsedit.c:680
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -1277,11 +1326,11 @@ msgstr ""
 "fdisk til þess að setja upp drifin þín og láttu Red Hat Software vita að "
 "þetta hafi komið upp hjá þér"
 
-#: ../libfdisk/fsedit.c:693
+#: ../libfdisk/fsedit.c:695
 msgid "No Drives Found"
 msgstr "Engin drif fundust"
 
-#: ../libfdisk/fsedit.c:694
+#: ../libfdisk/fsedit.c:696
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -1289,7 +1338,7 @@ msgstr ""
 "Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný skráakerfi "
 "á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir."
 
-#: ../libfdisk/fsedit.c:922
+#: ../libfdisk/fsedit.c:924
 #, c-format
 msgid ""
 "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -1299,15 +1348,15 @@ msgstr ""
 "Diskur með skemmt Sun diskmerki hefur fundist við lestur tækis %s. Þú verður "
 "að búa til og skrifa á diskinn nýtt merki með fdisk."
 
-#: ../libfdisk/fsedit.c:926
+#: ../libfdisk/fsedit.c:928
 msgid "Corrupt Sun disklabel"
 msgstr "Skemmt Sun diskmerki"
 
-#: ../libfdisk/fsedit.c:927 ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:1004
+#: ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:1010
 msgid "Skip Drive"
 msgstr "Sleppa drifi"
 
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:1000
+#: ../libfdisk/fsedit.c:938 ../libfdisk/fsedit.c:1006
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -1315,7 +1364,7 @@ msgid ""
 msgstr ""
 "Villa kom upp við lestur disksneiðatöflunnar á blokkartæki %s. Villan var"
 
-#: ../libfdisk/fsedit.c:974
+#: ../libfdisk/fsedit.c:979
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -1325,23 +1374,23 @@ msgstr ""
 "disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
 "týnast."
 
-#: ../libfdisk/fsedit.c:979
+#: ../libfdisk/fsedit.c:984
 msgid "Bad Partition Table"
 msgstr "Skemmd disksneiðatafla"
 
-#: ../libfdisk/fsedit.c:980
+#: ../libfdisk/fsedit.c:985
 msgid "Initialize"
 msgstr "Frumstilla"
 
-#: ../libfdisk/fsedit.c:1004
+#: ../libfdisk/fsedit.c:1010
 msgid "Retry"
 msgstr "Reyna aftur"
 
-#: ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:1022
 msgid "BSD Disklabel"
 msgstr "BSD diskmerki"
 
-#: ../libfdisk/fsedit.c:1016
+#: ../libfdisk/fsedit.c:1022
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -1351,12 +1400,12 @@ msgstr ""
 "einungis BSD diskmerki í ritvörðum ham svo þú verður að velja 'Sérsniðna' "
 "uppsetningu og fdisk (ekki Diska Drúídan)."
 
-#: ../libfdisk/fsedit.c:1046
+#: ../libfdisk/fsedit.c:1052
 #, c-format
 msgid "System error %d"
 msgstr "Kerfisvilla %d"
 
-#: ../libfdisk/fsedit.c:1055 ../libfdisk/fsedit.c:1057
+#: ../libfdisk/fsedit.c:1061 ../libfdisk/fsedit.c:1063
 msgid "Fdisk Error"
 msgstr "Fdisk villa"
 
@@ -1824,1445 +1873,1412 @@ msgid "You may only delete NFS mounts."
 msgstr "Þú mátt aðeins eyða NFS tengingum."
 
 #
-msgid "Warning"
-msgstr "Aðvörun"
+#~ msgid "Warning"
+#~ msgstr "Aðvörun"
 
 #
-msgid "You are about to lose data! Are you sure you want to do this?"
-msgstr "Þú ert við það að tapa gögnum! Ertu viss um að þú viljir gera þetta?"
+#~ msgid "You are about to lose data! Are you sure you want to do this?"
+#~ msgstr ""
+#~ "Þú ert við það að tapa gögnum! Ertu viss um að þú viljir gera þetta?"
 
-msgid "Disk Space"
-msgstr "Diskpláss"
+#~ msgid "Disk Space"
+#~ msgstr "Diskpláss"
 
-msgid "There is not enough disk space for this type of installation."
-msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
+#~ msgid "There is not enough disk space for this type of installation."
+#~ msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
 
-msgid "There is not enough disk space for the chosen partitioning."
-msgstr "Það er ekki nægjanlegt diskpláss fyrir svona disksneiðar."
+#~ msgid "There is not enough disk space for the chosen partitioning."
+#~ msgstr "Það er ekki nægjanlegt diskpláss fyrir svona disksneiðar."
 
-msgid "_Make RAID Device"
-msgstr "_Búa til RAID tæki"
+#~ msgid "_Make RAID Device"
+#~ msgstr "_Búa til RAID tæki"
 
-msgid "Skip LILO install"
-msgstr "Sleppa uppsetningu LILO"
+#~ msgid "Skip LILO install"
+#~ msgstr "Sleppa uppsetningu LILO"
 
-msgid "No BOOTP reply received"
-msgstr "Ekkert svar við BOOTP beiðni"
+#~ msgid "No BOOTP reply received"
+#~ msgstr "Ekkert svar við BOOTP beiðni"
 
-msgid "No DHCP reply received"
-msgstr "Ekkert svar við DHCP beiðni"
+#~ msgid "No DHCP reply received"
+#~ msgstr "Ekkert svar við DHCP beiðni"
 
-msgid "Other CDROM"
-msgstr "Annað geisladrif"
+#~ msgid "Other CDROM"
+#~ msgstr "Annað geisladrif"
 
-msgid "CDROM type"
-msgstr "Tegund geisladrifs"
+#~ msgid "CDROM type"
+#~ msgstr "Tegund geisladrifs"
 
-msgid "What type of CDROM do you have?"
-msgstr "Hvernig geisladrif er í vélinni þinni?"
+#~ msgid "What type of CDROM do you have?"
+#~ msgstr "Hvernig geisladrif er í vélinni þinni?"
 
-msgid "Initializing CDROM..."
-msgstr "Frumstilli geisladrifið..."
+#~ msgid "Initializing CDROM..."
+#~ msgstr "Frumstilli geisladrifið..."
 
-msgid "Base IO port:"
-msgstr "Grunn IO gátt:"
+#~ msgid "Base IO port:"
+#~ msgstr "Grunn IO gátt:"
 
-msgid "IRQ level:"
-msgstr "IRQ númer:"
+#~ msgid "IRQ level:"
+#~ msgstr "IRQ númer:"
 
-msgid "IO base, IRQ:"
-msgstr "IO gátt, IRQ:"
+#~ msgid "IO base, IRQ:"
+#~ msgstr "IO gátt, IRQ:"
 
-msgid "Use other options"
-msgstr "Nota önnur viðföng"
+#~ msgid "Use other options"
+#~ msgstr "Nota önnur viðföng"
 
-msgid "Interrupt level (IRQ):"
-msgstr "Ígrip númer (IRQ):"
+#~ msgid "Interrupt level (IRQ):"
+#~ msgstr "Ígrip númer (IRQ):"
 
-msgid "IO base, IRQ, label:"
-msgstr "IO gátt, IRQ, merki:"
+#~ msgid "IO base, IRQ, label:"
+#~ msgstr "IO gátt, IRQ, merki:"
 
-msgid "Specify options"
-msgstr "Stilla handvirkt"
+#~ msgid "Specify options"
+#~ msgstr "Stilla handvirkt"
 
-msgid "mknod() failed: %s"
-msgstr "mknod() tókst ekki: %s"
+#~ msgid "mknod() failed: %s"
+#~ msgstr "mknod() tókst ekki: %s"
 
-msgid "Load module"
-msgstr "Lesa inn kjarnaeiningu"
+#~ msgid "Load module"
+#~ msgstr "Lesa inn kjarnaeiningu"
 
-msgid "Which driver should I try?"
-msgstr "Hvaða rekil viltu reyna?"
+#~ msgid "Which driver should I try?"
+#~ msgstr "Hvaða rekil viltu reyna?"
 
-msgid "Probe"
-msgstr "Stilla"
+#~ msgid "Probe"
+#~ msgstr "Stilla"
 
-msgid "A %s card has been found on your system."
-msgstr "Kort af gerðinni %s hefur fundist í vélinni þinni."
+#~ msgid "A %s card has been found on your system."
+#~ msgstr "Kort af gerðinni %s hefur fundist í vélinni þinni."
 
-msgid "device command"
-msgstr "tækjaskipun"
+#~ msgid "device command"
+#~ msgstr "tækjaskipun"
 
-msgid "bad argument to kickstart device command %s: %s"
-msgstr "ólöglegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
+#~ msgid "bad argument to kickstart device command %s: %s"
+#~ msgstr "ólöglegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
 
-msgid "bad arguments to kickstart device command"
-msgstr "ólögleg viðföng við tækjaskipun hraðuppsetningar"
+#~ msgid "bad arguments to kickstart device command"
+#~ msgstr "ólögleg viðföng við tækjaskipun hraðuppsetningar"
 
-msgid "No module exists for %s"
-msgstr "Engin kjarneining er til fyrir %s"
+#~ msgid "No module exists for %s"
+#~ msgstr "Engin kjarneining er til fyrir %s"
 
-msgid "I can't find the device anywhere on your system!"
-msgstr "Þetta tæki finnst ekki í vélinni þinni!"
+#~ msgid "I can't find the device anywhere on your system!"
+#~ msgstr "Þetta tæki finnst ekki í vélinni þinni!"
 
-msgid ""
-"In some cases, the %s driver needs to have extra information to work "
-"properly, although it normally works fine without. Would you like to specify "
-"extra options for it or allow the driver to probe your machine for the "
-"information it needs? Occasionally, probing will hang a computer, but it "
-"should not cause any damage."
-msgstr ""
-"Í sumum tilfellum þarf rekillinn %s auka viðföng svo hann virki rétt, þó "
-"hann virki vel í flestum tilfellum án þeirra. Viltu setja inn auka viðföng "
-"eða leyfa reklinum sjálfum að leita að þeim upplýsingum sem hann þarf? "
-"Stundum frystir sjálfvirk stilling vélina en það ætti ekki að skemma neitt."
+#~ msgid ""
+#~ "In some cases, the %s driver needs to have extra information to work "
+#~ "properly, although it normally works fine without. Would you like to specify "
+#~ "extra options for it or allow the driver to probe your machine for the "
+#~ "information it needs? Occasionally, probing will hang a computer, but it "
+#~ "should not cause any damage."
+#~ msgstr ""
+#~ "Í sumum tilfellum þarf rekillinn %s auka viðföng svo hann virki rétt, þó "
+#~ "hann virki vel í flestum tilfellum án þeirra. Viltu setja inn auka viðföng "
+#~ "eða leyfa reklinum sjálfum að leita að þeim upplýsingum sem hann þarf? "
+#~ "Stundum frystir sjálfvirk stilling vélina en það ætti ekki að skemma neitt."
 
-msgid ""
-"In many cases, the %s driver needs to be provided with extra information on "
-"your hardware. If you prefer, some common values for those parameters will "
-"be tried. This process can hang a machine, although it should not cause any "
-"damage."
-msgstr ""
-"Í sumum tilfellum þarf rekillinn %s frekari upplýsingar um vélbúnaðinn í "
-"vélinni þinni. Ef þú vilt getur rekillinn prófað nokkur algeng gildi. Þetta "
-"getur fryst vélina, en ætti ekki að skemma neitt."
+#~ msgid ""
+#~ "In many cases, the %s driver needs to be provided with extra information on "
+#~ "your hardware. If you prefer, some common values for those parameters will "
+#~ "be tried. This process can hang a machine, although it should not cause any "
+#~ "damage."
+#~ msgstr ""
+#~ "Í sumum tilfellum þarf rekillinn %s frekari upplýsingar um vélbúnaðinn í "
+#~ "vélinni þinni. Ef þú vilt getur rekillinn prófað nokkur algeng gildi. Þetta "
+#~ "getur fryst vélina, en ætti ekki að skemma neitt."
 
-msgid "Miscellaneous options:"
-msgstr "Frekari stillingar:"
+#~ msgid "Miscellaneous options:"
+#~ msgstr "Frekari stillingar:"
 
-msgid "Module options:"
-msgstr "Valmöguleikar kjarnaeininga:"
+#~ msgid "Module options:"
+#~ msgstr "Valmöguleikar kjarnaeininga:"
 
-msgid "Cannot open /proc/filesystems: %d"
-msgstr "Get ekki opnað /proc/filesystems: %d"
+#~ msgid "Cannot open /proc/filesystems: %d"
+#~ msgstr "Get ekki opnað /proc/filesystems: %d"
 
-msgid "Failed to open %s. No upgrade log will be kept."
-msgstr "Gat ekki opnað %s. Engin uppfærsluannáll verður skráður."
+#~ msgid "Failed to open %s. No upgrade log will be kept."
+#~ msgstr "Gat ekki opnað %s. Engin uppfærsluannáll verður skráður."
 
-msgid "Fatal error opening RPM database"
-msgstr "Banvæn villa við opnun RPM gagnagrunnsins"
+#~ msgid "Fatal error opening RPM database"
+#~ msgstr "Banvæn villa við opnun RPM gagnagrunnsins"
 
-msgid "Error ordering package list: %s"
-msgstr "Ekki tókst að panta pakkalista: %s"
+#~ msgid "Error ordering package list: %s"
+#~ msgstr "Ekki tókst að panta pakkalista: %s"
 
-msgid ""
-"You don't appear to have enough disk space to install the packages you've "
-"selected. You need more space on the following filesystems:\n"
-"\n"
-msgstr ""
-"Það virðist ekki vera laust nægjanlegt diskarými fyrir þá pakka sem þú "
-"valdir til uppsetningar. Þú þarft meira pláss á eftirfarandi skráarkerfum:\n"
+#~ msgid ""
+#~ "You don't appear to have enough disk space to install the packages you've "
+#~ "selected. You need more space on the following filesystems:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Það virðist ekki vera laust nægjanlegt diskarými fyrir þá pakka sem þú "
+#~ "valdir til uppsetningar. Þú þarft meira pláss á eftirfarandi skráarkerfum:\n"
 
-msgid "Space Needed"
-msgstr "Nauðsynlegt pláss"
+#~ msgid "Space Needed"
+#~ msgstr "Nauðsynlegt pláss"
 
-msgid "Install anyway"
-msgstr "Setja samt upp"
+#~ msgid "Install anyway"
+#~ msgstr "Setja samt upp"
 
-msgid "Fatal error reopening RPM database"
-msgstr "Banvæn villa við enduropnun RPM gagnagrunninn"
+#~ msgid "Fatal error reopening RPM database"
+#~ msgstr "Banvæn villa við enduropnun RPM gagnagrunninn"
 
-msgid "Examining packages to install..."
-msgstr "Leita að pökkum sem þarf að setja inn..."
+#~ msgid "Examining packages to install..."
+#~ msgstr "Leita að pökkum sem þarf að setja inn..."
 
-msgid "Examining files to install..."
-msgstr "Skoða skrár sem þarf að setja inn..."
+#~ msgid "Examining files to install..."
+#~ msgstr "Skoða skrár sem þarf að setja inn..."
 
-msgid "Finding overlapping files..."
-msgstr "Leita að skrám sem yfirrita hvor aðra..."
+#~ msgid "Finding overlapping files..."
+#~ msgstr "Leita að skrám sem yfirrita hvor aðra..."
 
-msgid "Processing"
-msgstr "Vinnsla í gangi"
+#~ msgid "Processing"
+#~ msgstr "Vinnsla í gangi"
 
-msgid "Removing old files..."
-msgstr "Eyði gömlum skrám..."
+#~ msgid "Removing old files..."
+#~ msgstr "Eyði gömlum skrám..."
 
-msgid "Error installing package: cannot open RPM file for %s: %s"
-msgstr "Villa við uppsetningu pakka: gat ekki opnað RPM skrá fyrir %s: %s"
-
-msgid "Force supplemental disk"
-msgstr "Neyða notkun aukadisklingsins"
+#~ msgid "Error installing package: cannot open RPM file for %s: %s"
+#~ msgstr "Villa við uppsetningu pakka: gat ekki opnað RPM skrá fyrir %s: %s"
+
+#~ msgid "Force supplemental disk"
+#~ msgstr "Neyða notkun aukadisklingsins"
+
+#~ msgid "Installation Method"
+#~ msgstr "Tegund uppsetningar"
 
-msgid "Installation Method"
-msgstr "Tegund uppsetningar"
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your NFS server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      Red Hat Linux for your architecture"
+#~ msgstr ""
+#~ "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+#~ "\n"
+#~ "    o heiti eða IP vistfang NFS þjónsins þíns\n"
+#~ "    o mappan á þjóninum sem inniheldur\n"
+#~ "      Red Hat Linux fyrir vélina þína"
+
+#~ msgid "NFS server name:"
+#~ msgstr "NFS þjónn:"
 
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your NFS server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture"
-msgstr ""
-"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
-"\n"
-"    o heiti eða IP vistfang NFS þjónsins þíns\n"
-"    o mappan á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína"
+#~ msgid "Red Hat directory:"
+#~ msgstr "Red Hat mappan:"
 
-msgid "NFS server name:"
-msgstr "NFS þjónn:"
+#~ msgid "Note"
+#~ msgstr "Athugið"
+
+#~ msgid "Insert your Red Hat CD into your CD drive now"
+#~ msgstr "Vinsamlegast settu Red Hat geisladiskinn í geisladrifið"
+
+#~ msgid "I could not mount a CD on device /dev/%s"
+#~ msgstr "Gat ekki tengt geisladrifið á /dev/%s"
 
-msgid "Red Hat directory:"
-msgstr "Red Hat mappan:"
+#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+#~ msgstr "Þetta geisladrif virðist ekki innihalda Red Hat geisladisk."
 
-msgid "Note"
-msgstr "Athugið"
-
-msgid "Insert your Red Hat CD into your CD drive now"
-msgstr "Vinsamlegast settu Red Hat geisladiskinn í geisladrifið"
+#~ msgid "nfs command"
+#~ msgstr "NFS skipun"
 
-msgid "I could not mount a CD on device /dev/%s"
-msgstr "Gat ekki tengt geisladrifið á /dev/%s"
+#~ msgid "bad argument to kickstart nfs command %s: %s"
+#~ msgstr "ólöglegt viðfang við NFS hraðuppsetningarskipun %s: %s"
 
-msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-msgstr "Þetta geisladrif virðist ekki innihalda Red Hat geisladisk."
+#~ msgid "nfs command incomplete"
+#~ msgstr "NFS skipun ókláruð"
 
-msgid "nfs command"
-msgstr "NFS skipun"
+#~ msgid "I could not mount that directory from the server"
+#~ msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
 
-msgid "bad argument to kickstart nfs command %s: %s"
-msgstr "ólöglegt viðfang við NFS hraðuppsetningarskipun %s: %s"
+#~ msgid "That directory does not seem to contain a Red Hat installation tree."
+#~ msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
 
-msgid "nfs command incomplete"
-msgstr "NFS skipun ókláruð"
+#~ msgid "Loading second stage ramdisk..."
+#~ msgstr "Les inn auka ramdisklinginn..."
 
-msgid "I could not mount that directory from the server"
-msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
+#~ msgid "PCMCIA Disk"
+#~ msgstr "PCMCIA diskur"
 
-msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+#~ "choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat PCMCIA "
+#~ "disklinginn í drifið eða veldu Hætta við til að velja aðra "
+#~ "uppsetningaraðferð."
 
-msgid "Loading second stage ramdisk..."
-msgstr "Les inn auka ramdisklinginn..."
+#~ msgid "Loading PCMCIA Support"
+#~ msgstr "Les inn PCMCIA stuðning"
 
-msgid "PCMCIA Disk"
-msgstr "PCMCIA diskur"
+#~ msgid "Supplemental Disk"
+#~ msgstr "Aukadisklingur"
 
-msgid ""
-"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-"choose Cancel to pick a different installation process."
-msgstr ""
-"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat PCMCIA "
-"disklinginn í drifið eða veldu Hætta við til að velja aðra "
-"uppsetningaraðferð."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
+#~ "Install disk, or choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat aukadisklinginn "
+#~ "í drifið eða veldu Hætta við til að velja aðra uppsetningaraðferð."
 
-msgid "Loading PCMCIA Support"
-msgstr "Les inn PCMCIA stuðning"
+#~ msgid "Loading Supplemental Disk..."
+#~ msgstr "Les inn aukadisklinginn..."
 
-msgid "Supplemental Disk"
-msgstr "Aukadisklingur"
+#~ msgid "Driver Disk"
+#~ msgstr "Rekladisklingur"
 
-msgid ""
-"I failed to mount the floppy. Please insert the Red Hat Supplementary "
-"Install disk, or choose Cancel to pick a different installation process."
-msgstr ""
-"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat aukadisklinginn "
-"í drifið eða veldu Hætta við til að velja aðra uppsetningaraðferð."
+#~ msgid ""
+#~ "This install method requires a driver disk. Please remove the supplemental "
+#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
+#~ msgstr ""
+#~ "Þessi uppsetningaraðferð þarfnast rekladisklingsins. Vinsamlegast taktu "
+#~ "aukadisklinginn úr disklingadrifinu og settu rekladisklinginn í hans stað. "
 
-msgid "Loading Supplemental Disk..."
-msgstr "Les inn aukadisklinginn..."
+#~ msgid ""
+#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+#~ "choose Cancel to pick a different installation process."
+#~ msgstr ""
+#~ "Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat "
+#~ "rekladisklinginn í drifið eða veldu Hætta við til að velja aðra "
+#~ "uppsetningaraðferð."
 
-msgid "Driver Disk"
-msgstr "Rekladisklingur"
+#~ msgid "Loading Driver Disk..."
+#~ msgstr "Les inn rekladisklinginn..."
 
-msgid ""
-"This install method requires a driver disk. Please remove the supplemental "
-"disk currently in your drive and replace it with the Red Hat Modules disk."
-msgstr ""
-"Þessi uppsetningaraðferð þarfnast rekladisklingsins. Vinsamlegast taktu "
-"aukadisklinginn úr disklingadrifinu og settu rekladisklinginn í hans stað. "
+#~ msgid ""
+#~ "This install method requires two additional disks. Please remove the boot "
+#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
+#~ "Install disk."
+#~ msgstr ""
+#~ "Þessi uppsetningaraðferð þarfnast tveggja auka disklinga. Vinsamlegast taktu "
+#~ "ræsidisklinginn úr disklingadrifinu og settu aukadisklinginn í hans stað. "
 
-msgid ""
-"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-"choose Cancel to pick a different installation process."
-msgstr ""
-"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat "
-"rekladisklinginn í drifið eða veldu Hætta við til að velja aðra "
-"uppsetningaraðferð."
+#~ msgid "hd command"
+#~ msgstr "hd skipun"
 
-msgid "Loading Driver Disk..."
-msgstr "Les inn rekladisklinginn..."
+#~ msgid "bad argument to kickstart hd command %s: %s"
+#~ msgstr "ólöglegt viðfang við hd hraðuppsetningarskipun %s: %s"
 
-msgid ""
-"This install method requires two additional disks. Please remove the boot "
-"disk currently in your drive and replace it with the Red Hat Supplementary "
-"Install disk."
-msgstr ""
-"Þessi uppsetningaraðferð þarfnast tveggja auka disklinga. Vinsamlegast taktu "
-"ræsidisklinginn úr disklingadrifinu og settu aukadisklinginn í hans stað. "
+#~ msgid "hd command incomplete"
+#~ msgstr "hd skipun ókláruð"
 
-msgid "hd command"
-msgstr "hd skipun"
+#~ msgid "HD device %s not found"
+#~ msgstr "HD tæki %s finnst ekki"
 
-msgid "bad argument to kickstart hd command %s: %s"
-msgstr "ólöglegt viðfang við hd hraðuppsetningarskipun %s: %s"
+#~ msgid ""
+#~ "What partition and directory on that partition hold the RedHat/RPMS and "
+#~ "RedHat/base directories?"
+#~ msgstr ""
+#~ "Hvaða disksneið og mappa inniheldur RedHat/RPMS og RedHat/base möppuna?"
 
-msgid "hd command incomplete"
-msgstr "hd skipun ókláruð"
+#~ msgid "Directory holding Red Hat:"
+#~ msgstr "Mappa sem inniheldur Red Hat:"
 
-msgid "HD device %s not found"
-msgstr "HD tæki %s finnst ekki"
+#~ msgid "Select Partition"
+#~ msgstr "Veldu disksneið"
 
-msgid ""
-"What partition and directory on that partition hold the RedHat/RPMS and "
-"RedHat/base directories?"
-msgstr ""
-"Hvaða disksneið og mappa inniheldur RedHat/RPMS og RedHat/base möppuna?"
+#~ msgid "Failed to create /tmp/rhimage symlink: %s"
+#~ msgstr "Gat ekki búið til /tmp/rhimage sýndarhlekk: %s"
 
-msgid "Directory holding Red Hat:"
-msgstr "Mappa sem inniheldur Red Hat:"
+#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
+#~ msgstr "Tæki %s virðist ekki innihalda Red Hat dreifingu."
 
-msgid "Select Partition"
-msgstr "Veldu disksneið"
+#~ msgid "Error reading second stage ramdisk. "
+#~ msgstr "Villa við lestur minnisdisks seinna þreps. "
 
-msgid "Failed to create /tmp/rhimage symlink: %s"
-msgstr "Gat ekki búið til /tmp/rhimage sýndarhlekk: %s"
+#~ msgid "url command"
+#~ msgstr "slóðarskipun"
 
-msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Tæki %s virðist ekki innihalda Red Hat dreifingu."
+#~ msgid "bad argument to kickstart url command %s: %s"
+#~ msgstr "ólöglegt viðfang við slóðarskipun í hraðuppsetningu %s: %s"
 
-msgid "Error reading second stage ramdisk. "
-msgstr "Villa við lestur minnisdisks seinna þreps. "
+#~ msgid "url command incomplete"
+#~ msgstr "slóðarskipun ókláruð"
 
-msgid "url command"
-msgstr "slóðarskipun"
+#~ msgid "Unable to retrieve the second stage ramdisk: %s"
+#~ msgstr "Get ekki sótt minnisdisk seinna þreps: %s"
 
-msgid "bad argument to kickstart url command %s: %s"
-msgstr "ólöglegt viðfang við slóðarskipun í hraðuppsetningu %s: %s"
+#~ msgid "Mount points must begin with a leading /."
+#~ msgstr "Heiti tengipunkta verður að byrja á /."
 
-msgid "url command incomplete"
-msgstr "slóðarskipun ókláruð"
+#~ msgid "Mount points may not end with a /."
+#~ msgstr "Heiti tengipunkta má ekki enda á /."
 
-msgid "Unable to retrieve the second stage ramdisk: %s"
-msgstr "Get ekki sótt minnisdisk seinna þreps: %s"
+#~ msgid "Mount points may only printable characters."
+#~ msgstr "Heiti tengipunkta má bara innihalda prentanlega stafi."
 
-msgid "Mount points must begin with a leading /."
-msgstr "Heiti tengipunkta verður að byrja á /."
+#~ msgid "System partitions must be on Linux Native partitions."
+#~ msgstr "Kerfissneiðar verða að vera á 'Linux Native' disksneiðum."
 
-msgid "Mount points may not end with a /."
-msgstr "Heiti tengipunkta má ekki enda á /."
+#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
+#~ msgstr "/usr verður að vera á 'Linux Native' disksneið eða NFS tengt."
 
-msgid "Mount points may only printable characters."
-msgstr "Heiti tengipunkta má bara innihalda prentanlega stafi."
+#~ msgid "Edit Network Mount Point"
+#~ msgstr "Breyta nettengipunkti"
 
-msgid "System partitions must be on Linux Native partitions."
-msgstr "Kerfissneiðar verða að vera á 'Linux Native' disksneiðum."
+#~ msgid "Making ext2 filesystem on /dev/%s..."
+#~ msgstr "Bý til ext2 skráakerfi á /dev/%s..."
 
-msgid "/usr must be on a Linux Native partition or an NFS volume."
-msgstr "/usr verður að vera á 'Linux Native' disksneið eða NFS tengt."
+#~ msgid "Running"
+#~ msgstr "Í vinnslu"
 
-msgid "Edit Network Mount Point"
-msgstr "Breyta nettengipunkti"
+#~ msgid "nfs mount failed: %s"
+#~ msgstr "ekki tókst að nfs tengja: %s"
 
-msgid "Making ext2 filesystem on /dev/%s..."
-msgstr "Bý til ext2 skráakerfi á /dev/%s..."
+#~ msgid "mount failed: %s"
+#~ msgstr "ekki tókst að tengja: %s"
 
-msgid "Running"
-msgstr "Í vinnslu"
+#~ msgid ""
+#~ "The partition table on device %s is corrupted.  To create new partitions it "
+#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+#~ "to have this done automatically"
+#~ msgstr ""
+#~ "Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
+#~ "sneiðar þarf að frumstilla hana. Þú getur sett \"zerombr yes\" í "
+#~ "hraðuppsetningarstillingaskrána svo þetta gerist sjálfvirkt"
 
-msgid "nfs mount failed: %s"
-msgstr "ekki tókst að nfs tengja: %s"
+#~ msgid "Zero Partition Table"
+#~ msgstr "Endurstilla disksneiðatöfluna"
 
-msgid "mount failed: %s"
-msgstr "ekki tókst að tengja: %s"
+#~ msgid ""
+#~ "bad argument to kickstart zerombr command: %s.\n"
+#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+#~ msgstr ""
+#~ "Ólöglegt viðfang við zerombr hraðuppsetningar skipunina: %s.\n"
+#~ "Það verður að vera 'on', '1' eða 'yes' til að virkja, eða 'off', '0', eða "
+#~ "'no' til að slökkva á henni."
 
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-"to have this done automatically"
-msgstr ""
-"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
-"sneiðar þarf að frumstilla hana. Þú getur sett \"zerombr yes\" í "
-"hraðuppsetningarstillingaskrána svo þetta gerist sjálfvirkt"
+#~ msgid "Clear Partition Command"
+#~ msgstr "Tæma disksneið skipun"
 
-msgid "Zero Partition Table"
-msgstr "Endurstilla disksneiðatöfluna"
+#~ msgid "bad argument to kickstart clearpart command %s: %s"
+#~ msgstr "ólöglegt viðfang við 'clearpart' hraðuppsetningarskipun %s: %s"
 
-msgid ""
-"bad argument to kickstart zerombr command: %s.\n"
-"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-msgstr ""
-"Ólöglegt viðfang við zerombr hraðuppsetningar skipunina: %s.\n"
-"Það verður að vera 'on', '1' eða 'yes' til að virkja, eða 'off', '0', eða "
-"'no' til að slökkva á henni."
+#~ msgid "Partition Command"
+#~ msgstr "Disksneiðarskipur"
 
-msgid "Clear Partition Command"
-msgstr "Tæma disksneið skipun"
+#~ msgid "bad argument to kickstart part command %s: %s"
+#~ msgstr "ólöglegt viðfang við 'part' hraðuppsetningar skipun %s: %s"
 
-msgid "bad argument to kickstart clearpart command %s: %s"
-msgstr "ólöglegt viðfang við 'clearpart' hraðuppsetningarskipun %s: %s"
+#~ msgid "Option Ignored"
+#~ msgstr "Viðfang hundsað"
 
-msgid "Partition Command"
-msgstr "Disksneiðarskipur"
+#~ msgid ""
+#~ "The --maxsize option for the partition %s was ignored. Check that it is "
+#~ "larger than the --size option."
+#~ msgstr ""
+#~ "Viðfangið --maxsize var hundsað fyrir disksneiðina %s. Athugaðu hvort það sé "
+#~ "ekki örugglega hærra en --size viðfangið."
 
-msgid "bad argument to kickstart part command %s: %s"
-msgstr "ólöglegt viðfang við 'part' hraðuppsetningar skipun %s: %s"
+#~ msgid "The mount point %s is already in use."
+#~ msgstr "Tengipunkturinn %s er þegar í notkun."
 
-msgid "Option Ignored"
-msgstr "Viðfang hundsað"
+#~ msgid "Failed Allocation"
+#~ msgstr "Ekki tókst að taka frá pláss"
 
-msgid ""
-"The --maxsize option for the partition %s was ignored. Check that it is "
-"larger than the --size option."
-msgstr ""
-"Viðfangið --maxsize var hundsað fyrir disksneiðina %s. Athugaðu hvort það sé "
-"ekki örugglega hærra en --size viðfangið."
+#~ msgid "The partition %s could not be allocated."
+#~ msgstr "Gat ekki tekið frá pláss fyrir disksneið %s."
 
-msgid "The mount point %s is already in use."
-msgstr "Tengipunkturinn %s er þegar í notkun."
+#~ msgid ""
+#~ "There are partitions that can be resized nondestructively to make room for "
+#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
+#~ msgstr ""
+#~ "Stærð sumra disksneiða má breyta án þess að valda skemmdum til þess að búa "
+#~ "til pláss fyrir Red Hat Linux uppsetninguna. Viltu breyta þeim sneiðum núna?"
 
-msgid "Failed Allocation"
-msgstr "Ekki tókst að taka frá pláss"
+#~ msgid "Success"
+#~ msgstr "Tókst"
 
-msgid "The partition %s could not be allocated."
-msgstr "Gat ekki tekið frá pláss fyrir disksneið %s."
+#~ msgid "Bad server response"
+#~ msgstr "Ólöglegt svar frá þjóninum"
 
-msgid "Disk Setup"
-msgstr "Stillingar diska"
+#~ msgid "Server IO error"
+#~ msgstr "Les/rit villa frá þjóni"
 
-msgid ""
-"There are partitions that can be resized nondestructively to make room for "
-"your Red Hat Linux installation. Do you want to resize these partitions now?"
-msgstr ""
-"Stærð sumra disksneiða má breyta án þess að valda skemmdum til þess að búa "
-"til pláss fyrir Red Hat Linux uppsetninguna. Viltu breyta þeim sneiðum núna?"
+#~ msgid "Server timeout"
+#~ msgstr "Tímatakmörk þjóns"
 
-msgid "Success"
-msgstr "Tókst"
+#~ msgid "Unable to lookup server host address"
+#~ msgstr "Ekki tókst að fletta upp IP vistfangi þjónsins"
 
-msgid "Bad server response"
-msgstr "Ólöglegt svar frá þjóninum"
+#~ msgid "Unable to lookup server host name"
+#~ msgstr "Ekki tókst að fletta upp heiti þjónsins"
 
-msgid "Server IO error"
-msgstr "Les/rit villa frá þjóni"
+#~ msgid "Failed to connect to server"
+#~ msgstr "Ekki tókst að tengjast þjóninum"
 
-msgid "Server timeout"
-msgstr "Tímatakmörk þjóns"
+#~ msgid "Failed to establish data connection to server"
+#~ msgstr "Ekki tókst að mynda gagnatengingu við þjóninn"
 
-msgid "Unable to lookup server host address"
-msgstr "Ekki tókst að fletta upp IP vistfangi þjónsins"
+#~ msgid "IO error to local file"
+#~ msgstr "Les/rit villa á staðbundinni skrá"
 
-msgid "Unable to lookup server host name"
-msgstr "Ekki tókst að fletta upp heiti þjónsins"
+#~ msgid "Error setting remote server to passive mode"
+#~ msgstr "Ekki tókst að stilla þjóninn á hlutlausan ham"
 
-msgid "Failed to connect to server"
-msgstr "Ekki tókst að tengjast þjóninum"
+#~ msgid "File not found on server"
+#~ msgstr "Skráin fannst ekki á þjóninum"
 
-msgid "Failed to establish data connection to server"
-msgstr "Ekki tókst að mynda gagnatengingu við þjóninn"
+#~ msgid "Abort in progress"
+#~ msgstr "Er að hætta við"
 
-msgid "IO error to local file"
-msgstr "Les/rit villa á staðbundinni skrá"
+#~ msgid "Unknown or unexpected error"
+#~ msgstr "Óþekkt eða óvænt villa"
 
-msgid "Error setting remote server to passive mode"
-msgstr "Ekki tókst að stilla þjóninn á hlutlausan ham"
+#~ msgid "Whole disk"
+#~ msgstr "Allur diskurinn"
 
-msgid "File not found on server"
-msgstr "Skráin fannst ekki á þjóninum"
+#~ msgid "Linux swap"
+#~ msgstr "Linux diskminni"
 
-msgid "Abort in progress"
-msgstr "Er að hætta við"
+#~ msgid "Linux native"
+#~ msgstr "Linux native"
 
-msgid "Unknown or unexpected error"
-msgstr "Óþekkt eða óvænt villa"
+#~ msgid "DOS 12-bit FAT"
+#~ msgstr "DOS 12-bita FAT"
 
-msgid "Whole disk"
-msgstr "Allur diskurinn"
+#~ msgid "DOS 16-bit <32M"
+#~ msgstr "DOS 16-bita <32M"
 
-msgid "Linux swap"
-msgstr "Linux diskminni"
+#~ msgid "DOS 16-bit >=32"
+#~ msgstr "DOS 16-bita >=32"
 
-msgid "Linux native"
-msgstr "Linux native"
+#~ msgid "OS/2 HPFS"
+#~ msgstr "OS/2 HPFS"
 
-msgid "DOS 12-bit FAT"
-msgstr "DOS 12-bita FAT"
+#~ msgid "Win95 FAT32"
+#~ msgstr "Win95 FAT32"
 
-msgid "DOS 16-bit <32M"
-msgstr "DOS 16-bita <32M"
+#~ msgid "Hard Drives"
+#~ msgstr "Harðir diskar"
 
-msgid "DOS 16-bit >=32"
-msgstr "DOS 16-bita >=32"
+#~ msgid "Scanning hard drives..."
+#~ msgstr "Skoða hörðu diskana..."
 
-msgid "OS/2 HPFS"
-msgstr "OS/2 HPFS"
+#~ msgid ""
+#~ "You don't have any hard drives available! You probably forgot to configure a "
+#~ "SCSI controller."
+#~ msgstr ""
+#~ "Þú ert ekki með neina harða diska í vélinni! Þú hefur líklega gleymt að "
+#~ "stilla SCSI stýringu."
 
-msgid "Win95 FAT32"
-msgstr "Win95 FAT32"
+#~ msgid ""
+#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
+#~ "dedicated to Linux."
+#~ msgstr ""
+#~ "Til þess að setja up Red Hat Linux þarftu að minnsta kosti eina disksneið "
+#~ "frátekna fyrir Linux sem er minnst 150 megabæti."
 
-msgid "Hard Drives"
-msgstr "Harðir diskar"
+#~ msgid "Partition Disks"
+#~ msgstr "Sneiða diska"
 
-msgid "Scanning hard drives..."
-msgstr "Skoða hörðu diskana..."
+#~ msgid "Reboot Needed"
+#~ msgstr "Endurræsingar er þörf"
 
-msgid ""
-"You don't have any hard drives available! You probably forgot to configure a "
-"SCSI controller."
-msgstr ""
-"Þú ert ekki með neina harða diska í vélinni! Þú hefur líklega gleymt að "
-"stilla SCSI stýringu."
+#~ msgid ""
+#~ "The kernel is unable to read your new partitioning information, probably "
+#~ "because you modified extended partitions. While this is not critical, you "
+#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+#~ "and press Return to reboot your system.\n"
+#~ "\n"
+#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+#~ "empty SCSI drive can also cause this problem."
+#~ msgstr ""
+#~ "Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að þú "
+#~ "breyttir extended disksneið. Þó þetta sé ekki alvarlegt er samt nauðsynlegt "
+#~ "að endurræsa vélina áður en þú getur haldið áfram. Settu Red Hat ræsidiskinn "
+#~ "í drifið og sláðu á enter til að endurræsa.\n"
+#~ "\n"
+#~ "Ef þú ert með ZIP eða JAZ drif, gakktu úr skugga um að það sé diskur í "
+#~ "drifinu því tóm SCSI tæki geta einnig valdið þessu vandamáli."
 
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux. We suggest placing that partition on one of the first "
-"two hard drives in your system so you can boot into Linux with LILO."
-msgstr ""
-"Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
-"disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að hafa "
-"hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé hægt að "
-"ræsa Linux með LILO."
+#~ msgid "lilo command"
+#~ msgstr "Lilo-skipun"
 
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux."
-msgstr ""
-"Til þess að setja up Red Hat Linux þarftu að minnsta kosti eina disksneið "
-"frátekna fyrir Linux sem er minnst 150 megabæti."
+#~ msgid "bad argument to kickstart lilo command %s: %s"
+#~ msgstr "ólöglegt viðfang við 'lilo' skipun í hraðuppsetningu %s: %s"
 
-msgid "Partition Disks"
-msgstr "Sneiða diska"
+#~ msgid "PCMCIA Support"
+#~ msgstr "PCMCIA stuðningur"
 
-msgid "Done"
-msgstr "Búið"
+#~ msgid ""
+#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
+#~ "question if only need PCMCIA support after the install. You do not need "
+#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+#~ "with a built-in CDROM drive."
+#~ msgstr ""
+#~ "Þarftu að nota PCMCIA tæki meðan á uppsetningu stendur? Svaraðu neitandi ef "
+#~ "þú þarft aðeins á PCMCIA að halda eftir að uppsetningu lýkur. Þú þarft ekki "
+#~ "PCMCIA stuðning á meðan að uppsetningu stendur ef þú ert að setja upp Red "
+#~ "Hat Linux á kjöltutölvu með innbyggðu geisladrifi."
 
-msgid "Reboot Needed"
-msgstr "Endurræsingar er þörf"
+#~ msgid "PCMCIA Support Disk"
+#~ msgstr "PCMCIA stuðningsdisklingur"
 
-msgid ""
-"The kernel is unable to read your new partitioning information, probably "
-"because you modified extended partitions. While this is not critical, you "
-"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-"and press Return to reboot your system.\n"
-"\n"
-"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-"empty SCSI drive can also cause this problem."
-msgstr ""
-"Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að þú "
-"breyttir extended disksneið. Þó þetta sé ekki alvarlegt er samt nauðsynlegt "
-"að endurræsa vélina áður en þú getur haldið áfram. Settu Red Hat ræsidiskinn "
-"í drifið og sláðu á enter til að endurræsa.\n"
-"\n"
-"Ef þú ert með ZIP eða JAZ drif, gakktu úr skugga um að það sé diskur í "
-"drifinu því tóm SCSI tæki geta einnig valdið þessu vandamáli."
+#~ msgid ""
+#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
+#~ msgstr ""
+#~ "PCMCIA stuðningur þarfnast PCMCIA stuðningsdisklingsins. Vinsamlegast taktu "
+#~ "ræsidisklinginn úr disklingadrifinu og settu Red Hat PCMCIA "
+#~ "stuðningsdisklinginn í hans stað. "
 
-msgid "lilo command"
-msgstr "Lilo-skipun"
+#~ msgid "Starting PCMCIA services..."
+#~ msgstr "Gangset PCMCIA þjónusturnar..."
 
-msgid "bad argument to kickstart lilo command %s: %s"
-msgstr "ólöglegt viðfang við 'lilo' skipun í hraðuppsetningu %s: %s"
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Type <exit> to return to the install program.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Sláðu inn <exit> til þess að komast aftur í uppsetningarforritið.\n"
+#~ "\n"
 
-msgid "PCMCIA Support"
-msgstr "PCMCIA stuðningur"
+#~ msgid "Kickstart Error"
+#~ msgstr "Kickstart villa"
 
-msgid ""
-"Do you need to use PCMCIA devices during the install? Answer no to this "
-"question if only need PCMCIA support after the install. You do not need "
-"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-"with a built-in CDROM drive."
-msgstr ""
-"Þarftu að nota PCMCIA tæki meðan á uppsetningu stendur? Svaraðu neitandi ef "
-"þú þarft aðeins á PCMCIA að halda eftir að uppsetningu lýkur. Þú þarft ekki "
-"PCMCIA stuðning á meðan að uppsetningu stendur ef þú ert að setja upp Red "
-"Hat Linux á kjöltutölvu með innbyggðu geisladrifi."
+#~ msgid "No kickstart configuration file server can be found."
+#~ msgstr "Enginn þjónn með stilliskrá fyrir hraðauppsetningar fannst."
 
-msgid "PCMCIA Support Disk"
-msgstr "PCMCIA stuðningsdisklingur"
+#~ msgid "I could not mount the kickstart path %s.\n"
+#~ msgstr "Ekki tókst að tengja hraðuppsetningarslóðina %s.\n"
 
-msgid ""
-"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-"currently in your drive and replace it with the Red Hat PCMCIA support disk."
-msgstr ""
-"PCMCIA stuðningur þarfnast PCMCIA stuðningsdisklingsins. Vinsamlegast taktu "
-"ræsidisklinginn úr disklingadrifinu og settu Red Hat PCMCIA "
-"stuðningsdisklinginn í hans stað. "
+#~ msgid "I could not mount the boot floppy."
+#~ msgstr "Gat ekki tengt ræsidisklinginn."
 
-msgid "Starting PCMCIA services..."
-msgstr "Gangset PCMCIA þjónusturnar..."
+#~ msgid "Cannot find ks.cfg on boot floppy."
+#~ msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
 
-msgid ""
-"\n"
-"\n"
-"Type <exit> to return to the install program.\n"
-"\n"
-msgstr ""
-"\n"
-"\n"
-"Sláðu inn <exit> til þess að komast aftur í uppsetningarforritið.\n"
-"\n"
+#~ msgid "Error opening files for kickstart copy: %s\n"
+#~ msgstr "Villa við opnun skráa fyrir hraðuppsetningarafritun: %s\n"
 
-msgid "Kickstart Error"
-msgstr "Kickstart villa"
+#~ msgid "Error copying kickstart file from floppy."
+#~ msgstr "Villa við afritun hraðuppsetningar frá disklingi."
 
-msgid "No kickstart configuration file server can be found."
-msgstr "Enginn þjónn með stilliskrá fyrir hraðauppsetningar fannst."
+#~ msgid "Select installation path"
+#~ msgstr "Velja uppsetningarslóð"
 
-msgid "I could not mount the kickstart path %s.\n"
-msgstr "Ekki tókst að tengja hraðuppsetningarslóðina %s.\n"
+#~ msgid "Select installation class"
+#~ msgstr "Velja uppsetningarham"
 
-msgid "I could not mount the boot floppy."
-msgstr "Gat ekki tengt ræsidisklinginn."
+#~ msgid "Setup SCSI"
+#~ msgstr "Setja upp SCSI"
 
-msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
+#~ msgid "Setup filesystems"
+#~ msgstr "Setja upp skráakerfi"
 
-msgid "Error opening files for kickstart copy: %s\n"
-msgstr "Villa við opnun skráa fyrir hraðuppsetningarafritun: %s\n"
+#~ msgid "Setup swap space"
+#~ msgstr "Setja upp diskminni"
 
-msgid "Error copying kickstart file from floppy."
-msgstr "Villa við afritun hraðuppsetningar frá disklingi."
+#~ msgid "Find installation files"
+#~ msgstr "Finna uppsetningarskrár"
 
-msgid "Select installation path"
-msgstr "Velja uppsetningarslóð"
+#~ msgid "Choose packages to install"
+#~ msgstr "Veldu pakka sem setja skal upp"
 
-msgid "Select installation class"
-msgstr "Velja uppsetningarham"
+#~ msgid "Configure networking"
+#~ msgstr "Stillingar nets"
 
-msgid "Setup SCSI"
-msgstr "Setja upp SCSI"
+#~ msgid "Configure timezone"
+#~ msgstr "Stillingar tímabeltis"
 
-msgid "Setup filesystems"
-msgstr "Setja upp skráakerfi"
+#~ msgid "Configure services"
+#~ msgstr "Stillingar þjónustna"
 
-msgid "Setup swap space"
-msgstr "Setja upp diskminni"
+#~ msgid "Configure printer"
+#~ msgstr "Setja upp prentara"
 
-msgid "Find installation files"
-msgstr "Finna uppsetningarskrár"
+#~ msgid "Exit install"
+#~ msgstr "Hætta uppsetningu"
 
-msgid "Choose packages to install"
-msgstr "Veldu pakka sem setja skal upp"
+#~ msgid "Find current installation"
+#~ msgstr "Finna núverandi uppsetningu"
 
-msgid "Configure networking"
-msgstr "Stillingar nets"
+#~ msgid "Scanning packages..."
+#~ msgstr "Skoða pakkana..."
 
-msgid "Configure timezone"
-msgstr "Stillingar tímabeltis"
+#~ msgid "Install log"
+#~ msgstr "Uppsetningarannáll"
 
-msgid "Configure services"
-msgstr "Stillingar þjónustna"
+#~ msgid "Upgrade log"
+#~ msgstr "Uppfærsluannáll"
 
-msgid "Configure printer"
-msgstr "Setja upp prentara"
+#~ msgid ""
+#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+#~ "is finished. After rebooting, please read it to ensure configuration files "
+#~ "are properly updated."
+#~ msgstr ""
+#~ "Eftir að uppfærslunni lýkur verður til annáll sem heitir /tmp/update.log sem "
+#~ "þú ættir að líta á eftir að hafa endurræst vélina til að ganga úr skugga um "
+#~ "að uppsetningarskrár hafi verið rétt uppfærðar."
 
-msgid "Exit install"
-msgstr "Hætta uppsetningu"
+#~ msgid "Rebuilding RPM database..."
+#~ msgstr "Endursmíða RPM gagnagrunninn..."
 
-msgid "Find current installation"
-msgstr "Finna núverandi uppsetningu"
+#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
+#~ msgstr "Ekki tókst að endursmíða RPM gagnagrunninn. Er diskplássið búið?"
 
-msgid "Disk Druid"
-msgstr "Diska Drúídi"
+#~ msgid "rootpw command"
+#~ msgstr "rootpw skipun"
 
-msgid "fdisk"
-msgstr "fdisk"
+#~ msgid "bad argument to kickstart rootpw command %s: %s"
+#~ msgstr "ólögleg viðföng við hraðuppsetningar 'rootpw' skipun %s: %s"
 
-msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is "
-"designed to be easier to use than Linux's traditional disk partitioning "
-"sofware, fdisk, as well as more powerful. However, there are some cases "
-"where fdisk may be preferred.\n"
-"\n"
-"Which tool would you like to use?"
-msgstr ""
-"Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
-"tengipunktum. Það er hannað til þess að vera einfaldara í notkun en gamla "
-"góða Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem betra "
-"er að nota fdisk.\n"
-"\n"
-"Hvort tólið viltu nota?"
+#~ msgid "Missing password"
+#~ msgstr "Lykilorð vantar"
 
-msgid "Scanning packages..."
-msgstr "Skoða pakkana..."
+#~ msgid "Unexpected arguments"
+#~ msgstr "Ólögleg viðföng"
 
-msgid "Install log"
-msgstr "Uppsetningarannáll"
+#~ msgid "Installation Path"
+#~ msgstr "Uppsetningarslóð"
 
-msgid "Upgrade log"
-msgstr "Uppfærsluannáll"
+#~ msgid ""
+#~ "Would you like to install a new system or upgrade a system which already "
+#~ "contains Red Hat Linux 2.0 or later?"
+#~ msgstr ""
+#~ "Viltu setja upp nýtt kerfi eða uppfæra vél sem er þegar með Red Hat Linux "
+#~ "útgáfu 2.0 eða nýrra?"
 
-msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-"is finished. After rebooting, please read it to ensure configuration files "
-"are properly updated."
-msgstr ""
-"Eftir að uppfærslunni lýkur verður til annáll sem heitir /tmp/update.log sem "
-"þú ættir að líta á eftir að hafa endurræst vélina til að ganga úr skugga um "
-"að uppsetningarskrár hafi verið rétt uppfærðar."
+#~ msgid ""
+#~ "What type of machine are you installing? For maximum flexibility, choose "
+#~ "\"Custom\"."
+#~ msgstr ""
+#~ "Hverskonar vél ertu að setja upp? Fyrir hámarks sveigjanleika, veldu "
+#~ "\"Sérsniðin\"."
 
-msgid "Rebuilding RPM database..."
-msgstr "Endursmíða RPM gagnagrunninn..."
+#~ msgid "Converting RPM database..."
+#~ msgstr "Umbreyti RPM gagnagrunninum..."
 
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "Ekki tókst að endursmíða RPM gagnagrunninn. Er diskplássið búið?"
+#~ msgid "Finding packages to upgrade..."
+#~ msgstr "Velja pakka sem á að uppfæra"
 
-msgid "rootpw command"
-msgstr "rootpw skipun"
+#~ msgid "Previous"
+#~ msgstr "Fyrri"
 
-msgid "bad argument to kickstart rootpw command %s: %s"
-msgstr "ólögleg viðföng við hraðuppsetningar 'rootpw' skipun %s: %s"
+#~ msgid "Menu"
+#~ msgstr "Valmynd"
 
-msgid "Missing password"
-msgstr "Lykilorð vantar"
+#~ msgid ""
+#~ "An error occured during step \"%s\" of the install.\n"
+#~ "\n"
+#~ "You may retry that step, return to the previous step in the install, or see "
+#~ "a menu of installation steps which will allow you to move around in the "
+#~ "install more freely. It is not recommended to use the menu unless you are "
+#~ "already familiar with Red Hat Linux. What would you like to do?"
+#~ msgstr ""
+#~ "Villa kom upp í \"%s\" hlutanum af uppsetningunni.\n"
+#~ "\n"
+#~ "Þú getur reynt þann hluta aftur, farið í fyrri hluta af uppsetningunni eða "
+#~ "séð valmynd af öllum hlutum uppsetningarinnar sem leyfir þér að flakka um í "
+#~ "uppsetningunni. Það er ekki mælt með því að nota valmyndina nema þú kunnir "
+#~ "þegar vel á Red Hat Linux. Hvað viltu gera?"
 
-msgid "Unexpected arguments"
-msgstr "Ólögleg viðföng"
+#~ msgid "  Continue with install"
+#~ msgstr "  Halda uppsetningunni áfram"
 
-msgid "Installation Path"
-msgstr "Uppsetningarslóð"
+#~ msgid ""
+#~ "What step would you like to run? Steps with a * next to them have already "
+#~ "been completed."
+#~ msgstr ""
+#~ "Hvaða hluta uppsetningarinnar viltu keyra? Hlutum sem merktir eru með * er "
+#~ "þegar lokið."
 
-msgid ""
-"Would you like to install a new system or upgrade a system which already "
-"contains Red Hat Linux 2.0 or later?"
-msgstr ""
-"Viltu setja upp nýtt kerfi eða uppfæra vél sem er þegar með Red Hat Linux "
-"útgáfu 2.0 eða nýrra?"
+#~ msgid "Cancelled"
+#~ msgstr "Hætt við"
 
-msgid ""
-"What type of machine are you installing? For maximum flexibility, choose "
-"\"Custom\"."
-msgstr ""
-"Hverskonar vél ertu að setja upp? Fyrir hámarks sveigjanleika, veldu "
-"\"Sérsniðin\"."
+#~ msgid ""
+#~ "I can't go to the previous step from here. You will have to try again."
+#~ msgstr ""
+#~ "Það er ekki hægt að fara til baka héðan. Þú þarft að byrja uppá nýtt."
 
-msgid "Converting RPM database..."
-msgstr "Umbreyti RPM gagnagrunninum..."
+#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
+#~ msgstr "Settu tóman diskling í fyrsta disklingadrifið (/dev/fd0)."
 
-msgid "Finding packages to upgrade..."
-msgstr "Velja pakka sem á að uppfæra"
+#~ msgid "file %s missing from source directory"
+#~ msgstr "skrána %s vantar í uppsetningarskráarkerfið"
 
-msgid "Previous"
-msgstr "Fyrri"
+#~ msgid "failed to create file %s"
+#~ msgstr "Gat ekki búið til skrána %s"
 
-msgid "Menu"
-msgstr "Valmynd"
+#~ msgid "error writing to file %s: %s"
+#~ msgstr "villa við skrift í skrána %s: %s"
 
-msgid ""
-"An error occured during step \"%s\" of the install.\n"
-"\n"
-"You may retry that step, return to the previous step in the install, or see "
-"a menu of installation steps which will allow you to move around in the "
-"install more freely. It is not recommended to use the menu unless you are "
-"already familiar with Red Hat Linux. What would you like to do?"
-msgstr ""
-"Villa kom upp í \"%s\" hlutanum af uppsetningunni.\n"
-"\n"
-"Þú getur reynt þann hluta aftur, farið í fyrri hluta af uppsetningunni eða "
-"séð valmynd af öllum hlutum uppsetningarinnar sem leyfir þér að flakka um í "
-"uppsetningunni. Það er ekki mælt með því að nota valmyndina nema þú kunnir "
-"þegar vel á Red Hat Linux. Hvað viltu gera?"
+#~ msgid "error reading from file %s: %s"
+#~ msgstr "villa við lestur úr skránni %s: %s"
 
-msgid "  Continue with install"
-msgstr "  Halda uppsetningunni áfram"
+#~ msgid "Kernel"
+#~ msgstr "Kjarni"
 
-msgid ""
-"What step would you like to run? Steps with a * next to them have already "
-"been completed."
-msgstr ""
-"Hvaða hluta uppsetningarinnar viltu keyra? Hlutum sem merktir eru með * er "
-"þegar lokið."
+#~ msgid ""
+#~ "Please insert your boot disk in your first disk drive if it's not already "
+#~ "present."
+#~ msgstr ""
+#~ "Vinsamlega settu ræsidisklinginn í fyrsta disklingadrifið ef hann er þar "
+#~ "ekki nú þegar."
 
-msgid "Cancelled"
-msgstr "Hætt við"
+#~ msgid "Copying kernel from floppy..."
+#~ msgstr "Afrita kjarnann frá disklingi..."
 
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Það er ekki hægt að fara til baka héðan. Þú þarft að byrja uppá nýtt."
+#~ msgid "Error opening: kickstart file %s: %s"
+#~ msgstr "Villa við opnun: hraðuppsetningarskrá %s: %s"
 
-msgid "Insert a blank floppy in the first drive /dev/fd0."
-msgstr "Settu tóman diskling í fyrsta disklingadrifið (/dev/fd0)."
+#~ msgid "Error reading contents of kickstart file %s: %s"
+#~ msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
 
-msgid "file %s missing from source directory"
-msgstr "skrána %s vantar í uppsetningarskráarkerfið"
+#~ msgid "Error on line %d of kickstart file %s."
+#~ msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
 
-msgid "failed to create file %s"
-msgstr "Gat ekki búið til skrána %s"
+#~ msgid "Unknown command %s on line %d of kickstart file %s."
+#~ msgstr "Óþekkt skipun %s í línu %d í hraðuppsetningarskrá %s."
 
-msgid "error writing to file %s: %s"
-msgstr "villa við skrift í skrána %s: %s"
+#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
+#~ msgstr "Gat ekki búið til /mnt/tmp/ks.script: %s"
 
-msgid "error reading from file %s: %s"
-msgstr "villa við lestur úr skránni %s: %s"
+#~ msgid "Failed to write ks post script: %s"
+#~ msgstr "Gat ekki búið til skipanaskrá hraðuppsetningar f/ eftirákeyrslu: %s"
 
-msgid "Kernel"
-msgstr "Kjarni"
+#~ msgid "Choose a Language"
+#~ msgstr "Veldu tungumál"
 
-msgid ""
-"Please insert your boot disk in your first disk drive if it's not already "
-"present."
-msgstr ""
-"Vinsamlega settu ræsidisklinginn í fyrsta disklingadrifið ef hann er þar "
-"ekki nú þegar."
+#~ msgid "Failed to create symlink for package source."
+#~ msgstr "Gat ekki búið til tákntengingu fyrir frumkóða pakkans."
 
-msgid "Copying kernel from floppy..."
-msgstr "Afrita kjarnann frá disklingi..."
+#~ msgid "ftp"
+#~ msgstr "ftp"
 
-msgid "Error opening: kickstart file %s: %s"
-msgstr "Villa við opnun: hraðuppsetningarskrá %s: %s"
+#~ msgid "I'm having trouble getting %s. Would you like to retry?"
+#~ msgstr "Það gengur illa að sækja %s. Á ég að halda áfram að reyna?"
 
-msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
+#~ msgid "SILO"
+#~ msgstr "SILO"
 
-msgid "Error on line %d of kickstart file %s."
-msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
+#~ msgid "LILO"
+#~ msgstr "LILO"
 
-msgid "Unknown command %s on line %d of kickstart file %s."
-msgstr "Óþekkt skipun %s í línu %d í hraðuppsetningarskrá %s."
+#~ msgid "Creating initial ramdisk..."
+#~ msgstr "Bý til minnisræsidisk..."
 
-msgid "Failed to create /mnt/tmp/ks.script: %s"
-msgstr "Gat ekki búið til /mnt/tmp/ks.script: %s"
+#~ msgid "Device:"
+#~ msgstr "Tæki:"
 
-msgid "Failed to write ks post script: %s"
-msgstr "Gat ekki búið til skipanaskrá hraðuppsetningar f/ eftirákeyrslu: %s"
+#~ msgid "Boot label:"
+#~ msgstr "Ræsimerki:"
 
-msgid "Choose a Language"
-msgstr "Veldu tungumál"
+#~ msgid "Installing boot loader..."
+#~ msgstr "Set upp ræsistjórann..."
 
-msgid "Failed to create symlink for package source."
-msgstr "Gat ekki búið til tákntengingu fyrir frumkóða pakkans."
+#~ msgid "Bootable Partitions"
+#~ msgstr "Ræsanlegar sneiðar"
 
-msgid "ftp"
-msgstr "ftp"
+#~ msgid "Creating bootdisk..."
+#~ msgstr "Bý til ræsidiskling..."
 
-msgid "I'm having trouble getting %s. Would you like to retry?"
-msgstr "Það gengur illa að sækja %s. Á ég að halda áfram að reyna?"
+#~ msgid "Formatting swap space on device %s..."
+#~ msgstr "Forsníð diskminni á tæki %s..."
 
-msgid "SILO"
-msgstr "SILO"
+#~ msgid "No Swap Space"
+#~ msgstr "Ekkert diskminni"
 
-msgid "LILO"
-msgstr "LILO"
+#~ msgid ""
+#~ "You don't have any swap space defined. Would you like to continue, or "
+#~ "repartition your disk?"
+#~ msgstr ""
+#~ "Þú ert ekki með neitt diskminni skilgreint. Viltu halda áfram eða "
+#~ "endurskilgreina disksneiðarnar?"
 
-msgid "Creating initial ramdisk..."
-msgstr "Bý til minnisræsidisk..."
+#~ msgid ""
+#~ "What partitions would you like to use for swap space? This will destroy any "
+#~ "information already on the partition."
+#~ msgstr ""
+#~ "Hvaða disksneiðar viltu nota fyir diskminni? Þetta mun eyða öllu sem er á "
+#~ "þeirri sneið."
 
-msgid "Device:"
-msgstr "Tæki:"
+#~ msgid "Active Swap Space"
+#~ msgstr "Setja diskminni í gang"
 
-msgid "Boot label:"
-msgstr "Ræsimerki:"
+#~ msgid "Could not mount automatically selected device."
+#~ msgstr "Gat ekki tengt tækið sem þú valdir sjálfvirkt."
 
-msgid "Installing boot loader..."
-msgstr "Set upp ræsistjórann..."
+#~ msgid "Cannot read /mnt/etc/fstab: %s"
+#~ msgstr "Get ekki lesið /mnt/etc/fstab: %s"
 
-msgid "Bootable Partitions"
-msgstr "Ræsanlegar sneiðar"
+#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
+#~ msgstr "Ólögleg lína í /mnt/etc/fstab -- Hætti við"
 
-msgid "Creating bootdisk..."
-msgstr "Bý til ræsidiskling..."
+#~ msgid "Determining host name and domain..."
+#~ msgstr "Reyni að ákvarða vélarheiti og netlén..."
 
-msgid "Formatting swap space on device %s..."
-msgstr "Forsníð diskminni á tæki %s..."
+#~ msgid "Ethernet Probe"
+#~ msgstr "Leita að netspjöldum"
 
-msgid "No Swap Space"
-msgstr "Ekkert diskminni"
+#~ msgid ""
+#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
+#~ "manually configure one."
+#~ msgstr ""
+#~ "Ekki tókst að finna netkort í vélinni þinni. Sláðu á <Enter> til að stilla "
+#~ "það handvirkt."
 
-msgid ""
-"You don't have any swap space defined. Would you like to continue, or "
-"repartition your disk?"
-msgstr ""
-"Þú ert ekki með neitt diskminni skilgreint. Viltu halda áfram eða "
-"endurskilgreina disksneiðarnar?"
+#~ msgid ""
+#~ "Please enter the IP configuration for this machine. Each item should be "
+#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+#~ msgstr ""
+#~ "Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP tala rituð "
+#~ "sem tölur með punkt á milli (dæmi 1.2.3.4)."
 
-msgid ""
-"What partitions would you like to use for swap space? This will destroy any "
-"information already on the partition."
-msgstr ""
-"Hvaða disksneiðar viltu nota fyir diskminni? Þetta mun eyða öllu sem er á "
-"þeirri sneið."
+#~ msgid "Configure TCP/IP"
+#~ msgstr "Stillingar TCP/IP"
 
-msgid "Active Swap Space"
-msgstr "Setja diskminni í gang"
+#~ msgid "Static IP address"
+#~ msgstr "Fast IP vistfang"
 
-msgid "Could not mount automatically selected device."
-msgstr "Gat ekki tengt tækið sem þú valdir sjálfvirkt."
+#~ msgid "BOOTP"
+#~ msgstr "BOOTP"
 
-msgid "Cannot read /mnt/etc/fstab: %s"
-msgstr "Get ekki lesið /mnt/etc/fstab: %s"
+#~ msgid "DHCP"
+#~ msgstr "DHCP"
 
-msgid "Bad line in /mnt/etc/fstab -- aborting"
-msgstr "Ólögleg lína í /mnt/etc/fstab -- Hætti við"
+#~ msgid "kickstart"
+#~ msgstr "hraðuppsetning"
 
-msgid "Determining host name and domain..."
-msgstr "Reyni að ákvarða vélarheiti og netlén..."
+#~ msgid "bad ip number in network command: %s"
+#~ msgstr "ólöglegt IP vistfang í netskipun: %s"
 
-msgid "Ethernet Probe"
-msgstr "Leita að netspjöldum"
+#~ msgid "bad argument to kickstart network command %s: %s"
+#~ msgstr "ólöglegt viðfang við netskipun hraðuppsetningar %s: %s"
 
-msgid ""
-"The Ethernet probe failed to find a card on your system. Press <Enter> to "
-"manually configure one."
-msgstr ""
-"Ekki tókst að finna netkort í vélinni þinni. Sláðu á <Enter> til að stilla "
-"það handvirkt."
+#~ msgid "kickstart network command is missing ip address"
+#~ msgstr "það vantar IP vistfang við nethluta hraðuppsetningarinnar"
 
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-"Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP tala rituð "
-"sem tölur með punkt á milli (dæmi 1.2.3.4)."
+#~ msgid "Boot Protocol"
+#~ msgstr "Ræsimáti"
 
-msgid "Configure TCP/IP"
-msgstr "Stillingar TCP/IP"
+#~ msgid ""
+#~ "How should the IP information be set? If your system administrator gave you "
+#~ "an IP address, choose static IP."
+#~ msgstr ""
+#~ "Hvernig á að stilla IP vistfangið? Ef kerfisstjórinn þinn úthlutaði þér IP "
+#~ "vistfangi, veldu þá fast IP vistfang."
 
-msgid "Static IP address"
-msgstr "Fast IP vistfang"
+#~ msgid "Sending DHCP request..."
+#~ msgstr "Sendi DHCP beiðni..."
 
-msgid "BOOTP"
-msgstr "BOOTP"
+#~ msgid "Sending BOOTP request..."
+#~ msgstr "Sendi BOOTP beiðni..."
 
-msgid "DHCP"
-msgstr "DHCP"
+#~ msgid "Cannot create %s: %s\n"
+#~ msgstr "Get ekki búið til %s: %s\n"
 
-msgid "kickstart"
-msgstr "hraðuppsetning"
+#~ msgid "cannot create network device config file: %s"
+#~ msgstr "get ekki búið til netstillingaskrá: %s"
 
-msgid "bad ip number in network command: %s"
-msgstr "ólöglegt IP vistfang í netskipun: %s"
+#~ msgid "cannot open file: %s"
+#~ msgstr "get ekki opnað skrá: %s"
 
-msgid "bad argument to kickstart network command %s: %s"
-msgstr "ólöglegt viðfang við netskipun hraðuppsetningar %s: %s"
+#~ msgid ""
+#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
+#~ "hostname information."
+#~ msgstr ""
+#~ "Ekki var hægt að ákvarða vélarheitið sjálfvirkt. Sláðu á <Enter> til að slá "
+#~ "það inn."
 
-msgid "kickstart network command is missing ip address"
-msgstr "það vantar IP vistfang við nethluta hraðuppsetningarinnar"
+#~ msgid ""
+#~ "Please enter your domain name, host name, and the IP addresses of any "
+#~ "additional nameservers. Your host name should be a fully-qualified host "
+#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
+#~ "nameservers, leave the nameserver entries blank."
+#~ msgstr ""
+#~ "Vinsamlegast sláðu inn heiti lénsins þíns, vélarheitið og IP vistföng auka "
+#~ "nafnaþjóna. Vélarheitið ætti að vera fullt vélarheiti, til dæmis "
+#~ "mittbox.mittlén.is. Ef þú ert ekki með neina auka nafnaþjóna hafðu þá "
+#~ "nafnaþjónareitina auða."
 
-msgid "Boot Protocol"
-msgstr "Ræsimáti"
+#~ msgid "Host name:"
+#~ msgstr "Vélarheiti:"
 
-msgid ""
-"How should the IP information be set? If your system administrator gave you "
-"an IP address, choose static IP."
-msgstr ""
-"Hvernig á að stilla IP vistfangið? Ef kerfisstjórinn þinn úthlutaði þér IP "
-"vistfangi, veldu þá fast IP vistfang."
+#~ msgid "Secondary nameserver (IP):"
+#~ msgstr "Auka nafnaþjónn (IP):"
 
-msgid "Sending DHCP request..."
-msgstr "Sendi DHCP beiðni..."
+#~ msgid "Tertiary nameserver (IP):"
+#~ msgstr "Þriðji nafnaþjónn (IP):"
 
-msgid "Sending BOOTP request..."
-msgstr "Sendi BOOTP beiðni..."
+#~ msgid "Configure Network"
+#~ msgstr "Stillingar nets"
 
-msgid "Cannot create %s: %s\n"
-msgstr "Get ekki búið til %s: %s\n"
+#~ msgid "Keep the current IP configuration"
+#~ msgstr "Halda núverandi IP stillingum"
 
-msgid "cannot create network device config file: %s"
-msgstr "get ekki búið til netstillingaskrá: %s"
+#~ msgid "Reconfigure network now"
+#~ msgstr "Endurstilla netið nú"
 
-msgid "cannot open file: %s"
-msgstr "get ekki opnað skrá: %s"
+#~ msgid "Don't set up networking"
+#~ msgstr "Ekki setja upp net"
 
-msgid ""
-"I cannot automatically determine the hostname. Press <Enter> to enter "
-"hostname information."
-msgstr ""
-"Ekki var hægt að ákvarða vélarheitið sjálfvirkt. Sláðu á <Enter> til að slá "
-"það inn."
+#~ msgid "LAN networking has already been configured. Do you want to:"
+#~ msgstr "LAN netuppsetning er þegar til staðar. Viltu:"
 
-msgid ""
-"Please enter your domain name, host name, and the IP addresses of any "
-"additional nameservers. Your host name should be a fully-qualified host "
-"name, such as mybox.mylab.myco.com. If you don't have any additional "
-"nameservers, leave the nameserver entries blank."
-msgstr ""
-"Vinsamlegast sláðu inn heiti lénsins þíns, vélarheitið og IP vistföng auka "
-"nafnaþjóna. Vélarheitið ætti að vera fullt vélarheiti, til dæmis "
-"mittbox.mittlén.is. Ef þú ert ekki með neina auka nafnaþjóna hafðu þá "
-"nafnaþjónareitina auða."
+#~ msgid ""
+#~ "Do you want to configure LAN (not dialup) networking for your installed "
+#~ "system?"
+#~ msgstr "Viltu setja upp LAN net (ekki upphringinet) á vélinni þinni?"
 
-msgid "Host name:"
-msgstr "Vélarheiti:"
+#~ msgid "Cannot open components file: %s"
+#~ msgstr "Get ekki opnað íhlutaskrá: %s"
 
-msgid "Secondary nameserver (IP):"
-msgstr "Auka nafnaþjónn (IP):"
+#~ msgid "Cannot read components file: %s"
+#~ msgstr "Get ekki lesið íhlutaskrá: %s"
 
-msgid "Tertiary nameserver (IP):"
-msgstr "Þriðji nafnaþjónn (IP):"
+#~ msgid "Comps file is not version 0.1 as expected"
+#~ msgstr "Íhlutaskráin er ekki af útgáfu 0.1 eins og búist var við"
 
-msgid "Configure Network"
-msgstr "Stillingar nets"
+#~ msgid "bad comps file at line %d"
+#~ msgstr "ólögleg íhlutaskrá í línu %d"
 
-msgid "Keep the current IP configuration"
-msgstr "Halda núverandi IP stillingum"
+#~ msgid "comps Error"
+#~ msgstr "Íhlutavilla"
 
-msgid "Reconfigure network now"
-msgstr "Endurstilla netið nú"
+#~ msgid "missing component name at line %d"
+#~ msgstr "heiti íhlutar vantar í línu %d"
 
-msgid "Don't set up networking"
-msgstr "Ekki setja upp net"
+#~ msgid "Ignore all"
+#~ msgstr "Hundsa alla"
 
-msgid "LAN networking has already been configured. Do you want to:"
-msgstr "LAN netuppsetning er þegar til staðar. Viltu:"
+#~ msgid "package %s at line %d does not exist"
+#~ msgstr "pakkinn %s í línu %d er ekki til"
 
-msgid ""
-"Do you want to configure LAN (not dialup) networking for your installed "
-"system?"
-msgstr "Viltu setja upp LAN net (ekki upphringinet) á vélinni þinni?"
+#~ msgid "Component %s does not exist.\n"
+#~ msgstr "Íhlutur %s er ekki til.\n"
 
-msgid "Cannot open components file: %s"
-msgstr "Get ekki opnað íhlutaskrá: %s"
+#~ msgid "Package %s does not exist.\n"
+#~ msgstr "Pakki %s er ekki til.\n"
 
-msgid "Cannot read components file: %s"
-msgstr "Get ekki lesið íhlutaskrá: %s"
+#~ msgid "GNOME"
+#~ msgstr "GNOME"
 
-msgid "Comps file is not version 0.1 as expected"
-msgstr "Íhlutaskráin er ekki af útgáfu 0.1 eins og búist var við"
+#~ msgid ""
+#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
+#~ "use interface, including a drag and drop capability and an integrated help "
+#~ "system."
+#~ msgstr ""
+#~ "Viltu setja upp GNOME notandaskilin? GNOME notandaskilin eru einföld í "
+#~ "notun, styðja drag and drop og hafa innbyggð hjálparkerfi."
 
-msgid "bad comps file at line %d"
-msgstr "ólögleg íhlutaskrá í línu %d"
+#~ msgid "no suggestion"
+#~ msgstr "engin tillaga"
 
-msgid "comps Error"
-msgstr "Íhlutavilla"
+#~ msgid "Everything"
+#~ msgstr "Allt"
 
-msgid "missing component name at line %d"
-msgstr "heiti íhlutar vantar í línu %d"
+#~ msgid "Choose components to install:"
+#~ msgstr "Veldu pakkahópa sem eiga að fara inn:"
 
-msgid "Ignore all"
-msgstr "Hundsa alla"
+#~ msgid "Components to Install"
+#~ msgstr "Pakkahópar sem eiga að fara inn"
 
-msgid "package %s at line %d does not exist"
-msgstr "pakkinn %s í línu %d er ekki til"
+#~ msgid "error opening header file: %s"
+#~ msgstr "villa við opnun hausaskrár: %s"
 
-msgid "Component %s does not exist.\n"
-msgstr "Íhlutur %s er ekki til.\n"
+#~ msgid "Installed system size:"
+#~ msgstr "Stærð uppsetta kerfissins:"
 
-msgid "Package %s does not exist.\n"
-msgstr "Pakki %s er ekki til.\n"
+#~ msgid "Choose a group to examine"
+#~ msgstr "Veldu hóp til skoðunar"
 
-msgid "GNOME"
-msgstr "GNOME"
+#~ msgid "Press F1 for a package description"
+#~ msgstr "Ýttu á F1 til að fá lýsingu pakkans"
 
-msgid ""
-"Would you like to have the GNOME desktop installed? It provides an easy to "
-"use interface, including a drag and drop capability and an integrated help "
-"system."
-msgstr ""
-"Viltu setja upp GNOME notandaskilin? GNOME notandaskilin eru einföld í "
-"notun, styðja drag and drop og hafa innbyggð hjálparkerfi."
+#~ msgid "Select Group"
+#~ msgstr "Veldu hóp"
 
-msgid "no suggestion"
-msgstr "engin tillaga"
+#~ msgid "(none available)"
+#~ msgstr "(ekkert til staðar)"
 
-msgid "Everything"
-msgstr "Allt"
+#~ msgid "Package:"
+#~ msgstr "Pakki:"
 
-msgid "Choose components to install:"
-msgstr "Veldu pakkahópa sem eiga að fara inn:"
+#~ msgid "Upgrade Packages"
+#~ msgstr "Uppfæra pakka"
 
-msgid "Components to Install"
-msgstr "Pakkahópar sem eiga að fara inn"
+#~ msgid "Printer Information"
+#~ msgstr "Upplýsingar um prentara"
 
-msgid "error opening header file: %s"
-msgstr "villa við opnun hausaskrár: %s"
+#~ msgid "<F1> will give you information on a particular printer type"
+#~ msgstr "<F1> mun gefa þér upplýsingar um þessa gerð prentara"
 
-msgid "Installed system size:"
-msgstr "Stærð uppsetta kerfissins:"
+#~ msgid "What type of printer do you have?"
+#~ msgstr "Hvernig prentara ertu með?"
 
-msgid "Choose a group to examine"
-msgstr "Veldu hóp til skoðunar"
+#~ msgid "Configure Printer"
+#~ msgstr "Stillingar prentara"
 
-msgid "Press F1 for a package description"
-msgstr "Ýttu á F1 til að fá lýsingu pakkans"
+#~ msgid "<F1> will give you information on this printer driver."
+#~ msgstr "<F1> mun gefa þér upplýsingar um þennan prentrekil."
 
-msgid "Select Group"
-msgstr "Veldu hóp"
+#~ msgid ""
+#~ "You may now configure the paper size and resolution for this printer."
+#~ msgstr "Þú mátt núna stilla pappírsstærð og upplausn þessa prentara."
 
-msgid "(none available)"
-msgstr "(ekkert til staðar)"
+#~ msgid "Paper Size"
+#~ msgstr "Pappírsstærð"
 
-msgid "Package:"
-msgstr "Pakki:"
+#~ msgid "Resolution"
+#~ msgstr "Upplausn"
 
-msgid "Upgrade Packages"
-msgstr "Uppfæra pakka"
+#~ msgid "Fix stair-stepping of text?"
+#~ msgstr "Lagfæra tröppuvandamál í texta?"
 
-msgid "Printer Information"
-msgstr "Upplýsingar um prentara"
+#~ msgid "You may now configure the color options for this printer."
+#~ msgstr "Núna máttu stilla litavalmöguleika þessa prentara."
 
-msgid "<F1> will give you information on a particular printer type"
-msgstr "<F1> mun gefa þér upplýsingar um þessa gerð prentara"
+#~ msgid "You may now configure the uniprint options for this printer."
+#~ msgstr "Núna máttu stilla 'uniprint' viðföng þessa prentara."
 
-msgid "What type of printer do you have?"
-msgstr "Hvernig prentara ertu með?"
+#~ msgid "Configure Color Depth"
+#~ msgstr "Stilla litadýpt"
 
-msgid "Configure Printer"
-msgstr "Stillingar prentara"
+#~ msgid "Configure Uniprint Driver"
+#~ msgstr "Stillingar 'Uniprint' rekilsins"
 
-msgid "<F1> will give you information on this printer driver."
-msgstr "<F1> mun gefa þér upplýsingar um þennan prentrekil."
+#~ msgid ""
+#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
+#~ "to LPT1:)?"
+#~ msgstr ""
+#~ "Við hvaða tæki er prentarinn þinn tengdur (Athugaðu að /dev/lp0 er það sama "
+#~ "og LPT1:)?"
 
-msgid "You may now configure the paper size and resolution for this printer."
-msgstr "Þú mátt núna stilla pappírsstærð og upplausn þessa prentara."
+#~ msgid ""
+#~ "Auto-detected ports:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Gáttir sem fundust sjálfvirkt:\n"
+#~ "\n"
 
-msgid "Paper Size"
-msgstr "Pappírsstærð"
+#~ msgid "Not "
+#~ msgstr "Ekki "
 
-msgid "Resolution"
-msgstr "Upplausn"
+#~ msgid "Detected\n"
+#~ msgstr "Fundið\n"
 
-msgid "Fix stair-stepping of text?"
-msgstr "Lagfæra tröppuvandamál í texta?"
+#~ msgid "Printer Device:"
+#~ msgstr "Prenttæki:"
 
-msgid "You may now configure the color options for this printer."
-msgstr "Núna máttu stilla litavalmöguleika þessa prentara."
+#~ msgid "Local Printer Device"
+#~ msgstr "Staðbundið prenttæki"
 
-msgid "You may now configure the uniprint options for this printer."
-msgstr "Núna máttu stilla 'uniprint' viðföng þessa prentara."
+#~ msgid "Remote hostname:"
+#~ msgstr "Prentþjónn:"
 
-msgid "Configure Color Depth"
-msgstr "Stilla litadýpt"
+#~ msgid "Remote queue:"
+#~ msgstr "Fjartengd biðröð:"
 
-msgid "Configure Uniprint Driver"
-msgstr "Stillingar 'Uniprint' rekilsins"
+#~ msgid "Remote lpd Printer Options"
+#~ msgstr "Viðföng fyrir lpd prentara"
 
-msgid ""
-"What device is your printer connected to (note that /dev/lp0 is equivalent "
-"to LPT1:)?"
-msgstr ""
-"Við hvaða tæki er prentarinn þinn tengdur (Athugaðu að /dev/lp0 er það sama "
-"og LPT1:)?"
+#~ msgid ""
+#~ "To use a remote lpd print queue, you need to supply the hostname of the "
+#~ "printer server and the queue name on that server which jobs should be placed "
+#~ "in."
+#~ msgstr ""
+#~ "Til þess að nota fjartengda lpd biðröð þarftu að gefa upp vélarheiti "
+#~ "prentþjónsins og biðröðina á honum sem þú vilt prenta í."
 
-msgid ""
-"Auto-detected ports:\n"
-"\n"
-msgstr ""
-"Gáttir sem fundust sjálfvirkt:\n"
-"\n"
+#~ msgid "Printer Server:"
+#~ msgstr "Prentþjónn:"
 
-msgid "Not "
-msgstr "Ekki "
+#~ msgid "Print Queue Name:"
+#~ msgstr "Heiti prentraðar:"
 
-msgid "Detected\n"
-msgstr "Fundið\n"
+#~ msgid "NetWare Printer Options"
+#~ msgstr "Viðföng NetWare prentara"
 
-msgid "Printer Device:"
-msgstr "Prenttæki:"
+#~ msgid ""
+#~ "To print to a NetWare printer, you need to provide the NetWare print server "
+#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
+#~ "as the print queue name for the printer you wish to access and any "
+#~ "applicable user name and password."
+#~ msgstr ""
+#~ "Til þess að geta prentað á NetWare prentara þarftu að gefa upp NetWare "
+#~ "vélarheiti þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) "
+#~ "ásamt samnýtingarheiti prentarans, notandaheiti og lykilorð fyrir prentarann."
 
-msgid "Local Printer Device"
-msgstr "Staðbundið prenttæki"
+#~ msgid "SMB server host:"
+#~ msgstr "Heiti SMB þjóns:"
 
-msgid "Remote hostname:"
-msgstr "Prentþjónn:"
+#~ msgid "SMB server IP:"
+#~ msgstr "Vistfang SMB þjóns:"
 
-msgid "Remote queue:"
-msgstr "Fjartengd biðröð:"
+#~ msgid "Share name:"
+#~ msgstr "Samnýtingarheiti:"
 
-msgid "Remote lpd Printer Options"
-msgstr "Viðföng fyrir lpd prentara"
+#~ msgid "Workgroup:"
+#~ msgstr "Vinnuhópur:"
 
-msgid ""
-"To use a remote lpd print queue, you need to supply the hostname of the "
-"printer server and the queue name on that server which jobs should be placed "
-"in."
-msgstr ""
-"Til þess að nota fjartengda lpd biðröð þarftu að gefa upp vélarheiti "
-"prentþjónsins og biðröðina á honum sem þú vilt prenta í."
+#~ msgid "SMB/Windows 95/NT Printer Options"
+#~ msgstr "SMB/Windows 95/NT prentviðföng"
 
-msgid "Printer Server:"
-msgstr "Prentþjónn:"
+#~ msgid ""
+#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
+#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
+#~ "address of the print server, as well as the share name for the printer you "
+#~ "wish to access and any applicable user name, password, and workgroup "
+#~ "information."
+#~ msgstr ""
+#~ "Til þess að geta prentað á SMB prentara þarftu að gefa upp SMB vélarheiti "
+#~ "þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) og jafnvel IP "
+#~ "vistfang prentþjónsins ásamt samnýtingarheiti prentarans, notandaheiti, "
+#~ "lykilorð og vinnuhópsupplýsingar fyrir prentarann."
 
-msgid "Print Queue Name:"
-msgstr "Heiti prentraðar:"
+#~ msgid "Spool directory:"
+#~ msgstr "Mappa biðraðar:"
 
-msgid "NetWare Printer Options"
-msgstr "Viðföng NetWare prentara"
+#~ msgid "Standard Printer Options"
+#~ msgstr "Stöðluð prentviðföng"
 
-msgid ""
-"To print to a NetWare printer, you need to provide the NetWare print server "
-"name (this is not always the same as the machines TCP/IP hostname) as well "
-"as the print queue name for the printer you wish to access and any "
-"applicable user name and password."
-msgstr ""
-"Til þess að geta prentað á NetWare prentara þarftu að gefa upp NetWare "
-"vélarheiti þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) "
-"ásamt samnýtingarheiti prentarans, notandaheiti og lykilorð fyrir prentarann."
+#~ msgid ""
+#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
+#~ "and a spool directory associated with it. What name and directory should be "
+#~ "used for this queue?"
+#~ msgstr ""
+#~ "Allar prentraðir (sem taka við prentverkum) þurfa heiti (oft bara lp) og "
+#~ "möppu fyrir biðröðina. Hvaða heiti og möppu viltu nota fyrir þessa prentröð?"
 
-msgid "SMB server host:"
-msgstr "Heiti SMB þjóns:"
+#~ msgid "Would you like to configure a printer?"
+#~ msgstr "Viltu setja upp prentara?"
 
-msgid "SMB server IP:"
-msgstr "Vistfang SMB þjóns:"
+#~ msgid "Would you like to add another printer?"
+#~ msgstr "Viltu bæta við öðrum prentara?"
 
-msgid "Share name:"
-msgstr "Samnýtingarheiti:"
+#~ msgid "SMB/Windows 95/NT"
+#~ msgstr "SMB/Windows 95/NT"
 
-msgid "Workgroup:"
-msgstr "Vinnuhópur:"
+#~ msgid "NetWare"
+#~ msgstr "NetWare"
 
-msgid "SMB/Windows 95/NT Printer Options"
-msgstr "SMB/Windows 95/NT prentviðföng"
+#~ msgid "Select Printer Connection"
+#~ msgstr "Veldu prenttengingu"
 
-msgid ""
-"To print to a SMB printer, you need to provide the SMB host name (this is "
-"not always the same as the machines TCP/IP hostname) and possibly the IP "
-"address of the print server, as well as the share name for the printer you "
-"wish to access and any applicable user name, password, and workgroup "
-"information."
-msgstr ""
-"Til þess að geta prentað á SMB prentara þarftu að gefa upp SMB vélarheiti "
-"þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) og jafnvel IP "
-"vistfang prentþjónsins ásamt samnýtingarheiti prentarans, notandaheiti, "
-"lykilorð og vinnuhópsupplýsingar fyrir prentarann."
+#~ msgid "How is this printer connected?"
+#~ msgstr "Hvernig er þessi prentari tengdur?"
 
-msgid "Spool directory:"
-msgstr "Mappa biðraðar:"
+#~ msgid "Printer type:"
+#~ msgstr "Tegund prentara:"
 
-msgid "Standard Printer Options"
-msgstr "Stöðluð prentviðföng"
+#~ msgid "Queue:"
+#~ msgstr "Biðröð:"
 
-msgid ""
-"Every print queue (which print jobs are directed to) needs a name (often lp) "
-"and a spool directory associated with it. What name and directory should be "
-"used for this queue?"
-msgstr ""
-"Allar prentraðir (sem taka við prentverkum) þurfa heiti (oft bara lp) og "
-"möppu fyrir biðröðina. Hvaða heiti og möppu viltu nota fyrir þessa prentröð?"
+#~ msgid "Printer device:"
+#~ msgstr "Prenttæki:"
 
-msgid "Would you like to configure a printer?"
-msgstr "Viltu setja upp prentara?"
+#~ msgid "Remote host:"
+#~ msgstr "Fjartengd vél:"
 
-msgid "Would you like to add another printer?"
-msgstr "Viltu bæta við öðrum prentara?"
+#~ msgid "Share:"
+#~ msgstr "Samnýtiheiti:"
 
-msgid "SMB/Windows 95/NT"
-msgstr "SMB/Windows 95/NT"
+#~ msgid "Printer driver:"
+#~ msgstr "Prentrekill:"
 
-msgid "NetWare"
-msgstr "NetWare"
+#~ msgid "Paper size:"
+#~ msgstr "Pappírsstærð:"
 
-msgid "Select Printer Connection"
-msgstr "Veldu prenttengingu"
+#~ msgid "Resolution:"
+#~ msgstr "Upplausn:"
 
-msgid "How is this printer connected?"
-msgstr "Hvernig er þessi prentari tengdur?"
+#~ msgid "Uniprint driver:"
+#~ msgstr "Uniprint prentrekill:"
 
-msgid "Printer type:"
-msgstr "Tegund prentara:"
+#~ msgid ""
+#~ "Please verify that this printer information is correct:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Eru eftirfarandi prentaraupplýsingar eru réttar:\n"
+#~ "\n"
 
-msgid "Queue:"
-msgstr "Biðröð:"
+#~ msgid "Printer device"
+#~ msgstr "Prenttæki"
 
-msgid "Printer device:"
-msgstr "Prenttæki:"
+#~ msgid "Verify Printer Configuration"
+#~ msgstr "Fara yfir prentuppsetninguna"
 
-msgid "Remote host:"
-msgstr "Fjartengd vél:"
+#~ msgid ""
+#~ "I have found the following types of SCSI adapters on your system:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Eftirfarandi SCSI stýringar hafa fundist í vélinni þinni:\n"
+#~ "\n"
 
-msgid "Share:"
-msgstr "Samnýtiheiti:"
+#~ msgid ""
+#~ "\n"
+#~ "Do you have any more SCSI adapters on your system?"
+#~ msgstr ""
+#~ "\n"
+#~ "Eru fleiri SCSI stýringar í vélinni?"
 
-msgid "Printer driver:"
-msgstr "Prentrekill:"
+#~ msgid "Do you have any SCSI adapters?"
+#~ msgstr "Eru SCSI stýringar í vélinni?"
 
-msgid "Paper size:"
-msgstr "Pappírsstærð:"
+#~ msgid "SMB server name  :"
+#~ msgstr "Heiti SMB þjóns  :"
 
-msgid "Resolution:"
-msgstr "Upplausn:"
+#~ msgid "Share volume     :"
+#~ msgstr "Skráakerfi       :"
 
-msgid "Uniprint driver:"
-msgstr "Uniprint prentrekill:"
+#~ msgid "Account name     :"
+#~ msgstr "Verknúmer        :"
 
-msgid ""
-"Please verify that this printer information is correct:\n"
-"\n"
-msgstr ""
-"Eru eftirfarandi prentaraupplýsingar eru réttar:\n"
-"\n"
+#~ msgid "Password         :"
+#~ msgstr "Lykilorð         :"
 
-msgid "Printer device"
-msgstr "Prenttæki"
+#~ msgid "SMB Setup"
+#~ msgstr "SMB Stillingar"
 
-msgid "Verify Printer Configuration"
-msgstr "Fara yfir prentuppsetninguna"
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your SMB server\n"
+#~ "    o the volume to share which contains\n"
+#~ "      Red Hat Linux for your architecture"
+#~ msgstr ""
+#~ "vinsamlegast sláðu inn eftirfarandi uplplýsingar:\n"
+#~ "\n"
+#~ "    o heiti eða IP vistfang SMB þjónsins\n"
+#~ "    o skráakerfið á þjóninum sem inniheldur\n"
+#~ "      Red Hat Linux fyrir vélina þína."
 
-msgid ""
-"I have found the following types of SCSI adapters on your system:\n"
-"\n"
-msgstr ""
-"Eftirfarandi SCSI stýringar hafa fundist í vélinni þinni:\n"
-"\n"
+#~ msgid "Password for %s@%s: "
+#~ msgstr "Lykilorð fyrir %s@%s: "
 
-msgid ""
-"\n"
-"Do you have any more SCSI adapters on your system?"
-msgstr ""
-"\n"
-"Eru fleiri SCSI stýringar í vélinni?"
+#~ msgid "error: %sport must be a number\n"
+#~ msgstr "villa: %sport verður að vera tala\n"
 
-msgid "Do you have any SCSI adapters?"
-msgstr "Eru SCSI stýringar í vélinni?"
+#~ msgid "url port must be a number\n"
+#~ msgstr "gátt slóðar verður að vera tala\n"
 
-msgid "SMB server name  :"
-msgstr "Heiti SMB þjóns  :"
+#~ msgid "logging into %s as %s, pw %s\n"
+#~ msgstr "tengist %s sem %s, lykilorð %s\n"
 
-msgid "Share volume     :"
-msgstr "Skráakerfi       :"
+#~ msgid "failed to open %s\n"
+#~ msgstr "gat ekki opnað %s\n"
 
-msgid "Account name     :"
-msgstr "Verknúmer        :"
+#~ msgid "failed to create %s\n"
+#~ msgstr "Get ekki búið til %s\n"
 
-msgid "Password         :"
-msgstr "Lykilorð         :"
+#~ msgid "Retrieving"
+#~ msgstr "Sæki"
 
-msgid "SMB Setup"
-msgstr "SMB Stillingar"
+#~ msgid "open of %s failed: %s\n"
+#~ msgstr "gat ekki opnað %s: %s\n"
 
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your SMB server\n"
-"    o the volume to share which contains\n"
-"      Red Hat Linux for your architecture"
-msgstr ""
-"vinsamlegast sláðu inn eftirfarandi uplplýsingar:\n"
-"\n"
-"    o heiti eða IP vistfang SMB þjónsins\n"
-"    o skráakerfið á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína."
+#~ msgid ""
+#~ "Error transferring file %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Villa við flutning skráar %s:\n"
+#~ "%s"
 
-msgid "Password for %s@%s: "
-msgstr "Lykilorð fyrir %s@%s: "
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your FTP server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      Red Hat Linux for your architecure\n"
+#~ msgstr ""
+#~ "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+#~ "\n"
+#~ "    o heiti eða IP vistfang FTP þjónsins\n"
+#~ "    o nafn möppu á þjóninum sem inniheldur\n"
+#~ "      Red Hat Linux fyrir vélina þína\n"
 
-msgid "error: %sport must be a number\n"
-msgstr "villa: %sport verður að vera tala\n"
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your web server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      Red Hat Linux for your architecure\n"
+#~ msgstr ""
+#~ "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+#~ "\n"
+#~ "    o heiti eða IP vistfang vefþjónsins\n"
+#~ "    o nafn möppu á þjóninum sem inniheldur\n"
+#~ "      Red Hat Linux fyrir vélina þína\n"
 
-msgid "url port must be a number\n"
-msgstr "gátt slóðar verður að vera tala\n"
+#~ msgid "FTP site name:"
+#~ msgstr "FTP þjónn:"
 
-msgid "logging into %s as %s, pw %s\n"
-msgstr "tengist %s sem %s, lykilorð %s\n"
+#~ msgid "Web site name:"
+#~ msgstr "Vefþjónn:"
 
-msgid "failed to open %s\n"
-msgstr "gat ekki opnað %s\n"
+#~ msgid "Use non-anonymous ftp or a proxy server"
+#~ msgstr "Ekki nota nafnlaust FTP eða nota ftp-sel"
 
-msgid "failed to create %s\n"
-msgstr "Get ekki búið til %s\n"
+#~ msgid "FTP Setup"
+#~ msgstr "FTP stillingar"
 
-msgid "Retrieving"
-msgstr "Sæki"
+#~ msgid "HTTP Setup"
+#~ msgstr "HTTP stillingar"
 
-msgid "open of %s failed: %s\n"
-msgstr "gat ekki opnað %s: %s\n"
+#~ msgid "You must enter a server name."
+#~ msgstr "Þú verður að gefa upp heiti þjóns."
 
-msgid ""
-"Error transferring file %s:\n"
-"%s"
-msgstr ""
-"Villa við flutning skráar %s:\n"
-"%s"
+#~ msgid "You must enter a directory."
+#~ msgstr "Þú verður að nefna möppu."
 
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your FTP server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
-msgstr ""
-"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
-"\n"
-"    o heiti eða IP vistfang FTP þjónsins\n"
-"    o nafn möppu á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína\n"
+#~ msgid ""
+#~ "If you are using non anonymous ftp, enter the account name and password you "
+#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
+#~ "proxy server to use."
+#~ msgstr ""
+#~ "Ef þú ert ekki að nota nafnlaust FTP sláðu þá inn notandaheiti og lykilorð "
+#~ "að neðan. If þú vilt nota FTP sel, sláðu þá inn nafnið á FTP selinu."
 
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your web server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
-msgstr ""
-"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
-"\n"
-"    o heiti eða IP vistfang vefþjónsins\n"
-"    o nafn möppu á þjóninum sem inniheldur\n"
-"      Red Hat Linux fyrir vélina þína\n"
+#~ msgid ""
+#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+#~ "to use."
+#~ msgstr "Ef þú vilt nota HTTP sel þarftu að gefa upp heiti hanns hér."
 
-msgid "FTP site name:"
-msgstr "FTP þjónn:"
+#~ msgid "FTP Proxy:"
+#~ msgstr "FTP Sel:"
 
-msgid "Web site name:"
-msgstr "Vefþjónn:"
+#~ msgid "HTTP Proxy:"
+#~ msgstr "HTTP sel:"
 
-msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Ekki nota nafnlaust FTP eða nota ftp-sel"
+#~ msgid "FTP Proxy Port:"
+#~ msgstr "Gátt FTP sels:"
 
-msgid "FTP Setup"
-msgstr "FTP stillingar"
+#~ msgid "HTTP Proxy Port:"
+#~ msgstr "Gátt HTTP sels:"
 
-msgid "HTTP Setup"
-msgstr "HTTP stillingar"
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "RPM uppsetning af %s mistókst: %s"
 
-msgid "You must enter a server name."
-msgstr "Þú verður að gefa upp heiti þjóns."
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> gefur þér lýsingu og stærð pakka"
 
-msgid "You must enter a directory."
-msgstr "Þú verður að nefna möppu."
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Stærð allra valinna pakka:"
 
-msgid ""
-"If you are using non anonymous ftp, enter the account name and password you "
-"wish to use below. If you are using an FTP proxy enter the name of the FTP "
-"proxy server to use."
-msgstr ""
-"Ef þú ert ekki að nota nafnlaust FTP sláðu þá inn notandaheiti og lykilorð "
-"að neðan. If þú vilt nota FTP sel, sláðu þá inn nafnið á FTP selinu."
+#~ msgid "Select Packages"
+#~ msgstr "Veldu pakka"
 
-msgid ""
-"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-"to use."
-msgstr "Ef þú vilt nota HTTP sel þarftu að gefa upp heiti hanns hér."
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Get ekki náð í skrá %s: %s\n"
 
-msgid "FTP Proxy:"
-msgstr "FTP Sel:"
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Ég get ekki stimplað mig inn á vél: %s\n"
 
-msgid "HTTP Proxy:"
-msgstr "HTTP sel:"
+#~ msgid "LAN manager host:"
+#~ msgstr "LAN manager þjónn:"
 
-msgid "FTP Proxy Port:"
-msgstr "Gátt FTP sels:"
+#~ msgid "LAN manager IP:"
+#~ msgstr "IP vistang LAN manager:"
 
-msgid "HTTP Proxy Port:"
-msgstr "Gátt HTTP sels:"
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "Stillingar LAN Manager prentara"
 
-msgid "RPM install of %s failed: %s"
-msgstr "RPM uppsetning af %s mistókst: %s"
+#~ msgid "LAN Manager"
+#~ msgstr "LAN Manager"
 
-msgid "<F1> will show you a size and description of a package"
-msgstr "<F1> gefur þér lýsingu og stærð pakka"
-
-msgid "Size of all selected packages:"
-msgstr "Stærð allra valinna pakka:"
-
-msgid "Select Packages"
-msgstr "Veldu pakka"
-
-msgid "I cannot get file %s: %s\n"
-msgstr "Get ekki náð í skrá %s: %s\n"
-
-msgid "I cannot log into machine: %s\n"
-msgstr "Ég get ekki stimplað mig inn á vél: %s\n"
-
-msgid "LAN manager host:"
-msgstr "LAN manager þjónn:"
-
-msgid "LAN manager IP:"
-msgstr "IP vistang LAN manager:"
-
-msgid "LAN Manager Printer Options"
-msgstr "Stillingar LAN Manager prentara"
-
-msgid "LAN Manager"
-msgstr "LAN Manager"
-
-msgid ""
-"Would you like to install or configure the SILO bootloader on your system?"
-msgstr "Viltu setja upp eða stilla SILO ræsistjórann á vélinni þinni?"
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr "Viltu setja upp eða stilla SILO ræsistjórann á vélinni þinni?"
