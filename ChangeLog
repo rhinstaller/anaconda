@@ -1,3 +1,9 @@
+2005-03-28  Peter Jones  <pjones@redhat.com>
+
+	* loader2/pcmcia.c: don't load "ds" any more, but do load "pcmcia"
+
+	* loader2/pcmciatest.c: same as above, plus some gcc4 fixes
+
 2005-03-25  Bill Nottingham  <notting@redhat.com>
 	
 	* anaconda.spec: Bump version.

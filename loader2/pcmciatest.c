@@ -176,7 +176,7 @@ int initializePcmciaController() {
     if (!pcic)
         return 0;
 
-    mods = sdupprintf("pcmcia_core:%s", pcic);
+    mods = sdupprintf("pcmcia_core:%s:pcmcia", pcic);
     mlLoadModuleSet(mods);
 
     return 0;
