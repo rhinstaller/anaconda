@@ -516,7 +516,7 @@ class PackageCheckList(checklist.CheckList):
     
     def __init__(self, columns = 2):
         store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-                                   gobject.TYPE_STRING, gobject.TYPE_INT)
+                              gobject.TYPE_STRING, gobject.TYPE_INT)
 
 	checklist.CheckList.__init__(self, columns=columns,
 				     custom_store = store)
