@@ -26,7 +26,6 @@ from iw_gui import *
 from rhpl.log import log
 from rhpl.translate import _, N_
 from rhpl.monitor import isValidSyncRange
-from rhpl.videocard import Videocard_blacklist
 
 from desktop import ENABLE_DESKTOP_CHOICE
 
@@ -980,11 +979,6 @@ class XConfigWindow (InstallWindow):
 	# now go through cards and matchup with manufacturers
         for card in cards:
             temp = string.lower(card)
-
-            # don't let them configure VGA16
-            if card in Videocard_blacklist:
-                other_cards.remove(card)
-                continue
 
             for man in manufacturers:
                 if string.lower(man) == temp[:len(man)]:

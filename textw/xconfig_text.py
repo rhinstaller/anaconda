@@ -17,7 +17,6 @@ from snack import *
 
 from rhpl.translate import _
 from rhpl.monitor import isValidSyncRange
-from rhpl.videocard import Videocard_blacklist
 
 from desktop import ENABLE_DESKTOP_CHOICE
 
@@ -574,11 +573,6 @@ class XConfigWindowCard:
         self.cards = self.videocard.cardsDB()
         self.cardslist = self.cards.keys()
         self.cardslist.sort()
-        for card in Videocard_blacklist:
-            try:
-                self.cardslist.remove(card)
-            except:
-                pass
 
         self.ramlist = []
         for ram in self.videocard.possible_ram_sizes():
