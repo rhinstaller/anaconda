@@ -17,17 +17,22 @@ def cb(what, amount, total, key, data):
 list = rpm.readHeaderList('/mnt/test/msw/i386/RedHat/base/hdlist')
 print "got", len(list), "items"
 
-d = rpm.opendb(0)
+print "finding upgrade set..."
+ugset = rpm.findUpgradeSet (list)
+for header in ugset:
+    print header[rpm.RPMTAG_NAME]
 
-ts = rpm.TransactionSet()
+#d = rpm.opendb(0)
 
-for h in list:
-    ts.add(h, "foo", "a")
+#ts = rpm.TransactionSet()
 
-ts.add(list[0], "foo")
-rc = ts.depcheck()
-print rc
+#for h in list:
+#    ts.add(h, "foo", "a")
 
-ts.order()
+#ts.add(list[0], "foo")
+#rc = ts.depcheck()
+#print rc
+
+#ts.order()
 #print "run", ts.run(rpm.RPMTRANS_FLAG_TEST, 0, cb, "arg")
 

@@ -276,6 +276,66 @@ void initrpm(void) {
 			 PyInt_FromLong(RPMCALLBACK_UNINST_STOP));
 }
 
+
+static int psGetArchScore(Header h) {
+    void * pkgArch;
+    int type, count;
+
+    if (!headerGetEntry(h, RPMTAG_ARCH, &type, (void **) &pkgArch, &count) ||
+        type == RPM_INT8_TYPE)
+       return 150;
+    else
+        return rpmMachineScore(RPM_MACHTABLE_INSTARCH, pkgArch);
+}
+
+static int pkgCompareVer(void * first, void * second) {
+    struct packageInfo ** a = first;
+    struct packageInfo ** b = second;
+    int ret, score1, score2;
+
+    /* put packages w/o names at the end */
+    if (!(*a)->name) return 1;
+    if (!(*b)->name) return -1;
+
+    ret = strcasecmp((*a)->name, (*b)->name);
+    if (ret) return ret;
+    score1 = psGetArchScore((*a)->h);
+    if (!score1) return 1;
+    score2 = psGetArchScore((*b)->h);
+    if (!score2) return -1;
+    if (score1 < score2) return -1;
+    if (score1 > score2) return 1;
+    return rpmVersionCompare((*b)->h, (*a)->h);
+}
+
+static void pkgSort(struct pkgSet * psp) {
+    int i;
+    char *name;
+
+    qsort(psp->packages, psp->numPackages, sizeof(*psp->packages),
+	 (void *) pkgCompareVer);
+
+    name = psp->packages[0]->name;
+    if (!name) {
+       psp->numPackages = 0;
+       return;
+    }
+    for (i = 1; i < psp->numPackages; i++) {
+       if (!psp->packages[i]->name) break;
+       if (!strcmp(psp->packages[i]->name, name))
+	   psp->packages[i]->name = NULL;
+       else
+	   name = psp->packages[i]->name;
+    }
+
+    qsort(psp->packages, psp->numPackages, sizeof(*psp->packages),
+	 (void *) pkgCompareVer);
+
+    for (i = 0; i < psp->numPackages; i++)
+       if (!psp->packages[i]->name) break;
+    psp->numPackages = i;
+}
+
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
     PyObject * hdrList, * result;
     char * root = "/";
@@ -298,13 +358,17 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
 	    PyErr_SetString(PyExc_TypeError, "list of headers expected");
 	    return NULL;
 	}
-	list.packages[i].h = hdr->h;
-	list.packages[i].selected = 0;
+	list.packages[i] = alloca(sizeof(struct packageInfo));
+	list.packages[i]->h = hdr->h;
+	list.packages[i]->selected = 0;
+	list.packages[i]->data = hdr;
 
 	headerGetEntry(hdr->h, RPMTAG_NAME, NULL, 
-		      (void **) &list.packages[i].name, NULL);
+		      (void **) &list.packages[i]->name, NULL);
     }
 
+    pkgSort (&list);
+    
     if (ugFindUpgradePackages(&list, root)) {
 	PyErr_SetString(pyrpmError, "error during upgrade check");
 	return NULL;
@@ -312,8 +376,8 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
 
     result = PyList_New(0);
     for (i = 0; i < list.numPackages; i++) {
-	if (list.packages[i].selected)
-	    PyList_Append(result, PyList_GetItem(hdrList, i));
+	if (list.packages[i]->selected)
+	    PyList_Append(result, list.packages[i]->data);
     }
 
     return result;

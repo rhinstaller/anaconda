@@ -5,10 +5,11 @@ struct packageInfo {
     Header h;
     char selected;
     char * name;
+    void * data;
 } ;
 
 struct pkgSet {
-    struct packageInfo * packages;
+    struct packageInfo ** packages;
     int numPackages;
 };
 

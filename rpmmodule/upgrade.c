@@ -11,6 +11,13 @@
 
 #define MAXPKGS 1024
 
+#define USEDEBUG 0
+
+#define DEBUG(x) {   \
+     if (USEDEBUG)   \
+         printf x; \
+     }
+
 #if 0
 static void printMemStats(char *mess)
 {
@@ -32,6 +39,7 @@ int pkgCompare(void * first, void * second) {
     return strcasecmp((*a)->name, (*b)->name);
 }
 
+
 static void compareFileList(int availFileCount, char **availFiles,
 			    int installedFileCount, char **installedFiles,
 			    struct hash_table *ht)
@@ -43,7 +51,7 @@ static void compareFileList(int availFileCount, char **availFiles,
     while (installedX < installedFileCount) {
 	if (availX == availFileCount) {
 	    /* All the rest have moved */
-	    /* printf("=> %s\n", installedFiles[installedX]); */
+	    DEBUG(("=> %s\n", installedFiles[installedX]));
 	    if (strncmp(installedFiles[installedX], "/etc/rc.d/", 10))
 		htAddToTable(ht, installedFiles[installedX]);
 	    installedX++;
@@ -51,7 +59,7 @@ static void compareFileList(int availFileCount, char **availFiles,
 	    rc = strcmp(availFiles[availX], installedFiles[installedX]);
 	    if (rc > 0) {
 		/* Avail > Installed -- file has moved */
-		/* printf("=> %s\n", installedFiles[installedX]); */
+		DEBUG (("=> %s\n", installedFiles[installedX]));
 		if (strncmp(installedFiles[installedX], "/etc/rc.d/", 10))
 		    htAddToTable(ht, installedFiles[installedX]);
 		installedX++;
@@ -74,6 +82,7 @@ static void addLostFiles(rpmdb db, struct pkgSet *psp, struct hash_table *ht)
     char *name;
     struct packageInfo **pack;
     struct packageInfo key;
+    struct packageInfo *keyaddr = &key;
     char **installedFiles;
     int installedFileCount;
 
@@ -90,7 +99,7 @@ static void addLostFiles(rpmdb db, struct pkgSet *psp, struct hash_table *ht)
 	}
 	key.name = name;
 	
-	pack = bsearch(&key, psp->packages, psp->numPackages,
+	pack = bsearch(&keyaddr, psp->packages, psp->numPackages,
 		       sizeof(*psp->packages), (void *)pkgCompare);
 	if (!pack) {
 	    if (headerGetEntry(h, RPMTAG_FILENAMES, NULL,
@@ -110,24 +119,24 @@ static int findPackagesWithObsoletes(rpmdb db, struct pkgSet *psp)
 {
     dbiIndexSet matches;
     int rc, count, obsoletesCount;
-    struct packageInfo *pip;
+    struct packageInfo **pip;
     char **obsoletes;
 
     count = psp->numPackages;
     pip = psp->packages;
     while (count--) {
-	if (pip->selected) {
+	if ((*pip)->selected) {
 	    pip++;
 	    continue;
 	}
 
-	if (headerGetEntry(pip->h, RPMTAG_OBSOLETES, NULL,
+	if (headerGetEntry((*pip)->h, RPMTAG_OBSOLETES, NULL,
 		       (void **) &obsoletes, &obsoletesCount)) {
 	    while (obsoletesCount--) {
 		rc = rpmdbFindPackage(db, obsoletes[obsoletesCount], &matches);
 		if (!rc) {
 		    if (matches.count) {
-			pip->selected = 1;
+			(*pip)->selected = 1;
 			dbiFreeIndexRecord(matches);
 			break;
 		    }
@@ -159,12 +168,12 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
     int rc, i, count;
     char **installedFiles, **availFiles;
     int installedFileCount, availFileCount;
-    struct packageInfo *pip;
+    struct packageInfo **pip;
 
     count = psp->numPackages;
     pip = psp->packages;
     while (count--) {
-	h = pip->h;
+	h = (*pip)->h;
 	name = version = release = NULL;
 	headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 	headerGetEntry(h, RPMTAG_VERSION, NULL, (void **) &version, NULL);
@@ -174,8 +183,8 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 	    /*logMessage("Failed with bad header");*/
 	    return(-1);
 	}
-
-	/*printf("Avail: %s-%s-%s\n", name, version, release);*/
+	
+	DEBUG (("Avail: %s-%s-%s\n", name, version, release));
 	rc = rpmdbFindPackage(db, name, &matches);
 
 	if (rc == 0) {
@@ -186,7 +195,7 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 		    rpmdbGetRecord(db, matches.recs[i].recOffset);
 		if (rpmVersionCompare(installedHeader, h) >= 0) {
 		    /* already have a newer version installed */
-		    /*printf("Already have newer version\n");*/
+		    DEBUG (("Already have newer version\n"))
 		    skipThis = 1;
 		    headerFree(installedHeader);
 		    break;
@@ -195,18 +204,18 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 	    }
 	    rpmErrorSetCallback(NULL);
 	    if (! skipThis) {
-		/*printf("No newer version installed\n");*/
+		DEBUG (("No newer version installed\n"))
 	    }
 	} else {
 	    skipThis = 1;
-	    /*printf("Not installed\n");*/
+	    DEBUG (("Not installed\n"))
 	}
 	
 	if (skipThis) {
-	    /*printf("DO NOT INSTALL\n");*/
+	    DEBUG (("DO NOT INSTALL\n"))
 	} else {
-	    /*printf("UPGRADE\n");*/
-	    pip->selected = 1;
+	    DEBUG (("UPGRADE\n"))
+	    (*pip)->selected = 1;
 
 	    if (!headerGetEntry(h, RPMTAG_FILENAMES, NULL,
 			  (void **) &availFiles, &availFileCount)) {
@@ -243,7 +252,7 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 	    dbiFreeIndexRecord(matches);
 	}
 
-	/*printf("\n\n");*/
+	DEBUG (("\n\n"))
 
 	pip++;
     }
@@ -260,13 +269,13 @@ static int removeMovedFilesAlreadyHandled(struct pkgSet *psp,
     char **availFiles;
     int availFileCount;
     char *file;
-    struct packageInfo *pip;
+    struct packageInfo **pip;
 
     count = psp->numPackages;
     pip = psp->packages;
     while (count--) {
-	h = pip->h;
-	if (pip->selected) {
+	h = (*pip)->h;
+	if ((*pip)->selected) {
 	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 
@@ -279,7 +288,7 @@ static int removeMovedFilesAlreadyHandled(struct pkgSet *psp,
 	    for (i = 0; i < availFileCount; i++) {
 		if ((file = htInTable(ht, availFiles[i]))) {
 		    *file = '\0';
-		    /*printf("File already in %s: %s\n", name, availFiles[i]);*/
+		    DEBUG (("File already in %s: %s\n", name, availFiles[i]))
 		    break;
 		}
 	    }
@@ -303,13 +312,13 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
     char **availFiles;
     int availFileCount;
     char *file;
-    struct packageInfo *pip;
+    struct packageInfo **pip;
 
     count = psp->numPackages;
     pip = psp->packages;
     while (count--) {
-	h = pip->h;
-	if (! pip->selected) {
+	h = (*pip)->h;
+	if (! (*pip)->selected) {
 	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 
@@ -320,9 +329,9 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
 		for (i = 0; i < availFileCount; i++) {
 		    if ((file = htInTable(ht, availFiles[i]))) {
 			*file = '\0';
-			/*printf("Found file in %s: %s\n", name,
-			  availFiles[i]);*/
-			pip->selected = 1;
+			DEBUG (("Found file in %s: %s\n", name,
+				availFiles[i]))
+			(*pip)->selected = 1;
 			break;
 		    }
 		}
@@ -360,14 +369,14 @@ static int unmarkPackagesAlreadyInstalled(rpmdb db, struct pkgSet *psp)
     dbiIndexSet matches;
     Header h, installedHeader;
     char *name, *version, *release;
-    struct packageInfo *pip;
+    struct packageInfo **pip;
     int count, rc, i;
 
     count = psp->numPackages;
     pip = psp->packages;
     while (count--) {
-	if (pip->selected) {
-	    h = pip->h;
+	if ((*pip)->selected) {
+	    h = (*pip)->h;
 	    /* If this package is already installed, don't bother */
 	    name = version = release = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
@@ -386,8 +395,8 @@ static int unmarkPackagesAlreadyInstalled(rpmdb db, struct pkgSet *psp)
 			rpmdbGetRecord(db, matches.recs[i].recOffset);
 		    if (rpmVersionCompare(installedHeader, h) >= 0) {
 			/* already have a newer version installed */
-			/*printf("Already have newer version\n");*/
-			pip->selected = 0;
+			DEBUG (("Already have newer version\n"))
+			(*pip)->selected = 0;
 			headerFree(installedHeader);
 			break;
 		    }
@@ -412,7 +421,7 @@ int ugFindUpgradePackages(struct pkgSet *psp, char *installRoot)
     rpmdb db;
     struct hash_table *hashTable;
     rpmErrorCallBackType old;    
-    
+
     /*logDebugMessage(("ugFindUpgradePackages() ..."));*/
 
     rpmReadConfigFiles(NULL, NULL);
