@@ -441,6 +441,7 @@ def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
 
 def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
     if dir == DISPATCH_BACK:
+        log("unmounting filesystems")
 	thefsset.umountFilesystems(instPath)
 	return
 
@@ -455,6 +456,7 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
             thefsset.formatSwap(instPath)
             thefsset.turnOnSwap(instPath)
 	    thefsset.makeFilesystems (instPath)
+            log("mounting filesystems")
             thefsset.mountFilesystems (instPath)
 
 def setupTimezone(timezone, upgrade, instPath, dir):
@@ -1019,6 +1021,7 @@ def doPostInstall(method, id, intf, instPath):
                                             stderr = "/dev/tty5",
                                             root = instPath)
                 ts = rpm.TransactionSet()
+                ts.closeDB()
                 fd = os.open(id.compspkg, os.O_RDONLY)
                 h = ts.hdrFromFdno(fd)
                 os.close(fd)

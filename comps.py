@@ -856,6 +856,7 @@ class ComponentSet:
                 how = 'u'
             else:
                 ts = rpm.TransactionSet()
+                ts.closeDB()
                 how = 'i'
 
             ts.setVSFlags(~(rpm.RPMVSF_NODSA|rpm.RPMVSF_NORSA))
