@@ -358,14 +358,11 @@ NCR53c406a
 advansys
 	scsi_hostadapter
 	"AdvanSys SCSI"
-	asc_iopflag "0 = normal portscan; 1 = portscan asc_ioport ports" "[01]"
-	asc_ioport "list of up to four port address to scan if asc_iopflag is set" "0x[0-9a-fA-F].*"
 
 aha152x
 	scsi_hostadapter
 	"Adaptec AHA-152x"
-	aha152x "First adaptor: ioport, irq, scsiid, reconnect, parity, synchronous, delay" "0x[0-9a-fA-F]+.*"
-	aha152x1 "Second adaptor: ioport, irq, scsiid, reconnect, parity, synchronous, delay" "0x[0-9a-fA-F]+.*"
+	aha152x "ioport, irq, host scsiid"
 
 aha1542
 	scsi_hostadapter
@@ -408,7 +405,7 @@ fdomain
 in2000
 	scsi_hostadapter
 	"IN2000 SCSI"
-	setup_string "ioport:addr, noreset, nosync:x, period:ns, disconnect:x, debug:x, proc:x"
+	setup_string "ioport:addr"
 
 ncr53c8xx
 	scsi_hostadapter
@@ -422,9 +419,6 @@ ppa
 	scsi_hostadapter
 	"IOMEGA PPA3/Parallel ZIP"
 	ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
-	ppa_speed_high "microsecond delay used during data transfer"
-	ppa_speed_low "microsecond delay used except during data transfer"
-	ppa_nybble "1 to force 4-bit transfer mode"
 
 qlogicfas
 	scsi_hostadapter
@@ -509,7 +503,6 @@ isp16
 	isp16_cdrom_base "Base I/O Address"
 	isp16_cdrom_irq "IRQ"
 	isp16_cdrom_dma "DMA Channel (0,3,5,6,7)"
-	isp16_cdrom_type "Type (0=undefined, 2=Sony/Panasonic, 4=Mitsumi/Panasonic, 6=Sanyo)"
 
 mcd
 	block-major-23	cdrom
@@ -524,7 +517,7 @@ mcdx
 sbpcd
 	block-major-25	cdrom
 	"SoundBlaster Pro/Panasonic CDROM"
-	sbpcd "Base I/O Address,type (0=LaserMate, 1=SoundBlaster, 2=SoundScape, 3=Teac16bit)"
+	sbpcd "Base I/O Address"
 
 sjcd
 	block-major-18	cdrom
