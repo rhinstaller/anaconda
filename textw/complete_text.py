@@ -17,10 +17,8 @@ from translate import _
 
 class FinishedWindow:
     def __call__ (self, screen):
-        msg = _("<Return> to reboot")
-        padding = " " * ((screen.width - len(msg)) / 2)
-        text = "%s%s%s" % (padding, msg, padding)
-        screen.pushHelpLine (text)
+        screen.pushHelpLine (string.center(_("<Return> to reboot"),
+                                           screen.width))
 
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
              _("Congratulations, your Red Hat Linux installation is "
@@ -41,10 +39,8 @@ class FinishedWindow:
 
 class ReconfigFinishedWindow:
     def __call__ (self, screen):
-        msg = _("<Return> to exit")
-        padding = " " * ((screen.width - len(msg)) / 2)
-        text = "%s%s%s" % (padding, msg, padding)
-        screen.pushHelpLine (text)
+        screen.pushHelpLine (string.center(_("<Return> to exit"),
+                                           screen.width))
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
                 _("Congratulations, configuration is complete.\n\n"
