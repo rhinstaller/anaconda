@@ -190,21 +190,6 @@ makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULE
 unset BOOTLANG
 unset BOOTDIR
 
-echo "Building dosutils/autoboot/initrd.img"
-makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
-	   --initrdsize 4100 \
-	   --pcmcia \
-	   --loaderbin loader-pcmcia \
-	   --modules "$COMMONMODULES $SCSIMODS =scsi $IDEMODS"
-[ $? = 0 ] || exit 1
-
-echo "Building cdboot.img"
-makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
-	     --bootdisksize 2880 \
-	     --imagename ../dosutils/autoboot/cdboot.img \
-	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
-[ $? = 0 ] || exit 1
-
 echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
@@ -242,13 +227,25 @@ echo "Building stage2.img"
 makemainimage "stage2" "cramfs"
 [ $? = 0 ] || exit 1
 
+# clean up time -- being very explicit about what's linked
+if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;then
+	echo "Cleaning up images"
+	# links for the pxeboot bits
+	rm -f $TOPDESTPATH/images/pxeboot/*
+	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
+	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/images/pxeboot/initrd.img
 
+	# links for the autoboot bits
+	rm -f $TOPDESTPATH/dosutils/autoboot/*
+	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
+	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
+fi
+	
 cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 
 The following files are available:
 vmlinuz - the BOOT kernel used for the installer
-initrd.img - the regular network initrd used by the bootnet images
-initrd-everything.img - an initrd with support for all install methods and
+initrd.img - an initrd with support for all install methods and
     drivers supported for installation of Red Hat Linux
 EOF
