@@ -442,7 +442,9 @@ class KickstartBase(BaseInstallClass):
     def doAutoStep(self, id, args):
         flags.autostep = 1
 
-    def readKickstart(self, id, file):
+    # read the kickstart config...  if parsePre is set, only parse
+    # the %pre, otherwise ignore the %pre.  assume we're starting in where
+    def readKickstart(self, id, file, parsePre = 0, where = "commands"):
 	handlers = { 
 		     "auth"		: self.doAuthconfig	,
 		     "authconfig"	: self.doAuthconfig	,
@@ -480,7 +482,6 @@ class KickstartBase(BaseInstallClass):
                      "autostep"         : self.doAutoStep       ,
 		   }
 
-	where = "commands"
 	packages = []
 	groups = []
         excludedPackages = []
@@ -492,10 +493,11 @@ class KickstartBase(BaseInstallClass):
 		if not args or args[0][0] == '#': continue
 
 	    if args and (args[0] == "%post" or args[0] == "%pre"):
-		if where =="pre" or where == "post":
+		if ((where =="pre" and parsePre) or
+                    (where == "post" and not parsePre)):
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
-			self.preScripts.append(s)
+                        self.preScripts.append(s)
 		    else:
 			self.postScripts.append(s)
 
@@ -523,24 +525,39 @@ class KickstartBase(BaseInstallClass):
 		    elif str == "--interpreter":
 			scriptInterp = arg
 
-	    elif args and args[0] == "%packages":
-                if len(args) > 1:
-                    if args[1] == "--resolvedeps":
-                        id.handleDeps = RESOLVE_DEPS
-                    elif args[1] == "--ignoredeps":
-                        id.handleDeps = IGNORE_DEPS
-                
-		if where =="pre" or where == "post":
+            elif args and args[0] == "%include" and not parsePre:
+                if len(args) < 2:
+                    raise RuntimeError, "Invalid %include line"
+                else:
+                    # read in the included file and set our where appropriately
+                    where = self.readKickstart(id, args[1], where = where)
+            elif args and args[0] == "%packages":
+		if ((where =="pre" and parsePre) or
+                    (where == "post" and not parsePre)):
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
 			self.preScripts.append(s)
 		    else:
 			self.postScripts.append(s)
 
+                # if we're parsing the %pre, we don't need to continue
+                if parsePre:
+                    continue
+
+                if len(args) > 1:
+                    if args[1] == "--resolvedeps":
+                        id.handleDeps = RESOLVE_DEPS
+                    elif args[1] == "--ignoredeps":
+                        id.handleDeps = IGNORE_DEPS
+                
 		where = "packages"
 	    else:
-		if where == "packages":
-                    #Scan for comments in package list...drop off everything after "#" mark
+                # if we're parsing the %pre and not in the pre, continue
+                if parsePre and where != "pre":
+                    continue
+		elif where == "packages":
+                    #Scan for comments in package list...drop off
+                    #everything after "#" mark
                     try:
                         ind = string.index(n, "#")
                         n = n[:ind]
@@ -583,12 +600,15 @@ class KickstartBase(BaseInstallClass):
 		    #if int(dev[-1:]) > 4:
 			#raise RuntimeError, "Clearpart and --onpart on non-primary partition %s not allowed" % dev
                 
-	if where =="pre" or where == "post":
+	if ((where =="pre" and parsePre) or
+            (where == "post" and not parsePre)):
 	    s = Script(script, scriptInterp, scriptChroot)
 	    if where == "pre":
 		self.preScripts.append(s)
 	    else:
 		self.postScripts.append(s)
+
+        return where
 
     def doClearPart(self, id, args):
         type = CLEARPART_TYPE_NONE
@@ -845,10 +865,15 @@ class KickstartBase(BaseInstallClass):
 
 	self.installType = "install"
         self.id = id
-	self.readKickstart(id, self.file)
+
+        # parse the %pre
+	self.readKickstart(id, self.file, parsePre = 1)
 
 	for script in self.preScripts:
 	    script.run("/", self.serial)
+
+        # now read the kickstart file for real
+	self.readKickstart(id, self.file)            
 
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()
