@@ -1,3 +1,8 @@
+2004-11-03  Karsten Hopp  <karsten@redhat.com>
+
+	* loader2/linuxrc.s390: Check input for CTCPROT, remove ctc-tty
+	from selection
+
 2004-11-02  Jeremy Katz  <katzj@redhat.com>
 
 	* rescue.py (runRescue): Fix traceback with going back in the

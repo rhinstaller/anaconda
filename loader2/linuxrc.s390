@@ -276,13 +276,29 @@ else  # ctc0, iucv0
         if [ -z "$MTU" ]; then
 		      MTU="1500"
         fi
-        echo $"Select which protocol should be used for the CTC interface"
-        echo $"0 for compatibility with p.e. VM TCP service machine (default)"
-        echo $"1 for enhanced package checking for Linux peers"
-        echo $"2 for CTC based tty connection with a Linux peer"
-        echo $"3 for compatibility with OS/390 or z/OS peers"
-        read CTCPROT
-        [ "x$CTCPROT" = "x0" ] && unset CTCPROT
+		  validprot=0
+        while [ "$validprot" = "0" ]; do
+           echo $"Select which protocol should be used for the CTC interface"
+           echo $"0 for compatibility with p.e. VM TCP service machine (default)"
+           echo $"1 for enhanced package checking for Linux peers"
+           echo $"3 for compatibility with OS/390 or z/OS peers"
+           read CTCPROT
+           case "x$CTCPROT" in
+           x|x0)
+              validprot=1
+              unset CTCPROT
+              ;;
+           x1|x3)
+              validprot=1
+              ;;
+           x2)
+              echo $"CTC tty's are not usable for this installation"
+              ;;
+           *)
+              echo $"Invalid selection"
+              ;;
+           esac
+        done
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$PEERID" ]; do
