@@ -927,6 +927,7 @@ class ToDo:
         # sets against the on disk db
         rc = rpm.rebuilddb (self.instPath)
         if rc:
+            win.pop()
             self.intf.messageWindow(_("Error"),
                                     _("Rebuild of RPM database failed. "
                                       "You may be out of disk space?"))
@@ -939,6 +940,7 @@ class ToDo:
         try:
             packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         except rpm.error:
+            win.pop()
             self.intf.messageWindow(_("Error"),
                                     _("An error occured when finding the packages to "
                                       "upgrade."))
