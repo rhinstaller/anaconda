@@ -324,6 +324,9 @@ int chooseLanguage(char ** lang, int flags) {
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
+    newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
+    newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
+
     return 0;
 }
 
