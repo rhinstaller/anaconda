@@ -352,8 +352,8 @@ class x86BootloaderInfo(bootloaderInfo):
 
         f.write('default=0\n')
         f.write('timeout=30\n')
-        f.write('splashimage=%s/grub/splash.xpm.gz\n'
-                % (grubbyPartitionName(bootDev),))
+        f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
+                % (grubbyPartitionName(bootDev), cfPath))
         
 	for (label, version) in kernelList:
 	    kernelTag = "-" + version
@@ -382,8 +382,8 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	part = grubbyPartitionName(bootDev)
 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
-	cmd = "root %s\ninstall %s/i386-redhat/stage1 d (%s) %s/i386-redhat/stage2 p %s%s/grub.conf" % \
-	    (part, grubPath, grubbyDiskName(bl.getDevice()), grubPath,
+	cmd = "root %s\ninstall %s/i386-redhat/stage1 d %s %s/i386-redhat/stage2 p %s%s/grub.conf" % \
+	    (part, grubPath, grubbyPartitionName(bl.getDevice()), grubPath,
 	     part, grubPath)
 
 	log("GRUB command %s", cmd)
@@ -532,8 +532,8 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    plainLabelUsed = 1
 
     if not flags.test:
-	bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
-	     justConfigFile)
+        bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
+                 justConfigFile)
 
     w.pop()
 
@@ -565,13 +565,14 @@ def grubbyDiskName(name):
     return "hd%d" % drives.index(name)
 
 def grubbyPartitionName(dev):
-    cut = -1
+    cut = len(dev)
     if dev[-2] in string.digits:
 	cut = -2
+    elif dev[-1] in string.digits:
+        cut = -1
 
-    partNum = int(dev[cut:]) - 1
     name = dev[:cut]
-
+    
     # hack off the trailing 'p' from /dev/cciss/*, for example
     if name[-1] == 'p':
 	for letter in name:
@@ -579,7 +580,11 @@ def grubbyPartitionName(dev):
 		name = name[:-1]
 		break
 
-    return "(%s,%d)" % (grubbyDiskName(name), partNum)
+    if cut < 0:
+        partNum = int(dev[cut:]) - 1
+        return "(%s,%d)" % (grubbyDiskName(name), partNum)
+    else:
+        return "(%s)" %(grubbyDiskName(name))
 
 # return instance of the appropriate bootloader for our arch
 def getBootloader():
