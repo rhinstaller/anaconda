@@ -8,8 +8,6 @@ if arch == "sparc":
     from silo import SiloInstall
 elif arch == "alpha":
     from milo import MiloInstall, onMILO
-elif arch == "ia64":
-    from eli import EliConfiguration
 import string
 import socket
 import crypt
@@ -250,10 +248,8 @@ class Language (SimpleConfigFile):
     def get (self):
 	return self.lang
 
-    def getFontFile (self, lang):
-	# Note: in /etc/fonts.cgz fonts are named by the map
-	# name as that's unique, font names are not
-	return self.map[lang]
+    def getFont (self, lang):
+	return self.font[lang]
 
 class Authentication:
     def __init__ (self):
@@ -317,8 +313,6 @@ class ToDo:
 	    self.silo = SiloInstall (self.serial)
         elif arch == "alpha":
             self.milo = MiloInstall (self)
-        elif arch == "ia64":
-            self.eli = EliConfiguration ()
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -575,21 +569,13 @@ class ToDo:
 	if pure:
 	    self.setPassword("root", pure)
 	else:
-	    # we need to splice in an already crypted password for kickstart
-	    f = open (self.instPath + "/etc/passwd", "r")
-	    lines = f.readlines ()
-	    f.close ()
-	    index = 0
-	    for line in lines:
-		if line[0:4] == "root":
-		    entry = string.splitfields (line, ':')
-		    entry[1] = self.rootpassword.getCrypted ()
-		    lines[index] = string.joinfields (entry, ':')
-		    break
-		index = index + 1
-	    f = open (self.instPath + "/etc/passwd", "w")
-	    f.writelines (lines)
-	    f.close ()
+            crypt = self.rootpassword.getCrypted ()
+            devnull = os.open("/dev/null", os.O_RDWR)
+
+            argv = [ "/usr/sbin/usermod", "-p", crypt, "root" ]
+            iutil.execWithRedirect(argv[0], argv, root = self.instPath,
+                                   stdout = devnull, stderr = None)
+            os.close(devnull)
 
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
@@ -1334,9 +1320,6 @@ class ToDo:
 				   self.upgrade)
 	    elif arch == "i386":
 		self.lilo.install (self.fstab, self.instPath, self.hdList, 
-				   self.upgrade)
-	    elif arch == "ia64":
-		self.eli.install (self.fstab, self.instPath, self.hdList, 
 				   self.upgrade)
 	    elif arch == "alpha":
 		self.milo.write ()
