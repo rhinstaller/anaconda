@@ -86,7 +86,8 @@ def writeKSConfiguration(id, instPath):
 def copyAnacondaLogs(instPath):
     log("Copying anaconda logs")
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
-                       ("/tmp/syslog", "anaconda.syslog")):
+                       ("/tmp/syslog", "anaconda.syslog"),
+                       ("/tmp/ramfs/X.log", "anaconda.xlog")):
         if os.access(fn, os.R_OK):
             try:
                 iutil.copyFile(fn, "%s/var/log/%s" %(instPath, dest))
