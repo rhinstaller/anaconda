@@ -663,15 +663,17 @@ makemainimage () {
     umount $mmi_mntpoint
     
     if [ "$BUILDARCH" = "ia64" ]; then
-    	dd if=$mmi_tmpimage of=$INSTIMGPATH/${imagename}.img bs=1048576
+        ln -s $mmi_tmpimagename $INSTIMGPATH/${imagename}.img
     else
 	cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     fi
     chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
-
-    rm $mmi_tmpimage
+    
+    if [ "$BUILDARCH" != "ia64" ]; then
+      rm $mmi_tmpimage
+    fi
     rmdir $mmi_mntpoint
 }
 
