@@ -815,6 +815,11 @@ for p in $DEST $DESTGR; do
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
 
+	# we only want the libunicode-lite stuff on the minimal image
+	if [ $p = $DESTGR ]; then
+	    rm -f $p/usr/$LIBDIR/libunicode-lite*
+	fi
+
 	find $p -type d | xargs chmod 755
 
 	if [ -f $p/bin/bash ]; then
