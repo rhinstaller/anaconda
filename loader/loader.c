@@ -226,7 +226,7 @@ int main(int argc, char ** argv) {
 
     symlink("/mnt/source/RedHat/instimage/usr", "/usr");
     
-    execv(testing ? "../anaconda" : "/usr/sbin/anaconda", argv);
+    execv(testing ? "../anaconda" : "/usr/bin/anaconda", argv);
 
     sleep(5);
     
