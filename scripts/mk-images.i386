@@ -143,14 +143,14 @@ PCMCIAMODULES="$PCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
            --pcmcia \
-	   --initrdsize 2750 \
+	   --initrdsize 4750 \
 	   --loaderbin loader \
 	   --modules "$COMMONMODULES"
 
 echo "Building initrd-everything.img"
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
-	   --initrdsize 5000 \
+	   --initrdsize 7000 \
 	   --loaderbin loader \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
 [ $? = 0 ] || exit 1
