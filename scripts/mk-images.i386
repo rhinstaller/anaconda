@@ -101,6 +101,9 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
+# images we only want on the CD (usually for space reasons)
+ISOLINUXMODULES="ehci-hcd"
+
 echo "Building dosutils/autoboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2750 \
@@ -195,7 +198,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
 	   --initrdsize 5000 \
 	   --loaderbin loader-pcmcia \
-	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
+	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
 [ $? = 0 ] || exit 1
 
 if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
