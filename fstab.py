@@ -973,7 +973,7 @@ def readFstab (path, fstab):
     fstab.clearExistingRaid()
     fstab.clearMounts()
 
-    labelByMount = {}
+    labelsByMount = {}
     labels = fstab.readLabels()
     for device in labels.keys():
 	labelsByMount[labels[device]] = device
@@ -1009,31 +1009,31 @@ def readFstab (path, fstab):
 	    continue
 	if string.find(fields[3], "noauto") != -1: continue
 
-	# this skips swap files! todo has to put them back for upgrades
-	if (fields[0][0:7] != "/dev/hd" and 
-	    fields[0][0:7] != "/dev/sd" and
-	    fields[0][0:7] != "/dev/md" and
-	    fields[0][0:9] != "/dev/loop" and
-	    fields[0][0:8] != "/dev/rd/" and
-	    fields[0][0:9] != "/dev/ida/"): continue
-
-        if fields[0][0:7] == "/dev/md":
-	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
-				    fields[2], raidByDev[int(fields[0][7:])])
-	else:
-	    if fields[0][0:6] == "LABEL=":
-		label = fields[0][6:]
-		device = labelsByDev[label]
-	    else:
-		device = fields[0][5:]
-		if loopIndex.has_key(device):
-		    (device, fsystem) = loopIndex[device]
+	if len(fields) >= 6 and fields[0][0:6] == "LABEL=":
+	    label = fields[0][6:]
+	    device = labelsByMount[label]
 
 	    fsystem = fields[2]
 
 	    fstab.addMount(device, fields[1], fsystem)
+	elif fields[0][0:7] == "/dev/md":
+	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
+				    fields[2], raidByDev[int(fields[0][7:])])
+	elif (fields[0][0:7] == "/dev/hd" or 
+	    fields[0][0:7] == "/dev/sd" or
+	    fields[0][0:9] == "/dev/loop" or
+	    fields[0][0:8] == "/dev/rd/" or
+	    fields[0][0:9] == "/dev/ida/"): 
 
-#	log("got mount list %s", fstab.mountList())
+	    # this skips swap files! todo has to put them back for upgrades
+
+	    device = fields[0][5:]
+	    if loopIndex.has_key(device):
+		(device, fsystem) = loopIndex[device]
+
+	    fsystem = fields[2]
+
+	    fstab.addMount(device, fields[1], fsystem)
 
 def createLabel(labels, newLabel):
     if len(newLabel) > 16:
