@@ -68,7 +68,7 @@ class SiloWindow:
 	len3 = len(str3)
 	len4 = len(str4) 
 	lenmax = max((len1, len2, len3, len4))
-	if todo.silo.getSiloMbrDefault() == 'mbr':
+	if todo.silo.getSiloMbrDefault(todo.fstab) == 'mbr':
 	    dflt = 1
 	else:
 	    dflt = 0
