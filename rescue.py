@@ -1,6 +1,6 @@
 import upgrade
 from snack import *
-from text import WaitWindow
+from text import WaitWindow, OkCancelWindow
 from translate import _
 import raid
 import os
@@ -9,6 +9,13 @@ class RescueInterface:
 
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
+
+    def messageWindow(self, title, text, type = "ok"):
+	if type == "ok":
+	    ButtonChoiceWindow(self.screen, _(title), _(text),
+			       buttons = [ _("OK") ])
+	else:
+	    return OkCancelWindow(self.screen, _(title), _(text))
 
     def __init__(self, screen):
 	self.screen = screen

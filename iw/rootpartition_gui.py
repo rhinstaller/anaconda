@@ -7,6 +7,7 @@ import gui
 from fdisk_gui import *
 import isys
 import iutil
+from log import log
 
 CHOICE_FDISK = 1
 CHOICE_DDRUID = 2
@@ -391,7 +392,10 @@ class LBA32WarningWindow(InstallWindow):
         if iutil.getArch() != "i386":
             return None
 
-        if self.todo.fstab.getBootPartitionMaxCylFromDesired() > 1023:
+        maxcyl = self.todo.fstab.getBootPartitionMaxCylFromDesired()
+        log("Maximum cylinder is %s" % maxcyl)
+        
+        if maxcyl > 1023:
             vbox = GtkVBox (FALSE, 5)
 
             if not self.todo.fstab.edd:

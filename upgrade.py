@@ -15,7 +15,7 @@ def findExistingRoots (intf, theFstab):
     mdList = raid.startAllRaid(drives)
 
     for dev in mdList:
-	if theFstab.isValidExt2 (dev):
+	if fstab.isValidExt2 (dev):
 	    try:
 		isys.mount(dev, '/mnt/sysimage', readOnly = 1)
 	    except SystemError, (errno, msg):

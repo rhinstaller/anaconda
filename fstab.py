@@ -168,7 +168,12 @@ class Fstab:
 	bootpart = self.getBootDevice()
 	boothd = self.getMbrDevice()
 
-        maxcyl = None
+        # for now just assume this will work on RAID systems, not simple to
+        # test at all
+	if bootpart[0:2] == "md":
+            return 0
+
+        maxcyl = 0
         
         try:
             bootgeom = isys.getGeometry(boothd)
@@ -204,14 +209,21 @@ class Fstab:
     def getBootPartitionMaxCylFromDesired(self):
 	bootpart = self.getBootDevice()
 	boothd = self.getMbrDevice()
+
+        # for now just assume this will work on RAID systems, not simple to
+        # test at all
+	if bootpart[0:2] == "md":
+            return 0
+
+
         (drives, raid) = self.partitionList()
 
         for (dev, devName, type, start, size, maxcyl, preexist) in drives:
             if dev == bootpart:
-#                log ("maxcyl of %s is %d" % (dev, maxcyl))
+                log ("maxcyl of %s is %s" % (dev, maxcyl))
                 return maxcyl
 
-        return None
+        return 0
 
     def getMbrDevice(self):
 	return self.driveList()[0]

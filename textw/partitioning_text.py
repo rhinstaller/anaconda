@@ -4,6 +4,7 @@ import isys
 from snack import *
 from constants_text import *
 from translate import _
+from log import log
 
 class PartitionMethod:
     def __call__(self, screen, todo):
@@ -360,7 +361,9 @@ class LBA32WarningWindow:
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
-        if todo.fstab.getBootPartitionMaxCylFromDesired() > 1023:
+        maxcyl = todo.fstab.getBootPartitionMaxCylFromDesired()
+        log("Maximum cylinder is %s" % maxcyl)
+        if maxcyl > 1023:
             if not todo.fstab.edd:
                 rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
                      _("You have put the partition containing the kernel (the "
