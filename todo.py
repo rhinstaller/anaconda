@@ -1497,7 +1497,7 @@ class ToDo:
                             self.instPath + "/etc/X11/X")
             self.setDefaultRunlevel ()
             argv = [ "/usr/sbin/kudzu", "-q" ]
-	    iutil.execWithRedirect(argv[0], argv, root = slf.instPath,
+	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
 	self.installLilo ()
 
