@@ -135,16 +135,22 @@ def runRescue(instPath, mountroot, id):
 	
 	screen = SnackScreen()
 
-	rc = ButtonChoiceWindow(screen, _("Setup Networking"),
-	    _("Do you want to start the network interfaces on this system?"),
-				[_("Yes"), _("No")])
+	while 1:
+	    rc = ButtonChoiceWindow(screen, _("Setup Networking"),
+		_("Do you want to start the network interfaces on "
+		  "this system?"), [_("Yes"), _("No")])
 
-	if rc != string.lower(_("No")):
-	    intf = RescueInterface(screen)
+	    if rc != string.lower(_("No")):
+		intf = RescueInterface(screen)
 
-	    window = network_text.NetworkWindow()
-	    rc = apply(window, (screen, id.network, intf, 1))
-	    startNetworking(id.network)
+		window = network_text.NetworkWindow()
+		rc = apply(window, (screen, id.network, intf, 1))
+		if rc == INSTALL_OK:
+		    startNetworking(id.network)
+		    break
+	    else:
+		break
+		
 
 	screen.finish()
 
