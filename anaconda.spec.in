@@ -67,7 +67,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 /usr/lib/anaconda-runtime
 
-%triggerpostun -- anaconda < 8.0-1
+%triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig
 
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
