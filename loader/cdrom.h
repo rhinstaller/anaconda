@@ -7,6 +7,7 @@
 #include "modules.h"
 
 int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags);
+		  moduleList modLoaded, moduleDeps * modDepsPtr, 
+		  char * floppyDevice, int flags);
 
 #endif

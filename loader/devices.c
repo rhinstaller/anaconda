@@ -22,16 +22,18 @@
 #include "../kudzu/kudzu.h"
 #include "isys/cpio.h"
 
-void ejectFloppy(void) {
-#if defined(__sparc__) || defined(__ia64__)
+void eject(char * deviceName) {
     int fd;
 
     logMessage("ejecting floppy");
 
-    fd = open("/dev/fd0", O_RDONLY);
+    devMakeInode(deviceName, "/tmp/ejectDevice");
+
+    fd = open("/tmp/ejectDevice", O_RDONLY);
     ioctl(fd, FDEJECT, 1);
     close(fd);
-#endif
+
+    unlink("/tmp/ejectDevice");
 }
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
@@ -186,7 +188,8 @@ int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 }
 
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps *modDepsPtr, int flags, int cancelNotBack) {
+		      moduleDeps *modDepsPtr, int flags, int cancelNotBack,
+		      char * device) {
     int rc;
     int done = 0;
     struct driverDiskInfo * ddi;
@@ -201,7 +204,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	    if (rc == 2) return LOADER_BACK;
 	}
 
-	ejectFloppy();
+	eject(device);
 	rc = newtWinChoice(_("Devices"), _("OK"), 
 		cancelNotBack ? _("Cancel") : _("Back"),
 		_("Insert your driver disk and press \"OK\" to continue."));
@@ -211,8 +214,9 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, modInfo, 
 		     flags);
 
-	ddi->device = "fd0";
-	ddi->mntDevice = "/tmp/fd0";
+	ddi->device = strdup(device);
+	ddi->mntDevice = alloca(strlen(device) + 10);
+	sprintf(ddi->mntDevice, "/tmp/%s", device);
 
 	devMakeInode(ddi->device, ddi->mntDevice);
 
@@ -258,7 +262,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 		      moduleList modLoaded, moduleDeps * modDepsPtr, 
 		      struct moduleInfo * suggestion,
 		      struct moduleInfo ** modp, int * specifyParams,
-		      int flags) {
+		      char * ddDevice, int flags) {
     int i;
     newtComponent form, text, listbox, checkbox, ok, back;
     newtGrid buttons, grid, subgrid;
@@ -325,7 +329,8 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return LOADER_BACK;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0);
+	    devLoadDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 0,
+			      ddDevice);
 	    continue;
 	} else {
 	    break;
@@ -339,8 +344,8 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 }
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags,
-		  char ** moduleName) {
+		  moduleList modLoaded, moduleDeps * modDepsPtr, 
+		  char * ddDevice, int flags, char ** moduleName) {
     struct moduleInfo * mod = NULL;
     enum { S_MODULE, S_ARGS, S_DONE } stage = S_MODULE;
     int rc;
@@ -351,7 +356,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     	switch (stage) {
 	  case S_MODULE:
 	    if ((rc = pickModule(modInfo, type, modLoaded, modDepsPtr, mod, 
-				 &mod, &specifyArgs, flags)))
+				 &mod, &specifyArgs, ddDevice, flags)))
 		return LOADER_BACK;
 	    stage = S_ARGS;
 	    break;
@@ -476,7 +481,9 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 
 	first = 0;
 
-	ejectFloppy();
+	if (ddi->device)
+	    eject(ddi->device);
+
 	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
 		_("Please insert the %s driver disk now."), ddi->title);
 	if (rc == 2) return NULL;

@@ -44,7 +44,8 @@ static int setupCDdevicePanel(int * type) {
 }
 
 int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags) {
+		  moduleList modLoaded, moduleDeps * modDepsPtr, 
+		  char * floppyDevice, int flags) {
     int type = 0, rc = 0;
     int i;
     int done = 0;
@@ -57,7 +58,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 	switch (type) {
 	  case CD_SCSI:
 	    rc = devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
-	    		       flags, NULL);
+	    		       floppyDevice, flags, NULL);
 	    if (!rc) {
 		kdFindScsiList(kd, 0);
 		/* we'll get called again if the scsi bus doesn't have a CDROM
@@ -68,7 +69,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 
 	  case CD_OTHER:
 	    rc = devDeviceMenu(DRIVER_CDROM, modInfo, modLoaded, modDepsPtr, 
-	    		       flags, &devName);
+	    		       floppyDevice, flags, &devName);
 	    if (!rc) {
 		for (i = 0; transTable[i].modname; i++) {
 		    if (!strcmp(devName, transTable[i].devname)) {

@@ -76,6 +76,12 @@ int cardmgr_main(int argc, char ** argv);
 int ourInsmodCommand(int argc, char ** argv);
 int kon_main(int argc, char ** argv);
 
+#if defined(__ia64__)
+static char * floppyDevice = "hda";
+#else
+static char * floppyDevice = "fd0";
+#endif
+
 struct knownDevices devices;
 
 struct installMethod {
@@ -273,7 +279,8 @@ int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded,
 	else
 	    type = DRIVER_SCSI;
 
-	rc = devDeviceMenu(type, modInfo, modLoaded, modDepsPtr, flags, NULL);
+	rc = devDeviceMenu(type, modInfo, modLoaded, modDepsPtr, 
+			   floppyDevice, flags, NULL);
     } while (rc);
 
     return 0;
@@ -840,7 +847,8 @@ static char * setupCdrom(struct installMethod * method,
 			  "the Red Hat CD and press \"OK\" to retry."));
 	    if (rc == 2) return NULL;
 	} else {
-	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, flags);
+	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, 
+			       floppyDevice, flags);
 	    if (rc == LOADER_BACK) return NULL;
 	}
     } while (1);
@@ -897,8 +905,8 @@ static int ensureNetDevice(struct knownDevices * kd,
 
     /* Give them a chance to insert a module. */
     if (i == kd->numKnown) {
-	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDepsPtr, flags,
-			   NULL);
+	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDepsPtr, 
+			   floppyDevice, flags, NULL);
 	if (rc) return rc;
 	kdFindNetList(kd, 0);
     }
@@ -1920,10 +1928,10 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
     mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
 
-    if (devMakeInode("fd0", "/tmp/fd0"))
+    if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
-    if (doPwMount("/tmp/fd0", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) {
+    if (doPwMount("/tmp/floppy", "/tmp/ks", "vfat", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount floppy: %s", strerror(errno));
 	return 1;
     }
@@ -1937,7 +1945,7 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
     copyFile("/tmp/ks/ks.cfg", location);
 
     umount("/tmp/ks");
-    unlink("/tmp/fd0");
+    unlink("/tmp/floppy");
 
     logMessage("kickstart file copied to %s", location);
 
@@ -2043,15 +2051,15 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 
 	if (rc == 2) return;
 
-	devMakeInode("fd0", "/tmp/fd0");
-	if (doPwMount("/tmp/fd0", "/tmp/update-disk", "ext2", 1, 0, NULL, 
+	devMakeInode(floppyDevice, "/tmp/floppy");
+	if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
 		      NULL)) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			   _("Failed to mount floppy disk."));
 	} else {
 	    /* Copy everything to /tmp/updates so .so files don't get run
-	       from /dev/fd0. We could (and probably should) get smarter about
-	       this at some point. */
+	       from /dev/floppy. We could (and probably should) get smarter 
+	       about this at some point. */
 	    winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
 	    if (!copyDirectory("/tmp/update-disk", "/tmp/updates")) done = 1;
 	    newtPopWindow();
@@ -2237,7 +2245,8 @@ int main(int argc, char ** argv) {
 	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
 	    && !ksFile) {
 	    startNewt(flags);
-	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1);
+	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1,
+			      floppyDevice);
 	}
 
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);

@@ -12,10 +12,11 @@ struct driverDiskInfo {
 };
 
 int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo, 
-		  moduleList modLoaded, moduleDeps * modDepsPtr, int flags,
-		  char ** moduleName);
+		  moduleList modLoaded, moduleDeps * modDepsPtr, 
+		  char * ddDevice, int flags, char ** moduleName);
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
-		     moduleDeps *modDepsPtr, int flags, int cancelNotBack);
+		     moduleDeps *modDepsPtr, int flags, int cancelNotBack,
+		     char * device);
 int devInitDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps *modDepsPtr, int flags, char * mntPoint,
 		      struct driverDiskInfo * ddi);
