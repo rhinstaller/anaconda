@@ -73,7 +73,7 @@ struct langInfo {
 #ifdef INCLUDE_KON
 static const struct langInfo languages[] = {
         { "English",	"en",	NULL,		NULL,		"en_US" },
-	{ "Japanese",	"ja",	NULL,		NULL,		"ja_JP" },
+	{ "Japanese",	"ja",	NULL,		NULL,		"ja_JP.ujis" },
 };
 #else
 /* FONT LIST STARTS */
