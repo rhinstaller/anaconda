@@ -223,12 +223,14 @@ int beTelnet(int flags) {
 void startTelnetd(struct knownDevices * kd, struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, moduleList modLoaded, 
                   moduleDeps modDeps, int flags) {
-    if (kickstartNetworkUp(kd, loaderData, flags)) {
+    struct networkDeviceConfig netCfg;
+
+    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return;
     }
 
-    logMessage("going to beTelnet");
+    logMessage("going to beTelnet for %s", inet_ntoa(netCfg.dev.ip));
     if (!beTelnet(flags))
         flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
 
