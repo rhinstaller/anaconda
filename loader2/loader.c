@@ -361,6 +361,13 @@ static void checkForHardDrives(int * flagsPtr) {
     int flags = (*flagsPtr);
     int i;
     struct device ** devices;
+
+    /* If they're using kickstart, assume they might know what they're doing.
+     * Worst case is we fail later */
+    if (FL_KICKSTART(flags)) {
+        logMessage("no hard drives found, but in kickstart so continuing anyway");
+        return;
+    }
     
     devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
     if (devices)
