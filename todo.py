@@ -838,12 +838,23 @@ class ToDo:
     def getUserList(todo):
 	return todo.users
 
-    def createUsers(todo):
-	if not todo.users return
+    def createAccounts(todo):
+	if not todo.users: return
 
 	for (account, name, password) in todo.users:
 	    argv = [ "/usr/sbin/useradd", account ]
-	    iutil.execWithRedirect(argv[0], argv, root = self.instPath)
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
+
+	    argv = [ "/usr/bin/chfn", "-f", name]
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
+        
+	    argv = [ "/usr/bin/passwd", "--stdin", password + "\n" ]
+	    p = os.pipe
+	    os.write(p[1], password)
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
+				   stdin = p[0])
+	    os.close(p[0])
+	    os.close(p[1])
         
     def doInstall(self):
 	# make sure we have the header list and comps file
