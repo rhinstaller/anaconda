@@ -1634,7 +1634,7 @@ def confirmDeleteRequest(intf, request):
                        "Are you sure?")
         else:
             errmsg = _("You are about to delete the /dev/%s partition.\n\n"
-                       "Are you sure?" % request.device)
+                       "Are you sure?") % (request.device,)
             
     else:
         errmsg = _("Are you sure you want to delete this partition?")
