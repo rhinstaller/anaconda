@@ -6,6 +6,7 @@ from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
 from GDK import _2BUTTON_PRESS
 from gnome.ui import *
+from flags import flags
 import checklist
 
 class LanguageSupportWindow (InstallWindow):
@@ -148,12 +149,10 @@ class LanguageSupportWindow (InstallWindow):
         sep = GtkHSeparator ()
         vbox.pack_start (sep, FALSE, 15)
 
-	# XXX
-        #if self.flags.reconfigOnly():
-            #label = GtkLabel (_("Currently installed languages:"))
-        #else:
-
-	label = GtkLabel (_("Choose the languages to install:"))
+        if flags.reconfig:
+            label = GtkLabel (_("Currently installed languages:"))
+        else:
+            label = GtkLabel (_("Choose the languages to install:"))
 
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (TRUE)
@@ -223,11 +222,9 @@ class LanguageSupportWindow (InstallWindow):
         button = GtkButton (_("Select as default"))
         alignment.add (button)
 
-	# XXX
-	#
         # in reconfig mode make some widgets unchangable
-        #if self.todo.reconfigOnly:
-            #self.language.set_sensitive(FALSE)
-            #all_button.set_sensitive(FALSE)
+        if flags.reconfig:
+            self.language.set_sensitive(FALSE)
+            all_button.set_sensitive(FALSE)
 
         return vbox
