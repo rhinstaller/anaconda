@@ -27,8 +27,10 @@
 #include <newt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
-# include "../isys/dns.h"
+#include "../isys/dns.h"
+#include "../isys/isys.h"
 
 #include "lang.h"
 #include "loader.h"
@@ -113,6 +115,22 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
+static void waitForLink(char * dev) {
+    int tries = 0;
+
+    /* try to wait for a valid link -- if the status is unknown or
+     * up continue, else sleep for 1 second and try again for up
+     * to five times */
+    logMessage("waiting for link...");
+    while (tries < 5) {
+        if (get_link_status(dev) != 0)
+            break;
+        sleep(1);
+    }
+    logMessage("%d seconds.", tries);
+    /* JKFIXME: arguably, we shouldn't let you use nics without link */
+}
+
 void initLoopback(void) {
     struct pumpNetIntf dev;
 
@@ -186,9 +204,10 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             startNewt(flags);
             winStatus(50, 3, _("Dynamic IP"), 
-                      _("Sending request for IP information for %s"), 
+                      _("Sending request for IP information for %s..."), 
                       loaderData->netDev, 0);
 
+            waitForLink(loaderData->netDev);
             chptr = pumpDhcpRun(loaderData->netDev, 0, 0, NULL, &cfg->dev, NULL);
             newtPopWindow();
             if (chptr) {
@@ -366,8 +385,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
         } else {
             if (!FL_TESTING(flags)) {
                 winStatus(50, 3, _("Dynamic IP"), 
-                          _("Sending request for IP information..."),
-                            0);
+                          _("Sending request for IP information for %s..."), 
+                          device, 0);
+                waitForLink(device);
                 chptr = pumpDhcpRun(device, 0, 0, NULL, &newCfg.dev, NULL);
                 newtPopWindow();
             } else {
