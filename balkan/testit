@@ -1,0 +1,10 @@
+#!/usr/bin/python
+
+import _balkan
+
+p = _balkan.readTable('/dev/hda')
+
+for i in range(0, len(p) - 1):
+    (type, start, size) = p[i]
+    if (type != -1):
+        print "i:", i, p[i]
