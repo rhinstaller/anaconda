@@ -44,7 +44,6 @@ BINS += loader-local loader-network loader-pcmcia
  CFLAGS += -DINCLUDE_KON
  DIRS += kon2
  endif
-DIRS += pcmcia-install 
 OBJS += dietstubs.o ctype.o
 endif
 
@@ -162,7 +161,7 @@ loader-network: loader-net.o $(OBJS) $(NETOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
-	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
+	    $(PCMCIAOBJS) -lcardmgr_loader -lprobe_loader popen.o \
         -lpopt     \
         -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
 	$(MODULELINKAGE) $(GUNZIP) \
