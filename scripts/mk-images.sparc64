@@ -69,7 +69,8 @@ NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5"
 makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
 	   --initrdsize 2000 \
 	   --loaderbin loader \
-           --modules "$SCSIMODULES $NETMODULES"
+           --modules "$SCSIMODULES $NETMODULES" \
+	   --moduleballname modules64.cgz
 
 maketftp --kernel $KERNELROOT/boot/vmlinux-* \
 	 --imagename $TOPDESTPATH/images/tftp64.img \
@@ -77,8 +78,10 @@ maketftp --kernel $KERNELROOT/boot/vmlinux-* \
 
 makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
 	     --imagename boot64.img \
+	     --bootdisksize 1440 \
 	     --initrdflags '--initrdsize 2000 \
 			    --loaderbin loader \
-			    --modules "$SCSIMODULES"'
+			    --modules "$SCSIMODULES" \
+			    --moduleballname modules64.cgz'
 
-makemainmodules "$SECSTAGE $NETMODULES"
+makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES" modules64.cgz

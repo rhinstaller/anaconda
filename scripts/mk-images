@@ -197,17 +197,27 @@ expandModuleSet() {
 makemoduleball() {
     unset MMB_DD
     MMB_MODINFO="module-info"
+    MMB_NAME="modules.cgz"
 
-    if [ "$1" = "--dd" ]; then
-        MMB_DD="$2"
-	shift; shift
-	MMB_MODINFO="modinfo"
-    fi
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ "$1" = "--dd" ]; then
+	    MMB_DD="$2"
+	    shift; shift
+	    MMB_MODINFO="modinfo"
+	    continue
+	elif [ "$1" = "--name" ]; then
+	    MMB_NAME="$2"
+	    shift; shift
+	    continue
+	fi
+	echo "unknown option passed to $0"
+	exit 1
+    done
 
     MMB_DIR=$1
     MMB_MODULESET=$(resdeps $2)
 
-    rm -rf $MMB_DIR/modules $MMB_DIR/modules.cgz $MMB_DIR/modules.dep \
+    rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep \
 	   $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
     mkdir -p $MMB_DIR/modules
 
@@ -230,7 +240,7 @@ makemoduleball() {
     mkdir $version
     mv *.o $version
 
-    find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../modules.cgz
+    find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
     cd ..
     rm -rf modules
     popd  > /dev/null
@@ -239,9 +249,13 @@ makemoduleball() {
 makemainmodules() {
     modlist=`expandModuleSet "$1"`
 
+    if [ -n "$2" ]; then
+	extraargs="--name $2"
+    fi
+
     rm -rf $FULLMODPATH
 
-    makemoduleball $FULLMODPATH "$modlist"
+    makemoduleball $extraargs $FULLMODPATH "$modlist"
 }
 
 makeinitrd() {
@@ -281,6 +295,10 @@ makeinitrd() {
 	    LOADERMODULES=$2
 	    shift; shift
 	    continue
+	elif [ $1 = "--moduleballname" ]; then
+	    MODULEBALLNAME=$2
+	    shift; shift
+	    continue
 	fi
 	echo "Unknown option passed to makeinitrd"
 	exit 1
@@ -317,7 +335,7 @@ makeinitrd() {
 
     if [ -n "$LOADERMODULES" ]; then
 	MODSET=`expandModuleSet "$LOADERMODULES"`
-        makemoduleball $MBD_DIR/modules "$MODSET"
+        makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
     fi
 
     cat > $MBD_DIR/etc/passwd << EOF
@@ -346,9 +364,6 @@ EOF
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 
-    # FIXME: keymaps?
-    # FIXME: fonts?
-
     awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
 	   printf("chmod %s %s/dev/%s\n", $6, $1, $2);
 	   printf("chown %s %s/dev/%s\n", $7, $1, $2); 
@@ -373,7 +388,8 @@ EOF
 	$MBD_DIR tty5 c 4 5 600 root:tty
 	$MBD_DIR tty6 c 4 6 600 root:tty
 	$MBD_DIR tty7 c 4 7 600 root:tty
-	$MBD_DIR kbd c 11 0 600 root:root
+	$MBD_DIR openprom c 10 139 644 root:root
+	$MBD_DIR kbd c 11 0 644 root:root
 EOF
 
 cat > $MBD_DIR/.profile <<EOF
