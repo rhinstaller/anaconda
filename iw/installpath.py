@@ -12,7 +12,6 @@ from mouse import *
 from keyboard import *
 from format import *
 from congrats import *
-from autopartition import *
 from dependencies import *
 from lilo import *
 from examine import *
