@@ -66,7 +66,7 @@ struct kmapInfo {
 };
 
 /* the file pointer must be at the beginning of the section already! */
-static int loadKeymap(gzFile stream) {
+int loadKeymap(gzFile stream) {
     int console;
     int kmap, key;
     struct kbentry entry;
