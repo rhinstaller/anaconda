@@ -20,7 +20,7 @@ output = "/tmp/lvmout"
 def vgscan():
     """Runs vgscan."""
 
-    rc = iutil.execWithRedirect("/usr/sbin/vgscan",
+    rc = iutil.execWithRedirect("vgscan",
                                 ["vgscan", "-v"],
                                 stdout = output,
                                 stderr = output,
@@ -34,7 +34,7 @@ def vgactivate(volgroup = None):
     volgroup - optional single volume group to activate
     """
 
-    args = ["/usr/sbin/vgchange", "-ay"]
+    args = ["vgchange", "-ay"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -50,7 +50,7 @@ def vgdeactivate(volgroup = None):
     volgroup - optional single volume group to deactivate
     """
 
-    args = ["/usr/sbin/vgchange", "-an"]
+    args = ["vgchange", "-an"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -68,7 +68,7 @@ def lvremove(lvname, vgname):
     vgname - name of volume group lv is in.
     """
 
-    args = ["/usr/sbin/lvremove", "-f"]
+    args = ["lvremove", "-f"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
@@ -93,7 +93,7 @@ def vgremove(vgname):
     except:
         pass
 
-    args = ["/usr/sbin/vgremove", vgname]
+    args = ["vgremove", vgname]
 
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
