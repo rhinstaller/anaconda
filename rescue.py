@@ -15,12 +15,23 @@ class RescueInterface:
 
 def runRescue(serial):
 
-    screen = SnackScreen()
-    intf = RescueInterface(screen)
-
     from fstab import NewtFstab
 
-    fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0)
+    fstab = None
+
+    try:
+	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
+			  requireBlockDevices = 0)
+    except SystemError, text:
+	print _("WARNING: no valid block devices were found.\n")
+    except:
+	print _("ERROR: unknown error encountered reading partition tables.\n")
+	
+    if not fstab:
+	os.execv("/bin/sh", [ "-/bin/sh" ])
+
+    screen = SnackScreen()
+    intf = RescueInterface(screen)
 
     parts = upgrade.findExistingRoots(intf, fstab)
 

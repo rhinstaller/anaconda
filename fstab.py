@@ -1037,15 +1037,21 @@ class GuiFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
 		 messageWindow, progressWindow, ignoreRemovable,
-                 protected, expert, upgrade):
+                 protected, expert, upgrade, requireBlockDevices = 1):
 	from gnomepyfsedit import fsedit
         from gnomepyfsedit import fserror
 	from gtk import *
 
-	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow, 
-		       progressWindow, ignoreRemovable, protected,
-                       expert, upgrade)
+	try:
+	    Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, 
+			   zeroMbr, readOnly, waitWindow, messageWindow, 
+			   progressWindow, ignoreRemovable, protected,
+			   expert, upgrade)
+	except SystemError:
+	    if requireBlockDevices:
+		print "no valid block devices found"
+		sys.exit(0)
+	    raise SystemError, text
 
 	self.GtkFrame = GtkFrame
         self.GtkAccelGroup = GtkAccelGroup
@@ -1056,14 +1062,21 @@ class NewtFstab(Fstab):
 
     def __init__(self, setupFilesystems, serial, zeroMbr, readOnly,
                  waitWindow, messageWindow, progressWindow,
-                 ignoreRemovable, protected, expert, upgrade):
+                 ignoreRemovable, protected, expert, upgrade,
+		 requireBlockDevices = 1):
 	from newtpyfsedit import fsedit
         from newtpyfsedit import fserror
         
-
-	Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, zeroMbr, 
-		       readOnly, waitWindow, messageWindow, progressWindow, 
-		       ignoreRemovable, protected, expert, upgrade)
+	try:
+	    Fstab.__init__(self, fsedit, fserror, setupFilesystems, serial, 
+			   zeroMbr, readOnly, waitWindow, messageWindow, 
+			   progressWindow, ignoreRemovable, protected, expert, 
+			   upgrade)
+	except SystemError, text:
+	    if requireBlockDevices:
+		print "no valid block devices found"
+		sys.exit(0)
+	    raise SystemError, text
 
 def readFstab (path, fstab):
     loopIndex = {}
