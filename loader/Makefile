@@ -79,7 +79,7 @@ TRFILES = $(patsubst %,%.tr,$(LANGS))
 
 all: dirs $(BINS) loader.tr
 
-loader.tr: $(TR)
+loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po: *.c
