@@ -1195,7 +1195,7 @@ static char * mediaCheckCdrom(char *cddriver) {
 
     first = 1;
     do {
-	char *descr;
+	char *descr=NULL;
 	/* if first time through, see if they want to eject the CD      */
 	/* currently in the drive (most likely the CD they booted from) */
 	/* and test a different disk.  Otherwise just test the disk in  */
