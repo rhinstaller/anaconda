@@ -886,6 +886,7 @@ else if [ "$BUILDARCH" = "x86_64" ]; then
 else
     arches="$BUILDARCH"
 fi
+fi
 for KERNELARCH in $arches; do
   for kernelvers in $vertag; do
     KERNELROOT=$KERNELBASE/$KERNELARCH
