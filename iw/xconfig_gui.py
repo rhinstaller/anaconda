@@ -43,6 +43,14 @@ class XCustomWindow (InstallWindow):
         self.todo.resState = self.selectedRes
         self.todo.depthState = self.selectedDepth
 
+
+        if self.text.get_active ():
+            self.todo.initlevel = 3
+            self.todo.initState = 3
+        elif self.graphical.get_active ():
+            self.todo.initlevel = 5
+            self.todo.initState = 5
+
     def getPrev (self):
         self.todo.x.setModes(self.oldmodes)
 
@@ -281,12 +289,17 @@ class XCustomWindow (InstallWindow):
         self.hbox5 = GtkHBox (TRUE, 10)
         frame4.add (self.hbox5)
 
-        text = GtkRadioButton (None, "Text")
-        graphical = GtkRadioButton (text, "Graphical")
+        self.text = GtkRadioButton (None, "Text")
+        self.graphical = GtkRadioButton (self.text, "Graphical")
+
+        if self.todo.initState == 3:
+            self.text.set_active (TRUE)
+        elif self.todo.initState == 5:
+            self.graphical.set_active (TRUE)
 
 
-        self.hbox5.pack_start (text, FALSE, 15)
-        self.hbox5.pack_start (graphical, FALSE, 15)
+        self.hbox5.pack_start (self.text, FALSE, 15)
+        self.hbox5.pack_start (self.graphical, FALSE, 15)
         
         box.pack_start (hbox4, FALSE, TRUE, 10)
 #        self.xdm.set_active (TRUE)
