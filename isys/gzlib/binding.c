@@ -1,9 +1,13 @@
 #include <sys/signal.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 
 #include "gzlib.h"
+
+int gunzip_main(int decompress);
 
 struct gzFile_s {
     int fd;
@@ -98,11 +102,12 @@ gzFile gzip_open(const char * file, int flags, int perms) {
 
 int gunzip_read(gzFile str, void * buf, int bytes) {
     int pos = 0;
-    int i;
+    int i = 0;
 
     while ((pos != bytes) &&
-      (i = read(str->fd, ((char *) buf) + pos, bytes - pos)) > 0)
+      (i = read(str->fd, ((char *) buf) + pos, bytes - pos)) > 0) {
 	pos += i;
+    }
 
     if (i < 0) return -1;
 
