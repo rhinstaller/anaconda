@@ -1,5 +1,6 @@
 import os
 import string
+import locale
 from simpleconfig import SimpleConfigFile
 import rpm
 from translate import cat
@@ -115,9 +116,9 @@ class InstallTimeLanguage:
         self.setRuntimeDefaults(name)
         lang = self.langNicks[name]
 
-        os.environ["LC_ALL"] = lang
         os.environ["LANG"] = lang
         os.environ["LC_NUMERIC"] = 'C'
+        locale.setlocale(locale.LC_ALL, "")
 
         newlangs = [lang]
 	if len(lang) > 2:
