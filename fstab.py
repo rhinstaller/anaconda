@@ -40,7 +40,7 @@ class Fstab:
 		mntpoint = "Swap%04d-auto" % swapCount
 		swapCount = swapCount + 1
 		type = 0x82
-	    elif (mntpoint == "raid"):
+	    elif (mntpoint[0:5] == "raid."):
 		type = 0xfd
 
 	    attempt.append((mntpoint, size, type, grow, -1, device))
@@ -233,6 +233,8 @@ class Fstab:
     def createRaidTab(self, file, devPrefix, createDevices = 0):
 	(devices, raid) = self.raidList()
 
+	if not raid: return
+
 	deviceDict = {}
 	for (device, name, type, start, size) in devices:
 	    deviceDict[name] = device
@@ -261,7 +263,7 @@ class Fstab:
 	rt.write("\n")
 	rt.close()
 
-    def umountFilesystems(self, instPath):
+    def umountFilesystems(self, instPath, ignoreErrors = 0):
 	if (not self.setupFilesystems): return 
 
 	isys.umount(instPath + '/proc')
@@ -274,8 +276,13 @@ class Fstab:
 		    mntPoint = instPath + n
                     isys.umount(mntPoint)
 		except SystemError, (errno, msg):
-		    self.messageWindow(_("Error"), 
-			_("Error unmounting %s: %s") % (device, msg))
+		    if not ignoreErrors:
+			self.messageWindow(_("Error"), 
+			    _("Error unmounting %s: %s") % (device, msg))
+
+	if self.rootOnLoop():
+	    isys.makeDevInode("loop0", '/tmp/' + "loop0")
+	    isys.unlosetup("/tmp/loop0")
 
 	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
 	    isys.raidstop(raidDevice)
@@ -360,6 +367,9 @@ class Fstab:
 		continue
 	    elif fsystem == "vfat" and mntpoint == "/":
 		# do a magical loopback mount -- whee!
+		w = self.waitWindow(_("Loopback"),
+			      _("Creating loopback filesystem on device /dev/%s...") % (device,))
+
 		iutil.mkdirChain("/mnt/loophost")
 		isys.makeDevInode(device, '/tmp/' + device)
 		isys.mount('/tmp/' + device, "/mnt/loophost", fstype = "vfat")
@@ -390,6 +400,8 @@ class Fstab:
 				       '/mnt/loophost/rh-swap.img' ],
 				     stdout = None, stderr = None)
 		    isys.swapon("/mnt/loophost/rh-swap.img")
+
+		w.pop()
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
