@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-08-12 12:20+1000\n"
+"PO-Revision-Date: 2003-08-14 10:03+1000\n"
 "Last-Translator: Sarah Saiying Wang <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <i18n@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,9 +27,9 @@ msgid "%s %s installation on host %s"
 msgstr "%s %s 安装在主机 %s 上"
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "执行 %s 的新安装"
+msgstr "%s %s 的安装"
 
 #: ../anaconda:149
 msgid "Unable to set vnc password - using no password!"
@@ -48,6 +48,12 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"警告！！！VNC 服务器没有使用口令在运行！\n"
+"您可以使用 vncpassword=<password> 引导选项\n"
+"来保护服务器的安全。\n"
+"\n"
 
 #: ../anaconda:177
 msgid "The VNC server now running."
@@ -1333,7 +1339,7 @@ msgid ""
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
 "设备 %s 是 LDL 格式化的，而不是 CDL 格式化的。LDL 格式化的 DASD 在 %s 的安装"
-"中不被支持。如果你想使用这个磁盘来安装，它一定要被重新初始化，从而导致所有数"
+"中不被支持。如果您想使用这个磁盘来安装，它一定要被重新初始化，从而导致所有数"
 "据丢失。\n"
 "\n"
 "您想使用 CDL 格式来重新格式化这个 DASD 吗？"

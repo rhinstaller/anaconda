@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: taroon-anaconda\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-08-08 12:02+1000\n"
+"PO-Revision-Date: 2003-08-15 13:11+1000\n"
 "Last-Translator: Bernd Groh <bgroh@redhat.com>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +23,14 @@ msgid "Starting VNC..."
 msgstr "Starte VNC..."
 
 #: ../anaconda:129
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation on host %s"
-msgstr "%s Installer auf %s"
+msgstr "%s %s Installation auf Host %s"
 
 #: ../anaconda:131
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "Eine neue %s Installation durchführen"
+msgstr "%s %s Installation"
 
 #: ../anaconda:149
 msgid "Unable to set vnc password - using no password!"
@@ -49,6 +49,12 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"WARNUNG!!! VNC Server läuft mit NO PASSWORD!\n"
+"Sie können die vncpassword=<password> Bootoption\n"
+"verwenden, wenn Sie den Server sichern wollen.\n"
+"\n"
 
 #: ../anaconda:177
 msgid "The VNC server now running."
@@ -133,8 +139,7 @@ msgstr "Kann kein X Hardware Statusobjekt instantiieren."
 
 #: ../anaconda:750
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Die Installation im Grafikmodus ist für %s Installationen nicht verfügbar. "
 "Der Textmodus wird gestartet."
@@ -1142,13 +1147,11 @@ msgstr ""
 
 #: ../network.py:41
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Der Hostname muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
+msgstr "Der Hostname muss mit einem Zeichen im Bereich 'a-z' oder 'A-Z' beginnen."
 
 #: ../network.py:46
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"Hostnamen können nur die Zeichen 'a-z', 'A-Z', '-', oder '.' enthalten."
+msgstr "Hostnamen können nur die Zeichen 'a-z', 'A-Z', '-', oder '.' enthalten."
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1809,8 +1812,7 @@ msgid "Confirm Reset"
 msgstr "Zurücksetzen bestätigen"
 
 #: ../partIntfHelpers.py:532
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Partitionstabelle in den Originalzustand "
 "zurücksetzen möchten?"
@@ -1862,8 +1864,7 @@ msgstr ""
 "von %s gewöhnlich zu wenig ist."
 
 #: ../partitions.py:819
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Sie müssen eine /boot/efi Partition des Typs FAT und einer Größe von 50 "
 "Megabyte erstellen."
@@ -1887,8 +1888,7 @@ msgstr "Bootpartitionen sind nur auf RAID1 zulässig."
 
 #: ../partitions.py:879
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
-"Bootbare Partitionen können sich nicht in einem logischen Volumen befinden."
+msgstr "Bootbare Partitionen können sich nicht in einem logischen Volumen befinden."
 
 #: ../partitions.py:883
 msgid ""
@@ -1932,8 +1932,7 @@ msgstr "eine Partition, die ein Teil der LVM Volumengruppe ist."
 
 #: ../partRequests.py:219
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dieser Mountpunkt ist ungültig. Das Verzeichnis %s muss sich im / "
 "Dateisystem befinden."
@@ -1994,8 +1993,7 @@ msgstr "Partitionen können nicht an einem negativen Zylinder enden."
 
 #: ../partRequests.py:628
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"Keine Partitionen in ihrem RAID Request oder kein RAID-Level festgelegt."
+msgstr "Keine Partitionen in ihrem RAID Request oder kein RAID-Level festgelegt."
 
 #: ../partRequests.py:640
 #, python-format
@@ -2040,8 +2038,7 @@ msgstr ""
 
 #: ../rescue.py:236 ../rescue.py:271 ../rescue.py:425
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Nach Beenden schließen Sie das Befehlsprompt. Ihr System wird neu starten."
+msgstr "Nach Beenden schließen Sie das Befehlsprompt. Ihr System wird neu starten."
 
 #: ../rescue.py:255 ../rescue.py:324 ../rescue.py:332 ../rescue.py:403
 msgid "Rescue"
@@ -2093,8 +2090,7 @@ msgstr "Zu rettendes System"
 
 #: ../rescue.py:299
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
-"Auf welcher Partition befindet sich die Root-Partition der Installation?"
+msgstr "Auf welcher Partition befindet sich die Root-Partition der Installation?"
 
 #: ../rescue.py:301 ../rescue.py:305
 msgid "Exit"
@@ -2191,17 +2187,14 @@ msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:350
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> Hilfe | <Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../text.py:352
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
+msgstr "     <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2424,8 +2417,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:87
 msgid "Enter the root (administrator) password for the system."
-msgstr ""
-"Geben Sie das Passwort für den Root-Benutzer (Administrator) des Systems ein."
+msgstr "Geben Sie das Passwort für den Root-Benutzer (Administrator) des Systems ein."
 
 #: ../iw/account_gui.py:103
 msgid "Root _Password: "
@@ -3104,8 +3096,7 @@ msgstr "IP-Adressen müssen Zahlen zwischen 0 und 255 enthalten."
 
 #: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:372
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-"Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
+msgstr "Welche Sprache möchten Sie während des Installationsvorgangs verwenden?"
 
 # ../comps/comps-master:499
 #: ../iw/language_support_gui.py:24
@@ -3284,8 +3275,7 @@ msgstr "Ungültige Größe"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
+msgstr "Die eingegebene, erforderliche Größe ist keine gültige Zahl größer als 0."
 
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
@@ -3349,8 +3339,7 @@ msgstr "Keine freien Steckplätze"
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Sie können nicht mehr als %s logische Volumen pro Volumengruppe anlegen."
+msgstr "Sie können nicht mehr als %s logische Volumen pro Volumengruppe anlegen."
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
@@ -3956,16 +3945,14 @@ msgid "Partitioning"
 msgstr "Partitionieren"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "Die folgenden kritischen Fehler bestehen mit dem geforderten "
 "Partitionsschema."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Diese Fehler müssen korrigiert werden, bevor Sie mit der Installation von %s "
 "fortfahren."
@@ -4157,8 +4144,7 @@ msgstr "Automatisches Partitionieren"
 #: ../iw/partition_gui.py:1428
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
+msgstr "Sie müssen mindestens eine Festplatte auswählen, auf der %s installiert wird."
 
 #: ../iw/partition_gui.py:1470
 msgid "I want to have automatic partitioning:"
@@ -4378,8 +4364,7 @@ msgstr "Wählen Sie die Ziel-Festplatten für das Klonen."
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
+msgstr "Die Quell-Festplatte /dev/%s kann nicht als Ziel-Festplatte gewählt werden."
 
 #: ../iw/raid_dialog_gui.py:556
 #, python-format
@@ -4566,8 +4551,7 @@ msgstr "Dadurch wird Ihr derzeitiger Bootloader aktualisiert."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Der Installer hat den %s Bootloader, der zur Zeit auf %s installiert ist, "
 "erkannt."
@@ -4706,8 +4690,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Die Swap-Datei muss eine Größe zwischen 1 und 2000 MB besitzen."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Auf dem Gerät, das Sie für die Swap-Partition gewählt haben, steht nicht "
 "genügend Platz zur Verfügung."
@@ -5037,10 +5020,8 @@ msgstr ""
 "Kennungen Sie diesen zuweisen möchten."
 
 #: ../textw/bootloader_text.py:316
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Leertaste> Button | <F2> Standard-Booteintrag | <F12> nächster Bildschirm>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Leertaste> Button | <F2> Standard-Booteintrag | <F12> nächster Bildschirm>"
 
 #: ../textw/bootloader_text.py:395
 msgid ""
@@ -5293,8 +5274,7 @@ msgstr "Ungültige Wahl"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
-"Eine deaktivierte Firewall kann nicht benutzerdefiniert konfiguriert werden."
+msgstr "Eine deaktivierte Firewall kann nicht benutzerdefiniert konfiguriert werden."
 
 #: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
@@ -5487,10 +5467,8 @@ msgid "Select individual packages"
 msgstr "Einzelne Pakete auswählen"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Leer>,<+>,<-> Auswahl      |   <F2> Gruppendetails  |   <F2> Nächster Schirm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Leer>,<+>,<-> Auswahl      |   <F2> Gruppendetails  |   <F2> Nächster Schirm"
 
 #: ../textw/packages_text.py:110
 msgid "Package Group Details"
@@ -5514,10 +5492,8 @@ msgid "Total size"
 msgstr "Gesamtgröße"
 
 #: ../textw/packages_text.py:319
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Leer>,<+>,<-> Auswahl      |   <F1> Hilfe  |   <F2> Paketbeschreibung"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Leer>,<+>,<-> Auswahl      |   <F1> Hilfe  |   <F2> Paketbeschreibung"
 
 #: ../textw/packages_text.py:367
 msgid "Package Dependencies"
@@ -5657,8 +5633,7 @@ msgstr "Dateisystem-Optionen"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
+msgstr "Wählen Sie aus, wie Sie das Dateisystem auf dieser Partition anlegen möchten."
 
 #: ../textw/partition_text.py:548
 msgid "Check for bad blocks"
@@ -5686,8 +5661,7 @@ msgstr "Nicht unterstützt"
 
 #: ../textw/partition_text.py:711
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM Volumengruppen können nur im grafischen Installer bearbeitet werden."
+msgstr "LVM Volumengruppen können nur im grafischen Installer bearbeitet werden."
 
 #: ../textw/partition_text.py:787 ../textw/partition_text.py:840
 msgid "Invalid Entry for Partition Size"
@@ -5742,10 +5716,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-" F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr " F1-Hilfe     F2-Neu     F3-Bearbeiten   F4-Löschen   F5-Zurücksetzen  F12-OK"
 
 #: ../textw/partition_text.py:1165
 msgid "No Root Partition"
@@ -6008,15 +5980,13 @@ msgid "User Exists"
 msgstr "Benutzer existiert bereits"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Der Root-Benutzer wurde bereits konfiguriert. Sie müssen diesen Benutzer "
 "hier nicht hinzufügen."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Der Systembenutzer wurde bereits konfiguriert. Sie müssen diesen Benutzer "
 "hier nicht hinzufügen."
@@ -6829,8 +6799,7 @@ msgid "Welcome to %s"
 msgstr "Willkommen bei %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:173
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "    <Tab>/<Alt+Tab> Elemente wechseln | <Leer> Auswahl | <F12> Weiter"
 
 #: ../loader2/lang.c:371
@@ -6915,8 +6884,7 @@ msgstr "Auf welchem Datenträgertyp ist die Rettungsdiskette enthalten?"
 
 #: ../loader2/loader.c:799
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
-"Auf welchem Datenträgertyp sind die zu installierenden Pakete enthalten?"
+msgstr "Auf welchem Datenträgertyp sind die zu installierenden Pakete enthalten?"
 
 #: ../loader2/loader.c:824
 msgid "No driver found"
@@ -7172,8 +7140,7 @@ msgstr "Fehlende Informationen"
 
 #: ../loader2/net.c:470
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
-"Sie müssen sowohl eine gültige IP-Adresse als auch eine Netmask eingeben."
+msgstr "Sie müssen sowohl eine gültige IP-Adresse als auch eine Netmask eingeben."
 
 #: ../loader2/net.c:636
 msgid "Determining host name and domain..."
@@ -7382,8 +7349,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantische Zeit - Ost-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Atlantische Zeit  - Nova Scotia (die meisten Orte), NB, West-Labrador, Ost-"
 "Quebec & PEI"
@@ -7567,8 +7533,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - die meisten Orte"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Eastern Time - Ontario & Quebec - Orte die die Sommerzeit 1967-1973 nicht "
 "anwenden"
@@ -7746,10 +7711,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -9258,3 +9221,4 @@ msgstr "Türkisch"
 #~ msgstr ""
 #~ "Chinesisch(Traditionell)   zh_TW.Big5      Kein    Kein            zh_TW."
 #~ "Big5              us              Asien/Taipei"
+
