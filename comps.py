@@ -23,6 +23,7 @@ import types
 import urllib2
 import time
 import language
+import iutil
 
 from rhpl.log import log
 from rhpl.translate import _, N_
