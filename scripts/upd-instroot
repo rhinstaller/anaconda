@@ -816,7 +816,7 @@ cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
 
 # fixup man.config to point into /mnt/sysimage for rescue
 echo "Fixing up /etc/man.config to point into /mnt/sysimage"
-if [ -n "$NEEDGR" ];
+if [ -n "$NEEDGR" ]; then
     mv $DESTGR/etc/man.config $DESTGR/etc/man.config-old
     cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^' | sed 's^/bin/gunzip^/mnt/sysimage/usr/bin/gunzip^' > $DESTGR/etc/man.config
     rm -f $DESTGR/etc/man.config-old
