@@ -1,0 +1,54 @@
+# Sample defaults file for PyChecker 0.3.x
+# This file should be called:  .pycheckrc
+# It should be placed in your home directory (value of $HOME).
+# If $HOME is not set, it will look in the current directory.
+
+# bool: warnings for Doc Strings
+noDocModule = 0
+noDocClass = 0
+noDocFunc = 0
+
+# bool: when checking if class data members (attributes) are set
+#       check all members or __init__() only
+onlyCheckInitForMembers = 0
+
+# bool: warn when all module variables are not used (including private vars)
+allVariablesUsed = 0
+
+# bool: warn when private module variables are not used (_var)
+privateVariableUsed = 1
+
+# bool: warn when imports are not used
+importUsed = 1
+
+# bool: warn when local variables are not used
+localVariablesUsed = 1
+
+# bool:  assume a, b, and c are used in this case:  a, b, c = func()
+unusedLocalTuple = 0
+
+# bool: warn when __init__ is defined in a subclass
+initDefinedInSubclass = 0
+
+# bool: warn when calling an attribute not a method
+callingAttribute = 0
+
+# bool: warn when using named arguments: func(a=1, b=2), where def func(a, b):
+#       def func2(a, b, **kw): doesn't generate a warning
+namedArgs = 0
+
+# int: warnings for code complexity, max value before generating a warning
+maxLines = 2000
+maxBranches = 500
+maxReturns = 100
+
+
+# list of strings: ignore warnings generated from these modules
+blacklist = [ 'Tkinter' ]
+
+
+# bool: print the PyChecker parse of modules, classes, etc.
+printParse = 0
+
+# bool: turn debugging of PyChecker on
+debug = 0
