@@ -157,7 +157,7 @@ fi
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
-boot/efi/redhat/elilo.efi
+boot/efi/EFI/redhat/elilo.efi
 bin/ash
 bin/fdisk*
 bin/mkfs*
@@ -258,7 +258,7 @@ EOF
 KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
-boot/efi/redhat/elilo.efi
+boot/efi/EFI/redhat/elilo.efi
 bin/bash
 bin/cat
 bin/chmod
