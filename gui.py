@@ -496,10 +496,8 @@ class InstallControlWindow:
 	self.buff = _("Release notes are missing.\n")
 
     def handleRenderCallback(self):
-        threads_enter()
         self.currentWindow.renderCallback()
         idle_remove(self.handle)
-        threads_leave()
 
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
