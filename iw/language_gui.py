@@ -98,7 +98,7 @@ class LanguageWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_border_width (5)
         sw.set_shadow_type(gtk.SHADOW_IN)
-        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add (self.listView)
         
         mainBox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 10)
