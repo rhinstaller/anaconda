@@ -1952,6 +1952,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
 	    flags |= LOADER_FLAGS_NOPROBE;
+        else if (!strcasecmp(argv[i], "nopcmcia"))
+	    flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "updates"))
@@ -2607,7 +2609,7 @@ int main(int argc, char ** argv) {
 #ifdef INCLUDE_PCMCIA
     startNewt(flags);
 
-    if (!continuing) {
+    if (!continuing && !FL_NOPCMCIA(flags)) {
 	startPcmcia(floppyDevice, modLoaded, modDeps, modInfo, pcic, flags);
     }
 #endif
