@@ -1052,7 +1052,10 @@ def killSelf(screen):
 def debugSelf(screen):
     screen.suspend ()
     import pdb
-    pdb.set_trace()
+    try:
+        pdb.set_trace()
+    except:
+        sys.exit(-1)
     screen.resume ()
 
 def spawnShell(screen):
