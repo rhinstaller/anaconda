@@ -31,7 +31,7 @@ mini-wm: mini-wm.c
 
 xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c -Wall -Werror
-	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/$(LIBDIR)/libXxf86misc.a -L/usr/X11R6/$(LIBDIR) -lX11 -lXext
+	gcc -o xmouse.so -shared xmouse.o -L/usr/X11R6/$(LIBDIR) -lXxf86misc -lX11 -lXext
 
 xutils.so: xutils.c
 	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c -Wall -Werror
