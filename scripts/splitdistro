@@ -255,7 +255,7 @@ stamp(disc2SrcDir, releasestr, "4", arch, startedAt, dirInfo)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
-srcPkgList.reverse()
+#srcPkgList.reverse()
 disc2pkgs = excessFiles(srcDir, srcPkgList,
 			targetSize - disc3used - fudgeFactor)
 print "first src pkg to move to 2nd src cd is", disc2pkgs[0]
