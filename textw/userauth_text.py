@@ -196,10 +196,11 @@ class UsersWindow:
         
         g = GridFormHelp (screen, _("User Account Setup"), "newusers", 1, 4)
 
-	t = TextboxReflowed(60, _("What user account would you like to have "
-	    "on the system? You should have at least one non-root account "
-	    "for normal work, but multi-user systems can have any number "
-	    "of accounts set up."))
+	t = TextboxReflowed(60, _("What other user accounts would you like "
+                                  "to have on the system? You should have at "
+                                  "least one non-root account for normal "
+                                  "work, but multi-user systems can have "
+                                  "any number of accounts set up."))
 	g.add(t, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
 
         listformat = "%-15s  %-40s"
