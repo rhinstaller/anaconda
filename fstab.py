@@ -489,8 +489,11 @@ class Fstab:
 		if swaps.has_key(file): continue
 		
 		if not os.access(file, os.R_OK):
-		    isys.ddfile(file, size, (progressWindow, _("Swap Space"),
-				      _("Creating swap space...")))
+#		    isys.ddfile(file, size, (progressWindow, _("Swap Space"),
+#				      _("Creating swap space...")))
+
+		    isys.ddfile(file, size)
+
 
 		    iutil.execWithRedirect ("/usr/sbin/mkswap", 
 				  [ "mkswap", '-v1', file ],
@@ -504,17 +507,18 @@ class Fstab:
 		isys.makeDevInode(device, file)
 
 	    if formatThisSwap:
-		w = self.waitWindow(_("Formatting"),
-			      _("Formatting swap space..."))
+# bfox - add these commented out lines back in at some point and make it work with GUI mode
+#		w = self.waitWindow(_("Formatting"),
+#			      _("Formatting swap space..."))
 
 		rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
 					 [ "mkswap", '-v1', file ],
 					 stdout = None, stderr = None,
 					 searchPath = 1)
-		w.pop()
+#		w.pop()
 
 		if rc:
-		    self.messageWindow(_("Error"), _("Error creating swap on device ") + file)
+#		    self.messageWindow(_("Error"), _("Error creating swap on device ") + file)
 		    raise ValueError
 		else:
 		    isys.swapon (file)
