@@ -93,6 +93,12 @@ class BaseInstallClass:
                     log("requested drive %s in boot drive order doesn't "
                         "exist" %(drive,))
             id.bootloader.drivelist = new
+
+    def setIgnoredDisks(self, id, drives):
+        diskset = id.diskset
+        for drive in drives:
+            if not drive in diskset.skippedDisks:
+                diskset.skippedDisks.append(drive)
         
     def setClearParts(self, id, clear, drives = None, warningText = None,
                       initAll = 0):
