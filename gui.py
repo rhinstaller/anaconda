@@ -32,6 +32,7 @@ from language import expandLangs
 from splashscreen import splashScreenPop
 from log import log
 from flags import flags
+from constants import *
 
 StayOnScreen = "stayOnScreen"
 
@@ -662,7 +663,7 @@ class InstallControlWindow:
 
         self.window.set_border_width (10)
 
-	title = _("Red Hat Linux Installer")
+	title = _("%s Installer") % (productName,)
 	if os.environ["DISPLAY"][:1] != ':':
 	    # from gnome.zvt import *
 	    # zvtwin = GtkWindow ()
@@ -677,7 +678,7 @@ class InstallControlWindow:
 		for line in lines:
 		    netinf = string.splitfields (line, '=')
 		    if netinf[0] == "HOSTNAME":
-			title = _("Red Hat Linux Installer on %s") % string.strip (netinf[1])
+			title = _("%s Installer on %s") % (productName, string.strip (netinf[1]))
 #			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
 			break
 

@@ -16,3 +16,6 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 #
 JAPANESE=1
 
+# define product name to be imported into the loader and anywhere else
+# that needs the proper name of the product
+PRODUCTNAME="Red Hat Linux"

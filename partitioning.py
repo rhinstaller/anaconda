@@ -575,10 +575,10 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
 
     slash = requests.getRequestByMountPoint('/')
     if not slash:
-        errors.append(_("You have not defined a root partition (/), which is required for installation of Red Hat Linux to continue."))
+        errors.append(_("You have not defined a root partition (/), which is required for installation of %s to continue.") % (productName,))
 
     if slash and requestSize(slash, diskset) < 250:
-        warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install Red Hat Linux."))
+        warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install %s.") % (productName,))
 
     if iutil.getArch() == "ia64":
         bootreq = requests.getRequestByMountPoint("/boot/efi")
@@ -591,7 +591,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
         if not req:
             continue
         if requestSize(req, diskset) < size:
-            warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
+            warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal %s install.") %(mount, size, productName))
 
     foundSwap = 0
     swapSize = 0
@@ -622,7 +622,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
 
     # XXX number of swaps not exported from kernel and could change
     if foundSwap >= 32:
-        warnings.append(_("You have specified more than 32 swap devices.  The kernel for Red Hat Linux only supports 32 swap devices."))
+        warnings.append(_("You have specified more than 32 swap devices.  The kernel for %s only supports 32 swap devices.") % (productName,))
 
     mem = iutil.memInstalled(corrected = 0)
     rem = mem % 16384
@@ -706,11 +706,11 @@ def checkDiskLabel(disk, intf):
         rc = intf.messageWindow(_("Warning"),
                        _("The partition table on device /dev/%s is of an "
                          "unexpected type for your architecture.  To use this "
-                         "disk for installation of Red Hat Linux, it must be "
+                         "disk for installation of %s, it must be "
                          "re-initialized causing the loss of ALL DATA on this "
                          "drive.\n\n"
                          "Would you like to initialize this drive?")
-                       % (disk.dev.path[5:]), type = "yesno")
+                       % (disk.dev.path[5:], productName), type = "yesno")
         if rc == 0:
             return 1
         else:
@@ -1870,7 +1870,7 @@ def partitionSanityErrors(intf, errors):
                                   "scheme. "
                                   "These errors must be corrected prior "
                                   "to continuing with your install of "
-                                  "Red Hat Linux.\n\n%s") %(errorstr))    
+                                  "%s.\n\n%s") %(productName, errorstr))    
     return rc
 
 

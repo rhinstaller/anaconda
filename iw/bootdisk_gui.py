@@ -51,11 +51,11 @@ class BootdiskWindow (InstallWindow):
         
         label = None
 
-        text = _("The boot disk allows you to boot your Red Hat "
-                 "Linux system from a floppy diskette.\n\n"
+        text = _("The boot disk allows you to boot your %s "
+                 "system from a floppy diskette.\n\n"
                  "Please remove any diskettes from the floppy drive and "
                  "insert a blank diskette. All data will be ERASED "
-                 "during creation of the boot disk.")
+                 "during creation of the boot disk.") % (productName,)
 
         if fsset.rootOnLoop():
             text = text + _("\n\nA boot disk is REQUIRED to boot a "

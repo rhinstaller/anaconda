@@ -14,6 +14,7 @@
 from snack import *
 from constants_text import *
 from translate import _
+from constants import *
 import iutil
 
 
@@ -27,13 +28,13 @@ class FinishedWindow:
 
         if iutil.getArch() != "ia64":
             bootstr = _("If you created a boot disk to use to boot your "
-                        "Red Hat Linux system, insert it before you "
-                        "press <Enter> to reboot.\n\n")
+                        "%s system, insert it before you "
+                        "press <Enter> to reboot.\n\n") % (productName,)
         else:
             bootstr = ""
 
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
-             _("Congratulations, your Red Hat Linux installation is "
+             _("Congratulations, your %s installation is "
                "complete.\n\n"
                "Remove any floppy diskettes you used during the "
                "installation process and press <Enter> to reboot your system. "
@@ -43,7 +44,7 @@ class FinishedWindow:
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
                "system is available in the Red Hat Linux manuals at "
-               "http://www.redhat.com/docs.") % bootstr,
+               "http://www.redhat.com/docs.") % (productName, bootstr),
 		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
@@ -57,8 +58,8 @@ class FinishedWindow:
 		_("Congratulations, package installation is complete.\n\n"
 		"Press return to continue.\n\n"
 		"Information on configuring and using your Red Hat "
-		"Linux system is contained in the Red Hat Linux "
-		"manuals."),
+		"Linux system is contained in the %s "
+		"manuals.") % (productName,),
 		[ _("OK") ], help = "finished")
 	return INSTALL_OK
 
@@ -73,8 +74,8 @@ class ReconfigFinishedWindow:
                   "For information on errata (updates and bug fixes), visit "
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using your "
-                  "system is available in the Red Hat Linux manuals at "
-                  "http://www.redhat.com/docs."),
+                  "system is available in the %s manuals at "
+                  "http://www.redhat.com/docs.") % (productName,),
                    [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK

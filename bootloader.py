@@ -131,7 +131,8 @@ class BootImages:
 	    self.default = entry.device.getDevice()
 	    (label, longlabel, type) = self.images[self.default]
 	    if not label:
-		self.images[self.default] = ("linux", "Red Hat Linux", type)
+		self.images[self.default] = ("linux", "%s" % (productName,),
+                                             type)
 
     def __init__(self):
 	self.default = None
@@ -373,7 +374,8 @@ class ia64BootloaderInfo(bootloaderInfo):
         self.removeOldEfiEntries(instRoot)            
                     
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
-                 "Red Hat Linux", "-d", "/dev/%s" % bootdisk, "-p", bootpart ]
+                 "%s" % (productName,), "-d", "/dev/%s" % bootdisk,
+                 "-p", bootpart ]
         iutil.execWithRedirect(argv[0], argv, root = instRoot,
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5")

@@ -19,6 +19,7 @@ from GDK import *
 from gnome.ui import *
 from gnome.util import *
 from translate import _, N_
+from constants import *
 from partitioning import *
 from fsset import *
 from autopart import doPartitioning, queryAutoPartitionOK
@@ -554,7 +555,7 @@ class PartitionWindow(InstallWindow):
                            "scheme.")
             labelstr2 = _("These errors must be corrected prior "
                           "to continuing with your install of "
-                          "Red Hat Linux.")
+                          "%s." % (productName,))
 
             commentstr = string.join(errors, "\n\n")
 
@@ -1623,7 +1624,8 @@ class AutoPartitionWindow(InstallWindow):
         if len(allowdrives) < 1:
             self.intf.messageWindow(_("Warning"), 
                                     _("You need to select at least one drive to have "
-                                      "Red Hat Linux installed onto."), type = "ok")
+                                      "%s installed onto.") % (productName,),
+                                    type = "ok")
             raise gui.StayOnScreen
 
         self.partitions.autoClearPartDrives = allowdrives

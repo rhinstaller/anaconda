@@ -40,7 +40,7 @@ def findExistingRoots(intf, id, chroot):
     diskset.openDevices()
     
     win = intf.waitWindow(_("Searching"),
-                          _("Searching for Red Hat Linux installations..."))
+                          _("Searching for %s installations...") % (productName,))
 
     rootparts = diskset.findExistingRootPartitions(intf)
     win.pop()

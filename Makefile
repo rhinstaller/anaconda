@@ -25,7 +25,10 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table
+all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table product.py
+
+product.py: product.py.in Makefile.inc
+	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -O2 -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 

@@ -21,6 +21,7 @@ from fsset import *
 from log import log
 from flags import flags
 from translate import _
+from constants import *
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, thefsset):
@@ -29,12 +30,13 @@ class UpgradeMigrateFSWindow:
 
 	g = GridFormHelp(screen, _("Migrate Filesystems"), "upmigfs", 1, 4)
 
-	text = _("This release of Red Hat Linux supports "
+	text = _("This release of %s supports "
                  "the ext3 journalling filesystem.  It has several "
                  "benefits over the ext2 filesystem traditionally shipped "
-                 "in Red Hat Linux.  It is possible to migrate the ext2 "
+                 "in %s.  It is possible to migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
-                 "Which of these partitions would you like to migrate?")
+                 "Which of these partitions would you like to migrate?"
+                 % (productName, productName))
 
 	tb = TextboxReflowed(60, text)
 	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
@@ -220,9 +222,9 @@ class UpgradeExamineWindow:
             (drive, fs) = root
 
             rc = ButtonChoiceWindow (screen, _("Upgrade Partition"),
-                                     _("Upgrading the Red Hat Linux "
+                                     _("Upgrading the %s "
                                        "installation on partition "
-                                       "/dev/%s") % (drive,),
+                                       "/dev/%s") % (productName, drive,),
                                      buttons = [ TEXT_OK_BUTTON,
                                                  TEXT_BACK_BUTTON ])
             if rc == TEXT_BACK_CHECK:

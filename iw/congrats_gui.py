@@ -15,6 +15,7 @@ from gtk import *
 from gnome.ui import *
 from iw_gui import *
 from translate import _, N_
+from constants import *
 import iutil
 
 class CongratulationWindow (InstallWindow):		
@@ -45,14 +46,14 @@ class CongratulationWindow (InstallWindow):
 
         if iutil.getArch() != "ia64":
             bootstr = _("If you created a boot disk to use to boot your "
-                        "Red Hat Linux system, insert it before you "
-                        "press <Enter> to reboot.\n\n")
+                        "%s system, insert it before you "
+                        "press <Enter> to reboot.\n\n") % (productName,)
         else:
             bootstr = ""
             
 
 	label = GtkLabel(
-             _("Congratulations, your Red Hat Linux installation is "
+             _("Congratulations, your %s installation is "
                "complete.\n\n"
                "Remove any floppy diskettes you used during the "
                "installation process and press <Enter> to reboot your system. "
@@ -61,8 +62,9 @@ class CongratulationWindow (InstallWindow):
                "For information on errata (updates and bug fixes), visit "
                "http://www.redhat.com/errata.\n\n"
                "Information on using and configuring your "
-               "system is available in the Red Hat Linux manuals "
-               "at http://www.redhat.com/docs.") % bootstr,
+               "system is available in the %s manuals "
+               "at http://www.redhat.com/docs.") % (productName,
+                                                    bootstr, productName),
              )
                 
         label.set_line_wrap (TRUE)
@@ -103,8 +105,8 @@ class ReconfigCongratulationWindow (InstallWindow):
                   "For information on errata (updates and bug fixes), visit "
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using and configuring your "
-                  "system is available in the Red Hat Linux manuals "
-                  "at http://www.redhat.com/docs."))
+                  "system is available in the %s manuals "
+                  "at http://www.redhat.com/docs.") % (productName,))
         
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
