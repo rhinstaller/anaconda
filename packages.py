@@ -578,6 +578,10 @@ def setupTimezone(timezone, upgrade, instPath, dir):
 
 def doPreInstall(method, id, intf, instPath, dir):
     if dir == DISPATCH_BACK:
+        try:
+            isys.umount(instPath + "/selinux")
+        except:
+            pass
         return
 
     arch = iutil.getArch ()
@@ -725,6 +729,14 @@ def doPreInstall(method, id, intf, instPath, dir):
 	    # how this could happen isn't entirely clear; log it in case
 	    # it does and causes problems later
 	    log("error creating symlink, continuing anyway: %s" %(e,))
+
+        # SELinux hackery (#121369)
+        if flags.selinux:
+            os.mkdir(instPath + "/selinux")
+            try:
+                isys.mount("/selinux", instPath + "/selinux", "selinuxfs")
+            except Exception, e:
+                log("error mounting selinuxfs: %s" %(e,))
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
