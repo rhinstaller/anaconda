@@ -168,7 +168,9 @@ class VideoCard:
             return 1
         if cardData.has_key("DRIVER"):
             curdriver = cardData["DRIVER"]
-            noprobedriverList = ("i810", "tdfx")
+            noprobedriverList = ["i810", "tdfx"]
+            if iutil.getArch() == "ia64":
+                noprobedriverList.append("radeon")
             for adriver in noprobedriverList:
                 if curdriver == adriver:
                     return 0
