@@ -117,7 +117,7 @@ class InstallTimeLanguage:
 	# The nick we get here may be long (fr_FR@euro), when we need
 	# shorter (fr_FR), so be a bit fuzzy
 	for (langName, nick) in self.langNicks.items():
-	    if (nick == lang) or (nick == lang[0:len(nick)]):
+            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):
 		return langName
 
         #raise KeyError, "language %s not found" % lang
@@ -212,7 +212,7 @@ class Language (SimpleConfigFile):
     def getLangNameByNick(self, nick):
 	for langName in self.langInfoByName.keys():
 	    (lang, map, font) = self.langInfoByName[langName]
-	    if (nick == lang) or (nick == lang[0:len(nick)]):
+            if (nick == lang) or (nick == lang[0:len(nick)]) or (lang == nick[0:len(lang)]):            
 		return langName
 
 #	raise KeyError, "language %s not found" % nick
