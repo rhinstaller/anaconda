@@ -2879,7 +2879,7 @@ int main(int argc, char ** argv) {
 
     if (!FL_TESTING(flags)) {
 	if (!FL_RESCUE(flags))
-	    printf("Running anaconda - may take some time to load...\n");
+	    printf("Running anaconda - please wait...\n");
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
