@@ -1,6 +1,6 @@
 # Install method for disk image installs (CD & NFS)
 
-from comps import ComponentSet, HeaderList
+from comps import ComponentSet, HeaderListFromFile
 
 class InstallMethod:
 
@@ -11,12 +11,15 @@ class InstallMethod:
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def readHeaders(self):
-	return HeaderList(self.tree + "/RedHat/base/hdlist")
+	return HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
     def targetFstab(self, fstab):
 	pass
 
     def filesDone(self):
+	pass
+
+    def unlinkFilename(self, fullName):
 	pass
 
     def __init__(self, tree):
