@@ -20,6 +20,3 @@ sparc:
 
 ia64:
 	./updfonts ia64
-
-s390:
-	./updfonts s390
