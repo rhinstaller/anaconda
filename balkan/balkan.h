@@ -8,6 +8,7 @@
 #define BALKAN_PART_DOS		1
 #define BALKAN_PART_EXT2	2
 #define BALKAN_PART_OTHER	3
+#define BALKAN_PART_NTFS	4
 
 struct partition {
     long startSector;
