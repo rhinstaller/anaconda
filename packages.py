@@ -1248,18 +1248,22 @@ def setFileCons(instPath):
     if flags.selinux:
         log("setting SELinux contexts for anaconda created files")
 
-        # ugh, this is ugly
-        def addpath(x): return "/var/lib/rpm/" + x
-        rpmfiles = os.listdir(instPath + "/var/lib/rpm")
-        rpmfiles = map(addpath, rpmfiles)
-
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
                  "/etc/lilo.conf", "/etc/lilo.conf.anaconda",
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
-                 "/dev/log",
-                 "/var/lib/rpm", "/"] + rpmfiles
+                 "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab"]
+
+        # ugh, this is ugly
+        for dir in ("/var/lib/rpm", "/etc/lvm"):
+            def addpath(x): return dir + "/" + x
+
+            if not os.path.isdir(instPath + dir):
+                continue
+            dirfiles = os.listdir(instPath + dir)
+            files.extend(map(addpath, dirfiles))
+
 
         # blah, to work in a chroot, we need to actually be inside so the
         # regexes will work
