@@ -29,10 +29,11 @@ from flags import flags
 from constants_text import *
 
 stepToClasses = {
+    "welcome" : ( "complete_text", "FinishedWindow" ),
     "language" : ( "language_text", "LanguageWindow" ),
     "keyboard" : ( "keyboard_text", "KeyboardWindow" ),
     "mouse" : ( "mouse_text", ( "MouseWindow", "MouseDeviceWindow" ) ),
-    "welcome" : ("welcome_text", "WelcomeWindow" ),
+#    "welcome" : ("welcome_text", "WelcomeWindow" ),
     "reconfigwelcome" : ("welcome_text", "ReconfigWelcomeWindow" ),
     "installtype" : ("installpath_text", "InstallPathWindow" ),
     "autopartition" : ("partition_text", "AutoPartitionWindow"),

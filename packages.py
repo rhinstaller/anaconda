@@ -301,6 +301,7 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
 	    diskset.savePartitions ()
             thefsset.formatSwap(instPath)
             thefsset.turnOnSwap(instPath)
+            thefsset.migrateFilesystems (instPath)
 	    thefsset.makeFilesystems (instPath)
             thefsset.mountFilesystems (instPath)
 

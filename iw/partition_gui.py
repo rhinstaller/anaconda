@@ -22,6 +22,9 @@ from partitioning import *
 from fsset import *
 from autopart import doPartitioning
 from autopart import CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL, CLEARPART_TYPE_NONE
+from autopart import CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_NONE_DESCR_TEXT
+from autopart import AUTOPART_DISK_CHOICE_DESCR_TEXT
+
 import gui
 import parted
 import string
@@ -385,11 +388,15 @@ def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     return (leveloption, leveloptionmenu)
 
 # pass in callback for when fs changes because of python scope issues
-def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
+def createFSTypeMenu(fstype, fstypechangeCB, mountCombo, availablefstypes=None):
     fstypeoption = GtkOptionMenu ()
     fstypeoptionMenu = GtkMenu ()
     types = fileSystemTypeGetTypes()
-    names = types.keys()
+    if availablefstypes:
+        names = availablefstypes
+    else:
+        names = types.keys()
+        
     names.sort()
     defindex = None
     i = 0
@@ -413,7 +420,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
     if defindex:
         fstypeoption.set_history(defindex)
 
-    mountCombo.set_data("prevmountable", fstypeoptionMenu.get_active().get_data("type").isMountable())
+    if mountCombo:
+        mountCombo.set_data("prevmountable",
+                            fstypeoptionMenu.get_active().get_data("type").isMountable())
 
     return (fstypeoption, fstypeoptionMenu)
 
@@ -595,6 +604,9 @@ class PartitionWindow(InstallWindow):
     # edit a partition request
     def editPartitionRequest(self, origrequest):
 
+        def formatOptionCB(widget, menu):
+            menu.set_sensitive(widget.get_active())
+
         def sizespinchangedCB(widget, fillmaxszsb):
             size = widget.get_value_as_int()
             maxsize = fillmaxszsb.get_value_as_int()
@@ -678,17 +690,24 @@ class PartitionWindow(InstallWindow):
         row = row + 1
 
         # Partition Type
-        maintable.attach(createAlignedLabel(_("Filesystem Type:")),
+        maintable.attach(createAlignedLabel(_("Original Filesystem Type:")),
                                             0, 1, row, row + 1)
 
         if origrequest.type == REQUEST_NEW:
-            (fstypeoption, fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype, fstypechangeCB, mountCombo)
-            maintable.attach(fstypeoption, 1, 2, row, row + 1)
+            (newfstype, newfstypeMenu) = createFSTypeMenu(origrequest.fstype,
+                                                          fstypechangeCB,
+                                                          mountCombo)
+            maintable.attach(newfstype, 1, 2, row, row + 1)
         else:
-            fstypelabel = GtkLabel(origrequest.fstype.getName())
+            if origrequest.origfstype:
+                typestr = origrequest.origfstype.getName()
+            else:
+                typestr = _("Unknown")
+                
+            fstypelabel = GtkLabel(typestr)
             maintable.attach(fstypelabel, 1, 2, row, row + 1)
-            fstypeoption = None
-            fstypeoptionMenu = None
+            newfstype = None
+            newfstypeMenu = None
             
         row = row + 1
 
@@ -710,6 +729,7 @@ class PartitionWindow(InstallWindow):
 
             row = row + 1
 
+        # size
         if origrequest.type == REQUEST_NEW:
             if not newbycyl:
                 # Size specification
@@ -756,16 +776,72 @@ class PartitionWindow(InstallWindow):
             
         row = row + 1
 
-        if origrequest.type == REQUEST_PREEXIST:
-            if origrequest.fstype and origrequest.fstype.isFormattable():
-                formatButton = GtkCheckButton (_("Format partition?"))
-                formatButton.set_active(0)
+
+        # format/migrate options for pre-existing partitions
+        if origrequest.type == REQUEST_PREEXIST and origrequest.fstype:
+
+            ofstype = origrequest.fstype
+            
+            maintable.attach(GtkHSeparator(), 0, 2, row, row + 1)
+            row = row + 1
+
+            label = GtkLabel(_("How would you like to prepare the filesystem "
+                               "on this partition?"))
+            label.set_line_wrap(1)
+            label.set_alignment(0.0, 0.0)
+            label.set_usize(400, -1)
+
+            maintable.attach(label, 0, 2, row, row + 1)
+            row = row + 1
+            
+            noformatrb = GtkRadioButton (label=_("Do not format"))
+            noformatrb.set_active(1)
+            maintable.attach(noformatrb, 0, 2, row, row + 1)
+            row = row + 1
+
+            if ofstype.isFormattable():
+                formatrb = GtkRadioButton (label=_("Format partition as:"),
+                                           group = noformatrb)
+                formatrb.set_active(0)
                 if origrequest.format:
-                    formatButton.set_active(1)
-                maintable.attach(formatButton, 0, 2, row, row + 1)
+                    formatrb.set_active(1)
+                    
+                maintable.attach(formatrb, 0, 1, row, row + 1)
+                (fstype, fstypeMenu) = createFSTypeMenu(ofstype,fstypechangeCB,
+                                                        mountCombo)
+                fstype.set_sensitive(formatrb.get_active())
+                maintable.attach(fstype, 1, 2, row, row + 1)
                 row = row + 1
+                
+                formatrb.connect("toggled", formatOptionCB, fstype)
             else:
-                formatButton = None
+                formatrb = None
+
+            if origrequest.origfstype.isMigratable():
+                migraterb = GtkRadioButton (label=_("Migrate partition to:"),
+                                                  group=noformatrb)
+                migraterb.set_active(0)
+                if origrequest.migrate:
+                    migraterb.set_active(1)
+
+                migtypes = origrequest.origfstype.getMigratableFSTargets()
+
+                maintable.attach(migraterb, 0, 1, row, row + 1)
+                (migfstype, migfstypeMenu)=createFSTypeMenu(ofstype,
+                                                            None, None,
+                                                   availablefstypes = migtypes)
+                migfstype.set_sensitive(migraterb.get_active())
+                maintable.attach(migfstype, 1, 2, row, row + 1)
+                row = row + 1
+
+                migraterb.connect("toggled", formatOptionCB, migfstype)
+                
+            else:
+                migraterb = None
+        else:
+            noformatrb = None
+            formatrb = None
+            migraterb = None
 
         # size options
         if origrequest.type == REQUEST_NEW:
@@ -802,12 +878,10 @@ class PartitionWindow(InstallWindow):
             if rc == 1:
                 dialog.close()
                 return
-            elif rc == -1:
-                raise ValueError,"Error while running edit partition request dialog."
 
             if origrequest.type == REQUEST_NEW:
                 # read out UI into a partition specification
-                filesystem = fstypeoptionMenu.get_active().get_data("type")
+                filesystem = newfstypeMenu.get_active().get_data("type")
 
                 request = copy.copy(origrequest)
                 request.fstype = filesystem
@@ -867,16 +941,28 @@ class PartitionWindow(InstallWindow):
             else:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(origrequest)
-                if origrequest.fstype.isMountable():
-                    request.mountpoint =  mountCombo.entry.get_text()
-
-    #            filesystem = fstypeoptionMenu.get_active().get_data("type")
-    #            origrequest.fstype = filesystem
-
-                if formatButton:
-                    request.format = formatButton.get_active()
+                if formatrb:
+                    request.format = formatrb.get_active()
+                    if request.format:
+                        request.fstype = fstypeMenu.get_active().get_data("type")
                 else:
                     request.format = 0
+
+                if migraterb:
+                    request.migrate = migraterb.get_active()
+                    if request.migrate:
+                        request.fstype =migfstypeMenu.get_active().get_data("type")
+                else:
+                    request.migrate = 0
+
+                # set back if we are not formatting or migrating
+                if not request.format and not request.migrate:
+                    request.fstype = origrequest.origfstype
+
+                if request.fstype.isMountable():
+                    request.mountpoint =  mountCombo.entry.get_text()
+                else:
+                    request.mountpoint = None
 
                 err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
@@ -1191,7 +1277,7 @@ class PartitionWindow(InstallWindow):
 class AutoPartitionWindow(InstallWindow):
     def __init__(self, ics):
     	InstallWindow.__init__(self, ics)
-        ics.setTitle (_("Automatic Disk Setup"))
+        ics.setTitle (_("Automatic Partitioning"))
         ics.setNextEnabled (TRUE)
         self.parent = ics.getICW().window
 
@@ -1229,9 +1315,7 @@ class AutoPartitionWindow(InstallWindow):
         box = GtkVBox (FALSE)
         box.set_border_width (5)
 
-        label = GtkLabel(
-             _("Before we can autopartition we need to know how you want us "
-               "to use the space on your harddrives."))
+        label = GtkLabel(AUTOPART_DISK_CHOICE_DESCR_TEXT)
 
         label.set_line_wrap(1)
         label.set_alignment(0.0, 0.0)
@@ -1246,13 +1330,13 @@ class AutoPartitionWindow(InstallWindow):
         
         radioBox = GtkVBox (FALSE)
         self.clearLinuxRB = GtkRadioButton(
-            None, _("Remove all Linux partitions"))
+            None, CLEARPART_TYPE_LINUX_DESCR_TEXT)
 	radioBox.pack_start(self.clearLinuxRB, FALSE, FALSE)
         self.clearAllRB = GtkRadioButton(
-            self.clearLinuxRB, _("Remove all partitions"))
+            self.clearLinuxRB, CLEARPART_TYPE_ALL_DESCR_TEXT)
 	radioBox.pack_start(self.clearAllRB, FALSE, FALSE)
         self.clearNoneRB = GtkRadioButton(
-            self.clearLinuxRB, _("Remove no partitions and use existing free space"))
+            self.clearLinuxRB, CLEARPART_TYPE_NONE_DESCR_TEXT)
 	radioBox.pack_start(self.clearNoneRB, FALSE, FALSE)
 
         if type == CLEARPART_TYPE_LINUX:
@@ -1271,7 +1355,8 @@ class AutoPartitionWindow(InstallWindow):
 
         # which drives to use?
         drivesbox = GtkVBox(FALSE)
-        label = GtkLabel(_("Which drives do you want to use for Linux?"))
+        label = GtkLabel(_("Which drive(s) do you want to use for this "
+                           "installation?"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, FALSE, FALSE, 10)
         self.driveclist = createAllowedDrivesClist(diskset.disks,

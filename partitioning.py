@@ -136,7 +136,20 @@ def get_partition_file_system_type(part):
             ptype = fsset.fileSystemTypeGet("foreign")
 
     return ptype
-    
+
+def set_partition_file_system_type(part, fstype):
+    if fstype == None:
+        return
+    try:
+        part.set_system(fstype.getPartedFileSystemType())
+        for flag in fstype.getPartedPartitionFlags():
+            if not part.is_flag_available(flag):
+                raise PartitioningError, ("requested FileSystemType needs "
+                                          "a flag that is not available.")
+            part.set_flag(flag, 1)
+    except:
+        print "Failed to set partition type to ",fstype.getName()
+        pass
 
 def get_partition_drive(partition):
     return "%s" %(partition.geom.disk.dev.path[5:])
@@ -176,6 +189,8 @@ def get_raid_partitions(disk):
         if part.type & (parted.PARTITION_METADATA | parted.PARTITION_FREESPACE | parted.PARTITION_EXTENDED):
             part = disk.next_partition(part)
             continue
+
+        print get_partition_name(part), part.fs_type.name, part.get_flag(parted.PARTITION_RAID)
         
         if part.get_flag(parted.PARTITION_RAID) == 1:
             rc.append(part)
@@ -438,10 +453,10 @@ class DeleteSpec:
 class PartitionSpec:
     def __init__(self, fstype, requesttype = REQUEST_NEW,
                  size = None, grow = 0, maxSize = None,
-                 mountpoint = None,
+                 mountpoint = None, origfstype = None,
                  start = None, end = None, partnum = None,
                  drive = None, primary = None, secondary = None,
-                 format = None, options = None,
+                 format = None, migrate = None, options = None,
                  constraint = None,
                  raidmembers = None, raidlevel = None, 
                  raidspares = None):
@@ -452,8 +467,14 @@ class PartitionSpec:
         # must have (size) || (start && end)
         #           fs_type, mountpoint
         #           if partnum, require drive
+        #
+        # Some notes:
+        #   format  - if is 1, format.
+        #   migrate - if is 1, convert from origfstype to fstype.
+        #
         self.type = requesttype
         self.fstype = fstype
+        self.origfstype = origfstype
         self.size = size
         self.grow = grow
         self.maxSize = maxSize
@@ -465,6 +486,7 @@ class PartitionSpec:
         self.primary = primary
         self.secondary = secondary
         self.format = format
+        self.migrate = migrate
         self.options = options
         self.constraint = constraint
         self.partition = None
@@ -522,9 +544,13 @@ class PartitionSpec:
         else:
             mountpoint = self.mountpoint
 
-        entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype)
+        entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype,
+                                         origfsystem=self.origfstype)
         if self.format:
             entry.setFormat(self.format)
+
+        if self.migrate:
+            entry.setMigrate(self.migrate)
         return entry
 
 class Partitions:
@@ -598,7 +624,8 @@ class Partitions:
                 size = getPartSizeMB(part)
                 drive = get_partition_drive(part)
                 
-                spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
+                spec = PartitionSpec(ptype, origfstype = ptype,
+                                     requesttype = REQUEST_PREEXIST,
                                      start = start, end = end, size = size,
                                      drive = drive, format = format)
                 spec.device = fsset.PartedPartitionDevice(part).getDevice()

@@ -112,6 +112,7 @@ class FileSystemType:
         self.maxSize = 2 * 1024 * 1024
         self.supported = -1
         self.defaultOptions = "defaults"
+        self.migratetofs = None
         
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -133,6 +134,10 @@ class FileSystemType:
         if self.isFormattable():
             raise RuntimeError, "formatDevice method not defined"
 
+    def migrateFileSystem(self, device):
+        if self.isMigratable():
+            raise RuntimeError, "migrateFileSystem method not defined"
+            
     def isFormattable(self):
         return self.formattable
 
@@ -184,6 +189,23 @@ class FileSystemType:
 
     def getDefaultOptions(self, mountpoint):
         return self.defaultOptions
+
+    def getMigratableFSTargets(self):
+        retval = []
+        if not self.migratetofs:
+            return retval
+
+        for fs in self.migratetofs:
+            if fileSystemTypeGet(fs).isSupported():
+                retval.append(fs)
+                
+        return retval
+
+    def isMigratable(self):
+        if len(self.getMigratableFSTargets()) > 0:
+            return 1
+        else:
+            return 0
 
 class reiserfsFileSystem(FileSystemType):
     def __init__(self):
@@ -247,6 +269,27 @@ class ext2FileSystem(extFileSystem):
         extFileSystem.__init__(self)
         self.name = "ext2"
         self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.migratetofs = ['ext3']
+
+
+    def migrateFileSystem(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        if not entry.fsystem or not entry.origfsystem:
+            raise RuntimeError, ("Trying to migrate fs w/o fsystem or "
+                                 "origfsystem set")
+        if entry.fsystem.getName() != "ext3":
+            raise RuntimeError, ("Trying to migrate ext2 to something other "
+                                 "than ext3")
+            
+        rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+                                    ["tunefs", "-j", devicePath ],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+
+        if rc:
+            raise SystemError
+
 
 fileSystemTypeRegister(ext2FileSystem())
 
@@ -583,6 +626,28 @@ class FileSystemSet:
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
+    def migrateFilesystems (self, chroot='/'):
+        for entry in self.entries:
+            if not entry.origfsystem:
+                continue
+            
+            if (not entry.origfsystem.isMigratable() or not entry.getMigrate()
+                or entry.isMounted()):
+                continue
+            try: 
+                entry.origfsystem.migrateFileSystem(entry, self.progressWindow,
+                                                    chroot)
+            except SystemError:
+                if self.messageWindow:
+                    self.messageWindow(_("Error"),
+                                       _("An error occurred trying to "
+                                         "migrate %s.  This problem is "
+                                         "serious, and the install cannot "
+                                         "continue.\n\n"
+                                         "Press Enter to reboot your system.")
+                                       % (entry.device.getDevice(),))
+                sys.exit(0)
+
     def mountFilesystems(self, instPath = '/', raiseErrors = 0, readOnly = 0):
 	for entry in self.entries:
             if not entry.fsystem.isMountable():
@@ -665,12 +730,15 @@ class FileSystemSet:
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
                   fsystem=None, options=None,
+                  origfsystem=None, migrate=0,
                   order=-1, fsck=-1, format=0):
         if not fsystem:
             fsystem = fileSystemTypeGet("ext2")
         self.device = device
         self.mountpoint = mountpoint
         self.fsystem = fsystem
+        self.origfsystem = origfsystem
+        self.migrate = migrate
         if options:
             self.options = options
         else:
@@ -708,10 +776,21 @@ class FileSystemSetEntry:
             self.mountcount = self.mountcount - 1
         
     def setFormat (self, state):
+        if self.migrate:
+            raise ValueError, "Trying to set format bit on when migrate is set!"
         self.format = state
 
     def getFormat (self):
         return self.format
+
+    def setMigrate (self, state):
+        if self.format:
+            raise ValueError, "Trying to set migrate bit on when format is set!"
+
+        self.migrate = state
+
+    def getMigrate (self):
+        return self.migrate
 
     def isMounted (self):
         return self.mountcount > 0

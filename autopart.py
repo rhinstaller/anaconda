@@ -27,6 +27,33 @@ CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
 
+
+# XXX hack but these are common strings to TUI and GUI
+PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets up your "
+                               "partitioning based on your installation type. "
+                               "You also "
+                               "can customize the resulting partitions "
+                               "to meet your needs.\n\n"
+                               "The manual disk paritioning tool Disk Druid "
+                               "allows you "
+                               "to set up your partitions in an interactive "
+                               "environment. You can set the filesystem "
+                               "types, mount points, size and more in this "
+                               "easy to use, powerful interface.\n\n"
+                               "fdisk is the traditional, text based "
+                               "partitioning tool offered by Red Hat. "
+                               "Although it is not as easy to use, there are "
+                               "cases where fdisk is preferred.")
+
+AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
+                                     "set up by the installation program, you "
+                                     "must choose how to use the space on "
+                                     "hard drives.")
+
+CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
+CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
+CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
+
 def printNewRequestsCyl(diskset, newRequest):
     for req in newRequest.requests:
         if req.type != REQUEST_NEW:
