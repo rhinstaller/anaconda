@@ -75,8 +75,10 @@ class LabelFactory:
         if self.labels == None:
 
             self.labels = {}
-            diskset = partitioning.DiskSet()
+            diskset = partitioning.DiskSet()            
             diskset.openDevices()
+            diskset.stopAllRaid()
+            diskset.startAllRaid()
             labels = diskset.getLabels()
             del diskset
             self.reserveLabels(labels)
@@ -1113,6 +1115,7 @@ class RAIDDevice(Device):
                                     ( 'mkraid', '--really-force',
                                       '--configfile', raidtab, node ),
                                     stderr = "/dev/tty5", stdout = "/dev/tty5")
+            partitioning.register_raid_device(self.device)
             self.isSetup = 1
         return node
 
