@@ -257,6 +257,7 @@ class InstallCallback:
 	    fn = self.method.getFilename(h, self.pkgTimer)
 
 	    self.rpmFD = -1
+            self.size = h[rpm.RPMTAG_SIZE]
 	    while self.rpmFD < 0:
 		try:
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
@@ -286,9 +287,10 @@ class InstallCallback:
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
 	elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-	    if total:
-		self.progress.setPackageScale(amount, total)
-	    pass
+            if total != 100:
+                self.progress.setPackageScale(amount, self.size)
+            else:
+                self.progress.setPackageScale(self.size, self.size)
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
