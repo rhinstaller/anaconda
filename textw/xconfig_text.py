@@ -12,6 +12,7 @@
 #
 
 from monitor import isValidSyncRange
+from videocard import Videocard_blacklist
 from constants_text import *
 from snack import *
 from translate import _
@@ -111,13 +112,16 @@ class XCustomWindow:
         for i in availableDepths:
                self.available_depths.append(depth_list[self.bit_depth.index(i)])
         manualmodes = self.xconfig.getManualModes()
-
         if manualmodes:
             self.selectedDepth = manualmodes.keys()[0]
             self.selectedRes = manualmodes[self.selectedDepth][0]
         else:
             self.selectedDepth = None
             self.selectedRes = None
+
+        # if selected depth not acceptable then force it to be at least 8bpp
+        if self.selectedDepth and int(self.selectedDepth) < 8:
+            self.selectedDepth = "8"
 
         if not self.selectedDepth or not self.selectedRes:
             if len(self.available_res_by_depth) == 1:
@@ -419,7 +423,6 @@ class MonitorWindow:
                                    _("You cannot go back from this "
                                      "step."),
                            buttons = [ TEXT_OK_BUTTON ])
-                continue
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 screen.popWindow()
                 break
@@ -520,6 +523,11 @@ class XConfigWindowCard:
         self.cards = self.videocard.cardsDB()
         self.cardslist = self.cards.keys()
         self.cardslist.sort()
+        for card in Videocard_blacklist:
+            try:
+                self.cardslist.remove(card)
+            except:
+                pass
 
         self.ramlist = []
         for ram in self.videocard.possible_ram_sizes():

@@ -25,6 +25,11 @@ import os
 from log import log
 from translate import _
 
+Videocard_blacklist = ["Generic VGA compatible",
+                       "Generic VGA16",
+                       "Generic Mono",
+                       "Generic FBDev"]
+
 Video_cardslist = {}
 
 def Video_cardsDBLookup(thecard):

@@ -19,10 +19,12 @@ import sys
 import iutil
 import glob
 import gdkpixbuf
+import gui
 from gtk import *
 from iw_gui import *
 from translate import _, N_
 from monitor import isValidSyncRange
+from videocard import Videocard_blacklist
 
 class XCustomWindow (InstallWindow):
 
@@ -217,13 +219,16 @@ class XCustomWindow (InstallWindow):
         #                  which has a single corresponding resolution
         #
         manualmodes = self.xconfig.getManualModes()
-
         if manualmodes:
             self.selectedDepth = manualmodes.keys()[0]
             self.selectedRes = manualmodes[self.selectedDepth][0]
         else:
             self.selectedDepth = None
             self.selectedRes = None
+
+        # if selected depth not acceptable then force it to be at least 8bpp
+        if self.selectedDepth and int(self.selectedDepth) < 8:
+            self.selectedDepth = "8"
 
         if not self.selectedDepth or not self.selectedRes:
             if len(available) == 1:
@@ -693,6 +698,18 @@ class XConfigWindow (InstallWindow):
                 server = "XF86_" + card_data["SERVER"]
 
             primary_card.setXServer(server)
+        else:
+            self.intf.messageWindow(_("Unspecified video card"),
+                            _("You need to pick a video card before "
+                              "X configuration can continue.  If you "
+                              "want to skip X configuration entirely "
+                              "choose the 'Skip X Configuration' button."))
+            raise gui.StayOnScreen
+
+        
+        # see if they actually picked a card, otherwise keep going
+
+
 
         # sniff out the selected ram size
         menu = self.ramOption.get_menu ().get_active()
@@ -703,6 +720,7 @@ class XConfigWindow (InstallWindow):
             index = index + 1
 
         vidram = self.videocard.possible_ram_sizes()[index]
+
         self.videocard.primaryCard().setVideoRam(str(vidram))
         self.xconfig.setVideoCard(self.videocard.primaryCard())
         self.xconfig.filterModesByMemory ()
@@ -805,6 +823,7 @@ class XConfigWindow (InstallWindow):
         self.dispatch = dispatch
         self.videocard = videocard
         self.xconfig = xconfig
+        self.intf = intf
 
         box = GtkVBox (FALSE, 0)
         box.set_border_width (0)
@@ -894,6 +913,11 @@ class XConfigWindow (InstallWindow):
             
         for card in cards:
             temp = string.lower(card)
+
+            # don't let them configure VGA16
+            if card in Videocard_blacklist:
+                other_cards.remove(card)
+                continue
 
             manufacturers = self.videocard.manufacturerDB()
             manufacturers.append("Generic")
