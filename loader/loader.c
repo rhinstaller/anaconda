@@ -760,6 +760,8 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
+#if !defined (__s390__) && !defined (__s390x__)
+
     mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, 
 		 NULL, modInfo, flags);
 
@@ -827,6 +829,26 @@ static char * mountHardDrive(struct installMethod * method,
 
 	    continue;
 	}
+
+#else
+	char c;
+	/* s390 */
+	numPartitions = 0;
+	for(c = 'a'; c <= 'z'; c++) {
+	  for(i = 1; i < 4; i++) {
+	    char dev[7];
+	    sprintf(dev, "dasd%c%d", c, i);
+	    devMakeInode(dev, "/tmp/hddevice");
+	    fd = open("/tmp/hddevice", O_RDONLY);
+	    if (fd >= 0) {
+	      close(fd);
+	      sprintf(partitions[numPartitions].name, "/dev/%s", dev);
+	      partitions[numPartitions].type = BALKAN_PART_EXT2;
+	      numPartitions++;					
+	    }
+	}
+
+#endif
 
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
@@ -1379,10 +1401,17 @@ static char * doMountImage(char * location,
 
 #if defined(__alpha__) || defined(__ia64__) \
      || defined (__s390__) || defined (__s390x__)
-    for (i = 0; i < numMethods; i++) {
+#if defined (__s390__) || defined (__s390x__)
+    i = 1; /* no cdrom */
+#else
+    i = 0;
+#endif
+    for (; i < numMethods; i++) {
+  
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
+
 #else
     /* platforms with split boot/bootnet disks */
 #if defined(INCLUDE_PCMCIA)
