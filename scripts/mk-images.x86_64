@@ -122,7 +122,7 @@ makeBootImages() {
     mkdosfs -r 16 $TOPDESTPATH/images/diskboot.img
     $SYSLINUX $TOPDESTPATH/images/diskboot.img
     mount -o loop $TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
-    cp -rl $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
+    cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
     mv $TOPDESTPATH/images/fobpath/isolinux.cfg $TOPDESTPATH/images/fobpath/syslinux.cfg
     umount -f $TOPDESTPATH/images/fobpath
     rmdir $TOPDESTPATH/images/fobpath
