@@ -520,6 +520,14 @@ class KickstartBase(BaseInstallClass):
 		where = "packages"
 	    else:
 		if where == "packages":
+                    #Scan for comments in package list...drop off everything after "#" mark
+                    try:
+                        ind = string.index(n, "#")
+                        n = n[:ind]
+                    except:
+                        #No "#" found in line
+                        pass
+                    
 		    if n[0] == '@':
 			n = n[1:]
                         n = string.strip (n)
