@@ -735,8 +735,11 @@ class ToDo:
 			     alreadyCrypted = 1)
 	    
     def setupFirewall (self):
-	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart",
-		"--policy", self.firewall.policy ]
+	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart" ]
+	if self.policy:
+	    args.append ("--medium")
+	else:
+	    args.append ("--high")
 	if self.firewall.dhcp:
 	    args.append ("--dhcp")
 	if self.firewall.portlist:
@@ -749,15 +752,15 @@ class ToDo:
 	for port in self.firewall.ports:
 	    args.append ("--port", port)
 	if self.firewall.smtp:
-	    args.append ("--smtp")
+	    args.append ("--port","smtp:tcp")
 	if self.firewall.http:
-	    args.append ("--http")
+	    args.append ("--port","http:tcp")
 	if self.firewall.ftp:
-	    args.append ("--ftp")
+	    args.append ("--port","ftp:tcp")
 	if self.firewall.ssh:
-	    args.append ("--ssh")
+	    args.append ("--port","ssh:tcp")
 	if self.firewall.telnet:
-	    args.append ("--telnet")
+	    args.append ("--port","telnet:tcp")
 	for dev in self.firewall.trustdevs:
 	    args.append ("--trust", dev)
 	if self.firewall.enabled > 0:
