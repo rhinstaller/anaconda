@@ -52,7 +52,7 @@ class AccountWindow (InstallWindow):
         self.pw.grab_focus ()
 
     # AccountWindow tag="accts"
-    def getScreen (self, rootPw, accounts):
+    def getScreen (self, rootPw):
 	self.rootPw = rootPw
 
 	self.passwords = {}

@@ -94,7 +94,7 @@ installSteps = [
     ("firewall", ("intf", "id.network", "id.firewall")),
     ("languagesupport", ("id.langSupport",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
-    ("accounts", ("id.rootPassword", "id.accounts")),
+    ("accounts", ("id.rootPassword",)),
     ("authentication", ("id.auth",)),
     ("readcomps", readPackages, ("intf", "method", "id")),
     ("desktopchoice", ("intf", "id.instClass", "dispatch")),

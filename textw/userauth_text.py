@@ -18,7 +18,7 @@ import iutil
 from flags import flags
 
 class RootPasswordWindow:
-    def __call__ (self, screen, rootPw, accounts):
+    def __call__ (self, screen, rootPw):
         toplevel = GridFormHelp (screen, _("Root Password"), "rootpw", 1, 3)
 
         toplevel.add (TextboxReflowed(37, _("Pick a root password. You must "
