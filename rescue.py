@@ -81,7 +81,7 @@ def runRescue(serial):
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
     print
-    print _("Your system is mounted under the /mnt/sysimage directory."
+    print _("Your system is mounted under the /mnt/sysimage directory.")
     print
 
     os.execv("/bin/sh", [ "-/bin/sh" ])
