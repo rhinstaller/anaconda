@@ -19,6 +19,8 @@ BETANAG = 1
 
 DEBUG = 0
 
+SELINUX_DEFAULT = 0
+
 cmdline = open("/proc/cmdline", "r").read()
 if cmdline.find("debug") != -1:
     DEBUG = 1
