@@ -98,7 +98,7 @@ class BootImages:
         if setLong:
             self.images[dev] = (self.images[dev][0], label, self.images[dev][2])
         else:
-            self.images[dev] = (label, self.images[dev][0], self.images[dev][2])            
+            self.images[dev] = (label, self.images[dev][1], self.images[dev][2])            
             
 
     # default is a device
@@ -194,7 +194,7 @@ class bootloaderInfo:
 	else:
 	    lilo.addEntry("default", chainList[0][0])
 
-	for (label, version) in kernelList:
+	for (label, longlabel, version) in kernelList:
 	    kernelTag = "-" + version
 	    kernelFile = self.kernelLocation + "vmlinuz" + kernelTag
 
@@ -219,7 +219,7 @@ class bootloaderInfo:
 		
 	    lilo.addImage (sl)
 
-	for (label, device) in chainList:
+	for (label, longlabel, device) in chainList:
 	    try:
 		(fsType, sl) = lilo.getImage(label)
 		lilo.delImage(label)
@@ -415,13 +415,13 @@ class x86BootloaderInfo(bootloaderInfo):
         if self.password:
             f.write('password --md5 %s\n' %(self.password))
         
-	for (label, version) in kernelList:
+	for (label, longlabel, version) in kernelList:
 	    kernelTag = "-" + version
 	    kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
 	    initrd = makeInitrd (kernelTag, instRoot)
 
-	    f.write('title %s (%s)\n' % (label, version))
+	    f.write('title %s (%s)\n' % (longlabel, version))
 	    f.write('\troot %s\n' % grubbyPartitionName(bootDev))
 	    f.write('\tkernel %s ro root=/dev/%s' % (kernelFile, rootDev))
 	    if self.args.get():
@@ -431,8 +431,8 @@ class x86BootloaderInfo(bootloaderInfo):
 	    if os.access (instRoot + initrd, os.R_OK):
 		f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, kernelTag))
 
-	for (label, device) in chainList:
-	    f.write('title %s\n' % (label))
+	for (label, longlabel, device) in chainList:
+	    f.write('title %s\n' % (longlabel))
 	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
             f.write('\tmakeactive\n')
             f.write('\tchainloader +1')
@@ -522,6 +522,8 @@ class x86BootloaderInfo(bootloaderInfo):
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):
+        print "kernelList", kernelList
+        print "chainList", chainList
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useGrubVal))
@@ -617,21 +619,23 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     for (dev, (label, longlabel, type)) in bl.images.getImages().items():
 	if dev == rootDev:
 	    kernelLabel = label
+            kernelLongLabel = longlabel
 	elif dev == defaultDev:
-	    otherList = [(label, dev)] + otherList
+	    otherList = [(label, longlabel, dev)] + otherList
 	else:
-	    otherList.append(label, dev)
+	    otherList.append(label, longlabel, dev)
 
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():
 	if plainLabelUsed:
-	    kernelList.append("%s-%s" % (kernelLabel, nick), version)
+	    kernelList.append("%s-%s" % (kernelLabel, nick),
+                              "%s-%s" % (kernelLongLabel, nick), version)
 	else:
-	    kernelList.append(kernelLabel, version)
+	    kernelList.append(kernelLabel, kernelLongLabel, version)
 	    plainLabelUsed = 1
 
-    if not flags.test:
-        bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
+
+    bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
                  justConfigFile)
 
     w.pop()
