@@ -183,36 +183,32 @@ class Network:
         return (self.primaryNS, self.secondaryNS, self.ternaryNS)
 
     def writeKS(self, f):
-	# XXX
-	#
-	# Hopefully the first one is the right one to use. We ought to support
-	# multiple "network" lines
-	#
-	# This doesn't write out nodns, ever.
-	#
 	devNames = self.netdevices.keys()
 	devNames.sort()
     
         if len(devNames) == 0:
             return
-        
-	dev = self.netdevices[devNames[0]]
 
-	if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
-	    f.write("network --device %s" % dev.get('device'))
-	    if dev.get('bootproto') == 'dhcp':
-		f.write(" --bootproto dhcp")
-	    else:
-		f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
-		   (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
+        for devName in devNames:
+            dev = self.netdevices[devName]
 
-            if self.primaryNS:
-		f.write(" --nameserver %s" % self.primaryNS)
+            if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
+                f.write("network --device %s" % dev.get('device'))
+                if dev.get('bootproto') == 'dhcp':
+                    f.write(" --bootproto dhcp")
+                else:
+                    f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
+                       (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
 
-	    if self.hostname and self.hostname != "localhost.localdomain":
-		f.write(" --hostname %s" % self.hostname)
+                if dev.get('bootproto') != 'dhcp':
+                    if self.primaryNS:
+                        f.write(" --nameserver %s" % self.primaryNS)
+                        
+                        if (self.hostname and
+                            self.hostname != "localhost.localdomain"):
+                            f.write(" --hostname %s" % self.hostname)
 
-	    f.write("\n");
+                f.write("\n");
 
     def write(self, instPath):
         # /etc/sysconfig/network-scripts/ifcfg-*
