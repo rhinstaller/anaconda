@@ -11,6 +11,7 @@
 
 /* hack */
 int insmod_main(int argc, char ** argv);
+int insmod64_main(int argc, char ** argv);
 int rmmod_main(int argc, char ** argv);
 
 int ourInsmodCommand(int argc, char ** argv) {
@@ -57,21 +58,11 @@ int ourInsmodCommand(int argc, char ** argv) {
     argv[1] = file;
 
 #ifdef __sparc__
-    if (sparc64) {
-       int pid, status;
-       
-       if (!(pid = fork())) {
-           execv("/bin/insmod64", argv);
-           exit(-1);
-       }
-       waitpid(pid, &status, 0);
-       if (WIFEXITED(status))
-           rc = WEXITSTATUS(status);
-       else
-           rc = -1;
-    } else
+    if (sparc64)
+	rc = insmod64_main(argc, argv);
+    else
 #endif
-       rc = insmod_main(argc, argv);
+	rc = insmod_main(argc, argv);
     
     if (rmObj) unlink(file);
 

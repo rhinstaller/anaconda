@@ -9,6 +9,7 @@ SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
 NETOBJS = net.o
+KON = 1
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
@@ -17,6 +18,10 @@ ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
 OBJS += stubs.o 
+endif
+
+ifeq (1, $(KON))
+OBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 endif
 
 ifeq (alpha, $(ARCH))

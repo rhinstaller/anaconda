@@ -18,13 +18,16 @@ class LiloWindow (InstallWindow):
         ics.setTitle (_("Lilo Configuration"))
         ics.setNextEnabled (1)
         self.type = None
+        self.bootdisk = None
 
     def getNext (self):
-        if self.bootdisk.get_active ():
-            self.todo.bootdisk = 1
-        else:
-            self.todo.bootdisk = 0
+        if self.bootdisk:
+            if self.bootdisk.get_active ():
+                self.todo.bootdisk = 1
+            else:
+                self.todo.bootdisk = 0
 
+        # XXX why is this here?
 	return
         if self.lilo.get_active ():
             self.todo.setLiloLocation (None)

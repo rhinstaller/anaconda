@@ -58,6 +58,11 @@ class InstallClass:
 
     def setClearParts(self, clear, warningText = None):
 	self.clearParts = clear
+        # XXX hack for install help text in GUI mode
+        if clear == FSEDIT_CLEAR_LINUX:
+            self.clearType = "wkst"
+        if clear == FSEDIT_CLEAR_ALL:
+            self.clearType = "svr"        
 	self.clearPartText = warningText
 
     def getLiloInformation(self):

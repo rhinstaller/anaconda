@@ -10,6 +10,7 @@
 #define BALKAN_PART_OTHER	3
 #define BALKAN_PART_NTFS	4
 #define BALKAN_PART_SWAP	5
+#define BALKAN_PART_UFS		6
 
 struct partition {
     long startSector;

@@ -24,6 +24,7 @@ class InstallProgressWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle (_("Installing Packages"))
+        ics.readHTML ("installing")
         ics.setPrevEnabled (0)
 
         self.todo = ics.getToDo ()

@@ -85,6 +85,7 @@ class AutoPartitionWindow(InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Automatic Partitioning"))
 	ics.setNextEnabled (TRUE)
+        self.ics = ics
 
     def getNext(self):
         from gnomepyfsedit import fsedit
@@ -100,6 +101,9 @@ class AutoPartitionWindow(InstallWindow):
 
     def getScreen (self):   
         from gnomepyfsedit import fsedit
+        # XXX hack
+        print self.todo.instClass.clearType
+        self.ics.readHTML (self.todo.instClass.clearType)
 
 	todo = self.todo
 

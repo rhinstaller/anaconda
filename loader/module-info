@@ -261,6 +261,10 @@ lne390
 	eth
 	"Mylex LNE390 EISA"
 
+myri_sbus
+	eth
+	"MyriCOM MyriNET SBUS"
+
 ne
 	eth
 	"NE1000, NE2000, and compatible"
@@ -369,6 +373,18 @@ strip
 #	eth
 #	"Linux/Sparc/Lance Ethernet"
 
+sunbmac
+	eth
+	"Sun BigMac Ethernet"
+
+sunhme
+	eth
+	"Sun Happy Meal Ethernet"
+
+sunqe
+	eth
+	"Sun Quad Ethernet"
+
 tlan
 	eth
 	"ThunderLAN"
@@ -473,6 +489,10 @@ eata_pio
 	scsi_hostadapter
 	"All PIO-capable DPT SCSI"
 
+fcal
+	scsi_hostadapter
+	"Sun Enterprise Network Array (FC-AL)"
+
 # not a module
 # esp
 
@@ -509,6 +529,10 @@ pas16
 	scsi_hostadapter
 	"Pro Audio Spectrum/Studio 16"
 
+pluto
+	scsi_hostadapter
+	"SparcSTORAGE Array"
+
 # <SIGH>
 #ppa
 	#scsi_hostadapter
@@ -530,6 +554,10 @@ qlogicfc
 qlogicisp
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI"
+
+qlogicpti
+	scsi_hostadapter
+	"QLogic ISP1020 SCSI SBUS"
 
 #scsi
 # Can kerneld actually request this?

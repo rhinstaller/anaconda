@@ -1,6 +1,6 @@
 PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
-OBJECTS = rw.o dos.o
+OBJECTS = rw.o dos.o sun.o
 
 TARGET = libbalkan.a
 
@@ -18,6 +18,8 @@ clean:
 	rm -f *.o $(TARGET)
 
 dos.o: dos.h
+
+sun.o: sun.h
 
 install: all
 	cp _balkanmodule.so $(PYTHONLIBDIR)

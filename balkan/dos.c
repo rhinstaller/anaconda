@@ -4,6 +4,7 @@
 #include <unistd.h>
 
 #include "balkan.h"
+#include "byteswap.h"
 
 struct singlePartition {
     unsigned char active;
@@ -79,9 +80,9 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 	else
 	    thisPart = nextNum++;
 
-	table->parts[thisPart].startSector = singleTable.parts[i].start + 
-					    sectorOffset;
-	table->parts[thisPart].size = singleTable.parts[i].size;
+	table->parts[thisPart].startSector =
+	    le32_to_cpu(singleTable.parts[i].start) + sectorOffset;
+	table->parts[thisPart].size = le32_to_cpu(singleTable.parts[i].size);
 	table->parts[thisPart].type = singleTable.parts[i].type;
     }
 

@@ -58,6 +58,7 @@ int probe_main(int argc, char ** argv);
 int rmmod_main(int argc, char ** argv);
 int cardmgr_main(int argc, char ** argv);
 int ourInsmodCommand(int argc, char ** argv);
+int kon_main(int argc, char ** argv);
 
 struct knownDevices devices;
 
@@ -977,7 +978,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	free(class);
     }
 
-#if !defined(__i386__) 
+#if defined(__alpha__)
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = installMethods[i].name;
 	validMethods[numValidMethods++] = i;
@@ -1038,7 +1039,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 			 30, 10, 20, 6, installNames, 
 			 &methodNum, _("Ok"), NULL);
 
-	if (rc) continue;
+	if (rc && rc != 1) continue;
 
     	url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
@@ -1381,9 +1382,13 @@ int main(int argc, char ** argv) {
 	return ourInsmodCommand(argc, argv);
     else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
 	return rmmod_main(argc, argv);
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe")) {
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "modprobe"))
 	return ourInsmodCommand(argc, argv);
-    }
+
+#ifdef INCLUDE_KON
+    if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
+	return kon_main(argc, argv);
+#endif
 
 #ifdef INCLUDE_PCMCIA
     if (!strcmp(argv[0] + strlen(argv[0]) - 7, "cardmgr"))

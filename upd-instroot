@@ -13,11 +13,15 @@ echo HOMEDIR $HOMEDIR
 pythondeps() {
         DIR=$1
 
+	mkdir -p $DIR/proc
+	mount -t proc /proc $DIR/proc
 	(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
 	cd $DIR; find usr/lib/python* -type f | sed 's,^,/,' ) | sort | uniq -u |
 	sed s,^,./, | while read fn; do
   	    [ ! -d $DIR/$fn ] && rm $DIR/$fn
   	done
+	umount $DIR/proc
+	rmdir $DIR/proc
 }
 
 SRC=$1/RedHat/RPMS
@@ -36,7 +40,8 @@ echo "DESTGR is $DESTGR"
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-75dpi-fonts XFree86-I128
-          XFree86-3DLabs XFree86-VGA16 XFree86-3. xpm-3 glib- gtk+-
+          XFree86-3DLabs XFree86-VGA16 XFree86-Sun
+	  XFree86-3. xpm-3 glib- gtk+-
           gnome-libs python-1 newt imlib-1 libpng libtiff libjpeg-
           libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk- pygnome-
           util-linux procps esound-0 audiofile-0 kernel-pcmcia-cs
@@ -121,6 +126,9 @@ usr/X11R6/bin/XF86_SVGA
 usr/X11R6/bin/XF86_S3
 usr/X11R6/bin/XF86_S3V
 usr/X11R6/bin/XF86_VGA16
+usr/X11R6/bin/XsunMono
+usr/X11R6/bin/Xsun
+usr/X11R6/bin/Xsun24
 usr/X11R6/bin/Xtest
 usr/X11R6/lib/X11/fonts/75dpi/cour*
 usr/X11R6/lib/X11/fonts/75dpi/helv*

@@ -10,8 +10,7 @@ class LanguageWindow (InstallWindow):
         ics.setTitle (_("Language Selection"))
         ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY BGCOLOR=\"#FFFFFF\">Select which language you would like"
-                     "to use for the system default.</BODY></HTML>")
+        ics.readHTML ("lang")
         self.question = (_("What language should be used during the "
                          "installation process?"))
 

@@ -277,7 +277,7 @@ class InstallControlWindow (Thread):
 
         buttons["prev"].set_sensitive (ics.getPrevEnabled ())
         buttons["next"].set_sensitive (ics.getNextEnabled ())
-
+ 
         if ics.getHelpEnabled () == FALSE:
             if self.displayHelp:
                 self.helpClicked (self.hideHelpButton)
@@ -379,7 +379,6 @@ class InstallControlWindow (Thread):
         
 
 class InstallControlState:
-
     def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):
         self.searchPath = [ "/usr/share/anaconda/", "./" ]
