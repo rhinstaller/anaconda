@@ -730,13 +730,8 @@ class ToDo:
 	if pure:
 	    self.setPassword("root", pure)
 	else:
-            crypt = self.rootpassword.getCrypted ()
-            devnull = os.open("/dev/null", os.O_RDWR)
-
-            argv = [ "/usr/sbin/usermod", "-p", crypt, "root" ]
-            iutil.execWithRedirect(argv[0], argv, root = self.instPath, 
-                                   stdout = devnull, stderr = None)
-            os.close(devnull)
+	    self.setPassword("root", self.rootpassword.getCrypted (),
+			     alreadyCrypted = 1)
 	    
     def setupFirewall (self):
 	args = [ "/usr/sbin/lokkit", "--kickstart", "--nostart",
@@ -1275,16 +1270,26 @@ class ToDo:
     def getUserList(todo):
 	return todo.users
 
-    def setPassword(todo, account, password):
+    def setPassword(self, account, password, alreadyCrypted = 0):
+	if not alreadyCrypted:
+	    if self.auth.useMD5:
+		salt = "$1$"
+		saltLen = 8
+	    else:
+		salt = ""
+		saltLen = 2
+
+	    for i in range(saltLen):
+		salt = salt + whrandom.choice (string.letters +
+					 string.digits + './')
+
+            password = crypt.crypt (password, salt)
+
 	devnull = os.open("/dev/null", os.O_RDWR)
 
-	argv = [ "/usr/bin/passwd", "--stdin", account ]
-	p = os.pipe()
-	os.write(p[1], password + "\n")
-	iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
-			       stdin = p[0], stdout = devnull)
-	os.close(p[0])
-	os.close(p[1])
+	argv = [ "/usr/sbin/usermod", "-p", password, "root" ]
+	iutil.execWithRedirect(argv[0], argv, root = self.instPath, 
+			       stdout = '/dev/null', stderr = None)
 	os.close(devnull)
 
     def createAccounts(todo):
