@@ -333,9 +333,9 @@ class AccountWindow (InstallWindow):
         self.pw.connect ("map-event", self.setFocus)
         self.pw.set_visibility (gtk.FALSE)
         self.confirm = gtk.Entry (128)
-#        self.confirm.connect ("activate", self.forward)
+        self.confirm.connect ("activate", self.forward)
         self.confirm.set_visibility (gtk.FALSE)
-#        self.confirm.connect ("changed", self.rootPasswordsMatch)
+        self.confirm.connect ("changed", self.rootPasswordsMatch)
         table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
         table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
 
