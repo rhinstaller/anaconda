@@ -119,7 +119,7 @@ import rpm
 import lilo
 from todo import ToDo
 import isys
-from installclass import CustomInstall
+from installclass import DefaultInstall
 from kickstart import Kickstart
 
 if (not test):
@@ -206,7 +206,7 @@ if forceMount:
 if kickstart:
     instClass = Kickstart(kickstart)
 else:
-    instClass = CustomInstall()
+    instClass = DefaultInstall()
 
 if lang:
     instClass.addToSkipList("language")

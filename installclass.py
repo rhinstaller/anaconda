@@ -202,6 +202,12 @@ class InstallClass:
 	self.postScript = None
 	self.postInChroot = 0
 
+# we need to be able to differentiate between this and custom
+class DefaultInstall(InstallClass):
+
+    def __init__(self):
+	InstallClass.__init__(self)
+
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
 
