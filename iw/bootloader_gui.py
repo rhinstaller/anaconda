@@ -68,7 +68,8 @@ class BootloaderWindow (InstallWindow):
                     _("Forcing the use of LBA32 for your bootloader when "
                       "not supported by the BIOS can cause your machine "
                       "to be unable to boot.  We highly recommend you "
-                      "create a boot disk.\n\n"
+                      "create a boot disk when asked later in the "
+                      "install process.\n\n"
                       "Would you like to continue and force LBA32 mode?"),
                                     type = "yesno")
             if rc != 1:
