@@ -90,6 +90,7 @@ class FDiskWindow (InstallWindow):
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
         box = GtkVButtonBox ()
+        box.set_layout("start")
         label = GtkLabel (_("Select drive to run fdisk on"))
 
         drives =  self.diskset.driveList()
@@ -102,8 +103,17 @@ class FDiskWindow (InstallWindow):
             button.connect ("clicked", self.button_clicked, drive)
             box.add (button)
 
+        # put the button box in a scrolled window in case there are
+        # a lot of drives
+        sw = GtkScrolledWindow()
+        sw.add_with_viewport(box)
+        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
+        viewport = sw.children()[0]
+        viewport.set_shadow_type(SHADOW_ETCHED_IN)
+        sw.set_usize(-1, 400)
+            
         self.buttonBox.pack_start (label, FALSE)
-        self.buttonBox.pack_start (box, FALSE)
+        self.buttonBox.pack_start (sw, FALSE)
         self.windowContainer.pack_start (self.buttonBox)
 
         self.ics.setNextEnabled (1)
