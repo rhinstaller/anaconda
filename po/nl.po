@@ -2,18 +2,19 @@
 # Dutch translation of anaconda-po
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Arjan van de Ven <arjanv@redhat.com>, 2001.
-# Tino Meinen <a.t.meinen@chello.nl>, 2003
+# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003
 # Peter van Egdom <p.van.egdom@chello.nl>, 2002
 #
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
 # driver - stuurprogramma
+# root altijd met kleine letters schrijven (dus geen Root)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3.94\n"
 "POT-Creation-Date: 2003-02-14 17:59-0500\n"
-"PO-Revision-Date: 2003-02-12 13:09+0100\n"
+"PO-Revision-Date: 2003-02-15 22:28+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -124,10 +125,7 @@ msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr ""
-"Opstartpartitie %s staat niet op een schijf met voldoende vrije ruimte aan "
-"het begin om de bootloader te installeren. Zorg dat er minimaal 5 Megabyte "
-"vrije ruimte is aan het begin van de schijf die de /boot-map bevat. "
+msgstr "Opstartpartitie %s staat niet op een schijf met voldoende vrije ruimte aan het begin om de bootloader te installeren. Zorg dat er minimaal 5 Megabyte vrije ruimte is aan het begin van de schijf die de map /boot bevat. "
 
 #: ../autopart.py:985
 #, python-format
@@ -175,7 +173,7 @@ msgstr ""
 
 #: ../autopart.py:1285 ../autopart.py:1325
 msgid "Automatic Partitioning Errors"
-msgstr "Fouten bij Automatisch Partitioneren"
+msgstr "Fouten bij Automatisch partitioneren"
 
 #: ../autopart.py:1286
 #, python-format
@@ -194,7 +192,7 @@ msgstr ""
 
 #: ../autopart.py:1295
 msgid "Warnings During Automatic Partitioning"
-msgstr "Waarschuwingen tijdens Automatisch Partitioneren"
+msgstr "Waarschuwingen tijdens automatisch partitioneren"
 
 #: ../autopart.py:1296
 #, python-format
@@ -713,7 +711,7 @@ msgstr "Opslaan schermafdruk"
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Een schermafdruk genaamd '%s' is opgeslagen."
+msgstr "Een schermafdruk is opgeslagen als '%s'"
 
 #: ../gui.py:167
 msgid "Error Saving Screenshot"
@@ -723,10 +721,7 @@ msgstr "Fout bij het opslaan van schermafdruk"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"Er is een fout opgetreden tijdens het opslaan van de schermafdruk. Als dit "
-"gebeurde tijdens de pakket-installatie kunt u trachten het nogmaals te "
-"proberen."
+msgstr "Er is een fout opgetreden tijdens het opslaan van de schermafdruk. Als dit gebeurde tijdens de pakket-installatie kunt het gewoon nogmaals proberen."
 
 #: ../gui.py:236 ../text.py:321
 msgid "Fix"
@@ -935,7 +930,7 @@ msgstr "De CDROM kon niet worden aangekoppeld."
 
 #: ../installclass.py:45
 msgid "Install on System"
-msgstr "Installeren op Systeem"
+msgstr "Installeren op systeem"
 
 #: ../kickstart.py:1168
 msgid "Missing Package"
@@ -1213,7 +1208,7 @@ msgstr "Na-installatie"
 
 #: ../packages.py:956
 msgid "Performing post install configuration..."
-msgstr "Na-installatie wordt nu gedaan..."
+msgstr "Bezig met configureren na de installatie..."
 
 #: ../packages.py:1244
 msgid "Warning! This is a beta!"
@@ -1251,7 +1246,7 @@ msgstr "BETA _Installeren"
 
 #: ../partedUtils.py:172 ../textw/partition_text.py:491
 msgid "Foreign"
-msgstr "Buitenlands"
+msgstr "Vreemd"
 
 #: ../partedUtils.py:248
 #, python-format
@@ -1339,7 +1334,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "Voer een naam in voor de logische volume."
+msgstr "Voer een naam in voor het logische volume."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1459,6 +1454,7 @@ msgstr ""
 "\n"
 "%s"
 
+# bewerken -> aanpassen?
 #: ../partIntfHelpers.py:306 ../partIntfHelpers.py:319
 #: ../partIntfHelpers.py:350 ../partIntfHelpers.py:361
 msgid "Unable To Edit"
@@ -1623,7 +1619,7 @@ msgstr "De geselecteerde partitie zal worden verwijderd."
 
 #: ../partIntfHelpers.py:535
 msgid "Confirm Reset"
-msgstr "Resetten Bevestigen"
+msgstr "Resetten bevestigen"
 
 #: ../partIntfHelpers.py:536
 msgid ""
@@ -1648,7 +1644,7 @@ msgstr ""
 
 #: ../partitioning.py:114
 msgid "Low Memory"
-msgstr "Weinig Geheugen"
+msgstr "Weinig geheugen"
 
 #: ../partitioning.py:115
 msgid ""
@@ -1871,7 +1867,7 @@ msgstr "Doorgaan"
 
 #: ../rescue.py:189 ../rescue.py:198
 msgid "Read-Only"
-msgstr "Alleen-Lezen"
+msgstr "Alleen-lezen"
 
 #: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
@@ -1881,7 +1877,7 @@ msgstr "Overslaan"
 
 #: ../rescue.py:221
 msgid "System to Rescue"
-msgstr "Systeem om te herstellen"
+msgstr "Te herstellen systeem"
 
 #: ../rescue.py:222
 msgid "What partition holds the root partition of your installation?"
@@ -1981,7 +1977,7 @@ msgstr "Foutzoeken"
 #: ../text.py:342
 #, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s © 2003 Red Hat, Inc."
 
 #: ../text.py:349
 msgid ""
@@ -2119,14 +2115,14 @@ msgstr "Zoekende"
 
 #: ../upgrade.py:347
 msgid "Finding packages to upgrade..."
-msgstr "Bezig met zoeken naar pakketten die moeten worden vernieuwd..."
+msgstr "Pakketten die een upgrade krijgen worden nu opgezocht..."
 
 #: ../upgrade.py:359
 msgid ""
 "The installation program is unable to upgrade systems with a pre-rpm 4.x "
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
-msgstr ""
+msgstr "Het installatieprogramma is niet in staat om systemen een upgrade te geven die nog gebruik maken van een een pre-rpm 4.x-database. Installeer eerst de errata rpm-pakketten van uw distributie-versie, zoals beschreven in de versie-informatie, en voer daarna de upgrade-procedure uit."
 
 #: ../upgrade.py:385
 msgid "An error occurred when finding the packages to upgrade."
@@ -2176,19 +2172,18 @@ msgstr "Beeldscherm onderzocht met DDC"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Root-wachtwoord instellen"
+msgstr "Het root-wachtwoord instellen"
 
 #: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
 msgid "Error with Password"
 msgstr "Fout bij het wachtwoord"
 
+# misschien 'gevraagde' beter weglaten voor duidelijkheid
 #: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
-"Het aangevraagde wachtwoord bevat non-ascii-tekens wat niet is toegestaan in "
-"wachtwoorden."
+msgstr "Het gevraagde wachtwoord bevat non-ascii tekens hetgeen niet is toegestaan in wachtwoorden."
 
 #: ../iw/account_gui.py:51
 msgid "Root password accepted."
@@ -2204,11 +2199,11 @@ msgstr "De root-wachtwoorden komen niet overeen."
 
 #: ../iw/account_gui.py:80
 msgid "Enter the root (administrator) password for the system."
-msgstr "Voer het root-wachtwoord voor de beheerder van het systeem in."
+msgstr "Voer het root-wachtwoord van de systeembeheerder in."
 
 #: ../iw/account_gui.py:96
 msgid "Root _Password: "
-msgstr "Root-_wachtwoord: "
+msgstr "root-_wachtwoord: "
 
 #: ../iw/account_gui.py:99
 msgid "_Confirm: "
@@ -2232,7 +2227,7 @@ msgstr "N_IS gebruiken"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "Gebruik _broadcast om de NIS-server te vinden"
+msgstr "_Broadcast gebruiken om de NIS-server te vinden"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
@@ -2937,7 +2932,7 @@ msgstr "_Aanpassen"
 
 #: ../iw/firewall_gui.py:229
 msgid "_Trusted devices:"
-msgstr "_Betrouwbare devices:"
+msgstr "Veilige ver_bindingen:"
 
 #: ../iw/firewall_gui.py:254
 msgid "_Allow incoming:"
@@ -3118,11 +3113,11 @@ msgstr "Onbekend"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr "_Logische Volumenaam:"
+msgstr "_Logische volumenaam:"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
-msgstr "Logische Volumenaam:"
+msgstr "Logische volumenaam:"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:356
 msgid "_Size (MB):"
@@ -3160,7 +3155,7 @@ msgstr "Het koppelpunt \"%s\" is in gebruik. Kies een andere."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
-msgstr "Ongeldige Logisch Volumenaam"
+msgstr "Ongeldige logisch volumenaam"
 
 #: ../iw/lvm_dialog_gui.py:566
 msgid "Illegal logical volume name"
@@ -3291,19 +3286,19 @@ msgstr "Fysieke omvang:"
 
 #: ../iw/lvm_dialog_gui.py:986
 msgid "Physical Volumes to _Use:"
-msgstr "Te gebruiken Fysieke Volumes:"
+msgstr "Te gebruiken fysieke volumes:"
 
 #: ../iw/lvm_dialog_gui.py:992
 msgid "Used Space:"
-msgstr "Gebruikte Ruimte:"
+msgstr "Gebruikte ruimte:"
 
 #: ../iw/lvm_dialog_gui.py:1009
 msgid "Free Space:"
-msgstr "Vrije Ruimte:"
+msgstr "Vrije ruimte:"
 
 #: ../iw/lvm_dialog_gui.py:1027
 msgid "Total Space:"
-msgstr "Totale Ruimte:"
+msgstr "Totale ruimte:"
 
 #: ../iw/lvm_dialog_gui.py:1056
 msgid "Logical Volume Name"
@@ -3330,7 +3325,7 @@ msgstr "Logische Volumes"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Muis Configureren"
+msgstr "Muis configureren"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -3738,24 +3733,25 @@ msgstr "De eind-cylinder moet groter zijn dan de begin-cylinder."
 
 #: ../iw/partition_dialog_gui.py:258 ../textw/partition_text.py:644
 msgid "Add Partition"
-msgstr "Partitie Toevoegen"
+msgstr "Partitie toevoegen"
 
 #: ../iw/partition_dialog_gui.py:261
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "Partitie: /dev/%s bewerken"
 
+# aanpassen ipv bewerken?
 #: ../iw/partition_dialog_gui.py:263
 msgid "Edit Partition"
-msgstr "Partitie Bewerken"
+msgstr "Partitie bewerken"
 
 #: ../iw/partition_dialog_gui.py:290 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "_Type Bestandssysteem:"
+msgstr "Type _bestandssysteem:"
 
 #: ../iw/partition_dialog_gui.py:322
 msgid "Allowable _Drives:"
-msgstr "Toegestane _Stations:"
+msgstr "Toegestane _stations:"
 
 #: ../iw/partition_dialog_gui.py:335
 msgid "Drive:"
@@ -3763,7 +3759,7 @@ msgstr "Station:"
 
 #: ../iw/partition_dialog_gui.py:344
 msgid "Original File System Label:"
-msgstr "Oorspronkelijk Bestandssysteemlabel:"
+msgstr "Oorspronkelijk bestandssysteemlabel:"
 
 #: ../iw/partition_dialog_gui.py:379
 msgid "_Start Cylinder:"
@@ -3771,7 +3767,7 @@ msgstr "_Begincylinder:"
 
 #: ../iw/partition_dialog_gui.py:397
 msgid "_End Cylinder:"
-msgstr "_Eind-cylinder:"
+msgstr "_Eindcylinder:"
 
 #: ../iw/partition_dialog_gui.py:448
 msgid "Force to be a _primary partition"
@@ -3871,7 +3867,7 @@ msgstr "Geen"
 
 #: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:368
 msgid "Hard Drives"
-msgstr "Harde Schijven"
+msgstr "Harde schijven"
 
 #: ../iw/partition_gui.py:855 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
@@ -3902,7 +3898,7 @@ msgstr "Waarschuwing: %s."
 
 #: ../iw/partition_gui.py:995
 msgid "_Modify Partition"
-msgstr "Partitie _Aanpassen"
+msgstr "Partitie _aanpassen"
 
 #: ../iw/partition_gui.py:1173 ../iw/partition_gui.py:1187
 msgid "Not supported"
@@ -3984,12 +3980,11 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1293
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Kon de Stations Kloon Editor niet maken."
+msgstr "Kon de 'Stationskloon-editor' niet aanmaken."
 
 #: ../iw/partition_gui.py:1294
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"De stations kloon editor kon om een of andere reden niet gemaakt worden."
+msgstr "De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
 
 #: ../iw/partition_gui.py:1341
 msgid "_Reset"
@@ -5116,7 +5111,7 @@ msgstr "Geen firewall"
 
 #: ../textw/firewall_text.py:73
 msgid "Trusted Devices:"
-msgstr "Betrouwbare verbindingen:"
+msgstr "Veilige verbindingen:"
 
 #: ../textw/firewall_text.py:85
 msgid "Allow incoming:"
@@ -5576,7 +5571,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1160
 msgid "No Root Partition"
-msgstr "Geen Root Partitie"
+msgstr "Geen root-partitie"
 
 #: ../textw/partition_text.py:1161
 msgid "Must have a / partition to install on."
@@ -5746,7 +5741,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
-msgstr "Root Wachtwoord"
+msgstr "root-wachtwoord"
 
 #: ../textw/userauth_text.py:31
 msgid ""

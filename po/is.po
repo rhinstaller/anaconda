@@ -2070,6 +2070,9 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"Það er ekki hægt að uppfæra þær útgáfur af stýrikerfinu sem nota eldri "
+"útgáfur af rpm en 4.x. Vinsamlegast settu inn rpm uppfærslurnar fyrir "
+"núverandi stýrikerfi og reyndu svo að uppfæra aftur."
 
 #: ../upgrade.py:385
 msgid "An error occurred when finding the packages to upgrade."
@@ -5438,7 +5441,7 @@ msgstr ""
 
 #: ../textw/partition_text.py:1125
 msgid "New"
-msgstr "Nýr"
+msgstr "Ný"
 
 #: ../textw/partition_text.py:1131
 msgid ""

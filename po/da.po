@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2003-02-14 17:59-0500\n"
-"PO-Revision-Date: 2003-01-31 19:50+0100\n"
+"PO-Revision-Date: 2003-02-15 19:50+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -2069,6 +2069,9 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"Installationsprogrammet kan ikke opgradere systemer med en præ-rpm 4.x-"
+"database. Installér derfor rettelsespakkerne til rpm til din udgave "
+"som beskrevet i udgivelsesnoterne, og kør så opgraderingsproceduren."
 
 #: ../upgrade.py:385
 msgid "An error occurred when finding the packages to upgrade."
@@ -6068,15 +6071,14 @@ msgid "Video RAM:"
 msgstr "Skærm RAM:"
 
 #: ../textw/zipl_text.py:22
-#, fuzzy
 msgid ""
 "The z/IPL Boot Loader will be installed on your system after installation is "
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"Startprogrammet z/IPL vil installeres på dit system efter det at "
-"installationerne er færdige. Du kan nu angive eventuelle yderligere kerne- "
-"og chandev-parametre som din maskine eller din konfiguration måske kræver."
+"Startprogrammet z/IPL vil blive installeret på dit system efter at "
+"installationen er færdig. Du kan nu indtaste eventuelle yderligere kerne- "
+"og chandev-parametre som din maskine eller din konfiguration monne kræve."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -7603,9 +7605,8 @@ msgid "Portuguese"
 msgstr "Portugisisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brazilian)"
-msgstr "Portugisisk (Basiliansk)"
+msgstr "Portugisisk (Brasiliansk)"
 
 #. generated from lang-table
 msgid "Russian"
