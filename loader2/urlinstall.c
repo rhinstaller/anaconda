@@ -22,6 +22,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "../isys/getmacaddr.h"
+
 #include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"

@@ -432,7 +432,6 @@ int httpGetFileDesc(char * hostname, int port, char * remotename, char *extraHea
     struct in_addr serverAddress;
     int sock;
     int rc;
-    int hlen;
     struct sockaddr_in destPort;
     fd_set readSet;
 
