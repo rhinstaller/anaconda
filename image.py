@@ -13,7 +13,7 @@ from log import log
 
 class ImageInstallMethod(InstallMethod):
 
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	return ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h, timer):
@@ -25,10 +25,8 @@ class ImageInstallMethod(InstallMethod):
     def mergeFullHeaders(self, hdlist):
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 
-    def writeCleanupPath(self, f):
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
+    def getSourcePath(self):
+        return self.tree
 
     def __init__(self, tree):
 	InstallMethod.__init__(self)
@@ -155,14 +153,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	except SystemError:
 	    pass
 
-    def writeCleanupPath(self, f):
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	isys.makeDevInode(self.device, "/tmp/cdrom")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
-	f.write("umount /mnt/source\n")
-	f.write("eject /tmp/cdrom\n")
-
     def __init__(self, url, messageWindow, progressWindow):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow
@@ -175,3 +165,102 @@ class NfsInstallMethod(ImageInstallMethod):
 
     def __init__(self, tree):
 	ImageInstallMethod.__init__(self, tree)
+
+def findIsoImages(path, messageWindow):
+    files = os.listdir(path)
+    arch = iutil.getArch()
+    discImages = {}
+
+    print "need to look at", files
+
+    for file in files:
+	what = path + '/' + file
+	if not isys.isIsoImage(what): continue
+
+	isys.makeDevInode("loop2", "/tmp/loop2")
+
+	try:
+	    isys.losetup("/tmp/loop2", what, readOnly = 1)
+	except SystemError:
+	    continue
+
+	try:
+	    isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660",
+		       readOnly = 1)
+	    for num in range(1, 10):
+		discTag = "/mnt/cdimage/.disc%d-%s" % (num, arch)
+		if os.access(discTag, os.R_OK):
+		    import stat
+
+		    # warn user if images appears to be wrong size
+		    if os.stat(what)[stat.ST_SIZE] % 2048:
+			rc = messageWindow(_("Warning"),
+	       "The ISO image %s has a size which is not "
+	       "a multiple of 2048 bytes.  This may mean "
+	       "it was corrupted on transfer to this computer."
+	       "\n\nPress OK to continue (but installation will "
+	       "probably fail), or Cancel to exit the "
+	       "installer (RECOMMENDED). " % file, type = "okcancel")
+			if rc:
+			    import sys
+			    sys.exit(0)
+
+		    discImages[num] = file
+
+	    isys.umount("/mnt/cdimage")
+	except SystemError:
+	    pass
+
+	isys.makeDevInode("loop2", '/tmp/' + "loop2")
+	isys.unlosetup("/tmp/loop2")
+
+    return discImages
+
+class NfsIsoInstallMethod(NfsInstallMethod):
+
+    def getFilename(self, h, timer):
+	if self.imageMounted != h[1000002]:
+	    self.umountImage()
+	    self.mountImage(h[1000002])
+
+	return self.mntPoint + "/RedHat/RPMS/" + h[1000000]
+
+    def umountImage(self):
+	if self.imageMounted:
+	    isys.umount(self.mntPoint)
+	    isys.makeDevInode("loop3", "/tmp/loop3")
+	    isys.unlosetup("/tmp/loop3")
+	    self.mntPoint = None
+	    self.imageMounted = 0
+
+    def mountImage(self, cdNum):
+	if (self.imageMounted):
+	    raise SystemError, "trying to mount already-mounted iso image!"
+
+	isoImage = self.isoPath + '/' + self.discImages[cdNum]
+
+	isys.makeDevInode("loop3", "/tmp/loop3")
+	isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
+	
+	isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
+	self.mntPoint = "/tmp/isomedia/"
+	self.imageMounted = cdNum
+
+    def filesDone(self):
+	self.umountImage()
+
+    def __init__(self, tree, messageWindow):
+	self.imageMounted = None
+	self.isoPath = tree
+
+	# the tree points to the directory that holds the iso images
+	# even though we already have the main one mounted once, it's
+	# easiest to just mount it again so that we can treat all of the
+	# images the same way -- we use loop3 for everything
+
+	self.discImages = findIsoImages(tree, messageWindow)
+	print "found", self.discImages, "in tree", tree
+	self.mountImage(1)
+
+	ImageInstallMethod.__init__(self, self.mntPoint)
+

@@ -2,6 +2,7 @@
 
 from comps import ComponentSet, HeaderList, HeaderListFromFile
 from installmethod import InstallMethod
+from image import findIsoImages
 import os
 import isys
 import iutil
@@ -39,7 +40,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isMounted = 0
 	
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	self.mountMedia()
 	cs = ComponentSet(self.tree + self.path + 
                           '/RedHat/base/comps', hdlist)
@@ -146,7 +147,7 @@ class HardDriveInstallMethod(InstallMethod):
 	    self.tree = None
 	    self.isoDirIsMounted = 0
 	
-    def readComps(self, hdlist):
+    def readCompsViaMethod(self, hdlist):
 	self.mountMedia(1)
 	cs = ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 	self.umountMedia()
@@ -202,55 +203,11 @@ class HardDriveInstallMethod(InstallMethod):
 	self.fnames = {}
         self.isoDirIsMounted = 0
         self.mediaIsMounted = 0
-	self.discImages = {}
 	self.messageWindow = messageWindow
 
 	# Go ahead and poke through the directory looking for interesting
 	# iso images
 	self.mountDirectory()
-	files = os.listdir(self.isoDir + '/' + self.path)
-
-	arch = iutil.getArch()
-
-	for file in files:
-	    what = self.isoDir + '/' + self.path + '/' + file
-	    if not isys.isIsoImage(what): continue
-
-	    isys.makeDevInode("loop2", "/tmp/loop2")
-
-	    try:
-		isys.losetup("/tmp/loop2", what, readOnly = 1)
-	    except SystemError:
-		continue
-
-	    try:
-		isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660",
-			   readOnly = 1)
-		for num in range(1, 10):
-		    discTag = "/mnt/cdimage/.disc%d-%s" % (num, arch)
-		    if os.access(discTag, os.R_OK):
-                        import stat
-
-                        # warn user if images appears to be wrong size
-                        if os.stat(what)[stat.ST_SIZE] % 2048:
-                            rc = messageWindow(_("Warning"),
-                                               "The ISO image %s has a size which is not "
-                                               "a multiple of 2048 bytes.  This may mean "
-                                               "it was corrupted on transfer to this computer."
-                                               "\n\nPress OK to continue (but installation will "
-                                               "probably fail), or Cancel to exit the "
-                                               "installer (RECOMMENDED). " % file, type = "okcancel")
-                            if rc:
-                                import sys
-                                sys.exit(0)
-
-                        self.discImages[num] = file
-
-		isys.umount("/mnt/cdimage")
-	    except SystemError:
-		pass
-
-	    isys.makeDevInode("loop2", '/tmp/' + "loop2")
-	    isys.unlosetup("/tmp/loop2")
+	self.discImages = findIsoImages(self.isoDir + '/' + self.path, messageWindow)
 
 	self.umountDirectory()
