@@ -15,8 +15,8 @@ class InstallMethod:
 	isys.makeDevInode(self.device, '/tmp/' + self.device)
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
 		   fstype = self.fstype);
-	cs = ComponentSet('i386', "/tmp/hdimage/" + self.path + 
-		'/RedHat/base/comps', hdlist)
+	cs = ComponentSet("/tmp/hdimage/" + self.path + 
+                          '/RedHat/base/comps', hdlist)
 	isys.umount("/tmp/hdimage")
 	return cs
 

@@ -1,6 +1,7 @@
 import rpm
 from string import *
 import types
+import iutil
 import urllib
 
 class Package:
@@ -110,7 +111,8 @@ class ComponentSet:
     def keys(self):
 	return self.compsDict.keys()
 
-    def readCompsFile(self, arch, filename, packages):
+    def readCompsFile(self, filename, packages):
+        arch = iutil.getArch ()
 	file = urllib.urlopen(filename)
 	lines = file.readlines()
 
@@ -184,7 +186,7 @@ class ComponentSet:
 	    
 	return s
 
-    def __init__(self, arch, file, hdlist):
+    def __init__(self, file, hdlist):
 	self.list = []
 	self.packages = hdlist
-	self.readCompsFile(arch, file, self.packages)
+	self.readCompsFile(file, self.packages)

@@ -504,9 +504,14 @@ class ToDo:
         fstab = {}
         for line in lines:
             fields = string.split (line)
-            if fields and fields[2] == "ext2" or fields[2] == "swap" \
-               and fields[3] == "defaults":
-                fstab[fields[1]] = (fields[0][5:], fields[2], 0)
+            # skip comments
+            if fields and fields[0][0] == '#':
+                continue
+            # all valid fstab entries have 6 fields
+            if len (fields) == 6:
+                if fields and fields[2] == "ext2" or fields[2] == "swap" \
+                   and fields[3] == "defaults":
+                    fstab[fields[1]] = (fields[0][5:], fields[2], 0)
         return fstab
 
     def writeLanguage(self):

@@ -20,9 +20,8 @@ FILENAME = 1000000
 class InstallMethod:
 
     def readComps(self, hdlist):
-	return ComponentSet('i386', self.baseUrl +
-		'/RedHat/base/comps', hdlist)
-	return cs
+	return ComponentSet(self.baseUrl + '/RedHat/base/comps',
+                            hdlist)
 
     def getFilename(self, h):
 	root = "/mnt/sysimage"

@@ -1,6 +1,17 @@
 
 import types, os, sys, isys, select
 
+def getArch ():
+    arch = os.uname ()[4]
+    if (len (arch) == 4 and arch[0] == 'i' and
+        arch[2:3] == "86"):
+        arch = "i386"
+
+    if arch == "sparc64":
+        arch = "sparc"
+
+    return arch
+
 def getfd(filespec, readOnly = 0):
     if type(filespec) == types.IntType:
 	return filespec

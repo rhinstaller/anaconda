@@ -5,7 +5,7 @@ from comps import ComponentSet, HeaderListFromFile
 class InstallMethod:
 
     def readComps(self, hdlist):
-	return ComponentSet('i386', self.tree + '/RedHat/base/comps', hdlist)
+	return ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
