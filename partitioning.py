@@ -886,6 +886,9 @@ class Partitions:
     # or is a member of the RAID request returned by getBootableRequest
     def isBootable(self, request):
         bootreq = self.getBootableRequest()
+        if not bootreq:
+            return 0
+        
         if bootreq == request:
             return 1
 
