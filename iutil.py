@@ -419,6 +419,33 @@ def copyDeviceNode(src, dest):
 
     isys.mknod(dest, mode | type, filestat.st_rdev)
 
+# make the device-mapper control node
+def makeDMNode():
+    major = minor = None
+
+    for (fn, devname, val) in ( ("/proc/devices", "misc", "major"),
+                                ("/proc/misc", "device-mapper", "minor") ):
+        f = open(fn)
+        lines = f.readlines()
+        f.close()
+        for line in lines:
+            try:
+                (num, dev) = line.strip().split(" ")
+            except:
+                continue
+            if dev == devname:
+                s = "%s = int(num)" %(val,)
+                exec s
+                break
+
+#    print "major is %s, minor is %s" %(major, minor)
+    if major is None or minor is None:
+        return
+    mkdirChain("/dev/mapper")
+    isys.mknod("/dev/mapper/control", stat.S_IFCHR | 0600,
+               isys.makedev(major, minor))
+
+
 # make the device nodes for all of the drives on the system
 def makeDriveDeviceNodes():
     import raid
@@ -452,6 +479,9 @@ def makeDriveDeviceNodes():
     for mdMinor, devices, level, numdisks in mdlist:
         md = "md%d" %(mdMinor,)
         isys.makeDevInode(md, "/dev/%s" %(md,))
+
+    # make the node for the device mapper
+    makeDMNode()
     
 def needsEnterpriseKernel():
     rc = 0
