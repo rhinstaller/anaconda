@@ -1009,10 +1009,12 @@ class ToDo:
 
         # new package dependency fixup
         deps = self.verifyDeps ()
+        while deps and self.canResolveDeps (deps):
+            for (name, suggest) in deps:
+                log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
+            self.selectDeps (deps)
+            deps = self.verifyDeps ()
 
-        for (name, suggest) in deps:
-            log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
-        self.selectDeps (deps)
         win.pop ()
 
     def rpmError (todo):
