@@ -495,7 +495,7 @@ class NetworkWindow(InstallWindow):
 
 
         # figure out if they have overridden using dhcp for hostname
-	print self.anyUsingDHCP()
+	# print self.anyUsingDHCP()
 	if self.anyUsingDHCP():
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 		self.hostnameManual.set_active(1)
