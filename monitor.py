@@ -207,6 +207,9 @@ class MonitorInfo:
                 (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + fbDevice)
                 self.fbmonSect = monitor
                 self.fbmonMode = {}
+                if int(depth) == 24:
+                    depth = 32
+                
                 self.fbmonMode[str(depth)] = [str(mode)]
             except:
                 pass
