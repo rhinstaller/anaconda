@@ -935,6 +935,14 @@ class PartitionWindow(InstallWindow):
             # see if device is in our partition requests, remove
             request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
             if request:
+                if request.type == REQUEST_PROTECTED:
+                    dialog = GnomeWarningDialog(_("You cannot remove this "
+                           "partition, as it is holding the data for the "
+                           "hard drive install."))
+                    dialog.set_position(WIN_POS_CENTER)
+                    dialog.run()
+                    return
+                
                 if self.partitions.isRaidMember(request):
                     dialog = GnomeWarningDialog(_("You cannot remove this "
                            "partition, as it is part of a RAID device."))
@@ -1027,6 +1035,14 @@ class PartitionWindow(InstallWindow):
         request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
 
         if request:
+            if request.type == REQUEST_PROTECTED:
+                dialog = GnomeWarningDialog(_("You cannot remove this "
+                       "partition, as it is holding the data for the "
+                       "hard drive install."))
+                dialog.set_position(WIN_POS_CENTER)
+                dialog.run()
+                return
+
             if self.partitions.isRaidMember(request):
                 dialog = GnomeWarningDialog(_("You cannot edit this "
                           "partition, as it is part of a RAID device."))
@@ -1036,7 +1052,7 @@ class PartitionWindow(InstallWindow):
             else:
                 self.editPartitionRequest(request)
         else:
-            raise ValueError, "Editting a non-existenent partition"
+            raise ValueError, "Editing a non-existent partition"
 
     def editRaidDevice(self, raidrequest):
         #

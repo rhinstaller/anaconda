@@ -136,6 +136,18 @@ def fitConstrained(diskset, requests, primOnly=0):
     return PARTITION_SUCCESS
 
 
+# get the list of the "best" drives to try to use...
+# if currentdrive is set, use that, else use the drive list, or use
+# all the drives
+def getDriveList(request, diskset):
+    if request.currentDrive:
+        return request.currentDrive
+    elif request.drive:
+        return request.drive
+    else:
+        return diskset.disks.keys()
+    
+
 # fit partitions of a specific size with or without a specific disk
 # into the freespace
 def fitSized(diskset, requests, primOnly = 0):
@@ -148,12 +160,11 @@ def fitSized(diskset, requests, primOnly = 0):
             continue
         if primOnly and not request.primary:
             continue
-        if not request.drive:
-            request.drive = diskset.disks.keys()
-        if not todo.has_key(len(request.drive)):
-            todo[len(request.drive)] = [ request ]
+        drives = getDriveList(request, diskset)
+        if not todo.has_key(len(drives)):
+            todo[len(drives)] = [ request ]
         else:
-            todo[len(request.drive)].append(request)
+            todo[len(drives)].append(request)
 
     number = todo.keys()
     number.sort()
@@ -163,9 +174,10 @@ def fitSized(diskset, requests, primOnly = 0):
         for request in todo[num]:
 #            print "\nInserting ->",request
             largestPart = (0, None)
-            request.drive.sort()
+            drives = getDriveList(request, diskset)            
+            drives.sort()
 #            print "Trying drives to find best free space out of", free
-            for drive in request.drive:
+            for drive in drives:
 #                print "Trying drive", drive
                 disk = diskset.disks[drive]
 
@@ -254,8 +266,6 @@ def growParts(diskset, requests):
         if request.type != REQUEST_NEW:
             continue
 
-        request.drive = [request.currentDrive]
-            
         if request.grow:
             if not growable.has_key(request.currentDrive):
                 growable[request.currentDrive] = [ request ]
@@ -370,7 +380,7 @@ def growParts(diskset, requests):
 
 def setPreexistParts(diskset, requests):
     for request in requests:
-        if request.type != REQUEST_PREEXIST:
+        if request.type != REQUEST_PREEXIST or request.type != REQUEST_PROTECTED:
             continue
         disk = diskset.disks[request.drive]
         part = disk.next_partition()
@@ -397,6 +407,7 @@ def processPartitioning(diskset, requests):
     for request in requests.requests:
         if request.type == REQUEST_NEW:
             request.device = None
+            request.currentDrive = None
 
     # XXX - handle delete requests
     for delete in requests.deletes:

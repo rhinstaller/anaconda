@@ -31,10 +31,14 @@ from log import log
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
 # REQUEST_NEW is a request for a partition which will be automatically
 #              created based on various constraints on size, drive, etc
+# REQUEST_RAID is a request for a raid device
+# REQUEST_PROTECTED is a preexisting partition which can't change
+#              (harddrive install, harddrive with the isos on it)
 #
 REQUEST_PREEXIST = 1
 REQUEST_NEW = 2
 REQUEST_RAID = 4
+REQUEST_PROTECTED = 8
 
 fsTypes = {}
 
@@ -829,4 +833,9 @@ def partitionMethodSetup(id, dispatch):
     # read in drive info
     id.diskset = DiskSet()
     id.partrequests = PartitionRequests(id.diskset)
-    
+
+    protected = dispatch.method.protectedPartitions()
+    if protected:
+        for device in protected:
+            request = id.partrequests.getRequestByDeviceName(device)
+            request.type = REQUEST_PROTECTED

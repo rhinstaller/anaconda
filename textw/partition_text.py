@@ -671,6 +671,11 @@ class PartitionWindow:
 
         request = self.partitions.getRequestByDeviceName(get_partition_name(part))
         if request:
+            if request.type == REQUEST_PROTECTED:
+                ButtonChoiceWindow(self.screen, _("You cannot edit this "
+                          "partition, as it is part of a RAID device."),
+                                   buttons = [ TEXT_OK_BUTTON ] )
+                return
             if self.partitions.isRaidMember(request):
                 ButtonChoiceWindow(self.screen, _("Unable to Remove"),
                                    _("You cannot remove this partition "
@@ -705,6 +710,12 @@ class PartitionWindow:
         
 
         if request:
+            if request.type == REQUEST_PROTECTED:
+                ButtonChoiceWindow(self.screen, _("You cannot edit this "
+                          "partition, as it is part of a RAID device."),
+                                   buttons = [ TEXT_OK_BUTTON ] )
+                return
+            
             if self.partitions.isRaidMember(request):
                 ButtonChoiceWindow(self.screen, _("Unable to Remove"),
                                    _("You cannot remove this partition "
