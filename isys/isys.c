@@ -1514,8 +1514,8 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     int rc;
 
     if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
-    /* ! returns proper true/false */
-    rc = !fileIsIso(fn);
+
+    rc = fileIsIso(fn);
     
     return Py_BuildValue("i", rc);
 }
