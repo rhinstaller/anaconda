@@ -143,26 +143,23 @@ class BaseInstallClass:
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
             dispatch.skipStep("fdasd", permanent = 1)
-        elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-	    #dispatch.skipStep("language")
+	elif iutil.getArch() == "s390":
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("mouse", permanent = 1)
-
-            dispatch.skipStep("partitionmethod", permanent = 1)
-            dispatch.skipStep("autopartition", permanent = 1)
-            dispatch.skipStep("autopartitionexecute", permanent = 1)
-            dispatch.skipStep("fdisk", permanent = 1)
-
+	    dispatch.skipStep("partitionmethod", permanent = 1)
+	    dispatch.skipStep("autopartition", permanent = 1)
+	    dispatch.skipStep("autopartitionexecute", permanent = 1)
+	    dispatch.skipStep("fdisk", permanent = 1)
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("monitor", permanent = 1)
 	    dispatch.skipStep("xcustom", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
-            
-            dispatch.skipStep("bootdisk", permanent = 1)
-        else:
-            dispatch.skipStep("fdasd", permanent = 1)
-            
+	    dispatch.skipStep("writeksconfig", permanent = 1)
+	    dispatch.skipStep("bootdisk", permanent = 1)
+	else:
+	    dispatch.skipStep("fdasd", permanent = 1)
+
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist):
 	pass
@@ -423,11 +420,11 @@ class BaseInstallClass:
 	    
 	    if resolution not in availableRes:
                  fbres = availableRes[-1]
-                 log("Resolution requested %s is not supported.",resolution)
-		 log("Falling back to %s.", fbres)
-		 log("To avoid this you may need to specify the videocard and ")
-		 log("monitor specs on the xconfig ks directive if they were ")
-		 log("not probed correctly.")
+                 log(_("Resolution requested %s is not supported."),resolution)
+		 log(_("Falling back to %s."), fbres)
+		 log(_("To avoid this you may need to specify the videocard and "))
+		 log(_("monitor specs on the xconfig ks directive if they were "))
+		 log(_("not probed correctly."))
 		 resolution = fbres
 		 
 	    xcfg.set_resolution(resolution)
