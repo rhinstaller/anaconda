@@ -1360,14 +1360,14 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 	}
 
-	close (fd);
-	
 	if ((rc = balkanReadTable(fd, &partTable))) {
 	    logMessage("failed to read partition partTable for "
 		       "device %s: %d", kd->known[i].name, rc);
 	    return NULL;
 	}
 
+	close (fd);
+	
 	partNum = atoi(partname + 3) - 1;
 	if (partTable.maxNumPartitions < partNum ||
 	    partTable.parts[partNum].type == -1) {
