@@ -924,7 +924,7 @@ class ToDo:
         if hasX and not hasgmc:
             self.log ("Has X but not GNOME")
             for package in self.comps['GNOME'].items.keys ():
-                rec = db.findbyname (package)
+                rec = db.findbyname (package.name)
                 if not rec:
                     self.log ("GNOME: Adding %s", package)
                     self.comps['GNOME'].items[package].selected = 1
