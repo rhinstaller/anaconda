@@ -17,13 +17,16 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table lang-names product.py
+all:  subdirs mini-wm _xkb.so xmouse.so $(CATALOGS) lang-table lang-names product.py
 
 product.py: product.py.in Makefile.inc
 	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
 
 lang-names: lang-table
 	PYTHONPATH="iconvmodule:." $(PYTHON) scripts/getlangnames.py > lang-names
+
+mini-wm: mini-wm.c
+	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
@@ -68,6 +71,9 @@ install:
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 644 anaconda.conf $(DESTDIR)/$(ANACONDADATADIR)
+
+	install -m 755 mini-wm $(DESTDIR)/usr/bin/mini-wm
+
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-names $(DESTDIR)/$(PYTHONLIBDIR)
