@@ -10,12 +10,12 @@ if sys.argv[1] == "--syslogd":
     output = sys.argv[3]
     syslog = Syslogd (root, open (output, "w+"))
 
-if (os.path.exists('isys')):
-    sys.path.append('isys')
-
 import gettext
 import traceback
 import string
+
+if (os.path.exists('isys')):
+    sys.path.append('isys')
 
 import isys
 import iutil
@@ -30,7 +30,8 @@ _ = gettext.gettext
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=',
-	    'expert', 'serial' ])
+	    'serial',
+	    'expert'])
 
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
@@ -49,7 +50,6 @@ traceOnly = 0
 mouseInfo = None
 x = None
 kickstart = None
-serial = 0
 expert = 0
 lang = None
 keymap = None
@@ -84,8 +84,6 @@ for n in args:
 	traceOnly = 1
     elif (str == '--expert'):
 	expert = 1
-    elif (str == '--serial'):
-	serial = 1
     elif (str == '--lang'):
         lang = arg
     elif (str == '--keymap'):
@@ -209,6 +207,7 @@ if forceMount:
 
 if kickstart:
     instClass = Kickstart(kickstart)
+    os.unlink(kickstart)
 else:
     instClass = DefaultInstall()
 
@@ -220,19 +219,10 @@ if keymap:
     instClass.addToSkipList("keyboard")
     instClass.setKeyboard(keymap)
 
-if iutil.getArch() == "sparc":
-    import kudzu
-    mice = kudzu.probe (kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, kudzu.PROBE_ONE);
-    if mice:
-	(mouseDev, driver, descr) = mice[0]
-	if mouseDev == 'sunmouse':
-	    instClass.addToSkipList("mouse")
-	    instClass.setMouseType("Sun - Mouse", "sunmouse")
-
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass, x = x, expert = expert, serial = serial,
+		instClass = instClass, x = x, expert = expert,
 		extraModules = extraModules)
     intf.run(todo, test = test)
 except:
