@@ -966,8 +966,12 @@ def doPostInstall(method, id, intf, instPath):
                     log("Mount of /proc/bus/usb in chroot failed")
                     pass
 
-
                 argv = [ "/usr/sbin/kudzu", "-q" ]
+                if id.hdlist.has_key("kernel"):
+                    ver = "%s-%s" %(id.hdlist["kernel"][rpm.RPMTAG_VERSION],
+                                    id.hdlist["kernel"][rpm.RPMTAG_RELEASE])
+                    argv.extend(["-k", ver])
+                
                 devnull = os.open("/dev/null", os.O_RDWR)
                 iutil.execWithRedirect(argv[0], argv, root = instPath,
                                        stdout = devnull)
