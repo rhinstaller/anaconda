@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2001-02-14 14:30-0500\n"
+"POT-Creation-Date: 2001-02-19 18:55-0500\n"
 "PO-Revision-Date: 2001-01-30 17:00+1\n"
 "Last-Translator: Tullio Dovera <tdovera@redhat.it>\n"
 "Language-Team: Spanish <es@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8959-1\n"
 "Content-Transfer-Encoding: ascii\n"
 
-#: ../comps.py:493
+#: ../comps.py:490
 msgid "Everything"
 msgstr "Todo"
 
@@ -57,7 +57,8 @@ msgstr ""
 "Pulse OK para continuar, o Cancelar para volver atrás y seleccionar las "
 "particiones formateadas (RECOMENDADO)."
 
-#: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
+#: ../fstab.py:74 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
+#: ../iw/rootpartition_gui.py:97
 msgid "Warning"
 msgstr "Aviso"
 
@@ -90,7 +91,7 @@ msgstr ""
 "disco de arranque de Red Hat ahora y pulse \"Ok\" para arrancar de nuevo su "
 "sistema. \n"
 
-#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1210
+#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1209
 msgid "Formatting"
 msgstr "Formateo"
 
@@ -127,7 +128,7 @@ msgstr ""
 "Creación de un sistema de archivos de bucle local (loopback) en el "
 "dispositivo /dev/%s..."
 
-#: ../fstab.py:773 ../fstab.py:1211
+#: ../fstab.py:773 ../fstab.py:1210
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formateo del sistema de archivos %s ..."
@@ -147,7 +148,7 @@ msgstr ""
 "formateada\n"
 "Pulse OK para volver a arrancar su sistema"
 
-#: ../gui.py:173
+#: ../gui.py:176
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -157,7 +158,7 @@ msgstr ""
 "Por favor copie el texto entero de esta excepción y registre el informe "
 "sobre el error en http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:313 ../text.py:944
+#: ../gui.py:316 ../text.py:944
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -165,11 +166,11 @@ msgstr ""
 "Por favor, introduzca un disco. El contenido de éste será borrado, de modo "
 "que, por favor, elija el disco cuidadosamente."
 
-#: ../gui.py:404 ../gui.py:768
+#: ../gui.py:412 ../gui.py:779
 msgid "Next"
 msgstr "Siguiente"
 
-#: ../gui.py:405 ../gui.py:767 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:413 ../gui.py:778 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
@@ -199,59 +200,59 @@ msgstr "Siguiente"
 msgid "Back"
 msgstr "Anterior"
 
-#: ../gui.py:406 ../gui.py:773
+#: ../gui.py:414 ../gui.py:784
 msgid "Show Help"
 msgstr "Mostrar Ayuda"
 
-#: ../gui.py:407 ../gui.py:772
+#: ../gui.py:415 ../gui.py:783
 msgid "Hide Help"
 msgstr "Esconder Ayuda"
 
-#: ../gui.py:408 ../gui.py:771
+#: ../gui.py:416 ../gui.py:782
 msgid "Finish"
 msgstr "Terminar"
 
-#: ../gui.py:411 ../gui.py:803
+#: ../gui.py:419 ../gui.py:814
 msgid "Online Help"
 msgstr "Ayuda en línea"
 
-#: ../gui.py:412 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:420 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:63 ../text.py:1016 ../text.py:1049
 msgid "Language Selection"
 msgstr "Selección del idioma"
 
-#: ../gui.py:514 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1387
-#: ../libfdisk/gnomefsedit.c:1404
+#: ../gui.py:527 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../gui.py:519 ../gui.py:770
+#: ../gui.py:532 ../gui.py:781
 msgid "Release Notes"
 msgstr "Notas de Última Hora"
 
-#: ../gui.py:550
+#: ../gui.py:563
 msgid "Unable to load file!"
 msgstr "¡Ha sido imposible cargar el archivo!"
 
-#: ../gui.py:691
+#: ../gui.py:702
 msgid "Red Hat Linux Installer"
 msgstr "Instalador de Red Hat Linux"
 
-#: ../gui.py:695
+#: ../gui.py:706
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell de Instalación de Red Hat Linux"
 
-#: ../gui.py:706
+#: ../gui.py:717
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Intalador de Red Hat Linux en %s"
 
-#: ../gui.py:707
+#: ../gui.py:718
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell de Instalación de Red Hat Linux en %s"
 
-#: ../gui.py:852
+#: ../gui.py:863
 msgid "Install Window"
 msgstr "Instalar ventana"
 
@@ -318,7 +319,7 @@ msgstr "No se puede instalar el CDROM."
 #: ../text.py:222 ../text.py:305 ../text.py:378 ../text.py:425 ../text.py:443
 #: ../text.py:485 ../text.py:514 ../text.py:600 ../text.py:612 ../text.py:641
 #: ../text.py:662 ../text.py:832 ../text.py:886 ../text.py:912 ../text.py:938
-#: ../text.py:946 ../text.py:961 ../text.py:1203 ../textw/bootdisk_text.py:52
+#: ../text.py:946 ../text.py:961 ../text.py:1205 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -413,20 +414,20 @@ msgstr "El sistema está montado bajo el directorio /mnt/sysimage."
 #: ../libfdisk/fsedit.c:932 ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968
 #: ../libfdisk/fsedit.c:981 ../libfdisk/fsedit.c:991 ../libfdisk/fsedit.c:1020
 #: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1047
-#: ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:755
-#: ../libfdisk/gnomefsedit.c:787 ../libfdisk/gnomefsedit.c:878
-#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:1261
-#: ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:1332
-#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:1525
-#: ../libfdisk/gnomefsedit.c:1600 ../libfdisk/gnomefsedit.c:1650
-#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1736
-#: ../libfdisk/gnomefsedit.c:2014 ../libfdisk/gnomefsedit.c:2023
-#: ../libfdisk/gnomefsedit.c:2269 ../libfdisk/gnomefsedit.c:2277
-#: ../libfdisk/gnomefsedit.c:2321 ../libfdisk/gnomefsedit.c:2331
-#: ../libfdisk/gnomefsedit.c:2338 ../libfdisk/gnomefsedit.c:2353
-#: ../libfdisk/gnomefsedit.c:2363 ../libfdisk/gnomefsedit.c:2373
-#: ../libfdisk/gnomefsedit.c:2412 ../libfdisk/gnomefsedit.c:2543
-#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
+#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
+#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
 #: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 #: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
@@ -525,10 +526,10 @@ msgstr ""
 "gustaría personalizar el grupo de paquetes que deben ser actualizados?"
 
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
-#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -540,10 +541,10 @@ msgid "Yes"
 msgstr "Sí"
 
 #: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
-#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -593,8 +594,8 @@ msgstr ""
 "\n"
 "Para salir sin cambiar la configuración, seleccione el botón Cancelar."
 
-#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
-#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:578
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:530 ../loader/loader.c:2245 ../loader/pcmcia.c:104
 #: ../text.py:443 ../text.py:446 ../text.py:832 ../text.py:833 ../text.py:946
@@ -901,7 +902,7 @@ msgstr "Grupo de paquetes"
 msgid "Individual Packages"
 msgstr "Paquetes Individuales"
 
-#: ../text.py:1129 ../textw/packages_text.py:304
+#: ../text.py:1129 ../text.py:1156 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Dependencias de los paquetes"
 
@@ -917,7 +918,7 @@ msgstr "Empieza la instalación"
 msgid "Install System"
 msgstr "Instalar el sistema"
 
-#: ../text.py:1136 ../text.py:1138 ../text.py:1159 ../text.py:1161
+#: ../text.py:1136 ../text.py:1138 ../text.py:1161 ../text.py:1163
 msgid "Boot Disk"
 msgstr "Disco de arranque"
 
@@ -933,23 +934,23 @@ msgstr "Examinar sistema"
 msgid "Customize Upgrade"
 msgstr "Actualización personalizada"
 
-#: ../text.py:1156
+#: ../text.py:1158
 msgid "Upgrade Begins"
 msgstr "Empezar actualización"
 
-#: ../text.py:1158
+#: ../text.py:1160
 msgid "Upgrade System"
 msgstr "Sistema de actualización"
 
-#: ../text.py:1162
+#: ../text.py:1164
 msgid "Upgrade Complete"
 msgstr "Actualización Completada"
 
-#: ../text.py:1200
+#: ../text.py:1202
 msgid "Cancelled"
 msgstr "Cancelada"
 
-#: ../text.py:1201
+#: ../text.py:1203
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "No puede retroceder desde aquí. Tendrá que intentarlo de nuevo. "
 
@@ -1057,7 +1058,7 @@ msgstr ""
 "seleccionados. Necesita más espacio en los siguientes sistemas de archivo:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1781 ../todo.py:1797
+#: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1781 ../todo.py:1797
 msgid "Mount Point"
 msgstr "Punto de Montaje"
 
@@ -1560,7 +1561,7 @@ msgid "Lilo Configuration"
 msgstr "Configuración de Lilo"
 
 #: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3135
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Tipo"
 
@@ -1600,7 +1601,7 @@ msgid "Default"
 msgstr "Por defecto"
 
 #: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3132 ../textw/lilo_text.py:118
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
@@ -2712,7 +2713,7 @@ msgstr ""
 "Está a punto de borrar TODOS LOS DATOS del disco duro para hacer espacio a "
 "su instalación Linux."
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2673
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Estación de trabajo"
 
@@ -2920,25 +2921,25 @@ msgstr ""
 "fue particionada. Este error se puede corregir especificando la geometría de "
 "la unidad en la línea de comandos del kernel al arrancar el instalador."
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
-#: ../libfdisk/gnomefsedit.c:2049
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
+#: ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
 msgstr "<Partición de Swap>"
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:953
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
 msgstr "Partición RAID"
 
-#: ../libfdisk/gnomefsedit.c:744
+#: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr "No se ha podido encontrar la partición llamada %s\n"
 
-#: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
 msgid "Root partition"
 msgstr "Partición de Root"
 
-#: ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:757
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2949,7 +2950,7 @@ msgstr ""
 "partición /boot (50 MB es correcto) para permitir a la partición de root "
 "aumentar hasta completar el disco."
 
-#: ../libfdisk/gnomefsedit.c:788
+#: ../libfdisk/gnomefsedit.c:789
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2960,19 +2961,19 @@ msgstr ""
 "(50 MB es correcto) para permitir a la partición root aumentar hasta "
 "completar el disco."
 
-#: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr "Eliminar partición"
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr "¿Está seguro de querer eliminar la partición?"
 
-#: ../libfdisk/gnomefsedit.c:878 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
 msgstr "Las particiones no pueden ser modificadas"
 
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -2980,56 +2981,56 @@ msgstr ""
 "Ha definido el sistema de archivo '/'  en una partición no-ext2, por eso no "
 "puede modificar otras particiones."
 
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:903
-#: ../libfdisk/gnomefsedit.c:907 ../libfdisk/gnomefsedit.c:909
+#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
+#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr "Modificar partición"
 
-#: ../libfdisk/gnomefsedit.c:924 ../libfdisk/gnomefsedit.c:2032
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr "Punto de montaje:"
 
-#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "Tamaño (Megs)"
 
-#: ../libfdisk/gnomefsedit.c:998
+#: ../libfdisk/gnomefsedit.c:999
 msgid "Use remaining space?"
 msgstr "Usar espacio restante"
 
-#: ../libfdisk/gnomefsedit.c:1017 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr "Estado de la asignación"
 
-#: ../libfdisk/gnomefsedit.c:1021 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr "Éxito"
 
-#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr "Fallo"
 
-#: ../libfdisk/gnomefsedit.c:1036 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr "Motivo del fallo:"
 
-#: ../libfdisk/gnomefsedit.c:1050 ../libfdisk/gnomefsedit.c:2070
+#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr "Tipo de partición:"
 
-#: ../libfdisk/gnomefsedit.c:1133 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr "Unidades admisibles:"
 
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:2269
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr " Punto de Montaje Inexistente"
 
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -3037,13 +3038,13 @@ msgstr ""
 "No ha seleccionado un punto de montaje para esta partición.¿Está seguro de "
 "querer hacerlo?"
 
-#: ../libfdisk/gnomefsedit.c:1261 ../libfdisk/gnomefsedit.c:1298
-#: ../libfdisk/gnomefsedit.c:2277 ../libfdisk/newtfsedit.c:639
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr "Error en el punto de montaje"
 
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -3055,7 +3056,7 @@ msgstr ""
 "Borre los puntos de montaje y estará preparado para asignar '/' a esta "
 "partición."
 
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -3063,11 +3064,11 @@ msgstr ""
 "El punto de montaje requerido o es una de las rutas ilegales o ha sido ya "
 "utilizado. Por favor seleccione un punto de montaje válido."
 
-#: ../libfdisk/gnomefsedit.c:1332 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr "Tamaño erróneo"
 
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -3075,12 +3076,12 @@ msgstr ""
 "El tamaño requerido es ilegal. Asegúrese que el tamaño es mayor de 0 y está "
 "especificado en formato decimal (base 10)"
 
-#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:2412
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr "Tamaño de Swap erróneo"
 
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
+#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
 #: ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid ""
@@ -3090,7 +3091,7 @@ msgstr ""
 "Ha creado una partición swap demasiado grande. El tamaño máximo de una "
 "partición swap es de %ld Megabytes."
 
-#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3103,23 +3104,23 @@ msgstr ""
 "Megabytes. Está intentando crear una que tiene %ld Megabytes, lo que puede "
 "causar el fallo de la instalación."
 
-#: ../libfdisk/gnomefsedit.c:1374 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr "Aviso: Tamaño FS del root"
 
-#: ../libfdisk/gnomefsedit.c:1386
+#: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
 msgstr "No se especificó unidad(es)"
 
-#: ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1389
 msgid "You must constrain this partition to at least one drive."
 msgstr "Debe colocar esta partición en al menos un disco"
 
-#: ../libfdisk/gnomefsedit.c:1396 ../libfdisk/gnomefsedit.c:1403
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
 msgstr "No está sujeto a unidad RAID "
 
-#: ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:1399
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -3130,7 +3131,7 @@ msgstr ""
 "\n"
 "¿Está seguro que quiere hacer esto?"
 
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../libfdisk/gnomefsedit.c:1406
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -3138,11 +3139,11 @@ msgstr ""
 "Ha configurado una partición RAID sin asociar la partición a un sola unidad. "
 "Por favor seleccione una unidad para asociarla a la partición."
 
-#: ../libfdisk/gnomefsedit.c:1525 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
 msgstr "No puede añadir particiones"
 
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3152,11 +3153,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1600
+#: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
 msgstr "Entrada Incompleta de RAID"
 
-#: ../libfdisk/gnomefsedit.c:1601
+#: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -3168,11 +3169,11 @@ msgstr ""
 "lo componían. Por favor reconstruya el dispositivo raid con las particiones "
 "asignadas."
 
-#: ../libfdisk/gnomefsedit.c:1650
+#: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
 msgstr "No se puede eliminar /boot"
 
-#: ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1652
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
@@ -3181,12 +3182,12 @@ msgstr ""
 "\"/\" por un dispositivo no RAID."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr "Particiones no asignadas"
 
-#: ../libfdisk/gnomefsedit.c:1722 ../libfdisk/gnomefsedit.c:1732
+#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -3197,11 +3198,11 @@ msgstr ""
 "requeridas. Las particiones no asignadas se muestran a continuación, junto "
 "con las razones por las cuales no han sido asignadas."
 
-#: ../libfdisk/gnomefsedit.c:2014
+#: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
 msgstr "No puede modificar Raid"
 
-#: ../libfdisk/gnomefsedit.c:2015
+#: ../libfdisk/gnomefsedit.c:2016
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -3209,24 +3210,24 @@ msgstr ""
 "Puede definir el sistema de archivos '/' en una partición no-ext2, por ello "
 "no puede modificar dispositivos RAID."
 
-#: ../libfdisk/gnomefsedit.c:2115
+#: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
 msgstr "Dispositivo RAID: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2138
+#: ../libfdisk/gnomefsedit.c:2139
 msgid "RAID Type:"
 msgstr "Tipo RAID"
 
-#: ../libfdisk/gnomefsedit.c:2175
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
 msgstr "Particiones para matriz RAID"
 
-#: ../libfdisk/gnomefsedit.c:2270
+#: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr ""
 "No ha seleccionado un punto de montaje. Se requiere un punto de montaje."
 
-#: ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2279
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
@@ -3234,7 +3235,7 @@ msgstr ""
 "El punto de montaje requerido ya se está usando. Por favor seleccione un "
 "punto de montaje válido."
 
-#: ../libfdisk/gnomefsedit.c:2314
+#: ../libfdisk/gnomefsedit.c:2315
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -3246,23 +3247,23 @@ msgstr ""
 "\n"
 "Estos dispositivos son:"
 
-#: ../libfdisk/gnomefsedit.c:2321
+#: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
 msgstr "Iniciar desde RAID"
 
-#: ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
 msgstr "Dispositivo no RAID"
 
-#: ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
 msgstr "Necesita seleccionar un dispositivo RAID"
 
-#: ../libfdisk/gnomefsedit.c:2338
+#: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
 msgstr "Dispositivo Raid utilizado"
 
-#: ../libfdisk/gnomefsedit.c:2339
+#: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -3271,11 +3272,11 @@ msgstr ""
 "El dispositivo raid \"/dev/%s\" ya ha sido configurado como dispositivo "
 "raid. Por favor, seleccione otro."
 
-#: ../libfdisk/gnomefsedit.c:2352
+#: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
 msgstr "No hay suficientes particiones"
 
-#: ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2355
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
@@ -3283,19 +3284,19 @@ msgstr ""
 "No ha configurado suficientes particiones para el tipo de RAID que ha "
 "seleccionado."
 
-#: ../libfdisk/gnomefsedit.c:2362
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
 msgstr "Tipo ilegal /boot RAID"
 
-#: ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Para las particiones Boot (/Boot) sólo se permite el tipo RAID-1."
 
-#: ../libfdisk/gnomefsedit.c:2372
+#: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
 msgstr "Punto de montaje RAID ilegal"
 
-#: ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2375
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3303,7 +3304,7 @@ msgstr ""
 "Las particiones RAID no pueden ser montadas como root (/) en Alpha sin una "
 "partición /boot."
 
-#: ../libfdisk/gnomefsedit.c:2458
+#: ../libfdisk/gnomefsedit.c:2459
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -3314,15 +3315,15 @@ msgstr ""
 "este dispositivo RAID. El punto de montaje es /boot. ¿Está seguro de que es "
 "posible arrancar desde esta partición?"
 
-#: ../libfdisk/gnomefsedit.c:2465
+#: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
 msgstr "¿Usar la partición pre-existente?"
 
-#: ../libfdisk/gnomefsedit.c:2543
+#: ../libfdisk/gnomefsedit.c:2544
 msgid "Cannot Add RAID Devices"
 msgstr "No puede añadir dispositivos RAID"
 
-#: ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2545
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -3330,96 +3331,96 @@ msgstr ""
 "No ha definido el sistema de archivos '/' en una partición no-ext2, por ello "
 "no puede añadir dispositivos RAID."
 
-#: ../libfdisk/gnomefsedit.c:2585
+#: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
 msgstr "Auto-Partición"
 
-#: ../libfdisk/gnomefsedit.c:2592
+#: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
 msgstr "Utilización del espacio existente en el disco"
 
-#: ../libfdisk/gnomefsedit.c:2611
+#: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
 msgstr "Eliminar particiones Linux"
 
-#: ../libfdisk/gnomefsedit.c:2622
+#: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
 msgstr "Use el espacio libre existente"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2634
+#: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
 msgstr "Uso predeterminado "
 
-#: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/gnomefsedit.c:2673
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr "Servidor"
 
-#: ../libfdisk/gnomefsedit.c:2753
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
 msgstr "¿Eliminar dispositivo RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "¿Está seguro de querer eliminar el dispositivo RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2807 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr "Reiniciar Tabla de particiones"
 
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr "¿Reiniciar la tabla de particiones en su contenido original?"
 
-#: ../libfdisk/gnomefsedit.c:2845 ../libfdisk/gnomefsedit.c:2896
+#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2847
+#: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2849
+#: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
 msgstr "<no configurado>"
 
-#: ../libfdisk/gnomefsedit.c:3133
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
 msgstr "Requerido"
 
-#: ../libfdisk/gnomefsedit.c:3134
+#: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
 msgstr "Real"
 
-#: ../libfdisk/gnomefsedit.c:3307
+#: ../libfdisk/gnomefsedit.c:3308
 msgid "Drive"
 msgstr "Unidad"
 
-#: ../libfdisk/gnomefsedit.c:3308
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
 msgstr "Geom [C/H/S]"
 
-#: ../libfdisk/gnomefsedit.c:3309
+#: ../libfdisk/gnomefsedit.c:3310
 msgid "Total (M)"
 msgstr "Total (M)"
 
-#: ../libfdisk/gnomefsedit.c:3310
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
 msgstr "Libre (M)"
 
-#: ../libfdisk/gnomefsedit.c:3311
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
 msgstr "Utilizado (M)"
 
-#: ../libfdisk/gnomefsedit.c:3312
+#: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
 msgstr "Utilizado (%)"
 
-#: ../libfdisk/gnomefsedit.c:3560
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
 msgstr "Particiones Existentes no asignadas..."
 
-#: ../libfdisk/gnomefsedit.c:3566 ../libfdisk/gnomefsedit.c:3584
+#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -3427,36 +3428,36 @@ msgstr ""
 "Debe asignar una partición root (/) a una partición nativa de linux (ext2)o "
 "a una partición RAID para proseguir con la instalación."
 
-#: ../libfdisk/gnomefsedit.c:3655
+#: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
 msgstr "Particiones"
 
-#: ../libfdisk/gnomefsedit.c:3685
+#: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
 msgstr "Añadir"
 
-#: ../libfdisk/gnomefsedit.c:3692
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
 msgstr "Modificar"
 
-#: ../libfdisk/gnomefsedit.c:3693
+#: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr "Reiniciar"
 
-#: ../libfdisk/gnomefsedit.c:3698
+#: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr "Eliminar"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3711
+#: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
 msgstr "Preparar el dispositivo RAID"
 
-#: ../libfdisk/gnomefsedit.c:3721
+#: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
 msgstr "Auto Partición"
 
-#: ../libfdisk/gnomefsedit.c:3730
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
 msgstr "Resumen de Unidad"
 
@@ -4194,31 +4195,31 @@ msgstr "Longitud del mapa (en pixels) "
 msgid "Enable antialias"
 msgstr "Habilitar el antialias "
 
-#: ../gnome-map/gglobe-canvas.c:100
+#: ../gnome-map/gglobe-canvas.c:100 ../gnome-map/timezonemapmodule.c:70
 msgid "World"
 msgstr "Mundo"
 
-#: ../gnome-map/gglobe-canvas.c:101
+#: ../gnome-map/gglobe-canvas.c:101 ../gnome-map/timezonemapmodule.c:71
 msgid "North America"
 msgstr "Norteamérica"
 
-#: ../gnome-map/gglobe-canvas.c:102
+#: ../gnome-map/gglobe-canvas.c:102 ../gnome-map/timezonemapmodule.c:72
 msgid "South America"
 msgstr "Sudamérica"
 
-#: ../gnome-map/gglobe-canvas.c:103
+#: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
 msgstr "India"
 
-#: ../gnome-map/gglobe-canvas.c:104
+#: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
 msgstr "Europa"
 
-#: ../gnome-map/gglobe-canvas.c:105
+#: ../gnome-map/gglobe-canvas.c:105 ../gnome-map/timezonemapmodule.c:75
 msgid "Africa"
 msgstr "África"
 
-#: ../gnome-map/gglobe-canvas.c:106
+#: ../gnome-map/gglobe-canvas.c:106 ../gnome-map/timezonemapmodule.c:76
 msgid "Asia"
 msgstr "Asia"
 

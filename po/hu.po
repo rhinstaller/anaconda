@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-02-14 14:30-0500\n"
+"POT-Creation-Date: 2001-02-19 18:55-0500\n"
 "PO-Revision-Date: 2000-08-17 11:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -9,7 +9,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:493
+#: ../comps.py:490
 msgid "Everything"
 msgstr "Minden"
 
@@ -42,7 +42,8 @@ msgid ""
 "formatted (RECOMMENDED)."
 msgstr ""
 
-#: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
+#: ../fstab.py:74 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
+#: ../iw/rootpartition_gui.py:97
 #, fuzzy
 msgid "Warning"
 msgstr "Keresés"
@@ -75,7 +76,7 @@ msgstr ""
 "folytatáshoz újra kell indítania a számítógépet. Helyezze be a Red Hat boot "
 "lemezt, és nyomja meg az \"Ok\" gombot az újraindításhoz.\n"
 
-#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1210
+#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1209
 msgid "Formatting"
 msgstr "Formázás"
 
@@ -110,7 +111,7 @@ msgstr "Loopback"
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Loopback filerendszer létrehozása a /dev/%s eszközön..."
 
-#: ../fstab.py:773 ../fstab.py:1211
+#: ../fstab.py:773 ../fstab.py:1210
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s filerendszer formázása..."
@@ -125,7 +126,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../gui.py:173
+#: ../gui.py:176
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -135,7 +136,7 @@ msgstr ""
 "le a kívétel teljes szövegét, és jelentse a hibát a "
 "http://bugzilla.redhat.com/bugzilla címen."
 
-#: ../gui.py:313 ../text.py:944
+#: ../gui.py:316 ../text.py:944
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -143,11 +144,11 @@ msgstr ""
 "Most helyezzen be egy floppyt. A lemez teljes tartalma törlésre kerül, ehhez "
 "tartsa magát."
 
-#: ../gui.py:404 ../gui.py:768
+#: ../gui.py:412 ../gui.py:779
 msgid "Next"
 msgstr "Következõ"
 
-#: ../gui.py:405 ../gui.py:767 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:413 ../gui.py:778 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
@@ -177,59 +178,59 @@ msgstr "Következõ"
 msgid "Back"
 msgstr "Vissza"
 
-#: ../gui.py:406 ../gui.py:773
+#: ../gui.py:414 ../gui.py:784
 msgid "Show Help"
 msgstr "Súgó megjelenítése"
 
-#: ../gui.py:407 ../gui.py:772
+#: ../gui.py:415 ../gui.py:783
 msgid "Hide Help"
 msgstr "Súgó elrejtése"
 
-#: ../gui.py:408 ../gui.py:771
+#: ../gui.py:416 ../gui.py:782
 msgid "Finish"
 msgstr "Befejezés"
 
-#: ../gui.py:411 ../gui.py:803
+#: ../gui.py:419 ../gui.py:814
 msgid "Online Help"
 msgstr "Online súgó"
 
-#: ../gui.py:412 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:420 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:63 ../text.py:1016 ../text.py:1049
 msgid "Language Selection"
 msgstr "Nyelv kiválasztás"
 
-#: ../gui.py:514 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1387
-#: ../libfdisk/gnomefsedit.c:1404
+#: ../gui.py:527 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Bezár"
 
-#: ../gui.py:519 ../gui.py:770
+#: ../gui.py:532 ../gui.py:781
 msgid "Release Notes"
 msgstr ""
 
-#: ../gui.py:550
+#: ../gui.py:563
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:691
+#: ../gui.py:702
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Telepítõ"
 
-#: ../gui.py:695
+#: ../gui.py:706
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux Telepítõ Shell"
 
-#: ../gui.py:706
+#: ../gui.py:717
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux Telepítõ: %s"
 
-#: ../gui.py:707
+#: ../gui.py:718
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux Telepítõ Shell: %s"
 
-#: ../gui.py:852
+#: ../gui.py:863
 msgid "Install Window"
 msgstr "Telepõ ablak"
 
@@ -295,7 +296,7 @@ msgstr "A CDROM-ot nem lehet mountolni."
 #: ../text.py:222 ../text.py:305 ../text.py:378 ../text.py:425 ../text.py:443
 #: ../text.py:485 ../text.py:514 ../text.py:600 ../text.py:612 ../text.py:641
 #: ../text.py:662 ../text.py:832 ../text.py:886 ../text.py:912 ../text.py:938
-#: ../text.py:946 ../text.py:961 ../text.py:1203 ../textw/bootdisk_text.py:52
+#: ../text.py:946 ../text.py:961 ../text.py:1205 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -382,20 +383,20 @@ msgstr ""
 #: ../libfdisk/fsedit.c:932 ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968
 #: ../libfdisk/fsedit.c:981 ../libfdisk/fsedit.c:991 ../libfdisk/fsedit.c:1020
 #: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1047
-#: ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:755
-#: ../libfdisk/gnomefsedit.c:787 ../libfdisk/gnomefsedit.c:878
-#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:1261
-#: ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:1332
-#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:1525
-#: ../libfdisk/gnomefsedit.c:1600 ../libfdisk/gnomefsedit.c:1650
-#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1736
-#: ../libfdisk/gnomefsedit.c:2014 ../libfdisk/gnomefsedit.c:2023
-#: ../libfdisk/gnomefsedit.c:2269 ../libfdisk/gnomefsedit.c:2277
-#: ../libfdisk/gnomefsedit.c:2321 ../libfdisk/gnomefsedit.c:2331
-#: ../libfdisk/gnomefsedit.c:2338 ../libfdisk/gnomefsedit.c:2353
-#: ../libfdisk/gnomefsedit.c:2363 ../libfdisk/gnomefsedit.c:2373
-#: ../libfdisk/gnomefsedit.c:2412 ../libfdisk/gnomefsedit.c:2543
-#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
+#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526
+#: ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
 #: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
 #: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 #: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
@@ -499,10 +500,10 @@ msgstr ""
 "csomagok listáját?"
 
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
-#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -514,10 +515,10 @@ msgid "Yes"
 msgstr "Igen"
 
 #: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375
-#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466
-#: ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808
+#: ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
+#: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
+#: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
@@ -567,8 +568,8 @@ msgstr ""
 "\n"
 "Változtatás nélküli kilépéshez válassza a Mégsem gombot."
 
-#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023
-#: ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:578
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
 #: ../loader/devices.c:530 ../loader/loader.c:2245 ../loader/pcmcia.c:104
 #: ../text.py:443 ../text.py:446 ../text.py:832 ../text.py:833 ../text.py:946
@@ -876,7 +877,7 @@ msgstr "Csomag csoportok"
 msgid "Individual Packages"
 msgstr "Különálló csomagok"
 
-#: ../text.py:1129 ../textw/packages_text.py:304
+#: ../text.py:1129 ../text.py:1156 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Csomag függõségek"
 
@@ -892,7 +893,7 @@ msgstr "Telepítés indul"
 msgid "Install System"
 msgstr "Rendszer telepítése"
 
-#: ../text.py:1136 ../text.py:1138 ../text.py:1159 ../text.py:1161
+#: ../text.py:1136 ../text.py:1138 ../text.py:1161 ../text.py:1163
 msgid "Boot Disk"
 msgstr "Boot lemez"
 
@@ -908,23 +909,23 @@ msgstr "Rendszer vizsgálata"
 msgid "Customize Upgrade"
 msgstr "Egyéni frissítés"
 
-#: ../text.py:1156
+#: ../text.py:1158
 msgid "Upgrade Begins"
 msgstr "Frissítés kezdése"
 
-#: ../text.py:1158
+#: ../text.py:1160
 msgid "Upgrade System"
 msgstr "Rendszer frissítés"
 
-#: ../text.py:1162
+#: ../text.py:1164
 msgid "Upgrade Complete"
 msgstr "Frissítés kész"
 
-#: ../text.py:1200
+#: ../text.py:1202
 msgid "Cancelled"
 msgstr "Leállítva"
 
-#: ../text.py:1201
+#: ../text.py:1203
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Innen nem tudok visszalépni. Sajna újra kell próbálkoznia."
 
@@ -1019,7 +1020,7 @@ msgstr ""
 "Nincsen elegendõ lemezterülete a kiválasztott csomagok telepítéséhez. A "
 "következõ filerendszereken van szükség több helyre:\n"
 
-#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1781 ../todo.py:1797
+#: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1781 ../todo.py:1797
 msgid "Mount Point"
 msgstr "Mount pont"
 
@@ -1527,7 +1528,7 @@ msgid "Lilo Configuration"
 msgstr "LILO beállítás"
 
 #: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3135
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Típus"
 
@@ -1568,7 +1569,7 @@ msgid "Default"
 msgstr "Alapértelmezés"
 
 #: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:3132 ../textw/lilo_text.py:118
+#: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
@@ -2641,7 +2642,7 @@ msgstr ""
 "Arra készül, hogy minden adatot eltávolítson a merevlemezes meghajtóról, így "
 "szabadítva fel helyet a Linux rendszer telepítéséhez."
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2673
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Munkaállomás"
 
@@ -2840,52 +2841,52 @@ msgid ""
 "kernel command line when booting the installer."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
-#: ../libfdisk/gnomefsedit.c:2049
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
+#: ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
 msgstr "<Swap partíció>"
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:953
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
 msgstr "<RAID-partíció>"
 
-#: ../libfdisk/gnomefsedit.c:744
+#: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
 #, fuzzy
 msgid "Root partition"
 msgstr "Nincs root-partíció"
 
-#: ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:757
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:788
+#: ../libfdisk/gnomefsedit.c:789
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr "Partíció-törlés"
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
-#: ../libfdisk/gnomefsedit.c:878 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 msgid "Cannot Edit Partitions"
 msgstr "Partíciók nem szerkeszthetõk"
 
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -2893,68 +2894,68 @@ msgstr ""
 "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud más "
 "partíciókat szerkeszteni."
 
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:903
-#: ../libfdisk/gnomefsedit.c:907 ../libfdisk/gnomefsedit.c:909
+#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904
+#: ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910
 #: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377
 #: ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr "Partíció-szerkesztés"
 
-#: ../libfdisk/gnomefsedit.c:924 ../libfdisk/gnomefsedit.c:2032
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr "Mount pont:"
 
-#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "Méret (MB) :"
 
-#: ../libfdisk/gnomefsedit.c:998
+#: ../libfdisk/gnomefsedit.c:999
 msgid "Use remaining space?"
 msgstr "Maradék terület használata?"
 
-#: ../libfdisk/gnomefsedit.c:1017 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr "Lekötöttség:"
 
-#: ../libfdisk/gnomefsedit.c:1021 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr "Eredményes"
 
-#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr "Hibás"
 
-#: ../libfdisk/gnomefsedit.c:1036 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr "A hiba oka:"
 
-#: ../libfdisk/gnomefsedit.c:1050 ../libfdisk/gnomefsedit.c:2070
+#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr "Partíció-típus:"
 
-#: ../libfdisk/gnomefsedit.c:1133 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr "Használható meghajtók:"
 
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:2269
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr "Nincs mount-pont"
 
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
 
-#: ../libfdisk/gnomefsedit.c:1261 ../libfdisk/gnomefsedit.c:1298
-#: ../libfdisk/gnomefsedit.c:2277 ../libfdisk/newtfsedit.c:639
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr "Mount-pont hiba"
 
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2965,7 +2966,7 @@ msgstr ""
 "Ezt most nem teheti meg, mivel ext2 partíciókhoz is vannak rendelve mount "
 "pontok. Ha azokat kitörli, hozzárendelheti a '/'-ot ehhez a partícióhoz."
 
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -2973,11 +2974,11 @@ msgstr ""
 "A kért mount-pont érvénytelen útvonal, vagy már használatban van. Válasszon "
 "egy érvényes mount-pontot."
 
-#: ../libfdisk/gnomefsedit.c:1332 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr "Mérethiba"
 
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -2985,12 +2986,12 @@ msgstr ""
 "A kért méret hibás. Gyõzõdjön meg, hogy a méret nagyobb nullánál (0), és "
 "tízes számrendszerben, egész számként van megadva."
 
-#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:2412
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
 #: ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr "Swapméret-hiba"
 
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
+#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
 #: ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid ""
@@ -3000,7 +3001,7 @@ msgstr ""
 "Túlságosan nagy swap-partíciót hozott létre. A swap-partíció legnagyobb "
 "mérete %ld Megabyte."
 
-#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3010,23 +3011,23 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1374 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1386
+#: ../libfdisk/gnomefsedit.c:1387
 msgid "No Drives Specified"
 msgstr "Nincsenek meghajtók kijelölve"
 
-#: ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1389
 msgid "You must constrain this partition to at least one drive."
 msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
 
-#: ../libfdisk/gnomefsedit.c:1396 ../libfdisk/gnomefsedit.c:1403
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
 msgstr "Nincs RAID meghajtó hozzárendelés"
 
-#: ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:1399
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -3036,7 +3037,7 @@ msgstr ""
 "meghajtóhoz hozzárendelte volna.\n"
 " Biztos, hogy ezt akarja?"
 
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../libfdisk/gnomefsedit.c:1406
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -3045,11 +3046,11 @@ msgstr ""
 "meghajtóhoz hozzárendelte volna. Válasszon egy meghajtót, amelyhez "
 "hozzárendeli ezt a partíciót."
 
-#: ../libfdisk/gnomefsedit.c:1525 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 msgid "Cannot Add Partitions"
 msgstr "Nem lehet partíciókat hozzáadni"
 
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3059,11 +3060,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1600
+#: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
 msgstr "RAID meghajtó nem teljes"
 
-#: ../libfdisk/gnomefsedit.c:1601
+#: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -3074,23 +3075,23 @@ msgstr ""
 "eszköz szét lesz bontva összetevõ partícióira. Kérem állítsa össze a RAID "
 "eszközt lekötött partíciókból."
 
-#: ../libfdisk/gnomefsedit.c:1650
+#: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1652
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1737
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
 #: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr "Lekötetlen partíciók"
 
-#: ../libfdisk/gnomefsedit.c:1722 ../libfdisk/gnomefsedit.c:1732
+#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733
 #: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -3100,11 +3101,11 @@ msgstr ""
 "Egy vagy több lekötetlen partíció van a használni kívánt partíciók között. A "
 "lekötetlen partíciók listája a következõ:"
 
-#: ../libfdisk/gnomefsedit.c:2014
+#: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
 msgstr "Raid nem szerkeszthetõ"
 
-#: ../libfdisk/gnomefsedit.c:2015
+#: ../libfdisk/gnomefsedit.c:2016
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -3112,30 +3113,30 @@ msgstr ""
 "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
 "eszközöket szerkeszteni."
 
-#: ../libfdisk/gnomefsedit.c:2115
+#: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
 msgstr "RAID eszköz: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2138
+#: ../libfdisk/gnomefsedit.c:2139
 msgid "RAID Type:"
 msgstr "RAID típus:"
 
-#: ../libfdisk/gnomefsedit.c:2175
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
 msgstr "Partíciók RAID array-hez:"
 
-#: ../libfdisk/gnomefsedit.c:2270
+#: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Nem adott meg mount-pontot. Mount pontra szükség van."
 
-#: ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2279
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
 "A kért mount-pont  már használatban van. Válasszon egy érvényes mount-pontot."
 
-#: ../libfdisk/gnomefsedit.c:2314
+#: ../libfdisk/gnomefsedit.c:2315
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -3147,23 +3148,23 @@ msgstr ""
 "\n"
 "Ezek a meghajtók: "
 
-#: ../libfdisk/gnomefsedit.c:2321
+#: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
 msgstr "Figyelem, bootolás RAID-röl"
 
-#: ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
 msgstr "Nem RAID eszköz"
 
-#: ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
 msgstr "Ki kell választania egy RAID eszközt."
 
-#: ../libfdisk/gnomefsedit.c:2338
+#: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
 msgstr "Alkalmazott RAID eszköz"
 
-#: ../libfdisk/gnomefsedit.c:2339
+#: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -3171,37 +3172,37 @@ msgid ""
 msgstr ""
 "A \"/dev/%s\" RAID eszköz már használatban van. Kérem válasszon másikat."
 
-#: ../libfdisk/gnomefsedit.c:2352
+#: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
 msgstr "Nincs elegendõ partíció"
 
-#: ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2355
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
 "Nem választott ki elegendõ számú partíciót a kiválasztott RAID típushoz."
 
-#: ../libfdisk/gnomefsedit.c:2362
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
 msgstr "Illegális /boot RAID típus"
 
-#: ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Boot partíciót (/boot) csak RAID-1 meghajtón lehet létrehozni."
 
-#: ../libfdisk/gnomefsedit.c:2372
+#: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
 msgstr "Illegális RAID mount-pont"
 
-#: ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2375
 #, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
 msgstr "Alpha rendszereken nem lehet RAID partíciót root-ként (/) mountolni."
 
-#: ../libfdisk/gnomefsedit.c:2458
+#: ../libfdisk/gnomefsedit.c:2459
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -3211,15 +3212,15 @@ msgstr ""
 "A %s partíció ennek a RAID eszköznek egy meglévõ partíciója. A mount-pont "
 "/boot. Biztos benne, hogy lehet errõl a partícióról bootolni?"
 
-#: ../libfdisk/gnomefsedit.c:2465
+#: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
 msgstr "Meglévõ partíció használata?"
 
-#: ../libfdisk/gnomefsedit.c:2543
+#: ../libfdisk/gnomefsedit.c:2544
 msgid "Cannot Add RAID Devices"
 msgstr "Nem lehet RAID eszközt hozzáadni"
 
-#: ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2545
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -3227,96 +3228,96 @@ msgstr ""
 "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
 "eszközöket hozzáadni."
 
-#: ../libfdisk/gnomefsedit.c:2585
+#: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
 msgstr "Automatikus particionálás"
 
-#: ../libfdisk/gnomefsedit.c:2592
+#: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
 msgstr "Meglévõ lemezterület felhasználása"
 
-#: ../libfdisk/gnomefsedit.c:2611
+#: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
 msgstr "Linux partíciók eltávolítása"
 
-#: ../libfdisk/gnomefsedit.c:2622
+#: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
 msgstr "Meglévõ szabad terület használata"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2634
+#: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
 msgstr "Felhasználási terület"
 
-#: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/gnomefsedit.c:2673
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr "Szerver"
 
-#: ../libfdisk/gnomefsedit.c:2753
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
 msgstr "RAID eszköz törlése?"
 
-#: ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Biztosan el akarja távolítani ezt a RAID eszközt?"
 
-#: ../libfdisk/gnomefsedit.c:2807 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr "Partíciós tábla alaphelyzetbe állítása"
 
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr "Visszaállítsam a partíciós táblát az eredeti tartalmára?"
 
-#: ../libfdisk/gnomefsedit.c:2845 ../libfdisk/gnomefsedit.c:2896
+#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2847
+#: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2849
+#: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
 msgstr "<nincs beállítva>"
 
-#: ../libfdisk/gnomefsedit.c:3133
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
 msgstr "Igényelt"
 
-#: ../libfdisk/gnomefsedit.c:3134
+#: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
 msgstr "Valós"
 
-#: ../libfdisk/gnomefsedit.c:3307
+#: ../libfdisk/gnomefsedit.c:3308
 msgid "Drive"
 msgstr "Meghajtó"
 
-#: ../libfdisk/gnomefsedit.c:3308
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
 msgstr "Geom [C/H/S]"
 
-#: ../libfdisk/gnomefsedit.c:3309
+#: ../libfdisk/gnomefsedit.c:3310
 msgid "Total (M)"
 msgstr "Összes (M)"
 
-#: ../libfdisk/gnomefsedit.c:3310
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
 msgstr "Szabad (M)"
 
-#: ../libfdisk/gnomefsedit.c:3311
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
 msgstr "Használt (M)"
 
-#: ../libfdisk/gnomefsedit.c:3312
+#: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
 msgstr "Használt (%)"
 
-#: ../libfdisk/gnomefsedit.c:3560
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
 msgstr "Lekötetlen partíciók találhatók..."
 
-#: ../libfdisk/gnomefsedit.c:3566 ../libfdisk/gnomefsedit.c:3584
+#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -3324,36 +3325,36 @@ msgstr ""
 "A telepítés folytatásához hozzá kell rendelnie egy root (/) partíciót "
 "valamelyik Linux Native (ext2) vagy RAID partícióhoz."
 
-#: ../libfdisk/gnomefsedit.c:3655
+#: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
 msgstr "Partíciók"
 
-#: ../libfdisk/gnomefsedit.c:3685
+#: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
 msgstr "_Hozzáad..."
 
-#: ../libfdisk/gnomefsedit.c:3692
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
 msgstr "_Szerkesztés..."
 
-#: ../libfdisk/gnomefsedit.c:3693
+#: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr "_Alaphelyzet"
 
-#: ../libfdisk/gnomefsedit.c:3698
+#: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr "_Töröl"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3711
+#: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
 msgstr "_RAID Eszköz létrehozás"
 
-#: ../libfdisk/gnomefsedit.c:3721
+#: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
 msgstr "Automatikus particionálás"
 
-#: ../libfdisk/gnomefsedit.c:3730
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
 msgstr "Meghajtók összefoglalása"
 
@@ -4097,31 +4098,31 @@ msgstr "Térkép szélessége (pixelekben)"
 msgid "Enable antialias"
 msgstr "Antialias engedélyezése"
 
-#: ../gnome-map/gglobe-canvas.c:100
+#: ../gnome-map/gglobe-canvas.c:100 ../gnome-map/timezonemapmodule.c:70
 msgid "World"
 msgstr "Világ"
 
-#: ../gnome-map/gglobe-canvas.c:101
+#: ../gnome-map/gglobe-canvas.c:101 ../gnome-map/timezonemapmodule.c:71
 msgid "North America"
 msgstr "Észak-Amerika"
 
-#: ../gnome-map/gglobe-canvas.c:102
+#: ../gnome-map/gglobe-canvas.c:102 ../gnome-map/timezonemapmodule.c:72
 msgid "South America"
 msgstr "Dél-Amerika"
 
-#: ../gnome-map/gglobe-canvas.c:103
+#: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:104
+#: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
 msgstr "Európa"
 
-#: ../gnome-map/gglobe-canvas.c:105
+#: ../gnome-map/gglobe-canvas.c:105 ../gnome-map/timezonemapmodule.c:75
 msgid "Africa"
 msgstr "Afrika"
 
-#: ../gnome-map/gglobe-canvas.c:106
+#: ../gnome-map/gglobe-canvas.c:106 ../gnome-map/timezonemapmodule.c:76
 msgid "Asia"
 msgstr "Ázsia"
 

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2001-02-14 14:30-0500\n"
+"POT-Creation-Date: 2001-02-19 18:55-0500\n"
 "PO-Revision-Date: 2000-02-11 12:55+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:493
+#: ../comps.py:490
 #, fuzzy
 msgid "Everything"
 msgstr "검색 중"
@@ -43,7 +43,7 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED)."
 msgstr ""
 
-#: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
+#: ../fstab.py:74 ../harddrive.py:235 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
 #, fuzzy
 msgid "Warning"
 msgstr "검색 중"
@@ -56,7 +56,7 @@ msgstr "오류"
 msgid "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press \"Ok\" to reboot your system.\n"
 msgstr ""
 
-#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1210
+#: ../fstab.py:503 ../fstab.py:772 ../fstab.py:1209
 msgid "Formatting"
 msgstr "포맷 중"
 
@@ -91,7 +91,7 @@ msgstr "루프백"
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "루프팩 파일시스템을 /dev/%s에 생성 중..."
 
-#: ../fstab.py:773 ../fstab.py:1211
+#: ../fstab.py:773 ../fstab.py:1210
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s 파일시스템 포맷 중..."
@@ -106,73 +106,73 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../gui.py:173
+#: ../gui.py:176
 msgid "An exceptional condition has occured.  This is most likely a bug.  Please copy the full text of this exception and file a bug report at http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:313 ../text.py:944
+#: ../gui.py:316 ../text.py:944
 msgid "Please insert a floppy now. All contents of the disk will be erased, so please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:404 ../gui.py:768
+#: ../gui.py:412 ../gui.py:779
 msgid "Next"
 msgstr "다음"
 
-#: ../gui.py:405 ../gui.py:767 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907 ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1511 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:58 ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222 ../text.py:225 ../text.py:305 ../text.py:360 ../text.py:378 ../text.py:381 ../text.py:400 ../text.py:403 ../text.py:425 ../text.py:428 ../text.py:485 ../text.py:488 ../text.py:514 ../text.py:518 ../text.py:527 ../text.py:600 ../text.py:602 ../text.py:612 ../text.py:614 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
+#: ../gui.py:413 ../gui.py:778 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907 ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1511 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:58 ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222 ../text.py:225 ../text.py:305 ../text.py:360 ../text.py:378 ../text.py:381 ../text.py:400 ../text.py:403 ../text.py:425 ../text.py:428 ../text.py:485 ../text.py:488 ../text.py:514 ../text.py:518 ../text.py:527 ../text.py:600 ../text.py:602 ../text.py:612 ../text.py:614 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:69 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "뒤로"
 
-#: ../gui.py:406 ../gui.py:773
+#: ../gui.py:414 ../gui.py:784
 msgid "Show Help"
 msgstr "도움말 보임"
 
-#: ../gui.py:407 ../gui.py:772
+#: ../gui.py:415 ../gui.py:783
 msgid "Hide Help"
 msgstr "도움말 숨김"
 
-#: ../gui.py:408 ../gui.py:771
+#: ../gui.py:416 ../gui.py:782
 msgid "Finish"
 msgstr "완료"
 
-#: ../gui.py:411 ../gui.py:803
+#: ../gui.py:419 ../gui.py:814
 msgid "Online Help"
 msgstr "온라인 도움말"
 
-#: ../gui.py:412 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25 ../text.py:63 ../text.py:1016 ../text.py:1049
+#: ../gui.py:420 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25 ../text.py:63 ../text.py:1016 ../text.py:1049
 msgid "Language Selection"
 msgstr "언어 선택"
 
-#: ../gui.py:514 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1387 ../libfdisk/gnomefsedit.c:1404
+#: ../gui.py:527 ../iw/firewall_gui.py:125 ../libfdisk/gnomefsedit.c:1388 ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "닫기"
 
-#: ../gui.py:519 ../gui.py:770
+#: ../gui.py:532 ../gui.py:781
 msgid "Release Notes"
 msgstr ""
 
-#: ../gui.py:550
+#: ../gui.py:563
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:691
+#: ../gui.py:702
 msgid "Red Hat Linux Installer"
 msgstr "레드햇 리눅스 설치기"
 
-#: ../gui.py:695
+#: ../gui.py:706
 msgid "Red Hat Linux Install Shell"
 msgstr "레드햇 리눅스 설치 쉘"
 
-#: ../gui.py:706
+#: ../gui.py:717
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "%s용 레드햇 리눅스 설치기"
 
-#: ../gui.py:707
+#: ../gui.py:718
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "%s용 레드햇 리눅스 설치 쉘"
 
-#: ../gui.py:852
+#: ../gui.py:863
 #, fuzzy
 msgid "Install Window"
 msgstr "설치"
@@ -217,7 +217,7 @@ msgstr ""
 msgid "The CDROM could not be mounted."
 msgstr ""
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498 ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907 ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238 ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1511 ../loader/loader.c:2152 ../loader/loader.c:2182 ../loader/loader.c:2245 ../loader/loader.c:2260 ../loader/loader.c:2472 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:668 ../loader/net.c:701 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85 ../rescue.py:93 ../text.py:129 ../text.py:168 ../text.py:222 ../text.py:305 ../text.py:378 ../text.py:425 ../text.py:443 ../text.py:485 ../text.py:514 ../text.py:600 ../text.py:612 ../text.py:641 ../text.py:662 ../text.py:832 ../text.py:886 ../text.py:912 ../text.py:938 ../text.py:946 ../text.py:961 ../text.py:1203 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:360 ../textw/partitioning_text.py:367 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
+#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:237 ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:335 ../loader/devices.c:433 ../loader/devices.c:478 ../loader/devices.c:498 ../loader/devices.c:530 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294 ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520 ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907 ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238 ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1511 ../loader/loader.c:2152 ../loader/loader.c:2182 ../loader/loader.c:2245 ../loader/loader.c:2260 ../loader/loader.c:2472 ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:668 ../loader/net.c:701 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85 ../rescue.py:93 ../text.py:129 ../text.py:168 ../text.py:222 ../text.py:305 ../text.py:378 ../text.py:425 ../text.py:443 ../text.py:485 ../text.py:514 ../text.py:600 ../text.py:612 ../text.py:641 ../text.py:662 ../text.py:832 ../text.py:886 ../text.py:912 ../text.py:938 ../text.py:946 ../text.py:961 ../text.py:1205 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:126 ../textw/firewall_text.py:128 ../textw/firewall_text.py:191 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:360 ../textw/partitioning_text.py:367 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:69 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:34
 msgid "OK"
 msgstr "확인"
 
@@ -275,7 +275,7 @@ msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:918 ../libfdisk/fsedit.c:925 ../libfdisk/fsedit.c:932 ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968 ../libfdisk/fsedit.c:981 ../libfdisk/fsedit.c:991 ../libfdisk/fsedit.c:1020 ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1047 ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787 ../libfdisk/gnomefsedit.c:878 ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:1261 ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:1332 ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:1525 ../libfdisk/gnomefsedit.c:1600 ../libfdisk/gnomefsedit.c:1650 ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1736 ../libfdisk/gnomefsedit.c:2014 ../libfdisk/gnomefsedit.c:2023 ../libfdisk/gnomefsedit.c:2269 ../libfdisk/gnomefsedit.c:2277 ../libfdisk/gnomefsedit.c:2321 ../libfdisk/gnomefsedit.c:2331 ../libfdisk/gnomefsedit.c:2338 ../libfdisk/gnomefsedit.c:2353 ../libfdisk/gnomefsedit.c:2363 ../libfdisk/gnomefsedit.c:2373 ../libfdisk/gnomefsedit.c:2412 ../libfdisk/gnomefsedit.c:2543 ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60 ../text.py:193 ../text.py:527 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205
+#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:918 ../libfdisk/fsedit.c:925 ../libfdisk/fsedit.c:932 ../libfdisk/fsedit.c:941 ../libfdisk/fsedit.c:968 ../libfdisk/fsedit.c:981 ../libfdisk/fsedit.c:991 ../libfdisk/fsedit.c:1020 ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1047 ../libfdisk/fsedit.c:1464 ../libfdisk/gnomefsedit.c:756 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879 ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333 ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:1526 ../libfdisk/gnomefsedit.c:1601 ../libfdisk/gnomefsedit.c:1651 ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/gnomefsedit.c:2015 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2322 ../libfdisk/gnomefsedit.c:2332 ../libfdisk/gnomefsedit.c:2339 ../libfdisk/gnomefsedit.c:2354 ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672 ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717 ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610 ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659 ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60 ../text.py:193 ../text.py:527 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205
 msgid "Ok"
 msgstr "확인"
 
@@ -359,11 +359,11 @@ msgstr "업그레이드 할 패키지 선택"
 msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
 msgstr "설치된 패키지나, 설치하기 위해 선택된 패키지는 의존성을 만족 해야 합니다.업그레이드 할 패키지를 직접 선택 하시겠습니까?"
 
-#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828 ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375 ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466 ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:835 ../text.py:400 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:402
+#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:835 ../text.py:400 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:402
 msgid "Yes"
 msgstr "예"
 
-#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:828 ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:1375 ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:2466 ../libfdisk/gnomefsedit.c:2753 ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:835 ../text.py:400 ../text.py:406 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
+#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:949 ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376 ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467 ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742 ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680 ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785 ../loader/devices.c:231 ../loader/net.c:835 ../text.py:400 ../text.py:406 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "아니오"
 
@@ -393,7 +393,7 @@ msgid ""
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:913 ../libfdisk/gnomefsedit.c:2023 ../libfdisk/gnomefsedit.c:2585 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:530 ../loader/loader.c:2245 ../loader/pcmcia.c:104 ../text.py:443 ../text.py:446 ../text.py:832 ../text.py:833 ../text.py:946 ../text.py:948 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024 ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578 ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238 ../loader/devices.c:530 ../loader/loader.c:2245 ../loader/pcmcia.c:104 ../text.py:443 ../text.py:446 ../text.py:832 ../text.py:833 ../text.py:946 ../text.py:948 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "취소"
 
@@ -655,7 +655,7 @@ msgstr "패키지 그룹"
 msgid "Individual Packages"
 msgstr "개별 패키지"
 
-#: ../text.py:1129 ../textw/packages_text.py:304
+#: ../text.py:1129 ../text.py:1156 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "패키지 의존성"
 
@@ -671,7 +671,7 @@ msgstr "설치 시작"
 msgid "Install System"
 msgstr "시스템 설치"
 
-#: ../text.py:1136 ../text.py:1138 ../text.py:1159 ../text.py:1161
+#: ../text.py:1136 ../text.py:1138 ../text.py:1161 ../text.py:1163
 msgid "Boot Disk"
 msgstr "부트 디스크"
 
@@ -687,24 +687,24 @@ msgstr "시스템 검사"
 msgid "Customize Upgrade"
 msgstr "사용자 정의 업그레이드"
 
-#: ../text.py:1156
+#: ../text.py:1158
 #, fuzzy
 msgid "Upgrade Begins"
 msgstr "업그레이드 검사"
 
-#: ../text.py:1158
+#: ../text.py:1160
 msgid "Upgrade System"
 msgstr "시스템 업그레이드"
 
-#: ../text.py:1162
+#: ../text.py:1164
 msgid "Upgrade Complete"
 msgstr "업그레이드 완료"
 
-#: ../text.py:1200
+#: ../text.py:1202
 msgid "Cancelled"
 msgstr "취소됨"
 
-#: ../text.py:1201
+#: ../text.py:1203
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "이전 단계로 갈 수 없습니다. 재시도하십시오."
 
@@ -788,7 +788,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1781 ../todo.py:1797
+#: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1781 ../todo.py:1797
 msgid "Mount Point"
 msgstr "마운트 위치"
 
@@ -1271,7 +1271,7 @@ msgstr ""
 msgid "Lilo Configuration"
 msgstr "LILO 설정"
 
-#: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3135
+#: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "유형"
 
@@ -1308,7 +1308,7 @@ msgstr "설치"
 msgid "Default"
 msgstr "기본값"
 
-#: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3132 ../textw/lilo_text.py:118 ../textw/lilo_text.py:199 ../textw/mouse_text.py:25 ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118 ../textw/lilo_text.py:199 ../textw/mouse_text.py:25 ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "장치명"
 
@@ -2213,7 +2213,7 @@ msgstr "서버 시스템 설치"
 msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
 msgstr ""
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2673
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "웍스테이션"
 
@@ -2366,128 +2366,128 @@ msgstr "Fdisk 오류"
 msgid "This occurs because the drive geometry detected by the kernel used by the installer is different than the drive geometry used when the drive was partitioned.  This can be corrected by specifying the drive geometry on the kernel command line when booting the installer."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951 ../libfdisk/gnomefsedit.c:2049
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:2050
 msgid "<Swap Partition>"
 msgstr "<스왑 파티션>"
 
-#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:953
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:954
 msgid "<RAID Partition>"
 msgstr "<RAID 파티션>"
 
-#: ../libfdisk/gnomefsedit.c:744
+#: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
 #, fuzzy
 msgid "Root partition"
 msgstr "루트 파티션 없음"
 
-#: ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/gnomefsedit.c:757
 msgid "The growth of the root (/) RAID array appears to have been stunted by the 1024 cylinder boot limit. If this is the case then adding a /boot partition (50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:788
+#: ../libfdisk/gnomefsedit.c:789
 msgid "The growth of the root (/) partition appears to have been stunted by the 1024 cylinder boot limit. If this is the case then adding a /boot partition (50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
 msgstr "파티션 삭제"
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
 msgid "Are you sure you want to delete this partition?"
 msgstr "이 파티션을 정말로 삭제하시겠습니까?"
 
-#: ../libfdisk/gnomefsedit.c:878 ../libfdisk/newtfsedit.c:347
+#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:347
 #, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "파티션 수정"
 
-#: ../libfdisk/gnomefsedit.c:879 ../libfdisk/newtfsedit.c:348
+#: ../libfdisk/gnomefsedit.c:880 ../libfdisk/newtfsedit.c:348
 msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot edit other partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:897 ../libfdisk/gnomefsedit.c:903 ../libfdisk/gnomefsedit.c:907 ../libfdisk/gnomefsedit.c:909 ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377 ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
+#: ../libfdisk/gnomefsedit.c:898 ../libfdisk/gnomefsedit.c:904 ../libfdisk/gnomefsedit.c:908 ../libfdisk/gnomefsedit.c:910 ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:377 ../libfdisk/newtfsedit.c:381 ../libfdisk/newtfsedit.c:383
 msgid "Edit Partition"
 msgstr "파티션 수정"
 
-#: ../libfdisk/gnomefsedit.c:924 ../libfdisk/gnomefsedit.c:2032 ../libfdisk/newtfsedit.c:392
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033 ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
 msgstr "마운트 위치:"
 
-#: ../libfdisk/gnomefsedit.c:966 ../libfdisk/newtfsedit.c:411
+#: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
 msgstr "크기 (메가):"
 
-#: ../libfdisk/gnomefsedit.c:998
+#: ../libfdisk/gnomefsedit.c:999
 #, fuzzy
 msgid "Use remaining space?"
 msgstr "현재의 남은 공간 이용"
 
-#: ../libfdisk/gnomefsedit.c:1017 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
 msgid "Allocation Status:"
 msgstr "할당 상황:"
 
-#: ../libfdisk/gnomefsedit.c:1021 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
 msgid "Successful"
 msgstr "성공"
 
-#: ../libfdisk/gnomefsedit.c:1024 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
 msgid "Failed"
 msgstr "실패"
 
-#: ../libfdisk/gnomefsedit.c:1036 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
 msgid "Failure Reason:"
 msgstr "실패 분석:"
 
-#: ../libfdisk/gnomefsedit.c:1050 ../libfdisk/gnomefsedit.c:2070
+#: ../libfdisk/gnomefsedit.c:1051 ../libfdisk/gnomefsedit.c:2071
 msgid "Partition Type:"
 msgstr "파티션 유형:"
 
-#: ../libfdisk/gnomefsedit.c:1133 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
 msgid "Allowable Drives:"
 msgstr "사용 가능한 드라이브:"
 
-#: ../libfdisk/gnomefsedit.c:1236 ../libfdisk/gnomefsedit.c:2269 ../libfdisk/newtfsedit.c:615
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270 ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
 msgstr "마운트 위치 없음"
 
-#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
 msgstr "이 파티션의 마운트 위치를 선택하지 않았습니다. 이대로 괜찮겠습니까?"
 
-#: ../libfdisk/gnomefsedit.c:1261 ../libfdisk/gnomefsedit.c:1298 ../libfdisk/gnomefsedit.c:2277 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
+#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
 msgstr "마운트 위치 오류"
 
-#: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid "You have tried to assign the '/' mount point to a FAT-style partition.  You cannot do this now because mount points have been assigned to ext2 partitions also.  Clear those mount points and then you will be able to assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
 msgstr "요청된 마운트 위치가 잘못된 패스이거나 이미 사용 중입니다. 정확한 마운트 위치를 선택하십시오."
 
-#: ../libfdisk/gnomefsedit.c:1332 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
 msgid "Size Error"
 msgstr "크기 오류"
 
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
 msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
 msgstr "크기 지정이 잘못되었습니다. 크기는 최소한 0보다 커야 하며, 십진수로 지정되어야 합니다."
 
-#: ../libfdisk/gnomefsedit.c:1351 ../libfdisk/gnomefsedit.c:2412 ../libfdisk/newtfsedit.c:717
+#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/newtfsedit.c:717
 msgid "Swap Size Error"
 msgstr "스왑 크기 오류"
 
-#: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413 ../libfdisk/newtfsedit.c:718
+#: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414 ../libfdisk/newtfsedit.c:718
 #, c-format
 msgid "You have created a swap partition which is too large. The maximum size of a swap partition is %ld Megabytes."
 msgstr "만들려는 스왑 파티션의 크기가 너무 큽니다. 스왑 파티션의 최대 크기는 %ld 메가바이트입니다."
 
-#: ../libfdisk/gnomefsedit.c:1366 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld Megabytes. You are trying to create one which is %ld Megabytes, which could cause the install to fail.\n"
@@ -2495,25 +2495,25 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1374 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
 msgid "Warning: Root FS Size"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1386
+#: ../libfdisk/gnomefsedit.c:1387
 #, fuzzy
 msgid "No Drives Specified"
 msgstr "드라이브 찾지 못함"
 
-#: ../libfdisk/gnomefsedit.c:1388
+#: ../libfdisk/gnomefsedit.c:1389
 #, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr "설치를 진행하기 위해서는 스왑 파티션을 지정하셔야 합니다."
 
-#: ../libfdisk/gnomefsedit.c:1396 ../libfdisk/gnomefsedit.c:1403
+#: ../libfdisk/gnomefsedit.c:1397 ../libfdisk/gnomefsedit.c:1404
 msgid "No RAID Drive Constraint"
 msgstr "RAIDD 설정이 없음"
 
-#: ../libfdisk/gnomefsedit.c:1398
+#: ../libfdisk/gnomefsedit.c:1399
 msgid ""
 "You have configured a RAID partition without constraining the partition to a single drive.\n"
 " Are you sure you want to do this?"
@@ -2521,271 +2521,271 @@ msgstr ""
 "다른 드라이브에 종속 시키지 않고 RAID 파티션을 설정 했습니다.\n"
 "설정을 하신것이 맞습니까 ?"
 
-#: ../libfdisk/gnomefsedit.c:1405
+#: ../libfdisk/gnomefsedit.c:1406
 msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
 msgstr "다른 드라이브에 종속 시키지 않고 RAID 파티션을 설정 했습니다. 이 파티션을 종속시킬 다른 드라이브를 선택해 주십시요."
 
-#: ../libfdisk/gnomefsedit.c:1525 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
 #, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "파티션을 할당하지 못함"
 
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
 msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot add other partitions."
 msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1600
+#: ../libfdisk/gnomefsedit.c:1601
 msgid "RAID Entry Incomplete"
 msgstr "RAID 항목이 완성되지 않음"
 
-#: ../libfdisk/gnomefsedit.c:1601
+#: ../libfdisk/gnomefsedit.c:1602
 #, c-format
 msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
 msgstr "RAID 장치 /dev/%s는 할당되지 않은 파티션을 가지고 있습니다. RAID 장치 /dev/%는 각각의 파티션으로 나눕니다. 할당된 파티션으로 RAID 장치를 설정해 주십시요."
 
-#: ../libfdisk/gnomefsedit.c:1650
+#: ../libfdisk/gnomefsedit.c:1651
 msgid "Cannot Remove /boot"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1651
+#: ../libfdisk/gnomefsedit.c:1652
 msgid "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a non-RAID device first."
 msgstr ""
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1718 ../libfdisk/gnomefsedit.c:1737 ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
+#: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738 ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
 msgid "Unallocated Partitions"
 msgstr "파티션을 할당하지 못함"
 
-#: ../libfdisk/gnomefsedit.c:1722 ../libfdisk/gnomefsedit.c:1732 ../libfdisk/newtfsedit.c:142
+#: ../libfdisk/gnomefsedit.c:1723 ../libfdisk/gnomefsedit.c:1733 ../libfdisk/newtfsedit.c:142
 msgid "There are currently unallocated partition(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
 msgstr "요청한 파티션중 현재 할당되지 못한 파티션이 있습니다. 할당 되지 못한 파티션과이유는 다음과 같습니다."
 
-#: ../libfdisk/gnomefsedit.c:2014
+#: ../libfdisk/gnomefsedit.c:2015
 msgid "Cannot Edit Raid"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2015
+#: ../libfdisk/gnomefsedit.c:2016
 msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot edit RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2115
+#: ../libfdisk/gnomefsedit.c:2116
 msgid "RAID Device: /dev/"
 msgstr "RAID 장치: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2138
+#: ../libfdisk/gnomefsedit.c:2139
 msgid "RAID Type:"
 msgstr "RAID 유형:"
 
-#: ../libfdisk/gnomefsedit.c:2175
+#: ../libfdisk/gnomefsedit.c:2176
 msgid "Partitions For RAID Array:"
 msgstr "RAID 어레이를 위한 파티션:"
 
-#: ../libfdisk/gnomefsedit.c:2270
+#: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "마운트 위치가 선택되지 않았습니다. 마운트 위치가 필요합니다."
 
-#: ../libfdisk/gnomefsedit.c:2278
+#: ../libfdisk/gnomefsedit.c:2279
 msgid "The mount point requested is already in use. Please select a valid mount point."
 msgstr "요청된 마운트 위치는 이미 사용 중입니다. 정확한 마운트 위치를 선택해 주십시오."
 
-#: ../libfdisk/gnomefsedit.c:2314
+#: ../libfdisk/gnomefsedit.c:2315
 msgid ""
 "The bootable raid device can only include partitions from the first two drives on your system.\n"
 "\n"
 "These drives are: "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2321
+#: ../libfdisk/gnomefsedit.c:2322
 msgid "Booting From RAID Warning"
 msgstr "RAID로의 부팅 경고"
 
-#: ../libfdisk/gnomefsedit.c:2331
+#: ../libfdisk/gnomefsedit.c:2332
 msgid "No RAID Device"
 msgstr "RAID 장치 없음"
 
-#: ../libfdisk/gnomefsedit.c:2332
+#: ../libfdisk/gnomefsedit.c:2333
 msgid "You need to selected a RAID device."
 msgstr "RAID 장치를 선택해야 합니다."
 
-#: ../libfdisk/gnomefsedit.c:2338
+#: ../libfdisk/gnomefsedit.c:2339
 msgid "Used Raid Device"
 msgstr "RAID 장치 사용"
 
-#: ../libfdisk/gnomefsedit.c:2339
+#: ../libfdisk/gnomefsedit.c:2340
 #, c-format
 msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
 msgstr "RAID 장치 \"/dev/%s\"는 이미 RAID 장치로 설정되었습니다. 다른 것을 선택해 주십시오."
 
-#: ../libfdisk/gnomefsedit.c:2352
+#: ../libfdisk/gnomefsedit.c:2353
 msgid "Not Enough Partitions"
 msgstr "충분하지 않은 파티션"
 
-#: ../libfdisk/gnomefsedit.c:2354
+#: ../libfdisk/gnomefsedit.c:2355
 msgid "You have not configured enough partitions for the RAID type you have selected."
 msgstr "선택한 RAID 방식을 위한 충분한 파티션을 설정하지 않았습니다."
 
-#: ../libfdisk/gnomefsedit.c:2362
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Illegal /boot RAID Type"
 msgstr "잘못된 /boot RAID 유형"
 
-#: ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2365
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "부트 파티션(/boot)은 RAID-1에서만 허용됩니다."
 
-#: ../libfdisk/gnomefsedit.c:2372
+#: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
 msgstr "잘못된 RAID 마운트 위치"
 
-#: ../libfdisk/gnomefsedit.c:2374
+#: ../libfdisk/gnomefsedit.c:2375
 #, fuzzy
 msgid "RAID partitions cannot be mounted as root (/) on Alpha without a /boot partition (non-RAID) as well."
 msgstr "알파에서는 RAID 파티션을 최상위(/) 디렉터리에 마운트하지 못함"
 
-#: ../libfdisk/gnomefsedit.c:2458
+#: ../libfdisk/gnomefsedit.c:2459
 #, c-format
 msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
 msgstr "파티션 %s는 RAID 장치 파티션에 이미 존재합니다. 마운트 위치가 /boot로 설정되어 있습니다. 이 파티션에서 부팅이 가능합니까?"
 
-#: ../libfdisk/gnomefsedit.c:2465
+#: ../libfdisk/gnomefsedit.c:2466
 msgid "Use Pre-existing Partition?"
 msgstr "기존의 파티션을 사용할까요?"
 
-#: ../libfdisk/gnomefsedit.c:2543
+#: ../libfdisk/gnomefsedit.c:2544
 #, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "RAID 장치 없음"
 
-#: ../libfdisk/gnomefsedit.c:2544
+#: ../libfdisk/gnomefsedit.c:2545
 msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot add RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2585
+#: ../libfdisk/gnomefsedit.c:2586
 msgid "Auto-Partition"
 msgstr "자동-파티션"
 
-#: ../libfdisk/gnomefsedit.c:2592
+#: ../libfdisk/gnomefsedit.c:2593
 msgid "Using Existing Disk Space"
 msgstr "실제 사용중인 디스크 공간"
 
-#: ../libfdisk/gnomefsedit.c:2611
+#: ../libfdisk/gnomefsedit.c:2612
 msgid "Remove Linux partitions"
 msgstr "리눅스 파티션 없앰"
 
-#: ../libfdisk/gnomefsedit.c:2622
+#: ../libfdisk/gnomefsedit.c:2623
 msgid "Use existing free space"
 msgstr "현재의 남은 공간 이용"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2634
+#: ../libfdisk/gnomefsedit.c:2635
 msgid "Intended Use"
 msgstr "원하는 용도"
 
-#: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/gnomefsedit.c:2673
+#: ../libfdisk/gnomefsedit.c:2654 ../libfdisk/gnomefsedit.c:2674
 msgid "Server"
 msgstr "서버"
 
-#: ../libfdisk/gnomefsedit.c:2753
+#: ../libfdisk/gnomefsedit.c:2754
 msgid "Delete RAID Device?"
 msgstr "RAID 장치를 삭제할까요?"
 
-#: ../libfdisk/gnomefsedit.c:2754
+#: ../libfdisk/gnomefsedit.c:2755
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "이 RAID 장치를 정말로 없애겠습니까?"
 
-#: ../libfdisk/gnomefsedit.c:2807 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
 msgid "Reset Partition Table"
 msgstr "파티션 테이블 초기화"
 
-#: ../libfdisk/gnomefsedit.c:2809 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
 msgid "Reset partition table to original contents? "
 msgstr "원래의 내용대로 파티션 테이블을 복구할까요? "
 
-#: ../libfdisk/gnomefsedit.c:2845 ../libfdisk/gnomefsedit.c:2896
+#: ../libfdisk/gnomefsedit.c:2846 ../libfdisk/gnomefsedit.c:2897
 msgid "<Swap>"
 msgstr "<스왑>"
 
-#: ../libfdisk/gnomefsedit.c:2847
+#: ../libfdisk/gnomefsedit.c:2848
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2849
+#: ../libfdisk/gnomefsedit.c:2850
 msgid "<not set>"
 msgstr "<설정안됨>"
 
-#: ../libfdisk/gnomefsedit.c:3133
+#: ../libfdisk/gnomefsedit.c:3134
 msgid "Requested"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3134
+#: ../libfdisk/gnomefsedit.c:3135
 msgid "Actual"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3307
+#: ../libfdisk/gnomefsedit.c:3308
 #, fuzzy
 msgid "Drive"
 msgstr "드라이브 생략"
 
-#: ../libfdisk/gnomefsedit.c:3308
+#: ../libfdisk/gnomefsedit.c:3309
 msgid "Geom [C/H/S]"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3309
+#: ../libfdisk/gnomefsedit.c:3310
 #, fuzzy
 msgid "Total (M)"
 msgstr "합계"
 
-#: ../libfdisk/gnomefsedit.c:3310
+#: ../libfdisk/gnomefsedit.c:3311
 msgid "Free (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3311
+#: ../libfdisk/gnomefsedit.c:3312
 msgid "Used (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3312
+#: ../libfdisk/gnomefsedit.c:3313
 msgid "Used (%)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3560
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Unallocated Partitions Exist..."
 msgstr "할당안된 파티션 존재함..."
 
-#: ../libfdisk/gnomefsedit.c:3566 ../libfdisk/gnomefsedit.c:3584
+#: ../libfdisk/gnomefsedit.c:3567 ../libfdisk/gnomefsedit.c:3585
 msgid "You must assign a root (/) partition to a Linux native partition (ext2) or a RAID partition for the install to proceed."
 msgstr "설치를 하기 위해서는 루트(/) 파티션이 리눅스 네이티브 파티션(ext2)이거나 RAID 파티션이어야 합니다."
 
-#: ../libfdisk/gnomefsedit.c:3655
+#: ../libfdisk/gnomefsedit.c:3656
 msgid "Partitions"
 msgstr "파티션"
 
-#: ../libfdisk/gnomefsedit.c:3685
+#: ../libfdisk/gnomefsedit.c:3686
 msgid "_Add..."
 msgstr "추가(_A)"
 
-#: ../libfdisk/gnomefsedit.c:3692
+#: ../libfdisk/gnomefsedit.c:3693
 msgid "_Edit..."
 msgstr "수정(_A)"
 
-#: ../libfdisk/gnomefsedit.c:3693
+#: ../libfdisk/gnomefsedit.c:3694
 msgid "_Reset"
 msgstr "다시(_R)"
 
-#: ../libfdisk/gnomefsedit.c:3698
+#: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
 msgstr "삭제(_D)"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3711
+#: ../libfdisk/gnomefsedit.c:3712
 msgid "_Make RAID Device"
 msgstr "RAID 장치 생성(_M)"
 
-#: ../libfdisk/gnomefsedit.c:3721
+#: ../libfdisk/gnomefsedit.c:3722
 msgid "Auto Partition"
 msgstr "파티션 자동 설정"
 
-#: ../libfdisk/gnomefsedit.c:3730
+#: ../libfdisk/gnomefsedit.c:3731
 msgid "Drive Summary"
 msgstr "드라이브 요약 설명"
 
@@ -3467,31 +3467,31 @@ msgstr ""
 msgid "Enable antialias"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:100
+#: ../gnome-map/gglobe-canvas.c:100 ../gnome-map/timezonemapmodule.c:70
 msgid "World"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:101
+#: ../gnome-map/gglobe-canvas.c:101 ../gnome-map/timezonemapmodule.c:71
 msgid "North America"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:102
+#: ../gnome-map/gglobe-canvas.c:102 ../gnome-map/timezonemapmodule.c:72
 msgid "South America"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:103
+#: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:104
+#: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:105
+#: ../gnome-map/gglobe-canvas.c:105 ../gnome-map/timezonemapmodule.c:75
 msgid "Africa"
 msgstr ""
 
-#: ../gnome-map/gglobe-canvas.c:106
+#: ../gnome-map/gglobe-canvas.c:106 ../gnome-map/timezonemapmodule.c:76
 msgid "Asia"
 msgstr ""
 
