@@ -219,6 +219,8 @@ class BaseInstallClass:
 	self.earlySwapOn = 0
         self.desktop = ""
 	self.raidList = []
+        self.name = ""
+        self.pixmap = ""
 
         if iutil.getArch () == "alpha":
             self.addToSkipList("bootdisk")
@@ -265,6 +267,9 @@ def availableClasses():
     list = []
     for file in files:
 	if file[0] == '.': continue
+        if len (file) >= 3:
+            if file[-3:] != ".py":
+                continue
 	mainName = string.split(file, ".")[0]
 	if done.has_key(mainName): continue
 	done[mainName] = 1
@@ -278,7 +283,7 @@ def availableClasses():
 		sortOrder = obj.sortPriority
 	    else:
 		sortOrder = 0
-	    list.append(((obj.name, obj, None), sortOrder))
+	    list.append(((obj.name, obj, obj.pixmap), sortOrder))
 
     list.sort(ordering)
     for (item, priority) in list:
