@@ -501,21 +501,21 @@ if (display_mode == 't'):
 # we like to have a way to shoot text mode back at a display
 if xmode:
     os.environ["TERM"] = "xterm"
-    from gtk import *
-    from gnome.zvt import *
+    import gtk
+    from gnome import zvt
 
     def child_died (widget, *args):
-        mainquit()
+        gtk.mainquit()
 
-    win = GtkWindow ()
-    zvt = ZvtTerm (80, 24)
+    win = gtk.Window ()
+    zvt = zvt.Term (80, 24)
     zvt.connect ("child_died", child_died)
-    zvt.set_del_key_swap(TRUE)
+    zvt.set_del_key_swap(gtk.TRUE)
     win.add (zvt)
     win.show_all ()
     child = zvt.forkpty()
     if child != 0:
-        mainloop()
+        gtk.mainloop()
         try:
             pid, status = os.waitpid(child, 0)
         except OSError:
