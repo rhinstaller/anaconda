@@ -81,6 +81,7 @@ class NetworkWindow (InstallWindow):
         devLine.pack_start (devLabel)
         menu = GtkMenu ()
         self.devs = self.todo.network.available ()
+	print self.devs
         if self.devs:
             self.devs.keys ().sort ()
             self.dev = self.devs[self.devs.keys()[0]]

@@ -12,6 +12,9 @@ from iw.auth import *
 from iw.mouse import *
 from iw.keyboard import *
 from iw.format import *
+from iw.congrats import *
+from iw.autopartition import *
+
 import sys
 import GdkImlib
 from gnomepyfsedit import fsedit
@@ -78,7 +81,7 @@ class WaitWindow:
         self.window.destroy ()
 	threads_leave ()
 
-class GtkMainThread:
+class GtkMainThread (Thread):
     def run (self):
         threads_enter ()
         mainloop ()
@@ -88,7 +91,7 @@ class InstallInterface:
 
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
-        self.mutex.release ()
+        self.finishedTODO.set ()
         
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
@@ -105,26 +108,38 @@ class InstallInterface:
     def getDDruid (self, drives):
         return fsedit (1, drives)
 
-    def run (self, todo):
-        start_new_thread (GtkMainThread ().run, ())
-        steps = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
-                 FormatWindow, PackageSelectionWindow, AuthWindow, AccountWindow, InstallProgressWindow]
+    def getBootdisk ():
+        return None
 
-        windows = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
-                   FormatWindow, PackageSelectionWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow,
-                   InstallProgressWindow, ConfirmPartitionWindow]
-                 
-        icw = InstallControlWindow (self, steps, windows, todo)
-	
-	self.mutex = allocate_lock ()
-	self.mutex.acquire ()
-	start_new_thread (icw.run, ())
-	self.mutex.acquire ()
+    def getCongratulation ():
+        return CongratulationWindow
+
+    def run (self, todo):
+        gtkThread = GtkMainThread ()
+        gtkThread.start ()
+        
+        steps = [WelcomeWindow, LanguageWindow, MouseWindow, 
+	         KeyboardWindow, NetworkWindow, AutoPartitionWindow, PartitionWindow, 
+                 FormatWindow, PackageSelectionWindow, AuthWindow, 
+	         AccountWindow, InstallProgressWindow]
+
+        windows = [WelcomeWindow, LanguageWindow, MouseWindow, 
+	           KeyboardWindow, NetworkWindow, AutoPartitionWindow,
+                   PartitionWindow, FormatWindow, PackageSelectionWindow, AuthWindow, 
+	           AccountWindow, IndividualPackageSelectionWindow,
+                   InstallProgressWindow, ConfirmPartitionWindow, CongratulationWindow]
+
+        self.finishedTODO = Event ()
+        self.icw = InstallControlWindow (self, steps, windows, todo)
+        self.icw.start ()
+        self.finishedTODO.wait ()
 
 	todo.setLiloLocation("hda")
 
+    def runPostInstall (screens = (CongratulationWindow,)):
+        print "post install reached"
 
-class InstallControlWindow:
+class InstallControlWindow (Thread):
 
     def prevClicked (self, *args):
         prev = self.currentScreen.getPrev ()
@@ -300,6 +315,7 @@ class InstallControlWindow:
 
         self.window.add (vbox)
         threads_leave ()
+        Thread.__init__ (self)
 
     def run (self):
 	self.mutex = allocate_lock ()

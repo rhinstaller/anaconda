@@ -1,5 +1,6 @@
 from gtk import *
 from iw import *
+import xkb
 
 class KeyboardWindow (InstallWindow):
 
@@ -10,21 +11,56 @@ class KeyboardWindow (InstallWindow):
         ics.setHTML ("<HTML><BODY>Select your keyboard."
                      "</BODY></HTML>")
         ics.setNextEnabled (TRUE)
+	self.kb = xkb.XKB ()
+	self.rules = self.kb.getRules ()
 
     def getNext (self):
-        self.todo.keyboard.set (self.keyboardList.get_selection ()[0].children ()[0].get ())
+#        self.todo.keyboard.set (self.keyboardList.get_selection ()[0].children ()[0].get ())
         return None
 
     def getScreen (self):
+        print self.todo.keyboard.available ()
+	box = GtkVBox (FALSE)
         
+	box.pack_start (GtkLabel ("Model"), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        self.keyboardList = GtkList ()
-        self.keyboardList.set_selection_mode (SELECTION_BROWSE)
-        sorted_keyboards = self.todo.keyboard.available ()
-        sorted_keyboards.sort ()
-        self.keyboardList.append_items (map (GtkListItem, sorted_keyboards))
-        sw.add_with_viewport (self.keyboardList)
+        self.modelList = GtkCList ()
+        self.modelList.set_selection_mode (SELECTION_BROWSE)
+	for model in self.rules[0].values ():
+            self.modelList.append ((model,))
+        self.modelList.columns_autosize ()
+        sw.add (self.modelList)
+	box.pack_start (sw, TRUE)
 
-        return sw
+	box.pack_start (GtkLabel ("Layout"), FALSE)
+        sw = GtkScrolledWindow ()
+        sw.set_border_width (5)
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.layoutList = GtkCList ()
+        self.layoutList.set_selection_mode (SELECTION_BROWSE)
+        layouts = self.rules[1].values ()
+        layouts.sort ()
+        for layout in layouts:
+            self.layoutList.append ((layout,))
+        self.layoutList.columns_autosize ()
+        sw.add (self.layoutList)
+	box.pack_start (sw, TRUE)
+
+	box.pack_start (GtkLabel ("Variant"), FALSE)
+        sw = GtkScrolledWindow ()
+        sw.set_border_width (5)
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.variantList = GtkCList ()
+        self.variantList.set_selection_mode (SELECTION_BROWSE)
+        self.variantList.append (("None",))
+	for variant in self.rules[2].values ():
+            self.variantList.append ((variant,))
+        self.variantList.columns_autosize ()
+        sw.add (self.variantList)
+	box.pack_start (sw, FALSE)
+
+	print self.kb.getOptions ()
+
+        return box
