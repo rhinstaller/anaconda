@@ -238,10 +238,10 @@ class HeaderList:
 
 class HeaderListFromFile (HeaderList):
 
-    def __init__(self, path, compatPackages = None, noscore = 0):
+    def __init__(self, path, compatPackages = None, noscore = 0, prunePPCKernels = 1):):
 	hdlist = rpm.readHeaderListFromFile(path)
 	HeaderList.__init__(self, hdlist, compatPackages = compatPackages,
-			    noscore = noscore)
+			    noscore = noscore, prunePPCKernels = prunePPCKernels)
 
 class HeaderListFD (HeaderList):
     def __init__(self, fd):
