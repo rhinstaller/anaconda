@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 from gtk import *
 #import GdkImlib
 import isys
@@ -55,7 +53,7 @@ class WelcomeWindow:
         window.set_position(WIN_POS_CENTER)
 #        window.set_default_size(640, 480)
         window.show_all()
-        mainloop()
+#        mainloop()
         window.destroy()
         return self.rc
 
@@ -112,10 +110,10 @@ class PartitionWindow:
         buttonbox = GtkHButtonBox()
         buttonbox.set_spacing(5)
         buttonbox.set_layout(BUTTONBOX_END)
-        button = GtkButton("<< Back")
+        button = GtkButton("<- Back")
         button.connect("clicked", self.back)
         buttonbox.add(button)
-        button = GtkButton("Next >>")
+        button = GtkButton("Next ->")
         button.connect("clicked", self.next)
         buttonbox.add(button)
 
@@ -151,8 +149,12 @@ class InstallProgressWindow:
 	pass
 
     def setPackage(self, header):
-        self.label.set_text (header[rpm.RPMTAG_NAME])
+        self.name.set_text (header[rpm.RPMTAG_NAME])
+        self.size.set_text ("%d k" % (header[rpm.RPMTAG_SIZE] / 1024))
+        self.summary.set_text (header[rpm.RPMTAG_SUMMARY])
+        print "setPackage update"	
   	while events_pending():
+	    print "   event!!"
 	    mainiteration(FALSE)
 
     def __del__(self):
@@ -163,41 +165,61 @@ class InstallProgressWindow:
         self.window.set_border_width(10)
         self.window.set_title('Installing Packages')
         self.window.set_position(WIN_POS_CENTER)
+	table = GtkTable()
+	# x1, x2, y1, y2
+	label = GtkLabel("Package Name:")
+	label.set_alignment(1.0, 0.0)
+	table.attach(label, 0, 1, 0, 1)
+        label = GtkLabel("Package Size:")
+	label.set_alignment(1.0, 0.0)
+	table.attach(label, 0, 1, 1, 2)
+        label = GtkLabel("Package Summary:")
+	label.set_alignment(1.0, 0.0)
+	table.attach(label, 0, 1, 2, 3, yoptions = FILL)
+
+	self.name = GtkLabel();
+	self.name.set_alignment(0, 0.0)
+	self.size = GtkLabel();
+	self.size.set_alignment(0, 0.0)
+	self.summary = GtkLabel();
+	self.summary.set_alignment(0, 0.0)
+        self.summary.set_line_wrap (TRUE)
+	table.attach(self.name, 1, 2, 0, 1, xoptions = FILL | EXPAND)
+	table.attach(self.size, 1, 2, 1, 2, xoptions = FILL | EXPAND)
+	table.attach(self.summary, 1, 2, 2, 3, xoptions = FILL | EXPAND)
+
 	self.progress = GtkProgressBar()
-	vbox = GtkVBox()
-        self.label = GtkLabel()
-        self.label.set_line_wrap (TRUE)
-        vbox.pack_start(self.label, TRUE, TRUE, 0)
-        vbox.pack_start(self.progress, TRUE, TRUE, 0)
-	self.window.add(vbox)
+	table.attach(self.progress, 0, 2, 3, 4)
+
+	self.window.add(table)
 	self.window.show_all()
 
 class WaitWindow:
     def showWaitWindow(self, title, text):
-	pass
-#        window = GtkWindow()
-#        window.set_border_width(10)
-#        window.set_title(title)
-#        window.set_position(WIN_POS_CENTER)
-#        label = GtkLabel(text)
-#        label.set_line_wrap (TRUE)
-#	window.add(label)
-#	window.show_all()
-#	while self.lock.locked():
-#    	    while events_pending():
-#	        mainiteration(FALSE)
-#       	window.destroy()
-#        thread.exit()
+	return
+        window = GtkWindow()
+        window.set_border_width(10)
+        window.set_title(title)
+        window.set_position(WIN_POS_CENTER)
+        label = GtkLabel(text)
+        label.set_line_wrap (TRUE)
+	window.add(label)
+	window.show_all()
+	while self.lock.locked():
+    	    while events_pending():
+	        mainiteration(FALSE)
+       	window.destroy()
+        thread.exit()
 
     def __init__(self, title, text):
-	pass
-#	self.lock = thread.allocate_lock()
-#	self.lock.acquire()
-#	thread.start_new_thread (self.showWaitWindow, (title, text))
+	return
+	self.lock = thread.allocate_lock()
+	self.lock.acquire()
+	thread.start_new_thread (self.showWaitWindow, (title, text))
 
     def pop(self):
-	pass
-#	self.lock.release()
+	return
+	self.lock.release()
 
 class InstallInterface:
     def waitWindow(self, title, text):
