@@ -138,10 +138,12 @@ class Network:
 	    for dev in self.netdevices.values():
 		if dev.get('bootproto') == "dhcp":
 		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
+		    break
 		elif dev.get('ipaddr') and dev.get('netmask'):
 		    isys.configNetDevice(dev.get('device'),
 			    dev.get('ipaddr'), dev.get('netmask'),
 			    self.gateway)
+		    break
 
 	if not self.primaryNS: return
 
