@@ -198,7 +198,8 @@ char * mountUrlImage(struct installMethod * method,
 	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
             rc = readNetConfig(devName, &netDev, flags);
-            if (rc) {
+            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                ((dir == -1) && (rc == LOADER_NOOP))) {
                 stage = URL_STAGE_IFACE;
                 dir = -1;
                 break;
