@@ -101,11 +101,13 @@ def runRescue(instPath, mountroot, id):
           "Linux installation and mount it under the directory "
           "/mnt/sysimage.  You can then make any changes required to your "
           "system.  If you want to proceed with this step choose "
-          "'Continue'.\n\n"
+          "'Continue'. You can also choose to mount your filesystems "
+          "read-only instead of read-write by choosing 'Read-Only'."
+          "\n\n"
           "If for some reason this process fails you can choose 'Skip' "
           "and this step will be skipped and you will go directly to a "
           "command shell.\n\n"),
-          [_("Continue"), _("Skip")] )
+          [_("Continue"), _("Read-Only"), _("Skip")] )
 
     if rc == string.lower(_("Skip")):
         screen.finish()
@@ -114,6 +116,10 @@ def runRescue(instPath, mountroot, id):
                 "system will reboot.")
         print
         os.execv("/bin/sh", [ "-/bin/sh" ])
+    elif rc == string.lower(_("Read-Only")):
+        readOnly = 1
+    else:
+        readOnly = 0
 
     disks = upgrade.findExistingRoots(intf, id, instPath)
 
@@ -150,7 +156,8 @@ def runRescue(instPath, mountroot, id):
         try:
 	    fs = fsset.FileSystemSet()
 	    rc = upgrade.mountRootPartition(intf, root, fs, instPath,
-                                            allowDirty = 1, warnDirty = 1)
+                                            allowDirty = 1, warnDirty = 1,
+                                            readOnly = readOnly)
 
             if rc == -1:
                 ButtonChoiceWindow(screen, _("Rescue"),
@@ -194,7 +201,7 @@ def runRescue(instPath, mountroot, id):
     screen.finish()
 
     print
-    if rootmounted:
+    if rootmounted and not readOnly:
         makeMtab("/mnt/sysimage")
         print _("Your system is mounted under the /mnt/sysimage directory.")
         print

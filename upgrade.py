@@ -48,7 +48,7 @@ def findExistingRoots(intf, id, chroot):
     return rootparts
 
 def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
-		       raiseErrors = 0, warnDirty = 0):
+		       raiseErrors = 0, warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
 
     diskset = DiskSet()
@@ -88,7 +88,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
             return -1
 
     if flags.setupFilesystems:
-        oldfsset.mountFilesystems(instPath)
+        oldfsset.mountFilesystems(instPath, readOnly = readOnly)
 
     # XXX we should properly support 'auto' at some point
     if (not oldfsset.getEntryByMountPoint("/") or
