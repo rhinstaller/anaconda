@@ -87,7 +87,7 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting):
         else:
             if mntpt[0] != '/' or (len(mntpt) > 1 and mntpt[-1:] == '/'):
                 passed = 0
-	    elif mntpt.find(' ') > -1 or mntpt.find('.') > -1:
+	    elif mntpt.find(' ') > -1:
 		passed = 0
                 
         if not passed:
