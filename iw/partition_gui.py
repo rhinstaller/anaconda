@@ -49,7 +49,7 @@ class DiskStripeSlice:
             if event.button == 1:
                 self.parent.selectSlice(self.partition, 1)
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-            self.editCb(self.treeView)
+            self.editCb()
                 
         return gtk.TRUE
 
@@ -83,7 +83,6 @@ class DiskStripeSlice:
         return "cornsilk1"
 
     def hideOrShowText(self):
-        # XXX disable until CanvasRect's bounds function gets implemetned
         return
         if self.box.get_bounds()[2] < self.text.get_bounds()[2]:
             self.text.hide()
@@ -146,7 +145,7 @@ class DiskStripeSlice:
         self.group = pgroup.add(gnome.canvas.CanvasGroup)
         self.box = self.group.add(gnome.canvas.CanvasRect)
         self.group.connect("event", self.eventHandler)
-        self.text = self.group.add (gnome.canvas.CanvasText,
+        self.text = self.group.add(gnome.canvas.CanvasText,
                                     font="helvetica", size_points=8)
         self.update()
 

@@ -927,8 +927,13 @@ class InstallControlState:
         if pixbuf is None:
             log("unable to read %s", file)
             return None
-        p = gtk.Image()
-        p.set_from_pixbuf(pixbuf)
+        source = gtk.IconSource()
+        source.set_pixbuf(pixbuf)
+        source.set_size(gtk.ICON_SIZE_DIALOG)
+        source.set_size_wildcarded(gtk.FALSE)
+        iconset = gtk.IconSet()
+        iconset.add_source(source)
+        p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
         return p
 
     def readHTML (self, file):
