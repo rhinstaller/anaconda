@@ -433,9 +433,7 @@ class ProgressWindow:
         rootPushBusyCursor()
 
     def set (self, amount):
-	# only update widget if we've changed by 5%, otherwise
-	# we update widget hundreds of times a seconds because RPM
-	# calls us back ALOT
+	# only update widget if we've changed by 5%
 	curval = self.progress.get_fraction()
 	newval = float (amount) / self.total
 	if newval < 0.998:
