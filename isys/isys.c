@@ -2,17 +2,22 @@
 #include <fcntl.h>
 #include <popt.h>
 #include <linux/loop.h>
+#include <sys/ioctl.h>
+#include <sys/mount.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
 
 #include "Python.h"
 
+#include "md-int.h"
 #include "imount.h"
 #include "isys.h"
 #include "probe.h"
 #include "smp.h"
 #include "../balkan/byteswap.h"
+
+long long llseek(int fd, long long offset, int whence);
 
 /* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
 moduleInfoSet modInfoList;
@@ -41,8 +46,10 @@ static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
+static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
+    { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
@@ -900,4 +907,39 @@ static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
     	return Py_BuildValue("(iiss)", size, depth, vidmode, vidres);
     }
     return Py_BuildValue("(iiss)", size, 0, "", "");
+}
+
+static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
+    int fd;
+    int size;
+    struct md_superblock_s sb;
+
+    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
+
+    if (ioctl(fd, BLKGETSIZE, &size)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    /* put the size in 1k blocks */
+    size >>= 1;
+
+    if (llseek(fd, 1024 * MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    } 
+
+    if (read(fd, &sb, sizeof(sb)) != sizeof(sb)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (sb.md_magic != MD_SB_MAGIC) {
+	PyErr_SetString(PyExc_ValueError, "bad md magic on device");
+	return NULL;
+    }
+
+    return Py_BuildValue("(iiiiiii)", sb.major_version, sb.minor_version,
+			 sb.set_magic, sb.level, sb.nr_disks,
+			 sb.raid_disks, sb.md_minor);
 }
