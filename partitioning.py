@@ -644,6 +644,9 @@ class Partitions:
         # problems later on
         self.nextUniqueID = 1
 
+        # reinitialize all partitions to default labels?
+        self.reinitializeDisks = 0
+
         # partition method
         self.useAutopartitioning = 1
         self.useFdisk = 0
@@ -804,7 +807,7 @@ class Partitions:
         new.nextUniqueID = self.nextUniqueID
         new.useAutopartitioning = self.useAutopartitioning
         new.useFdisk = self.useFdisk
-        
+        new.reinitializeDisks = self.reinitializeDisks
         return new
            
 
@@ -966,19 +969,19 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
-    def refreshDevices (self, intf = None):
+    def refreshDevices (self, intf = None, initAll = 0):
         self.disks = {}
-        self.openDevices(intf)
+        self.openDevices(intf, initAll)
 
     def closeDevices (self):
         for disk in self.disks.keys():
             del self.disks[disk]
 
-    def openDevices (self, intf = None):
+    def openDevices (self, intf = None, initAll = 0):
         if self.disks:
             return
         for drive in self.driveList ():
-            if drive in DiskSet.skippedDisks:
+            if drive in DiskSet.skippedDisks and not initAll:
                 continue
             deviceFile = isys.makeDevInode(drive)
             if isys.driveIsRemovable(drive) and not flags.expert:
@@ -989,6 +992,15 @@ class DiskSet:
             except parted.error, msg:
                 DiskSet.skippedDisks.append(drive)
                 continue
+            if initAll:
+                try:
+                    dev.disk_create(getDefaultDiskType())
+                    disk = parted.PedDisk.open(dev)
+                    self.disks[drive] = disk
+                except parted.error, msg:
+                    DiskSet.skippedDisks.append(drive)
+                continue
+                
             try:
                 disk = parted.PedDisk.open(dev)
                 self.disks[drive] = disk
@@ -1070,7 +1082,7 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
         return
     
     # read in drive info
-    diskset.refreshDevices(intf)
+    diskset.refreshDevices(intf, partitions.reinitializeDisks)
 
     if len(diskset.disks.keys()) == 0:
         intf.messageWindow(_("No Drives Found"),

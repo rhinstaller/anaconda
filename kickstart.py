@@ -609,8 +609,10 @@ class KickstartBase(BaseInstallClass):
     def doClearPart(self, id, args):
         type = CLEARPART_TYPE_NONE
         drives = None
+        initAll = 0
 
-        (args, extra) = isys.getopt(args, '', [ 'linux', 'all', 'drives=' ])
+        (args, extra) = isys.getopt(args, '', [ 'linux', 'all', 'drives=',
+                                                'initlabel'])
 
         for n in args:
             (str, arg) = n
@@ -620,8 +622,10 @@ class KickstartBase(BaseInstallClass):
                 type = CLEARPART_TYPE_ALL
             elif str == '--drive':
                 drives = arg
-
-        self.setClearParts(id, type, None)
+            elif str == '--initlabel':
+                initAll = 1
+            
+        self.setClearParts(id, type, drives, initAll = initAll)
 
     def defineRaid(self, id, args):
 	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=',
@@ -815,7 +819,6 @@ class KickstartBase(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 
 	self.setEarlySwapOn(1)
-	self.partitions = []
 	self.postScripts = []
 	self.preScripts = []
 

@@ -51,9 +51,11 @@ class BaseInstallClass:
         id.bootloader.useGrubVal = 0
         id.bootloader.setForceLBA(forceLBA)
 
-    def setClearParts(self, id, clear, drives = None, warningText = None):
+    def setClearParts(self, id, clear, drives = None, warningText = None,
+                      initAll = 0):
 	id.partitions.autoClearPartType = clear
         id.partitions.autoClearPartDrives = drives
+        id.partitions.reinitializeDisks = initAll
         # XXX hack for install help text in GUI mode
         if clear == CLEARPART_TYPE_LINUX:
             self.clearType = "wkst"
