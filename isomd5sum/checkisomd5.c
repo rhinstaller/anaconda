@@ -20,14 +20,16 @@
 
 /* finds primary volume descriptor and returns info from it */
 /* mediasum must be a preallocated buffer at least 33 bytes long */
-int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize) {
+int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported) {
     unsigned char buf[2048];
     unsigned char buf2[512];
     unsigned char tmpbuf[512];
-    int skipfnd, md5fnd;
+    int skipfnd, md5fnd, supportedfnd;
     unsigned int loc;
     long long offset;
     unsigned char *p;
+
+    *supported = 0;
 
     if (lseek(isofd, (off_t)(16L * 2048L), SEEK_SET) == -1)
 	return ((long long)-1);
@@ -50,6 +52,7 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize) {
 
     md5fnd = 0;
     skipfnd = 0;
+    supportedfnd = 0;
     loc = 0;
     while (loc < 512) {
 	if (!strncmp(buf2 + loc, "ISO MD5SUM = ", 13)) {
@@ -84,11 +87,17 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize) {
 	    }
 
 	    for (p=buf2+loc; *p != ';' && loc < 512; p++, loc++);
+	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=1", 14)) {
+	    *supported = 1;
+	    supportedfnd = 1;
+	} else if (!strncmp(buf2 + loc, "RHLISOSTATUS=0", 14)) {
+	    *supported = 0;
+	    supportedfnd = 1;
 	} else {
-	    loc += 1;
+	    loc++;
 	}
 
-	if (skipfnd & md5fnd)
+	if ((skipfnd & md5fnd) & supportedfnd)
  	    break;
     }
 	    
@@ -112,6 +121,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
     int appdata_start_offset, appdata_end_offset;
     int nattempt;
     int skipsectors;
+    int supported;
     unsigned int bufsize = 32768;
     unsigned char md5sum[16];
     unsigned int len;
@@ -119,7 +129,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
     long long isosize, offset, pvd_offset, apoff;
     MD5_CTX md5ctx;
 
-    if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize)) < 0)
+    if ((pvd_offset = parsepvd(isofd, mediasum, &skipsectors, &isosize, &supported)) < 0)
 	return -1;
 
     /*    printf("Mediasum = %s\n",mediasum); */
@@ -211,12 +221,12 @@ static void readCB(void *co, long long pos) {
 }
 #endif
 
-int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize) {
+int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosize, int *supported) {
     int rc;
     int llen;
     int skipsectors;
 
-    if (parsepvd(isofd, mediasum, &skipsectors, isosize) < 0) {
+    if (parsepvd(isofd, mediasum, &skipsectors, isosize, supported) < 0) {
 	fprintf(stderr, "Unable to read the disc checksum from the "
 			 "primary volume descriptor.  This probably "
 			 "means the disc was created without adding the "
@@ -236,6 +246,7 @@ int mediaCheckFile(char *file) {
     unsigned char mediasum[33], computedsum[33];
     char tmpstr[256];
     long long isosize;
+    int supported;
 
     isofd = open(file, O_RDONLY);
 
@@ -244,12 +255,14 @@ int mediaCheckFile(char *file) {
 	return -1;
     }
 
-    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize);
+    rc = doMediaCheck(isofd, mediasum, computedsum, &isosize, &supported);
 
     close(isofd);
 
     /*    printf("isosize = %lld\n", isosize); 
 	  printf("%s\n%s\n", mediasum, computedsum);*/
+
+    fprintf(stderr, "The supported flag value is %d\n", supported);
 
     if ( rc == 0)
 	result = "FAIL.\n\nIt is not recommended to use this media.";

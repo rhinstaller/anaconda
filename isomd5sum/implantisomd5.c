@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <popt.h>
 
 #include "md5.h"
 
@@ -76,14 +77,24 @@ unsigned int writeAppData(unsigned char *appdata, char *valstr, unsigned int loc
 }
 
 
+static void usage(void) {
+    fprintf(stderr, "implantisomd5:         implantisomd5 [--force] [--supported] <isofilename>\n");
+    exit(1);
+}
+
+
 int main(int argc, char **argv) {
+    int i;
+    int rc;
     int isofd;
     int nread;
-    int i;
     int dirty;
     int pvd_offset;
-    int forceit;
+    int forceit=0;
+    int supported=0;
+    int help=0;
     long long isosize;
+    const char **args;
     unsigned char md5sum[16];
     unsigned int total;
     unsigned int loc;
@@ -95,18 +106,32 @@ int main(int argc, char **argv) {
     char md5str[40];
     MD5_CTX md5ctx;
 
-    if (argc < 2) {
-	printf("Usage: implantisomd5 [-f] <isofilename>\n\n");
-	exit(1);
+    poptContext optCon;
+    struct poptOption options[] = {
+	{ "force", 'f', POPT_ARG_NONE, &forceit, 0 },
+	{ "supported-iso", 'S', POPT_ARG_NONE, &supported, 0 },
+	{ "help", 'h', POPT_ARG_NONE, &help, 0},
+	{ 0, 0, 0, 0, 0}
+    };
+
+
+    optCon = poptGetContext("implantisomd5", argc, (const char **)argv, options, 0);
+
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        fprintf(stderr, "bad option %s: %s\n",
+		poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
+		poptStrerror(rc));
+        exit(1);
     }
 
-    if (!strncmp(argv[1] , "-f", 3)) {
-	forceit = 1;
-	fname = argv[2];
-    } else {
-	forceit = 0;
-	fname = argv[1];
-    }
+    if (help)
+	usage();
+
+    args = poptGetArgs(optCon);
+    if (!args || !args[0] || !args[0][0])
+        usage();
+
+    fname = args[0];
 
     isofd = open(fname, O_RDWR);
 
@@ -183,6 +208,17 @@ int main(int argc, char **argv) {
     snprintf(buf, sizeof(buf), "SKIPSECTORS = %d", SKIPSECTORS);
     loc = writeAppData(new_appdata, buf, loc);
     loc = writeAppData(new_appdata, ";", loc);
+
+    if (supported) {
+	printf("Setting supported flag to 1\n");
+	loc = writeAppData(new_appdata, "RHLISOSTATUS=1", loc);
+    } else {
+	printf("Setting supported flag to 0\n");
+	loc = writeAppData(new_appdata, "RHLISOSTATUS=0", loc);
+    }
+	
+    loc = writeAppData(new_appdata, ";", loc);
+
     loc = writeAppData(new_appdata, "THIS IS NOT THE SAME AS RUNNING MD5SUM ON THIS ISO!!", loc);
     
     i = lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
