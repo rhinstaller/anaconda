@@ -54,15 +54,15 @@ $charFont{"GB2312"} =  "lat0-16";
 $charFont{"BIG5"} =  "lat0-16";
 $charFont{"KOI8-U"} =  "cyr-sun16";
 $charFont{"KOI8-R"} =  "cyr-sun16";
-$charFont{"ISO-8859-1"} =  "lat0-sun16";
-$charFont{"ISO-8859-2"} =  "lat2-sun16";
+$charFont{"ISO-8859-1"} =  "lat0-16";
+$charFont{"ISO-8859-2"} =  "lat2-16";
 #$charFont{"ISO-8859-3"} =  "iso03";		mk_MK -- no font available
 $charFont{"ISO-8859-5"} =  "cyr-sun16";
 $charFont{"ISO-8859-6"} =  "LatArCyrHeb-16";
-$charFont{"ISO-8859-7"} =  "gr.f16";
+$charFont{"ISO-8859-7"} =  "iso07.16";
 $charFont{"ISO-8859-8"} =  "LatArCyrHeb-16";
-$charFont{"ISO-8859-9"} =  "lat5-sun16";
-$charFont{"ISO-8859-15"} =  "lat0-sun16";
+$charFont{"ISO-8859-9"} =  "lat5-16";
+$charFont{"ISO-8859-15"} =  "lat0-16";
 
 
 open(FILE, "locale -a|");
