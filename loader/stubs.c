@@ -1,4 +1,5 @@
 #include <gconv.h>
+#include <stdlib.h>
 
 /* hj's gconv stubs, a little modified */
 
@@ -68,6 +69,12 @@ strong_alias (__gconv_NOCONV,
 
 strong_alias (__gconv_OK,
 	      __gconv_transliterate);
+
+const char *
+__gconv_lookup_alias (const char *name)
+{
+    return NULL;
+}
 
 int RETURNZERO() { return 0; }
 
