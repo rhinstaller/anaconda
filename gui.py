@@ -28,7 +28,7 @@ from flags import flags
 from constants import *
 
 from rhpl.log import log
-from rhpl.translate import _, N_, utf8
+from rhpl.translate import _, N_
 
 rpm.addMacro("_i18ndomains", "redhat-dist")
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
@@ -761,11 +761,11 @@ class InstallControlWindow:
                     file = open(fn, "r")
                     if suffix.endswith('.html'):
                         buffer = htmlbuffer.HTMLBuffer()
-                        buffer.feed(utf8(file.read()))
+                        buffer.feed(file.read())
                         self.releaseNotesBuffer = buffer.get_buffer()
                     else:
                         buffer = gtk.TextBuffer(None)
-                        buffer.set_text(utf8(file.read()))
+                        buffer.set_text(file.read())
                         self.releaseNotesBuffer = buffer
                     file.close()
                     return
