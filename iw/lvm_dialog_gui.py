@@ -857,8 +857,8 @@ class VolumeGroupEditor:
 	    self.intf.messageWindow(_("Not enough physical volumes"),
 			       _("At least one unused physical "
 				 "volume partition is "
-				 "needed to create a LVM Volume Group.\n\n"
-				 "First create a partition or raid array "
+				 "needed to create an LVM Volume Group.\n\n"
+				 "Create a partition or RAID array "
 				 "of type \"physical volume (LVM)\" and then "
 				 "select the \"LVM\" option again."),
 				    custom_icon="error")
