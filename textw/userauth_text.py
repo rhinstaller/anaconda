@@ -64,9 +64,9 @@ class UsersWindow:
 
         userid = Entry (9, user["id"])
         currentid = user["id"]
-        fullname = Entry (20, user["name"], scroll = 1)
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
+        fullname = Entry (20, user["name"], scroll = 1)
 
 	if edit:
 	    title = _("Edit User")
@@ -78,9 +78,9 @@ class UsersWindow:
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
 			 [ (_("User ID"), userid),
-			   (_("Full Name"), fullname),
 			   (_("Password"), pass1),
-			   (_("Password (confirm)"), pass2) ],
+			   (_("Password (confirm)"), pass2),
+			   (_("Full Name"), fullname) ],
 			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ],
 			 help = helptag)
             
