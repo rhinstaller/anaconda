@@ -85,13 +85,21 @@ def writeKSConfiguration(id, instPath):
 def writeXConfiguration(id, instPath):
     testmode = flags.test
 
-# use to test writing X config in test mode
-#    testmode = 0
-#    instPath = '/'
-# end code for test writing
-
+# comment out to test
     if testmode:
         return
+# end code to comment to test 
+# uncomment to test writing X config in test mode
+#    try:
+#	os.mkdir("/tmp/etc")
+#    except:
+#	pass
+#    try:
+#	os.mkdir("/tmp/etc/X11")
+#    except:
+#	pass
+#    instPath = '/'
+# end code for test writing
 
     if id.xsetup.skipx:
         return
