@@ -635,8 +635,9 @@ def readSwapLabel_int(device):
     except:
         return label
 
+    pagesize = getpagesize()
     try:
-        buf = os.read(fd, getpagesize())
+        buf = os.read(fd, pagesize)
         os.close(fd)
     except OSError, e:
         log("error reading swap label on %s: %s" %(device, e))
@@ -646,8 +647,8 @@ def readSwapLabel_int(device):
             pass
         return label
 
-    if ((len(buf) == getpagesize()) and (buf[pagesize - 10:] == "SWAPSPACE2")):
-        label = string.rstrip(buf[32:48], "\0x00")
+    if ((len(buf) == pagesize) and (buf[pagesize - 10:] == "SWAPSPACE2")):
+        label = string.rstrip(buf[1052:1068], "\0x00")
     return label
 
 def readSwapLabel(device, makeDevNode = 1):

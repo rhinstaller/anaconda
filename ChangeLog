@@ -1,3 +1,8 @@
+2004-12-23  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/isys.py (readSwapLabel_int): Update for newer swap label
+	format (#143447)
+
 2004-12-23  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/lang.c  (setupLanguage): Let the user know that they're
