@@ -1168,7 +1168,7 @@ def confirmResetPartitionState(intf):
 
 # does this partition contain partitions we can't delete?
 def containsImmutablePart(part, requestlist):
-    if not part:
+    if not part or (type(part) == type("RAID")) or (type(part) == type(1)):
         return None
     
     if not part.type & parted.PARTITION_EXTENDED:
