@@ -669,6 +669,7 @@ def doInstall(method, id, intf, instPath):
 				    p.h[rpm.RPMTAG_ARCH]))
     instLog.close ()
 
+    arch = iutil.getArch ()
     if ( arch == "s390" or arch == "s390x"):
         syslog.stop()
 
