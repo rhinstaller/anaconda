@@ -1023,7 +1023,8 @@ def doPartitioning(diskset, requests, doRefresh = 1):
         pass
     elif ret != PARTITION_SUCCESS:
         # more specific message?
-        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
+        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.") %(requests.getBootableRequest()[0].mountpoint,)
+#        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
 
     # now grow the logical partitions
     growLogicalVolumes(diskset, requests)
