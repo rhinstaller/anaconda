@@ -107,6 +107,7 @@ class AutoPartitionWindow:
 	if todo.instClass.partitions or todo.instClass.fstab:
 	    druid = \
 		todo.fstab.attemptPartitioning(todo.instClass.partitions,
+                                               todo.instClass.fstab,
 					       todo.instClass.clearParts)
 
 	if not druid:

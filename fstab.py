@@ -43,13 +43,18 @@ def isValidExt2(device):
     return 0
 
 class Fstab:
-    def attemptPartitioning(self, partitions, clearParts):
+    def attemptPartitioning(self, partitions, prefstab, clearParts):
 	attempt = []
 	swapCount = 0
 
+#	fstab = []
+#	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
+#            fstab.append ((dev, mntpoint))
+
 	fstab = []
-	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
-            fstab.append ((dev, mntpoint))
+        if prefstab != None:
+            for (mntpoint, (dev, fstype, reformat)) in prefstab:
+                fstab.append ((dev, mntpoint))
 
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
@@ -80,7 +85,7 @@ class Fstab:
             # configure kickstart requested ext2 filesystem options
             for (mntpoint, size, maxsize, grow,  device, fsopts) in partitions:
                 if fsopts != None:
-                    self.fstab.setfsOptions (mntpoint, fsopts)
+                    self.setfsOptions (mntpoint, fsopts)
             
             return ddruid
         else:
@@ -704,6 +709,12 @@ class Fstab:
 	self.waitWindow = waitWindow
 	self.messageWindow = messageWindow
 	self.badBlockCheck = 0
+
+        #
+        # extraFilesystems used for upgrades when /etc/fstab is read as
+        # well as for adding fstab entries for removable media
+        # Should NOT be used by kickstart any more
+        #
 	self.extraFilesystems = []
 	self.existingRaid = []
 	self.ddruid = self.createDruid()

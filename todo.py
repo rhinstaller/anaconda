@@ -289,10 +289,6 @@ class ToDo:
 
         log.open (serial, reconfigOnly, test)
 
-        # try to get --onpart working again
-#        from fstab import NewtFstab
-#        self.fstab = NewtFstab(self.setupFilesystems,serial,0,0,
-#                                self.intf.waitWindow,self.intf.messageWindow)
         self.fstab = None
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
@@ -369,25 +365,6 @@ class ToDo:
 
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
-
-#
-# apparently this is cruft
-#
-#      def addMount(self, device, location, fsystem, reformat = 1):
-#          if fsystem == "swap":
-#              ufs = 0
-#              try:
-#                  isys.makeDevInode(device, '/tmp/' + device)
-#              except:
-#                  pass
-#              try:
-#                  ufs = isys.checkUFS ('/tmp/' + device)
-#              except:
-#                  pass
-#              if not ufs:
-#                  location = "swap"
-#                  reformat = 1
-#          self.mounts[location] = (device, fsystem, reformat)
 
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
@@ -822,8 +799,12 @@ class ToDo:
 	    todo.silo.setDevice(where)
 	    todo.silo.setAppend(append)
 
-	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
-	    todo.fstab.addMount(dev, mntpoint, fstype, reformat)
+#
+#       only important for ks - not needed here for general case so
+#       commenting out for now...
+#
+#	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
+#	    todo.fstab.addMount(dev, mntpoint, fstype, reformat)
 
 	todo.users = []
 	if todo.instClass.rootPassword:
