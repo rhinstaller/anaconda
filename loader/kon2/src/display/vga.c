@@ -32,6 +32,7 @@
   */
 
 #include	<config.h>
+#include	<types.h>
 
 #ifdef	HAS_VGA
 

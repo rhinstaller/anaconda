@@ -45,6 +45,7 @@
 #include	<sys/wait.h>
 
 #include	<config.h>
+#include	<types.h>
 #include	<getcap.h>
 
 #include	<defs.h>
