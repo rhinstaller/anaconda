@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.13
+Version: 10.2.0.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Feb  2 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.14-1
+- Fix deprecation warnings for pygtk 2.5 (clumens)
+- Fix bootloader --location=none (clumens, #146448)
+- Use urlgrabber (clumens)
+- Create reduced bogl font at upd-instroot time to include more 
+  characters (#92146, #140208)
+- Allow passing --src-discs=0 to get no srpm discs from splittree 
+  (based on patch from Armijn Hemel, #119070)
+- Mount pseudo-fs's with a more descriptive device name (#136820)
+- Minor tweaks to completion message (#138688)
+
 * Tue Jan 25 2005 Peter Jones <pjones@redhat.com> - 10.2.0.13-1
 - Hopefully fix LVM size bug (#145183)
 - Support multiple iso sets in the same directory (#146053)
