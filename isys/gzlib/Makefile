@@ -1,6 +1,6 @@
 include ../../Makefile.inc
 
-CFLAGS += -I . -g -Wall
+CFLAGS += -I . -Os -g -Wall
 SOURCES = bits.c gzip.c inflate.c lzw.c trees.c unzip.c util.c zip.c binding.c \
 	  deflate.c zip.c
 OBJS = $(patsubst %.c,%.o,$(SOURCES))
