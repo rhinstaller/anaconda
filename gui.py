@@ -1002,17 +1002,22 @@ class InstallControlState:
             arch = "-%s" % (iutil.getArch(),)
             tags = [ "%s%s" % (helpTag, arch), "%s" % (helpTag,),
                      "%s" % (arch,), "" ]
-            
+
+            found = 0
             for path in self.searchPath:
+                if found:
+                    break
                 for lang in langPath + ['C']:
+                    if found:
+                        break
                     for tag in tags:
                         try:
                             text = open("%s/help/%s/s1-help-screens-%s%s.html"
                                         % (path, lang, file, tag)).read ()
+                            found = 1
+                            break
                         except IOError:
                             continue
-                        else:
-                            break
                 if text:
                     break
 
