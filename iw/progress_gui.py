@@ -283,7 +283,7 @@ class InstallProgressWindow_NEW (InstallWindow):
             if len(pixmaps) > 0:
                 break
 
-        if len(pixmaps1) > 0:
+        if len(pixmaps) > 0:
             files = pixmaps
         else:
             files = ["progress_first.png"]
