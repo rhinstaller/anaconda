@@ -1,5 +1,8 @@
 2004-11-16  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/mk-images: Remove some old code.  Switch makeinitrd to
+	create an initramfs instead of an initrd.
+
 	* loader2/loader.c (setupRamdisk): Remove old code.
 
 	* loader2/net.c (setKickstartNetwork): Allow passing --notksdevice

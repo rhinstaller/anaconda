@@ -560,10 +560,6 @@ makeinitrd() {
 	    INITRDSIZE=$2
 	    shift; shift
 	    continue
-	elif [ $1 = "--padsize" ]; then
-	    PADSIZE=$2
-	    shift; shift
-	    continue
 	elif [ $1 = "--loaderbin" ]; then
 	    LOADERBIN=$2
 	    shift; shift
@@ -598,8 +594,6 @@ makeinitrd() {
 
     MBD_DIR=/tmp/makebootdisk.dir.$$
     MBD_FSIMAGE=/tmp/makebootdisk.initrdimage.$$
-    MBD_MNTPOINT=/tmp/makebootdisk.mount.$$
-    MBD_TMPIMAGE=/tmp/makebootdisk.image.$$
     MBD_BOOTTREE=/tmp/makebootdisk.tree.$$
 
     rm -rf $MBD_DIR MBD_FSIMAGE
@@ -782,45 +776,17 @@ EOF
 	chmod 644 $MBD_DIR/dev/ttySG0
     fi
 
-    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=20000 2>/dev/null
-    mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
-    tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big >/dev/null
-    gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
-    rm -f $MBD_DIR/etc/ramfs.img.big
-
 cat > $MBD_DIR/.profile <<EOF
 PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH
 EOF
 
     rm -f $MBD_FSIMAGE
-    dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
-    /sbin/mke2fs -F -i 1024 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
-    /sbin/tune2fs -c0 -i0 $MBD_FSIMAGE >/dev/null
-
-    rm -rf $MBD_MNTPOINT
-    mkdir $MBD_MNTPOINT
-    mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
-    (cd $MBD_DIR; find . | cpio --quiet -p $MBD_MNTPOINT)
-
-    left=$(df $MBD_MNTPOINT | tail +2)
-    left=$(echo $left | awk '{print $4'})
-
-    umount $MBD_MNTPOINT
-
-    mv -f $MBD_FSIMAGE $MBD_FSIMAGE.uncompressed
-    gzip -9 < $MBD_FSIMAGE.uncompressed > $MBD_FSIMAGE
-    rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
+    (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
 
     size=$(du $MBD_FSIMAGE | awk '{ print $1 }')
 
-    echo "Wrote $MBD_BOOTTREE (${size}k compressed, ${left}k free)"
-
-    rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
-
-    if [ -n "$PADSIZE" ]; then
-	padfile $MBD_FSIMAGE $PADSIZE
-    fi
+    echo "Wrote $MBD_FSIMAGE (${size}k compressed)"
 
     if [ -n "$EXTRAINITRDPATH" ]; then
 	mkdir -p `dirname $EXTRAINITRDPATH`
@@ -828,7 +794,7 @@ EOF
     fi
 
     if [ -z "$KEEP" ]; then
-	rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+	rm -rf $MBD_FSIMAGE $MBD_BOOTTREE
     fi
 }
 
@@ -899,34 +865,6 @@ makebootdisk() {
     fi
 
     echo "Wrote $MBD_FILENAME (${left}k free)"
-}
-
-makeImage () {
-    MI_FROM=$1
-    MI_SIZE=$2
-    MI_TO=$3
-    MI_TMPIMAGE=/tmp/makeimage.img.$$
-    MI_MNTPOINT=/tmp/makeimage.mnt.$$
-
-    mkdir -p $MI_MNTPOINT
-
-    dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
-    /sbin/mke2fs -q -F -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
-    /sbin/tune2fs -c0 -i0 $MI_TMPIMAGE >/dev/null
-    mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
-    (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
-
-    left=$(df $MI_MNTPOINT | tail +2)
-    left=$(echo $left | awk '{print $4'})
-
-    umount $MI_MNTPOINT
-    rmdir $MI_MNTPOINT
-
-    gzip -9 < $MI_TMPIMAGE > $MI_TO
-    chmod 644 $MI_TO
-
-    echo "Wrote $MI_TO (${left}k of ${MI_SIZE}k free)"
-    rm -f $MI_TMPIMAGE
 }
 
 makeinstimage () {
