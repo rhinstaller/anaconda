@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.1
+Version: 10.2.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -73,6 +73,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 15 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.2-1
+- Do some more unmounts if we run out of space (#133773)
+- Fix for obsoletes E being long (nasrat, #138485)
+- Make serial imply nofb (#134167)
+- Set fstype to vfat if user selected /boot/efi in the 
+  mountpoint dropdown (#138580)
+- Copy the X log to the installed system
+- Add fix from HJ Lu to fix hang with no bootloader install (#138932)
+- Fix splittree error msg (nasrat, #139391)
+- Ignore IBM *STMF disks (#137920)
+
 * Mon Nov  8 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.1-1
 - whrandom is deprecated in python 2.4, use random instead
 - fix some syntax errors
