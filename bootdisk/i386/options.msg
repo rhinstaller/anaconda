@@ -1,22 +1,18 @@
+00
  
 
- -  To install or upgrade 0cRed Hat07 Linux in graphical mode, 
-    press the 0f<ENTER>07 key.
+                       09Installer Boot Options07
 
- -  To install or upgrade 0cRed Hat07 Linux in text mode, type: 0ftext <ENTER>07.
+ -  To disable hardware probing, type: linux noprobe <ENTER>.  
 
- -  To enable low resolution mode, type: 0flowres <ENTER>07.  
-    Press 05<F2>07 for more information.
+ -  To test the install media you are using, type: linux mediacheck <ENTER>.  
 
- -  To disable hardware probing, type: 0flinux noprobe <ENTER>07.  
+ -  To enable rescue mode, type: linux rescue <ENTER>.  
+    Press <F4> for more information about rescue mode.
 
- -  To test the install media you are using, type: 0flinux mediacheck <ENTER>07.  
+ -  If you have a driver disk, type: linux dd <ENTER>.
 
- -  To enable rescue mode, type: 0flinux rescue <ENTER>07.  
-    Press 05<F4>07 for more information about rescue mode.
+ -  To prompt for the install method being used on a CD-ROM install, 
+    type linux askmethod <ENTER>.
 
- -  If you have a driver disk, type: 0flinux dd <ENTER>07.
-
- -  Use the function keys listed below for more information.
-
-05[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
+02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07

@@ -1,24 +1,19 @@
+00
 
 
                         09Rescue Mode Help07
 
-The 0cRed Hat07 Linux CD-ROM includes a rescue mode which can be used
+The 02Red Hat07 Linux CD-ROM includes a rescue mode which can be used
 when a system does not boot properly.  The rescue mode includes many
 useful utilities (editor, hard drive and RAID tools, etc.) which will allow
 one to restore a system to a working state.
 
-To enter the rescue mode, boot your system from the 0cRed Hat07 Linux 
-CDROM and type 0flinux rescue <ENTER>07.
+To enter the rescue mode, boot your system from the 02Red Hat07 Linux 
+CDROM and type linux rescue <ENTER>.
 
 
 
 
 
+02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07
 
-
-
-
-
-
-
-05[F1-Main] [F2-General] [F3-Kernel] [F4-Rescue]07
