@@ -674,7 +674,7 @@ class Partitions:
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = None
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
-                    ptype = None
+                    ptype = fsset.fileSystemTypeGet("software RAID")
                 elif part.fs_type:
                     ptype = get_partition_file_system_type(part)
                     if part.fs_type.name == "linux-swap":
