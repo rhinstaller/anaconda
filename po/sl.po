@@ -82,6 +82,9 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
+"Pri¹lo je do izjemnega pogoja, najverjetneje do hro¹èa. Prosimo, prepi¹ite "
+"vso besedilo te izjeme in izpolnite poroèilo o hro¹èu na "
+"http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:271 ../text.py:783
 msgid ""
@@ -161,40 +164,37 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Namestitvena lupina Red Hat Linuxa na %s"
 
 #: ../gui.py:678
-#, fuzzy
 msgid "Install Window"
-msgstr "Namestitev"
+msgstr "Namestitveno okno"
 
 #: ../image.py:40
 msgid "Copying File"
-msgstr ""
+msgstr "Prepisujem datoteko"
 
 #: ../image.py:41
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Prena¹am namestitveno sliko v disk..."
 
 #: ../image.py:58
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Drugi CDROM"
+msgstr "Spremeni CDROM"
 
 #: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Prosimo, za nadaljevanje vstavite disk %d."
 
 #: ../image.py:68
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Drugi CDROM"
+msgstr "Napaèen CDROM"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "To ni pravi CD-ROM z Red Hat."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "CD-ROM-a ni moè priklopiti."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -431,12 +431,10 @@ msgstr ""
 "poznej¹i ogled."
 
 #: ../text.py:475
-#, fuzzy
 msgid "Upgrade to begin"
-msgstr "Nadgradi sistem"
+msgstr "Nadgradnja za zaèetek"
 
 #: ../iw/confirm_gui.py:40 ../text.py:476
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -532,15 +530,27 @@ msgstr "Preostanek: "
 
 #: ../text.py:726
 msgid "Help not available"
-msgstr ""
+msgstr "Pomoè ni na voljo"
 
 #: ../text.py:727
 msgid "No help is available for this install."
-msgstr ""
+msgstr "Za to namestitev pomoè ni dostopna."
+
+#: ../text.py:768
+msgid "Exception Occurred"
+msgstr "Pri¹lo je do izjeme"
 
 #: ../text.py:782
 msgid "Save Crash Dump"
+msgstr "Shrani posmrtne ostanke"
+
+#: ../text.py:783
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
 msgstr ""
+"Zdaj, prosimo, vstavite disketo. Vsa vsebina diskete do zbrisana, zato, "
+"prosimo, to disketo izberite nadvse pazljivo."
 
 #: ../text.py:793
 msgid ""
@@ -550,10 +560,15 @@ msgid ""
 "will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"V namestitvenem programu se je zgodila notranja napaka. Prosimo, èimprej "
+"sporoèite to napako Red Hatu (prek spletne strani bugzilla.redhat.com). "
+"Podatke o tej te¾avi lahko shranite na disketo in tako pomagate Red Hatu pri "
+"odpravljanju napake.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Shrani"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -564,7 +579,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -690,7 +704,6 @@ msgid "Customize Upgrade"
 msgstr "Prilagodi nadgradnjo"
 
 #: ../text.py:971
-#, fuzzy
 msgid "Upgrade Begins"
 msgstr "Prei¹èimo nadgradnjo"
 
@@ -724,11 +737,11 @@ msgstr "Beremo podatke o paketih..."
 
 #: ../todo.py:702
 msgid "Dependency Check"
-msgstr ""
+msgstr "Preverjanje odvisnosti"
 
 #: ../todo.py:703
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "Preverjam odvisnosti v paketih, izbranih za namestitev..."
 
 #: ../todo.py:730 ../todo.py:769 ../todo.py:775 ../todo.py:792
 msgid "no suggestion"
@@ -761,12 +774,18 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
+"Eden ali veè datoteènih sistemov za Linux ni bil pravilno odklopljen. "
+"Prosimo, za¾enite va¹o namestitev Linuxa, pustite, da se datoteèni sistemi "
+"preverijo, in zaustavite sistem na èisti naèin, èe ¾elite sistem nadgraditi."
 
 #: ../todo.py:872
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"Enega ali veè datoteènih sistemov, na¹tetih v /etc/fstab v va¹em sistemu "
+"Linux, ni mogoèe priklopiti. Prosimo, odpravite te¾avo in znova poskusite "
+"nadgraditi sistem."
 
 #: ../todo.py:893
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -855,7 +874,6 @@ msgid "Vertical frequency range"
 msgstr "Obseg vertikalne frekvence"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
 msgstr "Izbira mi¹ke"
 
@@ -866,10 +884,14 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Va¹a mi¹ka ni bila samodejno zaznana. Èe ¾elite nadaljevati grafièno "
+"namestitev, prosimo, nadaljujte na naslednjem zaslonu in vpi¹ite podatke o "
+"svoji mi¹ki. Uporabite pa lahko tudi tekstovno namestitev, pri kateri mi¹ka "
+"ni obvezna."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Uporabi tekstovni naèin"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -881,16 +903,15 @@ msgstr "Geslo za root sprejeto."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr ""
+msgstr "Prosimo, vnesite skrbnikovo (root) geslo."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
 msgstr "Prekratko geslo za root."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
-msgstr "Neujemanje gesel za root."
+msgstr "Gesli za root se ne ujemata."
 
 #: ../iw/account_gui.py:56
 #, fuzzy
@@ -899,21 +920,19 @@ msgstr "Geslo za root sprejeto."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr ""
+msgstr "Tu ne morete dodati raèuna za root."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
-msgstr ""
+msgstr "Prosimo, vnesite uporabnikovo geslo."
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
-msgstr "Prekratko geslo za root."
+msgstr "Uporabnikovo geslo je prekratko."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
-msgstr "Neujemanje gesel za root."
+msgstr "Uporabnikovi gesli se ne ujemata."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
@@ -991,23 +1010,20 @@ msgid "NIS Server: "
 msgstr "Stre¾nik NIS: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Vklopimo NIS"
+msgstr "Vklopimo LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "Stre¾nik NIS:"
+msgstr "Stre¾nik LDAP:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP osnovna DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Omogoèimo neme tipke"
+msgstr "Omogoèi Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
@@ -1015,26 +1031,25 @@ msgstr ""
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "Stre¾nik NIS:"
+msgstr "Skrbni¹ki stre¾nik:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
 msgstr "Izdelava zagonske diskete"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"V prvi disketnik vstavite prazno disketo.  Med izdelavo zagonske diskete "
-"bodo na njej izbrisani vsi obstojeèi podatki."
+"Prosimo, odstranite namestitveno disketo (èe ste jo uporabljali) in vstavite "
+"prazno disketo.  Med izdelavo zagonske diskete bodo na njej izbrisani vsi "
+"obstojeèi podatki."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:70
 msgid ""
@@ -1049,7 +1064,6 @@ msgid "Skip boot disk creation"
 msgstr "Preskoèimo izdelavo zagonske diskete"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
 msgstr "Nadgraditev sistema"
 
@@ -1058,7 +1072,6 @@ msgid "About to Install"
 msgstr "Zaèetek namestitve"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
 msgstr "Kliknite naprej za zaèetek namestitve Red Hat Linuxa."
 
@@ -1101,7 +1114,7 @@ msgstr "Nerazre¹ene odvisnosti"
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr ""
+msgstr "Skupna velikost namestitve: %s"
 
 #: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:161
 #: ../textw/packages_text.py:312
@@ -1117,12 +1130,10 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Namésti pakete tako, da zadovolji¹ odvisnostim"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
-#, fuzzy
 msgid "Do not install packages that have dependencies"
 msgstr "Namésti pakete tako, da zadovolji¹ odvisnostim"
 
 #: ../iw/dependencies_gui.py:93 ../textw/packages_text.py:329
-#, fuzzy
 msgid "Ignore package dependencies"
 msgstr "Odvisnosti paketov"
 
@@ -1139,7 +1150,6 @@ msgstr ""
 " Tega sistema ne morete nadgraditi!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
 msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
 
@@ -1346,7 +1356,7 @@ msgstr "Izbira paketov za namestitev"
 
 #: ../iw/package_gui.py:353
 msgid "Total install size: "
-msgstr ""
+msgstr "Skupna velikost namestitve: "
 
 #: ../iw/package_gui.py:390 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
@@ -1456,7 +1466,6 @@ msgstr ""
 "namestitev."
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
 msgstr "Samodejna razdelitev"
 
@@ -1470,9 +1479,14 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Za samodejno razdelitev va¹ega diska v njem ni dovolj prostora. Èe ¾elite "
+"namestiti Red Hat Linux, boste moreli va¹e diske razdeliti roèno.\n"
+"\n"
+"Prosimo, izberite orodje, ki bi ga radi uporabljali za razdelitev va¹ega "
+"diska za Red Hat Linux."
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
 msgstr "Roèna razdelitev"
 
@@ -1482,20 +1496,21 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Prosimo, izberite orodje, s katerim bi radi razdelili va¹ disk za Red Hat "
+"Linux."
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Samodejna razdelitev"
+msgstr "Samodejna razdelitev in ODSTRANITEV PODATKOV"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
-msgstr "Roèna razdelitev"
+msgstr "Roèna razdelitev z orodjem Disk Druid"
 
 #: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
-msgstr ""
+msgstr "Roèna razdelitev z orodjem fdisk [le za strokovnjake]"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1618,7 +1633,6 @@ msgid "Skip X Configuration"
 msgstr "Preskok nastavitve X"
 
 #: ../iw/xconfig_gui.py:488
-#, fuzzy
 msgid "Default Desktop:"
 msgstr "Privzeta"
 
@@ -1663,7 +1677,6 @@ msgid "Skip"
 msgstr "Preskoèi"
 
 #: ../textw/bootdisk_text.py:57
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
@@ -1694,25 +1707,22 @@ msgid "Clear"
 msgstr "Pobri¹imo"
 
 #: ../textw/lilo_text.py:126
-#, fuzzy
 msgid "Edit Boot Label Please"
 msgstr "Uredimo zagonsko oznako"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#, fuzzy
 msgid "Invalid Boot Label"
-msgstr "Uredimo zagonsko oznako"
+msgstr "Neveljavna zagonska oznaka"
 
 #: ../textw/lilo_text.py:145
 msgid "Boot label may not be empty."
-msgstr ""
+msgstr "Zagonska oznaka ne sme biti prazna."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "Zagonska oznaka vsebuje neveljavne znake."
 
 #: ../textw/lilo_text.py:206
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1740,7 +1750,6 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 v DOS-u)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
 msgstr "Na katero napravo je prikljuèena mi¹ka? %s %i"
 
@@ -1797,24 +1806,21 @@ msgstr ""
 "raèunalnik prikljuèen v omre¾je, vam ga morda dodeli upravitelj omre¾ja."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
 msgstr "Paket"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
 msgstr "Velikost:"
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
-msgstr "Skupno"
+msgstr "Skupna velikost"
 
 #: ../textw/packages_text.py:249
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
+msgstr "   <Space>,<+>,<-> izbira   |   <F1> pomoè   |   <F2> opis paketa"
 
 #: ../textw/packages_text.py:306
 msgid ""
@@ -1921,6 +1927,8 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
+"Niti korenski datoteèni sistem, niti izmenjalni prostor, ne smeta biti veèja "
+"od 2000 megabajtov."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2093,7 +2101,7 @@ msgstr "Zahtevajte stre¾nik z oddajanjem"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "razdeljevanje ni zadostilo zahtevam"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2165,7 +2173,7 @@ msgstr ""
 #: ../libfdisk/fsedit.c:1029
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
+msgstr "Na tej platformi mora biti /boot v dosovskem datoteènem sistemu %x."
 
 #: ../libfdisk/fsedit.c:1039
 #, c-format
@@ -2193,9 +2201,8 @@ msgstr ""
 "Software, da ste videli to sporoèilo."
 
 #: ../libfdisk/fsedit.c:1077
-#, fuzzy
 msgid "Error Creating Device Nodes"
-msgstr "Napaka pri ustvarjanju izmenjalnega prostora na napravi "
+msgstr "Napaka pri ustvarjanju nodov naprav"
 
 #: ../libfdisk/fsedit.c:1078
 msgid ""
@@ -2292,9 +2299,8 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
 
 #: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
-#, fuzzy
 msgid "Cannot Edit Partitions"
-msgstr "Uredimo razdelitev"
+msgstr "Ne moremo urediti razdelitev"
 
 #: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
 msgid ""
@@ -2319,9 +2325,8 @@ msgid "Size (Megs):"
 msgstr "Velikost (MB):"
 
 #: ../libfdisk/gnomefsedit.c:897
-#, fuzzy
 msgid "Use remaining space?"
-msgstr "Uporabimo obstojeèi prosti prostor"
+msgstr "Uporabimo obstojeèi prostor?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2410,16 +2415,14 @@ msgstr ""
 "razdelitve je %ld megabajtov."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Noben pogon ni bil najden"
+msgstr "Noben pogon ni bil podan"
 
 #: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Zapri"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr ""
 "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
@@ -2446,9 +2449,8 @@ msgstr ""
 "Prosim, izberite disk na katerega boste omejili razdelitev."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
-#, fuzzy
 msgid "Cannot Add Partitions"
-msgstr "Nedodeljene razdelitve"
+msgstr "Ne moremo dodajati razdelitev"
 
 #: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
@@ -2491,7 +2493,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "Ne moremo urediti RAID"
 
 #: ../libfdisk/gnomefsedit.c:1878
 msgid ""
@@ -2602,7 +2604,6 @@ msgid "Use Pre-existing Partition?"
 msgstr "Uporabimo obstojeèo razdelitev?"
 
 #: ../libfdisk/gnomefsedit.c:2394
-#, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "Ni naprave RAID"
 
@@ -2671,23 +2672,21 @@ msgstr "<ni nastavljena>"
 
 #: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
-msgstr ""
+msgstr "Zahtevano"
 
 #: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
-msgstr ""
+msgstr "Pravo"
 
 #: ../libfdisk/gnomefsedit.c:3151
-#, fuzzy
 msgid "Drive"
-msgstr "Preskoèi pogon"
+msgstr "Pogon"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/G/S]"
 
 #: ../libfdisk/gnomefsedit.c:3153
-#, fuzzy
 msgid "Total (M)"
 msgstr "Skupno"
 
@@ -2753,27 +2752,22 @@ msgid "Swap Partition"
 msgstr "Izmenjalna razdelitev"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
 msgstr "Uredimo razdelitev"
 
 #: ../libfdisk/newtfsedit.c:363
-#, fuzzy
 msgid "Edit New Partition"
 msgstr "Uredimo razdelitev"
 
 #: ../libfdisk/newtfsedit.c:428
-#, fuzzy
 msgid "Use remaining space?:"
 msgstr "Uporabimo obstojeèi prosti prostor"
 
 #: ../libfdisk/newtfsedit.c:472
-#, fuzzy
 msgid "Type:"
 msgstr "Vrsta"
 
 #: ../libfdisk/newtfsedit.c:486
-#, fuzzy
 msgid "Unknown"
 msgstr "Neznan gostitelj"
 
@@ -2816,12 +2810,10 @@ msgstr ""
 "Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Korenske razdelitve ni"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
@@ -2900,7 +2892,6 @@ msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Vstavite disketo z gonilnikom in pritisnite \"V redu\" za nadaljevanje"
 
 #: ../loader/devices.c:233
-#, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Ne moremo priklopiti diskete."
 
@@ -2925,7 +2916,7 @@ msgid "Specify module parameters"
 msgstr "Doloèitev modulov jedra"
 
 #: ../loader/devices.c:397
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
 msgstr "Ne moremo zapisovati dnevnika v %s: %s"
 
@@ -2939,7 +2930,6 @@ msgid "The wrong diskette was inserted."
 msgstr ""
 
 #: ../loader/devices.c:490
-#, fuzzy
 msgid "Driver Disk"
 msgstr "Povzetki vsebine diskov"
 
@@ -3030,7 +3020,7 @@ msgid "Loading"
 msgstr "Nalaganje"
 
 #: ../loader/loader.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Nalagamo drugo stopnjo pomnilni¹kega diska..."
 
@@ -3082,12 +3072,10 @@ msgstr ""
 "Prosim vstavite CD Red Hata in pritisnite \"V redu\" za ponoven poskus."
 
 #: ../loader/loader.c:940
-#, fuzzy
 msgid "Networking Device"
 msgstr "Omre¾na naprava"
 
 #: ../loader/loader.c:941
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3110,12 +3098,10 @@ msgid "HTTP"
 msgstr ""
 
 #: ../loader/loader.c:1072
-#, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
 
 #: ../loader/loader.c:1081
-#, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
 
@@ -3145,7 +3131,6 @@ msgid "Failed to read directory %s: %s"
 msgstr "Ne moremo brati imenika %s: %s"
 
 #: ../loader/loader.c:2067
-#, fuzzy
 msgid "Updates Disk"
 msgstr "Popravki"
 
@@ -3203,7 +3188,6 @@ msgstr ""
 "      za va¹o arhitekturo"
 
 #: ../loader/net.c:239
-#, fuzzy
 msgid "Nameserver IP"
 msgstr "Imenski tre¾nik"
 
@@ -3220,12 +3204,10 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:254
-#, fuzzy
 msgid "Invalid IP Information"
 msgstr "Neveljavni podatki"
 
 #: ../loader/net.c:255
-#, fuzzy
 msgid "You entered an invalid IP address."
 msgstr "Vnesti morate veljaven naslov IP in mre¾no masko."
 
@@ -3445,7 +3427,6 @@ msgid "Loading SCSI driver"
 msgstr "Nalagamo gonilnik za SCSI"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
 msgstr "Namestitev sistema po meri"
 
@@ -3467,111 +3448,84 @@ msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr "Nameravate pobrisati vse obstojeèe namestitve Linuxa na sistemu."
 
-# ../comps/comps-master:3
 msgid "Base"
 msgstr ""
 
-# ../comps/comps-master:150
 msgid "Printer Support"
 msgstr ""
 
-#, fuzzy
 msgid "X Window System"
 msgstr "Prei¹èi sistem"
 
-# ../comps/comps-master:259
 msgid "GNOME"
 msgstr ""
 
-# ../comps/comps-master:315
 msgid "KDE"
 msgstr ""
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
 msgstr ""
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
 msgstr ""
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
 msgstr ""
 
-# ../comps/comps-master:389
 msgid "Games"
 msgstr ""
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
 msgstr ""
 
-# ../comps/comps-master:446
 msgid "Laptop Support"
 msgstr ""
 
-#, fuzzy
 msgid "Networked Workstation"
 msgstr "Mre¾ne nastavitve"
 
-#, fuzzy
 msgid "Dialup Workstation"
 msgstr "Delovna postaja KDE"
 
-#, fuzzy
 msgid "News Server"
 msgstr "Imenski tre¾nik"
 
-#, fuzzy
 msgid "NFS Server"
 msgstr "Stre¾nik NIS:"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
 msgstr ""
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
 msgstr ""
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
 msgstr ""
 
-#, fuzzy
 msgid "Web Server"
 msgstr "Stre¾nik"
 
-#, fuzzy
 msgid "DNS Name Server"
 msgstr "Imenski tre¾nik"
 
-# ../comps/comps-master:557
 msgid "Postgres (SQL) Server"
 msgstr ""
 
-#, fuzzy
 msgid "Network Management Workstation"
 msgstr "Mre¾ne nastavitve"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
 msgstr ""
 
-# ../comps/comps-master:597
 msgid "Emacs"
 msgstr ""
 
-# ../comps/comps-master:610
 msgid "Development"
 msgstr ""
 
-#, fuzzy
 msgid "Kernel Development"
-msgstr "Parametri jedra"
+msgstr "Razvoj jedra"
 
-# ../comps/comps-master:738
 msgid "Utilities"
 msgstr ""
 
