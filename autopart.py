@@ -268,6 +268,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     if partSize >= request.requestSize and partSize > largestPart[0]:
                         if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
+                            if isBoot:
+                                break
 
             if not largestPart[1]:
                 return PARTITION_FAIL
