@@ -99,7 +99,7 @@ class XF86Config:
             self.server = self.vidCards[0]["SERVER"]
 
         # VESA probe for monitor/videoram, etc.
-        probe = string.split (iutil.execWithCapture ("ddcprobe/ddcprobe", ['ddcprobe']), '\n')
+        probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
 
         for line in probe:
             if line and line[:9] == "OEM Name:":
