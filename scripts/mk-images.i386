@@ -219,10 +219,12 @@ makeBootImages() {
 	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/images/pxeboot/initrd.img
 
 	# links for the autoboot bits
-	rm -f $TOPDESTPATH/dosutils/autoboot/*
-	mkdir -p $TOPDESTPATH/dosutils/autoboot/
-	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
-	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
+	if [ -f $TOPDESTPATH/dosutils/loadlin.exe ]; then
+		rm -f $TOPDESTPATH/dosutils/autoboot/*
+		mkdir -p $TOPDESTPATH/dosutils/autoboot/
+		ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
+		ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
+	fi
     fi
 
     # now make a boot iso
