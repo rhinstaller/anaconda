@@ -155,11 +155,11 @@ class LiloConfiguration:
 
 	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
 	    mountsByDev[device] = mntpoint
-	    drives.append(device, "", 2, 0, 0)
+	    drives.append(device, "", 2, 0, 0, 0, 0)
 
 	for (device, mntpoint, fsystem, makeup) in fstab.existingRaidList():
 	    mountsByDev[device] = mntpoint
-	    drives.append(device, "", 2, 0, 0)
+	    drives.append(device, "", 2, 0, 0, 0, 0)
 	    
 	oldImages = {}
 	for dev in self.liloImages.keys():
