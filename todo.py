@@ -643,6 +643,21 @@ class ToDo:
                 if dep != _("no suggestion"):
                     self.hdList[dep].selected = 1
 
+    def unselectDeps (self, deps):
+        if deps:
+            for (who, dep) in deps:
+                if dep != _("no suggestion"):
+                    self.hdList[dep].selected = 0
+
+    def canResolveDeps (self, deps):
+        canresolve = 0
+        if deps:
+            for (who, dep) in deps:
+                if dep != _("no suggestion"):
+                    canresolve = 1
+        return canresolve
+                    
+
     def upgradeFindRoot (self):
         rootparts = []
         if not self.setupFilesystems: return [ self.instPath ]
