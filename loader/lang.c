@@ -369,7 +369,9 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 #define KBDTYPE_PC             1
     int kbdtype = -1;
     int j;
-#endif    
+#endif
+
+    if (FL_SERIAL (flags)) return 0;
 
     /*if (testing) return 0;*/
 
@@ -539,7 +541,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     if (keymap) *keymap = strdup(infoTable[num].name);
 
 #ifdef __sparc__
-    if (kbdtypep) *kbdtypep = (kbdtype == KBDTYPE_SUN) ? "sun" : "pci";
+    if (kbdtypep) *kbdtypep = (kbdtype == KBDTYPE_SUN) ? "sun" : "pc";
 #endif
 
     return rc;

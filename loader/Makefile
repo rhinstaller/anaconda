@@ -1,4 +1,4 @@
-VERSION = 6.0
+VERSION = 6.1
 
 DESTDIR = ../../trees/initrd
 
@@ -150,7 +150,8 @@ init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
 
 clean: 
-	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe
+	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
+	      loader.po loader.tr tr/*.tr loader init
 
 depend:
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend
