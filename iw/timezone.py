@@ -77,7 +77,7 @@ class TimezoneWindow (InstallWindow):
         return None
 
     def fixUp (self):
-        self.tz.setcurrent (self.default)
+	pass
 
     def getScreen (self):
         try:
@@ -104,6 +104,9 @@ class TimezoneWindow (InstallWindow):
 	else:
 	    self.default = "America/New_York"
 	    asUTC = 0
+
+	self.list.connect ("draw", lambda widget, area, self=self: 
+	                             self.tz.setcurrent (self.default))
 
         status = Status (tz.statusbar)
         views = Option (tz.views)
