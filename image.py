@@ -7,6 +7,7 @@ import os
 import isys
 import string
 from translate import _
+from log import log
 
 class ImageInstallMethod(InstallMethod):
 
@@ -35,7 +36,10 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.lochangefd("/tmp/loop", target)
 
     def getFilename(self, h):
-	if h[1000002] != self.currentDisc:
+        if h[1000002] == None:
+            log.log ("header for %s has no disc location tag, assuming it's"
+                     "on the current CD", h[1000000])
+        elif h[1000002] != self.currentDisc:
 	    self.currentDisc = h[1000002]
 	    isys.umount("/mnt/source")
 	    isys.ejectCdrom(self.device)
