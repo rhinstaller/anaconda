@@ -29,6 +29,7 @@
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
+#include <syslog.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -38,7 +39,6 @@
 #include <sys/sysmacros.h>
 #include <sys/utsname.h>
 #include <unistd.h>
-#include <zlib.h>
 #include <sys/vt.h>
 
 #include <popt.h>
@@ -149,14 +149,14 @@ void doSuspend(void) {
 }
 
 static int setupRamdisk(void) {
-    gzFile f;
+    int f;
     static int done = 0;
 
     if (done) return 0;
 
     done = 1;
 
-    f = gzopen("/etc/ramfs.img", "r");
+    f = open("/etc/ramfs.img", 0);
     if (f) {
 	char buf[10240];
 	int i, j = 0;
@@ -165,13 +165,13 @@ static int setupRamdisk(void) {
 	fd = open("/dev/ram", O_RDWR);
 	logMessage("copying file to fd %d", fd);
 
-	while ((i = gzread(f, buf, sizeof(buf))) > 0) {
+	while ((i = read(f, buf, sizeof(buf))) > 0) {
 	    j += write(fd, buf, i);
 	}
 
 	logMessage("wrote %d bytes", j);
 	close(fd);
-	gzclose(f);
+	close(f);
     }
 
     doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
@@ -1072,6 +1072,9 @@ static char * mountNfsImage(struct installMethod * method,
     char * fullPath;
     int stage = NFS_STAGE_IP;
 
+/*XXX
+    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);*/
+
     initLoopback();
 
     memset(&netDev, 0, sizeof(netDev));
@@ -1099,12 +1102,13 @@ static char * mountNfsImage(struct installMethod * method,
 	    break;
 
 	  case NFS_STAGE_MOUNT:
+	    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
+
 	    if (FL_TESTING(flags)) {
 		stage = NFS_STAGE_DONE;
 		break;
 	    }
 
-	    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
 
@@ -2345,13 +2349,8 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 void setFloppyDevice(int flags) {
 #if defined(__i386__) || defined(__ia64__)
     struct device ** devices;
-    char line[256];
-    const char * match = "Floppy drive(s): ";
     int foundFd0 = 0;
     int i = 0;
-    FILE * f;
-
-    /*if (FL_TESTING(flags)) return;*/
 
     logMessage("probing for floppy devices");
 
@@ -2382,8 +2381,6 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
 
-    if (FL_TESTING(flags)) return 0;
-
     if (FL_NOUSB(flags)) return 0;
 
     logMessage("looking for usb controllers");
@@ -2396,11 +2393,14 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     logMessage("found USB controller %s", devices[0]->driver);
+
     if (mlLoadModuleSet(devices[0]->driver, modLoaded, modDeps, modInfo, 
 			flags)) {
 	logMessage("failed to insert usb module");
 	return 1;
     }
+
+    if (FL_TESTING(flags)) return 0;
 
     if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbdevfs", 0, 0, 
 		  NULL, NULL))
@@ -2616,6 +2616,8 @@ int main(int argc, char ** argv) {
     }
 
     openLog(FL_TESTING(flags));
+    if (!FL_TESTING(flags))
+	openlog("loader", 0, LOG_LOCAL0);
 
     checkForRam(flags);
 
@@ -2845,7 +2847,8 @@ int main(int argc, char ** argv) {
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
     mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs", 
-		 modLoaded, modDeps, modInfo, flags);
+		    modLoaded, modDeps, modInfo, flags);
+
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 

@@ -6,10 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/kd.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <zlib.h>
 
 #include <glob.h>   /* XXX rpmlib.h */
 #include <dirent.h> /* XXX rpmlib.h */
@@ -23,6 +21,7 @@
 #include "log.h"
 #include "misc.h"
 #include "windows.h"
+#include "isys/gzlib/gzlib.h"
 
 #define errorWindow(String) \
 	newtWinMessage(_("Error"), _("OK"), String, strerror (errno));
@@ -138,7 +137,7 @@ void loadLanguage (char * file, int flags) {
 	    sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = gzopen(file, "r");
+    stream = gunzip_open(file);
 
     if (!stream) {
 	newtWinMessage("Error", "OK", "Translation for %s is not available.  "
@@ -149,7 +148,7 @@ void loadLanguage (char * file, int flags) {
     sprintf(filename, "%s.tr", key);
 
     rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    gzclose(stream);
+    gunzip_close(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
 	newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
@@ -199,7 +198,7 @@ static int loadFont(char * fontFile, int flags) {
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
-	stream = gzopen("/etc/fonts.cgz", "r");
+	stream = gunzip_open("/etc/fonts.cgz");
 	if (!stream) {
 	    newtWinMessage("Error", "OK", 
 			"Cannot open fonts: %s", strerror(errno));
@@ -207,7 +206,7 @@ static int loadFont(char * fontFile, int flags) {
 	}
 
 	rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-        gzclose(stream);
+        gunzip_close(stream);
 	if (rc || access("/tmp/font", R_OK)) {
 	    return LOADER_ERROR;
 	}
@@ -386,7 +385,7 @@ static int loadKeymap(gzFile stream) {
     int magic;
     short keymap[NR_KEYS];
 
-    if (gzread(stream, &magic, sizeof(magic)) != sizeof(magic)) {
+    if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic)) {
 	logMessage("failed to read kmap magic: %s", strerror(errno));
 	return LOADER_ERROR;
     }
@@ -396,7 +395,7 @@ static int loadKeymap(gzFile stream) {
 	return LOADER_ERROR;
     }
 
-    if (gzread(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps)) {
+    if (gunzip_read(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps)) {
 	logMessage("failed to read keymap header: %s", strerror(errno));
 	return LOADER_ERROR;
     }
@@ -411,7 +410,7 @@ static int loadKeymap(gzFile stream) {
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 
-	if (gzread(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
+	if (gunzip_read(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
 	    logMessage("failed to read keymap data: %s", strerror(errno));
 	    close(console);
 	    return LOADER_ERROR;
@@ -525,15 +524,15 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 #endif
 	    defkbd = "us";
 
-    f = gzopen("/etc/keymaps.gz", "r");
+    f = gunzip_open("/etc/keymaps.gz");
     if (!f) {
 	errorWindow("cannot open /etc/keymaps.gz: %s");
 	return LOADER_ERROR;
     }
 
-    if (gzread(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
+    if (gunzip_read(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
 	errorWindow("failed to read keymaps header: %s");
-	gzclose(f);
+	gunzip_close(f);
 	return LOADER_ERROR;
     }
 
@@ -541,9 +540,9 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
-    if (gzread(f, infoTable, i) != i) {
+    if (gunzip_read(f, infoTable, i) != i) {
 	errorWindow("failed to read keymap information: %s");
-	gzclose(f);
+	gunzip_close(f);
 	return LOADER_ERROR;
     }
 
@@ -628,17 +627,17 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 #endif	
 
     for (i = 0; i < num; i++) {
-	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {
+	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
 	    logMessage("error reading %d bytes from file: %s", 
 			    infoTable[i].size, strerror(errno));
-	    gzclose(f);
+	    gunzip_close(f);
 	    rc = LOADER_ERROR;
 	}
     }
 
     if (!rc) rc = loadKeymap(f);
 
-    gzclose(f);
+    gunzip_close(f);
 
     if (keymap) *keymap = strdup(infoTable[num].name);
 

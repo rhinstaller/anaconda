@@ -102,7 +102,7 @@ int mlReadLoadedList(moduleList * mlp) {
 	ml->mods[ml->numModules].path = NULL;
 	ml->mods[ml->numModules].weLoaded = 0;
 	*end = ' ';
-	ml->numModules++;
+	/*ml->numModules++;*/
 	start = strchr(end, '\n');
 	if (start) start++;
     }
@@ -458,7 +458,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     paths = extractModules(NULL, list, paths); 
     i = 0;
     if (!paths) {
-	logMessage("no modules found -- aborting insertion\n");
+	logMessage("no modules found -- aborting insertion");
 	i++;
     } else {
 	*items = '\0';
@@ -476,11 +476,13 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     }
 
     /* insert the modules now */
-    for (l = list, p = paths; *l; l++, p++) {
+    for (l = list, p = paths; paths && *l; l++, p++) {
 	if (*p && loadModule(*l, *p, modLoaded, 
 		       (argModule && !strcmp(argModule, *l)) ? args : NULL, 
 		       modInfo, flags)) {
-	    logMessage("failed to insert %s\n", *p);
+	    logMessage("failed to insert %s", *p);
+	} else {
+	    logMessage("inserted %s", *p);
 	}
     }
 
@@ -498,7 +500,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 	}
     }
 
-    for (p = paths; *p; p++) {
+    for (p = paths; p && *p; p++) {
 	unlink(*p);
 	free(*p);
     }

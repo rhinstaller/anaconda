@@ -4,16 +4,15 @@ VERSION = 7.2
 
 DESTDIR = ../../trees/initrd
 
-ARCH := $(patsubst i%86,i386,$(shell uname -m))
-ARCH := $(patsubst sparc%,sparc,$(ARCH))
-
 OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
        misc.o ftp.o
+
+SLANGLIB = -lslang
 ifneq (ia64, $(ARCH))
+ifneq (i386, $(ARCH))
 OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
 SLANGLIB = ../minislang/libslang.a
-else
-SLANGLIB = -lslang
+endif
 endif
 
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
@@ -22,15 +21,22 @@ BINS = init
 DIRS = 
 NETOBJS = net.o 
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
-OPTS = -Os -g
+OPTS = -Os
+DEBUG = -g
 
 MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
 	       	../isys/modutils/util/libutil.a          \
 	       	../isys/modutils/obj/libobj.a
+	
+COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(DEBUG) $(OPTS) -ffunction-sections -Wall -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
+CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
+
+ISYS = ../isys/libisys.a
+GUNZIP = ../isys/gzlib/libgunzip.a
+LOADERLIBS = -lpci
 
 # XXX Japanese is i386 only at the moment
 ifeq (i386, $(ARCH))
@@ -40,7 +46,7 @@ BINS += loader-local loader-network loader-pcmcia
  KONOBJS = ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
  endif
 DIRS += pcmcia-install kon2
-OBJS += stubs.o
+OBJS += dietstubs.o ctype.o
 endif
 
 ifeq (ia64, $(ARCH))
@@ -77,8 +83,15 @@ STATIC = -static
 
 ifeq (i386, $(ARCH))
 MINILIBC=minilibc.o
-CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
+COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
 LDFLAGS = -nostdlib /usr/lib/crt1.o
+LOADERLIBS += -lrpc
+ISYS = ../isys/libisys-diet.a
+SLANGLIB = ../minislang/libslang-diet.a
+GUNZIP = ../isys/gzlib/libgunzip-diet.a
+DIET=diet
+REALCC=gcc
+CC=$(DIET) $(REALCC)
 STATIC=-static
 else
 ifeq (sparc, $(ARCH))
@@ -130,55 +143,56 @@ install: all
 	install -m 644 minikon.fnt $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 urltest: urltest.o ftp.o urls.o lang.o log.o windows.o
-	$(CC) -g -o urltest urltest.o -lnewt ftp.o urls.o lang.o log.o windows.o -lz ../isys/libisys.a -lresolv
+	$(CC) -g -o urltest urltest.o -lnewt ftp.o urls.o lang.o log.o windows.o -lz $(ISYS) -lresolv
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	-lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-	-lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci
+	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+	-lpump -lz -lnewt $(SLANGLIB) $(LOADERLIBS)
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -L ../stubs -lz -lresolv -lnewt $(SLANGLIB) -lpci
+        -L /home/ewt/rpmdir/BUILD/kudzu-0.99.23 \
+	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -L ../stubs -lz -lnewt $(SLANGLIB) $(LOADERLIBS)
 
 loader-local-kon: loader-local-kon.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -L ../stubs -lz -lresolv -lnewt $(SLANGLIB) -lpci \
+        -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -L ../stubs -lz -lresolv -lnewt $(SLANGLIB) $(LOADERLIBS) \
 	$(KONOBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil
+	-lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -lpump -L ../stubs -lnewt $(SLANGLIB) $(LOADERLIBS)
 
 loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil \
+        -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) $(LOADERLIBS) \
 	$(KONOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil
+        -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) $(LOADERLIBS)
 
 loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia-kon.o $(OBJS) \
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
-        -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
-	$(MODULELINKAGE) \
-        -lpump -lz -lresolv -lnewt $(SLANGLIB) -lpci -lutil \
+        -lkudzu_loader $(ISYS) ../balkan/libbalkan.a \
+	$(MODULELINKAGE) $(GUNZIP) \
+        -lpump -lz -lresolv -lnewt $(SLANGLIB) $(LOADERLIBS) \
         $(KONOBJS)
 
 loader.o: loader.c
@@ -205,12 +219,25 @@ loader-pcmcia-kon.o: loader.c
 	    -DINCLUDE_KON $(CFLAGS) -o $@ -c $<
 
 init: init.o $(MINILIBC)
-	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
+	$(REALCC) $(STATIC) $(COPTS) $(LDFLAGS) -o $@ init.o $(MINILIBC)
+
+init.o: init.c 
+	$(REALCC) -O2 $(COPTS) -c -o init.o init.c
+
+minilibc.o: minilibc.c
+	$(REALCC) -O2 $(COPTS) -c -o minilibc.o minilibc.c
+
+mkctype: mkctype.c
+	$(REALCC) $(COPTS) -o mkctype mkctype.c
+
+ctype.c: mkctype
+	./mkctype > ctype.c
 
 clean: 
-	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
-	      loader.po loader.tr tr/*.tr loader init loader-local-kon loader-network-kon \
-              loader-pcmcia-kon
+	rm -f *.o .depend *~ loader-local loader-network loader.old \
+	      loader-pcmcia probe modprobe loader.po loader.tr tr/*.tr \
+	      loader init loader-local-kon loader-network-kon \
+              loader-pcmcia-kon ctype.c mkctype
 	for n in $(DIRS); do \
 	    (cd $$n; make clean) \
 	done

@@ -7,9 +7,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
 #include <sys/stat.h>
 #include <sys/utsname.h>
-#include <zlib.h>
 #include <linux/fd.h>
 
 #include "devices.h"
@@ -505,12 +505,12 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 	}
 
 	if (!failed) {
-	    from = gzopen("/tmp/drivers/modules.cgz", "r");
+	    from = gunzip_open("/tmp/drivers/modules.cgz");
 	    toPath = malloc(strlen(modNames[0]) + 30);
 	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
 	    mkdirChain(toPath);
 	    strcat(toPath, "/modules.cgz");
-	    to = gzopen(toPath, "w");
+	    to = gunzip_open(toPath);
 
 	    /* This message isn't good, but it'll do. */
 	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), 
@@ -520,8 +520,8 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 
 	    newtPopWindow();
 
-	    gzclose(from);
-	    gzclose(to);
+	    gunzip_close(from);
+	    gunzip_close(to);
 	    umount("/tmp/drivers");
 
 	    return toPath;
@@ -560,7 +560,7 @@ char ** extractModules(struct driverDiskInfo * ddi,
 	ballPath = strdup("/modules/modules.cgz");
     }
 
-    fd = gzopen(ballPath, "r");
+    fd = gunzip_open(ballPath);
     if (!fd) {
 	logMessage("failed to open %s", ballPath);
 	free(ballPath);
@@ -593,6 +593,8 @@ char ** extractModules(struct driverDiskInfo * ddi,
 
     qsort(map, numMaps, sizeof(*map), myCpioFileMapCmp);
     rc = myCpioInstallArchive(fd, map, numMaps, NULL, NULL, &failedFile);
+
+    gunzip_close(fd);
 
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
 	if (!oldPaths[i]) {
