@@ -297,6 +297,7 @@ static int addToHashTable(struct diskMapTable *hashTable,
 
 char * getBiosDisk(char *biosStr) {
     uint32_t biosNum;
+    struct diskMapEntry * disk;
 
     if (diskHashInit == 0) {
         probeBiosDisks();
@@ -307,5 +308,8 @@ char * getBiosDisk(char *biosStr) {
         return NULL;
 
     sscanf(biosStr,"%x",&biosNum);
-    return lookupHashItem(mbrSigToName, biosNum)->diskname;
+    disk = lookupHashItem(mbrSigToName, biosNum);
+    if (disk) return disk->diskname;
+
+    return NULL;
 }
