@@ -41,7 +41,7 @@ class ManualPartitionWindow:
 	
 	drives = todo.drives.available ()
 	driveNames = drives.keys()
-	driveNames.sort ()
+	driveNames.sort (isys.compareDrives)
 
 	choices = []
 	for device in driveNames:
@@ -98,7 +98,7 @@ class AutoPartitionWindow:
 
         if not todo.ddruid:
             drives = todo.drives.available ().keys ()
-            drives.sort ()
+            drives.sort (isys.compareDrives)
             todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr)
 
 	todo.instClass.finishPartitioning(todo.ddruid)
