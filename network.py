@@ -224,17 +224,23 @@ class Network:
                 f.write("network --device %s" % dev.get('device'))
                 if dev.get('bootproto') == 'dhcp':
                     f.write(" --bootproto dhcp")
+		    if self.overrideDHCPhostname:
+			if (self.hostname and
+			    self.hostname != "localhost.localdomain"):
+			    f.write(" --hostname %s" % self.hostname)
                 else:
-                    f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
-                       (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
+                    f.write(" --bootproto static --ip %s --netmask %s" % 
+                       (dev.get('ipaddr'), dev.get('netmask')))
 
-                if dev.get('bootproto') != 'dhcp':
-                    if self.primaryNS:
+		    if self.gateway is not None:
+			f.write(" --gateway %s" % (self.gateway,))
+
+		    if self.primaryNS:
                         f.write(" --nameserver %s" % self.primaryNS)
                         
-                        if (self.hostname and
-                            self.hostname != "localhost.localdomain"):
-                            f.write(" --hostname %s" % self.hostname)
+		    if (self.hostname and
+			self.hostname != "localhost.localdomain"):
+			f.write(" --hostname %s" % self.hostname)
 
                 f.write("\n");
 
