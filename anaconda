@@ -1,0 +1,32 @@
+#!/usr/bin/python
+
+import sys, getopt, os
+
+(args, extra) = getopt.getopt(sys.argv[1:], 'gTt', [ 'gui', 'text', 'test' ])
+
+mode = None
+test = 0
+
+for n in args:
+    (str, arg) = n
+    if (str == '-g' or str == '--gui'):
+	mode = 'g'
+    elif (str == '-T' or str == '--text'):
+	mode = 't'
+    elif (str == '-t' or str == '--test'):
+	test = 1
+
+if (not test and os.getpid() > 10):
+    print "you're running me on a live system! that's incredibly stupid."
+    sys.exit(1)
+
+if (test):
+    sys.path.append('balkan')
+
+if (mode == 'g'):
+    import gui
+elif (mode == 't'):
+    import text
+else:
+    print "No mode was specified"
+
