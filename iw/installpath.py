@@ -162,6 +162,7 @@ class InstallPathWindow (InstallWindow):
 
 	if (self.todo.upgrade):
 	    self.upgradeButton.set_active(1)
+            self.toggled (self.upgradeButton, UPGRADE)
 	    self.orig = None
 	    default = None
 	else:
@@ -223,5 +224,6 @@ class InstallPathWindow (InstallWindow):
             InstallPathWindow.fdisk = None
 
         self.toggled (installButton, INSTALL)
+        self.toggled (self.upgradeButton, UPGRADE)
         box.set_border_width (5)
         return box
