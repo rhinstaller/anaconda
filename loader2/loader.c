@@ -934,7 +934,7 @@ static int hasGraphicalOverride(char *extraArgs[]) {
         return 1;
 
     for (i = 0; extraArgs[i] != NULL; i++) {
-        if (strncasecmp(extraArgs[i], "--vnc", 5))
+        if (!strncasecmp(extraArgs[i], "--vnc", 5))
             return 1;
     }
     return 0;
