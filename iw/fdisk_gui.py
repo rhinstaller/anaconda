@@ -13,7 +13,7 @@
 
 import gtk
 from iw_gui import *
-from gnome import zvt
+import vte
 from rhpl.translate import _
 from dispatch import DISPATCH_NOOP
 import partitioning
@@ -36,7 +36,7 @@ class FDiskWindow (InstallWindow):
         
 
     def child_died (self, widget, button):
-        self.windowContainer.remove (self.windowContainer.children ()[0])
+        self.windowContainer.remove (self.windowContainer.get_children ()[0])
         self.windowContainer.pack_start (self.buttonBox)
         button.set_state (gtk.STATE_NORMAL)
         try:
@@ -52,9 +52,10 @@ class FDiskWindow (InstallWindow):
 
 
     def button_clicked (self, widget, drive):
-        term = zvt.Term(80, 24)
-        term.set_del_key_swap(gtk.TRUE)
-        term.connect("child_died", self.child_died, widget)
+        term = vte.Terminal()
+        term.set_encoding("UTF-8")
+        term.set_font_from_string("monospace")
+        term.connect("child_exited", self.child_died, widget)
         self.drive = drive
 
 	# free our fd's to the hard drive -- we have to 
@@ -66,9 +67,7 @@ class FDiskWindow (InstallWindow):
         
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
-        if term.forkpty() == 0:
-            env = os.environ
-            os.execve (path, (path, '/tmp/' + drive), env)
+        term.fork_command(path, (path, '/tmp/' + drive))
         term.show()
 
         self.windowContainer.remove(self.buttonBox)
@@ -107,7 +106,7 @@ class FDiskWindow (InstallWindow):
         sw = gtk.ScrolledWindow()
         sw.add_with_viewport(box)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        viewport = sw.children()[0]
+        viewport = sw.get_children()[0]
         viewport.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         sw.set_size_request(-1, 400)
 

@@ -368,19 +368,15 @@ class DiskTreeModel(gtk.TreeStore):
     def selectPartition(self, partition):
         pyobject = self.titleSlot['PyObject']
         iter = self.get_iter_first()
-        next = 1
-	parentstack = []
+	parentstack = [None,]
 	parent = None
         # iterate over the list, looking for the current mouse selection
-        while next:
-            # if this is a parent node, get the first child and iter over them
-            if self.iter_has_child(iter):
-		parent = iter
-                parentstack.append(parent)
-                iter = self.iter_children(parent)
-                continue
-            # if it's not a parent node and the mouse matches, select it.
-            elif self.get_value(iter, pyobject) == partition:
+        while iter:
+            try:
+                rowpart = self.get_value(iter, pyobject)
+            except SystemError:
+                rowpart = None
+            if rowpart == partition:
                 path = self.get_path(parent)
                 self.view.expand_row(path, gtk.TRUE)
                 selection = self.view.get_selection()
@@ -391,23 +387,32 @@ class DiskTreeModel(gtk.TreeStore):
                 self.view.set_cursor(path, col, gtk.FALSE)
                 self.view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
                 return
+            # if this is a parent node, and it didn't point to the partition
+            # we're looking for, get the first child and iter over them
+            elif self.iter_has_child(iter):
+                parent = iter
+                parentstack.append(iter)
+                iter = self.iter_children(iter)
+                continue
             # get the next row.
-            next = self.iter_next(iter)
-            # if there isn't a next row and we had a parent, go to the node
-            # after the parent we've just gotten the children of.
-            if not next and parent:
-		while not next and parent:
-		    next = self.iter_next(parent)
-		    iter = parent
+            success = self.iter_next(iter)
+            # if there isn't a next row and we had a parent, go to the next
+            # node after our parent
+            if not success and parent:
+		while not success and parent:
+                    iter = parent
+                    success = self.iter_next(iter)
 		    if len(parentstack) > 0:
 			parent = parentstack.pop()
+                    else:
+                        # we've fallen off the end of the model, and we have
+                        # not found the partition
+                        raise RuntimeError, "could not find partition"
 
     def getCurrentPartition(self):
         selection = self.view.get_selection()
-        rc = selection.get_selected()
-        if rc:
-            model, iter = rc
-        else:
+        model, iter = selection.get_selected()
+        if not iter:
             return None
 
         pyobject = self.titleSlot['PyObject']
@@ -753,10 +758,8 @@ class PartitionWindow(InstallWindow):
             self.editCb()
         
     def treeSelectCb(self, selection, *args):
-        rc = selection.get_selected()
-        if rc:
-            model, iter = rc
-        else:
+        model, iter = selection.get_selected()
+        if not iter:
             return
         partition = model[iter]['PyObject']
         if partition:
