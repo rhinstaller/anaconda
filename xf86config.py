@@ -978,7 +978,11 @@ Section "Screen"
     Monitor     "%(monitorID)s"
 """ % tmp
                 if maxdepth > 0:
-                    screens = screens + "    DefaultColorDepth %d\n" % maxdepth
+                    if maxdepth > 16:
+                        screens = screens + "    DefaultColorDepth 16\n"
+                    else:
+                        screens = screens + "    DefaultColorDepth %d\n" % maxdepth
+                        
                 for depth in self.modes.keys ():
                     if not self.modes[depth]: continue
                     screens = screens + """
@@ -1057,7 +1061,10 @@ Section "Screen"
                  "defaultDepth" : "" }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if maxdepth > 0:
-            data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
+                    if maxdepth > 16:
+                        data["defaultDepth"] = "\n\tDefaultDepth\t16"
+                    else:
+                        data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
 	if test:
 	    data["pex5Mod"] = ""
 	if iutil.getArch() == "sparc":
