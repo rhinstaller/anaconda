@@ -170,7 +170,6 @@ class LanguageSupportWindow (InstallWindow):
         sel = 0
         for locale in self.language_keys:
             if self.todo.langState == 0:
-#                print "A"
 #                print self.todo.langState
 #                print self.defaultLang
 
@@ -179,24 +178,16 @@ class LanguageSupportWindow (InstallWindow):
                     list.append(locale)
                 else:
                     self.language.append_row((locale, ""), FALSE)
-
-
             else:
-                print "B"
-                print self.todo.langState
                 if self.languages[locale] == self.defaultLang or self.langs == None:
-                    print "C"
                     self.language.append_row((locale, ""), TRUE)
                     list.append(locale)
                 
                     if self.languages[locale] == self.defaultLang:      #-
-                        print "D"
                         sel = comboCurr
                     else:
-                        print "E"
                         comboCurr = comboCurr + 1
                 else:
-                    print "F"
                     try:
                         if self.langs.index(self.languages[locale]) >= 0:
                             self.language.append_row((locale, ""), TRUE)
