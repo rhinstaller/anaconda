@@ -9,10 +9,21 @@ class ConfirmWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.setPrevEnabled (1)
         ics.setTitle (_("About to Install"))
+        ics.setHelpEnabled (FALSE)
 
     def getScreen (self):
+        hbox = GtkHBox (TRUE, 5)
         box = GtkVBox (FALSE, 5)
 
+        im = self.ics.readPixmap ("about-to-install.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.5, 0.5, 1.0, 1.0)
+            hbox.pack_start (a, FALSE)
+        
         label = GtkLabel (_("Click next to begin installation of Red Hat Linux."))
         label.set_line_wrap (TRUE)
         
@@ -21,10 +32,16 @@ class ConfirmWindow (InstallWindow):
                               "may want to keep this file for later reference."))
 
         label2.set_line_wrap (TRUE)
-
+        
         box.pack_start (label, FALSE)
         box.pack_start (label2, FALSE)
         box.set_border_width (5)
-        return box
+
+        a = GtkAlignment ()
+        a.add (box)
+        a.set (0.5, 0.5, 0.0, 0.0)        
+
+        hbox.pack_start (a)
+        return hbox
     
         
