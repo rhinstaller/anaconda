@@ -306,6 +306,12 @@ int verifyStamp(char * path) {
 }
 
 
+/* unmount a second stage, if mounted. Used for CDs and mediacheck mostly,
+   so we can eject CDs.                                                   */
+void umountStage2(void) {
+    umount("/mnt/runtime");
+    umountLoopback("/mnt/runtime", "loop0");
+}
 
 
 /* mount a second stage, verify the stamp file, copy updates 
