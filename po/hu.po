@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-27 19:08+0200\n"
+"PO-Revision-Date: 2004-09-27 21:27+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -1691,7 +1691,7 @@ msgstr "Adjon meg egy csatlakoztatási (mount) pontot a partíciónak."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr "Ezt a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ez a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -2305,13 +2305,13 @@ msgstr "%s (C) Red Hat, Inc., 2004."
 
 #: ../text.py:367
 msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> Segítség |<Tab> Váltás |<Space> Kiválasztás |<F12> Következő képernyő"
+msgstr " <F1> Segítség |<Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr " <Tab>/<Alt-Tab> Váltás |<Space> Kiválasztás |<F12> Következő képernyő"
+msgstr " <Tab>/<Alt-Tab> Váltás |<Szóköz> Kiválasztás |<F12> Következő képernyő"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -5770,7 +5770,7 @@ msgstr "Csomagok egyéni kiválasztása"
 
 #: ../textw/packages_text.py:73
 msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "<Space>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgstr "<Szóköz>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5795,7 +5795,7 @@ msgstr "Teljes méret"
 
 #: ../textw/packages_text.py:326
 msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr "      <Space>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
+msgstr "      <Szóköz>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -7193,7 +7193,7 @@ msgstr "Üdvözöljük - %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr " <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következő képernyő "
+msgstr " <Tab>/<AltTab> elemek között |<Szóköz> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7512,7 +7512,7 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Adja meg a számítógép IP beállításait. Minden értéket decimálisan, pontokkal "
+"Adja meg a számítógép IP-beállításait. Minden értéket decimálisan, pontokkal "
 "elválasztva adjon meg (pl. 1.2.3.4)."
 
 #: ../loader2/net.c:474
@@ -7549,7 +7549,7 @@ msgstr "A folytatáshoz érvényes IP címet és alhálózati maszkot kell megad
 
 #: ../loader2/net.c:800
 msgid "Determining host name and domain..."
-msgstr "Host név és domain megállapítása..."
+msgstr "Gépnév és tartomány megállapítása..."
 
 #: ../loader2/net.c:885
 #, c-format
@@ -8134,7 +8134,7 @@ msgstr "a legtöbb rész"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "a legtöbb rész (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "a legtöbb rész (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8456,7 +8456,7 @@ msgstr "német"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr "gujaráti"
+msgstr "gudzsaráti"
 
 #. generated from lang-table
 msgid "Hindi"
