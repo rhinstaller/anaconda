@@ -34,6 +34,7 @@ class LiloAppendWindow:
 
 	if button == "skip":
 	    todo.skipLilo = 1
+	    todo.liloDevice = None
 	else:
 	    todo.skipLilo = 0
 
