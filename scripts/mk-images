@@ -659,10 +659,10 @@ makeinstimage () {
     rm -f $tmpdir/.buildstamp
     echo $IMAGEUUID > $tmpdir/.buildstamp
 
-    mkcramfs $tmpdir $INSTIMGPATH/${imagename}1.img
-    size=$(ls -l $INSTIMGPATH/${imagename}1.img | awk '{print $5}')
+    mkcramfs $tmpdir $INSTIMGPATH/${imagename}2.img
+    size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
-    echo "Wrote $INSTIMGPATH/${imagename}1.img (${size}k)..."
+    echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
     rm -rf $tmpdir
 }
 
