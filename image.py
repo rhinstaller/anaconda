@@ -75,11 +75,16 @@ class CdromInstallMethod(ImageInstallMethod):
         elif h[1000002] != self.currentDisc:
 	    timer.stop()
 
+	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
+	    f = open("/mnt/source/" + key)
+	    timestamp = f.readline()
+	    f.close()
+
 	    self.currentDisc = h[1000002]
 	    isys.umount("/mnt/source")
 
 	    done = 0
-	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
+	    key = "/mnt/source/.disc%d-%s" % (self.currentDisc, iutil.getArch())
 
 	    cdlist = []
 	    for (dev, something, descript) in \
@@ -91,9 +96,14 @@ class CdromInstallMethod(ImageInstallMethod):
 		try:
 		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
 			       readOnly = 1):
-			if os.access("/mnt/source/%s" % key, os.O_RDONLY):
-			    done = 1
-			else:
+			if os.access(key, os.O_RDONLY):
+			    f = open(key)
+			    newStamp = f.readline()
+			    f.close()
+			    if newStamp == timestamp:
+				done = 1
+
+			if not done:
 			    isys.umount("/mnt/source")
 		except:
 		    pass
@@ -112,9 +122,14 @@ class CdromInstallMethod(ImageInstallMethod):
 			isys.mount(self.device, "/mnt/source", 
 				   fstype = "iso9660", readOnly = 1)
 		    
-		    if os.access("/mnt/source/%s" % key, os.O_RDONLY):
-			done = 1
-		    else:
+		    if os.access(key, os.O_RDONLY):
+			f = open(key)
+			newStamp = f.readline()
+			f.close()
+			if newStamp == timestamp:
+			    done = 1
+
+		    if not done:
 			self.messageWindow(_("Wrong CDROM"),
 				_("That's not the correct Red Hat CDROM."))
 			isys.umount("/mnt/source")
