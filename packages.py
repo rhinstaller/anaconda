@@ -568,7 +568,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             if select(id.grpset.hdrlist, "kernel-summit"):
                 foundkernel = 1
 
-        if found kernel == 0:
+        if foundkernel == 0:
             # we *always* need to have some sort of kernel installed
             select(id.grpset.hdrlist, 'kernel')
 
