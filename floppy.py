@@ -110,10 +110,9 @@ def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
     
     # this is faster then waiting on mkbootdisk to fail
     device = floppyDevice
-    file = "/tmp/floppy"
-    isys.makeDevInode(device, file)
+    isys.makeDevInode(device, "/tmp/floppy")
     try:
-	fd = os.open(file, os.O_RDONLY)
+	fd = os.open("/tmp/floppy", os.O_RDONLY)
     except:
         intf.messageWindow( _("Error"),
 		    _("An error occurred while making the boot disk. "
@@ -145,4 +144,52 @@ def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
 		      "Please make sure that there is a floppy "
 		      "in the first floppy drive."))
 	return DISPATCH_BACK
+
+
+    # more sanity checking -- see if the initrd size and kernel size
+    # match what we thought they would be
+    device = floppyDevice
+    file = "/tmp/floppy"
+    isys.makeDevInode(device, file)
+    try:
+        isys.mount("/tmp/floppy", "/mnt/floppy", "vfat")
+    except:
+        intf.messageWindow(_("Error"),
+                           _("An error occurred while attempting to verify "
+                             "the boot disk.  Please make sure that you "
+                             "have a good floppy in the first floppy drive."))
+        return DISPATCH_BACK
+
+    problem = 0
+    if os.access("/mnt/floppy/vmlinuz", os.R_OK):
+        if kernelsize != 0:
+            size = os.stat("/mnt/floppy/vmlinuz")[stat.ST_SIZE]
+            if size != kernelsize:
+                problem = 1
+        else:
+            log("unable to verify kernel size.  hope it fit!")
+    else:
+        problem = 1
+
+    if initrdsize != 0:
+        if os.access("/mnt/floppy/initrd.img", os.R_OK):
+            size = os.stat("/mnt/floppy/initrd.img")[stat.ST_SIZE]
+            if size != initrdsize:
+                problem = 1
+        else:
+            problem = 1
+
+    try:
+        isys.umount("/mnt/floppy")
+    except:
+        pass
+
+    if problem == 1:    
+        intf.messageWindow(_("Error"),
+                           _("Your boot floppy appears to be invalid.  This "
+                             "is likely due to a bad floppy.  Please make "
+                             "sure that you have a good floppy in the "
+                             "first floppy drive."))
+        return DISPATCH_BACK
+    
     return DISPATCH_FORWARD
