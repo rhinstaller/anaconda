@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.5
+Version: 10.1.1.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,19 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Nov 22 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.6-1
+- Fix serial console magic to work with console= and not just 
+  explicit serial again (#137971)
+- Allow going back and manually changing the network device used even 
+  if ksdevice= is passed (#136903)
+- Allow passing --notksdevice on the network line to avoid using it as 
+  the install dev (#136903)
+- Be less aggressive about disabling LVM (#134263)
+- Set a default when we can't determine boot loader (#139603)
+- More fixes for going back when out of space (#133773)
+- Fix ia64 loader segfault (#140093)
+- Improved ppc console detection (nasrat, #134397)
+
 * Mon Nov 15 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.5-1
 - Fix exception handling reading jfs, xfs and swap labels
 - Don't ask for input if PORTNAME is set (from karsten)
