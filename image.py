@@ -1,7 +1,7 @@
 #
 # image.py - Install method for disk image installs (CD & NFS)
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -30,6 +30,10 @@ class ImageInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
 	fname = self.findBestFileMatch(self.tree, 'comps.xml')
+	#
+	# XXX - we dont handle case where file wasnt found
+	#       instead we fail down in ComponentSet!!!
+	#
 	return ComponentSet(fname, hdlist)
 
     def getFilename(self, h, timer):
