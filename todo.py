@@ -1140,7 +1140,7 @@ class ToDo:
         return canresolve
 
     def upgradeFindRoot(self):
-	if not self.setupFilesystems: return [ self.instPath ]
+	if not self.setupFilesystems: return [ (self.instPath, 'ext2') ]
 	return upgrade.findExistingRoots(self.intf, self.fstab)
 
     def upgradeMountFilesystems(self, rootInfo):
