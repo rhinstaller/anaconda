@@ -133,6 +133,15 @@ class BootImages:
 
 
 class bootloaderInfo:
+    def setUseGrub(self, val):
+	pass
+
+    def useGrub(self):
+	return self.useGrubVal
+
+    def setForceLBA(self, val):
+        pass
+    
     def getDevice(self):
         return self.device
 
@@ -272,6 +281,7 @@ class bootloaderInfo:
         self.useGrubVal = 0      # only used on x86
         self.configfile = None
         self.kernelLocation = "/boot/"
+        self.forceLBA32 = 0
 
 class ia64BootloaderInfo(bootloaderInfo):
     def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
@@ -317,11 +327,11 @@ class ia64BootloaderInfo(bootloaderInfo):
     
 	
 class x86BootloaderInfo(bootloaderInfo):
+    def setForceLBA(self, val):
+        self.forceLBA32 = val
+        
     def setUseGrub(self, val):
 	self.useGrubVal = val
-
-    def useGrub(self):
-	return self.useGrubVal
 
     def writeGrub(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfigFile):
@@ -380,11 +390,16 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	f.close()
 
+        if self.forceLBA32:
+            forcelba = "--force-lba "
+        else:
+            forcelba = ""
+
 	part = grubbyPartitionName(bootDev)
 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
-	cmd = "root %s\ninstall %s/i386-redhat/stage1 d %s %s/i386-redhat/stage2 p %s%s/grub.conf" % \
-	    (part, grubPath, grubbyPartitionName(bl.getDevice()), grubPath,
-	     part, grubPath)
+	cmd = "root %s\ninstall %s%s/i386-redhat/stage1 d %s %s/i386-redhat/stage2 p %s%s/grub.conf" % \
+	    (part, forcelba, grubPath, grubbyPartitionName(bl.getDevice()),
+             grubPath, part, grubPath)
 
 	log("GRUB command %s", cmd)
 
@@ -394,7 +409,8 @@ class x86BootloaderInfo(bootloaderInfo):
 	    os.close(p[1])
 
 	    iutil.execWithRedirect('/sbin/grub' ,
-				    [ "grub", "--batch" ], stdin = p[0],
+				    [ "grub",  "--batch", "--no-floppy" ],
+                                    stdin = p[0],
 				    stdout = "/dev/tty5", stderr = "/dev/tty5",
 				    root = instRoot)
 	    os.close(p[0])
@@ -422,7 +438,9 @@ class x86BootloaderInfo(bootloaderInfo):
 	config.addEntry("message", message, replace = 0)
 
         if not config.testEntry('lba32') and not config.testEntry('linear'):
-            if self.useLinear:
+            if self.forceLBA32:
+                config.addEntry("lba32", replace = 0)
+            elif self.useLinear:
                 config.addEntry("linear", replace = 0)
             else:
                 config.addEntry("nolinear", replace = 0)
