@@ -879,7 +879,7 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
-                    if iutil.getArch() == "s390":
+                    if iutil.getArch() == "s390" and drive[:4] == "dasd":
                          devs = isys.getDasdDevPort()
                          format = drive + " (" + devs[drive] + ")"
                     else:
