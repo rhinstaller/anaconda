@@ -38,9 +38,12 @@ class FakeDDruid:
         self.partitions = []
         
 class LogFile:
-    def __init__ (self, serial):
-	if serial:
-	    self.logFile = open("/tmp/install.log", "w")
+    def __init__ (self, serial, reconfigOnly):
+	if serial or reconfigOnly:
+            if serial:
+                self.logFile = open("/tmp/install.log", "w")
+            else:
+                self.logFile = open("/tmp/reconfig.log", "w")
 	else:
 	    self.logFile = open("/dev/tty3", "w")
 
@@ -280,7 +283,7 @@ class ToDo:
         self.language = Language ()
 	self.serial = serial
         self.reconfigOnly = reconfigOnly
-        self.log = LogFile (serial)
+        self.log = LogFile (serial, reconfigOnly)
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
@@ -1233,7 +1236,6 @@ class ToDo:
 	return todo.users
 
     def setPassword(todo, account, password):
-	todo.log("in SetPassword for %s %s" % (account, password))
 	devnull = os.open("/dev/null", os.O_RDWR)
 
 	argv = [ "/usr/bin/passwd", "--stdin", account ]
