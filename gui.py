@@ -318,7 +318,7 @@ class InstallControlWindow:
     def setScreen (self, screen):
         if screen == len (self.stateList)     :
             self.window.destroy ()
-	    self.mutex.set ()
+            self.mutex.release ()
             return
         elif screen == len (self.stateList) - 1 :
             self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
@@ -413,15 +413,15 @@ class InstallControlWindow:
         threads_leave ()
 
     def run (self):
-	self.mutex = Event ()
+	self.mutex = allocate_lock ()
+        self.mutex.acquire ()
 
         # Popup the ICW and wait for it to wake us back up
         threads_enter ()
         self.window.show_all ()
         threads_leave ()
 
-	self.mutex.wait ()
-
+        self.mutex.acquire ()
 
 class InstallControlState:
 
