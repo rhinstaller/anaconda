@@ -4,8 +4,8 @@ USBMODS="usb-uhci usb-ohci hid keybdev usb-storage sd_mod"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
-NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
-SCSIMODULES="sd_mod sr_mod scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx sym53c8xx_2 mptscsih mptbase"
+NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3 ns83820"
+SCSIMODULES="sd_mod sr_mod scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid megaraid_2002 qla1280 qla2200 qla2300 sym53c8xx sym53c8xx_2 mptscsih mptbase aic79xx ips"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
