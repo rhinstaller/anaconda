@@ -1241,9 +1241,6 @@ class RAIDDevice(Device):
         return node
 
     def getDevice (self, asBoot = 0):
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
-            return self.device
-            
         if not asBoot:
             return self.device
         else:
