@@ -90,6 +90,40 @@ class Kickstart(InstallClass):
 
 	self.addToSkipList("timezone")
 
+    def doXconfig(self, args):
+	(args, extra) = isys.getopt(args, '',
+		[ 'server=', 'card=', 'monitor=', 'hsync=', 'vsync=',
+		  'startxonboot', 'noprobe' ])
+
+	server = None
+	card = None
+	monitor = None
+	hsync = None
+	vsync = None
+        noProbe = 0
+	startX = 0
+
+	for n in args:
+	    (str, arg) = n
+	    if (str == "--noprobe"):
+		noProbe = 1
+	    elif (str == "--server"):
+		server = arg
+	    elif (str == "--card"):
+		card = arg
+	    elif (str == "--monitor"):
+		monitor = arg
+	    elif (str == "--hsync"):
+		hsync = arg
+	    elif (str == "--vsync"):
+		vsync = arg
+	    elif (str == "--startxonboot"):
+		startX = 1
+
+	self.configureX(server, card, monitor, hsync, vsync, noProbe,
+		        startX)
+	self.addToSkipList("xconfig")
+
     def doInstall(self, args):
 	self.installType = "install"
 
@@ -163,7 +197,8 @@ class Kickstart(InstallClass):
 	     "mmhittab" : "MM - HitTablet (serial)" 
 	}
 
-	(args, extra) = isys.getopt(args, '', [ 'device', 'emulthree' ])
+	(args, extra) = isys.getopt(args, '', [ 'device', 'emulthree',
+				    'kickstart'])
         mouseType = "none"
 	device = None
 	emulThree = 0
@@ -201,6 +236,7 @@ class Kickstart(InstallClass):
 		     "text"		: None			,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
+		     "xconfig"		: self.doXconfig	,
 		     "xdisplay"		: None			,
 		     "zerombr"		: self.doZeroMbr	,
 		   }

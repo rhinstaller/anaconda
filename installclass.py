@@ -11,6 +11,7 @@ FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
 import gettext
+import xf86config
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 _ = cat.gettext
@@ -103,6 +104,20 @@ class InstallClass:
     def skipStep(self, step):
 	return self.skipSteps.has_key(step)
 
+    def configureX(self, server, card, monitor, hsync, vsync, noProbe, startX):
+	self.x = XF86Config(mouse = None)
+	if (not noProbe):
+	    self.x.probe()
+
+	if not self.x.server:
+	    self.x.setVidcard (card)
+
+	if not self.todo.x.monID and monitor:
+	    self.setmonitor(monitor)
+	elif hsync and vsync:
+	    self.setmonitor(None, (hsync, vsync))
+	self.defaultRunlevel = 5
+
     # Groups is a list of group names -- the full list can be found in 
     # ths comps file for each release
     def setGroups(self, groups):
@@ -169,6 +184,8 @@ class InstallClass:
 	self.language = None
 	self.keyboard = None
 	self.mouse = None
+	self.x = None
+	self.defaultRunlevel = None
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):

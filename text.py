@@ -509,6 +509,7 @@ class XconfiguratorWindow:
                                 ["xconfigurator", "--continue"],
                                 root = todo.instPath)
         screen.resume ()
+	todo.x.skip = 1
         return INSTALL_NOOP
         
 class BeginInstallWindow:
@@ -871,7 +872,8 @@ class InstallInterface:
 		(self.screen, todo), "begininstall" ],
             [_("Install System"), InstallWindow, (self.screen, todo) ],
             [_("Bootdisk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
-            [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), "bootdisk"],
+            [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
+		    "xconfig"],
             [_("Installation Complete"), FinishedWindow, (self.screen,),
 		"complete" ]
             ]

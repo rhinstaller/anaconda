@@ -13,14 +13,7 @@ def _(x):
 
 class XF86Config:
     def __init__ (self, mouse = None):
-        if mouse:
-            (mouseProtocol, mouseEmulate, mouseDev) = mouse
-            self.mouse = { "mouseDev" : "/dev/" + mouseDev,
-                           "mouseProto" : mouseProtocol }
-        else:
-            self.mouse = { "mouseDev" : "/dev/mouse",
-                           "mouseProto" : "PS/2" }
-
+	self.setMouse(mouse)
         self.server = None
         self.vidCards = []
         self.cardMan = None
@@ -34,6 +27,15 @@ class XF86Config:
         self.probed = 0
         self.skip = 0
         self.modes = { "8" :  ["640x480"] }
+
+    def setMouse(self, mouse):
+        if mouse:
+            (mouseProtocol, mouseEmulate, mouseDev) = mouse
+            self.mouse = { "mouseDev" : "/dev/" + mouseDev,
+                           "mouseProto" : mouseProtocol }
+        else:
+            self.mouse = { "mouseDev" : "/dev/mouse",
+                           "mouseProto" : "PS/2" }
 
     def filterModesByMemory (self):
         if not self.vidRam:

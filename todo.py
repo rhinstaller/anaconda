@@ -1148,6 +1148,8 @@ class ToDo:
             self.setupAuthentication ()
 	    self.createAccounts ()
 	    self.writeTimezone()
+	    if (self.instClass.defaultRunlevel):
+		self.setDefaultRunlevel (self.instClass.defaultRunlevel)
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
