@@ -173,7 +173,7 @@ if os.environ.has_key("LD_PRELOAD"):
 
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
-          [ 'text', 'test', 'debug', 'nofallback',
+          [ 'graphical', 'text', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
@@ -199,7 +199,6 @@ sys.argc = 1
 #
 rootPath = '/mnt/sysimage'	# where to instal packages
 extraModules = []		# kernel modules to use
-display_mode = 'g'		# try GUI by default
 debug = 0			# start up pdb immediately
 traceOnly = 0			# don't run, just list modules we use
 nofallback = 0			# if GUI mode fails, exit
@@ -211,6 +210,8 @@ instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 logFile = None			# may be a file object or a file name
+display_mode = None
+
 
 # should we ever try to probe for X stuff?  this will give us a convenient
 # out eventually to circumvent all probing and just fall back to text mode
@@ -240,6 +241,7 @@ kbdtype = None
 progmode = None
 customClass = None
 kbd = None
+ksfile = None
 
 #
 # parse off command line arguments
@@ -253,11 +255,14 @@ for n in args:
 	debug = 1
     elif (str == '--expert'):
 	flags.expert = 1 
+    elif (str == '--graphical'):
+	display_mode = 'g'
     elif (str == '--keymap'):
         keymap = arg
     elif (str == '--kickstart'):
 	from kickstart import Kickstart
-        instClass = Kickstart(arg, flags.serial)
+	ksfile = arg
+        instClass = Kickstart(ksfile, flags.serial)
     elif (str == '--lang'):
         lang = arg
     elif (str == '--lowres'):
@@ -339,6 +344,26 @@ else:
 
 anaconda_log.open (logFile)
 log.handler = anaconda_log
+
+#
+# Determine install method - GUI or TUI
+#
+# use GUI by default except for install methods that were traditionally
+# text based due to the requirement of a small stage 2
+#
+# if display_mode wasnt set by command line parameters then set default
+#
+
+log("Display mode = %s", display_mode)
+log("Method = %s", method)
+
+if display_mode is None:
+    if (method and
+	method.startswith('ftp://') or
+	method.startswith('http://')):
+	display_mode = 't'
+    else:
+	display_mode = 'g'
 
 if (debug):
     import pdb
@@ -506,15 +531,12 @@ time.sleep(3)
 #
 # now determine if we're going to run in GUI or TUI mode
 #
-if (display_mode != 't' and method and
-    method.startswith('ftp://') or
-    method.startswith('http://') or
-    method.startswith('hd://') or
-    method.startswith('oldhd://')):
-    dup_log(_("Graphical installation not available for %s installs.  "
-             "Starting text mode.") % (string.split(method, ':')[0],))
-    display_mode = 't'
-    time.sleep(2)
+# if no X server, we have to use text mode
+if not os.access("/mnt/runtime/usr/X11R6/bin/XFree86", os.X_OK):
+     dup_log(_("Graphical installation not available...  "
+              "Starting text mode."))
+     time.sleep(2)
+     display_mode = 't'
 
 if doXProbe:
     # if no mouse we force text mode
