@@ -506,61 +506,13 @@ class InstallControlWindow:
             self.displayHelp = TRUE
 
     def releaseClicked (self, widget):
-        self.textWin = GtkWindow ()
+        self.textWin = GnomeDialog ()
         self.textWin.set_modal (TRUE)
-        closeButton = GtkButton ("Close")
-        closeButton.connect ("clicked", self.textWin.hide)
-
-        buttonBox = GtkHButtonBox()
-        buttonBox.set_layout(BUTTONBOX_SPREAD)
-        buttonBox.pack_start(closeButton)
-
 
         table = GtkTable(3, 3, FALSE)
-
-
-        #--Find and render the borders for the release notes window
-        #--Necessary because we're not running a window manager
-        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/border_*")
-        pixmaps2 = glob.glob("pixmaps/border_*")
-
-        if len(pixmaps1) < len(pixmaps2):
-            files = pixmaps2
-        else:
-            files = pixmaps1
-
-        for file in files:
-            im = GdkImlib.Image (file)
-            im.render ()
-            pix = im.make_pixmap ()
-            a = GtkAlignment ()
-            a.add (pix)
-
-            if string.find (file, "border_top_left.png") > 0:                
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 0, 1, 0, 1, SHRINK, FILL)
-            elif string.find (file, "border_top.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 1, 2, 0, 1, SHRINK, FILL)
-            elif string.find (file, "border_top_right.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 2, 3, 0, 1, SHRINK, FILL)
-            elif string.find (file, "border_left.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 0, 1, 1, 2, SHRINK, FILL)
-            elif string.find (file, "border_right.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 2, 3, 1, 2, SHRINK, FILL)
-            elif string.find (file, "border_bottom_left.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 0, 1, 2, 3, SHRINK, FILL)
-            elif string.find (file, "border_bottom.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 1, 2, 2, 3, SHRINK, FILL)
-            elif string.find (file, "border_bottom_right.png") > 0:
-                a.set (0, 0, 1.0, 1.0)
-                table.attach (a, 2, 3, 2, 3, SHRINK, FILL)
-        #--End of table border creation
+        self.textWin.vbox.pack_start(table)
+        self.textWin.append_button(_("Close"))
+        self.textWin.button_connect (0, self.textWin.destroy)
 
         vbox1 = GtkVBox ()        
         vbox1.set_border_width (10)
@@ -569,11 +521,7 @@ class InstallControlWindow:
         frame.set_label_align (0.5, 0.5)
         frame.set_shadow_type (SHADOW_NONE)
         
-#        self.textWin.add (frame)
-        self.textWin.add (table)
-
         self.textWin.set_position (WIN_POS_CENTER)
-
 
         if self.buff != "":
             text = GtkText()
@@ -582,44 +530,32 @@ class InstallControlWindow:
             sw = GtkScrolledWindow()
             sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
             sw.add(text)
-#            frame.add(sw)
             vbox1.pack_start(sw)
-#            vbox1.pack_start(closeButton)
 
             a = GtkAlignment ()
             a.add (frame)
             a.set (0, 0, 1.0, 1.0)
             
-#            vbox1.pack_start(sw, TRUE, TRUE)
-            
             self.textWin.set_default_size (560, 393)
             self.textWin.set_usize (560, 393)
             self.textWin.set_position (WIN_POS_CENTER)
 
-#            closeButton.set_usize(40, 10)
-#            vbox1.pack_start(closeButton, FALSE, TRUE)
-            vbox1.pack_start(buttonBox, FALSE, TRUE)            
+            table.attach (a, 1, 2, 1, 2, FILL|EXPAND, FILL|EXPAND, 5, 5)
 
-
-            table.attach (a, 1, 2, 1, 2, FILL, FILL, 5, 5)
-
-
-
-
-
-
-            self.textWin.set_border_width(1)
+            self.textWin.set_border_width(0)
             self.textWin.show_all()
 
         else:
             self.textWin.set_position (WIN_POS_CENTER)
-            label = GtkLabel("Unable to load file!")
+            label = GtkLabel(_("Unable to load file!"))
 
-            vbox1.pack_start(label, FALSE, FALSE)
-            vbox1.pack_start(closeButton, FALSE, FALSE)
+            table.attach (label, 1, 2, 1, 2, FILL|EXPAND, FILL|EXPAND, 5, 5)
+#            vbox1.pack_start(label, FALSE, FALSE)
+#            vbox1.pack_start(closeButton, FALSE, FALSE)
 
-            self.textWin.set_border_width(10)
+            self.textWin.set_border_width(0)
             self.textWin.show_all()
+
 
     def setScreen (self, screen, direction):
         # if getScreen returns None, or we're supposed to skip this screen
