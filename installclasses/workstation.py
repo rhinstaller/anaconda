@@ -44,14 +44,14 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("authentication")
 
-        dispatch.skipStep("chooseyourowndesktop", skip = 0)
+        dispatch.skipStep("desktopchoice", skip = 0)
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
-	self.showGroups(comps, [ "KDE Desktop Environment",
-                                 ("GNOME Desktop Environment", 1),
-                                 "Software Development",
-                                 "Games and Entertainment" ] )
+#	self.showGroups(comps, [ "KDE Desktop Environment",
+#                                 ("GNOME Desktop Environment", 1),
+#                                 "Software Development",
+#                                 "Games and Entertainment" ] )
         comps["Workstation Common"].select()
 
     def setInstallData(self, id):
