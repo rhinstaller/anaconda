@@ -50,7 +50,8 @@ def bootRequestCheck(requests, diskset):
 
     
     if iutil.getArch() == "ia64":
-        if part.fs_type.name != "FAT":
+        if (part.fs_type.name != "FAT" and part.fs_type.name != "fat16"
+            and part.fs_type.name != "fat32"):
             return BOOTEFI_NOT_VFAT
         pass
     elif iutil.getArch() == "i386":
@@ -1056,7 +1057,9 @@ def doClearPartAction(partitions, diskset):
             if ((iutil.getArch() == "ia64") and (linuxOnly == 1)
                 and (not partitions.isKickstart) and
                 part.is_flag_available(parted.PARTITION_BOOT)):
-                if part.fs_type and part.fs_type.name == "FAT":
+                if part.fs_type and (part.fs_type.name == "FAT"
+                                     or part.fs_type.name == "fat16"
+                                     or part.fs_type.name == "fat32"):
                     if part.get_flag(parted.PARTITION_BOOT):
                         req = partitions.getRequestByDeviceName(partedUtils.get_partition_name(part))
                         req.mountpoint = "/boot/efi"

@@ -133,7 +133,8 @@ def get_partition_file_system_type(part):
         return None
     if part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
-    elif part.fs_type.name == "FAT":
+    elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
+          or part.fs_type.name == "fat32"):
         ptype = fsset.fileSystemTypeGet("vfat")
     else:
         try:
