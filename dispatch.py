@@ -94,7 +94,7 @@ installSteps = [
     ("checkdeps", checkDependencies, ("dir", "intf", "dispatch",
                                       "id", "instPath")),
     ("dependencies", ("id.comps", "id.dependencies")),
-    ("videocard", ("dispatch", "id.xconfig", "id.videocard")),
+    ("videocard", ("dispatch", "id.xconfig", "id.videocard", "intf")),
     ("confirminstall", ()),
     ("confirmupgrade", ()),
     ("install", ("dir", "intf", "id")),
