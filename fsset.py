@@ -805,7 +805,7 @@ class prepbootFileSystem(FileSystemType):
         devicePath = entry.device.setupDevice(chroot)
         (disk, part) = getDiskPart(devicePath)
         if disk is None or part is None:
-            log("oops, somehow got a bogus device for the PrEP partition "
+            log("oops, somehow got a bogus device for the PReP partition "
                 "(%s)" %(devicePath,))
             return
 

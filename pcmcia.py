@@ -29,7 +29,7 @@ def pcicType(test = 0):
 	log("Found a pcic controller of type: %s", devs[0].driver)
 	return devs[0].driver
 
-    log("No pcic controller detectedd.")
+    log("No pcic controller detected")
     return None
 
 def createPcmciaConfig(path, test = 0):
