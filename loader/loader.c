@@ -970,7 +970,7 @@ static char * mountUrlImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
-	    stage = NFS_STAGE_NFS;
+	    stage = URL_STAGE_MAIN;
 
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
