@@ -65,6 +65,7 @@ class ManualPartitionWindow:
 
 	    if button != "done" and button != "back":
 		haveEdited = 1
+		todo.ddruidReadOnly = 1
 		todo.ddruid = None	# free our fd's to the hard drive
 		device = driveNames[choice]
 		screen.suspend ()
@@ -94,7 +95,8 @@ class ManualPartitionWindow:
 	    for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
 		fstab.append ((dev, mntpoint))
 
-	    todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr)
+	    todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr,
+				 todo.ddruidReadOnly)
 
 	if button == "back":
 	    return INSTALL_BACK
@@ -110,7 +112,8 @@ class AutoPartitionWindow:
         if not todo.ddruid:
             drives = todo.drives.available ().keys ()
             drives.sort (isys.compareDrives)
-            todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr)
+            todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr,
+				 todo.ddruidReadOnly)
 	    if not todo.instClass.finishPartitioning(todo.ddruid):
 		todo.log ("Autopartitioning FAILED\n")
 
@@ -128,7 +131,7 @@ class AutoPartitionWindow:
 	if (rc == "back"): return INSTALL_BACK
 
         if (choice == 1):
-            todo.ddruid = fsedit(0, drives, fstab)
+            todo.ddruid = fsedit(0, drives, fstab, 0, todo.ddruidReadOnly)
 	    todo.manuallyPartition()
 
 class PartitionWindow:
