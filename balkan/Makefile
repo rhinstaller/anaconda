@@ -8,13 +8,12 @@ CFLAGS=-I/usr/include/python1.5
 TARGET = libbalkan.a
 
 ifeq (.depend,$(wildcard .depend))
-TARGET=all
+DEPTARGET=all
 else
-TARGET=depend all
+DEPTARGET=depend all
 endif
 
-everything: $(TARGET)
-
+everything: $(DEPTARGET)
 
 all: $(TARGET) _balkanmodule.so
 
