@@ -56,6 +56,8 @@ Section "Pointer"
     Protocol    "%(mouseProto)s"
     Device      "/dev/%(mouseDevice)s"
 
+    ZAxisMapping 4 5
+
 # When using XQUEUE, comment out the above two lines, and uncomment
 # the following line.
 #    Protocol	"Xqueue"
@@ -492,6 +494,7 @@ Section "InputDevice"
         Driver      "mouse"
         Option      "Protocol" "%(mouseProto)s"
         Option      "Device" "/dev/%(mouseDevice)s"
+        Option      "ZAxisMapping" "4 5"
 EndSection
 
 Section "Monitor"
@@ -1093,74 +1096,3 @@ if __name__ == "__main__":
 #    x.modes["16"] = [ "640x480" ]
 #    x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
-
-# stuff from xserver.py
-
-#      server = os.fork()
-#      if not server:
-#          print "starting", serverPath
-        
-#  	args = [serverPath, ]
-#  	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
-#  	    try:
-#  		os.unlink("/dev/mouse")
-#  	    except:
-#  		pass
-#  	    try:
-#  		f = open("/dev/tty5", "w")
-#  		f.write("\n")
-#  		f.close()
-#  	    except:
-#  		pass
-#  	    os.symlink(mouseDev, "/dev/mouse")
-#  	    if x.device:
-#  		args.append ("-dev")
-#  		args.append ('/dev/' + x.device)
-#  	    args.append("-fp")
-#  	    args.append("/usr/X11R6/lib/X11/fonts/misc/,"
-#  			"/usr/X11R6/lib/X11/fonts/75dpi/,"
-#  			"/usr/X11R6/lib/X11/fonts/100dpi/,"
-#  			"/usr/X11R6/lib/X11/fonts/cyrillic/,"
-#  			"/usr/share/fonts/ISO8859-2/misc/,"
-#  			"/usr/share/fonts/ISO8859-2/75dpi/,"
-#  			"/usr/share/fonts/ISO8859-2/100dpi/")
-#  	else:
-#  	    args.append("-xf86config")
-#  	    args.append("/tmp/XF86Config")
-#  #  	    if bpp:
-#  #  		args.append("-bpp")
-#  #  		args.append(bpp)
-#          # XXX XFree86 4.0 fatal errors without a /var/log/ to place logfile
-#  	if serverPath[-7:] == 'XFree86':
-#  	    args.append("-logfile")
-#  	    args.append("/dev/null")
-#  	os.execv(serverPath, args)
-
-#  # --------------------------------------------------
-#      keycodes = "xfree86"
-#      symbols = "us(pc101)"
-#      geometry = "pc"
-#      rules = "xfree86"
-#      model = "pc101"
-
-#      kbd = Keyboard()
-#      if kbd.type == 'Sun':
-#  	rules = "sun"
-#  	model = kbd.model
-#  	keycodes = "sun(" + kbd.model + ")"
-#  	if model == 'type4':
-#  	    geometry = "sun(type4)"
-#  	    symbols = "sun/us(sun4)"
-#  	else:
-#  	    if model == 'type5':
-#  		geometry = "sun"
-#  	    elif model == 'type5_euro':
-#  		geometry = "sun(type5euro)"
-#  	    else:
-#  		geometry = "sun(type5unix)"
-#  	    symbols = "sun/us(sun5)"
-#  	if kbd.layout == 'en_US':
-#  	    symbols = symbols + "+iso9995-3(basic)"
-#  	elif kbd.layout != 'us':
-#  	    symbols = symbols + "+" + kbd.layout
-
