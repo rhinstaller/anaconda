@@ -61,7 +61,7 @@ class CongratulationWindow (InstallWindow):
                "http://www.redhat.com/errata.\n\n"
                "Information on using and configuring your "
                "system is available in the Red Hat Linux manuals "
-               "at http://www.redhat.com/support/manuals.") % bootstr,
+               "at http://www.redhat.com/docs.") % bootstr,
              )
                 
         label.set_line_wrap (gtk.TRUE)
