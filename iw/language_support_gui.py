@@ -32,7 +32,7 @@ class LanguageSupportWindow (InstallWindow):
                 selected = self.languageList.get_text (row, 1)
                 self.supportedLangs.append (selected)
 
-	curidx = self.deflang_optionmenu.get_history()
+	curidx = self.deflang_combo.get_active()
 	self.defaultLang = self.deflang_values[curidx]
         self.langs.setSupported (self.supportedLangs)
         self.langs.setDefault (self.defaultLang)
@@ -54,7 +54,7 @@ class LanguageSupportWindow (InstallWindow):
 		oldidx = row
 		break
 
-	self.rebuild_optionmenu()
+	self.rebuild_combo()
 
 	# if no default lang now restore
 	# this can happen if they clicked on the only remaining selected
@@ -63,9 +63,9 @@ class LanguageSupportWindow (InstallWindow):
 	# langauges supported
 	if self.defaultLang is None or self.defaultLang == "":
             self.languageList.set_active(oldidx, gtk.TRUE)
-	    self.rebuild_optionmenu()
+	    self.rebuild_combo()
 	    
-    def rebuild_optionmenu(self):
+    def rebuild_combo(self):
         list = []
 
 	for row in range(self.maxrows):
@@ -79,7 +79,7 @@ class LanguageSupportWindow (InstallWindow):
 	else:
 	    self.ics.setNextEnabled (gtk.TRUE)
 
-	curidx = self.deflang_optionmenu.get_history()
+	curidx = self.deflang_combo.get_active()
 	if curidx >= 0:
 	    self.defaultLang = self.deflang_values[curidx]
 	else:
@@ -92,19 +92,19 @@ class LanguageSupportWindow (InstallWindow):
 	    self.defaultLang = list[0]
 
 	self.createDefaultLangMenu(list)
-	self.deflang_optionmenu.set_history(index)
+	self.deflang_combo.set_active(index)
 
     def select_all (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
         for row in range(self.maxrows):
             self.languageList.set_active(row, gtk.TRUE)
 
-	self.rebuild_optionmenu()
+	self.rebuild_combo()
 
     def select_default (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
 
-	curidx = self.deflang_optionmenu.get_history()
+	curidx = self.deflang_combo.get_active()
 	if curidx >= 0:
 	    deflang = self.deflang_values[curidx]
 
@@ -114,7 +114,7 @@ class LanguageSupportWindow (InstallWindow):
 		else:
 		    self.languageList.set_active(row, gtk.FALSE)
 
-	    self.rebuild_optionmenu()
+	    self.rebuild_combo()
 
     def reset (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
@@ -131,7 +131,7 @@ class LanguageSupportWindow (InstallWindow):
 
 	self.defaultLang = self.oldDefaultLang
 	self.createDefaultLangMenu(list)
-	self.deflang_optionmenu.set_history(self.deflang_values.index(self.defaultLang))
+	self.deflang_combo.set_active(self.deflang_values.index(self.defaultLang))
 
     def setCurrent(self, currentDefault, recenter=1):
         parent = None
@@ -150,22 +150,18 @@ class LanguageSupportWindow (InstallWindow):
             row = row + 1
 
     def createDefaultLangMenu(self, supported):
-	if self.deflang_optionmenu is None:
-	    self.deflang_optionmenu = gtk.OptionMenu()
-
-	if self.deflang_menu is not None:
-	    self.deflang_optionmenu.remove_menu()
-	    
-	self.deflang_menu = gtk.Menu()
+	if self.deflang_combo is None:
+	    self.deflang_combo = gtk.combo_box_new_text()
+        else:
+            for i in range(len(self.deflang_values), 0, -1):
+                self.deflang_combo.remove_text(i - 1)
 
 	sel = None
         curidx = 0
 	values = []
         for locale in self.languages:
 	    if locale == self.defaultLang or (locale in supported):
-		item = gtk.MenuItem(locale)
-		item.show()
-		self.deflang_menu.add(item)
+                self.deflang_combo.append_text(locale)
 
 		if locale == self.defaultLang:
 		    sel = curidx
@@ -174,10 +170,8 @@ class LanguageSupportWindow (InstallWindow):
 
 		values.append(locale)
 
-	self.deflang_optionmenu.set_menu(self.deflang_menu)
-
 	if sel is not None:
-	    self.deflang_optionmenu.set_history(sel)
+	    self.deflang_combo.set_active(sel)
 
 	self.deflang_values = values
 
@@ -203,14 +197,13 @@ class LanguageSupportWindow (InstallWindow):
         
 	# create option menu of default langs
         label = gui.MnemonicLabel(_("Select the _default language for the system:   "))
-	self.deflang_optionmenu = None
-	self.deflang_menu = None
+	self.deflang_combo = None
 	self.deflang_values = None
 	self.createDefaultLangMenu(self.supportedLangs)
-        label.set_mnemonic_widget(self.deflang_optionmenu)
+        label.set_mnemonic_widget(self.deflang_combo)
 
         hbox.pack_start (label, gtk.FALSE, 20)
-        hbox.pack_start (self.deflang_optionmenu, gtk.FALSE, 20)
+        hbox.pack_start (self.deflang_combo, gtk.FALSE, 20)
         vbox.pack_start (hbox, gtk.FALSE, 50)
 
         sep = gtk.HSeparator ()
