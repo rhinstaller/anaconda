@@ -242,13 +242,18 @@ class FileSystemType:
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError, (num, msg):
-            print __name__, "waitpid:", msg
+            log("exception from waitpid in badblocks: %s %s" % (num, msg))
+            status = None
         os.close(fd)
 
         w and w.pop()
 
 	if numbad > 0:
 	    raise BadBlocksError
+
+        # have no clue how this would happen, but hope we're okay
+        if status is None:
+            return
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return
@@ -2025,11 +2030,16 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     try:
         (pid, status) = os.waitpid(childpid, 0)
     except OSError, (num, msg):
-        print __name__, "waitpid:", msg
+        log("exception from waitpid while formatting: %s %s" %(num, msg))
+        status = None
     os.close(fd)
 
     w and w.pop()
 
+    # *shrug*  no clue why this would happen, but hope that things are fine
+    if status is None:
+        return 0
+    
     if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
 	return 0
 
