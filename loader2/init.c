@@ -303,6 +303,18 @@ static int setupTerminal(int fd) {
     return 0;
 }
 
+#ifdef __powerpc__
+static int termcmp(struct termios *a, struct termios *b)
+{
+        if (a->c_iflag != b->c_iflag || a->c_oflag != b->c_oflag ||
+            a->c_cflag != b->c_cflag || a->c_lflag != b->c_lflag ||
+            a->c_ispeed != b->c_ispeed || a->c_ospeed != b->c_ospeed)
+                return 1;
+        return memcmp(a->c_cc, b->c_cc, sizeof(a->c_cc));
+}
+#endif
+
+
 /* Recursive -- copied (and tweaked)from loader2/method.c */ 
 static int copyDirectory(char * from, char * to) {
     DIR * dir;
@@ -515,16 +527,28 @@ int main(int argc, char **argv) {
     /* handle weird consoles */
 #if defined(__powerpc__)
     char * consoles[] = { "/dev/hvc0", /* hvc for JS20 */
+
                           "/dev/hvsi0", "/dev/hvsi1",
                           "/dev/hvsi2", /* hvsi for POWER5 */
                           NULL };
+    struct termios cmode, mode;
+    int cfd;
+    
+    cfd =  open("/dev/console", O_RDONLY);
+    tcgetattr(cfd,&cmode);
+    close(cfd);
+
 #elif defined (__ia64__)
     char * consoles[] = { "/dev/ttySG0", NULL };
 #else
     char * consoles[] = { NULL };
 #endif
     for (i = 0; consoles[i] != NULL; i++) {
+#if defined(__powerpc__)
+        if ((fd = open(consoles[i], O_RDWR)) >= 0 && !tcgetattr(fd, &mode) && !termcmp(&cmode, &mode)) {
+#else
         if ((fd = open(consoles[i], O_RDWR)) >= 0) {
+#endif
             printf("anaconda installer init version %s using %s as console\n",
                    VERSION, consoles[i]);
             isSerial = 3;

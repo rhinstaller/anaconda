@@ -1,5 +1,14 @@
 2004-11-22  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/init.c: Only open /dev/console once.
+
+2004-11-22  Paul Nasrat  <pnasrat@redhat.com>
+
+	* loader2/init.c: Improved ppc console detection, based on 
+	notting's kudzu patch #135707 #134397
+
+2004-11-22  Jeremy Katz  <katzj@redhat.com>
+
 	* loader2/modules.c: Fix segfault on ia64 (#140093)
 
 2004-11-19  Jeremy Katz  <katzj@redhat.com>
