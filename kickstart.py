@@ -538,6 +538,7 @@ class KickstartBase(BaseInstallClass):
                      "autopart"         : self.doAutoPart       ,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
+		     "ignoredisk"	: self.doIgnoreDisk     ,
 		     "device"		: None			,
 		     "deviceprobe"	: None			,
 		     "driverdisk"	: None			,
@@ -1153,6 +1154,18 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
         self.skipSteps.append("autopartition")
+
+    def doIgnoreDisk(self, id, args):
+        # add disks to ignore list
+        drives = []
+	(args, extra) = isys.getopt(args, '', [ 'drives=' ])
+
+        for n in args:
+            (str, arg) = n
+            if str == '--drives':
+                drives = string.split(arg, ',')
+        
+        self.setIgnoredDisks(id, drives)
 
     def setSteps(self, dispatch):
         if self.installType == "upgrade":
