@@ -241,12 +241,12 @@ class InstallProgressWindow (InstallWindow):
         label = gtk.Label (_("Package Progress: "))
         label.set_alignment (1.0, 0.5)
         progressTable.attach (label, 0, 1, 0, 1, gtk.SHRINK)
-        progressTable.attach (self.progress, 1, 2, 0, 1)
+        progressTable.attach (self.progress, 1, 2, 0, 1, ypadding=2)
 
         label = gtk.Label (_("Total Progress:   "))
         label.set_alignment (1.0, 0.5)
         progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
-        progressTable.attach (self.totalProgress, 1, 2, 1, 2)
+        progressTable.attach (self.totalProgress, 1, 2, 1, 2, ypadding=2)
 
 	self.progstore = gtk.ListStore(gobject.TYPE_STRING,
 				       gobject.TYPE_STRING,
