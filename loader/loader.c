@@ -383,8 +383,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		}
 	    }
 
-	    kdFindScsiList(kd);
-	    kdFindNetList(kd);
+	    kdFindScsiList(kd, 0);
+	    kdFindNetList(kd, 0);
 	} else 
 	    logMessage("found nothing");
     }
@@ -621,7 +621,7 @@ static char * mountHardDrive(struct installMethod * method,
 
 	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
 			  NULL);
-	    kdFindScsiList(kd);
+	    kdFindScsiList(kd, 0);
 
 	    continue;
 	}
@@ -690,7 +690,7 @@ static char * mountHardDrive(struct installMethod * method,
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
 	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
 			  NULL);
-	    kdFindScsiList(kd);
+	    kdFindScsiList(kd, 0);
 	    continue;
 	}
 
@@ -828,7 +828,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 	rc = devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDepsPtr, flags,
 			   NULL);
 	if (rc) return rc;
-	kdFindNetList(kd);
+	kdFindNetList(kd, 0);
     }
 
     devices = alloca((kd->numKnown + 1) * sizeof(*devices));
@@ -944,7 +944,7 @@ static char * mountNfsImage(struct installMethod * method,
         }
     }
 
-    writeNetInfo("/tmp/netinfo", &netDev);
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     free(host);
     free(dir);
@@ -1069,7 +1069,7 @@ static char * mountUrlImage(struct installMethod * method,
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    login, ui.address, ui.prefix);
 
-    writeNetInfo("/tmp/netinfo", &netDev);
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     return url;
 }
@@ -1349,8 +1349,8 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    logMessage("module %s inserted successfully", device);
     }
 
-    kdFindScsiList(kd);
-    kdFindNetList(kd);
+    kdFindScsiList(kd, 0);
+    kdFindNetList(kd, 0);
 
     return 0;
 }
@@ -1470,7 +1470,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);
 	if (kickstartNetwork(&netDevice, &netDev, NULL, flags)) return NULL;
-	writeNetInfo("/tmp/netinfo", &netDev);
+	writeNetInfo("/tmp/netinfo", &netDev, kd);
     }
 #endif
 
@@ -1709,7 +1709,7 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
 	return 1;
     }
 
-    writeNetInfo("/tmp/netinfo", &netDev);
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     if (!(netDev.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
 	logMessage("no bootserver was found");
@@ -2113,14 +2113,14 @@ int main(int argc, char ** argv) {
 
     if (!continuing) {
 	winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
-	startPcmcia(modLoaded, &modDeps, modInfo, flags);
+	startPcmcia(modLoaded, modDeps, modInfo, flags);
 	newtPopWindow();
     }
 #endif
 
-    kdFindIdeList(&kd);
-    kdFindScsiList(&kd);
-    kdFindNetList(&kd);
+    kdFindIdeList(&kd, CODE_PCMCIA);
+    kdFindScsiList(&kd, CODE_PCMCIA);
+    kdFindNetList(&kd, CODE_PCMCIA);
 
     if (!continuing) {
 	if (((access("/proc/bus/pci/devices", X_OK) &&

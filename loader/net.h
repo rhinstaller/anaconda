@@ -1,6 +1,7 @@
 #ifndef H_LOADER_NET
 #define H_LOADER_NET
 
+#include "../isys/probe.h"
 #include "pump.h"
 
 struct networkDeviceConfig {
@@ -11,7 +12,8 @@ struct networkDeviceConfig {
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 
 		  int flags);
 int configureNetwork(struct networkDeviceConfig * dev);
-int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
+int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
+		 struct knownDevices * kd);
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
 int writeResolvConf(struct networkDeviceConfig * net);
 #ifndef __STANDALONE__

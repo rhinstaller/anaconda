@@ -59,7 +59,7 @@ int setupCDdevice(struct knownDevices * kd, moduleInfoSet modInfo,
 	    rc = devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
 	    		       flags, NULL);
 	    if (!rc) {
-		kdFindScsiList(kd);
+		kdFindScsiList(kd, 0);
 		/* we'll get called again if the scsi bus doesn't have a CDROM
 		   drive on it */
 		done = 1;

@@ -430,12 +430,23 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     return 0;
 }
 
-int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
+int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
+		 struct knownDevices * kd) {
     FILE * f;
+    int i;
+
+    for (i = 0; i < kd->numKnown; i++)
+	if (!strcmp(kd->known[i].name, fn)) break;
 
     if (!(f = fopen(fn, "w"))) return -1;
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
+
+    if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
+	fprintf(f, "ONBOOT=no\n");
+    else
+	fprintf(f, "ONBOOT=yes\n");
+
     if (dev->isDynamic) {
 	fprintf(f, "BOOTPROTO=dhcp\n");
     } else {
@@ -445,6 +456,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
     }
+
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)

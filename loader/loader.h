@@ -36,3 +36,6 @@
 #define FL_KSCDROM(a)	    ((a) & LOADER_FLAGS_KSCDROM)
 #define FL_MCHECK(a)	    ((a) & LOADER_FLAGS_MCHECK)
 #define FL_KSNFS(a)	    ((a) & LOADER_FLAGS_KSNFS)
+
+#define CODE_PCMCIA	1
+
