@@ -226,7 +226,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def getScreen (self):
         threads_leave ()
-        self.todo.headerList()
+        self.todo.getHeaderList()
         threads_enter ()
 
         self.path_mapping = {}
@@ -371,8 +371,8 @@ class PackageSelectionWindow (InstallWindow):
 
     def getScreen (self):
         threads_leave ()
-        self.todo.headerList ()
-        self.todo.compsList()
+        self.todo.getHeaderList ()
+        self.todo.getCompsList()
         threads_enter ()
 
         sw = GtkScrolledWindow ()

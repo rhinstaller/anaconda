@@ -5,6 +5,7 @@ from iw.language import *
 from iw.welcome import *
 from iw.progress import *
 from iw.package import *
+from iw.network import *
 import sys
 import GdkImlib
 
@@ -176,10 +177,12 @@ class InstallInterface:
             ["Partition", PartitionWindow, (todo,)]
         ]
 
-        steps = [WelcomeWindow, LanguageWindow, PackageSelectionWindow, InstallProgressWindow]
+        steps = [WelcomeWindow, LanguageWindow, NetworkWindow,
+                 PackageSelectionWindow, InstallProgressWindow]
 
-        windows = [WelcomeWindow, LanguageWindow, PackageSelectionWindow,
-                   IndividualPackageSelectionWindow, InstallProgressWindow]
+        windows = [WelcomeWindow, LanguageWindow, NetworkWindow,
+                   PackageSelectionWindow, IndividualPackageSelectionWindow,
+                   InstallProgressWindow]
                  
         icw = InstallControlWindow (self, steps, windows, todo)
 	
