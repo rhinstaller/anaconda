@@ -159,7 +159,6 @@ class Password:
 class Language (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
-        self.lang = None
         self.langs = {
             "Czech"	 : "cs_CZ" ,
             "English"	 : "en_US" ,
@@ -183,6 +182,8 @@ class Language (SimpleConfigFile):
         for (key, value) in self.langs.items ():
             self.abbrevMap[value] = key
 
+	self.setByAbbrev("en_US")
+
     def available (self):
         return self.langs
 
@@ -196,10 +197,7 @@ class Language (SimpleConfigFile):
         self.info["LC_ALL"] = self.langs[lang]
         
     def get (self):
-        if self.lang:
-            return self.lang
-        else:
-            return "en_US"
+	return self.lang
 
 class Keyboard (SimpleConfigFile):
     # XXX fixme - externalize
