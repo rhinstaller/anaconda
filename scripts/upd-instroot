@@ -1034,7 +1034,7 @@ if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
 	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache
     fi
     rm -f $DESTGR/usr/bin/fc-cache
 fi
