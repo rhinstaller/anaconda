@@ -37,11 +37,9 @@ struct nfs_fh {
  * Check at runtime whether the running kernel can handle the new stuff.
  */
 
-#ifndef __ia64__
 struct nfs_fh {
         char                    data[NFS_FHSIZE];
 };
-#endif
 
 struct nfs_mount_data {
 	int		version;		/* 1 */
