@@ -212,12 +212,15 @@ class InstallPathWindow:
             todo.upgrade = 1
 	    showScreen = 0
 
-	if not showScreen:
-	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-				       todo.serial, 0, 0,
-				       todo.intf.waitWindow,
-				       todo.intf.messageWindow)
-
+#
+# todo.fstab is now initialized in Todo.__init__()
+#
+#	if not showScreen:
+#	    todo.fstab = NewtFstab(todo.setupFilesystems, 
+#				       todo.serial, 0, 0,
+#				       todo.intf.waitWindow,
+#				       todo.intf.messageWindow)
+        if not showScreen:
 	    return INSTALL_NOOP
 
 	if (todo.upgrade):
