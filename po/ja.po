@@ -690,7 +690,7 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"ブートディスクが有効ではないようです。これは、多分不良ディスクが原因です。"
+"ブートディスクが有効ではないようです。これは、多分ディスク不良が原因です。"
 "一番目のフロッピードライブ内に正常なディスクがあることを確認してください。"
 
 #: ../fsset.py:175
@@ -700,7 +700,7 @@ msgstr "不良ブロックを検査中"
 #: ../fsset.py:176
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "/dev/%sの不良ブロックを検査中..."
+msgstr "/dev/%s の不良ブロックを検査中..."
 
 #: ../fsset.py:597
 #, python-format
@@ -710,10 +710,10 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"%sをext3に転換する際にエラーが発生しました。このファイルシステムを転換させな"
-"いで続けることも可能です。\n"
+"%s を ext3 に転換する際にエラーが発生しました。このファイルシステムを"
+"転換させないで続けることも可能です。\n"
 "\n"
-"%sを転換しないで続行しますか?"
+"%s を転換しないで続行しますか?"
 
 #: ../fsset.py:1235
 msgid "RAID Device"
@@ -1401,10 +1401,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"%sインストール中にエラー。これはメディアの失敗、ディスク容量の不足、または"
-"ハードの問題である事を示します。致命的なエラーですからインストールは 回避され"
-"ます。メディアを確認してから再インストールを実行してください。\n"
-" \n"
+"%s のインストール中にエラー。これはメディアの不良、ディスク容量の不足、"
+"またはハードの問題である事を示します。致命的なエラーですからインストールは"
+"回避されます。メディアを確認してから再インストールを実行してください。\n"
+"\n"
 "OK ボタンを押すとシステムを再起動します。"
 
 #: ../packages.py:735 ../upgrade.py:350
@@ -1412,12 +1412,12 @@ msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"マージヘッダリストを開けません。原因はファイルの欠落、またはメディアの不良で"
+"ヘッダリストを統合できません。原因はファイルの欠落、またはメディアの不良で"
 "す。[Enter] を押してやり直してください。"
 
 #: ../packages.py:870
 msgid "Preparing RPM transaction..."
-msgstr "RPMトランザクションを準備中..."
+msgstr "RPM トランザクションを準備中..."
 
 #: ../packages.py:960
 #, python-format
@@ -1440,12 +1440,12 @@ msgstr ""
 #: ../packages.py:970 ../packages.py:1270
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%sのアップグレード中\n"
+msgstr "%s-%s-%s.%s のアップグレード中\n"
 
 #: ../packages.py:972 ../packages.py:1272
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "%s-%s-%s.%sをインストール中\n"
+msgstr "%s-%s-%s.%s をインストール中\n"
 
 #: ../packages.py:988
 #, python-format
@@ -1722,7 +1722,7 @@ msgstr "論理ボリューム名は128文字以下でなければなりません
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "エラー - 論理ボリューム名%sは有効ではありません。"
+msgstr "エラー - 論理ボリューム名 %s は有効ではありません。"
 
 #: ../partIntfHelpers.py:71
 msgid ""
@@ -1867,8 +1867,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s はパーティションタイプ 0x82(Linuxスワップ)となっていますが、Linuxス"
-"ワップパーティションとしてフォーマットされているようには見えません\n"
+"/dev/%s はパーティションタイプ 0x82(Linuxスワップ)となっていますが、"
+"Linux スワップパーティションとしてフォーマットされているようには"
+"見えません。\n"
 "\n"
 "このパーティションをスワップパーティションとしてフォーマットしますか?"
 
@@ -1881,12 +1882,13 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"フォーマットなしで既存のパーティションを使用することを選択しています。Red Hat"
-"は、以前のオペレーティングシステムでインストールされたファイルがこのインス"
-"トールで問題を起こさないこと確実にするために、このパーティションのフォーマッ"
-"トをお勧めします。しかしこのパーティションがユーザーのホームディレクトリな"
-"ど、保存する必要のあるファイルを含んでいる場合はこのパーティションをフォー"
-"マットしないで続行してください。"
+"フォーマットなしで既存のパーティションを使用することを選択しています。"
+"Red Hat は、以前のオペレーティングシステムでインストールされたファイルが"
+"このインストールで問題を起こさないこと確実にするために、"
+"このパーティションのフォーマットをお勧めします。"
+"しかしこのパーティションがユーザーのホームディレクトリなど、"
+"保存する必要のあるファイルを含んでいる場合、"
+"このパーティションをフォーマットしないで続行してください。"
 
 #: ../partIntfHelpers.py:410
 msgid "Format?"
@@ -1930,7 +1932,7 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"要求されたパーティション設定について次のような警告があります\n"
+"要求されたパーティション設定について次のような警告があります。\n"
 "\n"
 "%s\n"
 "\n"
@@ -1963,7 +1965,7 @@ msgid ""
 "\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"ボリュームグループ\"%s\"を削除しようとしています。\n"
+"ボリュームグループ \"%s\" を削除しようとしています。\n"
 " \n"
 "このボリュームグループ内のすべての論理ボリュームは消去されます!"
 
@@ -2058,8 +2060,8 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"%sパーティションの容量が %s MB未満であり、通常の %s のインストー ルでの推奨容"
-"量には不足です。"
+"%s パーティションの容量が %s MB未満であり、通常の %s のインストールでの"
+"推奨容量には不足しています。"
 
 #: ../partitions.py:891 ../partRequests.py:666
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -2155,7 +2157,7 @@ msgstr "要求されたパーティション容量 %s MB は最大容量 %s MB�
 #: ../partRequests.py:488
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "要求されたパーティション容量 (%s MB)が負です!"
+msgstr "要求されたパーティション容量 (%s MB)が負数です!"
 
 #: ../partRequests.py:492
 msgid "Partitions can't start below the first cylinder."
@@ -2168,12 +2170,12 @@ msgstr "パーティションが負のシリンダで終ることはできませ
 #: ../partRequests.py:658
 msgid "No members in RAID request, or not RAID level specified."
 msgstr ""
-"RAID要求の中にメンバーが含まれていない、または RAIDレベルが未指定です。"
+"RAID 要求の中にメンバーが含まれていない、または RAID レベルが未指定です。"
 
 #: ../partRequests.py:670
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "タイプ %s のRAIDデバイスは最低でも %s メンバーを必要とします。"
+msgstr "タイプ %s の RAID デバイスは最低でも %s メンバーを必要とします。"
 
 #: ../partRequests.py:676
 #, python-format
@@ -2181,8 +2183,8 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"このRAIDデバイスは最大 %s スペア持てます。より多くのスペアが欲しい場合はRAID"
-"デバイスにメンバーを追加しなければなりません。"
+"この RAID デバイスは最大 %s スペア持てます。より多くのスペアが欲しい場合は"
+" RAID デバイスにメンバーを追加しなければなりません。"
 
 #: ../rescue.py:124
 msgid "Starting Interface"
@@ -2230,7 +2232,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"レスキュー環境はこれから Red Hat Linux インストールを探し、ディレクトリ %s の"
+"レスキュー環境はこれから Linux インストールを探し、ディレクトリ %s の"
 "下にマウントしようと試みます。そうすることで、そのシステムに必要な変更を行う"
 "ことができます。このプロセスを続ける場合、[続ける] を選択してください。"
 "また 'Read-Only' を選択することで、read-write の代わりに read-only の"
@@ -2830,7 +2832,7 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"ブートローダーのパスワードを入力して確認してうｋださい。"
+"ブートローダーのパスワードを入力して確認してください。"
 "(BIOS のキーマップが実際に使用しているキーマップとは異なっている可能性が"
 "あることに注意してください)"
 
@@ -7245,7 +7247,7 @@ msgstr ""
 "失敗。\n"
 "\n"
 "今テストしたイメージはエラーを含んでいます。これは欠陥のあるダウンロード又は"
-"不良ディスクが原因です。可能ならディスクを清掃して再度試して ください。"
+"ディスク不良が原因です。可能ならディスクを清掃して再度試してください。"
 "このテストが失敗を繰り返す場合、インストールは中止すべきです。"
 
 #: ../loader2/mediacheck.c:333
