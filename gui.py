@@ -100,6 +100,7 @@ class ProgressWindow:
     def set (self, amount):
         threads_enter ()
 	self.progress.update (float (amount) / self.total)
+        gdk_flush ()
         threads_leave ()
     
     def pop(self):
