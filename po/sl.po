@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-25 18:58-0400\n"
+"POT-Creation-Date: 2004-06-08 23:26-0400\n"
 "PO-Revision-Date: 2004-04-17 11:25+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: slovenščina <translation-team-sl@lists.sourceforge.net>\n"
@@ -97,7 +97,7 @@ msgstr "Prosim, povežite se z %s za začetek namestitve..."
 msgid "Please connect to begin the install..."
 msgstr "Prosim, povežite se za začetek namestitve..."
 
-#: ../anaconda:562 ../anaconda:743 ../gui.py:239 ../gui.py:992 ../rescue.py:40
+#: ../anaconda:563 ../anaconda:745 ../gui.py:239 ../gui.py:992 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:337 ../text.py:483
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -109,23 +109,25 @@ msgstr "Prosim, povežite se za začetek namestitve..."
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
 #: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:249
-#: ../loader2/driverdisk.c:265 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
+#: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:261 ../loader2/driverdisk.c:292
+#: ../loader2/driverdisk.c:330 ../loader2/driverdisk.c:368
+#: ../loader2/driverdisk.c:381 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:242 ../loader2/hdinstall.c:295
-#: ../loader2/hdinstall.c:354 ../loader2/hdinstall.c:516
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
-#: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
+#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:513 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:375
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/loader.c:824 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:188 ../loader2/net.c:210
-#: ../loader2/net.c:479 ../loader2/net.c:811 ../loader2/net.c:834
-#: ../loader2/net.c:952 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
+#: ../loader2/net.c:487 ../loader2/net.c:833 ../loader2/net.c:856
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
 #: ../loader2/urlinstall.c:136 ../loader2/urlinstall.c:149
@@ -136,16 +138,16 @@ msgstr "Prosim, povežite se za začetek namestitve..."
 msgid "OK"
 msgstr "V redu"
 
-#: ../anaconda:613
+#: ../anaconda:614
 msgid "Unknown Error"
 msgstr "Neznana napaka"
 
-#: ../anaconda:616
+#: ../anaconda:617
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Napaka pri branju drugega dela nastavitve za hitri zagon %s!"
 
-#: ../anaconda:728
+#: ../anaconda:730
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -153,23 +155,23 @@ msgstr ""
 "Nimate dovolj sistemskega pomnilnika, da bi nameščali sistem v grafičnem "
 "načinu. Namestitev se zaganja v besedilnem načinu."
 
-#: ../anaconda:780
+#: ../anaconda:782
 msgid "Install class forcing text mode installation"
 msgstr "Namestitveni razred vsiljuje besedilni način namestitve"
 
-#: ../anaconda:807
+#: ../anaconda:809
 msgid "No video hardware found, assuming headless"
 msgstr "Strojna oprema za video ni bila najdena, predpostavlja se terminal"
 
-#: ../anaconda:818 ../anaconda:1066
+#: ../anaconda:820 ../anaconda:1079
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Ni moč dobiti objekta s strojno opremo za X."
 
-#: ../anaconda:842
+#: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafična namestitev ni dostopna... Zaganja se besedilni način."
 
-#: ../anaconda:857
+#: ../anaconda:859
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -177,12 +179,12 @@ msgstr ""
 "Miška ni bila zaznana. Za grafično namestitev potrebujete miško. Zaganja se "
 "besedilni način."
 
-#: ../anaconda:867
+#: ../anaconda:869
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "Ugotavljam vrsto miške: %s"
 
-#: ../anaconda:871
+#: ../anaconda:873
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Uporabljam vrsto miške: %s"
@@ -420,7 +422,7 @@ msgstr "Nepopravljiva napaka"
 msgid "Your system will now be rebooted."
 msgstr "Vaš sistem se bo zdaj znova zagnal."
 
-#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:465
+#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -429,7 +431,7 @@ msgstr "Vaš sistem se bo zdaj znova zagnal."
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:377
 msgid "Warning"
 msgstr "Opozorilo"
 
@@ -541,11 +543,11 @@ msgstr "Vse"
 msgid "no suggestion"
 msgstr "ni predloga"
 
-#: ../comps.py:1098 ../hdrlist.py:1002
+#: ../comps.py:1098 ../hdrlist.py:1006
 msgid "Miscellaneous"
 msgstr "Različno"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:949
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:953
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -554,7 +556,7 @@ msgstr ""
 "Ta skupina vključuje vse dostopne pakete.  Vedite, da je znatno več paketov "
 "od tistih iz vseh drugih skupin paketov na tej strani skupaj."
 
-#: ../comps.py:1118 ../hdrlist.py:953
+#: ../comps.py:1118 ../hdrlist.py:957
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -640,20 +642,21 @@ msgstr "_Naredi zagonsko disketo"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
 #: ../fsset.py:1348 ../fsset.py:1383 ../fsset.py:1433 ../fsset.py:1477
-#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:325
-#: ../image.py:522 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
+#: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:408 ../packages.py:591 ../packages.py:676
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
-#: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:330
+#: ../loader2/driverdisk.c:368 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:462 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:513
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -881,7 +884,7 @@ msgstr ""
 "Prosimo, odpravite to težavo in vnovič zaženite namestitev."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
-#: ../image.py:475 ../packages.py:1485 ../iw/confirm_gui.py:68
+#: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
@@ -946,9 +949,9 @@ msgstr "Popravi"
 
 #: ../gui.py:237 ../rescue.py:176 ../text.py:335 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
-#: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:506
+#: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
+#: ../loader2/loader.c:377
 msgid "Yes"
 msgstr "Da"
 
@@ -956,12 +959,12 @@ msgstr "Da"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:370
+#: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
+#: ../loader2/loader.c:377
 msgid "No"
 msgstr "Ne"
 
-#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:524
+#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:532
 msgid "Retry"
 msgstr "Ponovno"
 
@@ -975,14 +978,16 @@ msgstr "Prezri"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
+#: ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Prekliči"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
 msgid ""
-"The following error was found while parsing your kickstart configuration:n\n"
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
 "%s"
 msgstr ""
 
@@ -1088,7 +1093,7 @@ msgstr "Naslovne vrstice ni moč naložiti"
 msgid "Install Window"
 msgstr "Namestitveno okno"
 
-#: ../harddrive.py:166 ../image.py:523
+#: ../harddrive.py:166 ../image.py:524
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1120,7 +1125,7 @@ msgstr ""
 "Pripravite jih pred začetkom nameščanja. Če želite namestitev preklicati in "
 "sistem ponovno zagnati pritisnite \"Ponovni zagon\"."
 
-#: ../image.py:96 ../image.py:476 ../kickstart.py:1381 ../kickstart.py:1409
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1381 ../kickstart.py:1409
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
 msgstr "_Nadaljuj"
@@ -1156,22 +1161,22 @@ msgid "Change CDROM"
 msgstr "Spremeni CDROM"
 
 #: ../image.py:284
-#, python-format
-msgid "Please insert disc %d to continue."
+#, fuzzy, python-format
+msgid "Please insert %s disc %d to continue."
 msgstr "Prosimo, za nadaljevanje vstavite ploščo %d."
 
-#: ../image.py:319
+#: ../image.py:320
 msgid "Wrong CDROM"
 msgstr "Napačen CDROM"
 
-#: ../image.py:320
+#: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "To ni pravi CD-ROM %s."
 
-#: ../image.py:326
-msgid "The CDROM could not be mounted."
-msgstr "CD-ROM-a ni moč priklopiti."
+#: ../image.py:327
+msgid "Unable to access the CDROM."
+msgstr ""
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2127,7 +2132,7 @@ msgstr ""
 "\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:337
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
 msgid "Continue"
 msgstr "Nadaljuj"
 
@@ -2440,6 +2445,69 @@ msgstr ""
 msgid "Connecting..."
 msgstr "Povezovanje..."
 
+#: ../vnc.py:36
+#, fuzzy
+msgid "Unable to Start X"
+msgstr "Datoteke ni moč naložiti!"
+
+#: ../vnc.py:37
+msgid ""
+"X was unable to start on your machine.  Would you like to start VNC to "
+"connect to this computer from another computer and perform a graphical "
+"install or continue with a text mode install?"
+msgstr ""
+
+#: ../vnc.py:44 ../vnc.py:47
+msgid "Use text mode"
+msgstr ""
+
+#: ../vnc.py:45
+#, fuzzy
+msgid "Start VNC"
+msgstr "Zaganjam VNC..."
+
+#: ../vnc.py:55
+#, fuzzy
+msgid "VNC Configuration"
+msgstr "Nastavitev SILO"
+
+#: ../vnc.py:59
+#, fuzzy
+msgid "No password"
+msgstr "Geslo za root"
+
+#: ../vnc.py:62
+msgid ""
+"A password will prevent unauthorized listeners connecting and monitoring "
+"your installation progress.  Please enter a password to be used for the "
+"installation"
+msgstr ""
+
+#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../vnc.py:71 ../textw/userauth_text.py:45
+msgid "Password (confirm):"
+msgstr "Geslo (potrditev):"
+
+#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+msgid "Password Mismatch"
+msgstr "Neujemanje gesel"
+
+#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+msgid "The passwords you entered were different. Please try again."
+msgstr "Gesli, ki ste ju podali, se razlikujeta. Prosim poskusite ponovno."
+
+#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+msgid "Password Length"
+msgstr "Dolžina gesel"
+
+#: ../vnc.py:100
+#, fuzzy
+msgid "The password must be at least six characters long."
+msgstr "Geslo mora imeti najmanj 6 znakov."
+
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr "Z DDC preskušeni monitor"
@@ -2448,12 +2516,12 @@ msgstr "Z DDC preskušeni monitor"
 msgid "Set Root Password"
 msgstr "Nastavi geslo za root"
 
-#: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
-#: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
+#: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
 msgid "Error with Password"
 msgstr "Napačno geslo"
 
-#: ../iw/account_gui.py:36
+#: ../iw/account_gui.py:42
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2461,30 +2529,32 @@ msgstr ""
 "Za nadaljevanje morate vnesti geslo za root in ga potrditi tako, da ga "
 "vpišete še drugič."
 
-#: ../iw/account_gui.py:44
+#: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Gesli, ki ste ju podali, se razlikujeta. Prosimo, poskusite znova."
 
-#: ../iw/account_gui.py:51
+#: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
 msgstr "Geslo roota mora imeti najmanj 6 znakov."
 
-#: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:66 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
 "Zahtevano geslo vsebuje ne-ascii znake, ki niso dovoljeni kot del gesla."
 
-#: ../iw/account_gui.py:87
-msgid "Enter the root (administrator) password for the system."
-msgstr "Vnesite geslo skrbnika tega sistema (uporabnika root)."
+#: ../iw/account_gui.py:93
+msgid ""
+"The root account is used for administering the system.  Enter a password for "
+"the root user."
+msgstr ""
 
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:110
 msgid "Root _Password: "
 msgstr "Geslo za _root: "
 
-#: ../iw/account_gui.py:106
+#: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "_Potrditev: "
 
@@ -3105,7 +3175,7 @@ msgstr "_Nastavi požarni zid"
 msgid "_Proceed"
 msgstr "_Nadaljuj"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:122
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3118,11 +3188,11 @@ msgstr ""
 "\n"
 "Na primer: '1234:udp'"
 
-#: ../iw/firewall_gui.py:135
+#: ../iw/firewall_gui.py:126
 msgid "Warning: Bad Token"
 msgstr "Pozor: slab žeton"
 
-#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
+#: ../iw/firewall_gui.py:152 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3130,51 +3200,57 @@ msgstr ""
 "Požarni zid lahko pomaga preprečiti nepooblaščen dostop do vašega "
 "računalnika iz zunanjega sveta.  Bi radi omogočili požarni zid?"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:160
 msgid "N_o firewall"
 msgstr "_Brez požarnega zidu"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:162
 msgid "_Enable firewall"
 msgstr "_Omogoči požarni zid"
 
-#: ../iw/firewall_gui.py:173
-msgid "_Custom firewall"
-msgstr "_Prilagojen požarni zid"
+#: ../iw/firewall_gui.py:179
+msgid "Allow others on the internet to access these services."
+msgstr ""
 
-#: ../iw/firewall_gui.py:191
-msgid "What services should be allowed to pass through the firewall?"
-msgstr "Katerim storitvam je dovoljeno, da preidejo skozi požarni zid?"
-
-#: ../iw/firewall_gui.py:199
+#: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
 msgstr "_Dovoli prihodni:"
 
-#: ../iw/firewall_gui.py:224
+#: ../iw/firewall_gui.py:203
+msgid "Remote Login (SSH)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:205
+#, fuzzy
+msgid "Web Server"
+msgstr "_Strežnik"
+
+#: ../iw/firewall_gui.py:207
+#, fuzzy
+msgid "Mail Server (SMTP)"
+msgstr "Pošta (SMTP)"
+
+#: ../iw/firewall_gui.py:209
+msgid "File Transfer (FTP)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
 msgstr "Druga _vrata:"
 
-#: ../iw/firewall_gui.py:232
-msgid "If you would like to allow all traffic from a device, select it below."
-msgstr "Če bi radi dovolili ves promet z naprave, jo izberite spodaj."
-
-#: ../iw/firewall_gui.py:241
-msgid "_Trusted devices:"
-msgstr "_Zaupamo napravam:"
-
-#: ../iw/firewall_gui.py:279
+#: ../iw/firewall_gui.py:236
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr "_Razširitve varnostno ojačanega Linuxa (SELinux):"
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 msgid "Disabled"
 msgstr "Onemogočeno"
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 msgid "Warn"
 msgstr "Opozori"
 
-#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
+#: ../iw/firewall_gui.py:242 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr "Omogočeno"
 
@@ -3762,7 +3838,7 @@ msgstr "_ročno"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(npr. \"racunalnik.domena.si\")"
 
-#: ../iw/network_gui.py:521 ../loader2/net.c:729
+#: ../iw/network_gui.py:521 ../loader2/net.c:751
 msgid "Hostname"
 msgstr "Ime računalnika"
 
@@ -4086,7 +4162,7 @@ msgstr "Naprave RAID"
 msgid "None"
 msgstr "Nič"
 
-#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:462
+#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:326
 msgid "Hard Drives"
 msgstr "Trdi diski"
 
@@ -5265,13 +5341,14 @@ msgstr ""
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
-#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:188
-#: ../loader2/net.c:210 ../loader2/net.c:479 ../loader2/net.c:952
-#: ../loader2/nfsinstall.c:54 ../loader2/urls.c:254 ../loader2/urls.c:444
+#: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:293
+#: ../loader2/driverdisk.c:381 ../loader2/driverselect.c:73
+#: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
+#: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
+#: ../loader2/loader.c:322 ../loader2/loader.c:824 ../loader2/loader.c:846
+#: ../loader2/net.c:188 ../loader2/net.c:210 ../loader2/net.c:487
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
+#: ../loader2/urls.c:444
 msgid "Back"
 msgstr "Nazaj"
 
@@ -6076,29 +6153,9 @@ msgstr ""
 "tipkarske napake. Ne pozabite, da je korensko geslo kritičen del varnosti "
 "sistema!"
 
-#: ../textw/userauth_text.py:44 ../loader2/urls.c:434
-msgid "Password:"
-msgstr "Geslo:"
-
-#: ../textw/userauth_text.py:45
-msgid "Password (confirm):"
-msgstr "Geslo (potrditev):"
-
-#: ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
-msgid "Password Length"
-msgstr "Dolžina gesel"
-
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
 msgstr "Geslo roota mora imeti najmanj 6 znakov."
-
-#: ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
-msgid "Password Mismatch"
-msgstr "Neujemanje gesel"
-
-#: ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
-msgid "The passwords you entered were different. Please try again."
-msgstr "Gesli, ki ste ju podali, se razlikujeta. Prosim poskusite ponovno."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
@@ -6681,19 +6738,19 @@ msgstr "Medij ni bil najden"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "V pogonu ni moč najti datoteke 'kickstart'."
 
-#: ../loader2/driverdisk.c:119 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Nalaganje"
 
-#: ../loader2/driverdisk.c:119
+#: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
 msgstr "Disk z gonilniki se prebira..."
 
-#: ../loader2/driverdisk.c:244
+#: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
 msgid "Driver Disk Source"
 msgstr "Izvor diska z gonilniki"
 
-#: ../loader2/driverdisk.c:245
+#: ../loader2/driverdisk.c:257
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6701,30 +6758,58 @@ msgstr ""
 "Imate več naprav, ki lahko služijo kot izvori za disk z gonilniki.  Katero "
 "bi radi uporabljali?"
 
-#: ../loader2/driverdisk.c:263
+#: ../loader2/driverdisk.c:289
+#, fuzzy
+msgid ""
+"There are multiple partitions on this device which could contain the driver "
+"disk image.  Which would you like to use?"
+msgstr ""
+"Imate več naprav, ki lahko služijo kot izvori za disk z gonilniki.  Katero "
+"bi radi uporabljali?"
+
+#: ../loader2/driverdisk.c:331
+#, fuzzy
+msgid "Failed to mount partition."
+msgstr "Diska s popravki ni moč priklopiti"
+
+#: ../loader2/driverdisk.c:339
+#, fuzzy
+msgid "Select driver disk image"
+msgstr "Izberite gonilnik"
+
+#: ../loader2/driverdisk.c:340
+msgid "Select the file which is your driver disk image."
+msgstr ""
+
+#: ../loader2/driverdisk.c:369
+#, fuzzy
+msgid "Failed to load driver disk from file."
+msgstr "Diskete ni moč priklopiti."
+
+#: ../loader2/driverdisk.c:379
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Vstavite disketo z gonilnikom v /dev/%s in pritisnite \"V redu\" za "
 "nadaljevanje."
 
-#: ../loader2/driverdisk.c:265
+#: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
 msgstr "Vstavite disk z gonilniki"
 
-#: ../loader2/driverdisk.c:280
+#: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
 msgstr "Diskete ni moč priklopiti."
 
-#: ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:462
 msgid "Manually choose"
 msgstr "Ročno izberi"
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:463
 msgid "Load another disk"
 msgstr "Naloži drug disk"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:464
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6733,37 +6818,37 @@ msgstr ""
 "Na tem disku z gonilniki ni najti naprav primerne vrste.  Bi radi ročno "
 "izbrali gonilnik, vseeno nadaljevali, ali naložili drug disk z gonilniki?"
 
-#: ../loader2/driverdisk.c:380
+#: ../loader2/driverdisk.c:506
 msgid "Driver disk"
 msgstr "Disk z gonilniki"
 
-#: ../loader2/driverdisk.c:381
+#: ../loader2/driverdisk.c:507
 msgid "Do you have a driver disk?"
 msgstr "Ali imate disketo z gonilnikom?"
 
-#: ../loader2/driverdisk.c:391
+#: ../loader2/driverdisk.c:517
 msgid "More Driver Disks?"
 msgstr "Več diskov z gonilniki?"
 
-#: ../loader2/driverdisk.c:392
+#: ../loader2/driverdisk.c:518
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ali želite naložiti še več diskov z gonilniki?"
 
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
-#: ../loader2/hdinstall.c:599 ../loader2/kickstart.c:109
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
+#: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
-#: ../loader2/modules.c:919 ../loader2/net.c:811 ../loader2/net.c:834
+#: ../loader2/modules.c:919 ../loader2/net.c:833 ../loader2/net.c:856
 #: ../loader2/nfsinstall.c:247 ../loader2/urlinstall.c:431
 #: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Napaka 'kickstart'"
 
-#: ../loader2/driverdisk.c:445
+#: ../loader2/driverdisk.c:571
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Slab izvorni disk za 'kickstart': %s"
 
-#: ../loader2/driverdisk.c:478
+#: ../loader2/driverdisk.c:604
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6825,7 +6910,7 @@ msgstr "Izberite gonilnik, ki se naj naloži"
 msgid "Loading %s driver..."
 msgstr "Nalaga se gonilnik %s..."
 
-#: ../loader2/hdinstall.c:238 ../loader2/hdinstall.c:291
+#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
 #, c-format
 msgid ""
@@ -6835,7 +6920,7 @@ msgstr ""
 "Ni videti, da bi namestitveno drevo za %s v tem imeniku ustrezalo vašemu "
 "zagonskemu nosilcu."
 
-#: ../loader2/hdinstall.c:355
+#: ../loader2/hdinstall.c:219
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6843,7 +6928,7 @@ msgstr ""
 "Med branjem namestitve s slik ISO je prišlo do napake. Prosim, preverite "
 "svoje slike ISO in poskusite znova."
 
-#: ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:327
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6851,7 +6936,7 @@ msgstr ""
 "Ni videti, da bi imeli na sistemu trde diske! Bi radi nastavili dodatne "
 "naprave?"
 
-#: ../loader2/hdinstall.c:479
+#: ../loader2/hdinstall.c:343
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6862,25 +6947,25 @@ msgstr ""
 "Če ne vidite diskovnega pogona, ki ste ga tukaj navedli, pritisnite F2 za "
 "nastavitev dodatnih naprav."
 
-#: ../loader2/hdinstall.c:501
+#: ../loader2/hdinstall.c:365
 msgid "Directory holding images:"
 msgstr "Imenik s slikami:"
 
-#: ../loader2/hdinstall.c:528
+#: ../loader2/hdinstall.c:392
 msgid "Select Partition"
 msgstr "Izberite razdelitev"
 
-#: ../loader2/hdinstall.c:568
+#: ../loader2/hdinstall.c:432
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Videti je, kot da naprava %s ne vsebuje medijev %s."
 
-#: ../loader2/hdinstall.c:600
+#: ../loader2/hdinstall.c:464
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Slab parameter za 'kickstart' ukaz HD %s: %s"
 
-#: ../loader2/hdinstall.c:650
+#: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
 msgstr "V trdem disku ni moč najti datoteke 'kickstart'."
 
@@ -6972,7 +7057,7 @@ msgstr "Popravki"
 msgid "Reading anaconda updates..."
 msgstr "Berem popravke anaconda..."
 
-#: ../loader2/loader.c:371
+#: ../loader2/loader.c:378
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6981,40 +7066,40 @@ msgstr ""
 "Trdih diskov ni bilo moč najti. Verjetno morate ročno določiti gonilnike "
 "naprav, da se bo namestitev uspešno končala. Bi zdaj radi izbrali gonilnike?"
 
-#: ../loader2/loader.c:625
+#: ../loader2/loader.c:643
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nimate dovolj pomnilnika za namestitev sistema %s v ta stroj."
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:816
 msgid "Rescue Method"
 msgstr "Metoda rešitve"
 
-#: ../loader2/loader.c:799
+#: ../loader2/loader.c:817
 msgid "Installation Method"
 msgstr "Metoda namestitve"
 
-#: ../loader2/loader.c:801
+#: ../loader2/loader.c:819
 msgid "What type of media contains the rescue image?"
 msgstr "Kakšne vrste nosilec vsebuje rešilno sliko?"
 
-#: ../loader2/loader.c:803
+#: ../loader2/loader.c:821
 msgid "What type of media contains the packages to be installed?"
 msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 msgid "No driver found"
 msgstr "Gonilnika ni moč najti"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 msgid "Select driver"
 msgstr "Izberite gonilnik"
 
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:846
 msgid "Use a driver disk"
 msgstr "Uporabi disketo z gonilnikom"
 
-#: ../loader2/loader.c:829
+#: ../loader2/loader.c:847
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7022,40 +7107,40 @@ msgstr ""
 "Ni moč najti nobenih naprav vrste, zahtevane za to vrsto namestitve. Ali bi "
 "radi ročno izbrali svoj gonilnik ali uporabili disk z gonilnikom?"
 
-#: ../loader2/loader.c:989
+#: ../loader2/loader.c:1007
 msgid "The following devices have been found on your system."
 msgstr "V vašem sistemu so bile najdene sledeče naprave."
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1009
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Za vaš sistem še ni naloženih gonilnikov. Bi sedaj radi naložili katerega?"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1013
 msgid "Devices"
 msgstr "Naprave"
 
-#: ../loader2/loader.c:996
+#: ../loader2/loader.c:1014
 msgid "Done"
 msgstr "Opravljeno"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1015
 msgid "Add Device"
 msgstr "Dodaj napravo"
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1130
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "nalagalnik je bil že zagnan.  Lupina se zaganja."
 
-#: ../loader2/loader.c:1460
+#: ../loader2/loader.c:1478
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Zaganjam anaconda, rešilni način sistema %s - prosimo, počakajte ...\n"
 
-#: ../loader2/loader.c:1462
+#: ../loader2/loader.c:1480
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Teče anaconda, namestitev sistema %s - prosimo, počakajte ...\n"
@@ -7230,16 +7315,16 @@ msgstr "Neveljavni podatki o IP"
 msgid "You entered an invalid IP address."
 msgstr "Vnesti morate veljaven naslov IP."
 
-#: ../loader2/net.c:265 ../loader2/net.c:533
+#: ../loader2/net.c:265 ../loader2/net.c:541
 msgid "Dynamic IP"
 msgstr "Dinamični IP"
 
-#: ../loader2/net.c:266 ../loader2/net.c:534
+#: ../loader2/net.c:266 ../loader2/net.c:542
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Pošiljam zahtevo po podatkih IP za %s..."
 
-#: ../loader2/net.c:423
+#: ../loader2/net.c:431
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7247,57 +7332,57 @@ msgstr ""
 "Prosimo, vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot "
 "naslov IP v zapisu decimalnih številk, ločenih s piko (na primer 1.2.3.4)."
 
-#: ../loader2/net.c:429
+#: ../loader2/net.c:437
 msgid "IP address:"
 msgstr "Naslov IP:"
 
-#: ../loader2/net.c:432
+#: ../loader2/net.c:440
 msgid "Netmask:"
 msgstr "Omrežna maska:"
 
-#: ../loader2/net.c:435
+#: ../loader2/net.c:443
 msgid "Default gateway (IP):"
 msgstr "Privzeti prehod (IP):"
 
-#: ../loader2/net.c:438
+#: ../loader2/net.c:446
 msgid "Primary nameserver:"
 msgstr "Primarni imenski strežnik:"
 
-#: ../loader2/net.c:465
+#: ../loader2/net.c:473
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Uporaba dinamične nastavitve IP (BOOTP/DHCP)"
 
-#: ../loader2/net.c:493
+#: ../loader2/net.c:501
 msgid "Configure TCP/IP"
 msgstr "Nastavitev TCP/IP"
 
-#: ../loader2/net.c:524
+#: ../loader2/net.c:532
 msgid "Missing Information"
 msgstr "Manjkajoči podatki"
 
-#: ../loader2/net.c:525
+#: ../loader2/net.c:533
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Vnesti morate veljaven naslov IP in mrežno masko."
 
-#: ../loader2/net.c:730
+#: ../loader2/net.c:752
 msgid "Determining host name and domain..."
 msgstr "Določamo ime računalnika in domeno..."
 
-#: ../loader2/net.c:812
+#: ../loader2/net.c:834
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Slab argument za hitri zagon omrežnega ukaza %s: %s"
 
-#: ../loader2/net.c:835
+#: ../loader2/net.c:857
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Slaba številka bootproto %s v omrežnem ukazu"
 
-#: ../loader2/net.c:948
+#: ../loader2/net.c:970
 msgid "Networking Device"
 msgstr "Omrežna naprava"
 
-#: ../loader2/net.c:949
+#: ../loader2/net.c:971
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -8223,6 +8308,25 @@ msgstr "Welščina"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "zulujščina"
+
+#~ msgid "The CDROM could not be mounted."
+#~ msgstr "CD-ROM-a ni moč priklopiti."
+
+#~ msgid "Enter the root (administrator) password for the system."
+#~ msgstr "Vnesite geslo skrbnika tega sistema (uporabnika root)."
+
+#~ msgid "_Custom firewall"
+#~ msgstr "_Prilagojen požarni zid"
+
+#~ msgid "What services should be allowed to pass through the firewall?"
+#~ msgstr "Katerim storitvam je dovoljeno, da preidejo skozi požarni zid?"
+
+#~ msgid ""
+#~ "If you would like to allow all traffic from a device, select it below."
+#~ msgstr "Če bi radi dovolili ves promet z naprave, jo izberite spodaj."
+
+#~ msgid "_Trusted devices:"
+#~ msgstr "_Zaupamo napravam:"
 
 #~ msgid "Workstation Defaults"
 #~ msgstr "Privzeta delovna postaja"

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-25 18:58-0400\n"
+"POT-Creation-Date: 2004-06-08 23:26-0400\n"
 "PO-Revision-Date: 2004-04-25 18:41+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -90,7 +90,7 @@ msgstr "Vennligst koble til %s for å starte installasjonen..."
 msgid "Please connect to begin the install..."
 msgstr "Vennligst koble til for å starte installasjonen..."
 
-#: ../anaconda:562 ../anaconda:743 ../gui.py:239 ../gui.py:992 ../rescue.py:40
+#: ../anaconda:563 ../anaconda:745 ../gui.py:239 ../gui.py:992 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:337 ../text.py:483
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -102,23 +102,25 @@ msgstr "Vennligst koble til for å starte installasjonen..."
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
 #: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:249
-#: ../loader2/driverdisk.c:265 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
+#: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:261 ../loader2/driverdisk.c:292
+#: ../loader2/driverdisk.c:330 ../loader2/driverdisk.c:368
+#: ../loader2/driverdisk.c:381 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:242 ../loader2/hdinstall.c:295
-#: ../loader2/hdinstall.c:354 ../loader2/hdinstall.c:516
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
-#: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
+#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:513 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:375
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/loader.c:824 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:188 ../loader2/net.c:210
-#: ../loader2/net.c:479 ../loader2/net.c:811 ../loader2/net.c:834
-#: ../loader2/net.c:952 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
+#: ../loader2/net.c:487 ../loader2/net.c:833 ../loader2/net.c:856
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
 #: ../loader2/urlinstall.c:136 ../loader2/urlinstall.c:149
@@ -129,16 +131,16 @@ msgstr "Vennligst koble til for å starte installasjonen..."
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:613
+#: ../anaconda:614
 msgid "Unknown Error"
 msgstr "Ukjent feil"
 
-#: ../anaconda:616
+#: ../anaconda:617
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Feil under henting av annen del av kickstart-konfigurasjon: %s!"
 
-#: ../anaconda:728
+#: ../anaconda:730
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -146,23 +148,23 @@ msgstr ""
 "Du har ikke nok RAM til å bruke grafisk installasjon på denne maskinen. "
 "Starter tekstmodus."
 
-#: ../anaconda:780
+#: ../anaconda:782
 msgid "Install class forcing text mode installation"
 msgstr "Installasjonsklassen krever installasjon i tekstmodus"
 
-#: ../anaconda:807
+#: ../anaconda:809
 msgid "No video hardware found, assuming headless"
 msgstr "Ingen skjermkort funnet. Antar at du kjører uten skjerm"
 
-#: ../anaconda:818 ../anaconda:1066
+#: ../anaconda:820 ../anaconda:1079
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Kan ikke lage et maskinvare tilstandsobjekt for X."
 
-#: ../anaconda:842
+#: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafisk installasjon er ikke tilgjengelig... Starter i tekstmodus."
 
-#: ../anaconda:857
+#: ../anaconda:859
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -170,12 +172,12 @@ msgstr ""
 "Ingen mus funnet. Grafisk installasjon krever at du har mus. Starter "
 "tekstmodus."
 
-#: ../anaconda:867
+#: ../anaconda:869
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "Gjenkjent mustype: %s"
 
-#: ../anaconda:871
+#: ../anaconda:873
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Bruker mustype: %s"
@@ -416,7 +418,7 @@ msgstr "Fatal feil"
 msgid "Your system will now be rebooted."
 msgstr "Systemet vil nå startes på nytt."
 
-#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:465
+#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -425,7 +427,7 @@ msgstr "Systemet vil nå startes på nytt."
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:377
 msgid "Warning"
 msgstr "Advarsel"
 
@@ -538,11 +540,11 @@ msgstr "Alt"
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../comps.py:1098 ../hdrlist.py:1002
+#: ../comps.py:1098 ../hdrlist.py:1006
 msgid "Miscellaneous"
 msgstr "Forskjellig"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:949
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:953
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -551,7 +553,7 @@ msgstr ""
 "Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er mange "
 "flere pakker enn det som vises i alle pakkegruppene på denne siden."
 
-#: ../comps.py:1118 ../hdrlist.py:953
+#: ../comps.py:1118 ../hdrlist.py:957
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -636,20 +638,21 @@ msgstr "_Lag oppstartsdiskett"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
 #: ../fsset.py:1348 ../fsset.py:1383 ../fsset.py:1433 ../fsset.py:1477
-#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:325
-#: ../image.py:522 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
+#: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:408 ../packages.py:591 ../packages.py:676
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
-#: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:330
+#: ../loader2/driverdisk.c:368 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:462 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:513
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -879,7 +882,7 @@ msgstr ""
 "Vennligst rett opp dette problemet og start installasjonen på nytt."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
-#: ../image.py:475 ../packages.py:1485 ../iw/confirm_gui.py:68
+#: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
@@ -944,9 +947,9 @@ msgstr "Fiks"
 
 #: ../gui.py:237 ../rescue.py:176 ../text.py:335 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
-#: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:506
+#: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
+#: ../loader2/loader.c:377
 msgid "Yes"
 msgstr "Ja"
 
@@ -954,12 +957,12 @@ msgstr "Ja"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:370
+#: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
+#: ../loader2/loader.c:377
 msgid "No"
 msgstr "Nei"
 
-#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:524
+#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:532
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -973,14 +976,16 @@ msgstr "Overse"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
+#: ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
 msgid ""
-"The following error was found while parsing your kickstart configuration:n\n"
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
 "%s"
 msgstr ""
 
@@ -1086,7 +1091,7 @@ msgstr "Kunne ikke laste tittellinjen"
 msgid "Install Window"
 msgstr "Installasjonsvindu"
 
-#: ../harddrive.py:166 ../image.py:523
+#: ../harddrive.py:166 ../image.py:524
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1118,7 +1123,7 @@ msgstr ""
 "Vennligst ha disse klar før du fortsetter med installasjonen. Hvis du må "
 "avbryte installasjonen og starte på nytt trykker du på «Start på nytt»."
 
-#: ../image.py:96 ../image.py:476 ../kickstart.py:1381 ../kickstart.py:1409
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1381 ../kickstart.py:1409
 #: ../iw/partition_gui.py:1016
 msgid "_Continue"
 msgstr "_Fortsett"
@@ -1153,22 +1158,22 @@ msgid "Change CDROM"
 msgstr "Bytt CD-ROM"
 
 #: ../image.py:284
-#, python-format
-msgid "Please insert disc %d to continue."
+#, fuzzy, python-format
+msgid "Please insert %s disc %d to continue."
 msgstr "Sett inn CD %d for å fortsette."
 
-#: ../image.py:319
+#: ../image.py:320
 msgid "Wrong CDROM"
 msgstr "Feil CD-ROM"
 
-#: ../image.py:320
+#: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Dette er ikke riktig CD-ROM for %s."
 
-#: ../image.py:326
-msgid "The CDROM could not be mounted."
-msgstr "CD-ROM kunne ikke monteres."
+#: ../image.py:327
+msgid "Unable to access the CDROM."
+msgstr ""
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2122,7 +2127,7 @@ msgstr ""
 "\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:337
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
 msgid "Continue"
 msgstr "Fortsett"
 
@@ -2436,6 +2441,69 @@ msgstr ""
 msgid "Connecting..."
 msgstr "Kobler til..."
 
+#: ../vnc.py:36
+#, fuzzy
+msgid "Unable to Start X"
+msgstr "Kan ikke lese filen!"
+
+#: ../vnc.py:37
+msgid ""
+"X was unable to start on your machine.  Would you like to start VNC to "
+"connect to this computer from another computer and perform a graphical "
+"install or continue with a text mode install?"
+msgstr ""
+
+#: ../vnc.py:44 ../vnc.py:47
+msgid "Use text mode"
+msgstr ""
+
+#: ../vnc.py:45
+#, fuzzy
+msgid "Start VNC"
+msgstr "Starter VNC..."
+
+#: ../vnc.py:55
+#, fuzzy
+msgid "VNC Configuration"
+msgstr "Silo-konfigurasjon"
+
+#: ../vnc.py:59
+#, fuzzy
+msgid "No password"
+msgstr "Root-passord"
+
+#: ../vnc.py:62
+msgid ""
+"A password will prevent unauthorized listeners connecting and monitoring "
+"your installation progress.  Please enter a password to be used for the "
+"installation"
+msgstr ""
+
+#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
+msgid "Password:"
+msgstr "Passord:"
+
+#: ../vnc.py:71 ../textw/userauth_text.py:45
+msgid "Password (confirm):"
+msgstr "Passord (bekreft):"
+
+#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+msgid "Password Mismatch"
+msgstr "Passordene er ikke like"
+
+#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+msgid "The passwords you entered were different. Please try again."
+msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
+
+#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+msgid "Password Length"
+msgstr "Passordlengde"
+
+#: ../vnc.py:100
+#, fuzzy
+msgid "The password must be at least six characters long."
+msgstr "Passordet må bestå av minst 6 tegn."
+
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr "DDC-monitor"
@@ -2444,12 +2512,12 @@ msgstr "DDC-monitor"
 msgid "Set Root Password"
 msgstr "Sett passord for root"
 
-#: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
-#: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
+#: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
 msgid "Error with Password"
 msgstr "Feil med passord"
 
-#: ../iw/account_gui.py:36
+#: ../iw/account_gui.py:42
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2457,29 +2525,31 @@ msgstr ""
 "Du må oppgi ditt root-passord og bekrefte det ved å skrive det inn en gang "
 "til for å fortsette."
 
-#: ../iw/account_gui.py:44
+#: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
 
-#: ../iw/account_gui.py:51
+#: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
 msgstr "Root-passordet må være minst seks tegn langt."
 
-#: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:66 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr "Oppgitt passord inneholder ugyldige tegn. Bruk kun ASCII-tegn."
 
-#: ../iw/account_gui.py:87
-msgid "Enter the root (administrator) password for the system."
-msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
+#: ../iw/account_gui.py:93
+msgid ""
+"The root account is used for administering the system.  Enter a password for "
+"the root user."
+msgstr ""
 
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:110
 msgid "Root _Password: "
 msgstr "Passord for root: "
 
-#: ../iw/account_gui.py:106
+#: ../iw/account_gui.py:113
 msgid "_Confirm: "
 msgstr "_Bekreft: "
 
@@ -3096,7 +3166,7 @@ msgstr "_Konfigurer brannmur"
 msgid "_Proceed"
 msgstr "_Fortsett"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:122
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3109,11 +3179,11 @@ msgstr ""
 "\n"
 "For eksempel, «1234:udp»"
 
-#: ../iw/firewall_gui.py:135
+#: ../iw/firewall_gui.py:126
 msgid "Warning: Bad Token"
 msgstr "Advarsel: ugyldig tegn"
 
-#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
+#: ../iw/firewall_gui.py:152 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3121,52 +3191,57 @@ msgstr ""
 "En brannmur kan hjelpe å avverge uautorisert tilgang til din datamaskin fra "
 "utsiden. Vil du aktivere en brannmur?"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:160
 msgid "N_o firewall"
 msgstr "I_ngen brannmur"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:162
 msgid "_Enable firewall"
 msgstr "_Aktiver brannmur"
 
-#: ../iw/firewall_gui.py:173
-msgid "_Custom firewall"
-msgstr "_Tilpasset brannmur"
+#: ../iw/firewall_gui.py:179
+msgid "Allow others on the internet to access these services."
+msgstr ""
 
-#: ../iw/firewall_gui.py:191
-msgid "What services should be allowed to pass through the firewall?"
-msgstr "Hvilke tjenester skal tillates å slippe gjennom brannmuren?"
-
-#: ../iw/firewall_gui.py:199
+#: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
 msgstr "Till_at inngående:"
 
-#: ../iw/firewall_gui.py:224
+#: ../iw/firewall_gui.py:203
+msgid "Remote Login (SSH)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:205
+#, fuzzy
+msgid "Web Server"
+msgstr "_Tjener"
+
+#: ../iw/firewall_gui.py:207
+#, fuzzy
+msgid "Mail Server (SMTP)"
+msgstr "E-post (SMTP)"
+
+#: ../iw/firewall_gui.py:209
+msgid "File Transfer (FTP)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
 msgstr "Andre _porter:"
 
-#: ../iw/firewall_gui.py:232
-msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
-"Hvis du ønsker å tillate all trafikk fra en enhet kan du velge det under."
-
-#: ../iw/firewall_gui.py:241
-msgid "_Trusted devices:"
-msgstr "Enhe_ter vi stoler på:"
-
-#: ../iw/firewall_gui.py:279
+#: ../iw/firewall_gui.py:236
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr "Utvidelser for _Security Enhanced Linux (SELinux):"
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 msgid "Disabled"
 msgstr "Deaktivert"
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 msgid "Warn"
 msgstr "Advar"
 
-#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
+#: ../iw/firewall_gui.py:242 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr "Aktiv"
 
@@ -3752,7 +3827,7 @@ msgstr "_manuelt"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(eks. «vert.domene.no»)"
 
-#: ../iw/network_gui.py:521 ../loader2/net.c:729
+#: ../iw/network_gui.py:521 ../loader2/net.c:751
 msgid "Hostname"
 msgstr "Vertsnavn"
 
@@ -4076,7 +4151,7 @@ msgstr "_RAID-enheter"
 msgid "None"
 msgstr "Ingen"
 
-#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:462
+#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:326
 msgid "Hard Drives"
 msgstr "Harddisker"
 
@@ -5253,13 +5328,14 @@ msgstr ""
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
-#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:188
-#: ../loader2/net.c:210 ../loader2/net.c:479 ../loader2/net.c:952
-#: ../loader2/nfsinstall.c:54 ../loader2/urls.c:254 ../loader2/urls.c:444
+#: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:293
+#: ../loader2/driverdisk.c:381 ../loader2/driverselect.c:73
+#: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
+#: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
+#: ../loader2/loader.c:322 ../loader2/loader.c:824 ../loader2/loader.c:846
+#: ../loader2/net.c:188 ../loader2/net.c:210 ../loader2/net.c:487
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
+#: ../loader2/urls.c:444
 msgid "Back"
 msgstr "Tilbake"
 
@@ -6063,29 +6139,9 @@ msgstr ""
 "du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
 "er kritisk for systemsikkerheten!"
 
-#: ../textw/userauth_text.py:44 ../loader2/urls.c:434
-msgid "Password:"
-msgstr "Passord:"
-
-#: ../textw/userauth_text.py:45
-msgid "Password (confirm):"
-msgstr "Passord (bekreft):"
-
-#: ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
-msgid "Password Length"
-msgstr "Passordlengde"
-
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
 msgstr "Root-passordet må være minst 6 tegn langt."
-
-#: ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
-msgid "Password Mismatch"
-msgstr "Passordene er ikke like"
-
-#: ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
-msgid "The passwords you entered were different. Please try again."
-msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
@@ -6669,19 +6725,19 @@ msgstr "CD ikke funnet"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan ikke finne kickstart-fil på CD-ROM."
 
-#: ../loader2/driverdisk.c:119 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Laster"
 
-#: ../loader2/driverdisk.c:119
+#: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
 msgstr "Leser driverdisk..."
 
-#: ../loader2/driverdisk.c:244
+#: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
 msgid "Driver Disk Source"
 msgstr "Kilde for driverdisk"
 
-#: ../loader2/driverdisk.c:245
+#: ../loader2/driverdisk.c:257
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6689,28 +6745,56 @@ msgstr ""
 "Du har flere enheter som kan være kilde for en driverdisk. Hvilken vil du "
 "bruke?"
 
-#: ../loader2/driverdisk.c:263
+#: ../loader2/driverdisk.c:289
+#, fuzzy
+msgid ""
+"There are multiple partitions on this device which could contain the driver "
+"disk image.  Which would you like to use?"
+msgstr ""
+"Du har flere enheter som kan være kilde for en driverdisk. Hvilken vil du "
+"bruke?"
+
+#: ../loader2/driverdisk.c:331
+#, fuzzy
+msgid "Failed to mount partition."
+msgstr "Kunne ikke montere oppdateringsdisketten"
+
+#: ../loader2/driverdisk.c:339
+#, fuzzy
+msgid "Select driver disk image"
+msgstr "Velg driver"
+
+#: ../loader2/driverdisk.c:340
+msgid "Select the file which is your driver disk image."
+msgstr ""
+
+#: ../loader2/driverdisk.c:369
+#, fuzzy
+msgid "Failed to load driver disk from file."
+msgstr "Kunne ikke montere driverdisketten."
+
+#: ../loader2/driverdisk.c:379
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Sett inn driverdisken i /dev/%s og trykk «OK» for å fortsette."
 
-#: ../loader2/driverdisk.c:265
+#: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
 msgstr "Sett inn driverdisk"
 
-#: ../loader2/driverdisk.c:280
+#: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
 msgstr "Kunne ikke montere driverdisketten."
 
-#: ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:462
 msgid "Manually choose"
 msgstr "Velg manuelt"
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:463
 msgid "Load another disk"
 msgstr "Last en annen disk"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:464
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6719,37 +6803,37 @@ msgstr ""
 "Ingen enheter av passende type ble funnet på denne driverdisketten. Vil du "
 "velge driveren manuelt, fortsette likevel, eller laste en ny driverdiskett?"
 
-#: ../loader2/driverdisk.c:380
+#: ../loader2/driverdisk.c:506
 msgid "Driver disk"
 msgstr "Driverdisk"
 
-#: ../loader2/driverdisk.c:381
+#: ../loader2/driverdisk.c:507
 msgid "Do you have a driver disk?"
 msgstr "Har du en driverdisk?"
 
-#: ../loader2/driverdisk.c:391
+#: ../loader2/driverdisk.c:517
 msgid "More Driver Disks?"
 msgstr "Flere driverdisker?"
 
-#: ../loader2/driverdisk.c:392
+#: ../loader2/driverdisk.c:518
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ønsker du å laste flere driverdisker?"
 
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
-#: ../loader2/hdinstall.c:599 ../loader2/kickstart.c:109
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
+#: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
-#: ../loader2/modules.c:919 ../loader2/net.c:811 ../loader2/net.c:834
+#: ../loader2/modules.c:919 ../loader2/net.c:833 ../loader2/net.c:856
 #: ../loader2/nfsinstall.c:247 ../loader2/urlinstall.c:431
 #: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Kickstart-feil"
 
-#: ../loader2/driverdisk.c:445
+#: ../loader2/driverdisk.c:571
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Ukjent kickstart-kilde for driverdisk: %s"
 
-#: ../loader2/driverdisk.c:478
+#: ../loader2/driverdisk.c:604
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6812,7 +6896,7 @@ msgstr "Velg enhetsdriver som skal lastes"
 msgid "Loading %s driver..."
 msgstr "Laster driver %s..."
 
-#: ../loader2/hdinstall.c:238 ../loader2/hdinstall.c:291
+#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
 #, c-format
 msgid ""
@@ -6822,7 +6906,7 @@ msgstr ""
 "Installasjonstreet for %s i denne katalogen passer ikke med ditt "
 "oppstartsmedium."
 
-#: ../loader2/hdinstall.c:355
+#: ../loader2/hdinstall.c:219
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6830,7 +6914,7 @@ msgstr ""
 "En feil oppstod ved lesing av installasjonen fra ISO-filene. Sjekk ISO-"
 "filene og prøv på nytt."
 
-#: ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:327
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6838,7 +6922,7 @@ msgstr ""
 "Det ser ikke ut som om du har noen harddisker på systemet ditt! Ønsker du å "
 "konfigurere flere enheter?"
 
-#: ../loader2/hdinstall.c:479
+#: ../loader2/hdinstall.c:343
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6849,25 +6933,25 @@ msgstr ""
 "filene (iso9660) for %s? Hvis du ikke ser disken du bruker på denne listen, "
 "trykk F2 for å konfigurere flere enheter."
 
-#: ../loader2/hdinstall.c:501
+#: ../loader2/hdinstall.c:365
 msgid "Directory holding images:"
 msgstr "Katalog som inneholder bilder:"
 
-#: ../loader2/hdinstall.c:528
+#: ../loader2/hdinstall.c:392
 msgid "Select Partition"
 msgstr "Velg partisjon"
 
-#: ../loader2/hdinstall.c:568
+#: ../loader2/hdinstall.c:432
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Enhet %s ser ikke ut til å inneholde CD-ROM bilder for %s."
 
-#: ../loader2/hdinstall.c:600
+#: ../loader2/hdinstall.c:464
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "Ugyldig argument til HD-kommando for kickstart %s: %s"
 
-#: ../loader2/hdinstall.c:650
+#: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Kan ikke finne kickstart-fil på harddisken."
 
@@ -6959,7 +7043,7 @@ msgstr "Oppdateringer"
 msgid "Reading anaconda updates..."
 msgstr "Leser anaconda-oppdateringer..."
 
-#: ../loader2/loader.c:371
+#: ../loader2/loader.c:378
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6968,40 +7052,40 @@ msgstr ""
 "Ingen harddisker ble funnet. Du må sannsynligvis velge en enhetsdriver "
 "manuelt for å kunne fortsette installasjonen. Vil du velge drivere nå?"
 
-#: ../loader2/loader.c:625
+#: ../loader2/loader.c:643
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Du har ikke nok RAM til å installere %s på denne maskinen."
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:816
 msgid "Rescue Method"
 msgstr "Redningsmetode"
 
-#: ../loader2/loader.c:799
+#: ../loader2/loader.c:817
 msgid "Installation Method"
 msgstr "Installasjonsmetode"
 
-#: ../loader2/loader.c:801
+#: ../loader2/loader.c:819
 msgid "What type of media contains the rescue image?"
 msgstr "Hvilken type media inneholder redningsbildet?"
 
-#: ../loader2/loader.c:803
+#: ../loader2/loader.c:821
 msgid "What type of media contains the packages to be installed?"
 msgstr "Hvilken type media inneholder pakkene som skal installeres?"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 msgid "No driver found"
 msgstr "Ingen driver funnet"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 msgid "Select driver"
 msgstr "Velg driver"
 
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:846
 msgid "Use a driver disk"
 msgstr "Bruk en driverdisk"
 
-#: ../loader2/loader.c:829
+#: ../loader2/loader.c:847
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7009,40 +7093,40 @@ msgstr ""
 "Kan ikke finne noen enhter av typen som kreves for denne installasjonstypen. "
 "Vil du velge din driver manuelt eller bruke en driverdiskett?"
 
-#: ../loader2/loader.c:989
+#: ../loader2/loader.c:1007
 msgid "The following devices have been found on your system."
 msgstr "Følgende enheter ble funnet på ditt system."
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1009
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Ingen enhetsdrivere er lastet for ditt system. Ønsker du å gjøre dette nå?"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1013
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:996
+#: ../loader2/loader.c:1014
 msgid "Done"
 msgstr "Ferdig"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1015
 msgid "Add Device"
 msgstr "Legg til enhet"
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1130
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "laster er allerede kjørt. Starter skall."
 
-#: ../loader2/loader.c:1460
+#: ../loader2/loader.c:1478
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Kjører anaconda, feilrettingsmodus for %s - vennligst vent...\n"
 
-#: ../loader2/loader.c:1462
+#: ../loader2/loader.c:1480
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Kjører anaconda, installeringsprogrammet for %s...\n"
@@ -7215,16 +7299,16 @@ msgstr "Ugyldig IP-informasjon"
 msgid "You entered an invalid IP address."
 msgstr "Du skrev inn en ugyldig IP-adresse."
 
-#: ../loader2/net.c:265 ../loader2/net.c:533
+#: ../loader2/net.c:265 ../loader2/net.c:541
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../loader2/net.c:266 ../loader2/net.c:534
+#: ../loader2/net.c:266 ../loader2/net.c:542
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Sender forespørsel om IP-informasjon for %s..."
 
-#: ../loader2/net.c:423
+#: ../loader2/net.c:431
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7233,57 +7317,57 @@ msgstr ""
 "skal skrives inn som en IP-adresse i punktdelt desimal notasjon (f.eks, "
 "1.2.3.4)."
 
-#: ../loader2/net.c:429
+#: ../loader2/net.c:437
 msgid "IP address:"
 msgstr "IP-adresse:"
 
-#: ../loader2/net.c:432
+#: ../loader2/net.c:440
 msgid "Netmask:"
 msgstr "Nettmaske:"
 
-#: ../loader2/net.c:435
+#: ../loader2/net.c:443
 msgid "Default gateway (IP):"
 msgstr "Forvalgt gateway (IP):"
 
-#: ../loader2/net.c:438
+#: ../loader2/net.c:446
 msgid "Primary nameserver:"
 msgstr "Primær navnetjener:"
 
-#: ../loader2/net.c:465
+#: ../loader2/net.c:473
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Bruk dynamisk konfigurasjon av IP (BOOTP/DHCP)"
 
-#: ../loader2/net.c:493
+#: ../loader2/net.c:501
 msgid "Configure TCP/IP"
 msgstr "Konfigurer TCP/IP"
 
-#: ../loader2/net.c:524
+#: ../loader2/net.c:532
 msgid "Missing Information"
 msgstr "Manglende informasjon"
 
-#: ../loader2/net.c:525
+#: ../loader2/net.c:533
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
 
-#: ../loader2/net.c:730
+#: ../loader2/net.c:752
 msgid "Determining host name and domain..."
 msgstr "Undersøker vertsnavn og domene..."
 
-#: ../loader2/net.c:812
+#: ../loader2/net.c:834
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "Ugyldig argument til nettverks-kommando for kickstart %s: %s"
 
-#: ../loader2/net.c:835
+#: ../loader2/net.c:857
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Ugyldig bootproto %s spesifisert i nettverkskommandoen"
 
-#: ../loader2/net.c:948
+#: ../loader2/net.c:970
 msgid "Networking Device"
 msgstr "Nettverksenhet"
 
-#: ../loader2/net.c:949
+#: ../loader2/net.c:971
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -8212,3 +8296,23 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "The CDROM could not be mounted."
+#~ msgstr "CD-ROM kunne ikke monteres."
+
+#~ msgid "Enter the root (administrator) password for the system."
+#~ msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
+
+#~ msgid "_Custom firewall"
+#~ msgstr "_Tilpasset brannmur"
+
+#~ msgid "What services should be allowed to pass through the firewall?"
+#~ msgstr "Hvilke tjenester skal tillates å slippe gjennom brannmuren?"
+
+#~ msgid ""
+#~ "If you would like to allow all traffic from a device, select it below."
+#~ msgstr ""
+#~ "Hvis du ønsker å tillate all trafikk fra en enhet kan du velge det under."
+
+#~ msgid "_Trusted devices:"
+#~ msgstr "Enhe_ter vi stoler på:"

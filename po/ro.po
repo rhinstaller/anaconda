@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-25 18:58-0400\n"
+"POT-Creation-Date: 2004-06-08 23:26-0400\n"
 "PO-Revision-Date: 2000-02-21 19:27-05:00\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Please connect to begin the install..."
 msgstr ""
 
-#: ../anaconda:562 ../anaconda:743 ../gui.py:239 ../gui.py:992 ../rescue.py:40
+#: ../anaconda:563 ../anaconda:745 ../gui.py:239 ../gui.py:992 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:337 ../text.py:483
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -97,23 +97,25 @@ msgstr ""
 #: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:253
 #: ../loader2/cdinstall.c:256 ../loader2/cdinstall.c:374
 #: ../loader2/cdinstall.c:379 ../loader2/cdinstall.c:382
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:249
-#: ../loader2/driverdisk.c:265 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
+#: ../loader2/cdinstall.c:447 ../loader2/dirbrowser.c:139
+#: ../loader2/driverdisk.c:261 ../loader2/driverdisk.c:292
+#: ../loader2/driverdisk.c:330 ../loader2/driverdisk.c:368
+#: ../loader2/driverdisk.c:381 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:242 ../loader2/hdinstall.c:295
-#: ../loader2/hdinstall.c:354 ../loader2/hdinstall.c:516
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
-#: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
+#: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
+#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:513 ../loader2/kbd.c:125 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/lang.c:375
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/loader.c:824 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:188 ../loader2/net.c:210
-#: ../loader2/net.c:479 ../loader2/net.c:811 ../loader2/net.c:834
-#: ../loader2/net.c:952 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
+#: ../loader2/net.c:487 ../loader2/net.c:833 ../loader2/net.c:856
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
 #: ../loader2/urlinstall.c:136 ../loader2/urlinstall.c:149
@@ -124,50 +126,50 @@ msgstr ""
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:613
+#: ../anaconda:614
 #, fuzzy
 msgid "Unknown Error"
 msgstr "Adresă calculator necunoscută"
 
-#: ../anaconda:616
+#: ../anaconda:617
 #, fuzzy, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Eroare la citirea conţinutului fişierului kickstart %s: %s"
 
-#: ../anaconda:728
+#: ../anaconda:730
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: ../anaconda:780
+#: ../anaconda:782
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: ../anaconda:807
+#: ../anaconda:809
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:818 ../anaconda:1066
+#: ../anaconda:820 ../anaconda:1079
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:842
+#: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 
-#: ../anaconda:857
+#: ../anaconda:859
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:867
+#: ../anaconda:869
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr ""
 
-#: ../anaconda:871
+#: ../anaconda:873
 #, c-format
 msgid "Using mouse type: %s"
 msgstr ""
@@ -365,7 +367,7 @@ msgstr ""
 msgid "Your system will now be rebooted."
 msgstr ""
 
-#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:465
+#: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -374,7 +376,7 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:227
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:377
 #, fuzzy
 msgid "Warning"
 msgstr "Căutare"
@@ -481,18 +483,18 @@ msgstr "Toate pachetele"
 msgid "no suggestion"
 msgstr "nici o sugestie"
 
-#: ../comps.py:1098 ../hdrlist.py:1002
+#: ../comps.py:1098 ../hdrlist.py:1006
 msgid "Miscellaneous"
 msgstr "Alte Opţiuni"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:949
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:953
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1118 ../hdrlist.py:953
+#: ../comps.py:1118 ../hdrlist.py:957
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -577,20 +579,21 @@ msgstr "Creare disc boot"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
 #: ../fsset.py:1348 ../fsset.py:1383 ../fsset.py:1433 ../fsset.py:1477
-#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:325
-#: ../image.py:522 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
+#: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:408 ../packages.py:591 ../packages.py:676
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:279
-#: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
-#: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
-#: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
+#: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:330
+#: ../loader2/driverdisk.c:368 ../loader2/driverdisk.c:395
+#: ../loader2/driverdisk.c:462 ../loader2/hdinstall.c:106
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
+#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:513
 #: ../loader2/kickstart.c:261 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:646 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -779,7 +782,7 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
-#: ../image.py:475 ../packages.py:1485 ../iw/confirm_gui.py:68
+#: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 #, fuzzy
@@ -839,9 +842,9 @@ msgstr ""
 
 #: ../gui.py:237 ../rescue.py:176 ../text.py:335 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
-#: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:370
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:506
+#: ../loader2/driverdisk.c:517 ../loader2/hdinstall.c:326
+#: ../loader2/loader.c:377
 msgid "Yes"
 msgstr "Da"
 
@@ -849,12 +852,12 @@ msgstr "Da"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:370
+#: ../loader2/driverdisk.c:506 ../loader2/driverdisk.c:517
+#: ../loader2/loader.c:377
 msgid "No"
 msgstr "Nu"
 
-#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:524
+#: ../gui.py:240 ../text.py:338 ../loader2/net.c:215 ../loader2/net.c:532
 msgid "Retry"
 msgstr "Încearcă din nou"
 
@@ -868,14 +871,16 @@ msgstr ""
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
+#: ../loader2/dirbrowser.c:139 ../loader2/driverdisk.c:262
+#: ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Abandon"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
 msgid ""
-"The following error was found while parsing your kickstart configuration:n\n"
+"The following error was found while parsing your kickstart configuration:\n"
+"\n"
 "%s"
 msgstr ""
 
@@ -987,7 +992,7 @@ msgstr "Nu s-a putut detecta placa video"
 msgid "Install Window"
 msgstr "Ecran de Instalare"
 
-#: ../harddrive.py:166 ../image.py:523
+#: ../harddrive.py:166 ../image.py:524
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1010,7 +1015,7 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:96 ../image.py:476 ../kickstart.py:1381 ../kickstart.py:1409
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1381 ../kickstart.py:1409
 #: ../iw/partition_gui.py:1016
 #, fuzzy
 msgid "_Continue"
@@ -1044,22 +1049,22 @@ msgid "Change CDROM"
 msgstr "Schimbă tip CDROM"
 
 #: ../image.py:284
-#, python-format
-msgid "Please insert disc %d to continue."
+#, fuzzy, python-format
+msgid "Please insert %s disc %d to continue."
 msgstr "Introduceţi discul %d pentru a continua."
 
-#: ../image.py:319
+#: ../image.py:320
 msgid "Wrong CDROM"
 msgstr "CDROM greşit"
 
-#: ../image.py:320
+#: ../image.py:321
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Acesta nu este discul CD Red Hat corect."
 
-#: ../image.py:326
-msgid "The CDROM could not be mounted."
-msgstr "Acest CD nu poate fi citit."
+#: ../image.py:327
+msgid "Unable to access the CDROM."
+msgstr ""
 
 #: ../installclass.py:59
 #, fuzzy
@@ -1936,7 +1941,7 @@ msgid ""
 msgstr ""
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:337
+#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:463
 msgid "Continue"
 msgstr "Continuare"
 
@@ -2214,6 +2219,72 @@ msgstr ""
 msgid "Connecting..."
 msgstr ""
 
+#: ../vnc.py:36
+#, fuzzy
+msgid "Unable to Start X"
+msgstr "Nu s-a putut detecta placa video"
+
+#: ../vnc.py:37
+msgid ""
+"X was unable to start on your machine.  Would you like to start VNC to "
+"connect to this computer from another computer and perform a graphical "
+"install or continue with a text mode install?"
+msgstr ""
+
+#: ../vnc.py:44 ../vnc.py:47
+msgid "Use text mode"
+msgstr "Folosire mod text"
+
+#: ../vnc.py:45
+#, fuzzy
+msgid "Start VNC"
+msgstr "Progres Instalare"
+
+#: ../vnc.py:55
+#, fuzzy
+msgid "VNC Configuration"
+msgstr "Configurare X Windows"
+
+#: ../vnc.py:59
+#, fuzzy
+msgid "No password"
+msgstr "Parola de root:"
+
+#: ../vnc.py:62
+msgid ""
+"A password will prevent unauthorized listeners connecting and monitoring "
+"your installation progress.  Please enter a password to be used for the "
+"installation"
+msgstr ""
+
+#: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
+msgid "Password:"
+msgstr "Parola:"
+
+#: ../vnc.py:71 ../textw/userauth_text.py:45
+#, fuzzy
+msgid "Password (confirm):"
+msgstr "Parola (din nou)"
+
+#: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
+msgid "Password Mismatch"
+msgstr "Parolele sînt diferite"
+
+#: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
+msgid "The passwords you entered were different. Please try again."
+msgstr ""
+"Parolele pe care le-aţi introdus sînt diferite (probabil dintr-o eroare de "
+"tastare). Încercaţi din nou."
+
+#: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
+msgid "Password Length"
+msgstr "Lungimea Parolei"
+
+#: ../vnc.py:100
+#, fuzzy
+msgid "The password must be at least six characters long."
+msgstr "Parola trebuie să fie de cel putin 6 caractere lungime"
+
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr ""
@@ -2223,47 +2294,49 @@ msgstr ""
 msgid "Set Root Password"
 msgstr "Parola de root:"
 
-#: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
-#: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
+#: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
+#: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
 #, fuzzy
 msgid "Error with Password"
 msgstr "Parola de root:"
 
-#: ../iw/account_gui.py:36
+#: ../iw/account_gui.py:42
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: ../iw/account_gui.py:44
+#: ../iw/account_gui.py:50
 #, fuzzy
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 "Parolele pe care le-aţi introdus sînt diferite (probabil dintr-o eroare de "
 "tastare). Încercaţi din nou."
 
-#: ../iw/account_gui.py:51
+#: ../iw/account_gui.py:57
 #, fuzzy
 msgid "The root password must be at least six characters long."
 msgstr "Parola de root trebuie să fie de cel putin şase caractere lungime"
 
-#: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
+#: ../iw/account_gui.py:66 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
 
-#: ../iw/account_gui.py:87
+#: ../iw/account_gui.py:93
 #, fuzzy
-msgid "Enter the root (administrator) password for the system."
-msgstr "Introduceţi detalii despre cont."
+msgid ""
+"The root account is used for administering the system.  Enter a password for "
+"the root user."
+msgstr "Introduceţi parola de root"
 
-#: ../iw/account_gui.py:103
+#: ../iw/account_gui.py:110
 #, fuzzy
 msgid "Root _Password: "
 msgstr "Parola de root:"
 
-#: ../iw/account_gui.py:106
+#: ../iw/account_gui.py:113
 #, fuzzy
 msgid "_Confirm: "
 msgstr "Din nou: "
@@ -2856,7 +2929,7 @@ msgstr "Configurare TCP/IP"
 msgid "_Proceed"
 msgstr ""
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:122
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -2865,69 +2938,71 @@ msgid ""
 "For example, '1234:udp'"
 msgstr ""
 
-#: ../iw/firewall_gui.py:135
+#: ../iw/firewall_gui.py:126
 #, fuzzy
 msgid "Warning: Bad Token"
 msgstr "Căutare"
 
-#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
+#: ../iw/firewall_gui.py:152 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:160
 msgid "N_o firewall"
 msgstr ""
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:162
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "Activare antialias"
 
-#: ../iw/firewall_gui.py:173
-#, fuzzy
-msgid "_Custom firewall"
-msgstr "Actualizare Personalizată"
-
-#: ../iw/firewall_gui.py:191
-msgid "What services should be allowed to pass through the firewall?"
+#: ../iw/firewall_gui.py:179
+msgid "Allow others on the internet to access these services."
 msgstr ""
 
-#: ../iw/firewall_gui.py:199
+#: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
 msgstr ""
 
+#: ../iw/firewall_gui.py:203
+msgid "Remote Login (SSH)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:205
+msgid "Web Server"
+msgstr "Server World Wide Web"
+
+#: ../iw/firewall_gui.py:207
+msgid "Mail Server (SMTP)"
+msgstr ""
+
+#: ../iw/firewall_gui.py:209
+msgid "File Transfer (FTP)"
+msgstr ""
+
 # ../comps/comps-master:150
-#: ../iw/firewall_gui.py:224
+#: ../iw/firewall_gui.py:215
 #, fuzzy
 msgid "Other _ports:"
 msgstr "Suport Imprimantă"
 
-#: ../iw/firewall_gui.py:232
-msgid "If you would like to allow all traffic from a device, select it below."
-msgstr ""
-
-#: ../iw/firewall_gui.py:241
-#, fuzzy
-msgid "_Trusted devices:"
-msgstr "Partiţie de RAID folosită"
-
-#: ../iw/firewall_gui.py:279
+#: ../iw/firewall_gui.py:236
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 #, fuzzy
 msgid "Disabled"
 msgstr "Dezactivează tastele din setul extins X Windows"
 
-#: ../iw/firewall_gui.py:285
+#: ../iw/firewall_gui.py:242
 #, fuzzy
 msgid "Warn"
 msgstr "Căutare"
 
-#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
+#: ../iw/firewall_gui.py:242 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr ""
 
@@ -3520,7 +3595,7 @@ msgstr ""
 msgid "(ex. \"host.domain.com\")"
 msgstr ""
 
-#: ../iw/network_gui.py:521 ../loader2/net.c:729
+#: ../iw/network_gui.py:521 ../loader2/net.c:751
 msgid "Hostname"
 msgstr "Nume host"
 
@@ -3862,7 +3937,7 @@ msgstr "System RAID inexistent"
 msgid "None"
 msgstr "Gata"
 
-#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:462
+#: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:326
 msgid "Hard Drives"
 msgstr "Hard Discuri"
 
@@ -5001,13 +5076,14 @@ msgstr ""
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
-#: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
-#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:188
-#: ../loader2/net.c:210 ../loader2/net.c:479 ../loader2/net.c:952
-#: ../loader2/nfsinstall.c:54 ../loader2/urls.c:254 ../loader2/urls.c:444
+#: ../loader2/driverdisk.c:262 ../loader2/driverdisk.c:293
+#: ../loader2/driverdisk.c:381 ../loader2/driverselect.c:73
+#: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
+#: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
+#: ../loader2/loader.c:322 ../loader2/loader.c:824 ../loader2/loader.c:846
+#: ../loader2/net.c:188 ../loader2/net.c:210 ../loader2/net.c:487
+#: ../loader2/net.c:974 ../loader2/nfsinstall.c:54 ../loader2/urls.c:254
+#: ../loader2/urls.c:444
 msgid "Back"
 msgstr "Înapoi"
 
@@ -5860,32 +5936,9 @@ msgstr ""
 "erori de tastare. Este important să vă amintiţi că parola de root este o "
 "parte critică a securităţii sistemului dumneavoastră!"
 
-#: ../textw/userauth_text.py:44 ../loader2/urls.c:434
-msgid "Password:"
-msgstr "Parola:"
-
-#: ../textw/userauth_text.py:45
-#, fuzzy
-msgid "Password (confirm):"
-msgstr "Parola (din nou)"
-
-#: ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
-msgid "Password Length"
-msgstr "Lungimea Parolei"
-
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
 msgstr "Parola de root trebuie să fie de cel putin şase caractere lungime"
-
-#: ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
-msgid "Password Mismatch"
-msgstr "Parolele sînt diferite"
-
-#: ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
-msgid "The passwords you entered were different. Please try again."
-msgstr ""
-"Parolele pe care le-aţi introdus sînt diferite (probabil dintr-o eroare de "
-"tastare). Încercaţi din nou."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
@@ -6446,21 +6499,21 @@ msgstr "Nu s-a identificat nici un disc"
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: ../loader2/driverdisk.c:119 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Încărcare"
 
-#: ../loader2/driverdisk.c:119
+#: ../loader2/driverdisk.c:122
 #, fuzzy
 msgid "Reading driver disk..."
 msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
 
-#: ../loader2/driverdisk.c:244
+#: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Disc cu Drivere"
 
-#: ../loader2/driverdisk.c:245
+#: ../loader2/driverdisk.c:257
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
@@ -6469,70 +6522,98 @@ msgstr ""
 "Acest sistem are multiple plăci de reţea. Care dintre ele doriţi să o "
 "folosiţi pentru o instalare prin reţea?"
 
-#: ../loader2/driverdisk.c:263
+#: ../loader2/driverdisk.c:289
+#, fuzzy
+msgid ""
+"There are multiple partitions on this device which could contain the driver "
+"disk image.  Which would you like to use?"
+msgstr ""
+"Acest sistem are multiple plăci de reţea. Care dintre ele doriţi să o "
+"folosiţi pentru o instalare prin reţea?"
+
+#: ../loader2/driverdisk.c:331
+#, fuzzy
+msgid "Failed to mount partition."
+msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
+
+#: ../loader2/driverdisk.c:339
+#, fuzzy
+msgid "Select driver disk image"
+msgstr "Selectaţi un disk pentru partiţionare cu fdisk"
+
+#: ../loader2/driverdisk.c:340
+msgid "Select the file which is your driver disk image."
+msgstr ""
+
+#: ../loader2/driverdisk.c:369
+#, fuzzy
+msgid "Failed to load driver disk from file."
+msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
+
+#: ../loader2/driverdisk.c:379
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Introduceţi discheta cu drivere şi selectaţi \"OK\" pentru a continua."
 
-#: ../loader2/driverdisk.c:265
+#: ../loader2/driverdisk.c:381
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Disc cu Drivere"
 
-#: ../loader2/driverdisk.c:280
+#: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
 msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
 
-#: ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:462
 #, fuzzy
 msgid "Manually choose"
 msgstr "Partiţionare manuală"
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:463
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:464
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:380
+#: ../loader2/driverdisk.c:506
 #, fuzzy
 msgid "Driver disk"
 msgstr "Disc cu Drivere"
 
-#: ../loader2/driverdisk.c:381
+#: ../loader2/driverdisk.c:507
 msgid "Do you have a driver disk?"
 msgstr "Aveţi un disc cu drivere?"
 
-#: ../loader2/driverdisk.c:391
+#: ../loader2/driverdisk.c:517
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "Disc cu Drivere"
 
-#: ../loader2/driverdisk.c:392
+#: ../loader2/driverdisk.c:518
 #, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr "Aveţi un disc cu drivere?"
 
-#: ../loader2/driverdisk.c:444 ../loader2/driverdisk.c:477
-#: ../loader2/hdinstall.c:599 ../loader2/kickstart.c:109
+#: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
+#: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:109
 #: ../loader2/kickstart.c:119 ../loader2/kickstart.c:162
-#: ../loader2/modules.c:919 ../loader2/net.c:811 ../loader2/net.c:834
+#: ../loader2/modules.c:919 ../loader2/net.c:833 ../loader2/net.c:856
 #: ../loader2/nfsinstall.c:247 ../loader2/urlinstall.c:431
 #: ../loader2/urlinstall.c:440 ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
 msgstr "Eroare KickStart"
 
-#: ../loader2/driverdisk.c:445
+#: ../loader2/driverdisk.c:571
 #, fuzzy, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "argument eronat pentru comanda network în kickstart %s: %s "
 
-#: ../loader2/driverdisk.c:478
+#: ../loader2/driverdisk.c:604
 #, fuzzy, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6597,7 +6678,7 @@ msgstr "Selectaţi un disk pentru partiţionare cu fdisk"
 msgid "Loading %s driver..."
 msgstr "Încărcare ramdisk %s"
 
-#: ../loader2/hdinstall.c:238 ../loader2/hdinstall.c:291
+#: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
 #, c-format
 msgid ""
@@ -6605,7 +6686,7 @@ msgid ""
 "media."
 msgstr ""
 
-#: ../loader2/hdinstall.c:355
+#: ../loader2/hdinstall.c:219
 #, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
@@ -6613,7 +6694,7 @@ msgid ""
 msgstr ""
 "Eroare la citirea tabelei de partiţii de pe discul %s. Mesajul de eroare este"
 
-#: ../loader2/hdinstall.c:463
+#: ../loader2/hdinstall.c:327
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6621,7 +6702,7 @@ msgstr ""
 "Nu am putut detecta nici un hard disk în acest calculator! Doriţi să "
 "configuraţi alte periferice?"
 
-#: ../loader2/hdinstall.c:479
+#: ../loader2/hdinstall.c:343
 #, fuzzy, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6632,26 +6713,26 @@ msgstr ""
 "şi RedHat/base? Dacă hard diskul dorit nu se regăseşte în lista de mai jos, "
 "apăsaţi F2 pentru a configura periferice adiţionale."
 
-#: ../loader2/hdinstall.c:501
+#: ../loader2/hdinstall.c:365
 #, fuzzy
 msgid "Directory holding images:"
 msgstr "Directorul conţinînd Red Hat:"
 
-#: ../loader2/hdinstall.c:528
+#: ../loader2/hdinstall.c:392
 msgid "Select Partition"
 msgstr "Selectaţi o Partitie"
 
-#: ../loader2/hdinstall.c:568
+#: ../loader2/hdinstall.c:432
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "Partiţia %s nu conţine o versiune de instalare a Red Hat Linux."
 
-#: ../loader2/hdinstall.c:600
+#: ../loader2/hdinstall.c:464
 #, fuzzy, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "argument eronat pentru comanda network în kickstart %s: %s "
 
-#: ../loader2/hdinstall.c:650
+#: ../loader2/hdinstall.c:514
 #, fuzzy
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Se transferă imaginea de instalare pe hard disc..."
@@ -6747,61 +6828,61 @@ msgstr "Actualizări"
 msgid "Reading anaconda updates..."
 msgstr "Se încarcă actualizările pentru Anaconda..."
 
-#: ../loader2/loader.c:371
+#: ../loader2/loader.c:378
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:625
+#: ../loader2/loader.c:643
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Limbă program instalare"
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:816
 msgid "Rescue Method"
 msgstr "Metodă de Salvare"
 
-#: ../loader2/loader.c:799
+#: ../loader2/loader.c:817
 msgid "Installation Method"
 msgstr "Metodă de Instalare"
 
-#: ../loader2/loader.c:801
+#: ../loader2/loader.c:819
 msgid "What type of media contains the rescue image?"
 msgstr "Unde se găseşte imaginea de restaurare?"
 
-#: ../loader2/loader.c:803
+#: ../loader2/loader.c:821
 msgid "What type of media contains the packages to be installed?"
 msgstr "Unde sînt aflate aplicaţiile pentru instalare?"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 #, fuzzy
 msgid "No driver found"
 msgstr "Nu s-a identificat nici un disc"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:845
 #, fuzzy
 msgid "Select driver"
 msgstr "Selectaţi un disk pentru partiţionare cu fdisk"
 
-#: ../loader2/loader.c:828
+#: ../loader2/loader.c:846
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Aveţi un disc cu drivere?"
 
-#: ../loader2/loader.c:829
+#: ../loader2/loader.c:847
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:989
+#: ../loader2/loader.c:1007
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Am găsit următoarele extensii în acest calculator:"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:1009
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6811,29 +6892,29 @@ msgstr ""
 "În caz că acest lucru este necesar, doriţi să încărcaţi aceste drivere în "
 "acest moment?"
 
-#: ../loader2/loader.c:995
+#: ../loader2/loader.c:1013
 msgid "Devices"
 msgstr "Devices"
 
-#: ../loader2/loader.c:996
+#: ../loader2/loader.c:1014
 msgid "Done"
 msgstr "Gata"
 
-#: ../loader2/loader.c:997
+#: ../loader2/loader.c:1015
 msgid "Add Device"
 msgstr "Adaugă Periferic"
 
-#: ../loader2/loader.c:1112
+#: ../loader2/loader.c:1130
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: ../loader2/loader.c:1460
+#: ../loader2/loader.c:1478
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr "Se încarcă actualizările pentru Anaconda..."
 
-#: ../loader2/loader.c:1462
+#: ../loader2/loader.c:1480
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Se încarcă actualizările pentru Anaconda..."
@@ -6989,16 +7070,16 @@ msgstr "Informaţie IP invalidă"
 msgid "You entered an invalid IP address."
 msgstr "Aţi introdus o adresă de IP incorectă."
 
-#: ../loader2/net.c:265 ../loader2/net.c:533
+#: ../loader2/net.c:265 ../loader2/net.c:541
 msgid "Dynamic IP"
 msgstr "Adresă IP dinamică"
 
-#: ../loader2/net.c:266 ../loader2/net.c:534
+#: ../loader2/net.c:266 ../loader2/net.c:542
 #, fuzzy, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "Detectare configuraţie IP..."
 
-#: ../loader2/net.c:423
+#: ../loader2/net.c:431
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7007,57 +7088,57 @@ msgstr ""
 "introdusă ca o adresă de IP în notaţie decimală cu punct (de exemplu, "
 "1.2.3.4)."
 
-#: ../loader2/net.c:429
+#: ../loader2/net.c:437
 msgid "IP address:"
 msgstr "Adresă IP:"
 
-#: ../loader2/net.c:432
+#: ../loader2/net.c:440
 msgid "Netmask:"
 msgstr "Netmask:"
 
-#: ../loader2/net.c:435
+#: ../loader2/net.c:443
 msgid "Default gateway (IP):"
 msgstr "Gateway (IP):"
 
-#: ../loader2/net.c:438
+#: ../loader2/net.c:446
 msgid "Primary nameserver:"
 msgstr "Server DNS primar:"
 
-#: ../loader2/net.c:465
+#: ../loader2/net.c:473
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Configurare IP prin metodă dinamică (BOOTP/DHCP)"
 
-#: ../loader2/net.c:493
+#: ../loader2/net.c:501
 msgid "Configure TCP/IP"
 msgstr "Configurare TCP/IP"
 
-#: ../loader2/net.c:524
+#: ../loader2/net.c:532
 msgid "Missing Information"
 msgstr "Informaţie Inexistentă"
 
-#: ../loader2/net.c:525
+#: ../loader2/net.c:533
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Trebuie să introduceţi o adresă de IP şi netmask corecte."
 
-#: ../loader2/net.c:730
+#: ../loader2/net.c:752
 msgid "Determining host name and domain..."
 msgstr "Determinare host name şi domeniu..."
 
-#: ../loader2/net.c:812
+#: ../loader2/net.c:834
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "argument eronat pentru comanda network în kickstart %s: %s "
 
-#: ../loader2/net.c:835
+#: ../loader2/net.c:857
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Valoare invalidă pentru comanda bootproto specificată: %s"
 
-#: ../loader2/net.c:948
+#: ../loader2/net.c:970
 msgid "Networking Device"
 msgstr "Placă de reţea"
 
-#: ../loader2/net.c:949
+#: ../loader2/net.c:971
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -8006,6 +8087,21 @@ msgstr ""
 msgid "Zulu"
 msgstr ""
 
+#~ msgid "The CDROM could not be mounted."
+#~ msgstr "Acest CD nu poate fi citit."
+
+#, fuzzy
+#~ msgid "Enter the root (administrator) password for the system."
+#~ msgstr "Introduceţi detalii despre cont."
+
+#, fuzzy
+#~ msgid "_Custom firewall"
+#~ msgstr "Actualizare Personalizată"
+
+#, fuzzy
+#~ msgid "_Trusted devices:"
+#~ msgstr "Partiţie de RAID folosită"
+
 #, fuzzy
 #~ msgid "Workstation Defaults"
 #~ msgstr "Workstation"
@@ -8285,10 +8381,6 @@ msgstr ""
 #~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 #~ msgstr "Inseraţi discul cu drivere %s acum."
 
-#, fuzzy
-#~ msgid "Failed to mount disk."
-#~ msgstr "Nu s-a putut recunoaşte sistemul de fişiere de pe dischetă."
-
 #~ msgid "Use proxy server"
 #~ msgstr "Folosire server proxy"
 
@@ -8315,9 +8407,6 @@ msgstr ""
 #~ "avansaţi la ecranul următor şi selectaţi tipul de mouse care este ataşat "
 #~ "la acest calculator. De asemenea, puteţi să continuaţi instalarea în mod "
 #~ "grafic care nu necesită prezenţa unui mouse."
-
-#~ msgid "Use text mode"
-#~ msgstr "Folosire mod text"
 
 #, fuzzy
 #~ msgid ""
@@ -8420,10 +8509,6 @@ msgstr ""
 #~ msgstr "Partiţie RAID"
 
 #, fuzzy
-#~ msgid "No password"
-#~ msgstr "Parola de root:"
-
-#, fuzzy
 #~ msgid "Change _Password"
 #~ msgstr "Introduceţi parola utilizatorului"
 
@@ -8503,9 +8588,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "SQL Database Server"
 #~ msgstr "Server NFS"
-
-#~ msgid "Web Server"
-#~ msgstr "Server World Wide Web"
 
 #~ msgid "DNS Name Server"
 #~ msgstr "Server DNS"
@@ -8623,10 +8705,6 @@ msgstr ""
 #~ "You cannot remove this partition, as it is an extended partition which "
 #~ "contains %s"
 #~ msgstr "Trebuie să selectaţi pentru această partiţie cel puţin un drive."
-
-#, fuzzy
-#~ msgid "Unable to Edit"
-#~ msgstr "Nu s-a putut detecta placa video"
 
 #, fuzzy
 #~ msgid ""
@@ -9472,10 +9550,6 @@ msgstr ""
 #~ msgstr "Partiţionare"
 
 #, fuzzy
-#~ msgid "Please enter a password for the root user."
-#~ msgstr "Introduceţi parola de root"
-
-#, fuzzy
 #~ msgid ""
 #~ "Congratulations, installation is complete.\n"
 #~ "\n"
@@ -9529,9 +9603,6 @@ msgstr ""
 #~ "folosit.\n"
 #~ "\n"
 #~ "Ce program doriti sa folositi?"
-
-#~ msgid "X Configuration"
-#~ msgstr "Configurare X Windows"
 
 #~ msgid ""
 #~ "\n"
