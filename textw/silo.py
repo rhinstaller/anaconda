@@ -61,7 +61,10 @@ class SiloWindow:
 	rc2 = SingleRadioButton (format % (boothd, str2, lenmax - len2, ""), rc1)
 
 	prompath = todo.silo.disk2PromPath(bootpart)
-	default = prompath and len(prompath) > 0 and todo.silo.hasAliases()
+	if prompath and len(prompath) > 0 and todo.silo.hasAliases():
+	    default = 1
+	else:
+	    default = 0
 	linuxAlias = Checkbox ("%s%*s" % (str3, lenmax - len3, ""), default)
 	if not default:
 	    linuxAlias.setFlags (FLAG_DISABLED, FLAGS_SET)
