@@ -58,8 +58,8 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
 	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
 	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja
           open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
-          iputils- traceroute- sh-utils- textutils- pine- less- rsh-
-          ncurses- popt"
+          iputils- netkit-base- traceroute- sh-utils- textutils- pine- less-
+          rsh- ncurses- popt mtools-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -233,6 +233,29 @@ usr/bin/chattr*
 usr/bin/lsattr*
 usr/bin/head
 usr/bin/less
+usr/bin/mattrib
+usr/bin/mbadblocks
+usr/bin/mcd
+usr/bin/mcopy
+usr/bin/mdel
+usr/bin/mdeltree
+usr/bin/mdir
+usr/bin/mdu
+usr/bin/mformat
+usr/bin/minfo
+usr/bin/mlabel
+usr/bin/mmd
+usr/bin/mmount
+usr/bin/mpartition
+usr/bin/mrd
+usr/bin/mread
+usr/bin/mmove
+usr/bin/mren
+usr/bin/mshowfat
+usr/bin/mtools
+usr/bin/mtype
+usr/bin/mwrite
+usr/bin/mzip
 usr/bin/open
 usr/bin/pico
 usr/bin/rcp
