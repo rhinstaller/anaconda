@@ -178,7 +178,13 @@ class PartitionWindow:
                                    [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                                     
                 else:
-                    self.lb.append(["%s%s" %(indent, devify(get_partition_name(part))),
+                    dev = devify(get_partition_name(part))
+                    # save some space per #90838
+                    if dev.startswith("/dev/iseries/"):
+                        dev = dev[13:]
+                    elif dev.startswith("/dev/"):
+                        dev = dev[5:]
+                    self.lb.append(["%s%s" %(indent, dev),
                                     "%d" %(start),
                                     "%d" %(end),
                                     "%dM" %(size),
