@@ -399,8 +399,7 @@ class Fstab:
 		    skipList.index(dev)
 		except ValueError, msg:
 		    (type, sector, size) = table[i]
-		    # 2 is ext2 in balkan speek
-		    if type == 2:
+		    if type == _balkan.DOS:
 			label = isys.readExt2Label(dev)
 			if label:
 			    labels[dev] = label

@@ -233,10 +233,13 @@ class Language (SimpleConfigFile):
     def get (self):
 	return self.lang
 
+    def getFontMap (self, lang):
+	return self.map[lang]
+
     def getFontFile (self, lang):
 	# Note: in /etc/fonts.cgz fonts are named by the map
 	# name as that's unique, font names are not
-	return self.map[lang]
+	return self.font[lang]
 
 class Authentication:
     def __init__ (self):
@@ -669,8 +672,7 @@ class ToDo:
             else:
                 for i in range (len (table)):
                     (type, sector, size) = table[i]
-                    # 2 is ext2 in balkan speek
-                    if size and type == 2:
+                    if size and type == _balkan.EXT2:
 			# for RAID arrays of format c0d0p1
 			if drive [:3] == "rd/" or drive [:4] == "ida/":
                             dev = drive + 'p' + str (i + 1)
