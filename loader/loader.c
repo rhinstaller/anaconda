@@ -76,6 +76,8 @@ int combined_insmod_main(int argc, char ** argv);
 int cardmgr_main(int argc, char ** argv);
 int ourInsmodCommand(int argc, char ** argv);
 int kon_main(int argc, char ** argv);
+static int mountLoopback(char * fsystem, char * mntpoint, char * device);
+static int umountLoopback(char * mntpoint, char * device);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -535,6 +537,7 @@ static int loadSingleImage(char * prefix, char * dir, char * file, int flags,
     sprintf(path, "%s/%s/%s", prefix, dir ? dir : "", file);
 
     if ((fd = open(path, O_RDONLY)) < 0) {
+	logMessage("failed to open %s: %s", path, strerror(errno));
 	return 1;
     } 
 
@@ -544,7 +547,80 @@ static int loadSingleImage(char * prefix, char * dir, char * file, int flags,
     return rc;
 }
 
-static char * setupHardDrive(char * device, char * type, char * dir, 
+static char * setupIsoImages(char * device, char * type, char * dirName, 
+			     int flags) {
+    int rc;
+    char * url;
+    char filespec[1024];
+    DIR * dir;
+    struct dirent * ent;
+
+    logMessage("mounting device %s as %s", device, type);
+
+    if (!FL_TESTING(flags)) {
+	/* +5 skips over /dev/ */
+	if (devMakeInode(device, "/tmp/hddev"))
+	    logMessage("devMakeInode failed!");
+
+	if (doPwMount("/tmp/hddev", "/tmp/hdimage", type, 1, 0, NULL, NULL))
+	    return NULL;
+
+	sprintf(filespec, "/tmp/hdimage/%s", dirName);
+	if (!(dir = opendir(filespec))) {
+	    newtWinMessage(_("Error"), _("OK"), 
+			   _("Failed to read directory %s: %s"),
+			   filespec, strerror(errno));
+	    umount("/tmp/hdimage");
+	    return NULL;
+	}
+
+	/* Walk through the directories looking for a Red Hat CD image. */
+	errno = 0;
+	while ((ent = readdir(dir))) {
+	    sprintf(filespec, "/tmp/hdimage/%s/%s", dirName, ent->d_name);
+
+	    if (fileIsIso(filespec)) {
+		errno = 0;
+		continue;
+	    }
+
+	    if (mountLoopback(filespec, "/tmp/loopimage", "loop0")) {
+		errno = 0;
+		continue;
+	    }
+
+	    rc = loadSingleImage("/tmp/loopimage", dirName, 
+				 "RedHat/base/hdstg1.img", 
+				 flags, "ram3", "/mnt/runtime");
+	    if (!rc) {
+		rc = loadSingleImage("/tmp/loopimage", dirName, 
+				     "RedHat/base/hdstg2.img", 
+				     flags, "ram4", "/mnt/runtime/usr");
+		if (!rc) { 
+		    umountLoopback("/tmp/loopimage", "loop0");
+		    break;
+		}
+
+	    }
+
+	    umountLoopback("/tmp/loopimage", "loop0");
+
+	    errno = 0;
+	}
+
+	umount("/tmp/hdimage");
+	closedir(dir);
+
+	if (!ent) return NULL;
+    }
+
+    url = malloc(50 + strlen(dirName ? dirName : ""));
+    sprintf(url, "hd://%s:%s/%s", device, type, dirName ? dirName : ".");
+
+    return url;
+}
+
+static char * setupOldHardDrive(char * device, char * type, char * dir, 
 			     int flags) {
     int rc;
     char * url;
@@ -564,7 +640,7 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	if (!rc) {
 	    rc = loadSingleImage("/tmp/hdimage", dir, "RedHat/base/hdstg2.img", 
 				 flags, "ram4", "/mnt/runtime/usr");
-	    if (rc) umount("/mnt/runtime");
+	    if (rc) umount("/mnt/hdimage");
 	}
 
 	umount("/tmp/hdimage");
@@ -573,12 +649,27 @@ static char * setupHardDrive(char * device, char * type, char * dir,
     }
 
     url = malloc(50 + strlen(dir ? dir : ""));
-    sprintf(url, "hd://%s:%s/%s", device, type, dir ? dir : ".");
+    sprintf(url, "oldhd://%s:%s/%s", device, type, dir ? dir : ".");
 
     return url;
 }
 
 #endif
+
+static int umountLoopback(char * mntpoint, char * device) {
+    int loopfd;
+
+    umount(mntpoint);
+
+    devMakeInode(device, "/tmp/loop");
+    loopfd = open("/tmp/loop", O_RDONLY);
+
+    ioctl(loopfd, LOOP_CLR_FD, 0);
+
+    close(loopfd);
+
+    return 0;
+}
 
 static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     struct loop_info loopInfo;
@@ -612,16 +703,17 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     close(loopfd);
 
-    if (doPwMount("/tmp/loop", "/mnt/runtime", "iso9660", 1,
-		  0, NULL, NULL))
-	if (doPwMount("/tmp/loop", "/mnt/runtime", "ext2", 1,
+    if (doPwMount("/tmp/loop", mntpoint, "iso9660", 1,
+		  0, NULL, NULL)) {
+	if (doPwMount("/tmp/loop", mntpoint, "ext2", 1,
 		      0, NULL, NULL)) {
 	    
 	    logMessage("failed to mount loop: %s", 
 		       strerror(errno));
 	    return LOADER_ERROR;
 	}
-    
+    }
+
     return 0;
 }
 
@@ -714,7 +806,7 @@ static char * mountHardDrive(struct installMethod * method,
 
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
-		  "RedHat/RPMS and RedHat/base directories? If you don't "
+		  "CD (iso9660) images for Red Hat Linux? If you don't "
 		  "see the disk drive you're using listed here, press F2 "
 		  "to configure additional devices."), 62, 5, 5, 0);
 
@@ -727,7 +819,7 @@ static char * mountHardDrive(struct installMethod * method,
 	    newtListboxAppendEntry(listbox, partitions[i].name, 
 				   partitions + i);
 	
-	label = newtLabel(-1, -1, _("Directory holding Red Hat:"));
+	label = newtLabel(-1, -1, _("Directory holding images:"));
 
 	dirEntry = newtEntry(28, 11, dir, 28, &tmpDir, NEWT_ENTRY_SCROLL);
 	
@@ -792,11 +884,11 @@ static char * mountHardDrive(struct installMethod * method,
 	  default:	continue;
 	}
 
-	url = setupHardDrive(part->name + 5, type, dir, flags);
+	url = setupIsoImages(part->name + 5, type, dir, flags);
 	if (!url) {
 	    newtWinMessage(_("Error"), _("OK"), 
 			_("Device %s does not appear to contain "
-			  "a Red Hat installation tree."), part->name);
+			  "Red Hat CDROM images."), part->name);
 	    continue;
 	}
 
@@ -1800,7 +1892,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	  case BALKAN_PART_EXT2: fsType = "ext2"; break;
 	  default: fsType = "vfat"; break;
 	}
-	imageUrl = setupHardDrive(partname, fsType, dir, flags);
+	imageUrl = setupOldHardDrive(partname, fsType, dir, flags);
     } 
 #endif
 
