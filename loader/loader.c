@@ -229,12 +229,11 @@ int main(int argc, char ** argv) {
 	doPwMount("207.175.42.68:/mnt/test/msw/i386",
 		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
 
-	symlink("mnt/source/RedHat/instimage/usr/bin", "/usr/bin");
-	symlink("mnt/source/RedHat/instimage/usr/lib/rpm", "/usr/lib/rpm");
+	symlink("mnt/source/RedHat/instimage/usr", "/usr");
 	symlink("mnt/source/RedHat/instimage/lib", "/lib");
 
 	if (access("/usr/bin/anaconda", R_OK)) {
-	    printf("NFS mount does not appear to be a Red Hat 6.1 tree\n");
+	    perror("NFS mount does not appear to be a Red Hat 6.1 tree:");
 	    exit (1);
 	}
     }
