@@ -896,6 +896,10 @@ def doInstall(method, id, intf, instPath):
     # do RPM ops in the chroot in a %post ks script
     ts.closeDB()
     del ts
+
+    # make sure the window gets popped (#82862)
+    if not cb.beenCalled:
+        cb.initWindow.pop()
     
     method.filesDone ()
 
@@ -1294,5 +1298,4 @@ def selectLanguageSupportGroups(comps, langSupport):
                                 comp.addPackage(pkg, PKGTYPE_DEFAULT)
                         elif comp.depsDict.has_key(req):
                             comp.addDependencyPackage(pkg)
-                        else:
     comps.updateSelections()
