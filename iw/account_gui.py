@@ -142,7 +142,6 @@ class AccountWindow (InstallWindow):
 	self.userstore.set_value(iter, 0, accountName)
 	self.userstore.set_value(iter, 1, fullName)
 
-        self.accountName.grab_focus ()
 	self.passwords[accountName] = password1
 
         # XXX hack
@@ -193,7 +192,6 @@ class AccountWindow (InstallWindow):
         self.win.add_button('gtk-ok', 1)
         self.win.connect("response", self.close, "addUser")
         self.win.show_all()
-        self.win.run()
 
     def editUser (self, widget):
         title = _("Edit User")
