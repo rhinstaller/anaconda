@@ -165,7 +165,7 @@ class KickstartBase(BaseInstallClass):
 	self.addToSkipList("lilo")
 
     def doLiloCheck (self, args):
-        drives = isys.hardDriveList ().keys()
+        drives = isys.hardDriveDict ().keys()
 	drives.sort(isys.compareDrives)
 	device = drives[0]
 	isys.makeDevInode(device, '/tmp/' + device)
