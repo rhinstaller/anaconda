@@ -32,8 +32,9 @@ class NetworkWindow (InstallWindow):
     def focusInIP (self, widget, event, (ip, nm)):
         if nm.get_text() == "":
             self.calcNetmask (None, (ip, nm))
-            ip.calcNMHandler = ip.connect ("changed", self.calcNetmask, (ip, nm))
-
+            
+        ip.calcNMHandler = ip.connect ("changed", self.calcNetmask, (ip, nm))
+        
     def focusOutIP (self, widget, event, ip):
         if (self.hostname.get_text () == ""
             and self.todo.network.hostname != "localhost.localdomain"):
@@ -187,6 +188,8 @@ class NetworkWindow (InstallWindow):
                 if t == 0 or t == 1:
                     options[t].connect ("changed", self.calcNWBC, (devs[i],) + tuple (options))
 
+            options[0].ipCalcNMHandler = None
+            
             self.focusOutNM (None, None, (devs[i],) + tuple (options))
 
             # add event handlers for the main IP widget to calcuate the netmask
