@@ -944,18 +944,18 @@ def betaNagScreen(intf, dir):
 	rc = intf.messageWindow( _("Warning! This is a beta!"),
 				 _("Thank you for downloading this "
 				   "Red Hat Beta release.\n\n"
-				   "As you know, this is not a final "
+				   "This is not a final "
 				   "release and is not intended for use "
 				   "on production systems.  The purpose of "
 				   "this release is to collect feedback "
 				   "from testers, and it is not suitable "
-				   "for day to day usage."
-				   "\n\n"
-				   "If you do not want to install unstable "
-				   "software on this system, "
-				   "please choose 'Exit' now."),
-				 type="custom", custom_icon="warning",
-				 custom_buttons=[_("_Exit"), _("_Install BETA")])
+				   "for day to day usage.\n\n"
+				   "To report feedback, please goto:\n\n"
+				   "    http://bugzilla.redhat.com/bugzilla\n\n"
+				   "and file a report against 'Red Hat Public "
+				   "Beta'.\n"),
+				   type="custom", custom_icon="warning",
+				   custom_buttons=[_("_Exit"), _("_Install BETA")])
 
 	if not rc:
 	    rc = intf.messageWindow( _("Rebooting System"),
