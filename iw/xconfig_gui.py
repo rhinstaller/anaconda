@@ -504,6 +504,9 @@ class MonitorWindow (InstallWindow):
         try:
 #            print "inside selectCb"
             parent, monitor = self.ctree.node_get_row_data (node)
+
+            self.ics.setNextEnabled (TRUE)
+
 #            print "monitor", monitor
 #            print "self.stateName", self.stateName            
 #            print "self.todo.x.state", self.todo.x.state
@@ -555,6 +558,7 @@ class MonitorWindow (InstallWindow):
             self.stateName = monitor
 
         except:
+            self.ics.setNextEnabled (FALSE)
 #            print "Except"
             pass
 
@@ -690,11 +694,9 @@ class MonitorWindow (InstallWindow):
 
         # If the user has not changed monitor setting before, set the state info to the probed value
         if self.todo.x.state == "":
-#            print "if"
             self.todo.x.state = self.todo.x.monID
 #            print self.todo.x.state
             self.todo.monitorOriginalName = self.todo.x.monID
-#            print self.todo.monitorOriginalName
         else:
 #            print "Inside else"
 #            print self.todo.monitorOriginalName
@@ -729,11 +731,12 @@ class MonitorWindow (InstallWindow):
 
                     
                     if monitor[0] == self.todo.monitorOriginalName:
-#                        print monitor[0], " = ", self.todo.monitorOriginalName
+                        print monitor[0], " = ", self.todo.monitorOriginalName
                         tmp, self.todo.monitorOriginalNode =  self.ctree.node_get_row_data(node)
                         self.originalNode = node
 
-
+        #--Add a category for a DDC probed monitor if a DDC monitor was probed, but the user has selected
+        #--another monitor, gone forward, and then returned to this screen.
         if self.todo.isDDC == "TRUE":
 #            print "isDDC is TRUE"
 #            print "self.todo.monitorOriginalName = ", self.todo.monitorOriginalName
@@ -747,12 +750,17 @@ class MonitorWindow (InstallWindow):
 
             self.ctree.node_set_row_data (self.originalNode, (parent, monitor))
 
-#            print self.originalNode
+#            print "self.todo.x.state = ", self.todo.x.state
+            if self.todo.x.state != self.todo.monitorOriginalName:
+                 pass
+            else:
+                select = self.originalNode
+                selParent = parent
 
             
         # Add a category for a DDC probed monitor that isn't in MonitorDB
 #        if not select and self.todo.x.monID != "Generic Monitor":
-        if not select and self.todo.x.monID != "Generic Monitor":
+        elif not select and self.todo.x.monID != "Generic Monitor" and self.todo.isDDC != "TRUE":
 #            print "in here"
             parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
