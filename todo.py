@@ -743,7 +743,11 @@ class ToDo:
         # and rebuild the database so we can run the dependency problem
         # sets against the on disk db
         rc = rpm.rebuilddb (self.instPath)
-        # XXX handle rc
+        if rc:
+            self.intf.messageWindow(_("Error"),
+                                    _("Rebuild of RPM database failed. "
+                                      "You may be out of disk space?"))
+            raise RuntimeError, "Rebuild of RPM database failed."
 
         # open up the database to check dependencies
         rpm.addMacro("_dbpath", self.dbpath);
@@ -1024,6 +1028,24 @@ class ToDo:
 		    self.log("missing DD module %s (this may be okay)" % 
 				fromFile)
 
+    def depmodModules(self):
+	kernelVersions = []
+	
+	if (self.hdList.has_key('kernel-smp') and 
+	    self.hdList['kernel-smp'].selected):
+	    version = (self.hdList['kernel-smp']['version'] + "-" +
+		       self.hdList['kernel-smp']['release'] + "smp")
+	    kernelVersions.append(version)
+
+	version = (self.hdList['kernel']['version'] + "-" +
+		   self.hdList['kernel']['release'])
+	kernelVersions.append(version)
+
+        for version in kernelVersions:
+	    iutil.execWithRedirect ("/sbin/depmod",
+                                    [ "/sbin/depmod", "-a", version ],
+                                    root = scriptRoot)
+
     def writeConfiguration(self):
         self.writeLanguage ()
         self.writeMouse ()
@@ -1241,7 +1263,11 @@ class ToDo:
 				self.instPath + "/etc/X11/X")
 		self.x.write (self.instPath + "/etc/X11/XF86Config")
             self.setDefaultRunlevel ()
-
+            # go ahead and depmod modules on alpha, as rtc modprobe
+            # will complain loudly if we don't do it now.
+            if arch == "alpha":
+                self.depmodModules()
+                
             # blah.  If we're on a serial mouse, and we have X, we need to
             # close the mouse device, then run kudzu, then open it again.
 
