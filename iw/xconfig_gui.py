@@ -417,23 +417,66 @@ class XConfigWindow (InstallWindow):
                               count / 4, (count / 4) + 1)
                 count = count + 1
             box.pack_start (table, FALSE)
-
+        optbox = GtkVBox (FALSE, 5)
         if not self.sunServer:
             test = GtkAlignment ()
             button = GtkButton (_("Test this configuration"))
             button.connect ("clicked", self.testPressed)
             test.add (button)
+            box.pack_start (test, FALSE)
 
             self.custom = GtkCheckButton (_("Customize X Configuration"))
             self.custom.connect ("toggled", self.customToggled)
-            box.pack_start (test, FALSE)
-            box.pack_start (self.custom, FALSE)
+            optbox.pack_start (self.custom, FALSE)
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-        box.pack_start (self.xdm, FALSE)
+        optbox.pack_start (self.xdm, FALSE)
+
+        hbox = GtkHBox (TRUE, 5)
+        hbox.pack_start (optbox, FALSE)
+
+        self.desktop = None
+        if ((self.todo.hdList.has_key('gnome-core')
+             and self.todo.hdList['gnome-core'].selected)
+            and (self.todo.hdList.has_key('kdebase')
+                 and self.todo.hdList['kdebase'].selected)):
+            def pixlabel (ics, label, pixmap):
+                im = ics.readPixmap (pixmap)
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    hbox = GtkHBox (FALSE, 5)
+                    hbox.pack_start (pix, FALSE, FALSE, 0)
+                    label = GtkLabel (label)
+                    label.show()
+                    label.set_alignment (0.0, 0.5)
+                    hbox.pack_start (label, TRUE, TRUE, 15)
+                    hbox.show()
+                    return hbox
+                else:
+                    return GtkLabel (label)
+            
+            option = GtkOptionMenu()
+            menu = GtkMenu()
+            gnome = GtkMenuItem()
+            gnome.add (pixlabel (self.ics, "GNOME", "gnome-mini.png"))
+            kde = GtkMenuItem()
+            kde.add (pixlabel (self.ics, "KDE", "kde-mini.png"))
+            menu.add (gnome)
+            menu.add (kde)
+            menu.set_active (0)
+            option.set_menu (menu)
+            v = GtkVBox (FALSE, 5)
+            l = GtkLabel (_("Default Desktop:"))
+            l.set_alignment (0.0, 0.5)
+            v.pack_start (l, FALSE)
+            v.pack_start (option, TRUE)
+            hbox.pack_start (v, FALSE)
+
+        box.pack_start (hbox, FALSE)
 
         self.topbox = GtkVBox (FALSE, 5)
         self.topbox.set_border_width (5)
