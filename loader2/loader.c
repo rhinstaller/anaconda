@@ -473,8 +473,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             /* particular options.                                   */
 
 	    /* do vncpassword case first */
-	    logMessage("extra arg = |%s|", argv[i]);
-	    logMessage("comparison is %d", strncasecmp(argv[i], "vncpassword=", 12));
             if (!strncasecmp(argv[i], "vncpassword=", 12)) {
 		if (!FL_TESTING(flags))
 		    writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
