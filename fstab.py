@@ -651,8 +651,6 @@ class Fstab:
             else:
                 pass
 
-            os.remove('/tmp/' + device)
-
 	self.stopExistingRaid()
 
     def hasDirtyFilesystems(self):
