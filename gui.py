@@ -1303,7 +1303,9 @@ class InstallControlWindow:
 
         # Create header at the top of the installer
         if runres != '640x480':
-            p = readPixmapDithered("anaconda_header.png")
+            # FIXME: this is a hack
+            ics = InstallControlState (self)            
+            p = ics.readPixmapDithered("anaconda_header.png")
             if p is not None:
                 a = gtk.Alignment()
                 a.set(0.5, 0.5, 1.0, 1.0)
