@@ -20,7 +20,7 @@ endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
-MODULELINKAGE = ../isys/modutils/insmod/libmodutils.a    \
+MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
         	../isys/modutils/util/libutil.a          \
         	../isys/modutils/obj/libobj.a
 
@@ -117,6 +117,7 @@ install: all
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
+	$(MODULELINKAGE) \
 	-lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-local: loader-local.o $(OBJS)
