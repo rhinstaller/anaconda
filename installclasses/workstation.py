@@ -10,6 +10,17 @@ class InstallClass(personal_desktop.InstallClass):
 		     "environment with tools for software "
 		     "development and system administration. ")
 
+    pkgstext = _("\tDesktop shell (GNOME)\n"
+                 "\tOffice suite (OpenOffice)\n"
+                 "\tWeb browser (Mozilla) \n"
+                 "\tEmail (Evolution)\n"
+                 "\tInstant messaging\n"
+                 "\tSound and video applications\n"
+                 "\tGames\n"
+                 "\tSoftware Development Tools\n"
+                 "\tAdministration Tools\n")
+    
+
     sortPriority = 2
 
     def setGroupSelection(self, grpset, intf):
