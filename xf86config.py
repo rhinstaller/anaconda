@@ -27,7 +27,7 @@ import time
 import os
 
 from rhpl.log import log
-from rhpl.kbd import Keyboard
+from rhpl.keyboard import Keyboard
 from rhpl.mouse import Mouse
 from rhpl.translate import _
 
