@@ -81,7 +81,8 @@ LATEUSBMODS="mousedev usb-storage"
 IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
-SECSTAGE="agpgart msdos vfat raid0 raid1 raid5 ext3 reiserfs $IDEMODS $SCSIMODS $LATEUSBMODS"
+FSMODS="msdos vfat ext3 reiserfs"
+SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
 
 COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
