@@ -1,3 +1,8 @@
+
+2004-12-01  Paul Nasrat  <pnasrat@redhat.com>
+
+	* fsset.py: Don't trace back for bad/missing / in fstab (#141174)
+
 2004-11-30  Jeremy Katz  <katzj@redhat.com>
 
 	* image.py (findIsoImages): Skip ISOs which don't have a
