@@ -242,7 +242,7 @@ def writeForceConf():
 
     unlinkConf()
 
-    f = open("%s/lvm.conf", "w+")
+    f = open("%s/lvm.conf" %(lvmroot,), "w+")
     f.write("""
 # anaconda hacked lvm.conf to avoid filtering breaking things
 devices = {
