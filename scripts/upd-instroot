@@ -144,7 +144,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts rdate 
-           comps-extras"
+           comps-extras XFree86-libs-data"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -506,18 +506,18 @@ usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/rgb*
 usr/X11R6/lib/X11/xkb/*
 usr/X11R6/lib/X11/xserver/SecurityPolicy
-usr/X11R6/lib/libICE*
-usr/X11R6/lib/libSM*
-usr/X11R6/lib/libX11*
-usr/X11R6/lib/libXext*
-usr/X11R6/lib/libXft*
-usr/X11R6/lib/libXi*
-usr/X11R6/lib/libXmu*
-usr/X11R6/lib/libXpm*
-usr/X11R6/lib/libXrandr*
-usr/X11R6/lib/libXrender*
-usr/X11R6/lib/libXt*
-usr/X11R6/lib/modules/*
+usr/X11R6/$LIBDIR/libICE*
+usr/X11R6/$LIBDIR/libSM*
+usr/X11R6/$LIBDIR/libX11*
+usr/X11R6/$LIBDIR/libXext*
+usr/X11R6/$LIBDIR/libXft*
+usr/X11R6/$LIBDIR/libXi*
+usr/X11R6/$LIBDIR/libXmu*
+usr/X11R6/$LIBDIR/libXpm*
+usr/X11R6/$LIBDIR/libXrandr*
+usr/X11R6/$LIBDIR/libXrender*
+usr/X11R6/$LIBDIR/libXt*
+usr/X11R6/$LIBDIR/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
 usr/bin/chattr*
 usr/bin/ftp
@@ -740,8 +740,8 @@ LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 rm -f $DESTGR/locales $DESTGR/locales.list
 
 # Remove unneeded XFree86 modules
-rm -rf $DESTGR/usr/X11R6/lib/modules/dri
-rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
+rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
@@ -753,9 +753,9 @@ echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/pango-querymodules 2> $REALPATH/etc/pango/pango.modules"
+    	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/pango-querymodules 2> $REALPATH/etc/pango/pango.modules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules > $DESTGR/etc/pango/pango.modules
     fi
     rm -f $DESTGR/usr/bin/pango-querymodules
 fi
@@ -764,9 +764,9 @@ echo "Getting gtk2 input method modules"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 > $REALPATH/etc/gtk-2.0/gtk.immodules"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gtk-query-immodules-2.0 > $REALPATH/etc/gtk-2.0/gtk.immodules"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gtk-query-immodules-2.0 > $DESTGR/etc/gtk-2.0/gtk.immodules
     fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
@@ -775,9 +775,9 @@ echo "Getting gtk2 gdk-pixbuf loaders"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
 	/usr/bin/gdk-pixbuf-query-loaders > /etc/gtk-2.0/gdk-pixbuf.loaders
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/gdk-pixbuf-query-loaders 2> $REALPATH/etc/gtk-2.0/gdk-pixbuf.loaders"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
 
@@ -847,7 +847,7 @@ for p in $DEST $DESTGR; do
 
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
-	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf
+	find $p -name "*.a" | grep -v "usr/X11R6/$LIBDIR/modules" | xargs rm -rf
 	find $p -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
 	for f in newt popt rpm rpmio; do
 	    rm -f $p/usr/$LIBDIR/lib$f.so
@@ -882,9 +882,9 @@ echo "Creating fontconfig cache"
 if [ -n "$NEEDGR" ]; then
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	REALPATH=`(cd $DESTGR; /bin/pwd | sed 's,/md1/,/,g')`
-	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/fc-cache -v"
+	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $REALPATH /usr/bin/fc-cache -v"
     else
-	LD_LIBRARY_PATH=/usr/X11R6/lib:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
+	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/fc-cache -v
     fi
     rm -f $DESTGR/usr/bin/fc-cache
 fi
