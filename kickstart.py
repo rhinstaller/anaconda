@@ -691,7 +691,7 @@ class KickstartBase(BaseInstallClass):
                 print str, " ", arg
 
         if extra[0] == 'swap':
-            fstype = fileSystemTypeGet('swap')
+            filesystem = fileSystemTypeGet('swap')
             mountpoint = None
         else:
             if fstype:
