@@ -429,6 +429,7 @@ progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 logFile = None			# may be a file object or a file name
 display_mode = None
+graphical_failed = 0
 
 
 # should we ever try to probe for X stuff?  this will give us a convenient
@@ -665,6 +666,7 @@ if (debug):
 import isys
 import instdata
 import floppy
+import vnc
 
 if not isHeadless:
     import xsetup
@@ -877,21 +879,12 @@ else: # s390/iSeries checks
                                     flags.usevnc):
 	dup_log("DISPLAY variable not set. Starting text mode!")
         display_mode = 't'
+        graphical_failed = 1
         time.sleep(2)
-
-# if they want us to use VNC do that now
-if display_mode == 'g' and flags.usevnc:
-    # dont run vncpassword if in test mode
-    if flags.test:
-	vncpassword = None
-	
-    startVNCServer(vncpassword=vncpassword,
-		   vncconnecthost=vncconnecthost,
-		   vncconnectport=vncconnectport)
 
 # if DISPLAY not set either vnc server failed to start or we're not
 # running on a redirected X display, so start local X server
-if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+if display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
     import rhpl.monitor as monitor
     
     # if no monitor probed lets guess based on runres
@@ -917,16 +910,36 @@ if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
     else:
 	xlogfile = None
 	
-    xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
-					 runres,
-					 xStartedCB=doStartupX11Actions,
-					 xQuitCB=doShutdownX11Actions,
-					 logfile=xlogfile)
+     xsetup_failed = xserver.startXServer(videohw, monitorhw, mousehw, kbd,
+ 					 runres,
+ 					 xStartedCB=doStartupX11Actions,
+ 					 xQuitCB=doShutdownX11Actions,
+ 					 logfile=xlogfile)
 
     if xsetup_failed:
 	dup_log(" X startup failed, falling back to text mode")
 	display_mode = 't'
+        graphical_failed = 1
 	time.sleep(2)
+
+if display_mode == 't' and graphical_failed:
+    ret = vnc.askVncWindow()
+    if ret != -1:
+        display_mode = 'g'
+        flags.usevnc = 1
+        if ret is not None:
+            vncpassword = ret
+
+# if they want us to use VNC do that now
+if display_mode == 'g' and flags.usevnc:
+    # dont run vncpassword if in test mode
+    if flags.test:
+	vncpassword = None
+	
+    startVNCServer(vncpassword=vncpassword,
+		   vncconnecthost=vncconnecthost,
+		   vncconnectport=vncconnectport)
+
 
 #
 # read in anaconda configuration file
@@ -969,6 +982,7 @@ if (display_mode == 'g'):
 	    
             from gui import InstallInterface
         except Exception, e:
+            log("Exception starting GUI installer: %s" %(e,))
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
 	    if not x_already_set:
