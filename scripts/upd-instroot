@@ -318,7 +318,7 @@ sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
 bin/dd
-bin/gawk
+bin/gawk-3.1.0
 bin/mknod
 bin/login
 bin/ksh
@@ -634,6 +634,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 	mv $i/bin/sed $i/bin/sed_save
 	mv $i/bin/mount $i/bin/mount_save
 	mv $i/bin/sort $i/bin/sort_save
+	mv $i/bin/mknod $i/bin/mknod_save
     done
 fi
 
