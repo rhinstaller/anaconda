@@ -3,24 +3,20 @@
 import sys, os, signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-#
-# For anaconda in reconfig mode
-#
-sys.path.append('/usr/lib/anaconda')
-sys.path.append('/usr/lib/anaconda/textw')
-sys.path.append('/usr/lib/anaconda/iw')
-
 # For anaconda in test mode
 if (os.path.exists('rpmmodule')):
-#    sys.path.append('rpmmodule')
     sys.path.append('libfdisk')
     sys.path.append('balkan')
-#    sys.path.append('kudzu')
     sys.path.append('gnome-map')
     sys.path.append('isys')
     sys.path.append('textw')
     sys.path.append('iw')
-
+    sys.path.append('installclasses')
+else:
+    sys.path.append('/usr/lib/anaconda')
+    sys.path.append('/usr/lib/anaconda/textw')
+    sys.path.append('/usr/lib/anaconda/iw')
+    sys.path.append('/usr/lib/anaconda/installclasses')
 
 os.environ['HOME'] = '/tmp'
 

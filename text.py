@@ -9,6 +9,7 @@ import time
 import gettext_rh
 import glob
 import signal
+import installclass
 from translate import _, cat, N_
 from log import log
 
@@ -220,30 +221,32 @@ class InstallPathWindow:
 				       todo.intf.messageWindow)
 	    return INSTALL_NOOP
 
+	classes = installclass.availableClasses()
+
+	choices = []
+	for (name, object, icon) in classes:
+	    choices.append(_(name))
+	upgradeChoice = len(choices)
+	choices.append(_("Upgrade Existing Installation"))
+
 	if (todo.upgrade):
-	    default = 4
+	    default = upgradeChoice
 	    orig = None
 	else:
 	    instClass = todo.getClass()
 	    orig = None
-	    if isinstance(instClass, installclass.GNOMEWorkstation):
-		orig = 0
-	    elif isinstance(instClass, installclass.KDEWorkstation):
-		orig = 1
-	    elif isinstance(instClass, installclass.Server):
-		orig = 2
-	    elif isinstance(instClass, installclass.CustomInstall):
-		orig = 3
+	    i = 0
+	    for (name, object, icon) in classes:
+		if isinstance(instClass, object):
+		    orig = i
+		    break
+		i = i + 1
+
 	    if (orig):
 		default = orig
 	    else:
 		default = 0
 
-	choices = [ _("Install GNOME Workstation"), 
-		    _("Install KDE Workstation"),
-		    _("Install Server System"),
-		    _("Install Custom System"),
-		    _("Upgrade Existing Installation") ]
 	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
 			_("What type of system would you like to install?"),
 			    choices, [(_("OK"), "ok"), (_("Back"), "back")],
@@ -254,23 +257,15 @@ class InstallPathWindow:
 
 	needNewDruid = 0
 
-	if (choice == 4):
+	if (choice == upgradeChoice):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
         else:
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
-	    if (choice == 0 and orig != 0):
-		todo.setClass(installclass.GNOMEWorkstation(todo.expert))
-		needNewDruid = 1
-	    elif (choice == 1 and orig != 1):
-		todo.setClass(installclass.KDEWorkstation(todo.expert))
-		needNewDruid = 1
-	    elif (choice == 2 and orig != 2):
-		todo.setClass(installclass.Server(todo.expert))
-		needNewDruid = 1
-	    elif (choice == 3 and orig != 3):
-		todo.setClass(installclass.CustomInstall(todo.expert))
+	    if (choice != orig):
+		(name, objectClass, logo) = classes[choice]
+		todo.setClass(objectClass(todo.expert))
 		needNewDruid = 1
 
 	if needNewDruid or not todo.fstab:

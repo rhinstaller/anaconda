@@ -3,7 +3,7 @@ include Makefile.inc
 VERSION = 7.0
 
 SUBDIRSHD = balkan isys libfdisk collage loader po \
-	    minislang textw utils scripts bootdisk
+	    minislang textw utils scripts bootdisk installclasses
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))

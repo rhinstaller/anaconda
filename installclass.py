@@ -1,7 +1,7 @@
 # this is the prototypical class for workstation, server, and kickstart 
 # installs
 #
-# The interface to InstallClass is *public* -- ISVs/OEMs can customize the
+# The interface to BaseInstallClass is *public* -- ISVs/OEMs can customize the
 # install by creating a new derived type of this class.
 
 # putting these here is a bit of a hack, but we can't switch between
@@ -11,10 +11,11 @@ FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
 import gettext_rh, os, iutil
+import string
 from xf86config import XF86Config
 from translate import _
 
-class InstallClass:
+class BaseInstallClass:
 
     # look in mouse.py for a list of valid mouse names -- use the LONG names
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
@@ -227,79 +228,16 @@ class InstallClass:
             self.addToSkipList("lilo")
 
 # we need to be able to differentiate between this and custom
-class DefaultInstall(InstallClass):
+class DefaultInstall(BaseInstallClass):
 
     def __init__(self, expert):
-	InstallClass.__init__(self)
-
-# custom installs are easy :-)
-class CustomInstall(InstallClass):
-
-    def __init__(self, expert):
-	InstallClass.__init__(self)
-
-# GNOME and KDE installs are derived from this
-class Workstation(InstallClass):
-
-    def __init__(self, expert):
-	InstallClass.__init__(self)
-	self.setHostname("localhost.localdomain")
-	if not expert:
-	    self.addToSkipList("lilo")
-	self.addToSkipList("authentication")
-	self.addToSkipList("package-selection")
-	self.setMakeBootdisk(1)
-
-	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, -1, 0, None)
-	self.addNewPartition('/', 700, -1, 1, None)
-	self.addNewPartition('swap', 64, -1, 0, None)
-	self.setClearParts(FSEDIT_CLEAR_LINUX, 
-	    warningText = _("You are about to erase any preexisting Linux "
-			    "installations on your system."))
-
-class GNOMEWorkstation(Workstation):
-
-    def __init__(self, expert):
-	Workstation.__init__(self, expert)
-        self.desktop = "GNOME"
-	self.setGroups(["GNOME Workstation"])
-
-class KDEWorkstation(Workstation):
-
-    def __init__(self, expert):
-	Workstation.__init__(self, expert)
-        self.desktop = "KDE"
-	self.setGroups(["KDE Workstation"])
-
-class Server(InstallClass):
-
-    def __init__(self, expert):
-	InstallClass.__init__(self)
-	self.setGroups(["Server"])
-	self.setHostname("localhost.localdomain")
-	if not expert:
-	    self.addToSkipList("lilo")
-	self.addToSkipList("package-selection")
-	self.addToSkipList("authentication")
-	self.setMakeBootdisk(1)
-
-	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, -1, 0, None)
-	self.addNewPartition('/', 256, -1, 0, None)
-	self.addNewPartition('/usr', 512, -1, 1, None)
-	self.addNewPartition('/var', 256, -1, 0, None)
-	self.addNewPartition('/home', 512, -1, 1, None)
-	self.addNewPartition('swap', 64, 256, 1, None)
-	self.setClearParts(FSEDIT_CLEAR_ALL, 
-	    warningText = _("You are about to erase ALL DATA on your hard "
-			    "drive to make room for your Linux installation."))
+	BaseInstallClass.__init__(self)
 
 # reconfig machine w/o reinstall
-class ReconfigStation(InstallClass):
+class ReconfigStation(BaseInstallClass):
 
     def __init__(self, expert):
-	InstallClass.__init__(self)
+	BaseInstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
 	self.addToSkipList("bootdisk")
@@ -308,3 +246,60 @@ class ReconfigStation(InstallClass):
 	self.addToSkipList("format")
         self.addToSkipList("mouse")
         self.addToSkipList("xconfig")
+
+allClasses = []
+
+# returns ( className, classObject, classLogo ) tuples
+def availableClasses():
+    global allClasses
+
+    if allClasses: return allClasses
+
+    if os.access("installclasses", os.R_OK):
+	path = "installclasses"
+    else:
+	path = "/usr/lib/anaconda/installclasses"
+
+    files = os.listdir(path)
+    done = {}
+    list = []
+    for file in files:
+	if file[0] == '.': continue
+	mainName = string.split(file, ".")[0]
+	if done.has_key(mainName): continue
+	done[mainName] = 1
+
+	obj = None
+	name = None
+	cmd = "import %s\nif %s.__dict__.has_key('InstallClass'): obj = %s.InstallClass\n" % (mainName, mainName, mainName)
+	exec(cmd)
+	if obj: 
+	    if obj.__dict__.has_key('sortPriority'):
+		sortOrder = obj.sortPriority
+	    else:
+		sortOrder = 0
+	    list.append(((obj.name, obj, None), sortOrder))
+
+    list.sort(ordering)
+    for (item, priority) in list:
+	allClasses.append(item)
+
+    return allClasses
+
+def ordering(first, second):
+    ((name1, obj, logo), priority1) = first
+    ((name2, obj, logo), priority2) = second
+
+    if priority1 < priority2:
+	return -1
+    elif priority1 > priority2:
+	return 1
+
+    if name1 < name2:
+	return -1
+    elif name1 > name2:
+	return 1
+
+    return 0
+
+

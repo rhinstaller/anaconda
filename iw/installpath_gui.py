@@ -38,6 +38,7 @@ def D_(x):
 
 class InstallPathWindow (InstallWindow):		
 
+    installTypes = installclass.availableClasses()
     installTypes = ((WORKSTATION_GNOME, D_("GNOME Workstation"),
                      "gnome-workstation.png"),
                     (WORKSTATION_KDE, D_("KDE Workstation"),

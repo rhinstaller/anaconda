@@ -1,7 +1,7 @@
 import iutil
 import isys
 import os
-from installclass import InstallClass
+from installclass import BaseInstallClass
 from installclass import FSEDIT_CLEAR_LINUX
 from installclass import FSEDIT_CLEAR_ALL
 import sys
@@ -40,7 +40,7 @@ class Script:
 				
 	os.unlink(path)
 
-class Kickstart(InstallClass):
+class Kickstart(BaseInstallClass):
 
     def postAction(self, rootPath, serial):
 	for script in self.postScripts:
@@ -58,7 +58,7 @@ class Kickstart(InstallClass):
 	if len(extra) != 1:
 	    raise ValueError, "a single argument is expected to rootPw"
 
-	InstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
+	BaseInstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
 	self.addToSkipList("accounts")
 
     def doAuthconfig(self, args):
@@ -458,7 +458,7 @@ class Kickstart(InstallClass):
 	    self.addNewPartition(extra[0], size, maxSize, grow, device, fsopts)
 
     def __init__(self, file, serial):
-	InstallClass.__init__(self)
+	BaseInstallClass.__init__(self)
 	self.addToSkipList("bootdisk")
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")

@@ -14,7 +14,7 @@ SHORT_PO = $(filter-out $(LONG_PO), $(wildcard *.po))
 FMTCATALOGS = $(patsubst %.po,%.mo,$(SHORT_PO) $(LONG_PO))
 
 POTFILES = ../*.py ../iw/*.py ../textw/*.py \
-           ../libfdisk/*.c ../loader/*.c
+           ../libfdisk/*.c ../loader/*.c ../installclasses/*.py
 
 all: $(NLSPACKAGE).pot $(FMTCATALOGS)
 
