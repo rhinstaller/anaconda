@@ -37,7 +37,7 @@ class FinishedWindow:
 
         txt = _("Congratulations, your %s installation is "
                 "complete.\n\n"
-                "%s%s" %(productName, floppystr, bootstr))
+                "%s%s") %(productName, floppystr, bootstr)
         foo = _("For information on errata (updates and bug fixes), visit "
                 "http://www.redhat.com/errata/.\n\n"
                 "Information on using your "

@@ -60,7 +60,7 @@ class CongratulationWindow (InstallWindow):
                           "\n\n")
 
         txt = _("Congratulations, the installation is complete.\n\n"
-                "%s%s" %(floppystr, bootstr))
+                "%s%s") %(floppystr, bootstr)
         foo = _("For information on Errata (updates and bug fixes), visit:\n"
                 "\thttp://www.redhat.com/errata/\n\n"
                 "For information on automatic updates through Red Hat "
