@@ -757,7 +757,7 @@ class AutoPartitionWindow:
         if not todo.ddruid:
             drives = todo.drives.available ().keys ()
             drives.sort ()
-            todo.ddruid = fsedit(0, drives, fstab)
+            todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr)
 
 	todo.instClass.finishPartitioning(todo.ddruid)
 
