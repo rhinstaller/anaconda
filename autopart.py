@@ -1303,10 +1303,7 @@ PARTMETHOD_TYPE_DESCR_TEXT = N_("Automatic Partitioning sets partitions "
                                "allows you "
                                "to create partitions in an interactive "
                                "environment. You can set the file system "
-                               "types, mount points, partition sizes, and more.\n\n"
-                               "The partitioning tool, fdisk, is a text-based "
-                               "utility only recommended for advanced users "
-			       "who need to perform specialized tasks.")
+                               "types, mount points, partition sizes, and more.")
 
 AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
                                      "set up by the installation program, you "
