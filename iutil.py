@@ -464,7 +464,7 @@ def makeDriveDeviceNodes():
             num = 15
 
         if (drive.startswith("cciss") or drive.startswith("ida") or
-            drive.startswith("rd") or drive.startswith("i2o")):
+            drive.startswith("rd")):
             sep = "p"
         else:
             sep = ""
@@ -477,8 +477,7 @@ def makeDriveDeviceNodes():
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
 
-    mdlist = raid.scanForRaid(hardDrives)
-    for mdMinor, devices, level, numdisks in mdlist:
+    for mdMinor in range(0, 16):
         md = "md%d" %(mdMinor,)
         isys.makeDevInode(md, "/dev/%s" %(md,))
 
