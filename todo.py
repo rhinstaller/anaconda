@@ -803,7 +803,7 @@ class ToDo:
         rootparts = []
         if not self.setupFilesystems: return [ self.instPath ]
         win = self.intf.waitWindow (_("Searching"),
-                                    _("Searching for Red Hat Linux installations..."))
+			_("Searching for Red Hat Linux installations..."))
         
         drives = self.fstab.driveList()
 	mdList = raid.startAllRaid(drives)
@@ -811,13 +811,13 @@ class ToDo:
 	for dev in mdList:
             if fstab.isValidExt2 (dev):
                 try:
-                    isys.mount(dev, '/mnt/sysimage')
+                    isys.mount(dev, '/mnt/sysimage', readOnly = 1)
                 except SystemError, (errno, msg):
                     self.intf.messageWindow(_("Error"),
                                             _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
                     continue
                 if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                    rootparts.append (dev)
+                    rootparts.append ((dev, "ext2"))
                 isys.umount('/mnt/sysimage')
 
 	raid.stopAllRaid(mdList)
@@ -845,20 +845,46 @@ class ToDo:
                                                     _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
                             continue
                         if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                            rootparts.append (dev)
+                            rootparts.append ((dev, "ext2"))
+                        isys.umount('/mnt/sysimage')
+		    elif size and type == _balkan.DOS:
+			dev = drive + str (i + 1)
+                        try:
+                            isys.mount(dev, '/mnt/sysimage', fstype = "vfat",
+				       readOnly = 1)
+                        except SystemError, (errno, msg):
+			    log("failed to mount vfat filesystem on %s\n" 
+					% dev)
+                            continue
+
+			if os.access('/mnt/sysimage/redhat.img', os.R_OK):
+			    rootparts.append((dev, "vfat"))
+
                         isys.umount('/mnt/sysimage')
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts
 
-    def upgradeFindPackages (self, root):
+    def upgradeFindPackages (self, rootInfo):
+	(root, rootFs) = rootInfo
         win = self.intf.waitWindow (_("Finding"),
                                     _("Finding packages to upgrade..."))
+
         if self.setupFilesystems:
 	    mdList = raid.startAllRaid(self.fstab.driveList())
-            isys.mount(root, '/mnt/sysimage')
+
+	    if rootFs == "vfat":
+		fstab.mountLoopbackRoot(root)
+	    else:
+		isys.mount(root, '/mnt/sysimage')
+
 	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
-            isys.umount('/mnt/sysimage')        
+
+	    if rootFs == "vfat":
+		fstab.unmountLoopbackRoot()
+	    else:
+		isys.umount('/mnt/sysimage')        
+
 	    raid.stopAllRaid(mdList)
 
 	    if self.fstab.hasDirtyFilesystems():
@@ -879,7 +905,11 @@ class ToDo:
 		      "Please fix this problem and try to upgrade again."))
 		sys.exit(0)
 
+	    if os.access("/mnt/loophost/rh-swap.img", os.R_OK):
+		self.fstab.setLoopbackSwapSize(-1)
+
 	    self.fstab.turnOnSwap(formatSwap = 0)
+
         self.getCompsList ()
 	self.getHeaderList ()
 
