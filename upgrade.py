@@ -30,6 +30,7 @@ from fsset import *
 from partitioning import *
 from constants import *
 from installmethod import FileCopyException
+from product import productName
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -55,7 +56,13 @@ def findRootParts(intf, id, dispatch, dir, chroot):
         dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(intf, id, chroot, upgradeany = 0):
-    if not flags.setupFilesystems: return [(chroot, 'ext2', "")]
+    if not flags.setupFilesystems:
+        relstr = partedUtils.getRedHatReleaseString (chroot)
+        if ((cmdline.find("upgradeany") != -1) or
+            (upgradeany == 1) or
+            (partedUtils.productMatches(relstr, productName))):
+            return [(chroot, 'ext2', "")]
+        return []
 
     diskset = partedUtils.DiskSet()
     diskset.openDevices()

@@ -522,6 +522,7 @@ for n in args:
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	flags.setupFilesystems = 0
+        flags.rootpath = 1
 	logFile = sys.stderr
     elif (str == '--traceonly'):
 	traceOnly = 1
@@ -840,7 +841,7 @@ time.sleep(3)
 # now determine if we're going to run in GUI or TUI mode
 #
 # if no X server, we have to use text mode
-if not flags.test and (iutil.getArch() != "s390" and not os.access("/mnt/runtime/usr/X11R6/bin/Xorg", os.X_OK)):
+if not (flags.test or flags.rootpath) and (iutil.getArch() != "s390" and not os.access("/mnt/runtime/usr/X11R6/bin/Xorg", os.X_OK)):
      dup_log(_("Graphical installation not available...  "
               "Starting text mode."))
      time.sleep(2)
@@ -1115,6 +1116,18 @@ if lang:
 if keymap:
     dispatch.skipStep("keyboard", permanent = 1)
     instClass.setKeyboard(id, keymap)
+
+# Skip the disk options in rootpath mode
+if flags.rootpath:
+    dispatch.skipStep("partitionmethod", permanent = 1)
+    dispatch.skipStep("partitionmethodsetup", permanent = 1)
+    dispatch.skipStep("autopartition", permanent = 1)
+    dispatch.skipStep("autopartitionexecute", permanent = 1)
+    dispatch.skipStep("fdisk", permanent = 1)
+    dispatch.skipStep("bootloadersetup", permanent = 1)
+    dispatch.skipStep("bootloader", permanent = 1)
+    dispatch.skipStep("bootloaderadvanced", permanent = 1)
+    dispatch.skipStep("upgbootloader", permanent = 1)
 
 # set up the headless case
 if isHeadless == 1:

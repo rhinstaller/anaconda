@@ -89,6 +89,10 @@ def splashScreenShow(configFileData):
                         
     if p:
         splashwindow = gtk.Window()
+        def no_delete (window, event):
+            return True
+        splashwindow.connect('delete-event', no_delete)
+        splashwindow.set_decorated(False)
         splashwindow.set_position(gtk.WIN_POS_CENTER)
         box = gtk.EventBox()
         box.modify_bg(gtk.STATE_NORMAL, box.get_style().white)

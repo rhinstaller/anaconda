@@ -105,7 +105,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
         else:
             bl.doUpgradeOnly = 0    
 
-    w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
+    # We don't need to let the user know if we're just doing the bootloader.
+    if not justConfigFile:
+        w = intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
 
     kernelList = []
     otherList = []
@@ -137,12 +139,6 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	else:
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
 	    plainLabelUsed = 1
-
-    # FIXME: blah, exec-shield breaks grub.  turn it off for now
-    if os.access("/proc/sys/kernel/exec-shield", os.W_OK):
-        f = open("/proc/sys/kernel/exec-shield", "w")
-        f.write("0")
-        f.close()
 
     dosync()
     try:

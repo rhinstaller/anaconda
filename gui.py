@@ -342,6 +342,7 @@ def titleBarMotionEventCB(widget, event, data):
 	data["window"].move(int(newx), int(newy))
 
 def addFrame(dialog, title=None, showtitle = 1):
+    # We don't add a Frame in rootpath mode, as we almost certainly have a window manager
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
@@ -351,7 +352,7 @@ def addFrame(dialog, title=None, showtitle = 1):
 	if title is None:
 	    title = dialog.get_title()
 
-	if title:
+	if title and not flags.rootpath:
 	    data = {}
 	    data["state"] = 0
 	    data["button"] = 0
@@ -376,6 +377,8 @@ def addFrame(dialog, title=None, showtitle = 1):
                 s = gtk.Label("")
                 titleBox.pack_start(s)
 	    box.pack_start(eventBox, gtk.FALSE, gtk.FALSE)
+        elif flags.rootpath:
+            dialog.set_title (title)
     except:
 	pass
     
@@ -394,7 +397,12 @@ def addFrame(dialog, title=None, showtitle = 1):
 
 class WaitWindow:
     def __init__(self, title, text):
-        self.window = gtk.Window(gtk.WINDOW_POPUP)
+        if flags.rootpath:
+            self.window = gtk.Window()
+            self.window.set_decorated(False)
+            # FIXME: we should really call set_transient_for
+        else:
+            self.window = gtk.Window(gtk.WINDOW_POPUP)
         self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
         self.window.set_modal(gtk.TRUE)
@@ -414,7 +422,15 @@ class WaitWindow:
 
 class ProgressWindow:
     def __init__(self, title, text, total):
-        self.window = gtk.Window (gtk.WINDOW_POPUP)
+        if flags.rootpath:
+            self.window = gtk.Window()
+            self.window.set_decorated(False)
+            # FIXME: we should really call set_transient_for
+            def no_delete (window, event):
+                return True
+            self.window.connect('delete-event', no_delete)
+        else:
+            self.window = gtk.Window(gtk.WINDOW_POPUP)
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
         self.window.set_modal (gtk.TRUE)
@@ -697,7 +713,6 @@ class TextViewBrowser(gtk.TextView):
         self.set_property('cursor_visible', gtk.FALSE)
         self.set_left_margin(10)
         self.set_wrap_mode(gtk.WRAP_WORD)
-        self.connect('move-cursor', self.moveCursor)
         self.connect('set-scroll-adjustments', self.cacheAdjustments)
 
     def swallowFocus(self, *args):
@@ -1096,11 +1111,18 @@ class InstallControlWindow:
                                     custom_buttons=[_("_Exit"),
                                                     _("_Retry")])
                 if not win.getrc():
+                    if flags.rootpath:
+                        msg =  _("The installer will now exit...")
+                        buttons = [_("_Exit")]
+                    else:
+                        msg =  _("Your system will now be rebooted...")
+                        buttons = [_("_Reboot")]
+
                     MessageWindow(_("Rebooting System"),
-                                  _("Your system will now be rebooted..."),
+                                  msg,
                                   type="custom",
                                   custom_icon="warning",
-                                  custom_buttons=[_("_Reboot")])
+                                  custom_buttons=buttons)
                     sys.exit(0)
                 
 	ics = InstallControlState (self)
@@ -1126,6 +1148,9 @@ class InstallControlWindow:
 
         if self.displayHelp:
             self.refreshHelp()
+        if step == "install":
+            gtk.mainloop()
+        
             
     def destroyCurrentWindow(self):
         children = self.installFrame.get_children ()
@@ -1267,9 +1292,14 @@ class InstallControlWindow:
                 
     def setup_window (self, runres):
         self.window = gtk.Window ()
+        # Quick hack to make rootpath mode not suck by letting the user delete the window.
+        def no_delete (window, event):
+            return True
+        self.window.connect('delete-event', no_delete)
         global mainWindow
         mainWindow = self.window
         self.window.set_events (gtk.gdk.KEY_RELEASE_MASK)
+        self.window.set_resizable (False)
 
         if runres == '640x480':
             self.window.set_default_size (640, 480)

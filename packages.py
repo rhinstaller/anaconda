@@ -1486,10 +1486,16 @@ def betaNagScreen(intf, dir):
 				   custom_buttons=[_("_Exit"), _("_Install anyway")])
 
 	if not rc:
+            if flags.rootpath:
+                msg =  _("The installer will now exit...")
+                buttons = [_("_Back"), _("_Exit")]
+            else:
+                msg =  _("Your system will now be rebooted...")
+                buttons = [_("_Back"), _("_Reboot")]
 	    rc = intf.messageWindow( _("Rebooting System"),
-				 _("Your system will now be rebooted..."),
-				 type="custom", custom_icon="warning",
-				 custom_buttons=[_("_Back"), _("_Reboot")])
+                                     msg,
+                                     type="custom", custom_icon="warning",
+                                     custom_buttons=buttons)
 	    if rc:
 		sys.exit(0)
 	else:
