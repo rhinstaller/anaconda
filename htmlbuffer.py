@@ -57,6 +57,9 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag = self.buffer.create_tag('keycap')
         tag.set_property('font', 'Monospace %d' % (baseSize,))
 
+        tag = self.buffer.create_tag('pre')
+        tag.set_property('font', 'Monospace %d' % (baseSize,))
+
         tag = self.buffer.create_tag('a')
         tag.set_property('font', '%s %d' % (baseFont, baseSize))
 
