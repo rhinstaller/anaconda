@@ -837,7 +837,7 @@ def migrateXinetd(instPath, instLog):
     os.close(logfile)
 
 def copyOCOModules(instPath):
-    command = ("cd %s/lib/modules; cp -ar /OCO ibm" % (instPath))
+    command = ("[ -d /OCO ] && cp -ar /OCO/* %s/lib/modules" % (instPath))
     log("running: '%s'" % (command, ))
     os.system(command)
 
