@@ -239,6 +239,9 @@ class NetworkWindow (InstallWindow):
         self.ns.set_text (self.todo.network.primaryNS)
 
         self.ns2 = options[3]
+        self.ns2.set_text (self.todo.network.secondaryNS)
+
         self.ns3 = options[4]
+        self.ns3.set_text (self.todo.network.ternaryNS)
         box.pack_start (self.ipTable, FALSE, FALSE, 5)
         return box
