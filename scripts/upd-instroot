@@ -149,7 +149,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
-           comps-extras XFree86-libs-data convertdb1"
+           comps-extras XFree86-libs-data convertdb1
+           vnc-server libjpeg tcp_wrappers"
 
 #
 # stuff ONLY included for rescue mode
@@ -478,6 +479,7 @@ etc/man.config
 etc/pango/*
 etc/fonts/*
 $LIBDIR/libnss_dns*
+$LIBDIR/libnss_nis*
 $LIBDIR/libpam*
 $LIBDIR/libproc*
 sbin/debugfs
@@ -533,6 +535,8 @@ usr/bin/tac
 usr/bin/tail
 usr/bin/tilo
 usr/bin/uniq
+usr/bin/Xvnc
+usr/bin/vncpasswd
 usr/lib/anaconda/iw
 usr/$LIBDIR/gconv/*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
@@ -554,11 +558,13 @@ usr/$LIBDIR/libgdk*
 usr/$LIBDIR/libgnomecanvas*
 usr/$LIBDIR/libgnomeui*
 usr/$LIBDIR/libgtk*
+usr/$LIBDIR/libjpeg*
 usr/$LIBDIR/libncurses*
 usr/$LIBDIR/libpango*
 usr/$LIBDIR/libpng.so.3*
 usr/$LIBDIR/libpng12.so*
 usr/$LIBDIR/libreadline*
+usr/$LIBDIR/libwrap*
 usr/lib/locale/*
 usr/$LIBDIR/pango/*
 usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*

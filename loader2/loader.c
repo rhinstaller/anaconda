@@ -357,6 +357,13 @@ static void checkForHardDrives(struct knownDevices * kd, int * flagsPtr) {
     return;
 }
 
+static writeVNCPasswordFile(char *pfile, char *password) {
+    FILE *f;
+
+    f = fopen(pfile, "w+");
+    fprintf(f, "%s\n", password);
+    fclose(f);
+}
 
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
@@ -458,12 +465,19 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
-            /* LOADER_FLAG_XXX since loader doesn't care about these */
+            /* LOADER_FLAGS_XXX since loader doesn't care about these */
             /* particular options.                                   */
-            if (!strncasecmp(argv[i], "resolution=", 11) ||
+	    /* do vncpassword case first */
+	    logMessage("extra arg = |%s|", argv[i]);
+	    logMessage("comparison is %d", strncasecmp(argv[i], "vncpassword=", 12));
+            if (!strncasecmp(argv[i], "vncpassword=", 12)) {
+		if (!FL_TESTING(flags))
+		    writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
+	    } else if (!strncasecmp(argv[i], "resolution=", 11) ||
                 !strncasecmp(argv[i], "lowres", 6) ||
                 !strncasecmp(argv[i], "skipddc", 7) ||
-                !strncasecmp(argv[i], "nomount", 7)) {
+                !strncasecmp(argv[i], "nomount", 7) ||
+                !strncasecmp(argv[i], "vnc", 3)) {
                 int arglen;
 
                 arglen = strlen(argv[i])+3;
@@ -475,7 +489,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                     logMessage("Too many command line arguments (max allowed is %d), "
                                "rest will be dropped.", MAX_EXTRA_ARGS);
                 }
-            }
+	    }
         }
     }
 
