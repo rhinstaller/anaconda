@@ -2,8 +2,8 @@ include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
-CFLAGS = -I/usr/include/python1.5 -I.. -g -DHAVE_NFS -DHAVE_NFSV3
-OBJECTS = nfsmount.o dns.o mount_clnt.o nfsmount_xdr.o imount.o \
+CFLAGS = -I/usr/include/python1.5 -I.. -g
+OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o
 STATICOBJS = otherinsmod.o
 STATICLIBS = ../kudzu/kudzumodule.so
