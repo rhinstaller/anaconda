@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-08-21 09:25+0200\n"
+"PO-Revision-Date: 2004-10-05 14:19+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -185,9 +185,8 @@ msgid "Using mouse type: %s"
 msgstr "Bruker mustype: %s"
 
 #: ../anaconda:969
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Leter etter installert %s..."
+msgstr "Starter grafisk installasjon..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,12 +246,12 @@ msgstr ""
 "starte denne installasjonen."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Oppstartspartisjon %s oppfyller muligens ikke kravene til oppstart for din "
-"arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
+"arkitektur."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1067,7 +1066,7 @@ msgstr "P_røv igjen"
 
 #: ../gui.py:1116 ../packages.py:1500
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Installasjonsprogrammet avsluttes nå..."
 
 #: ../gui.py:1119 ../packages.py:1503
 msgid "Your system will now be rebooted..."
@@ -2486,15 +2485,11 @@ msgstr ""
 "systemet ender som ubrukelig. Vil du fortsette oppgraderingsprosessen?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Arkitekturen for utgaven av %s du oppgraderer til ser ut til å være %s "
-"hvilket ikke stemmer overens med din tidligere installerte arkitektur %s. "
-"Dette vil sannsynligvis ikke fungere. Er du sikker på at du ønsker å "
-"fortsette oppgraderingen?"
+msgstr "Det ser ut som om systemet du oppgraderer fra er for gammelt til å oppgradere til denne versjonen av %s. Er du sikker på at du ønsker å fortsette oppgraderingen?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2575,52 +2570,50 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
 msgstr ""
+"zSeries-maskiner kan aksessere industristandard SCSI-enheter via Fibre "
+"Channel (FCP). Du må oppgi 5 parametere for hver enhet: et 16-bit "
+"enhetsnummer, en 16-bit SCSI-ID, en 64-bit World Wide Port Number (WWPN), et "
+"16-bit SCSI-LUN og et 64-bit FCP-LUN"
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Enhet"
+msgstr "Enhetsnummer"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "Enhetsnummeret er ikke gyldig eller ble ikke oppgitt"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "SCSI ID er ikke gyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "Worldwide port er ugyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI-LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "SCSI-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP-LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "FC-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3311,17 +3304,13 @@ msgid "_Enable firewall"
 msgstr "_Aktiver brannmur"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
-msgstr ""
-"Du vil kanskje gi tilgang til andre for spesifikke tjenester på din "
-"datamaskin med en brannvegg. Hvilke tjenester vil du gi tilgang til?"
+msgstr "Du kan bruke en brannvegg til å gi tilgang til andre for spesifikke tjenester på din datamaskin. Hvilke tjenester vil du gi tilgang til?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3329,8 +3318,9 @@ msgid ""
 "or a fully active state."
 msgstr ""
 "Security Enhanced Linux (SELinux) gir mer finkornet kontroll over sikkerhet "
-"enn det som er tilgjengelig på et vanlig Linux-system. Det kan settes opp "
-"slik at det kun gis advarsler om ting som ville blitt nektet i aktiv modus."
+"enn det som er tilgjengelig på et vanlig Linux-system. Det kan settes i "
+"deaktivert modus hvor det kun gis advarsler om ting som ville blitt nektet i "
+"aktiv modus."
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
@@ -5148,34 +5138,33 @@ msgid "_Skip X configuration"
 msgstr "_Hopp over konfigurasjon av X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC-konfigurasjon"
+msgstr "ZFCP-konfigurasjon"
 
 #: ../iw/zfcp_gui.py:102
 msgid "_Remove"
-msgstr ""
+msgstr "Fje_rn"
 
 #: ../iw/zfcp_gui.py:109 ../textw/zfcp_text.py:116
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Enheter"
+msgstr "FCP-enheter"
 
 #: ../iw/zfcp_gui.py:121
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Legg til enhet"
+msgstr "Legg til FCP-enhet"
 
 #: ../iw/zfcp_gui.py:184
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Rediger RAID-enhet"
+msgstr "Rediger FCP-enhet %s"
 
 #: ../iw/zfcp_gui.py:240
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Du er i ferd med å fjerne en FCP-disk fra din konfigurasjon. Er du sikker på "
+"at du ønsker å fortsette?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5892,9 +5881,8 @@ msgid "End Cylinder:"
 msgstr "Sluttsylinder:"
 
 #: ../textw/partition_text.py:474
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Gruppenavn for volum:"
+msgstr "Volumgruppe:"
 
 #: ../textw/partition_text.py:496
 msgid "RAID Level:"
@@ -6019,24 +6007,21 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksimalt antall reservedisker med for et RAID0 array er 0."
 
 #: ../textw/partition_text.py:1172
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM-volumgrupper"
+msgstr "Ingen volumgrupper"
 
 #: ../textw/partition_text.py:1173
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Vennligst oppgi navn på logisk volum."
+msgstr "Det finnes ingen volumgrupper for oppretting av et logisk volum"
 
 #: ../textw/partition_text.py:1289
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Nåværende forespurt størrelse (%10.2f MB) er større enn maksimal størrelse "
-"på logiske volum (%10.2f MB). For å øke denne grensen kan du øke størrelsen "
-"for Fysisk område i denne volumgruppen."
+"på logiske volum (%10.2f MB)."
 
 #: ../textw/partition_text.py:1308
 #, python-format
@@ -6044,26 +6029,24 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Nåværende forespurt størrelse (%10.2f MB) er større en tilgjengelig "
+"størrelse i volumgruppe (%10.2f MB)."
 
 #: ../textw/partition_text.py:1362
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Rediger logisk volum"
+msgstr "Ny partisjon eller logisk volum?"
 
 #: ../textw/partition_text.py:1363
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Oppstartbare partisjoner kan ikke ligge på et logisk volum."
+msgstr "Vil du opprette en ny partisjon eller et et logisk volum?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "partition"
-msgstr "Partisjon"
+msgstr "partisjon"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "logical volume"
-msgstr "Logiske volumer"
+msgstr "logisk volum"
 
 #: ../textw/partition_text.py:1439
 msgid "New"
@@ -6666,18 +6649,16 @@ msgid "Video RAM:"
 msgstr "Video-RAM:"
 
 #: ../textw/zfcp_text.py:44
-#, fuzzy
 msgid "FCP Device"
-msgstr "Enhet"
+msgstr "FCP-enhet"
 
 #: ../textw/zfcp_text.py:102
-#, fuzzy
 msgid "Device #"
-msgstr "Enhet"
+msgstr "Enhetsnr"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6726,7 +6707,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6738,7 +6718,7 @@ msgid ""
 msgstr ""
 "\tSkrivebordsmiljø (GNOME)\n"
 "\tKontorstøtte (OpenOffice.org)\n"
-"\tNettleser (Mozilla)\n"
+"\tNettleser\n"
 "\tE-post (Evolution)\n"
 "\tØyeblikksmeldinger\n"
 "\tProgrammer for lyd og bildebehandling\n"
@@ -6746,7 +6726,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6756,21 +6736,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tAdministrasjonsverktøy\n"
+"\tKonfigurasjonsverktøy for tjenere\n"
+"\tWeb-tjener\n"
+"\tWindows filtjener (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux skrivebord"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6784,7 +6768,7 @@ msgid ""
 msgstr ""
 "\tSkrivebordsmiljø (GNOME)\n"
 "\tKontorstøtte (OpenOffice.org)\n"
-"\tNettleser (Mozilla)\n"
+"\tNettleser\n"
 "\tE-post (Evolution)\n"
 "\tØyeblikksmeldinger\n"
 "\tProgrammer for lyd og bildebehandling\n"
@@ -7130,7 +7114,7 @@ msgstr "Kan ikke finne kickstart-fil på harddisken."
 #: ../loader2/hdinstall.c:581
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Kan ikke finne harddisk for BIOS-disk %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7775,7 +7759,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Bueno Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7855,7 +7839,7 @@ msgstr "Chatham-øyene"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8013,7 +7997,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8120,9 +8104,9 @@ msgid "most locations"
 msgstr "de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "de fleste steder (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr ""
+"de fleste lokasjoner (CC, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8264,11 +8248,11 @@ msgstr "Sabah og Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8316,7 +8300,7 @@ msgstr "Tibet og det meste av Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8328,7 +8312,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8387,14 +8371,12 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengali"
+msgstr "Bengali (India)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Ungarsk"
+msgstr "Bulgarsk"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8446,7 +8428,7 @@ msgstr "Tysk"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8489,9 +8471,8 @@ msgid "Persian"
 msgstr "Persisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Engelsk"
+msgstr "Polsk"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8554,47 +8535,6 @@ msgstr "Zulu"
 #~ "Linux 6.2 og nyere. Dette synes å være et eldre system. Ønsker du å "
 #~ "fortsette oppgraderingsprosssen?"
 
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser (Mozilla)\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tSkrivebordsmiljø (GNOME)\n"
-#~ "\tKontorstøtte (OpenOffice.org)\n"
-#~ "\tNettleser (Mozilla)\n"
-#~ "\tE-post (Evolution)\n"
-#~ "\tØyeblikksmeldinger\n"
-#~ "\tProgrammer for lyd og bildebehandling\n"
-#~ "\tSpill\n"
-#~ "\tVerktøy for programvareutvikling\n"
-#~ "\tAdministrasjonsverktøy\n"
-
 #~ msgid "Physical Extent:"
 #~ msgstr "Fysisk utbredelse:"
 
@@ -8613,13 +8553,17 @@ msgstr "Zulu"
 #~ msgid "Warn on violations"
 #~ msgstr "Advar ved overtramp"
 
-#, fuzzy
 #~ msgid "Device number:"
-#~ msgstr "Enhet"
+#~ msgstr "Enhetsnummer:"
 
-#, fuzzy
 #~ msgid "SCSI ID:"
-#~ msgstr "ESSID"
+#~ msgstr "SCSI-ID:"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Østre Argentina (BA, DF, SC, TF)"
+#~ msgid "WWPN:"
+#~ msgstr "WWPN:"
+
+#~ msgid "SCSI LUN:"
+#~ msgstr "SCSI-LUN:"
+
+#~ msgid "FCP LUN:"
+#~ msgstr "FCP-LUN:"
