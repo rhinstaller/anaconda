@@ -1,0 +1,3458 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 1999-08-30 22:26-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+# ../bootpc.c:405
+#: ../bootpc.c:501
+msgid "No BOOTP reply received"
+msgstr "BOOTP odgovor nije primljen"
+
+# ../bootpc.c:407
+#: ../bootpc.c:503
+msgid "No DHCP reply received"
+msgstr "DHCP odgovor nije primljen"
+
+# ../cdrom.c:35
+#: ../cdrom.c:35
+msgid "Other CDROM"
+msgstr "Neki drugi CDROM"
+
+# ../cdrom.c:41
+#: ../cdrom.c:41
+msgid "CDROM type"
+msgstr "tip CDROM-a"
+
+# ../cdrom.c:41
+#: ../cdrom.c:41
+msgid "What type of CDROM do you have?"
+msgstr "Koji tip CDROM-a imate?"
+
+# ../cdrom.c:43 ../devices.c:422 ../devices.c:460 ../devices.c:549
+# ../devices.c:581 ../devices.c:593 ../devices.c:607 ../devices.c:873
+# ../devices.c:924 ../devices.c:1298 ../doit.c:102 ../doit.c:157
+# ../doit.c:238 ../doit.c:266 ../earlymethods.c:217 ../earlymethods.c:304
+# ../earlymethods.c:379 ../earlymethods.c:395 ../earlymethods.c:403
+# ../earlymethods.c:478 ../earlymethods.c:485 ../earlymethods.c:534
+# ../earlymethods.c:539 ../earlymethods.c:607 ../earlymethods.c:631
+# ../fs.c:112 ../fs.c:118 ../fs.c:126 ../fs.c:141 ../fs.c:149 ../fs.c:219
+# ../fs.c:392 ../fs.c:509 ../fsedit.c:215 ../fsedit.c:222 ../fsedit.c:229
+# ../fsedit.c:238 ../fsedit.c:250 ../fsedit.c:260 ../fsedit.c:361
+# ../fsedit.c:395 ../fsedit.c:428 ../fsedit.c:479 ../fsedit.c:817
+# ../fsedit.c:895 ../fsedit.c:913 ../fsedit.c:933 ../fsedit.c:1706
+# ../fsedit.c:1714 ../fsedit.c:1838 ../fsedit.c:1857 ../fsedit.c:1937
+# ../fsedit.c:2267 ../fsedit.c:2303 ../fsedit.c:2321 ../fsedit.c:2350
+# ../fsedit.c:2389 ../fsedit.c:2419 ../fsedit.c:2478 ../fsedit.c:2514
+# ../fsedit.c:2684 ../fsedit.c:2695 ../fsedit.c:2749 ../fsedit.c:2775
+# ../hd.c:240 ../hints.c:31 ../install.c:75 ../install.c:229 ../install.c:264
+# ../install.c:387 ../install.c:391 ../install.c:401 ../install.c:419
+# ../install2.c:450 ../install2.c:472 ../install2.c:509 ../install2.c:572
+# ../install2.c:579 ../install2.c:585 ../install2.c:620 ../install2.c:643
+# ../install2.c:653 ../install2.c:853 ../install2.c:1007 ../install2.c:1044
+# ../install2.c:1208 ../install2.c:1470 ../kbd.c:169 ../kickstart.c:73
+# ../kickstart.c:83 ../kickstart.c:151 ../kickstart.c:159 ../kickstart.c:235
+# ../kickstart.c:243 ../latemethods.c:194 ../latemethods.c:266
+# ../latemethods.c:274 ../latemethods.c:353 ../latemethods.c:439
+# ../latemethods.c:455 ../latemethods.c:483 ../latemethods.c:589
+# ../latemethods.c:687 ../latemethods.c:781 ../latemethods.c:854
+# ../latemethods.c:900 ../lilo.c:74 ../lilo.c:138 ../lilo.c:391 ../lilo.c:502
+# ../mkswap.c:410 ../mtab.c:91 ../net.c:304 ../net.c:385 ../net.c:601
+# ../net.c:611 ../net.c:632 ../net.c:667 ../net.c:706 ../net.c:1113
+# ../net.c:1162 ../net.c:1399 ../pkgs.c:206 ../pkgs.c:241 ../pkgs.c:266
+# ../pkgs.c:291 ../pkgs.c:374 ../pkgs.c:532 ../pkgs.c:544 ../pkgs.c:687
+# ../pkgs.c:791 ../pkgs.c:875 ../pkgs.c:1138 ../printercfg.c:459
+# ../printercfg.c:510 ../printercfg.c:657 ../printercfg.c:780
+# ../printercfg.c:972 ../printercfg.c:1021 ../printercfg.c:1066
+# ../printercfg.c:1111 ../printercfg.c:1181 ../printercfg.c:1258
+# ../windows.c:18
+#: ../cdrom.c:43 ../devices.c:575 ../devices.c:613 ../devices.c:761
+#: ../devices.c:800 ../devices.c:814 ../devices.c:828 ../devices.c:1138
+#: ../devices.c:1189 ../devices.c:1623 ../doit.c:133 ../doit.c:179
+#: ../doit.c:658 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:412 ../earlymethods.c:428 ../earlymethods.c:438
+#: ../earlymethods.c:502 ../earlymethods.c:509 ../earlymethods.c:558
+#: ../earlymethods.c:563 ../earlymethods.c:716 ../earlymethods.c:766
+#: ../earlymethods.c:789 ../earlymethods.c:802 ../earlymethods.c:841
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#: ../earlymethods.c:943 ../earlymethods.c:1016 ../earlymethods.c:1028
+#: ../earlymethods.c:1051 ../earlymethods.c:1133 ../earlymethods.c:1140
+#: ../earlymethods.c:1206 ../earlymethods.c:1321 ../earlymethods.c:1333
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fs.c:224
+#: ../fs.c:410 ../fs.c:521 ../fs.c:543 ../fsedit.c:233 ../fsedit.c:240
+#: ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268 ../fsedit.c:278
+#: ../fsedit.c:379 ../fsedit.c:461 ../fsedit.c:512 ../fsedit.c:876
+#: ../fsedit.c:954 ../fsedit.c:972 ../fsedit.c:1008 ../fsedit.c:1798
+#: ../fsedit.c:1806 ../fsedit.c:1931 ../fsedit.c:1950 ../fsedit.c:2043
+#: ../fsedit.c:2373 ../fsedit.c:2409 ../fsedit.c:2427 ../fsedit.c:2456
+#: ../fsedit.c:2495 ../fsedit.c:2525 ../fsedit.c:2584 ../fsedit.c:2620
+#: ../fsedit.c:2798 ../fsedit.c:2812 ../fsedit.c:2856 ../fsedit.c:2883
+#: ../fsedit.c:2974 ../fsedit.c:3079 ../fsedit.c:3105 ../hd.c:310 ../hd.c:412
+#: ../hints.c:31 ../install.c:75 ../install.c:191 ../install.c:268
+#: ../install.c:303 ../install.c:481 ../install.c:485 ../install.c:495
+#: ../install.c:513 ../install2.c:507 ../install2.c:530 ../install2.c:548
+#: ../install2.c:598 ../install2.c:662 ../install2.c:669 ../install2.c:675
+#: ../install2.c:710 ../install2.c:733 ../install2.c:743 ../install2.c:968
+#: ../install2.c:1146 ../install2.c:1183 ../install2.c:1347 ../install2.c:1649
+#: ../kbd.c:250 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37 ../kernel.c:49
+#: ../kernel.c:68 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../kickstart.c:246 ../kickstart.c:254 ../lang.c:144
+#: ../latemethods.c:232 ../latemethods.c:349 ../latemethods.c:494 ../lilo.c:93
+#: ../lilo.c:97 ../lilo.c:140 ../lilo.c:445 ../lilo.c:556 ../mkswap.c:588
+#: ../mtab.c:91 ../net.c:309 ../net.c:390 ../net.c:610 ../net.c:620
+#: ../net.c:641 ../net.c:676 ../net.c:715 ../net.c:1122 ../net.c:1171
+#: ../net.c:1408 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:329 ../pkgs.c:355
+#: ../pkgs.c:458 ../pkgs.c:470 ../pkgs.c:670 ../pkgs.c:774 ../pkgs.c:874
+#: ../pkgs.c:1351 ../printercfg.c:469 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1255 ../printercfg.c:1344 ../smb.c:70 ../urlmethod.c:137
+#: ../urlmethod.c:153 ../urlmethod.c:183 ../urlmethod.c:256 ../urlmethod.c:261
+#: ../urlmethod.c:377 ../windows.c:18
+msgid "Ok"
+msgstr "U redu"
+
+# ../cdrom.c:43 ../devices.c:461 ../devices.c:873 ../devices.c:924
+# ../earlymethods.c:217 ../earlymethods.c:304 ../earlymethods.c:607
+# ../fs.c:392 ../fsedit.c:1706 ../fsedit.c:1714 ../hd.c:281 ../install.c:149
+# ../install2.c:283 ../install2.c:450 ../install2.c:472 ../install2.c:620
+# ../install2.c:853 ../install2.c:1191 ../install2.c:1208
+# ../latemethods.c:483 ../lilo.c:74 ../lilo.c:92 ../lilo.c:392 ../lilo.c:502
+# ../mkswap.c:410 ../net.c:385 ../net.c:667 ../net.c:1162 ../net.c:1409
+# ../pkgs.c:687 ../pkgs.c:791 ../pkgs.c:1012 ../pkgs.c:1164
+# ../printercfg.c:510 ../printercfg.c:657 ../printercfg.c:780
+# ../printercfg.c:972 ../printercfg.c:1021 ../printercfg.c:1066
+# ../printercfg.c:1111 ../printercfg.c:1136 ../printercfg.c:1181
+# ../printercfg.c:1259 ../scsi.c:54
+#: ../cdrom.c:43 ../devices.c:614 ../devices.c:1138 ../devices.c:1189
+#: ../doit.c:251 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:789 ../earlymethods.c:841 ../fs.c:410 ../fsedit.c:415
+#: ../fsedit.c:1798 ../fsedit.c:1806 ../fsedit.c:2975 ../fsedit.c:2998
+#: ../hd.c:360 ../install.c:178 ../install.c:191 ../install2.c:314
+#: ../install2.c:507 ../install2.c:530 ../install2.c:710 ../install2.c:968
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:93 ../lilo.c:97
+#: ../lilo.c:446 ../lilo.c:556 ../mkswap.c:588 ../net.c:390 ../net.c:676
+#: ../net.c:1171 ../net.c:1418 ../pkgs.c:517 ../pkgs.c:670 ../pkgs.c:774
+#: ../pkgs.c:1099 ../pkgs.c:1377 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1208 ../printercfg.c:1255 ../printercfg.c:1345 ../scsi.c:55
+#: ../urlmethod.c:183
+msgid "Back"
+msgstr "Natrag"
+
+# ../cdrom.c:145
+#: ../cdrom.c:141
+msgid "Initializing CDROM..."
+msgstr "Inicijalizujem CDROM..."
+
+# ../devices.c:71 ../devices.c:77 ../devices.c:82 ../devices.c:93
+# ../devices.c:98 ../devices.c:104
+#: ../devices.c:80 ../devices.c:86 ../devices.c:91 ../devices.c:102
+#: ../devices.c:107 ../devices.c:113 ../devices.c:124
+msgid "Base IO port:"
+msgstr "Osnovni IO port:"
+
+# ../devices.c:72 ../devices.c:83
+#: ../devices.c:81 ../devices.c:92 ../devices.c:125
+msgid "IRQ level:"
+msgstr "IRQ nivo:"
+
+# ../devices.c:88
+#: ../devices.c:97
+msgid "IO base, IRQ:"
+msgstr "IO baza, IRQ:"
+
+# ../devices.c:103
+#: ../devices.c:112
+msgid "Use other options"
+msgstr "Koristi druge opcije"
+
+# ../devices.c:105
+#: ../devices.c:114
+msgid "Interrupt level (IRQ):"
+msgstr "Nivo prekida (IRQ):"
+
+# ../devices.c:110
+#: ../devices.c:119
+msgid "IO base, IRQ, label:"
+msgstr "IO baza, IRQ, oznaka:"
+
+# ../devices.c:335
+#: ../devices.c:435
+msgid "Autoprobe"
+msgstr "Automatska proba"
+
+# ../devices.c:335
+#: ../devices.c:435
+msgid "Specify options"
+msgstr "Navedite opcije"
+
+# ../devices.c:422 ../devices.c:593 ../devices.c:607 ../devices.c:1298
+# ../doit.c:102 ../doit.c:157 ../doit.c:238 ../doit.c:266
+# ../earlymethods.c:395 ../earlymethods.c:403 ../earlymethods.c:534
+# ../earlymethods.c:539 ../fs.c:509 ../fsedit.c:1937 ../install.c:264
+# ../install.c:387 ../install.c:391 ../install.c:401 ../install.c:419
+# ../install2.c:509 ../install2.c:959 ../kickstart.c:235 ../kickstart.c:243
+# ../latemethods.c:266 ../latemethods.c:274 ../latemethods.c:353
+# ../latemethods.c:439 ../latemethods.c:854 ../net.c:632 ../net.c:706
+# ../net.c:908 ../pkgs.c:206 ../pkgs.c:241 ../pkgs.c:875 ../windows.c:18
+#: ../devices.c:575 ../devices.c:814 ../devices.c:828 ../devices.c:1623
+#: ../doit.c:133 ../doit.c:179 ../doit.c:658 ../earlymethods.c:428
+#: ../earlymethods.c:438 ../earlymethods.c:558 ../earlymethods.c:563
+#: ../earlymethods.c:1016 ../earlymethods.c:1028 ../earlymethods.c:1051
+#: ../earlymethods.c:1321 ../earlymethods.c:1333 ../fs.c:521 ../fs.c:543
+#: ../fsedit.c:2043 ../install.c:303 ../install.c:481 ../install.c:485
+#: ../install.c:495 ../install.c:513 ../install2.c:548 ../install2.c:598
+#: ../install2.c:1098 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37
+#: ../kernel.c:49 ../kickstart.c:246 ../kickstart.c:254 ../latemethods.c:232
+#: ../latemethods.c:349 ../latemethods.c:494 ../net.c:641 ../net.c:715
+#: ../net.c:919 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:874 ../urlmethod.c:137
+#: ../urlmethod.c:256 ../urlmethod.c:261 ../windows.c:18
+msgid "Error"
+msgstr "Gre¹ka"
+
+# ../devices.c:423
+#: ../devices.c:576
+#, c-format
+msgid "mknod() failed: %s"
+msgstr "mknod() nije uspeo: %s"
+
+# ../devices.c:459
+#: ../devices.c:612
+msgid "Load module"
+msgstr "Uèitaj modul"
+
+# ../devices.c:459
+#: ../devices.c:612
+msgid "Which driver should I try?"
+msgstr "Koji drajver da probam?"
+
+# ../devices.c:549
+#: ../devices.c:761
+msgid "Probe"
+msgstr "Proba"
+
+# ../devices.c:550
+#: ../devices.c:762
+#, c-format
+msgid "A %s card has been found on your system."
+msgstr "Prona¹ao sam %s karticu."
+
+# ../devices.c:581
+#: ../devices.c:800
+msgid "device command"
+msgstr "komanda za ureðaj"
+
+# ../devices.c:582
+#: ../devices.c:801
+#, c-format
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "lo¹ argument mre¾ne komande za brz poèetak %s: %s"
+
+# ../devices.c:594
+#: ../devices.c:815
+msgid "bad arguments to kickstart device command"
+msgstr "lo¹i argumenti komande ureðaju za brz poèetak"
+
+# ../devices.c:608
+#: ../devices.c:829
+#, c-format
+msgid "No module exists for %s"
+msgstr "Ne postoji modul za %s"
+
+# ../devices.c:635
+#: ../devices.c:856
+msgid "I can't find the device anywhere on your system!"
+msgstr "Ne mogu nigde da pronaðem ureðaj na va¹em sistemu!"
+
+# ../devices.c:855
+#: ../devices.c:1120
+#, c-format
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"U nekim sluèajevima, drajver %s zahteva dodatne informacije za pravilan rad, "
+"mada mo¾e lepo da radi i bez njih. Da li hoæete sami da unesete dodatne "
+"podatke za njega, ili da ih drajver sam odredi? Moguæe je da æe proba "
+"zaglaviti va¹ raèunar, ali neæe naneti nikakvu ¹tetu."
+
+# ../devices.c:864
+#: ../devices.c:1129
+#, c-format
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"U mnogim sluèajevima drajver %s zahteva dodatne informacije o va¹em "
+"hardveru. Ako ¾elite, neke uobièajene vrednosti ovih parametara æe biti "
+"isprobane. Ovo mo¾e zaglaviti raèunar, mada neæe naneti nikakvu ¹tetu."
+
+# ../devices.c:872
+#: ../devices.c:1137
+msgid "Module Options"
+msgstr "Opcije modula"
+
+# ../devices.c:912
+#: ../devices.c:1177
+msgid "Miscellaneous options:"
+msgstr "Razne opcije:"
+
+# ../devices.c:914 ../devices.c:923
+#: ../devices.c:1179 ../devices.c:1188
+msgid "Module options:"
+msgstr "Opcije modula:"
+
+# ../devices.c:923
+#: ../devices.c:1188
+msgid "Module Parameters"
+msgstr "Parametri modula"
+
+# ../devices.c:1299
+#: ../devices.c:1624
+#, c-format
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Ne mogu da otvorim /proc/filesystems: %d"
+
+# ../doit.c:103
+#: ../doit.c:134
+#, c-format
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr ""
+"Nisam mogao da otvorim %s, pa ne mogu da saèuvam bele¹ke o a¾uriranju "
+"sistema."
+
+# ../doit.c:125
+#: ../doit.c:149
+msgid "Fatal error opening RPM database"
+msgstr "Kobna gre¹ka kod otvaranja RPM baze"
+
+# ../doit.c:158
+#: ../doit.c:180
+#, c-format
+msgid "Error ordering package list: %s"
+msgstr "Gre¹ka u listi paketa: %s"
+
+#: ../doit.c:216
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+
+# ../fsedit.c:854
+#: ../doit.c:226
+#, fuzzy
+msgid "Mount Point"
+msgstr "Nema taèke montiranja"
+
+#: ../doit.c:227
+msgid "Space Needed"
+msgstr ""
+
+# ../fsedit.c:2695
+#: ../doit.c:251 ../fsedit.c:2812
+msgid "Disk Space"
+msgstr "Prostor na disku"
+
+# ../doit.c:221
+#: ../doit.c:251
+#, fuzzy
+msgid "Install anyway"
+msgstr "Instaliram"
+
+# ../doit.c:125
+#: ../doit.c:321
+#, fuzzy
+msgid "Fatal error reopening RPM database"
+msgstr "Kobna gre¹ka kod otvaranja RPM baze"
+
+# ../doit.c:381
+#: ../doit.c:421
+msgid "Install Status"
+msgstr "Status instalacije"
+
+# ../doit.c:443
+#: ../doit.c:486
+msgid "(no summary)"
+msgstr "(nema zbirne informacije)"
+
+# ../install2.c:940
+#: ../doit.c:562
+#, fuzzy
+msgid "Examining packages to install..."
+msgstr "Pronalazim pakete za a¾uriranje..."
+
+#: ../doit.c:563
+msgid "Examining files to install..."
+msgstr ""
+
+# ../install2.c:170 ../install2.c:200
+#: ../doit.c:564
+#, fuzzy
+msgid "Finding overlapping files..."
+msgstr "Naði instalacione fajlove"
+
+#: ../doit.c:576
+msgid "Processing"
+msgstr ""
+
+# ../install2.c:396
+#: ../doit.c:584
+#, fuzzy
+msgid "Removing old files..."
+msgstr "Pregledam pakete..."
+
+# ../doit.c:221
+#: ../doit.c:634
+msgid "Upgrading"
+msgstr "A¾uriram"
+
+# ../doit.c:221
+#: ../doit.c:634
+msgid "Installing"
+msgstr "Instaliram"
+
+# ../doit.c:239
+#: ../doit.c:659
+#, c-format
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Gre¹ka kod instalacije paketa: ne mogu da otvorim RPM fajl za %s: %s"
+
+# ../earlymethods.c:207
+#: ../earlymethods.c:175
+msgid "What type of media contains the packages to be installed?"
+msgstr "Na kakvom mediju se nalaze paketi koje treba instalirati?"
+
+# ../earlymethods.c:607 ../earlymethods.c:631
+#: ../earlymethods.c:202
+#, fuzzy
+msgid "Force supplemental disk"
+msgstr "Dodatni disk"
+
+# ../earlymethods.c:232
+#: ../earlymethods.c:208
+msgid "Installation Method"
+msgstr "Naèin instalacije"
+
+# ../earlymethods.c:307
+#: ../earlymethods.c:294
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Molim unesite sledeæe podatke:¾n\n"
+"    o ime ili IP broj va¹eg NFS servera\n"
+"    o direktorijum na tom serveru u kojem se nalazi\n"
+"      Red Hat Linux za va¹ tip raèunara"
+
+# ../earlymethods.c:319
+#: ../earlymethods.c:306
+msgid "NFS server name:"
+msgstr "Ime NFS servera:"
+
+# ../earlymethods.c:322 ../latemethods.c:504
+#: ../earlymethods.c:309 ../urlmethod.c:219
+msgid "Red Hat directory:"
+msgstr "Direktorijum sa Red Hatom"
+
+# ../earlymethods.c:346
+#: ../earlymethods.c:333
+msgid "NFS Setup"
+msgstr "NFS pode¹avanje"
+
+# ../earlymethods.c:379
+#: ../earlymethods.c:412
+msgid "Note"
+msgstr "Napomena"
+
+# ../earlymethods.c:380
+#: ../earlymethods.c:413
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Ubacite va¹ Red Hat CD u CD ureðaj"
+
+# ../earlymethods.c:396
+#: ../earlymethods.c:429
+#, c-format
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Nisam mogao da montiram CD na ureðaju /dev/%s"
+
+# ../earlymethods.c:404
+#: ../earlymethods.c:439
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Èini mi se da u tom CDROM ureðaju nema Red Hat CDROM-a."
+
+# ../earlymethods.c:478 ../earlymethods.c:485
+#: ../earlymethods.c:502 ../earlymethods.c:509
+msgid "nfs command"
+msgstr "nfs komanda"
+
+# ../earlymethods.c:479
+#: ../earlymethods.c:503
+#, c-format
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "lo¹ argument nfs komande za brzi poèetak %s: %s"
+
+# ../earlymethods.c:486
+#: ../earlymethods.c:510
+msgid "nfs command incomplete"
+msgstr "nfs komanda nije potpuna"
+
+# ../earlymethods.c:535
+#: ../earlymethods.c:559
+msgid "I could not mount that directory from the server"
+msgstr "Nisam mogao da montiram taj direktorijum na serveru"
+
+# ../earlymethods.c:540 ../latemethods.c:855
+#: ../earlymethods.c:564 ../earlymethods.c:1322 ../latemethods.c:495
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Èini mi se da taj direktorijum ne sadr¾i Red Hat instalaciono stablo."
+
+# ../earlymethods.c:607 ../earlymethods.c:631
+#: ../earlymethods.c:677
+#, fuzzy
+msgid "Loading second stage ramdisk..."
+msgstr "Dodatni disk"
+
+#: ../earlymethods.c:716
+msgid "PCMCIA Disk"
+msgstr ""
+
+# ../earlymethods.c:631 ../fs.c:220 ../fsedit.c:818 ../fsedit.c:1893
+# ../fsedit.c:2684 ../latemethods.c:194 ../latemethods.c:589
+# ../latemethods.c:900 ../lilo.c:139 ../mtab.c:91 ../pkgs.c:374
+#: ../earlymethods.c:716 ../earlymethods.c:766 ../earlymethods.c:802
+#: ../earlymethods.c:943 ../fs.c:225 ../fsedit.c:877 ../fsedit.c:1999
+#: ../fsedit.c:2798 ../lilo.c:141 ../mtab.c:91 ../smb.c:70 ../urlmethod.c:377
+msgid "Cancel"
+msgstr "Obustavi"
+
+# ../earlymethods.c:632
+#: ../earlymethods.c:717
+#, fuzzy
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Nisam mogao da montiram flopi-disk. Molim ubacite Red Hat dodatni "
+"instalacioni disk, ili pritisnite 'Obustavi' da izaberete drugaèiji naèin "
+"instalacije."
+
+# ../install.c:165
+#: ../earlymethods.c:724
+#, fuzzy
+msgid "Loading PCMCIA Support"
+msgstr "Uèitavam PCMCIA podr¹ku..."
+
+# ../earlymethods.c:607 ../earlymethods.c:631
+#: ../earlymethods.c:766 ../earlymethods.c:841
+msgid "Supplemental Disk"
+msgstr "Dodatni disk"
+
+# ../earlymethods.c:632
+#: ../earlymethods.c:767
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Nisam mogao da montiram flopi-disk. Molim ubacite Red Hat dodatni "
+"instalacioni disk, ili pritisnite 'Obustavi' da izaberete drugaèiji naèin "
+"instalacije."
+
+# ../earlymethods.c:607 ../earlymethods.c:631
+#: ../earlymethods.c:774
+#, fuzzy
+msgid "Loading Supplemental Disk..."
+msgstr "Dodatni disk"
+
+# ../fsedit.c:1724
+#: ../earlymethods.c:789 ../earlymethods.c:802
+#, fuzzy
+msgid "Driver Disk"
+msgstr "Zbirno o drajvovima"
+
+# ../earlymethods.c:608
+#: ../earlymethods.c:790
+#, fuzzy
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Ovaj metod instalacije zahteva drugi disk. Molim uklonite disk koji je "
+"trenutno u drajvu i zamenite ga dodatnim Red Hat instalacionim diskom."
+
+# ../earlymethods.c:632
+#: ../earlymethods.c:803
+#, fuzzy
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Nisam mogao da montiram flopi-disk. Molim ubacite Red Hat dodatni "
+"instalacioni disk, ili pritisnite 'Obustavi' da izaberete drugaèiji naèin "
+"instalacije."
+
+# ../earlymethods.c:607 ../earlymethods.c:631
+#: ../earlymethods.c:810
+#, fuzzy
+msgid "Loading Driver Disk..."
+msgstr "Dodatni disk"
+
+# ../earlymethods.c:608
+#: ../earlymethods.c:842
+#, fuzzy
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Ovaj metod instalacije zahteva drugi disk. Molim uklonite disk koji je "
+"trenutno u drajvu i zamenite ga dodatnim Red Hat instalacionim diskom."
+
+# ../earlymethods.c:478 ../earlymethods.c:485
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#, fuzzy
+msgid "hd command"
+msgstr "nfs komanda"
+
+# ../earlymethods.c:479
+#: ../earlymethods.c:903
+#, fuzzy, c-format
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "lo¹ argument nfs komande za brzi poèetak %s: %s"
+
+# ../earlymethods.c:486
+#: ../earlymethods.c:910
+#, fuzzy
+msgid "hd command incomplete"
+msgstr "nfs komanda nije potpuna"
+
+#: ../earlymethods.c:923
+#, c-format
+msgid "HD device %s not found"
+msgstr ""
+
+# ../latemethods.c:183
+#: ../earlymethods.c:932
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Na kojoj particiji i u kom direktorijumu se nalaze RedHat/RPMS i RedHat/base "
+"direktorijumi?"
+
+# ../latemethods.c:202
+#: ../earlymethods.c:951
+msgid "Directory holding Red Hat:"
+msgstr "Direktorijum sa Red Hatom:"
+
+# ../latemethods.c:219
+#: ../earlymethods.c:968
+msgid "Select Partition"
+msgstr "Izaberite particiju"
+
+# ../latemethods.c:267
+#: ../earlymethods.c:1017
+#, c-format
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Neuspelo kreiranje /tmp/rhimage simbolièke veze: %s"
+
+# ../latemethods.c:275
+#: ../earlymethods.c:1029
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Èini mi se da ureðaj %s ne sadr¾i Red Hatovo instalaciono stablo."
+
+# ../lilo.c:35
+#: ../earlymethods.c:1052 ../earlymethods.c:1334
+#, fuzzy
+msgid "Error reading second stage ramdisk. "
+msgstr "Pravim inicijalni ramdisk..."
+
+# ../hints.c:31
+#: ../earlymethods.c:1133 ../earlymethods.c:1140
+#, fuzzy
+msgid "url command"
+msgstr "lilo komanda"
+
+# ../hints.c:32
+#: ../earlymethods.c:1134
+#, fuzzy, c-format
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "lo¹ argument liko komande za brzi poèetak %s: %s"
+
+# ../earlymethods.c:486
+#: ../earlymethods.c:1141
+#, fuzzy
+msgid "url command incomplete"
+msgstr "nfs komanda nije potpuna"
+
+#: ../earlymethods.c:1207
+#, c-format
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr ""
+
+# ../fs.c:112 ../fs.c:118 ../fs.c:126 ../fs.c:141 ../fs.c:149 ../fsedit.c:215
+# ../fsedit.c:222 ../fsedit.c:229 ../fsedit.c:238 ../fsedit.c:250
+# ../fsedit.c:260
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fsedit.c:233
+#: ../fsedit.c:240 ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268
+#: ../fsedit.c:278
+msgid "Bad Mount Point"
+msgstr "Lo¹a taèka montiranja"
+
+# ../fs.c:113
+#: ../fs.c:116
+msgid "Mount points must begin with a leading /."
+msgstr "Taèke montiranja moraju da poèinju vodeæim /."
+
+# ../fs.c:119
+#: ../fs.c:122
+msgid "Mount points may not end with a /."
+msgstr "Taèke montiranja ne smeju da se zavr¹avaju sa /."
+
+# ../fs.c:127
+#: ../fs.c:130
+msgid "Mount points may only printable characters."
+msgstr "Taèke montiranja moraju da sadr¾e samo znake koji se mogu od¹tampati."
+
+# ../fs.c:142
+#: ../fs.c:145
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Sistemske particije moraju da budu na 'Linux Native' particijama."
+
+# ../fs.c:150
+#: ../fs.c:153
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr "/usr mora biti na 'Linux native' ili na NSF particiji."
+
+# ../fs.c:193
+#: ../fs.c:198
+msgid "Edit Network Mount Point"
+msgstr "Ureðivanje mre¾ne taèke montiranja"
+
+# ../fs.c:314
+#: ../fs.c:332
+#, c-format
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Pravim ext2 fajl-sistem na /dev/%s..."
+
+# ../fs.c:315 ../lilo.c:275
+#: ../fs.c:333 ../lilo.c:327
+msgid "Running"
+msgstr "Izvr¹avam"
+
+# ../fs.c:349
+#: ../fs.c:367
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Koje particije biste hteli da formatirate? Toplo preporuèujemo da "
+"formatirate SVE sistemske particije, ukljuèujuæi /, /usr i /var. Nema "
+"potrebe da formatirate /home ili /usr/local ako su bile pode¹ene u "
+"prethodnoj instalaciji."
+
+# ../fs.c:389 ../mkswap.c:407
+#: ../fs.c:407 ../mkswap.c:585
+msgid "Check for bad blocks during format"
+msgstr "Provera lo¹ih blokova tokom formatiranja"
+
+# ../fs.c:398
+#: ../fs.c:416
+msgid "Partitions To Format"
+msgstr "Particije za formatiranje"
+
+# ../fs.c:510
+#: ../fs.c:522
+#, fuzzy, c-format
+msgid "nfs mount failed: %s"
+msgstr "montiranje nije uspeo: %s"
+
+# ../fs.c:510
+#: ../fs.c:544
+#, c-format
+msgid "mount failed: %s"
+msgstr "montiranje nije uspeo: %s"
+
+# ../fsedit.c:216
+#: ../fsedit.c:234
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr "Direktorijum %s mora biti na 'root' fajl-sistemu."
+
+# ../fsedit.c:223
+#: ../fsedit.c:241
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+"Taèka montiranja %s nije dobra.\n"
+"\n"
+"Sve taèke za montiranje moraju poèeti znakom /."
+
+# ../fsedit.c:230
+#: ../fsedit.c:248
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+"Taèka montiranja %s nije dobra.\n"
+"\n"
+"Taèke montiranja ne smeju da se zavr¹avaju sa /."
+
+# ../fsedit.c:239
+#: ../fsedit.c:257
+#, fuzzy, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+"Taèka montiranja %s nije dobra.\n"
+"\n"
+"Taèke montiranja smeju da imaju samo znake koji se mogu od¹tampati."
+
+# ../fsedit.c:251
+#: ../fsedit.c:269
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+"Taèka montiranja %s nije dobra.\n"
+"\n"
+"Sistemske particije moraju biti na 'Linux Native' particijama."
+
+# ../fsedit.c:261
+#: ../fsedit.c:279
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Taèka montiranja %s nije dobra.\n"
+"\n"
+"/usr mora biti na 'Linux Native' particiji ili na NSF volumenu."
+
+# ../fsedit.c:301
+#: ../fsedit.c:319
+#, c-format
+msgid "System error %d"
+msgstr "Sistemska gre¹ka %d"
+
+# ../fsedit.c:310 ../fsedit.c:312
+#: ../fsedit.c:328 ../fsedit.c:330
+msgid "Fdisk Error"
+msgstr "Fdisk gre¹ka"
+
+# ../fsedit.c:329 ../fsedit.c:1874
+#. build list of why they all failed
+#: ../fsedit.c:347 ../fsedit.c:1980
+msgid "Unallocated Partitions"
+msgstr "Nealocirane particije"
+
+# ../fsedit.c:333
+#: ../fsedit.c:351
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"Postoje neke nealocirane particije na listi tra¾enih particija. Nealocirane "
+"particije su prikazane dole, zajedno sa razlogom zbog koga nisu alocirane."
+
+# ../fsedit.c:391
+#: ../fsedit.c:410
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+"Za vreme èitanja bloènog ureðaja %s pronaðen je disk sa o¹teæenom 'Sun' "
+"oznakom diska.  Morate koristiti 'fdisk' da biste zapisali novu oznaku na "
+"ovaj ureðaj."
+
+# ../fsedit.c:395
+#: ../fsedit.c:414
+#, fuzzy
+msgid "Corrupt Sun disklabel"
+msgstr "Lo¹a 'Sun' oznaka diska"
+
+# ../fsedit.c:439 ../fsedit.c:467
+#: ../fsedit.c:415 ../fsedit.c:472 ../fsedit.c:500
+msgid "Skip Drive"
+msgstr "Preskoèi drajv"
+
+# ../fsedit.c:400 ../fsedit.c:463
+#: ../fsedit.c:424 ../fsedit.c:496
+#, fuzzy, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr "Gre¹ka kod èitanja tabele particija za bloèni ureðaj %s. Gre¹ka je:"
+
+# ../fsedit.c:427 ../fsedit.c:438
+#: ../fsedit.c:460 ../fsedit.c:471
+msgid "Bad Partition Table"
+msgstr "Lo¹a tabela particija"
+
+# ../fsedit.c:429
+#: ../fsedit.c:462
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Tabela particija na ureðaju %s je o¹teæena. Da biste kreirali novu particiju "
+"ona mora najpre biti inicijalizovana. Mo¾ete navesti \"zerombr yes\" u fajlu "
+"za brzi poèetak da se ovo automatski izvr¹i"
+
+# ../fsedit.c:439
+#: ../fsedit.c:472
+msgid "Initialize"
+msgstr "Inicijalizuj"
+
+# ../fsedit.c:440
+#: ../fsedit.c:473
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"Tabela particija na ureðaju %s je o¹teæena. Da biste kreirali novu particiju "
+"ona mora biti inicijalizovana, ¹to æe prouzrokovati gubitak SVIH PODATAKA na "
+"ovom drajvu."
+
+# ../fsedit.c:467 ../install2.c:959 ../net.c:440
+#: ../fsedit.c:500 ../install2.c:1098 ../net.c:445
+msgid "Retry"
+msgstr "Ponovo"
+
+# ../fsedit.c:479
+#: ../fsedit.c:512
+#, fuzzy
+msgid "BSD Disklabel"
+msgstr "BSD oznaka diska"
+
+# ../fsedit.c:479
+#: ../fsedit.c:512
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"Pronaðen je disk sa BSD oznakom. Red Hat instalacija podr¾ava BSDoznake "
+"diska samo kod èitanja (read-only). Zato morate da koristiteprilagoðenu "
+"(custom) instalaciju i fdisk (umesto Disk-èarobnjaka) zaraèunare sa BSD "
+"oznakom diska."
+
+# ../fsedit.c:536
+#: ../fsedit.c:569
+msgid "Swap Partition"
+msgstr "Swap particija"
+
+# ../fsedit.c:640 ../fsedit.c:646 ../fsedit.c:650 ../fsedit.c:652
+#: ../fsedit.c:690 ../fsedit.c:696 ../fsedit.c:700 ../fsedit.c:702
+msgid "Edit Partition"
+msgstr "Uredi particiju"
+
+# ../fsedit.c:709
+#: ../fsedit.c:762
+msgid "Allocation Status:"
+msgstr "Status alokacije:"
+
+# ../fsedit.c:711
+#: ../fsedit.c:764
+msgid "Successful"
+msgstr "Uspe¹no"
+
+# ../fsedit.c:713
+#: ../fsedit.c:766
+msgid "Failed"
+msgstr "Neuspe¹no"
+
+# ../fsedit.c:718
+#: ../fsedit.c:771
+msgid "Failure Reason:"
+msgstr "Razlog neuspeha:"
+
+# ../fsedit.c:854
+#: ../fsedit.c:913
+msgid "No Mount Point"
+msgstr "Nema taèke montiranja"
+
+# ../fsedit.c:854 ../fsedit.c:1061 ../fsedit.c:1875 ../fsedit.c:1893
+# ../fsedit.c:1973 ../fsedit.c:2687 ../install.c:149 ../install2.c:1191
+# ../latemethods.c:788 ../lilo.c:91 ../net.c:1408 ../pkgs.c:1164
+# ../printercfg.c:1135 ../printercfg.c:1151 ../scsi.c:53
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "Yes"
+msgstr "Da"
+
+# ../fsedit.c:854 ../fsedit.c:1061 ../fsedit.c:1875 ../fsedit.c:1893
+# ../fsedit.c:1973 ../fsedit.c:2687 ../install.c:149 ../install2.c:1191
+# ../latemethods.c:788 ../lilo.c:91 ../net.c:1408 ../pkgs.c:1164
+# ../printercfg.c:1135 ../printercfg.c:1151 ../scsi.c:53
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "No"
+msgstr "Ne"
+
+# ../fsedit.c:855
+#: ../fsedit.c:914
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Niste izabrali taèku montiranja za ovu particiju. Da li ste sigurni da "
+"¾elite to da uradite?"
+
+# ../fsedit.c:895 ../fsedit.c:2478
+#: ../fsedit.c:954 ../fsedit.c:2584
+msgid "Mount Point Error"
+msgstr "Gre¹ka taèke montiranja"
+
+# ../fsedit.c:896
+#: ../fsedit.c:955
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Zahtevana taèka montiranja je lo¹a, ili se veæ koristi. Molim navedite "
+"ispravnu taèku montiranja."
+
+# ../fsedit.c:913
+#: ../fsedit.c:972
+msgid "Size Error"
+msgstr "Gre¹ka u velièini"
+
+# ../fsedit.c:914
+#: ../fsedit.c:973
+#, fuzzy
+msgid ""
+"The size requested is illegal. Make sure the size is greater than zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"Zahtevana velièina nije dobra. Proverite da li je velièina veæa od nule (0) "
+"i da je navedena u dekadnom formatu (osnova 10)."
+
+# ../fsedit.c:933
+#: ../fsedit.c:1008
+msgid "Swap Size Error"
+msgstr "Gre¹ka u velièini swap-a"
+
+# ../fsedit.c:934
+#: ../fsedit.c:1009
+#, fuzzy, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Napravili ste preveliku swap particiju. Maksimalna velièina swap particije "
+"je %d megabajta."
+
+# ../fsedit.c:1061
+#: ../fsedit.c:1136
+msgid "Delete Partition"
+msgstr "Uklanjanje particije"
+
+# ../fsedit.c:1062
+#: ../fsedit.c:1137
+#, fuzzy
+msgid "Are you sure you want to delete this partition?"
+msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
+
+# ../fsedit.c:1691
+#: ../fsedit.c:1783
+msgid "Current Disk Partitions"
+msgstr "Trenutne particije na disku"
+
+# ../fsedit.c:1705 ../fsedit.c:1713 ../hd.c:280 ../lilo.c:391 ../pkgs.c:1011
+#: ../fsedit.c:1797 ../fsedit.c:1805 ../fsedit.c:2974 ../hd.c:359
+#: ../lilo.c:445
+msgid "Edit"
+msgstr "Uredi"
+
+# ../fsedit.c:1705 ../fsedit.c:1713
+#: ../fsedit.c:1797 ../fsedit.c:1805
+msgid "Delete"
+msgstr "Obri¹i"
+
+# ../fsedit.c:1712
+#: ../fsedit.c:1804
+msgid "Add"
+msgstr "Dodaj"
+
+# ../fsedit.c:1724
+#: ../fsedit.c:1816
+msgid "Drive Summaries"
+msgstr "Zbirno o drajvovima"
+
+# ../fsedit.c:1838
+#: ../fsedit.c:1931
+msgid "No Root Partition"
+msgstr "Nema 'root' particije"
+
+# ../fsedit.c:1839
+#: ../fsedit.c:1932
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"Morate staviti root (/) particiju na neku 'Linux native' particiju (ext2) da "
+"biste nastavili instalaciju."
+
+# ../fsedit.c:1857
+#: ../fsedit.c:1950
+msgid "No Swap Partition"
+msgstr "Nema swap particije"
+
+# ../fsedit.c:1858
+#: ../fsedit.c:1951
+msgid "You must assign a swap partition for the install to proceed."
+msgstr "Morate dodeliti swap particiju da biste nastavili sa instalacijom."
+
+# ../fsedit.c:1876
+#: ../fsedit.c:1982
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+"Ostale su nealocirane particije. Ako sada prekinete one neæe biti zapisane "
+"na disk.\n"
+"\n"
+"Da li ste sigurni da ¾elite da izaðete?"
+
+# ../fsedit.c:1892
+#: ../fsedit.c:1998
+msgid "Save Changes"
+msgstr "Snimi promene"
+
+# ../fsedit.c:1894
+#: ../fsedit.c:2000
+msgid "Save changes to partition table(s)?"
+msgstr "Da li da snimim promene u tabele particija?"
+
+# ../fsedit.c:1938
+#: ../fsedit.c:2044
+msgid "You may only delete NFS mounts."
+msgstr "Mo¾ete da izbri¹ete samo NSF taèke montiranja."
+
+# ../fsedit.c:1972
+#: ../fsedit.c:2078
+msgid "Reset Partition Table"
+msgstr "Resetovanje tabele particija"
+
+# ../fsedit.c:1974
+#: ../fsedit.c:2080
+msgid "Reset partition table to original contents? "
+msgstr "Da li da vratim originalni sadr¾aj u tabelu particija?"
+
+# ../fsedit.c:2267 ../fsedit.c:2749
+#: ../fsedit.c:2373 ../fsedit.c:2856 ../fsedit.c:3079
+msgid "Too Many Drives"
+msgstr "Ima suvi¹e mnogo drajvova"
+
+# ../fsedit.c:2268 ../fsedit.c:2750
+#: ../fsedit.c:2374 ../fsedit.c:2857 ../fsedit.c:3080
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Imate vi¹e drajvova nego ¹to ovaj program podr¾ava. Molim koristite "
+"standardni fdisk program da podesite va¹e drajvove i molim vas da obavestite "
+"Red Hat Software da ste videli ovu poruku."
+
+# ../fsedit.c:2303
+#: ../fsedit.c:2409
+msgid "Zero Partition Table"
+msgstr "Nulta tabela particija"
+
+# ../fsedit.c:2304
+#: ../fsedit.c:2410
+#, c-format
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"lo¹ argument 'zerombr' komande brzog starta: %s.\n"
+"Mora biti 'on', '1' ili 'yes' da omoguæite, ili 'off' '0' ili 'no' da "
+"onemoguæite."
+
+# ../fsedit.c:2321 ../fsedit.c:2775
+#: ../fsedit.c:2427 ../fsedit.c:2883 ../fsedit.c:3105
+msgid "No Drives Found"
+msgstr "Nijedan drajv nije pronaðen"
+
+# ../fsedit.c:2322 ../fsedit.c:2776
+#: ../fsedit.c:2428 ../fsedit.c:2884 ../fsedit.c:3106
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"Dogodila se gre¹ka - nije naðen ispravan ureðaj na kojem bi bili krerani "
+"novi fajl-sistemi. Proverite va¹ hardver da vidite ¹ta je uzrok ovog "
+"problema."
+
+# ../fsedit.c:2350
+#: ../fsedit.c:2456
+msgid "Clear Partition Command"
+msgstr "Brisanje komande particionisanja"
+
+# ../fsedit.c:2351
+#: ../fsedit.c:2457
+#, c-format
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "lo¹ argument 'clearpart' komande brzog poèetka %s: %s"
+
+# ../fsedit.c:2389
+#: ../fsedit.c:2495
+msgid "Partition Command"
+msgstr "Komanda particionisanja"
+
+# ../fsedit.c:2390
+#: ../fsedit.c:2496
+#, c-format
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "lo¹ argument 'part' komande za brzi poèetak %s: %s"
+
+# ../fsedit.c:2419
+#: ../fsedit.c:2525
+msgid "Option Ignored"
+msgstr "Opcija ignorisana"
+
+# ../fsedit.c:2420
+#: ../fsedit.c:2526
+#, c-format
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Opcija --maxsize za particiju %s je ignorisana. Proverite da nije sluèajno "
+"veæa od opcije --size."
+
+# ../fsedit.c:2479
+#: ../fsedit.c:2585
+#, c-format
+msgid "The mount point %s is already in use."
+msgstr "Taèka montiranja %s se veæ koristi."
+
+# ../fsedit.c:2514
+#: ../fsedit.c:2620
+msgid "Failed Allocation"
+msgstr "Neuspela alokacija"
+
+# ../fsedit.c:2515
+#: ../fsedit.c:2621
+#, c-format
+msgid "The partition %s could not be allocated."
+msgstr "Nisam mogao da alociram particiju %s."
+
+# ../fsedit.c:2684 ../fsedit.c:2687
+#: ../fsedit.c:2798 ../fsedit.c:2804
+msgid "Warning"
+msgstr "Upozorenje"
+
+# ../fsedit.c:2688
+#: ../fsedit.c:2805
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr "Izgubiæete podatke! Da li ste sigurni da ¾elite ovo da uradite?"
+
+# ../fsedit.c:2696
+#: ../fsedit.c:2813
+msgid "There is not enough disk space for this type of installation."
+msgstr "Nemate dovoljno prostora na disku za ovaj tip instalacije."
+
+# ../install2.c:282
+#. Find out if the user wants to do this
+#: ../fsedit.c:2997 ../install2.c:313
+msgid "Disk Setup"
+msgstr "Pode¹avanje diska"
+
+#: ../fsedit.c:2999
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+
+# ../fsedit.c:1972
+#: ../fsedit.c:3020
+#, fuzzy
+msgid "Resize Partitions"
+msgstr "Resetovanje tabele particija"
+
+# ../fsedit.c:711
+#: ../ftp.c:651
+#, fuzzy
+msgid "Success"
+msgstr "Uspe¹no"
+
+# ../ftp.c:445
+#: ../ftp.c:654
+#, fuzzy
+msgid "Bad server response"
+msgstr "Lo¹ odgovor FTP servera"
+
+# ../ftp.c:448
+#: ../ftp.c:657
+#, fuzzy
+msgid "Server IO error"
+msgstr "FTP IO gre¹ka"
+
+# ../ftp.c:451
+#: ../ftp.c:660
+#, fuzzy
+msgid "Server timeout"
+msgstr "Tajmaut FTP servera"
+
+# ../ftp.c:454
+#: ../ftp.c:663
+#, fuzzy
+msgid "Unable to lookup server host address"
+msgstr "Ne mogu da razre¹im adresu FTP servera"
+
+# ../ftp.c:457
+#: ../ftp.c:666
+#, fuzzy
+msgid "Unable to lookup server host name"
+msgstr "Ne mogu da razre¹im ime hosta FTP servera"
+
+# ../ftp.c:460
+#: ../ftp.c:669
+#, fuzzy
+msgid "Failed to connect to server"
+msgstr "Neuspe¹no povezivanje sa FTP serverom"
+
+# ../ftp.c:463
+#: ../ftp.c:672
+#, fuzzy
+msgid "Failed to establish data connection to server"
+msgstr "Neuspe¹no uspostavljanje veze za prenos podataka sa FTP serverom"
+
+# ../ftp.c:466
+#: ../ftp.c:675
+msgid "IO error to local file"
+msgstr "Ulazno-izlazna gre¹ka kod lokalne datoteke"
+
+# ../ftp.c:469
+#: ../ftp.c:678
+msgid "Error setting remote server to passive mode"
+msgstr "Neuspelo prebacivanje udaljenog servera u pasivni re¾im"
+
+# ../ftp.c:472
+#: ../ftp.c:681
+msgid "File not found on server"
+msgstr "Datoteka nije pronaðena na serveru"
+
+#: ../ftp.c:684
+msgid "Abort in progress"
+msgstr ""
+
+# ../ftp.c:476
+#: ../ftp.c:688
+#, fuzzy
+msgid "Unknown or unexpected error"
+msgstr "Nepoznata ili neoèekivana FTP gre¹ka"
+
+# ../hd.c:38
+#: ../hd.c:42
+msgid "Whole disk"
+msgstr "Ceo disk"
+
+# ../hd.c:39 ../hd.c:52
+#: ../hd.c:43 ../hd.c:57
+msgid "Linux swap"
+msgstr "Linuks swap"
+
+# ../hd.c:40 ../hd.c:53
+#: ../hd.c:44 ../hd.c:58
+msgid "Linux native"
+msgstr "Linux 'native'"
+
+# ../hd.c:45
+#: ../hd.c:49
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bitni FAT"
+
+# ../hd.c:46
+#: ../hd.c:50
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bitni <32M"
+
+# ../hd.c:48
+#: ../hd.c:52
+#, fuzzy
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bitni >=32M"
+
+# ../hd.c:49
+#: ../hd.c:53
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+# ../hd.c:50 ../hd.c:51
+#: ../hd.c:54 ../hd.c:55 ../hd.c:56
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+# ../hd.c:137 ../hd.c:240
+#: ../hd.c:164 ../hd.c:310
+msgid "Hard Drives"
+msgstr "Tvrdi diskovi"
+
+# ../hd.c:137
+#: ../hd.c:164
+msgid "Scanning hard drives..."
+msgstr "Pregledam tvrde diskove..."
+
+# ../hd.c:241
+#: ../hd.c:311
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Nemate nijedan tvrdi disk! Mora da ste zaboravili da konfiguri¹ete SCSI "
+"kontroler."
+
+# ../hd.c:249
+#: ../hd.c:319
+#, fuzzy
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Da biste instalirali Red Hat Linuks, morate imati najmanje jednu particiju "
+"od 150 MB posveæenu Linuksu. Preporuèujemo da particija bude na jednom od "
+"prva dva tvrda diska da biste mogli da pokrenete Linuks sa LILOm."
+
+# ../hd.c:254
+#: ../hd.c:324
+#, fuzzy
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"Da biste instalirali Red Hat Linuks, morate imati najmanje jednu particiju "
+"od 150 MB odreðenu samo za Linuks."
+
+# ../hd.c:279
+#: ../hd.c:358
+msgid "Partition Disks"
+msgstr "Particionisanje diskova"
+
+# ../hd.c:280 ../install2.c:1470 ../pkgs.c:1011
+#: ../hd.c:359 ../install2.c:1649 ../pkgs.c:1099
+msgid "Done"
+msgstr "Uradjeno"
+
+#: ../hd.c:412
+msgid "Reboot Needed"
+msgstr ""
+
+#: ../hd.c:413
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+
+# ../hints.c:31
+#: ../hints.c:31
+msgid "lilo command"
+msgstr "lilo komanda"
+
+# ../hints.c:32
+#: ../hints.c:32
+#, c-format
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "lo¹ argument liko komande za brzi poèetak %s: %s"
+
+# ../install.c:76
+#: ../install.c:76
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com."
+msgstr ""
+"Red Hat Linux vam ¾eli dobrodo¹licu!\n"
+"\n"
+"Ovaj naèin instalacije je detaljno obja¹njen u Zvaniènom vodièu za Red Hat "
+"Linux instalaciju koji se mo¾e nabaviti kod Red Hat Software-a. Ako vam je "
+"priruènik na raspolaganju, trebalo bi da proèitate odeljak o instalaciji pre "
+"nego ¹to nastavite.\n"
+"Ako ste nabavili Zvanièni Red Hat Linux, registrujte va¹u kopiju na na¹em "
+"WWW sajtu, http://www.redhat.com."
+
+# ../install.c:149
+#: ../install.c:178
+msgid "PCMCIA Support"
+msgstr "Podr¹ka za PCMCIA"
+
+# ../install.c:150
+#: ../install.c:179
+#, fuzzy
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Da li treba da koristite PCMCIA ureðaje tokom instalacije? Odgovorite sa "
+"'ne' na ovo pitanje ako vam PCMCIA podr¹ka treba samo posle instalacije. "
+"Podr¹ka za PCMCIA vam nije potrebna ako instalirate Red Hat Linuks na laptop "
+"sa ugraðenim CDROM ureðajem."
+
+# ../install.c:149
+#: ../install.c:191
+#, fuzzy
+msgid "PCMCIA Support Disk"
+msgstr "Podr¹ka za PCMCIA"
+
+# ../earlymethods.c:608
+#: ../install.c:192
+#, fuzzy
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"Ovaj metod instalacije zahteva drugi disk. Molim uklonite disk koji je "
+"trenutno u drajvu i zamenite ga dodatnim Red Hat instalacionim diskom."
+
+# ../install.c:171
+#: ../install.c:202
+msgid "Starting PCMCIA services..."
+msgstr "Pokreæem PCMCIA servise..."
+
+# ../install.c:209 ../install2.c:1095
+#: ../install.c:246 ../install2.c:1234
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Otkucajte <exit> da biste se vratili u instalacioni program.\n"
+"\n"
+
+# ../install.c:229 ../kickstart.c:73 ../kickstart.c:83 ../kickstart.c:151
+# ../kickstart.c:159 ../pkgs.c:532 ../pkgs.c:544
+#: ../install.c:268 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../pkgs.c:458 ../pkgs.c:470
+msgid "Kickstart Error"
+msgstr "Gre¹ka brzog poèetka"
+
+# ../install.c:229
+#: ../install.c:268
+msgid "No kickstart configuration file server can be found."
+msgstr "Ne mogu da naðem fajl server za konfiguraciju za brzi poèetak."
+
+# ../install.c:265
+#: ../install.c:304
+#, c-format
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Nisam mogao da montiram put %s za brzi poèetak.\n"
+
+# ../install.c:378
+#: ../install.c:467
+msgid "Welcome to Red Hat Linux"
+msgstr "Dobrodo¹li u Red Hat Linux"
+
+#: ../install.c:469 ../install2.c:1571
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+
+# ../install.c:388
+#: ../install.c:482
+msgid "I could not mount the boot floppy."
+msgstr "Nisam mogao da montiram startnu disketu."
+
+# ../install.c:392
+#: ../install.c:486
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Ne mogu da naðem ks.cfg na startnoj disketi."
+
+# ../install.c:401
+#: ../install.c:495
+#, c-format
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Gre¹ka otvaranja fajlova za kopiju brzog poèetka: %s\n"
+
+# ../install.c:420
+#: ../install.c:514
+msgid "Error copying kickstart file from floppy."
+msgstr "Gre¹ka kopiranja fajla za brzi poèetak sa diskete."
+
+# ../install2.c:160 ../install2.c:196
+#: ../install2.c:177 ../install2.c:221
+msgid "Select installation path"
+msgstr "Izaberite instalacioni put"
+
+# ../install2.c:162
+#: ../install2.c:179
+msgid "Select installation class"
+msgstr "Izaberite instalacionu klasu"
+
+# ../install2.c:164 ../install2.c:198
+#: ../install2.c:181 ../install2.c:223
+msgid "Setup SCSI"
+msgstr "Podesi SCSI"
+
+# ../install2.c:166
+#: ../install2.c:183
+msgid "Setup filesystems"
+msgstr "Podesi fajl-sisteme"
+
+# ../install2.c:168
+#: ../install2.c:185
+msgid "Setup swap space"
+msgstr "Podesi swap prostor"
+
+# ../install2.c:170 ../install2.c:200
+#: ../install2.c:187 ../install2.c:227
+msgid "Find installation files"
+msgstr "Naði instalacione fajlove"
+
+# ../install2.c:172
+#: ../install2.c:189
+msgid "Choose partitions to format"
+msgstr "Izaberi particije za formatiranje"
+
+# ../install2.c:174
+#: ../install2.c:191
+msgid "Choose packages to install"
+msgstr "Izaberi pakete za instalaciju"
+
+# ../install2.c:176
+#: ../install2.c:193
+msgid "Install system"
+msgstr "Instaliraj sistem"
+
+# ../install2.c:180
+#: ../install2.c:195
+#, fuzzy
+msgid "Configure mouse"
+msgstr "Podesi vremensku zonu"
+
+# ../install2.c:178
+#: ../install2.c:197
+msgid "Configure networking"
+msgstr "Podesi mre¾u"
+
+# ../install2.c:180
+#: ../install2.c:199
+msgid "Configure timezone"
+msgstr "Podesi vremensku zonu"
+
+# ../install2.c:182
+#: ../install2.c:201
+msgid "Configure services"
+msgstr "Podesi servise"
+
+# ../install2.c:184
+#: ../install2.c:203
+msgid "Configure printer"
+msgstr "Podesi ¹tampaè"
+
+# ../install2.c:186
+#: ../install2.c:205
+msgid "Set root password"
+msgstr "Unesi root lozinku"
+
+# ../install2.c:180
+#: ../install2.c:207
+#, fuzzy
+msgid "Configure authentication"
+msgstr "Podesi vremensku zonu"
+
+# ../install2.c:188 ../install2.c:208
+#: ../install2.c:209 ../install2.c:233
+msgid "Create bootdisk"
+msgstr "Napravi startni disk"
+
+# ../install2.c:190 ../install2.c:210
+#: ../install2.c:211 ../install2.c:235
+msgid "Install bootloader"
+msgstr "Instaliraj starter"
+
+# ../net.c:397
+#: ../install2.c:213
+#, fuzzy
+msgid "Configure X"
+msgstr "Pode¹avanje TCP/IP"
+
+# ../install2.c:819
+#: ../install2.c:215 ../install2.c:237
+#, fuzzy
+msgid "Exit install"
+msgstr "Instalacija"
+
+# ../install2.c:202
+#: ../install2.c:225
+msgid "Find current installation"
+msgstr "Naði tekuæu instalaciju"
+
+# ../install2.c:204
+#: ../install2.c:229
+msgid "Choose packages to upgrade"
+msgstr "Izaberi pakete za a¾uriranje"
+
+# ../install2.c:206
+#: ../install2.c:231
+msgid "Upgrade system"
+msgstr "A¾uriraj sistem"
+
+# ../install2.c:282
+#: ../install2.c:313
+msgid "Disk Druid"
+msgstr "Disk-èarobnjak"
+
+# ../install2.c:282
+#: ../install2.c:313
+msgid "fdisk"
+msgstr "fdisk"
+
+# ../install2.c:284
+#: ../install2.c:315
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk-èarobnjak je alat za particionisanje i pode¹avanje taèaka montiranja. "
+"Napravljen je da bude lak¹i za kori¹æenje od Linuksovog tradicionalnog "
+"alata, fdiska, a i moæniji je. Meðutim, u nekim sluèajevima kori¹æenje "
+"fdiska mo¾e biti bolja odluka.\n"
+"\n"
+"Koji alat biste hteli da koristite?"
+
+# ../install2.c:396
+#: ../install2.c:449
+msgid "Scanning packages..."
+msgstr "Pregledam pakete..."
+
+# ../install2.c:450
+#: ../install2.c:507
+msgid "Install log"
+msgstr "Dnevnik instalacije"
+
+# ../install2.c:451
+#: ../install2.c:508
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"Potpun dnevnik instalacije naæi æete u datoteci /tmp/install.log po¹to "
+"resetujete sistem."
+
+# ../install2.c:472
+#: ../install2.c:530
+msgid "Upgrade log"
+msgstr "Dnevnik a¾uriranja"
+
+# ../install2.c:473
+#: ../install2.c:531
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"Potpun dnevnik a¾uriranja naæi æete u /tmp/upgrade.log kada se a¾uriranje "
+"zavr¹i. Molim proèitajte dnevnik posle resetovanja kako biste se uverili da "
+"je sve pravilno uraðeno."
+
+# ../latemethods.c:396 ../latemethods.c:399 ../latemethods.c:427
+# ../latemethods.c:430
+#: ../install2.c:538
+#, fuzzy
+msgid "Rebuilding"
+msgstr "Preuzimam"
+
+# ../install2.c:929
+#: ../install2.c:538
+#, fuzzy
+msgid "Rebuilding RPM database..."
+msgstr "Konverzija RPM baze podataka..."
+
+#: ../install2.c:548
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr ""
+
+# ../install2.c:572 ../install2.c:579 ../install2.c:585
+#: ../install2.c:662 ../install2.c:669 ../install2.c:675
+msgid "rootpw command"
+msgstr "rootpw komanda"
+
+# ../install2.c:573
+#: ../install2.c:663
+#, c-format
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "lo¹ argument rootpw komande za brzi start %s: %s"
+
+# ../install2.c:580
+#: ../install2.c:670
+msgid "Missing password"
+msgstr "Nedostaje lozinka"
+
+# ../install2.c:586
+#: ../install2.c:676
+msgid "Unexpected arguments"
+msgstr "Neoèekivani argumenti"
+
+# ../install2.c:597 ../latemethods.c:577 ../printercfg.c:1058
+#: ../install2.c:687 ../printercfg.c:1072 ../printercfg.c:1126
+#: ../urlmethod.c:353
+msgid "Password:"
+msgstr "Lozinka:"
+
+# ../install2.c:600
+#: ../install2.c:690
+msgid "Password (again):"
+msgstr "Lozinka (opet):"
+
+# ../install2.c:612
+#: ../install2.c:702
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Izaberite root lozinku. Morate je otkucati dvaput da biste utvrdili da nema "
+"gre¹aka u kucanju. Zapamtite da je root lozinka bitan deo sigurnosti sistema!"
+
+# ../install2.c:627
+#: ../install2.c:717
+msgid "Root Password"
+msgstr "Root lozinka"
+
+# ../install2.c:643 ../install2.c:653
+#: ../install2.c:733 ../install2.c:743
+msgid "Password Mismatch"
+msgstr "Nepodudarnost lozinki"
+
+# ../install2.c:644
+#: ../install2.c:734
+msgid "The passwords you entered were different. Please try again."
+msgstr "Lozinke koje ste uneli se razlikuju. Molim poku¹ajte opet."
+
+# ../install2.c:654
+#: ../install2.c:744
+msgid "The root password must be at least 6 characters long."
+msgstr "Root lozinka mora imati najmanje 6 znakova."
+
+# ../install2.c:819
+#: ../install2.c:934
+msgid "Installation Path"
+msgstr "Put instalacije"
+
+# ../install2.c:819
+#: ../install2.c:934
+msgid "Install"
+msgstr "Instalacija"
+
+# ../install2.c:819 ../install2.c:929
+#: ../install2.c:934 ../install2.c:1069
+msgid "Upgrade"
+msgstr "A¾uriranje"
+
+# ../install2.c:820
+#: ../install2.c:935
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Da li ¾elite da instalirate novi sistem ili da a¾urirate sistem koji veæ ima "
+"Red Hat Linuks 2.0 ili kasniji?"
+
+# ../install2.c:836
+#: ../install2.c:951
+msgid "Workstation"
+msgstr "Radna stanica"
+
+# ../install2.c:837
+#: ../install2.c:952
+msgid "Server"
+msgstr "Server"
+
+# ../install2.c:838
+#: ../install2.c:953
+msgid "Custom"
+msgstr "Izbor po ¾elji"
+
+# ../install2.c:850
+#: ../install2.c:965
+msgid "Installation Class"
+msgstr "Klasa instalacije"
+
+# ../install2.c:851
+#: ../install2.c:966
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Koju vrstu ma¹ine instalirate? Za maksimalnu fleksibilnost, odaberite "
+"\"Izbor po ¾elji\"."
+
+# ../install2.c:929
+#: ../install2.c:1069
+msgid "Converting RPM database..."
+msgstr "Konverzija RPM baze podataka..."
+
+# ../install2.c:940
+#: ../install2.c:1079
+msgid "Finding packages to upgrade..."
+msgstr "Pronalazim pakete za a¾uriranje..."
+
+# ../install2.c:959
+#: ../install2.c:1098
+msgid "Previous"
+msgstr "Prethodno"
+
+# ../install2.c:959
+#: ../install2.c:1098
+msgid "Menu"
+msgstr "Meni"
+
+# ../install2.c:960
+#: ../install2.c:1099
+#, c-format
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"Dogodila se gre¹ka tokom koraka \"%s\" instalacije.\n"
+"\n"
+"Mo¾ete da ponovite ovaj korak, da se vratite na prethodni korak instalacije, "
+"ili da vidite meni instalacionih koraka koji æe vam omoguæiti da se "
+"slobodnije kreæete u instalaciji. Ne preporuèuje se da koristite meni osim "
+"ako veæ dobro ne poznajete Red Hat Linuks. ©ta biste hteli da uradite?"
+
+# ../install2.c:993
+#: ../install2.c:1132
+msgid "  Continue with install"
+msgstr "  Nastavi instalaciju"
+
+# ../install2.c:1005
+#: ../install2.c:1144
+msgid "Installation Steps"
+msgstr "Koraci instalacije"
+
+# ../install2.c:1005
+#: ../install2.c:1144
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr "Koji korak biste izvr¹ili? Koraci koji uz sebe imaju * su veæ uraðeni."
+
+# ../install2.c:1044
+#: ../install2.c:1183
+msgid "Cancelled"
+msgstr "Obustavljeno"
+
+# ../install2.c:1045
+#: ../install2.c:1184
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Ne mogu da se vratim na prethodni korak. Moraæete opet da poku¹ate."
+
+# ../install2.c:1191 ../install2.c:1208 ../lilo.c:667
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:729
+msgid "Bootdisk"
+msgstr "Startni disk"
+
+# ../install2.c:1192
+#: ../install2.c:1331
+#, fuzzy
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+"Startni disk obezbeðuje naèin podizanja va¹eg Linuks sistema bez zavisnosti "
+"od normalnog startnog punjaèa. Ovo je korisno ako ne ¾elite da instalirate "
+"LILO na va¹ sistem, ako drugi operativni sistem ukloni LILO, ili LILO ne "
+"radi sa va¹im hardverom. Startni disk mo¾ete koristiti sa Red Hat 'diskom za "
+"spasavanje', ¹to olak¹ava oporavak u sluèaju te¾e havarije.\n"
+"\n"
+"Da li biste da kreirate startnu disketu za va¹ sistem?"
+
+# ../install2.c:1209
+#: ../install2.c:1348
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Ubacite praznu disketu u prvi disk-drajv /dev/fd0."
+
+# ../install2.c:1469
+#: ../install2.c:1648
+msgid "Complete"
+msgstr "Uraðeno"
+
+# ../install2.c:1471
+#: ../install2.c:1650
+#, fuzzy
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Èestitamo, instalacija je zavr¹ena.\n"
+"\n"
+"Izvadite disketu iz drajva i pritisnite <Enter> da se raèunar resetuje. Za "
+"informacije o popravkama koje su na raspolaganju za ovo izdanje Red Hat "
+"Linuksa, proèitajte deo 'Errata' koji mo¾ete naæi na http://www.redhat.com.\n"
+"\n"
+"Informacije o konfigurisanju va¹eg sistema mo¾ete naæi u post-instalacionom "
+"poglavlju zvaniènog Red Hat Linux 'Vodièa za korisnike'."
+
+# ../kbd.c:167
+#: ../kbd.c:248
+msgid "Keyboard Type"
+msgstr "Tip tastature"
+
+# ../kbd.c:168
+#: ../kbd.c:249
+msgid "What type of keyboard do you have?"
+msgstr "Koju vrstu tastature imate?"
+
+#: ../kernel.c:23
+#, c-format
+msgid "file %s missing from source directory"
+msgstr ""
+
+# ../net.c:908
+#: ../kernel.c:30
+#, fuzzy, c-format
+msgid "failed to create file %s"
+msgstr "Ne mogu da kreiram %s: %s\n"
+
+# ../kickstart.c:74
+#: ../kernel.c:38
+#, fuzzy, c-format
+msgid "error writing to file %s: %s"
+msgstr "Gre¹ka otvaranja: fajl brzog poèetka %s: %s"
+
+# ../pkgs.c:940
+#: ../kernel.c:50
+#, fuzzy, c-format
+msgid "error reading from file %s: %s"
+msgstr "gre¹ka kod otvaranja fajla zaglavlja: %s"
+
+#: ../kernel.c:68 ../kernel.c:73 ../kernel.c:78
+msgid "Kernel"
+msgstr ""
+
+#: ../kernel.c:69
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr ""
+
+# ../install.c:420
+#: ../kernel.c:73 ../kernel.c:78
+#, fuzzy
+msgid "Copying kernel from floppy..."
+msgstr "Gre¹ka kopiranja fajla za brzi poèetak sa diskete."
+
+# ../kickstart.c:74
+#: ../kickstart.c:85
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Gre¹ka otvaranja: fajl brzog poèetka %s: %s"
+
+# ../kickstart.c:84
+#: ../kickstart.c:95
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Gre¹ka èitanja sadr¾aja fajla za brzi poèetak %s: %s"
+
+# ../kickstart.c:152
+#: ../kickstart.c:163
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Gre¹ka u liniji %d fajla za brzi poèetak %s."
+
+# ../kickstart.c:160
+#: ../kickstart.c:171
+#, c-format
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Nepoznata komanda %s na liniji %d fajla za brzi poèetak %s."
+
+# ../kickstart.c:235
+#: ../kickstart.c:246
+#, c-format
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Neuspelo kreiranje /mnt/tmp/ks.script: %s"
+
+# ../kickstart.c:244
+#: ../kickstart.c:255
+#, c-format
+msgid "Failed to write ks post script: %s"
+msgstr "Neuspeo zapis ks post scripta: %s"
+
+# ../pkgs.c:1031
+#. loadFont("default8x16");
+#: ../lang.c:142
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Izaberite grupu da ispitate:"
+
+# ../pkgs.c:430
+#: ../lang.c:142
+#, fuzzy
+msgid "What language should be used during the installation process?"
+msgstr "Koje pakete treba instalirati?"
+
+# ../latemethods.c:354
+#: ../latemethods.c:233
+msgid "Failed to create symlink for package source."
+msgstr "Neuspelo kreiranje linka ka skladi¹tu paketa."
+
+# ../latemethods.c:687 ../latemethods.c:781 ../latemethods.c:788
+#: ../latemethods.c:427
+msgid "ftp"
+msgstr "ftp"
+
+# ../latemethods.c:789
+#: ../latemethods.c:428
+#, fuzzy, c-format
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Imam problema dok uzimam %s. Da nastavim da poku¹avam?"
+
+# ../lilo.c:35
+#: ../lilo.c:50
+#, fuzzy
+msgid "SILO"
+msgstr "LILO"
+
+# ../lilo.c:35
+#: ../lilo.c:52
+msgid "LILO"
+msgstr "LILO"
+
+# ../lilo.c:35
+#: ../lilo.c:54
+msgid "Creating initial ramdisk..."
+msgstr "Pravim inicijalni ramdisk..."
+
+# ../lilo.c:69
+#: ../lilo.c:87
+msgid "Master Boot Record"
+msgstr "Glavni startni zapis"
+
+# ../lilo.c:70
+#: ../lilo.c:88
+msgid "First sector of boot partition"
+msgstr "Prvi sektor startne particije"
+
+# ../lilo.c:72 ../lilo.c:516
+#: ../lilo.c:91 ../lilo.c:570
+msgid "Lilo Installation"
+msgstr "Lilo instalacija"
+
+# ../lilo.c:72
+#: ../lilo.c:91 ../lilo.c:95
+msgid "Where do you want to install the bootloader?"
+msgstr "Gde biste da instalirate starter?"
+
+# ../lilo.c:74
+#: ../lilo.c:93 ../lilo.c:97
+msgid "Skip"
+msgstr "Preskoèi"
+
+# ../lilo.c:91
+#: ../lilo.c:95
+msgid "SILO Installation"
+msgstr "SILO instalacija"
+
+# ../lilo.c:127
+#: ../lilo.c:129
+msgid "Device:"
+msgstr "Ureðaj:"
+
+# ../lilo.c:133
+#: ../lilo.c:135
+msgid "Boot label:"
+msgstr "Startna oznaka:"
+
+# ../lilo.c:138
+#: ../lilo.c:140
+msgid "Clear"
+msgstr "Oèisti"
+
+# ../lilo.c:148
+#: ../lilo.c:150
+msgid "Edit Boot Label"
+msgstr "Promena startne labele"
+
+# ../lilo.c:275
+#: ../lilo.c:327
+msgid "Installing boot loader..."
+msgstr "Instalacija startera..."
+
+# ../lilo.c:324
+#: ../lilo.c:379
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Startni menad¾er koji koristi Red Hat mo¾e da pokrene i druge operativne "
+"sisteme. Morate mi reæi koje particije biste da pokrenete i koje oznake da "
+"koristim za svaku od njih."
+
+# ../lilo.c:335
+#: ../lilo.c:390
+msgid "Device"
+msgstr "Ureðaj"
+
+# ../lilo.c:335
+#: ../lilo.c:390
+msgid "Partition type"
+msgstr "Tip particije"
+
+# ../lilo.c:336 ../printercfg.c:641 ../printercfg.c:712
+#: ../lilo.c:391 ../printercfg.c:651 ../printercfg.c:722
+msgid "Default"
+msgstr "Podrazumevano"
+
+# ../lilo.c:336
+#: ../lilo.c:391
+msgid "Boot label"
+msgstr "Startna oznaka"
+
+# ../lilo.c:409
+#: ../lilo.c:463
+msgid "Bootable Partitions"
+msgstr "Particije koje se mogu startovati"
+
+# ../lilo.c:485
+#: ../lilo.c:539
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Neki sistemi moraju da proslede specijalne opcije kernelu na poèetku da bi "
+"sistem ispravno radio. Ako su i vama potrebne neke od tih opcija, unesite ih "
+"sada. Ako vam nijedna nije potrebna ili niste sigurni ¹ta da otkucate, "
+"ostavite ovo polje prazno."
+
+# ../lilo.c:498
+#: ../lilo.c:552
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr "Koristi linearni re¾im (potreban nekim SCSI drajvovima)"
+
+# ../lilo.c:514
+#: ../lilo.c:568
+msgid "Silo Installation"
+msgstr "SILO instalacija"
+
+# ../lilo.c:667
+#: ../lilo.c:729
+msgid "Creating bootdisk..."
+msgstr "Kreiram startni disk..."
+
+# ../mkswap.c:93
+#: ../mkswap.c:222
+#, c-format
+msgid "Formatting swap space on device %s..."
+msgstr "Formatiram swap prostor na ureðaju %s..."
+
+# ../mkswap.c:105
+#: ../mkswap.c:233
+msgid "Formatting"
+msgstr "Formatiranje"
+
+# ../mkswap.c:339
+#: ../mkswap.c:517
+msgid "No Swap Space"
+msgstr "Nema swap prostora"
+
+# ../mkswap.c:339
+#: ../mkswap.c:517
+msgid "Repartition"
+msgstr "Podela particija"
+
+# ../mkswap.c:339
+#: ../mkswap.c:517
+msgid "Continue"
+msgstr "Nastavak"
+
+# ../mkswap.c:340
+#: ../mkswap.c:518
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Niste definisali nijedan prostor za swap. Da li biste nastavili, ili da "
+"promenite particije na disku?"
+
+# ../mkswap.c:357
+#: ../mkswap.c:535
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Koje particije biste koristili kao swap prostor? To æe uni¹titi sve podatke "
+"koji postoje na toj particiji."
+
+# ../mkswap.c:420
+#: ../mkswap.c:598
+msgid "Active Swap Space"
+msgstr "Aktivan swap prostor"
+
+# ../mtab.c:66
+#: ../mtab.c:66
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr "Nemate nijednu Linuks particiju. Ne mo¾ete a¾urirati ovaj sistem!"
+
+# ../mtab.c:78
+#: ../mtab.c:78
+msgid "Could not mount automatically selected device."
+msgstr "Automatsko montiranje izabranog ureðaja nije bilo moguæe."
+
+# ../mtab.c:85
+#: ../mtab.c:85
+msgid "What partition holds the root partition of your installation?"
+msgstr "Na kojoj particiji je 'root' particija va¹eg sistema?"
+
+# ../mtab.c:106
+#: ../mtab.c:106
+msgid "Root Partition"
+msgstr "'Root' particija"
+
+# ../mtab.c:147
+#: ../mtab.c:147
+#, c-format
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Ne mogu da proèitam /mnt/etc/fstab: %s"
+
+# ../mtab.c:170
+#: ../mtab.c:170
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Lo¹a linija u /mnt/etc/fstab -- prekidam rad"
+
+# ../net.c:86
+#: ../net.c:86
+msgid "Hostname"
+msgstr "Ime hosta"
+
+# ../net.c:86
+#: ../net.c:86
+msgid "Determining host name and domain..."
+msgstr "Odreðujem ime hosta i domen..."
+
+# ../net.c:304
+#. we can't go any further without a network device!
+#: ../net.c:309
+msgid "Ethernet Probe"
+msgstr "Proba Ethernet karte"
+
+# ../net.c:305
+#: ../net.c:310
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Pode¹avanje Ethernet kartice nije uspelo. Pritisnite <Enter> da sami "
+"podesite karticu."
+
+# ../net.c:345
+#: ../net.c:350
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Molim unesite IP konfiguraciju za ovu ma¹inu. Svaka stavka treba da bude "
+"uneta kao IP adresa (na primer, 123.45.67.89)."
+
+# ../net.c:351
+#: ../net.c:356
+msgid "IP address:"
+msgstr "IP adresa:"
+
+# ../net.c:354
+#: ../net.c:359
+msgid "Netmask:"
+msgstr "Mre¾na maska:"
+
+# ../net.c:357
+#: ../net.c:362
+msgid "Default gateway (IP):"
+msgstr "Podrazumevani gateway (IP):"
+
+# ../net.c:360
+#: ../net.c:365
+msgid "Primary nameserver:"
+msgstr "Primarni nameserver:"
+
+# ../net.c:397
+#: ../net.c:402
+msgid "Configure TCP/IP"
+msgstr "Pode¹avanje TCP/IP"
+
+# ../net.c:440
+#: ../net.c:445
+msgid "Missing Information"
+msgstr "Podaci koji nedostaju"
+
+# ../net.c:441
+#: ../net.c:446
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Morate uneti va¾eæu IP adresu, kao i mre¾nu masku."
+
+# ../net.c:507
+#: ../net.c:512
+msgid "Static IP address"
+msgstr "Statièka IP adresa"
+
+# ../net.c:508 ../net.c:700
+#: ../net.c:513 ../net.c:709
+msgid "BOOTP"
+msgstr "BOOTP"
+
+# ../net.c:509 ../net.c:696
+#: ../net.c:514 ../net.c:705
+msgid "DHCP"
+msgstr "DHCP"
+
+# ../net.c:601 ../net.c:611
+#: ../net.c:610 ../net.c:620
+msgid "kickstart"
+msgstr "brzi poèetak"
+
+# ../net.c:602
+#: ../net.c:611
+#, c-format
+msgid "bad ip number in network command: %s"
+msgstr "lo¹ IP broj u mre¾noj komandi: %s"
+
+# ../net.c:612
+#: ../net.c:621
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "lo¹ argument za brz poèetak mre¾ne komande %s: %s"
+
+# ../net.c:632
+#: ../net.c:641
+msgid "kickstart network command is missing ip address"
+msgstr "mre¾noj komandi za brzi poèetak nedostaje IP adresa"
+
+# ../net.c:663
+#: ../net.c:672
+msgid "Boot Protocol"
+msgstr "Startni protokol"
+
+# ../net.c:664
+#: ../net.c:673
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Kakva treba da je IP informacija? Ako vam je sistem-administrator dao "
+"nekakvu IP adresu, izaberite statièku IP."
+
+# ../net.c:696
+#: ../net.c:705
+msgid "Sending DHCP request..."
+msgstr "©aljem DHCP zahtev..."
+
+# ../net.c:700
+#: ../net.c:709
+msgid "Sending BOOTP request..."
+msgstr "©aljem BOOTP zahtev..."
+
+# ../net.c:908
+#: ../net.c:919
+#, c-format
+msgid "Cannot create %s: %s\n"
+msgstr "Ne mogu da kreiram %s: %s\n"
+
+# ../net.c:938
+#: ../net.c:949
+#, c-format
+msgid "cannot create network device config file: %s"
+msgstr "ne mogu da kreiram konfiguracioni fajl za mre¾ni ureðaj: %s"
+
+# ../net.c:986 ../net.c:1240
+#: ../net.c:995 ../net.c:1249
+#, c-format
+msgid "cannot open file: %s"
+msgstr "ne mogu da otvorim datoteku: %s"
+
+# ../net.c:1113
+#: ../net.c:1122
+msgid "Hostname Lookup"
+msgstr "Tra¾enje imena hosta"
+
+# ../net.c:1114
+#: ../net.c:1123
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Ne mogu automatski da odredim ime hosta. Pritisnite <Enter> da unesete ime "
+"hosta."
+
+# ../net.c:1121
+#: ../net.c:1130
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Molim unesite ime va¹eg domena, ime hosta, kao i IP adrese dodatnih "
+"'nameserver'-a. Ime va¹eg hosta treba da bude puno kvalifikovano ime hosta, "
+"kao na pr. mojkomp.mojatezga.mojduæan.com. Ako nemate dodatnih "
+"'nameserver'-a, ostavite ta polja prazna."
+
+# ../net.c:1131
+#: ../net.c:1140
+msgid "Domain name:"
+msgstr "Ime domena:"
+
+# ../net.c:1134
+#: ../net.c:1143
+msgid "Host name:"
+msgstr "Ime hosta:"
+
+# ../net.c:1137
+#: ../net.c:1146
+msgid "Secondary nameserver (IP):"
+msgstr "Sekundarni 'nameserver' (IP):"
+
+# ../net.c:1140
+#: ../net.c:1149
+msgid "Tertiary nameserver (IP):"
+msgstr "Tercijarni 'nameserver' (IP):"
+
+# ../net.c:1188
+#: ../net.c:1197
+msgid "Configure Network"
+msgstr "Pode¹avanje mre¾e"
+
+# ../net.c:1377
+#: ../net.c:1386
+msgid "Keep the current IP configuration"
+msgstr "Èuvaj tekuæe IP parametre"
+
+# ../net.c:1378
+#: ../net.c:1387
+msgid "Reconfigure network now"
+msgstr "Rekonfiguri¹i mre¾u"
+
+# ../net.c:1379
+#: ../net.c:1388
+msgid "Don't set up networking"
+msgstr "Nemoj name¹tati mre¾u"
+
+# ../net.c:1396 ../net.c:1408
+#: ../net.c:1405 ../net.c:1417
+msgid "Network Configuration"
+msgstr "Mre¾no pode¹avanje"
+
+# ../net.c:1397
+#: ../net.c:1406
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "LAN mre¾a je veæ pode¹ena. Da li ¾elite da:"
+
+# ../net.c:1409
+#: ../net.c:1418
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr ""
+"Da li ¾elite da podesite LAN (ne modemski pristup) mre¾u za va¹ sistem?"
+
+# ../pkgs.c:193
+#: ../pkgs.c:256
+#, c-format
+msgid "Cannot open components file: %s"
+msgstr "ne mogu da otvorim fajl komponenata: %s"
+
+# ../pkgs.c:200
+#: ../pkgs.c:263
+#, c-format
+msgid "Cannot read components file: %s"
+msgstr "Ne mogu da èitam fajl komponenata: %s"
+
+# ../pkgs.c:207
+#: ../pkgs.c:270
+msgid "Comps file is not version 0.1 as expected"
+msgstr "Fajl komponenata nije verzija 0.1 kao ¹to treba"
+
+# ../pkgs.c:242
+#: ../pkgs.c:305
+#, c-format
+msgid "bad comps file at line %d"
+msgstr "lo¹ fajl komponenata na liniji %d"
+
+# ../pkgs.c:266 ../pkgs.c:291
+#: ../pkgs.c:329 ../pkgs.c:355
+msgid "comps Error"
+msgstr "Gre¹ka comps"
+
+# ../pkgs.c:267
+#: ../pkgs.c:330
+#, c-format
+msgid "missing component name at line %d"
+msgstr "Nedostaje ime komponente na liniji %d"
+
+#: ../pkgs.c:356
+msgid "Ignore all"
+msgstr ""
+
+# ../pkgs.c:292
+#: ../pkgs.c:357
+#, c-format
+msgid "package %s at line %d does not exist"
+msgstr "paket %s na liniji %d ne postoji"
+
+# ../pkgs.c:533
+#: ../pkgs.c:459
+#, c-format
+msgid "Component %s does not exist.\n"
+msgstr "Komponenta %s ne postoji.\n"
+
+# ../pkgs.c:545
+#: ../pkgs.c:471
+#, c-format
+msgid "Package %s does not exist.\n"
+msgstr "Paket %s ne postoji.\n"
+
+#: ../pkgs.c:517
+msgid "GNOME"
+msgstr ""
+
+#: ../pkgs.c:518
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+
+# ../pkgs.c:668
+#: ../pkgs.c:651
+msgid "no suggestion"
+msgstr "nemam ¹ta da ka¾em"
+
+# ../pkgs.c:678
+#: ../pkgs.c:661
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Neki paketi koje ste odabrali da instalirate zahtevaju pakete koje niste "
+"odabrali. Ako odaberete 'U redu' svi potrebni paketi æe biti instalirani."
+
+# ../pkgs.c:686
+#: ../pkgs.c:669
+msgid "Package"
+msgstr "Paket"
+
+# ../pkgs.c:686
+#: ../pkgs.c:669
+msgid "Requirement"
+msgstr "Potrebno"
+
+# ../pkgs.c:703
+#: ../pkgs.c:686
+msgid "Install packages to satisfy dependencies"
+msgstr "Instaliraj pakete da zadovolji¹ zavisnosti"
+
+# ../pkgs.c:712
+#: ../pkgs.c:695
+msgid "Unresolved Dependencies"
+msgstr "Nere¹ene zavisnosti"
+
+# ../pkgs.c:775
+#: ../pkgs.c:758
+msgid "Everything"
+msgstr "Sve"
+
+# ../pkgs.c:787
+#: ../pkgs.c:770
+msgid "Select individual packages"
+msgstr "Izbor pojedinih pakete"
+
+# ../pkgs.c:794
+#: ../pkgs.c:777
+msgid "Choose components to install:"
+msgstr "Izaberite komponente za instalaciju:"
+
+# ../pkgs.c:800
+#: ../pkgs.c:783
+msgid "Components to Install"
+msgstr "Komponente za instalaciju"
+
+# ../pkgs.c:940
+#: ../pkgs.c:940
+#, c-format
+msgid "error opening header file: %s"
+msgstr "gre¹ka kod otvaranja fajla zaglavlja: %s"
+
+# ../install2.c:176
+#: ../pkgs.c:1108
+#, fuzzy
+msgid "Installed system size:"
+msgstr "Instaliraj sistem"
+
+# ../pkgs.c:1031
+#: ../pkgs.c:1116
+#, fuzzy
+msgid "Choose a group to examine"
+msgstr "Izaberite grupu da ispitate:"
+
+#: ../pkgs.c:1119
+msgid "Press F1 for a package description"
+msgstr ""
+
+# ../pkgs.c:1050
+#: ../pkgs.c:1143
+msgid "Select Group"
+msgstr "Izbor grupe"
+
+# ../pkgs.c:1094
+#: ../pkgs.c:1307
+msgid "(none available)"
+msgstr "(ni¹ta na raspolaganju)"
+
+# ../pkgs.c:1101
+#: ../pkgs.c:1314
+msgid "Package:"
+msgstr "Paket:"
+
+# ../pkgs.c:1104
+#: ../pkgs.c:1317
+msgid "Size   :"
+msgstr "Velièina:"
+
+# ../pkgs.c:1164
+#: ../pkgs.c:1377
+msgid "Upgrade Packages"
+msgstr "A¾uriranje paketa"
+
+# ../pkgs.c:1165
+#: ../pkgs.c:1378
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"Instalirani paketi, kao i oni koji su potrebni da zadovolje meðuzavisnosti "
+"odabrani su za instalaciju. Da li biste da lièno podesite pakete koji æe "
+"biti a¾urirani?"
+
+# ../printercfg.c:459
+#: ../printercfg.c:469
+msgid "Printer Information"
+msgstr "Podaci o ¹tampaèu"
+
+# ../printercfg.c:479
+#: ../printercfg.c:489
+msgid "<F1> will give you information on a particular printer type"
+msgstr "<F1> æe vam prikazati informacije o specifiènom tipu ¹tampaèa"
+
+# ../printercfg.c:484
+#: ../printercfg.c:494
+msgid "What type of printer do you have?"
+msgstr "Koju vrstu ¹tampaèa imate?"
+
+# ../printercfg.c:517 ../printercfg.c:1135
+#: ../printercfg.c:527 ../printercfg.c:1207
+msgid "Configure Printer"
+msgstr "Pode¹avanje printera"
+
+# ../printercfg.c:586 ../printercfg.c:748
+#. we know that changes->db->NumBpp > 0
+#: ../printercfg.c:596 ../printercfg.c:758
+msgid "<F1> will give you information on this printer driver."
+msgstr "<F1> æe vam prikazati informacije o ovom drajveru za ¹tampaè."
+
+# ../printercfg.c:590
+#: ../printercfg.c:600
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr "Mo¾ete podesiti velièinu papira i rezoluciju ovog ¹tampaèa."
+
+# ../printercfg.c:599
+#: ../printercfg.c:609
+msgid "Paper Size"
+msgstr "Velièina papira"
+
+# ../printercfg.c:621
+#: ../printercfg.c:631
+msgid "Resolution"
+msgstr "Rezolucija"
+
+# ../printercfg.c:654
+#: ../printercfg.c:664
+msgid "Fix stair-stepping of text?"
+msgstr "Popravka 'efekta stepenica' u tekstu?"
+
+# ../printercfg.c:773
+#: ../printercfg.c:784
+msgid "You may now configure the color options for this printer."
+msgstr "Sad mo¾ete da podesite opcije boja za ovaj ¹tampaè."
+
+# ../printercfg.c:773
+#: ../printercfg.c:788
+#, fuzzy
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Sad mo¾ete da podesite opcije boja za ovaj ¹tampaè."
+
+# ../printercfg.c:785
+#: ../printercfg.c:801
+msgid "Configure Color Depth"
+msgstr "Pode¹avanje 'dubine boja'"
+
+# ../install2.c:184
+#: ../printercfg.c:803
+#, fuzzy
+msgid "Configure Uniprint Driver"
+msgstr "Podesi ¹tampaè"
+
+# ../printercfg.c:937
+#: ../printercfg.c:955
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr "Na koji port je va¹ ¹tampaè povezan (/dev/lp0 odgovara LPT1: u DOS-u)?"
+
+# ../printercfg.c:944
+#: ../printercfg.c:962
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Pronaðeni portovi:\n"
+"\n"
+
+# ../printercfg.c:952
+#: ../printercfg.c:970
+msgid "Not "
+msgstr "Nije "
+
+# ../printercfg.c:954
+#: ../printercfg.c:972
+msgid "Detected\n"
+msgstr "naðen\n"
+
+# ../printercfg.c:964
+#: ../printercfg.c:982
+msgid "Printer Device:"
+msgstr "Ureðaj za ¹tampaè:"
+
+# ../printercfg.c:986
+#: ../printercfg.c:1004
+msgid "Local Printer Device"
+msgstr "Lokalni ureðaj za ¹tampaè"
+
+# ../printercfg.c:1014
+#: ../printercfg.c:1032
+msgid "Remote hostname:"
+msgstr "Ime udaljenog hosta:"
+
+# ../printercfg.c:1015 ../printercfg.c:1202 ../printercfg.c:1230
+#: ../printercfg.c:1033 ../printercfg.c:1276 ../printercfg.c:1308
+msgid "Remote queue:"
+msgstr "Ime udaljenog 'reda':"
+
+# ../printercfg.c:1017
+#: ../printercfg.c:1035
+msgid "Remote lpd Printer Options"
+msgstr "Opcije za udaljeni lpd"
+
+# ../printercfg.c:1018
+#: ../printercfg.c:1036
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"Da biste mogli da koristite udaljeni red poslova za ¹tampu morate navesti "
+"ime hosta na kome je server za ¹tampaè i ime reda poslova za ¹tampu na tom "
+"serveru u koji æe se sme¹tati sve ¹to se po¹alje na ¹tampaè."
+
+# ../printercfg.c:1206 ../printercfg.c:1249
+#: ../printercfg.c:1069
+#, fuzzy
+msgid "Printer Server:"
+msgstr "Drajver za ¹tampaè:"
+
+# ../printercfg.c:1197 ../printercfg.c:1219
+#: ../printercfg.c:1070
+#, fuzzy
+msgid "Print Queue Name:"
+msgstr "Vrsta ¹tampaèa:"
+
+# ../printercfg.c:1057
+#: ../printercfg.c:1071 ../printercfg.c:1125
+msgid "User name:"
+msgstr "Korisnièko ime:"
+
+# ../printercfg.c:1107
+#: ../printercfg.c:1074
+#, fuzzy
+msgid "NetWare Printer Options"
+msgstr "Standardne opcije ¹tampaèa"
+
+# ../printercfg.c:1061
+#: ../printercfg.c:1075
+#, fuzzy
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"Da biste mogli da ¹tampate na mre¾ni ¹tampaè, treba da navedete ime hosta "
+"LAN menad¾era (koje nije uvek isto kao TCP/IP ime ma¹ine); IP adresu "
+"¹tampaèevog servera; deljeno ime ¹tampaèa kome pristupate, kao i potrebna "
+"korisnièka imena i lozinke."
+
+# ../latemethods.c:889
+#: ../printercfg.c:1122
+#, fuzzy
+msgid "SMB server host:"
+msgstr "Ime SMB servera  :"
+
+# ../latemethods.c:889
+#: ../printercfg.c:1123
+#, fuzzy
+msgid "SMB server IP:"
+msgstr "Ime SMB servera  :"
+
+# ../printercfg.c:1056
+#: ../printercfg.c:1124
+msgid "Share name:"
+msgstr "Ime deljene jedinice:"
+
+#: ../printercfg.c:1127 ../printercfg.c:1326
+msgid "Workgroup:"
+msgstr ""
+
+# ../printercfg.c:1107
+#: ../printercfg.c:1129
+#, fuzzy
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "Standardne opcije ¹tampaèa"
+
+# ../printercfg.c:1061
+#: ../printercfg.c:1130
+#, fuzzy
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"Da biste mogli da ¹tampate na mre¾ni ¹tampaè, treba da navedete ime hosta "
+"LAN menad¾era (koje nije uvek isto kao TCP/IP ime ma¹ine); IP adresu "
+"¹tampaèevog servera; deljeno ime ¹tampaèa kome pristupate, kao i potrebna "
+"korisnièka imena i lozinke."
+
+# ../printercfg.c:1104
+#: ../printercfg.c:1176
+msgid "Name of queue:"
+msgstr "Ime reda za ¹tampu:"
+
+# ../printercfg.c:1105 ../printercfg.c:1199 ../printercfg.c:1221
+#: ../printercfg.c:1177 ../printercfg.c:1273 ../printercfg.c:1299
+msgid "Spool directory:"
+msgstr "'Spool' direktorijum:"
+
+# ../printercfg.c:1107
+#: ../printercfg.c:1179
+msgid "Standard Printer Options"
+msgstr "Standardne opcije ¹tampaèa"
+
+# ../printercfg.c:1108
+#: ../printercfg.c:1180
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Svaki red za ¹tampu (u koji se sla¾u poslovi za ¹tampanje) zahteva ime "
+"(obièno lp) i 'spool' direktorijum koji uz to ide. Koje ime i direktorijum "
+"da koristim za ovaj red za ¹tampu?"
+
+# ../printercfg.c:1137
+#: ../printercfg.c:1209
+msgid "Would you like to configure a printer?"
+msgstr "Da li biste da podesite ¹tampaè?"
+
+# ../printercfg.c:1151
+#: ../printercfg.c:1223
+msgid "Add Printer"
+msgstr "Dodaj ¹tampaè"
+
+# ../printercfg.c:1152
+#: ../printercfg.c:1224
+msgid "Would you like to add another printer?"
+msgstr "Da li biste da dodate jo¹ jedan ¹tampaè?"
+
+# ../printercfg.c:1173
+#: ../printercfg.c:1246
+msgid "Local"
+msgstr "Lokalni"
+
+# ../printercfg.c:1174
+#: ../printercfg.c:1247
+msgid "Remote lpd"
+msgstr "Udaljeni lpd"
+
+#: ../printercfg.c:1248
+msgid "SMB/Windows 95/NT"
+msgstr ""
+
+#: ../printercfg.c:1249
+msgid "NetWare"
+msgstr ""
+
+# ../printercfg.c:1179
+#: ../printercfg.c:1253
+msgid "Select Printer Connection"
+msgstr "Izbor povezanosti ¹tampaèa"
+
+# ../printercfg.c:1180
+#: ../printercfg.c:1254
+msgid "How is this printer connected?"
+msgstr "Kako je ovaj ¹tampaè povezan?"
+
+# ../printercfg.c:1197 ../printercfg.c:1219
+#: ../printercfg.c:1271 ../printercfg.c:1297
+msgid "Printer type:"
+msgstr "Vrsta ¹tampaèa:"
+
+# ../printercfg.c:1198 ../printercfg.c:1220
+#: ../printercfg.c:1272 ../printercfg.c:1298 ../printercfg.c:1312
+msgid "Queue:"
+msgstr "Red:"
+
+# ../printercfg.c:1200
+#: ../printercfg.c:1274
+msgid "Printer device:"
+msgstr "Port za ¹tampaè:"
+
+# ../printercfg.c:1201 ../printercfg.c:1229
+#: ../printercfg.c:1275 ../printercfg.c:1307
+msgid "Remote host:"
+msgstr "Udaljeni host:"
+
+# ../printercfg.c:1203 ../printercfg.c:1232
+#. if (pcentry->Type == PRINTER_SMB)
+#: ../printercfg.c:1277 ../printercfg.c:1311 ../printercfg.c:1315
+msgid "Server:"
+msgstr "Server:"
+
+# ../printercfg.c:1204 ../printercfg.c:1242
+#: ../printercfg.c:1278 ../printercfg.c:1325
+msgid "Share:"
+msgstr "Deljeno ime:"
+
+# ../printercfg.c:1205 ../printercfg.c:1243
+#: ../printercfg.c:1279 ../printercfg.c:1313 ../printercfg.c:1327
+msgid "User:"
+msgstr "Korisnik:"
+
+# ../printercfg.c:1206 ../printercfg.c:1249
+#: ../printercfg.c:1280 ../printercfg.c:1333
+msgid "Printer driver:"
+msgstr "Drajver za ¹tampaè:"
+
+# ../printercfg.c:1207 ../printercfg.c:1250
+#: ../printercfg.c:1281 ../printercfg.c:1334
+msgid "Paper size:"
+msgstr "Velièina papira:"
+
+# ../printercfg.c:1208 ../printercfg.c:1251
+#: ../printercfg.c:1282 ../printercfg.c:1335
+msgid "Resolution:"
+msgstr "Rezolucija:"
+
+# ../printercfg.c:1209 ../printercfg.c:1252
+#: ../printercfg.c:1284 ../printercfg.c:1337
+msgid "Bits per pixel:"
+msgstr "Bitova po pikselu:"
+
+# ../printercfg.c:1206 ../printercfg.c:1249
+#: ../printercfg.c:1286 ../printercfg.c:1338
+#, fuzzy
+msgid "Uniprint driver:"
+msgstr "Drajver za ¹tampaè:"
+
+# ../printercfg.c:1215
+#: ../printercfg.c:1293
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Molim vas proverite da li su podaci o ¹tampaèu ispravni:\n"
+"\n"
+
+# ../printercfg.c:1225
+#: ../printercfg.c:1303
+msgid "Printer device"
+msgstr "Ureðaj za ¹tampaè"
+
+# ../printercfg.c:1258
+#: ../printercfg.c:1344
+msgid "Verify Printer Configuration"
+msgstr "Provera konfiguracije za ¹tampaè"
+
+# ../scsi.c:30
+#: ../scsi.c:31
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Na¹ao sam sledeæe tipove SCSI adaptera u va¹em sistemu:\n"
+"\n"
+
+# ../scsi.c:46
+#: ../scsi.c:47
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Imate li jo¹ SCSI adaptera na va¹em sistemu?"
+
+# ../scsi.c:50
+#: ../scsi.c:51
+msgid "Do you have any SCSI adapters?"
+msgstr "Imate li SCSI adapter?"
+
+# ../scsi.c:53
+#: ../scsi.c:54
+msgid "SCSI Configuration"
+msgstr "SCSI pode¹avanje"
+
+# ../earlymethods.c:319
+#: ../smb.c:59
+#, fuzzy
+msgid "SMB server name  :"
+msgstr "Ime NFS servera:"
+
+# ../latemethods.c:890
+#: ../smb.c:60
+msgid "Share volume     :"
+msgstr "Deljeni volumen  :"
+
+# ../latemethods.c:891
+#: ../smb.c:61
+msgid "Account name     :"
+msgstr "Ime naloga       :"
+
+# ../latemethods.c:892
+#: ../smb.c:62
+msgid "Password         :"
+msgstr "Lozinka          :"
+
+# ../latemethods.c:894
+#: ../smb.c:64
+msgid "SMB Setup"
+msgstr "SMB pode¹avanje"
+
+# ../latemethods.c:895
+#: ../smb.c:65
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Molim unesite sledeæe podatke:\n"
+"\n"
+"    o ime ili IP broj va¹eg SMB servera\n"
+"    o ime deljenog volumena koji sadr¾i\n"
+"      Red Hat Linuks za va¹ tip raèunara"
+
+# ../install2.c:597 ../latemethods.c:577 ../printercfg.c:1058
+#: ../url.c:148
+#, fuzzy, c-format
+msgid "Password for %s@%s: "
+msgstr "Lozinka:"
+
+#: ../url.c:172 ../url.c:198
+#, c-format
+msgid "error: %sport must be a number\n"
+msgstr ""
+
+#: ../url.c:283
+msgid "url port must be a number\n"
+msgstr ""
+
+#. XXX PARANOIA
+#: ../url.c:320
+#, c-format
+msgid "logging into %s as %s, pw %s\n"
+msgstr ""
+
+#: ../url.c:434
+#, c-format
+msgid "failed to open %s\n"
+msgstr ""
+
+# ../net.c:908
+#: ../url.c:449
+#, fuzzy, c-format
+msgid "failed to create %s\n"
+msgstr "Ne mogu da kreiram %s: %s\n"
+
+# ../latemethods.c:396 ../latemethods.c:399 ../latemethods.c:427
+# ../latemethods.c:430
+#: ../urlmethod.c:63 ../urlmethod.c:66 ../urlmethod.c:120 ../urlmethod.c:123
+msgid "Retrieving"
+msgstr "Preuzimam"
+
+# ../latemethods.c:439
+#: ../urlmethod.c:137
+#, c-format
+msgid "open of %s failed: %s\n"
+msgstr "otvaranje %s nije uspelo: %s\n"
+
+# ../kickstart.c:74
+#: ../urlmethod.c:153
+#, fuzzy, c-format
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr "Gre¹ka otvaranja: fajl brzog poèetka %s: %s"
+
+# ../latemethods.c:486
+#: ../urlmethod.c:188
+#, fuzzy
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Molim unesite sledeæe informacije:\n"
+"\n"
+"    o ime ili IP broj va¹eg FTP servera\n"
+"    o direktorijum na tom serveru u kome se nalazi\n"
+"      Red Hat Linuks za va¹ tip raèunara\n"
+
+# ../latemethods.c:486
+#: ../urlmethod.c:197
+#, fuzzy
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Molim unesite sledeæe informacije:\n"
+"\n"
+"    o ime ili IP broj va¹eg FTP servera\n"
+"    o direktorijum na tom serveru u kome se nalazi\n"
+"      Red Hat Linuks za va¹ tip raèunara\n"
+
+# ../latemethods.c:501
+#: ../urlmethod.c:215
+msgid "FTP site name:"
+msgstr "Ime FTP raèunara:"
+
+# ../latemethods.c:501
+#: ../urlmethod.c:216
+#, fuzzy
+msgid "Web site name:"
+msgstr "Ime FTP raèunara:"
+
+# ../latemethods.c:511
+#: ../urlmethod.c:233
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Koristi ne-anonimni ftp ili 'proxy' server"
+
+#: ../urlmethod.c:237
+msgid "Use proxy server"
+msgstr ""
+
+# ../latemethods.c:524
+#: ../urlmethod.c:246
+msgid "FTP Setup"
+msgstr "FTP instalacija"
+
+# ../latemethods.c:524
+#: ../urlmethod.c:247
+#, fuzzy
+msgid "HTTP Setup"
+msgstr "FTP instalacija"
+
+#: ../urlmethod.c:257
+msgid "You must enter a server name."
+msgstr ""
+
+#: ../urlmethod.c:262
+msgid "You must enter a directory."
+msgstr ""
+
+# ../latemethods.c:558
+#: ../urlmethod.c:323
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Ako koristite ne-anonimni ftp, unesite korisnièko ime i lozinku. Ako "
+"koristite FTP proxy, unesite njegovo ime."
+
+#: ../urlmethod.c:329
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+
+# ../latemethods.c:574
+#: ../urlmethod.c:350
+msgid "Account name:"
+msgstr "Ime naloga:"
+
+# ../latemethods.c:580
+#: ../urlmethod.c:358
+msgid "FTP Proxy:"
+msgstr "FTP proxy:"
+
+# ../latemethods.c:580
+#: ../urlmethod.c:359
+#, fuzzy
+msgid "HTTP Proxy:"
+msgstr "FTP proxy:"
+
+# ../latemethods.c:580
+#: ../urlmethod.c:363
+#, fuzzy
+msgid "FTP Proxy Port:"
+msgstr "FTP proxy:"
+
+# ../latemethods.c:580
+#: ../urlmethod.c:364
+#, fuzzy
+msgid "HTTP Proxy Port:"
+msgstr "FTP proxy:"
+
+# ../fsedit.c:400 ../fsedit.c:463
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was:"
+#~ msgstr "Gre¹ka kod èitanja tabele particija za bloèni ureðaj %s. Gre¹ka je:"
+
+# ../printercfg.c:1054
+#~ msgid "LAN manager host:"
+#~ msgstr "Host LAN menad¾era:"
+
+# ../printercfg.c:1055
+#~ msgid "LAN manager IP:"
+#~ msgstr "IP LAN menad¾era:"
+
+# ../printercfg.c:1060
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "Opcije za LAN menad¾er ¹tampaèa"
+
+# ../printercfg.c:1175
+#~ msgid "LAN Manager"
+#~ msgstr "LAN menad¾er"
+
+# ../doit.c:267
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "RPM instalacija za %s nije uspela: %s"
+
+# ../pkgs.c:372
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> æe vam pokazati velièinu i opis paketa"
+
+# ../pkgs.c:380
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Velièina svih izabranih paketa:"
+
+# ../pkgs.c:441
+#~ msgid "Select Packages"
+#~ msgstr "Izbor paketa"
+
+# ../pkgs.c:1023
+#~ msgid "Size:"
+#~ msgstr "Velièina:"
+
+# ../latemethods.c:455
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Ne mogu da uzmem fajl %s: %s\n"
+
+# ../latemethods.c:688 ../latemethods.c:781
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Ne mogu da pristupim ma¹ini: %s\n"
+
+# ../lilo.c:93
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr ""
+#~ "Da li biste da instalirate ili podesite SILO starter na va¹em sistemu?"

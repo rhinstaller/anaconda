@@ -1,0 +1,2867 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 1999 Red Hat Partner - Sistemi Srl.
+# Federico Musto <federico@redhat.it> 1999
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 1999-08-30 22:26-0400\n"
+"PO-Revision-Date: 1999-04-08 18:15+1\n"
+"Last-Translator: Federico Musto <federico@redhat.it>\n"
+"Language-Team: ITALIAN <it@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8959-1\n"
+"Content-Transfer-Encoding: ascii\n"
+
+#: ../bootpc.c:501
+msgid "No BOOTP reply received"
+msgstr "Nessuna risposta dal server BOOTP"
+
+#: ../bootpc.c:503
+msgid "No DHCP reply received"
+msgstr "Nessuna risposta dal server DHCP"
+
+#: ../cdrom.c:35
+msgid "Other CDROM"
+msgstr "Altro CDROM"
+
+#: ../cdrom.c:41
+msgid "CDROM type"
+msgstr "Tipo CDROM"
+
+#: ../cdrom.c:41
+msgid "What type of CDROM do you have?"
+msgstr "Che tipo di CDROM avete ?"
+
+#: ../cdrom.c:43 ../devices.c:575 ../devices.c:613 ../devices.c:761
+#: ../devices.c:800 ../devices.c:814 ../devices.c:828 ../devices.c:1138
+#: ../devices.c:1189 ../devices.c:1623 ../doit.c:133 ../doit.c:179
+#: ../doit.c:658 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:412 ../earlymethods.c:428 ../earlymethods.c:438
+#: ../earlymethods.c:502 ../earlymethods.c:509 ../earlymethods.c:558
+#: ../earlymethods.c:563 ../earlymethods.c:716 ../earlymethods.c:766
+#: ../earlymethods.c:789 ../earlymethods.c:802 ../earlymethods.c:841
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#: ../earlymethods.c:943 ../earlymethods.c:1016 ../earlymethods.c:1028
+#: ../earlymethods.c:1051 ../earlymethods.c:1133 ../earlymethods.c:1140
+#: ../earlymethods.c:1206 ../earlymethods.c:1321 ../earlymethods.c:1333
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fs.c:224
+#: ../fs.c:410 ../fs.c:521 ../fs.c:543 ../fsedit.c:233 ../fsedit.c:240
+#: ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268 ../fsedit.c:278
+#: ../fsedit.c:379 ../fsedit.c:461 ../fsedit.c:512 ../fsedit.c:876
+#: ../fsedit.c:954 ../fsedit.c:972 ../fsedit.c:1008 ../fsedit.c:1798
+#: ../fsedit.c:1806 ../fsedit.c:1931 ../fsedit.c:1950 ../fsedit.c:2043
+#: ../fsedit.c:2373 ../fsedit.c:2409 ../fsedit.c:2427 ../fsedit.c:2456
+#: ../fsedit.c:2495 ../fsedit.c:2525 ../fsedit.c:2584 ../fsedit.c:2620
+#: ../fsedit.c:2798 ../fsedit.c:2812 ../fsedit.c:2856 ../fsedit.c:2883
+#: ../fsedit.c:2974 ../fsedit.c:3079 ../fsedit.c:3105 ../hd.c:310 ../hd.c:412
+#: ../hints.c:31 ../install.c:75 ../install.c:191 ../install.c:268
+#: ../install.c:303 ../install.c:481 ../install.c:485 ../install.c:495
+#: ../install.c:513 ../install2.c:507 ../install2.c:530 ../install2.c:548
+#: ../install2.c:598 ../install2.c:662 ../install2.c:669 ../install2.c:675
+#: ../install2.c:710 ../install2.c:733 ../install2.c:743 ../install2.c:968
+#: ../install2.c:1146 ../install2.c:1183 ../install2.c:1347 ../install2.c:1649
+#: ../kbd.c:250 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37 ../kernel.c:49
+#: ../kernel.c:68 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../kickstart.c:246 ../kickstart.c:254 ../lang.c:144
+#: ../latemethods.c:232 ../latemethods.c:349 ../latemethods.c:494 ../lilo.c:93
+#: ../lilo.c:97 ../lilo.c:140 ../lilo.c:445 ../lilo.c:556 ../mkswap.c:588
+#: ../mtab.c:91 ../net.c:309 ../net.c:390 ../net.c:610 ../net.c:620
+#: ../net.c:641 ../net.c:676 ../net.c:715 ../net.c:1122 ../net.c:1171
+#: ../net.c:1408 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:329 ../pkgs.c:355
+#: ../pkgs.c:458 ../pkgs.c:470 ../pkgs.c:670 ../pkgs.c:774 ../pkgs.c:874
+#: ../pkgs.c:1351 ../printercfg.c:469 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1255 ../printercfg.c:1344 ../smb.c:70 ../urlmethod.c:137
+#: ../urlmethod.c:153 ../urlmethod.c:183 ../urlmethod.c:256 ../urlmethod.c:261
+#: ../urlmethod.c:377 ../windows.c:18
+msgid "Ok"
+msgstr "Ok"
+
+#: ../cdrom.c:43 ../devices.c:614 ../devices.c:1138 ../devices.c:1189
+#: ../doit.c:251 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:789 ../earlymethods.c:841 ../fs.c:410 ../fsedit.c:415
+#: ../fsedit.c:1798 ../fsedit.c:1806 ../fsedit.c:2975 ../fsedit.c:2998
+#: ../hd.c:360 ../install.c:178 ../install.c:191 ../install2.c:314
+#: ../install2.c:507 ../install2.c:530 ../install2.c:710 ../install2.c:968
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:93 ../lilo.c:97
+#: ../lilo.c:446 ../lilo.c:556 ../mkswap.c:588 ../net.c:390 ../net.c:676
+#: ../net.c:1171 ../net.c:1418 ../pkgs.c:517 ../pkgs.c:670 ../pkgs.c:774
+#: ../pkgs.c:1099 ../pkgs.c:1377 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1208 ../printercfg.c:1255 ../printercfg.c:1345 ../scsi.c:55
+#: ../urlmethod.c:183
+msgid "Back"
+msgstr "Indietro"
+
+#: ../cdrom.c:141
+msgid "Initializing CDROM..."
+msgstr "Inizializzazione del CDROM ..."
+
+#: ../devices.c:80 ../devices.c:86 ../devices.c:91 ../devices.c:102
+#: ../devices.c:107 ../devices.c:113 ../devices.c:124
+msgid "Base IO port:"
+msgstr "Base IO port:"
+
+#: ../devices.c:81 ../devices.c:92 ../devices.c:125
+msgid "IRQ level:"
+msgstr "IRQ level:"
+
+#: ../devices.c:97
+msgid "IO base, IRQ:"
+msgstr "IO base, IRQ:"
+
+#: ../devices.c:112
+msgid "Use other options"
+msgstr "Usate altre opzioni"
+
+#: ../devices.c:114
+msgid "Interrupt level (IRQ):"
+msgstr "Livello di interrupt (IRQ)"
+
+#: ../devices.c:119
+msgid "IO base, IRQ, label:"
+msgstr "IO base, IRQ, label:"
+
+#: ../devices.c:435
+msgid "Autoprobe"
+msgstr "Rilevazione automatica"
+
+#: ../devices.c:435
+msgid "Specify options"
+msgstr "Specificare le opzioni"
+
+#: ../devices.c:575 ../devices.c:814 ../devices.c:828 ../devices.c:1623
+#: ../doit.c:133 ../doit.c:179 ../doit.c:658 ../earlymethods.c:428
+#: ../earlymethods.c:438 ../earlymethods.c:558 ../earlymethods.c:563
+#: ../earlymethods.c:1016 ../earlymethods.c:1028 ../earlymethods.c:1051
+#: ../earlymethods.c:1321 ../earlymethods.c:1333 ../fs.c:521 ../fs.c:543
+#: ../fsedit.c:2043 ../install.c:303 ../install.c:481 ../install.c:485
+#: ../install.c:495 ../install.c:513 ../install2.c:548 ../install2.c:598
+#: ../install2.c:1098 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37
+#: ../kernel.c:49 ../kickstart.c:246 ../kickstart.c:254 ../latemethods.c:232
+#: ../latemethods.c:349 ../latemethods.c:494 ../net.c:641 ../net.c:715
+#: ../net.c:919 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:874 ../urlmethod.c:137
+#: ../urlmethod.c:256 ../urlmethod.c:261 ../windows.c:18
+msgid "Error"
+msgstr "Errore"
+
+#: ../devices.c:576
+#, c-format
+msgid "mknod() failed: %s"
+msgstr "mknod() fallito: %s"
+
+#: ../devices.c:612
+msgid "Load module"
+msgstr "Caricamento del modulo"
+
+#: ../devices.c:612
+msgid "Which driver should I try?"
+msgstr "Quale driver vorreste provare?"
+
+#: ../devices.c:761
+msgid "Probe"
+msgstr "Rilevamento"
+
+#: ../devices.c:762
+#, c-format
+msgid "A %s card has been found on your system."
+msgstr "La scheda %s e' stata rilevata nel vostro sistema"
+
+#: ../devices.c:800
+msgid "device command"
+msgstr "device command"
+
+#: ../devices.c:801
+#, c-format
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "Argomento non valido per il kickstart device command %s: %s"
+
+#: ../devices.c:815
+msgid "bad arguments to kickstart device command"
+msgstr "Argomento non valido per il kickstart device command"
+
+#: ../devices.c:829
+#, c-format
+msgid "No module exists for %s"
+msgstr "Non esiste nessun modulo per %s"
+
+#: ../devices.c:856
+msgid "I can't find the device anywhere on your system!"
+msgstr "Non e' possibile trovare il dispositivo nel vostro sistema!"
+
+#: ../devices.c:1120
+#, c-format
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"Il alcuni casi, il driver %s ha bisogno di informazioni aggiuntive\n"
+"per funzionare correttamente. Volete specificare delle opzioni aggiuntive\n"
+"o lasciare al sistema la rilevazione del dispositivo ? In alcuni casi\n"
+"la rilevazione puo' bloccare il computer, ma non dovrebbe causare\n"
+"nessun danno."
+
+#: ../devices.c:1129
+#, c-format
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"In molti casi, il driver %s ha bisogno di informazioni addizionali sul\n"
+"vostro hardware. Se preferite, e' possibile provare i parametri piu'\n"
+"comuni. Questo processo puo' bloccare il calcolatore, anche se non\n"
+"danneggiera' il vostro sistema."
+
+#: ../devices.c:1137
+msgid "Module Options"
+msgstr "Opzioni del modulo"
+
+#: ../devices.c:1177
+msgid "Miscellaneous options:"
+msgstr "Miscellaneous options:"
+
+#: ../devices.c:1179 ../devices.c:1188
+msgid "Module options:"
+msgstr "Opzioni del modulo:"
+
+#: ../devices.c:1188
+msgid "Module Parameters"
+msgstr "Parametri del modulo"
+
+#: ../devices.c:1624
+#, c-format
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Non e' possibile aprire /proc/filesystems: %d"
+
+#: ../doit.c:134
+#, c-format
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Impossibile aprire %s. Nessun file di upgrade log verra' tenuto."
+
+#: ../doit.c:149
+msgid "Fatal error opening RPM database"
+msgstr "Errore fatale aprendo il database RPM"
+
+#: ../doit.c:180
+#, c-format
+msgid "Error ordering package list: %s"
+msgstr "Errore ordinando la lista di pacchetti : %s"
+
+#: ../doit.c:216
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Sembra che non ci sia abbastanza spazio sul disco per installare ipacchetti "
+"che avete selezionato. Avete bisogno di piu' spazio in questo filesystem:\n"
+"\n"
+
+#: ../doit.c:226
+msgid "Mount Point"
+msgstr "Mount Point"
+
+#: ../doit.c:227
+msgid "Space Needed"
+msgstr "Spazio necessario"
+
+#: ../doit.c:251 ../fsedit.c:2812
+msgid "Disk Space"
+msgstr "Spazio su disco"
+
+#: ../doit.c:251
+msgid "Install anyway"
+msgstr "Installa comunque"
+
+#: ../doit.c:321
+msgid "Fatal error reopening RPM database"
+msgstr "Errore fatale riaprendo il database RPM"
+
+#: ../doit.c:421
+msgid "Install Status"
+msgstr "Installazione"
+
+#: ../doit.c:486
+msgid "(no summary)"
+msgstr "(nessun sommario)"
+
+#: ../doit.c:562
+msgid "Examining packages to install..."
+msgstr "Verifica pacchetti da installare..."
+
+#: ../doit.c:563
+msgid "Examining files to install..."
+msgstr "Verifica files da installare..."
+
+#: ../doit.c:564
+msgid "Finding overlapping files..."
+msgstr "Ricerca di file overlapping..."
+
+#: ../doit.c:576
+msgid "Processing"
+msgstr "In esecuzione"
+
+#: ../doit.c:584
+msgid "Removing old files..."
+msgstr "Eliminazione vecchi file..."
+
+#: ../doit.c:634
+msgid "Upgrading"
+msgstr "Aggiornamento"
+
+#: ../doit.c:634
+msgid "Installing"
+msgstr "Installazione"
+
+#: ../doit.c:659
+#, c-format
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Errore installando i pacchetti: impossibile aprire il file RPM %s: %s"
+
+#: ../earlymethods.c:175
+msgid "What type of media contains the packages to be installed?"
+msgstr "In che tipo di supporto sono contenuti i pacchetti da installare ?"
+
+#: ../earlymethods.c:202
+msgid "Force supplemental disk"
+msgstr "Forzare il disco supplementare"
+
+#: ../earlymethods.c:208
+msgid "Installation Method"
+msgstr "Metodo d'installazione"
+
+#: ../earlymethods.c:294
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Inserire le seguneti informazioni:\n"
+"\n"
+"    * il nome o l'indirizzo IP del server NFS\n"
+"    * la directory del server che contiene Red \n"
+"      Hat Linux per la vostra architettura"
+
+#: ../earlymethods.c:306
+msgid "NFS server name:"
+msgstr "Nome del server NFS:"
+
+#: ../earlymethods.c:309 ../urlmethod.c:219
+msgid "Red Hat directory:"
+msgstr "Directory Red Hat:"
+
+#: ../earlymethods.c:333
+msgid "NFS Setup"
+msgstr "NFS Setup"
+
+#: ../earlymethods.c:412
+msgid "Note"
+msgstr "Note"
+
+#: ../earlymethods.c:413
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Inserire il CD Red Hat nel CDROM adesso"
+
+#: ../earlymethods.c:429
+#, c-format
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Impossibile montare il CD nel device /dev/%s"
+
+#: ../earlymethods.c:439
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Il CDROM non sembra contenere il CD Red Hat."
+
+#: ../earlymethods.c:502 ../earlymethods.c:509
+msgid "nfs command"
+msgstr "comando nfs"
+
+#: ../earlymethods.c:503
+#, c-format
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "argomento errato per il comando nfs kickstart %s: %s"
+
+#: ../earlymethods.c:510
+msgid "nfs command incomplete"
+msgstr "comando nfs incompleto"
+
+#: ../earlymethods.c:559
+msgid "I could not mount that directory from the server"
+msgstr "Impossibile montare la directory dal server"
+
+#: ../earlymethods.c:564 ../earlymethods.c:1322 ../latemethods.c:495
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "La directory non sembra contenere l'albero d'installazione Red Hat."
+
+#: ../earlymethods.c:677
+msgid "Loading second stage ramdisk..."
+msgstr "Caricamento del secondo livello della ramdisk..."
+
+#: ../earlymethods.c:716
+msgid "PCMCIA Disk"
+msgstr "Disco PCMCIA"
+
+#: ../earlymethods.c:716 ../earlymethods.c:766 ../earlymethods.c:802
+#: ../earlymethods.c:943 ../fs.c:225 ../fsedit.c:877 ../fsedit.c:1999
+#: ../fsedit.c:2798 ../lilo.c:141 ../mtab.c:91 ../smb.c:70 ../urlmethod.c:377
+msgid "Cancel"
+msgstr "Cancella"
+
+#: ../earlymethods.c:717
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Impossibile montare il floppy. Inserire il disco PCMCIA Red Hat, "
+"oselezionare Cancella per scegliere una diversa installazione."
+
+#: ../earlymethods.c:724
+msgid "Loading PCMCIA Support"
+msgstr "Caricamento del supporto PCMCIA"
+
+#: ../earlymethods.c:766 ../earlymethods.c:841
+msgid "Supplemental Disk"
+msgstr "Disco supplementare"
+
+#: ../earlymethods.c:767
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Impossibile montare il floppy. Inserire il disco supplementare Red "
+"HatSelezionare Cancella per scegliere una diversa installazione."
+
+#: ../earlymethods.c:774
+msgid "Loading Supplemental Disk..."
+msgstr "Caricamento disco supplementare..."
+
+#: ../earlymethods.c:789 ../earlymethods.c:802
+msgid "Driver Disk"
+msgstr "Disk Driver"
+
+#: ../earlymethods.c:790
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Questo metodo d'installazione richiede un disk driver. Rimuovere il disco "
+"presente nel driver e sostituirlo con il modul disk Red Hat."
+
+#: ../earlymethods.c:803
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Impossibile montare il floppy. Inserire il modul disk Red Hat, oselezionare "
+"Cancella per scegliere una diversa installazione."
+
+#: ../earlymethods.c:810
+msgid "Loading Driver Disk..."
+msgstr "Caricamento del disk driver..."
+
+#: ../earlymethods.c:842
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Questo metodo d'installazione richiede due dischi addizionali. Sostituire "
+"ilboot disk presente nel drive con il disco Red Hat supplementare"
+
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+msgid "hd command"
+msgstr "comando hd"
+
+#: ../earlymethods.c:903
+#, c-format
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "argomento errato per il comando hd kickstart %s: %s"
+
+#: ../earlymethods.c:910
+msgid "hd command incomplete"
+msgstr "comando hd incompleto"
+
+#: ../earlymethods.c:923
+#, c-format
+msgid "HD device %s not found"
+msgstr "HD device %s non trovato"
+
+#: ../earlymethods.c:932
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"In quale partizione e directory si trovano le directory RedHat/RPMS "
+"eRedHat/base"
+
+#: ../earlymethods.c:951
+msgid "Directory holding Red Hat:"
+msgstr "Directory contenente Red Hat:"
+
+#: ../earlymethods.c:968
+msgid "Select Partition"
+msgstr "Selezionare Partizione"
+
+#: ../earlymethods.c:1017
+#, c-format
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Impossibile creare /tmp/rhimage symlink: %s"
+
+#: ../earlymethods.c:1029
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Il device %s non sembra contenere l'albero d'installazione Red Hat"
+
+#: ../earlymethods.c:1052 ../earlymethods.c:1334
+msgid "Error reading second stage ramdisk. "
+msgstr "Errore leggendo il secondo livello di ramdisk."
+
+#: ../earlymethods.c:1133 ../earlymethods.c:1140
+msgid "url command"
+msgstr "comando url"
+
+#: ../earlymethods.c:1134
+#, c-format
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "argomento errato per il comando url kickstart %s: %s"
+
+#: ../earlymethods.c:1141
+msgid "url command incomplete"
+msgstr "comando url incompleto"
+
+#: ../earlymethods.c:1207
+#, c-format
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Impossibile trovare il secondo livello ramdisk: %s"
+
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fsedit.c:233
+#: ../fsedit.c:240 ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268
+#: ../fsedit.c:278
+msgid "Bad Mount Point"
+msgstr "Mount Point non corretto"
+
+#: ../fs.c:116
+msgid "Mount points must begin with a leading /."
+msgstr "I mount point devono iniziare con /."
+
+#: ../fs.c:122
+msgid "Mount points may not end with a /."
+msgstr "I mount point non devono terminare con /."
+
+#: ../fs.c:130
+msgid "Mount points may only printable characters."
+msgstr "I mount point devono contenere solo i caratteri stampabili"
+
+#: ../fs.c:145
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Le partizioni di sistema devono essere di tipo Linux nativo"
+
+#: ../fs.c:153
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr "La partizione /usr deve essere di tipo Linux nativo o NFS"
+
+#: ../fs.c:198
+msgid "Edit Network Mount Point"
+msgstr "Modifica del Network Mount Point"
+
+#: ../fs.c:332
+#, c-format
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Creazione di un filesystem ext2 su /dev/%s ..."
+
+#: ../fs.c:333 ../lilo.c:327
+msgid "Running"
+msgstr "Esecuzione"
+
+#: ../fs.c:367
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Quali partizioni desiderate formattare? Vi suggeriamo di formattare tutte\n"
+"le partizioni di sistema, incluse /, /usr, e /var. Non c'e' bisogno di\n"
+"formattare /home o /usr/local se le avete gia' formattate in precedenza."
+
+#: ../fs.c:407 ../mkswap.c:585
+msgid "Check for bad blocks during format"
+msgstr "Controllo bad block durante la formattazione"
+
+#: ../fs.c:416
+msgid "Partitions To Format"
+msgstr "Partizioni da formattare"
+
+#: ../fs.c:522
+#, c-format
+msgid "nfs mount failed: %s"
+msgstr "Mount nfs fallito: %s"
+
+#: ../fs.c:544
+#, c-format
+msgid "mount failed: %s"
+msgstr "mount fallito: %s"
+
+#: ../fsedit.c:234
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr "La directory %s deve trovarsi nel filesystem root"
+
+#: ../fsedit.c:241
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+"Il punto di mount %s e' illegale.\n"
+"\n"
+"I punti di mount devono iniziare con /"
+
+#: ../fsedit.c:248
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+"Il punto di mount %s e' illegale.\n"
+"\n"
+"I punti di mount non possono finire con un /"
+
+#: ../fsedit.c:257
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+"Il punto di mount %s e' illegale.\n"
+"\n"
+"I nomi dei mount possono contenere solo caratteri stampabili."
+
+#: ../fsedit.c:269
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+"Il punto di mount %s e' illegale.\n"
+"\n"
+"La system partion si deve trovare su una partizione Linux Nativa."
+
+#: ../fsedit.c:279
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Il punto di mount %s e' illegale.\n"
+"\n"
+"/usr deve essere una partizione Linux Nativa o un volume NFS."
+
+#: ../fsedit.c:319
+#, c-format
+msgid "System error %d"
+msgstr "Errore di sistema %d"
+
+#: ../fsedit.c:328 ../fsedit.c:330
+msgid "Fdisk Error"
+msgstr "Fdisk Error"
+
+#. build list of why they all failed
+#: ../fsedit.c:347 ../fsedit.c:1980
+msgid "Unallocated Partitions"
+msgstr "Partizioni non allocate"
+
+#: ../fsedit.c:351
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"Ci sono partizioni non allocate presenti nella lista delle "
+"partizionirichieste. Le partizioni non allocate sono visualizzate sotto:"
+
+#: ../fsedit.c:410
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+"Un disco con un disklabel Sun errato e' stato trovato leggendo il device "
+"%sPotete usare fdisk per creare e scrivere una nuova etichetta per questo "
+"disco."
+
+#: ../fsedit.c:414
+msgid "Corrupt Sun disklabel"
+msgstr "Disklabel Sun errato"
+
+#: ../fsedit.c:415 ../fsedit.c:472 ../fsedit.c:500
+msgid "Skip Drive"
+msgstr "Salta il drive"
+
+#: ../fsedit.c:424 ../fsedit.c:496
+#, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"Rilevato un errore leggendo la tavola delle partizioni per il block device "
+"%s.L'errore era:"
+
+#: ../fsedit.c:460 ../fsedit.c:471
+msgid "Bad Partition Table"
+msgstr "Tavola delle partizioni errata"
+
+#: ../fsedit.c:462
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"La tavola delle partizioni sul device %s e' danneggiata. Per creare nuove "
+"partizioni bisogna inizializzare. Potete specificare \"zerombr yes\" nel "
+"file kickstartper ottenere automaticamente questa funzione"
+
+#: ../fsedit.c:472
+msgid "Initialize"
+msgstr "Inizializzazione"
+
+#: ../fsedit.c:473
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"La tavola delle partizioni sul device %s e' danneggiata. Per creare nuove "
+"partizioni bisogna inizializzare, causando la PERDITA DI TUTTI I DATI nel "
+"drive."
+
+#: ../fsedit.c:500 ../install2.c:1098 ../net.c:445
+msgid "Retry"
+msgstr "Riprovare"
+
+#: ../fsedit.c:512
+msgid "BSD Disklabel"
+msgstr "BSD Disklabel "
+
+#: ../fsedit.c:512
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"Un BSD disklabel e' stato trovato. L'installazione di Red Hat supporta i BSD "
+"Disklabel in sola lettura. Dovete usare l'installazione custom e fdisk ( al "
+"posto di Disk Druid ) per le macchine con disklabel BSD."
+
+#: ../fsedit.c:569
+msgid "Swap Partition"
+msgstr "Partizione swap"
+
+#: ../fsedit.c:690 ../fsedit.c:696 ../fsedit.c:700 ../fsedit.c:702
+msgid "Edit Partition"
+msgstr "Edit partition"
+
+#: ../fsedit.c:762
+msgid "Allocation Status:"
+msgstr "Stato di allocazione:"
+
+#: ../fsedit.c:764
+msgid "Successful"
+msgstr "Positivo"
+
+#: ../fsedit.c:766
+msgid "Failed"
+msgstr "Fallito"
+
+#: ../fsedit.c:771
+msgid "Failure Reason:"
+msgstr "Spiegazioni:"
+
+#: ../fsedit.c:913
+msgid "No Mount Point"
+msgstr "No punto di mount"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "Yes"
+msgstr "Si"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "No"
+msgstr "No"
+
+#: ../fsedit.c:914
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Non avete selezionato nessun punto di mount per questa partizione. "
+"Sietesicuri ?"
+
+#: ../fsedit.c:954 ../fsedit.c:2584
+msgid "Mount Point Error"
+msgstr "Errore nel punto di moount"
+
+#: ../fsedit.c:955
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Il punto di mount richiesto e' sbagliato o gia' in uso.Selezionare un punto "
+"di mount valido."
+
+#: ../fsedit.c:972
+msgid "Size Error"
+msgstr "Errore di size"
+
+#: ../fsedit.c:973
+#, fuzzy
+msgid ""
+"The size requested is illegal. Make sure the size is greater than zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"La dimensione richiesta e' illegale. Verificate che sia > di 0 e nelformato "
+"decimale ( base 10 )."
+
+#: ../fsedit.c:1008
+msgid "Swap Size Error"
+msgstr "Dimensione area di swap errata"
+
+#: ../fsedit.c:1009
+#, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Avete creato una partizione di swap troppo larga. La dimensione massima "
+"della partizione di swap e' %d Megabytes."
+
+#: ../fsedit.c:1136
+msgid "Delete Partition"
+msgstr "Cancella Partizioni"
+
+#: ../fsedit.c:1137
+msgid "Are you sure you want to delete this partition?"
+msgstr "Siete sicuri di voler cancellare questa partizione?"
+
+#: ../fsedit.c:1783
+msgid "Current Disk Partitions"
+msgstr "Partizioni correnti"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805 ../fsedit.c:2974 ../hd.c:359
+#: ../lilo.c:445
+msgid "Edit"
+msgstr "Editare"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805
+msgid "Delete"
+msgstr "Cancella"
+
+#: ../fsedit.c:1804
+msgid "Add"
+msgstr "Aggiundi"
+
+#: ../fsedit.c:1816
+msgid "Drive Summaries"
+msgstr "Sommario dei drive"
+
+#: ../fsedit.c:1931
+msgid "No Root Partition"
+msgstr "Nessuna partizione di root"
+
+#: ../fsedit.c:1932
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"Dovete assegnare la partizione di root (/) ad una partizione Linux nativa "
+"(ext2)per continuare l'installazione."
+
+#: ../fsedit.c:1950
+msgid "No Swap Partition"
+msgstr "Nessuna partizione di swap"
+
+#: ../fsedit.c:1951
+msgid "You must assign a swap partition for the install to proceed."
+msgstr "Dovete assegnare una partizione swap per il processo d'installazione."
+
+#: ../fsedit.c:1982
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+"Ci sono delle partizioni non allocate. Se uscite non verranno scritte "
+"suldisco.\n"
+"\n"
+"Siete sicuri di voler uscire?"
+
+#: ../fsedit.c:1998
+msgid "Save Changes"
+msgstr "Salva Cambiamenti"
+
+#: ../fsedit.c:2000
+msgid "Save changes to partition table(s)?"
+msgstr "Salva i cambiamenti nella tavola delle partizioni?"
+
+#: ../fsedit.c:2044
+msgid "You may only delete NFS mounts."
+msgstr "Potete solo cancellare i mount NFS."
+
+#: ../fsedit.c:2078
+msgid "Reset Partition Table"
+msgstr "Reset tavola delle partizioni"
+
+#: ../fsedit.c:2080
+msgid "Reset partition table to original contents? "
+msgstr "Ripristina i valori originalli della tavola delle partizioni?"
+
+#: ../fsedit.c:2373 ../fsedit.c:2856 ../fsedit.c:3079
+msgid "Too Many Drives"
+msgstr "Troppo drive"
+
+#: ../fsedit.c:2374 ../fsedit.c:2857 ../fsedit.c:3080
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Avete piu' drive di quelli supportati dal programma standard. Usate "
+"ilprogramma fdisk per settare i vostri drive. Inviate una e-mail a "
+"support@redhat.it allegando una lista del vostro hardware. Grazie !"
+
+#: ../fsedit.c:2409
+msgid "Zero Partition Table"
+msgstr "Zero Partition Table"
+
+#: ../fsedit.c:2410
+#, c-format
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"argomento errato per il comando kickstart zerombr: %s.\n"
+"Deve essere 'on',1, o 'yes' per abilitare  oppure 'off','0' o 'no' per "
+"disabilitare."
+
+#: ../fsedit.c:2427 ../fsedit.c:2883 ../fsedit.c:3105
+msgid "No Drives Found"
+msgstr "Nessun Drive trovato"
+
+#: ../fsedit.c:2428 ../fsedit.c:2884 ../fsedit.c:3106
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"Rilevato un errore - non sono stati trovati device su cui creare un "
+"nuovofilesystem. Verificate l'hardware per risolvere questo problema."
+
+#: ../fsedit.c:2456
+msgid "Clear Partition Command"
+msgstr "Clear Partition Command"
+
+#: ../fsedit.c:2457
+#, c-format
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "argomento errato per il comando kickstart clearpart %s: %s"
+
+#: ../fsedit.c:2495
+msgid "Partition Command"
+msgstr "Partition Command"
+
+#: ../fsedit.c:2496
+#, c-format
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "argomento errato per il comando kickstart part %s: %s"
+
+#: ../fsedit.c:2525
+msgid "Option Ignored"
+msgstr "Opzione ignorata"
+
+#: ../fsedit.c:2526
+#, c-format
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"L'opzione --maxsize per la partizione %s e' stata ignorata. Controllate che "
+"non sia piu' grande dell'opzione --size."
+
+#: ../fsedit.c:2585
+#, c-format
+msgid "The mount point %s is already in use."
+msgstr "Il punto di mount %s e' gia' in uso."
+
+#: ../fsedit.c:2620
+msgid "Failed Allocation"
+msgstr "Allocazione fallita"
+
+#: ../fsedit.c:2621
+#, c-format
+msgid "The partition %s could not be allocated."
+msgstr "La partizione %s non puo' essere allocata."
+
+#: ../fsedit.c:2798 ../fsedit.c:2804
+msgid "Warning"
+msgstr "Warning"
+
+#: ../fsedit.c:2805
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr "State per perdere TUTTI I DATI!. Volete continuare?"
+
+#: ../fsedit.c:2813
+msgid "There is not enough disk space for this type of installation."
+msgstr "Non c'e' spazio su disco per questo tipo di installazione."
+
+#. Find out if the user wants to do this
+#: ../fsedit.c:2997 ../install2.c:313
+msgid "Disk Setup"
+msgstr "Setup del disco"
+
+#: ../fsedit.c:2999
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Ci sono delle partizioni che possono essere ridimensionate per "
+"l'installazionedi Red Hat Linux. Volete ridimensionare queste partizioni ora "
+"?"
+
+#: ../fsedit.c:3020
+msgid "Resize Partitions"
+msgstr "Ridimensiona Partizioni"
+
+#: ../ftp.c:651
+msgid "Success"
+msgstr "Terminato"
+
+#: ../ftp.c:654
+msgid "Bad server response"
+msgstr "Risposta errata del server"
+
+#: ../ftp.c:657
+msgid "Server IO error"
+msgstr "Errore IO del server"
+
+#: ../ftp.c:660
+msgid "Server timeout"
+msgstr "Server timeout"
+
+#: ../ftp.c:663
+msgid "Unable to lookup server host address"
+msgstr "Impossibilire determinare l'indirizzo del server"
+
+#: ../ftp.c:666
+msgid "Unable to lookup server host name"
+msgstr "Impossibilire determinare il nome del server"
+
+#: ../ftp.c:669
+msgid "Failed to connect to server"
+msgstr "Connessione al server fallita"
+
+#: ../ftp.c:672
+msgid "Failed to establish data connection to server"
+msgstr "Fallita la connessione dati con il server"
+
+#: ../ftp.c:675
+msgid "IO error to local file"
+msgstr "Errore IO sul file locale"
+
+#: ../ftp.c:678
+msgid "Error setting remote server to passive mode"
+msgstr "Errore nel settare il server remoto in modalita' passiva"
+
+#: ../ftp.c:681
+msgid "File not found on server"
+msgstr "File non trovato nel server"
+
+#: ../ftp.c:684
+msgid "Abort in progress"
+msgstr "Abort in esecuzione"
+
+#: ../ftp.c:688
+msgid "Unknown or unexpected error"
+msgstr "Errore sconosciuto od inaspettato"
+
+#: ../hd.c:42
+msgid "Whole disk"
+msgstr "Intero disco"
+
+#: ../hd.c:43 ../hd.c:57
+msgid "Linux swap"
+msgstr "Linux swap"
+
+#: ../hd.c:44 ../hd.c:58
+msgid "Linux native"
+msgstr "Linux native"
+
+#: ../hd.c:49
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bit FAT"
+
+#: ../hd.c:50
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bit <32M"
+
+#: ../hd.c:52
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bit >=32"
+
+#: ../hd.c:53
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+#: ../hd.c:54 ../hd.c:55 ../hd.c:56
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+#: ../hd.c:164 ../hd.c:310
+msgid "Hard Drives"
+msgstr "Dischi fissi"
+
+#: ../hd.c:164
+msgid "Scanning hard drives..."
+msgstr "Ricerca dischi fissi..."
+
+#: ../hd.c:311
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Non e' stato rilevato nessun disco fisso! Provabilmente avete dimenticato "
+"diconfigurare il controller SCSI."
+
+#: ../hd.c:319
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Per installare Red Hat Linux, dovete avere almeno una partizione con 150 MB "
+"dedicati a Linux.Vi suggeriamo di creare questa partizione in uno dei primi "
+"due dischi del sistema per permettere a LILO di avviare Linux."
+
+#: ../hd.c:324
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"Per installare Red Hat Linux, dovete avere almeno una partizione da 150 MB "
+"dedicata a Linux."
+
+#: ../hd.c:358
+msgid "Partition Disks"
+msgstr "Partizioni del Disco"
+
+#: ../hd.c:359 ../install2.c:1649 ../pkgs.c:1099
+msgid "Done"
+msgstr "Fatto"
+
+#: ../hd.c:412
+msgid "Reboot Needed"
+msgstr "Reboot necessario"
+
+#: ../hd.c:413
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Il kernel non riesce a leggere le nuove partizioni, provabilmente perche' "
+"sonostate modificate le partizioni estese. Dovreste riavviare il vostro "
+"sistema prima di continuare. Inserire il disco di boot e premere Return per "
+"riavviareil vostro sistema."
+
+#: ../hints.c:31
+msgid "lilo command"
+msgstr "comando lilo"
+
+#: ../hints.c:32
+#, c-format
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "argomento non corretto per il comando kickstart lilo %s: %s"
+
+#: ../install.c:76
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com."
+msgstr ""
+"Benvenuti in Red Hat Linux !\n"
+"\n"
+"Il processo d'installazione e' spiegato in dettaglio nella guida ufficiale "
+"Red Hatdisponibille da Red Hat Software. Vi consigliamo di leggere il "
+"manuale primadi continuare.\n"
+"\n"
+"Se avete comprato la versione ufficiale di Red Hat Linux, registratevi via "
+"webhttp://www.redhat.it.\n"
+"Grazie per aver scelto Red Hat Linux !"
+
+#: ../install.c:178
+msgid "PCMCIA Support"
+msgstr "Supporto PCMCIA"
+
+#: ../install.c:179
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Avete bisogno di usare periferiche PCMCIA durante l'installazione? "
+"Rispondeteno se avete bisogno del supporto PCMCIA solo dopo "
+"l'installazione.Non avete bisogno del supporto PCMCIA se state installando "
+"Red Hat Linuxsu un laptop con CDROM integrato."
+
+#: ../install.c:191
+msgid "PCMCIA Support Disk"
+msgstr "PCMCIA Disco di supporto"
+
+#: ../install.c:192
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"Il supporto PCMCIA richiede un disco supplementare. Sostituite il disco "
+"nelvostro drive con il disco Red Hat PCMCIA."
+
+#: ../install.c:202
+msgid "Starting PCMCIA services..."
+msgstr "Attivazione servizi PCMCIA..."
+
+#: ../install.c:246 ../install2.c:1234
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Digitare <exit> per ritornare nel programma d'installazione.\n"
+"\n"
+
+#: ../install.c:268 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../pkgs.c:458 ../pkgs.c:470
+msgid "Kickstart Error"
+msgstr "Errore Kickstart"
+
+#: ../install.c:268
+msgid "No kickstart configuration file server can be found."
+msgstr "Nessun file di configurazione kickstart e' stato trovato."
+
+#: ../install.c:304
+#, c-format
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Impossibile montare il percorso kickstart %s.\n"
+
+#: ../install.c:467
+msgid "Welcome to Red Hat Linux"
+msgstr "Benvenuti in Red Hat Linux"
+
+#: ../install.c:469 ../install2.c:1571
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> tra elementi | <Spazio> seleziona | <F12> successivo "
+
+#: ../install.c:482
+msgid "I could not mount the boot floppy."
+msgstr "Non posso montare il floppy di boot."
+
+#: ../install.c:486
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Non posso trovare ks.cfg nel floppy di boot."
+
+#: ../install.c:495
+#, c-format
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Errore aprendo i files per copiare kickstart: %s\n"
+
+#: ../install.c:514
+msgid "Error copying kickstart file from floppy."
+msgstr "Errore trasferendo i files kickstart dal floppy."
+
+#: ../install2.c:177 ../install2.c:221
+msgid "Select installation path"
+msgstr "Selezionare il percorso d'installazione"
+
+#: ../install2.c:179
+msgid "Select installation class"
+msgstr "Selezionare la classe d'installazione"
+
+#: ../install2.c:181 ../install2.c:223
+msgid "Setup SCSI"
+msgstr "Setup SCSI"
+
+#: ../install2.c:183
+msgid "Setup filesystems"
+msgstr "Setup filesystem"
+
+#: ../install2.c:185
+msgid "Setup swap space"
+msgstr "Setup spazio di swap"
+
+#: ../install2.c:187 ../install2.c:227
+msgid "Find installation files"
+msgstr "Ricerca files d'installazione"
+
+#: ../install2.c:189
+msgid "Choose partitions to format"
+msgstr "Scegliere le partizioni da formattare"
+
+#: ../install2.c:191
+msgid "Choose packages to install"
+msgstr "Scegliere i pacchetti da installare"
+
+#: ../install2.c:193
+msgid "Install system"
+msgstr "Installazione del sistema"
+
+#: ../install2.c:195
+msgid "Configure mouse"
+msgstr "Configurazione del mouse"
+
+#: ../install2.c:197
+msgid "Configure networking"
+msgstr "Configurazione della rete"
+
+#: ../install2.c:199
+msgid "Configure timezone"
+msgstr "Configurazione del timezone"
+
+#: ../install2.c:201
+msgid "Configure services"
+msgstr "Configurazione dei servizi"
+
+#: ../install2.c:203
+msgid "Configure printer"
+msgstr "Configurazione della stampante"
+
+#: ../install2.c:205
+msgid "Set root password"
+msgstr "Settare la password di root"
+
+#: ../install2.c:207
+msgid "Configure authentication"
+msgstr "Configurazione dell'autenticazione"
+
+#: ../install2.c:209 ../install2.c:233
+msgid "Create bootdisk"
+msgstr "Creazione del bootdisk"
+
+#: ../install2.c:211 ../install2.c:235
+msgid "Install bootloader"
+msgstr "Installazione del bootloader"
+
+#: ../install2.c:213
+msgid "Configure X"
+msgstr "Configurazione server X"
+
+#: ../install2.c:215 ../install2.c:237
+msgid "Exit install"
+msgstr "Uscire dall'installazione"
+
+#: ../install2.c:225
+msgid "Find current installation"
+msgstr "Ricerca installazione corrente"
+
+#: ../install2.c:229
+msgid "Choose packages to upgrade"
+msgstr "Scegliere i pacchetti da installare"
+
+#: ../install2.c:231
+msgid "Upgrade system"
+msgstr "Aggiornamento del sistema"
+
+#: ../install2.c:313
+msgid "Disk Druid"
+msgstr "Disk Druid"
+
+#: ../install2.c:313
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../install2.c:315
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid e' un tool per partizionare e gestire i punti di mount. E'stato "
+"creato per rendere semplice e potente l'utilizzo del piu' tradizionale "
+"fdisk. Tuttavia in alcuni casi puo' essere utile continuaread utilizzare "
+"fdisk.\n"
+"\n"
+"Quale utility volete usare ?"
+
+#: ../install2.c:449
+msgid "Scanning packages..."
+msgstr "Analisi dei pacchetti..."
+
+#: ../install2.c:507
+msgid "Install log"
+msgstr "Log dell'installazione"
+
+#: ../install2.c:508
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"Un file di log della vostra installazione verra' memorizzato in "
+"/tmp/install.logdopo il reboot del vostro sistema. Potete consultare questo "
+"file per controllarela vostra installazione."
+
+#: ../install2.c:530
+msgid "Upgrade log"
+msgstr "Upgrade del file di log"
+
+#: ../install2.c:531
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"Un elenco dei pacchetti aggiornati verra' memorizzato in /tmp/upgrade.log al "
+"termine dell'aggiornamento. Dopo il reboot verificate con questo file "
+"l'aggiornamento del sistema."
+
+#: ../install2.c:538
+msgid "Rebuilding"
+msgstr "Ricostruzione"
+
+#: ../install2.c:538
+msgid "Rebuilding RPM database..."
+msgstr "Ricostruzione del database RPM ..."
+
+#: ../install2.c:548
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr ""
+"Ricostruzione del database RPM fallita. Controllate lo spazio sul disco."
+
+#: ../install2.c:662 ../install2.c:669 ../install2.c:675
+msgid "rootpw command"
+msgstr "comando rootpw"
+
+#: ../install2.c:663
+#, c-format
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "argomento errato per il comando rootpw di kickstart %s: %s"
+
+#: ../install2.c:670
+msgid "Missing password"
+msgstr "Password dimenticata"
+
+#: ../install2.c:676
+msgid "Unexpected arguments"
+msgstr "Argomento inaspettato"
+
+#: ../install2.c:687 ../printercfg.c:1072 ../printercfg.c:1126
+#: ../urlmethod.c:353
+msgid "Password:"
+msgstr "Password:"
+
+#: ../install2.c:690
+msgid "Password (again):"
+msgstr "Password (di nuovo):"
+
+#: ../install2.c:702
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Iserite la password di root. Dovete digitare due volte la password per "
+"evitare errori di digitazione. Ricordatevi che la password di root e'un "
+"aspetto critico per la sicurezza del sistema!"
+
+#: ../install2.c:717
+msgid "Root Password"
+msgstr "Password di root"
+
+#: ../install2.c:733 ../install2.c:743
+msgid "Password Mismatch"
+msgstr "Password sbagliata"
+
+#: ../install2.c:734
+msgid "The passwords you entered were different. Please try again."
+msgstr "Le password che avete inserito sono differenti. Ridigitatele ! "
+
+#: ../install2.c:744
+msgid "The root password must be at least 6 characters long."
+msgstr "La password di root deve essere lunga 6 caratteri"
+
+#: ../install2.c:934
+msgid "Installation Path"
+msgstr "Percorso d'installazione"
+
+#: ../install2.c:934
+msgid "Install"
+msgstr "Installazione"
+
+#: ../install2.c:934 ../install2.c:1069
+msgid "Upgrade"
+msgstr "Aggiornamento"
+
+#: ../install2.c:935
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Volete installare un nuovo sistema o aggiornare un sistema che contieneRed "
+"Hat Linux 2.0 o successivi ?"
+
+#: ../install2.c:951
+msgid "Workstation"
+msgstr "Workstation"
+
+#: ../install2.c:952
+msgid "Server"
+msgstr "Server"
+
+#: ../install2.c:953
+msgid "Custom"
+msgstr "Custom"
+
+#: ../install2.c:965
+msgid "Installation Class"
+msgstr "Classi d'installazioni"
+
+#: ../install2.c:966
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Che tipo sistema volete installare ? Per maggior flessibilita', "
+"selezionate\"Custom\"."
+
+#: ../install2.c:1069
+msgid "Converting RPM database..."
+msgstr "Conversione database RPM..."
+
+#: ../install2.c:1079
+msgid "Finding packages to upgrade..."
+msgstr "Ricerca pacchetti da aggiornare..."
+
+#: ../install2.c:1098
+msgid "Previous"
+msgstr "Precedente"
+
+#: ../install2.c:1098
+msgid "Menu"
+msgstr "Menu"
+
+#: ../install2.c:1099
+#, c-format
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"Errore durante la fase \"%s\" dell'installazione.\n"
+"\n"
+"Potete riprovare , ritornare alla fase precedente o tornare al "
+"menud'installazione. Usate questa opzione ( menu ) solo se avete una certa "
+"familiarita' con Red Hat Linux. Cosa volete fare ?"
+
+#: ../install2.c:1132
+msgid "  Continue with install"
+msgstr "Continuare l'installazione"
+
+#: ../install2.c:1144
+msgid "Installation Steps"
+msgstr "Passi dell'installazione"
+
+#: ../install2.c:1144
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Quali selezioni volete attivare ? Le fasi con un * sono gia' state completate"
+
+#: ../install2.c:1183
+msgid "Cancelled"
+msgstr "Cancellato"
+
+#: ../install2.c:1184
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Non posso andare al punto precedente da qui. Potete provare ancora."
+
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:729
+msgid "Bootdisk"
+msgstr "Bootdisk"
+
+#: ../install2.c:1331
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+"Un custom disk vi permette di caricare il vostro sistema Red Hat Linux "
+"senzadipendere dal normale bootloader.Questo e' utile se non volete "
+"installareLILO, o se un altro sistema operativo o il vostro hardware non vi "
+"permettedi usare LILO. Un custom disk puo' essere usato anche come immagine "
+"deldisco Red Hat rescue, permettendo di ripristinare piu' facilmente un "
+"serverdanneggiato.\n"
+"\n"
+"Volete creare un bootdisk per il vostro sistema ?"
+
+#: ../install2.c:1348
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Inserire un dischetto vuoto nel primo driver /dev/fd0."
+
+#: ../install2.c:1648
+msgid "Complete"
+msgstr "Completo"
+
+#: ../install2.c:1650
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Congratulazioni, l'installazione e' completa.\n"
+"\n"
+"Rimuovete il supporto e premete return per il reboot. Per maggiori "
+"informazionidisponibili per questa release di Red Hat Linux, consultate "
+"Errata sul sitohttp://www.redhat.it.\n"
+"\n"
+"Informazioni sulla configurazione sono disponibili nel capitolo "
+"post-installazionenella guida ufficiale di Red Hat Linux guida per l'utente, "
+"versione italiana."
+
+#: ../kbd.c:248
+msgid "Keyboard Type"
+msgstr "Tipo di tastiera"
+
+#: ../kbd.c:249
+msgid "What type of keyboard do you have?"
+msgstr "Che tipo di tastiera avete?"
+
+#: ../kernel.c:23
+#, c-format
+msgid "file %s missing from source directory"
+msgstr "perso il file %s dalla directory sorgente"
+
+#: ../kernel.c:30
+#, c-format
+msgid "failed to create file %s"
+msgstr "impossibile creare %s"
+
+#: ../kernel.c:38
+#, c-format
+msgid "error writing to file %s: %s"
+msgstr "Errore scrivendo il file %s: %s"
+
+#: ../kernel.c:50
+#, c-format
+msgid "error reading from file %s: %s"
+msgstr "errore leggendo il file %s: %s"
+
+#: ../kernel.c:68 ../kernel.c:73 ../kernel.c:78
+msgid "Kernel"
+msgstr "Kernel"
+
+#: ../kernel.c:69
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr "Inserire nel drive il vostro primo disco se non e'gia presente."
+
+#: ../kernel.c:73 ../kernel.c:78
+msgid "Copying kernel from floppy..."
+msgstr "Trasferimento del kernel dal floppy..."
+
+#: ../kickstart.c:85
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Errore aprendo il file kickstart %s: %s"
+
+#: ../kickstart.c:95
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Errore leggendo il contenuto del file %s: %s"
+
+#: ../kickstart.c:163
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Errore nella linea %d del file kickstart %s."
+
+#: ../kickstart.c:171
+#, c-format
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Comando %s sconosciuto nella linea %d del file kickstart %s."
+
+#: ../kickstart.c:246
+#, c-format
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Impossibile creare /mnt/tmp/ks.script: %s"
+
+#: ../kickstart.c:255
+#, c-format
+msgid "Failed to write ks post script: %s"
+msgstr "Impossibile scrivere ks post script: %s"
+
+#. loadFont("default8x16");
+#: ../lang.c:142
+msgid "Choose a Language"
+msgstr "Selezionare la lingua"
+
+#: ../lang.c:142
+msgid "What language should be used during the installation process?"
+msgstr "Che lingua desiderate durante l'installazione ?"
+
+#: ../latemethods.c:233
+msgid "Failed to create symlink for package source."
+msgstr "Impossibile creare i symlink per i pacchetti sorgenti"
+
+#: ../latemethods.c:427
+msgid "ftp"
+msgstr "ftp"
+
+#: ../latemethods.c:428
+#, c-format
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Ci sono dei problemi con %s. Volete riprovare ?"
+
+#: ../lilo.c:50
+msgid "SILO"
+msgstr "SILO"
+
+#: ../lilo.c:52
+msgid "LILO"
+msgstr "LILO"
+
+#: ../lilo.c:54
+msgid "Creating initial ramdisk..."
+msgstr "Creazione del ramdisk iniziale..."
+
+#: ../lilo.c:87
+msgid "Master Boot Record"
+msgstr "Master Boot Record"
+
+#: ../lilo.c:88
+msgid "First sector of boot partition"
+msgstr "Primo settore di boot della partizione"
+
+#: ../lilo.c:91 ../lilo.c:570
+msgid "Lilo Installation"
+msgstr "Installazione di Lilo"
+
+#: ../lilo.c:91 ../lilo.c:95
+msgid "Where do you want to install the bootloader?"
+msgstr "Dove volete installare il bootloader "
+
+#: ../lilo.c:93 ../lilo.c:97
+msgid "Skip"
+msgstr "Salta"
+
+#: ../lilo.c:95
+msgid "SILO Installation"
+msgstr "SILO Installazione"
+
+#: ../lilo.c:129
+msgid "Device:"
+msgstr "Device:"
+
+#: ../lilo.c:135
+msgid "Boot label:"
+msgstr "Boot label:"
+
+#: ../lilo.c:140
+msgid "Clear"
+msgstr "Clear"
+
+#: ../lilo.c:150
+msgid "Edit Boot Label"
+msgstr "Edita Boot Label"
+
+#: ../lilo.c:327
+msgid "Installing boot loader..."
+msgstr "Installazione del bootloader... "
+
+#: ../lilo.c:379
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Il bootmanager di Red Hat Linux puo' caricare altri sistemi operativi.Dovete "
+"selezionare quale partizione volete abilitare per il boot e con "
+"qualeetichetta."
+
+#: ../lilo.c:390
+msgid "Device"
+msgstr "Device"
+
+#: ../lilo.c:390
+msgid "Partition type"
+msgstr "Tipo partizione"
+
+#: ../lilo.c:391 ../printercfg.c:651 ../printercfg.c:722
+msgid "Default"
+msgstr "Default"
+
+#: ../lilo.c:391
+msgid "Boot label"
+msgstr "Boot label"
+
+#: ../lilo.c:463
+msgid "Bootable Partitions"
+msgstr "Partizione bootable"
+
+#: ../lilo.c:539
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Alcuni sistemi hanno bisogno di trasmettere al kernel alcune opzioni al "
+"momento del boot per poter funzionare correttamente. Se dovete "
+"inserirequeste opzioni inseritele ora, altrimenti potete lasciare questo "
+"campovuoto."
+
+#: ../lilo.c:552
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr "Usa il modo lineare ( necessario per alcuni controller SCSI )"
+
+#: ../lilo.c:568
+msgid "Silo Installation"
+msgstr "Installazione di Silo"
+
+#: ../lilo.c:729
+msgid "Creating bootdisk..."
+msgstr "Creazione del bootdisk..."
+
+#: ../mkswap.c:222
+#, c-format
+msgid "Formatting swap space on device %s..."
+msgstr "Formattazione spazio di swap sul device %s..."
+
+#: ../mkswap.c:233
+msgid "Formatting"
+msgstr "Formattazione"
+
+#: ../mkswap.c:517
+msgid "No Swap Space"
+msgstr "Nessuna area di swap"
+
+#: ../mkswap.c:517
+msgid "Repartition"
+msgstr "Ripartizione"
+
+#: ../mkswap.c:517
+msgid "Continue"
+msgstr "Continuare"
+
+#: ../mkswap.c:518
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Non avete definito nessuna area di swap. Volete continuare oripartizionare "
+"il disco?"
+
+#: ../mkswap.c:535
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Quale partizione volete usare per l'area di swap? Questo eliminera' tuttii "
+"dati esistenti nella partizione."
+
+#: ../mkswap.c:598
+msgid "Active Swap Space"
+msgstr "Area di swap attiva"
+
+#: ../mtab.c:66
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr ""
+"Non avete nessuna partizione Linux. Non posso aggiornare questo sistema !"
+
+#: ../mtab.c:78
+msgid "Could not mount automatically selected device."
+msgstr "Non posso montare automaticamente i device selezionati."
+
+#: ../mtab.c:85
+msgid "What partition holds the root partition of your installation?"
+msgstr ""
+"Quale partizione contiene la partizione root della vostra installazione?"
+
+#: ../mtab.c:106
+msgid "Root Partition"
+msgstr "Partizione root"
+
+#: ../mtab.c:147
+#, c-format
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Non posso leggere /mnt/etc/fstab: %s"
+
+#: ../mtab.c:170
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Linea errata in /mnt/etc/fstab -- chiusura"
+
+#: ../net.c:86
+msgid "Hostname"
+msgstr "Hostname"
+
+#: ../net.c:86
+msgid "Determining host name and domain..."
+msgstr "Determinazione hostname e dominio ..."
+
+#. we can't go any further without a network device!
+#: ../net.c:309
+msgid "Ethernet Probe"
+msgstr "Rilevazione della scheda di rete"
+
+#: ../net.c:310
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Non e' stato possibile rilevare la scheda Ethernet . Premere <Enter> per\n"
+"attivare la configuzione manuale."
+
+#: ../net.c:350
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Inserire la configurazione IP. In ogni campo si deve inserire un\n"
+"indirizzo IP nella notazione dotted-decimal (per esempio 10.0.0.30)."
+
+#: ../net.c:356
+msgid "IP address:"
+msgstr "Indirizzo IP:"
+
+#: ../net.c:359
+msgid "Netmask:"
+msgstr "Netmask:"
+
+#: ../net.c:362
+msgid "Default gateway (IP):"
+msgstr "Default gateway (IP):"
+
+#: ../net.c:365
+msgid "Primary nameserver:"
+msgstr "Nameserver primario:"
+
+#: ../net.c:402
+msgid "Configure TCP/IP"
+msgstr "Configurazione TCP/IP"
+
+#: ../net.c:445
+msgid "Missing Information"
+msgstr "Missing Information"
+
+#: ../net.c:446
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "E' necessario inserire un indirizzo IP valido e relativo netmask."
+
+#: ../net.c:512
+msgid "Static IP address"
+msgstr "Indirizzo IP statico"
+
+#: ../net.c:513 ../net.c:709
+msgid "BOOTP"
+msgstr "BOOTP"
+
+#: ../net.c:514 ../net.c:705
+msgid "DHCP"
+msgstr "DHCP"
+
+#: ../net.c:610 ../net.c:620
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../net.c:611
+#, c-format
+msgid "bad ip number in network command: %s"
+msgstr "indirizzo ip non corretto nel comando di rete: %s"
+
+#: ../net.c:621
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argomento errato nel comando di rete di kickstart %s: %s"
+
+#: ../net.c:641
+msgid "kickstart network command is missing ip address"
+msgstr "indirizzo ip non trovato nel comando di rete kickstart"
+
+#: ../net.c:672
+msgid "Boot Protocol"
+msgstr "Boot Protocol"
+
+#: ../net.c:673
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Come volete inizializzare l'indirizzo IP ? Se il vostro\n"
+"amministratore di sistema vi fornisce un indirizzo IP, scegliete IP statico."
+
+#: ../net.c:705
+msgid "Sending DHCP request..."
+msgstr "Invio di una richiesta DHCP ..."
+
+#: ../net.c:709
+msgid "Sending BOOTP request..."
+msgstr "Invio di un richiesta BOOTP ..."
+
+#: ../net.c:919
+#, c-format
+msgid "Cannot create %s: %s\n"
+msgstr "Non e' possibile creare %s: %s\n"
+
+#: ../net.c:949
+#, c-format
+msgid "cannot create network device config file: %s"
+msgstr "Impossibile creare il dispositivo di configurazione della rete: %s"
+
+#: ../net.c:995 ../net.c:1249
+#, c-format
+msgid "cannot open file: %s"
+msgstr "non e' possibile aprire il file %s"
+
+#: ../net.c:1122
+msgid "Hostname Lookup"
+msgstr "Hostname Lookup"
+
+#: ../net.c:1123
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Non e' possibile determinare automaticamente l'hostname. Premere\n"
+"<Enter> per inserire le informazioni sul nome dell'host."
+
+#: ../net.c:1130
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Inserire il dominio, il nome dell'host e l'indirizzo IP dei nameserver \n"
+"secondari. Il nome dell'host deve essere completo, come ad esempio\n"
+"test.italia.redhat.it. Se non avete nessun nameserver secondario,\n"
+"lasciate queste entry vuote."
+
+#: ../net.c:1140
+msgid "Domain name:"
+msgstr "Dominio:"
+
+#: ../net.c:1143
+msgid "Host name:"
+msgstr "Nome dell'host:"
+
+#: ../net.c:1146
+msgid "Secondary nameserver (IP):"
+msgstr "Nameserver secondario (IP):"
+
+#: ../net.c:1149
+msgid "Tertiary nameserver (IP):"
+msgstr "Nameserver terziario (IP):"
+
+#: ../net.c:1197
+msgid "Configure Network"
+msgstr "Configurazione della rete"
+
+#: ../net.c:1386
+msgid "Keep the current IP configuration"
+msgstr "Keep the current IP configuration"
+
+#: ../net.c:1387
+msgid "Reconfigure network now"
+msgstr "Riconfigurazione della rete"
+
+#: ../net.c:1388
+msgid "Don't set up networking"
+msgstr "Non settare la rete"
+
+#: ../net.c:1405 ../net.c:1417
+msgid "Network Configuration"
+msgstr "Configurazione della rete"
+
+#: ../net.c:1406
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "La rete LAN e' gia' stata configurata. Volete:"
+
+#: ../net.c:1418
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr "Volete configurare la rete LAN (non dialup) per il vostro sistema ?"
+
+#: ../pkgs.c:256
+#, c-format
+msgid "Cannot open components file: %s"
+msgstr "Impossibile aprire i componenti del file: %s"
+
+#: ../pkgs.c:263
+#, c-format
+msgid "Cannot read components file: %s"
+msgstr "Impossibile leggere i componenti del file: %s"
+
+#: ../pkgs.c:270
+msgid "Comps file is not version 0.1 as expected"
+msgstr "I comps del file non sono la versione 0.1 come richiesto"
+
+#: ../pkgs.c:305
+#, c-format
+msgid "bad comps file at line %d"
+msgstr "errato comps file alla linea %d"
+
+#: ../pkgs.c:329 ../pkgs.c:355
+msgid "comps Error"
+msgstr "Errore comps"
+
+#: ../pkgs.c:330
+#, c-format
+msgid "missing component name at line %d"
+msgstr "non trovato il nome del componente alla linea %d"
+
+#: ../pkgs.c:356
+msgid "Ignore all"
+msgstr "Ignora tutto"
+
+#: ../pkgs.c:357
+#, c-format
+msgid "package %s at line %d does not exist"
+msgstr "Il pacchetto %s alla line %d non esiste"
+
+#: ../pkgs.c:459
+#, c-format
+msgid "Component %s does not exist.\n"
+msgstr "Il componente %s non esiste.\n"
+
+#: ../pkgs.c:471
+#, c-format
+msgid "Package %s does not exist.\n"
+msgstr "Il pacchetto %s non esiste.\n"
+
+#: ../pkgs.c:517
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../pkgs.c:518
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Volete installare GNOME ? GNOME e' un ambiente grafico con funzionalita'di "
+"drag and drop, semplice da usare ! "
+
+#: ../pkgs.c:651
+msgid "no suggestion"
+msgstr "nessun suggerimento"
+
+#: ../pkgs.c:661
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Alcuni pacchetti che avete selezionato richiedono la presenza di "
+"altripacchetti che non avete selezionato. Se premete OK tutte queste "
+"dipendenze verranno installate."
+
+#: ../pkgs.c:669
+msgid "Package"
+msgstr "Pacchetto"
+
+#: ../pkgs.c:669
+msgid "Requirement"
+msgstr "Richiesto"
+
+#: ../pkgs.c:686
+msgid "Install packages to satisfy dependencies"
+msgstr "Installa i pacchetti per soddisfare le dipendenze"
+
+#: ../pkgs.c:695
+msgid "Unresolved Dependencies"
+msgstr "Dipendenze non risolte"
+
+#: ../pkgs.c:758
+msgid "Everything"
+msgstr "Tutto"
+
+#: ../pkgs.c:770
+msgid "Select individual packages"
+msgstr "Seleziona i pacchetti singolarmente"
+
+#: ../pkgs.c:777
+msgid "Choose components to install:"
+msgstr "Seleziona i componenti da installare:"
+
+#: ../pkgs.c:783
+msgid "Components to Install"
+msgstr "Componenti da Installare"
+
+#: ../pkgs.c:940
+#, c-format
+msgid "error opening header file: %s"
+msgstr "errore aprendo il file principale: %s"
+
+#: ../pkgs.c:1108
+msgid "Installed system size:"
+msgstr "Dimensione del sistema installato:"
+
+#: ../pkgs.c:1116
+msgid "Choose a group to examine"
+msgstr "Selezionare un gruppo da esaminare"
+
+#: ../pkgs.c:1119
+msgid "Press F1 for a package description"
+msgstr "Premere F1 per la descrizione dei pacchetti"
+
+#: ../pkgs.c:1143
+msgid "Select Group"
+msgstr "Selezionare un Gruppo"
+
+#: ../pkgs.c:1307
+msgid "(none available)"
+msgstr "(non disponibile)"
+
+#: ../pkgs.c:1314
+msgid "Package:"
+msgstr "Pacchetti:"
+
+#: ../pkgs.c:1317
+msgid "Size   :"
+msgstr "Dimen.:"
+
+#: ../pkgs.c:1377
+msgid "Upgrade Packages"
+msgstr "Pacchetti da aggiornare"
+
+#: ../pkgs.c:1378
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"I pacchetti che avete selezionato, e quelli necessari per soddisfare "
+"ledipendenze sono stati selezionati. Volete modificare qualcosa ?"
+
+#: ../printercfg.c:469
+msgid "Printer Information"
+msgstr "Stampanti"
+
+#: ../printercfg.c:489
+msgid "<F1> will give you information on a particular printer type"
+msgstr "premte <F1> per avere informazioni su un particolare tipo di stampante"
+
+#: ../printercfg.c:494
+msgid "What type of printer do you have?"
+msgstr "Che tipo di stampante avete ?"
+
+#: ../printercfg.c:527 ../printercfg.c:1207
+msgid "Configure Printer"
+msgstr "Configurazione stampante"
+
+#. we know that changes->db->NumBpp > 0
+#: ../printercfg.c:596 ../printercfg.c:758
+msgid "<F1> will give you information on this printer driver."
+msgstr "premete <F1> per avere informazioni su questo tipo di stampante"
+
+#: ../printercfg.c:600
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr "Potete ora configurare la dimensione e risoluzione della stampante."
+
+#: ../printercfg.c:609
+msgid "Paper Size"
+msgstr "Pagina Size"
+
+#: ../printercfg.c:631
+msgid "Resolution"
+msgstr "Risoluzione"
+
+#: ../printercfg.c:664
+msgid "Fix stair-stepping of text?"
+msgstr "Risolvo stair-stepping del testo?"
+
+#: ../printercfg.c:784
+msgid "You may now configure the color options for this printer."
+msgstr "Potete configurare le opzioni colore della stampante."
+
+#: ../printercfg.c:788
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Potete configurare le opzioni uniprint per questa stampante."
+
+#: ../printercfg.c:801
+msgid "Configure Color Depth"
+msgstr "Configura il Color Depth"
+
+#: ../printercfg.c:803
+msgid "Configure Uniprint Driver"
+msgstr "Configura il driver Uniprint"
+
+#: ../printercfg.c:955
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr ""
+"A quale  porta e' collegata la stampante ( ricorda che /dev/lp0 = LPT1:) ?"
+
+#: ../printercfg.c:962
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Rilevazione automatica della porta:\n"
+"\n"
+
+#: ../printercfg.c:970
+msgid "Not "
+msgstr "No"
+
+#: ../printercfg.c:972
+msgid "Detected\n"
+msgstr "Rilevata\n"
+
+#: ../printercfg.c:982
+msgid "Printer Device:"
+msgstr "Printer Device:"
+
+#: ../printercfg.c:1004
+msgid "Local Printer Device"
+msgstr "Local Printer Device"
+
+#: ../printercfg.c:1032
+msgid "Remote hostname:"
+msgstr "Hostname remoto:"
+
+#: ../printercfg.c:1033 ../printercfg.c:1276 ../printercfg.c:1308
+msgid "Remote queue:"
+msgstr "Coda remota:"
+
+#: ../printercfg.c:1035
+msgid "Remote lpd Printer Options"
+msgstr "Opzioni stampante lpd remota"
+
+#: ../printercfg.c:1036
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"Per usare una stampante lpd remota, dovete fornire l'hostname del print "
+"servered il nome della coda dove verranno inviate le stampe."
+
+#: ../printercfg.c:1069
+msgid "Printer Server:"
+msgstr "Print Server:"
+
+#: ../printercfg.c:1070
+msgid "Print Queue Name:"
+msgstr "Nome della coda:"
+
+#: ../printercfg.c:1071 ../printercfg.c:1125
+msgid "User name:"
+msgstr "Nome user:"
+
+#: ../printercfg.c:1074
+msgid "NetWare Printer Options"
+msgstr "Opzioni Netware Printer"
+
+#: ../printercfg.c:1075
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"Per stampare su una stampante NetWare, dovete conoscere il nome del "
+"Netwareprint server ( questo non e' sempre lo stesso nome come nei server "
+"TCP/IP )il nome della coda associata alla stampante ed il nome dell'utente "
+"epassword."
+
+#: ../printercfg.c:1122
+msgid "SMB server host:"
+msgstr "SMB server host:"
+
+#: ../printercfg.c:1123
+msgid "SMB server IP:"
+msgstr "SMB server IP:"
+
+#: ../printercfg.c:1124
+msgid "Share name:"
+msgstr "Nome share:"
+
+#: ../printercfg.c:1127 ../printercfg.c:1326
+msgid "Workgroup:"
+msgstr "Workgroup:"
+
+#: ../printercfg.c:1129
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "SMP/Windows 95/NT Printer Option"
+
+#: ../printercfg.c:1130
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"Per stampare su di una stampante SMB, dovete conoscere il nome dell'host "
+"SMB(questo puo' essere diverso dal nome del server ) e possibilmente "
+"l'indirizzoIP del print server, il nome della stampante condiviso su cui "
+"volete stamparenome utente, password, ed informazioni sul workgroup."
+
+#: ../printercfg.c:1176
+msgid "Name of queue:"
+msgstr "Nome della coda:"
+
+#: ../printercfg.c:1177 ../printercfg.c:1273 ../printercfg.c:1299
+msgid "Spool directory:"
+msgstr "Directory di spool:"
+
+#: ../printercfg.c:1179
+msgid "Standard Printer Options"
+msgstr "Opzioni standard:"
+
+#: ../printercfg.c:1180
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Ogni coda di stampa ( dove sono dirette le stampe ) viene identificata da "
+"unnome ( spesso lp ) e da uno spool associato.  Che nome e directory bisogna "
+"usare per questa coda?"
+
+#: ../printercfg.c:1209
+msgid "Would you like to configure a printer?"
+msgstr "Volete configurare una stampante?"
+
+#: ../printercfg.c:1223
+msgid "Add Printer"
+msgstr "Add Printer"
+
+#: ../printercfg.c:1224
+msgid "Would you like to add another printer?"
+msgstr "Volete aggiungere un'altra stampante?"
+
+#: ../printercfg.c:1246
+msgid "Local"
+msgstr "Locale"
+
+#: ../printercfg.c:1247
+msgid "Remote lpd"
+msgstr "Lpd Remota"
+
+#: ../printercfg.c:1248
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+#: ../printercfg.c:1249
+msgid "NetWare"
+msgstr "NetWare"
+
+#: ../printercfg.c:1253
+msgid "Select Printer Connection"
+msgstr "Selezionare la connesione della stampante"
+
+#: ../printercfg.c:1254
+msgid "How is this printer connected?"
+msgstr "Come e' collegata questa stampante?"
+
+#: ../printercfg.c:1271 ../printercfg.c:1297
+msgid "Printer type:"
+msgstr "Tipo di stampa"
+
+#: ../printercfg.c:1272 ../printercfg.c:1298 ../printercfg.c:1312
+msgid "Queue:"
+msgstr "Coda:"
+
+#: ../printercfg.c:1274
+msgid "Printer device:"
+msgstr "Printer Device:"
+
+#: ../printercfg.c:1275 ../printercfg.c:1307
+msgid "Remote host:"
+msgstr "Host remoto:"
+
+#. if (pcentry->Type == PRINTER_SMB)
+#: ../printercfg.c:1277 ../printercfg.c:1311 ../printercfg.c:1315
+msgid "Server:"
+msgstr "Server:"
+
+#: ../printercfg.c:1278 ../printercfg.c:1325
+msgid "Share:"
+msgstr "Share:"
+
+#: ../printercfg.c:1279 ../printercfg.c:1313 ../printercfg.c:1327
+msgid "User:"
+msgstr "Utente:"
+
+#: ../printercfg.c:1280 ../printercfg.c:1333
+msgid "Printer driver:"
+msgstr "Printer driver:"
+
+#: ../printercfg.c:1281 ../printercfg.c:1334
+msgid "Paper size:"
+msgstr "Paper size:"
+
+#: ../printercfg.c:1282 ../printercfg.c:1335
+msgid "Resolution:"
+msgstr "Risoluzione:"
+
+#: ../printercfg.c:1284 ../printercfg.c:1337
+msgid "Bits per pixel:"
+msgstr "Bits per pixel:"
+
+#: ../printercfg.c:1286 ../printercfg.c:1338
+msgid "Uniprint driver:"
+msgstr "Driver Uniprint:"
+
+#: ../printercfg.c:1293
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Verificate che le informazioni della stampante siano corrette:\n"
+"\n"
+
+#: ../printercfg.c:1303
+msgid "Printer device"
+msgstr "Printer device:"
+
+#: ../printercfg.c:1344
+msgid "Verify Printer Configuration"
+msgstr "Verifica configurazione stampante"
+
+#: ../scsi.c:31
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Sono stati trovati i seguenti tipi di adattori SCSI: \n"
+"\n"
+
+#: ../scsi.c:47
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Avete qualche altro adattatore SCSI nel vostro sistema?"
+
+#: ../scsi.c:51
+msgid "Do you have any SCSI adapters?"
+msgstr "Avete qualche adattatore SCSI?"
+
+#: ../scsi.c:54
+msgid "SCSI Configuration"
+msgstr "Configurazione SCSI"
+
+#: ../smb.c:59
+msgid "SMB server name  :"
+msgstr "Nome server  SMB:"
+
+#: ../smb.c:60
+msgid "Share volume     :"
+msgstr "Volume condiviso :"
+
+#: ../smb.c:61
+msgid "Account name     :"
+msgstr "Nome di account:"
+
+#: ../smb.c:62
+msgid "Password         :"
+msgstr "Password         :"
+
+#: ../smb.c:64
+msgid "SMB Setup"
+msgstr "SMB Setup"
+
+#: ../smb.c:65
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Inserire le seguneti informazioni:\n"
+"\n"
+"    * il nome o l'indirizzo IP del server SMB\n"
+"    * la directory del server che contiene Red \n"
+"      Hat Linux per la vostra architettura"
+
+#: ../url.c:148
+#, c-format
+msgid "Password for %s@%s: "
+msgstr "Password per %s@%s: "
+
+#: ../url.c:172 ../url.c:198
+#, c-format
+msgid "error: %sport must be a number\n"
+msgstr "errore: la porta %s deve avere un numero\n"
+
+#: ../url.c:283
+msgid "url port must be a number\n"
+msgstr "la porta url deve avere un numero\n"
+
+#. XXX PARANOIA
+#: ../url.c:320
+#, c-format
+msgid "logging into %s as %s, pw %s\n"
+msgstr "loggin in %s come %s, pw %s\n"
+
+#: ../url.c:434
+#, c-format
+msgid "failed to open %s\n"
+msgstr "impossibile aprire %s\n"
+
+#: ../url.c:449
+#, c-format
+msgid "failed to create %s\n"
+msgstr "impossibile creare %s\n"
+
+#: ../urlmethod.c:63 ../urlmethod.c:66 ../urlmethod.c:120 ../urlmethod.c:123
+msgid "Retrieving"
+msgstr "Ritento"
+
+#: ../urlmethod.c:137
+#, c-format
+msgid "open of %s failed: %s\n"
+msgstr "apertura di %s fallita: %s\n"
+
+#: ../urlmethod.c:153
+#, c-format
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Errore trasferendo il file %s:\n"
+"%s"
+
+#: ../urlmethod.c:188
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Inserire le seguenti informazioni:\n"
+"\n"
+"    * il nome o l'indirizzo IP del server FTP\n"
+"    * la directory del server che contiene Red\n"
+"      Hat Linux per la vostra architettura\n"
+
+#: ../urlmethod.c:197
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Inserire le seguenti informazioni:\n"
+"\n"
+"    * il nome o l'indirizzo IP del server web\n"
+"    * la directory del server che contiene Red\n"
+"      Hat Linux per la vostra architettura\n"
+
+#: ../urlmethod.c:215
+msgid "FTP site name:"
+msgstr "Nome del server FTP:"
+
+#: ../urlmethod.c:216
+msgid "Web site name:"
+msgstr "Nome del server Web:"
+
+#: ../urlmethod.c:233
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Usare un non-anonymous ftp o un proxy server"
+
+#: ../urlmethod.c:237
+msgid "Use proxy server"
+msgstr "Usare un proxy server"
+
+#: ../urlmethod.c:246
+msgid "FTP Setup"
+msgstr "FTP Setup"
+
+#: ../urlmethod.c:247
+msgid "HTTP Setup"
+msgstr "HTTP Setup"
+
+#: ../urlmethod.c:257
+msgid "You must enter a server name."
+msgstr "Bisogna inserire il nome del server."
+
+#: ../urlmethod.c:262
+msgid "You must enter a directory."
+msgstr "Bisogna inserire una directory."
+
+#: ../urlmethod.c:323
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Se state usando un server ftp non anonymous od un server ftp proxyinserire "
+"il nome e la password che desiderate usare."
+
+#: ../urlmethod.c:329
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Se state usando un server HTTP proxy inserire il nome del server proxy "
+"HTTPche desiderate usare."
+
+#: ../urlmethod.c:350
+msgid "Account name:"
+msgstr "Nome di account:"
+
+#: ../urlmethod.c:358
+msgid "FTP Proxy:"
+msgstr "FTP Proxy"
+
+#: ../urlmethod.c:359
+msgid "HTTP Proxy:"
+msgstr "HTTP Proxy"
+
+#: ../urlmethod.c:363
+msgid "FTP Proxy Port:"
+msgstr "FTP Proxy porta:"
+
+#: ../urlmethod.c:364
+msgid "HTTP Proxy Port:"
+msgstr "HTTP Proxy porta:"
+
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was:"
+#~ msgstr ""
+#~ "Rilevato un errore leggendo la tavola delle partizioni per il device block "
+#~ "%s.L'errore era:"
+
+#~ msgid "LAN manager host:"
+#~ msgstr "Lan manager host:"
+
+#~ msgid "LAN manager IP:"
+#~ msgstr "LAN manager IP:"
+
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "Opzioni di stampa LAN Manager"
+
+#~ msgid "LAN Manager"
+#~ msgstr "LAN Manager"
+
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "Installazione RPM di %s fallita: %s"
+
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> visualizzera' dimensione e descrizione del programma"
+
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Dimensione di tutti i programmi selezionati:"
+
+#~ msgid "Select Packages"
+#~ msgstr "Seleziona i pacchetti"
+
+#~ msgid "Size:"
+#~ msgstr "Size:"
+
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Impossibile aprire il file %s: %s\n"
+
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Impossibile connettersi nel sistema %s\n"
+
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr ""
+#~ "Volete installare o configurare il bootloader SILO nel vostro sistema?"
+
+#~ msgid "Other"
+#~ msgstr "Altro"
+
+#~ msgid ""
+#~ "You cancelled step \"%s\".\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Avete cancellato il punto \"%s\".\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "An error occured during step \"%s\" of the install.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Si e' verificato un errore durante il passaggio\"%s\" dell'installazione.\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Which tool would you like to use?"
+#~ msgstr ""
+#~ "\n"
+#~ "Quale tool volete usare ?"
+
+#~ msgid ""
+#~ "\n"
+#~ "Would you like to create a bootdisk for your system?"
+#~ msgstr ""
+#~ "\n"
+#~ "Volete creare un bootdisk per il vostro sistema ?"
+
+#~ msgid "Please verify...\n"
+#~ msgstr "Verificate queste informazioni\n"
+
+#~ msgid "LILO Installation"
+#~ msgstr "Installazione di LILO"

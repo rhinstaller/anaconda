@@ -1,0 +1,2822 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# Richard Allen <ra@hp.is>, 1999.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rhinstall 6.0\n"
+"POT-Creation-Date: 1999-08-30 22:26-0400\n"
+"PO-Revision-Date: 1999-04-18 21:06+0000\n"
+"Last-Translator: Richard Allen <ra@hp.is>\n"
+"Language-Team: is <kde-isl@mmedia.is>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: ISO-8859-1\n"
+
+#: ../bootpc.c:501
+msgid "No BOOTP reply received"
+msgstr "Ekkert svar við BOOTP beiðni"
+
+#: ../bootpc.c:503
+msgid "No DHCP reply received"
+msgstr "Ekkert svar við DHCP beiðni"
+
+#: ../cdrom.c:35
+msgid "Other CDROM"
+msgstr "Annað geisladrif"
+
+#: ../cdrom.c:41
+msgid "CDROM type"
+msgstr "Tegund geisladrifs"
+
+#: ../cdrom.c:41
+msgid "What type of CDROM do you have?"
+msgstr "Hvernig geisladrif er í vélinni þinni?"
+
+#: ../cdrom.c:43 ../devices.c:575 ../devices.c:613 ../devices.c:761
+#: ../devices.c:800 ../devices.c:814 ../devices.c:828 ../devices.c:1138
+#: ../devices.c:1189 ../devices.c:1623 ../doit.c:133 ../doit.c:179
+#: ../doit.c:658 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:412 ../earlymethods.c:428 ../earlymethods.c:438
+#: ../earlymethods.c:502 ../earlymethods.c:509 ../earlymethods.c:558
+#: ../earlymethods.c:563 ../earlymethods.c:716 ../earlymethods.c:766
+#: ../earlymethods.c:789 ../earlymethods.c:802 ../earlymethods.c:841
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#: ../earlymethods.c:943 ../earlymethods.c:1016 ../earlymethods.c:1028
+#: ../earlymethods.c:1051 ../earlymethods.c:1133 ../earlymethods.c:1140
+#: ../earlymethods.c:1206 ../earlymethods.c:1321 ../earlymethods.c:1333
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fs.c:224
+#: ../fs.c:410 ../fs.c:521 ../fs.c:543 ../fsedit.c:233 ../fsedit.c:240
+#: ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268 ../fsedit.c:278
+#: ../fsedit.c:379 ../fsedit.c:461 ../fsedit.c:512 ../fsedit.c:876
+#: ../fsedit.c:954 ../fsedit.c:972 ../fsedit.c:1008 ../fsedit.c:1798
+#: ../fsedit.c:1806 ../fsedit.c:1931 ../fsedit.c:1950 ../fsedit.c:2043
+#: ../fsedit.c:2373 ../fsedit.c:2409 ../fsedit.c:2427 ../fsedit.c:2456
+#: ../fsedit.c:2495 ../fsedit.c:2525 ../fsedit.c:2584 ../fsedit.c:2620
+#: ../fsedit.c:2798 ../fsedit.c:2812 ../fsedit.c:2856 ../fsedit.c:2883
+#: ../fsedit.c:2974 ../fsedit.c:3079 ../fsedit.c:3105 ../hd.c:310 ../hd.c:412
+#: ../hints.c:31 ../install.c:75 ../install.c:191 ../install.c:268
+#: ../install.c:303 ../install.c:481 ../install.c:485 ../install.c:495
+#: ../install.c:513 ../install2.c:507 ../install2.c:530 ../install2.c:548
+#: ../install2.c:598 ../install2.c:662 ../install2.c:669 ../install2.c:675
+#: ../install2.c:710 ../install2.c:733 ../install2.c:743 ../install2.c:968
+#: ../install2.c:1146 ../install2.c:1183 ../install2.c:1347 ../install2.c:1649
+#: ../kbd.c:250 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37 ../kernel.c:49
+#: ../kernel.c:68 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../kickstart.c:246 ../kickstart.c:254 ../lang.c:144
+#: ../latemethods.c:232 ../latemethods.c:349 ../latemethods.c:494 ../lilo.c:93
+#: ../lilo.c:97 ../lilo.c:140 ../lilo.c:445 ../lilo.c:556 ../mkswap.c:588
+#: ../mtab.c:91 ../net.c:309 ../net.c:390 ../net.c:610 ../net.c:620
+#: ../net.c:641 ../net.c:676 ../net.c:715 ../net.c:1122 ../net.c:1171
+#: ../net.c:1408 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:329 ../pkgs.c:355
+#: ../pkgs.c:458 ../pkgs.c:470 ../pkgs.c:670 ../pkgs.c:774 ../pkgs.c:874
+#: ../pkgs.c:1351 ../printercfg.c:469 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1255 ../printercfg.c:1344 ../smb.c:70 ../urlmethod.c:137
+#: ../urlmethod.c:153 ../urlmethod.c:183 ../urlmethod.c:256 ../urlmethod.c:261
+#: ../urlmethod.c:377 ../windows.c:18
+msgid "Ok"
+msgstr "Í lagi"
+
+#: ../cdrom.c:43 ../devices.c:614 ../devices.c:1138 ../devices.c:1189
+#: ../doit.c:251 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:789 ../earlymethods.c:841 ../fs.c:410 ../fsedit.c:415
+#: ../fsedit.c:1798 ../fsedit.c:1806 ../fsedit.c:2975 ../fsedit.c:2998
+#: ../hd.c:360 ../install.c:178 ../install.c:191 ../install2.c:314
+#: ../install2.c:507 ../install2.c:530 ../install2.c:710 ../install2.c:968
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:93 ../lilo.c:97
+#: ../lilo.c:446 ../lilo.c:556 ../mkswap.c:588 ../net.c:390 ../net.c:676
+#: ../net.c:1171 ../net.c:1418 ../pkgs.c:517 ../pkgs.c:670 ../pkgs.c:774
+#: ../pkgs.c:1099 ../pkgs.c:1377 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1208 ../printercfg.c:1255 ../printercfg.c:1345 ../scsi.c:55
+#: ../urlmethod.c:183
+msgid "Back"
+msgstr "Til baka"
+
+#: ../cdrom.c:141
+msgid "Initializing CDROM..."
+msgstr "Frumstilli geisladrifið..."
+
+#: ../devices.c:80 ../devices.c:86 ../devices.c:91 ../devices.c:102
+#: ../devices.c:107 ../devices.c:113 ../devices.c:124
+msgid "Base IO port:"
+msgstr "Grunn IO gátt:"
+
+#: ../devices.c:81 ../devices.c:92 ../devices.c:125
+msgid "IRQ level:"
+msgstr "IRQ númer:"
+
+#: ../devices.c:97
+msgid "IO base, IRQ:"
+msgstr "IO gátt, IRQ:"
+
+#: ../devices.c:112
+msgid "Use other options"
+msgstr "Nota önnur viðföng"
+
+#: ../devices.c:114
+msgid "Interrupt level (IRQ):"
+msgstr "Ígrip númer (IRQ):"
+
+#: ../devices.c:119
+msgid "IO base, IRQ, label:"
+msgstr "IO gátt, IRQ, merki:"
+
+#: ../devices.c:435
+msgid "Autoprobe"
+msgstr "Stilla sjálfvirkt"
+
+#: ../devices.c:435
+msgid "Specify options"
+msgstr "Stilla handvirkt"
+
+#: ../devices.c:575 ../devices.c:814 ../devices.c:828 ../devices.c:1623
+#: ../doit.c:133 ../doit.c:179 ../doit.c:658 ../earlymethods.c:428
+#: ../earlymethods.c:438 ../earlymethods.c:558 ../earlymethods.c:563
+#: ../earlymethods.c:1016 ../earlymethods.c:1028 ../earlymethods.c:1051
+#: ../earlymethods.c:1321 ../earlymethods.c:1333 ../fs.c:521 ../fs.c:543
+#: ../fsedit.c:2043 ../install.c:303 ../install.c:481 ../install.c:485
+#: ../install.c:495 ../install.c:513 ../install2.c:548 ../install2.c:598
+#: ../install2.c:1098 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37
+#: ../kernel.c:49 ../kickstart.c:246 ../kickstart.c:254 ../latemethods.c:232
+#: ../latemethods.c:349 ../latemethods.c:494 ../net.c:641 ../net.c:715
+#: ../net.c:919 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:874 ../urlmethod.c:137
+#: ../urlmethod.c:256 ../urlmethod.c:261 ../windows.c:18
+msgid "Error"
+msgstr "Villa"
+
+#: ../devices.c:576
+#, c-format
+msgid "mknod() failed: %s"
+msgstr "mknod() tókst ekki: %s"
+
+#: ../devices.c:612
+msgid "Load module"
+msgstr "Lesa inn kjarnaeiningu"
+
+#: ../devices.c:612
+msgid "Which driver should I try?"
+msgstr "Hvaða rekil viltu reyna?"
+
+#: ../devices.c:761
+msgid "Probe"
+msgstr "Stilla"
+
+#: ../devices.c:762
+#, c-format
+msgid "A %s card has been found on your system."
+msgstr "Kort af gerðinni %s hefur fundist í vélinni þinni."
+
+#: ../devices.c:800
+msgid "device command"
+msgstr "tækjaskipun"
+
+#: ../devices.c:801
+#, c-format
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "ólöglegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
+
+#: ../devices.c:815
+msgid "bad arguments to kickstart device command"
+msgstr "ólögleg viðföng við tækjaskipun hraðuppsetningar"
+
+#: ../devices.c:829
+#, c-format
+msgid "No module exists for %s"
+msgstr "Engin kjarneining er til fyrir %s"
+
+#: ../devices.c:856
+msgid "I can't find the device anywhere on your system!"
+msgstr "Þetta tæki finnst ekki í vélinni þinni!"
+
+#: ../devices.c:1120
+#, c-format
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"Í sumum tilfellum þarf rekillinn %s auka viðföng svo hann virki rétt, þó "
+"hann virki vel í flestum tilfellum án þeirra. Viltu setja inn auka viðföng "
+"eða leyfa reklinum sjálfum að leita að þeim upplýsingum sem hann þarf? "
+"Stundum frystir sjálfvirk stilling vélina en það ætti ekki að skemma neitt."
+
+#: ../devices.c:1129
+#, c-format
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"Í sumum tilfellum þarf rekillinn %s frekari upplýsingar um vélbúnaðinn í "
+"vélinni þinni. Ef þú vilt getur rekillinn prófað nokkur algeng gildi. Þetta "
+"getur fryst vélina, en ætti ekki að skemma neitt."
+
+#: ../devices.c:1137
+msgid "Module Options"
+msgstr "Stillingar kjarnaeininga"
+
+#: ../devices.c:1177
+msgid "Miscellaneous options:"
+msgstr "Frekari stillingar:"
+
+#: ../devices.c:1179 ../devices.c:1188
+msgid "Module options:"
+msgstr "Stillingar kjarnaeininga:"
+
+#: ../devices.c:1188
+msgid "Module Parameters"
+msgstr "Viðföng kjarnaeininga"
+
+#: ../devices.c:1624
+#, c-format
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Get ekki opnað /proc/filesystems: %d"
+
+#: ../doit.c:134
+#, c-format
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Gat ekki opnað %s. Engin uppfærsluannáll verður skráður."
+
+#: ../doit.c:149
+msgid "Fatal error opening RPM database"
+msgstr "Banvæn villa við opnun RPM gagnagrunnsins"
+
+#: ../doit.c:180
+#, c-format
+msgid "Error ordering package list: %s"
+msgstr "Ekki tókst að panta pakkalista: %s"
+
+#: ../doit.c:216
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Það virðist ekki vera laust nægjanlegt diskarými fyrir þá pakka sem þú "
+"valdir til uppsetningar. Þú þarft meira pláss á eftirfarandi skráarkerfum:\n"
+
+#: ../doit.c:226
+msgid "Mount Point"
+msgstr "Tengipunktur"
+
+#: ../doit.c:227
+msgid "Space Needed"
+msgstr "Nauðsynlegt pláss"
+
+#: ../doit.c:251 ../fsedit.c:2812
+msgid "Disk Space"
+msgstr "Diskpláss"
+
+#: ../doit.c:251
+msgid "Install anyway"
+msgstr "Setja samt upp"
+
+#: ../doit.c:321
+msgid "Fatal error reopening RPM database"
+msgstr "Banvæn villa við enduropnun RPM gagnagrunninn"
+
+#: ../doit.c:421
+msgid "Install Status"
+msgstr "Staða uppsetningar"
+
+#: ../doit.c:486
+msgid "(no summary)"
+msgstr "(ekkert yfirlit)"
+
+#: ../doit.c:562
+msgid "Examining packages to install..."
+msgstr "Leita að pökkum sem þarf að setja inn..."
+
+#: ../doit.c:563
+msgid "Examining files to install..."
+msgstr "Skoða skrár sem þarf að setja inn..."
+
+#: ../doit.c:564
+msgid "Finding overlapping files..."
+msgstr "Leita að skrám sem yfirrita hvor aðra..."
+
+#: ../doit.c:576
+msgid "Processing"
+msgstr "Vinnsla í gangi"
+
+#: ../doit.c:584
+msgid "Removing old files..."
+msgstr "Eyði gömlum skrám..."
+
+#: ../doit.c:634
+msgid "Upgrading"
+msgstr "Uppfæri"
+
+#: ../doit.c:634
+msgid "Installing"
+msgstr "Set inn"
+
+#: ../doit.c:659
+#, c-format
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Villa við uppsetningu pakka: gat ekki opnað RPM skrá fyrir %s: %s"
+
+#: ../earlymethods.c:175
+msgid "What type of media contains the packages to be installed?"
+msgstr "Af hvernig miðli koma pakkarnir sem á að setja upp?"
+
+#: ../earlymethods.c:202
+msgid "Force supplemental disk"
+msgstr "Neyða notkun aukadisklingsins"
+
+#: ../earlymethods.c:208
+msgid "Installation Method"
+msgstr "Uppsetningaraðferð"
+
+#: ../earlymethods.c:294
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+"\n"
+"    o heiti eða IP vistfang NFS þjónsins þíns\n"
+"    o mappan á þjóninum sem inniheldur\n"
+"      Red Hat Linux fyrir vélina þína"
+
+#: ../earlymethods.c:306
+msgid "NFS server name:"
+msgstr "Heiti NFS þjónsins:"
+
+#: ../earlymethods.c:309 ../urlmethod.c:219
+msgid "Red Hat directory:"
+msgstr "Red Hat mappan:"
+
+#: ../earlymethods.c:333
+msgid "NFS Setup"
+msgstr "NFS stillingar"
+
+#: ../earlymethods.c:412
+msgid "Note"
+msgstr "Ath."
+
+#: ../earlymethods.c:413
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Vinsamlegast settu Red Hat geisladiskinn í geisladrifið"
+
+#: ../earlymethods.c:429
+#, c-format
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Gat ekki tengt geisladrifið á /dev/%s"
+
+#: ../earlymethods.c:439
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Þetta geisladrif virðist ekki innihalda Red Hat geisladisk."
+
+#: ../earlymethods.c:502 ../earlymethods.c:509
+msgid "nfs command"
+msgstr "NFS skipun"
+
+#: ../earlymethods.c:503
+#, c-format
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "ólöglegt viðfang við NFS hraðuppsetningarskipun %s: %s"
+
+#: ../earlymethods.c:510
+msgid "nfs command incomplete"
+msgstr "NFS skipun ókláruð"
+
+#: ../earlymethods.c:559
+msgid "I could not mount that directory from the server"
+msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
+
+#: ../earlymethods.c:564 ../earlymethods.c:1322 ../latemethods.c:495
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
+
+#: ../earlymethods.c:677
+msgid "Loading second stage ramdisk..."
+msgstr "Les inn auka ramdisklinginn..."
+
+#: ../earlymethods.c:716
+msgid "PCMCIA Disk"
+msgstr "PCMCIA diskur"
+
+#: ../earlymethods.c:716 ../earlymethods.c:766 ../earlymethods.c:802
+#: ../earlymethods.c:943 ../fs.c:225 ../fsedit.c:877 ../fsedit.c:1999
+#: ../fsedit.c:2798 ../lilo.c:141 ../mtab.c:91 ../smb.c:70 ../urlmethod.c:377
+msgid "Cancel"
+msgstr "Hætta við"
+
+#: ../earlymethods.c:717
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat PCMCIA "
+"disklinginn í drifið eða veldu Hætta við til að velja aðra "
+"uppsetningaraðferð."
+
+#: ../earlymethods.c:724
+msgid "Loading PCMCIA Support"
+msgstr "Les inn PCMCIA stuðning"
+
+#: ../earlymethods.c:766 ../earlymethods.c:841
+msgid "Supplemental Disk"
+msgstr "Aukadisklingur"
+
+#: ../earlymethods.c:767
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat aukadisklinginn "
+"í drifið eða veldu Hætta við til að velja aðra uppsetningaraðferð."
+
+#: ../earlymethods.c:774
+msgid "Loading Supplemental Disk..."
+msgstr "Les inn aukadisklinginn..."
+
+#: ../earlymethods.c:789 ../earlymethods.c:802
+msgid "Driver Disk"
+msgstr "Rekladisklingur"
+
+#: ../earlymethods.c:790
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Þessi uppsetningaraðferð þarfnast rekladisklingsins. Vinsamlegast taktu "
+"aukadisklinginn úr disklingadrifinu og settu rekladisklinginn í hans stað. "
+
+#: ../earlymethods.c:803
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Ekki tókst að tengja disklinginn. Vinsamlegast settu Red Hat "
+"rekladisklinginn í drifið eða veldu Hætta við til að velja aðra "
+"uppsetningaraðferð."
+
+#: ../earlymethods.c:810
+msgid "Loading Driver Disk..."
+msgstr "Les inn rekladisklinginn..."
+
+#: ../earlymethods.c:842
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Þessi uppsetningaraðferð þarfnast tveggja auka disklinga. Vinsamlegast taktu "
+"ræsidisklinginn úr disklingadrifinu og settu aukadisklinginn í hans stað. "
+
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+msgid "hd command"
+msgstr "hd skipun"
+
+#: ../earlymethods.c:903
+#, c-format
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "ólöglegt viðfang við hd hraðuppsetningarskipun %s: %s"
+
+#: ../earlymethods.c:910
+msgid "hd command incomplete"
+msgstr "hd skipun ókláruð"
+
+#: ../earlymethods.c:923
+#, c-format
+msgid "HD device %s not found"
+msgstr "HD tæki %s finnst ekki"
+
+#: ../earlymethods.c:932
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Hvaða disksneið og mappa inniheldur RedHat/RPMS og RedHat/base möppuna?"
+
+#: ../earlymethods.c:951
+msgid "Directory holding Red Hat:"
+msgstr "Mappa sem inniheldur Red Hat:"
+
+#: ../earlymethods.c:968
+msgid "Select Partition"
+msgstr "Veldu disksneið"
+
+#: ../earlymethods.c:1017
+#, c-format
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Gat ekki búið til /tmp/rhimage sýndarhlekk: %s"
+
+#: ../earlymethods.c:1029
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Tæki %s virðist ekki innihalda Red Hat dreifingu."
+
+#: ../earlymethods.c:1052 ../earlymethods.c:1334
+msgid "Error reading second stage ramdisk. "
+msgstr "Villa við lestur minnisdisks seinna þreps. "
+
+#: ../earlymethods.c:1133 ../earlymethods.c:1140
+msgid "url command"
+msgstr "slóðarskipun"
+
+#: ../earlymethods.c:1134
+#, c-format
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "ólöglegt viðfang við slóðarskipun í hraðuppsetningu %s: %s"
+
+#: ../earlymethods.c:1141
+msgid "url command incomplete"
+msgstr "slóðarskipun ókláruð"
+
+#: ../earlymethods.c:1207
+#, c-format
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Get ekki sótt minnisdisk seinna þreps: %s"
+
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fsedit.c:233
+#: ../fsedit.c:240 ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268
+#: ../fsedit.c:278
+msgid "Bad Mount Point"
+msgstr "Ólöglegur tengipunktur"
+
+#: ../fs.c:116
+msgid "Mount points must begin with a leading /."
+msgstr "Heiti tengipunkta verða að byrja á /."
+
+#: ../fs.c:122
+msgid "Mount points may not end with a /."
+msgstr "Heiti tengipunkta má ekki enda á /."
+
+#: ../fs.c:130
+msgid "Mount points may only printable characters."
+msgstr "Heiti tengipunkta má bara innihalda prentanlega stafi."
+
+#: ../fs.c:145
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Kerfissneiðar verða að vera á \"Linux Native\" disksneiðum."
+
+#: ../fs.c:153
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr "/usr verður að vera á \"Linux Native\" disksneið eða NFS skráakerfi."
+
+#: ../fs.c:198
+msgid "Edit Network Mount Point"
+msgstr "Breyta nettengipunkti"
+
+#: ../fs.c:332
+#, c-format
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Bý til ext2 skráakerfi á /dev/%s..."
+
+#: ../fs.c:333 ../lilo.c:327
+msgid "Running"
+msgstr "Í keyrslu"
+
+#: ../fs.c:367
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Hvaða disksneiðar viltu forsníða? Við mælum eindregið með að forsníða allar "
+"kerfissneiðarnar, þar með talið /, /usr og /var. Það er alveg óþarft að "
+"forsníða /home eða /usr/local disksneiðarnar ef þær hafa verið settar upp í "
+"fyrri uppsetningum."
+
+#: ../fs.c:407 ../mkswap.c:585
+msgid "Check for bad blocks during format"
+msgstr "Athuga hvort diskurinn hafi gallaðar blokkir"
+
+#: ../fs.c:416
+msgid "Partitions To Format"
+msgstr "Disksneiðar sem skulu forsníðast"
+
+#: ../fs.c:522
+#, c-format
+msgid "nfs mount failed: %s"
+msgstr "ekki tókst að nfs tengja: %s"
+
+#: ../fs.c:544
+#, c-format
+msgid "mount failed: %s"
+msgstr "ekki tókst að tengja: %s"
+
+#: ../fsedit.c:234
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr "Mappan %s verður að vera í rótarskráakerfinu."
+
+#: ../fsedit.c:241
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+"Tengipunkturinn %s er ólöglegur.\n"
+"\n"
+"Heiti tengipunkts verður að byrja á /."
+
+#: ../fsedit.c:248
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+"Tengipunkturinn %s er ólöglegur.\n"
+"\n"
+"Heiti tengipunkts má ekki enda á /."
+
+#: ../fsedit.c:257
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+"Tengipunkturinn %s er ólöglegur.\n"
+"\n"
+"Heiti tengipunkta má bara innihalda prentanlega stafi."
+
+#: ../fsedit.c:269
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+"Tengipunkturinn %s er ólöglegur.\n"
+"\n"
+"Kerfisdisksneiðar verða að vera á \"Linux Native\" disksneiðum."
+
+#: ../fsedit.c:279
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Tengipunkturinn %s er ólöglegur.\n"
+"\n"
+"/usr verður að vera á \"Linux Native\" disksneið eða NFS skráakerfi."
+
+#: ../fsedit.c:319
+#, c-format
+msgid "System error %d"
+msgstr "Kerfisvilla %d"
+
+#: ../fsedit.c:328 ../fsedit.c:330
+msgid "Fdisk Error"
+msgstr "Fdisk villa"
+
+#. build list of why they all failed
+#: ../fsedit.c:347 ../fsedit.c:1980
+msgid "Unallocated Partitions"
+msgstr "Sneiðar sem ekki fannst pláss fyrir"
+
+#: ../fsedit.c:351
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"Það eru nú disksneiðar sem ekki fannst pláss fyrir í listanum af umbeðnum "
+"sneiðum. Þær disksneiðar sjást hér fyrir neðan ásamt ástæðunni fyrir því að "
+"þær fengu ekkert rými."
+
+#: ../fsedit.c:410
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+"Diskur með skemmt Sun diskmerki hefur fundist við lestur tækis %s. Þú verður "
+"að búa til og skrifa á diskinn nýtt merki með fdisk."
+
+#: ../fsedit.c:414
+msgid "Corrupt Sun disklabel"
+msgstr "Skemmt Sun diskmerki"
+
+#: ../fsedit.c:415 ../fsedit.c:472 ../fsedit.c:500
+msgid "Skip Drive"
+msgstr "Sleppa drifi"
+
+#: ../fsedit.c:424 ../fsedit.c:496
+#, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"Villa kom upp við lestur disksneiðatöflunnar á blokkartæki %s. Villan var"
+
+#: ../fsedit.c:460 ../fsedit.c:471
+msgid "Bad Partition Table"
+msgstr "Skemmd disksneiðatafla"
+
+#: ../fsedit.c:462
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
+"sneiðar þarf að frumstilla hana. Þú getur sett \"zerombr yes\" í "
+"hraðuppsetningarstillingaskrána svo þetta gerist sjálfvirkt"
+
+#: ../fsedit.c:472
+msgid "Initialize"
+msgstr "Frumstilla"
+
+#: ../fsedit.c:473
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"Disksneiðataflan á tæki %s er skemmd.  Til þess að hægt sé að búa til "
+"disksneiðar þarf að frumstilla hana, sem veldur því að ÖLL GÖGN á disknum "
+"týnast."
+
+#: ../fsedit.c:500 ../install2.c:1098 ../net.c:445
+msgid "Retry"
+msgstr "Reyna aftur"
+
+#: ../fsedit.c:512
+msgid "BSD Disklabel"
+msgstr "BSD diskmerki"
+
+#: ../fsedit.c:512
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"Diskur með BSD diskmerki hefur fundist. Red Hat uppsetningarforritið styður "
+"einungis BSD diskmerki í ritvörðum ham svo þú verður að velja 'Sérsniðna' "
+"uppsetningu og fdisk (ekki Diska Drúídan)."
+
+#: ../fsedit.c:569
+msgid "Swap Partition"
+msgstr "Diskminnisdisksneið"
+
+#: ../fsedit.c:690 ../fsedit.c:696 ../fsedit.c:700 ../fsedit.c:702
+msgid "Edit Partition"
+msgstr "Breyta disksneið"
+
+#: ../fsedit.c:762
+msgid "Allocation Status:"
+msgstr "Staða:"
+
+#: ../fsedit.c:764
+msgid "Successful"
+msgstr "Tókst"
+
+#: ../fsedit.c:766
+msgid "Failed"
+msgstr "Tókst ekki"
+
+#: ../fsedit.c:771
+msgid "Failure Reason:"
+msgstr "Ástæða:"
+
+#: ../fsedit.c:913
+msgid "No Mount Point"
+msgstr "Enginn tengipunktur"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "Yes"
+msgstr "Já"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "No"
+msgstr "Nei"
+
+#: ../fsedit.c:914
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Þú hefur ekki valið tengipunkt fyrir þessa disksneið. Ertu viss um að þú "
+"viljir gera þetta?"
+
+#: ../fsedit.c:954 ../fsedit.c:2584
+msgid "Mount Point Error"
+msgstr "Tengipunktavilla"
+
+#: ../fsedit.c:955
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Tengipunkturinn sem þú valdir er annaðhvort ólöglegur eða þegar í notkun. "
+"Vinsamlegast veldu gildan tengipunkt."
+
+#: ../fsedit.c:972
+msgid "Size Error"
+msgstr "Villa í stærð"
+
+#: ../fsedit.c:973
+msgid ""
+"The size requested is illegal. Make sure the size is greater than zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"Umbeðin stærð er ólögleg. Gaktu úr skugga um að hún sé stærri en núll (0) og "
+"sé skilgreind sem tugakerfistala."
+
+#: ../fsedit.c:1008
+msgid "Swap Size Error"
+msgstr "Villa í stærð diskminnis"
+
+#: ../fsedit.c:1009
+#, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Þú hefur búið til diskminnisdisksneið sem er of stór. Hámarksstærð "
+"diskminnissneiðar er %ld megabæti."
+
+#: ../fsedit.c:1136
+msgid "Delete Partition"
+msgstr "Eyða disksneið"
+
+#: ../fsedit.c:1137
+msgid "Are you sure you want to delete this partition?"
+msgstr "Ertu viss um að þú viljir eyða þessari disksneið?"
+
+#: ../fsedit.c:1783
+msgid "Current Disk Partitions"
+msgstr "Núverandi disksneiðar"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805 ../fsedit.c:2974 ../hd.c:359
+#: ../lilo.c:445
+msgid "Edit"
+msgstr "Breyta"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805
+msgid "Delete"
+msgstr "Eyða"
+
+#: ../fsedit.c:1804
+msgid "Add"
+msgstr "Bæta við"
+
+#: ../fsedit.c:1816
+msgid "Drive Summaries"
+msgstr "Drifin þín"
+
+#: ../fsedit.c:1931
+msgid "No Root Partition"
+msgstr "Engin rótarsneið"
+
+#: ../fsedit.c:1932
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"Þú verður að skilgreina rótarsneið (/) á \"Linux native\" disksneið (ext2) "
+"svo uppsetningin geti haldið áfram"
+
+#: ../fsedit.c:1950
+msgid "No Swap Partition"
+msgstr "Engin diskminnissneið"
+
+#: ../fsedit.c:1951
+msgid "You must assign a swap partition for the install to proceed."
+msgstr ""
+"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+
+#: ../fsedit.c:1982
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+"Það eru enn ófráteknar disksneiðar eftir. Ef þú hættir núna verða þær ekki "
+"vistaðar á diskinn.\n"
+"\n"
+"Ertu viss um að þú viljir hætta?"
+
+#: ../fsedit.c:1998
+msgid "Save Changes"
+msgstr "Vista breytingar"
+
+#: ../fsedit.c:2000
+msgid "Save changes to partition table(s)?"
+msgstr "Vista breytingar á disksneiðatöflunni?"
+
+#: ../fsedit.c:2044
+msgid "You may only delete NFS mounts."
+msgstr "Þú mátt aðeins eyða NFS tengingum."
+
+#: ../fsedit.c:2078
+msgid "Reset Partition Table"
+msgstr "Endurstilla disksneiðatöfluna"
+
+#: ../fsedit.c:2080
+msgid "Reset partition table to original contents? "
+msgstr "Endurstilla disksneiðatöfluna á upprunaleg gildi?"
+
+#: ../fsedit.c:2373 ../fsedit.c:2856 ../fsedit.c:3079
+msgid "Too Many Drives"
+msgstr "Of mörg drif"
+
+#: ../fsedit.c:2374 ../fsedit.c:2857 ../fsedit.c:3080
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Þú hefur fleiri drif en þetta forrit styður. Vinsamlegast notaðu staðlað "
+"fdisk til þess að setja upp drifin þín og láttu Red Hat Software vita að "
+"þetta hafi komið upp hjá þér"
+
+#: ../fsedit.c:2409
+msgid "Zero Partition Table"
+msgstr "Auð disksneiðatafla"
+
+#: ../fsedit.c:2410
+#, c-format
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"Ólöglegt viðfang við zerombr hraðuppsetningar skipunina: %s.\n"
+"Það verður að vera 'on', '1' eða 'yes' til að virkja, eða 'off', '0', eða "
+"'no' til að slökkva á henni."
+
+#: ../fsedit.c:2427 ../fsedit.c:2883 ../fsedit.c:3105
+msgid "No Drives Found"
+msgstr "Engin drif fundust"
+
+#: ../fsedit.c:2428 ../fsedit.c:2884 ../fsedit.c:3106
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"Það kom upp villa. Engin tæki fundust sem unnt er að búa til ný skráakerfi "
+"á. Vinsamlegast skoðaðu vélbúnaðinn og athugaðu hverju sætir."
+
+#: ../fsedit.c:2456
+msgid "Clear Partition Command"
+msgstr "Eyða disksneiðaskipun"
+
+#: ../fsedit.c:2457
+#, c-format
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "ólöglegt viðfang við \"clearpart\" hraðuppsetningarskipun %s: %s"
+
+#: ../fsedit.c:2495
+msgid "Partition Command"
+msgstr "Disksneiðaskipun"
+
+#: ../fsedit.c:2496
+#, c-format
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "ólöglegt viðfang við part hraðuppsetningar skipun %s: %s"
+
+#: ../fsedit.c:2525
+msgid "Option Ignored"
+msgstr "Viðfang hundsað"
+
+#: ../fsedit.c:2526
+#, c-format
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Viðfangið --maxsize var hundsað fyrir disksneiðina %s. Athugaðu hvort það sé "
+"ekki örugglega hærra en --size viðfangið."
+
+#: ../fsedit.c:2585
+#, c-format
+msgid "The mount point %s is already in use."
+msgstr "Tengipunkturinn %s er þegar í notkun."
+
+#: ../fsedit.c:2620
+msgid "Failed Allocation"
+msgstr "Ekki tókst að taka frá pláss"
+
+#: ../fsedit.c:2621
+#, c-format
+msgid "The partition %s could not be allocated."
+msgstr "Gat ekki tekið frá pláss fyrir disksneið %s."
+
+#: ../fsedit.c:2798 ../fsedit.c:2804
+msgid "Warning"
+msgstr "Aðvörun"
+
+#: ../fsedit.c:2805
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr "Þú ert við það að tapa gögnum! Ertu viss um að þú viljir gera þetta?"
+
+#: ../fsedit.c:2813
+msgid "There is not enough disk space for this type of installation."
+msgstr "Það er ekki nægjanlegt diskpláss fyrir svona uppsetningu."
+
+#. Find out if the user wants to do this
+#: ../fsedit.c:2997 ../install2.c:313
+msgid "Disk Setup"
+msgstr "Diskuppsetningar"
+
+#: ../fsedit.c:2999
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Stærð sumra disksneiða má breyta án þess að valda skemmdum til þess að búa "
+"til pláss fyrir Red Hat Linux uppsetninguna. Viltu breyta þeim sneiðum núna?"
+
+#: ../fsedit.c:3020
+msgid "Resize Partitions"
+msgstr "Breyta stærðum disksneiða"
+
+#: ../ftp.c:651
+msgid "Success"
+msgstr "Tókst"
+
+#: ../ftp.c:654
+msgid "Bad server response"
+msgstr "Ólöglegt svar frá þjóninum"
+
+#: ../ftp.c:657
+msgid "Server IO error"
+msgstr "Les/rit villa frá þjóni"
+
+#: ../ftp.c:660
+msgid "Server timeout"
+msgstr "Tíminn rann út"
+
+#: ../ftp.c:663
+msgid "Unable to lookup server host address"
+msgstr "Ekki tókst að fletta upp IP vistfangi þjónsins"
+
+#: ../ftp.c:666
+msgid "Unable to lookup server host name"
+msgstr "Ekki tókst að fletta upp heiti þjónsins"
+
+#: ../ftp.c:669
+msgid "Failed to connect to server"
+msgstr "Ekki tókst að tengjast þjóninum"
+
+#: ../ftp.c:672
+msgid "Failed to establish data connection to server"
+msgstr "Ekki tókst að mynda gagnatengingu við þjóninn"
+
+#: ../ftp.c:675
+msgid "IO error to local file"
+msgstr "Les/rit villa á staðbundinni skrá"
+
+#: ../ftp.c:678
+msgid "Error setting remote server to passive mode"
+msgstr "Ekki tókst að stilla þjóninn á hlutlausan ham"
+
+#: ../ftp.c:681
+msgid "File not found on server"
+msgstr "Skráin fannst ekki á þjóninum"
+
+#: ../ftp.c:684
+msgid "Abort in progress"
+msgstr "Er að hætta við"
+
+#: ../ftp.c:688
+msgid "Unknown or unexpected error"
+msgstr "Óþekkt eða óvænt villa"
+
+#: ../hd.c:42
+msgid "Whole disk"
+msgstr "Allur diskurinn"
+
+#: ../hd.c:43 ../hd.c:57
+msgid "Linux swap"
+msgstr "Linux diskminni"
+
+#: ../hd.c:44 ../hd.c:58
+msgid "Linux native"
+msgstr "Linux native"
+
+#: ../hd.c:49
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bita FAT"
+
+#: ../hd.c:50
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bita <32M"
+
+#: ../hd.c:52
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bita >=32"
+
+#: ../hd.c:53
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+#: ../hd.c:54 ../hd.c:55 ../hd.c:56
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+#: ../hd.c:164 ../hd.c:310
+msgid "Hard Drives"
+msgstr "Harðir diskar"
+
+#: ../hd.c:164
+msgid "Scanning hard drives..."
+msgstr "Skoða hörðu diskana..."
+
+#: ../hd.c:311
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Þú ert ekki með neina harða diska í vélinni! Þú hefur líklega gleymt að "
+"stilla SCSI stýringu."
+
+#: ../hd.c:319
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Til að setja upp Red Hat Linux þarftu að hafa að minnsta kosti eina "
+"disksneið frátekna fyrir Linux sem er minnst 150 MB. Við mælum með að hafa "
+"hana á öðrum af fyrstu tveim hörðu diskunum í vélinni svo það sé hægt að "
+"ræsa Linux með LILO."
+
+#: ../hd.c:324
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"Til þess að setja up Red Hat Linux þarftu að minnsta kosti eina disksneið "
+"frátekna fyrir Linux sem er minnst 150 megabæti."
+
+#: ../hd.c:358
+msgid "Partition Disks"
+msgstr "Sneiða diska"
+
+#: ../hd.c:359 ../install2.c:1649 ../pkgs.c:1099
+msgid "Done"
+msgstr "Búið"
+
+#: ../hd.c:412
+msgid "Reboot Needed"
+msgstr "Endurræsingar er þörf"
+
+#: ../hd.c:413
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að þú "
+"breyttir extended disksneið. Þó þetta sé ekki alvarlegt er samt nauðsynlegt "
+"að endurræsa vélina áður en þú getur haldið áfram. Settu Red Hat ræsidiskinn "
+"í drifið og sláðu á enter til að endurræsa.\n"
+"\n"
+"Ef þú ert með ZIP eða JAZ drif, gakktu úr skugga um að það sé diskur í "
+"drifinu því tóm SCSI tæki geta einnig valdið þessu vandamáli."
+
+#: ../hints.c:31
+msgid "lilo command"
+msgstr "Lilo-skipun"
+
+#: ../hints.c:32
+#, c-format
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "ólöglegt viðfang við lilo-skipun í hraðuppsetningu %s: %s"
+
+#: ../install.c:76
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com."
+msgstr ""
+"Velkominn í Red Hat Linux!\n"
+"\n"
+"Uppsetningin er útskýrð í smáatriðum í 'Red Hat Linux Installation Guide' "
+"bókinni sem er fáanleg frá Red Hat Software. Ef þú hefur aðgang að þessari "
+"bók ættir þú að lesa um uppsetninguna áður en þú heldur áfram.\n"
+"\n"
+"Ef þú hefur keypt Official Red Hat Linux mundu þá að skrá eintakið þitt á "
+"vefsíðunni okkar á http://www.redhat.com."
+
+#: ../install.c:178
+msgid "PCMCIA Support"
+msgstr "PCMCIA stuðningur"
+
+#: ../install.c:179
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Þarftu að nota PCMCIA tæki meðan á uppsetningu stendur? Svaraðu neitandi ef "
+"þú þarft aðeins á PCMCIA að halda eftir að uppsetningu lýkur. Þú þarft ekki "
+"PCMCIA stuðning á meðan að uppsetningu stendur ef þú ert að setja upp Red "
+"Hat Linux á kjöltutölvu með innbyggðu geisladrifi."
+
+#: ../install.c:191
+msgid "PCMCIA Support Disk"
+msgstr "PCMCIA stuðningsdisklingur"
+
+#: ../install.c:192
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"PCMCIA stuðningur þarfnast PCMCIA stuðningsdisklingsins. Vinsamlegast taktu "
+"ræsidisklinginn úr disklingadrifinu og settu Red Hat PCMCIA "
+"stuðningsdisklinginn í hans stað. "
+
+#: ../install.c:202
+msgid "Starting PCMCIA services..."
+msgstr "Gangset PCMCIA þjónusturnar..."
+
+#: ../install.c:246 ../install2.c:1234
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Sláðu inn <exit> til þess að komast aftur í uppsetningarforritið.\n"
+"\n"
+
+#: ../install.c:268 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../pkgs.c:458 ../pkgs.c:470
+msgid "Kickstart Error"
+msgstr "Hraðuppsetningarvilla"
+
+#: ../install.c:268
+msgid "No kickstart configuration file server can be found."
+msgstr "Enginn þjónn með stilliskrá fyrir hraðauppsetningar fannst."
+
+#: ../install.c:304
+#, c-format
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Ekki tókst að tengja hraðuppsetningarslóðina %s.\n"
+
+#: ../install.c:467
+msgid "Welcome to Red Hat Linux"
+msgstr "Velkomin(n) í Red Hat Linux"
+
+#: ../install.c:469 ../install2.c:1571
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
+
+#: ../install.c:482
+msgid "I could not mount the boot floppy."
+msgstr "Gat ekki tengt ræsidisklinginn."
+
+#: ../install.c:486
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Gat ekki fundið ks.cfg á ræsidisklingnum."
+
+#: ../install.c:495
+#, c-format
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Villa við opnun skráa fyrir hraðuppsetningarafritun: %s\n"
+
+#: ../install.c:514
+msgid "Error copying kickstart file from floppy."
+msgstr "Villa við afritun hraðuppsetningar frá disklingi."
+
+#: ../install2.c:177 ../install2.c:221
+msgid "Select installation path"
+msgstr "Veldu uppsetningarslóð"
+
+#: ../install2.c:179
+msgid "Select installation class"
+msgstr "Veldu uppsetningaraðferð"
+
+#: ../install2.c:181 ../install2.c:223
+msgid "Setup SCSI"
+msgstr "Setja upp SCSI"
+
+#: ../install2.c:183
+msgid "Setup filesystems"
+msgstr "Setja upp skráakerfi"
+
+#: ../install2.c:185
+msgid "Setup swap space"
+msgstr "Setja upp diskminni"
+
+#: ../install2.c:187 ../install2.c:227
+msgid "Find installation files"
+msgstr "Finna uppsetningaskrár"
+
+#: ../install2.c:189
+msgid "Choose partitions to format"
+msgstr "Veldu disksneiðar sem á að forsníða"
+
+#: ../install2.c:191
+msgid "Choose packages to install"
+msgstr "Veldu pakka sem setja skal upp"
+
+#: ../install2.c:193
+msgid "Install system"
+msgstr "Setja upp Linux"
+
+#: ../install2.c:195
+msgid "Configure mouse"
+msgstr "Stilla mús"
+
+#: ../install2.c:197
+msgid "Configure networking"
+msgstr "Stilla netið"
+
+#: ../install2.c:199
+msgid "Configure timezone"
+msgstr "Setja tímabelti"
+
+#: ../install2.c:201
+msgid "Configure services"
+msgstr "Stilla þjónustur"
+
+#: ../install2.c:203
+msgid "Configure printer"
+msgstr "Setja upp prentara"
+
+#: ../install2.c:205
+msgid "Set root password"
+msgstr "Setja rótarlykilorðið"
+
+#: ../install2.c:207
+msgid "Configure authentication"
+msgstr "Stilla auðkenningu"
+
+#: ../install2.c:209 ../install2.c:233
+msgid "Create bootdisk"
+msgstr "Búa til ræsidiskling"
+
+#: ../install2.c:211 ../install2.c:235
+msgid "Install bootloader"
+msgstr "Setja upp ræsistjórann"
+
+#: ../install2.c:213
+msgid "Configure X"
+msgstr "Stilla X"
+
+#: ../install2.c:215 ../install2.c:237
+msgid "Exit install"
+msgstr "Hætta uppsetningu"
+
+#: ../install2.c:225
+msgid "Find current installation"
+msgstr "Finna núverandi uppsetningu"
+
+#: ../install2.c:229
+msgid "Choose packages to upgrade"
+msgstr "Velja pakka sem skal uppfæra"
+
+#: ../install2.c:231
+msgid "Upgrade system"
+msgstr "Uppfæra kerfið"
+
+#: ../install2.c:313
+msgid "Disk Druid"
+msgstr "Diska Drúídi"
+
+#: ../install2.c:313
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../install2.c:315
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Diska Drúídinn er tól til þess að sneiða niður diska og stilla upp "
+"tengipunktum. Það er hannað til þess að vera einfaldara í notkun en gamla "
+"góða Linux fdisk ásamt því að vera öflugra. Samt eru tilfelli þar sem betra "
+"er að nota fdisk.\n"
+"\n"
+"Hvort tólið viltu nota?"
+
+#: ../install2.c:449
+msgid "Scanning packages..."
+msgstr "Skoða pakkana..."
+
+#: ../install2.c:507
+msgid "Install log"
+msgstr "Uppsetningarannáll"
+
+#: ../install2.c:508
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install.log. "
+"Honum ættir þú að halda til haga."
+
+#: ../install2.c:530
+msgid "Upgrade log"
+msgstr "Uppfærsluannáll"
+
+#: ../install2.c:531
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"Eftir að uppfærslunni lýkur verður til annáll sem heitir /tmp/update.log sem "
+"þú ættir að líta á eftir að hafa endurræst vélina til að ganga úr skugga um "
+"að uppsetningarskrár hafi verið rétt uppfærðar."
+
+#: ../install2.c:538
+msgid "Rebuilding"
+msgstr "Endursmíða"
+
+#: ../install2.c:538
+msgid "Rebuilding RPM database..."
+msgstr "Endursmíða RPM gagnagrunninn..."
+
+#: ../install2.c:548
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr "Ekki tókst að endursmíða RPM gagnagrunninn. Er diskplássið búið?"
+
+#: ../install2.c:662 ../install2.c:669 ../install2.c:675
+msgid "rootpw command"
+msgstr "rootpw skipun"
+
+#: ../install2.c:663
+#, c-format
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "ólögleg viðföng við hraðuppsetningar rootpw skipun %s: %s"
+
+#: ../install2.c:670
+msgid "Missing password"
+msgstr "Lykilorð vantar"
+
+#: ../install2.c:676
+msgid "Unexpected arguments"
+msgstr "Ólögleg viðföng"
+
+#: ../install2.c:687 ../printercfg.c:1072 ../printercfg.c:1126
+#: ../urlmethod.c:353
+msgid "Password:"
+msgstr "Lykilorð:"
+
+#: ../install2.c:690
+msgid "Password (again):"
+msgstr "Lykilorð (aftur):"
+
+#: ../install2.c:702
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Veldu rótarlykilorð. Þú verður að slá það inn tvisvar til að tryggja að þú "
+"vitir örugglega hvað það er og þú hafir ekki slegið á ranga lykla. Mundu að "
+"rótarlykilorðið er mjög mikilvægur þáttur í öryggi vélarinnar þinnar!"
+
+#: ../install2.c:717
+msgid "Root Password"
+msgstr "Rótarlykilorð"
+
+#: ../install2.c:733 ../install2.c:743
+msgid "Password Mismatch"
+msgstr "Mismunandi lykilorð"
+
+#: ../install2.c:734
+msgid "The passwords you entered were different. Please try again."
+msgstr "Lykilorðin sem þú slóst inn eru ekki þau sömu. Reyndu aftur."
+
+#: ../install2.c:744
+msgid "The root password must be at least 6 characters long."
+msgstr "Rótarlykilorðið verður að vera amk 6 stafir að lengd."
+
+#: ../install2.c:934
+msgid "Installation Path"
+msgstr "Uppsetningarslóð"
+
+#: ../install2.c:934
+msgid "Install"
+msgstr "Setja upp"
+
+#: ../install2.c:934 ../install2.c:1069
+msgid "Upgrade"
+msgstr "Uppfæra"
+
+#: ../install2.c:935
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Viltu setja upp nýtt kerfi eða uppfæra vél sem er þegar með Red Hat Linux "
+"útgáfu 2.0 eða nýrra?"
+
+#: ../install2.c:951
+msgid "Workstation"
+msgstr "Vinnustöð"
+
+#: ../install2.c:952
+msgid "Server"
+msgstr "Þjón"
+
+#: ../install2.c:953
+msgid "Custom"
+msgstr "Sérsniðin"
+
+#: ../install2.c:965
+msgid "Installation Class"
+msgstr "Tegund uppsetningar"
+
+#: ../install2.c:966
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Hverskonar vél ertu að setja upp? Fyrir hámarks sveigjanleika, veldu "
+"\"Sérsniðin\"."
+
+#: ../install2.c:1069
+msgid "Converting RPM database..."
+msgstr "Umbreyti RPM gagnagrunninum..."
+
+#: ../install2.c:1079
+msgid "Finding packages to upgrade..."
+msgstr "Leita að pökkum sem þarf að uppfæra..."
+
+#: ../install2.c:1098
+msgid "Previous"
+msgstr "Fyrri"
+
+#: ../install2.c:1098
+msgid "Menu"
+msgstr "Valmynd"
+
+#: ../install2.c:1099
+#, c-format
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"Villa kom upp í \"%s\" hlutanum af uppsetningunni.\n"
+"\n"
+"Þú getur reynt þann hluta aftur, farið í fyrri hluta af uppsetningunni eða "
+"séð valmynd af öllum hlutum uppsetningarinnar sem leyfir þér að flakka um í "
+"uppsetningunni. Það er ekki mælt með því að nota valmyndina nema þú kunnir "
+"þegar vel á Red Hat Linux. Hvað viltu gera?"
+
+#: ../install2.c:1132
+msgid "  Continue with install"
+msgstr "  Halda uppsetningunni áfram"
+
+#: ../install2.c:1144
+msgid "Installation Steps"
+msgstr "Hlutar uppsetningarinnar"
+
+#: ../install2.c:1144
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Hvaða hluta uppsetningarinnar viltu keyra? Hlutum sem merktir eru með * er "
+"þegar lokið."
+
+#: ../install2.c:1183
+msgid "Cancelled"
+msgstr "Hætt við"
+
+#: ../install2.c:1184
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Það er ekki hægt að fara til baka héðan. Þú þarft að byrja uppá nýtt."
+
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:729
+msgid "Bootdisk"
+msgstr "Ræsidisklingur"
+
+#: ../install2.c:1331
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+"Sérsmíðaður ræsidisklingur gerir þér kleyft að ræsa Linux án þess að nota "
+"ræsistjóra eins og LILO. Þetta kemur að gagni ef þú vilt ekki setja upp LILO "
+"á vélinni eða ef annað stýrikerfi hefur fjarlægt LILO eða LILO virkar ekki "
+"með vélbúnaðarstillingum þínum. Ræsidiskling má einnig nota með Red Hat "
+"'rescue' disklingnum svo hægt sé að bjarga vélinni ef alvarleg vandamál koma "
+"upp.\n"
+"\n"
+"Viltu búa til ræsidiskling fyrir vélina þína?"
+
+#: ../install2.c:1348
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Settu tóman diskling í fyrsta disklingadrifið (/dev/fd0)."
+
+#: ../install2.c:1648
+msgid "Complete"
+msgstr "Lokið"
+
+#: ../install2.c:1650
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Til hamingju, uppsetningu er lokið.\n"
+"\n"
+"Taktu disklinginn eða geisladiskinn sem þú ræstir upp af úr drifinu og sláðu "
+"á return til að ræsa upp Linux. Á http://www.redhat.com má finna viðbætur "
+"og/eða lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
+"Red Hat Linux.\n"
+"\n"
+"Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
+"finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
+
+#: ../kbd.c:248
+msgid "Keyboard Type"
+msgstr "Tegund lyklaborðs"
+
+#: ../kbd.c:249
+msgid "What type of keyboard do you have?"
+msgstr "Hverskonar lyklaborð ertu með?"
+
+#: ../kernel.c:23
+#, c-format
+msgid "file %s missing from source directory"
+msgstr "skrána %s vantar í uppsetningarskráarkerfið"
+
+#: ../kernel.c:30
+#, c-format
+msgid "failed to create file %s"
+msgstr "Gat ekki búið til skrána %s"
+
+#: ../kernel.c:38
+#, c-format
+msgid "error writing to file %s: %s"
+msgstr "villa við skrift í skrána %s: %s"
+
+#: ../kernel.c:50
+#, c-format
+msgid "error reading from file %s: %s"
+msgstr "villa við lestur úr skránni %s: %s"
+
+#: ../kernel.c:68 ../kernel.c:73 ../kernel.c:78
+msgid "Kernel"
+msgstr "Kjarni"
+
+#: ../kernel.c:69
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr ""
+"Vinsamlega settu ræsidisklinginn í fyrsta disklingadrifið ef hann er þar "
+"ekki nú þegar."
+
+#: ../kernel.c:73 ../kernel.c:78
+msgid "Copying kernel from floppy..."
+msgstr "Afrita kjarnann frá disklingi..."
+
+#: ../kickstart.c:85
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Villa við opnun: hraðuppsetningarskrá %s: %s"
+
+#: ../kickstart.c:95
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
+
+#: ../kickstart.c:163
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
+
+#: ../kickstart.c:171
+#, c-format
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Óþekkt skipun %s í línu %d í hraðuppsetningarskrá %s."
+
+#: ../kickstart.c:246
+#, c-format
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Gat ekki búið til /mnt/tmp/ks.script: %s"
+
+#: ../kickstart.c:255
+#, c-format
+msgid "Failed to write ks post script: %s"
+msgstr "Gat ekki búið til skipanaskrá hraðuppsetningar f/ eftirákeyrslu: %s"
+
+#. loadFont("default8x16");
+#: ../lang.c:142
+msgid "Choose a Language"
+msgstr "Veldu tungumál"
+
+#: ../lang.c:142
+msgid "What language should be used during the installation process?"
+msgstr "Hvaða tungumál viltu nota meðan á uppsetningu standur?"
+
+#: ../latemethods.c:233
+msgid "Failed to create symlink for package source."
+msgstr "Gat ekki búið til tákntengingu fyrir frumkóða pakkans."
+
+#: ../latemethods.c:427
+msgid "ftp"
+msgstr "ftp"
+
+#: ../latemethods.c:428
+#, c-format
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Það gengur illa að sækja %s. Á ég að halda áfram að reyna?"
+
+#: ../lilo.c:50
+msgid "SILO"
+msgstr "SILO"
+
+#: ../lilo.c:52
+msgid "LILO"
+msgstr "LILO"
+
+#: ../lilo.c:54
+msgid "Creating initial ramdisk..."
+msgstr "Bý til minnisræsidisk..."
+
+#: ../lilo.c:87
+msgid "Master Boot Record"
+msgstr "Aðalræsifærsla (MBR)"
+
+#: ../lilo.c:88
+msgid "First sector of boot partition"
+msgstr "Fyrsta geira ræsidisksneiðar"
+
+#: ../lilo.c:91 ../lilo.c:570
+msgid "Lilo Installation"
+msgstr "Uppsetning Lilo"
+
+#: ../lilo.c:91 ../lilo.c:95
+msgid "Where do you want to install the bootloader?"
+msgstr "Hvert viltu setja ræsistjórann?"
+
+#: ../lilo.c:93 ../lilo.c:97
+msgid "Skip"
+msgstr "Sleppa"
+
+#: ../lilo.c:95
+msgid "SILO Installation"
+msgstr "Uppsetning SILO"
+
+#: ../lilo.c:129
+msgid "Device:"
+msgstr "Tæki:"
+
+#: ../lilo.c:135
+msgid "Boot label:"
+msgstr "Ræsimerki:"
+
+#: ../lilo.c:140
+msgid "Clear"
+msgstr "Hreinsa"
+
+#: ../lilo.c:150
+msgid "Edit Boot Label"
+msgstr "Breyta ræsimerki"
+
+#: ../lilo.c:327
+msgid "Installing boot loader..."
+msgstr "Set upp ræsistjórann..."
+
+#: ../lilo.c:379
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Ræsistjórinn sem fylgir Red Hat getur einnig ræst upp önnur stýrikerfi. Þú "
+"þarft að að merkja við þær sneiðar sem þú vilt geta ræst upp af og hvaða "
+"heiti þær eiga að fá."
+
+#: ../lilo.c:390
+msgid "Device"
+msgstr "Tæki"
+
+#: ../lilo.c:390
+msgid "Partition type"
+msgstr "Tegund sneiðar"
+
+#: ../lilo.c:391 ../printercfg.c:651 ../printercfg.c:722
+msgid "Default"
+msgstr "Sjálfgefið"
+
+#: ../lilo.c:391
+msgid "Boot label"
+msgstr "Ræsimerki"
+
+#: ../lilo.c:463
+msgid "Bootable Partitions"
+msgstr "Ræsanlegar disksneiðar"
+
+#: ../lilo.c:539
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"Á sumum vélum er nauðsynlegt að gefa kjarnanum sérstök viðföng við ræsingu "
+"svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
+"viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
+
+#: ../lilo.c:552
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr "Nota línulegan ham (nauðsynlegt fyrir sum SCSI drif)"
+
+#: ../lilo.c:568
+msgid "Silo Installation"
+msgstr "Uppsetning Silo"
+
+#: ../lilo.c:729
+msgid "Creating bootdisk..."
+msgstr "Bý til ræsidiskling..."
+
+#: ../mkswap.c:222
+#, c-format
+msgid "Formatting swap space on device %s..."
+msgstr "Forsníð diskminni á tæki %s..."
+
+#: ../mkswap.c:233
+msgid "Formatting"
+msgstr "Forsníð"
+
+#: ../mkswap.c:517
+msgid "No Swap Space"
+msgstr "Ekkert diskminni"
+
+#: ../mkswap.c:517
+msgid "Repartition"
+msgstr "Endursneiða"
+
+#: ../mkswap.c:517
+msgid "Continue"
+msgstr "Halda áfram"
+
+#: ../mkswap.c:518
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Þú ert ekki með neitt diskminni skilgreint. Viltu halda áfram eða "
+"endurskilgreina disksneiðarnar?"
+
+#: ../mkswap.c:535
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Hvaða disksneiðar viltu nota fyir diskminni? Þetta mun eyða öllu sem er á "
+"þeirri sneið."
+
+#: ../mkswap.c:598
+msgid "Active Swap Space"
+msgstr "Setja diskminni í gang"
+
+#: ../mtab.c:66
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr "Þú ert ekki með neinar Linux disksneiðar. Því er ekki hægt að uppfæra!"
+
+#: ../mtab.c:78
+msgid "Could not mount automatically selected device."
+msgstr "Gat ekki tengt tækið sem þú valdir sjálfvirkt."
+
+#: ../mtab.c:85
+msgid "What partition holds the root partition of your installation?"
+msgstr "Hvaða sneið inniheldur rótarskráakerfið á vélinni?"
+
+#: ../mtab.c:106
+msgid "Root Partition"
+msgstr "Rótarsneið"
+
+#: ../mtab.c:147
+#, c-format
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Get ekki lesið /mnt/etc/fstab: %s"
+
+#: ../mtab.c:170
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Ólögleg lína í /mnt/etc/fstab -- Hætti við"
+
+#: ../net.c:86
+msgid "Hostname"
+msgstr "Vélarheiti"
+
+#: ../net.c:86
+msgid "Determining host name and domain..."
+msgstr "Reyni að ákvarða vélarheiti og netlén..."
+
+#. we can't go any further without a network device!
+#: ../net.c:309
+msgid "Ethernet Probe"
+msgstr "Leita að netspjöldum"
+
+#: ../net.c:310
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Ekki tókst að finna netkort í vélinni þinni. Sláðu á <Enter> til að stilla "
+"það handvirkt."
+
+#: ../net.c:350
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Sláðu inn IP uppsetningu þessarar vélar. Hver færsla á að vera IP tala rituð "
+"sem tölur með punkt á milli (dæmi 1.2.3.4)."
+
+#: ../net.c:356
+msgid "IP address:"
+msgstr "IP vistfang:"
+
+#: ../net.c:359
+msgid "Netmask:"
+msgstr "Netmöskvi:"
+
+#: ../net.c:362
+msgid "Default gateway (IP):"
+msgstr "Sjálfgefin gátt (IP):"
+
+#: ../net.c:365
+msgid "Primary nameserver:"
+msgstr "Aðalnafnaþjónn:"
+
+#: ../net.c:402
+msgid "Configure TCP/IP"
+msgstr "Stilla TCP/IP"
+
+#: ../net.c:445
+msgid "Missing Information"
+msgstr "Vantar upplýsingar"
+
+#: ../net.c:446
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Þú verður að gefa upp löglegt IP vistfang og netmöskva."
+
+#: ../net.c:512
+msgid "Static IP address"
+msgstr "Fast IP vistfang"
+
+#: ../net.c:513 ../net.c:709
+msgid "BOOTP"
+msgstr "BOOTP"
+
+#: ../net.c:514 ../net.c:705
+msgid "DHCP"
+msgstr "DHCP"
+
+#: ../net.c:610 ../net.c:620
+msgid "kickstart"
+msgstr "hraðuppsetning"
+
+#: ../net.c:611
+#, c-format
+msgid "bad ip number in network command: %s"
+msgstr "ólöglegt IP vistfang í netskipun: %s"
+
+#: ../net.c:621
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "ólöglegt viðfang við netskipun hraðuppsetningar %s: %s"
+
+#: ../net.c:641
+msgid "kickstart network command is missing ip address"
+msgstr "það vantar IP vistfang við nethluta hraðuppsetningarinnar"
+
+#: ../net.c:672
+msgid "Boot Protocol"
+msgstr "Ræsimáti"
+
+#: ../net.c:673
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Hvernig á að stilla IP vistfangið? Ef kerfisstjórinn þinn úthlutaði þér IP "
+"vistfangi, veldu þá fast IP vistfang."
+
+#: ../net.c:705
+msgid "Sending DHCP request..."
+msgstr "Sendi DHCP beiðni..."
+
+#: ../net.c:709
+msgid "Sending BOOTP request..."
+msgstr "Sendi BOOTP beiðni..."
+
+#: ../net.c:919
+#, c-format
+msgid "Cannot create %s: %s\n"
+msgstr "Get ekki búið til %s: %s\n"
+
+#: ../net.c:949
+#, c-format
+msgid "cannot create network device config file: %s"
+msgstr "get ekki búið til netstillingaskrá: %s"
+
+#: ../net.c:995 ../net.c:1249
+#, c-format
+msgid "cannot open file: %s"
+msgstr "get ekki opnað skrá: %s"
+
+#: ../net.c:1122
+msgid "Hostname Lookup"
+msgstr "Uppfletting vélarheitis"
+
+#: ../net.c:1123
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Ekki var hægt að ákvarða vélarheitið sjálfvirkt. Sláðu á <Enter> til að slá "
+"það inn."
+
+#: ../net.c:1130
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Vinsamlegast sláðu inn heiti lénsins þíns, vélarheitið og IP vistföng auka "
+"nafnaþjóna. Vélarheitið ætti að vera fullt vélarheiti, til dæmis "
+"mittbox.mittlén.is. Ef þú ert ekki með neina auka nafnaþjóna hafðu þá "
+"nafnaþjónareitina auða."
+
+#: ../net.c:1140
+msgid "Domain name:"
+msgstr "Lén:"
+
+#: ../net.c:1143
+msgid "Host name:"
+msgstr "Vélarheiti:"
+
+#: ../net.c:1146
+msgid "Secondary nameserver (IP):"
+msgstr "Auka nafnaþjónn (IP):"
+
+#: ../net.c:1149
+msgid "Tertiary nameserver (IP):"
+msgstr "Þriðji nafnaþjónn (IP):"
+
+#: ../net.c:1197
+msgid "Configure Network"
+msgstr "Stilla netið"
+
+#: ../net.c:1386
+msgid "Keep the current IP configuration"
+msgstr "Halda núverandi IP stillingum"
+
+#: ../net.c:1387
+msgid "Reconfigure network now"
+msgstr "Endurstilla netið nú"
+
+#: ../net.c:1388
+msgid "Don't set up networking"
+msgstr "Ekki setja upp net"
+
+#: ../net.c:1405 ../net.c:1417
+msgid "Network Configuration"
+msgstr "Netstillingar"
+
+#: ../net.c:1406
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "LAN netuppsetning er þegar til staðar. Viltu:"
+
+#: ../net.c:1418
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr "Viltu setja upp LAN net (ekki upphringinet) á vélinni þinni?"
+
+#: ../pkgs.c:256
+#, c-format
+msgid "Cannot open components file: %s"
+msgstr "Get ekki opnað íhlutaskrá: %s"
+
+#: ../pkgs.c:263
+#, c-format
+msgid "Cannot read components file: %s"
+msgstr "Get ekki lesið íhlutaskrá: %s"
+
+#: ../pkgs.c:270
+msgid "Comps file is not version 0.1 as expected"
+msgstr "Íhlutaskráin er ekki af útgáfu 0.1 eins og búist var við"
+
+#: ../pkgs.c:305
+#, c-format
+msgid "bad comps file at line %d"
+msgstr "ólögleg íhlutaskrá í línu %d"
+
+#: ../pkgs.c:329 ../pkgs.c:355
+msgid "comps Error"
+msgstr "Íhlutavilla"
+
+#: ../pkgs.c:330
+#, c-format
+msgid "missing component name at line %d"
+msgstr "heiti íhlutar vantar í línu %d"
+
+#: ../pkgs.c:356
+msgid "Ignore all"
+msgstr "Hundsa alla"
+
+#: ../pkgs.c:357
+#, c-format
+msgid "package %s at line %d does not exist"
+msgstr "pakkinn %s í línu %d er ekki til"
+
+#: ../pkgs.c:459
+#, c-format
+msgid "Component %s does not exist.\n"
+msgstr "Íhlutur %s er ekki til.\n"
+
+#: ../pkgs.c:471
+#, c-format
+msgid "Package %s does not exist.\n"
+msgstr "Pakki %s er ekki til.\n"
+
+#: ../pkgs.c:517
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../pkgs.c:518
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Viltu setja upp GNOME notandaskilin? GNOME notandaskilin eru einföld í "
+"notun, styðja drag and drop og hafa innbyggð hjálparkerfi."
+
+#: ../pkgs.c:651
+msgid "no suggestion"
+msgstr "engin tillaga"
+
+#: ../pkgs.c:661
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Sumir pakkanna sem þú valdir til uppsetningar þarfnast annara pakka sem þú "
+"valdir ekki. Ef þú velur Í lagi mun öllum þessum pökkum sem uppá vantar "
+"verða bætt við."
+
+#: ../pkgs.c:669
+msgid "Package"
+msgstr "Pakki"
+
+#: ../pkgs.c:669
+msgid "Requirement"
+msgstr "Þarfnast"
+
+#: ../pkgs.c:686
+msgid "Install packages to satisfy dependencies"
+msgstr "Setja inn pakka til að uppfylla þarfir annara pakka"
+
+#: ../pkgs.c:695
+msgid "Unresolved Dependencies"
+msgstr "Óuppfyllt pakkaskilyrði"
+
+#: ../pkgs.c:758
+msgid "Everything"
+msgstr "Allt"
+
+#: ../pkgs.c:770
+msgid "Select individual packages"
+msgstr "Velja pakka fyrir pakka"
+
+#: ../pkgs.c:777
+msgid "Choose components to install:"
+msgstr "Veldu pakkahópa sem eiga að fara inn:"
+
+#: ../pkgs.c:783
+msgid "Components to Install"
+msgstr "Pakkahópar sem eiga að fara inn"
+
+#: ../pkgs.c:940
+#, c-format
+msgid "error opening header file: %s"
+msgstr "villa við opnun hausaskrár: %s"
+
+#: ../pkgs.c:1108
+msgid "Installed system size:"
+msgstr "Stærð uppsetta kerfisins:"
+
+#: ../pkgs.c:1116
+msgid "Choose a group to examine"
+msgstr "Veldu hóp til skoðunar"
+
+#: ../pkgs.c:1119
+msgid "Press F1 for a package description"
+msgstr "Ýttu á F1 til að fá lýsingu pakkans"
+
+#: ../pkgs.c:1143
+msgid "Select Group"
+msgstr "Veldu hóp"
+
+#: ../pkgs.c:1307
+msgid "(none available)"
+msgstr "(ekkert til staðar)"
+
+#: ../pkgs.c:1314
+msgid "Package:"
+msgstr "Pakki:"
+
+#: ../pkgs.c:1317
+msgid "Size   :"
+msgstr "Stærð  :"
+
+#: ../pkgs.c:1377
+msgid "Upgrade Packages"
+msgstr "Uppfæra pakka"
+
+#: ../pkgs.c:1378
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"Pakkarnir sem þegar eru á vélinni og aðrir pakkar sem eru nauðsynlegir til "
+"að uppfylla skilyrði hafa verið valdir til uppsetningar. Viltu skoða listann "
+"og kannski breyta honum?"
+
+#: ../printercfg.c:469
+msgid "Printer Information"
+msgstr "Upplýsingar um prentara"
+
+#: ../printercfg.c:489
+msgid "<F1> will give you information on a particular printer type"
+msgstr "<F1> mun gefa þér upplýsingar um þessa gerð prentara"
+
+#: ../printercfg.c:494
+msgid "What type of printer do you have?"
+msgstr "Hvernig prentara ertu með?"
+
+#: ../printercfg.c:527 ../printercfg.c:1207
+msgid "Configure Printer"
+msgstr "Stilla prentara"
+
+#. we know that changes->db->NumBpp > 0
+#: ../printercfg.c:596 ../printercfg.c:758
+msgid "<F1> will give you information on this printer driver."
+msgstr "<F1> mun gefa þér upplýsingar um þennan prentrekil."
+
+#: ../printercfg.c:600
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr "Þú mátt núna stilla pappírsstærð og upplausn þessa prentara."
+
+#: ../printercfg.c:609
+msgid "Paper Size"
+msgstr "Pappírsstærð"
+
+#: ../printercfg.c:631
+msgid "Resolution"
+msgstr "Upplausn"
+
+#: ../printercfg.c:664
+msgid "Fix stair-stepping of text?"
+msgstr "Lagfæra tröppuvandamál í texta?"
+
+#: ../printercfg.c:784
+msgid "You may now configure the color options for this printer."
+msgstr "Núna máttu stilla litavalmöguleika þessa prentara."
+
+#: ../printercfg.c:788
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Núna máttu stilla 'uniprint' viðföng þessa prentara."
+
+#: ../printercfg.c:801
+msgid "Configure Color Depth"
+msgstr "Stilla litadýpt"
+
+#: ../printercfg.c:803
+msgid "Configure Uniprint Driver"
+msgstr "Stilla Uniprint rekilinn"
+
+#: ../printercfg.c:955
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr ""
+"Við hvaða tæki er prentarinn þinn tengdur (Athugaðu að /dev/lp0 er það sama "
+"og LPT1:)?"
+
+#: ../printercfg.c:962
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Gáttir sem fundust sjálfvirkt:\n"
+"\n"
+
+#: ../printercfg.c:970
+msgid "Not "
+msgstr "Ekki "
+
+#: ../printercfg.c:972
+msgid "Detected\n"
+msgstr "Fundið\n"
+
+#: ../printercfg.c:982
+msgid "Printer Device:"
+msgstr "Prenttæki:"
+
+#: ../printercfg.c:1004
+msgid "Local Printer Device"
+msgstr "Staðbundið prenttæki"
+
+#: ../printercfg.c:1032
+msgid "Remote hostname:"
+msgstr "Prentþjónn:"
+
+#: ../printercfg.c:1033 ../printercfg.c:1276 ../printercfg.c:1308
+msgid "Remote queue:"
+msgstr "Fjartengd biðröð:"
+
+#: ../printercfg.c:1035
+msgid "Remote lpd Printer Options"
+msgstr "Viðföng fyrir lpd prentara"
+
+#: ../printercfg.c:1036
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"Til þess að nota fjartengda lpd biðröð þarftu að gefa upp vélarheiti "
+"prentþjónsins og biðröðina á honum sem þú vilt prenta í."
+
+#: ../printercfg.c:1069
+msgid "Printer Server:"
+msgstr "Prentþjónn:"
+
+#: ../printercfg.c:1070
+msgid "Print Queue Name:"
+msgstr "Heiti prentraðar:"
+
+#: ../printercfg.c:1071 ../printercfg.c:1125
+msgid "User name:"
+msgstr "Notandaheiti:"
+
+#: ../printercfg.c:1074
+msgid "NetWare Printer Options"
+msgstr "Viðföng NetWare prentara"
+
+#: ../printercfg.c:1075
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"Til þess að geta prentað á NetWare prentara þarftu að gefa upp NetWare "
+"vélarheiti þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) "
+"ásamt samnýtingarheiti prentarans, notandaheiti og lykilorð fyrir prentarann."
+
+#: ../printercfg.c:1122
+msgid "SMB server host:"
+msgstr "Heiti SMB þjóns:"
+
+#: ../printercfg.c:1123
+msgid "SMB server IP:"
+msgstr "Vistfang SMB þjóns:"
+
+#: ../printercfg.c:1124
+msgid "Share name:"
+msgstr "Samnýtingarheiti:"
+
+#: ../printercfg.c:1127 ../printercfg.c:1326
+msgid "Workgroup:"
+msgstr "Vinnuhópur:"
+
+#: ../printercfg.c:1129
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "SMB/Windows 95/NT prentviðföng"
+
+#: ../printercfg.c:1130
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"Til þess að geta prentað á SMB prentara þarftu að gefa upp SMB vélarheiti "
+"þjónsins (sem er ekki endilega það sama og TCP/IP vélarheitið) og jafnvel IP "
+"vistfang prentþjónsins ásamt samnýtingarheiti prentarans, notandaheiti, "
+"lykilorð og vinnuhópsupplýsingar fyrir prentarann."
+
+#: ../printercfg.c:1176
+msgid "Name of queue:"
+msgstr "Heiti biðraðar:"
+
+#: ../printercfg.c:1177 ../printercfg.c:1273 ../printercfg.c:1299
+msgid "Spool directory:"
+msgstr "Mappa biðraðar:"
+
+#: ../printercfg.c:1179
+msgid "Standard Printer Options"
+msgstr "Stöðluð prentviðföng"
+
+#: ../printercfg.c:1180
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Allar prentraðir (sem taka við prentverkum) þurfa heiti (oft bara lp) og "
+"möppu fyrir biðröðina. Hvaða heiti og möppu viltu nota fyrir þessa prentröð?"
+
+#: ../printercfg.c:1209
+msgid "Would you like to configure a printer?"
+msgstr "Viltu setja upp prentara?"
+
+#: ../printercfg.c:1223
+msgid "Add Printer"
+msgstr "Bæta við prentara"
+
+#: ../printercfg.c:1224
+msgid "Would you like to add another printer?"
+msgstr "Viltu bæta við öðrum prentara?"
+
+#: ../printercfg.c:1246
+msgid "Local"
+msgstr "Staðbundinn"
+
+#: ../printercfg.c:1247
+msgid "Remote lpd"
+msgstr "Fjartengdur"
+
+#: ../printercfg.c:1248
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+#: ../printercfg.c:1249
+msgid "NetWare"
+msgstr "NetWare"
+
+#: ../printercfg.c:1253
+msgid "Select Printer Connection"
+msgstr "Veldu prenttengingu"
+
+#: ../printercfg.c:1254
+msgid "How is this printer connected?"
+msgstr "Hvernig er þessi prentari tengdur?"
+
+#: ../printercfg.c:1271 ../printercfg.c:1297
+msgid "Printer type:"
+msgstr "Tegund prentara:"
+
+#: ../printercfg.c:1272 ../printercfg.c:1298 ../printercfg.c:1312
+msgid "Queue:"
+msgstr "Biðröð:"
+
+#: ../printercfg.c:1274
+msgid "Printer device:"
+msgstr "Prenttæki:"
+
+#: ../printercfg.c:1275 ../printercfg.c:1307
+msgid "Remote host:"
+msgstr "Fjartengd vél:"
+
+#. if (pcentry->Type == PRINTER_SMB)
+#: ../printercfg.c:1277 ../printercfg.c:1311 ../printercfg.c:1315
+msgid "Server:"
+msgstr "Þjónn:"
+
+#: ../printercfg.c:1278 ../printercfg.c:1325
+msgid "Share:"
+msgstr "Samnýtiheiti:"
+
+#: ../printercfg.c:1279 ../printercfg.c:1313 ../printercfg.c:1327
+msgid "User:"
+msgstr "Notandi:"
+
+#: ../printercfg.c:1280 ../printercfg.c:1333
+msgid "Printer driver:"
+msgstr "Prentrekill:"
+
+#: ../printercfg.c:1281 ../printercfg.c:1334
+msgid "Paper size:"
+msgstr "Pappírsstærð:"
+
+#: ../printercfg.c:1282 ../printercfg.c:1335
+msgid "Resolution:"
+msgstr "Upplausn:"
+
+#: ../printercfg.c:1284 ../printercfg.c:1337
+msgid "Bits per pixel:"
+msgstr "Bitar á myndeiningu:"
+
+#: ../printercfg.c:1286 ../printercfg.c:1338
+msgid "Uniprint driver:"
+msgstr "Uniprint prentrekill:"
+
+#: ../printercfg.c:1293
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Eru eftirfarandi prentaraupplýsingar eru réttar:\n"
+"\n"
+
+#: ../printercfg.c:1303
+msgid "Printer device"
+msgstr "Prenttæki"
+
+#: ../printercfg.c:1344
+msgid "Verify Printer Configuration"
+msgstr "Fara yfir prentuppsetninguna"
+
+#: ../scsi.c:31
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Eftirfarandi SCSI stýringar hafa fundist í vélinni þinni:\n"
+"\n"
+
+#: ../scsi.c:47
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Eru fleiri SCSI stýringar í vélinni?"
+
+#: ../scsi.c:51
+msgid "Do you have any SCSI adapters?"
+msgstr "Eru SCSI stýringar í vélinni?"
+
+#: ../scsi.c:54
+msgid "SCSI Configuration"
+msgstr "SCSI stillingar"
+
+#: ../smb.c:59
+msgid "SMB server name  :"
+msgstr "Heiti SMB þjóns  :"
+
+#: ../smb.c:60
+msgid "Share volume     :"
+msgstr "Skráakerfi      :"
+
+#: ../smb.c:61
+msgid "Account name     :"
+msgstr "Notandaheiti     :"
+
+#: ../smb.c:62
+msgid "Password         :"
+msgstr "Lykilorð         :"
+
+#: ../smb.c:64
+msgid "SMB Setup"
+msgstr "SMB Stillingar"
+
+#: ../smb.c:65
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"vinsamlegast sláðu inn eftirfarandi uplplýsingar:\n"
+"\n"
+"    o heiti eða IP vistfang SMB þjónsins\n"
+"    o skráakerfið á þjóninum sem inniheldur\n"
+"      Red Hat Linux fyrir vélina þína."
+
+#: ../url.c:148
+#, c-format
+msgid "Password for %s@%s: "
+msgstr "Lykilorð fyrir %s@%s:"
+
+#: ../url.c:172 ../url.c:198
+#, c-format
+msgid "error: %sport must be a number\n"
+msgstr "villa: %sport verður að vera tala\n"
+
+#: ../url.c:283
+msgid "url port must be a number\n"
+msgstr "gátt slóðar verður að vera tala\n"
+
+#. XXX PARANOIA
+#: ../url.c:320
+#, c-format
+msgid "logging into %s as %s, pw %s\n"
+msgstr "tengist %s sem %s, lykilorð %s\n"
+
+#: ../url.c:434
+#, c-format
+msgid "failed to open %s\n"
+msgstr "gat ekki opnað %s\n"
+
+#: ../url.c:449
+#, c-format
+msgid "failed to create %s\n"
+msgstr "Get ekki búið til %s\n"
+
+#: ../urlmethod.c:63 ../urlmethod.c:66 ../urlmethod.c:120 ../urlmethod.c:123
+msgid "Retrieving"
+msgstr "Sæki"
+
+#: ../urlmethod.c:137
+#, c-format
+msgid "open of %s failed: %s\n"
+msgstr "gat ekki opnað %s: %s\n"
+
+#: ../urlmethod.c:153
+#, c-format
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Villa við flutning skráar %s:\n"
+"%s"
+
+#: ../urlmethod.c:188
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+"\n"
+"    o heiti eða IP vistfang FTP þjónsins\n"
+"    o nafn möppu á þjóninum sem inniheldur\n"
+"      Red Hat Linux fyrir vélina þína\n"
+
+#: ../urlmethod.c:197
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
+"\n"
+"    o heiti eða IP vistfang vefþjónsins\n"
+"    o nafn möppu á þjóninum sem inniheldur\n"
+"      Red Hat Linux fyrir vélina þína\n"
+
+#: ../urlmethod.c:215
+msgid "FTP site name:"
+msgstr "FTP þjónn:"
+
+#: ../urlmethod.c:216
+msgid "Web site name:"
+msgstr "Vefþjónn:"
+
+#: ../urlmethod.c:233
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Ekki nota nafnlaust FTP eða nota ftp-sel"
+
+#: ../urlmethod.c:237
+msgid "Use proxy server"
+msgstr "Nota sel"
+
+#: ../urlmethod.c:246
+msgid "FTP Setup"
+msgstr "FTP stillingar"
+
+#: ../urlmethod.c:247
+msgid "HTTP Setup"
+msgstr "HTTP stillingar"
+
+#: ../urlmethod.c:257
+msgid "You must enter a server name."
+msgstr "Þú verður að gefa upp heiti þjóns."
+
+#: ../urlmethod.c:262
+msgid "You must enter a directory."
+msgstr "Þú verður að nefna möppu."
+
+#: ../urlmethod.c:323
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Ef þú ert ekki að nota nafnlaust FTP sláðu þá inn notandaheiti og lykilorð "
+"að neðan. If þú vilt nota FTP sel, sláðu þá inn nafnið á FTP selinu."
+
+#: ../urlmethod.c:329
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr "Ef þú vilt nota HTTP sel þarftu að gefa upp heiti hanns hér."
+
+#: ../urlmethod.c:350
+msgid "Account name:"
+msgstr "Notandaheiti:"
+
+#: ../urlmethod.c:358
+msgid "FTP Proxy:"
+msgstr "FTP Sel:"
+
+#: ../urlmethod.c:359
+msgid "HTTP Proxy:"
+msgstr "HTTP sel:"
+
+#: ../urlmethod.c:363
+msgid "FTP Proxy Port:"
+msgstr "Gátt FTP sels:"
+
+#: ../urlmethod.c:364
+msgid "HTTP Proxy Port:"
+msgstr "Gátt HTTP sels:"
+
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "RPM uppsetning af %s mistókst: %s"
+
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> gefur þér lýsingu og stærð pakka"
+
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Stærð allra valinna pakka:"
+
+#~ msgid "Select Packages"
+#~ msgstr "Veljið pakka"
+
+#~ msgid "Size:"
+#~ msgstr "Stærð:"
+
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Get ekki náð í skrá %s: %s\n"
+
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Ég get ekki stimplað mig inn á vél: %s\n"
+
+#~ msgid "LAN manager host:"
+#~ msgstr "LAN manager þjónn:"
+
+#~ msgid "LAN manager IP:"
+#~ msgstr "IP vistang LAN manager:"
+
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "Stillingar LAN Manager prentara"
+
+#~ msgid "LAN Manager"
+#~ msgstr "LAN Manager"
+
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr "Viltu setja upp eða stilla SILO ræsistjórann á vélinni þinni?"

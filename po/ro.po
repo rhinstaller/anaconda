@@ -1,0 +1,2913 @@
+# $Id$
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: sndconfig 3.0\n"
+"POT-Creation-Date: 1999-08-30 22:26-0400\n"
+"PO-Revision-Date: 199-04-10 12:00+EST\n"
+"Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
+"Language-Team: Romanian <ro@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-2\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: ../bootpc.c:501
+msgid "No BOOTP reply received"
+msgstr "Nu s-a recepþionat nici un rãspuns de la serverul BOOTP"
+
+#: ../bootpc.c:503
+msgid "No DHCP reply received"
+msgstr "Nu s-a recepþionat nici un rãspuns de la serverul DHCP"
+
+#: ../cdrom.c:35
+msgid "Other CDROM"
+msgstr "Alt tip de CDROM"
+
+#: ../cdrom.c:41
+msgid "CDROM type"
+msgstr "Tipul de CDROM"
+
+#: ../cdrom.c:41
+msgid "What type of CDROM do you have?"
+msgstr "Ce tip de CDROM aveþi?"
+
+#: ../cdrom.c:43 ../devices.c:575 ../devices.c:613 ../devices.c:761
+#: ../devices.c:800 ../devices.c:814 ../devices.c:828 ../devices.c:1138
+#: ../devices.c:1189 ../devices.c:1623 ../doit.c:133 ../doit.c:179
+#: ../doit.c:658 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:412 ../earlymethods.c:428 ../earlymethods.c:438
+#: ../earlymethods.c:502 ../earlymethods.c:509 ../earlymethods.c:558
+#: ../earlymethods.c:563 ../earlymethods.c:716 ../earlymethods.c:766
+#: ../earlymethods.c:789 ../earlymethods.c:802 ../earlymethods.c:841
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#: ../earlymethods.c:943 ../earlymethods.c:1016 ../earlymethods.c:1028
+#: ../earlymethods.c:1051 ../earlymethods.c:1133 ../earlymethods.c:1140
+#: ../earlymethods.c:1206 ../earlymethods.c:1321 ../earlymethods.c:1333
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fs.c:224
+#: ../fs.c:410 ../fs.c:521 ../fs.c:543 ../fsedit.c:233 ../fsedit.c:240
+#: ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268 ../fsedit.c:278
+#: ../fsedit.c:379 ../fsedit.c:461 ../fsedit.c:512 ../fsedit.c:876
+#: ../fsedit.c:954 ../fsedit.c:972 ../fsedit.c:1008 ../fsedit.c:1798
+#: ../fsedit.c:1806 ../fsedit.c:1931 ../fsedit.c:1950 ../fsedit.c:2043
+#: ../fsedit.c:2373 ../fsedit.c:2409 ../fsedit.c:2427 ../fsedit.c:2456
+#: ../fsedit.c:2495 ../fsedit.c:2525 ../fsedit.c:2584 ../fsedit.c:2620
+#: ../fsedit.c:2798 ../fsedit.c:2812 ../fsedit.c:2856 ../fsedit.c:2883
+#: ../fsedit.c:2974 ../fsedit.c:3079 ../fsedit.c:3105 ../hd.c:310 ../hd.c:412
+#: ../hints.c:31 ../install.c:75 ../install.c:191 ../install.c:268
+#: ../install.c:303 ../install.c:481 ../install.c:485 ../install.c:495
+#: ../install.c:513 ../install2.c:507 ../install2.c:530 ../install2.c:548
+#: ../install2.c:598 ../install2.c:662 ../install2.c:669 ../install2.c:675
+#: ../install2.c:710 ../install2.c:733 ../install2.c:743 ../install2.c:968
+#: ../install2.c:1146 ../install2.c:1183 ../install2.c:1347 ../install2.c:1649
+#: ../kbd.c:250 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37 ../kernel.c:49
+#: ../kernel.c:68 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../kickstart.c:246 ../kickstart.c:254 ../lang.c:144
+#: ../latemethods.c:232 ../latemethods.c:349 ../latemethods.c:494 ../lilo.c:93
+#: ../lilo.c:97 ../lilo.c:140 ../lilo.c:445 ../lilo.c:556 ../mkswap.c:588
+#: ../mtab.c:91 ../net.c:309 ../net.c:390 ../net.c:610 ../net.c:620
+#: ../net.c:641 ../net.c:676 ../net.c:715 ../net.c:1122 ../net.c:1171
+#: ../net.c:1408 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:329 ../pkgs.c:355
+#: ../pkgs.c:458 ../pkgs.c:470 ../pkgs.c:670 ../pkgs.c:774 ../pkgs.c:874
+#: ../pkgs.c:1351 ../printercfg.c:469 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1255 ../printercfg.c:1344 ../smb.c:70 ../urlmethod.c:137
+#: ../urlmethod.c:153 ../urlmethod.c:183 ../urlmethod.c:256 ../urlmethod.c:261
+#: ../urlmethod.c:377 ../windows.c:18
+msgid "Ok"
+msgstr "Ok"
+
+#: ../cdrom.c:43 ../devices.c:614 ../devices.c:1138 ../devices.c:1189
+#: ../doit.c:251 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:789 ../earlymethods.c:841 ../fs.c:410 ../fsedit.c:415
+#: ../fsedit.c:1798 ../fsedit.c:1806 ../fsedit.c:2975 ../fsedit.c:2998
+#: ../hd.c:360 ../install.c:178 ../install.c:191 ../install2.c:314
+#: ../install2.c:507 ../install2.c:530 ../install2.c:710 ../install2.c:968
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:93 ../lilo.c:97
+#: ../lilo.c:446 ../lilo.c:556 ../mkswap.c:588 ../net.c:390 ../net.c:676
+#: ../net.c:1171 ../net.c:1418 ../pkgs.c:517 ../pkgs.c:670 ../pkgs.c:774
+#: ../pkgs.c:1099 ../pkgs.c:1377 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1208 ../printercfg.c:1255 ../printercfg.c:1345 ../scsi.c:55
+#: ../urlmethod.c:183
+msgid "Back"
+msgstr "Înapoi"
+
+#: ../cdrom.c:141
+msgid "Initializing CDROM..."
+msgstr "Initializare CDROM..."
+
+#: ../devices.c:80 ../devices.c:86 ../devices.c:91 ../devices.c:102
+#: ../devices.c:107 ../devices.c:113 ../devices.c:124
+msgid "Base IO port:"
+msgstr "Adresa IO Port:"
+
+#: ../devices.c:81 ../devices.c:92 ../devices.c:125
+msgid "IRQ level:"
+msgstr "Nivel IRQ:"
+
+#: ../devices.c:97
+msgid "IO base, IRQ:"
+msgstr "Baza IO, IRQ:"
+
+#: ../devices.c:112
+msgid "Use other options"
+msgstr "Foloseºte alte opþiuni"
+
+#: ../devices.c:114
+msgid "Interrupt level (IRQ):"
+msgstr "Nivel întrerupere (IRQ):"
+
+#: ../devices.c:119
+msgid "IO base, IRQ, label:"
+msgstr "IO base, IRQ, label:"
+
+#: ../devices.c:435
+msgid "Autoprobe"
+msgstr "Autodetecþie"
+
+#: ../devices.c:435
+msgid "Specify options"
+msgstr "Specificã opþiuni"
+
+#: ../devices.c:575 ../devices.c:814 ../devices.c:828 ../devices.c:1623
+#: ../doit.c:133 ../doit.c:179 ../doit.c:658 ../earlymethods.c:428
+#: ../earlymethods.c:438 ../earlymethods.c:558 ../earlymethods.c:563
+#: ../earlymethods.c:1016 ../earlymethods.c:1028 ../earlymethods.c:1051
+#: ../earlymethods.c:1321 ../earlymethods.c:1333 ../fs.c:521 ../fs.c:543
+#: ../fsedit.c:2043 ../install.c:303 ../install.c:481 ../install.c:485
+#: ../install.c:495 ../install.c:513 ../install2.c:548 ../install2.c:598
+#: ../install2.c:1098 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37
+#: ../kernel.c:49 ../kickstart.c:246 ../kickstart.c:254 ../latemethods.c:232
+#: ../latemethods.c:349 ../latemethods.c:494 ../net.c:641 ../net.c:715
+#: ../net.c:919 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:874 ../urlmethod.c:137
+#: ../urlmethod.c:256 ../urlmethod.c:261 ../windows.c:18
+msgid "Error"
+msgstr "Eroare"
+
+#: ../devices.c:576
+#, c-format
+msgid "mknod() failed: %s"
+msgstr "eroare in mknod(): %s"
+
+#: ../devices.c:612
+msgid "Load module"
+msgstr "Încarcã modul"
+
+#: ../devices.c:612
+msgid "Which driver should I try?"
+msgstr "Care driver trebuie încercat?"
+
+#: ../devices.c:761
+msgid "Probe"
+msgstr "Detecþie"
+
+#: ../devices.c:762
+#, c-format
+msgid "A %s card has been found on your system."
+msgstr "Un adaptor de reþea %s a fost gasit în acest calculator."
+
+#: ../devices.c:800
+msgid "device command"
+msgstr "device command"
+
+#: ../devices.c:801
+#, c-format
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "argument invalid pentru kickstart device command %s: %s"
+
+#: ../devices.c:815
+msgid "bad arguments to kickstart device command"
+msgstr "argument invalid pentru kickstart device command"
+
+#: ../devices.c:829
+#, c-format
+msgid "No module exists for %s"
+msgstr "Nu existã nici un modul pentru %s"
+
+#: ../devices.c:856
+msgid "I can't find the device anywhere on your system!"
+msgstr "Nu se poate identifica adaptorul în acest calculator!"
+
+#: ../devices.c:1120
+#, c-format
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"În unele cazuri, driverul %s are nevoie de informaþii în plus pentru a "
+"funcþiona corect, deºi în majoritatea cazurilor nu este nevoie de extra "
+"parametri. Doriþi sã specificaþi opþiuni cãtre driver sau sã lãsaþi driverul "
+"sã detecteze informaþia de care are nevoie ? În unele cazuri, detecþia poate "
+"bloca un calculator, dar nu poate cauza nici un fel de pierderi de date."
+
+#: ../devices.c:1129
+#, c-format
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"În unele cazuri, driverul %s are nevoie de extra informaþii despre "
+"configuraþia hardware a acestui sistem. Dacã doriþi, citeva valori comune "
+"pentru acei parametri vor fi încercate. Acest proces poate bloca "
+"calculatorul, ºi nu poate cauza pierderi de date."
+
+#: ../devices.c:1137
+msgid "Module Options"
+msgstr "Opþiuni pentru Modul"
+
+#: ../devices.c:1177
+msgid "Miscellaneous options:"
+msgstr "Alte Opþiuni:"
+
+#: ../devices.c:1179 ../devices.c:1188
+msgid "Module options:"
+msgstr "Opþiuni pentru Modul:"
+
+#: ../devices.c:1188
+msgid "Module Parameters"
+msgstr "Parametri pentru Modul"
+
+#: ../devices.c:1624
+#, c-format
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Nu se poate citi /proc/filesystems: %d"
+
+#: ../doit.c:134
+#, c-format
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Nu s-a putut deschide %s. Logul de upgrade nu va fi creat."
+
+#: ../doit.c:149
+msgid "Fatal error opening RPM database"
+msgstr "Eroare la deschiderea bazei de date RPM"
+
+#: ../doit.c:180
+#, c-format
+msgid "Error ordering package list: %s"
+msgstr "Eroare la ordonarea listei de pachete: %s"
+
+#: ../doit.c:216
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Pe acest sistem nu exista suficient spatiu pe disc pentru a instala "
+"packetele selectate. Programul de instalare are nevoie de mai mult spatiu in "
+"urmatoarele sisteme de fisiere:\n"
+"\n"
+
+#: ../doit.c:226
+msgid "Mount Point"
+msgstr "Mount Point"
+
+#: ../doit.c:227
+msgid "Space Needed"
+msgstr "Spaþiu necesar"
+
+#: ../doit.c:251 ../fsedit.c:2812
+msgid "Disk Space"
+msgstr "Spaþiu pe Disc"
+
+#: ../doit.c:251
+msgid "Install anyway"
+msgstr "Instalare fortata"
+
+#: ../doit.c:321
+msgid "Fatal error reopening RPM database"
+msgstr "Eroare la redeschiderea bazei de date RPM"
+
+#: ../doit.c:421
+msgid "Install Status"
+msgstr "Progres Instalare"
+
+#: ../doit.c:486
+msgid "(no summary)"
+msgstr "(no summary)"
+
+#: ../doit.c:562
+msgid "Examining packages to install..."
+msgstr "Determinare componente pentru instalare..."
+
+#: ../doit.c:563
+msgid "Examining files to install..."
+msgstr "Examinare fisiere pentru instalare..."
+
+#: ../doit.c:564
+msgid "Finding overlapping files..."
+msgstr "Identificare fiºiere comune..."
+
+#: ../doit.c:576
+msgid "Processing"
+msgstr "Procesare"
+
+#: ../doit.c:584
+msgid "Removing old files..."
+msgstr "ªtergere fiºiere vechi..."
+
+#: ../doit.c:634
+msgid "Upgrading"
+msgstr "Actualizare"
+
+#: ../doit.c:634
+msgid "Installing"
+msgstr "Instalare"
+
+#: ../doit.c:659
+#, c-format
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Eroare la instalarea pachetului: fiºierul RPM pentru %s nu existã: %s"
+
+#: ../earlymethods.c:175
+msgid "What type of media contains the packages to be installed?"
+msgstr "Unde sînt pachetele care urmeazã sa fie instalate?"
+
+#: ../earlymethods.c:202
+msgid "Force supplemental disk"
+msgstr "Force supplemental disk"
+
+#: ../earlymethods.c:208
+msgid "Installation Method"
+msgstr "Metodã de Instalare"
+
+#: ../earlymethods.c:294
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Urmatoarele informaþii sînt necesare:\n"
+"    o numele sau adresa de IP a serverului NFS\n"
+"    o directorul de pe serverul de NFS conþinînd\n"
+"      pachetele Red Hat Linux pentru acest sistem"
+
+#: ../earlymethods.c:306
+msgid "NFS server name:"
+msgstr "Numele serverului NFS:"
+
+#: ../earlymethods.c:309 ../urlmethod.c:219
+msgid "Red Hat directory:"
+msgstr "Directorul Red Hat:"
+
+#: ../earlymethods.c:333
+msgid "NFS Setup"
+msgstr "Instalare NFS"
+
+#: ../earlymethods.c:412
+msgid "Note"
+msgstr "Notã"
+
+#: ../earlymethods.c:413
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Puneþi CD-ul conþinînd Red Hat Linux în unitatea CDROM"
+
+#: ../earlymethods.c:429
+#, c-format
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Nu s-a putut citi CD-ul din /dev/%s"
+
+#: ../earlymethods.c:439
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Aceastã unitate CDROM nu conþine un CD cu Red Hat Linux"
+
+#: ../earlymethods.c:502 ../earlymethods.c:509
+msgid "nfs command"
+msgstr "comanda nfs"
+
+#: ../earlymethods.c:503
+#, c-format
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "argument invalid pentru comanda nfs kickstart %s: %s"
+
+#: ../earlymethods.c:510
+msgid "nfs command incomplete"
+msgstr "comanda nfs incompletã"
+
+#: ../earlymethods.c:559
+msgid "I could not mount that directory from the server"
+msgstr "Nu s-a putut citi directorul specificat de pe server"
+
+#: ../earlymethods.c:564 ../earlymethods.c:1322 ../latemethods.c:495
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Directorul specificat nu conþine distribuþia Red Hat Linux"
+
+#: ../earlymethods.c:677
+msgid "Loading second stage ramdisk..."
+msgstr "Încãrcare ramdisk pentru etapa a doua..."
+
+#: ../earlymethods.c:716
+msgid "PCMCIA Disk"
+msgstr "PCMCIA Disk"
+
+#: ../earlymethods.c:716 ../earlymethods.c:766 ../earlymethods.c:802
+#: ../earlymethods.c:943 ../fs.c:225 ../fsedit.c:877 ../fsedit.c:1999
+#: ../fsedit.c:2798 ../lilo.c:141 ../mtab.c:91 ../smb.c:70 ../urlmethod.c:377
+msgid "Cancel"
+msgstr "Abandon"
+
+#: ../earlymethods.c:717
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Discul nu a putut fi citit. Introduceþi discul pentru Red Hat PCMCIA "
+"install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
+"diferitã."
+
+#: ../earlymethods.c:724
+msgid "Loading PCMCIA Support"
+msgstr "Se încarcã suportul pentru PCMCIA..."
+
+#: ../earlymethods.c:766 ../earlymethods.c:841
+msgid "Supplemental Disk"
+msgstr "Supplemental Disk"
+
+#: ../earlymethods.c:767
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Supplementary "
+"Install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
+"diferitã."
+
+#: ../earlymethods.c:774
+msgid "Loading Supplemental Disk..."
+msgstr "Încãrcare Supplemental Disk..."
+
+#: ../earlymethods.c:789 ../earlymethods.c:802
+msgid "Driver Disk"
+msgstr "Driver Disk"
+
+#: ../earlymethods.c:790
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Aceastã metodã de instalare necesitã un Driver Disk. Schimbaþi Supplemental "
+"Disk aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
+"Modules Disk."
+
+#: ../earlymethods.c:803
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Modules Disk, "
+"sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
+
+#: ../earlymethods.c:810
+msgid "Loading Driver Disk..."
+msgstr "Încãrcare Driver Disk..."
+
+#: ../earlymethods.c:842
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Aceastã metodã de instalare necesitã douã floppy-discuri adiþionale. "
+"Schimbaþi discul de boot aflat în acest moment în unitatea de floppy cu "
+"discul denumit Red Hat Supplementary Install."
+
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+msgid "hd command"
+msgstr "hd command"
+
+#: ../earlymethods.c:903
+#, c-format
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "argument invalid pentru comanda hd kickstart %s: %s"
+
+#: ../earlymethods.c:910
+msgid "hd command incomplete"
+msgstr "comandã hd incompletã"
+
+#: ../earlymethods.c:923
+#, c-format
+msgid "HD device %s not found"
+msgstr "Hard drive %s inexistent"
+
+#: ../earlymethods.c:932
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
+"ºi RedHat/base?"
+
+#: ../earlymethods.c:951
+msgid "Directory holding Red Hat:"
+msgstr "Directorul conþinînd Red Hat:"
+
+#: ../earlymethods.c:968
+msgid "Select Partition"
+msgstr "Selectaþi o Partitie"
+
+#: ../earlymethods.c:1017
+#, c-format
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Eroare la crearea symlink /tmp/rhimage: %s"
+
+#: ../earlymethods.c:1029
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
+
+#: ../earlymethods.c:1052 ../earlymethods.c:1334
+msgid "Error reading second stage ramdisk. "
+msgstr "Eroare la citirea ramdisk pentru etapa a doua..."
+
+#: ../earlymethods.c:1133 ../earlymethods.c:1140
+msgid "url command"
+msgstr "comanda url"
+
+#: ../earlymethods.c:1134
+#, c-format
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "argument invalid pentru comanda url %s: %s"
+
+#: ../earlymethods.c:1141
+msgid "url command incomplete"
+msgstr "comandã url incompletã"
+
+#: ../earlymethods.c:1207
+#, c-format
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Nu s-a putut receptiona ramdiskul pentru stagiul doi: %s"
+
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fsedit.c:233
+#: ../fsedit.c:240 ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268
+#: ../fsedit.c:278
+msgid "Bad Mount Point"
+msgstr "Director montare invalid"
+
+#: ../fs.c:116
+msgid "Mount points must begin with a leading /."
+msgstr "Directorul de montare trebuie sã înceapã cu /."
+
+#: ../fs.c:122
+msgid "Mount points may not end with a /."
+msgstr "Directorul de montare nu se poate termina în /."
+
+#: ../fs.c:130
+msgid "Mount points may only printable characters."
+msgstr "Un director valid trebuie sã conþinã numai caractere din alfabet."
+
+#: ../fs.c:145
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Partiþiile sistemului trebuie sã fie de tip Linux Native."
+
+#: ../fs.c:153
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Directorul /usr trebuie sã fie pe o partiþie Linux Native sau un director NFS"
+
+#: ../fs.c:198
+msgid "Edit Network Mount Point"
+msgstr "Editare director de montare în reþea"
+
+#: ../fs.c:332
+#, c-format
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Se iniþializeazã /dev/%s cu un sistem ext2..."
+
+#: ../fs.c:333 ../lilo.c:327
+msgid "Running"
+msgstr "Rulare"
+
+#: ../fs.c:367
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Ce partiþii doriþi sa formataþi ? Vã sugeram sã formataþi toate partiþiile "
+"sistem definite, inclusiv cele alocate pentru directoarele /, /usr, /var. "
+"Formatarea partiþiilor pentru /home sau /usr/local nu este necesarã dacã "
+"aceste partiþii au fost deja configurate la o instalare anterioarã."
+
+#: ../fs.c:407 ../mkswap.c:585
+msgid "Check for bad blocks during format"
+msgstr "Verificare blocuri defecte la formatare"
+
+#: ../fs.c:416
+msgid "Partitions To Format"
+msgstr "Partiþii care vor fi Formatate"
+
+#: ../fs.c:522
+#, c-format
+msgid "nfs mount failed: %s"
+msgstr "eroare mount NFS: %s"
+
+#: ../fs.c:544
+#, c-format
+msgid "mount failed: %s"
+msgstr "eroare montare: %s"
+
+#: ../fsedit.c:234
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr "Directorul %s trebuie sã fie pe root filesystem."
+
+#: ../fsedit.c:241
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+"Directorul %s de montare a partiþiei este invalid.\n"
+"\n"
+"Directoarele încep cu caracterul /."
+
+#: ../fsedit.c:248
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+"Directorul %s de montare a partiþiei este invalid.\n"
+"\n"
+"Directoarele nu se pot termina în caracterul /."
+
+#: ../fsedit.c:257
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+"Directorul %s de montare a partiþiei este invalid.\n"
+"\n"
+"Directoarele trebuie sã conþinã numai caractere printabile."
+
+#: ../fsedit.c:269
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+"Directorul %s de montare a partiþiei este invalid.\n"
+"\n"
+"Partiþiile de sistem trebuie sa fie montate în directoare pe partiþii de tip "
+"Linux Native."
+
+#: ../fsedit.c:279
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Directorul %s de montare a partiþiei este invalid.\n"
+"\n"
+"Directorul /usr trebuie sa fie pe o partiþie de tip Linux Native sau montat "
+"prin NFS."
+
+#: ../fsedit.c:319
+#, c-format
+msgid "System error %d"
+msgstr "Eroare sistem %d"
+
+#: ../fsedit.c:328 ../fsedit.c:330
+msgid "Fdisk Error"
+msgstr "Eroare fdisk"
+
+#. build list of why they all failed
+#: ../fsedit.c:347 ../fsedit.c:1980
+msgid "Unallocated Partitions"
+msgstr "Partiþii nealocate"
+
+#: ../fsedit.c:351
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"În acest moment existã partiþii nealocate prezente în lista de partiþii "
+"selectate pentru instalare. Partiþiile nealocate sînt afiºate mai jos, "
+"împreunã cu motivul pentru care nu au fost alocate."
+
+#: ../fsedit.c:410
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+"S-a gãsit un disc avînd un identificator de volum (disklabel) corupt citind "
+"device-ul %s. Trebuie sã folosiþi fdisk pentru a crea un nou identificator "
+"de volum pentru acest disc."
+
+#: ../fsedit.c:414
+msgid "Corrupt Sun disklabel"
+msgstr "Identificator de volum Sun corupt"
+
+#: ../fsedit.c:415 ../fsedit.c:472 ../fsedit.c:500
+msgid "Skip Drive"
+msgstr "Urmãtorul disc"
+
+#: ../fsedit.c:424 ../fsedit.c:496
+#, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare este"
+
+#: ../fsedit.c:460 ../fsedit.c:471
+msgid "Bad Partition Table"
+msgstr "Tabela de Partiþii Invalidã"
+
+#: ../fsedit.c:462
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Tabela de partiþii de pe discul %s este invalidã. Pentru a crea noi partiþii "
+"aceasta trebuie initializata. Puteþi specifica \"zerombr yes\" în fiºierul "
+"de configurare kickstart pentru iniþializarea automatã de catre programul de "
+"instalare."
+
+#: ../fsedit.c:472
+msgid "Initialize"
+msgstr "Iniþializare"
+
+#: ../fsedit.c:473
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"Tabela de partiþii pe discul %s este invalidã. Pentru a crea noi partiþii "
+"aceasta trebuie initializatã, ceea ce va conduce la pierderea TUTUROR "
+"informaþiilor de pe acest disc."
+
+#: ../fsedit.c:500 ../install2.c:1098 ../net.c:445
+msgid "Retry"
+msgstr "Încearcã din nou"
+
+#: ../fsedit.c:512
+msgid "BSD Disklabel"
+msgstr "BSD Disklabel"
+
+#: ../fsedit.c:512
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"S-a gãsit un disc avînd identificatorul de volum BSD. Red Hat Linux suportã "
+"BSD disklabel numai în mod read-only, de aceea va trebui sã folosiþi modul "
+"de instalare Custom ºi utilitarul fdisk (în loc de Disk Druid) pentru "
+"calculatoarele care au BSD disklabel instalat."
+
+#: ../fsedit.c:569
+msgid "Swap Partition"
+msgstr "Partiþie Swap"
+
+#: ../fsedit.c:690 ../fsedit.c:696 ../fsedit.c:700 ../fsedit.c:702
+msgid "Edit Partition"
+msgstr "Editare partiþie"
+
+#: ../fsedit.c:762
+msgid "Allocation Status:"
+msgstr "Stare Alocare:"
+
+#: ../fsedit.c:764
+msgid "Successful"
+msgstr "Succes"
+
+#: ../fsedit.c:766
+msgid "Failed"
+msgstr "Eroare"
+
+#: ../fsedit.c:771
+msgid "Failure Reason:"
+msgstr "Cauzã eroare:"
+
+#: ../fsedit.c:913
+msgid "No Mount Point"
+msgstr "Director de montare nespecificat"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "Yes"
+msgstr "Da"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "No"
+msgstr "Nu"
+
+#: ../fsedit.c:914
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Nu aþi selectat un director de montare pentru aceastã partiþie. Sînteþi "
+"sigur cã aceasta este ceea ce doriþi?"
+
+#: ../fsedit.c:954 ../fsedit.c:2584
+msgid "Mount Point Error"
+msgstr "Eroare - Director de montare"
+
+#: ../fsedit.c:955
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Directorul de montare specificat este o cale ilegalã sau este deja utilizat. "
+"Selectaþi un director de activare valid."
+
+#: ../fsedit.c:972
+msgid "Size Error"
+msgstr "Eroare mãrime"
+
+#: ../fsedit.c:973
+msgid ""
+"The size requested is illegal. Make sure the size is greater than zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"Mãrimea cerutã este invalidã. Mãrimea trebuie sa fie mai mare decît zero (0) "
+"ºi este un numãr natural specificat în baza 10."
+
+#: ../fsedit.c:1008
+msgid "Swap Size Error"
+msgstr "Eroare mãrime swap"
+
+#: ../fsedit.c:1009
+#, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Mãrimea cerutã pentru swap este prea mare. Dimensiunea maximã a unei "
+"partiþii de swap este de %ld MB."
+
+#: ../fsedit.c:1136
+msgid "Delete Partition"
+msgstr "ªtergere partiþie"
+
+#: ../fsedit.c:1137
+msgid "Are you sure you want to delete this partition?"
+msgstr "Sînteþi sigur cã doriþi sã ºtergeþi aceastã partiþie?"
+
+#: ../fsedit.c:1783
+msgid "Current Disk Partitions"
+msgstr "Partitii curente pe disc"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805 ../fsedit.c:2974 ../hd.c:359
+#: ../lilo.c:445
+msgid "Edit"
+msgstr "Editare"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805
+msgid "Delete"
+msgstr "ªtergere"
+
+#: ../fsedit.c:1804
+msgid "Add"
+msgstr "Adãugare"
+
+#: ../fsedit.c:1816
+msgid "Drive Summaries"
+msgstr "Raport disc"
+
+#: ../fsedit.c:1931
+msgid "No Root Partition"
+msgstr "Partiþia root nedefinita"
+
+#: ../fsedit.c:1932
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"O partiþie de tip Linux Native (ext2) trebuie asignatã partiþiei de root (/) "
+"înainte ca procesul de instalare sã continue."
+
+#: ../fsedit.c:1950
+msgid "No Swap Partition"
+msgstr "Nu s-a definit nici o partiþie de swap"
+
+#: ../fsedit.c:1951
+msgid "You must assign a swap partition for the install to proceed."
+msgstr ""
+"Trebuie sã selectaþi o partiþie de swap înainte ca procesul de instalare sã "
+"poatã continua."
+
+#: ../fsedit.c:1982
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+"Existã partiþii nealocate pe disc. Dacã iesiþi acum acestea nu vor fi scrise "
+"pe disc.\n"
+"\n"
+"Sinteti sigur ca doriti a iesiti din program?"
+
+#: ../fsedit.c:1998
+msgid "Save Changes"
+msgstr "Salvare"
+
+#: ../fsedit.c:2000
+msgid "Save changes to partition table(s)?"
+msgstr "Salvaþi schimbãrile în tabela de partiþii?"
+
+#: ../fsedit.c:2044
+msgid "You may only delete NFS mounts."
+msgstr "Puteþi ºterge numai NFS mounts."
+
+#: ../fsedit.c:2078
+msgid "Reset Partition Table"
+msgstr "Resetare Tabela de partiþii"
+
+#: ../fsedit.c:2080
+msgid "Reset partition table to original contents? "
+msgstr "Restauraþi conþinutul original al tabelei de partiþii ? "
+
+#: ../fsedit.c:2373 ../fsedit.c:2856 ../fsedit.c:3079
+msgid "Too Many Drives"
+msgstr "Prea multe discuri"
+
+#: ../fsedit.c:2374 ../fsedit.c:2857 ../fsedit.c:3080
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Aveþi instalate mai multe discuri decît acest program poate controla. Vã "
+"rugãm sã folositi programul fdisk standard pentru a partiþiona discurile "
+"dumneavoastrã ºi notificaþi Red Hat Software cã aþi vãzut acest mesaj."
+
+#: ../fsedit.c:2409
+msgid "Zero Partition Table"
+msgstr "Initializare Tabela de partiþii"
+
+#: ../fsedit.c:2410
+#, c-format
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"parametru invalid pentru comanda zerombr în mod kickstart: %s.\n"
+"Parametrul valid este 'on', '1', sau 'yes' pentru activare, 'off', '0', sau "
+"'no' pentru dezactivare."
+
+#: ../fsedit.c:2427 ../fsedit.c:2883 ../fsedit.c:3105
+msgid "No Drives Found"
+msgstr "Nu s-a identificat nici un disc"
+
+#: ../fsedit.c:2428 ../fsedit.c:2884 ../fsedit.c:3106
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"Eroare - nu s-au putut identifica nici un hard disc pentru crearea de "
+"partitii ºi sisteme de fiºiere care sã conþinã Red Hat Linux. Verificaþi "
+"hardware-ul pentru posibile cauze ale acestei probleme."
+
+#: ../fsedit.c:2456
+msgid "Clear Partition Command"
+msgstr "Comanda Iniþializare partitie"
+
+#: ../fsedit.c:2457
+#, c-format
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr ""
+"parametru %s este invalid pentru comanda clearpart în mod kickstart: %s"
+
+#: ../fsedit.c:2495
+msgid "Partition Command"
+msgstr "Comanda de Partiþionare"
+
+#: ../fsedit.c:2496
+#, c-format
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "parametrul %s este invalid pentru comanda part în mod kickstart: %s"
+
+#: ../fsedit.c:2525
+msgid "Option Ignored"
+msgstr "Opþiune Ignoratã"
+
+#: ../fsedit.c:2526
+#, c-format
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Opþiunea --maxsize pentru partiþia %s a fost ignoratã. Verificaþi dacã este "
+"mai mare decît valoarea specificatã la optiunea --size."
+
+#: ../fsedit.c:2585
+#, c-format
+msgid "The mount point %s is already in use."
+msgstr "Directorul de montare %s este folosit deja."
+
+#: ../fsedit.c:2620
+msgid "Failed Allocation"
+msgstr "Alocare eºuatã"
+
+# msgid "Add NFS"
+# msgstr "Adaugare NFS"
+# 
+# msgid "Bits Per Pixel:"
+# msgstr "Biti per Pixel:"
+# 
+# msgid "Remove queue:"
+# msgstr "Nume coada partajata:"
+# 
+# msgid "There are currently unallocated partiton(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
+# msgstr "Pe acest sistem exista partitii nealocate prezente in lista de partitii cerute. partitiile nealocate sint prezentate mai jos impreuna cu motivul pentru care nu au fost alocate."
+# 
+# msgid "Okay"
+# msgstr "Okay"
+# 
+# msgid "Reset"
+# msgstr "Din nou"
+# 
+# msgid "Format Partitions"
+# msgstr "Formatare Partitii"
+# 
+#: ../fsedit.c:2621
+#, c-format
+msgid "The partition %s could not be allocated."
+msgstr "Partiþia %s nu a putut fi alocatã."
+
+#: ../fsedit.c:2798 ../fsedit.c:2804
+msgid "Warning"
+msgstr "Atenþie"
+
+#: ../fsedit.c:2805
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr ""
+"Sînteti pe cale de a sterge irevocabil date de pe hard disk! Sînteþi sigur "
+"cã doriþi sã continuaþi?"
+
+#: ../fsedit.c:2813
+msgid "There is not enough disk space for this type of installation."
+msgstr "Spaþiul pe disc este insuficient pentru acest tip de instalare."
+
+#. Find out if the user wants to do this
+#: ../fsedit.c:2997 ../install2.c:313
+msgid "Disk Setup"
+msgstr "Setare Disc"
+
+#: ../fsedit.c:2999
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Pe acest sistem exista partitii care pot fi redimensionate pentru a face loc "
+"pentru instalarea Red Hat Linux. Doriti sa redimensionati aceste partitii "
+"acum?"
+
+#: ../fsedit.c:3020
+msgid "Resize Partitions"
+msgstr "Redimensionare partitii"
+
+#: ../ftp.c:651
+msgid "Success"
+msgstr "Succes"
+
+#: ../ftp.c:654
+msgid "Bad server response"
+msgstr "Raspuns eronat de la server"
+
+#: ../ftp.c:657
+msgid "Server IO error"
+msgstr "Eroare I/O la transfer"
+
+#: ../ftp.c:660
+msgid "Server timeout"
+msgstr "Serverul nu rãspunde"
+
+#: ../ftp.c:663
+msgid "Unable to lookup server host address"
+msgstr "Nu s-a putut determina adresa de IP a serverului"
+
+#: ../ftp.c:666
+msgid "Unable to lookup server host name"
+msgstr "Nu s-a putut determina numele serverului"
+
+#: ../ftp.c:669
+msgid "Failed to connect to server"
+msgstr "Nu s-a putut face conectarea la server"
+
+#: ../ftp.c:672
+msgid "Failed to establish data connection to server"
+msgstr "Nu s-a putut stabili o conexiune cu serverul"
+
+#: ../ftp.c:675
+msgid "IO error to local file"
+msgstr "Eroare IO la acesul fiºierului local"
+
+#: ../ftp.c:678
+msgid "Error setting remote server to passive mode"
+msgstr "Eroare la setarea serverului în mod pasiv"
+
+#: ../ftp.c:681
+msgid "File not found on server"
+msgstr "Fiºierul nu s-a gasit pe server"
+
+#: ../ftp.c:684
+msgid "Abort in progress"
+msgstr "Abandon in progres"
+
+#: ../ftp.c:688
+msgid "Unknown or unexpected error"
+msgstr "Eroare necunoscutã"
+
+#: ../hd.c:42
+msgid "Whole disk"
+msgstr "Întregul disc"
+
+#: ../hd.c:43 ../hd.c:57
+msgid "Linux swap"
+msgstr "Linux swap"
+
+#: ../hd.c:44 ../hd.c:58
+msgid "Linux native"
+msgstr "Linux native"
+
+#: ../hd.c:49
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bit FAT"
+
+#: ../hd.c:50
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bit <32M"
+
+#: ../hd.c:52
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bit >=32"
+
+#: ../hd.c:53
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+#: ../hd.c:54 ../hd.c:55 ../hd.c:56
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+#: ../hd.c:164 ../hd.c:310
+msgid "Hard Drives"
+msgstr "Hard Discuri"
+
+#: ../hd.c:164
+msgid "Scanning hard drives..."
+msgstr "Inspectare hard discuri..."
+
+#: ../hd.c:311
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Nu aveþi nici un hard disc disponibil! Probabil aþi uitat sã configuraþi o "
+"placã SCSI."
+
+#: ../hd.c:319
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de "
+"minim 150 MB dedicatã pentru Linux. Vã sugerãm plasarea acelei partiþii pe "
+"unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea "
+"folosi LILO pentru lansarea sistemului Linux."
+
+#: ../hd.c:324
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de "
+"minim 150 MB dedicatã Linux."
+
+#: ../hd.c:358
+msgid "Partition Disks"
+msgstr "Partiþionare discuri"
+
+#: ../hd.c:359 ../install2.c:1649 ../pkgs.c:1099
+msgid "Done"
+msgstr "Gata"
+
+#: ../hd.c:412
+msgid "Reboot Needed"
+msgstr "Resetare Necesara"
+
+#: ../hd.c:413
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Kernel-ul nu poate citi noua tabelã de partiþii, probabil din cauzã cã aþi "
+"modificat structura partiþiilor extinse. Aceastã eroare nu este fatalã, însã "
+"calculatorul trebuie resetat înainte de a continua cu instalarea. Încãrcaþi "
+"acum Red Hat boot disk în unitatea floppy ºi apãsaþi Enter pentru a reseta "
+"systemul.\n"
+"\n"
+"Dacã aveþi un drive ZIP sau JAZ asiguraþi-vã ca în unitate este un disk; un "
+"drive SCSI fãrã disk poate de asemenea cauza aceastã problemã"
+
+#: ../hints.c:31
+msgid "lilo command"
+msgstr "comanda lilo"
+
+#: ../hints.c:32
+#, c-format
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "argument invalid pentru comanda lilo %s: %s"
+
+#: ../install.c:76
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com."
+msgstr ""
+"Bine aþi venit în programul de instalare Red Hat Linux!\n"
+"\n"
+"Aceastã procedurã de instalare este descrisã în detaliu în Official Red Hat "
+"Linux Installation Guide, care se poate procura de la Red Hat Software. Dacã "
+"aveþi acces la acest manual este recomandat sa citiþi secþiunea dedicatã "
+"procesului de instalare înainte de a continua.\n"
+"\n"
+"Dacã aþi cumpãrat Official Red Hat Linux, vã rugam sa ne vizitaþi pagina de "
+"web la http://www.redhat.com ºi sã vã inregistraþi numarul serial în baza "
+"noastrã de date."
+
+#: ../install.c:178
+msgid "PCMCIA Support"
+msgstr "Suport pentru PCMCIA"
+
+#: ../install.c:179
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Aveþi nevoie de suport pentru PCMCIA în timpul instalãrii? Rãspundeþi Nu la "
+"aceastã întrebare numai dacã aveþi nevoie de suport pentru PCMCIA dupã "
+"instalare. Nu aveþi nevoie de suport pentru PCMCIA în timpul instalãrii dacã "
+"instalaþi Red Hat Linux pe un laptop care are o unitate CD-ROM internã."
+
+#: ../install.c:191
+msgid "PCMCIA Support Disk"
+msgstr "Suport pentru PCMCIA"
+
+#: ../install.c:192
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"Aceastã metodã de instalare necesitã un disc secundar. Schimbaþi discul de "
+"boot aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
+"PCMCIA support disk."
+
+#: ../install.c:202
+msgid "Starting PCMCIA services..."
+msgstr "Se iniþializeazã  serviciile PCMCIA..."
+
+#: ../install.c:246 ../install2.c:1234
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Folosiþi comanda <exit> pentru a vã întoarce în programul de instalare.\n"
+
+#: ../install.c:268 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../pkgs.c:458 ../pkgs.c:470
+msgid "Kickstart Error"
+msgstr "Eroare KickStart"
+
+#: ../install.c:268
+msgid "No kickstart configuration file server can be found."
+msgstr "Nu s-a detectat nici un server pentru configurarea kickstart."
+
+#: ../install.c:304
+#, c-format
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Nu s-a putut activa directorul kickstart %s.\n"
+
+#: ../install.c:467
+msgid "Welcome to Red Hat Linux"
+msgstr "Welcome to Red Hat Linux"
+
+#: ../install.c:469 ../install2.c:1571
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> intre elemente  | <Space> selecteaza | <F12> urmatorul "
+"ecran "
+
+#: ../install.c:482
+msgid "I could not mount the boot floppy."
+msgstr "Nu s-a putut citi discheta de boot."
+
+#: ../install.c:486
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
+
+#: ../install.c:495
+#, c-format
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Eroare la deschiderea fiºierelor pentru copierea kickstart: %s\n"
+
+#: ../install.c:514
+msgid "Error copying kickstart file from floppy."
+msgstr "Eroare la copierea fiºierelor kickstart de pe dischetã."
+
+#: ../install2.c:177 ../install2.c:221
+msgid "Select installation path"
+msgstr "Selectaþi calea de instalare"
+
+#: ../install2.c:179
+msgid "Select installation class"
+msgstr "Selectaþi tipul de instalare"
+
+#: ../install2.c:181 ../install2.c:223
+msgid "Setup SCSI"
+msgstr "Setare SCSI"
+
+#: ../install2.c:183
+msgid "Setup filesystems"
+msgstr "Setare sisteme de fiºiere"
+
+#: ../install2.c:185
+msgid "Setup swap space"
+msgstr "Setare spaþiu swap"
+
+#: ../install2.c:187 ../install2.c:227
+msgid "Find installation files"
+msgstr "Identificare fiºiere de instalare"
+
+#: ../install2.c:189
+msgid "Choose partitions to format"
+msgstr "Alegaþi partiþiile care vor fi formatate"
+
+#: ../install2.c:191
+msgid "Choose packages to install"
+msgstr "Selectaþi pachetele care vor fi instalate"
+
+#: ../install2.c:193
+msgid "Install system"
+msgstr "Instalare sistem"
+
+#: ../install2.c:195
+msgid "Configure mouse"
+msgstr "Configurare mouse"
+
+#: ../install2.c:197
+msgid "Configure networking"
+msgstr "Configurare reþea"
+
+#: ../install2.c:199
+msgid "Configure timezone"
+msgstr "Configurare zona de timp"
+
+#: ../install2.c:201
+msgid "Configure services"
+msgstr "Configurare servicii"
+
+#: ../install2.c:203
+msgid "Configure printer"
+msgstr "Configurare imprimantã"
+
+#: ../install2.c:205
+msgid "Set root password"
+msgstr "Setare parola root"
+
+#: ../install2.c:207
+msgid "Configure authentication"
+msgstr "Configurare metode de autentificare"
+
+#: ../install2.c:209 ../install2.c:233
+msgid "Create bootdisk"
+msgstr "Creare disc boot"
+
+#: ../install2.c:211 ../install2.c:235
+msgid "Install bootloader"
+msgstr "Instalare bootloader"
+
+#: ../install2.c:213
+msgid "Configure X"
+msgstr "Configurare X Windows"
+
+#: ../install2.c:215 ../install2.c:237
+msgid "Exit install"
+msgstr "Exit install"
+
+#: ../install2.c:225
+msgid "Find current installation"
+msgstr "Identificare instalare curentã"
+
+#: ../install2.c:229
+msgid "Choose packages to upgrade"
+msgstr "Selectaþi pachetele pentru actualizare"
+
+#: ../install2.c:231
+msgid "Upgrade system"
+msgstr "Actualizare sistem"
+
+#: ../install2.c:313
+msgid "Disk Druid"
+msgstr "Disk Druid"
+
+#: ../install2.c:313
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../install2.c:315
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid este un program pentru partiþionare ºi setare a modului în care "
+"partiþiile sînt accesate în sistemul de directoare. Este conceput nu numai "
+"pentru a fi mai uºor de folosit decît tradiþionalul program fdisk standard "
+"în Linux, ci ºi pentru a oferi mai multe facilitãþi. Existã, totuºi, unele "
+"cazuri în care tradiþionalul fdisk este de preferat sã fie folosit.\n"
+"\n"
+"Ce program doriti sa folositi?"
+
+#: ../install2.c:449
+msgid "Scanning packages..."
+msgstr "Inspectare componente pentru instalare..."
+
+#: ../install2.c:507
+msgid "Install log"
+msgstr "Log instalare"
+
+#: ../install2.c:508
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"Un log complet al acestei instalãri va fi creat în /tmp/install.log, "
+"accesibil dupã reiniþializarea sistemului. Este recomandat sã pãstraþi acest "
+"fiºier pentru referinþe viitoare."
+
+#: ../install2.c:530
+msgid "Upgrade log"
+msgstr "Log actualizare"
+
+#: ../install2.c:531
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"Un istoric complet al acestei actualizãri se va gasi în /tmp/upgrade.log la "
+"sfîrºitul procesului de actualizare. Dupa reiniþializarea sistemului "
+"consultaþi acest fiºier pentru a fi sigur cã fiºierele de configurare a "
+"sistemului au fost actualizate corect."
+
+#: ../install2.c:538
+msgid "Rebuilding"
+msgstr "Reconstruire"
+
+#: ../install2.c:538
+msgid "Rebuilding RPM database..."
+msgstr "Reconstruire baza de date RPM..."
+
+#: ../install2.c:548
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr ""
+"Reconstructia bazei de date RPM a esuat. Aveti destul spatiu pe hard disc?"
+
+#: ../install2.c:662 ../install2.c:669 ../install2.c:675
+msgid "rootpw command"
+msgstr "rootpw command"
+
+#: ../install2.c:663
+#, c-format
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "parametru invalid pentru comanda rootpw în mod kickstart: %s: %s"
+
+#: ../install2.c:670
+msgid "Missing password"
+msgstr "Lipseºte parola"
+
+#: ../install2.c:676
+msgid "Unexpected arguments"
+msgstr "Parametri invalizi"
+
+#: ../install2.c:687 ../printercfg.c:1072 ../printercfg.c:1126
+#: ../urlmethod.c:353
+msgid "Password:"
+msgstr "Parola:"
+
+#: ../install2.c:690
+msgid "Password (again):"
+msgstr "Parola (din nou):"
+
+#: ../install2.c:702
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Alegeþi o parolã de root. Aceastã parolã trebuie tiparitã mai jos de douã "
+"ori pentru a fi siguri ca aþi tipãrit-o corect ºi pentru a evita eventualele "
+"erori de tastare. Este important sã vã amintiþi cã parola de root este o "
+"parte criticã a securitãþii sistemului dumneavoastrã!"
+
+#: ../install2.c:717
+msgid "Root Password"
+msgstr "Parola de root:"
+
+#: ../install2.c:733 ../install2.c:743
+msgid "Password Mismatch"
+msgstr "Parolele sînt diferite"
+
+#: ../install2.c:734
+msgid "The passwords you entered were different. Please try again."
+msgstr ""
+"Parolele pe care le-aþi introdus sînt diferite (probabil dintr-o eroare de "
+"tastare). Încercaþi din nou."
+
+#: ../install2.c:744
+msgid "The root password must be at least 6 characters long."
+msgstr "Parola de root trebuie sã fie de cel putin ºase caractere lungime"
+
+#: ../install2.c:934
+msgid "Installation Path"
+msgstr "Directorul de instalare"
+
+#: ../install2.c:934
+msgid "Install"
+msgstr "Instalare"
+
+#: ../install2.c:934 ../install2.c:1069
+msgid "Upgrade"
+msgstr "Actualizare"
+
+#: ../install2.c:935
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Doriþi sã instalaþi un nou sistem sau sã actualizaþi un sistem care conþine "
+"deja Red Hat Linux versiunea 2.0 sau mai recentã?"
+
+#: ../install2.c:951
+msgid "Workstation"
+msgstr "Workstation"
+
+#: ../install2.c:952
+msgid "Server"
+msgstr "Server"
+
+#: ../install2.c:953
+msgid "Custom"
+msgstr "Custom"
+
+#: ../install2.c:965
+msgid "Installation Class"
+msgstr "Tipul de Instalare"
+
+#: ../install2.c:966
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Ce tip de calculator instalaþi? Pentru flexibilitate maximã în configurare, "
+"alegeþi \"Custom\"."
+
+#: ../install2.c:1069
+msgid "Converting RPM database..."
+msgstr "Baza de date RPM se actualizeazã..."
+
+#: ../install2.c:1079
+msgid "Finding packages to upgrade..."
+msgstr "Determinare pachete pentru actualizare..."
+
+#: ../install2.c:1098
+msgid "Previous"
+msgstr "Precedent"
+
+#: ../install2.c:1098
+msgid "Menu"
+msgstr "Meniu"
+
+#: ../install2.c:1099
+#, c-format
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"A apãrut o eroare în timpul pasului \"%s\" al programului de instalare\n"
+"\n"
+"Puteþi reîncerca aceastã etapã, sã vã întoarceþi la o etapã anterioarã în "
+"procesul de instalare, sau sã obþineþi un menu cu toate etapele de instalare "
+"care vã va permite sã executaþi diferite etape din procesul de instalare la "
+"alegerea dumneavoastrã. Nu este recomandat lucrul cu meniul etapelor de "
+"instalare decît dacã sînteþi familiar cu Red Hat Linux. Care este opþiunea "
+"dumneavoastrã?"
+
+#: ../install2.c:1132
+msgid "  Continue with install"
+msgstr "Continuarea instalãrii"
+
+#: ../install2.c:1144
+msgid "Installation Steps"
+msgstr "Etapele de instalare"
+
+#: ../install2.c:1144
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Ce anume doriþi sã executaþi? Etapele marcate cu * au fost deja executate."
+
+#: ../install2.c:1183
+msgid "Cancelled"
+msgstr "Abandonat"
+
+#: ../install2.c:1184
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Nu se poate sãri la o etapã anterioarã de aici. Încercaþi din nou."
+
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:729
+msgid "Bootdisk"
+msgstr "Disc de boot"
+
+#: ../install2.c:1331
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+"Un disc de boot personalizat pentru sistemul dumneavoastrã permite "
+"încãrcarea Linux farã a depinde de bootloader. Aceasta este folositor dacã "
+"nu doriþi sã instalaþi lilo pe sistemul dumneavoastrã, sau în caz cã lilo "
+"este ºters mai mult sau mai puþin accidental de cãtre un alt sistem de "
+"operare sau eroare operator, sau dacã (mai rar) lilo nu funcþioneaza corect "
+"în configuraþia hardware a acestui calculator. Un disc de boot poate fi "
+"folosit de asemenea cu imaginea de rescue, în caz cã sistemul trebuie "
+"restaurat.\n"
+"\n"
+"Doriþi sã creaþi un disc de boot pentru acest sistem?"
+
+#: ../install2.c:1348
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Incãrcaþi un floppy disc în prima unitate de disc (/dev/fd0)."
+
+#: ../install2.c:1648
+msgid "Complete"
+msgstr "Complet"
+
+#: ../install2.c:1650
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Felicitãri, instalarea s-a terminat cu succes.\n"
+"\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
+"pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi "
+"actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam "
+"sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
+"\n"
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
+"capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
+
+#: ../kbd.c:248
+msgid "Keyboard Type"
+msgstr "Tip tastaturã"
+
+#: ../kbd.c:249
+msgid "What type of keyboard do you have?"
+msgstr "Ce tip de tastaturã aveþi?"
+
+#: ../kernel.c:23
+#, c-format
+msgid "file %s missing from source directory"
+msgstr "fiºierul %s lipseºte din directorul sursã"
+
+#: ../kernel.c:30
+#, c-format
+msgid "failed to create file %s"
+msgstr "Nu se poate crea %s"
+
+#: ../kernel.c:38
+#, c-format
+msgid "error writing to file %s: %s"
+msgstr "Eroare la scriere în fiºierul %s: %s"
+
+#: ../kernel.c:50
+#, c-format
+msgid "error reading from file %s: %s"
+msgstr "eroare la citirea din fiºierul %s: %s"
+
+#: ../kernel.c:68 ../kernel.c:73 ../kernel.c:78
+msgid "Kernel"
+msgstr "Kernel"
+
+#: ../kernel.c:69
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr "Introduceþi diskul de boot în drive dacã nu este deja prezent"
+
+#: ../kernel.c:73 ../kernel.c:78
+msgid "Copying kernel from floppy..."
+msgstr "Se copie imaginea kernel de pe dischetã..."
+
+#: ../kickstart.c:85
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Eroare la deschiderea fiºierului kickstart %s: %s"
+
+#: ../kickstart.c:95
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Eroare la citirea conþinutului fiºierului kickstart %s: %s"
+
+#: ../kickstart.c:163
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Eroare la linia %d a fiºierului kickstart %s."
+
+#: ../kickstart.c:171
+#, c-format
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Comanda %s la linia %d în fiºierul kickstart %s este invalidã."
+
+#: ../kickstart.c:246
+#, c-format
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Eroare la crearea /mnt/tmp/ks.script: %s"
+
+#: ../kickstart.c:255
+#, c-format
+msgid "Failed to write ks post script: %s"
+msgstr ""
+"Eroare la scrierea fiºierului de comenzi pentru post-instalarea kickstart: %s"
+
+#. loadFont("default8x16");
+#: ../lang.c:142
+msgid "Choose a Language"
+msgstr "Limbã program instalare"
+
+#: ../lang.c:142
+msgid "What language should be used during the installation process?"
+msgstr "Ce limbã trebuie folositã în timpul rulãrii programului de instalare?"
+
+#: ../latemethods.c:233
+msgid "Failed to create symlink for package source."
+msgstr "Eroare la crearea symlink pentru sursa de pachete."
+
+#: ../latemethods.c:427
+msgid "ftp"
+msgstr "ftp"
+
+#: ../latemethods.c:428
+#, c-format
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Nu se poate obþine %s. Doriþi sã reîncercaþi?"
+
+#: ../lilo.c:50
+msgid "SILO"
+msgstr "SILO"
+
+#: ../lilo.c:52
+msgid "LILO"
+msgstr "LILO"
+
+#: ../lilo.c:54
+msgid "Creating initial ramdisk..."
+msgstr "Creare ramdisk iniþial..."
+
+#: ../lilo.c:87
+msgid "Master Boot Record"
+msgstr "Master Boot Record"
+
+#: ../lilo.c:88
+msgid "First sector of boot partition"
+msgstr "Primul sector al partiþiei active"
+
+#: ../lilo.c:91 ../lilo.c:570
+msgid "Lilo Installation"
+msgstr "Instalare LILO"
+
+#: ../lilo.c:91 ../lilo.c:95
+msgid "Where do you want to install the bootloader?"
+msgstr "Unde doriþi sã instalaþi managerul de încãrcare Linux?"
+
+#: ../lilo.c:93 ../lilo.c:97
+msgid "Skip"
+msgstr "Urmãtoarea etapã"
+
+#: ../lilo.c:95
+msgid "SILO Installation"
+msgstr "Instalare SILO"
+
+#: ../lilo.c:129
+msgid "Device:"
+msgstr "Disc:"
+
+#: ../lilo.c:135
+msgid "Boot label:"
+msgstr "Eticheta boot:"
+
+#: ../lilo.c:140
+msgid "Clear"
+msgstr "ªterge"
+
+#: ../lilo.c:150
+msgid "Edit Boot Label"
+msgstr "Editare eticheta boot"
+
+#: ../lilo.c:327
+msgid "Installing boot loader..."
+msgstr "Instalare manager de încãrcare..."
+
+#: ../lilo.c:379
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Managerul pentru încãrcarea Linux folosit de Red Hat Linux poate încãrca ºi "
+"alte sisteme de operare. Trebuie sã selectaþi ce partiþii conþin celelalte "
+"sisteme de operare pe care doriþi sã le puteþi selecta la pornirea "
+"sistemului ºi sã alegeþi o eticheta pentru fiecare dintre ele."
+
+#: ../lilo.c:390
+msgid "Device"
+msgstr "Partiþie"
+
+#: ../lilo.c:390
+msgid "Partition type"
+msgstr "Tip partiþie"
+
+#: ../lilo.c:391 ../printercfg.c:651 ../printercfg.c:722
+msgid "Default"
+msgstr "Implicit"
+
+#: ../lilo.c:391
+msgid "Boot label"
+msgstr "Eticheta"
+
+#: ../lilo.c:463
+msgid "Bootable Partitions"
+msgstr "Partiþii valide"
+
+#: ../lilo.c:539
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"În unele cazuri este necesar ca la încãrcarea sistemului de operare Linux sã "
+"se paseze parametri kernelului pentru a avea o funcþionare corectã. Dacã "
+"doriþi sã daþi opþiuni speciale kernelului, introduceþi-le acum. Dacã nu "
+"aveþi nevoie de opþiuni speciale sau nu sînteþi sigur nu introduceþi nimic "
+"ºi mergeþi mai departe în procesul de instalare."
+
+#: ../lilo.c:552
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr "Folosiþi modul de acces linear (pentru unele discuri SCSI)"
+
+#: ../lilo.c:568
+msgid "Silo Installation"
+msgstr "Instalare Silo"
+
+#: ../lilo.c:729
+msgid "Creating bootdisk..."
+msgstr "Creare bootdisk..."
+
+#: ../mkswap.c:222
+#, c-format
+msgid "Formatting swap space on device %s..."
+msgstr "Formatare spatiu pentru memoria swap in partitia %s..."
+
+#: ../mkswap.c:233
+msgid "Formatting"
+msgstr "Port imprimantã"
+
+#: ../mkswap.c:517
+msgid "No Swap Space"
+msgstr "Memoria swap nu este definita"
+
+#: ../mkswap.c:517
+msgid "Repartition"
+msgstr "Repartitionare"
+
+#: ../mkswap.c:517
+msgid "Continue"
+msgstr "Continuare"
+
+#: ../mkswap.c:518
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Spaþiu pentru memoria swap nu este definit. Doriþi sã continuaþi sau sã "
+"reparþitionaþi discul?"
+
+#: ../mkswap.c:535
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Ce partiþii doriþi sã utilizaþi ca spaþiu pentru memoria swap? Informatþia "
+"existentã în partiþiile selectate va fi pierdutã în urma acestei selecþii."
+
+#: ../mkswap.c:598
+msgid "Active Swap Space"
+msgstr "Spaþiu de Swap Activ"
+
+#: ../mtab.c:66
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr ""
+"Acest calculator nu are nici o partiþie Linux. Actualizarea nu este posibilã!"
+
+#: ../mtab.c:78
+msgid "Could not mount automatically selected device."
+msgstr "Nu s-a putut accesa partiþia selectatã."
+
+#: ../mtab.c:85
+msgid "What partition holds the root partition of your installation?"
+msgstr "Ce partiþie conþine partiþia de root a instalãrii Red Hat Linux?"
+
+#: ../mtab.c:106
+msgid "Root Partition"
+msgstr "Partiþia de Root"
+
+#: ../mtab.c:147
+#, c-format
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Nu s-a putut citi /mnt/etc/fstab: %s"
+
+#: ../mtab.c:170
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Linie invalidã în /mnt/etc/fstab -- abandon"
+
+#: ../net.c:86
+msgid "Hostname"
+msgstr "Nume host"
+
+#: ../net.c:86
+msgid "Determining host name and domain..."
+msgstr "Determinare host name ºi domeniu..."
+
+#. we can't go any further without a network device!
+#: ../net.c:309
+msgid "Ethernet Probe"
+msgstr "Detecþie Ethernet"
+
+#: ../net.c:310
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Detecþia Ethernet nu a identificat un adaptor de reþea în acest calculator. "
+"Apãsaþi <Enter> pentru a configurare manualã."
+
+#: ../net.c:350
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Introduceþi configuraþia IP oentru acest calculator. Fiecare valoare trebuie "
+"introdusã ca o adresã de IP în notaþie decimalã cu punct (de exemplu, "
+"1.2.3.4)."
+
+#: ../net.c:356
+msgid "IP address:"
+msgstr "Adresã IP:"
+
+#: ../net.c:359
+msgid "Netmask:"
+msgstr "Netmask:"
+
+#: ../net.c:362
+msgid "Default gateway (IP):"
+msgstr "Gateway (IP):"
+
+#: ../net.c:365
+msgid "Primary nameserver:"
+msgstr "Server DNS primar:"
+
+#: ../net.c:402
+msgid "Configure TCP/IP"
+msgstr "Configurare TCP/IP"
+
+#: ../net.c:445
+msgid "Missing Information"
+msgstr "Informaþie lipsã"
+
+#: ../net.c:446
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Trebuie sã introduceþi o adresã de IP ºi un netmask valide."
+
+#: ../net.c:512
+msgid "Static IP address"
+msgstr "Adresã IP staticã"
+
+#: ../net.c:513 ../net.c:709
+msgid "BOOTP"
+msgstr "BOOTP"
+
+#: ../net.c:514 ../net.c:705
+msgid "DHCP"
+msgstr "DHCP"
+
+#: ../net.c:610 ../net.c:620
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../net.c:611
+#, c-format
+msgid "bad ip number in network command: %s"
+msgstr "adresã de ip incorecta în comanda: %s"
+
+#: ../net.c:621
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argument eronat pentru comanda network în kickstart %s: %s "
+
+#: ../net.c:641
+msgid "kickstart network command is missing ip address"
+msgstr "comenzii network în kickstart îi lipseºte adresa de ip"
+
+#: ../net.c:672
+msgid "Boot Protocol"
+msgstr "Prococol Boot"
+
+#: ../net.c:673
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Cum trebuie setatã adresa de IP? Dacã administratorul de reþea v-a furnizat "
+"o adresã de IP, selectaþi IP static."
+
+#: ../net.c:705
+msgid "Sending DHCP request..."
+msgstr "Trimitere cerere DHCP..."
+
+#: ../net.c:709
+msgid "Sending BOOTP request..."
+msgstr "Trimitere cerere BOOTP..."
+
+#: ../net.c:919
+#, c-format
+msgid "Cannot create %s: %s\n"
+msgstr "Nu se poate crea %s: %s\n"
+
+#: ../net.c:949
+#, c-format
+msgid "cannot create network device config file: %s"
+msgstr "nu s-a putu crea fiºierul de configurare pentru adaptorul de reþea: %s"
+
+#: ../net.c:995 ../net.c:1249
+#, c-format
+msgid "cannot open file: %s"
+msgstr "nu s-a putut deschide fiºierul: %s"
+
+#: ../net.c:1122
+msgid "Hostname Lookup"
+msgstr "Selectare nume host"
+
+#: ../net.c:1123
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Nu s-a putut determina numele de host automat. Apasaþi <Enter> pentru a "
+"introduce informaþiile despre numele de host."
+
+#: ../net.c:1130
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Introduceti numele de domeniu, numele de host, adresele de IP ale serverelor "
+"DNS adiþionale. Numele de host trebuie sã fie în forma completã, ca de "
+"exemplu mybox.mylab.myco.com. Dacã nu aveþi nevoie de servere de DNS "
+"adiþionale, nu introduceþi nimic în cîmpurile de editare."
+
+#: ../net.c:1140
+msgid "Domain name:"
+msgstr "Nume domeniu:"
+
+#: ../net.c:1143
+msgid "Host name:"
+msgstr "Nume host:"
+
+#: ../net.c:1146
+msgid "Secondary nameserver (IP):"
+msgstr "Server DNS secundar (IP):"
+
+#: ../net.c:1149
+msgid "Tertiary nameserver (IP):"
+msgstr "Server DNS terþiar (IP):"
+
+#: ../net.c:1197
+msgid "Configure Network"
+msgstr "Configurare Reþea"
+
+#: ../net.c:1386
+msgid "Keep the current IP configuration"
+msgstr "Pãstreazã configuraþia IP curentã"
+
+#: ../net.c:1387
+msgid "Reconfigure network now"
+msgstr "Reconfigureazã reþeaua LAN"
+
+#: ../net.c:1388
+msgid "Don't set up networking"
+msgstr "Fãrã setare de reþea LAN"
+
+#: ../net.c:1405 ../net.c:1417
+msgid "Network Configuration"
+msgstr "Configurare Reþea"
+
+#: ../net.c:1406
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "Reþeaua LAN a fost deja configuratã. Cum doriþi sã continuaþi?"
+
+#: ../net.c:1418
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr "Doriþi sã configuraþi reþeau LAN (nu dialup!) pentru acest sistem?"
+
+#: ../pkgs.c:256
+#, c-format
+msgid "Cannot open components file: %s"
+msgstr "Nu s-a putut gãsi lista de coponente în fiºierul: %s"
+
+#: ../pkgs.c:263
+#, c-format
+msgid "Cannot read components file: %s"
+msgstr "Fiºierul %s conþinînd lista de componente este inaccesibil."
+
+#: ../pkgs.c:270
+msgid "Comps file is not version 0.1 as expected"
+msgstr "Fiºierul de componente nu are versiunea 0.1"
+
+#: ../pkgs.c:305
+#, c-format
+msgid "bad comps file at line %d"
+msgstr "fiºier de componente invalid la linia %d"
+
+#: ../pkgs.c:329 ../pkgs.c:355
+msgid "comps Error"
+msgstr "Eroare la procesarea componentelor"
+
+#: ../pkgs.c:330
+#, c-format
+msgid "missing component name at line %d"
+msgstr "numele de componenta lipseºte la linia %d"
+
+#: ../pkgs.c:356
+msgid "Ignore all"
+msgstr "Ignora tot"
+
+#: ../pkgs.c:357
+#, c-format
+msgid "package %s at line %d does not exist"
+msgstr "pachetul %s la linia %d nu existã"
+
+#: ../pkgs.c:459
+#, c-format
+msgid "Component %s does not exist.\n"
+msgstr "Componenta %s nu existã.\n"
+
+#: ../pkgs.c:471
+#, c-format
+msgid "Package %s does not exist.\n"
+msgstr "Pachetul %s nu existã.\n"
+
+#: ../pkgs.c:517
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../pkgs.c:518
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Doriþi sã instalaþi interfaþa graficã GNOME? GNOME este o interfaþã graficã "
+"uºor de folosit cu facilitãþi de drag and drop ºi documentaþie integratã."
+
+#: ../pkgs.c:651
+msgid "no suggestion"
+msgstr "nici o sugestie"
+
+#: ../pkgs.c:661
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Cîteva din pachetele pe care le-aþi selectat necesitã instalarea altor "
+"pachete care nu apar în selecþie. Dacã selectaþi Ok toate aceste extra "
+"pachete vor fi instalate."
+
+#: ../pkgs.c:669
+msgid "Package"
+msgstr "Pachet"
+
+#: ../pkgs.c:669
+msgid "Requirement"
+msgstr "Dependinþã"
+
+#: ../pkgs.c:686
+msgid "Install packages to satisfy dependencies"
+msgstr "Instalare pachete pentru satisfacerea dependinþelor"
+
+#: ../pkgs.c:695
+msgid "Unresolved Dependencies"
+msgstr "Dependinþe nerezolvate"
+
+#: ../pkgs.c:758
+msgid "Everything"
+msgstr "Totul"
+
+#: ../pkgs.c:770
+msgid "Select individual packages"
+msgstr "Selectaþi pachetele individuale"
+
+#: ../pkgs.c:777
+msgid "Choose components to install:"
+msgstr "Selectaþi componentele pentru instalare:"
+
+#: ../pkgs.c:783
+msgid "Components to Install"
+msgstr "Selectare pachete individuale"
+
+#: ../pkgs.c:940
+#, c-format
+msgid "error opening header file: %s"
+msgstr "eroare la deschiderea descrierii fiºierului: %s"
+
+#: ../pkgs.c:1108
+msgid "Installed system size:"
+msgstr "Spaþiu necesar total:"
+
+#: ../pkgs.c:1116
+msgid "Choose a group to examine"
+msgstr "Selectaþi un grup de componente pentru examinare"
+
+#: ../pkgs.c:1119
+msgid "Press F1 for a package description"
+msgstr "Tasta F1 pentru informatii despre un package"
+
+#: ../pkgs.c:1143
+msgid "Select Group"
+msgstr "Selectare Group"
+
+#: ../pkgs.c:1307
+msgid "(none available)"
+msgstr "(nimic disponibil)"
+
+#: ../pkgs.c:1314
+msgid "Package:"
+msgstr "Pachet:"
+
+#: ../pkgs.c:1317
+msgid "Size   :"
+msgstr "Mãrime :"
+
+#: ../pkgs.c:1377
+msgid "Upgrade Packages"
+msgstr "Actualizare Pachete"
+
+#: ../pkgs.c:1378
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"Pachetele pe care le aveþi instalate, ºi orice alte pachete necesare pentru "
+"satisfacerea dependinþelor acestora au fost selectate pentru instalare. "
+"Doriþi sã modificaþi setul de pachete care vor fi actualizate?"
+
+#: ../printercfg.c:469
+msgid "Printer Information"
+msgstr "Setare imprimantã"
+
+#: ../printercfg.c:489
+msgid "<F1> will give you information on a particular printer type"
+msgstr ""
+"<F1> va produce informaþii auxiliare despre un model anume de imprimantã"
+
+#: ../printercfg.c:494
+msgid "What type of printer do you have?"
+msgstr "Ce model de imprimantã aveþi?"
+
+#: ../printercfg.c:527 ../printercfg.c:1207
+msgid "Configure Printer"
+msgstr "Configurare Imprimantã"
+
+#. we know that changes->db->NumBpp > 0
+#: ../printercfg.c:596 ../printercfg.c:758
+msgid "<F1> will give you information on this printer driver."
+msgstr "<F1> va produce informaþii despre driverul de imprimantã selectat."
+
+#: ../printercfg.c:600
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr ""
+"Acum puteþi configura dimensiunile paginii standard si rezoluþia acestei "
+"imprimante."
+
+#: ../printercfg.c:609
+msgid "Paper Size"
+msgstr "Dimensiunile paginei"
+
+#: ../printercfg.c:631
+msgid "Resolution"
+msgstr "Rezoluþie"
+
+#: ../printercfg.c:664
+msgid "Fix stair-stepping of text?"
+msgstr "Corecþie a efectului de imprimare în scarã?"
+
+#: ../printercfg.c:784
+msgid "You may now configure the color options for this printer."
+msgstr "Acum puteþi configura opþiunile de culoare pentru aceastã imprimantã."
+
+#: ../printercfg.c:788
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Acum puteþi configura opþiunile uniprint pentru aceastã imprimantã."
+
+#: ../printercfg.c:801
+msgid "Configure Color Depth"
+msgstr "Configurare numãr de culori"
+
+#: ../printercfg.c:803
+msgid "Configure Uniprint Driver"
+msgstr "Configurare Driver Uniprint"
+
+#: ../printercfg.c:955
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr ""
+"Pe ce port este imprimanta dumneavoastrã conectatã (atenþie, /dev/lp0 este "
+"echivalent cu LPT1:)?"
+
+#: ../printercfg.c:962
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Porturi auto-detectate:\n"
+"\n"
+
+#: ../printercfg.c:970
+msgid "Not "
+msgstr "Nu"
+
+#: ../printercfg.c:972
+msgid "Detected\n"
+msgstr "Detectat\n"
+
+#: ../printercfg.c:982
+msgid "Printer Device:"
+msgstr "Portul de imprimantã"
+
+#: ../printercfg.c:1004
+msgid "Local Printer Device"
+msgstr "Imprimanta localã"
+
+#: ../printercfg.c:1032
+msgid "Remote hostname:"
+msgstr "Server de imprimantã:"
+
+#: ../printercfg.c:1033 ../printercfg.c:1276 ../printercfg.c:1308
+msgid "Remote queue:"
+msgstr "Nume coadã:"
+
+#: ../printercfg.c:1035
+msgid "Remote lpd Printer Options"
+msgstr "Opþiuni pentru serverul lpd"
+
+#: ../printercfg.c:1036
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"Pentru a folosi o imprimantã de pe un server lpd va trebui sã introduceþi "
+"numele serverului ºi numele cozii de imprimare disponibilã pe acel server "
+"pentru acest calculator."
+
+#: ../printercfg.c:1069
+msgid "Printer Server:"
+msgstr "Server imprimantã:"
+
+#: ../printercfg.c:1070
+msgid "Print Queue Name:"
+msgstr "Coada de imprimanta:"
+
+#: ../printercfg.c:1071 ../printercfg.c:1125
+msgid "User name:"
+msgstr "Nume cont:"
+
+#: ../printercfg.c:1074
+msgid "NetWare Printer Options"
+msgstr "Opþiuni imprimantã Netware"
+
+#: ../printercfg.c:1075
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"Pentru a folosi o imprimantã accesibilã pe un server Netware, va trebui sã "
+"introduceþi numele serverului Netware care pune la dispoziþie aceastã "
+"imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
+"serverului), adresa de IP a serverului, numele imprimantei partajate în "
+"reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
+"cont ºi parola care vã permit accesul la aceastã imprimantã."
+
+#: ../printercfg.c:1122
+msgid "SMB server host:"
+msgstr "Nume server SMB:"
+
+#: ../printercfg.c:1123
+msgid "SMB server IP:"
+msgstr "Adresa IP server SMB:"
+
+#: ../printercfg.c:1124
+msgid "Share name:"
+msgstr "Numele resursei reþea:"
+
+#: ../printercfg.c:1127 ../printercfg.c:1326
+msgid "Workgroup:"
+msgstr "Workgroup:"
+
+#: ../printercfg.c:1129
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "Opþiuni pentru imprimantã SMB/Windows 95/NT"
+
+#: ../printercfg.c:1130
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"Pentru a folosi o imprimantã accesibilã prin protocolul de reþea SMB, va "
+"trebui sã introduceþi numele serverului SMB care pune la dispoziþie aceastã "
+"imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
+"serverului), adresa de IP a serverului, numele imprimantei partajate în "
+"reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
+"cont ºi parola care vã permit accesul la aceastã imprimantã."
+
+#: ../printercfg.c:1176
+msgid "Name of queue:"
+msgstr "Numele cozii:"
+
+#: ../printercfg.c:1177 ../printercfg.c:1273 ../printercfg.c:1299
+msgid "Spool directory:"
+msgstr "Director pentru fiºiere temporare"
+
+#: ../printercfg.c:1179
+msgid "Standard Printer Options"
+msgstr "Opþiuni standard pentru imprimantã"
+
+#: ../printercfg.c:1180
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Fiecare coadã de imprimare (care primeºte documente în vederea printãrii) "
+"are nevoie de un nume (de cele mai mute ori lp) ºi de un director în care se "
+"vor pãstra fiºiere temporare în timpul printãrii. Ce nume ºi ce director "
+"doriþi sã folosiþi pentru aceastã coadã de imprimare?"
+
+#: ../printercfg.c:1209
+msgid "Would you like to configure a printer?"
+msgstr "Doriþi sã configuraþi o imprimantã?"
+
+#: ../printercfg.c:1223
+msgid "Add Printer"
+msgstr "Adãugare imprimantã"
+
+#: ../printercfg.c:1224
+msgid "Would you like to add another printer?"
+msgstr "Doriþi sã configuraþi o altã imprimantã?"
+
+#: ../printercfg.c:1246
+msgid "Local"
+msgstr "Local"
+
+#: ../printercfg.c:1247
+msgid "Remote lpd"
+msgstr "lpd în reþea"
+
+#: ../printercfg.c:1248
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+#: ../printercfg.c:1249
+msgid "NetWare"
+msgstr "NetWare"
+
+#: ../printercfg.c:1253
+msgid "Select Printer Connection"
+msgstr "Selectaþi modul de conectare a imprimantei"
+
+#: ../printercfg.c:1254
+msgid "How is this printer connected?"
+msgstr "Cum este conectatã aceastã imprimantã?"
+
+#: ../printercfg.c:1271 ../printercfg.c:1297
+msgid "Printer type:"
+msgstr "Tip de imprimantã:"
+
+#: ../printercfg.c:1272 ../printercfg.c:1298 ../printercfg.c:1312
+msgid "Queue:"
+msgstr "Coada de imprimare:"
+
+#: ../printercfg.c:1274
+msgid "Printer device:"
+msgstr "Portul de conectare:"
+
+#: ../printercfg.c:1275 ../printercfg.c:1307
+msgid "Remote host:"
+msgstr "Nume server:"
+
+#. if (pcentry->Type == PRINTER_SMB)
+#: ../printercfg.c:1277 ../printercfg.c:1311 ../printercfg.c:1315
+msgid "Server:"
+msgstr "Server:"
+
+#: ../printercfg.c:1278 ../printercfg.c:1325
+msgid "Share:"
+msgstr "Resursa partajatã:"
+
+#: ../printercfg.c:1279 ../printercfg.c:1313 ../printercfg.c:1327
+msgid "User:"
+msgstr "Utilizator:"
+
+#: ../printercfg.c:1280 ../printercfg.c:1333
+msgid "Printer driver:"
+msgstr "Driver imprimantã:"
+
+#: ../printercfg.c:1281 ../printercfg.c:1334
+msgid "Paper size:"
+msgstr "Dimensiunile hirtiei:"
+
+#: ../printercfg.c:1282 ../printercfg.c:1335
+msgid "Resolution:"
+msgstr "Rezoluþie"
+
+#: ../printercfg.c:1284 ../printercfg.c:1337
+msgid "Bits per pixel:"
+msgstr "Biþi per pixel:"
+
+#: ../printercfg.c:1286 ../printercfg.c:1338
+msgid "Uniprint driver:"
+msgstr "Driver uniprint:"
+
+#: ../printercfg.c:1293
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Verificati dacã urmãtoarele informaþii despre aceastã imprimantã sînt "
+"corecte:\n"
+"\n"
+
+#: ../printercfg.c:1303
+msgid "Printer device"
+msgstr "Port imprimanta"
+
+#: ../printercfg.c:1344
+msgid "Verify Printer Configuration"
+msgstr "Verificare configurare imprimantã"
+
+#: ../scsi.c:31
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Am gãsit urmãtoarele tipuri de adaptoare SCSI în acest calculator:\n"
+"\n"
+
+#: ../scsi.c:47
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Mai aveþi ºi alte modele de adaptoare SCSI în acest sistem?"
+
+#: ../scsi.c:51
+msgid "Do you have any SCSI adapters?"
+msgstr "Aveþi adaptoare SCSI în sistem?"
+
+#: ../scsi.c:54
+msgid "SCSI Configuration"
+msgstr "Configurare SCSI"
+
+#: ../smb.c:59
+msgid "SMB server name  :"
+msgstr "Numele serverului SMB :"
+
+#: ../smb.c:60
+msgid "Share volume     :"
+msgstr "Nume share SMB        :"
+
+#: ../smb.c:61
+msgid "Account name     :"
+msgstr "Nume cont             :"
+
+#: ../smb.c:62
+msgid "Password         :"
+msgstr "Parola de access      :"
+
+#: ../smb.c:64
+msgid "SMB Setup"
+msgstr "Setare SMB"
+
+#: ../smb.c:65
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Introduceþi urmãtoarele informaþii:\n"
+"\n"
+"    o numele sau adresa de IP a serverului SMB\n"
+"    o numele directorului de reþea de pe acel server conþinînd\n"
+"      distribuþia Red Hat Linux pentru sistemul dumneavoastrã"
+
+#: ../url.c:148
+#, c-format
+msgid "Password for %s@%s: "
+msgstr "Parola pentru %s@%s: "
+
+#: ../url.c:172 ../url.c:198
+#, c-format
+msgid "error: %sport must be a number\n"
+msgstr "eroare: portul %s trebuis sa fie un numar\n"
+
+#: ../url.c:283
+msgid "url port must be a number\n"
+msgstr "portul pentru url trebuie sa fie un numar\n"
+
+#. XXX PARANOIA
+#: ../url.c:320
+#, c-format
+msgid "logging into %s as %s, pw %s\n"
+msgstr "autentificare petru %s ca %s, parola %s\n"
+
+#: ../url.c:434
+#, c-format
+msgid "failed to open %s\n"
+msgstr "nu s-a putut deschide %s\n"
+
+#: ../url.c:449
+#, c-format
+msgid "failed to create %s\n"
+msgstr "Nu se poate crea %s\n"
+
+#: ../urlmethod.c:63 ../urlmethod.c:66 ../urlmethod.c:120 ../urlmethod.c:123
+msgid "Retrieving"
+msgstr "Transfer"
+
+#: ../urlmethod.c:137
+#, c-format
+msgid "open of %s failed: %s\n"
+msgstr "eroare la deschiderea %s: %s\n"
+
+#: ../urlmethod.c:153
+#, c-format
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Eroare la transferul fiºierului %s:\n"
+"%s"
+
+#: ../urlmethod.c:188
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Introduceþi urmãtoarele informaþii:\n"
+"\n"
+"    o numele sau adresa de IP a serverului de FTP\n"
+"    o directorul de pe acel server conþinînd\n"
+"      distribuþia Red Hat Linux pentru sistemul\n"
+"      dumneavoastrã\n"
+
+#: ../urlmethod.c:197
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Introduceþi urmãtoarele informaþii:\n"
+"\n"
+"    o numele sau adresa de IP a serverului WWW\n"
+"    o directorul de pe acel server conþinînd\n"
+"      distribuþia Red Hat Linux pentru sistemul\n"
+"      dumneavoastrã\n"
+
+#: ../urlmethod.c:215
+msgid "FTP site name:"
+msgstr "Numele serverului FTP:"
+
+#: ../urlmethod.c:216
+msgid "Web site name:"
+msgstr "Numele serverului WWW:"
+
+#: ../urlmethod.c:233
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Utilizaþi non-anonymous ftp sau un proxy server"
+
+#: ../urlmethod.c:237
+msgid "Use proxy server"
+msgstr "Utilizeaza proxy"
+
+#: ../urlmethod.c:246
+msgid "FTP Setup"
+msgstr "Setare FTP"
+
+#: ../urlmethod.c:247
+msgid "HTTP Setup"
+msgstr "Setare HTTP"
+
+#: ../urlmethod.c:257
+msgid "You must enter a server name."
+msgstr "Trebuie introdus un nume server."
+
+#: ../urlmethod.c:262
+msgid "You must enter a directory."
+msgstr "Trebuie introdus un director."
+
+#: ../urlmethod.c:323
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Dacã folosiþi non-anonymous ftp, introduceþi mai jos contul si parola pe "
+"care doriþi sã le folosiþi. Dacã folosiþi un proxy server pentru FTP "
+"introduceþi numele sau adresa de IP a serverului proxy pe care doriþi sã-l "
+"folosiþi."
+
+#: ../urlmethod.c:329
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Daca folositi un proxy server pentru HTTP introduceti numele serverului."
+
+#: ../urlmethod.c:350
+msgid "Account name:"
+msgstr "Nume cont:"
+
+#: ../urlmethod.c:358
+msgid "FTP Proxy:"
+msgstr "FTP Proxy:"
+
+#: ../urlmethod.c:359
+msgid "HTTP Proxy:"
+msgstr "HTTP Proxy:"
+
+#: ../urlmethod.c:363
+msgid "FTP Proxy Port:"
+msgstr "FTP Proxy Port:"
+
+#: ../urlmethod.c:364
+msgid "HTTP Proxy Port:"
+msgstr "HTTP Proxy Port:"
+
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was:"
+#~ msgstr ""
+#~ "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare "
+#~ "este:"
+
+#~ msgid "LAN manager host:"
+#~ msgstr "Nume Server LAN manager:"
+
+#~ msgid "LAN manager IP:"
+#~ msgstr "Adresa IP LAN manager:"
+
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "Opþiuni imprimantã LAN manager"
+
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "Instalarea pachetului %s a eºuat: %s"
+
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> aratã mãrimea ºi descrierea fiecãrui pachet"
+
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Mãrimea pachetelor selectate:"
+
+#~ msgid "Select Packages"
+#~ msgstr "Selectaþi Pachetele"
+
+#~ msgid "Size:"
+#~ msgstr "Mãrime:"
+
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Nu se poate identifica fiºierul %s: %s\n"
+
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Autentificarea a eºuat: %s\n"
+
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr "Doriþi sã instalaþi ºi/sau configuraþi SILO pe acest sistem?"
+
+#~ msgid "Other"
+#~ msgstr "Alt tip"
+
+#~ msgid ""
+#~ "You cancelled step \"%s\".\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Aþi abandonat etapa \"%s\".\n"
+#~ "\n"
+
+#~ msgid ""
+#~ "An error occured during step \"%s\" of the install.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "O eroare a aparut la instalare în timpul execuþiei etapei \"%s\".\n"
+#~ "\n"

@@ -1,0 +1,2850 @@
+# Norwegian translation of rhinstall (bokmål dialect).
+# Copyright (C) 1999 Free Software Foundation, Inc.
+# Kjartan Maraas <kmaraas@online.no>, 1999.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: rhinstall 6.0\n"
+"POT-Creation-Date: 1999-08-30 22:26-0400\n"
+"PO-Revision-Date: 1999-04-18 10:10+0200\n"
+"Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
+"Language-Team: Norwegian <no@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: ../bootpc.c:501
+msgid "No BOOTP reply received"
+msgstr "Ingen BOOTP-svar mottatt"
+
+#: ../bootpc.c:503
+msgid "No DHCP reply received"
+msgstr "Ingen DHCP-svar mottatt"
+
+#: ../cdrom.c:35
+msgid "Other CDROM"
+msgstr "Andre CDROM"
+
+#: ../cdrom.c:41
+msgid "CDROM type"
+msgstr "CDROM-type"
+
+#: ../cdrom.c:41
+msgid "What type of CDROM do you have?"
+msgstr "Hvilken CDROM-type har du?"
+
+#: ../cdrom.c:43 ../devices.c:575 ../devices.c:613 ../devices.c:761
+#: ../devices.c:800 ../devices.c:814 ../devices.c:828 ../devices.c:1138
+#: ../devices.c:1189 ../devices.c:1623 ../doit.c:133 ../doit.c:179
+#: ../doit.c:658 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:412 ../earlymethods.c:428 ../earlymethods.c:438
+#: ../earlymethods.c:502 ../earlymethods.c:509 ../earlymethods.c:558
+#: ../earlymethods.c:563 ../earlymethods.c:716 ../earlymethods.c:766
+#: ../earlymethods.c:789 ../earlymethods.c:802 ../earlymethods.c:841
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+#: ../earlymethods.c:943 ../earlymethods.c:1016 ../earlymethods.c:1028
+#: ../earlymethods.c:1051 ../earlymethods.c:1133 ../earlymethods.c:1140
+#: ../earlymethods.c:1206 ../earlymethods.c:1321 ../earlymethods.c:1333
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fs.c:224
+#: ../fs.c:410 ../fs.c:521 ../fs.c:543 ../fsedit.c:233 ../fsedit.c:240
+#: ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268 ../fsedit.c:278
+#: ../fsedit.c:379 ../fsedit.c:461 ../fsedit.c:512 ../fsedit.c:876
+#: ../fsedit.c:954 ../fsedit.c:972 ../fsedit.c:1008 ../fsedit.c:1798
+#: ../fsedit.c:1806 ../fsedit.c:1931 ../fsedit.c:1950 ../fsedit.c:2043
+#: ../fsedit.c:2373 ../fsedit.c:2409 ../fsedit.c:2427 ../fsedit.c:2456
+#: ../fsedit.c:2495 ../fsedit.c:2525 ../fsedit.c:2584 ../fsedit.c:2620
+#: ../fsedit.c:2798 ../fsedit.c:2812 ../fsedit.c:2856 ../fsedit.c:2883
+#: ../fsedit.c:2974 ../fsedit.c:3079 ../fsedit.c:3105 ../hd.c:310 ../hd.c:412
+#: ../hints.c:31 ../install.c:75 ../install.c:191 ../install.c:268
+#: ../install.c:303 ../install.c:481 ../install.c:485 ../install.c:495
+#: ../install.c:513 ../install2.c:507 ../install2.c:530 ../install2.c:548
+#: ../install2.c:598 ../install2.c:662 ../install2.c:669 ../install2.c:675
+#: ../install2.c:710 ../install2.c:733 ../install2.c:743 ../install2.c:968
+#: ../install2.c:1146 ../install2.c:1183 ../install2.c:1347 ../install2.c:1649
+#: ../kbd.c:250 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37 ../kernel.c:49
+#: ../kernel.c:68 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../kickstart.c:246 ../kickstart.c:254 ../lang.c:144
+#: ../latemethods.c:232 ../latemethods.c:349 ../latemethods.c:494 ../lilo.c:93
+#: ../lilo.c:97 ../lilo.c:140 ../lilo.c:445 ../lilo.c:556 ../mkswap.c:588
+#: ../mtab.c:91 ../net.c:309 ../net.c:390 ../net.c:610 ../net.c:620
+#: ../net.c:641 ../net.c:676 ../net.c:715 ../net.c:1122 ../net.c:1171
+#: ../net.c:1408 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:329 ../pkgs.c:355
+#: ../pkgs.c:458 ../pkgs.c:470 ../pkgs.c:670 ../pkgs.c:774 ../pkgs.c:874
+#: ../pkgs.c:1351 ../printercfg.c:469 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1255 ../printercfg.c:1344 ../smb.c:70 ../urlmethod.c:137
+#: ../urlmethod.c:153 ../urlmethod.c:183 ../urlmethod.c:256 ../urlmethod.c:261
+#: ../urlmethod.c:377 ../windows.c:18
+msgid "Ok"
+msgstr "Ok"
+
+#: ../cdrom.c:43 ../devices.c:614 ../devices.c:1138 ../devices.c:1189
+#: ../doit.c:251 ../earlymethods.c:193 ../earlymethods.c:291
+#: ../earlymethods.c:789 ../earlymethods.c:841 ../fs.c:410 ../fsedit.c:415
+#: ../fsedit.c:1798 ../fsedit.c:1806 ../fsedit.c:2975 ../fsedit.c:2998
+#: ../hd.c:360 ../install.c:178 ../install.c:191 ../install2.c:314
+#: ../install2.c:507 ../install2.c:530 ../install2.c:710 ../install2.c:968
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:93 ../lilo.c:97
+#: ../lilo.c:446 ../lilo.c:556 ../mkswap.c:588 ../net.c:390 ../net.c:676
+#: ../net.c:1171 ../net.c:1418 ../pkgs.c:517 ../pkgs.c:670 ../pkgs.c:774
+#: ../pkgs.c:1099 ../pkgs.c:1377 ../printercfg.c:520 ../printercfg.c:667
+#: ../printercfg.c:795 ../printercfg.c:990 ../printercfg.c:1039
+#: ../printercfg.c:1080 ../printercfg.c:1135 ../printercfg.c:1183
+#: ../printercfg.c:1208 ../printercfg.c:1255 ../printercfg.c:1345 ../scsi.c:55
+#: ../urlmethod.c:183
+msgid "Back"
+msgstr "Tilbake"
+
+#: ../cdrom.c:141
+msgid "Initializing CDROM..."
+msgstr "Initialiserer CDROM..."
+
+#: ../devices.c:80 ../devices.c:86 ../devices.c:91 ../devices.c:102
+#: ../devices.c:107 ../devices.c:113 ../devices.c:124
+msgid "Base IO port:"
+msgstr "Base IO-port:"
+
+#: ../devices.c:81 ../devices.c:92 ../devices.c:125
+msgid "IRQ level:"
+msgstr "IRQ-nivå:"
+
+#: ../devices.c:97
+msgid "IO base, IRQ:"
+msgstr "IO-base, IRQ:"
+
+#: ../devices.c:112
+msgid "Use other options"
+msgstr "Bruk andre alternativer"
+
+#: ../devices.c:114
+msgid "Interrupt level (IRQ):"
+msgstr "Avbruddsnivå (IRQ):"
+
+#: ../devices.c:119
+msgid "IO base, IRQ, label:"
+msgstr "IO-base, IRQ, etikett:"
+
+#: ../devices.c:435
+msgid "Autoprobe"
+msgstr "Autosøk"
+
+#: ../devices.c:435
+msgid "Specify options"
+msgstr "Spesifisér alternativer"
+
+#: ../devices.c:575 ../devices.c:814 ../devices.c:828 ../devices.c:1623
+#: ../doit.c:133 ../doit.c:179 ../doit.c:658 ../earlymethods.c:428
+#: ../earlymethods.c:438 ../earlymethods.c:558 ../earlymethods.c:563
+#: ../earlymethods.c:1016 ../earlymethods.c:1028 ../earlymethods.c:1051
+#: ../earlymethods.c:1321 ../earlymethods.c:1333 ../fs.c:521 ../fs.c:543
+#: ../fsedit.c:2043 ../install.c:303 ../install.c:481 ../install.c:485
+#: ../install.c:495 ../install.c:513 ../install2.c:548 ../install2.c:598
+#: ../install2.c:1098 ../kernel.c:22 ../kernel.c:29 ../kernel.c:37
+#: ../kernel.c:49 ../kickstart.c:246 ../kickstart.c:254 ../latemethods.c:232
+#: ../latemethods.c:349 ../latemethods.c:494 ../net.c:641 ../net.c:715
+#: ../net.c:919 ../pkgs.c:269 ../pkgs.c:304 ../pkgs.c:874 ../urlmethod.c:137
+#: ../urlmethod.c:256 ../urlmethod.c:261 ../windows.c:18
+msgid "Error"
+msgstr "Feil"
+
+#: ../devices.c:576
+#, c-format
+msgid "mknod() failed: %s"
+msgstr "mknod() feilet: %s"
+
+#: ../devices.c:612
+msgid "Load module"
+msgstr "Last modul"
+
+#: ../devices.c:612
+msgid "Which driver should I try?"
+msgstr "Hvilken driver skal jeg forsøke?"
+
+#: ../devices.c:761
+msgid "Probe"
+msgstr "Søk"
+
+#: ../devices.c:762
+#, c-format
+msgid "A %s card has been found on your system."
+msgstr "Et %s kort er funnet på ditt system."
+
+#: ../devices.c:800
+msgid "device command"
+msgstr "enhets-kommando"
+
+#: ../devices.c:801
+#, c-format
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "ugyldig argument til enhets-kommando for kickstart %s: %s"
+
+#: ../devices.c:815
+msgid "bad arguments to kickstart device command"
+msgstr "ugyldige argumenter til enhets-kommando for kickstart"
+
+#: ../devices.c:829
+#, c-format
+msgid "No module exists for %s"
+msgstr "Ingen modul eksisterer for %s"
+
+#: ../devices.c:856
+msgid "I can't find the device anywhere on your system!"
+msgstr "Jeg kan ikke finne enheten noe sted i systemet!"
+
+#: ../devices.c:1120
+#, c-format
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"I noen tilfeller trenger %s-driveren ekstra informasjon for å virke "
+"ordentlig, selv om den vanligvis virker fint uten. Vil du spesifisere ekstra "
+"alternativer for den, eller la driveren søke etter informasjonen den "
+"trenger? Noen ganger kan autosøk få en maskin til å henge, men det skal ikke "
+"forårsake noen skade."
+
+#: ../devices.c:1129
+#, c-format
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"I noen tilfeller trenger %s-driveren å bli tilført ekstra informasjon om din "
+"maskinvare. Hvis du foretrekker det kan noen vanlige verdier for disse "
+"parameterene prøves. Denne prosessen kan få en maskin til å henge, men det "
+"skal ikke forårsake noen skade."
+
+#: ../devices.c:1137
+msgid "Module Options"
+msgstr "Alternativer for modul"
+
+#: ../devices.c:1177
+msgid "Miscellaneous options:"
+msgstr "Forskjellige alternativer:"
+
+#: ../devices.c:1179 ../devices.c:1188
+msgid "Module options:"
+msgstr "Alternativer for modul:"
+
+#: ../devices.c:1188
+msgid "Module Parameters"
+msgstr "Parametere for modul"
+
+#: ../devices.c:1624
+#, c-format
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Kan ikke åpne /proc/filesystems: %d"
+
+#: ../doit.c:134
+#, c-format
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Klarte ikke å åpne %s. Ingen oppgraderingslogg vil bli ført."
+
+#: ../doit.c:149
+msgid "Fatal error opening RPM database"
+msgstr "Fatal feil under åpning av RPM-databasen"
+
+#: ../doit.c:180
+#, c-format
+msgid "Error ordering package list: %s"
+msgstr "Feil under sortering av pakkelisten: %s"
+
+#: ../doit.c:216
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Det ser ikke ut til at du har nok diskplass til å installere pakkene du har "
+"valgt. Du trenger mer plass på følgende filsystemer:\n"
+
+#: ../doit.c:226
+msgid "Mount Point"
+msgstr "Monteringspunkt"
+
+#: ../doit.c:227
+msgid "Space Needed"
+msgstr "Nødvendig plass"
+
+#: ../doit.c:251 ../fsedit.c:2812
+msgid "Disk Space"
+msgstr "Diskplass"
+
+#: ../doit.c:251
+msgid "Install anyway"
+msgstr "Installér likevel"
+
+#: ../doit.c:321
+msgid "Fatal error reopening RPM database"
+msgstr "Fatal feil under gjenåpning av RPM-databasen"
+
+#: ../doit.c:421
+msgid "Install Status"
+msgstr "Installasjons-status"
+
+#: ../doit.c:486
+msgid "(no summary)"
+msgstr "(ikke noe sammendrag)"
+
+#: ../doit.c:562
+msgid "Examining packages to install..."
+msgstr "Undersøker pakker som skal installeres..."
+
+#: ../doit.c:563
+msgid "Examining files to install..."
+msgstr "Undersøker filer som skal installeres..."
+
+#: ../doit.c:564
+msgid "Finding overlapping files..."
+msgstr "Finner overlappende filer..."
+
+#: ../doit.c:576
+msgid "Processing"
+msgstr "Arbeider"
+
+#: ../doit.c:584
+msgid "Removing old files..."
+msgstr "Fjerner gamle filer..."
+
+#: ../doit.c:634
+msgid "Upgrading"
+msgstr "Oppgraderer"
+
+#: ../doit.c:634
+msgid "Installing"
+msgstr "Installerer"
+
+#: ../doit.c:659
+#, c-format
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Feil under installasjon av pakke: kan ikke åpne RPM-fil for %s: %s"
+
+#: ../earlymethods.c:175
+msgid "What type of media contains the packages to be installed?"
+msgstr "Hvilken type media inneholder pakkene som skal installeres?"
+
+#: ../earlymethods.c:202
+msgid "Force supplemental disk"
+msgstr "Tvungen bruk av tilleggsdisk"
+
+#: ../earlymethods.c:208
+msgid "Installation Method"
+msgstr "Installasjonsmetode"
+
+#: ../earlymethods.c:294
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din NFS-tjener\n"
+"    o katalogen på tjeneren som inneholder \n"
+"      Red Har Linux for din arkitektur."
+
+#: ../earlymethods.c:306
+msgid "NFS server name:"
+msgstr "Navn på NFS-tjener:"
+
+#: ../earlymethods.c:309 ../urlmethod.c:219
+msgid "Red Hat directory:"
+msgstr "Red Hat katalog:"
+
+#: ../earlymethods.c:333
+msgid "NFS Setup"
+msgstr "NFS-oppsett"
+
+#: ../earlymethods.c:412
+msgid "Note"
+msgstr "Merk"
+
+#: ../earlymethods.c:413
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Sett inn din Red Hat CD i CD-spilleren nå"
+
+#: ../earlymethods.c:429
+#, c-format
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "Klarte ikke å montere en CD på enhet /dev/%s"
+
+#: ../earlymethods.c:439
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "Den CD-ROM-enheten ser ikke ut til å inneholde en Red Hat CD-ROM."
+
+#: ../earlymethods.c:502 ../earlymethods.c:509
+msgid "nfs command"
+msgstr "nfs-kommando"
+
+#: ../earlymethods.c:503
+#, c-format
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "ugyldig argument til nfs-kommando for kickstart %s: %s"
+
+#: ../earlymethods.c:510
+msgid "nfs command incomplete"
+msgstr "ukomplett nfs-kommando"
+
+#: ../earlymethods.c:559
+msgid "I could not mount that directory from the server"
+msgstr "Klarte ikke å montere den katalogen fra tjeneren"
+
+#: ../earlymethods.c:564 ../earlymethods.c:1322 ../latemethods.c:495
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Den katalogen ser ikke ut til å inneholde et Red Hat installasjonstre."
+
+#: ../earlymethods.c:677
+msgid "Loading second stage ramdisk..."
+msgstr "Laster ramdisk for andre nivå..."
+
+#: ../earlymethods.c:716
+msgid "PCMCIA Disk"
+msgstr "PCMCIA-disk"
+
+#: ../earlymethods.c:716 ../earlymethods.c:766 ../earlymethods.c:802
+#: ../earlymethods.c:943 ../fs.c:225 ../fsedit.c:877 ../fsedit.c:1999
+#: ../fsedit.c:2798 ../lilo.c:141 ../mtab.c:91 ../smb.c:70 ../urlmethod.c:377
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: ../earlymethods.c:717
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats PCMCIA-diskett, "
+"eller velg avbryt for å velge en annen installasjonsprosess."
+
+#: ../earlymethods.c:724
+msgid "Loading PCMCIA Support"
+msgstr "Laster PCMCIA-støtte"
+
+#: ../earlymethods.c:766 ../earlymethods.c:841
+msgid "Supplemental Disk"
+msgstr "Tilleggsdisk"
+
+#: ../earlymethods.c:767
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats tilleggsdiskett "
+"(supplemental disk), eller velg avbryt for å velge en annen "
+"installasjonsprosess."
+
+#: ../earlymethods.c:774
+msgid "Loading Supplemental Disk..."
+msgstr "Laster tilleggsdiskett..."
+
+#: ../earlymethods.c:789 ../earlymethods.c:802
+msgid "Driver Disk"
+msgstr "Driverdisk"
+
+#: ../earlymethods.c:790
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Denne installasjonsmetoden er avhengig av en driverdisk. Venligst fjern "
+"supplementdisken som står i stasjonen og erstatt den med Red Hats moduldisk."
+
+#: ../earlymethods.c:803
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Klarte ikke å montere disketten. Vennligst sett inn Red Hats moduldisk, "
+"eller velg avbryt for å velge en annen installasjonsprosess."
+
+#: ../earlymethods.c:810
+msgid "Loading Driver Disk..."
+msgstr "Laster driverdisk..."
+
+#: ../earlymethods.c:842
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Denne installasjonsmetoden er avhengig av to tilleggsdisker. Vennligst fjern "
+"oppstartsdisken som står i stasjonen og erstatt den med Red Hats "
+"tilleggsdisk."
+
+#: ../earlymethods.c:902 ../earlymethods.c:909 ../earlymethods.c:922
+msgid "hd command"
+msgstr "hd-kommando"
+
+#: ../earlymethods.c:903
+#, c-format
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "ugyldig argument til hd-kommando for kickstart %s: %s"
+
+#: ../earlymethods.c:910
+msgid "hd command incomplete"
+msgstr "ukomplett hd-kommando"
+
+#: ../earlymethods.c:923
+#, c-format
+msgid "HD device %s not found"
+msgstr "HD-enhet %s ikke funnet"
+
+#: ../earlymethods.c:932
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Hvilken katalog på hvilken partisjon inneholder katalogene RedHat/RPMS og "
+"RedHat/base?"
+
+#: ../earlymethods.c:951
+msgid "Directory holding Red Hat:"
+msgstr "Katalog som inneholder Red Hat:"
+
+#: ../earlymethods.c:968
+msgid "Select Partition"
+msgstr "Velg partisjon"
+
+#: ../earlymethods.c:1017
+#, c-format
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Klarte ikke å opprette symlinken /tmp/rhimage: %s"
+
+#: ../earlymethods.c:1029
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Enheten %s ser ikke ut til å inneholde et Red Hat installasjonstre."
+
+#: ../earlymethods.c:1052 ../earlymethods.c:1334
+msgid "Error reading second stage ramdisk. "
+msgstr "Feil under lesing av ramdisk for nivå to. "
+
+#: ../earlymethods.c:1133 ../earlymethods.c:1140
+msgid "url command"
+msgstr "url-kommando"
+
+#: ../earlymethods.c:1134
+#, c-format
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "ugyldig argument til url-kommando for kickstart %s: %s"
+
+#: ../earlymethods.c:1141
+msgid "url command incomplete"
+msgstr "ukomplett url-kommando"
+
+#: ../earlymethods.c:1207
+#, c-format
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Kunne ikke finne ramdisk for nivå to: %s"
+
+#: ../fs.c:115 ../fs.c:121 ../fs.c:129 ../fs.c:144 ../fs.c:152 ../fsedit.c:233
+#: ../fsedit.c:240 ../fsedit.c:247 ../fsedit.c:256 ../fsedit.c:268
+#: ../fsedit.c:278
+msgid "Bad Mount Point"
+msgstr "Ugyldig monteringspunkt"
+
+#: ../fs.c:116
+msgid "Mount points must begin with a leading /."
+msgstr "Monteringspunker må begynne med en innledende \"/\"."
+
+#: ../fs.c:122
+msgid "Mount points may not end with a /."
+msgstr "Monteringspunkter kan ikke slutte med \"/\"."
+
+#: ../fs.c:130
+msgid "Mount points may only printable characters."
+msgstr "Monteringspunkter kan bare inneholde skrivbare tegn."
+
+#: ../fs.c:145
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Systempartisjoner må være på Linux Native-partisjoner."
+
+#: ../fs.c:153
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr "/usr må være på en Linux Native-partisjon eller et NFS-volum."
+
+#: ../fs.c:198
+msgid "Edit Network Mount Point"
+msgstr "Rediger monteringspunkt på nettverk"
+
+#: ../fs.c:332
+#, c-format
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Oppretter ext2 filsystem på /dev/%s..."
+
+#: ../fs.c:333 ../lilo.c:327
+msgid "Running"
+msgstr "Kjører"
+
+#: ../fs.c:367
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"Hvilke partisjoner ønsker du å formatere? Vi vil på det sterkeste anbefale å "
+"formatere alle systempartisjonene, inkludert /, /usr, og /var. Det er ikke "
+"nødvendig å formatere /home eller /usr/local hvis de allerede har blitt "
+"konfigurert ved en tildligere installasjon."
+
+#: ../fs.c:407 ../mkswap.c:585
+msgid "Check for bad blocks during format"
+msgstr "Sjekk etter dårlige blokker under formatering"
+
+#: ../fs.c:416
+msgid "Partitions To Format"
+msgstr "Partisjoner som skal formateres"
+
+#: ../fs.c:522
+#, c-format
+msgid "nfs mount failed: %s"
+msgstr "nfs-montering feilet: %s"
+
+#: ../fs.c:544
+#, c-format
+msgid "mount failed: %s"
+msgstr "montering feilet: %s"
+
+#: ../fsedit.c:234
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr "Katalogen %s må være på rotfilsystemet."
+
+#: ../fsedit.c:241
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringspunkter må begynne med \"/\"."
+
+#: ../fsedit.c:248
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringspunkter kan ikke slutte med \"/\"."
+
+#: ../fsedit.c:257
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Monteringpunkt kan bare inneholde skrivbare tegn."
+
+#: ../fsedit.c:269
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"Systempartisjoner må ligge på Linux Native-partisjoner."
+
+#: ../fsedit.c:279
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+"Monteringspunktet %s er ugyldig.\n"
+"\n"
+"/usr må ligge på en Linux Native-partisjon eller et NFS-volum."
+
+#: ../fsedit.c:319
+#, c-format
+msgid "System error %d"
+msgstr "Systemfeil %d"
+
+#: ../fsedit.c:328 ../fsedit.c:330
+msgid "Fdisk Error"
+msgstr "Fdisk-feil"
+
+#. build list of why they all failed
+#: ../fsedit.c:347 ../fsedit.c:1980
+msgid "Unallocated Partitions"
+msgstr "Ikke-allokerte partisjoner"
+
+#: ../fsedit.c:351
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"Det finnes ikke-allokerte partisjoner i listen over forespurte partisjoner. "
+"De ikke-allokerte partisjonene vises under, sammen med grunnen til at de "
+"ikke ble allokert."
+
+#: ../fsedit.c:410
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+"En disk med en korrupt Sun disketikett ble funnet under lesing av blokkenhet "
+"%s. Du må bruke fdisk til å opprette og skrive en ny etikett for denne "
+"enheten."
+
+#: ../fsedit.c:414
+msgid "Corrupt Sun disklabel"
+msgstr "Korrupt Sun disketikett"
+
+#: ../fsedit.c:415 ../fsedit.c:472 ../fsedit.c:500
+msgid "Skip Drive"
+msgstr "Hopp over stasjon"
+
+#: ../fsedit.c:424 ../fsedit.c:496
+#, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. Feilen "
+"var"
+
+#: ../fsedit.c:460 ../fsedit.c:471
+msgid "Bad Partition Table"
+msgstr "Ugyldig partisjonstabell"
+
+#: ../fsedit.c:462
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner må "
+"denne initialiseres. Du kan spesifisere \"zerombr yes\" i kickstart filen "
+"for å gjøre dette automatisk"
+
+#: ../fsedit.c:472
+msgid "Initialize"
+msgstr "Initialisér"
+
+#: ../fsedit.c:473
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"Partisjonstabellen på enhet %s er korrupt. For å opprette nye partisjoner må "
+"denne initialiseres. Dette medfører tap av ALLE DATA på denne disken."
+
+#: ../fsedit.c:500 ../install2.c:1098 ../net.c:445
+msgid "Retry"
+msgstr "Prøv igjen"
+
+#: ../fsedit.c:512
+msgid "BSD Disklabel"
+msgstr "BSD-disketikett"
+
+#: ../fsedit.c:512
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"En disk med en BSD-disketikett ble funnet. Red Hat installasjonen støtter "
+"bare BSD-disketiketter i skrivebeskyttet modus, så du må bruke en spesiell "
+"installasjonsdisk og fdisk (i stedet for Disk Druid) for maskiner med BSD- "
+"disketiketter."
+
+#: ../fsedit.c:569
+msgid "Swap Partition"
+msgstr "Swap-partisjon"
+
+#: ../fsedit.c:690 ../fsedit.c:696 ../fsedit.c:700 ../fsedit.c:702
+msgid "Edit Partition"
+msgstr "Rediger partisjon"
+
+#: ../fsedit.c:762
+msgid "Allocation Status:"
+msgstr "Allokeringsstatus:"
+
+#: ../fsedit.c:764
+msgid "Successful"
+msgstr "Fullført"
+
+#: ../fsedit.c:766
+msgid "Failed"
+msgstr "Feilet"
+
+#: ../fsedit.c:771
+msgid "Failure Reason:"
+msgstr "Feilårsak:"
+
+#: ../fsedit.c:913
+msgid "No Mount Point"
+msgstr "Ingen monteringspunkt"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "Yes"
+msgstr "Ja"
+
+#: ../fsedit.c:913 ../fsedit.c:1136 ../fsedit.c:1981 ../fsedit.c:1999
+#: ../fsedit.c:2079 ../fsedit.c:2804 ../fsedit.c:2997 ../install.c:178
+#: ../install2.c:1330 ../latemethods.c:427 ../net.c:1417 ../pkgs.c:517
+#: ../pkgs.c:1377 ../printercfg.c:1207 ../printercfg.c:1223 ../scsi.c:54
+msgid "No"
+msgstr "Nei"
+
+#: ../fsedit.c:914
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"Du har ikke valgt et monteringspunkt for denne partisjonen. Er du sikker på "
+"at du ønsker å gjøre dette?"
+
+#: ../fsedit.c:954 ../fsedit.c:2584
+msgid "Mount Point Error"
+msgstr "Feil ved monteringspunkt"
+
+#: ../fsedit.c:955
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"Monteringspunktet som ble forespurt er enten en ugyldig sti eller det er "
+"allerede i bruk. Vennligst velg et gyldig monteringspunkt."
+
+#: ../fsedit.c:972
+msgid "Size Error"
+msgstr "Feil ved størrelse"
+
+#: ../fsedit.c:973
+msgid ""
+"The size requested is illegal. Make sure the size is greater than zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"Størrelsen du ba om er ugyldig. Sørg for at størrelsen er større enn null "
+"(0) og at den er spesifisert i desimal format (base 10)."
+
+#: ../fsedit.c:1008
+msgid "Swap Size Error"
+msgstr "Feil ved størrelse på swap"
+
+#: ../fsedit.c:1009
+#, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"Du har opprettet en swap-partisjon som er for stor. Maksimal størrelse på en "
+"swap-partisjon er %ld Megabyte."
+
+#: ../fsedit.c:1136
+msgid "Delete Partition"
+msgstr "Slett partisjon"
+
+#: ../fsedit.c:1137
+msgid "Are you sure you want to delete this partition?"
+msgstr "Er du sikker på at du vil slette denne partisjonen?"
+
+#: ../fsedit.c:1783
+msgid "Current Disk Partitions"
+msgstr "Nåværende diskpartisjoner"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805 ../fsedit.c:2974 ../hd.c:359
+#: ../lilo.c:445
+msgid "Edit"
+msgstr "Rediger"
+
+#: ../fsedit.c:1797 ../fsedit.c:1805
+msgid "Delete"
+msgstr "Slett"
+
+#: ../fsedit.c:1804
+msgid "Add"
+msgstr "Legg til"
+
+#: ../fsedit.c:1816
+msgid "Drive Summaries"
+msgstr "Disksammendrag"
+
+#: ../fsedit.c:1931
+msgid "No Root Partition"
+msgstr "Ingen rotpartisjon"
+
+#: ../fsedit.c:1932
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native- "
+"partisjon (ext2) for at installasjonen skal fortsette."
+
+#: ../fsedit.c:1950
+msgid "No Swap Partition"
+msgstr "Ingen swappartisjon"
+
+#: ../fsedit.c:1951
+msgid "You must assign a swap partition for the install to proceed."
+msgstr ""
+"Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
+
+#: ../fsedit.c:1982
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+"Det finnes ikke-allokerte partisjoner ennå. Hvis du avslutter nå vil disse "
+"ikke bli skrevet til disken.\n"
+"\n"
+"Er du sikker på at du vil avslutte?"
+
+#: ../fsedit.c:1998
+msgid "Save Changes"
+msgstr "Lagre endringer"
+
+#: ../fsedit.c:2000
+msgid "Save changes to partition table(s)?"
+msgstr "Lagre endringer til partisjonstabellen(e)?"
+
+#: ../fsedit.c:2044
+msgid "You may only delete NFS mounts."
+msgstr "Du kan bare slette NFS-monteringer."
+
+#: ../fsedit.c:2078
+msgid "Reset Partition Table"
+msgstr "Nullstill partisjonstabellen"
+
+#: ../fsedit.c:2080
+msgid "Reset partition table to original contents? "
+msgstr "Sett partisjonstabellen tilbake til originalt innhold? "
+
+#: ../fsedit.c:2373 ../fsedit.c:2856 ../fsedit.c:3079
+msgid "Too Many Drives"
+msgstr "For mange disker"
+
+#: ../fsedit.c:2374 ../fsedit.c:2857 ../fsedit.c:3080
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"Du har flere disker enn dette programmet støtter. Vennligst bruk fdisk- "
+"programmet til å sette opp diskene dine og informer Red Hat Software om "
+"denne meldingen."
+
+#: ../fsedit.c:2409
+msgid "Zero Partition Table"
+msgstr "Zero Partition Table"
+
+#: ../fsedit.c:2410
+#, c-format
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"ugyldig argument til zerombr kommando for kickstart: %s.\n"
+"Må være 'on', '1', eller 'yes' for å slå på, eller 'off', '0', eller 'no' "
+"for å slå av."
+
+#: ../fsedit.c:2427 ../fsedit.c:2883 ../fsedit.c:3105
+msgid "No Drives Found"
+msgstr "Ingen stasjoner funnet"
+
+#: ../fsedit.c:2428 ../fsedit.c:2884 ../fsedit.c:3106
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
+"ble funnet. Vennligst sjekk maskinvaren din for å finne årsaken til dette."
+
+#: ../fsedit.c:2456
+msgid "Clear Partition Command"
+msgstr "Slett partisjon-kommando"
+
+#: ../fsedit.c:2457
+#, c-format
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "ugyldig argument til clearpart kommando for kickstart %s: %s"
+
+#: ../fsedit.c:2495
+msgid "Partition Command"
+msgstr "Partisjoneringskommando"
+
+#: ../fsedit.c:2496
+#, c-format
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "ugyldig argument til part kommando for kickstart %s: %s"
+
+#: ../fsedit.c:2525
+msgid "Option Ignored"
+msgstr "Flagget ignorert"
+
+#: ../fsedit.c:2526
+#, c-format
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Flagget --maxsize ble ignorert for partisjon %s. Sjekk om det er større enn "
+"--size flagget."
+
+#: ../fsedit.c:2585
+#, c-format
+msgid "The mount point %s is already in use."
+msgstr "Monteringspunktet %s er allerede i bruk."
+
+#: ../fsedit.c:2620
+msgid "Failed Allocation"
+msgstr "Feilet allokering"
+
+#: ../fsedit.c:2621
+#, c-format
+msgid "The partition %s could not be allocated."
+msgstr "Partisjonen %s kunne ikke allokeres."
+
+#: ../fsedit.c:2798 ../fsedit.c:2804
+msgid "Warning"
+msgstr "Advarsel"
+
+#: ../fsedit.c:2805
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr "Du er i ferd med å miste data! Er du sikker på at du vil gjøre dette?"
+
+#: ../fsedit.c:2813
+msgid "There is not enough disk space for this type of installation."
+msgstr "Det er ikke nok diskplass for denne installasjonstypen."
+
+#. Find out if the user wants to do this
+#: ../fsedit.c:2997 ../install2.c:313
+msgid "Disk Setup"
+msgstr "Oppsett av disk"
+
+#: ../fsedit.c:2999
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Det finnes partisjoner som du kan endre størrelsen på uten å ødelegge data "
+"for å gjøre plass til din installasjon av Red Hat Linux. Vil du endre "
+"størrelsen på disse partisjonene nå?"
+
+#: ../fsedit.c:3020
+msgid "Resize Partitions"
+msgstr "Endre størrelse på partisjoner"
+
+#: ../ftp.c:651
+msgid "Success"
+msgstr "Suksess"
+
+#: ../ftp.c:654
+msgid "Bad server response"
+msgstr "Ugyldig svar fra tjener"
+
+#: ../ftp.c:657
+msgid "Server IO error"
+msgstr "IO-feil på tjener"
+
+#: ../ftp.c:660
+msgid "Server timeout"
+msgstr "Tjeners tidsavbrudd"
+
+#: ../ftp.c:663
+msgid "Unable to lookup server host address"
+msgstr "Kan ikke slå opp tjeners vertsadresse"
+
+#: ../ftp.c:666
+msgid "Unable to lookup server host name"
+msgstr "Kan ikke slå opp tjeners vertsnavn"
+
+#: ../ftp.c:669
+msgid "Failed to connect to server"
+msgstr "Klarte ikke å koble til tjener"
+
+#: ../ftp.c:672
+msgid "Failed to establish data connection to server"
+msgstr "Klarte ikke å etablere dataforbindelse til tjeneren"
+
+#: ../ftp.c:675
+msgid "IO error to local file"
+msgstr "IO-feil til lokal fil"
+
+#: ../ftp.c:678
+msgid "Error setting remote server to passive mode"
+msgstr "Feil ved endring til passiv modus på tjener"
+
+#: ../ftp.c:681
+msgid "File not found on server"
+msgstr "Fil ikke funnet på tjener"
+
+#: ../ftp.c:684
+msgid "Abort in progress"
+msgstr "Avbrudd pågår"
+
+#: ../ftp.c:688
+msgid "Unknown or unexpected error"
+msgstr "Ukjent eller uventet feil"
+
+#: ../hd.c:42
+msgid "Whole disk"
+msgstr "Hele disken"
+
+#: ../hd.c:43 ../hd.c:57
+msgid "Linux swap"
+msgstr "Linux swap"
+
+#: ../hd.c:44 ../hd.c:58
+msgid "Linux native"
+msgstr "Linux native"
+
+#: ../hd.c:49
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bit FAT"
+
+#: ../hd.c:50
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bit <32M"
+
+#: ../hd.c:52
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bit >=32M"
+
+#: ../hd.c:53
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+#: ../hd.c:54 ../hd.c:55 ../hd.c:56
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+#: ../hd.c:164 ../hd.c:310
+msgid "Hard Drives"
+msgstr "Harddisker"
+
+#: ../hd.c:164
+msgid "Scanning hard drives..."
+msgstr "Søker etter harddisker..."
+
+#: ../hd.c:311
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Du har ingen harddisker tilgjengelig! Du glemte sannsynligvis å konfigurere "
+"en SCSI-kontroller."
+
+#: ../hd.c:319
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
+"dedikert til Linux. Vi foreslår at du plasserer den partisjonen på en av de "
+"første to harddiskene i systemet ditt, slik at du kan bruke LILO til å "
+"starte opp Linux."
+
+#: ../hd.c:324
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"For å installere Red Hat Linux må du ha minst én partisjon på 150 MB "
+"dedikert til Linux."
+
+#: ../hd.c:358
+msgid "Partition Disks"
+msgstr "Partisjoner disker"
+
+#: ../hd.c:359 ../install2.c:1649 ../pkgs.c:1099
+msgid "Done"
+msgstr "Ferdig"
+
+#: ../hd.c:412
+msgid "Reboot Needed"
+msgstr "Omstart nødvendig"
+
+#: ../hd.c:413
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Kjernen er ute av stand til å lese din nye partisjonsinformasjon, "
+"sannsynligvis fordi du modifiserte utvidede partisjoner. Selv om dette ikke "
+"er kritisk, må du starte opp på nytt før du går videre. Sett inn "
+"oppstartsdisketten for Red Hat nå, og trykk Linjeskift for å starte systemet "
+"på nytt.\n"
+"\n"
+"Hvis du har en ZIP- eller JAZ-disk, forsikre deg om at det er en disk i "
+"stasjonen siden en tom SCSI-stasjon også kan forårsake dette problemet."
+
+#: ../hints.c:31
+msgid "lilo command"
+msgstr "lilo-kommando"
+
+#: ../hints.c:32
+#, c-format
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "ugyldig argument til lilo-kommando for kickstart %s: %s"
+
+#: ../install.c:76
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com."
+msgstr ""
+"Velkommen til Red Hat Linux!\n"
+"\n"
+"Denne installasjonsprosessen er beskrevet i detalj i \"Official Red Hat "
+"Linux Installation Guide\", som er tilgjengelig fra Red Hat Software. Hvis "
+"du har tilgang til denne manualen, så bør du lese installasjonsseksjonen før "
+"du fortsetter.\n"
+"\n"
+"Hvis du har kjøpt den offisielle Red Hat Linux bør du registrere ditt kjøp "
+"gjennom vårt web-sted, http://www.redhat.com."
+
+#: ../install.c:178
+msgid "PCMCIA Support"
+msgstr "PCMCIA-støtte"
+
+#: ../install.c:179
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Er du avhengig av å bruke PCMCIA-enheter under installasjonen? Svar nei til "
+"dette spørsmålet hvis du bare trenger PCMCIA-støtte etter installasjonen Du "
+"trenger ikke PCMCIA-støtte under installasjonen hvis du installerer Red Hat "
+"Linux på en bærbar med intern CDROM-spiller."
+
+#: ../install.c:191
+msgid "PCMCIA Support Disk"
+msgstr "Diskett for PCMCIA-støtte"
+
+#: ../install.c:192
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"PCMCIA støtte er avhengig av en disk for PCMCIA-støtte. Vennligst fjern "
+"oppstartsdisketten som står i stasjonen og erstatt den med Red Hats PCMCIA- "
+"støttedisk."
+
+#: ../install.c:202
+msgid "Starting PCMCIA services..."
+msgstr "Starter PCMCIA-tjenester..."
+
+#: ../install.c:246 ../install2.c:1234
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Skriv <exit> for å gå tilbake til installasjonsprogrammet.\n"
+"\n"
+
+#: ../install.c:268 ../kickstart.c:84 ../kickstart.c:94 ../kickstart.c:162
+#: ../kickstart.c:170 ../pkgs.c:458 ../pkgs.c:470
+msgid "Kickstart Error"
+msgstr "Kickstart-feil"
+
+#: ../install.c:268
+msgid "No kickstart configuration file server can be found."
+msgstr "Ingen filtjener for kickstart-konfigurasjonsfiler ble funnet. "
+
+#: ../install.c:304
+#, c-format
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Kunne ikke montere kickstart-stien %s.\n"
+
+#: ../install.c:467
+msgid "Welcome to Red Hat Linux"
+msgstr "Velkommen til Red Hat Linux"
+
+#: ../install.c:469 ../install2.c:1571
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/Alt-Tab> mellom elementer   | <Mellomrom> velger | <F12> neste "
+"skjerm "
+
+#: ../install.c:482
+msgid "I could not mount the boot floppy."
+msgstr "Jeg kunne ikke montere oppstartsdisketten."
+
+#: ../install.c:486
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
+
+#: ../install.c:495
+#, c-format
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Feil under åpning av filer for kickstart-kopiering: %s\n"
+
+#: ../install.c:514
+msgid "Error copying kickstart file from floppy."
+msgstr "Feil under kopiering av kickstart-filen fra diskett."
+
+#: ../install2.c:177 ../install2.c:221
+msgid "Select installation path"
+msgstr "Velg installasjonssti"
+
+#: ../install2.c:179
+msgid "Select installation class"
+msgstr "Velg installasjonsklasse"
+
+#: ../install2.c:181 ../install2.c:223
+msgid "Setup SCSI"
+msgstr "SCSI-oppsett"
+
+#: ../install2.c:183
+msgid "Setup filesystems"
+msgstr "Oppsett av filsystemer"
+
+#: ../install2.c:185
+msgid "Setup swap space"
+msgstr "Oppsett av swap-område"
+
+#: ../install2.c:187 ../install2.c:227
+msgid "Find installation files"
+msgstr "Finn installasjonsfiler"
+
+#: ../install2.c:189
+msgid "Choose partitions to format"
+msgstr "Velg partisjoner som skal formateres"
+
+#: ../install2.c:191
+msgid "Choose packages to install"
+msgstr "Velg pakker som skal installeres"
+
+#: ../install2.c:193
+msgid "Install system"
+msgstr "Installér system"
+
+#: ../install2.c:195
+msgid "Configure mouse"
+msgstr "Konfigurér mus"
+
+#: ../install2.c:197
+msgid "Configure networking"
+msgstr "Konfigurér nettverk"
+
+#: ../install2.c:199
+msgid "Configure timezone"
+msgstr "Konfigurér tidssone"
+
+#: ../install2.c:201
+msgid "Configure services"
+msgstr "Konfigurér tjenester"
+
+#: ../install2.c:203
+msgid "Configure printer"
+msgstr "Konfigurér skriver"
+
+#: ../install2.c:205
+msgid "Set root password"
+msgstr "Sett root-passord"
+
+#: ../install2.c:207
+msgid "Configure authentication"
+msgstr "Konfigurer autentisering"
+
+#: ../install2.c:209 ../install2.c:233
+msgid "Create bootdisk"
+msgstr "Lag oppstartsdiskett"
+
+#: ../install2.c:211 ../install2.c:235
+msgid "Install bootloader"
+msgstr "Installér oppstartslaster"
+
+#: ../install2.c:213
+msgid "Configure X"
+msgstr "Konfigurér X"
+
+#: ../install2.c:215 ../install2.c:237
+msgid "Exit install"
+msgstr "Avslutt installasjon"
+
+#: ../install2.c:225
+msgid "Find current installation"
+msgstr "Finn eksisterende installasjon"
+
+#: ../install2.c:229
+msgid "Choose packages to upgrade"
+msgstr "Velg pakker som skal oppgraderes"
+
+#: ../install2.c:231
+msgid "Upgrade system"
+msgstr "Oppgradér system"
+
+#: ../install2.c:313
+msgid "Disk Druid"
+msgstr "Disk Druid"
+
+#: ../install2.c:313
+msgid "fdisk"
+msgstr "fdisk"
+
+#: ../install2.c:315
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
+"Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
+"partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
+"finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
+"\n"
+"Hvilket verktøy vil du bruke?"
+
+#: ../install2.c:449
+msgid "Scanning packages..."
+msgstr "Søker etter pakker..."
+
+#: ../install2.c:507
+msgid "Install log"
+msgstr "Installasjonslogg"
+
+#: ../install2.c:508
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"En komplett logg av installasjonen vil befinne seg i /tmp/install.log etter "
+"omstart av systemet. Du vil kanskje beholde denne filen som et "
+"referansepunkt til senere."
+
+#: ../install2.c:530
+msgid "Upgrade log"
+msgstr "Oppgraderingslogg"
+
+#: ../install2.c:531
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log når "
+"oppgraderingen er ferdig. Etter omstart, vær vennlig å lese denne for å "
+"forsikre deg om at konfigurasjonsfilene er oppdatert på riktig måte."
+
+#: ../install2.c:538
+msgid "Rebuilding"
+msgstr "Bygger opp på nytt"
+
+#: ../install2.c:538
+msgid "Rebuilding RPM database..."
+msgstr "Bygger opp RPM-databasen på nytt..."
+
+#: ../install2.c:548
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr "Gjenoppbygging av RPM-databasen feilet. Er du tom for diskplass?"
+
+#: ../install2.c:662 ../install2.c:669 ../install2.c:675
+msgid "rootpw command"
+msgstr "rootpw-kommando"
+
+#: ../install2.c:663
+#, c-format
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "ugyldig argument til rootpw kommando for kickstart %s: %s"
+
+#: ../install2.c:670
+msgid "Missing password"
+msgstr "Manglende passord"
+
+#: ../install2.c:676
+msgid "Unexpected arguments"
+msgstr "Uventede argumenter"
+
+#: ../install2.c:687 ../printercfg.c:1072 ../printercfg.c:1126
+#: ../urlmethod.c:353
+msgid "Password:"
+msgstr "Passord:"
+
+#: ../install2.c:690
+msgid "Password (again):"
+msgstr "Passord (igjen):"
+
+#: ../install2.c:702
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"Velg et root-passord. Du må skrive det inn to ganger for å være sikker på at "
+"du vet hva det er og at du ikke gjorde en skrivefeil. Husk at root-passordet "
+"er kritisk for systemsikkerheten!"
+
+#: ../install2.c:717
+msgid "Root Password"
+msgstr "Root-passord"
+
+#: ../install2.c:733 ../install2.c:743
+msgid "Password Mismatch"
+msgstr "Passordene er ikke like"
+
+#: ../install2.c:734
+msgid "The passwords you entered were different. Please try again."
+msgstr "Passordene du skrev inn var forskjellige. Vennligst forsøk igjen."
+
+#: ../install2.c:744
+msgid "The root password must be at least 6 characters long."
+msgstr "Root-passordet må være minst 6 tegn langt."
+
+#: ../install2.c:934
+msgid "Installation Path"
+msgstr "Installasjonssti"
+
+#: ../install2.c:934
+msgid "Install"
+msgstr "Installér"
+
+#: ../install2.c:934 ../install2.c:1069
+msgid "Upgrade"
+msgstr "Oppgradér"
+
+#: ../install2.c:935
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Ønsker du å installere et nytt system eller oppgradere et system som "
+"allerede inneholder Red Hat Linux 2.0 eller senere?"
+
+#: ../install2.c:951
+msgid "Workstation"
+msgstr "Arbeidsstasjon"
+
+#: ../install2.c:952
+msgid "Server"
+msgstr "Tjener"
+
+#: ../install2.c:953
+msgid "Custom"
+msgstr "Egendefinert"
+
+#: ../install2.c:965
+msgid "Installation Class"
+msgstr "Installasjonsklasse"
+
+#: ../install2.c:966
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Hvilken maskintype installerer du? For maksimal fleksibilitet, velger du "
+"\"Egendefinert\"."
+
+#: ../install2.c:1069
+msgid "Converting RPM database..."
+msgstr "Konverterer RPM-databasen..."
+
+#: ../install2.c:1079
+msgid "Finding packages to upgrade..."
+msgstr "Finner pakker som skal oppgraderes..."
+
+#: ../install2.c:1098
+msgid "Previous"
+msgstr "Forrige"
+
+#: ../install2.c:1098
+msgid "Menu"
+msgstr "Meny"
+
+#: ../install2.c:1099
+#, c-format
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"En feil oppstod under steg \"%s\" av installasjonen.\n"
+"\n"
+"Du kan forsøke dette steget igjen, gå tilbake til forrige steg av "
+"installasjonen eller se en meny over installasjonssteg som vil la deg bevege "
+"deg friere rundt i installasjonen. Det er ikke å anbefale å bruke menyen "
+"uten å være kjent med Red Hat Linux fra før. Hva ønsker du å gjøre?"
+
+#: ../install2.c:1132
+msgid "  Continue with install"
+msgstr "  Forsett installasjonen"
+
+#: ../install2.c:1144
+msgid "Installation Steps"
+msgstr "Installasjons-steg"
+
+#: ../install2.c:1144
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Hvilket steg ønsker du å kjøre? Steg med en * ved siden av seg er allerede "
+"ferdig."
+
+#: ../install2.c:1183
+msgid "Cancelled"
+msgstr "Avbrutt"
+
+#: ../install2.c:1184
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr "Kan ikke gå til forrige steg herfra. Du må prøve igjen."
+
+#: ../install2.c:1330 ../install2.c:1347 ../lilo.c:729
+msgid "Bootdisk"
+msgstr "Oppstartsdiskett"
+
+#: ../install2.c:1331
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+"En egendefinert oppstartsdiskett gir deg en måte å starte opp ditt Linux "
+"system uten å være avhengig av oppstartslasteren. Dette er nyttig hvis du "
+"ikke ønsker å installere lilo på systemet, et annet operativsystem fjerner "
+"lilo, eller hvis lilo ikke virker med din maskinvarekonfigurasjon. En "
+"egendefinert oppstartsdiskett kan også brukes med Red Hats redningsdisk, og "
+"gjør det mye lettere å rette opp alvorlige systemfeil.\n"
+"\n"
+"Ønsker du å lage en oppstartsdiskett for ditt system?"
+
+#: ../install2.c:1348
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Sett inn en tom diskett i den første stasjonen, /dev/fd0."
+
+#: ../install2.c:1648
+msgid "Complete"
+msgstr "Ferdig"
+
+#: ../install2.c:1650
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Gratulerer, installasjonen er ferdig.\n"
+"\n"
+"Fjern oppstartsmediet og trykk linjeskift for å starte opp på nytt. For "
+"informasjon om feilrettinger som er tilgjengelig for denne utgaven av Red "
+"Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
+"\n"
+"Informasjon om konfigurasjon av systemet er tilgjengelig kapittelet \"What "
+"do I do now?\" i den offisielle brukermanualen for Red Hat Linux."
+
+#: ../kbd.c:248
+msgid "Keyboard Type"
+msgstr "Tastaturtype"
+
+#: ../kbd.c:249
+msgid "What type of keyboard do you have?"
+msgstr "Hvilken type tastatur har du?"
+
+#: ../kernel.c:23
+#, c-format
+msgid "file %s missing from source directory"
+msgstr "filen %s mangler i kildekatalogen"
+
+#: ../kernel.c:30
+#, c-format
+msgid "failed to create file %s"
+msgstr "klarte ikke å opprette filen %s"
+
+#: ../kernel.c:38
+#, c-format
+msgid "error writing to file %s: %s"
+msgstr "feil under skriving til fil %s: %s"
+
+#: ../kernel.c:50
+#, c-format
+msgid "error reading from file %s: %s"
+msgstr "feil under lesing fra fil %s: %s"
+
+#: ../kernel.c:68 ../kernel.c:73 ../kernel.c:78
+msgid "Kernel"
+msgstr "Kjerne"
+
+#: ../kernel.c:69
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr ""
+"Vennligst sett inn oppstartsdisketten i den første stasjonen hvis den ikke "
+"står i allerede."
+
+#: ../kernel.c:73 ../kernel.c:78
+msgid "Copying kernel from floppy..."
+msgstr "Kopierer kjernen fra diskett..."
+
+#: ../kickstart.c:85
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Feil under åpning: kickstart-fil %s: %s"
+
+#: ../kickstart.c:95
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Feil under lesing av innholdet i kickstart-fil %s: %s"
+
+#: ../kickstart.c:163
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Feil på linje %d i kickstart-fil %s."
+
+#: ../kickstart.c:171
+#, c-format
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Ukjent kommando %s på linje %d i kickstart-fil %s."
+
+#: ../kickstart.c:246
+#, c-format
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Klarte ikke å opprette /mnt/tmp/ks.script: %s"
+
+#: ../kickstart.c:255
+#, c-format
+msgid "Failed to write ks post script: %s"
+msgstr "Klarte ikke å skrive ks post-skript: %s"
+
+#. loadFont("default8x16");
+#: ../lang.c:142
+msgid "Choose a Language"
+msgstr "Velg et språk"
+
+#: ../lang.c:142
+msgid "What language should be used during the installation process?"
+msgstr "Hvilket språk skal brukes under installasjonen?"
+
+#: ../latemethods.c:233
+msgid "Failed to create symlink for package source."
+msgstr "Klarte ikke å opprette symbolsk lenke for pakkens kildekode."
+
+#: ../latemethods.c:427
+msgid "ftp"
+msgstr "ftp"
+
+#: ../latemethods.c:428
+#, c-format
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Jeg har problemer med å hente %s. Ønsker du å forsøke igjen?"
+
+#: ../lilo.c:50
+msgid "SILO"
+msgstr "SILO"
+
+#: ../lilo.c:52
+msgid "LILO"
+msgstr "LILO"
+
+#: ../lilo.c:54
+msgid "Creating initial ramdisk..."
+msgstr "Oppretter initiell ramdisk..."
+
+#: ../lilo.c:87
+msgid "Master Boot Record"
+msgstr "Master Boot Record"
+
+#: ../lilo.c:88
+msgid "First sector of boot partition"
+msgstr "Første sektor på oppstartspartisjonen"
+
+#: ../lilo.c:91 ../lilo.c:570
+msgid "Lilo Installation"
+msgstr "Lilo installasjon"
+
+#: ../lilo.c:91 ../lilo.c:95
+msgid "Where do you want to install the bootloader?"
+msgstr "Hvor vil du installere oppstartslasteren?"
+
+#: ../lilo.c:93 ../lilo.c:97
+msgid "Skip"
+msgstr "Hopp over"
+
+#: ../lilo.c:95
+msgid "SILO Installation"
+msgstr "SILO-installasjon"
+
+#: ../lilo.c:129
+msgid "Device:"
+msgstr "Enhet:"
+
+#: ../lilo.c:135
+msgid "Boot label:"
+msgstr "Oppstartsetikett:"
+
+#: ../lilo.c:140
+msgid "Clear"
+msgstr "Slett"
+
+#: ../lilo.c:150
+msgid "Edit Boot Label"
+msgstr "Rediger oppstartsetikett"
+
+#: ../lilo.c:327
+msgid "Installing boot loader..."
+msgstr "Installerer oppstartslaster..."
+
+#: ../lilo.c:379
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
+"også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
+"fra og hvilket navn du vil gi hver av dem."
+
+#: ../lilo.c:390
+msgid "Device"
+msgstr "Enhet"
+
+#: ../lilo.c:390
+msgid "Partition type"
+msgstr "Partisjonstype"
+
+#: ../lilo.c:391 ../printercfg.c:651 ../printercfg.c:722
+msgid "Default"
+msgstr "Standard"
+
+#: ../lilo.c:391
+msgid "Boot label"
+msgstr "Oppstartsetikett"
+
+#: ../lilo.c:463
+msgid "Bootable Partitions"
+msgstr "Oppstartbare partisjoner"
+
+#: ../lilo.c:539
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"For noen få systemer kan det være nødvendig å gi spesielle flagg til kjernen "
+"ved oppstart for at systemet skal fungere ordentlig. Hvis du trenger å gi "
+"oppstartsflagg til kjernen, skriv dem inn nå. Hvis du ikke trenger dette, "
+"eller ikke er sikker, kan du la dette stå tomt."
+
+#: ../lilo.c:552
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr "Bruk lineær modus (nødvendig for noen SCSI-disker)"
+
+#: ../lilo.c:568
+msgid "Silo Installation"
+msgstr "Silo-installasjon"
+
+#: ../lilo.c:729
+msgid "Creating bootdisk..."
+msgstr "Lager oppstartsdisk..."
+
+#: ../mkswap.c:222
+#, c-format
+msgid "Formatting swap space on device %s..."
+msgstr "Formaterer swapområde på enhet %s..."
+
+#: ../mkswap.c:233
+msgid "Formatting"
+msgstr "Formaterer"
+
+#: ../mkswap.c:517
+msgid "No Swap Space"
+msgstr "Ikke noe swap-område"
+
+#: ../mkswap.c:517
+msgid "Repartition"
+msgstr "Repartisjonér"
+
+#: ../mkswap.c:517
+msgid "Continue"
+msgstr "Fortsett"
+
+#: ../mkswap.c:518
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Du har ikke definert swap-område. Ønsker du å fortsette, eller vil du "
+"repartisjonere disken din?"
+
+#: ../mkswap.c:535
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Hvilke partisjoner ønsker du å bruke som swap-område? Dette vil ødelegge all "
+"informasjon som ligger på denne partisjonen."
+
+#: ../mkswap.c:598
+msgid "Active Swap Space"
+msgstr "Aktiver swap-område"
+
+#: ../mtab.c:66
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr "Du har ingen Linux-partisjoner. Du kan ikke oppgradere dette systemet!"
+
+#: ../mtab.c:78
+msgid "Could not mount automatically selected device."
+msgstr "Kunne ikke montere automatisk valgt enhet."
+
+#: ../mtab.c:85
+msgid "What partition holds the root partition of your installation?"
+msgstr "Hvilken partisjon inneholder rotpartisjonen til din installasjon?"
+
+#: ../mtab.c:106
+msgid "Root Partition"
+msgstr "Rot-partisjon"
+
+#: ../mtab.c:147
+#, c-format
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Kan ikke lese /mnt/etc/fstab: %s"
+
+#: ../mtab.c:170
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Ugyldig linje i /mnt/etc/fstab -- avbryter"
+
+#: ../net.c:86
+msgid "Hostname"
+msgstr "Vertsnavn"
+
+#: ../net.c:86
+msgid "Determining host name and domain..."
+msgstr "Undersøker vertsnavn og domene..."
+
+#. we can't go any further without a network device!
+#: ../net.c:309
+msgid "Ethernet Probe"
+msgstr "Ethernet-søk"
+
+#: ../net.c:310
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Ethernet-søket fant ikke et kort på systemet ditt. Trykk <linjeskift> for å "
+"konfigurere ett manuelt."
+
+#: ../net.c:350
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Vær snill å skrive inn IP-konfigurasjonen for denne maskinen. Hver oppføring "
+"skal skrives inn som en IP-adresse i punktdelt desimal notasjon (f.eks, "
+"1.2.3.4)."
+
+#: ../net.c:356
+msgid "IP address:"
+msgstr "IP-adresse:"
+
+#: ../net.c:359
+msgid "Netmask:"
+msgstr "Nettmaske:"
+
+#: ../net.c:362
+msgid "Default gateway (IP):"
+msgstr "Standard gateway (IP):"
+
+#: ../net.c:365
+msgid "Primary nameserver:"
+msgstr "Primær navnetjener:"
+
+#: ../net.c:402
+msgid "Configure TCP/IP"
+msgstr "Konfigurere TCP/IP"
+
+#: ../net.c:445
+msgid "Missing Information"
+msgstr "Manglende informasjon"
+
+#: ../net.c:446
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Du må skrive inn både en gyldig IP-adresse og en nettmaske."
+
+#: ../net.c:512
+msgid "Static IP address"
+msgstr "Statisk IP-adresse"
+
+#: ../net.c:513 ../net.c:709
+msgid "BOOTP"
+msgstr "BOOTP"
+
+#: ../net.c:514 ../net.c:705
+msgid "DHCP"
+msgstr "DHCP"
+
+#: ../net.c:610 ../net.c:620
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../net.c:611
+#, c-format
+msgid "bad ip number in network command: %s"
+msgstr "ugyldig ip-adresse i nettverks-kommando: %s"
+
+#: ../net.c:621
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "ugyldig argument til nettverks-kommando for kickstart %s: %s"
+
+#: ../net.c:641
+msgid "kickstart network command is missing ip address"
+msgstr "kickstart nettverks-kommando mangler ip-adresse"
+
+#: ../net.c:672
+msgid "Boot Protocol"
+msgstr "Oppstartsprotokoll"
+
+#: ../net.c:673
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Hvordan skal IP-informasjonen settes? Hvis din systemadministrator gav deg "
+"en IP-adresse, velg statisk IP."
+
+#: ../net.c:705
+msgid "Sending DHCP request..."
+msgstr "Sender DHCP-forespørsel..."
+
+#: ../net.c:709
+msgid "Sending BOOTP request..."
+msgstr "Sender BOOTP-forespørsel..."
+
+#: ../net.c:919
+#, c-format
+msgid "Cannot create %s: %s\n"
+msgstr "Kan ikke opprette %s: %s\n"
+
+#: ../net.c:949
+#, c-format
+msgid "cannot create network device config file: %s"
+msgstr "kan ikke opprette netverks-enhetens konfigurasjonsfil: %s"
+
+#: ../net.c:995 ../net.c:1249
+#, c-format
+msgid "cannot open file: %s"
+msgstr "kan ikke åpne fil: %s"
+
+#: ../net.c:1122
+msgid "Hostname Lookup"
+msgstr "Oppslag av vertsnavn"
+
+#: ../net.c:1123
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Jeg kan ikke bestemme vertsnavnet automatisk. Trykk <linjeskift> for å "
+"skrive inn informasjon om vertsnavn."
+
+#: ../net.c:1130
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Vennligst skriv inn ditt domenenavn, vertsnavn, og IP-adressen til "
+"eventuelle ekstra navnetjenere. Vertsnavnet skal være et fullkvalifisert "
+"vertsnavn (FQHN), slik som minmaskin.minlabb.mittfirma.no. Hvis du ikke har "
+"noen ekstra navnetjenere kan du la navnetjenerfeltene være blanke."
+
+#: ../net.c:1140
+msgid "Domain name:"
+msgstr "Domenenavn:"
+
+#: ../net.c:1143
+msgid "Host name:"
+msgstr "Vertsnavn:"
+
+#: ../net.c:1146
+msgid "Secondary nameserver (IP):"
+msgstr "Sekundær navnetjener (IP):"
+
+#: ../net.c:1149
+msgid "Tertiary nameserver (IP):"
+msgstr "Tertiær navnetjener (IP):"
+
+#: ../net.c:1197
+msgid "Configure Network"
+msgstr "Konfigurér nettverk"
+
+#: ../net.c:1386
+msgid "Keep the current IP configuration"
+msgstr "Behold nåværende IP-konfigurasjon"
+
+#: ../net.c:1387
+msgid "Reconfigure network now"
+msgstr "Rekonfigurér nettverket nå"
+
+#: ../net.c:1388
+msgid "Don't set up networking"
+msgstr "Ikke sett opp nettverk"
+
+#: ../net.c:1405 ../net.c:1417
+msgid "Network Configuration"
+msgstr "Nettverkskonfigurasjon"
+
+#: ../net.c:1406
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "LAN nettverk er allerede konfigurert. Vil du:"
+
+#: ../net.c:1418
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr ""
+"Vil du konfigurere LAN (ikke oppringt) nettverk for ditt installerte system?"
+
+#: ../pkgs.c:256
+#, c-format
+msgid "Cannot open components file: %s"
+msgstr "Kan ikke åpne komponentfil: %s"
+
+#: ../pkgs.c:263
+#, c-format
+msgid "Cannot read components file: %s"
+msgstr "Kan ikke lese komponentfil: %s"
+
+#: ../pkgs.c:270
+msgid "Comps file is not version 0.1 as expected"
+msgstr "Comps-fil er ikke versjon 0.1 som forventet"
+
+#: ../pkgs.c:305
+#, c-format
+msgid "bad comps file at line %d"
+msgstr "ugyldig comps-fil ved linje %d"
+
+#: ../pkgs.c:329 ../pkgs.c:355
+msgid "comps Error"
+msgstr "comps feil"
+
+#: ../pkgs.c:330
+#, c-format
+msgid "missing component name at line %d"
+msgstr "manglende komponentnavn ved linje %d"
+
+#: ../pkgs.c:356
+msgid "Ignore all"
+msgstr "Ignorér alle"
+
+#: ../pkgs.c:357
+#, c-format
+msgid "package %s at line %d does not exist"
+msgstr "pakke %s ved linje %d eksisterer ikke"
+
+#: ../pkgs.c:459
+#, c-format
+msgid "Component %s does not exist.\n"
+msgstr "Komponent %s eksisterer ikke.\n"
+
+#: ../pkgs.c:471
+#, c-format
+msgid "Package %s does not exist.\n"
+msgstr "Pakke %s eksisterer ikke.\n"
+
+#: ../pkgs.c:517
+msgid "GNOME"
+msgstr "GNOME"
+
+#: ../pkgs.c:518
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Ønsker du å installere GNOME? Dette gir deg et brukervennlig grensesnitt, "
+"inkludert dra-og-slipp funksjonalitet og et integrert hjelpsystem. "
+
+#: ../pkgs.c:651
+msgid "no suggestion"
+msgstr "ingen forslag"
+
+#: ../pkgs.c:661
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"Noen av pakkene du har valgt å installere trenger pakker som ikke er valgt. "
+"Hvis du bare velger Ok vil alle de nødvendige pakkene bli installert."
+
+#: ../pkgs.c:669
+msgid "Package"
+msgstr "Pakke"
+
+#: ../pkgs.c:669
+msgid "Requirement"
+msgstr "Avhengighet"
+
+#: ../pkgs.c:686
+msgid "Install packages to satisfy dependencies"
+msgstr "Installer pakker for å tilfredstille avhengigheter"
+
+#: ../pkgs.c:695
+msgid "Unresolved Dependencies"
+msgstr "Uløste avhengigheter"
+
+#: ../pkgs.c:758
+msgid "Everything"
+msgstr "Alt"
+
+#: ../pkgs.c:770
+msgid "Select individual packages"
+msgstr "Velg individuelle pakker"
+
+#: ../pkgs.c:777
+msgid "Choose components to install:"
+msgstr "Velg komponenter som skal installeres:"
+
+#: ../pkgs.c:783
+msgid "Components to Install"
+msgstr "Komponenter som skal installeres"
+
+#: ../pkgs.c:940
+#, c-format
+msgid "error opening header file: %s"
+msgstr "feil under åpning av header-fil: %s"
+
+#: ../pkgs.c:1108
+msgid "Installed system size:"
+msgstr "Størrelse på installert system:"
+
+#: ../pkgs.c:1116
+msgid "Choose a group to examine"
+msgstr "Velg gruppe som skal undersøkes"
+
+#: ../pkgs.c:1119
+msgid "Press F1 for a package description"
+msgstr "Trykk F1 for en beskrivelse av pakken"
+
+#: ../pkgs.c:1143
+msgid "Select Group"
+msgstr "Velg gruppe"
+
+#: ../pkgs.c:1307
+msgid "(none available)"
+msgstr "(ingen tilgjengelig)"
+
+#: ../pkgs.c:1314
+msgid "Package:"
+msgstr "Pakke    :"
+
+#: ../pkgs.c:1317
+msgid "Size   :"
+msgstr "Størrelse:"
+
+#: ../pkgs.c:1377
+msgid "Upgrade Packages"
+msgstr "Oppgradér pakker"
+
+#: ../pkgs.c:1378
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"Pakkene du har installert og eventuelle andre pakker som er nødvendige for å "
+"tilfredstille deres avhengiheter, er valgt for installasjon. Ønsker du å "
+"endre pakkesettet som skal oppgraderes?"
+
+#: ../printercfg.c:469
+msgid "Printer Information"
+msgstr "Skriverinformasjon"
+
+#: ../printercfg.c:489
+msgid "<F1> will give you information on a particular printer type"
+msgstr "<F1> gir deg informasjon om en bestemt skrivertype"
+
+#: ../printercfg.c:494
+msgid "What type of printer do you have?"
+msgstr "Hvilken type skriver har du?"
+
+#: ../printercfg.c:527 ../printercfg.c:1207
+msgid "Configure Printer"
+msgstr "Konfigurér skriver"
+
+#. we know that changes->db->NumBpp > 0
+#: ../printercfg.c:596 ../printercfg.c:758
+msgid "<F1> will give you information on this printer driver."
+msgstr "<F1> gir deg informasjon om denne skriverdriveren."
+
+#: ../printercfg.c:600
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr ""
+"Du kan nå konfigurere papirstørrelsen og oppløsningen for denne skriveren."
+
+#: ../printercfg.c:609
+msgid "Paper Size"
+msgstr "Pairstørrelse"
+
+#: ../printercfg.c:631
+msgid "Resolution"
+msgstr "Oppløsning"
+
+#: ../printercfg.c:664
+msgid "Fix stair-stepping of text?"
+msgstr "Fiks trappetekst?"
+
+#: ../printercfg.c:784
+msgid "You may now configure the color options for this printer."
+msgstr "Du kan nå konfigurere fargevalgene for denne skriveren."
+
+#: ../printercfg.c:788
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Du kan nå konfigurere uniprint-alternativene for denne skriveren."
+
+#: ../printercfg.c:801
+msgid "Configure Color Depth"
+msgstr "Konfigurér fargedybde"
+
+#: ../printercfg.c:803
+msgid "Configure Uniprint Driver"
+msgstr "Konfigurér Uniprint-driver"
+
+#: ../printercfg.c:955
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr ""
+"Hvilken enhet er skriveren tilkoblet (merk at /dev/lp0 er det samme som "
+"LPT1:)?"
+
+#: ../printercfg.c:962
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Auto-gjenkjente porter:\n"
+"\n"
+
+#: ../printercfg.c:970
+msgid "Not "
+msgstr "Ikke "
+
+#: ../printercfg.c:972
+msgid "Detected\n"
+msgstr "Funnet\n"
+
+#: ../printercfg.c:982
+msgid "Printer Device:"
+msgstr "Skriverenhet:"
+
+#: ../printercfg.c:1004
+msgid "Local Printer Device"
+msgstr "Lokal skriverenhet"
+
+#: ../printercfg.c:1032
+msgid "Remote hostname:"
+msgstr "Eksternt vertsnavn:"
+
+#: ../printercfg.c:1033 ../printercfg.c:1276 ../printercfg.c:1308
+msgid "Remote queue:"
+msgstr "Ekstern kø:"
+
+#: ../printercfg.c:1035
+msgid "Remote lpd Printer Options"
+msgstr "Ekstern lpd skriveralternativer"
+
+#: ../printercfg.c:1036
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"For å bruke en ekstern lpd-skriverkø, må du gi vertsnavnet til "
+"skriver-tjeneren og navnet på køen på denne tjeneren som jobbene skal "
+"plasseres i."
+
+#: ../printercfg.c:1069
+msgid "Printer Server:"
+msgstr "Skrivertjener:"
+
+#: ../printercfg.c:1070
+msgid "Print Queue Name:"
+msgstr "Navn på utskriftskø:"
+
+#: ../printercfg.c:1071 ../printercfg.c:1125
+msgid "User name:"
+msgstr "Brukernavn:"
+
+#: ../printercfg.c:1074
+msgid "NetWare Printer Options"
+msgstr "Skriveralternativer for Netware"
+
+#: ../printercfg.c:1075
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"For å skrive til en NetWare skriver må du oppgi navnet på NetWares "
+"utskriftskø-tjener (dette er ikke alltid det samme som maskinens TCP/IP- "
+"vertsnavn) i tillegg til navnet på utskriftskøen du vil aksessere og "
+"eventuelt brukernavn og passord."
+
+#: ../printercfg.c:1122
+msgid "SMB server host:"
+msgstr "SMB-tjeners vert:"
+
+#: ../printercfg.c:1123
+msgid "SMB server IP:"
+msgstr "SMB-tjeners IP:"
+
+#: ../printercfg.c:1124
+msgid "Share name:"
+msgstr "Delt navn:"
+
+#: ../printercfg.c:1127 ../printercfg.c:1326
+msgid "Workgroup:"
+msgstr "Arbeidsgruppe:"
+
+#: ../printercfg.c:1129
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "SMB/Windows 95/NT skriveralternativer"
+
+#: ../printercfg.c:1130
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"For å skrive til en SMB-skriver må du oppgi navnet på SMB-verten (dette er "
+"ikke alltid det samme som maskinens TCP/IP vertsnavn) og kanskje IP-adressen "
+"til utskriftstjeneren, i tillegg til navnet på den delte skriveren du ønsker "
+"å aksessere og evt. brukernavn, passord og arbeidsgruppeinformasjon."
+
+#: ../printercfg.c:1176
+msgid "Name of queue:"
+msgstr "Navn på kø:"
+
+#: ../printercfg.c:1177 ../printercfg.c:1273 ../printercfg.c:1299
+msgid "Spool directory:"
+msgstr "Spool-katalog:"
+
+#: ../printercfg.c:1179
+msgid "Standard Printer Options"
+msgstr "Standard skriveralternativer"
+
+#: ../printercfg.c:1180
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Hver utskriftskø (som utskriftsjobber sendes til) må ha et navn (ofte lp) og "
+"en spool-katalog knyttet til seg. Hvilket navn og hilken katalog skal brukes "
+"for denne køen?"
+
+#: ../printercfg.c:1209
+msgid "Would you like to configure a printer?"
+msgstr "Ønsker du å konfigurere en skriver?"
+
+#: ../printercfg.c:1223
+msgid "Add Printer"
+msgstr "Legg til skriver"
+
+#: ../printercfg.c:1224
+msgid "Would you like to add another printer?"
+msgstr "Ønsker du å legge til enda en skriver?"
+
+#: ../printercfg.c:1246
+msgid "Local"
+msgstr "Lokal"
+
+#: ../printercfg.c:1247
+msgid "Remote lpd"
+msgstr "Ekstern lpd"
+
+#: ../printercfg.c:1248
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+#: ../printercfg.c:1249
+msgid "NetWare"
+msgstr "Netware"
+
+#: ../printercfg.c:1253
+msgid "Select Printer Connection"
+msgstr "Velg skriverforbindelse"
+
+#: ../printercfg.c:1254
+msgid "How is this printer connected?"
+msgstr "Hvordan er du koblet til denne skriveren?"
+
+#: ../printercfg.c:1271 ../printercfg.c:1297
+msgid "Printer type:"
+msgstr "Skrivertype:"
+
+#: ../printercfg.c:1272 ../printercfg.c:1298 ../printercfg.c:1312
+msgid "Queue:"
+msgstr "Kø:"
+
+#: ../printercfg.c:1274
+msgid "Printer device:"
+msgstr "Skriverenhet:"
+
+#: ../printercfg.c:1275 ../printercfg.c:1307
+msgid "Remote host:"
+msgstr "Ekstern vert:"
+
+#. if (pcentry->Type == PRINTER_SMB)
+#: ../printercfg.c:1277 ../printercfg.c:1311 ../printercfg.c:1315
+msgid "Server:"
+msgstr "Tjener:"
+
+#: ../printercfg.c:1278 ../printercfg.c:1325
+msgid "Share:"
+msgstr "Delt ressurs:"
+
+#: ../printercfg.c:1279 ../printercfg.c:1313 ../printercfg.c:1327
+msgid "User:"
+msgstr "Bruker:"
+
+#: ../printercfg.c:1280 ../printercfg.c:1333
+msgid "Printer driver:"
+msgstr "Skriverdriver:"
+
+#: ../printercfg.c:1281 ../printercfg.c:1334
+msgid "Paper size:"
+msgstr "Papirstørrelse:"
+
+#: ../printercfg.c:1282 ../printercfg.c:1335
+msgid "Resolution:"
+msgstr "Oppløsning:"
+
+#: ../printercfg.c:1284 ../printercfg.c:1337
+msgid "Bits per pixel:"
+msgstr "Biter pr. piksel:"
+
+#: ../printercfg.c:1286 ../printercfg.c:1338
+msgid "Uniprint driver:"
+msgstr "Uniprint driver:"
+
+#: ../printercfg.c:1293
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Vennligst verifiser at informasjonen om skriveren er korrekt:\n"
+"\n"
+
+#: ../printercfg.c:1303
+msgid "Printer device"
+msgstr "Skriverenhet"
+
+#: ../printercfg.c:1344
+msgid "Verify Printer Configuration"
+msgstr "Verifiser skriverkonfigurasjonen"
+
+#: ../scsi.c:31
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Jeg har funnet følgende typer SCSI-kort på ditt system:\n"
+"\n"
+
+#: ../scsi.c:47
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Har du noen flere SCSI-kort på systemet ditt?"
+
+#: ../scsi.c:51
+msgid "Do you have any SCSI adapters?"
+msgstr "Har du noen SCSI-kort"
+
+#: ../scsi.c:54
+msgid "SCSI Configuration"
+msgstr "SCSI-konfigurasjon"
+
+#: ../smb.c:59
+msgid "SMB server name  :"
+msgstr "Navn på SMB-tjener:"
+
+#: ../smb.c:60
+msgid "Share volume     :"
+msgstr "Delt volum        :"
+
+#: ../smb.c:61
+msgid "Account name     :"
+msgstr "Kontonavn         :"
+
+#: ../smb.c:62
+msgid "Password         :"
+msgstr "Passord           :"
+
+#: ../smb.c:64
+msgid "SMB Setup"
+msgstr "SMB-oppsett"
+
+#: ../smb.c:65
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din SMB-tjener\n"
+"    o katalogen på tjeneren som inneholder \n"
+"      Red Har Linux for din arkitektur."
+
+#: ../url.c:148
+#, c-format
+msgid "Password for %s@%s: "
+msgstr "Passord for %s@%s: "
+
+#: ../url.c:172 ../url.c:198
+#, c-format
+msgid "error: %sport must be a number\n"
+msgstr "feil: %sport må være et nummer\n"
+
+#: ../url.c:283
+msgid "url port must be a number\n"
+msgstr "url-port må være et nummer\n"
+
+#. XXX PARANOIA
+#: ../url.c:320
+#, c-format
+msgid "logging into %s as %s, pw %s\n"
+msgstr "logger in på %s som %s, pw %s\n"
+
+#: ../url.c:434
+#, c-format
+msgid "failed to open %s\n"
+msgstr "klarte ikke å åpne %s\n"
+
+#: ../url.c:449
+#, c-format
+msgid "failed to create %s\n"
+msgstr "klarte ikke å opprette %s\n"
+
+#: ../urlmethod.c:63 ../urlmethod.c:66 ../urlmethod.c:120 ../urlmethod.c:123
+msgid "Retrieving"
+msgstr "Henter"
+
+#: ../urlmethod.c:137
+#, c-format
+msgid "open of %s failed: %s\n"
+msgstr "åpning av %s feilet: %s\n"
+
+#: ../urlmethod.c:153
+#, c-format
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Feil under overføring av fil %s:\n"
+"%s"
+
+#: ../urlmethod.c:188
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din FTP-tjener\n"
+"    o katalogen på den tjeneren som inneholder\n"
+"      Red Hat Linux for din arkitektur\n"
+
+#: ../urlmethod.c:197
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Vær snill å skriv inn følgende informasjon:\n"
+"\n"
+"    o navnet eller IP-adressen til din web-tjener\n"
+"    o katalogen på den tjeneren som inneholder\n"
+"      Red Hat Linux for din arkitektur\n"
+
+#: ../urlmethod.c:215
+msgid "FTP site name:"
+msgstr "FTP-tjeners navn:"
+
+#: ../urlmethod.c:216
+msgid "Web site name:"
+msgstr "Web-tjeners navn:"
+
+#: ../urlmethod.c:233
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Bruk ikke-anonym ftp eller en proxytjener"
+
+#: ../urlmethod.c:237
+msgid "Use proxy server"
+msgstr "Bruk proxytjener"
+
+#: ../urlmethod.c:246
+msgid "FTP Setup"
+msgstr "FTP-oppsett"
+
+#: ../urlmethod.c:247
+msgid "HTTP Setup"
+msgstr "HTTP-oppsett"
+
+#: ../urlmethod.c:257
+msgid "You must enter a server name."
+msgstr "Du må skrive inn et tjenernavn."
+
+#: ../urlmethod.c:262
+msgid "You must enter a directory."
+msgstr "Du må skrive inn en katalog."
+
+#: ../urlmethod.c:323
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
+"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP- "
+"proxytjeneren som skal brukes."
+
+#: ../urlmethod.c:329
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Hvis du bruker en HTTP-proxytjener, skriv inn navnet til HTTP-proxytjeneren "
+"som skal brukes."
+
+#: ../urlmethod.c:350
+msgid "Account name:"
+msgstr "Kontonavn:"
+
+#: ../urlmethod.c:358
+msgid "FTP Proxy:"
+msgstr "FTP-proxy:"
+
+#: ../urlmethod.c:359
+msgid "HTTP Proxy:"
+msgstr "HTTP-proxy:"
+
+#: ../urlmethod.c:363
+msgid "FTP Proxy Port:"
+msgstr "FTP-proxy-port:"
+
+#: ../urlmethod.c:364
+msgid "HTTP Proxy Port:"
+msgstr "HTTP-proxy-port:"
+
+#~ msgid ""
+#~ "An error occurred reading the partition table for the block device %s.  The "
+#~ "error was:"
+#~ msgstr ""
+#~ "En feil oppstod under lesing av partisjonstabellen for blokkenhet %s. Feilen "
+#~ "var:"
+
+#~ msgid "LAN manager host:"
+#~ msgstr "LAN-manager-vert:"
+
+#~ msgid "What packages should be installed?"
+#~ msgstr "Hvilke pakker skal installeres?"
+
+#~ msgid "LAN Manager Printer Options"
+#~ msgstr "LAN Manager skriveralternativer"
+
+#~ msgid "LAN Manager"
+#~ msgstr "LAN Manager"
+
+#~ msgid "RPM install of %s failed: %s"
+#~ msgstr "RPM-installasjon av %s feilet: %s"
+
+#~ msgid "<F1> will show you a size and description of a package"
+#~ msgstr "<F1> viser deg størrelsen på og beskrivelsen av en pakke"
+
+#~ msgid "Size of all selected packages:"
+#~ msgstr "Størrelsen av alle valgte pakker:"
+
+#~ msgid "Select Packages"
+#~ msgstr "Velg pakker"
+
+#~ msgid "Size:"
+#~ msgstr "Størrelse:"
+
+#~ msgid "I cannot get file %s: %s\n"
+#~ msgstr "Kan ikke hente fil %s: %s\n"
+
+#~ msgid "I cannot log into machine: %s\n"
+#~ msgstr "Kan ikke logge inn på maskin: %s\n"
+
+#~ msgid ""
+#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgstr ""
+#~ "Ønsker du å installere eller konfigurere oppstartslasteren SILO på systemet?"
+
+#~ msgid "LAN manager IP:"
+#~ msgstr "LAN-manager IP-adresse:"
