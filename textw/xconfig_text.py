@@ -266,10 +266,11 @@ class MonitorWindow:
         if button != TEXT_CANCEL_CHECK:
             self.selectedMonitor = result
             selMonitorName = self.monitorsnames[self.selectedMonitor]
-            selMonitor = self.monitor.lookupMonitor(selMonitorName)
+            selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
-            self.hsync = selMonitor[3]
-            self.vsync = selMonitor[2]
+	    if selMonitor:
+		self.hsync = selMonitor[3]
+		self.vsync = selMonitor[2]
 
     def syncchangeCB(self, screen):
         bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
@@ -372,7 +373,7 @@ class MonitorWindow:
 
 	while 1:
             selMonitorName = self.monitorsnames[self.selectedMonitor]
-            selMonitor = self.monitor.lookupMonitor(selMonitorName)
+            selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
             
             bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Default"), "default"),
                                      TEXT_BACK_BUTTON))
@@ -418,11 +419,8 @@ class MonitorWindow:
 	    rc = bb.buttonPressed (result)
 
 	    if rc == TEXT_BACK_CHECK:
-                # XXX - dont let them go back to make boot disk screen
-                ButtonChoiceWindow(screen, _("Error"),
-                                   _("You cannot go back from this "
-                                     "step."),
-                           buttons = [ TEXT_OK_BUTTON ])
+		screen.popWindow()
+		return INSTALL_BACK
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 screen.popWindow()
                 break
@@ -437,12 +435,13 @@ class MonitorWindow:
 
         # store results
         selMonitorName = self.monitorsnames[self.selectedMonitor]
-        selMonitor = self.monitor.lookupMonitor(selMonitorName)
+        selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
-        self.monitor.setSpecs(selMonitor[3], 
-                              selMonitor[2],
-                              id=selMonitor[0],
-                              name=selMonitor[0])
+	if selMonitor:
+	    self.monitor.setSpecs(selMonitor[3], 
+				  selMonitor[2],
+				  id=selMonitor[0],
+				  name=selMonitor[0])
         
         
         return INSTALL_OK

@@ -27,6 +27,9 @@ from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
 from log import log
 
+ddc_monitor_string = _("DDC Probed Monitor")
+unprobed_monitor_string = _("Unprobed Monitor")
+
 class XCustomWindow (InstallWindow):
 
     htmlTag = "xcustom"
@@ -200,7 +203,7 @@ class XCustomWindow (InstallWindow):
 
         self.avail_depths = depth_list[:len(availableDepths)]
         self.depth_combo = gtk.Combo ()
-        self.depth_combo.entry.set_editable (gtk.FALSE)
+	self.depth_combo.entry.set_property("editable", gtk.FALSE)
         self.depth_combo.set_popdown_strings (self.avail_depths)
 
         frame1.add (self.depth_combo)
@@ -213,7 +216,7 @@ class XCustomWindow (InstallWindow):
                          "1280x1024", "1400x1050", "1600x1200"]
 
         self.res_combo = gtk.Combo ()
-        self.res_combo.entry.set_editable (gtk.FALSE)
+        self.res_combo.entry.set_property("editable", gtk.FALSE)
 
         # determine current selection, or if none exists, pick reasonable
         # defaults.
@@ -390,60 +393,27 @@ class MonitorWindow (InstallWindow):
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
         self.ics.setNextEnabled (gtk.FALSE)
-
-        # XXX - do not want to go backwards into "Make Bootdisk" screen ever
-        self.ics.setPrevEnabled (gtk.FALSE)
+        self.ics.setPrevEnabled (gtk.TRUE)
         
-    def selectCb (self, ctree, node, column):
-
-        if self.ignoreTreeChanges:
-            return
-
-        data = self.ctree.node_get_row_data (node)
-
-        if not data:
-            # they clicked on a tree tab (a manufacturer node)
-            self.ics.setNextEnabled (gtk.FALSE)
-            self.setSyncField(self.hEntry, "")
-            self.setSyncField(self.vEntry, "")
-            self.hEntry.set_editable (gtk.FALSE)
-            self.vEntry.set_editable (gtk.FALSE)
-            return
-        else:
-            (parent, monitor) = data
-            self.hEntry.set_editable (gtk.TRUE)
-            self.vEntry.set_editable (gtk.TRUE)
-
-        if self.currentNode:
-            (current_parent, current_monitor) = self.ctree.node_get_row_data (self.currentNode)
-
-        self.currentNode = node
-
-        # otherwise fill in sync fields
-        self.setSyncField(self.vEntry, monitor[2])
-        self.setSyncField(self.hEntry, monitor[3])
-        self.hEntry.set_editable (gtk.TRUE)
-        self.vEntry.set_editable (gtk.TRUE)
-
-        self.enableIfSyncsValid(self.hEntry, self.vEntry)
-
-
     def getNext (self):
+#	print "in getNext ",self.currentMonitor
         if self.currentMonitor:
             monHoriz = string.replace(self.hEntry.get_text(), " ", "")
             monVert = string.replace(self.vEntry.get_text(), " ", "")
 
+	    if self.currentMonitor[:len(ddc_monitor_string)] == ddc_monitor_string:
+		idname = "DDCPROBED"
+	    elif self.currentMonitor == unprobed_monitor_string:
+		idname = "Unprobed Monitor"
+	    else:
+		idname = self.currentMonitor
+
+#	    print "idname =", idname
             self.monitor.setSpecs(monHoriz,
                                   monVert,
-                                  id=self.currentMonitor,
+                                  id=idname,
                                   name=self.currentMonitor)
         return None
-
-    def moveto (self, ctree, area, node):
-        self.ignoreTreeChanges = 1
-        self.ctree.node_moveto (node, 0, 0.5, 0.0)
-        self.selectCb (self.ctree, node, -1)
-        self.ignoreTreeChanges = 0
 
     def setSyncField(self, field, value):
         self.ignoreEntryChanges = 1
@@ -461,32 +431,115 @@ class MonitorWindow (InstallWindow):
         else:
             self.ics.setNextEnabled (gtk.FALSE)
 
-    def resetCb (self, data):
-        (parent, monitor) = self.ctree.node_get_row_data (self.originalNode)
+    def setCurrent(self, monitorname, recenter=1):
+#	print "in setCurrent ",monitorname
+	self.ignoreEvents = 1
+	self.currentMonitor = monitorname
 
-        (old_parent, temp) = self.ctree.node_get_row_data (self.currentNode)
+        parent = None
+        iter = self.monitorstore.get_iter_root()
+        next = 1
 
-        self.setSyncField(self.hEntry, self.monitor.getMonitorHorizSync(useProbed=1))
-        self.setSyncField(self.vEntry, self.monitor.getMonitorVertSync(useProbed=1))
+        # iterate over the list, looking for the current monitor selection
+        while next:
+#	    print monitorname, self.monitorstore.get_value(iter, 0)
+            # if this is a parent node, get the first child and iter over them
+            if self.monitorstore.iter_has_child(iter):
+                parent = iter
+                iter = self.monitorstore.iter_children(parent)
+                continue
+            # if it's not a parent node and the mouse matches, select it.
+            elif self.monitorstore.get_value(iter, 0) == monitorname:
+                path = self.monitorstore.get_path(parent)
+                self.monitorview.expand_row(path, gtk.TRUE)
+                selection = self.monitorview.get_selection()
+                selection.unselect_all()
+                selection.select_iter(iter)
+                path = self.monitorstore.get_path(iter)
+                col = self.monitorview.get_column(0)
+                self.monitorview.set_cursor(path, col, gtk.FALSE)
+                if recenter:
+                    self.monitorview.scroll_to_cell(path, col, gtk.TRUE,
+                                                  0.0, 0.5)
+                break
+            # get the next row.
+            next = self.monitorstore.iter_next(iter)
+	    
+            # if there isn't a next row and we had a parent, go to the node
+            # after the parent we've just gotten the children of.
+            if not next and parent:
+                next = self.monitorstore.iter_next(parent)
+                iter = parent
+
+	# set sync rates
+	if monitorname == self.origMonitorName:
+	    hsync = self.origHsync
+	    vsync = self.origVsync
+	elif monitorname[:len(ddc_monitor_string)] == ddc_monitor_string:
+	    hsync = self.ddcmon[2]
+	    vsync = self.ddcmon[3]
+	elif monitorname == unprobed_monitor_string:
+	    hsync = "31.5"
+	    vsync = "50-61"
+	else:
+	    monname = self.monitorstore.get_value(iter, 0)
+	    rc = self.monitor.lookupMonitorByName(monname)
+	    if rc:
+		(model, eisa, vsync, hsync) = rc
+	    else:
+		# no match for model ACK!
+		print "Could not find match for monitor %s in list!" % monname
+		print "How could this happen?"
+
+		# use 640x480 to be safe
+		hsync = "31.5"
+		vsync = "50-61"
+		
+        self.setSyncField(self.hEntry, hsync)
+        self.setSyncField(self.vEntry, vsync)
         self.enableIfSyncsValid(self.hEntry, self.vEntry)
 
-        # restore horiz and vert sync ranges in row data as well
-        new_monitor = (monitor[0], monitor[1],
-                       self.monitor.getMonitorHorizSync(useProbed=1),
-                       self.monitor.getMonitorHorizSync(useProbed=1))
-        self.ctree.node_set_row_data (self.originalNode, (parent, new_monitor))
+	self.ignoreEvents = 0
+	
+    def selectMonitorType (self, selection, *args):
+	if self.ignoreEvents:
+	    return
 
-        self.ctree.freeze ()
+	rc = selection.get_selected()
+	if rc:
+	    monxxx, iter = rc
+	    monid = monxxx.get_value(iter, 0)
+		
+	    self.setCurrent(monid, recenter=0)
+	else:
+	    print "unknown error in selectMonitorType!"
 
-        #--If new selection and old selection have the same parent,
-        #  don't collapse or expand anything
-        if parent != old_parent:
-            self.ctree.expand (parent)
-            self.ctree.collapse (old_parent)
+    def monitorviewSelectCb(self, path):
+	# XXX 01/09/2002 - work around broken gtkwidget, fix when jrb fixes
+	if len(path) == 1:
+	    if self.lastvalidselection:
+		self.ignoreEvents = 1
+		selection = self.monitorview.get_selection()
+		if not selection.path_is_selected(self.lastvalidselection):
+		    selection.select_path(self.lastvalidselection)
+		self.ignoreEvents = 0
+	    return 0
 
-        self.ctree.select(self.originalNode)
-        self.ctree.thaw ()
-        self.ctree.node_moveto (self.originalNode, 0, 0.5, 0.0)
+	self.lastvalidselection = path
+	
+	return 1
+
+    def resetCb (self, data):
+	# if we have a ddc probe value, reset to that
+	if self.ddcmon:
+	    self.setCurrent(ddc_monitor_string + " - " + self.ddcmon[1])
+
+	self.setSyncField(self.hEntry, self.origHsync)
+        self.setSyncField(self.vEntry, self.origVsync)
+
+        self.enableIfSyncsValid(self.hEntry, self.vEntry)
+
+	self.currentMonitor = self.origMonitorName
 
     def insertCb (self, pos, text, len, data, entrys):
         if self.ignoreEntryChanges:
@@ -513,7 +566,9 @@ class MonitorWindow (InstallWindow):
 
         # some flags to let us know when to ignore callbacks we caused
         self.ignoreEntryChanges = 0
-        self.ignoreTreeChanges = 0
+        self.ignoreEvents = 0
+
+	self.lastvalidselection = None
 
         box = gtk.VBox (gtk.FALSE, 5)
 
@@ -529,7 +584,14 @@ class MonitorWindow (InstallWindow):
             self.monitor_p, self.monitor_b = p.render_pixmap_and_mask()
 
         # load monitor list and insert into tree
-        self.origMonitor = self.monitor.getMonitorID(useProbed=1)
+        self.origMonitorID = self.monitor.getMonitorID()
+	self.origMonitorName = self.monitor.getMonitorName()
+	if not self.origMonitorName:
+	    self.origMonitorName = self.origMonitorID
+
+        self.origHsync = self.monitor.getMonitorHorizSync()
+        self.origVsync = self.monitor.getMonitorVertSync()
+	
         monitorslist = self.monitor.monitorsDB ()
         keys = monitorslist.keys ()
         keys.sort ()
@@ -567,21 +629,25 @@ class MonitorWindow (InstallWindow):
         # Insert DDC probed monitor if it had no match in database
         # or otherwise if we did not detect a monitor at all
         #--Add a category for a DDC probed monitor if a DDC monitor was probed
-        if self.origMonitor and not self.monitor.lookupMonitor(self.origMonitor):
-            if self.origMonitor != "Unprobed Monitor":
-                title = _("DDC Probed Monitor")
-            else:
-                title = _("Unprobed Monitor")
+	self.ddcmon = self.monitor.getDDCProbeResults()
+	if self.ddcmon:
+	    title = ddc_monitor_string + " - " + self.ddcmon[1]
+	else:
+	    title = unprobed_monitor_string
 
-	    toplevels["DDC Probed Monitor"] = self.monitorstore.append(None)
-	    self.monitorstore.set_value(iter, 0, title)
-	    iter = self.monitorstore.append(toplevels[man])
-	    self.monitorstore.set_value(iter, 0, title)
-	    self.currentMonitor = "DDC Probed Monitor"
-            
-        self.setSyncField(self.hEntry, self.monitor.getMonitorHorizSync())
-        self.setSyncField(self.vEntry, self.monitor.getMonitorVertSync())
-        self.enableIfSyncsValid(self.hEntry, self.vEntry)
+#	print title
+	man = title
+	toplevels[man] = self.monitorstore.append(None)
+	self.monitorstore.set_value(toplevels[man], 0, title)
+	iter = self.monitorstore.append(toplevels[man])
+	self.monitorstore.set_value(iter, 0, title)
+
+#	print self.origMonitorID
+	
+	# set as current monitor if necessary
+	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
+	    self.currentMonitor = title
+	    self.origMonitorName = title
 
         self.monitorview = gtk.TreeView(self.monitorstore)
         self.monitorview.set_property("headers-visible", gtk.FALSE)
@@ -594,6 +660,11 @@ class MonitorWindow (InstallWindow):
 	sw.set_shadow_type(gtk.SHADOW_IN)
         box.pack_start (sw, gtk.TRUE, gtk.TRUE)
 
+	self.setCurrent(self.currentMonitor)
+        selection = self.monitorview.get_selection()
+        selection.connect("changed", self.selectMonitorType)
+	selection.set_select_function(self.monitorviewSelectCb)
+	
         self.hEntry.connect ("insert_text", self.insertCb, (self.hEntry, self.vEntry))
         self.vEntry.connect ("insert_text", self.insertCb, (self.vEntry, self.hEntry))
 
@@ -613,8 +684,8 @@ class MonitorWindow (InstallWindow):
         vlabel = gtk.Label (_("Vertical Sync:"))
         vlabel.set_alignment (0, 0.5)
         
-        self.hEntry.set_size_request (80, 0)
-        self.vEntry.set_size_request (80, 0)
+        self.hEntry.set_size_request (80, -1)
+        self.vEntry.set_size_request (80, -1)
         
         hz = gtk.Label (_("kHz"))
         hz.set_alignment (0, 0.5)
@@ -665,7 +736,8 @@ class XConfigWindow (InstallWindow):
 		self.intf.messageWindow(_("Unknown video card"),
 					_("An error has occurred selecting "
 					  "the video card %s. Please report "
-					  "this error to bugzilla.redhat.com."))
+					  "this error to bugzilla.redhat.com.")
+					%self.currentCard)
 		raise gui.StayOnScreen
 
             primary_card = self.videocard.primaryCard()
@@ -726,7 +798,7 @@ class XConfigWindow (InstallWindow):
 	    model, iter = rc
 	    self.currentCard = model.get_value(iter, 0)
 	else:
-	    print "unknown error in selectCb_tree!"
+	    print "unknown error in selectCardType!"
             
     def restorePressed (self, button):
 	self.currentCard = self.probedCard
@@ -735,6 +807,21 @@ class XConfigWindow (InstallWindow):
         
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
+
+    def cardviewSelectCb(self, path):
+	# XXX 01/09/2002 - work around broken gtkwidget, fix when jrb fixes
+	if len(path) == 1:
+	    if self.lastvalidselection:
+		self.ignoreEvents = 1
+		selection = self.cardview.get_selection()
+		if not selection.path_is_selected(self.lastvalidselection):
+		    selection.select_path(self.lastvalidselection)
+		self.ignoreEvents = 0
+	    return 0
+
+	self.lastvalidselection = path
+	
+	return 1
 
     def setCurrent(self, cardname, recenter=1):
         self.ignoreEvents = 1
@@ -762,7 +849,7 @@ class XConfigWindow (InstallWindow):
                 self.cardview.set_cursor(path, col, gtk.FALSE)
                 if recenter:
                     self.cardview.scroll_to_cell(path, col, gtk.TRUE,
-                                                  0.5, 0.5)
+                                                  0.0, 0.5)
                 break
             # get the next row.
             next = self.cardstore.iter_next(iter)
@@ -865,7 +952,11 @@ class XConfigWindow (InstallWindow):
 				       gobject.TYPE_STRING)
 
 	toplevels={}
-	manufacturers = ["Generic", "Other"] + self.videocard.manufacturerDB()
+
+	# add "Generic" in before "Other" if supporting XFree86 3.x
+	# Note other changes in videocard.py and elsewhere required to support
+	# XFree86 3.x again
+	manufacturers = ["Other"] + self.videocard.manufacturerDB()
 	for man in manufacturers:
 	    toplevels[man] = self.cardstore.append(None)
 	    self.cardstore.set_value(toplevels[man], 0, man)
@@ -898,6 +989,7 @@ class XConfigWindow (InstallWindow):
         self.cardview.append_column(col)
         selection = self.cardview.get_selection()
         selection.connect("changed", self.selectCardType)
+	selection.set_select_function(self.cardviewSelectCb)
 
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
