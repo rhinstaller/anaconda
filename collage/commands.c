@@ -183,6 +183,7 @@ int mknodCommand(int argc, char ** argv) {
 	if (*end == '/') end++;
 
 	if (devMakeInode(end, path)) {
+	    printf("failed to make inode for device %s\n", end);
 	    return 1;
 	}
 
@@ -308,19 +309,17 @@ int chmodCommand(int argc, char ** argv) {
     return 0;
 }
 
-#define CPIOERR_CHECK_ERRNO	0x00008000
-
 int uncpioCommand(int argc, char ** argv) {
     int rc;
     const char * fail;
-    FD_t cfd;
+    gzFile cfd;
 
     if (argc != 1) {
 	fprintf(stderr, "uncpio reads from stdin");
 	return 1;
     }
 
-    cfd = Fdopen(fdDup(0), "r.gzdio");
+    cfd = gzdopen(0, "r");
 
     rc = cpioInstallArchive(cfd, NULL, 0, NULL, NULL, &fail);
 

@@ -1,6 +1,6 @@
-CFLAGS = -Wall -g -I/usr/include/rpm
+CFLAGS = -Wall -g 
 LDFLAGS = -g
-LOADLIBES = -L../isys -lz -lisys -lresolv -lrpm -lbz2 -lpopt
+LOADLIBES = -L../isys -lz -lisys -lresolv -lpopt
 
 all:	collage
 
