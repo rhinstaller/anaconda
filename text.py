@@ -348,7 +348,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def drawFrame(self):
-        self.welcomeText = _("%s (C) 2004 Red Hat, Inc.") % (productName,)
+        self.welcomeText = _("Welcome to %s") % (productName,)
         self.screen.drawRootText (0, 0, self.welcomeText)
 	self.screen.drawRootText (len(_(self.welcomeText)), 0,
                                   (self.screen.width -
