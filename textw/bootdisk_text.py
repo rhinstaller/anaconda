@@ -6,12 +6,8 @@ from constants import *
 
 class BootDiskWindow:
     def __call__(self, screen, dir, disp):
-	# we *always* do this for loopback installs
-	#
-	# XXX
-	#
-	#if todo.fstab.rootOnLoop():
-	    #return INSTALL_NOOP
+	if fsset.rootOnLoop():
+	    return INSTALL_NOOP
 
 	buttons = [ _("Yes"), _("No") ]
 	text =  _("A custom boot disk provides a way of booting into your "
@@ -24,20 +20,22 @@ class BootDiskWindow:
 		  "failures.\n\n"
 		  "Would you like to create a boot disk for your system?")
 
-	if iutil.getArch () == "sparc":
-            # XXX this went the way of the dodo...
-#	    floppy = todo.silo.hasUsableFloppy()
-	    if floppy == 0:
-		todo.bootdisk = 0
-		return INSTALL_NOOP
-	    text = string.replace (text, "lilo", "silo")
-	    if floppy == 1:
-		buttons = [ _("No"), _("Yes"), _("Back") ]
-		text = string.replace (text, "\n\n",
-				       _("\nOn SMCC made Ultra machines floppy booting "
-					 "probably does not work\n\n"))
+        # need to fix if we get sparc back up
+##	if iutil.getArch () == "sparc":
+##	    floppy = todo.silo.hasUsableFloppy()
+## 	    if floppy == 0:
+## 		todo.bootdisk = 0
+## 		return INSTALL_NOOP
+## 	    text = string.replace (text, "lilo", "silo")
+## 	    if floppy == 1:
+## 		buttons = [ _("No"), _("Yes"), _("Back") ]
+## 		text = string.replace (text, "\n\n",
+## 				       _("\nOn SMCC made Ultra machines "
+##                                          "floppy booting probably does "
+##                                          "not work\n\n"))
 
-	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text, buttons = buttons,
+	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text
+                                buttons = buttons,
 				help = "bootdiskquery")
 
 	if rc == string.lower (_("No")):
@@ -49,29 +47,30 @@ class BootDiskWindow:
 	return INSTALL_OK
 
 class MakeBootDiskWindow:
-    def __call__ (self, screen, dir, disp):
-	# XXX
-	#if todo.fstab.rootOnLoop():
-	    #buttons = [ _("OK") ]
-	#else:
+    def __call__ (self, screen, dir, disp, fsset):
+	if fsset.rootOnLoop():
+            buttons = [ _("OK") ]
+	else:
+            buttons = [ _("OK"), _("Skip") ]
 
 	# This is a bit gross. This lets the first bootdisk screen skip
 	# this one if the user doesn't want to see it.
 	if disp.stepInSkipList("makebootdisk"):
 	    return INSTALL_NOOP
 
-	buttons = [ _("OK"), _("Skip") ]
-
 	if dir == DISPATCH_FORWARD:
+            text = _("The boot disk allows you to boot "
+                     "your Red Hat Linux system from a "
+                     "floppy diskette.\n\n"
+                     "Please remove any diskettes from the "
+                     "floppy drive and insert a blank "
+                     "diskette. All data will be ERASED "
+                     "during creation of the boot disk."),
+            if fsset.rootOnLoop():
+                text = text + _("\n\nA boot disk is REQUIRED to boot a "
+                                "partitionless install.")
 	    rc = ButtonChoiceWindow (screen, _("Boot Disk"),
-                                     _("The boot disk allows you to boot "
-                                       "your Red Hat Linux system from a "
-                                       "floppy diskette.\n\n"
-                                       "Please remove any diskettes from the "
-                                       "floppy drive and insert a blank "
-                                       "diskette. All data will be ERASED "
-                                       "during creation of the boot disk."),
-                                     buttons, help = "insertbootdisk")
+                                     text, buttons, help = "insertbootdisk")
 	else:
 	    rc = ButtonChoiceWindow (screen, _("Error"),
 		    _("An error occured while making the boot disk. "

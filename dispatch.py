@@ -97,7 +97,7 @@ installSteps = [
     ( "instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                           "id.bootloader", "id.langSupport",
                                           "id.comps") ),
-    ( "bootdisk", ("dir", "dispatch") ),
+    ( "bootdisk", ("dir", "dispatch", "id.fsset") ),
     ( "makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
 				     "id.hdList", "instPath") ),
     ( "monitor", ("id.xconfig", "id.monitor") ),
