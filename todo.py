@@ -1099,7 +1099,8 @@ class ToDo:
             self.hdList['portmap'].selected = 1
 
         if self.x.server and not self.x.server == "XFree86":
-            self.selectPackage ('XFree86-' + self.x.server)
+            # trim off the XF86_
+            self.selectPackage ('XFree86-' + self.x.server[5:])
 
         # make sure that all comps that include other comps are
         # selected (i.e. - recurse down the selected comps and turn
