@@ -211,7 +211,7 @@ else  # ctc0, escon0, iucv0
 		  while [ -z "$IUCV" ]; do
 			   echo $"Enter iucv kernel module options (usually iucv=HOST,"
 			   echo $"where HOST is TCPIP for the VM TCP/IP service machine"
-				echo $"or the name (in capitalized letters) of another"
+				echo $"or the name (in capital letters) of another"
 				echo $"Linux guest:"
 			   read IUCV
 		  done
