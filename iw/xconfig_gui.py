@@ -189,7 +189,7 @@ class XCustomWindow (InstallWindow):
         hbox4 = gtk.HBox (gtk.FALSE, 5)
 
         frame1 = gtk.Frame (_("Color Depth:"))
-        frame1.set_shadow_type (SHADOW_NONE)
+        frame1.set_shadow_type (gtk.SHADOW_NONE)
         frame1.set_border_width (10)
         hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
 
@@ -203,7 +203,7 @@ class XCustomWindow (InstallWindow):
 
         frame1.add (self.depth_combo)
         frame2 = gtk.Frame (_("Screen Resolution:"))
-        frame2.set_shadow_type (SHADOW_NONE)
+        frame2.set_shadow_type (gtk.SHADOW_NONE)
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
 
@@ -313,7 +313,7 @@ class XCustomWindow (InstallWindow):
             else:
                 frame3 = gtk.Frame (_("Your desktop environment is:"))
                 
-            frame3.set_shadow_type (SHADOW_NONE)
+            frame3.set_shadow_type (gtk.SHADOW_NONE)
             hbox3.pack_start (frame3, gtk.TRUE, gtk.FALSE, 2)
 
             self.hbox4 = gtk.HBox ()
@@ -358,7 +358,7 @@ class XCustomWindow (InstallWindow):
         self.box.pack_start (hsep)
 
         frame4 = gtk.Frame (_("Please choose your login type:"))
-        frame4.set_shadow_type (SHADOW_NONE)
+        frame4.set_shadow_type (gtk.SHADOW_NONE)
         hbox4.pack_start (frame4, gtk.TRUE, gtk.FALSE, 2)
         
         self.hbox5 = gtk.HBox (gtk.TRUE, 2)
@@ -583,8 +583,8 @@ class MonitorWindow (InstallWindow):
                 title = _("DDC Probed Monitor")
             else:
                 title = _("Unprobed Monitor")
-                
-            parent = self.ctree.insert_node (None, first_node,
+
+            parent = self.ctree.insert_node (None, None,
                                              (title,),
                                              2, self.monitor_p, self.monitor_b,
                                              self.monitor_p, self.monitor_b,
