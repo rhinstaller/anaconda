@@ -3187,6 +3187,10 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
+    /* turn on for testing */
+    flags |= LOADER_FLAGS_MEDIACHECK;
+
+
 #if defined (__s390__) && !defined (__s390x__)
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
