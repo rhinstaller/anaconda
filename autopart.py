@@ -154,7 +154,7 @@ def fitSized(diskset, requests, primOnly = 0):
                 for part in free[drive]:
                     partSize = getPartSize(part)
                     if partSize >= request.requestSize and partSize > largestPart[0]:
-                        if not request.primary or (part.type & parted.PARTITION_PRIMARY):
+                        if not request.primary or (not part.type & parted.PARTITION_LOGICAL):
                             largestPart = (partSize, part)
 
             if not largestPart[1]:
@@ -261,6 +261,8 @@ def growParts(diskset, requests):
             max = int(percent * freeSize[drive]) + request.size
             if max > request.maxSize:
                 max = request.maxSize
+            if max > request.fstype.getMaxSize():
+                max = request.fstype.getMaxSize()
 
             min = request.requestSize
             diff = max - min
@@ -325,11 +327,6 @@ def processPartitioning(diskset, requests):
         if request.type == REQUEST_NEW:
             request.device = None
 
-        # set the unique identifier for raid devices
-        if request.type == REQUEST_RAID and not request.device:
-            request.device = str(requests.maxcontainer)
-            requests.maxcontainer = requests.maxcontainer + 1
-
     # XXX - handle delete requests
     for delete in requests.deletes:
         deletePart(diskset, delete)
@@ -361,26 +358,34 @@ def processPartitioning(diskset, requests):
     # run through with primary only constraints first
     ret = fitConstrained(diskset, requests, 1)
     if ret == PARTITION_FAIL:
-        return ret
+        return (ret, "Could not allocate cylinder-based partitions as primary partitions")
 
     ret = fitSized(diskset, requests, 1)
     if ret == PARTITION_FAIL:
-        return ret
+        return (ret, "Could not allocate partitions as primary partitions")
 
     ret = fitConstrained(diskset, requests)
     if ret == PARTITION_FAIL:
-        return ret
+        return (ret, "Could not allocate cylinder-based partitions")
 
     ret = fitSized(diskset, requests)
     if ret == PARTITION_FAIL:
-        return ret
+        return (ret, "Could not allocate partitions")
 
     for request in requests.requests:
-        if request.type != REQUEST_RAID and not request.device:
+        # set the unique identifier for raid devices
+        if request.type == REQUEST_RAID and not request.device:
+            request.device = str(requests.maxcontainer)
+            requests.maxcontainer = requests.maxcontainer + 1
+
+        if request.type == REQUEST_RAID:
+            request.size = get_raid_device_size(request)
+        
+        if not request.device:
 #            return PARTITION_FAIL
             raise PartitioningError, "Unsatisfied partition request\n%s" %(request)
 
-    return PARTITION_SUCCESS
+    return (PARTITION_SUCCESS, "success")
 
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()
@@ -390,10 +395,10 @@ def doPartitioning(diskset, requests):
     for request in requests.requests:
         request.requestSize = request.size
 
-    ret = processPartitioning(diskset, requests)
+    (ret, msg) = processPartitioning(diskset, requests)
 
     if ret == PARTITION_FAIL:
-        raise PartitioningError, "Partitioning failed"
+        raise PartitioningError, "Partitioning failed: %s" %(msg)
 
     ret = growParts(diskset, requests)
 

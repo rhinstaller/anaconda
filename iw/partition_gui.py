@@ -34,6 +34,10 @@ TREE_SPACING = 2
 MODE_ADD = 1
 MODE_EDIT = 2
 
+# XXX this is made up and used by the size spinner; should just be set with
+# a callback
+MAX_PART_SIZE = 1024*1024*1024
+
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
         if event.type == GDK.BUTTON_PRESS:
@@ -281,6 +285,20 @@ def fstypechangeCB(widget, mountCombo):
             mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
         mountCombo.entry.set_text(_("<Not Applicable>"))
         mountCombo.set_sensitive(0)
+
+    # XXX hrmm... we need to get these passed into the callback somehow
+##     # XXX ugly, there has to be a better way
+##     adj = maxSizeSpinner.get_adjustment()
+##     adj.set_all(adj.value, size, fstype.getMaxSize(),
+##                 adj.step_increment, adj.page_increment,
+##                 adj.page_size)
+##     maxSizeSpinner.set_adjustment(adj)
+
+##     adj = sizeSpinner.get_adjustment()
+##     adj.set_all(adj.value, size, fstype.getMaxSize(),
+##                 adj.step_increment, adj.page_increment,
+##                 adj.page_size)
+##     sizeSpinner.set_adjustment(adj)
 
 def createAllowedDrivesClist(drives, reqdrives):
     driveclist = GtkCList()

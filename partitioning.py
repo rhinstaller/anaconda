@@ -34,11 +34,6 @@ REQUEST_PREEXIST = 1
 REQUEST_NEW = 2
 REQUEST_RAID = 4
 
-# max partition size in kB
-# XXX these are just made up, need to get real values from parted!
-MAX_PART_SIZE = 1024*1024*1024
-MAX_SWAP_PART_SIZE_KB = 2147483640/1024
-
 fsTypes = {}
 
 fs_type = parted.file_system_type_get_next ()
@@ -272,25 +267,21 @@ def doMountPointLinuxFSChecks(newrequest):
             return _("This mount point is invalid.  This directory must "
                      "be on the / filesystem.")
 
-    elif newrequest.fstype.getName() == "swap":
-        if newrequest.type == REQUEST_RAID:
-            swapsize = get_raid_device_size(newrequest)
-        else:
-            swapsize = newrequest.size
-
-        print "swapsize ->",swapsize
-
-        if swapsize / 1024 > MAX_SWAP_PART_SIZE_KB:
-            return _("This swap partition exceeds the maximum size of "
-                     "%s MB.") % (MAX_SWAP_PART_SIZE_KB / 1024)
-        else:
-            return None
     else:
         if newrequest.mountpoint in mustbeonlinuxfs:
             return _("This mount point must be on a linux filesystem.")
         
     return None
     
+def doPartitionSizeCheck(newrequest):
+    if not newrequest.fstype:
+        return None
+
+    # XXX need to figure out the size for partitions specified by cyl range
+    if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
+        return _("This %s partition exceeds the maximum size of %s MB.") %(newrequest.fstype.getName(), newrequest.fstype.getMaxSize())
+    else:
+        return None
 
 
 # returns error string if something not right about request
@@ -299,6 +290,10 @@ def sanityCheckPartitionRequest(reqpartitions, newrequest):
     mntpt = newrequest.mountpoint
     fstype = newrequest.fstype
     reqtype = newrequest.type
+
+    rc = doPartitionSizeCheck(newrequest)
+    if rc:
+        return rc
 
     rc = sanityCheckMountPoint(mntpt, fstype, reqtype)
     if rc:
@@ -342,8 +337,8 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
             return _("This RAID device can have a maximum of %s spares. "
                      "To have more spares you will need to add members to "
                      "the RAID device.") % (len(newraid.raidmembers) - minmembers )
-
     return None
+
 
 class DeleteSpec:
     def __init__(self, drive, start, end):
