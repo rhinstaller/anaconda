@@ -345,17 +345,11 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
     partclist.set_selection_mode (SELECTION_MULTIPLE)
 
     partrow = 0
-    for part in allraidparts:
+    for (part, used) in allraidparts:
         partname = get_partition_name(part)
         partclist.append((partname,))
 
-        if reqraidpart:
-            for member in reqraidpart:
-                mempart = member.partition
-                if partname == get_partition_name(mempart):
-                    partclist.select_row(partrow, 0)
-                    break
-        else:
+        if used or not reqraidpart:
             partclist.select_row(partrow, 0)
         partrow = partrow + 1
 
@@ -999,13 +993,9 @@ class PartitionWindow(InstallWindow):
         row = 0
 
         availraidparts = get_available_raid_partitions(self.diskset,
-                                                      self.partitions.requests)
+                                                      self.partitions.requests,
+                                                       raidrequest)
 
-        # add in partitions we're currently using
-        if raidrequest.raidmembers:
-            for member in raidrequest.raidmembers:
-                availraidparts.append(member.partition)
-                
         # Mount Point entry
         maintable.attach(createAlignedLabel(_("Mount Point:")),
                                             0, 1, row, row + 1)
@@ -1110,7 +1100,7 @@ class PartitionWindow(InstallWindow):
 
             raidmembers = []
             for i in raidclist.selection:
-                raidmembers.append(PartedPartitionDevice(availraidparts[i]))
+                raidmembers.append(PartedPartitionDevice(availraidparts[i][0]))
 
             request.raidmembers = raidmembers
             request.raidspares = sparesb.get_value_as_int()

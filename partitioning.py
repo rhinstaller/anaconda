@@ -139,8 +139,9 @@ def get_raid_devices(requests):
     return raidRequests
 
 
-# returns a list of raid partitions which haven't been used in a device yet
-def get_available_raid_partitions(diskset, requests):
+# returns a list of tuples of raid partitions which can be used or are used
+# with whether they're used (0 if not, 1 if so)   eg (part, used)
+def get_available_raid_partitions(diskset, requests, request):
     rc = []
     drives = diskset.disks.keys()
     raiddevs = get_raid_devices(requests)
@@ -153,14 +154,20 @@ def get_available_raid_partitions(diskset, requests):
                 if raid.raidmembers:
                     for raidmem in raid.raidmembers:
                         if get_partition_name(part) == get_partition_name(raidmem.partition):
-                            used = 1
+                            if raid.device == request.device:
+                                used = 2
+                            else:
+                                used = 1
                             break
                 if used:
                     break
 
             if not used:
-                rc.append(part)
+                rc.append((part, 0))
+            elif used == 2:
+                rc.append((part, 1))
     return rc
+
 
 # return minimum numer of raid members required for a raid level
 def get_raid_min_members(raidlevel):

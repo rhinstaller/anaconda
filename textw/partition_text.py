@@ -335,14 +335,14 @@ class PartitionWindow:
         subgrid.setField(driveLbl, 0, 0)
         disks = self.diskset.disks.keys()
         drivelist = CheckboxTree(height=2, scroll=1)
-        avail = []
-        for disk in disks:
-            for part in get_raid_partitions(self.diskset.disks[disk]):
-                name = get_partition_name(part)
-                if request.raidmembers and name in request.raidmembers:
-                    drivelist.append(name, part, selected = 1)
-                else:
-                    drivelist.append(name, part, selected = 0)
+        avail = get_available_raid_partitions(self.diskset, self.partitions.requests, request)
+        # XXX
+        if not request.raidmembers:
+            for (part, used) in avail:
+                drivelist.append(get_partition_name(part), part, 1)
+        else:
+            for (part, used) in avail:
+                drivelist.append(get_partition_name(part), part, used)
         subgrid.setField(drivelist, 0, 1)
         return (drivelist, subgrid)
 
@@ -657,14 +657,18 @@ class PartitionWindow:
             ButtonChoiceWindow(self.screen, _("Unable to Remove"),
                       _("You must first select a partition"),
                                buttons = [ TEXT_OK_BUTTON ] )
-            return            
-        if partition.type & parted.PARTITION_FREESPACE:
+            return
+        elif type(partition) == type("RAID"):
+            device = partition
+        elif partition.type & parted.PARTITION_FREESPACE:
             ButtonChoiceWindow(self.screen, _("Unable to Remove"),
                       _("You cannot remove freespace"),
                                buttons = [ TEXT_OK_BUTTON ] )
             return
+        else:
+            device = get_partition_name(partition)
 
-        request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
+        request = self.partitions.getRequestByDeviceName(device)
 
         if request:
             self.partitions.removeRequest(request)
