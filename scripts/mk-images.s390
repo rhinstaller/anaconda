@@ -437,22 +437,11 @@ LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
 makeBootImages() {
-    echo "In mk-images.s390: kernelvers is $kernelvers"
-    if [ "$kernelvers" = "" ]; then
 	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
 	    --initrdsize 15000 \
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
-    fi
-
-    if [ "$kernelvers" = "tape" ]; then
-	makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
-	    --initrdsize 15000 \
-	    --loaderbin loader \
-	    --modules "$NETWORKMODULES"
-	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
-    fi
 }
 
 makeSecondStage() {
