@@ -522,8 +522,6 @@ def doPreInstall(method, id, intf, instPath, dir):
         if arch == "s390":
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
-	    else:
-		select(id.hdList, 'kernel')
 	elif isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')
 
