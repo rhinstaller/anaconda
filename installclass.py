@@ -204,6 +204,12 @@ class BaseInstallClass:
     def setHostname(self, id, hostname):
 	id.network.setHostname(hostname);
 
+    def setNameserver(self, id, nameserver):
+        id.network.setDNS(nameserver)
+
+    def setGateway(self, id, gateway):
+        id.network.setGateway(gateway)
+
     def setTimezoneInfo(self, id, timezone, asUtc = 0, asArc = 0):
 	id.timezone.setTimezoneInfo(timezone, asUtc, asArc)
 
@@ -249,12 +255,8 @@ class BaseInstallClass:
 
         id.auth.enableCache = enableCache
 
-    def setNetwork(self, id, bootProto, ip, netmask, gateway, nameserver,
-		   device = None):
+    def setNetwork(self, id, bootProto, ip, netmask, device = None):
 	if bootProto:
-	    id.network.gateway = gateway
-	    id.network.primaryNS = nameserver
-
 	    devices = id.network.available ()
 	    if (devices and bootProto):
 		if not device:

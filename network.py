@@ -132,6 +132,12 @@ class Network:
     def setHostname(self, hn):
 	self.hostname = hn
 
+    def setDNS(self, ns):
+        self.primaryNS = ns
+
+    def setGateway(self, gw):
+        self.gateway = gw
+
     def lookupHostname(self):
 	# can't look things up if they don't exist!
 	if not self.hostname or self.hostname == "localhost.localdomain":
