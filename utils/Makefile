@@ -4,7 +4,7 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 LOADLIBES =  -L../isys -lisys -lpopt
-CFLAGS = -Wall -g -I/usr/include/rpm
+CFLAGS = -Wall -g -I/usr/include/rpm -I..
 LDFLAGS = -g -static
 MODDEPS = moddeps
 
