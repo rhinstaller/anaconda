@@ -131,6 +131,13 @@ for n in args:
 	method = arg
         reconfigOnly = 0
         progmode = 'install'
+	if method[0] == '@':
+	    filename = method[1:]
+	    f = open(filename, "r")
+	    method = f.readline()
+	    method = method[:len(method) - 1]
+	    del f
+	    os.unlink(filename)
     elif (str == '-d' or str == '--debug'):
 	debug = 1
     elif (str == '--kickstart'):
