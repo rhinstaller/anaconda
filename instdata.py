@@ -123,6 +123,7 @@ class InstallData:
 	self.auth.writeKS(f)
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
+        self.partitions.writeKS(f)
 
 	f.write("\n%packages\n")
 	packages = {}
