@@ -17,8 +17,14 @@ struct moduleDependency_s {
     char ** deps;
 };
 
+struct loadedModuleInfo {
+    char * name;
+    char ** args;
+    int weLoaded;
+};
+
 struct moduleList_s {
-    char * modules[50];
+    struct loadedModuleInfo mods[50];
     int numModules;
 };
 
@@ -47,7 +53,9 @@ int mlReadLoadedList(moduleList * mlp) {
     	end = start;
 	while (!isspace(*end) && *end != '\n') end++;
 	*end = '\0';
-	ml->modules[ml->numModules] = strdup(start);
+	ml->mods[ml->numModules].name = strdup(start);
+	ml->mods[ml->numModules].args = NULL;
+	ml->mods[ml->numModules].weLoaded = 0;
 	*end = ' ';
 	ml->numModules++;
 	start = strchr(end, '\n');
@@ -62,8 +70,10 @@ int mlReadLoadedList(moduleList * mlp) {
 void mlFreeList(moduleList ml) {
     int i;
 
-    for (i = 0; i < ml->numModules; i++)
-        free(ml->modules[i]);
+    for (i = 0; i < ml->numModules; i++) {
+        free(ml->mods[i].name);
+	if (ml->mods[i].args) free(ml->mods[i].args);
+    }
     free(ml);
 }
 
@@ -185,8 +195,11 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     sprintf(fileName, "%s.o", modName);
 
     rc = insmod(fileName, NULL);
-    if (!rc)
-	modLoaded->modules[modLoaded->numModules++] = strdup(modName);
+    if (!rc) {
+	modLoaded->mods[modLoaded->numModules++].name = strdup(modName);
+	modLoaded->mods[modLoaded->numModules++].args = NULL;
+	modLoaded->mods[modLoaded->numModules++].weLoaded = 0;
+    }
 
     return rc;
 }
@@ -207,7 +220,55 @@ int mlModuleInList(const char * modName, moduleList list) {
     if (!list) return 0;
 
     for (i = 0; i < list->numModules; i++)
-        if (!strcmp(list->modules[i], modName)) return 1;
+        if (!strcmp(list->mods[i].name, modName)) return 1;
+
+    return 0;
+}
+
+int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
+    int i;
+    struct loadedModuleInfo * lm;
+    char buf[200], buf2[200];
+    struct moduleInfo * mi;
+    int scsiNum = 0;
+    int ethNum = 0;
+
+    if (!list) return 0;
+
+    for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
+    	if (!lm->weLoaded) continue;
+	if ((mi = isysFindModuleInfo(modInfo, lm->name))) {
+	    strcpy(buf, "alias ");
+	    switch (mi->major) {
+	      case DRIVER_SCSI:
+	      	if (scsiNum)
+		    sprintf(buf2, "scsi_hostadapter%d ", scsiNum);
+		else
+		    strcpy(buf2, "scsi_hostadapter ");
+		scsiNum++;
+		strcat(buf, buf2);
+		break;
+
+	      case DRIVER_NET:
+	        switch (mi->minor) {
+		  case DRIVER_MINOR_ETHERNET:
+		      sprintf(buf2, "eth%d ", ethNum++);
+		      strcat(buf, buf2);
+		      break;
+		  case DRIVER_MINOR_TR:
+		      strcat(buf, "tr ");
+		      break;
+		  default:
+		}
+
+	      default:
+	    }
+
+	    strcat(buf, lm->name);
+	    strcat(buf, "\n");
+	    write(fd, buf, strlen(buf));
+	}
+    }
 
     return 0;
 }

@@ -590,6 +590,19 @@ int main(int argc, char ** argv) {
     }
     pciProbe(modInfo, modLoaded, modDeps, 0, &kd);
 
+    if (!FL_TESTING(flags)) {
+        int fd;
+
+	fd = open("/tmp/conf.modules", O_WRONLY | O_CREAT, 0666);
+	if (fd < 0) {
+	    logMessage("error creating /tmp/conf.modules: %s\n", 
+	    	       strerror(errno));
+	} else {
+	    mlWriteConfModules(modLoaded, modInfo, fd);
+	    close(fd);
+	}
+    }
+
     stopNewt();
     closeLog();
 
