@@ -433,7 +433,7 @@ EndSection
 Section "Screen"
     Driver      "fbdev"
     Device      "Generic VGA Card"
-    Monitor     "%(monitorID)s"
+    Monitor     "%(fbmonitorID)s"
     Subsection  "Display"
 #        Depth       16
         Depth      %(fbDepth)s
@@ -611,7 +611,6 @@ class XF86Config:
         self.res = resolution
         self.manualModes = {}
         self.fallbackModes = {}
-
 
         monsyncknown = (self.monitor.getMonitorHorizSync() != None) and (self.monitor.getMonitorVertSync() != None)
 
@@ -942,7 +941,7 @@ class XF86Config:
             return
 
         servername = self.videocard.getXServer()
-            
+
         if not servername:
             return
 
@@ -960,7 +959,9 @@ class XF86Config:
                 fbmonsect = self.monitor.getFBMonitorSection()
 
                 if fbmonsect:
-                    self.manualModes[str(fbmonsect[3])] = fbmonsect[2]
+                    print fbmonsect
+                    self.manualModes = self.monitor.getFBMonitorMode()
+                    print "set to ",self.manualModes
                 elif self.videocard.hasFixedMode():
                     self.manualModes = self.videocard.FixedMode()
                 else:
@@ -1006,9 +1007,8 @@ class XF86Config:
 
         # restore manualmodes
         self.manualModes = manmodes
-
         serverPath = "/usr/X11R6/bin/" + servername
-
+        
         serverpid = os.fork()
 
         if (not serverpid):
@@ -1153,6 +1153,13 @@ Section "Screen"
             mouseProto = "PS/2"
         else:
             mouseProto = self.mouse.info['XMOUSETYPE']
+
+        fbprobemon = monitor.getFBMonitorSection()
+        if fbprobemon != "":
+            fbmonid = "Probed Monitor"
+        else:
+            fbmonid = monitor.getMonitorID()
+            
         info = { "acceleratedDevices" : devices,
                  "acceleratedScreens" : screens,
                  "devID"              : card.getDevID(),
@@ -1168,15 +1175,18 @@ Section "Screen"
                  "monitorID"	      : monitor.getMonitorID(),
                  "monitorHoriz"       : monitor.getMonitorHorizSync(),
                  "monitorVert"        : monitor.getMonitorVertSync(),
-                 "fbProbedMonitor"    : monitor.getFBMonitorSection(),
+                 "fbProbedMonitor"    : fbprobemon,
+                 "fbmonitorID"        : fbmonid,
                  "files"              : self.files,
                  }
 
         # HACK if no frame buffer running just wing it
-        if card.getFBBpp():
-            info["fbDepth"] = card.getFBBpp()
-        else:
-            info["fbDepth"] = 8
+#        if card.getFBBpp():
+#            info["fbDepth"] = card.getFBBpp()
+#        else:
+#            info["fbDepth"] = 8
+
+        info["fbDepth"] = self.fbDepth
         
         if self.keyVariant:
             info["enableVariant"] = ""
