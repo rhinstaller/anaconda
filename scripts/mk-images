@@ -755,8 +755,11 @@ makedriverdisk () {
     fi
 
     if [ -d $KERNELROOT/lib/modules/$version/pcmcia ]; then
-	PCMCIAMODULES=$(cd $KERNELROOT/lib/modules/$version/pcmcia; ls *.o |
-	    sed 's/\.o//g')
+	# This gets all of the modules in the pcmcia directory, as well as
+	# everything mentioned in /etc/pcmcia/config
+	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config;
+	 cd $KERNELROOT/lib/modules/$version/pcmcia; ls *.o | sed 's/\.o//g') |
+	    sort -u)
     fi
 
     allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
