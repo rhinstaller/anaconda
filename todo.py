@@ -347,6 +347,7 @@ class ToDo:
 	    asArc = 0
 
 	f = open(self.instPath + "/etc/sysconfig/clock", "w")
+	f.write('ZONE="%s"\n' % timezone)
 	f.write("UTC=")
 	if (asUtc):
 	    f.write("true\n")
