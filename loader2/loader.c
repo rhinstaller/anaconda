@@ -630,12 +630,25 @@ static void checkForRam(int flags) {
     }
 }
 
-static int haveDeviceOfType(int type) {
+static int haveDeviceOfType(int type, moduleList modLoaded) {
     struct device ** devices;
 
     devices = probeDevices(type, BUS_UNSPEC, 0);
-    if (devices)
-        return 1;
+    if (devices) {
+        int i;
+        for (i = 0; devices[i]; i++) {
+            if (devices[i]->driver && mlModuleInList(devices[i]->driver,
+                                                     modLoaded)) {
+                logMessage("devices[%d] is %s - %s using %s (loaded)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
+                return 1;
+            } else if (!devices[i]->driver) {
+                logMessage("devices[%d] is %s - %s using %s (no driver)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
+                return 1;
+            } else {
+                logMessage("devices[%d] is %s - %s using %s (not loaded)", i, devices[i]->desc, devices[i]->device, devices[i]->driver);
+            }
+        }
+    }
     return 0;
 }
 
@@ -798,7 +811,7 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_DRIVER: {
-            if (needed == -1 || haveDeviceOfType(needed)) {
+            if (needed == -1 || haveDeviceOfType(needed, modLoaded)) {
                 step = STEP_NETWORK;
                 dir = 1;
                 needed = -1;
@@ -858,7 +871,7 @@ static char *doLoaderMain(char * location,
             }
 
             needsNetwork = 1;
-            if (!haveDeviceOfType(CLASS_NETWORK)) {
+            if (!haveDeviceOfType(CLASS_NETWORK, modLoaded)) {
                 needed = CLASS_NETWORK;
                 step = STEP_DRIVER;
                 break;
