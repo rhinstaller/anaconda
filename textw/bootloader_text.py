@@ -252,8 +252,11 @@ class BootloaderImagesWindow:
 	if (result == TEXT_BACK_CHECK):
 	    return INSTALL_BACK
 
-	for (dev, (label, type)) in images.items():
-	    bl.images.setImageLabel(dev, label)
+	for (dev, (label, longlabel, type)) in images.items():
+            if not bl.useGrub():
+                bl.images.setImageLabel(dev, label)
+            else:
+                bl.images.setImageLabel(dev, longlabel)
 	bl.images.setDefault(default)
 
 	return INSTALL_OK
