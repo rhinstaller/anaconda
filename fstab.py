@@ -205,6 +205,7 @@ class Fstab:
         self.ddruid.setReadOnly(readOnly)
 
     def savePartitions(self):
+        import sys
 	try:
 	    self.ddruid.save()
 	except SystemError:
