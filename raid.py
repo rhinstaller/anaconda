@@ -5,6 +5,9 @@ import isys
 import os
 
 def scanForRaid(drives):
+    raidSets = {}
+    raidDevices = {}
+
     for d in drives:
 	isys.makeDevInode(d, "/tmp/" + d)
 	try:
@@ -13,8 +16,6 @@ def scanForRaid(drives):
 	    parts = []
 
 	os.remove("/tmp/" + d)
-	raidSets = {}
-	raidDevices = {}
 	for i in range(0, len(parts) - 1):
 	    (type, start, size) = parts[i]
 	    if type != 7: continue
@@ -30,27 +31,30 @@ def scanForRaid(drives):
 		if knownLevel != level or knownDisks != totalDisks or \
 		   knownMinor != mdMinor:
 		       # Raise hell
-		       pass
+		    raise SystemError, "raid set inconsistency for md%d" % \
+				(mdMinor)
 		knownDevices.append(dev)
+		raidSets[raidSet] = (knownLevel, knownDisks, knownMinor,
+				     knownDevices)
 	    else:
 		raidSets[raidSet] = (level, totalDisks, mdMinor, [dev,])
 
 	    if raidDevices.has_key(mdMinor):
 	    	if (raidDevices[mdMinor] != raidSet):
-		    # Raise hell
-		    pass
+		    raise SystemError, "raid set inconsistency for md%d" % \
+				(mdMinor)
 	    else:
 	    	raidDevices[mdMinor] = raidSet
 
-	raidList = []
-	for key in raidSets.keys():
-	    (level, totalDisks, mdMinor, devices) = raidSets[key]
-	    if len(devices) != totalDisks:
-	    	# raise hell
-		pass
-	    raidList.append((mdMinor, devices))
+    raidList = []
+    for key in raidSets.keys():
+	(level, totalDisks, mdMinor, devices) = raidSets[key]
+	if len(devices) != totalDisks:
+	    str = "missing components of raid device md%d" % (mdMinor,)
+	    raise SystemError, str
+	raidList.append((mdMinor, devices))
 
-	return raidList
+    return raidList
 		
 def startAllRaid(driveList):
     mdList = []
