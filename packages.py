@@ -278,6 +278,9 @@ def checkDependencies(dir, intf, disp, id, instPath):
 #else:
 
 class InstallCallback:
+    def packageDownloadCB(self, state,  amount):
+	self.progress.setPackageStatus(state, amount)
+    
     def cb(self, what, amount, total, h, (param)):
 	# first time here means we should pop the window telling
 	# user to wait until we get here
@@ -317,7 +320,8 @@ class InstallCallback:
 
 	    while self.rpmFD < 0:
 		try:
-                    fn = self.method.getFilename(h, self.pkgTimer)
+                    fn = self.method.getFilename(h, self.pkgTimer,
+			 callback=self.packageDownloadCB)
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 
                     # Make sure this package seems valid
@@ -347,7 +351,7 @@ class InstallCallback:
 			  "Press <return> to try again.") % (h['name'],
                                                              h['version'],
                                                              h['release']))
-
+	    self.progress.setPackageStatus(_("Installing..."), None)
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
 	elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
