@@ -438,7 +438,7 @@ class MonitorWindow (InstallWindow):
 	self.currentMonitor = monitorname
 
         parent = None
-        iter = self.monitorstore.get_iter_root()
+        iter = self.monitorstore.get_iter_first()
         next = 1
 
         # iterate over the list, looking for the current monitor selection
@@ -829,12 +829,12 @@ class XConfigWindow (InstallWindow):
 	
 	return 1
 
-    def setCurrent(self, cardname, recenter=1):
+    def setCurrent(self, cardname, currentMem, recenter=1):
         self.ignoreEvents = 1
         self.currentCard = cardname
 
         parent = None
-        iter = self.cardstore.get_iter_root()
+        iter = self.cardstore.get_iter_first()
         next = 1
         # iterate over the list, looking for the current mouse selection
         while next:
@@ -867,7 +867,7 @@ class XConfigWindow (InstallWindow):
 
         #--Some video cards don't return exact numbers, so do some hacks
         try:
-            vidRam = string.atoi (self.currentMem)
+            vidRam = string.atoi (currentMem)
         except:
             vidRam = 1024
 
