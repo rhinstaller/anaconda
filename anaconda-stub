@@ -1,0 +1,27 @@
+#!/bin/sh
+
+rm /bin/loader
+cd /tmp
+mkdir lib
+cd lib
+uncpio < /usr/lib/python1.5.cgz
+cd /usr/lib
+ln -s /tmp/lib/python1.5 python1.5
+rm python1.5.cgz
+
+cd /tmp
+uncpio < /usr/bin/python1.5.cgz 
+chmod 0755 python1.5
+cd /usr/bin
+rm python1.5.cgz
+ln -s /tmp/python1.5 /usr/bin/python1.5
+
+cd /usr/lib
+for n in *.cgz; do
+    uncpio < $n
+    rm $n
+done
+
+cd /
+
+exec /usr/bin/anaconda.real -T $*

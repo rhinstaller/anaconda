@@ -6,23 +6,54 @@ if [ -z "$1" -o ! -d "$1" ]; then
 	exit 1
 fi
 
-SRC=$1/RedHat/RPMS
-DEST=../../../RedHat/instimage
+pythondeps() {
+        DIR=$1
 
-PACKAGES="e2fsprogs-1 glibc-2 ldconfig setup 
-          XFree86-libs XFree86-SVGA XFree86-FBDev XFree86-75dpi-fonts
-          XFree86-3. xpm-3 glib- gtk+- gnome-libs slang python-1 newt
-          imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm
-          rpm-devel bash- pygtk- pygnome- util-linux procps
-          esound-0 audiofile-0 bzip2"
+	cp /usr/bin/strace $DIR
+
+	(cd $DIR; \
+	    chroot . strace -o straceout.$$ \
+		usr/bin/anaconda -p /mnt/source --test --text --traceonly
+	)
+
+	((cat $DIR/straceout.$$ |
+	    grep ^open | grep '= [0-9]' | sed 's/[^"]*"//' | sed 's/".*//' |
+	    sort -u | grep /usr/lib/python
+	) ;  \
+	(cd $DIR;
+	    find usr/lib/python* -type f | sed 's,^,/,' \
+	)) | sort | uniq -u |
+	\
+	    sed s,^,./, | while read fn; do
+		[ ! -d $DIR/$fn ] && rm $DIR/$fn
+	    done
+
+	rm -f $DIR/strace $DIR/straceout.$$
+}
+
+SRC=$1/RedHat/RPMS
+
+cd ../trees/hdimage
+DEST=$PWD
+cd -
+
+cd ../../../RedHat/instimage
+DESTGR=$PWD
+cd -
+
+echo "DEST is $DEST"
+echo "DESTGR is $DESTGR"
+
+PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
+          XFree86-FBDev XFree86-75dpi-fonts XFree86-3. xpm-3 glib-
+          gtk+- gnome-libs slang python-1 newt imlib-1 libpng libtiff
+          libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk-
+          pygnome- util-linux procps esound-0 audiofile-0 bzip2 strace"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
-etc/im_palette.pal
-etc/imrc
-sbin/e2fsck
+sbin/mkfs.ext2
 sbin/mke2fs
-sbin/fsck*
 etc/nsswitch.conf
 lib/ld-*
 lib/libNoVersion*
@@ -31,13 +62,55 @@ lib/libm*
 lib/libcrypt*
 lib/libdl*
 lib/libdb1*
+lib/libnsl*
 lib/libnss_files*
 lib/libpthread*
 lib/libresolv*
-sbin/ldconfig
 etc/group
 etc/passwd
 etc/services
+usr/lib/libslang*
+usr/bin/python*
+usr/bin/strace
+usr/lib/python*
+usr/lib/libnewt*
+lib/libtermcap*
+usr/lib/libz.*
+usr/lib/rpm/rpmpopt
+usr/lib/rpm/macros
+usr/lib/rpm/rpmrc
+usr/lib/librpm.so*
+bin/ash
+bin/mkfs*
+bin/fdisk*
+sbin/badblocks
+lib/libcom_err*
+lib/libe2p*
+lib/libext2fs*
+lib/libss*
+lib/libuuid*
+usr/lib/libbz2.so*
+EOF
+
+KEEPFILEGR=/tmp/keepfilegr.$$
+cp $KEEPFILE $KEEPFILEGR
+cat >> $KEEPFILEGR <<EOF
+bin/bash
+bin/ps
+lib/libproc*
+bin/rpm
+usr/lib/rpm/rpmpopt
+etc/im_palette.pal
+etc/imrc
+usr/lib/libesd*
+usr/lib/libaudio*
+usr/lib/libImlib*
+usr/lib/gdkimlib*
+usr/lib/libimlib-pnm*
+usr/lib/libimlib-xpm*
+usr/lib/libpng*
+usr/lib/libtiff*
+usr/lib/libjpeg*
 usr/X11R6/lib/libICE*
 usr/X11R6/lib/libSM*
 usr/X11R6/lib/libX11*
@@ -75,39 +148,8 @@ usr/share/pixmaps/gnome-question.png
 usr/share/pixmaps/gnome-warning.png
 usr/share/pixmaps/no.xpm
 usr/share/pixmaps/yes.xpm
-usr/lib/libslang*
-usr/bin/python*
-usr/lib/python*
-usr/lib/libnewt*
-usr/lib/libImlib*
-usr/lib/gdkimlib*
-usr/lib/libimlib-pnm*
-usr/lib/libimlib-xpm*
-usr/lib/libpng*
-lib/libtermcap*
-usr/lib/libtiff*
-usr/lib/libjpeg*
-usr/lib/libz.*
-bin/rpm
-usr/lib/rpm/*
-usr/lib/librpm*
-bin/bash
-bin/sh
-bin/mkfs*
-bin/fdisk*
-bin/ps
-lib/libproc*
-sbin/badblocks
-lib/libcom_err*
-lib/libe2p*
-lib/libext2fs*
-lib/libss*
-lib/libuuid*
 usr/bin/chattr*
 usr/bin/lsattr*
-usr/lib/libesd*
-usr/lib/libaudio*
-usr/lib/libbz2.so*
 EOF
 
 for I in $PACKAGES; do
@@ -122,29 +164,72 @@ for I in $PACKAGES; do
     done
 done
 
-rm -rf $DEST
-mkdir -p $DEST/usr/sbin
+rm -rf $DEST; mkdir -p $DEST/usr/sbin
+rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin
 
 for n in $RPMS; do 
     echo "expanding $n"
-    rpm2cpio $n | (cd `pwd`/$DEST; cpio -E $KEEPFILE --quiet -ivumd)
+    rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
+    rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
 done
 
-find $DEST -type d | xargs chmod 755
+rm -f $KEEPFILE $KEEPFILEGR
 
-rm -f $KEEPFILE
+for p in $DEST $DESTGR; do
+	find $p -type d | xargs chmod 755
 
-mv $DEST/bin/* $DEST/usr/bin
-mv $DEST/sbin/* $DEST/usr/sbin
-rmdir $DEST/bin
-rmdir $DEST/sbin
+	if [ -f $p/bin/bash ]; then
+	    rm -f $p/bin/ash
+	    ln -s bash $p/bin/sh
+	else
+	    ln -s ash $p/bin/sh
+	fi
 
-rm -rf $DEST/bin $DEST/sbin $DEST/boot $DEST/home $DEST/root $DEST/tmp
+	(cd $p/bin; tar cSpf - .) | (cd $p/usr/bin; tar xSpf -)
+	(cd $p/sbin; tar cSpf - .) | (cd $p/usr/sbin; tar xSpf -)
+	rm -rf $p/bin
+	rm -rf $p/sbin
+
+	rm -rf $p/boot $p/home $p/root $p/tmp
+
+	cp /sbin/ldconfig $p
+	(cd $p; chroot $p ./ldconfig \
+		$([ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib) )
+	rm -f $p/ldconfig
+
+	find $p -name "*.so" | xargs strip
+
+	find $p -name "*.py" | while read fn; do
+	    if [ -f ${fn}c ]; then
+		rm -f $fn
+	    fi
+	done
+done
 
 # Xserver needs a place to put the compiled xkb maps.
-rm -rf $DEST/usr/X11R6/lib/X11/xkb/compiled
-ln -s /tmp $DEST/usr/X11R6/lib/X11/xkb/compiled
+rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 
-make install
+make install DESTDIR=$DEST > /dev/null
+make install DESTDIR=$DESTGR > /dev/null
 
-(cd $DEST; chroot . usr/sbin/ldconfig -v /usr/X11R6/lib )
+pythondeps $DEST
+
+# this is only for the minimal second stage
+
+	cd $DEST/usr/lib
+	find python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
+	rm -rf python1.5
+	ls libnewt* libslang* | cpio --quiet -H crc -o | 
+		gzip -9 > slang-newt.cgz
+	rm -f libnewt* libslang*
+	cd -
+
+	cd $DEST/usr/bin
+	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
+	rm -f python python1.5
+	ln -s python1.5 python
+	mv anaconda anaconda.real
+	cd -
+
+	cp -a anaconda-stub $DEST/usr/bin/anaconda
