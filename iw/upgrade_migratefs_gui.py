@@ -87,7 +87,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         sw.add_with_viewport(cbox)
         sw.set_size_request(-1, 175)
         
-        viewport = sw.children()[0]
+        viewport = sw.get_children()[0]
         viewport.set_shadow_type(gtk.SHADOW_IN)
         
         a = gtk.Alignment(0.25, 0.5)
