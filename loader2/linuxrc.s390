@@ -23,7 +23,7 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-VERSION=1.01
+VERSION=1.1
 
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
@@ -59,6 +59,18 @@ startinetd()
 			[ $? = 0 ] || break
 	  done
 	fi
+}
+
+setupdevice()
+{
+   if [ -z "$CCWDEV" -o -z "$DIRNAME" ]; then
+      echo $"CCWDEV and DIRNAME empty, cannot continue."
+      exit 1
+   fi
+   SYSDIR=${CCWDEV//,*/}   # get first subchannel. This is where the device can be brought online
+   echo "$CCWDEV"  >/sys/bus/ccwgroup/drivers/${DIRNAME}/group
+   [ -n "$PORTNAME" ] && echo "$PORTNAME" > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname
+   echo 1 > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online
 }
 
 S390ARCH=`uname -m`
@@ -107,56 +119,48 @@ LO=""
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
-while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
-	echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
-	read HOSTNAME
-done
 while [ -z "$NETTYPE" ]; do
-	echo $"Enter which kind of network device do you intend to use"
-   echo " (e.g. ctc, escon, iucv, eth, hsi, tr):"
+	echo $"Which kind of network device do you intend to use"
+   echo $"  (e.g. ctc, escon, iucv, eth, hsi, lcs, tr)."
+   echo $"Enter 'eth' for OSA-Express Fast Ethernet, Gigabit Ethernet"
+   echo $"  (including 1000Base-T), High Speed Token Ring, and ATM "
+   echo $"  (running Ethernet LAN emulation) features in QDIO mode."
+   echo $"Enter 'hsi' for Guest LANs using virtual HiperSockets or"
+   echo $"  HiperSockets."
 	read NETTYPE
 done
 DEVICE=${NETTYPE}0
-if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chandev config
-   while [ -z "$CHANDEV" ]; do
-		echo $"Enter parameters you need to pass to the channel device layer."
-		echo $"This includes the I/O ports of your ctc, escon, qeth, hsi and lcs devices."
-		echo $"(e.g. \"ctc0,0x600,0x601\" will activate the ctc0 interface at I/O"
-		echo $"ports 0x600,0x601)"
-		echo $"Hipersocket interfaces need to be configured like qeth devices,"
-		echo $"p.e. qeth0,0x3000,0x3001,0x3002"
-		echo $"Additional parameters for QETH devices such as the portname"
-		echo $"should be entered at the next prompt, not here !"
-		read CHANDEV
+if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
+   while [ -z "$CCWDEV" ]; do
+		echo $"Enter the bus ID and the device number of your CCW devices."
+		echo $"CTC, ESCON and LCS need two subchannels:"
+		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
+		echo $"with the subchannels 0x600 and 0x601)"
+		echo $"QETH and HSI need three subchannels p.e. 0.0.03000,0.0.03001,0.0.03002"
+		read CCWDEV
    done
-   echo "$CHANDEV" |grep -q "qeth"
-	if [ "$?" = "0" ]; then
-		if [ -z "$QETHPARM" ]; then
+	if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+		if [ -z "$PORTNAME" ]; then
 			echo $"Each OSA-Express feature in QDIO mode must be associated with a port name"
 			echo $"Enter additional parameters for your QETH device"
 			echo $"(e.g. \"add_parms,0x10,{lo_devno,hi_devno},portname:port_name\")"
 			echo $"Press enter if you don't want to enter additional parameters"
-			read QETHPARM
-			if [ -z "$QETHPARM" ]; then
-				echo $"You have been warned, but this will not work without an associated portname"
-			fi
+			read PORTNAME
 		fi
+      DIRNAME="qeth"
+   elif [ "$NETTYPE" = "ctc" -o "$NETTYPE" = "escon" ]; then
+      DIRNAME="ctc"
+   elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
+      DIRNAME="lcs"
    fi
-   echo "$CHANDEV" |grep -q "hsi"
-	if [ "$?" = "0" ]; then
-		if [ -z "$QETHPARM" ]; then
-			echo $"Enter additional parameters for your HSI device"
-			echo $"(e.g. \"add_parms,0x10,{lo_devno,hi_devno},portname:port_name\")"
-			echo $"Press enter if you don't want to enter additional parameters"
-			read QETHPARM
-		fi
-	fi
-	[ -n "$CHANDEV" ] && insmod ccwgroup$LO
-	[ -n "$CHANDEV" ]  && echo "noauto" >/proc/chandev
-	[ -n "$CHANDEV" ]  && echo "$CHANDEV"  >/proc/chandev
-   [ -n "$QETHPARM" ] && echo "$QETHPARM" >/proc/chandev
-	[ -n "$CHANDEV" ]  && echo "reprobe" >/proc/chandev
+      
+else
+   DIRNAME="iucv"
 fi
+while [ -z "$HOSTNAME" -o "$HOSTNAME" = "(none)" ]; do
+	echo $"Enter the FQDN of your new Linux guest (e.g. s390.redhat.com):"
+	read HOSTNAME
+done
 while [ -z "$IPADDR" ]; do
   echo $"Enter the IP address of your new Linux guest:"
   read IPADDR
@@ -165,7 +169,7 @@ while [ -z "$NETWORK" ]; do
   echo $"Enter the network address of the new Linux guest:"
   read NETWORK
 done
-if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ] || [ ":$NETTYPE" = ":lcs" ]; then
+if [ "$NETTYPE" = "eth" ] || [ "$NETTYPE" = "tr" ] || [ "$NETTYPE" = "hsi" ] || [ "$NETTYPE" = "lcs" ]; then
 	 while [ -z "$NETMASK" ]; do
 		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
 		  read NETMASK
@@ -178,21 +182,6 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi"
 		  echo $"Enter your default gateway:"
 		  read GATEWAY
 	 done
-    if echo "$CHANDEV" |grep -q "lcs"; then
-		  if [ ":$NETTYPE" = ":tr" ]; then
-			   TR="on"
-        else
-            LCS="on"
-        fi
-    fi
-    # qeth and nettype!= eth  is hipersockets ! 
-    if echo "$CHANDEV" |grep -q "qeth"; then
-        if [ ":$NETTYPE" = ":eth" ]; then
-            QETH="on"
-		  elif [ ":$NETTYPE" = ":hsi" ]; then
-			   HSI="on"
-		  fi
-    fi
 else  # ctc0, escon0, iucv0
     if [ -z "$NETMASK" ]; then
         # If the user did not supply netmask, we add the right one.
@@ -200,7 +189,7 @@ else  # ctc0, escon0, iucv0
         NETMASK="255.255.255.255"
     fi
 	 while [ -z "$GATEWAY" ]; do
-		  echo $"Enter the IP of your ctc/escon/iucv point-to-point partner:"
+		  echo $"Enter the IP of your CTC / ESCON / IUCV point-to-point partner:"
 		  read GATEWAY
 	 done
 
@@ -227,11 +216,12 @@ if [ -n "$MTU" -a -z "$MMTU" ]; then
 fi
 
 # configure network-interface
-KERNELVERSION=`cat /proc/version | awk '{ print $3 }'`
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 	insmod cu3088$LO
 	insmod fsm$LO
+   insmod ccwgroup$LO
 	insmod ctc$LO
+   setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod fsm$LO
@@ -241,17 +231,18 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	if [ -n "$IUCV" ]; then
 		 echo "options netiucv $IUCV" >> /tmp/modules.conf
 	fi
-elif [ -n "$LCS" -o -n "$TR" ]; then
+elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
+   insmod ccwgroup$LO
 	insmod lcs$LO
+   setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
    echo "alias $DEVICE lcs" >> /tmp/modules.conf
-elif [ -n "$QETH" -o -n "$HSI" ]; then
-	if [ "$DEVICE" = "eth0" -a "$HSI" = "on" ]; then
-		DEVICE="hsi0"
-	fi
+elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+   insmod ccwgroup$LO
 	insmod qdio$LO
 	insmod qeth_mod$LO
+   setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 	echo "alias $DEVICE qeth" >> /tmp/modules.conf
@@ -318,8 +309,7 @@ LANG="$LANG"
 S390ARCH="$S390ARCH"
 TEXTDOMAIN="$TEXTDOMAIN"
 TEXTDOMAINDIR="$TEXTDOMAINDIR"
-CHANDEV="$CHANDEV"
-QETHPARM="$QETHPARM"
+PORTNAME="$PORTNAME"
 HOSTNAME="$HOSTNAME"
 DEVICE="$DEVICE"
 NETTYPE="$NETTYPE"
@@ -331,17 +321,12 @@ NETMASK="$NETMASK"
 BROADCAST="$BROADCAST"
 DNS="$DNS"
 SEARCHDNS="$SEARCHDNS"
-LCS="$LCS"
-QETH="$QETH"
-HSI="$HSI"
-TR="$TR"
 IUCV="$IUCV"
 ONBOOT="yes"
-export LANG CHANDEV QETHPARM S390ARCH TEXTDOMAIN TEXTDOMAINDIR HSI
+export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
 export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
 export NETWORK NETMASK BROADCAST DNS SEARCHDNS
-export LCS QETH IUCV ONBOOT
-export TR
+export IUCV ONBOOT CCWDEV
 EOF
 # immediately read it in again to export these into the shell below
 . /tmp/install.cfg
