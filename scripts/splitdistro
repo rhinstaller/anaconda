@@ -22,10 +22,12 @@ import getopt
 import time
 import types
 
-def stamp(path, releasestr, name, arch, startedAt):
-    f = open("%s/.%s-%s" % (path, name, arch), "w")
+def stamp(path, releasestr, num, arch, startedAt):
+    f = open("%s/.discinfo" % path, "w")
     f.write("%f\n" % startedAt)
-    f.write("%s %s\n" % (releasestr, name))
+    f.write("%s\n" % releasestr)
+    f.write("%s\n" % arch)
+    f.write("%s\n" % name)
     f.close()
 
 def moveFiles(srcDir, destDir, files):
@@ -182,10 +184,10 @@ os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" %
 print "Creating disc1..."
 
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
-stamp(disc1Dir, releasestr, "disc1", arch, startedAt)
+stamp(disc1Dir, releasestr, "1", arch, startedAt)
 
 print "Creating disc2..."
-stamp(disc2Dir, releasestr, "disc2", arch, startedAt)
+stamp(disc2Dir, releasestr, "2", arch, startedAt)
 
 for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
@@ -199,7 +201,7 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 disc1Size = spaceUsed(disc1Dir)
 
 print "Creating disc3..."
-stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
+stamp(disc3Dir, releasestr, "3", arch, startedAt)
 
 for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
@@ -216,7 +218,7 @@ print "Creating first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, releasestr, "disc4", arch, startedAt)
+stamp(disc2SrcDir, releasestr, "4", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
@@ -228,7 +230,7 @@ moveFiles("%s/SRPMS" % disc1SrcDir,
 srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
-stamp(disc2SrcDir, releasestr, "disc5", arch, startedAt)
+stamp(disc2SrcDir, releasestr, "5", arch, startedAt)
 disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
                         srcDisc1Size - disc3used + targetSize - fudgeFactor)
 moveFiles("%s/SRPMS" % disc2SrcDir,

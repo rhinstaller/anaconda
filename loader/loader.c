@@ -832,8 +832,8 @@ char *getReleaseDescriptorFromIso(char *file) {
     errno = 0;
     stampfile = NULL;
     while ((ent = readdir(dir))) {
-	if (!strncmp(ent->d_name, ".disc", 4)) {
-	    stampfile = strdup(ent->d_name);
+	if (!strncmp(ent->d_name, ".discinfo", 9)) {
+	    stampfile = strdup(".discinfo");
 	    break;
 	}
     }
@@ -846,17 +846,14 @@ char *getReleaseDescriptorFromIso(char *file) {
 	if (f) {
 	    char *tmpptr;
 
+	    /* skip over time stamp line */
 	    tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+	    /* now read OS description line */
 	    if (tmpptr)
 		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
 	    fclose(f);
-
-	    if (tmpptr >= 0 && strlen(tmpstr) > 0) {
-		for (ptr = tmpstr+strlen(tmpstr) - 1; 
-		     ptr != tmpstr && isspace(*ptr); ptr--);
-		*(ptr+1) = '\0';
+	    if (tmpptr)
 		descr = tmpstr;
-	    }
 	}
     }
 

@@ -91,8 +91,7 @@ class CdromInstallMethod(ImageInstallMethod):
         elif h[1000002] != self.currentDisc:
 	    timer.stop()
 
-	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
-	    f = open("/mnt/source/" + key)
+	    f = open("/mnt/source/.discinfo")
 	    timestamp = f.readline()
 	    f.close()
 
@@ -100,7 +99,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	    isys.umount("/mnt/source")
 
 	    done = 0
-	    key = "/mnt/source/.disc%d-%s" % (self.currentDisc, iutil.getArch())
 
 	    cdlist = []
 	    for (dev, something, descript) in \
@@ -112,20 +110,31 @@ class CdromInstallMethod(ImageInstallMethod):
 		try:
 		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
 			       readOnly = 1):
-			if os.access(key, os.O_RDONLY):
-			    f = open(key)
+			if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+			    f = open("/mnt/source/.discinfo")
 			    newStamp = f.readline()
+                            try:
+                                descr = f.readline()
+                            except:
+                                descr = None
+                            try:
+                                arch = f.readline()
+                            except:
+                                arch = None
+                            try:
+                                discNum = string.atoi(f.readline())
+                            except:
+                                discNum = 0
 			    f.close()
-			    if newStamp == timestamp:
+			    if (newStamp == timestamp and
+                                arch == iutil.getArch() and
+                                discNum == self.currentDisc):
 				done = 1
 
 			if not done:
 			    isys.umount("/mnt/source")
 		except:
 		    pass
-
-		if done:
-		    break
 
 		if done:
 		    break
@@ -144,11 +153,26 @@ class CdromInstallMethod(ImageInstallMethod):
 			isys.mount(self.device, "/mnt/source", 
 				   fstype = "iso9660", readOnly = 1)
 		    
-		    if os.access(key, os.O_RDONLY):
-			f = open(key)
+
+                    if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+                        f = open("/mnt/source/.discinfo")
 			newStamp = f.readline()
+                        try:
+                            descr = f.readline()
+                        except:
+                            descr = None
+                        try:
+                            arch = f.readline()
+                        except:
+                            arch = None
+                        try:
+                            discNum = string.atoi(f.readline())
+                        except:
+                            discNum = 0
 			f.close()
-			if newStamp == timestamp:
+                        if (newStamp == timestamp and
+                            arch == iutil.getArch() and
+                            discNum == self.currentDisc):
 			    done = 1
                             # make /tmp/cdrom again so cd gets ejected
                             isys.makeDevInode(self.device, "/tmp/cdrom")
@@ -226,8 +250,19 @@ def findIsoImages(path, messageWindow):
 	    isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660",
 		       readOnly = 1)
 	    for num in range(1, 10):
-		discTag = "/mnt/cdimage/.disc%d-%s" % (num, arch)
-		if os.access(discTag, os.R_OK):
+		if os.access("/mnt/cdimage/.discinfo", os.R_OK):
+                    f = open("/mnt/cdimage/.discinfo");
+                    try:
+                        f.readline() # skip timestamp
+                        f.readline() # skip release description
+                        discArch = f.readline() # read architecture
+                        discNum = string.atoi(f.readline()) # read disc number
+                    except:
+                        discArch = None
+                        discNum = 0
+                    if discNum != num or discArch != arch:
+                        continue
+                    
 		    import stat
 
 		    # warn user if images appears to be wrong size
