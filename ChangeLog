@@ -1,5 +1,12 @@
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.writeKS): Improve quoting of fstypes.
+	Patch from Danen Brücker <dbrucker AT modwest DOT com> on
+	anaconda-devel-list
+
+	* iw/progress_gui.py: Remove old InstallProgressWindow class to
+	avoid confusion with dead code
+
 	* scripts/mk-images (makeinitrd): Remove /dev creation from here,
 	it's handled by init now.
 
