@@ -1549,14 +1549,18 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
             else:
                 if num and len(num):
                     l = string.split(num, '/')
-                    if l == num:
-                        break
-                    val = (int(l[0]) * 100) / int(l[1])
-                    w and w.set(val)
-                    # sync every 10%
-                    if sync + 10 < val:
-                        isys.sync()
-                        sync = val
+                    try:
+                        val = (int(l[0]) * 100) / int(l[1])
+                    except IndexError:
+                        pass
+                    except TypeError:
+                        pass
+                    else:
+                        w and w.set(val)
+                        # sync every 10%
+                        if sync + 10 < val:
+                            isys.sync()
+                            sync = val
                 num = ''
         except OSError, args:
             (errno, str) = args
