@@ -7,15 +7,16 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
-    name = N_("Custom")
+    # name has underscore used for mnemonics, strip if you dont need it
+    name = N_("_Custom")
     pixmap = "custom.png"
-    showMinimal = 1
-    showLoginChoice = 1
     description = N_("Select this installation type to gain complete "
 		     "control over the installation process, including "
 		     "software package selection and authentication "
 		     "preferences.")
     sortPriority = 10000
+    showLoginChoice = 1
+    showMinimal = 1
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)

@@ -7,8 +7,8 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 
 class InstallClass(BaseInstallClass):
 
-    showLoginChoice = 1
-    name = N_("Server")
+    # name has underscore used for mnemonics, strip if you dont need it
+    name = N_("_Server")
     pixmap = "server.png"
     description = N_("Select this installation type if you would like to "
 		     "set up file sharing, print sharing, and Web services. "
@@ -17,6 +17,7 @@ class InstallClass(BaseInstallClass):
 		     "environment.")
     
     sortPriority = 10
+    showLoginChoice = 1
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);

@@ -7,14 +7,15 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 from fsset import *
 
 class InstallClass(BaseInstallClass):
-    showLoginChoice = 0
-    name = N_("Personal Desktop")
+    # name has underscore used for mnemonics, strip if you dont need it
+    name = N_("_Personal Desktop")
     pixmap = "workstation.png"
     description = N_("Perfect for personal computers or laptops, select this "
 		     "installation type to install a graphical desktop "
 		     "environment and create a system ideal for home "
 		     "or desktop use.")
 
+    showLoginChoice = 0
     sortPriority = 1
 
     def setSteps(self, dispatch):
