@@ -35,14 +35,15 @@ class CdromInstallMethod(ImageInstallMethod):
 	if changeloop == 0:
 	    return
 
-	self.mntPoint = fstab.filesystemSpace()[0][0]
+	self.loopbackFile = mntPoint + fstab.filesystemSpace()[0][0] + \
+			    "/rhinstall-stage2.img"
 
-	target = "%s/rhinstall-stage2.img" % mntPoint
-	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, target,
+	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, 
+			self.loopbackFile,
 			(self.progressWindow, _("Copying File"),
 			_("Transferring install image to hard drive...")))
 	isys.makeDevInode("loop0", "/tmp/loop")
-	isys.lochangefd("/tmp/loop", target)
+	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
     def getFilename(self, h):
         if h[1000002] == None:
@@ -78,12 +79,11 @@ class CdromInstallMethod(ImageInstallMethod):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def filesDone(self):
-        if not self.mntPoint: return
+        if not self.loopbackFile: return
 
 	try:
 	    # this isn't the exact right place, but it's close enough
-	    target = "%s/rhinstall-stage2.img" % self.mntPoint
-	    os.unlink(target)
+	    os.unlink(self.loopbackFile)
 	except SystemError:
 	    pass
 
@@ -100,7 +100,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
 	self.currentDisc = 1
-        self.mntPoint = None
+        self.loopbackFile = None
 	ImageInstallMethod.__init__(self, "/" + tree)
 
 class NfsInstallMethod(ImageInstallMethod):
