@@ -125,7 +125,7 @@ def startX(resolution):
         testx(mouse, x)
     except (RuntimeError, IOError):
         from log import log
-        log.open(0, 0, 0)
+        log.open(0, 0, 0, 0)
 	log ("can't open /dev/fb0")
         log.close()
     
