@@ -567,15 +567,20 @@ class KickstartBase(BaseInstallClass):
 		self.postScripts.append(s)
 
     def doClearPart(self, id, args):
-        if args[0] == '--linux':
-            type = CLEARPART_TYPE_LINUX
-        elif args[0] == '--all':
-            type = CLEARPART_TYPE_ALL
-        else:
-            # XXX invalid clearpart arguments
-            return
+        type = CLEARPART_TYPE_NONE
+        drives = None
 
-        # XXX want to have --drive hda,hdb 
+        (args, extra) = isys.getopt(args, '', [ 'linux', 'all', 'drives=' ])
+
+        for n in args:
+            (str, arg) = n
+            if str == '--linux':
+                type = CLEARPART_TYPE_LINUX
+            elif str == '--all':
+                type = CLEARPART_TYPE_ALL
+            elif str == '--drive':
+                drives = arg
+
         self.setClearParts(id, type, None)
 
     def defineRaid(self, args):
