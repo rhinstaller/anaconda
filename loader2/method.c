@@ -120,12 +120,16 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     close(loopfd);
 
+    /* FIXME: really, mountLoopback() should take a list of "valid" 
+     * filesystems for the specific type of image being mounted */
     if (doPwMount(filename, mntpoint, "iso9660", 1,
                   0, NULL, NULL, 0, 0)) {
         if (doPwMount(filename, mntpoint, "ext2", 1,
                       0, NULL, NULL, 0, 0)) {
             if (doPwMount(filename, mntpoint, "cramfs", 1,
                           0, NULL, NULL, 0, 0)) {
+              if (doPwMount(filename, mntpoint, "vfat", 1,
+                            0, NULL, NULL, 0, 0)) {
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
                 loopfd = open(filename, O_RDONLY);
