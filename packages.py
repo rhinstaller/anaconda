@@ -37,6 +37,7 @@ from installmethod import FileCopyException
 
 from rhpl.log import log
 from rhpl.translate import _
+import rhpl.arch
 
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
