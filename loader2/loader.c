@@ -794,37 +794,43 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
     int width = 40;
     char * buf;
 
-    devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
-    for (i = 0, j = 0; i < modLoaded->numModules; i++) {
-        if (!modLoaded->mods[i].weLoaded) continue;
-        
-        if (!(mi = findModuleInfo(modInfo, modLoaded->mods[i].name)) ||
-            (!mi->description))
-            continue;
+    do {
+        devices = malloc((modLoaded->numModules + 1) * sizeof(*devices));
+        for (i = 0, j = 0; i < modLoaded->numModules; i++) {
+            if (!modLoaded->mods[i].weLoaded) continue;
+            
+            if (!(mi = findModuleInfo(modInfo, modLoaded->mods[i].name)) ||
+                (!mi->description))
+                continue;
 
-        devices[j] = sdupprintf("%s (%s)", mi->description, 
-                                modLoaded->mods[i].name);
-        if (strlen(devices[j]) > width)
-            width = strlen(devices[j]);
-        j++;
-    }
+            devices[j] = sdupprintf("%s (%s)", mi->description, 
+                                    modLoaded->mods[i].name);
+            if (strlen(devices[j]) > width)
+                width = strlen(devices[j]);
+            j++;
+        }
 
-    devices[j] = NULL;
+        devices[j] = NULL;
 
-    if (width > 70)
-        width = 70;
+        if (width > 70)
+            width = 70;
 
-    if (j > 0) {
-        buf = _("The following devices have been found on your system.");
-    } else {
-        buf = _("No device drivers have been loaded for your system.  Would "
-                "you like to load any now?");
-    }
+        if (j > 0) {
+            buf = _("The following devices have been found on your system.");
+        } else {
+            buf = _("No device drivers have been loaded for your system.  "
+                    "Would you like to load any now?");
+        }
 
-    do { 
         rc = newtWinMenu(_("Devices"), buf, width, 10, 20, 
                          (j > 6) ? 6 : j, devices, &num, _("Done"), 
                          _("Add Device"), NULL);
+
+        /* no leaky */
+        for (i = 0; i < j; i++) 
+            free(devices[j]);
+        free(devices);
+
         if (rc != 2)
             break;
 
