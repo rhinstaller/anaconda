@@ -19,6 +19,7 @@ import isys
 import time
 import kudzu
 import string
+import shutil
 from constants import *
 
 from rhpl.log import log
@@ -164,7 +165,24 @@ class CdromInstallMethod(ImageInstallMethod):
 
 	    timer.start()
 
-	return self.tree + "/RedHat/RPMS/" + h[1000000]
+        tmppath = self.getTempPath()
+        copied = 0
+        # FIXME: should retry a few times then prompt for new cd
+        while not copied:
+            try:
+                shutil.copy(self.tree + "/RedHat/RPMS/" + h[1000000],
+                            tmppath + h[1000000])
+            except IOError, (errnum, msg):
+                log("IOError %s occurred copying %s: %s",
+                    errnum, h[1000000], str(msg))
+                time.sleep(5)
+            else:
+                copied = 1
+                        
+	return tmppath + h[1000000]
+
+    def unlinkFilename(self, fullName):
+        os.remove(fullName)
 
     def filesDone(self):
         if not self.loopbackFile: return
