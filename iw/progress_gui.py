@@ -63,13 +63,13 @@ class InstallProgressWindow (InstallWindow):
 
 	self.sizeComplete = self.sizeComplete + header[rpm.RPMTAG_SIZE]
         apply (self.clist.set_text, self.status["completed"]["size"] +
-               ("%d M" % (self.sizeComplete)))
+               ("%d M" % (self.sizeComplete),))
 
         apply (self.clist.set_text, self.status["remaining"]["packages"] +
-               ("%d" % (self.numTotal - self.numComplete)))
+               ("%d" % (self.numTotal - self.numComplete),))
 
         apply (self.clist.set_text, self.status["remaining"]["size"] +
-               ("%d M" % (self.totalSize - self.sizeComplete)))
+               ("%d M" % (self.totalSize - self.sizeComplete),))
 
         # check to see if we've started yet
         if (self.timeStarted == -1):
@@ -80,8 +80,11 @@ class InstallProgressWindow (InstallWindow):
             
         apply (self.clist.set_text, self.status["completed"]["time"] + ("%s" % formatTime(elapsedTime),))
 
-	finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
-        apply (self.clist.set_text, self.status["total"]["time"] + ("%s" % formatTime(finishTime),))
+        if self.sizeComplete != 0:
+            finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
+        else:
+            finishTime = (float (self.totalSize) / self.sizeComplete+1) * elapsedTime
+            apply (self.clist.set_text, self.status["total"]["time"] + ("%s" % formatTime(finishTime),))
 
 	remainingTime = finishTime - elapsedTime
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
