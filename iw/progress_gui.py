@@ -165,13 +165,9 @@ class InstallProgressWindow (InstallWindow):
             shortlang = ''
                 
         pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % shortlang)
-        pixmaps2 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png")
 
-        if len(pixmaps1) > 0 or len(pixmaps2) > 0:
-            if len(pixmaps1) < len(pixmaps2):
-                files = pixmaps2
-            else:
-                files = pixmaps1
+        if len(pixmaps1) > 0:
+            files = pixmaps1
         else:
             files = ["progress_first.png"]
 
