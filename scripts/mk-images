@@ -882,7 +882,7 @@ vertag="BOOT"
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     arches="ppc64pseries ppc64iseries ppc"
 elif [ "$BUILDARCH" = "i386" ]; then
-    arches="i386 i586"
+    arches="i686"
 else
     arches="$BUILDARCH"
 fi
