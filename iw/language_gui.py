@@ -46,6 +46,17 @@ class LanguageWindow (InstallWindow):
         col = self.listView.get_column(0)
         self.listView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
 
+    # return the language writtin in its native script
+    def native(self, locale):
+        dict = {'Japanese': u'\u65e5\u672c\u8a9e',
+                'Russian': u'\u0420\u0443\u0441\u0441\u043a\u0438\u0439',
+                'Korean':u'\ud55c\uad6d\uc5b4'}
+        
+
+        if dict.has_key(locale):
+            return ' (%s)' % (dict[locale],)
+        return ''
+
     # LanguageWindow tag="lang"
     def getScreen (self, intf, instLang):
         self.running = 0
@@ -71,7 +82,8 @@ class LanguageWindow (InstallWindow):
 
         for locale in instLang.available():
             iter = self.listStore.append()
-            self.listStore.set_value(iter, 0, _(locale))
+            self.listStore.set_value(iter, 0, "%s%s" % (_(locale),
+                                                        self.native(locale)))
             self.listStore.set_value(iter, 1, locale)
 
         self.listStore.set_sort_column_id(0, gtk.SORT_ASCENDING)
