@@ -1,4 +1,3 @@
-import gettext_rh
 import os
 os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
 from gtk import *
@@ -6,7 +5,6 @@ from gtk import _root_window
 from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
-from translate import cat, _
 
 im = None
 splashwindow = None
@@ -18,9 +16,6 @@ except:
     except:
         print "Unable to load", file
 if im:
-    root = _root_window ()
-    cursor = cursor_new (LEFT_PTR)
-    root.set_cursor (cursor)
     threads_enter ()
     im.render ()
     splashwindow = GtkWindow ()
@@ -38,29 +33,22 @@ if im:
         mainiteration (FALSE)
     threads_leave ()        
 
+root = _root_window ()
+cursor = cursor_new (LEFT_PTR)
+root.set_cursor (cursor)
+
+from translate import cat, _
 from gnome.ui import *
 from gnome.xmhtml import *
-#don't want to do this now because it makes update disk hard
-#from iw.language import *
-#from iw.welcome import *
-#from iw.mouse import *
-#from iw.keyboard import *
-#from iw.installpath import *
-#
-# instead we do (assuming pythonpath set correctly)
-#
 from language_gui import *
 from welcome_gui import *
 from mouse_gui import *
-
 from keyboard_gui import *
 from installpath_gui import *
 
 import isys
 import sys
-
 import rpm
-from thread import *
 from threading import *
 
 class WaitWindow:
