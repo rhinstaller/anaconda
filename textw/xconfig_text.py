@@ -346,7 +346,7 @@ class MonitorWindow:
     def resetCB(self, screen):
         self.hsync = self.origHsync
         self.vsync = self.origVsync
-        self.currentMonitor = self.origMonitor
+        self.currentMonitor = self.origMonitorName
         
     def __call__(self, screen, xconfig, monitor):
 
