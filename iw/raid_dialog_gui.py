@@ -405,7 +405,7 @@ class RaidEditor:
                 maintable.attach(self.formatButton, 0, 2, row, row + 1)
                 row = row + 1
 	else:
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, showbadblocks=0)
 
 	# put main table into dialog
 	dialog.vbox.pack_start(maintable)
