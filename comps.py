@@ -22,6 +22,7 @@ from string import *
 import types
 import urllib
 import time
+import language
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -505,15 +506,34 @@ class Component:
 	(self.manuallySelected, self.selectionCount) = state
 
     def __init__(self, set, compgroup, packages,
-                 conditionalKey = "", parent=None, doDeps = 1):
+                 conditionalKey = "", parent=None,
+                 langs = [], doDeps = 1):
 
         self.set = set
+
+        # set the name and description based on the language
+        # we have to keep self.name as english, though, to avoid
+        # confusion with kickstart and a lot of our referencing that
+        # should be by groupid :/
         self.name = compgroup.name
+        self.displayName = None
+	self.description = None
+        for lang in langs:
+            if self.displayName is None and compgroup.translated_name.has_key(lang):
+                self.displayName = compgroup.translated_name[lang]
+            if (self.description is None and
+                compgroup.translated_description.has_key(lang)):
+                self.description = compgroup.translated_description[lang]
+        # if we didn't find a translation, fall back to english
+        if self.displayName is None:
+            self.displayName = compgroup.name
+        if self.description is None:
+            self.description = compgroup.description
+
         self.hidden = not compgroup.user_visible
         self.default = compgroup.default
         self.comp = compgroup
         self.id = compgroup.id
-	self.description = compgroup.description
 	
         # do we use these anymore?
         self.conditionalKey = conditionalKey
@@ -705,11 +725,16 @@ class ComponentSet:
         self.compsxml.groups['Everything'] = everything
         groups.append('Everything')
 
+        if os.environ.has_key("LANG"):
+            langs = language.expandLangs(os.environ["LANG"])
+        else:
+            langs = []
+
         # we have to go through first and make Comp objects for all
         # of the groups.  then we can go through and set up the includes
         for group in groups[:-1]:
             group = self.compsxml.groups[group]
-            comp = Component(self, group, packages)
+            comp = Component(self, group, packages, langs = langs)
             self.comps.append(comp)
             self.compsDict[comp.name] = comp
             self.compsById[comp.id] = comp
@@ -717,7 +742,9 @@ class ComponentSet:
         # special case everything to make it faster...
         for group in [ groups[-1] ]:
             group = self.compsxml.groups[group]
-            comp = Component(self, group, packages, doDeps = 0)
+            comp = Component(self, group, packages, doDeps = 0, langs = langs)
+            # everything really is a hack
+            comp.displayName = _("Everything")
             self.comps.append(comp)
             self.compsDict[comp.name] = comp
             self.compsById[comp.id] = comp

@@ -698,7 +698,7 @@ class PackageSelectionWindow (InstallWindow):
 	if comp.name == u"Base":
 	    nm = _("Minimal")
 	else:
-	    nm = _(comp.name)
+	    nm = comp.displayName
 	label.set_markup("<b>%s</b>" % (nm,))
 
     def setCompCountLabel(self, comp, label):
