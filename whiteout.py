@@ -11,6 +11,10 @@ import rhpl.arch
 # this with all of the useful rpm bits
 rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
 
+# and set where we should have the file contexts come from
+rpm.addMacro("__file_context_path",
+             "/mnt/runtime/etc/security/selinux/src/policy/file_contexts/file_contexts")
+
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
 	XFree86>Mesa			\
