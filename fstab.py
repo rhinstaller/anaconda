@@ -273,7 +273,7 @@ class Fstab:
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 
 	for (partition, doFormat) in self.swapList():
-	    f.write (format % ("/dev" + partition, 'swap', 'swap', 
+	    f.write (format % ("/dev/" + partition, 'swap', 'swap', 
 			       'defaults', 0, 0))
 
 	f.close ()
