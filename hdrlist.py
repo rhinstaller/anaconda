@@ -216,7 +216,7 @@ class HeaderList:
     def has_key(self, item):
         if self.pkgs.has_key(item):
             return 1
-        elif self.pkgnames.has_key(item):
+        elif self.getBestNevra(item):
             return 1
         return 0
 
