@@ -68,7 +68,7 @@ int umountLoopback(char * mntpoint, char * device) {
     devMakeInode(device, "/tmp/loop");
     loopfd = open("/tmp/loop", O_RDONLY);
 
-    if (ioctl(loopfd, LOOP_CLR_FD, 0) < 0)
+    if (ioctl(loopfd, LOOP_CLR_FD, 0) == -1)
         logMessage("LOOP_CLR_FD failed for %s %s (%s)", mntpoint, device, 
 		   strerror(errno));
 
@@ -89,12 +89,21 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     mkdirChain(mntpoint);
 
-    targfd = open(fsystem, O_RDONLY);
-    if (targfd < 0)
-        logMessage("opening target filesystem %s failed", fsystem);
+    targfd = open(fsystem, O_RDONLY | O_DIRECT);
+    if (targfd == -1) {
+	targfd = open(fsystem, O_RDONLY);
+	if (targfd == -1) {
+	    logMessage("open file to loop mount %s failed", fsystem);
+	    return LOADER_ERROR;
+	}
+    }
 
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
+    if (loopfd == -1) {
+	logMessage("unable to open loop device", filename);
+	return LOADER_ERROR;
+    }
     logMessage("mntloop %s on %s as %s fd is %d", 
                device, mntpoint, fsystem, loopfd);
 
@@ -462,13 +471,13 @@ int copyDirectory(char * from, char * to) {
             }
         } else {
             fd = open(filespec, O_RDONLY);
-            if (fd < 0) {
+            if (fd == -1) {
                 logMessage("failed to open %s: %s", filespec,
                            strerror(errno));
                 return 1;
             } 
             outfd = open(filespec2, O_RDWR | O_TRUNC | O_CREAT, 0644);
-            if (outfd < 0) {
+            if (outfd == -1) {
                 logMessage("failed to create %s: %s", filespec2,
                            strerror(errno));
             } else {
