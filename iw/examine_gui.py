@@ -24,8 +24,8 @@ from flags import flags
 import upgradeclass
 UpgradeClass = upgradeclass.InstallClass
 
-UPGRADE_STR = N_("Upgrade Existing Installation")
-REINSTALL_STR = N_("Reinstall Red Hat Linux")
+UPGRADE_STR = "upgrade"
+REINSTALL_STR = "reinstall"
 
 class UpgradeExamineWindow (InstallWindow):		
 
@@ -55,12 +55,14 @@ class UpgradeExamineWindow (InstallWindow):
 
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
-	r.addEntry(UPGRADE_STR, pixmap=self.ics.readPixmap("upgrade.png"),
+	r.addEntry(UPGRADE_STR, N_("Upgrade Existing Installation"),
+		   pixmap=self.ics.readPixmap("upgrade.png"),
 		   descr=_("Choose this option if you would like to upgrade your "
 		   "existing Red Hat Linux system.  This option will preserve the "
 		   "data on your driver."))
 
-	r.addEntry(REINSTALL_STR, pixmap=self.ics.readPixmap("install.png"),
+	r.addEntry(REINSTALL_STR, N_("Reinstall %s") % (productName,),
+		   pixmap=self.ics.readPixmap("install.png"),
 		   descr=_("Choose this option to reinstall your system.  "
 		   "Depending on how you partition your system your previous data "
 		   "may or may not be lost."))
