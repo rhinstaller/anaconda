@@ -225,7 +225,7 @@ intcopymodules () {
     for n in $1; do
 	m=$(findmodule $n)
 	if [ -z "$m" ]; then
-            [ -n $DEBUG] && echo "Module $n not found in kernel rpm" >&2
+            [ -n "$DEBUG" ] && echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
 	    for o in $m ; do 

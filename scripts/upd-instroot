@@ -78,12 +78,12 @@ expandPackageSet() {
     KEEPFILES=$3
 
     for n in $RPMS; do 
-	[ -n $DEBUG ] && echo -ne "\rExpanding packages..." $(basename $n)
+	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
 	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
 	    GLIBC=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
-	[ -n $DEBUG ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
+	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
 }
 
@@ -896,9 +896,8 @@ fi
 
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE
 
-echo "Scrubbing trees..."
 for p in $DEST $DESTGR; do
-	echo"Scrubbing trees..." "$p"
+	echo "Scrubbing trees..." "$p"
 	cp $p/usr/lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	cp $p/usr/lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
