@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
 	exit(1);
     }
 
-    isofd = open(argv[1], O_RDWR);
+    isofd = open(argv[1], O_RDONLY);
 
     if (isofd < 0) {
 	fprintf(stderr, "Error - Unable to open file %s\n\n", argv[1]);
