@@ -440,7 +440,9 @@ if display_mode == 'g':
     else:
         xcfg = xf86config.XF86Config(videohw.primaryCard(),
                                      monitorhw, mousehw, runres)
-else:
+elif progmode != 'reconfig':
+    # only probe X related stuff if we're doing an install
+    
     import xf86config
     xcfg = xf86config.XF86Config(videohw.primaryCard(),
                                  monitorhw, mousehw, runres)

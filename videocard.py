@@ -20,6 +20,7 @@ import string
 import kudzu
 import iutil
 import isys
+import os
 
 from log import log
 from translate import _
@@ -280,6 +281,9 @@ class VideoCardInfo:
                         "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
             Video_cardslist["Generic " + server] = { "SERVER" : server,
                                            "NAME"   : "Generic " + server }
+
+        if not os.access('/usr/X11R6/lib/X11/Cards', os.R_OK):
+            return -1
         
         db = open ('/usr/X11R6/lib/X11/Cards')
         lines = db.readlines ()
@@ -322,7 +326,7 @@ class VideoCardInfo:
             else:
                 card[info[0]] = string.joinfields (info[1:], ' ')
 
-        return
+        return 0
 
     def cardsDB(self):
         return Video_cardslist
@@ -348,7 +352,8 @@ class VideoCardInfo:
         self.videocards = []
         self.primary = None
 
-        self.readCardsDB()
+        if self.readCardsDB() < 0:
+            return None
 
         for card in cards:
             (device, server, descr) = card
