@@ -42,6 +42,7 @@ int main(int argc, char ** argv) {
     }
 
     if (showModInfo) {
+        printf("Version 0\n");
 	while ((mod = poptGetArg(optCon))) {
 	    mi = isysFindModuleInfo(mod);
 	    if (mi) {
