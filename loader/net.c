@@ -475,7 +475,9 @@ int configureNetwork(struct networkDeviceConfig * dev) {
 int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 		 struct knownDevices * kd) {
     FILE * f;
+#ifndef __STANDALONE__
     int i;
+#endif
 
 #ifndef __STANDALONE__
     for (i = 0; i < kd->numKnown; i++)
