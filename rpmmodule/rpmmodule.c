@@ -228,6 +228,8 @@ void initrpm(void) {
     const struct headerSprintfExtension * extensions = rpmHeaderFormats;
     struct headerSprintfExtension * ext;
 
+/*      i18ndomains = "redhat-dist"; */
+   
 /*      _rpmio_debug = -1;  */
     rpmReadConfigFiles(NULL, NULL);
 
@@ -914,7 +916,7 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
     PyObject * o, * metao;
     char ** stringArray;
     int forceArray = 0;
-    int freeData;
+    int freeData = 0;
     char * str;
     struct headerSprintfExtension * ext = NULL;
     const struct headerSprintfExtension * extensions = rpmHeaderFormats;
@@ -942,15 +944,14 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
     }
 
     if (ext) {
-        ext->u.tagFunction(s->h, &type, &data, &count, &freeData);
-        forceArray = 1;
+        ext->u.tagFunction(s->h, &type, (const void **) &data, &count, &freeData);
     } else {
         if (tag == -1) {
             PyErr_SetString(PyExc_KeyError, "unknown header tag");
             return NULL;
         }
         
-        if (!headerGetEntry(s->h, tag, &type, &data, &count)) {
+        if (!rpmHeaderGetEntry(s->h, tag, &type, &data, &count)) {
             Py_INCREF(Py_None);
             return Py_None;
         }
@@ -972,6 +973,14 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
       case RPMTAG_FILEUSERNAME:
       case RPMTAG_FILEGROUPNAME:
 	forceArray = 1;
+	break;
+      case RPMTAG_SUMMARY:
+      case RPMTAG_GROUP:
+      case RPMTAG_DESCRIPTION:
+	freeData = 1;
+	break;
+      default:
+        break;
     }
 
     switch (type) {
@@ -1045,8 +1054,11 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
 		Py_DECREF(o);
 	    }
 	    o = metao;
-	} else
-	  o = PyString_FromString(data);
+	} else {
+	    o = PyString_FromString(data);
+	    if (freeData)
+		free (data);
+	}
 	break;
 
       default:

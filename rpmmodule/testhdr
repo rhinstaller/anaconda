@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
 import rpm
+import sys
+
+import time
+#time.sleep(10)
 
 def printlist(h, tag):
     print "####### %s tag contains:" % tag
@@ -17,8 +21,23 @@ def printlist(h, tag):
     
 
 db = rpm.opendb(0)
-rc = db.findbyname('redhat-release')
+rc = db.findbyname('glibc')
 h = db[rc[0]]
+
+rpm.addMacro("_i18ndomains", "redhat-dist");
+
+print h['summary']
+print h['description']
+print h['group']
+#print h['filenames']
+
+print h[rpm.RPMTAG_SUMMARY]
+print h[rpm.RPMTAG_DESCRIPTION]
+print h[rpm.RPMTAG_GROUP]
+#print h[rpm.RPMTAG_FILENAMES]
+
+sys.exit(0)
+
 printlist (h, 'filenames')
 printlist (h, 'oldfilenames')
 
