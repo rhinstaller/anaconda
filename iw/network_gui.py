@@ -39,16 +39,8 @@ class NetworkWindow(InstallWindow):
 
     def getNext(self):
 
-        iter = self.ethdevices.store.get_iter_first()
-	noneonboot = 1
-	while iter:
-	    model = self.ethdevices.store
-	    if model.get_value(iter, 0):
-		noneonboot = 0
-		break
-            iter = self.ethdevices.store.iter_next(iter)
 
-	if noneonboot:
+	if self.getNumberActiveDevices() == 0:
 	    rc = self.handleNoActiveDevices()
 	    if not rc:
 		raise gui.StayOnScreen
@@ -142,11 +134,20 @@ class NetworkWindow(InstallWindow):
     def setHostOptionsSensitivity(self):
 	if not self.anyUsingDHCP():
 	    self.hostnameManual.set_active(1)
+	else:
+	    self.hostnameUseDHCP.set_active(1)
 	    
         self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
 
+
     def setIPTableSensitivity(self):
-        self.ipTable.set_sensitive(not self.anyUsingDHCP())
+	numactive = self.getNumberActiveDevices()
+	if numactive == 0:
+	    state = gtk.FALSE
+	else:
+	    state = not self.anyUsingDHCP()
+
+	self.ipTable.set_sensitive(state)
 
     def handleMissingHostname(self):
 	return not self.intf.messageWindow(_("Error With Data"),
@@ -177,7 +178,7 @@ class NetworkWindow(InstallWindow):
 				  "invalid."))
 
     def handleNoActiveDevices(self):
-	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
+	return self.intf.messageWindow(_("Error With Data"), _("You have no active network devices.  Your system will not be able to communicate over a network by default without at least one device active.\n\nNOTE: If you have a PCMCIA-based network adapter you should leave it inactive at this point. When you reboot your system the adapter will be activated automatically."), type="custom", custom_buttons=["gtk-cancel", _("C_ontinue")])
     
     def setHostnameRadioState(self):
 	pass
@@ -326,6 +327,18 @@ class NetworkWindow(InstallWindow):
 
 	return ip
 
+    def getNumberActiveDevices(self):
+        iter = self.ethdevices.store.get_iter_first()
+	numactive = 0
+	while iter:
+	    model = self.ethdevices.store
+	    if model.get_value(iter, 0):
+		numactive = numactive + 1
+		break
+            iter = self.ethdevices.store.iter_next(iter)
+
+	return numactive
+
     def anyUsingDHCP(self):
 	for device in self.devices.keys():
 	    bootproto = self.devices[device].get("bootproto")
@@ -350,6 +363,7 @@ class NetworkWindow(InstallWindow):
 	self.devices[dev].set(("ONBOOT", onboot))
 	
 	self.setIPTableSensitivity()
+	self.setHostOptionsSensitivity()
 	
 	return
     
@@ -448,8 +462,11 @@ class NetworkWindow(InstallWindow):
 	self.network = network
         
         self.devices = self.network.available()
+	
         if not self.devices:
 	    return None
+
+	self.numdevices = len(self.devices.keys())
 
 	self.hostname = self.network.hostname
 
@@ -476,10 +493,8 @@ class NetworkWindow(InstallWindow):
 	devhbox.set_border_width(6)
 	frame=gtk.Frame(_("Network Devices"))
 	frame.add(devhbox)
-	box.pack_start(frame, gtk.FALSE, padding=10)
+	box.pack_start(frame, gtk.FALSE)
 	
-        box.pack_start(gtk.HSeparator(), gtk.FALSE, padding=10)
-
 	# show hostname and dns/misc network info and offer chance to modify
 	hostbox = gtk.HBox()
 	hostbox=gtk.VBox()
@@ -522,12 +537,13 @@ class NetworkWindow(InstallWindow):
         #
 	# this is the iptable used for DNS, et. al
 	self.ipTable = gtk.Table(len(global_options), 2)
+#	self.ipTable.set_row_spacing(0, 5)
 	options = {}
 	for i in range(len(global_options)):
 	    label = gtk.Label("%s:" %(global_option_labels[i],))
 	    label.set_property("use-underline", gtk.TRUE)
 	    label.set_alignment(0.0, 0.0)
-	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
+	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0)
 	    align = gtk.Alignment(0, 0.5)
 	    options[i] = ipwidget.IPEditor()
 	    align.add(options[i].getWidget())
@@ -535,7 +551,6 @@ class NetworkWindow(InstallWindow):
 
 	    self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
 
-	self.ipTable.set_row_spacing(0, 5)
 
 	self.globals = {}
 	for t in range(len(global_options)):
@@ -545,7 +560,11 @@ class NetworkWindow(InstallWindow):
 	if self.network.hostname != "localhost.localdomain" and ((self.anyUsingDHCP() and self.network.overrideDHCPhostname) or not self.anyUsingDHCP()):
 	    self.hostnameEntry.set_text(self.network.hostname)
 
-	if not self.anyUsingDHCP():
+#
+# for now always put info in the entries, even if we're using DHCP
+#
+#	if not self.anyUsingDHCP() or 1:
+        if 1:
 	    if self.network.gateway:
 		self.globals[_("Gateway")].hydrate(self.network.gateway)
 	    if self.network.primaryNS:
