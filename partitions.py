@@ -194,51 +194,21 @@ class Partitions:
         lvm.vgscan()
         lvm.vgactivate()
 
-        vgs = []
-        if os.path.isdir("/proc/lvm/VGs"):
-            vgs = os.listdir("/proc/lvm/VGs")
+        pvs = lvm.pvlist()
+        for (vg, size) in lvm.vglist():
+            # FIXME: need to find the pe size of the vg
+            pesize = 4096
+            try:
+                preexist_size = float(size) / 1024.0
+            except:
+                log("preexisting size for %s not a valid integer, ignoring" %(vg,))
+                preexist_size = None
 
-        for vg in vgs:
-            # first find the PE size
-            f = open("/proc/lvm/VGs/%s/group" %(vg,), "r")
-            lines = f.readlines()
-            f.close()
-            pesize = 0
-            preexist_size = None
-            for line in lines:
-                fields = line.split(':',1)
-                if len(fields) < 2:
-                    continue
-                if fields[0].strip() == "PE size":
-                    pesize = fields[1].strip()
-                    try:
-                        pesize = long(pesize)
-                    except:
-                        log("PE size for %s not a valid integer, defaulting to 4096" %(vg,))
-                        pesize = 4096
-                elif fields[0].strip() == "size":
-                    preexist_size = fields[1].strip()
-                    try:
-                        preexist_size = long(preexist_size) / 1024.0
-                    except:
-                        log("preexisting size for %s not a valid integer, ignoring" %(vg,))
-                        preexist_size = None
-
-            if not pesize:
-                log("Unable to find PE size for %s, defaulting to 4096" %(vg,))
-                pesize = 4096
-
-            # Now find the physical volumes associated with this VG
-            if not os.path.isdir("/proc/lvm/VGs/%s/PVs" % (vg,)):
-                log("Unable to find PVs for %s" % (vg,))
-                continue
-            pvs = os.listdir("/proc/lvm/VGs/%s/PVs/" % (vg,))
             pvids = []
-            for pv in pvs:
-                # XXX I hate the lvm code.  it puts cciss_c0d0p2 for
-                # things like cciss/c0d0p2 so we need to substitute. ick.
-                pv = pv.replace("_", "/")
-                req = self.getRequestByDeviceName(pv)
+            for (dev, pvvg, size) in pvs:
+                if vg != pvvg:
+                    continue
+                req = self.getRequestByDeviceName(dev[5:])
                 if not req:
                     log("Volume group %s using non-existent partition %s"
                         %(vg, pv))
@@ -252,27 +222,12 @@ class Partitions:
                                                        preexist_size = preexist_size)
             vgid = self.addRequest(spec)
 
-            # now we need to find out about the logical volumes
-            if not os.path.isdir("/proc/lvm/VGs/%s/LVs" %(vg,)):
-                log("Unable to find LVs for %s" % (vg,))
-                continue
-            lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
-            for lv in lvs:
-                f = open("/proc/lvm/VGs/%s/LVs/%s" % (vg,lv), "r")
-                lines = f.readlines()
-                f.close()
-                lvsize = None
-                for line in lines:
-                    fields = line.split(':',1)
-                    if len(fields) < 2:
-                        continue
-                    if fields[0].strip() == "size":
-                        lvsize = fields[1].strip()
-                if lvsize is None:
-                    log("Unable to find LV size for %s/%s" % (vg, lv))
+            for (lvvg, lv, size) in lvm.lvlist():
+                if lvvg != vg:
                     continue
-                # size is listed as number of blocks, we want size in megs
-                lvsize = long(lvsize) / 2048.0
+                
+                # size is number of bytes, we want size in megs
+                lvsize = float(size) / (1024.0 * 1024.0)
 
                 theDev = "/dev/%s/%s" %(vg, lv)
                 fs = partedUtils.sniffFilesystemType(theDev)
