@@ -59,7 +59,7 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
 	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja
           open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
           iputils- traceroute- sh-utils- textutils- pine- less-
-          rsh- ncurses- popt mtools- ftp- readline-"
+          rsh- ncurses- popt mtools- ftp- readline- mount- modutils-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -116,27 +116,38 @@ cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
 bin/bash
 bin/cat
+bin/chmod
 bin/cp
 bin/cpio
 bin/dd
+bin/df
 bin/du
 bin/grep
+bin/gunzip
 bin/gzip
+bin/ln
 bin/ls
+bin/mkdir
+bin/mknod
+bin/mount
 bin/mt
 bin/mv
 bin/ping
 bin/ps
+bin/rm
 bin/sed
 bin/sync
 bin/tar
 bin/touch
+bin/umount
+bin/zcat
 sbin/e2fsck
 sbin/fsck
 sbin/fsck.ext2
 sbin/ifconfig
 sbin/modprobe
 sbin/depmod
+sbin/lsmod
 sbin/insmod
 sbin/rmmod
 sbin/route
@@ -325,6 +336,11 @@ rm -f $KEEPFILE $KEEPFILEGR
 
 make install-hd DESTDIR=$DEST > /dev/null
 make install DESTDIR=$DESTGR > /dev/null
+
+# clean collage out of larger image so we can use real commands like 'ls'
+for i in collage cat chmod df gunzip ln ls lsmod mkdir mknod umount mount rm uncpio; do
+     rm -f $DESTGR/usr/bin/$i
+done
 
 for p in $DEST $DESTGR; do
 	find $p -type d | xargs chmod 755
