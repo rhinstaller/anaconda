@@ -7,16 +7,18 @@ prepareBootImage() {
 	zcat $KERNELROOT/boot/vmlinuz-* | gzip -9 > $MBD_BOOTTREE/vmlinux.gz
 }
 
+NETMODULES="3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
+
 makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 	   --initrdsize 2000 \
 	   --padsize 1440 \
 	   --loaderbin loader \
-	   --modules "3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne vfat"
+	   --modules "$NETMODULES vfat"
 
 makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
 makemainmodules "$SECSTAGE"
-makeinstimage --size1 3000 --size2 3000 "netstg" "=scsi $SECSTAGE"
-makeinstimage --size1 3000 --size2 3000 "hdstg" "=net $SECSTAGE"
+makeinstimage --size1 3000 --size2 3000 "netstg" "$SECSTAGE"
+makeinstimage --size1 3000 --size2 3000 "hdstg" "$NETMODULES $SECSTAGE"
 makemainimage "stage2"
