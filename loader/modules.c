@@ -263,6 +263,10 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 	if ((mi = isysFindModuleInfo(modInfo, lm->name))) {
 	    strcpy(buf, "alias ");
 	    switch (mi->major) {
+	      case DRIVER_CDROM:
+		strcat(buf, "cdrom ");
+		break;
+
 	      case DRIVER_SCSI:
 	      	if (scsiNum)
 		    sprintf(buf2, "scsi_hostadapter%d ", scsiNum);
