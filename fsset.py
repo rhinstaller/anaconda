@@ -1283,7 +1283,7 @@ class RAIDDevice(Device):
                 raise RuntimeError, "RAID 5 requires at least 3 online members"
         
         # there are 32 major md devices, 0...31
-        if minor == -1:
+        if minor == -1 or minor is None:
             for I in range(32):
                 if not RAIDDevice.usedMajors.has_key(I):
                     minor = I
