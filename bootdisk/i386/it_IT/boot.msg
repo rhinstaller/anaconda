@@ -1,11 +1,11 @@
 
 
-                 09Welcome to 0cRed Hat09 Linux 6.2!07
+                 09Welcome to 0cRed Hat09 Linux 7.0!07
 
- o  Per installare o aggiornare un sistema con 0cRed Hat07 Linux 2.0 
+ o  Per installare o aggiornare un sistema con 0cRed Hat07 Linux 3.0.3
     o piu' recente in modalita' grafica, premete il tasto 0f<ENTER>07.
 
- o  Per installare o aggiornare un sistema con 0cRed Hat07 Linux 2.0 
+ o  Per installare o aggiornare un sistema con 0cRed Hat07 Linux 3.0.3
     o piu' recente in modalita' testo, digitate 0ftext <ENTER>07.
 
  o  Per attivare l'expert mode, digitate: 0fexpert <ENTER>07.  Premete 05<F3>07 
