@@ -40,6 +40,26 @@ graphical	Force graphical install. Required to have ftp/http use GUI.
 
 text            Force text mode install.
 
+vnc             Enable vnc-based installation. You will need to connect
+                to the machine using a vnc client application.
+
+vncpassword=<password>  Enable a password for the vnc connection. This will
+                prevent someone from inadvertantly connecting to the
+                vnc-based installation.
+
+                Requires 'vnc' option to be specified as well.
+
+vncconnecthost=<host>   Once installation is up and running, connect to
+                the vnc client named <host>.
+
+                Requires 'vnc' option to be specified as well.
+
+vncconnectport=<host>   Once installation is up and running, connect to
+                the vnc client on port <port>.  Requires that
+                vncconnecthost= option is also specified.
+
+                Requires 'vnc' option to be specified as well.
+
 updates         Prompt for floppy containing updates (bug fixes).
 
 isa             Prompt user for ISA devices configuration.
