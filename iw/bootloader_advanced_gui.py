@@ -77,11 +77,13 @@ class AdvancedBootloaderWindow(InstallWindow):
     def bootloaderChanged(self, widget, *args):
         if widget == self.grub_radio and self.grub_radio.get_active():
             # grub is the boot loader
-            self.blloc.getWidget().set_sensitive(gtk.TRUE)            
+            self.blloc.getWidget().set_sensitive(gtk.TRUE)
+            self.blloc.setUsingGrub(1)
             self.options_vbox.set_sensitive(gtk.TRUE)
         elif widget == self.lilo_radio and self.lilo_radio.get_active():
             # lilo is the boot loader
             self.blloc.getWidget().set_sensitive(gtk.TRUE)
+            self.blloc.setUsingGrub(0)            
             self.options_vbox.set_sensitive(gtk.TRUE)
         elif widget == self.none_radio and self.none_radio.get_active():
             # using no boot loader

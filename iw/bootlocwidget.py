@@ -31,6 +31,7 @@ class BootloaderLocationWidget:
         self.parent = parent
         self.intf = intf
         self.driveOrder = bl.drivelist
+        self.usingGrub = self.bl.useGrub()
 
         locationBox = gtk.VBox (gtk.FALSE, 2)
         locationBox.set_border_width(5)
@@ -79,11 +80,12 @@ class BootloaderLocationWidget:
 
     def editDriveOrder(self, *args):
         # we only support this for grub
-        if not self.bl.useGrub():
+        if not self.usingGrub:
             self.intf.messageWindow(_("Unable to Change Drive Order for LILO"),
                                     _("We do not support changing the "
                                       "drive order for use with LILO."),
                                     type="ok")
+            return
                                       
 
             
@@ -146,3 +148,6 @@ class BootloaderLocationWidget:
 
     def getDriveOrder(self):
         return self.driveOrder
+
+    def setUsingGrub(self, val):
+        self.usingGrub = val
