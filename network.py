@@ -179,7 +179,7 @@ class Network:
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
                         "REMIP", "QETH", "SUBCHANNELS", "PORTNAME",
-                        "ESSID", "KEY"):
+                        "PEERID", "ESSID", "KEY"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             # KH: Hack for special case qeth devices which show up as ethX:

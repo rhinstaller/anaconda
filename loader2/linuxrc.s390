@@ -245,16 +245,11 @@ else  # ctc0, escon0, iucv0
 		  MTU="1500"
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
-		  while [ -z "$IUCV" ]; do
-			   echo $"Enter iucv kernel module options (usually iucv=HOST,"
-			   echo $"where HOST is TCPIP for the VM TCP/IP service machine"
-				echo $"or the name (in capital letters) of another"
-				echo $"Linux guest:"
-			   read IUCV
+		  while [ -z "$PEERID" ]; do
+			   echo $"Enter the peer id of the VM guest you want to"
+				echo $"connect to (in capital letters)."
+			   read PEERID
 		  done
-		  if [ "${IUCV:0:5}" != "iucv=" ]; then
-				IUCV="iucv=$IUCV"
-		  fi
 	 fi
 fi
 # don't ask for MTU, but use it if it has been set in the .parm file
@@ -275,11 +270,9 @@ if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
 elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod fsm$LO
 	insmod iucv$LO
-	insmod netiucv$LO $IUCV
+	insmod netiucv$LO
+	echo $PEERID > /sys/bus/iucv/drivers/netiucv/connection
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
-	if [ -n "$IUCV" ]; then
-		 echo "options netiucv $IUCV" >> /tmp/modprobe.conf
-	fi
    echo "alias $DEVICE iucv" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    insmod ccwgroup$LO
@@ -376,13 +369,13 @@ NETMASK="$NETMASK"
 BROADCAST="$BROADCAST"
 DNS="$DNS"
 SEARCHDNS="$SEARCHDNS"
-IUCV="$IUCV"
+PEERID="$PEERID"
 SUBCHANNELS="$SUBCHANNELS"
 ONBOOT="yes"
 export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
 export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
 export NETWORK NETMASK BROADCAST DNS SEARCHDNS
-export IUCV ONBOOT SUBCHANNELS
+export PEERID ONBOOT SUBCHANNELS
 EOF
 # immediately read it in again to export these into the shell below
 . /tmp/install.cfg
@@ -400,6 +393,7 @@ MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
 [ "$QETH" != "" ] && echo "QETH=$QETH" >> /tmp/netinfo
+[ "$PEERID" != "" ] && echo "PEERID="$PEERID" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
