@@ -445,12 +445,13 @@ class KickstartBase(BaseInstallClass):
         partNum = 0
         primOnly = 0
         active = 0
+        format = 1
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
                                         'onprimary=', 'active', 'type=',
-                                        'asprimary'])
+                                        'asprimary', 'dontformat'])
 
 	for n in args:
 	    (str, arg) = n
@@ -474,6 +475,8 @@ class KickstartBase(BaseInstallClass):
                 active = 1
             elif str == "--asprimary":
                 primOnly = 1
+            elif str == "--dontformat":
+                format = 0
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
@@ -481,9 +484,12 @@ class KickstartBase(BaseInstallClass):
 	if onPart:
            if extra[0] == 'swap':
                # handle swap filesystems correctly 
-               self.addToFstab(extra[0], onPart,'swap',1)
+               self.addToFstab(extra[0], onPart, 'swap',1)
            else:
-               self.addToFstab(extra[0], onPart)
+               if format == 0:
+                   self.addToFstab(extra[0], onPart)
+               else:
+                   self.addToFstab(extra[0], onPart, 'ext2', 1)
 	else:
 	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum, primOnly), (type, active), fsopts)
 
