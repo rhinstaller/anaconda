@@ -1510,9 +1510,9 @@ class ToDo:
         
         if arch == "sparc":
             self.silo.installSilo ()
-        else if arch == "i386":
+        elif arch == "i386":
             self.installLilo ()
-        else if arch == "alpha":
+        elif arch == "alpha":
             self.milo.write ()
         else:
             raise RuntimeError, "What kind of machine is this, anyway?!"
