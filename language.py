@@ -135,11 +135,13 @@ class Language:
         return self.nativeLangNames[lang]
 
     def getLangNameByNick(self, nick):
+	canonNick = self.canonLangNick (nick)
+
         try:
-            return self.localeInfo[nick][0]
+            return self.localeInfo[canonNick][0]
         except KeyError:
-            nick = self.canonLangNick (self.getCurrent())
-            return self.localeInfo[nick][0]
+            curNick = self.canonLangNick (self.getCurrent())
+            return self.localeInfo[curNick][0]
 
     def getFontFile (self, lang):
 	# Note: in /etc/fonts.cgz fonts are named by the map
@@ -185,7 +187,7 @@ class Language:
 
             return name
         else:
-            return 'English (USA)'
+            return 'English'
 
     def setDefault(self, nick):
 	if not nick:
@@ -198,13 +200,14 @@ class Language:
             row = self.langInfoByName[k]
             if nick in expandLangs(row[0]):
                 name = k
+                break
 
         # It's possible we didn't find a match.
         if name == None:
             self.default = None
             return
 
-	self.default = name
+	self.default = self.getLangNameByNick(nick)
 	(lang, map, font) = self.langInfoByName[name]
 
 	self.info['LANG'] = lang

@@ -1,3 +1,9 @@
+2005-04-01  Chris Lumens  <clumens@redhat.com>
+
+	* installclass.py (BaseInstallClass.setLanguageSupport):  Don't add
+	duplicate entries to supported list.
+	* language.py:  Fix traceback on kickstart language support.
+
 2005-04-01  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Lots of cleanup to try to get things
