@@ -1048,16 +1048,19 @@ class FileSystemSet:
         return raidtab
 
     def mdadmConf(self):
-        if len(self.entries) == 0:
-            return
+        raident = 0
         
         cf = "DEVICE partitions\n"
         for ent in self.entries:
-            l = "ARRAY /dev/%s superminor=%s\n" %(ent.device, ent.minor)
-            cf = cf + l
+            if ent.device.getName() != "RAIDDevice":
+                continue
 
-        return cf
-        
+            raident +=1
+            cf = cf + ent.device.mdadmLine()
+
+        if raident > 0:
+            return cf
+        return
 
     def write (self, prefix):
         f = open (prefix + "/etc/fstab", "w")
@@ -1801,6 +1804,10 @@ class RAIDDevice(Device):
             return [ '-R', 'stride=%d' % (self.numDisks * 16) ]
         return []
 
+    def mdadmLine (self, devPrefix="/dev"):
+        return "ARRAY %s/%s superminor=%s\n" %(devPrefix, self.device,
+                                               self.minor)
+
     def raidTab (self, devPrefix='/dev'):
         entry = ""
         entry = entry + "raiddev		    %s/%s\n" % (devPrefix,
@@ -1824,7 +1831,10 @@ class RAIDDevice(Device):
             i = i + 1
         return entry
 
-    def setupDevice (self, chroot="/", devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/dev'):
+        def devify(x):
+            return "/dev/%s" %(x,)
+        
         node = "%s/%s" % (devPrefix, self.device)
         isys.makeDevInode(self.device, node)
 
@@ -1832,13 +1842,19 @@ class RAIDDevice(Device):
             for device in self.members:
                 PartitionDevice(device).setupDevice(chroot,
                                                     devPrefix=devPrefix)
-            iutil.execWithRedirect ("/usr/sbin/mdadm"
-                                    ("mdadm", "--create",
-                                     "--chunk=%s" %(self.chunksize,),
-                                     "--level=%s" %(self.level,),
-                                     "--spare-devices=%s" %(self.spares,),
-                                     "--raid-devices=%s" %(self.numDisks,),
-                                     self.members),
+
+            args = ["/usr/sbin/mdadm", "--create", "/dev/%s" %(self.device,),
+                    "--really-force",
+                    "--chunk=%s" %(self.chunksize,),
+                    "--level=%s" %(self.level,),
+                    "--raid-devices=%s" %(self.numDisks,)]
+
+            if self.spares > 0:
+                args.append("--spare-devices=%s" %(self.spares,),)
+            
+            args.extend(map(devify, self.members))
+            log("going to run: %s" %(args,))
+            iutil.execWithRedirect (args[0], args,
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
