@@ -379,7 +379,7 @@ class InstallInterface:
         if DEBUG:
             self.screen.suspendCallback(debugSelf, self.screen)
 
-	if flags.serial:
+	if flags.serial or isys.isPsudoTTY(0):
 	    self.screen.suspendCallback(spawnShell, self.screen)
 
 	# clear out the old root text by writing spaces in the blank
