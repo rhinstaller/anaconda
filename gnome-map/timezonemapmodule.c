@@ -67,13 +67,13 @@ struct _VIEW_DEF {
 typedef struct _VIEW_DEF ViewDefinition;
 
 ViewDefinition Views[] = {
-    { "World",         LONGITUDE_CONSTRAINT, -180.0, 180.0, 0.0 },
-    { "North America", LONGITUDE_CONSTRAINT, -171.0, -21.0, 40.0 },
-    { "South America", LATITUDE_CONSTRAINT,   15.0,   -70.0, -70.0 },
-    { "Indian Rim",    LATITUDE_CONSTRAINT,    -47.0, 47.0, 155.0},
-    { "Europe",        LONGITUDE_CONSTRAINT,  -25.0, 70.0, 45.0 },
-    { "Africa",        LATITUDE_CONSTRAINT,   40.0,   -40.0, 15.0},
-    { "Asia",          LONGITUDE_CONSTRAINT,  20.0, 165.0, 40.0}
+    { N_("World"),         LONGITUDE_CONSTRAINT, -180.0, 180.0, 0.0 },
+    { N_("North America"), LONGITUDE_CONSTRAINT, -171.0, -21.0, 40.0 },
+    { N_("South America"), LATITUDE_CONSTRAINT,   15.0,   -70.0, -70.0 },
+    { N_("Indian Rim"),    LATITUDE_CONSTRAINT,    -47.0, 47.0, 155.0},
+    { N_("Europe"),        LONGITUDE_CONSTRAINT,  -25.0, 70.0, 45.0 },
+    { N_("Africa"),        LATITUDE_CONSTRAINT,   40.0,   -40.0, 15.0},
+    { N_("Asia"),          LONGITUDE_CONSTRAINT,  20.0, 165.0, 40.0}
 };
 
 static gint numviews = sizeof(Views)/sizeof(ViewDefinition);
@@ -595,7 +595,7 @@ create_view_menu (MapData *mapdata)
     menu = gtk_menu_new ();
     
     for  (i=0; i < numviews; i++) {
-	menu_item = gtk_menu_item_new_with_label (Views[i].name);
+	menu_item = gtk_menu_item_new_with_label (_(Views[i].name));
 	gtk_menu_append (GTK_MENU (menu), menu_item);
 
 	gtk_signal_connect (GTK_OBJECT (menu_item), "activate",
