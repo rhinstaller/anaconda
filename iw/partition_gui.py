@@ -1369,7 +1369,7 @@ class AutoPartitionWindow(InstallWindow):
 
         # what partition types to remove
         clearbox = GtkVBox(FALSE)
-        label = GtkLabel(_("I want to have autopartitioning:"))
+        label = GtkLabel(_("I want to have automatic partitioning:"))
         label.set_alignment(0.0, 0.0)
         clearbox.pack_start(label, FALSE, FALSE, 10)
         
@@ -1417,8 +1417,9 @@ class AutoPartitionWindow(InstallWindow):
 
         box.pack_start(drivesbox, FALSE, FALSE)
 
-        self.inspect = GtkCheckButton(_("Allow me to inspect and modify "
-                                   "autopartitioning results"))
+        self.inspect = GtkCheckButton(_("Review (allows you to see and "
+                                        "change the automatic partitioning "
+                                        "results"))
 
         self.inspect.set_active(not dispatch.stepInSkipList("partition"))
         

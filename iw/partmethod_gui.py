@@ -68,7 +68,7 @@ class PartitionMethodWindow(InstallWindow):
         radioBox = GtkVBox (FALSE)
 
         self.useAuto = GtkRadioButton(
-            None, _("Have the installer autopartition for you"))
+            None, _("Have the installer automatically partition for you"))
 	radioBox.pack_start(self.useAuto, FALSE, FALSE)
         self.useDS = GtkRadioButton(
             self.useAuto, _("Manually partition with Disk Druid"))
