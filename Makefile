@@ -114,8 +114,9 @@ create-snapshot:
 	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
 	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
 	[ x"$$TAG" != x ] && tag=$$TAG; \
-	echo "*** Pulling off $$tag!"; \
-	cd /tmp ; cvs -Q -d $(CVSROOT) export -r $$tag anaconda || echo "Um... export aborted."
+	cvsroot=`cat CVS/Root` 2>/dev/null; \
+        echo "*** Pulling off $$tag from $$cvsroot!"; \
+	cd /tmp ; cvs -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
