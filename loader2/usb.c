@@ -89,8 +89,9 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
             /* return 1; */
         }
 
-        free(devices);
     }
+    free(devices);
+
 
     if (FL_TESTING(flags)) return 0;
 
