@@ -120,7 +120,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            ncurses bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pciutils pam 
-           reiserfs-utils atk pango"
+           reiserfs-utils atk pango freetype"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -185,6 +185,7 @@ lib/libresolv*
 lib/librt[-.]*
 lib/libss*
 lib/libtermcap*
+lib/libutil*
 lib/libuuid*
 sbin/badblocks
 sbin/clock
@@ -244,7 +245,6 @@ usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
 usr/share/kudzu/pcitable
 usr/share/pci.ids
-usr/share/themes/Raleigh/gtk/gtkrc
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
@@ -280,13 +280,13 @@ bin/umount
 bin/zcat
 boot/*.b
 boot/bootlx
-etc/gtk/gtkrc*
+etc/gtk-2.0/gtkrc*
 etc/im_palette.pal
 etc/imrc
+etc/pango/*
 lib/libnss_dns*
 lib/libpam*
 lib/libproc*
-lib/libutil*
 sbin/depmod
 sbin/debugfs
 sbin/e2fsck
@@ -349,9 +349,11 @@ usr/X11R6/lib/libICE*
 usr/X11R6/lib/libSM*
 usr/X11R6/lib/libX11*
 usr/X11R6/lib/libXext*
+usr/X11R6/lib/libXft*
 usr/X11R6/lib/libXi*
 usr/X11R6/lib/libXmu*
 usr/X11R6/lib/libXpm*
+usr/X11R6/lib/libXrender*
 usr/X11R6/lib/libXt*
 usr/X11R6/lib/modules/*
 usr/X11R6/share/Xconfigurator/pixmaps/*
@@ -400,8 +402,10 @@ usr/lib/gdk-pixbuf/loaders/*png*
 usr/lib/gdkimlib*
 usr/lib/libImlib*
 usr/lib/libart*
+usr/lib/libatk*
 usr/lib/libaudio*
 usr/lib/libesd*
+usr/lib/libfreetype*
 usr/lib/libgdk*
 usr/lib/libglib*
 usr/lib/libgmodule*
@@ -410,6 +414,7 @@ usr/lib/libgnomesupport*
 usr/lib/libgnomeui*
 usr/lib/libgnorba*
 usr/lib/libgnorbagtk*
+usr/lib/libgobject*
 usr/lib/libgthread*
 usr/lib/libgtk*
 usr/lib/libgtkxmhtml*
@@ -418,12 +423,14 @@ usr/lib/libimlib-pnm*
 usr/lib/libimlib-xpm*
 usr/lib/libjpeg*
 usr/lib/libncurses*
+usr/lib/libpango*
 usr/lib/libpng*
 usr/lib/libreadline*
 usr/lib/libthread*
 usr/lib/libtiff*
 usr/lib/libzvt*
 usr/lib/locale/*
+usr/lib/pango/*
 usr/lib/rpm/rpmpopt
 usr/sbin/chroot
 usr/sbin/ddcprobe
@@ -694,19 +701,4 @@ echo "Cleaning ramdisk install images..."
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
     $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
-fi
-
-# pick Raleigh theme as default
-if [ -n "$NEEDGR" ]; then
-    cat <<EOF >> $DESTGR/etc/gtk/gtkrc
-
-style "default"
-{
-  engine "raleigh" 
-    {
-    }
-}
-
-class "GtkWidget" style "default"
-EOF
 fi
