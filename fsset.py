@@ -213,7 +213,7 @@ fileSystemTypeRegister(reiserfsFileSystem())
 class extFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedFileSystemType = None
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
@@ -240,6 +240,7 @@ class ext2FileSystem(extFileSystem):
     def __init__(self):
         extFileSystem.__init__(self)
         self.name = "ext2"
+        self.partedFileSystemType = parted.file_system_type_get("ext2")
 
 fileSystemTypeRegister(ext2FileSystem())
 
@@ -248,6 +249,7 @@ class ext3FileSystem(extFileSystem):
         extFileSystem.__init__(self)
         self.name = "ext3"
         self.extraFormatArgs = [ "-j" ]
+        self.partedFileSystemType = parted.file_system_type_get("ext3")
 
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
