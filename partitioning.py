@@ -860,6 +860,20 @@ class Partitions:
             
         return bootreq
 
+    # returns if request is a "bootable"
+    # returns 0 if not, returns 1 if it is returned by getBootableRequest
+    # or is a member of the RAID request returned by getBootableRequest
+    def isBootable(self, request):
+        bootreq = self.getBootableRequest()
+        if bootreq == request:
+            return 1
+
+        if bootreq.type == REQUEST_RAID and \
+           request.uniqueID in bootreq.raidmembers:
+            return 1
+
+        return 0
+
     def sortRequests(self):
         n = 0
         while n < len(self.requests):

@@ -250,7 +250,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
     for num in number:
         for request in todo[num]:
 #            print "\nInserting ->",request
-            if request == bootreq:
+            if requests.isBootable(request):
                 isBoot = 1
             else:
                 isBoot = 0
