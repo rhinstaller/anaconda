@@ -455,7 +455,7 @@ class PackageSelectionWindow (InstallWindow):
                     pix = im.make_pixmap ()
                     hbox = GtkHBox (FALSE, 5)
                     hbox.pack_start (pix, FALSE, FALSE, 0)
-                    label = GtkLabel (comp.name)
+                    label = GtkLabel (_(comp.name))
                     label.set_alignment (0.0, 0.5)
                     hbox.pack_start (label, TRUE, TRUE, 0)
                     checkButton = GtkCheckButton ()

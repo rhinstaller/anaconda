@@ -35,7 +35,7 @@ class PackageGroupWindow:
         ct = CheckboxTree(height = 8, scroll = 1)
         for comp in todo.comps:
             if not comp.hidden:
-                ct.append(comp.name, comp, comp.selected)
+                ct.append(_(comp.name), comp, comp.selected)
 
         cb = Checkbox (_("Select individual packages"), individual.get ())
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
