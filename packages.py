@@ -643,7 +643,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             select(id.grpset.hdrlist, 'elilo')
 
         if pcmcia.pcicType():
-            select(id.grpset.hdrlist, 'kernel-pcmcia-cs')
+            select(id.grpset.hdrlist, 'pcmcia-cs')
 
     if flags.test:
 	return
