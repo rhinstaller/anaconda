@@ -68,8 +68,7 @@ Section "Pointer"
 
 # Emulate3Buttons is an option for 2-button Microsoft mice
 # Emulate3Timeout is the timeout in milliseconds (default is 50ms)
-    Emulate3Buttons
-    Emulate3Timeout    50
+%(emulate3)s
 
 # ChordMiddle is an option for some 3-button Logitech mice
 #    ChordMiddle
@@ -499,6 +498,7 @@ Section "InputDevice"
         Option      "Protocol" "%(mouseProto)s"
         Option      "Device" "/dev/%(mouseDevice)s"
         Option      "ZAxisMapping" "4 5"
+        Option      "Emulate3Buttons" "%(emulate3)s"
 EndSection
 
 Section "Monitor"
@@ -1062,7 +1062,12 @@ Section "Screen"
                  "monitorHoriz"       : self.monHoriz,
                  "monitorVert"        : self.monVert,
                  "fbProbedMonitor"    : self.monSect,
-                 "files"              : self.files }
+                 "files"              : self.files,
+                 }
+        if self.mouse.get()[1]:
+            info["emulate3"] = "    Emulate3Buttons\n    Emulate3Timeout    50"
+        else:
+            info["emulate3"] = "#   Emulate3Buttons\n    Emulate3Timeout    50"
 	if iutil.getArch() == "sparc":
 	    info["autorepeat"] = "#   AutoRepeat	200 20"
         else:
@@ -1105,6 +1110,10 @@ Section "Screen"
             mouseProto = self.mouse.info['XMOUSETYPE']
 	if mouseProto == 'sun':
 	    mouseProto = 'BusMouse'
+        if self.mouse.get()[1]:
+            emulate3 = "yes"
+        else:
+            emulate3 = "no"
         data = { "mouseProto"   : mouseProto,
                  "mouseDevice"  : self.mouse.device,
                  "cardsOptions" :
@@ -1125,7 +1134,8 @@ Section "Screen"
                  "XkbLayout"    : self.keyLayout,
                  "XkbVariant"   : self.keyVariant,
                  "XkbOptions"   : self.keyOptions,
-                 "defaultDepth" : "" }
+                 "defaultDepth" : "",
+                 "emulate3"     : emulate3 }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if maxdepth > 0:
             data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
