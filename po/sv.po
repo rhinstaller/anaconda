@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-18 22:37+0100\n"
+"PO-Revision-Date: 2000-02-20 15:48+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2213,7 +2213,7 @@ msgstr "Är du säker på att du vill radera denna RAID-enhet?"
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
-msgstr "Nollställ partitionstabellen"
+msgstr "Återställ partitionstabellen"
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
@@ -2302,12 +2302,13 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
-msgstr "Ingen swappartition"
+msgstr "Ingen växkingspartition"
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
 msgstr ""
-"Du måste skapa en swappartition för att kunna fortsätta installationen."
+"Du måste skapa en växlingspartition (swappartition) för att kunna fortsätta "
+"installationen."
 
 #: ../libfdisk/newtfsedit.c:1480
 msgid ""
@@ -2316,8 +2317,8 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Det finns oallokerade partitioner kvar. Om du slutar nu kommer de inte "
-"skrivas till disken.\n"
+"Det finns oallokerade partitioner kvar. Om du avslutar nu kommer de inte att "
+"skrivas till disk.\n"
 "\n"
 "Är du säker på att du vill avsluta?"
 
@@ -2327,11 +2328,11 @@ msgstr "Spara ändringar"
 
 #: ../libfdisk/newtfsedit.c:1498
 msgid "Save changes to partition table(s)?"
-msgstr "Spara ändringar av partitionstabell(erna)?"
+msgstr "Spara ändringar av partitionstabell(er)?"
 
 #: ../libfdisk/newtfsedit.c:1542
 msgid "You may only delete NFS mounts."
-msgstr "Du kan endast radera NFS-monteringer."
+msgstr "Du kan endast radera NFS-monteringar."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -2360,8 +2361,8 @@ msgid ""
 "button now."
 msgstr ""
 "Denna modul kan ta parametrar som påverkar dess funktion. Om du inte vet "
-"vilka parametrar du ska ange, kan du bara hoppa över denna skärm genom att "
-"trycka på knappen \"OK\"."
+"vilka parametrar du ska ange så bara hoppa över denna skärm genom att trycka "
+"på knappen \"OK\"."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
