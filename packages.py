@@ -365,7 +365,7 @@ class InstallCallback:
 	    # RPM returns strange values sometimes
             if amount > total:
                 amount = total
-            if not total:
+            if not total or total == 0 or total == "0":
                 total = amount
             self.progress.setPackageScale(amount, total)
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
