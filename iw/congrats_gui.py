@@ -84,8 +84,8 @@ class ReconfigCongratulationWindow (InstallWindow):
                            "For information on fixes which are "
                            "available for this release of Red Hat Linux, consult the "
                            "Errata available from http://www.redhat.com.\n\n"
-                           "Information on further configuring your system is available in the post "
-                           "install chapter of the Official Red Hat Linux User's Guide."))
+                           "Information on further configuring your system is available in the Official "
+                           "Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."))
         
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
