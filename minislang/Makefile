@@ -7,8 +7,9 @@ DOBJS = $(patsubst %.o,%.do,$(OBJS))
 
 CFLAGS = -Os
 
+STATICLIB=libslang.a($(OBJS))
 ifeq (i386, $(ARCH))
-DIETLIB=libslang-diet.a($(DOBJS))
+STATICLIB=libslang-diet.a($(DOBJS))
 endif
 
 ifeq (.depend,$(wildcard .depend))
@@ -19,7 +20,7 @@ endif
 
 everything: $(TARGET)
 
-all:	libslang.so libslang.a($(OBJS)) $(DIETLIB)
+all:	libslang.so $(STATICLIB)
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
@@ -31,7 +32,7 @@ libslang.so: $(SOBJS)
 	gcc -o $@ -shared -Wl,-soname,libslang.so.1 $(SOBJS)
 
 clean:
-	rm -f *.o *.so *.lo libslang.so libslang.a
+	rm -f *.o *.so *.lo *.do libslang.so libslang.a libslang-diet.a
 
 install:    libslang.so
 	install -s libslang.so $(DESTDIR)/$(RUNTIMEDIR)/libslang.so.1
