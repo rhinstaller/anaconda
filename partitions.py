@@ -203,7 +203,7 @@ class Partitions:
                 req = self.getRequestByDeviceName(dev[5:])
                 if not req:
                     log("Volume group %s using non-existent partition %s"
-                        %(vg, pv))
+                        %(vg, dev))
                     continue
                 pvids.append(req.uniqueID)
             spec = partRequests.VolumeGroupRequestSpec(format = 0,
