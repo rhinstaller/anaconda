@@ -51,6 +51,48 @@ TREE_SPACING = 2
 MODE_ADD = 1
 MODE_EDIT = 2
 
+# XXXX temporary image data
+checkmark = ""
+checkmark = checkmark + "GdkP"
+checkmark = checkmark  +  "\0\0\4\30"
+checkmark = checkmark +  "\1\1\0\2"
+checkmark = checkmark +  "\0\0\0@"
+checkmark = checkmark +  "\0\0\0\20"
+checkmark = checkmark +   "\0\0\0\20"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0"
+checkmark = checkmark +  "\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0"
+checkmark = checkmark +  "\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0"
+checkmark = checkmark +  "\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\377"
+checkmark = checkmark +  "\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\377\0\0\0\377\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\377\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+checkmark = checkmark +  "\0\0\0\0\0\0\0\0\0\0\0"
+
+
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS:
@@ -318,8 +360,9 @@ class DiskTreeModel(gtk.TreeStore):
     titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
               (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
               (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
-              (N_("Format"), gobject.TYPE_BOOLEAN, 0.5, 0, isFormattable),
+#              (N_("Format"), gobject.TYPE_BOOLEAN, 0.5, 0, isFormattable),
 #              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
+              (N_("Format"), gobject.TYPE_OBJECT, 0.5, 0, isFormattable),
               (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
               (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
               (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
@@ -340,6 +383,9 @@ class DiskTreeModel(gtk.TreeStore):
             if hide:
                 i += 1
                 continue
+            elif kind == gobject.TYPE_OBJECT:
+                renderer = gtk.CellRendererPixbuf()
+                propertyMapping = {'pixbuf': i}
             elif kind == gobject.TYPE_BOOLEAN:
                 renderer = gtk.CellRendererToggle()
                 propertyMapping = {'active': i}
@@ -360,6 +406,7 @@ class DiskTreeModel(gtk.TreeStore):
 		title = _("Size\n(MB)")
             col = apply(gtk.TreeViewColumn, (_(title), renderer),
                         propertyMapping)
+	    col.set_alignment(0.5)
             self.columns.append(col)
             i += 1
 
@@ -637,7 +684,8 @@ class PartitionWindow(InstallWindow):
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
-                    self.tree[iter]['Format'] = lvrequest.format
+                    if lvrequest.format:
+			self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
 		    self.tree[iter]['IsLeaf'] = gtk.TRUE
 		    self.tree[iter]['Type'] = ptype
@@ -671,7 +719,8 @@ class PartitionWindow(InstallWindow):
                 if request.fstype:
                     ptype = self.getShortFSTypeName(request.fstype.getName())
 
-		    self.tree[iter]['Format'] = request.format
+              	    if request.format:
+			self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 else:
                     ptype = _("None")
@@ -771,7 +820,9 @@ class PartitionWindow(InstallWindow):
                             ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = part.fs_type.name
-                    self.tree[iter]['Format'] = request.format
+
+                    if request.format:
+			self.tree[iter]['Format'] = self.checkmark_pixbuf
                 else:
                     if request and request.fstype != None:
                         ptype = self.getShortFSTypeName(request.fstype.getName())
@@ -1062,6 +1113,9 @@ class PartitionWindow(InstallWindow):
         # XXX PartitionRequests() should already exist and
         # if upgrade or going back, have info filled in
 #        self.newFsset = self.fsset.copy()
+
+	# load up checkmark
+	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(checkmark), checkmark, gtk.FALSE)
 
         # operational buttons
         buttonBox = gtk.HButtonBox()
