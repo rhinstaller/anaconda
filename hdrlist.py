@@ -92,6 +92,12 @@ def getLangs():
 # basically, we generally prefer the shorter name with some special-case
 # caveats.
 def betterPackageForProvides(h1, h2):
+    # make sure we don't try to return a bogus arch
+    if h1 is not None and rhpl.arch.score(h1['arch']) == 0:
+        h1 = None
+    if h2 is not None and rhpl.arch.score(h2['arch']) == 0:
+        h2 = None
+        
     # if one is none, return the other
     if h2 is None:
         return h1
@@ -127,11 +133,7 @@ def betterPackageForProvides(h1, h2):
     # same package names, which is a better arch?
     score1 = rhpl.arch.score(h1['arch'])
     score2 = rhpl.arch.score(h2['arch'])
-    if score1 == 0:
-        return h2
-    elif score2 == 0:
-        return h1
-    elif (score1 < score2):
+    if (score1 < score2):
         return h1
     elif (score2 < score1):
         return h2
