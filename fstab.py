@@ -52,7 +52,7 @@ class Fstab:
 	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
             fstab.append ((dev, mntpoint))
 
-	ddruid = self.createDruid(fstab = fstab)
+	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
 	for (mntpoint, size, maxsize, grow, device) in partitions:
 	    type = 0x83
@@ -590,9 +590,9 @@ class Fstab:
     def getBadBlockCheck(self):
 	return self.badBlockCheck
 
-    def createDruid(self, fstab = []):
+    def createDruid(self, fstab = [], ignoreBadDrives = 0):
 	return self.fsedit(0, self.driveList(), fstab, self.zeroMbr, 
-			   self.readOnly)
+			   self.readOnly, ignoreBadDrives)
 
     def getRunDruid(self):
 	return self.shouldRunDruid

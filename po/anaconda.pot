@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-15 16:36-0500\n"
+"POT-Creation-Date: 2000-02-16 14:35-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -137,21 +137,21 @@ msgstr ""
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
 
-#: ../installclass.py:251
+#: ../installclass.py:252
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
-#: ../installclass.py:288
+#: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
-#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
-#: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:833 ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
+#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
+#: ../libfdisk/fsedit.c:828 ../libfdisk/fsedit.c:845 ../libfdisk/fsedit.c:1238
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202
 #: ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514
@@ -302,7 +302,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 
-#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
 #: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
+#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
 #: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
@@ -729,48 +729,48 @@ msgstr ""
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:951
+#: ../todo.py:958
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:952
+#: ../todo.py:959
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1121
+#: ../todo.py:1132
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1123
+#: ../todo.py:1134
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1144
+#: ../todo.py:1155
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1147
+#: ../todo.py:1158
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1147
+#: ../todo.py:1158
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1160
+#: ../todo.py:1171
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1184
+#: ../todo.py:1195
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1185
+#: ../todo.py:1196
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -1283,7 +1283,7 @@ msgstr ""
 msgid "Do not install SILO"
 msgstr ""
 
-#: ../iw/timezone.py:30 ../textw/timezone.py:84
+#: ../iw/timezone.py:30 ../textw/timezone.py:83
 msgid "Time Zone Selection"
 msgstr ""
 
@@ -1491,7 +1491,7 @@ msgstr ""
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../textw/timezone.py:81
+#: ../textw/timezone.py:80
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
@@ -1618,17 +1618,17 @@ msgstr ""
 msgid "Request server via broadcast"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
-#: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
+#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
+#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
 msgid "Bad Mount Point"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:729
+#: ../libfdisk/fsedit.c:740
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:736
+#: ../libfdisk/fsedit.c:747
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1636,7 +1636,7 @@ msgid ""
 "Mount points must begin with a leading /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:743
+#: ../libfdisk/fsedit.c:754
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1644,7 +1644,7 @@ msgid ""
 "Mount points may not end with a /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:752
+#: ../libfdisk/fsedit.c:763
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1652,7 +1652,7 @@ msgid ""
 "Mount points may only printable characters."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:762
+#: ../libfdisk/fsedit.c:773
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -1660,7 +1660,7 @@ msgid ""
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:779
+#: ../libfdisk/fsedit.c:790
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1668,7 +1668,7 @@ msgid ""
 "System partitions must be on Linux Native partitions."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:789
+#: ../libfdisk/fsedit.c:800
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1676,74 +1676,74 @@ msgid ""
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:817
+#: ../libfdisk/fsedit.c:828
 msgid "Too Many Drives"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:818
+#: ../libfdisk/fsedit.c:829
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:833
+#: ../libfdisk/fsedit.c:845
 msgid "No Drives Found"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:834
+#: ../libfdisk/fsedit.c:846
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1146 ../libfdisk/fsedit.c:1208
+#: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1185
+#: ../libfdisk/fsedit.c:1199
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1190
+#: ../libfdisk/fsedit.c:1204
 msgid "Bad Partition Table"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1191
+#: ../libfdisk/fsedit.c:1205
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1191 ../libfdisk/fsedit.c:1212
+#: ../libfdisk/fsedit.c:1205 ../libfdisk/fsedit.c:1226
 msgid "Skip Drive"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1212 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1226 ../loader/net.c:329
 msgid "Retry"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:1238
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1224
+#: ../libfdisk/fsedit.c:1238
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1254
+#: ../libfdisk/fsedit.c:1268
 #, c-format
 msgid "System error %d"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1263 ../libfdisk/fsedit.c:1265
+#: ../libfdisk/fsedit.c:1277 ../libfdisk/fsedit.c:1279
 msgid "Fdisk Error"
 msgstr ""
 
