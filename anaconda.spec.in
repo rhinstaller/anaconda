@@ -29,6 +29,8 @@ rm -rf $RPM_BUILD_ROOT
 make RECFGDESTDIR=$RPM_BUILD_ROOT install-reconfig
 #strip $RPM_BUILD_ROOT/usr/sbin/ddcprobe
 
+strip $RPM_BUILD_ROOT/usr/lib/anaconda/*.so
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -53,6 +55,9 @@ fi
 
 
 %changelog
+
+* Thu Feb 03 2000 Michael Fulbright <drmike@redhat.com>
+- strip files
 
 * Wed Jan 05 2000 Michael Fulbright <drmike@redhat.com>
 - added requirement for rpm-python
