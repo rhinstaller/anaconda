@@ -657,7 +657,8 @@ class KickstartBase(BaseInstallClass):
         request = PartitionSpec(filesystem, REQUEST_RAID,
                                 mountpoint = mountpoint,
                                 raidmembers = raidmems, raidlevel = level,
-                                raidspares = spares, format = format)
+                                raidspares = spares, format = format,
+                                raidminor = raidDev)
         id.partitions.autoPartitionRequests.append(request)
 
 
