@@ -20,7 +20,7 @@ import rpm
 import os
 from string import *
 import types
-import urllib
+import urllib2
 import time
 import language
 
@@ -701,7 +701,7 @@ class ComponentSet:
         connected = 0
         while not connected:
             try:
-		file = urllib.urlopen(filename)
+		file = urllib2.urlopen(filename)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s", filename,
 			errnum, str(msg))

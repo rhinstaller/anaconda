@@ -18,7 +18,7 @@ from installmethod import InstallMethod
 import os
 import rpm
 import time
-import urllib
+import urllib2
 import string
 import struct
 import socket
@@ -34,8 +34,17 @@ from rhpl.log import log
 FILENAME = 1000000
 DISCNUM  = 1000002
 
-class UrlInstallMethod(InstallMethod):
+def urlretrieve(location, file):
+    """Downloads from location and saves to file."
 
+    url = urllib2.urlopen(location)
+    f = open(file, 'w+')
+    f.write(url.read())
+    f.close()
+    url.close()
+    
+
+class UrlInstallMethod(InstallMethod):
     def readCompsViaMethod(self, hdlist):
 	fname = self.findBestFileMatch(None, 'comps.xml')
 	# if not local then assume its on host
@@ -63,7 +72,7 @@ class UrlInstallMethod(InstallMethod):
         connected = 0
         while not connected:
             try:
-                urllib.urlretrieve(fullPath, file)
+                urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s",
 			errnum, fullPath, str(msg))
@@ -88,7 +97,7 @@ class UrlInstallMethod(InstallMethod):
         connected = 0
         while not connected:
             try:
-                urllib.urlretrieve(fullPath, file)
+                urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s",
 			errnum, fullPath, str(msg))
@@ -106,7 +115,7 @@ class UrlInstallMethod(InstallMethod):
 
         while not connected:
             try:
-                url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
+                url = urllib2.urlopen(self.baseUrl + "/RedHat/base/hdlist")
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s",
 			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
