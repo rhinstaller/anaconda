@@ -602,7 +602,7 @@ class VolumeGroupEditor:
 				    _("There is no room left in the "
 				      "volume group to create new logical "
 				      "volumes. "
-				      "To nadd a logical volume you will need "
+				      "To add a logical volume you will need "
 				      "to reduce the size of one or more of "
 				      "the currently existing "
 				      "logical volumes"))
