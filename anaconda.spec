@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.13
+Version: 10.1.1.14
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,20 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Feb 24 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.14-1
+- Fix multiple DNS servers being specified on the command line.  Patch 
+  from mattdm (#84409)
+- Fix dhcpclass specification on the command-line (#144066)
+- Fix formatting of new fcp disks (#144199)
+- Support parsing pxelinux IPAPPEND (bnocera, #134054)
+- Reset package selection to defaults when selected (#142415)
+- More tree sanity checking instead of traceback'ing (#143930)
+- Fix some partitioning corner cases (clumens, #137119, #145145)
+- Fix iSeries upgrades (pnasrat, #146915)
+- Fix hostname display (clumens, #132826, #149116)
+- Fix mtab writing in rescue mode (#149091)
+- Use ethtool settings in more places (pnasrat, #145422)
+
 * Thu Dec 30 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.13-1
 - fix typo with kernel*devel (#143257)
 
