@@ -494,6 +494,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
        newCfg.dev.mtu = atoi(env);
        newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
    }
+   env = getenv("REMIP");
+   if (env && *env) {
+       if (inet_aton(env, &newCfg.dev.ptpaddr))
+           newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+   }
 
    sleep(1);
 #endif   /* s390 */
@@ -582,6 +587,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
     if (dev->dev.set & PUMP_INTFINFO_HAS_MTU)
         fprintf(f, "MTU=%d\n", dev->dev.mtu);
+    if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
+        fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.ptpaddr));
 
     fclose(f);
 
