@@ -335,7 +335,7 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	if (!str) return NULL;
 
 	if (str[strlen(str) - 1] == '=') {
-	    str = strcpy(alloca(strlen(str)) + 1, str);
+	    str = strcpy(alloca(strlen(str) + 1), str);
 	    str[strlen(str) - 1] = '\0';
 	    options[numOptions].argInfo = POPT_ARG_STRING;
 	    options[numOptions].arg = args + numOptions;
@@ -385,14 +385,11 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
     numOptions = 0;
     while (*ch) {
 	if (!occurs[numOptions] && !args[numOptions]) {
-	    printf("skipping %c numOptions %d\n", *ch, numOptions);
 	    ch++;
 	    if (*ch == ':') ch++;
 	    numOptions++;
 	    continue;
 	}
-
-	printf("got %c numOptions %d\n", *ch, numOptions);
 
 	strBuf[0] = '-';
 	strBuf[1] = *ch++;
@@ -409,8 +406,6 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	numOptions++;
     }
 
-    printf("first long arg is option number %d\n", numOptions);
-
     for (i = 0; i < PyList_Size(longArgs); i++) {
 	if (!occurs[numOptions] && !args[numOptions]) {
 	    numOptions++;
@@ -420,7 +415,6 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
         strObject = PyList_GetItem(longArgs, i);
 	str = alloca(strlen(PyString_AsString(strObject)) + 3);
 	sprintf(str, "--%s", PyString_AsString(strObject));
-	printf("numOptions is %d i is %d str is %s\n", numOptions, i, str);
 	if (!str) return NULL;
 
 	if (args[numOptions]) {
