@@ -264,6 +264,10 @@ class InstallProgressWindow (InstallWindow):
 		statusflag = 1
 		break
 
+        # FIXME: including the status makes the rnotes different sizes which
+        # is bad.  temporarily disable download status for now
+        statusflag = 0
+
 	if statusflag:
 	    statusTable = gtk.Table (2, 2, gtk.FALSE)
 	    self.pkgstatus = gtk.Label("")
