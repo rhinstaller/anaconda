@@ -110,7 +110,7 @@ mkdir -p $DESTGR
 
 PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
-	 procps rpm XFree86 Xconfigurator anaconda tzdata
+	 procps rpm rpm-libs XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
@@ -150,7 +150,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs coreutils glibc glibc-common
-           readline popt specspo util-linux rpm 
+           readline popt specspo util-linux rpm rpm-libs
            procps ncurses bash cpio gpm
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
