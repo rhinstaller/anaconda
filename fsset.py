@@ -351,7 +351,7 @@ class reiserfsFileSystem(FileSystemType):
             f = open("/proc/cmdline")
             line = f.readline()
             if string.find(line, " reiserfs") != -1:
-                self.supported = 1
+                self.supported = -1
             else:
                 self.supported = 0
             del f
@@ -436,7 +436,7 @@ class jfsFileSystem(FileSystemType):
             f = open("/proc/cmdline")
             line = f.readline()
             if string.find(line, " jfs") != -1:
-                self.supported = 1
+                self.supported = -1
             else:
                 self.supported = 0
             del f
