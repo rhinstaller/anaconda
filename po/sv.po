@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-07-16 14:00-0400\n"
-"PO-Revision-Date: 2000-07-14 00:49+0200\n"
+"PO-Revision-Date: 2000-07-17 23:07+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "Söker"
+msgstr "Allt"
 
 #: ../exception.py:13 ../text.py:768
 msgid "Exception Occurred"
@@ -545,7 +544,6 @@ msgid "Save Crash Dump"
 msgstr "Spara kraschdump"
 
 #: ../text.py:793
-#, fuzzy
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -908,9 +906,8 @@ msgid "Root passwords do not match."
 msgstr "Rootlösenorden stämmer inte överens."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Rootlösenordet accepterat."
+msgstr "Användarlösenordet accepterat."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -2946,9 +2943,9 @@ msgid "Failed to insert %s module."
 msgstr "Misslyckades med att stoppa in %s-modulen."
 
 #: ../loader/devices.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Montering av drivrutinsdisketten misslyckades."
+msgstr "Montering av drivrutinsdiskett misslyckades: %s."
 
 #: ../loader/devices.c:463
 msgid "The wrong diskette was inserted."
@@ -3463,9 +3460,8 @@ msgid "Custom System"
 msgstr "Anpassat system"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Uppgradera system"
+msgstr "Serversystem"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3562,6 +3558,3 @@ msgstr "Kärnutveckling"
 
 msgid "Utilities"
 msgstr "Verktyg"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Fel vid kopiering av tidszon (från %s): %s"
