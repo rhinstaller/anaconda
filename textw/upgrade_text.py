@@ -220,7 +220,7 @@ class UpgradeExamineWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
         else:
-            if choice == len(parts):
+            if choice == 0:
                 root = None
             else:
                 root = parts[choice - 1]
