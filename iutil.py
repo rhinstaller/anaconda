@@ -185,6 +185,7 @@ def copyFile(source, to, pw = None):
 	    win.pop()
 
 
+# this is in kilobytes
 def memInstalled(corrected = 1):
     global memoryOverhead
 
@@ -202,7 +203,7 @@ def memInstalled(corrected = 1):
         for line in lines:
             fields = string.split(line)
             if fields[3] == "(usable)":
-                mem = mem + string.atoi(fields[0], 16)
+                mem = mem + (string.atoi(fields[0], 16) / 1024)
                 
     if corrected:
         mem = mem - memoryOverhead
