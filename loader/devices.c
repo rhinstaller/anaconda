@@ -117,10 +117,8 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     return 0;
 }
 
-#define CDD_MOUNT_FAILED    1
-#define CDD_BAD_DISK	    2
-static int copyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
-			  moduleDeps modDeps, int flags) {
+int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
+		      moduleDeps modDeps, int flags, char * mntPoint) {
     char * files[] = { "modules.cgz", "modinfo", "modules.dep", NULL };
     char * dirName;
     char ** file;
@@ -128,21 +126,15 @@ static int copyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     static int diskNum = 0;
     char from[200], to[200];
 
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
-
-    devMakeInode("fd0", "/tmp/fd0");
-
-    if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
-	return CDD_BAD_DISK;
-
-    if (access("/tmp/drivers/rhdd-6.1", R_OK))
+    sprintf(from, "%s/rhdd-6.1", mntPoint);
+    if (access(from, R_OK))
 	badDisk = 1;
 
     dirName = malloc(80);
     sprintf(dirName, "/tmp/DD-%d", diskNum);
     mkdir(dirName, 0755);
     for (file = files; *file; file++) {
-	sprintf(from, "/tmp/drivers/%s", *file);
+	sprintf(from, "%s/%s", mntPoint, *file);
 	sprintf(to, "%s/%s", dirName, *file);
 
 	if (copyFile(from, to))
@@ -152,7 +144,7 @@ static int copyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     umount("/tmp/drivers");
 
     if (badDisk) {
-	return CDD_BAD_DISK;
+	return 1;
     }
 
     sprintf(from, "%s/modinfo", dirName);
@@ -175,11 +167,14 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
     if (rc == 2) return LOADER_BACK;
 
-    rc = copyDriverDisk(modInfo, modLoaded, modDeps, flags);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
-    if (rc == CDD_MOUNT_FAILED)
+    devMakeInode("fd0", "/tmp/fd0");
+
+    if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
 	newtWinMessage(_("Error"), _("OK"), _("Failed to mount floppy disk."));
-    else if (rc)
+
+    if (devCopyDriverDisk(modInfo, modLoaded, modDeps, flags, "/tmp/drivers"))
 	newtWinMessage(_("Error"), _("OK"),
 	    _("The floppy disk you inserted is not a valid driver disk "
 	      "for this release of Red Hat Linux."));

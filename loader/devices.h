@@ -9,5 +9,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 		  char ** moduleName);
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		     moduleDeps modDeps, int flags, int cancelNotBack);
+int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
+		      moduleDeps modDeps, int flags, char * mntPoint);
 
 #endif

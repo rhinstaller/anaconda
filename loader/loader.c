@@ -1102,6 +1102,12 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
     char ** optv;
     poptContext optCon;
     int doContinue, missingOkay;	/* obsolete */
+    char * fsType = "ext2";
+    char * fs;
+    struct poptOption diskTable[] = {
+	    { "type", 't', POPT_ARG_STRING, &fsType, 0 },
+	    { 0, 0, 0, 0, 0 }
+	};
     struct poptOption table[] = {
 	    { "continue", '\0', POPT_ARG_STRING, &doContinue, 0 },
 	    { "missingok", '\0', POPT_ARG_STRING, &missingOkay, 0 },
@@ -1109,12 +1115,49 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    { 0, 0, 0, 0, 0 }
 	};
 
-logMessage("looking for device commands");
+    if (!ksGetCommand(KS_CMD_DRIVERDISK, NULL, &ksArgc, &ksArgv)) {
+	optCon = poptGetContext(NULL, ksArgc, ksArgv, diskTable, 0);
+
+	do {
+	    if ((rc = poptGetNextOpt(optCon)) < -1) {
+		logMessage("bad argument to kickstart driverdisk command "
+			"%s: %s",
+		       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		       poptStrerror(rc));
+		break;
+	    }
+
+	    fs = poptGetArg(optCon);
+
+	    if (!fs || poptGetArg(optCon)) {
+		logMessage("bad arguments to kickstart driverdisk command");
+		break;
+	    } 
+
+	    if (strcmp(fsType, "nfs")) {
+		devMakeInode(fs, "/tmp/disk");
+		fs = "/tmp/disk";
+	    } 
+
+	    if (!strcmp(fsType, "vfat"))
+		mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
+
+	    if (doPwMount(fs, "/tmp/drivers", fsType, 1, 0, NULL, NULL)) {
+		logMessage("failed to mount %s", fs);
+		break;
+	    } 
+
+	    if (devCopyDriverDisk(modInfo, modLoaded, modDeps, flags,
+				  "/tmp/drivers")) {
+		logMessage("driver information missing!");
+	    }
+
+	    umount("/tmp/drivers");
+	} while (0);
+    }
 
     while (!ksGetCommand(KS_CMD_DEVICE, ksArgv, &ksArgc, &ksArgv)) {
 	opts = NULL;
-
-logMessage("got device command");
 
 	optCon = poptGetContext(NULL, ksArgc, ksArgv, table, 0);
 
