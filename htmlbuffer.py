@@ -4,7 +4,7 @@
 #
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -23,15 +23,18 @@ import re
 
 class HTMLBuffer(HTMLParser.HTMLParser):
     ignoreTags = ('title',)
-    noTagTags = ('html', 'div', 'head', 'span')
-    newlineTags = ('p', 'h1', 'h2', 'li')
+    noTagTags = ('html', 'head', 'span')
+    newlineTags = ('p', 'h1', 'h2', 'ul')
     whiteSpaceNuker = re.compile(r"""\s+""", re.MULTILINE) 
     def __init__(self):
         self.buffer = gtk.TextBuffer(None)
         self.ignoreData = 0
         self.inList = 0
-        self.currentTag = ''
+        self.pInListCounter = 0
         self.startOfP = 0
+        self.lastTag = None
+        self.lastDataEmpty = 0
+        self.onBlankLine = 0
         HTMLParser.HTMLParser.__init__(self)
         if gtk.gdk.screen_width() >= 800:
             baseSize = 12
@@ -43,10 +46,6 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag = self.buffer.create_tag('body')
         tag.set_property('font', '%s %d' % (baseFont, baseSize))
             
-        tag = self.buffer.create_tag('p')
-        tag.set_property('pixels-above-lines', 5)
-        tag.set_property('pixels-below-lines', 5)
-
         tag = self.buffer.create_tag('tt')
         tag.set_property('font', 'Monospace %d' % (baseSize,))
 
@@ -62,7 +61,7 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
         tag = self.buffer.create_tag('h3')
-        tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 3))
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
         tag = self.buffer.create_tag('b')
@@ -73,12 +72,10 @@ class HTMLBuffer(HTMLParser.HTMLParser):
 
         tag = self.buffer.create_tag('ul')
         tag.set_property('left-margin', 20)
-        # reset spacing in paragraphs incase this list is inside <p>
-        tag.set_property('pixels-above-lines', 0)
-        tag.set_property('pixels-below-lines', 0)
 
-        tag = self.buffer.create_tag('li')
-        tag.set_property('indent', -9)
+        self.buffer.create_tag('p')
+        self.buffer.create_tag('div')
+        self.buffer.create_tag('li')
 
         self.iter = self.buffer.get_iter_at_offset(0)
         self.offsets = {}
@@ -102,7 +99,6 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         if tag in self.ignoreTags:
             self.ignoreData += 1
             return
-        self.currentTag = tag
         if tag in self.noTagTags:
             return
         self.pushTag(tag, self.iter.get_offset())
@@ -111,24 +107,35 @@ class HTMLBuffer(HTMLParser.HTMLParser):
             self.buffer.insert(self.iter, u'\u2022 ')
         elif tag == 'p':
             self.startOfP = 1
+            if self.inList:
+                self.pInListCounter += 1
 
     def handle_endtag(self, tag):
+        self.lastTag = tag
         if tag in self.ignoreTags:
             self.ignoreData -= 1
             return
         if tag == 'li':
             self.inList -= 1
+            self.pInListCounter = 0
         if tag in self.noTagTags:
             return
         offset = self.popTag(tag)
         current = self.iter.get_offset()
         if tag in self.newlineTags and offset != current:
             if tag == 'p' and self.inList:
-                offset -= 2
+                # for the first <li> entry with a <p> following, break
+                # before the bullet
+                if self.pInListCounter == 1:
+                    offset -= 2
             # put a newline at the beginning
             start = self.buffer.get_iter_at_offset(offset)
             self.buffer.insert(start, '\n')
             offset += 1
+            current += 1
+            # put a newline at the end
+            start = self.buffer.get_iter_at_offset(current)
+            self.buffer.insert(start, '\n')
             current += 1
             self.iter = self.buffer.get_iter_at_offset(current)
         start = self.buffer.get_iter_at_offset(offset)
@@ -144,7 +151,19 @@ class HTMLBuffer(HTMLParser.HTMLParser):
                     data = data[1:]
                 self.startOfP = 0
             # print '|%s|' % (data,)
-            self.buffer.insert(self.iter, data)
+            if data:
+                self.buffer.insert(self.iter, data)
+                self.onBlankLine = 0
+            else:
+                self.lastDataEmpty = 1
+
+    def handle_charref(self, name):
+        self.buffer.insert(self.iter, unichr(int(name)))
+
+    def handle_entityref(self, name):
+        if name == 'copy':
+            # (c) is unicode 00A9
+            self.buffer.insert(self.iter, unichr(0xA9))
 
 if __name__ == '__main__':
     def quit(*args):

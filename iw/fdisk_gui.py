@@ -48,6 +48,9 @@ class FDiskWindow (InstallWindow):
         self.ics.readHTML ("fdisk")
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
+        cw = self.ics.getICW()
+        if cw.displayHelp:
+            cw.refreshHelp()
 #        self.ics.setHelpEnabled (1)
 
 
@@ -74,6 +77,10 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.pack_start(term)
 
         self.ics.readHTML("fdiskpart")
+        cw = self.ics.getICW()
+        if cw.displayHelp:
+            cw.refreshHelp()
+
         self.ics.setPrevEnabled(0)
         self.ics.setNextEnabled(0)
 
