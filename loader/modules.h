@@ -40,4 +40,9 @@ char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 int mlModuleInList(const char * modName, moduleList list);
 int mlWriteConfModules(moduleList list, int fd);
 
+int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+			     int flags);
+int reloadUnloadedModule(char * modName, void * location, 
+			 moduleList modLoaded, char ** args, int flags);
+
 #endif

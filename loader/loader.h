@@ -29,6 +29,7 @@
 #define LOADER_FLAGS_NOPASS	        (1 << 23)
 #define LOADER_FLAGS_KSHTTP             (1 << 24)
 #define LOADER_FLAGS_MEDIACHECK         (1 << 25)
+#define LOADER_FLAGS_NOUSBSTORAGE       (1 << 26)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -56,7 +57,10 @@
 #define FL_NOPASS(a)	    ((a) & LOADER_FLAGS_NOPASS)
 #define FL_KSHTTP(a)        ((a) & LOADER_FLAGS_KSHTTP)
 #define FL_MEDIACHECK(a)    ((a) & LOADER_FLAGS_MEDIACHECK)
+#define FL_NOUSBSTORAGE(a)  ((a) & LOADER_FLAGS_NOUSBSTORAGE)
 
 #define CODE_PCMCIA	1
 
 void startNewt(int flags);
+
+void setFloppyDevice(int flags);

@@ -84,6 +84,7 @@ int ourInsmodCommand(int argc, char ** argv);
 int kon_main(int argc, char ** argv);
 static int mountLoopback(char * fsystem, char * mntpoint, char * device);
 static int umountLoopback(char * mntpoint, char * device);
+int copyDirectory(char * from, char * to);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -482,7 +483,7 @@ static int setupStage2Image(int fd, char * dest, int flags,
 #ifdef INCLUDE_LOCAL
 static int loadLocalImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
-    int fd, rc;
+    int fd, rc, fd2;
     char * path;
 
     /* In a kind world, this would do nothing more then mount a ramfs
@@ -498,6 +499,19 @@ static int loadLocalImages(char * prefix, char * dir, int flags,
 	logMessage("failed to open %s: %s", path, strerror(errno));
 	return 1;
     } 
+
+    /* handle updates.img now before we copy stage2 over... this allows
+     * us to keep our ramdisk size as small as possible */
+    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
+    if ((fd2 = open(path, O_RDONLY)) >= 0) {
+      if (!setupStage2Image(fd2, "/tmp/ramfs/updates-disk.img", flags,
+			    "loop7", "/tmp/update-disk")) {
+	copyDirectory("/tmp/update-disk", "/tmp/updates");
+	umountLoopback("/tmp/update-disk", "loop7");
+	unlink("/tmp/ramfs/updates-disk.img");
+      }
+      close(fd2);
+    }
 
     rc = setupStage2Image(fd, "/tmp/ramfs/hdstg1.img", flags, device, mntpoint);
 
@@ -602,6 +616,8 @@ static char * setupOldHardDrive(char * device, char * type, char * dir,
     return url;
 }
 
+#endif
+
 static int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
 
@@ -616,9 +632,6 @@ static int umountLoopback(char * mntpoint, char * device) {
 
     return 0;
 }
-
-#endif
-
 
 
 static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
@@ -726,6 +739,20 @@ static int totalMemory(void) {
     logMessage("%d kB are available", total);
 
     return total;
+}
+
+/* try to grab an updates.img from /mnt/source/RedHat/base/
+ * XXX hard coded locations suck.  oh well
+ */
+static void useMntSourceUpdates() {
+  if (!access("/mnt/source/RedHat/base/updates.img", R_OK)) {
+    if (!mountLoopback("/mnt/source/RedHat/base/updates.img",
+		       "/tmp/update-disk", "loop7")) {
+	copyDirectory("/tmp/update-disk", "/tmp/updates");
+	umountLoopback("/tmp/update-disk", "loop7");
+	unlink("/tmp/ramfs/update-disk.img");
+    }
+  }
 }
 
 #ifdef INCLUDE_LOCAL
@@ -934,6 +961,7 @@ void ejectCdrom(void) {
 }
 
 
+
 /* XXX this ignores "location", which should be fixed */
 static char * mediaCheckCdrom(char *cddriver, int flags) {
 
@@ -997,6 +1025,8 @@ static char * setupCdrom(struct installMethod * method,
 		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
+		        useMntSourceUpdates();
+		      
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
 
@@ -1235,6 +1265,7 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
+		        useMntSourceUpdates();
 			stage = NFS_STAGE_DONE;
 		    }
 		} else {
@@ -1308,6 +1339,17 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
     setupRamdisk();
 
+    /* try to pull the updates.img before getting the netstg1.img so
+     * we can minimize our ramdisk size */
+    if (!loadSingleUrlImage(ui, "RedHat/base/updates.img", flags,
+			    "/tmp/ramfs/updates-disk.img",
+			    "/tmp/update-disk", "loop7")) {
+	/* copy the updates, then unmount the loopback and unlink the img */
+	copyDirectory("/tmp/update-disk", "/tmp/updates");
+	umountLoopback("/tmp/update-disk", "loop7");
+	unlink("/tmp/ramfs/updates-disk.img");
+    }
+	
     if (loadSingleUrlImage(ui, "RedHat/base/netstg1.img", flags, 
 			   "/tmp/ramfs/netstg1.img",
 			   "/mnt/runtime", "loop0")) {
@@ -1316,7 +1358,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 	       _("Unable to retrieve the first install image"));
 	return 1;
     }
-
+    
     return 0;
 }
 
@@ -2011,6 +2053,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_LOWRES;
 	else if (!strcasecmp(argv[i], "nofb"))
 	    flags |= LOADER_FLAGS_NOFB;
+	else if (!strcasecmp(argv[i], "nousbstorage"))
+  	    flags |= LOADER_FLAGS_NOUSBSTORAGE;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
@@ -2497,6 +2541,7 @@ void setFloppyDevice(int flags) {
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
+    char * buf = NULL;
 
     if (FL_NOUSB(flags)) return 0;
 
@@ -2523,8 +2568,14 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 		  NULL, NULL))
 	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
 
-    mlLoadModuleSet("hid:keybdev:usb-storage", modLoaded, modDeps, modInfo, 
-		    flags);
+    /* sleep so we make sure usb devices get properly initialized */
+    sleep(2);
+
+    buf = alloca(40);
+    sprintf(buf, "hid:keybdev%s", 
+		  (FL_NOUSBSTORAGE(flags) ? "" : ":usb-storage"));
+    mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
+    sleep(1);
 
     return 0;
 }

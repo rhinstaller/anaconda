@@ -324,6 +324,14 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	strcat(fileName, *argPtr);
     }
 
+    if (modInfo && (mi = isysFindModuleInfo(modInfo, modName))) {
+	if (mi->major == DRIVER_SCSI) {
+	    /* XXX this shouldn't happen before every load but instead
+	     * just before loading a module group */
+	    simpleRemoveLoadedModule("usb-storage", modLoaded, flags);
+	}
+    }
+
     if (FL_TESTING(flags)) {
 	logMessage("would have insmod %s", path);
 	rc = 0;
@@ -347,6 +355,13 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	} else {
 	    rc = 0;
 	}
+    }
+
+    if (modInfo && (strncmp(modName, "usb-storage", 11) != 0) && (mi = isysFindModuleInfo(modInfo, modName))) {
+ 	if (mi->major == DRIVER_SCSI) {
+ 	    reloadUnloadedModule("usb-storage", NULL, modLoaded, NULL, flags);
+	    setFloppyDevice(flags);
+ 	}
     }
 
     if (!rc) {
@@ -628,3 +643,106 @@ int mlWriteConfModules(moduleList list, int fd) {
 
     return 0;
 }
+
+/* simple removal of a loaded module which is going to be reloaded.
+ * Note that this does NOT modify the modLoaded struct at all 
+ */
+int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
+			     int flags) {
+    int status, rc = 0;
+    pid_t child;
+
+    if (!mlModuleInList(modName, modLoaded)) {
+	return 0;
+    }    
+    
+    if (FL_TESTING(flags)) {
+	logMessage("would have rmmod %s", modName);
+	rc = 0;
+    } else {
+	logMessage("going to rmmod %s", modName);
+	if (!(child = fork())) {
+	    int fd = open("/dev/tty3", O_RDWR);
+
+	    dup2(fd, 0);
+	    dup2(fd, 1);
+	    dup2(fd, 2);
+	    close(fd);
+
+	    execl("/sbin/rmmod", "/sbin/rmmod", modName, NULL);
+	    _exit(rc);
+	}
+
+	waitpid(child, &status, 0);
+	
+	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+	    rc = 1;
+	} else {
+	    rc = 0;
+	}
+    }
+    return rc;
+}
+
+/* simple reinsertion of a module; just looks for the module and reloads it
+ * if we think it was already loaded
+ */
+int reloadUnloadedModule(char * modName, void * location,
+			 moduleList modLoaded, char ** args, int flags) {
+    char fileName[200];
+    int rc, status;
+    pid_t child;
+    char ** path;
+    char ** argPtr;
+    char ** list;
+
+    if (!mlModuleInList(modName, modLoaded)) {
+	return 0;
+    }
+
+    list = malloc(3 * sizeof(*list));
+    *list = modName;
+    *(list + 1) = NULL;
+
+    if (location)
+	path = extractModules(location, tsortModules(modLoaded, NULL, modName, 0, NULL, NULL), (char **) NULL);
+
+    sprintf(fileName, "%s.o", modName);
+    for (argPtr = args; argPtr && *argPtr; argPtr++)  {
+	strcat(fileName, " ");
+	strcat(fileName, *argPtr);
+    }
+
+    sprintf(fileName, "%s.o", modName);
+
+    if (FL_TESTING(flags)) {
+	logMessage("would have insmod %s", fileName);
+	rc = 0;
+    } else {
+	logMessage("going to insmod %s", fileName);
+
+	if (!(child = fork())) {
+	    int fd = open("/dev/tty3", O_RDWR);
+
+	    dup2(fd, 0);
+	    dup2(fd, 1);
+	    dup2(fd, 2);
+	    close(fd);
+
+	    rc = insmod(fileName, NULL, args);
+	    _exit(rc);
+	}
+
+	waitpid(child, &status, 0);
+
+	if (!WIFEXITED(status) || WEXITSTATUS(status)) {
+	    rc = 1;
+	} else {
+	    rc = 0;
+	}
+    }
+
+    logMessage("reloadModule returning %d", rc);
+    return rc;
+}
+
