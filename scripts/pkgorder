@@ -101,8 +101,6 @@ pkgOrder = []
 
 ts.order()
 
-print "here"
-
 problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, transCB, None)
 
 for p in pkgOrder:
