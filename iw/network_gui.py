@@ -455,7 +455,7 @@ class NetworkWindow(InstallWindow):
 	    self.hostnameEntry.grab_focus()
 
     # NetworkWindow tag="netconf"
-    def getScreen(self, network, dispatch, intf):
+    def getScreen(self, network, dir, intf):
 	self.intf = intf
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(5)

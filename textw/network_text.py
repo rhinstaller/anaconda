@@ -174,7 +174,7 @@ class NetworkWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
-    def __call__(self, screen, network, dispatch, intf):
+    def __call__(self, screen, network, dir, intf):
 
         devices = network.available ()
         if not devices:
@@ -183,7 +183,7 @@ class NetworkWindow:
 	list = devices.keys ()
 	list.sort()
         devLen = len(list)
-        if dispatch.dir == 1:
+        if dir == 1:
             currentDev = 0
         else:
             currentDev = devLen - 1
@@ -201,7 +201,7 @@ class NetworkWindow:
             return INSTALL_OK
 
 class HostnameWindow:
-    def __call__(self, screen, network, dispatch, intf):
+    def __call__(self, screen, network, dir, intf):
         devices = network.available ()
         if not devices:
             return INSTALL_NOOP
