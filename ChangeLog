@@ -1,5 +1,7 @@
 2005-03-23  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (readImageFromFile): Fix gtk Deprecation warning.
+
 	* hdrlist.py: Make sure we don't hide groups which just have
 	metapkgs (#149182)
 

@@ -450,9 +450,9 @@ def readImageFromFile(file, height = None, width = None, dither = None):
     p = gtk.Image()
     if dither:
         (pixmap, mask) = pixbuf.render_pixmap_and_mask()
-        pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap), 0, 0, 0, 0,
-                                  pixbuf.get_width(), pixbuf.get_height(),
-                                  gtk.gdk.RGB_DITHER_MAX, 0, 0)
+        pixmap.draw_pixbuf(gtk.gdk.GC(pixmap), pixbuf, 0, 0, 0, 0,
+                           pixbuf.get_width(), pixbuf.get_height(),
+                           gtk.gdk.RGB_DITHER_MAX, 0, 0)
         p = gtk.Image()
         p.set_from_pixmap(pixmap, mask)
     else:
