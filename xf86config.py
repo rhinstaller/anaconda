@@ -514,7 +514,7 @@ EndSection
 Section "Screen"
 	Identifier   "Screen0"
         Device       "%(cardID)s"
-        Monitor      "Monitor0"
+        Monitor      "Monitor0"%(defaultDepth)s
 %(screenModes)s
 EndSection
 
@@ -1013,8 +1013,11 @@ Section "Screen"
         
     def Version4Config(self, test=0):
         screens = ""
+        maxdepth = -1
         for depth in self.modes.keys ():
             if not self.modes[depth]: continue
+            if maxdepth < depth:
+                maxdepth = depth
             screens = screens + """
 	Subsection "Display"
         	Depth       %s
@@ -1046,8 +1049,11 @@ Section "Screen"
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
                  "XkbVariant"   : self.keyVariant,
-                 "XkbOptions"   : self.keyOptions }
+                 "XkbOptions"   : self.keyOptions,
+                 "defaultDepth" : "" }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
+        if maxdepth > 0:
+            data["defaultDepth"] = "\n\tDefaultDepth\t%d" % maxdepth
 	if test:
 	    data["pex5Mod"] = ""
 	if iutil.getArch() == "sparc":
