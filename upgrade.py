@@ -712,7 +712,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.grpset.hdrlist.has_key(old) and
                 id.grpset.hdrlist[old].isSelected()):
                 text = "Upgrade: Need iiimf base package %s" %(new,)
-                id.upgradeDeps("%s%s\n" %(id.upgradeDeps, text))
+                id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
                 log(text)
                 id.grpset.hdrlist[new].select()
 
