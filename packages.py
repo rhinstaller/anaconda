@@ -859,12 +859,14 @@ def copyExtraModules(instPath, comps, extraModules):
     kernelVersions = comps.kernelVersionList()
 
     for (path, subdir, name) in extraModules:
+        if not path:
+            path = "/modules.cgz"
 	pattern = ""
 	names = ""
 	for (n, tag) in kernelVersions:
 	    pattern = pattern + " " + n + "/" + name + ".o"
 	    names = names + " " + name + ".o"
-	command = ("cd %s/lib/modules; gunzip < %s/modules.cgz | "
+	command = ("cd %s/lib/modules; gunzip < %s | "
                    "%s/bin/cpio  --quiet -iumd %s" % 
                    (instPath, path, instPath, pattern))
 	log("running: '%s'" % (command, ))
