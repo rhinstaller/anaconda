@@ -142,7 +142,7 @@ for n in args:
 #
 # must specify install or reconfig mode
 #
-if (progmode == None)
+if (progmode == None):
     print "Must specify either --reconfig or --method for program mode"
     sys.exit(1)
 
