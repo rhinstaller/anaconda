@@ -1072,6 +1072,8 @@ class FileSystemSet:
         format = "%s %s %s %s 0 0\n"
         mtab = ""
         for entry in self.entries:
+            if not entry.isMounted():
+                continue
             if entry.mountpoint:
                 # swap doesn't end up in the mtab
                 if entry.fsystem.getName() == "swap":

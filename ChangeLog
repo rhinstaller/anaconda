@@ -1,3 +1,10 @@
+2005-02-21  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py (FileSystemSet.mtab): Don't write out filesystems we
+	haven't mounted like /dev/shm (#149091)
+
+	* scripts/upd-instroot: More bogl fixing
+
 2005-02-20  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
