@@ -668,28 +668,36 @@ class InstallControlWindow:
 
         #Create header at the top of the installer
         try:
-            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
-            pixmap = GtkPixmap(pix, msk)
-            pixmap.show()
-            vbox.pack_start(pixmap, FALSE, TRUE, 0)
-#            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
+            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/anaconda_header.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0.5, 0.5, 1.0, 1.0)
+                vbox.pack_start (a, FALSE, TRUE, 0)
         except:
             try:
-                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
-                pixmap = GtkPixmap(pix, msk)
-                pixmap.show()
-                vbox.pack_start(pixmap, FALSE, TRUE, 0)
-#                im = GdkImlib.Image ("pixmaps/first.png")
-
+                im = GdkImlib.Image ("pixmaps/anaconda_header.png")
+                if im:
+                    im.render ()
+                    pix = im.make_pixmap ()
+                    a = GtkAlignment ()
+                    a.add (pix)
+                    a.set (0.5, 0.5, 1.0, 1.0)
+                    vbox.pack_start (a, FALSE, TRUE, 0)
             except:
                 try:
-                    pix, msk = create_pixmap_from_xpm(self.window, None, "/tmp/updates/anaconda_header.xpm")
-                    pixmap = GtkPixmap(pix, msk)
-                    pixmap.show()
-                    vbox.pack_start(pixmap, FALSE, TRUE, 0)
-
+                    im = GdkImlib.Image ("/tmp/updates/anaconda_header.png")
+                    if im:
+                        im.render ()
+                        pix = im.make_pixmap ()
+                        a = GtkAlignment ()
+                        a.add (pix)
+                        a.set (0.5, 0.5, 1.0, 1.0)
+                        vbox.pack_start (a, FALSE, TRUE, 0)                    
                 except:
-                    print "Unable to load", file
+                    print "Unable to load anaconda_header.png"
 
         vbox.set_spacing(0)
 
