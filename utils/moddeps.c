@@ -7,6 +7,10 @@
 #include "../isys/isys.h"
 #include "../loader/modules.h"
 
+int extractModule(location, modName) {
+    return 0;
+}
+
 int main(int argc, char ** argv) {
     poptContext optCon;
     char * modDepsFile = NULL;
