@@ -11,6 +11,7 @@
 
 static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
+static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
 
 static int readFD (int fd, char **buf)
 {
@@ -224,6 +225,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     if (access("/proc/scsi/scsi", R_OK)) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
+	CompaqSmartArray5300GetDevices(devices);
 	return 0;
     }
 
@@ -241,6 +243,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     if (!strncmp(buf, "Attached devices: none", 22)) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
+	CompaqSmartArray5300GetDevices(devices);
 	goto bye;
     }
 
@@ -366,6 +369,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
+    CompaqSmartArray5300GetDevices(devices);
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -456,6 +460,36 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
 	    }
 	}
 	sprintf(ctl, "/proc/array/ida%d", ctlNum++);
+    }
+    
+    return 0;
+}
+
+static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
+    struct kddevice newDevice;
+    FILE *f;
+    char buf[256];
+    char *ptr;
+    int numMatches = 0, ctlNum = 0;
+    char ctl[40];
+
+    sprintf(ctl, "/proc/cciss/cciss%d", ctlNum++);
+		
+    while ((f = fopen(ctl, "r"))){
+	while (fgets(buf, sizeof(buf) - 1, f)) {
+	    if (!strncmp(buf, "cciss/", 6)) {
+		ptr = strchr(buf, ':');
+		*ptr = '\0';
+
+		if (!deviceKnown(devices, buf)) {
+		    newDevice.name = strdup(buf);
+		    newDevice.model = strdup("Compaq RAID logical disk");
+		    newDevice.class = CLASS_HD;
+		    addDevice(devices, newDevice);
+		}
+	    }
+	}
+	sprintf(ctl, "/proc/cciss/cciss%d", ctlNum++);
     }
     
     return 0;

@@ -490,9 +490,17 @@ atp870u
 	scsi_hostadapter
 	"ACARD ATP870U PCI scsi controller"
 
+cciss
+	scsi_hostadapter
+	"Compaq Smart Array 5300 Controller"
+
 cpqarray
 	scsi_hostadapter
 	"Compaq Smart/2 RAID Controller"
+
+cpqfc
+	scsi_hostadapter
+	"Compaq FibreChannel Controller"
 
 DAC960
 	scsi_hostadapter

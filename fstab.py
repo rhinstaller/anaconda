@@ -1021,7 +1021,8 @@ def readFstab (path, fstab):
 	    fields[0][0:7] == "/dev/sd" or
 	    fields[0][0:9] == "/dev/loop" or
 	    fields[0][0:8] == "/dev/rd/" or
-	    fields[0][0:9] == "/dev/ida/"): 
+	    fields[0][0:9] == "/dev/ida/") or
+	    fields[0][0:11] == "/dev/cciss/") : 
 
 	    # this skips swap files! todo has to put them back for upgrades
 
