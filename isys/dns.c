@@ -121,7 +121,8 @@ int mygethostbyname(char * name, struct in_addr * addr) {
 
 #else
 #include <netdb.h>
-
+#include <sys/socket.h>
+#include <string.h>
 
 int mygethostbyname(char * host, struct in_addr * address) {
     struct hostent * hostinfo;
@@ -133,11 +134,15 @@ int mygethostbyname(char * host, struct in_addr * address) {
     return 0;
 }
 
-char * mygethostbyaddr(char * ipnum) {
+char * mygethostbyaddr(const char * ipnum) {
     struct hostent * he;
+    struct in_addr * addr;
 
-    he = gethostbyaddr( ipnum, strlen(ipnum), AF_INET);
-    if (he) 
+    if (!inet_aton(ipnum, addr)) 
+	return NULL;
+    
+    he = gethostbyaddr(addr, sizeof(struct in_addr), AF_INET);
+    if (he)
         return he->h_name;
     else
         return NULL;
