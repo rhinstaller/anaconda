@@ -6,8 +6,8 @@ msgstr ""
 "Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-05 14:42+0200\n"
-"Last-Translator: Széll Tamás <tomi@digiflex.hu>\n"
+"PO-Revision-Date: 2004-09-07 14:42+0200\n"
+"Last-Translator: Tamas Szanto <tszanto@mol.hu>\n"
 "Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,9 +186,8 @@ msgid "Using mouse type: %s"
 msgstr "A használt egértípus: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Grafikus telepítés indítása..."
+msgstr "Elindul a grafikus módú telepítő..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,12 +246,10 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-#, fuzzy
 msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"A %s rendszerindítási partíció nem tesz eleget az architektúra "
-"rendszerindítási követelményeinek. Erősen ajánlott rendszerindító lemezt "
-"készíteni."
+"Lehet, hogy a %s rendszerindítási partíció nem tesz eleget az architektúra "
+"rendszerindítási követelményeinek."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1065,7 +1062,6 @@ msgid "_Retry"
 msgstr "Újr_a"
 
 #: ../gui.py:1116 ../packages.py:1493
-#, fuzzy
 msgid "The installer will now exit..."
 msgstr "A telepítő most kilép..."
 
@@ -2567,63 +2563,52 @@ msgid "DDC Probed Monitor"
 msgstr "DDC-vel detektált monitor"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr "A zSeries számítógépek Fibre Channel-en (FCP) keresztül tudnak hozzáférni a szabványos SCSI eszközökhöz. 5 tulajdonságát kell megadnod minden eszköznek: egy 16 bites eszköz szám, egy 16 bites SCSI ID, egy 64 bites World Wide Port Szám (WWPN), egy 16 bites SCSI LUN és egy 64 bites FCP LUN."
+msgstr "A zSeries számítógépek Fibre Channel-en (FCP) keresztül tudnak hozzáférni a szabványos SCSI-eszközökhöz. 5 paramétert kell megadni minden eszköznél: a 16 bites eszközszámot, a 16 bites SCSI ID-t, egy 64 bites World Wide Port-számot (WWPN), egy 16 bites SCSI LUN-t és egy 64 bites FCP LUN-t."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Eszköz szám"
+msgstr "Eszközszám"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Nem adott meg eszköz számot, vagy a szám érvénytelen"
+msgstr "Nem adott meg eszközszámot, vagy a szám érvénytelen"
 
 #: ../zfcp.py:32
-#, fuzzy
 msgid "SCSI Id"
 msgstr "SCSI ID"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Nem adott meg SCSI ID-t, vagy az ID érvénytelen"
+msgstr "Nem adott meg SCSI ID-t, vagy az ID érvénytelen."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "WWPN"
 msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nem adott meg worldwide port nevet, vagy a név érvénytelen"
+msgstr "Nem adott meg worldwide port nevet, vagy a név érvénytelen."
 
 #: ../zfcp.py:38
-#, fuzzy
 msgid "SCSI LUN"
 msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
 msgstr "Nem adott meg SCSI LUN számot, vagy a szám érvénytelen."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "FCP LUN"
 msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Nem adott meg FCP LUN számot, vagy a szám érvénytelen"
+msgstr "Nem adott meg FCP LUN számot, vagy a szám érvénytelen."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3328,7 +3313,6 @@ msgstr ""
 "tenni?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3336,9 +3320,9 @@ msgid ""
 "or a fully active state."
 msgstr ""
 "Az SELinux (Security Enhanced Linux) a hagyományos linuxos "
-"rendszerben megszokottaknál sokkal finomabb biztonsági előírásokat tesz lehetővé. A "
-"komponens kikapcsolt állapotban is működhet (ekkor csak "
-"figyelmeztetéseket ad a hozzáférés megtagadása helyett)."
+"rendszerben megszokottnál finomabb biztonsági előírásokat tesz lehetővé. A "
+"komponens teljes vagy deaktivált állapotban működhet, utóbbi esetén csak "
+"figyelmeztetéseket ad a hozzáférés megtagadása helyett."
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -5164,37 +5148,31 @@ msgid "_Skip X configuration"
 msgstr "Az X beállításának k_ihagyása"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "ZFCP beállításai"
+msgstr "A ZFCP beállítása"
 
 #: ../iw/zfcp_gui.py:99
-#, fuzzy
 msgid "_Remove"
-msgstr "_Törlés"
+msgstr "_Eltávolítás"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "FCP eszközök"
+msgstr "FCP-eszközök"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "FCP eszköz hozzáadása"
+msgstr "FCP-eszköz hozzáadása"
 
 #: ../iw/zfcp_gui.py:181
 #, python-format
-#, fuzzy
 msgid "Edit FCP device %s"
-msgstr "A következő FCP eszköz szerkesztése: %s"
+msgstr "FCP-eszköz szerkesztése: %s"
 
 #: ../iw/zfcp_gui.py:237
-#, fuzzy
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr "Azt választotta, hogy eltávolít egy FCP lemezt a konfigurációból. Biztos benne hogy folytatni kívánja?"
+msgstr "Egy FCP-lemez eltávolítására készül. Biztosan ezt szeretné?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -6040,44 +6018,38 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "RAID0 meghajtó esetén nem lehet tartalék (0-t kell megadni)"
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM kötetcsoportok"
+msgstr "Nincs kötetcsoport"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Adjon meg egy logikai kötetnevet."
+msgstr "Nincs olyan kötetcsoport, amelyben logikai kötetet lehetne létrehozni."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "A kért méret (%10.2f MB) nagyobb, mint a logikai kötetek maximális mérete (%"
-"10.2f MB). Ez utóbbi megnövelése érdekében növelje meg a kötetcsoport "
-"fizikai kiterjedésének (extent) méretét."
+"10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
-#, fuzzy
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
-"A kért méret (%10.2f MB) nagyobb, mint a kötetcsoportban elérhető rész (%"
+"A kért méret (%10.2f MB) nagyobb, mint a kötetcsoportban rendelkezésre álló rész (%"
 "10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
 msgstr "Új partíció vagy logikai kötet?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Egy új partíciót vagy logikai kötetet kíván létrehozni?"
+msgstr "Új partíciót vagy új logikai kötetet szeretne létrehozni?"
 
 #: ../textw/partition_text.py:1367
 msgid "partition"
@@ -6680,44 +6652,36 @@ msgid "Video RAM:"
 msgstr "Videomemória:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Eszköz szám:"
+msgstr "Eszközszám:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
 msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
-#, fuzzy
 msgid "WWPN:"
 msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
-#, fuzzy
 msgid "SCSI LUN:"
 msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
-#, fuzzy
 msgid "FCP LUN:"
 msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "FCP eszköz"
+msgstr "FCP-eszköz"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
 msgstr "Eszköz #"
 
 #: ../textw/zfcp_text.py:113
-#, fuzzy
 msgid "Remove"
-msgstr "Törlés"
+msgstr "Eltávolítás"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7141,9 +7105,8 @@ msgstr "Nem található Kickstart-fájl a merevlemezen."
 
 #: ../loader2/hdinstall.c:578
 #, c-format
-#, fuzzy
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr "Nincs merevlemez találat a(z) %s BIOS lemezre"
+msgstr "Nem található merevlemez a(z) %s BIOS-lemezhez"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
