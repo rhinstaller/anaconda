@@ -10,9 +10,12 @@ cd /tmp
 mkdir lib
 cd lib
 uncpio < /usr/lib/python1.5.cgz
+uncpio < /usr/lib/anaconda.cgz
 cd /usr/lib
 ln -s /tmp/lib/python1.5 python1.5
+ln -s /tmp/lib/anaconda anaconda
 rm python1.5.cgz
+rm anaconda.cgz
 
 cd /tmp
 uncpio < /usr/bin/python1.5.cgz 

@@ -83,7 +83,6 @@ lib/libnsl*
 lib/libnss_files*
 lib/libpthread*
 lib/libresolv*
-lib/libNoVersion*
 usr/lib/libpopt*
 etc/group
 etc/passwd
@@ -402,6 +401,10 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 	cd $DEST/usr/lib
 	find python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
 	rm -rf python1.5
+
+	find anaconda | cpio --quiet -H crc -o | gzip -9 > anaconda.cgz
+	rm -rf anaconda
+
 	ls libnewt* libslang* | cpio --quiet -H crc -o | 
 		gzip -9 > slang-newt.cgz
 	rm -f libnewt* libslang*
