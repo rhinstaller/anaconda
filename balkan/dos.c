@@ -30,6 +30,7 @@ struct singlePartitionTable {
 #define SECTOR_SIZE		512
 
 #define DOSP_TYPE_EXTENDED	5
+#define WINP_TYPE_EXTENDED	0xf
 
 long long llseek(int fd, long long offset, int whence);
 
@@ -72,7 +73,8 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 
     for (i = 0; i < 4; i++) {
 	if (!singleTable.parts[i].size) continue;
-	if (singleTable.parts[i].type == DOSP_TYPE_EXTENDED &&
+	if ((singleTable.parts[i].type == DOSP_TYPE_EXTENDED ||
+	     singleTable.parts[i].type == WINP_TYPE_EXTENDED) &&
 	    nextNum >= 4) continue;
 
 	if (nextNum < 4)
@@ -133,7 +135,6 @@ int dospReadTable(int fd, struct partitionTable * table) {
 	      case 0x0b:
 	      case 0x0c:
 	      case 0x0e:
-	      case 0x0f:
 		table->parts[i].type = BALKAN_PART_DOS;
 		break;
 

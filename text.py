@@ -1003,9 +1003,18 @@ class InstallInterface:
 
 	self.upgradeSteps = [
 	    [_("Examine System"), UpgradeExamineWindow, (self.screen, todo)],
+            [_("LILO Configuration"), LiloAppendWindow, 
+		    (self.screen, todo), "lilo"],
+            [_("LILO Configuration"), LiloWindow, 
+		    (self.screen, todo), "lilo"],
+	    [_("LILO Configuration"), LiloImagesWindow, 
+		    (self.screen, todo), "lilo"],
 	    [_("Customize Upgrade"), CustomizeUpgradeWindow, (self.screen, todo, self.individual)],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
+		"bootdisk" ],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
+            [_("Boot Disk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
             [_("Upgrade Complete"), FinishedWindow, (self.screen,)]
             ]
 

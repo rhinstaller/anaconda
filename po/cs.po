@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 1999-10-08 15:09-0400\n"
+"POT-Creation-Date: 1999-10-18 15:35-0400\n"
 "PO-Revision-Date: 1999-09-28 16:48+0200\n"
 "Last-Translator: Petr Kolar <Petr.Kolar@vslib.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -13,91 +13,67 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../gui.py:257 ../gui.py:472
+#: ../gui.py:263 ../gui.py:509
 msgid "Next"
 msgstr "Dal¹í"
 
-#: ../gui.py:258 ../gui.py:471 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:508
-#: ../loader/loader.c:245 ../loader/loader.c:593 ../loader/loader.c:629
-#: ../loader/loader.c:732 ../loader/loader.c:1095 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87
-#: ../text.py:88 ../text.py:107 ../text.py:130 ../text.py:160 ../text.py:163
-#: ../text.py:205 ../text.py:234 ../text.py:248 ../text.py:250 ../text.py:269
-#: ../text.py:271 ../text.py:293 ../text.py:295 ../text.py:384 ../text.py:435
-#: ../text.py:437 ../text.py:446 ../text.py:464 ../text.py:477 ../text.py:496
-#: ../text.py:498 ../text.py:523 ../text.py:526 ../text.py:535 ../text.py:593
-#: ../text.py:594 ../text.py:816 ../text.py:838 ../textw/constants.py:10
-#: ../textw/lilo.py:22 ../textw/lilo.py:66 ../textw/lilo.py:73
-#: ../textw/lilo.py:148 ../textw/packages.py:20 ../textw/packages.py:85
-#: ../textw/packages.py:136 ../textw/packages.py:145
-#: ../textw/partitioning.py:25 ../textw/partitioning.py:64
-#: ../textw/partitioning.py:202 ../textw/silo.py:22 ../textw/silo.py:77
-#: ../textw/silo.py:176 ../textw/userauth.py:29 ../textw/userauth.py:141
-#: ../textw/userauth.py:172 ../textw/userauth.py:244
+#: ../gui.py:264 ../gui.py:508 ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299 ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:531 ../loader/loader.c:248 ../loader/loader.c:596 ../loader/loader.c:632 ../loader/loader.c:735 ../loader/loader.c:1103 ../loader/net.c:162 ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87 ../text.py:88 ../text.py:107 ../text.py:130 ../text.py:160 ../text.py:163 ../text.py:205 ../text.py:234 ../text.py:248 ../text.py:250 ../text.py:269 ../text.py:271 ../text.py:293 ../text.py:295 ../text.py:384 ../text.py:435 ../text.py:437 ../text.py:446 ../text.py:464 ../text.py:477 ../text.py:496 ../text.py:498 ../text.py:523 ../text.py:526 ../text.py:535 ../text.py:593 ../text.py:594 ../text.py:816 ../text.py:838 ../textw/constants.py:10 ../textw/lilo.py:22 ../textw/lilo.py:66 ../textw/lilo.py:73 ../textw/lilo.py:148 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136 ../textw/packages.py:145 ../textw/partitioning.py:25 ../textw/partitioning.py:64 ../textw/partitioning.py:202 ../textw/silo.py:22 ../textw/silo.py:77 ../textw/silo.py:176 ../textw/userauth.py:29 ../textw/userauth.py:141 ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "Back"
 msgstr "Zpìt"
 
-#: ../gui.py:259 ../gui.py:476
+#: ../gui.py:265 ../gui.py:513
 msgid "Show Help"
 msgstr "Zobrazit nápovìdu"
 
-#: ../gui.py:260 ../gui.py:475
+#: ../gui.py:266 ../gui.py:512
 msgid "Hide Help"
 msgstr "Skrýt nápovìdu"
 
-#: ../gui.py:261 ../gui.py:474
+#: ../gui.py:267 ../gui.py:511
 msgid "Finish"
 msgstr "Dokonèení"
 
-#: ../gui.py:264 ../gui.py:498
+#: ../gui.py:270 ../gui.py:535
 msgid "Online Help"
 msgstr "Online nápovìda"
 
-#: ../gui.py:265 ../iw/language.py:10 ../text.py:49 ../text.py:925
+#: ../gui.py:271 ../iw/language.py:10 ../text.py:49 ../text.py:925
 msgid "Language Selection"
 msgstr "Výbìr jazyka"
 
-#: ../gui.py:465
+#: ../gui.py:475
 msgid "Red Hat Linux Installer"
 msgstr "Instalátor Red Hat Linuxu"
 
-#: ../installclass.py:248 ../iw/rootpartition.py:196
-msgid ""
-"You are about to erase any preexisting Linux installations on your system."
+#: ../gui.py:479
+#, fuzzy
+msgid "Red Hat Linux Install Shell"
+msgstr "Instalátor Red Hat Linuxu"
+
+#: ../gui.py:490
+#, fuzzy, c-format
+msgid "Red Hat Linux Installer on %s"
+msgstr "Instalátor Red Hat Linuxu"
+
+#: ../gui.py:491
+#, fuzzy, c-format
+msgid "Red Hat Linux Install Shell on %s"
+msgstr "Instalátor Red Hat Linuxu"
+
+#: ../installclass.py:248
+msgid "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
 #: ../installclass.py:288
 #, fuzzy
-msgid ""
-"You are about to erase ALL DATA on your hard drive to make room for your "
-"Linux installation."
+msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
 msgstr "Mù¾e dojít ke ztrátì dat! Skuteènì chcete pokraèovat?"
 
 #: ../text.py:50
 msgid "What language would you like to use during the installation process?"
 msgstr "Jaký jazyk chcete pou¾ívat bìhem instalace?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
-#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
-#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:246 ../loader/lang.c:508 ../loader/loader.c:245
-#: ../loader/loader.c:461 ../loader/loader.c:471 ../loader/loader.c:629
-#: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
-#: ../loader/loader.c:870 ../loader/loader.c:956 ../loader/loader.c:1095
-#: ../loader/loader.c:1585 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:107
-#: ../text.py:160 ../text.py:205 ../text.py:248 ../text.py:293 ../text.py:384
-#: ../text.py:404 ../text.py:435 ../text.py:496 ../text.py:523 ../text.py:593
-#: ../text.py:614 ../text.py:626 ../text.py:638 ../text.py:816 ../text.py:888
-#: ../text.py:892 ../text.py:1042 ../textw/lilo.py:21 ../textw/lilo.py:66
-#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
-#: ../textw/partitioning.py:202 ../textw/silo.py:21 ../textw/silo.py:77
-#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
-#: ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102
-#: ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
+#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:271 ../loader/lang.c:531 ../loader/loader.c:248 ../loader/loader.c:464 ../loader/loader.c:474 ../loader/loader.c:632 ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873 ../loader/loader.c:878 ../loader/loader.c:964 ../loader/loader.c:1103 ../loader/loader.c:1609 ../loader/net.c:162 ../loader/net.c:284 ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201 ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:107 ../text.py:160 ../text.py:205 ../text.py:248 ../text.py:293 ../text.py:384 ../text.py:404 ../text.py:435 ../text.py:496 ../text.py:523 ../text.py:593 ../text.py:614 ../text.py:626 ../text.py:638 ../text.py:816 ../text.py:888 ../text.py:892 ../text.py:1042 ../textw/lilo.py:21 ../textw/lilo.py:66 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136 ../textw/partitioning.py:202 ../textw/silo.py:21 ../textw/silo.py:77 ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102 ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "OK"
 msgstr "OK"
 
@@ -117,8 +93,7 @@ msgstr "/dev/ttyS2 (v DOSu COM3)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (v DOSu COM4)"
 
-#: ../iw/lilo.py:174 ../iw/silo.py:242 ../text.py:85 ../textw/lilo.py:79
-#: ../textw/lilo.py:138 ../textw/silo.py:109 ../textw/silo.py:166
+#: ../iw/lilo.py:174 ../iw/silo.py:242 ../text.py:85 ../textw/lilo.py:79 ../textw/lilo.py:138 ../textw/silo.py:109 ../textw/silo.py:166
 msgid "Device"
 msgstr "Zaøízení"
 
@@ -128,26 +103,7 @@ msgid "What device is your mouse located on? %s %i"
 msgstr "K jakému zaøízení je pøipojena va¹e my¹? %s %i"
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:615 ../libfdisk/fsedit.c:622 ../libfdisk/fsedit.c:629
-#: ../libfdisk/fsedit.c:638 ../libfdisk/fsedit.c:650 ../libfdisk/fsedit.c:660
-#: ../libfdisk/fsedit.c:689 ../libfdisk/fsedit.c:705 ../libfdisk/fsedit.c:1063
-#: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1045
-#: ../libfdisk/gnomefsedit.c:1071 ../libfdisk/gnomefsedit.c:1089
-#: ../libfdisk/gnomefsedit.c:1294 ../libfdisk/gnomefsedit.c:1388
-#: ../libfdisk/gnomefsedit.c:1406 ../libfdisk/gnomefsedit.c:1644
-#: ../libfdisk/gnomefsedit.c:1879 ../libfdisk/gnomefsedit.c:1887
-#: ../libfdisk/gnomefsedit.c:1901 ../libfdisk/gnomefsedit.c:1912
-#: ../libfdisk/gnomefsedit.c:1919 ../libfdisk/gnomefsedit.c:1934
-#: ../libfdisk/gnomefsedit.c:1943 ../libfdisk/gnomefsedit.c:1982
-#: ../libfdisk/gnomefsedit.c:2143 ../libfdisk/newtfsedit.c:113
-#: ../libfdisk/newtfsedit.c:461 ../libfdisk/newtfsedit.c:539
-#: ../libfdisk/newtfsedit.c:557 ../libfdisk/newtfsedit.c:575
-#: ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299
-#: ../libfdisk/newtfsedit.c:1424 ../libfdisk/newtfsedit.c:1445
-#: ../libfdisk/newtfsedit.c:1539 ../text.py:87 ../text.py:535
-#: ../textw/constants.py:10 ../textw/lilo.py:84 ../textw/lilo.py:97
-#: ../textw/lilo.py:147 ../textw/silo.py:114 ../textw/silo.py:127
-#: ../textw/silo.py:175
+#: ../libfdisk/fsedit.c:615 ../libfdisk/fsedit.c:622 ../libfdisk/fsedit.c:629 ../libfdisk/fsedit.c:638 ../libfdisk/fsedit.c:650 ../libfdisk/fsedit.c:660 ../libfdisk/fsedit.c:689 ../libfdisk/fsedit.c:705 ../libfdisk/fsedit.c:1063 ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1045 ../libfdisk/gnomefsedit.c:1071 ../libfdisk/gnomefsedit.c:1089 ../libfdisk/gnomefsedit.c:1294 ../libfdisk/gnomefsedit.c:1388 ../libfdisk/gnomefsedit.c:1406 ../libfdisk/gnomefsedit.c:1644 ../libfdisk/gnomefsedit.c:1879 ../libfdisk/gnomefsedit.c:1887 ../libfdisk/gnomefsedit.c:1901 ../libfdisk/gnomefsedit.c:1912 ../libfdisk/gnomefsedit.c:1919 ../libfdisk/gnomefsedit.c:1934 ../libfdisk/gnomefsedit.c:1943 ../libfdisk/gnomefsedit.c:1982 ../libfdisk/gnomefsedit.c:2143 ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:461 ../libfdisk/newtfsedit.c:539 ../libfdisk/newtfsedit.c:557 ../libfdisk/newtfsedit.c:575 ../libfdisk/newtfsedit.c:1291 ../libfdisk/newtfsedit.c:1299 ../libfdisk/newtfsedit.c:1424 ../libfdisk/newtfsedit.c:1445 ../libfdisk/newtfsedit.c:1539 ../text.py:87 ../text.py:535 ../textw/constants.py:10 ../textw/lilo.py:84 ../textw/lilo.py:97 ../textw/lilo.py:147 ../textw/silo.py:114 ../textw/silo.py:127 ../textw/silo.py:175
 msgid "Ok"
 msgstr "OK"
 
@@ -199,12 +155,7 @@ msgstr "Typ instalace"
 msgid "What type of system would you like to install?"
 msgstr "Jaký druh systému chcete instalovat?"
 
-#: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:461 ../loader/loader.c:471
-#: ../loader/loader.c:687 ../loader/loader.c:732 ../loader/loader.c:865
-#: ../loader/loader.c:870 ../loader/loader.c:1585 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:358
-#: ../todo.py:499 ../todo.py:1039 ../todo.py:1348
+#: ../libfdisk/newtfsedit.c:1539 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:464 ../loader/loader.c:474 ../loader/loader.c:690 ../loader/loader.c:735 ../loader/loader.c:873 ../loader/loader.c:878 ../loader/loader.c:1609 ../loader/urls.c:201 ../loader/urls.c:206 ../text.py:231 ../text.py:634 ../todo.py:362 ../todo.py:503 ../todo.py:1043 ../todo.py:1362
 msgid "Error"
 msgstr "Chyba"
 
@@ -225,34 +176,14 @@ msgid "Customize Packages to Upgrade"
 msgstr "Výbìr balíèkù pro aktualizaci"
 
 #: ../text.py:262
-msgid ""
-"The packages you have installed, and any other packages which are needed to "
-"satisfy their dependencies, have been selected for installation. Would you "
-"like to customize the set of packages that will be upgraded?"
-msgstr ""
-"Bude provedena aktualizace ji¾ nainstalovaných balíèkù a budou doinstalovány "
-"i balíèky nutné k vyøe¹ení jejich závislostí. Chcete tento seznam balíèkù "
-"upravit?"
+msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
+msgstr "Bude provedena aktualizace ji¾ nainstalovaných balíèkù a budou doinstalovány i balíèky nutné k vyøe¹ení jejich závislostí. Chcete tento seznam balíèkù upravit?"
 
-#: ../libfdisk/gnomefsedit.c:601 ../libfdisk/gnomefsedit.c:1001
-#: ../libfdisk/gnomefsedit.c:1107 ../libfdisk/gnomefsedit.c:2035
-#: ../libfdisk/gnomefsedit.c:2305 ../libfdisk/gnomefsedit.c:2358
-#: ../libfdisk/newtfsedit.c:498 ../libfdisk/newtfsedit.c:691
-#: ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1495
-#: ../libfdisk/newtfsedit.c:1580 ../loader/loader.c:593 ../loader/net.c:701
-#: ../text.py:269 ../text.py:446 ../text.py:464 ../text.py:471
-#: ../textw/partitioning.py:165
+#: ../libfdisk/gnomefsedit.c:601 ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1107 ../libfdisk/gnomefsedit.c:2035 ../libfdisk/gnomefsedit.c:2305 ../libfdisk/gnomefsedit.c:2358 ../libfdisk/newtfsedit.c:498 ../libfdisk/newtfsedit.c:691 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1495 ../libfdisk/newtfsedit.c:1580 ../loader/loader.c:596 ../loader/net.c:701 ../text.py:269 ../text.py:446 ../text.py:464 ../text.py:471 ../textw/partitioning.py:165
 msgid "Yes"
 msgstr "Ano"
 
-#: ../libfdisk/gnomefsedit.c:601 ../libfdisk/gnomefsedit.c:1001
-#: ../libfdisk/gnomefsedit.c:1107 ../libfdisk/gnomefsedit.c:2035
-#: ../libfdisk/gnomefsedit.c:2305 ../libfdisk/gnomefsedit.c:2358
-#: ../libfdisk/newtfsedit.c:498 ../libfdisk/newtfsedit.c:691
-#: ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1495
-#: ../libfdisk/newtfsedit.c:1580 ../loader/net.c:701 ../text.py:269
-#: ../text.py:274 ../text.py:446 ../text.py:464 ../text.py:474
-#: ../textw/partitioning.py:165
+#: ../libfdisk/gnomefsedit.c:601 ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1107 ../libfdisk/gnomefsedit.c:2035 ../libfdisk/gnomefsedit.c:2305 ../libfdisk/gnomefsedit.c:2358 ../libfdisk/newtfsedit.c:498 ../libfdisk/newtfsedit.c:691 ../libfdisk/newtfsedit.c:1477 ../libfdisk/newtfsedit.c:1495 ../libfdisk/newtfsedit.c:1580 ../loader/net.c:701 ../text.py:269 ../text.py:274 ../text.py:446 ../text.py:464 ../text.py:474 ../textw/partitioning.py:165
 msgid "No"
 msgstr "Ne"
 
@@ -264,21 +195,15 @@ msgstr "Red Hat Linux"
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
-"This installation process is outlined in detail in the Official Red Hat "
-"Linux Installation Guide available from Red Hat Software. If you have access "
-"to this manual, you should read the installation section before continuing.\n"
+"This installation process is outlined in detail in the Official Red Hat Linux Installation Guide available from Red Hat Software. If you have access to this manual, you should read the installation section before continuing.\n"
 "\n"
-"If you have purchased Official Red Hat Linux, be sure to register your "
-"purchase through our web site, http://www.redhat.com/."
+"If you have purchased Official Red Hat Linux, be sure to register your purchase through our web site, http://www.redhat.com/."
 msgstr ""
 "Vítá vás Red Hat Linux!\n"
 "\n"
-"Instalaèní proces podrobnì popisuje pøíruèka \"Official Red Hat Linux "
-"Installation Guide\" dodávaná spoleèností Red Hat Software. Máte-li ji k "
-"dispozici, mìli byste si nyní pøeèíst èást o instalaci.\n"
+"Instalaèní proces podrobnì popisuje pøíruèka \"Official Red Hat Linux Installation Guide\" dodávaná spoleèností Red Hat Software. Máte-li ji k dispozici, mìli byste si nyní pøeèíst èást o instalaci.\n"
 "\n"
-"Pokud jste koupili oficiální Red Hat Linux, nezapomeòte jej zaregistrovat na "
-"na¹em web serveru http://www.redhat.com/."
+"Pokud jste koupili oficiální Red Hat Linux, nezapomeòte jej zaregistrovat na na¹em web serveru http://www.redhat.com/."
 
 #: ../text.py:356
 msgid "Use bootp/dhcp"
@@ -317,34 +242,20 @@ msgid "Hostname Configuration"
 msgstr "Konfigurace jména poèítaèe"
 
 #: ../text.py:432
-msgid ""
-"The hostname is the name of your computer.  If your computer is attached to "
-"a network, this may be assigned by your network administrator."
-msgstr ""
-"Jméno tohoto poèítaèe (hostname) si mù¾ete zvolit. Pokud je poèítaè pøipojen "
-"do sítì, mù¾e mu být jméno pøidìleno správcem sítì."
+msgid "The hostname is the name of your computer.  If your computer is attached to a network, this may be assigned by your network administrator."
+msgstr "Jméno tohoto poèítaèe (hostname) si mù¾ete zvolit. Pokud je poèítaè pøipojen do sítì, mù¾e mu být jméno pøidìleno správcem sítì."
 
-#: ../iw/network.py:201 ../loader/net.c:458 ../loader/net.c:620 ../text.py:435
+#: ../iw/network.py:209 ../loader/net.c:458 ../loader/net.c:620 ../text.py:435
 msgid "Hostname"
 msgstr "Jméno poèítaèe"
 
 #: ../text.py:447
 msgid ""
-"A custom boot disk provides a way of booting into your Linux system without "
-"depending on the normal bootloader. This is useful if you don't want to "
-"install lilo on your system, another operating system removes lilo, or lilo "
-"doesn't work with your hardware configuration. A custom boot disk can also "
-"be used with the Red Hat rescue image, making it much easier to recover from "
-"severe system failures.\n"
+"A custom boot disk provides a way of booting into your Linux system without depending on the normal bootloader. This is useful if you don't want to install lilo on your system, another operating system removes lilo, or lilo doesn't work with your hardware configuration. A custom boot disk can also be used with the Red Hat rescue image, making it much easier to recover from severe system failures.\n"
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Vlastní zavádìcí disketa umo¾òuje start systému Linux bez pou¾ití obvyklého "
-"zavadìèe systému (zpravidla LILO). Je u¾iteèná, nechcete-li zavadìè LILO "
-"instalovat, pokud jej jiný operaèní systém odstraní, nebo kdy¾ LILO "
-"nefunguje. Vlastní zavádìcí disketu lze také pou¾ít spolu se záchrannou "
-"disketou Red Hat a znaènì tak usnadnit o¾ivení systému po vá¾ných "
-"haváriích.\n"
+"Vlastní zavádìcí disketa umo¾òuje start systému Linux bez pou¾ití obvyklého zavadìèe systému (zpravidla LILO). Je u¾iteèná, nechcete-li zavadìè LILO instalovat, pokud jej jiný operaèní systém odstraní, nebo kdy¾ LILO nefunguje. Vlastní zavádìcí disketu lze také pou¾ít spolu se záchrannou disketou Red Hat a znaènì tak usnadnit o¾ivení systému po vá¾ných haváriích.\n"
 "\n"
 "Chcete vytvoøit zavádìcí disketu pro vá¹ systém?"
 
@@ -388,12 +299,8 @@ msgid "Installation to begin"
 msgstr "Zahájení instalace"
 
 #: ../iw/confirm.py:30 ../text.py:590
-msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
-"rebooting your system. You may want to keep this file for later reference."
-msgstr ""
-"Úplný protokol o instalaci bude po restartu systému v souboru "
-"/tmp/install.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
+msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
+msgstr "Úplný protokol o instalaci bude po restartu systému v souboru /tmp/install.log. Tento soubor se mù¾e hodit pro pozdìj¹í referenci."
 
 #: ../text.py:606
 msgid "Complete"
@@ -403,42 +310,27 @@ msgstr "Hotovo"
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
-"Remove the boot media and press return to reboot. For information on fixes "
-"which are available for this release of Red Hat Linux, consult the Errata "
-"available from http://www.redhat.com.\n"
+"Remove the boot media and press return to reboot. For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on configuring your system is available in the post install "
-"chapter of the Official Red Hat Linux User's Guide."
+"Information on configuring your system is available in the post install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 "Blahopøejeme k dokonèení instalace.\n"
 "\n"
-"Vyjmìte z jednotky disketu a stiskem Enter systém restartujte. Na serveru "
-"http://www.redhat.com naleznete v dokumentu Errata informace o opravách, "
-"které jsou k dispozici pro tuto verzi systému Red Hat Linux.\n"
+"Vyjmìte z jednotky disketu a stiskem Enter systém restartujte. Na serveru http://www.redhat.com naleznete v dokumentu Errata informace o opravách, které jsou k dispozici pro tuto verzi systému Red Hat Linux.\n"
 "\n"
-"Informace o konfigurování systému jsou obsa¾eny v poinstalaèní kapitole "
-"pøíruèky \"Official Red Hat Linux User's Guide\"."
+"Informace o konfigurování systému jsou obsa¾eny v poinstalaèní kapitole pøíruèky \"Official Red Hat Linux User's Guide\"."
 
 #: ../iw/bootdisk.py:50 ../text.py:623
-msgid ""
-"Insert a blank floppy in the first floppy drive. All data on this disk will "
-"be erased during creation of the boot disk."
-msgstr ""
-"Vlo¾te prázdnou disketu do první disketové jednotka. Pùvodní obsah diskety "
-"bude pøi vytváøení zavádìcí diskety pøepsán."
+msgid "Insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
+msgstr "Vlo¾te prázdnou disketu do první disketové jednotka. Pùvodní obsah diskety bude pøi vytváøení zavádìcí diskety pøepsán."
 
-#: ../text.py:626 ../text.py:627 ../text.py:638 ../text.py:639
-#: ../textw/lilo.py:21 ../textw/silo.py:21
+#: ../text.py:626 ../text.py:627 ../text.py:638 ../text.py:639 ../textw/lilo.py:21 ../textw/silo.py:21
 msgid "Skip"
 msgstr "Vynechat"
 
 #: ../iw/bootdisk.py:54 ../text.py:635
-msgid ""
-"An error occured while making the boot disk. Please make sure that there is "
-"a formatted floppy in the first floppy drive."
-msgstr ""
-"Pøi vytváøení zavádìcí diskety do¹lo k chybì. Zkontrolujte, zda v první "
-"disketové jednotce je zformátovaná disketa."
+msgid "An error occured while making the boot disk. Please make sure that there is a formatted floppy in the first floppy drive."
+msgstr "Pøi vytváøení zavádìcí diskety do¹lo k chybì. Zkontrolujte, zda v první disketové jednotce je zformátovaná disketa."
 
 #: ../text.py:697
 msgid "Package Installation"
@@ -501,19 +393,14 @@ msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:907
-msgid ""
-"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
-"screen"
-msgstr ""
-" <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  |  <Mezera> výbìr |  <F12> "
-"pokraèovat"
+msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
+msgstr " <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  |  <Mezera> výbìr |  <F12> pokraèovat"
 
-#: ../iw/welcome.py:11 ../text.py:929
+#: ../iw/welcome.py:10 ../text.py:929
 msgid "Welcome"
 msgstr "Vítejte"
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:196 ../iw/silo.py:124 ../iw/silo.py:265
-#: ../text.py:935 ../text.py:941
+#: ../iw/lilo.py:94 ../iw/lilo.py:196 ../iw/silo.py:124 ../iw/silo.py:265 ../text.py:935 ../text.py:941
 msgid "Partition"
 msgstr "Oblast disku"
 
@@ -533,8 +420,7 @@ msgstr "Odkládací"
 msgid "Filesystem Formatting"
 msgstr "Formátování disku"
 
-#: ../text.py:947 ../text.py:949 ../text.py:951 ../textw/lilo.py:24
-#: ../textw/lilo.py:63 ../textw/lilo.py:155
+#: ../text.py:947 ../text.py:949 ../text.py:951 ../textw/lilo.py:24 ../textw/lilo.py:63 ../textw/lilo.py:155
 msgid "LILO Configuration"
 msgstr "Konfigurace LILO"
 
@@ -598,8 +484,7 @@ msgstr "Instalace systému"
 msgid "Installation Complete"
 msgstr "Instalace dokonèena"
 
-#: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24
-#: ../textw/silo.py:79 ../textw/silo.py:183
+#: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24 ../textw/silo.py:79 ../textw/silo.py:183
 msgid "SILO Configuration"
 msgstr "Konfigurace SILO"
 
@@ -627,175 +512,172 @@ msgstr "Zru¹eno"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Z tohoto místa se nelze vrátit k pøedchozímu kroku."
 
-#: ../todo.py:359
+#: ../todo.py:363
 #, fuzzy, c-format
 msgid "Error unmounting %s: %s"
 msgstr "chyba pøi zápisu souboru %s: %s"
 
-#: ../todo.py:500
+#: ../todo.py:504
 #, fuzzy, c-format
 msgid "Error mounting %s: %s"
 msgstr "chyba pøi zápisu souboru %s: %s"
 
-#: ../todo.py:521 ../todo.py:710
+#: ../todo.py:525 ../todo.py:714
 msgid "Creating"
 msgstr ""
 
-#: ../todo.py:522
+#: ../todo.py:526
 #, fuzzy
 msgid "Creating RAID devices..."
 msgstr "Vytváøím zavádìcí disk..."
 
-#: ../todo.py:571 ../todo.py:584
+#: ../todo.py:575 ../todo.py:588
 #, fuzzy
 msgid "Formatting"
 msgstr "Formátování disku"
 
-#: ../todo.py:572 ../todo.py:585
+#: ../todo.py:576 ../todo.py:589
 #, fuzzy, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Vytváøím souborový systém ext2 na /dev/%s..."
 
-#: ../todo.py:710
+#: ../todo.py:714
 #, fuzzy
 msgid "Creating boot disk..."
 msgstr "Vytváøím zavádìcí disk..."
 
-#: ../todo.py:841
+#: ../todo.py:845
 #, fuzzy
 msgid "Reading"
 msgstr "Zbývá"
 
-#: ../todo.py:842
+#: ../todo.py:846
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Odesílám dotaz pro konfiguraci IP..."
 
-#: ../todo.py:996 ../todo.py:1006
+#: ../todo.py:1000 ../todo.py:1010
 msgid "no suggestion"
 msgstr "¾ádné doporuèení"
 
-#: ../todo.py:1012
+#: ../todo.py:1016
 #, fuzzy
 msgid "Searching"
 msgstr "V¹echno"
 
-#: ../todo.py:1013
+#: ../todo.py:1017
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:1040
+#: ../todo.py:1044
 #, fuzzy, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "chyba pøi zápisu souboru %s: %s"
 
-#: ../todo.py:1059
+#: ../todo.py:1063
 #, fuzzy
 msgid "Finding"
 msgstr "Zbývá"
 
-#: ../todo.py:1060
+#: ../todo.py:1064
 msgid "Finding packages to upgrade..."
 msgstr "Hledám balíèky pro aktualizaci..."
 
-#: ../todo.py:1248
+#: ../todo.py:1252
 msgid "Processing"
 msgstr "Pracuji"
 
-#: ../todo.py:1249
+#: ../todo.py:1253
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Kontroluji seznam souborù..."
 
-#: ../todo.py:1343
+#: ../todo.py:1357
 #, fuzzy
 msgid "Rebuilding"
 msgstr "Zbývá"
 
-#: ../todo.py:1344
+#: ../todo.py:1358
 msgid "Rebuilding RPM database..."
 msgstr "Probíhá aktualizace RPM databáze..."
 
-#: ../todo.py:1349
+#: ../todo.py:1363
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr ""
-"Do¹lo k chybì pøi aktualizaci RPM databáze. Je dostatek místa na disku?"
+msgstr "Do¹lo k chybì pøi aktualizaci RPM databáze. Je dostatek místa na disku?"
 
-#: ../todo.py:1399
+#: ../todo.py:1413
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1401
+#: ../todo.py:1415
 #, fuzzy, c-format
 msgid "Installing %s.\n"
 msgstr "Instaluji balíèky"
 
-#: ../todo.py:1422
+#: ../todo.py:1436
 msgid ""
-"You don't appear to have enough disk space to install the packages you've "
-"selected. You need more space on the following filesystems:\n"
+"You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Nemáte dostatek místa na disku pro v¹echny balíèky, které jste si vybrali. "
-"Potøebujete více místa na následujících systémech svazcích:\n"
+"Nemáte dostatek místa na disku pro v¹echny balíèky, které jste si vybrali. Potøebujete více místa na následujících systémech svazcích:\n"
 "\n"
 
-#: ../todo.py:1425
+#: ../todo.py:1439
 #, fuzzy
 msgid "Mount Point"
 msgstr "Bod pøipojení:"
 
-#: ../todo.py:1425
+#: ../todo.py:1439
 msgid "Space Needed"
 msgstr "Chybí místo"
 
-#: ../todo.py:1439
+#: ../todo.py:1453
 msgid "Disk Space"
 msgstr "Diskový prostor"
 
-#: ../todo.py:1462
+#: ../todo.py:1476
 #, fuzzy
 msgid "Post Install"
 msgstr "Instalace"
 
-#: ../todo.py:1463
+#: ../todo.py:1477
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Otestovat konfiguraci"
 
-#: ../iw/xconfig.py:10 ../xf86config.py:231
+#: ../iw/xconfig.py:10 ../xf86config.py:235
 msgid "Video Card"
 msgstr "Videokarta"
 
-#: ../iw/xconfig.py:12 ../xf86config.py:233
+#: ../iw/xconfig.py:12 ../xf86config.py:237
 msgid "Video Ram"
 msgstr "Video RAM"
 
-#: ../xf86config.py:235
+#: ../xf86config.py:239
 #, fuzzy
 msgid "X server"
 msgstr "Server"
 
-#: ../xf86config.py:237
+#: ../xf86config.py:241
 #, fuzzy
 msgid "Unable to detect video card"
 msgstr "Nelze naèíst sekundární RAM disk"
 
-#: ../iw/xconfig.py:11 ../xf86config.py:242 ../xf86config.py:244
+#: ../iw/xconfig.py:11 ../xf86config.py:246 ../xf86config.py:248
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:244
+#: ../xf86config.py:248
 msgid "Plug and Play Monitor"
 msgstr ""
 
-#: ../xf86config.py:246
+#: ../xf86config.py:250
 #, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Rozsah øádkových kmitoètù (horizontal)"
 
-#: ../xf86config.py:248
+#: ../xf86config.py:252
 #, fuzzy
 msgid "Vertical frequency range"
 msgstr "Rozsah snímkových kmitoètù (vertical)"
@@ -824,8 +706,7 @@ msgstr "Heslo"
 msgid "Password (confirm)"
 msgstr "Heslo (znovu)"
 
-#: ../iw/account.py:196 ../iw/account.py:227 ../textw/userauth.py:79
-#: ../textw/userauth.py:160
+#: ../iw/account.py:196 ../iw/account.py:227 ../textw/userauth.py:79 ../textw/userauth.py:160
 msgid "Full Name"
 msgstr "Plné jméno"
 
@@ -833,15 +714,11 @@ msgstr "Plné jméno"
 msgid "Add"
 msgstr "Pøidat"
 
-#: ../iw/account.py:207 ../libfdisk/newtfsedit.c:1290
-#: ../libfdisk/newtfsedit.c:1298 ../textw/lilo.py:147 ../textw/lilo.py:168
-#: ../textw/partitioning.py:63 ../textw/silo.py:175 ../textw/silo.py:197
-#: ../textw/userauth.py:172
+#: ../iw/account.py:207 ../libfdisk/newtfsedit.c:1290 ../libfdisk/newtfsedit.c:1298 ../textw/lilo.py:147 ../textw/lilo.py:168 ../textw/partitioning.py:63 ../textw/silo.py:175 ../textw/silo.py:197 ../textw/userauth.py:172
 msgid "Edit"
 msgstr "Upravit"
 
-#: ../iw/account.py:209 ../libfdisk/newtfsedit.c:1290
-#: ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:171
+#: ../iw/account.py:209 ../libfdisk/newtfsedit.c:1290 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:171
 msgid "Delete"
 msgstr "Zru¹it"
 
@@ -957,8 +834,7 @@ msgstr "Pracovní stanice s GNOME"
 msgid "KDE Workstation"
 msgstr "Pracovní stanice s KDE"
 
-#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2211
-#: ../libfdisk/gnomefsedit.c:2231
+#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2211 ../libfdisk/gnomefsedit.c:2231
 msgid "Server"
 msgstr "Server"
 
@@ -1002,7 +878,7 @@ msgstr "Varianta"
 msgid "Test your selection here:"
 msgstr "Vyzkou¹ejte zde svùj výbìr:"
 
-#: ../iw/language.py:16 ../loader/lang.c:244
+#: ../iw/language.py:16 ../loader/lang.c:269
 msgid "What language should be used during the installation process?"
 msgstr "Jakým jazykem má s vámi komunikovat instalaèní program?"
 
@@ -1042,19 +918,15 @@ msgstr "Vytvoøení zavádìcí diskety"
 msgid "Do not install LILO"
 msgstr "Neinstalovat LILO"
 
-#: ../iw/lilo.py:174 ../iw/silo.py:242 ../textw/lilo.py:138
-#: ../textw/silo.py:166
+#: ../iw/lilo.py:174 ../iw/silo.py:242 ../textw/lilo.py:138 ../textw/silo.py:166
 msgid "Default"
 msgstr "Implicitní"
 
-#: ../iw/lilo.py:174 ../iw/silo.py:242 ../textw/lilo.py:138
-#: ../textw/silo.py:166
+#: ../iw/lilo.py:174 ../iw/silo.py:242 ../textw/lilo.py:138 ../textw/silo.py:166
 msgid "Partition type"
 msgstr "Typ oddílu"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:208 ../iw/silo.py:242 ../iw/silo.py:277
-#: ../textw/lilo.py:80 ../textw/lilo.py:138 ../textw/silo.py:110
-#: ../textw/silo.py:166
+#: ../iw/lilo.py:174 ../iw/lilo.py:208 ../iw/silo.py:242 ../iw/silo.py:277 ../textw/lilo.py:80 ../textw/lilo.py:138 ../textw/silo.py:110 ../textw/silo.py:166
 msgid "Boot label"
 msgstr "Jméno systému"
 
@@ -1062,43 +934,43 @@ msgstr "Jméno systému"
 msgid "Emulate 3 Buttons"
 msgstr "Emulovat 3 tlaèítka"
 
-#: ../iw/network.py:141
+#: ../iw/network.py:148
 msgid "Configure using DHCP"
 msgstr "Konfigurace pomocí DHCP"
 
-#: ../iw/network.py:147
+#: ../iw/network.py:154
 msgid "Activate on boot"
 msgstr "Pøi startu aktivovat"
 
-#: ../iw/network.py:155
+#: ../iw/network.py:163
 msgid "IP Address"
 msgstr "IP adresa"
 
-#: ../iw/network.py:156 ../loader/net.c:618
+#: ../iw/network.py:164 ../loader/net.c:618
 msgid "Netmask"
 msgstr "Maska sítì"
 
-#: ../iw/network.py:157 ../loader/loader.c:230
+#: ../iw/network.py:165 ../loader/loader.c:233
 msgid "Network"
 msgstr "Sí»"
 
-#: ../iw/network.py:158
+#: ../iw/network.py:166
 msgid "Broadcast"
 msgstr "V¹esmìrová adresa"
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Primary DNS"
 msgstr "Primární DNS"
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Secondary DNS"
 msgstr "Sekundární DNS"
 
-#: ../iw/network.py:202
+#: ../iw/network.py:210
 msgid "Ternary DNS"
 msgstr "Terciální DNS"
 
@@ -1183,14 +1055,8 @@ msgid "Low Memory"
 msgstr "Nedostatek pamìti"
 
 #: ../iw/rootpartition.py:44 ../textw/partitioning.py:161
-msgid ""
-"As you don't have much memory in this machine, we need to turn on swap space "
-"immediately. To do this we'll have to write your new partition table to the "
-"disk immediately. Is that okay?"
-msgstr ""
-"Proto¾e na tomto poèítaèi není dostatek pamìti, je tøeba zaèít pou¾ívat "
-"odkládací prostor. Proto je nutné zapsat novou tabulku oddílù na disk ji¾ "
-"nyní. Souhlasíte?"
+msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
+msgstr "Proto¾e na tomto poèítaèi není dostatek pamìti, je tøeba zaèít pou¾ívat odkládací prostor. Proto je nutné zapsat novou tabulku oddílù na disk ji¾ nyní. Souhlasíte?"
 
 #: ../iw/rootpartition.py:143 ../textw/partitioning.py:123
 msgid "Automatic Partitioning"
@@ -1201,21 +1067,17 @@ msgstr "Automatické rozdìlování na oddíly"
 msgid ""
 "%s\n"
 "\n"
-"If you don't want to do this, you can continue with this install by "
-"partitioning manually, or you can go back and perform a fully customized "
-"installation."
+"If you don't want to do this, you can continue with this install by partitioning manually, or you can go back and perform a fully customized installation."
 msgstr ""
 "%s\n"
 "\n"
-"Pokud jej nechcete, mù¾ete pokraèovat ruèním rozdìlením diskù na oddíly, "
-"nebo se mù¾ete vrátit zpìt a provést vlastní instalaci podle va¹ich "
-"po¾adavkù."
+"Pokud jej nechcete, mù¾ete pokraèovat ruèním rozdìlením diskù na oddíly, nebo se mù¾ete vrátit zpìt a provést vlastní instalaci podle va¹ich po¾adavkù."
 
-#: ../iw/rootpartition.py:208
+#: ../iw/rootpartition.py:205
 msgid "Remove data"
 msgstr "Smazat data"
 
-#: ../iw/rootpartition.py:211 ../textw/partitioning.py:128
+#: ../iw/rootpartition.py:208 ../textw/partitioning.py:128
 msgid "Manually partition"
 msgstr "Ruèní rozdìlování diskù"
 
@@ -1273,7 +1135,7 @@ msgstr "Rozsah snímkových kmitoètù (vertical)"
 msgid "Test failed"
 msgstr "Test selhal"
 
-#: ../iw/xconfig.py:23 ../iw/xconfig.py:228
+#: ../iw/xconfig.py:23 ../iw/xconfig.py:231
 msgid "Customize X Configuration"
 msgstr "Upøesnìní konfigurace X"
 
@@ -1281,61 +1143,43 @@ msgstr "Upøesnìní konfigurace X"
 msgid "Bits per Pixel"
 msgstr "Bitù na pixel"
 
-#: ../iw/xconfig.py:90 ../iw/xconfig.py:224
+#: ../iw/xconfig.py:90 ../iw/xconfig.py:227
 msgid "Test this configuration"
 msgstr "Otestovat konfiguraci"
 
-#: ../iw/xconfig.py:172
-msgid ""
-"In most cases your video hardware can be probed to automatically determine "
-"the best settings for your display."
-msgstr ""
-"Ve vìt¹inì pøípadù lze va¹i videokartu automaticky otestovat a nastavit "
-"nejlep¹í rozli¹ení pro vá¹ displej."
+#: ../iw/xconfig.py:175
+msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
+msgstr "Ve vìt¹inì pøípadù lze va¹i videokartu automaticky otestovat a nastavit nejlep¹í rozli¹ení pro vá¹ displej."
 
-#: ../iw/xconfig.py:180
+#: ../iw/xconfig.py:183
 msgid "Autoprobe results:"
 msgstr "Výsledky automatické detekce:"
 
-#: ../iw/xconfig.py:194
-msgid ""
-"Your monitor could not be autodetected. Please choose it from the list below:"
-msgstr ""
-"Vá¹ monitor nelze automaticky detekovat. Prosím vyberte jeho typ ze seznamu:"
+#: ../iw/xconfig.py:197
+msgid "Your monitor could not be autodetected. Please choose it from the list below:"
+msgstr "Vá¹ monitor nelze automaticky detekovat. Prosím vyberte jeho typ ze seznamu:"
 
-#: ../iw/xconfig.py:231
+#: ../iw/xconfig.py:234
 msgid "Use Graphical Login"
 msgstr "Nastavit pøihla¹ování v grafice"
 
-#: ../iw/xconfig.py:233
+#: ../iw/xconfig.py:236
 msgid "Skip X Configuration"
 msgstr "Pøeskoèit konfiguraci X"
 
 #: ../textw/lilo.py:13 ../textw/silo.py:14
-msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
-msgstr ""
-"U nìkterých systémù je tøeba pro jejich správnou funkci pøedat jádru "
-"speciální parametry. Jestli¾e musíte pøedávat zavádìcí parametry jádru, "
-"zadejte je teï. Pokud ¾ádné nepotøebujete nebo je nevíte, nezadávejte nic."
+msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
+msgstr "U nìkterých systémù je tøeba pro jejich správnou funkci pøedat jádru speciální parametry. Jestli¾e musíte pøedávat zavádìcí parametry jádru, zadejte je teï. Pokud ¾ádné nepotøebujete nebo je nevíte, nezadávejte nic."
 
 #: ../textw/lilo.py:64 ../textw/silo.py:81
 msgid "Where do you want to install the bootloader?"
 msgstr "Kam chcete nainstalovat zavadìè systému?"
 
-#: ../textw/lilo.py:84 ../textw/lilo.py:105 ../textw/silo.py:114
-#: ../textw/silo.py:135
+#: ../textw/lilo.py:84 ../textw/lilo.py:105 ../textw/silo.py:114 ../textw/silo.py:135
 msgid "Clear"
 msgstr "Smazat"
 
-#: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1644
-#: ../libfdisk/gnomefsedit.c:2143 ../libfdisk/newtfsedit.c:462
-#: ../libfdisk/newtfsedit.c:1495 ../loader/devices.c:168 ../textw/lilo.py:84
-#: ../textw/lilo.py:102 ../textw/silo.py:114 ../textw/silo.py:132
-#: ../textw/userauth.py:62
+#: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1644 ../libfdisk/gnomefsedit.c:2143 ../libfdisk/newtfsedit.c:462 ../libfdisk/newtfsedit.c:1495 ../loader/devices.c:168 ../textw/lilo.py:84 ../textw/lilo.py:102 ../textw/silo.py:114 ../textw/silo.py:132 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Zru¹it"
 
@@ -1344,24 +1188,12 @@ msgid "Edit Boot Label"
 msgstr "Zmìnit jméno systému"
 
 #: ../textw/lilo.py:150 ../textw/silo.py:178
-msgid ""
-"The boot manager Red Hat uses can boot other operating systems as well. You "
-"need to tell me what partitions you would like to be able to boot and what "
-"label you want to use for each of them."
-msgstr ""
-"Zavadìè, který pou¾ívá systém Red Hat, lze pou¾ít i pro zavádìní jiných "
-"operaèních systémù. Je tøeba zadat, ve kterých oddílech jsou tyto systémy a "
-"jméno, které bude pou¾ito pro jejich výbìr pøi startu poèítaèe."
+msgid "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
+msgstr "Zavadìè, který pou¾ívá systém Red Hat, lze pou¾ít i pro zavádìní jiných operaèních systémù. Je tøeba zadat, ve kterých oddílech jsou tyto systémy a jméno, které bude pou¾ito pro jejich výbìr pøi startu poèítaèe."
 
 #: ../textw/packages.py:115
-msgid ""
-"Some of the packages you have selected to install require packages you have "
-"not selected. If you just select Ok all of those required packages will be "
-"installed."
-msgstr ""
-"Nìkteré z balíèkù vybraných pro instalaci vy¾adují balíèky, které nebyly "
-"vybrány. Jestli¾e zvolíte OK, nainstaluji také v¹echny tyto vy¾adované "
-"balíèky."
+msgid "Some of the packages you have selected to install require packages you have not selected. If you just select Ok all of those required packages will be installed."
+msgstr "Nìkteré z balíèkù vybraných pro instalaci vy¾adují balíèky, které nebyly vybrány. Jestli¾e zvolíte OK, nainstaluji také v¹echny tyto vy¾adované balíèky."
 
 #: ../textw/partitioning.py:16 ../textw/partitioning.py:57
 msgid "Disk Setup"
@@ -1369,31 +1201,19 @@ msgstr "Rozdìlení diskù"
 
 #: ../textw/partitioning.py:17
 msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is "
-"designed to be easier to use than Linux's traditional disk partitioning "
-"sofware, fdisk, as well as more powerful. However, there are some cases "
-"where fdisk may be preferred.\n"
+"Disk Druid is a tool for partitioning and setting up mount points. It is designed to be easier to use than Linux's traditional disk partitioning sofware, fdisk, as well as more powerful. However, there are some cases where fdisk may be preferred.\n"
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk Druid je nový program pro vytváøení oddílù a nastavování pøipojovacích "
-"bodù. Mìl by být výkonnìj¹í a snáze pou¾itelný ne¾li tradièní Linuxový "
-"program fdisk. Nìkteøí u¾ivatelé v¹ak preferují starý dobrý fdisk. Nìkdy je "
-"jeho pou¾ití nezbytné.\n"
+"Disk Druid je nový program pro vytváøení oddílù a nastavování pøipojovacích bodù. Mìl by být výkonnìj¹í a snáze pou¾itelný ne¾li tradièní Linuxový program fdisk. Nìkteøí u¾ivatelé v¹ak preferují starý dobrý fdisk. Nìkdy je jeho pou¾ití nezbytné.\n"
 "\n"
 "Který nástroj chcete pou¾ít?"
 
 #: ../textw/partitioning.py:58
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux. We suggest placing that partition on one of the first "
-"two hard drives in your system so you can boot into Linux with LILO."
-msgstr ""
-"K instalaci Red Hat Linuxu je zapotøebí nejménì jeden oddíl o velikosti "
-"alespoò 150 MB vyhrazený pro Linux. Doporuèuje se umístit tento oddíl na "
-"první nebo druhý pevný disk, aby bylo mo¾né zavádìt Linux zavadìèem LILO."
+msgid "To install Red Hat Linux, you must have at least one partition of 150 MB dedicated to Linux. We suggest placing that partition on one of the first two hard drives in your system so you can boot into Linux with LILO."
+msgstr "K instalaci Red Hat Linuxu je zapotøebí nejménì jeden oddíl o velikosti alespoò 150 MB vyhrazený pro Linux. Doporuèuje se umístit tento oddíl na první nebo druhý pevný disk, aby bylo mo¾né zavádìt Linux zavadìèem LILO."
 
-#: ../loader/loader.c:293 ../loader/loader.c:318 ../textw/partitioning.py:63
+#: ../loader/loader.c:296 ../loader/loader.c:321 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Hotovo"
 
@@ -1402,16 +1222,8 @@ msgid "Continue"
 msgstr "Pokraèovat"
 
 #: ../textw/partitioning.py:180
-msgid ""
-"What partitions would you like to format? We strongly suggest formatting all "
-"of the system partitions, including /, /usr, and /var. There is no need to "
-"format /home or /usr/local if they have already been configured during a "
-"previous install."
-msgstr ""
-"Které oddíly chcete zformátovat? Dùraznì se doporuèuje zformátovat v¹echny "
-"systémové oddíly vèetnì /, /usr a /var. Oddíly /home nebo /usr/local v¹ak "
-"není tøeba formátovat znovu, pokud ji¾ byly konfigurovány bìhem pøedchozí "
-"instalace."
+msgid "What partitions would you like to format? We strongly suggest formatting all of the system partitions, including /, /usr, and /var. There is no need to format /home or /usr/local if they have already been configured during a previous install."
+msgstr "Které oddíly chcete zformátovat? Dùraznì se doporuèuje zformátovat v¹echny systémové oddíly vèetnì /, /usr a /var. Oddíly /home nebo /usr/local v¹ak není tøeba formátovat znovu, pokud ji¾ byly konfigurovány bìhem pøedchozí instalace."
 
 #: ../textw/partitioning.py:200
 msgid "Check for bad blocks during format"
@@ -1431,14 +1243,8 @@ msgid "Set default PROM boot device"
 msgstr ""
 
 #: ../textw/userauth.py:10
-msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
-msgstr ""
-"Zvolte heslo pro u¾ivatele root. Pamatujte, ¾e toto heslo je klíèovým bodem "
-"zabezpeèení systému! Heslo musíte zadat dvakrát, aby se sní¾ila "
-"pravdìpodobnost, ¾e díky pøeklepu zadáte jiné heslo ne¾ chcete."
+msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
+msgstr "Zvolte heslo pro u¾ivatele root. Pamatujte, ¾e toto heslo je klíèovým bodem zabezpeèení systému! Heslo musíte zadat dvakrát, aby se sní¾ila pravdìpodobnost, ¾e díky pøeklepu zadáte jiné heslo ne¾ chcete."
 
 #: ../loader/urls.c:298 ../textw/userauth.py:23
 msgid "Password:"
@@ -1489,24 +1295,12 @@ msgid "This user id already exists.  Choose another."
 msgstr "Toto èíslo u¾ivatele ji¾ existuje. Zvolte jiné."
 
 #: ../textw/userauth.py:137
-msgid ""
-"You should use a normal user account for most activities on your system. By "
-"not using the root account casually, you'll reduce the chance of disrupting "
-"your system's configuration."
-msgstr ""
-"Pro vìt¹inu èinností byste mìli pou¾ívat normální u¾ivatelský úèet. "
-"Nebudete-li zbyteènì pou¾ívat úèet root, sní¾íte pravdìpodobnost po¹kození "
-"konfigurace va¹eho systému."
+msgid "You should use a normal user account for most activities on your system. By not using the root account casually, you'll reduce the chance of disrupting your system's configuration."
+msgstr "Pro vìt¹inu èinností byste mìli pou¾ívat normální u¾ivatelský úèet. Nebudete-li zbyteènì pou¾ívat úèet root, sní¾íte pravdìpodobnost po¹kození konfigurace va¹eho systému."
 
 #: ../textw/userauth.py:150
-msgid ""
-"What user account would you like to have on the system? You should have at "
-"least one non-root account for normal work, but multi-user systems can have "
-"any number of accounts set up."
-msgstr ""
-"Jaký u¾ivatelský úèet chcete mít na tomto poèítaèi? Mìli byste mít alespoò "
-"jeden obyèejný úèet (ne root) pro normální práci, ale mù¾ete vytvoøit "
-"libovolný poèet úètù."
+msgid "What user account would you like to have on the system? You should have at least one non-root account for normal work, but multi-user systems can have any number of accounts set up."
+msgstr "Jaký u¾ivatelský úèet chcete mít na tomto poèítaèi? Mìli byste mít alespoò jeden obyèejný úèet (ne root) pro normální práci, ale mù¾ete vytvoøit libovolný poèet úètù."
 
 #: ../textw/userauth.py:160
 msgid "User name"
@@ -1544,8 +1338,7 @@ msgstr "nebo:"
 msgid "Request server via broadcast"
 msgstr "Dotazovat server v¹esmìrovým vysíláním"
 
-#: ../libfdisk/fsedit.c:615 ../libfdisk/fsedit.c:622 ../libfdisk/fsedit.c:629
-#: ../libfdisk/fsedit.c:638 ../libfdisk/fsedit.c:650 ../libfdisk/fsedit.c:660
+#: ../libfdisk/fsedit.c:615 ../libfdisk/fsedit.c:622 ../libfdisk/fsedit.c:629 ../libfdisk/fsedit.c:638 ../libfdisk/fsedit.c:650 ../libfdisk/fsedit.c:660
 msgid "Bad Mount Point"
 msgstr "Chybný bod pøipojení"
 
@@ -1614,42 +1407,26 @@ msgid "Too Many Drives"
 msgstr "Pøíli¹ mnoho jednotek"
 
 #: ../libfdisk/fsedit.c:690
-msgid ""
-"You have more drives than this program supports. Please use the standard "
-"fdisk program to setup your drives and please notify Red Hat Software that "
-"you saw this message."
-msgstr ""
-"Máte víc jednotek, ne¾ tento program podporuje. Pou¾ijte standardní program "
-"fdisk a upozornìte firmu Red Hat Software, ¾e se vám zobrazila tato zpráva."
+msgid "You have more drives than this program supports. Please use the standard fdisk program to setup your drives and please notify Red Hat Software that you saw this message."
+msgstr "Máte víc jednotek, ne¾ tento program podporuje. Pou¾ijte standardní program fdisk a upozornìte firmu Red Hat Software, ¾e se vám zobrazila tato zpráva."
 
 #: ../libfdisk/fsedit.c:705
 msgid "No Drives Found"
 msgstr "Nenalezeny ¾ádné jednotky"
 
 #: ../libfdisk/fsedit.c:706
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems.  Please check your hardware for the cause of this problem."
-msgstr ""
-"Chyba - nebyla nalezena ¾ádná platná zaøízení, na nich¾ by bylo mo¾né "
-"vytvoøit nové systémy souborù. Mù¾e se jednat o hardwarovou chybu."
+msgid "An error has occurred - no valid devices were found on which to create new filesystems.  Please check your hardware for the cause of this problem."
+msgstr "Chyba - nebyla nalezena ¾ádná platná zaøízení, na nich¾ by bylo mo¾né vytvoøit nové systémy souborù. Mù¾e se jednat o hardwarovou chybu."
 
 #: ../libfdisk/fsedit.c:979 ../libfdisk/fsedit.c:1047
 #, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s.  The "
-"error was"
+msgid "An error occurred reading the partition table for the block device %s.  The error was"
 msgstr "Pøi ètení tabulky oddílù blokového zaøízení %s do¹lo k této chybì:"
 
 #: ../libfdisk/fsedit.c:1020
 #, c-format
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive."
-msgstr ""
-"Tabulka oddílù na zaøízení %s je po¹kozena. Aby mohly být vytvoøeny nové "
-"oddíly, je tøeba tuto tabulku novì inicializovat, co¾ zpùsobí ztrátu V©ECH "
-"DAT na této jednotce."
+msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized, causing the loss of ALL DATA on this drive."
+msgstr "Tabulka oddílù na zaøízení %s je po¹kozena. Aby mohly být vytvoøeny nové oddíly, je tøeba tuto tabulku novì inicializovat, co¾ zpùsobí ztrátu V©ECH DAT na této jednotce."
 
 #: ../libfdisk/fsedit.c:1025
 msgid "Bad Partition Table"
@@ -1672,14 +1449,8 @@ msgid "BSD Disklabel"
 msgstr "BSD jmenovka disku"
 
 #: ../libfdisk/fsedit.c:1063
-msgid ""
-"A disk with a BSD disklabel has been found. The Red Hat installation only "
-"supports BSD Disklabels in read-only mode, so you must use a custom install "
-"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr ""
-"Byl nalezen disk se jmenovkou typu BSD. Instalace systému Red Hat podporuje "
-"jmenovky disku BSD pouze v re¾imu ètení; pro stroje s tìmito typy jmenovek "
-"musíte pou¾ít \"vlastní\" instalaci a program fdisk (nikoli Disk Druid)."
+msgid "A disk with a BSD disklabel has been found. The Red Hat installation only supports BSD Disklabels in read-only mode, so you must use a custom install and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr "Byl nalezen disk se jmenovkou typu BSD. Instalace systému Red Hat podporuje jmenovky disku BSD pouze v re¾imu ètení; pro stroje s tìmito typy jmenovek musíte pou¾ít \"vlastní\" instalaci a program fdisk (nikoli Disk Druid)."
 
 #: ../libfdisk/fsedit.c:1093
 #, c-format
@@ -1706,10 +1477,7 @@ msgstr "Zru¹ení oddílu"
 msgid "Are you sure you want to delete this partition?"
 msgstr "Skuteènì chcete tento oddíl zru¹it?"
 
-#: ../libfdisk/gnomefsedit.c:660 ../libfdisk/gnomefsedit.c:666
-#: ../libfdisk/gnomefsedit.c:670 ../libfdisk/gnomefsedit.c:672
-#: ../libfdisk/newtfsedit.c:259 ../libfdisk/newtfsedit.c:265
-#: ../libfdisk/newtfsedit.c:269 ../libfdisk/newtfsedit.c:271
+#: ../libfdisk/gnomefsedit.c:660 ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:670 ../libfdisk/gnomefsedit.c:672 ../libfdisk/newtfsedit.c:259 ../libfdisk/newtfsedit.c:265 ../libfdisk/newtfsedit.c:269 ../libfdisk/newtfsedit.c:271
 msgid "Edit Partition"
 msgstr "Úprava oddílu"
 
@@ -1749,57 +1517,38 @@ msgstr "Typ oddílu:"
 msgid "Allowable Drives:"
 msgstr "Pou¾itelné jednotky:"
 
-#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1879
-#: ../libfdisk/newtfsedit.c:498
+#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/gnomefsedit.c:1879 ../libfdisk/newtfsedit.c:498
 msgid "No Mount Point"
 msgstr "Chybí bod pøipojení"
 
 #: ../libfdisk/gnomefsedit.c:1002 ../libfdisk/newtfsedit.c:499
-msgid ""
-"You have not selected a mount point for this partition. Are you sure you "
-"want to do this?"
-msgstr ""
-"Nebyl zadán pøipojovací bod pro tento oddíl. Skuteènì chcete pokraèovat?"
+msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
+msgstr "Nebyl zadán pøipojovací bod pro tento oddíl. Skuteènì chcete pokraèovat?"
 
-#: ../libfdisk/gnomefsedit.c:1045 ../libfdisk/gnomefsedit.c:1887
-#: ../libfdisk/newtfsedit.c:539
+#: ../libfdisk/gnomefsedit.c:1045 ../libfdisk/gnomefsedit.c:1887 ../libfdisk/newtfsedit.c:539
 msgid "Mount Point Error"
 msgstr "Chyba bodu pøipojení"
 
 #: ../libfdisk/gnomefsedit.c:1046 ../libfdisk/newtfsedit.c:540
-msgid ""
-"The mount point requested is either an illegal path or is already in use. "
-"Please select a valid mount point."
-msgstr ""
-"Zadaný pøipojovací bod buï neexistuje, nebo je ji¾ pou¾íván. Zadejte platný "
-"pøipojovací bod."
+msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
+msgstr "Zadaný pøipojovací bod buï neexistuje, nebo je ji¾ pou¾íván. Zadejte platný pøipojovací bod."
 
 #: ../libfdisk/gnomefsedit.c:1071 ../libfdisk/newtfsedit.c:557
 msgid "Size Error"
 msgstr "Chybná velikost"
 
 #: ../libfdisk/gnomefsedit.c:1072 ../libfdisk/newtfsedit.c:558
-msgid ""
-"The size requested is illegal. Make sure the size is greater and zero (0), "
-"and is specified int decimal (base 10) format."
-msgstr ""
-"Zadaná velikost je neplatná. Velikost musí být celé èíslo vìt¹í ne¾ nula "
-"zadané v desítkové soustavì."
+msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
+msgstr "Zadaná velikost je neplatná. Velikost musí být celé èíslo vìt¹í ne¾ nula zadané v desítkové soustavì."
 
-#: ../libfdisk/gnomefsedit.c:1089 ../libfdisk/gnomefsedit.c:1982
-#: ../libfdisk/newtfsedit.c:575
+#: ../libfdisk/gnomefsedit.c:1089 ../libfdisk/gnomefsedit.c:1982 ../libfdisk/newtfsedit.c:575
 msgid "Swap Size Error"
 msgstr "Chybná velikost odkládacího oddílu"
 
-#: ../libfdisk/gnomefsedit.c:1090 ../libfdisk/gnomefsedit.c:1983
-#: ../libfdisk/newtfsedit.c:576
+#: ../libfdisk/gnomefsedit.c:1090 ../libfdisk/gnomefsedit.c:1983 ../libfdisk/newtfsedit.c:576
 #, c-format
-msgid ""
-"You have created a swap partition which is too large. The maximum size of a "
-"swap partition is %ld Megabytes."
-msgstr ""
-"Vytvoøili jste pøíli¹ velký odkládací oddíl. Maximální velikost odkládacího "
-"oddílu je %ld megabajtù."
+msgid "You have created a swap partition which is too large. The maximum size of a swap partition is %ld Megabytes."
+msgstr "Vytvoøili jste pøíli¹ velký odkládací oddíl. Maximální velikost odkládacího oddílu je %ld megabajtù."
 
 #: ../libfdisk/gnomefsedit.c:1106 ../libfdisk/gnomefsedit.c:1113
 msgid "No RAID Drive Constraint"
@@ -1807,8 +1556,7 @@ msgstr "®ádná omezení na RAID jednotku"
 
 #: ../libfdisk/gnomefsedit.c:1108
 msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive.\n"
+"You have configured a RAID partition without constraining the partition to a single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
 "Zkonfigurovali jste RAID oddíl bez omezení na jediný disk.\n"
@@ -1819,12 +1567,8 @@ msgid "Close"
 msgstr "Zavøít"
 
 #: ../libfdisk/gnomefsedit.c:1115
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive. Please select one drive to constrain this partition to."
-msgstr ""
-"Zkonfigurovali jste RAID oddíl bez omezení na jediný disk. Prosím zvolte "
-"jednu jednotku, na kterou tento oddíl omezíte."
+msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
+msgstr "Zkonfigurovali jste RAID oddíl bez omezení na jediný disk. Prosím zvolte jednu jednotku, na kterou tento oddíl omezíte."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -1834,30 +1578,17 @@ msgstr "Nekompletní zadání RAID"
 
 #: ../libfdisk/gnomefsedit.c:1295
 #, c-format
-msgid ""
-"The raid device /dev/%s now contains partitions which are unallocated. The "
-"raid device /dev/%s will now be decomposed into its component partitions. "
-"Please recompose the raid device with allocated partitions."
-msgstr ""
-"RAID zaøízení /dev/%s nyní obsahuje nealokované oddíly. RAID zaøízení "
-"/dev/%s bude nyní rozdìleno na oddíly, ze který sestává. Prosím vytvoøte "
-"znovu RAID zaøízení s alokovanými oddíly."
+msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
+msgstr "RAID zaøízení /dev/%s nyní obsahuje nealokované oddíly. RAID zaøízení /dev/%s bude nyní rozdìleno na oddíly, ze který sestává. Prosím vytvoøte znovu RAID zaøízení s alokovanými oddíly."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1388 ../libfdisk/gnomefsedit.c:1407
-#: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1476
+#: ../libfdisk/gnomefsedit.c:1388 ../libfdisk/gnomefsedit.c:1407 ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1476
 msgid "Unallocated Partitions"
 msgstr "Nepøidìlené oddíly"
 
-#: ../libfdisk/gnomefsedit.c:1392 ../libfdisk/gnomefsedit.c:1402
-#: ../libfdisk/newtfsedit.c:85
-msgid ""
-"There are currently unallocated partition(s) present in the list of "
-"requested partitions. The unallocated partition(s) are shown below, along "
-"with the reason they were not allocated."
-msgstr ""
-"Seznam oddílù obsahuje jeden nebo více nepøidìlených oddílù. Tyto oddíly "
-"jsou v seznamu uvedeny dole s udáním dùvodu, proè nemohly být pøidìleny."
+#: ../libfdisk/gnomefsedit.c:1392 ../libfdisk/gnomefsedit.c:1402 ../libfdisk/newtfsedit.c:85
+msgid "There are currently unallocated partition(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
+msgstr "Seznam oddílù obsahuje jeden nebo více nepøidìlených oddílù. Tyto oddíly jsou v seznamu uvedeny dole s udáním dùvodu, proè nemohly být pøidìleny."
 
 #: ../libfdisk/gnomefsedit.c:1673
 msgid "<Swap Partition"
@@ -1880,24 +1611,16 @@ msgid "You have not selected a mount point. A mount point is required."
 msgstr "Nevybrali jste pøipojovací bod. Pøipojovací bod musí být zadán."
 
 #: ../libfdisk/gnomefsedit.c:1888
-msgid ""
-"The mount point requested is already in use. Please select a valid mount "
-"point."
-msgstr ""
-"Zadaný pøipojovací bod je ji¾ pou¾íván. Prosím zadejte platný pøipojovací "
-"bod."
+msgid "The mount point requested is already in use. Please select a valid mount point."
+msgstr "Zadaný pøipojovací bod je ji¾ pou¾íván. Prosím zadejte platný pøipojovací bod."
 
 #: ../libfdisk/gnomefsedit.c:1901
 msgid "Booting From RAID Warning"
 msgstr "Varování - zavádìní systému z RAID"
 
 #: ../libfdisk/gnomefsedit.c:1902
-msgid ""
-"You have made this raid device mount as a booting partition.  Please make "
-"sure all the component partitions are bootable."
-msgstr ""
-"Zvolili jste toto RAID zaøízení jako zavádìcí oddíl. Prosím zkontrolujte, ¾e "
-"v¹echny oddíly, z nich¾ se skládá, jsou zavádìcí."
+msgid "You have made this raid device mount as a booting partition.  Please make sure all the component partitions are bootable."
+msgstr "Zvolili jste toto RAID zaøízení jako zavádìcí oddíl. Prosím zkontrolujte, ¾e v¹echny oddíly, z nich¾ se skládá, jsou zavádìcí."
 
 #: ../libfdisk/gnomefsedit.c:1912
 msgid "No RAID Device"
@@ -1913,21 +1636,15 @@ msgstr "Pou¾ito RAID zaøízení"
 
 #: ../libfdisk/gnomefsedit.c:1920
 #, c-format
-msgid ""
-"The raid device \"/dev/%s\" is already configured as a raid device. Please "
-"select another."
-msgstr ""
-"RAID zaøízení \"/dev/%s\" je ji¾ zkonfigurováno jako RAID zaøízení. Prosím "
-"vyberte jiné."
+msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
+msgstr "RAID zaøízení \"/dev/%s\" je ji¾ zkonfigurováno jako RAID zaøízení. Prosím vyberte jiné."
 
 #: ../libfdisk/gnomefsedit.c:1933
 msgid "Not Enough Partitions"
 msgstr "Nedostateèný poèet oddílù"
 
 #: ../libfdisk/gnomefsedit.c:1935
-msgid ""
-"You have not configured enough partitions for the RAID type you have "
-"selected."
+msgid "You have not configured enough partitions for the RAID type you have selected."
 msgstr "Nezkonfigurovali jste dostateèný poèet oddílù pro RAID zvoleného typu."
 
 #: ../libfdisk/gnomefsedit.c:1942
@@ -1940,14 +1657,8 @@ msgstr "Zavádìcí oddíly (/boot) mohou být pouze na RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2027
 #, c-format
-msgid ""
-"The partition %s is a pre-existing partition in the set of partitions for "
-"this RAID device.  The mount point is set to /boot. Are you sure that it is "
-"possible to boot from this partition?"
-msgstr ""
-"Oddíl %s byl ji¾ døíve uveden v sadì oddílù pro toto RAID zaøízení. Bod "
-"pøipojení je nastaven na /boot. Opravdu jste si jisti, ¾e lze zavádìt systém "
-"z tohoto oddílu?"
+msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
+msgstr "Oddíl %s byl ji¾ døíve uveden v sadì oddílù pro toto RAID zaøízení. Bod pøipojení je nastaven na /boot. Opravdu jste si jisti, ¾e lze zavádìt systém z tohoto oddílu?"
 
 #: ../libfdisk/gnomefsedit.c:2034
 msgid "Use Pre-existing Partition?"
@@ -2011,12 +1722,8 @@ msgid "Unallocated Partitions Exist..."
 msgstr "Existují nepøidìlené oddíly..."
 
 #: ../libfdisk/gnomefsedit.c:3069 ../libfdisk/gnomefsedit.c:3083
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) or a "
-"RAID partition for the install to proceed."
-msgstr ""
-"Aby mohla instalace pokraèovat, musí být oddíl, v nìm¾ má být koøenový "
-"adresáø (/), typu Linux native (ext2) nebo RAID."
+msgid "You must assign a root (/) partition to a Linux native partition (ext2) or a RAID partition for the install to proceed."
+msgstr "Aby mohla instalace pokraèovat, musí být oddíl, v nìm¾ má být koøenový adresáø (/), typu Linux native (ext2) nebo RAID."
 
 #: ../libfdisk/gnomefsedit.c:3157
 msgid "Partitions"
@@ -2067,12 +1774,8 @@ msgid "No Root Partition"
 msgstr "Chybí koøenový oddíl"
 
 #: ../libfdisk/newtfsedit.c:1425
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) for "
-"the install to proceed."
-msgstr ""
-"Aby mohla instalace pokraèovat, musí být oddíl, v nìm¾ má být koøenový "
-"adresáø (/), typu Linux native (ext2)."
+msgid "You must assign a root (/) partition to a Linux native partition (ext2) for the install to proceed."
+msgstr "Aby mohla instalace pokraèovat, musí být oddíl, v nìm¾ má být koøenový adresáø (/), typu Linux native (ext2)."
 
 #: ../libfdisk/newtfsedit.c:1445
 msgid "No Swap Partition"
@@ -2084,13 +1787,11 @@ msgstr "Aby mohla instalace pokraèovat, musíte definovat odkládací oddíl."
 
 #: ../libfdisk/newtfsedit.c:1478
 msgid ""
-"There are unallocated partitions left. If you quit now they will not be "
-"written to the disk.\n"
+"There are unallocated partitions left. If you quit now they will not be written to the disk.\n"
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Existují nepøidìlené oddíly. Pokud nyní skonèíte, bude èást disku "
-"nevyu¾ita.\n"
+"Existují nepøidìlené oddíly. Pokud nyní skonèíte, bude èást disku nevyu¾ita.\n"
 "\n"
 "Chcete vskutku skonèit?"
 
@@ -2127,21 +1828,14 @@ msgid "Miscellaneous"
 msgstr "Rùzné volby"
 
 #: ../loader/devices.c:60
-msgid ""
-"This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"OK\" "
-"button now."
-msgstr ""
-"Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. Pokud "
-"nevíte, jaké parametry zadat, klidnì pokraèujte dále stisknutím tlaèítka "
-"\"OK\"."
+msgid "This module can take parameters which affects its operation. If you don't know what parameters to supply, just skip this screen by pressing the \"OK\" button now."
+msgstr "Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. Pokud nevíte, jaké parametry zadat, klidnì pokraèujte dále stisknutím tlaèítka \"OK\"."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
 msgstr "Parametry modulù"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:243
-#: ../loader/loader.c:302 ../loader/loader.c:318
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:246 ../loader/loader.c:305 ../loader/loader.c:321
 msgid "Devices"
 msgstr "Zaøízení"
 
@@ -2154,20 +1848,12 @@ msgid "Failed to mount floppy disk."
 msgstr "Nelze pøipojit disketu."
 
 #: ../loader/devices.c:184
-msgid ""
-"The floppy disk you inserted is not a valid driver disk for this release of "
-"Red Hat Linux."
-msgstr ""
-"Disketa, kterou jste vlo¾ili, není správnou disketou s ovladaèi pro tuto "
-"verzi Red Hat Linuxu."
+msgid "The floppy disk you inserted is not a valid driver disk for this release of Red Hat Linux."
+msgstr "Disketa, kterou jste vlo¾ili, není správnou disketou s ovladaèi pro tuto verzi Red Hat Linuxu."
 
 #: ../loader/devices.c:206
-msgid ""
-"Which driver should I try?. If the driver you need does not appear in this "
-"list, and you have a separate driver disk, please press F2."
-msgstr ""
-"Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v "
-"tomto seznamu a máte dal¹í disk s ovladaèi, prosím stisknìte F2."
+msgid "Which driver should I try?. If the driver you need does not appear in this list, and you have a separate driver disk, please press F2."
+msgstr "Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v tomto seznamu a máte dal¹í disk s ovladaèi, prosím stisknìte F2."
 
 #: ../loader/devices.c:211
 msgid "Which driver should I try?"
@@ -2196,15 +1882,15 @@ msgstr "Chyba pøi ètení obsahu kickstart souboru %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Chyba na øádku %d kickstart souboru %s."
 
-#: ../loader/lang.c:244
+#: ../loader/lang.c:269
 msgid "Choose a Language"
 msgstr "Vyberte jazyk"
 
-#: ../loader/lang.c:506
+#: ../loader/lang.c:529
 msgid "Keyboard Type"
 msgstr "Typ klávesnice"
 
-#: ../loader/lang.c:507
+#: ../loader/lang.c:530
 msgid "What type of keyboard do you have?"
 msgstr "Jaký typ klávesnice máte?"
 
@@ -2220,136 +1906,116 @@ msgstr "NFS obraz"
 msgid "Hard drive"
 msgstr "Pevný disk"
 
-#: ../loader/loader.c:124
+#: ../loader/loader.c:127
 msgid "Welcome to Red Hat Linux"
 msgstr "Vítá vás Red Hat Linux"
 
-#: ../loader/loader.c:126
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  | <Mezera> výbìr | <F12> pokraèovat"
+#: ../loader/loader.c:129
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> pøepíná mezi polo¾kami  | <Mezera> výbìr | <F12> pokraèovat"
 
-#: ../loader/loader.c:230
+#: ../loader/loader.c:233
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:244
+#: ../loader/loader.c:247
 msgid "What kind of device would you like to add"
 msgstr "Jaké zaøízení chcete pøidat?"
 
-#: ../loader/loader.c:291
+#: ../loader/loader.c:294
 msgid "I have found the following devices in your system:"
 msgstr "V poèítaèi byly nalezeny následující zaøízení:"
 
-#: ../loader/loader.c:293 ../loader/loader.c:318
+#: ../loader/loader.c:296 ../loader/loader.c:321
 msgid "Add Device"
 msgstr "Pøidat zaøízení"
 
-#: ../loader/loader.c:319
-msgid ""
-"I don't have any special device drivers loaded for your system. Would you "
-"like to load some now?"
-msgstr ""
-"®ádné speciální ovladaèe zaøízení pro vá¹ systém nejsou zavedeny. Chcete "
-"nyní nìjaké zavést?"
+#: ../loader/loader.c:322
+msgid "I don't have any special device drivers loaded for your system. Would you like to load some now?"
+msgstr "®ádné speciální ovladaèe zaøízení pro vá¹ systém nejsou zavedeny. Chcete nyní nìjaké zavést?"
 
-#: ../loader/loader.c:403 ../loader/loader.c:405
+#: ../loader/loader.c:406 ../loader/loader.c:408
 msgid "Loading"
 msgstr "Zavádìní"
 
-#: ../loader/loader.c:457
+#: ../loader/loader.c:460
 msgid "Loading second stage ramdisk..."
 msgstr "Naèítám sekundární ramdisk..."
 
-#: ../loader/loader.c:461
+#: ../loader/loader.c:464
 msgid "Error loading ramdisk."
 msgstr "Chyba pøi naèítání RAM disku."
 
-#: ../loader/loader.c:593
+#: ../loader/loader.c:596
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
-#: ../loader/loader.c:594
-msgid ""
-"You don't seem to have any hard drives on your system! Would you like to "
-"configure additional devices?"
-msgstr ""
-"V tomto poèítaèi nebyly nalezeny ¾ádné pevné disky! Chcete zkonfigurovat "
-"dal¹í zaøízení?"
+#: ../loader/loader.c:597
+msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
+msgstr "V tomto poèítaèi nebyly nalezeny ¾ádné pevné disky! Chcete zkonfigurovat dal¹í zaøízení?"
 
-#: ../loader/loader.c:607
-msgid ""
-"What partition and directory on that partition hold the RedHat/RPMS and "
-"RedHat/base directories? If you don't see the disk drive you're using listed "
-"here, press F2 to configure additional devices."
-msgstr ""
-"Který oddíl a adresáø v tomto oddílu obsahuje adresáøe RedHat/RPMS a "
-"RedHat/base? Pokud nevidíte vypsanou diskovou jednotku, kterou pou¾íváte, "
-"stisknìte F2 a zkonfigurujte dal¹í zaøízení."
+#: ../loader/loader.c:610
+msgid "What partition and directory on that partition hold the RedHat/RPMS and RedHat/base directories? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
+msgstr "Který oddíl a adresáø v tomto oddílu obsahuje adresáøe RedHat/RPMS a RedHat/base? Pokud nevidíte vypsanou diskovou jednotku, kterou pou¾íváte, stisknìte F2 a zkonfigurujte dal¹í zaøízení."
 
-#: ../loader/loader.c:621
+#: ../loader/loader.c:624
 msgid "Directory holding Red Hat:"
 msgstr "Adresáø obsahující Red Hat:"
 
-#: ../loader/loader.c:641
+#: ../loader/loader.c:644
 msgid "Select Partition"
 msgstr "Výbìr oddílu"
 
-#: ../loader/loader.c:688
+#: ../loader/loader.c:691
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Zaøízení %s zøejmì neobsahuje instalaèní strom distribuce Red Hat."
 
-#: ../loader/loader.c:733
-msgid ""
-"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"OK\" to retry."
-msgstr ""
-"Nemohu nalézt CD-ROM Red Hat Linux v ¾ádné jednotce CD. Prosím vlo¾te CD-ROM "
-"Red Hat Linux a stisknìte tlaèítko \"OK\" pro opakování."
+#: ../loader/loader.c:736
+msgid "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please insert the Red Hat CD and press \"OK\" to retry."
+msgstr "Nemohu nalézt CD-ROM Red Hat Linux v ¾ádné jednotce CD. Prosím vlo¾te CD-ROM Red Hat Linux a stisknìte tlaèítko \"OK\" pro opakování."
 
-#: ../loader/loader.c:866
+#: ../loader/loader.c:874
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Zadaný adresáø zøejmì neobsahuje instalaèní strom distribuce Red Hat."
 
-#: ../loader/loader.c:871
+#: ../loader/loader.c:879
 msgid "I could not mount that directory from the server"
 msgstr "Zadaný adresáø nelze ze serveru pøipojit"
 
-#: ../loader/loader.c:956
+#: ../loader/loader.c:964
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:957
+#: ../loader/loader.c:965
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Nelze naèíst sekundární RAM disk"
 
-#: ../loader/loader.c:1087
+#: ../loader/loader.c:1095
 msgid "Rescue Method"
 msgstr "Metoda zotavení"
 
-#: ../loader/loader.c:1088
+#: ../loader/loader.c:1096
 msgid "Installation Method"
 msgstr "Instalaèní metoda"
 
-#: ../loader/loader.c:1090
+#: ../loader/loader.c:1098
 msgid "What type of media contains the rescue image?"
 msgstr "Jaký druh média obsahuje disk pro zotavení?"
 
-#: ../loader/loader.c:1092
+#: ../loader/loader.c:1100
 msgid "What type of media contains the packages to be installed?"
 msgstr "Na jakém druhu média jsou balíèky, které chcete instalovat?"
 
-#: ../loader/loader.c:1586
+#: ../loader/loader.c:1610
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádìcí disketì nelze nalézt soubor ks.cfg."
 
-#: ../loader/loader.c:1747
+#: ../loader/loader.c:1774
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1747
+#: ../loader/loader.c:1774
 msgid "Initializing PC Card Devices..."
 msgstr "Inicializuji PC Card zaøízení..."
 
@@ -2380,12 +2046,8 @@ msgstr ""
 "      Red Hat Linux pro va¹i architekturu."
 
 #: ../loader/net.c:228
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-"Zadejte konfiguraci IP pro tento stroj. Jednotlivé polo¾ky zadávejte jako IP "
-"adresy v desítkové notaci oddìlené teèkami (napø. 1.2.3.4)."
+msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr "Zadejte konfiguraci IP pro tento stroj. Jednotlivé polo¾ky zadávejte jako IP adresy v desítkové notaci oddìlené teèkami (napø. 1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -2449,11 +2111,8 @@ msgid "Network device"
 msgstr "Sí»ové zaøízení"
 
 #: ../loader/net.c:698
-msgid ""
-" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-"screen"
-msgstr ""
-" <Tab>/<Alt-Tab> pøepíná mezi polo¾kami | <Mezera> výbìr | <F12> pokraèovat"
+msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
+msgstr " <Tab>/<Alt-Tab> pøepíná mezi polo¾kami | <Mezera> výbìr | <F12> pokraèovat"
 
 #: ../loader/net.c:699
 #, c-format
@@ -2533,18 +2192,11 @@ msgid "You must enter a directory."
 msgstr "Musíte zadat adresáø."
 
 #: ../loader/urls.c:268
-msgid ""
-"If you are using non anonymous ftp, enter the account name and password you "
-"wish to use below. If you are using an FTP proxy enter the name of the FTP "
-"proxy server to use."
-msgstr ""
-"Pou¾íváte-li neanonymní FTP, zadejte jméno u¾ivatele a heslo, které chcete "
-"pou¾ít. Pou¾íváte-li FTP proxy, zadejte jméno va¹eho FTP proxy serveru."
+msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below. If you are using an FTP proxy enter the name of the FTP proxy server to use."
+msgstr "Pou¾íváte-li neanonymní FTP, zadejte jméno u¾ivatele a heslo, které chcete pou¾ít. Pou¾íváte-li FTP proxy, zadejte jméno va¹eho FTP proxy serveru."
 
 #: ../loader/urls.c:274
-msgid ""
-"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-"to use."
+msgid "If you are using a HTTP proxy server enter the name of the HTTP proxy server to use."
 msgstr "Jestli¾e pou¾íváte HTTP proxy server, zadejte jeho jméno."
 
 #: ../loader/urls.c:295
@@ -2571,13 +2223,8 @@ msgstr "HTTP proxy port:"
 msgid "Loading SCSI driver"
 msgstr "Naèítám SCSI ovladaè"
 
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "Pøi ètení blokového zaøízení %s byla nalezena chybná jmenovka disku pro "
-#~ "disky Sun. Pro vytvoøení a zapsání nové jmenovky musíte pou¾ít program fdisk."
+#~ msgid "A disk with a corrupt Sun disklabel has been found while reading block device %s.  You must use fdisk to create and write a new label to this device."
+#~ msgstr "Pøi ètení blokového zaøízení %s byla nalezena chybná jmenovka disku pro disky Sun. Pro vytvoøení a zapsání nové jmenovky musíte pou¾ít program fdisk."
 
 #~ msgid "Corrupt Sun disklabel"
 #~ msgstr "Chybná jmenovka disku Sun"
@@ -2585,21 +2232,11 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "First sector of boot partition (recommended)"
 #~ msgstr "První sektor zavádìného oddílu (doporuèeno)"
 
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Aby mohla instalace pokraèovat, musí být zavádìcí oddíl (/boot) typu Linux "
-#~ "native (ext2) nebo RAID-1.."
+#~ msgid "You must assign a boot (/boot) partition to a Linux native partition (ext2) or a RAID-1 partition for the install to proceed."
+#~ msgstr "Aby mohla instalace pokraèovat, musí být zavádìcí oddíl (/boot) typu Linux native (ext2) nebo RAID-1.."
 
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Proto¾e jste jako koøenový oddíl (/) pou¾ili RAID zaøízení, musíte také "
-#~ "zavádìcí oddíl (/boot) pøiøadit oddílu typu Linux native (ext2) nebo RAID-1. "
-#~ "Jinak nemù¾e být instalace dokonèena."
+#~ msgid "Because you have assigned the root partition (/) to a RAID device, you must also assign a boot (/boot) partition to a Linux native partition (ext2) or a RAID-1 partition for the install to proceed."
+#~ msgstr "Proto¾e jste jako koøenový oddíl (/) pou¾ili RAID zaøízení, musíte také zavádìcí oddíl (/boot) pøiøadit oddílu typu Linux native (ext2) nebo RAID-1. Jinak nemù¾e být instalace dokonèena."
 
 #~ msgid "Use fdisk to format drives"
 #~ msgstr "Pou¾ít fdisk pro rozdìlení diskù"
@@ -2676,29 +2313,11 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "I can't find the device anywhere on your system!"
 #~ msgstr "Zaøízení nelze nikde v systému najít!"
 
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "V nìkterých pøípadech je potøeba pro správnou funkci ovladaèe %s zadat dal¹í "
-#~ "údaje, aèkoliv obvykle funguje dobøe i bez nich. Chcete zadat dal¹í volby "
-#~ "nebo umo¾nit, aby se ovladaè pokusil automaticky detekovat hodnoty tìchto "
-#~ "parametrù? Automatická detekce mù¾e nìkdy zpùsobit zablokování poèítaèe, ale "
-#~ "nemìla by vést k ¾ádným ¹kodám."
+#~ msgid "In some cases, the %s driver needs to have extra information to work properly, although it normally works fine without. Would you like to specify extra options for it or allow the driver to probe your machine for the information it needs? Occasionally, probing will hang a computer, but it should not cause any damage."
+#~ msgstr "V nìkterých pøípadech je potøeba pro správnou funkci ovladaèe %s zadat dal¹í údaje, aèkoliv obvykle funguje dobøe i bez nich. Chcete zadat dal¹í volby nebo umo¾nit, aby se ovladaè pokusil automaticky detekovat hodnoty tìchto parametrù? Automatická detekce mù¾e nìkdy zpùsobit zablokování poèítaèe, ale nemìla by vést k ¾ádným ¹kodám."
 
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "V mnoha pøípadech musí být ovladaèi %s poskytnuty dal¹í informace o va¹em "
-#~ "hardwaru. Pokud chcete, budou pro tyto parametry vyzkou¹eny nìkteré obvyklé "
-#~ "hodnoty. Zkou¹ení mù¾e nìkdy zpùsobit zablokování poèítaèe, ale nemìlo by "
-#~ "vést k ¾ádným ¹kodám."
+#~ msgid "In many cases, the %s driver needs to be provided with extra information on your hardware. If you prefer, some common values for those parameters will be tried. This process can hang a machine, although it should not cause any damage."
+#~ msgstr "V mnoha pøípadech musí být ovladaèi %s poskytnuty dal¹í informace o va¹em hardwaru. Pokud chcete, budou pro tyto parametry vyzkou¹eny nìkteré obvyklé hodnoty. Zkou¹ení mù¾e nìkdy zpùsobit zablokování poèítaèe, ale nemìlo by vést k ¾ádným ¹kodám."
 
 #~ msgid "Module options:"
 #~ msgstr "Volby pro modul:"
@@ -2760,12 +2379,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "PCMCIA Disk"
 #~ msgstr "Disketa PCMCIA"
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Pøipojení diskety se nezdaøilo. Vlo¾te disketu Red Hat PCMCIA, nebo zvolte "
-#~ "Zru¹it a vyberte jiný instalaèní proces."
+#~ msgid "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or choose Cancel to pick a different installation process."
+#~ msgstr "Pøipojení diskety se nezdaøilo. Vlo¾te disketu Red Hat PCMCIA, nebo zvolte Zru¹it a vyberte jiný instalaèní proces."
 
 #~ msgid "Loading PCMCIA Support"
 #~ msgstr "Zavádím podporu PCMCIA"
@@ -2773,12 +2388,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Supplemental Disk"
 #~ msgstr "Doplòková disketa"
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Pøipojení diskety se nezdaøilo. Vlo¾te doplòkovou instalaèní disketu Red "
-#~ "Hat, nebo zvolte Zru¹it a vyberte jiný instalaèní proces."
+#~ msgid "I failed to mount the floppy. Please insert the Red Hat Supplementary Install disk, or choose Cancel to pick a different installation process."
+#~ msgstr "Pøipojení diskety se nezdaøilo. Vlo¾te doplòkovou instalaèní disketu Red Hat, nebo zvolte Zru¹it a vyberte jiný instalaèní proces."
 
 #~ msgid "Loading Supplemental Disk..."
 #~ msgstr "Naèítám doplòkovou disketu..."
@@ -2786,28 +2397,14 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Driver Disk"
 #~ msgstr "Disketa s ovladaèi"
 
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Tato instalaèní metoda vy¾aduje disketu s ovladaèi. Vyjmìte doplòkovou "
-#~ "disketu z jednotky a nahraïte ji disketou Red Hat Modules."
+#~ msgid "This install method requires a driver disk. Please remove the supplemental disk currently in your drive and replace it with the Red Hat Modules disk."
+#~ msgstr "Tato instalaèní metoda vy¾aduje disketu s ovladaèi. Vyjmìte doplòkovou disketu z jednotky a nahraïte ji disketou Red Hat Modules."
 
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Pøipojení diskety se nezdaøilo. Vlo¾te disketu Red Hat Modules, nebo zvolte "
-#~ "Zru¹it a vyberte jiný instalaèní proces."
+#~ msgid "I failed to mount the floppy. Please insert the Red Hat Module disk, or choose Cancel to pick a different installation process."
+#~ msgstr "Pøipojení diskety se nezdaøilo. Vlo¾te disketu Red Hat Modules, nebo zvolte Zru¹it a vyberte jiný instalaèní proces."
 
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Tato instalaèní metoda vy¾aduje dvì dodateèné diskety. Vyjmìte startovací "
-#~ "disketu z jednotky a nahraïte ji doplòkovou instalaèní disketou Red Hat "
-#~ "Supplementary Install."
+#~ msgid "This install method requires two additional disks. Please remove the boot disk currently in your drive and replace it with the Red Hat Supplementary Install disk."
+#~ msgstr "Tato instalaèní metoda vy¾aduje dvì dodateèné diskety. Vyjmìte startovací disketu z jednotky a nahraïte ji doplòkovou instalaèní disketou Red Hat Supplementary Install."
 
 #~ msgid "hd command"
 #~ msgstr "pøíkaz hd"
@@ -2860,14 +2457,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "mount failed: %s"
 #~ msgstr "chyba pøi pøipojování svazku: %s"
 
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Tabulka oddílù na zaøízení %s je po¹kozena. Aby mohly být vytvoøeny nové "
-#~ "oddíly, je tøeba tuto tabulku novì inicializovat. Má-li to být provedeno "
-#~ "automaticky, je tøeba v kickstart souboru zadat \"zerombr yes\"."
+#~ msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized. You can specify \"zerombr yes\" in the kickstart file to have this done automatically"
+#~ msgstr "Tabulka oddílù na zaøízení %s je po¹kozena. Aby mohly být vytvoøeny nové oddíly, je tøeba tuto tabulku novì inicializovat. Má-li to být provedeno automaticky, je tøeba v kickstart souboru zadat \"zerombr yes\"."
 
 #~ msgid "Zero Partition Table"
 #~ msgstr "Vynulování tabulky oddílù"
@@ -2877,8 +2468,7 @@ msgstr "Naèítám SCSI ovladaè"
 #~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
 #~ msgstr ""
 #~ "kickstart: chybný argument pøíkazu zerombr: %s.\n"
-#~ "Pou¾ijte 'on', '1' nebo 'yes' pro pøepsání tabulky partition; 'off', '0' "
-#~ "nebo 'no' pro její zachování."
+#~ "Pou¾ijte 'on', '1' nebo 'yes' pro pøepsání tabulky partition; 'off', '0' nebo 'no' pro její zachování."
 
 #~ msgid "Clear Partition Command"
 #~ msgstr "Pøíkaz zru¹ení oddílu"
@@ -2895,12 +2485,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Option Ignored"
 #~ msgstr "Volba ignorována"
 
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Volba --maxsize pro oddíl %s byla ignorována. Zkontrolujte, zda je vìt¹í ne¾ "
-#~ "volba --size."
+#~ msgid "The --maxsize option for the partition %s was ignored. Check that it is larger than the --size option."
+#~ msgstr "Volba --maxsize pro oddíl %s byla ignorována. Zkontrolujte, zda je vìt¹í ne¾ volba --size."
 
 #~ msgid "The mount point %s is already in use."
 #~ msgstr "Pøipojovací bod %s je ji¾ pou¾íván."
@@ -2911,12 +2497,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "The partition %s could not be allocated."
 #~ msgstr "Oddíl %s nelze pøidìlit."
 
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Na disku jsou oddíly, jejich¾ velikost mù¾e být zmìnìna bez ztráty dat. "
-#~ "Chcete nyní mìnit velikost tìchto oddílù?"
+#~ msgid "There are partitions that can be resized nondestructively to make room for your Red Hat Linux installation. Do you want to resize these partitions now?"
+#~ msgstr "Na disku jsou oddíly, jejich¾ velikost mù¾e být zmìnìna bez ztráty dat. Chcete nyní mìnit velikost tìchto oddílù?"
 
 #~ msgid "Success"
 #~ msgstr "Úspìch"
@@ -2981,19 +2563,11 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Detekuji pevné disky..."
 
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "®ádné pevné disky nejsou k dispozici! Je mo¾né, ¾e jste zapomnìli "
-#~ "zkonfigurovat SCSI øadiè."
+#~ msgid "You don't have any hard drives available! You probably forgot to configure a SCSI controller."
+#~ msgstr "®ádné pevné disky nejsou k dispozici! Je mo¾né, ¾e jste zapomnìli zkonfigurovat SCSI øadiè."
 
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "K instalaci Red Hat Linuxu je zapotøebí nejménì jeden oddíl o velikosti 150 "
-#~ "MB vyhrazený pro Linux."
+#~ msgid "To install Red Hat Linux, you must have at least one partition of 150 MB dedicated to Linux."
+#~ msgstr "K instalaci Red Hat Linuxu je zapotøebí nejménì jeden oddíl o velikosti 150 MB vyhrazený pro Linux."
 
 #~ msgid "Partition Disks"
 #~ msgstr "Rozdìlení diskù na oddíly"
@@ -3002,21 +2576,13 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgstr "Nutný restart systému"
 
 #~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
+#~ "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press Return to reboot your system.\n"
 #~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
+#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an empty SCSI drive can also cause this problem."
 #~ msgstr ""
-#~ "Jádro nemù¾e naèíst nové údaje o rozdìlení disku na oddíly pravdìpodobnì "
-#~ "proto, ¾e jste upravili roz¹íøené oddíly. Pøesto¾e to není záva¾né, musíte "
-#~ "pøed dal¹í èinností stroj restartovat. Vlo¾te spou¹tìcí disk Red Hat do "
-#~ "jednotky a stisknutím Enter systém restartujte.\n"
+#~ "Jádro nemù¾e naèíst nové údaje o rozdìlení disku na oddíly pravdìpodobnì proto, ¾e jste upravili roz¹íøené oddíly. Pøesto¾e to není záva¾né, musíte pøed dal¹í èinností stroj restartovat. Vlo¾te spou¹tìcí disk Red Hat do jednotky a stisknutím Enter systém restartujte.\n"
 #~ "\n"
-#~ "Máte-li jednotku ZIP èi JAZ, vlo¾te do ní disk, proto¾e tento problém mù¾e "
-#~ "být zpùsoben i prázdnou SCSI jednotkou"
+#~ "Máte-li jednotku ZIP èi JAZ, vlo¾te do ní disk, proto¾e tento problém mù¾e být zpùsoben i prázdnou SCSI jednotkou"
 
 #~ msgid "lilo command"
 #~ msgstr "pøíkaz lilo"
@@ -3027,26 +2593,14 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "PCMCIA Support"
 #~ msgstr "Podpora PCMCIA"
 
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Potøebuje pou¾ívat PCMCIA zaøízení pøi instalaci? Jestli¾e budete podporu "
-#~ "PCMCIA potøebovat a¾ po instalaci, odpovìzte na tuto otázku \"Ne\". Podpora "
-#~ "PCMCIA pøi instalaci není potøeba, pokud instalujete Red Hat Linux na "
-#~ "pøenosný poèítaè s vestavìnou jednotkou CDROM."
+#~ msgid "Do you need to use PCMCIA devices during the install? Answer no to this question if only need PCMCIA support after the install. You do not need install-time PCMCIA support if you are installing Red Hat Linux on a laptop with a built-in CDROM drive."
+#~ msgstr "Potøebuje pou¾ívat PCMCIA zaøízení pøi instalaci? Jestli¾e budete podporu PCMCIA potøebovat a¾ po instalaci, odpovìzte na tuto otázku \"Ne\". Podpora PCMCIA pøi instalaci není potøeba, pokud instalujete Red Hat Linux na pøenosný poèítaè s vestavìnou jednotkou CDROM."
 
 #~ msgid "PCMCIA Support Disk"
 #~ msgstr "Disketa s podporou PCMCIA"
 
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "Pro podporu PCMCIA pøi instalaci je nutná disketa s podporou PCMCIA. "
-#~ "Nahraïte disketu v jednotce disketou Red Hat PCMCIA."
+#~ msgid "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk currently in your drive and replace it with the Red Hat PCMCIA support disk."
+#~ msgstr "Pro podporu PCMCIA pøi instalaci je nutná disketa s podporou PCMCIA. Nahraïte disketu v jednotce disketou Red Hat PCMCIA."
 
 #~ msgid "Starting PCMCIA services..."
 #~ msgstr "Spou¹tím PCMCIA slu¾by..."
@@ -3125,14 +2679,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Upgrade log"
 #~ msgstr "Protokol o aktualizaci"
 
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "Úplný protokol o aktualizaci bude po jejím dokonèení v souboru "
-#~ "/tmp/upgrade.log. Po restartu jej zkontrolujte, abyste se ujistili, ¾e "
-#~ "konfiguraèní soubory byly správnì aktualizovány."
+#~ msgid "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade is finished. After rebooting, please read it to ensure configuration files are properly updated."
+#~ msgstr "Úplný protokol o aktualizaci bude po jejím dokonèení v souboru /tmp/upgrade.log. Po restartu jej zkontrolujte, abyste se ujistili, ¾e konfiguraèní soubory byly správnì aktualizovány."
 
 #~ msgid "rootpw command"
 #~ msgstr "pøíkaz rootpw"
@@ -3149,19 +2697,11 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Installation Path"
 #~ msgstr "Instalaèní cesta"
 
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Chcete instalovat nový systém nebo provést aktualizaci systému na poèítaèi, "
-#~ "na kterém ji¾ je nainstalován systém Red Hat Linux verze nejménì 2.0?"
+#~ msgid "Would you like to install a new system or upgrade a system which already contains Red Hat Linux 2.0 or later?"
+#~ msgstr "Chcete instalovat nový systém nebo provést aktualizaci systému na poèítaèi, na kterém ji¾ je nainstalován systém Red Hat Linux verze nejménì 2.0?"
 
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Jaký typ poèítaèe instalujete? Chcete-li maximální flexibilitu, zvolte "
-#~ "\"Vlastní\"."
+#~ msgid "What type of machine are you installing? For maximum flexibility, choose \"Custom\"."
+#~ msgstr "Jaký typ poèítaèe instalujete? Chcete-li maximální flexibilitu, zvolte \"Vlastní\"."
 
 #~ msgid "Converting RPM database..."
 #~ msgstr "Konvertuji RPM databázi..."
@@ -3175,24 +2715,16 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid ""
 #~ "An error occured during step \"%s\" of the install.\n"
 #~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
+#~ "You may retry that step, return to the previous step in the install, or see a menu of installation steps which will allow you to move around in the install more freely. It is not recommended to use the menu unless you are already familiar with Red Hat Linux. What would you like to do?"
 #~ msgstr ""
 #~ "Bìhem instalaèního kroku \"%s\" do¹lo k chybì.\n"
 #~ "\n"
-#~ "Mù¾ete zkusit zopakovat tento krok, vrátit se zpìt k pøedchozímu kroku "
-#~ "instalace, nebo zobrazit nabídku instalaèních krokù, která umo¾òuje volnìj¹í "
-#~ "pohyb v instalaèním programu. Pokud dostateènì neznáte systém Red Hat Linux, "
-#~ "u¾ití nabídky se nedoporuèuje. Jak chcete pokraèovat?"
+#~ "Mù¾ete zkusit zopakovat tento krok, vrátit se zpìt k pøedchozímu kroku instalace, nebo zobrazit nabídku instalaèních krokù, která umo¾òuje volnìj¹í pohyb v instalaèním programu. Pokud dostateènì neznáte systém Red Hat Linux, u¾ití nabídky se nedoporuèuje. Jak chcete pokraèovat?"
 
 #~ msgid "  Continue with install"
 #~ msgstr "  Pokraèovat v instalaci"
 
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
+#~ msgid "What step would you like to run? Steps with a * next to them have already been completed."
 #~ msgstr "Který krok chcete provést? Kroky oznaèené '*' ji¾ byly provedeny."
 
 #~ msgid "Insert a blank floppy in the first drive /dev/fd0."
@@ -3210,11 +2742,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Kernel"
 #~ msgstr "Jádro"
 
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr ""
-#~ "Pokud není zavádìcí (boot) disk v první diskové jednotce, vlo¾te jej, prosím."
+#~ msgid "Please insert your boot disk in your first disk drive if it's not already present."
+#~ msgstr "Pokud není zavádìcí (boot) disk v první diskové jednotce, vlo¾te jej, prosím."
 
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Kopírování jádra z diskety..."
@@ -3264,12 +2793,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "No Swap Space"
 #~ msgstr "Není definován odkládací prostor"
 
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Které oddíly chcete pou¾ít pro odkládací prostor? Tento zpùsob pou¾ití "
-#~ "oddílu znièí v¹echny informace, které na nìm jsou."
+#~ msgid "What partitions would you like to use for swap space? This will destroy any information already on the partition."
+#~ msgstr "Které oddíly chcete pou¾ít pro odkládací prostor? Tento zpùsob pou¾ití oddílu znièí v¹echny informace, které na nìm jsou."
 
 #~ msgid "Active Swap Space"
 #~ msgstr "Aktivní odkládací prostor"
@@ -3286,12 +2811,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Ethernet Probe"
 #~ msgstr "Detekce sí»ové karty"
 
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Nepodaøilo se detekovat sí»ovou kartu. Po stisknutí klávesy <Enter> musíte "
-#~ "zadat její konfiguraci ruènì."
+#~ msgid "The Ethernet probe failed to find a card on your system. Press <Enter> to manually configure one."
+#~ msgstr "Nepodaøilo se detekovat sí»ovou kartu. Po stisknutí klávesy <Enter> musíte zadat její konfiguraci ruènì."
 
 #~ msgid "Static IP address"
 #~ msgstr "Statická IP adresa"
@@ -3308,12 +2829,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "kickstart: v pøíkazu network chybí IP adresa"
 
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Jak se má nastavit IP? Pokud vám správce sítì pøidìlil IP adresu, vyberte "
-#~ "\"Statická IP adresa\"."
+#~ msgid "How should the IP information be set? If your system administrator gave you an IP address, choose static IP."
+#~ msgstr "Jak se má nastavit IP? Pokud vám správce sítì pøidìlil IP adresu, vyberte \"Statická IP adresa\"."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Odesílám BOOTP dotaz..."
@@ -3327,23 +2844,11 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "cannot open file: %s"
 #~ msgstr "nelze otevøít soubor: %s"
 
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Jméno poèítaèe nelze zjistit automaticky. Stisknìte <Enter> a zadejte je "
-#~ "ruènì."
+#~ msgid "I cannot automatically determine the hostname. Press <Enter> to enter hostname information."
+#~ msgstr "Jméno poèítaèe nelze zjistit automaticky. Stisknìte <Enter> a zadejte je ruènì."
 
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Zadejte název va¹í domény, jméno poèítaèe a IP adresy pøípadných dal¹ích DNS "
-#~ "serverù. Jméno poèítaèe musí být plnì kvalifikované, napø. "
-#~ "mojepc.mojeodd.mojefirma.cz. Nemáte-li ¾ádné dal¹í DNS servery, ponechte "
-#~ "polo¾ky DNS serverù prázdné."
+#~ msgid "Please enter your domain name, host name, and the IP addresses of any additional nameservers. Your host name should be a fully-qualified host name, such as mybox.mylab.myco.com. If you don't have any additional nameservers, leave the nameserver entries blank."
+#~ msgstr "Zadejte název va¹í domény, jméno poèítaèe a IP adresy pøípadných dal¹ích DNS serverù. Jméno poèítaèe musí být plnì kvalifikované, napø. mojepc.mojeodd.mojefirma.cz. Nemáte-li ¾ádné dal¹í DNS servery, ponechte polo¾ky DNS serverù prázdné."
 
 #~ msgid "Host name:"
 #~ msgstr "Jméno poèítaèe:"
@@ -3366,12 +2871,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Sí»ové slu¾by LAN ji¾ byly zkonfigurovány. Chcete:"
 
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr ""
-#~ "Chcete na instalovaném poèítaèi zkonfigurovat sí»ové pøipojení do LAN (ne "
-#~ "dialup)?"
+#~ msgid "Do you want to configure LAN (not dialup) networking for your installed system?"
+#~ msgstr "Chcete na instalovaném poèítaèi zkonfigurovat sí»ové pøipojení do LAN (ne dialup)?"
 
 #~ msgid "Cannot open components file: %s"
 #~ msgstr "Nelze otevøít soubor komponent: %s"
@@ -3406,14 +2907,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "GNOME"
 #~ msgstr "GNOME"
 
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "Pøejete si nainstalovat GNOME desktop? GNOME poskytuje snadno ovladatelné "
-#~ "u¾ivatelské rozhraní s podporou ovládání stylem \"drag and drop\" a s "
-#~ "vestavìnou nápovìdou."
+#~ msgid "Would you like to have the GNOME desktop installed? It provides an easy to use interface, including a drag and drop capability and an integrated help system."
+#~ msgstr "Pøejete si nainstalovat GNOME desktop? GNOME poskytuje snadno ovladatelné u¾ivatelské rozhraní s podporou ovládání stylem \"drag and drop\" a s vestavìnou nápovìdou."
 
 #~ msgid "Choose components to install:"
 #~ msgstr "Vyberte souèásti pro instalaci:"
@@ -3451,10 +2946,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "<F1> will give you information on this printer driver."
 #~ msgstr "<F1> zobrazí informace o tomto ovladaèi tiskárny."
 
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr ""
-#~ "Nyní lze nastavit formát papíru a rozli¹ení tisku pro tuto tiskárnu."
+#~ msgid "You may now configure the paper size and resolution for this printer."
+#~ msgstr "Nyní lze nastavit formát papíru a rozli¹ení tisku pro tuto tiskárnu."
 
 #~ msgid "Paper Size"
 #~ msgstr "Formát papíru"
@@ -3477,11 +2970,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Configure Uniprint Driver"
 #~ msgstr "Konfigurace uniprint ovladaèe"
 
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "Jako jaké zaøízení je tiskárna pøipojena? (LPT1: je zaøízení /dev/lp0)"
+#~ msgid "What device is your printer connected to (note that /dev/lp0 is equivalent to LPT1:)?"
+#~ msgstr "Jako jaké zaøízení je tiskárna pøipojena? (LPT1: je zaøízení /dev/lp0)"
 
 #~ msgid ""
 #~ "Auto-detected ports:\n"
@@ -3511,13 +3001,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Remote lpd Printer Options"
 #~ msgstr "Tiskové volby pro vzdálený lpd"
 
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Má-li být pou¾ita vzdálená tisková fronta lpd, musíte zadat jméno tiskového "
-#~ "serveru a název fronty na tomto serveru, kam se mají úlohy øadit."
+#~ msgid "To use a remote lpd print queue, you need to supply the hostname of the printer server and the queue name on that server which jobs should be placed in."
+#~ msgstr "Má-li být pou¾ita vzdálená tisková fronta lpd, musíte zadat jméno tiskového serveru a název fronty na tomto serveru, kam se mají úlohy øadit."
 
 #~ msgid "Printer Server:"
 #~ msgstr "Tiskový server:"
@@ -3528,16 +3013,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "NetWare Printer Options"
 #~ msgstr "Volby tiskárny pro NetWare"
 
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Pro tisk na tiskárnì dostupné pøes Novell NetWare musíte zadat jméno "
-#~ "novellovského print serveru (nemusí se shodovat se jménem pou¾ívaným v "
-#~ "TCP/IP), jméno tiskové fronty, kterou chcete pou¾ít, a u¾ivatelské jméno a "
-#~ "heslo."
+#~ msgid "To print to a NetWare printer, you need to provide the NetWare print server name (this is not always the same as the machines TCP/IP hostname) as well as the print queue name for the printer you wish to access and any applicable user name and password."
+#~ msgstr "Pro tisk na tiskárnì dostupné pøes Novell NetWare musíte zadat jméno novellovského print serveru (nemusí se shodovat se jménem pou¾ívaným v TCP/IP), jméno tiskové fronty, kterou chcete pou¾ít, a u¾ivatelské jméno a heslo."
 
 #~ msgid "SMB server host:"
 #~ msgstr "Jméno SMB serveru:"
@@ -3554,17 +3031,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "SMB/Windows 95/NT Printer Options"
 #~ msgstr "Volby pro SMB/Windows 95/NT tiskárnu"
 
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Pro tisk na SMB tiskárnì musíte zadat jméno SMB serveru (nemusí se v¾dy "
-#~ "shodovat s jeho TCP/IP jménem) pøípadnì IP adresu tiskového serveru, název "
-#~ "sdílené polo¾ky reprezentující zvolenou tiskárnu, u¾ivatelské jméno, heslo a "
-#~ "pracovní skupinu."
+#~ msgid "To print to a SMB printer, you need to provide the SMB host name (this is not always the same as the machines TCP/IP hostname) and possibly the IP address of the print server, as well as the share name for the printer you wish to access and any applicable user name, password, and workgroup information."
+#~ msgstr "Pro tisk na SMB tiskárnì musíte zadat jméno SMB serveru (nemusí se v¾dy shodovat s jeho TCP/IP jménem) pøípadnì IP adresu tiskového serveru, název sdílené polo¾ky reprezentující zvolenou tiskárnu, u¾ivatelské jméno, heslo a pracovní skupinu."
 
 #~ msgid "Spool directory:"
 #~ msgstr "Øadicí (spool) adresáø:"
@@ -3572,14 +3040,8 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "Standard Printer Options"
 #~ msgstr "Standardní volby tiskárny"
 
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Ka¾dá tisková fronta (do ní¾ smìøují tiskové úlohy) musí mít pøiøazen název "
-#~ "(èasto lp) a odpovídající øadící (spool) adresáø. Jaký název a adresáø se "
-#~ "mají pro tuto frontu pou¾ít?"
+#~ msgid "Every print queue (which print jobs are directed to) needs a name (often lp) and a spool directory associated with it. What name and directory should be used for this queue?"
+#~ msgstr "Ka¾dá tisková fronta (do ní¾ smìøují tiskové úlohy) musí mít pøiøazen název (èasto lp) a odpovídající øadící (spool) adresáø. Jaký název a adresáø se mají pro tuto frontu pou¾ít?"
 
 #~ msgid "Would you like to configure a printer?"
 #~ msgstr "Chcete zkonfigurovat tiskárnu?"
@@ -3699,9 +3161,7 @@ msgstr "Naèítám SCSI ovladaè"
 #~ "Chyba pøi pøenosu souboru %s:\n"
 #~ "%s"
 
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
+#~ msgid "An error occurred reading the partition table for the block device %s.  The error was:"
 #~ msgstr "Pøi ètení tabulky oddílù blokového zaøízení %s do¹lo k této chybì:"
 
 #~ msgid "LAN manager host:"
@@ -3734,6 +3194,5 @@ msgstr "Naèítám SCSI ovladaè"
 #~ msgid "I cannot log into machine: %s\n"
 #~ msgstr "Nemohu se pøihlásit na stroj: %s\n"
 
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
+#~ msgid "Would you like to install or configure the SILO bootloader on your system?"
 #~ msgstr "Chcete na tento poèítaè nainstalovat systémový zavadìè SILO?"

@@ -61,8 +61,10 @@ class InstallPathWindow (InstallWindow):
 		   ]
 
     upgradeSteps = [ UpgradeExamineWindow,
+		     LiloWindow,
 		     UnresolvedDependenciesWindow,
 		     InstallProgressWindow,
+		     BootdiskWindow,
 		     CongratulationWindow
 		   ]
 
