@@ -173,6 +173,11 @@ class bootloaderInfo:
 	    lilo.read (instRoot + self.configfile)
 	    os.rename(instRoot + self.configfile,
 		      instRoot + self.configfile + '.rpmsave')
+        # if it's an absolute symlink, just get it out of our way
+        elif (os.path.islink(instRoot + self.configfile) and
+              os.readlink(instRoot + self.configfile)[0] == '/'):
+            os.rename(instRoot + self.configfile,
+                      instRoot + self.configfile + '.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. 
