@@ -58,7 +58,6 @@ class Fstab:
 	badList = []
 	for (part, drive, fsystem, format, size) in \
 		self.formattablePartitions():
-	    print part, format
 	    if not alreadyExists.has_key(part) and not format:
 		badList.append((part, drive))
 
@@ -67,8 +66,11 @@ class Fstab:
 		        "you have chosen not to format them. This will "
 			"probably cause an error later in the install.\n"
 			"\n")
+
 	    for (part, drive) in badList:
-		message = message + ("\t%-20s %s\n" % (part, drive))
+		message = message + ("\t%-20s /dev/%s\n" % (part, drive))
+
+            message = message + _("\n\nPress OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED).")
 	    rc = messageWindow(_("Warning"), message, type = "okcancel").getrc()
 
 	    return rc
