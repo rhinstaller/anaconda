@@ -8,7 +8,7 @@ class NetworkWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Network Configuration")
+        ics.setTitle (_("Network Configuration"))
         ics.setNextEnabled (1)
         ics.readHTML ("netconf")
         self.todo = ics.getToDo ()
@@ -123,96 +123,98 @@ class NetworkWindow (InstallWindow):
         
         notebook = GtkNotebook ()
         devs = self.todo.network.available ()
-        if devs:
-            devs.keys ().sort ()
-            for i in devs.keys ():
-                devbox = GtkVBox ()
-                align = GtkAlignment ()
-                DHCPcb = GtkCheckButton (_("Configure using DHCP"))
+        if not devs: return None
         
-                align.add (DHCPcb)
-                devbox.pack_start (align, FALSE)
-                
-                align = GtkAlignment ()
-                bootcb = GtkCheckButton (_("Activate on boot"))
-                devs[i].set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
-                bootcb.set_active (devs[i].get ("onboot") == "yes")
-                align.add (bootcb)
+        devs.keys ().sort ()
+        for i in devs.keys ():
+            devbox = GtkVBox ()
+            align = GtkAlignment ()
+            DHCPcb = GtkCheckButton (_("Configure using DHCP"))
 
-                devbox.pack_start (align, FALSE)
+            align.add (DHCPcb)
+            devbox.pack_start (align, FALSE)
 
-                devbox.pack_start (GtkHSeparator (), FALSE, padding=3)
+            align = GtkAlignment ()
+            bootcb = GtkCheckButton (_("Activate on boot"))
+            devs[i].set (("onboot", "yes"))  # TEMPRORY FIX UNTIL TODO SETS THIS
+            bootcb.set_active (devs[i].get ("onboot") == "yes")
+            align.add (bootcb)
 
-                options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
-                ipTable = GtkTable (len (options), 2)
+            devbox.pack_start (align, FALSE)
 
-                DHCPcb.connect ("toggled", self.DHCPtoggled, ipTable)
+            devbox.pack_start (GtkHSeparator (), FALSE, padding=3)
 
-		forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
-
-                for t in range (len (options)):
-                    label = GtkLabel ("%s:" % (options[t],))
-                    label.set_alignment (0.0, 0.5)
-                    ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
-                    entry = GtkEntry (15)
-                    # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
-                    entry.set_usize (7 * 15, -1)
-                    entry.connect ("activate", forward)
-                    options[t] = entry
-                    ipTable.attach (entry, 1, 2, t, t+1, 0, FILL|EXPAND)
-
-
-                for t in range (len (options)):
-                    if t == 0 or t == 1:
-                        options[t].connect ("changed", self.calcNWBC, (devs[i],) + tuple (options))
-#                      else:
-#                          options[t].set_sensitive (FALSE)
-#                          options[t].set_editable (FALSE)
-#                          options[t]['can_focus'] = FALSE
-
-                # add event handlers for the main IP widget to calcuate the netmask
-                options[0].connect ("focus_in_event", self.focusInIP, (options[0], options[1]))
-                options[0].connect ("focus_out_event", self.focusOutIP, options[0])
-                options[1].connect ("focus_out_event", self.focusOutNM, (devs[i],) + tuple (options))
-                options[2].connect ("focus_out_event", self.focusOutNW, devs[i])
-                options[3].connect ("focus_out_event", self.focusOutBC, devs[i])
-
-                devbox.pack_start (ipTable, FALSE, FALSE, 5)
-
-                DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
-                
-                notebook.append_page (devbox, GtkLabel (i))
-
-            box.pack_start (notebook, FALSE)
-            box.pack_start (GtkHSeparator (), FALSE, padding=10)
-
-            options = [_("Hostname"),
-                       _("Gateway"), _("Primary DNS"), _("Secondary DNS"), _("Ternary DNS")]
+            options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
             ipTable = GtkTable (len (options), 2)
-            for i in range (len (options)):
-                label = GtkLabel ("%s:" % (options[i],))
-                label.set_alignment (0.0, 0.0)
-                ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
-                if i == 0:
-                    options[i] = GtkEntry ()
-                    options[i].set_usize (7 * 30, -1)
-                else:
-                    options[i] = GtkEntry (15)
-                    options[i].set_usize (7 * 15, -1)
-                options[i].connect ("activate", forward)
-                align = GtkAlignment (0, 0.5)
-                align.add (options[i])
-                ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
-            ipTable.set_row_spacing (0, 5)
 
-            self.ipTable = ipTable
-            
-            self.hostname = options[0]
-            self.gw = options[1]
-            self.ns = options[2]
-            self.ns2 = options[3]
-            self.ns3 = options[4]
-            box.pack_start (ipTable, FALSE, FALSE, 5)
+            DHCPcb.connect ("toggled", self.DHCPtoggled, ipTable)
+
+            forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
+
+            for t in range (len (options)):
+                label = GtkLabel ("%s:" % (options[t],))
+                label.set_alignment (0.0, 0.5)
+                ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
+                entry = GtkEntry (15)
+                # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
+                entry.set_usize (7 * 15, -1)
+                entry.connect ("activate", forward)
+                options[t] = entry
+                ipTable.attach (entry, 1, 2, t, t+1, 0, FILL|EXPAND)
+
+            for t in range (len (options)):
+                if t == 0 or t == 1:
+                    options[t].connect ("changed", self.calcNWBC, (devs[i],) + tuple (options))
+
+            # add event handlers for the main IP widget to calcuate the netmask
+            options[0].connect ("focus_in_event", self.focusInIP, (options[0], options[1]))
+            options[0].connect ("focus_out_event", self.focusOutIP, options[0])
+            options[1].connect ("focus_out_event", self.focusOutNM, (devs[i],) + tuple (options))
+            options[2].connect ("focus_out_event", self.focusOutNW, devs[i])
+            options[3].connect ("focus_out_event", self.focusOutBC, devs[i])
+
+            devbox.pack_start (ipTable, FALSE, FALSE, 5)
+
+            notebook.append_page (devbox, GtkLabel (i))
+
+        box.pack_start (notebook, FALSE)
+        box.pack_start (GtkHSeparator (), FALSE, padding=10)
+
+        options = [_("Hostname"),
+                   _("Gateway"), _("Primary DNS"), _("Secondary DNS"), _("Ternary DNS")]
+        ipTable = GtkTable (len (options), 2)
+        for i in range (len (options)):
+            label = GtkLabel ("%s:" % (options[i],))
+            label.set_alignment (0.0, 0.0)
+            ipTable.attach (label, 0, 1, i, i+1, FILL, 0, 10)
+            if i == 0:
+                options[i] = GtkEntry ()
+                options[i].set_usize (7 * 30, -1)
+            else:
+                options[i] = GtkEntry (15)
+                options[i].set_usize (7 * 15, -1)
+            options[i].connect ("activate", forward)
+            align = GtkAlignment (0, 0.5)
+            align.add (options[i])
+            ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
+        ipTable.set_row_spacing (0, 5)
+
+        self.ipTable = ipTable
+        # guranteed to have at least one dev
+        DHCPcb.set_active (devs.values ()[0].get ("bootproto") == "dhcp")
+
+        self.hostname = options[0]
+        self.gw = options[1]
+        self.ns = options[2]
+        self.ns2 = options[3]
+        self.ns3 = options[4]
+        box.pack_start (ipTable, FALSE, FALSE, 5)
         return box
 
     
+
+
+
+
+
+

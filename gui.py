@@ -421,7 +421,7 @@ class InstallControlWindow (Thread):
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
         self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), _("Back"))
-        self.nextButtonStock = GnomeStockButton (STOCK_BUTTON_NEXT)
+        self.nextButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_NEXT), _("Next"))
         
         self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), _("Finish"))
 	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), _("Hide Help"))

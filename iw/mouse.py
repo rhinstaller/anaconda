@@ -3,6 +3,7 @@ from iw import *
 from string import *
 from re import *
 import tree
+from gui import _
 
 class MouseWindow (InstallWindow):
 
@@ -51,7 +52,7 @@ class MouseWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Mouse Configuration")
+        ics.setTitle (_("Mouse Configuration"))
         ics.readHTML ("mouse")
         ics.setNextEnabled (TRUE)
 
@@ -130,7 +131,7 @@ class MouseWindow (InstallWindow):
 		       ("/dev/ttyS2 (COM3 under DOS)", "ttyS2" ),
 		       ("/dev/ttyS3 (COM4 under DOS)", "ttyS3" ) ]
 
-        self.emulate3 = GtkCheckButton ("Emulate 3 Buttons")
+        self.emulate3 = GtkCheckButton (_("Emulate 3 Buttons"))
         box = GtkVBox (FALSE)
         
         sw = GtkScrolledWindow ()

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-20 12:27-0400\n"
+"POT-Creation-Date: 1999-09-20 20:40-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../iw/language.py:10 ../text.py:46 ../text.py:869
+#: ../iw/language.py:10 ../text.py:46 ../text.py:866
 msgid "Language Selection"
 msgstr ""
 
@@ -31,11 +31,11 @@ msgstr ""
 #: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
 #: ../loader/loader.c:1490 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:49 ../text.py:103
-#: ../text.py:154 ../text.py:180 ../text.py:221 ../text.py:266 ../text.py:356
-#: ../text.py:376 ../text.py:407 ../text.py:456 ../text.py:478 ../text.py:543
-#: ../text.py:564 ../text.py:576 ../text.py:588 ../text.py:766 ../text.py:838
-#: ../text.py:842 ../textw/lilo.py:21 ../textw/lilo.py:66
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:49 ../text.py:100
+#: ../text.py:151 ../text.py:177 ../text.py:218 ../text.py:263 ../text.py:353
+#: ../text.py:373 ../text.py:404 ../text.py:453 ../text.py:475 ../text.py:540
+#: ../text.py:561 ../text.py:573 ../text.py:585 ../text.py:763 ../text.py:835
+#: ../text.py:839 ../textw/lilo.py:21 ../textw/lilo.py:66
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/partitioning.py:182 ../textw/userauth.py:29
 #: ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:82
@@ -44,27 +44,27 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../text.py:67
+#: ../text.py:64
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr ""
 
-#: ../text.py:68
+#: ../text.py:65
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr ""
 
-#: ../text.py:69
+#: ../text.py:66
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr ""
 
-#: ../text.py:70
+#: ../text.py:67
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:174 ../text.py:85 ../textw/lilo.py:79 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../text.py:82 ../textw/lilo.py:79 ../textw/lilo.py:138
 msgid "Device"
 msgstr ""
 
-#: ../text.py:86
+#: ../text.py:83
 #, c-format
 msgid "What device is your mouse located on? %s %i"
 msgstr ""
@@ -86,24 +86,24 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:87 ../text.py:490
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:84 ../text.py:487
 #: ../textw/constants.py:10 ../textw/lilo.py:84 ../textw/lilo.py:97
 #: ../textw/lilo.py:147
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:405 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:423 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:66
 #: ../loader/devices.c:165 ../loader/devices.c:210 ../loader/lang.c:503
 #: ../loader/loader.c:242 ../loader/loader.c:579 ../loader/loader.c:615
 #: ../loader/loader.c:715 ../loader/loader.c:1072 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87
-#: ../text.py:88 ../text.py:103 ../text.py:126 ../text.py:154 ../text.py:157
-#: ../text.py:180 ../text.py:207 ../text.py:221 ../text.py:223 ../text.py:242
-#: ../text.py:244 ../text.py:266 ../text.py:268 ../text.py:356 ../text.py:407
-#: ../text.py:409 ../text.py:428 ../text.py:437 ../text.py:456 ../text.py:458
-#: ../text.py:478 ../text.py:481 ../text.py:490 ../text.py:543 ../text.py:544
-#: ../text.py:766 ../text.py:788 ../textw/constants.py:10 ../textw/lilo.py:22
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:84
+#: ../text.py:85 ../text.py:100 ../text.py:123 ../text.py:151 ../text.py:154
+#: ../text.py:177 ../text.py:204 ../text.py:218 ../text.py:220 ../text.py:239
+#: ../text.py:241 ../text.py:263 ../text.py:265 ../text.py:353 ../text.py:404
+#: ../text.py:406 ../text.py:425 ../text.py:434 ../text.py:453 ../text.py:455
+#: ../text.py:475 ../text.py:478 ../text.py:487 ../text.py:540 ../text.py:541
+#: ../text.py:763 ../text.py:785 ../textw/constants.py:10 ../textw/lilo.py:22
 #: ../textw/lilo.py:66 ../textw/lilo.py:73 ../textw/lilo.py:148
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/packages.py:145 ../textw/partitioning.py:25
@@ -113,51 +113,51 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../text.py:105
+#: ../text.py:102
 msgid "Which model mouse is attached to this computer?"
 msgstr ""
 
-#: ../text.py:114
+#: ../text.py:111
 msgid "Emulate 3 Buttons?"
 msgstr ""
 
-#: ../text.py:116
+#: ../text.py:113
 msgid "Mouse Selection"
 msgstr ""
 
-#: ../text.py:152 ../text.py:871
+#: ../text.py:149 ../text.py:868
 msgid "Keyboard Selection"
 msgstr ""
 
-#: ../text.py:153
+#: ../text.py:150
 msgid "Which model keyboard is attached to this computer?"
 msgstr ""
 
-#: ../text.py:173
+#: ../text.py:170
 msgid "Install GNOME Workstation"
 msgstr ""
 
-#: ../text.py:174
+#: ../text.py:171
 msgid "Install KDE Workstation"
 msgstr ""
 
-#: ../text.py:175
+#: ../text.py:172
 msgid "Install Server System"
 msgstr ""
 
-#: ../text.py:176
+#: ../text.py:173
 msgid "Install Custom System"
 msgstr ""
 
-#: ../text.py:177
+#: ../text.py:174
 msgid "Upgrade Existing Installation"
 msgstr ""
 
-#: ../text.py:178 ../text.py:874
+#: ../text.py:175 ../text.py:871
 msgid "Installation Type"
 msgstr ""
 
-#: ../text.py:179
+#: ../text.py:176
 msgid "What type of system would you like to install?"
 msgstr ""
 
@@ -165,27 +165,27 @@ msgstr ""
 #: ../loader/devices.c:178 ../loader/loader.c:458 ../loader/loader.c:468
 #: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
 #: ../loader/loader.c:853 ../loader/loader.c:1490 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:204 ../text.py:584
+#: ../loader/urls.c:206 ../text.py:201 ../text.py:581
 msgid "Error"
 msgstr ""
 
-#: ../text.py:205
+#: ../text.py:202
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr ""
 
-#: ../text.py:218
+#: ../text.py:215
 msgid "System to Upgrade"
 msgstr ""
 
-#: ../text.py:219
+#: ../text.py:216
 msgid "What partition holds the root partition of your installation?"
 msgstr ""
 
-#: ../text.py:234
+#: ../text.py:231
 msgid "Customize Packages to Upgrade"
 msgstr ""
 
-#: ../text.py:235
+#: ../text.py:232
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -198,7 +198,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 #: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:698
-#: ../text.py:242 ../text.py:428 ../text.py:431 ../textw/partitioning.py:145
+#: ../text.py:239 ../text.py:425 ../text.py:428 ../textw/partitioning.py:145
 msgid "Yes"
 msgstr ""
 
@@ -207,16 +207,16 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2291 ../libfdisk/gnomefsedit.c:2344
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:242
-#: ../text.py:247 ../text.py:428 ../text.py:434 ../textw/partitioning.py:145
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:239
+#: ../text.py:244 ../text.py:425 ../text.py:431 ../textw/partitioning.py:145
 msgid "No"
 msgstr ""
 
-#: ../text.py:257
+#: ../text.py:254
 msgid "Red Hat Linux"
 msgstr ""
 
-#: ../text.py:258
+#: ../text.py:255
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -228,57 +228,57 @@ msgid ""
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
 
-#: ../text.py:328
+#: ../text.py:325
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../loader/net.c:234 ../text.py:333
+#: ../loader/net.c:234 ../text.py:330
 msgid "IP address:"
 msgstr ""
 
-#: ../loader/net.c:237 ../text.py:334
+#: ../loader/net.c:237 ../text.py:331
 msgid "Netmask:"
 msgstr ""
 
-#: ../loader/net.c:240 ../text.py:335
+#: ../loader/net.c:240 ../text.py:332
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../loader/net.c:243 ../text.py:336
+#: ../loader/net.c:243 ../text.py:333
 msgid "Primary nameserver:"
 msgstr ""
 
-#: ../text.py:358
+#: ../iw/network.py:11 ../text.py:355
 msgid "Network Configuration"
 msgstr ""
 
-#: ../text.py:374
+#: ../text.py:371
 msgid "Invalid information"
 msgstr ""
 
-#: ../text.py:375
+#: ../text.py:372
 msgid "You must enter valid IP information to continue"
 msgstr ""
 
-#: ../text.py:403
+#: ../text.py:400
 msgid "Hostname Configuration"
 msgstr ""
 
-#: ../text.py:404
+#: ../text.py:401
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:189 ../loader/net.c:460 ../loader/net.c:617 ../text.py:407
+#: ../iw/network.py:183 ../loader/net.c:460 ../loader/net.c:617 ../text.py:404
 msgid "Hostname"
 msgstr ""
 
-#: ../text.py:418 ../text.py:572 ../text.py:926
+#: ../text.py:415 ../text.py:569 ../text.py:923
 msgid "Bootdisk"
 msgstr ""
 
-#: ../text.py:419
+#: ../text.py:416
 msgid ""
 "A custom bootdisk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -290,45 +290,45 @@ msgid ""
 "Would you like to create a bootdisk for your system?"
 msgstr ""
 
-#: ../text.py:454
+#: ../text.py:451
 msgid "X probe results"
 msgstr ""
 
-#: ../text.py:467 ../text.py:486
+#: ../text.py:464 ../text.py:483
 msgid "Unlisted Card"
 msgstr ""
 
-#: ../text.py:475
+#: ../text.py:472
 msgid "Video Card Selection"
 msgstr ""
 
-#: ../text.py:476
+#: ../text.py:473
 msgid "Which video card do you have?"
 msgstr ""
 
-#: ../text.py:488
+#: ../text.py:485
 msgid "X Server Selection"
 msgstr ""
 
-#: ../text.py:488
+#: ../text.py:485
 msgid "Choose a server"
 msgstr ""
 
-#: ../text.py:539
+#: ../text.py:536
 msgid "Installation to begin"
 msgstr ""
 
-#: ../iw/confirm.py:19 ../text.py:540
+#: ../iw/confirm.py:19 ../text.py:537
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:556
+#: ../text.py:553
 msgid "Complete"
 msgstr ""
 
-#: ../iw/congrats.py:17 ../text.py:557
+#: ../iw/congrats.py:17 ../text.py:554
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -340,211 +340,215 @@ msgid ""
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../iw/bootdisk.py:41 ../text.py:573
+#: ../iw/bootdisk.py:41 ../text.py:570
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../text.py:576 ../text.py:577 ../text.py:588 ../text.py:589
+#: ../text.py:573 ../text.py:574 ../text.py:585 ../text.py:586
 #: ../textw/lilo.py:21
 msgid "Skip"
 msgstr ""
 
-#: ../iw/bootdisk.py:45 ../text.py:585
+#: ../iw/bootdisk.py:45 ../text.py:582
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:647
+#: ../text.py:644
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:649
+#: ../text.py:646
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:650
+#: ../text.py:647
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:651
+#: ../text.py:648
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:677
+#: ../text.py:674
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:678
+#: ../text.py:675
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:679
+#: ../text.py:676
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:681
+#: ../text.py:678
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:688
+#: ../text.py:685
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:698
+#: ../text.py:695
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:768
+#: ../text.py:765
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../text.py:776
+#: ../text.py:773
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../iw/timezone.py:29 ../text.py:778
+#: ../iw/timezone.py:29 ../text.py:775
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../text.py:842 ../text.py:843
+#: ../text.py:839 ../text.py:840
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:855
+#: ../text.py:852
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:857
+#: ../text.py:854
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:873
+#: ../iw/welcome.py:10 ../text.py:870
 msgid "Welcome"
 msgstr ""
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:879 ../text.py:885
+#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:876 ../text.py:882
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:881
+#: ../text.py:878
 msgid "Manually Partition"
 msgstr ""
 
-#: ../text.py:883
+#: ../text.py:880
 msgid "Automatic Partition"
 msgstr ""
 
-#: ../text.py:887
+#: ../text.py:884
 msgid "Swap"
 msgstr ""
 
-#: ../text.py:889
+#: ../text.py:886
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../text.py:891 ../text.py:893 ../text.py:895 ../textw/lilo.py:24
+#: ../text.py:888 ../text.py:890 ../text.py:892 ../textw/lilo.py:24
 #: ../textw/lilo.py:63 ../textw/lilo.py:155
 msgid "LILO Configuration"
 msgstr ""
 
-#: ../text.py:897
+#: ../text.py:894
 msgid "Hostname Setup"
 msgstr ""
 
-#: ../text.py:899
+#: ../text.py:896
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:901 ../text.py:903
+#: ../iw/mouse.py:55 ../text.py:898 ../text.py:900
 msgid "Mouse Configuration"
 msgstr ""
 
-#: ../text.py:905
+#: ../text.py:902
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:907 ../textw/userauth.py:8
+#: ../text.py:904 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr ""
 
-#: ../text.py:909 ../textw/userauth.py:148
+#: ../text.py:906 ../textw/userauth.py:148
 msgid "User Account Setup"
 msgstr ""
 
-#: ../text.py:911
+#: ../text.py:908
 msgid "Authentication"
 msgstr ""
 
-#: ../text.py:913
+#: ../text.py:910
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:915 ../text.py:936
+#: ../text.py:912 ../text.py:933
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:917 ../textw/packages.py:114
+#: ../text.py:914 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../iw/xconfig.py:89 ../text.py:919 ../text.py:927
+#: ../iw/xconfig.py:89 ../text.py:916 ../text.py:924
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:921
+#: ../text.py:918
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:923
+#: ../text.py:920
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:925
+#: ../text.py:922
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:929
+#: ../text.py:926
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:934
+#: ../text.py:931
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:935
+#: ../text.py:932
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:937
+#: ../text.py:934
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:938
+#: ../text.py:935
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../gui.py:399
+#: ../gui.py:417
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:408
+#: ../gui.py:424
+msgid "Next"
+msgstr ""
+
+#: ../gui.py:426
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:409
+#: ../gui.py:427
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:410
+#: ../gui.py:428
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:432
+#: ../gui.py:450
 msgid "Online Help"
 msgstr ""
 
@@ -682,7 +686,7 @@ msgstr ""
 msgid "fdisk"
 msgstr ""
 
-#: ../iw/fdisk.py:43
+#: ../iw/fdisk.py:63
 msgid "Select drive to run fdisk on"
 msgstr ""
 
@@ -711,19 +715,19 @@ msgstr ""
 msgid "Custom"
 msgstr ""
 
-#: ../iw/installpath.py:78
+#: ../iw/installpath.py:79
 msgid "Install Type"
 msgstr ""
 
-#: ../iw/installpath.py:146
+#: ../iw/installpath.py:147
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:148
+#: ../iw/installpath.py:149
 msgid "Upgrade"
 msgstr ""
 
-#: ../iw/installpath.py:188
+#: ../iw/installpath.py:189
 msgid "Use fdisk"
 msgstr ""
 
@@ -735,15 +739,15 @@ msgstr ""
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:66
+#: ../iw/keyboard.py:67
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:84
+#: ../iw/keyboard.py:86
 msgid "Variant"
 msgstr ""
 
-#: ../iw/keyboard.py:100
+#: ../iw/keyboard.py:101
 msgid "Test your selection here:"
 msgstr ""
 
@@ -800,43 +804,47 @@ msgstr ""
 msgid "Boot label"
 msgstr ""
 
-#: ../iw/network.py:131
+#: ../iw/mouse.py:134
+msgid "Emulate 3 Buttons"
+msgstr ""
+
+#: ../iw/network.py:132
 msgid "Configure using DHCP"
 msgstr ""
 
-#: ../iw/network.py:137
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr ""
 
-#: ../iw/network.py:146
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr ""
 
-#: ../iw/network.py:146 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr ""
 
-#: ../iw/network.py:146 ../loader/loader.c:227
+#: ../iw/network.py:147 ../loader/loader.c:227
 msgid "Network"
 msgstr ""
 
-#: ../iw/network.py:146
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network.py:190
+#: ../iw/network.py:184
 msgid "Gateway"
 msgstr ""
 
-#: ../iw/network.py:190
+#: ../iw/network.py:184
 msgid "Primary DNS"
 msgstr ""
 
-#: ../iw/network.py:190
+#: ../iw/network.py:184
 msgid "Secondary DNS"
 msgstr ""
 
-#: ../iw/network.py:190
+#: ../iw/network.py:184
 msgid "Ternary DNS"
 msgstr ""
 
@@ -868,7 +876,7 @@ msgstr ""
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../iw/package.py:442 ../textw/packages.py:18
+#: ../iw/package.py:444 ../textw/packages.py:18
 msgid "Select individual packages"
 msgstr ""
 
@@ -916,11 +924,11 @@ msgstr ""
 msgid "Disk Druid"
 msgstr ""
 
-#: ../iw/rootpartition.py:91 ../textw/partitioning.py:107
+#: ../iw/rootpartition.py:82 ../textw/partitioning.py:107
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:130 ../textw/partitioning.py:108
+#: ../iw/rootpartition.py:121 ../textw/partitioning.py:108
 #, c-format
 msgid ""
 "%s\n"
@@ -930,31 +938,31 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:142
+#: ../iw/rootpartition.py:133
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:145 ../textw/partitioning.py:112
+#: ../iw/rootpartition.py:136 ../textw/partitioning.py:112
 msgid "Manually partition"
 msgstr ""
 
-#: ../iw/timezone.py:111
+#: ../iw/timezone.py:114
 msgid "View:"
 msgstr ""
 
-#: ../iw/timezone.py:149
+#: ../iw/timezone.py:152
 msgid "Use Daylight Saving Time"
 msgstr ""
 
-#: ../iw/timezone.py:156
+#: ../iw/timezone.py:159
 msgid "Location"
 msgstr ""
 
-#: ../iw/timezone.py:157
+#: ../iw/timezone.py:160
 msgid "UTC Offset"
 msgstr ""
 
-#: ../iw/timezone.py:161
+#: ../iw/timezone.py:164
 msgid "System clock uses UTC"
 msgstr ""
 

@@ -7,7 +7,7 @@ class WelcomeWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle ("Welcome ")
+        ics.setTitle (_("Welcome"))
         ics.setNextEnabled (1)
         ics.readHTML ("wel")
         self.ics = ics
