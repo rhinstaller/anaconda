@@ -1158,7 +1158,7 @@ int main(int argc, char ** argv) {
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
     if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136 && 
-        (virtpcon != NULL)){
+        (virtpcon == NULL)){
         if ((ioctl (0, TIOCLINUX, &twelve) < 0) && 
             (ioctl(0, TIOCGSERIAL, &si) != -1))
             flags |= LOADER_FLAGS_SERIAL;
@@ -1187,7 +1187,8 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine);
 
-    if (FL_SERIAL(flags) && !hasGraphicalOverride())
+    if ((FL_SERIAL(flags) || FL_VIRTPCONSOLE(flags)) && 
+        !hasGraphicalOverride())
         flags |= LOADER_FLAGS_TEXT;
     if (FL_SERIAL(flags))
         flags |= LOADER_FLAGS_NOFB;

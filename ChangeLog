@@ -1,6 +1,13 @@
+2004-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/loader.c: Fix for serial console magic to work again
+	with just console= and not explicit serial (#137971)
+
 2004-11-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.
+
+	* loader2/modules.c: Backport segfault fix from -HEAD
 
 	* isys/isys.py (hardDriveDict): ignore IBM *STMF disks as they're
 	just the *STMF for booting on a power5 iSeries box (#137920)
