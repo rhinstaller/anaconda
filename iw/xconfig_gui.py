@@ -29,6 +29,7 @@ class XCustomWindow (InstallWindow):
         self.didTest = 0
         self.selectedDepth = ""
         self.selectedRes = ""
+#        self.newDesktop = "GNOME"
 
     def getNext (self):
         newmodes = {}
@@ -447,6 +448,7 @@ class XCustomWindow (InstallWindow):
 #            self.vbox4 = GtkVBox()
 
             if self.todo.hdList['gnome-core'].selected:
+                self.newDesktop = "GNOME"
                 im = self.ics.readPixmap ("gnome.png")
                 if im:
                     im.render ()
@@ -461,7 +463,8 @@ class XCustomWindow (InstallWindow):
 
 
             elif self.todo.hdList['kdebase'].selected:
-                im = self.ics.readPixmap ("kde.png")
+                self.newDesktop = "KDE"
+                im = self.ics.readPixmap ("kde.png")                
                 if im:
                     im.render ()
                     pix = im.make_pixmap ()
