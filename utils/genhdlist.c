@@ -190,7 +190,7 @@ int onePrePass(const char * dirName) {
     return 0;
 }
 
-int doOnePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum, 
+int doOnePass(FD_t outfd, FD_t out2fd, char * dirName, int cdNum, 
               int doSplit, int isUpdates) {
     FD_t fd;
     struct dirent * ent;
