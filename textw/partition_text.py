@@ -69,7 +69,10 @@ class PartitionWindow:
                     else:
                         ptype = part.fs_type.name
                 else:
-                    ptype = _("None")
+                    if request and request.fstype != None:
+                        ptype = request.fstype.getName()
+                    else:
+                        ptype = _("None")
 
                 start = (part.geom.start / sectorsPerCyl) + 1
                 end = (part.geom.end / sectorsPerCyl) + 1

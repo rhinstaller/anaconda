@@ -524,7 +524,10 @@ class PartitionWindow(InstallWindow):
                     else:
                         text[self.titleSlot["Format"]] = _("No")
                 else:
-                    ptype = _("None")
+                    if request and request.fstype != None:
+                        ptype = request.fstype.getName()
+                    else:
+                        ptype = _("None")
                 if part.type & parted.PARTITION_FREESPACE:
                     text[self.titleSlot["Device"]] = _("Free")
                 else:
