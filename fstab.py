@@ -187,9 +187,8 @@ class Fstab:
 	self.supplementalRaid.append((mountPoint, raidDevice, fileSystem,
 				  raidLevel, deviceList))
 
-    def addExistingRaidDevice(self, raidDevice, fileSystem, deviceList):
-	# these are added to the fstab separately!!!
-        self.existingRaid.append(raidDevice, fileSystem, deviceList)
+    def addExistingRaidDevice(self, raidDevice, mntPoint, fsystem, deviceList):
+        self.existingRaid.append(raidDevice, mntPoint, fsystem, deviceList)
 	
     def raidList(self):
         (devices, raid) = self.ddruid.partitionList()
@@ -249,7 +248,7 @@ class Fstab:
 		    self.messageWindow(_("Error"), 
 			_("Error unmounting %s: %s") % (device, msg))
 
-	for (raidDevice, fileSystem, deviceList) in self.existingRaid:
+	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
 	    isys.raidstop(raidDevice)
 
     def makeFilesystems(self):
@@ -327,7 +326,7 @@ class Fstab:
     def mountFilesystems(self, instPath):
 	if (not self.setupFilesystems): return 
 
-	for (raidDevice, fileSystem, deviceList) in self.existingRaid:
+	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
 	    isys.raidstart(raidDevice, deviceList[0])
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
@@ -428,6 +427,11 @@ class Fstab:
 		self.fsCache[(partition, mount)] = (0, )
 	    (doFormat,) = self.fsCache[(partition, mount)]
 	    fstab.append((mount, partition, fsystem, doFormat, size ))
+
+	for (raidDevice, mntPoint, fsType, deviceList) in self.existingRaid:
+	    if fsType == "swap": continue
+
+	    fstab.append((mntPoint, raidDevice, fsType, 0, 0 ))
 
 	# Add raid mounts to mount list
         (devices, raid) = self.raidList()
@@ -557,6 +561,6 @@ def readFstab (path, fstab):
 
         if fields[0][0:7] == "/dev/md":
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
-					raidByDev[mdDev])
-
-	fstab.addMount(fields[0][5:], fields[1], fields[2])
+					fields[2], raidByDev[mdDev])
+	else:
+	    fstab.addMount(fields[0][5:], fields[1], fields[2])
