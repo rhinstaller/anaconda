@@ -138,7 +138,7 @@ class BootloaderWindow (InstallWindow):
             j = i+1
             while j < self.numImages:
                 label2 = self.imageList.get_text(j, 3)
-                if label1 == label2:
+                if label1 == label2 and label1 != "":
                     return 0
                 j = j + 1
 
