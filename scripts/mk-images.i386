@@ -117,38 +117,38 @@ done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
 
-# --- Japanese
-BOOTLANG="ja_JP"
-BOOTDIR="ja"
+# --- Japanese -- disabled for now.
+#  BOOTLANG="ja_JP"
+#  BOOTDIR="ja"
 
-# hack hack hack - we are *out* of space
-NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
-	       de600 de620 depca e1000 eepro100 hp-plus hp hp100
-	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
-	       via-rhine 
-               nfs vfat"
+#  # hack hack hack - we are *out* of space
+#  NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
+#  	       de600 de620 depca e1000 eepro100 hp-plus hp hp100
+#  	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
+#  	       via-rhine 
+#                 nfs vfat"
 
-makebootdisk --bootdisksize 1440 \
-	     --imagename ja/boot.img \
-	     --initrdflags '--japanese
-			    --initrdsize 2100 \
-			    --loaderbin loader-local-kon \
-			    --modules "$LOCALMODULES"'
+#  makebootdisk --bootdisksize 1440 \
+#  	     --imagename ja/boot.img \
+#  	     --initrdflags '--japanese
+#  			    --initrdsize 2100 \
+#  			    --loaderbin loader-local-kon \
+#  			    --modules "$LOCALMODULES"'
 
-makebootdisk --bootdisksize 1440 \
-	     --imagename ja/bootnet.img \
-	     --initrdflags '--japanese
-			    --initrdsize 2100 \
-			    --loaderbin loader-network-kon \
-		 	    --modules "$NETWORKMODULES"'
+#  makebootdisk --bootdisksize 1440 \
+#  	     --imagename ja/bootnet.img \
+#  	     --initrdflags '--japanese
+#  			    --initrdsize 2100 \
+#  			    --loaderbin loader-network-kon \
+#  		 	    --modules "$NETWORKMODULES"'
 
-makebootdisk --imagename ja/pcmcia.img \
-	     --bootdisksize 1440 \
-	     --initrdflags '--japanese
-			    --pcmcia \
-		     	    --initrdsize 2100 \
-			    --loaderbin loader-pcmcia-kon \
-			    --modules "$PCMCIAMODULES nfs vfat"'
+#  makebootdisk --imagename ja/pcmcia.img \
+#  	     --bootdisksize 1440 \
+#  	     --initrdflags '--japanese
+#  			    --pcmcia \
+#  		     	    --initrdsize 2100 \
+#  			    --loaderbin loader-pcmcia-kon \
+#  			    --modules "$PCMCIAMODULES nfs vfat"'
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net +cdrom"
 
