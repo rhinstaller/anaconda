@@ -1294,8 +1294,10 @@ def selectLanguageSupportGroups(comps, langSupport):
                         if comp.newpkgDict.has_key(reqp):
                             if comp.newpkgDict[reqp][0] == PKGTYPE_MANDATORY:
                                 comp.addDependencyPackage(pkg)
+                                comp.updateDependencyCountForAddition(pkg)
                             else:
                                 comp.addPackage(pkg, PKGTYPE_DEFAULT)
                         elif comp.depsDict.has_key(req):
                             comp.addDependencyPackage(pkg)
+                            comp.updateDependencyCountForAddition(pkg)
     comps.updateSelections()
