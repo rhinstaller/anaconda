@@ -151,7 +151,7 @@ def swapSuggestion(instPath, fstab):
 
 def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
     fstabPath = instPath + "/etc/fstab"
-    prefix = None
+    prefix = ""
     if theFstab.rootOnLoop():
 	instPath = "/mnt/loophost"
 	prefix = "/initrd/loopfs"
