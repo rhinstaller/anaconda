@@ -65,7 +65,7 @@ void shutDown(int noKill, int doReboot) {
 #endif
     } else {
 	printf("you may safely reboot your system\n");
-	reboot(RB_HALT_SYSTEM);
+        while (1);
     }
 
     exit(0);
