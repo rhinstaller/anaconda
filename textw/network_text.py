@@ -166,8 +166,4 @@ class HostnameWindow:
 
         todo.network.hostname = entry.value ()
 
-        print todo.network.hostname
-
-
-        
         return INSTALL_OK
