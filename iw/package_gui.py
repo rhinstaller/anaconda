@@ -768,7 +768,7 @@ class PackageSelectionWindow (InstallWindow):
 	    val = comp.metapackagesFullInfo()[pkg]
 	    origmetapkgselection[pkg] = val
 	
-        self.dialog = gtk.Dialog(_("Details for '%s'") % (_(comp.name),))
+        self.dialog = gtk.Dialog(_("Details for '%s'") % (comp.displayName,))
         gui.addFrame(self.dialog)
         self.dialog.add_button('gtk-cancel', 2)
         self.dialog.add_button('gtk-ok', 1)
