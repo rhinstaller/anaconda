@@ -203,12 +203,12 @@ def memInstalled(corrected = 1):
         for line in lines:
             fields = string.split(line)
             if fields[3] == "(usable)":
-                mem = mem + (string.atoi(fields[0], 16) / 1024)
+                mem = mem + (string.atol(fields[0], 16) / 1024)
                 
     if corrected:
         mem = mem - memoryOverhead
 
-    return mem
+    return int(mem)
 
 # try to keep 2.4 kernel swapper happy!
 def swapSuggestion():
