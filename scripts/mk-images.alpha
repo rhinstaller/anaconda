@@ -1,4 +1,4 @@
-SECSTAGE="raid0 raid1 raid5"
+SECSTAGE="raid0 raid1 raid5 ext3"
 
 prepareBootImage() {
         dd if=/dev/zero of=$MBD_TMPIMAGE bs=1k count=$BOOTDISKSIZE 2>/dev/null
