@@ -13,6 +13,7 @@
 
 import checklist
 import gtk
+import gui
 from iw_gui import *
 from flags import flags
 from rhpl.translate import _, N_
@@ -152,7 +153,7 @@ class LanguageSupportWindow (InstallWindow):
         sep = gtk.HSeparator ()
         vbox.pack_start (sep, gtk.FALSE, 15)
 
-	label = gtk.Label (_("Choose additional languages you would "
+	label = gui.MnemonicLabel (_("Choose _additional languages you would "
 			     "like to use on this system:"))
 
         label.set_alignment (0.0, 0.5)
@@ -164,6 +165,7 @@ class LanguageSupportWindow (InstallWindow):
 
         # langs we want to support
         self.languageList = checklist.CheckList(1)
+        label.set_mnemonic_widget(self.languageList)
 
         self.maxrows = 0
         list = []
@@ -200,19 +202,19 @@ class LanguageSupportWindow (InstallWindow):
 
         vbox2 = gtk.VBox (gtk.FALSE, 12)
 
-        all_button = gtk.Button (_("Select all"))
+        all_button = gtk.Button (_("_Select all"))
         all_button.set_size_request(160, -1)
         all_button.connect ('clicked', self.select_all)
         a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
-        default_button = gtk.Button (_("Select Default Only"))
+        default_button = gtk.Button (_("Select _Default Only"))
         default_button.set_size_request(160, -1)
         default_button.connect ('clicked', self.select_default)
         a2 = gtk.Alignment (0.5, 0.5)
         a2.add (default_button)
 
-        reset_button = gtk.Button (_("Reset"))
+        reset_button = gtk.Button (_("Rese_t"))
         reset_button.set_size_request(160, -1)
         reset_button.connect ('clicked', self.reset)
         a3 = gtk.Alignment (0.5, 0.5)
