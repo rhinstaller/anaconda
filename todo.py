@@ -840,7 +840,7 @@ class ToDo:
                     (type, sector, size) = table[i]
                     if size and type == _balkan.EXT2:
 			# for RAID arrays of format c0d0p1
-			if drive [:3] == "rd/" or drive [:4] == "ida/":
+			if drive [:3] == "rd/" or drive [:4] == "ida/" or drive [:6] == "cciss/" :
                             dev = drive + 'p' + str (i + 1)
 			else:
                             dev = drive + str (i + 1)
