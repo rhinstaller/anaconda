@@ -89,8 +89,8 @@ EOF
 }
 
 makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS"
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS =scsi"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS =net"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS =scsi =net"
     makemainimage "stage2" "cramfs"
 }
