@@ -477,9 +477,6 @@ makeinitrd() {
        if [ -d $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net ]; then
           cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
        fi
-       sed -e "s/PermitEmptyPasswords no/PermitEmptyPasswords yes/; \
-	  s/^Gssapi/\# Gssapi/; s/X11Forwarding yes/X11Forwarding no/" \
-                < $IMGPATH/etc/ssh/sshd_config > $MBD_DIR/etc/ssh/sshd_config
     else
        ln -s /usr/bin/sh $MBD_DIR/sbin/sh
        ln -s /sbin/init $MBD_DIR/linuxrc

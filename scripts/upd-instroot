@@ -125,8 +125,8 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh
-	sed net-tools inetd INST_openssh INST_openssh-server fileutils modutils
+    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh ssh_keys
+	sed net-tools inetd openssh openssh-server fileutils modutils
 	portmap textutils telnet-server"
 fi
 
@@ -179,8 +179,8 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh
-	sed net-tools inetd INST_openssh INST_openssh-server fileutils 
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh ssh_keys
+	sed net-tools inetd openssh openssh-server fileutils 
 	modutils portmap textutils openssl telnet-server strace"
 fi
 
@@ -296,7 +296,6 @@ usr/bin/ssh-keygen
 usr/bin/strace
 usr/bin/ldd
 bin/ps
-usr/sbin/sshd
 usr/sbin/inetd
 usr/sbin/in.telnetd
 sbin/insmod
@@ -326,7 +325,7 @@ lib/libresolv.so*
 lib/libresolv-*.so*
 lib/modules/ibm*
 etc/inetd.conf
-etc/ssh/sshd_config
+etc/ssh/*
 EOF
 fi
       
