@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-16 20:06-0500\n"
-"PO-Revision-Date: 2001-03-14 21:46GMT\n"
+"PO-Revision-Date: 2001-03-17 16:10GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -938,9 +938,8 @@ msgid "no suggestion"
 msgstr "ingen forslag"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Rodfilsystemstørrelse"
+msgstr "Urene filsystemer"
 
 #: ../todo.py:1156
 msgid ""
@@ -1409,9 +1408,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vælg venligst enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Søger efter Red Hat Linux-installationer..."
+msgstr "Opgraderer Red Hat Linux-installationen på partition /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1908,7 +1906,7 @@ msgid "Disk Partitioning"
 msgstr "Diskpartitionering"
 
 #: ../iw/rootpartition_gui.py:378
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
@@ -1916,9 +1914,9 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
-"Vælg venligst den type disk partitionering, du vil benytte.\n"
+"Vælg venligst den slags diskpartitionering, du vil benytte.\n"
 "\n"
-"Automatisk partitionering vil slette %s\n"
+"%s\n"
 "\n"
 "Ved at vælge manuel partitionering, vil du kunne oprette partitionerne selv."
 
@@ -2127,9 +2125,8 @@ msgstr ""
 "at fortsætte?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
-#, fuzzy
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Swapfilen skal være mellem 0 og 2000Mb stor."
+msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
@@ -2580,7 +2577,7 @@ msgid "Done"
 msgstr "Færdig"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2588,10 +2585,10 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"Automatisk partitionering vil slette %s\n"
+"%s\n"
 "\n"
 "Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at "
-"partitioneremanuelt, eller du kan gå tilbage og udføre en fuldstændig "
+"partitionere manuelt. Ellers kan du gå tilbage og udføre en fuldstændig "
 "brugerbestemt installation."
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
@@ -2875,11 +2872,12 @@ msgid "Custom System"
 msgstr "Egendefineret system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
-msgstr "nogen allerede eksisterende Linux-installationer på dit system."
+msgstr ""
+"Automatisk partitionering vil slette eventuelle eksisterende "
+"Linux-installationer på dit system."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2890,12 +2888,12 @@ msgid "Server System"
 msgstr "Server System"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
-"ALLE DATA på din harddisk for at give plads til din Linux-installation."
+"Automatisk partitionering vil slette ALLE DATA på din harddisk for at gøre "
+"plads til din Linux-installation."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5187,6 +5185,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Opgraderer partition /dev/"
