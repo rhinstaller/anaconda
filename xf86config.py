@@ -29,10 +29,10 @@ class XF86Config:
         self.skip = 0
         self.modes = { "8" :  ["640x480"] }
 	self.device = None
-        self.keyModel = None
-        self.keyLayout = None
-        self.keyVariant = None
-        self.keyOptions = None
+        self.keyModel = "pc101"
+        self.keyLayout = "us"
+        self.keyVariant = ""
+        self.keyOptions = ""
         rules = _xkb.get_rulesbase ()
         self.keyRules = rules[string.rfind (rules, "/")+1:]
 
@@ -420,7 +420,6 @@ Section "Keyboard"
 # control keys, use:
      XkbOptions  "ctrl:nocaps"
 
-# These are the default XKB settings for XFree86
     XkbRules    "%s"
     XkbModel    "%s"
     XkbLayout   "%s"
