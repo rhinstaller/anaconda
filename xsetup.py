@@ -16,7 +16,7 @@
 #
 # should probably go in rhpl
 #
-import xserver
+import rhpl.xserver as xserver
 
 class XSetup:
 
@@ -43,17 +43,6 @@ class XSetup:
 	if self.skipx:
 	    f.write("skipx\n")
 	    return
-
-#
-# old pre-rhpl backend code
-#
-#	xmodes = self.getManualModes()
-#
-#	if len(xmodes) == 0:
-#	    f.write("skipx\n")
-#	    return
-#
-#	args = self.getArgList(xmodes)
 
         args = self.getArgList(self.xhwstate.get_resolution(),
 			       self.xhwstate.get_colordepth())
