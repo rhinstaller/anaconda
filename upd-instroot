@@ -361,4 +361,6 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
 	rm -f [a-r]*
 
+	find $DEST/usr/share/locale -name \*.mo | xargs gzip -9
+
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda

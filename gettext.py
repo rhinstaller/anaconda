@@ -142,21 +142,33 @@ class Catalog:
 		self.localedir = localedir
 		self.cat = {}
 		if not domain: return
+		import os
 		for self.lang in lang:
 			if self.lang == 'C':
+				del os
 				return
 			catalog = "%s//%s/LC_MESSAGES/%s.mo" % (
 				localedir, self.lang, domain)
+			if not os.access (catalog, os.R_OK) and os.access (catalog + ".gz", os.R_OK):
+				os.system ("/usr/bin/gunzip < %s.gz > %s " % (catalog, catalog))
+
 			try:
 				f = open(catalog, "rb")
 				buffer = f.read()
 				del f
+				if os.access (catalog + ".gz", os.R_OK):
+					try:
+						os.remove (catalog)
+					except:
+						pass
 				break
 			except IOError:
 				pass
 		else:
+			del os
 			return # assume C locale
 
+		del os
 		if _StrToInt(buffer[:4]) != 0x950412de:
 			# magic number doesn't match
 			raise error, 'Bad magic number in %s' % (catalog,)
