@@ -477,7 +477,6 @@ class NetworkWindow:
                          ("network", network), ("broadcast", broadcast))
                 todo.network.gateway = self.gw.value ()
                 todo.network.primaryNS = self.ns.value ()
-                todo.network.guessHostnames ()
             screen.popWindow()
             break
                      

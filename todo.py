@@ -58,7 +58,6 @@ class NetworkDevice (SimpleConfigFile):
 
     def __init__ (self, dev):
         self.info = { "DEVICE" : dev, "ONBOOT" : "yes" }
-        self.hostname = ""
 
 class Network:
     def __init__ (self):
@@ -69,6 +68,7 @@ class Network:
         self.ternaryNS = ""
         self.domains = []
         self.readData = 0
+	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
         try:
             f = open ("/tmp/netinfo", "r")
@@ -84,6 +84,7 @@ class Network:
             self.netdevices [info["DEVICE"]] = NetworkDevice (info["DEVICE"])
             if info.has_key ("IPADDR"):
                 self.netdevices [info["DEVICE"]].set (("IPADDR", info["IPADDR"]))
+                self.isConfigured = 1
             if info.has_key ("NETMASK"):
                 self.netdevices [info["DEVICE"]].set (("NETMASK", info["NETMASK"]))
             if info.has_key ("BOOTPROTO"):
@@ -112,7 +113,10 @@ class Network:
 			self.secondaryNS = resolv[1]
 		    elif self.ternaryNS == "":
 			self.ternaryNS = resolv[1]
-    
+
+    def getDevice(self, device):
+	return self.netdevices[device]
+
     def available (self):
         f = open ("/proc/net/dev")
         lines = f.readlines()
@@ -125,28 +129,21 @@ class Network:
                 self.netdevices[dev] = NetworkDevice (dev)
         return self.netdevices
 
-    def guessHostnames (self):
-        # guess the hostname for the first device with an IP
-        # XXX fixme - need to set up resolv.conf
-        self.domains = []
-        for dev in self.netdevices.values ():
-            ip = dev.get ("ipaddr")
-            if ip:
-                try:
-                    (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
-                except socket.error:
-                    hostname = ""
-                if hostname:
-                    dev.hostname = hostname
-                    if '.' in hostname:
-                        # chop off everything before the leading '.'
-                        self.domains.append (hostname[(string.find (hostname, '.') + 1):])
-                #if self.hostname == "localhost.localdomain":
-                    self.hostname = hostname
-            else:
-                dev.hostname = "localhost.localdomain"
-        if not self.domains:
-            self.domains = [ "localdomain" ]
+    def lookupHostname (self):
+	# can't look things up if they don't exist!
+	if not self.primaryNS: return
+
+	f = open("/etc/resolv.conf", "w")
+	f.write("nameserver %s\n" % self.primaryNS)
+	f.close()
+	isys.resetResolv()
+
+	try:
+	    ip = socket.gethostbyname(self.hostname)
+	except socket.error:
+	    return None
+
+	return ip
 
     def nameservers (self):
         return [ self.primaryNS, self.secondaryNS, self.ternaryNS ]
@@ -484,70 +481,54 @@ class ToDo:
 
         # /etc/sysconfig/network
 
-        for dev in self.network.netdevices.values ():
-            if dev.hostname:
-                hostname = dev.hostname
-                break
-        
         f = open (self.instPath + "/etc/sysconfig/network", "w")
         f.write ("NETWORKING=yes\n"
                  "FORWARD_IPV4=false\n"
-                 "HOSTNAME=" + self.network.hostname + "\n"
-                 "GATEWAY=" + self.network.gateway + "\n")
+                 "HOSTNAME=" + self.network.hostname + "\n")
+	if self.network.gateway:
+	    f.write("GATEWAY=" + self.network.gateway + "\n")
         f.close ()
 
         # /etc/hosts
         f = open (self.instPath + "/etc/hosts", "w")
         localline = "127.0.0.1\t\t"
 
-
         self.log ("self.network.hostname = %s", self.network.hostname)
 
-        # if user assigned a hostname other than localhost.localdomain then
-        # search devices and see if this hostname has a static IP
-        # assignment. If not put it in loopback line to make X happy
-        #
-        if self.network.hostname != "localhost.localdomain":
-            foundhostname = 0
-            self.log ("Looking for dev to match system hostname")
-            for dev in self.network.netdevices.values ():
-                ip = dev.get ("ipaddr")
-                hostname = dev.hostname
-                self.log ("Checking device %s: ip = %s  hostname = %s",
-                          dev.get ("device"), ip, hostname)
-                if hostname and ip and hostname == self.network.hostname:
-                    foundhostname = 1
-                    self.log ("Device %s matched", dev.get ("device"))
-                    break
+	ip = self.network.lookupHostname()
 
-            self.log ("foundhostname is %d", foundhostname)
-                
-            if not foundhostname:    
-                localline = localline + self.network.hostname + " "
+	# If the hostname is not resolvable, tie it to 127.0.0.1
+	if not ip:
+	    localline = localline + self.network.hostname + " "
+	    l = string.split(self.network.hostname, ".")
+	    if len(l) > 1:
+		localline = localline + l[0] + " "
                 
 	localline = localline + "localhost.localdomain localhost\n"
         f.write (localline)
-        for dev in self.network.netdevices.values ():
-            ip = dev.get ("ipaddr")
-            if dev.hostname and ip and dev.hostname != "localhost.localdomain":
-                f.write ("%s\t\t%s\n" % (ip, dev.hostname))
-        f.close ()
+
+	if ip:
+	    f.write ("%s\t\t%s\n" % (ip, self.network.hostname))
 
 	# If the hostname was not looked up, but typed in by the user,
 	# domain might not be computed, so do it now.
 	if self.network.domains == [ "localdomain" ] or not self.network.domains:
-	    if self.network.hostname != "localhost.localdomain":
-		if '.' in self.network.hostname:
-		    # chop off everything before the leading '.'
-		    domain = self.network.hostname[(string.find(self.network.hostname, '.') + 1):]
-		    self.network.domains = [ domain ]
+	    if '.' in self.network.hostname:
+		# chop off everything before the leading '.'
+		domain = self.network.hostname[(string.find(self.network.hostname, '.') + 1):]
+		self.network.domains = [ domain ]
 
         # /etc/resolv.conf
         f = open (self.instPath + "/etc/resolv.conf", "w")
-        f.write ("search " + string.joinfields (self.network.domains, ' ') + "\n")
+
+	if self.network.domains != [ 'localdomain' ]:
+	    f.write ("search " + string.joinfields (self.network.domains, ' ') 
+			+ "\n")
+
         for ns in self.network.nameservers ():
             if ns:
                 f.write ("nameserver " + ns + "\n")
+
         f.close ()
 
     def writeRootPassword (self):
