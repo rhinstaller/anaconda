@@ -17,6 +17,7 @@ from iw_gui import *
 from translate import _, N_
 import iutil
 import _isys
+import string
 
 class CongratulationWindow (InstallWindow):		
 
