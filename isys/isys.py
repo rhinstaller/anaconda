@@ -371,18 +371,18 @@ def mknod(pathname, mode, dev):
     return _isys.mknod(pathname, mode, dev)
 
 def inet_ntoa (addr):
-    return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ff,
-                            (addr >> 16) & 0x000000ff,
-                            (addr >> 8) & 0x000000ff,
-                            addr & 0x000000ff)
+    return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ffL,
+                            (addr >> 16) & 0x000000ffL,
+                            (addr >> 8) & 0x000000ffL,
+                            addr & 0x000000ffL)
     
 def inet_aton (addr):
     quad = string.splitfields (addr, ".")
     try: 
-        rc = ((string.atoi (quad[0]) << 24) +
-              (string.atoi (quad[1]) << 16) +
-              (string.atoi (quad[2]) << 8) +
-              string.atoi (quad[3]))
+        rc = ((long (quad[0]) << 24) +
+              (long (quad[1]) << 16) +
+              (long (quad[2]) << 8) +
+              long (quad[3]))
     except IndexError:
         raise ValueError
     return rc
