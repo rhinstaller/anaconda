@@ -930,7 +930,10 @@ class ToDo:
         if hasX and not hasgmc:
             log ("Has X but not GNOME")
             for package in self.comps['GNOME'].pkgs:
-                rec = db.findbyname (package.name)
+                try:
+                    rec = db.findbyname (package.name)
+                except rpm.error:
+                    rec = None
                 if not rec:
                     log ("GNOME: Adding %s", package)
                     package.select()
