@@ -108,8 +108,7 @@ class IndividualPackageWindow:
     def printSize(self, size):
 	if not size:
 	    return "      "
-	size = size / 1024
-	return "%3d.%dM" % (size / 1024, (((size * 10) / 1024) % 10))
+        return "%3d.%dM" % (size / 1024, (((size * 10) / 1024) % 10))
 
     def printTotal(self):
 	size = self.total / 1024
@@ -132,14 +131,14 @@ class IndividualPackageWindow:
 
 	key = header[rpm.RPMTAG_GROUP]
 	if isOn:
-	    self.groupSize[key] = self.groupSize[key] + header[rpm.RPMTAG_SIZE]
+	    self.groupSize[key] = self.groupSize[key] + (header[rpm.RPMTAG_SIZE] / 1024)
 	    self.total = self.total + header[rpm.RPMTAG_SIZE]
 	    self.groupSelCount[key] = self.groupSelCount[key] + 1
 	    self.ct.setEntry(header, "%-*s %s" % (self.length,
 						  header[rpm.RPMTAG_NAME],
 						  self.printSize(header[rpm.RPMTAG_SIZE])))
 	else:
-	    self.groupSize[key] = self.groupSize[key] - header[rpm.RPMTAG_SIZE]
+	    self.groupSize[key] = self.groupSize[key] - (header[rpm.RPMTAG_SIZE] / 1024)
 	    self.total = self.total - header[rpm.RPMTAG_SIZE]
 	    self.groupSelCount[key] = self.groupSelCount[key] - 1
 	    self.ct.setEntry(header, "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME]))
@@ -197,7 +196,7 @@ class IndividualPackageWindow:
 		self.length = max((self.length, len(header[rpm.RPMTAG_NAME])))
 		self.groupCount[group] = self.groupCount[group] + 1
 		if header.isSelected():
-		    self.groupSize[group] = self.groupSize[group] + header[rpm.RPMTAG_SIZE]
+		    self.groupSize[group] = self.groupSize[group] + (header[rpm.RPMTAG_SIZE] / 1024)
 		    self.groupSelCount[group] = self.groupSelCount[group] + 1
 	    else:
 		self.total = self.total + header[rpm.RPMTAG_SIZE]
