@@ -3901,8 +3901,8 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Esta entrada não pode ser removida porque ela será utilizada no sistema Red "
-"Hat Linux que você está prestes a instalar."
+"Esta entrada não pode ser removida porque ela será utilizada no sistema %s "
+"que você está prestes a instalar."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4349,7 +4349,7 @@ msgid "Installing Packages"
 msgstr "Instalando Pacotes"
 
 #: ../iw/progress_gui.py:167
-#, python-format
+#fuzzy, python-format
 msgid "Remaining time: %s minutes"
 msgstr "Restando:  "
 
