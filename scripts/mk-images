@@ -661,8 +661,12 @@ makemainimage () {
     (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
 	    cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
     umount $mmi_mntpoint
-
-    cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
+    
+    if [ "$BUILDARCH" = "ia64" ]; then
+    	dd if=$mmi_tmpimage of=$INSTIMGPATH/${imagename}.img
+    else
+	cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
+    fi
     chmod 644 $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
