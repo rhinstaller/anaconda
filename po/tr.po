@@ -18,9 +18,8 @@ msgid "Exception Occurred"
 msgstr "Bir sorun oluþtu"
 
 #: ../exception.py:91
-#, fuzzy
 msgid "Dump Written"
-msgstr "Çevirmeli Baðlantý Ýþistasyonu"
+msgstr "Yazýldý"
 
 #: ../exception.py:92
 msgid ""
@@ -44,9 +43,8 @@ msgid ""
 msgstr ""
 
 #: ../fstab.py:74
-#, fuzzy
 msgid "Warning"
-msgstr "Taranýyor"
+msgstr "Uyarý"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -277,9 +275,8 @@ msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr ""
 
 #: ../rescue.py:54
-#, fuzzy
 msgid "System to Rescue"
-msgstr "Güncellenecek Sistem"
+msgstr "Kurtarýlacak Sistem"
 
 #: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
@@ -333,9 +330,8 @@ msgid "Exit"
 msgstr "Çýkýþ"
 
 #: ../rescue.py:70 ../rescue.py:76
-#, fuzzy
 msgid "Rescue"
-msgstr "Sý_fýrla"
+msgstr "Kurtar"
 
 #: ../rescue.py:71
 msgid ""
@@ -355,9 +351,8 @@ msgid ""
 msgstr ""
 
 #: ../rescue.py:83
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Kurtarma Yöntemi"
+msgstr "Kurtarma Kipi"
 
 #: ../rescue.py:84
 msgid ""
@@ -408,24 +403,20 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Kurulacak paketler nerede bulunuyor?"
+msgstr "Kurulacak dilleri seçin:"
 
 #: ../text.py:158 ../text.py:1124
-#, fuzzy
 msgid "Language Support"
-msgstr "Dizüstü Bilgisayar Desteði"
+msgstr "Dil Desteði"
 
 #: ../text.py:205
-#, fuzzy
 msgid "Default Language"
-msgstr "Bir Dil Seçin"
+msgstr "Öntanýmlý Dil"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Bir Dil Seçin"
+msgstr "Öntanýmlý dili seçin: "
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -606,7 +597,6 @@ msgid "Complete"
 msgstr "Bitti"
 
 #: ../iw/congrats_gui.py:34 ../text.py:639
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -634,7 +624,6 @@ msgid ""
 msgstr ""
 
 #: ../text.py:662
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -729,9 +718,8 @@ msgid " "
 msgstr ""
 
 #: ../text.py:988
-#, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C), 2000 Red Hat, Inc."
+msgstr "Red Hat Linux (C), 2001 Red Hat, Inc."
 
 #: ../text.py:991
 msgid ""
@@ -763,9 +751,8 @@ msgstr "Að Ayarlarý"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "LILO Yapýlandýrmasý"
+msgstr "Güvenlik Duvarý Yapýlandýrmasý"
 
 #: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
@@ -820,9 +807,8 @@ msgstr "Takas"
 
 #: ../text.py:1100 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Otomatik Bölümlendirme"
+msgstr "Açýlýþ Bölümü Uyarýsý"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -833,9 +819,8 @@ msgid "Mouse Configuration"
 msgstr "Fare Yapýlandýrmasý"
 
 #: ../text.py:1126
-#, fuzzy
 msgid "Language Default"
-msgstr "Dil Seçimi"
+msgstr "Öntanýmlý DÝl"
 
 #: ../text.py:1137
 msgid "Package Groups"
@@ -951,7 +936,6 @@ msgstr ""
 "RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir."
 
 #: ../todo.py:1027
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Güncellenecek paketler belirleniyor..."
 
@@ -999,7 +983,6 @@ msgid "Space Needed"
 msgstr "Gerekli Alan"
 
 #: ../todo.py:1705
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1010,9 +993,8 @@ msgstr ""
 "\n"
 
 #: ../todo.py:1708
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Gerekli Alan"
+msgstr "Gerekli Düðümler"
 
 #: ../todo.py:1714
 msgid "Disk Space"
@@ -1293,7 +1275,6 @@ msgid "Congratulations"
 msgstr "Kutlarýz"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1384,21 +1365,19 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Güvenlik duvarý yok"
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Öntanýmlý güvenlik duvarý ayarlarýný kullan"
 
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Güncellemeyi Ayarla"
+msgstr "Özelleþtir"
 
 #: ../iw/firewall_gui.py:101
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Kullanýlan RAID Aygýtý"
+msgstr "Güvenilen aygýtlar:"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
@@ -1406,7 +1385,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "Diðer portlar:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1461,28 +1440,24 @@ msgid "What language should be used during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
 #: ../iw/language_support_gui.py:145
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Bir Dil Seçin"
+msgstr "Öntanýmlý dili seçin:     "
 
 #: ../iw/language_support_gui.py:156
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Bir Dil Seçin"
+msgstr "Kurulacak dilleri seçin"
 
 #: ../iw/language_support_gui.py:211
-#, fuzzy
 msgid "Select all"
-msgstr "Bölümü seçin"
+msgstr "Tümünü seç"
 
 #: ../iw/language_support_gui.py:217
-#, fuzzy
 msgid "Reset"
-msgstr "Sý_fýrla"
+msgstr "Sýfýrla"
 
 #: ../iw/language_support_gui.py:231
 msgid "Select as default"
-msgstr ""
+msgstr "Öntanýmlý seç"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1520,9 +1495,8 @@ msgid "Create boot disk"
 msgstr "Açýlýþ disketi yarat"
 
 #: ../iw/lilo_gui.py:310
-#, fuzzy
 msgid "Install LILO"
-msgstr "Kurulum"
+msgstr "LILO Kurulumu"
 
 #: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1548,9 +1522,8 @@ msgid "Boot label"
 msgstr "Açýlýþ Etiketi"
 
 #: ../iw/lilo_gui.py:372 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Öntanýmlý olarak PROM açýlýþ aygýtýný etkinleþtir"
+msgstr "Öntanýmlý açýlýþ görüntüsü"
 
 #: ../iw/mouse_gui.py:134 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1634,26 +1607,24 @@ msgid "Total install size: "
 msgstr "Toplam kurulum boyu:"
 
 #: ../iw/package_gui.py:382
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Boy (Mbayt):"
+msgstr "Boy (MB):"
 
 #: ../iw/package_gui.py:413
-#, fuzzy
 msgid "Total size: "
-msgstr "Toplam boyut"
+msgstr "Toplam bot: "
 
 #: ../iw/package_gui.py:416
 msgid "Select all in group"
-msgstr ""
+msgstr "Grubun tamamýný seç"
 
 #: ../iw/package_gui.py:420
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Seçilenleri býrak"
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
-msgstr ""
+msgstr "Dosya bulunamadý"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1687,7 +1658,7 @@ msgstr "Paketler Kuruluyor"
 #: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s Kbayt"
 
 #: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
@@ -1698,14 +1669,12 @@ msgid "Summary"
 msgstr "Özet"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Paket Gruplarý"
+msgstr "Paket Kurulumu: "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
-msgstr "Toplam   :"
+msgstr "Toplam:           "
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
@@ -1932,25 +1901,24 @@ msgid "Test failed"
 msgstr "Sýnama baþarýsýz oldu"
 
 #: ../iw/xconfig_gui.py:25
-#, fuzzy
 msgid "Customize Graphics Configuration"
-msgstr "X Window Yapýlandýrmasý"
+msgstr "Grafik Yapýlandýrmasý"
 
 #: ../iw/xconfig_gui.py:255
 msgid "Color Depth:"
-msgstr ""
+msgstr "Renk Derinliði:"
 
 #: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Ekran Çözünürlüðü:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
-msgstr ""
+msgstr "  Ayarlarý Dene  "
 
 #: ../iw/xconfig_gui.py:410
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Öntanýmlý masaüstü ortamýnýzý seçin:"
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
@@ -1962,21 +1930,19 @@ msgstr "KDE - K Masaüstü Ortamý"
 
 #: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Masaüstü ortamýnýz:"
 
 #: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Sisteme giriþ türünü seçin:"
 
 #: ../iw/xconfig_gui.py:519
-#, fuzzy
 msgid "Text"
-msgstr "Ýleri"
+msgstr "Metin"
 
 #: ../iw/xconfig_gui.py:520
-#, fuzzy
 msgid "Graphical"
-msgstr "Grafik Giriþi Kullan"
+msgstr "Grafiksel"
 
 #: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
@@ -1999,22 +1965,20 @@ msgid "Restore original values"
 msgstr ""
 
 #: ../iw/xconfig_gui.py:964
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Yatay Tazeleme"
+msgstr "Yatay Tazeleme:"
 
 #: ../iw/xconfig_gui.py:966
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Dikey Tazeleme"
+msgstr "Dikey Tazeleme:"
 
 #: ../iw/xconfig_gui.py:972
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:975
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:1165
 msgid ""
@@ -2043,7 +2007,6 @@ msgid "Autoprobe results:"
 msgstr "Tarama sonuçlarý:"
 
 #: ../iw/xconfig_gui.py:1692
-#, fuzzy
 msgid "Video card RAM: "
 msgstr "Ekran Kartý"
 
@@ -2111,34 +2074,31 @@ msgstr ""
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Güvenlik Seviyesi:"
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Kullanýlan RAID Aygýtý"
+msgstr "Güvenilir Aygýtlar:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Sil"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
-#, fuzzy
 msgid "Mail (SMTP)"
-msgstr "Toplam (M)"
+msgstr "E-posta (SMTP)"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
@@ -2146,23 +2106,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Yazýcý Desteði"
+msgstr "Diðer portlar"
 
 #: ../textw/firewall_text.py:120
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Geçersiz Açýlýþ Etiketi:"
+msgstr "Geçersiz Seçim"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
 msgstr ""
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Yapýlandýrma Tamamlandý"
+msgstr "Güvenlik Duvarý Ayarlarý - Özelleþtir"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2252,17 +2209,15 @@ msgstr "Yönlendirici (IP):"
 
 #: ../loader/net.c:295 ../textw/network_text.py:74
 msgid "Primary nameserver:"
-msgstr "Birincil DNS sunucusu:"
+msgstr "Birinci DNS sunucusu:"
 
 #: ../textw/network_text.py:75
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Birincil DNS sunucusu:"
+msgstr "Ýkinci DNS sunucusu:"
 
 #: ../textw/network_text.py:76
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Birincil DNS sunucusu:"
+msgstr "Üçüncü DNS sunucusu:"
 
 #: ../textw/network_text.py:121
 msgid "Invalid information"
@@ -2586,9 +2541,8 @@ msgid ""
 msgstr "Sistemde daha önce varolan tüm Linux kurulumlarýný silmek üzeresiniz."
 
 #: ../installclasses/laptop.py:7
-#, fuzzy
 msgid "Laptop"
-msgstr "Dizüstü Bilgisayar Desteði"
+msgstr "Dizüstü Bilgisayar"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2710,7 +2664,6 @@ msgid "Error Creating Device Nodes"
 msgstr "Aygýt Düðümlerinin Oluþturulmasýnda Hata"
 
 #: ../libfdisk/fsedit.c:1030
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -3122,7 +3075,6 @@ msgid "Illegal RAID mountpoint"
 msgstr "Hatalý RAID baðlama noktasý"
 
 #: ../libfdisk/gnomefsedit.c:2276
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
@@ -3481,9 +3433,9 @@ msgid "Loading"
 msgstr "Yükleniyor"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "%s ramdisk yükleniyor..."
+msgstr "%s sürücüsü yükleniyor..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3598,7 +3550,6 @@ msgstr ""
 "misiniz?"
 
 #: ../loader/loader.c:825
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3609,16 +3560,15 @@ msgstr ""
 "basýp ek aygýt sürücülerini yapýlandýrabilirsiniz."
 
 #: ../loader/loader.c:839
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Red Hat Linux bulunan dizin:"
+msgstr "Görüntülerin bulunduðu dizin:"
 
 #: ../loader/loader.c:859
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
 #: ../loader/loader.c:907
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s aygýtýnda bir Red Hat Linux kurulum aðacý bulunamadý."
 
@@ -3695,7 +3645,6 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
 
 #: ../loader/loader.c:2255
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3719,14 +3668,12 @@ msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
 #: ../loader/loader.c:2471
-#, fuzzy
 msgid "IDE"
-msgstr "KDE - K Masaüstü Ortamý"
+msgstr "IDE"
 
 #: ../loader/loader.c:2471
-#, fuzzy
 msgid "Initializing IDE modules..."
-msgstr "CDROM hazýrlanýyor..."
+msgstr "IDE modüller yükleniyor..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3885,14 +3832,12 @@ msgid "PCMCIA"
 msgstr ""
 
 #: ../loader/pcmcia.c:105
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 msgstr "%s sürücü disketini sürücüye yerleþtirin."
 
 #: ../loader/pcmcia.c:114
-#, fuzzy
 msgid "Failed to mount disk."
-msgstr "Sürücü disketi baðlanamadý."
+msgstr "Disk baðlanamadý."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
@@ -3949,7 +3894,6 @@ msgid "Web site name:"
 msgstr "Web sayfasý adý:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
 msgstr "Kullanýcý adýyla ftp ya da vekil (proxy) sunucu kullan"
 
@@ -3983,7 +3927,6 @@ msgid "%s is not a valid hostname."
 msgstr "%s tanýmlý bir makina adý deðil."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -4013,11 +3956,11 @@ msgstr "HTTP Vekil Sunucu:"
 
 #: ../loader/urls.c:356
 msgid "FTP Proxy Port:"
-msgstr "FTP Vekil Ýskelesi:"
+msgstr "FTP Vekil Portu:"
 
 #: ../loader/urls.c:357
 msgid "HTTP Proxy Port:"
-msgstr "HTTP Vekil (proxy) Ýskelesi:"
+msgstr "HTTP Vekil (proxy) Portu:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
@@ -4029,7 +3972,7 @@ msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Harita geniþliði (benek)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
@@ -4037,31 +3980,31 @@ msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Dünya"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Kuzey Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Güney Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Hindstan"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Avrupa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afrika"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Asya"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
@@ -4072,9 +4015,8 @@ msgid "gglobe-canvas"
 msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Ýzle:"
+msgstr "Ýzle: "
 
 msgid "Base"
 msgstr "Temel"
@@ -4124,9 +4066,8 @@ msgstr "IPX/Netware(tm) Baðlantýsý"
 msgid "Anonymous FTP Server"
 msgstr "FTP Sunucu"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "NFS Sunucu"
+msgstr "SQL Sunucu"
 
 msgid "Web Server"
 msgstr "Web Sunucu"
@@ -4151,50 +4092,3 @@ msgstr "Çekirdek Geliþtirme"
 
 msgid "Utilities"
 msgstr "Yardýmcý Programlar"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "%s aygýtýnýn baðlanmasýnda hata: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "LILO kurma"
-
-#~ msgid "Up"
-#~ msgstr "Yukarý"
-
-#~ msgid "Name: "
-#~ msgstr "Ýsim: "
-
-#~ msgid "Package Details"
-#~ msgstr "Paket Ayrýntýlarý"
-
-#~ msgid "Size: "
-#~ msgstr "Boy: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Kurulum Ýçin Paket Seçimi"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Bölümlendirme Seçimini Onayla"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Bu yapýlandýrmayý sýna"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Öntanýmlý Masaüstü:"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Red Hat Linux'un sistem yükleyicisi baþka iþletim sistemlerini de "
-#~ "yükleyebilir. Lütfen hangi bölümlerin açýlýþ bölümü olabileceklerini ve "
-#~ "etiketlerini belirtin\n"
-#~ "\n"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Takas Bölümü"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres (SQL) Sunucu"
