@@ -17,6 +17,7 @@
 from snack import *
 import sys
 import os
+import isys
 import iutil
 import time
 import gettext_rh
