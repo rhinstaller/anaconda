@@ -106,6 +106,10 @@ static void loadLanguageList(int flags) {
 					     code, keyboard, timezone) != 7) {
 	    logMessage("bad line %d in lang-table", lineNum);
 	} else {
+#ifndef INCLUDE_KON
+	    if (!strcmp (name, "Japanese"))
+		continue;
+#endif
 	    languages[numLanguages].lang = strdup(name);
 	    languages[numLanguages].key	= strdup(key);
 	    languages[numLanguages].font = strdup(sun);
@@ -311,6 +315,7 @@ int chooseLanguage(char ** lang, int flags) {
 	numStrings = allocedStrings = 0;
     }
 
+#ifdef INCLUDE_KON
     {
 	extern int continuing;
 	extern void stopNewt(void);
@@ -328,6 +333,7 @@ int chooseLanguage(char ** lang, int flags) {
 	    execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
 	}
     }
+#endif
     
     loadLanguage (NULL, flags);
     if (languages[choice].map)
