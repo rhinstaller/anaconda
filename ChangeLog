@@ -1,5 +1,8 @@
 2005-01-13  Jeremy Katz  <katzj@redhat.com>
 
+	* po/Makefile: Handle extracting strings which need translating
+	from the glade files.  Requires fixed intltool-extract (0.31.2-3)
+
 	* scripts/upd-instroot: Add libglade2 and pygtk2-libglade2.
 
 	* iw/package_gui.py (PackageSelectionWindow.getScreen): Use
