@@ -1032,7 +1032,7 @@ class FileSystemSet:
             dev = entry.device.getDevice()
             if not dev or dev == "none":
                 continue
-            if not mountpoint:
+            if not entry.mountpoint:
                 continue
             label = isys.readExt2Label(dev)
             if label:
