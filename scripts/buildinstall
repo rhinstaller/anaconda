@@ -63,7 +63,6 @@ if [ $BUILDARCH = "sparc" ]; then
     BUILDARCH=sparc64
 fi
 
-set -x
 if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
@@ -73,8 +72,6 @@ if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder 
 	PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
     fi
 fi
-
-exit 0
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH"
