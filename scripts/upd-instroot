@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm jfsutils librpm404 rhpl slang libxml2 libxml2-python"
+         hdparm lvm jfsutils librpm404 rhpl libxml2 libxml2-python"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -739,6 +739,11 @@ if [ -n "$NEEDGR" ]; then
     fi
     rm -f $DESTGR/usr/bin/gtk-query-immodules-2.0
 fi
+
+# minislang can pretend to be utf8 slang for us
+for p in $DEST $DESTGR; do
+    ln -sf ./libslang.so.1 $p/usr/lib/libslang-utf8.so.1
+done
 
 rm -f $KEEPFILE $KEEPFILEGR
 
