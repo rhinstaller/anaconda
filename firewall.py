@@ -85,30 +85,23 @@ class Firewall:
     def write (self, instPath):
 	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart", "-f" ]
 
-        if self.enabled:
-	    args = args + self.getArgList()
 
-            try:
-                if flags.setupFilesystems:
-                    iutil.execWithRedirect(args[0], args, root = instPath,
-                                           stdout = None, stderr = None)
-                else:
-                    log("would have run %s", args)
-            except RuntimeError, msg:
-                log ("lokkit run failed: %s", msg)
-            except OSError, (errno, msg):
-                log ("lokkit run failed: %s", msg)
+        args = args + self.getArgList()
+
+        try:
+            if flags.setupFilesystems:
+                iutil.execWithRedirect(args[0], args, root = instPath,
+                                       stdout = None, stderr = None)
             else:
-                f = open(instPath +
-                         '/etc/sysconfig/system-config-securitylevel', 'w')
-                f.write("# system-config-securitylevel config written out by anaconda\n\n")
-                for arg in args[3:]:
-                    f.write("%s\n" %(arg,))
-                f.close()
-                    
+                log("would have run %s", args)
+        except RuntimeError, msg:
+            log ("lokkit run failed: %s", msg)
+        except OSError, (errno, msg):
+            log ("lokkit run failed: %s", msg)
         else:
-            # remove /etc/sysconfig/iptables
-	    file = instPath + "/etc/sysconfig/iptables"
-	    if os.access(file, os.O_RDONLY):
-                os.remove(file)
-
+            f = open(instPath +
+                     '/etc/sysconfig/system-config-securitylevel', 'w')
+            f.write("# system-config-securitylevel config written out by anaconda\n\n")
+            for arg in args[3:]:
+                f.write("%s\n" %(arg,))
+            f.close()
