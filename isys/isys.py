@@ -244,6 +244,9 @@ def makeDevInode(name, fn=None):
         _isys.mkdevinode(name, path)
     return path
 
+def mknod(pathname, mode, dev):
+    return _isys.mknod(pathname, mode, dev)
+
 def inet_ntoa (addr):
     return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ff,
                             (addr >> 16) & 0x000000ff,
