@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2000-02-02 17:43-0500\n"
+"POT-Creation-Date: 2000-02-05 14:42-0500\n"
 "PO-Revision-Date: 1999-04-03 12:20+0200\n"
 "Last-Translator: Leon Kanter <leon@geon.donetsk.ua>\n"
 "Language-Team: DonLUG <donlug@geon.donetsk.ua>\n"
@@ -23,12 +23,13 @@ msgstr "Форматирование раздела свопинга на /dev/%s..."
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
-#: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711
-#: ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79
-#: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
+#: ../loader/devices.c:183 ../loader/lang.c:89 ../loader/loader.c:471
+#: ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:1683
+#: ../loader/loader.c:1729 ../loader/loader.c:1800 ../loader/urls.c:70
+#: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
+#: ../loader/urls.c:228 ../text.py:280 ../text.py:765 ../todo.py:330
+#: ../todo.py:659 ../todo.py:690
 msgid "Error"
 msgstr "Ошибка"
 
@@ -41,7 +42,7 @@ msgstr "Ошибка создания свопинга на устройстве "
 msgid "Error unmounting %s: %s"
 msgstr "Ошибка отмонтирования %s: %s"
 
-#: ../fstab.py:345 ../todo.py:410
+#: ../fstab.py:345 ../todo.py:412
 msgid "Creating"
 msgstr "Создание"
 
@@ -68,15 +69,15 @@ msgstr "Создание файловой системы loopback на устройстве /dev/%s..."
 msgid "Error mounting %s: %s"
 msgstr "Ошибка монтирования %s: %s"
 
-#: ../gui.py:270 ../gui.py:516
+#: ../gui.py:277 ../gui.py:523
 msgid "Next"
 msgstr "Далее"
 
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
+#: ../gui.py:278 ../gui.py:522 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
+#: ../loader/devices.c:168 ../loader/devices.c:245 ../loader/lang.c:548
 #: ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639
-#: ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162
+#: ../loader/loader.c:748 ../loader/loader.c:1151 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
 #: ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297
@@ -89,47 +90,47 @@ msgstr "Далее"
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
-#: ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186
-#: ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145
-#: ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
+#: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
 msgstr "Назад"
 
-#: ../gui.py:272 ../gui.py:520
+#: ../gui.py:279 ../gui.py:527
 msgid "Show Help"
 msgstr "Показать помощь"
 
-#: ../gui.py:273 ../gui.py:519
+#: ../gui.py:280 ../gui.py:526
 msgid "Hide Help"
 msgstr "Скрыть помощь"
 
-#: ../gui.py:274 ../gui.py:518
+#: ../gui.py:281 ../gui.py:525
 msgid "Finish"
 msgstr "Готово"
 
-#: ../gui.py:277 ../gui.py:545
+#: ../gui.py:284 ../gui.py:552
 msgid "Online Help"
 msgstr "Помощь"
 
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
+#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1005
 #: ../text.py:1034
 msgid "Language Selection"
 msgstr "Выбор языка"
 
-#: ../gui.py:482
+#: ../gui.py:489
 msgid "Red Hat Linux Installer"
 msgstr "Инсталляторr Red Hat Linux"
 
-#: ../gui.py:486
+#: ../gui.py:493
 msgid "Red Hat Linux Install Shell"
 msgstr "Оболочка инсталлятора Red Hat Linux"
 
-#: ../gui.py:497
+#: ../gui.py:504
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Инсталлятор Red Hat Linux на %s"
 
-#: ../gui.py:498
+#: ../gui.py:505
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Оболочка инсталлятора Red Hat Linux на %s"
@@ -168,8 +169,8 @@ msgstr ""
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
 #: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
-#: ../textw/silo.py:185
+#: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
+#: ../textw/silo.py:194
 msgid "Ok"
 msgstr "Ok"
 
@@ -194,7 +195,7 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS1 (COM2 в DOS)"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:185
 msgid "Device"
 msgstr "Устройство"
 
@@ -204,29 +205,29 @@ msgid "What device is your mouse located on? %s %i"
 msgstr "К какому устройству подключена ваша мышь? %s %i"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
-#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
+#: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:245
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255
-#: ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639
-#: ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905
-#: ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139
-#: ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774
-#: ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146
-#: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
-#: ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342
-#: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
-#: ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744
-#: ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165
-#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
-#: ../textw/packages.py:85 ../textw/packages.py:144
+#: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
+#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
+#: ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:748
+#: ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:995
+#: ../loader/loader.c:1151 ../loader/loader.c:1683 ../loader/loader.c:1729
+#: ../loader/loader.c:1792 ../loader/loader.c:1800 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
+#: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
+#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229
+#: ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471
+#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
+#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
+#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/partitioning.py:273 ../textw/partitioning.py:281
-#: ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66
-#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
-#: ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98
-#: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
-#: ../textw/userauth.py:248
+#: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
+#: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
+#: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
+#: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
+#: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
 msgstr "Ok"
 
@@ -362,8 +363,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
-#: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../loader/loader.c:1792 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
+#: ../textw/silo.py:125 ../textw/silo.py:143 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -416,7 +417,6 @@ msgid "Hostname"
 msgstr "Имя хоста"
 
 #: ../text.py:518
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -427,8 +427,8 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"С помощью загрузочного диска вы сможете загружать Linux точно так же, как и "
-"стандартным загрузчиком. Это может быть полезно, если вы не хотите "
+"С помощью загрузочного диска вы сможете загружать Linux независимо от "
+"стандартного загрузчика. Это может быть полезно, если вы не хотите "
 "устанавливать lilo, если другая операционная система удалила lilo, или lilo "
 "не может работать в вашей конфигурации. Загрузочный диск также может быть "
 "использован с ремонтной дискетой Red Hat, которая намного облегчит "
@@ -622,11 +622,11 @@ msgstr "Настройка сети"
 msgid "Time Zone Setup"
 msgstr "Выбор часового пояса"
 
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr "Пароль пользователя root"
 
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
+#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr "Создание учетной записи пользователя"
 
@@ -639,8 +639,8 @@ msgstr "Аутентификация"
 msgid "Configuration Complete"
 msgstr "Настройка Х"
 
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
-#: ../textw/silo.py:193
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:90
+#: ../textw/silo.py:202
 #, fuzzy
 msgid "SILO Configuration"
 msgstr "Конфигурация LILO"
@@ -736,98 +736,98 @@ msgstr "Отмена"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:329
+#: ../todo.py:331
 #, fuzzy, c-format
 msgid "Error copying file: %s"
 msgstr "Ошибка открытия: файл kickstart %s: %s"
 
-#: ../todo.py:410
+#: ../todo.py:412
 #, fuzzy
 msgid "Creating boot disk..."
 msgstr "Создать загрузочный диск"
 
-#: ../todo.py:430
+#: ../todo.py:432
 #, fuzzy
 msgid "Reading"
 msgstr "Осталось"
 
-#: ../todo.py:431
+#: ../todo.py:433
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Посылаю запрос конфигурации IP..."
 
-#: ../todo.py:627 ../todo.py:640
+#: ../todo.py:629 ../todo.py:642
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:646
+#: ../todo.py:648
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:647
+#: ../todo.py:649
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:658 ../todo.py:689
+#: ../todo.py:660 ../todo.py:691
 #, fuzzy, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Ошибка открытия: файл kickstart %s: %s"
 
-#: ../todo.py:700
+#: ../todo.py:702
 #, fuzzy
 msgid "Finding"
 msgstr "Осталось"
 
-#: ../todo.py:701
+#: ../todo.py:703
 #, fuzzy
 msgid "Finding packages to upgrade..."
 msgstr "Уточните пакеты для обновления"
 
-#: ../todo.py:944
+#: ../todo.py:952
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:945
+#: ../todo.py:953
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1112
+#: ../todo.py:1120
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1114
+#: ../todo.py:1122
 #, fuzzy, c-format
 msgid "Installing %s.\n"
 msgstr "Инсталляция пакетов"
 
-#: ../todo.py:1135
+#: ../todo.py:1143
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1138
+#: ../todo.py:1146
 #, fuzzy
 msgid "Mount Point"
 msgstr "Точка монтирования:"
 
-#: ../todo.py:1138
+#: ../todo.py:1146
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1151
+#: ../todo.py:1159
 #, fuzzy
 msgid "Disk Space"
 msgstr "Разбиение диска"
 
-#: ../todo.py:1175
+#: ../todo.py:1183
 #, fuzzy
 msgid "Post Install"
 msgstr "Инсталляция"
 
-#: ../todo.py:1176
+#: ../todo.py:1184
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Проверить эту конфигурацию"
@@ -868,71 +868,71 @@ msgstr "Частоты строчной развертки"
 msgid "Vertical frequency range"
 msgstr "Частоты кадровой развертки"
 
-#: ../iw/account.py:14
+#: ../iw/account.py:15
 msgid "Account Configuration"
 msgstr "Учетная запись пользователя"
 
-#: ../iw/account.py:35
+#: ../iw/account.py:36
 #, fuzzy
 msgid "Root password accepted."
 msgstr "Пароль пользователя root:"
 
-#: ../iw/account.py:38
+#: ../iw/account.py:39
 #, fuzzy
 msgid "Root password is too short."
 msgstr "Пароль пользователя root:"
 
-#: ../iw/account.py:40
+#: ../iw/account.py:41
 #, fuzzy
 msgid "Root password does not match."
 msgstr "Пароли не совпадают"
 
-#: ../iw/account.py:138
+#: ../iw/account.py:168
 msgid "Root Password: "
 msgstr "Пароль пользователя root:"
 
-#: ../iw/account.py:141
+#: ../iw/account.py:171
 msgid "Confirm: "
 msgstr "Подтвердите: "
 
-#: ../iw/account.py:197 ../iw/account.py:236
+#: ../iw/account.py:229 ../iw/account.py:268
 msgid "Account Name"
 msgstr "Имя пользователя"
 
-#: ../iw/account.py:201 ../textw/userauth.py:79
+#: ../iw/account.py:233 ../textw/userauth.py:80
 msgid "Password"
 msgstr "Пароль"
 
-#: ../iw/account.py:205 ../textw/userauth.py:80
+#: ../iw/account.py:237 ../textw/userauth.py:81
 msgid "Password (confirm)"
 msgstr "Подтвердите пароль"
 
-#: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
-#: ../textw/userauth.py:164
+#: ../iw/account.py:241 ../iw/account.py:268 ../textw/userauth.py:79
+#: ../textw/userauth.py:173
 msgid "Full Name"
 msgstr "Полное имя"
 
-#: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
+#: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
 msgid "Add"
 msgstr "Добавить"
 
-#: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
+#: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
-#: ../textw/userauth.py:176
+#: ../textw/partitioning.py:62 ../textw/silo.py:194 ../textw/silo.py:216
+#: ../textw/userauth.py:185
 msgid "Edit"
 msgstr "Редактировать"
 
-#: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
+#: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
+#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../iw/account.py:224
+#: ../iw/account.py:256
 msgid "New"
 msgstr "Новый"
 
-#: ../iw/auth.py:11 ../textw/userauth.py:250
+#: ../iw/auth.py:11 ../textw/userauth.py:259
 msgid "Authentication Configuration"
 msgstr "Настройка аутентификации"
 
@@ -944,7 +944,7 @@ msgstr "Разрешить пароли MD5"
 msgid "Enable shadow passwords"
 msgstr "Разрешить скрытые пароли"
 
-#: ../iw/auth.py:53 ../textw/userauth.py:255
+#: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
 msgstr "Разрешить NIS"
 
@@ -1040,7 +1040,7 @@ msgstr "Уточните пакеты для обновления"
 msgid "fdisk"
 msgstr "fdisk"
 
-#: ../iw/fdisk.py:80
+#: ../iw/fdisk.py:78
 msgid "Select drive to run fdisk on"
 msgstr "Выберите устройство для работы fdisk"
 
@@ -1073,15 +1073,15 @@ msgstr "По выбору"
 msgid "Install Type"
 msgstr "Тип инсталляции"
 
-#: ../iw/installpath.py:181
+#: ../iw/installpath.py:187
 msgid "Install"
 msgstr "Инсталляция"
 
-#: ../iw/installpath.py:183
+#: ../iw/installpath.py:189
 msgid "Upgrade"
 msgstr "Обновление"
 
-#: ../iw/installpath.py:236
+#: ../iw/installpath.py:242
 msgid "Use fdisk"
 msgstr "Использовать fdisk"
 
@@ -1089,31 +1089,31 @@ msgstr "Использовать fdisk"
 msgid "Keyboard Configuration"
 msgstr "Конфигурация клавиатуры"
 
-#: ../iw/keyboard.py:56
+#: ../iw/keyboard.py:57
 msgid "Model"
 msgstr "Модель"
 
-#: ../iw/keyboard.py:75
+#: ../iw/keyboard.py:76
 msgid "Layout"
 msgstr "Раскладка"
 
-#: ../iw/keyboard.py:94
+#: ../iw/keyboard.py:95
 msgid "Dead Keys"
 msgstr ""
 
-#: ../iw/keyboard.py:103
+#: ../iw/keyboard.py:104
 msgid "Enable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:104
+#: ../iw/keyboard.py:105
 msgid "Disable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:113
+#: ../iw/keyboard.py:114
 msgid "Test your selection here:"
 msgstr "Проверьте ваш выбор здесь:"
 
-#: ../iw/language.py:21 ../loader/lang.c:267
+#: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
 msgstr "Какой язык должен использоваться в процессе инсталляции?"
 
@@ -1129,11 +1129,11 @@ msgstr "Тип"
 msgid "Install LILO boot record on:"
 msgstr "Установить загрузчик LILO на:"
 
-#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "First sector of boot partition"
 msgstr "Первый сектор загрузочного раздела"
 
@@ -1154,23 +1154,22 @@ msgid "Do not install LILO"
 msgstr "Не устанавливать LILO"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Default"
 msgstr "По умолчанию"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:176
+#: ../textw/silo.py:185
 msgid "Partition type"
 msgstr "Тип раздела"
 
 #: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
-#: ../textw/silo.py:176
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
+#: ../textw/silo.py:185
 msgid "Boot label"
 msgstr "Метка загрузки"
 
-#: ../iw/mouse.py:134
-#, fuzzy
+#: ../iw/mouse.py:132
 msgid "Emulate 3 Buttons"
 msgstr "Эмулировать 3 кнопки?"
 
@@ -1232,7 +1231,7 @@ msgstr "Описание пакета"
 
 #: ../iw/package.py:335
 msgid "Size: "
-msgstr "Размер :"
+msgstr "Размер:"
 
 #: ../iw/package.py:341
 msgid "Select Package For Installation"
@@ -1312,14 +1311,18 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Вы решили разместить корневую файловую систему в файле на уже существующей "
+"файловой системе DOS или Windows. Укажите размеры корневой файловой системы "
+"и пространства свопинга (в мегабайтах). Вместе они не должны превышать %d "
+"мегабайт."
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
-msgstr ""
+msgstr "Размер корневой файловой системы:"
 
 #: ../iw/rootpartition.py:140
 msgid "Swap space size:"
-msgstr ""
+msgstr "Размер пространства свопинга:"
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
 msgid "Automatic Partitioning"
@@ -1349,58 +1352,52 @@ msgid "Manually partition"
 msgstr "Ручное разбиение"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Конфигурация LILO"
+msgstr "Конфигурация SILO"
 
 #: ../iw/silo.py:162
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Установить загрузчик LILO на:"
+msgstr "Установить загрузчик SILO на:"
 
 #: ../iw/silo.py:175
-#, fuzzy
 msgid "Create PROM alias"
 msgstr "Создать загрузочный диск"
 
 #: ../iw/silo.py:193
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Сделать linux загрузочным устройством PROM по умолчанию"
 
 #: ../iw/silo.py:225
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Не устанавливать LILO"
+msgstr "Не устанавливать SILO"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:84
 msgid "Time Zone Selection"
 msgstr "Выбор часового пояса"
 
-#: ../iw/timezone.py:143
+#: ../iw/timezone.py:147
 msgid "View:"
 msgstr "Просмотр:"
 
-#: ../iw/timezone.py:151 ../iw/timezone.py:152
+#: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
 msgstr "Системные часы используют UTC"
 
-#: ../iw/timezone.py:200
-#, fuzzy
+#: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
 msgstr "Использовать летнее время"
 
-#: ../iw/timezone.py:214
+#: ../iw/timezone.py:218
 msgid "Location"
 msgstr "Расположение"
 
-#: ../iw/timezone.py:215
+#: ../iw/timezone.py:219
 msgid "UTC Offset"
 msgstr "Сдвиг относительно UTC"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Хотите ли вы настроить доступ к сети?"
+msgstr "Хотите ли вы изменить настройки системы?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
@@ -1427,26 +1424,24 @@ msgid "Test this configuration"
 msgstr "Проверить эту конфигурацию"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "Конфигурация LILO"
+msgstr "Конфигурация монитора"
 
 #: ../iw/xconfig.py:215
-#, fuzzy
 msgid "Horizontal Sync"
-msgstr "Частоты строчной развертки"
+msgstr "Строчная развертка"
 
 #: ../iw/xconfig.py:224
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Кадровая развертка"
 
 #: ../iw/xconfig.py:329
-#, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Ваш монитор не может быть определен автоматически. Выберите его из списка:"
+"Объем видеопамяти не может быть определен автоматически. Выберите объем "
+"видеопамяти из списка:"
 
 #: ../iw/xconfig.py:340
 msgid ""
@@ -1461,6 +1456,8 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Если найденные параметры не соответствуют вашему оборудованию, выберите "
+"правильные установки из списка ниже:"
 
 #: ../iw/xconfig.py:418
 msgid "Use Graphical Login"
@@ -1482,19 +1479,19 @@ msgstr ""
 "указывать дополнительные параметры не требуется или вы не знаете, что это "
 "такое, оставьте это поле пустым."
 
-#: ../textw/lilo.py:85 ../textw/silo.py:91
+#: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
 msgstr "Куда вы хотите установить начальный загрузчик?"
 
-#: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
+#: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../textw/lilo.py:114 ../textw/silo.py:132
+#: ../textw/lilo.py:114 ../textw/silo.py:133
 msgid "Edit Boot Label"
 msgstr "Изменить метку загрузки"
 
-#: ../textw/lilo.py:181 ../textw/silo.py:188
+#: ../textw/lilo.py:181 ../textw/silo.py:197
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1575,20 +1572,19 @@ msgstr "Выберите разделы для форматирования"
 
 #: ../textw/partitioning.py:261
 msgid "Root filesystem size"
-msgstr ""
+msgstr "Размер корневой файловой системы"
 
 #: ../textw/partitioning.py:262
 msgid "Swap space"
-msgstr ""
+msgstr "Пространство свопинга"
 
 #: ../textw/partitioning.py:271 ../textw/partitioning.py:277
-#, fuzzy
 msgid "Bad Size"
-msgstr "Размер"
+msgstr "Неверный размер"
 
 #: ../textw/partitioning.py:272
 msgid "The size you enter must be a number."
-msgstr ""
+msgstr "Введенный вами размер должен быть цифровой величиной"
 
 #: ../textw/partitioning.py:278
 #, c-format
@@ -1596,15 +1592,16 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
-
-#: ../textw/silo.py:63
-#, fuzzy
-msgid "Create PROM alias `linux'"
-msgstr "Создать загрузочный диск"
+"Общий размер должен быть меньшим, чем свободное место на диске, которое "
+"составляет %d мегабайт."
 
 #: ../textw/silo.py:64
+msgid "Create PROM alias `linux'"
+msgstr "Создать PROM алиас `linux'"
+
+#: ../textw/silo.py:65
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "Установить загрузочное устройство PROM по умолчанию"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
@@ -1614,7 +1611,7 @@ msgstr "В каком часовом поясе вы находитесь?"
 msgid "Hardware clock set to GMT?"
 msgstr "Установлены ли системные часы по GMT?"
 
-#: ../textw/userauth.py:10
+#: ../textw/userauth.py:11
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1624,65 +1621,74 @@ msgstr ""
 "исключить ошибку при вводе. Помните, что пароль пользователя root - ключевой "
 "момент безопасности системы!"
 
-#: ../loader/urls.c:337 ../textw/userauth.py:23
+#: ../loader/urls.c:337 ../textw/userauth.py:24
 msgid "Password:"
 msgstr "Пароль:"
 
-#: ../textw/userauth.py:24
+#: ../textw/userauth.py:25
 msgid "Password (again):"
 msgstr "Повторите пароль:"
 
-#: ../textw/userauth.py:40 ../textw/userauth.py:95
+#: ../textw/userauth.py:41 ../textw/userauth.py:104
 msgid "Password Length"
 msgstr "Длина пароля"
 
-#: ../textw/userauth.py:41
+#: ../textw/userauth.py:42
 msgid "The root password must be at least 6 characters long."
 msgstr "Пароль пользователя root должен содержать не менее 6 символов."
 
-#: ../textw/userauth.py:45 ../textw/userauth.py:103
+#: ../textw/userauth.py:46 ../textw/userauth.py:112
 msgid "Password Mismatch"
 msgstr "Пароли не совпадают"
 
-#: ../textw/userauth.py:46 ../textw/userauth.py:104
+#: ../textw/userauth.py:47 ../textw/userauth.py:113
 msgid "The passwords you entered were different. Please try again."
 msgstr "Введенные вами пароли не совпадают. Повторите ввод."
 
-#: ../textw/userauth.py:71
+#: ../textw/userauth.py:72
 msgid "Edit User"
 msgstr "Редактировать пользователя"
 
-#: ../textw/userauth.py:73
+#: ../textw/userauth.py:74
 msgid "Add User"
 msgstr "Добавить пользователя"
 
-#: ../textw/userauth.py:77
+#: ../textw/userauth.py:78
 msgid "User ID"
-msgstr "ID пользователя"
-
-#: ../textw/userauth.py:90
-#, fuzzy
-msgid "Missing User ID"
-msgstr "ID пользователя"
+msgstr "Имя пользователя"
 
 #: ../textw/userauth.py:91
 #, fuzzy
-msgid "You must provide a user ID"
-msgstr "Вы должны указать имя сервера."
+msgid "Bad User ID"
+msgstr "Имя пользователя"
 
-#: ../textw/userauth.py:96
+#: ../textw/userauth.py:92
+msgid ""
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
+msgstr ""
+
+#: ../textw/userauth.py:99
+msgid "Missing User ID"
+msgstr "Пропущено имя пользователя"
+
+#: ../textw/userauth.py:100
+msgid "You must provide a user ID"
+msgstr "Вы должны указать имя пользователя"
+
+#: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
 msgstr "Пароль пользователя должен содержать не менее 6 символов."
 
-#: ../textw/userauth.py:113
+#: ../textw/userauth.py:122
 msgid "User Exists"
 msgstr "Пользователь существует"
 
-#: ../textw/userauth.py:114
+#: ../textw/userauth.py:123
 msgid "This user id already exists.  Choose another."
 msgstr "Пользователь с таким ID существует. Выберите другой ID"
 
-#: ../textw/userauth.py:141
+#: ../textw/userauth.py:150
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
@@ -1692,7 +1698,7 @@ msgstr ""
 "пользователя, отличного от root. Не работая под именем root постоянно, вы "
 "снизите риск случайного разрушения конфигурации системы."
 
-#: ../textw/userauth.py:154
+#: ../textw/userauth.py:163
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
@@ -1702,39 +1708,39 @@ msgstr ""
 "достаточно одной учетной записи, отличной от root, но многопользовательская "
 "система может иметь любое количество учетных записей."
 
-#: ../textw/userauth.py:164
+#: ../textw/userauth.py:173
 msgid "User name"
 msgstr "Имя пользователя"
 
-#: ../textw/userauth.py:188
+#: ../textw/userauth.py:197
 msgid "Enter the information for the user."
 msgstr "Введите информацию о пользователе."
 
-#: ../textw/userauth.py:200
+#: ../textw/userauth.py:209
 msgid "Change the information for this user."
 msgstr "Изменить информацию о пользователе"
 
-#: ../textw/userauth.py:251
+#: ../textw/userauth.py:260
 msgid "Use Shadow Passwords"
 msgstr "Использовать скрытые пароли"
 
-#: ../textw/userauth.py:253
+#: ../textw/userauth.py:262
 msgid "Enable MD5 Passwords"
 msgstr "Использовать пароли MD5"
 
-#: ../textw/userauth.py:260
+#: ../textw/userauth.py:269
 msgid "NIS Domain:"
 msgstr "Домен NIS:"
 
-#: ../textw/userauth.py:262
+#: ../textw/userauth.py:271
 msgid "NIS Server:"
 msgstr "Сервер NIS:"
 
-#: ../textw/userauth.py:264
+#: ../textw/userauth.py:273
 msgid "or use:"
 msgstr "или использовать:"
 
-#: ../textw/userauth.py:267
+#: ../textw/userauth.py:276
 msgid "Request server via broadcast"
 msgstr "Запрос сервера через бродкаст"
 
@@ -2128,7 +2134,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
-msgstr "Не достаточно разделов"
+msgstr "Недостаточно разделов"
 
 #: ../libfdisk/gnomefsedit.c:2061
 msgid ""
@@ -2145,13 +2151,12 @@ msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Загрузочные разделы (/boot) допускаются только на RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2077
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Неверный тип RAID для /boot"
+msgstr "Неверная точка монтирования RAID"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "На компьютерах Alpha разделы RAID не согут быть смонтированы как /."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2355,8 +2360,8 @@ msgstr ""
 msgid "Module Parameters"
 msgstr "Параметры модуля"
 
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
+#: ../loader/devices.c:167 ../loader/devices.c:268 ../loader/loader.c:253
+#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1792
 msgid "Devices"
 msgstr "Устройства"
 
@@ -2364,7 +2369,7 @@ msgstr "Устройства"
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Вставьте диск драйверов и нажмите \"OK\" для продолжения."
 
-#: ../loader/devices.c:179 ../loader/loader.c:1783
+#: ../loader/devices.c:179 ../loader/loader.c:1801
 msgid "Failed to mount floppy disk."
 msgstr "Ошибка монтирования дискеты."
 
@@ -2376,7 +2381,7 @@ msgstr ""
 "Вставленная вами дискета не является диском драйверов от этой версии Red Hat "
 "Linux."
 
-#: ../loader/devices.c:206
+#: ../loader/devices.c:233
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2384,11 +2389,11 @@ msgstr ""
 "Какой драйвер необходимо попробовать? Если необходимого драйвера нет в "
 "списке и имеется дополнительный диск драйверов, нажмите F2."
 
-#: ../loader/devices.c:211
+#: ../loader/devices.c:238
 msgid "Which driver should I try?"
 msgstr "Какой драйвер необходимо попробовать?"
 
-#: ../loader/devices.c:219
+#: ../loader/devices.c:246
 msgid "Specify module parameters"
 msgstr "Укажите параметры модуля"
 
@@ -2411,15 +2416,15 @@ msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Ошибка в строке %d файла kickstart %s"
 
-#: ../loader/lang.c:267
+#: ../loader/lang.c:275
 msgid "Choose a Language"
 msgstr "Выберите язык"
 
-#: ../loader/lang.c:534
+#: ../loader/lang.c:546
 msgid "Keyboard Type"
 msgstr "Тип клавиатуры"
 
-#: ../loader/lang.c:535
+#: ../loader/lang.c:547
 msgid "What type of keyboard do you have?"
 msgstr "Укажите тип клавиатуры"
 
@@ -2540,52 +2545,51 @@ msgstr "FTP"
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Невозможно получить виртуальный диск второго этапа"
 
-#: ../loader/loader.c:1131
+#: ../loader/loader.c:1143
 msgid "Rescue Method"
 msgstr "Метод восстановления"
 
-#: ../loader/loader.c:1132
+#: ../loader/loader.c:1144
 msgid "Installation Method"
 msgstr "Метод инсталляции"
 
-#: ../loader/loader.c:1134
+#: ../loader/loader.c:1146
 msgid "What type of media contains the rescue image?"
 msgstr "Какой носитель содержит спасательный образ?"
 
-#: ../loader/loader.c:1136
+#: ../loader/loader.c:1148
 msgid "What type of media contains the packages to be installed?"
 msgstr "Носитель какого типа содержит пакеты для инсталляции?"
 
-#: ../loader/loader.c:1666
+#: ../loader/loader.c:1684
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Невозможно найти ks.cfg на загрузочной дискете."
 
-#: ../loader/loader.c:1712
-#, fuzzy, c-format
+#: ../loader/loader.c:1730
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Каталог Red Hat:"
+msgstr "Ошибка чтения каталога %s: %s"
 
-#: ../loader/loader.c:1775
-#, fuzzy
+#: ../loader/loader.c:1793
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Вставьте диск драйверов и нажмите \"OK\" для продолжения."
+msgstr "Вставьте диск обновлений и нажмите \"OK\" для продолжения."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Updates"
-msgstr ""
+msgstr "Обновления"
 
-#: ../loader/loader.c:1788
+#: ../loader/loader.c:1806
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Чтение обновлений anaconda..."
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1942
+#: ../loader/loader.c:1960
 msgid "Initializing PC Card Devices..."
 msgstr "Инициализация устройств PC Card..."
 
@@ -2663,7 +2667,7 @@ msgstr "неверный аргумент сетевой команды  %s: :s%"
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "В сетевой команде неверно указан bootproto %s"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
@@ -2710,14 +2714,14 @@ msgid "Would you like to set up networking?"
 msgstr "Хотите ли вы настроить доступ к сети?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Каталог Red Hat:"
+msgstr "Ошибка подключения к %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Каталог Red Hat:"
+msgstr "Ошибка получения %s: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
@@ -2785,12 +2789,12 @@ msgstr "Вы должны указать каталог."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Неизвестный сервер"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s не является допустимым именем сервера."
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2806,7 +2810,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "Если вы используете HTTP proxy-сервер, укажите его имя или адрес IP"
+msgstr "Если вы используете HTTP proxy-сервер, укажите его имя или адрес IP."
 
 #: ../loader/urls.c:334
 msgid "Account name:"
@@ -2831,44 +2835,3 @@ msgstr "Порт HTTP Proxy:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Загрузка драйвера SCSI"
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Осталось"
-
-#~ msgid "Variant"
-#~ msgstr "Вариант"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Результат автоопределения:"
-
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "При чтении блочного устройства %s найден диск с поврежденной меткой Sun. Вам "
-#~ "необходимо использовать fdisk для создания и записи новой метки на это "
-#~ "устройство."
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "Поврежденная дисковая метка Sun"
-
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Вы должны назначить загрузочный (/boot) раздел на раздел Linux native "
-#~ "(ext2)или раздел RAID-1 для продолжения инсталляции."
-
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Поскольку вы назначили корневой раздел (/) на устройство RAID, вы должны "
-#~ "также назначить загрузочный раздел (boot) на раздел Linux native (ext2) или "
-#~ "на раздел RAID-1 для продолжения инсталляции."
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "Использовать fdisk для разбиения дисков"
