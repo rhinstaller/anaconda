@@ -15,9 +15,13 @@ class InstallClass(BaseInstallClass):
 	self.setHostname("localhost.localdomain")
 	if not expert:
 	    self.addToSkipList("lilo")
-	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.setMakeBootdisk(1)
+
+        self.showgroups = [ "News Server",
+                            "NFS Server",
+                            "Web Server",
+                            "DNS Name Server" ]
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', (16, -1, 0), (None, -1, 0), (0,0))

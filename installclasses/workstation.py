@@ -3,8 +3,11 @@ from installclass import FSEDIT_CLEAR_LINUX
 from translate import N_
 import os
 
-# GNOME and KDE installs are derived from this
-class Workstation(BaseInstallClass):
+class InstallClass(BaseInstallClass):
+    name = N_("Install Workstation")
+    pixmap = "workstation.png"
+
+    sortPriority = 1
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self)
@@ -12,8 +15,12 @@ class Workstation(BaseInstallClass):
 	if not expert:
 	    self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
-	self.addToSkipList("package-selection")
 	self.setMakeBootdisk(1)
+
+        self.showgroups = [ "KDE",
+                            "GNOME",
+                            "Games",
+                            "Application Development" ]
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', (16, -1, 0), (None,-1,0), (0,0))
