@@ -459,8 +459,8 @@ class InstallControlWindow:
             a.add (frame)
             a.set (0, 0, 1.0, 1.0)
             
-            self.textWin.set_default_size (590, 393)
-            self.textWin.set_usize (590, 393)
+            self.textWin.set_default_size (635, 393)
+            self.textWin.set_usize (635, 393)
             self.textWin.set_position (WIN_POS_CENTER)
 
             table.attach (a, 1, 2, 1, 2, FILL|EXPAND, FILL|EXPAND, 5, 5)
