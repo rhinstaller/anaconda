@@ -535,9 +535,6 @@ class DiskSet:
                 if (part.is_active()
                     and (part.get_flag(parted.PARTITION_RAID)
                          or part.get_flag(parted.PARTITION_LVM))):
-                    # skip RAID and LVM partitions.
-                    # XXX check for raid superblocks on non-autoraid partitions
-                    #  (#32562)
                     pass
                 elif (part.fs_type and
                       part.fs_type.name in fsset.getUsableLinuxFs()):
