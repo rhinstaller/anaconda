@@ -11,6 +11,7 @@
 #include <zlib.h>
 
 #define gunzip_open(x) gzopen(x, "r")
+#define gunzip_dopen gzdopen(x, "r")
 #define gunzip_close gzclose
 #define gunzip_read gzread
 #define gzip_write gzwrite

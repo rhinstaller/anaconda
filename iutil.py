@@ -459,7 +459,6 @@ def isUSBDevFSMounted():
 def getPPCMachine():
     machine = None
     # ppc machine hash
-    # PPC XXX: add MAI
     ppcType = { 'Mac'      : 'PMac',
                 'Book'     : 'PMac',
                 'CHRP IBM' : 'pSeries',
@@ -469,7 +468,9 @@ def getPPCMachine():
                 'Amiga'    : 'APUS',
                 'Gemini'   : 'Gemini',
                 'Shiner'   : 'ANS',
-                'BRIQ'     : 'BRIQ'
+                'BRIQ'     : 'BRIQ',
+                'Teron'    : 'Teron',
+                'AmigaOne' : 'Teron'
                 }
 
     if getArch() != "ppc":

@@ -33,7 +33,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
 
-    KERNELNAME=vmlinuz
+    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+	KERNELNAME=vmlinux
+    else
+	KERNELNAME=vmlinuz
+    fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
@@ -509,6 +513,8 @@ EOF
 	$MBD_DIR nst0 c 9 128 666 root:root
 	$MBD_DIR random c 1 8 644 root:root
 	$MBD_DIR urandom c 1 9 644 root:root
+	$MBD_DIR nvram c 10 144 644 root:root
+	$MBD_DIR adb c 56 0 644 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 

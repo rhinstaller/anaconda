@@ -122,6 +122,10 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
               XFree86-libs"
 fi
 
+if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
+    PACKAGES="$PACKAGES kernel-pcmcia-cs pdisk yaboot hfsutils"
+fi
+
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
@@ -263,6 +267,7 @@ sbin/mkreiserfs
 sbin/mkraid
 sbin/mkswap
 sbin/parted
+sbin/pdisk
 sbin/pvchange
 sbin/pvcreate
 sbin/pvdata
@@ -292,6 +297,11 @@ sbin/vgsplit
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
 usr/bin/python2.2
+usr/bin/hmount
+usr/bin/humount
+usr/bin/hcopy
+usr/bin/hattrib
+usr/bin/hformat
 usr/lib/anaconda-runtime/*
 usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
@@ -332,11 +342,17 @@ usr/$LIBDIR/python2.2/site-packages/rhpl
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
+usr/lib/yaboot/addnote
+usr/lib/yaboot/ofboot
+usr/lib/yaboot/yaboot
 usr/libexec/convertdb1
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/sbin/anaconda
 usr/sbin/ddcprobe
 usr/sbin/dmidecode
+usr/sbin/mkofboot
+usr/sbin/ofpath
+usr/sbin/ybin
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/b/bterm

@@ -1,15 +1,33 @@
-SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3"
-NETMODULES="pcnet32 tulip yellowfin acenic"
-SCSIMODULES=""
+FSMODS="msdos vfat ext3 reiserfs jfs"
+IDEMODS=""
+SCSIMODS="sd_mod sr_mod st"
+LATEUSBMODS="mousedev usb-storage"
+SECSTAGE="raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
+# need yellowfin for IBM?
+NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too
+	   de4x5 acenic pcnet32 tulip natsemi eepro100 airport"
+
+SCSIMODULES="advansys aic7xxx initio sym53c8xx"
+
+# images we only want on the CD (usually for space reasons)
+ISOMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
 
 prepareBootImage() {
     mkdir -p $TOPDESTPATH/ppc/chrp
+    mkdir -p $TOPDESTPATH/images
 }
 
+# pseries
 makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
            --initrdsize 8192 \
            --loaderbin loader \
            --modules "nfs fat vfat $NETMODULES $SCSIMODULES"
+
+# mac
+makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
+           --initrdsize 8192 \
+           --loaderbin loader \
+           --modules "$NETMODULES $SCSIMODULES $ISOMODULES"
 
 makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
 makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
