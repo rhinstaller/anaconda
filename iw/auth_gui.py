@@ -61,7 +61,7 @@ class AuthWindow (InstallWindow):
         self.todo.auth.nisServer = self.nisServer.get_text ()
 
         self.todo.auth.useLdap = self.ldap.get_active ()
-        self.todo.auth.useLdapauth = 0
+        self.todo.auth.useLdapauth = self.ldap.get_active ()
         self.todo.auth.ldapServer = self.ldapServer.get_text ()
         self.todo.auth.ldapBasedn = self.ldapBasedn.get_text ()
 
