@@ -1907,7 +1907,8 @@ class ToDo:
 
         try:
             if not self.upgrade:
-                self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
+                if self.fdDevice[0:2] == "fd":
+                    self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
 
 		w.set(1)
 
