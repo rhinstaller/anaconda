@@ -12,7 +12,6 @@ class InstallClass(workstation.InstallClass):
 
     def setGroupSelection(self, comps):
 	workstation.InstallClass.setGroupSelection(self, comps)
-	comps["Laptop Support"].select()
 
     if pcmcia.pcicType():
 	default = 1
