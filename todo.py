@@ -764,9 +764,8 @@ class ToDo:
 	for dev in self.firewall.trustdevs:
 	    args.append ("--trust", dev)
 	if self.firewall.enabled > 0:
-	    pass
-	#  iutil.execWithRedirect(args[0], args, root = self.instPath,
-	#		       stdout = None, stderr = None)
+	  iutil.execWithRedirect(args[0], args, root = self.instPath,
+			       stdout = None, stderr = None)
 
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
