@@ -281,6 +281,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	fi
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    insmod ccwgroup$LO
+	insmod cu3088$LO
 	insmod lcs$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
