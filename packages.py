@@ -780,17 +780,13 @@ def doPostInstall(method, id, intf, instPath):
 
 def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
-	log("did not find %s" % instPath + "/usr/sbin/inetdconvert")
 	return
 
     if not os.access (instPath + "/etc/inetd.conf.rpmsave", os.R_OK):
-	log("did not run inetdconvert because no inetd.conf.rpmsave found")
 	return
 
     argv = [ "/usr/sbin/inetdconvert", "--convertremaining",
 	     "--inetdfile", "/etc/inetd.conf.rpmsave" ]
-    
-    log("found inetdconvert, executing %s" % argv)
 
     logfile = os.open (instLog, os.O_APPEND)
     iutil.execWithRedirect(argv[0], argv, root = instPath,
