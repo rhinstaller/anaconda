@@ -600,7 +600,11 @@ class XconfiguratorWindow:
         return INSTALL_NOOP
         
 class BeginInstallWindow:
-    def __call__ (self, screen, todo):
+    def __call__ (self, dir, screen, todo):
+
+        if dir == -1:
+            return INSTALL_NOOP
+        
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
                                   "/tmp/install.log after rebooting your system. You "
@@ -1196,6 +1200,8 @@ class InstallInterface:
 		if step[1] == UpgradeExamineWindow:
 		    rc = apply (step[1](), (dir,) + step[2])
                 elif step[1] == LBA32WarningWindow:
+		    rc = apply (step[1](), (dir,) + step[2])
+                elif step[1] == BeginInstallWindow:
 		    rc = apply (step[1](), (dir,) + step[2])
 		else:
 		    rc = apply (step[1](), step[2])
