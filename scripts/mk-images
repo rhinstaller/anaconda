@@ -181,13 +181,24 @@ intcopymodules () {
     done
 }
 
+# This loops to make sure it resolves dependencies of dependencies of...
 resdeps () {
-    $GETMODDEPS -m $MODDEPS $* 2>&1
-    if [ $? != "0" ] ; then
-	kill -9 $$
-    fi	
-    list=`$GETMODDEPS -m $MODDEPS $*`
-    items=$(for n in $* $list; do echo $n; done | sort -u)
+    items="$*"
+
+    before=1
+    after=2
+
+    while [ $before != $after ]; do
+	before=`echo $items | wc -c`
+
+	if [ $? != "0" ] ; then
+	    kill -9 $$
+	fi	
+	list=`$GETMODDEPS -m $MODDEPS $items`
+	items=$(for n in $items $list; do echo $n; done | sort -u)
+	after=`echo $items | wc -c`
+    done
+
     echo $items
 }
 
