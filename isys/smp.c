@@ -211,7 +211,7 @@ typedef struct PROCENTRY {
 
 #define PROCENTRY_FLAG_EN       0x01
 
-static void seekEntry( vm_offset_t addr );
+static int seekEntry( vm_offset_t addr );
 static void apic_probe( vm_offset_t* paddr, int* where );
 static void readEntry( void* entry, int size );
 
@@ -226,15 +226,17 @@ readType()
     u_char      type;
 
     if ( read( pfd, &type, sizeof( u_char ) ) != sizeof( u_char ) ) {
-        perror( "type read" );
-        fprintf( stderr, "\npfd: %d", pfd );
-        fflush( stderr );
-        exit( 1 );
+/*         perror( "type read" ); */
+/*         fprintf( stderr, "\npfd: %d", pfd ); */
+/*         fflush( stderr ); */
+/*         exit( 1 ); */
+	return -1;
     }
 
     if ( lseek( pfd, -1, SEEK_CUR ) < 0 ) {
-        perror( "type seek" );
-        exit( 1 );
+/*         perror( "type seek" ); */
+/*         exit( 1 ); */
+	return -1;
     }
 
     return (int)type;
@@ -258,7 +260,8 @@ static int intelDetectSMP(void)
     if ( where <= 0 )
 	return 0;
 
-    seekEntry( paddr );
+    if (seekEntry( paddr ))
+	return 0;
     readEntry( &mpfps, sizeof( mpfps_t ) );
 
     if (mpfps.mpfb1)
@@ -270,7 +273,8 @@ static int intelDetectSMP(void)
 	int count, i;
 	    
 	paddr = (vm_offset_t) mpfps.pap;
-	seekEntry( paddr );
+	if (seekEntry( paddr ))
+	    return 0;
 	readEntry( &cth, sizeof( cth ) );
 	/* if we don't have any entries, the kernel sure
 	   won't be able to set up mp.  Needs at least one entry
@@ -318,13 +322,21 @@ apic_probe( vm_offset_t* paddr, int* where )
     /* search Extended Bios Data Area, if present */
     if ( verbose )
         printf( " looking for EBDA pointer @ 0x%04x, ", EBDA_POINTER );
-    seekEntry( (vm_offset_t)EBDA_POINTER );
+    if (seekEntry( (vm_offset_t)EBDA_POINTER )) {
+	*where = 0;
+	*paddr = (vm_offset_t)0;
+	return;
+    }
     readEntry( &segment, 2 );
     if ( segment ) {                /* search EBDA */
         target = (vm_offset_t)segment << 4;
         if ( verbose )
             printf( "found, searching EBDA @ 0x%08x\n", target );
-        seekEntry( target );
+        if (seekEntry( target )) {
+	    *where = 0;
+	    *paddr = (vm_offset_t)0;
+	    return;
+	}
         readEntry( buffer, ONE_KBYTE );
 
         for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
@@ -341,7 +353,11 @@ apic_probe( vm_offset_t* paddr, int* where )
     }
 
     /* read CMOS for real top of mem */
-    seekEntry( (vm_offset_t)TOPOFMEM_POINTER );
+    if (seekEntry( (vm_offset_t)TOPOFMEM_POINTER )) {
+	*where = 0;
+	*paddr = (vm_offset_t)0;
+	return;
+    }
     readEntry( &segment, 2 );
     --segment;                                          /* less ONE_KBYTE */
     target = segment * 1024;
@@ -444,14 +460,13 @@ apic_probe( vm_offset_t* paddr, int* where )
 /*
  *
  */
-static void
+static int
 seekEntry( vm_offset_t addr )
 {
     if ( lseek( pfd, (off_t)addr, SEEK_SET ) < 0 ) {
-        return;
-        perror( "/dev/mem seek" );
-        exit( 1 );
+        return 1;
     }
+    return 0;
 }
 
 
