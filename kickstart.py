@@ -229,6 +229,7 @@ class Kickstart(InstallClass):
 		     "authconfig"	: self.doAuthconfig	,
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
+		     "device"		: None			,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
 		     "keyboard"		: self.doKeyboard	,
