@@ -1507,7 +1507,7 @@ class ToDo:
                 pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
-		if len (self.x.server) >= 3 and self.x.server[0:3] == 'Sun':
+		if self.x.server[0:3] == 'Sun':
                     try:
                         os.unlink(self.instPath + "/etc/X11/X")
                     except:
@@ -1518,9 +1518,9 @@ class ToDo:
 		    script.close()
 		    os.chmod(self.instPath + "/etc/X11/X", 0755)
 		else:
-		    self.x.write (self.instPath + "/etc/X11/XF86Config")
 		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
 				self.instPath + "/etc/X11/X")
+		self.x.write (self.instPath + "/etc/X11/XF86Config")
             self.setDefaultRunlevel ()
             argv = [ "/usr/sbin/kudzu", "-q" ]
 	    devnull = os.open("/dev/null", os.O_RDWR)

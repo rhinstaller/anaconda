@@ -24,6 +24,7 @@ class XF86Config:
         self.monName = None
         self.monHoriz = None
         self.monVert = None
+	self.monSect = None
         self.monID = None
         self.devID = None
         self.probed = 0
@@ -221,11 +222,16 @@ class XF86Config:
 	    except:
 		pass
 	    if not self.vidRam and self.device:
-		if self.server and len (self.server) >= 3 and self.server[0:3] == 'Sun':
+		if self.server and self.server[0:3] == 'Sun':
 		    # fbconProbe gives bogus video RAM reports on SBUS and UPA servers
 		    return
 		try:
-		    self.vidRam = "%d" % isys.fbconProbe("/dev/" + self.device)
+		    (vidram, depth, mode, monitor) = isys.fbconProbe("/dev/" + self.device)
+		    self.vidRam = "%d" % vidram
+		    if depth:
+			self.modes = { "%d" % depth : [ mode ] }
+			self.monSect = monitor
+			self.bpp = "%d" % depth
 		except:
 		    pass
 
@@ -257,10 +263,11 @@ class XF86Config:
         config = open (path, 'w')
         config.write (self.preludeSection ())
         config.write (self.keyboardSection ())
-        config.write (self.mouseSection ())
-        config.write (self.monitorSection ())
-        config.write (self.deviceSection ())
-        config.write (self.screenSection ())
+	if not self.server or self.server[0:3] != 'Sun':
+	    config.write (self.mouseSection ())
+	    config.write (self.monitorSection ())
+	    config.write (self.deviceSection ())
+	    config.write (self.screenSection ())
         config.close ()
 
     def test (self):
@@ -461,7 +468,10 @@ Section "Keyboard"
         string = string + "EndSection\n"
         return string
         
-    def monitorSection (self):
+    def monitorSection (self, installer = 0):
+	if installer and self.monSect:
+	    return self.monSect
+
         info = {}
         
         if self.monEisa:
@@ -752,9 +762,13 @@ Section "Device"
             section = section + "EndSection\n"
         return section
 
-    def screenSection (self):
+    def screenSection (self, installer = 0):
+	if installer and self.monSect:
+	    monID = "Probed Monitor"
+	else:
+	    monID = self.monID
         info = { "DEVICE"  : self.devID,
-                 "MONITOR" : self.monID }
+                 "MONITOR" : monID }
 
         for (depth, modes) in self.modes.items ():
             modes.sort (self.areaCompare)

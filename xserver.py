@@ -137,12 +137,16 @@ Section "Pointer"
 %(emulate)s
 EndSection
 """ % settings)
-    f.write (x.monitorSection ())
+    f.write (x.monitorSection (1))
     f.write (x.deviceSection ())
-    x.modes["32"] = [ "640x480" ]
-    x.modes["16"] = [ "640x480" ]
-    x.modes["8"] = [ "640x480" ]
-    f.write (x.screenSection ())
+    if x.monSect:
+	bpp = x.bpp
+    else:
+        x.modes["32"] = [ "640x480" ]
+        x.modes["16"] = [ "640x480" ]
+        x.modes["8"] = [ "640x480" ]
+	bpp = None
+    f.write (x.screenSection (1))
     f.close ()
 
     server = os.fork()
@@ -175,6 +179,9 @@ EndSection
 	else:
 	    args.append("-xf86config")
 	    args.append("/tmp/XF86Config")
+	    if bpp:
+		args.append("-bpp")
+		args.append(bpp)
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
