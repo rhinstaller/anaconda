@@ -78,7 +78,7 @@ class TimezoneWindow:
 	self.l = Listbox(5, scroll = 1, returnExit = 0)
 
         for tz in timezones:
-	    self.l.append(tz, tz)
+	    self.l.append(_(tz), tz)
 
 	self.l.setCurrent(default)
 #	self.l.setCallback(self.updateClock)
