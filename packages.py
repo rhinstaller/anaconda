@@ -478,7 +478,7 @@ def doInstall(method, id, intf, instPath):
 	pass
 
     instLog = open(instLogName, "w+")
-    syslog.start (instPath, instPath + logname)
+    syslog.start (instPath, "%s%s.syslog" % (instPath, logname))
 
     ts.scriptFd = instLog.fileno ()
     # the transaction set dup()s the file descriptor and will close the
