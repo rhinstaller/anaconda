@@ -728,6 +728,7 @@ class PartitionWindow(InstallWindow):
 			if self.show_uneditable:
 			    mntpt = vgreq.volumeGroupName
 			else:
+			    self.tree.appendToHiddenPartitionsList(str(request.uniqueID))
 			    continue
 		    else:
 			mntpt = ""
@@ -837,6 +838,7 @@ class PartitionWindow(InstallWindow):
 			    mddevice = "/dev/md%d" % (parreq.raidminor,)
 			    self.tree[iter]['Mount Point'] = mddevice
 			else:
+			    self.tree.appendToHiddenPartitionsList(part)
 			    part = disk.next_partition(part)
 			    self.tree.remove(iter)
 			    continue
