@@ -39,6 +39,10 @@ int canProbeDevices(void) {
     return 1;
 #endif
 
+    /* we don't support anything like ISA anymore, so we should always 
+     * be able to probe */
+    return 1;
+
     if ((access("/proc/bus/pci/devices", R_OK) &&
          access("/proc/openprom", R_OK) &&
          access("/proc/iSeries", R_OK)))
