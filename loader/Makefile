@@ -1,3 +1,4 @@
+include ../Makefile.inc
 VERSION = 6.2
 
 DESTDIR = ../../trees/initrd
@@ -12,8 +13,11 @@ SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
 DIRS = 
 NETOBJS = net.o 
+# XXX Japanese is i386 only at the moment.
 ifeq (i386, $(ARCH))
-KON = 0
+ ifeq (1, $(JAPANESE))
+  KON = 1
+ endif
 endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
