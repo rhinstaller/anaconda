@@ -202,7 +202,8 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-	if ( not self.sunServer ) and self.todo.x.monID == "Generic Monitor":
+	if ( not self.sunServer ) and (not self.todo.x.monID or
+                                       self.todo.x.monID == "Generic Monitor"):
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))
