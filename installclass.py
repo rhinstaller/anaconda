@@ -67,7 +67,7 @@ class BaseInstallClass:
 	self.raidList.append(mntPoint, raidDev, level, devices)	
 
     def addNewPartition(self, mntPoint, sizespec, locspec, typespec, fsopts=None):
-        device = locspec
+        (device, part) = locspec
         
 	if not device:
             device = ""
@@ -77,7 +77,7 @@ class BaseInstallClass:
 	    raise TypeError, "bad mount point for partitioning: %s" % \
 		    (mntPoint,)
 
-	self.partitions.append((mntPoint, sizespec, (device),typespec, fsopts))
+	self.partitions.append((mntPoint, sizespec, (device, part),typespec, fsopts))
 
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))

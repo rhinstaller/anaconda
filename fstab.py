@@ -47,6 +47,9 @@ class Fstab:
 	attempt = []
 	swapCount = 0
 
+#
+# this is probably not required
+# 
 #	fstab = []
 #	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
 #            fstab.append ((dev, mntpoint))
@@ -63,10 +66,16 @@ class Fstab:
             return ddruid
 
 	for (mntpoint, sizespec, locspec, typespec, fsopts) in partitions:
-            device = locspec
+            (device, part) = locspec
             (size, maxsize, grow) = sizespec
+            (type, active) = typespec
 
-	    type = 0x83
+            if (part == 0):
+                part = -1
+
+            if (type == 0):
+                type = 0x83
+                
 	    if (mntpoint == "swap"):
 		mntpoint = "Swap%04d-auto" % swapCount
 		swapCount = swapCount + 1
@@ -74,7 +83,7 @@ class Fstab:
 	    elif (mntpoint[0:5] == "raid."):
 		type = 0xfd
 
-	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device))
+	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device, part, active))
 
         success = 0
 
