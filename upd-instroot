@@ -67,6 +67,7 @@ KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
 sbin/ldconfig
 sbin/clock
+sbin/hwclock
 sbin/mkfs.ext2
 sbin/mke2fs
 sbin/mkswap
