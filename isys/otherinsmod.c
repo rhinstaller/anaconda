@@ -107,7 +107,7 @@ int insmod(char * modName, char ** args) {
     int status;
 
     argc = 2;
-    for (argv = args; *argv; argv++, argc++);
+    for (argv = args; argv && *argv; argv++, argc++);
 
     argv = malloc(sizeof(*argv) * (argc + 1));
     argv[0] = "/bin/insmod";
