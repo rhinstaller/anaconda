@@ -193,7 +193,7 @@ class InstallInterface:
                                    buttons=[TEXT_OK_BUTTON])
                 return None
 
-	    l = f.readlines()
+	    lines = f.readlines()
             for l in lines:
                 l = l.replace("@RHL@", productName)
                 l = l.replace("@RHLVER@", productVersion)
