@@ -65,11 +65,7 @@ void shutDown(int noKill, int doReboot) {
 #endif
     } else {
 	printf("you may safely reboot your system\n");
-#if !defined(__s390__) && !defined(__s390x__)
-	while (1);
-#else
 	reboot(RB_HALT_SYSTEM);
-#endif
     }
 
     exit(0);
