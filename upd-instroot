@@ -56,7 +56,10 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
 	  xpm-3 glib- gtk+- gnome-libs python-1 newt imlib-1 libpng
 	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash-
 	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
-	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja"
+	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja
+          open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
+          netkit-base- traceroute- sh-utils- textutils- pine- less- rsh-
+          ncurses-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -110,7 +113,29 @@ KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
 cat >> $KEEPFILEGR <<EOF
 bin/bash
+bin/cp
+bin/cpio
+bin/dd
+bin/du
+bin/grep
+bin/gzip
+bin/mt
+bin/mv
+bin/ping
 bin/ps
+bin/sed
+bin/sync
+bin/tar
+bin/touch
+sbin/e2fsck
+sbin/fsck
+sbin/fsck.ext2
+sbin/ifconfig
+sbin/modprobe
+sbin/depmod
+sbin/insmod
+sbin/rmmod
+sbin/route
 lib/libproc*
 lib/libutil*
 lib/libnss_dns*
@@ -125,6 +150,7 @@ usr/lib/gdkimlib*
 usr/lib/libimlib-pnm*
 usr/lib/libimlib-xpm*
 usr/lib/libimlib-png*
+usr/lib/libncurses*
 usr/lib/libpng*
 usr/lib/libtiff*
 usr/lib/libjpeg*
@@ -198,10 +224,23 @@ usr/share/pixmaps/gnome-question.png
 usr/share/pixmaps/gnome-warning.png
 usr/share/pixmaps/no.xpm
 usr/share/pixmaps/yes.xpm
+usr/share/terminfo/l/linux
 usr/share/zoneinfo/zone.tab
 usr/share/locale/*
 usr/bin/chattr*
 usr/bin/lsattr*
+usr/bin/head
+usr/bin/less
+usr/bin/open
+usr/bin/pico
+usr/bin/rcp
+usr/bin/rsh
+usr/bin/tail
+usr/bin/tac
+usr/bin/uniq
+usr/sbin/chroot
+usr/sbin/traceroute
+
 EOF
 
 # sparc needs 100dpi fonts as well, otherwise
