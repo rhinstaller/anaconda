@@ -36,5 +36,6 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 void copyUpdatesImg(char * path);
 int copyDirectory(char * from, char * to);
 
+void setMethodFromCmdline(char * arg, struct loaderData_s * ld);
 
 #endif

@@ -56,7 +56,9 @@
 #undef dev_t
 #define dev_t dev_t
 
-
+#include "nfsinstall.h"
+#include "hdinstall.h"
+#include "urlinstall.h"
 
 int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
@@ -613,4 +615,38 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
     }
 
     return 0;
+}
+
+void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
+    char * c;
+    ld->method = strdup(arg);
+
+    c = ld->method;
+    /* : will let us delimit real information on the method */
+    if ((c = strtok(c, ":"))) {
+        c = strtok(NULL, ":");
+ 
+        if (!strcmp(ld->method, "nfs")) {
+            ld->methodData = calloc(sizeof(struct nfsInstallData *), 1);
+            ((struct nfsInstallData *)ld->methodData)->host = c;
+            if ((c = strtok(NULL, ":"))) {
+                ((struct nfsInstallData *)ld->methodData)->directory = c;
+            }
+        } else if (!strcmp(ld->method, "ftp") || 
+                   !strcmp(ld->method, "http")) {
+            ld->methodData = calloc(sizeof(struct urlInstallData *), 1);
+            ((struct urlInstallData *)ld->methodData)->url = strdup(arg);
+        } else if (!strcmp(ld->method, "cdrom")) {
+            /* no cdrom specific data */
+        } else if (!strcmp(ld->method, "harddrive") ||
+                   !strcmp(ld->method, "hd")) {
+            ld->methodData = calloc(sizeof(struct hdInstallData *), 1);
+            ((struct hdInstallData *)ld->methodData)->partition = c;
+            if ((c = strtok(NULL, ":"))) {
+                ((struct hdInstallData *)ld->methodData)->directory = c;
+            }
+        }
+                
+    }
+    
 }

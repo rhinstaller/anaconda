@@ -440,22 +440,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->kbd = strdup(argv[i] + 7);
             loaderData->kbd_set = 1;
         } else if (!strncasecmp(argv[i], "method=", 7)) {
-            char * c;
-            loaderData->method = strdup(argv[i] + 7);
-
-            c = loaderData->method;
-            /* : will let us delimit real information on the method */
-            if ((c = strtok(c, ":"))) {
-                c = strtok(NULL, ":");
-                /* JKFIXME: handle other methods too, and not here... */
-                if (!strcmp(loaderData->method, "nfs")) {
-                    loaderData->methodData = calloc(sizeof(struct nfsInstallData *), 1);
-                    ((struct nfsInstallData *)loaderData->methodData)->host = c;
-                    if ((c = strtok(NULL, ":"))) {
-                        ((struct nfsInstallData *)loaderData->methodData)->directory = c;
-                    }
-                }
-            }
+            setMethodFromCmdline(argv[i] + 7, loaderData);
         } else if (!strncasecmp(argv[i], "ip=", 3)) {
             loaderData->ip = strdup(argv[i] + 3);
             loaderData->ipinfo_set = 1;
