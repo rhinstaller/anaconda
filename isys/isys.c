@@ -155,6 +155,7 @@ static void probedListDealloc (probedListObject * o);
 static PyObject * probedListNet(probedListObject * s, PyObject * args);
 static PyObject * probedListScsi(probedListObject * s, PyObject * args);
 static PyObject * probedListIde(probedListObject * s, PyObject * args);
+static PyObject * probedListDasd(probedListObject * s, PyObject * args);
 static int probedListLength(PyObject * o);
 static PyObject * probedListSubscript(probedListObject * o, int item);
 
@@ -162,6 +163,7 @@ static PyMethodDef probedListObjectMethods[] = {
     { "updateNet", (PyCFunction) probedListNet, METH_VARARGS, NULL },
     { "updateScsi", (PyCFunction) probedListScsi, METH_VARARGS, NULL },
     { "updateIde", (PyCFunction) probedListIde, METH_VARARGS, NULL },
+    { "updateDasd", (PyCFunction) probedListDasd, METH_VARARGS, NULL },
     { NULL },
 };
 
@@ -851,6 +853,15 @@ static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     kdFindScsiList(&o->list, 0);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * probedListDasd(probedListObject * o, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    kdFindDasdList(&o->list, 0);
 
     Py_INCREF(Py_None);
     return Py_None;

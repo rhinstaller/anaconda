@@ -27,6 +27,10 @@ def SetFdDevice():
 	    f.close()
     elif iutil.getArch() == "alpha":
 	pass
+    elif iutil.getArch() == "s390":
+	return
+    elif iutil.getArch() == "s390x":
+	return
     elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
 	# Look for the first IDE floppy device
 	drives = isys.floppyDriveDict()

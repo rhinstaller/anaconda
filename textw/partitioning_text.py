@@ -33,6 +33,11 @@ class PartitionMethod:
 
 	return INSTALL_OK
 
+class DasdPreparation:
+    def __call__(self, screen, todo):
+	todo.skipFdisk = 1
+	return INSTALL_NOOP
+
 class ManualPartitionWindow:
     def __call__(self, screen, todo):
 	from newtpyfsedit import fsedit        

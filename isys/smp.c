@@ -39,6 +39,31 @@ int alphaDetectSMP(void)
 }
 #endif /* __alpha__ */
 
+#if defined (__s390__) || defined (__s390x__)
+int s390DetectSMP(void)
+{
+    int issmp = 0;
+    FILE *f;
+
+    f = fopen("/proc/cpuinfo", "r");
+    if (f) {
+       char buff[1024];
+
+       while (fgets (buff, 1024, f) != NULL) {
+           if (!strncmp (buff, "# processors    : ", 18)) {
+               if (strtoul (buff + 18, NULL, 0) > 1)
+                   issmp = 1;
+               break;
+           }
+       }
+       fclose(f);
+    } else
+       return -1;
+
+    return issmp;
+}
+#endif /* __s390__ */
+
 #ifdef __sparc__
 int sparcDetectSMP(void)
 {
@@ -460,6 +485,10 @@ int detectSMP(void)
     return isSMP = alphaDetectSMP();
 #elif __ia64__
     return isSMP = 1;
+#elif __s390__
+    return isSMP = s390DetectSMP();
+#elif __s390x__
+    return isSMP = s390DetectSMP();
 #else
     #error unknown architecture
 #endif
