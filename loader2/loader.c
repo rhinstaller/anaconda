@@ -682,11 +682,6 @@ static char *doLoaderMain(char * location,
         if (url && !FL_RESCUE(flags)) return url;
     }
 
-    /* iSeries vio console users will be telnetting in to the primary
-       partition, so use a terminal type that is appripriate */
-    if (isVioConsole())
-	setenv("TERM", "vt100", 1);
-    
     startNewt(flags);
 
     step = STEP_LANG;
@@ -1064,6 +1059,10 @@ int main(int argc, char ** argv) {
     initializeConsole(modLoaded, modDeps, modInfo, flags);
     checkForRam(flags);
 
+    /* iSeries vio console users will be telnetting in to the primary
+       partition, so use a terminal type that is appripriate */
+    if (isVioConsole())
+	setenv("TERM", "vt100", 1);
     
     mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy", modLoaded, modDeps, 
                     modInfo, flags);
