@@ -1183,7 +1183,7 @@ class XconfiguratorWindow:
         if not todo.x.server: return INSTALL_NOOP
 
         f = open (todo.instPath + "/tmp/SERVER")
-        f.write ("%s %d\n", (todo.x.server, todo._cardindex))
+        f.write ("%s %d\n", % (todo.x.server, todo._cardindex))
         f.close ()
 
         screen.suspend ()
