@@ -65,7 +65,7 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return HeaderList(hl)
 
-    def systemMounted(self, fstab, mntPoint):
+    def systemMounted(self, fstab, mntPoint, selected):
 	self.mountMedia()
 	    
     def filesDone(self):

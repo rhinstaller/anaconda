@@ -26,7 +26,14 @@ class ImageInstallMethod(InstallMethod):
 
 class CdromInstallMethod(ImageInstallMethod):
 
-    def systemMounted(self, fstab, mntPoint):
+    def systemMounted(self, fstab, mntPoint, selected):
+	changeloop=0
+	for p in selected:
+	    if p[1000002] > 1:
+		changeloop=1
+		break
+	if changeloop == 0:
+	    return
 	self.mntPoint = mntPoint
 	target = "%s/rhinstall-stage2.img" % mntPoint
 	iutil.copyFile("%s/RedHat/base/stage2.img" % self.tree, target,
@@ -69,9 +76,12 @@ class CdromInstallMethod(ImageInstallMethod):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def filesDone(self):
-	# this isn't the exact right place, but it's close enough
-	target = "%s/rhinstall-stage2.img" % self.mntPoint
-	os.unlink(target)
+	try:
+	    # this isn't the exact right place, but it's close enough
+	    target = "%s/rhinstall-stage2.img" % self.mntPoint
+	    os.unlink(target)
+	except:
+	    pass
 	isys.umount("/mnt/source")
 	isys.ejectCdrom(self.device)
 
