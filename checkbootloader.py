@@ -69,7 +69,11 @@ def getRaidDisks(raidDevice):
         fields = string.split(line, ' ')
         if fields[0] == raidDevice:
             for field in fields[4:]:
+                if string.find(field, "[") == -1:
+                    continue
                 dev = string.split(field, '[')[0]
+                if len(dev) == 0:
+                    continue
                 disk = getDiskPart(dev)[0]
                 rc.append(disk)
 
