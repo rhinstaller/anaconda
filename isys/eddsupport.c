@@ -123,6 +123,8 @@ static struct diskMapTable * uniqueSignatureExists(struct device **devices) {
     }
 
     for (devhead = devices, i = 0; (*devhead) != NULL; devhead++, i++) {
+        if (!(*devhead)->device)
+            continue;
         if (readDiskSig((*devhead)->device, &headsig) < 0) {
             return NULL;
         }
@@ -151,7 +153,7 @@ static int readDiskSig(char *device, uint32_t *disksig) {
     }
 
     fd = open("/tmp/biosdev", O_RDONLY);
-    if (fd < 0) {
+    if ((fd < 0) && (errno != -ENOMEDIUM)) {
 #ifdef STANDALONE
         fprintf(stderr, "Error opening devce %s: %s\n ", device, 
                 strerror(errno));
