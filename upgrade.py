@@ -414,9 +414,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 
     # make sure we have an arch match. (#87655)
-    # FIXME: is bash a good package to check?
-    mi = ts.dbMatch('name', 'bash')
-    myarch = id.grpset.hdrlist["bash"][rpm.RPMTAG_ARCH]
+    # FIXME: bash wasn't good enough (#129677).  let's try initscripts
+    mi = ts.dbMatch('name', 'initscripts')
+    myarch = id.grpset.hdrlist["initscripts"][rpm.RPMTAG_ARCH]
     for h in mi:
         if h[rpm.RPMTAG_ARCH] != myarch:
             rc = intf.messageWindow(_("Warning"),
