@@ -159,7 +159,7 @@ def swapfileExists(swapname):
     except:
 	return 0
 
-def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
+def createSwapFile(instPath, theFstab, mntPoint, size):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
     if theFstab.rootOnLoop():

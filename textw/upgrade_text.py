@@ -119,8 +119,8 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if todo.setupFilesystems:
-                        upgrade.createSwapFile(todo.instPath, todo.fstab, mnt, val,
-                                               todo.intf.progressWindow)
+                        upgrade.createSwapFile(todo.instPath, todo.fstab,
+                                               mnt, val)
 		    todo.upgradeFindPackages ()
 		    return INSTALL_OK
 

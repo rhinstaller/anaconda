@@ -771,6 +771,8 @@ class ProgressWindow:
     def pop(self):
 	self.screen.popWindow()
 	self.screen.refresh()
+        del self.scale
+        self.scale = None
 
     def set (self, amount):
         self.scale.set (amount)
