@@ -756,6 +756,7 @@ class KickstartBase(BaseInstallClass):
         spares = 0
         fstype = None
         format = 1
+        uniqueID = None
 					
 	for n in args:
 	    (str, arg) = n
@@ -776,6 +777,17 @@ class KickstartBase(BaseInstallClass):
         if extra[0] == 'swap':
             filesystem = fileSystemTypeGet('swap')
             mountpoint = None
+        elif extra[0].startswith("pv."):
+            filesystem = fileSystemTypeGet("physical volume (LVM)")
+            mountpoint = None
+
+            if self.ksPVMapping.has_key(extra[0]):
+                raise RuntimeError, "Defined PV partition %s multiple times" % (extra[0],)
+
+            # get a sort of hackish id
+            uniqueID = self.ksID
+            self.ksPVMapping[extra[0]] = uniqueID
+            self.ksID = self.ksID + 1
         else:
             if fstype:
                 filesystem = fileSystemTypeGet(fstype)
@@ -811,6 +823,10 @@ class KickstartBase(BaseInstallClass):
                                                raidspares = spares,
                                                format = format,
                                                raidminor = raidDev)
+        
+        if uniqueID:
+            request.uniqueID = uniqueID
+            
         id.partitions.autoPartitionRequests.append(request)
 
 

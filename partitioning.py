@@ -45,9 +45,14 @@ def get_lvm_volume_group_size(request, requests, diskset):
 	totalspace = 0
 	for physvolid in request.physicalVolumes:
 	    pvreq = requests.getRequestByID(physvolid)
-	    part = partedUtils.get_partition_by_name(diskset.disks,
-                                                     pvreq.device)
-	    totalspace = totalspace + part.geom.length * part.geom.disk.dev.sector_size
+            if pvreq.type != REQUEST_RAID:
+                part = partedUtils.get_partition_by_name(diskset.disks,
+                                                         pvreq.device)
+                partsize = part.geom.length * part.geom.disk.dev.sector_size
+            else:
+                partsize = get_raid_device_size(pvreq, requests, diskset)
+
+            totalspace = totalspace + partsize
 
 	return totalspace
     
