@@ -3,6 +3,7 @@ from installclass import InstallClass
 from installclass import FSEDIT_CLEAR_LINUX
 from installclass import FSEDIT_CLEAR_ALL
 import sys
+import string
 
 class Kickstart(InstallClass):
 
@@ -279,8 +280,7 @@ class Kickstart(InstallClass):
 			where = "post"
 		    elif n[0] == '@':
 			n = n[1:]
-			while n[0] == ' ':
-			    n = n[1:]
+                        n = string.strip (n)
 			groups.append(n)
 		    else:
 			packages.append(n)

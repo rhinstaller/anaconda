@@ -26,7 +26,7 @@ if im:
     root.set_cursor (cursor)
     threads_enter ()
     im.render ()
-    splashwindow = GtkWindow (WINDOW_POPUP)
+    splashwindow = GtkWindow ()
     splashwindow.set_position (WIN_POS_CENTER)
     box = GtkEventBox ()
     pix = im.make_pixmap ()
@@ -38,7 +38,6 @@ if im:
     splashwindow.show_all ()
     while events_pending ():
         mainiteration (FALSE)
-    draw_rectangle(root, style.white_gc, TRUE, 0, 0, root.width, root.height)
     threads_leave ()        
 
 from gnome.ui import *
@@ -221,12 +220,6 @@ class InstallInterface:
         return CongratulationWindow
 
     def run (self, todo, test = 0):
-        global splashwindow
-        if splashwindow:
-            threads_enter ()
-            splashwindow.destroy ()
-            print "here"
-            threads_leave ()
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 
@@ -524,6 +517,9 @@ class InstallControlWindow (Thread):
         # Popup the ICW and wait for it to wake us back up
         threads_enter ()
         self.window.show_all ()
+        global splashwindow
+        if splashwindow:
+            splashwindow.destroy ()
         threads_leave ()
 
         self.mutex.acquire ()
