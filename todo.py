@@ -369,6 +369,10 @@ class Language (SimpleConfigFile):
 	    return 'English (US)'
     
     def setDefault(self, name):
+	if not name:
+	    self.default = None
+	    return
+
 	self.default = name
 	(lang, map, font) = self.langInfoByName[name]
 
@@ -400,7 +404,6 @@ class Language (SimpleConfigFile):
 	
 	if self.info["SUPPORTED"]:
 	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
-	    print os.environ["LINGUAS"]
 	else:
 	    os.environ ["LINGUAS"] = ""
     
