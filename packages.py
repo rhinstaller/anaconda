@@ -1254,7 +1254,7 @@ def setFileCons(instPath):
         child = os.fork()
         if (child):
             os.chroot(instPath)
-            for f in  + rpmfiles:
+            for f in files:
                 if not os.access("%s" %(f,), os.R_OK):
                     log("%s doesn't exist" %(f,))
                     continue
