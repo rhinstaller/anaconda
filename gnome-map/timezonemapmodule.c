@@ -459,8 +459,8 @@ list_select_event ( GtkWidget *clist, gint row, gint column,
     gtk_clist_get_text(GTK_CLIST(clist), row, 0, &text);
     
     /* Just prints some information about the selected row */
-    g_print("You selected row %d. More specifically you clicked in column %d, and the text in this cell is %s\n\n", row, column, text);
-    
+/*    g_print("You selected row %d. More specifically you clicked in column %d, and the text in this cell is %s\n\n", row, column, text);
+*/
     index = find_location (mapdata->Locations, text);
     if (index < 0)
 	return;
