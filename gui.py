@@ -21,7 +21,7 @@ import sys
 import parted
 import gtk
 import htmlbuffer
-import rpm404 as rpm
+import rpm
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
