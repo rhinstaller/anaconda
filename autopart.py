@@ -974,9 +974,9 @@ def processPartitioning(diskset, requests, newParts):
             request.size = request.getActualSize(requests, diskset)
         if request.type == REQUEST_VG:
             request.size = request.getActualSize(requests, diskset)
-        if request.type == REQUEST_LV and request.percent:
+        if request.type == REQUEST_LV:
 	    if request.grow:
-		request.size = request.getStartSize()
+		request.setSize(request.getStartSize())
 	    else:
 		request.size = request.getActualSize(requests, diskset)
 		
