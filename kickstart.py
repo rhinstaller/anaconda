@@ -394,9 +394,13 @@ class KickstartBase(BaseInstallClass):
 	    elif str == "--hostname":
 		hostname = arg
 
-	self.setNetwork(id, bootProto, ip, netmask, gateway, nameserver, device=device)
+	self.setNetwork(id, bootProto, ip, netmask, device=device)
 	if hostname != "":
 	    self.setHostname(id, hostname)
+        if nameserver != "":
+            self.setNameserver(id, nameserver)
+        if gateway != "":
+            self.setGateway(id, gateway)
 
     def doLang(self, id, args):
         self.setLanguage(id, args[0])
