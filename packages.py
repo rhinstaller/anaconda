@@ -217,7 +217,7 @@ def getAnacondaTS(instPath = None):
 
     # set color if needed.  FIXME: why isn't this the default :/
     if (rhpl.arch.canonArch.startswith("ppc64") or
-        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+        rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
         ts.setColor(3)
 
     return ts

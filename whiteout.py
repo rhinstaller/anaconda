@@ -51,5 +51,5 @@ rpm.addMacro("_dependency_whiteout", whiteout)
 
 # ts coloring, more hacks to workaround #92285
 if (rhpl.arch.canonArch.startswith("ppc64") or
-    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
     rpm.addMacro("_transaction_color", "3")
