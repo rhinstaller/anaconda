@@ -39,7 +39,7 @@ class Mouse (SimpleConfigFile):
 		("Busmouse", "BusMouse", "logibm", 0),
 	"Logitech - MouseMan/FirstMouse (serial)" :
 		("MouseMan", "MouseMan", "ttyS", 0),
-	"Logitech - MouseMan/FirstMouse (ps/2)" :
+	"Logitech - MouseMan/FirstMouse (PS/2)" :
 		("ps/2", "PS/2", "psaux", 0),
 	"Logitech - MouseMan+/FirstMouse+ (serial)" :
 		("pnp", "IntelliMouse", "ttyS", 0),

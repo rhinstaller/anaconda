@@ -206,7 +206,7 @@ class Kickstart(InstallClass):
 	     "logitechcc" : "Logitech - CC Series (serial)" ,
 	     "logibm" : "Logitech - Bus Mouse" ,
 	     "logimman" : "Logitech - MouseMan/FirstMouse (serial)" ,
-	     "logimmanps/2" : "Logitech - MouseMan/FirstMouse (ps/2)" ,
+	     "logimmanps/2" : "Logitech - MouseMan/FirstMouse (PS/2)" ,
 	     "logimman+" : "Logitech - MouseMan+/FirstMouse+ (serial)" ,
 	     "logimman+ps/2" : "Logitech - MouseMan+/FirstMouse+ (PS/2)" ,
 	     "microsoft" : "Microsoft - Compatible Mouse (serial)" ,
