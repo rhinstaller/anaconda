@@ -50,8 +50,8 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
-"Ядро неспроможне прочитати нову таблицю п╕дрозд╕л╕в у Ваш╕й систем╕. Можливо "
-"через те, що Ви зм╕нили розширен╕ п╕дрозд╕ли. Хоча це ╕ не критично, але "
+"Ядро неспроможне прочитати нову таблицю розд╕л╕в у Ваш╕й систем╕. Можливо "
+"через те, що Ви зм╕нили розширен╕ розд╕ли. Хоча це ╕ не критично, але "
 "рекоменду╓ться, щоб Ви перевантажили машину перш, н╕ж продовжувати. Вставте "
 "зараз завантажувальний диск Red Hat в дисков╕д ╕ натисн╕ть \"Гаразд\" щоб "
 "перезавантажити систему.\n"
@@ -366,7 +366,7 @@ msgstr "Систему якого типу Ви бажа╓те встановити"
 
 #: ../text.py:369
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Не задано жодного п╕дрозд╕лу для Linux. Поновити систему неможливо!"
+msgstr "Не задано жодного розд╕лу для Linux. Поновити систему неможливо!"
 
 #: ../text.py:386
 msgid "System to Upgrade"
@@ -374,7 +374,7 @@ msgstr "Система для поновлення"
 
 #: ../text.py:387
 msgid "What partition holds the root partition of your installation?"
-msgstr "На якому п╕дрозд╕л╕ знаходиться коренева (/) файлова система?"
+msgstr "На якому розд╕л╕ знаходиться коренева (/) файлова система?"
 
 #: ../text.py:403
 msgid "Customize Packages to Upgrade"
@@ -731,7 +731,7 @@ msgstr "Автоматичний розпод╕л"
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:280 ../text.py:1073 ../text.py:1077
 msgid "Partition"
-msgstr "П╕дрозд╕л"
+msgstr "Розд╕л"
 
 #: ../text.py:1075
 msgid "Manually Partition"
@@ -1277,7 +1277,7 @@ msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"У Вас нема жодного п╕дрозд╕лу Linux. \n"
+"У Вас нема жодного розд╕лу Linux. \n"
 "Поновити систему неможливо!"
 
 #: ../iw/examine_gui.py:45
@@ -1674,7 +1674,7 @@ msgid ""
 msgstr ""
 "Через те, що Ви не ма╓те досить пам'ят╕ на ц╕й систем╕, Вам сл╕д "
 "користуватися  п╕дкачкою. Для цього потр╕бно негайно записати нову таблицю "
-"п╕дрозд╕л╕в на диск. Згодн╕?"
+"розд╕л╕в на диск. Згодн╕?"
 
 #: ../iw/rootpartition_gui.py:148 ../textw/partitioning_text.py:302
 #, c-format
@@ -1732,7 +1732,7 @@ msgid ""
 msgstr ""
 "\n"
 "Не вистача╓ дискового простору для автоматичного розпод╕лу дискового "
-"простору. Вам потр╕бно розпод╕лити п╕дрозд╕ли на дисках вручну для установки "
+"простору. Вам потр╕бно розпод╕лити розд╕ли на дисках вручну для установки "
 "системи.\n"
 "\n"
 "Вибер╕ть, будь-ласка, програму, якою Ви хочете скористуватися для розпод╕лу "
@@ -2068,8 +2068,9 @@ msgid "WWW (HTTP)"
 msgstr ""
 
 #: ../textw/firewall_text.py:88
+#, fuzzy
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Всього (М)"
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
 #: ../textw/firewall_text.py:90
@@ -2336,7 +2337,7 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
-"Н╕ коренева файлова система ('/'), н╕ п╕дрозд╕л для своп╕нгу не можуть бути "
+"Н╕ коренева файлова система ('/'), н╕ розд╕л для своп╕нгу не можуть бути "
 "б╕льшими за 2000 мегабайт."
 
 #: ../textw/silo_text.py:66
@@ -2608,7 +2609,7 @@ msgstr ""
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
-"На ц╕й платформ╕ п╕дрозд╕л /boot ма╓ знаходитися на п╕дрозд╕л╕ з файловою "
+"На ц╕й платформ╕ розд╕л /boot ма╓ знаходитися на розд╕л╕ з файловою "
 "системою, яка сум╕сна з DOS: %x."
 
 #: ../libfdisk/fsedit.c:990
@@ -2647,7 +2648,7 @@ msgid ""
 msgstr ""
 "Сталася помилка при спроб╕ створити спец╕альн╕ пристро╖ для жорстких диск╕в "
 "в Ваш╕й систем╕. Можливо це сталося через те, що Ви використали весь прост╕р "
-"на п╕дрозд╕л╕ /tmp"
+"на розд╕л╕ /tmp"
 
 #: ../libfdisk/fsedit.c:1045
 msgid "No Drives Found"
@@ -2680,7 +2681,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1404
 msgid "Bad Partition Table"
-msgstr "Некоректна таблиця п╕дрозд╕л╕в"
+msgstr "Некоректна таблиця розд╕л╕в"
 
 #: ../libfdisk/fsedit.c:1405
 msgid "Initialize"
@@ -2743,8 +2744,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, отже Ви не "
-"можете редагувати ╕нш╕ п╕дрозд╕ли."
+"Ви визначили файлову систему '/' на розд╕л╕ не типу ext2, отже Ви не можете "
+"редагувати ╕нш╕ розд╕ли."
 
 #: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
@@ -2819,7 +2820,7 @@ msgstr ""
 "Ви намагалися назначити точку монтування '/' файлов╕й систем╕ типу (або "
 "под╕бн╕й до) FAT. Ви не можете зробити цього на даний момент, бо ця точка "
 "монтування була також назначена файлов╕й систем╕ типу ext2. В╕дм╕н╕ть ц╕ "
-"точки монтування ╕ п╕сля цього Ви зможете назначити '/' цьому п╕дрозд╕лу."
+"точки монтування ╕ п╕сля цього Ви зможете назначити '/' цьому розд╕лу."
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
 msgid ""
@@ -2880,7 +2881,7 @@ msgstr "Закрити"
 
 #: ../libfdisk/gnomefsedit.c:1293
 msgid "You must constrain this partition to at least one drive."
-msgstr "Ви ма╓те обмежити цей п╕дрозд╕л до одного пристрою диску."
+msgstr "Ви ма╓те обмежити цей розд╕л до одного пристрою диску."
 
 #: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1308
 msgid "No RAID Drive Constraint"
@@ -2912,8 +2913,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ типу не ext2, тому Ви не "
-"можете додати ╕нш╕ п╕дрозд╕ли."
+"Ви визначили файлову систему '/' на розд╕л╕ типу не ext2, тому Ви не можете "
+"додати ╕нш╕ розд╕ли."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2930,7 +2931,7 @@ msgid ""
 msgstr ""
 "Пристр╕й raid  /dev/%s зараз ма╓  розд╕ли, як╕ н╕чому не належать. Пристр╕й "
 "raid  /dev/%s буде розбито на його складов╕ компоненти. Будь-ласка, створ╕ть "
-"raid з новими п╕дрозд╕лами."
+"raid з новими розд╕лами."
 
 #: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
@@ -2967,8 +2968,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, отже Ви не "
-"можете редагувати пристро╖ RAID"
+"Ви визначили файлову систему '/' на розд╕л╕ не типу ext2, отже Ви не можете "
+"редагувати пристро╖ RAID"
 
 #: ../libfdisk/gnomefsedit.c:1954
 msgid "<Swap Partition"
@@ -3004,8 +3005,8 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
-"Пристр╕й RAID, з якого можливе завантаження системи повинен м╕стити "
-"п╕дрозд╕ли т╕льки з перших двох диск╕в у Ваш╕й систем╕.\n"
+"Пристр╕й RAID, з якого можливе завантаження системи повинен м╕стити розд╕ли "
+"т╕льки з перших двох диск╕в у Ваш╕й систем╕.\n"
 "\n"
 "Ц╕ диски так╕:  "
 
@@ -3036,15 +3037,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2250
 msgid "Not Enough Partitions"
-msgstr "Не вистача╓ п╕дрозд╕л╕в"
+msgstr "Не вистача╓ розд╕л╕в"
 
 #: ../libfdisk/gnomefsedit.c:2252
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
-"Ви не сконф╕гурували достатню к╕льк╕сть п╕дрозд╕л╕в для того типу  RAID, "
-"який ви вибрали."
+"Ви не сконф╕гурували достатню к╕льк╕сть розд╕л╕в для того типу  RAID, який "
+"ви вибрали."
 
 #: ../libfdisk/gnomefsedit.c:2260
 msgid "Illegal /boot RAID Type"
@@ -3052,7 +3053,7 @@ msgstr "Некоректний тип RAID для /boot"
 
 #: ../libfdisk/gnomefsedit.c:2262
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "П╕дрозд╕ли для завантажування (/boot) мобуть бути т╕льки типу RAID-1."
+msgstr "Розд╕ли для завантажування (/boot) мобуть бути т╕льки типу RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2270
 msgid "Illegal RAID mountpoint"
@@ -3071,13 +3072,13 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"Розд╕л %s це один з ╕снуючих п╕дрозд╕л╕в в таблиц╕ п╕дрозд╕л╕в, призначених "
-"для цього пристрою RAID. Точка монтування визначена як /boot. Ви впевнен╕, "
-"що зможете завантажитися з цього п╕дрозд╕лу?"
+"Розд╕л %s це один з ╕снуючих розд╕л╕в в таблиц╕ розд╕л╕в, призначених для "
+"цього пристрою RAID. Точка монтування визначена як /boot. Ви впевнен╕, що "
+"зможете завантажитися з цього розд╕лу?"
 
 #: ../libfdisk/gnomefsedit.c:2363
 msgid "Use Pre-existing Partition?"
-msgstr "Використати вже ╕снуючи п╕дрозд╕л?"
+msgstr "Використати вже ╕снуючий розд╕л?"
 
 #: ../libfdisk/gnomefsedit.c:2441
 msgid "Cannot Add RAID Devices"
@@ -3088,8 +3089,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, тому Ви не "
-"можете додавати пристро╖ типу RAID."
+"Ви визначили файлову систему '/' на розд╕л╕ не типу ext2, тому Ви не можете "
+"додавати пристро╖ типу RAID."
 
 #: ../libfdisk/gnomefsedit.c:2483
 msgid "Auto-Partition"
@@ -3126,11 +3127,11 @@ msgstr "Ви д╕йсно хочете видалити цей пристр╕й RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2705 ../libfdisk/newtfsedit.c:1770
 msgid "Reset Partition Table"
-msgstr "Стерти таблицю п╕дрозд╕л╕в"
+msgstr "Стерти таблицю розд╕л╕в"
 
 #: ../libfdisk/gnomefsedit.c:2707 ../libfdisk/newtfsedit.c:1772
 msgid "Reset partition table to original contents? "
-msgstr "Повернути початковий стан таблиц╕ п╕дрозд╕л╕в?"
+msgstr "Повернути початковий стан таблиц╕ розд╕л╕в?"
 
 #: ../libfdisk/gnomefsedit.c:2743 ../libfdisk/gnomefsedit.c:2794
 msgid "<Swap>"
@@ -3178,7 +3179,7 @@ msgstr "Використано (%)"
 
 #: ../libfdisk/gnomefsedit.c:3452
 msgid "Unallocated Partitions Exist..."
-msgstr "╢ невизначен╕ п╕дрозд╕ли..."
+msgstr "╢ невизначен╕ розд╕ли..."
 
 #: ../libfdisk/gnomefsedit.c:3458 ../libfdisk/gnomefsedit.c:3476
 msgid ""
@@ -3247,7 +3248,7 @@ msgstr "Нев╕домий"
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "Current Disk Partitions"
-msgstr "╤снуюч╕ п╕дрозд╕ли на диску"
+msgstr "╤снуюч╕ розд╕ли на диску"
 
 #: ../libfdisk/newtfsedit.c:1477
 msgid ""
@@ -3293,7 +3294,7 @@ msgid ""
 "for the install to proceed."
 msgstr ""
 "Щоб установка могла продовжуватись, Ви ма╓те назначити точц╕ монтування "
-"/boot/efi основний п╕дрозд╕л типу FAT"
+"/boot/efi основний розд╕л типу FAT"
 
 #: ../libfdisk/newtfsedit.c:1667
 msgid ""
@@ -3317,7 +3318,7 @@ msgstr "Зберегти зм╕ни таблиць разд╕л╕в?"
 
 #: ../libfdisk/newtfsedit.c:1730
 msgid "You may only delete NFS mounts."
-msgstr "Прибрати можна лише точки монтування NFS."
+msgstr "Виидалити можна лише точки монтування NFS."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -3589,6 +3590,7 @@ msgstr "Не вдалося отримати другий образ ╕сталяц╕╖"
 #: ../loader/loader.c:1260
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
+"Для встановлення по FTP або HTTP потр╕бно 20Мб системно╖ пам'ят╕ або б╕льше."
 
 #: ../loader/loader.c:1484
 msgid "Rescue Method"
@@ -3804,7 +3806,7 @@ msgstr "╤н╕ц╕ювання пристрою PC Card..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
@@ -3816,7 +3818,7 @@ msgstr "Не можу змонтувати диск з драйвером."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
+msgstr "Ця дискета не вигляда╓ як диск драйвер╕в PCMCIA"
 
 #: ../loader/urls.c:79
 #, c-format
