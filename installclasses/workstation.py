@@ -31,14 +31,14 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
 
-        rootrequest = PartitionSpec(fileSystemTypeGet("ext2"),
+        rootrequest = PartitionSpec(fileSystemTypeGetDefault(),
                                     mountpoint = "/",
                                     size = 800,
                                     grow = 1,
                                     requesttype = REQUEST_NEW,
                                     format = 1)
 
-        bootrequest = PartitionSpec(fileSystemTypeGet("ext2"),
+        bootrequest = PartitionSpec(fileSystemTypeGetDefault(),
                                     mountpoint = "/boot",
                                     size = 100,
                                     grow = 0,
