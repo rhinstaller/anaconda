@@ -904,6 +904,7 @@ class InstallInterface:
                  "network"],
                 [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
                  "network"],
+
 #                [N_("Mouse Configuration"), MouseWindow, (self.screen, todo),
 #                 "mouse" ],
 #                [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
@@ -968,10 +969,14 @@ class InstallInterface:
 		    (self.screen, todo), BootloaderSkipName ],
 	    [BootloaderConfiguration, BootloaderImagesWindow, 
 		    (self.screen, todo), BootloaderSkipName ],
-            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
-		    "network"],
+#            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+#		    "network"],
             [N_("Network Setup"), NetworkWindow, (self.screen, todo), 
 		    "network"],
+
+            [N_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+		    "network"],
+
             [N_("Mouse Configuration"), MouseWindow, (self.screen, todo.mouse),
 		    "mouse" ],
             [N_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo.mouse),
