@@ -1,4 +1,4 @@
-CFLAGS=-Wall -O -g# -DDEBUG
+CFLAGS=-Wall -O2 -g# -DDEBUG
 
 TARGETS=ddcprobe svgamodes ddcxinfo modetest libvbe.a
 
