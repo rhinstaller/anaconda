@@ -43,7 +43,7 @@ class InstallPathWindow (InstallWindow):
 	    if name == self.currentClassName:
 		selection = object
 
-	if not isinstance (self.id.instClass, selection):
+	if self.id.instClass.name != selection.name:
 	    c = selection(self.flags.expert)
 	    c.setSteps(self.dispatch)
 	    c.setInstallData(self.id)
