@@ -64,6 +64,16 @@ class InstallClass:
     def getMakeBootdisk(self):
 	return self.makeBootdisk
 
+    def setNetwork(self, bootproto, ip, netmask, gateway, nameserver):
+	self.bootProto = bootproto
+	self.ip = ip
+	self.netmask = netmask
+	self.gateway = gateway
+	self.nameserver = nameserver
+
+    def getNetwork(self):
+	return (bootProto, ip, netmask, gateway, nameserver)
+
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
@@ -74,6 +84,11 @@ class InstallClass:
 	self.setAuthentication(1, 1, 0)
 	self.rootPassword = None
 	self.installType = None
+	self.bootProto = None
+	self.ip = None
+	self.netmask = None
+	self.gateway = None
+	self.nameserver = None
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):

@@ -304,6 +304,9 @@ class ToDo:
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
 
+        self.todo.network.gateway = self.gw.get_text ()
+        self.todo.network.primaryNS = self.ns.get_text ()
+
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
@@ -856,6 +859,24 @@ class ToDo:
 	if todo.instClass.rootPassword:
 	    todo.rootpassword.set(todo.instClass.rootPassword)
 
+	(bootProto, ip, netmask, gateway, nameserver) = \
+		todo.instClass.getNetwork()
+
+        self.gateway = gateway
+        self.primaryNS = nameserver
+
+        devices = todo.network.available ()
+	if (devices):
+	    list = devices.keys ()
+	    list.sort()
+	    dev = list[0]
+	    dev.set (("bootproto", bootProto))
+
+	    if (ip):
+		dev.set (("ipaddr", ip))
+	    if (netmask):
+		dev.set (("netmask", netmask))
+
     # List of (accountName, fullName, password) tupes
     def setUserList(todo, users):
 	todo.users = users
@@ -887,6 +908,7 @@ class ToDo:
 	list = isys.cdromList()
 	count = 0
 	for device in list:
+	    (device, descript) = device
 	    cdname = "cdrom"
 	    if (count):
 		cdname = "%s%d" % (cdname, count)

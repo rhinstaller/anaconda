@@ -5,7 +5,7 @@ import sys
 
 class Kickstart(InstallClass):
 
-    def setRootPassword(self, args):
+    def doRootPw(self, args):
 	(args, extra) = getopt.getopt(args, '', [ 'iscrypted=' ])
 
 	isCrypted = 0
@@ -14,10 +14,10 @@ class Kickstart(InstallClass):
 	    if (str == '--iscrypted'):
 		isCrypted = 1
 
-	InstallClass.setRootPassword(self, extra[0], isCrypted = isCrypted)
+	InstallClass.doRootPw(self, extra[0], isCrypted = isCrypted)
 	self.addToSkipList("accounts")
 
-    def authconfig(self, args):
+    def doAuthconfig(self, args):
 	(args, extra) = getopt.getopt(args, '',
 		[ 'enablenis', 'nisdomain=', 'nisserver=', 'useshadow',
 		  'enablemd5' ])
@@ -48,7 +48,7 @@ class Kickstart(InstallClass):
 			       nisBroadcast, nisServer)
 	self.addToSkipList("authentication")
 
-    def setupLilo(self, args):
+    def doLilo	(self, args):
 	(args, extra) = getopt.getopt(args, '',
 		[ 'append=', 'location=', 'linear' ])
 
@@ -74,7 +74,7 @@ class Kickstart(InstallClass):
 	self.setLiloInformation(location, linear, appendLine)
 	self.addToSkipList("lilo")
 
-    def setTimezone(self, args):
+    def doTimezone(self, args):
 	(args, extra) = getopt.getopt(args, '',
 		[ 'utc' ])
 
@@ -89,14 +89,47 @@ class Kickstart(InstallClass):
 
 	self.addToSkipList("timezone")
 
+    def doInstall(self, args):
+	self.installType = "install"
+
+    def doUpgrade(self, args):
+	self.installType = "upgrade"
+
+    def doNetwork(self, args):
+	(args, extra) = getopt.getopt(args, '',
+		[ 'bootproto', 'ip', 'netmask', 'gateway', 'nameserver' ])
+	bootProto = "dhcp"
+	ip = None
+	netmask = None
+	gateway = None
+	nameserve = None
+	for n in args:
+	    (str, arg) = n
+	    if str == "--bootproto":
+		bootProto = arg
+	    elif str == "--ip":
+		ip = arg
+	    elif str == "--netmask":
+		netmask = arg
+	    elif str == "--gateway":
+		gateway = arg
+	    elif str == "--nameserver":
+		nameserver = arg
+	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
+
     def readKickstart(self, file):
-	handlers = { "nfs"		: None			,
+	handlers = { 
+		     "authconfig"	: self.doAuthconfig	,
 		     "cdrom"		: None			,
-		     "authconfig"	: self.authconfig	,
+		     "install"		: self.doInstall	,
+		     "network"		: self.doNetwork	,
+		     "lang"		: self.doLanguage	,
+		     "lilo"		: self.doLilo		,
 		     "network"		: None			,
-		     "rootpw"		: self.setRootPassword	,
-		     "timezone"		: self.setTimezone	,
-		     "lilo"		: self.setupLilo	,
+		     "nfs"		: None			,
+		     "rootpw"		: self.doRootPw		,
+		     "timezone"		: self.doTimezone	,
+		     "upgrade"		: self.doUpgrade	,
 		   }
 
 	for n in open(file).readlines():
@@ -113,8 +146,8 @@ class Kickstart(InstallClass):
 	self.addToSkipList("bootdisk")
         self.addToSkipList("welcome")
 
-	self.readKickstart(file)
 	self.installType = "install"
+	self.readKickstart(file)
 
 	self.setGroups(["Base"])
 	self.addToSkipList("package-selection")

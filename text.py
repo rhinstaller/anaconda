@@ -560,7 +560,9 @@ class NetworkWindow:
             # XXX expert mode, allow changing network settings here
             return INSTALL_NOOP
         
-        dev = devices[devices.keys ()[0]]
+	list = devices.keys ()
+	list.sort()
+        dev = list[0]
 
         firstg = Grid (1, 1)
         boot = dev.get ("bootproto")
