@@ -381,3 +381,18 @@ def swapAmount():
 
     return mem
         
+def copyDeviceNode(src, dest):
+    """Copies the device node at src to dest by looking at the type of device,
+    major, and minor of src and doing a new mknod at dest"""
+
+    filestat = os.lstat(src)
+    mode = filestat[stat.ST_MODE]
+    if stat.S_ISBLK(mode):
+        type = stat.S_IFBLK
+    elif stat.ISCHR(mode):
+        type = stat.S_IFCHR
+    else:
+        # XXX should we just fallback to copying normally?
+        raise RuntimeError, "Tried to copy %s which isn't a device node" % (src,)
+
+    isys.mknod(dest, mode | type, filestat[stat.ST_DEV])
