@@ -52,7 +52,7 @@ gzFile gunzip_open(const char * file) {
     gzFile rc;
 
     fd = open(file, O_RDONLY);
-    if (fd < 0) return NULL;
+    if (fd == -1) return NULL;
 
     rc = gunzip_dopen(fd);
     close(fd);
@@ -100,7 +100,7 @@ gzFile gzip_open(const char * file, int flags, int perms) {
     gzFile rc;
 
     fd = open(file, flags, perms);
-    if (fd < 0) return NULL;
+    if (fd == -1) return NULL;
 
     rc = gzip_dopen(fd);
     close(fd);

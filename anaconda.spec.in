@@ -8,7 +8,7 @@ License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python, newt-devel, rpm-devel, gettext >= 0.11, modutils-devel, rhpl, booty, libxml2-python, zlib-devel, bogl >= 0.1.9-9
+BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python, newt-devel, rpm-devel, gettext >= 0.11, modutils-devel, rhpl, booty, libxml2-python, zlib-devel, bogl >= 0.1.9-10
 %ifnarch s390 s390x
 BuildPreReq: dietlibc
 %endif

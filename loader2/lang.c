@@ -299,7 +299,7 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* disable until working */
-    if (!strcmp(languages[choice].font, "bterm") && (1 || startBterm(flags))) {
+    if (!strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
