@@ -76,7 +76,7 @@ class ToDo:
 	self.installLilo()
 
 	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
-				"-r ", self.instPath ], stdout = None)
+				"-r", self.instPath ], stdout = None)
 
     def installLilo(self):
 	if not self.liloDevice: return
