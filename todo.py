@@ -13,6 +13,7 @@ elif arch == "ia64":
 import string
 import socket
 import crypt
+import sys
 import whrandom
 import pcmcia
 import _balkan
@@ -703,6 +704,16 @@ class ToDo:
 	    fstab.readFstab('/mnt/sysimage/etc/fstab', self.fstab)
             isys.umount('/mnt/sysimage')        
 	    raid.stopAllRaid(mdList)
+
+	    if self.fstab.hasDirtyFilesystems():
+		win.pop()
+		todo.intf.messageWindow(("Dirty Filesystems"),
+		    _("One or more of the filesystems for your Linux system "
+		      "was not unmounted cleanly. Please boot your Linux "
+		      "installation, let the filesystems be checked, and "
+		      "shut down cleanly to upgrade."))
+		sys.exit(0)
+
             self.fstab.mountFilesystems (self.instPath)
 	    self.fstab.turnOnSwap(formatSwap = 0)
         self.getCompsList ()
