@@ -14,8 +14,32 @@ class WelcomeWindow:
 	    "http://www.redhat.com/.", buttons = ['Ok'])
         return 0
 
+class InstallProgressWindow:
+
+    def setPackage(self, name):
+	self.p.setText(name)
+	self.g.draw()
+	self.screen.refresh()
+
+    def __del__(self):
+	self.screen.popWindow()
+	screen.refresh()
+
+    def __init__(self, screen):
+	self.screen = screen
+	self.l = Label('Package:')
+	self.p = Label('                       ')
+	g = GridForm(self.screen, 'Installing Packages', 2, 1)
+	g.add(self.l, 0, 0)
+	g.add(self.p, 1, 0)
+	g.draw()
+	self.g = g
+	screen.refresh()
+
 class PartitionWindow:
-    def run(self, screen):
+    def run(self, screen, rootPath):
+	if (rootPath): return -2
+
         device = 'hda';
 
 	table = _balkan.readTable('/dev/' + device)
@@ -38,6 +62,9 @@ class PartitionWindow:
 
 class InstallInterface:
 
+    def packageProgessWindow(self):
+	return InstallProgressWindow(self.screen)
+
     def waitWindow(self, title, text):
 	width = 40
 	if (len(text) < width): width = len(text)
@@ -59,16 +86,18 @@ class InstallInterface:
     def __del__(self):
         self.screen.finish()
 
-    def run(self, hdlist):
+    def run(self, hdlist, rootPath):
         steps = [
-            ["Welcome", WelcomeWindow],
-            ["Partition", PartitionWindow]
+            ["Welcome", WelcomeWindow, (self.screen,)],
+            ["Partition", PartitionWindow, (self.screen, rootPath)]
         ]
 
         step = 0
+	dir = 0
         while step >= 0 and step < len(steps) and steps[step]:
-
-            if steps[step][1]().run(self.screen) == -1:
-                step = step - 1
+            rc =  apply(steps[step][1]().run, steps[step][2])
+	    if rc == -1:
+		dir = -1
             else:
-                step = step + 1
+		dir = 1
+	    step = step + dir
