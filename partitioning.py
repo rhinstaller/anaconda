@@ -1031,12 +1031,24 @@ class Partitions:
         n = 0
         while n < len(self.requests):
             for request in self.requests:
-                if (request.size and self.requests[n].size and
+                # for raid requests, we need explicit raiddevs first
+                if (request.type == self.requests[n].type and
+                    request.type == REQUEST_RAID and
+                    self.requests[n].raidminor and
+                    (not request.raidminor or
+                     request.raidminor < self.requests[n].raidminor)):
+                    tmp = self.requests[n]
+                    index = self.requests.index(request)
+                    self.requests[n] = request
+                    self.requests[index] = tmp
+                # for sized requests, we want the larger ones first
+                elif (request.size and self.requests[n].size and
                     (request.size < self.requests[n].size)):
                     tmp = self.requests[n]
                     index = self.requests.index(request)
                     self.requests[n] = request
                     self.requests[index] = tmp
+                # for cylinder-based, sort by order on the drive
                 elif (request.start and self.requests[n].start and
                       (request.drive == self.requests[n].drive) and
                       (request.type == self.requests[n].type) and 
@@ -1045,6 +1057,8 @@ class Partitions:
                     index = self.requests.index(request)
                     self.requests[n] = request
                     self.requests[index] = tmp
+                # finally just use when they defined the partition so
+                # there's no randomness thrown in
                 elif (request.size and self.requests[n].size and
                       (request.size == self.requests[n].size) and
                       (request.uniqueID < self.requests[n].uniqueID)):
@@ -1783,6 +1797,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         return DISPATCH_FORWARD
         
     fsset.reset()
+    partitions.sortRequests()
     for request in partitions.requests:
         # XXX improve sanity checking
         if (not request.fstype or (request.fstype.isMountable()
