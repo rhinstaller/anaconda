@@ -727,7 +727,7 @@ class ToDo:
 		      "was not unmounted cleanly. Please boot your Linux "
 		      "installation, let the filesystems be checked, and "
 		      "shut down cleanly to upgrade."))
-		sys.exit(0)
+                os.kill (os.getpid(), 9)    
 
             self.fstab.mountFilesystems (self.instPath)
 	    self.fstab.turnOnSwap(formatSwap = 0)
