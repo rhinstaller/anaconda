@@ -792,7 +792,7 @@ class XConfigWindow (InstallWindow):
         # sniff out the selected ram size
         menu = self.ramOption.get_menu ().get_active()
         index = 0
-        for menu_item in self.ramOption.get_menu ().children ():
+        for menu_item in self.ramOption.get_menu ().get_children ():
             if menu_item == menu:
                 break
             index = index + 1
