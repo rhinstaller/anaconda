@@ -1,2892 +1,2294 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This is the Red Hat Linux package translation catalog.
+# Copyright (C) 1998, 1999, Red Hat, Inc.
+# Cristian Gafton <gafton@redhat.com>, 1998.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: specspo $Revision$\n"
+"PO-Revision-Date: 1999-04-09 14:26 +EST\n"
+"Last-Translator: Andrea Mari <amari@redhat.it>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Type: text/plain; charset=US/Ascii\n"
+"Content-Transfer-Encoding: 8-bit\n"
 
-#: ../fstab.py:235 ../fstab.py:394
-msgid "Formatting"
-msgstr "Formateo"
-
-#: ../fstab.py:236
-#, c-format
-msgid "Formatting swap space on /dev/%s..."
-msgstr "Formateo del espacio de swap en /dev/%s..."
-
-#: ../fstab.py:246 ../fstab.py:326 ../fstab.py:460
-#: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:182
-#: ../loader/devices.c:187 ../loader/lang.c:89 ../loader/loader.c:471
-#: ../loader/loader.c:481 ../loader/loader.c:701 ../loader/loader.c:753
-#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1692
-#: ../loader/loader.c:1738 ../loader/loader.c:1809 ../loader/urls.c:70
-#: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
-#: ../loader/urls.c:228 ../text.py:281 ../text.py:765 ../todo.py:336
-#: ../todo.py:654 ../todo.py:685
-msgid "Error"
-msgstr "Error"
-
-#: ../fstab.py:246
-msgid "Error creating swap on device "
-msgstr "Error creando swap en dispositivo "
-
-#: ../fstab.py:327
-#, c-format
-msgid "Error unmounting %s: %s"
-msgstr "Error desmontando %s: %s "
-
-#: ../fstab.py:349 ../todo.py:419
-msgid "Creating"
-msgstr "Creando"
-
-#: ../fstab.py:349
-msgid "Creating RAID devices..."
-msgstr "Creando dispositivos RAID..."
-
-#: ../fstab.py:395
-#, c-format
-msgid "Formatting %s filesystem..."
-msgstr "Formateo del %s sistema de archivos..."
-
-#: ../fstab.py:417
-msgid "Loopback"
-msgstr ""
-
-#: ../fstab.py:418
-#, c-format
-msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
-
-#: ../fstab.py:461
-#, c-format
-msgid "Error mounting %s: %s"
-msgstr "Error montando %s: %s"
-
-#: ../gui.py:277 ../gui.py:523
-msgid "Next"
-msgstr "Siguiente"
-
-#: ../gui.py:278 ../gui.py:522 ../libfdisk/newtfsedit.c:1292
-#: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
-#: ../loader/devices.c:171 ../loader/devices.c:249 ../loader/lang.c:548
-#: ../loader/loader.c:255 ../loader/loader.c:608 ../loader/loader.c:644
-#: ../loader/loader.c:753 ../loader/loader.c:1160 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54
-#: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
-#: ../text.py:173 ../text.py:176 ../text.py:230 ../text.py:284 ../text.py:298
-#: ../text.py:300 ../text.py:319 ../text.py:321 ../text.py:343 ../text.py:345
-#: ../text.py:452 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
-#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
-#: ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10
-#: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
-#: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
-#: ../textw/packages.py:144 ../textw/packages.py:153
-#: ../textw/partitioning.py:23 ../textw/partitioning.py:64
-#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
-#: ../textw/silo.py:26 ../textw/silo.py:98 ../textw/silo.py:205
-#: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
-#: ../textw/userauth.py:185 ../textw/userauth.py:257
-msgid "Back"
-msgstr "Atrás"
-
-#: ../gui.py:279 ../gui.py:527
-msgid "Show Help"
-msgstr "Muestra Ayuda"
-
-#: ../gui.py:280 ../gui.py:526
-msgid "Hide Help"
-msgstr "Esconder Ayuda"
-
-#: ../gui.py:281 ../gui.py:525
-msgid "Finish"
-msgstr "Terminado"
-
-#: ../gui.py:284 ../gui.py:552
-msgid "Online Help"
-msgstr "Ayuda en Linea"
-
-#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1005
-#: ../text.py:1034
-msgid "Language Selection"
-msgstr "Selección del idioma"
-
-#: ../gui.py:489
-msgid "Red Hat Linux Installer"
-msgstr "Instalador Red Hat Linux"
-
-#: ../gui.py:493
-msgid "Red Hat Linux Install Shell"
-msgstr "Instalar Shell Red Hat Linux "
-
-#: ../gui.py:504
-#, c-format
-msgid "Red Hat Linux Installer on %s"
-msgstr "Instalador de Red Hat Linux en %s"
-
-#: ../gui.py:505
-#, c-format
-msgid "Red Hat Linux Install Shell on %s"
-msgstr "Instalar Shell Red Hat Linux en %s"
-
-#: ../installclass.py:252
-msgid ""
-"You are about to erase any preexisting Linux installations on your system."
-msgstr "Va a borrar la instalación pre-existente de Linux en su sistema"
-
-#: ../installclass.py:289
-msgid ""
-"You are about to erase ALL DATA on your hard drive to make room for your "
-"Linux installation."
-msgstr ""
-"Esta a punto de borrar TODOS LOS DATOS que hay en su disco duro para "
-"encontrar espacio suficiente para la instalación de Linux."
-
-#. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
-#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
-#: ../libfdisk/fsedit.c:828 ../libfdisk/fsedit.c:845 ../libfdisk/fsedit.c:1238
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158
-#: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202
-#: ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514
-#: ../libfdisk/gnomefsedit.c:1532 ../libfdisk/gnomefsedit.c:1770
-#: ../libfdisk/gnomefsedit.c:2005 ../libfdisk/gnomefsedit.c:2013
-#: ../libfdisk/gnomefsedit.c:2027 ../libfdisk/gnomefsedit.c:2038
-#: ../libfdisk/gnomefsedit.c:2045 ../libfdisk/gnomefsedit.c:2060
-#: ../libfdisk/gnomefsedit.c:2069 ../libfdisk/gnomefsedit.c:2078
-#: ../libfdisk/gnomefsedit.c:2117 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:462
-#: ../libfdisk/newtfsedit.c:540 ../libfdisk/newtfsedit.c:558
-#: ../libfdisk/newtfsedit.c:576 ../libfdisk/newtfsedit.c:1292
-#: ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426
-#: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
-#: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
-#: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:135 ../textw/silo.py:148
-#: ../textw/silo.py:204
-msgid "Ok"
-msgstr "OK"
-
-#: ../text.py:60
-msgid "What language would you like to use during the installation process?"
-msgstr "¿Que idioma quiere usar durante la instalación?"
-
-#: ../text.py:80
-msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (COM1 en DOS)"
-
-#: ../text.py:81
-msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (COM2 en DOS)"
-
-#: ../text.py:82
-msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (COM3 en DOS)"
-
-#: ../text.py:83
-msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS3 (COM4 en DOS)"
-
-#: ../iw/lilo.py:221 ../iw/silo.py:254 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:130 ../textw/silo.py:195
-msgid "Device"
-msgstr "Dispositivo"
-
-#: ../text.py:99
-#, c-format
-msgid "What device is your mouse located on? %s %i"
-msgstr "¿En qué dispositivo se encuentra localizado el ratón? %s %i"
-
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:170
-#: ../loader/devices.c:182 ../loader/devices.c:187 ../loader/devices.c:249
-#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:89 ../loader/lang.c:277 ../loader/lang.c:548
-#: ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481
-#: ../loader/loader.c:644 ../loader/loader.c:701 ../loader/loader.c:753
-#: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1004
-#: ../loader/loader.c:1160 ../loader/loader.c:1692 ../loader/loader.c:1738
-#: ../loader/loader.c:1801 ../loader/loader.c:1809 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591
-#: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:230
-#: ../text.py:298 ../text.py:343 ../text.py:360 ../text.py:452 ../text.py:472
-#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
-#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
-#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
-#: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
-#: ../textw/partitioning.py:231 ../textw/partitioning.py:280
-#: ../textw/partitioning.py:290 ../textw/partitioning.py:298
-#: ../textw/silo.py:25 ../textw/silo.py:98 ../textw/timezone.py:66
-#: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
-#: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
-#: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
-#: ../textw/userauth.py:185 ../textw/userauth.py:257
-msgid "OK"
-msgstr "OK"
-
-#: ../text.py:122
-msgid "Which model mouse is attached to this computer?"
-msgstr "¿Qué tipo de ratón tiene conectado a su ordenador? "
-
-#: ../text.py:131
-msgid "Emulate 3 Buttons?"
-msgstr "¿Simular 3 botones?"
-
-#: ../text.py:133
-msgid "Mouse Selection"
-msgstr "Selección del ratón"
-
-#: ../text.py:171 ../text.py:1007 ../text.py:1036
-msgid "Keyboard Selection"
-msgstr "Selección del teclado"
-
-#: ../text.py:172
-msgid "Which model keyboard is attached to this computer?"
-msgstr "¿Que tipo de teclado tiene conectado a su ordenador?"
-
-#: ../text.py:223
-msgid "Install GNOME Workstation"
-msgstr "Instalar una Estación GNOME"
-
-#: ../text.py:224
-msgid "Install KDE Workstation"
-msgstr "Instalar una Estación KDE"
-
-#: ../text.py:225
-msgid "Install Server System"
-msgstr "Instalar un Sistema Servidor"
-
-#: ../text.py:226
-msgid "Install Custom System"
-msgstr "Instalar un sistema personalizado"
-
-#: ../text.py:227
-msgid "Upgrade Existing Installation"
-msgstr "Actualizar la instalación existente"
-
-#: ../text.py:228 ../text.py:1039
-msgid "Installation Type"
-msgstr "Tipo de instalación"
-
-#: ../text.py:229
-msgid "What type of system would you like to install?"
-msgstr "¿Qué tipo de sistema desea instalar?"
-
-#: ../text.py:282
-msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "¡No hay ninguna partición Linux. No es posible actualizar el sistema!"
-
-#: ../text.py:295
-msgid "System to Upgrade"
-msgstr "Actualización del sistema"
-
-#: ../text.py:296
-msgid "What partition holds the root partition of your installation?"
-msgstr "¿Qué partición contiene la partición root del sistema?"
-
-#: ../text.py:311
-msgid "Customize Packages to Upgrade"
-msgstr "Seleccionar los paquetes a actualizar"
-
-#: ../text.py:312
-msgid ""
-"The packages you have installed, and any other packages which are needed to "
-"satisfy their dependencies, have been selected for installation. Would you "
-"like to customize the set of packages that will be upgraded?"
-msgstr ""
-"Los paquetes que tiene instalados en su ordenador y cualquier otro que sea "
-"necesario para satisfacer las dependencias, han sido marcados para su "
-"actualización ¿Quiere agregar algo?"
-
-#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
-#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
-#: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
-#: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
-#: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:319 ../text.py:517
-#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:192
-msgid "Yes"
-msgstr "Si"
-
-#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
-#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
-#: ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440
-#: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
-#: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
-#: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:719 ../text.py:319 ../text.py:324 ../text.py:517
-#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:192
-msgid "No"
-msgstr "No"
-
-#: ../text.py:334 ../text.py:352
-msgid "Red Hat Linux"
-msgstr "Red Hat Linux"
-
-#: ../text.py:335
-msgid ""
-"Welcome to Red Hat Linux!\n"
-"\n"
-"This installation process is outlined in detail in the Official Red Hat "
-"Linux Installation Guide available from Red Hat Software. If you have access "
-"to this manual, you should read the installation section before continuing.\n"
-"\n"
-"If you have purchased Official Red Hat Linux, be sure to register your "
-"purchase through our web site, http://www.redhat.com/."
-msgstr ""
-"Bienvenido a Linux de Red Hat\n"
-"\n"
-"El proceso de Instalación está descrito en detalle en la Guía oficial de "
-"instalación de Red Hat, disponible en Red Hat Software, si tiene acceso a "
-"ésta guía deberá revisarla antes de continuar.\n"
-"\n"
-"Si tiene la versión oficial de Red Hat Linux, asegúrese de registrar su "
-"compra en la pagina web http://www.redhat.com"
-
-#: ../text.py:353
+# ========================================================
+#: apache-1.3.9-4.src.rpm:1005 apache-devel-1.3.9-4.i386.rpm:1005
 #, fuzzy
 msgid ""
-"Welcome to the Red Hat Linux!\n"
+"The apache-devel package contains the APXS binary and other files that\n"
+"you'll need to build Dynamic Shared Objects (DSOs) for Apache.\n"
 "\n"
-"You have entered reconfiguration mode, which will allow you to configure "
-"site-specific options of your computer.\n"
-"\n"
-"To exit without changing your setup select the Cancel button below."
+"If you are installing the Apache Web server, and you want to be \n"
+"able to compile or develop additional modules for Apache, you'll \n"
+"need to install this package."
 msgstr ""
-"Bienvenidos a Red Hat Linux!\n"
+"El paquete apache-devel contiene los codigos\n"
+"binarios APXS necesarios para construir\n"
+"los Dynamic Shared Object (DSO) para el servidor Apache ."
 "\n"
-"Ha entrado en la modalidad de reconfiguración, que le permite modificar la "
-"configuración de su sistema.\n"
-"\n"
-"Para salir sin modificar la configuración, seleccione la tecla cancelar en "
-"la parte inferior."
+"Si está instalando el servidor Web Apache, y quiere tener la posibilidad de\n"
+"compilar o desarrollar modulos añadidos para Apache, necesitará\n"
+"instalar ese paquete."
 
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
-#: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:171
-#: ../loader/loader.c:1801 ../text.py:360 ../text.py:362 ../textw/lilo.py:106
-#: ../textw/silo.py:135 ../textw/silo.py:153 ../textw/userauth.py:63
-msgid "Cancel"
-msgstr "Cancela"
-
-#: ../text.py:424
-msgid "Use bootp/dhcp"
-msgstr "Usar bootp/dhcp"
-
-#: ../loader/net.c:234 ../text.py:429
-msgid "IP address:"
-msgstr "Dirección IP:"
-
-#: ../loader/net.c:237 ../text.py:430
-msgid "Netmask:"
-msgstr "Netmask:"
-
-#: ../loader/net.c:240 ../text.py:431
-msgid "Default gateway (IP):"
-msgstr "Gateway por defecto (IP):"
-
-#: ../loader/net.c:243 ../text.py:432
-msgid "Primary nameserver:"
-msgstr "DNS primario:"
-
-#: ../iw/network.py:11 ../text.py:454
-msgid "Network Configuration"
-msgstr "Configuración de Red"
-
-#: ../text.py:470
-msgid "Invalid information"
-msgstr "Información no válida"
-
-#: ../text.py:471
-msgid "You must enter valid IP information to continue"
-msgstr "Debe poner una IP válida para continuar"
-
-#: ../text.py:498
-msgid "Hostname Configuration"
-msgstr "Configuración del nombre del sistema"
-
-#: ../text.py:499
+# ========================================================
+#: arla-0.30-4.i386.rpm:1005 arla-0.30-4.src.rpm:1005
 msgid ""
-"The hostname is the name of your computer.  If your computer is attached to "
-"a network, this may be assigned by your network administrator."
+"This is a snapshot and pre-greek letters.\n"
+"\n"
+"La mayoria de las funcionalidades están aquí. Puede leer y escribir\n"
+"ficheros y directorios, con o sin autentificación.  No es tan estable o\n"
+"de alto nivel como querriamos que fuese.  Solo sirve para poner en la\n"
+"cache ficheros enteros, sin embargo es bastante por el momento.\n"
+"\n"
+"Arla in Swedish means `early'.  Most of the code has been written\n"
+"early in the morning."
 msgstr ""
-"El nombre del sistema es el nombre de tu ordenador en la red, éste nombre "
-"puede que sea asignado por el administrador de la red."
+"Esa es una instantanea./n" 
+"\n"
+"La mayoria de las funcionalidades están aquí. Puede leer y escribir ficheros y\n"
+"directorios, con o sin autentificación.  No es tan estable o de alto nivel\n"
+"como querriamos que fuese.  Solo sirve para poner en la cache ficheros\n"
+"enteros, sin embargo es bastante por el momento.\n"
+"\n"
+"Arla en sueco quiere decir pronto. La mayoria del codigo ha sido escrito\n"
+"pronto por la mañana."
 
-#: ../iw/network.py:207 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
-msgid "Hostname"
-msgstr "Hostname"
+#: arla-0.30-4.i386.rpm:1004 arla-0.30-4.src.rpm:1004
+msgid "A free AFS cache-manager implementation."
+msgstr "Una actualización gratis del administrador de la cache AFS."
 
-#: ../text.py:518
+# ========================================================
+#: arla-0.30-4.src.rpm:1005 arla-devel-0.30-4.i386.rpm:1005
 msgid ""
-"A custom boot disk provides a way of booting into your Linux system without "
-"depending on the normal bootloader. This is useful if you don't want to "
-"install lilo on your system, another operating system removes lilo, or lilo "
-"doesn't work with your hardware configuration. A custom boot disk can also "
-"be used with the Red Hat rescue image, making it much easier to recover from "
-"severe system failures.\n"
-"\n"
-"Would you like to create a boot disk for your system?"
+"This is a snapshot and pre-greek letters.  These headers and library\n"
+"files are for writing tools for use with Arla."
 msgstr ""
-"El disco de arranque permite de entrar en el sistema Linux sin utilizar el "
-"normal bootloader de Linux (LILO). Esto es util si no quiere instalar LILO "
-"en su sistema, si otro sistema operativo elimina LILO, o si LILO no funciona "
-"correctamente en su ordenador. El disco de arranque puede ser utilizado en "
-"combinación con el disque de rescate, resultando mucho mas sencillo la "
-"reinicialización del sistema de fallos severos. \n"
-"\n"
-"¿Quiere crear un disco de arranque?"
+"Esa es una instantanea. Esos ficheros header y librerias son para\n"
+"escribir herramientas de utilizar con Arla."
 
-#: ../text.py:537
+#: arla-0.30-4.src.rpm:1004 arla-devel-0.30-4.i386.rpm:1004
+#, fuzzy
+msgid "Development files for programs which will use Arla's libraries."
+msgstr "Ficheros de desarrollo para programas que utilizarán las librerias de Arla."
+
+# ========================================================
+#: chkfontpath-1.5-1.i386.rpm:1005 chkfontpath-1.5-1.src.rpm:1005
+#, fuzzy
 msgid ""
-"\n"
-"On SMCC made Ultra machines floppy booting probably does not work\n"
-"\n"
+"Chkfontpath is a simple terminal mode program for configuring the\n"
+"directories in the X font server's path. It is mostly intended to be\n"
+"used internally by RPM when packages with fonts are added or removed,\n"
+"but it may be useful as a stand-alone utility in some instances."
 msgstr ""
-"\n"
-"En las maquinas Ultra de SMCC el disco de arranque probablemente no "
-"funciona.\n"
-"\n"
+"Chkfontpath es un programa en modo terminal para configurar los\n"
+"directorios que aparecen en el recorrido del servidor fuente de X./n"
+"Ha sido pensado para ser utilizado por RPM cuando se añaden o se\n"
+"quitan los paquetes con los caracteres, sin embargo podria resultar util\n"
+"también si lo utiliza independientemente en determinadas circumstancias.\n"
 
-#: ../text.py:540 ../text.py:753
-msgid "Bootdisk"
-msgstr "Disco de inicio"
-
-#: ../text.py:583
-msgid "X probe results"
-msgstr "Resultados de la prueba X"
-
-#: ../text.py:602 ../text.py:621
-msgid "Unlisted Card"
-msgstr "La tarjeta no aparece en la lista"
-
-#: ../text.py:610
-msgid "Video Card Selection"
-msgstr "Selección de la tarjeta vídeo"
-
-#: ../text.py:611
-msgid "Which video card do you have?"
-msgstr "¿Qué tarjeta vídeo posee?"
-
-#: ../text.py:623
-msgid "X Server Selection"
-msgstr "Selección del servidor X"
-
-#: ../text.py:623
-msgid "Choose a server"
-msgstr "Elija un servidor"
-
-#: ../text.py:681
-msgid "Installation to begin"
-msgstr "Inicio de la instalación"
-
-#: ../iw/confirm.py:33 ../text.py:682
+# ========================================================
+#: emacs-20.4-4.src.rpm:1005 emacs-leim-20.4-4.i386.rpm:1005
+#, fuzzy
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
-"rebooting your system. You may want to keep this file for later reference."
+"TThe emacs-leim package contains Emacs Lisp code for input methods for\n"
+"various international character scripts. Basically, the Lisp code\n"
+"provided by this package describes the consecutive keystrokes that a\n"
+"user must press in order to input a particular character in a\n"
+"non-English character set. Input methods for many different language's\n"
+"character sets are included in this package."
 msgstr ""
-"Un completo elenco del proceso de instalación se grabará en "
-"/tmp/install.logreiniciando el sistema. Puede guardar este archivo para "
-"posteriores referencias."
+"El paquete emacs-leim contiene el código Lisp de Emacs para los métodos de\n"
+"input para los diferentes script. El código Lisp provisto de este paquete\n"
+"describe las particulares combinaciones de teclas que el usuario debe\n"
+"pulsar para insertar un determinado caracter en un set no-inglés. En\n"
+"este paquete están incluidos los conjuntos de caracteres para varios idiomas."
 
-#: ../text.py:699 ../text.py:714 ../text.py:734
-msgid "Complete"
-msgstr "Completo"
-
-#: ../iw/congrats.py:32 ../text.py:700
+# ========================================================
+#: extace-1.2.1-1.i386.rpm:1005 extace-1.2.1-1.src.rpm:1005
+#, fuzzy
 msgid ""
-"Congratulations, installation is complete.\n"
-"\n"
-"Press return to reboot, and be sure to remove your boot medium as the system "
-"reboots, or your system will rerun the install. For information on fixes "
-"which are available for this release of Red Hat Linux, consult the Errata "
-"available from http://www.redhat.com/errata.\n"
-"\n"
-"Information on configuring and using your Red Hat Linux system is contained "
-"in the Red Hat Linux manuals."
+"eXtace is a audio visualization plugin for the GNOME GUI desktop\n"
+"environment. It connects to EsounD (the Enlightened Sound Daemon) and\n"
+"displays the audio data as either a 3D textured landscape, a 3D\n"
+"pointed landscape, a 16-128 channel graphic EQ, or a colored\n"
+"Oscilloscope."
 msgstr ""
-"Enhorabuena, configuración terminada.\n"
-"\n"
-"Pulse Enter para reiniciar el sistema, y asegurese de que saca  el CDROM o "
-"el disquete.\n"
-"Para información  referente a las actualizaciones disponibles de esta "
-"versión de Red Hat Linux, consulte las Erratas en el sitio "
-"http://www.redhat.it.\n"
-"Haga referencia al manual  Official Red Hat Linux User's Guide para la "
-"configuración de su sistema."
+"eXtace es un plugin de visualización audio para el escritorio GNOME GUI.\n"
+"Se conecta a EsounD (the Enlightened Sound Daemon) y visualiza\n"
+"los datos audio en 3D textured landscape, en 3D pointed landscape, en 16-128 "
+"channel graphic EQ, ..."
 
-#: ../text.py:715 ../text.py:735
+# ========================================================
+#: finger-0.10-25.i386.rpm:1005 finger-0.10-25.src.rpm:1005
+#, fuzzy
 msgid ""
-"Congratulations, configuration is complete.\n"
+"Finger is a utility which allows users to see information about system\n"
+"users (login name, home directory, name, how long they've been logged\n"
+"in to the system, etc.).  The finger package includes a standard\n"
+"finger client.\n"
 "\n"
-" For information on fixes which are available for this release of Red Hat "
-"Linux, consult the Errata available from http://www.redhat.com.\n"
-"\n"
-"Information on further configuring your system is available in the post "
-"install chapter of the Official Red Hat Linux User's Guide."
+"You should install finger if you'd like to retreive finger information\n"
+"from other systems."
 msgstr ""
-"¡Enhorabuena, el proceso de instalación ha terminado!\n"
+"Finger es una utilidad que permite a los usuarios ver la información\n"
+"sobre los demás usuarios (nombre del login, directorio home, nombre, desde\n"
+"cuanto están conectados al sistema, ecc). El paquete finger contiene\n"
+"un cliente finger.\n"
 "\n"
-"Para conseguir más información sobre las peculiaridades de esta versión de "
-"Linux Red Hat consulte la pagina de Errata del sitio web "
+"Deberia instalar finger si desea distribuir la información\n"
+"usuario a través de la red."
+
+#: finger-0.10-25.i386.rpm:1004 finger-0.10-25.src.rpm:100
+#, fuzzy
+msgid "The finger client."
+msgstr "Cliente de finger"
+
+# ========================================================
+#: gnome-kerberos-0.2-1.i386.rpm:1005 gnome-kerberos-0.2-1.src.rpm:1005
+msgid ""
+"This package contains krb5, a tool for managing Kerberos 5 tickets, and\n"
+"gkadmin, a tool for managing Kerberos realms that uses the kadmin protocols."
+msgstr ""
+"Este paquete contiene krb5, una herramienta para administrar los tickets de\n"
+"Kerberos 5 y gkadmin, una herramienta para administrar realms de Kerberos\n"
+"que utilice el protocolo kadmin."
+
+#: gnome-kerberos-0.2-1.i386.rpm:1005 gnome-kerberos-0.2-1.src.rpm:1005
+#, fuzzy
+msgid "Kerberos 5 tools for GNOME."
+msgstr "Herramienta Kerberos 5 para GNOME."
+
+# =======================================================
+#: howto-6.1-1.src.rpm:1005 howto-pdf-6.1-1.noarch.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains the Linux HOWTO documents in PDF format,\n"
+"so they can be viewed already formatted for printing with a PDF viewer.\n"
+"Linux HOWTOs are detailed documents which describe a specific aspect of\n"
+"configuring or using Linux.\n"
+"\n"
+"Install the howto-pdf package if you'd like to access the Linux HOWTOs\n"
+"already formatted for printing."
+msgstr ""
+"Este paquete contiene los HOWTO de Linux en formato PDF,\n"
+"visualizados con un browser PDF y formateados de forma que puedan ser\n"
+"imprimidos. Los HOWTO son un conjunto de documentación que trata\n"
+"muchos aspectos sobre la configuración y el uso de Linux.\n"
+"\n"
+"Instale este paquete si desea leer los HOWTO\n"
+"con un browser y imprimirlos."
+
+#: howto-6.1-1.src.rpm:1004 howto-pdf-6.1-1.noarch.rpm:1004
+#, fuzzy
+msgid "PDF versions of the Linux HOWTO documents."
+msgstr "HOWTO en versión PDF"
+
+# ========================================================
+# krb5-configs-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-configs-1.1.1-4.i386.rpm:1005
+msgid ""
+"Kerberos V5 is a trusted-third-party authentication system.  This package\n"
+"contains sample configuration files for Kerberos 5 clients."
+msgstr ""
+"Kerberos 5 es un sistema de autentificación realizado por otras partes.\n"
+"Este paquete contiene una muestra de los ficheros de configuración para los\n"
+"clienets de Kerberos V5."
+
+#: krb5-configs-1.1.1-4.i386.rpm:1005
+#, fuzzy
+msgid "Kerberos 5 sample configuration file(s)."
+msgstr "Ficheros de muestra de configuración de Kerberos 5."
+
+# ========================================================
+# krb5-devel-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-devel-1.1.1-4.i386.rpm:1005
+msgid ""
+"Kerberos V5 is a trusted-third-party authentication system.  Kerberos is\n"
+"named for the three-headed watchdog from Greek mythology who guarded\n"
+"the entrance to the underworld.  If you want to develop Kerberos-aware\n"
+"programs, then you'll need to install this package."
+msgstr ""
+"Kerberos V5 es un sistema de autentificación realizado por otros\n"
+"productores. Kerberos toma ese nombre del perro de tres cabezas de la\n"
+"mitologia griega que hacía la guardia a las puertas del Averno. Si quiere\n"
+"desarrollar programas tendrà que instalar ese paquete."
+
+# krb5-devel-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-devel-1.1.1-4.i386.rpm:1005
+msgid "Header files and libraries necessary to compile Kerberos 5 programs."
+msgstr "Ficheros header y librerias necesarios para compilar programas con Kerberos 5."
+
+# ========================================================
+# krb5-libs-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-libs-1.1.1-4.i386.rpm:1005
+msgid ""
+"Kerberos V5 is a trusted-third-party authentication system.  Kerberos is\n"
+"named for the three-headed watchdog from Greek mythology who guarded\n"
+"the entrance to the underworld.  This package contains the Kerberos 5 "
+"shared\n"
+"libraries.  Most people should install this package."
+msgstr ""
+"Kerberos V5 es un sistema di autentificación realizado por otros\n"
+"productores. Kerberos toma ese nombre del perro de tres cabezas de la\n"
+"mitologia griega que hacía la guardia a las puertas del Averno. Este\n"
+"paquete contiene las librerias compartidas de Kerberos 5. Muchos tendrán\n"
+"que instalar ese paquete."
+
+# krb5-libs-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-libs-1.1.1-4.i386.rpm:1005
+msgid "Kerberos 5 shared libraries."
+msgstr "Librerias compartidas de Kerberos 5."
+
+# ========================================================
+# krb5-server-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-server-1.1.1-4.i386.rpm:1005
+msgid ""
+"Kerberos V5 is a trusted-third-party authentication system.  Kerberos is\n"
+"named for the three-headed watchdog from Greek mythology who guarded\n"
+"the entrance to the underworld.  This package contains the Kerberos 5\n"
+"server programs.  Most people should NOT install this package."
+msgstr ""
+"Kerberos V5 es un sistema di autentificación realizado por otros\n"
+"productores. Kerberos toma ese nombre del perro de tres cabezas de la\n"
+"mitologia griega que hacía la guardia a las puertas del Averno. Este\n"
+"paquete contiene las librerias compartidas de Kerberos 5. Muchos tendrán\n"
+"que instalar ese paquete."
+
+# krb5-server-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-server-1.1.1-4.i386.rpm:1005
+msgid "Kerberos 5 server programs."
+msgstr "Programas del servidor Kerberos 5."
+
+# ========================================================
+# krb5-workstation-1.1.1-4.i386.rpm:1005 krb5-1.1.1-4.src.rpm
+#: krb5-workstation-1.1.1-4.i386.rpm:1005
+msgid ""
+"Kerberos V5 is a trusted-third-party authentication system.  Kerberos is\n"
+"named for the three-headed watchdog from Greek mythology who guarded the\n"
+"entrance to the underworld.  This package contains the basic Kerberos\n"
+"programs (kinit, klist, kdestroy, kpasswd) as well as kerberized versions\n"
+"of telnet and ftp.  Most people should install this package."
+msgstr ""
+"Kerberos V5 es un sistema di autentificación realizado por otros\n"
+"productores Kerberos toma ese nombre del perro de tres cabezas de la\n"
+"mitologia griega que que hacía la guardia a las puertas del Averno. Este\n"
+"paquete contiene los paquetes basicos de Kerberos 5 (kinit, klist,\n"
+"kdestroy, kpasswd), así como las versiones kerber de Telnet y FTP. Muchos\n"
+"tendrán que instalar ese paquete."
+
+#: krb5-workstation-1.1.1-4.i386.rpm:1005
+#, fuzzy
+msgid "Kerberos 5 programs for use on workstations."
+msgstr "Programas de Kerberos 5 para ser utilizados en una workstation."
+
+# ========================================================
+#: linuxconf-1.17r2-2.i386.rpm:1005 linuxconf-1.17r2-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"Linuxconf is an extremely capable system configuration tool.\n"
+"Linuxconf provides four different interfaces for you to choose from:\n"
+"command line, character-cell (like the installation program), an X\n"
+"Window System based GUI and a web-based interface.  Linuxconf can\n"
+"manage a large proportion of your system's operations, including\n"
+"networking, user accounts, file systems, boot parameters, and more.\n"
+"\n"
+"Linuxconf will simplify the process of configuring your system.\n"
+"Unless you are completely happy with configuring your system manually,\n"
+"you should install the linuxconf package and use linuxconf instead."
+msgstr ""
+"Linuxconf es una herramienta de configuración del sistema. Propociona "
+"cuatro diferentes interfaces que usted podrá eligir:\n"
+"linea de comando, estilo caja de caracteres (como el programa de\n"
+"instalación), una interfaz gráfica basada en el sistema X Window y otra\n"
+"basada en el browser Web.\n"
+"\n"
+"Linuxconf simplifica notablemente el proceso de configuración del\n"
+"sistema. Si no le gusta configurar manualmente su sistema\n"
+"puede instalar el paquete linuxconf."
+
+# ========================================================
+#: arla-0.30-4.src.rpm:1016 milko-0.30-4.i386.rpm:1016
+msgid ""
+"This is a snapshot and pre-pre-greek letters of an AFS server "
+"implementation\n"
+"included with Arla.  It is not yet meant for production use."
+msgstr ""
+"Esa es una instantanea de una actualización de un servidor AFS incluido\n"
+"Arla. Todavia no está prevista la producción de ese paquete."
+
+#: arla-0.30-4.src.rpm:1016 milko-0.30-4.i386.rpm:1016
+msgid "A free experimental AFS server implementation."
+msgstr "Una actualización gratuita y experimental para un servidor AFS."
+
+# ========================================================
+#: mkxauth-1.7-11.noarch.rpm:1005 mkxauth-1.7-11.src.rpm:1005
+#, fuzzy
+msgid ""
+"The mkxauth utility helps create and maintain X authentication\n"
+"databases (.Xauthority files).  Mkxauth is used to create an\n"
+".Xauthority file or to merge keys from another local or remote\n"
+".Xauthority file.  .Xauthority files are used by the xauth\n"
+"user-oriented access control program, which grants or denies\n"
+"access to X servers based on the contents of the .Xauthority\n"
+"file.\n"
+"\n"
+"The mkxauth package should be installed if you're going to use\n"
+"user-oriented access control to provide security for your X Window\n"
+"System (a good idea)."
+msgstr ""
+"La utilidad mkxauth le ayuda a crear y mantener la base de datos\n"
+"de las autentificaciones de X (.Xauthority). Mkxauth se usa\n"
+"para crear un fichero .Xauthority o para unir más de uno.\n"
+"Los ficheros .Xauthority se usan de los programas para el control\n"
+"de los accesos, que autorizan o niegan el acceso al servidor X\n"
+"en función del contenido del fichero .Xauthority.\n"
+"\n"
+"El paquete mkxauthority debería ser instalado si desea\n"
+"controlar los accesos al sistema X Window."
+
+# ========================================================
+#: netscape-4.61-12.src.rpm:1005 netscape-navigator-4.61-12.i386.rpm:1005
+#, fuzzy
+msgid ""
+"Netscape Navigator is the industry-leading Web browser. It supports\n"
+"the latest HTML standards, Java, JavaScript and some style sheets.\n"
+"\n"
+"Information on the Netscape Navigator license may be found in the file\n"
+"/usr/doc/netscape-common-%{version}/LICENSE.\n"
+"\n"
+"This will install the basic Netscape Navigator Web browser.\n"
+"If you want additional features, such as the Usenet news reader and\n"
+"HTML editor, you should install the netscape-communicator package."
+msgstr ""
+"Netscape Communicator es una empresa de software que produce Web browser.\n"
+"Soporta los ultimos estándar de HTML, Java, y JavaScript.\n"
+"\n"
+"Puede encontrar información sobre la licencia de Netscape Communicator\n"
+"en el  directorio /usr/doc/netscape-common-4.08/\n"
+"Este instalará el browser Web Netscape Navigator.\n"
+"Si desea añadir funciones, como por ejemplo un lector de Usenet news\n"
+"y un editor HTML, debe instalar el paquete netscape-communicator."
+
+# ========================================================
+#: nss_ldap-102-1.i386.rpm:1005 nss_ldap-102-1.src.rpm:1005
+msgid ""
+"This package includes two LDAP access clients: nss_ldap and pam_ldap.\n"
+"Nss_ldap is a set of C library extensions which allows X.500 and LDAP\n"
+"directory servers to be used as a primary source of aliases, ethers,\n"
+"groups, hosts, networks, protocol, users, RPCs, services and shadow\n"
+"passwords (instead of or in addition to using flat files or NIS).\n"
+"\n"
+"Pam_ldap is a module for Linux-PAM that supports password changes, V2\n"
+"clients, Netscapes SSL, ypldapd, Netscape Directory Server password\n"
+"policies, access authorization, crypted hashes, etc.\n"
+"\n"
+"Install nss_ldap if you need LDAP access clients."
+msgstr ""
+"Este paquete contiene dos servidores de acceso a LDAP: nss_ldap y pam_ldap.\n"
+"Nss_ldap es un conjunto de extensiones de libreria en C que le permite\n"
+"utilizar los servidores de los directorios X.500 y LADP como fuente\n"
+"principal de alias, de ether, de grupos, de usuarios, de redes, de\n"
+"protocoles, RPC, de claves de servicio y shadow passwords (de utilizar\n"
+"en lugar de o junto a los ficheros\n"
+"llanos o NIS).\n"
+"\n"
+"Pam_ldap es un modulo para Linux-PAM que soporta cambios de claves,\n"
+"clientes V2, Netscapes SSL, ypldapd, politica de las claves de servidores\n"
+"de directorios Netscape, autorizaciones de acceso,...\n"
+"\n"
+"Instale nss_ldap si necesita un clienet de acceso a LDAP."
+
+#: nss_ldap-102-1.i386.rpm:1004 nss_ldap-102-1.src.rpm:1004
+msgid "NSS library and PAM module for LDAP."
+msgstr "Libreria NSS y modulo PAM para LDAP"
+
+# ========================================================
+#: pam_krb5-1-5.i386.rpm:1016 pam_krb5-1-5.src.rpm:1016
+msgid ""
+"This is pam_krb5, a pluggable authentication module that can be used with\n"
+"Linux-PAM and Kerberos 5. This module supports password checking, ticket\n"
+"creation, and optional TGT verification and conversion to Kerberos IV "
+"tickets.\n"
+"The included pam_krb5afs module also gets AFS tokens if so configured."
+msgstr ""
+"Eso es pam_krb5, un modulo conectable de autentificación que puede ser\n"
+"utilizado Linux-PAM and Kerberos 5. Ese modulo soporta la comprobación\n"
+"de las claves, la creación de tickets y tickets opcionales de comprobación\n"
+"TGT y de conversion en Kerberos IV.\n"
+"El modulo pam_krb5afs tiene también AFS si está configurado de la\n"
+"justa forma."
+
+#: pam_krb5-1-5.i386.rpm:1004 pam_krb5-1-5.src.rpm:1004
+msgid "Kerberos 5 Pluggable Authentication Module"
+msgstr "Modulo conectable de autentificación Kerberos 5 "
+
+# ========================================================
+#: python-1.5.2-10.src.rpm:1005 python-tools-1.5.2-10.i386.rpm:1005
+msgid ""
+"The Python package includes several development tools that are used\n"
+"to build python programs.  This package contains a selection of those\n"
+"tools, including the IDLE Python IDE.\n"
+"\n"
+"Install python-tools if you want to use these tools to develop\n"
+"Python programs.  You will also need to install the python and\n"
+"tkinter packages."
+msgstr ""
+"El paquete Python incluye varias herramientas de desarrollo que son\n"
+"utilizadas\n"
+"para construir programas Python. Ese paquete contiene una selección de\n"
+"esas herramientas. Incluida la IDE de IDLE Python.\n"
+"\n"
+"Instale las herramientas Python si necesita esas herramientas para\n"
+"desarrollar programas Python. Debe instalar también los paquetes Python\n"
+"y tkinter."
+
+#: python-1.5.2-10.src.rpm:1004 python-tools-1.5.2-10.i386.rpm:1004
+msgid "A collection of development tools included with Python."
+msgstr "Un conjunto de herramientas de desarrollo incluido en Python."
+
+# ========================================================
+#: readline-2.2.1-5.src.rpm:1005 readline-devel-2.2.1-5.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The readline library will read a line from the terminal and return it.\n"
+"Use of the readline library allows programmers to provide an easy\n"
+"to use and more intuitive interface for users.\n"
+"\n"
+"If you want to develop programs which will use the readline library,\n"
+"you'll need to have the readline-devel package installed.  You'll also\n"
+"need to have the readline package installed."
+msgstr ""
+"La libreria readline lee una linea desde el terminal y la restituye,\n"
+"permitendo al usuario modificar la linea con las combinaciones de teclas\n"
+"de Emacs.\n"
+"La libreria readline proporciona una interfaz más facil e intuitiva.\n"
+"\n"
+"Si quiere desarrollar programas que usen la libreria de readline,\n"
+"debe instalar el paquete readline-devel. En ese caso es preciso\n"
+"instalar también el paquete readline."
+
+# ========================================================
+#: rsh-0.10-28.i386.rpm:1005 rsh-0.10-28.src.rpm:1005
+#, fuzzy
+msgid ""
+"The rsh package contains a set of programs which allow users to run\n"
+"commmands on remote machines, login to other machines and copy files\n"
+"between machines (rsh, rlogin and rcp).  All three of these commands\n"
+"use rhosts style authentication.  This package contains the clients\n"
+"needed for all of these services.\n"
+"The rsh package should be installed to enable remote access to other\n"
+"machines."
+msgstr ""
+"El paquete rsh contiene un conjunto de programas que permiten\n"
+"a los usuarios ejecutar comandos sobre maquinas remotas, conectarse\n"
+"remotamente, y copiar ficheros entre maquinas distintas (rsh, rlogin, rcp).\n"
+"Esos comandos utilizan el estilo de autentificación rhost. Ese\n"
+"paquete contiene un servidor para rexec, un método alternativo para\n"
+"ejecutar comandos remotos."
+
+#: rsh-0.10-28.i386.rpm:1004 rsh-0.10-28.src.rpm:1004
+#, fuzzy
+msgid "Clients for remote access commands (rsh, rlogin, rcp)."
+msgstr "Cliente para comandos de acceso remoto (rsh, rlogin, rcp)."
+
+# ========================================================
+#: rwall-0.10-23.i386.rpm:1005 rwall-0.10-23.src.rpm:1005
+#, fuzzy
+msgid ""
+"The rwall command sends a message to all of the users logged into a\n"
+"specified host.  Actually, your machine's rwall client sends the\n"
+"message to the rwall daemon running on the specified host, and the\n"
+"rwall daemon relays the message to all of the users logged in to that\n"
+"host.\n"
+"\n"
+"Install rwall if you'd like the ability to send messages to users\n"
+"logged in to a specified host machine."
+msgstr ""
+"El comando rwall envia los mensajes a todos los usuarios conectados al\n"
+"servidor especificado. Actualmente, el cliente rwall envia el\n"
+"mensaje al demonio rwall que está ejecutandose en el host especificado,\n"
+"lo cual distribuye el mensaje a todos los usuarios conectados.\n"
+"El demonio rwall es ejecutado por /etc/inetd.conf y es desabilitado\n"
+"por defecto en los sistemasp Red Hat Linux.\n"
+"\n"
+"Instale rwall si quiere enviar un mensaje a todos los usuarios conectados\n"
+"con un host."
+
+#: rwall-0.10-23.i386.rpm:1004 rwall-0.10-23.src.rpm:1004
+#, fuzzy
+msgid "Client for sending messages to a host's logged in users."
+msgstr "Servidor para enviar mansajes que se encuentran en maquinas remotas."
+
+#, fuzzy
+msgid "A Tcl/Tk development environment: tcl, tk, tix, tclX, expect, and itcl."
+msgstr "Entorno de desarrollo Tcl/Tk: tcl, tk, tix, tclX, expect y itcl."
+
+# ========================================================
+#: telnet-0.10-31.i386.rpm:1005 telnet-0.10-31.src.rpm:1005
+#, fuzzy
+msgid ""
+"Telnet is a popular protocol for logging into remote systems over the\n"
+"Internet.  The telnet package provides a command line telnet client.\n"
+"\n"
+"Install the telnet package if you want to telnet to remote machines."
+msgstr ""
+"Telnet es un protocolo popular para entrar en sistemas remotos a traves\n"
+"de Internet. El paquete telnet-server contiene un demonio telnet\n"
+"que soporta los login remotos. El demonio del telnet es abilitado por\n"
+"defecto. Puede desabilitarlo editando /etc/inetd.conf.\n"
+"\n"
+"Instale el paquete telnet-server si quiere soportar los login\n"
+"remotos en su maquina."
+
+#: telnet-0.10-31.i386.rpm:1004 telnet-0.10-31.src.rpm:1004
+#, fuzzy
+msgid "The client program for the telnet remote login protocol."
+msgstr "Il programma server per il protocollo di login remoto telnet."
+
+# ========================================================
+#: tftp-0.15-1.i386.rpm:1005 tftp-0.15-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The Trivial File Transfer Protocol (TFTP) is normally used only for\n"
+"booting diskless workstations.  The tftp package provides the user\n"
+"interface for TFTP, which allows users to transfer files to and from a\n"
+"remote machine.  This program and TFTP provide very little security,\n"
+"and should not be enabled unless it is expressly needed."
+msgstr ""
+"TFTP (Trivial File Transfer Protocol) es normalmente utilizado para las\n"
+"workstation sin discos. Tftp proporciona al usuario la posibilidad de\n"
+"transferir ficheros desde host remotos. Tftp proporciona poca seguridad y\n"
+"no tendria que ser usado por los usuarios. El servidor TFTP es activado\n"
+"por /etc/inetd.conf, y es desabilitado por defecto en los sistemas Red Hat\n"
+"Linux."
+
+#: tftp-0.15-1.i386.rpm:1004 tftp-0.15-1.src.rpm:1004
+#, fuzzy
+msgid "The client for the Trivial File Transfer Protocol (TFTP)."
+msgstr "El servidor para Trivial File Transfer Protocol (TFTP)."
+
+#: anaconda-6.2.0-7.i386.rpm:1005 anaconda-6.2.0-7.src.rpm:1005
+#, fuzzy
+msgid "The anaconda package contains the Red Hat Linux installer."
+msgstr "El paquete anaconda contiene el instalador básico para el sistema Red Hat Linux."
+
+#: anaconda-6.2.0-7.i386.rpm:1004 anaconda-6.2.0-7.src.rpm:1004
+#, fuzzy
+msgid "The Red Hat Linux installer."
+msgstr "El instalador de Red Hat Linux"
+
+# ========================================================
+#: apache-1.3.9-8.src.rpm:1005 apache-manual-1.3.9-8.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The apache-manual package contains the complete manual and reference\n"
+"guide for the Apache Web server.  If you need Apache documentation\n"
+"installed on the local machine, install this package.  The information\n"
+"can also be found on the Web at http://www.apache.org/docs/."
+msgstr ""
+"El paquete apache-manual contiene el manual completo y la guía de\n"
+"referencia para el servidor web Apache. Si necesita la documentación\n"
+"sobre la maquina local, instale ese paquete. El contenido puede también\n"
+"ser solicitado en el sitio http://www.apache.org/docs/."
+
+#: apache-1.3.9-8.src.rpm:1004 apache-manual-1.3.9-8.i386.rpm:1004
+#, fuzzy
+msgid "Documentation for the Apache Web server."
+msgstr "Herramienta de desarrollo modular para el servidor Web apache."
+
+# ========================================================
+#: compat-binutils-5.2-2.9.1.0.23.1.i386.rpm:1005
+#: compat-binutils-5.2-2.9.1.0.23.1.src.rpm:1005
+#, fuzzy
+msgid ""
+"This package includes the binary utilities for the Red Hat Linux 5.2\n"
+"backwards compatibility kit.  Binutils is a collection of binary\n"
+"utilities, including ar (for creating, modifying and extracting from\n"
+"archives), nm (for listing symbols from object files), objcopy (for\n"
+"copying and translating object files), objdump (for displaying\n"
+"information from object files), ranlib (for generating an index for\n"
+"the contents of an archive), size (for listing the section sizes of an\n"
+"object or archive file), strings (for listing printable strings from\n"
+"files), strip (for discarding symbols), c++filt (a filter for\n"
+"demangling encoded C++ symbols), addr2line (for converting addresses\n"
+"to file and line), and nbnconv (for converting object code into an\n"
+"NLM).\n"
+"\n"
+"Install this package if you will be developing programs that need to\n"
+"run on Red Hat Linux 5.2 or other glibc 2.0.x based systems."
+msgstr ""
+"Este paquete contiene las binutils requeridas por el kit de las\n"
+"compatibilidades anteriores de Red Hat Linux 5.2.\n"
+"Binutils es un conjunto de utilidades en codigo binario que incluyen\n"
+"ar (para crear, modificar y descomprimir), nm (para enumerar los simbolos\n"
+"desde los ficheros de objetos), objcopy (para copiar y traducir ficheros de\n"
+"objetos), objdump (para visualizar informaciones desde ficheros\n"
+"de objetos), ranlib (para generar un indice del contenido de un\n"
+"archivo), size (para enumerar las cadenas impribles de un fichero),\n"
+"strip (para descargar simbolos), c++filt (un filtro para los simbolos\n"
+"C++ codificados demangling), addr2line (para convertir las direcciones\n"
+"en ficheros y lineas) y nbnconv (para convertir el codigo objeto en un NLM)."
+
+#: compat-binutils-5.2-2.9.1.0.23.1.i386.rpm:1004
+#: compat-binutils-5.2-2.9.1.0.23.1.src.rpm:1004
+msgid "Binary utilities compatible with Red Hat Linux 5.2."
+msgstr "Utilidades binarias compatibles con Red Hat Linux 5.2."
+
+# ========================================================
+#: compat-egcs-5.2-1.0.3a.1.i386.rpm:1005
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The compat-egcs package includes a C compiler and the required\n"
+"compiler libraries for generating binaries that will run on older Red\n"
+"Hat Linux systems (Red Hat Linux 5.2 or glibc 2.0.X based\n"
+"systems)."
+msgstr ""
+"El paquete compat-egcs incluye un compilador que puede ser utilizado\n"
+"para generar binarios que se ejecuten en los antecedentes sistemas\n"
+"Red Hat Linux (Red Hat Linux 5.2 o sistemas basados en las glibc 2.0.X).\n"
+"Este paquete incluye el compilador C++ y las librerias necesarias para\n"
+"esos sistemas."
+
+#: compat-egcs-5.2-1.0.3a.1.i386.rpm:1004
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1004
+#, fuzzy
+msgid "A C compiler for Red Hat Linux 5.2 backwards compatibility."
+msgstr "Un compilador C para la compatibilidad con las versiones anteriores\n"
+"de Red Hat Linux 5.2."
+
+# ========================================================
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1005
+#: compat-egcs-c++-5.2-1.0.3a.1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The compat-egcs-c++ package includes a C++ compiler and libraries for\n"
+"generating binaries to run on older Red Hat Linux systems (Red Hat\n"
+"Linux 5.2 or glibc 2.0.X based systems)."
+msgstr ""
+"El paquete compat-egcs-c++ incluye un compilador que puede ser usado\n"
+"para generar binarios que se ejecuten en los precedentes sistemas\n"
+"Red Hat Linux (Red Hat Linux 5.2 o sistemas basados en las glibc 2.0.X).\n"
+"Ese paquete incluye el compilador C++ y las librerias necesarias para\n"
+"aquellos sistemas.\n"
+
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1004
+#: compat-egcs-c++-5.2-1.0.3a.1.i386.rpm:1004
+#, fuzzy
+msgid "C++ support for the Red Hat Linux 5.2 backwards compatible C compiler."
+msgstr "Soporte C++ para la compatibilidad con los precedentes sistemas Red Hat 5.2"
+
+# ========================================================
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1005
+#: compat-egcs-g77-5.2-1.0.3a.1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The compat-egcs-g77 package includes the Fortran 77 compiler and\n"
+"libraries for generating binaries to run on older Red Hat Linux\n"
+"systems (Red Hat Linux 5.2 or glibc 2.0.X based systems)."
+msgstr ""
+"El paquete compat-egcs-g77 incluye un compilador que puede ser\n"
+"utilizado para generar binarios que se ejecutarán en los viejos\n"
+"sistemas Red Hat Linux (Red Hat Linux 5.2 o sistemas basados en las\n"
+"2.0.X). Este paquete el compilador y las librerias necesarias para\n"
+"aquellos ficheros."
+
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1004
+#: compat-egcs-g77-5.2-1.0.3a.1.i386.rpm:1004
+#, fuzzy
+msgid "Fortran 77 support for the Red Hat Linux 5.2 compatible C compiler."
+msgstr "Soporte Fortran 77 para  la compatibilidad con los sistemas Red Hat 5.2"
+
+# ========================================================
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1005
+#: compat-egcs-objc-5.2-1.0.3a.1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The compat-egcs-objc package includes the Objective C compiler and\n"
+"libraries for generating binaries to run on older Red Hat Linux\n"
+"systems (Red Hat Linux 5.2 or glibc 2.0.X based systems)."
+msgstr ""
+"El paquete compat-egcs-oobjc incluye un compilador que puede ser\n"
+"utilizado para generar binarios que se ejecutarán en los precedentes\n"
+"sistemas Red Hat Linux (Red Hat Linux 5.2 o sistemas basados en las\n"
+"2.0.X). Este paquete incluye el compilador y las librerias necesarias\n"
+"para aquellos ficheros."
+
+#: compat-egcs-5.2-1.0.3a.1.src.rpm:1004
+#: compat-egcs-objc-5.2-1.0.3a.1.i386.rpm:1004
+#, fuzzy
+msgid "Ojective C support for Red Hat Linux 5.2 compatible C compiler."
+msgstr "Soporte Objective C para el compilador C compatible con los sistemas Red Hat 5.2"
+
+#: finger-0.16-2.src.rpm:1004 finger-server-0.16-2.i386.rpm:1004
+msgid "The finger daemon." 
+msgstr "El demonio finger."
+
+# ========================================================
+#: glxMesa-19991206-4.i386.rpm:1005 glxMesa-19991206-4.src.rpm:1005
+#, fuzzy
+msgid ""
+"glxMesa is an implementation of the Mesa 3-D library and GLX.  GLX was\n"
+"developed by SGI to integrate OpenGL with X11. Then the Mesa 3-D\n"
+"library can perform its 3-D rendering functions within the X server's\n"
+"process, rather than within the X client program. Since the rendered\n"
+"image does not have to be moved from the X client program to the X\n"
+"server (only the commands required to render the image are sent),\n"
+"you'll potentially see improved performance. 3-D hardware acceleration\n"
+"is then much more practical (and fast).  This package includes an\n"
+"accelerated driver for Matrox G200 and G400-based cards.\n"
+"\n"
+"The Mesa 3-D graphics library is a powerful and generic toolset for\n"
+"creating hardware assisted computer graphics.  To the extent that Mesa\n"
+"utilizes the OpenGL command syntax or state machine, it is being used\n"
+"with authorization from Silicon Graphics, Inc.  However, the author\n"
+"(Brian Paul) makes no claim that Mesa is in any way a compatible\n"
+"replacement for OpenGL or associated with Silicon Graphics, Inc. Those\n"
+"who want a licensed implementation of OpenGL should contact a licensed\n"
+"vendor.  However, Mesa is very similar to OpenGL, and you might find\n"
+"Mesa to be a valid alternative to OpenGL.\n"
+"\n"
+"This package is based on Mesa CVS-19991206."
+msgstr ""
+"Esa es una actualización de las librerias Mesa 3-D y GLX, GLX ha sido\n"
+"desarrollado por SGI para integrar OpenGL con X11.\n"
+"Ello permite a las librerias 3D de\n"
+"realizar sus funciones de modelizado 3D en la mejor manera posible\n"
+"tanto al interior del proceso del servidor, como al interior del proceso\n"
+"X cliente. Puesto que la imagen modelizada no tiene que ser desplazada\n"
+"del programa cliente X al servidor X (sólo son enviados los comandos\n"
+"requeridos para efectuar el modelizado), tendria que notar unos beneficios\n"
+"en los resultados. Ello hace la acceleración hardware más practica y\n"
+" rapida. Ese paquete incluye un piloto accelerado para las tarjetas\n"
+"Matrox basadas en el chipset G200 y G400.\n"
+"\n"
+"La libreria Mesa 3D es una caja de herramienta muy util para crear\n"
+"ordenadores gráficos que ofrecen grandes prestaciones.\n"
+"Para disfrutar de ello, Mesa utiliza la sintaxis de los comandos OpenGL,\n"
+"bajo la autorización de la Silicon Graphics, Inc. De todas formas, el autor\n"
+"(Brian Paul) no es responsable de cada incompatibilidad entre Mesa y\n"
+"OpenGL.\n"
+"Aquellos que quieren una actualización con licencia de OpenGL, tendrán\n"
+"que contactar con un proveedor de licencias. De todas formas Mesa es\n"
+"muy parecido a OpenGL y usted podrá encontrar en Mesa una alternativa\n"
+"valida de OpenGL.\n"
+"\n"
+"Ese paquete está basado en CVS-19991206."
+
+#: glxMesa-19991206-4.i386.rpm:1004 glxMesa-19991206-4.src.rpm:1004
+#, fuzzy
+msgid "A GLX-based version of the Mesa 3-D graphics library."
+msgstr "Versión de la libreria gráfica 3D Mesa basada en GLX"
+
+# ========================================================
+#: glxMesa-19991206-4.src.rpm:1005 glxMesa-devel-19991206-4.i386.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains the header files for the glxMesa 3-D graphics\n"
+"library.\n"
+"\n"
+"You need to install glxMesa-devel if you want to compile applications\n"
+"using glxMesa."
+msgstr ""
+"Ese paquete contiene los ficheros header de la libreria gráfica glxMesa "
+"3D.\n"
+"\n"
+"Instale glxMesa-devel si quiere compilar aplicaciones que utilizan glxMesa."
+
+#: glxMesa-19991206-4.src.rpm:1004 glxMesa-devel-19991206-4.i386.rpm:1004
+#, fuzzy
+msgid "Development files for the glxMesa 3-D library."
+msgstr "Ficheros de desarrollo para la libreria glsMesa 3D."
+
+# ========================================================
+#: howto-6.1-1.src.rpm:1005 howto-russian-6.1-1.noarch.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains the Linux HOWTO documents that have been\n"
+"translated into Russian. Linux HOWTOs are detailed documents which\n"
+"describe a specific aspect of configuring or using Linux.\n"
+"\n"
+"Install the howto-russian package if you'd like to use the Linux\n"
+"HOWTOs in Russian. Please note that not all of the HOWTOs have been\n"
+"translated. If you need to have a complete set of HOWTOs, you'll need\n"
+"to install the English version (the howto package)."
+msgstr ""
+"Ese paquete contiene los documentos Linux HOWTO traducidos en\n"
+"ruso. Los Linux HOWTO son documentos detallados que describen\n"
+"un aspecto especifico del uso o de la configuración de Linux.\n"
+"\n"
+"Instale el paquete howto-russian si quiere leer los Linux\n"
+"HOWTO en ruso. Note que no todos los documentos han sido traducido\n"
+"Si necesita del conjunto completo de los HOWTO, tiene\n"
+"instalar la versión inglesa (el paquete howto)."
+
+# ========================================================
+#: inetd-0.16-2.i386.rpm:1005 inetd-0.16-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"The inetd package contains the inetd networking program. Inetd listens\n"
+"on certain Internet sockets for connection requests, decides what\n"
+"program should receive each request, and starts that program.\n"
+"\n"
+"The inetd package should be installed on any machine that is on a\n"
+"network."
+msgstr ""
+"El paquete inetd contiene el programa basico de networking inetd.\n"
+"Inetd está preparado en determinadas socket de Internet para recibir\n"
+"peticiones de conexiones, elige cuales programas tienen que recibir\n"
+"cada petición y arranca aquel programa.\n"
+"\n"
+"El paquete inetd deberia ser instalado en cada maquina de la red."
+
+# ========================================================
+# ========================================================
+#: iputils-991024-1.i386.rpm:1005 iputils-991024-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The iputils package contains ping, a basic networking tool.  The ping\n"
+"command sends a series of ICMP protocol ECHO_REQUEST packets to a\n"
+"specified network host and can tell you if that machine is alive and\n"
+"receiving network traffic."
+msgstr ""
+"El paquete iputils contiene las herramientas para la red ping y inetd.\n"
+"Ping envia paquetes ECHO_REQUEST del protocolo ICMP a un host para\n"
+"controlar que esté todavia disponible y reciba tráfico de la red.\n"
+"\n"
+
+#: iputils-991024-1.i386.rpm:1004 iputils-991024-1.src.rpm:1004
+msgid "The ping program for checking to see if network hosts are alive."
+msgstr "El programa ping para controlar que el host esté todavia disponible"
+
+# ========================================================
+#: isdnconfig-1.15-1.i386.rpm:1005 isdnconfig-1.15-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The isdnconfig program will help you configure your ISDN hardware and\n"
+"set up Internet Service Provider (ISP) profiles. You'll also need the\n"
+"isdn4k-utils and dldialog packages installed in order to use this\n"
+"program."
+msgstr ""
+"Ese programa le ayudará a configurar su hardware\n"
+"ISDN y a regular su cuenta ISP. Necesita\n"
+"isdn4k-utils y dldialog para utilizar ese programa."
+
+#: isdnconfig-1.15-1.i386.rpm:1004 isdnconfig-1.15-1.src.rpm:1004
+#, fuzzy
+msgid "An ISDN setup utility."
+msgstr "Utilidad para configurar perifericas ISDN."
+
+# ========================================================
+#: kdebase-1.1.2-14.src.rpm:1005 kdebase-lowcolor-icons-1.1.2-14.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The default icons in K Desktop Environment (KDE) version 1.1.2 are\n"
+"color intensive, and can quickly use up all available colors on an\n"
+"8-bit (256 color) display.  If you have such a display and you're\n"
+"using KDE, you should install this package, because it will provide a\n"
+"more efficient allocation of colors when KDE displays icons."
+msgstr ""
+"Los iconos del entorno K del escritorio (KDE) en la versión 1.1.2\n"
+"tienen colores intensos y pueden rapidamente utilizar todos los colores\n"
+"de un monitor de 8 bit. Instale ese paquete si quiere que su tarjeta\n"
+"video utilice una alojación de colores más eficaz cuando muestra los iconos."
+
+#: kdebase-1.1.2-14.src.rpm:1004 kdebase-lowcolor-icons-1.1.2-14.i386.rpm:1004
+#, fuzzy
+msgid "Low color (8-bit display friendly) icons for KDE."
+msgstr "Iconos para KDE con pocos colores."
+
+# ========================================================
+# ========================================================
+#: kdelibs-1.1.2-9.src.rpm:1005 kdelibs-devel-1.1.2-9.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The kdelibs-devel package includes the header files needed to compile\n"
+"applications for the K Desktop Environment (KDE).  This package also\n"
+"includes the KDE Application Programming Interface (API) documentation\n"
+"in HTML format for easy browsing."
+msgstr ""
+"Ese paquete incluye los ficheros header que necesitará para\n"
+"compilar aplicaciones para KDE. Está también incluida la documentación\n"
+"de la API de KDE en el formato HTML para una rapida consulta."
+
+# ========================================================
+#: kdetoys-1.1.2-2.i386.rpm:1005 kdetoys-1.1.2-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"The kdetoys package contains various useless but fun things for the K\n"
+"Desktop Environment (KDE), including: kmoon, which displays various\n"
+"phases of the moon; kworldwatch, which displays a light/dark Earth\n"
+"based on the time of day/night; and kodo, a mouse odometer which shows\n"
+"how far your mouse has traveled."
+msgstr ""
+"El paquete kdetoys contiene cosas inutiles pero divertidas para KDE,\n"
+"incluyendo: kmoon (muestra varias fases lunares); kworldwatch\n"
+"(muestra las zonas de la tierra iluminadas o en la sombra según la hora),\n"
+"y kodo (mide la distancia recorrida por su ratón)."
+
+#: kdetoys-1.1.2-2.i386.rpm:1004 kdetoys-1.1.2-2.src.rpm:1004
+#, fuzzy
+msgid "Toys for the K Desktop Environment (KDE)."
+msgstr "Varios programas para el escritorio gráfico GNOME."
+
+# ========================================================
+#: kdpms-0.2.7-6.i386.rpm:1005 kdpms-0.2.7-6.src.rpm:1005
+#, fuzzy
+msgid ""
+"KDPMS is a K Desktop Environment (KDE) utility which allows you to\n"
+"configure the power saving functionality of your DPMS-compatible\n"
+"monitor.  Most monitors have the ability to power themselves down when\n"
+"they are idle for some period of time.  This utility allows you to\n"
+"control the length of the timeouts or to disable display power\n"
+"management."
+msgstr ""
+"KDPMS le permite configurar las funciones del ahorro de energia de\n"
+"su monitor DPMS-compatible. La mayoria de los monitores tiene la\n"
+"posibilidad de apagarse cuando están inactivos durante un determinado\n"
+"periodo de tiempo Esa utilidad le permite controlar la duración de\n"
+"esos intervales y además desactivar esa función.\n"
+
+#: kdpms-0.2.7-6.i386.rpm:1004 kdpms-0.2.7-6.src.rpm:1004
+#, fuzzy
+msgid "A KDE utility for configuring monitor power management."
+msgstr "Utilidad para configurar una puerta serial."
+
+# ========================================================
+#: kpackage-1.3.10-1.i386.rpm:1005 kpackage-1.3.10-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"Kpackage is a GUI interface to the RPM, Debian, Slackware and BSD\n"
+"package managers and is similar in some ways to GLINT. Kpackage is\n"
+"part of the K Desktop Environment (KDE) and was designed to integrate\n"
+"with the KDE file manager."
+msgstr ""
+"Kpackage es una interfaz gráfica dedicada a los gestores de paquetes\n"
+"RPM, debian Slackware y BSD, muy semejante en unas caracteristicas\n"
+"a GLINT. Kpackage forma parte integrante de KDE y por ello ha sido\n"
+"proyectado para integrarse con el administrador de los ficheros."
+
+#: kpackage-1.3.10-1.i386.rpm:1004 kpackage-1.3.10-1.src.rpm:1004
+#, fuzzy
+msgid "A graphical RPM package manager for KDE."
+msgstr "Kpackage es un administrador gráfico de paquetes RPM para KDE."
+
+# ========================================================
+#: librep-0.7.1-3.i386.rpm:1005 librep-0.7.1-3.src.rpm:1005
+#, fuzzy
+msgid ""
+"Librep is a dialect of LISP for use embedded in other applications or\n"
+"on its own. Librep is mostly (but not fully) compatible with Emacs\n"
+"LISP. Librep contains a LISP interpreter, a byte-code compiler and a\n"
+"virtual machine. Applications can use the LISP interpreter as an\n"
+"extension language, or it can be used for standalone scripts."
+msgstr ""
+"Librep es un lenguaje parecido a LISP para ser utilizado en otras\n"
+"aplicaciones. Librep es ampliamente compatible con el LISP de EMACS\n"
+"y contiene un interprete LISP, un compilador y una maquina virtual.\n"
+"Las aplicaciones pueden utilizar el interprete LISP como una extención\n"
+"del lenguaje, o para los script."
+
+#: librep-0.7.1-3.i386.rpm:1004 librep-0.7.1-3.src.rpm:1004
+#, fuzzy
+msgid "An embeddable LISP environment."
+msgstr "Entorno de desarrollo LISP."
+
+# ========================================================
+#: librep-0.7.1-3.src.rpm:1005 librep-devel-0.7.1-3.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The link libraries and C header files for librep development. Librep\n"
+"is an embeddable dialect of LISP."
+msgstr "Librerias y ficheros header en C para el desarrollo de librep.\n"
+"Librep es el dialecto desarrollable de LISP."
+
+#: librep-0.7.1-3.src.rpm:1004 librep-devel-0.7.1-3.i386.rpm:1004
+#, fuzzy
+msgid "Include files and link libraries for librep development."
+msgstr ""
+"Ficheros incluye y bibliotecas necesarias para el desarrollo de librerias\n"
+"bind DNS."
+
+# ========================================================
+#: php-3.0.12-8.src.rpm:1005 php-ldap-3.0.12-8.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The php-ldap package is a dynamic shared object (DSO) for the Apache\n"
+"Web server that adds Lightweight Directory Access Protocol (LDAP)\n"
+"support to PHP3. LDAP is a set of protocols for accessing directory\n"
+"services over the Internet. PHP3 is an HTML-embedded scripting\n"
+"language. If you need LDAP support for PHP3 applications, you will\n"
+"need to install this package in addition to the php package."
+msgstr ""
+"El paquete php-ldap contiene un Dynamic Shared Object (DSO) para Apache\n"
+"capaz de proporcionar desde el soporte LDAP al PHP3. PHP es un lenguaje\n"
+"para desarrollar los script HTML. Si necesita soporte\n"
+"IMAP para las aplicaciones PHP3, debe instalar este paquete junto con\n"
+"el paquete principal php."
+
+#: php-3.0.12-8.src.rpm:1004 php-ldap-3.0.12-8.i386.rpm:1004
+#, fuzzy
+msgid "An Apache Web server module for PHP3 applications that use LDAP."
+msgstr "Modulo de autentificación para aplicaciones PHP3 que utiliza LDAP."
+
+# ========================================================
+#: gnome-python-1.0.50-3.src.rpm:1005 pygnome-applet-1.0.50-3.i386.rpm:1005
+msgid ""
+"This package contains a wrapper which allows developers to write GNOME\n"
+"Panel applets to be written in the Python programming language. GNOME\n"
+"is a desktop GUI environment for the X Window System."
+msgstr ""
+"Ese paquete contiene un wrapper que le permite escribir las\n"
+"aplicaciones del panel de GNOME en el lenguaje de programación de\n"
+"Python. GNOME es un entorno GUI del escritorio para el sistema X."
+
+# ========================================================
+#: gnome-python-1.0.50-3.src.rpm:1005 pygnome-capplet-1.0.50-3.i386.rpm:1005
+msgid ""
+"This package contains a wrapper which allows developers to write GNOME\n"
+"Control Center capplets in the Python programming language. GNOME is a\n"
+"GUI desktop environment for the X Window System."
+msgstr ""
+"Ese paquete contiene un wrapper que le permite escribir las\n"
+"aplicaciones del panel de GNOME en el lenguaje de programación de\n"
+"Python. GNOME es un entorno GUI del escritorio para el sistema X."
+
+# ========================================================
+#: qt-2.1.0-0.20000105.src.rpm:1005 qt-GL-2.1.0-0.20000105.i386.rpm:1005
+msgid ""
+"The qt-GL package contains an OpenGL (3-D graphics) add-on for the Qt\n"
+"GUI software toolkit.  You'll need to install the Mesa 3-D graphics\n"
+"library if you want to use qt-GL."
+msgstr ""
+"El paquete qt-GL contiene un añadido de Open-GL (Graficos 3D) para\n"
+"la caja de herramientas Qt. Necesita instalar la libreria gráfica\n"
+"Mesa 3D si quiere utilizar qt-GL."
+
+#: qt-2.1.0-0.20000105.src.rpm:1004 qt-GL-2.1.0-0.20000105.i386.rpm:1004
+#, fuzzy
+msgid "An OpenGL add-on for the Qt software toolkit."
+msgstr "Añadido OpenGl (graficos 3D) para la caja de herramientas GUI de Qt"
+
+# ========================================================
+#: qt-2.1.0-0.20000105.src.rpm:1005 qt-ImgIO-2.1.0-0.20000105.i386.rpm:1005
+msgid ""
+"The qt-ImgIO package contains the libqimgio library extension to the\n"
+"Qt GUI toolkit. Libqimgio provides image input and output facilities\n"
+"for Qt applications with certain image I/O requirements."
+msgstr ""
+"El paquete qt-ImgIO contiene la extensión de la libreria libqimgio\n"
+"para la caja de herramientas Qt. Libqimgio prporciona facilitaciones\n"
+"para el input y el output de imagenes para aplicaciones Qt con\n"
+"determinadas especificaciones para el I/O de las imagenes."
+
+#: qt-2.1.0-0.20000105.src.rpm:1004 qt-ImgIO-2.1.0-0.20000105.i386.rpm:1004
+#, fuzzy
+msgid "An image input/output library extension for the Qt GUI toolkit."
+msgstr "Una extensión de la libreria de Input/Output de las imagenes Para la caja\n"
+"de herramientas Qt." 
+
+# ========================================================
+#: qt-2.1.0-0.20000105.src.rpm:1005 qt-NSPlugin-2.1.0-0.20000105.i386.rpm:1005
+#, fuzzy
+msgid "An add-on for developing Netscape plug-ins with the Qt GUI toolkit."
+msgstr "Añadido para desarrollar plug-in para Netscape con Qt."
+
+# ========================================================
+#: qt-2.1.0-0.20000105.src.rpm:1004 qt-NSPlugin-2.1.0-0.20000105.i386.rpm:1004
+#, fuzzy
+msgid "An add-on for creating Netscape plug-ins using the Qt GUI toolkit."
+msgstr "Añadido para crear plug-in para Netscape con Qt."
+
+# ========================================================
+#: qt-2.1.0-0.20000105.src.rpm:1004 qt-2.1.0-0.20000105.src.rpm:1005
+#: qt-Xt-2.1.0-0.20000105.i386.rpm:1004 qt-Xt-2.1.0-0.20000105.i386.rpm:1005
+#, fuzzy
+msgid "An Xt (X Toolkit) compatibility add-on for the Qt GUI toolkit."
+msgstr "Un añadido para la compatibilidad para la caja de herramientas Qt."
+
+# ========================================================
+#: rep-gtk-0.5-2.i386.rpm:1005 rep-gtk-0.5-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"Rep-gtk is a binding of the GTK+ and GDK libraries for the librep LISP\n"
+"interpreter. Rep-gtk is based on Marius Vollmer's guile-gtk package\n"
+"(initially version 0.15, updated to 0.16), with a new glue-code\n"
+"generator."
+msgstr ""
+"Rep-gtk es un binding de las librerias GTK+ y GDK para el interprete\n"
+"Lisp librep. Está basado en el paquete de Marius Vollmer (en principio\n"
+"habia la versión 0.15, luego actualizada a la 0.16), con un nuevo\n"
+"generador de glue-code."
+
+#: rep-gtk-0.5-2.i386.rpm:1004 rep-gtk-0.5-2.src.rpm:1004
+#, fuzzy
+msgid "GTK+ bindings for the librep LISP environment."
+msgstr "Binding GTK+ para el entorno er Lisp librep."
+
+# ========================================================
+#: rhl-gsg-6.1en-2.noarch.rpm:1005 rhl-gsg-6.1en-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"The rhl-gsg package contains the Red Hat Linux 6.1 Getting Started\n"
+"Guide in HTML format.  The Red Hat Linux 6.1 Getting Started Guide is\n"
+"also available on the Web at http://www.redhat.com/support/manuals/.\n"
+"\n"
+"Install the rhl-gsg package if you'd like to use an HTML version of\n"
+"the Getting Started Guide loaded on your own machine."
+msgstr ""
+"El paquete rhl-ig contiene el manual de instalación de Red Hat Linux\n"
+"en formato HTML. Una copia on line del manual de instalación puede\n"
+"encontrarlo en el sitio http://www.redhat.com.\n"
+"\n"
+"Instale el paquete rhl-ig si quiere consultar la versión  HTML\n"
+"del manual de instalación en su maquina local."
+
+#: rhl-gsg-6.1en-2.noarch.rpm:1004 rhl-gsg-6.1en-2.src.rpm:1004
+#, fuzzy
+msgid "The Red Hat Linux 6.1 Getting Started Guide in HTML format."
+msgstr "La Guía Red Hat Linux 6.1 Getting Started en formato HTML."
+
+# ========================================================
+#: rhl-ig-6.1en-1.noarch.rpm:1005 rhl-ig-6.1en-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The rhl-ig package contains the Red Hat Linux 6.1 Installation Guide\n"
+"in HTML format.  An online copy of the Red Hat Linux 6.1 Installation\n"
+"Guide is available from the Red Hat Web page at\n"
+"http://www.redhat.com/support/manuals/.\n"
+"\n"
+"Install the rhl-ig package if you would like to use an HTML version of\n"
+"the Installation Guide from your own machine."
+msgstr ""
+"El paquete rhl-ig contiene la Guía de instalación Red Hat Linux\n"
+"en el formato HTML. Una copia on line de la Guía de Instalación\n"
+"Red Hat Linux 6.1 está disponible en el sitio\n"
 "http://www.redhat.com.\n"
 "\n"
-"Más información de cómo configurar el sistema aparece en el capítulo de "
-"post-instalación de la Guía Oficial del usuario de Red Hat."
+"Instale el paquete rhl-ig si quiere consultar la versión HTML\n"
+"de la Guía de Instalación en su maquina local."
 
-#: ../iw/bootdisk.py:57 ../text.py:754
-msgid ""
-"Insert a blank floppy in the first floppy drive. All data on this disk will "
-"be erased during creation of the boot disk."
-msgstr ""
-"Inserte un disquete en blanco en la disquetera del ordenador, toda la "
-"información contenida en el disco será eliminada."
-
-#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
-#: ../textw/lilo.py:30 ../textw/silo.py:25
-msgid "Skip"
-msgstr "Salta"
-
-#: ../iw/bootdisk.py:61 ../text.py:766
-msgid ""
-"An error occured while making the boot disk. Please make sure that there is "
-"a formatted floppy in the first floppy drive."
-msgstr ""
-"Ha surgido un error al ejecutar el disco de arranque, por favor verifique "
-"que tenga un disco formateado en la primera disquetera ."
-
-#: ../text.py:828
-msgid "Package Installation"
-msgstr "Instalación de paquetes"
-
-#: ../text.py:830
-msgid "Name   : "
-msgstr "Nombre:"
-
-#: ../text.py:831
-msgid "Size   : "
-msgstr "Tamaño:"
-
-#: ../text.py:832
-msgid "Summary: "
-msgstr "Resumen:"
-
-#: ../text.py:858
-msgid "    Packages"
-msgstr "    Paquetes"
-
-#: ../text.py:859
-msgid "       Bytes"
-msgstr "       Bytes"
-
-#: ../text.py:860
-msgid "        Time"
-msgstr "       Tiempo"
-
-#: ../text.py:862
-msgid "Total    :"
-msgstr "Total  :"
-
-#: ../text.py:869
-msgid "Completed:   "
-msgstr "Completado:    "
-
-#: ../text.py:879
-msgid "Remaining:  "
-msgstr "Restante:   "
-
-#: ../text.py:968 ../text.py:969
-msgid "Debug"
-msgstr "Depurar"
-
-#: ../text.py:981
+#: rhl-ig-6.1en-1.noarch.rpm:1004 rhl-ig-6.1en-1.src.rpm:1004
 #, fuzzy
-msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
-
-#: ../text.py:983
-msgid ""
-"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
-"screen"
-msgstr ""
-"<Tab>/<Alt-Tab> moverse | <Espaciador> selección | <F12> pantalla siguiente"
-
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
-msgid "Welcome"
-msgstr "Bienvendps"
-
-#: ../text.py:1009 ../text.py:1077
-msgid "Hostname Setup"
-msgstr "Configuración del nombre del sistema"
-
-#: ../text.py:1011 ../text.py:1079
-msgid "Network Setup"
-msgstr "Configuración de la red"
-
-#: ../text.py:1017 ../text.py:1085
-msgid "Time Zone Setup"
-msgstr "Configuración de la zona horaria"
-
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
-msgid "Root Password"
-msgstr "Clave de Root"
-
-#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
-msgid "User Account Setup"
-msgstr "Configuración de la Cuenta Usuario"
-
-#: ../text.py:1023 ../text.py:1091
-msgid "Authentication"
-msgstr "Comprobación"
-
-#: ../text.py:1029
-msgid "Configuration Complete"
-msgstr "Configuración completada"
-
-#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:100
-#: ../textw/silo.py:212
-msgid "SILO Configuration"
-msgstr "Configuración de SILO"
-
-#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
-#: ../textw/lilo.py:186
-msgid "LILO Configuration"
-msgstr "Configuración de LILO"
-
-#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:277
-#: ../text.py:1057 ../text.py:1063
-msgid "Partition"
-msgstr "Partición"
-
-#: ../text.py:1059
-msgid "Manually Partition"
-msgstr "Partición manual"
-
-#: ../text.py:1061
-msgid "Automatic Partition"
-msgstr "Partición automática"
-
-#: ../text.py:1065 ../textw/partitioning.py:272
-msgid "Root Filesystem Size"
-msgstr "Tamaño del sistema de ficheros Root"
-
-#: ../text.py:1067
-msgid "Swap"
-msgstr "Swap"
-
-#: ../text.py:1069
-msgid "Filesystem Formatting"
-msgstr "Formateo del sistema de archivos"
-
-#: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
-msgid "Mouse Configuration"
-msgstr "Configuración del ratón"
-
-#: ../text.py:1093
-msgid "Package Groups"
-msgstr "Grupos de paquetes"
-
-#: ../text.py:1095 ../text.py:1123
-msgid "Individual Packages"
-msgstr "Paquetes individuales"
-
-#: ../text.py:1097 ../textw/packages.py:122
-msgid "Package Dependencies"
-msgstr "Dependencias de los paquetes"
-
-#: ../iw/xconfig.py:250 ../text.py:1099 ../text.py:1107
-msgid "X Configuration"
-msgstr "Configuración de X"
-
-#: ../text.py:1101
-msgid "Installation Begins"
-msgstr "Comienza la  instalación"
-
-#: ../text.py:1103
-msgid "Install System"
-msgstr "Sistema de instalación"
-
-#: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
-msgid "Boot Disk"
-msgstr "Disco de inicio"
-
-#: ../text.py:1109
-msgid "Installation Complete"
-msgstr "Instalación terminada"
-
-#: ../text.py:1114
-msgid "Examine System"
-msgstr "Examinando el sistema"
-
-#: ../text.py:1121
-msgid "Customize Upgrade"
-msgstr "Aggiornamento personalizzato"
-
-#: ../text.py:1124
-msgid "Upgrade System"
-msgstr "Actualización del sistema"
-
-#: ../text.py:1128
-msgid "Upgrade Complete"
-msgstr "Actualización terminada"
-
-#: ../text.py:1162
-msgid "Cancelled"
-msgstr "Anulado"
-
-#: ../text.py:1163
-msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"No puedo ir desde aquí al paso anterior. Es necesario intentarlo otra vez."
-
-#: ../todo.py:337
-#, c-format
-msgid "Error copying file: %s"
-msgstr "Error durante la copia del fichero: %s"
-
-#: ../todo.py:419
-msgid "Creating boot disk..."
-msgstr "Creación del disco de inicio..."
-
-#: ../todo.py:439
-msgid "Reading"
-msgstr "Leyendo"
-
-#: ../todo.py:440
-msgid "Reading package information..."
-msgstr "Leyendo la información de los paquetes..."
-
-#: ../todo.py:624 ../todo.py:637
-msgid "no suggestion"
-msgstr "ninguna sugerencia"
-
-#: ../todo.py:643
-msgid "Searching"
-msgstr "Buscando"
-
-#: ../todo.py:644
-msgid "Searching for Red Hat Linux installations..."
-msgstr "Buscando las instalaciónes de Red Hat Linux... "
-
-#: ../todo.py:655 ../todo.py:686
-#, c-format
-msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Ha surgido un error montando el sistema de archivos ext2 en %s: %s"
-
-#: ../todo.py:697
-msgid "Finding"
-msgstr "Encontrado"
-
-#: ../todo.py:698
-msgid "Finding packages to upgrade..."
-msgstr "Buscando los paquetes para la actualización"
-
-#: ../todo.py:954
-msgid "Processing"
-msgstr "Procesando"
-
-#: ../todo.py:955
-msgid "Preparing to install..."
-msgstr "Preparando para la fase de instalación..."
-
-#: ../todo.py:1134
-#, c-format
-msgid "Upgrading %s.\n"
-msgstr "Actualizando %s. \n"
-
-#: ../todo.py:1136
-#, c-format
-msgid "Installing %s.\n"
-msgstr "Instalando %s. \n"
-
-#: ../todo.py:1157
-msgid ""
-"You don't appear to have enough disk space to install the packages you've "
-"selected. You need more space on the following filesystems:\n"
-"\n"
-msgstr ""
-"No hay suficiente espacio en el disco para instalar los paquetes "
-"seleccionados. Necesita más espacio en los siguientes sistemas de archivos:\n"
-"\n"
-
-#: ../todo.py:1160
-msgid "Mount Point"
-msgstr "Destino de montaje"
-
-#: ../todo.py:1160
-msgid "Space Needed"
-msgstr "Espacio necesario"
-
-#: ../todo.py:1173
-msgid "Disk Space"
-msgstr "Espacio en el disco"
-
-#: ../todo.py:1197
-msgid "Post Install"
-msgstr "Post-instalación"
-
-#: ../todo.py:1198
-msgid "Performing post install configuration..."
-msgstr "Ejecutando la configuración de la  post-instalación..."
-
-#: ../iw/xconfig.py:10 ../xf86config.py:257
-msgid "Video Card"
-msgstr "Tarjeta Vídeo"
-
-#: ../iw/xconfig.py:12 ../xf86config.py:259
-msgid "Video Ram"
-msgstr "RAM Vídeo"
-
-#: ../xf86config.py:261
-msgid "X server"
-msgstr "Servidor X"
-
-#: ../xf86config.py:263
-msgid "Unable to detect video card"
-msgstr "No es posible detectar la tarjeta video"
-
-#: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
-msgid "Monitor"
-msgstr "Pantalla"
-
-#: ../xf86config.py:272
-msgid "Plug and Play Monitor"
-msgstr "Pantalla Plug and Play "
-
-#: ../xf86config.py:274
-msgid "Horizontal frequency range"
-msgstr "Intervalo de Frecuencias Horizontales"
-
-#: ../xf86config.py:276
-msgid "Vertical frequency range"
-msgstr "Intervalo de Frecuencias Verticales"
-
-#: ../iw/account.py:15
-msgid "Account Configuration"
-msgstr "Configuración de la cuenta"
-
-#: ../iw/account.py:36
-msgid "Root password accepted."
-msgstr "Clave de Root aceptada"
-
-#: ../iw/account.py:39
-msgid "Root password is too short."
-msgstr "Clave de Root demasiado corta."
-
-#: ../iw/account.py:41
-msgid "Root password does not match."
-msgstr "Las claves de Root no se corresponden"
-
-#: ../iw/account.py:168
-msgid "Root Password: "
-msgstr "Clave de Root."
-
-#: ../iw/account.py:171
-msgid "Confirm: "
-msgstr "Confirme: "
-
-#: ../iw/account.py:229 ../iw/account.py:268
-msgid "Account Name"
-msgstr "Nombre de la cuenta"
-
-#: ../iw/account.py:233 ../textw/userauth.py:80
-msgid "Password"
-msgstr "Clave"
-
-#: ../iw/account.py:237 ../textw/userauth.py:81
-msgid "Password (confirm)"
-msgstr "Confirme la clave"
-
-#: ../iw/account.py:241 ../iw/account.py:268 ../textw/userauth.py:79
-#: ../textw/userauth.py:173
-msgid "Full Name"
-msgstr "Nombre completo"
-
-#: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
-msgid "Add"
-msgstr "Añade"
-
-#: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:63 ../textw/silo.py:204 ../textw/silo.py:226
-#: ../textw/userauth.py:185
-msgid "Edit"
-msgstr "Modifica"
-
-#: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
-msgid "Delete"
-msgstr "Elimina"
-
-#: ../iw/account.py:256
-msgid "New"
-msgstr "Nueva"
-
-#: ../iw/auth.py:11 ../textw/userauth.py:259
-msgid "Authentication Configuration"
-msgstr "Configuración de la Autenticación"
-
-#: ../iw/auth.py:50
-msgid "Enable MD5 passwords"
-msgstr "Configuración de la Autenticación"
-
-#: ../iw/auth.py:51
-msgid "Enable shadow passwords"
-msgstr "Activar las palabras sombreadas"
-
-#: ../iw/auth.py:53 ../textw/userauth.py:264
-msgid "Enable NIS"
-msgstr "Activar NIS"
-
-#: ../iw/auth.py:54
-msgid "Use broadcast to find NIS server"
-msgstr "Usar dirección de emisión (broadcast) para encontrar servidor NIS"
-
-#: ../iw/auth.py:66
-msgid "NIS Domain: "
-msgstr "Dominio NIS"
-
-#: ../iw/auth.py:68
-msgid "NIS Server: "
-msgstr "Servidor NIS"
-
-#: ../iw/bootdisk.py:11
-msgid "Bootdisk Creation"
-msgstr "Creación del disquete de inicio"
-
-#: ../iw/bootdisk.py:68
-msgid "Skip boot disk creation"
-msgstr "Saltar la creación del disco de inicio"
-
-#: ../iw/confirm.py:11
-msgid "About to Install"
-msgstr "Acerca de la instalación"
-
-#: ../iw/confirm.py:28
-msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Pulsar Siguiente para activar la instalación de Red Hat Linux"
-
-#: ../iw/congrats.py:11 ../iw/congrats.py:58
-msgid "Congratulations"
-msgstr "Enhorabuena"
-
-#: ../iw/congrats.py:13 ../iw/congrats.py:60
-msgid "Exit"
-msgstr "Salir"
-
-#: ../iw/congrats.py:80
-msgid ""
-"Congratulations, configuration is complete.\n"
-"\n"
-"For information on fixes which are available for this release of Red Hat "
-"Linux, consult the Errata available from http://www.redhat.com.\n"
-"\n"
-"Information on further configuring your system is available in the post "
-"install chapter of the Official Red Hat Linux User's Guide."
-msgstr ""
-"Enhorabuena, la configuración ha sido completada.\n"
-"\n"
-"Para obtener información acerca de las actualizaciones diponibles para "
-"estaversión de Red Hat Linux, consulte la Fé de erratas  disponibile en el "
-"sitio http://www.redhat.it.\n"
-"Haga referencia al manual Official Red Hat Linux User's Guide para la "
-"configuración de su sistema."
-
-#: ../iw/dependencies.py:9
-msgid "Unresolved Dependencies"
-msgstr "Dependencias no resueltas"
-
-# ../iw/dependencies.py:30 ../iw/pr
-#: ../iw/dependencies.py:30 ../iw/progress.py:127 ../textw/packages.py:129
-msgid "Package"
-msgstr "Paquetes"
-
-#: ../iw/dependencies.py:30 ../textw/packages.py:129
-msgid "Requirement"
-msgstr "Requisitos"
-
-#: ../iw/dependencies.py:38 ../textw/packages.py:141
-msgid "Install packages to satisfy dependencies"
-msgstr "Instalar los paquetes para satisfacer las dependencias"
-
-#: ../iw/examine.py:10
-msgid "Upgrade Examine"
-msgstr "Examinar la actualización"
-
-#: ../iw/examine.py:35
-msgid ""
-"You don't have any Linux partitions.\n"
-" You can't upgrade this sytem!"
-msgstr ""
-"El sistema no tiene ninguna partición Linux.\n"
-"No se puede actualizar el sistema"
-
-#: ../iw/examine.py:60
-msgid "Customize packages to be upgraded"
-msgstr "Personalice los paquetes a actualizar"
-
-#: ../iw/fdisk.py:12 ../textw/partitioning.py:22
-msgid "fdisk"
-msgstr "fdisk"
-
-#: ../iw/fdisk.py:80
-msgid "Select drive to run fdisk on"
-msgstr "Seleccione el disco donde ejecutar fdisk"
-
-#: ../iw/format.py:12
-msgid "Choose partitions to Format"
-msgstr "Elija las particiones a formatear"
-
-#: ../iw/format.py:47
-msgid "Check for bad blocks while formatting"
-msgstr "Controle los bloques dañados durante el formateo"
-
-#: ../iw/installpath.py:38
-msgid "GNOME Workstation"
-msgstr "Estación GNOME"
-
-#: ../iw/installpath.py:40
-msgid "KDE Workstation"
-msgstr "Estación KDE"
-
-#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346
-#: ../libfdisk/gnomefsedit.c:2366
-msgid "Server"
-msgstr "Servidor"
-
-#: ../iw/installpath.py:43
-msgid "Custom"
-msgstr "Personalizar"
-
-#: ../iw/installpath.py:93
-msgid "Install Type"
-msgstr "Tipo de instalación"
-
-#: ../iw/installpath.py:187
-msgid "Install"
-msgstr "Instalación"
-
-#: ../iw/installpath.py:189
-msgid "Upgrade"
-msgstr "Actualización"
-
-#: ../iw/installpath.py:242
-msgid "Use fdisk"
-msgstr "Utilice fdisk"
-
-#: ../iw/keyboard.py:13
-msgid "Keyboard Configuration"
-msgstr "Configuración del teclado"
-
-#: ../iw/keyboard.py:56
-msgid "Model"
-msgstr "Modelo"
-
-#: ../iw/keyboard.py:75
-msgid "Layout"
-msgstr "Disposición"
-
-#: ../iw/keyboard.py:94
-msgid "Dead Keys"
-msgstr "Teclas inhabilitadas"
-
-#: ../iw/keyboard.py:103
-msgid "Enable dead keys"
-msgstr "Activar las teclas inhabilitadas"
-
-#: ../iw/keyboard.py:104
-msgid "Disable dead keys"
-msgstr "Desactiva las teclas inhabilitadas"
-
-#: ../iw/keyboard.py:113
-msgid "Test your selection here:"
-msgstr "Compruebe su selección aquí"
-
-#: ../iw/language.py:21 ../loader/lang.c:275
-msgid "What language should be used during the installation process?"
-msgstr "¿Que idioma desea utilizar durante la instalación?"
-
-#: ../iw/lilo.py:18
-msgid "Lilo Configuration"
-msgstr "Configuración de Lilo"
-
-#: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:278
-msgid "Type"
-msgstr "Tipo"
-
-#: ../iw/lilo.py:164
-msgid "Install LILO boot record on:"
-msgstr "Instalar el archivo de inicio de LILO en:"
-
-#: ../iw/lilo.py:171 ../iw/silo.py:170 ../textw/silo.py:63
-msgid "Master Boot Record (MBR)"
-msgstr "Archivo principal de arranque (MBR)"
-
-#: ../iw/lilo.py:175 ../iw/silo.py:173 ../textw/silo.py:64
-msgid "First sector of boot partition"
-msgstr "Primer sector de la partición de inicio"
-
-#: ../iw/lilo.py:179 ../textw/lilo.py:24
-msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Utilizar el modo lineal (indispensable para los discos duros SCSI)"
-
-#: ../iw/lilo.py:189 ../iw/silo.py:205
-msgid "Kernel parameters"
-msgstr "Parámetros del Kernel"
-
-#: ../iw/lilo.py:206 ../iw/silo.py:223
-msgid "Create boot disk"
-msgstr "Crear disco de inicio"
-
-#: ../iw/lilo.py:210
-msgid "Do not install LILO"
-msgstr "No instalar LILO"
-
-#: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
-#: ../textw/silo.py:195
-msgid "Default"
-msgstr "Por defecto"
-
-#: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
-#: ../textw/silo.py:195
-msgid "Partition type"
-msgstr "Tipo de Partición"
-
-#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:254 ../iw/silo.py:289
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:131
-#: ../textw/silo.py:195
-msgid "Boot label"
-msgstr "Etiqueta de arranque"
-
-#: ../iw/mouse.py:141
-msgid "Emulate 3 Buttons"
-msgstr "Simular tres botones"
-
-#: ../iw/network.py:146
-msgid "Configure using DHCP"
-msgstr "Utilizar DHCP para la configuración"
-
-#: ../iw/network.py:152
-msgid "Activate on boot"
-msgstr "Activar al inicio"
-
-#: ../iw/network.py:161
-msgid "IP Address"
-msgstr "Dirección IP"
-
-#: ../iw/network.py:162 ../loader/net.c:636
-msgid "Netmask"
-msgstr "Máscara de la red"
-
-#: ../iw/network.py:163 ../loader/loader.c:240
-msgid "Network"
-msgstr "Red"
-
-#: ../iw/network.py:164
-msgid "Broadcast"
-msgstr "Broadcast"
-
-#: ../iw/network.py:208
-msgid "Gateway"
-msgstr "Puerta de enlace"
-
-#: ../iw/network.py:208
-msgid "Primary DNS"
-msgstr "DNS Primario"
-
-#: ../iw/network.py:208
-msgid "Secondary DNS"
-msgstr "DNS Secundario"
-
-#: ../iw/network.py:208
-msgid "Ternary DNS"
-msgstr "DNS Terciario"
-
-#: ../iw/package.py:20
-msgid "Individual Package Selection"
-msgstr "Selección del paquete individual"
-
-#: ../iw/package.py:176
-msgid "Up"
-msgstr "Arriba"
-
-#: ../iw/package.py:324
-msgid "Name: "
-msgstr "Nombre: "
-
-#: ../iw/package.py:329
-msgid "Package Details"
-msgstr "Detalles del paquete"
-
-#: ../iw/package.py:335
-msgid "Size: "
-msgstr "Tamaño: "
-
-#: ../iw/package.py:341
-msgid "Select Package For Installation"
-msgstr "Seleccione el paquete para la instalación"
-
-#: ../iw/package.py:376 ../textw/packages.py:22 ../textw/packages.py:87
-msgid "Package Group Selection"
-msgstr "Selección del conjunto de paquetes"
-
-#: ../iw/package.py:454 ../textw/packages.py:18
-msgid "Select individual packages"
-msgstr "Seleccione los paquetes individuales"
-
-#: ../iw/progress.py:29
-msgid "Installing Packages"
-msgstr "Instalando los Paquetes"
-
-#: ../iw/progress.py:128 ../iw/progress.py:163
-msgid "Size"
-msgstr "Tamaño"
-
-#: ../iw/progress.py:129
-msgid "Summary"
-msgstr "Resumen"
-
-#: ../iw/progress.py:163
-msgid "Status"
-msgstr "Estado"
-
-#: ../iw/progress.py:163
-msgid "Packages"
-msgstr "Paquetes"
-
-#: ../iw/progress.py:163
-msgid "Time"
-msgstr "Tiempo"
-
-#: ../iw/progress.py:168
-msgid "Total"
-msgstr "Total"
-
-#: ../iw/progress.py:169
-msgid "Completed"
-msgstr "Completado"
-
-#: ../iw/progress.py:170
-msgid "Remaining"
-msgstr "Restante"
-
-#: ../iw/rootpartition.py:16
-msgid "Confirm Partitioning Selection"
-msgstr "Confirme la selección de las particiones"
-
-#: ../iw/rootpartition.py:32 ../textw/partitioning.py:22
-msgid "Disk Druid"
-msgstr "Disk Druid"
-
-#: ../iw/rootpartition.py:43 ../textw/partitioning.py:187
-msgid "Low Memory"
-msgstr "Falta de Memoria"
-
-#: ../iw/rootpartition.py:44 ../textw/partitioning.py:188
-msgid ""
-"As you don't have much memory in this machine, we need to turn on swap space "
-"immediately. To do this we'll have to write your new partition table to the "
-"disk immediately. Is that okay?"
-msgstr ""
-"Como no queda mucha memoria disponible en su ordenador, necesitamos acceder "
-"al espacio de Swap. Para ello tendremos que escribir enseguida la lista de "
-"las nuevas particiones en el disco duro. ¿vale? "
-
-#: ../iw/rootpartition.py:115 ../textw/partitioning.py:273
-#, c-format
-msgid ""
-"You've chosen to put your root filesystem in a file on an already-existing "
-"DOS or Windows filesystem. How large, in megabytes, should would you like "
-"the root filesystem to be, and how much swap space would you like? They must "
-"total less then %d megabytes in size."
-msgstr ""
-"Ha elejido meter el sistema de ficheros principal en una partición ya "
-"existente DOS o Windows. ¿Quiere saber cuanto espacio necesita para el "
-"sistema de archivos principal y cuanto para swap ? El sistema de ficheros "
-"debe tener por lo menos %d megabyte libres."
-
-#: ../iw/rootpartition.py:135
-msgid "Root filesystem size:"
-msgstr "Tamaño del sistema de ficheros:"
-
-#: ../iw/rootpartition.py:140
-msgid "Swap space size:"
-msgstr "Tamaño del espacio swap"
-
-#: ../iw/rootpartition.py:159 ../textw/partitioning.py:125
-msgid "Automatic Partitioning"
-msgstr "Creación automática de las particiones"
-
-#: ../iw/rootpartition.py:234 ../textw/partitioning.py:126
-#, c-format
-msgid ""
-"%s\n"
-"\n"
-"If you don't want to do this, you can continue with this install by "
-"partitioning manually, or you can go back and perform a fully customized "
-"installation."
-msgstr ""
-"%s\n"
-"\n"
-"Si no quiere hacerlo, puede continuar la instalación creando unas "
-"particiónes manualmente, o puede volver atrás y ejecutar una instalación "
-"totalmente personalizada."
-
-#: ../iw/rootpartition.py:248
-msgid "Remove data"
-msgstr "Elimina los datos"
-
-#: ../iw/rootpartition.py:251 ../textw/partitioning.py:130
-msgid "Manually partition"
-msgstr "Partición manual"
-
-#: ../iw/silo.py:18
-msgid "Silo Configuration"
-msgstr "Configuración de SILO"
-
-#: ../iw/silo.py:161
-msgid "Install SILO boot record on:"
-msgstr "Instalar el archivo de inicio de SILO en:"
-
-#: ../iw/silo.py:178
-msgid "Create PROM alias"
-msgstr "Crear el alias PROM"
-
-#: ../iw/silo.py:201
-msgid "Set default PROM boot device to linux"
-msgstr "Configure por defecto el dispositivo de inicio de PROM"
-
-#: ../iw/silo.py:233
-msgid "Do not install SILO"
-msgstr "No instalar SILO"
-
-#: ../iw/timezone.py:30 ../textw/timezone.py:83
-msgid "Time Zone Selection"
-msgstr "Selección de la zona horaria"
-
-#: ../iw/timezone.py:147
-msgid "View:"
-msgstr "Vista:"
-
-#: ../iw/timezone.py:155 ../iw/timezone.py:156
-msgid "System clock uses UTC"
-msgstr "El reloj del sistema utiliza UTC"
-
-#: ../iw/timezone.py:204
-msgid "Use Daylight Saving Time (US only)"
-msgstr "Utilizar tiempo diario de grabación (solo para los Estados Unidos)"
-
-#: ../iw/timezone.py:218
-msgid "Location"
-msgstr "Situación"
-
-#: ../iw/timezone.py:219
-msgid "UTC Offset"
-msgstr "UTC Offset"
-
-#: ../iw/welcome.py:80
-msgid "Would you like to configure your system?"
-msgstr "¿Le gustaría configurar su sistema?"
-
-#: ../iw/xconfig.py:13
-msgid "Horizontal Frequency Range"
-msgstr "Intervalo de frecuencia horizontal"
-
-#: ../iw/xconfig.py:14
-msgid "Vertical Frequency Range"
-msgstr "Intervalo de frecuencia vertical"
-
-#: ../iw/xconfig.py:15
-msgid "Test failed"
-msgstr "El control ha fallado"
-
-#: ../iw/xconfig.py:23 ../iw/xconfig.py:427
-msgid "Customize X Configuration"
-msgstr "Personalizar la configuración X"
-
-#: ../iw/xconfig.py:87
-msgid "Bits per Pixel"
-msgstr "Bit para Pixel"
-
-#: ../iw/xconfig.py:97 ../iw/xconfig.py:423
-msgid "Test this configuration"
-msgstr "Comprobar esta configuración"
-
-#: ../iw/xconfig.py:112
-msgid "Monitor Configuration"
-msgstr "Configuración de la Pantalla"
-
-#: ../iw/xconfig.py:216
-msgid "Horizontal Sync"
-msgstr "Sincronización horizontal"
-
-#: ../iw/xconfig.py:225
-msgid "Vertical Sync"
-msgstr "Sincronización vertical"
-
-#: ../iw/xconfig.py:331
-msgid ""
-"Your video ram size can not be autodetected.  Choose your video ram size "
-"from the choices below:"
-msgstr ""
-"El tamaño de la tarjeta vídeo RAM no ha sido detectado.Elija  manualmente el "
-"tamaño de la RAM de su tarjeta vídeo."
-
-#: ../iw/xconfig.py:342 ../iw/xconfig.py:363
-msgid ""
-"In most cases your video hardware can be probed to automatically determine "
-"the best settings for your display."
-msgstr ""
-"En la mayoría de los casos la tarjeta vídeo puede automáticamente detectar "
-"los mejores parámetros para el monitor."
-
-#: ../iw/xconfig.py:351
-msgid ""
-"If the probed settings do not match your hardware select the correct setting "
-"below:"
-msgstr "Si la configuración no es correcta, seleccione su tipo de hardware."
-
-#: ../iw/xconfig.py:372
-#, fuzzy
-msgid "Autoprobe results:"
-msgstr "Resultados de la prueba X"
-
-#: ../iw/xconfig.py:432
-msgid "Use Graphical Login"
-msgstr "Activación del Login Gráfico"
-
-#: ../iw/xconfig.py:433
-msgid "Skip X Configuration"
-msgstr "Salta la configuración X"
-
-#: ../textw/lilo.py:18 ../textw/silo.py:14
-msgid ""
-"A few systems will need to pass special options to the kernel at boot time "
-"for the system to function properly. If you need to pass boot options to the "
-"kernel, enter them now. If you don't need any or aren't sure, leave this "
-"blank."
-msgstr ""
-"Algunos sistemas necesitan comunicar al Kernel opciones especiales durante "
-"la fase de arranque del mismo sistema para que funcione correctamente. Si es "
-"necesario comunicar estas opciones al Kernel, hágalo ahora. Si no fuera "
-"necesario o si las opciones no fueran ciertas, deje este espacio vacío."
-
-#: ../textw/lilo.py:85 ../textw/silo.py:102
-msgid "Where do you want to install the bootloader?"
-msgstr "¿Donde desea instalar el Bootloader?"
-
-#: ../textw/lilo.py:105 ../textw/silo.py:135 ../textw/silo.py:156
-msgid "Clear"
-msgstr "Borra"
-
-#: ../textw/lilo.py:114 ../textw/silo.py:143
-msgid "Edit Boot Label"
-msgstr "Modificar etiqueta de inicio"
-
-#: ../textw/lilo.py:181 ../textw/silo.py:207
-msgid ""
-"The boot manager Red Hat uses can boot other operating systems as well. You "
-"need to tell me what partitions you would like to be able to boot and what "
-"label you want to use for each of them."
-msgstr ""
-"Il bootmanager di Red Hat puo' caricare altri sistemi operativi. Dovete "
-"selezionare quale partizione volete abilitare per il boot e con quale "
-"etichetta."
-
-#: ../textw/packages.py:123
-msgid ""
-"Some of the packages you have selected to install require packages you have "
-"not selected. If you just select Ok all of those required packages will be "
-"installed."
-msgstr ""
-"Algunos de los paquetes que ha seleccionado para la instalación necesita "
-"otros paquetes que no han sido seleccionados. Si selecciona OK cada uno de "
-"los paquetes requeridos será instalado."
-
-#: ../textw/partitioning.py:14 ../textw/partitioning.py:57
-msgid "Disk Setup"
-msgstr "Configuración del disco"
-
-#: ../textw/partitioning.py:15
-msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is "
-"designed to be easier to use than Linux's traditional disk partitioning "
-"sofware, fdisk, as well as more powerful. However, there are some cases "
-"where fdisk may be preferred.\n"
-"\n"
-"Which tool would you like to use?"
-msgstr ""
-"Disk druid es un herramienta que sirve para crear particiones el disco y "
-"establecer los Destinos de Montaje. Esta  diseñado  para hacer más fácil y "
-"potente la utilización del fdisk. De todas formas, hay algunos casos en "
-"losque puede ser bastante útil seguir usando el fdisk.\n"
-"\n"
-"¿Que herramienta desea utilizar?"
-
-#: ../textw/partitioning.py:58
-msgid ""
-"To install Red Hat Linux, you must have at least one partition of 150 MB "
-"dedicated to Linux. We suggest placing that partition on one of the first "
-"two hard drives in your system so you can boot into Linux with LILO."
-msgstr ""
-"Para instalar Red Hat Linux, es necesario tener una partición de por lo "
-"menos 150 MB dedicada a Linux. Le aconsejamos posicionar esta partición en "
-"uno de los dos primeros discos duros de su sistema de forma que resulte "
-"posible entrar en Linux directamente desde LILO."
-
-#: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:63
-msgid "Done"
-msgstr "Terminado"
-
-#: ../textw/partitioning.py:130 ../textw/partitioning.py:131
-msgid "Continue"
-msgstr "Continuar"
-
-#: ../textw/partitioning.py:207
-msgid ""
-"What partitions would you like to format? We strongly suggest formatting all "
-"of the system partitions, including /, /usr, and /var. There is no need to "
-"format /home or /usr/local if they have already been configured during a "
-"previous install."
-msgstr ""
-"¿Que partición quiere formatear? Le aconsejamos formatear todas las "
-"particiónes que hay en su sistema, incluso /, /usr y /var. No hace falta "
-"formatear /home o /usr/local si han sido formateadas previamente."
-
-#: ../textw/partitioning.py:228
-msgid "Check for bad blocks during format"
-msgstr "Comprobando si existen bloques dañados "
-
-#: ../textw/partitioning.py:233
-msgid "Choose Partitions to Format"
-msgstr "Eliga las particiones a formatear"
-
-#: ../textw/partitioning.py:278
-msgid "Root filesystem size"
-msgstr "Tamaño del sistema de ficheros Root"
-
-#: ../textw/partitioning.py:279
-msgid "Swap space"
-msgstr "Tamaño del espacio Swap"
-
-#: ../textw/partitioning.py:288 ../textw/partitioning.py:294
-msgid "Bad Size"
-msgstr "Tamaño incorrecto"
-
-#: ../textw/partitioning.py:289
-msgid "The size you enter must be a number."
-msgstr "El tamaño debe ser un número."
-
-#: ../textw/partitioning.py:295
-#, c-format
-msgid ""
-"The total size must be smaller then the amount of free space on the disk, "
-"which is %d megabytes."
-msgstr ""
-"El tamaño total debe ser más pequeño que la cantidad de espacio libre del "
-"disco, que es de %d megabytes."
-
-#: ../textw/silo.py:65
-msgid "Create PROM alias `linux'"
-msgstr "Cree el alias de PROM 'linux'"
-
-#: ../textw/silo.py:66
-msgid "Set default PROM boot device"
-msgstr "Seleccionar el dispositivo de arranque PROM por defecto"
-
-#: ../textw/timezone.py:68
-msgid "What time zone are you located in?"
-msgstr "¿En que huso horario se encuentra?"
-
-#: ../textw/timezone.py:80
-msgid "Hardware clock set to GMT?"
-msgstr "Reloj hardware ajustado al GMT"
-
-#: ../textw/userauth.py:11
-msgid ""
-"Pick a root password. You must type it twice to ensure you know what it is "
-"and didn't make a mistake in typing. Remember that the root password is a "
-"critical part of system security!"
-msgstr ""
-"Elija una clave root. Tiene que teclearla dos veces para asegurarse que la "
-"recuerda  y que no ha cometido ningún fallo. ¡Recuerde que la clave de root "
-"es un punto clave en la seguridad del sistema!"
-
-#: ../loader/urls.c:337 ../textw/userauth.py:24
-msgid "Password:"
-msgstr "Clave:"
-
-#: ../textw/userauth.py:25
-msgid "Password (again):"
-msgstr "Clave (otra vez):"
-
-#: ../textw/userauth.py:41 ../textw/userauth.py:104
-msgid "Password Length"
-msgstr "Longitud de la clave"
-
-#: ../textw/userauth.py:42
-msgid "The root password must be at least 6 characters long."
-msgstr "La clave de root debe tener al menos seis caracteres "
-
-#: ../textw/userauth.py:46 ../textw/userauth.py:112
-msgid "Password Mismatch"
-msgstr "Clave no encontrada"
-
-#: ../textw/userauth.py:47 ../textw/userauth.py:113
-msgid "The passwords you entered were different. Please try again."
-msgstr "Las claves que ha insertado son distintas. Por favor, repita este paso"
-
-#: ../textw/userauth.py:72
-msgid "Edit User"
-msgstr "Modificar usuario"
-
-#: ../textw/userauth.py:74
-msgid "Add User"
-msgstr "Añadir usuario"
-
-#: ../textw/userauth.py:78
-msgid "User ID"
-msgstr "Nombre del usuario"
-
-#: ../textw/userauth.py:91
-#, fuzzy
-msgid "Bad User ID"
-msgstr "Nombre del usuario"
-
-#: ../textw/userauth.py:92
-msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, "
-"a-z, and 0-9."
-msgstr ""
-
-#: ../textw/userauth.py:99
-msgid "Missing User ID"
-msgstr "Nombre del usuario inexistente"
-
-#: ../textw/userauth.py:100
-msgid "You must provide a user ID"
-msgstr "Debe dar un nombre de usuario"
-
-#: ../textw/userauth.py:105
-msgid "The password must be at least 6 characters long."
-msgstr "La clave debe tener al menos 6 caracteres."
-
-#: ../textw/userauth.py:122
-msgid "User Exists"
-msgstr "Usuario existente"
-
-#: ../textw/userauth.py:123
-msgid "This user id already exists.  Choose another."
-msgstr "Este nombre de Usuario ya existe.Elija otro."
-
-#: ../textw/userauth.py:150
-msgid ""
-"You should use a normal user account for most activities on your system. By "
-"not using the root account casually, you'll reduce the chance of disrupting "
-"your system's configuration."
-msgstr ""
-"Utilice una cuenta usuario normal para la mayoria de las actividades en su "
-"sistema. Limite la utilización de la cuenta de root para reducir la "
-"posibilidad de cambiar la configuración de su sistema."
-
-#: ../textw/userauth.py:163
-msgid ""
-"What user account would you like to have on the system? You should have at "
-"least one non-root account for normal work, but multi-user systems can have "
-"any number of accounts set up."
-msgstr ""
-"¿Que cuenta de usuario desea tener en su sistema? Para una tarea normal "
-"tendría que tener por lo menos una cuenta que no sea de root, pero los "
-"sistemas multi usuarios pueden tener más de una cuenta."
-
-#: ../textw/userauth.py:173
-msgid "User name"
-msgstr "Nombre del usuario"
-
-#: ../textw/userauth.py:197
-msgid "Enter the information for the user."
-msgstr "Introduzca la información para el usuario."
-
-#: ../textw/userauth.py:209
-msgid "Change the information for this user."
-msgstr "Cambie la información para este usuario."
-
-#: ../textw/userauth.py:260
-msgid "Use Shadow Passwords"
-msgstr "Utilizar las Palabras Sombreadas"
-
-#: ../textw/userauth.py:262
-msgid "Enable MD5 Passwords"
-msgstr "Activar las claves MD5"
-
-#: ../textw/userauth.py:269
-msgid "NIS Domain:"
-msgstr "Dominio NIS:"
-
-#: ../textw/userauth.py:271
-msgid "NIS Server:"
-msgstr "Servidor NIS:"
-
-#: ../textw/userauth.py:273
-msgid "or use:"
-msgstr "O bien utilizar"
-
-#: ../textw/userauth.py:276
-msgid "Request server via broadcast"
-msgstr "Solicite el servidor a través del broadcast"
-
-#: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
-#: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
-msgid "Bad Mount Point"
-msgstr "Destino de Montaje no válido"
-
-#: ../libfdisk/fsedit.c:740
-#, c-format
-msgid "The %s directory must be on the root filesystem."
-msgstr "El directorio %s tiene que estar en el sistema de archivos de root"
-
-#: ../libfdisk/fsedit.c:747
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points must begin with a leading /."
-msgstr ""
-"El Destino de Montaje %s no es válido.\n"
-"\n"
-"El Destino de Montaje debe empezar con /."
-
-#: ../libfdisk/fsedit.c:754
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may not end with a /."
-msgstr ""
-"El Destino de Montaje %s no es válido.\n"
-"\n"
-"Los Destino de Montaje no pueden terminar con una /."
-
-#: ../libfdisk/fsedit.c:763
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"Mount points may only printable characters."
-msgstr ""
-"El Destino de Montaje %s no es válido.\n"
-"\n"
-"Los Destinos de Montaje debe contener solamente caracteres que puedan ser "
-"imprimidos."
-
-#: ../libfdisk/fsedit.c:773
-msgid ""
-"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-"You can do this, but you may not use any other filesystems for your Linux "
-"system. Additionally, there will be a speed penalty for not using "
-"Linux-native partitions. Do you want to continue?"
-msgstr ""
-"Se le ha pedido que introduzca su root (/) del sistema de ficheros en una "
-"partición FAT. Puede hacerlo pero no puede usar ningún otro sistema de "
-"ficheros para su Linux. Además disminuira la velocidad por no haber usado "
-"particiones originales de Linux. ¿Desea continuar?"
-
-#: ../libfdisk/fsedit.c:790
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"System partitions must be on Linux Native partitions."
-msgstr ""
-"El punto de montaje %s  no es válida.\n"
-"\n"
-"Las particiones del sistema deben encotrarse en particiones Linux Nativas."
-
-#: ../libfdisk/fsedit.c:800
-#, c-format
-msgid ""
-"The mount point %s is illegal.\n"
-"\n"
-"/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"El mount point %s no es válido.\n"
-"\n"
-"/usr tiene que estar en la partición Linux Nativa o en una unidad NFS."
-
-#: ../libfdisk/fsedit.c:828
-msgid "Too Many Drives"
-msgstr "Demasiadas unidades"
-
-#: ../libfdisk/fsedit.c:829
-msgid ""
-"You have more drives than this program supports. Please use the standard "
-"fdisk program to setup your drives and please notify Red Hat Software that "
-"you saw this message."
-msgstr ""
-"Tiene más unidades de las que este programa soporta. Por favor, utilice el "
-"programa estandar fdisk para instalar las unidades y comunique a Red Hat "
-"Software que le aparecio este mensaje."
-
-#: ../libfdisk/fsedit.c:845
-msgid "No Drives Found"
-msgstr "No se han encontrado unidades"
-
-#: ../libfdisk/fsedit.c:846
-msgid ""
-"An error has occurred - no valid devices were found on which to create new "
-"filesystems.  Please check your hardware for the cause of this problem."
-msgstr ""
-"Se ha detectado un error - no se han encontrado unidades donde crear "
-"nuevossistemas de archivos. Por favor,controle que la causa del problema no "
-"se encuentra en su hardware."
-
-#: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
-#, c-format
-msgid ""
-"An error occurred reading the partition table for the block device %s.  The "
-"error was"
-msgstr ""
-"Se ha detectado un error al leer la lista de las particiones para el "
-"dispositivo a bloques %s. El error es"
-
-#: ../libfdisk/fsedit.c:1199
-#, c-format
-msgid ""
-"The partition table on device %s is corrupted.  To create new partitions it "
-"must be initialized, causing the loss of ALL DATA on this drive."
-msgstr ""
-"La lista de las particiones en el dispositivo %s ha sido dañada. Para "
-"crearnuevas particiones, tiene que ser inicializada, causando la pérdida de "
-"TODOS LOS DATOS de esta unidad."
-
-#: ../libfdisk/fsedit.c:1204
-msgid "Bad Partition Table"
-msgstr "Lista de las particiones dañadas"
-
-#: ../libfdisk/fsedit.c:1205
-msgid "Initialize"
-msgstr "Inicializar"
-
-#: ../libfdisk/fsedit.c:1205 ../libfdisk/fsedit.c:1226
-msgid "Skip Drive"
-msgstr "Saltar Unidad"
-
-#: ../libfdisk/fsedit.c:1226 ../loader/net.c:329
-msgid "Retry"
-msgstr "Intentar otra vez"
-
-#: ../libfdisk/fsedit.c:1238
-msgid "BSD Disklabel"
-msgstr "Etiqueta del disco BSD"
-
-#: ../libfdisk/fsedit.c:1238
-msgid ""
-"A disk with a BSD disklabel has been found. The Red Hat installation only "
-"supports BSD Disklabels in read-only mode, so you must use a custom install "
-"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr ""
-"Se ha encontrado un disco con una etiqueta BSD. La instalación de Red "
-"Hatsólo soporta las etiquetas BSD en modalidad de lectura, así que tiene que "
-"utilizar una instalación personalizada y fdisk (en vez de Disk Druid)."
-
-#: ../libfdisk/fsedit.c:1268
-#, c-format
-msgid "System error %d"
-msgstr "Error de sistema %d"
-
-#: ../libfdisk/fsedit.c:1277 ../libfdisk/fsedit.c:1279
-msgid "Fdisk Error"
-msgstr "Error de fdisk"
-
-#: ../libfdisk/gnomefsedit.c:537 ../libfdisk/gnomefsedit.c:827
-msgid "<Swap Partition>"
-msgstr "<Partición Swap>"
-
-#: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
-msgid "<RAID Partition>"
-msgstr "<Partición RAID>"
-
-#: ../libfdisk/gnomefsedit.c:713 ../libfdisk/newtfsedit.c:692
-msgid "Delete Partition"
-msgstr "Borrar partición"
-
-#: ../libfdisk/gnomefsedit.c:714 ../libfdisk/newtfsedit.c:693
-msgid "Are you sure you want to delete this partition?"
-msgstr "¿Está seguro de querer borrar esta partición?"
-
-#: ../libfdisk/gnomefsedit.c:772 ../libfdisk/gnomefsedit.c:778
-#: ../libfdisk/gnomefsedit.c:782 ../libfdisk/gnomefsedit.c:784
-#: ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266
-#: ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
-msgid "Edit Partition"
-msgstr "Modificar partición"
-
-#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
-msgid "Mount Point:"
-msgstr "Destino de Montaje:"
-
-#: ../libfdisk/gnomefsedit.c:842
-msgid "Size (Megs):"
-msgstr "Tamaño (Megs):"
-
-#: ../libfdisk/gnomefsedit.c:873
-msgid "Grow to fill disk?"
-msgstr "¿Crecer hasta rellenar el disco?"
-
-#: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
-msgid "Allocation Status:"
-msgstr "Espacio del disco ocupado"
-
-#: ../libfdisk/gnomefsedit.c:896 ../libfdisk/newtfsedit.c:334
-msgid "Successful"
-msgstr "Completado"
-
-#: ../libfdisk/gnomefsedit.c:899 ../libfdisk/newtfsedit.c:336
-msgid "Failed"
-msgstr "Error"
-
-#: ../libfdisk/gnomefsedit.c:911 ../libfdisk/newtfsedit.c:341
-msgid "Failure Reason:"
-msgstr "Motivos del error:"
-
-#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:1813
-msgid "Partition Type:"
-msgstr "Tipo de partición:"
-
-#: ../libfdisk/gnomefsedit.c:1008
-msgid "Allowable Drives:"
-msgstr "Unidades posibles:"
-
-#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005
-#: ../libfdisk/newtfsedit.c:499
-msgid "No Mount Point"
-msgstr "Ningún Destino de Montaje"
-
-#: ../libfdisk/gnomefsedit.c:1115 ../libfdisk/newtfsedit.c:500
-msgid ""
-"You have not selected a mount point for this partition. Are you sure you "
-"want to do this?"
-msgstr ""
-"No ha seleccionado ningún Destino de Montaje para esta partición. ¿Está "
-"seguro que es esto lo que quiere?"
-
-#: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013
-#: ../libfdisk/newtfsedit.c:540
-msgid "Mount Point Error"
-msgstr "Error en el  Destino de Montaje"
-
-#: ../libfdisk/gnomefsedit.c:1159 ../libfdisk/newtfsedit.c:541
-msgid ""
-"The mount point requested is either an illegal path or is already in use. "
-"Please select a valid mount point."
-msgstr ""
-"El Destino de Montaje requerido es una root no válida o ya ha sido  "
-"utilizadoPor favor, seleccione un Destino de Montaje válido."
-
-#: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
-msgid "Size Error"
-msgstr "Error de Tamaño"
-
-#: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
-msgid ""
-"The size requested is illegal. Make sure the size is greater and zero (0), "
-"and is specified int decimal (base 10) format."
-msgstr ""
-"El tamaño requerido no es válido. Averigue que sea mayor que cero (0), y que "
-"se encuentre en el formado decimal (base 10)."
-
-#: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
-#: ../libfdisk/newtfsedit.c:576
-msgid "Swap Size Error"
-msgstr "Error de tamaño del swap."
-
-#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
-#: ../libfdisk/newtfsedit.c:577
-#, c-format
-msgid ""
-"You have created a swap partition which is too large. The maximum size of a "
-"swap partition is %ld Megabytes."
-msgstr ""
-"Ha creado una partición Swap que es demasiado grande. El tamaño máximo para "
-"una partición Swap is %ld Megabytes."
-
-#: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
-msgid "No RAID Drive Constraint"
-msgstr "No hay ningún vìnculo para la unidad RAID"
-
-#: ../libfdisk/gnomefsedit.c:1221
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive.\n"
-" Are you sure you want to do this?"
-msgstr ""
-"Ha configurado una partición RAID sin vincularla a una sola unidad.\n"
-"¿Desea continuar?"
-
-#: ../libfdisk/gnomefsedit.c:1227
-msgid "Close"
-msgstr "Cierra"
-
-#: ../libfdisk/gnomefsedit.c:1228
-msgid ""
-"You have configured a RAID partition without constraining the partition to a "
-"single drive. Please select one drive to constrain this partition to."
-msgstr ""
-"Ha configurado una partición RAID sin vincularla a una especifica unidad. "
-"Por favor, seleccione una unidad para que la partición quede vinculada a "
-"ella."
-
-#. XXXXX - for now destroy the raid entry since it
-#. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1414
-msgid "RAID Entry Incomplete"
-msgstr "Entrada Raid incompleta"
-
-#: ../libfdisk/gnomefsedit.c:1415
-#, c-format
-msgid ""
-"The raid device /dev/%s now contains partitions which are unallocated. The "
-"raid device /dev/%s will now be decomposed into its component partitions. "
-"Please recompose the raid device with allocated partitions."
-msgstr ""
-"El dispositivo RAID /dev/%s ahora contiene particiones que no han sido "
-"alojadas. El dispositivo RAID /dev/%s ahora será descompuesto en las "
-"particiones que lo componen. Por favor, recomponga el dispositivo RAID con "
-"las particiones alojadas."
-
-#. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
-#: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
-msgid "Unallocated Partitions"
-msgstr "Particiones no alojadas"
-
-#: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
-#: ../libfdisk/newtfsedit.c:85
-msgid ""
-"There are currently unallocated partition(s) present in the list of "
-"requested partitions. The unallocated partition(s) are shown below, along "
-"with the reason they were not allocated."
-msgstr ""
-"Hay unas particiónes no alojadas presentes en la lista de las particiónes "
-"necesarias. La lista de las particiónes no alojadas se muestra a "
-"continuación con las razones por las cuales no han sido alojadas."
-
-#: ../libfdisk/gnomefsedit.c:1799
-msgid "<Swap Partition"
-msgstr "<Partición de Swap>"
-
-#: ../libfdisk/gnomefsedit.c:1857
-msgid "RAID Device: /dev/"
-msgstr "Dispositivo RAID: /dev/"
-
-#: ../libfdisk/gnomefsedit.c:1880
-msgid "RAID Type:"
-msgstr "Tipo RAID:"
-
-#: ../libfdisk/gnomefsedit.c:1917
-msgid "Partitions For RAID Array:"
-msgstr "Particiones para la matriz RAID:"
-
-#: ../libfdisk/gnomefsedit.c:2006
-msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"No ha selecciónado ningún Destino de Montaje. Se necesita un Destino de "
-"Montaje."
-
-#: ../libfdisk/gnomefsedit.c:2014
-msgid ""
-"The mount point requested is already in use. Please select a valid mount "
-"point."
-msgstr ""
-"El Destino de MOntaje requerido ya esta siendo utilizado. Seleccione un "
-"Destino de Montaje valido."
-
-#: ../libfdisk/gnomefsedit.c:2027
-msgid "Booting From RAID Warning"
-msgstr "Inicializando desde RAID"
-
-#: ../libfdisk/gnomefsedit.c:2028
-msgid ""
-"You have made this raid device mount as a booting partition.  Please make "
-"sure all the component partitions are bootable."
-msgstr ""
-"Ha seleccionado de forma que este dispositivo RAID viniese montado como una "
-"partición de inicio. Por favor, compruebe que todos los componentes de las "
-"particiones sean inicializables."
-
-#: ../libfdisk/gnomefsedit.c:2038
-msgid "No RAID Device"
-msgstr "Ningún dispositivo RAID"
-
-#: ../libfdisk/gnomefsedit.c:2039
-msgid "You need to selected a RAID device."
-msgstr "Tiene que seleccionar un dispositivo RAID."
-
-#: ../libfdisk/gnomefsedit.c:2045
-msgid "Used Raid Device"
-msgstr "Dispositivo RAID ya utilizado"
-
-#: ../libfdisk/gnomefsedit.c:2046
-#, c-format
-msgid ""
-"The raid device \"/dev/%s\" is already configured as a raid device. Please "
-"select another."
-msgstr ""
-"El dispositivo RAID \"/dev/%s\" ya esta configurado como un dispositivo "
-"raid. Por favor, seleccione otro."
-
-#: ../libfdisk/gnomefsedit.c:2059
-msgid "Not Enough Partitions"
-msgstr "No hay bastantes particiones"
-
-#: ../libfdisk/gnomefsedit.c:2061
-msgid ""
-"You have not configured enough partitions for the RAID type you have "
-"selected."
-msgstr ""
-"No ha configurado suficientes particiones para el tipo RAID que ha "
-"seleccionado."
-
-#: ../libfdisk/gnomefsedit.c:2068
-msgid "Illegal /boot RAID Type"
-msgstr "El tipo Raid de las particiones de arranque no es valido"
-
-#: ../libfdisk/gnomefsedit.c:2070
-msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
-"Las particiones de arranque (/boot) solo estan permitidas en el RAID-1."
-
-#: ../libfdisk/gnomefsedit.c:2077
-msgid "Illegal RAID mountpoint"
-msgstr "Destino de montaje RAID no válido"
-
-#: ../libfdisk/gnomefsedit.c:2079
-msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "Las particiones RAID no pueden ser montadas como root (/) en Alpha."
-
-#: ../libfdisk/gnomefsedit.c:2162
-#, c-format
-msgid ""
-"The partition %s is a pre-existing partition in the set of partitions for "
-"this RAID device.  The mount point is set to /boot. Are you sure that it is "
-"possible to boot from this partition?"
-msgstr ""
-"La particion %s ya existe  en el conjunto de las particiones para este "
-"dispositivo RAID. El Destino de Montaje  se encuentra en la partición de "
-"arranque (/boot) ¿Esta seguro de que es  posible arrancar el sistema desde "
-"esta partición?"
-
-#: ../libfdisk/gnomefsedit.c:2169
-msgid "Use Pre-existing Partition?"
-msgstr "¿Utilizar particiones ya existentes?"
-
-#: ../libfdisk/gnomefsedit.c:2278
-msgid "Auto-Partition"
-msgstr "Proceso automático de creación de las particiones"
-
-#: ../libfdisk/gnomefsedit.c:2285
-msgid "Using Existing Disk Space"
-msgstr "Utilizando el espacio existente en el disco"
-
-#: ../libfdisk/gnomefsedit.c:2304
-msgid "Remove Linux partitions"
-msgstr "Quite las particiones Linux"
-
-#: ../libfdisk/gnomefsedit.c:2315
-msgid "Use existing free space"
-msgstr "Utilizando el espacio libre existente"
-
-#. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2327
-msgid "Intended Use"
-msgstr "Intended Use"
-
-#: ../libfdisk/gnomefsedit.c:2366
-msgid "Workstation"
-msgstr "Estación de trabajo"
-
-#: ../libfdisk/gnomefsedit.c:2440
-msgid "Delete RAID Device?"
-msgstr "¿Borrar el dispositivo RAID?"
-
-#: ../libfdisk/gnomefsedit.c:2441
-msgid "Are you sure you want to remove this RAID device?"
-msgstr "¿Está seguro de querer borrar este dispositivo RAID?"
-
-#: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
-msgid "Reset Partition Table"
-msgstr "Resetear la lista de las particiones"
-
-#: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
-msgid "Reset partition table to original contents? "
-msgstr "Resetear la lista de las particiones hasta su configuración original "
-
-#: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
-msgid "<Swap>"
-msgstr "<Swap>"
-
-#: ../libfdisk/gnomefsedit.c:2532
-msgid "<RAID>"
-msgstr "<RAID>"
-
-#: ../libfdisk/gnomefsedit.c:2534
-msgid "<not set>"
-msgstr "<not set>"
-
-#: ../libfdisk/gnomefsedit.c:3198
-msgid "Unallocated Partitions Exist..."
-msgstr "Partición existente no localizada..."
-
-#: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) or a "
-"RAID partition for the install to proceed."
-msgstr ""
-"Tiene que asignar una partición root a una partición nativa de Linux (ext2) "
-"o una partición RAID para que la instalación siga."
-
-#: ../libfdisk/gnomefsedit.c:3289
-msgid "Partitions"
-msgstr "Particiones"
-
-#: ../libfdisk/gnomefsedit.c:3319
-msgid "_Add..."
-msgstr "_Añadiendo..."
-
-#: ../libfdisk/gnomefsedit.c:3326
-msgid "_Edit..."
-msgstr "_Modificando..."
-
-#: ../libfdisk/gnomefsedit.c:3327
-msgid "_Reset"
-msgstr "_Reinicializar"
-
-#: ../libfdisk/gnomefsedit.c:3332
-msgid "_Delete"
-msgstr "_Borrando..."
-
-#. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3345
-msgid "_Make RAID Device"
-msgstr "_Construye un dispositivo RAID"
-
-#: ../libfdisk/gnomefsedit.c:3355
-msgid "Auto Partition"
-msgstr "Proceso automático de creación de las particiones"
-
-#: ../libfdisk/gnomefsedit.c:3364
-msgid "Drive Summary"
-msgstr "Resumen de las unidades"
-
-#: ../libfdisk/newtfsedit.c:139
-msgid "Swap Partition"
-msgstr "Partición de Swap"
-
-#: ../libfdisk/newtfsedit.c:1277
-msgid "Current Disk Partitions"
-msgstr "Particiones del disco actual"
-
-#: ../libfdisk/newtfsedit.c:1310
-msgid "Drive Summaries"
-msgstr "Resúmenes de las unidades"
-
-#: ../libfdisk/newtfsedit.c:1426
-msgid "No Root Partition"
-msgstr "Ninguna partición de Root"
-
-#: ../libfdisk/newtfsedit.c:1427
-msgid ""
-"You must assign a root (/) partition to a Linux native partition (ext2) for "
-"the install to proceed."
-msgstr ""
-"Tiene que asignar una partición de root (/) a una partición nativa de Linux "
-"(ext2) para que la instalación siga."
-
-#: ../libfdisk/newtfsedit.c:1447
-msgid "No Swap Partition"
-msgstr "Ninguna partición de Swap"
-
-#: ../libfdisk/newtfsedit.c:1448
-msgid "You must assign a swap partition for the install to proceed."
-msgstr "Tiene que asignar una partición de Swap para que siga la instalación."
-
-#: ../libfdisk/newtfsedit.c:1480
-msgid ""
-"There are unallocated partitions left. If you quit now they will not be "
-"written to the disk.\n"
-"\n"
-"Are you sure you want to exit?"
-msgstr ""
-"Algunas particiones no están alojadas. Si sale ahora, no se grabarán en el "
-"disco.\n"
-"\n"
-"¿Está seguro de querer salir?"
-
-#: ../libfdisk/newtfsedit.c:1496
-msgid "Save Changes"
-msgstr "Grabar los cambios"
-
-#: ../libfdisk/newtfsedit.c:1498
-msgid "Save changes to partition table(s)?"
-msgstr "¿Grabar los cambios en la(s) lista(s) de las particiones?"
-
-#: ../libfdisk/newtfsedit.c:1542
-msgid "You may only delete NFS mounts."
-msgstr "Sólo puede borrar los Montajes de NFS"
-
-#: ../loader/cdrom.c:26
-msgid "Other CDROM"
-msgstr "Otro CDROM"
-
-#: ../loader/cdrom.c:32
-msgid "CDROM type"
-msgstr "Tipo de CDROM"
-
-#: ../loader/cdrom.c:32
-msgid "What type of CDROM do you have?"
-msgstr "¿Qué tipo de CDROM tiene?"
-
-#: ../loader/cdrom.c:88
-msgid "Initializing CDROM..."
-msgstr "Inicializando CD Rom..."
-
-#: ../loader/devices.c:51
-msgid "Miscellaneous"
-msgstr "Varios"
-
-#: ../loader/devices.c:60
-msgid ""
-"This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"OK\" "
-"button now."
-msgstr ""
-"Este módulo puede contener parámetros que afectan su operación. Si usted no "
-"conoce los parámetros a insertar, simplemente salte la pantalla pulsando "
-"\"OK\" ahora."
-
-#: ../loader/devices.c:65
-msgid "Module Parameters"
-msgstr "Parámetros del módulo"
-
-#: ../loader/devices.c:170 ../loader/devices.c:272 ../loader/loader.c:253
-#: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1801
-msgid "Devices"
-msgstr "Dispositivos"
-
-#: ../loader/devices.c:172
-msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Insertar el disco driver y pulse \"OK\" para seguir."
-
-#: ../loader/devices.c:183 ../loader/loader.c:1810
-msgid "Failed to mount floppy disk."
-msgstr "Se ha producido un fallo al montar la disquetera."
-
-#: ../loader/devices.c:188
-msgid ""
-"The floppy disk you inserted is not a valid driver disk for this release of "
-"Red Hat Linux."
-msgstr ""
-"El disco que ha insertado no es un disco driver válido para esta versión de "
-"Red Hat Linux."
-
-#: ../loader/devices.c:237
-msgid ""
-"Which driver should I try?. If the driver you need does not appear in this "
-"list, and you have a separate driver disk, please press F2."
-msgstr ""
-"¿Que unidad tengo que utilizar? Si el driver que se necesita no está "
-"incluido en la lista que se muestra en la parte inferior de la pantalla y "
-"posee un disco driver, pulse F2."
-
-#: ../loader/devices.c:242
-msgid "Which driver should I try?"
-msgstr "¿Que unidad tengo que utilizar?"
-
-#: ../loader/devices.c:250
-msgid "Specify module parameters"
-msgstr "Especifique los parámetros del módulo"
-
-#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-msgid "Kickstart Error"
-msgstr "Error de Kickstart"
-
-#: ../loader/kickstart.c:59
-#, c-format
-msgid "Error opening: kickstart file %s: %s"
-msgstr ""
-"Se ha producido un error durante la apertura: fichero de kickstart %s: %s"
-
-#: ../loader/kickstart.c:69
-#, c-format
-msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Error al leer el contenido del fichero kickstart %s: %s"
-
-#: ../loader/kickstart.c:108
-#, c-format
-msgid "Error on line %d of kickstart file %s."
-msgstr "Error en la línea %d del fichero de kickstart %s."
-
-#: ../loader/lang.c:275
-msgid "Choose a Language"
-msgstr "Elija un idioma."
-
-#: ../loader/lang.c:546
-msgid "Keyboard Type"
-msgstr "Tipo de teclado"
-
-#: ../loader/lang.c:547
-msgid "What type of keyboard do you have?"
-msgstr "¿Qué tipo de teclado tiene?"
-
-#: ../loader/loader.c:101
-msgid "Local CDROM"
-msgstr "CDROM local"
-
-#: ../loader/loader.c:104
-msgid "NFS image"
-msgstr "Imagen NFS"
-
-#: ../loader/loader.c:109
-msgid "Hard drive"
-msgstr "Disco duro"
-
-#: ../loader/loader.c:128
-msgid "Welcome to Red Hat Linux"
-msgstr "Bienvenidos al sistema operativo Linux de Red Hat"
-
-#: ../loader/loader.c:130
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab>entre elementos / <Space> selecciona / <F12> próxima "
-"pantalla "
-
-#: ../loader/loader.c:240
-msgid "SCSI"
-msgstr "SCSI"
-
-#: ../loader/loader.c:254
-msgid "What kind of device would you like to add"
-msgstr "¿Qué clase de dispositivo quiere añadir?"
-
-#: ../loader/loader.c:301
-msgid "I have found the following devices in your system:"
-msgstr "Se han encontrado los siguientes dispositivos en su sistema:"
-
-#: ../loader/loader.c:303 ../loader/loader.c:328
-msgid "Add Device"
-msgstr "Añadir dispositivo"
-
-#: ../loader/loader.c:329
-msgid ""
-"I don't have any special device drivers loaded for your system. Would you "
-"like to load some now?"
-msgstr ""
-"No se ha cargado ningún driver para dispositivos especiales para su sistema. "
-"¿Quiere cargar algunos ahora?"
-
-#: ../loader/loader.c:413 ../loader/loader.c:415
-msgid "Loading"
-msgstr "Cargando"
-
-#: ../loader/loader.c:467
-msgid "Loading second stage ramdisk..."
-msgstr "Cargando la segunda parte del disco Ram..."
-
-#: ../loader/loader.c:471
-msgid "Error loading ramdisk."
-msgstr "Se ha producido un error cargando el disco Ram."
-
-#: ../loader/loader.c:608
-msgid "Hard Drives"
-msgstr "Discos Duros"
-
-#: ../loader/loader.c:609
-msgid ""
-"You don't seem to have any hard drives on your system! Would you like to "
-"configure additional devices?"
-msgstr ""
-"¡No parece que haya ningún disco duro en su sistema! ¿Quiere configurar más "
-"dispositivos?"
-
-#: ../loader/loader.c:622
-msgid ""
-"What partition and directory on that partition hold the RedHat/RPMS and "
-"RedHat/base directories? If you don't see the disk drive you're using listed "
-"here, press F2 to configure additional devices."
-msgstr ""
-"¿Que partición y qué directorio en esa partición contiene los directorios "
-"RedHat/RPMS y RedHat/base? Si no ve el disco que está utilizando en la lista "
-"que aparece a continuación, pulse F2 para configurar más dispositivos."
-
-#: ../loader/loader.c:636
-msgid "Directory holding Red Hat:"
-msgstr "Directorio que contiene Red Hat:"
-
-#: ../loader/loader.c:656
-msgid "Select Partition"
-msgstr "Seleccione la partición"
-
-#: ../loader/loader.c:702
-#, c-format
-msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "El dispositivo %s no contiene un árbol de instalación de Red Hat."
-
-#: ../loader/loader.c:754
-msgid ""
-"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"OK\" to retry."
-msgstr ""
-"No ha sido posible encontrar el CDROM de Red Hat Linux en ninguna de las "
-"unidades CDROM. Por favor, inserte el CDROM de Red Hat Linux y pulse \"OK\" "
-"para intentarlo otra vez."
-
-#: ../loader/loader.c:911
-msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Este directorio no contiene un árbol de instalación de Red Hat Linux."
-
-#: ../loader/loader.c:916
-msgid "I could not mount that directory from the server"
-msgstr "No es posible montar esto directorio desde el servidor."
-
-#: ../loader/loader.c:1004
-msgid "FTP"
-msgstr "FTP"
-
-#: ../loader/loader.c:1005
-msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Imposible cargar la segunda parte del disco Ram."
-
-#: ../loader/loader.c:1152
-msgid "Rescue Method"
-msgstr "Método de rescate"
-
-#: ../loader/loader.c:1153
-msgid "Installation Method"
-msgstr "Método de instalación"
-
-#: ../loader/loader.c:1155
-msgid "What type of media contains the rescue image?"
-msgstr "¿Qué soporte (CDROM, disquete) contiene la imagen de rescate?"
-
-#: ../loader/loader.c:1157
-msgid "What type of media contains the packages to be installed?"
-msgstr ""
-"¿Qué soporte contiene (CDROM, disquete) los paquetes que hay que instalar?"
-
-#: ../loader/loader.c:1693
-msgid "Cannot find ks.cfg on boot floppy."
-msgstr "No ha sido posible encontrar ks.cfg en el disquete de arranque."
-
-#: ../loader/loader.c:1739
-#, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "No se ha conseguido leer el directorio %s: %s"
-
-#: ../loader/loader.c:1802
-msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Inserte el disco de actualización y pulse \"OK\" para seguir."
-
-#. Copy everything to /tmp/updates so .so files don't get run
-#. from /dev/fd0. We could (and probably should) get smarter about
-#. this at some point.
-#: ../loader/loader.c:1815
-msgid "Updates"
-msgstr "Actualización"
-
-#: ../loader/loader.c:1815
-msgid "Reading anaconda updates..."
-msgstr "Leyendo las actualizaciones de Anaconda..."
-
-#: ../loader/loader.c:1969
-msgid "PC Card"
-msgstr "Tarjeta del PC"
-
-#: ../loader/loader.c:1969
-msgid "Initializing PC Card Devices..."
-msgstr "Inicializando los dispositivos de la tarjeta del PC..."
-
-#: ../loader/net.c:147
-msgid "NFS server name:"
-msgstr "Nombre del servidor NFS:"
-
-#: ../loader/net.c:150 ../loader/urls.c:182
-msgid "Red Hat directory:"
-msgstr "Directorio de Red Hat:"
-
-#: ../loader/net.c:156
-msgid "NFS Setup"
-msgstr "Configuración de NFS"
-
-#: ../loader/net.c:157
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your NFS server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecture"
-msgstr ""
-"Por favor, introduzca en la siguiente  información:\n"
-"\n"
-"      ºEl nombre o el número IP de su servidor NFS\n"
-"      ºEl directorio en aquel servidor que contiene Red Hat Linux\n"
-"       específico para su arquitectura."
-
-#: ../loader/net.c:228
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-"Por favor, introduzca los dato relativos a la configuración de esta "
-"máquina.Cada dato tiene que ser introducido como  una dirección IP en la "
-"notación decimal punteada (p.ej.:1.2.3.4)."
-
-#: ../loader/net.c:270
-msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Utilice una configuración IP dinámica (BOOT/DHCP)."
-
-#: ../loader/net.c:298
-msgid "Configure TCP/IP"
-msgstr "Configurar TCP/IP"
-
-#: ../loader/net.c:329
-msgid "Missing Information"
-msgstr "Información incompleta"
-
-#: ../loader/net.c:330
-msgid "You must enter both a valid IP address and a netmask."
-msgstr "Tiene que insertar una dirección IP válida y una máscara de la red."
-
-#: ../loader/net.c:338 ../loader/net.c:574
-msgid "Dynamic IP"
-msgstr "IP dinámico"
-
-#: ../loader/net.c:339 ../loader/net.c:575
-msgid "Sending request for IP information..."
-msgstr "Enviando petición para conseguir información sobre el IP"
-
-#: ../loader/net.c:460
-msgid "Determining host name and domain..."
-msgstr "Determinando el nombre del sistema y el dominio..."
-
-#: ../loader/net.c:560 ../loader/net.c:591
-msgid "kickstart"
-msgstr "kickstart"
-
-#: ../loader/net.c:561
-#, c-format
-msgid "bad argument to kickstart network command %s: %s"
-msgstr "Parámetros incorrectos para el comando de kickstart de la red %s: %s"
-
-#: ../loader/net.c:592
-#, c-format
-msgid "Bad bootproto %s specified in network command"
-msgstr "Bootproto %s incorrecto especificado en el comando network"
-
-#: ../loader/net.c:628
-msgid "Boot protocol to use"
-msgstr "Protocolo de boot que será utilizado"
-
-#: ../loader/net.c:630
-msgid "Network gateway"
-msgstr "Gateway de la red"
-
-#: ../loader/net.c:632
-msgid "IP address"
-msgstr "Dirección IP"
-
-#: ../loader/net.c:634
-msgid "Nameserver"
-msgstr "Nombre del servidor"
-
-#: ../loader/net.c:641
-msgid "Domain name"
-msgstr "Nombre del dominio"
-
-#: ../loader/net.c:644
-msgid "Network device"
-msgstr "Dispositivo de la red"
-
-#: ../loader/net.c:716
-msgid ""
-" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-"screen"
-msgstr ""
-"<Tab>/<Alt-Tab> moverse | <Espaciador> selecciona | <F12> siguiente screen"
-
-#: ../loader/net.c:717
-#, c-format
-msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#: ../loader/net.c:719
-msgid "Network configuration"
-msgstr "Configuración de la red"
-
-#: ../loader/net.c:720
-msgid "Would you like to set up networking?"
-msgstr "¿Desea configurar la red?"
-
-#: ../loader/urls.c:71
-#, c-format
-msgid "Failed to log into %s: %s"
-msgstr "Error, demasiado largo en %s: %s"
-
-#: ../loader/urls.c:80 ../loader/urls.c:87
-#, c-format
-msgid "Failed to retrieve %s: %s"
-msgstr "Error en la recarga %s: %s"
-
-#: ../loader/urls.c:92
-msgid "Retrieving"
-msgstr "Recarga"
-
-#: ../loader/urls.c:151
+msgid "The Red Hat Linux 6.1 Installation Guide in HTML format."
+msgstr "La Guía de Instalación Red Hat Linux 6.1 en el formato HTML."
+
+# ========================================================
+#: rhl-rg-6.1en-1.noarch.rpm:1005 rhl-rg-6.1en-1.src.rpm:1005
 #, fuzzy
 msgid ""
-"Please enter the following information:\n"
+"The rhl-rg package contains the Red Hat Linux 6.1 Reference Guide in\n"
+"HTML format.  The Reference Guide is also available on the Web at\n"
+"http://www.redhat.com/support/manuals/.\n"
 "\n"
-"    o the name or IP number of your FTP server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"Install the rhl-rg package if you'd like to use an HTML version of the\n"
+"Reference Guide loaded on your own machine."
 msgstr ""
-"Por favor, introduzca la siguiente  información:\n"
+"El paquete rhl-rg contiene la Guía de Referencia Red Hat Linux\n"
+"6.1 en el formato HTML.\n"
 "\n"
-"    ºEl nombre o la dirección IP de su servidor FTP\n"
-"    ºEl directorio que contiene Red Hat Linux en aquel servidor\n"
-"     específico para su arquitectura\n"
+"Instale el paquete rhl-rg si quiere consultar la versión HTML\n"
+"de la Guía de Referencia en su maquina local."
 
-#: ../loader/urls.c:160
+#: rhl-rg-6.1en-1.noarch.rpm:1004 rhl-rg-6.1en-1.src.rpm:1004
+#, fuzzy
+msgid "The Red Hat Linux 6.1 Reference Guide in HTML format."
+msgstr "La Guía de Referencia Red Hat Linux 6.1 en el formato HTML."
+
+# ========================================================
+#: rpm-3.0.4-0.29.src.rpm:1005 rpm-python-3.0.4-0.29.i386.rpm:1005
 #, fuzzy
 msgid ""
-"Please enter the following information:\n"
+"The rpm-python package contains a module which permits applications\n"
+"written in the Python programming language to use the interface\n"
+"supplied by RPM (RPM Package Manager) libraries.\n"
 "\n"
-"    o the name or IP number of your web server\n"
-"    o the directory on that server containing\n"
-"      Red Hat Linux for your architecure\n"
+"This package should be installed if you want to develop Python\n"
+"programs that will manipulate RPM packages and databases."
 msgstr ""
-"Por favor, introduzca las siguientes informaciones:\n"
+"El paquete rpm-python contiene el modulo que permite a las\n"
+"aplicaciones escritas en el lenguaje de programación de Python\n"
+"utilizar la interfaz proporcionada por las librerias RPM.\n"
 "\n"
-"    ºEl nombre o el numero IP de su servidor web\n"
-"    ºEl directorio que contiene Red Hat Linux en aquel servidor\n"
-"     específico para su arquitectura\n"
+"Ese paquete deberia instalarse si quiere desarrollar aplicaciones\n"
+"Python que\n"
+"manipularán los paquetes y las bases de datos de RPM."
 
-#: ../loader/urls.c:178
-msgid "FTP site name:"
-msgstr "Nombre del sitio FTP:"
+#: rpm-3.0.4-0.29.src.rpm:1004 rpm-python-3.0.4-0.29.i386.rpm:1004
+#, fuzzy
+msgid "Python bindings for apps which will manipulate RPM packages."
+msgstr "Modulo Python para aplicaciones que manipulan los paquetes RPM."
 
-#: ../loader/urls.c:179
-msgid "Web site name:"
-msgstr "Nombre del sitio Web:"
-
-#: ../loader/urls.c:198
-msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Utiliza ftp no-anónimos o un servidor Proxy"
-
-#: ../loader/urls.c:202
-msgid "Use proxy server"
-msgstr "Utiliza un servidor Proxy"
-
-#: ../loader/urls.c:213
-msgid "FTP Setup"
-msgstr "Configuración FTP"
-
-#: ../loader/urls.c:214
-msgid "HTTP Setup"
-msgstr "Configuración HTTP"
-
-#: ../loader/urls.c:224
-msgid "You must enter a server name."
-msgstr "Tiene que introducir el nombre de un servidor."
-
-#: ../loader/urls.c:229
-msgid "You must enter a directory."
-msgstr "Tiene que introducir un directorio."
-
-#: ../loader/urls.c:234
-msgid "Unknown Host"
-msgstr "Sistema desconocido"
-
-#: ../loader/urls.c:235
-#, c-format
-msgid "%s is not a valid hostname."
-msgstr "%s no es un nombre de sistema válido."
-
-#: ../loader/urls.c:307
+# ========================================================
+#: rusers-0.16-2.src.rpm:1005 rusers-server-0.16-2.i386.rpm:1005
+#, fuzzy
 msgid ""
-"If you are using non anonymous ftp, enter the account name and password you "
-"wish to use below. If you are using an FTP proxy enter the name of the FTP "
-"proxy server to use."
+"The rusers program allows users to find out who is logged into various\n"
+"machines on the local network.  The rusers command produces output\n"
+"similar to who, but for the specified list of hosts or for all\n"
+"machines on the local network. The rusers-server package contains the\n"
+"server for responding to rusers requests.\n"
+"\n"
+"Install rusers-server if you want remote users to be able to see\n"
+"who is logged into your machine."
 msgstr ""
-"Si está utilizando un FTP no-anónimo, introduzca ahora el nombre de la "
-"cuenta y la clave que desea mantener. Si está utilizando un FTP proxy "
-"introduzca el nombre del servidor FTP Proxy a utilizar."
+"El programa rusers permite a los usuarios saber quien está conectado\n"
+"en las varias maquinas\n"
+"El comando rusers produce un output parecido a lo de who, pero\n"
+"relativo a la lista especifica de host o de todas las maquinas de\n"
+"la red local. El paquete rusers-server contiene el servidor para\n"
+"contestar a las peticiones de rusers\n"
 
-#: ../loader/urls.c:313
+#: rusers-0.16-2.src.rpm:1004 rusers-server-0.16-2.i386.rpm:1004
+#, fuzzy
+msgid "Server for the rusers protocol."
+msgstr "Servidor para el protocolo rusers."
+
+# ========================================================
+#: rwall-0.16-2.src.rpm:1005 rwall-server-0.16-2.i386.rpm:1005
+#, fuzzy
 msgid ""
-"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-"to use."
+"The rwall command sends a message to all of the users logged into\n"
+"a specified host.  The rwall-server package contains the daemon for\n"
+"receiving such messages, and is disabled by default on Red Hat Linux\n"
+"systems (it can be very annoying to keep getting all those messages\n"
+"when you're trying to play Quake--I mean, trying to get some work done).\n"
+"\n"
+"Install rwall-server if you'd like the ability to receive messages\n"
+"from users on remote hosts."
 msgstr ""
-"Si está utilizando un servidor FTP Proxy introduzca el nombre del servidor "
-"Proxy HTTP a utilizar."
+"El comando rwall envia un mensaje a todos los usuarios que se encuentran\n"
+"en una determinada maquina. El paquete rwall-server contiene el demonio\n"
+"para recibir esos mensajes, y está desabilidado por defecto en los\n"
+"sistemas Red Hat Linux.\n"
+"\n"
+"Instale rwall-server si quiere abilitar la recepción de mensajes por\n"
+"usuarios que se encuentren en maquinas remotas."
 
-#: ../loader/urls.c:334
-msgid "Account name:"
-msgstr "Nombre de la cuenta"
+# ========================================================
+#: sawmill-0.16-4.i386.rpm:1005 sawmill-0.16-4.src.rpm:1005
+#, fuzzy
+msgid ""
+"Sawmill is an extensible window manager which uses a Lisp-based\n"
+"scripting language.  All window decorations are configurable and the\n"
+"basic idea is to have as much user-interface policy as possible\n"
+"controlled through the Lisp language.  Configuration can be\n"
+"accomplished by writing Lisp code in a personal .sawmillrc file, or\n"
+"using a GTK+ interface.  Sawmill is mostly GNOME compliant; if you\n"
+"want to use it with GNOME, you'll need to install sawmill-gnome as\n"
+"well.."
+msgstr ""
+"Sawmill es un administrador de ventanas extendible que utiliza un\n"
+"lenguaje para los scripts basado en el Lisp-like. Toda la gráfica\n"
+"de las ventanas es configurable. La idea basica es la de tener una\n"
+"interfaz del usuario lo más posible configurable por medio del\n"
+"lenguaje LISP.\n"
+"\n"
+"Todas los cambios de la configuración pueden ser introducidos por medio de\n"
+"una interfaz GTK: sawwill es compatible con GNOME."
 
-#: ../loader/urls.c:342
-msgid "FTP Proxy:"
-msgstr "Proxy FTP:"
+#: sawmill-0.16-4.i386.rpm:1004 sawmill-0.16-4.src.rpm:1004
+#, fuzzy
+msgid "An extensible window manager for the X Window System."
+msgstr "Un administrador de ventanas para el sistema gráfico X Window."
 
-#: ../loader/urls.c:343
-msgid "HTTP Proxy:"
-msgstr "Proxy HTTP:"
+# ========================================================
+#: sawmill-0.16-4.src.rpm:1005 sawmill-gnome-0.16-4.i386.rpm:1005
+msgid ""
+"The sawmill-gnome package includes GNOME support for the sawmill\n"
+"window manager, including a GNOME control center applet. If you want\n"
+"to use sawmill with the GNOME GUI desktop, you'll need to install this\n"
+"package as well as the sawmill package."
+msgstr ""
+"El paquete sawmill-gnome incluye el soporte GNOME para el administrador\n"
+"de ventanas sawmill, incluida una aplicación del control de GNOME.\n"
+"Si quiere utilizar sawmill con el escritorio GUI GNOME, necesita\n"
+"instalar ese paquete y lo de sawmill."
 
-#: ../loader/urls.c:347
-msgid "FTP Proxy Port:"
-msgstr "Puerta del Proxy FTP:"
+#: sawmill-0.16-4.src.rpm:1004 sawmill-gnome-0.16-4.i386.rpm:1004
+#, fuzzy
+msgid "GNOME support for the sawmill window manager."
+msgstr "Soporte GNOME para sawmill"
 
-#: ../loader/urls.c:348
-msgid "HTTP Proxy Port:"
-msgstr "Puerta del Proxy HTTP:"
+# ========================================================
+#: talk-0.16-2.src.rpm:1005 talk-server-0.16-2.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The talk-server package provides daemon programs for the Internet talk\n"
+"protocol, which allows you to chat with other users on different\n"
+"machines.  Talk is a communication program which copies lines from one\n"
+"terminal to the terminal of another user."
+msgstr ""
+"El paquete talk-server proporciona un demonio para el protocolo Internet\n"
+"talk, que permite chatear con otros usuarios en sistemas distintos.\n"
+"Talk es un programa de comunicación que copia las lineas de un terminal\n"
+"a otro.\n"
+"\n"
+"Instale talk si quiere que usuarios en sistemas distintos sean capaces de\n"
+"chatear."
 
-#: ../loader/windows.c:46
-msgid "Loading SCSI driver"
-msgstr "Cargando los driver SCSI."
+#: talk-0.16-2.src.rpm:1004 talk-server-0.16-2.i386.rpm:1004
+#, fuzzy
+msgid "The talk server for one-on-one Internet chatting."
+msgstr "Servidor para chatear en Internet."
 
-#~ msgid ""
-#~ "Congratulations, installation is complete.\n"
-#~ "\n"
-#~ "Remove the boot media and press return to reboot. For information on fixes "
-#~ "which are available for this release of Red Hat Linux, consult the Errata "
-#~ "available from http://www.redhat.com.\n"
-#~ "\n"
-#~ "Information on configuring your system is available in the post install "
-#~ "chapter of the Official Red Hat Linux User's Guide."
-#~ msgstr ""
-#~ "Enhorabuena, el proceso de instalación ha terminado. \n"
-#~ "\n"
-#~ "quite el disco de instalación y pulse Enter para reiniciar. Para conseguir "
-#~ "más información sobre las peculiaridades de esta versión de Linux Red Hat, "
-#~ "visite el sitio web http://www.redhat.com."
+# ========================================================
+#: compat-glibc-5.2-2.0.7.2.i386.rpm:1005
+#: compat-glibc-5.2-2.0.7.2.src.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains the runtime libraries of the GNU C library\n"
+"version 2.0.7, for compiling binaries to run on Red Hat Linux 2.0 and\n"
+"other glibc 2.0.x Linux based systems."
+msgstr ""
+"Ese paquete contiene la versión 2.0.7 de las librerias C de la GNU para la\n"
+"compilación de los codigos binarios que se ejecutarán en Red Hat Linux 2.0\n"
+"y otros sistemas basados en las 2.0.x. Ese paquete incluye las librerias\n"
+"runtime."
 
-#~ msgid "Rebuilding"
-#~ msgstr "Reconstruyendo"
+#: compat-glibc-5.2-2.0.7.2.i386.rpm:1004
+#: compat-glibc-5.2-2.0.7.2.src.rpm:1004
+#, fuzzy
+msgid "GNU libc for Red Hat Linux 5.2 backwards compatibility."
+msgstr "Libc de GNU para la compatibilidad con Red Hat Linux 5.2."
 
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Reconstruyendo la base de datos RPM..."
+# ========================================================
+#: compat-libs-5.2-2.i386.rpm:1005 compat-libs-5.2-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"The compat-libs package includes a number of runtime libraries\n"
+"compiled on Red Hat Linux 5.2. This package is required if you want to\n"
+"do development for Red Hat Linux 5.2 and other glibc 2.0 based\n"
+"systems."
+msgstr ""
+"Ese paquete contiene muchas librerias runtime compiladas en sistemas\n"
+"Red Hat Linux 5.2. Se le pregunta si quiere desarrollar en sistemas Red Hat\n"
+"Linux 5.2 y otros sistemas basados en las glibc 2.0."
 
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "Reconstrucción de la base de datos RPM no finalizada. ¿Puede ser que no haya "
-#~ "mas espacio en el disco?"
+#: compat-libs-5.2-2.i386.rpm:1004 compat-libs-5.2-2.src.rpm:1004
+#, fuzzy
+msgid "Runtime and development libs for RHL 5.2 backwards compatibility."
+msgstr "Librerias de desarrollo y runtime para Red Hat Linux 5.2."
+
+# ========================================================
+#: locale_config-0.1-1.i386.rpm:1005 locale_config-0.1-1.src.rpm:1005
+msgid ""
+"The locale_config tool configures system-wide locale (language,\n"
+"numeric, time, etc.) settings."
+msgstr ""
+"La herramienta locale_config configura los parametros locales\n"
+"system-wide (lenguaje, nomeros, hora,..)."
+
+#: locale_config-0.1-1.i386.rpm:1004 locale_config-0.1-1.src.rpm:1004
+#, fuzzy
+msgid "Locale configuration tool."
+msgstr "Herramienta de configuración local."
+
+# ========================================================
+#: memprof-0.3.0-2.i386.rpm:1005 memprof-0.3.0-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"Memprof is a tool for profiling memory usage and detecting memory\n"
+"leaks. Memprof can be used with existing binaries without\n"
+"recompilation."
+msgstr ""
+"Memprof es una herramienta para la configuración del uso de la memoria y\n"
+"para detectar los fallos de memoria. Puede ser utilizado con los binarios\n"
+"existantes sin que haga falta recompilar."
+
+#: memprof-0.3.0-2.i386.rpm:1004 memprof-0.3.0-2.src.rpm:1004
+#, fuzzy
+msgid "A tool for memory profiling and leak detection."
+msgstr "Herramienta para la configuración de la memoria y para detectar los\n"
+"fallos de memoria."
+
+# ========================================================
+#: anacron-2.1-1.i386.rpm:1005 anacron-2.1-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"Anacron (like `anac(h)ronistic') is a periodic command scheduler.  It\n"
+"executes commands at intervals specified in days.  Unlike cron, it\n"
+"does not assume that the system is running continuously.  It can\n"
+"therefore be used to control the execution of daily, weekly and\n"
+"monthly jobs (or anything with a period of n days), on systems that\n"
+"don't run 24 hours a day.  When installed and configured properly,\n"
+"Anacron will make sure that the commands are run at the specified\n"
+"intervals as closely as machine-uptime permits.  \n"
+"\n"
+"This package is pre-configured to execute the daily jobs of the Red\n"
+"Hat Linux system. You should install this program if your system isn't\n"
+"powered on 24 hours a day to make sure the maintenance jobs of other\n"
+"Red Hat Linux packages are executed each day."
+msgstr ""
+"Anacron (`anac(h)ronistic') es programador de comandos periodicos.\n"
+"Ejecuta comandos con intervalos especificados en dias. Al revés que Cron\n"
+"no presupone que el sistema sea constantemente en ejecutación. Puede ser\n"
+"usado para controlar la ejecutación de tareas diarias, semanales y\n"
+"mensuales (o con un periodo de n dias), en sistemas que no se ejecutan\n"
+"24 horas al dia. Una vez instalado y configurado de forma correcta,\n"
+"Anacron garantizará que los comandos se ejecuten en un tiempo justo.\n"
+"\n"
+"Ese paquete es preconfigurado para ejecutar las tareas diarias de sistemas\n"
+"Red Hat Linux. Instale ese programa si su sistema no está encendido\n"
+"24 horas al dia para asegurarse que la ejecución de otros programas sea\n"
+"efectuada cada dia."
+
+#: anacron-2.1-1.i386.rpm:1004 anacron-2.1-1.src.rpm:1004
+#, fuzzy
+msgid "A cron-like program that can run jobs lost during downtime."
+msgstr "Un programa parecido a cron que ejecuta las tareas que se han perdido\n"
+"durante un bloqueo del sistema."
+
+# ========================================================
+#: apache-config-0.0.3-1.i386.rpm:1005 apache-config-0.0.3-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The apache-config tool is a configuration tool for the Apache Web\n"
+"server."
+msgstr "La herramienta apache-config sirve para configurar el servidor web Apache."
+
+#: apache-config-0.0.3-1.i386.rpm:1004 apache-config-0.0.3-1.src.rpm:1004
+#, fuzzy
+msgid "A configuration tool for the Apache Web server."
+msgstr "Herramienta de configuración para el servidor Web apache."
+
+# ========================================================
+#: bug-buddy-0.6-1.i386.rpm:1005 bug-buddy-0.6-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"Bug-buddy is a GUI bug reporting tool. Install bug-buddy if you want\n"
+"to report bugs in the GNOME GUI desktop and other related programs."
+msgstr ""
+"Bug-buddy es una herramienta que informas sobre los errores. Instale\n"
+"bug-buddy si quiere informes sobre los errores en el escritorio GUI GNOME\n"
+"y otros programas relacionados."
+
+#: bug-buddy-0.6-1.i386.rpm:1004 bug-buddy-0.6-1.src.rpm:1004
+#, fuzzy
+msgid "A GUI bug reporting tool for the GNOME GUI desktop."
+msgstr "Programas fundamentales para el escritorio gráfico GNOME."
+
+# ========================================================
+#: docbook-3.1-2.noarch.rpm:1005 docbook-3.1-2.src.rpm:1005
+#, fuzzy
+msgid ""
+"DocBook is an SGML (a markup language) DTD (Document Type\n"
+"Definition). DTDs define how the markup tags in SGML documents should\n"
+"be interpreted. DocBook is well suited for the technical\n"
+"documentation, but can be used for other types of documents."
+msgstr ""
+"DocBook es un DTD (document type definition) SGML. Los DTD definen\n"
+"la forma en que las etiquetas de marcación tienen que ser interpretados en\n"
+"los documentos SGML.\n"
+"DocBook es lo mejor para crear libros y documentos relativos a hardware\n"
+"y software."
+
+# ========================================================
+#: firewall-config-0.0.0-0.20000112.i386.rpm:1005
+#: firewall-config-0.0.0-0.20000112.src.rpm:1005
+#, fuzzy
+msgid ""
+"A tool for configuring firewall rules and IP masquerading which uses\n"
+"the KDE 2.0 Control Center. You can either run the tool standalone\n"
+"(firewall-config) or by selecting the Firewall Configuration entry in\n"
+"kcontrol2."
+msgstr ""
+"Una herramienta para configurar las regulas de firewall y de\n"
+"enmascaramiento de IP que utiliza el centro de control KDE 2.0.\n"
+"Puede lanzar esa herramienta sola o seleccionando la entrada de\n"
+"configuración Firewall en kcontrol2."
+
+#: firewall-config-0.0.0-0.20000112.i386.rpm:1004
+#: firewall-config-0.0.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "A configuration tool for IP firewalls and masquerading."
+msgstr "Herramienta de configuración para enmascaramiento/firewall de IP."
+
+# ========================================================
+#: glxMesa-3.2-0.20000111.src.rpm:1005
+#: glxMesa-mach64-3.2-0.20000111.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The glxMesa package includes an implementation of the Mesa 3-D library\n"
+"and GLX.  GLX was developed by SGI to integrate OpenGL with X11 and to\n"
+"allow the Mesa 3-D library to perform its 3-D rendering functions\n"
+"within the X server's process, rather than within the X client\n"
+"program.  This offers potential performance benefits, because the\n"
+"rendered image does not have to be moved from the X client program to\n"
+"the X server--only the commands required to render the image are sent.\n"
+"It also makes 3-D hardware acceleration much more practical (and\n"
+"fast).  This package includes an accelerated driver for ATI\n"
+"Mach64-based cards.\n"
+"\n"
+"The Mesa 3-D graphics library is a powerful and generic toolset for\n"
+"creating hardware assisted computer graphics.  To the extent that Mesa\n"
+"utilizes the OpenGL command syntax or state machine, it is being used\n"
+"with authorization from Silicon Graphics, Inc.  However, the author\n"
+"(Brian Paul) makes no claim that Mesa is in any way a compatible\n"
+"replacement for OpenGL or associated with Silicon Graphics, Inc. Those\n"
+"who want a licensed implementation of OpenGL should contact a licensed\n"
+"vendor.  However, Mesa is very similar to OpenGL, and you might find\n"
+"Mesa to be a valid alternative to OpenGL.\n"
+"\n"
+"This package is based on Mesa CVS-20000111."
+msgstr ""
+"Esta es una actualización de las librerias Mesa 3-D y GLX, GLX ha sido\n"
+"desarrollado por SGI para integrar OpenGL con X11. Ello permite a las\n"
+"librerias Mesa 3D efectuar sus funciones de modelizado 3D al interior\n"
+"del proceso del servidor X de forma mejor que al interior del proceso\n"
+"del cliente X. Eso ofrece beneficios potenciales a la ejecución puesto\n"
+"que la imagen modelizada no tiene que ser desplazada desde el cliente\n"
+"X hasta el servidor X. (Sólo los comandos requeridos para el modelizado\n"
+"son enviados). Eso hace más rapida y practica la acceleración hardware.\n"
+"Ese paquete incluye un piloto accelerado para tarjetas video ATI basadas en\n"
+"en el chip Mach64.\n"
+"\n"
+"La libreria Mesa 3D es una caja de herramientas muy util para crear\n"
+"ordenadores gráficos muy eficaces. Para extender ello, Mesa utiliza\n"
+"la sintaxis de los comandos OpenGL, bajo la autorización de la Silicon\n"
+"Graphics, Inc. De todas formas, el autor (Brian Paul) no es responsable\n"
+"de cada incompatibilidad entre Mesa y OpenGL. Aquellos que quisieran una\n"
+"actualización con licencia de OpenGL, tendrian que contactar con un\n"
+"vendedor de licencias. Por lo demás Mesa es muy parecido a OpenGL y\n"
+"puede encontrar Mesa como una alternativa a OpenGL.\n"
+"\n"
+"Ese paquete es basado en Mesa CVS-20000111."
+
+#: glxMesa-3.2-0.20000111.src.rpm:1004
+#: glxMesa-mach64-3.2-0.20000111.i386.rpm:1004
+#, fuzzy
+msgid "The ATI Mach64 OpenGL (3-D) driver."
+msgstr "Piloto OpenGL para ATI Mach64"
+
+# ========================================================
+#: glxMesa-3.2-0.20000111.src.rpm:1005
+#: glxMesa-mga-3.2-0.20000111.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The glxMesa package contains an an implementation of the Mesa 3-D\n"
+"library and GLX.  GLX was developed by SGI to integrate OpenGL with\n"
+"X11 and allow the Mesa 3-D library to perform its 3-D rendering\n"
+"functions within the X server's process, rather than within the X\n"
+"client program.  This offers potential performance benefits, because\n"
+"the rendered image does not have to be moved from the X client program\n"
+"to the X server--only the commands required to render the image are\n"
+"sent.  It also makes 3-D hardware acceleration much more practical\n"
+"(and fast).  This package includes an accelerated driver for Matrox\n"
+"G200 and G400-based cards.\n"
+"\n"
+"The Mesa 3-D graphics library is a powerful and generic toolset for\n"
+"creating hardware assisted computer graphics.  To the extent that Mesa\n"
+"utilizes the OpenGL command syntax or state machine, it is being used\n"
+"with authorization from Silicon Graphics, Inc.  However, the author\n"
+"(Brian Paul) makes no claim that Mesa is in any way a compatible\n"
+"replacement for OpenGL or associated with Silicon Graphics, Inc. Those\n"
+"who want a licensed implementation of OpenGL should contact a licensed\n"
+"vendor.  However, Mesa is very similar to OpenGL, and you might find\n"
+"Mesa to be a valid alternative to OpenGL.\n"
+"\n"
+"This package is based on Mesa CVS-20000111."
+msgstr ""
+"Esa es una actualización de las librerias Mesa 3-D y GLX. GLX ha sido\n"
+"desarrollado por SGI para integrar OpenGL con X11. Eso permite a las\n"
+"librerias Mesa 3D ejecutar sus funciones de modelizado 3D al interior\n"
+"del proceso del servidor X de forma mejor que desde el proceso del\n"
+"cliente X. Todo ello puede prporcionar grandes beneficios al\n"
+"rendimiento del sistema, puesto que la imagen modelizada no tiene que\n"
+"ser desplazada del cliente X al servidor X. (sólo se envian los comandos\n"
+"necesarios para el modelizado). Ello además hace más practica y rapida\n"
+"la acceleración hardware. Ese paquete incluye un piloto accelerado\n"
+"para las tarjetas de video Matrox basadas en el chipset G200 y G400.\n"
+"\n"
+"La libreria Mesa 3D es una caja de herramienta muy util para crear\n"
+"ordenadores gráficos de alto rendimiento. Para extender todo ello, Mesa\n"
+"utiliza la sintaxis de los comandos OpenGL bajo la autorización de la\n"
+"Silicon Graphics, Inc. De todas formas el autor (Brian Paul) no es\n"
+"responsable de cualquier incompatibilidad entre Mesa y OpenGL.\n"
+"\n"
+"Aquellos que quisieran una actualización con licencia de OpenGL, tendrian\n"
+"contactar con el vendedor de licencias. Por lo demás Mesa es muy parecido\n"
+"a OpenGL y puede encontrar en eluna alternativa a OpenGL.\n"
+"\n"
+"Ese paquete está basado en Mesa CVS-20000111."
+
+#: glxMesa-3.2-0.20000111.src.rpm:1004
+#: glxMesa-mga-3.2-0.20000111.i386.rpm:1004
+#, fuzzy
+msgid "The Matrox G200/G400 OpenGL (3-D) driver."
+msgstr "Piloto OpenGL (3D) para Matrox G200/G400"
+
+# ========================================================
+#: glxMesa-3.2-0.20000111.src.rpm:1005
+#: glxMesa-tnt-3.2-0.20000111.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The glxMesa package includes an implementation of the Mesa 3-D library\n"
+"and GLX.  GLX was developed by SGI to integrate OpenGL with X11 and\n"
+"allow the Mesa 3-D library to perform its 3-D rendering functions\n"
+"within the X server's process, rather than within the X client\n"
+"program.  This offers potential performance benefits, because the\n"
+"rendered image does not have to be moved from the X client program to\n"
+"the X server--only the commands required to render the image are sent.\n"
+"It also makes 3-D hardware acceleration much more practical (and\n"
+"fast).  This package includes an accelerated driver for graphics\n"
+"hardware based on the Riva TNT chipset.\n"
+"\n"
+"The Mesa 3-D graphics library is a powerful and generic toolset for\n"
+"creating hardware assisted computer graphics.  To the extent that Mesa\n"
+"utilizes the OpenGL command syntax or state machine, it is being used\n"
+"with authorization from Silicon Graphics, Inc.  However, the author\n"
+"(Brian Paul) makes no claim that Mesa is in any way a compatible\n"
+"replacement for OpenGL or associated with Silicon Graphics, Inc. Those\n"
+"who want a licensed implementation of OpenGL should contact a licensed\n"
+"vendor.  However, Mesa is very similar to OpenGL, and you might find\n"
+"Mesa to be a valid alternative to OpenGL.\n"
+"\n"
+"This package is based on Mesa CVS-20000111."
+msgstr ""
+"Esta es una actualización de las libreriase Mesa 3-D y GLX, GLX ha sido\n"
+"desarrollar por SGI para integrar OpenGL con X11. Ello permite a las\n"
+"librerias de Mesa 3D efectuar sus funciones de modelizado 3D al\n"
+"interior del proceso del servidor X de forma mejor que al interior\n"
+"del proceso del cliente X. Todo ello puede prporcionar grandes\n"
+"beneficios al rendimiento del sistema, puesto que la imagen modelizada\n"
+"no tiene que ser desplazada del cliente X al servidor X. (sólo se envian\n"
+"los comandos necesarios para el modelizado). Ello, además, hace más\n"
+"practica y rapida la acceleración hardware. Ese paquete incluye un\n"
+"piloto accelerado para las tarjetas de video basadas en el chipset\n"
+"Riva TNT.\n"
+"\n"
+"La libreria Mesa 3D es una caja de herramienta muy util para crear\n"
+"ordenadores gráficos de alto rendimiento. Para extender todo ello,\n"
+"Mesa utiliza la sintaxis de los comandos OpenGL bajo la autorización\n"
+"de la Silicon Graphics, Inc. De todas formas el autor (Brian Paul) no\n"
+"es responsable de cualquier incompatibilidad entre Mesa y OpenGL.\n"
+"\n"
+"Aquellos que quisieran una actualización con licencia de OpenGL, tendrian\n"
+"contactar con el vendedor de licencias. Por lo demás Mesa es muy parecido\n"
+"a OpenGL y puede encontrar en eluna alternativa a OpenGL.\n"
+"\n"
+"Ese paquete está basado en Mesa CVS-20000111."
+
+#: glxMesa-3.2-0.20000111.src.rpm:1004
+#: glxMesa-tnt-3.2-0.20000111.i386.rpm:1004
+#, fuzzy
+msgid "The Riva TNT OpenGL (3-D) driver."
+msgstr "Piloto OpenGl (3D) para Riva TNT"
+
+# ========================================================
+#: isdn-config-0.0.0-0.20000112.i386.rpm:1005
+#: isdn-config-0.0.0-0.20000112.src.rpm:1005
+#, fuzzy
+msgid ""
+"Isdn-config is a tool for configuring ISDN dialup connections, using\n"
+"the K Desktop Environment (KDE) 2.0 Control Center. You can either run\n"
+"the tool standalone (isdn-config) or by selecting the ISDN\n"
+"Configuration entry in kcontrol2."
+msgstr ""
+"Una herramienta para configurar las conexiones dialup ISDN.\n"
+"\n"
+"Ese programa usa el Control Center 2.0 de KDE. Puede ejecutarlo sea en\n"
+"el modo solo (isdn-config) o seleccionando la entrada ISDN Configuration\n"
+"in kcontrol2."
+
+#: isdn-config-0.0.0-0.20000112.i386.rpm:1004
+#: isdn-config-0.0.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "A tool for configuring ISDN dialup connections."
+msgstr "Herramienta de configuración para conexiones ISDN."
+
+# =======================================================
+#: kcontrol-2.0-0.20000112.i386.rpm:1005 kcontrol-2.0-0.20000112.src.rpm:1005
+#, fuzzy
+msgid ""
+"The kcontrol package contains the K Desktop Environment (KDE) 2.0\n"
+"control panel, which is used by printer-config, apache-config,\n"
+"squid-config, firewall-config and wuftpd-config."
+msgstr ""
+"El paquete kcontrol contiene el panel de control del escritorio K\n"
+"(KDE versión 2.0), ese paquete es utilizado por printer-config,\n"
+"apache-config, squid-config, firewall-config y wuftpd-config ."
+
+#: kcontrol-2.0-0.20000112.i386.rpm:1004 kcontrol-2.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "The control center for KDE 2.0."
+msgstr "Centro de control para KDE 2.0"
+
+# ========================================================
+#: kde2libs-2.0-0.20000112.i386.rpm:1005 kde2libs-2.0-0.20000112.src.rpm:1005
+#, fuzzy
+msgid ""
+"Static versions of the libraries for the K Desktop Environment (KDE):\n"
+"kdecore (core library); kdeui (user interface); kfm (file manager);\n"
+"khtmlw (HTML widget); kfile (file access); kspell (spelling checker);\n"
+"jscript (javascript); kab (addressbook); kimgio (image manipulation);\n"
+"and mediatool (sound, mixing and animation)."
+msgstr ""
+"Librerias estaticas para el entorno K del escritorio:\n"
+"kdecore (libreria del nucleo KDE), kdeui (interfaz del usuario),\n"
+"kfm (administrador de ficheros), khtmlw (HTML widget), kfile\n"
+"(acceso a los ficheros), kspell (chequeador de ortografíar), jscript\n"
+"(javascript), kab (agenda), kimgio (manipulador de imagenes),\n"
+"mediatool (sonido, mezcla y animaciones).\n"
+"\n"
+"Ese paquete contiene las versiones estaticas de las librerias."
+
+#: kde2libs-2.0-0.20000112.i386.rpm:1004 kde2libs-2.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "The K Desktop Environment (KDE) 2.0 static libraries."
+msgstr "Librerias estaticas para el entorno K del escritorio."
+
+# ========================================================
+# ========================================================
+#: kde2libs-2.0-0.20000112.src.rpm:1005
+#: kde2libs-devel-2.0-0.20000112.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The kde2libs-devel package contains the header files you will need to\n"
+"compile applications for the K Desktop Environment (KDE) 2.0.  The KDE\n"
+"Application Programming Interface (API) documentation is also\n"
+"included, in HTML format for easy browsing."
+msgstr ""
+"El paquete kde2libs-devel contiene los ficheros header que necesitará para\n"
+"compilar aplicaciones para KDE. También se incluye la documentación\n"
+"de la API de KDE en el formato HTML para una consulta más rapida."
+
+#: kdebase-1.1.2-16.src.rpm:1005
+#: kdebase-3d-screensavers-1.1.2-16.i386.rpm:1005
+#, fuzzy
+msgid "3-D (OpenGL) screensavers for the K Desktop Environment (KDE)."
+msgstr "Varios salva-pantallas 3D para el escritorio gráfico KDE."
+
+#: kdebase-1.1.2-16.src.rpm:1004
+#: kdebase-3d-screensavers-1.1.2-16.i386.rpm:1004
+#, fuzzy
+msgid "3-D (OpenGL) screensavers for the K Desktop Environment."
+msgstr "Varios salva-pantallas 3D para el escritorio gráfico KDE."
+
+# ========================================================
+#: kdesupport-1.1.2-6.src.rpm:1005 kdesupport-devel-1.1.2-6.i386.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains the header files needed to compile applications\n"
+"using the K Desktop Environment (KDE) support libraries:\n"
+"QwSpriteField, js (javascript), uulib, mimelib, and rdb.\n"
+"\n"
+"You should install this package if you want to recompile or develop\n"
+"KDE applications."
+msgstr ""
+"Ese paquete contiene los ficheros header necesarios para la compilación\n"
+"de aplicaciones que usan las librerias de KDE: QwSpriteField, js\n"
+"(javascript), uulib, mimelib y rdb."
+
+#: kdesupport-1.1.2-6.src.rpm:1004 kdesupport-devel-1.1.2-6.i386.rpm:1004
+#, fuzzy
+msgid "Header files and documentation for the KDE support libraries."
+msgstr "Ficheros header y documentación para las librerias de KDE"
+
+# ========================================================
+#: kdoc-2.0-0.20000112.noarch.rpm:1004 kdoc-2.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "Documentation for the K Desktop Environment (KDE) 2.0."
+msgstr "Documentación para KDE 2.0."
+
+#: linuxdoc-1.0-1.noarch.rpm:1004 linuxdoc-1.0-1.src.rpm:1004
+#, fuzzy
+msgid "An SGML DTD for the linuxdoc documentation system."
+msgstr "Un DTD de SGML para el sistema de documentación 'linuxdoc'."
+
+# ========================================================
+#: printer-config-0.0.0-0.20000110.i386.rpm:1005
+#: printer-config-0.0.0-0.20000110.src.rpm:1005
+#, fuzzy
+msgid ""
+"Printer-config is a printer configuration tool which uses the KDE 2.0\n"
+"Control Center. You can either run the tool standalone\n"
+"(printer-config) or by selecting the Printer Configuration entry in\n"
+"kcontrol2."
+msgstr ""
+"Printer-config es una herramienta de configuración para empresoras\n"
+"que utiliza el centro de control KDE 2.0. Puede lanzar esa herramienta\n"
+"también sola (printer-config) o seleccionando la entrada Printer\n"
+"Configuration en kcontrol2."
+
+#: printer-config-0.0.0-0.20000110.i386.rpm:1004
+#: printer-config-0.0.0-0.20000110.src.rpm:1004
+#, fuzzy
+msgid "A printer configuration tool for KDE or for standalone use."
+msgstr "Herramienta de configuración de empresoras para KDE o que se utiliza sola."
+
+# ========================================================
+#: psgml-1.2.1-3.noarch.rpm:1005 psgml-1.2.1-3.src.rpm:1005
+#, fuzzy
+msgid ""
+"Emacs is an advanced and extensible editor. An Emacs major mode\n"
+"customizes Emacs for editing particular types of text documents. PSGML\n"
+"is a major mode for SGML (a markup language) documents.  PSGML\n"
+"provides several functionalities for editing SGML documents:\n"
+"indentation according to element nesting depth and identification of\n"
+"structural errors (but it is not a validating SGML parser); menus and\n"
+"commands for inserting tags with only the contextually valid tags;\n"
+"attribute values can be edited in a separate window with information\n"
+"about types and defaults; structure based editing includes movement\n"
+"and killing; and also several commands for folding editing."
+msgstr ""
+"Emacs es un editor adelantado y flexible. El modo Emax Major\n"
+"personaliza Emacs para editar especiales tipos de documentos.\n"
+"Es un modo major para documentos SGML. PSGML proporciona muchas\n"
+"funcionalidades para editar documentos SGML: detección de errores\n"
+"estructurales (no es pero un valido analizador de SGML); menus y\n"
+"comandos para para insertar etiquetas sólo si se encuentran en un\n"
+"contexto valido; los valores de atributos pueden ser editados\n"
+"en una ventana separada con la información de los tipos y los\n"
+"parametros por defecto; edicción basada en las estructuras que\n"
+"incluyen movement y killing; y también muchos comandos para la edicción\n"
+"de killing."
+
+# ========================================================
+#: qt1x-1.45-1.src.rpm:1005 qt1x-GL-1.45-1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"Qt-GL is an add-on for the Qt GUI toolkit. Qt-GL supports 3-D graphics\n"
+"using the glxMesa (OpenGL compatible) library."
+msgstr ""
+"Qt-GL es un añadido para la caja de herramientas de Qt, que soporta\n"
+"la grafica 3D utilizando la libreria glxMesa (OpenGL compatible)."
+
+#: qt1x-1.45-1.src.rpm:1004 qt1x-GL-1.45-1.i386.rpm:1004
+#, fuzzy
+msgid "An OpenGL (3-D graphics) add-on for the Qt GUI toolkit."
+msgstr "Añadido OpenGl (grafica 3D) para la caja de herramientas grafica de Qt"
+
+# ========================================================
+#: rep-gtk-0.8-1.src.rpm:1005 rep-gtk-libglade-0.8-1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"This is a binding of libglade for the librep Lisp interpreter. The\n"
+"libglade library allows applications to dynamically load XML\n"
+"descriptions of GTK+ widget hierarchies. These hierarchies may then be\n"
+"created by the GLADE GUI builder."
+msgstr ""
+"Eso es un binding de libglade para el interprete Lisp librep. Libglade\n"
+"permite a aplicaciones cargar dinamicamente descripciones XML\n"
+"de las gerarquias de widget GTK+. Esas gerarquias pueden ser creadas con el\n"
+"constructor GUI GLADE."
+
+#: rep-gtk-0.8-1.src.rpm:1004 rep-gtk-libglade-0.8-1.i386.rpm:1004
+#, fuzzy
+msgid "A librep binding for the libglade library for loading user interfaces."
+msgstr "Una librep de binding para la libreria libglade para cargar interfaces de usuarios."
+
+# ========================================================
+#: rhclib-0.1-0.20000110.i386.rpm:1005 rhclib-0.1-0.20000110.src.rpm:1005
+#, fuzzy
+msgid ""
+"Rhclib is a library for parsing and editing configuration files.  This\n"
+"package contains the static library and include files needed for\n"
+"developing rhclib applications."
+msgstr ""
+"Rhclib es una libreria para la análisis y la edicción de ficheros\n"
+"de configuración Ese paquete contiene la libreria estatica y los\n"
+"ficheros include para desarrollar aplicaciones rhclib."
+
+#: rhclib-0.1-0.20000110.i386.rpm:1004 rhclib-0.1-0.20000110.src.rpm:1004
+#, fuzzy
+msgid "A library for parsing and editing configuration files."
+msgstr "Libreria C para la analisis de los parametros de la linea de comando."
+
+# ========================================================
+#: rpmlint-0.8-1.noarch.rpm:1005 rpmlint-0.8-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The rpmlint tool can check for common errors in RPM packages.  Only\n"
+"binary packages are supported at the present time."
+msgstr ""
+"rpmlint es una herramienta que controla los errores más comunes\n"
+"en los paquetes RPM. Hoy en dia son soportados sólo los paquetes binarios."
+
+#: rpmlint-0.8-1.noarch.rpm:1004 rpmlint-0.8-1.src.rpm:1004
+msgid "A development tool for checking the correctness of RPM packages."
+msgstr "Una herramienta para chequear las incorrecciones de los paquetes RPM."
+
+# ========================================================
+#: sawmill-0.21.1-1.src.rpm:1005 sawmill-themer-0.21.1-1.i386.rpm:1005
+#, fuzzy
+msgid ""
+"The sawmill-themer package contains an optional theme builder for the\n"
+"sawmill window manager. Sawmill-themer allows static window themes to\n"
+"be created and edited in a graphical environment."
+msgstr ""
+"El paquete sawmill-themer contiene un constructor opcional de\n"
+"temas para el administardor de ventanas sawmill. Sawmill-themer\n"
+"permite crear temas estaticos de las ventanas y modificarlos en un\n"
+"entorno gráfico."
+
+#: sawmill-0.21.1-1.src.rpm:1004 sawmill-themer-0.21.1-1.i386.rpm:1004
+#, fuzzy
+msgid "A GUI for creating sawmill window manager themes."
+msgstr "GUI para crear temas para el administardor de ventanas sawmill."
+
+# ========================================================
+#: squid-config-0.0.0-0.20000112.i386.rpm:1005
+#: squid-config-0.0.0-0.20000112.src.rpm:1005
+#, fuzzy
+msgid ""
+"A tool for configuring the Squid proxy server, using the KDE 2.0\n"
+"Control Center. You can either run the tool standalone (squid-config)\n"
+"or by selecting the Proxy server configuration entry in kcontrol2."
+msgstr ""
+"Una herramienta de configuración para el servidor proxy Squid, que\n"
+"utiliza el centro de control KDE 2.0. Puede usar ese programa solo o\n"
+"seleccionando la entrada de configuración del servidor Proxy en kcontrol2."
+
+#: squid-config-0.0.0-0.20000112.i386.rpm:1004
+#: squid-config-0.0.0-0.20000112.src.rpm:1004
+#, fuzzy
+msgid "A configuration tool for the Squid proxy server."
+msgstr "Herramienta de configuración para el servidor proxy Squid."
+
+# ========================================================
+#: stylesheets-0.13rh-1.noarch.rpm:1005 stylesheets-0.13rh-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The stylesheets package contains a collection of stylesheets used at\n"
+"Cygnus for SGML (Standard Generalized Markup Language) conversion,\n"
+"particularly with Docbook.  The stylesheets themselves will be in\n"
+"/usr/lib/sgml/stylesheets.  Experimental entries are added to the\n"
+"catalog.  Some simple scripts are included to facilitate using the\n"
+"stylesheets, which are almost entirely the work of Norm Walsh\n"
+"(norm@walsh.co)."
+msgstr ""
+"El paquete stylesheets contiene un conjunto de hojas de estilos\n"
+"utilizados por Cygnus para la conversión SGML, especialmente con\n"
+"Docbook. Los stylesheets estarán en /usr/lib/sgml/stylesheets. Entradas\n"
+"esperimentales han sido añadidas al catálogo Se han añadidos unos\n"
+"scripts sencillos para facilitar el uso de los stylesheets, creados en\n"
+"la mayoria de los casos por Norm Walsh (norm@walsh.co)."
+
+#: stylesheets-0.13rh-1.noarch.rpm:1004 stylesheets-0.13rh-1.src.rpm:1004
+#, fuzzy
+msgid "The stylesheets used at Cygnus for SGML conversion."
+msgstr "Stylesheet usados por Cygnus para la conversión SGML."
+
+# ========================================================
+#: wuftpd-config-0.0.0-0.20000110.i386.rpm:1005
+#: wuftpd-config-0.0.0-0.20000110.src.rpm:1005
+#, fuzzy
+msgid ""
+"Wuftpd-config is a configuration tool for the wuftpd FTP (File\n"
+"Transfer Protocol) daemon which uses the K Desktop Environment (KDE)\n"
+"2.0 Control Center. To run wuftpd-config, you can either run the tool\n"
+"standalone (wuftpd-config) or you can select the FTP Server\n"
+"Configuration entry in kcontrol2."
+msgstr ""
+"Wuftpd-config es una herramienta de configuración para el demonio\n"
+"wuftpd FTP (File Transfer Protocol) que utiliza el centro de control\n"
+"del entorno KDE. Para lanzar wuftpd-config, puede ejecutarlo solo o\n"
+"puede seleccionar la entrada de configuración del servidor FTP en kcontrol2."
+
+#: wuftpd-config-0.0.0-0.20000110.i386.rpm:1004
+#: wuftpd-config-0.0.0-0.20000110.src.rpm:1004
+#, fuzzy
+msgid "An FTP server configuration tool."
+msgstr "Herramienta para la configuración del servidor FTP."
+
+# ========================================================
+#: Mesa-3.2-0.20000113.i386.rpm:1005 Mesa-3.2-0.20000113.src.rpm:1005
+#, fuzzy
+msgid ""
+"The Mesa 3-D graphics library is a powerful and generic toolset for\n"
+"creating hardware assisted computer graphics.  To the extent that Mesa\n"
+"utilizes the OpenGL command syntax or state machine, it is being used\n"
+"with authorization from Silicon Graphics, Inc.  However, the author\n"
+"(Brian Paul) makes no claim that Mesa is in any way a compatible\n"
+"replacement for OpenGL or associated with Silicon Graphics, Inc. Those\n"
+"who want a licensed implementation of OpenGL should contact a licensed\n"
+"vendor.  However, Mesa is very similar to OpenGL, and you might find\n"
+"Mesa to be a valid alternative to OpenGL."
+msgstr ""
+"La libreria Mesa 3D es una caja de herramienta muy util para crear\n"
+"ordenadores gráficos de alto rendimiento. Para extender todo ello, Mesa\n"
+"utiliza la sintaxis de los comandos OpenGL bajo la autorización de la\n"
+"Silicon Graphics, Inc. De todas formas el autor (Brian Paul) no es\n"
+"responsable de cualquier incompatibilidad entre Mesa y OpenGL.\n"
+"Aquellos que quisieran una actualización con licencia de OpenGL,\n"
+"tendrian contactar con el vendedor de licencias. Por lo demás Mesa\n"
+"es muy parecido a OpenGL y puede encontrar en eluna alternativa a OpenGL.\n"
+
+#: Mesa-3.2-0.20000113.i386.rpm:1004 Mesa-3.2-0.20000113.src.rpm:1004
+msgid "A 3-D graphics library similar to OpenGL."
+msgstr "Una libreria gráfica 3D parecida a OpenGL."
+
+# ========================================================
+#: Mesa-3.2-0.20000113.src.rpm:1005 Mesa-devel-3.2-0.20000113.i386.rpm:1005
+msgid ""
+"Mesa-devel contains the static version of the Mesa 3-D graphics\n"
+"library (a graphics toolkit very similar to Silicon Graphics' OpenGL\n"
+"graphics utilities toolkit) and includes files needed for development.\n"
+"If you're going to develop Mesa applications, you'll need to install\n"
+"mesa-devel. If you're just going to use Mesa, you don't need to\n"
+"install mesa-devel."
+msgstr ""
+"Mesa-devel contiene la versión estatica de la libreria gráfica Mesa 3D\n"
+"(una herramienta gráfica muy parecida a la caja de herramientas\n"
+"gráficas OpenGL de la Silicon Graphics) y incluye ficheros necesarios\n"
+"para el desarrollo. Si quiere desarrollar aplicaciones Mesa, necesitará\n"
+"instalar Mesa-devel. Si sólo quiere utilizar Mesa, no necesita instalar\n"
+"Mesa-devel."
+
+#: Mesa-3.2-0.20000113.src.rpm:1004 Mesa-devel-3.2-0.20000113.i386.rpm:1004
+#, fuzzy
+msgid "Development files for the Mesa 3-D graphics library."
+msgstr "Ficheros de desarrollo para la libreria gráfica Mesa 3D."
+
+# ========================================================
+#: gkermit-1.0-1.i386.rpm:1005 gkermit-1.0-1.src.rpm:1005
+msgid ""
+"G-Kermit is a UNIX program for transferring files using the Kermit\n"
+"protocol. Kermit is a file transfer protocol for transferring text and\n"
+"binary files without errors between diverse types of computers and\n"
+"over potentially hostile communication links.\n"
+"\n"
+"G-Kermit features include: support for text and binary file transfer on\n"
+"both 7-bit and 8-bit connections; files can be transferred singly or\n"
+"in groups; automatic startup configuration via the GKERMIT environment\n"
+"variable; and configurability as an external protocol.\n"
+"\n"
+"Kermit protocol features include: automatic peer recognition,\n"
+"streaming on reliable connections; selectable packet length from 40 to\n"
+"9000 bytes (4000 is the default); single shifts for 8-bit data on\n"
+"7-bit connections; control-character prefixing for control-character\n"
+"transparency; control-character unprefixing for increased speed\n"
+"(incoming only); compression of repeated bytes; and per-file and batch\n"
+"cancellation.\n"
+"\n"
+"G-Kermit does not support the following features: making connections:\n"
+"character-set translation; interactive commands and scripting; and\n"
+"file date-time stamps."
+msgstr ""
+"G-Kermit es un programa Unix para transferir ficheros utilizando el\n"
+"protocol Kermit Kermit es un protocol de transferencia para transferir\n"
+"textos y ficheros binarios sin errores entre los distintos tipos de\n"
+"ordenadores y de conexiones potencialmente ostiles.\n"
+"\n"
+"Las caracteristicas de G-Kermit incluyen: soporte para la trasferencia\n"
+"de ficheros de texto y binarios con conexiones de 7 y 8 bits; los\n"
+"ficheros pueden ser trasferidos solos o en grupo;configuración de\n"
+"arranque automatico por medio del entorno GKERMIT; configurabilidad\n"
+"como por un protocolo externo.\n"
+"\n"
+"Las caracteristicas de Kermit incluyen: busqueda de reconocimiento\n"
+"automatica, canalización en las conexiones disponibles; tamaño\n"
+"seleccionable del paquete de 40 a 9000 bytes (4000 es seleccionado por\n"
+"defecto); intercambio automatico de los datos en 8-bits durante\n"
+"conexiones de 7-bits; control de los caracteres para mayor transparencia;\n"
+"deselección del control de caracteres para una mayor rapidez (solo en\n"
+"entrada); compresión de los bytes repetidos; borrado de los batch.\n"
+"\n"
+"G-Kermit no soporta las siguientes caracteristicas: ejecutando\n"
+"conexiones; traducción de los conjuntos de caracteres; comandos y\n"
+"scripting interactivos; visualización de la fecha y de la hora."
+
+#: gkermit-1.0-1.i386.rpm:1004 gkermit-1.0-1.src.rpm:1004
+#, fuzzy
+msgid "A utility for transferring files using the Kermit protocol."
+msgstr "Utilidad para descargar ficheros por medio de HTTP y FTP."
+
+# ========================================================
+#: imap-4.7-1.src.rpm:1005 imap-devel-4.7-1.i386.rpm:1005
+msgid ""
+"The imap-devel package contains the header files and static libraries\n"
+"for developing programs which will use the IMAP (Internet Message\n"
+"Access Protocol) library."
+msgstr ""
+"El paquete imap-devel contiene los ficheros header y las librerias\n"
+"estaticas para desarrollar programas que utilizarán la libreria\n"
+"IMAP (Internet Message Access Protocol)."
+
+#: imap-4.7-1.src.rpm:1004 imap-devel-4.7-1.i386.rpm:1004
+#, fuzzy
+msgid "Development tools for programs which will use the IMAP library."
+msgstr "Herramienta de desarrollo para programas que utilizarán la libreria IMAP."
+
+# ========================================================
+#: joystick-1.2.15-1.i386.rpm:1005 joystick-1.2.15-1.src.rpm:1005
+msgid ""
+"The Linux Joystick Driver provides support for a variety of joysticks\n"
+"and similar devices. This package includes several utilities for\n"
+"setting up, calibrating, and testing your joystick."
+msgstr ""
+"El piloto del joysticks de Linux proporciona soporte para una\n"
+"variedad de joysticks y dispositivos parecidos. Ese paquete incluye\n"
+"varias utilidades para la configuración, la calibración, y el chequeo\n"
+"del joystick."
+
+#: joystick-1.2.15-1.i386.rpm:1004 joystick-1.2.15-1.src.rpm:1004
+#, fuzzy
+msgid "Utilities for configuring most popular joysticks."
+msgstr "Utilidades para la configuración de los joystick más conocidos."
+
+# ========================================================
+#: cdda2wav-1.0-1.i386.rpm:1005 cdda2wav-1.0-1.src.rpm:1005
+msgid ""
+"Cdda2wav is a sampling utility for CD-ROM drives that are capable of\n"
+"providing a CD's audio data in digital form to your host. Audio data\n"
+"read from the CD can be saved as .wav or .sun format sound files.\n"
+"Recording formats include stereo/mono, 8/12/16 bits and different\n"
+"rates.  Cdda2wav can also be used as a CD player."
+msgstr ""
+"Cdda2wav es una utilidad para el muestreo de las unidades CD ROM\n"
+"que puedan proporcionar a su sistema los datos digitales de los CD\n"
+"audio. Los datos audio leidos del CD pueden ser grabados como\n"
+"ficheros de sonido en los formatos .wav o .sun. Los formatos\n"
+"de grabación incluyen estereo/mono, 8/12/16 bits y de otras ratas.\n"
+"Cdda2wav puede ser utilizado como lector de CD."	
+
+#: cdda2wav-1.0-1.i386.rpm:1004 cdda2wav-1.0-1.src.rpm:1004
+msgid "A utility for sampling/copying .wav files from digital audio CDs."
+msgstr "Una utilidad para copiar ficheros .wav desde Cd audio."
+
+# =======================================================
+#: groff-1.15-3.src.rpm:1005 groff-perl-1.15-3.i386.rpm:1005
+msgid ""
+"The groff-perl package contains the parts of the groff text processor\n"
+"package that require Perl. These include the afmtodit font processor\n"
+"for creating PostScript font files, the grog utility that can be used\n"
+"to automatically determine groff command-line options, and the\n"
+"troff-to-ps print filter."
+msgstr ""
+"El paquete groff-perl contiene las partes del paquete del procesador\n"
+"de textos groff que necesitan Perl. Eso incluye el procesador de\n"
+"caracteres afmtodit para crear ficheros de caracteres PostScript, la\n"
+"utilidad groff que puede ser utilizada para detectar automaticamente\n"
+"las opciones de la linea de comando groff y el filtro de impresión\n"
+"troff-to-ps."
+
+#: groff-1.15-3.src.rpm:1004 groff-perl-1.15-3.i386.rpm:1004
+msgid "Parts of the groff formatting system that require Perl."
+msgstr "Partes del sistema de formateo groff que necesita Perl."
+
+# ========================================================
+#: pvm-3.4.2-2.src.rpm:1005 pvm-gui-3.4.2-2.i386.rpm:1005
+msgid ""
+"PVM3 (Parallel Virtual Machine), contained in the pvm package, is a\n"
+"library and daemon that allows distributed processing environments to\n"
+"be constructed on heterogeneous machines and architectures.  This\n"
+"package contains xpvm, a Tcl/Tk based tool for managing the PVM\n"
+"cluster and monmitoring cluster performance."
+msgstr ""
+"PVM3 (Parallel Virtual Machine), contenida en el paquete pvm, es\n"
+"una libreria y demonio que permite a los entornos de proceso\n"
+"distribuidos ser construidos en maquinas y arquitecturas hetereogéneas.\n"
+"Ese paquete contiene xpvm, una herramienta basada en Tcl/Tk para\n"
+"gestionar el cluster del PVM y controlar el rendimiento del cluster."
+
+#: pvm-3.4.2-2.src.rpm:1004 pvm-gui-3.4.2-2.i386.rpm:1004
+msgid "Tcl/Tk graphical frontend for monitoring and managing a PVM cluster."
+msgstr "Interfaz gráfica Tcl/Tk paracontrolar y administrar un cluster de PVM."
+
+# ========================================================
+#: pvm-3.4.2-2.i386.rpm:1005 pvm-3.4.2-2.src.rpm:1005
+msgid ""
+"PVM3 (Parallel Virtual Machine) is a library and daemon that allows\n"
+"distributed processing environments to be constructed on heterogeneous\n"
+"machines and architectures."
+msgstr ""
+"PVM3 (Parallel Virtual Machine) es una libreria y demonio que permite\n"
+"a los entornos de proceso distribuidos ser construidos en maquinas y\n"
+"arquitecturas hetereogéneas."
+
+#: pvm-3.4.2-2.i386.rpm:1004 pvm-3.4.2-2.src.rpm:1004
+msgid "Libraries for distributed computing."
+msgstr "Librerias para el calculo distribuido."
+
+# ========================================================
+#: gnome-python-1.0.50-4.src.rpm:1005 pygnome-libglade-0.6.3-4.i386.rpm:1005
+#, fuzzy
+msgid ""
+"This package contains GNOME support to supplement the libglade Python\n"
+"wrapper.  Libglade is a library for loading user interfaces which are\n"
+"stored externally into your program. Libglade is similar to the\n"
+"pyglade module, except that it is written in C (so is faster) and is\n"
+"more complete."
+msgstr ""
+"Ese modulo contiene el soporte de GNOME para un wrapper de la libreria\n"
+"libglade de Python. Libglade es una libreria para cargar interfaces\n"
+"del usuario que han sido almacenadas externamente a su programa.\n"
+"Libglade es una libreria parecida al modulo pyglade, a excepción de\n"
+"que esté escrita en C (lo que es más rapido) y que es más completo."
+
+#: gnome-python-1.0.50-4.src.rpm:1004 pygnome-libglade-0.6.3-4.i386.rpm:1004
+msgid "GNOME support for the libglade python wrapper"
+msgstr "Soporte GNOME para el wrapper de python libglade"
+
+# ========================================================
+#: phhttpd-0.0.5-1.i386.rpm:1005 phhttpd-0.0.5-1.src.rpm:1005
+msgid ""
+"Phhttpd is an HTTP accelerator which serves fast HTTP fetches from a\n"
+"local filesystem and passes other requests back to a waiting server.\n"
+"Phhttpd features include a lean networking I/O core, an aggressive\n"
+"content cache to reduce the amount of processing needed per request,\n"
+"and a non-blocking event model which allows a single thread to server\n"
+"many connections.  Phhttpd is in development and this version is\n"
+"experimental."
+msgstr ""
+"Phhttpd es un accelerador HTTP que sirve fetches HTTP rapidos desde\n"
+"un sistema de archivos locales y proporciona otras peticiones a un\n"
+"servidor que espera. Las caracteristicas de Phhttpd incluyen un\n"
+"pequeño nucleo de I/O de la red, un gran contenido de cache\n"
+"para reducir la cantidad de los procesos necesitados por cada\n"
+"petición, y un modelo que permite un unico proceso para más\n"
+"conexiones. Phhttpd está en la fase de desarrollo y esta versión\n"
+"es experimental."
+
+#: phhttpd-0.0.5-1.i386.rpm:1004 phhttpd-0.0.5-1.src.rpm:1004
+msgid "An HTTP accelerator."
+msgstr "Un accelerador HTTP."
+
+# ========================================================
+#: nfs-utils-0.1.6-1.i386.rpm:1005 nfs-utils-0.1.6-1.src.rpm:1005
+#, fuzzy
+msgid ""
+"The nfs-utils package provides a daemon for the kernel NFS server and\n"
+"related tools, which provides a much higher level of performance than the\n"
+"traditional Linux NFS server used by most users.\n"
+"\n"
+"This package also contains the showmount program.  Showmount queries the\n"
+"mount daemon on a remote host for information about the NFS (Network File\n"
+"System) server on the remote host.  For example, showmount can display the\n"
+"clients which are mounted on that host."
+msgstr ""
+"El paquete nfs-utils proporciona el demonio para el servidor para\n"
+"el kernel NFS y las herramientas relativas, que permite un nivel\n"
+"más alto del rendimiento del sistema con respecto a los servidores\n"
+"Linux NFS tradicionales utilizados por la mayoria de los usuarios."
+"\n"
+"Ese paquete contiene también el programa showmount. Showmount interroga\n"
+"el demonio de montaje en un sistema remoto para conseguir información\n"
+"sobre el servidor NFS. Por ejemplo, showmount puede mostrar los clientes\n"
+"que están montados en ese sistema."
+
+#: nfs-utils-0.1.6-1.i386.rpm:1004 nfs-utils-0.1.6-1.src.rpm:1004
+msgid "NFS utlilities and supporting daemons for the kernel NFS server."
+msgstr "Utilidades NFS y demonios de soporte para el servidor del kernel NFS."
+
+# ========================================================
+#: None:1005 pnm2ppa-0.8.9pre1-1.i386.rpm:1005
+msgid ""
+"pnm2ppa is a color driver for HP PPA host-based printers such\n"
+"as the HP710C, 712C, 720C, 722C, 820Cse, 820Cxi, 1000Cse, and 1000Cxi.\n"
+"It accepts ghostscript output in PPM format, and sends it to the printer\n"
+"in PPA format.\n"
+"\n"
+"Install pnm2ppa if you have a PPA printer and need to print."
+msgstr ""
+"pnm2ppa es un piloto de colores para impresoras basadas en HP PPA como las:\n"
+"HP710C, 712C, 720C, 722C, 820Cse, 820Cxi, 1000Cse, y 1000Cxi. Acepta\n"
+"outputs en el formato PPM, y los envia a la impresora en el formato PPA.\n"
+"\n"
+"Instale pnm2ppa si tiene una impresora PPA y necesita imprimir."
+
+#: None:1004 pnm2ppa-0.8.9pre1-1.i386.rpm:1004
+msgid "Drivers for printing to HP PPA printers"
+msgstr "Pilotos para imprimir con impresoras HP PPA."
