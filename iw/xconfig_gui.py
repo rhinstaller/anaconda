@@ -984,10 +984,10 @@ class MonitorWindow (InstallWindow):
         self.hEntry.set_usize (80, 0)
         self.vEntry.set_usize (80, 0)
         
-        hz = GtkLabel (_("Hz"))
+        hz = GtkLabel (_("kHz"))
         hz.set_alignment (0, 0.5)
 
-        khz = GtkLabel (_("kHz"))
+        khz = GtkLabel (_("Hz"))
         khz.set_alignment (0, 0.5)
 
 
