@@ -174,9 +174,6 @@ class BaseInstallClass:
     def setEarlySwapOn(self, state = 0):
 	self.earlySwapOn = state
 
-    def setDesktop(self, desktop):
-        self.desktop = desktop
-
     def getDesktop(self):
         return self.desktop
 
