@@ -1,0 +1,84 @@
+The following screens will be needed for the 6.1 installer.  Each
+screen represents some data that must be filled out in the ToDo
+object.  The ToDo object provides the interface with choices in some
+cases.  The ToDo object will then do actions based on the information
+given by their various InstallInterfaces.
+
+This is a listing of each needed dialog, each bit of data the given
+dialog will fill into the ToDo object, and the action the ToDo object
+will do with the data.
+
+Language selection
+   ToDo provides: a list of supported language locales
+   in:  todo.setLanguage('en')
+   out: todo.writeLanguageConfig() writes /etc/sysconfig/i18n
+
+Keyboard selection
+   ToDo provides: a list of supported keyboard maps
+   IN:  todo.setKeyboard('us')
+   OUT: todo.writeKeyboardCfg() writes /etc/sysconfig/keyboard
+
+Time setting/timezeone selection
+   ToDo provides: a list of valid timezones
+   IN:  todo.setTZ('US/Eastern')
+   OUT: todo.setupLocaltime() symlinks /etc/localtime
+
+Mouse Configuration
+   ToDo provides: a list of possible mouse choices
+   Uses 'isys' module to probe mouse port
+   IN:  todo.setMouse('/dev/ttyS0', 'Generic Mouse (PS/2)')
+   OUT: todo.writeMouseConfig() writes /etc/sysconfig/mouse
+
+X Configuration
+   Uses 'isys' module to probe PCI for video card
+   IN:  todo.setXConfiguration('server | cards entry', monitor, [ resolutions ])
+   OUT: /etc/X11/XF86Config, /etc/X11/X symlink
+
+Disk partitioning
+   (this one is tricky)
+   ToDo provides (through libparted): a list of disks objects with lists
+     of partitions in them.
+   IN:  the InstallInterface modifies the objects passed to it
+   OUT: todo modifies the filesystems by running the write method of 
+        each disk object
+
+filesystem mounting locations/filesystem init
+   IN: todo.addMount('hda1', '/', format = 1)
+       todo.addmount('had2', 'swap', format = 1)
+   OUT: todo.writeFsTab() writes /etc/fstab
+        todo.formatFilesystems() formats given filesystems
+
+LILO configuration
+   IN:  todo.liloLocation('hda')
+   OUT: todo.installLilo() writes /etc/lilo.conf and runs lilo
+
+Bootdisk option
+   IN:  todo.createBootdisk({0,1})
+   OUT: todo.writeBootdisk() writes boot disk (after prompting user)
+
+Package Component selection (major groups such as 'GNOME')
+   ToDo provides: a list of 'comps' objects.
+   IN:  todo.comps['Foo'].{un,}select() to select/unselect
+   OUT: sets 'selected' flags in the todo.hdrlist which translates
+        to package transaction set during ::doInstall()
+
+Individual Package Selection
+   ToDo provides: the hdrlist
+   IN:  toggle the selected flag in each member of the hdrlist
+   OUT: transaction set
+
+Authentication configuration (shadow/md5/yp setup)
+   IN:  todo.setAuthConfig(shadow = 1, md5 = 1, enablenis = 1, 
+                           nisdomain = 'devel.redhat.com',
+                           nisserver = 'devserv.devel.redhat.com')
+   OUT: todo.writeAuthConfig() runs authconfig with the --kickstart
+        options in the installed system chroot().
+
+Root password
+   IN:  todo.setRootPassword('tclmeRHS', isCrypted=0)
+   OUT: todo.writePasswd() writes /etc/passwd with the crypt()ed password
+
+Non root user setup
+   IN:  todo.setUserList(list of (user, password, iscrypted))
+   OUT: todo.writePasswd() writes /etc/passwd with the crypt()ed password
+          (see root password)

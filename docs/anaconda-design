@@ -1,0 +1,29 @@
+
+  +-----------------------------------------------------+
+  |                                                     |
+  |                     Anaconda    todo                |
+  |                                                     |
+  +-------------------------------+---------+-----------+
+  |       InstallInterface        |         |           |
+  +-----+----+------+------+------+  rpm    | isys      |
+  | GUI |Text| Kick |Script| Web  |  module | module    |
+  |     |    | Start|Start | Start|         |           |
+  |     |    |      |      |      |         |           |
+  |     |    |      |      |      |         |           |
+  +-----+----+------+------+------|.........|...........|
+  |                                                     |
+  +-----------------------------------------------------+
+
+Anaconda is the toplevel installer.  It imports InstallInterface
+from one of several frontend modules.  Currently text and GUI are
+implemented.  The 'anaconda' script imports the InstallInterface
+then envokes the 'run' method, providing a todo structure
+that needs to be filled in.  The information collected in the
+InstallInterface portion of the installer is set in the todo
+object.  When InstallInterface::run exits, the todo object should
+have all the needed information to complete an install.
+ToDo::doInstall() is invoked, which actually does the work of
+installing the system.  During the doInstall run, various InstallInterface
+methods are called to keep the user informed about the installation
+process.  These currently include popup windows and package
+progress windows.
