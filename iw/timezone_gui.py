@@ -131,13 +131,18 @@ class TimezoneWindow (InstallWindow):
 	rc = self.todo.getTimezoneInfo()
 	if rc:
 	    (self.default, asUTC, asArc) = rc
-            self.default = _(self.default)
+            # XXX
+            # self.default = _(self.default)
+            self.default = self.default
 	else:
-	    self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
+            # XXX
+            # self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
+	    self.default = self.todo.instTimeLanguage.getDefaultTimeZone()
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):
-            self.default = _("America/New_York")
+            # self.default = _("America/New_York")
+            self.default = "America/New_York"
 
         self.id = self.list.connect ("draw", self.setcurrent)
 
