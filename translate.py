@@ -18,41 +18,40 @@ import iconv
 import os
 
 class i18n:
-    def __init__(self):
-        try:
-            self.cat = gettext.translation("anaconda")
-        except IOError:
-            self.cat = None
-        self.iconv = iconv.open('utf-8', 'iso-8859-1')
-
-    def getlangs(self):
-	return self.langs
-        
-    def setlangs(self, langs):
-	self.langs = langs
+    def __init__(self, langs=None):
+        if langs:
+            self.langs = langs
+        else:
+            self.langs = ['C']
         mofile = None
-        for lang in langs:
+        for lang in self.langs:
             try:
-                mofile = open("/usr/share/locale/%s/LC_MESSAGES/anaconda.mo"
-                              % (lang), "rb")
+                mofile = open('/usr/share/locale/%s/LC_MESSAGES/anaconda.mo'
+                              % (lang), 'rb')
             except IOError:
                 try:
-                    mofile = open("po/%s.mo" % (lang,), "rb")
+                    mofile = open('po/%s.mo' % (lang,), 'rb')
                 except IOError:
                     pass
             if mofile:
                 break
         if not mofile:
-            print "unable to find translation file"
             self.cat = None
-            self.iconv = iconv.open("utf-8", 'iso-8859-1')
+            self.iconv = iconv.open('utf-8', 'iso-8859-1')
             return
 
         self.cat = gettext.GNUTranslations(mofile)
         try:
-            self.iconv = iconv.open("utf-8", self.cat.charset())
+            self.iconv = iconv.open('utf-8', self.cat.charset())
+            print 'unable to translate from', self.cat.charset(), 'to utf-8'
         except:
-            self.iconv = iconv.open("utf-8", "iso-8859-1")
+            self.iconv = iconv.open('utf-8', 'iso-8859-1')
+
+    def getlangs(self):
+	return self.langs
+        
+    def setlangs(self, langs):
+        self.__init__(langs)
 
     def utf8(self, string):
         try:

@@ -83,6 +83,7 @@ class InstallTimeLanguage:
 	    self.tz[longName] = timezone
 
 	self.langList.sort()
+        self.setRuntimeLanguage(self.getLangNameByNick(self.current))
 
     def getFontMap (self, lang):
 	return self.map[lang]
