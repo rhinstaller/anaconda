@@ -1342,6 +1342,17 @@ class ToDo:
 			  "%s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
 							subdir, name))
 
+    def writeConfiguration(self):
+        self.writeLanguage ()
+        self.writeMouse ()
+        self.writeKeyboard ()
+        self.writeNetworkConfig ()
+        self.writeRootPassword ()
+        self.setupAuthentication ()
+        self.createAccounts ()
+        self.writeTimezone()
+        
+
     def doInstall(self):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
@@ -1513,14 +1524,19 @@ class ToDo:
 	    self.createCdrom()
 	    self.copyExtraModules()
             self.writeFstab ()
-            self.writeLanguage ()
-            self.writeMouse ()
-            self.writeKeyboard ()
-            self.writeNetworkConfig ()
-            self.writeRootPassword ()
-            self.setupAuthentication ()
-	    self.createAccounts ()
-	    self.writeTimezone()
+            #            
+            # move to generic writeConfiguration method above
+            #
+            #       self.writeLanguage ()
+            #       self.writeMouse ()
+            #       self.writeKeyboard ()
+            #       self.writeNetworkConfig ()
+            #       self.writeRootPassword ()
+            #       self.setupAuthentication ()
+            #	    self.createAccounts ()
+            #	    self.writeTimezone()
+
+            self.writeConfiguration ()
             self.writeDesktop ()
 	    if (self.instClass.defaultRunlevel):
 		self.initlevel = self.instClass.defaultRunlevel
