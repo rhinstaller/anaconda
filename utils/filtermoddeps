@@ -1,7 +1,7 @@
 #!/bin/bash
 
-perl -e 'while (<>) { if (/\\\n/) { chop; s/\\$//; print;} else { print $_; } }' | grep ':.*o' | sed -e '
-s/\.o//g
+perl -e 'while (<>) { if (/\\\n/) { chop; s/\\$//; print;} else { print $_; } }' | grep ':.*ko' | sed -e '
+s/\.ko//g
 s,/[^: 	]*/,,g
 s/[ 	][ 	]*/ /g'
 
