@@ -5,6 +5,8 @@ if __name__ == "__main__":
 import string
 import iutil
 import kudzu
+import time
+import os
 
 def _(x):
     return x
@@ -22,9 +24,8 @@ class XF86Config:
         self.monID = None
         self.devID = None
         self.probed = 0
-        self.modes = { "8" :  ["640x480"],
-                       "16" : ["640x480"],
-                       "32" : ["640x480"], }
+        self.skip = 0
+        self.modes = { "8" :  ["640x480"] }
 
     def filterModesByMemory (self):
         if not self.vidRam:
@@ -47,8 +48,6 @@ class XF86Config:
             self.modes["32"] = []
         elif string.atoi(self.vidRam) >= 256:
             self.modes["8"] = ["640x480"]
-            self.modes["16"] = []
-            self.modes["32"] = []
 
     def cards (self, thecard = None):
         cards = {}
@@ -117,10 +116,10 @@ class XF86Config:
             (device, server, descr) = card
             if len (server) > 5 and server[0:5] == "Card:":
                 self.vidCards.append (self.cards (server[5:]))
-            if len (server) > 5 and server[0:7] == "Server:":
-                { "NAME" : descr,
-                  "SERVER" : server[8:] }
-                self.vidCards.append ({ "NAME" : descr, "SERVER" : server[8:] })
+            if len (server) > 7 and server[0:7] == "Server:":
+                info = { "NAME" : string.split (descr, '|')[1],
+                         "SERVER" : server[7:] }
+                self.vidCards.append (info)
 
         if self.vidCards:
             self.devID = self.vidCards[0]["NAME"]
@@ -173,6 +172,44 @@ class XF86Config:
             probe = probe + "\t" + _("Vertical frequency range") + ": " + self.monVert + " Hz\n"
 
         return probe
+
+    def write (self, path):
+        config = open (path, 'w')
+        config.write (self.preludeSection ())
+        config.write (self.inputSection ())
+        config.write (self.mouseSection ())
+        config.write (self.monitorSection ())
+        config.write (self.deviceSection ())
+        config.write (self.screenSection ())
+        config.close ()
+
+    def test (self):
+        self.write ('/tmp/XF86Config.test')
+        
+        serverPath = "/usr/X11R6/bin/XF86_" + self.server
+
+        server = os.fork()
+        if (not server):
+            os.execv(serverPath, ["XF86-test", ':9', '-xf86config', 
+                                  '/tmp/XF86Config.test', 'vt6'])
+            
+        time.sleep (1)
+##         pid, status = os.waitpid (server, os.WNOHANG)
+##         if not pid:
+##             raise RuntimeError, "X server failed to start"
+
+        child = os.fork()
+        if (not child):
+            os.environ["DISPLAY"] = ":9"
+            os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart"])
+        else:
+            pid, status = os.waitpid(child, 0)
+            os.kill (server, 15)
+            os.waitpid(server, 0)
+            if not os.WIFEXITED (status) or os.WEXITSTATUS (status):
+                if os.WEXITSTATUS (status) not in [ 0, 1, 2 ]:
+                    raise RuntimeError, "X test failed %d" % (status,)
+            return
 
     def preludeSection (self):
         return """
@@ -602,8 +639,7 @@ Section "Device"
         return section
 
     def screenSection (self):
-        info = { "DRIVER"  : string.lower (self.server),
-                 "DEVICE"  : self.devID,
+        info = { "DEVICE"  : self.devID,
                  "MONITOR" : self.monID }
         section = """
 # **********************************************************************
@@ -619,6 +655,7 @@ Section "Screen"
 #        Depth       16
         Modes       "default"
     EndSubsection
+EndSection
 
 # The 16-color VGA server
 Section "Screen"
@@ -641,45 +678,28 @@ Section "Screen"
         ViewPort    0 0
     EndSubsection
 EndSection
-
-# The accelerated svga server
+""" % info
+        for driver in [ "svga", "accel" ]:
+            info["DRIVER"] = driver
+            section = section + """
+# The %(DRIVER)s server
 Section "Screen"
-    Driver      "svga"
+    Driver      "%(DRIVER)s"
     Device      "%(DEVICE)s"
     Monitor     "%(MONITOR)s"
 """ % info
-        for depth in self.modes.keys ():
-            section = section + """
+            for depth in self.modes.keys ():
+                section = section + """
     Subsection "Display"
         Depth       %s
         Modes       """ % depth
-            for res in self.modes[depth]:
-                section = section + '"' + res + '" '
-            section = section + """
-        ViewPort    0 0
-    EndSubsection
-EndSection
-"""
-        section = section + """
-# The accelerated servers (S3, Mach32, Mach8, 8514, P9000, AGX, W32, Mach64
-# I128, S3V, 3DLabs)
-Section "Screen"
-    Driver      "accel"
-    Device      "%(DEVICE)s"
-    Monitor     "%(MONITOR)s"
-""" % info
-        for depth in self.modes.keys ():
-            section = section + """
-    Subsection "Display"
-        Depth       %s
-        Modes       """ % depth
-            for res in self.modes[depth]:
-                section = section + '"' + res + '" '
-            section = section + """
+                for res in self.modes[depth]:
+                    section = section + '"' + res + '" '
+                section = section + """
         ViewPort    0 0
     EndSubsection
 """
-        section = section + "EndSection\n"
+            section = section + "EndSection\n"
         return section
 
 if __name__ == "__main__":
@@ -696,4 +716,3 @@ if __name__ == "__main__":
     x.modes["16"] = [ "640x480" ]
     x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
-

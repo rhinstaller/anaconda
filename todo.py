@@ -1044,6 +1044,12 @@ class ToDo:
 	    self.writeTimezone()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
+            if not self.x.skip:
+                self.x.wite (self.instPath + "/etc/X11/XF96Config")
+                os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
+                            self.instPath + "/etc/X11/X")
+                # XXX fixup inittab
+            
 	self.installLilo ()
 
 	del syslog

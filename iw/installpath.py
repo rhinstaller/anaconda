@@ -37,7 +37,8 @@ class InstallPathWindow (InstallWindow):
                     (WORKSTATION_KDE, _("KDE Workstation")),
                     (SERVER, _("Server")))
 
-    installSteps = [ ( PartitionWindow, "partition" ),
+    installSteps = [ ( XConfigWindow, "xconfig" ),
+                     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( LiloWindow, "lilo" ),
 		     ( NetworkWindow, "network" ),
@@ -73,10 +74,7 @@ class InstallPathWindow (InstallWindow):
 
     def getNext(self):
 	if not self.__dict__.has_key("upgradeButton"):
-	    print "okay"
 	    return
-
-	print "ACK"
 
 	if self.upgradeButton.get_active():
 	    self.todo.upgrade = 1
