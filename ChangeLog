@@ -1,5 +1,8 @@
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/progress_gui.py (InstallProgressWindow_NEW.setPackage): Don't
+	scale images to sizes that they're not (#143276)
+
 	* packages.py (doPreInstall): Some finagling for kernel-*devel 
 	handling (#143257)
 
