@@ -6,12 +6,12 @@ INSTALLNLSDIR=usr/share/locale
 
 MSGMERGE = msgmerge
 
-NLSPACKAGE = anaconda-text
+NLSPACKAGE = anaconda
 
 CATALOGS = $(shell ls *.po)
 FMTCATALOGS = $(patsubst %.po,%.mo,$(CATALOGS))
 
-POTFILES  = ../text.py
+POTFILES  = ../text.py ../iw/*.py
 
 all: $(NLSPACKAGE).pot $(FMTCATALOGS)
 
