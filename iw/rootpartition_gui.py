@@ -372,11 +372,11 @@ class AutoPartitionWindow(InstallWindow):
         self.todo.fstab.setReadonly(0)
 
         if self.druid:
-            self.ics.setTitle (_("Automatic Partitioning"))
+            self.ics.setTitle (_("Disk Partitioning"))
             label = \
-                  GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
-                             "this install by partitioning manually, or you can go back "
-                             "and perform a fully customized installation.") % 
+                  GtkLabel(_("Please select the type of disk partitioning you would like to use."
+                             "\n\nAutomatic partitioning will erase %s"
+                             "\n\nSelecting manual partitioning allows you to create the partitions by hand.") % 
                            (_(todo.getPartitionWarningText()), ))
         else:
             if attemptedPartitioningandFailed:
