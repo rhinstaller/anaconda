@@ -2,6 +2,7 @@ from snack import *
 import _balkan
 import sys
 import isys
+import os
 
 class WelcomeWindow:
     def run(self, screen):
