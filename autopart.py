@@ -492,7 +492,7 @@ def growParts(diskset, requests, newParts):
 
 def setPreexistParts(diskset, requests, newParts):
     for request in requests:
-        if request.type != REQUEST_PREEXIST or request.type != REQUEST_PROTECTED:
+        if request.type != REQUEST_PREEXIST and request.type != REQUEST_PROTECTED:
             continue
         disk = diskset.disks[request.drive]
         part = disk.next_partition()
@@ -547,7 +547,7 @@ def processPartitioning(diskset, requests, newParts):
             request.device = None
 
     setPreexistParts(diskset, requests.requests, newParts)
-    
+
     # sort requests by size
     requests.sortRequests()
     
