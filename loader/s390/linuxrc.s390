@@ -211,7 +211,7 @@ for i in "$SEARCHDNS"; do echo "search $i"; done >> /etc/resolv.conf
 for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
  
 # transfer options into install environment
-cat > /tmp/install.cfg <<EOF
+cat >> /etc/profile <<EOF
 CHANDEV="$CHANDEV"
 HNAME="$HNAME"
 DEVICE="$DEVICE"
@@ -244,7 +244,7 @@ export NETWORKIP NETMASK BROADCAST INSTALL DNS SEARCHDNS FORCEDASDFORMAT
 export RPMSERVER MOUNTS SWAP DASD LCS QETH IUCV DTZ ROOTPW CROOTPW
 EOF
 # immediately read it in again to export these into the shell below
-. /tmp/install.cfg
+. /etc/profile
 
 [ -n "$DEBUG" ] && debugshell
 
