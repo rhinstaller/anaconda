@@ -29,11 +29,11 @@ from log import log
 
 class PartitionWindow:
     def populate(self):
+        # XXX we really should separate this stuff out into interface
+        # independent bits...
         self.lb.clear()
 
-        # dict of dev name -> (disk, partition) mappings
-        self.parttable = {}
-
+        # first, add the drives and partitions to the list
         drives = self.diskset.disks.keys()
         drives.sort()
         for drive in drives:
@@ -54,16 +54,12 @@ class PartitionWindow:
                     ptype = _("Free space")
                 elif part.type & parted.PARTITION_EXTENDED:
                     ptype = _("Extended")
-                    self.parttable[devify(get_partition_name(part))] = (disk, part)
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = _("software RAID component")
-                    self.parttable[devify(get_partition_name(part))] = (disk, part)
                 elif part.fs_type:
                     ptype = part.fs_type.name
-                    self.parttable[devify(get_partition_name(part))] = (disk, part)                    
                 else:
                     ptype = _("None")
-                    self.parttable[devify(get_partition_name(part))] = (disk, part)
 
                 device = get_partition_name(part)
                 request = self.partitions.getRequestByDeviceName(device)
@@ -107,8 +103,30 @@ class PartitionWindow:
                                     "%s" %(ptype),
                                     "%s" %(mount)], part,
                                    [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
-                part = disk.next_partition(part)            
+                part = disk.next_partition(part)
 
+        # next, add the raid partitions
+        raidcounter = 0
+        raidrequests = self.partitions.getRaidRequests()
+        if raidrequests:
+            for request in raidrequests:
+                if request and request.mountpoint:
+                    mount = request.mountpoint
+                else:
+                    mount = ""
+
+                if request.fstype:
+                    ptype = request.fstype.getName()
+                else:
+                    ptype = _("None")
+
+                device = _("RAID Device %s" %(str(raidcounter)))
+                size = get_raid_device_size(request) / 1024.0 / 1024.0
+                self.lb.append(["%s" %(device),
+                                "", "", "%dM" %(size),
+                                "%s" %(ptype), "%s" %(mount)], request.device,
+                               [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+        
 
     def refresh(self):
         # XXX need some way to stay at the same place in the list after
@@ -322,9 +340,9 @@ class PartitionWindow:
             for part in get_raid_partitions(self.diskset.disks[disk]):
                 name = get_partition_name(part)
                 if request.raidmembers and name in request.raidmembers:
-                    drivelist.append(name, selected = 1)
+                    drivelist.append(name, part, selected = 1)
                 else:
-                    drivelist.append(name, selected = 0)                    
+                    drivelist.append(name, part, selected = 0)
         subgrid.setField(drivelist, 0, 1)
         return (drivelist, subgrid)
 
@@ -459,7 +477,7 @@ class PartitionWindow:
                     else:
                         allowdrives = []
                         for i in drivelist.getSelection():
-                            allowdrives.append(self.diskset.disks[i]) 
+                            allowdrives.append(i) 
                     request.drive = allowdrives
                 else:
                     request.start = int(start.value())
@@ -540,6 +558,9 @@ class PartitionWindow:
         else:
             format = None
 
+        if raidrequest.format == 1:
+            format.setValue("*")
+
         drivegrid.setField(miscgrid, 1, 0, anchorTop=1)
         poplevel.add(drivegrid, 0, row, (0,1,0,0))        
         
@@ -564,7 +585,7 @@ class PartitionWindow:
 
             raidmembers = []
             for drive in drivelist.getSelection():
-                raidmembers.append(drive)
+                raidmembers.append(PartedPartitionDevice(drive))
             request.raidmembers = raidmembers
             request.raidspares = int(spares.value())
             request.raidlevel = raidtype.current()
@@ -574,18 +595,15 @@ class PartitionWindow:
             else:
                 request.format = 0
             
-            err = sanityCheckPartitionRequest(self.partitions, request)
+            err = sanityCheckRaidRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
                                         "%s" % (err))
                 continue
 
-            # XXX should only remove if we know we put it in before
-            try:
+            if self.partitions.getRequestByDeviceName(raidrequest.device):
                 self.partitions.removeRequest(raidrequest)
-            except:
-                print "failed to remove request"
-            self.partitions.addRequest(request)            
+            self.partitions.addRequest(request)
 
             break
 
@@ -606,10 +624,14 @@ class PartitionWindow:
 
     def editCb(self):
         part = self.lb.current()
-        if not part:
+        if part == None:
             ButtonChoiceWindow(self.screen, _("Not a Partition"),
                       _("You must select a partition to edit"),
                                buttons = [ TEXT_OK_BUTTON ] )
+            return
+        elif type(part) == type("RAID"):
+            request = self.partitions.getRequestByDeviceName(part)
+            self.editRaidRequest(request)
             return
         elif part.type & parted.PARTITION_FREESPACE:
             request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,

@@ -160,7 +160,6 @@ def get_available_raid_partitions(diskset, requests):
 
             if not used:
                 rc.append(part)
-
     return rc
 
 # return minimum numer of raid members required for a raid level
@@ -244,16 +243,12 @@ def isMountPointInUse(reqpartitions, newrequest):
         for request in reqpartitions.requests:
             if request.mountpoint == mntpt:
                 used = 0
-                if newrequest.type == REQUEST_RAID:
-                    if request.raidmembers != newrequest.raidmembers:
-                        used = 1
-                else:
-                    if request.start != newrequest.start:
-                        used = 1
+                if not newrequest.device or request.device != newrequest.device:
+                        used = 1                
 
                 if used:
                     return _("The mount point %s is already in use, please "
-                             "choose a different mount point." % (mntpt))
+                             "choose a different mount point." %(mntpt))
 
 
     return None
@@ -316,7 +311,6 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
     
     for member in newraid.raidmembers:
         part = member.partition
-
         if part.get_flag(parted.PARTITION_RAID) != 1:
             return _("Some members of RAID request are not RAID partitions.")
 
@@ -383,6 +377,7 @@ class PartitionSpec:
         self.constraint = constraint
         self.partition = None
         self.requestSize = size
+        # XXX these are PartedPartitionDevice, should be requests        
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
@@ -444,7 +439,7 @@ class PartitionRequests:
             self.setFromDisk(diskset)
 
         # identifier used for raid partitions
-        self.maxcontainer = 0
+        self.maxcontainer = 1
             
 
     def setFromDisk(self, diskset):

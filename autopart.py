@@ -229,7 +229,7 @@ def growParts(diskset, requests):
         for part in free[key]:
             freeSize[key] = freeSize[key] + getPartSize(part)
 
-    print freeSize
+#    print freeSize
 
     # find growable partitions and find out the size of the growable parts
     growable = {}
