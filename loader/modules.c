@@ -200,7 +200,8 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
 	logMessage("would have insmod %s", fileName);
 	rc = 0;
     } else {
-	logMessage("going to insmod %s", fileName);
+	logMessage("going to insmod %s (path is %s)", fileName,
+		   path ? path : "NULL");
 	rc = insmod(fileName, path, args);
     }
 

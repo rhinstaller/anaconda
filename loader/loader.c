@@ -1378,6 +1378,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
 	}
+        else if (!strncasecmp(argv[i], "display=", 8))
+	    setenv("DISPLAY", argv[i] + 8, 1);
     }
 
     return flags;
@@ -1451,9 +1453,24 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
     return 0;
 }
 
+void readExtraModInfo(moduleInfoSet modInfo) {
+    int num = 0;
+    char fileName[80];
+    char dirName[80];
+
+    sprintf(fileName, "/tmp/DD-%d/modinfo", num);
+    while (!access(fileName, R_OK)) {
+	sprintf(dirName, "/tmp/DD-%d", num);
+
+	isysReadModuleInfo(fileName, modInfo, dirName);
+
+	sprintf(fileName, "/tmp/DD-%d/modinfo", ++num);
+    }
+}
+
 int main(int argc, char ** argv) {
     char ** argptr;
-    char * anacondaArgs[30];
+    char * anacondaArgs[40];
     char * arg, * url = NULL;
     poptContext optCon;
     int probeOnly = 0;
@@ -1468,6 +1485,8 @@ int main(int argc, char ** argv) {
     char * kbdtype = NULL;
     struct knownDevices kd;
     moduleInfoSet modInfo;
+    char * where;
+    struct moduleInfo * mi;
     char * ksFile = NULL, * ksSource = NULL;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
@@ -1609,6 +1628,9 @@ int main(int argc, char ** argv) {
 	sleep(5);
 	exit(1);
     }
+
+    readExtraModInfo(modInfo);
+
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     if ((access("/proc/pci", X_OK) || FL_EXPERT(flags)) && !ksFile) {
@@ -1635,6 +1657,7 @@ int main(int argc, char ** argv) {
     stopNewt();
     closeLog();
 
+#if 0
     for (i = 0; i < kd.numKnown; i++) {
     	printf("%-5s ", kd.known[i].name);
 	if (kd.known[i].class == CLASS_CDROM)
@@ -1648,6 +1671,7 @@ int main(int argc, char ** argv) {
 	else
 	    printf("\n");
     }
+#endif
 
     argptr = anacondaArgs;
     if (FL_RESCUE(flags)) {
@@ -1680,6 +1704,26 @@ int main(int argc, char ** argv) {
 	if (kbdtype) {
 	    *argptr++ = "--kbdtype";
 	    *argptr++ = kbdtype;
+	}
+
+	for (i = 0; i < modLoaded->numModules; i++) {
+	    if (!modLoaded->mods[i].path) continue;
+
+	    mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name);
+	    if (!mi) continue;
+	    if (mi->major == DRIVER_NET)
+		where = "net";
+	    else if (mi->major == DRIVER_SCSI)
+		where = "scsi";
+	    else
+		continue;
+
+	    *argptr++ = "--module";
+	    *argptr = alloca(80);
+	    sprintf(*argptr, "%s:%s:%s", modLoaded->mods[i].path, where,
+		    modLoaded->mods[i].name);
+
+	    argptr++;
 	}
     }
     
