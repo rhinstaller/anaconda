@@ -272,17 +272,19 @@ class InstallProgressWindow_NEW (InstallWindow):
             shortlang = ''
             longlang = ''
 
-        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (shortlang,))
-
-	if len(pixmaps1) <= 0:
-	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/%s/*.png" % (longlang,))
-
-	if len(pixmaps1) <= 0:
-	    # for beta try top level w/o lang
-	    pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/rnotes/*.png")
+        paths = ("/tmp/product/pixmaps/rnotes/%s/*.png" %(shortlang,),
+                 "/tmp/product/pixmaps/rnotes/%s/*.png" %(longlang,),
+                 "/tmp/product/pixmaps/rnotes/*.png",
+                 "/usr/share/anaconda/pixmaps/rnotes/%s/*.png" %(shortlang,),
+                 "/usr/share/anaconda/pixmaps/rnotes/%s/*.png" %(longlang,),
+                 "/usr/share/anaconda/pixmaps/rnotes/*.png")
+        for path in paths:
+            pixmaps = glob.glob(path)
+            if len(pixmaps) > 0:
+                break
 
         if len(pixmaps1) > 0:
-            files = pixmaps1
+            files = pixmaps
         else:
             files = ["progress_first.png"]
 
@@ -312,7 +314,7 @@ class InstallProgressWindow_NEW (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
 
         # Create rnote area
-        pix = self.ics.readPixmap ("progress_first.png")
+        pix = self.ics.readPixmapDithered ("progress_first.png")
         if pix:
             frame = gtk.Frame()
             frame.set_shadow_type(gtk.SHADOW_NONE)
