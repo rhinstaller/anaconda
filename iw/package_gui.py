@@ -490,6 +490,10 @@ class PackageSelectionWindow (InstallWindow):
 	else:
 	    self.dispatch.skipStep("indivpackage")
 
+	# jsut to be sure if we come back
+	self.savedStateDict = {}
+	self.savedStateFlag = 0
+
         return None
 
     def setSize(self):
@@ -508,7 +512,7 @@ class PackageSelectionWindow (InstallWindow):
 	    if value:
 		if cbcomp.name not in [u"Everything", u"Base"]:
 #		    print "restoring checkbutton for ",cbcomp.name," at state ",self.savedStateDict[cbcomp.name]
-		    if self.savedStateDict[cbcomp.name]:
+		    if self.savedStateFlag and self.savedStateDict[cbcomp.name]:
 			cb.set_active(1)
 		    else:
 			cb.set_active(0)
@@ -536,12 +540,13 @@ class PackageSelectionWindow (InstallWindow):
 	self.ignoreComponentToggleEvents = tmpval
 
     def componentToggled(self, widget, data):
+	(comp, lbl, count, al, ebutton) = data
+	newstate = widget.get_active()
 	if self.ignoreComponentToggleEvents:
 	    return
 
         # turn on all the comps we selected
-	(comp, lbl, count, al, ebutton) = data
-	if widget.get_active ():
+	if newstate:
             if ebutton:
                 al.add(ebutton)
                 al.show_all()
@@ -549,8 +554,13 @@ class PackageSelectionWindow (InstallWindow):
 	else:
             if ebutton in al.get_children():
                 al.remove(ebutton)
+
+	    # dont turn off Base, and if we're turning off everything
+	    # we need to be sure language support stuff is on
 	    if comp.name != u"Base":
 		comp.unselect ()
+		if comp.name == u"Everything":
+		    packages.selectLanguageSupportGroups(self.comps, self.langSupport)
 
         if count:
             self.setCompCountLabel(comp, count)
@@ -561,7 +571,7 @@ class PackageSelectionWindow (InstallWindow):
 	    self.ignoreComponentToggleEvents = 1
 	    # save state of buttons if they hit everything or minimal
 #	    print "entered, savedstateflag = ",self.savedStateFlag
-	    if not self.savedStateFlag:
+	    if not self.savedStateFlag and newstate:
 		self.savedStateDict = {}
 		self.savedStateFlag = 1
 		savestate = 1
@@ -572,7 +582,7 @@ class PackageSelectionWindow (InstallWindow):
 		if c.name in [u"Everything", u"Base"]:
 		    continue
 		
-		if widget.get_active():
+		if newstate:
 			sel = c.isSelected()			
 #			print "saving ",c.name," at state ",sel
 			if savestate:
@@ -581,36 +591,22 @@ class PackageSelectionWindow (InstallWindow):
 			    c.unselect()
 		else:
 #		    print "restoring ",c.name," at state ",self.savedStateDict[c.name]
-		    if self.savedStateDict[c.name]:
+		    if self.savedStateFlag and self.savedStateDict[c.name]:
 			c.select()
 
 	    # turn on lang support if we're minimal and enabling
-	    if comp.name == u"Base" and widget.get_active():
+	    if comp.name == u"Base" and newstate:
 		packages.selectLanguageSupportGroups(self.comps, self.langSupport)
 
-	    self.setComponentsSensitive(comp, not widget.get_active())
+	    self.setComponentsSensitive(comp, not newstate)
 
 	    self.ignoreComponentToggleEvents = 0
 	else:
-#	    print "Disabled saved state for compname = ",comp.name
 	    self.savedStateDict = {}
 	    self.savedStateFlag = 0
 
 	# after all this we need to recompute total size
 	self.setSize()
-
-	try:
-	    os.unlink("/tmp/a.lst")
-	except:
-	    pass
-	a = open("/tmp/a.lst", "w+")
-	for pkg in self.comps.packages.list():
-	    if pkg.selected:
-		a.write(pkg.name)
-		a.write("\n")
-
-	a.close()
-
 
     def pkgGroupMemberToggled(self, widget, data):
 	(comp, sizeLabel, pkg) = data
@@ -654,7 +650,8 @@ class PackageSelectionWindow (InstallWindow):
 	else:
 	    state = 1
 	    for c in self.comps:
-		if c.name == u"Base":
+		# ignore base and langsupport files pulled in by 'minimal'
+		if c.name == u"Base" or self.comps.compsxml.groups[c.name].langonly is not None:
 		    continue
 		
 		if c.isSelected(justManual = 1):
@@ -935,6 +932,7 @@ class PackageSelectionWindow (InstallWindow):
     
 
     def getScreen(self, comps, langSupport, instClass, dispatch):
+
     # PackageSelectionWindow tag="sel-group"
         ICON_SIZE = 32
         
