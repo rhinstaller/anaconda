@@ -82,7 +82,7 @@ class NetworkWindow:
                           anchorLeft = 1)
         secondg.setField (Label (_("Secondary nameserver:")), 0, 4,
                           anchorLeft = 1)
-        secondg.setField (Label (_("Ternary nameserver:")), 0, 5,
+        secondg.setField (Label (_("Tertiary nameserver:")), 0, 5,
                           anchorLeft = 1)
 
         self.ip = Entry (16)

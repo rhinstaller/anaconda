@@ -249,7 +249,7 @@ class NetworkWindow(InstallWindow):
         box.pack_start(GtkHSeparator(), FALSE, padding=10)
 
         options = [_("Hostname"), _("Gateway"), _("Primary DNS"),
-                   _("Secondary DNS"), _("Ternary DNS")]
+                   _("Secondary DNS"), _("Tertiary DNS")]
 
         for i in range(len(options)):
             label = GtkLabel("%s:" %(options[i],))
