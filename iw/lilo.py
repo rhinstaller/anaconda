@@ -122,7 +122,7 @@ class LiloWindow (InstallWindow):
 	self.deviceLabel.set_text(_("Partition") + ": " + device)
 	device = device[5:]
 
-	self.typeLabel.set_text(_("Type") + ":" + self.typeName(type))
+	self.typeLabel.set_text(_("Type") + ":" + type)
 	self.labelEntry.set_text(label)
 
         if not label:
