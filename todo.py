@@ -60,9 +60,11 @@ class ToDo:
 	if not self.installSystem: 
 	    return
 
-	os.mkdir(self.instPath + '/var')
-	os.mkdir(self.instPath + '/var/lib')
-	os.mkdir(self.instPath + '/var/lib/rpm')
+	for i in [ '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev' ]:
+	    try:
+	        os.mkdir(self.instPath + i)
+	    except os.error, (errno, msg):
+                print 'Error making directory %s: %s' % (i, msg)
 
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
