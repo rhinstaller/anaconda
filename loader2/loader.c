@@ -1256,6 +1256,20 @@ int main(int argc, char ** argv) {
         migrate_runtime_directory("/lib64");
     }
 
+    /* now load SELinux policy before exec'ing anaconda and the shell
+     * (if we're using SELinux) */
+    if (FL_SELINUX(flags)) {
+        if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
+            logMessage("failed to mount /selinux: %s", strerror(errno));
+        } else {
+            if (loadpolicy() == 0) {
+                setexeccon(ANACONDA_CONTEXT);
+            } else {
+                flags &= ~LOADER_FLAGS_SELINUX;
+            }
+        }
+    }
+
     logMessage("getting ready to spawn shell now");
     
     spawnShell(flags);  /* we can attach gdb now :-) */
@@ -1347,20 +1361,6 @@ int main(int argc, char ** argv) {
     /* symlink rhpl/ will work                                    */
     if (access("/tmp/updates", F_OK))
 	mkdirChain("/tmp/updates");
-
-    /* now load SELinux policy before exec'ing anaconda (unless we've
-     * specified not to */
-    if (FL_SELINUX(flags)) {
-        if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
-            logMessage("failed to mount /selinux: %s", strerror(errno));
-        } else {
-            if (loadpolicy() == 0) {
-                setexeccon(ANACONDA_CONTEXT);
-            } else {
-                flags &= ~LOADER_FLAGS_SELINUX;
-            }
-        }
-    }
 
     logMessage("Running anaconda script %s", *(argptr-1));
     
