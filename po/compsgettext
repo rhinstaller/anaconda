@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+import string
+import sys
+import string
+
+try:
+    f = open(sys.argv[1])
+except:
+    sys.stderr.write ("no comps file found, exiting\n")
+    sys.exit (0)
+
+list = []
+
+comps = f.readlines()
+count = 1
+for line in comps:
+    if (string.find (line, '{') > 0
+        and string.find (line, '--hide') < 0):
+        start = string.find (line, ':')
+        if start > 0:
+            line = line[start + 1:]
+        line = line[:string.find (line, '{')]
+        line = string.strip (line)
+        if line[0] == '0' or line[0] == '1':
+            list.append((line[2:], count))
+    count = count + 1
+
+for (comp, line) in list:
+    print
+    print '# %s:%d' % (sys.argv[1], line)
+    print 'msgid "%s"' % comp
+    print 'msgstr ""'

@@ -14,13 +14,15 @@ SHORT_PO = $(filter-out $(LONG_PO), $(wildcard *.po))
 FMTCATALOGS = $(patsubst %.po,%.mo,$(SHORT_PO) $(LONG_PO))
 
 POTFILES = ../*.py ../iw/*.py ../textw/*.py \
-           ../libfdisk/*.c ../loader/*.c ../installclasses/*.py
+           ../libfdisk/*.c ../loader/*.c ../installclasses/*.py \
+	   ../comps/comps-master
 
 all: $(NLSPACKAGE).pot $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES)
 	xgettext --default-domain=$(NLSPACKAGE) \
 		--add-comments --keyword=_ --keyword=N_ $(POTFILES)
+	./compsgettext ../comps/comps-master >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \
 	    rm -f $(NLSPACKAGE).po; \
 	else \
