@@ -534,9 +534,8 @@ class extFileSystem(FileSystemType):
         if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
             return
 
-        # add back -Odir_index when htree is safe
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tunefs", "-c0", "-i0",
+                                    ["tunefs", "-c0", "-i0", "-Odir_index",
                                      devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
