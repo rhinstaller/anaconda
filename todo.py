@@ -588,6 +588,7 @@ class ToDo:
         self.initState = 0
         self.dhcpState = ""
         self.firewallState = 0
+        self.rebuildTime = None
 
         # If reconfig mode, don't probe floppy
         if self.reconfigOnly != 1:
@@ -1216,6 +1217,8 @@ class ToDo:
 	self.fstab.turnOnSwap(self.instPath, formatSwap = 0)
                     
     def upgradeFindPackages (self):
+        if not self.rebuildTime:
+            self.rebuildTime = str(int(time.time()))
         self.getCompsList ()
 	self.getHeaderList ()
 	self.method.mergeFullHeaders(self.hdList)
@@ -1223,7 +1226,7 @@ class ToDo:
         win = self.intf.waitWindow (_("Finding"),
                                     _("Finding packages to upgrade..."))
 
-        self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
+        self.dbpath = "/var/lib/anaconda-rebuilddb" + self.rebuildTime
         rpm.addMacro("_dbpath_rebuild", self.dbpath)
         rpm.addMacro("_dbapi", "-1")
 
@@ -1234,6 +1237,8 @@ class ToDo:
         # sets against the on disk db
         rc = rpm.rebuilddb (self.instPath)
         if rc:
+            iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
+                        + self.rebuildTime)
             win.pop()
             self.intf.messageWindow(_("Error"),
                                     _("Rebuild of RPM database failed. "
@@ -1247,6 +1252,8 @@ class ToDo:
         try:
             packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         except rpm.error:
+            iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
+                        + self.rebuildTime)
             win.pop()
             self.intf.messageWindow(_("Error"),
                                     _("An error occured when finding the packages to "
