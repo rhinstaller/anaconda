@@ -847,6 +847,7 @@ class LoopbackDevice(Device):
     def getComment (self):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
+# XXX fix RAID
 def readFstab (path):
     fsset = FileSystemSet()
 
@@ -894,13 +895,18 @@ def readFstab (path):
 	# all valid fstab entries have 6 fields
 	if len (fields) < 4 or len (fields) > 6: continue
 
+        # if we don't support mounting the filesystem, continue
         if not fileSystemTypes.has_key(fields[2]):
 	    continue
 	if string.find(fields[3], "noauto") != -1: continue
 
         fsystem = fileSystemTypeGet(fields[2])
         label = None
-	if len(fields) >= 6 and fields[0][:6] == "LABEL=":
+
+
+	if fields[0] == "none":
+            device = Device()
+        elif len(fields) >= 6 and fields[0][:6] == "LABEL=":
             label = fields[0][6:]
             if labelToDevice.has_key(label):
                 device = PartitionDevice(labelToDevice[label])
@@ -926,9 +932,11 @@ def readFstab (path):
 	    if loopIndex.has_key(device):
 		(dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
-	else:
+	elif fields[0][:5] == "/dev/":
             device = PartitionDevice(fields[0][5:])
-            
+	else:
+            continue
+        
         entry = FileSystemSetEntry(device, fields[1], fsystem, fields[3])
         if label:
             entry.setLabel(label)

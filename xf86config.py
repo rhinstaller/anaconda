@@ -961,7 +961,6 @@ class XF86Config:
 
         serverPath = "/usr/X11R6/bin/" + servername
 
-        print "forking"
         serverpid = os.fork()
 
         if (not serverpid):

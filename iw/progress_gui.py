@@ -4,7 +4,6 @@ import string
 import rpm
 import os
 import gui
-from threading import *
 from translate import _, N_
 import sys
 from packages import doInstall

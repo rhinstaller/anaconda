@@ -590,25 +590,35 @@ class ComponentSet:
             return
 
         self.verifiedState = None
-        
-	if upgrade:
-            db = rpm.opendb (0, instPath)
-            ts = rpm.TransactionSet(instPath, db)
-	    how = 'u'
-	else:
-            ts = rpm.TransactionSet()
-	    db = None
-	    how = 'i'
 
-	for p in self.packages.packages.values ():
-            if p.selected:
-                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
-            else:
-                ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
+        if upgrade:
+            db = rpm.opendb (0, instPath)
+            how = 'u'
+        else:
+            db = None
+            ts = rpm.TransactionSet()
+            how = 'i'
 
 	checkDeps = 1
 	rc = []
+        extras = {}
 	while checkDeps:
+            if upgrade:
+                ts = rpm.TransactionSet(instPath, db)
+                how = 'u'
+            else:
+                ts = rpm.TransactionSet()
+                how = 'i'
+
+            for p in self.packages.values():
+                if p.selected:
+                    ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
+                else:
+                    if extras.has_key(p.h):
+                        ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
+                    else:
+                        ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
+
 	    deps = ts.depcheck()
 	    checkDeps = 0
 
@@ -624,8 +634,7 @@ class ComponentSet:
                         log ("depcheck: package %s needs %s (provided by %s)",
                              name, formatRequire(reqname, reqversion, flags),
                              sugname)
-
-			ts.add(header, (header, header[rpm.RPMTAG_NAME]), how)
+                        extras[header] = None
 			checkDeps = 1
                     else:
                         log ("depcheck: package %s needs %s (not provided)",
@@ -659,7 +668,7 @@ class ComponentSet:
 			if self.packages.packages.has_key (reqname):
 			    self.packages.packages[reqname].selected = 0
 			    log ("... removed")
-
+            
         del ts
         if db:
             del db

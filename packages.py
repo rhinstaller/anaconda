@@ -734,7 +734,7 @@ def doInstall(method, id, intf, instPath):
 
     sys.stdout.flush()
 
-def migrateXinetd(self, instPath, instLog):
+def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
 	log("did not find %s" % instPath + "/usr/sbin/inetdconvert")
 	return

@@ -1,4 +1,28 @@
 #!/usr/bin/python
+#
+# anaconda: The Red Hat Linux Installation program
+#
+# (in alphabetical order...)
+#
+# Brent Fox <bfox@redhat.com>
+# Mike Fulbright <msf@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+# Erik Troan <ewt@redhat.com>
+# Matt Wilson <msw@redhat.com>
+#
+# ... And a many others
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+# This toplevel file is a little messy at the moment...
 
 import sys, os
 
@@ -391,8 +415,8 @@ if (display_mode == 'g'):
                 pass
 
     # display splash screen
-    from gui import display_splash_screen
-    display_splash_screen()
+    from splashscreen import splashScreenShow
+    splashScreenShow()
 
     if nofallback:
         from gui import InstallInterface

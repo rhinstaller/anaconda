@@ -218,8 +218,7 @@ def upgradeFindPackages (intf, method, id, instPath):
     # and rebuild the database so we can run the dependency problem
     # sets against the on disk db
 
-    rebuildpath = "%s%s%s" % (instPath, "/var/lib/anaconda-rebuilddb",
-                              rebuildTime)
+    rebuildpath = instPath + id.dbpath
     rc = rpm.rebuilddb (instPath)
     if rc:
         try:

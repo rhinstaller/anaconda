@@ -31,8 +31,9 @@ class InstallClass(BaseInstallClass):
                     "checkdeps",
 		    "dependencies",
 		    "monitor",
-		    "confirminstall",
+		    "confirmupgrade",
 		    "install",
+                    "installpackages",
                     "instbootloader",
 		    "bootdisk",
 		    "complete"
@@ -40,6 +41,10 @@ class InstallClass(BaseInstallClass):
 
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
+
+    def setInstallData(self, id):
+        BaseInstallClass.__init__(self, id)
+        id.upgrade.set(1)
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

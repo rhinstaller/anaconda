@@ -4,7 +4,6 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 # msw says this is a good idea
 os.environ["LC_ALL"] = "C"
 from gtk import *
-from gtk import _root_window
 from _gtk import gtk_set_locale
 from _gtk import gtk_rc_init
 from _gtk import gtk_rc_reparse_all
@@ -12,6 +11,7 @@ from _gtk import _gtk_nuke_rc_files
 from _gtk import _gtk_nuke_rc_mtimes
 import GDK
 import GdkImlib
+from splashscreen import splashScreenPop
 
 import time
 import iutil
@@ -70,52 +70,6 @@ import sys
 import rpm
 
 # setup globals
-root = _root_window ()
-cursor = cursor_new (GDK.LEFT_PTR)
-root.set_cursor (cursor)
-
-splashwindow = None
-
-def display_splash_screen():
-    def load_image(file):
-        try:
-            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
-        except:
-            try:
-                im = GdkImlib.Image("pixmaps/" + file)
-            except:
-                print "Unable to load", file
-
-        return im
-
-    global splashwindow
-    
-    width = screen_width()
-    im = None
-
-    # If the xserver is running at 800x600 res or higher, use the
-    # 800x600 splash screen.
-    if width >= 800:
-        im = load_image('first.png')
-    else:
-        im = load_image('first-lowres.png')
-                        
-    if im:
-        im.render ()
-        splashwindow = GtkWindow ()
-        splashwindow.set_position (WIN_POS_CENTER)
-        box = GtkEventBox ()
-        pix = im.make_pixmap ()
-        style = box.get_style ().copy ()
-        style.bg[STATE_NORMAL] = style.white
-        box.set_style (style)
-        box.add (pix)
-        splashwindow.add (box)
-        box.show_all()
-        splashwindow.show_now()
-        gdk_flush ()
-        while events_pending ():
-            mainiteration (FALSE)
 
 def processEvents():
     gdk_flush()
@@ -634,9 +588,6 @@ class InstallControlWindow:
             self.window.set_default_size (800, 600)
             self.window.set_usize (800, 600)
 
-        cursor = cursor_new (GDK.LEFT_PTR)
-        _root_window ().set_cursor (cursor)
-
         self.window.set_border_width (10)
 
 	title = _("Red Hat Linux Installer")
@@ -758,9 +709,8 @@ class InstallControlWindow:
 
         # Popup the ICW and wait for it to wake us back up
         self.window.show_all ()
-        global splashwindow
-        if splashwindow:
-            splashwindow.destroy ()
+
+        splashScreenPop()
 
     def run (self, runres):
         self.setup_window (runres)
