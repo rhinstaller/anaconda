@@ -1,3 +1,8 @@
+2005-02-21  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py (FileSystemSet.mtab): Don't write out filesystems we
+	haven't mounted like /dev/shm (#149091)
+
 2005-02-10  Chris Lumens  <clumens@redhat.com>
 
 	* iw/network_gui.py (NetworkWindow.getScreen):  Always put the
