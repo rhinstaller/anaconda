@@ -176,6 +176,12 @@ class BaseInstallClass:
 	else:
 	    dispatch.skipStep("fdasd", permanent = 1)
 
+        # 'noupgrade' can be used on the command line to force not looking
+        # for partitions to upgrade.  useful in some cases...
+        cmdline = open("/proc/cmdline", "r").read()
+        if cmdline.find("noupgrade") != -1:
+            dispatch.skipStep("findrootparts")
+
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist, intf):
 	pass
