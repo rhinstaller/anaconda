@@ -52,7 +52,7 @@ class NetworkDeviceWindow:
 
             self.entries["netmask"].set (mask)
         
-    def runScreen(self, screen, network, dev):
+    def runScreen(self, screen, network, dev, showonboot=1):
         boot = dev.get("bootproto")
         onboot = dev.get("onboot")
 
@@ -80,13 +80,22 @@ class NetworkDeviceWindow:
 
         self.dhcpCb = Checkbox(_("Configure using DHCP"),
                                isOn = (boot == "dhcp"))
-        thegrid.setField(self.dhcpCb, 0, 1, anchorLeft = 1, growx = 1)
+
+	if not showonboot:
+	    ypad = 1
+	else:
+	    ypad = 0
+        thegrid.setField(self.dhcpCb, 0, 1, anchorLeft = 1, growx = 1,
+			 padding = (0, 0, 0, ypad))
         
         self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
-        thegrid.setField(self.onbootCb, 0, 2, anchorLeft = 1, growx = 1,
-                         padding = (0, 0, 0, 1))
+	if showonboot:
+	    thegrid.setField(self.onbootCb, 0, 2, anchorLeft = 1, growx = 1,
+			     padding = (0, 0, 0, 1))
 
-        row = 3
+
+	row = 3
+	    
         self.entries = {}
         for (name, opt) in options:
             thegrid.setField(Label(name), 0, row, anchorLeft = 1)
@@ -159,7 +168,7 @@ class NetworkDeviceWindow:
         return INSTALL_OK
 
 
-    def __call__(self, screen, network, dir, intf):
+    def __call__(self, screen, network, dir, intf, showonboot=1):
 
         self.devices = network.available()
         if not self.devices:
@@ -174,7 +183,9 @@ class NetworkDeviceWindow:
             currentDev = devLen - 1
 
         while currentDev < devLen and currentDev >= 0:
-            rc = self.runScreen(screen, network, self.devices[list[currentDev]])
+            rc = self.runScreen(screen, network,
+                                self.devices[list[currentDev]],
+                                showonboot)
             if rc == INSTALL_BACK:
                 currentDev = currentDev - 1
             else:

@@ -17,7 +17,7 @@ import kudzu
 import upgrade
 from snack import *
 from constants_text import *
-from text import WaitWindow, OkCancelWindow, ProgressWindow
+from text import WaitWindow, OkCancelWindow, ProgressWindow, stepToClasses
 import sys
 import os
 import isys
@@ -76,7 +76,7 @@ def methodUsesNetworking(methodstr):
 # XXX
 #     hack to write out something useful for networking and start interfaces
 #
-def startNetworking(network):
+def startNetworking(network, intf):
 
     # do lo first
     try:
@@ -86,8 +86,12 @@ def startNetworking(network):
 
     # start up dhcp interfaces first
     dhcpGotNS = 0
-    for devname in network.netdevices:
+    devs = network.netdevices.keys()
+    devs.sort()
+    for devname in devs:
 	dev = network.netdevices[devname]
+	waitwin = intf.waitWindow(_("Starting Interface"),
+				  _("Attempting to start %s") % (dev.get('device'),))
 	log("Attempting to start %s", dev.get('device'))
 	if dev.get('bootproto') == "dhcp":
 	    try:
@@ -109,7 +113,9 @@ def startNetworking(network):
 				     network.gateway)
 	    except:
 		log("Error trying to start %s in rescue.py::startNetworking()", dev.get('device'))
-		    
+
+	waitwin.pop()
+	
     # write out resolv.conf if dhcp didnt get us one
     if not dhcpGotNS:
         f = open("/etc/resolv.conf", "w")
@@ -131,8 +137,6 @@ def runRescue(instPath, mountroot, id):
 
     # see if they would like networking enabled
     if not methodUsesNetworking(id.methodstr):
-	import network_text
-	
 	screen = SnackScreen()
 
 	while 1:
@@ -143,14 +147,57 @@ def runRescue(instPath, mountroot, id):
 	    if rc != string.lower(_("No")):
 		intf = RescueInterface(screen)
 
-		window = network_text.NetworkWindow()
-		rc = apply(window, (screen, id.network, intf, 1))
-		if rc == INSTALL_OK:
-		    startNetworking(id.network)
-		    break
+		# need to call sequence of screens, have to look in text.py
+		#
+		# this code is based on main loop in text.py, and if it
+		# or the network step in dispatch.py change significantly
+		# then this will certainly break
+		#
+                pyfile = "network_text"
+		classNames = ("NetworkDeviceWindow", "NetworkGlobalWindow")
+
+		lastrc = INSTALL_OK
+		step = 0
+		dir = 1
+
+		while 1:
+		    s = "from %s import %s; nextWindow = %s" % \
+			(pyfile, classNames[step], classNames[step])
+		    exec s
+
+		    win = nextWindow()
+
+		    if classNames[step] == "NetworkDeviceWindow":
+			args = (id.network, dir, intf, 0)
+		    else:
+			args = (id.network, dir, intf)
+		    rc = apply(win, (screen, ) + args)
+
+		    if rc == INSTALL_NOOP:
+			rc = lastrc
+			
+		    if rc == INSTALL_BACK:
+			step = step - 1
+			dir = - 1
+		    elif rc == INSTALL_OK:
+			step = step + 1
+			dir = 1
+
+		    lastrc = rc
+
+		    if step == -1:
+			ButtonChoiceWindow(self.screen, _("Cancelled"),
+					   _("I can't go to the previous step "
+					     "from here. You will have to try "
+					     "again."),
+					   buttons=[_("OK")])
+		    elif step >= len(classNames):
+			break
+
+		startNetworking(id.network, intf)
+		break
 	    else:
 		break
-		
 
 	screen.finish()
 
