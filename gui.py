@@ -1265,7 +1265,7 @@ class InstallControlWindow:
             print _("Unable to load title bar")
 
         if DEBUG:
-            self.mainxml.get_widget("debugButton").set_visible(True)
+            self.mainxml.get_widget("debugButton").show_now()
         self.installFrame = self.mainxml.get_widget("installFrame")
 
         self.help = TextViewBrowser()
