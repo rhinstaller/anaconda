@@ -186,7 +186,7 @@ class ExceptionWindow:
         hbox = GtkHBox (FALSE)
         s = None
         if s:
-            hbox.pack_start (GnomePixmap (pixmap_file('gnome-warning.png'),
+            hbox.pack_start (GnomePixmap (pixmap_file('gnome-warning.png')),
                              FALSE)
 
         info = GtkLabel (_("An exceptional condition has occured.  This "
