@@ -1,4 +1,8 @@
 #!/bin/bash
+# export a variable LOCALRPMDIR if you need some special packages
+# for the installer that you don't want to have in the normal
+# RPM directory !
+
 
 ORIGDIR=`pwd`
 COMPONENT=""
@@ -47,8 +51,19 @@ prunePackageList() {
 	PATTERN=""
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
+	    LOCALFOUND=""
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+	    if [ -n "$LOCALRPMDIR" ]; then
+	        LOCALFOUND="$(ls $LOCALRPMDIR/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+		if [ -n "$LOCALFOUND" ]; then
+		   echo "Found local: $(basename $LOCALFOUND)" >/dev/stderr 
+		   LOCALFILES="$LOCALFILES $LOCALFOUND"
+		else
+		   PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+		fi
+	    else
+	        PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
+	    fi
 	done
 
 	# gtk+, enough said
@@ -58,6 +73,10 @@ prunePackageList() {
 
 	rpm --qf "%{NAME} $PACKAGEPATH/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
 		-qp $PACKAGEFILES  | egrep "$PATTERN"  | sed 's/.* //' 
+	if [ -n "$LOCALFILES" ]; then
+	    rpm --qf "%{NAME} $LOCALRPMDIR/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n" \
+		-qp $LOCALFILES  | egrep "$PATTERN"  | sed 's/.* //' 
+	fi
 }
 
 expandPackageSet() {
@@ -106,8 +125,8 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh-static
-	sed net-tools inetd openssh openssh-server fileutils modutils
+    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh
+	sed net-tools inetd INST_openssh INST_openssh-server fileutils modutils
 	portmap textutils telnet-server"
 fi
 
@@ -160,9 +179,9 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh-static
-	sed net-tools inetd openssh openssh-server fileutils modutils
-	portmap textutils openssl telnet-server strace"
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh
+	sed net-tools inetd INST_openssh INST_openssh-server fileutils 
+	modutils portmap textutils openssl telnet-server strace"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -298,7 +317,7 @@ lib/libnsl-*.so*
 lib/libnss*
 lib/libutil.so*
 lib/libutil-*.so*
-lib/libcrypto.so*
+lib/libcrypt*
 lib/libc.so*
 lib/libc-*so*
 lib/ld.so*
@@ -614,8 +633,8 @@ rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
-    /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*
-    rm $DESTGR/usr/X11R6/bin/mkfontdir
+    /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/* 2>/dev/null
+    rm $DESTGR/usr/X11R6/bin/mkfontdir 2>/dev/null
 fi
 
 rm -f $KEEPFILE $KEEPFILEGR
@@ -673,7 +692,9 @@ for p in $DEST $DESTGR; do
 	    rm -f $p/usr/lib/lib$f.so
 	done
 
-	(cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
+	   (cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
+	fi
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 

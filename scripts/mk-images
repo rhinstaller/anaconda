@@ -400,9 +400,7 @@ makeinitrd() {
         makemoduleball --name $MODULEBALLNAME $MBD_DIR/modules "$MODSET"
     fi
 
-    cat > $MBD_DIR/etc/passwd << EOF
-    root::0:0:root:/:/bin/bash
-EOF
+    echo "root::0:0:root:/:/bin/ksh" > $MBD_DIR/etc/passwd
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
@@ -467,7 +465,7 @@ EOF
        cp -df $IMGPATH/lib/libnss_compat* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
-       cp -df $IMGPATH/lib/libcrypto.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libcrypt* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libc.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libc-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/ld.so* $MBD_DIR/lib
