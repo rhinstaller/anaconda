@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-07-25 17:25+0200\n"
+"PO-Revision-Date: 2004-09-04 01:58+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -187,9 +187,8 @@ msgid "Using mouse type: %s"
 msgstr "Používám typ myši: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Vyhledávám systémy %s..."
+msgstr "Spouštím grafickou instalaci..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,14 +246,10 @@ msgstr ""
 "nebude moci zavést takto nainstalovaný systém."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"Zaváděcí oddíl %s je mimo hranice, odkud může být snadno zaveden operační "
-"systém. Pokud BIOS vašeho počítače podporuje rozšíření LBA32, bude "
-"automaticky použito. Pokud ne, nemusí být počítač schopen zavést operační "
-"systém. Proto důrazně doručujeme, abyste vytvořili zaváděcí disketu."
+msgstr "Zaváděcí oddíl %s možná nesplňuje omezení pro zavádění na vaší architektuře."
 
 #: ../autopart.py:1056
 #, python-format
@@ -483,9 +478,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Zvolili jste odstranění všech oddílů (VŠECHNA DATA) na následujících discích:"
-"%s\n"
-"Jste si jisti, že to chcete udělat?"
+"Zvolili jste odstranění všech oddílů (VŠECHNA DATA) na následujících discích:%s\n"
+"Opravdu to chcete udělat?"
 
 #: ../autopart.py:1627
 #, python-format
@@ -494,9 +488,8 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Zvolili jste odstranění všech linuxových oddílů (a VŠECH DAT na nich) na "
-"následujících discích:%s\n"
-"Jste si jisti, že to chcete udělat?"
+"Zvolili jste odstranění všech linuxových oddílů (a VŠECH DAT na nich) na následujících discích:%s\n"
+"Opravdu to chcete udělat?"
 
 #: ../bootloader.py:110
 msgid "Bootloader"
@@ -1062,7 +1055,7 @@ msgstr "_Znovu"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Instalační program nyní skončí..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2446,10 +2439,7 @@ msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Architektura verze %s, na kterou aktualizujete, je zřejmě %s, což neodpovídá "
-"vaší dříve nainstalované architektuře %s. To se pravděpodobně nepovede. Jste "
-"si jisti, že chcete pokračovat v procesu aktualizace?"
+msgstr "Architektura verze %s, na kterou aktualizujete, je zřejmě %s, což neodpovídá vaší dříve nainstalované architektuře %s. To se pravděpodobně nepovede. Opravdu chcete pokračovat v procesu aktualizace?"
 
 #: ../upgrade.py:483
 #, python-format
@@ -2569,53 +2559,47 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "Počítače zSeries mohou používat standardní zařízení SCSI přes Fibre Channel (FCP). Pro každé zařízení musíte zadat 5 parametrů: šestnáctibitové číslo zařízení, šestnáctibitové SCSI ID, šedesátičtyřbitové World Wide Port Number (WWPN), šestnáctibitové SCSI LUN a šedesátičtyřbitové FCP LUN."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Zařízení"
+msgstr "Číslo zařízení"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Neurčili jste jméno počítače."
+msgstr "Neurčili jste číslo zařízení nebo číslo zařízení není platné"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI ID"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Neurčili jste jméno počítače."
+msgstr "Neurčili jste SCSI ID nebo ID není platné."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Neurčili jste jméno počítače."
+msgstr "Neurčili jste celosvětový název portu nebo název portu není platný."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Neurčili jste jméno počítače."
+msgstr "Neurčili jste SCSI LUN nebo číslo není platné."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Neurčili jste jméno počítače."
+msgstr "Neurčili jste FCP LUN nebo číslo není platné."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3309,17 +3293,12 @@ msgstr ""
 "službám ve vašem počítači. Ke kterým službám povolit přístup?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
-"Security Enhanced Linux (SELinux) poskytuje jemnější ovládání zabezpečení "
-"než to, co je k dispozici v tradičním systému Linux. Dá se nastavit do "
-"zakázaného stavu, stavu, který jen varuje o věcech, které by byly zakázány "
-"nebo do plně aktivního stavu."
+msgstr "Security Enhanced Linux (SELinux) poskytuje jemnější ovládání zabezpečení než to, co je k dispozici v tradičním systému Linux. Dá se nastavit do zakázaného stavu, stavu, který jen varuje o věcech, které by byly zakázány, nebo do plně aktivního stavu."
 
 # FIXME: "?:" ???
 #: ../iw/firewall_gui.py:157
@@ -3607,7 +3586,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:730
 #, python-format
 msgid "Are you sure you want to Delete the logical volume \"%s\"?"
-msgstr "Skutečně chcete odstranit logický svazek \"%s\"?"
+msgstr "Opravdu chcete odstranit logický svazek \"%s\"?"
 
 #: ../iw/lvm_dialog_gui.py:862
 msgid "Invalid Volume Group Name"
@@ -4957,10 +4936,7 @@ msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
-"Důrazně doporučujeme vytvořit odkládací soubor. Pokud jej nevytvoříte, může "
-"být běh instalačního programu předčasně ukončen. Jste si jisti, že chcete "
-"pokračovat?"
+msgstr "Důrazně doporučujeme vytvořit odkládací soubor. Pokud jej nevytvoříte, může být běh instalačního programu předčasně ukončen. Opravdu chcete pokračovat?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -5141,35 +5117,31 @@ msgid "_Skip X configuration"
 msgstr "Pře_skočit nastavování X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Nastavení VNC"
+msgstr "Nastavení ZFCP"
 
 #: ../iw/zfcp_gui.py:99
-#, fuzzy
 msgid "_Remove"
-msgstr "_Obnovit"
+msgstr "_Odstranit"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Zařízení"
+msgstr "Zařízení FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Přidat zařízení"
+msgstr "Přidat zařízení FCP"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Upravit RAID zařízení"
+msgstr "Upravit zařízení FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Tímto odstraníte z vašeho nastavení disk FCP. Opravdu chcete pokračovat?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5267,11 +5239,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"Nezvolili jste instalaci žádného zavaděče. Doporučujeme jeho instalaci "
-"neprovádět jen v případě, že k tomu nemáte zvláštní důvody. Zavaděč je "
-"potřeba pro zavedení systému přímo z pevného disku.\n"
+"Nezvolili jste instalaci žádného zavaděče. Doporučujeme jeho instalaci neprovádět jen v případě, že k tomu nemáte zvláštní důvody. Zavaděč je potřeba pro zavedení systému přímo z pevného disku.\n"
 "\n"
-"Jste si opravdu jisti, že chcete vynechat instalaci zavaděče systému?"
+"Opravdu chcete vynechat instalaci zavaděče systému?"
 
 #: ../textw/bootloader_text.py:110 ../textw/silo_text.py:25
 msgid ""
@@ -5891,9 +5861,8 @@ msgid "End Cylinder:"
 msgstr "Koncový cylindr:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Jméno skupiny svazků:"
+msgstr "Skupina svazků:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6017,51 +5986,42 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maximální počet rezerv s polem RAID0 je 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Skupiny svazků LVM"
+msgstr "Žádná skupina svazků"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Prosím vložte jméno logického svazku."
+msgstr "Neexistuje skupina svazků, ve které vytvořit logický svazek."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"Aktuálně požadovaná velikost (%10.2f MB) je větší, než maximální velikost "
-"logického svazku (%10.2f MB). Tento limit můžete zvýšit zvětšením velikosti "
-"fyzického oddílu pro tuto skupinu svazků."
+msgstr "Momentálně požadovaná velikost (%10.2f MB) je větší než maximální velikost logického svazku (%10.2f MB). "
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "Momentálně požadovaná velikost (%10.2f MB) je větší než dostupná velikost ve skupině svazků (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Upravit logický svazek"
+msgstr "Nový oddíl nebo logický svazek?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Oddíl pro zavádění systému nemůže být na logickém svazku."
+msgstr "Chcete vytvořit nový oddíl nebo nový logický svazek?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Oddíl"
+msgstr "oddíl"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Logické svazky"
+msgstr "logický svazek"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6666,40 +6626,36 @@ msgid "Video RAM:"
 msgstr "Paměť videokarty:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Zařízení"
+msgstr "Číslo zařízení:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Zařízení"
+msgstr "Zařízení FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Zařízení"
+msgstr "Č. zařízení"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Odstranit"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7121,7 +7077,7 @@ msgstr "Nemohu najít soubor kickstart na pevném disku."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Nemohu najít pevný disk pro disk BIOSu %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7759,7 +7715,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7839,7 +7795,7 @@ msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7997,7 +7953,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8104,9 +8060,8 @@ msgid "most locations"
 msgstr "většina míst"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "většina míst (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "většina míst (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8248,11 +8203,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8300,7 +8255,7 @@ msgstr "Tibet & většina Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8312,7 +8267,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8371,9 +8326,8 @@ msgid "Bengali"
 msgstr "Bengálština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Maďarština"
+msgstr "Bulharština"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8464,9 +8418,8 @@ msgid "Persian"
 msgstr "Perština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Angličtina"
+msgstr "Polština"
 
 #. generated from lang-table
 msgid "Portuguese"
