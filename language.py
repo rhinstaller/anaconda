@@ -246,6 +246,9 @@ class Language (SimpleConfigFile):
 	self.info['LANG'] = lang
 	self.info['SYSFONT'] = font
 	self.info['SYSFONTACM'] = map
+        # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
+	if lang == "zh_CN.GB18030":
+	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
     def setSupported (self, langlist):
 	if len(langlist) == len(self.allSupportedLangs):
