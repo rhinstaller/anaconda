@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-07-27 23:23+0100\n"
+"PO-Revision-Date: 2000-08-06 23:06+0100\n"
 "Last-Translator: Milan Kerslager <milan.kerslager@spsselib.hiedu.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -228,7 +228,7 @@ msgstr "Nelze pøipojit CDROM."
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205
 msgid "Ok"
-msgstr "OK"
+msgstr "Ok"
 
 #: ../text.py:63
 msgid "What language would you like to use during the installation process?"
@@ -277,7 +277,7 @@ msgstr "Jaký model klávesnice je pøipojen k tomuto poèítaèi?"
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:196
 #: ../textw/userauth_text.py:287 ../xserver.py:33
 msgid "OK"
-msgstr "OK"
+msgstr "Ok"
 
 #: ../text.py:174
 msgid "Upgrade Existing Installation"
@@ -362,10 +362,11 @@ msgstr ""
 "\n"
 "Instalaèní proces podrobnì popisuje pøíruèka \"Official Red Hat Linux "
 "Installation Guide\" dodávaná spoleèností Red Hat Software. Máte-li ji k "
-"dispozici, mìli byste si nyní pøeèíst èást o instalaci.\n"
+"dispozici, mìli byste si nyní pøeèíst èást o instalaci. Pøíruèka je k "
+"dispozici té¾ na CD-ROM s dokumentací.\n"
 "\n"
-"Pokud jste koupili oficiální Red Hat Linux, nezapomeòte jej zaregistrovat na "
-"na¹em web serveru http://www.redhat.com/."
+"Pokud jste koupili oficiální Red Hat Linux, nezapomeòte si jej zaregistrovat "
+"na na¹em WWW serveru http://www.redhat.com/now."
 
 #: ../text.py:327
 msgid ""
@@ -465,7 +466,7 @@ msgstr ""
 "naleznete informace o opravách, které jsou k dispozici pro tuto verzi "
 "systému Red Hat Linux.\n"
 "\n"
-"Informace o konfiguraci a pou¾ívání systému jsou obsa¾eny v pøíruèkách pro "
+"Informace o nastavování a pou¾ívání systému jsou obsa¾eny v pøíruèkách pro "
 "Red Hat Linux."
 
 #: ../text.py:532
@@ -478,13 +479,12 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Blahopøejeme k dokonèení instalace.\n"
+"Nastavení systému dokonèeno, blahopøejeme!\n"
 "\n"
-" Informace o opravách naleznete na http://www.redhat.com v dokumentu "
-"Errata.\n"
+"Informace o opravách naleznete na http://www.redhat.com v dokumentu Errata.\n"
 "\n"
-"Informace o dal¹ím konfigurování systému jsou obsa¾eny v poinstalaèní "
-"kapitole pøíruèky \"Official Red Hat Linux User's Guide\"."
+"Informace o dal¹ím nastavování systému jsou obsa¾eny v poinstalaèní kapitole "
+"pøíruèky \"Official Red Hat Linux User's Guide\"."
 
 #: ../text.py:598
 msgid "Package Installation"
@@ -588,7 +588,7 @@ msgstr "Nastavení jména poèítaèe"
 
 #: ../text.py:878 ../text.py:946
 msgid "Network Setup"
-msgstr "Konfigurace sítì"
+msgstr "Nastavení sítì"
 
 #: ../text.py:884 ../text.py:952
 msgid "Time Zone Setup"
@@ -608,17 +608,17 @@ msgstr "Autentizace"
 
 #: ../text.py:896
 msgid "Configuration Complete"
-msgstr "Konfigurace dokonèena"
+msgstr "Nastavení dokonèeno"
 
 #: ../text.py:914 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
-msgstr "Konfigurace SILO"
+msgstr "Nastavení SILO"
 
 #: ../text.py:920 ../textw/lilo_text.py:33 ../textw/lilo_text.py:84
 #: ../textw/lilo_text.py:213
 msgid "LILO Configuration"
-msgstr "Konfigurace LILO"
+msgstr "Nastavení LILO"
 
 #: ../iw/lilo_gui.py:188 ../iw/lilo_gui.py:316 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:279 ../text.py:924 ../text.py:930
@@ -647,7 +647,7 @@ msgstr "Formátování disku"
 
 #: ../iw/mouse_gui.py:56 ../text.py:948 ../text.py:950
 msgid "Mouse Configuration"
-msgstr "Konfigurace my¹i"
+msgstr "Nastavení my¹i"
 
 #: ../text.py:960
 msgid "Package Groups"
@@ -663,7 +663,7 @@ msgstr "Závislosti balíèkù"
 
 #: ../iw/xconfig_gui.py:252 ../text.py:966 ../text.py:974
 msgid "X Configuration"
-msgstr "Konfigurace X"
+msgstr "Nastavení X serveru"
 
 #: ../text.py:968
 msgid "Installation Begins"
@@ -830,7 +830,7 @@ msgstr "Po instalaci"
 
 #: ../todo.py:1592
 msgid "Performing post install configuration..."
-msgstr "Provádím poinstalaèní konfiguraci..."
+msgstr "Provádím poinstalaèní nastavení..."
 
 #: ../iw/xconfig_gui.py:10 ../xf86config.py:852
 msgid "Video Card"
@@ -885,7 +885,7 @@ msgstr "Pou¾ít textový re¾im"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
-msgstr "Konfigurace úètù"
+msgstr "Nastavení úètù"
 
 #: ../iw/account_gui.py:36
 msgid "Root password accepted."
@@ -964,7 +964,7 @@ msgstr "Upravit"
 #: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
 #: ../textw/userauth_text.py:195
 msgid "Delete"
-msgstr "Zru¹it"
+msgstr "Smazat"
 
 #: ../iw/account_gui.py:276
 msgid "New"
@@ -972,7 +972,7 @@ msgstr "Nový"
 
 #: ../iw/auth_gui.py:11 ../textw/userauth_text.py:289
 msgid "Authentication Configuration"
-msgstr "Konfigurace autentizace"
+msgstr "Nastavení autentizace"
 
 #: ../iw/auth_gui.py:75
 msgid "Enable MD5 passwords"
@@ -1036,7 +1036,7 @@ msgid ""
 "first floppy drive. All data on this disk will be erased during creation of "
 "the boot disk."
 msgstr ""
-"Ostraòte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
+"Vyjmìte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
 "disketu do první disketové jednotky. Pùvodní obsah diskety bude pøi "
 "vytváøení zavádìcí diskety pøepsán."
 
@@ -1086,13 +1086,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Blahopøejeme k dokonèení instalace.\n"
+"Nastavení systému dokonèeno, blahopøejeme!\n"
 "\n"
 " Informace o opravách této verze Red hat Linuxu naleznete na "
 "http://www.redhat.com v dokumentu Errata.\n"
 "\n"
-"Informace o dal¹ím konfigurování systému jsou obsa¾eny v poinstalaèní "
-"kapitole pøíruèky \"Official Red Hat Linux User's Guide\"."
+"Informace o dal¹ím nastavování systému jsou obsa¾eny v poinstalaèní kapitole "
+"pøíruèky \"Official Red Hat Linux User's Guide\"."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1175,7 +1175,7 @@ msgstr "Aktualizace"
 
 #: ../iw/keyboard_gui.py:16
 msgid "Keyboard Configuration"
-msgstr "Konfigurace klávesnice"
+msgstr "Nastavení klávesnice"
 
 #: ../iw/keyboard_gui.py:70
 msgid "Model"
@@ -1207,7 +1207,7 @@ msgstr "Jakým jazykem má s vámi komunikovat instalaèní program?"
 
 #: ../iw/lilo_gui.py:20
 msgid "Lilo Configuration"
-msgstr "Konfigurace LILO"
+msgstr "Nastavení LILO"
 
 #: ../iw/lilo_gui.py:191 ../iw/lilo_gui.py:317 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2979
@@ -1228,7 +1228,7 @@ msgstr "První sektor zavádìcího oddílu"
 
 #: ../iw/lilo_gui.py:250 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Pou¾ití lineárního re¾imu (nutné pro nìkteré SCSI jednotky)"
+msgstr "Pou¾ít lineární re¾im (nutné pro nìkteré SCSI jednotky)"
 
 #: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
@@ -1245,7 +1245,7 @@ msgstr "Neinstalovat LILO"
 #: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Default"
-msgstr "Implicitní"
+msgstr "Default"
 
 #: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2976
 #: ../textw/lilo_text.py:112 ../textw/lilo_text.py:193
@@ -1271,11 +1271,11 @@ msgstr "Emulovat 3 tlaèítka"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:94
 msgid "Network Configuration"
-msgstr "Sí»ová konfigurace"
+msgstr "Nastavení sítì"
 
 #: ../iw/network_gui.py:148
 msgid "Configure using DHCP"
-msgstr "Konfigurace pomocí DHCP"
+msgstr "Nastavení pomocí DHCP"
 
 #: ../iw/network_gui.py:154
 msgid "Activate on boot"
@@ -1503,7 +1503,7 @@ msgstr "Ruèní dìlení diskù pomocí fdisk [pouze experti]"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
-msgstr "Konfigurace SILO"
+msgstr "Nastavení SILO"
 
 #: ../iw/silo_gui.py:163
 msgid "Install SILO boot record on:"
@@ -1547,7 +1547,7 @@ msgstr "Èasový posun"
 
 #: ../iw/welcome_gui.py:80
 msgid "Would you like to configure your system?"
-msgstr "Chcete zahájit konfiguraci systému?"
+msgstr "Chcete nastavit svùj systém?"
 
 #: ../iw/xconfig_gui.py:13
 msgid "Horizontal Frequency Range"
@@ -1563,7 +1563,7 @@ msgstr "Test selhal"
 
 #: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:439
 msgid "Customize X Configuration"
-msgstr "Upøesnìní konfigurace X"
+msgstr "Vlastní nastavení X"
 
 #: ../iw/xconfig_gui.py:87
 msgid "Bits per Pixel"
@@ -1571,11 +1571,11 @@ msgstr "Bitù na pixel"
 
 #: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:434
 msgid "Test this configuration"
-msgstr "Otestovat konfiguraci"
+msgstr "Otestovat nastavení"
 
 #: ../iw/xconfig_gui.py:112
 msgid "Monitor Configuration"
-msgstr "Konfigurace monitoru"
+msgstr "Nastavení monitoru"
 
 #: ../iw/xconfig_gui.py:218
 msgid "Horizontal Sync"
@@ -1617,7 +1617,7 @@ msgstr "Nastavit pøihla¹ování v grafice"
 
 #: ../iw/xconfig_gui.py:444
 msgid "Skip X Configuration"
-msgstr "Pøeskoèit konfiguraci X"
+msgstr "Pøeskoèit nastavování X"
 
 #: ../iw/xconfig_gui.py:491
 msgid "Default Desktop:"
@@ -1670,7 +1670,7 @@ msgid ""
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Ostraòte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
+"Vyjmìte prosím instalaèní disketu (pokud byla pou¾ita) a vlo¾te prázdnou "
 "disketu do první disketové jednotky. Pùvodní obsah diskety bude pøi "
 "vytváøení zavádìcí diskety pøepsán."
 
@@ -1756,7 +1756,7 @@ msgstr "Výbìr my¹i"
 
 #: ../textw/network_text.py:64
 msgid "Use bootp/dhcp"
-msgstr "Pou¾ít bootp/dhcp"
+msgstr "Pou¾ít BOOTP/DHCP"
 
 #: ../loader/net.c:284 ../textw/network_text.py:69
 msgid "IP address:"
@@ -1784,7 +1784,7 @@ msgstr "Pro pokraèování musíte zadat platné informace o IP"
 
 #: ../textw/network_text.py:137
 msgid "Hostname Configuration"
-msgstr "Konfigurace jména poèítaèe"
+msgstr "Nastavení jména poèítaèe"
 
 #: ../textw/network_text.py:138
 msgid ""
@@ -1819,7 +1819,7 @@ msgid ""
 "installed."
 msgstr ""
 "Nìkteré z balíèkù vybraných pro instalaci vy¾adují balíèky, které nebyly "
-"vybrány. Jestli¾e zvolíte OK, nainstaluji také v¹echny tyto vy¾adované "
+"vybrány. Jestli¾e zvolíte Ok, nainstaluji také v¹echny tyto vy¾adované "
 "balíèky."
 
 #: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
@@ -1874,7 +1874,7 @@ msgid ""
 msgstr ""
 "Které oddíly chcete zformátovat? Dùraznì se doporuèuje zformátovat v¹echny "
 "systémové oddíly vèetnì /, /usr a /var. Oddíly /home nebo /usr/local v¹ak "
-"není tøeba formátovat znovu, pokud ji¾ byly konfigurovány bìhem pøedchozí "
+"není tøeba formátovat znovu, pokud ji¾ byly pøipraveny bìhem pøedchozí "
 "instalace."
 
 #: ../textw/partitioning_text.py:254
@@ -2042,7 +2042,7 @@ msgid ""
 msgstr ""
 "Pro vìt¹inu èinností byste mìli pou¾ívat normální u¾ivatelský úèet. "
 "Nebudete-li zbyteènì pou¾ívat úèet root, sní¾íte pravdìpodobnost po¹kození "
-"konfigurace va¹eho systému."
+"va¹eho systému."
 
 #: ../textw/userauth_text.py:174
 msgid ""
@@ -2319,7 +2319,7 @@ msgstr "Velikost (MB):"
 
 #: ../libfdisk/gnomefsedit.c:897
 msgid "Use remaining space?"
-msgstr "Pou¾ít zbývající volný prostor?"
+msgstr "Vyplnit volný prostor?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2343,7 +2343,7 @@ msgstr "Typ oddílu:"
 
 #: ../libfdisk/gnomefsedit.c:1032 ../libfdisk/newtfsedit.c:519
 msgid "Allowable Drives:"
-msgstr "Pou¾itelné jednotky:"
+msgstr "Mo¾né disky:"
 
 #: ../libfdisk/gnomefsedit.c:1135 ../libfdisk/gnomefsedit.c:2124
 #: ../libfdisk/newtfsedit.c:610
@@ -2431,7 +2431,7 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Zkonfigurovali jste RAID oddíl bez omezení na jediný disk.\n"
+"Nastavili jste RAID oddíl bez omezení na jediný disk.\n"
 "Skuteènì to chcete?"
 
 #: ../libfdisk/gnomefsedit.c:1284
@@ -2439,8 +2439,8 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
-"Zkonfigurovali jste RAID oddíl bez omezení na jediný disk. Prosím zvolte "
-"jednu jednotku, na kterou tento oddíl omezíte."
+"Nastavili jste RAID oddíl bez omezení na jediný disk. Prosím zvolte jednu "
+"jednotku, na kterou tento oddíl omezíte."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
 msgid "Cannot Add Partitions"
@@ -2561,7 +2561,7 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"RAID zaøízení \"/dev/%s\" je ji¾ zkonfigurováno jako RAID zaøízení. Prosím "
+"RAID zaøízení \"/dev/%s\" je ji¾ nastaveno jako RAID zaøízení. Prosím "
 "vyberte jiné."
 
 #: ../libfdisk/gnomefsedit.c:2207
@@ -2572,7 +2572,7 @@ msgstr "Nedostateèný poèet oddílù"
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
-msgstr "Nezkonfigurovali jste dostateèný poèet oddílù pro RAID zvoleného typu."
+msgstr "Nenastavili jste dostateèný poèet oddílù pro RAID zvoleného typu."
 
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Illegal /boot RAID Type"
@@ -2676,7 +2676,7 @@ msgstr "<nepou¾ito>"
 
 #: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
-msgstr "Po¾adovaná"
+msgstr "Po¾adováno"
 
 #: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
@@ -2736,7 +2736,7 @@ msgstr "_Obnovit"
 
 #: ../libfdisk/gnomefsedit.c:3526
 msgid "_Delete"
-msgstr "_Zru¹it"
+msgstr "_Smazat"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3539
@@ -2877,7 +2877,7 @@ msgid ""
 msgstr ""
 "Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. Pokud "
 "nevíte, jaké parametry zadat, klidnì pokraèujte dále stisknutím tlaèítka "
-"\"OK\"."
+"\"Ok\"."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -2894,7 +2894,7 @@ msgstr "Máte disketu s ovladaèi?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Vlo¾te disketu s ovladaèi a stisknìte \"OK\"."
+msgstr "Vlo¾te disketu s ovladaèi a stisknìte \"Ok\"."
 
 #: ../loader/devices.c:237
 msgid "Failed to mount driver disk."
@@ -3042,8 +3042,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"V tomto poèítaèi nebyly nalezeny ¾ádné pevné disky! Chcete zkonfigurovat "
-"dal¹í zaøízení?"
+"V tomto poèítaèi nebyly nalezeny ¾ádné pevné disky! Chcete nastavit dal¹í "
+"pøipojená zaøízení?"
 
 #: ../loader/loader.c:671
 msgid ""
@@ -3053,7 +3053,7 @@ msgid ""
 msgstr ""
 "Který oddíl a adresáø v tomto oddílu obsahuje adresáøe RedHat/RPMS a "
 "RedHat/base? Pokud nevidíte vypsanou diskovou jednotku, kterou pou¾íváte, "
-"stisknìte F2 a zkonfigurujte dal¹í zaøízení."
+"stisknìte F2 a nastavte dal¹í zaøízení."
 
 #: ../loader/loader.c:685
 msgid "Directory holding Red Hat:"
@@ -3074,7 +3074,7 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Nemohu nalézt CD-ROM Red Hat Linux v ¾ádné jednotce CD. Prosím vlo¾te CD-ROM "
-"Red Hat Linux a stisknìte tlaèítko \"OK\" pro opakování."
+"Red Hat Linux a stisknìte tlaèítko \"Ok\" pro opakování."
 
 #: ../loader/loader.c:940
 msgid "Networking Device"
@@ -3141,7 +3141,7 @@ msgstr "Disk s aktualiazací"
 
 #: ../loader/loader.c:2070
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"OK\"."
+msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"Ok\"."
 
 #: ../loader/loader.c:2078
 msgid "Failed to mount floppy disk."
@@ -3224,16 +3224,16 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Zadejte konfiguraci IP pro tento stroj. Jednotlivé polo¾ky zadávejte jako IP "
-"adresy v desítkové notaci oddìlené teèkami (napø. 1.2.3.4)."
+"Vlo¾te informace o nastavení IP pro tento stroj. Jednotlivé polo¾ky "
+"zadávejte jako IP adresy v desítkové notaci oddìlené teèkami (napø. 1.2.3.4)."
 
 #: ../loader/net.c:320
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Pou¾ít dynamické konfiguraci IP (BOOTP/DHCP)"
+msgstr "Pou¾ít dynamické nastavení IP adresy (BOOTP/DHCP)"
 
 #: ../loader/net.c:348
 msgid "Configure TCP/IP"
-msgstr "Konfigurace TCP/IP"
+msgstr "Nastavit TCP/IP"
 
 #: ../loader/net.c:379
 msgid "Missing Information"
@@ -3245,11 +3245,11 @@ msgstr "Pro pokraèování musíte zadat platnou IP adresu a masku sítì."
 
 #: ../loader/net.c:388 ../loader/net.c:659
 msgid "Dynamic IP"
-msgstr "Dynamická konfigurace IP"
+msgstr "Dynamické nastavení IP"
 
 #: ../loader/net.c:389 ../loader/net.c:660
 msgid "Sending request for IP information..."
-msgstr "Odesílám dotaz pro konfiguraci IP..."
+msgstr "Odesílám dotaz o nastavení IP..."
 
 #: ../loader/net.c:532
 msgid "Determining host name and domain..."
@@ -3303,11 +3303,11 @@ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:810
 msgid "Network configuration"
-msgstr "Sí»ová konfigurace"
+msgstr "Nastavení sítì"
 
 #: ../loader/net.c:811
 msgid "Would you like to set up networking?"
-msgstr "Chcete zkonfigurovat pøipojení k síti?"
+msgstr "Chcete nastavit pøipojení k síti?"
 
 #: ../loader/urls.c:73
 #, c-format
@@ -3516,7 +3516,7 @@ msgid "Postgres (SQL) Server"
 msgstr "Postgres (SQL) server"
 
 msgid "Network Management Workstation"
-msgstr "Sí»ová konfigurace"
+msgstr "Workstation v síti"
 
 msgid "Authoring/Publishing"
 msgstr "Publikování, sazba"
