@@ -1498,6 +1498,8 @@ logMessage("Flags are 0x%x\n", flags);
 
 	if (FL_TEXT(flags))
 	    *argptr++ = "-T";
+	if (FL_EXPERT(flags))
+	    *argptr++ = "--expert";
     }
 
     if (FL_KICKSTART(flags)) {
