@@ -192,7 +192,7 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
 
     devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, PROBE_ALL);
     if (!devices) {
-        logMessage("no devices to activate\n");
+        logMessage("no devices to activate");
         return;
     }
 
