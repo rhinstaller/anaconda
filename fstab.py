@@ -1099,24 +1099,42 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 			    
     os.close(p[1])
 
+    # ignoring SIGCHLD would be cleaner then ignoring EINTR, but
+    # we can't use signal() in this thread?
+
     s = 'a'
     while s and s != '\b':
-	    s = os.read(p[0], 1)
+	    try:
+		s = os.read(p[0], 1)
+	    except OSError, args:
+		(num, str) = args
+		if (num != 4):
+		    raise IOError, args
+
 	    os.write(fd, s)
 
     num = ''
     while s:
-	    s = os.read(p[0], 1)
-	    os.write(fd, s)
-	    isys.sync()
+	    try:
+		s = os.read(p[0], 1)
 
-	    if s != '\b':
-		    num = num + s
-	    else:
-		    if num:
-			    l = string.split(num, '/')
-			    w.set((int(l[0]) * 100) / int(l[1]))
-		    num = ''
+		os.write(fd, s)
+		isys.sync()
+
+		if s != '\b':
+			try:
+			    num = num + s
+			except:
+			    pass
+		else:
+			if num:
+				l = string.split(num, '/')
+				w.set((int(l[0]) * 100) / int(l[1]))
+			num = ''
+	    except OSError, args:
+		(num, str) = args
+		if (num != 4):
+		    raise IOError, args
 
     (pid, status) = os.waitpid(childpid, 0)
     os.close(fd)
