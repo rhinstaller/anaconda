@@ -66,19 +66,19 @@ class Firewall:
                     pass
 		self.ports.append(port)
 	for port in self.ports:
-	    args = args + [ "--port", port ]
+	    args = args + [ "--port=%s" %(port,) ]
 	if self.smtp:
-	    args = args + [ "--port","smtp:tcp" ]
+	    args = args + [ "--port=smtp:tcp" ]
 	if self.http:
-	    args = args + [ "--port","http:tcp" ]
+	    args = args + [ "--port=http:tcp" ]
 	if self.ftp:
-	    args = args + [ "--port","ftp:tcp" ]
+	    args = args + [ "--port=ftp:tcp" ]
 	if self.ssh:
-	    args = args + [ "--port","ssh:tcp" ]
+	    args = args + [ "--port=ssh:tcp" ]
 	if self.telnet:
-	    args = args + [ "--port","telnet:tcp" ]
+	    args = args + [ "--port=telnet:tcp" ]
 	for dev in self.trustdevs:
-	    args = args + [ "--trust", dev ]
+	    args = args + [ "--trust=%s" %(dev,) ]
 
 	return args
 
