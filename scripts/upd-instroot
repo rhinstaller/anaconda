@@ -115,7 +115,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
          policy policycoreutils pyparted xorg-x11"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
+    PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils memtest86+"
 fi
 
 if [ $ARCH = ia64 ]; then
@@ -177,7 +177,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 openssh openssh-clients pciutils rsh traceroute tar"
 
 if [ $ARCH = i386 ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE memtest86+"
+    PACKAGESRESCUE="$PACKAGESRESCUE"
 fi
 
 # turn off options we dont want, ie. set package list to something harmless
