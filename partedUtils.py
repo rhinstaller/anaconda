@@ -395,8 +395,6 @@ class DiskSet:
                     rootparts.append ((dev, fs))
                 isys.umount(mountpoint)
 
-        self.stopAllRaid()
-
         # now, look for candidate lvm roots
         lvm.vgscan()
         lvm.vgactivate()
@@ -426,6 +424,9 @@ class DiskSet:
                     isys.umount(mountpoint)
 
         lvm.vgdeactivate()
+
+        # don't stop raid until after we've looked for lvm on top of it
+        self.stopAllRaid()
 
         drives = self.disks.keys()
         drives.sort()
