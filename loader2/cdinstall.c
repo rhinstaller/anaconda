@@ -361,7 +361,6 @@ char * setupCdrom(char * location,
 		/* this wasnt the CD we were looking for, clean up and */
 		/* try the next CD drive                               */
 		umount("/mnt/source");
-                unlink("/tmp/cdrom");
             } 
         } 
 
@@ -379,6 +378,7 @@ char * setupCdrom(char * location,
                                  getProductName(), _("OK"));
 
             ejectCdrom();
+            unlink("/tmp/cdrom");
             rc = newtWinChoice(_("CD Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
