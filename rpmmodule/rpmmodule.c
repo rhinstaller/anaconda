@@ -309,6 +309,27 @@ void initrpm(void) {
 			 PyInt_FromLong(RPMCALLBACK_UNINST_START));
     PyDict_SetItemString(d, "RPMCALLBACK_UNINST_STOP",
 			 PyInt_FromLong(RPMCALLBACK_UNINST_STOP));
+
+    PyDict_SetItemString(d, "RPMPROB_BADARCH",
+			 PyInt_FromLong(RPMPROB_BADARCH));
+    PyDict_SetItemString(d, "RPMPROB_BADOS",
+			 PyInt_FromLong(RPMPROB_BADOS));
+    PyDict_SetItemString(d, "RPMPROB_PKG_INSTALLED",
+			 PyInt_FromLong(RPMPROB_PKG_INSTALLED));
+    PyDict_SetItemString(d, "RPMPROB_BADRELOCATE",
+			 PyInt_FromLong(RPMPROB_BADRELOCATE));
+    PyDict_SetItemString(d, "RPMPROB_REQUIRES",
+			 PyInt_FromLong(RPMPROB_REQUIRES));
+    PyDict_SetItemString(d, "RPMPROB_CONFLICT",
+			 PyInt_FromLong(RPMPROB_CONFLICT));
+    PyDict_SetItemString(d, "RPMPROB_NEW_FILE_CONFLICT",
+			 PyInt_FromLong(RPMPROB_NEW_FILE_CONFLICT));
+    PyDict_SetItemString(d, "RPMPROB_FILE_CONFLICT",
+			 PyInt_FromLong(RPMPROB_FILE_CONFLICT));
+    PyDict_SetItemString(d, "RPMPROB_OLDPACKAGE",
+			 PyInt_FromLong(RPMPROB_OLDPACKAGE));
+    PyDict_SetItemString(d, "RPMPROB_DISKSPACE",
+			 PyInt_FromLong(RPMPROB_DISKSPACE));
 }
 
 
