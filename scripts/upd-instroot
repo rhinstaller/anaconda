@@ -568,7 +568,7 @@ for p in $DEST $DESTGR; do
 	done
 done
 
-if [ $NEED_GR ]; then
+if [ $NEEDGR ]; then
     # Xserver needs a place to put the compiled xkb maps.
     rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
     ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
