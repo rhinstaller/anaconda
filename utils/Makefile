@@ -22,8 +22,12 @@ all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
 modlist:    modlist.o 
 
-moddeps: moddeps.o
-	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
+modules.o: ../loader/modules.c
+	cp ../loader/modules.c ./
+	$(CC) $(CFLAGS) -I../loader -c modules.c
+
+moddeps: moddeps.o modules.o
+	$(CC) $(LDFLAGS) -o moddeps moddeps.o modules.o \
             $(LOADLIBES) \
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
