@@ -413,15 +413,15 @@ class HostnameWindow:
 class BootDiskWindow:
     def __call__(self, screen, todo):
         rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
-		_("A custom bootdisk provides a way of booting into your "
+		_("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal bootloader. "
 		  "This is useful if you don't want to install lilo on your "
 		  "system, another operating system removes lilo, or lilo "
 		  "doesn't work with your hardware configuration. A custom "
-		  "bootdisk can also be used with the Red Hat rescue image, "
+		  "boot disk can also be used with the Red Hat rescue image, "
 		  "making it much easier to recover from severe system "
 		  "failures.\n\n"
-		  "Would you like to create a bootdisk for your system?"),
+		  "Would you like to create a boot disk for your system?"),
 		buttons = [ _("Yes"), _("No"), _("Back") ])
                                 
 
@@ -920,7 +920,7 @@ class InstallInterface:
             [_("Installation Begins"), BeginInstallWindow, 
 		(self.screen, todo), "confirm-install" ],
             [_("Install System"), InstallWindow, (self.screen, todo) ],
-            [_("Bootdisk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
+            [_("Boot Disk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
             [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
 		    "xconfig"],
             [_("Installation Complete"), FinishedWindow, (self.screen,),
