@@ -28,13 +28,25 @@ class CongratulationWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
-        label = GtkLabel(_("Congratulations, installation is complete.\n\n"
-                         "Remove the boot media and "
-                         "press return to reboot. For information on fixes which are "
-                         "available for this release of Red Hat Linux, consult the "
-                         "Errata available from http://www.redhat.com.\n\n"
-                         "Information on configuring your system is available in the post "
-                         "install chapter of the Official Red Hat Linux User's Guide."))
+        if not self.ics.cw.todo.unconfigOnly:
+            label = GtkLabel(_("Congratulations, installation is complete.\n\n"
+                                   "Remove the boot media and "
+                                   "press return to reboot. For information on fixes which are "
+                                   "available for this release of Red Hat Linux, consult the "
+                                   "Errata available from http://www.redhat.com.\n\n"
+                                   "Information on configuring your system is available in the post "
+                                   "install chapter of the Official Red Hat Linux User's Guide."))
+        else:
+            print "congrats.py: wrote configuration data"
+            self.ics.cw.todo.writeConfiguration()
+
+            label = GtkLabel(_("Congratulations, configuration is complete.\n\n"
+                                   "For information on fixes which are "
+                                   "available for this release of Red Hat Linux, consult the "
+                                   "Errata available from http://www.redhat.com.\n\n"
+                                   "Information on further configuring your system is available in the post "
+                                   "install chapter of the Official Red Hat Linux User's Guide."))
+                
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
 
