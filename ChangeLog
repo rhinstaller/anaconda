@@ -1,5 +1,14 @@
 2005-04-01  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot: Lots of cleanup to try to get things
+	smaller, including:
+	 Creating a locale-archive and using that instead of /usr/lib/locale.
+	 Removal of old unneeded packages.
+	 Removal of bits of the standard python library that aren't needed.
+	 Removal of pyc files from stage2.img as well.
+
+	* scripts/mk-images: Do some cleanup of images before we create them.
+
 	* scripts/upd-instroot (PACKAGESGR): Add missing indic font packages
 	(LC_ALL): Use build-locale-archive to try to reduce the amount of
 	space needed for stage2

@@ -1015,6 +1015,9 @@ for KERNELARCH in $arches; do
   done
 done
 
+# do some clean up before making the cramfs of the second stage
+rm -rf $INSTIMGTEMPLATE/usr/lib/anaconda-runtime $INSTIMGTEMPLATE/usr/lib/syslinux $IMGPATH/usr/lib/anaconda-runtime $IMGPATH/usr/lib/syslinux
+
 if [ -n "$foundakernel" ]; then
   # make the second stage
   find $KERNELBASE/*/lib/modules/ > $CACHE

@@ -152,12 +152,12 @@ fi
 #
 PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts gtk2 libglade2
-           XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
+           XFree86-ISO8859-9-75dpi-fonts  
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs coreutils glibc glibc-common
            readline popt specspo util-linux rpm rpm-libs tzdata
            procps ncurses bash cpio gpm pygtk2-libglade
-           XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
+           XFree86 Xconfigurator pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
@@ -906,6 +906,7 @@ for p in $DEST $DESTGR; do
     fi
     mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
     rm -rf $p/usr/lib/locale/*
+    rm -f $p/usr/sbin/build-locale-archive
     mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
 done
 
@@ -963,7 +964,7 @@ export LANG=en_US.UTF-8
 zcat $DESTGR/usr/lib/bogl/font.bdf.gz > $DESTGR/usr/lib/bogl/font.bdf
 (cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; for i in $(find $DESTGR/usr/share/locale -name '*.mo'); do msgunfmt $i 2>/dev/null | msgconv -t utf-8 -o - - ; done) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
 $DESTGR/usr/bin/bdftobogl -b $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
-rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl
+rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl $DESTGR/usr/lib/bogl/font.bdf.gz
 gzip -9 -f $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
 export LANG=$OLDLANG
 
@@ -1099,6 +1100,11 @@ for p in $DEST $DESTGR; do
 	    rm -f $p/usr/$LIBDIR/lib$f.so
 	done
 
+	# nuke some python stuff we don't need
+        for d in idle distutils email bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do
+	    rm -rf $p/$d
+	done
+
 	if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
 	   (cd $p/lib && rm -f libnss_files.so.1 libnss_dns.so.1)
 	fi
@@ -1183,10 +1189,8 @@ echo "done."
 for p in $DEST $DESTGR; do
 	find $p -name "*.py" | while read fn; do
 	    rm -f ${fn}o
-	    if [ $p = $DEST ]; then
-		rm -f ${fn}c
-		ln -sf /dev/null ${fn}c
-	    fi
+	    rm -f ${fn}c
+	    ln -sf /dev/null ${fn}c
 	done
 done
 
