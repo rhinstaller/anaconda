@@ -1,7 +1,7 @@
 /* silo.c: Conversions between SCSI and IDE disk names
  *	   and OpenPROM fully qualified paths.
  *
- * Copyright (C) 1999 Jakub Jelinek <jakub@redhat.com>
+ * Copyright (C) 1999, 2000 Jakub Jelinek <jakub@redhat.com>
  * 
  * This software may be freely redistributed under the terms of the GNU
  * public license.
@@ -11,6 +11,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#define _GNU_SOURCE
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -614,8 +615,10 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
     if (linuxAlias && hasaliases) {
 	char *use_nvramrc;
 	char nvramrc[2048];
-	char *p, *q, *r;
+	char *p, *q, *r, *s;
 	int enabled = -1;
+	int count;
+
 	use_nvramrc = prom_getopt ("use-nvramrc?", &len);
 	if (len > 0) {
 	    if (!strcasecmp (use_nvramrc, "false"))
@@ -634,14 +637,21 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		       make sure we fully understand that and remove it. */
 		    if (!strncmp (q, "devalias", 8) && (q[8] == ' ' || q[8] == '\t')) {
 			for (r = q + 9; *r == ' ' || *r == '\t'; r++);
-			if (!strncmp (r, "linux", 5) && (r[5] == ' ' || r[8] == '\t')) {
-			    for (r += 6; *r == ' ' || *r == '\t'; r++);
-			    for (; *r && *r != ' ' && *r != '\t' && *r != '\n'; r++);
-			    for (; *r == ' ' || *r == '\t'; r++);
-			    if (*r == '\n') {
-				r++;
-				memmove (q, r, strlen(r) + 1);
-				continue;
+			if (!strncmp (r, "linux", 5)) {
+			    for (s = r + 5; *s && *s != ' ' && *s != '\t'; s++);
+			    if (!*s) break;
+			    if (s == r + 5 ||
+				(r[5] == '#' && r[6] >= '0' && r[6] <= '9' &&
+				 (s == r + 7 ||
+				  (r[7] >= '0' && r[7] <= '9' && s == r + 8)))) {
+				for (r = s + 1; *r == ' ' || *r == '\t'; r++);
+				for (; *r && *r != ' ' && *r != '\t' && *r != '\n'; r++);
+				for (; *r == ' ' || *r == '\t'; r++);
+				if (*r == '\n') {
+				    r++;
+				    memmove (q, r, strlen(r) + 1);
+				    continue;
+				}
 			    }
 			}
 		    }
@@ -651,10 +661,23 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		}
 		len = strlen (nvramrc);
 		if (len && nvramrc [len-1] != '\n')
-		    strcat (nvramrc, "\n");
-		strcat (nvramrc, "devalias linux ");
-		strcat (nvramrc, linuxAlias);
-		strcat (nvramrc, "\n");
+		    nvramrc [len++] = '\n';
+		p = nvramrc + len;
+		p = stpcpy (p, "devalias linux ");
+		r = linuxAlias;
+		q = strchr (r, ';');
+		count = 1;
+		while (q) {
+		    memcpy (p, r, q - r);
+		    p += q - r;
+		    sprintf (p, "\ndevalias linux#%d ", count++);
+		    p = strchr (p, 0);
+		    r = q + 1;
+		    q = strchr (r, ';');
+		}
+		p = stpcpy (p, r);
+		*p++ = '\n';
+		*p = 0;
 		prom_setopt ("nvramrc", nvramrc);
 		if (!enabled)
 		    prom_setopt ("use-nvramrc?", "true");
@@ -676,6 +699,7 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		prom_setopt ("boot-from", bootDevice);
 	}
     }
+    close(promfd);
 }
 
 #ifdef STANDALONE_SILO
@@ -684,7 +708,7 @@ int main(void) {
     int i;
 
     init_sbusdisk();
-    set_prom_vars ("/sbus@2,0/SUNW,fas@1,8800000/sd@0,0", "linux");
+    set_prom_vars ("/sbus@1f,0/espdma/esp/sd@1,0:c;/sbus@1f,0/espdma/esp/sd@1,0:g;/sbus@1f,0/espdma/esp/sd@1,0:h", "linux");
     printf ("prom root name `%s'\n", prom_root_name);
     for (i = 0; i < hdlen; i++) {
 	if (hd[i].type)
@@ -693,15 +717,17 @@ int main(void) {
 	if (hd[i].prom_name) printf ("%s\n", hd[i].prom_name);
     }
     for (i = 0; i < sdlen; i++) {
-	if (sd[i].type)
+	if (sd[i].type) {
 	    if (i < 26)
 		printf ("sd%c %x %d %d %d\n", i + 'a', sd[i].prom_node,
 						    sd[i].hi, sd[i].mid, sd[i].lo);
 	    else
 		printf ("sd%c%c %x %d %d %d\n", (i / 26) + 'a' - 1, (i % 26) + 'a', sd[i].prom_node,
 						    sd[i].hi, sd[i].mid, sd[i].lo);
+	}
 	if (sd[i].prom_name) printf ("%s\n", sd[i].prom_name);
     }
+    exit(0);
 }
 
 #else
