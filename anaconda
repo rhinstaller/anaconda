@@ -178,7 +178,7 @@ def startVNCServer(vncpassword=None, root='/'):
     if connxinfo is not None:
 	dup_log(_("Please connect to %s to begin the install...") % (connxinfo,))
     else:
-	dup_log(_("Please connect to begin the install...") % (connxinfo,))
+	dup_log(_("Please connect to begin the install..."))
 
     os.environ["DISPLAY"]=":1"
     doStartupX11Actions()
