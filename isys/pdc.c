@@ -9,10 +9,28 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <linux/hdreg.h>
+
+#ifdef DIET
+#include <sys/mount.h>
+#else
 #include <linux/fs.h>
+#endif
+
 #include <string.h>
 
+
+#ifdef DIET
+typedef char char16_t;
+typedef unsigned char u_int8_t;
+typedef unsigned short u_int16_t;
+typedef uint32_t u_int32_t;
+#else
 typedef unsigned int uint32_t;
+#endif
+
+#ifndef BLKSSZGET
+#define BLKSSZGET  _IO(0x12,104)/* get block device sector size */
+#endif
 
 struct promise_raid_conf {
     char                promise_id[24];
@@ -72,7 +90,7 @@ struct promise_raid_conf {
 };
 
 
-static unsigned long calc_pdcblock_offset (int fd) {
+static unsigned long long calc_pdcblock_offset (int fd) {
 	unsigned long lba = 0;
 	struct hd_big_geometry g;
 	long sectors;
@@ -110,11 +128,11 @@ static int read_disk_sb (int fd, unsigned char *buffer,int bufsize)
 	 * Calculate the position of the superblock,
 	 * it's at first sector of the last cylinder
 	 */
-	sb_offset = calc_pdcblock_offset(fd) * 512;
-	if (sb_offset == -1)
+	sb_offset = calc_pdcblock_offset(fd);
+	if (sb_offset == ((unsigned long long) -1))
 	    return -1;
-	
-	lseek64(fd, sb_offset, SEEK_SET);
+
+	lseek64(fd, sb_offset * 512, SEEK_SET);
 	read (fd, buffer, bufsize);
 
 	ret = 0;

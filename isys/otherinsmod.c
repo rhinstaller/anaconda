@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <zlib.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/utsname.h>
@@ -55,7 +54,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	/* Try two balls on sparc64, one elsewhere */
 	for (i = 0; ; i++) {
 	    /* it might be having a ball */
-	    fd = gzopen(ballPath, "r");
+	    fd = gunzip_open(ballPath);
 	    if (!fd) {
 		free(ballPath);
 		return 1;
@@ -146,7 +145,8 @@ int insmod(char * modName, char * path, char ** args) {
     argc += count;
 
     if ((child = fork()) == 0) {
-	exit(ourInsmodCommand(argc, argv));
+	execv("/bin/loader", argv);
+	exit(1);
     }
 
     waitpid(child, &status, 0);

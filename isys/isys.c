@@ -60,6 +60,7 @@ static PyObject * doReadModInfo(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * getModuleList(PyObject * s, PyObject * args);
 static PyObject * makeDevInode(PyObject * s, PyObject * args);
+static PyObject * doMknod(PyObject * s, PyObject * args);
 static PyObject * smpAvailable(PyObject * s, PyObject * args);
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
@@ -117,6 +118,7 @@ static PyMethodDef isysModuleMethods[] = {
 */
     { "poptParseArgv", (PyCFunction) doPoptParse, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
+    { "mknod", (PyCFunction) doMknod, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
     { "ProbedList", (PyCFunction) createProbedList, METH_VARARGS, NULL }, 
     { "readmoduleinfo", (PyCFunction) doReadModInfo, METH_VARARGS, NULL },
@@ -287,6 +289,21 @@ static PyObject * makeDevInode(PyObject * s, PyObject * args) {
       case -1:
 	PyErr_SetString(PyExc_TypeError, "unknown device");
       case -2:
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doMknod(PyObject * s, PyObject * args) {
+    char * pathname;
+    int mode, dev;
+
+    if (!PyArg_ParseTuple(args, "sii", &pathname, &mode, &dev)) return NULL;
+
+    if (mknod(pathname, mode, dev)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }

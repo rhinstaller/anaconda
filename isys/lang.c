@@ -4,13 +4,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/kd.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <zlib.h>
 
 #include <linux/keyboard.h>
-#include <linux/kd.h>
+#include "linux/kd.h"
 
 #include "cpio.h"
 
@@ -24,12 +22,12 @@ int isysLoadFont(char * fontFile) {
     gzFile stream;
     int rc;
 
-    stream = gzopen("/etc/fonts.cgz", "r");
+    stream = gunzip_open("/etc/fonts.cgz");
     if (!stream)
 	return -EACCES;
 
     rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-    gzclose(stream);
+    gunzip_close(stream);
     if (rc || access("/tmp/font", R_OK))
         return -EACCES;
 
@@ -76,12 +74,12 @@ static int loadKeymap(gzFile stream) {
     int magic;
     short keymap[NR_KEYS];
 
-    if (gzread(stream, &magic, sizeof(magic)) != sizeof(magic))
+    if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic))
 	return -EIO;
 
     if (magic != KMAP_MAGIC) return -EINVAL;
 
-    if (gzread(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps))
+    if (gunzip_read(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps))
 	return -EINVAL;
 
     console = open("/dev/console", O_RDWR);
@@ -91,7 +89,7 @@ static int loadKeymap(gzFile stream) {
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 
-	if (gzread(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
+	if (gunzip_read(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
 	    close(console);
 	    return -EIO;
 	}
@@ -123,18 +121,18 @@ int isysLoadKeymap(char * keymap) {
     char buf[16384]; 			/* I hope this is big enough */
     int i;
 
-    f = gzopen("/etc/keymaps.gz", "r");
+    f = gunzip_open("/etc/keymaps.gz");
     if (!f) return -EACCES;
 
-    if (gzread(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
-	gzclose(f);
+    if (gunzip_read(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
+	gunzip_close(f);
 	return -EINVAL;
     }
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
-    if (gzread(f, infoTable, i) != i) {
-	gzclose(f);
+    if (gunzip_read(f, infoTable, i) != i) {
+	gunzip_close(f);
 	return -EIO;
     }
 
@@ -145,20 +143,20 @@ int isysLoadKeymap(char * keymap) {
 	}
 
     if (num == -1) {
-	gzclose(f);
+	gunzip_close(f);
 	return -ENOENT;
     }
 
     for (i = 0; i < num; i++) {
-	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {
-	    gzclose(f);
+	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
+	    gunzip_close(f);
 	    return -EIO;
 	}
     }
 
     rc = loadKeymap(f);
 
-    gzclose(f);
+    gunzip_close(f);
 
     return rc;
 }

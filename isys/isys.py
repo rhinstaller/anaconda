@@ -1,5 +1,20 @@
+#
+# isys.py - installer utilitiy functions and glue for C module
+#
+# Matt Wilson <msw@redhat.com>
+# Erik Troan <ewt@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import kudzu
-import _balkan
 import _isys
 import string
 import os
@@ -228,6 +243,9 @@ def makeDevInode(name, fn=None):
         path = '/tmp/%s' % (name,)
         _isys.mkdevinode(name, path)
     return path
+
+def mknod(pathname, mode, dev):
+    return _isys.mknod(pathname, mode, dev)
 
 def inet_ntoa (addr):
     return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ff,

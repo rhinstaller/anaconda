@@ -2,18 +2,26 @@ include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
-CFLAGS = -ffunction-sections -I/usr/include/python1.5 -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
+CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
 
-OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
+OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
-	  lang.o isofs.o pdc.o
+	  lang.o isofs.o pdc.o dns.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
-LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs
+LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
 PYMODULES = _isys.so
+SUBDIRS = gzlib
+DIET = diet
+
+DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))
 
 GENERATED = nfs_mountversion.h
+
+ifeq ($(ARCH),i386)
+DIETLIB=libisys-diet.a
+endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
@@ -28,10 +36,13 @@ endif
 
 everything: $(TARGET)
 
-all: $(PYMODULES) libisys.a
+all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
+
+%.do: %.c
+	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
@@ -41,14 +52,27 @@ _silo.so: silo.c
 
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
+libisys-diet.a: libisys-diet.a($(DOBJECTS))
+
+filtertest: filtertest.o libisys.a
+
 clean:
-	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
+	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(DOBJECTS) 
+	rm -f $(DIETLIBS) $(OBJECTS) $(GENERATED)
+	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
 	install -s $(PYMODULES) $(DESTDIR)/$(PYTHONLIBDIR)
 	install isys.py $(DESTDIR)/$(PYTHONLIBDIR)
 
+subdirs:
+	for d in $(SUBDIRS); do make -C $$d; done
+
 nfsmount.o: nfs_mountversion.h
+
+nfsmount.lo: nfs_mountversion.h
+
+nfsmount.do: nfs_mountversion.h
 
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@
@@ -59,3 +83,4 @@ depend: nfs_mountversion.h
 ifeq (.depend,$(wildcard .depend))
 include .depend
 endif                                           
+
