@@ -80,3 +80,5 @@ class InstallMethod:
 	self.path = path
 	self.fstype = type
 	self.fnames = {}
+        self.isMounted = 0
+        
