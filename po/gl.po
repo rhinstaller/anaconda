@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2000-06-30 14:48-0400\n"
-"PO-Revision-Date: 2000-06-07 17:19+0200\n"
+"PO-Revision-Date: 2000-07-13 22:56+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -526,13 +526,15 @@ msgstr "Ocorreu unha Excepción"
 
 #: ../text.py:782
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Garda-lo Envorcado do Erro"
 
 #: ../text.py:783
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Insira agora un disquete. Tódolos seus contidos serán borrados, polo tanto "
+"escolla o disquete con coidado."
 
 #: ../text.py:793
 msgid ""
@@ -542,10 +544,15 @@ msgid ""
 "will help Red hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"Ocorreu un erro interno no programa de instalación. Por favor, informe deste "
+"erro a Red Hat (a través da páxina web bugzilla.redhat.com) en canto lle "
+"sexa posible. A información sobre este erro pode gardarse nun disquete, e "
+"axudará a Red Hat a arranxa-lo problema.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Gardar"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -556,7 +563,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -761,15 +767,12 @@ msgstr ""
 "actualizar."
 
 #: ../todo.py:849
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Un ou máis dos sistemas de ficheiros do seu sistema Linux non foi desmontado "
-"limpamente. Por favor, inicie a instalación de Linux, deixe que que os "
-"sistemas de ficheiros sexan comprobados, e reinicie limpamente para "
-"actualizar."
+"Un ou máis dos sistemas de ficheiros listados en /etc/fstab non pode ser "
+"montado.  Arranxe este problema e tente de novo coa actualización."
 
 #: ../todo.py:870
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -857,9 +860,8 @@ msgid "Vertical frequency range"
 msgstr "Rango de frecuencias verticais"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Selección do Rato"
+msgstr "Rato non Detectado"
 
 #: ../xserver.py:27
 msgid ""
@@ -868,10 +870,13 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"O rato non foi detectado automáticamente.  Para seguir coa instalación en "
+"modo gráfico, vaia á seguinte pantalla e forneza a información sobre o rato. "
+"Tamén pode usa-la instalación en modo texto, que non require o uso dun rato."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Usar modo texto"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -985,36 +990,32 @@ msgid "NIS Server: "
 msgstr "Servidor NIS: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Activar NIS"
+msgstr "Activar LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "Servidor NIS:"
+msgstr "Servidor LDAP:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "DN Base de LDAP:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Activar teclas de tiles"
+msgstr "Activar Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Realm:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "Servidor NIS:"
+msgstr "Servidor de Admin:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1128,9 +1129,8 @@ msgstr ""
 " ¡Non pode actualizar este sistema!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "O directorio %s ten que estar no sistema de ficheiros raíz."
+msgstr "Seleccione o dispositivo que conteña o sistema de ficheiros raíz: "
 
 #: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
@@ -1614,9 +1614,8 @@ msgid "Skip X Configuration"
 msgstr "Omitir a Configuración das X"
 
 #: ../iw/xconfig_gui.py:486
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Por defecto"
+msgstr "Escritorio por omisión:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1703,9 +1702,8 @@ msgid "Boot label may not be empty."
 msgstr "A etiqueta de inicio non pode estar baleira."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "As etiquetas de inicio non poden conter espacios."
+msgstr "A etiqueta de inicio contén caracteres ilegais."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1736,9 +1734,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 en DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "¿En que dispositivo está localizado o seu rato? %s %i"
+msgstr "¿En que dispositivo se atopa o seu rato?"
 
 #: ../textw/mouse_text.py:45
 msgid "Which model mouse is attached to this computer?"
@@ -2089,7 +2086,7 @@ msgstr "Facer petición do servidor por broadcast"
 
 #: ../libfdisk/fsedit.c:447
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "o particionado non cumpriu os requirimentos"
 
 #: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
 #: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
@@ -2415,20 +2412,16 @@ msgstr ""
 "máximo dunha partición de intercambio é %ld Megabytes."
 
 #: ../libfdisk/gnomefsedit.c:1268
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Non se atopou ningunha unidade"
+msgstr "Non se especificou ningunha unidade"
 
 #: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
 msgid "Close"
 msgstr "Pechar"
 
 #: ../libfdisk/gnomefsedit.c:1270
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr ""
-"Ten que asignar unha partición de intercambio para poder continuar coa "
-"instalación."
+msgstr "Ten que limitar esta partición polo menos a unha unidade."
 
 #: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
@@ -2574,7 +2567,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2210
 msgid "Not Enough Partitions"
-msgstr "Non hai Particións de Abondo"
+msgstr "Non hai particións dabondo"
 
 #: ../libfdisk/gnomefsedit.c:2212
 msgid ""
@@ -2764,9 +2757,8 @@ msgid "Swap Partition"
 msgstr "Partición de Intercambio"
 
 #: ../libfdisk/newtfsedit.c:201
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Editar Partición"
+msgstr "Partición Raid"
 
 #: ../libfdisk/newtfsedit.c:356
 msgid "Edit New Partition"
@@ -2825,18 +2817,16 @@ msgstr ""
 "instalación."
 
 #: ../libfdisk/newtfsedit.c:1610
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Sen Partición Raíz"
+msgstr "Sen Partición /boot/efi"
 
 #: ../libfdisk/newtfsedit.c:1612
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Ten que asignar unha partición de intercambio para poder continuar coa "
-"instalación."
+"Ten que asignar o punto de montaxe /boot/efi a unha partición primaria de "
+"tipo FAT para poder continuar coa instalación."
 
 #: ../libfdisk/newtfsedit.c:1633
 msgid ""
@@ -3498,9 +3488,8 @@ msgstr "Xogos"
 msgid "Multimedia Support"
 msgstr "Soporte de Multimedia"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Soporte de Impresión"
+msgstr "Soporte de Portátiles"
 
 msgid "Networked Workstation"
 msgstr "Estación de Traballo en Rede"
@@ -3549,9 +3538,3 @@ msgstr "Desenvolvemento do Kernel"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Erro copiando a zona horaria (de %s): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Clúster"
