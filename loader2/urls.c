@@ -38,6 +38,108 @@
 #include "windows.h"
 #include "net.h"
 
+/* convert a url (ftp or http) to a ui */
+int convertURLToUI(char *url, struct iurlinfo *ui) {
+    char *chptr;
+
+    memset(ui, 0, sizeof(*ui));
+    
+    if (!strncmp("ftp://", url, 6)) {
+	ui->protocol = URL_METHOD_FTP;
+	url += 6;
+	
+	/* There could be a username/password on here */
+	if ((chptr = strchr(url, '@'))) {
+	    if ((chptr = strchr(url, ':'))) {
+		*chptr = '\0';
+		ui->login = strdup(url);
+		url = chptr + 1;
+		
+		chptr = strchr(url, '@');
+		*chptr = '\0';
+		ui->password = strdup(url);
+		url = chptr + 1;
+	    } else {
+		*chptr = '\0';
+		ui->login = strdup(url);
+		url = chptr + 1;
+	    }
+	}
+    } else if (!strncmp("http://", url, 7)) {
+	ui->protocol = URL_METHOD_HTTP;
+	url +=7;
+    } else {
+	logMessage("unknown url protocol '%s'", url);
+	return -1;
+    }
+    
+    /* url is left pointing at the hostname */
+    chptr = strchr(url, '/');
+    *chptr = '\0';
+    ui->address = strdup(url);
+    url = chptr;
+    *url = '/';
+    ui->prefix = strdup(url);
+    
+    logMessage("url address %s", ui->address);
+    logMessage("url prefix %s", ui->prefix);
+
+    return 0;
+}
+
+static char * getLoginName(char * login, struct iurlinfo *ui) {
+    int i;
+
+    i = 0;
+    /* password w/o login isn't useful */
+    if (ui->login && strlen(ui->login)) {
+	i += strlen(ui->login) + 5;
+	if (strlen(ui->password))
+	    i += 3*strlen(ui->password) + 5;
+
+	if (ui->login || ui->password) {
+	    login = malloc(i);
+	    strcpy(login, ui->login);
+	    if (ui->password) {
+		char * chptr;
+		char code[4];
+
+		strcat(login, ":");
+		for (chptr = ui->password; *chptr; chptr++) {
+		    sprintf(code, "%%%2x", *chptr);
+		    strcat(login, code);
+		}
+		strcat(login, "@");
+	    }
+	}
+    }
+
+    return login;
+}
+
+
+/* convert a UI to a URL, returns allocated string */
+char *convertUIToURL(struct iurlinfo *ui) {
+    char * login;
+    char * finalPrefix;
+    char * url;
+
+    if (!strcmp(ui->prefix, "/"))
+	finalPrefix = "/.";
+    else
+	finalPrefix = ui->prefix;
+
+    login = "";
+    login = getLoginName(login, ui);
+    
+    url = malloc(strlen(finalPrefix) + 25 + strlen(ui->address) + strlen(login));
+    sprintf(url, "%s://%s%s/%s", 
+	    ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
+	    login, ui->address, finalPrefix);
+
+    return url;
+}
+
 
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
                          int silentErrors) {
