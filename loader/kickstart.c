@@ -53,7 +53,7 @@ int ksReadCommands(char * cmdFile) {
     int commandsAlloced = 5;
 
     if ((fd = open(cmdFile, O_RDONLY)) < 0) {
-	newtWinMessage(_("Kickstart Error"), _("Ok"), 
+	newtWinMessage(_("Kickstart Error"), _("OK"), 
 			_("Error opening: kickstart file %s: %s"), cmdFile, 
 			strerror(errno));
 	return LOADER_ERROR;
@@ -63,7 +63,7 @@ int ksReadCommands(char * cmdFile) {
 
     buf = alloca(sb.st_size + 1);
     if (read(fd, buf, sb.st_size) != sb.st_size) {
-	newtWinMessage(_("Kickstart Error"), _("Ok"), 
+	newtWinMessage(_("Kickstart Error"), _("OK"), 
 			_("Error reading contents of kickstart file %s: %s"),
 			cmdFile, strerror(errno));
 	close(fd);
@@ -102,7 +102,7 @@ int ksReadCommands(char * cmdFile) {
 	    inPackages = 1;
 	} else {
 	    if (poptParseArgvString(start, &argc, &argv) || !argc) {
-		newtWinMessage(_("Kickstart Error"), _("Ok"), 
+		newtWinMessage(_("Kickstart Error"), _("OK"), 
 			       _("Error on line %d of kickstart file %s."),
 				argv[0], line, cmdFile);
 	    } else {

@@ -54,8 +54,8 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     rc = newtWinEntries(_("Module Parameters"), _("This module can take "
 		    "parameters which affects its operation. If you don't "
 		    "know what parameters to supply, just skip this "
-		    "screen by pressing the \"Ok\" button now."),
-		    40, 5, 15, 20, entries, _("Ok"), _("Back"), NULL);
+		    "screen by pressing the \"OK\" button now."),
+		    40, 5, 15, 20, entries, _("OK"), _("Back"), NULL);
 
     if (rc == 2) {
         for (i = 0; i < numArgs; i++)
@@ -131,7 +131,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	}
     }
 
-    buttons = newtButtonBar(_("Ok"), &ok, _("Back"), &back, NULL);
+    buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
     checkbox = newtCheckbox(-1, -1, _("Specify module parameters"),
 			    specifyParameters, NULL, &specifyParameters);
     subgrid = newtGridVStacked(NEWT_GRID_COMPONENT, listbox,

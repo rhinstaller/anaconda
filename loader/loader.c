@@ -971,7 +971,9 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     int localAvailable = 0;
     void * class;
     char * url = NULL;
-    enum { STEP_LANG, STEP_METHOD, STEP_URL, STEP_DONE } step;
+    char * keymap = NULL;
+    char * kbdtype = NULL;
+    enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_URL, STEP_DONE } step;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
 	networkAvailable = 1;
@@ -1038,7 +1040,16 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	switch (step) {
 	case STEP_LANG:
 	    chooseLanguage(flags);
-	    step = STEP_METHOD;
+	    step = STEP_KBD;
+	    break;
+	    
+	case STEP_KBD:
+	    rc = chooseKeyboard (&keymap, &kbdtype, flags);
+
+	    if (rc == LOADER_BACK)
+		step = STEP_LANG;
+	    else
+		step = STEP_METHOD;
 	    break;
 	    
 	case STEP_METHOD:

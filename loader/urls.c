@@ -121,7 +121,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     else
 	*doSecondarySetup = ' ';
 
-    buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &cancel, NULL);
+    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
     
     switch (protocol) {
     case URL_METHOD_FTP:
@@ -198,12 +198,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	answer = newtRunForm(form);
 	if (answer != cancel) {
 	    if (!strlen(site)) {
-		newtWinMessage(_("Error"), _("Ok"),
+		newtWinMessage(_("Error"), _("OK"),
 			       _("You must enter a server name."));
 		continue;
 	    }
 	    if (!strlen(dir)) {
-		newtWinMessage(_("Error"), _("Ok"),
+		newtWinMessage(_("Error"), _("OK"),
 			       _("You must enter a directory."));
 		continue;
 	    }
@@ -319,7 +319,7 @@ int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol) {
     newtGridSetField(entryGrid, 1, 3, NEWT_GRID_COMPONENT, proxyPortEntry,
 		     0, 0, 0, 0, NEWT_ANCHOR_LEFT, 0);
 
-    buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &cancel, NULL);
+    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
     grid = newtCreateGrid(1, 3);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text, 0, 0, 0, 0, 0, 0);

@@ -159,7 +159,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 		  "    o the name or IP number of your NFS server\n"
 		  "    o the directory on that server containing\n"
 		  "      Red Hat Linux for your architecture"), 60, 5, 15,
-		24, entries, _("Ok"), _("Back"), NULL);
+		24, entries, _("OK"), _("Back"), NULL);
 
     if (rc == 2) {
 	if (newServer) free(newServer);
@@ -281,7 +281,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     newtGridSetField(subgrid, 1, 3, NEWT_GRID_COMPONENT, c.nsEntry,
 		     1, 0, 0, 0, 0, 0);
 
-    buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
+    buttons = newtButtonBar(_("OK"), &okay, _("Back"), &back, NULL);
 
     grid = newtCreateGrid(1, 4);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
@@ -556,7 +556,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     }
 
     if (rc < -1) {
-	newtWinMessage(_("kickstart"),  _("Ok"),
+	newtWinMessage(_("kickstart"),  _("OK"),
 		   _("bad argument to kickstart network command %s: %s"),
 		   poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
 		   poptStrerror(rc));
