@@ -673,12 +673,15 @@ def getDefaultDiskType():
         return parted.disk_type_get("msdos")
     elif iutil.getArch() == "ia64":
         return parted.disk_type_get("GPT")
+    elif iutil.getArch() == "s390":
+        return parted.disk_type_get("dasd")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
 
 archLabels = {'i386': ['msdos'],
               'alpha': ['bsd'],
+              's390': ['msdos', 'dasd'],
               'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
@@ -693,12 +696,12 @@ def checkDiskLabel(disk, intf):
     if intf:
         rc = intf.messageWindow(_("Warning"),
                        _("The partition table on device /dev/%s is of an "
-                         "unexpected type for your architecture.  To use this "
+                         "unexpected type %s for your architecture.  To use this "
                          "disk for installation of Red Hat Linux, it must be "
                          "re-initialized causing the loss of ALL DATA on this "
                          "drive.\n\n"
                          "Would you like to initialize this drive?")
-                       % (disk.dev.path[5:]), type = "yesno")
+                       % (disk.dev.path[5:], disk.type.name), type = "yesno")
         if rc == 0:
             return 1
         else:
@@ -1498,6 +1501,10 @@ def checkNoDisks(diskset, intf):
         sys.exit(0)
 
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        partitions.useAutopartitioning = 0
+        partitions.useFdisk = 1
+            
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         return
