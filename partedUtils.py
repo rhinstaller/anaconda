@@ -452,7 +452,6 @@ def getRedHatReleaseString(mountpoint):
 def productMatches(oldproduct, newproduct):
     """Determine if this is a reasonable product to upgrade old product"""
     if oldproduct.startswith(newproduct):
-        log("old matches new (%s:%s)" %(oldproduct, newproduct))
         return 1
 
     productUpgrades = {
@@ -473,12 +472,8 @@ def productMatches(oldproduct, newproduct):
 
     for p in acceptable:
         if oldproduct.startswith(p):
-            log("old matches acceptable (%s:%s - %s:%s)" %(oldproduct,
-                                                           newproduct, p,
-                                                           acceptable))
             return 1
 
-    log("old doesn't match: (%s:%s)" %(oldproduct,newproduct))
     return 0
 
 class DiskSet:
@@ -561,8 +556,13 @@ class DiskSet:
 
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    rootparts.append ((dev, fs,
-                                       getRedHatReleaseString(mountpoint)))
+                    relstr = getRedHatReleaseString(mountpoint)
+                    cmdline = open('/proc/cmdline', 'r').read()
+                    
+                    if ((cmdline.find("upgradeany") != -1) or
+                        (upgradeany == 1) or
+                        (productMatches(relstr, productName))):
+                        rootparts.append ((dev, fs, relstr))
                 isys.umount(mountpoint)
 
         # now, look for candidate lvm roots
@@ -590,8 +590,13 @@ class DiskSet:
 
                 if found:
                     if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        rootparts.append ((dev, fs,
-                                           getRedHatReleaseString(mountpoint)))
+                        relstr = getRedHatReleaseString(mountpoint)
+                        cmdline = open('/proc/cmdline', 'r').read()
+
+                        if ((cmdline.find("upgradeany") != -1) or
+                            (upgradeany == 1) or
+                            (productMatches(relstr, productName))):
+                            rootparts.append ((dev, fs, relstr))
                     isys.umount(mountpoint)
 
 	lvm.vgdeactivate()
