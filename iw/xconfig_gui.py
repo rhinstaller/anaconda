@@ -373,7 +373,7 @@ class XCustomWindow (InstallWindow):
         return box
 
     def getPrev (self):
-        returnxXConfigWindow
+        return XConfigWindow
 
 class MonitorWindow (InstallWindow):
     def __init__ (self, ics):
@@ -608,7 +608,6 @@ class XConfigWindow (InstallWindow):
         self.ctree.select(self.selected_node)
         parent_node, cardname = self.ctree.node_get_row_data(self.selected_node)                        
         self.ctree.expand(parent_node)
-#        print self.selected_node
         self.ctree.node_moveto(self.selected_node, 0, 0.5, 0)
         self.ctree.thaw()
 
@@ -620,7 +619,7 @@ class XConfigWindow (InstallWindow):
         self.selected_node = node
         self.ctree.select(node)
         parent_node, cardname = self.ctree.node_get_row_data(node)                        
-        self.ctree.expand(node)
+        self.ctree.expand(parent_node)
         self.ctree.node_moveto(node, 0, 0.5, 0)
         self.ctree.thaw()
 
@@ -630,6 +629,7 @@ class XConfigWindow (InstallWindow):
             parent, cardname = ctree.node_get_row_data (node)
             if cardname:
                 card = self.cards[cardname]
+                self.todo.videoCardStateName = card["NAME"]
                 depth = 0
                 while depth < 16 and card.has_key ("SEE"):
                     card = self.cards[card["SEE"]]
@@ -1125,21 +1125,52 @@ class XConfigWindow (InstallWindow):
                     self.ctree.node_set_row_data(node, (other, card))
 
                 if self.todo.videoCardOriginalName != "":
+#                    print "videoCardOriginalName", self.todo.videoCardOriginalName 
                     if card == self.todo.videoCardOriginalName:
                         self.todo.videoCardOriginalNode = node
 
+                #--This is some pretty confusing logic to handle all the state information.
+
+
                 if self.todo.x.vidCards:
-                    if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
-#                        print card
+#                    print card, "---",  self.todo.x.vidCards[self.todo.x.primary]["NAME"], "---", self.todo.videoCardStateName
+#                    if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+
+                    if self.todo.videoCardStateName == "":
+                        if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+                            self.todo.videoCardStateName = card
+
+#                            print "Card", card
+                            #--If we haven't been to this screen before, initialize the state to the original value
+                            if self.todo.videoCardOriginalName == "":
+                                self.todo.videoCardOriginalName = card
+                                self.todo.videoCardOriginalNode = node
+
+                                self.current_node = node
+                                self.selected_node = node
+                            elif card == self.todo.videoCardStateName:
+                                self.current_node = node
+                                self.selected_node = node
+                            
+                    elif card == self.todo.videoCardStateName:
+#                        print "Inside elif card"
+                            
+#                        print "Card", card
                         #--If we haven't been to this screen before, initialize the state to the original value
                         if self.todo.videoCardOriginalName == "":
                             self.todo.videoCardOriginalName = card
                             self.todo.videoCardOriginalNode = node
+                            
+                            self.current_node = node
+                            self.selected_node = node
 
-                        self.current_node = node
-                        self.selected_node = node
+                        elif card == self.todo.videoCardStateName:
+                            self.current_node = node
+                            self.selected_node = node
+
 
                     elif card == self.todo.videoCardOriginalName:
+#                        print "Inside else"
                         card = self.todo.videoCardOriginalName
                         self.todo.videoCardOriginalNode = node
 #                        self.current_node = node
