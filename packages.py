@@ -691,9 +691,7 @@ def handleMiscPackages(intf, id, dir):
         if id.auth.useSamba:
             select(id.grpset.hdrlist, 'pam_smb')
 
-        if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 0:
-            select(id.grpset.hdrlist, 'lilo')
-        elif iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
+        if iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
             select(id.grpset.hdrlist, 'grub')
         elif iutil.getArch() == "s390":
             select(id.grpset.hdrlist, 's390utils')
@@ -1366,7 +1364,7 @@ def setFileCons(instPath, partitions):
         log("setting SELinux contexts for anaconda created files")
 
         files = ["/etc/rpm/platform", "/etc/rpm/macros",
-                 "/etc/lilo.conf", "/etc/lilo.conf.anaconda",
+                 "/etc/lilo.conf.anaconda",
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",

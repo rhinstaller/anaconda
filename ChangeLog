@@ -1,3 +1,18 @@
+2005-02-20  Peter Jones <pjones@redhat.com>
+
+	* bootloader.py: remove code to show lilo as a bootloader choice
+	* gui-tags.txt: remove reference to lilo_gui.py and LiloWindow
+	* installclass.py: remove lilo specific code
+	* kickstart.py: remove lilo specific code
+	* packages.py: don't choose lilo if "useGrubVal" is 0.
+	  - remove lilo.conf from list of anaconda generated files
+	* tui-tags.txt: remove references to lilo_text.py and LiloAppendWindow
+	* upgrade.py: remove code to add lilo package to install set.
+	* kickstart-docs.txt: remove docs about lilo options
+	* iw/bootloader_main_gui.py: remove lilo radio button entries
+	* iw/bootlocwidget.py: remove lilo drive ordering code
+	* textw/bootloader_text.py: remove lilo bootloader choice
+
 2005-02-19  Paul Nasrat <pnasrat@redhat.com>
 
 	* autopart.py, bootdisk/ppc/ofboot.b, fsset.py, installclass.py,

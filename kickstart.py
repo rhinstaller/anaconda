@@ -336,10 +336,9 @@ class KickstartBase(BaseInstallClass):
         
 	self.skipSteps.append("authentication")
 
-    def doBootloader (self, id, args, useLilo = 0):
+    def doBootloader (self, id, args):
         (args, extra) = isys.getopt(args, '',
-                [ 'append=', 'location=', 'useLilo', 'lba32',
-                  'password=', 'md5pass=', 'linear', 'nolinear',
+                [ 'append=', 'location=', 'lba32', 'password=', 'md5pass=',
                   'upgrade', 'driveorder='])
 
         validLocations = [ "mbr", "partition", "none", "boot" ]
@@ -348,7 +347,6 @@ class KickstartBase(BaseInstallClass):
         password = None
         md5pass = None
         forceLBA = 0
-        linear = 1
         upgrade = 0
         driveorder = []
 
@@ -358,13 +356,6 @@ class KickstartBase(BaseInstallClass):
                 appendLine = arg
             elif str == '--location':
                 location = arg
-            elif str == '--useLilo':
-#                log("used deprecated option --useLilo, ignoring")
-                useLilo = 1
-	    elif str == '--linear':
-		linear = 1
-	    elif str == '--nolinear':
-		linear = 0
             elif str == '--lba32':
                 forceLBA = 1
             elif str == '--password':
@@ -395,15 +386,12 @@ class KickstartBase(BaseInstallClass):
             self.skipSteps.append("instbootloader")
         else:
             self.showSteps.append("bootloadersetup")
-            self.setBootloader(id, useLilo, location, linear, forceLBA,
-                           password, md5pass, appendLine, driveorder)
+            self.setBootloader(id, location, forceLBA, password, md5pass,
+                               appendLine, driveorder)
 
         self.skipSteps.append("upgbootloader")
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderadvanced")
-
-    def doLilo	(self, id, args):
-        self.doBootloader(id, args, useLilo = 1)
 
     def doFirstboot(self, id, args):
         (args, extra) = isys.getopt(args, '',
@@ -423,19 +411,6 @@ class KickstartBase(BaseInstallClass):
 
         id.firstboot = fb
         
-        
-    def doLiloCheck (self, id, args):
-        drives = isys.hardDriveDict ().keys()
-	drives.sort(isys.compareDrives)
-	device = drives[0]
-	isys.makeDevInode(device, '/tmp/' + device)
-	fd = os.open('/tmp/' + device, os.O_RDONLY)
-	os.unlink('/tmp/' + device)
-	block = os.read(fd, 512)
-	os.close(fd)
-	if block[6:10] == "LILO":
-	    sys.exit(0)
-
     def doTimezone(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'utc' ])
@@ -701,9 +676,7 @@ class KickstartBase(BaseInstallClass):
 		     "keyboard"		: self.doKeyboard	,
 		     "lang"		: self.doLang		,
                      "langsupport"	: self.doLangSupport	,
-		     "lilo"		: self.doLilo		,
                      "bootloader"       : self.doBootloader     ,
-		     "lilocheck"	: self.doLiloCheck	,
 		     "mouse"		: self.doMouse		,
 		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,

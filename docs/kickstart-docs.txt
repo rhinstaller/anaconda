@@ -307,12 +307,8 @@ Creating the Kickstart File
 
    bootloader (required)
 
-       Specifies how the boot loader should be installed and whether the
-       boot loader should be LILO or GRUB. This option is required for
-       both installations and upgrades. For upgrades, if --useLilo is not
-       specified and LILO is the current bootloader, the bootloader will
-       be changed to GRUB. To preserve LILO on upgrades, use bootloader
-       --upgrade.
+       Specifies how the boot loader should be installed. This option is
+       required for both installations and upgrades.
 
        --append=
 
@@ -347,24 +343,9 @@ Creating the Kickstart File
             If using GRUB, similar to --password= except the password
             should already be encrypted.
 
-       --useLilo
-
-            Use LILO instead of GRUB as the boot loader.
-
-       --linear
-
-            If using LILO, use the linear LILO option; this is only for
-            backward compatibility (and linear is now used by default).
-
-       --nolinear
-
-            If using LILO, use the nolinear LILO option; linear is the
-            default.
-
        --lba32
 
-            If using LILO, force use of lba32 mode instead of
-            auto-detecting.
+            Force use of lba32 mode instead of auto-detecting.
 
        --upgrade
 

@@ -607,22 +607,6 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.grpset.hdrlist["grub"].select()
-    if iutil.getArch() == "i386" and not id.bootloader.useGrub():
-        log("Upgrade: User selected to use LILO for bootloader")
-        if id.grpset.hdrlist.has_key("lilo") and not id.grpset.hdrlist["lilo"].isSelected():
-            log("Upgrade: lilo is not currently selected to be upgraded")
-            h = None
-            try:
-                h = ts.dbMatch('name', 'lilo').next()
-            except StopIteration:
-                pass
-            if h is None:
-                text = ("Upgrade: LILO is not already installed on the "
-                        "system, selecting LILO")
-                id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
-                log(text)
-                id.grpset.hdrlist["lilo"].select()
-                
 
     h = None
     try:

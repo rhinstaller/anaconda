@@ -30,23 +30,13 @@ class BootloaderChoiceWindow:
 
         if dispatch.stepInSkipList("instbootloader"):
             useGrub = 0
-            useLilo = 0
             noBl = 1
-        elif not bl.useGrub():
-            useGrub = 0
-            useLilo = 1
-            noBl = 0
         else:
             useGrub = 1
-            useLilo = 0
             noBl = 0
 
         blradio = RadioGroup()
         grub = blradio.add(_("Use GRUB Boot Loader"), "grub", useGrub)
-        if bootloader.showLilo and iutil.getArch() == "i386":
-            lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
-        else:
-            lilo = None
         skipbl = blradio.add(_("No Boot Loader"), "nobl", noBl)
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
 
@@ -54,8 +44,6 @@ class BootloaderChoiceWindow:
                             "btloadinstall", 1, 5)
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(grub, 0, 1, (0,0,0,0))
-        if lilo is not None:
-            grid.add(lilo, 0, 2, (0,0,0,0))
         grid.add(skipbl, 0, 3, (0,0,0,1))
         grid.add(buttons, 0, 4, growx = 1)
 
@@ -88,10 +76,6 @@ class BootloaderChoiceWindow:
 
                 # kind of a hack...
                 bl.defaultDevice = None
-            elif blradio.getSelection() == "lilo":
-                bl.setUseGrub(0)
-                dispatch.skipStep("instbootloader", 0)
-                dispatch.skipStep("bootloaderadvanced", 0)
             else:
                 bl.setUseGrub(1)
                 dispatch.skipStep("instbootloader", 0)

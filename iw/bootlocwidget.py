@@ -79,16 +79,6 @@ class BootloaderLocationWidget:
         self.widget = alignment
 
     def editDriveOrder(self, *args):
-        # we only support this for grub
-        if not self.usingGrub:
-            self.intf.messageWindow(_("Unable to Change Drive Order for LILO"),
-                                    _("We do not support changing the "
-                                      "drive order for use with LILO."),
-                                    type="ok")
-            return
-                                      
-
-            
         dialog = gtk.Dialog(_("Edit Drive Order"), flags = gtk.DIALOG_MODAL)
         gui.addFrame(dialog)
         dialog.set_modal(gtk.TRUE)

@@ -31,16 +31,6 @@ from rhpl.translate import _
 from booty import *
 from bootloaderInfo import *
 
-showLilo = 0
-try:
-    f = open("/proc/cmdline", "r")
-    if f.read().find("lilo") != -1:
-        showLilo = 1
-except:
-    pass
-
-
-
 def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     if dir == DISPATCH_BACK:
         return
@@ -98,9 +88,6 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
         if bootType == "GRUB":
             bl.useGrubVal = 1
             bl.setDevice(theDev)
-        elif bootType == "LILO":
-            bl.useGrubVal = 0
-            bl.setDevice(theDev)            
         else:
             bl.doUpgradeOnly = 0    
 
