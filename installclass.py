@@ -245,9 +245,9 @@ class Workstation(InstallClass):
 	self.setMakeBootdisk(1)
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, 16, 0, None)
-	self.addNewPartition('/', 500, 500, 1, None)
-	self.addNewPartition('swap', 64, 64, 0, None)
+	    self.addNewPartition('/boot', 16, -1, 0, None)
+	self.addNewPartition('/', 700, -1, 1, None)
+	self.addNewPartition('swap', 64, -1, 0, None)
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 	    warningText = _("You are about to erase any preexisting Linux "
 			    "installations on your system."))
@@ -279,12 +279,12 @@ class Server(InstallClass):
 	self.setMakeBootdisk(1)
 
 	if os.uname ()[4] != 'sparc64':
-	    self.addNewPartition('/boot', 16, 16, 0, None)
-	self.addNewPartition('/', 256, 256, 0, None)
-	self.addNewPartition('/usr', 512, 512, 1, None)
-	self.addNewPartition('/var', 256, 256, 0, None)
-	self.addNewPartition('/home', 512, 512, 1, None)
-	self.addNewPartition('swap', 64, 64, 1, None)
+	    self.addNewPartition('/boot', 16, -1, 0, None)
+	self.addNewPartition('/', 256, -1, 0, None)
+	self.addNewPartition('/usr', 512, -1, 1, None)
+	self.addNewPartition('/var', 256, -1, 0, None)
+	self.addNewPartition('/home', 512, -1, 1, None)
+	self.addNewPartition('swap', 64, 256, 1, None)
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = _("You are about to erase ALL DATA on your hard "
 			    "drive to make room for your Linux installation."))

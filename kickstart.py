@@ -343,7 +343,7 @@ class Kickstart(InstallClass):
 	# details)
 	size = 0
 	grow = 0
-	maxSize = 0
+	maxSize = -1
 	device = None
 	onPart = None
 
