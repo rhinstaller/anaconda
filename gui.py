@@ -212,12 +212,11 @@ class InstallProgressWindow:
         self.size.set_text ("%d k" % (header[rpm.RPMTAG_SIZE] / 1024))
         self.summary.set_text (header[rpm.RPMTAG_SUMMARY])
         threads_leave ()
-        print "setPackage update"	
 
-#    def __del__(self):
-#        threads_enter ()
-#       	self.window.destroy()
-#        threads_leave ()
+    def __del__(self):
+        threads_enter ()
+        self.window.destroy()
+        threads_leave ()
 
     def __init__(self, total, totalSize):
         threads_enter ()
