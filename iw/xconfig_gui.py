@@ -733,7 +733,7 @@ class MonitorWindow (InstallWindow):
         #--Add a category for a DDC probed monitor if a DDC monitor was probed, but the user has selected
         #--another monitor, gone forward, and then returned to this screen.
         if self.todo.isDDC == "TRUE":
-            parent = self.ctree.insert_node (None, None, ("DDC Probed Monitor",),
+            parent = self.ctree.insert_node (None, None, (_("DDC Probed Monitor"),),
                      2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
             self.originalNode = self.ctree.insert_node (parent, None, (self.todo.monitorOriginalName,), 2)
