@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.20
+Version: 10.0.3.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 19 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.21-1
+- Lowercase OSA addresses to make the kernel happy (#133190)
+- Don't hard code the VG name used for auto-partitioning to avoid 
+  colliding with existing ones
+- Make sure that we don't do runlevel 5 if people don't have X, etc 
+  installed (#135895)
+- Update for new Indic font filenames
+
 * Mon Oct 18 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.20-1
 - Fix traceback with %post logging (Gijs Hollestelle, #136154)
 - When using a local stage2.img for FTP/HTTP install, give an error earlier 
