@@ -267,8 +267,6 @@ class Drives:
     def available (self):
         return isys.hardDriveList ()
 
-rpmFD = None
-        
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None):
@@ -374,7 +372,7 @@ class ToDo:
             try:
                 isys.mount( '/tmp/' + device, self.instPath + mntpoint)
             except SystemError, (errno, msg):
-                self.intf.messageWindow("Error", "Error mounting %s: %s" % (device, msg))
+                self.intf.messageWindow(_("Error"), _("Error mounting %s: %s") % (device, msg))
 	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self):
@@ -385,8 +383,8 @@ class ToDo:
 	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
-	    w = self.intf.waitWindow("Formatting", 
-			"Formatting %s filesystem..." % (mntpoint,))
+	    w = self.intf.waitWindow(_("Formatting"),
+                          _("Formatting %s filesystem...") % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
                 args = [ "mke2fs", '/tmp/' + device ]
@@ -402,7 +400,7 @@ class ToDo:
                                              stdout = None, stderr = None,
                                              searchPath = 1)
                 if rc:
-                    raise ToDoError, "error making swap on " + device
+                    raise RuntimeError, "error making swap on " + device
             else:
                 pass
 
@@ -483,7 +481,7 @@ class ToDo:
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
         self.makeInitrd (kernelTag)
-        w = self.intf.waitWindow ("Creating", "Creating boot disk...")
+        w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
                                     [ "/sbin/mkbootdisk",
                                       "--noprompt",
@@ -494,7 +492,7 @@ class ToDo:
 				    searchPath = 1, root = self.instPath)
         w.pop()
         if rc:
-            raise ToDoError, "boot disk creation failed"
+            raise RuntimeError, "boot disk creation failed"
 
     def installLilo (self):
         # on upgrade read in the lilo config file
@@ -566,8 +564,8 @@ class ToDo:
 
     def getHeaderList(self):
 	if (not self.hdList):
-	    w = self.intf.waitWindow("Reading",
-                                     "Reading package information...")
+	    w = self.intf.waitWindow(_("Reading"),
+                                     _("Reading package information..."))
 	    self.hdList = self.method.readHeaders()
 	    w.pop()
 	return self.hdList
@@ -729,8 +727,8 @@ class ToDo:
     def upgradeFindRoot (self):
         rootparts = []
         if not self.setupFilesystems: return [ self.instPath ]
-        win = self.intf.waitWindow ("Examining System",
-                                    "Searching for Red Hat Linux installations...")
+        win = self.intf.waitWindow (_("Searching"),
+                                    _("Searching for Red Hat Linux installations..."))
         
         drives = self.drives.available ().keys ()
         for drive in drives:
@@ -758,8 +756,8 @@ class ToDo:
         return rootparts
 
     def upgradeFindPackages (self, root):
-        win = self.intf.waitWindow ("Examining System",
-                                    "Finding packages to upgrade...")
+        win = self.intf.waitWindow (_("Finding"),
+                                    _("Finding packages to upgrade..."))
         self.getCompsList ()
 	self.getHeaderList ()
         if self.setupFilesystems:
@@ -810,6 +808,18 @@ class ToDo:
                 self.ddruid.save ()
                 self.makeFilesystems ()
             self.mountFilesystems ()
+
+        if self.upgrade:
+            w = self.intf.waitWindow(_("Rebuilding"), 
+                                     _("Rebuilding RPM database..."))
+            rc = rpm.rebuildb (self.instPath)
+            w.pop ()
+            if rc:
+                intf.messageWindow (_("Error"),
+                                    _("Rebuild of RPM "
+                                      "database failed. You may be out of disk space?"));
+                # XXX do something sane here.
+                raise RuntimeError, "panic"
 
         self.method.targetFstab (self.mounts)
 
@@ -892,8 +902,8 @@ class ToDo:
 
         self.instLog.close ()
 
-        w = self.intf.waitWindow("Post Install", 
-                                 "Performing post install configuration...")
+        w = self.intf.waitWindow(_("Post Install"), 
+                                 _("Performing post install configuration..."))
 
         if not self.upgrade:
             self.writeFstab ()
