@@ -543,11 +543,6 @@ static int loadLocalImages(char * prefix, char * dir, int flags,
     int fd, rc;
     char * path;
 
-    /* In a kind world, this would do nothing more then mount a ramfs
-     * or tmpfs. The world isn't kind. */
-
-    setupRamdisk();
-
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
     sprintf(path, "%s/%s/RedHat/base/hdstg1.img", prefix, dir ? dir : "");
@@ -1775,8 +1770,6 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 }
 
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
-    setupRamdisk();
-
     /* try to pull the updates.img before getting the netstg1.img so
      * we can minimize our ramdisk size */
     if (!loadSingleUrlImage(ui, "RedHat/base/updates.img", flags,
@@ -3535,6 +3528,8 @@ int main(int argc, char ** argv) {
     mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, modInfo, flags);
 
     if (!continuing) {
+        doPwMount("/tmp/ramfs", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
+
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
