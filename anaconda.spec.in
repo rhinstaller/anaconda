@@ -1,6 +1,23 @@
+%define variant @@VARIANT@@
+
+%if "%{variant}" == "ws"
+%define as 0
+%define ws 1
+%define reltag .WS
+%elif "%{variant}" == "as"
+%define as 1
+%define ws 0
+%define reltag .AS
+%else
+%define as 0
+%define ws 0
+%define reltag 
+%endif
+
+
 Name: anaconda
 Version: @@VERSION@@
-Release: @@RELEASE@@
+Release: @@RELEASE@@%{reltag}
 Copyright: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
@@ -34,8 +51,28 @@ already installed systems.
 %setup -q
 
 %build
+%if %{ws}
+sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Workstation"/' < Makefile.inc > Makefile.inc.product
+%elif %{as}
+sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Server"/' < Makefile.inc > Makefile.inc.product
+%endif
+[ -f Makefile.inc.product ] && mv Makefile.inc.product Makefile.inc
+
 make depend
 make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
+
+# make this into the appropriate product
+%if %{ws}
+sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/workstation.py.hidden
+mv installclasses/workstation.py.hidden installclasses/workstation.py
+echo "helptag         ws" >> anaconda.conf
+%elif %{as}
+sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/server.py.hidden
+mv installclasses/server.py.hidden installclasses/server.py
+echo "helptag         as" >> anaconda.conf
+%endif
+
+
 
 %install
 rm -rf $RPM_BUILD_ROOT

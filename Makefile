@@ -105,7 +105,7 @@ create-snapshot:
 	@cd /tmp/anaconda ; rm -rf comps
 	@cd /tmp/anaconda ; rm -rf help
 	@cd /tmp/anaconda ; rm -rf text-help
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
+	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" -e "s/@@VARIANT@@/$(VARIANT)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
 	@rm -rf /tmp/anaconda-$(VERSION)
