@@ -308,6 +308,7 @@ char * setupCdrom(char * location,
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; devices[i]; i++) {
+	    if (!devices[i]->device) continue;
             logMessage("trying to mount CD device %s", devices[i]->device);
             devMakeInode(devices[i]->device, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
