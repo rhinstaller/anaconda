@@ -661,7 +661,7 @@ class XF86Config:
 """
         
         
-    def setKeyboard (self, rules, model, layout, variant, options):
+    def setKeyboard(self, rules, model, layout, variant, options):
         self.keyRules = rules
         self.keyModel = model
         self.keyLayout = layout

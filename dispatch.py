@@ -44,7 +44,7 @@ from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 
 installSteps = [
     ("language", ("intf", "id.instLanguage")),
-    ("keyboard", ("id.instLanguage", "id.keyboard")),
+    ("keyboard", ("id.instLanguage", "id.keyboard", "id.xconfig")),
     ("mouse", ("id.mouse",)),
     ("welcome", ("id.configFileData",)),
     ("reconfigwelcome", ()),

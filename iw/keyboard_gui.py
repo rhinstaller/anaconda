@@ -37,9 +37,8 @@ class KeyboardWindow (InstallWindow):
             if self.flags.setupFilesystems:
                 self.kb.setRule (self.model, self.layout, self.variant, "complete")
             
-	    # XXX
-            #self.x.setKeyboard (self.rulesbase, self.model,
-                                     #self.layout, self.variant, "")
+            self.x.setKeyboard (self.rulesbase, self.model,
+                                self.layout, self.variant, "")
 
             self.kbd.setfromx (self.model, self.layout, self.variant)
 
@@ -60,9 +59,10 @@ class KeyboardWindow (InstallWindow):
             self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
     # KeyboardWindow tag="kybd"
-    def getScreen (self, instLang, kbd):
+    def getScreen (self, instLang, kbd, x):
 	self.flags = flags
 	self.kbd = kbd
+        self.x = x
 
 	cur = kbd.getXKB()
 	self.model = cur[1]

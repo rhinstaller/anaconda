@@ -22,7 +22,7 @@ from flags import flags
 class KeyboardWindow:
     beenRun = 0
 
-    def __call__(self, screen, instLang, kbd):
+    def __call__(self, screen, instLang, kbd, xconfig):
 	if flags.serial:
 	    return INSTALL_NOOP
         keyboards = kbd.available ()
