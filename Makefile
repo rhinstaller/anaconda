@@ -1,10 +1,15 @@
 # Copyright (C) 1998-2002  Red Hat, Inc.
 include Makefile.inc
 
-SUBDIRSHD = isys loader2 po stubs \
+SUBDIRS = isys loader2 po stubs \
 	    textw utils scripts bootdisk installclasses \
-	    fonts iw pixmaps isomd5sum command-stubs
-SUBDIRS = $(SUBDIRSHD)
+	    iw pixmaps isomd5sum command-stubs
+# fonts aren't on s390/s390x
+ifneq (s390, $(ARCH))
+ifneq (s390x, $(ARCH))
+SUBDIRS += fonts
+endif
+endif
 
 # DESTDIR        - destination for install image for install purposes
 DESTDIR = ../../../RedHat/instimage
