@@ -465,9 +465,16 @@ class RaidCloneDialog:
                                                          req.device)
             except:
                 part = None
-                
-            if part and part.type & parted.PARTITION_EXTENDED:
-                continue
+
+	    if part:
+		if part.type & parted.PARTITION_EXTENDED:
+		    continue
+		elif part.type & parted.PARTITION_FREESPACE:
+		    continue
+		elif part.type & parted.PARTITION_METADATA:
+		    continue
+	    else:
+		continue
 
             requests.append(req)
 
@@ -565,17 +572,13 @@ class RaidCloneDialog:
 
 	# no requests to clone, bail out
 	if requests is None or len(requests) == 0:
-	    print "no requests to clone on sourcedrive"
 	    return 0
 
 	# now try to clear the target drives
 	for device in self.targetDrives:
-	    print "deleting parts on ",device
 	    rc = doDeletePartitionsByDevice(self.intf, self.partitions,
 					    self.diskset, device,
 					    confirm=0, quiet=1)
-	    print "result of delete = ",rc
-
 
 	# now clone!
 	for req in requests:
