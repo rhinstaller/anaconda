@@ -73,6 +73,10 @@ class CdromInstallMethod(ImageInstallMethod):
 	target = "%s/rhinstall-stage2.img" % self.mntPoint
 	os.unlink(target)
 
+    def writeCleanupPath(self, f):
+	isys.makeDevInode("loop0", "/tmp/loop0")
+	f.write("lounsetup /tmp/loop0\n")
+
     def __init__(self, url, messageWindow, progressWindow):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow

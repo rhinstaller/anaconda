@@ -390,9 +390,6 @@ try:
                 serial = serial, reconfigOnly = reconfigOnly, test = test,
                 extraModules = extraModules)
     intf.run(todo, test = test)
-
-    if not todo.reconfigOnly:
-	todo.fstab.umountFilesystems(rootPath, ignoreErrors = 1)
 except SystemExit, code:
     intf.shutdown()
 except:

@@ -1380,6 +1380,12 @@ class ToDo:
 
 	self.instClass.postAction(self.instPath, self.serial)
 
+	if self.setupFilesystems:
+	    f = open("/tmp/cleanup", "w")
+	    self.method.writeCleanupPath(f)
+	    self.fstab.writeCleanupPath(f)
+	    f.close()
+
         del syslog
         
         w.pop ()

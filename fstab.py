@@ -251,6 +251,15 @@ class Fstab:
     def partitionList(self):
 	return self.ddruid.partitionList()
 
+    def writeCleanupPath(self, f):
+	if self.rootOnLoop():
+	    # swap gets turned off by init, then turn off loop1, and filesystem
+	    # unmounts will just happen
+	    f.write("umount /mnt/sysimage/proc\n")
+	    f.write("umount /mnt/sysimage\n")
+	    isys.makeDevInode("loop1", "/tmp/loop1")
+	    f.write("lounsetup /tmp/loop1\n")
+
     def getprotectedList(self):
         if self.protectList:
             return self.protectList
@@ -429,8 +438,8 @@ class Fstab:
 			    _("Error unmounting %s: %s") % (device, msg))
 
 	if self.rootOnLoop():
-	    isys.makeDevInode("loop0", '/tmp/' + "loop0")
-	    isys.unlosetup("/tmp/loop0")
+	    isys.makeDevInode("loop1", '/tmp/' + "loop1")
+	    isys.unlosetup("/tmp/loop1")
 
 	for (raidDevice, mntPoint, fileSystem, deviceList) in self.existingRaid:
 	    isys.raidstop(raidDevice)
@@ -552,13 +561,13 @@ class Fstab:
 		# do a magical loopback mount -- whee!
 		isys.mount(device, "/mnt/loophost", fstype = "vfat")
 		
-		isys.makeDevInode("loop0", '/tmp/' + "loop0")
+		isys.makeDevInode("loop1", '/tmp/' + "loop1")
 		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize,
 		    (self.progressWindow, _("Loopback"),
 		      _("Creating loopback filesystem on device /dev/%s...")
 			    % device))
 
-		isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
+		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
 
 		if self.serial:
 		    messageFile = "/tmp/mke2fs.log"
@@ -569,12 +578,12 @@ class Fstab:
 			      _("Formatting %s filesystem...") % (mntpoint,))
 
                 iutil.execWithRedirect ("/usr/sbin/mke2fs", 
-					[ "mke2fs", "/tmp/loop0" ],
+					[ "mke2fs", "/tmp/loop1" ],
                                         stdout = messageFile, 
 					stderr = messageFile, searchPath = 1)
 
 		# don't leave this setup, or we'll get confused later
-		isys.unlosetup("/tmp/loop0")
+		isys.unlosetup("/tmp/loop1")
 		isys.umount("/mnt/loophost")
 
 		w.pop()
@@ -589,7 +598,7 @@ class Fstab:
 	if self.rootOnLoop():
 	    (rootDev, rootFs) = self.getRootDevice()
 	    mountLoopbackRoot(rootDev, skipMount = 1)
-	    dirty = isys.ext2IsDirty("loop0")
+	    dirty = isys.ext2IsDirty("loop1")
 	    unmountLoopbackRoot(skipMount = 1)
 	    if dirty: return 1
 
@@ -610,10 +619,10 @@ class Fstab:
 	    elif fsystem == "vfat" and mntpoint == "/":
 		isys.mount(device, "/mnt/loophost", fstype = "vfat")
 
-		isys.makeDevInode("loop0", '/tmp/' + "loop0")
+		isys.makeDevInode("loop1", '/tmp/' + "loop1")
 
-		isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
-		isys.mount("loop0", instPath)
+		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
+		isys.mount("loop1", instPath)
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
@@ -639,8 +648,8 @@ class Fstab:
             if mntpoint[:10] == 'DONT ERASE':
                 continue
 	    if fs == "vfat" and mntpoint == "/":
-		f.write("# LOOP0: /dev/%s %s /redhat.img\n" % (dev, fs))
-		dev = "loop0"
+		f.write("# LOOP1: /dev/%s %s /redhat.img\n" % (dev, fs))
+		dev = "loop1"
 		fs = "ext2"
 
 	    if labels.has_key(dev):
@@ -959,15 +968,15 @@ def createLabel(labels, newLabel):
 
 def mountLoopbackRoot(device, skipMount = 0):
     isys.mount(device, '/mnt/loophost', fstype = "vfat")
-    isys.makeDevInode("loop0", '/tmp/' + "loop0")
-    isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
+    isys.makeDevInode("loop1", '/tmp/' + "loop1")
+    isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
 
     if not skipMount:
-	isys.mount("loop0", '/mnt/sysimage')
+	isys.mount("loop1", '/mnt/sysimage')
 
 def unmountLoopbackRoot(skipMount = 0):
     if not skipMount:
 	isys.umount('/mnt/sysimage')        
-    isys.makeDevInode("loop0", '/tmp/' + "loop0")
-    isys.unlosetup("/tmp/loop0")
+    isys.makeDevInode("loop1", '/tmp/' + "loop1")
+    isys.unlosetup("/tmp/loop1")
     isys.umount('/mnt/loophost')        

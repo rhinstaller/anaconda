@@ -1,5 +1,8 @@
 class InstallMethod:
 
+    def writeCleanupPath(self, f):
+	pass
+
     def protectedPartitions(self):
         return None
 
