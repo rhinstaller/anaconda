@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-06-21 16:11+02:00\n"
+"PO-Revision-Date: 2000-08-04 01:30+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
-msgstr "Søker"
+msgstr "Alt"
 
 #: ../exception.py:13 ../text.py:788
 msgid "Exception Occurred"
@@ -91,6 +90,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Vennligst sett inn en diskett nå. Alt innhold på disketten vil slettes, så "
+"vær forsiktig når du velger diskett."
 
 #: ../gui.py:361 ../gui.py:601
 msgid "Next"
@@ -540,7 +541,7 @@ msgstr "Ingen hjelp tilgjengelig for denne installasjonen."
 
 #: ../text.py:802
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Lagre krasjdump"
 
 #: ../text.py:813
 msgid ""
@@ -550,10 +551,15 @@ msgid ""
 "will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"En intern feil oppsto i installasjonsprogrammet. Vennligst rapportér denne "
+"feilen til Red Hat (gjennom buzilla.redhat.com websidene) så snart som "
+"mulig. Informasjon om denne feilen kan lagres til en diskett, og dette vil "
+"hjelpe Red Hat med å rette opp feilen.\n"
+"\n"
 
 #: ../text.py:820 ../text.py:823
 msgid "Save"
-msgstr ""
+msgstr "Lagre"
 
 #: ../text.py:820 ../text.py:821
 msgid "Debug"
@@ -564,11 +570,10 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:837
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <F1> for hjelp | <Tab> mellom menyvalg | <Mellomrom> velg | <F12> neste "
+" <F1> for hjelp | <Tab> mellom elementer | <Mellomrom> velger | <F12> neste "
 "skjerm"
 
 #: ../text.py:839
@@ -767,23 +772,21 @@ msgstr ""
 "gjennom sjekk, og steng ned på riktig måte før du prøver å oppgradere."
 
 #: ../todo.py:906
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ett eller flere av filsystemene i ditt Linux system ble ikke riktig "
-"avmontert. Vennligst start opp din Linux installasjon, la filsystemene gå "
-"gjennom sjekk, og steng ned på riktig måte før du prøver å oppgradere."
+"Ett eller flere av filsystemene som er listet i /etc/fstab på ditt Linux "
+"system kan ikke monteres. Vennligst rett opp dette problemet og forsøk å "
+"oppgradere igjen."
 
 #: ../todo.py:932
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gjenoppbygging av RPM databasen feilet. Ikke mer diskplass?"
 
 #: ../todo.py:945
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Finner pakker som skal oppgraderes..."
+msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
 #: ../todo.py:1250
 msgid "Processing"
@@ -866,9 +869,8 @@ msgid "Vertical frequency range"
 msgstr "Vertikalt frekvensområde"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Musvalg"
+msgstr "Mus ikke funnet"
 
 #: ../xserver.py:27
 msgid ""
@@ -877,10 +879,14 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Musen din ble ikke funnet automatisk. For å fortsette i grafisk "
+"installasjonsmodus, vennligst fortsett til neste skjerm og oppgi informasjon "
+"om din mus. Du kan også bruke tekstmodus installasjon som ikke er avhengig "
+"av mus."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Bruk tekstmodus"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -903,9 +909,8 @@ msgid "Root passwords do not match."
 msgstr "Root-passordene er ikke like."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Passord for root godtatt."
+msgstr "Brukerpassord godtatt."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -999,36 +1004,32 @@ msgid "NIS Server: "
 msgstr "NIS-tjener: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Bruk NIS"
+msgstr "Bruk LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS-tjener:"
+msgstr "LDAP-tjener:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP basis DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Slå på døde taster"
+msgstr "Bruk Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Område:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS-tjener:"
+msgstr "Admin-tjener:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1142,9 +1143,8 @@ msgstr ""
 "Du kan ikke oppgradere dette systemet!"
 
 #: ../iw/examine_gui.py:44
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "Katalogen %s må være på rotfilsystemet."
+msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 
 #: ../iw/examine_gui.py:72
 msgid "Customize packages to be upgraded"
@@ -1627,9 +1627,8 @@ msgid "Skip X Configuration"
 msgstr "Hopp over konfigurasjon av X"
 
 #: ../iw/xconfig_gui.py:491
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Standard"
+msgstr "Standard skrivebord:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1715,9 +1714,8 @@ msgid "Boot label may not be empty."
 msgstr "Oppstartsetiketten kan ikke være tom."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "Oppstartsetiketter kan ikke inneholde mellomrom."
+msgstr "Oppstartsetiketten inneholder ugyldige tegn."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1747,9 +1745,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 i DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "Hvilken enhet er musen plassert på? %s %i"
+msgstr "Hvilken enhet er musen plassert på?"
 
 #: ../textw/mouse_text.py:47
 msgid "Which model mouse is attached to this computer?"
@@ -2100,7 +2097,7 @@ msgstr "Forespør tjener via kringkasting"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "partisjonering møtte ikke kravene"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2422,19 +2419,16 @@ msgstr ""
 "swap-partisjon er %ld Megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Ingen stasjoner funnet"
+msgstr "Ingen stasjoner spesifisert"
 
 #: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
 msgid "Close"
 msgstr "Lukk"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr ""
-"Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
+msgstr "Du må begrense denne partisjonen til én stasjon."
 
 #: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
@@ -2775,9 +2769,8 @@ msgid "Swap Partition"
 msgstr "Swap-partisjon"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Redigér partisjon"
+msgstr "RAID-partisjon"
 
 #: ../libfdisk/newtfsedit.c:363
 msgid "Edit New Partition"
@@ -2835,17 +2828,16 @@ msgstr ""
 "Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Ingen rotpartisjon"
+msgstr "Ingen /boot/efi partisjon"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Du må sette opp en swap-partisjon for at installasjonen skal fortsette."
+"Du må tilegne monteringspunktet /boot/efi til en FAT primærpartisjon for at "
+"installasjonen skal fortsette."
 
 #: ../libfdisk/newtfsedit.c:1640
 msgid ""
@@ -2948,9 +2940,9 @@ msgid "Failed to insert %s module."
 msgstr "Klarte ikke å laste %s modul."
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Kunne ikke montere driverdisketten."
+msgstr "Montering av driverdisketten feilet: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
@@ -3466,9 +3458,8 @@ msgid "Custom System"
 msgstr "Spesialtilpasset system"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Oppgradér system"
+msgstr "Tjener-system"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -3515,9 +3506,8 @@ msgstr "Spill"
 msgid "Multimedia Support"
 msgstr "Multimediastøtte"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Skriverstøtte"
+msgstr "Støtte for bærbare"
 
 msgid "Networked Workstation"
 msgstr "Arbeidsstasjon i nettverk"
@@ -3566,9 +3556,3 @@ msgstr "Kjerneutvikling"
 
 msgid "Utilities"
 msgstr "Verktøy"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Feil ved kopiering av tidssone (fra %s): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Klyngeteknologi"
