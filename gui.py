@@ -90,6 +90,9 @@ def scrollToIdleHandler((view, store, iddict)):
 	return
     
     selection = view.get_selection()
+    if not selection:
+	return
+    
     model, iter = selection.get_selected()
     if not iter:
 	return
