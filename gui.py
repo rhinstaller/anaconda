@@ -505,14 +505,19 @@ class InstallControlWindow:
             self.hbox.reorder_child (self.hideHelpButton, 0)
             self.displayHelp = TRUE
 
+
+    def close (self, args):
+        self.textWin.destroy()
+        self.releaseButton.set_sensitive(TRUE)
+
     def releaseClicked (self, widget):
         self.textWin = GnomeDialog ()
-        self.textWin.set_modal (TRUE)
+        self.releaseButton.set_sensitive(FALSE)
 
         table = GtkTable(3, 3, FALSE)
         self.textWin.vbox.pack_start(table)
         self.textWin.append_button(_("Close"))
-        self.textWin.button_connect (0, self.textWin.destroy)
+        self.textWin.button_connect (0, self.close)
 
         vbox1 = GtkVBox ()        
         vbox1.set_border_width (10)
@@ -550,8 +555,6 @@ class InstallControlWindow:
             label = GtkLabel(_("Unable to load file!"))
 
             table.attach (label, 1, 2, 1, 2, FILL|EXPAND, FILL|EXPAND, 5, 5)
-#            vbox1.pack_start(label, FALSE, FALSE)
-#            vbox1.pack_start(closeButton, FALSE, FALSE)
 
             self.textWin.set_border_width(0)
             self.textWin.show_all()
