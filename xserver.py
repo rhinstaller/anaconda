@@ -161,7 +161,8 @@ def startX():
 #            print "Sleeping 10 seconds"
 #            time.sleep(10)
         except:
-            try:
+            pass
+#            try:
 #                print "Skipping VGA16"
 
                 #XXX - VGA16 can't do 800x600, so don't even try.  Fall back to text instead
@@ -177,7 +178,8 @@ def startX():
 #                testx(mouse, x)
 #                print "Sleeping 15 seconds"
 #                time.sleep(15)
-            except:
+#            except:
+#                pass
 #                print x.server, "didn't work...falling back to text mode"
 #                print "Sleeping 30 seconds"
 #                time.sleep(30)
