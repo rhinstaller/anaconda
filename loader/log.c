@@ -8,7 +8,9 @@
 
 static FILE * logfile = NULL;
 static int logfd;
+#if 0
 static int logDebugMessages = 0;
+#endif
 
 static void doLogMessage(const char * s, va_list args);
 
@@ -42,8 +44,9 @@ void openLog(int useLocal) {
 	logfile = fopen("debug.log", "w");
 	logfd = open("debug.log", O_WRONLY);
     }
-
+#if 0
     if (getenv("DEBUG")) logDebugMessages = 1;
+#endif
 }
 
 void closeLog(void) {

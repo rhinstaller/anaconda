@@ -11,7 +11,7 @@
 
 #include "pciprobe.h"
 
-struct pciDevice * pciDeviceList = NULL;
+static struct pciDevice * pciDeviceList = NULL;
 static int numPciDevices = 0;
 static struct pci_access *pacc=NULL;
 
@@ -36,7 +36,7 @@ static int vendCmp(const void * a, const void * b) {
 }
 
 
-char *getVendor(unsigned int vendor) {
+static char *getVendor(unsigned int vendor) {
     struct pciDevice *searchDev, key;
     char *tmpstr;
     
@@ -128,7 +128,7 @@ int probePciReadDrivers(const char * fn) {
     return 0;
 }
 
-struct pciDevice * pciGetDeviceInfo(unsigned int vend, unsigned int dev) {
+static struct pciDevice * pciGetDeviceInfo(unsigned int vend, unsigned int dev) {
     struct pciDevice *searchDev, key;
     
     key.vendor = vend;

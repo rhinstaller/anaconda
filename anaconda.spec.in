@@ -75,6 +75,9 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
+* Fri Aug  4 2000 Florian La Roche <Florian.LaRoche@redhat.com>
+- allow also subvendorid and subdeviceid in trimpcitable
+
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
 
