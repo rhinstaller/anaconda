@@ -179,7 +179,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
 	    umountLoopback("/mnt/runtime", "loop0");
 	} else {
 	    if (verifyStamp("/mnt/runtime")) {
-		umountLoopback("/tmp/runtime", "loop0");
+		umountLoopback("/mnt/runtime", "loop0");
 		umountLoopback("/tmp/loopimage", "loop7");
 		break;
 	    }

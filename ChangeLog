@@ -1,3 +1,8 @@
+2005-03-11  Chris Lumens  <clumens@redhat.com>
+
+	* loader/method.c (validIsoImages):  Unmount the loopback mounted ISO
+	image to free up the loopback device for later use (#150887).
+
 2005-03-09  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda:  Put a comma between "once" and "DisconnectClients"
