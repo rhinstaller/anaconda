@@ -39,9 +39,11 @@ class LiloWindow (InstallWindow):
             self.todo.bootdisk = 0
             self.todo.bdstate = "FALSE"
 
-        if self.lilo.get_active ():
+        if not self.lilo.get_active ():
             self.todo.lilo.setDevice(None)
+            self.todo.lilostate = "FALSE"
         elif self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+            self.todo.lilostate = "TRUE"
             if self.mbr.get_active ():
                 self.todo.lilo.setDevice("mbr")
             else:
@@ -110,21 +112,45 @@ class LiloWindow (InstallWindow):
         return 1
 
     def toggled (self, widget, *args):
+        print "Inside toggled"
+
         if widget.get_active ():
-            state = FALSE
-        else:
+#            state = FALSE
             state = TRUE
+        else:
+#            state = TRUE
+            state = FALSE
 
         for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
-                  self.imageList, self.liloLocationBox, self.radioBox ]:
+                  self.imageList, self.liloLocationBox, self.radioBox, self.sw ]:
             n.set_sensitive (state)
 
-        if state and not \
-                self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+        if state and not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
             self.liloLocationBox.set_sensitive(0)
             self.mbr.set_sensitive(0)
             self.part.set_sensitive(0)
             self.linearCheck.set_sensitive(0)
+#            self.sw.set_sensitive(0)
+
+#    def OLD-toggled (self, widget, *args):
+#        print "Inside toggled"
+#        if widget.get_active ():
+#            state = FALSE
+#            state = TRUE
+#        else:
+#            state = TRUE
+#            state = FALSE
+
+#        for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
+#                  self.imageList, self.liloLocationBox, self.radioBox ]:
+#            n.set_sensitive (state)
+
+#        if state and not \
+#                self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+#            self.liloLocationBox.set_sensitive(0)
+#            self.mbr.set_sensitive(0)
+#            self.part.set_sensitive(0)
+#            self.linearCheck.set_sensitive(0)
 
     def labelInsertText(self, entry, text, len, data):
         i = 0
@@ -290,8 +316,39 @@ class LiloWindow (InstallWindow):
 
         optionBox.pack_start (self.bootdisk)
 
-        self.lilo = GtkCheckButton (_("Do not install LILO"))
-        self.lilo.set_active (FALSE)
+#        self.lilo = GtkCheckButton (_("Do not install LILO"))
+        self.lilo = GtkCheckButton (_("Install LILO"))
+#        self.lilo.set_active (FALSE)
+
+#        print "self.todo.lilostate = ", self.todo.lilostate
+        # If this screen hasn't been reached before, then activate self.lilo
+        if self.todo.lilostate == "":
+            self.todo.lilostate = "TRUE"
+            
+        print "self.todo.lilostate = ", self.todo.lilostate
+
+        # If first time or self.lilo was activated in the past, activate now.  Else deactivate
+        if self.todo.lilostate == "TRUE":
+#            print "Setting true"
+            self.lilo.set_active (TRUE)
+        else:
+#            print "Setting false"
+            self.lilo.set_active (FALSE)
+            self.toggled (self.lilo)
+
+            for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
+                      self.imageList, self.liloLocationBox, self.radioBox ]:
+                n.set_sensitive (FALSE)
+
+#            if state and not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+#            self.liloLocationBox.set_sensitive(0)
+#            self.mbr.set_sensitive(0)
+#            self.part.set_sensitive(0)
+#            self.linearCheck.set_sensitive(0)
+
+
+
+#        self.lilo.set_active (TRUE)
         self.lilo.connect ("toggled", self.toggled)
         optionBox.pack_start (self.lilo, FALSE)
 
@@ -333,7 +390,7 @@ class LiloWindow (InstallWindow):
         self.typeLabel.set_alignment(0.0, 0.0)
         tempBox.pack_start(self.deviceLabel, FALSE)
         tempBox.pack_start(self.typeLabel, FALSE)
-        self.defaultCheck = GtkCheckButton(_("Default boot image"))
+        self.defaultCheck = GtkCheckButton(_("Defaultcheck boot image"))
         self.defaultCheck.connect("toggled", self.defaultUpdated)
 
         # Alliteration!
@@ -358,18 +415,40 @@ class LiloWindow (InstallWindow):
 
         self.imageList.set_selection_mode (SELECTION_BROWSE)
 
-        sw = GtkScrolledWindow ()
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        sw.add (self.imageList)
-        box.pack_start (sw, TRUE)
+        self.sw = GtkScrolledWindow ()
+        self.sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.sw.add (self.imageList)
+        box.pack_start (self.sw, TRUE)
 
         where = self.todo.lilo.getDevice()
-        if not where:
-            self.lilo.set_active(1)
-        elif where == "mbr":
-            self.mbr.set_active(1)
+
+        if self.todo.lilostate == "TRUE":
+            self.editBox.set_sensitive(TRUE)
+            tempBox2.set_sensitive(TRUE)
+            self.radioBox.set_sensitive(TRUE)
+            self.sw.set_sensitive(TRUE)
+
+            if not where:
+                self.lilo.set_active(1)
+            elif where == "mbr":
+                self.mbr.set_active(1)
+            else:
+                self.part.set_active(1)
         else:
-            self.part.set_active(1)
+            print "inside else"
+            self.editBox.set_sensitive(FALSE)
+#            tempBox2.set_sensitive(FALSE)
+            self.radioBox.set_sensitive(FALSE)
+            self.sw.set_sensitive(FALSE)
+
 
         return box
+
+
+
+
+
+
+
+
 
