@@ -173,7 +173,7 @@ msgstr "Не задан ни один раздел Linux. Обновление системы невозможно!"
 
 #: ../text.py:205
 msgid "System to Upgrade"
-msgstr "Система для обновлеия"
+msgstr "Система для обновления"
 
 #: ../text.py:206
 msgid "What partition holds the root partition of your installation?"
@@ -227,7 +227,7 @@ msgid ""
 "If you have purchased Official Red Hat Linux, be sure to register your "
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
-"Добро пожаловть в Red Hat Linux!\n"
+"Добро пожаловать в Red Hat Linux!\n"
 "\n"
 "Процесс установки подробно описан в Официальном руководстве по инсталляции "
 "Red Hat Linux, доступном от Red Hat Software. Если у вас есть доступ к этому "
@@ -563,7 +563,7 @@ msgstr "Обновление завершено"
 
 #: ../gui.py:399
 msgid "Red Hat Linux Installer"
-msgstr "Инсталлятоr Red Hat Linux"
+msgstr "Инсталляторr Red Hat Linux"
 
 #: ../gui.py:408
 msgid "Finish"
@@ -727,7 +727,7 @@ msgstr "Выбор разделов для форматирования"
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
-msgstr "Поск дефектных блоков при форматировании"
+msgstr "Поиск дефектных блоков при форматировании"
 
 #: ../iw/installpath.py:36
 msgid "GNOME Workstation"
@@ -1160,7 +1160,7 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Поскольку на вашей магине недостаточно ОЗУ, необходимо подключить "
+"Поскольку на вашей машине недостаточно ОЗУ, необходимо подключить "
 "пространство свопинга немедленно. Для этого нужно записать на диск вновь "
 "созданную таблицу разделов. Вы согласны?"
 
@@ -1178,7 +1178,7 @@ msgstr ""
 
 #: ../textw/partitioning.py:182
 msgid "Check for bad blocks during format"
-msgstr "Поск дефектных блоков при форматировании"
+msgstr "Поиск дефектных блоков при форматировании"
 
 #: ../textw/partitioning.py:186
 msgid "Choose Partitions to Format"
@@ -1550,7 +1550,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
 msgid "Size Error"
-msgstr "Ошика размера"
+msgstr "Ошибка размера"
 
 #: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
 msgid ""
@@ -1807,7 +1807,7 @@ msgid ""
 "RAID-1 partition for the install to proceed."
 msgstr ""
 "Поскольку вы назначили корневой раздел (/) на устройство RAID, вы должны "
-"также назначть загрузочный раздел (boot) на раздел Linux native (ext2) или "
+"также назначить загрузочный раздел (boot) на раздел Linux native (ext2) или "
 "на раздел RAID-1 для продолжения инсталляции."
 
 #: ../libfdisk/gnomefsedit.c:3067
@@ -2097,8 +2097,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Ни в одном из вашиш приводов CD-ROM не удалось найти Red Hat CD-ROM. "
-"Пожалуйста вставьте Red Hat CD и нажмите \"OK\" для продолдения."
+"Ни в одном из ваших приводов CD-ROM не удалось найти Red Hat CD-ROM. "
+"Пожалуйста вставьте Red Hat CD и нажмите \"OK\" для продолжения."
 
 #: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2106,7 +2106,7 @@ msgstr "Этот каталог не содержит инсталляционное дерево Red Hat."
 
 #: ../loader/loader.c:854
 msgid "I could not mount that directory from the server"
-msgstr "Невозможно смонтироать этот каталог с сервера"
+msgstr "Невозможно смонтировать этот каталог с сервера"
 
 #: ../loader/loader.c:939
 msgid "FTP"
