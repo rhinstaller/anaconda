@@ -111,7 +111,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
                               "write your new partition table to the disk "
                               "immediately. Is that OK?"), "okcancel")
     else:
-        rc = 0
+        rc = 1
         
     if rc:
         partitions.doMetaDeletes(diskSet)        
