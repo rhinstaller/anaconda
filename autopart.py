@@ -1183,8 +1183,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
               request.preexist == 1):
             req = partitions.getRequestByDeviceName(request.device)
             if not req or req.preexist == 0:
-                 intf.messageWindow(_("Requested Partition Does Not Exist"),
-                                    _("Unable to locate partition %s to use "
+                 intf.messageWindow(_("Requested Raid Device Does Not Exist"),
+                                    _("Unable to locate raid device %s to use "
                                       "for %s.\n\n"
                                       "Press 'OK' to reboot your system.")
                                     % (request.device,
@@ -1213,8 +1213,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             # get the preexisting partition they want to use
             req = partitions.getRequestByVolumeGroupName(request.volumeGroupName)
             if not req or req.preexist == 0 or req.format == 1:
-                 intf.messageWindow(_("Requested Partition Does Not Exist"),
-                                    _("Unable to locate partition %s to use "
+                 intf.messageWindow(_("Requested Volume Group Does Not Exist"),
+                                    _("Unable to locate volume group %s to use "
                                       "for %s.\n\n"
                                       "Press 'OK' to reboot your system.")
                                    % (request.volumeGroupName,
@@ -1249,8 +1249,8 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             # get the preexisting partition they want to use
             req = partitions.getRequestByLogicalVolumeName(request.logicalVolumeName)
             if not req or req.preexist == 0:
-                intf.messageWindow(_("Requested Partition Does Not Exist"),
-                                   _("Unable to locate partition %s to use "
+                intf.messageWindow(_("Requested Logical Volume Does Not Exist"),
+                                   _("Unable to locate logical volume %s to use "
                                      "for %s.\n\n"
                                      "Press 'OK' to reboot your system.")
                                    % (request.logicalVolumeName,
