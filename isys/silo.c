@@ -281,13 +281,17 @@ scan_walk_callback(int node) {
 		    sprintf (prop, "sd(%d,%d,", v0ctrl, hd[disk].mid);
 		break;
 	    case SDSK_TYPE_PLN:
+		prop = ((struct openpromio *)buf)->oprom_array;
 		sprintf (prop, "/SUNW,pln@%x,%x/SUNW,ssd@%d,%d",
 			 hd[disk].lo & 0xf0000000, hd[disk].lo & 0xffffff,
 			 hd[disk].hi, hd[disk].mid);
 		break;
 	    case SDSK_TYPE_FC:
+		prop = ((struct openpromio *)buf)->oprom_array;
 		sprintf (prop, "/sf@0,0/ssd@w%08x%08x,%d", hd[disk].hi, hd[disk].mid, hd[disk].lo);
 		break;
+	    default:
+		continue;
 	    }
 	    hd[disk].prom_name = malloc (strlen (prom_path) + strlen(prop) + 3);
 	    if (!hd[disk].prom_name)
@@ -483,7 +487,7 @@ scan_scsi(void) {
 		}
 		if (q == NULL) {
 		    for (disk = 0; disk < sdlen; disk++)
-			if (sd[disk].host == host) {
+			if (sd[disk].host == host && sd[disk].type) {
 			    sd[disk].prom_node = prom_node;
 			    if (p[1] == 'e') {
 				sd[disk].type = SDSK_TYPE_PLN;
