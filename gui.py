@@ -17,6 +17,7 @@ from iw.autopartition import *
 from iw.installtype import *
 from iw.dependencies import *
 from iw.lilo import *
+from iw.installpath import *
 
 import sys
 import GdkImlib
@@ -96,23 +97,12 @@ class InstallInterface:
     def run (self, todo):
         gtkThread = GtkMainThread ()
         gtkThread.start ()
-        
-        steps = [WelcomeWindow, LanguageWindow, #InstallTypeWindow, 
-		 MouseWindow, 
-	         KeyboardWindow, NetworkWindow, #AutoPartitionWindow, 
-		 PartitionWindow, 
-                 FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, LiloWindow, AuthWindow,
-	         AccountWindow, InstallProgressWindow, CongratulationWindow]
 
-        windows = [WelcomeWindow, LanguageWindow, #InstallTypeWindow, 
-		   MouseWindow, 
-	           KeyboardWindow, NetworkWindow, #AutoPartitionWindow,
-                   PartitionWindow, FormatWindow, PackageSelectionWindow, UnresolvedDependenciesWindow, 
-		   LiloWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow, 
-                   InstallProgressWindow, ConfirmPartitionWindow, CongratulationWindow]
+        commonSteps = [LanguageWindow, KeyboardWindow, 
+                       WelcomeWindow, InstallPathWindow]
 
         self.finishedTODO = Event ()
-        self.icw = InstallControlWindow (self, steps, windows, todo)
+        self.icw = InstallControlWindow (self, commonSteps, todo)
         self.icw.start ()
         self.finishedTODO.wait ()
 
@@ -120,13 +110,40 @@ class InstallInterface:
 
 class InstallControlWindow (Thread):
 
+    def instantiateWindow (self, windowClass):
+        ics = InstallControlState (self, self.ii, self.todo)
+        self.buildingWindows = 1
+        window = windowClass (ics)
+        self.buildingWindows = 0
+        self.windowList.append (window)
+        return window
+
+    def setStateList (self, list, pos):
+        self.stateList = []
+        for x in list:
+            instantiated = 0
+            for y in self.windowList:
+                if isinstance (y, x):
+                    self.stateList.append (y)
+                    instantiated = 1
+                    break
+            if not instantiated:
+                self.stateList.append (self.instantiateWindow (x))
+
+        self.stateListIndex = pos
+        
     def prevClicked (self, *args):
         prev = self.currentScreen.getPrev ()
         if prev:
+            instantiated = 0
             for x in self.windowList:
                 if isinstance (x, prev):
                     self.currentScreen = x
+                    instantiated = 1
                     break
+            if not instantiated:
+                self.currentScreen = self.instantiateWindow (prev)
+            
         else:
             self.stateListIndex = self.stateListIndex - 1
             self.currentScreen = self.stateList[self.stateListIndex]
@@ -135,10 +152,14 @@ class InstallControlWindow (Thread):
     def nextClicked (self, *args):
         next = self.currentScreen.getNext ()
         if next:
+            instantiated = 0
             for x in self.windowList:
                 if isinstance (x, next):
                     self.currentScreen = x
+                    instantiated = 1
                     break
+            if not instantiated:
+                self.currentScreen = self.instantiateWindow (next)
         else:
             self.stateListIndex = self.stateListIndex + 1
             if self.stateListIndex < len (self.stateList):
@@ -224,9 +245,9 @@ class InstallControlWindow (Thread):
         if self.displayHelp:
             self.html.source (ics.getHTML ())
 
-    def __init__ (self, ii, steps, windows, todo):
+    def __init__ (self, ii, steps, todo):
         self.ii = ii
-        self.steps = steps
+        self.todo = todo
 
         threads_enter ()
         self.window = GtkWindow ()
@@ -272,18 +293,9 @@ class InstallControlWindow (Thread):
 
         self.installFrame = GtkFrame ()
 
-        self.stateList = []
         self.windowList = []
 
-        self.buildingWindows = 1
-        for x in windows:
-            ics = InstallControlState (self, ii, todo)
-            window = x (ics)
-            if x in steps: self.stateList.append (window)
-            self.windowList.append (window)
-        self.buildingWindows = 0
-
-        self.stateListIndex = 0
+        self.setStateList (steps, 0)
         self.currentScreen = self.stateList[self.stateListIndex]
         self.update (self.currentScreen.getICS ())
         self.installFrame.add (self.currentScreen.getScreen ())
@@ -399,3 +411,6 @@ class InstallControlState:
 
     def getHelpEnabled (self):
         return self.helpEnabled
+
+    def getICW (self):
+        return self.cw
