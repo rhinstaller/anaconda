@@ -584,7 +584,7 @@ class ToDo:
         f.close ()
 
     def setupAuthentication (self):
-        args = [ "--kickstart" ]
+        args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
         if self.auth.useShadow:
             args.append ("--useshadow")
         if self.auth.useMD5:
@@ -596,8 +596,7 @@ class ToDo:
             if not self.auth.useBroadcast:
                 args.append ("--nisserver")
                 args.append (self.auth.server)
-        util.execWithRedirect("/usr/sbin/authconfig",
-                              args,
+        util.execWithRedirect(args[0], args,
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
 
