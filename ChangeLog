@@ -1,11 +1,15 @@
 2004-11-08  Jeremy Katz  <katzj@redhat.com>
 
-	* loader2/modules.c: fix corruption that led to sig11s in the loader
+	* iw/bootloader_main_gui.py
+	(MainBootloaderWindow.changeBootloaderCallback): Fix syntax.
+
+	* loader2/modules.c (lateModuleSort): Fix stack corruption.
 
 	* text.py (InstallInterface.run): Fallback to English for
 	languages that can't do text-mode (#138308)
 
 2004-11-08  Karsten Hopp  <karsten@redhat.com>
+
 	* loader2/linuxrc.s390: Don't ask for input if PORTNAME or CTCPROT
 	are already set. Use defaults if RUNKS is set for kickstart
 	installations

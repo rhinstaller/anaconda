@@ -90,7 +90,7 @@ class MainBootloaderWindow(InstallWindow):
 
             if self.none_radio.get_active() == gtk.TRUE:
                 newrc = self.intf.messageWindow(_("Warning"),
-                                                _("You have elected to not install any boot loader. It is strongly recommended that you install a boot loader unless you have an advanced need.  A boot loader is almost always required in order to reboot your system into Linux directly from the hard drive.\n\nWould you like to continue and not install a boot loader?")
+                                                _("You have elected to not install any boot loader. It is strongly recommended that you install a boot loader unless you have an advanced need.  A boot loader is almost always required in order to reboot your system into Linux directly from the hard drive.\n\nWould you like to continue and not install a boot loader?"),
                                                 type = "custom",
                                                 custom_buttons =
                                                 [_("Cancel"),
