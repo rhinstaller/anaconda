@@ -84,12 +84,14 @@ def startX():
   	raise RuntimeError, "Unknown card"
     else:
           print "Unknown card, falling back to VGA16"
+          x.server = "XF86_VGA16"
           serverPath = '/usr/X11R6/bin/XF86_VGA16'
     
     if not os.access (serverPath, os.X_OK):
 	if iutil.getArch() == "sparc":
 	    raise RuntimeError, "Missing X server"
         print serverPath, "missing.  Falling back to VGA16"
+        x.server = "XF86_VGA16"        
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
 
         if not os.access (serverPath, os.X_OK):
