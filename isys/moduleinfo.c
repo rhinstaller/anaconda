@@ -48,7 +48,8 @@ moduleInfoSet isysNewModuleInfoSet(void) {
     return calloc(sizeof(struct moduleInfoSet_s), 1);
 }
 
-int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
+int isysReadModuleInfo(const char * filename, moduleInfoSet mis,
+		       char * modPath) {
     int fd, isIndented;
     char * buf, * start, * next, * chptr;
     struct stat sb;
@@ -65,7 +66,7 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
     buf[sb.st_size] = '\0';
     close(fd);
 
-    nextModule = mis->moduleList;
+    nextModule = NULL;
     modulesAlloced = mis->numModules;
 
     if (strncmp(buf, "Version 0\n", 10)) return -1;
@@ -108,6 +109,10 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
 		nextModule->flags = 0;
 		nextModule->args = NULL;
 		nextModule->numArgs = 0;
+		nextModule->path = modPath;
+	    } else if (!nextModule) {
+		/* ACK! syntax error */
+		return 1;
 	    } else if (nextModule->major == DRIVER_NONE) {
 		chptr = start + strlen(start) - 1;
 		while (!isspace(*chptr) && chptr > start) chptr--;
