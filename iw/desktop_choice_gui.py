@@ -48,11 +48,29 @@ class DesktopChoiceWindow (InstallWindow):
 	vbox.set_border_width (5)
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
-	label1 = DEFAULT_DESKTOP_LABEL_1
-	label2 = "\tGNOME Desktop\t\t\tNautilus file manager\n"+"\tMozilla web browser\t\tEvolution mail client\n"+"\tCD authoring software\t\tMultimedia applications\n"+"\tOpen Office(tm) office suite"
-	label3 = DEFAULT_DESKTOP_LABEL_2 % (productName, productName)
+#	label1 = DEFAULT_DESKTOP_LABEL_1
+#	label2 = "\tGNOME Desktop\t\t\tNautilus file manager\n"+"\tMozilla web browser\t\tEvolution mail client\n"+"\tCD authoring software\t\tMultimedia applications\n"+"\tOpen Office(tm) office suite"
+#	label3 = DEFAULT_DESKTOP_LABEL_2 % (productName, productName)
+#	label = gui.WrappingLabel(label1+"\n\n"+label2+"\n\n"+label3)
 
-	label = gui.WrappingLabel(label1+"\n\n"+label2+"\n\n"+label3)
+        labeltxt = _(
+     "The default workstation environment includes our recommendations for "
+     "new users, including:\n\n"
+     "Desktop shell (GNOME)\n"
+     "Office suite (OpenOffice)\n"
+     "Web browser (Mozilla) \n"
+     "Email (Evolution)\n"
+     "Instant messaging\n"
+     "Sound and video applications\n"
+     "Games\n\n"
+     "After installation, additional software can be added or removed using "
+     "the 'redhat-config-package' tool.\n\n"
+     "If you are familiar with %s, you may have specific packages "
+     "you would like to install or avoid installing. Check the box below to "
+     "customize your installation.") % (productName,)
+
+	label = gui.WrappingLabel(labeltxt)
+
 	hbox.pack_start (label, gtk.FALSE, gtk.FALSE, 0)
 	vbox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 0)
 	
