@@ -450,39 +450,41 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
    env = getenv("IPADDR");
-   if (env) {
+   if (env && *env) {
      if(inet_aton(env, &newCfg.dev.ip))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
    }
    env = getenv("NETMASK");
-   if (env) {
+   if (env && *env) {
      if(inet_aton(env, &newCfg.dev.netmask))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
    }
    env = getenv("GATEWAY");
-   if (env) {
+   if (env && *env) {
      if(inet_aton(env, &newCfg.dev.gateway))
       newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
    }
    env = getenv("NETWORK");
-   if (env) {
+   if (env && *env) {
      if(inet_aton(env, &newCfg.dev.network))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
    }
    env = getenv("DNS");
-   if (env) {
-     if(inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]))
+   if (env && *env) {
+     char *s = strdup (env);
+     char *t = strtok (s, ":");
+     if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
    if (!strncmp(newCfg.dev.device, "ctc", 3)) {
      env = getenv("REMIP");
-     if (env && strlen(env)) {
+     if (env && *env) {
        if(inet_aton(env, &newCfg.dev.gateway))
 	 newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
      }
    }
    env = getenv("BROADCAST");
-   if (env && strlen(env)) {
+   if (env && *env) {
      if(inet_aton(env, &newCfg.dev.broadcast))
        newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
