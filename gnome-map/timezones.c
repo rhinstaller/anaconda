@@ -1,6 +1,6 @@
 /*  GNOME canvas based interface to a map using a simple cylindrical proj */
 /*                                                                        */
-/* Copyright (C) 1999 Red Hat, Incorportated                              */
+/* Copyright (C) 1999, 2000 Red Hat, Incorportated                        */
 /* Original work by Michael Fulbright <drmike@redhat.com> */
 
 #include <glib.h>
@@ -9,9 +9,12 @@
 #include <unistd.h>
 #include <time.h>
 #include <math.h>
+#include <string.h>
+#include <libintl.h>
 
 #include "timezones.h"
 
+#define _(string) gettext(string)
 
 TZZoneInfo *
 tzinfo_get_for_location (TimeZoneLocation *loc)
@@ -156,7 +159,7 @@ loadTZDB( void )
 #endif	
 	loc = g_new( TimeZoneLocation, 1);
 	loc->country = g_strdup(tmpstrarr[0]);
-	loc->zone    = g_strdup(tmpstrarr[2]);
+	loc->zone    = g_strdup(_(tmpstrarr[2]));
 	loc->comment = (tmpstrarr[3]) ? g_strdup(tmpstrarr[3]) : NULL;
 	loc->latitude  = convertPos(latstr,2);
 	loc->longitude = convertPos(lngstr,3);
