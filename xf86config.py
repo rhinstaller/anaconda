@@ -1002,7 +1002,7 @@ Section "Screen"
 
     def Version4Config(self):
         data = { "mouseProto"   : self.mouse.info['XMOUSETYPE'],
-                 "mouseDevice"  : 'mouse',
+                 "mouseDevice"  : self.mouse.device,
                  "cardsOptions" :
                  self.vidCards[self.primary].get ("LINE",
                                                   "	# no known options"),
@@ -1010,7 +1010,7 @@ Section "Screen"
                  "cardVendor"   : self.vidCards[self.primary]["NAME"],
                  "cardBoardName": self.vidCards[self.primary]["NAME"]
                  }
-        self.vidCards[self.primary]["DRIVER"] = "vga"
+#        self.vidCards[self.primary]["DRIVER"] = "vga"
         if self.vidCards[self.primary].has_key ("DRIVER"):
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
         else:

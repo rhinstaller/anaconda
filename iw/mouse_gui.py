@@ -87,7 +87,11 @@ class MouseWindow (InstallWindow):
 	cur = self.getCurrentKey()
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
 
-        curmouse = xmouse.get()
+        try:
+            curmouse = xmouse.get()
+        except RuntimeError:
+            # ignore errors when switching mice
+            return None
         curmouse[0] = "/dev/" + device
         # XXX
         # IntelliMouse requires a full mouse reinit - X does not
