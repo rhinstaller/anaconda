@@ -19,7 +19,7 @@ snarffont: snarffont.c
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
-	install -m755 -s genhdlist $(DESTDIR)/usr/bin
+#	install -m755 -s genhdlist $(DESTDIR)/usr/bin
 
 clean:	
 	rm -f modlist genhdlist moddeps snarffont *.o 
