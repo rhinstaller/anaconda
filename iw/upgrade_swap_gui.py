@@ -18,7 +18,6 @@ import isys
 import iutil
 import upgrade
 import gui
-from gnome.ui import *
 from gtk import *
 from iw_gui import *
 from package_gui import queryUpgradeContinue

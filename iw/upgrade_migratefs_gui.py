@@ -21,7 +21,6 @@ import isys
 import iutil
 from log import log
 import upgrade
-from gnome.ui import *
 from fsset import *
 import gui
 
