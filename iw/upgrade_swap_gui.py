@@ -13,17 +13,18 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
-from iw_gui import *
-from translate import _, N_
 import string
 import isys 
 import iutil
-from log import log
 import upgrade
-from gnome.ui import *
-from package_gui import queryUpgradeContinue
 import gui
+from gnome.ui import *
+from gtk import *
+from iw_gui import *
+from package_gui import queryUpgradeContinue
+from translate import _, N_
+from log import log
+from flags import flags
 
 class UpgradeSwapWindow (InstallWindow):		
     windowTitle = N_("Upgrade Swap Partition")
