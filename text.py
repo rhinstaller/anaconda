@@ -787,13 +787,32 @@ class PartitionWindow:
 	for partition, mount, fstype, size in todo.ddruid.getFstab ():
 	    todo.addMount(partition, mount, fstype)
 
-	if iutil.memAvailable() < 14000:
-	    todo.ddruid.save ()
-	    todo.makeFilesystems (createFs = 0)
-	    todo.ddruidAlreadySaved = 1
-                
         return dir
 
+class TurnOnSwapWindow:
+
+    beenTurnedOn = 0
+
+    def __call__(self, screen, todo):
+	if self.beenTurnedOn or (iutil.memInstalled() > 30000):
+	    return INSTALL_NOOP
+
+	rc = ButtonChoiceWindow(screen, _("Low Memory"),
+		   _("As you don't have much memory in this machine, we "
+		     "need to turn on swap space immediately. To do this "
+		     "we'll have to write your new partition table to the "
+		     "disk immediately. Is that okay?"),
+		   [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50)
+
+	if (rc == "back"):
+	    return INSTALL_BACK
+
+	todo.ddruid.save ()
+	todo.makeFilesystems (createFs = 0)
+	todo.ddruidAlreadySaved = 1
+	self.beenTurnedOn = 1
+
+	return INSTALL_OK
 
 class FormatWindow:
     def __call__(self, screen, todo):
@@ -1614,6 +1633,8 @@ class InstallInterface:
             [_("Automatic Partition"), AutoPartitionWindow, 
 		    (self.screen, todo), "partition" ],
             [_("Partition"), PartitionWindow, (self.screen, todo),
+		    "partition" ],
+            [_("Swap"), TurnOnSwapWindow, (self.screen, todo),
 		    "partition" ],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
 		    "format" ],
