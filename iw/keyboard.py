@@ -20,7 +20,7 @@ class KeyboardWindow (InstallWindow):
         return None
 
     def getScreen (self):
-        print self.todo.keyboard.available ()
+#        print self.todo.keyboard.available ()
 	box = GtkVBox (FALSE)
         
 	box.pack_start (GtkLabel (_("Model")), FALSE)
@@ -62,6 +62,6 @@ class KeyboardWindow (InstallWindow):
         sw.add (self.variantList)
 	box.pack_start (sw, FALSE)
 
-	print self.kb.getOptions ()
+#	print self.kb.getOptions ()
 
         return box
