@@ -4,15 +4,15 @@
 # Jordi Jover <jordijn@softcatala.org>, 2003.
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
 # Jordi Mas <jmas@softcatala.org>, 2003.
-# Josep Puigdemont <baldrick@terra.es>, 2003, 2004.
+# Josep Puigdemont <josep@imatge-sintetica.com>, 2003, 2004, 2005.
 # Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: fedora@softcatala.net\n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2005-01-07 05:09+0100\n"
+"PO-Revision-Date: 2005-01-23 22:35+0100\n"
 "Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -149,7 +149,8 @@ msgstr "Error desconegut"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"Hi ha hagut un error en extreure la segona part del fitxer d'inici ràpid: %s"
+"Hi ha hagut un error en extreure la segona part del fitxer d'arrencada "
+"ràpida: %s"
 
 #: ../anaconda:745
 msgid ""
@@ -793,7 +794,7 @@ msgstr ""
 "Premeu <tecla de retorn> per arrencar de nou el sistema."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -805,7 +806,9 @@ msgstr ""
 "S'ha produït un error en activar el dispositiu de la memòria d'intercanvi %"
 "s: %s\n"
 "\n"
-"Aquesta partició no ha estat degudament inicialitzada.\n"
+"El fitxer /etc/fstab de la partició des d'on s'actualitza no fa referència "
+"a\n"
+"cap memòria d'intercanvi vàlida.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
@@ -923,7 +926,6 @@ msgstr ""
 "Premeu D'acord per arrencar de nou el sistema."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -931,9 +933,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"S'ha produït un error en muntar el dispositiu %s com a %s: %s\n"
+"S'ha produït un error en cercar l'entrada /.\n"
 "\n"
-"El més probable és que aquesta partició no hagi estat formatada.\n"
+"El més probable és que el fitxer fstab no sigui correcte.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
@@ -1061,14 +1063,15 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"S'ha trobat el següent error en analitzar la configuració de l'inici ràpid:"
-"n\n"
+"S'ha trobat el següent error en analitzar la configuració de l'arrencada "
+"ràpida:n\n"
 "\n"
 "%s"
 
 #: ../gui.py:724 ../text.py:286
 msgid "Error Parsing Kickstart Config"
-msgstr "S'ha produït un error en analitzar la configuració de l'inici ràpid"
+msgstr ""
+"S'ha produït un error en analitzar la configuració de l'arrencada ràpida"
 
 #: ../gui.py:732 ../text.py:296
 msgid ""
@@ -1323,6 +1326,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Falten grups crítics en el fitxer comps d'aquesta instal·lació. Comproveu "
+"que l'arbre d'instal·lació estigui generat correctament."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1367,15 +1372,16 @@ msgstr ""
 "Premeu <retorn> i torneu-ho a intentar."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Torna a arrencar"
+msgstr "_Torna a arrencar"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Si arrenqueu de nou, aquest sistema estarà en un estat inconsistent, i "
+"segurament caldrà fer una reinstal·lació. Esteu segur que voleu continuar?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2912,17 +2918,14 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Configuració avançada del carregador de l'arrencada"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forçar l'ús de LBA32 en el carregador de l'arrencada quan la BIOS no ho "
-"implementa pot fer que la màquina no pugui arrencar. Us recomanem que creeu "
-"un disquet d'arrencada quan més endavant durant la instal·lació se us "
-"pregunti.\n"
+"Si es força l'ús d'LBA32 en el carregador de l'arrencada per a una BIOS que "
+"no ho implementa, pot fer que la màquina no pugui arrencar.\n"
 "\n"
 "Voleu continuar i forçar el mode LBA32?"
 
@@ -2957,7 +2960,6 @@ msgid "Change Boot Loader"
 msgstr "Canvieu de carregador"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2966,12 +2968,12 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Heu decidit no instal·lar cap carregador de l'arrencada. És molt recomanable "
-"que n'instal·leu un, a no ser que tingueu necessitats fora del comú. Gairebé "
-"en tots els casos es necessita un carregador de l'arrencada per reiniciar "
-"aquest sistema a Linux des del disc dur.\n"
+"Heu escollit no instal·lar cap carregador de l'arrencada. És recomana "
+"fermament que n'instal·leu un, a no ser que tingueu necessitats fora del "
+"comú. Gairebé en tots els casos es necessita un carregador de l'arrencada "
+"per reiniciar aquest sistema a Linux des del disc dur.\n"
 "\n"
-"Esteu segur que no voleu instal·lar cap carregador de l'arrencada?"
+"Voleu continuar sense instal·lar cap carregador de l'arrencada?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3084,8 +3086,8 @@ msgstr ""
 "Podeu trobar el fitxer de registre de la instal·lació a '%s' després "
 "d'arrencar de nou el sistema.\n"
 "\n"
-"Després d'arrencar de nou el sistema, podeu trobar un fitxer d'inici ràpid "
-"que conté les opcions d'instal·lació seleccionades a '%s'."
+"Després d'arrencar de nou el sistema, podeu trobar un fitxer d'arrencada "
+"ràpida que conté les opcions d'instal·lació seleccionades a '%s'."
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
@@ -3958,9 +3960,8 @@ msgid "Encryption _Key"
 msgstr "_Clau de xifratge"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "Adreça IP:"
+msgstr "Adreça del maquinari:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5748,7 +5749,7 @@ msgstr "Descripció: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Adreça del maquinari: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -6697,7 +6698,7 @@ msgid ""
 msgstr ""
 "Indiqueu la quantitat de memòria de vídeo RAM que hi ha a la targeta de "
 "vídeo. Escolliu '%s' per reiniciar la selecció amb la quantitat que "
-"l'instal·lador ha detectat per aquesta targeta."
+"l'instal·lador ha detectat per a aquesta targeta."
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
@@ -6957,7 +6958,7 @@ msgstr "No s'ha trobat el CD"
 
 #: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
-msgstr "No s'ha pogut trobar el fitxer d'inici ràpid al CDROM."
+msgstr "No s'ha pogut trobar el fitxer d'arrencada ràpida al CDROM."
 
 #: ../loader2/driverdisk.c:124 ../loader2/firewire.c:50
 msgid "Loading"
@@ -7059,12 +7060,12 @@ msgstr "Voleu carregar més discos de controladors?"
 #: ../loader2/urlinstall.c:442 ../loader2/urlinstall.c:451
 #: ../loader2/urlinstall.c:462
 msgid "Kickstart Error"
-msgstr "Error de l'inici ràpid"
+msgstr "S'ha produït un error en l'arrencada ràpida"
 
 #: ../loader2/driverdisk.c:579
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "No es coneix cap font de l'inici ràpid de discos de controladors: %s"
+msgstr "No es coneix cap font d'arrencada ràpida de discos de controladors: %s"
 
 #: ../loader2/driverdisk.c:617
 #, c-format
@@ -7073,7 +7074,7 @@ msgid ""
 "command: %s:%s"
 msgstr ""
 "S'ha especificat el següent argument invàlid de la comanda per al disc de "
-"controladors de l'inici ràpid: %s:%s"
+"controladors de l'arrencada ràpida: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -7182,11 +7183,11 @@ msgstr "El dispositiu %s no sembla que contingui imatges de CDROM de %s."
 #: ../loader2/hdinstall.c:471
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre HD d'inici ràpid %s: %s"
+msgstr "Argument erroni per a l'ordre HD d'arrencada ràpida %s: %s"
 
 #: ../loader2/hdinstall.c:539 ../loader2/hdinstall.c:595
 msgid "Cannot find kickstart file on hard drive."
-msgstr "No s'ha pogut trobar el fitxer d'inici ràpid al disc dur."
+msgstr "No s'ha pogut trobar el fitxer d'arrencada ràpida al disc dur."
 
 #: ../loader2/hdinstall.c:582
 #, c-format
@@ -7204,19 +7205,19 @@ msgstr "Quin tipus de teclat teniu?"
 #: ../loader2/kickstart.c:119
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "S'ha produït un error en obrir el fitxer d'inici ràpid %s: %s"
+msgstr "S'ha produït un error en obrir el fitxer d'arrencda ràpida %s: %s"
 
 #: ../loader2/kickstart.c:129
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr ""
-"S'ha produït un error en llegir els continguts del fitxer d'inici ràpid %s: %"
-"s"
+"S'ha produït un error en llegir els continguts del fitxer d'arrencada ràpida "
+"%s: %s"
 
 #: ../loader2/kickstart.c:172
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Hi ha un error a %s a la línia %d del fitxer d'inici ràpid %s."
+msgstr "Hi ha un error a %s a la línia %d del fitxer d'arrencada ràpida %s."
 
 #: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
@@ -7225,19 +7226,18 @@ msgstr "No s'ha pogut trobar ks.cfg en el disquet d'arrencada."
 #: ../loader2/kickstart.c:406
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Argument erroni per aturar l'ordre del mètode d'inici ràpid %s: %s"
+msgstr ""
+"Argument erroni per aturar l'ordre del mètode de l'arrencada ràpida %s: %s"
 
-# He utilitzat el plural per no afavorir el masculí
 #: ../loader2/lang.c:52 ../loader2/loader.c:132
 #, c-format
 msgid "Welcome to %s"
-msgstr "Benvinguts a %s"
+msgstr "Benvingut a %s"
 
-# He utilitzat el plural per no afavorir el masculí
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Benvinguts a %s"
+msgstr "Benvingut a %s - Mode de rescat"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7308,7 +7308,7 @@ msgstr ""
 #: ../loader2/loader.c:663
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr "Aquest ordinador no té prou memòria RAM com per instal·lar-hi %s."
+msgstr "Aquest ordinador no té prou memòria RAM per a instal·lar-hi %s."
 
 #: ../loader2/loader.c:836
 msgid "Rescue Method"
@@ -7492,7 +7492,8 @@ msgstr "Comprovació de les sumes de verificació"
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
-"Argument erroni al dispositu de l'ordre del mètode d'inici ràpid %s: %s"
+"Argument erroni al dispositu de l'ordre del mètode de l'arrencada ràpida %s: "
+"%s"
 
 #: ../loader2/net.c:47
 #, c-format
@@ -7600,7 +7601,7 @@ msgstr "Informació que falta"
 
 #: ../loader2/net.c:581
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Heu d'indicar una adreça IP vàlida i una màscara de xarxa."
+msgstr "Heu d'indicar una adreça IP i una màscara de xarxa vàlides."
 
 #: ../loader2/net.c:804
 msgid "Determining host name and domain..."
@@ -7609,7 +7610,7 @@ msgstr "S'està determinant el nom de la màquina i el domini..."
 #: ../loader2/net.c:891
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "Argument erroni per a l'ordre de xarxa de l'inici ràpid %s: %s"
+msgstr "Argument erroni per a l'ordre de xarxa de l'arrencada ràpida %s: %s"
 
 #: ../loader2/net.c:914
 #, c-format
@@ -7653,7 +7654,7 @@ msgstr "No s'ha pogut muntar aquell directori des del servidor."
 #: ../loader2/nfsinstall.c:248
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre d'inici ràpid NFS %s: %s"
+msgstr "Argument erroni per a l'ordre de l'arrencada ràpida NFS %s: %s"
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
@@ -7689,11 +7690,11 @@ msgstr "S'ha detectat el medi per a la instal·lació local..."
 #: ../loader2/urlinstall.c:443
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre d'inici ràpid url %s: %s"
+msgstr "Argument erroni per a l'ordre de l'arrenca ràpida url %s: %s"
 
 #: ../loader2/urlinstall.c:452
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Cal indicar l'argument --url al mètode d'arrencada ràpida url."
+msgstr "Cal indicar l'argument --url al mètode url de l'arrencada ràpida."
 
 #: ../loader2/urlinstall.c:463
 #, c-format
@@ -7712,7 +7713,7 @@ msgstr "No s'ha pogut descarregar %s: %s"
 
 #: ../loader2/urls.c:199
 msgid "Retrieving"
-msgstr "Descàrrega"
+msgstr "S'està descarregant"
 
 #: ../loader2/urls.c:283
 msgid "FTP site name:"
@@ -7736,20 +7737,20 @@ msgstr "Configuracio d'HTTP"
 
 #: ../loader2/urls.c:323
 msgid "You must enter a server name."
-msgstr "Heu d'indicar el nom d'un servidor."
+msgstr "Heu d'introduir el nom d'un servidor."
 
 #: ../loader2/urls.c:328
 msgid "You must enter a directory."
-msgstr "Heu d'indicar un directori."
+msgstr "Heu d'introduir un directori."
 
 #: ../loader2/urls.c:333
 msgid "Unknown Host"
-msgstr "Màquina desconeguda"
+msgstr "Ordinador desconegut"
 
 #: ../loader2/urls.c:334
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s no és un nom de màquina vàlid."
+msgstr "%s no és un nom d'un ordinador central vàlid."
 
 #: ../loader2/urls.c:407
 msgid ""
@@ -7770,14 +7771,12 @@ msgid "Account name:"
 msgstr "Nom del compte:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "Configuració d'FTP"
+msgstr "Més configuracions de l'FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "Configuracio d'HTTP"
+msgstr "Més configuracions de l'HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -8106,7 +8105,7 @@ msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr "Atol·ló de Johnston"
+msgstr "Atol de Johnston"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
@@ -8698,47 +8697,6 @@ msgstr "Zulú"
 #~ "Només es pot actualitzar aquesta versió de %s des de la Red Hat Linux 6.2 "
 #~ "o superior. Aquest sembla ser un sistema antic. Voleu continuar amb el "
 #~ "procés d'actualització?"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tEntorn d'escriptori (GNOME)\n"
-#~ "\tConjunt de programes ofimàtics (OpenOffice.org)\n"
-#~ "\tNavegador web (Mozilla)\n"
-#~ "\tCorreu electrònic (Evolution)\n"
-#~ "\tMissatgeria instantània\n"
-#~ "\tAplicacions d'àudio i vídeo\n"
-#~ "\tJocs\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tEntorn d'escriptori (GNOME)\n"
-#~ "\tConjunt de programes ofimàtics (OpenOffice.org)\n"
-#~ "\tNavegador web (Mozilla)\n"
-#~ "\tCorreu electrònic (Evolution)\n"
-#~ "\tMissatgeria instantània\n"
-#~ "\tAplicacions d'àudio i vídeo\n"
-#~ "\tJocs\n"
-#~ "\tEines de desenvolupament de programari\n"
-#~ "\tEines d'administració\n"
 
 #~ msgid "Physical Extent:"
 #~ msgstr "Extensió física:"
