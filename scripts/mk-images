@@ -576,6 +576,7 @@ EOF
 
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=16000 2>/dev/null
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
+    tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
 
@@ -587,6 +588,7 @@ EOF
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
     /sbin/mke2fs -F -i 1024 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
+    /sbin/tune2fs -c0 -i0 $MBD_FSIMAGE
 
     rm -rf $MBD_MNTPOINT
     mkdir $MBD_MNTPOINT
@@ -702,6 +704,7 @@ makeImage () {
 
     dd if=/dev/zero of=$MI_TMPIMAGE bs=1k count=$MI_SIZE 2>/dev/null
     /sbin/mke2fs -q -F -i 4096 $MI_TMPIMAGE  > /dev/null 2>/dev/null
+    /sbin/tune2fs -c0 -i0 $MI_TMPIMAGE
     mount -o loop $MI_TMPIMAGE $MI_MNTPOINT
     (cd $MI_FROM; find . | cpio --quiet -p $MI_MNTPOINT)
 
@@ -774,6 +777,7 @@ makemainimage () {
         fi
         dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage 2>/dev/null
         mke2fs -q -F $mmi_tmpimage > /dev/null 
+	tune2fs -c0 -i0 $mmi_tmpimage
         mount -o loop $mmi_tmpimage $mmi_mntpoint
 
         (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
@@ -827,6 +831,7 @@ makedriverdisk () {
 
     dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
     /sbin/mke2fs -q -F -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
+    /sbin/tune2fs -c0 -i0 /tmp/$diskname.img
     mkdir -p /tmp/mkdd.$$
     mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
     rmdir /tmp/mkdd.$$/lost+found

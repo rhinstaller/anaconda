@@ -378,6 +378,7 @@ EOF
 
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=17000
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
+    tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big
 
@@ -389,6 +390,7 @@ EOF
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
     /sbin/mke2fs -F -i 1024 -q $MBD_FSIMAGE $INITRDSIZE #> /dev/null 2>/dev
+    /sbin/tune2fs -c0 -i0 $MBD_FSIMAGE
     rm -rf $MBD_MNTPOINT
     mkdir $MBD_MNTPOINT
     mount -o loop -t ext2 $MBD_FSIMAGE $MBD_MNTPOINT
