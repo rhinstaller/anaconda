@@ -29,7 +29,7 @@ makeBootImages() {
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
 	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
@@ -54,10 +54,12 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
 
-	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
-	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map
-	
-	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/boot.img
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
+
+	$IMGPATH/sbin/addSystemMap $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/vmlinux.sm
+	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
+	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     else
 	echo "Unknown kernel arch: $KERNELARCH"
     # mac?
