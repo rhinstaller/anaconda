@@ -976,13 +976,15 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
 
 static PyObject * doPoptParse(PyObject * s, PyObject * args) {
     char * str;
-    int argc, i;
-    const char ** argv;
+    int argc = 0, i;
+    int ret;
+    const char ** argv = NULL;
     PyObject * list;
 
     if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
 
-    if (poptParseArgvString(str, &argc, &argv)) {
+    ret = poptParseArgvString(str, &argc, &argv);
+    if ((ret != 0) && (ret != POPT_ERROR_NOARG)) {
 	PyErr_SetString(PyExc_ValueError, "bad string for parsing");
 	return NULL;
     }
