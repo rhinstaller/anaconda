@@ -580,6 +580,51 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 
 #endif
 
+static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
+    struct loop_info loopInfo;
+    int targfd, loopfd;
+
+    mkdirChain(mntpoint);
+
+    targfd = open(fsystem, O_RDONLY);
+
+    devMakeInode(device, "/tmp/loop");
+    loopfd = open("/tmp/loop", O_RDONLY);
+    logMessage("loopfd is %d", loopfd);
+
+    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
+	logMessage("LOOP_SET_FD failed: %s", strerror(errno));
+	close(targfd);
+	close(loopfd);
+	return LOADER_ERROR;
+    }
+
+    close(targfd);
+
+    memset(&loopInfo, 0, sizeof(loopInfo));
+    strcpy(loopInfo.lo_name, fsystem);
+
+    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
+	logMessage("LOOP_SET_STATUS failed: %s", strerror(errno));
+	close(loopfd);
+	return LOADER_ERROR;
+    }
+
+    close(loopfd);
+
+    if (doPwMount("/tmp/loop", "/mnt/runtime", "iso9660", 1,
+		  0, NULL, NULL))
+	if (doPwMount("/tmp/loop", "/mnt/runtime", "ext2", 1,
+		      0, NULL, NULL)) {
+	    
+	    logMessage("failed to mount loop: %s", 
+		       strerror(errno));
+	    return LOADER_ERROR;
+	}
+    
+    return 0;
+}
+
 #ifdef INCLUDE_LOCAL
 
 static char * mountHardDrive(struct installMethod * method,
@@ -764,51 +809,6 @@ static char * mountHardDrive(struct installMethod * method,
     free(dir);
 
     return url;
-}
-
-static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
-    struct loop_info loopInfo;
-    int targfd, loopfd;
-
-    mkdirChain(mntpoint);
-
-    targfd = open(fsystem, O_RDONLY);
-
-    devMakeInode(device, "/tmp/loop");
-    loopfd = open("/tmp/loop", O_RDONLY);
-    logMessage("loopfd is %d", loopfd);
-
-    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
-	logMessage("LOOP_SET_FD failed: %s", strerror(errno));
-	close(targfd);
-	close(loopfd);
-	return LOADER_ERROR;
-    }
-
-    close(targfd);
-
-    memset(&loopInfo, 0, sizeof(loopInfo));
-    strcpy(loopInfo.lo_name, fsystem);
-
-    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
-	logMessage("LOOP_SET_STATUS failed: %s", strerror(errno));
-	close(loopfd);
-	return LOADER_ERROR;
-    }
-
-    close(loopfd);
-
-    if (doPwMount("/tmp/loop", "/mnt/runtime", "iso9660", 1,
-		  0, NULL, NULL))
-	if (doPwMount("/tmp/loop", "/mnt/runtime", "ext2", 1,
-		      0, NULL, NULL)) {
-	    
-	    logMessage("failed to mount loop: %s", 
-		       strerror(errno));
-	    return LOADER_ERROR;
-	}
-    
-    return 0;
 }
 
 /* XXX this ignores "location", which should be fixed */
@@ -1014,9 +1014,10 @@ static char * mountNfsImage(struct installMethod * method,
 	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
 		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
 			    X_OK)) {
-		    unlink("/mnt/runtime");
-		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
-		    stage = NFS_STAGE_DONE;
+		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
+				       "/mnt/runtime", "loop0")) {
+			stage = NFS_STAGE_DONE;
+		    }
 		} else {
 		    umount("/mnt/source");
 		    newtWinMessage(_("Error"), _("OK"), 
