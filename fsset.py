@@ -24,7 +24,12 @@ import partitioning
 from log import log
 from translate import _, N_
 
-defaultMountPoints = ('/', '/boot', '/home', '/tmp', '/usr', '/var')
+defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var']
+
+if iutil.getArch() == "ia64":
+    defaultMountPoints.insert(1, '/boot/efi')
+else:
+    defaultMountPoints.insert(1, '/boot')
 
 fileSystemTypes = {}
 
