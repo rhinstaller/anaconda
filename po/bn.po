@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-27 14:00+0600\n"
+"PO-Revision-Date: 2004-10-04 09:30+0600\n"
 "Last-Translator: Progga <progga@BengaLinux.Org>\n"
 "Language-Team: Bangla <redhat-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2516,15 +2516,13 @@ msgstr ""
 "অযোগ্য হয়ে যেতে পারে। আপনি কি এ অবস্থায় আপগ্রেড প্রক্রিয়া চালিয়ে যেতে চান?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"%s এর যে সংস্করণটি আপনি আপগ্রেড করার চেষ্টা করছেন, তার কম্পিউটার স্থাপত্য "
-"(Architecture) সম্ভবত %s।  কিন্তু ইতিপূর্বে স্থাপত্য ছিল %s।  ফলে আপগ্রেড প্রক্রিয়া "
-"সফল না হওয়ার সম্ভাবনাই বেশি।  আপনি কি আপগ্রেড প্রক্রিয়া চালিয়ে যাওয়ার ব্যাপারে "
-"নিশ্চিত?"
+"আপনি যে সিস্টেমকে আপগ্রেড করার চেষ্টা করছেন, দেখা যাচ্ছে যে তা %s-এর এই সংস্করণে "
+"আপগ্রেড করার পক্ষে খুবই পুরনো।  এ অবস্থায় আপনি কি আপগ্রেড প্রক্রিয়া চালিয়ে যেতে চান?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -6777,7 +6775,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6788,8 +6785,8 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\tডেস্কটপ শেল (গনোম)\n"
-"\tঅফিস স্যুট (ওপেনঅফিস)\n"
-"\tওয়েব ব্রাউজার (মজিলা)\n"
+"\tঅফিস স্যুট (OpenOffice.org)\n"
+"\tওয়েব ব্রাউজার \n"
 "\tই-মেইল (ইভলুশন)\n"
 "\tতাত্‍ক্ষণিক বার্তা (Instant Messaging)\n"
 "\tশব্দ ও ভিডিও সংক্রান্ত অ্যাপলিকেশন\n"
@@ -6826,7 +6823,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "রেড হ্যাট এন্টারপ্রাইজ লিনাক্স WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6839,14 +6835,14 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tডেস্কটপ শেল (গনোম)\n"
-"\tঅফিস স্যুট (ওপেনঅফিস)\n"
-"\tওয়েব ব্রাউজার (মজিলা)\n"
+"\tঅফিস স্যুট (OpenOffice.org)\n"
+"\tওয়েব ব্রাউজার \n"
 "\tই-মেইল (ইভলুশন)\n"
 "\tতাত্‍ক্ষণিক বার্তা (Instant Messaging)\n"
 "\tশব্দ ও ভিডিও সংক্রান্ত অ্যাপলিকেশন\n"
 "\tখেলা\n"
 "\tসফটওয়্যার তৈরির সরঞ্জাম\n"
-"\tঅ্যাডমিনিস্ট্রেশন সফটওয়্যার\n"
+"\tঅ্যাডমিনিস্ট্রেশনের সফটওয়্যার\n"
 
 # **************************************************************************************************
 # পরবর্তী অধিকাংশ পঙ্‌ক্তির অনুবাদক - মহামান্য দীপায়ন সরকার
@@ -8448,7 +8444,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Arabic"
-msgstr "আরবী"
+msgstr "আরবি"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8466,7 +8462,7 @@ msgstr "বুলগেরিয়"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "ক্যাটালান"
+msgstr "ক্যাটালানিয়"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8490,11 +8486,11 @@ msgstr "দিনেমার (ড্যানিশ)"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "ওলন্ডাজ"
+msgstr "ওলন্দাজ"
 
 #. generated from lang-table
 msgid "English"
-msgstr "ইংরেজ"
+msgstr "ইংরেজি"
 
 #. generated from lang-table
 msgid "Estonian"
@@ -8506,11 +8502,11 @@ msgstr "ফিনিশিয়"
 
 #. generated from lang-table
 msgid "French"
-msgstr "ফরাসী"
+msgstr "ফরাসি"
 
 #. generated from lang-table
 msgid "German"
-msgstr "জার্মান"
+msgstr "জর্মন"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -8527,7 +8523,7 @@ msgstr "হাঙ্গেরিয়"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "আইসল্যান্ডীয়"
+msgstr "আইসল্যান্ডিয়"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8535,16 +8531,16 @@ msgstr "ইতালীয়"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "জাপানী"
+msgstr "জাপানি"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "কোরীয়"
+msgstr "কোরিয়"
 
 #  generated from lang-table
 #. generated from lang-table
 msgid "Macedonian"
-msgstr "মেসেডনীয়"
+msgstr "মেসিডনিয়"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8552,7 +8548,7 @@ msgstr "মালয়"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "নরওয়েজীয়"
+msgstr "নরওয়েজিয়"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8568,7 +8564,7 @@ msgstr "পর্তুগীজ"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "পর্তুগীজ (ব্রাজিলীয়)"
+msgstr "পর্তুগীজ (ব্রাজিলিয়)"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8587,7 +8583,7 @@ msgstr "স্লোভেনিয়"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Spanish"
-msgstr "স্প্যানিশ"
+msgstr "স্পেনীয়"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8607,12 +8603,12 @@ msgstr "তুর্কি"
 #  generated from lang-table
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr "ইউক্রেনিয়"
+msgstr "ইউক্রেইনিয়"
 
 #  generated from lang-table
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr "ভিয়েতনামী"
+msgstr "ভিয়েতনামি"
 
 #  generated from lang-table
 #. generated from lang-table
@@ -8624,52 +8620,3 @@ msgstr "ওয়েলশ"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "জুলু"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "%s এর এই সংস্করণটির আপগ্রেড প্রক্রিয়া শুধুমাত্র রেড হ্যাট লিনাক্স ৬.২ অথবা পরবর্তী "
-#~ "অন্যান্য সংস্করণের ক্ষেত্রে প্রযোজ্য।  মনে হচ্ছে যে, এই সিস্টেমটি আরো পুরনো।  এ "
-#~ "অবস্থায় আপনি কি আপগ্রেড প্রক্রিয়া চালিয়ে যেতে চান?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tডেস্কটপ শেল (গনোম)\n"
-#~ "\tঅফিস স্যুট (ওপেনঅফিস)\n"
-#~ "\tওয়েব ব্রাউজার (মজিলা)\n"
-#~ "\tই-মেইল (ইভলুশন)\n"
-#~ "\tতাত্‍ক্ষণিক বার্তা (Instant Messaging)\n"
-#~ "\tশব্দ ও ভিডিও সংক্রান্ত অ্যাপলিকেশন\n"
-#~ "\tখেলা\n"
-#~ "\tঅ্যাডমিনিস্ট্রেশনের সফটওয়্যার\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tডেস্কটপ শেল (গনোম)\n"
-#~ "\tঅফিস স্যুট (ওপেনঅফিস)\n"
-#~ "\tওয়েব ব্রাউজার (মজিলা)\n"
-#~ "\tই-মেইল (ইভলুশন)\n"
-#~ "\tতাত্‍ক্ষণিক বার্তা (Instant Messaging)\n"
-#~ "\tশব্দ ও ভিডিও সংক্রান্ত অ্যাপলিকেশন\n"
-#~ "\tখেলা\n"
-#~ "\tসফটওয়্যার তৈরির সরঞ্জাম\n"
-#~ "\tঅ্যাডমিনিস্ট্রেশনের সফটওয়্যার\n"
