@@ -2,7 +2,7 @@
 
 if [ -z "$1" ]; then
     echo "Usage: $0 /path/to/tree"
-    return 1
+    exit 1
 fi
 
 # remove all non unused python files
