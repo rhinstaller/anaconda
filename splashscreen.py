@@ -24,17 +24,18 @@ import GdkImlib
 
 splashwindow = None
 
-def splashScreenShow():
+def splashScreenShow(configFileData):
     root = _root_window ()
     cursor = cursor_new (GDK.LEFT_PTR)
     root.set_cursor (cursor)
 
     def load_image(file):
         try:
-            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
+#            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
+            im = GdkImlib.Image("/usr/share/anaconda/" + file)
         except:
             try:
-                im = GdkImlib.Image("pixmaps/" + file)
+                im = GdkImlib.Image("" + file)
             except:
                 print "Unable to load", file
 
@@ -48,7 +49,10 @@ def splashScreenShow():
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
-        im = load_image('first.png')
+#        im = load_image('first.png')
+        image = configFileData["Splashscreen"]
+        print "image is ", image
+        im = load_image(image)
     else:
         im = load_image('first-lowres.png')
                         

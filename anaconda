@@ -415,6 +415,10 @@ else:
     import xf86config
     xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
 
+import configFileData
+configFile = configFileData.configFileData()
+configFileData = configFile.getConfigData()
+
 #
 # setup links required by graphical mode if installing and verify display mode
 #
@@ -428,7 +432,7 @@ if (display_mode == 'g'):
 
     # display splash screen
     from splashscreen import splashScreenShow
-    splashScreenShow()
+    splashScreenShow(configFileData)
 
     if nofallback:
         from gui import InstallInterface

@@ -5,10 +5,15 @@ import os
 def getConfigFile():
     import string
 
-    if os.access("anaconda.conf", os.O_RDONLY):
+    if os.access("custom/anaconda.conf", os.O_RDONLY):
+        f = open("custom/anaconda.conf", "r")
+    elif os.access("/usr/lib/anaconda/custom/anaconda.conf", os.O_RDONLY):
+        f = open("/usr/lib/anaconda/custom/anaconda.conf", "r")
+    elif os.access("anaconda.conf", os.O_RDONLY):
         f = open("anaconda.conf", "r")
     else:
         f = open("/usr/lib/anaconda/anaconda.conf", "r")
+
     lines = f.readlines()
     f.close()
 
