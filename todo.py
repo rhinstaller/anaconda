@@ -184,12 +184,13 @@ class Language (SimpleConfigFile):
         self.langs = {
             "Czech"	 : "cs_CZ" ,
             "English"	 : "en_US" ,
-            "French"	 : "fr_FR" ,
+#            "French"	 : "fr_FR" ,
             "German"	 : "de_DE" ,
             "Hungarian"	 : "hu_HU" ,
             "Icelandic"	 : "is_IS" ,
             "Indonesian" : "id_ID" ,
             "Italian"	 : "it_IT" ,
+            "Japanese"	 : "ja_JP.ujis" ,
             "Norwegian"	 : "no_NO" ,
             "Polish"	 : "pl_PL" ,
             "Romanian"	 : "ro_RO" ,
@@ -221,7 +222,7 @@ class Language (SimpleConfigFile):
         self.info["LINGUAS"] = self.langs[lang]
         os.environ["LINGUAS"] = self.langs[lang]        
         self.info["LC_ALL"] = self.langs[lang]
-        os.environ["LC_ALL"] = self.langs[lang]        
+        os.environ["LC_ALL"] = self.langs[lang]
         
     def get (self):
 	return self.lang
@@ -1143,6 +1144,7 @@ class ToDo:
 	    todo.x = todo.instClass.x
 
         if iutil.getArch () == "alpha":
+            instClass.addToSkipList("bootdisk")
             instClass.addToSkipList("lilo")
             instClass.addToSkipList("silo")
 
