@@ -53,7 +53,7 @@ prepareBootTree() {
 mkdir -p $TOPDESTPATH/images
 cat > $TOPDESTPATH/images/README <<EOF
 This directory contains image files that can be used to create media
-capable of starting the Red Hat Linux installation process.
+capable of starting the $PRODUCT installation process.
 
 The boot.iso file is an ISO 9660 image of a bootable CD-ROM.  It is useful
 in cases where the CD-ROM installation method is not desired, but the
@@ -63,13 +63,13 @@ To use this image file, burn the file onto CD-R (or CD-RW) media as you
 normally would.
 
 While most present-day computers are able to start the installation process
-by booting directly from Red Hat Linux CD #1, some hardware configurations
+by booting directly from $PRODUCT CD #1, some hardware configurations
 require the use of boot and driver diskettes.  If your hardware requires
 boot and driver diskettes to start the installation process, you can create
 them using the image files in this directory.
 
 To create boot and driver diskettes from these image files, follow the
-instructions in the Red Hat Linux Installation Guide, Chapter 1, under the
+instructions in the $PRODUCT Installation Guide, Chapter 1, under the
 section entitled, "Making an Installation Boot Diskette."
 
 All installation methods must use a boot diskette created from the
@@ -237,7 +237,7 @@ The files in this directory are useful for booting a machine via PXE.
 The following files are available:
 vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
-    drivers supported for installation of Red Hat Linux
+    drivers supported for installation of $PRODUCT
 EOF
   fi
 }
