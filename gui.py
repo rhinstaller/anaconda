@@ -608,7 +608,7 @@ class InstallControlWindow:
             text = gtk.TextView()
             text.set_buffer(self.releaseNotesBuffer)
             text.set_property("editable", gtk.FALSE)
-            text.set_property("cursor_visible", gtk.FALSE)
+            text.set_property("cursor_visible", gtk.TRUE)
             text.set_wrap_mode(gtk.WRAP_WORD)
             
             sw = gtk.ScrolledWindow()
@@ -946,7 +946,7 @@ class InstallControlWindow:
 
         self.help = gtk.TextView()
         self.help.set_property("editable", gtk.FALSE)
-        self.help.set_property("cursor_visible", gtk.FALSE)
+        self.help.set_property("cursor_visible", gtk.TRUE)
         self.help.set_left_margin(10)
         self.help.set_wrap_mode(gtk.WRAP_WORD)
 
