@@ -228,8 +228,9 @@ static int setupLanguage(int choice, int flags) {
     logMessage("going to set language to %s", languages[choice].lc_all);
     /* load the language only if it is displayable.  if they're using
      * a serial console or iSeries vioconsole, we hope it's smart enough */
-    if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
-        !isVioConsole() && startBterm(flags)) {
+    if ((!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
+         !isVioConsole() && startBterm(flags)) || 
+        !strcmp(languages[choice].font, "none")) {
         if (FL_KICKSTART(flags)) return 0;
 
 	newtWinMessage("Language Unavailable", "OK", 
