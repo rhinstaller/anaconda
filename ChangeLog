@@ -1,5 +1,7 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/hdinstall.c: skip over /dev if given for path (#121486)
+
 	* lang-table: Use no instead of no-latin1 as 
 	Norwegian keyboard (#133757)
 

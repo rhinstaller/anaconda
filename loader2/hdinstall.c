@@ -184,7 +184,6 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
     logMessage("mounting device %s for hard drive install", device);
 
     if (!FL_TESTING(flags)) {
-	/* +5 skips over /dev/ */
 	if (devMakeInode(device, "/tmp/hddev"))
 	    logMessage("devMakeInode failed!");
 
@@ -292,6 +291,10 @@ char * mountHardDrive(struct installMethod * method,
 	    free(loaderData->method);
 	    loaderData->method = NULL;
 	} else {
+            /* if we start with /dev, strip it (#121486) */
+            if (!strncmp(kspartition, "/dev/", 5))
+                kspartition = kspartition + 5;
+
 	    url = setupIsoImages(kspartition, ksdirectory, flags);
 	    if (!url) {
 		logMessage("unable to find %s installation images on hd",getProductName());
