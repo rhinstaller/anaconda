@@ -1,17 +1,29 @@
-PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
+#
+# Makefile for the RPM bindigs for python
+#
+# $Id$
 
-CFLAGS += -fPIC -I/usr/include/rpm -I/usr/include/python1.5 -g
+PYTHON   = $(DESTDIR)/usr/lib/python1.5/site-packages
 
-TARGET = rpmmodule.so
+CC       = gcc
+
+INCLUDES = -I/usr/include/rpm -I/usr/include/python1.5
+CFLAGS   = -Wall -fPIC -g $(INCLUDES)
+
+LIBS     = -lrpm -lz -ldb1
+LDFLAGS  = -shared -Wl,-soname,$(TARGET) $(LIBS)
+
+# what are we building here?
+TARGET   = rpmmodule.so
 
 all: $(TARGET) 
 
 rpmmodule.so: rpmmodule.o upgrade.o hash.o
-	gcc -shared -o $@ $^ -lrpm -lz -ldb1
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 clean:
-	rm -f *.o $(TARGET)
+	rm -f *.o $(TARGET) *~
 
 install: all
-	mkdir -p $(PYTHONLIBDIR)
-	cp $(TARGET) $(PYTHONLIBDIR)
+	install -d $(PYTHON)
+	install -m 755  $(TARGET) $(PYTHON)
