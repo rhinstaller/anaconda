@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-05-25 18:58-0400\n"
-"PO-Revision-Date: 2004-04-29 14:45+0100\n"
+"PO-Revision-Date: 2004-05-27 10:17+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1038,11 +1038,12 @@ msgid ""
 "The following error was found while parsing your kickstart configuration:n\n"
 "%s"
 msgstr ""
+"Foi encontrado o seguinte erro ao processar a sua configuração de 'kickstart'\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Erro ao abrir o ficheiro 'kickstart' %s: %s"
+msgstr "Erro ao Processar a Configuração de 'Kickstart'"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1053,9 +1054,8 @@ msgstr ""
 "escolha cuidadosamente a disquete."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Por omissão"
+msgstr "por omissão:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -7158,9 +7158,9 @@ msgid "Add Device"
 msgstr "Adicionar Dispositivo"
 
 #: ../loader2/loader.c:1112
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "o 'loader' já foi executado.  A iniciar a linha de comandos."
+msgstr "o 'loader' já foi executado.  A iniciar a linha de comandos.\n"
 
 #: ../loader2/loader.c:1460
 #, c-format
@@ -7302,20 +7302,19 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s é um adaptor de rede sem fios.  Por favor indique o ESSID e a chave de cifragem necessária para aceder à sua rede sem fios.  Se não for necessária chave, deixe este campo vazio e a instalação irá continuar."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Chave de Cifragem"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Outras Configurações"
+msgstr "Configuração de Dispositivos sem Fios"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
