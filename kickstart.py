@@ -593,7 +593,8 @@ class KickstartBase(BaseInstallClass):
 	mntPoint = extra[0]
 	extra = extra[1:]
 
-	self.addRaidEntry(mntPoint, raidDev, level, extra)
+        # XXX reimplement
+        #	self.addRaidEntry(mntPoint, raidDev, level, extra)
 
     def definePartition(self, id, args):
 	# we set up partition requests (whee!)
@@ -664,18 +665,6 @@ class KickstartBase(BaseInstallClass):
         id.partrequests.addRequest(request)
 
         self.skipSteps.append("partition")
-
-## 	if onPart:
-##            if extra[0] == 'swap':
-##                # handle swap filesystems correctly 
-##                self.addToFstab(extra[0], onPart, 'swap',1)
-##            else:
-##                if format == 0:
-##                    self.addToFstab(extra[0], onPart, reformat = 0)
-##                else:
-##                    self.addToFstab(extra[0], onPart, 'ext2', 1)
-## 	else:
-## 	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum, primOnly), (type, active), fsopts)
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch)
