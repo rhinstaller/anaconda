@@ -24,6 +24,7 @@ import sys
 import parted
 import gtk
 import gtk.glade
+import gobject
 import htmlbuffer
 import rpm
 import kudzu
@@ -188,7 +189,7 @@ def handleShiftPrintScrnRelease (window, event):
  
 def setupTreeViewFixupIdleHandler(view, store):
     id = {}
-    id["id"] = gtk.idle_add(scrollToIdleHandler, (view, store, id))
+    id["id"] = gobject.idle_add(scrollToIdleHandler, (view, store, id))
 
 def scrollToIdleHandler((view, store, iddict)):
     if not view or not store or not iddict:
@@ -212,7 +213,7 @@ def scrollToIdleHandler((view, store, iddict)):
     view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
 
     if id:
-	gtk.idle_remove(id)
+	gobject.source_remove(id)
 
 # setup globals
 def processEvents():
@@ -948,7 +949,7 @@ class InstallControlWindow:
     
 	if not still_running:
 	    self.releaseNotesViewerPid = None
-	    gtk.timeout_remove(self.releaseNotesViewerIdleID)
+	    gobject.source_remove(self.releaseNotesViewerIdleID)
             self.mainxml.get_widget("buttonBar").set_sensitive(gtk.TRUE)
 	    self.releaseNotesModalDummy.destroy()
 	    
@@ -981,7 +982,7 @@ class InstallControlWindow:
 		self.releaseNotesStartViewerAttempts += 1
 		if self.releaseNotesStartViewerAttempts > 15:
 		    log("Giving up trying to run viewer!")
-		    gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
+		    gobject.source_remove(self.releaseNotesStartViewerIdleID)
 		    self.releaseNotesStartViewer = 0
 		    self.releaseNotesStartViewerAttempts = 0
 		    setCursorToNormal()
@@ -989,7 +990,7 @@ class InstallControlWindow:
 		    self.releaseNotesStartViewer = 1
 	    else:
 		# started viewer succesfully, remove idle handler
-		gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
+		gobject.source_remove(self.releaseNotesStartViewerIdleID)
 	    
 	return gtk.TRUE
 		
@@ -1016,7 +1017,7 @@ class InstallControlWindow:
 	
 	self.releaseNotesStartViewerAttempts = 0
 	self.releaseNotesStartViewer = 1
-	self.releaseNotesStartViewerIdleID = gtk.timeout_add(250, self.releaseNotesPollStartViewerCB, None)
+	self.releaseNotesStartViewerIdleID = gobject.timeout_add(250, self.releaseNotesPollStartViewerCB, None)
 
 	# we make cursor busy, on assumption when viewer app runs it will
 	# make it normal
@@ -1063,7 +1064,7 @@ class InstallControlWindow:
 	    # python interpretter cannot act on signals reliably while inside
 	    # the gtk main loop.
 	    #
-            self.releaseNotesViewerIdleID =  gtk.timeout_add(50, self.releaseNotesViewerPollExitCB, None)
+            self.releaseNotesViewerIdleID =  gobject.timeout_add(50, self.releaseNotesViewerPollExitCB, None)
 	    self.releaseNotesViewerPid = child
 	    
 	    #desensitize button bar at bottom of screen
@@ -1140,7 +1141,7 @@ class InstallControlWindow:
 		takeScreenShot()
             self.nextClicked()
         else:
-            gtk.idle_remove(self.handle)
+            gobject.source_remove(self.handle)
 
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
@@ -1201,7 +1202,7 @@ class InstallControlWindow:
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
 
-	self.handle = gtk.idle_add(self.handleRenderCallback)
+	self.handle = gobject.idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:
             self.window.reset_rc_styles()

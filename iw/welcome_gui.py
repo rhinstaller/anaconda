@@ -12,6 +12,7 @@
 #
 
 import gtk
+import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 
@@ -30,7 +31,7 @@ class WelcomeWindow (InstallWindow):
         frame.set_shadow_type (gtk.SHADOW_NONE)
 
         image = configFileData["WelcomeScreen"]
-        pix = self.ics.readPixmapDithered(image)
+        pix = gui.readImageFromFile(image)
         
         if pix:
             box = gtk.EventBox ()

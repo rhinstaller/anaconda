@@ -908,7 +908,7 @@ class PackageSelectionWindow (InstallWindow):
 	self.scrolledWindow.get_vadjustment().set_value(swmax-pagesize)
 
 	if self.idleid is not None:
-	    gtk.idle_remove(self.idleid)
+	    gobject.source_remove(self.idleid)
 
 	self.idleid = None
 	self.needToFocus = 0
@@ -1104,7 +1104,7 @@ class PackageSelectionWindow (InstallWindow):
 	    self.needToFocus = 1
 
 	if self.needToFocus:
-	    self.idleid = gtk.idle_add(self.focusIdleHandler, None)
+	    self.idleid = gobject.idle_add(self.focusIdleHandler, None)
 
 	# pack rest of screen
         hbox = gtk.HBox (gtk.FALSE, 5)

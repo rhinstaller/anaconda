@@ -198,7 +198,7 @@ class InstallProgressWindow_NEW (InstallWindow):
                     num = 0
 		    self.wrappedpixlist = 1
 		    
-                pix = self.ics.readPixmapDithered (self.pixmaps[num], 500, 325)
+                pix = gui.readImageFromFile (self.pixmaps[num], 500, 325)
                 if pix:
 		    if self.adpix:
 			self.adbox.remove (self.adpix)
@@ -314,7 +314,7 @@ class InstallProgressWindow_NEW (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
 
         # Create rnote area
-        pix = self.ics.readPixmapDithered ("progress_first.png")
+        pix = gui.readImageFromFile ("progress_first.png")
         if pix:
             frame = gtk.Frame()
             frame.set_shadow_type(gtk.SHADOW_NONE)

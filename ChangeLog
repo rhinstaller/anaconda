@@ -1,3 +1,16 @@
+2005-01-26  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py:   Fixed deprecation warnings for gtk.idle_add,
+	gtk.idle_remove, gtk.timeout_add, gtk.timeout_remove.
+	* iw/installpath_gui.py:  Fixed deprecation warning for
+	ics.readPixmap.
+	* iw/language_gui.py:  Likewise.
+	* iw/welcome_gui.py:  Likewise.
+	* iw/package_gui.py:  Fixed deprecation warnings for gtk.idle_add,
+	gtk.idle_remove.
+	* iw/progress_gui.py:  Fixed deprecation warnings for
+	ics.readPixmapDithered.
+
 2005-01-25  Peter Jones  <pjones@redhat.com>
 
 	* loader2/method.c: make validIsoImages check the buildstamp and report

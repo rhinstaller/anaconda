@@ -13,6 +13,7 @@
 
 import gobject
 import gtk
+import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 
@@ -53,7 +54,7 @@ class LanguageWindow (InstallWindow):
         mainBox = gtk.VBox (gtk.FALSE, 10)
 
         hbox = gtk.HBox(gtk.FALSE, 5)
-        pix = self.ics.readPixmap ("gnome-globe.png")
+        pix = gui.readImageFromFile ("gnome-globe.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
