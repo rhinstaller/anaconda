@@ -1443,10 +1443,10 @@ class DiskSet:
                             isys.sync()
                             sync = val
                     num = ''
-                except OSError, args:
-                    (errno, str) = args
-                    if (errno != 4):
-                        raise IOError, args
+            except OSError, args:
+                (errno, str) = args
+                if (errno != 4):
+                    raise IOError, args
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
