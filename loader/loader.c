@@ -210,58 +210,45 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
-#if defined (__s390__) && !defined (__s390x__)
-	logMessage("not spawning a shell on s390");
-	return;
-#else
-
-    if (FL_SERIAL(flags)) {
-	logMessage("not spawning a shell over a serial connection");
+    if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
+	logMessage("not spawning a shell");
 	return;
     }
-    if (FL_NOSHELL(flags)) {
-	logMessage("not spawning a shell when noshell used");
+
+    fd = open("/dev/tty2", O_RDWR);
+    if (fd < 0) {
+	logMessage("cannot open /dev/tty2 -- no shell will be provided");
+	return;
+    } else if (access("/bin/sh",  X_OK))  {
+	logMessage("cannot open shell - /bin/sh doesn't exist");
 	return;
     }
-    if (!FL_TESTING(flags)) {
-	fd = open("/dev/tty2", O_RDWR);
-	if (fd < 0) {
-	    logMessage("cannot open /dev/tty2 -- no shell will be provided");
-	    return;
-	} else if (access("/bin/sh",  X_OK))  {
-	    logMessage("cannot open shell - /bin/sh doesn't exist");
-	    return;
-	}
 
-	if (!(pid = fork())) {
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-
-	    close(fd);
-	    setsid();
-	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		logMessage("could not set new controlling tty");
-	    }
-
-	    signal(SIGINT, SIG_DFL);
-	    signal(SIGTSTP, SIG_DFL);
-
-	    setenv("LD_LIBRARY_PATH",
-		    "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
-		    "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
-
-	    execl("/bin/sh", "-/bin/sh", NULL);
-	    logMessage("exec of /bin/sh failed: %s", strerror(errno));
-	}
+    if (!(pid = fork())) {
+	dup2(fd, 0);
+	dup2(fd, 1);
+	dup2(fd, 2);
 
 	close(fd);
-    } else {
-	logMessage("not spawning a shell as we're in test mode");
+	setsid();
+	if (ioctl(0, TIOCSCTTY, NULL)) {
+	    logMessage("could not set new controlling tty");
+	}
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+
+	setenv("LD_LIBRARY_PATH",
+		"/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
+		"/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
+
+	execl("/bin/sh", "-/bin/sh", NULL);
+	logMessage("exec of /bin/sh failed: %s", strerror(errno));
     }
 
+    close(fd);
+
     return;
-#endif
 }
 
 static int detectHardware(moduleInfoSet modInfo, 
@@ -2623,11 +2610,8 @@ void setFloppyDevice(int flags) {
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
-    char * buf = NULL;
+    char * buf;
 
-#if !defined (__s390__) && !defined (__s390x__)
-	return 0;
-#else
     if (FL_NOUSB(flags)) return 0;
 
     logMessage("looking for usb controllers");
@@ -2663,7 +2647,6 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     sleep(1);
 
     return 0;
-#endif
 }
 
 /* This forces a pause between initializing usb and trusting the /proc 
@@ -2869,7 +2852,10 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
-    /*    flags |= LOADER_FLAGS_MEDIACHECK; */
+#if defined (__s390__) && !defined (__s390x__)
+    flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
+#endif
+
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
 			      &instClass);
@@ -3024,7 +3010,7 @@ int main(int argc, char ** argv) {
 	    writeNetInfo("/tmp/netinfo", &netDev, &kd);
 	}
 
-	if (!beTelnet(flags)) flags |= LOADER_FLAGS_TEXT;
+	if (!beTelnet(flags)) flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
     }
 #endif
 
