@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda \n"
-"POT-Creation-Date: 2002-12-04 14:34-0500\n"
+"POT-Creation-Date: 2002-12-11 12:29-0500\n"
 "PO-Revision-Date: 2002-08-10 17:45+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Grafik kip kurulumu için donanýmýnýz yetersiz.  Metin kipi kuruluma "
 "geçilecek."
 
-#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:145
-#: ../rescue.py:173 ../rescue.py:183 ../rescue.py:199 ../rescue.py:205
+#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:136
+#: ../rescue.py:164 ../rescue.py:174 ../rescue.py:190 ../rescue.py:196
 #: ../text.py:314 ../text.py:443 ../xserver.py:51 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdasd_text.py:32
@@ -46,7 +46,31 @@ msgstr ""
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
 #: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
 #: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
-#: ../loader/urls.c:279 ../loader/urls.c:419
+#: ../loader/urls.c:279 ../loader/urls.c:419 ../loader2/cdinstall.c:138
+#: ../loader2/cdinstall.c:139 ../loader2/cdinstall.c:251
+#: ../loader2/cdinstall.c:254 ../loader2/cdinstall.c:334
+#: ../loader2/cdinstall.c:339 ../loader2/cdinstall.c:342
+#: ../loader2/driverdisk.c:198 ../loader2/driverdisk.c:214
+#: ../loader2/driverdisk.c:225 ../loader2/driverselect.c:72
+#: ../loader2/driverselect.c:198 ../loader2/hdinstall.c:254
+#: ../loader2/hdinstall.c:421 ../loader2/hdinstall.c:472
+#: ../loader2/hdinstall.c:503 ../loader2/kbd.c:125 ../loader2/kickstart.c:97
+#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148
+#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/lang.c:263
+#: ../loader2/loader.c:250 ../loader2/loader.c:262 ../loader2/loader.c:273
+#: ../loader2/loader.c:529 ../loader2/loader.c:645 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:347
+#: ../loader2/method.c:145 ../loader2/method.c:353 ../loader2/method.c:438
+#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:637
+#: ../loader2/net.c:660 ../loader2/net.c:723 ../loader2/nfsinstall.c:53
+#: ../loader2/nfsinstall.c:216 ../loader2/nfsinstall.c:219
+#: ../loader2/nfsinstall.c:257 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
+#: ../loader2/urlinstall.c:107 ../loader2/urlinstall.c:385
+#: ../loader2/urlinstall.c:394 ../loader2/urlinstall.c:405
+#: ../loader2/urls.c:168 ../loader2/urls.c:178 ../loader2/urls.c:186
+#: ../loader2/urls.c:248 ../loader2/urls.c:309 ../loader2/urls.c:314
+#: ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "Tamam"
 
@@ -239,6 +263,7 @@ msgstr ""
 #: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
 #: ../textw/upgrade_text.py:177 ../loader/loader.c:3762
+#: ../loader2/loader.c:298
 msgid "Warning"
 msgstr "Uyarý"
 
@@ -423,7 +448,17 @@ msgstr "_Açýlýþ disketi oluþtur"
 #: ../loader/mediacheck.c:312 ../loader/modules.c:390 ../loader/modules.c:410
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
 #: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
-#: ../loader/urls.c:268 ../loader/urls.c:273
+#: ../loader/urls.c:268 ../loader/urls.c:273 ../loader2/cdinstall.c:139
+#: ../loader2/driverdisk.c:225 ../loader2/driverdisk.c:286
+#: ../loader2/hdinstall.c:254 ../loader2/hdinstall.c:472
+#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/loader.c:273
+#: ../loader2/loader.c:529 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:145 ../loader2/method.c:353
+#: ../loader2/method.c:438 ../loader2/nfsinstall.c:216
+#: ../loader2/nfsinstall.c:219 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
+#: ../loader2/urlinstall.c:107 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
 msgid "Error"
 msgstr "Hata"
 
@@ -619,6 +654,7 @@ msgstr "Düzelt"
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:247 ../loader/devices.c:237
 #: ../loader/loader.c:1145 ../loader/loader.c:3762 ../loader/net.c:907
+#: ../loader2/hdinstall.c:367 ../loader2/loader.c:298
 msgid "Yes"
 msgstr "Evet"
 
@@ -626,11 +662,12 @@ msgstr "Evet"
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:247
 #: ../textw/upgrade_text.py:254 ../loader/devices.c:238
-#: ../loader/loader.c:3762 ../loader/net.c:907
+#: ../loader/loader.c:3762 ../loader/net.c:907 ../loader2/loader.c:298
 msgid "No"
 msgstr "Hayýr"
 
 #: ../gui.py:141 ../text.py:315 ../loader/net.c:274 ../loader/net.c:400
+#: ../loader2/net.c:156 ../loader2/net.c:359
 msgid "Retry"
 msgstr "Tekrar dene"
 
@@ -646,6 +683,7 @@ msgstr "Yoksay"
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:76 ../loader/devices.c:245
 #: ../loader/loader.c:2986 ../loader/modules.c:450 ../loader/pcmcia.c:107
+#: ../loader2/driverdisk.c:199 ../loader2/loader.c:262
 msgid "Cancel"
 msgstr "Ýptal"
 
@@ -818,28 +856,6 @@ msgstr "CDROM baðlanamadý."
 #: ../installclass.py:45
 msgid "Install on System"
 msgstr "Sistemde Kurulum"
-
-#: ../installclass.py:426
-#, python-format
-msgid "Resolution requested %s is not supported."
-msgstr ""
-
-#: ../installclass.py:427
-#, python-format
-msgid "Falling back to %s."
-msgstr ""
-
-#: ../installclass.py:428
-msgid "To avoid this you may need to specify the videocard and "
-msgstr ""
-
-#: ../installclass.py:429
-msgid "monitor specs on the xconfig ks directive if they were "
-msgstr ""
-
-#: ../installclass.py:430
-msgid "not probed correctly."
-msgstr ""
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1634,15 +1650,15 @@ msgstr ""
 "Bu RAID aygýtý en çok %s yedek içerebilir. Daha fazla yedeðe ihtiyacýnýz "
 "varsa RAID aygýtýna yeni üyeler eklemelisiniz."
 
-#: ../rescue.py:72 ../rescue.py:115 ../rescue.py:215
+#: ../rescue.py:72 ../rescue.py:106 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Bittiðinde lütfen 'exit' ile kabuktan çýkýp sistemi yeniden baþlatýn."
 
-#: ../rescue.py:99 ../rescue.py:168 ../rescue.py:176 ../rescue.py:194
+#: ../rescue.py:90 ../rescue.py:159 ../rescue.py:167 ../rescue.py:185
 msgid "Rescue"
 msgstr "Kurtar"
 
-#: ../rescue.py:100
+#: ../rescue.py:91
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1665,34 +1681,36 @@ msgstr ""
 "geçebilir ve doðrudan kabuða düþebilirsiniz.\n"
 "\n"
 
-#: ../rescue.py:110 ../iw/partition_gui.py:559 ../loader/loader.c:1346
-#: ../loader/loader.c:1354
+#: ../rescue.py:101 ../iw/partition_gui.py:559 ../loader/loader.c:1346
+#: ../loader/loader.c:1354 ../loader2/cdinstall.c:111
+#: ../loader2/cdinstall.c:119 ../loader2/driverdisk.c:287
 msgid "Continue"
 msgstr "Devam Et"
 
-#: ../rescue.py:110 ../rescue.py:119
+#: ../rescue.py:101 ../rescue.py:110
 msgid "Read-Only"
 msgstr "Salt-Okunur"
 
-#: ../rescue.py:110 ../rescue.py:112 ../textw/silo_text.py:36
+#: ../rescue.py:101 ../rescue.py:103 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader/loader.c:963 ../loader/loader.c:1422
-#: ../loader/loader.c:1424
+#: ../loader/loader.c:1424 ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:254 ../loader2/method.c:400
 msgid "Skip"
 msgstr "Atla"
 
-#: ../rescue.py:142
+#: ../rescue.py:133
 msgid "System to Rescue"
 msgstr "Kurtarýlacak Sistem"
 
-#: ../rescue.py:143
+#: ../rescue.py:134
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kurulumun kök dizini hangi disk bölümünde bulunuyor?"
 
-#: ../rescue.py:145 ../rescue.py:149
+#: ../rescue.py:136 ../rescue.py:140
 msgid "Exit"
 msgstr "Çýkýþ"
 
-#: ../rescue.py:169
+#: ../rescue.py:160
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1703,7 +1721,7 @@ msgstr ""
 "sisteminizi baðlayabilirsiniz.  Kabuðu 'exit' yazarak býraktýðýnýzda sistem "
 "kendiliðinden yeniden baþlatýlacaktýr."
 
-#: ../rescue.py:177
+#: ../rescue.py:168
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1725,7 +1743,7 @@ msgstr ""
 "komutunu girmelisiniz.\n"
 "Kabuðu 'exit' ile býrakýrsanýz sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:195
+#: ../rescue.py:186
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1740,11 +1758,11 @@ msgstr ""
 "<Enter> tuþuna bastýðýnýzda kabuða düþeceksiniz. Kabuktan 'exit' yazarak "
 "çýktýðýnýzda sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:201
+#: ../rescue.py:192
 msgid "Rescue Mode"
 msgstr "Kurtarma Kipi"
 
-#: ../rescue.py:202
+#: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1752,7 +1770,7 @@ msgstr ""
 "Bir Linux dosya sistemi bulunamadý. Kabuða düþmek için enter tuþuna basýnýz. "
 "Kabuktan 'exit' ile çýktýðýnýzda sistem kendiliðinden tekrar baþlatýlacaktýr."
 
-#: ../rescue.py:212
+#: ../rescue.py:203
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Dosya sisteminiz %s altýna baðlandý."
@@ -2678,6 +2696,7 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP adresleri 0 ile 255 arasýndaki sayýlardan oluþabilir."
 
 #: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
+#: ../loader2/lang.c:261
 msgid "What language would you like to use during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
@@ -3225,6 +3244,7 @@ msgstr "IP/Að maskesi"
 
 #: ../iw/network_gui.py:421 ../iw/network_gui.py:522
 #: ../textw/network_text.py:224 ../loader/net.c:624 ../loader/net.c:823
+#: ../loader2/net.c:562
 msgid "Hostname"
 msgstr "Makine Adý"
 
@@ -3574,6 +3594,7 @@ msgid "None"
 msgstr "Hiçbiri"
 
 #: ../iw/partition_gui.py:790 ../loader/loader.c:1145
+#: ../loader2/hdinstall.c:367
 msgid "Hard Drives"
 msgstr "Sabit Diskler"
 
@@ -4687,7 +4708,13 @@ msgstr ""
 #: ../loader/loader.c:342 ../loader/loader.c:1145 ../loader/loader.c:1215
 #: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:2099
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
-#: ../loader/urls.c:198 ../loader/urls.c:419
+#: ../loader/urls.c:198 ../loader/urls.c:419 ../loader2/cdinstall.c:342
+#: ../loader2/driverdisk.c:199 ../loader2/driverdisk.c:214
+#: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
+#: ../loader2/hdinstall.c:367 ../loader2/hdinstall.c:421 ../loader2/kbd.c:125
+#: ../loader2/loader.c:250 ../loader2/loader.c:645 ../loader2/loader.c:673
+#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:723
+#: ../loader2/nfsinstall.c:53 ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
 msgstr "Geri"
 
@@ -4828,6 +4855,7 @@ msgid "SSH"
 msgstr "SSH"
 
 #: ../textw/firewall_text.py:94 ../loader/telnetd.c:64 ../loader/telnetd.c:106
+#: ../loader2/telnetd.c:82 ../loader2/telnetd.c:124
 msgid "Telnet"
 msgstr "Telnet"
 
@@ -4947,19 +4975,19 @@ msgstr "bootp/dhcp kullan"
 msgid "Activate on boot"
 msgstr "Açýlýþ sýrasýnda etkinleþtir"
 
-#: ../textw/network_text.py:83 ../loader/net.c:305
+#: ../textw/network_text.py:83 ../loader/net.c:305 ../loader2/net.c:264
 msgid "IP address:"
 msgstr "IP adresi:"
 
-#: ../textw/network_text.py:84 ../loader/net.c:308
+#: ../textw/network_text.py:84 ../loader/net.c:308 ../loader2/net.c:267
 msgid "Netmask:"
 msgstr "Að maskesi:"
 
-#: ../textw/network_text.py:85 ../loader/net.c:311
+#: ../textw/network_text.py:85 ../loader/net.c:311 ../loader2/net.c:270
 msgid "Default gateway (IP):"
 msgstr "Yönlendirici (IP):"
 
-#: ../textw/network_text.py:87 ../loader/net.c:314
+#: ../textw/network_text.py:87 ../loader/net.c:314 ../loader2/net.c:273
 msgid "Primary nameserver:"
 msgstr "Birinci DNS sunucusu:"
 
@@ -5441,7 +5469,7 @@ msgstr ""
 "kere girmeniz isteniyor. root parolasýnýn sistem güvenliðinin en kritik "
 "noktalarýndan biri olduðunu unutmayýn."
 
-#: ../textw/userauth_text.py:37 ../loader/urls.c:389
+#: ../textw/userauth_text.py:37 ../loader/urls.c:389 ../loader2/urls.c:423
 msgid "Password:"
 msgstr "Parola:"
 
@@ -5947,7 +5975,7 @@ msgstr "Bir sürücü disketiniz var mý?"
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/devices.c:283
+#: ../loader/devices.c:283 ../loader2/driverdisk.c:226
 msgid "Failed to mount driver disk."
 msgstr "Sürücü disketi baðlanamadý."
 
@@ -5979,6 +6007,11 @@ msgid "Failed to insert %s module."
 msgstr "%s modülü yüklenemedi."
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
+#: ../loader2/hdinstall.c:503 ../loader2/kickstart.c:97
+#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148 ../loader2/net.c:637
+#: ../loader2/net.c:660 ../loader2/nfsinstall.c:257
+#: ../loader2/urlinstall.c:385 ../loader2/urlinstall.c:394
+#: ../loader2/urlinstall.c:405
 msgid "Kickstart Error"
 msgstr "Kickstart Hatasý"
 
@@ -5987,48 +6020,50 @@ msgstr "Kickstart Hatasý"
 msgid "Error opening: kickstart file %s: %s"
 msgstr "kickstart %s dosyasý açýlamadý: %s"
 
-#: ../loader/kickstart.c:70
+#: ../loader/kickstart.c:70 ../loader2/kickstart.c:107
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "kickstart %s dosyasýnýn içeriði okunamadý: %s"
 
-#: ../loader/kickstart.c:109
+#: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
 #, fuzzy, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "%d numaralý satýrda hata (kickstart dosyasý %s)"
 
-#: ../loader/lang.c:41 ../loader/loader.c:210
+#: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
+#: ../loader2/loader.c:166
 #, c-format
 msgid "Welcome to %s"
 msgstr "%s'a Hoþ Geldiniz"
 
-#: ../loader/lang.c:42 ../loader/loader.c:216
+#: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:50
+#: ../loader2/loader.c:172
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 " <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
 
-#: ../loader/lang.c:305
+#: ../loader/lang.c:305 ../loader2/lang.c:260
 msgid "Choose a Language"
 msgstr "Bir Dil Seçin"
 
-#: ../loader/lang.c:632
+#: ../loader/lang.c:632 ../loader2/kbd.c:123
 msgid "Keyboard Type"
 msgstr "Klavye Tipi"
 
-#: ../loader/lang.c:633
+#: ../loader/lang.c:633 ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
 msgstr "Klavyenizin tipi nedir?"
 
-#: ../loader/loader.c:144
+#: ../loader/loader.c:144 ../loader2/loader.c:97
 msgid "Local CDROM"
 msgstr "Yerel CD sürücü"
 
-#: ../loader/loader.c:147
+#: ../loader/loader.c:147 ../loader2/loader.c:101
 msgid "NFS image"
 msgstr "NFS görüntüsü"
 
-#: ../loader/loader.c:153
+#: ../loader/loader.c:153 ../loader2/loader.c:98
 msgid "Hard drive"
 msgstr "Sabit Disk"
 
@@ -6065,11 +6100,12 @@ msgstr ""
 "ister misiniz?"
 
 #: ../loader/loader.c:502 ../loader/loader.c:943 ../loader/loader.c:2924
+#: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s dizini okunamadý: %s"
 
-#: ../loader/loader.c:611
+#: ../loader/loader.c:611 ../loader2/hdinstall.c:255
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6077,7 +6113,7 @@ msgstr ""
 "ISO kayýtlarýndan kurulum okunurken bir hata oluþtu. ISO kayýtlarýný kontrol "
 "ettikten sonra tekrar deneyiniz."
 
-#: ../loader/loader.c:960
+#: ../loader/loader.c:960 ../loader2/method.c:397
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6088,16 +6124,18 @@ msgstr ""
 "\n"
 "   %s"
 
-#: ../loader/loader.c:963
+#: ../loader/loader.c:963 ../loader2/method.c:400
 msgid "Checksum Test"
 msgstr "Toplama saðlamasý Testi"
 
 #: ../loader/loader.c:963 ../loader/loader.c:1325 ../loader/loader.c:1328
-#: ../loader/loader.c:1346 ../loader/loader.c:1354
+#: ../loader/loader.c:1346 ../loader/loader.c:1354 ../loader2/cdinstall.c:90
+#: ../loader2/cdinstall.c:93 ../loader2/cdinstall.c:111
+#: ../loader2/cdinstall.c:119 ../loader2/method.c:400
 msgid "Test"
 msgstr "Test"
 
-#: ../loader/loader.c:1146
+#: ../loader/loader.c:1146 ../loader2/hdinstall.c:368
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6105,7 +6143,7 @@ msgstr ""
 "Tanýmlý hiç sabit diskiniz bulunmuyor. Ek aygýt ayarlarý yapmak ister "
 "misiniz?"
 
-#: ../loader/loader.c:1191
+#: ../loader/loader.c:1191 ../loader2/hdinstall.c:384
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6116,28 +6154,31 @@ msgstr ""
 "diski bu listede göremiyorsanýz, F2 tuþuna basýp ek aygýt sürücülerini "
 "yapýlandýrabilirsiniz."
 
-#: ../loader/loader.c:1207
+#: ../loader/loader.c:1207 ../loader2/hdinstall.c:406
 msgid "Directory holding images:"
 msgstr "Görüntülerin bulunduðu dizin:"
 
-#: ../loader/loader.c:1227
+#: ../loader/loader.c:1227 ../loader2/hdinstall.c:433
 msgid "Select Partition"
 msgstr "Bölümü seçin"
 
-#: ../loader/loader.c:1275
+#: ../loader/loader.c:1275 ../loader2/hdinstall.c:473
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s aygýtýnda bir Red Hat Linux kurulum aðacý bulunamadý."
 
 #: ../loader/loader.c:1325 ../loader/loader.c:1346 ../loader/mediacheck.c:272
+#: ../loader2/cdinstall.c:90 ../loader2/cdinstall.c:111
+#: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr "Ortam Sýnamasý"
 
-#: ../loader/loader.c:1325 ../loader/loader.c:1329
+#: ../loader/loader.c:1325 ../loader/loader.c:1329 ../loader2/cdinstall.c:90
+#: ../loader2/cdinstall.c:94
 msgid "Eject CD"
 msgstr "CD'yi çýkart"
 
-#: ../loader/loader.c:1326
+#: ../loader/loader.c:1326 ../loader2/cdinstall.c:91
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -6146,7 +6187,7 @@ msgstr ""
 "Sürücüdeki CD'nin test edilmesi için \"%s\", çýkartýp baþka birini "
 "yerleþtirmekiçin ise \"%s\" seçiniz. "
 
-#: ../loader/loader.c:1347
+#: ../loader/loader.c:1347 ../loader2/cdinstall.c:112
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -6162,7 +6203,8 @@ msgstr ""
 "\n"
 "Kuruluma baþlamak için 1. CD'yi sürücüye yerleþtirip \"%s\" tuþuna basýnýz."
 
-#: ../loader/loader.c:1368 ../loader/loader.c:1492
+#: ../loader/loader.c:1368 ../loader/loader.c:1492 ../loader2/cdinstall.c:135
+#: ../loader2/cdinstall.c:336
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6171,11 +6213,11 @@ msgstr ""
 "CD sürücülerinizde %s CD'si bulunamadý. Lütfen %s CD'sini sürücüye "
 "yerleþtirin ve tekrar %s tuþuna basýn."
 
-#: ../loader/loader.c:1421
+#: ../loader/loader.c:1421 ../loader2/cdinstall.c:251
 msgid "CD Found"
 msgstr "CD Bulundu"
 
-#: ../loader/loader.c:1423
+#: ../loader/loader.c:1423 ../loader2/cdinstall.c:253
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6186,11 +6228,11 @@ msgstr ""
 "\n"
 "CD kontrolünü atlayýp doðrudan kuruluma baþlamak için %s tuþlayýnýz."
 
-#: ../loader/loader.c:1588
+#: ../loader/loader.c:1588 ../loader2/net.c:719
 msgid "Networking Device"
 msgstr "Að Aygýtý"
 
-#: ../loader/loader.c:1589
+#: ../loader/loader.c:1589 ../loader2/net.c:720
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6206,7 +6248,7 @@ msgstr "Bu dizinde Red Hat Linux kurulum aðacý bulunamadý."
 msgid "That directory could not be mounted from the server"
 msgstr "Bu dizin sunucudan baðlanamadý."
 
-#: ../loader/loader.c:1757
+#: ../loader/loader.c:1757 ../loader2/urlinstall.c:58
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "%s/%s dosyasý sunucuda bulunamadý"
@@ -6223,27 +6265,27 @@ msgstr "Birinci kýsým kurulum dosyasý alýnamýyor"
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "FTP ve HTTP kurulumlarý 20MB dan fazla sistem belleði gerektirir."
 
-#: ../loader/loader.c:2091
+#: ../loader/loader.c:2091 ../loader2/loader.c:637
 msgid "Rescue Method"
 msgstr "Kurtarma Yöntemi"
 
-#: ../loader/loader.c:2092
+#: ../loader/loader.c:2092 ../loader2/loader.c:638
 msgid "Installation Method"
 msgstr "Kurulum Yöntemi"
 
-#: ../loader/loader.c:2094
+#: ../loader/loader.c:2094 ../loader2/loader.c:640
 msgid "What type of media contains the rescue image?"
 msgstr "Kurtarma görüntüsü nerede bulunuyor?"
 
-#: ../loader/loader.c:2096
+#: ../loader/loader.c:2096 ../loader2/loader.c:642
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kurulacak paketler nerede bulunuyor?"
 
-#: ../loader/loader.c:2894
+#: ../loader/loader.c:2894 ../loader2/kickstart.c:247
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
-#: ../loader/loader.c:2986
+#: ../loader/loader.c:2986 ../loader2/loader.c:262
 msgid "Updates Disk"
 msgstr "Güncelleme Disketi"
 
@@ -6264,24 +6306,26 @@ msgstr ""
 msgid "Failed to mount floppy disk."
 msgstr "Disket baðlanamadý."
 
-#: ../loader/loader.c:3007
+#: ../loader/loader.c:3007 ../loader2/loader.c:277
 msgid "Updates"
 msgstr "Güncellemeler"
 
-#: ../loader/loader.c:3007
+#: ../loader/loader.c:3007 ../loader2/loader.c:277
 msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
-#: ../loader/loader.c:3181 ../loader/modules.c:424
+#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader2/driverdisk.c:88
+#: ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Yükleniyor"
 
 #: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader/windows.c:47
+#: ../loader2/firewire.c:50 ../loader2/windows.c:65
 #, c-format
 msgid "Loading %s driver..."
 msgstr "%s sürücüsü yükleniyor..."
 
-#: ../loader/loader.c:3320
+#: ../loader/loader.c:3320 ../loader2/loader.c:526
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Bu makinada %s kurulumu için yeterli bellek yok."
@@ -6304,13 +6348,13 @@ msgstr ""
 "Bir sabit disk bulunamadý. Kurulum yapýlacak diski kendiniz belirteceksiniz. "
 "Bir disk seçmek ister misiniz?"
 
-#: ../loader/loader.c:3950
+#: ../loader/loader.c:3950 ../loader2/loader.c:1078
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
 "%s sistem kurulum programý, anaconda çalýþtýrýlýyor - lütfen bekleyiniz...\n"
 
-#: ../loader/mediacheck.c:256
+#: ../loader/mediacheck.c:256 ../loader2/mediacheck.c:256
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
@@ -6319,21 +6363,21 @@ msgstr ""
 "oluþturulurken saðlama toplamýnýn diske kaydedilmemiþ olmasýndan "
 "kaynaklanabilir."
 
-#: ../loader/mediacheck.c:264
+#: ../loader/mediacheck.c:264 ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
 msgstr "\"%s\" sýnanýyor..."
 
-#: ../loader/mediacheck.c:266
+#: ../loader/mediacheck.c:266 ../loader2/mediacheck.c:266
 msgid "Checking media now..."
 msgstr "Ortam þimdi sýnanýyor..."
 
-#: ../loader/mediacheck.c:312
+#: ../loader/mediacheck.c:312 ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
 msgstr "Kurulum kaydý %s bulunamýyor"
 
-#: ../loader/mediacheck.c:322
+#: ../loader/mediacheck.c:322 ../loader2/mediacheck.c:322
 msgid ""
 "FAIL.\n"
 "\n"
@@ -6343,7 +6387,7 @@ msgstr ""
 "\n"
 "Bu ortamýn kullanýlmasý önerilmez."
 
-#: ../loader/mediacheck.c:326
+#: ../loader/mediacheck.c:326 ../loader2/mediacheck.c:326
 msgid ""
 "PASS.\n"
 "\n"
@@ -6353,7 +6397,7 @@ msgstr ""
 "\n"
 "Bu ortam kurulum için kullanýlabilir."
 
-#: ../loader/mediacheck.c:330
+#: ../loader/mediacheck.c:330 ../loader2/mediacheck.c:330
 msgid ""
 "NA.\n"
 "\n"
@@ -6363,11 +6407,11 @@ msgstr ""
 "\n"
 "Saðlama toplamý bilgisi yok. Ortam sýnamasý yapýlamadý."
 
-#: ../loader/mediacheck.c:334
+#: ../loader/mediacheck.c:334 ../loader2/mediacheck.c:334
 msgid "Media Check Result"
 msgstr "Ortam Sýnamasý Sonucu"
 
-#: ../loader/mediacheck.c:338
+#: ../loader/mediacheck.c:338 ../loader2/mediacheck.c:338
 #, c-format
 msgid ""
 "of the image:\n"
@@ -6380,7 +6424,7 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../loader/mediacheck.c:342
+#: ../loader/mediacheck.c:342 ../loader2/mediacheck.c:342
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "Ortam sýnamasý %stamamlandý. Sonucu: %s\n"
@@ -6403,7 +6447,7 @@ msgstr "Sürücü Disketi"
 msgid "Please insert the %s driver disk now."
 msgstr "%s sürücü disketini sürücüye yerleþtirin."
 
-#: ../loader/net.c:62
+#: ../loader/net.c:62 ../loader2/net.c:41
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6418,27 +6462,28 @@ msgstr ""
 "    o Sunucuda donanýmýnýza iliþkin\n"
 "      %s'un bulunduðu dizin\n"
 
-#: ../loader/net.c:176
+#: ../loader/net.c:176 ../loader2/nfsinstall.c:43
 msgid "NFS server name:"
 msgstr "NFS sunucu adý:"
 
-#: ../loader/net.c:179 ../loader/urls.c:226
+#: ../loader/net.c:179 ../loader/urls.c:226 ../loader2/nfsinstall.c:46
+#: ../loader2/urls.c:276
 msgid "Red Hat directory:"
 msgstr "Red Hat Linux dizini:"
 
-#: ../loader/net.c:185
+#: ../loader/net.c:185 ../loader2/nfsinstall.c:52
 msgid "NFS Setup"
 msgstr "NFS Ayarlarý"
 
-#: ../loader/net.c:259
+#: ../loader/net.c:259 ../loader2/net.c:141
 msgid "Nameserver IP"
 msgstr "Alan adý sunucu IP'si"
 
-#: ../loader/net.c:263 ../loader/net.c:819
+#: ../loader/net.c:263 ../loader/net.c:819 ../loader2/net.c:145
 msgid "Nameserver"
 msgstr "Alan adý sunucu"
 
-#: ../loader/net.c:264
+#: ../loader/net.c:264 ../loader2/net.c:146
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6450,15 +6495,15 @@ msgstr ""
 "lütfen girin. Eðer bilmiyorsanýz boþ býrakabilir ve daha sonra "
 "girebilirsiniz."
 
-#: ../loader/net.c:274
+#: ../loader/net.c:274 ../loader2/net.c:156
 msgid "Invalid IP Information"
 msgstr "Geçersiz IP Bilgisi"
 
-#: ../loader/net.c:275
+#: ../loader/net.c:275 ../loader2/net.c:157
 msgid "You entered an invalid IP address."
 msgstr "Geçersiz bir IP adresi girdiniz."
 
-#: ../loader/net.c:299
+#: ../loader/net.c:299 ../loader2/net.c:258
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -6466,31 +6511,32 @@ msgstr ""
 "Bu makina için að ayarlarýný girin. Gireceðiniz deðerler nokta ile ayrýlmýþ "
 "dört sayý þeklinde tanýmlanmalý (mesela 1.2.3.4)."
 
-#: ../loader/net.c:341
+#: ../loader/net.c:341 ../loader2/net.c:300
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Deðiþken IP ayarlarýný kullan (BOOTP/DHCP)"
 
-#: ../loader/net.c:369
+#: ../loader/net.c:369 ../loader2/net.c:328
 msgid "Configure TCP/IP"
 msgstr "TCP/IP Ayarlarý"
 
-#: ../loader/net.c:400
+#: ../loader/net.c:400 ../loader2/net.c:359
 msgid "Missing Information"
 msgstr "Eksik Bilgi"
 
-#: ../loader/net.c:401
+#: ../loader/net.c:401 ../loader2/net.c:360
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Devam etmek için geçerli bir IP adresi ve að maskesi girmelisiniz."
 
-#: ../loader/net.c:409 ../loader/net.c:752
+#: ../loader/net.c:409 ../loader/net.c:752 ../loader2/net.c:188
+#: ../loader2/net.c:368
 msgid "Dynamic IP"
 msgstr "Deðiþken IP"
 
-#: ../loader/net.c:410 ../loader/net.c:753
+#: ../loader/net.c:410 ../loader/net.c:753 ../loader2/net.c:369
 msgid "Sending request for IP information..."
 msgstr "IP bilgi istekleri gönderiliyor..."
 
-#: ../loader/net.c:625
+#: ../loader/net.c:625 ../loader2/net.c:563
 msgid "Determining host name and domain..."
 msgstr "Makina ve alan adý belirleniyor..."
 
@@ -6503,7 +6549,7 @@ msgstr "kickstart"
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "kickstart að komutu için hatalý argüman %s: %s"
 
-#: ../loader/net.c:770
+#: ../loader/net.c:770 ../loader2/net.c:661
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "að komutunda hatalý IP numarasý: %s"
@@ -6580,37 +6626,38 @@ msgstr "Disk baðlanamadý."
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr "Bu bir Red Hat PCMCIA sürücü disketi gibi görünmüyor."
 
-#: ../loader/telnetd.c:64
+#: ../loader/telnetd.c:64 ../loader2/telnetd.c:82
 msgid "Waiting for telnet connection..."
 msgstr "Telnet baðlantýsý için bekleniyor..."
 
-#: ../loader/telnetd.c:106
+#: ../loader/telnetd.c:106 ../loader2/telnetd.c:124
 msgid "Running anaconda via telnet..."
 msgstr "Anaconda telnet üzerinden çalýþtýrýlýyor..."
 
-#: ../loader/urls.c:82
+#: ../loader/urls.c:82 ../loader2/urls.c:169
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "%s makinasýna girilemedi: %s"
 
-#: ../loader/urls.c:92 ../loader/urls.c:100
+#: ../loader/urls.c:92 ../loader/urls.c:100 ../loader2/urls.c:179
+#: ../loader2/urls.c:187
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "%s alýnamadý: %s"
 
-#: ../loader/urls.c:105
+#: ../loader/urls.c:105 ../loader2/urls.c:192
 msgid "Retrieving"
 msgstr "Alýnýyor"
 
-#: ../loader/urls.c:222
+#: ../loader/urls.c:222 ../loader2/urls.c:272
 msgid "FTP site name:"
 msgstr "FTP makina adý:"
 
-#: ../loader/urls.c:223
+#: ../loader/urls.c:223 ../loader2/urls.c:273
 msgid "Web site name:"
 msgstr "Web sayfasý adý:"
 
-#: ../loader/urls.c:241
+#: ../loader/urls.c:241 ../loader2/urls.c:290
 msgid "Use non-anonymous ftp"
 msgstr "Kullanýcý adýyla ftp ya da vekil (proxy) sunucu kullan"
 
@@ -6618,32 +6665,32 @@ msgstr "Kullanýcý adýyla ftp ya da vekil (proxy) sunucu kullan"
 msgid "Use proxy server"
 msgstr "Vekil (proxy) sunucu kullan"
 
-#: ../loader/urls.c:258
+#: ../loader/urls.c:258 ../loader2/urls.c:299
 msgid "FTP Setup"
 msgstr "FTP Ayarlarý"
 
-#: ../loader/urls.c:259
+#: ../loader/urls.c:259 ../loader2/urls.c:300
 msgid "HTTP Setup"
 msgstr "HTTP Ayarlarý"
 
-#: ../loader/urls.c:269
+#: ../loader/urls.c:269 ../loader2/urls.c:310
 msgid "You must enter a server name."
 msgstr "Bir sunucu adý girmelisiniz"
 
-#: ../loader/urls.c:274
+#: ../loader/urls.c:274 ../loader2/urls.c:315
 msgid "You must enter a directory."
 msgstr "Bir dizin adý girmelisiniz"
 
-#: ../loader/urls.c:279
+#: ../loader/urls.c:279 ../loader2/urls.c:320
 msgid "Unknown Host"
 msgstr "Bilinmeyen Makina"
 
-#: ../loader/urls.c:280
+#: ../loader/urls.c:280 ../loader2/urls.c:321
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s tanýmlý bir makina adý deðil."
 
-#: ../loader/urls.c:360
+#: ../loader/urls.c:360 ../loader2/urls.c:394
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6651,7 +6698,7 @@ msgstr ""
 "Anonim olmayan FTP yapýlacaksa kullanýcý adý ve parolayý belirtin. Vekil "
 "(proxy) sunucu kullanýlacaksa bu sunucunun adýný belirtin."
 
-#: ../loader/urls.c:365
+#: ../loader/urls.c:365 ../loader2/urls.c:399
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6659,7 +6706,7 @@ msgstr ""
 "Eðer bir HTTP vekil (proxy) sunucu kullanýlacaksa bu sunucunun adýný "
 "belirtin."
 
-#: ../loader/urls.c:386
+#: ../loader/urls.c:386 ../loader2/urls.c:420
 msgid "Account name:"
 msgstr "Hesap Adý:"
 
@@ -6679,9 +6726,220 @@ msgstr "FTP Vekil Portu:"
 msgid "HTTP Proxy Port:"
 msgstr "HTTP Vekil (proxy) Portu:"
 
-#: ../loader/windows.c:46
+#: ../loader/windows.c:46 ../loader2/windows.c:64
 msgid "Loading SCSI driver"
 msgstr "SCSI sürücüsü yükleniyor"
+
+#: ../loader2/cdinstall.c:331
+#, fuzzy, c-format
+msgid ""
+"No %s CD was found which matches your boot media.  Please insert the %s CD "
+"and press %s to retry."
+msgstr ""
+"CD sürücülerinizde %s CD'si bulunamadý. Lütfen %s CD'sini sürücüye "
+"yerleþtirin ve tekrar %s tuþuna basýn."
+
+#: ../loader2/cdinstall.c:341
+#, fuzzy
+msgid "CD Not Found"
+msgstr "CD Bulundu"
+
+#: ../loader2/driverdisk.c:88
+#, fuzzy
+msgid "Reading driver disk"
+msgstr "Sürücü disketi baðlanamadý."
+
+#: ../loader2/driverdisk.c:193
+#, fuzzy
+msgid "Driver Disk Source"
+msgstr "Sürücü Disketi"
+
+#: ../loader2/driverdisk.c:194
+#, fuzzy
+msgid ""
+"You have multiple devices which could serve as sources for a driver disk.  "
+"Which would you like to use?"
+msgstr ""
+"Sistemde birden fazla að aygýtý bulunuyor. Hangisi üzerinden kurulum yapmak "
+"istiyorsunuz?"
+
+#: ../loader2/driverdisk.c:212
+#, fuzzy, c-format
+msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
+msgstr "Sürücü disketini takýp \"Tamam\" düðmesine týklayýn."
+
+#: ../loader2/driverdisk.c:214
+#, fuzzy
+msgid "Insert Driver Disk"
+msgstr "Sürücü Disketi"
+
+#: ../loader2/driverdisk.c:286
+msgid "Manually choose"
+msgstr ""
+
+#: ../loader2/driverdisk.c:287
+msgid "Load another disk"
+msgstr ""
+
+#: ../loader2/driverdisk.c:288
+msgid ""
+"No devices of the appropriate type were found on this driver disk.  Would "
+"you like to manually select the driver, continue anyway, or load another "
+"driver disk?"
+msgstr ""
+
+#: ../loader2/driverselect.c:59
+#, fuzzy, c-format
+msgid ""
+"Please enter any parameters which you wish to pass to the %s module "
+"separated by spaces.  If you don't know what parameters to supply, skip this "
+"screen by pressing the \"OK\" button.  A list of available options can be "
+"obtained by pressing the F1 key."
+msgstr ""
+"Bu modül, çalýþmasýný ekleyecek parametreler alabilir. Eðer hangi "
+"parametreleri kullanacaðýnýzý bilmiyorsanýz, \"Tamam\" düðmesine basarak bu "
+"adýmý geçebilirsiniz."
+
+#: ../loader2/driverselect.c:82
+#, fuzzy
+msgid "Enter Module Parameters"
+msgstr "Modül Parametreleri"
+
+#: ../loader2/driverselect.c:191
+#, fuzzy
+msgid ""
+"Please select the driver below which you wish to load.  If it does not "
+"appear and you have a driver disk, press F2."
+msgstr ""
+"Hangi sürücü denensin? Eðer listede bulunmayan bir sürücüye ihtiyacýnýz "
+"varsa, ve elinizde ayrý bir sürücü disketi bulunuyorsa, lütfen F2 tuþuna "
+"basýn."
+
+#: ../loader2/driverselect.c:199
+#, fuzzy
+msgid "Specify optional module arguments"
+msgstr "Modül parametrelerini belirtin"
+
+#: ../loader2/driverselect.c:219
+#, fuzzy
+msgid "Select Device Driver to Load"
+msgstr "fdasd çalýþtýrýlacak sürücüyü seçin"
+
+#: ../loader2/hdinstall.c:504
+#, fuzzy, c-format
+msgid "Bad argument to HD kickstart method command %s: %s"
+msgstr "kickstart að komutu için hatalý argüman %s: %s"
+
+#: ../loader2/kickstart.c:98
+#, fuzzy, c-format
+msgid "Error opening kickstart file %s: %s"
+msgstr "kickstart %s dosyasý açýlamadý: %s"
+
+#: ../loader2/loader.c:245
+#, fuzzy
+msgid "Update Disk Source"
+msgstr "Güncelleme Disketi"
+
+#: ../loader2/loader.c:246
+#, fuzzy
+msgid ""
+"You have multiple devices which could serve as sources for an update disk.  "
+"Which would you like to use?"
+msgstr ""
+"Sistemde birden fazla að aygýtý bulunuyor. Hangisi üzerinden kurulum yapmak "
+"istiyorsunuz?"
+
+#: ../loader2/loader.c:260
+#, fuzzy, c-format
+msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
+msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
+
+#: ../loader2/loader.c:274
+#, fuzzy
+msgid "Failed to mount updates disk"
+msgstr "Sürücü disketi baðlanamadý."
+
+#: ../loader2/loader.c:299
+#, fuzzy
+msgid ""
+"No hard drives have been found.  You probably need to manually choose device "
+"drivers for the installation to succeed.  Would you like to select drivers "
+"now?"
+msgstr ""
+"Bir sabit disk bulunamadý. Kurulum yapýlacak diski kendiniz belirteceksiniz. "
+"Bir disk seçmek ister misiniz?"
+
+#: ../loader2/loader.c:672
+#, fuzzy
+msgid "No driver found"
+msgstr "Hiç Sürücü Bulunamadý"
+
+#: ../loader2/loader.c:672
+#, fuzzy
+msgid "Select driver"
+msgstr "fdasd çalýþtýrýlacak sürücüyü seçin"
+
+#: ../loader2/loader.c:673
+#, fuzzy
+msgid "Use a driver disk"
+msgstr "Bir sürücü disketiniz var mý?"
+
+#: ../loader2/loader.c:674
+msgid ""
+"Unable to find any devices of the type needed for this installation type.  "
+"Would you like to manually select your driver or use a driver disk?"
+msgstr ""
+
+#: ../loader2/net.c:189
+#, fuzzy, c-format
+msgid "Sending request for IP information for %s"
+msgstr "IP bilgi istekleri gönderiliyor..."
+
+#: ../loader2/net.c:638
+#, fuzzy, c-format
+msgid "Bad argument to kickstart network command %s: %s"
+msgstr "kickstart að komutu için hatalý argüman %s: %s"
+
+#: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
+#, c-format
+msgid ""
+"The %s installation tree in that directory does not seem to match your boot "
+"media."
+msgstr ""
+
+#: ../loader2/nfsinstall.c:213
+#, fuzzy, c-format
+msgid "That directory does not seem to contain a %s installation tree."
+msgstr "Bu dizinde Red Hat Linux kurulum aðacý bulunamadý."
+
+#: ../loader2/nfsinstall.c:220
+#, fuzzy
+msgid "That directory could not be mounted from the server."
+msgstr "Bu dizin sunucudan baðlanamadý."
+
+#: ../loader2/nfsinstall.c:258
+#, fuzzy, c-format
+msgid "Bad argument to NFS kickstart method command %s: %s"
+msgstr "kickstart að komutu için hatalý argüman %s: %s"
+
+#: ../loader2/urlinstall.c:96
+#, fuzzy
+msgid "Unable to retrieve the install image."
+msgstr "Birinci kýsým kurulum dosyasý alýnamýyor"
+
+#: ../loader2/urlinstall.c:386
+#, fuzzy, c-format
+msgid "Bad argument to Url kickstart method command %s: %s"
+msgstr "kickstart að komutu için hatalý argüman %s: %s"
+
+#: ../loader2/urlinstall.c:395
+msgid "Must supply a --url argument to Url kickstart method."
+msgstr ""
+
+#: ../loader2/urlinstall.c:406
+#, fuzzy, c-format
+msgid "Unknown Url method %s"
+msgstr "Bilinmeyen Kart"
 
 #. generated from zone.tab
 msgid "Acre"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2002-12-04 14:34-0500\n"
-"PO-Revision-Date: 2002-09-08 01:11+0200\n"
+"POT-Creation-Date: 2002-12-11 12:29-0500\n"
+"PO-Revision-Date: 2002-12-11 01:32+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgstr ""
 "Du har inte tillräckligt med minne för att använda det grafiska "
 "installationsprogrammet. Startar textläge."
 
-#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:145
-#: ../rescue.py:173 ../rescue.py:183 ../rescue.py:199 ../rescue.py:205
+#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:136
+#: ../rescue.py:164 ../rescue.py:174 ../rescue.py:190 ../rescue.py:196
 #: ../text.py:314 ../text.py:443 ../xserver.py:51 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdasd_text.py:32
@@ -50,13 +50,37 @@ msgstr ""
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
 #: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
 #: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
-#: ../loader/urls.c:279 ../loader/urls.c:419
+#: ../loader/urls.c:279 ../loader/urls.c:419 ../loader2/cdinstall.c:138
+#: ../loader2/cdinstall.c:139 ../loader2/cdinstall.c:251
+#: ../loader2/cdinstall.c:254 ../loader2/cdinstall.c:334
+#: ../loader2/cdinstall.c:339 ../loader2/cdinstall.c:342
+#: ../loader2/driverdisk.c:198 ../loader2/driverdisk.c:214
+#: ../loader2/driverdisk.c:225 ../loader2/driverselect.c:72
+#: ../loader2/driverselect.c:198 ../loader2/hdinstall.c:254
+#: ../loader2/hdinstall.c:421 ../loader2/hdinstall.c:472
+#: ../loader2/hdinstall.c:503 ../loader2/kbd.c:125 ../loader2/kickstart.c:97
+#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148
+#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/lang.c:263
+#: ../loader2/loader.c:250 ../loader2/loader.c:262 ../loader2/loader.c:273
+#: ../loader2/loader.c:529 ../loader2/loader.c:645 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:347
+#: ../loader2/method.c:145 ../loader2/method.c:353 ../loader2/method.c:438
+#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:637
+#: ../loader2/net.c:660 ../loader2/net.c:723 ../loader2/nfsinstall.c:53
+#: ../loader2/nfsinstall.c:216 ../loader2/nfsinstall.c:219
+#: ../loader2/nfsinstall.c:257 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
+#: ../loader2/urlinstall.c:107 ../loader2/urlinstall.c:385
+#: ../loader2/urlinstall.c:394 ../loader2/urlinstall.c:405
+#: ../loader2/urls.c:168 ../loader2/urls.c:178 ../loader2/urls.c:186
+#: ../loader2/urls.c:248 ../loader2/urls.c:309 ../loader2/urls.c:314
+#: ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "OK"
 
 #: ../anaconda:474 ../anaconda:683
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Kan inte instantiera ett X-hårdvarutillståndsobjekt."
 
 #: ../anaconda:491
 #, c-format
@@ -74,9 +98,9 @@ msgstr ""
 "Ingen mus hittades. En mus krävs för grafisk installation. Startar textläge."
 
 #: ../anaconda:510
-#, fuzzy, c-format
+#, c-format
 msgid "Using mouse type: %s"
-msgstr "Använder mustyp: "
+msgstr "Använder mustyp: %s"
 
 #: ../autopart.py:891
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -102,6 +126,9 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"Startpartitionen %s tillhör inte en BSD-disketikett. SRM kommer inte att "
+"kunna starta från denna partition. Använd en partition som tillhör en BSD-"
+"disketikett eller ändra denna enhetsdisketikett till BSD."
 
 #: ../autopart.py:964
 #, python-format
@@ -110,6 +137,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Startpartitionen %s tillhör inte en disk med tillräckligt mycket ledigt "
+"utrymme vid dess början som startprogrammet kan finnas på. Försäkra dig om "
+"att det finns 5 MB ledigt utrymme vid början på disken som innehåller /boot"
 
 #: ../autopart.py:966
 #, python-format
@@ -117,6 +147,8 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Startpartitionen %s är inte en VFAT-partition. EFI kommer inte att kunna "
+"starta från denna partition."
 
 #: ../autopart.py:969
 #, python-format
@@ -244,11 +276,11 @@ msgstr ""
 #: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
 #: ../textw/upgrade_text.py:177 ../loader/loader.c:3762
+#: ../loader2/loader.c:298
 msgid "Warning"
 msgstr "Varning"
 
 #: ../autopart.py:1297
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -263,11 +295,7 @@ msgstr ""
 "\n"
 "Det manuella diskpartitioneringsverktyget, Disk Druid, låter dig skapa "
 "partitioner i en interaktiv miljö. Du kan ange filsystemstyper, "
-"monteringspunkter, storlek med mera.\n"
-"\n"
-"Partitioneringsverktyget, fdisk, är ett textbaserat partitioneringsverktyg "
-"som endast rekommenderas för avancerade användare som måste utföra speciella "
-"åtgärder."
+"monteringspunkter, storlek med mera."
 
 #: ../autopart.py:1308
 msgid ""
@@ -429,7 +457,17 @@ msgstr "_Skapa startdiskett"
 #: ../loader/mediacheck.c:312 ../loader/modules.c:390 ../loader/modules.c:410
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
 #: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
-#: ../loader/urls.c:268 ../loader/urls.c:273
+#: ../loader/urls.c:268 ../loader/urls.c:273 ../loader2/cdinstall.c:139
+#: ../loader2/driverdisk.c:225 ../loader2/driverdisk.c:286
+#: ../loader2/hdinstall.c:254 ../loader2/hdinstall.c:472
+#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/loader.c:273
+#: ../loader2/loader.c:529 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:145 ../loader2/method.c:353
+#: ../loader2/method.c:438 ../loader2/nfsinstall.c:216
+#: ../loader2/nfsinstall.c:219 ../loader2/telnetd.c:86
+#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
+#: ../loader2/urlinstall.c:107 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
 msgid "Error"
 msgstr "Fel"
 
@@ -626,6 +664,7 @@ msgstr "Fixa"
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:247 ../loader/devices.c:237
 #: ../loader/loader.c:1145 ../loader/loader.c:3762 ../loader/net.c:907
+#: ../loader2/hdinstall.c:367 ../loader2/loader.c:298
 msgid "Yes"
 msgstr "Ja"
 
@@ -633,11 +672,12 @@ msgstr "Ja"
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:247
 #: ../textw/upgrade_text.py:254 ../loader/devices.c:238
-#: ../loader/loader.c:3762 ../loader/net.c:907
+#: ../loader/loader.c:3762 ../loader/net.c:907 ../loader2/loader.c:298
 msgid "No"
 msgstr "Nej"
 
 #: ../gui.py:141 ../text.py:315 ../loader/net.c:274 ../loader/net.c:400
+#: ../loader2/net.c:156 ../loader2/net.c:359
 msgid "Retry"
 msgstr "Försök igen"
 
@@ -653,6 +693,7 @@ msgstr "Ignorera"
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:76 ../loader/devices.c:245
 #: ../loader/loader.c:2986 ../loader/modules.c:450 ../loader/pcmcia.c:107
+#: ../loader2/driverdisk.c:199 ../loader2/loader.c:262
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -701,14 +742,16 @@ msgid "Error!"
 msgstr "Fel!"
 
 #: ../gui.py:814
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
 msgstr ""
 "Ett fel inträffade vid försök att läsa in en gränssnittskomponent för "
-"installationsprogrammet."
+"installationsprogrammet.\n"
+"\n"
+"className = %s"
 
 #: ../gui.py:818 ../packages.py:1152 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -829,28 +872,6 @@ msgstr "Cd-romskivan kunde inte monteras."
 msgid "Install on System"
 msgstr "Installera på system"
 
-#: ../installclass.py:426
-#, python-format
-msgid "Resolution requested %s is not supported."
-msgstr ""
-
-#: ../installclass.py:427
-#, python-format
-msgid "Falling back to %s."
-msgstr ""
-
-#: ../installclass.py:428
-msgid "To avoid this you may need to specify the videocard and "
-msgstr ""
-
-#: ../installclass.py:429
-msgid "monitor specs on the xconfig ks directive if they were "
-msgstr ""
-
-#: ../installclass.py:430
-msgid "not probed correctly."
-msgstr ""
-
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
 msgstr ""
@@ -889,22 +910,20 @@ msgid "Reading package information..."
 msgstr "Läser paketinformation..."
 
 #: ../packages.py:129
-#, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
-"paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
+"Kan inte läsa huvudlistan. Detta kan bero på att filen saknas eller "
+"felaktigt medium. Tryck på <Retur> för att försöka igen."
 
 #: ../packages.py:143
-#, fuzzy
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
-"paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
+"Kan inte läsa comps-filen. Detta kan bero på att filen saknas eller "
+"felaktigt medium. Tryck på <Retur> för att försöka igen."
 
 #: ../packages.py:217
 msgid "Dependency Check"
@@ -931,6 +950,11 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"Paketet %s-%s-%s kan inte öppnas. Detta beror på en saknad fil eller kanske "
+"ett trasigt paket. Om du installerar från cd-medium kan detta bero på att cd-"
+"mediumet är trasigt, eller att cd-läsaren inte kan läsa mediumet.\n"
+"\n"
+"Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:372
 msgid "Error Installing Package"
@@ -954,13 +978,12 @@ msgstr ""
 "Tryck på OK-knappen för att starta om ditt system."
 
 #: ../packages.py:545
-#, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
-"paket, eller felaktigt medium. Tryck på <Retur> för att försöka igen."
+"Kan inte slå samman huvudlistan. Detta kan bero på att filen saknas eller "
+"felaktigt medium. Tryck på <Retur> för att försöka igen."
 
 #: ../packages.py:664
 msgid "Setting up RPM transaction..."
@@ -1656,16 +1679,16 @@ msgstr ""
 "Denna RAID-enhet kan maximalt ha %s reserver. För att lägga till reserver "
 "måste du lägga till medlemmar i RAID-enheten."
 
-#: ../rescue.py:72 ../rescue.py:115 ../rescue.py:215
+#: ../rescue.py:72 ../rescue.py:106 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "När du är färdig avslutar du skalet. Systemet kommer då att startas om."
 
-#: ../rescue.py:99 ../rescue.py:168 ../rescue.py:176 ../rescue.py:194
+#: ../rescue.py:90 ../rescue.py:159 ../rescue.py:167 ../rescue.py:185
 msgid "Rescue"
 msgstr "Räddning"
 
-#: ../rescue.py:100
+#: ../rescue.py:91
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1689,34 +1712,36 @@ msgstr ""
 "direkt.\n"
 "\n"
 
-#: ../rescue.py:110 ../iw/partition_gui.py:559 ../loader/loader.c:1346
-#: ../loader/loader.c:1354
+#: ../rescue.py:101 ../iw/partition_gui.py:559 ../loader/loader.c:1346
+#: ../loader/loader.c:1354 ../loader2/cdinstall.c:111
+#: ../loader2/cdinstall.c:119 ../loader2/driverdisk.c:287
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: ../rescue.py:110 ../rescue.py:119
+#: ../rescue.py:101 ../rescue.py:110
 msgid "Read-Only"
 msgstr "Skrivskyddad"
 
-#: ../rescue.py:110 ../rescue.py:112 ../textw/silo_text.py:36
+#: ../rescue.py:101 ../rescue.py:103 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader/loader.c:963 ../loader/loader.c:1422
-#: ../loader/loader.c:1424
+#: ../loader/loader.c:1424 ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:254 ../loader2/method.c:400
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: ../rescue.py:142
+#: ../rescue.py:133
 msgid "System to Rescue"
 msgstr "System att rädda"
 
-#: ../rescue.py:143
+#: ../rescue.py:134
 msgid "What partition holds the root partition of your installation?"
 msgstr "Vilken partition innehåller rotpartitionen i din installation?"
 
-#: ../rescue.py:145 ../rescue.py:149
+#: ../rescue.py:136 ../rescue.py:140
 msgid "Exit"
 msgstr "Avsluta"
 
-#: ../rescue.py:169
+#: ../rescue.py:160
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1727,7 +1752,7 @@ msgstr ""
 "partitioner. Systemet kommer automatiskt att startas om när du avslutar "
 "skalet."
 
-#: ../rescue.py:177
+#: ../rescue.py:168
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1748,7 +1773,7 @@ msgstr ""
 "\n"
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:195
+#: ../rescue.py:186
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1763,11 +1788,11 @@ msgstr ""
 "Tryck på <Retur> för att komma till ett skal. Systemet kommer automatiskt "
 "att startas om när du avslutar skalet."
 
-#: ../rescue.py:201
+#: ../rescue.py:192
 msgid "Rescue Mode"
 msgstr "Räddningsläge"
 
-#: ../rescue.py:202
+#: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1775,7 +1800,7 @@ msgstr ""
 "Du har inga Linuxpartitioner. Tryck på Retur för att komma till ett skal. "
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:212
+#: ../rescue.py:203
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ditt system är monterat under katalogen %s."
@@ -2005,9 +2030,8 @@ msgid " X server started successfully."
 msgstr " X-servern startade utan problem."
 
 #: ../iw/account_gui.py:25
-#, fuzzy
 msgid "Set Root Password"
-msgstr "Rootlösenord"
+msgstr "Ställ in rootlösenord"
 
 #: ../iw/account_gui.py:40
 msgid "Root password accepted."
@@ -2610,11 +2634,12 @@ msgid "Upgrade Examine"
 msgstr "Granskning av uppgradering"
 
 #: ../iw/examine_gui.py:72
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system.  FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "Följande enheter har hittats i ditt system:"
+msgstr ""
+"Följande rotpartitioner har hittats i ditt system. FIXME: Jag behöver bättre "
+"text här."
 
 #: ../iw/examine_gui.py:91
 msgid "_Customize packages to be upgraded"
@@ -2710,6 +2735,7 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser får bara innehålla tal mellan 0 och 255"
 
 #: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
+#: ../loader2/lang.c:261
 msgid "What language would you like to use during the installation process?"
 msgstr "Vilket språk vill du använda under installationen?"
 
@@ -3256,6 +3282,7 @@ msgstr "IP/Nätmask"
 
 #: ../iw/network_gui.py:421 ../iw/network_gui.py:522
 #: ../textw/network_text.py:224 ../loader/net.c:624 ../loader/net.c:823
+#: ../loader2/net.c:562
 msgid "Hostname"
 msgstr "Värdnamn"
 
@@ -3604,6 +3631,7 @@ msgid "None"
 msgstr "Ingen"
 
 #: ../iw/partition_gui.py:790 ../loader/loader.c:1145
+#: ../loader2/hdinstall.c:367
 msgid "Hard Drives"
 msgstr "Hårddiskar"
 
@@ -4732,7 +4760,13 @@ msgstr ""
 #: ../loader/loader.c:342 ../loader/loader.c:1145 ../loader/loader.c:1215
 #: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:2099
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
-#: ../loader/urls.c:198 ../loader/urls.c:419
+#: ../loader/urls.c:198 ../loader/urls.c:419 ../loader2/cdinstall.c:342
+#: ../loader2/driverdisk.c:199 ../loader2/driverdisk.c:214
+#: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
+#: ../loader2/hdinstall.c:367 ../loader2/hdinstall.c:421 ../loader2/kbd.c:125
+#: ../loader2/loader.c:250 ../loader2/loader.c:645 ../loader2/loader.c:673
+#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:723
+#: ../loader2/nfsinstall.c:53 ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
 msgstr "Tillbaka"
 
@@ -4874,6 +4908,7 @@ msgid "SSH"
 msgstr "SSH"
 
 #: ../textw/firewall_text.py:94 ../loader/telnetd.c:64 ../loader/telnetd.c:106
+#: ../loader2/telnetd.c:82 ../loader2/telnetd.c:124
 msgid "Telnet"
 msgstr "Telnet"
 
@@ -4993,19 +5028,19 @@ msgstr "Använd bootp/dhcp"
 msgid "Activate on boot"
 msgstr "Aktivera vid uppstart"
 
-#: ../textw/network_text.py:83 ../loader/net.c:305
+#: ../textw/network_text.py:83 ../loader/net.c:305 ../loader2/net.c:264
 msgid "IP address:"
 msgstr "IP-adress:"
 
-#: ../textw/network_text.py:84 ../loader/net.c:308
+#: ../textw/network_text.py:84 ../loader/net.c:308 ../loader2/net.c:267
 msgid "Netmask:"
 msgstr "Nätmask:"
 
-#: ../textw/network_text.py:85 ../loader/net.c:311
+#: ../textw/network_text.py:85 ../loader/net.c:311 ../loader2/net.c:270
 msgid "Default gateway (IP):"
 msgstr "Standard-gateway (IP):"
 
-#: ../textw/network_text.py:87 ../loader/net.c:314
+#: ../textw/network_text.py:87 ../loader/net.c:314 ../loader2/net.c:273
 msgid "Primary nameserver:"
 msgstr "Primär namnserver:"
 
@@ -5451,11 +5486,12 @@ msgid "System to Upgrade"
 msgstr "System att uppgradera"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system. FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "Följande enheter har hittats i ditt system:"
+msgstr ""
+"Följande rotpartitioner har hittats i ditt system. FIXME: Jag behöver bättre "
+"text här."
 
 #: ../textw/upgrade_text.py:239
 msgid "Customize Packages to Upgrade"
@@ -5485,7 +5521,7 @@ msgstr ""
 "att du vet vad det var och att du inte skrev fel. Kom ihåg att "
 "rootlösenordet är en kritisk del av systemets säkerhet!"
 
-#: ../textw/userauth_text.py:37 ../loader/urls.c:389
+#: ../textw/userauth_text.py:37 ../loader/urls.c:389 ../loader2/urls.c:423
 msgid "Password:"
 msgstr "Lösenord:"
 
@@ -5723,11 +5759,9 @@ msgid "X Customization"
 msgstr "Anpassning av X"
 
 #: ../textw/xconfig_text.py:136
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
 msgstr ""
-"Välj det färgdjup och det grafikläge som du vill använda på ditt system. "
-"Använd knappen \"%s\" för att testa grafikläget."
+"Välj det färgdjup och det grafikläge som du vill använda på ditt system."
 
 #: ../textw/xconfig_text.py:140
 msgid "Color Depth:"
@@ -5996,7 +6030,7 @@ msgstr "Har du en drivrutinsdiskett?"
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Sätt i din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
 
-#: ../loader/devices.c:283
+#: ../loader/devices.c:283 ../loader2/driverdisk.c:226
 msgid "Failed to mount driver disk."
 msgstr "Montering av drivrutinsdisketten misslyckades."
 
@@ -6027,6 +6061,11 @@ msgid "Failed to insert %s module."
 msgstr "Misslyckades med att läsa in %s-modulen."
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
+#: ../loader2/hdinstall.c:503 ../loader2/kickstart.c:97
+#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148 ../loader2/net.c:637
+#: ../loader2/net.c:660 ../loader2/nfsinstall.c:257
+#: ../loader2/urlinstall.c:385 ../loader2/urlinstall.c:394
+#: ../loader2/urlinstall.c:405
 msgid "Kickstart Error"
 msgstr "Kickstart-fel"
 
@@ -6035,48 +6074,50 @@ msgstr "Kickstart-fel"
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Fel vid öppning: kickstart-fil %s: %s"
 
-#: ../loader/kickstart.c:70
+#: ../loader/kickstart.c:70 ../loader2/kickstart.c:107
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Fel vid läsning av innehållet i kickstart-fil %s: %s"
 
-#: ../loader/kickstart.c:109
-#, fuzzy, c-format
+#: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
+#, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Fel på rad %d i kickstart-fil %s."
+msgstr "Fel i %s på rad %d i kickstart-filen %s."
 
-#: ../loader/lang.c:41 ../loader/loader.c:210
+#: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
+#: ../loader2/loader.c:166
 #, c-format
 msgid "Welcome to %s"
 msgstr "Välkommen till %s"
 
-#: ../loader/lang.c:42 ../loader/loader.c:216
+#: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:50
+#: ../loader2/loader.c:172
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> mellan element | <Blanksteg> väljer | <F12> nästa skärm "
 
-#: ../loader/lang.c:305
+#: ../loader/lang.c:305 ../loader2/lang.c:260
 msgid "Choose a Language"
 msgstr "Välj ett språk"
 
-#: ../loader/lang.c:632
+#: ../loader/lang.c:632 ../loader2/kbd.c:123
 msgid "Keyboard Type"
 msgstr "Tangentbordstyp"
 
-#: ../loader/lang.c:633
+#: ../loader/lang.c:633 ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
 msgstr "Vilken typ av tangentbord har du?"
 
-#: ../loader/loader.c:144
+#: ../loader/loader.c:144 ../loader2/loader.c:97
 msgid "Local CDROM"
 msgstr "Lokal cd-rom"
 
-#: ../loader/loader.c:147
+#: ../loader/loader.c:147 ../loader2/loader.c:101
 msgid "NFS image"
 msgstr "NFS-avbild"
 
-#: ../loader/loader.c:153
+#: ../loader/loader.c:153 ../loader2/loader.c:98
 msgid "Hard drive"
 msgstr "Hårddisk"
 
@@ -6113,11 +6154,12 @@ msgstr ""
 "några nu?"
 
 #: ../loader/loader.c:502 ../loader/loader.c:943 ../loader/loader.c:2924
+#: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Kunde inte läsa katalogen %s: %s"
 
-#: ../loader/loader.c:611
+#: ../loader/loader.c:611 ../loader2/hdinstall.c:255
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6125,7 +6167,7 @@ msgstr ""
 "Det inträffade ett fel vid läsning av installationen från ISO-avbilderna. "
 "Kontrollera dina ISO-avbilder och försök igen."
 
-#: ../loader/loader.c:960
+#: ../loader/loader.c:960 ../loader2/method.c:397
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -6136,16 +6178,18 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader/loader.c:963
+#: ../loader/loader.c:963 ../loader2/method.c:400
 msgid "Checksum Test"
 msgstr "Test av kontrollsumma"
 
 #: ../loader/loader.c:963 ../loader/loader.c:1325 ../loader/loader.c:1328
-#: ../loader/loader.c:1346 ../loader/loader.c:1354
+#: ../loader/loader.c:1346 ../loader/loader.c:1354 ../loader2/cdinstall.c:90
+#: ../loader2/cdinstall.c:93 ../loader2/cdinstall.c:111
+#: ../loader2/cdinstall.c:119 ../loader2/method.c:400
 msgid "Test"
 msgstr "Testa"
 
-#: ../loader/loader.c:1146
+#: ../loader/loader.c:1146 ../loader2/hdinstall.c:368
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6153,7 +6197,7 @@ msgstr ""
 "Du verkar inte ha några hårddiskar på ditt system! Vill du konfigurera "
 "ytterligare enheter?"
 
-#: ../loader/loader.c:1191
+#: ../loader/loader.c:1191 ../loader2/hdinstall.c:384
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6164,28 +6208,31 @@ msgstr ""
 "(iso9660) av %s? Tryck F2 för att konfigurera ytterligare enheter om du inte "
 "ser den disk du använder i denna lista."
 
-#: ../loader/loader.c:1207
+#: ../loader/loader.c:1207 ../loader2/hdinstall.c:406
 msgid "Directory holding images:"
 msgstr "Katalog som innehåller avbilder:"
 
-#: ../loader/loader.c:1227
+#: ../loader/loader.c:1227 ../loader2/hdinstall.c:433
 msgid "Select Partition"
 msgstr "Välj partition"
 
-#: ../loader/loader.c:1275
+#: ../loader/loader.c:1275 ../loader2/hdinstall.c:473
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Enheten %s ser inte ut att innehålla avbilder av Red Hat-cd-romskivor."
 
 #: ../loader/loader.c:1325 ../loader/loader.c:1346 ../loader/mediacheck.c:272
+#: ../loader2/cdinstall.c:90 ../loader2/cdinstall.c:111
+#: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr "Mediakontroll"
 
-#: ../loader/loader.c:1325 ../loader/loader.c:1329
+#: ../loader/loader.c:1325 ../loader/loader.c:1329 ../loader2/cdinstall.c:90
+#: ../loader2/cdinstall.c:94
 msgid "Eject CD"
 msgstr "Mata ut cd"
 
-#: ../loader/loader.c:1326
+#: ../loader/loader.c:1326 ../loader2/cdinstall.c:91
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -6194,7 +6241,7 @@ msgstr ""
 "Välj \"%s\" för att testa den cd som för tillfället är i enheten, eller \"%s"
 "\" för att mata ut cd:n och stoppa i en annan för testning."
 
-#: ../loader/loader.c:1347
+#: ../loader/loader.c:1347 ../loader2/cdinstall.c:112
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -6211,7 +6258,8 @@ msgstr ""
 "För att börja installationen stoppar du in den första cd-skivan i enheten "
 "och trycker \"%s\"."
 
-#: ../loader/loader.c:1368 ../loader/loader.c:1492
+#: ../loader/loader.c:1368 ../loader/loader.c:1492 ../loader2/cdinstall.c:135
+#: ../loader2/cdinstall.c:336
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -6220,11 +6268,11 @@ msgstr ""
 "Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt i cd-"
 "skivan med %s och tryck %s för att försöka igen."
 
-#: ../loader/loader.c:1421
+#: ../loader/loader.c:1421 ../loader2/cdinstall.c:251
 msgid "CD Found"
 msgstr "CD hittades"
 
-#: ../loader/loader.c:1423
+#: ../loader/loader.c:1423 ../loader2/cdinstall.c:253
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6235,11 +6283,11 @@ msgstr ""
 "\".\n"
 "Välj \"%s\" för att hoppa över mediatestet och starta installationen."
 
-#: ../loader/loader.c:1588
+#: ../loader/loader.c:1588 ../loader2/net.c:719
 msgid "Networking Device"
 msgstr "Nätverksenhet"
 
-#: ../loader/loader.c:1589
+#: ../loader/loader.c:1589 ../loader2/net.c:720
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6254,7 +6302,7 @@ msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
 msgid "That directory could not be mounted from the server"
 msgstr "Den katalogen kunde inte monteras från servern"
 
-#: ../loader/loader.c:1757
+#: ../loader/loader.c:1757 ../loader2/urlinstall.c:58
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "Filen %s/%s kunde inte hittas på servern."
@@ -6271,27 +6319,27 @@ msgstr "Misslyckades med att hämta första installationsavbilden"
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "FTP- och HTTP-installationer kräver minst 20 MB systemminne."
 
-#: ../loader/loader.c:2091
+#: ../loader/loader.c:2091 ../loader2/loader.c:637
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: ../loader/loader.c:2092
+#: ../loader/loader.c:2092 ../loader2/loader.c:638
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: ../loader/loader.c:2094
+#: ../loader/loader.c:2094 ../loader2/loader.c:640
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: ../loader/loader.c:2096
+#: ../loader/loader.c:2096 ../loader2/loader.c:642
 msgid "What type of media contains the packages to be installed?"
 msgstr "Vilket medium innehåller paketen som ska installeras?"
 
-#: ../loader/loader.c:2894
+#: ../loader/loader.c:2894 ../loader2/kickstart.c:247
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Hittade inte ks.cfg på startdisketten."
 
-#: ../loader/loader.c:2986
+#: ../loader/loader.c:2986 ../loader2/loader.c:262
 msgid "Updates Disk"
 msgstr "Uppdateringsdiskett"
 
@@ -6312,24 +6360,26 @@ msgstr ""
 msgid "Failed to mount floppy disk."
 msgstr "Montering av disketten misslyckades."
 
-#: ../loader/loader.c:3007
+#: ../loader/loader.c:3007 ../loader2/loader.c:277
 msgid "Updates"
 msgstr "Uppdateringar"
 
-#: ../loader/loader.c:3007
+#: ../loader/loader.c:3007 ../loader2/loader.c:277
 msgid "Reading anaconda updates..."
 msgstr "Läser anaconda-uppdateringar..."
 
-#: ../loader/loader.c:3181 ../loader/modules.c:424
+#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader2/driverdisk.c:88
+#: ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Läser in"
 
 #: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader/windows.c:47
+#: ../loader2/firewire.c:50 ../loader2/windows.c:65
 #, c-format
 msgid "Loading %s driver..."
 msgstr "Läser in %s-drivrutinen..."
 
-#: ../loader/loader.c:3320
+#: ../loader/loader.c:3320 ../loader2/loader.c:526
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
@@ -6355,13 +6405,13 @@ msgstr ""
 "enhetsdrivrutiner för att installationen ska lyckas. Vill du välja "
 "drivrutiner nu?"
 
-#: ../loader/loader.c:3950
+#: ../loader/loader.c:3950 ../loader2/loader.c:1078
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
 "Kör anaconda, systeminstallationsprogrammet för %s - var vänlig vänta...\n"
 
-#: ../loader/mediacheck.c:256
+#: ../loader/mediacheck.c:256 ../loader2/mediacheck.c:256
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
@@ -6369,21 +6419,21 @@ msgstr ""
 "Kan inte läsa diskkontrollsumman från den primära identifieraren. Detta "
 "betyder troligtvis att disken skapades utan att kontrollsumman lades till."
 
-#: ../loader/mediacheck.c:264
+#: ../loader/mediacheck.c:264 ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
 msgstr "Kontrollerar \"%s\"..."
 
-#: ../loader/mediacheck.c:266
+#: ../loader/mediacheck.c:266 ../loader2/mediacheck.c:266
 msgid "Checking media now..."
 msgstr "Kontrollerar medium nu..."
 
-#: ../loader/mediacheck.c:312
+#: ../loader/mediacheck.c:312 ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
 msgstr "Kunde inte hitta installationsavbilden %s"
 
-#: ../loader/mediacheck.c:322
+#: ../loader/mediacheck.c:322 ../loader2/mediacheck.c:322
 msgid ""
 "FAIL.\n"
 "\n"
@@ -6393,7 +6443,7 @@ msgstr ""
 "\n"
 "Det rekommenderas att du inte använder detta medium."
 
-#: ../loader/mediacheck.c:326
+#: ../loader/mediacheck.c:326 ../loader2/mediacheck.c:326
 msgid ""
 "PASS.\n"
 "\n"
@@ -6403,7 +6453,7 @@ msgstr ""
 "\n"
 "Det är OK att installera från detta medium."
 
-#: ../loader/mediacheck.c:330
+#: ../loader/mediacheck.c:330 ../loader2/mediacheck.c:330
 msgid ""
 "NA.\n"
 "\n"
@@ -6413,11 +6463,11 @@ msgstr ""
 "\n"
 "Ingen kontrollsummeinformation är tillgänglig, kan inte verifiera medium."
 
-#: ../loader/mediacheck.c:334
+#: ../loader/mediacheck.c:334 ../loader2/mediacheck.c:334
 msgid "Media Check Result"
 msgstr "Resultat från mediekontroll"
 
-#: ../loader/mediacheck.c:338
+#: ../loader/mediacheck.c:338 ../loader2/mediacheck.c:338
 #, c-format
 msgid ""
 "of the image:\n"
@@ -6430,7 +6480,7 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../loader/mediacheck.c:342
+#: ../loader/mediacheck.c:342 ../loader2/mediacheck.c:342
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "Mediekontrollen %sär klar, resultatet är: %s\n"
@@ -6453,7 +6503,7 @@ msgstr "Drivrutinsdiskett"
 msgid "Please insert the %s driver disk now."
 msgstr "Sätt i %s-drivrutinsdisketten nu."
 
-#: ../loader/net.c:62
+#: ../loader/net.c:62 ../loader2/net.c:41
 #, c-format
 msgid ""
 "Please enter the following information:\n"
@@ -6468,27 +6518,28 @@ msgstr ""
 "    o katalogen på denna server som innehåller\n"
 "      %s för din arkitektur\n"
 
-#: ../loader/net.c:176
+#: ../loader/net.c:176 ../loader2/nfsinstall.c:43
 msgid "NFS server name:"
 msgstr "Namn på NFS-server:"
 
-#: ../loader/net.c:179 ../loader/urls.c:226
+#: ../loader/net.c:179 ../loader/urls.c:226 ../loader2/nfsinstall.c:46
+#: ../loader2/urls.c:276
 msgid "Red Hat directory:"
 msgstr "Red Hat-katalog:"
 
-#: ../loader/net.c:185
+#: ../loader/net.c:185 ../loader2/nfsinstall.c:52
 msgid "NFS Setup"
 msgstr "NFS-konfiguration"
 
-#: ../loader/net.c:259
+#: ../loader/net.c:259 ../loader2/net.c:141
 msgid "Nameserver IP"
 msgstr "Namnserver-IP"
 
-#: ../loader/net.c:263 ../loader/net.c:819
+#: ../loader/net.c:263 ../loader/net.c:819 ../loader2/net.c:145
 msgid "Nameserver"
 msgstr "Namnserver"
 
-#: ../loader/net.c:264
+#: ../loader/net.c:264 ../loader2/net.c:146
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -6500,15 +6551,15 @@ msgstr ""
 "ange det nu. Om du inte har denna information kan du lämna fältet blankt och "
 "installationen kommer att fortsätta."
 
-#: ../loader/net.c:274
+#: ../loader/net.c:274 ../loader2/net.c:156
 msgid "Invalid IP Information"
 msgstr "Ogiltig IP-information"
 
-#: ../loader/net.c:275
+#: ../loader/net.c:275 ../loader2/net.c:157
 msgid "You entered an invalid IP address."
 msgstr "Du skrev in en ogiltig IP-adress."
 
-#: ../loader/net.c:299
+#: ../loader/net.c:299 ../loader2/net.c:258
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -6516,31 +6567,32 @@ msgstr ""
 "Ange IP-konfigurationen för denna maskin. Varje adress ska skrivas som en IP-"
 "adress i form av tal åtskilda med punkter (t.ex. 1.2.3.4)."
 
-#: ../loader/net.c:341
+#: ../loader/net.c:341 ../loader2/net.c:300
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Använd dynamisk IP-konfiguration (BOOTP/DHCP)"
 
-#: ../loader/net.c:369
+#: ../loader/net.c:369 ../loader2/net.c:328
 msgid "Configure TCP/IP"
 msgstr "Konfigurera TCP/IP"
 
-#: ../loader/net.c:400
+#: ../loader/net.c:400 ../loader2/net.c:359
 msgid "Missing Information"
 msgstr "Information saknas"
 
-#: ../loader/net.c:401
+#: ../loader/net.c:401 ../loader2/net.c:360
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Du måste skriva in både en giltig IP-adress och en nätmask."
 
-#: ../loader/net.c:409 ../loader/net.c:752
+#: ../loader/net.c:409 ../loader/net.c:752 ../loader2/net.c:188
+#: ../loader2/net.c:368
 msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
-#: ../loader/net.c:410 ../loader/net.c:753
+#: ../loader/net.c:410 ../loader/net.c:753 ../loader2/net.c:369
 msgid "Sending request for IP information..."
 msgstr "Sänder förfrågan om IP-information..."
 
-#: ../loader/net.c:625
+#: ../loader/net.c:625 ../loader2/net.c:563
 msgid "Determining host name and domain..."
 msgstr "Undersöker värdnamn och domän..."
 
@@ -6553,7 +6605,7 @@ msgstr "kickstart"
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
 
-#: ../loader/net.c:770
+#: ../loader/net.c:770 ../loader2/net.c:661
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Felaktigt startprotokoll %s angivet i nätverkskommando"
@@ -6631,37 +6683,38 @@ msgstr "Misslyckades med att montera disketten."
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr "Den där disketten ser inte ut som en Red Hat PCMCIA-drivrutinsdiskett."
 
-#: ../loader/telnetd.c:64
+#: ../loader/telnetd.c:64 ../loader2/telnetd.c:82
 msgid "Waiting for telnet connection..."
 msgstr "Väntar på telnetanslutning..."
 
-#: ../loader/telnetd.c:106
+#: ../loader/telnetd.c:106 ../loader2/telnetd.c:124
 msgid "Running anaconda via telnet..."
 msgstr "Kör anaconda via telnet..."
 
-#: ../loader/urls.c:82
+#: ../loader/urls.c:82 ../loader2/urls.c:169
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Misslyckades med att logga in till %s: %s"
 
-#: ../loader/urls.c:92 ../loader/urls.c:100
+#: ../loader/urls.c:92 ../loader/urls.c:100 ../loader2/urls.c:179
+#: ../loader2/urls.c:187
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Misslyckades med att hämta %s: %s"
 
-#: ../loader/urls.c:105
+#: ../loader/urls.c:105 ../loader2/urls.c:192
 msgid "Retrieving"
 msgstr "Hämtar"
 
-#: ../loader/urls.c:222
+#: ../loader/urls.c:222 ../loader2/urls.c:272
 msgid "FTP site name:"
 msgstr "FTP-serverns namn:"
 
-#: ../loader/urls.c:223
+#: ../loader/urls.c:223 ../loader2/urls.c:273
 msgid "Web site name:"
 msgstr "Webbserverns namn:"
 
-#: ../loader/urls.c:241
+#: ../loader/urls.c:241 ../loader2/urls.c:290
 msgid "Use non-anonymous ftp"
 msgstr "Använd icke-anonym ftp"
 
@@ -6669,32 +6722,32 @@ msgstr "Använd icke-anonym ftp"
 msgid "Use proxy server"
 msgstr "Använd proxyserver"
 
-#: ../loader/urls.c:258
+#: ../loader/urls.c:258 ../loader2/urls.c:299
 msgid "FTP Setup"
 msgstr "FTP-konfiguration"
 
-#: ../loader/urls.c:259
+#: ../loader/urls.c:259 ../loader2/urls.c:300
 msgid "HTTP Setup"
 msgstr "HTTP-konfiguration"
 
-#: ../loader/urls.c:269
+#: ../loader/urls.c:269 ../loader2/urls.c:310
 msgid "You must enter a server name."
 msgstr "Du måste ange ett servernamn."
 
-#: ../loader/urls.c:274
+#: ../loader/urls.c:274 ../loader2/urls.c:315
 msgid "You must enter a directory."
 msgstr "Du måste ange en katalog."
 
-#: ../loader/urls.c:279
+#: ../loader/urls.c:279 ../loader2/urls.c:320
 msgid "Unknown Host"
 msgstr "Okänd värd"
 
-#: ../loader/urls.c:280
+#: ../loader/urls.c:280 ../loader2/urls.c:321
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s är inget giltigt värdnamn."
 
-#: ../loader/urls.c:360
+#: ../loader/urls.c:360 ../loader2/urls.c:394
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -6702,7 +6755,7 @@ msgstr ""
 "Om du använder icke-anonym ftp anger du kontonamnet och lösenordet som du "
 "vill använda nedan."
 
-#: ../loader/urls.c:365
+#: ../loader/urls.c:365 ../loader2/urls.c:399
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -6710,7 +6763,7 @@ msgstr ""
 "Om du använder en HTTP-proxy anger du namnet på den HTTP-proxyserver som ska "
 "användas."
 
-#: ../loader/urls.c:386
+#: ../loader/urls.c:386 ../loader2/urls.c:420
 msgid "Account name:"
 msgstr "Kontonamn:"
 
@@ -6730,9 +6783,219 @@ msgstr "FTP-proxyport:"
 msgid "HTTP Proxy Port:"
 msgstr "HTTP-proxyport:"
 
-#: ../loader/windows.c:46
+#: ../loader/windows.c:46 ../loader2/windows.c:64
 msgid "Loading SCSI driver"
 msgstr "Läser in SCSI-drivrutin"
+
+#: ../loader2/cdinstall.c:331
+#, fuzzy, c-format
+msgid ""
+"No %s CD was found which matches your boot media.  Please insert the %s CD "
+"and press %s to retry."
+msgstr ""
+"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt i cd-"
+"skivan med %s och tryck %s för att försöka igen."
+
+#: ../loader2/cdinstall.c:341
+#, fuzzy
+msgid "CD Not Found"
+msgstr "CD hittades"
+
+#: ../loader2/driverdisk.c:88
+#, fuzzy
+msgid "Reading driver disk"
+msgstr "Montering av drivrutinsdisketten misslyckades."
+
+#: ../loader2/driverdisk.c:193
+#, fuzzy
+msgid "Driver Disk Source"
+msgstr "Drivrutinsdiskett"
+
+#: ../loader2/driverdisk.c:194
+#, fuzzy
+msgid ""
+"You have multiple devices which could serve as sources for a driver disk.  "
+"Which would you like to use?"
+msgstr ""
+"Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
+
+#: ../loader2/driverdisk.c:212
+#, fuzzy, c-format
+msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
+msgstr "Sätt i din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
+
+#: ../loader2/driverdisk.c:214
+#, fuzzy
+msgid "Insert Driver Disk"
+msgstr "Drivrutinsdiskett"
+
+#: ../loader2/driverdisk.c:286
+#, fuzzy
+msgid "Manually choose"
+msgstr "Manuell partitionering"
+
+#: ../loader2/driverdisk.c:287
+msgid "Load another disk"
+msgstr ""
+
+#: ../loader2/driverdisk.c:288
+msgid ""
+"No devices of the appropriate type were found on this driver disk.  Would "
+"you like to manually select the driver, continue anyway, or load another "
+"driver disk?"
+msgstr ""
+
+#: ../loader2/driverselect.c:59
+#, fuzzy, c-format
+msgid ""
+"Please enter any parameters which you wish to pass to the %s module "
+"separated by spaces.  If you don't know what parameters to supply, skip this "
+"screen by pressing the \"OK\" button.  A list of available options can be "
+"obtained by pressing the F1 key."
+msgstr ""
+"Denna modul kan ta parametrar som påverkar dess funktion. Om du inte vet "
+"vilka parametrar du bör ange hoppar du bara över denna skärm genom att "
+"trycka på knappen \"OK\"."
+
+#: ../loader2/driverselect.c:82
+#, fuzzy
+msgid "Enter Module Parameters"
+msgstr "Modulparametrar"
+
+#: ../loader2/driverselect.c:191
+#, fuzzy
+msgid ""
+"Please select the driver below which you wish to load.  If it does not "
+"appear and you have a driver disk, press F2."
+msgstr ""
+"Vilken drivrutin ska jag prova? Om drivrutinen du behöver inte finns i denna "
+"lista och du har en separat drivrutinsdiskett, tryck F2."
+
+#: ../loader2/driverselect.c:199
+#, fuzzy
+msgid "Specify optional module arguments"
+msgstr "Ange modulparametrar"
+
+#: ../loader2/driverselect.c:219
+#, fuzzy
+msgid "Select Device Driver to Load"
+msgstr "Välj hårddisk att köra fdasd på"
+
+#: ../loader2/hdinstall.c:504
+#, fuzzy, c-format
+msgid "Bad argument to HD kickstart method command %s: %s"
+msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+
+#: ../loader2/kickstart.c:98
+#, fuzzy, c-format
+msgid "Error opening kickstart file %s: %s"
+msgstr "Fel vid öppning: kickstart-fil %s: %s"
+
+#: ../loader2/loader.c:245
+#, fuzzy
+msgid "Update Disk Source"
+msgstr "Uppdateringsdiskett"
+
+#: ../loader2/loader.c:246
+#, fuzzy
+msgid ""
+"You have multiple devices which could serve as sources for an update disk.  "
+"Which would you like to use?"
+msgstr ""
+"Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
+
+#: ../loader2/loader.c:260
+#, fuzzy, c-format
+msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
+msgstr "Sätt i din uppdateringsdiskett och tryck \"OK\" för att fortsätta."
+
+#: ../loader2/loader.c:274
+#, fuzzy
+msgid "Failed to mount updates disk"
+msgstr "Montering av drivrutinsdisketten misslyckades."
+
+#: ../loader2/loader.c:299
+#, fuzzy
+msgid ""
+"No hard drives have been found.  You probably need to manually choose device "
+"drivers for the installation to succeed.  Would you like to select drivers "
+"now?"
+msgstr ""
+"Inga hårddiskar har hittats. Du behöver troligtvis manuellt välja "
+"enhetsdrivrutiner för att installationen ska lyckas. Vill du välja "
+"drivrutiner nu?"
+
+#: ../loader2/loader.c:672
+#, fuzzy
+msgid "No driver found"
+msgstr "Inga hårddiskar hittades"
+
+#: ../loader2/loader.c:672
+#, fuzzy
+msgid "Select driver"
+msgstr "Välj hårddisk att köra fdasd på"
+
+#: ../loader2/loader.c:673
+#, fuzzy
+msgid "Use a driver disk"
+msgstr "Har du en drivrutinsdiskett?"
+
+#: ../loader2/loader.c:674
+msgid ""
+"Unable to find any devices of the type needed for this installation type.  "
+"Would you like to manually select your driver or use a driver disk?"
+msgstr ""
+
+#: ../loader2/net.c:189
+#, fuzzy, c-format
+msgid "Sending request for IP information for %s"
+msgstr "Sänder förfrågan om IP-information..."
+
+#: ../loader2/net.c:638
+#, fuzzy, c-format
+msgid "Bad argument to kickstart network command %s: %s"
+msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+
+#: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
+#, c-format
+msgid ""
+"The %s installation tree in that directory does not seem to match your boot "
+"media."
+msgstr ""
+
+#: ../loader2/nfsinstall.c:213
+#, fuzzy, c-format
+msgid "That directory does not seem to contain a %s installation tree."
+msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
+
+#: ../loader2/nfsinstall.c:220
+#, fuzzy
+msgid "That directory could not be mounted from the server."
+msgstr "Den katalogen kunde inte monteras från servern"
+
+#: ../loader2/nfsinstall.c:258
+#, fuzzy, c-format
+msgid "Bad argument to NFS kickstart method command %s: %s"
+msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+
+#: ../loader2/urlinstall.c:96
+#, fuzzy
+msgid "Unable to retrieve the install image."
+msgstr "Misslyckades med att hämta första installationsavbilden"
+
+#: ../loader2/urlinstall.c:386
+#, fuzzy, c-format
+msgid "Bad argument to Url kickstart method command %s: %s"
+msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+
+#: ../loader2/urlinstall.c:395
+msgid "Must supply a --url argument to Url kickstart method."
+msgstr ""
+
+#: ../loader2/urlinstall.c:406
+#, fuzzy, c-format
+msgid "Unknown Url method %s"
+msgstr "Okänt kort"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7446,6 +7709,22 @@ msgstr "Svenska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
+
+#~ msgid "Resolution requested %s is not supported."
+#~ msgstr "Upplösningen %s som begärdes stöds inte."
+
+#~ msgid "Falling back to %s."
+#~ msgstr "Använder %s istället."
+
+# Detta är trasigt och felrapporterat
+#~ msgid "To avoid this you may need to specify the videocard and "
+#~ msgstr "För att undvika detta kan du behöva ange grafikkortet och "
+
+#~ msgid "monitor specs on the xconfig ks directive if they were "
+#~ msgstr "bildskärmsspecifikationer på xconfig-ks-direktivet om de vore "
+
+#~ msgid "not probed correctly."
+#~ msgstr "inte testat korrekt."
 
 #~ msgid "Unable to probe"
 #~ msgstr "Kan inte testa"
@@ -9405,9 +9684,6 @@ msgstr "Ukrainska"
 
 #~ msgid "LILO Configuration"
 #~ msgstr "LILO-konfiguration"
-
-#~ msgid "Manually Partition"
-#~ msgstr "Manuell partitionering"
 
 #~ msgid "Swap"
 #~ msgstr "Swap"
