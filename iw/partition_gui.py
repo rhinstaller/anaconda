@@ -569,7 +569,7 @@ def createAllowedRaidPartitionsList(allraidparts, reqraidpart):
 
     return (partlist, sw)
 
-def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart):
+def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart, partitions):
 
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			  gobject.TYPE_STRING,
@@ -581,8 +581,12 @@ def createAllowedLvmPartitionsList(alllvmparts, reqlvmpart):
     sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
     sw.set_shadow_type(gtk.SHADOW_IN)
 
-    for part, size, used in alllvmparts:
-        partname = "%s" % part
+    for uid, size, used in alllvmparts:
+	request = partitions.getRequestByID(uid)
+	if request.type != REQUEST_RAID:
+	    partname = "%s" % (request.device,)
+	else:
+	    partname = "md%d" % (request.raidminor,)
 	partsize = "%8.0f MB" % size
         if used or not reqlvmpart:
             selected = 1
@@ -620,6 +624,30 @@ def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
         sparesb.set_sensitive(0)
         
     return (leveloption, leveloptionmenu)
+
+
+def createRaidMinorMenu(minors, reqminor):
+    minoroption = gtk.OptionMenu()
+    minoroptionmenu = gtk.Menu()
+    defindex = None
+    i = 0
+    for minor in minors:
+        item = gtk.MenuItem("md%d" % (minor,))
+        item.set_data("minor", minor)
+        # XXX gtk bug, if you don't show then the menu will be larger
+        # than the largest menu item
+        item.show()
+        minoroptionmenu.add(item)
+        if reqminor and minor == reqminor:
+            defindex = i
+        i = i + 1
+
+    minoroption.set_menu(minoroptionmenu)
+    
+    if defindex:
+        minoroption.set_history(defindex)
+
+    return (minoroption, minoroptionmenu)
 
 # pass in callback for when fs changes because of python scope issues
 def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
@@ -711,6 +739,9 @@ class PartitionWindow(InstallWindow):
         elif type == "yesno":
             win.add_button('gtk-no', 2)
             win.add_button('gtk-yes', 1)
+	elif type == "continue":
+            win.add_button('gtk-cancel', 0)
+            win.add_button(_("Continue"), 1)
 
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
@@ -829,19 +860,14 @@ class PartitionWindow(InstallWindow):
 	# first do LVM
         lvmrequests = self.partitions.getLVMRequests()
         if lvmrequests:
-#
-# XXX this breaks when we try to refresh tree after a refresh
-#
-# XXX - this breaks self.refresh calls!!!	
 	    lvmparent = self.tree.append(None)
 	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
-            lvmparent = None
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
 		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
 		rsize = vgrequest.getActualSize(self.partitions, self.diskset)
-		print "volume group %s size is %g" % (vgname, rsize)
+
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
 		self.tree[vgparent]['Size (MB)'] = "%g" % (rsize,)
@@ -851,7 +877,10 @@ class PartitionWindow(InstallWindow):
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
-		    self.tree[iter]['Mount Point'] = lvrequest.mountpoint
+		    if lvrequest.fstype and lvrequest.fstype.isMountable():
+			self.tree[iter]['Mount Point'] = lvrequest.mountpoint
+		    else:
+			self.tree[iter]['Mount Point'] = ""
 		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size,)
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
@@ -866,13 +895,10 @@ class PartitionWindow(InstallWindow):
 #		    self.tree[iter]['End'] = _("N/A")
 
         # handle RAID next
-        raidcounter = 0
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
-# XXX - this breaks self.refresh calls!!!	
-#	    raidparent = self.tree.append(None)
-#	    self.tree[raidparent]['Device'] = _("RAID Devices")
-            raidparent = None
+	    raidparent = self.tree.append(None)
+	    self.tree[raidparent]['Device'] = _("RAID Devices")
             for request in raidrequests:
                 iter = self.tree.append(raidparent)
 
@@ -887,7 +913,7 @@ class PartitionWindow(InstallWindow):
                     ptype = _("None")
                     self.tree[iter]['IsFormattable'] = gtk.FALSE
 
-                device = _("RAID Device %s"  % (str(raidcounter)))
+                device = "/dev/md%d" % (request.raidminor,)
                 self.tree[iter]['IsLeaf'] = gtk.TRUE
                 self.tree[iter]['Device'] = device
                 self.tree[iter]['Type'] = ptype
@@ -897,14 +923,10 @@ class PartitionWindow(InstallWindow):
                 self.tree[iter]['End'] = ""
                 self.tree[iter]['Size (MB)'] = "%g" % (request.size,)
                 self.tree[iter]['PyObject'] = str(request.uniqueID)
-
-                raidcounter = raidcounter + 1
                 
 	# now normal partitions
-# XXX - this breaks self.refresh calls!!!	
-#	drvparent = self.tree.append(None)
-#	self.tree[drvparent]['Device'] = _("Hard Drives")
-	drvparent=None
+	drvparent = self.tree.append(None)
+	self.tree[drvparent]['Device'] = _("Hard Drives")
         for drive in drives:
             disk = self.diskset.disks[drive]
 
@@ -1104,8 +1126,6 @@ class PartitionWindow(InstallWindow):
         #
         # start of editPartitionRequest
         #
-
-
         dialog = gtk.Dialog(_("Add Partition"), self.parent)
         gui.addFrame(dialog)
         dialog.add_button('gtk-cancel', 2)
@@ -1497,10 +1517,6 @@ class PartitionWindow(InstallWindow):
                                             "%s" % (err))
                     continue
 
-#                if not origrequest.format and request.format:
-#                    if not queryFormatPreExisting(self.intf):
-#                        continue
-
                 if (not request.format and
                     request.mountpoint and request.formatByDefault()):
                     if not queryNoFormatPreExisting(self.intf):
@@ -1605,7 +1621,7 @@ class PartitionWindow(InstallWindow):
         # start of editRaidRuquest
         #
         availraidparts = self.partitions.getAvailRaidPartitions(raidrequest,
-                                                                    self.diskset)
+								self.diskset)
         # if no raid partitions exist, raise an error message and return
         if len(availraidparts) < 2:
             dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
@@ -1646,7 +1662,20 @@ class PartitionWindow(InstallWindow):
                                                             mountCombo,
                                                             ignorefs = ["software RAID"])
         maintable.attach(fstypeoption, 1, 2, row, row + 1)
-            
+        row = row + 1
+
+	# raid minors
+        maintable.attach(createAlignedLabel(_("RAID Device:")),
+                                            0, 1, row, row + 1)
+
+	availminors = self.partitions.getAvailableRaidMinors()[:16]
+	reqminor = raidrequest.raidminor
+	if reqminor is not None:
+	    availminors.append(reqminor)
+
+	availminors.sort()
+	(minorOption, minorOptionMenu) = createRaidMinorMenu(availminors, reqminor)
+        maintable.attach(minorOption, 1, 2, row, row + 1)
         row = row + 1
 
         # raid level
@@ -1681,7 +1710,6 @@ class PartitionWindow(InstallWindow):
                                                        raidlevelchangeCB,
                                                        sparesb)
         maintable.attach(leveloption, 1, 2, row, row + 1)
-            
         row = row + 1
 
         # raid members
@@ -1754,6 +1782,8 @@ class PartitionWindow(InstallWindow):
 
 		next = model.iter_next(iter)
 
+	    request.raidminor = minorOptionMenu.get_active().get_data("minor")
+
             request.raidmembers = raidmembers
             request.raidlevel = leveloptionmenu.get_active().get_data("level")
             if request.raidlevel != "RAID0":
@@ -1814,15 +1844,19 @@ class PartitionWindow(InstallWindow):
         maintable.set_col_spacings(5)
         row = 0
 
-        maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
-        mountpointEntry = gtk.Entry(16)
-        maintable.attach(mountpointEntry, 1, 2, row, row + 1)
-	if logrequest:
-	    mountpointEntry.set_text(logrequest.mountpoint)
+	maintable.attach(createAlignedLabel(_("Mount point:")), 0, 1, row,row+1)
+        mountCombo = createMountPointCombo(logrequest)
+        maintable.attach(mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
-	maintable.attach(createAlignedLabel(_("Filesystem:")), 0, 1, row, row+1)
-	maintable.attach(createAlignedLabel(_("ext3")), 1, 2, row, row+1)
+	maintable.attach(createAlignedLabel(_("Filesystem Type:")),
+			 0, 1, row, row + 1)
+
+	(newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
+						      fstypechangeCB,
+						      mountCombo,
+						      ignorefs = ["software RAID", "physical volume (LVM)", "vfat"])
+	maintable.attach(newfstype, 1, 2, row, row + 1)
 	row = row+1
 			 
         maintable.attach(createAlignedLabel(_("Size (MB):")), 0, 1, row, row+1)
@@ -1835,7 +1869,7 @@ class PartitionWindow(InstallWindow):
         maintable.attach(createAlignedLabel(_("Logical Volume Name:")), 0, 1, row, row + 1)
         lvnameEntry = gtk.Entry(16)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
-	if logrequest:
+	if logrequest and logrequest.logicalVolumeName:
 	    lvnameEntry.set_text(logrequest.logicalVolumeName)
         row = row + 1
 
@@ -1848,10 +1882,8 @@ class PartitionWindow(InstallWindow):
 		dialog.destroy()
 		return
 
-	    # I suck.  I assume the fs is ext3 because it doesn't matter
-	    # for me and do no error checking :)
-	    fsystem = fileSystemTypeGetDefault()
-	    mntpt = string.strip(mountpointEntry.get_text())
+	    fsystem = newfstypeMenu.get_active().get_data("type")
+            mntpt = string.strip(mountCombo.entry.get_text())
 	    badsize = 0
 	    try:
 		size = int(sizeEntry.get_text())
@@ -1870,28 +1902,34 @@ class PartitionWindow(InstallWindow):
                 preexist = logrequest.preexist
             else:
                 preexist = 0
-                
-	    err = sanityCheckMountPoint(mntpt, fsystem, preexist)
+
+	    if fsystem.isMountable():
+		err = sanityCheckMountPoint(mntpt, fsystem, preexist)
+	    else:
+		mntpt = None
+		err = None
+		
 	    if err:
 		self.intf.messageWindow(_("Bad mount point"), err)
 		continue
 
 	    used = 0
-	    if not logrequest or mntpt != logrequest.mountpoint:
-		# check in existing requests
-		curreq = self.partitions.getRequestByMountPoint(mntpt)
-		if curreq:
-		    used = 1
+	    if fsystem.isMountable():
+		if not logrequest or mntpt != logrequest.mountpoint:
+		    # check in existing requests
+		    curreq = self.partitions.getRequestByMountPoint(mntpt)
+		    if curreq:
+			used = 1
 
-		# check in pending logical volume requests
-		if not used:
-		    for lv in self.logvolreqs:
-			if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
-			    continue
+		    # check in pending logical volume requests
+		    if not used:
+			for lv in self.logvolreqs:
+			    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
+				continue
 
-			if lv.mountpoint == mntpt:
-			    used = 1
-			    break
+			    if lv.mountpoint == mntpt:
+				used = 1
+				break
 
 	    if used:
 		self.intf.messageWindow(_("Mount point in use"),
@@ -1914,7 +1952,7 @@ class PartitionWindow(InstallWindow):
 		
 	    if not used:
 		for lv in self.logvolreqs:
-		    if logrequest and logrequest.mountpoint and lv.mountpoint == logrequest.mountpoint:
+		    if logrequest and lv.mountpoint == logrequest.mountpoint:
 			continue
 
 		    if lv.logicalVolumeName == lvname:
@@ -1942,7 +1980,8 @@ class PartitionWindow(InstallWindow):
 
 	iter = self.logvolstore.append()
 	self.logvolstore.set_value(iter, 0, lvname)
-	self.logvolstore.set_value(iter, 1, mntpt)
+	if request.fstype and request.fstype.isMountable():
+	    self.logvolstore.set_value(iter, 1, mntpt)
 	self.logvolstore.set_value(iter, 2, "%g" % (size,))
 
         dialog.destroy()
@@ -1965,7 +2004,8 @@ class PartitionWindow(InstallWindow):
 	self.editLogicalVolume(logrequest)
 
     def addLogicalVolumeCB(self, widget):
-	self.editLogicalVolume(None, isNew = 1)
+        request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(), size = 1)
+	self.editLogicalVolume(request, isNew = 1)
 	return
 
     def editLogicalVolumeCB(self, widget):
@@ -2033,7 +2073,7 @@ class PartitionWindow(InstallWindow):
         maintable.attach(volnameEntry, 1, 2, row, row + 1)
 	row = row + 1
 
-        (lvmlist, sw) = createAllowedLvmPartitionsList(availlvmparts, [])
+        (lvmlist, sw) = createAllowedLvmPartitionsList(availlvmparts, [], self.partitions)
         lvmlist.set_size_request(275, 80)
 
         maintable.attach(createAlignedLabel(_("Physical Volumes to Use:")), 0, 1,
@@ -2056,8 +2096,11 @@ class PartitionWindow(InstallWindow):
 	    for lvrequest in self.logvolreqs:
 		iter = self.logvolstore.append()
 		self.logvolstore.set_value(iter, 0, lvrequest.logicalVolumeName)
-		self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
-		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.size,))
+		if lvrequest.fstype and lvrequest.fstype.isMountable():
+		    self.logvolstore.set_value(iter, 1, lvrequest.mountpoint)
+		else:
+		    self.logvolstore.set_value(iter, 1, "")
+		self.logvolstore.set_value(iter, 2, "%g" % (lvrequest.getActualSize(self.partitions, self.diskset)))
 
 	self.logvollist = gtk.TreeView(self.logvolstore)
         col = gtk.TreeViewColumn(_("Logical Volume Name"),
@@ -2127,7 +2170,6 @@ class PartitionWindow(InstallWindow):
 		    id = pvreq.uniqueID
 		    pv.append(id)
 
-		    part = get_partition_by_name(self.diskset.disks, partname)
 		    availSpaceMB = (availSpaceMB +
                                     pvreq.getActualSize(self.partitions,
                                                         self.diskset))
@@ -2137,7 +2179,7 @@ class PartitionWindow(InstallWindow):
 
 	    neededSpaceMB = 0
 	    for lv in self.logvolreqs:
-		neededSpaceMB = neededSpaceMB + lv.size
+		neededSpaceMB = neededSpaceMB + lv.getActualSize(self.partitions, self.diskset)
 
 	    print "Required size for logical volumes is %g MB" % (neededSpaceMB,)
 
