@@ -44,6 +44,8 @@ class LiloWindow (InstallWindow):
 		self.todo.lilo.setDevice("mbr")
 	    else:
 		self.todo.lilo.setDevice("partition")
+	else:
+	    self.todo.lilo.setDevice("mbr")
 
 	images = {}
 	default = None
