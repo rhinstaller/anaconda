@@ -22,7 +22,7 @@ class BootloaderAppendWindow:
 		       "kernel, enter them now. If you don't need any or "
 		       "aren't sure, leave this blank."))
 
-        cb = Checkbox(_("Use LILO bootloader (instead of Grub)"),
+        cb = Checkbox(_("Use LILO Boot Loader (instead of GRUB)"),
 		      isOn = not bl.useGrub())
 	entry = Entry(48, scroll = 1, returnExit = 1)
 	entry.set(bl.args.get())
@@ -30,7 +30,7 @@ class BootloaderAppendWindow:
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, (_("Skip"), "skip"),  
 			     TEXT_BACK_BUTTON ] )
 
-	grid = GridFormHelp(screen, _("Bootloader Configuration"), "kernelopts", 1, 4)
+	grid = GridFormHelp(screen, _("Boot Loader Configuration"), "kernelopts", 1, 4)
 	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
 
 # XXX
@@ -47,15 +47,15 @@ class BootloaderAppendWindow:
             return INSTALL_BACK
 
 	if button == "skip":
-            rc = ButtonChoiceWindow(screen, _("Skip Bootloader"),
+            rc = ButtonChoiceWindow(screen, _("Skip Boot Loader"),
 				_("You have elected to not install "
-				  "any bootloader. It is strongly recommended "
-				  "that you install a bootloader unless "
-				  "you have an advanced need.  A bootloader "
+				  "any boot loader. It is strongly recommended "
+				  "that you install a boot loader unless "
+				  "you have an advanced need.  A boot loader "
 				  "is almost always required in order "
 				  "to reboot your system into Linux "
 				  "directly from the hard drive.\n\n"
-				  "Are you sure you want to skip bootloader "
+				  "Are you sure you want to skip boot loader "
 				  "installation?"),
 				[ (_("Yes"), "yes"), (_("No"), "no") ],
 				width = 50)
@@ -85,8 +85,8 @@ class BootloaderWindow:
 		default = len(locations)
 	    locations.append (format % (device, _(desc)))
 
-        (rc, sel) = ListboxChoiceWindow (screen, _("Bootloader Configuration"),
-			 _("Where do you want to install the bootloader?"),
+        (rc, sel) = ListboxChoiceWindow (screen, _("Boot Loader Configuration"),
+			 _("Where do you want to install the boot loader?"),
 			 locations, default = default,
 			 buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ],
 			 help = "bootloaderlocation")

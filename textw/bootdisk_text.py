@@ -15,7 +15,7 @@ class BootDiskWindow:
 
 	buttons = [ _("Yes"), _("No") ]
 	text =  _("A custom boot disk provides a way of booting into your "
-		  "Linux system without depending on the normal bootloader. "
+		  "Linux system without depending on the normal boot loader. "
 		  "This is useful if you don't want to install lilo on your "
 		  "system, another operating system removes lilo, or lilo "
 		  "doesn't work with your hardware configuration. A custom "
@@ -36,7 +36,7 @@ class BootDiskWindow:
 				       _("\nOn SMCC made Ultra machines floppy booting "
 					 "probably does not work\n\n"))
 
-	rc = ButtonChoiceWindow(screen, _("Bootdisk"), text, buttons = buttons,
+	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text, buttons = buttons,
 				help = "bootdiskquery")
 
 	if rc == string.lower (_("No")):
@@ -62,12 +62,15 @@ class MakeBootDiskWindow:
 	buttons = [ _("OK"), _("Skip") ]
 
 	if dir == DISPATCH_FORWARD:
-	    rc = ButtonChoiceWindow (screen, _("Bootdisk"),
-		     _("If you have the install floppy in your drive, first "
-		       "remove it. Then insert a blank floppy in the first "
-		       "floppy drive. "
-		       "All data on this disk will be erased during creation "
-		       "of the boot disk."), buttons, help = "insertbootdisk")
+	    rc = ButtonChoiceWindow (screen, _("Boot Disk"),
+                                     _("The boot disk allows you to boot "
+                                       "your Red Hat Linux system from a "
+                                       "floppy diskette.\n\n"
+                                       "Please remove any diskettes from the "
+                                       "floppy drive and insert a blank "
+                                       "diskette. All data will be ERASED "
+                                       "during creation of the boot disk."),
+                                     buttons, help = "insertbootdisk")
 	else:
 	    rc = ButtonChoiceWindow (screen, _("Error"),
 		    _("An error occured while making the boot disk. "

@@ -744,27 +744,32 @@ class AutoPartitionWindow:
         if not partitions.useAutopartitioning:
             return INSTALL_NOOP
         
-        self.g = GridFormHelp(screen, _("Autopartitioning"), "autopartitioning", 1, 6)
+        self.g = GridFormHelp(screen, _("Automatic Partitioning"), "autopartitioning", 1, 6)
 
         # listbox for types of removal
+        subgrid = Grid(1, 2)
+        subgrid.setField(TextboxReflowed(55, AUTOPART_DISK_CHOICE_DESCR_TEXT),
+                         0, 0, padding=(0,0,0,1))
         typebox = Listbox(height=3, scroll=0)
-        typebox.append(_("Remove all Linux partitions"), CLEARPART_TYPE_LINUX)
-        typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
-        typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
+        typebox.append(CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_LINUX)
+        typebox.append(CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_ALL)
+        typebox.append(CLEARPART_TYPE_NONE_DESCR_TEXT, CLEARPART_TYPE_NONE)
         if partitions.autoClearPartType == CLEARPART_TYPE_LINUX:
             typebox.setCurrent(CLEARPART_TYPE_LINUX)
         elif partitions.autoClearPartType == CLEARPART_TYPE_ALL:
             typebox.setCurrent(CLEARPART_TYPE_ALL)
         else:
             typebox.setCurrent(CLEARPART_TYPE_NONE)
+        subgrid.setField(typebox, 0, 1)
             
-        self.g.add(typebox, 0, 2, (0,1,0,0))
+        self.g.add(subgrid, 0, 2, (0,0,0,0))
 
         # list of drives to select which to clear
         subgrid = Grid(1, 2)
-        driveLbl = Label(_("Clear Partitions on These Drives:"))
+        subgrid.setField(TextboxReflowed(55, _("Which drive(s) do you want to "
+                                               "use for this installation?")),
+                         0, 0)
         cleardrives = partitions.autoClearPartDrives
-        subgrid.setField(driveLbl, 0, 0)
         disks = diskset.disks.keys()
         drivelist = CheckboxTree(height=3, scroll=1)
         if not cleardrives or len(cleardrives) < 1:

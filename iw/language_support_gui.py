@@ -20,7 +20,7 @@ class LanguageSupportWindow (InstallWindow):
     checkMark_Off = foo.make_pixmap()
     del foo
 
-    windowTitle = _("Language Selection")
+    windowTitle = _("Additional Language Support")
     htmlTag = "langsupport"
 
     def getNext (self):
@@ -138,7 +138,7 @@ class LanguageSupportWindow (InstallWindow):
         vbox = GtkVBox (FALSE, 10)
         hbox = GtkHBox (FALSE)
         
-        label = GtkLabel (_("Choose the default language:   "))
+        label = GtkLabel (_("Choose the default language for this system:   "))
         hbox.pack_start (label, FALSE, 20)
 
         self.combo = GtkCombo ()
@@ -152,10 +152,12 @@ class LanguageSupportWindow (InstallWindow):
         if flags.reconfig:
             label = GtkLabel (_("Currently installed languages:"))
         else:
-            label = GtkLabel (_("Choose the languages to install:"))
+            label = GtkLabel (_("Choose additional languages you would "
+                                "like to use on this system:"))
 
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (TRUE)
+        label.set_usize(400, -1)
         vbox.pack_start (label, FALSE)
         
         hbox = GtkHBox (FALSE)

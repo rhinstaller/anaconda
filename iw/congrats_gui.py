@@ -31,16 +31,18 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, FALSE)
 
 	label = GtkLabel(
-                     _("Congratulations, installation is complete.\n\n"
-                       "Press return to reboot, and be sure to remove your "
-		       "boot medium after the system reboots, or your system "
-		       "will rerun the install. For information on fixes which "
-                       "are available for this release of Red Hat Linux, "
-                       "consult the "
-                       "Errata available from http://www.redhat.com/errata.\n\n"
-                       "Information on configuring and using your Red Hat "
-		       "Linux system is contained in the Red Hat Linux "
-		       "manuals."))
+             _("Congratulations, your Red Hat Linux installation is "
+               "complete.\n\n"
+               "Remove any CD-ROMs or floppy diskettes you used during the "
+               "installation process and press <Enter> to reboot your system. "
+               "\n\n"
+               "If you created a boot disk to use to boot your Red Hat Linux "
+               "system, insert it before you press <Enter> to reboot.\n\n"
+               "For information on errata (updates and bug fixes), visit "
+               "http://www.redhat.com/errata.\n\n"
+               "Information on using and configuring your "
+               "system is available in the Red Hat Linux manuals."),
+             )
                 
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
@@ -79,11 +81,10 @@ class ReconfigCongratulationWindow (InstallWindow):
             hbox.pack_start (a, FALSE)
 
         label = GtkLabel(_("Congratulations, configuration is complete.\n\n"
-                           "For information on fixes which are "
-                           "available for this release of Red Hat Linux, consult the "
-                           "Errata available from http://www.redhat.com.\n\n"
-                           "Information on further configuring your system is available in the Official "
-                           "Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."))
+                  "For information on errata (updates and bug fixes), visit "
+                  "http://www.redhat.com/errata.\n\n"
+                  "Information on using and configuring your "
+                  "system is available in the Red Hat Linux manuals."))
         
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)

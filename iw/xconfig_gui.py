@@ -652,7 +652,7 @@ class MonitorWindow (InstallWindow):
 class XConfigWindow (InstallWindow):
 
     htmlTag ="xconf"
-    windowTitle = N_("X Configuration")
+    windowTitle = N_("Graphical Interface (X) Configuration")
         
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -812,8 +812,8 @@ class XConfigWindow (InstallWindow):
             self.autoBox.pack_start (label, FALSE)
 
             label = makeFormattedLabel (_("If the probed settings do not "
-                                          "match your hardware select the "
-                                          "correct setting below:"))
+                                          "match your hardware, select the "
+                                          "correct hardware settings below:"))
             self.autoBox.pack_start (label, FALSE)
 
             box.pack_start (self.autoBox, FALSE)

@@ -17,21 +17,12 @@
 from snack import *
 from translate import _, cat, N_
 from constants_text import *
+from autopart import PARTMETHOD_TYPE_DESCR_TEXT
 
 class PartitionMethod:
     def __call__(self, screen, partitions):
-        rc = ButtonChoiceWindow(screen, _("Disk Setup"),
-             _("Autopartitioning sets up your partitioning in a reasonable "
-               "way depending on your installation type and then gives you a "
-               "chance to customize this setup.\n"
-               "\n"
-               "Disk Druid is a tool designed for partitioning and setting "
-               "up mount points.  It is designed to be easier to use than "
-               "Linux's traditional disk partitioning software, fdisk, as "
-               "well as more powerful.  However, there are some cases where "
-               "fdisk may be preferred.\n"
-               "\n"
-               "Which tool would you like to use?"),
+        rc = ButtonChoiceWindow(screen, _("Disk Partitioning Setup"),
+                                PARTMETHOD_TYPE_DESCR_TEXT,
              [ (_("Autopartitioning"), "auto"), (_("Disk Druid"), "ds"),
                 (_("fdisk"), "fd"), TEXT_BACK_BUTTON ],
                width = 50, help = "parttool")

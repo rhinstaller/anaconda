@@ -222,7 +222,7 @@ class IndividualPackageWindow:
 	self.lbl = Label ("")
 	self.printTotal()
 
-	g = GridFormHelp (screen, _("Package Group Selection"), "packagetree", 
+	g = GridFormHelp (screen, _("Individual Package Selection"), "packagetree", 
 			    1, 3)
 	g.add (ct, 0, 0, (0, 0, 0, 0))
 	g.add (self.lbl, 0, 1, (4, 0, 0, 1), anchorLeft = 1)

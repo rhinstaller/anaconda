@@ -16,11 +16,12 @@
 from iw_gui import *
 from gtk import *
 from translate import _
+from autopart import PARTMETHOD_TYPE_DESCR_TEXT
 
 class PartitionMethodWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
-        ics.setTitle (_("Disk Partitioning"))
+        ics.setTitle (_("Disk Partitioning Setup"))
 
     def getNext(self):
         
@@ -44,19 +45,7 @@ class PartitionMethodWindow(InstallWindow):
         box = GtkVBox (FALSE)
         box.set_border_width (5)
 
-        label = GtkLabel(
-             _("Autopartitioning sets up your partitioning in a reasonable "
-               "way depending on your installation type and then gives you a "
-               "chance to customize this setup.\n"
-               "\n"
-               "Disk Druid is a tool designed for partitioning and setting "
-               "up mount points.  It is designed to be easier to use than "
-               "Linux's traditional disk partitioning software, fdisk, as "
-               "well as more powerful.  However, there are some cases where "
-               "fdisk may be preferred.\n"
-               "\n"
-               "Which tool would you like to use?"))
-
+        label=GtkLabel(PARTMETHOD_TYPE_DESCR_TEXT)
         label.set_line_wrap(1)
         label.set_alignment(0.0, 0.0)
         label.set_usize(400, -1)
@@ -91,4 +80,8 @@ class PartitionMethodWindow(InstallWindow):
 
         self.ics.setNextEnabled (TRUE)
 
-	return box
+        align = GtkAlignment()
+        align.add(box)
+        align.set(0.5, 0.5, 0.0, 0.0)
+
+	return align

@@ -258,7 +258,7 @@ class BootloaderWindow (InstallWindow):
         spacer.set_usize(10, 1)
         self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
 
-        label = GtkLabel(_("Install boot loader on:"))
+        label = GtkLabel(_("Install Boot Loader record on:"))
         label.set_alignment(0.0, 0.5)
         self.liloLocationBox = GtkVBox (FALSE, 0)
         self.liloLocationBox.pack_start(label)
@@ -279,7 +279,7 @@ class BootloaderWindow (InstallWindow):
 
 		count = count + 1
 
-        label = GtkLabel(_("Kernel parameters") + ":")
+        label = GtkLabel(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
         self.appendEntry = GtkEntry()
         if bl.args.get():
@@ -296,13 +296,13 @@ class BootloaderWindow (InstallWindow):
 
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
-        self.bootdisk = GtkCheckButton (_("Create boot disk"))
+        self.bootdisk = GtkCheckButton (_("Create Boot Disk"))
 
 	self.bootdisk.set_active(not dispatch.stepInSkipList("bootdisk"))
 
         optionBox.pack_start (self.bootdisk)
 
-        self.bootloader = GtkCheckButton (_("Install Bootloader"))
+        self.bootloader = GtkCheckButton (_("Install Boot Loader"))
 
 	if not dispatch.stepInSkipList("instbootloader"):
 	    self.bootloader.set_active (TRUE)
@@ -320,7 +320,7 @@ class BootloaderWindow (InstallWindow):
         box.pack_start (optionBox, FALSE)
 
         box.pack_start(GtkHSeparator(), FALSE)
-        label = GtkLabel(_("Boot loader:"))
+        label = GtkLabel(_("Boot Loader To Be Installed:"))
         self.grub_radio = GtkRadioButton(None, (_("GRUB")))
         self.lilo_radio = GtkRadioButton(self.grub_radio, (_("LILO")))
 

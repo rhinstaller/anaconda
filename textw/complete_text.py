@@ -9,17 +9,18 @@ class FinishedWindow:
         screen.pushHelpLine (_("                              <Return> to reboot                              "))
 
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
-		 _("Congratulations, installation is complete.\n\n"
-		   "Press return to reboot, and be sure to remove your "
-		   "boot medium after the system reboots, or your system "
-		   "will rerun the install. For information on fixes which "
-		   "are available for this release of Red Hat Linux, "
-		   "consult the "
-		   "Errata available from http://www.redhat.com/errata.\n\n"
-		   "Information on configuring and using your Red Hat "
-		   "Linux system is contained in the Red Hat Linux "
-		   "manuals."),
-		[ _("OK") ], help = "finished")
+             _("Congratulations, your Red Hat Linux installation is "
+               "complete.\n\n"
+               "Remove any CD-ROMs or floppy diskettes you used during the "
+               "installation process and press <Enter> to reboot your system. "
+               "\n\n"
+               "If you created a boot disk to use to boot your Red Hat Linux "
+               "system, insert it before you press <Enter> to reboot.\n\n"
+               "For information on errata (updates and bug fixes), visit "
+               "http://www.redhat.com/errata.\n\n"
+               "Information on using and configuring your "
+               "system is available in the Red Hat Linux manuals."),
+		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
 
@@ -30,14 +31,11 @@ class ReconfigFinishedWindow:
         screen.pushHelpLine (_("                                <Return> to exit                              "))
 
         rc = ButtonChoiceWindow (screen, _("Complete"), 
-                                 _("Congratulations, configuration is complete.\n\n"
-                                   " For information on fixes which "
-                                   "are available for this release of Red Hat Linux, "
-                                   "consult the "
-                                   "Errata available from http://www.redhat.com.\n\n"
-                                   "Information on further configuring your system is "
-                                   "available at http://www.redhat.com/support/manuals/"),
-
-                                 [ _("OK") ], help = "reconfigfinished")
+                _("Congratulations, configuration is complete.\n\n"
+                  "For information on errata (updates and bug fixes), visit "
+                  "http://www.redhat.com/errata.\n\n"
+                  "Information on using and configuring your "
+                  "system is available in the Red Hat Linux manuals."),
+                   [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK

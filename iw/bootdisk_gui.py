@@ -7,7 +7,7 @@ from constants import *
 class BootdiskWindow (InstallWindow):
 
     htmlTag = "bootdisk"
-    windowTitle =  N_("Bootdisk Creation")
+    windowTitle =  N_("Boot Disk Creation")
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -41,9 +41,11 @@ class BootdiskWindow (InstallWindow):
 
 	if dir == DISPATCH_FORWARD:
 	    label = GtkLabel (
-		_("Please remove the install floppy (if used) and insert a "
-		  "blank floppy in the first floppy drive. All data on this "
-		  "disk will be erased during creation of the boot disk."))
+                _("The boot disk allows you to boot your Red Hat Linux system "
+                  "from a floppy diskette.\n\n"
+                  "Please remove any diskettes from the floppy drive and "
+                  "insert a blank diskette. All data will be ERASED "
+		  "during creation of the boot disk."))
 	else:
             label = GtkLabel (
 		_("An error occured while making the boot disk. "

@@ -99,13 +99,13 @@ class LanguageSupportWindow:
 
         bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Select All"), "all"), (_("Reset"), "reset"), TEXT_BACK_BUTTON))
 
-        message = (_("Choose the languages to be installed:"))
-        width = len(message)
-        tb = Textbox (width, 2, message)
+        message = (_("Choose additional languages that you would like to use "
+                     "on this system:"))
+        tb = TextboxReflowed(50, message)
 
         g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
         
-        g.add (tb, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
+        g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
@@ -164,7 +164,7 @@ class LanguageDefaultWindow:
         buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON]
 
         (button, choice) = ListboxChoiceWindow(screen, _("Default Language"),
-			_("Choose the default language: "), langs, 
+			_("Choose the default language for this system: "), langs, 
 			buttons, width = 30, default = current, scroll = 1,
                                                height = height, help = "langdefault")
 
