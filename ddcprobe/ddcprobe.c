@@ -105,7 +105,9 @@ int main(int argc, char **argv)
 	manufacturer[2] = edid_info->manufacturer_name.char3 + 'A' - 1;
 	manufacturer[3] = '\0';
 	printf("Manufacturer: %s\n", manufacturer);
-
+	printf("ID: %d\n", edid_info->product_code);
+	printf("EISA ID: %s%d\n", manufacturer, edid_info->product_code);
+	
 	if(edid_info->serial_number != 0xffffffff) {
 		if(strcmp(manufacturer, "MAG") == 0) {
 			edid_info->serial_number -= 0x7000000;
