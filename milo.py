@@ -49,7 +49,7 @@ class MiloInstall:
             # XXX stat /etc/aboot.conf and do the right thing
             try:
 		os.remove(self.todo.instPath + "/etc/aboot.conf")
-            except:
+            except OSError:
                 pass
             os.symlink("../boot/etc/aboot.conf",
                        self.todo.instPath + "/etc/aboot.conf")
@@ -102,7 +102,7 @@ class MiloInstall:
             kernelroot = '/'
             try:
 		os.remove(self.todo.instPath + "/etc/milo.conf")
-            except:
+            except OSError:
 		pass
             os.symlink("../boot/milo.conf",
                        self.todo.instPath + "/etc/milo.conf")
