@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.18
+Version: 10.2.0.19
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sat Feb 12 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.19-1
+- fix x86_64 installs for bad urlgrabber import
+- Fix traceback with no %post (clumens)
+- Put hostname in the text entry (clumens, #132826)
+
 * Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.18-1
 - Remove some old cruft
 - Fix-up for new module naming in gnome-python2-canvas 2.9.x 
