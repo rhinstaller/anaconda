@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.51\n"
+"Project-Id-Version: install 1.54\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-19 09:32+0000\n"
+"PO-Revision-Date: 2000-02-19 09:40+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1452,9 +1452,8 @@ msgstr ""
 "stillingar hér:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Útkoma X leitar"
+msgstr "Útkoma X leitar:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1654,15 +1653,16 @@ msgid "User ID"
 msgstr "Notandanafn"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Notandanafn"
+msgstr "Ólöglegt notandanafn"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Notandanöfn verða að vera minna en 8 stafir að lengd og mega einungis \n"
+"innihalda stafina A-Z, a-z og 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
