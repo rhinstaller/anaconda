@@ -195,7 +195,7 @@ class KickstartBase(BaseInstallClass):
     def doXconfig(self, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'server=', 'card=', 'monitor=', 'hsync=', 'vsync=',
-		  'startxonboot', 'noprobe' ])
+		  'startxonboot', 'noprobe', 'defaultdesktop=' ])
 
 	if extra:
 	    raise ValueError, "unexpected arguments to xconfig command"
@@ -207,6 +207,7 @@ class KickstartBase(BaseInstallClass):
 	vsync = None
         noProbe = 0
 	startX = 0
+        defaultdesktop = ""
 
 	for n in args:
 	    (str, arg) = n
@@ -224,9 +225,13 @@ class KickstartBase(BaseInstallClass):
 		vsync = arg
 	    elif (str == "--startxonboot"):
 		startX = 1
+            elif (str == "--defaultdesktop"):
+                defaultdesktop = arg
 
 	self.configureX(server, card, monitor, hsync, vsync, noProbe,
 		        startX)
+        self.setDesktop(defaultdesktop)
+        
 	self.addToSkipList("xconfig")
 
     def doInstall(self, args):
