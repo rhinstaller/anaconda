@@ -1,9 +1,43 @@
+#
+# installmethod.py - Base class for install methods
+#
+# Copyright 1999-2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import os
 import string
 from comps import ComponentSet
 
+from rhpl.log import log
+
+
 class InstallMethod:
 
+    # find best match from several locations for a file
+    def findBestFileMatch(self, treebase, file):
+	# look in /tmp/updates first
+	rc = None
+	tryloc = ["/tmp/updates"]
+	if treebase is not None:
+	    tryloc.append(treebase + "/RHupdates")
+	    tryloc.append(treebase + "/RedHat/base")
+	    
+	for pre in tryloc:
+	    tmpname = pre + "/" + file
+	    if os.access(tmpname, os.R_OK):
+		log("Using %s", tmpname)
+		return tmpname
+
+	log("Unable to find %s", file)
+	return None
+	
     def protectedPartitions(self):
         return None
 

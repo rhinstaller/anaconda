@@ -37,7 +37,12 @@ DISCNUM  = 1000002
 class UrlInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
-	return ComponentSet(self.baseUrl + '/RedHat/base/comps.xml', hdlist)
+	fname = self.findBestFileMatch(None, 'comps.xml')
+	# if not local then assume its on host
+	if fname is None:
+	    fname = self.baseUrl + '/RedHat/base/comps.xml'
+	    log("Comps not in update dirs, using %s",fname)
+	return ComponentSet(fname, hdlist)
 
     def getFilename(self, h, timer):
         tmppath = self.getTempPath()
