@@ -42,10 +42,10 @@
 #include <netdb.h>
 #include <rpc/rpc.h>
 #include <rpc/pmap_prot.h>
-#include <rpcsvc/nfs_prot.h>
 #include <rpc/pmap_clnt.h>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <time.h>
 #include <sys/utsname.h>
 #include <sys/stat.h>
 #include <arpa/inet.h>
@@ -53,6 +53,7 @@
 #include "sundries.h"
 #include "nfsmount.h"
 
+#include <linux/nfs.h>
 #define NFS_NEED_KERNEL_TYPES
 #include "mount_constants.h"
 #include "nfs_mount4.h"
@@ -808,7 +809,7 @@ fail:
 #endif
 
 static struct {
-	enum nfsstat stat;
+	enum nfs_stat stat;
 	int errnum;
 } nfs_errtbl[] = {
 	{ NFS_OK,		0		},
