@@ -37,7 +37,7 @@ def startX():
         print "Unknown card, falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
 
-    if not os.access (serverPath, os.O_XOK):
+    if not os.access (serverPath, os.X_OK):
         print serverpath, "missing.  Falling back to VGA16"
         serverPath = '/usr/X11R6/bin/XF86_VGA16'
         
@@ -94,7 +94,10 @@ EndSection
                  '/tmp/XF86Config', 'vt7'])
     child = os.fork()
     if (child):
-        pid, status = os.waitpid(server, 0)
+        try:
+            pid, status = os.waitpid(server, 0)
+        except:
+            sys.exit (-1)
         sys.exit(status)
 
     return ((mouseProtocol, mouseEmulate, mouseDev), x)
