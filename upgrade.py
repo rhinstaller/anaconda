@@ -318,12 +318,14 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         rpm.addMacro("_dbapi", "3")
     else:
         id.dbpath = None
+        rebuildpath = None
         
     try:
         import findpackageset
 	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
     except rpm.error:
-	iutil.rmrf(rebuildpath)
+        if rebuildpath is not None:
+            iutil.rmrf(rebuildpath)
 	win.pop()
 	intf.messageWindow(_("Error"),
                            _("An error occured when finding the packages to "
