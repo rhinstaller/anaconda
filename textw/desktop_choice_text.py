@@ -21,7 +21,7 @@ class DesktopChoiceWindow:
 
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 	
-	toplevel = GridFormHelp (screen, _("Workstation Defaults"),
+	toplevel = GridFormHelp (screen, _("Package Defaults"),
 				 "wsdefaults", 1, 5)
 
 	labeltxt = N_("The default installation environment includes our "
