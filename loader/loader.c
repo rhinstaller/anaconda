@@ -2377,9 +2377,11 @@ int main(int argc, char ** argv) {
 
 #ifdef INCLUDE_KON
     else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon")) {
+        setenv("TERM", "kon", 1);
 	i = kon_main(argc, argv);
 	return i;
     } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue")) {
+        setenv("TERM", "kon", 1);
 	continuing = 1;
     }
 #endif
@@ -2476,9 +2478,20 @@ int main(int argc, char ** argv) {
     kdFindScsiList(&kd, 0);
     kdFindNetList(&kd, 0);
 #else
+    /* if we're in PCMCIA, we're always going to pass the PCMCIA code
+       to the probe */
+# ifdef INCLUDE_PCMCIA
     kdFindIdeList(&kd, CODE_PCMCIA);
     kdFindScsiList(&kd, CODE_PCMCIA);
     kdFindNetList(&kd, CODE_PCMCIA);
+# else
+    /* but if we're not in PCMCIA, there is a chance that we were run in
+       kon mode which means that the probes were done and modules were
+       inserted, but they're *not* PCMCIA */
+    kdFindIdeList(&kd, continuing ? 0 : CODE_PCMCIA);
+    kdFindScsiList(&kd, continuing ? 0 : CODE_PCMCIA);
+    kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
+# endif
 #endif
 
     if (!continuing) {
