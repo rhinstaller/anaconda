@@ -91,8 +91,6 @@ int _nl_C_LC_MEASUREMENT() { return 0; }
 int _nl_C_LC_PAPER() { return 0; }
 int _nl_C_LC_ADDRESS() { return 0; }
 int _dl_clktck() { return 0;}
-#ifndef __alpha__
 int _dl_aux_init() { return 0;}
-#endif
 
 int _dl_pagesize = 4096;
