@@ -52,6 +52,11 @@ class BootloaderWindow (InstallWindow):
     def getNext (self):
         if self.none_radio.get_active ():
 	    self.dispatch.skipStep("instbootloader")
+            self.dispatch.skipStep("bootloaderpassword")
+        elif self.lilo_radio.get_active ():
+            self.dispatch.skipStep("bootloaderpassword")
+        elif self.grub_radio.get_active ():
+            self.dispatch.skipStep("bootloaderpassword", skip = 0)
         elif len(self.bootDevice.keys()) > 0:
 	    self.dispatch.skipStep("instbootloader", skip = 0)
 
@@ -61,7 +66,7 @@ class BootloaderWindow (InstallWindow):
 
         self.bl.setUseGrub(self.grub_radio.get_active())
         self.bl.args.set(self.appendEntry.get_text())
-
+        
         default = None
         linuxDevice = None
         for index in range(self.numImages):
@@ -78,11 +83,6 @@ class BootloaderWindow (InstallWindow):
 
         if not default:
             default = linuxDevice
-
-        if self.usegrubpasscb.get_active():
-            self.bl.setPassword(self.password, isCrypted = 0)
-        else:
-            self.bl.setPassword(None)
 
         self.bl.images.setDefault(default)
         
@@ -142,8 +142,7 @@ class BootloaderWindow (InstallWindow):
 
         list = self.bootDevice.keys()
         list.extend ([self.appendEntry, self.editBox, self.imageList,
-                      self.liloLocationBox, self.radioBox, self.sw,
-                      self.passtable])
+                      self.liloLocationBox, self.radioBox, self.sw])
         for n in list:
             n.set_sensitive (state)
 
@@ -243,10 +242,8 @@ class BootloaderWindow (InstallWindow):
     def bootloaderchange(self, widget):
         if self.lilo_radio.get_active():
             selected = "lilo"
-            self.passtable.set_sensitive(FALSE)
         elif self.grub_radio.get_active():
             selected = "grub"
-            self.passtable.set_sensitive(TRUE)            
         elif self.none_radio.get_active():
             return
 
@@ -275,56 +272,6 @@ class BootloaderWindow (InstallWindow):
                     self.ics.setNextEnabled (1)
             except:
                 pass
-
-    def passwordDialog(self, *args):
-        dialog = GnomeDialog(_("GRUB Password"))
-        dialog.append_button (_("OK"))
-        dialog.append_button (_("Cancel"))        
-        dialog.set_position(WIN_POS_CENTER)
-        dialog.close_hides(TRUE)
-
-        maintable = GtkTable()
-        maintable.set_row_spacings (5)
-        maintable.set_col_spacings (5)
-        pass1 = GtkLabel (_("Bootloader Password: "))
-        pass1.set_alignment (0.0, 0.5)
-        maintable.attach (pass1, 0, 1, 1, 2, FILL, 0, 10)
-        pass2 = GtkLabel (_("Confirm: "))
-        pass2.set_alignment (0.0, 0.5)
-        maintable.attach (pass2, 0, 1, 2, 3, FILL, 0, 10)
-        self.pw = GtkEntry (16)
-        self.pw.set_visibility (FALSE)
-        self.confirm = GtkEntry (16)
-        self.confirm.set_visibility (FALSE)
-        if self.password:
-            self.pw.set_text(self.password)
-            self.confirm.set_text(self.password)
-        maintable.attach (self.pw,      1, 2, 1, 2, 0, 5)
-        maintable.attach (self.confirm, 1, 2, 2, 3, 0, 5)
-        dialog.vbox.pack_start(maintable)
-        dialog.show_all()
-
-        while 1:
-            rc = dialog.run()
-
-            # user hit cancel, do nothing
-            if rc == 1:
-                dialog.close()
-                return
-
-            pw = self.pw.get_text()
-            confirm = self.confirm.get_text()
-
-            if pw != confirm:
-                self.intf.messageWindow(_("Passwords Do Not Match"),
-                        _("Passwords do not match"))
-                continue
-
-            self.password = pw
-            if self.checkLiloReqs():
-                self.ics.setNextEnabled(1)                            
-            dialog.close()
-            break
 
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
@@ -425,35 +372,6 @@ class BootloaderWindow (InstallWindow):
         self.radio_vbox.pack_start(self.none_radio, FALSE)
         
         box.pack_start(self.radio_vbox, FALSE)
-
-        self.passtable = GtkTable (3, 3)
-        self.passtable.set_row_spacings (5)
-	self.passtable.set_col_spacings (5)
-        grubpassinfo = GtkLabel(_("A GRUB password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
-        self.password = None
-        grubpassinfo.set_line_wrap(TRUE)
-        grubpassinfo.set_usize(400, -1)
-        grubpassinfo.set_alignment(0.0,0.0)
-        self.passtable.attach(grubpassinfo, 0, 3, 0, 1, FILL|EXPAND, 0, 10)
-
-        self.usegrubpasscb = GtkCheckButton(_("Use a GRUB Password?"))
-        self.passtable.attach(self.usegrubpasscb, 0, 1, 1, 2, FILL, 0, 10)
-        self.passbutton = GtkButton(_("Set Password"))
-        self.passtable.attach(self.passbutton, 1, 2, 1, 2, 0, 0, 10)
-
-        self.usegrubpasscb.connect("toggled", self.usePasswordToggle)
-        self.passbutton.connect("clicked", self.passwordDialog)
-        if self.bl.password:
-            self.usegrubpasscb.set_active(1)
-        if self.bl.pure:
-            self.password = self.bl.pure
-        self.usePasswordToggle()
-
-        bogus = GtkLabel("")
-        self.passtable.attach(bogus, 2, 3, 1, 2, FILL|EXPAND, 0, 10)
-
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start(self.passtable, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
