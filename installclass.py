@@ -34,6 +34,7 @@ class BaseInstallClass:
     showMinimal = 1
     showLoginChoice = 0
     description = None
+    name = "base"
     
     # don't select this class by default
     default = 0
