@@ -27,6 +27,15 @@
 
 import sys, os
 
+# helper function to duplicate diagnostic output
+def dup_log(format, *args):
+    if args:
+	sys.stdout.write ("%s\n" % (format % args))
+    else:
+	sys.stdout.write ("%s\n" % format)
+    apply(log, (format,) +  args)
+
+
 # For anaconda in test mode
 if (os.path.exists('isys')):
     sys.path.append('libfdisk')
@@ -130,7 +139,6 @@ rescue = 0			# run in rescue mode
 rescue_nomount = 0		# don't automatically mount device in rescue
 overhead = 0			# kilobytes of memory used already
 runres = '800x600'		# resolution to run the GUI install in
-nofbmode = 1			# don't use framebuffer X, no matter what
 skipddc = 0			# if true skip ddcprobe (locks some machines)
 instClass = None		# the install class to use
 progmode = 'install' 		# 'rescue', or 'install'
@@ -192,11 +200,6 @@ for n in args:
 	extraModules.append((path, subdir, name))
     elif (str == '--nofallback'):
 	nofallback = 1
-#
-# we're removing fb support
-#
-#    elif (str == '--nofb'):
-#        nofbmode = 1
     elif (str == "--nomount"):
         rescue_nomount = 1
     elif (str == '--overhead'):
@@ -206,10 +209,6 @@ for n in args:
     elif (str == '--resolution'):
         # run native X server at specified resolution, ignore fb
         runres = arg
-#
-# we're removing fb support
-#
-#        nofbmode = 1
     elif (str == "--skipddc"):	
 	skipddc = 1
     elif (str == "--autostep"):
@@ -283,6 +282,7 @@ if (debug):
 import isys
 import instdata
 import floppy
+import xsetup
 
 import rhpl.videocard as videocard
 import rhpl.monitor as monitor
@@ -340,10 +340,8 @@ iutil.setMemoryOverhead(overhead)
 #
 if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
-        print _("You do not have enough RAM to use the graphical installer.  "
-                "Starting text mode.")
-        log(_("You do not have enough RAM to use the graphical installer.  "
-                "Starting text mode."))
+	dup_log(_("You do not have enough RAM to use the graphical "
+		  "installer.  Starting text mode."))
 	display_mode = 't'
         time.sleep(2)
 
@@ -394,30 +392,34 @@ if instClass.forceTextMode:
 # find out what video hardware is available to run installer 
 #
 
-# XXX kind of hacky
+# XXX kind of hacky - need to remember if we're running on an existing
+#                     X display later to avoid some initilization steps
 if os.environ.has_key('DISPLAY') and display_mode == 'g':
     x_already_set = 1
 else:
     x_already_set = 0
 
+# mouse
 mousehw    = mouse.Mouse(skipProbe = 1)
 
-fbdev = None
-videohw    = videocard.VideoCardInfo(skipDDCProbe = (skipddc or flags.test))
+# videocard
+
+videohw    = videocard.VideoCardInfo(skipDDCProbe = (skipddc or (x_already_set and flags.test)))
 
 if videohw and videohw.primaryCard():
     cardstr = videohw.primaryCard().shortDescription()
 else:
     cardstr = _("Unable to probe")
 
-sys.stdout.write(_("Probing for video card:   ") + cardstr + '\n')
-log(_("Probing for video card:   %s"), cardstr)
+dup_log(_("Probing for video card:   %s"), cardstr)
 
-monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = (skipddc or flags.test))
+# monitor
+monitorhw  = monitor.MonitorInfo(fbDevice=None,
+				 skipDDCProbe = (skipddc or  (x_already_set and flags.test)))
 monstr = monitorhw.shortDescription()
-sys.stdout.write(_("Probing for monitor type: ") + monstr + '\n')
-log(_("Probing for monitor type: %s"), monstr)
+dup_log(_("Probing for monitor type: %s"), monstr)
 
+# keyboard
 kbd = keyboard.Keyboard()
 if keymap:
     kbd.set(keymap)
@@ -431,18 +433,17 @@ if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
     sys.stdout.write(mousestr+'\n')
     log(_("Probing for mouse type:   %s"), mousestr)
 else:
-    sys.stdout.write(_("Skipping mouse probe.") + "\n")
-    log(_("Skipping mouse probe."))
+    dup_log(_("Skipping mouse probe."))
+
+time.sleep(3)
 
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
     method.startswith('hd://') or
     method.startswith('oldhd://')):
-    print _("Graphical installation not available for %s installs.  "
-            "Starting text mode.") % (string.split(method, ':')[0],)
-    log(_("Graphical installation not available for %s installs.  "
-            "Starting text mode.") % (string.split(method, ':')[0],))
+    dup_log(_("Graphical installation not available for %s installs.  "
+             "Starting text mode.") % (string.split(method, ':')[0],))
     display_mode = 't'
     time.sleep(2)
 
@@ -453,18 +454,15 @@ if iutil.getArch() != "s390":
     if display_mode != 't' and mousedev[0] == "No - mouse":
         # ask for the mouse type
         if mouse.mouseWindow(mousehw) == 0:
-            print _("No mouse was detected.  A mouse is required for graphical "
-                "installation.  Starting text mode.")
-            log(_("No mouse was detected.  A mouse is required for graphical "
-                "installation.  Starting text mode."))
+	    dup_log(_("No mouse was detected.  A mouse is required for "
+		      "graphical installation.  Starting text mode."))
             display_mode = 't'
             time.sleep(2)
         else:
-            sys.stdout.write(_("Using mouse type: "))
-            sys.stdout.write(mousehw.shortDescription()+'\n')
+	    dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
 else: # s390 checks
     if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
-        print _("DISPLAY variable not set. Starting text mode!")
+	dup_log("DISPLAY variable not set. Starting text mode!")
         display_mode = 't'
         time.sleep(2)
 
@@ -472,51 +470,34 @@ else: # s390 checks
 #
 # startup X server is we're not already running under an X session
 #
-startXServer = 0
+from rhpl.xhwstate import *
 
-if display_mode == 'g':
-    import xf86config
+xsetup_failed = 0
+try:
+    xcfg = XF86HardwareState(defcard=videohw, defmon=monitorhw)
+    xcfg.set_resolution(runres)
+except:
+    xsetup_failed = 1
+    xcfg = None
 
-    if not os.environ.has_key('DISPLAY'):
-        startXServer = 1
-        import xserver
-        try:
-            if os.access("/etc/X11/XF86Config", os.R_OK) or os.access("/etc/X11/XF86Config-4", os.R_OK):
-                xcfg = xserver.start_existing_X ()
-            else:
-		xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                         monitorhw, mousehw, kbd, runres)
-                testxcfg = xserver.startX(runres, nofbmode, videohw, monitorhw,
-					  mousehw, kbd)
+if not xsetup_failed:
+    if not os.environ.has_key('DISPLAY') and display_mode == 'g':
+	import xserver
 
+	try:
+	    testxcfg = xserver.startX(runres, videohw, monitorhw, mousehw, kbd)
 	except RuntimeError:
-            print " X startup failed, falling back to text mode"
-            log(" X startup failed, falling back to text mode")
-            xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                         monitorhw, mousehw, kbd, runres)
-            display_mode = 't'
-            time.sleep(2)            
-    else:
-        # XXX x_already_set is a hack, see above
-        if x_already_set:
-            card = videocard.VideoCard()
-        else:
-            card = videohw.primaryCard()
-        xcfg = xf86config.XF86Config(card, monitorhw, mousehw, kbd, runres)
-else:
-    # text mode
-    import xf86config
+	    testxcfg = None
+	    xsetup_failed = 1
 
-    # only probe X related stuff if we're doing an install
-    if iutil.getArch() == "s390":
-        # XXX why doesn't videohw.primaryCard() dtrt on s390?
-        card = videocard.VideoCard()
-    else:
-        card = videohw.primaryCard()
-    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, kbd, runres)
+if xsetup_failed:
+    dup_log(" X startup failed, falling back to text mode")
+    display_mode = 't'
+    time.sleep(2)
 
-
-
+#
+# read in anaconda configuration file
+#
 import configFileData
 configFile = configFileData.configFileData()
 configFileData = configFile.getConfigData()
@@ -549,10 +530,9 @@ if (display_mode == 'g'):
         except:
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
-            if startXServer:
+	    if not x_already_set:
                 isys.vtActivate (1)
-            print "GUI installer startup failed, falling back to text mode."
-            log("GUI installer startup failed, falling back to text mode.")
+            dup_log("GUI installer startup failed, falling back to text mode.")
             display_mode = 't'
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
@@ -664,7 +644,8 @@ if monitorhw:
     id.setMonitor(monitorhw)
 
 if xcfg:
-    id.setXconfig(xcfg)
+    xsetup = xsetup.XSetup(xcfg)
+    id.setXSetup(xsetup)
 
 if kbd:
     id.setKeyboard(kbd)

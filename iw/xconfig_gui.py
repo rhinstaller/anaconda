@@ -54,13 +54,28 @@ class XCustomWindow (InstallWindow):
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
         self.ics.setNextEnabled (gtk.TRUE)
-        
-    def getNext (self):
-        newmodes = {}
-        newmodes[self.selectedDepth] = []
-        newmodes[self.selectedDepth].append (self.selectedRes)
 
-        self.xconfig.setManualModes(newmodes)
+
+    def getPrev(self):
+	# restore settings
+	self.xsetup.xhwstate.set_resolution(self.origres)
+	self.xsetup.xhwstate.set_colordepth(self.origdepth)
+	return None
+	
+    def getNext (self):
+	
+#
+# XXXX - old code from pre rhpl-based backend
+#
+#
+#         newmodes = {}
+#         newmodes[self.selectedDepth] = []
+#         newmodes[self.selectedDepth].append (self.selectedRes)
+#
+#         self.xconfig.setManualModes(newmodes)
+
+        self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
+	self.xsetup.xhwstate.set_resolution(self.selectedRes)
 
 	if ENABLE_DESKTOP_CHOICE:
 	    self.desktop.setDefaultDesktop (self.newDesktop)
@@ -71,26 +86,32 @@ class XCustomWindow (InstallWindow):
             rl = 5
 
         self.desktop.setDefaultRunLevel(rl)
-        
+
+
     def testPressed (self, widget, *args):
-        newmodes = {}
-        newmodes[self.selectedDepth] = []
-        newmodes[self.selectedDepth].append (self.selectedRes)
-
-        manmodes = self.xconfig.getManualModes()
-        self.xconfig.setManualModes(newmodes)
-
-        try:
-            self.xconfig.test (root=self.instPath)
-        except RuntimeError:
-            ### test failed window
-            pass
-
-        self.xconfig.setManualModes(manmodes)
+	log("Somehow X test was attempted")
+	return
+    
+#
+# XXXX - old code from pre rhpl-based backend
+#
+#
+#        newmodes = {}
+#        newmodes[self.selectedDepth] = []
+#        newmodes[self.selectedDepth].append (self.selectedRes)
+#
+#        manmodes = self.xconfig.getManualModes()
+#        self.xconfig.setManualModes(newmodes)
+#
+#        try:
+#            self.xconfig.test (root=self.instPath)
+#        except RuntimeError:
+#            ### test failed window
+#            pass
+#
+#        self.xconfig.setManualModes(manmodes)
 
     def numCompare (self, first, second):
-        first = string.atoi (first)
-        second = string.atoi (second)
         if first > second:
             return 1
         elif first < second:
@@ -102,11 +123,23 @@ class XCustomWindow (InstallWindow):
         if self.selectedDepth == self.bit_depth[depth]:
             return
         self.selectedDepth = self.bit_depth[depth]
-        curres = self.selectedRes
-        newmodes = self.xconfig.availableModes()[self.selectedDepth]
+	self.xsetup.xhwstate.set_colordepth(self.selectedDepth)
+
+	# now we set color depth, read out what modes are now supported
+	self.selectedRes = self.xsetup.xhwstate.get_colordepth()
+	newmodes = self.xsetup.xhwstate.available_resolutions()
         self.res_combo.set_popdown_strings(newmodes)
-        if curres in newmodes:
-            self.res_combo.list.select_item(newmodes.index(curres))
+        if self.selectedRes in newmodes:
+            self.res_combo.list.select_item(newmodes.index(self.selectedRes))
+
+#
+# XXX - old pre-rhpl backend code
+#
+#        curres = self.selectedRes
+#        newmodes = self.xsetup.xhwstate.availableModes()[self.selectedDepth]
+#        self.res_combo.set_popdown_strings(newmodes)
+#        if curres in newmodes:
+#            self.res_combo.list.select_item(newmodes.index(curres))
         
     def res_cb (self, widget, data):
         newres = self.res_combo.list.child_position (data)
@@ -181,13 +214,17 @@ class XCustomWindow (InstallWindow):
         self.display_desktop_pixmap(desktop)
 
     # XCustomWindow tag="xcustom"
-    def getScreen (self, xconfig, monitor, videocard, desktop, comps,
+    def getScreen (self, xsetup, monitor, videocard, desktop, comps,
                    instPath):
 
-        self.xconfig = xconfig
+        self.xsetup = xsetup
         self.monitor = monitor
         self.videocard = videocard
         self.desktop = desktop
+
+	# save so we can restore if necessary going back
+	self.origres = self.xsetup.xhwstate.get_resolution()
+	self.origdepth = self.xsetup.xhwstate.get_colordepth()
 
         self.instPath = instPath
 
@@ -205,12 +242,18 @@ class XCustomWindow (InstallWindow):
         self.box.pack_start (self.hbox)
 
         # determine video modes available for this card/monitor combo
-        available = self.xconfig.availableModes()
-        availableDepths = []
-        for adepth in available.keys():
-            if len(available[adepth]) > 0:
-                availableDepths.append(adepth)
-        availableDepths.sort(self.numCompare)
+#
+# old pre-rhpl backend code
+#
+#        available = self.xsetup.xhwstate.availableModes()
+#        availableDepths = []
+#        for adepth in available.keys():
+#            if len(available[adepth]) > 0:
+#                availableDepths.append(adepth)
+#        availableDepths.sort(self.numCompare)
+
+        available = self.xsetup.xhwstate.available_resolutions()
+	availableDepths = self.xsetup.xhwstate.available_color_depths()
 
         hbox1 = gtk.HBox (gtk.FALSE, 5)
         hbox3 = gtk.HBox (gtk.FALSE, 5)
@@ -223,7 +266,7 @@ class XCustomWindow (InstallWindow):
         hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
 
         depth_list = [(_("256 Colors (8 Bit)")), (_("High Color (16 Bit)")), (_("True Color (24 Bit)"))]
-        self.bit_depth = ["8", "16", "32"]
+        self.bit_depth = [8, 16, 24]
 
         self.avail_depths = depth_list[:len(availableDepths)]
         self.depth_combo = gtk.Combo ()
@@ -245,48 +288,56 @@ class XCustomWindow (InstallWindow):
         self.res_combo = gtk.Combo ()
         self.res_combo.entry.set_property("editable", gtk.FALSE)
 
-        # determine current selection, or if none exists, pick reasonable
-        # defaults.
-        #
-        # getManualModes() should return a dictionary with one key (depth),
-        #                  which has a single corresponding resolution
-        #
-        manualmodes = self.xconfig.getManualModes()
-        if manualmodes:
-            self.selectedDepth = manualmodes.keys()[0]
-            self.selectedRes = manualmodes[self.selectedDepth][0]
-        else:
-            self.selectedDepth = None
-            self.selectedRes = None
+# new rhpl-based code
 
-        # if selected depth not acceptable then force it to be at least 8bpp
-        if self.selectedDepth and int(self.selectedDepth) < 8:
-            self.selectedDepth = "8"
-
-        if not self.selectedDepth or not self.selectedRes:
-            if len(available) == 1:
-                self.res_combo.set_popdown_strings (available["8"])
-                self.selectedDepth = "8"
-                self.selectedRes = available[self.selectedDepth][0]
-            elif len(available) >= 2:
-                #--If they can do 16 bit color, default to 16 bit at 1024x768
-                self.depth_combo.list.select_item (1)
-                self.selectedDepth = "16"
-            
-                self.res_combo.set_popdown_strings (available["16"])
-
-                if "1024x768" in available["16"]:
-                    self.selectedRes = "1024x768"
-                elif "800x600" in available["16"]:
-                    self.selectedRes = "800x600"
-                else:
-                    self.selectedRes = "640x480"
-        else:
-            self.res_combo.set_popdown_strings (available[self.selectedDepth])
+        self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
+        self.selectedRes   = self.xsetup.xhwstate.get_resolution()
+        self.res_combo.set_popdown_strings (available)
 
         frame2.add (self.res_combo)
         frame2.get_label_widget().set_mnemonic_widget(self.res_combo.entry)
 
+# XXX - old pre-rhpl based backend code
+#        # determine current selection, or if none exists, pick reasonable
+#        # defaults.
+#        #
+#
+#        # getManualModes() should return a dictionary with one key (depth),
+#        #                  which has a single corresponding resolution
+#        #
+#        manualmodes = self.xsetup.getManualModes()
+#        if manualmodes:
+#            self.selectedDepth = manualmodes.keys()[0]
+#            self.selectedRes = manualmodes[self.selectedDepth][0]
+#        else:
+#            self.selectedDepth = None
+#            self.selectedRes = None
+#
+#
+#         # if selected depth not acceptable then force it to be at least 8bpp
+#         if self.selectedDepth and self.selectedDepth < 8:
+#             self.selectedDepth = 8
+#
+#         if not self.selectedDepth or not self.selectedRes:
+#             if len(available) == 1:
+#                 self.res_combo.set_popdown_strings (available[8])
+#                 self.selectedDepth = 8
+#                 self.selectedRes = available[self.selectedDepth][0]
+#             elif len(available) >= 2:
+#                 #--If they can do 16 bit color, default to 16 bit at 1024x768
+#                 self.depth_combo.list.select_item (1)
+#                 self.selectedDepth = 16
+#            
+#                 self.res_combo.set_popdown_strings (available[16])
+#
+#                 if "1024x768" in available[16]:
+#                     self.selectedRes = "1024x768"
+#                 elif "800x600" in available[16]:
+#                     self.selectedRes = "800x600"
+#                 else:
+#                     self.selectedRes = "640x480"
+#         else:
+#             self.res_combo.set_popdown_strings (available[self.selectedDepth])
         # apply current configuration to UI
         count = 0
         for depth in self.bit_depth:
@@ -304,7 +355,7 @@ class XCustomWindow (InstallWindow):
                 break
             count = count + 1
 
-        location = available[self.selectedDepth].index(self.selectedRes)
+        location = available.index(self.selectedRes)
         self.swap_monitor(location)
 
         self.depth_combo.list.connect ("select-child", self.depth_cb)
@@ -437,10 +488,21 @@ class MonitorWindow (InstallWindow):
 	    else:
 		idname = self.currentMonitor
 
+	    # XXX - this is messed up - we set the monitor object in instdata
+	    #       to the current values, then we have to push it into the
+	    #       xhwstate as well.  Need to join this operation somehow.
             self.monitor.setSpecs(monHoriz,
                                   monVert,
                                   id=idname,
                                   name=self.currentMonitor)
+
+	    # shove into hw state object, force it to recompute available modes
+	    self.xsetup.xhwstate.monitor = self.monitor
+	    self.xsetup.xhwstate.set_monitor_name(self.currentMonitor)
+	    self.xsetup.xhwstate.set_hsync(monHoriz)
+	    self.xsetup.xhwstate.set_vsync(monVert)
+	    self.xsetup.xhwstate.recalc_mode()
+	    
         return None
 
     def setSyncField(self, field, value):
@@ -587,10 +649,10 @@ class MonitorWindow (InstallWindow):
         (entry, other) = entrys
         self.enableIfSyncsValid(entry, other)
 
-    def getScreen (self, xconfig, monitor):
+    def getScreen (self, xsetup, monitor):
 
         self.monitor = monitor
-        self.xconfig = xconfig
+        self.xsetup = xsetup
 
         # some flags to let us know when to ignore callbacks we caused
         self.ignoreEntryChanges = 0
@@ -626,7 +688,7 @@ class MonitorWindow (InstallWindow):
 
         self.origHsync = self.monitor.getMonitorHorizSync()
         self.origVsync = self.monitor.getMonitorVertSync()
-	
+
         monitorslist = self.monitor.monitorsDB ()
         keys = monitorslist.keys ()
         keys.sort ()
@@ -760,14 +822,14 @@ class XConfigWindow (InstallWindow):
             self.dispatch.skipStep("monitor")
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
-            self.xconfig.skipx = 1
+            self.xsetup.skipx = 1
 
             return None
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
             self.dispatch.skipStep("writexconfig", skip = 0)
-            self.xconfig.skipx = 0
+            self.xsetup.skipx = 0
 
         # set videocard type (assuming we're working with PRIMARY card)
         if self.currentCard:
@@ -822,9 +884,8 @@ class XConfigWindow (InstallWindow):
         vidram = self.videocard.possible_ram_sizes()[index]
 
         self.videocard.primaryCard().setVideoRam(str(vidram))
-        self.xconfig.setVideoCard(self.videocard.primaryCard())
-        self.xconfig.filterModesByMemory ()
-        
+        self.xsetup.xhwstate.set_videocard_card(self.videocard.primaryCard())
+
         return None
 
     def skipToggled (self, widget, *args):
@@ -912,12 +973,12 @@ class XConfigWindow (InstallWindow):
 	self.ignoreEvents = 0
 
     # XConfigWindow tag="xconf"
-    def getScreen (self, dispatch, xconfig, videocard, intf):
+    def getScreen (self, dispatch, xsetup, videocard, intf):
         self.ics.setHelpEnabled (gtk.TRUE)
 
         self.dispatch = dispatch
         self.videocard = videocard
-        self.xconfig = xconfig
+        self.xsetup = xsetup
         self.intf = intf
 
 	self.lastvalidselection = None
