@@ -895,7 +895,7 @@ off_t flush_block(buf, stored_len, eof)
     if (stored_len <= opt_lenb && eof && compressed_len == 0L && seekable()) {
 #endif
         /* Since LIT_BUFSIZE <= 2*WSIZE, the input data must be there: */
-        if (buf == (char*)0) error ("block vanished");
+        if (buf == (char*)0) gzerror ("block vanished");
 
         copy_block(buf, (unsigned)stored_len, 0); /* without header */
         compressed_len = stored_len << 3;
