@@ -2,6 +2,7 @@
 # bootloader.py: bootloader configuration data
 #
 # Erik Troan <ewt@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -381,6 +382,12 @@ class x86BootloaderInfo(bootloaderInfo):
 	    os.rename(instRoot + cf,
 		      instRoot + cf + '.rpmsave')
 
+        grubTarget = bl.getDevice()
+        # XXX wouldn't it be nice if grub really understood raid? :)
+        if grubTarget[:2] == "md":
+            device = fsset.getEntryByDeviceName(grubTarget).device.members[0]
+            (grubTarget, None) = getDiskPart(device)
+
 	f = open(instRoot + cf, "w+")
 
 	bootDev = fsset.getEntryByMountPoint("/boot")
@@ -393,6 +400,8 @@ class x86BootloaderInfo(bootloaderInfo):
 	else:
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
             f.write ("#          all kernel paths are relative to /boot/\n")
+
+        f.write("#boot=/dev/%s\n" % (grubTarget))
 
 	bootDev = bootDev.device.getDevice(asBoot = 1)
 
@@ -434,24 +443,26 @@ class x86BootloaderInfo(bootloaderInfo):
         else:
             forcelba = ""
 
-        grubTarget = bl.getDevice()
-        # XXX wouldn't it be nice if grub really understood raid? :)
-        if grubTarget[:2] == "md":
-            device = fsset.getEntryByDeviceName(grubTarget).device.members[0]
-            (grubTarget, None) = getDiskPart(device)
-
 	part = grubbyPartitionName(bootDev)
-	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
-	cmd = "root %s\ninstall %s%s/i386-redhat/stage1 d %s %s/i386-redhat/stage2 p %s%s/grub.conf" % \
+ 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
+	cmd = "root %s\ninstall %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" % \
 	    (part, forcelba, grubPath, grubbyPartitionName(grubTarget),
              grubPath, part, grubPath)
 
 	if not justConfigFile:
             log("GRUB command %s", cmd)
+
+            # copy the stage files over into /boot
+            iutil.execWithRedirect( "/sbin/grub-install",
+                                    ["/sbin/grub-install", "--just-copy"],
+                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                    root = instRoot)
+
+
+            # really install the bootloader
 	    p = os.pipe()
 	    os.write(p[1], cmd + '\n')
 	    os.close(p[1])
-
 	    iutil.execWithRedirect('/sbin/grub' ,
 				    [ "grub",  "--batch", "--no-floppy" ],
                                     stdin = p[0],
