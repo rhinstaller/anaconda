@@ -113,6 +113,7 @@ class AutoPartitionWindow:
 	if not todo.getPartitionWarningText():
 	    todo.fstab.setRunDruid(0)
 	    todo.fstab.setDruid(druid, todo.instClass.raidList)
+	    todo.allowLiloLocationConfig()
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 	    return
@@ -138,6 +139,7 @@ class AutoPartitionWindow:
 	else:
 	    todo.fstab.setRunDruid(0)
 	    todo.fstab.setDruid(druid)
+	    todo.allowLiloLocationConfig()
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 
