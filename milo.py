@@ -110,6 +110,9 @@ class MiloInstall:
             hasboot = 0
             kernelroot = '/boot/'
 
+        if os.access (self.todo.instPath + "/etc/milo.conf", os.R_OK):
+           os.rename (self.todo.instPath + "/etc/milo.conf",
+                      self.todo.instPath + "/etc/milo.conf.rpmsave")
         f = open (self.todo.instPath + "/etc/milo.conf", "w")
         if hasboot:
             f.write ("# NOTICE:  You have a /boot partition.  This means that all\n")
