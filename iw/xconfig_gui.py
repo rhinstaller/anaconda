@@ -130,8 +130,6 @@ class XCustomWindow (InstallWindow):
         self.currentRes = self.res_combo.list.child_position (data)
 #        print self.currentRes
         self.selectedRes = self.res_list[self.currentRes]
-
-
         self.swap_monitor (self.currentRes)
 
 
@@ -742,7 +740,6 @@ class MonitorWindow (InstallWindow):
 
 
     def getScreen (self):
-
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
         # installed.  If it isn't return None.
@@ -1010,6 +1007,8 @@ class XConfigWindow (InstallWindow):
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
+        self.todo.videoRamOriginal = 2
+
     def getNext (self):
         if self.skipme:
             return None
@@ -1052,6 +1051,8 @@ class XConfigWindow (InstallWindow):
             if size == sizes:
                 self.todo.videoRamState = count
             count = count + 1
+
+#        print self.todo.x.vidRam
 
     def movetree (self, ctree, area, selected_node):
 #        print "movetree"
@@ -1116,10 +1117,11 @@ class XConfigWindow (InstallWindow):
         if self.todo.videoRamState != self.todo.videoRamOriginal:
             self.todo.videoRamState = self.todo.videoRamOriginal
 
+        self.todo.x.probe ()
         self.ramOption.remove_menu ()
         self.ramMenu.set_active (self.todo.videoRamOriginal)
         self.ramOption.set_menu (self.ramMenu)
-
+        
     def desktopCb (self, widget, desktop):
         self.newDesktop = desktop
 
@@ -1144,6 +1146,9 @@ class XConfigWindow (InstallWindow):
             self.todo.probedFlag = "TRUE"
         else:
             self.todo.probedFlag = "TRUE"
+
+#        self.todo.x.probe ()
+
 
 
 
@@ -1723,13 +1728,17 @@ class XConfigWindow (InstallWindow):
 #            current = 0
             #--Some video cards don't return exact numbers, so we've got to do some hacks
 
-            vidRam = string.atoi (self.todo.x.vidRam)
+            try:
+                vidRam = string.atoi (self.todo.x.vidRam)
+            except:
+                vidRam = 1024
+                
 #            print vidRam
 
             for size in ram_sizes:
                 small = size - 64
 #                print size
-                #--Cards such as ATI Rage Mobility report 64k less ram than it should
+                #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram than it should
 #                if size == self.todo.x.vidRam or small == self.todo.x.vidRam:
                 if size == vidRam or small == vidRam:
                     if self.todo.videoRamState == "":          
