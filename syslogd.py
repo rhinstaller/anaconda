@@ -43,7 +43,7 @@ class Syslogd:
 
 	    for fd in list:
 		msg = fd.recv(50)
-                msg = string.replace(foo, chr(0), "\n")
+                msg = string.replace(msg, chr(0), "\n")
 		if (msg):
 		    output.write(msg)
 		else:
