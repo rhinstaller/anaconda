@@ -403,11 +403,21 @@ class VideoCardInfo:
                 vc.setCardData (info)
                 vc.setDevID (info["NAME"])
 
-                if (vc.getCardData().has_key("DRIVER") and
-                    not vc.getCardData().has_key("UNSUPPORTED")):
+                driver = info.get("DRIVER")
+                xf3server = info.get("SERVER")
+                xf4unsupported = info.has_key("UNSUPPORTED")
+
+                if xf3server and xf4unsupported:
+                    server = "XF86_" + xf3server
+                elif driver:
+                    if xf4unsupported:
+                        log("Warning: Trying unsupported driver %s for card %s",
+                            driver, descr)
                     server = "XFree86"
                 else:
-                    server = "XF86_" + vc.getCardData()["SERVER"]
+                    log("Warning: Could not find an X server for card %s",
+                        descr)
+                    continue
 
                 vc.setXServer(server)
                 self.videocards.append(vc)

@@ -698,12 +698,18 @@ class XConfigWindow (InstallWindow):
 
             # pull out resolved version of card data
             card_data = primary_card.getCardData()
-            if (card_data.has_key("DRIVER") and
-                not card_data.has_key("UNSUPPORTED")):
+            if (card_data.has_key("SERVER") and
+                card_data.has_key("UNSUPPORTED")):
+                server = "XF86_" + card_data["SERVER"]
+            elif card_data.has_key("DRIVER"):
                 server = "XFree86"
             else:
-                server = "XF86_" + card_data["SERVER"]
-
+                self.intf.messageWindow(_("Unknown server"),
+                            _("This video card has no suitable X server "
+                              "in the database.  You will need to choose "
+                              "a different card or choose the 'Skip X "
+                              "Configuration' button."))
+                raise gui.StayOnScreen
             primary_card.setXServer(server)
         else:
             self.intf.messageWindow(_("Unspecified video card"),
