@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-01 22:19+0200\n"
+"PO-Revision-Date: 2004-08-02 03:14+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -385,7 +385,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Можете да одберете друг начин на автоматското партиционирање или кликнете 'Назад' за да одберете рачно партиционирање.\n"
+"Можете да одберете друг начин на автоматското партиционирање или да кликнете 'Назад' за да одберете рачно партиционирање.\n"
 "\n"
 "Притиснете 'Во ред' за да продолжите."
 
@@ -493,9 +493,7 @@ msgstr "Инсталирање на програмата за подигнува
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"Нема инсталирани кернел пакети на вашиот систем.  Конфигурацијата на вашата програма за подигнување на системот "
-"нема да биде променета."
+msgstr "Нема инсталирани кернел пакети на вашиот систем.  Конфигурацијата на Вашиот подигнувач нема да биде променета."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -973,7 +971,7 @@ msgstr "Грешка при парсирање на kickstart конфигура
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr "Ставете ја дискетата сега ве молам. Целата содржина на дискетата ќе биде избришана па затоа ве молам одберете ја вашата дискета внимателно."
+msgstr "Ставете ја дискетата сега ве молам. Целата содржина на дискетата ќе биде избришана па затоа ве молам изберете ја вашата дискета внимателно."
 
 #: ../gui.py:746
 msgid "default:LTR"
@@ -1684,7 +1682,7 @@ msgstr "Не можам да уредам"
 
 #: ../partIntfHelpers.py:308
 msgid "You must select a partition to edit"
-msgstr "Мора да изберете партиција за уредување"
+msgstr "Мора да одберете партиција за уредување"
 
 #: ../partIntfHelpers.py:320 ../partIntfHelpers.py:358
 msgid ""
@@ -2030,7 +2028,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Околината за спасување на системот сега ќе се обиде да ја најде вашата Linux инсталација и ќе ја монтира под директориумот %s.  Тогаш ќе можете да направите било какви барани промени на вашиот систем.  Ако сакате да продолжите со овој чекор одберете 'Продолжи'.  Може исто така да одберете да ги монтирате вашите датотечни системи само за читање наместо читај-пишувај преку одбирање на 'Само за читање'.\n"
+"Околината за спасување на системот сега ќе се обиде да ја најде вашата Linux инсталација и ќе ја монтира под директориумот %s.  Тогаш ќе можете да направите било какви барани промени на вашиот систем.  Ако сакате да продолжите со овој чекор изберете 'Продолжи'.  Може исто така да одберете да ги монтирате вашите датотечни системи само за читање наместо читај-пишувај преку одбирање на 'Само за читање'.\n"
 "\n"
 "Ако од некоја причина овој процес не успее може да одберете 'Прескокнете' и овој чекор ќе биде прескокнат а вие ќе одите директно во командно-линискиот интерфејс.\n"
 "\n"
@@ -2100,6 +2098,9 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Се појави грешка при обидот за монтирање на Вашиот систем. Нешто може да е монтирано на %s.\n"
+"\n"
+"Притиснете <return> за да Ви се отвори школка. Системот ќе се рестартира автоматски откако ќе излезете од школката."
 
 #: ../rescue.py:411
 msgid "Rescue Mode"
@@ -2837,7 +2838,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr "Доколку сакате да ги промените стандардно поставени пакети за инсталација, можете да изберете да ги преуредите подолу."
+msgstr "Доколку сакате да ги промените стандардно поставени пакети за инсталација, можете да одберете да ги преуредите подолу."
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
@@ -3007,7 +3008,7 @@ msgstr "Избор на јазик"
 
 #: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
-msgstr ""
+msgstr "Кој јазик сакате да го користите при инсталацијата?"
 
 #: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
@@ -3023,7 +3024,7 @@ msgstr "Одбери ги додатните јазици за инсталир�
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "Изберете сѐ"
+msgstr "_Избери сѐ"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
@@ -3367,39 +3368,39 @@ msgstr "Одберете го соодветното глувче за сист�
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:598
 msgid "Gateway"
-msgstr "Порта"
+msgstr "Премин"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:600
 msgid "Primary DNS"
-msgstr ""
+msgstr "Примарен DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:602
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Секундарен DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:604
 msgid "Tertiary DNS"
-msgstr ""
+msgstr "Трет DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "Порта"
+msgstr "_Премин"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "Прв DNS"
+msgstr "_Примарен DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "Втор DNS"
+msgstr "_Секундарен DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "Трет DNS"
+msgstr "_Трет DNS"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
-msgstr "Конфигурација на мрежа"
+msgstr "Конфигурација на мрежата"
 
 #: ../iw/network_gui.py:155 ../iw/network_gui.py:159 ../iw/network_gui.py:163
 #: ../iw/network_gui.py:168 ../iw/network_gui.py:174 ../iw/network_gui.py:178
@@ -3411,14 +3412,14 @@ msgstr "Грешка со податоците"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
+msgstr "Не одредивте име на домаќин.  Во зависност од Вашата мрежна околина, ова може да предизвика проблеми понатаму."
 
 #: ../iw/network_gui.py:160
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
+msgstr "Не го одредивте полето \"%s\".  Во зависност од Вашата мрежна околина, ова може да предизвика проблеми понатаму."
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:410
 #, python-format
@@ -3427,6 +3428,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Домаќинот \"%s\" не е валиден поради следнава причина:\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:169
 #, python-format
@@ -3434,15 +3438,17 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"Се појави грешка при конвертирање на вредноста внесена за \"%s\":\n"
+"%s"
 
 #: ../iw/network_gui.py:175
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "Потребна е вредност за полето \"%s\"."
 
 #: ../iw/network_gui.py:179
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "Информацијата за IP адресата што ја внесовте не е валидна."
 
 #: ../iw/network_gui.py:183
 msgid ""
@@ -3457,35 +3463,35 @@ msgstr ""
 #: ../iw/network_gui.py:202
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "Уреди го интерфејсот %s"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr ""
+msgstr "Конфигурирај со користење на _DHCP"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr ""
+msgstr "_Активирај при подигнување"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr ""
+msgstr "_IP адреса"
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr "Мрежна маска"
+msgstr "Маска"
 
 #: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
-msgstr "Точка до точка (IP)"
+msgstr "_Точка до точка (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Клуч за _енкрипција"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -3494,7 +3500,7 @@ msgstr "Конфигурирај %s"
 
 #: ../iw/network_gui.py:451
 msgid "Active on Boot"
-msgstr "Активирај при подигнување на системот"
+msgstr "Активирај при подигнување"
 
 #: ../iw/network_gui.py:453 ../iw/osbootwidget.py:66
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3506,7 +3512,7 @@ msgstr "Уред"
 
 #: ../iw/network_gui.py:455
 msgid "IP/Netmask"
-msgstr "IP/Мрежна маска"
+msgstr "IP/маска"
 
 #: ../iw/network_gui.py:515
 msgid "Network Devices"
@@ -3514,15 +3520,15 @@ msgstr "Мрежни уреди"
 
 #: ../iw/network_gui.py:525
 msgid "Set the hostname:"
-msgstr "Постави го името на системот:"
+msgstr "Постави го името на домаќинот:"
 
 #: ../iw/network_gui.py:529
 msgid "_automatically via DHCP"
-msgstr "автоматски преку DHCP"
+msgstr "_автоматски преку DHCP"
 
 #: ../iw/network_gui.py:535
 msgid "_manually"
-msgstr "рачно"
+msgstr "_рачно"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
@@ -3530,11 +3536,11 @@ msgstr "(на пр. \"host.domain.com\")"
 
 #: ../iw/network_gui.py:548 ../loader2/net.c:772
 msgid "Hostname"
-msgstr "Име на системот"
+msgstr "Име на домаќин"
 
 #: ../iw/network_gui.py:609
 msgid "Miscellaneous Settings"
-msgstr "Разни поставки"
+msgstr "Разни подесувања"
 
 #: ../iw/osbootwidget.py:42
 msgid ""
@@ -3544,6 +3550,8 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
+"Можете да го конфигурирате подигнувачот да подигнува и други оперативни системи. Тој ќе ви дозволи да одберете оперативен систем за подигнување од листата. За да додадете додатен оперативен систем, кој што не е автоматски детектиран, кликнете "
+"'Додади.' За да го промените стандардниот оперативен систем, одберете 'Стандарден' веднаш до посакуваниот оперативен систем."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3551,7 +3559,7 @@ msgstr ""
 #: ../textw/xconfig_text.py:547 ../textw/xconfig_text.py:548
 #: ../textw/xconfig_text.py:567 ../textw/xconfig_text.py:568
 msgid "Default"
-msgstr "Вообичаено"
+msgstr "Стандарден"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
@@ -3565,15 +3573,15 @@ msgstr "Слика"
 msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
-msgstr ""
+msgstr "Внесете ознака која што треба да биде прикажана во менито на подигнувачот. Уредот (или тврдиот диск или бројот на партицијата) е уредот од кој што се подигнува."
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "Ознака"
+msgstr "_Ознака"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr "Вообичаена цел при подигнување на системот"
+msgstr "Стандардна цел за _подигнување"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
@@ -3581,42 +3589,42 @@ msgstr "Мора да ја одредите ознаката за влез"
 
 #: ../iw/osbootwidget.py:233
 msgid "Boot label contains illegal characters"
-msgstr ""
+msgstr "Ознаката за подигнување содржи неправилни карактери"
 
 #: ../iw/osbootwidget.py:257
 msgid "Duplicate Label"
-msgstr ""
+msgstr "Дуплирај ознака"
 
 #: ../iw/osbootwidget.py:258
 msgid "This label is already in use for another boot entry."
-msgstr ""
+msgstr "Ознаката е веќе во употреба од страна на друг запис за подигнвуање."
 
 #: ../iw/osbootwidget.py:271
 msgid "Duplicate Device"
-msgstr ""
+msgstr "Дуплирај уред"
 
 #: ../iw/osbootwidget.py:272
 msgid "This device is already being used for another boot entry."
-msgstr ""
+msgstr "Уредот веќе се користи за друг запис за подигнување."
 
 #: ../iw/osbootwidget.py:336
 msgid "Cannot Delete"
-msgstr "Не може да се избриши"
+msgstr "Не може да се избрише"
 
 #: ../iw/osbootwidget.py:337
 #, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
+msgstr "Оваа цел за подигнување не може да се избрише поради тоа што е %s за системот на кој што ќе го инсталирате."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Индивидуално избирање на пакети"
 
 #: ../iw/package_gui.py:66
 msgid "All Packages"
-msgstr ""
+msgstr "Сите пакети"
 
 #: ../iw/package_gui.py:186
 #, python-format
@@ -3624,47 +3632,49 @@ msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
+"Пакет: %s\n"
+"Верзија: %s\n"
 
 #: ../iw/package_gui.py:356
 msgid "_Tree View"
-msgstr ""
+msgstr "_Поглед на дрво"
 
 #: ../iw/package_gui.py:358
 msgid "_Flat View"
-msgstr ""
+msgstr "_Рамен поглед"
 
 #: ../iw/package_gui.py:373
 msgid "_Package"
-msgstr ""
+msgstr "_Пакет"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
-msgstr ""
+msgstr "_Големина (MB)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
-msgstr ""
+msgstr "Вкупна големина:"
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr ""
+msgstr "Избери _се во групата"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr ""
+msgstr "_Отстрани се од групата"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Избор на група на пакети"
 
 #: ../iw/package_gui.py:677
 msgid "Minimal"
-msgstr ""
+msgstr "Минимално"
 
 #: ../iw/package_gui.py:739
 #, python-format
 msgid "Details for '%s'"
-msgstr ""
+msgstr "Детали за '%s'"
 
 #: ../iw/package_gui.py:748
 msgid ""
@@ -3673,116 +3683,123 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"Групата на пакети може да има основни и додатни членови.  Основните пакети се секогаш избрани доколку е избрана и групата.\n"
+"\n"
+"Одберете ги додатните пакети за инсталација:"
 
 #: ../iw/package_gui.py:791
 msgid "Base Packages"
-msgstr ""
+msgstr "Основни пакети"
 
 #: ../iw/package_gui.py:821
 msgid "Optional Packages"
-msgstr ""
+msgstr "Додатни пакети"
 
 #: ../iw/package_gui.py:1031
 msgid "Details"
-msgstr ""
+msgstr "Детали"
 
 #: ../iw/package_gui.py:1125
 msgid "_Select individual packages"
-msgstr ""
+msgstr "_Одбери индивидуални пакети"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
-msgstr ""
+msgstr "Опции за додатна големина"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr ""
+msgstr "_Големина"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr ""
+msgstr "Наполни го целиот простор _до (MB):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr ""
+msgstr "Наполни до максималната _дозволена големина"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "Крајнито цилиндер мора да е поголем од почетниот цилиндер."
 
 #: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:655
 msgid "Add Partition"
-msgstr ""
+msgstr "Додади партиција"
 
 #: ../iw/partition_dialog_gui.py:266
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "Уреди партиција: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:268
 msgid "Edit Partition"
-msgstr ""
+msgstr "Уреди партиција"
 
 #: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr ""
+msgstr "Тип на датотечен _систем:"
 
 #: ../iw/partition_dialog_gui.py:328
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "Дозволени _дискови:"
 
 #: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
-msgstr ""
+msgstr "Диск:"
 
 #: ../iw/partition_dialog_gui.py:350
 msgid "Original File System Label:"
-msgstr ""
+msgstr "Ознака на оригиналниот датотечен систем:"
 
 #: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "_Почетен цилиндер:"
 
 #: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "_Краен цилиндер:"
 
 #: ../iw/partition_dialog_gui.py:454
 msgid "Force to be a _primary partition"
-msgstr ""
+msgstr "Наметни да биде _примарна партиција"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1130
 msgid "Type"
-msgstr ""
+msgstr "Тип"
 
 #: ../iw/partition_gui.py:362
 msgid "Format"
-msgstr ""
+msgstr "Формат"
 
 #: ../iw/partition_gui.py:364 ../textw/partition_text.py:1130
 msgid "Start"
-msgstr ""
+msgstr "Почеток"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1130
 msgid "End"
-msgstr ""
+msgstr "Крај"
 
 #: ../iw/partition_gui.py:402
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
+"Точка на монтирање/\n"
+"RAID/уред"
 
 #: ../iw/partition_gui.py:404
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
+"Големина\n"
+"(MB)"
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1124
 msgid "Partitioning"
-msgstr ""
+msgstr "Партиционирање"
 
 #: ../iw/partition_gui.py:639
 msgid "The following critical errors exist with your requested partitioning scheme."
@@ -3791,11 +3808,11 @@ msgstr ""
 #: ../iw/partition_gui.py:642
 #, python-format
 msgid "These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
+msgstr "Овие грешки мора да бидат поправени пред да продолжите со инсталацијата на %s."
 
 #: ../iw/partition_gui.py:648
 msgid "Partitioning Errors"
-msgstr ""
+msgstr "Грешки при партиционирање"
 
 #: ../iw/partition_gui.py:654
 msgid "The following warnings exist with your requested partition scheme."
@@ -3807,15 +3824,15 @@ msgstr ""
 
 #: ../iw/partition_gui.py:661
 msgid "Partitioning Warnings"
-msgstr ""
+msgstr "Предупредувања за партиционирање"
 
 #: ../iw/partition_gui.py:683
 msgid "Format Warnings"
-msgstr ""
+msgstr "Предупредувања за форматирање"
 
 #: ../iw/partition_gui.py:688
 msgid "_Format"
-msgstr ""
+msgstr "_Формат"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
@@ -3823,33 +3840,33 @@ msgstr ""
 
 #: ../iw/partition_gui.py:758
 msgid "RAID Devices"
-msgstr ""
+msgstr "RAID уреди"
 
 #: ../iw/partition_gui.py:786 ../iw/partition_gui.py:911
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:155
 msgid "None"
-msgstr ""
+msgstr "Ништо"
 
 #: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:326
 msgid "Hard Drives"
-msgstr ""
+msgstr "Тврди дискови"
 
 #: ../iw/partition_gui.py:874 ../textw/partition_text.py:137
 #: ../textw/partition_text.py:176
 msgid "Free space"
-msgstr ""
+msgstr "Слободен простор"
 
 #: ../iw/partition_gui.py:876 ../textw/partition_text.py:139
 msgid "Extended"
-msgstr ""
+msgstr "Extended"
 
 #: ../iw/partition_gui.py:878 ../textw/partition_text.py:141
 msgid "software RAID"
-msgstr ""
+msgstr "софтверски RAID"
 
 #: ../iw/partition_gui.py:913
 msgid "Free"
-msgstr ""
+msgstr "Слободни"
 
 #: ../iw/partition_gui.py:1003 ../textw/partition_text.py:224
 #, python-format
@@ -3859,19 +3876,19 @@ msgstr ""
 #: ../iw/partition_gui.py:1012
 #, python-format
 msgid "Warning: %s."
-msgstr ""
+msgstr "Предупредување: %s."
 
 #: ../iw/partition_gui.py:1194 ../iw/partition_gui.py:1208
 msgid "Not supported"
-msgstr ""
+msgstr "Не е поддржано"
 
 #: ../iw/partition_gui.py:1195
 msgid "LVM is NOT supported on this platform."
-msgstr ""
+msgstr "LVM НЕ Е поддржан на оваа платформа."
 
 #: ../iw/partition_gui.py:1209
 msgid "Software RAID is NOT supported on this platform."
-msgstr ""
+msgstr "Софтверски RAID НЕ Е поддржан на оваа платформа."
 
 #: ../iw/partition_gui.py:1216
 msgid "No RAID minor device numbers available"
@@ -3885,7 +3902,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1231
 msgid "RAID Options"
-msgstr ""
+msgstr "Опции за RAID"
 
 #: ../iw/partition_gui.py:1242
 #, python-format
@@ -3909,7 +3926,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1259
 msgid "What do you want to do now?"
-msgstr ""
+msgstr "Што сакате да направите сега?"
 
 #: ../iw/partition_gui.py:1268
 msgid "Create a software RAID _partition."
@@ -3918,12 +3935,12 @@ msgstr ""
 #: ../iw/partition_gui.py:1271
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr ""
+msgstr "Креирај RAID _уред [стандардно=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1275
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
+msgstr "Клонирај _уред за создавање на RAID уред [стандардно=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1314
 msgid "Couldn't Create Drive Clone Editor"
@@ -3931,48 +3948,48 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
+msgstr "Уредувачот за клонирање на уреди не може да се креира поради некои причини."
 
 #: ../iw/partition_gui.py:1359
 msgid "Ne_w"
-msgstr ""
+msgstr "Нов_а"
 
 #: ../iw/partition_gui.py:1362
 msgid "Re_set"
-msgstr ""
+msgstr "Ре_сетирај"
 
 #: ../iw/partition_gui.py:1363
 msgid "R_AID"
-msgstr ""
+msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1364
 msgid "_LVM"
-msgstr ""
+msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1405
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
+msgstr "Сокриј ги членовите на групата RAID уред/LVM уред _"
 
 #: ../iw/partition_gui.py:1420 ../textw/partition_text.py:1214
 msgid "Automatic Partitioning"
-msgstr ""
+msgstr "Автоматско партиционирање"
 
 #: ../iw/partition_gui.py:1448
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
+msgstr "Мора да одберете барем еден уред за да можете да инсталирате %s на него."
 
 #: ../iw/partition_gui.py:1490
 msgid "I want to have automatic partitioning:"
-msgstr ""
+msgstr "Сакам автоматско партиционирање:"
 
 #: ../iw/partition_gui.py:1521
 msgid "Select the drive(s) to use for this installation:"
-msgstr ""
+msgstr "Одберете ги уредите кои што треба да се користат за оваа инсталација:"
 
 #: ../iw/partition_gui.py:1545
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
+msgstr "Прегледај ги (и промени ги ако е потребно) креираните партиции"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:247
@@ -3983,23 +4000,23 @@ msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:241
 msgid "How would you like to prepare the file system on this partition?"
-msgstr ""
+msgstr "Како сакате да го подготвите датотечниот систем на оваа партиција?"
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr ""
+msgstr "Остави _непроменето (зачувај податоци)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
-msgstr ""
+msgstr "_Форматирај ја партицијата како:"
 
 #: ../iw/partition_ui_helpers_gui.py:278
 msgid "Mi_grate partition to:"
-msgstr ""
+msgstr "Ми_грирај ја партицијата во:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
-msgstr ""
+msgstr "Проверка за лоши сектори?"
 
 #: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
@@ -4010,101 +4027,101 @@ msgstr ""
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
-msgstr ""
+msgstr "Партиционирање на дискот"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr ""
+msgstr "_Автоматски партиционирај"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr ""
+msgstr "Партиционирај рачно со _диск друид"
 
 #: ../iw/progress_gui.py:41
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
 #, python-format
 msgid "%s Byte"
-msgstr ""
+msgstr "%s бајт"
 
 #: ../iw/progress_gui.py:49
 #, python-format
 msgid "%s Bytes"
-msgstr ""
+msgstr "%s бајти"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:397
 msgid "Installing Packages"
-msgstr ""
+msgstr "Инсталирам пакети"
 
 #: ../iw/progress_gui.py:167
 #, python-format
 msgid "Remaining time: %s minutes"
-msgstr ""
+msgstr "Преостанато време: %s минути"
 
 #: ../iw/progress_gui.py:183
 #, python-format
 msgid "Downloading %s"
-msgstr ""
+msgstr "Преземам %s"
 
 #: ../iw/progress_gui.py:223
 #, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr ""
+msgstr "Инсталирам %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:352 ../iw/progress_gui.py:603
 msgid "Summary"
-msgstr ""
+msgstr "Преглед"
 
 #: ../iw/progress_gui.py:379 ../iw/progress_gui.py:643
 #: ../textw/progress_text.py:130
 msgid "Status: "
-msgstr ""
+msgstr "Статус: "
 
 #: ../iw/progress_gui.py:419 ../textw/progress_text.py:65
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "Преземам - %s"
 
 #: ../iw/progress_gui.py:478 ../iw/progress_gui.py:672
 msgid "Total"
-msgstr ""
+msgstr "Вкупно"
 
 #: ../iw/progress_gui.py:484 ../iw/progress_gui.py:674
 msgid "Remaining"
-msgstr ""
+msgstr "Преостанато"
 
 #: ../iw/progress_gui.py:516
 #, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr ""
+msgstr "Инсталирам %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
-msgstr ""
+msgstr "Прогрес на пакетот: "
 
 #: ../iw/progress_gui.py:658
 msgid "Total Progress:   "
-msgstr ""
+msgstr "Вкупен прогрес:   "
 
 #: ../iw/progress_gui.py:685
 msgid "Status"
-msgstr ""
+msgstr "Статус"
 
 #: ../iw/progress_gui.py:685
 msgid "Packages"
-msgstr ""
+msgstr "Пакети"
 
 #: ../iw/progress_gui.py:685
 msgid "Time"
-msgstr ""
+msgstr "Време"
 
 #: ../iw/raid_dialog_gui.py:261
 msgid ""
@@ -4118,28 +4135,28 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
 #: ../textw/partition_text.py:911
 msgid "Make RAID Device"
-msgstr ""
+msgstr "Направи RAID уред"
 
 #: ../iw/raid_dialog_gui.py:278
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr ""
+msgstr "Уреди RAID уред: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:909
 msgid "Edit RAID Device"
-msgstr ""
+msgstr "Уреди RAID уред"
 
 #: ../iw/raid_dialog_gui.py:321
 msgid "RAID _Device:"
-msgstr ""
+msgstr "RAID _уред:"
 
 #: ../iw/raid_dialog_gui.py:339
 msgid "RAID _Level:"
-msgstr ""
+msgstr "RAID _ниво:"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr ""
+msgstr "_RAID членови:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
@@ -4147,7 +4164,7 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr ""
+msgstr "_Да ја форматирам партицијата?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4189,11 +4206,11 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:536 ../iw/raid_dialog_gui.py:542
 #: ../iw/raid_dialog_gui.py:555
 msgid "Target Drive Error"
-msgstr ""
+msgstr "Грешка со целниот уред"
 
 #: ../iw/raid_dialog_gui.py:537
 msgid "Please select the target drives for the clone operation."
-msgstr ""
+msgstr "Ве молам одберете ги целните уред за операцијата за клонирање."
 
 #: ../iw/raid_dialog_gui.py:543
 #, python-format
@@ -4228,18 +4245,21 @@ msgid ""
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
+"\n"
+"\n"
+"ВНИМАНИЕ! СИТЕ ПОДАТОЦИ НА ЦЕЛНИТЕ УРЕДИ ЌЕ БИДАТ УНИШТЕНИ."
 
 #: ../iw/raid_dialog_gui.py:645
 msgid "Final Warning"
-msgstr ""
+msgstr "Последно предупредување"
 
 #: ../iw/raid_dialog_gui.py:647
 msgid "Clone Drives"
-msgstr ""
+msgstr "Клонирај уреди"
 
 #: ../iw/raid_dialog_gui.py:656
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
+msgstr "Се појави грешка при чистењето на целните уреди.  Клонирањето е неуспешно."
 
 #: ../iw/raid_dialog_gui.py:690
 msgid ""
@@ -4263,103 +4283,103 @@ msgstr ""
 
 #: ../iw/raid_dialog_gui.py:718
 msgid "Target Drive(s):"
-msgstr ""
+msgstr "Целни уреди:"
 
 #: ../iw/raid_dialog_gui.py:726
 msgid "Drives"
-msgstr ""
+msgstr "Уреди"
 
 #: ../iw/release_notes_viewer_gui.py:142
 msgid "Release Notes"
-msgstr ""
+msgstr "Белешки за изданието"
 
 #: ../iw/release_notes_viewer_gui.py:146
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Не можам да ја вчитам датотеката!"
 
 #: ../iw/silo_gui.py:28
 msgid "Silo Configuration"
-msgstr ""
+msgstr "Конфигурација на Silo"
 
 #: ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:148
 #: ../textw/upgrade_text.py:112
 msgid "Partition"
-msgstr ""
+msgstr "Партиција"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr ""
+msgstr "Инсталирај го записот за подигнување SILO на:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
-msgstr ""
+msgstr "Креирај алијас за PROM"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Постави го стандардниот уред за подигнување на PROM во linux"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
-msgstr ""
+msgstr "Параметри на кернелот"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
-msgstr ""
+msgstr "Креирај дискета за подигнување"
 
 #: ../iw/silo_gui.py:244
 msgid "Do not install SILO"
-msgstr ""
+msgstr "Не инсталирај SILO"
 
 #: ../iw/silo_gui.py:263 ../textw/silo_text.py:207
 msgid "Partition type"
-msgstr ""
+msgstr "Тип на партиција"
 
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:213
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr ""
+msgstr "Ознака за подигнување"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr ""
+msgstr "Стандардна слика за подигнување"
 
 #: ../iw/timezone_gui.py:28 ../textw/timezone_text.py:97
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Избор на временска зона"
 
 #: ../iw/timezone_gui.py:67
 msgid "System clock uses _UTC"
-msgstr ""
+msgstr "Системскиот часовник користи _UTC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr ""
+msgstr "Ве молам одберете го најблискиот град во вашата временска зона:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
-msgstr ""
+msgstr "_Локација"
 
 #: ../iw/timezone_map_gui.py:128
 msgid "Description"
-msgstr ""
+msgstr "Опис"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr ""
+msgstr "Ажурирај ја конфигурацијата на подигнувачот"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
-msgstr ""
+msgstr "_Ажурирај ја конфигурацијата на подигнувачот"
 
 #: ../iw/upgrade_bootloader_gui.py:69
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Ова ќе го надгради Вашиот тековен подигнувач."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
 msgid "The installer has detected the %s boot loader currently installed on %s."
-msgstr "Инсталационата програма пронајде %s програма за подигнување на системот веќе инсталирана на %s."
+msgstr "Инсталационата програма пронајде %s подигнувач на системот веќе инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4379,17 +4399,17 @@ msgstr "Креирајте нова конфигурација за програ
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
-msgstr ""
+msgstr "Ова ќе ви овозможи да креирате нова конфигурација за подигнувачот.  Доколку сакате да го промените подигнувачот, одберете го ова."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr ""
+msgstr "_Прескокни го ажурирањето на подигнувачот"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr ""
+msgstr "Ова нема да направи никакви промени на конфигурацијата на подигнувачот.  Доколку користите некој друг подигнувач, одберете го ова."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -4451,7 +4471,7 @@ msgstr "Слободен простор (MB)"
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
-msgstr ""
+msgstr "Препорачливо е Вашата swap датотека да изнесува најмалку %d MB.  Ве молам внесете големина за swap датотеката:"
 
 #: ../iw/upgrade_swap_gui.py:181
 msgid "Swap file _size (MB):"
@@ -4466,7 +4486,7 @@ msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr ""
+msgstr "Строго препорачливо е да креирате swap датотека.  Доколку не успеете да го направите тоа може да дојде до прекинување на инсталацијата.  Дали сте сигурни дека сакате да продолжите?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
@@ -4474,11 +4494,11 @@ msgstr "Swap датотеката мора да има големина поме
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "На избраниот уред нема доволно простор за swap партиција."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
-msgstr ""
+msgstr "Нетестиран монитор"
 
 #: ../iw/xconfig_gui.py:51
 msgid "Customize Graphical Configuration"
@@ -4486,7 +4506,7 @@ msgstr "Прилагоди графичка конфигурација"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr "Длабочина на боја:"
+msgstr "_Длабочина на боја:"
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
@@ -4494,61 +4514,61 @@ msgstr "256 бои (8 бита)"
 
 #: ../iw/xconfig_gui.py:261 ../textw/xconfig_text.py:107
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Многу бои (16 бита)"
 
 #: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Вистински бои (24 бита)"
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr "Резолуција на екран:"
+msgstr "_Резолуција на екран:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Ве молам одберете ја Вашата стандардна работна околина:"
 
 #: ../iw/xconfig_gui.py:340
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Вашата работна околина е:"
 
 #: ../iw/xconfig_gui.py:355
 msgid "GNO_ME"
-msgstr ""
+msgstr "Гном"
 
 #: ../iw/xconfig_gui.py:357
 msgid "_KDE"
-msgstr ""
+msgstr "КДЕ"
 
 #: ../iw/xconfig_gui.py:388
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Ве молам одберете го типот за најава:"
 
 #: ../iw/xconfig_gui.py:395
 msgid "_Text"
-msgstr ""
+msgstr "_Текстуално"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Graphical"
-msgstr ""
+msgstr "_Графички"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:416
 msgid "Monitor Configuration"
-msgstr ""
+msgstr "Конфигурација на монитор"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "Неодреден монитор"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:468
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
-msgstr ""
+msgstr "Не одбравте тип на монитор.  Препорачливо е да го одберете најблискиот модел за да добиете што е можно подобар квалитет на приказ."
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr ""
+msgstr "_Одбери тип на монитор"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4558,42 +4578,42 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr ""
+msgstr "Врати ги _оригиналните вредности"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr ""
+msgstr "Хори_зонтална фрекфенција:"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
-msgstr ""
+msgstr "_Вертикална фрекфенција:"
 
 #: ../iw/xconfig_gui.py:758
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:761
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:781
 msgid "Graphical Interface (X) Configuration"
-msgstr ""
+msgstr "Конфигурација на графичкиот интерфејс (X)"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
-msgstr ""
+msgstr "Непозната видео картичка"
 
 #: ../iw/xconfig_gui.py:812
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr ""
+msgstr "Се појави грешка при изборот на видео картичка %s. Ве молам пријавете ја грешката на bugzilla.redhat.com."
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr ""
+msgstr "Неодредена графичка картичка"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4624,15 +4644,15 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr ""
+msgstr "_RAM на видео картичката: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr ""
+msgstr "_Прескокни ја конфигурацијата на X"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr ""
+msgstr "z/IPL конфигурација на подигнувачот"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4657,7 +4677,7 @@ msgstr ""
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
-msgstr ""
+msgstr "Параметри на кернелот"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
@@ -4677,27 +4697,27 @@ msgstr ""
 
 #: ../textw/bootdisk_text.py:31
 msgid "Boot Diskette"
-msgstr ""
+msgstr "Дискета за подигнување"
 
 #: ../textw/bootloader_text.py:29
 msgid "Which boot loader would you like to use?"
-msgstr ""
+msgstr "Кој подигнувач сакате да го користите?"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "Користи го подигнувачот GRUB"
 
 #: ../textw/bootloader_text.py:47
 msgid "Use LILO Boot Loader"
-msgstr ""
+msgstr "Користи го подигнувачот LILO"
 
 #: ../textw/bootloader_text.py:50
 msgid "No Boot Loader"
-msgstr ""
+msgstr "Не користи подигнувач"
 
 #: ../textw/bootloader_text.py:72
 msgid "Skip Boot Loader"
-msgstr ""
+msgstr "Прескокни го подигнувачот"
 
 #: ../textw/bootloader_text.py:73
 msgid ""
@@ -4719,32 +4739,32 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:119
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "Наметни користење на LBA32 (обично не е потребно)"
 
 #: ../textw/bootloader_text.py:185
 msgid "Where do you want to install the boot loader?"
-msgstr ""
+msgstr "Каде сакате да го инсталирате подигнувачот?"
 
 #: ../textw/bootloader_text.py:217 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
-msgstr ""
+msgstr "Исчисти"
 
 #: ../textw/bootloader_text.py:225 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "Уреди ја ознаката за подигнување"
 
 #: ../textw/bootloader_text.py:243 ../textw/bootloader_text.py:248
 msgid "Invalid Boot Label"
-msgstr "Неисправна ознака за подигнување на системот"
+msgstr "Неисправна ознака за подигнување"
 
 #: ../textw/bootloader_text.py:244
 msgid "Boot label may not be empty."
-msgstr "Ознаката за подигнување на системот не може да биде празна."
+msgstr "Ознаката за подигнување не може да биде празна."
 
 #: ../textw/bootloader_text.py:249
 msgid "Boot label contains illegal characters."
-msgstr "Ознаката за подигнување на системот содржи невалидни карактери."
+msgstr "Ознаката за подигнување содржи невалидни карактери."
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1135 ../textw/silo_text.py:216
@@ -4762,7 +4782,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:315
 msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
+msgstr " <Space> одбира копче | <F2> одбира стандареден запис за подигнување | <F12> следен екран>"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -4777,33 +4797,35 @@ msgstr "Користи лозинка за GRUB"
 
 #: ../textw/bootloader_text.py:416
 msgid "Boot Loader Password:"
-msgstr ""
+msgstr "Лозинка за подигнувачот:"
 
 #: ../textw/bootloader_text.py:417
 msgid "Confirm:"
-msgstr ""
+msgstr "Потврда:"
 
 #: ../textw/bootloader_text.py:446
 msgid "Passwords Do Not Match"
-msgstr ""
+msgstr "Лозинките не се совпаѓаат"
 
 #: ../textw/bootloader_text.py:451
 msgid "Password Too Short"
-msgstr ""
+msgstr "Лозинката е прекратка"
 
 #: ../textw/bootloader_text.py:452
 msgid "Boot loader password is too short"
-msgstr ""
+msgstr "Лозинката за подигнувачот е прекратка"
 
 #: ../textw/complete_text.py:27
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"Притиснете <Enter> за ја прекинете инсталацијата.\n"
+"\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "<Enter> за излез"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -4814,7 +4836,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "<Enter> за рестартирање"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -4823,6 +4845,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Ви честитаме, вашата инсталација на %s е завршена.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:41
 #, python-format
@@ -4836,22 +4861,22 @@ msgstr ""
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
-msgstr ""
+msgstr "Завршено"
 
 #: ../textw/complete_text.py:48
 msgid "Reboot"
-msgstr ""
+msgstr "Рестартирај"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
-msgstr ""
+msgstr "Следува инсталација"
 
 #: ../textw/confirm_text.py:23
 #, python-format
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
-msgstr ""
+msgstr "Целосен запис од Вашата инсталација ќе биде запишан во %s откако ќе го рестартирате системот. Може ќе сакате да ја чувате оваа датотека за понатаму."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
 #: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
@@ -4870,7 +4895,7 @@ msgstr "Назад"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
-msgstr ""
+msgstr "Следува надградба"
 
 #: ../textw/confirm_text.py:49
 #, python-format
@@ -4896,11 +4921,11 @@ msgstr "Прилагоди избор на софтвер"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr ""
+msgstr "Одберете диск од кај што ќе се извршува fdasd или dasdfmt на"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr "Следно"
+msgstr "Напред"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -4939,7 +4964,7 @@ msgstr ""
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
-msgstr "Одберете диск на кој че се стартува fdisk"
+msgstr "Одберете диск на кој ќе се стартува fdisk"
 
 #: ../textw/firewall_text.py:27
 msgid "Customize"
@@ -5957,24 +5982,24 @@ msgstr ""
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "Прилагодено"
+msgstr "_Прилагодено"
 
 #: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
+msgstr "Одберете го типот на инсталација за да добиете целосна контрола врз инсталациониот процес."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "Лична работна површина"
+msgstr "_Лична работна околина"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
 "Perfect for personal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
-msgstr ""
+msgstr "Совршено за персонални компјутери и лаптопи, одберете го овој тип на инсталација за да инсталирате графичка работа околина и за да креирате идеален систем за на работа или пак за домашна употреба."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -5986,27 +6011,34 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tШколка за работа околина (Гном)\n"
+"\tКанцелариски пакет (OpenOffice.org)\n"
+"\tПрелистувач за веб (Mozilla) \n"
+"\tЕ-пошта (Evolution)\n"
+"\tИнстант пораки\n"
+"\tАпликации за звук и видео\n"
+"\tИгри\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "Сервер"
+msgstr "_Сервер"
 
 #: ../installclasses/server.py:13
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
-msgstr ""
+msgstr "Одберете го овој тип на инсталација доколку сакате да поставите делење на датотеки, делење на печатачи, и веб сервиси. Исто така можат да бидат додадени и додатни сервиси, а можете да изберете и дали сакате да инсталирате и графичка околина."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr "Работна станица"
+msgstr "_Работна станица"
 
 #: ../installclasses/workstation.py:10
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr ""
+msgstr "Оваа опција инсталира графичка работна околина со алатки за развој на софтвер и системска администрација. "
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -6020,6 +6052,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tШколка за работа околина (Гном)\n"
+"\tКанцелариски пакет (OpenOffice.org)\n"
+"\tПрелистувач за веб (Mozilla) \n"
+"\tЕ-пошта (Evolution)\n"
+"\tИнстант пораки\n"
+"\tАпликации за звук и видео\n"
+"\tИгри\n"
+"\tАлати за развој на софтвер\n "
+"\tАлатки за администрација\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -6034,7 +6075,7 @@ msgstr "Тест"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr "Извади CD"
+msgstr "Извади це-де"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -6063,7 +6104,7 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
-msgstr "Пронајдено е CD"
+msgstr "Це-дето е пронајдено"
 
 #: ../loader2/cdinstall.c:255
 #, c-format
@@ -6082,15 +6123,15 @@ msgstr ""
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
-msgstr "Не е пронајдено CD"
+msgstr "Не е пронајдено це-де"
 
 #: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "Не можам да ја најдам датотеката за kickstart на це-де ROM."
 
 #: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
-msgstr "Вчитување"
+msgstr "Вчитувам"
 
 #: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
@@ -6147,7 +6188,7 @@ msgstr "Изберете рачно"
 
 #: ../loader2/driverdisk.c:463
 msgid "Load another disk"
-msgstr ""
+msgstr "Вчитај друг диск"
 
 #: ../loader2/driverdisk.c:464
 msgid ""
@@ -6180,7 +6221,7 @@ msgstr ""
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
-msgstr ""
+msgstr "Грешка во kickstart"
 
 #: ../loader2/driverdisk.c:571
 #, c-format
@@ -6205,11 +6246,11 @@ msgstr ""
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "Внесете ги параметрите за модулот"
 
 #: ../loader2/driverselect.c:186
 msgid "No drivers found"
-msgstr ""
+msgstr "Не беа пронајдени драјвери"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
@@ -6229,16 +6270,16 @@ msgstr ""
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "Одреди додатни аргументи за модулите"
 
 #: ../loader2/driverselect.c:234
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr "Одберете драјвер за уредот за вчитување"
 
 #: ../loader2/firewire.c:50 ../loader2/windows.c:65
 #, c-format
 msgid "Loading %s driver..."
-msgstr ""
+msgstr "Вчитувам %s драјвер..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
@@ -6288,7 +6329,7 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "Не можам да ја најдам датотеката за kickstart на тврдиот диск."
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -6301,21 +6342,21 @@ msgstr "Каков вид на тастатура имате?"
 #: ../loader2/kickstart.c:119
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "Грешка при отворање на датотеката за kickstart %s: %s"
 
 #: ../loader2/kickstart.c:129
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "Грешка при читање на содржините од датотеката за kickstart %s: %s"
 
 #: ../loader2/kickstart.c:172
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "Грешка во %s на линијата %d од датотеката за kickstart %s."
 
 #: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "Не можам да го пронајдам ks.cfg на дискетата за подигнување."
 
 #: ../loader2/kickstart.c:402
 #, c-format
@@ -6329,7 +6370,7 @@ msgstr "Добредојдовте во %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> движење помеѓу елементи  | <Space> одбира | <F12> следен екран "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -6337,7 +6378,7 @@ msgstr "Одберете јазик"
 
 #: ../loader2/loader.c:105
 msgid "Local CDROM"
-msgstr "Локален CDROM"
+msgstr "Локален це-де ROM"
 
 #: ../loader2/loader.c:107
 msgid "Hard drive"
@@ -6360,43 +6401,43 @@ msgstr ""
 #: ../loader2/loader.c:335
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "Внесете го Вашиот диск со надградби во /dev/%s и притиснете \"Во ред\" за да продолжите."
 
 #: ../loader2/loader.c:337
 msgid "Updates Disk"
-msgstr ""
+msgstr "Диск со надградби"
 
 #: ../loader2/loader.c:349
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "Не успеав да го монтирам дискот со надградби"
 
 #: ../loader2/loader.c:352
 msgid "Updates"
-msgstr ""
+msgstr "Надградби"
 
 #: ../loader2/loader.c:352
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Ги читам надградбите за анаконда..."
 
 #: ../loader2/loader.c:380
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
-msgstr ""
+msgstr "Не беа пронајдени тврди дискови.  Најверојатно треба рачно да ги изберете драјверите за уредите за да успее инсталацијата.  Дали сакате да ги изберете драјверите сега?"
 
 #: ../loader2/loader.c:649
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "Немате доволно RAM за да инсталирате %s на оваа машина."
 
 #: ../loader2/loader.c:822
 msgid "Rescue Method"
-msgstr "Метода за спасување"
+msgstr "Метод за спасување"
 
 #: ../loader2/loader.c:823
 msgid "Installation Method"
-msgstr "Метода за инсталирање"
+msgstr "Метод на инсталирање"
 
 #: ../loader2/loader.c:825
 msgid "What type of media contains the rescue image?"
@@ -6408,11 +6449,11 @@ msgstr ""
 
 #: ../loader2/loader.c:851
 msgid "No driver found"
-msgstr ""
+msgstr "Не беа пронајдени драјвери"
 
 #: ../loader2/loader.c:851
 msgid "Select driver"
-msgstr ""
+msgstr "Одбери драјвер"
 
 #: ../loader2/loader.c:852
 msgid "Use a driver disk"
@@ -6426,21 +6467,21 @@ msgstr ""
 
 #: ../loader2/loader.c:1013
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "Следниве уреди беа најдени на Вашиот систем."
 
 #: ../loader2/loader.c:1015
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
+msgstr "Не се вчитани никакви драјвери за уредите на Вашиот систем.  Дали сакате да ги вчитате сега?"
 
 #: ../loader2/loader.c:1019
 msgid "Devices"
-msgstr ""
+msgstr "Уреди"
 
 #: ../loader2/loader.c:1020
 msgid "Done"
-msgstr "Извршено"
+msgstr "Завршено"
 
 #: ../loader2/loader.c:1021
 msgid "Add Device"
@@ -6449,17 +6490,17 @@ msgstr "Додади уред"
 #: ../loader2/loader.c:1136
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "подигнувачот е веќе извршен.  Подигнувам школка.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
+msgstr "Ја извршувам анаконда, %s во режим за спасување - ве молам почекајте...\n"
 
 #: ../loader2/loader.c:1486
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "Ја извршувам анаконда, %s системскиот инсталер - ве молам почекајте...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -6526,7 +6567,7 @@ msgstr ""
 #: ../loader2/method.c:151 ../loader2/method.c:360 ../loader2/method.c:445
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr ""
+msgstr "Не успеав да го прочитам директориумот %s: %s"
 
 #: ../loader2/method.c:403
 #, c-format
@@ -6554,6 +6595,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"Ве молам внесете ги следниве информации:\n"
+"\n"
+"    o името или IP адресата на Вашиот %s сервер\n"
+"    o директориумот на серверот кој што содржи\n"
+"      %s за Вашата архитектура\n"
 
 #: ../loader2/net.c:180
 #, c-format
@@ -6561,11 +6607,11 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s е безжичен мрежен адаптер.  Ве молам внесете го ESSID и клучот за енкрипција потребен за да пристапите на вашата безжична мрежа.  Доколку нема потреба од клуч, оставете го полето празно и инсталацијата ќе продолжи."
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
-msgstr ""
+msgstr "Безжични подесувања"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -6585,11 +6631,11 @@ msgstr ""
 
 #: ../loader2/net.c:218
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "Невалидна IP информација"
 
 #: ../loader2/net.c:219
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "Внесовте невалидна IP адреса."
 
 #: ../loader2/net.c:282 ../loader2/net.c:558
 msgid "Dynamic IP"
@@ -6598,13 +6644,13 @@ msgstr "Динамичка IP"
 #: ../loader2/net.c:283 ../loader2/net.c:559
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr ""
+msgstr "Испраќам барање за информација за IP за %s..."
 
 #: ../loader2/net.c:448
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
+msgstr "Ве молам внесете ја IP конфигурацијата за оваа машина. Секој предмет треба да биде внесен како IP адреса разделена со точки (на пример, 1.2.3.4)."
 
 #: ../loader2/net.c:454
 msgid "IP address:"
@@ -6612,11 +6658,11 @@ msgstr "IP адреса:"
 
 #: ../loader2/net.c:457
 msgid "Netmask:"
-msgstr ""
+msgstr "Маска:"
 
 #: ../loader2/net.c:460
 msgid "Default gateway (IP):"
-msgstr "Вообичаена порта (IP):"
+msgstr "Стандарден премин (IP):"
 
 #: ../loader2/net.c:463
 msgid "Primary nameserver:"
@@ -6636,16 +6682,16 @@ msgstr "Недостасува информација"
 
 #: ../loader2/net.c:550
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
+msgstr "Мора да внесете валидна IP адреса и маска."
 
 #: ../loader2/net.c:773
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "Одредувам име на домаќин и домен..."
 
 #: ../loader2/net.c:858
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "Лош аргумент за мрежната команда за kickstart %s: %s"
 
 #: ../loader2/net.c:881
 #, c-format
@@ -6660,7 +6706,7 @@ msgstr "Уред за поврзување во мрежа"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
+msgstr "Имате повеќе мрежни уреди на овој систем. Преку кој од нив сакате да инсталирате?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
@@ -6678,11 +6724,11 @@ msgstr "NFS поставки"
 #: ../loader2/nfsinstall.c:197
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "Тој директориум изгледа дека не го содржи инсталационото дрво за %s."
 
 #: ../loader2/nfsinstall.c:210
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "Директориумот не може да биде монтиран од серверот."
 
 #: ../loader2/nfsinstall.c:248
 #, c-format
@@ -6704,19 +6750,19 @@ msgstr "Подигнување на програмата anaconda преку tel
 #: ../loader2/urlinstall.c:67
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "Не можам да вратам %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:137
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "Не можам да ја вратам инсталационата слика."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
-msgstr "Детектиран медиум"
+msgstr "Детектиран уред"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr "Детектиран е локален инсталациски медиум..."
+msgstr "Детектиран е локален инсталационен уред..."
 
 #: ../loader2/urlinstall.c:432
 #, c-format
@@ -6776,28 +6822,28 @@ msgstr "Мора да го внесете директориумот."
 
 #: ../loader2/urls.c:330
 msgid "Unknown Host"
-msgstr "Непознат компјутер"
+msgstr "Непознат домаќин"
 
 #: ../loader2/urls.c:331
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s е неисправно име на систем."
+msgstr "%s е невалиден домаќин."
 
 #: ../loader2/urls.c:404
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
+msgstr "Доколку користите ftp, внесете ги корисничкото име и лозинката подолу."
 
 #: ../loader2/urls.c:409
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
+msgstr "Доколку користите HTTP прокси сервер, внесете го името на HTTP прокси серверот за употреба."
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
-msgstr "Име за пристап:"
+msgstr "Име на сметка:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -7385,7 +7431,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr "Тасманиа"
+msgstr "Тасманија"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7421,11 +7467,11 @@ msgstr "Западен Амазон"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr "западно & централно Борнео"
+msgstr "Западно & централно Борнео"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "западна Демократска Република Конго"
+msgstr "Западна Демократска Република Конго"
 
 #. generated from zone.tab
 msgid "Western Australia"
@@ -7437,7 +7483,7 @@ msgstr "Западен Казакстан"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr "западен Узбекистан"
+msgstr "Западен Узбекистан"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -7445,7 +7491,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Јап"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7465,11 +7511,11 @@ msgstr "Каталонски"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Кинески(упростено)"
+msgstr "Кинески (упростено)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Кинески(традиционално)"
+msgstr "Кинески (традиционално)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -7545,7 +7591,7 @@ msgstr "Норвешки"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "Персиски"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -7553,7 +7599,7 @@ msgstr "Португалски"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Португалски(Бразилски)"
+msgstr "Португалски (Бразилски)"
 
 #. generated from lang-table
 msgid "Punjabi"
