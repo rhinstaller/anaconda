@@ -109,17 +109,17 @@ def partedExceptionWindow(exc):
              (parted.EXCEPTION_CANCEL, N_("Cancel")))
     for flag, string in flags:
         if exc.options & flag:
-            win.append_button (_(string))
-            buttonToAction[numButtons] = flag
-            numButtons = numButtons + 1
+            win.add_button(_(string), flag)
     win.show_all()
     rc = win.run()
-    return buttonToAction[rc]
+    win.destroy()
+    return rc
 
 def widgetExpander(widget, growTo=None):
     widget.connect("size-allocate", growToParent, growTo)
 
 def growToParent(widget, rect, growTo=None):
+    return
     if not widget.parent:
         return
     ignore = widget.__dict__.get("ignoreEvents")
@@ -138,7 +138,7 @@ class WrappingLabel(gtk.Label):
         gtk.Label.__init__(self, label)
         self.set_line_wrap(gtk.TRUE)
         self.ignoreEvents = 0
-        self.set_size_request(-1, 1)
+#        self.set_size_request(-1, 1)
         widgetExpander(self)
 
 class WaitWindow:
@@ -962,7 +962,7 @@ class InstallControlState:
             file = self.htmlFile
             
             for path in self.searchPath:
-                for lang in langPath:
+                for lang in langPath + ['C']:
                     try:
                         text = open("%s/help/%s/s1-help-screens-%s.html" %
                                     (path, lang, file)).read ()
@@ -970,13 +970,6 @@ class InstallControlState:
                         continue
                     else:
                         break
-                if text:
-                    break
-                try:
-                    text = open("%s/help/C/s1-help-screens-%s.html" %
-                                (path, file)).read ()
-                except IOError:
-                        continue
 
             if text:
                 return text
