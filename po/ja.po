@@ -18,12 +18,11 @@ msgstr ""
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
+msgstr "ブートパーティション%sはこのアーキテクチャではブートに適していません。ブートディスクの作成を強くお勧めします。"
 
 #: ../autopart.py:832
-#, fuzzy
 msgid "Requested Partition Does Not Exist"
-msgstr "未割当のパーティションが存在します..."
+msgstr "要求されたパーティションが存在しません"
 
 #: ../autopart.py:833
 #, c-format
@@ -32,10 +31,13 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"パーティション %s (%s に使用)がみつかりません\n"
+"\n"
+"OK を押すとシステムを再起動します"
 
 #: ../autopart.py:865
 msgid "Partition Request Sanity Check Errors"
-msgstr ""
+msgstr "パーティション設定確認チェックエラー"
 
 #: ../autopart.py:866
 #, c-format
@@ -46,33 +48,42 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"パーティション分割中に次のエラーが発生しました:\n"
+"\n"
+"%s\n"
+"\n"
+"OK を押すとシステムを再起動します"
 
 #: ../autopart.py:875
-#, fuzzy
 msgid "Warnings During Automatic Partitioning"
-msgstr "自動パーティション設定"
+msgstr "自動パーティション設定中に警告"
 
 #: ../autopart.py:876
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
 "%s"
-msgstr "自動パーティション設定"
+msgstr ""
+"自動パーティション設定中の警告:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:888 ../iw/partition_gui.py:1132
 #: ../textw/partition_text.py:147
-#, fuzzy
 msgid "Error Partitioning"
-msgstr "ディスクパーティション設定"
+msgstr "パーティション設定エラー"
 
 #: ../autopart.py:889
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%s.%s"
-msgstr "未割当のパーティションが存在します..."
+msgstr ""
+"要求されたパーティションを設定できませんでした: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:923 ../harddrive.py:233 ../iw/bootloader_gui.py:67
 #: ../iw/partition_gui.py:1137 ../iw/partition_gui.py:1449
@@ -95,30 +106,32 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
+"自動パーティション設定は、インストールタイプに応じたパーティション設定を行います。設定されたパーティションをさらにあなたの希望に応じてカスタマイズすることもできます。\n"
+"\n"
+"手動ディスクパーティション設定ツール、Disk Druid によって対話的にパーティションを設定することができます。ファイルシステムの種類やマウントポイント、容量その他を簡単かつ協力なインタフェースで設定できます。\n"
+"\n"
+"fdisk は伝統的なテキストベースのパーティション設定ツールです。簡単に使えるわけではありませんが、こちらの方が好まれる場合もあります。"
 
 #: ../autopart.py:945
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
-msgstr ""
+msgstr "インストールプログラムが自動パーティション設定を行う前に、ハードディスクをどのように使うかを必ず選択しておかなければなりません。"
 
 #: ../autopart.py:950
-#, fuzzy
 msgid "Remove all partitions on this system"
-msgstr "Linux パーティションを削除"
+msgstr "システムのすべてのパーティションを削除"
 
 #: ../autopart.py:951
-#, fuzzy
 msgid "Remove all Linux Partitions on this system"
-msgstr "Linux パーティションを削除"
+msgstr "システムのすべてのLinux パーティションを削除"
 
 #: ../autopart.py:952
-#, fuzzy
 msgid "Keep all partitions and use existing free space"
-msgstr "既存の空き領域を使用"
+msgstr "すべてのパーティションを保持し、既存の空き領域を使用"
 
 #: ../autopart.py:954
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -126,8 +139,10 @@ msgid ""
 "drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"一つのドライブにパーティションを制限することなく RAID パーティションを構成し"
-"ようとしています。よろしいですか?"
+"警告!!  警告!!\n"
+"\n"
+"次のドライブのすべてのパーティション(すべてのデータ)を削除するように指定されています:%s\n"
+"本当にすべて削除しますか?"
 
 #: ../autopart.py:959
 #, c-format
@@ -138,16 +153,18 @@ msgid ""
 "the following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"警告!!  警告!!\n"
+"\n"
+"次のドライブについてすべてのLinuxパーティション(そしてその上のすべてのデータ)を消去するような選択がなされました: %s\n"
+"本当に消去しますか?"
 
 #: ../bootloader.py:610
-#, fuzzy
 msgid "Bootloader"
-msgstr "ブートローダエラー"
+msgstr "ブートローダ"
 
 #: ../bootloader.py:610
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "%s をインストール中\n"
+msgstr "ブートローダをインストール中..."
 
 #: ../comps.py:562
 msgid "Everything"
@@ -206,19 +223,19 @@ msgid "Error"
 msgstr "エラー"
 
 #: ../fsset.py:697
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"%s をフォーマット中にエラー発生。深刻な問題なのでインスールを続行できません\n"
+"デバイス %s のスワップを初期化中にエラー発生。深刻な障害であり、インスールを続けることができません\n"
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
 #: ../fsset.py:716
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -226,46 +243,45 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"デバイス %s を %s としてマウントする際にエラー発生:%s\n"
+"スワップデバイス %s を有効にしている最中にエラー発生: %s\n"
 "\n"
-"たいていの場合はこのパーティションがフォーマットされていないことを意味しま"
-"す\n"
+"これは大抵の場合、スワップパーティションが初期化されていないことを意味します\n"
 "\n"
-"OKを押してシステムを再起動して下さい"
+"[OK] を押してシステムを再起動して下さい"
 
 #: ../fsset.py:761
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"%s をフォーマット中にエラー発生。深刻な問題なのでインスールを続行できません\n"
+"%s の不正なブロックを走査中にエラー発生。深刻な障害であり、インスールを続けることができません\n"
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
 #: ../fsset.py:781
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"%s をフォーマット中にエラー発生。深刻な問題なのでインスールを続行できません\n"
+"%s をフォーマット中にエラー発生。深刻な障害であり、インスールを続けることができません\n"
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
 #: ../fsset.py:810
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"%s をフォーマット中にエラー発生。深刻な問題なのでインスールを続行できません\n"
+"%s を移動中にエラー発生。深刻な障害であり、インスールを続けることができません\n"
 "\n"
 "[Enter]を押してシステムを再起動して下さい"
 
@@ -296,7 +312,7 @@ msgstr "%s ファイルシステムのフォーマット中..."
 
 #: ../gui.py:104 ../text.py:272
 msgid "Fix"
-msgstr ""
+msgstr "修正"
 
 #: ../gui.py:105 ../iw/partition_gui.py:545 ../iw/partition_gui.py:608
 #: ../iw/welcome_gui.py:101 ../libfdisk/fsedit.c:953
@@ -381,7 +397,7 @@ msgstr "再試行"
 
 #: ../gui.py:109 ../text.py:277
 msgid "Ignore"
-msgstr ""
+msgstr "無視"
 
 #: ../gui.py:110 ../iw/account_gui.py:150 ../iw/account_gui.py:161
 #: ../iw/partition_gui.py:729 ../iw/partition_gui.py:1182
@@ -398,15 +414,12 @@ msgid "Cancel"
 msgstr "取り消し"
 
 #: ../gui.py:192 ../text.py:254
-#, fuzzy
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
-msgstr ""
-"例外発生。バグの可能性が考えられます。この例外の全メッセージをコピーし、"
-"http://bugzilla.redhat.com/bugzilla にバグ報告して下さい"
+msgstr "未処理の例外発生。バグの可能性が考えられます。この例外の全メッセージをコピー、あるいはクラッシュアンプをフロッピーにコピーし、anaconda に対する詳細なバグ報告を http://bugzilla.redhat.com/bugzilla に送って下さい"
 
 #: ../gui.py:313 ../text.py:244
 msgid ""
@@ -439,7 +452,7 @@ msgstr "ファイルを読み込めません!"
 
 #: ../gui.py:492
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "リリースノートがみつかりません\n"
 
 #: ../gui.py:598 ../libfdisk/newtfsedit.c:1480 ../libfdisk/newtfsedit.c:1488
 #: ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:238
@@ -476,9 +489,8 @@ msgid "Red Hat Linux Installer on %s"
 msgstr "%s 上の Red Hat Linux インストーラ"
 
 #: ../gui.py:702
-#, fuzzy
 msgid "Unable to load title bar"
-msgstr "ファイルを読み込めません!"
+msgstr "タイトルバーを読み込めません"
 
 #: ../gui.py:787
 msgid "Install Window"
@@ -531,9 +543,8 @@ msgid "Install"
 msgstr "インストール"
 
 #: ../monitor.py:152 ../mouse.py:184 ../videocard.py:129
-#, fuzzy
 msgid "Unable to probe"
-msgstr "ファイルを読み込めません!"
+msgstr "走査不能"
 
 #: ../iw/package_gui.py:17 ../packages.py:37
 msgid "Proceed with upgrade?"
@@ -587,7 +598,7 @@ msgstr ""
 
 #: ../packages.py:463
 msgid "Setting up RPM transaction..."
-msgstr ""
+msgstr "RPMトランザクションを設定中..."
 
 #: ../packages.py:504
 #, c-format
@@ -646,174 +657,166 @@ msgid "Performing post install configuration..."
 msgstr "インストール後の設定を実行中..."
 
 #: ../partitioning.py:171
-#, fuzzy
 msgid "Foreign"
-msgstr "ノルウェー語"
+msgstr "外国語"
 
 #: ../partitioning.py:338
-#, fuzzy
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters."
-msgstr ""
-"マウントポイント %s が不適切です\n"
-"\n"
-"マウントポイントは表示可能文字でなければなりません"
+msgstr "マウントポイントが不適切です。マウントポイントは '/' ではじまり '/' では閉じない、表示可能な文字で構成されていなければなりません"
 
 #: ../partitioning.py:345
 msgid "Please specify a mount point for this partition."
-msgstr ""
+msgstr "このパーティションに対するマウントポイントを指定して下さい"
 
 #: ../partitioning.py:364
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
-msgstr ""
-"要求されたマウントポイントはすでに使用されています。有効なマウントポイントを"
-"選択して下さい。"
+msgstr "マウントポイント %s はすでに使用されています。別のマウントポイントを選択して下さい"
 
 #: ../partitioning.py:403
-#, fuzzy
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
-msgstr "%s ディレクトリはルートファイルシステム上になければなりません"
+msgstr "マウントポイントが不適切です。/ ファイルシステム上になければなりません"
 
 #: ../partitioning.py:408
-#, fuzzy
 msgid "This mount point must be on a linux filesystem."
-msgstr "%s ディレクトリはルートファイルシステム上になければなりません"
+msgstr "マウントポイントは Linux のファイルシステム上になければなりません"
 
 #: ../partitioning.py:418
 #, c-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
-msgstr ""
+msgstr "%s パーティション容量 %s MB は最大容量 %s MBを超えています"
 
 #: ../partitioning.py:425
 #, c-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
+msgstr "要求されたパーティション容量 %s MB は最大容量 %s MBを超えています"
 
 #: ../partitioning.py:430
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "要求されたパーティション容量 (%s MB)が負です!"
 
 #: ../partitioning.py:434
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "第一シリンダよりも前からパーティションを始めることはできません"
 
 #: ../partitioning.py:437
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "パーティションが負のシリンダで終ることはできません"
 
 #: ../partitioning.py:470
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
+msgstr "RAID要求の中にメンバーが含まれていない、または RAIDレベルが未指定です"
 
 #: ../partitioning.py:488
-#, fuzzy
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "ブートパーティション (/boot) が存在できるのは RAID-1 上のみです。"
+msgstr "起動可能なパーティションが存在できるのは RAID-1 デバイス上だけです"
 
 #: ../partitioning.py:492
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "タイプ %s のRAIDデバイスは最低でも %s メンバーを必要とします"
 
 #: ../partitioning.py:498
 #, c-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr ""
+msgstr "このRAIDデバイスは最大 %s スペア持てます。より多くのスペアが欲しい場合はRAIDデバイスにメンバーを追加しなければなりません"
 
 #: ../partitioning.py:518
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of Red Hat Linux to continue."
-msgstr ""
+msgstr "Red Hat Linux のインストールを続けるためには必ず必要なルートパーティション (/) が未指定です"
 
 #: ../partitioning.py:521
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install Red Hat Linux."
-msgstr ""
+msgstr "ルートパーティションが 250 MBであり、通常の Red Hat Linuxインスールでは小さすぎる容量となっています"
 
 #: ../partitioning.py:536
 #, c-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal Red Hat Linux install."
-msgstr ""
+msgstr "パーティション %s の容量が %s MB未満であり、通常の Red Hat Linux のインストールでの推奨容量に達っしていません"
 
 #: ../partitioning.py:558
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
-msgstr ""
+msgstr "スワップパーティションが未指定です。これは常に必ず必要というわけではありませんが、大抵のインストールにおいて明かに性能を向上させます"
 
 #: ../partitioning.py:562
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for Red Hat Linux "
 "only supports 32 swap devices."
-msgstr ""
+msgstr "32 個以上のスワップデバイスが指定されていますが、Red Hat Linux のカーネルがサポートするのは 32 デバイスまでです"
 
 #: ../partitioning.py:571
 #, c-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
+msgstr "確保したスワップ領域(%d MB)が、システムで実際に利用可能なRAM容量(%d MB)よりも小さくなっています。これによって性能が劣化します"
 
 #: ../partitioning.py:1133 ../partitioning.py:1164
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting filesystem on %s: %s"
-msgstr "%s 上に ext2 ファイルシステムをマウントする際にエラー発生: %s"
+msgstr "%s 上にファイルシステムをマウント中にエラー発生: %s"
 
 #: ../partitioning.py:1274
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"デバイス %s のパーティションテーブルが壊れています。新しいパーティションを作"
-"成するためには、初期化しなければなりません。この場合、このドライブ上のすべて"
-"のデータが失われます。"
+"デバイス %s のパーティションテーブルが壊れています。新しいパーティションを作成するためには初期化しなければなりませんが、このドライブ上のすべてのデータを失うことになります。\n"
+"\n"
+"このディスクを初期化しますか?"
 
 #: ../libfdisk/fsedit.c:1052 ../partitioning.py:1351
 msgid "No Drives Found"
 msgstr "ドライブがみつかりませんでした"
 
 #: ../partitioning.py:1352
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
-msgstr ""
-"エラーが発生しました - 新規ファイルシステムを作成するための有効なデバイスが見"
-"つかりません。ハードウェアをチェックして、この問題の原因を調査して下さい。"
+msgstr "エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。ハードウェアをチェックして、この問題の原因を調査して下さい"
 
 #: ../partitioning.py:1425
-#, fuzzy
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
 "Are you sure?"
-msgstr "RAID デバイスを選択する必要があります。"
+msgstr ""
+"RAID デバイスを削除しようとしています\n"
+"\n"
+"本当に削除しますか?"
 
 #: ../partitioning.py:1428
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
 "\n"
 "Are you sure?"
-msgstr "パーティションを削除してよろしいですか?"
+msgstr ""
+"/dev/%s パーティションを削除しようとしています\n"
+"\n"
+"本当に削除しますか?"
 
 #: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 #: ../partitioning.py:1432
@@ -821,110 +824,93 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "パーティションを削除してよろしいですか?"
 
 #: ../partitioning.py:1434
-#, fuzzy
 msgid "Confirm Delete"
-msgstr "確認: "
+msgstr "削除の確認"
 
 #: ../partitioning.py:1438
-#, fuzzy
 msgid "Confirm Reset"
-msgstr "確認: "
+msgstr "リセットの確認"
 
 #: ../partitioning.py:1439
-#, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
-msgstr "パーティションを削除してよろしいですか?"
+msgstr "本当に、パーティションテーブル設定をリセットして元に戻しますか?"
 
 #: ../partitioning.py:1463
-#, fuzzy
 msgid "the partition in use by the installer."
-msgstr "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
+msgstr "このパーティションはインストーラが使用中です"
 
 #: ../partitioning.py:1466
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "RAIDアレイのメンバーである、パーティション"
 
 #: ../partitioning.py:1475 ../partitioning.py:1481 ../partitioning.py:1489
 #: ../partitioning.py:1500 ../partitioning.py:1507
-#, fuzzy
 msgid "Unable To Remove"
-msgstr "ファイルを読み込めません!"
+msgstr "削除できません"
 
 #: ../partitioning.py:1476
-#, fuzzy
 msgid "You must first select a partition to remove."
-msgstr "ブートパーティションの最初のセクタ"
+msgstr "最初に削除するパーティションを選択しなければなりません"
 
 #: ../partitioning.py:1482
 msgid "You cannot remove free space."
-msgstr ""
+msgstr "自由領域は削除できません"
 
 #: ../partitioning.py:1490
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/\" "
-"を非 RAID デバイスに切り替えて下さい。"
+msgstr "これは %s を含む拡張パーティションなので削除できません"
 
 #: ../partitioning.py:1501
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
-msgstr ""
+msgstr "このパーティションにはハードディスクインストール用のデータがあるので、削除できません"
 
 #: ../partitioning.py:1508
-#, fuzzy
 msgid "You cannot remove this partition, as it is part of a RAID device."
-msgstr ""
-"RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/\" "
-"を非 RAID デバイスに切り替えて下さい。"
+msgstr "これは RAIDデバイスの一部なので削除できません"
 
 #: ../partitioning.py:1536 ../partitioning.py:1558
-#, fuzzy
 msgid "Unable To Edit"
-msgstr "ファイルを読み込めません!"
+msgstr "編集できません"
 
 #: ../partitioning.py:1537
-#, fuzzy
 msgid "You must select a partition to edit"
-msgstr "インストールする言語は少なくとも一つ選択しなければなりません"
+msgstr "編集するパーティションを選択しなければなりません"
 
 #: ../partitioning.py:1559
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
+msgstr "これは %s を含む拡張パーティションなので編集できません"
 
 #: ../partitioning.py:1567 ../partitioning.py:1572
-#, fuzzy
 msgid "Unable to Edit"
-msgstr "ファイルを読み込めません!"
+msgstr "編集できません"
 
 #: ../partitioning.py:1568
-#, fuzzy
 msgid "You cannot edit this partition, as it is in use by the installer."
-msgstr "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
+msgstr "インストーラが使用中なので編集できません"
 
 #: ../partitioning.py:1573
-#, fuzzy
 msgid "You cannot edit this partition as it is part of a RAID device"
-msgstr "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
+msgstr "RAIDデバイスの一部なので編集できません"
 
 #: ../partitioning.py:1585
-#, fuzzy
 msgid "Installation cannot continue."
-msgstr "インストール開始"
+msgstr "インストール続行不能"
 
 #: ../partitioning.py:1586
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
+msgstr "指定されたパーティション設定オプションは既に選択されています。もうディスク編集画面には戻れません。インストールを続けますか?"
 
 #: ../partitioning.py:1606
 msgid "Low Memory"
@@ -940,20 +926,19 @@ msgstr ""
 "ため新しいパーティションテーブルをディスクに書き込みます。よろしいですか?"
 
 #: ../partitioning.py:1619 ../partitioning.py:1628
-#, fuzzy
 msgid "Format?"
-msgstr "フォーマット中"
+msgstr "フォーマットしますか?"
 
 #: ../partitioning.py:1620
-#, fuzzy
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"一つのドライブにパーティションを制限することなく RAID パーティションを構成し"
-"ようとしています。よろしいですか?"
+"既存のパーティションをフォーマットするように指定していますが、これによってその上のすべてのデータが消去されます\n"
+"\n"
+"本当にフォーマットしますか?"
 
 #: ../partitioning.py:1629
 msgid ""
@@ -964,11 +949,13 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"システムディレクトリとしてマウント中の既存パーティションをフォーマットするように指定していますが、パーティションに存在するデータを、インストールで利用していないか確かめることを強く推奨します。\n"
+"\n"
+"本当にフォーマットしますか?"
 
 #: ../partitioning.py:1643
-#, fuzzy
 msgid "Error with Partitioning"
-msgstr "ディスクパーティション設定"
+msgstr "パーティション設定エラー"
 
 #: ../partitioning.py:1644
 #, c-format
@@ -981,9 +968,8 @@ msgid ""
 msgstr ""
 
 #: ../partitioning.py:1657
-#, fuzzy
 msgid "Partitioning Warning"
-msgstr "起動パーティション警告"
+msgstr "パーティション設定、警告"
 
 #: ../partitioning.py:1658
 #, c-format
@@ -1052,7 +1038,6 @@ msgid "Exit"
 msgstr "終了"
 
 #: ../rescue.py:126
-#, fuzzy
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1063,10 +1048,13 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"システムは /mnt/sysimage の下にマウントされています\n"
+"システムを /mnt/sysimage 下にマウントしています\n"
 "\n"
-"シェルを起動するには [Return] を押して下さい。システムはシェルを抜けると自動"
-"的に再起動します"
+"シェルを起動するには [Return] を押して下さい。そのシステムをルート環境として利用するには次のようにします:\n"
+"\n"
+"        chroot /mnt/sysimage\n"
+"\n"
+"システムはシェルを抜けると自動的に再起動します"
 
 #: ../rescue.py:144
 msgid ""
@@ -1203,9 +1191,8 @@ msgid "An error occured when finding the packages to upgrade."
 msgstr "アップグレードするパッケージを検索中にエラーが起りました"
 
 #: ../videocard.py:389
-#, fuzzy
 msgid "Unknown Card"
-msgstr "不明"
+msgstr "不明なカード"
 
 #: ../iw/xconfig_gui.py:15 ../textw/xconfig_text.py:469 ../xf86config.py:850
 msgid "Video Card"
@@ -1299,23 +1286,20 @@ msgid "User passwords do not match."
 msgstr "ユーザパスワードが一致していません"
 
 #: ../iw/account_gui.py:147
-#, fuzzy
 msgid "Add a New User"
-msgstr "ユーザの追加"
+msgstr "新規ユーザの追加"
 
 #: ../iw/account_gui.py:157 ../textw/userauth_text.py:84
 msgid "Edit User"
 msgstr "ユーザの編集"
 
 #: ../iw/account_gui.py:182
-#, fuzzy
 msgid "User Name:"
-msgstr "ユーザ名"
+msgstr "ユーザ名:"
 
 #: ../iw/account_gui.py:184
-#, fuzzy
 msgid "Full Name:"
-msgstr "フルネーム"
+msgstr "名前: "
 
 #: ../iw/account_gui.py:186 ../iw/bootloaderpassword_gui.py:72
 #: ../loader/urls.c:357 ../textw/userauth_text.py:36
@@ -1324,18 +1308,16 @@ msgstr "パスワード:"
 
 #: ../iw/account_gui.py:188 ../iw/bootloaderpassword_gui.py:76
 #: ../textw/bootloader_text.py:385
-#, fuzzy
 msgid "Confirm:"
-msgstr "確認: "
+msgstr "確認:"
 
 #: ../iw/account_gui.py:191
-#, fuzzy
 msgid "Please enter user name"
-msgstr "ユーザパスワードを入力して下さい"
+msgstr "ユーザ名を入力して下さい"
 
 #: ../iw/account_gui.py:272
 msgid "Enter the password for the root user (administrator) of this system."
-msgstr ""
+msgstr "システムの root (管理者)のパスワードを入力"
 
 #: ../iw/account_gui.py:285
 msgid "Root Password: "
@@ -1441,40 +1423,36 @@ msgid "Admin Server:"
 msgstr "管理サーバ:"
 
 #: ../iw/auth_gui.py:208
-#, fuzzy
 msgid "Enable SMB Authentication"
-msgstr "認証"
+msgstr "SMB 認証を有効化"
 
 #: ../iw/auth_gui.py:211
-#, fuzzy
 msgid "SMB Server:"
-msgstr "NIS サーバ:"
+msgstr "SMB サーバ:"
 
 #: ../iw/auth_gui.py:213
 msgid "SMB Workgroup:"
-msgstr ""
+msgstr "SMB ワークグループ:"
 
 #: ../iw/auth_gui.py:240
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:241
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:242
-#, fuzzy
 msgid "Kerberos 5"
-msgstr "Kerberos を有効にする"
+msgstr "Kerberos 5"
 
 #: ../iw/auth_gui.py:243
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Disk Creation"
-msgstr "ブートディスクの作成"
+msgstr "起動ディスクの作成"
 
 #: ../iw/bootdisk_gui.py:57 ../textw/bootdisk_text.py:75
 msgid ""
@@ -1507,9 +1485,8 @@ msgstr "ブートディスク作成を省略"
 #: ../iw/bootloader_gui.py:38 ../textw/bootloader_text.py:50
 #: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
 #: ../textw/bootloader_text.py:283 ../textw/bootloader_text.py:367
-#, fuzzy
 msgid "Boot Loader Configuration"
-msgstr "モニタの設定"
+msgstr "ブートローダの設定"
 
 #: ../iw/bootloader_gui.py:68 ../textw/bootloader_text.py:129
 msgid ""
@@ -1533,12 +1510,10 @@ msgid "Type"
 msgstr "タイプ"
 
 #: ../iw/bootloader_gui.py:309
-#, fuzzy
 msgid "Install Boot Loader record on:"
-msgstr "LILO ブートレコードをインストールする場所:"
+msgstr "ブートローダをインストールする場所:"
 
 #: ../iw/bootloader_gui.py:330
-#, fuzzy
 msgid "Kernel Parameters"
 msgstr "カーネルパラメータ"
 
@@ -1590,28 +1565,24 @@ msgid "Use LILO as the boot loader"
 msgstr ""
 
 #: ../iw/bootloader_gui.py:364
-#, fuzzy
 msgid "Do not install a boot loader"
-msgstr "システムのインストール"
+msgstr "ブートローダをインストールしない"
 
 #: ../iw/bootloader_gui.py:446 ../iw/silo_gui.py:288
 msgid "Default boot image"
-msgstr "デフォルトのブートイメージ"
+msgstr "標準のブートイメージ"
 
 #: ../iw/bootloaderpassword_gui.py:40
-#, fuzzy
 msgid "Password accepted."
-msgstr "root パスワード確定"
+msgstr "パスワード受諾"
 
 #: ../iw/bootloaderpassword_gui.py:45
-#, fuzzy
 msgid "Password is too short."
-msgstr "root パスワードが短かすぎます"
+msgstr "パスワードが短かすぎます"
 
 #: ../iw/bootloaderpassword_gui.py:47
-#, fuzzy
 msgid "Passwords do not match."
-msgstr "root パスワードが一致していません"
+msgstr "パスワードが一致していません"
 
 #: ../iw/bootloaderpassword_gui.py:62 ../textw/bootloader_text.py:362
 msgid ""
@@ -1621,14 +1592,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/bootloaderpassword_gui.py:69
-#, fuzzy
 msgid "Use a GRUB Password?"
-msgstr "シャドウパスワードを使用"
+msgstr "GRUB パスワードを使用しますか?"
 
 #: ../iw/bootloaderpassword_gui.py:94
-#, fuzzy
 msgid "Please enter password"
-msgstr "ユーザパスワードを入力して下さい"
+msgstr "パスワードを入力して下さい"
 
 #: ../iw/confirm_gui.py:43
 msgid "About to Install"
@@ -1749,12 +1718,11 @@ msgid "Upgrade Examine"
 msgstr "アップグレードテスト"
 
 #: ../iw/examine_gui.py:38
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 "You can't upgrade this sytem!"
 msgstr ""
-"Linux パーティションがありません\n"
+"Linux パーティションがないので、\n"
 "アップグレードできません!"
 
 #: ../iw/examine_gui.py:48
@@ -1843,7 +1811,6 @@ msgid "Keyboard Configuration"
 msgstr "キーボードの設定"
 
 #: ../iw/keyboard_gui.py:100
-#, fuzzy
 msgid "Which model keyboard is attached to the computer?"
 msgstr "キーボードモデルを指定して下さい"
 
@@ -1877,23 +1844,20 @@ msgstr "インストール時に使用する言語を選択して下さい"
 
 # ../comps/comps-master:446
 #: ../iw/language_support_gui.py:22
-#, fuzzy
 msgid "Additional Language Support"
-msgstr "言語サポート"
+msgstr "追加言語サポート"
 
 #: ../iw/language_support_gui.py:140
-#, fuzzy
 msgid "Choose the default language for this system:   "
-msgstr "標準の言語を選択して下さい"
+msgstr "システム標準の言語を選択して下さい:  "
 
 #: ../iw/language_support_gui.py:152
 msgid "Currently installed languages:"
 msgstr "現在のインストール済み言語:"
 
 #: ../iw/language_support_gui.py:154
-#, fuzzy
 msgid "Choose additional languages you would like to use on this system:"
-msgstr "インストール時に使用する言語を選択して下さい"
+msgstr "システムに追加する言語を選択して下さい:"
 
 #: ../iw/language_support_gui.py:203
 msgid "Select all"
@@ -1936,7 +1900,6 @@ msgid "Port"
 msgstr "ポート"
 
 #: ../iw/mouse_gui.py:216
-#, fuzzy
 msgid "Which model mouse is attached to the computer?"
 msgstr "マウスのモデルを選択して下さい"
 
@@ -1999,11 +1962,11 @@ msgstr "インストール合計容量： "
 
 #: ../iw/package_gui.py:391
 msgid "Tree View"
-msgstr ""
+msgstr "ツリー表示"
 
 #: ../iw/package_gui.py:393
 msgid "Flat View"
-msgstr ""
+msgstr "フラット表示"
 
 #: ../iw/package_gui.py:407 ../iw/partition_gui.py:1385
 msgid "Size (MB)"
@@ -2034,7 +1997,7 @@ msgstr "個々のパッケージを選択"
 #: ../textw/partition_text.py:172 ../textw/partition_text.py:174
 #: ../textw/partition_text.py:199
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<利用不可>"
 
 #: ../iw/partition_gui.py:466 ../textw/fdisk_text.py:38
 msgid "Disk Setup"
@@ -2042,17 +2005,16 @@ msgstr "ディスクの設定"
 
 #: ../iw/partition_gui.py:534 ../textw/partition_text.py:61
 #: ../textw/partition_text.py:98
-#, fuzzy
 msgid "Free space"
 msgstr "自由領域"
 
 #: ../iw/partition_gui.py:536 ../textw/partition_text.py:63
 msgid "Extended"
-msgstr ""
+msgstr "拡張領域"
 
 #: ../iw/partition_gui.py:538 ../textw/partition_text.py:65
 msgid "software RAID"
-msgstr ""
+msgstr "ソフトウェアRAID"
 
 #: ../iw/partition_gui.py:554 ../iw/partition_gui.py:612
 #: ../textw/partition_text.py:77 ../textw/partition_text.py:129
@@ -2060,35 +2022,33 @@ msgid "None"
 msgstr "なし"
 
 #: ../iw/partition_gui.py:556
-#, fuzzy
 msgid "Free"
-msgstr "空き (M)"
+msgstr "空き"
 
 #: ../iw/partition_gui.py:614 ../textw/partition_text.py:131
-#, fuzzy, c-format
+#, c-format
 msgid "RAID Device %s"
-msgstr "RAID デバイスがありません"
+msgstr "RAID デバイス %s"
 
 #: ../iw/partition_gui.py:683
 msgid "Additional Size Options"
-msgstr ""
+msgstr "追加容量オプション"
 
 #: ../iw/partition_gui.py:688
 msgid "Fixed size"
-msgstr ""
+msgstr "固定容量"
 
 #: ../iw/partition_gui.py:689
 msgid "Fill all space up to (MB):"
-msgstr ""
+msgstr "最大容量限度(MB):"
 
 #: ../iw/partition_gui.py:697
 msgid "Fill to maximum allowable size"
-msgstr ""
+msgstr "可能な最大容量まで拡大"
 
 #: ../iw/partition_gui.py:726 ../textw/partition_text.py:517
-#, fuzzy
 msgid "Add Partition"
-msgstr "パーティション"
+msgstr "パーティション追加"
 
 #: ../iw/partition_gui.py:743 ../iw/partition_gui.py:1196
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
@@ -2097,14 +2057,12 @@ msgid "Mount Point:"
 msgstr "マウントポイント:"
 
 #: ../iw/partition_gui.py:751 ../textw/partition_text.py:573
-#, fuzzy
 msgid "Filesystem Type:"
-msgstr "ルートファイルシステム容量"
+msgstr "ファイルシステムタイプ:"
 
 #: ../iw/partition_gui.py:759
-#, fuzzy
 msgid "Original Filesystem Type:"
-msgstr "ルートファイルシステム容量"
+msgstr "元のファイルシステムタイプ:"
 
 #: ../iw/partition_gui.py:768 ../libfdisk/newtfsedit.c:494
 msgid "Unknown"
@@ -2116,128 +2074,112 @@ msgid "Allowable Drives:"
 msgstr "選択可能なドライブ:"
 
 #: ../iw/partition_gui.py:788
-#, fuzzy
 msgid "Drive:"
-msgstr "[ドライブ]:"
+msgstr "ドライブ:"
 
 #: ../iw/partition_gui.py:797
-#, fuzzy
 msgid "Original Filesystem Label:"
-msgstr "ルートファイルシステム容量"
+msgstr "元のファイルシステムラベル:"
 
 #: ../iw/partition_gui.py:808 ../iw/partition_gui.py:843
 #: ../textw/partition_text.py:261 ../textw/partition_text.py:344
 #: ../textw/partition_text.py:589
-#, fuzzy
 msgid "Size (MB):"
-msgstr "容量 (メガバイト):"
+msgstr "容量 (MB):"
 
 #: ../iw/partition_gui.py:821 ../textw/partition_text.py:324
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "開始シリンダ:"
 
 #: ../iw/partition_gui.py:837 ../textw/partition_text.py:337
 msgid "End Cylinder:"
-msgstr ""
+msgstr "終了シリンダ:"
 
 #: ../iw/partition_gui.py:859
 msgid "How would you like to prepare the filesystem on this partition?"
-msgstr ""
+msgstr "このパーティションのファイルシステムを何に指定しますか?"
 
 #: ../iw/partition_gui.py:868 ../textw/partition_text.py:426
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "フォーマットしない(データを保存)"
 
 #: ../iw/partition_gui.py:873
-#, fuzzy
 msgid "Format partition as:"
-msgstr "ルートパーティション"
+msgstr "フォーマット時のパーティションタイプ:"
 
 #: ../iw/partition_gui.py:893
-#, fuzzy
 msgid "Migrate partition to:"
-msgstr "ルートパーティション"
+msgstr "パーティションの移動先:"
 
 #: ../iw/partition_gui.py:914
-#, fuzzy
 msgid "Check for bad blocks?"
-msgstr "フォーマット中に不良ブロックをチェック"
+msgstr "不良ブロックをチェックしますか?"
 
 #: ../iw/partition_gui.py:945 ../textw/partition_text.py:559
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "第一パーティションとして強制指定"
 
 #: ../iw/partition_gui.py:952 ../textw/partition_text.py:424
 #: ../textw/partition_text.py:562
-#, fuzzy
 msgid "Check for bad blocks"
-msgstr "フォーマット中に不良ブロックをチェック"
+msgstr "不良ブロックをチェック"
 
 #: ../iw/partition_gui.py:1023 ../iw/partition_gui.py:1032
 #: ../iw/partition_gui.py:1070 ../iw/partition_gui.py:1320
 #: ../textw/partition_text.py:696 ../textw/partition_text.py:713
 #: ../textw/partition_text.py:820
 msgid "Error With Request"
-msgstr ""
+msgstr "要求された設定にエラーがあります"
 
 #: ../iw/partition_gui.py:1133 ../textw/partition_text.py:148
-#, fuzzy, c-format
+#, c-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "未割当のパーティションが存在します..."
+msgstr "要求されたパーティションを設定できません: %s."
 
 #: ../iw/partition_gui.py:1139 ../textw/partition_text.py:152
-#, fuzzy
 msgid "Modify Partition"
 msgstr "パーティションの編集"
 
 #: ../iw/partition_gui.py:1140 ../textw/partition_text.py:152
-#, fuzzy
 msgid "Add anyway"
-msgstr "スワップ追加"
+msgstr "とにかく追加"
 
 #: ../iw/partition_gui.py:1144
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s."
-msgstr "警告:  "
+msgstr "警告: %s."
 
 #: ../iw/partition_gui.py:1179 ../textw/partition_text.py:743
-#, fuzzy
 msgid "Make RAID Device"
-msgstr "RAID デバイスの作成(_M)"
+msgstr "RAID デバイス作成"
 
 #: ../iw/partition_gui.py:1203 ../textw/partition_text.py:209
-#, fuzzy
 msgid "Filesystem type:"
-msgstr "ルートファイルシステム容量"
+msgstr "ファイルシステムタイプ:"
 
 #: ../iw/partition_gui.py:1214 ../textw/partition_text.py:361
-#, fuzzy
 msgid "RAID Level:"
-msgstr "RAID タイプ:"
+msgstr "RAID レベル:"
 
 #: ../iw/partition_gui.py:1244 ../textw/partition_text.py:379
-#, fuzzy
 msgid "RAID Members:"
-msgstr "RAID タイプ:"
+msgstr "RAID メンバー:"
 
 #: ../iw/partition_gui.py:1255
 msgid "Number of spares:"
-msgstr ""
+msgstr "スペア数:"
 
 #: ../iw/partition_gui.py:1262 ../textw/partition_text.py:768
-#, fuzzy
 msgid "Format partition?"
-msgstr "ルートパーティション"
+msgstr "パーティションをフォーマットしますか?"
 
 #: ../iw/partition_gui.py:1365
-#, fuzzy
 msgid "_New"
-msgstr "クリア"
+msgstr "新規(_N)"
 
 #: ../iw/partition_gui.py:1366
-#, fuzzy
 msgid "_Edit"
-msgstr "編集"
+msgstr "編集(_E)"
 
 #: ../iw/partition_gui.py:1367 ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
@@ -2248,43 +2190,37 @@ msgid "_Reset"
 msgstr "リセット(_R)"
 
 #: ../iw/partition_gui.py:1369
-#, fuzzy
 msgid "Make _RAID"
-msgstr "使用済の RAID デバイスです"
+msgstr "RAID 作成(_R)"
 
 #: ../iw/partition_gui.py:1384
-#, fuzzy
 msgid "Start"
-msgstr "状態"
+msgstr "開始"
 
 #: ../iw/partition_gui.py:1384
 msgid "End"
-msgstr ""
+msgstr "終了"
 
 #: ../iw/partition_gui.py:1385
-#, fuzzy
 msgid "Format"
-msgstr "フォーマット中"
+msgstr "フォーマット"
 
 #: ../iw/partition_gui.py:1431 ../textw/partition_text.py:974
 msgid "Automatic Partitioning"
 msgstr "自動パーティション設定"
 
 #: ../iw/partition_gui.py:1450
-#, fuzzy
 msgid ""
 "You need to select at least one drive to have Red Hat Linux installed onto."
-msgstr "インストールする言語は少なくとも一つ選択しなければなりません"
+msgstr "インストールするドライブは少なくとも一つ選択しなければなりません"
 
 #: ../iw/partition_gui.py:1489
-#, fuzzy
 msgid "I want to have automatic partitioning:"
-msgstr "自動パーティション設定"
+msgstr "自動パーティション設定するドライブ:"
 
 #: ../iw/partition_gui.py:1520 ../textw/partition_text.py:997
-#, fuzzy
 msgid "Which drive(s) do you want to use for this installation?"
-msgstr "ブートローダーのインストール場所を指定して下さい"
+msgstr "このインストール方法をどのドライブに使用しますか?"
 
 #: ../iw/partition_gui.py:1537
 msgid ""
@@ -2292,9 +2228,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
-#, fuzzy
 msgid "Disk Partitioning Setup"
-msgstr "パーティション"
+msgstr "ディスクパーティション設定"
 
 #: ../iw/partmethod_gui.py:59
 msgid "Have the installer automatically partition for you"
@@ -2410,9 +2345,8 @@ msgid "UTC Offset"
 msgstr "UTC オフセット"
 
 #: ../iw/upgrade_migratefs_gui.py:29 ../textw/upgrade_text.py:30
-#, fuzzy
 msgid "Migrate Filesystems"
-msgstr "未検査ファイルシステム"
+msgstr "ファイルシステムを移動"
 
 #: ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 msgid ""
@@ -2592,9 +2526,8 @@ msgid "DDC Probed Monitor"
 msgstr "DDC 検出モニター"
 
 #: ../iw/xconfig_gui.py:571
-#, fuzzy
 msgid "Unprobed Monitor"
-msgstr "DDC 検出モニター"
+msgstr "モニター未検出"
 
 #: ../iw/xconfig_gui.py:618 ../iw/xconfig_gui.py:953
 msgid "Restore original values"
@@ -2618,9 +2551,8 @@ msgstr "Hz"
 
 # ../comps/comps-master:363
 #: ../iw/xconfig_gui.py:655
-#, fuzzy
 msgid "Graphical Interface (X) Configuration"
-msgstr "グラフィック操作"
+msgstr "グラフィカルインターフェース(X)の設定"
 
 #: ../iw/xconfig_gui.py:807
 msgid ""
@@ -2639,19 +2571,15 @@ msgstr ""
 "判断できます。"
 
 #: ../iw/xconfig_gui.py:821
-#, fuzzy
 msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
-msgstr ""
-"検出された設定がハードウェアに適さない場合には次から正しい設定を選択して下さ"
-"い"
+msgstr "検出された設定がハードウェアに適さない場合には次から適切なハードウェアを選択して下さい:"
 
 # ../comps/comps-master:146
 #: ../iw/xconfig_gui.py:848
-#, fuzzy
 msgid "Other"
-msgstr "他のポート"
+msgstr "その他"
 
 #: ../iw/xconfig_gui.py:931
 msgid "Video card RAM: "
@@ -2687,27 +2615,24 @@ msgid "Boot Disk"
 msgstr "ブートディスク"
 
 #: ../textw/bootloader_text.py:29
-#, fuzzy
 msgid "Which boot loader would you like to use?"
-msgstr "追加するデバイスを選択して下さい"
+msgstr "使用するブートローダを選択して下さい"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "GRUB を使用"
 
 #: ../textw/bootloader_text.py:46
 msgid "Use LILO Boot Loader"
-msgstr ""
+msgstr "LILO を使用"
 
 #: ../textw/bootloader_text.py:47
-#, fuzzy
 msgid "No Boot Loader"
-msgstr "ブートローダエラー"
+msgstr "ブートローダを使用しない"
 
 #: ../textw/bootloader_text.py:66
-#, fuzzy
 msgid "Skip Boot Loader"
-msgstr "ブートローダエラー"
+msgstr "ブートローダ(設定)をスキップ"
 
 #: ../textw/bootloader_text.py:67
 #, fuzzy
@@ -2738,7 +2663,6 @@ msgstr ""
 "白にしておいて下さい。"
 
 #: ../textw/bootloader_text.py:164
-#, fuzzy
 msgid "Where do you want to install the boot loader?"
 msgstr "ブートローダーのインストール場所を指定して下さい"
 
@@ -2774,24 +2698,20 @@ msgstr ""
 "用するブートラベルを設定して下さい"
 
 #: ../textw/bootloader_text.py:372
-#, fuzzy
 msgid "Use a GRUB Password"
-msgstr "シャドウパスワードを使用"
+msgstr "GRUBパスワードを使用"
 
 #: ../textw/bootloader_text.py:384
-#, fuzzy
 msgid "Boot Loader Password:"
-msgstr "root パスワード: "
+msgstr "ブートローダパスワード: "
 
 #: ../textw/bootloader_text.py:414
-#, fuzzy
 msgid "Passwords Do Not Match"
-msgstr "root パスワードが一致していません"
+msgstr "パスワードが一致していません"
 
 #: ../textw/bootloader_text.py:415
-#, fuzzy
 msgid "Passwords do not match"
-msgstr "root パスワードが一致していません"
+msgstr "パスワードが一致していません"
 
 #: ../textw/complete_text.py:25
 msgid "<Return> to reboot"
@@ -2820,9 +2740,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "<Return> to continue"
-msgstr "再起動するには <Return> を押して下さい"
+msgstr "続けるには <Return> を押して下さい"
 
 #: ../textw/complete_text.py:51
 msgid ""
@@ -2874,7 +2793,6 @@ msgid "Upgrade to begin"
 msgstr "アップデートの開始"
 
 #: ../textw/fdisk_text.py:39
-#, fuzzy
 msgid "Choose a disk to run fdisk on"
 msgstr "fdisk を実行するドライブを選択して下さい"
 
@@ -2993,9 +2911,8 @@ msgid "Default Language"
 msgstr "標準の言語"
 
 #: ../textw/language_text.py:182
-#, fuzzy
 msgid "Choose the default language for this system: "
-msgstr "標準の言語を選択して下さい"
+msgstr "標準の言語を選択して下さい: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
@@ -3097,14 +3014,13 @@ msgstr ""
 "を選択すると必要なパッケージもインストールします"
 
 #: ../textw/partition_text.py:151
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s"
-msgstr "警告:  "
+msgstr "警告: %s "
 
 #: ../textw/partition_text.py:295
-#, fuzzy
 msgid "Fixed Size:"
-msgstr "容量が不適当です"
+msgstr "固定容量:"
 
 #: ../textw/partition_text.py:297
 msgid "Fill maximum size of (MB):"
@@ -3116,12 +3032,11 @@ msgstr ""
 
 #: ../textw/partition_text.py:397
 msgid "Number of spares?"
-msgstr ""
+msgstr "いくつのスペアを使いますか?"
 
 #: ../textw/partition_text.py:415 ../textw/partition_text.py:612
-#, fuzzy
 msgid "Filesystem Options"
-msgstr "ファイルシステムをフォーマット中"
+msgstr "ファイルシステムオプション"
 
 #: ../textw/partition_text.py:418
 #, fuzzy
@@ -3134,81 +3049,68 @@ msgstr ""
 
 #: ../textw/partition_text.py:435
 msgid "Format as:"
-msgstr ""
+msgstr "ファイルシステムタイプ:"
 
 #: ../textw/partition_text.py:454
 msgid "Migrate to:"
-msgstr ""
+msgstr "移動先:"
 
 #: ../textw/partition_text.py:583
-#, fuzzy
 msgid "Filesystem Label:"
-msgstr "ルートファイルシステム容量"
+msgstr "ファイルシステムラベル:"
 
 #: ../textw/partition_text.py:594
-#, fuzzy
 msgid "Filesystem Option:"
-msgstr "ルートファイルシステム容量"
+msgstr "ファイルシステムオプション:"
 
 #: ../textw/partition_text.py:620
 #, c-format
 msgid "Format as %s"
-msgstr ""
+msgstr "%s でフォーマット"
 
 #: ../textw/partition_text.py:622
 #, c-format
 msgid "Migrate to %s"
-msgstr ""
+msgstr "%s へ移動"
 
 #: ../textw/partition_text.py:624
-#, fuzzy
 msgid "Leave unchanged"
-msgstr "変更内容を保存"
+msgstr "変更内容を破棄"
 
 #: ../textw/partition_text.py:812
-#, fuzzy
 msgid "Too many spares"
-msgstr "ドライブ数が多過ぎます"
+msgstr "スペア数が多過ぎます"
 
 #: ../textw/partition_text.py:813
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "RAID0 アレイでの最大スペア数は 0 です"
 
 #: ../textw/partition_text.py:895
-#, fuzzy
 msgid "Partitioning"
-msgstr "パーティション"
+msgstr "パーティション設定"
 
 #: ../textw/partition_text.py:905
 msgid "New"
-msgstr "クリア"
+msgstr "新規"
 
 #: ../textw/partition_text.py:905
-#, fuzzy
 msgid "RAID"
-msgstr "<RAID>"
+msgstr "RAID"
 
 #: ../textw/partition_text.py:908
-#, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr ""
-"    <F1> - ヘルプ   <F2> - 追加    <F3> - 編集   <F4> - 削除  <F5> - リセッ"
-"ト  <F12> - OK        "
+msgstr "    <F1> - ヘルプ   <F2> - 新規    <F3> - 編集   <F4> - 削除  <F5> - リセット  <F12> - OK        "
 
 #: ../libfdisk/newtfsedit.c:1613 ../textw/partition_text.py:935
 msgid "No Root Partition"
 msgstr "ルートパーティションがありません"
 
 #: ../textw/partition_text.py:936
-#, fuzzy
 msgid "Must have a / partition to install on."
-msgstr ""
-"インストールを続行するためにはスワップパーティションを割り当てなければなりま"
-"せん。"
+msgstr "インストールするには / パーティションが必要です"
 
 #: ../textw/partmethod_text.py:26
-#, fuzzy
 msgid "Autopartitioning"
 msgstr "自動パーティション設定"
 
@@ -3536,32 +3438,28 @@ msgstr ""
 "設定内容を変更せずに終了する場合は下の[取り消し]ボタンを選択して下さい"
 
 #: ../textw/xconfig_text.py:22
-#, fuzzy
 msgid "Color Depth"
-msgstr "色深度:"
+msgstr "色深度"
 
 #: ../textw/xconfig_text.py:23
 msgid "Please select the color depth you would like to use:"
-msgstr ""
+msgstr "使用する色深度を選択して下さい:"
 
 #: ../textw/xconfig_text.py:41
-#, fuzzy
 msgid "Resolution"
-msgstr "画面の解像度:"
+msgstr "解像度"
 
 #: ../textw/xconfig_text.py:42
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "使用する解像度を選択して下さい:"
 
 #: ../textw/xconfig_text.py:155 ../textw/xconfig_text.py:164
-#, fuzzy
 msgid "Test"
 msgstr "テキスト"
 
 #: ../textw/xconfig_text.py:158
-#, fuzzy
 msgid "X Customization"
-msgstr "X の設定"
+msgstr "X 設定のカスタマイズ"
 
 #: ../textw/xconfig_text.py:161
 #, c-format
@@ -3573,32 +3471,28 @@ msgstr ""
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:178
 #: ../textw/xconfig_text.py:387 ../textw/xconfig_text.py:398
 #: ../textw/xconfig_text.py:569 ../textw/xconfig_text.py:576
-#, fuzzy
 msgid "Change"
-msgstr "CD-ROM変更"
+msgstr "変更"
 
 #: ../textw/xconfig_text.py:174
-#, fuzzy
 msgid "Resolution:"
-msgstr "画面の解像度:"
+msgstr "解像度:"
 
 #: ../textw/xconfig_text.py:184
 msgid "Default Desktop:"
 msgstr "デフォルトのデスクトップ:"
 
 #: ../textw/xconfig_text.py:204
-#, fuzzy
 msgid "Default Login:"
-msgstr "標準の言語"
+msgstr "標準ログイン:"
 
 #: ../textw/xconfig_text.py:256
-#, fuzzy
 msgid "Please select the monitor attached to your system."
-msgstr "ルートファイルシステムを含むデバイスを選択して下さい"
+msgstr "システムのモニターを選択して下さい"
 
 #: ../textw/xconfig_text.py:273
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "モニター同期レート"
 
 #: ../textw/xconfig_text.py:278
 msgid ""
@@ -3610,26 +3504,23 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:283
 msgid "HSync Rate: "
-msgstr ""
+msgstr "水平同期レート: "
 
 #: ../textw/xconfig_text.py:288
 msgid "VSync Rate: "
-msgstr ""
+msgstr "垂直同期レート: "
 
 #: ../textw/xconfig_text.py:312
-#, fuzzy
 msgid "horizontal"
-msgstr "水平同期"
+msgstr "水平"
 
 #: ../textw/xconfig_text.py:315
-#, fuzzy
 msgid "vertical"
-msgstr "垂直同期"
+msgstr "垂直"
 
 #: ../textw/xconfig_text.py:324
-#, fuzzy
 msgid "Invalid Sync Rates"
-msgstr "不正な選択"
+msgstr "不適切な同期レート"
 
 #: ../textw/xconfig_text.py:325
 #, c-format
@@ -3653,17 +3544,16 @@ msgid ""
 msgstr ""
 
 #: ../textw/xconfig_text.py:383
-#, fuzzy
 msgid "Monitor:"
-msgstr "モニター"
+msgstr "モニター:"
 
 #: ../textw/xconfig_text.py:390
 msgid "HSync Rate:"
-msgstr ""
+msgstr "水平同期レート:"
 
 #: ../textw/xconfig_text.py:400
 msgid "VSync Rate:"
-msgstr ""
+msgstr "垂直同期レート:"
 
 #: ../textw/xconfig_text.py:470
 #, c-format
@@ -3673,7 +3563,6 @@ msgid ""
 msgstr ""
 
 #: ../textw/xconfig_text.py:488
-#, fuzzy
 msgid "Video RAM"
 msgstr "ビデオメモリ"
 
@@ -3685,33 +3574,28 @@ msgid ""
 msgstr ""
 
 #: ../textw/xconfig_text.py:553
-#, fuzzy
 msgid "Video Card Configuration"
-msgstr "キーボードの設定"
+msgstr "ビデオカードの設定"
 
 #: ../textw/xconfig_text.py:556
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "システムのビデオカードとビデオメモリ容量を選択して下さい"
 
 #: ../textw/xconfig_text.py:559
-#, fuzzy
 msgid "Video Card:"
-msgstr "ビデオカード"
+msgstr "ビデオカード:"
 
 #: ../textw/xconfig_text.py:564
-#, fuzzy
 msgid "Unknown card"
-msgstr "不明"
+msgstr "不明なカード"
 
 #: ../textw/xconfig_text.py:572
-#, fuzzy
 msgid "Video RAM:"
-msgstr "ビデオカード RAM:"
+msgstr "ビデオメモリ容量:"
 
 #: ../textw/xconfig_text.py:592
-#, fuzzy
 msgid "Unspecified video card"
-msgstr "ビデオカードを検出できません"
+msgstr "ビデオカード未指定"
 
 #: ../textw/xconfig_text.py:593
 msgid ""
@@ -3721,9 +3605,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/custom.py:12
-#, fuzzy
 msgid "Custom"
-msgstr "カスタマイズ"
+msgstr "カスタム"
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -3735,9 +3618,8 @@ msgid "Server"
 msgstr "サーバ"
 
 #: ../installclasses/upgradeclass.py:8
-#, fuzzy
 msgid "Upgrade Existing System"
-msgstr "システムのアップグレード"
+msgstr "既存システムのアップグレード"
 
 #: ../installclasses/upgradeclass.py:12
 msgid "Upgrade"
@@ -6121,718 +6003,3 @@ msgstr "トルコ語"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ウクライナ語"
-
-#, fuzzy
-#~ msgid "Make Raid Device"
-#~ msgstr "使用済の RAID デバイスです"
-
-#, fuzzy
-#~ msgid "Could not allocated requested partitions: %s."
-#~ msgstr "未割当のパーティションが存在します..."
-
-# ../comps/comps-master:531
-#, fuzzy
-#~ msgid "Samba Server:"
-#~ msgstr "SMB (Samba) サーバ"
-
-#, fuzzy
-#~ msgid "GRUB Password"
-#~ msgstr "root パスワード"
-
-#, fuzzy
-#~ msgid "Bootloader Password: "
-#~ msgstr "root パスワード: "
-
-#, fuzzy
-#~ msgid "Set Password"
-#~ msgstr "root パスワード"
-
-#~ msgid ""
-#~ "An internal error occurred in the installation program. Please report "
-#~ "this error to Red Hat (through the bugzilla.redhat.com web site) as soon "
-#~ "as possible. The information on this failure may be saved to a floppy "
-#~ "disk, and will help Red Hat in fixing the problem.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "インストールプログラムで内部エラー発生。できるだけ早くこのエラーを Red "
-#~ "Hat までお知らせ下さい (Web サイト bugzilla.redhat.com をご利用下さい)。こ"
-#~ "のエラーに関する情報をフロッピーディスクに保存していただければ Red Hat が"
-#~ "問題を解決する上で参考になります。\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "Filesystem Missing"
-#~ msgstr "ファイルシステムをフォーマット中"
-
-#, fuzzy
-#~ msgid "You cannot edit partitions without a filesystem type."
-#~ msgstr ""
-#~ "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
-
-#, fuzzy
-#~ msgid "All Packages"
-#~ msgstr "パッケージ"
-
-#, fuzzy
-#~ msgid "Navigation"
-#~ msgstr "パーティション"
-
-#, fuzzy
-#~ msgid "Please enter a password for the root user."
-#~ msgstr "root パスワードを入力して下さい"
-
-#~ msgid ""
-#~ "Please remove the install floppy (if used) and insert a blank floppy in "
-#~ "the first floppy drive. All data on this disk will be erased during "
-#~ "creation of the boot disk."
-#~ msgstr ""
-#~ "インストール用フロッピーが挿入されている場合は取り出して空のフロッピーをプ"
-#~ "ライマリフロッピードライブに挿入して下さい。このディスク上のデータはブート"
-#~ "ディスクの作成中にすべて消去されます。"
-
-#~ msgid ""
-#~ "Congratulations, installation is complete.\n"
-#~ "\n"
-#~ "Press return to reboot, and be sure to remove your boot medium after the "
-#~ "system reboots, or your system will rerun the install. For information on "
-#~ "fixes which are available for this release of Red Hat Linux, consult the "
-#~ "Errata available from http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the Red Hat Linux manuals."
-#~ msgstr ""
-#~ "インストールが完了しました\n"
-#~ "\n"
-#~ "[Return] キーを押すとシステムが再起動します。再起動時にブートメディアを取"
-#~ "り除いておかないともう一度インストールが開始されますのでご注意下さい。本リ"
-#~ "リースの Red Hat Linux 修正情報については http://www.redhat.com/errata を"
-#~ "参照して下さい\n"
-#~ "\n"
-#~ "Red Hat Linux の設定と使用方法に関しては Red Hat Linux のマニュアルを参照"
-#~ "して下さい"
-
-#~ msgid "Install Type"
-#~ msgstr "インストールの種類"
-
-#~ msgid "Choose the languages to install:"
-#~ msgstr "インストールする言語を選択して下さい"
-
-#, fuzzy
-#~ msgid "You must first select an existing partition or free space to edit."
-#~ msgstr ""
-#~ "インストールを続行するためにはスワップパーティションを割り当てなければなり"
-#~ "ません。"
-
-#, fuzzy
-#~ msgid "Automatic Disk Setup"
-#~ msgstr "ディスクの設定"
-
-#, fuzzy
-#~ msgid ""
-#~ "Autopartitioning sets up your partitioning in a reasonable way depending "
-#~ "on your installation type and then gives you a chance to customize this "
-#~ "setup.\n"
-#~ "\n"
-#~ "Disk Druid is a tool designed for partitioning and setting up mount "
-#~ "points.  It is designed to be easier to use than Linux's traditional disk "
-#~ "partitioning software, fdisk, as well as more powerful.  However, there "
-#~ "are some cases where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid は、パーティションとマウントポイントの設定を行うためのツールで"
-#~ "す。Disk Druid は、Linux の伝統的なパーティション設定ソフトウェアである"
-#~ "fdisk よりも使いやすく、強力です。ただし、fdisk を使用した方が良い場合もあ"
-#~ "ります。\n"
-#~ "\n"
-#~ "どちらを使用しますか?"
-
-#~ msgid "X Configuration"
-#~ msgstr "X の設定"
-
-#~ msgid ""
-#~ "\n"
-#~ "On SMCC made Ultra machines floppy booting probably does not work\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "SMCC 製の Ultra マシンではフロッピーからのブートに失敗する可能性がありま"
-#~ "す\n"
-#~ "\n"
-
-#~ msgid "Bootdisk"
-#~ msgstr "ブートディスク"
-
-#~ msgid ""
-#~ "If you have the install floppy in your drive, first remove it. Then "
-#~ "insert a blank floppy in the first floppy drive. All data on this disk "
-#~ "will be erased during creation of the boot disk."
-#~ msgstr ""
-#~ "ドライブ内にインストールフロッピーが入っている場合には、最初に取り出して下"
-#~ "さい。次に、空のフロッピーディスクをプライマリフロッピードライブに挿入して"
-#~ "下さい。このディスク上のデータは、ブートディスクの作成中にすべて消去されま"
-#~ "す。"
-
-#~ msgid "Choose the languages to be installed:"
-#~ msgstr "インストールする言語を選択して下さい"
-
-#~ msgid "Choose the default language: "
-#~ msgstr "標準の言語を選択して下さい: "
-
-#, fuzzy
-#~ msgid "Add partition"
-#~ msgstr "ルートパーティション"
-
-#, fuzzy
-#~ msgid "Not a Partition"
-#~ msgstr "スワップパーティションがありません"
-
-#, fuzzy
-#~ msgid "You cannot remove this partition as it is part of a RAID device"
-#~ msgstr ""
-#~ "RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/"
-#~ "\" を非 RAID デバイスに切り替えて下さい。"
-
-#, fuzzy
-#~ msgid "Remove no partitions"
-#~ msgstr "Linux パーティションを削除"
-
-#~ msgid "Custom System"
-#~ msgstr "カスタムシステム"
-
-#~ msgid "Server System"
-#~ msgstr "サーバシステム"
-
-#~ msgid ""
-#~ "The following partitions are newly created, but you have chosen not to "
-#~ "format them. This will probably cause an error later in the install.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "次のパーティションを新規につくりましたが、まだフォーマットするように選択し"
-#~ "ていません。インストールの際にエラーを引き起こす可能性があります\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Press OK to continue, or Cancel to go back and select these partitions to "
-#~ "be formatted (RECOMMENDED)."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "続けるには[OK]を押して下さい。しかし[キャンセル] を押して戻ってこれらの"
-#~ "パーティションをフォーマットするように選択することをお勧めします"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
-#~ "now and press \"Ok\" to reboot your system.\n"
-#~ msgstr ""
-#~ "カーネルが新規パーティション情報を読み込むことができません。おそらく拡張"
-#~ "パーティションが修正されたためです。重大な問題ではありませんが、手順を進め"
-#~ "る前にマシンを再起動しなければなりません。Red Hat 起動ディスクを挿入し、"
-#~ "\"OK\" を押してシステムを再起動して下さい。\n"
-
-#~ msgid "Swap Space"
-#~ msgstr "スワップ領域"
-
-#~ msgid "Creating swap space..."
-#~ msgstr "スワップ領域を生成中..."
-
-#~ msgid "Formatting swap space..."
-#~ msgstr "スワップ領域をフォーマット中..."
-
-#~ msgid "Error creating swap on device "
-#~ msgstr "デバイス上にスワップ領域を作成中にエラーが発生しました "
-
-#~ msgid "Error unmounting %s: %s"
-#~ msgstr "%s のマウント解除の際にエラーが発生しました: %s"
-
-#~ msgid "Creating RAID devices..."
-#~ msgstr "RAID デバイスの作成中..."
-
-#~ msgid "Loopback"
-#~ msgstr "ループバック"
-
-#~ msgid "Creating loopback filesystem on device /dev/%s..."
-#~ msgstr "デバイス/dev/%s上にループバックファイルシステムを作成中..."
-
-#~ msgid "Finish"
-#~ msgstr "完了"
-
-#~ msgid "Red Hat Linux Install Shell"
-#~ msgstr "Red Hat Linux インストールシェル"
-
-#~ msgid "Red Hat Linux Install Shell on %s"
-#~ msgstr "%s 上の Red Hat Linux インストールシェル"
-
-#~ msgid "WARNING: no valid block devices were found.\n"
-#~ msgstr "警告: 適切なブロックデバイスがみつかりませんでした\n"
-
-#~ msgid "ERROR: unknown error encountered reading partition tables.\n"
-#~ msgstr "エラー: パーティションテーブル読み込む中に予期せぬエラー発生\n"
-
-#~ msgid "Upgrade Existing Installation"
-#~ msgstr "既存システムのアップグレード"
-
-#~ msgid "X probe results"
-#~ msgstr "X 検出結果"
-
-#~ msgid "Unlisted Card"
-#~ msgstr "不明なビデオカード"
-
-#~ msgid "Video Card Selection"
-#~ msgstr "ビデオカードの選択"
-
-#~ msgid "Which video card do you have?"
-#~ msgstr "お使いのビデオカードを選択して下さい"
-
-#~ msgid "X Server Selection"
-#~ msgstr "X サーバの選択"
-
-#~ msgid "Choose a server"
-#~ msgstr "サーバを選択して下さい"
-
-#~ msgid " "
-#~ msgstr " "
-
-#~ msgid "Hostname Setup"
-#~ msgstr "ホスト名の設定"
-
-#~ msgid "Language Default"
-#~ msgstr "標準言語"
-
-#~ msgid "Time Zone Setup"
-#~ msgstr "タイムゾーンの設定"
-
-#~ msgid "Configuration Complete"
-#~ msgstr "設定完了"
-
-#~ msgid "LILO Configuration"
-#~ msgstr "LILO の設定"
-
-#~ msgid "Automatic Partition"
-#~ msgstr "自動パーティション設定"
-
-#~ msgid "Manually Partition"
-#~ msgstr "手動パーティション設定"
-
-#~ msgid "Swap"
-#~ msgstr "スワップ"
-
-#~ msgid "Package Groups"
-#~ msgstr "パッケージグループ"
-
-#~ msgid "Individual Packages"
-#~ msgstr "個別パッケージ"
-
-#~ msgid "Installation Begins"
-#~ msgstr "インストールの開始"
-
-#~ msgid "Installation Complete"
-#~ msgstr "インストール完了"
-
-#~ msgid "Examine System"
-#~ msgstr "システムのテスト"
-
-#~ msgid "System Swap Space"
-#~ msgstr "システムスワップ領域"
-
-#~ msgid "Customize Upgrade"
-#~ msgstr "アップグレードのカスタマイズ"
-
-#~ msgid "Upgrade Begins"
-#~ msgstr "アップグレードの開始"
-
-#~ msgid "Upgrade Complete"
-#~ msgstr "アップグレード完了"
-
-#~ msgid ""
-#~ "An error occured while installing the bootloader.\n"
-#~ "\n"
-#~ "We HIGHLY recommend you make a recovery boot floppy when prompted, "
-#~ "otherwise you may not be able to reboot into Red Hat Linux.\n"
-#~ "\n"
-#~ "The error reported was:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ブートローダをインストール中にエラー発生\n"
-#~ "\n"
-#~ "後で尋ねられたときに復旧用ブートディスクをつくることを強く推奨します。そう"
-#~ "しないと Red Hat Linux を起動できません。\n"
-#~ "\n"
-#~ "エラー報告:\n"
-#~ "\n"
-
-#~ msgid "Plug and Play Monitor"
-#~ msgstr "プラグアンドプレイモニター"
-
-#~ msgid "Horizontal frequency range"
-#~ msgstr "水平周波数の範囲"
-
-#~ msgid "Vertical frequency range"
-#~ msgstr "垂直周波数の範囲"
-
-#~ msgid "Probing for mouse type..."
-#~ msgstr "マウスタイプを検出中..."
-
-#~ msgid "Aborting upgrade"
-#~ msgstr "アップグレード中止"
-
-#~ msgid "Check for bad blocks while formatting"
-#~ msgstr "フォーマット中に不良ブロックをチェック"
-
-#~ msgid "Lilo Configuration"
-#~ msgstr "LILO の設定"
-
-#~ msgid "Use linear mode (needed for some SCSI drives)"
-#~ msgstr "リニアモードを使用する (一部の SCSI ドライブで必要)"
-
-#~ msgid "Install LILO"
-#~ msgstr "LILO をインストール"
-
-#~ msgid ""
-#~ "The following error occurred while retreiving hdlist file:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Installer will exit now."
-#~ msgstr ""
-#~ "hdlist ファイルの読み出し中に次のエラーが発生:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "すぐにインストーラを終了します"
-
-#~ msgid ""
-#~ "An error has occurred while retreiving the hdlist file.  The installation "
-#~ "media or image is probably corrupt.  Installer will exit now."
-#~ msgstr ""
-#~ "hdlist ファイルの読み出し中にエラー発生。おそらくインストールメディアまた"
-#~ "はインストールイメージが壊れています。すぐにインストーラを終了します"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Press OK to proceed, or Cancel to go back and reassign the boot partition."
-#~ msgstr ""
-#~ "カーネルイメージを含むパーティション(ブートパーティション)が 1024 シリンダ"
-#~ "制限を超えた場所に設定されました。しかし、このシステムの BIOS はこの制限を"
-#~ "超えた場所からの起動をサポートしていないようです。そのまま先に進んでもたい"
-#~ "ていの場合はシステムが再起動した後に Linux が起動できなくなります。\n"
-#~ "\n"
-#~ "先に進むならば後で尋ねられたときに起動フロッピーを作成することを強く推奨し"
-#~ "ます。そうするとインストール後にシステムを起動することができます。\n"
-#~ "\n"
-#~ "先に進むには[OK]を押して下さい。前に戻ってブートパーティションの再設定を行"
-#~ "うには[取り消し]を押して下さい"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit. It appears that this systems BIOS supports "
-#~ "booting from above this limit. \n"
-#~ "\n"
-#~ "It is HIGHLY recommended you make a boot floppy when asked by the "
-#~ "installer, as this is a new feature in recent motherboards and is not "
-#~ "always reliable. Making a boot disk will guarantee you can boot your "
-#~ "system once installed."
-#~ msgstr ""
-#~ "カーネルイメージを含むパーティション(ブートパーティション)が1023 シリンダ"
-#~ "制限を超えた場所に設定されました。このシステムの BIOS はこの制限を超えた場"
-#~ "所からの起動をサポートしていないようです。\n"
-#~ "\n"
-#~ "後で尋ねられたときに起動フロッピーを作成することを強く推奨します。これは最"
-#~ "近のマザーボードの新機能であり必ずしも信頼できないためです。起動ディスクを"
-#~ "作成することでインストール後にシステムを起動できることが保証されます。"
-
-#~ msgid ""
-#~ "You've chosen to put your root filesystem in a file on an already-"
-#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
-#~ "you like the root filesystem to be, and how much swap space would you "
-#~ "like? They must total less then %d megabytes in size."
-#~ msgstr ""
-#~ "既存の DOS または Windows ファイルシステム上のファイルにルートファイルシス"
-#~ "テムを挿入するように選択されました。ルートファイルシステムおよびスワップ領"
-#~ "域の容量をメガバイト単位で指定して下さい。合計 %d メガバイト未満になるよう"
-#~ "にして下さい"
-
-#~ msgid "Root filesystem size:"
-#~ msgstr "ルートファイルシステム容量:"
-
-#~ msgid "Swap space size:"
-#~ msgstr "スワップ領域容量:"
-
-#~ msgid ""
-#~ "Please select the type of disk partitioning you would like to use.\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Selecting manual partitioning allows you to create the partitions by hand."
-#~ msgstr ""
-#~ "希望のディスクパーティション設定方法を選択して下さい\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "手動パーティション設定では完全に自由に設定できます"
-
-#~ msgid "Automatic Partitioning Failed"
-#~ msgstr "パーティションの自動設定に失敗しました"
-
-#~ msgid ""
-#~ "\n"
-#~ "There is not sufficient disk space in order to automatically partition "
-#~ "your disk. You will need to manually partition your disks for Red Hat "
-#~ "Linux to install.\n"
-#~ "\n"
-#~ "Please choose the tool you would like to use to partition your system for "
-#~ "Red Hat Linux."
-#~ msgstr ""
-#~ "\n"
-#~ "ディスクの自動パーティション設定を行うのに十分なディスク容量がありません。"
-#~ "Red Hat Linux をインストールするには、ディスクのパーティションを手動で設定"
-#~ "する必要があります。.\n"
-#~ "\n"
-#~ "Red Hat Linuxをインストールするシステムのパーティションを設定するための"
-#~ "ツールを選択して下さい。"
-
-#~ msgid "Manual Partitioning"
-#~ msgstr "手動パーティション設定"
-
-#~ msgid "Automatically partition and REMOVE DATA"
-#~ msgstr "パーティションの自動設定を実行し、データを削除"
-
-#~ msgid "Boot Partition Location Warning"
-#~ msgstr "ブートパーティションの配置について警告"
-
-#~ msgid ""
-#~ "You have put the partition containing the kernel (the boot partition) "
-#~ "above the 1024 cylinder limit, and it appears that this systems BIOS does "
-#~ "not support booting from above this limit. Proceeding will most likely "
-#~ "make the system unable to reboot into Linux.\n"
-#~ "\n"
-#~ "If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
-#~ "when asked. This will guarantee you have a way to boot into the system "
-#~ "after installation.\n"
-#~ "\n"
-#~ "Are you sure you want to proceed?"
-#~ msgstr ""
-#~ "カーネルイメージを含むパーティション(ブートパーティション)が 1024 シリンダ"
-#~ "制限を超えた場所に設定されましたが、このシステムの BIOS はこの制限を超えた"
-#~ "場所からの起動をサポートしていないようです。そのまま先に進んでもたいていの"
-#~ "場合はシステムが再起動した後に Linux が起動できなくなります。\n"
-#~ "\n"
-#~ "先に進むならば、後で尋ねられたときに起動フロッピーを作成することを強く推奨"
-#~ "します。そうするとインストール後にシステムを起動が可能になります。\n"
-#~ "\n"
-#~ "先に進みますか?"
-
-#~ msgid "Bits per Pixel"
-#~ msgstr "1 ピクセルあたりのビット数"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "自動検出の結果"
-
-#~ msgid "Skip LILO"
-#~ msgstr "LILOをスキップ"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Red Hat Linux をインストールするためには、Linux 専用の 150 MB のパーティ"
-#~ "ションが少なくとも一つ必要です。そのパーティションを、システムの 2 つの"
-#~ "ハードディスクドライブのうち先頭ドライブ上に配置して、LILO によって Linux "
-#~ "をブートすることができるようにすることをお勧めします。"
-
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "If you don't want to do this, you can continue with this install by "
-#~ "partitioning manually, or you can go back and perform a fully customized "
-#~ "installation."
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "このようにしたくないなら手動でパーティション設定を行なってインストールする"
-#~ "ことができます。そうでなければ戻って完全にカスタマイズされたインストール方"
-#~ "法を実行することもできます。"
-
-#~ msgid "Manually partition"
-#~ msgstr "手動のパーティション設定"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting "
-#~ "all of the system partitions, including /, /usr, and /var. There is no "
-#~ "need to format /home or /usr/local if they have already been configured "
-#~ "during a previous install."
-#~ msgstr ""
-#~ "フォーマットするパーティションを選択して下さい。/、/usr、および /var を含"
-#~ "むすべてのシステムパーティションをフォーマットすることを強くお勧めします。"
-#~ "既に以前のインストール時に設定されている場合は /home または /usr/local を"
-#~ "フォーマットする必要はありません"
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "フォーマットするパーティションの選択"
-
-#~ msgid "Root filesystem size"
-#~ msgstr "ルートファイルシステムの容量"
-
-#~ msgid "Swap space"
-#~ msgstr "スワップ領域"
-
-#~ msgid "The size you enter must be a number."
-#~ msgstr "容量は数字で入力して下さい"
-
-#~ msgid ""
-#~ "The total size must be smaller then the amount of free space on the disk, "
-#~ "which is %d megabytes."
-#~ msgstr ""
-#~ "合計容量がディスクの空き領域より小さくなければいけません。空き領域は %d メ"
-#~ "ガバイトです"
-
-#~ msgid ""
-#~ "Neither the root file system size nor the swap space size may be greater "
-#~ "then 2000 megabytes."
-#~ msgstr ""
-#~ "/ファイルシステムおよびスワップ領域の容量は 2000 MByteを超えてはいけません"
-
-#~ msgid ""
-#~ "If you would like to exit the upgrade select Exit, or choose Ok to "
-#~ "continue with the upgrade."
-#~ msgstr ""
-#~ "アップグレードを中止したいなら[終了]を選択し、そうでなければ [OK] を押して"
-#~ "アップグレードを続行して下さい"
-
-#~ msgid ""
-#~ "Automatic partitioning will erase any preexisting Linux installations on "
-#~ "your system."
-#~ msgstr ""
-#~ "自動パーティション設定はシステムにインストールされた既存の Linux システム"
-#~ "を消去します"
-
-#~ msgid ""
-#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
-#~ "room for your Linux installation."
-#~ msgstr ""
-#~ "自動パーティション設定は Linux インストールに必要な領域を確保するために"
-#~ "ハードディスクの全データを消去します。"
-
-#~ msgid "Loading %s ramdisk..."
-#~ msgstr "ラムディスク%sを読み込み中..."
-
-#~ msgid "Error loading ramdisk."
-#~ msgstr "ラムディスク読み込み中にエラー発生"
-
-#~ msgid "Unable to retrieve the second install image"
-#~ msgstr "第 2 のインストールイメージを読み込むことができません"
-
-# ../comps/comps-master:323
-#~ msgid "Mail/WWW/News Tools"
-#~ msgstr "メール/WWW/ニュースツール"
-
-# ../comps/comps-master:352
-#~ msgid "DOS/Windows Connectivity"
-#~ msgstr "DOS/Windows 接続"
-
-# ../comps/comps-master:382
-#~ msgid "Games"
-#~ msgstr "ゲーム"
-
-# ../comps/comps-master:449
-#~ msgid "Networked Workstation"
-#~ msgstr "ネットワーク接続ワークステーション"
-
-# ../comps/comps-master:483
-#~ msgid "Dialup Workstation"
-#~ msgstr "ダイアルアップワークステーション"
-
-# ../comps/comps-master:538
-#~ msgid "IPX/Netware(tm) Connectivity"
-#~ msgstr "IPX/Netware(tm) 接続"
-
-# ../comps/comps-master:624
-#~ msgid "Development"
-#~ msgstr "開発"
-
-#, fuzzy
-#~ msgid "Borneo & Celebes"
-#~ msgstr "ボルネオ、セレベス"
-
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Red Hat Linux をアップグレード中 - パーティション /dev/"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "アップグレードするパーティション /dev/"
-
-#~ msgid "America/New_York"
-#~ msgstr "アメリカ/ニューヨーク"
-
-#~ msgid "label"
-#~ msgstr "ラベル"
-
-#~ msgid "Security level:"
-#~ msgstr "セキュリティレベル:"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<スワップパーティション"
-
-# ../comps/comps-master:307
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "IDE モジュールを初期化しています..."
-
-#~ msgid "Test this configuration"
-#~ msgstr "この設定をテストする"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "X 設定のカスタマイズ"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "%s のマウントでエラーが発生しました %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "LILO をインストールしない"
-
-#~ msgid "Up"
-#~ msgstr "上へ"
-
-#~ msgid "Name: "
-#~ msgstr "名前: "
-
-#~ msgid "Package Details"
-#~ msgstr "パッケージの詳細"
-
-#~ msgid "Size: "
-#~ msgstr "サイズ: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "インストールするパッケージを選択して下さい"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "パーティション設定の選択内容を確認して下さい"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Red Hat が使用するブートマネージャは、他のオペレーティングシステムの起動に"
-#~ "使用することもできます。ブート可能にするパーティションと、そのパーティショ"
-#~ "ン用に使用するブートラベルを設定して下さい。\n"
-#~ "\n"
-
-# ../comps/comps-master:570
-#, fuzzy
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "SQL サーバ"
