@@ -37,8 +37,7 @@ whiteout="""
         perl>perl-Filter                \
         coreutils>pam                   \
         perl>mrtg                       \
-        perl-Dat3-Calc>perl-Bit-Vector  \
-        perl-Bit-Vector
+        perl-Date-Calc>perl-Bit-Vector  
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
