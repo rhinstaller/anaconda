@@ -1,5 +1,9 @@
 2004-11-30  Jeremy Katz  <katzj@redhat.com>
 
+	* image.py (findIsoImages): Skip ISOs which don't have a
+	product/RPMS dir to avoid some of the confusion if users put the
+	source ISOs in the same dir as the binary (#106017)
+
 	* network.py (Network.write): Write WEPKEY in
 	/etc/sysconfig/network-scripts/keys-$DEVNAME with mode 0600 (#140645)
 
