@@ -954,7 +954,7 @@ class PartitionWindow:
     def deleteCb(self):
         partition = self.lb.current()
 
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" \
+        if (iutil.getArch() == "s390" or iutil.getArch() == "s390x") \
            and not part.get_flag(parted.PARTITION_RAID) == 1:
             self.intf.messageWindow(_("Error"),
                                     _("DASD partitions can only be deleted with fdasd"))
