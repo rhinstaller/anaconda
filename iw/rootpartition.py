@@ -3,8 +3,10 @@ from iw import *
 from thread import *
 import isys
 from gui import _
+import gui
 from fdisk import *
 import isys
+import iutil
 
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
@@ -22,6 +24,7 @@ class ConfirmPartitionWindow (InstallWindow):
         return PartitionWindow
 
 class PartitionWindow (InstallWindow):
+    swapon = 0
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
@@ -30,6 +33,29 @@ class PartitionWindow (InstallWindow):
         ics.readHTML ("partition")
 	ics.setNextEnabled (FALSE)
 	self.skippedScreen = 0
+        self.swapon = 0
+
+    def checkSwap (self):
+        if PartitionWindow.swapon or (iutil.memInstalled() > 30000):
+	    return 1
+
+        threads_leave ()
+	message = gui.MessageWindow(_("Low Memory"),
+		   _("As you don't have much memory in this machine, we "
+		     "need to turn on swap space immediately. To do this "
+		     "we'll have to write your new partition table to the "
+		     "disk immediately. Is that okay?"), "okcancel")
+        threads_enter ()
+
+	if (message.getrc () == 1):
+	    return 0
+
+	self.todo.ddruid.save ()
+	self.todo.makeFilesystems (createFs = 0)
+	self.todo.ddruidAlreadySaved = 1
+	PartitionWindow.swapon = 1
+
+        return 1
 
     def getNext (self):
 	self.todo.ddruid.next ()
@@ -60,6 +86,9 @@ class PartitionWindow (InstallWindow):
 
 	liloBoot = None
 
+        if not self.checkSwap ():
+            return PartitionWindow
+
 	for (mount, device, type, raidType, other) in raid:
 	    self.todo.addMount(device, mount, type)
 
@@ -87,6 +116,8 @@ class PartitionWindow (InstallWindow):
 
 	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
+            if not self.checkSwap ():
+                return AutoPartitionWindow
 	    return None
 
         self.bin = GtkFrame (None, _obj = self.todo.ddruid.getWindow ())

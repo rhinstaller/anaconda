@@ -112,39 +112,34 @@ class GtkMainThread (Thread):
         threads_leave ()
 
 class MessageWindow:
-    def quit (self, *args):
-        if self.quitmain:
-            mainquit ()
-        else:
-            self.window.destroy ()
+    def quit (self, dialog, button):
+        self.rc = button
+        if self.mutex:
             self.mutex.set ()
+
+    def okcancelquit (self, button):
+        self.rc = button
+        if self.mutex:
+            self.mutex.set ()
+
+    def getrc (self):
+        return self.rc
     
-    def __init__ (self, title, text):
+    def __init__ (self, title, text, type = "ok"):
         threads_enter ()
-        self.window = GtkWindow (WINDOW_POPUP)
-        self.window.set_title (title)
-        self.window.set_position (WIN_POS_CENTER)
-        self.window.set_modal (TRUE)
-        box = GtkVBox (5, FALSE)
-        box.set_border_width (10)
-
-        label = GtkLabel (text)
+        if type == "ok":
+            self.window = GnomeOkDialog (text)
+            self.window.connect ("clicked", self.quit)
+        if type == "okcancel":
+            self.window = GnomeOkCancelDialog (text, self.okcancelquit)
+        # this is the pixmap + the label
+        hbox = self.window.vbox.children ()[0]
+        label = hbox.children ()[1]
         label.set_line_wrap (TRUE)
-        label.set_alignment (0.0, 0.5)
-        box.pack_start (label)
-
-        bb = GtkHButtonBox ()
-        ok = GnomeStockButton (STOCK_BUTTON_OK)
-        bb.pack_start (ok)
-        box.pack_end (bb, FALSE, TRUE)
-        ok.connect ("clicked", self.quit)
-
-        frame = GtkFrame ()
-        frame.set_shadow_type (SHADOW_OUT)
-        frame.add (box)
-        self.window.add (frame)
+        self.window.set_position (WIN_POS_CENTER)
+        
         self.window.show_all ()
-        gdk_flush ()
+
         threads_leave ()
 
         # there are two cases to cover here in order to be
@@ -158,12 +153,11 @@ class MessageWindow:
         #    by the clicked signal handler
         thread = currentThread ()
         if thread.getName () == "gtk_main":
-            self.quitmain = 1
+            self.mutex = None
             threads_enter ()
-            mainloop ()
+            self.rc = self.window.run ()
             threads_leave ()
         else:
-            self.quitmain = 0
             self.mutex = Event ()
             self.mutex.wait ()
     
