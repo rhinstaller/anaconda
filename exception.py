@@ -27,6 +27,7 @@ from flags import flags
 
 dumpHash = {}
 
+# XXX do length limits on obj dumps.
 def dumpClass(instance, fd, level=0):
     # protect from loops
     if not dumpHash.has_key(instance):
@@ -64,13 +65,24 @@ def dumpException(out, text, tb, dispatch):
     dispatch.id.hdList = None
     dispatch.id.comps = None
 
-#    dispatch.intf = None
-#    dispatch.dispatch = None
-
     # we don't need to know passwords
     dispatch.id.rootPassword = None
     dispatch.id.accounts = None
 
+#    dispatch.intf = None
+#    dispatch.dispatch = None
+
+    try:
+        if dispatch.id.xconfig and dispatch.id.xconfig.monitor:
+            dispatch.id.xconfig.monitor.monlist = None
+            dispatch.id.xconfig.monitor.monids = None
+        dispatch.id.langSupport.langNicks = None
+        dispatch.id.langSupport.langList = None
+        dispatch.id.langSupport.allSupportedLangs = None
+        dispatch.intf.icw.buff = None
+    except:
+        pass
+    
     try:
         out.write("\n\n")
         dumpClass(dispatch, out)
@@ -104,7 +116,7 @@ def handleException(dispatch, intf, (type, value, tb)):
 	    intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
 
-	device = id.floppyDevice
+	device = dispatch.id.floppyDevice
 	file = "/tmp/floppy"
         try:
             isys.makeDevInode(device, file)
