@@ -1697,7 +1697,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
-			     char ** ksDevice) {
+			     char ** ksDevice, char ** instClass) {
     int fd;
     char buf[500];
     int len;
@@ -1729,6 +1729,10 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "updates"))
 	    flags |= LOADER_FLAGS_UPDATES;
+        else if (!strcasecmp(argv[i], "upgrade"))
+	    *instClass = "upgradeonly";
+	else if (!strncasecmp(argv[i], "class=", 6))
+	    *instClass = argv[i] + 6;
         else if (!strcasecmp(argv[i], "isa"))
 	    flags |= LOADER_FLAGS_ISA;
         else if (!strcasecmp(argv[i], "mcheck"))
@@ -2100,6 +2104,7 @@ int main(int argc, char ** argv) {
     char * lang = NULL;
     char * keymap = NULL;
     char * kbdtype = NULL;
+    char * instClass = NULL;
     struct knownDevices kd;
     moduleInfoSet modInfo;
     char * where;
@@ -2163,7 +2168,8 @@ int main(int argc, char ** argv) {
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
 
-    flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice);
+    flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
+			      &instClass);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
@@ -2444,6 +2450,11 @@ int main(int argc, char ** argv) {
 	if (kbdtype) {
 	    *argptr++ = "--kbdtype";
 	    *argptr++ = kbdtype;
+	}
+
+	if (instClass) {
+	    *argptr++ = "--class";
+	    *argptr++ = instClass;
 	}
 
 #ifndef __ia64__
