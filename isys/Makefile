@@ -4,7 +4,7 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
 
-OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
+OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o isofs.o pdc.o
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
@@ -12,9 +12,16 @@ SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs
 PYMODULES = _isys.so
-SUBDIRS = modutils
+SUBDIRS = modutils gzlib
+DIET = diet
+
+DOBJECTS = $(patsubst %.o,%.do,$(OBJECTS) $(STATICOBJS))
 
 GENERATED = nfs_mountversion.h
+
+ifeq ($(ARCH),i386)
+DIETLIB=libisys-diet.a
+endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
@@ -29,10 +36,13 @@ endif
 
 everything: $(TARGET)
 
-all: subdirs $(PYMODULES) libisys.a
+all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
+
+%.do: %.c
+	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
@@ -41,6 +51,8 @@ _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
 
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
+
+libisys-diet.a: libisys-diet.a($(DOBJECTS))
 
 clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)

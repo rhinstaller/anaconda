@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include <zlib.h>
 #include <fcntl.h>
 #include <stdlib.h>
 #include <sys/utsname.h>
@@ -17,7 +16,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     char * file;
     char finalName[100];
     char * chptr;
-    gzFile fd;
+    int fd;
     int rc, rmObj = 0;
     int sparc64 = 0, i;
     char * ballPath = NULL;
@@ -55,7 +54,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	/* Try two balls on sparc64, one elsewhere */
 	for (i = 0; ; i++) {
 	    /* it might be having a ball */
-	    fd = gzopen(ballPath, "r");
+	    fd = gunzip_open(ballPath, 0);
 	    if (!fd) {
 		free(ballPath);
 		return 1;

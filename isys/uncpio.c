@@ -19,6 +19,7 @@
 #include <utime.h>
 
 #include "cpio.h"
+#include "gzlib/gzlib.h"
 
 #if MAJOR_IN_SYSMACROS 
 #include <sys/sysmacros.h>
@@ -86,7 +87,7 @@ struct cpioHeader {
 static inline off_t ourread(struct ourfd * thefd, void * buf, size_t size) {
     off_t i;
 
-    i = gzread(thefd->fd, buf, size);
+    i = gunzip_read(thefd->fd, buf, size);
     thefd->pos += i;
     
     return i;
@@ -109,8 +110,10 @@ static inline int padoutfd(struct ourfd * fd, size_t * where, int modulo) {
     amount = (modulo - *where % modulo) % modulo;
     *where += amount;
 
-    if (gzwrite(fd->fd, buf, amount) != amount)
+#if 0
+    if (gunzip_write(fd->fd, buf, amount) != amount)
 	return CPIOERR_WRITE_FAILED;
+#endif
 
     return 0;
 }
@@ -154,7 +157,8 @@ static int getNextHeader(struct ourfd * fd, struct cpioHeader * chPtr,
 
     if (strncmp(CPIO_CRC_MAGIC, physHeader.magic, strlen(CPIO_CRC_MAGIC)) &&
 	strncmp(CPIO_NEWC_MAGIC, physHeader.magic, strlen(CPIO_NEWC_MAGIC)))
-	return CPIOERR_BAD_MAGIC;
+	/*return CPIOERR_BAD_MAGIC;*/
+	abort();
 
     GET_NUM_FIELD(physHeader.inode, chPtr->inode);
     GET_NUM_FIELD(physHeader.mode, chPtr->mode);
@@ -700,18 +704,22 @@ static int copyFile(struct ourfd * inFd, struct ourfd * outFd,
 
     amount = strlen(chp->path) + 1;
     memcpy(pHdr->magic, CPIO_NEWC_MAGIC, sizeof(pHdr->magic));
-    gzwrite(outFd->fd, pHdr, PHYS_HDR_SIZE);
-    gzwrite(outFd->fd, chp->path, amount);
+#if 0
+    gunzip_write(outFd->fd, pHdr, PHYS_HDR_SIZE);
+    gunzip_write(outFd->fd, chp->path, amount);
+#endif
 
     outFd->pos += PHYS_HDR_SIZE + amount;
 
     padoutfd(outFd, &outFd->pos, 4);
 
+#if 0
     while (size) {
 	amount = ourread(inFd, buf, size > sizeof(buf) ? sizeof(buf) : size);
-	gzwrite(outFd->fd, buf, amount);
+	gunzip_write(outFd->fd, buf, amount);
 	size -= amount;
     }
+#endif
 
     outFd->pos += chp->size;
 
@@ -762,8 +770,10 @@ int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** patterns) {
     memcpy(pHeader.magic, CPIO_NEWC_MAGIC, sizeof(pHeader.magic));
     memcpy(pHeader.nlink, "00000001", 8);
     memcpy(pHeader.namesize, "0000000b", 8);
-    gzwrite(outFd.fd, &pHeader, PHYS_HDR_SIZE);
-    gzwrite(outFd.fd, "TRAILER!!!", 11);
+    #if 0
+    gunzip_write(outFd.fd, &pHeader, PHYS_HDR_SIZE);
+    gunzip_write(outFd.fd, "TRAILER!!!", 11);
+    #endif
 
     outFd.pos += PHYS_HDR_SIZE + 11;
 
