@@ -212,6 +212,7 @@ class InstallClass:
 	self.postInChroot = 0
 	self.fstab = []
 	self.earlySwapOn = 0
+        self.desktop = ""
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):
@@ -251,6 +252,7 @@ class GNOMEWorkstation(Workstation):
 
     def __init__(self):
 	Workstation.__init__(self)
+        self.desktop = "GNOME"
 	self.setGroups(["GNOME Workstation"])
 	self.addToSkipList("package-selection")
 
@@ -258,6 +260,7 @@ class KDEWorkstation(Workstation):
 
     def __init__(self):
 	Workstation.__init__(self)
+        self.desktop = "KDE"
 	self.setGroups(["KDE Workstation"])
 
 class Server(InstallClass):

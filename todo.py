@@ -177,14 +177,21 @@ class Password:
 
     def get (self):
         return self.crypt
-            
+
+class Desktop (SimpleConfigFile):
+    def __init__ (self):
+        SimpleConfigFile.__init__ (self)
+
+    def set (self, desktop):
+        self.info ['DESKTOP'] = desktop
+
 class Language (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
         self.langs = {
             "Czech"	 : "cs_CZ" ,
             "English"	 : "en_US" ,
-#            "French"	 : "fr_FR" ,
+            "French"	 : "fr_FR" ,
             "German"	 : "de_DE" ,
             "Hungarian"	 : "hu_HU" ,
             "Icelandic"	 : "is_IS" ,
@@ -197,7 +204,6 @@ class Language (SimpleConfigFile):
             "Slovak"	 : "sk_SK" ,
 	    "Slovenian"	 : "sl_SI" ,
             "Spanish"	 : "es_MX" ,
-#            "Russian"	 : "ru_SU" ,
             "Russian"	 : "ru_RU.KOI8-R" ,
             "Ukrainian"	 : "uk_UA" ,
             }
@@ -279,6 +285,7 @@ class ToDo:
             self.mouse = Mouse ()
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
+        self.desktop = Desktop ()
         self.ddruid = None
         self.ddruidReadOnly = 0
         self.drives = Drives ()
@@ -311,6 +318,13 @@ class ToDo:
 
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
+
+        if self.setupFilesystems:
+            try:
+                f = open("/dev/tty5")
+                f.close ()
+            except:
+                pass
 
     def setFdDevice(self):
 	if self.fdDevice:
@@ -665,6 +679,11 @@ class ToDo:
 	f.close()
 	self.mouse.makeLink(self.instPath)
 
+    def writeDesktop(self):
+	f = open(self.instPath + "/etc/sysconfig/desktop", "w")
+	f.write(str (self.desktop))
+	f.close()
+
     def writeKeyboard(self):
 	if self.serial: return
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
@@ -949,7 +968,7 @@ class ToDo:
         except:
             pass
         else:
-            out = open (self.instPath + "/etc/conf.modules", "w")
+            out = open (self.instPath + "/etc/conf.modules", "a")
             out.write (inf.read ())
 
     def verifyDeps (self):
@@ -1147,6 +1166,9 @@ class ToDo:
             instClass.addToSkipList("bootdisk")
             instClass.addToSkipList("lilo")
             instClass.addToSkipList("silo")
+
+        if todo.instClass.desktop:
+            todo.desktop.set (todo.instClass.desktop)
 
     def getSkipPartitioning(self):
 	return self.instClass.skipPartitioning
@@ -1452,6 +1474,7 @@ class ToDo:
             self.setupAuthentication ()
 	    self.createAccounts ()
 	    self.writeTimezone()
+            self.writeDesktop ()
 	    if (self.instClass.defaultRunlevel):
 		self.initlevel = self.instClass.defaultRunlevel
 		self.setDefaultRunlevel ()
