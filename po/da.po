@@ -2,12 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-21 00:00+01:00\n"
-"Last-Translator: KC and BL and KS and MH <dansk@klid.dk>\n"
-"Language-Team: Danish/Dansk <dansk@klid.dk>\n"
+"PO-Revision-Date: 2001-01-29 15:03GMT\n"
+"Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
+"Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.7.1\n"
 
 #: ../comps.py:460
 msgid "Everything"
@@ -48,7 +49,7 @@ msgstr ""
 "\n"
 "\n"
 "Tryk Ok for at fortsætte, eller Annullér for at gå tilbage og vælge "
-"formatering på disse partitioner(ANBEFALET)"
+"formatering på disse partitioner (ANBEFALET)"
 
 #: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
 msgid "Warning"
@@ -1401,18 +1402,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Vælg drev som 'fdisk' skal køres på"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Advarsel"
+msgstr "Advarsel: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s er ikke et gyldigt værtsnavn."
+msgstr " er en ugyldig port."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Formatet er 'port:protokol'.  For eksempel '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1789,7 +1788,6 @@ msgstr ""
 "partitionstabel på disken. Er det ok?"
 
 #: ../iw/rootpartition_gui.py:82
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1803,19 +1801,19 @@ msgid ""
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
 "Du har placeret partitionen indeholdende kernen (opstartspartitionen) over "
-"cylinder nr. 1023, og det lader ikke til at denne computers BIOS "
-"understøtter opstart fra over denne cylinder. At fortsætte vil højst "
-"sandsynligt resultere i at computeren ikke kan starte linux.\n"
+"cylinder nr. 1024, og det lader ikke til at denne computers BIOS "
+"understøtter opstart over denne cylinder. At fortsætte vil højst sandsynligt "
+"resultere i at computeren ikke kan starte Linux.\n"
 "\n"
 "Hvis du vælger at fortsætte, anbefales det KRAFTIGT at du laver en "
 "opstartsdiskette, når instalationsprogrammet tilbyder dette. Dette vil sikre "
 "at du har en måde at starte linux på, efter installationen.\n"
 "\n"
-"Er du sikker på at du vil fortsætte?"
+"Tryk OK for at fortsætte, Fortryd for at gå tilbage og genudpege en "
+"opstartspatition."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit. It appears that this systems BIOS supports booting "
@@ -1826,8 +1824,8 @@ msgid ""
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
 "Du har placeret partitionen indeholdende kernen (opstartspartitionen) over "
-"cylinder nr. 1023,det lader til at denne computers BIOS understøtter opstart "
-"fra over denne cylinder.\n"
+"cylinder nr. 1024. Det lader til at denne computers BIOS understøtter "
+"opstart over denne cylinder.\n"
 "\n"
 "Eftersom det er en ny funktion i nyere bundkort og ikke altid pålideligt, "
 "anbefales det dog alligevel KRAFTIGT at du laver en opstartsdiskette når "
@@ -1927,7 +1925,6 @@ msgid "Boot Partition Location Warning"
 msgstr "Advarsel om opstartspartitionens placering"
 
 #: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -1941,7 +1938,7 @@ msgid ""
 "Are you sure you want to proceed?"
 msgstr ""
 "Du har placeret partitionen indeholdende kernen (opstartspartitionen) over "
-"cylinder nr. 1023, og det lader ikke til at denne computers BIOS "
+"cylinder nr. 1024, og det lader ikke til at denne computers BIOS "
 "understøtter opstart fra over denne cylinder. At fortsætte vil højst "
 "sandsynligt resultere i at computeren ikke kan starte linux.\n"
 "\n"
@@ -2258,9 +2255,9 @@ msgstr ""
 "såsom 'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s er ikke et gyldigt værtsnavn."
+msgstr "Advarsel: %s er ikke en gyldig port."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2988,13 +2985,12 @@ msgstr ""
 "'/' til denne partition."
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
-#, fuzzy
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
 "Det ønskede monteringspunkt er enten en ugyldig sti eller er allerede i "
-"brug..Vælg venligst et gyldigt monteringspunkt."
+"brug. Vælg venligst et gyldigt monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:695
 msgid "Size Error"
@@ -3091,15 +3087,15 @@ msgid "RAID Entry Incomplete"
 msgstr "RAID-indgang ufuldstændig"
 
 #: ../libfdisk/gnomefsedit.c:1506
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"RAID-enheden /dev/%s indeholder nu partitioner som ikke er "
-"allokeretRAID-enheden /dev/%s vil nu blive opdelt i sine del-partitioner. "
-"Genopbyg venligst RAID-enheden med allokerede partitioner."
+"RAID-enheden /dev/%s indeholder nu partitioner som ikke er allokeret. "
+"RAID-enheden /dev/%s vil nu blive opdelt i sine del-partitioner. Genopbyg "
+"venligst RAID-enheden med allokerede partitioner."
 
 #: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
@@ -3974,7 +3970,7 @@ msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Venligst indsæt %s driverdisketten nu."
+msgstr "Indsæt venligst din PCMCIA-driverdiskette i diskettedrevet nu."
 
 #: ../loader/pcmcia.c:114
 msgid "Failed to mount disk."
@@ -4233,9 +4229,3 @@ msgstr "Kerneudvikling"
 
 msgid "Utilities"
 msgstr "Tilbehør"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Opstarter IDE moduler..."
