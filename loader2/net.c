@@ -215,7 +215,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 logMessage("pump told us: %s", chptr);
                 return;
             }
-
+            
             cfg->isDynamic = 1;
         } else if (inet_aton(loaderData->ip, &addr)) {
             cfg->dev.ip = addr;
@@ -755,11 +755,14 @@ int chooseNetworkInterface(struct knownDevices * kd,
  * the network */
 int kickstartNetworkUp(struct knownDevices * kd, 
                        struct loaderData_s * loaderData,
+                       struct networkDeviceConfig *netCfgPtr,
                        int flags) {
     int rc;
-    struct networkDeviceConfig netCfg;
 
     initLoopback();
+
+    memset(netCfgPtr, 0, sizeof(*netCfgPtr));
+    netCfgPtr->isDynamic = 1;
 
     do {
         /* this is smart and does the right thing based on whether or not
@@ -784,12 +787,9 @@ int kickstartNetworkUp(struct knownDevices * kd,
     } 
     loaderData->ipinfo_set = 1;
 
-    memset(&netCfg, 0, sizeof(netCfg));
-    netCfg.isDynamic = 1;
+    setupNetworkDeviceConfig(netCfgPtr, loaderData, flags);
 
-    setupNetworkDeviceConfig(&netCfg, loaderData, flags);
-
-    rc = readNetConfig(loaderData->netDev, &netCfg, flags);
+    rc = readNetConfig(loaderData->netDev, netCfgPtr, flags);
     if (rc) {
         logMessage("unable to setup networking");
         return -1;

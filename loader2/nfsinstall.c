@@ -275,30 +275,27 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
 int kickstartFromNfs(char * url, struct knownDevices * kd,
                      struct loaderData_s * loaderData, int flags) {
-    char * host = NULL, * file = NULL;
+    char * host = NULL, *path = NULL, * file = NULL;
     int failed = 0;
+    struct networkDeviceConfig netCfg;
 
-    if (kickstartNetworkUp(kd, loaderData, flags)) {
+    logMessage("going to get ks from nfs");
+
+    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return 1;
     }
 
-    host = url;
-    /* JKFIXME: need to add this; abstract out the functionality
-     * so that we can use it for all types */
-    if (host[strlen(url) - 1] == '/') {
-        logMessage("directory syntax not supported yet");
-        return 1;
-        /* host[strlen(host) - 1] = '\0';
-           file = malloc(30);
-           sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));*/
+    getHostandPath(url, &host, &path, inet_ntoa(netCfg.dev.ip));
+
+    /* nfs has to be a little bit different... split off the last part as
+     * the file and then concatenate host + dir path */
+    file = strrchr(path, '/');
+    if (!file) {
+        file = "/";
     } else {
-        file = strrchr(host, '/');
-        if (!file) {
-            file = "/";
-        } else {
-            *file++ = '\0';
-        }
+        *file++ ='\0';
+        host = sdupprintf("%s/%s", host, path);
     }
 
     logMessage("ks location: nfs://%s/%s", host, file);

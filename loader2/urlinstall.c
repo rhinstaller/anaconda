@@ -22,6 +22,7 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "lang.h"
@@ -302,9 +303,9 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
     char * host = NULL, * file = NULL, * chptr = NULL;
     int fd, rc;
+    struct networkDeviceConfig netCfg;
 
-
-    if (kickstartNetworkUp(kd, loaderData, flags)) {
+    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return 1;
     }
@@ -312,35 +313,11 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     memset(&ui, 0, sizeof(ui));
     ui.protocol = proto;
 
-    switch(proto) {
-    case URL_METHOD_HTTP:
-        host = url + 7;
-        break;
-    case URL_METHOD_FTP:
-        host = url + 6;
-        logMessage("ftp kickstart source not supported yet");
-        return 1;
-    }
+    getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
+                   &host, &file, inet_ntoa(netCfg.dev.ip));
 
-    /* JKFIXME: need to add this; abstract out the functionality
-     * so that we can use it for all types */
-    if (host[strlen(host) - 1] == '/') {
-        logMessage("directory syntax not supported yet");
-        return 1;
-        /* host[strlen(host) - 1] = '\0';
-           file = malloc(30);
-           sprintf(file, "%s-kickstart", inet_ntoa(netDev.dev.ip));*/
-    } else {
-        file = strrchr(host, '/');
-        if (!file) {
-            file = host;
-            host = "/";
-        } else {
-            *file++ = '\0';
-        }
-    }
-
-    logMessage("ks location: http://%s/%s", host, file);
+    logMessage("ks location: %s://%s/%s", 
+               (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
 
     chptr = strchr(host, '/');
     if (chptr == NULL) {
@@ -353,6 +330,7 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
         *host = '/';
         ui.prefix = strdup(host);
     }
+    logMessage("address: %s, prefix: %s", ui.address, ui.prefix);
 
     fd = urlinstStartTransfer(&ui, file, 1);
     if (fd < 0) {

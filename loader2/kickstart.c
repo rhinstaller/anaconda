@@ -294,6 +294,26 @@ int getKickstartFromBlockDevice(char *device, char *path) {
     return rc;
 }
 
+void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
+    *host = malloc(strlen(ksSource) + 1);
+    strcpy(*host, ksSource);
+
+    *file = strchr(*host, '/');
+
+    if (*file) {
+        **file = '\0';
+        *file = *file + 1;
+    } else {
+        *file = malloc(sizeof(char *));
+        **file = '\0';
+    }
+
+    if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
+                    ((*file)[strlen(*file) - 1] == '\0'))) {
+        *file = sdupprintf("%s%s-kickstart", *file, ip);
+        
+    }
+}
 
 void getKickstartFile(struct knownDevices * kd, 
                       struct loaderData_s * loaderData, int * flagsPtr) {
