@@ -480,21 +480,6 @@ class DiskSet:
 			rootparts.append ((node, part.fs_type.name,
                                            getRedHatReleaseString(mountpoint)))
 		    isys.umount(mountpoint)
-                elif part.fs_type and (part.fs_type.name == "FAT"):
-                    node = get_partition_name(part)
-                    try:
-                        isys.mount(node, mountpoint, fstype = "vfat",
-                                   readOnly = 1)
-                    except:
-			log("failed to mount vfat file system on %s\n" 
-                            % node)
-                        part = disk.next_partition(part)
-			continue
-                        
-		    if os.access(mountpoint + '/redhat.img', os.R_OK):
-                        rootparts.append((node, "vfat", ""))
-
-		    isys.umount(mountpoint)
                     
                 part = disk.next_partition(part)
         return rootparts
