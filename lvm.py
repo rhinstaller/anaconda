@@ -42,6 +42,7 @@ def has_lvm():
         if name == "lvm":
             lvmDevicePresent = 1
             break
+    return lvmDevicePresent
 # now check to see if lvm is available
 has_lvm()
         
