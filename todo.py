@@ -617,7 +617,10 @@ class ToDo:
 	if (not self.comps):
 	    self.getHeaderList()
 	    self.comps = self.method.readComps(self.hdList)
-            self.updateInstClassComps()
+            self.updateInstClassComps ()
+        else:
+            # re-evaluate all the expressions for packages with qualifiers.
+            self.comps.updateSelections()
             
 	return self.comps
 

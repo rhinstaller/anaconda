@@ -192,7 +192,11 @@ class Component:
 	    self.manuallySelected = 1
 
 	for pkg in self.pkgs:
-	    pkg.updateSelectionCache()
+            # if the qualifier for this package is true, turn it on.
+            # XXX twiddling internals
+            pkg.selected = 0
+            if self.set.exprMatch (self.pkgDict[pkg]):
+                pkg.updateSelectionCache()
 
 	for comp in self.includes:
 	    comp.select(forInclude = 1)
@@ -224,12 +228,17 @@ class Component:
     def addPackage(self, p):
 	self.pkgs.append(p)
 	p.addSelectionChain([self])
-	self.pkgDict[p] = 1
+	self.pkgDict[p] = None
+
+    def addPackageWithExpression(self, expr, p):
+	self.pkgs.append(p)
+	p.addSelectionChain([self])
+	self.pkgDict[p] = expr
 
     def addConditionalPackage(self, condComponent, p):
 	self.pkgs.append(p)
 	p.addSelectionChain([self, condComponent])
-	self.pkgDict[p] = 1
+	self.pkgDict[p] = None
 
     def setDefault(self, default):
         self.default = default
@@ -244,7 +253,8 @@ class Component:
     def setState(self, state):
 	(self.manuallySelected, self.selectionCount) = state
 
-    def __init__(self, name, selected, hidden = 0):
+    def __init__(self, set, name, selected, hidden = 0):
+        self.set = set
 	self.name = name
 	self.hidden = hidden
 	self.default = selected
@@ -308,7 +318,15 @@ class ComponentSet:
     def keys(self):
 	return self.compsDict.keys()
 
-    def exprMatch(self, expr, arch1, arch2, matchAllLang = 0):
+    def exprMatch(self, expr, tags = [ "lang", "arch" ]):
+        # no expression == true
+        if not expr:
+            return 1
+
+        # XXX preserve backwards compatible behavior
+        if self.allLangs:
+            tags.remove ("lang")
+
 	if os.environ.has_key('LINGUAS'):
             langs = split (os.environ['LINGUAS'], ':')
         else:
@@ -321,7 +339,7 @@ class ComponentSet:
 	    raise ValueError, "leading ( expected"
 	expr = expr[1:]
 	if expr[len(expr) - 1] != ')':
-	    raise ValueError, "bad kickstart file [missing )]"
+	    raise ValueError, "bad comps file [missing )]"
 	expr = expr[:len(expr) - 1]
 
 	exprList = split(expr, 'and')
@@ -329,47 +347,30 @@ class ComponentSet:
 	for expr in exprList:
 	    l = split(expr)
 
-	    if l[0] == "lang":
-		if len(l) != 2:
-		    raise ValueError, "too many arguments for lang"
-		if l[1] not in langs:
-		    newTruth = 0
-		else:
-		    newTruth = 1
-
-		if matchAllLang:
-		    newTruth = 1
+            if l[0] == "lang":
+                if tags and "lang" not in tags:
+                    newTruth = 1
+                else:
+                    if len(l) != 2:
+                        raise ValueError, "too many arguments for lang"
+                    if l[1] not in langs:
+                        newTruth = 0
+                    else:
+                        newTruth = 1
 	    elif l[0] == "arch":
-		if len(l) != 2:
-		    raise ValueError, "too many arguments for arch"
-		newTruth = self.archMatch(l[1], arch1, arch2)
+                if tags and "arch" not in tags:
+                    newTruth = 1
+                if len(l) != 2:
+                    raise ValueError, "too many arguments for arch"
+                newTruth = l[1] in self.archList
 	    else:
 		s = "unknown condition type %s" % (l[0],)
 		raise ValueError, s
 
 	    truth = truth and newTruth
-
 	return truth
 
-    # this checks to see if "item" is one of the archs
-    def archMatch(self, item, arch1, arch2):
-	if item == arch1 or (arch2 and item == arch2): 
-	    return 1
-	return 0
-
-    def readCompsFile(self, filename, packages, arch = None,
-		      matchAllLang = 0):
-	if not arch:
-	    import iutil
-	    arch = iutil.getArch()
-
-# always set since with can have i386 arch with i686 arch2, for example
-#	arch2 = None
-#	if arch == "sparc" and os.uname ()[4] == "sparc64":
-#	    arch2 = "sparc64"
-#
-        arch2 = os.uname ()[4]
-
+    def readCompsFile(self, filename, packages):
         connected = 0
         while not connected:
             try:
@@ -393,32 +394,21 @@ class ComponentSet:
         conditional = None
 	self.comps = []
 	self.compsDict = {}
+        self.expressions = {}
 	for l in lines:
 	    l = strip (l)
 	    if (not l): continue
+            expression = None
 
 	    if (find(l, ":") > -1):
-		(archList, l) = split(l, ":", 1)
-		if archList[0] == '(':
-		    l = strip(l)
-		    if not self.exprMatch(archList, arch, arch2, matchAllLang):
-			continue
-		else:
-		    while (l[0] == " "): l = l[1:]
-
-		    skipIfFound = 0
-		    if (archList[0] == '!'):
-			skipIfFound = 1
-			archList = archList[1:]
-		    archList = split(archList)
-		    found = 0
-		    for n in archList:
-			if self.archMatch(n, arch, arch2):	
-			    found = 1
-			    break
-		    if ((found and skipIfFound) or 
-			(not found and not skipIfFound)):
-			continue
+		(expression, l) = split(l, ":", 1)
+                expression = strip (expression)
+                l = strip(l)
+                if expression and not expression[0] == '(':
+                    # normalize expressions to all be of () type
+                    expression = "(arch %s)" % (expression,)
+                if not self.exprMatch (expression, tags = [ "arch" ]):
+                    continue
 
 	    if (find(l, "?") > -1):
                 (trash, cond) = split (l, '?', 1)
@@ -436,7 +426,7 @@ class ComponentSet:
                 l = strip (l)
                 if l == "Base":
                     hidden = 1
-		comp = Component(l, default == '1', hidden)
+		comp = Component(self, l, default == '1', hidden)
 	    elif (l == "}"):
                 if conditional:
                     conditional = None
@@ -454,18 +444,38 @@ class ComponentSet:
 			# know what's going on.
                         comp.addConditionalPackage (conditional, packages[l])
 			conditional.addConditionalPackage (comp, packages[l])
+                    elif expression:
+                        # this is a package with some qualifier prefixing it
+                        # XXX last expression noted wins when setting up Everything.
+                        self.expressions[packages[l]] = expression
+                        comp.addPackageWithExpression (expression, packages[l])
                     else:
+                        # this is a package.
                         comp.addPackage(packages[l])
 
-        everything = Component(N_("Everything"), 0, 0)
+        everything = Component(self, N_("Everything"), 0, 0)
         for package in packages.keys ():
 	    if not ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
-		everything.addPackage (packages[package])
+                if self.expressions.has_key (packages[package]):
+                    everything.addPackageWithExpression (self.expressions[packages[package]],
+                                                         packages[package])
+                else:
+                    everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
 
 	for comp in self.comps:
 	    comp.setDefaultSelection()
+
+    def updateSelections(self):
+	for comp in self.comps:
+            if comp.isSelected ():
+                for pkg in comp.pkgs:
+                    # XXX twiddling internals
+                    pkg.selected = 0
+                    # if the qualifier for this package is true, turn it on.
+                    if self.exprMatch (comp.pkgDict[pkg]):
+                        pkg.updateSelectionCache()
         
     def __repr__(self):
 	s = ""
@@ -481,5 +491,22 @@ class ComponentSet:
 	return s
 
     def __init__(self, file, hdlist, arch = None, matchAllLang = 0):
+        self.allLangs = matchAllLang
+        self.archList = []
+	if not arch:
+	    import iutil
+	    arch = iutil.getArch()
+
+        self.archList.append(arch)
+
+# always set since with can have i386 arch with i686 arch2, for example
+#	arch2 = None
+#	if arch == "sparc" and os.uname ()[4] == "sparc64":
+#	    arch2 = "sparc64"
+#
+        arch2 = os.uname ()[4]
+        if not arch2 in self.archList:
+            self.archList.append (arch2)
+        
 	self.packages = hdlist
-	self.readCompsFile(file, self.packages, arch, matchAllLang)
+	self.readCompsFile(file, self.packages)
