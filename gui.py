@@ -1352,11 +1352,12 @@ class InstallControlState:
         return self.helpButtonEnabled
 
     def findPixmap(self, file):
-        for path in ("/usr/share/anaconda/pixmaps/", "pixmaps/",
+        for path in ("/mnt/source/RHupdates/pixmaps", "/mnt/source/RHupdates",
+                     "/tmp/updates/pixmaps", "/tmp/updates",
+                     "/tmp/product/pixmaps"
+                     "/usr/share/anaconda/pixmaps/", "pixmaps/",
                      "/usr/share/pixmaps/",
-                     "/usr/share/anaconda/", "",
-                     "/mnt/source/RHupdates/pixmaps/",
-                     "/mnt/source/RHupdates/"):
+                     "/usr/share/anaconda/", ""):
             fn = path + file
             if os.access(fn, os.R_OK):
                 return fn
