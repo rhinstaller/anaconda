@@ -615,7 +615,7 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 		memcpy (nvramrc, p, len);
 		nvramrc [len] = 0;
 		q = nvramrc;
-		while (q) {
+		for (;;) {
 		    /* If there is already `devalias linux /some/ugly/prom/path'
 		       make sure we fully understand that and remove it. */
 		    if (!strncmp (q, "devalias", 8) && (q[8] == ' ' || q[8] == '\t')) {
@@ -632,6 +632,8 @@ void set_prom_vars(char *linuxAlias, char *bootDevice) {
 			}
 		    }
 		    q = strchr (q, '\n');
+		    if (!q) break;
+		    q++;
 		}
 		len = strlen (nvramrc);
 		if (len && nvramrc [len-1] != '\n')
