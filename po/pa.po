@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-01 11:40+0530\n"
+"PO-Revision-Date: 2004-09-02 11:23+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 
 #: ../anaconda:94
@@ -154,8 +154,7 @@ msgstr "ਗਲਤੀ, ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਦੇ ਦ�
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
-msgstr ""
-"ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫਿਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋਡ਼ੀਦੀ ਰੈਮ(RAM) ਨਹੀ ਹੈ। ਪਾਠ ਢੰਗ ਹੀ ਆਰੰਭ ਕੀਤੀ ਜਾ ਰਿਹਾ ਹੈ।"
+msgstr "ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫਿਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋਡ਼ੀਦੀ ਰੈਮ(RAM) ਨਹੀ ਹੈ। ਪਾਠ ਢੰਗ ਹੀ ਆਰੰਭ ਕੀਤੀ ਜਾ ਰਿਹਾ ਹੈ।"
 
 #: ../anaconda:786
 msgid "Install class forcing text mode installation"
@@ -190,9 +189,8 @@ msgid "Using mouse type: %s"
 msgstr "ਮਾਊਸ ਕਿਸਮ, ਜੋ ਕਿ ਵਰਤੀ ਜਾ ਰਹੀ ਹੈ: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "ਇੰਸਟਾਲੇਸ਼ਨ %s  ਲਈ ਖੋਜ ਜਾਰੀ ਹੈ..."
+msgstr "ਗਰਾਫਿਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਸ਼ੁਰੂ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -248,20 +246,16 @@ msgstr ""
 "ਸਕੇਗਾ।"
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂਟ ਕਰਨ ਦੀਆਂ ਲੋੜੀਦੀਆਂ ਸੀਮਾਂਵਾਂ ਵਿੱਚ ਨਹੀ ਆ ਰਿਹਾ ਹੈ। ਇਸ ਕਰਕੇ ਬੂਟ "
-"ਡਿਸਕ ਬਣਾਉਣ ਦੀ ਸਿਫਾਰਸ਼ ਕੀਤੀ ਜਾਦੀ ਹੈ।"
+#, python-format
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "ਬੂਟ ਭਾਗ %s ਤੁਹਾਡੇ ਢਾਂਚੇ ਲਈ ਬੂਟ ਕਰਨ ਦੀਆਂ ਲੋੜੀਦੀਆਂ ਸੀਮਾਂਵਾਂ ਵਿੱਚ ਨਹੀ ਆ ਰਿਹਾ ਹੈ।"
 
 #: ../autopart.py:1056
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋਡ਼ੀਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
+msgstr "ਇਸ ਭਾਗ ਨੂੰ ਜੋਡ਼ਨ ਨਾਲ %s ਵਿੱਚ ਪਹਿਲਾਂ ਜਾਰੀ ਕੀਤੇ ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਲਈ ਲੋਡ਼ੀਦੀ ਥਾਂ ਨਹੀ ਰਹੇਗੀ।"
 
 #: ../autopart.py:1223
 msgid "Requested Partition Does Not Exist"
@@ -505,8 +499,7 @@ msgstr "ਬੂਟ-ਲੋਡਰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹ�
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਕੋਈ ਕਰਨਲ ਪੈਕੇਜ ਇੰਸਟਾਲ ਨਹੀ ਹੈ। ਤੁਹਾਡੀ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਤਬਦੀਲ ਨਹੀ ਹੋਵੇਗੀ।"
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -596,8 +589,7 @@ msgstr "ਡੰਪ ਲਿਖਿਆ ਗਿਆ"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"ਸਿਸਟਮ ਦੀ ਸਥਿਤੀ ਸਫਲਤਾਪੂਰਕ ਫਲਾਪੀ ਤੇ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਨਿਰਧਾਰਿਤ ਹੋਵੇਗਾ।"
+msgstr "ਸਿਸਟਮ ਦੀ ਸਥਿਤੀ ਸਫਲਤਾਪੂਰਕ ਫਲਾਪੀ ਤੇ ਲਿਖੀ ਗਈ ਹੈ। ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਨਿਰਧਾਰਿਤ ਹੋਵੇਗਾ।"
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -1014,8 +1006,7 @@ msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ �
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr ""
-"ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
+msgstr "ਕਿਰਪਾ ਕਰਕੇ ਇੱਕ ਫਲਾਪੀ ਪਾਉ। ਡਿਸਕ ਦੇ ਸਾਰੇ ਅੰਸ਼ ਮਿਟ ਜਾਣਗੇ, ਇਸਕਰਕੇ ਆਪਣੀ ਫਲਾਪੀ ਧਿਆਨ ਨਾਲ ਚੁਣੋ।"
 
 #: ../gui.py:763
 msgid "default:LTR"
@@ -1055,7 +1046,7 @@ msgstr "_ਮੁਡ਼ ਕੋਸ਼ਿਸ"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "ਇੰਸਟਾਲਰ ਹੁਣ ਬੰਦ ਹੋ ਰਿਹਾ ਹੈ..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1911,8 +1902,7 @@ msgid "Confirm Reset"
 msgstr "ਮੁਡ਼-ਨਿਰਧਾਰਨ ਦੀ ਪੁਸ਼ਟੀ"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ਕੀ ਤੁਸੀ ਯਕੀਨਨ ਹੀ ਭਾਗ-ਸਾਰਣੀ ਨੂੰ ਮੁਡ਼ ਮੁੱਢਲੀ ਸਥਿਤੀ ਤੇ ਲਿਆਉਣਾ ਚਾਹੁੰਦੇ ਹੋ ?"
 
 #: ../partitioning.py:77
@@ -1958,8 +1948,7 @@ msgid ""
 msgstr "ਤੁਸੀ ਰੂਟ(root) ਭਾਗ ੨੫੦(250) ਮੈਗਾਬਾਇਟ ਤੋ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲ %s ਲਈ ਬਹੁਤ ਘੱਟ ਹੈ।"
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ /boot/efi ਭਾਗ ਫੈਟ(FAT) ਕਿਸਮ ਅਤੇ 50 ਮੈਗਾਬਾਇਟ ਦਾ ਬਣਾਉਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partitions.py:796
@@ -2023,8 +2012,7 @@ msgstr "ਇੱਕ ਭਾਗ, ਜੋ ਕਿ LVM ਵਾਲੀਅਮ ਸਮੂਹ �
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਮਾਊਟ ਸਥਿਤੀ ਜਾਇਜ਼ ਨਹੀ ਹੈ।  ਡਾਇਰੈਕਟਰੀ %s ਫਾਇਲ-ਸਿਸਟਮ / ਤੇ ਮੌਜੂਦ ਹੋਣੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
 #: ../partRequests.py:236
@@ -2045,8 +2033,7 @@ msgstr "ਇਹ ਮਾਊਟ ਸਥਿਤੀ ਲੀਨਕਸ ਫਾਇਲ ਸਿ�
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
+msgstr "ਮਾਊਟ ਸਥਿਤੀ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੀ ਜਾ ਚੁੱਕੀ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਵੱਖਰੀ ਮਾਊਟ ਸਥਿਤੀ ਚੁਣੋ।"
 
 #: ../partRequests.py:278
 #, python-format
@@ -2266,8 +2253,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) ੨੦੦੪ Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ਸਹਾਇਤਾ ਲਈ | <Tab> ਇਕਾਈਆਂ ਵਿੱਚ | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../text.py:369
@@ -2527,52 +2513,50 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"zSeries ਮਸ਼ੀਨਾਂ ਸਨਅਤੀ ਪੱਧਰ SCSI ਜੰਤਰਾਂ ਨੂੰ ਫਾਇਬਰ ਚੈਨਲ(FCP) ਰਾਹੀ ਖੋਲ ਸਕਦੀਆਂ ਹਨ। "
+"ਤੁਹਾਨੂੰ ਹਰ ਜੰਤਰ ਲਈ ੫ ਪੈਰਾਮੀਟਰ ਦੇਣੇ ਪੈਣਗੇ। ਇੱਕ 16 ਬਿੱਟ ਜੰਤਰ ਨੰਬਰ, 16 ਬਿੱਟ SCSI ID, ਇੱਕ "
+"64 ਬਿੱਟ ਵਰਡਵਾਇਡ ਪੋਰਟ ਨੰਬਰ(WWPN), ਇੱਕ 16 ਬਿੱਟ SCSI LUN ਅਤੇ 64 ਬਿੱਟ FCP "
+"LUN।"
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "ਜੰਤਰ"
+msgstr "ਜੰਤਰ ਨੰਬਰ"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "ਤੁਸੀ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ"
+msgstr "ਤੁਸੀਂ ਜੰਤਰ ਨੰਬਰ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਠੀਕ ਨਹੀਂ ਹੈ"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "ਤੁਸੀ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ"
+msgstr "ਤੁਸੀਂ ਇੱਕ SCSI Id ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ID ਜਾਇਜ ਨਹੀਂ ਹੈ।"
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "ਤੁਸੀ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ"
+msgstr "ਤੁਸੀਂ ਵਰਡਵਾਇਡ ਪੋਰਟ ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ਨਾਂ ਜਾਇਜ ਨਹੀਂ ਹੈ"
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "ਤੁਸੀ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ"
+msgstr "ਤੁਸੀਂ SCSI LUN ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਜਾਇਜ ਨਹੀਂ ਹੈ"
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "ਤੁਸੀ ਮੇਜ਼ਬਾਨ-ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀ ਕੀਤਾ ਹੈ"
+msgstr "ਤੁਸੀਂ FCP LUN ਨਾਂ ਨਿਰਧਾਰਿਤ ਨਹੀਂ ਕੀਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਜਾਇਜ ਨਹੀਂ ਹੈ।"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3109,8 +3093,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
-"ਜੇਕਰ ਤੁਸੀ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਮੂਲ ਪੈਕੇਜਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਹੇਠ ਲਿਖੇ ਡੱਬੇ ਵਿੱਚੋ ਚੋਣ ਕਰੋ।"
+msgstr "ਜੇਕਰ ਤੁਸੀ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਮੂਲ ਪੈਕੇਜਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਹੇਠ ਲਿਖੇ ਡੱਬੇ ਵਿੱਚੋ ਚੋਣ ਕਰੋ।"
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
@@ -3261,7 +3244,6 @@ msgstr ""
 "ਉਹ ਸੇਵਾਵਾਂ ਹਨ?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3269,9 +3251,9 @@ msgid ""
 "or a fully active state."
 msgstr ""
 "ਸਕਿਊਰਟੀ ਇਹਾਨਸਡ ਲੀਨਕਸ(SELinux) ਆਮ ਲੀਨਕਸ ਸਿਸਟਮ ਦੀ ਬਜਾਏ finer-grained ਸੁਰੱਖਿਆ "
-"ਕੰਟਰੋਲ ਉਪਲੱਬਧ ਕਰਵਾਉਦਾ ਹੈ। ਇਸ ਨੂੰ ਅਯੋਗ ਸਥਿਤੀ ਵਿੱਚ ਵੀ ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ, ਜਿਸ ਰਾਹੀ ਇਹ ਸਿਰਫ਼ "
-"ਜਾਣੂ ਹੀ ਕਰਵਾਉਦਾ ਹੈ ਕਿ ਕਿਹੜੀਆਂ ਇਕਾਈਆਂ ਤੋਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ ਜਾਂ ਪੂਰੀ ਤਰਾਂ ਸਰਗਰਮ "
-"ਸਥਿਤੀ ਵਿੱਚ"
+"ਕੰਟਰੋਲ ਉਪਲੱਬਧ ਕਰਵਾਉਦਾ ਹੈ। ਇਸ ਨੂੰ ਅਯੋਗ ਸਥਿਤੀ ਵਿੱਚ ਵੀ ਰੱਖਿਆ ਜਾ ਸਕਦਾ ਹੈ, ਜਿਸ ਰਾਹੀ "
+"ਇਹ ਸਿਰਫ਼ ਜਾਣੂ ਹੀ ਕਰਵਾਉਦਾ ਹੈ ਕਿ ਕਿਹੜੀਆਂ ਇਕਾਈਆਂ ਤੋਂ ਸੁਰੱਖਿਅਤ ਰਹਿਣਾ ਲਾਜ਼ਮੀ ਹੈ ਜਾਂ ਪੂਰੀ ਤਰਾਂ "
+"ਸਰਗਰਮ ਸਥਿਤੀ ਵਿੱਚ।"
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -4139,14 +4121,12 @@ msgid "Partitioning"
 msgstr "ਵਿਭਾਗੀਕਰਨ"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "ਇਹ ਘਾਤਕ ਗਲਤੀਆਂ ਕਰਕੇ ਤੁਹਾਡੀ ਲੋਡ਼ੀਦੀ ਵਿਭਾਗੀਕਰਨ ਸਕੀਮ ਖਤਮ ਹੋ ਗਈ ਹੈ "
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ਇਹ ਗਲਤੀਆਂ ਠੀਕ ਕਰਨੀਆਂ ਜਰੂਰੀ ਹਨ ਤਾਂਕਿ ਤੁਸੀ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਰਹੋ"
 
 #: ../iw/partition_gui.py:637
@@ -4763,8 +4743,7 @@ msgstr "ਇਹ ਤੁਹਾਡੇ ਮੌਜੂਦਾ ਬੂਟ-ਲੋਡਰ ਦ�
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ਇੰਸਟਾਲਰ ਨੇ %s ਬੂਟ-ਲੋਡਰ ਇਸ ਸਮੇ %s ਤੇ ਖੋਜਿਆ ਹੈ"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4895,8 +4874,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ਸਵੈਪ ਫਾਇਲ ਦਾ ਅਕਾਰ 1 ਅਤੇ 2000 ਐਮਬੀ ਵਿੱਚ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ਜੋ ਜੰਤਰ ਤੁਸੀ ਸਵੈਪ ਲਈ ਚੁਣਿਆ ਹੈ, ਤੇ ਲੋਡ਼ੀਦਾ ਥਾਂ ਨਹੀ ਹੈ "
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5068,34 +5046,33 @@ msgid "_Skip X configuration"
 msgstr "X ਸੰਰਚਨਾ ਛੱਡੋ"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC ਸੰਰਚਨਾ"
+msgstr "ZFCP ਸੰਰਚਨਾ"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_ਹਟਾਓ"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "ਜੰਤਰ"
+msgstr "FCP ਜੰਤਰ"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "ਜੰਤਰ ਸ਼ਾਮਿਲ"
+msgstr "FCP ਜੰਤਰ ਸ਼ਾਮਿਲ"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "ਰੇਡ(RAID) ਜੰਤਰ ਸੋਧ"
+msgstr "FCP ਜੰਤਰ %s ਸੋਧ"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"ਤੁਸੀਂ ਆਪਣੀ ਸੰਰਚਨਾ ਵਿੱਚੋਂ FCP ਡਿਸਕ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣ ਲਈ ਸਹਿਮਤ "
+"ਹੋ?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5255,8 +5232,7 @@ msgstr ""
 "ਪਵੇਗਾ ਕਿ ਕਿਹਡ਼ਾ ਭਾਗ ਤੋ ਬੂਟ ਕਰਨਾ ਹੈ ਅਤੇ ਉਸ ਲਈ ਵੱਖਰਾ ਲੇਬਲ ਵੀ ਨਿਰਧਾਰਿਤ ਕਰਨਾ ਪਵੇਗਾ।"
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> ਬਟਨ ਚੁਣੋ | <F2> ਮੂਲਬੂਟ ਇੰਦਰਾਜ਼ ਚੁਣੋ | <F12> ਅੱਗੇ ਪਰਦਾ>"
 
 #: ../textw/bootloader_text.py:394
@@ -5688,8 +5664,7 @@ msgid "Select individual packages"
 msgstr "ਵੱਖ-ਵੱਖ ਪੈਕੇਜ ਚੁਣੋ"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> ਚੋਣ   |   <F2> ਸਮੂਹ ਵੇਰਵਾ   |   <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../textw/packages_text.py:117
@@ -5714,8 +5689,7 @@ msgid "Total size"
 msgstr "ਕੁੱਲ ਅਕਾਰ"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> ਚੋਣ   |   <F1> ਸਹਾਇਤਾ   |   <F2> ਪੈਕੇਜ ਵੇਰਵਾ"
 
 #: ../textw/packages_text.py:374
@@ -5806,9 +5780,8 @@ msgid "End Cylinder:"
 msgstr "ਆਖਰੀ ਸਿੰਲਡਰਃ"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂਃ"
+msgstr "ਵਾਲੀਅਮ ਸਮੂਹ:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -5931,23 +5904,21 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "ਰੇਡ੦(RAID0) ਲਡ਼ੀ ਵਿੱਚ ਅਧਿਕਤਮ ਸਪੇਅਰ ਦੀ ਗਿਣਤੀ 0 ਹੈ"
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ"
+msgstr "ਕੋਈ ਵਾਲੀਅਮ ਸਮੂਹ ਨਹੀਂ"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "ਕਿਰਪਾ ਕਰਕੇ ਲਾਜੀਕਲ-ਵਾਲੀਅਮ ਦਾ ਨਾਂ ਦਿਉ।"
+msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ ਲਾਜ਼ੀਕਲ ਸਮੂਹ ਨਹੀਂ ਹੈ।"
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
-"ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਅਕਾਰ(%10.2f ਐਮਬੀ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਅਕਾਰ (%10.2f ਐਮਬੀ) ਤੋਂ ਵੱਧ ਹੈ। "
-"ਇਸ ਸੀਮਾ ਨੂੰ ਵਧਾਉਣ ਲਈ ਤੁਸੀ ਇਸ ਵਾਲੀਅਮ ਸਮੂਹ ਦੇ ਭੌਤਿਕ ਸੀਮਾ ਅਕਾਰ ਨੂੰ ਵਧਾ ਸਕਦੇ ਹੋ।"
+"ਮੌਜੂਦਾ ਲੋਡ਼ੀਦਾ ਅਕਾਰ(%10.2f ਐਮਬੀ) ਅਧਿਕਤਮ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਅਕਾਰ (%10.2f ਐਮਬੀ) "
+"ਤੋਂ ਵੱਧ ਹੈ। "
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -5955,24 +5926,22 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"ਮੌਜੂਦਾ ਆਕਾਰ(%10.2f ਐਮਬੀ) ਲਾਜ਼ੀਕਲ ਸਮੂਹ(%10.2f ਐਮਬੀ) ਵਿਚਲੇ ਉਪਲੱਬਧ ਆਕਾਰ ਤੋਂ "
+"ਵੱਧ ਹੈ।"
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਸੋਧ"
+msgstr "ਨਵਾਂ ਭਾਗ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "ਬੂਟ-ਸਾਰਣੀ ਭਾਗ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਤੇ ਮੌਜੂਦ ਨਹੀ ਹੋ ਸਕਦਾ ਹੈ।"
+msgstr "ਕੀ ਤੁਸੀਂ ਨਵਾਂ ਭਾਗ ਜਾਂ ਨਵਾਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
 msgstr "ਭਾਗ"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ"
 
@@ -5989,8 +5958,7 @@ msgid "RAID"
 msgstr "ਰੇਡ(RAID)"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-ਸਹਾਇਤਾ     F2-ਨਵਾਂ      F3-ਸੋਧ   F4-ਹਟਾਉ    F5-ਮੁਡ਼ ਨਿਰਧਾਰਨ    F12-"
 "OK        "
@@ -6236,13 +6204,11 @@ msgid "User Exists"
 msgstr "ਉਪਭੋਗਤਾ ਮੌਜੂਦ ਹੈ"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "ਪ੍ਰਬੰਧਕ(root) ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ। ਤੁਹਾਨੂੰ ਇਸ ਨੂੰ ਇਥੇ ਮੁਡ਼ ਜੋਡ਼ਨ ਦੀ ਜ਼ਰੂਰਤ ਨਹੀ ਹੈ"
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "ਸਿਸਟਮ ਉਪਭੋਗਤਾ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ। ਤੁਹਾਨੂੰ ਇਸ ਉਪਭੋਗਤਾ ਨੂੰ ਇਥੇ ਜੋਡ਼ਨ ਦੀ ਜ਼ਰੂਰਤ ਨਹੀ ਹੈ।"
 
 #: ../textw/userauth_text.py:171
@@ -6568,40 +6534,36 @@ msgid "Video RAM:"
 msgstr "ਵੀਡਿਓ ਰੈਮ(RAM)ਃ"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "ਜੰਤਰ"
+msgstr "ਜੰਤਰ ਨੰਬਰ:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "ਜੰਤਰ"
+msgstr "FCP ਜੰਤਰ"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "ਜੰਤਰ"
+msgstr "ਜੰਤਰ #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "ਹਟਾਓ"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6609,8 +6571,9 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
-"z/IPL ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੇ ਪੂਰਾ ਹੋਣ ਉਪਰੰਤ ਤੁਹਾਡੇ ਸਿਸਟਮ ਇੰਸਟਾਲ ਹੋਵੇਗਾ। ਤੁਸੀ ਹੋਰ ਕਰਨਲ ਵੀ ਦੇ "
-"ਸਕਦੇ ਹੋ ਅਤੇ chandev ਪੈਰਾਮੀਟਰ ਵੀ, ਜੋ ਵੀ ਤੁਹਾਡੀ ਮਸ਼ੀਨ ਜਾਂ ਤੁਹਾਡਾ ਨਿਰਧਾਰਨ ਨੂੰ ਲੋਡ਼ੀਦਾ ਹੈ।"
+"z/IPL ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲੇਸ਼ਨ ਦੇ ਪੂਰਾ ਹੋਣ ਉਪਰੰਤ ਤੁਹਾਡੇ ਸਿਸਟਮ ਇੰਸਟਾਲ ਹੋਵੇਗਾ। ਤੁਸੀ ਹੋਰ "
+"ਕਰਨਲ ਵੀ ਦੇ ਸਕਦੇ ਹੋ ਅਤੇ chandev ਪੈਰਾਮੀਟਰ ਵੀ, ਜੋ ਵੀ ਤੁਹਾਡੀ ਮਸ਼ੀਨ ਜਾਂ "
+"ਤੁਹਾਡਾ ਨਿਰਧਾਰਨ ਨੂੰ ਲੋਡ਼ੀਦਾ ਹੈ।"
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -7011,7 +6974,7 @@ msgstr "ਹਾਰਡ ਡਿਸਕ ਤੇ ਕਿੱਕਸਟਾਰਟ ਫਾਇ�
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "BIOS ਡਿਸਕ %s ਲਈ ਹਾਰਡ ਡਰਾਇਵ ਲੱਭ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7051,8 +7014,7 @@ msgid "Welcome to %s"
 msgstr "%s ਤੇ ਜੀ ਆਇਆ ਨੂੰ"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ਇਕਾਈਆਂ ਵਿੱਚ  | <Space> ਚੋਣ | <F12> ਅਗਲਾ ਪਰਦਾ"
 
 #: ../loader2/lang.c:372
@@ -7162,8 +7124,7 @@ msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜ�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਇਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੋਗੇ?"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰ-ਡਰਾਇਵਰ ਲੋਡ ਨਹੀ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੋਗੇ?"
 
 #: ../loader2/loader.c:1021
 msgid "Devices"
@@ -7559,8 +7520,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"ਜੇਕਰ ਤੁਸੀ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
+msgstr "ਜੇਕਰ ਤੁਸੀ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਵਰਤ ਰਹੇ ਹੋ, ਤਾਂ ਵਰਤਣ ਲਈ HTTP ਪਰਾਕਸੀ ਸਰਵਰ ਦਾ ਨਾਂ ਭਰੋ।"
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
@@ -7619,8 +7579,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "ਐਟਲਿਕ ਸਮਾਂ - E ਲਾਬਰਾਡੋਰ"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "ਐਟਲਿਕ ਸਮਾਂ - ਨੋਵਾ ਸਕੋਟਿਕ (ਆਮ ਥਾਵਾਂ), NB, W ਲਾਬਰਾਡੋਰ, E ਕਿਊਬਿਸ ਤੇ PEI"
 
 #. generated from zone.tab
@@ -7645,7 +7604,7 @@ msgstr "ਬਾਈਯਾਨ-ਓਲਗਾਈ, ਗੋਵਾ-ਅਲਟਾਈ, ਹੋ
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "ਬੂਈਨੋਸ ਏਅਰੀਸ (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7725,7 +7684,7 @@ msgstr "ਚਾਥਮ ਟਾਪੂ"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "ਚੂਬੁਟ (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7808,8 +7767,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟੀਰੀਓ - ਆਮ ਥਾਵਾਂ"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "ਪੂਰਬੀ ਸਮਾਂ - ਓਨਟਾਰੀਓ ਤੇ ਕਿਊਬਸ - ਥਾਵਾਂ ਜੋ ਕਿ DST 1967-1973 ਨੂੰ ਨਹੀ ਵੇਖੀਆਂ"
 
 #. generated from zone.tab
@@ -7882,7 +7840,7 @@ msgstr "ਕਵਾਹਾਲੇਇਨ"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "ਲਾ ਲੀਓਜਾ (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -7989,17 +7947,15 @@ msgid "most locations"
 msgstr "ਆਮ ਥਾਵਾਂ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "ਆਮ ਥਾਵਾਂ (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "ਆਮ ਥਾਵਾਂ (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਅਰੀਜ਼ੋਨਾ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "ਪਹਾਡ਼ੀ ਮਿਆਰੀ ਸਮਾਂ - ਡਾਵਸਨ ਕਰੈਕ ਤੇ ਕਿਲਾ ਸੈਟ ਜੋਹਨ, ਬਰਤਾਨਵੀਂ ਕੋਲੰਬੀਆ"
 
 #. generated from zone.tab
@@ -8132,11 +8088,11 @@ msgstr "ਸਾਬਹ ਤੇ ਸਾਰਾਵਾਕ"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "ਸਾਂ ਜੂਆਨ(SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "ਸ਼ਾਤਾਂ ਕਰੂਜ (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8184,7 +8140,7 @@ msgstr "ਤਿੱਬਤ ਅਤੇ ਹੋਰ ਜ਼ਿੰਗਇੰਗ ਉਘੂ�
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "ਟੀਇੱਰਾ ਡੀਲ ਫੂਈਗੋ(TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8196,11 +8152,11 @@ msgstr "ਤੁਰਕ (ਚੂਕ)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "ਟੂਕੂਮੈਨ (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr "ਵੀਨਟੋਰੀਆ"
+msgstr "ਵਿਕਟੋਰੀਆ"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
@@ -8208,7 +8164,7 @@ msgstr "ਵੋਸਟੋਕ ਸਟੇਸ਼ਨ, ਦੱਖਣੀ ਚੁੰਬਕ�
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "ਵਾਕਾ ਟਾਪੂ"
+msgstr "ਵਾਕੀ ਟਾਪੂ"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -8255,9 +8211,8 @@ msgid "Bengali"
 msgstr "ਬੰਗਾਲੀ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "ਹੰਗਰੀਅਨ"
+msgstr "ਬੁਲਗਾਰੀਅਨ"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8348,9 +8303,8 @@ msgid "Persian"
 msgstr "ਪਰਸੀਅਨ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "ਅੰਗਰੇਜ਼ੀ"
+msgstr "ਪੋਲਿਸ਼"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8404,5 +8358,3 @@ msgstr "ਵਾਲਿਸ਼"
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "E ਅਰਜਟੀਨਾ (BA, DF, SC, TF)"
