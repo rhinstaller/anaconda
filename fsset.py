@@ -1231,8 +1231,14 @@ class FileSystemSetEntry:
 
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
-        self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
-                           readOnly = readOnly)
+        # FIXME: we really should migrate before turnOnFilesystems.
+        # but it's too late now
+        if (self.migrate == 1) and (self.origfsystem is not None):
+            self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+                                   readOnly = readOnly)
+        else:
+            self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+                               readOnly = readOnly)
         self.mountcount = self.mountcount + 1
 
     def umount(self, chroot='/'):
