@@ -9,6 +9,7 @@
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
  * Michael Fulbright <msf@redhat.com>
+ * Jeremy Katzj <katzj@redhat.com>
  *
  * Copyright 1997 - 2002 Red Hat, Inc.
  *
@@ -3357,6 +3358,7 @@ int main(int argc, char ** argv) {
     int flags = 0;
     int testing = 0;
     int mediacheck = 0;
+    int useRHupdates = 0;
     char * lang = NULL;
     char * keymap = NULL;
     char * kbdtype = NULL;
@@ -3763,16 +3765,29 @@ int main(int argc, char ** argv) {
 #endif
 
     /* Just in case */
-    setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
+    /* only use RHupdates if we're NFS, otherwise we'll use files on */
+    /* the first ISO image and we won't be able to umount it */
+    useRHupdates = 0;
+    if (strncmp(url, "nfs:", 4)) {
+	logMessage("NFS install method detectde, will use RHupdates/");
+	useRHupdates = 1;
+    }
+	
+    if (useRHupdates)
+	setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
+    else
+	setenv("PYTHONPATH", "/tmp/updates", 1);
 
     argptr = anacondaArgs;
 
     if (!access("/tmp/updates/anaconda", X_OK))
 	*argptr++ = "/tmp/updates/anaconda";
-    else if (!access("/mnt/source/RHupdates/anaconda", X_OK))
+    else if (useRHupdates && !access("/mnt/source/RHupdates/anaconda", X_OK))
 	*argptr++ = "/mnt/source/RHupdates/anaconda";
     else
 	*argptr++ = "/usr/bin/anaconda";
+
+    logMessage("Running anaconda script %s", *(argptr-1));
 
     *argptr++ = "-m";
     if (strncmp(url, "ftp:", 4)) {
