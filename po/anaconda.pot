@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-11-29 15:54-0500\n"
+"POT-Creation-Date: 1999-11-29 16:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: ../text.py:272 ../text.py:294 ../text.py:296 ../text.py:385 ../text.py:436
 #: ../text.py:438 ../text.py:447 ../text.py:465 ../text.py:478 ../text.py:515
 #: ../text.py:517 ../text.py:543 ../text.py:546 ../text.py:555 ../text.py:613
-#: ../text.py:614 ../text.py:906 ../text.py:929 ../textw/constants.py:10
+#: ../text.py:614 ../text.py:928 ../text.py:951 ../textw/constants.py:10
 #: ../textw/lilo.py:27 ../textw/lilo.py:77 ../textw/lilo.py:84
 #: ../textw/lilo.py:159 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:136 ../textw/packages.py:145
@@ -56,8 +56,8 @@ msgstr ""
 msgid "Online Help"
 msgstr ""
 
-#: ../gui.py:291 ../iw/language.py:10 ../text.py:50 ../text.py:1018
-#: ../text.py:1047
+#: ../gui.py:291 ../iw/language.py:10 ../text.py:50 ../text.py:1040
+#: ../text.py:1069
 msgid "Language Selection"
 msgstr ""
 
@@ -107,14 +107,14 @@ msgstr ""
 #: ../loader/urls.c:207 ../loader/urls.c:337 ../text.py:53 ../text.py:108
 #: ../text.py:161 ../text.py:206 ../text.py:249 ../text.py:294 ../text.py:385
 #: ../text.py:405 ../text.py:436 ../text.py:515 ../text.py:543 ../text.py:613
-#: ../text.py:637 ../text.py:651 ../text.py:664 ../text.py:676 ../text.py:906
-#: ../text.py:979 ../text.py:983 ../text.py:1171 ../textw/lilo.py:26
-#: ../textw/lilo.py:77 ../textw/packages.py:20 ../textw/packages.py:85
-#: ../textw/packages.py:136 ../textw/partitioning.py:202 ../textw/silo.py:25
-#: ../textw/silo.py:86 ../textw/userauth.py:29 ../textw/userauth.py:43
-#: ../textw/userauth.py:48 ../textw/userauth.py:82 ../textw/userauth.py:94
-#: ../textw/userauth.py:102 ../textw/userauth.py:111 ../textw/userauth.py:172
-#: ../textw/userauth.py:244
+#: ../text.py:637 ../text.py:651 ../text.py:673 ../text.py:686 ../text.py:698
+#: ../text.py:928 ../text.py:1001 ../text.py:1005 ../text.py:1193
+#: ../textw/lilo.py:26 ../textw/lilo.py:77 ../textw/packages.py:20
+#: ../textw/packages.py:85 ../textw/packages.py:136
+#: ../textw/partitioning.py:202 ../textw/silo.py:25 ../textw/silo.py:86
+#: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
+#: ../textw/userauth.py:82 ../textw/userauth.py:94 ../textw/userauth.py:102
+#: ../textw/userauth.py:111 ../textw/userauth.py:172 ../textw/userauth.py:244
 msgid "OK"
 msgstr ""
 
@@ -180,7 +180,7 @@ msgstr ""
 msgid "Mouse Selection"
 msgstr ""
 
-#: ../text.py:159 ../text.py:1020 ../text.py:1049
+#: ../text.py:159 ../text.py:1042 ../text.py:1071
 msgid "Keyboard Selection"
 msgstr ""
 
@@ -208,7 +208,7 @@ msgstr ""
 msgid "Upgrade Existing Installation"
 msgstr ""
 
-#: ../text.py:204 ../text.py:1052
+#: ../text.py:204 ../text.py:1074
 msgid "Installation Type"
 msgstr ""
 
@@ -221,7 +221,7 @@ msgstr ""
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
 #: ../loader/loader.c:881 ../loader/loader.c:1614 ../loader/loader.c:1660
 #: ../loader/loader.c:1731 ../loader/urls.c:202 ../loader/urls.c:207
-#: ../text.py:232 ../text.py:672 ../todo.py:366 ../todo.py:506 ../todo.py:1081
+#: ../text.py:232 ../text.py:694 ../todo.py:366 ../todo.py:506 ../todo.py:1081
 #: ../todo.py:1419
 msgid "Error"
 msgstr ""
@@ -352,7 +352,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../text.py:470 ../text.py:660
+#: ../text.py:470 ../text.py:682
 msgid "Bootdisk"
 msgstr ""
 
@@ -390,11 +390,11 @@ msgid ""
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:627 ../text.py:641
+#: ../text.py:627 ../text.py:641 ../text.py:663
 msgid "Complete"
 msgstr ""
 
-#: ../iw/congrats.py:32 ../text.py:628
+#: ../iw/congrats.py:31 ../text.py:628
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -406,7 +406,7 @@ msgid ""
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../text.py:642
+#: ../text.py:642 ../text.py:664
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -417,211 +417,209 @@ msgid ""
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
 
-#: ../iw/bootdisk.py:50 ../text.py:661
+#: ../iw/bootdisk.py:50 ../text.py:683
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
 
-#: ../text.py:664 ../text.py:665 ../text.py:676 ../text.py:677
+#: ../text.py:686 ../text.py:687 ../text.py:698 ../text.py:699
 #: ../textw/lilo.py:26 ../textw/silo.py:25
 msgid "Skip"
 msgstr ""
 
-#: ../iw/bootdisk.py:54 ../text.py:673
+#: ../iw/bootdisk.py:54 ../text.py:695
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
 
-#: ../text.py:735
+#: ../text.py:757
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:737
+#: ../text.py:759
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:738
+#: ../text.py:760
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:739
+#: ../text.py:761
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:765
+#: ../text.py:787
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:766
+#: ../text.py:788
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:767
+#: ../text.py:789
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:769
+#: ../text.py:791
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:776
+#: ../text.py:798
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:786
+#: ../text.py:808
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:908
+#: ../text.py:930
 msgid "What time zone are you located in?"
 msgstr ""
 
-#: ../text.py:917
+#: ../text.py:939
 msgid "Hardware clock set to GMT?"
 msgstr ""
 
-#: ../iw/timezone.py:30 ../text.py:919
+#: ../iw/timezone.py:30 ../text.py:941
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../text.py:983 ../text.py:984
+#: ../text.py:1005 ../text.py:1006
 msgid "Debug"
 msgstr ""
 
-#: ../text.py:996
+#: ../text.py:1018
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:998
+#: ../text.py:1020
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:1022 ../text.py:1088
+#: ../text.py:1044 ../text.py:1110
 msgid "Hostname Setup"
 msgstr ""
 
-#: ../text.py:1024 ../text.py:1090
+#: ../text.py:1046 ../text.py:1112
 msgid "Network Setup"
 msgstr ""
 
-#: ../iw/mouse.py:55 ../text.py:1026 ../text.py:1028 ../text.py:1092
-#: ../text.py:1094
-msgid "Mouse Configuration"
-msgstr ""
-
-#: ../text.py:1030 ../text.py:1096
+#: ../text.py:1052 ../text.py:1118
 msgid "Time Zone Setup"
 msgstr ""
 
-#: ../text.py:1032 ../text.py:1098 ../textw/userauth.py:8
+#: ../text.py:1054 ../text.py:1120 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr ""
 
-#: ../text.py:1034 ../text.py:1100 ../textw/userauth.py:148
+#: ../text.py:1056 ../text.py:1122 ../textw/userauth.py:148
 msgid "User Account Setup"
 msgstr ""
 
-#: ../text.py:1036 ../text.py:1102
+#: ../text.py:1058 ../text.py:1124
 msgid "Authentication"
 msgstr ""
 
-#: ../iw/xconfig.py:120 ../text.py:1038 ../text.py:1040 ../text.py:1110
-#: ../text.py:1118
-msgid "X Configuration"
-msgstr ""
-
-#: ../text.py:1042
+#: ../text.py:1064
 msgid "Configuration Complete"
 msgstr ""
 
-#: ../iw/welcome.py:10 ../text.py:1051
+#: ../iw/welcome.py:10 ../text.py:1073
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:1060 ../textw/silo.py:28 ../textw/silo.py:88
+#: ../text.py:1082 ../textw/silo.py:28 ../textw/silo.py:88
 #: ../textw/silo.py:192
 msgid "SILO Configuration"
 msgstr ""
 
-#: ../text.py:1066 ../textw/lilo.py:29 ../textw/lilo.py:74
+#: ../text.py:1088 ../textw/lilo.py:29 ../textw/lilo.py:74
 #: ../textw/lilo.py:167
 msgid "LILO Configuration"
 msgstr ""
 
 #: ../iw/lilo.py:97 ../iw/lilo.py:202 ../iw/silo.py:125 ../iw/silo.py:268
-#: ../text.py:1070 ../text.py:1076
+#: ../text.py:1092 ../text.py:1098
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:1072
+#: ../text.py:1094
 msgid "Manually Partition"
 msgstr ""
 
-#: ../text.py:1074
+#: ../text.py:1096
 msgid "Automatic Partition"
 msgstr ""
 
-#: ../text.py:1078
+#: ../text.py:1100
 msgid "Swap"
 msgstr ""
 
-#: ../text.py:1080
+#: ../text.py:1102
 msgid "Filesystem Formatting"
 msgstr ""
 
-#: ../text.py:1104
+#: ../iw/mouse.py:55 ../text.py:1114 ../text.py:1116
+msgid "Mouse Configuration"
+msgstr ""
+
+#: ../text.py:1126
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:1106 ../text.py:1133
+#: ../text.py:1128 ../text.py:1155
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:1108 ../textw/packages.py:114
+#: ../text.py:1130 ../textw/packages.py:114
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../text.py:1112 ../text.py:1117 ../text.py:1134 ../text.py:1137
+#: ../iw/xconfig.py:120 ../text.py:1132 ../text.py:1140
+msgid "X Configuration"
+msgstr ""
+
+#: ../text.py:1134 ../text.py:1139 ../text.py:1156 ../text.py:1159
 msgid "Boot Disk"
 msgstr ""
 
-#: ../text.py:1114
+#: ../text.py:1136
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:1116
+#: ../text.py:1138
 msgid "Install System"
 msgstr ""
 
-#: ../text.py:1120
+#: ../text.py:1142
 msgid "Installation Complete"
 msgstr ""
 
-#: ../text.py:1125
+#: ../text.py:1147
 msgid "Examine System"
 msgstr ""
 
-#: ../text.py:1132
+#: ../text.py:1154
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1136
+#: ../text.py:1158
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:1138
+#: ../text.py:1160
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../text.py:1168
+#: ../text.py:1190
 msgid "Cancelled"
 msgstr ""
 
-#: ../text.py:1169
+#: ../text.py:1191
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -871,15 +869,15 @@ msgstr ""
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr ""
 
-#: ../iw/congrats.py:11
+#: ../iw/congrats.py:11 ../iw/congrats.py:54
 msgid "Congratulations"
 msgstr ""
 
-#: ../iw/congrats.py:13
+#: ../iw/congrats.py:13 ../iw/congrats.py:56
 msgid "Exit"
 msgstr ""
 
-#: ../iw/congrats.py:43
+#: ../iw/congrats.py:77
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"

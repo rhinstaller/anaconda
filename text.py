@@ -652,6 +652,26 @@ class FinishedWindow:
 
         return INSTALL_OK
 
+
+class ReconfigFinishedWindow:
+    def __call__ (self, screen, todo):
+
+        todo.writeConfiguration()
+            
+        rc = ButtonChoiceWindow (screen, _("Complete"), 
+                                 _("Congratulations, configuration is complete.\n\n"
+                                   " For information on fixes which "
+                                   "are available for this release of Red Hat Linux, "
+                                   "consult the "
+                                   "Errata available from http://www.redhat.com.\n\n"
+                                   "Information on further configuring your system is "
+                                   "available "
+                                   "in the post install chapter of the Official Red Hat "
+                                   "Linux User's Guide."),
+                                 [ _("OK") ])
+
+        return INSTALL_OK
+
 class BootdiskWindow:
     def __call__ (self, screen, todo):
         if not todo.bootdisk:
@@ -1023,10 +1043,10 @@ class InstallInterface:
                  "network"],
                 [_("Network Setup"), NetworkWindow, (self.screen, todo), 
                  "network"],
-                [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
-                 "mouse" ],
-                [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
-                 "mouse" ],
+#                [_("Mouse Configuration"), MouseWindow, (self.screen, todo),
+#                 "mouse" ],
+#                [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo),
+#                 "mouse" ],
                 [_("Time Zone Setup"), TimezoneWindow, 
                  (self.screen, todo, test), "timezone" ],
                 [_("Root Password"), RootPasswordWindow, 
@@ -1035,11 +1055,11 @@ class InstallInterface:
                  (self.screen, todo), "accounts" ],
                 [_("Authentication"), AuthConfigWindow, (self.screen, todo),
                  "authentication" ],
-                [_("X Configuration"), XConfigWindow, (self.screen, todo),
-                 "xconfig" ],
-                [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
-		    "xconfig"],
-                [_("Configuration Complete"), FinishedWindow, (self.screen,todo),
+#                [_("X Configuration"), XConfigWindow, (self.screen, todo),
+#                 "xconfig" ],
+#                [_("X Configuration"), XconfiguratorWindow, (self.screen, todo), 
+#		    "xconfig"],
+                [_("Configuration Complete"), ReconfigFinishedWindow, (self.screen,todo),
                  "complete" ],
                 ]
         else:

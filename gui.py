@@ -238,7 +238,7 @@ class InstallInterface:
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
-		     ( CongratulationWindow, "complete" )
+		     ( ReconfigCongratulationWindow, "complete" )
 		   ]
 
         else:
