@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -103,7 +103,7 @@ def startX(resolution, nofbmode, video, monitor, mouse):
             else:
                 card = None
 
-            next_attempt = 'PROBED'
+	    next_attempt = 'PROBED'
         elif attempt == 'PROBED':
             if video.primaryCard():
                 print _("Attempting to start native X server")
@@ -141,10 +141,8 @@ def startX(resolution, nofbmode, video, monitor, mouse):
     
     return x
 
+# this function lets us blacklist cards which dont like framebuffer
 def canUseFrameBuffer (videocard):
-    if videocard:
-        carddata = videocard.getProbedCard()
-
     return 1
 
 def testx(x):
