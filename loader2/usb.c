@@ -87,6 +87,8 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
             /* may have USB built into kernel */
             /* return 1; */
         }
+
+        free(devices);
     }
 
     if (FL_TESTING(flags)) return 0;
