@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"POT-Creation-Date: 2004-04-14 22:39-0400\n"
 "PO-Revision-Date: 2004-02-26 16:16+0530\n"
 "Last-Translator: ambalam <tamilpc@ambalam.com>\n"
 "Language-Team: Tamil <en@li.org>\n"
@@ -88,7 +88,7 @@ msgstr "நிறுவுதலை தொடங்குவதற்கு த
 msgid "Please connect to begin the install..."
 msgstr "நிறுவுதலை தொடங்குவதற்கு தயவுசெய்து ன்-ஐ கு இணைக்கவும்."
 
-#: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
+#: ../anaconda:560 ../anaconda:741 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -111,7 +111,7 @@ msgstr "நிறுவுதலை தொடங்குவதற்கு த
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -127,16 +127,16 @@ msgstr "நிறுவுதலை தொடங்குவதற்கு த
 msgid "OK"
 msgstr "சரி"
 
-#: ../anaconda:608
+#: ../anaconda:611
 msgid "Unknown Error"
 msgstr "தெரியாத தவறு"
 
-#: ../anaconda:611
+#: ../anaconda:614
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "kickstart config: %s!-ன் 2வது பகுதியை தள்ளுவதில் ¾ÅÚ "
 
-#: ../anaconda:723
+#: ../anaconda:726
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -144,23 +144,23 @@ msgstr ""
 "போதுமான RAM இல்லாததால் வரைகலை நிறுவியை பயன்படுத்தமுடியவில்லை. உரை முறை "
 "ஆரம்பிக்கப்படுகிறது."
 
-#: ../anaconda:775
+#: ../anaconda:778
 msgid "Install class forcing text mode installation"
 msgstr "நிறுவு class forcing உரை வகை ¿¢Èுவு"
 
-#: ../anaconda:802
+#: ../anaconda:805
 msgid "No video hardware found, assuming headless"
 msgstr "ஒளதகத்தோற்ற வன்பொருளை கண்டுபிடிக்க முடியவில்லை,முனையற்றதாக கருதப்படுகிர்அது"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:816 ../anaconda:1063 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X வன்பொருள் நிலை பொருளை நிறுவமுடியவில்லை"
 
-#: ../anaconda:837
+#: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "வரைக்கலை நிறுவல் இல்லை... உரை முறை ஆரம்பிக்கப்படுகிறது"
 
-#: ../anaconda:852
+#: ../anaconda:855
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -168,12 +168,12 @@ msgstr ""
 "எந்த சுட்டியும் கண்டரியப்படவில்லை.வரைக்கலை நிறுவலுக்கு சுட்டி அவசியம் தேவை.உரை முறை "
 "ஆரம்பிக்கப்படுக்கிறது."
 
-#: ../anaconda:862
+#: ../anaconda:865
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "¸ண்டுபிடிக்கப்பட்ட சுட்டிÂ¢ý Å¨¸: %s"
 
-#: ../anaconda:866
+#: ../anaconda:869
 #, c-format
 msgid "Using mouse type: %s"
 msgstr " %s சுட்டி வகை பயன்படுத்தப்படுகிறது"
@@ -409,7 +409,7 @@ msgstr "திருத்தமுடியாத பிழை"
 msgid "Your system will now be rebooted."
 msgstr "உங்கள் கணினி இப்பொழுது மறுதொடங்கப்படும்."
 
-#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:429
+#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:441
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -520,7 +520,7 @@ msgstr "முடிக்கப்பட்டது [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s நிறுவிக்கொண்டிருக்கிறது"
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:749
 msgid "Everything"
 msgstr "அனைத்தும்"
 
@@ -528,11 +528,11 @@ msgstr "அனைத்தும்"
 msgid "no suggestion"
 msgstr "ஆலோசனை இ஭றநஙூ"
 
-#: ../comps.py:1098 ../hdrlist.py:970
+#: ../comps.py:1098 ../hdrlist.py:972
 msgid "Miscellaneous"
 msgstr "இன்னபிற"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:919
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -541,7 +541,7 @@ msgstr ""
 "இந்த குழுவில் கட்டுகள் பற்றிய விவரங்கள் இருக்கும். இந்த பக்கத்தில் அனைத்துகட்டுகளும் "
 "அவற்றிற்கான குழுக்கள் பற்றிய விவரமும் இருக்கும்"
 
-#: ../comps.py:1118 ../hdrlist.py:921
+#: ../comps.py:1118 ../hdrlist.py:923
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -549,7 +549,7 @@ msgstr ""
 "குறைந்த அமைப்பு பணித்தொகுப்பை பெற இந்த குழுவத் தேர்ந்தெடு.ஊதாரனமாக சிறு திசைவி/"
 "தீச்சுவர் பெட்டிகளை உருவாக்குதல்"
 
-#: ../constants.py:70
+#: ../constants.py:72
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -560,7 +560,7 @@ msgstr ""
 "உரையையும் நகலெடு அல்லது மோதல் விவரங்களை நெகிழ்வட்டில் சேமிக்கவும் பிறகு வழுவைப்பற்றிய "
 "முழு விவரத்தை அனக்கோன்டாவிற்க்கு அனுப்பவும் http://bugzilla.redhat.com/bugzilla/"
 
-#: ../constants.py:77
+#: ../constants.py:79
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -620,9 +620,9 @@ msgstr "_துவக்க வட்டை உருவாக்கு"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
 #: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
-#: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:664
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:301
+#: ../image.py:498 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../packages.py:182 ../packages.py:408 ../packages.py:583 ../packages.py:668
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -633,7 +633,7 @@ msgstr "_துவக்க வட்டை உருவாக்கு"
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -859,8 +859,8 @@ msgstr ""
 "\n"
 "இந்த பிரச்சனையை சரிசெய்து நிறுவலை தொடரவும்."
 
-#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
-#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:451
+#: ../packages.py:1453 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_மறுதொடங்கு"
@@ -987,7 +987,7 @@ msgstr ""
 "\n"
 "வகுப்பு பெயர் = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:588 ../packages.py:1447
 msgid "_Exit"
 msgstr "_வெளிச்செல்"
 
@@ -995,17 +995,17 @@ msgstr "_வெளிச்செல்"
 msgid "_Retry"
 msgstr "முயல்"
 
-#: ../gui.py:1088 ../packages.py:1418
+#: ../gui.py:1088 ../packages.py:1450
 msgid "Rebooting System"
 msgstr "கணண஢யமைப்பு மறுதொடங்கப்படுகிறது"
 
-#: ../gui.py:1089 ../packages.py:1419
+#: ../gui.py:1089 ../packages.py:1451
 msgid "Your system will now be rebooted..."
 msgstr "உங்கள் கணினி இப்பொழுது மறுதொடங்கப்படும்..."
 
-#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1453 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
 msgstr "_பின்"
 
@@ -1047,7 +1047,7 @@ msgstr "தலைப்பு பட்டையை ஏற்ற முடிய
 msgid "Install Window"
 msgstr "சாளரத்தை நிறுவு"
 
-#: ../harddrive.py:166 ../image.py:487
+#: ../harddrive.py:166 ../image.py:499
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1079,7 +1079,7 @@ msgstr ""
 "தயவுசெய்து கீழ்கண்டவைகளை நிறுவுவதற்கு தயாராக வைத்துக்கொள்ளவும். நிறுவுவதை "
 "நிறுத்திவிட்டு மீண்டும் தொடர விரும்பினால் தயவுசெய்து \"Reboot\"-ஐ தேர்ந்தெடுக்கவும்."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
+#: ../image.py:72 ../image.py:452 ../kickstart.py:1342 ../kickstart.py:1369
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_தொடர்"
@@ -1109,33 +1109,38 @@ msgstr ""
 "வன்பொருள் இயக்கிக்கு நிறுவல் பிம்பத்தை மாற்றும் போது தவறு ஏற்ப்பட்டது.நீங்கள் தட்டின் வெளியே "
 "இருக்கிரீர்கள்"
 
-#: ../image.py:283
+#: ../image.py:259
+msgid "Change CDROM"
+msgstr "CDROMஐ மாற்று"
+
+#: ../image.py:260
+#, python-format
+msgid "Please insert disc %d to continue."
+msgstr "இனி தொடர, %d வட்டை சொருகவும்."
+
+#: ../image.py:295
 msgid "Wrong CDROM"
 msgstr "தவறான CDROM"
 
-#: ../image.py:284
+#: ../image.py:296
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "அது சரியான %s CDROM இல்லை."
 
-#: ../image.py:287
-msgid "Change CDROM"
-msgstr "CDROMஐ மாற்று"
-
-#: ../image.py:288
-#, python-format
-msgid "Please insert disc %d to continue."
-msgstr "இனி தொடர, %d வட்டை சொருகவும்."
+#: ../image.py:302
+#, fuzzy
+msgid "The CDROM could not be mounted."
+msgstr "சேவகனிலிருந்து கோப்பகத்ய்தை ஏற்ற முடியவில்லை."
 
 #: ../installclass.py:59
 msgid "Install on System"
 msgstr "¸½¢ணிÂ¨ÁôÀ¢ø ¿¢Ú×"
 
-#: ../kickstart.py:1332
+#: ../kickstart.py:1334
 msgid "Missing Package"
 msgstr "நிரலைக் காணவில்லை"
 
-#: ../kickstart.py:1333
+#: ../kickstart.py:1335
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1144,15 +1149,15 @@ msgstr ""
 "நீங்கள் '%s' நிறுவப்பட வேண்டும் என்று குறிப்பிட்டுள்ளீர்கள். இந்த பொதி உங்களிடம் இல்லை. "
 "நிறுவலை நிறுத்த விருப்பமா?"
 
-#: ../kickstart.py:1339 ../kickstart.py:1366
+#: ../kickstart.py:1341 ../kickstart.py:1368
 msgid "_Abort"
 msgstr "_கைவிடு"
 
-#: ../kickstart.py:1358
+#: ../kickstart.py:1360
 msgid "Missing Group"
 msgstr "குழுவை காணவில்லை"
 
-#: ../kickstart.py:1359
+#: ../kickstart.py:1361
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1217,7 +1222,7 @@ msgstr ""
 "உருவாக்கல் கோப்பை படிக்க முடியவில்லை.தவறான மீடியா அல்லது காணப்படாத கோப்பின் காரணமாக "
 "இருக்கும்.<திரும்ப>யை அழுத்தி மறுபடியும் செயல்படுத்துக"
 
-#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:669 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1225,7 +1230,7 @@ msgstr ""
 "தலைப்பு பட்டியலை சேர்க்க முடியவில்லை.தவறான மீடியா அல்லது காணப்படாத கோப்பின் காரணமாக "
 "இருக்கும்.<திரும்ப>யை அழுத்தி மறுபடியும் செயல்படுத்துக"
 
-#: ../packages.py:183 ../packages.py:580
+#: ../packages.py:183 ../packages.py:584
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1240,7 +1245,7 @@ msgstr "சார்புகளைச் சரிபார்"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "பணித்தொகுப்பின் சோதிப்பதின் தனித்தன்மை நிறுவலுக்காக தேர்வுசெய்யப்பட்டது "
 
-#: ../packages.py:349 ../packages.py:763
+#: ../packages.py:349 ../packages.py:767
 msgid "Processing"
 msgstr "இயங்குகிறது"
 
@@ -1248,7 +1253,7 @@ msgstr "இயங்குகிறது"
 msgid "Preparing to install..."
 msgstr "நிறுவத்தயாராகிறது.."
 
-#: ../packages.py:405
+#: ../packages.py:409
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1264,15 +1269,15 @@ msgstr ""
 "\n"
 "மீண்டும் முயற்சிக்க <return> யை அழுத்தவும்."
 
-#: ../packages.py:413
+#: ../packages.py:417
 msgid "Installing..."
 msgstr "நிறுவப்பப்படுகிறது..."
 
-#: ../packages.py:434
+#: ../packages.py:438
 msgid "Error Installing Package"
 msgstr "பொதியை நிறுவுவதில் தவறு"
 
-#: ../packages.py:435
+#: ../packages.py:439
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1288,11 +1293,11 @@ msgstr ""
 "\n"
 "உங்கள் முறைமையை மீண்டும் இயக்க OKயை அழுத்தவும்."
 
-#: ../packages.py:764
+#: ../packages.py:768
 msgid "Preparing RPM transaction..."
 msgstr "RP"
 
-#: ../packages.py:847
+#: ../packages.py:851
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1301,7 +1306,7 @@ msgstr ""
 "%s கட்டுகள் மேம்படுத்தப்படுகிறது\n"
 "\n"
 
-#: ../packages.py:849
+#: ../packages.py:853
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1310,17 +1315,17 @@ msgstr ""
 "%s நிரைகள் நிறுவப்படுகிறது\n"
 "\n"
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:861 ../packages.py:1161
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "%s-%s-%s.%s மேம்படுத்தபடுகிறது.\n"
 
-#: ../packages.py:859 ../packages.py:1155
+#: ../packages.py:863 ../packages.py:1163
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "நிறுவப்பப்படுகிறது %s-%s-%s.%s.\n"
 
-#: ../packages.py:875
+#: ../packages.py:879
 #, python-format
 msgid ""
 "\n"
@@ -1337,15 +1342,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:881
+#: ../packages.py:885
 msgid "Install Starting"
 msgstr "துவக்கதிலிருந்து நிறுவு"
 
-#: ../packages.py:882
+#: ../packages.py:886
 msgid "Starting install process, this may take several minutes..."
 msgstr "நிறுவல் ஆரம்பிக்கப்படுகிறது, இதற்கு பல நிமிடங்கள் எடுக்கலாம்..."
 
-#: ../packages.py:922
+#: ../packages.py:926
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1355,17 +1360,17 @@ msgstr ""
 "முறைமையில் கூடுதல் இடம் தேவை:\n"
 "\n"
 
-#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:930 ../packages.py:951 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "ஏற்றப"
 
-#: ../packages.py:927
+#: ../packages.py:931
 msgid "Space Needed"
 msgstr "இடம் தேவைப்படுகிறது"
 
-#: ../packages.py:943
+#: ../packages.py:947
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1375,23 +1380,23 @@ msgstr ""
 "நிறைய கோப்பு புள்ளி உங்கள் கோப்பு அமைப்புக்கு தேவை:\n"
 "\n"
 
-#: ../packages.py:948
+#: ../packages.py:952
 msgid "Nodes Needed"
 msgstr "கணுக்கள் தேவைப்படுகின்றன"
 
-#: ../packages.py:959
+#: ../packages.py:963
 msgid "Disk Space"
 msgstr "வட்டு பயன்பாடு"
 
-#: ../packages.py:1008
+#: ../packages.py:1012
 msgid "Post Install"
 msgstr "நிறுவிய பின்"
 
-#: ../packages.py:1009
+#: ../packages.py:1013
 msgid "Performing post install configuration..."
 msgstr "நிறுவிய பின் தேவையான கோப்புகள் அமைக்கப்படுகிறது"
 
-#: ../packages.py:1179
+#: ../packages.py:1187
 msgid ""
 "\n"
 "\n"
@@ -1401,7 +1406,7 @@ msgstr ""
 "\n"
 "கீழ்க்கண்ட பணித்தொகுப்புகள் இருக்கின்றன ஆனால் மேம்படுத்தப்படவில்லை \n"
 
-#: ../packages.py:1182
+#: ../packages.py:1190
 msgid ""
 "\n"
 "\n"
@@ -1411,11 +1416,11 @@ msgstr ""
 "\n"
 "கீழ்க்கண்ட பணித்தொகுப்புகள் இருக்கின்றன ஆனால் நிறுவப்படவில்லை \n"
 
-#: ../packages.py:1401
+#: ../packages.py:1433
 msgid "Warning! This is pre-release software!"
 msgstr "±îºÃ¢ì¨¸! þÐ முந்தைய வெளியீடு!"
 
-#: ../packages.py:1402
+#: ../packages.py:1434
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1442,7 +1447,7 @@ msgstr ""
 "\n"
 "மற்றும் உங்கள் கருத்துக்களை உள்ளிடவும் '%s'.\n"
 
-#: ../packages.py:1415
+#: ../packages.py:1447
 msgid "_Install anyway"
 msgstr "எப்படியேனும் _நிறுவு"
 
@@ -3032,15 +3037,15 @@ msgstr "fdisk உடன் பாகுபடுத்தல்"
 msgid "Select a drive to partition with fdisk:"
 msgstr "fdisk உடன் பாகுபடுத்த ஒரு இயக்கியை தேர்வுசெய்க"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
+#: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:28
 msgid "Firewall"
 msgstr "தீச்சுவர்"
 
-#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:195
 msgid "Warning - No Firewall"
 msgstr "நெருப்புச்சுவர் இல்லை"
 
-#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
+#: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:196
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3051,16 +3056,16 @@ msgstr ""
 "அணுகுவதை தவிர்க்க நெருப்பு சுவரை அமைக்கவும். எனினும் நீங்கள் நெருப்புசுவரை அமைக்கவில்லை "
 "\"தொடர்க\" என்பதை தேர்வு செய்து நெருப்பு சுவர் இல்லாமல் நிறுவவும்"
 
-#: ../iw/firewall_gui.py:41
+#: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
 msgstr "நெருப்பு சுவரை அமை"
 
-#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:202
+#: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:203
 msgid "_Proceed"
 msgstr "செயல்படுத்தப்பட்ட"
 
-#: ../iw/firewall_gui.py:129
+#: ../iw/firewall_gui.py:131
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3073,11 +3078,11 @@ msgstr ""
 "\n"
 "உதாரணம்,  '1234:udp'"
 
-#: ../iw/firewall_gui.py:133
+#: ../iw/firewall_gui.py:135
 msgid "Warning: Bad Token"
 msgstr "எச்சரிக்கை: தவறான வில்லை"
 
-#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
+#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3085,54 +3090,54 @@ msgstr ""
 "அனுமதிக்கப்படாத வெளியாட்கள் உங்கள் கணினியை பயன்படுத்துவதை தீச்சுவரைக்கொண்டு தடுக்கலாம்.  "
 "தீச்சுவரைப் பயன்படுத்த விருப்பமா?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
 msgstr "தீச்சுவர் இல்லை"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:171
 msgid "_Enable firewall"
 msgstr "தீச்சுவரை செயல்படுத்தவும்"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:173
 msgid "_Custom firewall"
 msgstr "தீச்சுவரை வடிவமைக்கவும்"
 
-#: ../iw/firewall_gui.py:189
+#: ../iw/firewall_gui.py:191
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "நெருப்புசுவரை கடந்து செல்ல எந்த சேவைகள் அனுமதிக்கப்பட வேண்டும்?"
 
-#: ../iw/firewall_gui.py:197
+#: ../iw/firewall_gui.py:199
 msgid "_Allow incoming:"
 msgstr "உள்வரவை அனுமதிக்கவும்:"
 
-#: ../iw/firewall_gui.py:222
+#: ../iw/firewall_gui.py:224
 msgid "Other _ports:"
 msgstr "மற்ற துறைகள்:"
 
-#: ../iw/firewall_gui.py:230
+#: ../iw/firewall_gui.py:232
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "ஒரு கருவியிலிருந்து எல்லா தகவல் நெரிசலையும் அனுமதிக்க விருப்பமா,கீழெ அதை "
 "த்தெர்வுசெய்யவும். "
 
-#: ../iw/firewall_gui.py:239
+#: ../iw/firewall_gui.py:241
 msgid "_Trusted devices:"
 msgstr "நம்பகமான கருவிகள்:"
 
-#: ../iw/firewall_gui.py:277
-msgid "_Security Enhanced Linux (SELinux) Extentions:"
+#: ../iw/firewall_gui.py:279
+msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 msgid "Disabled"
 msgstr ""
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 #, fuzzy
 msgid "Warn"
 msgstr "எச்சரிக்கை"
 
-#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr ""
 
@@ -5174,7 +5179,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
+#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -5269,65 +5274,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "fdisk யயில் இயக்க வேண்டிய தட்டை தேர்வு செய்"
 
-#: ../textw/firewall_text.py:25
+#: ../textw/firewall_text.py:26
 msgid "Customize"
 msgstr "தனதாக்கு"
 
-#: ../textw/firewall_text.py:46
+#: ../textw/firewall_text.py:47
 msgid "Enable firewall"
 msgstr "தீச்சுவரை செயல்படுத்து"
 
-#: ../textw/firewall_text.py:49
+#: ../textw/firewall_text.py:50
 msgid "No firewall"
 msgstr "தீச்சுவர் இல்லை"
 
-#: ../textw/firewall_text.py:68
+#: ../textw/firewall_text.py:69
 msgid "Trusted Devices:"
 msgstr "நம்பகமான கருவிகள்:"
 
-#: ../textw/firewall_text.py:78
+#: ../textw/firewall_text.py:79
 msgid "Allow incoming:"
 msgstr "உள்வரவை அனுமதிக்கவும்:"
 
-#: ../textw/firewall_text.py:83
+#: ../textw/firewall_text.py:84
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:86 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "தொலையிணைப்பு"
 
-#: ../textw/firewall_text.py:87
+#: ../textw/firewall_text.py:88
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:89
+#: ../textw/firewall_text.py:90
 msgid "Mail (SMTP)"
 msgstr "அஞ்சல்(SMTP)"
 
-#: ../textw/firewall_text.py:91
+#: ../textw/firewall_text.py:92
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:95
+#: ../textw/firewall_text.py:96
 msgid "Other ports"
 msgstr "மற்ற முகப்புகள்"
 
-#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:185
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "செல்லாத தேர்வு"
 
-#: ../textw/firewall_text.py:122
+#: ../textw/firewall_text.py:123
 msgid "You cannot customize a disabled firewall."
 msgstr "இயக்கதில் இல்லாத நெருப்புசுவரை தனதாக்க முடியாத"
 
-#: ../textw/firewall_text.py:127
+#: ../textw/firewall_text.py:128
 msgid "Firewall Configuration - Customize"
 msgstr "தீச்சுவர் உள்ளமைப்பு-தனிப்பயன்"
 
-#: ../textw/firewall_text.py:129
+#: ../textw/firewall_text.py:130
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5339,27 +5344,27 @@ msgstr ""
 "தேர்டவு செய்யலாம்.கமாவால் தனிப்படுத்தப்பட்ட சில வழிகளையும் பட்டியலில் இவ்வாறு 'service:"
 "protocol', 'imap:tcp'. செய்யலாம்"
 
-#: ../textw/firewall_text.py:185
+#: ../textw/firewall_text.py:186
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "எச்சரிக்கை: %s  ஒரு தகுதியான துறயல்ல."
 
-#: ../textw/firewall_text.py:246
+#: ../textw/firewall_text.py:251
 msgid "Security Enhanced Linux"
 msgstr ""
 
-#: ../textw/firewall_text.py:248
+#: ../textw/firewall_text.py:253
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
 
-#: ../textw/firewall_text.py:256
+#: ../textw/firewall_text.py:261
 msgid "Disable SELinux"
 msgstr ""
 
-#: ../textw/firewall_text.py:258
+#: ../textw/firewall_text.py:263
 msgid "Warn on violations"
 msgstr ""
 
@@ -6861,40 +6866,40 @@ msgstr ""
 "எந்த வன்பொருளும் கண்டுபிடிக்க முடியவில்லை.  நிறுவல் வெற்றிபெற கையால் கருவி இயக்கியை "
 "தேர்வு செய்ய வேண்டும். நீங்கள் இயக்கிகளை இப்போது தேர்வு செய்ய விருப்பமா?"
 
-#: ../loader2/loader.c:623
+#: ../loader2/loader.c:625
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "%sஐ உங்கள் கணினியில் நிறுவ போதுமான RAM இடமில்லை"
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:798
 msgid "Rescue Method"
 msgstr "மீட்பு முறைகள்"
 
-#: ../loader2/loader.c:794
+#: ../loader2/loader.c:799
 msgid "Installation Method"
 msgstr "நிறுவல் பாணிகள்"
 
-#: ../loader2/loader.c:796
+#: ../loader2/loader.c:801
 msgid "What type of media contains the rescue image?"
 msgstr "எவ்வகை ஊடகம் மீட்டு நிரலுவத்தை கொண்டுள்ளது?"
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:803
 msgid "What type of media contains the packages to be installed?"
 msgstr "எவ்வகை ஊடகம் நிறுவவேண்டிய பொதி உள்ளது?"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "No driver found"
 msgstr "இயக்கிகள் ஏதும் இல்லை"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "Select driver"
 msgstr "இயக்கியை தேர்வு செய்"
 
-#: ../loader2/loader.c:823
+#: ../loader2/loader.c:828
 msgid "Use a driver disk"
 msgstr "இயக்கி தட்டை பயன்படுத்து"
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:829
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6902,41 +6907,41 @@ msgstr ""
 "நிறுவல் வகைக்கு தேவையான வகை கருவியை கண்டுபிடிக்க முடியவில்லை.நீங்கள் கையால் இயக்கியை "
 "தேர்வுசெய்ய விருப்பமா அல்லது இயக்கி தட்டை பயன்படுத்த விருப்பமா?"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:989
 msgid "The following devices have been found on your system."
 msgstr "கீழ்க்கண்ட கருகள் உங்கள் கணினியில் கண்டுபிடிக்கப்பட்டுள்ளன."
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:991
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்பட்வில்லை. எப்படியாவது ஏற்றவேண்டுமா?"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:995
 msgid "Devices"
 msgstr "சாதனங்கள்"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:996
 msgid "Done"
 msgstr "செய்தாயிற்று"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:997
 msgid "Add Device"
 msgstr " சாதனத்தை சேர்"
 
-#: ../loader2/loader.c:1092
+#: ../loader2/loader.c:1097
 #, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "ஏற்றி ஏற்கெனவே இயக்கப்பட்டது. ஷெல் துவங்குகிறது."
 
-#: ../loader2/loader.c:1448
+#: ../loader2/loader.c:1457
 #, fuzzy, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "அனக்கோன்டா செயல்படுத்தபடுகிறது, %s முறைமை நிறுவி-தயவு செய்து காத்திருக்கவும்...\n"
 
-#: ../loader2/loader.c:1450
+#: ../loader2/loader.c:1459
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -7958,6 +7963,15 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "சாபொரஸ்யியெ இ லுகான்ஸ்க்"
 
 #. generated from lang-table
+msgid "Bengali"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Catalan"
+msgstr "இத்தாலியன்"
+
+#. generated from lang-table
 msgid "Chinese(Simplified)"
 msgstr "சீன(எளிதாக்கிய)"
 
@@ -7987,6 +8001,10 @@ msgstr "ஆங்கிலம்"
 
 #. generated from lang-table
 msgid "Estonian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Farsi"
 msgstr ""
 
 #. generated from lang-table
@@ -8063,12 +8081,12 @@ msgid "Ukrainian"
 msgstr ""
 
 #. generated from lang-table
-msgid "Zulu"
+msgid "Welsh"
 msgstr ""
 
-#, fuzzy
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "சேவகனிலிருந்து கோப்பகத்ய்தை ஏற்ற முடியவில்லை."
+#. generated from lang-table
+msgid "Zulu"
+msgstr ""
 
 #, fuzzy
 #~ msgid "Workstation Defaults"

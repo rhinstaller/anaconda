@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"POT-Creation-Date: 2004-04-14 22:39-0400\n"
 "PO-Revision-Date: 2004-04-07 11:34+0200\n"
 "Last-Translator: Tamas Szanto <tszanto@mol.hu>\n"
 "Language-Team: Hungarian\n"
@@ -87,7 +87,7 @@ msgstr "Csatlakozzon a(z) %s géphez a telepítés megkezdéséhez..."
 msgid "Please connect to begin the install..."
 msgstr "Csatlakozzon a telepítés megkezdéséhez..."
 
-#: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
+#: ../anaconda:560 ../anaconda:741 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -110,7 +110,7 @@ msgstr "Csatlakozzon a telepítés megkezdéséhez..."
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -126,16 +126,16 @@ msgstr "Csatlakozzon a telepítés megkezdéséhez..."
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:608
+#: ../anaconda:611
 msgid "Unknown Error"
 msgstr "Ismeretlen hiba"
 
-#: ../anaconda:611
+#: ../anaconda:614
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Hiba történt a kickstart-beállítások második felének olvasásakor: %s"
 
-#: ../anaconda:723
+#: ../anaconda:726
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -143,23 +143,23 @@ msgstr ""
 "Nincs elég memória a grafikus felületű telepítő használatához. Szöveges módú "
 "lesz a telepítés."
 
-#: ../anaconda:775
+#: ../anaconda:778
 msgid "Install class forcing text mode installation"
 msgstr "A telepítési osztály kikényszeríti a karakteres módú telepítést"
 
-#: ../anaconda:802
+#: ../anaconda:805
 msgid "No video hardware found, assuming headless"
 msgstr "Nem található videokártya, monitor nélküli üzemmódra váltás"
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:816 ../anaconda:1063 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nem sikerült inicializálni egy X hardverállapot-objektumot."
 
-#: ../anaconda:837
+#: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafikus telepítés nem választható... Indulás karakteres módban."
 
-#: ../anaconda:852
+#: ../anaconda:855
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -167,12 +167,12 @@ msgstr ""
 "Nem található egér. Grafikus telepítés csak egérrel lehetséges. Indulás "
 "karakteres módban."
 
-#: ../anaconda:862
+#: ../anaconda:865
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "A detektált egértípus: %s"
 
-#: ../anaconda:866
+#: ../anaconda:869
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "A használt egértípus: %s"
@@ -414,7 +414,7 @@ msgstr "Helyrehozhatatlan hiba"
 msgid "Your system will now be rebooted."
 msgstr "A számítógép újra lesz indítva."
 
-#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:429
+#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:441
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -528,7 +528,7 @@ msgstr "Kész [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "%s-%s-%s telepítése folyik..."
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:749
 msgid "Everything"
 msgstr "Minden"
 
@@ -536,11 +536,11 @@ msgstr "Minden"
 msgid "no suggestion"
 msgstr "nincs ajánlás"
 
-#: ../comps.py:1098 ../hdrlist.py:970
+#: ../comps.py:1098 ../hdrlist.py:972
 msgid "Miscellaneous"
 msgstr "Egyéb"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:919
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -549,7 +549,7 @@ msgstr ""
 "Ebbe a csoportba tartozik az összes rendelkezésre álló csomag. Éppen ezért "
 "itt sokkal több csomag található, mint a lapon látható többi csoportban."
 
-#: ../comps.py:1118 ../hdrlist.py:921
+#: ../comps.py:1118 ../hdrlist.py:923
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -558,7 +558,7 @@ msgstr ""
 "felrakni. Elsősorban kisebb routerek, tűzfalak telepítésénél érdemes ezt "
 "választani."
 
-#: ../constants.py:70
+#: ../constants.py:72
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -570,7 +570,7 @@ msgstr ""
 "jelentse be a hibát Anaconda címszóval a http://bugzilla.redhat.com/"
 "bugzilla/ címen."
 
-#: ../constants.py:77
+#: ../constants.py:79
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -635,9 +635,9 @@ msgstr "_Rendszerindító lemez készítése"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
 #: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
-#: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:664
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:301
+#: ../image.py:498 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../packages.py:182 ../packages.py:408 ../packages.py:583 ../packages.py:668
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -648,7 +648,7 @@ msgstr "_Rendszerindító lemez készítése"
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -876,8 +876,8 @@ msgstr ""
 "\n"
 "Javítsa ki ezt a hibát és indítsa újra a telepítési folyamatot."
 
-#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
-#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:451
+#: ../packages.py:1453 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "Ú_jraindítás"
@@ -1004,7 +1004,7 @@ msgstr ""
 "\n"
 "Osztálynév = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:588 ../packages.py:1447
 msgid "_Exit"
 msgstr "_Kilépés"
 
@@ -1012,17 +1012,17 @@ msgstr "_Kilépés"
 msgid "_Retry"
 msgstr "Újr_a"
 
-#: ../gui.py:1088 ../packages.py:1418
+#: ../gui.py:1088 ../packages.py:1450
 msgid "Rebooting System"
 msgstr "A rendszer újraindítása"
 
-#: ../gui.py:1089 ../packages.py:1419
+#: ../gui.py:1089 ../packages.py:1451
 msgid "Your system will now be rebooted..."
 msgstr "A rendszer újraindítása következik..."
 
-#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1453 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
 msgstr "_Vissza"
 
@@ -1064,7 +1064,7 @@ msgstr "Nem sikerült betölteni a címsort"
 msgid "Install Window"
 msgstr "Telepőablak"
 
-#: ../harddrive.py:166 ../image.py:487
+#: ../harddrive.py:166 ../image.py:499
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1096,7 +1096,7 @@ msgstr ""
 "Készítse elő ezeket még a telepítés megkezdése előtt. Ha meg szeretné "
 "szakítani a telepítést, nyomja meg az \"Újraindítás\" gombot."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
+#: ../image.py:72 ../image.py:452 ../kickstart.py:1342 ../kickstart.py:1369
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Tovább"
@@ -1127,33 +1127,38 @@ msgstr ""
 "Hiba történt a telepítő image merevlemezre írásakor. Valószínüleg kevés a "
 "szabad lemezterülete."
 
-#: ../image.py:283
+#: ../image.py:259
+msgid "Change CDROM"
+msgstr "Cseréljen CDROM-ot"
+
+#: ../image.py:260
+#, python-format
+msgid "Please insert disc %d to continue."
+msgstr "Helyezze be a %d. lemezt a folytatáshoz."
+
+#: ../image.py:295
 msgid "Wrong CDROM"
 msgstr "Nem megfelelő CD-ROM"
 
-#: ../image.py:284
+#: ../image.py:296
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Ez nem a megfelelő %s CD-ROM."
 
-#: ../image.py:287
-msgid "Change CDROM"
-msgstr "Cseréljen CDROM-ot"
-
-#: ../image.py:288
-#, python-format
-msgid "Please insert disc %d to continue."
-msgstr "Helyezze be a %d. lemezt a folytatáshoz."
+#: ../image.py:302
+#, fuzzy
+msgid "The CDROM could not be mounted."
+msgstr "A megadott könyvtárat nem sikerült csatlakoztatni"
 
 #: ../installclass.py:59
 msgid "Install on System"
 msgstr "Telepítendő rendszer"
 
-#: ../kickstart.py:1332
+#: ../kickstart.py:1334
 msgid "Missing Package"
 msgstr "Hiányzó csomag"
 
-#: ../kickstart.py:1333
+#: ../kickstart.py:1335
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1162,15 +1167,15 @@ msgstr ""
 "A(z) '%s' csomagot kijelölte telepítésre. Ilyen csomag nem létezik. "
 "Folytatni szeretné a műveletet vagy félbeszakítja a telepítést?"
 
-#: ../kickstart.py:1339 ../kickstart.py:1366
+#: ../kickstart.py:1341 ../kickstart.py:1368
 msgid "_Abort"
 msgstr "_Félbeszakítás"
 
-#: ../kickstart.py:1358
+#: ../kickstart.py:1360
 msgid "Missing Group"
 msgstr "Hiányzó csoport"
 
-#: ../kickstart.py:1359
+#: ../kickstart.py:1361
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1233,7 +1238,7 @@ msgstr ""
 "Nem sikerült beolvasni a comps fájlt. Valószínűleg hiányzik egy fájl vagy "
 "hibás a lemez. Újrapróbáláshoz nyomja meg az <Enter>-t."
 
-#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:669 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1241,7 +1246,7 @@ msgstr ""
 "Nem sikerült összeolvasztani a fejléclistát. Valószínűleg hiányzik egy fájl "
 "vagy hibás a lemez. Újrapróbáláshoz nyomja meg az <Enter>-t."
 
-#: ../packages.py:183 ../packages.py:580
+#: ../packages.py:183 ../packages.py:584
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1256,7 +1261,7 @@ msgstr "A függöségek ellenőrzése"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "A telepítésre kiválasztott csomagok közötti függöségek ellenőrzése..."
 
-#: ../packages.py:349 ../packages.py:763
+#: ../packages.py:349 ../packages.py:767
 msgid "Processing"
 msgstr "Feldolgozás"
 
@@ -1264,7 +1269,7 @@ msgstr "Feldolgozás"
 msgid "Preparing to install..."
 msgstr "Felkészülés telepítésre..."
 
-#: ../packages.py:405
+#: ../packages.py:409
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1279,15 +1284,15 @@ msgstr ""
 "\n"
 "Újrapróbáláshoz nyomja meg az <Enter>-t."
 
-#: ../packages.py:413
+#: ../packages.py:417
 msgid "Installing..."
 msgstr "Telepítés..."
 
-#: ../packages.py:434
+#: ../packages.py:438
 msgid "Error Installing Package"
 msgstr "Csomagtelepítési hiba"
 
-#: ../packages.py:435
+#: ../packages.py:439
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1304,11 +1309,11 @@ msgstr ""
 "\n"
 "Nyomja meg az OK gombot a számítógép újraindításához."
 
-#: ../packages.py:764
+#: ../packages.py:768
 msgid "Preparing RPM transaction..."
 msgstr "RPM-tranzakció előkészítése..."
 
-#: ../packages.py:847
+#: ../packages.py:851
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1317,7 +1322,7 @@ msgstr ""
 "%s csomag frissítése\n"
 "\n"
 
-#: ../packages.py:849
+#: ../packages.py:853
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1326,17 +1331,17 @@ msgstr ""
 "%s csomag telepítése\n"
 "\n"
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:861 ../packages.py:1161
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "%s-%s-%s.%s frissítése folyik.\n"
 
-#: ../packages.py:859 ../packages.py:1155
+#: ../packages.py:863 ../packages.py:1163
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "%s-%s-%s.%s telepítése folyik.\n"
 
-#: ../packages.py:875
+#: ../packages.py:879
 #, python-format
 msgid ""
 "\n"
@@ -1353,15 +1358,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:881
+#: ../packages.py:885
 msgid "Install Starting"
 msgstr "Kezdődik a telepítés"
 
-#: ../packages.py:882
+#: ../packages.py:886
 msgid "Starting install process, this may take several minutes..."
 msgstr "Kezdődik a telepítési folyamat, egy kis türelmet kérek..."
 
-#: ../packages.py:922
+#: ../packages.py:926
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1371,17 +1376,17 @@ msgstr ""
 "telepítéséhez. A következő fájlrendszerekben van szükség több helyre:\n"
 "\n"
 
-#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:930 ../packages.py:951 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Csatlakoztatási pont"
 
-#: ../packages.py:927
+#: ../packages.py:931
 msgid "Space Needed"
 msgstr "Szükséges hely"
 
-#: ../packages.py:943
+#: ../packages.py:947
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1391,23 +1396,23 @@ msgstr ""
 "csomagok telepítéséhez. A következő fájlrendszereken van szükség több helyre "
 "(szabad fájl-csomópontra):\n"
 
-#: ../packages.py:948
+#: ../packages.py:952
 msgid "Nodes Needed"
 msgstr "Több fájlcsomópont szükséges"
 
-#: ../packages.py:959
+#: ../packages.py:963
 msgid "Disk Space"
 msgstr "Lemez terület"
 
-#: ../packages.py:1008
+#: ../packages.py:1012
 msgid "Post Install"
 msgstr "Telepítés utáni szakasz"
 
-#: ../packages.py:1009
+#: ../packages.py:1013
 msgid "Performing post install configuration..."
 msgstr "Telepítés utáni konfigurálás..."
 
-#: ../packages.py:1179
+#: ../packages.py:1187
 msgid ""
 "\n"
 "\n"
@@ -1418,7 +1423,7 @@ msgstr ""
 "A következő csomagok rendelkezésre álltak ezzel a verzióval, de nem voltak "
 "frissítve:\n"
 
-#: ../packages.py:1182
+#: ../packages.py:1190
 msgid ""
 "\n"
 "\n"
@@ -1429,11 +1434,11 @@ msgstr ""
 "A következő csomagok rendelkezésre álltak ezzel a verzióval, de nem voltak "
 "telepítve:\n"
 
-#: ../packages.py:1401
+#: ../packages.py:1433
 msgid "Warning! This is pre-release software!"
 msgstr "Figyelem! Ez a szoftver még nem végleges verziójú!"
 
-#: ../packages.py:1402
+#: ../packages.py:1434
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1460,7 +1465,7 @@ msgstr ""
 "\n"
 "Kérjük, hogy a hibákat a(z) '%s' szekcióba jelentse be.\n"
 
-#: ../packages.py:1415
+#: ../packages.py:1447
 msgid "_Install anyway"
 msgstr "_Telepítés mindenképpen"
 
@@ -1746,10 +1751,10 @@ msgid ""
 msgstr ""
 "Egy már létező partíciót választott ki a telepítéshez, újraformázás nélkül. "
 "Erősen ajánlott azonban ilyen esetben mégis leformázni a partíciót, mert a "
-"korábbi rendszerhez tartozó fájlok problémákat okozhatnak az új "
-"rendszer működésében. Azonban ha a partíción olyan fájlok találhatók, "
-"amelyeket meg szeretne őrizni, például felhasználói saját könyvtárak, akkor "
-"kihagyhatja a formázást."
+"korábbi rendszerhez tartozó fájlok problémákat okozhatnak az új rendszer "
+"működésében. Azonban ha a partíción olyan fájlok találhatók, amelyeket meg "
+"szeretne őrizni, például felhasználói saját könyvtárak, akkor kihagyhatja a "
+"formázást."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -3076,15 +3081,15 @@ msgstr "Partícionálás az Fdiskkel"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Válassza ki, melyik meghajtót szeretné partícionálni az Fdiskkel:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
+#: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:28
 msgid "Firewall"
 msgstr "Tűzfal"
 
-#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:195
 msgid "Warning - No Firewall"
 msgstr "Figyelem - nincs beállítva tűzfal"
 
-#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
+#: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:196
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3097,16 +3102,16 @@ msgstr ""
 "telepítését. Válassza a \"Tovább\" opciót a tűzfal nélküli telepítés "
 "folytatásához."
 
-#: ../iw/firewall_gui.py:41
+#: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
 msgstr "A tű_zfal beállítása"
 
-#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:202
+#: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:203
 msgid "_Proceed"
 msgstr "_Tovább"
 
-#: ../iw/firewall_gui.py:129
+#: ../iw/firewall_gui.py:131
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3120,11 +3125,11 @@ msgstr ""
 "\n"
 "Például: '1234:udp'"
 
-#: ../iw/firewall_gui.py:133
+#: ../iw/firewall_gui.py:135
 msgid "Warning: Bad Token"
 msgstr "Figyelem: hibás token"
 
-#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
+#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3132,53 +3137,54 @@ msgstr ""
 "Tűzfal segítségével megakadályozhatók az illetéktelen hozzáférések a "
 "hálózatról. be szeretné kapcsolni a tűzfalat?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
 msgstr "N_e legyen tűzfal"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:171
 msgid "_Enable firewall"
 msgstr "A tűz_fal bekapcsolása"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:173
 msgid "_Custom firewall"
 msgstr "Egyén_i tűzfal"
 
-#: ../iw/firewall_gui.py:189
+#: ../iw/firewall_gui.py:191
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Milyen hálózati szolgáltatások juthatnak át a tűzfalon?"
 
-#: ../iw/firewall_gui.py:197
+#: ../iw/firewall_gui.py:199
 msgid "_Allow incoming:"
 msgstr "_Bejövő adatok engedélyezése:"
 
-#: ../iw/firewall_gui.py:222
+#: ../iw/firewall_gui.py:224
 msgid "Other _ports:"
 msgstr "Egyéb _portok:"
 
-#: ../iw/firewall_gui.py:230
+#: ../iw/firewall_gui.py:232
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Ha a teljes adatforgalmat engedélyezni szeretné az eszközről, válassza ki "
 "alább."
 
-#: ../iw/firewall_gui.py:239
+#: ../iw/firewall_gui.py:241
 msgid "_Trusted devices:"
 msgstr "Me_gbízható eszközök:"
 
-#: ../iw/firewall_gui.py:277
-msgid "_Security Enhanced Linux (SELinux) Extentions:"
+#: ../iw/firewall_gui.py:279
+#, fuzzy
+msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr "_SELinux-bővítmények (Security Enhanced Linux):"
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 msgid "Disabled"
 msgstr "Letiltva"
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 msgid "Warn"
 msgstr "Figyelmeztetés"
 
-#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr "Aktív"
 
@@ -3392,7 +3398,8 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr ""
+"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -5255,7 +5262,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
+#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -5350,65 +5357,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Válassza ki, melyik meghajtón szeretné futtatni az fdisk-et"
 
-#: ../textw/firewall_text.py:25
+#: ../textw/firewall_text.py:26
 msgid "Customize"
 msgstr "Testreszabás"
 
-#: ../textw/firewall_text.py:46
+#: ../textw/firewall_text.py:47
 msgid "Enable firewall"
 msgstr "A tűzfal bekapcsolása"
 
-#: ../textw/firewall_text.py:49
+#: ../textw/firewall_text.py:50
 msgid "No firewall"
 msgstr "Nincs tűzfal"
 
-#: ../textw/firewall_text.py:68
+#: ../textw/firewall_text.py:69
 msgid "Trusted Devices:"
 msgstr "Megbízható eszközök:"
 
-#: ../textw/firewall_text.py:78
+#: ../textw/firewall_text.py:79
 msgid "Allow incoming:"
 msgstr "Engedélyezett bejövő forgalom:"
 
-#: ../textw/firewall_text.py:83
+#: ../textw/firewall_text.py:84
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:86 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:87
+#: ../textw/firewall_text.py:88
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:89
+#: ../textw/firewall_text.py:90
 msgid "Mail (SMTP)"
 msgstr "E-mail (SMTP)"
 
-#: ../textw/firewall_text.py:91
+#: ../textw/firewall_text.py:92
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:95
+#: ../textw/firewall_text.py:96
 msgid "Other ports"
 msgstr "Egyéb portok"
 
-#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:185
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Érvénytelen választás"
 
-#: ../textw/firewall_text.py:122
+#: ../textw/firewall_text.py:123
 msgid "You cannot customize a disabled firewall."
 msgstr "Kikapcsolt tűzfalat nem lehet testreszabni."
 
-#: ../textw/firewall_text.py:127
+#: ../textw/firewall_text.py:128
 msgid "Firewall Configuration - Customize"
 msgstr "Tűzfalbeállítás - Testreszabás"
 
-#: ../textw/firewall_text.py:129
+#: ../textw/firewall_text.py:130
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5421,30 +5428,30 @@ msgstr ""
 "elválasztva lehet portokat felsorolni 'szolgáltatás:protokoll' alakban (pl.: "
 "'imap:tcp'). "
 
-#: ../textw/firewall_text.py:185
+#: ../textw/firewall_text.py:186
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Figyelem: %s egy érvénytelen port."
 
-#: ../textw/firewall_text.py:246
+#: ../textw/firewall_text.py:251
 msgid "Security Enhanced Linux"
 msgstr "SELinux"
 
-#: ../textw/firewall_text.py:248
+#: ../textw/firewall_text.py:253
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
-"A SELinux (Security Enhanced Linux) szigorúbb jogosultságkezelést tesz lehetővé "
-"a rendszer nagyobb biztonsága érdekében. Be szeretné kapcsolni ezt a "
-"lehetőséget?"
+"A SELinux (Security Enhanced Linux) szigorúbb jogosultságkezelést tesz "
+"lehetővé a rendszer nagyobb biztonsága érdekében. Be szeretné kapcsolni ezt "
+"a lehetőséget?"
 
-#: ../textw/firewall_text.py:256
+#: ../textw/firewall_text.py:261
 msgid "Disable SELinux"
 msgstr "A SELinux letiltása"
 
-#: ../textw/firewall_text.py:258
+#: ../textw/firewall_text.py:263
 msgid "Warn on violations"
 msgstr "Figyelmeztetés a jogosultságsértésekre"
 
@@ -6498,8 +6505,8 @@ msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
-"Akkor válassza ezt a telepítési típust, ha maximális rugalmasságot szeretne a "
-"telepítés folyamán, beleértve a csomagok kiválasztását és a partícionálást."
+"Akkor válassza ezt a telepítési típust, ha maximális rugalmasságot szeretne "
+"a telepítés folyamán, beleértve a csomagok kiválasztását és a partícionálást."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6511,9 +6518,9 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Személyi felhasználásra szánt gép vagy noteszgép esetén ajánlott. A telepítés "
-"magában foglalja a grafikus felhasználói környezetet, a gép beállításai "
-"otthoni/irodai felhasználásra lesznek optimalizálva."
+"Személyi felhasználásra szánt gép vagy noteszgép esetén ajánlott. A "
+"telepítés magában foglalja a grafikus felhasználói környezetet, a gép "
+"beállításai otthoni/irodai felhasználásra lesznek optimalizálva."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -6543,10 +6550,9 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
-"Akkor válassza ezt a telepítési típust, ha fájlmegosztási, "
-"nyomtatási vagy webes szolgáltatásokat szeretne működtetni. További "
-"szolgáltatások is engedélyezhetők, és megadható, hogy telepítve legyen-e grafikus "
-"környezet."
+"Akkor válassza ezt a telepítési típust, ha fájlmegosztási, nyomtatási vagy "
+"webes szolgáltatásokat szeretne működtetni. További szolgáltatások is "
+"engedélyezhetők, és megadható, hogy telepítve legyen-e grafikus környezet."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
@@ -6965,40 +6971,40 @@ msgstr ""
 "Nem található egy merevlemez sem. Valószínűleg be kell tölteni a szükséges "
 "eszközmeghajtót a telepítéshez. Ki szeretne most választani eszközmeghajtót?"
 
-#: ../loader2/loader.c:623
+#: ../loader2/loader.c:625
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nincs elég memória a gépben a(z) %s telepítéséhez."
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:798
 msgid "Rescue Method"
 msgstr "Helyreállítási módszer"
 
-#: ../loader2/loader.c:794
+#: ../loader2/loader.c:799
 msgid "Installation Method"
 msgstr "Telepítési módszer"
 
-#: ../loader2/loader.c:796
+#: ../loader2/loader.c:801
 msgid "What type of media contains the rescue image?"
 msgstr "Milyen típusú médián van a rescue image?"
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:803
 msgid "What type of media contains the packages to be installed?"
 msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "No driver found"
 msgstr "Nem található meghajtó"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "Select driver"
 msgstr "Válassza ki a meghajtót"
 
-#: ../loader2/loader.c:823
+#: ../loader2/loader.c:828
 msgid "Use a driver disk"
 msgstr "Meghajtólemez használata"
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:829
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7006,40 +7012,40 @@ msgstr ""
 "Nem található a telepítési típusnak megfelelő eszköz a gépben. Ki szeretné "
 "választani a szükséges meghajtóprogramot vagy meghajtólemezt?"
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:989
 msgid "The following devices have been found on your system."
 msgstr "A következő eszközök találhatók a rendszerben."
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:991
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr "Egy eszközmeghajtó sincs betöltve. Be szeretne most tölteni egyet?"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:995
 msgid "Devices"
 msgstr "Eszközök"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:996
 msgid "Done"
 msgstr "Kész"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:997
 msgid "Add Device"
 msgstr "Eszköz hozzáadás"
 
-#: ../loader2/loader.c:1092
+#: ../loader2/loader.c:1097
 #, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "a betöltő már le lett futtatva. Elindul a parancsértelmező."
 
-#: ../loader2/loader.c:1448
+#: ../loader2/loader.c:1457
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
-#: ../loader2/loader.c:1450
+#: ../loader2/loader.c:1459
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -8064,6 +8070,15 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozsje (Luganszk)"
 
 #. generated from lang-table
+msgid "Bengali"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Catalan"
+msgstr "olasz"
+
+#. generated from lang-table
 msgid "Chinese(Simplified)"
 msgstr "kínai (egyszerűsített)"
 
@@ -8094,6 +8109,10 @@ msgstr "angol"
 #. generated from lang-table
 msgid "Estonian"
 msgstr "észt"
+
+#. generated from lang-table
+msgid "Farsi"
+msgstr ""
 
 #. generated from lang-table
 msgid "Finnish"
@@ -8166,6 +8185,10 @@ msgstr "török"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ukrán"
+
+#. generated from lang-table
+msgid "Welsh"
+msgstr ""
 
 #. generated from lang-table
 msgid "Zulu"

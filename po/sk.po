@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"POT-Creation-Date: 2004-04-14 22:39-0400\n"
 "PO-Revision-Date: 2004-03-30 13:21+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -92,7 +92,7 @@ msgstr "Prosím pripojte sa k %s pre začatie inštalácie..."
 msgid "Please connect to begin the install..."
 msgstr "Prosím pripojte sa pre začatie inštalácie..."
 
-#: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
+#: ../anaconda:560 ../anaconda:741 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
@@ -115,7 +115,7 @@ msgstr "Prosím pripojte sa pre začatie inštalácie..."
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
 #: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/loader.c:801 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/loader.c:806 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
@@ -131,16 +131,16 @@ msgstr "Prosím pripojte sa pre začatie inštalácie..."
 msgid "OK"
 msgstr "Ok"
 
-#: ../anaconda:608
+#: ../anaconda:611
 msgid "Unknown Error"
 msgstr "Neznáma chyba"
 
-#: ../anaconda:611
+#: ../anaconda:614
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Chyba pri čítaní druhej časti kickstart konfigurácie: %s!"
 
-#: ../anaconda:723
+#: ../anaconda:726
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -148,23 +148,23 @@ msgstr ""
 "Nemáte dostatok RAM, aby ste mohli použiť grafický inštalátor. Spúšťam "
 "textový režim."
 
-#: ../anaconda:775
+#: ../anaconda:778
 msgid "Install class forcing text mode installation"
 msgstr "Trieda inštalácie vyžadujúca inštaláciu v textovom režime"
 
-#: ../anaconda:802
+#: ../anaconda:805
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
+#: ../anaconda:816 ../anaconda:1063 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:837
+#: ../anaconda:840
 msgid "Graphical installation not available...  Starting text mode."
 msgstr "Grafická inštalácia nie je dostupná... Spúšťam textový režim."
 
-#: ../anaconda:852
+#: ../anaconda:855
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -172,12 +172,12 @@ msgstr ""
 "Nebola detekovaná myš. Myš je vyžadovaná pre grafickú inštaláciu. Spúšťam "
 "textový režim."
 
-#: ../anaconda:862
+#: ../anaconda:865
 #, c-format
 msgid "Detected mouse type: %s"
 msgstr "Detekovaný typ myši: %s"
 
-#: ../anaconda:866
+#: ../anaconda:869
 #, c-format
 msgid "Using mouse type: %s"
 msgstr "Použijem typ myši: %s"
@@ -237,8 +237,8 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Zavádzací oddiel %s nemusí spĺňať zavádzacie podmienky pre vašu architektúru. "
-"Vytvorenie zavádzacieho disku je veľmi odporúčané."
+"Zavádzací oddiel %s nemusí spĺňať zavádzacie podmienky pre vašu "
+"architektúru. Vytvorenie zavádzacieho disku je veľmi odporúčané."
 
 #: ../autopart.py:1038
 #, python-format
@@ -380,8 +380,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Môžete si vybrať rôzne automatické voľby pre rozdelenie, alebo kliknúť na 'Späť' "
-"pre výber ručného rozdelenia.\n"
+"Môžete si vybrať rôzne automatické voľby pre rozdelenie, alebo kliknúť na "
+"'Späť' pre výber ručného rozdelenia.\n"
 "\n"
 "Stlačte 'Ok' pre pokračovanie."
 
@@ -410,7 +410,7 @@ msgstr "Nezotaviteľná chyba"
 msgid "Your system will now be rebooted."
 msgstr "Váš systém bude teraz reštartovaný."
 
-#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:429
+#: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:441
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
 #: ../partedUtils.py:858 ../upgrade.py:310 ../upgrade.py:421 ../upgrade.py:474
 #: ../upgrade.py:497 ../upgrade.py:543 ../iw/blpasswidget.py:148
@@ -517,7 +517,7 @@ msgstr "Hotovo [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Inštalácia %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:749
 msgid "Everything"
 msgstr "Všetko"
 
@@ -525,11 +525,11 @@ msgstr "Všetko"
 msgid "no suggestion"
 msgstr "žiadny návrh"
 
-#: ../comps.py:1098 ../hdrlist.py:970
+#: ../comps.py:1098 ../hdrlist.py:972
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:919
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -538,7 +538,7 @@ msgstr ""
 "Skupina obsahuje všetky dostupné balíky. Poznamenávame, že je oveľa viac "
 "balíkov ako len tie, ktoré sú v ostatných skupinách na tejto stránke."
 
-#: ../comps.py:1118 ../hdrlist.py:921
+#: ../comps.py:1118 ../hdrlist.py:923
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -546,7 +546,7 @@ msgstr ""
 "Vyberte si súto skupinu a získate najmenšiu možnú množinu balíkov. Vhodné "
 "napríklad pre vytvorenie malých smerovačov/firewallov."
 
-#: ../constants.py:70
+#: ../constants.py:72
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -554,11 +554,11 @@ msgid ""
 "bugzilla/"
 msgstr ""
 "Vyskytla sa neobslúžená výnimka. Toto je väčšinou chyba. Prosím skopírujte "
-"celý text tejto výnimky alebo uložte výpis o páde na disketu, potom "
-"vyplňte podrobnú správu o chybe pre program anaconda na http://bugzilla.redhat.com/"
+"celý text tejto výnimky alebo uložte výpis o páde na disketu, potom vyplňte "
+"podrobnú správu o chybe pre program anaconda na http://bugzilla.redhat.com/"
 "bugzilla/"
 
-#: ../constants.py:77
+#: ../constants.py:79
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
@@ -581,7 +581,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"Stav vášho systému bol úspešne zapísaný na disketu. Váš systém bude teraz reštartovaný."
+"Stav vášho systému bol úspešne zapísaný na disketu. Váš systém bude teraz "
+"reštartovaný."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -620,9 +621,9 @@ msgstr "_Vytvoriť zavádzaciu disketu"
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
 #: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
-#: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:664
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:301
+#: ../image.py:498 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../packages.py:182 ../packages.py:408 ../packages.py:583 ../packages.py:668
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -633,7 +634,7 @@ msgstr "_Vytvoriť zavádzaciu disketu"
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
 #: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
-#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:628 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -742,8 +743,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Boli zdetekované chybné bloky na zariadení /dev/%s. Neodporúčame toto zariadenie "
-"používať.\n"
+"Boli zdetekované chybné bloky na zariadení /dev/%s. Neodporúčame toto "
+"zariadenie používať.\n"
 "\n"
 "Stlačte <Enter> pre reštart vášho systému"
 
@@ -839,13 +840,13 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Viaceré zariadenia vo vašom systéme boli označené %s. Návestia zariadení musia "
-"byť jedinečné, aby váš systém fungoval správne.\n"
+"Viaceré zariadenia vo vašom systéme boli označené %s. Návestia zariadení "
+"musia byť jedinečné, aby váš systém fungoval správne.\n"
 "\n"
 "Prosím, opravte tento problém a reštartujte inštalačný proces."
 
-#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
-#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:451
+#: ../packages.py:1453 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_Reštart"
@@ -900,8 +901,7 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 "Vyskytla sa chyba pri ukladaní snímku obrazovky. Ak sa to stalo počas "
-"inštalácie balíkov, mali by ste to skúsiť niekoľkokrát, aby to bolo "
-"úspešné."
+"inštalácie balíkov, mali by ste to skúsiť niekoľkokrát, aby to bolo úspešné."
 
 #: ../gui.py:235 ../text.py:323
 msgid "Fix"
@@ -973,7 +973,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:588 ../packages.py:1447
 msgid "_Exit"
 msgstr "_Ukončiť"
 
@@ -981,17 +981,17 @@ msgstr "_Ukončiť"
 msgid "_Retry"
 msgstr "_Znovu"
 
-#: ../gui.py:1088 ../packages.py:1418
+#: ../gui.py:1088 ../packages.py:1450
 msgid "Rebooting System"
 msgstr "Reštartovanie systému"
 
-#: ../gui.py:1089 ../packages.py:1419
+#: ../gui.py:1089 ../packages.py:1451
 msgid "Your system will now be rebooted..."
 msgstr "Váš systém bude teraz reštartovaný..."
 
-#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1453 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:203
 msgid "_Back"
 msgstr "_Späť"
 
@@ -1033,7 +1033,7 @@ msgstr "Nepodarilo sa načítať lištu titulku"
 msgid "Install Window"
 msgstr "Okno inštalácie"
 
-#: ../harddrive.py:166 ../image.py:487
+#: ../harddrive.py:166 ../image.py:499
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1060,7 +1060,7 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
+#: ../image.py:72 ../image.py:452 ../kickstart.py:1342 ../kickstart.py:1369
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Pokračovať"
@@ -1071,8 +1071,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Vyskytla sa chyba pri odpájaní CD. Prosím, uistite sa, že nepristupujete k "
-"%s zo shellu na tty2 a potom kliknite na Ok pre nový pokus."
+"Vyskytla sa chyba pri odpájaní CD. Prosím, uistite sa, že nepristupujete k %"
+"s zo shellu na tty2 a potom kliknite na Ok pre nový pokus."
 
 #: ../image.py:164
 msgid "Copying File"
@@ -1087,36 +1087,41 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Vyskytla sa chyba pri prenose inštalačného obrazu na váš pevný disk. Pravdepodobne "
-"vám došlo miesto na disku."
+"Vyskytla sa chyba pri prenose inštalačného obrazu na váš pevný disk. "
+"Pravdepodobne vám došlo miesto na disku."
 
-#: ../image.py:283
+#: ../image.py:259
+msgid "Change CDROM"
+msgstr "Vymeniť CDROM"
+
+#: ../image.py:260
+#, python-format
+msgid "Please insert disc %d to continue."
+msgstr "Pre pokračovanie vložte, prosím, disk %d."
+
+#: ../image.py:295
 msgid "Wrong CDROM"
 msgstr "Nesprávna CDROM"
 
-#: ../image.py:284
+#: ../image.py:296
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "To je nesprávna CDROM %s."
 
-#: ../image.py:287
-msgid "Change CDROM"
-msgstr "Vymeniť CDROM"
-
-#: ../image.py:288
-#, python-format
-msgid "Please insert disc %d to continue."
-msgstr "Pre pokračovanie vložte, prosím, disk %d."
+#: ../image.py:302
+#, fuzzy
+msgid "The CDROM could not be mounted."
+msgstr "Nie je možné pripojiť ten adresár zo servera."
 
 #: ../installclass.py:59
 msgid "Install on System"
 msgstr "Inštalovať na systém"
 
-#: ../kickstart.py:1332
+#: ../kickstart.py:1334
 msgid "Missing Package"
 msgstr "Chýbajúci balík"
 
-#: ../kickstart.py:1333
+#: ../kickstart.py:1335
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1125,15 +1130,15 @@ msgstr ""
 "Zadali ste, že balík '%s' má byť nainštalovaný. Taký balík však neexistuje. "
 "Chcete pokračovať, alebo ukončiť inštaláciu?"
 
-#: ../kickstart.py:1339 ../kickstart.py:1366
+#: ../kickstart.py:1341 ../kickstart.py:1368
 msgid "_Abort"
 msgstr "_Prerušiť"
 
-#: ../kickstart.py:1358
+#: ../kickstart.py:1360
 msgid "Missing Group"
 msgstr "Chýbajúca skupina"
 
-#: ../kickstart.py:1359
+#: ../kickstart.py:1361
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1193,7 +1198,7 @@ msgstr ""
 "Nepodarilo sa načítať súbor comps. To môže byť spôsobené chýbajúcim súborom "
 "alebo zlým médiom. Stlačte <enter> pre nový pokus."
 
-#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:669 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1201,7 +1206,7 @@ msgstr ""
 "Nepodarilo sa spojiť zoznam hlavičiek. To môže byť spôsobené chýbajúcim "
 "súborom alebo zlým médiom. Stlačte <enter> pre nový pokus."
 
-#: ../packages.py:183 ../packages.py:580
+#: ../packages.py:183 ../packages.py:584
 #, python-format
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
@@ -1218,7 +1223,7 @@ msgstr "Kontrola závislostí"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrolovanie závislostí v balíkoch vybraných na inštaláciu..."
 
-#: ../packages.py:349 ../packages.py:763
+#: ../packages.py:349 ../packages.py:767
 msgid "Processing"
 msgstr "Spracovanie"
 
@@ -1226,7 +1231,7 @@ msgstr "Spracovanie"
 msgid "Preparing to install..."
 msgstr "Príprava inštalácie..."
 
-#: ../packages.py:405
+#: ../packages.py:409
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1235,21 +1240,21 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
-"Balík %s-%s-%s nemohol byť otvorený. To je buď kvôli chýbajúcemu súboru, alebo "
-"poškodenému balíku. Ak inštalujete z CD média, väčšinou to znamená, že CD médium "
-"je poškodené, alebo jednotka CD nemôže médium prečítať.\n"
+"Balík %s-%s-%s nemohol byť otvorený. To je buď kvôli chýbajúcemu súboru, "
+"alebo poškodenému balíku. Ak inštalujete z CD média, väčšinou to znamená, že "
+"CD médium je poškodené, alebo jednotka CD nemôže médium prečítať.\n"
 "\n"
 "Stlačte <return> a skúste znova."
 
-#: ../packages.py:413
+#: ../packages.py:417
 msgid "Installing..."
 msgstr "Inštalácia..."
 
-#: ../packages.py:434
+#: ../packages.py:438
 msgid "Error Installing Package"
 msgstr "Chyba pri inštalácii balíka"
 
-#: ../packages.py:435
+#: ../packages.py:439
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1259,17 +1264,18 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Vyskytla sa chyba pri inštalácii %s. To môže indikovať zlyhanie média, nedostatok "
-"miesta na disku a/alebo hardvérové problémy. Toto je závažná chyba a vaša inštalácia "
-"bude prerušená. Prosím, skontrolujte vaše médium a skúste vašu inštaláciu opäť.\n"
+"Vyskytla sa chyba pri inštalácii %s. To môže indikovať zlyhanie média, "
+"nedostatok miesta na disku a/alebo hardvérové problémy. Toto je závažná "
+"chyba a vaša inštalácia bude prerušená. Prosím, skontrolujte vaše médium a "
+"skúste vašu inštaláciu opäť.\n"
 "\n"
 "Stlačte tlačidlo Ok pre reštart vášho systému."
 
-#: ../packages.py:764
+#: ../packages.py:768
 msgid "Preparing RPM transaction..."
 msgstr "Príprava RPM transakcie..."
 
-#: ../packages.py:847
+#: ../packages.py:851
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1278,7 +1284,7 @@ msgstr ""
 "Aktualizácia %s balíkov\n"
 "\n"
 
-#: ../packages.py:849
+#: ../packages.py:853
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1287,17 +1293,17 @@ msgstr ""
 "Inštalovanie %s balíkov\n"
 "\n"
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:861 ../packages.py:1161
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Aktualizácia %s-%s-%s.%s.\n"
 
-#: ../packages.py:859 ../packages.py:1155
+#: ../packages.py:863 ../packages.py:1163
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Inštalácia %s-%s-%s.%s.\n"
 
-#: ../packages.py:875
+#: ../packages.py:879
 #, python-format
 msgid ""
 "\n"
@@ -1314,15 +1320,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:881
+#: ../packages.py:885
 msgid "Install Starting"
 msgstr "Inštalácia začína"
 
-#: ../packages.py:882
+#: ../packages.py:886
 msgid "Starting install process, this may take several minutes..."
 msgstr "Začína proces inštalácie. Toto môže trvať niekoľko minút..."
 
-#: ../packages.py:922
+#: ../packages.py:926
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1332,17 +1338,17 @@ msgstr ""
 "balíkov. Potrebujete viac miesta na nasledovných súborových systémoch:\n"
 "\n"
 
-#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:930 ../packages.py:951 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Bod pripojenia"
 
-#: ../packages.py:927
+#: ../packages.py:931
 msgid "Space Needed"
 msgstr "Potrebný priestor"
 
-#: ../packages.py:943
+#: ../packages.py:947
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1353,23 +1359,23 @@ msgstr ""
 "súborových systémoch:\n"
 "\n"
 
-#: ../packages.py:948
+#: ../packages.py:952
 msgid "Nodes Needed"
 msgstr "Potrebné uzly"
 
-#: ../packages.py:959
+#: ../packages.py:963
 msgid "Disk Space"
 msgstr "Priestor na disku"
 
-#: ../packages.py:1008
+#: ../packages.py:1012
 msgid "Post Install"
 msgstr "Po inštalácii"
 
-#: ../packages.py:1009
+#: ../packages.py:1013
 msgid "Performing post install configuration..."
 msgstr "Vykonanie poinštalačnej konfigurácie..."
 
-#: ../packages.py:1179
+#: ../packages.py:1187
 msgid ""
 "\n"
 "\n"
@@ -1379,7 +1385,7 @@ msgstr ""
 "\n"
 "Nasledujúce balíky boli dostupné v tejto verzii, ale NEBOLI aktualizované:\n"
 
-#: ../packages.py:1182
+#: ../packages.py:1190
 msgid ""
 "\n"
 "\n"
@@ -1389,11 +1395,11 @@ msgstr ""
 "\n"
 "Nasledujúce balíky boli dostupné v tejto verzii, ale NEBOLI nainštalované:\n"
 
-#: ../packages.py:1401
+#: ../packages.py:1433
 msgid "Warning! This is pre-release software!"
 msgstr "Upozornenie! Toto ešte nie je oficiálne vydanie softvéru!"
 
-#: ../packages.py:1402
+#: ../packages.py:1434
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1409,7 +1415,7 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: ../packages.py:1415
+#: ../packages.py:1447
 msgid "_Install anyway"
 msgstr "_Inštalovať aj napriek tomu"
 
@@ -2140,8 +2146,8 @@ msgid ""
 "%s"
 msgstr ""
 "Nasledujúce súborové systémy pre váš Linuxový systém neboli odpojené "
-"korektne. Prosím zaveďte vašu inštaláciu Linuxu, nechajte súborové "
-"systémy skontrolovať a vypnite systém korektne, aby ste mohli aktualizovať.\n"
+"korektne. Prosím zaveďte vašu inštaláciu Linuxu, nechajte súborové systémy "
+"skontrolovať a vypnite systém korektne, aby ste mohli aktualizovať.\n"
 "%s"
 
 #: ../upgrade.py:124
@@ -2185,8 +2191,8 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
-"Nasledujúce súbory sú absolútne symbolické odkazy, ktoré nepodporujeme "
-"počas aktualizácie. Prosím, zmeňte ich na relatívne symbolické odkazy a "
+"Nasledujúce súbory sú absolútne symbolické odkazy, ktoré nepodporujeme počas "
+"aktualizácie. Prosím, zmeňte ich na relatívne symbolické odkazy a "
 "reštartujte aktualizáciu.\n"
 
 #: ../upgrade.py:288
@@ -2227,10 +2233,9 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Inštalačný program nemôže aktualizovať systém, ktorý má databázu staršiu "
-"ako rpm 4.x. Prosím, nainštalujte opravné rpm balíky pre vaše vydanie "
-"tak, ako je to uvedené v poznámkach k vydaniu a potom spustite "
-"aktualizačnú procedúru."
+"Inštalačný program nemôže aktualizovať systém, ktorý má databázu staršiu ako "
+"rpm 4.x. Prosím, nainštalujte opravné rpm balíky pre vaše vydanie tak, ako "
+"je to uvedené v poznámkach k vydaniu a potom spustite aktualizačnú procedúru."
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
@@ -2244,8 +2249,9 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "Architektúra vydania %s, na ktorú aktualizujete, vyzerá %s, ktorá sa "
-"nezhoduje s vašou predchádzajúcou nainštalovanou architektúrou %s. To pravdepodobne "
-"nebude úspešné. Ste si istý, že chcete pokračovať v procese aktualizácie?"
+"nezhoduje s vašou predchádzajúcou nainštalovanou architektúrou %s. To "
+"pravdepodobne nebude úspešné. Ste si istý, že chcete pokračovať v procese "
+"aktualizácie?"
 
 #: ../upgrade.py:475
 #, python-format
@@ -2260,9 +2266,9 @@ msgid ""
 msgstr ""
 "Tento systém vyzerá, že má nainštalované balíky od iných dodávateľov, ktoré "
 "sa prekrývyjú s balíkmi zahrnutými v %s. Pretože sa tieto balíky prekrývajú, "
-"pokračovanie aktualizačného procesu môže spôsobiť, že prestanú fungovať správne, "
-"alebo môže spôsobiť inú nestabilitu systému. Prosím, pozrite si poznámky k vydaniu "
-"pre viac informácií.\n"
+"pokračovanie aktualizačného procesu môže spôsobiť, že prestanú fungovať "
+"správne, alebo môže spôsobiť inú nestabilitu systému. Prosím, pozrite si "
+"poznámky k vydaniu pre viac informácií.\n"
 "\n"
 "Chcete pokračovať v procese aktualizácie?"
 
@@ -2274,8 +2280,8 @@ msgid ""
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
 "Tento systém nemá súbor /etc/redhat-release. Je možné, že tento systém nie "
-"je %s. Pokračovanie v procese aktualizácie môže zanechať systém v nestabilnom "
-"stave. Chcete pokračovať v procese aktualizácie?"
+"je %s. Pokračovanie v procese aktualizácie môže zanechať systém v "
+"nestabilnom stave. Chcete pokračovať v procese aktualizácie?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2284,8 +2290,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
-"Aktualizácie pre túto verziu %s sú podporované len zo systému Red Hat Linux 6.2 "
-"alebo novší. Toto vyzerá na starší systém. Chcete pokračovať v procese aktualizácie?"
+"Aktualizácie pre túto verziu %s sú podporované len zo systému Red Hat Linux "
+"6.2 alebo novší. Toto vyzerá na starší systém. Chcete pokračovať v procese "
+"aktualizácie?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2437,7 +2444,8 @@ msgstr "Automatické rozdelenie oddielov"
 #: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Potrebuje zvoliť aspoň jeden pevný disk, na ktorý chcete nainštalovať %s."
+msgstr ""
+"Potrebuje zvoliť aspoň jeden pevný disk, na ktorý chcete nainštalovať %s."
 
 #: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
 msgid "I want to have automatic partitioning:"
@@ -2458,7 +2466,8 @@ msgid ""
 "password."
 msgstr ""
 "Heslo systémového zavádzača znemožňuje používateľom zmeniť voľby odovzdávané "
-"jadru. Pre vyššiu systémovú bezpečnosť je odporúčané, aby ste heslo nastavili."
+"jadru. Pre vyššiu systémovú bezpečnosť je odporúčané, aby ste heslo "
+"nastavili."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2596,8 +2605,8 @@ msgid ""
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
 "Prosím, vyberte si systémový zavádzač, ktorý bude používať váš počítač. GRUB "
-"je štandardný systémový zavádzač. Avšak, ak si nechcete prepísať váš aktuálny "
-"systémový zavádzač, zvoľte \"Neinštalovať systémový zavádzač.\" "
+"je štandardný systémový zavádzač. Avšak, ak si nechcete prepísať váš "
+"aktuálny systémový zavádzač, zvoľte \"Neinštalovať systémový zavádzač.\" "
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
@@ -2753,7 +2762,8 @@ msgstr ""
 "Pre informácie o opravách (aktualizácie a opravy chýb) navštívte:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
-"Pre informácie o automatických aktualizáciách cez Red Hat Network navštívte:\n"
+"Pre informácie o automatických aktualizáciách cez Red Hat Network "
+"navštívte:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
 "Pre informácie o používaní a konfigurovaní systému navštívte:\n"
@@ -2903,15 +2913,15 @@ msgstr "Vytváranie oddielov pomocou programu fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Vyberte jednotku, ktorú chcete rozdeliť programom fdisk:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
+#: ../iw/firewall_gui.py:25 ../textw/firewall_text.py:28
 msgid "Firewall"
 msgstr "Firewall"
 
-#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:35 ../textw/firewall_text.py:195
 msgid "Warning - No Firewall"
 msgstr "Upozornenie - bez firewallu"
 
-#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
+#: ../iw/firewall_gui.py:36 ../textw/firewall_text.py:196
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -2919,16 +2929,16 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 
-#: ../iw/firewall_gui.py:41
+#: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
 msgstr "_Konfigurovať firewall"
 
-#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:202
+#: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:203
 msgid "_Proceed"
 msgstr "_Pokračovať"
 
-#: ../iw/firewall_gui.py:129
+#: ../iw/firewall_gui.py:131
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -2937,64 +2947,64 @@ msgid ""
 "For example, '1234:udp'"
 msgstr ""
 
-#: ../iw/firewall_gui.py:133
+#: ../iw/firewall_gui.py:135
 #, fuzzy
 msgid "Warning: Bad Token"
 msgstr "Upozornenie: %s"
 
-#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
+#: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:30
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
-"Firewall môže pomôcť zabrániť neautorizovanému prístupu k vášmu počítaču "
-"z okolitého sveta. Chcete povoliť firewall?"
+"Firewall môže pomôcť zabrániť neautorizovanému prístupu k vášmu počítaču z "
+"okolitého sveta. Chcete povoliť firewall?"
 
-#: ../iw/firewall_gui.py:167
+#: ../iw/firewall_gui.py:169
 msgid "N_o firewall"
 msgstr "_Bez firewallu"
 
-#: ../iw/firewall_gui.py:169
+#: ../iw/firewall_gui.py:171
 msgid "_Enable firewall"
 msgstr "_Povoliť firewall"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:173
 msgid "_Custom firewall"
 msgstr "_Vlastný firewall"
 
-#: ../iw/firewall_gui.py:189
+#: ../iw/firewall_gui.py:191
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Ktoré služby majú mať povolenie prechádzať cez firewall?"
 
-#: ../iw/firewall_gui.py:197
+#: ../iw/firewall_gui.py:199
 msgid "_Allow incoming:"
 msgstr "_Povoliť prichádzajúce:"
 
-#: ../iw/firewall_gui.py:222
+#: ../iw/firewall_gui.py:224
 msgid "Other _ports:"
 msgstr "Ostatné _porty:"
 
-#: ../iw/firewall_gui.py:230
+#: ../iw/firewall_gui.py:232
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr "Ak chcete povoliť všetok prenos zo zariadenia, zvoľte ho nižšie."
 
-#: ../iw/firewall_gui.py:239
+#: ../iw/firewall_gui.py:241
 msgid "_Trusted devices:"
 msgstr "_Dôveryhodné zariadenia:"
 
-#: ../iw/firewall_gui.py:277
-msgid "_Security Enhanced Linux (SELinux) Extentions:"
+#: ../iw/firewall_gui.py:279
+msgid "_Security Enhanced Linux (SELinux) Extensions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 msgid "Disabled"
 msgstr "Zakázané"
 
-#: ../iw/firewall_gui.py:283
+#: ../iw/firewall_gui.py:285
 msgid "Warn"
 msgstr "Upozornenie"
 
-#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+#: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:265
 msgid "Active"
 msgstr "Aktívne"
 
@@ -3483,8 +3493,8 @@ msgstr ""
 "Nemáte aktívne sieťové zariadenia. Váš systém nebude štandardne schopný "
 "komunikovať cez sieť bez aspoň jedného aktívneho zariadenia.\n"
 "\n"
-"POZNÁMKA: Ak máte sieťový adaptér PCMCIA, nechajte ho teraz neaktívny. "
-"Keď reštartujete váš systém, adaptér bude automaticky aktivovaný."
+"POZNÁMKA: Ak máte sieťový adaptér PCMCIA, nechajte ho teraz neaktívny. Keď "
+"reštartujete váš systém, adaptér bude automaticky aktivovaný."
 
 #: ../iw/network_gui.py:202
 #, python-format
@@ -3568,11 +3578,11 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Môžete nakonfigurovať váš systémový zavádzač, aby zavádzal iné operačné systémy. "
-"Umožní vám vybrať si operačný systém, ktorý chcete zaviesť, zo zoznamu. "
-"Ak chcete pridať ďalšie operačné systémy, ktoré neboli automaticky zdetekované, "
-"kliknite na 'Pridať'. Štandardne zavádzaný systém môžete zmeniť zvolením "
-"'Štandardne'."
+"Môžete nakonfigurovať váš systémový zavádzač, aby zavádzal iné operačné "
+"systémy. Umožní vám vybrať si operačný systém, ktorý chcete zaviesť, zo "
+"zoznamu. Ak chcete pridať ďalšie operačné systémy, ktoré neboli automaticky "
+"zdetekované, kliknite na 'Pridať'. Štandardne zavádzaný systém môžete zmeniť "
+"zvolením 'Štandardne'."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:207
@@ -3595,8 +3605,9 @@ msgid ""
 "Enter a label to be displayed in the boot loader menu. The device (or hard "
 "drive and partition number) is the device from which it boots."
 msgstr ""
-"Zadajte návestie, ktoré bude zobrazené v menu systémového zavádzača. Zariadenie "
-"(alebo pevný disk a číslo oddielu) je zariadenie, z ktorého bude zavedený."
+"Zadajte návestie, ktoré bude zobrazené v menu systémového zavádzača. "
+"Zariadenie (alebo pevný disk a číslo oddielu) je zariadenie, z ktorého bude "
+"zavedený."
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
@@ -4596,8 +4607,8 @@ msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
-"Vo väčšine prípadov je možné monitor automaticky zistiť. Ak "
-"detekované nastavenia nie sú správne pre monitor, nastavte správne hodnoty."
+"Vo väčšine prípadov je možné monitor automaticky zistiť. Ak detekované "
+"nastavenia nie sú správne pre monitor, nastavte správne hodnoty."
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
@@ -4929,7 +4940,7 @@ msgstr ""
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
 #: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
-#: ../loader2/loader.c:801 ../loader2/loader.c:823 ../loader2/net.c:174
+#: ../loader2/loader.c:806 ../loader2/loader.c:828 ../loader2/net.c:174
 #: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
@@ -5017,65 +5028,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Vyberte disk, na ktorom sa má spustiť fdisk"
 
-#: ../textw/firewall_text.py:25
+#: ../textw/firewall_text.py:26
 msgid "Customize"
 msgstr "Prispôsobiť"
 
-#: ../textw/firewall_text.py:46
+#: ../textw/firewall_text.py:47
 msgid "Enable firewall"
 msgstr "Povoliť firewall"
 
-#: ../textw/firewall_text.py:49
+#: ../textw/firewall_text.py:50
 msgid "No firewall"
 msgstr "Bez firewallu"
 
-#: ../textw/firewall_text.py:68
+#: ../textw/firewall_text.py:69
 msgid "Trusted Devices:"
 msgstr "Dôveryhodné zariadenia:"
 
-#: ../textw/firewall_text.py:78
+#: ../textw/firewall_text.py:79
 msgid "Allow incoming:"
 msgstr "Povoliť prichádzajúce:"
 
-#: ../textw/firewall_text.py:83
+#: ../textw/firewall_text.py:84
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:86 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:87
+#: ../textw/firewall_text.py:88
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:89
+#: ../textw/firewall_text.py:90
 msgid "Mail (SMTP)"
 msgstr "Pošta (SMTP)"
 
-#: ../textw/firewall_text.py:91
+#: ../textw/firewall_text.py:92
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:95
+#: ../textw/firewall_text.py:96
 msgid "Other ports"
 msgstr "Ostatné porty"
 
-#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:122 ../textw/firewall_text.py:185
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Neplatný výber"
 
-#: ../textw/firewall_text.py:122
+#: ../textw/firewall_text.py:123
 msgid "You cannot customize a disabled firewall."
 msgstr "Nemôžete si prispôsobiť zakázaný firewall."
 
-#: ../textw/firewall_text.py:127
+#: ../textw/firewall_text.py:128
 msgid "Firewall Configuration - Customize"
 msgstr "Konfigurácia firewallu - prispôsobenie"
 
-#: ../textw/firewall_text.py:129
+#: ../textw/firewall_text.py:130
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5083,27 +5094,27 @@ msgid ""
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
 
-#: ../textw/firewall_text.py:185
+#: ../textw/firewall_text.py:186
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Upozornenie: %s nie je platný port."
 
-#: ../textw/firewall_text.py:246
+#: ../textw/firewall_text.py:251
 msgid "Security Enhanced Linux"
 msgstr ""
 
-#: ../textw/firewall_text.py:248
+#: ../textw/firewall_text.py:253
 msgid ""
 "Security Enhanced Linux (SELinux) provides stricter access controls to "
 "improve the security of your system.  How would you like this support "
 "enabled?"
 msgstr ""
 
-#: ../textw/firewall_text.py:256
+#: ../textw/firewall_text.py:261
 msgid "Disable SELinux"
 msgstr ""
 
-#: ../textw/firewall_text.py:258
+#: ../textw/firewall_text.py:263
 msgid "Warn on violations"
 msgstr ""
 
@@ -6564,50 +6575,50 @@ msgid ""
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:623
+#: ../loader2/loader.c:625
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nemáte dostatok RAM pre inštaláciu %s na tomto počítači."
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:798
 msgid "Rescue Method"
 msgstr "Záchranná metóda"
 
-#: ../loader2/loader.c:794
+#: ../loader2/loader.c:799
 msgid "Installation Method"
 msgstr "Spôsob inštalácie"
 
-#: ../loader2/loader.c:796
+#: ../loader2/loader.c:801
 msgid "What type of media contains the rescue image?"
 msgstr "Aký typ média obsahuje záchranný obraz systému?"
 
-#: ../loader2/loader.c:798
+#: ../loader2/loader.c:803
 msgid "What type of media contains the packages to be installed?"
 msgstr "Aký typ média obsahuje balíky, ktoré si želáte nainštalovať?"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "No driver found"
 msgstr "Ovládače neboli nájdené"
 
-#: ../loader2/loader.c:822
+#: ../loader2/loader.c:827
 msgid "Select driver"
 msgstr "Zvoľte ovládač"
 
-#: ../loader2/loader.c:823
+#: ../loader2/loader.c:828
 msgid "Use a driver disk"
 msgstr "Použiť disk s ovládačmi"
 
-#: ../loader2/loader.c:824
+#: ../loader2/loader.c:829
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:984
+#: ../loader2/loader.c:989
 msgid "The following devices have been found on your system."
 msgstr "Vo vašom systéme boli nájdené nasledujúce zariadenia."
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:991
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6615,29 +6626,29 @@ msgstr ""
 "Pre váš systém neboli načítané žiadne ovládače. Želáte si teraz nejaké "
 "zaviesť?"
 
-#: ../loader2/loader.c:990
+#: ../loader2/loader.c:995
 msgid "Devices"
 msgstr "Zariadenia"
 
-#: ../loader2/loader.c:991
+#: ../loader2/loader.c:996
 msgid "Done"
 msgstr "Hotovo"
 
-#: ../loader2/loader.c:992
+#: ../loader2/loader.c:997
 msgid "Add Device"
 msgstr "Pridať zariadenie"
 
-#: ../loader2/loader.c:1092
+#: ../loader2/loader.c:1097
 #, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
-#: ../loader2/loader.c:1448
+#: ../loader2/loader.c:1457
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
 
-#: ../loader2/loader.c:1450
+#: ../loader2/loader.c:1459
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -7639,6 +7650,15 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr ""
 
 #. generated from lang-table
+msgid "Bengali"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Catalan"
+msgstr "Taliansky"
+
+#. generated from lang-table
 msgid "Chinese(Simplified)"
 msgstr ""
 
@@ -7669,6 +7689,10 @@ msgstr "Anglicky"
 #. generated from lang-table
 msgid "Estonian"
 msgstr "Estónsky"
+
+#. generated from lang-table
+msgid "Farsi"
+msgstr ""
 
 #. generated from lang-table
 msgid "Finnish"
@@ -7741,6 +7765,10 @@ msgstr "Turecky"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrajinsky"
+
+#. generated from lang-table
+msgid "Welsh"
+msgstr ""
 
 #. generated from lang-table
 msgid "Zulu"
