@@ -264,7 +264,7 @@ class SiloInstall:
 	    i = len (bootpart) - 1
 	    while i > 0 and bootpart[i] in string.digits:
 		i = i - 1
-	    silo.addEntry("partition", bootpart[i+1:])
+            silo.addEntry("partition", bootpart[i+1:])
 
 	silo.addEntry("timeout", "50")
 	silo.addEntry("root", '/dev/' + rootDev)
@@ -314,7 +314,11 @@ class SiloInstall:
 		kernelFile = "/vmlinuz" + kernelTag
 		initrdFile = initrd[5:]
 
-	    sl = LiloConfigFile()
+	    try:
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+	    except IndexError, msg:
+		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
 	    sl.addEntry("label", label)
 	    if os.access (instRoot + initrd, os.R_OK):
@@ -326,9 +330,13 @@ class SiloInstall:
 	    silo.addImage ("image", kernelFile, sl)
 
 	for (label, device) in otherList:
-	    sl = LiloConfigFile()
+	    try:
+		(fsType, sl) = silo.getImage(label)
+		silo.delImage(label)
+	    except IndexError:
+                sl = LiloConfigFile(imageType = "other", path = device)
 	    sl.addEntry("label", label)
-	    silo.addImage ("other", device, sl)
+	    lilo.addImage (sl)
 
 	# for (siloType, name, config) in silo.images:
 	#    # remove entries for missing kernels (upgrade)
