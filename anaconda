@@ -143,7 +143,7 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
     if not vncpid:
 	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
 		 "-depth", "16", "-geometry", "800x600",
-		 "IdleTimeout=0", "-auth", "/dev/null", "-once"
+		 "IdleTimeout=0", "-auth", "/dev/null", "-once",
 		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
 
 	# set passwd if necessary

@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar XX 2005 XXX <XXX@redhat.com> 10.1.1.XX-X
+- Fix typo in Xvnc parameters (#150498).
+
 * Wed Mar  2 2005 Jeremy Katz <katzj@redhat.com> - 10.1.1.15-1
 - Ensure Xvnc exits when the last client goes away (#137337)
 - Allow logical partitions to go all the way to the end of an 
