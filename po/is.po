@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.67\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-08-02 10:44+0000\n"
+"PO-Revision-Date: 2000-08-05 15:25+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -38,6 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Kjarninn getur ekki lesið nýju disksneiðatöfluna, sennilega vegna þess að þú "
+"hefur breytt \"extended\" disksneiðum. Þó þetta sé ekki banvæn villa verður "
+"þú að endurræsa vélina áður en þú getur haldið áfram. Settu inn Red Hat "
+"ræsidiskinn og veldu \"Í lagi\" til að endurræsa.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -190,6 +194,8 @@ msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Villa kom upp við að flytja uppsetningarskrár á harða diskinn. Hann er "
+"líklega fullur."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -3485,61 +3491,60 @@ msgstr "Les inn SCSI rekil"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Mynd til að birta"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Breidd korts (í myndeiningum)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Virkja \"antialias\""
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Heimur"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Norður Ameríka"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Suður Ameríka"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Kyrrahafsströnd"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Evrópa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afríka"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Asía"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Get ekki lesið tímabeltisgögn"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Skoða:"
+msgstr "Skoða: "
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Ameríka/New_York"
 
 msgid "Base"
 msgstr "Grunnur"
@@ -3601,7 +3606,8 @@ msgstr "Vefþjónn"
 msgid "DNS Name Server"
 msgstr "DNS nafnaþjónn"
 
-msgid "SQL Server"
+#, fuzzy
+msgid "Postgres (SQL) Server"
 msgstr "SQL þjónn"
 
 msgid "Network Management Workstation"
