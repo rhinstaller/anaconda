@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Red Hat 6.9.1 Install\n"
+"Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2000-06-30 14:48-0400\n"
 "PO-Revision-Date: 2000-06-29 06:17+01:00\n"
 "Last-Translator: KC and BL and KS <dansk@klid.dk>\n"
@@ -123,7 +123,7 @@ msgstr "Færdig"
 
 #: ../gui.py:336 ../gui.py:599
 msgid "Online Help"
-msgstr "'Ved hånden'-hjælp"
+msgstr "Ved hånden-hjælp"
 
 #: ../gui.py:337 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
 #: ../text.py:881
@@ -525,13 +525,15 @@ msgstr "Undtagelse hændte"
 
 #: ../text.py:782
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Gem krash-information"
 
 #: ../text.py:783
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Indsæt venligt en diskette. Alt indhold på disketten vil blive slettet, så "
+"vælg venligst disketten med omhu."
 
 #: ../text.py:793
 msgid ""
@@ -541,10 +543,15 @@ msgid ""
 "will help Red hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"En intern fejl hændte i installationsprogrammet. Rapportér venligst denne "
+"fejl til Red Hat så hurtigt som muligt (gennem bugzilla.redhat.com websiden) "
+"Information om fejlen kan gemmen på diskette, og vil være en stor hjælp når "
+"Red Hat skal rette fejlen.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Gem"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -555,7 +562,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -735,7 +741,7 @@ msgstr "Søger efter Red Hat Linux-installationer..."
 #: ../todo.py:789 ../todo.py:817
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Fejl under montering af ext2 filsystem på %s: %s"
+msgstr "Fejl under montering af ext2-filsystem på %s: %s"
 
 #: ../todo.py:827
 msgid "Finding"
@@ -756,7 +762,6 @@ msgstr ""
 "tjekket og lukket ordentlig ned for at opgradere."
 
 #: ../todo.py:849
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -850,9 +855,8 @@ msgid "Vertical frequency range"
 msgstr "Lodret frekvensområde"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Musevalg"
+msgstr "Mus ikke fundet"
 
 #: ../xserver.py:27
 msgid ""
@@ -861,10 +865,14 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Din mus blev ikke automatisk fundet. For at fortsætte installationen i den "
+"grafiske tilstand, fortsæt da venligst til næste skærm og oplys gyldig "
+"information om din mus. Du kan også benytte den tekstbaserede installation "
+"som ikke kræver mus."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Benyt tekst-tilstand"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -967,7 +975,7 @@ msgstr "Anvend NIS"
 
 #: ../iw/auth_gui.py:80
 msgid "Use broadcast to find NIS server"
-msgstr "Brug rundkastning til at finde NIS-tjener"
+msgstr "Benyt rundkastning til at finde NIS-tjener"
 
 #: ../iw/auth_gui.py:92
 msgid "NIS Domain: "
@@ -978,36 +986,32 @@ msgid "NIS Server: "
 msgstr "NIS-tjener: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Anvend NIS"
+msgstr "Anvend LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS-tjener:"
+msgstr "LDAP-tjener:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP basal DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Benyt äccêntér"
+msgstr "Aktivér Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "'Realm':"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS-tjener:"
+msgstr "Admin-tjener:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1120,9 +1124,8 @@ msgstr ""
 " Du kan ikke opgradere dette system!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "%s kataloget skal ligge på rodfilsystemet."
+msgstr "Vælg venligst enheden som indeholder rodfilsystemet: "
 
 #: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
@@ -1211,7 +1214,7 @@ msgstr "Første sektor på opstartspartitionen"
 
 #: ../iw/lilo_gui.py:246 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Brug lineær modus (kræves for nogle SCSI-drev)"
+msgstr "Benyt lineær-tilstand (kræves for nogle SCSI-drev)"
 
 #: ../iw/lilo_gui.py:256 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
@@ -1605,9 +1608,8 @@ msgid "Skip X Configuration"
 msgstr "Undlad X-konfiguration"
 
 #: ../iw/xconfig_gui.py:486
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Standard"
+msgstr "Standard-skrivebord:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1673,7 +1675,7 @@ msgstr ""
 
 #: ../textw/lilo_text.py:85 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
-msgstr "Hvor vil du installere opstartsindlæseren"
+msgstr "Hvor vil du installere opstartslæseren"
 
 #: ../textw/lilo_text.py:117 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
@@ -1693,9 +1695,8 @@ msgid "Boot label may not be empty."
 msgstr "Opstartsnavn må ikke være tom."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "Opstartsnavne må ikke indeholde mellemrum."
+msgstr "Opstartsnavn indeholder ugyldige tegn."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1726,7 +1727,6 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 under DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
 msgstr "Hvilken enhed befinder din mus sig på? %s %i"
 
@@ -2080,7 +2080,7 @@ msgstr "Spørg efter tjener via rundkastning"
 
 #: ../libfdisk/fsedit.c:447
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "partitionering opfylder ikke kravene"
 
 #: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
 #: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
@@ -2262,7 +2262,7 @@ msgstr "Systemfejl %d"
 
 #: ../libfdisk/fsedit.c:1541 ../libfdisk/fsedit.c:1543
 msgid "Fdisk Error"
-msgstr "Fdisk fejl"
+msgstr "Fdisk-fejl"
 
 #: ../libfdisk/gnomefsedit.c:553 ../libfdisk/gnomefsedit.c:853
 msgid "<Swap Partition>"
@@ -2353,7 +2353,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2135 ../libfdisk/newtfsedit.c:627
 #: ../libfdisk/newtfsedit.c:660
 msgid "Mount Point Error"
-msgstr "Monteringspunktsfejl"
+msgstr "Fejl ved monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:1164 ../libfdisk/newtfsedit.c:628
 msgid ""
@@ -2390,7 +2390,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1253 ../libfdisk/gnomefsedit.c:2268
 #: ../libfdisk/newtfsedit.c:705
 msgid "Swap Size Error"
-msgstr "Swapstørrelsesfejl"
+msgstr "Fejl ved swapstørrelse"
 
 #: ../libfdisk/gnomefsedit.c:1254 ../libfdisk/gnomefsedit.c:2269
 #: ../libfdisk/newtfsedit.c:706
@@ -2403,18 +2403,16 @@ msgstr ""
 "størrelse på en swappartition er %ld megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1268
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Ingen drev fundet"
+msgstr "Ingen drev specificeret"
 
 #: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
 msgid "Close"
 msgstr "Luk"
 
 #: ../libfdisk/gnomefsedit.c:1270
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr "Du skal tildele en swappartition før installationen kan gå videre."
+msgstr "Du skal begrænse denne partition til kun et drev."
 
 #: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
@@ -2601,7 +2599,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2320
 msgid "Use Pre-existing Partition?"
-msgstr "Brug præ-eksisterende partition?"
+msgstr "Brug allerede-eksisterende partition?"
 
 #: ../libfdisk/gnomefsedit.c:2397
 msgid "Cannot Add RAID Devices"
@@ -2754,9 +2752,8 @@ msgid "Swap Partition"
 msgstr "Swappartition"
 
 #: ../libfdisk/newtfsedit.c:201
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Redigér partition"
+msgstr "RAID-partition"
 
 #: ../libfdisk/newtfsedit.c:356
 msgid "Edit New Partition"
@@ -2813,16 +2810,16 @@ msgid "You must assign a swap partition for the install to proceed."
 msgstr "Du skal tildele en swappartition før installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1610
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Ingen rodpartition"
+msgstr "Ingen /boot/efi partition"
 
 #: ../libfdisk/newtfsedit.c:1612
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
-msgstr "Du skal tildele en swappartition før installationen kan gå videre."
+msgstr ""
+"Du skal tildele et monteringspunkt /boot/efi til en primær FAT-partition før "
+"installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1633
 msgid ""
@@ -3116,7 +3113,7 @@ msgstr "Installationsmetode"
 
 #: ../loader/loader.c:1319
 msgid "What type of media contains the rescue image?"
-msgstr "Hvilken type medium befinder rednings-image sig på?"
+msgstr "Hvilken type medium befinder rednings-billedet sig på?"
 
 #: ../loader/loader.c:1321
 msgid "What type of media contains the packages to be installed?"
@@ -3168,7 +3165,7 @@ msgstr "NFS-tjenernavn:"
 
 #: ../loader/net.c:152 ../loader/urls.c:185
 msgid "Red Hat directory:"
-msgstr "Red Hat katalog:"
+msgstr "Red Hat-katalog:"
 
 #: ../loader/net.c:158
 msgid "NFS Setup"
@@ -3477,20 +3474,19 @@ msgid "Games"
 msgstr "Underholdning"
 
 msgid "Multimedia Support"
-msgstr "Multimedie-understøttelse"
+msgstr "Understøttelse for multimedia"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Printer-understøttelse"
+msgstr "Understøttelse for bærbare"
 
 msgid "Networked Workstation"
 msgstr "Netorienteret arbejdsstation"
 
 msgid "Dialup Workstation"
-msgstr "KDE-arbejdsstation"
+msgstr "KDE-baseret arbejdsstation"
 
 msgid "News Server"
-msgstr "Navnetjener"
+msgstr "Nyhedstjener"
 
 msgid "NFS Server"
 msgstr "NIS-tjener:"
@@ -3514,7 +3510,7 @@ msgid "Postgres (SQL) Server"
 msgstr "Postgres SQL-tjener"
 
 msgid "Network Management Workstation"
-msgstr "Netværkskonfiguration"
+msgstr "Arbejdsstation til netværksbetjening"
 
 msgid "Authoring/Publishing"
 msgstr "Publisering"
@@ -3530,9 +3526,3 @@ msgstr "Kerneudvikling"
 
 msgid "Utilities"
 msgstr "Tilbehør"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Fejl ved kopiering af tidszone (fra %s): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Klyngning"
