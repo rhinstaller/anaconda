@@ -652,9 +652,9 @@ class KickstartBase(BaseInstallClass):
             level = "RAID5"
 
         if not level:
-            raise ValueError, _("RAID Partition defined without RAID level")
+            raise ValueError, "RAID Partition defined without RAID level"
         if len(raidmems) == 0:
-            raise ValueError, _("RAID Partition defined without any RAID members")
+            raise ValueError, "RAID Partition defined without any RAID members"
 
         request = PartitionSpec(filesystem, REQUEST_RAID,
                                 mountpoint = mountpoint,
