@@ -18,6 +18,14 @@ class DoInstall (Thread):
         from exception import handleException
         try:
             rc = self.todo.doInstall ()
+        except SystemExit, code:
+            import os, signal
+
+            print "shutting down"
+            self.todo.intf.shutdown()
+            print "shut down"
+            os.kill(os.getpid(), signal.SIGTERM)
+            
         except:
             threads_enter ()
             handleException(self.todo, sys.exc_info())
