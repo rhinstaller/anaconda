@@ -1544,8 +1544,11 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             delete = DeleteSpec(drive, partition.geom.start,
                                 partition.geom.end)
             requestlist.addDelete(delete)
-    else: # shouldn't happen
-        raise ValueError, "Deleting a non-existent partition"
+    else: # is this a extended partition we made?
+        if partition.type & parted.PARTITION_EXTENDED:
+            deleteAllLogicalPartitions(partition, requestlist)
+        else:
+            raise ValueError, "Deleting a non-existent partition"
 
     del partition
     return 1
