@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.55\n"
+"Project-Id-Version: install 1.56\n"
 "POT-Creation-Date: 2000-06-30 14:48-0400\n"
-"PO-Revision-Date: 2000-07-09 20:29+0000\n"
+"PO-Revision-Date: 2000-07-07 21:09+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -525,13 +525,15 @@ msgstr "Óeðlilegt ástand"
 
 #: ../text.py:782
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Vista \"Crash Dump\""
 
 #: ../text.py:783
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Vinsamlegast settu diskling í drifið. Öllu innihaldi disklingsins verður "
+"eytt svo veldu disklinginn vel."
 
 #: ../text.py:793
 msgid ""
@@ -541,10 +543,15 @@ msgid ""
 "will help Red hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"Það kom upp villa í uppsetningarforritinu. Vinsamlegast láttu Red Hat vita "
+"af þessari villu (á bugzilla.redhat.com vefsetrinu) eins fljótt og unnt er. "
+"Nánari upplýsingum um þessa villu er hægt að vista á diskling og það mun "
+"hjálpa Red Hat við að lagfæra vandamálið.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Vista"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -555,11 +562,10 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:817
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <F1> hjálp | <Tab> milli atriða    | <Bilslá> velur  | <F12> næsti skjár "
+" <F1> hjálp  |  <Tab> milli atriða   |   <Bilslá> velur   | <F12> næsti skjár"
 
 #: ../text.py:819
 msgid ""
@@ -757,14 +763,12 @@ msgstr ""
 "og keyrðu svo vélina rétt niður til að uppfæra."
 
 #: ../todo.py:849
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Eitt eða fleiri af Linux skráarkerfunum þínum var ekki aftengt á réttann "
-"máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
-"og keyrðu svo vélina rétt niður til að uppfæra."
+"Ekki tókst að tengja eitt eða fleiri af skráarkerfunum í /etc/fstab á "
+"vélinni þinni. Vinsamlegast lagfærðu þetta og reyndu svo að uppfæra aftur."
 
 #: ../todo.py:870
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -851,9 +855,8 @@ msgid "Vertical frequency range"
 msgstr "Lóðrétt tíðnisvið"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
-msgstr "Stillingar músar"
+msgstr "Engin mús fannst"
 
 #: ../xserver.py:27
 msgid ""
@@ -862,10 +865,14 @@ msgid ""
 "information. You may also use text mode installation which does not require "
 "a mouse."
 msgstr ""
+"Ekki tókst að finna músina sjálfvirkt. Til þess að halda uppsetningunni "
+"áfram í myndrænum ham þarftu að fara áfram á næsta skjá og gefa upp "
+"upplýsingar um músina.  Þú getur einnig notað uppsetninguna í textaham sem "
+"þarfnast ekki músar."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
-msgstr ""
+msgstr "Nota textaham"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -979,36 +986,32 @@ msgid "NIS Server: "
 msgstr "NIS þjónn: "
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
-msgstr "Nota NIS"
+msgstr "Nota LDAP"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
-msgstr "NIS þjónn:"
+msgstr "LDAP þjónn:"
 
 #: ../iw/auth_gui.py:123 ../textw/userauth_text.py:340
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "LDAP grunn DN:"
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
-msgstr "Nota broddstafi"
+msgstr "Nota Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Lén:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
-msgstr ""
+msgstr "KDC:"
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
-msgstr "NIS þjónn:"
+msgstr "Stjórnþjónn:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -1123,9 +1126,8 @@ msgstr ""
 " Þú getur ekki uppfært þessa vél!"
 
 #: ../iw/examine_gui.py:46
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
-msgstr "Mappan %s verður að vera á rótarskráakerfinu."
+msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
 
 #: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
@@ -1609,9 +1611,8 @@ msgid "Skip X Configuration"
 msgstr "Sleppa að stilla X"
 
 #: ../iw/xconfig_gui.py:486
-#, fuzzy
 msgid "Default Desktop:"
-msgstr "Sjálfgefið"
+msgstr "Sjálfgefið skjáborð:"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1696,9 +1697,8 @@ msgid "Boot label may not be empty."
 msgstr "Ræsimerkið má ekki vera tómt."
 
 #: ../textw/lilo_text.py:150
-#, fuzzy
 msgid "Boot label contains illegal characters."
-msgstr "Heiti ræsamerkja mega ekki innihalda orðabil."
+msgstr "Heiti ræsamerkis inniheldur ólöglegt tákn."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1728,9 +1728,8 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 í DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
-msgstr "Við hvaða tæki er músin tengd? %s %i"
+msgstr "Við hvaða tæki er músin tengd?"
 
 #: ../textw/mouse_text.py:45
 msgid "Which model mouse is attached to this computer?"
@@ -2081,7 +2080,7 @@ msgstr "Kalla eftir þjóni"
 
 #: ../libfdisk/fsedit.c:447
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "disksneiðarnar ná ekki lágmarksþörfum"
 
 #: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
 #: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
@@ -2401,19 +2400,16 @@ msgstr ""
 "diskminnissneiðar er %ld Megabæti."
 
 #: ../libfdisk/gnomefsedit.c:1268
-#, fuzzy
 msgid "No Drives Specified"
-msgstr "Engin drif fundust"
+msgstr "Engin drif gefin upp"
 
 #: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
 msgid "Close"
 msgstr "Loka"
 
 #: ../libfdisk/gnomefsedit.c:1270
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
-msgstr ""
-"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+msgstr "Þú verður að takmarka þessa sneið við amk. eitt drif."
 
 #: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
@@ -2753,9 +2749,8 @@ msgid "Swap Partition"
 msgstr "Diskminnissneið"
 
 #: ../libfdisk/newtfsedit.c:201
-#, fuzzy
 msgid "Raid Partition"
-msgstr "Breyta disksneið"
+msgstr "Raiddisksneið"
 
 #: ../libfdisk/newtfsedit.c:356
 msgid "Edit New Partition"
@@ -2813,17 +2808,16 @@ msgstr ""
 "Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
 
 #: ../libfdisk/newtfsedit.c:1610
-#, fuzzy
 msgid "No /boot/efi Partition"
-msgstr "Engin rótarsneið"
+msgstr "Engin /boot/efi sneið"
 
 #: ../libfdisk/newtfsedit.c:1612
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Þú verður að skilgreina diskminnissneið svo uppsetningin geti haldið áfram."
+"Þú verður að skilgreina tengipunktinn /boot/efi á FAT disksneið svo "
+"uppsetningin geti haldið áfram."
 
 #: ../libfdisk/newtfsedit.c:1633
 msgid ""
@@ -3481,9 +3475,8 @@ msgstr "Leikir"
 msgid "Multimedia Support"
 msgstr "Margmiðlunarstuðningur"
 
-#, fuzzy
 msgid "Laptop Support"
-msgstr "Prentarastuðningur"
+msgstr "Kjöltutölvustuðningur"
 
 msgid "Networked Workstation"
 msgstr "Nettengd vinnustöð"
@@ -3532,9 +3525,3 @@ msgstr "Kjarnaþróun"
 
 msgid "Utilities"
 msgstr "Tól"
-
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Villa við afritun tímabeltis (frá %s): %s"
-
-#~ msgid "Clustering"
-#~ msgstr "Klösun"
