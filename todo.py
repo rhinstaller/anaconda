@@ -514,7 +514,7 @@ class ToDo:
 	    deviceDict[name] = device
 
 	rt = open(file, "w")
-	for (mntpoint, device, raidType, makeup) in raid:
+	for (mntpoint, device, fstype, raidType, makeup) in raid:
 
 	    if createDevices:
 		isys.makeDevInode(device, devPrefix + '/' + device)
@@ -573,7 +573,7 @@ class ToDo:
 	    w = self.intf.waitWindow(_("Creating"),
 			  _("Creating RAID devices..."))
 
-	    for (mntpoint, device, raidType, makeup) in raid:
+	    for (mntpoint, device, fsType, raidType, makeup) in raid:
                 iutil.execWithRedirect ("/usr/sbin/mkraid", 
 			[ 'mkraid', '--really-force', '--configfile', 
 			  '/tmp/raidtab', '/tmp/' + device ])
@@ -594,7 +594,7 @@ class ToDo:
                 args = [ "mke2fs", '/tmp/' + device, '-b', '4096', '-i', '16384' ]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
-                    for (rmnt, rdevice, raidType, makeup) in raid:
+                    for (rmnt, rdevice, fsType, raidType, makeup) in raid:
                         if rdevice == device:
                             rtype = raidType
                             rdisks = len (makeup)
@@ -751,7 +751,9 @@ class ToDo:
 ##         elif not self.liloDevice: return
 
 	(bootpart, boothd) = self.getLiloOptions()
-	if (self.liloDevice == "mbr"):
+	if (type((1,)) == bootpart):
+	    (kind, self.liloDevice) = bootpart
+	elif (self.liloDevice == "mbr"):
 	    self.liloDevice = boothd
 	else:
 	    self.liloDevice = bootpart
