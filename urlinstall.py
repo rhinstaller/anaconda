@@ -97,4 +97,6 @@ class UrlInstallMethod(InstallMethod):
 	    rem = new
 	    new = string.replace(rem, "//", "/")
 	rem = new
+        if rem and rem[-1] == "/":
+            rem = rem[:-1]
 	self.baseUrl = self.baseUrl + rem
