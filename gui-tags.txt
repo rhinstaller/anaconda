@@ -1,31 +1,72 @@
 List of GUI classes and sgml help tag associated with that screen.
 
-# AccountWindow tag="accts"
-# AuthWindow tag="authconf"
-# BootdiskWindow tag="bootdisk"
-# ConfirmWindow tag="aboutupgrade" or "aboutinstall"
-# CongratulationWindow tag=NA
-# ReconfigCongratulationWindow tag=NA
-# UnresolvedDependenciesWindow tag="depend"
-# UpgradeExamineWindow tag = "upgrade"
-# FDiskWindow tag="fdisk"
+iw/account_gui.py
+	AccountWindow	"accts"
+
+iw/auth_gui.py
+	AuthWindow	"authconf"
+
+iw/bootdisk_gui.py
+	BootdiskWindow	"bootdisk"
+
+iw/confirm_gui.py
+	ConfirmWindow "aboutupgrade" or "aboutinstall"
+
+iw/congrats_gui.py
+	CongratulationWindow	NA
+	ReconfigCongratulationWindow	NA
+
+iw/dependencies_gui.py
+	UnresolvedDependenciesWindow	"depend"
+
+iw/examine_gui.py
+	UpgradeExamineWindow	"upgrade"
+
+iw/fdisk_gui.py
+	FDiskWindow	"fdisk" and "fdiskpart"
+	
 # FormatWindow tag="format"
 # InstallPathWindow tag="instpath"
-# KeyboardWindow tag="kybd"
-# LanguageWindow tag="lang"
-# LiloWindow tag="lilo"
-# MouseWindow tag="mouse"
-# NetworkWindow tag="netconf"
-# IndividualPackageSelectionWindow tag="sel-indiv"
-# PackageSelectionWindow tag="sel-group"
-# InstallProgressWindow tag="installing"
-# PartitionWindow tag="partition"
-# LoopSizeWindow tag="loopback"
-# AutoPartitionWindow tag="wkst" or "svr", in installclass.py:setClearParts
-# SiloWindow tag="silo"
-# TimezoneWindow tag="timezone"
-# WelcomeWindow tag="wel"
-# ReconfigWelcomeWindow tag="welreconfig"
-# XCustomWindow tag="xcustom"
-# MonitorWindow tag="monitor"
-# XConfigWindow tag="xconf"
+
+
+iw/keyboard_gui.py
+	KeyboardWindow	"kybd"
+
+iw/language_gui.py
+	LanguageWindow	"lang"
+
+iw/lilo_gui.py
+	LiloWindow	"lilo"
+
+iw/mouse_gui.py
+	MouseWindow	"mouse"
+
+iw/network_gui.py
+	NetworkWindow	"netconf"
+
+iw/package_gui.py
+	IndividualPackageSelectionWindow	"sel-indiv"
+	PackageSelectionWindow "sel-group"
+
+iw/progress_gui.py
+	InstallProgressWindow "installing"
+
+iw/root_partition.py
+	PartitionWindow		"partition"
+	LoopSizeWindow		"loopback"
+	AutoPartitionWindow "wkst" or "svr"
+
+iw/silo_gui.py
+	SiloWindow	"silo"
+
+timezone_gui.py
+	TimezoneWindow	"timezone"
+
+iw/welcome_gui.py
+	WelcomeWindow	"wel"
+	ReconfigWelcomeWindow "welreconfig"
+
+iw/xconfig_gui.py
+	XCustomWindow	"xcustom"
+	MonitorWindow	"monitor"
+	XConfigWindow	"xconf"
