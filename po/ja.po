@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-01 23:18+0900\n"
-"Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
-"Language-Team: Fedora Trans Ja <fedora-trans-ja@redhat.com>\n"
+"PO-Revision-Date: 2004-10-29 10:30+1000\n"
+"Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
+"Language-Team: Japanese <kdeveloper@kde.gr.jp>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,8 +175,7 @@ msgstr "Xハードウェア状態オブジェクトのインスタンス生成�
 
 #: ../anaconda:851
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"グラフィカルインストールが利用できません...テキストモードを起動中です。"
+msgstr "グラフィカルインストールが利用できません...テキストモードを起動中です。"
 
 #: ../anaconda:866
 msgid ""
@@ -202,8 +201,7 @@ msgstr "グラフィカルインストールを開始中..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"シリンダベースパーティションを第一パーティションとして確保できませんでした。"
+msgstr "シリンダベースパーティションを第一パーティションとして確保できませんでした。"
 
 #: ../autopart.py:949
 msgid "Could not allocate partitions as primary partitions"
@@ -258,10 +256,8 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"ブートパーティション %s はこのアーキテクチャではブートに適していません。"
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "ブートパーティション %s はこのアーキテクチャではブートに適していません。"
 
 #: ../autopart.py:1056
 #, python-format
@@ -1253,8 +1249,7 @@ msgstr ""
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
-msgstr ""
-"ホスト名は 'a-z', 'A-Z', '-', 又は '.'の文字のみを含んでいる必要があります。"
+msgstr "ホスト名は 'a-z', 'A-Z', '-', 又は '.'の文字のみを含んでいる必要があります。"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1695,8 +1690,7 @@ msgstr "このパーティションに対するマウントポイントを指定
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1939,8 +1933,7 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: ../partitioning.py:77
@@ -1975,8 +1968,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"%s のインストールを継続するため必要なルートパーティション (/) が未指定です。"
+msgstr "%s のインストールを継続するため必要なルートパーティション (/) が未指定です。"
 
 #: ../partitions.py:766
 #, python-format
@@ -1988,10 +1980,8 @@ msgstr ""
 "る容量となっています。"
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"/boot/efi パーティションを FAT タイプの 50MB で作成しなければなりません。"
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "/boot/efi パーティションを FAT タイプの 50MB で作成しなければなりません。"
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2054,8 +2044,7 @@ msgstr "LVM ボリュームグループのメンバーである、パーティ�
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "マウントポイントが不適切です。%s ディレクトリは / ファイルシステム上になけれ"
 "ばなりません。"
@@ -2087,8 +2076,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s パーティションのサイズ(%10.2f MB) は最大サイズ %10.2f MBを超えています。"
+msgstr "%s パーティションのサイズ(%10.2f MB) は最大サイズ %10.2f MBを超えています。"
 
 #: ../partRequests.py:469
 #, python-format
@@ -2112,8 +2100,7 @@ msgstr "パーティションが負のシリンダで終ることはできませ
 
 #: ../partRequests.py:644
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID要求の中にメンバーが含まれていない、または RAIDレベルが未指定です。"
+msgstr "RAID要求の中にメンバーが含まれていない、または RAIDレベルが未指定です。"
 
 #: ../partRequests.py:656
 #, python-format
@@ -2301,8 +2288,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr " %s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ| <Tab> 項目間の移動| <Space> 選択| <F12> 次の画面"
 
 #: ../text.py:369
@@ -3039,7 +3025,7 @@ msgid ""
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"インストール時に使用したインストールメディア(フロッピーディスク、CD-ROMなど) "
+"インストール時に使用したインストールメディア(フロッピーディスク、CD-ROMなど)"
 "をすべて取り出してから、\"再起動\"ボタンを押してシステムを再起動します。\n"
 "\n"
 
@@ -3534,8 +3520,7 @@ msgstr "使用中のマウントポイント"
 #: ../iw/lvm_dialog_gui.py:532
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"マウントポイント\"%s\"は使用中です。別のマウントポイントを選択して下さい。"
+msgstr "マウントポイント\"%s\"は使用中です。別のマウントポイントを選択して下さい。"
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1256
 msgid "Illegal Logical Volume Name"
@@ -4195,17 +4180,13 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"要求されたパーティション設定に次のような致命的なエラーが存在しています。"
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "要求されたパーティション設定に次のような致命的なエラーが存在しています。"
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"これらのエラーは %s インストールの続行の前に必ず修正しなければなりません。"
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "これらのエラーは %s インストールの続行の前に必ず修正しなければなりません。"
 
 #: ../iw/partition_gui.py:637
 msgid "Partitioning Errors"
@@ -4350,8 +4331,7 @@ msgstr "RAID デバイスを作成 [default=/dev/md%s](_D)"
 #: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"RAID デバイス作成用にデバイスを互換ドライブを作成 [default=/dev/md%s](_D)"
+msgstr "RAID デバイス作成用にデバイスを互換ドライブを作成 [default=/dev/md%s](_D)"
 
 #: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
@@ -4652,8 +4632,7 @@ msgstr "クローン操作の為にターゲットドライブを選択して下
 #: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
+msgstr "ソースドライブ/dev/%sは、同時にターゲットドライブとして選択できません。"
 
 #: ../iw/raid_dialog_gui.py:544
 #, python-format
@@ -4706,8 +4685,7 @@ msgstr "クローンデバイス"
 
 #: ../iw/raid_dialog_gui.py:644
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"ターゲットドライブ内を清掃している途中でエラーが発生。クローン失敗です。"
+msgstr "ターゲットドライブ内を清掃している途中でエラーが発生。クローン失敗です。"
 
 #: ../iw/raid_dialog_gui.py:678
 msgid ""
@@ -4838,10 +4816,8 @@ msgstr "これで現在のブートローダーを更新します。"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"インストーラが現在%sにインストールされている%sブートローダーを探知しました。"
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "インストーラが現在%sにインストールされている%sブートローダーを探知しました。"
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4972,8 +4948,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "スワップファイルは 1 ? 2000 MB の容量でなければなりません。"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "そのスワップパーティションのための十分なディスク領域が残っていません。"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5338,10 +5313,8 @@ msgstr ""
 "ブートラベルを設定して下さい。"
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"<Space>はボタン選択 | <F2>はディフォルトのブートエントリ| <F12> 次の画面>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "<Space>はボタン選択 | <F2>はディフォルトのブートエントリ| <F12> 次の画面>"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -5769,8 +5742,7 @@ msgid "Select individual packages"
 msgstr "個々のパッケージを選択"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr " <Space>,<+>,<-> 選択   |   <F2> グループの詳細   |   <F12> 次画面"
 
 #: ../textw/packages_text.py:117
@@ -5795,8 +5767,7 @@ msgid "Total size"
 msgstr "合計容量"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr " <Space>,<+>,<->選択  |  <F1> ヘルプ   |   <F2> パッケージの説明"
 
 #: ../textw/packages_text.py:374
@@ -5940,8 +5911,7 @@ msgstr "ファイルシステムオプション"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"このパーティションでファイルシステムをどの様に用意するか 選択して下さい。"
+msgstr "このパーティションでファイルシステムをどの様に用意するか 選択して下さい。"
 
 #: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
@@ -6066,8 +6036,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1445
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "<F1>-ヘルプ <F2>-新規 <F3>-編集 <F4>-削除 <F5>-リセット <F12>-OK"
 
 #: ../textw/partition_text.py:1474
@@ -6312,13 +6281,11 @@ msgid "User Exists"
 msgstr "ユーザが存在します。"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "root ユーザは既に設定済みです。ユーザ追加の必要はありません。"
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "システムユーザは既に設定済みです。このユーザの追加の必要はありません。"
 
 #: ../textw/userauth_text.py:171
@@ -6995,8 +6962,7 @@ msgstr "キックスタートの元となるドライバディスクが不明で
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
-"キックスタートドライバディスクのコマンドに不正な引数が指定されました: %s %s"
+msgstr "キックスタートドライバディスクのコマンドに不正な引数が指定されました: %s %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -7026,8 +6992,7 @@ msgstr "ドライバディスクをロード"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"手動挿入をするドライバがありません。ドライバディスクを使用したいですか?"
+msgstr "手動挿入をするドライバがありません。ドライバディスクを使用したいですか?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -7072,8 +7037,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"このシステムにはハードディスクがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードディスクがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader2/hdinstall.c:346
 #, c-format
@@ -7151,8 +7115,7 @@ msgid "Welcome to %s"
 msgstr "%sへようこそ"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
 
 #: ../loader2/lang.c:372
@@ -7726,8 +7689,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "大西洋時間 -東ラブラドール "
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "大西洋時間 - ノバスコシア (ほとんどの地域), NB, 西ラブラドール,東ケベック及"
 "び PEI"
@@ -7923,8 +7885,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "東部時間 - オンタリオ - ほとんどの地域"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
@@ -8113,10 +8074,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山岳標準時 - アリゾナ"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8128,8 +8087,7 @@ msgstr "山岳標準時"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
+msgstr "山岳標準時 - アルバータ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -8530,170 +8488,3 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "%s のこのバージョン用のアップグレードは Red Hat Linux 6.2 又はそれ以降から"
-#~ "のみのサポートとなります。これは古いシステムのようです。アップグレードのプ"
-#~ "ロセスを続行しますか?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tデスクトップ シェル (GNOME)\n"
-#~ "\tオフィススィート (OpenOffice.org)\n"
-#~ "\tWeb ブラウザ (Mozilla) \n"
-#~ "\t電子メール (Evolution)\n"
-#~ "\tインスタントメッセージング\n"
-#~ "\tサウンドとビデオのアプリケーション\n"
-#~ "\tゲーム\n"
-#~ "\t管理ツール\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tデスクトップ シェル (GNOME)\n"
-#~ "\tオフィススィート (OpenOffice.org)\n"
-#~ "\tWeb ブラウザ (Mozilla) \n"
-#~ "\t電子メール (Evolution)\n"
-#~ "\tインスタントメッセージング\n"
-#~ "\tサウンドとビデオのアプリケーション\n"
-#~ "\tゲーム\n"
-#~ "\tソフトウェア開発ツール\n"
-#~ "\t管理ツール\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "物理エクステント:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux)は、システムのセキュリティを向上させるた"
-#~ "めのより厳しいアクセス制限を提供します。SELinux のサポートを有効にします"
-#~ "か?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "SELinux の機能を無効にする"
-
-#~ msgid "Warn on violations"
-#~ msgstr "違反時の警告"
-
-#~ msgid "Device number:"
-#~ msgstr "デバイス番号"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "東アルゼンチン (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "無効なポートです:%s。正しい形式はポートが 1 から 65535 の間のプロトコルで"
-#~ "あり、ポートは 'tcp' 又は 'udp' のどちらかです。\n"
-#~ "\n"
-#~ "例えば、'1234:udp'。"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "警告: 不良トークン "
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "侵入を許可(_A):"
-
-#~ msgid "Web Server"
-#~ msgstr "ウェブサーバー"
-
-#~ msgid "Other _ports:"
-#~ msgstr "他のポート(_P):"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Security Enhanced Linux (SELinux) 拡張機能:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "信頼するデバイス:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Mail (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-# ../comps/comps-master:146
-#~ msgid "Other ports"
-#~ msgstr "他のポート"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "ファイアウォール設定 - カスタマイズ"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "2 種類の方法でファイアウォールをカスタマイズすることができます。まず一定の"
-#~ "ネットワークインタフェースからのすべてのトラフィックを許可する選択ができま"
-#~ "す。次に一定プロトコルのファイアウォールの通過を明示的に許可できます。追加"
-#~ "のポートを'service:protocol' の形式、たとえば 'imap:tcp' として指定しま"
-#~ "す。"
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "%s は無効なポートです。"
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "そのCD-ROMはマウント出来ません。"
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "システム用の root (管理者)パスワードを入力"
-
-#~ msgid "_Custom firewall"
-#~ msgstr "カスタムファイアウォール(_C)"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "ファイアウォールを通過させるサービスとして何を許可すべきですか?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr "デバイスからの全てのトラフィックを受け入れたい場合、"
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "信頼するデバイス(_T):"
