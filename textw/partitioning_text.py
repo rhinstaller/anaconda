@@ -240,9 +240,10 @@ class FormatWindow:
 	for (mount, dev, fstype, format, size) in mounts:
 
             # dont format protected partitions
-            for n in todo.fstab.protectList:
-                if n == dev:
-                    continue
+            if todo.fstab.protectList:
+                for n in todo.fstab.protectList:
+                    if n == dev:
+                        continue
                 
             if fstype == "ext2":
 		gotOne = 1
