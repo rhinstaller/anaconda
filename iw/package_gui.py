@@ -342,7 +342,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.ctree.connect ("tree_select_row", self.select)
         sw = GtkScrolledWindow ()
-        sw.set_border_width (5)
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
 
         # Set the style for the tree
@@ -522,10 +521,9 @@ class PackageSelectionWindow (InstallWindow):
             self.origSelection = self.todo.comps.getSelectionState()
 
         sw = GtkScrolledWindow ()
-        sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
-        box = GtkVBox (FALSE, 0)
+        box = GtkVBox (FALSE, 2)
 
         self.checkButtons = []
         klass = self.todo.getClass ()
@@ -574,6 +572,8 @@ class PackageSelectionWindow (InstallWindow):
         wrapper.pack_start (box, FALSE)
         
         sw.add_with_viewport (wrapper)
+        viewport = sw.children()[0]
+        viewport.set_shadow_type (SHADOW_ETCHED_IN)
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
@@ -590,7 +590,8 @@ class PackageSelectionWindow (InstallWindow):
         vbox = GtkVBox (FALSE, 5)
         vbox.pack_start (sw, TRUE)
         vbox.pack_start (hbox, FALSE)
-        
+        vbox.set_border_width (5)
+
         return vbox
 
 
