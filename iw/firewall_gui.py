@@ -18,6 +18,7 @@ from iw_gui import *
 from isys import *
 from rhpl.translate import _, N_
 from flags import flags
+from constants import *
 
 class FirewallWindow (InstallWindow):		
 
@@ -296,7 +297,8 @@ class FirewallWindow (InstallWindow):
         if flags.selinux == 0:
             hbox.set_sensitive(gtk.FALSE)
 
-        box.pack_start(hbox, gtk.FALSE)
+        if (SELINUX_DEFAULT == 1) or flags.selinux:
+            box.pack_start(hbox, gtk.FALSE)
 
         return box
 
