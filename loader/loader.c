@@ -298,7 +298,7 @@ int findScsiList(void) {
 }
 
 static int detectHardware(struct moduleInfo *** modules) {
-    struct pciDevice **devices, *device;
+    struct pciDevice **devices, **device;
     struct moduleInfo * mod, ** modList;
     int numMods, i;
 
@@ -317,8 +317,8 @@ static int detectHardware(struct moduleInfo *** modules) {
     modList = malloc(sizeof(*modList) * 50);	/* should be enough */
     numMods = 0;
 
-    while ((device = *devices++)) {
-	if ((mod = isysFindModuleInfo(device->driver))) {
+    for (device = devices; *device; device++) {
+	if ((mod = isysFindModuleInfo((*device)->driver))) {
 	    for (i = 0; i < numMods; i++) 
 	        if (modList[i] == mod) break;
 	    if (i == numMods) 
@@ -328,7 +328,7 @@ static int detectHardware(struct moduleInfo *** modules) {
 
     if (numMods) {
         *modules = modList;
-	modList[numMods]->moduleName = NULL;
+	modList[numMods] = NULL;
     } else {
         free(modList);
 	*modules = NULL;
@@ -390,8 +390,7 @@ int main(int argc, char ** argv) {
 	    sleep(5);
 	    exit(1);
 	} else if (modList) {
-	    printf("here\n");
-	    for (i = 0; modList[i]->moduleName; i++)
+	    for (i = 0; modList[i]; i++)
 	        printf("should try %s\n", modList[i]->moduleName);
 	}
     }
