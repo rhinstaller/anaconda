@@ -882,7 +882,8 @@ static void init_alt_char_set (void)
    int i;
    unsigned char *p, *pmax, ch;
 
-   if (Alt_Char_Set[128] == 128) return;
+   /*don't do this! it prevents us from later changing the terminal type */
+   /*if (Alt_Char_Set[128] == 128) return;*/
 
    i = 32;
    memset ((char *)Alt_Char_Set, ' ', i);
@@ -1353,59 +1354,3 @@ SLsmg_set_color_in_region (int color, int r, int c, unsigned int dr, unsigned in
      }
 }
 
-
-void SLsmg_set_terminal_info (SLsmg_Term_Type *tt)
-{
-   if (tt == NULL)		       /* use default */
-     return;
-   
-   if ((tt->tt_normal_video == NULL)
-       || (tt->tt_goto_rc == NULL)
-       || (tt->tt_cls == NULL)
-       || (tt->tt_del_eol == NULL)
-       || (tt->tt_smart_puts == NULL)
-       || (tt->tt_flush_output == NULL)
-       || (tt->tt_reset_video == NULL)
-       || (tt->tt_init_video == NULL)
-#ifndef IBMPC_SYSTEM
-       || (tt->tt_set_scroll_region == NULL)
-       || (tt->tt_reverse_index == NULL)
-       || (tt->tt_reset_scroll_region == NULL)
-       || (tt->tt_delete_nlines == NULL)
-       /* Variables */
-       || (tt->tt_term_cannot_scroll == NULL)
-       || (tt->tt_has_alt_charset == NULL)
-#if 0 /* These can be NULL */
-       || (tt->tt_use_blink_for_acs == NULL)
-       || (tt->tt_graphic_char_pairs == NULL)
-#endif
-       || (tt->tt_screen_cols == NULL)
-       || (tt->tt_screen_rows == NULL)
-#endif
-       )
-     SLang_exit_error ("Terminal not powerful enough for SLsmg");
-   
-   tt_normal_video = tt->tt_normal_video;
-   tt_goto_rc = tt->tt_goto_rc;
-   tt_cls = tt->tt_cls;
-   tt_del_eol = tt->tt_del_eol;
-   tt_smart_puts = tt->tt_smart_puts;
-   tt_flush_output = tt->tt_flush_output;
-   tt_reset_video = tt->tt_reset_video;
-   tt_init_video = tt->tt_init_video;
-
-#ifndef IBMPC_SYSTEM
-   tt_set_scroll_region = tt->tt_set_scroll_region;
-   tt_reverse_index = tt->tt_reverse_index;
-   tt_reset_scroll_region = tt->tt_reset_scroll_region;
-   tt_delete_nlines = tt->tt_delete_nlines;
-
-   tt_Term_Cannot_Scroll = tt->tt_term_cannot_scroll;
-   tt_Has_Alt_Charset = tt->tt_has_alt_charset;
-   tt_Use_Blink_For_ACS = tt->tt_use_blink_for_acs;
-   tt_Graphics_Char_Pairs = tt->tt_graphic_char_pairs;
-#endif
-
-   tt_Screen_Cols = tt->tt_screen_cols;
-   tt_Screen_Rows = tt->tt_screen_rows;
-}

@@ -1,8 +1,13 @@
 include ../Makefile.inc
 
+ISYSLIB=isys
+ifeq ($(ARCH),i386)
+ISYSLIB=isys-diet
+endif
+
 CFLAGS = -Wall -g -O2
 LDFLAGS = -g
-LOADLIBES = -L../isys -lisys -lresolv -lz
+LOADLIBES = -L../isys -L../isys/gzlib -l$(ISYSLIB) -lgunzip -lresolv -lz
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all

@@ -185,8 +185,7 @@ int ftpCommand(int sock, char * command, ...) {
     return 0;
 }
 
-#if !defined(USE_ALT_DNS) || !USE_ALT_DNS 
-static int mygethostbyname(const char * host, struct in_addr * address) {
+int mygethostbyname(char * host, struct in_addr * address) {
     struct hostent * hostinfo;
 
     hostinfo = gethostbyname(host);
@@ -195,7 +194,6 @@ static int mygethostbyname(const char * host, struct in_addr * address) {
     memcpy(address, hostinfo->h_addr_list[0], hostinfo->h_length);
     return 0;
 }
-#endif
 
 static int getHostAddress(const char * host, struct in_addr * address) {
     if (isdigit(host[0])) {

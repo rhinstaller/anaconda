@@ -59,3 +59,10 @@ char * readLine(FILE * f) {
     return strdup(buf);
 }
 
+int simpleStringCmp(const void * a, const void * b) {
+    const char * first = *((const char **) a);
+    const char * second = *((const char **) b);
+
+    return strcmp(first, second);
+}
+

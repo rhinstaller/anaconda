@@ -28,7 +28,8 @@
 #define LOADER_FLAGS_TELNETD	        (1 << 22)
 #define LOADER_FLAGS_NOPASS	        (1 << 23)
 #define LOADER_FLAGS_KSHTTP             (1 << 24)
-#define LOADER_FLAGS_NOUSBSTORAGE       (1 << 25)
+#define LOADER_FLAGS_MEDIACHECK         (1 << 25)
+#define LOADER_FLAGS_NOUSBSTORAGE       (1 << 26)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -55,8 +56,18 @@
 #define FL_TELNETD(a)	    ((a) & LOADER_FLAGS_TELNETD)
 #define FL_NOPASS(a)	    ((a) & LOADER_FLAGS_NOPASS)
 #define FL_KSHTTP(a)        ((a) & LOADER_FLAGS_KSHTTP)
+#define FL_MEDIACHECK(a)    ((a) & LOADER_FLAGS_MEDIACHECK)
 #define FL_NOUSBSTORAGE(a)  ((a) & LOADER_FLAGS_NOUSBSTORAGE)
 
 #define CODE_PCMCIA	1
+
+#if !defined(__s390__) && !defined(__s390x__)
+#define RAMDISK_DEVICE "/dev/ram"
+#else
+#define RAMDISK_DEVICE "/dev/ram2"
+#endif
+
+void startNewt(int flags);
+void stopNewt(void);
 
 void setFloppyDevice(int flags);

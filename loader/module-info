@@ -489,6 +489,16 @@ yellowfin
 	eth
 	"Packet Engines G-NIC PCI Gigabit"
 
+# S/390 stuff
+netiucv
+	eth
+	"S/390 Inter-User Communication Vehicle (iucv)"
+
+ctc
+	eth
+	"S/390 Channel to Channel"
+
+
 # NOT YET MODULARIZED!
 #znet
 #	eth
@@ -577,6 +587,10 @@ dmx319ld
 	scsi_hostadapter
 	"Domex DMX3191D"
 
+dpt_i2o
+	scsi_hostadapter
+	"Adaptec I2O RAID Driver"
+	
 dtc
 	scsi_hostadapter
 	"DTC 3180/3280"
@@ -688,7 +702,11 @@ qlogicfas
 
 qla1280
 	scsi_hostadapter
-	"Qlogic 1280"
+	"Qlogic 1280/12160"
+
+qla2x00
+	scsi_hostadapter
+	"Qlogic 2x00"
 
 qla2200
 	scsi_hostadapter

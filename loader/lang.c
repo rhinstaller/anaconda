@@ -6,10 +6,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/kd.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
-#include <zlib.h>
 
 #include <glob.h>   /* XXX rpmlib.h */
 #include <dirent.h> /* XXX rpmlib.h */
@@ -21,7 +19,10 @@
 #include "loader.h"
 #include "lang.h"
 #include "log.h"
+#include "misc.h"
 #include "windows.h"
+#include "isys/gzlib/gzlib.h"
+#include "kickstart.h"
 
 #define errorWindow(String) \
 	newtWinMessage(_("Error"), _("OK"), String, strerror (errno));
@@ -50,13 +51,6 @@ static int aStringCmp(const void * a, const void * b) {
 	return 0;
 
     return 1;
-}
-
-static int simpleStringCmp(const void * a, const void * b) {
-    const char * first = *((const char **) a);
-    const char * second = *((const char **) b);
-
-    return strcmp(first, second);
 }
 
 char * translateString(char * str) {
@@ -144,7 +138,7 @@ void loadLanguage (char * file, int flags) {
 	    sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = gzopen(file, "r");
+    stream = gunzip_open(file);
 
     if (!stream) {
 	newtWinMessage("Error", "OK", "Translation for %s is not available.  "
@@ -155,7 +149,7 @@ void loadLanguage (char * file, int flags) {
     sprintf(filename, "%s.tr", key);
 
     rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    gzclose(stream);
+    gunzip_close(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
 	newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
@@ -205,7 +199,7 @@ static int loadFont(char * fontFile, int flags) {
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
-	stream = gzopen("/etc/fonts.cgz", "r");
+	stream = gunzip_open("/etc/fonts.cgz");
 	if (!stream) {
 	    newtWinMessage("Error", "OK", 
 			"Cannot open fonts: %s", strerror(errno));
@@ -213,7 +207,7 @@ static int loadFont(char * fontFile, int flags) {
 	}
 
 	rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-        gzclose(stream);
+        gunzip_close(stream);
 	if (rc || access("/tmp/font", R_OK)) {
 	    return LOADER_ERROR;
 	}
@@ -273,34 +267,59 @@ int chooseLanguage(char ** lang, int flags) {
     char ** langs;
     int i;
     int english = 0;
+    int current = -1;
+    extern int continuing;
+    char * currentLangName = getenv("LANG");
+    int numLangs = 0;
+    char * langPicked;
 
     if (!languages) loadLanguageList(flags);
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
     for (i = 0; i < numLanguages; i++) {
+	/* If we're running in kon, only offer languages which use the
+	   Kon or default8x16 fonts. Don't display languages which require
+	   Kon font if we have no way of providing it. */
+	if (!haveKon && !strcmp(languages[i].font, "Kon"))
+	    continue;
+	if (continuing && strcmp(languages[i].font, "Kon") &&
+	    continuing && strcmp(languages[i].font, "default8x16"))
+	    continue;
+
 	if (!strncmp(languages[i].key, "en", 2))
-	    english = i;
-	langs[i] = languages[i].lang;
+	    english = numLangs;
+	if (currentLangName &&
+	    !strcmp(languages[i].lc_all, currentLangName))
+	    current = numLangs;
+
+	langs[numLangs++] = languages[i].lang;
     }
 
-    langs[i] = NULL;
+    langs[numLangs] = NULL;
 
-    choice = english;
-    
-    if (getenv("LANG")) {
-	for (choice = 0; choice < numLanguages; choice++)
-	    if (!strcmp(languages[choice].lc_all, getenv("LANG"))) break;
-	if (choice == numLanguages) choice = 0;
-    }
+    if (current >= 0)
+	choice = current;
+    else
+	choice = english;
 
     newtWinMenu(_("Choose a Language"), _("What language should be used "
 		"during the installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
 
-    *lang = languages[choice].lc_all;
+    langPicked = langs[choice];
+    for (i = 0; i < numLanguages; i++) {
+	if (!strcmp(langPicked, languages[i].lang)) {
+	    *lang = languages[i].lc_all;
+	    choice = i;
+	    break;
+	}
+    }
 
-    if (choice == english) {
+    /* this can't happen */
+    if (i == numLanguages) abort();
+
+    if (!strncmp(languages[choice].key, "en", 2)) {
 	/* stick with the default (English) */
 	unsetenv("LANG");
 	unsetenv("LANGKEY");
@@ -334,7 +353,6 @@ int chooseLanguage(char ** lang, int flags) {
     }
 
     if (haveKon) {
-	extern int continuing;
 	extern void stopNewt(void);
 	
 	if (!strcmp (languages[choice].font, "Kon") && !continuing) {
@@ -353,9 +371,7 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* If we need kon and have it, or if it's not kon or none, load the lang */
-    if ((!strcmp(languages[choice].font, "Kon") && haveKon) ||
-	(strcmp(languages[choice].font, "None") &&
-	 strcmp(languages[choice].font, "Kon"))) {
+    if ((strcmp(languages[choice].font, "None"))) {
 	loadLanguage (NULL, flags);
     } else {
 	newtWinMessage("Language Unavailable", "OK", 
@@ -364,6 +380,7 @@ int chooseLanguage(char ** lang, int flags) {
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
     }
+
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
@@ -392,7 +409,7 @@ static int loadKeymap(gzFile stream) {
     int magic;
     short keymap[NR_KEYS];
 
-    if (gzread(stream, &magic, sizeof(magic)) != sizeof(magic)) {
+    if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic)) {
 	logMessage("failed to read kmap magic: %s", strerror(errno));
 	return LOADER_ERROR;
     }
@@ -402,7 +419,7 @@ static int loadKeymap(gzFile stream) {
 	return LOADER_ERROR;
     }
 
-    if (gzread(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps)) {
+    if (gunzip_read(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps)) {
 	logMessage("failed to read keymap header: %s", strerror(errno));
 	return LOADER_ERROR;
     }
@@ -417,7 +434,7 @@ static int loadKeymap(gzFile stream) {
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 
-	if (gzread(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
+	if (gunzip_read(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
 	    logMessage("failed to read keymap data: %s", strerror(errno));
 	    close(console);
 	    return LOADER_ERROR;
@@ -455,6 +472,8 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     int i;
     char * defkbd = keymap ? *keymap : NULL;
     char *lang;
+    int argc;
+    char **argv;
 
 #ifdef __sparc__
 #define KBDTYPE_SUN            0
@@ -484,7 +503,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	    }
 	}
     } else
-#endif
+#endif /* kickstart sparc crap */
     {
         char twelve = 12;
         int fd;
@@ -501,7 +520,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
             }
         }
     }
-#endif
+#endif /* sparc */
 
     if (!languages) loadLanguageList(flags);
 
@@ -521,25 +540,25 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	       strcmp(kbdEntry->lang, getenv("LANG")))
 	     kbdEntry++;
 	if (kbdEntry->keyboard) defkbd = kbdEntry->keyboard;
-#endif
+#endif /* more sparc drain bamage */
     }
     if (!defkbd)
 #ifdef __sparc__
 	if (kbdtype == KBDTYPE_SUN)
 	    defkbd = "sunkeymap";
 	else
-#endif
+#endif /* sparc drain bamage */
 	    defkbd = "us";
 
-    f = gzopen("/etc/keymaps.gz", "r");
+    f = gunzip_open("/etc/keymaps.gz");
     if (!f) {
 	errorWindow("cannot open /etc/keymaps.gz: %s");
 	return LOADER_ERROR;
     }
 
-    if (gzread(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
+    if (gunzip_read(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
 	errorWindow("failed to read keymaps header: %s");
-	gzclose(f);
+	gunzip_close(f);
 	return LOADER_ERROR;
     }
 
@@ -547,14 +566,13 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
-    if (gzread(f, infoTable, i) != i) {
+    if (gunzip_read(f, infoTable, i) != i) {
 	errorWindow("failed to read keymap information: %s");
-	gzclose(f);
+	gunzip_close(f);
 	return LOADER_ERROR;
     }
 
-#if 0
-    if (kickstart) {
+    if (FL_KICKSTART(flags)) {
 	if (!ksGetCommand(KS_CMD_KEYBOARD, NULL, &argc, &argv)) {
 	    if (argc < 2) {
 		logMessage("no argument passed to keyboard "
@@ -579,7 +597,6 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	    }
 	}
     }
-#endif
     
     if (num == -1 ) {
 #ifdef __sparc__
@@ -634,17 +651,17 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 #endif	
 
     for (i = 0; i < num; i++) {
-	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {
+	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
 	    logMessage("error reading %d bytes from file: %s", 
 			    infoTable[i].size, strerror(errno));
-	    gzclose(f);
+	    gunzip_close(f);
 	    rc = LOADER_ERROR;
 	}
     }
 
     if (!rc) rc = loadKeymap(f);
 
-    gzclose(f);
+    gunzip_close(f);
 
     if (keymap) *keymap = strdup(infoTable[num].name);
 

@@ -7,8 +7,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
 #include <sys/utsname.h>
-#include <zlib.h>
 #include <linux/fd.h>
 
 #include "devices.h"
@@ -20,7 +21,7 @@
 #include "misc.h"
 #include "modules.h"
 #include "windows.h"
-#include "../kudzu/kudzu.h"
+#include "kudzu/kudzu.h"
 #include "isys/cpio.h"
 
 void eject(char * deviceName) {
@@ -40,6 +41,7 @@ void eject(char * deviceName) {
 
     unlink("/tmp/ejectDevice");
 }
+
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     struct newtWinEntry * entries;
@@ -240,9 +242,6 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, modInfo, 
-		     flags);
-
 	ddi->device = strdup(device);
 	ddi->mntDevice = malloc(strlen(device) + 10);
 	sprintf(ddi->mntDevice, "/tmp/%s", device);
@@ -417,13 +416,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	}
     }
 
-    if (mod->major == DRIVER_SCSI) {
-	scsiWindow(mod->moduleName);
-	sleep(1);
-    }
-    rc = mlLoadModule(mod->moduleName, mod->locationID, modLoaded, 
+    rc = mlLoadModule(mod->moduleName, modLoaded, 
 		      *modDepsPtr, args, modInfo, flags);
-    if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {
 	for (arg = args; *arg; arg++)
@@ -439,100 +433,6 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
         *moduleName = mod->moduleName;
     
     return rc;
-}
-
-char * extractModule(struct driverDiskInfo * ddi, char * modName) {
-    char * pattern[] = { NULL, NULL };
-    struct utsname un;
-    gzFile from;
-    gzFile to;
-    int first = 1;
-    int fd;
-    char * buf;
-    struct stat sb;
-    int rc;
-    int failed;
-    char * toPath;
-    char * chptr;
-
-    uname(&un);
-
-    /* strip off BOOT, -SMP, whatever */
-    chptr = un.release + strlen(un.release) - 1;
-    while (!isdigit(*chptr)) chptr--;
-    *(chptr + 1) = '\0';
-
-    pattern[0] = alloca(strlen(modName) + strlen(un.release) + 5);
-    sprintf(pattern[0], "%s*/%s.o", un.release, modName);
-    logMessage("extracting pattern %s", pattern[0]);
-
-    if (ddi->device)
-	devMakeInode(ddi->device, ddi->mntDevice);
-
-    while (1) {
-	failed = 0;
-
-	if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, 
-		      NULL, NULL))
-	    failed = 1;
-
-	if (failed && !first) {
-	    newtWinMessage(_("Error"), _("OK"), 
-		    _("Failed to mount driver disk: %s."), strerror(errno));
-	} else if (!failed) {
-	    if ((fd = open("/tmp/drivers/rhdd-6.1", O_RDONLY)) < 0)
-		failed = 1;
-	    if (!failed) {
-		fstat(fd, &sb);
-		buf = malloc(sb.st_size + 1);
-		read(fd, buf, sb.st_size);
-		if (buf[sb.st_size - 1] == '\n')
-		    sb.st_size--;
-		buf[sb.st_size] = '\0';
-		close(fd);
-
-		failed = strcmp(buf, ddi->title);
-		free(buf);
-	    }
-
-	    if (failed && !first) {
-		umount("/tmp/drivers");
-		newtWinMessage(_("Error"), _("OK"),
-			_("The wrong diskette was inserted."));
-	    }
-	}
-
-	if (!failed) {
-	    from = gzopen("/tmp/drivers/modules.cgz", "r");
-	    toPath = malloc(strlen(modName) + 30);
-	    sprintf(toPath, "/tmp/modules/%s", modName);
-	    mkdirChain(toPath);
-	    strcat(toPath, "/modules.cgz");
-	    to = gzopen(toPath, "w");
-
-	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), modName);
-
-	    myCpioFilterArchive(from, to, pattern);
-
-	    newtPopWindow();
-
-	    gzclose(from);
-	    gzclose(to);
-	    umount("/tmp/drivers");
-
-	    sprintf(toPath, "/tmp/modules/%s", modName);
-	    return toPath;
-	}
-
-	first = 0;
-
-	if (ddi->device)
-	    eject(ddi->device);
-
-	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
-		_("Please insert the %s driver disk now."), ddi->title);
-	if (rc == 2) return NULL;
-    }
 }
 
 void ddReadDriverDiskModInfo(moduleInfoSet modInfo) {
@@ -564,4 +464,5 @@ void ddReadDriverDiskModInfo(moduleInfoSet modInfo) {
 	sprintf(fileName, "/tmp/DD-%d/diskName", ++num);
     }
 }
+
 

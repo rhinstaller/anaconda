@@ -15,6 +15,7 @@ struct iurlinfo {
     int ftpPort;
 };
 
+int setupRemote(struct iurlinfo * ui);
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		      char * doSecondarySetup);
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol);

@@ -10,8 +10,33 @@
 void setFloppyDevice(int flags) {
 }
 
-int extractModule(location, modName) {
+char *translateString(char *str) {
+	return NULL;
+}
+
+int extractModules(int location, char * modName) {
     return 0;
+}
+
+void scsiWindow(const char * foo) {
+}
+
+void startNewt(int flags) {
+}
+
+void newtPopWindow(void) {
+}
+
+void newtWinChoice(void) {
+}
+
+void newtWinMessage(void) {
+}
+
+void eject(void) {
+}
+
+void winStatus(void) {
 }
 
 int main(int argc, char ** argv) {

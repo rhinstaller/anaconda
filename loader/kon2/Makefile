@@ -9,6 +9,9 @@ LIB     = $(shell pwd)/lib/libgon.a
 
 MFLAGS = INCDIR=$(INCDIR) LIB=$(LIB)
 
+CC = diet gcc
+MAKE := $(MAKE) "CC=$(CC)"
+
 ifdef	MINI_KON
 SUBDIRS = lib src
 else

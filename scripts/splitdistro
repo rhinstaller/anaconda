@@ -6,7 +6,7 @@ disc2dirs = [ "preview" ]
 # These files appear on all binary CDs
 jointfiles = [ "COPYING", "RPM-GPG-KEY", "README", "autorun" ]
 
-targetSize = 650 * 1024 * 1024
+targetSize = 640 * 1024 * 1024
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
@@ -30,7 +30,11 @@ def moveFiles(srcDir, destDir, files):
     for fn in files:
 	src = "%s/%s" % (srcDir, fn)
 	dest = "%s/%s" % (destDir, fn)
-	os.rename(src, dest)
+	try:
+		os.rename(src, dest)
+	except:
+		print "in moveFiles, src was %s, dest was %s" % (src, dest)
+		raise RuntimeError
 
 def excessFiles(path, fileList, maxSize):
     total = 0
@@ -103,8 +107,11 @@ if not os.path.isdir(srcDir):
 
 disc1Dir = distDir + "-disc1"
 disc2Dir = distDir + "-disc2"
-disc1SrcDir = distDir + "-disc3"
-disc2SrcDir = distDir + "-disc4"
+disc3Dir = distDir + "-disc3"
+disc1SrcDir = distDir + "-disc4"
+disc2SrcDir = distDir + "-disc5"
+# we have leftover space on the third disc to use for sources
+disc3SrcDir = distDir + "-disc3"
 
 id = 0
 
@@ -143,8 +150,9 @@ disc1used = totalsize - rpmsize - dirsize
 
 os.system("rm -rf %s %s %s %s" % ( disc1Dir, disc2Dir, disc1SrcDir,
 				   disc2SrcDir))
-os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS" % 
-	    (disc1Dir, disc1SrcDir, disc2SrcDir, disc2Dir))
+os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" % 
+	    (disc1Dir, disc1SrcDir, disc2SrcDir, disc2Dir, 
+             disc3Dir, disc3SrcDir))
 
 print "Creating disc1..."
 
@@ -169,23 +177,49 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 	  "%s/RedHat/RPMS" % disc2Dir, 
 	  disc2pkgs);
 
+print "Creating disc3..."
+stamp(disc3Dir, "disc3", arch, startedAt)
+
+for file in jointfiles:
+    src = "%s/%s" % (disc1Dir, file)
+    dest = "%s/%s" %(disc3Dir, file)
+    try:
+	os.link(src, dest)
+    except OSError, (errno, msg):
+	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
+
+disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
+			targetSize * 2 - disc1used - fudgeFactor)
+
+moveFiles("%s/RedHat/RPMS" % disc2Dir, 
+	  "%s/RedHat/RPMS" % disc3Dir, 
+	  disc3pkgs);
+
 print "Creating first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
-stamp(disc1SrcDir, "disc3", arch, startedAt)
+stamp(disc1SrcDir, "disc4", arch, startedAt)
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, "disc4", arch, startedAt)
+stamp(disc2SrcDir, "disc5", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
-disc2pkgs = excessFiles(disc1SrcDir + "/SRPMS", srcPkgList,
+disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
 			targetSize - fudgeFactor)
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
 
-sys.exit(0)
+print "Dropping remainder of sources on third disc..."
+disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
+                        (targetSize - fudgeFactor) * 2)
+moveFiles("%s/SRPMS" % disc2SrcDir,
+          "%s/SRPMS" % disc3SrcDir,
+          disc3pkgs)
+
+#sys.exit(0)
 
 sys.stdout.flush()
 
-os.system("du -sh %s %s %s" % (disc1Dir, disc2Dir, disc1SrcDir))
+os.system("du -sh %s %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
+                                     disc1SrcDir, disc2SrcDir))

@@ -9,7 +9,7 @@
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
  *
- * Copyright 1999 Red Hat, Inc.
+ * Copyright 1997 - 2002 Red Hat, Inc.
  *
  * This software may be freely redistributed under the terms of the GNU
  * public license.
@@ -29,6 +29,7 @@
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
+#include <syslog.h>
 
 #include <stdlib.h>
 #include <string.h>
@@ -38,8 +39,11 @@
 #include <sys/sysmacros.h>
 #include <sys/utsname.h>
 #include <unistd.h>
-#include <zlib.h>
 #include <sys/vt.h>
+
+#if defined(__i386__) || defined(__ia64__) || defined(__alpha__)
+#include <linux/cdrom.h>
+#endif
 
 #include <popt.h>
 /* Need to tell loop.h what the actual dev_t type is. */
@@ -57,6 +61,7 @@
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
+#include "isys/gzlib/gzlib.h"
 
 #include "cdrom.h"
 #include "devices.h"
@@ -64,6 +69,7 @@
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
+#include "mediacheck.h"
 #include "misc.h"
 #include "modules.h"
 #include "net.h"
@@ -79,6 +85,7 @@ int kon_main(int argc, char ** argv);
 static int mountLoopback(char * fsystem, char * mntpoint, char * device);
 static int umountLoopback(char * mntpoint, char * device);
 int copyDirectory(char * from, char * to);
+static char * mediaCheckISODir(char *path);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -157,30 +164,31 @@ static int setupRamdisk(void) {
 
     done = 1;
 
-    f = gzopen("/etc/ramfs.img", "r");
+    f = gunzip_open("/etc/ramfs.img");
     if (f) {
 	char buf[10240];
 	int i, j = 0;
 	int fd;
 
-	fd = open("/dev/ram", O_RDWR);
+	fd = open(RAMDISK_DEVICE, O_RDWR);
 	logMessage("copying file to fd %d", fd);
 
-	while ((i = gzread(f, buf, sizeof(buf))) > 0) {
+	while ((i = gunzip_read(f, buf, sizeof(buf))) > 0) {
 	    j += write(fd, buf, i);
 	}
 
 	logMessage("wrote %d bytes", j);
 	close(fd);
-	gzclose(f);
+	gunzip_close(f);
     }
 
-    doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
+    if (doPwMount(RAMDISK_DEVICE, "/tmp/ramfs", "ext2", 0, 0, NULL, NULL))
+	logMessage("failed to mount ramfs image");
 
     return 0;
 }
 
-static void startNewt(int flags) {
+void startNewt(int flags) {
     if (!newtRunning) {
 	newtInit();
 	newtCls();
@@ -203,50 +211,43 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
-    if (FL_SERIAL(flags)) {
-	logMessage("not spawning a shell over a serial connection");
+    if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
+	logMessage("not spawning a shell");
 	return;
     }
-    if (FL_NOSHELL(flags)) {
-	logMessage("not spawning a shell when noshell used");
+
+    fd = open("/dev/tty2", O_RDWR);
+    if (fd < 0) {
+	logMessage("cannot open /dev/tty2 -- no shell will be provided");
+	return;
+    } else if (access("/bin/sh",  X_OK))  {
+	logMessage("cannot open shell - /bin/sh doesn't exist");
 	return;
     }
-    if (!FL_TESTING(flags)) {
-	fd = open("/dev/tty2", O_RDWR);
-	if (fd < 0) {
-	    logMessage("cannot open /dev/tty2 -- no shell will be provided");
-	    return;
-	} else if (access("/bin/sh",  X_OK))  {
-	    logMessage("cannot open shell - /bin/sh doesn't exist");
-	    return;
-	}
 
-	if (!(pid = fork())) {
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-
-	    close(fd);
-	    setsid();
-	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		logMessage("could not set new controlling tty");
-	    }
-
-	    signal(SIGINT, SIG_DFL);
-	    signal(SIGTSTP, SIG_DFL);
-
-	    setenv("LD_LIBRARY_PATH",
-		    "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
-		    "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
-
-	    execl("/bin/sh", "-/bin/sh", NULL);
-	    logMessage("exec of /bin/sh failed: %s", strerror(errno));
-	}
+    if (!(pid = fork())) {
+	dup2(fd, 0);
+	dup2(fd, 1);
+	dup2(fd, 2);
 
 	close(fd);
-    } else {
-	logMessage("not spawning a shell as we're in test mode");
+	setsid();
+	if (ioctl(0, TIOCSCTTY, NULL)) {
+	    logMessage("could not set new controlling tty");
+	}
+
+	signal(SIGINT, SIG_DFL);
+	signal(SIGTSTP, SIG_DFL);
+
+	setenv("LD_LIBRARY_PATH",
+		"/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
+		"/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
+
+	execl("/bin/sh", "-/bin/sh", NULL);
+	logMessage("exec of /bin/sh failed: %s", strerror(errno));
     }
+
+    close(fd);
 
     return;
 }
@@ -413,6 +414,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
+    char modules[1024];
     struct moduleInfo ** modList;
 
     if (FL_NOPROBE(flags)) return 0;
@@ -423,33 +425,19 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
         if (detectHardware(modInfo, &modList, flags)) {
 	    logMessage("failed to scan pci bus!");
 	    return 0;
+	} else if (modList && justProbe) {
+	    for (i = 0; modList[i]; i++)
+		if (modList[i]->major == DRIVER_NET)
+		    printf("%s\n", modList[i]->moduleName);
 	} else if (modList) {
-	    logMessage("found devices justProbe is %d", justProbe);
+	    *modules = '\0';
 
 	    for (i = 0; modList[i]; i++) {
-		if (justProbe) {
-		    printf("%s\n", modList[i]->moduleName);
-		} else {
-		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, 
-				     modList[i]->locationID, 
-				     modLoaded, modDeps, NULL, modInfo, flags);
-		    }
-		}
+		if (i) strcat(modules, ":");
+		strcat(modules, modList[i]->moduleName);
 	    }
 
-	    for (i = 0; !justProbe && modList[i]; i++) {
-	    	if (modList[i]->major == DRIVER_SCSI) {
-		    startNewt(flags);
-
-		    scsiWindow(modList[i]->moduleName);
-		    mlLoadModule(modList[i]->moduleName, 
-				 modList[i]->locationID, modLoaded, modDeps, 
-				 NULL, modInfo, flags);
-		    sleep(1);
-		    newtPopWindow();
-		}
-	    }
+	    mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
 
 	    kdFindScsiList(kd, 0);
 	    kdFindNetList(kd, 0);
@@ -484,6 +472,52 @@ static int setupStage2Image(int fd, char * dest, int flags,
     }
 
     return 0;
+}
+
+/* returns the *absolute* path (malloced) to the #1 iso image */
+char * validIsoImages(char * dirName) {
+    DIR * dir;
+    struct dirent * ent;
+    char isoImage[1024];
+
+    if (!(dir = opendir(dirName))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       dirName, strerror(errno));
+	return 0;
+    }
+
+    /* Walk through the directories looking for a Red Hat CD image. */
+    errno = 0;
+    while ((ent = readdir(dir))) {
+	sprintf(isoImage, "%s/%s", dirName, ent->d_name);
+
+	if (fileIsIso(isoImage)) {
+	    errno = 0;
+	    continue;
+	}
+
+	if (mountLoopback(isoImage, "/tmp/loopimage", "loop0")) {
+	    logMessage("failed to mount %s", isoImage);
+	    errno = 0;
+	    continue;
+	}
+
+	if (!access("/tmp/loopimage/RedHat/base/hdstg1.img", F_OK)) {
+	    umountLoopback("/tmp/loopimage", "loop0");
+	    break;
+	}
+
+	umountLoopback("/tmp/loopimage", "loop0");
+
+	errno = 0;
+    }
+
+    closedir(dir);
+
+    if (!ent) return NULL;
+
+    return strdup(isoImage);
 }
 
 #ifdef INCLUDE_LOCAL
@@ -531,8 +565,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
     int rc;
     char * url;
     char filespec[1024];
-    DIR * dir;
-    struct dirent * ent;
+    char * path;
 
     logMessage("mounting device %s as %s", device, type);
 
@@ -545,47 +578,36 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    return NULL;
 
 	sprintf(filespec, "/tmp/hdimage/%s", dirName);
-	if (!(dir = opendir(filespec))) {
-	    newtWinMessage(_("Error"), _("OK"), 
-			   _("Failed to read directory %s: %s"),
-			   filespec, strerror(errno));
-	    umount("/tmp/hdimage");
-	    return NULL;
+
+	path = validIsoImages(filespec);
+
+	if (path) {
+	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
+	    if (!rc) {
+		rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
+				     "/mnt/runtime");
+		if (rc) {
+		  newtWinMessage(_("Error"), _("OK"),
+			_("An error occured reading the install "
+			  "from the ISO images. Please check your ISO "
+			  "images and try again."));
+		}
+	    }
+
+	    umount("/tmp/loopimage");
+
+	    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
+		mediaCheckISODir("/mnt/source");
+
+	} else {
+	    rc = 1;
 	}
 
-	/* Walk through the directories looking for a Red Hat CD image. */
-	errno = 0;
-	while ((ent = readdir(dir))) {
-	    sprintf(filespec, "/tmp/hdimage/%s/%s", dirName, ent->d_name);
-
-	    if (fileIsIso(filespec)) {
-		errno = 0;
-		continue;
-	    }
-
-	    if (mountLoopback(filespec, "/tmp/loopimage", "loop0")) {
-		errno = 0;
-		continue;
-	    }
-
-	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
-				 "/mnt/runtime");
-	    if (!rc) { 
-		umountLoopback("/tmp/loopimage", "loop0");
-		break;
-	    }
-
-	    umountLoopback("/tmp/loopimage", "loop0");
-
-	    errno = 0;
-	}
-
-	closedir(dir);
 	umount("/tmp/hdimage");
 
-	if (!ent) return NULL;
+	if (rc) return NULL;
     }
-
+   
     url = malloc(50 + strlen(dirName ? dirName : ""));
     sprintf(url, "hd://%s:%s/%s", device, type, dirName ? dirName : ".");
 
@@ -638,6 +660,7 @@ static int umountLoopback(char * mntpoint, char * device) {
 
     return 0;
 }
+
 
 static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     struct loop_info loopInfo;
@@ -760,6 +783,54 @@ static void useMntSourceUpdates() {
   }
 }
 
+
+/* XXX this ignores "location", which should be fixed */
+static char * mediaCheckISODir(char *path) {
+    DIR * dir;
+    struct dirent * ent;
+    char isoImage[1024];
+    char tmpmessage[1024];
+    int rc;
+
+
+    if (!(dir = opendir(path))) {
+	newtWinMessage(_("Error"), _("OK"), 
+		       _("Failed to read directory %s: %s"),
+		       path, strerror(errno));
+	return 0;
+    }
+
+    /* Walk through the directories looking for a Red Hat CD images. */
+    errno = 0;
+    while ((ent = readdir(dir))) {
+	sprintf(isoImage, "%s/%s", path, ent->d_name);
+
+	if (fileIsIso(isoImage)) {
+	    errno = 0;
+	    continue;
+	}
+
+
+	snprintf(tmpmessage, sizeof(tmpmessage),
+		 _("Would you like to perform an integrity "
+		   "check of the ISO image %s?"), isoImage);
+
+	rc = newtWinChoice(_("Integrity Check"), _("Test"), _("Skip"),
+			   tmpmessage);
+
+	if (rc == 2) {
+	    closedir(dir);
+	    return NULL;
+	} else {
+	    mediaCheckFile(isoImage);
+	    continue;
+	}
+    }
+
+    closedir(dir);
+    return NULL;
+}
+
 #ifdef INCLUDE_LOCAL
 
 static char * mountHardDrive(struct installMethod * method,
@@ -769,6 +840,11 @@ static char * mountHardDrive(struct installMethod * method,
     int rc;
     int fd;
     int i, j;
+#if defined (__s390__) || defined (__s390x__)
+    static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
+    char * devName;
+#endif
     struct {
 	char name[20];
 	int type;
@@ -787,11 +863,9 @@ static char * mountHardDrive(struct installMethod * method,
     static int ufsloaded;
     #endif
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, 
-		 NULL, modInfo, flags);
-
     while (!done) {
 	numPartitions = 0;
+#if !defined (__s390__) && !defined (__s390x__)
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class == CLASS_HD) {
 		devMakeInode(kd->known[i].name, "/tmp/hddevice");
@@ -806,8 +880,8 @@ static char * mountHardDrive(struct installMethod * method,
 			      case BALKAN_PART_UFS:
 				if (!ufsloaded) {
 				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, 
-						 *modDepsPtr, NULL, modInfo, 
+				    mlLoadModuleSet("ufs", modLoaded, 
+						 *modDepsPtr, modInfo, 
 						 flags);
 				}
 				/* FALLTHROUGH */
@@ -854,6 +928,38 @@ static char * mountHardDrive(struct installMethod * method,
 
 	    continue;
 	}
+
+#else
+	/* s390 */
+	memset(&ui, 0, sizeof(ui));
+        memset(&netDev, 0, sizeof(netDev));
+        netDev.isDynamic = 1;
+	i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
+        if (i) return NULL;
+	rc = readNetConfig(devName, &netDev, flags);
+	if (rc) {
+                if (!FL_TESTING(flags)) pumpDisableInterface(devName);
+                return NULL;
+	}
+	setupRemote(&ui);
+	for(c = 'a'; c <= 'z'; c++) {
+	  for(i = 1; i < 4; i++) {
+	    char dev[7];
+	    sprintf(dev, "dasd%c%d", c, i);
+	    devMakeInode(dev, "/tmp/hddevice");
+	    fd = open("/tmp/hddevice", O_RDONLY);
+	    if (fd >= 0) {
+	      close(fd);
+	      sprintf(partitions[numPartitions].name, "/dev/%s", dev);
+	      partitions[numPartitions].type = BALKAN_PART_EXT2;
+	      numPartitions++;					
+	    }
+	  }
+        }
+	mlLoadModule("isofs", NULL, modLoaded, *modDepsPtr,
+                 NULL, modInfo, flags);
+
+#endif
 
 	text = newtTextboxReflowed(-1, -1,
 		_("What partition and directory on that partition hold the "
@@ -950,10 +1056,89 @@ static char * mountHardDrive(struct installMethod * method,
     }
 
     free(dir);
+#if defined (__s390__) || defined (__s390x__)
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
+#endif
 
     return url;
 }
 
+
+void ejectCdrom(void) {
+  int ejectfd;
+
+  logMessage("ejecting /tmp/cdrom...");
+  if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+      if (ioctl(ejectfd, CDROMEJECT, 0))
+        logMessage("eject failed %d ", errno);
+      close(ejectfd);
+  } else {
+      logMessage("eject failed %d ", errno);
+  }
+}
+
+/* XXX this ignores "location", which should be fixed */
+static char * mediaCheckCdrom(char *cddriver) {
+    int rc;
+    
+    devMakeInode(cddriver, "/tmp/cdrom");
+    
+    do {
+	mediaCheckFile("/tmp/cdrom");
+	
+	ejectCdrom();
+	
+	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
+			   _("Please insert any additional media you "
+			     "would like to test and press %s.\n\n"
+			     "Otherwise insert CD #1 into your drive "
+			     "and press %s to continue."),
+			   _("Test"), _("Continue"));
+
+	if (rc == 2) {
+	    unlink("/tmp/cdrom");
+	    return NULL;
+	} else {
+	    continue;
+	}
+    } while (1);
+    
+    return NULL;
+}
+
+static void wrongCDMessage(void) {
+    newtWinMessage(_("Error"), _("OK"),
+		   _("I could not find a Red Hat Linux "
+		     "CDROM in any of your CDROM drives. Please insert "
+		     "the Red Hat CD and press \"OK\" to retry."));
+}
+
+/* put mounts back and continue */
+static void mountCdromStage2(char *cddev) {
+    int gotcd1=0;
+
+    devMakeInode(cddev, "/tmp/cdrom");
+    do {
+	do {
+	    if (doPwMount("/tmp/cdrom", "/mnt/source", 
+			  "iso9660", 1, 0, NULL, NULL)) {
+		ejectCdrom();
+		wrongCDMessage();
+	    } else {
+		break;
+	    }
+	} while (1);
+	
+	if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
+			  "/mnt/runtime", "loop0")) {
+	    umount("/mnt/source");
+	    ejectCdrom();
+	    wrongCDMessage();
+	} else {
+	    gotcd1 = 1;
+	}
+    } while (!gotcd1);
+}
 
 /* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
@@ -981,12 +1166,36 @@ static char * setupCdrom(struct installMethod * method,
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
 		        useMntSourceUpdates();
-
+		      
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
+
+			/* check image(s) if not kickstart and requested */
+			if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags)) {
+
+			    startNewt(flags);
+			    rc = newtWinChoice(_("CD Found"), _("OK"),
+					       _("Skip"), 
+       _("We will now test your media before installing.\n\nChoose 'Skip' "
+	 "if you would like to skip this test."));
+
+			    if (rc != 2) {
+
+				/* unmount CD now we've identified */
+				/* a valid disc #1 is present */
+				umount("/mnt/runtime");
+				umountLoopback("/mnt/runtime", "loop0");
+				umount("/mnt/source");
+
+				/* test CD(s) */
+				mediaCheckCdrom(kd->known[i].name);
+
+				/* remount stage2 from CD #1 and proceed */
+				mountCdromStage2(kd->known[i].name);
+			    }
+			}
 			return buf;
 		    }
-
 		}
 		umount("/mnt/source");
 	    }
@@ -1017,6 +1226,9 @@ static char * mountCdromImage(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps * modDepsPtr, int flags) {
+
+    /* first do media check if necessary */
+    
     return setupCdrom(method, location, kd, modInfo, modLoaded, modDepsPtr,
 		      flags, 0, 1);
 }
@@ -1113,15 +1325,22 @@ static char * mountNfsImage(struct installMethod * method,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps * modDepsPtr, int flags) {
     static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
     char * devName;
     int i, rc;
     char * host = NULL;
     char * dir = NULL;
     char * fullPath;
+    char * path;
+    char * url = NULL;
     int stage = NFS_STAGE_IP;
+
+/*XXX
+    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);*/
 
     initLoopback();
 
+    memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
     netDev.isDynamic = 1;
     
@@ -1136,6 +1355,11 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+	    host = ui.address;
+	    dir = ui.prefix;
+#endif
 	    stage = NFS_STAGE_NFS;
 	    break;
 
@@ -1147,13 +1371,13 @@ static char * mountNfsImage(struct installMethod * method,
 	    break;
 
 	  case NFS_STAGE_MOUNT:
+	    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
+
 	    if (FL_TESTING(flags)) {
 		stage = NFS_STAGE_DONE;
 		break;
 	    }
 
-	    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, 
-			 flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1165,8 +1389,28 @@ static char * mountNfsImage(struct installMethod * method,
 		if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
+			rmdir("/mnt/source");
+			symlink("/mnt/source", "/mnt/source");
 		        useMntSourceUpdates();
 			stage = NFS_STAGE_DONE;
+			url = "nfs://mnt/source/.";
+		    }
+		} else if ((path = validIsoImages("/mnt/source"))) {
+		    useMntSourceUpdates();
+
+		    if (mountLoopback(path, "/mnt/source2", "loop1"))
+			logMessage("failed to mount iso loopback!");
+		    else {
+			if (mountLoopback("/mnt/source2/RedHat/base/stage2.img",
+				         "/mnt/runtime", "loop0")) {
+			    logMessage("failed to mount install loopback!");
+			} else {
+			    stage = NFS_STAGE_DONE;
+			    url = "nfsiso:/mnt/source";
+			    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
+				mediaCheckISODir("/mnt/source");
+
+			}
 		    }
 		} else {
 		    umount("/mnt/source");
@@ -1179,7 +1423,7 @@ static char * mountNfsImage(struct installMethod * method,
 		        _("I could not mount that directory from the server"));
 	    }
 
-	    break;
+	    break;	    /* from switch */
         }
     }
 
@@ -1188,7 +1432,7 @@ static char * mountNfsImage(struct installMethod * method,
     free(host);
     free(dir);
 
-    return "nfs://mnt/source/.";
+    return url;
 }
 
 #endif
@@ -1283,6 +1527,7 @@ static char * mountUrlImage(struct installMethod * method,
     char * url;
     char * login;
     char * finalPrefix;
+    int dir = 1;
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
@@ -1310,33 +1555,51 @@ static char * mountUrlImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    if (dir == -1) {
+	      return NULL;
+	    }
+	    setupRemote(&ui);
+#endif
 	    stage = URL_STAGE_MAIN;
+	    dir = 1;
 
 	  case URL_STAGE_MAIN:
 	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
-	    if (rc) 
-		stage = URL_STAGE_IP;
-	    else
-		stage = needsSecondary != ' ' ? 
-			URL_STAGE_SECOND : URL_STAGE_FETCH;
+	    if (rc) {
+			stage = URL_STAGE_IP;
+			dir = -1;
+	    } else {
+			stage = needsSecondary != ' ' ? URL_STAGE_SECOND : URL_STAGE_FETCH;
+			dir = 1;
+	    }
 	    break;
 
 	  case URL_STAGE_SECOND:
 	    rc = urlSecondarySetupPanel(&ui, proto);
-	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
+	    if (rc) {
+	        stage = URL_STAGE_MAIN;
+		dir = -1;
+	    } else {
+	        stage = URL_STAGE_FETCH;
+	        dir = 1;
+	    }
 	    break;
 
 	  case URL_STAGE_FETCH:
 	    if (FL_TESTING(flags)) {
 		stage = URL_STAGE_DONE;
+		dir = 1;
 		break;
 	    }
 
-	    if (loadUrlImages(&ui, flags))
+	    if (loadUrlImages(&ui, flags)) {
 		stage = URL_STAGE_MAIN;
-	    else
+		dir = -1;
+	    } else { 
 		stage = URL_STAGE_DONE;
-	    
+		dir = 1;
+	    }
 	    break;
         }
     }
@@ -1414,8 +1677,15 @@ static char * doMountImage(char * location,
 	free(class);
     }
 
-#if defined(__alpha__) || defined(__ia64__)
-    for (i = 0; i < numMethods; i++) {
+#if defined(__s390__) || defined(__s390x__)
+    #define STARTMETHOD 1
+#else
+    #define STARTMETHOD 0
+#endif
+
+#if defined(__alpha__) || defined(__ia64__) \
+    || defined(__s390__ ) || defined(__s390x__)
+    for (i = ; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
     }
@@ -1471,9 +1741,9 @@ static char * doMountImage(char * location,
        Red Hat CD. If there is one there, just die happy */
     if (!FL_EXPERT(flags)) {
 # endif
-	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
-			 flags, 1, 1);
-	if (url) return url;
+       url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
+			flags, 1, 1);
+       if (url) return url;
     }
 #endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
 
@@ -1621,10 +1891,6 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 		ddi->mntDevice = fsDevice;
 	    }
 
-	    if (!strcmp(ddi->fs, "vfat"))
-		mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, 
-			     modInfo, flags);
-
 	    logMessage("looking for driver disk (%s, %s, %s)",
 		       ddi->fs, ddi->device, ddi->mntDevice);
 
@@ -1677,7 +1943,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, mi->locationID, modLoaded, 
+	rc = mlLoadModule(device, modLoaded, 
 			  *modDepsPtr, optv, modInfo, flags);
 	if (optv) free(optv);
 
@@ -1812,6 +2078,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	}
     }
 
+    chooseKeyboard(NULL, NULL, flags);
+
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);
@@ -1825,7 +2093,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
 	int count = 0;
-	mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, modInfo, flags);
+	mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, modInfo, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1955,6 +2223,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "lowres"))
 	    flags |= LOADER_FLAGS_LOWRES;
+	else if (!strcasecmp(argv[i], "mediacheck"))
+            flags |= LOADER_FLAGS_MEDIACHECK;
 	else if (!strcasecmp(argv[i], "nofb"))
 	    flags |= LOADER_FLAGS_NOFB;
 	else if (!strcasecmp(argv[i], "nousbstorage"))
@@ -1969,8 +2239,6 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "updates"))
 	    flags |= LOADER_FLAGS_UPDATES;
-        else if (!strcasecmp(argv[i], "upgrade"))
-	    *instClass = "upgradeonly";
 	else if (!strncasecmp(argv[i], "class=", 6))
 	    *instClass = argv[i] + 6;
         else if (!strcasecmp(argv[i], "isa"))
@@ -2090,7 +2358,7 @@ int kickstartFromNfs(struct knownDevices * kd, char * location,
 
     logMessage("ks server: %s file: %s", ksPath, file);
 
-    mlLoadModule("nfs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModuleSet("nfs", modLoaded, *modDepsPtr, NULL, flags);
 
     if (doPwMount(ksPath, "/tmp/nfskd", "nfs", 1, 0, NULL, NULL)) {
 	logMessage("failed to mount %s", ksPath);
@@ -2174,7 +2442,7 @@ int kickstartFromHttp(struct knownDevices * kd, char * location,
 
     fd = urlinstStartTransfer(&ui, file, 1);
     if (fd < 0) {
-        logMessage("failed to retrieve http:/%s/%s", ksPath, file);
+        logMessage("failed to retrieve http:/%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
     }
 
@@ -2198,9 +2466,8 @@ int kickstartFromHardDrive(char * location,
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
 #ifdef __sparc__
-    mlLoadModule("ufs", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
+    mlLoadModuleSet("ufs", modLoaded, *modDepsPtr, NULL, flags);
 #endif
 
     fileName = strchr(source, '/');
@@ -2241,8 +2508,6 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
-    mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, NULL, NULL, flags);
-
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
@@ -2396,8 +2661,8 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 		    for (j = 0; j < table.maxNumPartitions; j++) {
 			if (table.parts[j].type == BALKAN_PART_UFS) {
 			    if (!ufsloaded) {
-				mlLoadModule("ufs", NULL, modLoaded, 
-					     *modDepsPtr, NULL, NULL, flags);
+				mlLoadModuleSet("ufs", modLoaded, 
+					     *modDepsPtr, NULL, flags);
 				ufsloaded = 1;
 			    }
 			}
@@ -2417,13 +2682,8 @@ void loadUfs(struct knownDevices *kd, moduleList modLoaded,
 void setFloppyDevice(int flags) {
 #if defined(__i386__) || defined(__ia64__)
     struct device ** devices;
-    char line[256];
-    const char * match = "Floppy drive(s): ";
     int foundFd0 = 0;
     int i = 0;
-    FILE * f;
-
-    /*if (FL_TESTING(flags)) return;*/
 
     logMessage("probing for floppy devices");
 
@@ -2453,8 +2713,7 @@ void setFloppyDevice(int flags) {
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
-
-    if (FL_TESTING(flags)) return 0;
+    char * buf;
 
     if (FL_NOUSB(flags)) return 0;
 
@@ -2468,11 +2727,16 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     logMessage("found USB controller %s", devices[0]->driver);
-    if (mlLoadModule(devices[0]->driver, NULL, modLoaded, modDeps, NULL, 
-		 modInfo, flags)) {
+
+    if (mlLoadModuleSet(devices[0]->driver, modLoaded, modDeps, modInfo, 
+			flags)) {
 	logMessage("failed to insert usb module");
-	return 1;
+	/* dont return, just keep going. */
+	/* may have USB built into kernel */
+	/* return 1; */
     }
+
+    if (FL_TESTING(flags)) return 0;
 
     if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbdevfs", 0, 0, 
 		  NULL, NULL))
@@ -2481,12 +2745,12 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     /* sleep so we make sure usb devices get properly initialized */
     sleep(2);
 
-    mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-
-    if (FL_NOUSBSTORAGE(flags)) return 0;
-    mlLoadModule("usb-storage", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    buf = alloca(40);
+    sprintf(buf, "hid:keybdev%s", 
+		  (FL_NOUSBSTORAGE(flags) ? "" : ":usb-storage"));
+    mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
     sleep(1);
+
     return 0;
 }
 
@@ -2495,17 +2759,20 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
 
+#if !defined (__s390__) && !defined (__s390x__)
+	return;
+#else
     if (FL_NOUSB(flags)) return;
 
     logMessage("looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
 	logMessage("USB mouse found, loading mousedev module");
-	if (mlLoadModule("mousedev", NULL, modLoaded, modDeps, NULL, modInfo, 
-			 flags)) {
+	if (mlLoadModuleSet("mousedev", modLoaded, modDeps, modInfo, flags)) {
 	    logMessage ("failed to loading mousedev module");
 	    return;
 	}
     }
+#endif
 }
 
 
@@ -2513,6 +2780,11 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 			     moduleInfoSet modInfo, int flags) {
     struct device ** devices, *p;
     int i;
+
+#if defined (__s390__) && defined (__s390x__)
+	/* obviously no agp on s/390 :) */
+	return 0;
+#else
 
     if (FL_TESTING(flags)) return 0;
 
@@ -2536,8 +2808,8 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 	    logMessage("found %s card requiring agpgart, loading module",
 		       p->driver+5);
 	    
-	    if (mlLoadModule("agpgart", NULL, modLoaded, modDeps, NULL, 
-			     modInfo, flags)) {
+	    if (mlLoadModuleSet("agpgart", modLoaded, modDeps, modInfo, 
+				flags)) {
 		logMessage("failed to insert agpgart module");
 		return 1;
 	    } else {
@@ -2549,14 +2821,13 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     return 0;
+#endif
 }
 
 static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
-    mlLoadModule("sd_mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("sr_mod", NULL, modLoaded, modDeps, NULL, modInfo, 
-		 flags);
+    mlLoadModuleSet("sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
 }
 
 static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
@@ -2564,7 +2835,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 			      struct knownDevices * kd) {
 
     /* This is fast enough that we don't need a screen to pop up */
-    mlLoadModule("ide-cd", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModuleSet("ide-cd", modLoaded, modDeps, modInfo, flags);
 
     kdFindIdeList(kd, 0);
 }
@@ -2591,6 +2862,7 @@ int main(int argc, char ** argv) {
     int i, rc;
     int flags = 0;
     int testing = 0;
+    int mediacheck = 0;
     char * lang = NULL;
     char * keymap = NULL;
     char * kbdtype = NULL;
@@ -2611,6 +2883,7 @@ int main(int argc, char ** argv) {
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
+	    { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -2647,7 +2920,9 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
-    if (!FL_TESTING(flags)) {
+    /* don't start modules.conf if continuing as there could be modules 
+       already loaded from a driver disk */
+    if ((!FL_TESTING(flags)) && !continuing) {
         int fd;
 
 	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
@@ -2680,6 +2955,12 @@ int main(int argc, char ** argv) {
     }
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
+    if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
+
+#if defined (__s390__) && !defined (__s390x__)
+    flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
+#endif
+
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
 			      &instClass);
@@ -2697,6 +2978,8 @@ int main(int argc, char ** argv) {
     }
 
     openLog(FL_TESTING(flags));
+    if (!FL_TESTING(flags))
+		openlog("loader", 0, LOG_LOCAL0);
 
     checkForRam(flags);
 
@@ -2705,9 +2988,11 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-#if 0
-    mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModuleSet("cramfs:vfat", modLoaded, modDeps, modInfo, flags);
+
+
+#if defined (__s390__) || defined (__s390x__)
+    mlLoadModule("loop", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
     if (!continuing) {
@@ -2756,6 +3041,10 @@ int main(int argc, char ** argv) {
     kdFindScsiList(&kd, continuing ? 0 : CODE_PCMCIA);
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
 #endif
+
+    /* we have to explicitly read this to let libkudzu know we want to
+       merge in future tables rather then replace the initial one */
+    pciReadDrivers("/modules/pcitable");
 
     if (!continuing) {
 	if ((access("/proc/bus/pci/devices", R_OK) &&
@@ -2821,14 +3110,15 @@ int main(int argc, char ** argv) {
 		return 1;
 	}
 
-	kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
-	writeNetInfo("/tmp/netinfo", &netDev, &kd);
+	if (!FL_TESTING(flags)) {
+	    kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
+	    writeNetInfo("/tmp/netinfo", &netDev, &kd);
+	}
 
-	stopNewt();
-#if 0
-	beTelnet();
-#endif
-	startNewt(flags);
+	if (!beTelnet(flags)) {
+	    flags |= LOADER_FLAGS_TEXT | LOADER_FLAGS_NOSHELL;
+	    haveKon = 0;
+	}
     }
 #endif
 
@@ -2857,10 +3147,7 @@ int main(int argc, char ** argv) {
 		"/modules/pcitable");
 
 #ifndef __sparc__
-	/* we need to keep stage1 modules around to reload usb-storage.
-	   increases our memory footprint a little :( */
-	mkdir("/modules/stage1", 0755);
-	rename("/modules/modules.cgz", "/modules/stage1/modules.cgz");
+	unlink("/modules/modules.cgz");
 
 	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
@@ -2912,6 +3199,23 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
+    /* look for hard drives; if there aren't any warn the user and
+       let him add drivers manually */
+    for (i = 0; i < kd.numKnown; i++)
+	if (kd.known[i].class == CLASS_HD) break;
+
+    if (i == kd.numKnown) {
+	int rc;
+
+	startNewt(flags);
+	rc = newtWinChoice(_("Warning"), _("Yes"), _("No"),
+		_("No hard drives have been found. You probably need to "
+		  "manually choose device drivers for the installation to "
+		  "succeed. Would you like to select drivers now?"));
+
+	if (rc != 2) flags |= LOADER_FLAGS_ISA;
+    }
+
     if (((access("/proc/bus/pci/devices", R_OK) &&
 	  access("/proc/openprom", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
@@ -2927,13 +3231,9 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("msdos", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-    mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod", 
+		    modLoaded, modDeps, modInfo, flags);
+
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
@@ -3076,4 +3376,3 @@ int main(int argc, char ** argv) {
 
     return 1;
 }
-

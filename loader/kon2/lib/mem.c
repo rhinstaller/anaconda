@@ -25,6 +25,7 @@
  * 
  */
 
+#include "../include/types.h"
 #include	<sys/types.h>
 #include	<mem.h>
 #if defined(linux)

@@ -3,8 +3,11 @@ include ../Makefile.inc
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-LOADLIBES =  -L../isys -lisys -lpopt
-CFLAGS = -Wall -g -I/usr/include/rpm -I..
+ISYSLIB=isys
+
+LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
+CFLAGS = -Wall -g -I..
+RPMCFLAGS = -I/usr/include/rpm
 LDFLAGS = -g -static
 MODDEPS = moddeps
 
@@ -18,15 +21,20 @@ everything: $(TARGET)
 
 all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
-modlist:    modlist.o ../isys/libisys.a
+modlist:    modlist.o 
 
-moddeps: moddeps.o
-	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
-            $(LOADLIBES) -lmodutils -lmodutilobj -lmodutilutil \
-	    -lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt
+modules.o: ../loader/modules.c
+	cp ../loader/modules.c ./
+	$(CC) $(CFLAGS) -I../loader -c modules.c
+
+moddeps: moddeps.o modules.o
+	$(CC) $(LDFLAGS) -o moddeps moddeps.o modules.o \
+            $(LOADLIBES) -lresolv \
+	    -lmodutils -lmodutilobj -lmodutilutil  \
+	    -lpopt -lgunzip -L../isys/gzlib -lbz2
 
 genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
+	$(CC) $(LDFLAGS) $(CFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
 	-lbz2 -lz -lpopt 
 
 depends:
