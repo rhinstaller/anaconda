@@ -95,7 +95,7 @@ SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBM
 COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
+NETWORKMODULES="$COMMONMODULES nfs 3c59x 
 	       eepro100 tulip pcnet32 8139too"
 #	       sis900 e100 hp100 natsemi"
 
