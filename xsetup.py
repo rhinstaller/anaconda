@@ -18,6 +18,7 @@
 #
 import rhpl.xserver as xserver
 
+import string
 class XSetup:
 
     def __init__(self, hwstate):
