@@ -318,10 +318,12 @@ class DiskTreeModel(gtk.TreeStore):
     titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
               (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
               (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
-              (N_("Format"), gobject.TYPE_BOOLEAN, 0.0, 0, isFormattable),
-              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
+              (N_("Format"), gobject.TYPE_BOOLEAN, 0.5, 0, isFormattable),
+#              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
+              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
               (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
               (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
+	      (N_(""), gobject.TYPE_STRING, 0.0, 0, 0),
               # the following must be the last two
               ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
               ("IsFormattable", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
@@ -352,6 +354,10 @@ class DiskTreeModel(gtk.TreeStore):
                 propertyMapping['visible'] = len(self.titles) + key
                 
             renderer.set_property('xalign', alignment)
+	    if title == "Mount Point":
+		title = _("Mount Point/\nRAID/Volume")
+	    elif title == "Size (MB)":
+		title = _("Size\n(MB)")
             col = apply(gtk.TreeViewColumn, (_(title), renderer),
                         propertyMapping)
             self.columns.append(col)
@@ -589,13 +595,21 @@ class PartitionWindow(InstallWindow):
         self.tree.clear()
         del self.parent
         return None
+
+    def getShortFSTypeName(self, name):
+	print name
+	if name == "physical volume (LVM)":
+	    return "LVM PV"
+
+	return name
     
     def populate(self, initial = 0):
+
         drives = self.diskset.disks.keys()
         drives.sort()
 
         self.tree.resetSelection()
-        
+
 	# first do LVM
         lvmrequests = self.partitions.getLVMRequests()
         if lvmrequests:
@@ -606,12 +620,11 @@ class PartitionWindow(InstallWindow):
 		rsize = vgrequest.getActualSize(self.partitions, self.diskset)
 
                 vgparent = self.tree.append(lvmparent)
-		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
+		self.tree[vgparent]['Device'] = "%s" % (vgname,)
 		self.tree[vgparent]['Mount Point'] = ""
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
 		self.tree[vgparent]['Size (MB)'] = "%8.0f" % (rsize,)
-		self.tree[vgparent]['Type'] = _("LVM Volume Group")
                 self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
@@ -630,8 +643,6 @@ class PartitionWindow(InstallWindow):
 		    self.tree[iter]['Type'] = ptype
 		    self.tree[iter]['Start'] = ""
 		    self.tree[iter]['End'] = ""
-#		    self.tree[iter]['Start'] = _("N/A")
-#		    self.tree[iter]['End'] = _("N/A")
 
         # handle RAID next
         raidrequests = self.partitions.getRaidRequests()
@@ -639,14 +650,28 @@ class PartitionWindow(InstallWindow):
 	    raidparent = self.tree.append(None)
 	    self.tree[raidparent]['Device'] = _("RAID Devices")
             for request in raidrequests:
-                iter = self.tree.append(raidparent)
+		mntpt = None
+		if request and request.fstype and request.fstype.getName() == "physical volume (LVM)":
+		    vgreq = self.partitions.getLVMVolumeGroupMemberParent(request)
+		    if vgreq and vgreq.volumeGroupName:
+			if self.show_uneditable:
+			    mntpt = vgreq.volumeGroupName
+			else:
+			    continue
+		    else:
+			mntpt = ""
 
+                iter = self.tree.append(raidparent)
+		if mntpt:
+                    self.tree[iter]["Mount Point"] = mntpt
+		    
                 if request and request.mountpoint:
                     self.tree[iter]["Mount Point"] = request.mountpoint
+		    
                 if request.fstype:
-                    ptype = request.fstype.getName()
-                    
-                    self.tree[iter]['Format'] = request.format
+                    ptype = self.getShortFSTypeName(request.fstype.getName())
+
+		    self.tree[iter]['Format'] = request.format
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 else:
                     ptype = _("None")
@@ -656,8 +681,6 @@ class PartitionWindow(InstallWindow):
                 self.tree[iter]['IsLeaf'] = gtk.TRUE
                 self.tree[iter]['Device'] = device
                 self.tree[iter]['Type'] = ptype
-#		self.tree[iter]['Start'] = _("N/A")
-#		self.tree[iter]['End'] = _("N/A")
                 self.tree[iter]['Start'] = ""
                 self.tree[iter]['End'] = ""
                 self.tree[iter]['Size (MB)'] = "%g" % (request.getActualSize(self.partitions, self.diskset),)
@@ -709,6 +732,18 @@ class PartitionWindow(InstallWindow):
                 else:
                     self.tree[iter]['Mount Point'] = ""
 
+		if request and request.fstype and request.fstype.getName() == "physical volume (LVM)":
+		    vgreq = self.partitions.getLVMVolumeGroupMemberParent(request)
+		    if vgreq and vgreq.volumeGroupName:
+			if self.show_uneditable:
+			    self.tree[iter]['Mount Point'] = vgreq.volumeGroupName
+			else:
+			    part = disk.next_partition(part)
+			    self.tree.remove(iter)
+			    continue
+		    else:
+			self.tree[iter]['Mount Point'] = ""
+			
                 if request and request.fstype:
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 
@@ -718,9 +753,20 @@ class PartitionWindow(InstallWindow):
                     ptype = _("Extended")
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = _("software RAID")
+		    parreq = self.partitions.getRaidMemberParent(request)
+		    if parreq:
+			if self.show_uneditable:
+			    mddevice = "/dev/md%d" % (parreq.raidminor,)
+			    self.tree[iter]['Mount Point'] = mddevice
+			else:
+			    part = disk.next_partition(part)
+			    self.tree.remove(iter)
+			    continue
+		    else:
+			self.tree[iter]['Mount Point'] = ""
                 elif part.fs_type:
                     if request and request.fstype != None:
-                        ptype = request.fstype.getName()
+                        ptype = self.getShortFSTypeName(request.fstype.getName())
                         if ptype == "foreign":
                             ptype = map_foreign_to_fsname(part.native_type)
                     else:
@@ -728,7 +774,7 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['Format'] = request.format
                 else:
                     if request and request.fstype != None:
-                        ptype = request.fstype.getName()
+                        ptype = self.getShortFSTypeName(request.fstype.getName())
                         
                         if ptype == "foreign":
                             ptype = map_foreign_to_fsname(part.native_type)
@@ -997,6 +1043,12 @@ class PartitionWindow(InstallWindow):
         request = RaidRequestSpec(fileSystemTypeGetDefault())
         self.editRaidRequest(request, isNew = 1)
 
+    def viewButtonCB(self, widget):
+	self.show_uneditable = widget.get_active()
+        self.diskStripeGraph.shutDown()
+	self.tree.clear()
+	self.populate()
+
     def getScreen(self, fsset, diskset, partitions, intf):
         self.fsset = fsset
         self.diskset = diskset
@@ -1064,6 +1116,13 @@ class PartitionWindow(InstallWindow):
 	sw.set_shadow_type(gtk.SHADOW_IN)
 	
         box.pack_start(sw, gtk.TRUE)
+
+	self.show_uneditable = 0
+	self.toggleViewButton = gtk.CheckButton(_("Show RAID device/LVM Volume Group members"))
+	self.toggleViewButton.set_active(self.show_uneditable)
+	self.toggleViewButton.connect("toggled", self.viewButtonCB)
+	box.pack_start(self.toggleViewButton, gtk.FALSE, gtk.FALSE)
+	
 	vpaned.add2(box)
 
 	# XXX should probably be set according to height 
