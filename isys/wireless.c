@@ -227,7 +227,7 @@ int set_managed(char * ifname) {
     close(sock);
 
     if (rc < 0) {
-        fprintf(stderr, "failed to set wep key: %s\n", strerror(errno));
+        fprintf(stderr, "failed to set managed mode: %s\n", strerror(errno));
         return -1;
     }
 

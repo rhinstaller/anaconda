@@ -62,6 +62,7 @@ filtertest: filtertest.o libisys.a
 clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(DOBJECTS) 
 	rm -f $(DIETLIBS) $(OBJECTS) $(GENERATED)
+	rm -f .depend
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
