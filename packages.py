@@ -28,6 +28,8 @@ from constants import *
 from translate import _
 from syslogd import syslog
 
+rpm.addMacro("_i18ndomains", "redhat-dist")
+
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
         return
