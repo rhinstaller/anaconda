@@ -221,6 +221,12 @@ class InstallControlWindow (Thread):
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 
+        # get everything shown, then call fixUp so screens can do
+        # things like moveto
+	while events_pending ():
+            mainiteration ()
+	screen.fixUp ()
+
     def update (self, ics):
         if self.buildingWindows or ics != self.currentScreen.getICS ():
             return
