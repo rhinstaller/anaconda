@@ -782,7 +782,7 @@ class s390BootloaderInfo(bootloaderInfo):
 	cf = "/etc/chandev.conf"
 	self.perms = 0644
 	if os.environ.has_key("CHANDEV"):
-	    fd = os.open(instRoot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT)
+	    fd = os.open(instroot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT)
 	    os.write(fd, os.environ["CHANDEV"])
 	    os.close(fd)
 	return ""
