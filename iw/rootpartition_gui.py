@@ -389,7 +389,7 @@ class LBA32WarningWindow(InstallWindow):
 
         # check if boot partition is above 1023 cyl limit
         if iutil.getArch() != "i386":
-            return INSTALL_NOOP
+            return None
 
         if self.todo.fstab.getBootPartitionMaxCylFromDesired() > 1023:
             vbox = GtkVBox (FALSE, 5)
