@@ -1248,6 +1248,7 @@ def setFileCons(instPath):
                  "/etc/lilo.conf", "/etc/lilo.conf.anaconda",
                  "/etc/mtab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
+                 "/var/log/wtmp", "/var/run/utmp",
                  "/var/lib/rpm", "/"] + rpmfiles
 
         # blah, to work in a chroot, we need to actually be inside so the
