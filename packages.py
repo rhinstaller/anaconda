@@ -641,7 +641,8 @@ def doInstall(method, id, intf, instPath):
 	del ts
 	del db
 	instLog.close()
-	syslog.stop()
+
+        syslog.stop()
 
 	method.systemUnmounted ()
 
@@ -667,6 +668,9 @@ def doInstall(method, id, intf, instPath):
 				    p.h[rpm.RPMTAG_RELEASE],
 				    p.h[rpm.RPMTAG_ARCH]))
     instLog.close ()
+
+    if ( arch == "s390" or arch == "s390x"):
+        syslog.stop()
 
     id.instProgress = None
 
