@@ -136,7 +136,8 @@ class XF86Config:
             if line and line[0] == '#':
                 continue
             fields = string.split (line, ';')
-            monitors [fields[0]] = (fields[2], fields[3])
+            monitors [string.strip(fields[0])] = \
+		    (string.strip(fields[2]), string.strip(fields[3]))
         return monitors
 
     def setMonitor (self, (monitor, (hrange, vrange))):
@@ -446,6 +447,8 @@ Section "Keyboard"
         
         if self.monEisa:
             info["EISA"] = self.monEisa
+        elif self.monID:
+            info["EISA"] = self.monID
         else:
             info["EISA"] = "Generic Monitor"
 
