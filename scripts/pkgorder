@@ -1,0 +1,115 @@
+#!/usr/bin/python
+
+import sys
+import os
+import os.path
+import rpm
+import string
+
+sys.path.append("/home/ewt/redhat/anaconda")
+sys.path.append("/home/ewt/redhat/anaconda/isys")
+rpmFD = None
+fns = {}
+
+import comps
+
+def cmpHeaderByName(h1, h2):
+    n1 = h1['name']
+    n2 = h2['name']
+
+    if n1 < n2:
+	return -1
+    elif n1 == n2:
+	return 0;
+
+    return 1
+
+def transCB(what, amount, total, h, intf):
+    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+	global rpmFD
+	global distDir
+	global pkgOrder
+	global fns
+	name = h[1000000]
+
+	# we need the real header for later
+	rpmFD = os.open(distDir + '/RedHat/RPMS/' + name, os.O_RDONLY)
+	fd = os.open(distDir + '/RedHat/RPMS/' + name, os.O_RDONLY)
+	(newH, isSource) = rpm.headerFromPackage(fd)
+	os.close(fd)
+	pkgOrder.append(newH)
+	fns[newH] = name
+	return rpmFD
+    elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
+	global rpmFD
+	os.close (rpmFD)
+
+if len(sys.argv) != 3:
+    print "splitdistro <toppath> <arch>"
+    sys.exit(1)
+
+arch = sys.argv[2]
+distDir = os.path.normpath(sys.argv[1] + "/" + arch)
+srcDir = os.path.normpath(sys.argv[1] + "/SRPMS")
+
+if not os.path.isdir(distDir):
+    print "error: %s is not a directory" % distDir
+    sys.exit(1)
+
+if not os.path.isdir(srcDir):
+    print "error: %s is not a directory" % srcDir
+    sys.exit(1)
+
+
+disc1Dir = distDir + "-disc1"
+disc1SrcDir = distDir + "-srpms"
+disc2Dir = distDir + "-disc2"
+
+hdlist = comps.HeaderListFromFile(distDir + "/RedHat/base/hdlist", noscore = 1)
+comps = comps.ComponentSet(distDir + "/RedHat/base/comps", hdlist, 
+			    arch = arch, matchAllLang = 1)
+
+for comp in comps:
+    if comp.name != 'Everything':
+	comp.select(1)
+
+for package in hdlist.keys():
+    if len(package) >= 7 and package[:7] == "kernel-":
+        hdlist[package].selected = 1
+
+# work out the order we'd like to install everything in
+pkgOrder = []
+
+list = []
+for p in hdlist.selected():
+    list.append(p.h)
+list.sort(cmpHeaderByName)
+
+for item in list:
+    pkgOrder.append(item)
+
+list = []
+for p in hdlist.packages.values():
+    if not p.selected:
+	list.append(p.h)
+
+list.sort(cmpHeaderByName)
+for item in list:
+    pkgOrder.append(item)
+
+testpath = '/tmp/splitdistro-' + str (os.getpid ())
+os.system ("mkdir -p " + testpath + "/var/lib/rpm")
+
+db = rpm.opendb(1, testpath)
+
+ts = rpm.TransactionSet(testpath, db)
+for h in pkgOrder:
+    ts.add(h, h, 'i')
+pkgOrder = []
+
+ts.order()
+
+problems = ts.run(rpm.RPMTRANS_FLAG_TEST, ~0, transCB, None)
+
+for p in pkgOrder:
+    print fns[p]
