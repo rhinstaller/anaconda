@@ -505,7 +505,7 @@ class ext2FileSystem(extFileSystem):
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tunefs", "-j", devicePath ],
+                                    ["tune2fs", "-j", devicePath ],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
