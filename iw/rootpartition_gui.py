@@ -213,6 +213,7 @@ class AutoPartitionWindow(InstallWindow):
 	if self.todo.instClass.partitions:
 	    self.druid = \
 		todo.fstab.attemptPartitioning(todo.instClass.partitions,
+                                               todo.instClass.fstab,
 					       todo.instClass.clearParts)
 	self.ics.setNextEnabled (TRUE)
 

@@ -39,12 +39,6 @@ def D_(x):
 class InstallPathWindow (InstallWindow):		
 
     installTypes = installclass.availableClasses()
-    installTypes = ((WORKSTATION_GNOME, D_("GNOME Workstation"),
-                     "gnome-workstation.png"),
-                    (WORKSTATION_KDE, D_("KDE Workstation"),
-                     "kde-workstation.png"),
-                    (SERVER, D_("Server"), "server.png"),
-                    (CUSTOM, D_("Custom"), "custom.png"))
 
     def __init__ (self, ics):
 	if iutil.getArch() == 'sparc':
@@ -119,21 +113,11 @@ class InstallPathWindow (InstallWindow):
                               self.installSteps, len (self.commonSteps)-1)
 	    self.todo.upgrade = 0
 
-	    for (button, type) in self.installClasses:
+	    for (button, object) in self.installClasses:
 		if button.get_active():
 		    break
-
-	    if type == WORKSTATION_GNOME and self.orig != WORKSTATION_GNOME:
-		self.todo.setClass (installclass.GNOMEWorkstation (self.todo.expert))
-		needNewDruid = 1
-	    elif type == WORKSTATION_KDE and self.orig != WORKSTATION_KDE:
-		self.todo.setClass (installclass.KDEWorkstation (self.todo.expert))
-		needNewDruid = 1
-	    elif type == SERVER and self.orig != SERVER:
-		self.todo.setClass (installclass.Server (self.todo.expert))
-		needNewDruid = 1
-	    elif type == CUSTOM and self.orig != CUSTOM:
-		self.todo.setClass (installclass.CustomInstall (self.todo.expert))
+	    if not isinstance (self.orig, object):
+                self.todo.setClass (object(self.todo.expert))
 		needNewDruid = 1
 
 	# This makes the error message delivery come at a sane place
@@ -196,35 +180,22 @@ class InstallPathWindow (InstallWindow):
 	if (self.todo.upgrade):
 	    self.upgradeButton.set_active(1)
             self.toggled (self.upgradeButton, UPGRADE)
-	    self.orig = None
-	    default = None
 	else:
 	    instClass = self.todo.getClass()
-	    self.orig = None
 	    installButton.set_active(1)
-	    if isinstance(instClass, installclass.GNOMEWorkstation):
-		self.orig = WORKSTATION_GNOME
-	    elif isinstance(instClass, installclass.KDEWorkstation):
-		self.orig = WORKSTATION_KDE
-	    elif isinstance(instClass, installclass.Server):
-		self.orig = SERVER
-	    elif isinstance(instClass, installclass.CustomInstall):
-		self.orig = CUSTOM
-
-	    if (self.orig):
-		default = self.orig
-	    else:
-		default = WORKSTATION_GNOME
 
         self.installBox = GtkVBox (FALSE, 0)
 
         group = None
 	self.installClasses = []
-	for (type, name, pixmap) in self.installTypes:
+        
+        self.orig = self.todo.getClass()
+
+	for (name, object, pixmap) in self.installTypes:
             group = self.pixRadioButton (group, _(name), pixmap)
             self.installBox.pack_start (group, FALSE)
-	    self.installClasses.append ((group, type))
-	    if (type == default):
+	    self.installClasses.append ((group, object))
+            if isinstance(self.orig, object):
 		group.set_active (1)
 
 	spacer = GtkLabel("")
@@ -238,7 +209,6 @@ class InstallPathWindow (InstallWindow):
 	table = GtkTable(2, 4)
         table.attach(installButton, 0, 2, 0, 1, xoptions = FILL | EXPAND)
 	table.attach(align, 2, 3, 0, 1, xoptions = FALSE)
-#        table.attach(spacer, 0, 1, 1, 2, xoptions = FALSE)
 	self.installBox.set_usize(300, -1)
         table.attach(self.installBox, 1, 3, 1, 2)
         table.attach(self.upgradeButton, 0, 3, 2, 3)
