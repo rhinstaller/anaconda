@@ -209,7 +209,7 @@ class Partitions:
                 elif fields[0].strip() == "size":
                     preexist_size = fields[1].strip()
                     try:
-                        preexist_size = int(preexist_size)
+                        preexist_size = int(preexist_size) / 1024.0
                     except:
                         log("preexisting size for %s not a valid integer, ignoring" %(vg,))
                         preexist_size = None
