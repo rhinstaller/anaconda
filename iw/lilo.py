@@ -172,7 +172,7 @@ class LiloWindow (InstallWindow):
 
 	self.imageList = GtkCList (4,
 	    ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
-        self.imageList.set_selection_mode (SELECTION_BROWSE)
+	self.imageList.connect("select_row", self.labelSelected)
 
 	sortedKeys = self.images.keys()
 	sortedKeys.sort()
@@ -191,7 +191,6 @@ class LiloWindow (InstallWindow):
         self.imageList.columns_autosize ()
         self.imageList.column_title_passive (1)
         self.imageList.set_border_width (5)
-	self.imageList.connect("select_row", self.labelSelected)
 	self.imageList.set_column_justification(2, JUSTIFY_CENTER)
 
 	self.deviceLabel = GtkLabel(_("Partition") + ":")
@@ -223,6 +222,12 @@ class LiloWindow (InstallWindow):
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.editBox, FALSE)
-        box.pack_start (self.imageList, TRUE)
+
+        self.imageList.set_selection_mode (SELECTION_BROWSE)
+
+	sw = GtkScrolledWindow ()
+	sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+	sw.add (self.imageList)
+        box.pack_start (sw, TRUE)
 
         return box
