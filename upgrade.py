@@ -702,7 +702,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         imupg = ( ("iiimf-gnome-im-switcher", "control-center"),
                   ("iiimf-gnome-im-switcher", "gnome-panel"),
                   ("iiimf-gtk", "gtk2"),
-                  ("system-switch-im", "gtk2") )
+                  ("system-switch-im", "gtk2"),
+                  ("iiimf-x", "xorg-x11"),
+                  ("iiimf-x", "XFree86"))
         for (new, old) in imupg:
             mi = ts.dbMatch("name", old)
             if (not id.grpset.hdrlist.has_key(new) or
