@@ -921,7 +921,19 @@ ModuleFiles=/etc/pango/pango.modules
 EOF
 fi
 
-HOSTTRIPLET=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
+host=`rpm --nodigest --nosignature -qp --qf "%{POSTIN}\n" $PACKAGEDIR/gtk2*.rpm |grep update-gdk-pixbuf |awk {'print $2;'}`
+
+case "$host" in
+  *linux) host="$1-gnu"
+  ;;
+  *) host=$1
+  ;;
+esac
+ 
+# autoconf uses powerpc not ppc
+HOSTTRIPLET=`echo $host | sed "s/^ppc/powerpc/"`
+
+
 mkdir -p $DESTGR/etc/gtk-2.0/$HOSTTRIPLET
 
 echo "Getting gtk2 input method modules"
