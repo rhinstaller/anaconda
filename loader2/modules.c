@@ -239,6 +239,17 @@ int mlModuleInList(const char * modName, moduleList list) {
     return 0;
 }
 
+static struct loadedModuleInfo * getLoadedModuleInfo(moduleList modLoaded, 
+                                                     const char * modName) {
+    int i = 0;
+
+    for (i = 0; i < modLoaded->numModules; i++) 
+        if (!strcmp(modLoaded->mods[i].name, modName))
+            return &modLoaded->mods[i];
+    
+    return NULL;
+}
+
 /* load a single module.  this is the real workhorse of loading modules */
 static int loadModule(const char * modName, struct extractedModule * path,
                       moduleList modLoaded, char ** args, 
@@ -262,7 +273,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
         }
 
         if (mi->major == DRIVER_SCSI) {
-            deviceCount = scsiCount();
+            deviceCount = scsiDiskCount();
             startNewt(flags);
             scsiWindow(modName);
             popWindow = 1;
@@ -326,7 +337,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
                     modLoaded->mods[num].lastDevNum = ethCount("tr") - 1;
                 } else if (mi->major == DRIVER_SCSI) {
                     modLoaded->mods[num].firstDevNum = deviceCount;
-                    modLoaded->mods[num].lastDevNum = scsiDiskCount() - 1;
+                    modLoaded->mods[num].lastDevNum = scsiDiskCount();
                 }
             }
 	} else {
@@ -372,6 +383,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     char items[1024] = ""; /* 1024 characters should be enough... */
     struct extractedModule * paths, * p;
     struct moduleBallLocation *location = NULL;
+    struct loadedModuleInfo * mod;
     int i;
     int reloadUsbStorage;
 
@@ -433,7 +445,8 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
             }
 
             if (mi && (mi->major == DRIVER_SCSI) && 
-                mlModuleInList("usb-storage", modLoaded)) {
+                (mod = getLoadedModuleInfo(modLoaded, "usb-storage")) &&
+                (mod->firstDevNum != mod->lastDevNum)) {
                 reloadUsbStorage = 1;
             }
         }
@@ -463,17 +476,15 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     if (*items) logMessage("module(s) %s not found", items);
 
     if (reloadUsbStorage) {
-        for (i = 0; i < modLoaded->numModules; i++) 
-            if (!strcmp(modLoaded->mods[i].name, "usb-storage"))
-                break;
+        mod = getLoadedModuleInfo(modLoaded, "usb-storage");
 
-        if (i >= modLoaded->numModules) {
-            logMessage("usb-storage loaded, but can't find it.  ick.");
-            /* JKFIXME: return? */
+        if (!mod) {
+            fprintf(stderr, "ERROR: %s was in module list, but can't be found now", "usb-storage");
+            exit(1);
         }
 
-        if (modLoaded->mods[i].lastDevNum != (scsiDiskCount() - 1)) {
-            logMessage("usb-storage isn't claiming the last scsi dev (%d vs %d)", modLoaded->mods[i].lastDevNum, scsiDiskCount() - 1);
+        if (mod->lastDevNum != scsiDiskCount()) {
+            logMessage("usb-storage isn't claiming the last scsi dev (%d vs %d)", modLoaded->mods[i].lastDevNum, scsiDiskCount());
             /* JKFIXME: return? or not, because of firewire */
         }
 
@@ -671,7 +682,7 @@ void writeScsiDisks(moduleList list) {
         if (!lm->weLoaded) continue;
         if (lm->major != DRIVER_SCSI) continue;
 
-        for (num = lm->firstDevNum; num <= lm->lastDevNum; num++) {
+        for (num = lm->firstDevNum; num < lm->lastDevNum; num++) {
             if (num < 26)
                 sprintf(buf, "sd%c\t%s\n", 'a' + num, lm->name);
             else {
@@ -788,20 +799,18 @@ static struct extractedModule * extractModules (char * const * modNames,
  */
 static int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
                                     int flags) {
-    int i, status, rc = 0;
+    int status, rc = 0;
     pid_t child;
+    struct loadedModuleInfo * mod;
 
-    for (i = 0; i < modLoaded->numModules; i++) 
-        if (!strcmp(modLoaded->mods[i].name, modName))
-            break;
-
-    if (i >= modLoaded->numModules)
+    mod = getLoadedModuleInfo(modLoaded, modName);
+    if (!mod)
         return 0;
 
     /* since we're unloading, set the devs to 0.  this should hopefully only
      * ever happen with things at the end */
-    modLoaded->mods[i].firstDevNum = 0;
-    modLoaded->mods[i].lastDevNum = 0;
+    mod->firstDevNum = 0;
+    mod->lastDevNum = 0;
     
     if (FL_TESTING(flags)) {
 	logMessage("would have rmmod %s", modName);
@@ -851,7 +860,7 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
     if (i >= modLoaded->numModules)
         return 0;
 
-    modLoaded->mods[i].firstDevNum = scsiCount();
+    modLoaded->mods[i].firstDevNum = scsiDiskCount();
 
     list[0] = modName;
     list[1] = NULL;
@@ -887,7 +896,7 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
 	}
     }
 
-    modLoaded->mods[i].lastDevNum = scsiCount();
+    modLoaded->mods[i].lastDevNum = scsiDiskCount();
     logMessage("reloadModule returning %d", rc);
     return rc;
 }
