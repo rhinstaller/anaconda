@@ -874,6 +874,7 @@ static int ideFilter(struct kddevice * dev) {
 
     /* no pdc magic, so include this device */
     if (rc != 1)
+	close(fd);
 	return 1;
 
     /* it's a pdc device w/o a valid partition table, skip it (probably
