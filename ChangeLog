@@ -1,3 +1,11 @@
+2005-03-09  Peter Jones  <pjones@redhat.com>
+
+	* iutil.py (swapAmount): fix this to actually use the SwapTotal line
+	from /proc/meminfo, not just whichever line is at offset 2.  Offset
+	2 is now "Buffers:", so this is hopelessly broken.
+	* isys.py (ddfile): use '\x00' * num instead of os.read to make a
+	string of '\x00' characters.
+
 2005-03-07  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec: Bump version.

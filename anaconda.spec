@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar XX 2005 XXX <XXX@redhat.com> - 20.2.0.XX-X
+- fix swap detection on upgrade (pjones)
+- don't use os.read to make a buffer of '\x00'
+
 * Mon Mar  7 2005 Peter Jones <pjones@redhat.com> - 20.2.0.27-1
 - supress lvm fd warning messages
 - fewer log messages when growing partitions
