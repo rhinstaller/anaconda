@@ -1178,10 +1178,11 @@ class ToDo:
                  "--inetdfile", "/etc/inetd.conf.rpmsave" ]
         
         log("found inetdconvert, executing %s" % argv)
-        devnull = os.open("/dev/null", os.O_RDWR)
-        iutil.execWithRedirect(argv[0], argv, root = self.instPath,
-                               stdout = devnull, stderr = devnull)
 
+        logfile = os.open (self.instLogName, os.O_APPEND)
+        iutil.execWithRedirect(argv[0], argv, root = self.instPath,
+                               stdout = logfile, stderr = logfile)
+        os.close(logfile)
         
     def instCallback(self, what, amount, total, h, intf):
         if (what == rpm.RPMCALLBACK_TRANS_START):
@@ -1433,7 +1434,8 @@ class ToDo:
         else:
             logname = '/tmp/install.log'
             
-	self.instLog = open(self.instPath + logname, "w+")
+        self.instLogName = self.instPath + logname
+	self.instLog = open(self.instLogName, "w+")
 	syslog = InstSyslog (self.instPath, self.instPath + logname)
 
 	ts.scriptFd = self.instLog.fileno ()
