@@ -166,7 +166,7 @@ class SiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-	(images, default) = todo.silo.getSiloImages()
+	(images, default) = todo.silo.getSiloImages(todo.fstab)
 	if not images: return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
