@@ -1150,7 +1150,9 @@ class ToDo:
         if not os.access (self.instPath + "/usr/sbin/inetdconvert"):
             log("did not find %s" % self.instPath + "/usr/sbin/inetdconvert")
 
-        argv = [ "/usr/sbin/inetdconvert", "--convertremaining" ]
+        argv = [ "/usr/sbin/inetdconvert", "--convertremaining",
+                 "--inetdfile", "/etc/inetd.rpmsave" ]
+        
         log("found inetdconvert, executing %s" % argv)
         devnull = os.open("/dev/null", os.O_RDWR)
         iutil.execWithRedirect(argv[0], argv, root = self.instPath,
@@ -1513,14 +1515,6 @@ class ToDo:
 		self.x.write (self.instPath + "/etc/X11")
             self.setDefaultRunlevel ()
 
-            # go ahead and depmod modules on alpha, as rtc modprobe
-            # will complain loudly if we don't do it now.
-#            if arch == "alpha":
-#                self.depmodModules()
-
-            # lets just do it always, not just on alpha
-            self.depmodModules()
-                
             # blah.  If we're on a serial mouse, and we have X, we need to
             # close the mouse device, then run kudzu, then open it again.
 
@@ -1578,6 +1572,10 @@ class ToDo:
 		self.milo.write ()
 	    else:
 		raise RuntimeError, "What kind of machine is this, anyway?!"
+
+            # go ahead and depmod modules as modprobe in rc.sysinit
+            # will complain loaduly if we don't do it now.
+            self.depmodModules()
 
 	self.instClass.postAction(self.instPath, self.serial)
 
