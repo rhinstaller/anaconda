@@ -698,16 +698,39 @@ class ComponentSet:
 	return truth
 
     def readCompsFile(self, filename, packages):
+	#
+	# ugly - urlopen can return a variety of errors which
+	#        do not have same form.
+	#
         connected = 0
         while not connected:
             try:
 		file = urllib2.urlopen(filename)
+	    except urllib2.HTTPError, e:
+		log("HTTPError: %s occurred getting %s", filename, e)
+	    except urllib2.URLError, e:
+		log("URLError: %s occurred getting %s", filename, e)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s", filename,
 			errnum, str(msg))
-                time.sleep(5)
+            except IOError, (errnum, msg):
+		log("OSError %s occurred getting %s: %s", filename,
+			errnum, str(msg))
             else:
-                connected = 1
+		# sanity check result - sometimes FTP doesnt
+		# catch a file is missing
+		try:
+		    clen = file.info()['content-length']
+		except:
+		    clen = 0
+
+		if clen > 0:
+		    connected = 1
+		else:
+		    log("Error occurred getting %s", filename)
+
+	    if not connected:
+		time.sleep(5)
 
         self.compsxml = rhpl.comps.Comps(file)
         file.close()
