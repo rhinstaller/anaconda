@@ -926,8 +926,7 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
                             ksDeviceOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       /* JKFIXME: this should be translated */
-                       ("Bad argument to device kickstart method "
+                       _("Bad argument to device kickstart method "
                          "command %s: %s"),
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
