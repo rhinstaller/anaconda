@@ -397,6 +397,7 @@ for n in args:
 	    pfile.close()
 	    os.unlink("/tmp/vncpassword.dat")
 	except:
+	    vncpassword=None
 	    pass
 
 	
