@@ -73,6 +73,28 @@ setupdevice()
    echo 1 > /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online
 }
 
+convertchandev()
+{
+   local del dev channels
+   if [ -z "$CHANDEV" -o -n "$CCWDEV" ]; then
+      return
+   fi
+   dev=${CHANDEV//,*/}
+   channels=${CHANDEV#${dev},*}
+   channels=${channels//0x/0}
+   CCWDEV="0.0.${channels//,*/}"
+   channels="${channels#*,}"
+   CCWDEV="$CCWDEV,0.0.${channels//,*/}"
+   if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+      channels="${channels#*,}"
+      CCWDEV="$CCWDEV,0.0.${channels//,*/}"
+   fi
+   [ -z "$QETHPARM" ] && return
+   del=${QETHPARM%%portname:*}
+   PORTNAME=${QETHPARM#${del}}
+   PORTNAME=${PORTNAME//,*/}
+}
+
 S390ARCH=`uname -m`
 if [ "$S390ARCH" = "s390" ]; then
    export S390ARCH="S/390"
@@ -131,6 +153,7 @@ while [ -z "$NETTYPE" ]; do
 done
 DEVICE=${NETTYPE}0
 if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw config
+   convertchandev
    while [ -z "$CCWDEV" ]; do
 		echo $"Enter the bus ID and the device number of your CCW devices."
 		echo $"CTC, ESCON and LCS need two subchannels:"
