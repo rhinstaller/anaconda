@@ -170,14 +170,17 @@ class PartitionEditor:
                         self.intf.messageWindow(_("Error With Request"),
                                                 _("The end cylinder must be "
                                                 "greater than the start "
-                                                "cylinder."))
+                                                "cylinder."), custom_icon="error")
 
                         continue
 
-                err = request.sanityCheckRequest(self.partitions)
+		err = request.sanityCheckRequest(self.partitions)
+		if not err:
+		    err = doUIRAIDLVMChecks(request)
+		    
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err))
+                                            "%s" % (err), custom_icon="error")
                     continue
             else:
                 # preexisting partition, just set mount point and format flag
@@ -225,7 +228,7 @@ class PartitionEditor:
                 err = request.sanityCheckRequest(self.partitions)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
-                                            "%s" % (err))
+                                            "%s" % (err), custom_icon="error")
                     continue
 
                 if (not request.format and

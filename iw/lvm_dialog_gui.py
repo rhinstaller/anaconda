@@ -105,7 +105,8 @@ class VolumeGroupEditor:
                                       "changed because otherwise the space "
                                       "required by the currently defined "
                                       "logical volumes will be increased "
-                                      "to more than the available space."))
+                                      "to more than the available space."),
+				    custom_icon="error")
             return 0
 
 	if resize:
@@ -118,7 +119,7 @@ class VolumeGroupEditor:
 					   "of the "
 					   "physical extent.\n\nThis change "
 					   "will take affect immediately."),
-					 type="custom",
+					 type="custom", custom_icon="question",
 					 custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
 		return 0
@@ -150,7 +151,7 @@ class VolumeGroupEditor:
                                       "changed because the value selected "
 				      "(%10.2f MB) is larger than the smallest "
 				      "physical volume (%10.2f MB) in the "
-				      "volume group.") % (curval/1024.0, maxpvsize))
+				      "volume group.") % (curval/1024.0, maxpvsize), custom_icon="error")
 	    peOption.set_history(lastidx)
             return 0
 
@@ -161,7 +162,7 @@ class VolumeGroupEditor:
 					   "substantial space on one or more "
 					   "of the phyical volumes in the "
 					   "volume group."),
-					 type="custom",
+					 type="custom", custom_icon="error",
 					   custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
 		peOption.set_history(lastidx)
@@ -187,7 +188,8 @@ class VolumeGroupEditor:
 					      "smaller "
 					      "than one or more of the "
 					      "currently defined logical "
-					      "volumes.") % (maxlv,))
+					      "volumes.") % (maxlv,),
+					    custom_icon="error")
 		    peOption.set_history(lastidx)
             
         peOption.set_data("lastpe", curval)
@@ -256,7 +258,7 @@ class VolumeGroupEditor:
 				      "volume because otherwise the "
 				      "volume group will be too small to "
 				      "hold the currently defined logical "
-				      "volumes."))
+				      "volumes."), custom_icon="error")
 	    return gtk.FALSE
 
 	self.updateVGSpaceLabels(alt_pvlist = pvlist)
@@ -448,7 +450,7 @@ class VolumeGroupEditor:
                     self.intf.messageWindow(_("Illegal size"),
                                             _("The requested size as entered is "
                                               "not a valid number greater "
-                                              "than 0."))
+                                              "than 0."), custom_icon="error")
                     continue
             else:
                 size = logrequest.size
@@ -482,7 +484,7 @@ class VolumeGroupEditor:
 		    self.intf.messageWindow(_("Mount point in use"),
 					    _("The mount point \"%s\" is in "
 					      "use, please pick another.") %
-					    (mntpt,))
+					    (mntpt,), custom_icon="error")
 		    continue
 
 	    # check out logical volumne name
@@ -491,7 +493,7 @@ class VolumeGroupEditor:
             if not logrequest or not logrequest.getPreExisting():
                 err = sanityCheckLogicalVolumeName(lvname)
                 if err:
-                    self.intf.messageWindow(_("Illegal Logical Volume Name"),err)
+                    self.intf.messageWindow(_("Illegal Logical Volume Name"),err, custom_icon="error")
                     continue
 
 	    # is it in use?
@@ -513,7 +515,7 @@ class VolumeGroupEditor:
 		self.intf.messageWindow(_("Illegal logical volume name"),
 					_("The logical volume name \"%s\" is "
 					  "already in use. Please pick "
-					  "another.") % (lvname,))
+					  "another.") % (lvname,), custom_icon="error")
 		continue
 
 	    # create potential request
@@ -530,7 +532,7 @@ class VolumeGroupEditor:
 					  "logical volume size (%10.2f MB) "
 					  "To increase this limit you can "
 					  "increase the Physical Extent size "
-					  "for this Volume Group."))
+					  "for this Volume Group."), custom_icon="error")
 		continue
 
  	    request.fstype = fsystem
@@ -550,7 +552,7 @@ class VolumeGroupEditor:
  	    err = request.sanityCheckRequest(self.partitions)
  	    if err:
  		self.intf.messageWindow(_("Error With Request"),
- 					"%s" % (err))
+ 					"%s" % (err), custom_icon="error")
  		continue
 
 	    if (not request.format and
@@ -577,7 +579,7 @@ class VolumeGroupEditor:
 					  "configured require %g MB, but the "
 					  "volume group only has %g MB.  Please "
 					  "either make the volume group larger "
-					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
+					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB), custom_icon="error")
 		del tmplogreqs
 		continue
 
@@ -625,7 +627,7 @@ class VolumeGroupEditor:
 	if self.numAvailableLVSlots() < 1:
 	    self.intf.messageWindow(_("No free slots"),
 				    _("You cannot create more than %s logical "
-				    "volumes per volume group.") % (lvm.MAX_LV_SLOTS,))
+				    "volumes per volume group.") % (lvm.MAX_LV_SLOTS,), custom_icon="error")
 	    return
 	
         (tspace, uspace, fspace) = self.computeSpaceValues()
@@ -637,7 +639,7 @@ class VolumeGroupEditor:
 				      "To add a logical volume you will need "
 				      "to reduce the size of one or more of "
 				      "the currently existing "
-				      "logical volumes"))
+				      "logical volumes"), custom_icon="error")
 	    return
 	    
         request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
@@ -661,7 +663,7 @@ class VolumeGroupEditor:
 	rc = self.intf.messageWindow(_("Confirm Delete"),
 				_("Are you sure you want to Delete the "
 				"logical volume \"%s\"?") % (logvolname,),
-				type = "custom", custom_buttons=["gtk-cancel", _("_Delete")])
+				type = "custom", custom_buttons=["gtk-cancel", _("_Delete")], custom_icon="warning")
 	if not rc:
 	    return
 
@@ -771,14 +773,15 @@ class VolumeGroupEditor:
 					  "configured require %g MB, but the "
 					  "volume group only has %g MB.  Please "
 					  "either make the volume group larger "
-					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB))
+					  "or make the logical volume(s) smaller.") % (neededSpaceMB, availSpaceMB), custom_icon="error")
 		continue
 
 	    # check volume name
 	    volname = string.strip(self.volnameEntry.get_text())
 	    err = sanityCheckVolumeGroupName(volname)
 	    if err:
-		self.intf.messageWindow(_("Invalid Volume Group Name"), err)
+		self.intf.messageWindow(_("Invalid Volume Group Name"), err,
+					custom_icon="error")
 		continue
 
 	    if self.origvgrequest:
@@ -793,7 +796,8 @@ class VolumeGroupEditor:
 		    self.intf.messageWindow(_("Name in use"),
 					    _("The volume group name \"%s\" is "
 					      "already in use. Please pick "
-					      "another." % (volname,)))
+					      "another." % (volname,)),
+					    custom_icon="error")
 		    del tmpreq
 		    continue
 
@@ -840,7 +844,8 @@ class VolumeGroupEditor:
 				 "needed to create a LVM Volume Group.\n\n"
 				 "First create a partition or raid array "
 				 "of type \"physical volume (LVM)\" and then "
-				 "select the \"LVM\" option again."))
+				 "select the \"LVM\" option again."),
+				    custom_icon="error")
 	    self.dialog = None
             return
 

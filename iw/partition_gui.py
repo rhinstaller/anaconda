@@ -491,7 +491,6 @@ class DiskTreeModel(gtk.TreeStore):
 	try:
             val = self.get_value(iter, pyobject)
             if type(val) == type("/dev/"):
-                print val
                 if val[:5] == '/dev/':
                     return val
             return None
@@ -589,7 +588,7 @@ class PartitionWindow(InstallWindow):
         hbox.pack_start(vbox, gtk.FALSE)
 
         win.vbox.pack_start(hbox)
-#        win.set_size_request(400,300)
+        win.set_size_request(400,300)
         win.set_position(gtk.WIN_POS_CENTER)
         win.set_default_response(defaultchoice)
         win.show_all()
@@ -936,13 +935,14 @@ class PartitionWindow(InstallWindow):
             rc = 0
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
-                   _("Could not allocate requested partitions: %s.") % (msg))
+                   _("Could not allocate requested partitions: %s.") % (msg),
+				    custom_icon="error")
             rc = -1
         except PartitioningWarning, msg:
             # XXX somebody other than me should make this look better
             # XXX this doesn't handle the 'delete /boot partition spec' case
             #     (it says 'add anyway')
-            dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
+            dialog = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_WARNING,
                                        gtk.BUTTONS_NONE,
                                        _("Warning: %s.") % (msg))
             gui.addFrame(dialog)
@@ -1125,7 +1125,8 @@ class PartitionWindow(InstallWindow):
 	if not fileSystemTypeGet('physical volume (LVM)').isSupported():
 	    self.intf.messageWindow(_("Not supported"),
 				    _("LVM is NOT supported on "
-				      "this platform."), type="ok")
+				      "this platform."), type="ok",
+				    custom_icon="error")
 	    return
 
         request = VolumeGroupRequestSpec()
@@ -1138,7 +1139,8 @@ class PartitionWindow(InstallWindow):
 	if not fileSystemTypeGet('software RAID').isSupported():
 	    self.intf.messageWindow(_("Not supported"),
 				    _("Software RAID is NOT supported on "
-				      "this platform."), type="ok")
+				      "this platform."), type="ok",
+				    custom_icon="error")
 	    return
 
 	availminors = self.partitions.getAvailableRaidMinors()
@@ -1147,7 +1149,7 @@ class PartitionWindow(InstallWindow):
 				    _("A software RAID device cannot "
 				      "be created because all of the "
 				      "available minors have been used."),
-				    type="ok")
+				    type="ok", custom_icon="error")
 	    return
 	    
 	
@@ -1242,7 +1244,8 @@ class PartitionWindow(InstallWindow):
             if cloneDialog is None:
                 self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
                                         _("The drive clone editor could not "
-                                          "be created for some reason."))
+                                          "be created for some reason."),
+					custom_icon="error")
                 return
             
             while 1:
