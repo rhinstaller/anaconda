@@ -119,7 +119,7 @@ int setupRemote(struct iurlinfo * ui) {
     char *env, *d, *e;
      
     if (!(env = getenv("RPMSERVER")))
-	return 0;
+	return 1;
 
     if (!strncmp(env, "ftp://",6))
 	env += 6;

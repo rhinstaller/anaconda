@@ -1131,9 +1131,10 @@ logMessage("in mountNfsImage NFS_STAGE_IP");
 		return NULL;
 	    }
 #if defined (__s390__) || defined (__s390x__)
-	    setupRemote(&ui);
-	    host = ui.address;
-	    dir = ui.prefix;
+	    if(!setupRemote(&ui)) {
+	    	host = ui.address;
+	    	dir = ui.prefix;
+	    }
 #endif
 	    stage = NFS_STAGE_NFS;
 	    break;
