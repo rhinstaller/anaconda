@@ -36,6 +36,10 @@
 #include "lang.h"
 #include "../balkan/byteswap.h"
 
+#ifndef CDROMEJECT
+#define CDROMEJECT 0x5309
+#endif
+
 long long llseek(int fd, long long offset, int whence);
 
 /* FIXME: this is such a hack -- moduleInfoList ought to be a proper object */
@@ -78,8 +82,10 @@ static PyObject * doReadE2fsLabel(PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
+static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
+    { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
     { "e2fslabel", (PyCFunction) doReadE2fsLabel, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
@@ -1260,8 +1266,6 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
     return Py_BuildValue("i", rc); 
 }
 
-
-
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
     char *path;
     char str[100];
@@ -1299,4 +1303,18 @@ static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args) {
     }
 
     return Py_BuildValue("i", rc); 
+}
+
+static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {
+    int fd;
+
+    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
+
+    if (ioctl(fd, CDROMEJECT, 1)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }

@@ -263,19 +263,23 @@ def ext2IsDirty(device):
     os.unlink("/tmp/disk")
     return label
 
+def ejectCdrom(device):
+    makeDevInode(device, "/tmp/cdrom")
+    fd = os.open("/tmp/cdrom", os.O_RDONLY)
+    _isys.ejectcdrom(fd)
+    os.close(fd)
+    os.unlink("/tmp/cdrom")
+
 def driveIsRemovable(device):
     # assume ide if starts with 'hd', and we don't have to create
     # device beforehand since it just reads /proc/ide
     from log import log
 
     if device[:2] == "hd":
-#        log("testing IDE device %s", device)
         rc = (_isys.isIdeRemovable("/dev/"+device) == 1)
     else:
-#        log("testing SCSI device %s", device)
         makeDevInode(device, "/tmp/disk")
         rc = (_isys.isScsiRemovable("/tmp/disk") == 1)
         os.unlink("/tmp/disk")
 
-#    log("test result was %d", rc)
     return rc
