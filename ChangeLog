@@ -1,5 +1,7 @@
 2004-12-08  Jeremy Katz  <katzj@redhat.com>
 
+	* anaconda.spec: Bump version.
+
 	* partitions.py (Partitions.setFromDisk): Adding as a request
 	requires more bits, do as a delete (#142304)
 	(Partitions.getPartialLVMRequests): Check deletes now

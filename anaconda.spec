@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.5
+Version: 10.2.0.6
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Dec  8 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.6-1
+- Write out wepkey better (#140645)
+- Try to skip source isos with nfsiso (#106017)
+- Don't traceback for bad/missing / in fstab (nasrat, #141174)
+- Include pesize in generated ks.cfg (#141370)
+- Loop less on shutdown
+- Better handling of partial volume groups (#139058)
+
 * Tue Nov 30 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.5-1
 - CTCPROT fix (karsten, #133088)
 - Fix LVM partitions becoming negative sized (nasrat, #141268)
