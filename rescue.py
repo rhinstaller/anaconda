@@ -44,6 +44,10 @@ def runRescue(instPath, mountroot, id):
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
     if (not mountroot):
+        print
+        print _("When finished please exit from the shell and your "
+                "system will reboot.")
+        print
 	os.execv("/bin/sh", [ "-/bin/sh" ])
 
     # lets create some devices
@@ -60,6 +64,27 @@ def runRescue(instPath, mountroot, id):
 
     screen = SnackScreen()
     intf = RescueInterface(screen)
+
+    # prompt to see if we should try and find root filesystem and mount
+    # everything in /etc/fstab on that root
+    rc = ButtonChoiceWindow(screen, _("Rescue"),
+        _("The rescue environment will now attempt to find your Red Hat "
+          "Linux installation and mount it under the directory "
+          "/mnt/sysimage.  You can then make any changes required to your "
+          "system.  If you want to proceed with this step choose "
+          "'Continue'.\n\n"
+          "If for some reason this process fails you can choose 'Skip' "
+          "and this step will be skipped and you will go directly to a "
+          "command shell.\n\n"),
+          [_("Continue"), _("Skip")] )
+
+    if rc == string.lower(_("Skip")):
+        screen.finish()
+        print
+        print _("When finished please exit from the shell and your "
+                "system will reboot.")
+        print
+        os.execv("/bin/sh", [ "-/bin/sh" ])
 
     disks = upgrade.findExistingRoots(intf, id, instPath)
 
@@ -126,13 +151,16 @@ def runRescue(instPath, mountroot, id):
 			   _("You don't have any Linux partitions. Press "
 			     "return to get a shell. The system will reboot "
 			     "automatically when you exit from the shell."),
-			   [ _("Back") ], width = 50)
+			   [ _("OK") ], width = 50)
 
     screen.finish()
 
+    print
     if rootmounted:
-        print
         print _("Your system is mounted under the /mnt/sysimage directory.")
         print
 
+    print _("When finished please exit from the shell and your "
+                "system will reboot.")
+    print
     os.execv("/bin/sh", [ "-/bin/sh" ])
