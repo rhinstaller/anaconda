@@ -576,7 +576,7 @@ class PartitionWindow(InstallWindow):
             labelstr1 = _("The following pre-existing partitions have been "
                           "selected to be formatted, destroying all data.")
 
-            labelstr2 = _("Selected 'Yes' to continue and format these "
+            labelstr2 = _("Select 'Yes' to continue and format these "
                           "partitions, or 'No' to go back and change these "
                           "settings.")
 
