@@ -987,7 +987,10 @@ def doInstall(method, id, intf, instPath):
         os.unlink("/var/lib/rpm")
     except Exception, e:
         log("failed to unlink /var/lib/rpm: %s" %(e,))
-            
+
+    if id.grpset.hdrlist.has_key("rhgb") and id.grpset.hdrlist["rhgb"].isSelected():
+        log("rhgb installed, adding to boot loader config")
+        id.bootloader.args.append("rhgb")
 
     instLog.close ()
 
