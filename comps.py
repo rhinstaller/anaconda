@@ -12,6 +12,27 @@ class Package:
 	self.name = header[rpm.RPMTAG_NAME]
 	self.selected = 0
 
+class HeaderList:
+
+    def has_key(self, item):
+	return self.packages.has_key(item)
+
+    def __getitem__(self, item):
+	return self.packages[item]
+
+    def __init__(self, path):
+	hdlist = rpm.readHeaderList(path)
+	self.packages = {}
+	for h in hdlist:
+	    name = h[rpm.RPMTAG_NAME]
+	    if self.packages.has_key(name):
+		score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
+		score2 = rpm.archscore(self.packages[name].h[rpm.RPMTAG_ARCH])
+		if (score2 < score1):
+		    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	    else:
+		self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+
 class Component:
 
     def __len__(self):
@@ -105,7 +126,6 @@ class ComponentSet:
 		self.compsDict[comp.name] = comp
 		comp = None
 	    else:
-
 		if (l[0] == "@"):
 		    (at, l) = split(l, None, 1)
 		    comp.addInclude(self.compsDict[l])
@@ -127,14 +147,5 @@ class ComponentSet:
 
     def __init__(self, arch, file, hdlist):
 	self.list = []
-	self.packages = {}
-	for h in hdlist:
-	    name = h[rpm.RPMTAG_NAME]
-	    if self.packages.has_key(name):
-		score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
-		score2 = rpm.archscore(self.packages[name].h[rpm.RPMTAG_ARCH])
-		if (score2 < score1):
-		    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
-	    else:
-		self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	self.packages = hdlist
 	self.readCompsFile(arch, file, self.packages)
