@@ -25,7 +25,8 @@ class SiloAppendWindow:
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
 
-	grid = GridForm(screenHelp, _("SILO Configuration"), 1, 3)
+	grid = GridFormHelp(screenHelp, _("SILO Configuration"), 
+			    "silokernelopts", 1, 3)
 	grid.add(t, 0, 0)
 	grid.add(entry, 0, 1, padding = (0, 0, 0, 1))
 	grid.add(buttons, 0, 2, growx = 1)
