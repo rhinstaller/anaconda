@@ -15,3 +15,5 @@ i386:
 alpha:
 	./updfonts alpha
 
+sparc:
+	./updfonts sparc
