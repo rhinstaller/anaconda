@@ -73,7 +73,7 @@ all: dirs $(BINS) loader.tr loader-kon.tr
 loader.tr: $(TR) ../lang-table
 	(cd tr; ls $(TRFILES) | cpio --quiet -Hcrc -o | gzip -9) > $@
 
-loader-kon.tr: tr/ja.tr ../lang-table
+kon-loader.tr: tr/ja.tr ../lang-table
 	(cd tr; echo ja.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po: *.c
