@@ -34,6 +34,10 @@ rpm -Uvh $RPMS -r `pwd`/$DEST --relocate /bin=/usr/bin \
 
 rm -rf $DEST/bin $DEST/sbin $DEST/boot $DEST/home $DEST/root $DEST/tmp
 
+# Xserver needs a place to put the compiled xkb maps.
+rm -rf $DEST/usr/X11R6/lib/X11/xkb/compiled
+ln -s /tmp $DEST/usr/X11R6/lib/X11/xkb/compiled
+
 make install
 
 chroot $DEST ldconfig -v
