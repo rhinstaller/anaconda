@@ -1027,6 +1027,7 @@ class ToDo:
 	self.instClass.skipPartitioning = 0
 	self.instClass.clearPartText = None
 	self.instClass.removeFromSkipList("partition")
+	self.instClass.removeFromSkipList("format")
 
     # List of (accountName, fullName, password) tupes
     def setUserList(todo, users):
