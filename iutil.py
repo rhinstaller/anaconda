@@ -195,7 +195,7 @@ def getDirSize(dir):
         dsize = 0
         for f in os.listdir(dir):
 	    curpath = '%s/%s' % (dir, f)
-	    sinfo = os.stat(curpath)
+	    sinfo = os.lstat(curpath)
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
                 dsize += getSubdirSize(curpath)
             elif stat.S_ISREG(sinfo[stat.ST_MODE]):
