@@ -54,6 +54,9 @@ int devMakeInode(char * devName, char * path) {
 	   minor += 10 + (devName[4] - '0');
 	else if (devName[3])
 	   minor += (devName[3] - '0');
+    } else if (devName[0] == 'm' && devName[1] == 'd') {
+	major = 9;
+	minor = atoi(devName + 2);
     } else if (devName[0] == 'h' && devName[1] == 'd') {
 	type = S_IFBLK;
 	if (devName[2] == 'a')

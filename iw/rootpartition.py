@@ -46,6 +46,15 @@ class PartitionWindow (InstallWindow):
         for (partition, mount, fsystem, size) in fstab:
             self.todo.addMount(partition, mount, fsystem)
 
+        (drives, raid) = self.todo.ddruid.partitionList()
+	print "drives", drives
+	print "raid", raid
+
+	for (mount, device, other) in raid:
+	    self.todo.addMount("/dev/" + device, mount, "ext2")
+
+	print "self.todo.mounts", self.todo.mounts
+
         return None
 
     def enableCallback (self, value):

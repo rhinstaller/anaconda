@@ -390,7 +390,7 @@ class ToDo:
 	self.liloImages = images
 
     def getLiloImages(self):
-	drives = self.ddruid.partitionList()
+	(drives, raid) = self.ddruid.partitionList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
@@ -403,7 +403,7 @@ class ToDo:
 	    oldImages[dev] = self.liloImages[dev]
 
 	self.liloImages = {}
-	for (dev, type) in drives:
+	for (dev, devName, type) in drives:
 	    # ext2 partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
@@ -441,7 +441,35 @@ class ToDo:
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
 	if (not self.setupFilesystems): return 
+
+	# let's make the RAID devices first -- the fstab will then proceed
+	# naturally
+        (devices, raid) = self.ddruid.partitionList()
+	if raid:
+	    rt = open("/tmp/raidtab", "w")
+	    for (mntpoint, device, makeup) in raid:
+		rt.write("raiddev		    /dev/%s\n" % (device,))
+		rt.write("raid-level		    1\n")
+		rt.write("nr-raid-disks		    %d\n" % (len(makeup),))
+		rt.write("chunk-size		    64k\n" % (len(makeup),))
+		rt.write("persistent-superblock	    1\n");
+		rt.write("#nr-spare-disks	    0\n")
+		i = 0
+		for subDev in makeup:
+		    rt.write("    device	    /dev/%s\n" % (subDev,))
+		    rt.write("    raid-disk     %d\n" % (i,))
+		    i = i + 1
+
+	    rt.write("\n")
+	    rt.close()
+
+	    for (mntpoint, device, makeup) in raid:
+                iutil.execWithRedirect ("/usr/sbin/mkraid",
+			[ 'mkraid', '/dev/' + device ])
         
+	    iutil.execWithRedirect ("/usr/sbin/raidstart",
+		    [ 'raidstart', '-a' ])
+
         keys = self.mounts.keys ()
 	keys.sort()
 	for mntpoint in keys:
