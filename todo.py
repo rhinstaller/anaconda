@@ -1171,6 +1171,27 @@ class ToDo:
         self.createAccounts ()
         self.writeTimezone()
 
+    def sortPackages(self, first, second):
+	one = 0
+	two = 0
+
+        if first[1000002] != None:
+	    one = first[1000002]
+
+        if second[1000002] != None:
+	    two = second[1000002]
+
+	if one < two:
+	    return -1
+	elif one > two:
+	    return 1
+	elif first['name'] < second['name']:
+	    return -1
+	elif first['name'] > second['name']:
+	    return 1
+
+	return 0
+
     def doInstall(self):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
@@ -1262,14 +1283,24 @@ class ToDo:
         else:
             how = "i"
 
+	l = []
+
+	for p in self.hdList.selected():
+	    l.append(p)
+	l.sort(self.sortPackages)
+
         # XXX HACK HACK for Japanese.
         #     Remove me when the japanese locales are in glibc package
-        ts.add(self.hdList['locale-ja'].h, self.hdList['locale-ja'].h, how)
-	for p in self.hdList.selected():
-            if p.name != 'locale-ja':
+	localePackage = self.hdList['locale-ja'].h
+	l = [ localePackage ] + l
+	total = total + 1
+	totalSize = totalSize + localePackage[rpm.RPMTAG_SIZE]
+
+	for p in l:
+            if p['name'] != 'locale-ja':
                 ts.add(p.h, p.h, how)
 	    total = total + 1
-	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
+	    totalSize = totalSize + p['size']
 
 	ts.order()
 
