@@ -648,7 +648,7 @@ def doInstall(method, id, intf, instPath):
 
     i = 0
     for p in l:
-	ts.add(p.h, p.h, how)
+	ts.addInstall(p.h, p.h, how)
 	total = total + 1
 	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
         i = i + 1

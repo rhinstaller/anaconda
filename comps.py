@@ -868,14 +868,14 @@ class ComponentSet:
 
             for p in self.packages.values():
                 if p.selected:
-                    ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
+                    ts.addInstall(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
                 else:
                     if extras.has_key(p.h):
-                        ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
+                        ts.addInstall(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), how)
                     else:
-                        ts.add(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
+                        ts.addInstall(p.h, (p.h, p.h[rpm.RPMTAG_NAME]), "a")
 
-	    deps = ts.depcheck()
+	    deps = ts.check()
 	    checkDeps = 0
 
 	    if not deps:
