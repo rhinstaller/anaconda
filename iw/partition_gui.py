@@ -776,7 +776,6 @@ class PartitionWindow(InstallWindow):
             
         row = row + 1
 
-
         # format/migrate options for pre-existing partitions
         if origrequest.type == REQUEST_PREEXIST and origrequest.fstype:
 
