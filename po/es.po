@@ -8,6 +8,10 @@
 # translation of es.po to
 # translation of es.po to
 # translation of es.po to
+# translation of es.po to
+# translation of es.po to
+# translation of es.po to
+# translation of es.po to
 # translation of es.po to Español
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
@@ -23,7 +27,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-27 12:13+1000\n"
+"PO-Revision-Date: 2004-09-28 13:31+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1701,7 +1705,7 @@ msgstr "Mostrar _Ayuda"
 # ../gui.py:611
 #: ../gui.py:1222
 msgid "Hide _Help"
-msgstr "Esconder _Ayuda"
+msgstr "_Esconder Ayuda"
 
 # ../text.py:265 ../text.py:266
 # ../text.py:265 ../text.py:266
@@ -3009,8 +3013,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Ha asignado menos espacio swap (%dM) del que RAM tiene a su disposición (%"
-"dM) en su sistema.  Esto podría afectar negativamente al rendimiento."
+"Ha asignado menos espacio swap (%dM) de la RAM  que tiene a su disposición (%"
+"dM) en el sistema.  Esto podría afectar negativamente al rendimiento."
 
 # ../partitioning.py:1586
 # ../partitioning.py:1606
@@ -4339,7 +4343,7 @@ msgstr "No se instalará ningún gestor de arranque."
 # ../bootloader.py:710
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "_Cambiar el gestor de arranque"
+msgstr "_Cambiar gestor de arranque"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
@@ -4813,8 +4817,8 @@ msgid ""
 msgstr ""
 "Si este sistema está conectado directamente a Internet o está en una red "
 "pública amplia, es recomendado que sea configurado un cortafuegos para "
-"ayudar a prevenir accesos no autorizados. Aunque has seleccionado no "
-"configurar un cortafuego o firewall. Escoge \"Proceder\" para continuar sin "
+"ayudar a prevenir accesos no autorizados. Sin embargo, usted ha seleccionado no "
+"configurar un cortafuego o firewall. Por favor seleccione \"Proceder\" para continuar sin "
 "un cortafuegos."
 
 # ../loader/net.c:373
@@ -5731,7 +5735,7 @@ msgstr "_de forma automática a través de DHCP"
 
 #: ../iw/network_gui.py:539
 msgid "_manually"
-msgstr "_de forma manual"
+msgstr "_manualmente"
 
 #: ../iw/network_gui.py:545
 msgid "(ex. \"host.domain.com\")"
@@ -5766,7 +5770,7 @@ msgstr ""
 "operativos. Le permitirá seleccionar un sistema operativo de la lista a "
 "arrancar. Para añadir sistemas operativos adicionales, que no han sido "
 "detectados automáticamente, pulse en 'Añadir'. Para cambiar el sistema "
-"operativo que ha arrancado por defecto, seleccione 'Predeterminado' para el "
+"operativo a iniciar de forma predeterminada, seleccione 'Por defecto' en el "
 "sistema operativo que desee."
 
 # ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
