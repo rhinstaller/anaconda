@@ -344,6 +344,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     raise PartitioningError, "Impossible partition to create"
 
             fsType = request.fstype.getPartedFileSystemType()
+#            print "creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec)
             newp = disk.partition_new (partType, fsType, startSec, endSec)
             constraint = disk.constraint_any ()
 
@@ -509,15 +510,23 @@ def growParts(diskset, requests, newParts):
 #                print "percent, growby, maxsect, free", percent, growby, maxsect,freeSize[drive], startSize, lastFreeSize
 #                print "max is ",maxsect
                 imposedMax = 0
-                if request.maxSize: 
-                    maxFSSize = request.maxSize*1024.0*1024.0/sector_size
-                    if maxsect > maxFSSize:
-                        maxsect = long(maxFSSize)
+                if request.maxSize:
+                    # round down a cylinder, see comment below
+                    tmpint = request.maxSize*1024.0*1024.0/sector_size
+                    tmpint = long(tmpint / cylsectors)
+                    maxUserSize = tmpint * cylsectors
+                    if maxsect > maxUserSize:
+                        maxsect = long(maxUserSize)
                         imposedMax = 1
 
-                maxuserSize = request.fstype.getMaxSize()*1024.0*1024.0/sector_size
-                if maxsect > maxuserSize:
-                    maxsect = long(maxuserSize)
+                # round max fs limit down a cylinder, helps when growing
+                # so we don't end up with a free cylinder at end if
+                # maxlimit fell between cylinder boundaries
+                tmpint = request.fstype.getMaxSize()*1024.0*1024.0/sector_size
+                tmpint = long(tmpint / cylsectors)
+                maxFSSize = tmpint * cylsectors
+                if maxsect > maxFSSize:
+                    maxsect = long(maxFSSize)
                     imposedMax = 1
 
 #                print "freesize, max = ",freeSize[drive],maxsect
@@ -540,6 +549,9 @@ def growParts(diskset, requests, newParts):
 
                     # try adding
                     (ret, msg) = processPartitioning(diskset, newRequest, newParts)
+#                    if ret == PARTITION_FAIL:
+#                        print "!!!!!!!!!!! processPartitioning failed - %s" % msg
+                        
                     if ret == PARTITION_SUCCESS:
                         min = cur
                     else:
