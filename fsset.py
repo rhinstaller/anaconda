@@ -390,22 +390,6 @@ class ext3FileSystem(extFileSystem):
         self.extraFormatArgs = [ "-j" ]
         self.partedFileSystemType = parted.file_system_type_get("ext3")
 
-    def mount(self, device, mountpoint, readOnly=0):
-        if not self.isMountable():
-            return
-        iutil.mkdirChain(mountpoint)
-        # tricky - mount the filesystem as ext2, it makes the install
-        # faster
-        try:
-            isys.mount(device, mountpoint, fstype = "ext2", 
-                       readOnly = readOnly)
-        except OSError:
-            isys.mount(device, mountpoint, fstype = "ext3", 
-                       readOnly = readOnly)
-        except SystemError:
-            isys.mount(device, mountpoint, fstype = "ext3", 
-                       readOnly = readOnly)
-
     def formatDevice(self, entry, progress, chroot='/'):
         extFileSystem.formatDevice(self, entry, progress, chroot)
         extFileSystem.removeForcedFsck(self, entry, progress, chroot)
