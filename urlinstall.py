@@ -115,8 +115,8 @@ class UrlInstallMethod(InstallMethod):
 
         file = tmppath + "/" + os.path.basename(fullPath)
 
-        connected = 0
-        while not connected:
+        tries = 0
+        while tries < 5:
             try:
                 urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
@@ -124,8 +124,11 @@ class UrlInstallMethod(InstallMethod):
 			errnum, fullPath, str(msg))
                 time.sleep(5)
             else:
-                connected = 1
+                break
+            tries = tries + 1
 
+        if tries >= 5:
+            raise FileCopyException
 	return file
 
     def unlinkFilename(self, fullName):
