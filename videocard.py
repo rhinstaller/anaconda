@@ -317,11 +317,12 @@ class VideoCardInfo:
         for line in lines:
             line = string.strip (line)
             if not line and name:
-		if card.has_key("DRIVER") and card.has_key("UNSUPPORTED"):
-		    print "WARNING: CardsDB entry for %s says XFree86 4.x is unsupported!" % name		    
-		
+#		if card.has_key("DRIVER") and card.has_key("UNSUPPORTED"):
+#		    print "WARNING: CardsDB entry for %s says XFree86 4.x is unsupported!" % name		    
+	    
 		if card.has_key("SERVER") and not card.has_key("DRIVER"):
-		    print "WARNING: CardsDB entry for %s is XFree86 3.x only, dropping" % name
+#		    print "WARNING: CardsDB entry for %s is XFree86 3.x only, dropping" % name
+                    pass
 		else:
 		    Video_cardslist[name] = card
                 card = {}
