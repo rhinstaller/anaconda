@@ -13,6 +13,7 @@ class XF86Config:
     def __init__ (self):
         self.server = None
         self.vidCards = []
+        self.cardMan = None
         self.vidRam = None
         self.monEisa = None
         self.monName = None
