@@ -168,9 +168,9 @@ class InstallPathWindow:
 	    if (choice == 0):
 		todo.setClass(installclass.GNOMEWorkstation())
 	    elif (choice == 1):
-		etodo.setClass(installclass.KDEWorkstation())
+		todo.setClass(installclass.KDEWorkstation())
 	    elif (choice == 2):
-		etodo.setClass(installclass.Server())
+		todo.setClass(installclass.Server())
         return INSTALL_OK
 
 class UpgradeExamineWindow:
