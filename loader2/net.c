@@ -115,7 +115,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
-static void waitForLink(char * dev) {
+static int waitForLink(char * dev) {
     int tries = 0;
 
     /* try to wait for a valid link -- if the status is unknown or
@@ -129,7 +129,9 @@ static void waitForLink(char * dev) {
         tries++;
     }
     logMessage("%d seconds.", tries);
-    /* JKFIXME: arguably, we shouldn't let you use nics without link */
+    if (tries < 5)
+        return 0;
+    return 1;
 }
 
 void initLoopback(void) {
@@ -746,6 +748,22 @@ int chooseNetworkInterface(struct knownDevices * kd,
     if (deviceNums == 1) {
         loaderData->netDev = devices[0];
         return LOADER_NOOP;
+    }
+
+    if ((loaderData->netDev && (loaderData->netDev_set) == 1) &&
+        !strcmp(loaderData->netDev, "link")) {
+        logMessage("looking for first netDev with link");
+        for (rc = 0; rc < 5; rc++) {
+            for (i = 0; i < deviceNums; i++) {
+                if (get_link_status(devices[i]) == 1) {
+                    loaderData->netDev = devices[i];
+                    logMessage("%s has link, using it", devices[i]);
+                    return LOADER_NOOP;
+                }
+            }
+            sleep(1);
+        }
+        logMessage("wanted netdev with link, but none present.  prompting");
     }
 
     startNewt(flags);
