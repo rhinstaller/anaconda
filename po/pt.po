@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2004-10-27 11:39+0100\n"
+"PO-Revision-Date: 2005-01-17 09:35+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -847,7 +847,7 @@ msgstr ""
 "Carregue em <Enter> para reiniciar o sistema."
 
 #: ../fsset.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -858,8 +858,7 @@ msgid ""
 msgstr ""
 "Erro ao inicializar o dispositivo de paginação %s: %s\n"
 "\n"
-"Provavelmente isto significa que a partição de paginação  não foi "
-"inicializada.\n"
+"O ficheiro /etc/fstab na partição a actualizar não referência um dispositivo válido de paginação.\n"
 "\n"
 "Carregue em OK para reiniciar o sistema."
 
@@ -977,7 +976,6 @@ msgstr ""
 "Carregue em OK para reiniciar o sistema."
 
 #: ../fsset.py:1575
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -985,9 +983,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Erro ao montar o dispositivo %s como %s: %s\n"
+"Erro procurar a entrada /.\n"
 "\n"
-"Provavelmente isto significa que a partição não foi formatada.\n"
+"Provavelmente isto significa que o seu 'fstab' está incorrecto.\n"
 "\n"
 "Carregue em OK para reiniciar o sistema."
 
@@ -1375,7 +1373,7 @@ msgstr ""
 msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
-msgstr ""
+msgstr "O ficheiro 'comps' na sua árvore de instalação não contém certos grupos críticos.  Por favor verifique que a sua árvore de instalação foi gerada correctamente."
 
 #: ../packages.py:197 ../packages.py:629
 #, python-format
@@ -1419,15 +1417,14 @@ msgstr ""
 "Carregue em <return> para tentar novamente."
 
 #: ../packages.py:441
-#, fuzzy
 msgid "Re_boot"
-msgstr "Reiniciar"
+msgstr "Re_iniciar"
 
 #: ../packages.py:445
 msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
-msgstr ""
+msgstr "Se reiniciar, o seu sistema fica num estado inconsistente e provavelmente necessitarára de ser reinstalado.  Tem a certeza que deseja continuar?"
 
 #: ../packages.py:459
 msgid "Installing..."
@@ -2971,18 +2968,13 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Configuração Avançada do Gestor de Arranque"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:142
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Se forçar a utilização do modo LBA32 no seu gestor de arranque e a BIOS do "
-"seu computador não o suportar, pode não conseguir iniciar o sistema "
-"operativo. É bastante recomendada a criação de uma disquete de arranque "
-"quando lhe for dada a oportunidade, mais adiante neste processo de "
-"instalação.\n"
+"Se forçar a utilização do modo LBA32 no seu gestor de arranque e a BIOS do seu computador não o suportar pode não conseguir iniciar o sistema operativo.\n"
 "\n"
 "Quer continuar e forçar o modo LBA32?"
 
@@ -3017,7 +3009,6 @@ msgid "Change Boot Loader"
 msgstr "Mudar o Gestor de Arranque"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3026,12 +3017,9 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
-"Escolheu não instalar um gestor de arranque. É bastante recomendado que "
-"instale um gestor de arranque, excepto em casos de utilização muito "
-"avançados. Um gestor de arranque é quase sempre necessário para conseguir "
-"arrancar o seu sistema Linux directamente do disco rígido.\n"
+"Escolheu não instalar um gestor de arranque. É bastante recomendado que instale um gestor de arranque, excepto em casos de utilização muito avançados.  Um gestor de arranque é quase sempre necessário para conseguir arrancar o seu sistema Linux directamente do disco rígido.\n"
 "\n"
-"Tem a certeza que não quer instalar o gestor de arranque?"
+"Deseja continuar e não instalar o gestor de arranque?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -4019,9 +4007,8 @@ msgid "Encryption _Key"
 msgstr "_Chave de Cifragem"
 
 #: ../iw/network_gui.py:252
-#, fuzzy
 msgid "Hardware address:"
-msgstr "Endereço IP:"
+msgstr "Endereço de hardware:"
 
 #: ../iw/network_gui.py:291
 #, python-format
@@ -5811,7 +5798,7 @@ msgstr "Descrição: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Endereço de Hardware: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7296,9 +7283,9 @@ msgid "Welcome to %s"
 msgstr "Bem-vindo ao %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Bem-vindo ao %s"
+msgstr "Bem-vindo ao %s - Modo de Recuperação"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:138
 msgid ""
@@ -7832,14 +7819,12 @@ msgid "Account name:"
 msgstr "Nome da conta:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "Configuração do FTP"
+msgstr "Configuração Avançada do FTP"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "Configuração do HTTP"
+msgstr "Configuração Avançada do HTTP"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
