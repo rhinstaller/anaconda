@@ -43,14 +43,9 @@ class KeyboardWindow:
         kbd.set (keyboards[choice])
 	kbd.beenset = 1
 
-	if flags.reconfig:
-	    iutil.execWithRedirect ("/bin/loadkeys",
-				    ["/bin/loadkeys", keyboards[choice]],
-				    stderr = "/dev/null")
-
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
-		log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+	    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
 

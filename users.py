@@ -246,7 +246,7 @@ class Authentication:
 	args = args + self.getArgList()
 
         try:
-            if flags.setupFilesystems or flags.reconfig:
+            if flags.setupFilesystems:
                 iutil.execWithRedirect(args[0], args,
                                        stdout = None, stderr = None,
                                        searchPath = 1,

@@ -35,22 +35,3 @@ class WelcomeWindow:
 
         return INSTALL_OK
 
-class ReconfigWelcomeWindow:
-    def __call__(self, screen):
-        rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
-                                _("Welcome to the Red Hat Linux!\n\n"
-                                  "You have entered reconfiguration mode, "
-                                  "which will allow you to configure "
-                                  "site-specific options of your computer."
-                                  "\n\n"
-                                  "To exit without changing your setup "
-                                  "select the ""Cancel"" button below."),
-                                buttons = [TEXT_OK_BUTTON, _("Cancel")], width = 50,
-				help = "reconfigwelcome")
-
-	if rc == string.lower(_("Cancel")):
-            screen.finish()
-	    os._exit(0)
-
-        return INSTALL_OK
-

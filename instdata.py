@@ -48,7 +48,7 @@ class InstallData:
 	#	- The install language
 	#	- The keyboard
 
-	self.langSupport = language.Language(flags.reconfig)
+	self.langSupport = language.Language()
 	self.instClass = None
 	self.network = network.Network()
 	self.firewall = firewall.Firewall()

@@ -31,7 +31,6 @@ class Flags:
 	self.__dict__['flags']['test'] = 0
 	self.__dict__['flags']['expert'] = 0
 	self.__dict__['flags']['serial'] = 0
-        self.__dict__['flags']['reconfig'] = 0
 	self.__dict__['flags']['setupFilesystems'] = 1
 	self.__dict__['flags']['autostep'] = 0
 

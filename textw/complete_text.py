@@ -55,18 +55,3 @@ class FinishedWindow:
         return INSTALL_OK
 
 
-class ReconfigFinishedWindow:
-    def __call__ (self, screen):
-        screen.pushHelpLine (string.center(_("<Enter> to exit"),
-                                           screen.width))
-
-        rc = ButtonChoiceWindow (screen, _("Complete"), 
-                _("Congratulations, configuration is complete.\n\n"
-                  "For information on errata (updates and bug fixes), visit "
-                  "http://www.redhat.com/errata.\n\n"
-                  "Information on using your "
-                  "system is available in the Red Hat Linux manuals at "
-                  "http://www.redhat.com/support/manuals."),
-                   [ _("OK") ], help = "reconfigfinished")
-
-        return INSTALL_OK

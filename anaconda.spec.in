@@ -48,14 +48,6 @@ strip $RPM_BUILD_ROOT/usr/lib/anaconda/*.so
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post
-chkconfig --add reconfig
-
-%preun
-if [ $1 = 0 ]; then
-	chkconfig --del reconfig
-fi
-
 %files
 %defattr(-,root,root)
 %doc COPYING
@@ -64,8 +56,6 @@ fi
 /usr/share/anaconda
 /usr/share/locale/*/*/*
 /usr/lib/anaconda
-
-%config /etc/rc.d/init.d/reconfig
 
 %files runtime
 %defattr(-,root,root)
@@ -76,6 +66,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Thu Feb 07 2002 Michael Fulbright <msf@redhat.com>
+- goodbye reconfig
 
 * Thu Jan 31 2002 Jeremy Katz <katzj@redhat.com>
 - update the BuildRequires a bit

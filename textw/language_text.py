@@ -88,7 +88,7 @@ class LanguageWindow:
 		    except SystemError, (errno, msg):
 			log("Could not load font %s: %s" % (font, msg))
 	    elif os.access("/bin/consolechars", os.X_OK):
-		# test and reconfig
+		# test
 		iutil.execWithRedirect ("/bin/consolechars", 
 			["/bin/consolechars", "-d", "-m", "iso01"])
 
@@ -99,12 +99,7 @@ class LanguageWindow:
 class LanguageSupportWindow:
     def __call__(self, screen, language):
 
-        # in reconfig skip
-        if flags.reconfig:
-            return INSTALL_NOOP
-        
 	# should already be sorted
-
         ct = CheckboxTree(height = 8, scroll = 1)
 
         for lang in language.getAllSupported():

@@ -35,7 +35,6 @@ stepToClasses = {
     "keyboard" : ("keyboard_text", "KeyboardWindow"),
     "mouse" : ("mouse_text", ("MouseWindow", "MouseDeviceWindow")),
     "welcome" : ("welcome_text", "WelcomeWindow"),
-    "reconfigwelcome" : ("welcome_text", "ReconfigWelcomeWindow"),
     "installtype" : ("installpath_text", "InstallPathWindow"),
     "autopartition" : ("partition_text", "AutoPartitionWindow"),
     "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow"),
@@ -72,10 +71,7 @@ stepToClasses = {
     "bootdisk" : ("bootdisk_text", ("BootDiskWindow",
                                     "MakeBootDiskWindow")),
     "complete" : ("complete_text", "FinishedWindow"),
-    "reconfigcomplete" : ("complete_text", "ReconfigFinishedWindow"),
 }
-
-stepToClasses["reconfigkeyboard"] = stepToClasses["keyboard"]
 
 if iutil.getArch() == 'sparc':
     stepToClasses["bootloader"] = ("silo_text", ("SiloAppendWindow",

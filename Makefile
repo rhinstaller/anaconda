@@ -66,7 +66,6 @@ install:
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)
 
-	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 644 anaconda.conf $(DESTDIR)/$(ANACONDADATADIR)

@@ -168,7 +168,7 @@ class InstallTimeLanguage:
 # which language to set as the default.
 class Language (SimpleConfigFile):
 
-    def __init__ (self, useInstalledLangs):
+    def __init__ (self):
         self.info = {}
         self.info["SUPPORTED"] = None
 	self.supported = []
@@ -181,27 +181,6 @@ class Language (SimpleConfigFile):
         langInfoByName = {}
         langFilter = {}
         allInstalledFlag = 0
-
-        if useInstalledLangs:
-            # load from /etc/sysconfig/i18n
-            supported = None
-            if os.access("/etc/sysconfig/i18n", os.R_OK):
-                f = open("/etc/sysconfig/i18n")
-                lines = f.readlines()
-                f.close()
-                for line in lines:
-                    if line[0:9] == "SUPPORTED":
-                        tmpstr = line[11:]
-                        supported = tmpstr[:string.find(tmpstr,'\"')]
-                        break
-
-            # if no info on current system, with RH 7.1 this means ALL
-            # languages were installed
-            if not supported:
-                allInstalledFlag = 1
-            else:
-                for lang in string.split(supported, ":"):
-                    langFilter[lang] = 1
 
         langsInstalled = []
         if os.access("/usr/share/anaconda/locale-list", os.R_OK):
@@ -224,10 +203,6 @@ class Language (SimpleConfigFile):
         self.langInfoByName = langInfoByName
         self.allSupportedLangs = allSupportedLangs
 
-        # set languages which were selected at install time for reconfig mode
-        if useInstalledLangs:
-            self.setSupported(langsInstalled)
-                                             
     def getAllSupported(self):
 	return self.allSupportedLangs
 

@@ -132,11 +132,8 @@ class LanguageSupportWindow (InstallWindow):
         sep = gtk.HSeparator ()
         vbox.pack_start (sep, gtk.FALSE, 15)
 
-        if flags.reconfig:
-            label = gtk.Label (_("Currently installed languages:"))
-        else:
-            label = gtk.Label (_("Choose additional languages you would "
-                                "like to use on this system:"))
+	label = gtk.Label (_("Choose additional languages you would "
+			     "like to use on this system:"))
 
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (gtk.TRUE)
@@ -205,10 +202,5 @@ class LanguageSupportWindow (InstallWindow):
         alignment = gtk.Alignment (0.0, 0.0)
         button = gtk.Button (_("Select as default"))
         alignment.add (button)
-
-        # in reconfig mode make some widgets unchangable
-        if flags.reconfig:
-            self.language.set_sensitive(gtk.FALSE)
-            all_button.set_sensitive(gtk.FALSE)
 
         return vbox

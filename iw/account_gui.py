@@ -463,12 +463,6 @@ class AccountWindow (InstallWindow):
             # XXX hack
             self.users = self.users + 1
 
-        if flags.reconfig:
-            label.set_sensitive(gtk.FALSE)
-            self.add.set_sensitive(gtk.FALSE)
-            self.edit.set_sensitive(gtk.FALSE)
-            self.delete.set_sensitive(gtk.FALSE)
-
 	box.set_border_width (5)
 
         return box

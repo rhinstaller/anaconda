@@ -86,13 +86,6 @@ class UsersWindow:
         pass2 = Entry (10, user["password"], password = 1)
         fullname = Entry (20, user["name"], scroll = 1)
 
-        if flags.reconfig:
-            flag = FLAGS_SET
-            username.setFlags(FLAG_DISABLED, flag)
-            pass1.setFlags(FLAG_DISABLED, flag)
-            pass2.setFlags(FLAG_DISABLED, flag)
-            fullname.setFlags(FLAG_DISABLED, flag)
-
 	if edit:
 	    title = _("Edit User")
 	    helptag = "edituser"

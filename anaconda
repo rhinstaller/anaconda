@@ -88,7 +88,7 @@ else:
 
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
-          [ 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
+          [ 'text', 'xmode', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'module=', 'class=',
@@ -125,7 +125,7 @@ overhead = 0			# kilobytes of memory used already
 runres = '800x600'		# resolution to run the GUI install in
 nofbmode = 0			# don't use framebuffer X, no matter what
 instClass = None		# the install class to use
-progmode = 'install' 		# 'reconfig', 'rescue', or 'install'
+progmode = 'install' 		# 'rescue', or 'install'
 method = None			# URL representation of install method
 logFile = None			# may be a file object or a file name
 
@@ -189,13 +189,6 @@ for n in args:
         rescue_nomount = 1
     elif (str == '--overhead'):
 	overhead = int(arg)
-    elif (str == '-R' or str == '--reconfig'):
-        progmode = 'reconfig'
-	rootPath = '/'
-	logFile = "/var/log/reconfig.log"
-	flags.setupFilesystems = 0
-        flags.reconfig = 1
-	customClass = 'reconfig'
     elif (str == '--rescue'):
         progmode = 'rescue'
     elif (str == "--autostep"):
@@ -221,7 +214,7 @@ for n in args:
         logFile = "/tmp/anaconda-s390.log"
 
 #
-# must specify install, rescue or reconfig mode
+# must specify install, rescue mode
 #
 
 if (progmode == 'rescue'):
@@ -240,8 +233,6 @@ if (progmode == 'rescue'):
 
     # shouldn't get back here
     sys.exit(1)
-elif (progmode == 'reconfig'):
-    pass
 else:
     if (not method):
 	sys.stderr.write('no install method specified\n')
@@ -403,14 +394,6 @@ if 1:
     else:
 	sys.stdout.write(_("Skipping mouse probe.\n"))
 
-# determine which mode reconfig should use
-if (progmode == 'reconfig'):
-    if (iutil.getDefaultRunlevel() == '5' and
-        os.access("/etc/X11/XF86Config", os.R_OK)):
-        display_mode = 'g'
-    else:
-        display_mode = 't'
-
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
@@ -474,17 +457,6 @@ if display_mode == 'g':
         else:
             card = videohw.primaryCard()
         xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
-
-elif progmode != 'reconfig':
-    import xf86config
-
-    # only probe X related stuff if we're doing an install
-    if iutil.getArch() == "s390":
-        # XXX why doesn't videohw.primaryCard() dtrt on s390?
-        card = videocard.VideoCard()
-    else:
-        card = videohw.primaryCard()
-    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
 
 import configFileData
 configFile = configFileData.configFileData()

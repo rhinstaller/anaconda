@@ -7,11 +7,9 @@ text.py:
 	UpgradeExamineWindow	"multipleroot"
 	CustomizeUpgradeWindow	"custupgrade"
 	WelcomeWindow		"welcome"
-	ReconfigWelcomeWindow	"reconfigwelcome"
 	XconfigWindow		"xprobe" and "videocard" and "xserver"
 	BeginInstallWindow	"begininstall" and "beginupgrade"
 	FinishedWindow		"finished"
-	ReconfigFinishedWindow	"reconfigfinished"
 
 textw/bootdisk_text.py
 	BootDiskWindow		"bootdiskquery"
