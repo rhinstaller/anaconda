@@ -5,7 +5,6 @@ from gtk import _root_window
 from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
-import systools_pixmaps
 
 im = None
 splashwindow = None
@@ -705,32 +704,6 @@ class InstallControlWindow:
 	self.hbox.pack_start (self.buttonBox)
 
         vbox.pack_end (self.hbox, FALSE)
-
-
-
-        self.hbox2 = GtkHBox()
-        self.iconList = GnomeIconList (90)
-        self.iconList.set_selection_mode (SELECTION_MULTIPLE)
-
-        style = self.iconList.get_style().copy()
-#        print style
-        style.bg[STATE_NORMAL] = style.black
-#        print style
-        self.iconList.set_style(style)
-
-#        print self.iconList.get_color(None)
-
-        networkIcon = GdkImlib.create_image_from_xpm (systools_pixmaps.NETWORK_XPM)
-        self.iconList.append_imlib (networkIcon, "Network")
-
-#        self.hbox2.pack_start(self.iconList)
-#        self.iconList.set_usize(640, 10)
-
-#        vbox.pack_end (self.hbox2, TRUE, TRUE, 0)
-
-
-
-
 
         self.html = GtkXmHTML()
         self.html.set_allow_body_colors(TRUE)
