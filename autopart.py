@@ -755,6 +755,23 @@ def doClearPartAction(partitions, diskset):
                 delete = DeleteSpec(drive, part.geom.start, part.geom.end)
                 partitions.addDelete(delete)
 
+            if (iutil.getArch() == "ia64") and (linuxOnly == 1):
+                if not part.is_flag_available(parted.PARTITION_BOOT):
+                    continue
+                if part.fs_type and part.fs_type.name == "FAT":
+                    if part.get_flag(parted.PARTITION_BOOT):
+                        req = partitions.getRequestByDeviceName(get_partition_name(part))
+                        req.mountpoint = "/boot/efi"
+                        req.format = 0
+
+                        request = None
+                        for req in partitions.autoPartitionRequests:
+                            if req.mountpoint == "/boot/efi":
+                                request = req
+                                break
+                        if request:
+                            partitions.autoPartitionRequests.remove(request)
+
             part = disk.next_partition(part)
 
 
