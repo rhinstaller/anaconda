@@ -508,9 +508,6 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    { 0, 0, 0, 0, 0 }
     };
 
-    if (!bootProto)
-	bootProto = "dhcp";
-
     if (!bootProto) {
 	if (ksGetCommand(KS_CMD_NETWORK, NULL, &ksArgc, &ksArgv)) {
 	    /* This is for compatibility with RH 5.0 */
@@ -565,6 +562,9 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    poptFreeContext(optCon);
 	}
     }
+
+    if (!bootProto)
+	bootProto = "dhcp";
 
     if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {
 	logMessage("sending dhcp request through device %s", device);
