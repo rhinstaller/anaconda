@@ -26,54 +26,11 @@ class TimezoneWindow(InstallWindow):
         ics.setTitle(_("Time Zone Selection"))
         ics.setNextEnabled(1)
         ics.readHTML("timezone")
-        self.old_page = 0
-        self.old_use_dst = 0
-
-	self.timeZones = ((("-14", ""), ("Etc/GMT-14", "Etc/GMT-14")),
-                          (("-13", ""), ("Etc/GMT-13", "Etc/GMT-13")),
-                          (("-12", ""), ("Etc/GMT-12", "Etc/GMT-12")),
-                          (("-11", ""), ("Etc/GMT-11", "Etc/GMT-11")),
-                          (("-10", ""), ("Etc/GMT-10", "Etc/GMT-10")),
-                          (("-09", ""), ("Etc/GMT-9", "Etc/GMT-9")),
-                          (("-08", "US Pacific"),  ("Etc/GMT-8", "America/Los_Angeles")),
-                          (("-07", "US Mountain"), ("Etc/GMT-7", "America/Denver")),
-                          (("-06", "US Central"),  ("Etc/GMT-6", "America/Chicago")),
-                          (("-05", "US Eastern"),  ("Etc/GMT-5", "America/New_York")),
-                          (("-04", ""), ("Etc/GMT-4", "Etc/GMT-4")),
-                          (("-03", ""), ("Etc/GMT-3", "Etc/GMT-3")),
-                          (("-02", ""), ("Etc/GMT-2", "Etc/GMT-2")),
-                          (("-01", ""), ("Etc/GMT-1", "Etc/GMT-1")),
-                          (("",       ""), ("Etc/GMT", "Etc/GMT")),
-                          (("+01", ""), ("Etc/GMT+1", "Etc/GMT+1")),
-                          (("+02", ""), ("Etc/GMT+2", "Etc/GMT+2")),
-                          (("+03", ""), ("Etc/GMT+3", "Etc/GMT+3")),
-                          (("+04", ""), ("Etc/GMT+4", "Etc/GMT+4")),
-                          (("+05", ""), ("Etc/GMT+5", "Etc/GMT+5")),
-                          (("+06", ""), ("Etc/GMT+6", "Etc/GMT+6")),
-                          (("+07", ""), ("Etc/GMT+7", "Etc/GMT+7")),
-                          (("+08", ""), ("Etc/GMT+8", "Etc/GMT+8")),
-                          (("+09", ""), ("Etc/GMT+9", "Etc/GMT+9")),
-                          (("+10", ""), ("Etc/GMT+10", "Etc/GMT+10")),
-                          (("+11", ""), ("Etc/GMT+11", "Etc/GMT+11")),
-                          (("+12", ""), ("Etc/GMT+12", "Etc/GMT+12")))                    
 
     def getNext(self):
         newzone = self.tz.getCurrent().tz
         self.timezone.setTimezoneInfo(newzone, self.systemUTC.get_active())
         return None
-
-    def copy_toggled(self, cb1, cb2):
-        if cb1.get_data("toggling"): return
-        
-        cb2.set_data("toggling", 1)
-        cb2.set_active(cb1.get_active ())
-        cb2.set_data("toggling", 0)
-
-    def view_change(self, widget, *args):
-        if not self.tz.getCurrent():
-            self.ics.setNextEnabled(gtk.FALSE)
-        else:
-            self.ics.setNextEnabled(gtk.TRUE)
 
     # TimezoneWindow tag="timezone"
     def getScreen(self, instLang, timezone):
@@ -94,8 +51,6 @@ class TimezoneWindow(InstallWindow):
 
 	(self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
 
-        self.old_page = timezone.utcOffset
-        self.old_use_dst = timezone.dst
         self.langDefault = instLang.getDefaultTimeZone()
 
 	if not self.default:
@@ -107,12 +62,7 @@ class TimezoneWindow(InstallWindow):
 
         self.tz.setCurrent(zonetab.findEntryByTZ(self.default))
 
-        systemUTCCopy = gtk.CheckButton(_("System clock uses _UTC"))
         self.systemUTC = gtk.CheckButton(_("System clock uses _UTC"))
-
-        systemUTCCopy.connect("toggled", self.copy_toggled, self.systemUTC)
-        self.systemUTC.connect("toggled", self.copy_toggled, systemUTCCopy)
-
         self.systemUTC.set_active(asUTC)
 
         hbox = gtk.HBox(gtk.FALSE, 5)
