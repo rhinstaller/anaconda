@@ -682,7 +682,7 @@ class InstallControlWindow:
 
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
-	if not step:
+	if step is None:
 	    gtk.mainquit()
 	    return
 
