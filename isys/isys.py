@@ -205,7 +205,7 @@ def makeDevInode(name, fn=None):
         os.stat(path)
     except OSError:
         path = '/tmp/%s' % (name,)
-        _isys.mkdevinode(name, fn)
+        _isys.mkdevinode(name, path)
     return path
 
 def inet_ntoa (addr):
