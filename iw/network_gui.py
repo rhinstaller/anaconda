@@ -19,6 +19,7 @@ from iw_gui import *
 from isys import *
 import gui
 from translate import _, N_
+import network
 import checklist
 import ipwidget
 
@@ -41,7 +42,11 @@ class NetworkWindow(InstallWindow):
 	tmpvals = {}
 	for t in range(len(global_options)):
 	    if t == 0:
-		tmpvals[t] = self.hostname.get_text()
+		tmpvals[t] = string.strip(self.hostname.get_text())
+		neterrors =  network.sanityCheckHostname(tmpvals[t])
+		if neterrors is not None:
+		    self.handleBadHostname(tmpvals[t], neterrors)
+		    raise gui.StayOnScreen
 	    else:
 		try:
 		    tmpvals[t] = self.globals[global_options[t]].dehydrate()
@@ -103,6 +108,10 @@ class NetworkWindow(InstallWindow):
 	else:
 	    onboot = "no"
 	dev.set(("ONBOOT", onboot))
+
+    def handleBadHostname(self, hostname, error):
+	self.intf.messageWindow(_("Error With Data"),
+				_("The hostname \"%s\" is not valid for the following reason:\n\n%s") % (hostname, error))
 
     def handleIPError(self, field, errmsg):
 	self.intf.messageWindow(_("Error With Data"),
