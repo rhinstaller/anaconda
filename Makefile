@@ -62,6 +62,7 @@ install:
 	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a raid*stub $(DESTDIR)/$(PYTHONLIBDIR)
