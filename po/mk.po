@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-24 18:31+0200\n"
+"PO-Revision-Date: 2004-06-27 19:49+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -264,7 +264,7 @@ msgid ""
 msgstr ""
 "Не можам да ја пронајдам партицијата %s за користење со %s.\n"
 "\n"
-"Притисни 'Во ред' за рестартирање на системот."
+"Притиснете 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1234
 msgid "Requested Raid Device Does Not Exist"
@@ -279,7 +279,7 @@ msgid ""
 msgstr ""
 "Не можам да го пронајдам raid уредот %s за користење со %s.\n"
 "\n"
-"Притисни 'Во ред' за рестартирање на системот."
+"Притиснете 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1264
 msgid "Requested Volume Group Does Not Exist"
@@ -294,7 +294,7 @@ msgid ""
 msgstr ""
 "Не можам да ја пронајдам групата со дискови %s за користење со %s.\n"
 "\n"
-"Притисни 'Во ред' за рестартирање на системот."
+"Притиснете 'Во ред' за рестартирање на системот."
 
 #: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
@@ -443,18 +443,20 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"Пред автоматското партиционирање да се изврши со инсталациската програма, "
+"мора да одберете како ќе се користи просторот на вашите дискови."
 
 #: ../autopart.py:1499
 msgid "Remove all partitions on this system"
-msgstr "Отстрани ги сите партиции на овој систем"
+msgstr "Отстрани ги сите партиции од овој систем"
 
 #: ../autopart.py:1500
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "Отстрани ги сите Linux партиции од овој систем"
 
 #: ../autopart.py:1501
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "Зачувај ги сите партиции и користи го постоечкиот празен простор"
 
 #: ../autopart.py:1503
 #, python-format
@@ -463,6 +465,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Одбравте да ги отстраните сите партиции (СИТЕ ПОДАТОЦИ) од следниве дискови: %s\n"
+"Сигурно сакате тоа да го направите?"
 
 #: ../autopart.py:1507
 #, python-format
@@ -471,71 +475,77 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Одбравте да ги отстраните сите Linux партиции (и СИТЕ ПОДАТОЦИ на нив) од следниве дискови: %s\n"
+"Сигурно сакате тоа да го направите?"
 
 #: ../bootloader.py:108
 msgid "Bootloader"
-msgstr ""
+msgstr "Програма за стартување на системот"
 
 #: ../bootloader.py:108
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "Инсталирање на програмата за стартување на системот..."
 
 #: ../bootloader.py:156
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"Нема инсталирани кернел пакети на вашиот систем.  Конфигурацијата на вашата програма за стартување на системот "
+"нема да биде променета."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
-msgstr ""
+msgstr "Завршено"
 
 #: ../cmdline.py:47
 msgid "In progress...   "
-msgstr ""
+msgstr "Во тек...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Не може да прашувате во командно-линиски режим!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Исклучоците на програмата Parted не може да бидат прифатени во командно-линиски режим!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Извршено [%d/%d]"
 
 #: ../cmdline.py:137
 #, python-format
 msgid "Installing %s-%s-%s... "
-msgstr ""
+msgstr "Инсталирам %s-%s-%s... "
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:779
 msgid "Everything"
-msgstr ""
+msgstr "Сѐ"
 
 #: ../comps.py:936 ../comps.py:1001
 msgid "no suggestion"
-msgstr ""
+msgstr "Без предлог"
 
 #: ../comps.py:1098 ../hdrlist.py:1006
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Разно"
 
 #: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:953
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
-msgstr ""
+msgstr "Оваа група ги вклучува сите расположливи пакети.  Обрнете внимание дека има значително повеќе пакети отколку во сите останати групи со пакети на оваа страница."
 
 #: ../comps.py:1118 ../hdrlist.py:957
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
+"Одберете ја оваа група за да добиете најмал можен избор на пакети.  Корисно е, "
+"на пример, за добивање на мали router/firewall инсталации."
 
 #: ../constants.py:72
 msgid ""
@@ -543,42 +553,42 @@ msgid ""
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
-msgstr ""
+msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок или зачувајте ја грешката на дискета, а потоа пријавете детален извештај за грешката на програмата anaconda на страницата http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:79
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr ""
+msgstr "Се појави не прифатен исклучок.  Тоа би можело да е грешка.  Ве молам направете копија од целиот текст на овој исклучок и пријавете детален извештај за грешката на програмата anaconda на страницата http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Појава на исклучок"
 
 #: ../exception.py:295
 msgid "Dump Written"
-msgstr ""
+msgstr "Податоците се запишани"
 
 #: ../exception.py:296
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
+msgstr "Состојбата на вашиот систем е успешно запишана на дискета. Вашиот систем сега ќе се ресетира."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
-msgstr ""
+msgstr "Не можам да направам дискета за стартување на системот"
 
 #: ../floppy.py:104
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
-msgstr ""
+msgstr "Кернел модулите потребни за вашата машина се премногу големи за да се креира стартна флопи дискета."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
-msgstr ""
+msgstr "Ставете ја дискетата"
 
 #: ../floppy.py:114
 msgid ""
@@ -587,14 +597,17 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
+"Ве молиме отстранете било каква дискета од флопи драјвот и ставете ја стартната дискета.\n"
+"\n"
+"Сите податоци ќе бидат ИЗБРИШАНИ во текот на креирањето на стартната дискета."
 
 #: ../floppy.py:118
 msgid "_Cancel"
-msgstr ""
+msgstr "_Откажи"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr ""
+msgstr "_Направи дискета за стартување"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1267 ../fsset.py:1286 ../fsset.py:1337
@@ -621,43 +634,43 @@ msgstr ""
 #: ../loader2/urlinstall.c:149 ../loader2/urls.c:171 ../loader2/urls.c:181
 #: ../loader2/urls.c:189 ../loader2/urls.c:319 ../loader2/urls.c:324
 msgid "Error"
-msgstr ""
+msgstr "Грешка"
 
 #: ../floppy.py:130 ../floppy.py:155
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr ""
+msgstr "Се појави грешка за време на правењето на стартната дискета. Ве молиме проверете дали дискетата е во флопи драјвот."
 
 #: ../floppy.py:141
 msgid "Creating"
-msgstr ""
+msgstr "Се креира"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr ""
+msgstr "Се креира дискета за стартување..."
 
 #: ../floppy.py:170
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
-msgstr ""
+msgstr "Се појави грешка при обидот за верификација на стартната дискета.  Ве молиме проверете дали дискетата во флопи драјвот е исправна."
 
 #: ../floppy.py:201
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
-msgstr ""
+msgstr "Вашата стартна дискета е неприфатлива.  Најверојатно дискетата е неисправна.  Ве молиме проверете дали дискетата во флопи драјвот е исправна."
 
 #: ../fsset.py:178
 msgid "Checking for Bad Blocks"
-msgstr ""
+msgstr "Барање на оштетени блокови"
 
 #: ../fsset.py:179
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr ""
+msgstr "Барање на оштетени блокови на /dev/%s..."
 
 #: ../fsset.py:593
 #, python-format
@@ -667,26 +680,29 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"Се појави грешка при префрлување на %s во ext3.  Можно е да се продолжи без префрлување на овој датотечен систем ако сакате.\n"
+"\n"
+"Дали сакате да продолжите без префрлување на %s?"
 
 #: ../fsset.py:1182
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID уред"
 
 #: ../fsset.py:1186 ../fsset.py:1192
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple стартување на системот"
 
 #: ../fsset.py:1197 ../partitions.py:802
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP стартување на системот"
 
 #: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr ""
+msgstr "Прв сектор на стартната партиција"
 
 #: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
-msgstr ""
+msgstr "Главен запис за стартување (MBR)"
 
 #: ../fsset.py:1268
 #, python-format
@@ -696,6 +712,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка во обид за иницијализација на swap-от на уредот %s.  Овој проблем е сериозен и инсталирањето не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1287
 #, python-format
@@ -706,6 +725,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Грешка која го оспособува swap уредот %s: %s\n"
+"\n"
+"Најверојатно ова значи дека оваа swap партиција не била иницијализирана.\n"
+"\n"
+"Притиснете Во ред за рестартирање на вашиот систем."
 
 #: ../fsset.py:1338
 #, python-format
@@ -715,6 +739,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
+"Оштетени блокови се детектирани на уредот /dev/%s. Не ви препорачуваме да го користите овој уред.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем"
 
 #: ../fsset.py:1349
 #, python-format
@@ -724,6 +751,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка при барањето на оштетени блокови на %s.  Овој проблем е сериозен и инсталирањето не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1384
 #, python-format
@@ -733,6 +763,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка во обид за форматирање %s.  Овој проблем е сериозен и инсталирањето не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1434
 #, python-format
@@ -742,10 +775,13 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка во обид за префрлување на %s.  Овој проблем е сериозен и инсталирањето не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1455 ../fsset.py:1464
 msgid "Invalid mount point"
-msgstr ""
+msgstr "Неисправна монтирачка папка"
 
 #: ../fsset.py:1456
 #, python-format
@@ -755,6 +791,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка при обидот за креирање на %s.  Некој елемент од оваа патека не е директориум. Ова е фатална грешка и инсталацијата не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1465
 #, python-format
@@ -764,6 +803,9 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Се појави грешка при обидот за креирање на %s: %s.  Ова е фатална грешка и инсталацијата не може да продолжи.\n"
+"\n"
+"Притиснете <Enter> за рестартирање на вашиот систем."
 
 #: ../fsset.py:1478
 #, python-format
@@ -774,10 +816,15 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Грешка при монтирање на уредот %s како %s: %s\n"
+"\n"
+"Ова најверојатно значи дека оваа партиција не била форматирана.\n"
+"\n"
+"Притиснете Во ред за рестартирање на вашиот систем."
 
 #: ../fsset.py:2117
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "Дуплирани ознаки"
 
 #: ../fsset.py:2118
 #, python-format
@@ -787,22 +834,25 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Повеќекратните уреди на вашиот систем се означени %s.  Ознаките што се однесуваат на уредите мора да бидат единствени за вашиот систем да функционира правилно.\n"
+"\n"
+"Ве молиме поправете го овој проблем и рестартирајте го процесот на инсталација."
 
 #: ../fsset.py:2125 ../gui.py:643 ../gui.py:1102 ../image.py:96
 #: ../image.py:476 ../packages.py:1485 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr ""
+msgstr "_Рестартирај"
 
 #: ../fsset.py:2378
 msgid "Formatting"
-msgstr ""
+msgstr "Форматирање"
 
 #: ../fsset.py:2379
 #, python-format
 msgid "Formatting %s file system..."
-msgstr ""
+msgstr "Форматирање на %s датотечниот систем..."
 
 #: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
@@ -7291,11 +7341,11 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Кинески (упростено)"
+msgstr "Кинески(упростено)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Кинески (традиционално)"
+msgstr "Кинески(традиционално)"
 
 #. generated from lang-table
 msgid "Croatian"
@@ -7371,7 +7421,7 @@ msgstr "Португалски"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Португалски (Бразилски)"
+msgstr "Португалски(Бразилски)"
 
 #. generated from lang-table
 msgid "Russian"
