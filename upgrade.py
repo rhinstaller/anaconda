@@ -328,7 +328,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             iutil.rmrf(rebuildpath)
 	win.pop()
 	intf.messageWindow(_("Error"),
-                           _("An error occured when finding the packages to "
+                           _("An error occurred when finding the packages to "
                              "upgrade."))
 	sys.exit(0)
 	    

@@ -493,7 +493,7 @@ class ComponentSet:
             try:
 		file = urllib.urlopen(filename)
             except IOError, (errnum, msg):
-		log("IOError %s occured getting %s: %s", filename,
+		log("IOError %s occurred getting %s: %s", filename,
 			errnum, str(msg))
                 time.sleep(5)
             else:

@@ -60,7 +60,7 @@ class UrlInstallMethod(InstallMethod):
             try:
                 urllib.urlretrieve(fullPath, file)
             except IOError, (errnum, msg):
-		log("IOError %s occured getting %s: %s",
+		log("IOError %s occurred getting %s: %s",
 			errnum, fullPath, str(msg))
                 time.sleep(5)
             else:
@@ -77,7 +77,7 @@ class UrlInstallMethod(InstallMethod):
             try:
                 url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
             except IOError, (errnum, msg):
-		log("IOError %s occured getting %s: %s",
+		log("IOError %s occurred getting %s: %s",
 			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
                 time.sleep(5)
             else:

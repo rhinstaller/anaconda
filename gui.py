@@ -288,7 +288,7 @@ class ExceptionWindow:
 ##         if file:
 ##             hbox.pack_start (GnomePixmap (file), gtk.FALSE)
 
-        info = WrappingLabel(_("An unhandled exception has occured.  This "
+        info = WrappingLabel(_("An unhandled exception has occurred.  This "
                                "is most likely a bug.  Please copy the "
                                "full text of this exception or save the crash "
                                "dump to a floppy then file a detailed bug "

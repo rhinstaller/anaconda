@@ -74,7 +74,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			    _("Transferring install image to hard drive...")))
 	except:
 	    self.messageWindow(_("Error"),
-		    _("An error occured transferring the install image "
+		    _("An error occurred transferring the install image "
 		      "to your hard drive. You are probably out of disk "
 		      "space."))
 	    os.unlink(self.loopbackFile)

@@ -185,7 +185,7 @@ def runRescue(instPath, mountroot, id):
 		raise exc, val, sys.exc_info()[2]
 
 	    ButtonChoiceWindow(screen, _("Rescue"),
-		_("An error occured trying to mount some or all of your "
+		_("An error occurred trying to mount some or all of your "
 		  "system. Some of it may be mounted under %s.\n\n"
 		  "Press <return> to get a shell. The system will reboot "
 		  "automatically when you exit from the shell." % (instPath,)),

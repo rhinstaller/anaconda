@@ -139,7 +139,7 @@ def dumpException(out, text, tb, dispatch):
         out.write("\n\n")
         dumpClass(dispatch, out)
     except:
-        out.write("\nException occured during state dump:\n")
+        out.write("\nException occurred during state dump:\n")
         traceback.print_exc(None, out)
 
     for file in ("/tmp/syslog", "/tmp/anaconda.log", "/tmp/netinfo",
@@ -155,7 +155,7 @@ def dumpException(out, text, tb, dispatch):
         except IOError:
             pass
         except:
-            out.write("\nException occured during %s file copy:\n" % (file,))
+            out.write("\nException occurred during %s file copy:\n" % (file,))
             traceback.print_exc(None, out)
 
 def handleException(dispatch, intf, (type, value, tb)):

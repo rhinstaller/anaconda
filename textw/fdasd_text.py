@@ -71,7 +71,7 @@ class fdasdPartitionWindow:
                 
                 if rc:
                     intf.messageWindow( _("Error"),
-                                        _("An error occured while running %s on drive %s.") % (path, device))
+                                        _("An error occurred while running %s on drive %s.") % (path, device))
                     
                 try:
                     os.remove('/tmp/' + device)

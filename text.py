@@ -287,7 +287,7 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, title, text):
-	ugh = "%s\n\n" % (_("An unhandled exception has occured.  This "
+	ugh = "%s\n\n" % (_("An unhandled exception has occurred.  This "
                             "is most likely a bug.  Please copy the "
                             "full text of this exception or save the crash "
                             "dump to a floppy then file a detailed bug "
