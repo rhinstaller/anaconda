@@ -1223,7 +1223,10 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 		if (num != 4):
 		    raise IOError, args
 
-    (pid, status) = os.waitpid(childpid, 0)
+    try:
+        (pid, status) = os.waitpid(childpid, 0)
+    except OSError (errno, msg):
+        print __name__, "waitpid:", msg
     os.close(fd)
 
     w.pop()

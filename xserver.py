@@ -173,7 +173,11 @@ def testx(mouse, x):
     while count < 60:
 	sys.stdout.write(".")
 	sys.stdout.flush()
-	pid, status = os.waitpid (server, os.WNOHANG)
+        pid = 0
+        try:
+            pid, status = os.waitpid (server, os.WNOHANG)
+        except OSError (errno, msg):
+            print __name__, "waitpid:", msg
 	if pid:
 	    sys.stderr.write("X SERVER FAILED");
 	    raise RuntimeError, "X server failed to start"
@@ -192,7 +196,8 @@ def testx(mouse, x):
     if (child):
 	try:
 	    pid, status = os.waitpid(child, 0)
-	except:
+        except OSError (errno, msg):
+            print __name__, "waitpid:", msg
 	    sys.exit (-1)
 
 	try:
@@ -240,7 +245,12 @@ def start_existing_X():
     # otherwise with NFS installs the X server may be still being
     # fetched from the network while we already continue to run
     time.sleep (4)
-    pid, status = os.waitpid (server, os.WNOHANG)
+    status = 0
+    try:
+        pid, status = os.waitpid (server, os.WNOHANG)
+    except OSError (errno, msg):
+        print __name__, "waitpid:", msg
+
     if status:
         raise RuntimeError, "X server failed to start"
 

@@ -40,7 +40,10 @@ class Syslogd:
 
     def kill(self):
 	os.kill(self.child, 15)
-	os.waitpid(self.child, 0)
+        try:
+            os.waitpid(self.child, 0)
+        except OSError (errno, msg):
+            print __name__, "waitpid:", msg
 
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):
 	output = output

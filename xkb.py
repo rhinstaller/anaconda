@@ -46,7 +46,10 @@ class XKB:
         if (child == 0):
             os.execv (path[0], path + args)
 
-        pid, status = os.waitpid(child, 0)
+        try:
+            pid, status = os.waitpid(child, 0)
+        except OSError (errno, msg):
+            print __name__, "waitpid:", msg
         return
 
         # don't use any of our code, since it seems to corrupt

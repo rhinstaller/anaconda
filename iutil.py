@@ -81,7 +81,11 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	oldPgrp = os.tcgetpgrp(0)
 	os.tcsetpgrp(0, childpid)
 
-    (pid, status) = os.waitpid(childpid, 0)
+    status = -1
+    try:
+        (pid, status) = os.waitpid(childpid, 0)
+    except OSError (errno, msg):
+        print __name__, "waitpid:", msg
 
     if newPgrp:
 	os.tcsetpgrp(0, oldPgrp)
@@ -125,7 +129,10 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
     os.close(read)
 
-    os.waitpid(childpid, 0)
+    try:
+        os.waitpid(childpid, 0)
+    except OSError (errno, msg):
+        print __name__, "waitpid:", msg
 
     return rc
 
