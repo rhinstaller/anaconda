@@ -16,6 +16,7 @@
 import gtk
 import gobject
 import iutil
+import partedUtils
 import gui
 from iw_gui import *
 from translate import _, N_
@@ -475,11 +476,34 @@ class AdvancedBootloaderWindow (InstallWindow):
 
         table.attach(gtk.Label(_("Device")), 0, 1, 2, 3, gtk.FILL, 0, 10)
         if not isRoot:
-            # XXX switch to a combo of the partitions on the system
-            deviceEntry = gtk.Entry(16)
-            table.attach(deviceEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
-            if oldDevice:
-                deviceEntry.set_text(oldDevice)
+            # XXX should potentially abstract this out into a function
+            pedparts = []
+            parts = []
+            disks = self.diskset.disks
+            for drive in disks.keys():
+                pedparts.extend(partedUtils.get_all_partitions(disks[drive]))
+            for part in pedparts:
+                parts.append(partedUtils.get_partition_name(part))
+            parts.sort()
+            
+            deviceOption = gtk.OptionMenu()
+            deviceMenu = gtk.Menu()
+            defindex = None
+            i = 0
+            for part in  parts:
+                item = gtk.MenuItem("/dev/" + part)
+                item.set_data("part", part)
+                # XXX gtk bug -- have to show so that the menu is sized right
+                item.show()
+                deviceMenu.add(item)
+                if oldDevice and oldDevice == part:
+                    defindex = i
+                i = i + 1
+            deviceOption.set_menu(deviceMenu)
+            if defindex:
+                deviceOption.set_history(defindex)
+            
+            table.attach(deviceOption, 1, 2, 2, 3, gtk.FILL, 0, 10)
         else:
             table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
 
@@ -501,7 +525,7 @@ class AdvancedBootloaderWindow (InstallWindow):
             label = labelEntry.get_text()
 
             if not isRoot:
-                dev = deviceEntry.get_text()
+                dev = deviceMenu.get_active().get_data("part")
             else:
                 dev = oldDevice
 
@@ -705,6 +729,7 @@ class AdvancedBootloaderWindow (InstallWindow):
 	self.dispatch = dispatch
 	self.bl = bl
         self.intf = dispatch.intf
+        self.diskset = diskSet
 
         # illegal characters for boot loader labels
         if self.bl.useGrub():
