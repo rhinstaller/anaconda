@@ -34,8 +34,10 @@ class LiloWindow (InstallWindow):
 
         if self.bootdisk.get_active ():
             self.todo.bootdisk = 1
+            self.todo.bdstate = "TRUE"
         else:
             self.todo.bootdisk = 0
+            self.todo.bdstate = "FALSE"
 
         if self.lilo.get_active ():
             self.todo.lilo.setDevice(None)
@@ -211,8 +213,8 @@ class LiloWindow (InstallWindow):
             return None
 
 # comment these two lines to get lilo screen in test mode
-        if not self.todo.fstab.setupFilesystems:
-            return None
+#        if not self.todo.fstab.setupFilesystems:
+#            return None
         
         (imageList, defaultLabel) = \
                 self.todo.lilo.getLiloImages(self.todo.fstab)
@@ -275,7 +277,17 @@ class LiloWindow (InstallWindow):
         optionBox = GtkVBox (FALSE, 5)
         optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
-        self.bootdisk.set_active (TRUE)
+
+        # If this screen hasn't been reached before, then activate self.bootdisk
+        if self.todo.bdstate == "":
+            self.todo.bdstate = "TRUE"
+
+        # If first time or self.bootdisk was activated in the past, activate now.  Else deactivate
+        if self.todo.bdstate == "TRUE":
+            self.bootdisk.set_active (TRUE)
+        else:
+            self.bootdisk.set_active (FALSE)
+
         optionBox.pack_start (self.bootdisk)
 
         self.lilo = GtkCheckButton (_("Do not install LILO"))
