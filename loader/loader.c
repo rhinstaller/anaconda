@@ -1661,26 +1661,26 @@ int main(int argc, char ** argv) {
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))
 	    *argptr++ = "--expert";
-    }
 
-    if (FL_KICKSTART(flags)) {
-	*argptr++ = "--kickstart";
-	*argptr++ = ksFile;
-    }
+	if (FL_KICKSTART(flags)) {
+	    *argptr++ = "--kickstart";
+	    *argptr++ = ksFile;
+	}
 
-    if (lang) {
-	*argptr++ = "--lang";
-	*argptr++ = lang;
-    }
-    
-    if (keymap) {
-	*argptr++ = "--keymap";
-	*argptr++ = keymap;
-    }
+	if (lang) {
+	    *argptr++ = "--lang";
+	    *argptr++ = lang;
+	}
+	
+	if (keymap) {
+	    *argptr++ = "--keymap";
+	    *argptr++ = keymap;
+	}
 
-    if (kbdtype) {
-	*argptr++ = "--kbdtype";
-	*argptr++ = kbdtype;
+	if (kbdtype) {
+	    *argptr++ = "--kbdtype";
+	    *argptr++ = kbdtype;
+	}
     }
     
     *argptr = NULL;
