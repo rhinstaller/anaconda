@@ -877,12 +877,23 @@ def doPostInstall(method, id, intf, instPath):
 		    pass
 
 	    if arch != "s390":
+		# we need to unmount usbdevfs before mounting it
+		usbWasMounted = iutil.isUSBDevFSMounted()
+		if usbWasMounted:
+                    isys.umount('/proc/bus/usb', removeDir = 0)
+
+		    # see if unmount suceeded, if not pretent it isnt mounted
+		    # because we're screwed anywyas if system is going to
+		    # lock up
+		    if iutil.isUSBDevFSMounted():
+			usbWasMounted = 0
+		    
                 unmountUSB = 0
                 try:
                     isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
                     unmountUSB = 1
                 except:
-                    log("Mount of /proc/bus/usb failed")
+                    log("Mount of /proc/bus/usb in chroot failed")
                     pass
 
 
@@ -903,6 +914,9 @@ def doPostInstall(method, id, intf, instPath):
 
                 if unmountUSB:
                     isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+
+		if usbWasMounted:
+                    isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
 
 	w.set(4)
 
