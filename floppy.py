@@ -87,7 +87,7 @@ def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
     # go within 10 K of the size of the boot disk to have a tad
     # bit of safety.  if this fails, we're no worse off than we used
     # to be.
-    if size >= 1416 * 1024 * 1024:
+    if size >= 1416 * 1024:
         intf.messageWindow(_("Unable to make boot floppy"),
                            _("The size of the kernel modules needed "
                              "for your machine make it impossible to "
