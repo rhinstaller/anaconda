@@ -15,13 +15,13 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-25 09:46+0200\n"
-"Last-Translator: Leszek Matok <lam@lac.pl>\n"
-"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
+"PO-Revision-Date: 2004-10-01 12:30+0200\n"
+"Last-Translator: Tom Berner <tom@man.lodz.pl>\n"
+"Language-Team: POLISH <pl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: joe 3.1\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -172,13 +172,11 @@ msgstr ""
 
 #: ../anaconda:827 ../anaconda:1087
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
-"Nie można zainicjować obiektu stanu urządzenia fizycznego obsługującego X."
+msgstr "Nie można zainicjować obiektu stanu urządzenia fizycznego obsługującego X."
 
 #: ../anaconda:851
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Instalacja w trybie graficznym nie dostępna...  Uruchamiam tryb tekstowy."
+msgstr "Instalacja w trybie graficznym nie dostępna...  Uruchamiam tryb tekstowy."
 
 #: ../anaconda:866
 msgid ""
@@ -260,8 +258,7 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Możliwe, że partycja startowa %s nie spełnia wymagań stawianych jej przez "
 "architekturę twojego systemu."
@@ -1257,8 +1254,7 @@ msgstr "Nazwa komputera musi składać się z co najwyżej 64 znaków."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Nazwa komputera musi rozpoczynać się od jednego ze znaków 'a-z' lub 'A-Z'"
+msgstr "Nazwa komputera musi rozpoczynać się od jednego ze znaków 'a-z' lub 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1750,8 +1746,7 @@ msgstr ""
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Nie można usunąć tej partycji. To jest partycja rozszerzona, która zawiera %s"
+msgstr "Nie można usunąć tej partycji. To jest partycja rozszerzona, która zawiera %s"
 
 #: ../partIntfHelpers.py:184
 msgid ""
@@ -1953,8 +1948,7 @@ msgid "Confirm Reset"
 msgstr "Potwierdź przywrócenie"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Czy jesteś pewien, że chcesz przywrócić tablicę partycji do pierwotnego "
 "stanu?"
@@ -2005,8 +1999,7 @@ msgstr ""
 "to zwykle za mało, aby zainstalować system %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Musisz utworzyć partycję /boot/efi typu FAT o wielkości 50 MB."
 
 #: ../partitions.py:796
@@ -2024,13 +2017,11 @@ msgstr ""
 
 #: ../partitions.py:844 ../partRequests.py:652
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-"Partycje z możliwością rozruchu można tworzyć tylko na urządzeniach RAID-1."
+msgstr "Partycje z możliwością rozruchu można tworzyć tylko na urządzeniach RAID-1."
 
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr ""
-"Partycji z możliwością rozruchu nie można tworzyć na woluminach logicznych."
+msgstr "Partycji z możliwością rozruchu nie można tworzyć na woluminach logicznych."
 
 #: ../partitions.py:862
 msgid ""
@@ -2073,8 +2064,7 @@ msgstr "partycję będącą składnikiem grupy woluminów LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Nieprawidłowy punkt montowania. Katalog %s musi znajdować się w systemie "
 "plików /."
@@ -2097,24 +2087,21 @@ msgstr "Punkt montowania musi znajdować się na linuksowym systemie plików."
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"Punkt montowania \"%s\" już jest używany. Wybierz inne miejsce montowania."
+msgstr "Punkt montowania \"%s\" już jest używany. Wybierz inne miejsce montowania."
 
 #: ../partRequests.py:278
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Wielkość partycji %s (%10.2f MB) przekracza maksymalną wielkość %10.2f MB."
+msgstr "Wielkość partycji %s (%10.2f MB) przekracza maksymalną wielkość %10.2f MB."
 
 #: ../partRequests.py:469
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Żądana wielkość partycji (= %s MB) przekracza maksymalną wielkość %s MB."
+msgstr "Żądana wielkość partycji (= %s MB) przekracza maksymalną wielkość %s MB."
 
 #: ../partRequests.py:474
 #, python-format
@@ -2170,8 +2157,7 @@ msgstr "Anulowane"
 
 #: ../rescue.py:224 ../text.py:501
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Nie mogę cofnąć się do poprzedniego kroku. Musisz spróbować jeszcze raz."
+msgstr "Nie mogę cofnąć się do poprzedniego kroku. Musisz spróbować jeszcze raz."
 
 #: ../rescue.py:240 ../rescue.py:275 ../rescue.py:432
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2324,8 +2310,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> pomoc | <Tab> pomiędzy elementami | <Spacja> wybór | <F12> następny "
 "ekran"
@@ -2334,8 +2319,7 @@ msgstr ""
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> między polami | <Spacja> wybór | <F12> następny ekran "
+msgstr "  <Tab>/<Alt-Tab> między polami | <Spacja> wybór | <F12> następny ekran "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2508,15 +2492,13 @@ msgstr ""
 "użytku. Czy chcesz kontynuować?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Architektura wydania %s, które aktualizujesz wydaje się być architekturą %s, "
-"która nie odpowiada poprzednio zainstalowanej architekturze %s.  "
-"Prawdopodobnie aktualizacja nie powiedzie się.  Jesteś pewien że chcesz "
-"kontynuować proces aktualizacji?"
+"Wygląda że chcesz aktualizować system, który jest za stary aby można było go "
+"zaktualizować do wersji %s.  Czy jesteś pewien że chcesz kontynuować proces aktualizacji?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2624,8 +2606,7 @@ msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr ""
-"Nie podano nazwy worldwide port name lub podana nazwa jest niepoprawna."
+msgstr "Nie podano nazwy worldwide port name lub podana nazwa jest niepoprawna."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
@@ -3147,8 +3128,7 @@ msgstr "Za_instaluj pakiety, aby spełnić zależności"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr ""
-"_Nie instaluj pakietów wymagających innych, nie wybranych do instalacji"
+msgstr "_Nie instaluj pakietów wymagających innych, nie wybranych do instalacji"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
@@ -3587,8 +3567,7 @@ msgstr "Niepoprawna nazwa woluminu logicznego"
 #: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1274
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Nazwa woluminu logicznego \"%s\" jest już wykorzystana. Proszę wybrać inną."
+msgstr "Nazwa woluminu logicznego \"%s\" jest już wykorzystana. Proszę wybrać inną."
 
 #: ../iw/lvm_dialog_gui.py:577
 #, python-format
@@ -3627,8 +3606,7 @@ msgstr "Brak wolnych miejsc"
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Nie można utworzyć więcej niż %s logicznych woluminów w grupie woluminów."
+msgstr "Nie można utworzyć więcej niż %s logicznych woluminów w grupie woluminów."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -4232,15 +4210,12 @@ msgid "Partitioning"
 msgstr "Definiowanie partycji"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"W żądanym schemacie partycjonowania wykryto następujące błędy krytyczne."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "W żądanym schemacie partycjonowania wykryto następujące błędy krytyczne."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Te błędy muszą zostać skorygowane przed kontynuowaniem instalacji %s."
 
 #: ../iw/partition_gui.py:637
@@ -4253,8 +4228,7 @@ msgstr "Żądany schemat partycjonowania powoduje następujące ostrzeżenia."
 
 #: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
-"Czy chcesz kontynuować instalację z wybranym schematem partycjonowania?"
+msgstr "Czy chcesz kontynuować instalację z wybranym schematem partycjonowania?"
 
 #: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
@@ -4424,8 +4398,7 @@ msgstr "Automatyczne definiowanie partycji"
 #: ../iw/partition_gui.py:1438
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
+msgstr "Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
 
 #: ../iw/partition_gui.py:1480
 msgid "I want to have automatic partitioning:"
@@ -4737,8 +4710,7 @@ msgstr "Klonuj dyski"
 
 #: ../iw/raid_dialog_gui.py:644
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Podczas kasowania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
+msgstr "Podczas kasowania dysków docelowych nastąpił błąd. Klonowanie nie udało się."
 
 #: ../iw/raid_dialog_gui.py:678
 msgid ""
@@ -4869,8 +4841,7 @@ msgstr "To uaktualni twój obecny program rozruchowy."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Program instalacyjny wykrył program rozruchowy %s zainstalowany na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -5006,10 +4977,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Plik wymiany musi mieć wielkość pomiędzy 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Na wybranym urządzeniu jest zbyt mało miejsca, aby utworzyć partycję wymiany."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Na wybranym urządzeniu jest zbyt mało miejsca, aby utworzyć partycję wymiany."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5374,10 +5343,8 @@ msgstr ""
 "etykiety dla systemów na tych partycjach."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Spacja> zaznacza | <F2> wybierz domyślny system | <F12> następny ekran"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Spacja> zaznacza | <F2> wybierz domyślny system | <F12> następny ekran"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -5804,10 +5771,8 @@ msgid "Select individual packages"
 msgstr "Wybierz poszczególne pakiety"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Spacja>,<+>,<-> wybór     |   <F2> Szczegóły grupy  |   <F12> następny ekran"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Spacja>,<+>,<-> wybór     |   <F2> Szczegóły grupy  |   <F12> następny ekran"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5831,8 +5796,7 @@ msgid "Total size"
 msgstr "Całkowity rozmiar"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Spacja>,<+>,<-> wybór      |   <F1> pomoc  |   <F2> opis pakietu"
 
 #: ../textw/packages_text.py:374
@@ -6102,10 +6066,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1445
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Pomoc    F2-Nowa     F3-Edytuj   F4-Usuń    F5-Przywróć    F12-OK     "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Pomoc    F2-Nowa     F3-Edytuj   F4-Usuń    F5-Przywróć    F12-OK     "
 
 #: ../textw/partition_text.py:1474
 msgid "No Root Partition"
@@ -6351,15 +6313,13 @@ msgid "User Exists"
 msgstr "Użytkownik już istnieje"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Użytkownik root już został dodany (jest to konto administratora). Nie trzeba "
 "dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "Ten użytkownik już został dodany. Nie trzeba dodawać tego użytkownika."
 
 #: ../textw/userauth_text.py:171
@@ -6745,7 +6705,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6757,7 +6716,7 @@ msgid ""
 msgstr ""
 "\tPowłoka pulpitu (GNOME)\n"
 "\tPakiet biurowy (OpenOffice.org)\n"
-"\tPrzeglądarka WWW (Mozilla) \n"
+"\tPrzeglądarka WWW \n"
 "\tKlient poczty (Evolution)\n"
 "\tKomunikator\n"
 "\tAplikacje obsługi dźwięku i obrazu\n"
@@ -6794,7 +6753,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6808,7 +6766,7 @@ msgid ""
 msgstr ""
 "\tPowłoka pulpitu (GNOME)\n"
 "\tPakiet biurowy (OpenOffice.org)\n"
-"\tPrzeglądarka WWW (Mozilla) \n"
+"\tPrzeglądarka WWW\n"
 "\tPoczta (Evolution)\n"
 "\tKomunikator\n"
 "\tAplikacje obsługi dźwięku i obrazu\n"
@@ -6970,8 +6928,7 @@ msgstr "Nie udało się załadować z pliku dyskietki ze sterownikami."
 #: ../loader2/driverdisk.c:386
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
+msgstr "Włóż dyskietkę ze sterownikami do /dev/%s i naciśnij \"OK\" aby kontynuować."
 
 #: ../loader2/driverdisk.c:388
 msgid "Insert Driver Disk"
@@ -7193,10 +7150,8 @@ msgid "Welcome to %s"
 msgstr "Witamy w systemie %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> między elementami | <Spacja> wybór | <F12> następny ekran "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> między elementami | <Spacja> wybór | <F12> następny ekran "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7574,8 +7529,7 @@ msgstr "Urządzenie sieciowe"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr ""
-"Masz w systemie wiele urządzeń sieciowych. Którego chcesz użyć do instalacji?"
+msgstr "Masz w systemie wiele urządzeń sieciowych. Którego chcesz użyć do instalacji?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
@@ -7773,8 +7727,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Czas Atlantycki - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Czas Atlantycki - Nowa Szkocja (większość lokalizacji), NB, W Labrador, E "
 "Quebec & PEI"
@@ -7965,8 +7918,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Czas Wschodni - Ontario - większość lokalizacji "
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Czas Wschodni- Ontario i Quebec -lokalizacje bez DST 1967-1973"
 
 #. generated from zone.tab
@@ -7979,8 +7931,7 @@ msgstr "Czas Wschodni - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"wschodnie i południowe Borneo, Celebes, Bali, Nusa Tengarra, zachodni Timor"
+msgstr "wschodnie i południowe Borneo, Celebes, Bali, Nusa Tengarra, zachodni Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
@@ -8162,18 +8113,15 @@ msgstr "większość lokalizacji"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
-"większość lokalizacji (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "większość lokalizacji (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Czas Standardowy Górski - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Czas Standardowy Górski - Dawson Creek i Fort Saint John, Brytyjska Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Czas Standardowy Górski - Dawson Creek i Fort Saint John, Brytyjska Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8185,8 +8133,7 @@ msgstr "Czas Górski"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Czas Górski - Alberta, wschodnia Kolumbia Brytyjska i zachodnie Saskatchewan"
+msgstr "Czas Górski - Alberta, wschodnia Kolumbia Brytyjska i zachodnie Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -8615,51 +8562,3 @@ msgstr "Walijski"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Aktualizacja do tej wersji %s jest możliwa tylko z Red Hat Linux 6.2 lub "
-#~ "nowszego. Twój system wygląda na starszy. Czy chcesz kontynuować "
-#~ "aktualizację?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tPowłoka pulpitu (GNOME)\n"
-#~ "\tPakiet biurowy (OpenOffice.org)\n"
-#~ "\tPrzeglądarka WWW (Mozilla) \n"
-#~ "\tKlient poczty (Evolution)\n"
-#~ "\tKomunikator\n"
-#~ "\tAplikacje obsługi dźwięku i obrazu\n"
-#~ "\tGry\n"
-#~ "\tNarzędzia administracyjne\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tPowłoka pulpitu (GNOME)\n"
-#~ "\tPakiet biurowy (OpenOffice.org)\n"
-#~ "\tPrzeglądarka WWW (Mozilla) \n"
-#~ "\tPoczta (Evolution)\n"
-#~ "\tKomunikator\n"
-#~ "\tAplikacje obsługi dźwięku i obrazu\n"
-#~ "\tGry\n"
-#~ "\tNarzędzia programistyczne\n"
-#~ "\tNarzędzia administracyjne\n"
