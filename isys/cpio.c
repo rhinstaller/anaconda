@@ -12,10 +12,6 @@ int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin) {
     int rc;
     const char * failedFile;
 
-    FILE *myfile;
-
-    myfile = fopen("/dev/tty3", "rw");
-
     if (outName) {
 	map.archivePath = cpioName;
 	map.fsPath = outName;
@@ -24,8 +20,6 @@ int installCpioFile(gzFile fd, char * cpioName, char * outName, int inWin) {
 
     rc = myCpioInstallArchive(fd, outName ? &map : NULL, 1, NULL, NULL, 
 			    &failedFile);
-
-    fprintf(myfile, "Failed file = %s\n", failedFile);
 
     if (rc || access(outName, R_OK)) {
 	return -1;
