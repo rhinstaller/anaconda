@@ -785,7 +785,7 @@ class ToDo:
 	self.getCompsList()
         if self.upgrade:
             self.fstab.mountFilesystems (self.instPath)
-            db = rpm.opendb (self.instPath)
+            db = rpm.opendb (0, self.instPath)
             ts = rpm.TransactionSet(self.instPath, db)
         else:
             ts = rpm.TransactionSet()
