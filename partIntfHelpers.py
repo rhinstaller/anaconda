@@ -184,11 +184,11 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
                                                  partition.geom.end)
                 requestlist.addDelete(delete)
             elif isinstance(request, partRequests.LogicalVolumeRequestSpec):
-                delete = partRequests.deleteLogicalVolumeSpec(request.logicalVolumeName,
+                delete = partRequests.DeleteLogicalVolumeSpec(request.logicalVolumeName,
                                                               request.volumeGroup)
                 requestlist.addDelete(delete)
             elif isinstance(request, partRequests.VolumeGroupRequestSpec):
-                delete = partRequests.deleteVolumeGroupSpec(request.volumeGroupName)
+                delete = partRequests.DeleteVolumeGroupSpec(request.volumeGroupName)
                 requestlist.addDelete(delete)
             # FIXME: do we need to do anything with preexisting raids?
     else: # is this a extended partition we made?
