@@ -164,7 +164,6 @@ int devMakeInode(char * devName, char * path) {
 	minor = 1;
 	if (devName[3])
 	    minor += devName[3] - '1';
-#if defined (__s390__) || defined (__s390x__)
     } else if (!strncmp(devName, "dasd", 4) && strlen(devName) > 4) {
 	/* IBM Dasd Drives */
 	type = S_IFBLK;
@@ -177,7 +176,6 @@ int devMakeInode(char * devName, char * path) {
 	type = S_IFBLK;
 	major = 95;
 	minor = devName[3] - 'a';
-#endif
     } else if (!strncmp(devName, "rd/", 3)) {
 	/* dac 960 "/rd/c0d0{p1}" */
 	int c, d, p;
