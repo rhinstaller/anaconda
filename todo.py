@@ -919,7 +919,7 @@ class ToDo:
 		cdname = "%s%d" % (cdname, count)
 	    count = count + 1
 
-            self.log ("creating cdrom link for" + device)
+            self.log ("creating cdrom link for " + device)
             try:
                 os.stat(self.instPath + "/dev/" + cdname)
                 self.log ("link exists, removing")
