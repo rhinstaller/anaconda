@@ -31,7 +31,7 @@ msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-25 12:07-0700\n"
+"PO-Revision-Date: 2004-10-01 04:11-0700\n"
 "Last-Translator: Николай Сърмаджиев <nikolayd@sarmadzhiev.tk>\n"
 "Language-Team: Български <bg@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,8 +93,7 @@ msgstr "Прекратяване след 50 неуспешни опита!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
+msgstr "Моля, направете връзка с Вашия vnc клиент към %s за да започне инсталацията."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
@@ -167,8 +166,7 @@ msgstr "Неизвестна грешка"
 #: ../anaconda:621
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
+msgstr "Грешка при дърпането на втората част на \"кикстарт\" конфигурацията:%s!"
 
 #: ../anaconda:737
 msgid ""
@@ -275,8 +273,7 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Дялът за първоначално зареждане %s може би не отговаря на изискванията на "
 "архитектурата."
@@ -1453,8 +1450,7 @@ msgstr "Стартиране на инсталацията"
 
 #: ../packages.py:934
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
-"Стартиране на инсталационния процес, това може да отнеме няколко минути..."
+msgstr "Стартиране на инсталационния процес, това може да отнеме няколко минути..."
 
 #: ../packages.py:974
 msgid ""
@@ -1834,8 +1830,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
+msgstr "Не може да редактирате този дял, защото той е extended дял, който съдържа %s"
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
@@ -1971,8 +1966,7 @@ msgid "Confirm Reset"
 msgstr "Потвърдете"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Сигурни ли сте, че искате да върнете таблицата на дяловете в оригиналното "
 "състояние?"
@@ -2024,8 +2018,7 @@ msgstr ""
 "за да се инсталира %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Трябва да създадете /boot/efi FAT дял с размер от 50 МБ."
 
 #: ../partitions.py:796
@@ -2043,8 +2036,7 @@ msgstr ""
 
 #: ../partitions.py:844 ../partRequests.py:652
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr ""
-"Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
+msgstr "Дяловете за Началното зареждане могат да бъдат само на RAID1 устройства."
 
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2091,8 +2083,7 @@ msgstr "дял, който е член на LVM Група от Томове."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Тази точка на монтиране е невалидна. Директорията %s трябва да е на / "
 "файловата система."
@@ -2122,16 +2113,14 @@ msgstr "Точката на монтиране \"%s\" е заета, моля и
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
+msgstr "Размера на %s дела (%10.2f МБ) надвишава максималния размер от %10.2f МБ."
 
 #: ../partRequests.py:469
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
+msgstr "Размера на зададения дял (= %s МБ) превишава максималния размер от %s МБ."
 
 #: ../partRequests.py:474
 #, python-format
@@ -2339,10 +2328,8 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощ | <Tab> между елементите | <Space> избор | <F12> следващ екран"
 
 #: ../text.py:369
 msgid ""
@@ -2521,14 +2508,11 @@ msgstr ""
 "неизползваема. Желаете ли да продължите с обновлението?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
-"Архитектурата на пуска на %s, която обновявате, изглежда е %s - т.е. не е "
-"такава каквато е архитектурата на предходната инсталация %s.  Много вероятно "
-"е обновлението да не бъде успешно. Сигурни ли сте, че искате да продължите?"
+msgstr "Изглежда искате да обновите версия, която е твърде стара за да се поднови в %s. Желаете ли да продължите обновлението?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -4243,14 +4227,12 @@ msgid "Partitioning"
 msgstr "Разделяне"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Следните критични грешки са намерени в зададената схема за разделяне."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Грешките трябва да се отстранят преди да продължи инсталацията на %s."
 
 #: ../iw/partition_gui.py:637
@@ -4405,8 +4387,7 @@ msgstr "Не може да се създаде клонинг устройств
 
 #: ../iw/partition_gui.py:1305
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Клон-редактор за устройство не може да бъде създаден по някаква причина."
+msgstr "Клон-редактор за устройство не може да бъде създаден по някаква причина."
 
 #: ../iw/partition_gui.py:1349
 msgid "Ne_w"
@@ -4693,8 +4674,7 @@ msgstr "Моля изберете target устройства за клонир�
 #: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
-msgstr ""
-"Устройството източник /dev/%s не може да се избира като желано устройство."
+msgstr "Устройството източник /dev/%s не може да се избира като желано устройство."
 
 #: ../iw/raid_dialog_gui.py:544
 #, python-format
@@ -4747,8 +4727,7 @@ msgstr "Клониране на Устройствата"
 
 #: ../iw/raid_dialog_gui.py:644
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Има грешка при почистването на target устройствата.  Клонирането е провалена."
+msgstr "Има грешка при почистването на target устройствата.  Клонирането е провалена."
 
 #: ../iw/raid_dialog_gui.py:678
 msgid ""
@@ -4879,8 +4858,7 @@ msgstr "Ще се обнови конфигурацията на текущия 
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Инсталатора намери %s начален зареждач, инсталиран на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4891,8 +4869,7 @@ msgstr "Опцията е препоръчителна."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"Инсталатора не може да намери начален зареждач, инсталиран на системата."
+msgstr "Инсталатора не може да намери начален зареждач, инсталиран на системата."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -5015,8 +4992,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Слуап файла трябва да е между 1 и 2000 МБ."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Няма достатъчно място на устройството което сте избрали за слуап дял."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5383,8 +5359,7 @@ msgstr ""
 "поставят за всеки от тях."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> избира бутон | <F2> избира подразбиращ се дял за начално зареждане "
 "| <F12> следващ екран>"
@@ -5663,8 +5638,7 @@ msgstr "Анулиране"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Изберете допълнителни езици които желаете да се използват на системата:"
+msgstr "Изберете допълнителни езици които желаете да се използват на системата:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -5815,10 +5789,8 @@ msgid "Select individual packages"
 msgstr "Изберете индивидуални пакети"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> избор   |   <F2> Групови Детайли   |   <F12> следващ екран"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5842,10 +5814,8 @@ msgid "Total size"
 msgstr "Общо"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> избор   |   <F1> помощ   |   <F2> описание на пакета"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5989,8 +5959,7 @@ msgstr "Файлова Система Опции"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Моля изберете как желаете да се приготви файловата система на този дял."
+msgstr "Моля изберете как желаете да се приготви файловата система на този дял."
 
 #: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
@@ -6115,8 +6084,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1445
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-Помощ     F2-Нов      F3-Редактирай   F4-Премахни    F5-Анулирай    "
 "F12-Добре     "
@@ -6365,14 +6333,11 @@ msgid "User Exists"
 msgstr "Потребителя съществува"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Руут потребителя вече е настроен. Не е нужно да добавяте потребителя тук."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Този системен потребител е вече настроен. Не трябва да добавяте потребителя "
 "тук."
@@ -6760,7 +6725,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6770,10 +6734,10 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-"\tДесктоп обвивка (GNOME)\n"
+"\tДесктоп среда (Гноме)\n"
 "\tОфис пакет (OpenOffice.org)\n"
-"\tУеб браузър (Mozilla) \n"
-"\tЕмайл (Evolution)\n"
+"\tУеб браузър \n"
+"\tЕмайл (Еволюшън)\n"
 "\tТекстови съобщения\n"
 "\tАудио и видео приложения\n"
 "\tИгри\n"
@@ -6809,7 +6773,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Ред Хат Ентерпрайс Линукс WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6821,10 +6784,10 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tДесктоп обвивка (GNOME)\n"
+"\tДесктоп среда (ГНОМЕ)\n"
 "\tОфис пакет (OpenOffice.org)\n"
-"\tУеб браузър (Mozilla) \n"
-"\tЕмайл (Evolution)\n"
+"\tУеб браузър \n"
+"\tЕмайл (Еволюшън)\n"
 "\tТекстови съобщения\n"
 "\tАудио и видео приложения\n"
 "\tИгри\n"
@@ -6985,8 +6948,7 @@ msgstr "Провали се зареждането на диска с драйв
 #: ../loader2/driverdisk.c:386
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
+msgstr "Поставете диск с драйвери в /dev/%s и натиснете \"Добре\" за да продължите."
 
 #: ../loader2/driverdisk.c:388
 msgid "Insert Driver Disk"
@@ -7210,10 +7172,8 @@ msgid "Welcome to %s"
 msgstr "Добре дошли в %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> между елементите  | <Space> избира | <F12> следващ екран "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7725,8 +7685,7 @@ msgstr "Ако не използвате анонимно ftp, въведете 
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
+msgstr "Ако използвате HTTP прокси, въведете името на проксито, което да се използва."
 
 #: ../loader2/urls.c:432
 msgid "Account name:"
@@ -7785,14 +7744,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Атлантическо Време - И Лабрадор"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "Атлантическо Време - Нова Скотия, NB, З Лабрадор, И Квебек и PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
+msgstr "Атлантическо Време - Нова Скотия - места, които не виждали DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7975,8 +7932,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Източно време - Онтарио - повечето територии"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Източно време - Онтарио и Квебел - места не попадащи под DST 1967-1973"
 
 #. generated from zone.tab
@@ -8157,18 +8113,15 @@ msgstr "повечето местоположения"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
-"повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "повечето местоположения (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Планинско Стандартно Време - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска Колумбия"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Планинско Стандартно Време - Даунсон Крик и Форт Св. Джон, Британска Колумбия"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8578,51 +8531,3 @@ msgstr "Уелски"
 msgid "Zulu"
 msgstr "Зулу"
 
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Обновлението за тази версия на %s поддържа само Red Hat Linux 6.2 или по-"
-#~ "нов.  Това изглежда е по-стара система.  Желаете ли да продължите с "
-#~ "обновлението?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tДесктоп обвивка (ГНОМЕ)\n"
-#~ "\tОфис пакет (OpenOffice)\n"
-#~ "\tУеб браузър (Мозила) \n"
-#~ "\tЕмайл (Еволюшън)\n"
-#~ "\tТекстови съобщения\n"
-#~ "\tАудио и видео приложения\n"
-#~ "\tИгри\n"
-#~ "\tАдминистративни инструменти\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tДесктоп обвивка (ГНОМЕ)\n"
-#~ "\tОфис пакет (OpenOffice)\n"
-#~ "\tУеб браузър (Мозила) \n"
-#~ "\tЕмайл (Еволюшън)\n"
-#~ "\tТекстови съобщения\n"
-#~ "\tАудио и видео приложения\n"
-#~ "\tИгри\n"
-#~ "\tИнструменти за разработка\n"
-#~ "\tАдминистративни инструменти\n"
