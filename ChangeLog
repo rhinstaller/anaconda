@@ -1,5 +1,8 @@
 2004-12-01  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/shutdown.c (shutDown): Make loop while waiting for
+	reboot less cpu-intensive to improve user-experience with, eg, VMWare
+
 	* partitions.py (Partitions.writeKS): Include pesize (#141370)
 
 2004-11-30  Jeremy Katz  <katzj@redhat.com>

@@ -77,7 +77,7 @@ void shutDown(int noKill, int doReboot, int doPowerOff) {
     } else {
 	printf("you may safely reboot your system\n");
         signal(SIGINT, rebootHandler);
-        while (1);
+        while (1) sleep(60);
     }
 
     exit(0);
