@@ -270,13 +270,39 @@ class IndividualPackageWindow:
         return INSTALL_OK
 
 class PackageDepWindow:
+    moredeps = None
+    def size(self, comps):
+	return _("Total install size: %s") % comps.sizeStr()
+
+    def radiocb (self, args):
+        (label, todo, widget) = args
+        if widget == self.inst:
+            todo.selectDeps (self.deps)
+            todo.selectDepCause (self.deps)
+        elif widget == self.cause:
+            todo.unselectDeps (self.deps)
+            todo.unselectDepCause (self.deps)
+        elif widget == self.ignore:
+            todo.unselectDeps (self.deps)
+            todo.selectDepCause (self.deps)
+        else:
+            raise RuntimeError, "never reached"
+        
+	label.setText(self.size(todo.comps))
+
     def __call__(self, screen, todo):
-        deps = todo.verifyDeps ()
-        if not deps:
+        if not PackageDepWindow.moredeps:
+            self.deps = todo.verifyDeps ()
+        else:
+            self.deps = PackageDepWindow.moredeps
+        if not self.deps:
             return INSTALL_NOOP
 
+	origSelection = todo.comps.getSelectionState()
+        todo.selectDeps (self.deps)
+
         g = GridFormHelp(screen, _("Package Dependencies"), 
-			 "pacakgedeps", 1, 5)
+			 "pacakgedeps", 1, 8)
         g.add (TextboxReflowed (45, _("Some of the packages you have "
                                       "selected to install require "
                                       "packages you have not selected. If "
@@ -285,29 +311,55 @@ class PackageDepWindow:
                                       "installed.")), 0, 0, (0, 0, 0, 1))
         g.add (Label ("%-20s %-20s" % (_("Package"), _("Requirement"))), 0, 1, anchorLeft = 1)
         text = ""
-        for name, suggest in deps:
+        for name, suggest in self.deps:
             text = text + "%-20s %-20s\n" % (name, suggest)
         
-        if len (deps) > 5:
+        if len (self.deps) > 4:
             scroll = 1
         else:
             scroll = 0
             
-        g.add (Textbox (45, 5, text, scroll = scroll), 0, 2, anchorLeft = 1)
+        g.add (Textbox (45, 4, text, scroll = scroll), 0, 2, anchorLeft = 1)
+
+        la = Label(self.size(todo.comps))
+        g.add (la, 0, 3, anchorRight = 1)
+
+        instt = _("Install packages to satisfy dependencies")
+        causet = _("Do not install packages that have dependencies")
+        ignt = _("Ignore package dependencies")
+        maxlen = max ((len (instt), len (causet), len (ignt)))
+
+        def pad (pad, text):
+            return "%-*s" % (pad, text)
         
-        cb = Checkbox (_("Install packages to satisfy dependencies"), 1)
-        g.add (cb, 0, 3, (0, 1, 0, 1), growx = 1)
+        self.inst = SingleRadioButton (pad (maxlen, instt), None, 1)
+	self.inst.setCallback(self.radiocb, (la, todo, self.inst))
+        g.add (self.inst, 0, 4, (0, 1, 0, 0), anchorLeft = 1)
+
+        self.cause = SingleRadioButton (pad (maxlen, causet), self.inst, 0)
+	self.cause.setCallback(self.radiocb, (la, todo, self.cause))
+        g.add (self.cause, 0, 5, anchorLeft = 1)
+        
+        self.ignore = SingleRadioButton (pad (maxlen, ignt), self.cause, 0)
+        g.add (self.ignore, 0, 6, (0, 0, 0, 1), anchorLeft = 1)
+	self.ignore.setCallback(self.radiocb, (la, todo, self.ignore))
         
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
-        g.add (bb, 0, 4, growx = 1)
+        g.add (bb, 0, 7, growx = 1)
 
         result = g.runOnce ()
 
-        if cb.selected ():
-            todo.selectDeps (deps)
-        
         rc = bb.buttonPressed (result)
         if rc == string.lower (_("Back")):
+            todo.comps.setSelectionState(origSelection)
             return INSTALL_BACK
+
+        if self.ignore.selected():
+            return INSTALL_OK
+        
+        moredeps = todo.verifyDeps ()
+        if moredeps and todo.canResolveDeps (moredeps):
+            PackageDepWindow.moredeps = moredeps
+            return self(screen, todo)
         return INSTALL_OK
 
