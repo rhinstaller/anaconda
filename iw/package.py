@@ -388,7 +388,6 @@ class PackageSelectionWindow (InstallWindow):
         # turn on each package group in order (msw's code requires this)
         for (button, comp) in self.checkButtons:
             if button.get_active ():
-                print comp.name
                 comp.select (1)
 
         del self.checkButtons
