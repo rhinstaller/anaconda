@@ -461,7 +461,6 @@ class XCustomWindow (InstallWindow):
                 label = GtkLabel (_("GNOME"))
                 self.hbox4.pack_start (label, TRUE, FALSE, 2)
 
-
             elif self.todo.hdList['kdebase'].selected:
                 self.newDesktop = "KDE"
                 im = self.ics.readPixmap ("kde.png")                
@@ -476,15 +475,7 @@ class XCustomWindow (InstallWindow):
                 label = GtkLabel (_("KDE"))
                 self.hbox4.pack_start (label, TRUE, FALSE, 2)
 
-
-
-#            self.hbox4.pack_start (vbox3)
-#            self.hbox4.pack_start (self.vbox4)
             self.box.pack_start (hbox3, FALSE, TRUE, 2)
-
-            
-
-
             
             pass
 
@@ -620,10 +611,12 @@ class MonitorWindow (InstallWindow):
                     self.hEntry.set_text (monitor[3])
                     self.hEntry.set_editable (TRUE)
                     self.vEntry.set_editable (TRUE)
-                    self.monitor = monitor
+#                    self.monitor = monitor
                     self.todo.x.state = monitor[0]
 
             self.stateName = monitor
+#            print self.stateName
+            self.monitor = monitor
 
         except:
             self.ics.setNextEnabled (FALSE)
@@ -640,10 +633,13 @@ class MonitorWindow (InstallWindow):
             self.todo.monitorHsyncState = self.hEntry.get_text ()
             self.todo.monitorVsyncState = self.vEntry.get_text ()
 
+
 #        print "getNext"
 #        print self.todo.monitorOriginalName
-#        print self.todo.monitorOriginalName
 #        print self.todo.isDDC
+
+#        print self.todo.monitorHsyncState
+#        print self.todo.monitorVsyncState
         
         if self.skipme:
             return None
@@ -705,11 +701,9 @@ class MonitorWindow (InstallWindow):
             self.ctree.thaw ()
             pass
 
-    def insert (self, pos, text, len, data):
-        text = text[:1]
-        
+    def insert (self, pos, text, len, data, entry):
+        text = text[:1]        
         list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", " ", "."]
-
         found = "FALSE"
 
         for item in list:
@@ -717,10 +711,9 @@ class MonitorWindow (InstallWindow):
                 found = "TRUE"
 
         if found == "FALSE":
-            self.hEntry.emit_stop_by_name ("insert_text")
-            self.hEntry.emit_stop_by_name ("insert_text")
+            entry.emit_stop_by_name ("insert-text")
 
-    # MonitorWindow tag="monitor"
+
     def getScreen (self):
 
         # Don't configure X in reconfig mode.
@@ -782,6 +775,8 @@ class MonitorWindow (InstallWindow):
                                                   self.monitor_p, self.monitor_b, is_leaf = FALSE)
 
             models = monitors[man]
+#            print models
+            
             models.sort()
             for monitor in models:
                 node = self.ctree.insert_node (parent, None, (monitor[0],), 2)
@@ -819,6 +814,7 @@ class MonitorWindow (InstallWindow):
 
             self.ctree.node_set_row_data (self.originalNode, (parent, monitor))
 
+#            print "monitor[0] in if self.todo.isDDC is",  monitor[0]
 #            print "self.todo.x.state = ", self.todo.x.state
             if self.todo.x.state != self.todo.monitorOriginalName:
                  pass
@@ -844,6 +840,7 @@ class MonitorWindow (InstallWindow):
             monitor = (self.todo.x.state, self.todo.x.state, self.todo.x.monVert,
                        self.todo.x.monHoriz)
 
+#            print "monitor[0] in if self.todo.isDDC is",  monitor[0]
 
             self.ctree.node_set_row_data (node, (parent, monitor))
 
@@ -868,11 +865,18 @@ class MonitorWindow (InstallWindow):
 
         if self.todo.monitorHsync == "":
 #            print "if"
+#            print "Trying to set rates"
             self.hEntry.set_text (self.todo.x.monHoriz)
             self.vEntry.set_text (self.todo.x.monVert)
             self.todo.monitorHsync = self.todo.x.monHoriz
             self.todo.monitorVsync = self.todo.x.monVert
+            self.todo.monitorHsyncState = self.todo.x.monHoriz
+            self.todo.monitorVsyncState = self.todo.x.monVert
+#            print self.todo.monitorHsyncState
+#            print self.todo.monitorVsyncState
 
+
+            
         else:
 #            print "else"
 #            print "Trying to set rates"
@@ -881,7 +885,6 @@ class MonitorWindow (InstallWindow):
 
             self.hEntry.set_text (self.todo.monitorHsyncState)
             self.vEntry.set_text (self.todo.monitorVsyncState) 
-
 
         if select:
 #            print "inside if"
@@ -918,8 +921,8 @@ class MonitorWindow (InstallWindow):
         frame.add (hbox)
         syncbox.pack_start (frame)
 
-        self.hEntry.connect ("insert_text", self.insert)
-        self.vEntry.connect ("insert_text", self.insert)        
+        self.hEntry.connect ("insert_text", self.insert, self.hEntry)
+        self.vEntry.connect ("insert_text", self.insert, self.vEntry)        
 
         self.reset = GtkButton (_("Restore original values"))
         self.reset.connect ("clicked", self.resetCb)
