@@ -184,7 +184,7 @@ class MessageWindow:
             self.mutex.wait ()
     
 class InstallInterface:
-    def shutdown:
+    def shutdown (self):
 	pass
 
     def setPackageProgressWindow (self, ppw):
