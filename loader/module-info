@@ -513,10 +513,9 @@ g_NCR5380
 	scsi_hostadapter
 	"generic NCR5380"
 
-# XXX these needs to be put back
-#gdth
-	#scsi_hostadapter
-	#"GDT ISA/EISA/PCI Disk Array Controller"
+gdth
+	scsi_hostadapter
+	"GDT ISA/EISA/PCI Disk Array Controller"
 
 # not a module
 # gvp11
@@ -598,13 +597,15 @@ seagate
 #	char-major-10	st
 #	"SCSI tape protocol"
 
-sym53c416
-	scsi_hostadapter
-	"sym53c416"
+#not currently used
+#sym53c416
+#	scsi_hostadapter
+#	"sym53c416"
 
-sym53c8xx
-	scsi_hostadapter
-	"Symbios 53C896"
+#not currently used
+#sym53c8xx
+#	scsi_hostadapter
+#	"Symbios 53C896"
 
 t128
 	scsi_hostadapter
