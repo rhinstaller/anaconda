@@ -2,6 +2,7 @@ import string
 import os
 import isys
 import iutil
+import edd
 
 class LiloConfigFile:
     def __repr__ (self, tab = 0):
@@ -251,7 +252,10 @@ class LiloConfiguration:
 	lilo.addEntry("install", "/boot/boot.b", replace = 0)
 	lilo.addEntry("prompt", replace = 0)
 	lilo.addEntry("timeout", "50", replace = 0)
-	if self.liloLinear:
+        # XXX edd overrides linear, lba32/linear are mutually exclusive
+        if self.edd:
+	    lilo.addEntry("lba32", replace = 0)
+        else if self.liloLinear:
 	    lilo.addEntry("linear", replace = 0)
 
 	smpInstalled = (hdList.has_key('kernel-smp') and 
@@ -368,6 +372,7 @@ class LiloConfiguration:
 	self.liloAppend = None
 	self.default = None
 	self.initrdsMade = {}
+        self.edd = edd.detect()
 
 
 if __name__ == "__main__":
