@@ -44,7 +44,7 @@ class RescueInterface:
 def makeMtab(instPath):
     child = os.fork()
     if (not child):
-        isys.chroot(instPath)
+        os.chroot(instPath)
         f = open("/proc/mounts", "r")
         lines = f.readlines()
         f.close()

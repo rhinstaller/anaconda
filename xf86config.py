@@ -999,7 +999,7 @@ class XF86Config:
 
         if (not serverpid):
             if (root and root != '/'): 
-                isys.chroot (root)
+                os.chroot (root)
                 os.chdir("/")
 
             args = [serverPath, '-xf86config', '/tmp/XF86Config.test' ]
@@ -1032,7 +1032,7 @@ class XF86Config:
         child = os.fork()
         if (not child):
             if (root and root != '/'): 
-                isys.chroot (root)
+                os.chroot (root)
                 os.chdir("/")
 
             os.environ["DISPLAY"] = ":9"

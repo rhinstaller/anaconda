@@ -66,7 +66,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     childpid = os.fork()
     if (not childpid):
         if (root and root != '/'): 
-	    isys.chroot (root)
+	    os.chroot (root)
 	    os.chdir("/")
 
 	if ignoreTermSigs:
@@ -124,7 +124,7 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0,
 
     childpid = os.fork()
     if (not childpid):
-        if (root and root != '/'): isys.chroot (root)
+        if (root and root != '/'): os.chroot (root)
 	os.dup2(write, catchfd)
 	os.close(write)
 	os.close(read)
