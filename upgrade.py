@@ -314,9 +314,10 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
         oldfsset.turnOnSwap(instPath)
 
 # move the old pre-convert db back in case of problems
-def resetRpmdb(olddb):
-    iutil.rmrf(instPath + "/var/lib/rpm")
-    os.rename (olddb, instPath + "/var/lib/rpm")    
+def resetRpmdb(olddb, instPath):
+    if olddb is not None:
+        iutil.rmrf(instPath + "/var/lib/rpm")
+        os.rename (olddb, instPath + "/var/lib/rpm")    
 
 rebuildTime = None
 
@@ -379,7 +380,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
     except rpm.error:
         if id.dbpath is not None:
-            resetRpmdb(id.dbpath)
+            resetRpmdb(id.dbpath, instPath)
 	win.pop()
 	intf.messageWindow(_("Error"),
                            _("An error occurred when finding the packages to "
@@ -448,7 +449,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                 type="yesno")
         if rc == 0:
             try:
-                resetRpmdb(id.dbpath)
+                resetRpmdb(id.dbpath, instPath)
             except Exception, e:
                 log("error returning rpmdb to old state: %s" %(e,))
                 pass
@@ -465,7 +466,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                   type="yesno")
         if rc == 0:
             try:
-                resetRpmdb(id.dbpath)
+                resetRpmdb(id.dbpath, instPath)
             except Exception, e:
                 log("error returning rpmdb to old state: %s" %(e,))
                 pass
@@ -496,7 +497,6 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 supportedUpgradeVersion = 1
 
     if supportedUpgradeVersion == 0:
-        unsupportedUpgrade = 0
         rc = intf.messageWindow(_("Warning"),
                                 _("Upgrades for this version of %s "
                                   "are only supported from Red Hat Linux "
@@ -506,7 +506,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                 type="yesno")
         if rc == 0:
             try:
-                resetRpmdb(id.dbpath)
+                resetRpmdb(id.dbpath, instPath)
             except Exception, e:
                 log("error returning rpmdb to old state: %s" %(e,))
                 pass
