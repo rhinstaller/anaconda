@@ -111,9 +111,9 @@ class BaseInstallClass:
 	dispatch.setStepList(
 		 "language",
 		 "keyboard",
-		 "checkmonitorok",
-		 "monitor",
-		 "setsanex",
+#		 "checkmonitorok",
+#		 "monitor",
+#		 "setsanex",
 		 "welcome",
                  "findrootparts",
 		 "betanag",
