@@ -736,7 +736,7 @@ msgstr "Автоматическое разбиение"
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:280 ../text.py:1073 ../text.py:1077
 msgid "Partition"
-msgstr "Разбиение"
+msgstr "Раздел"
 
 #: ../text.py:1075
 msgid "Manually Partition"
@@ -1057,7 +1057,7 @@ msgstr "Пароли root не совпадают."
 
 #: ../iw/account_gui.py:56
 msgid "User password accepted."
-msgstr "Пароль пользователя root принят."
+msgstr "Пароль пользователя принят."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -1258,7 +1258,7 @@ msgstr "Неопределенные зависимости"
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr "Полный размер установки: %s"
+msgstr "Полный размер: %s"
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:368
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
@@ -2087,8 +2087,9 @@ msgid "WWW (HTTP)"
 msgstr ""
 
 #: ../textw/firewall_text.py:88
+#, fuzzy
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Всего (M)"
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
 #: ../textw/firewall_text.py:90
