@@ -27,7 +27,7 @@ from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
 
 from rhpl.translate import _
-from rhpl.kbd import Keyboard
+from rhpl.keyboard import Keyboard
 from rhpl.mouse import Mouse
 from rhpl.videocard import VGA16Card, VESADriverCard
 
