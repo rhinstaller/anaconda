@@ -817,7 +817,8 @@ class PartitionWindow:
                 return
 
             request = copy.copy(raidrequest)
-            filesystem = fstype.current()
+
+            request.fstype = fstype.current()
 
             if request.fstype.isMountable():
                 request.mountpoint = self.mount.value()
@@ -828,6 +829,7 @@ class PartitionWindow:
             for drive in self.drivelist.getSelection():
                 id = self.partitions.getRequestByDeviceName(drive).uniqueID
                 raidmembers.append(id)
+
             request.raidmembers = raidmembers
             request.raidspares = int(spares.value())
             request.raidlevel = raidtype.current()
