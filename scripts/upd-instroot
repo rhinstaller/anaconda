@@ -276,6 +276,7 @@ usr/bin/ftp
 usr/bin/head
 usr/bin/less
 usr/bin/lsattr*
+usr/bin/maketilo
 usr/bin/mattrib
 usr/bin/mbadblocks
 usr/bin/mcd
@@ -465,6 +466,10 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/bin
 	rm -rf $p/sbin
 
+	if [ $ARCH = sparc -a $p = $DESTGR ]; then
+	    mkdir -p $p/usr/lib/anaconda-runtime/boot
+	    (cd $p/boot; find -name "*.b") | (cd $p/boot; /bin/cpio --quiet -pdmu $p/usr/lib/anaconda-runtime/boot)
+        fi
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf

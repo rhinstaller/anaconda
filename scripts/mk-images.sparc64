@@ -1,16 +1,17 @@
 SECSTAGE="vfat raid0 raid1 raid5"
 TILO=$IMGPATH/usr/bin/tilo
-SILO=$IMGPATH/sbin/silo
+SILO=$IMGPATH/usr/sbin/silo
 
 prepareBootImage() {
+        dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
 	loopdev=`findloopdevice $MBD_TMPIMAGE`
 	stagedir=/tmp/sparcboot.$$
 	rm -rf $stagedir
 	mkdir -p $stagedir
 	cp $KERNELROOT/boot/vmlinuz-* $stagedir/vmlinux64.gz
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd64.img
-        cp $IMGPATH/boot/fd.b $stagedir
-	cp $IMGPATH/boot/second.b $stagedir
+        cp $BOOTDISKDIR/fd.b $stagedir
+	cp $BOOTDISKDIR/second.b $stagedir
 	cp $BOOTDISKDIR/*.msg $stagedir
 	cp $BOOTDISKDIR/silo64.conf  $stagedir/silo.conf
         genromfs -V "Red Hat Linux Install" -d $stagedir -f $loopdev -a 512 -A 2048,/..
@@ -22,20 +23,20 @@ prepareBootImage() {
 
 maketftp() {
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-	if [ $1 = "kernel" ]; then
+	if [ $1 = "--kernel" ]; then
 	    TFTPKERNEL=$2
 	    shift; shift
 	    continue
-	elif [ $1 = "initrdfrom" ]; then
+	elif [ $1 = "--initrdfrom" ]; then
 	    TFTPINITRD=$2
 	    shift; shift
 	    continue
-	elif [ $1 = "imagename" ]; then
+	elif [ $1 = "--imagename" ]; then
 	    TFTPIMAGE=$2
 	    shift; shift
 	    continue
 	fi
-	echo "bad argument passed to maketftp"
+	echo "bad argument $1 passed to maketftp"
 	exit 1
     done
 	
@@ -48,23 +49,28 @@ rm -rf $TOPDESTPATH/etc
 mkdir -p $TOPDESTPATH/boot
 mkdir -p $TOPDESTPATH/etc
 
-cp $IMGPATH/boot/cd.b $TOPDESTPATH/boot
-cp $IMGPATH/boot/second.b $TOPDESTPATH/boot
+cp $BOOTDISKDIR/cd.b $TOPDESTPATH/boot
+cp $BOOTDISKDIR/second.b $TOPDESTPATH/boot
 cp $BOOTDISKDIR/*.msg $TOPDESTPATH/etc
 cp $BOOTDISKDIR/silo.conf $TOPDESTPATH/etc
 
 # set up aout kernel images
 rm -rf $TOPDESTPATH/kernels
+mkdir -p $TOPDESTPATH/kernels
 elftoaout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
 gzip -9 $TOPDESTPATH/kernels/vmlinux64
+
+SCSIMODULES="qlogicpti sg st pluto fcal soc socal
+             fc4 aic7xxx sym53c8xx qlogicisp"
+NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5 " 
 
 makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
 	   --initrdsize 2000 \
 	   --loaderbin loader \
-           --modules "=scsi =net"
+           --modules "$SCSIMODULES $NETMODULES"
 
-maketftp --kernel $TOPDESTPATH/kernels/vmlinux64.gz \
-	 --imagename $TOPDESTPATH/boot/tftp64.img \
+maketftp --kernel $KERNELROOT/boot/vmlinux-* \
+	 --imagename $TOPDESTPATH/images/tftp64.img \
          --initrdfrom $TOPDESTPATH/boot/initrd64.img
 
 makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
@@ -73,6 +79,6 @@ makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
 	     --initrdflags '--initrdto $TOPDESTPATH/boot/initrd64.img \
 			    --initrdsize 2000 \
 			    --loaderbin loader \
-			    --modules "=scsi"'
+			    --modules "$SCSIMODULES"'
 
-makemainmodules "$SECSTAGE =scsi =net"
+makemainmodules "$SECSTAGE $NETMODULES"
