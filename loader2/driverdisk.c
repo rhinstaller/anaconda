@@ -157,8 +157,10 @@ int getRemovableDevices(char *** devNames) {
     int numDevices = 0;
     int i = 0, j = 0;
 
-    floppies = probeDevices(CLASS_FLOPPY, BUS_UNSPEC, PROBE_ALL);
-    cdroms = probeDevices(CLASS_CDROM, BUS_UNSPEC, PROBE_ALL);
+    floppies = probeDevices(CLASS_FLOPPY, 
+                            BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
+    cdroms = probeDevices(CLASS_CDROM, 
+                          BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
 
     /* we should probably take detached into account here, but it just
      * means we use a little bit more memory than we really need to */
@@ -178,10 +180,12 @@ int getRemovableDevices(char *** devNames) {
     i = 0;
     if (floppies)
         for (j = 0; floppies[j]; j++) 
-            if (floppies[j]->detached == 0) devices[i++] = floppies[j];
+            if ((floppies[j]->detached == 0) && (floppies[j]->device != NULL)) 
+                devices[i++] = floppies[j];
     if (cdroms)
         for (j = 0; cdroms[j]; j++) 
-            if (cdroms[j]->detached == 0) devices[i++] = cdroms[j];
+            if ((cdroms[j]->detached == 0) && (cdroms[j]->device != NULL)) 
+                devices[i++] = cdroms[j];
 
     devices[i] = NULL;
     numDevices = i;
