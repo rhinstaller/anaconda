@@ -12,7 +12,7 @@ ARCH=`uname -m | sed -e 's/i.86/i386/'`
 
 mkdir -p $DIR/proc
 mount -t proc /proc $DIR/proc
-if [ $ARCH = "sparc" ]; then
+if [ $ARCH = "sparc" -o $ARCH = "sparc64" ]; then
     mkdir $DIR/dev
     mknod $DIR/dev/openprom c 10 139
 fi

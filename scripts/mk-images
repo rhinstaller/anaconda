@@ -27,6 +27,12 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
+    
+    if [ $BUILDARCH = "sparc64" ];
+	BASEARCH=sparc
+    else
+	BASEARCH=$BUILDARCH
+    fi
 
     if [ ! -d "$1" ]; then
 	LATEST=latest --arch $BUILDARCH
@@ -44,8 +50,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
 # Stuff that we need
     TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
-    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${BUILDARCH}
-    FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${BUILDARCH}
+    KEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/keymaps-${BASEARCH}
+    FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${BASEARCH}
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
     MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
@@ -84,7 +90,7 @@ findPackage() {
     name=$2
     
     for n in $dir/$name*; do
-	thisName=$(rpm --qf '%{NAME}' -qp $n)
+	thisName=$(rpm --qf '%{NAME}' -qp $n.{${BUILDARCH},noarch}.rpm)
 	if [ -z "$thisName" ]; then
 	    return
 	fi
