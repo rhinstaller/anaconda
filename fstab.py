@@ -21,8 +21,10 @@ import string
 import raid
 import struct
 import _balkan
+import sys
 from translate import _
 from log import log
+
 
 def isValidExt2(device):
     file = '/tmp/' + device
