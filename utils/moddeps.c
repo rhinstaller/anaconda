@@ -7,7 +7,7 @@
 #include "../isys/isys.h"
 #include "../loader/modules.h"
 
-int extractModule(location, modName) {
+int extractModules(location, modName) {
     return 0;
 }
 
