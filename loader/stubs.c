@@ -1,3 +1,4 @@
+#include <gconv.h>
 
 #define ASM_GLOBAL_DIRECTIVE .globl
 #define __SYMBOL_PREFIX
@@ -15,10 +16,10 @@
 void *__libc_stack_end;
 
 int
-__gconv_OK () {return 0;}
+__gconv_OK () {return GCONV_OK;}
 
 int
-__gconv_NOCONV () {return -1;}
+__gconv_NOCONV () {return GCONV_OK;}
 
 strong_alias (__gconv_OK, __gconv_close_transform); 
 strong_alias (__gconv_NOCONV, __gconv);
