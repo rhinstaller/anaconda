@@ -49,11 +49,15 @@ gzFile gunzip_dopen(int fd) {
 
 gzFile gunzip_open(const char * file) {
     int fd;
+    gzFile rc;
 
     fd = open(file, O_RDONLY);
     if (fd < 0) return NULL;
 
-    return gunzip_dopen(fd);
+    rc = gunzip_dopen(fd);
+    close(fd);
+
+    return rc;
 }
 
 gzFile gzip_dopen(int fd) {
@@ -93,11 +97,15 @@ gzFile gzip_dopen(int fd) {
 
 gzFile gzip_open(const char * file, int flags, int perms) {
     int fd;
+    gzFile rc;
 
     fd = open(file, flags, perms);
     if (fd < 0) return NULL;
 
-    return gzip_dopen(fd);
+    rc = gzip_dopen(fd);
+    close(fd);
+
+    return rc;
 }
 
 int gunzip_read(gzFile str, void * buf, int bytes) {
