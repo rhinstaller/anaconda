@@ -234,7 +234,7 @@ archLabels = {'i386': ['msdos'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
               'ia64': ['msdos', 'gpt'],
-              'ppc': ['msdos', 'mac'}
+              'ppc': ['msdos', 'mac']}
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
