@@ -553,7 +553,6 @@ char ** extractModules(struct driverDiskInfo * ddi,
     /* this needs to know about modules64.cgz for sparc */
 
     uname(&u);
-    strcpy(u.release, "2.4.7-10BOOT");
 
     if (ddi) {
 	ballPath = filterDriverModules(ddi, modNames);
