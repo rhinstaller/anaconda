@@ -532,6 +532,10 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 !strncasecmp(argv[i], "headless", 8)) {
                 int arglen;
 
+		/* vnc implies graphical */
+		if (!strncasecmp(argv[i], "vnc", 3))
+		    flags |= LOADER_FLAGS_GRAPHICAL;
+
                 arglen = strlen(argv[i])+3;
                 extraArgs[numExtraArgs] = (char *) malloc(arglen*sizeof(char));
                 snprintf(extraArgs[numExtraArgs], arglen, "--%s", argv[i]);
