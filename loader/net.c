@@ -163,6 +163,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 #ifndef __STANDALONE__
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
+    char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
     char * newDir = *dirptr ? strdup(*dirptr) : NULL;
     int rc;
@@ -175,14 +176,14 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    
-    rc = newtWinEntries(_("NFS Setup"), 
-		_("Please enter the following information:\n"
-		  "\n"
-		  "    o the name or IP number of your NFS server\n"
-		  "    o the directory on that server containing\n"
-		  "      " PRODUCTNAME " for your architecture"), 60, 5, 15,
-		24, entries, _("OK"), _("Back"), NULL);
+    buf = sdupprintf(_("Please enter the following information:\n"
+		       "\n"
+		       "    o the name or IP number of your NFS server\n"
+		       "    o the directory on that server containing\n"
+		       "      %s for your architecture"), PRODUCTNAME);
+    rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
+			24, entries, _("OK"), _("Back"), NULL);
+    free(buf);
 
     if (rc == 2) {
 	if (newServer) free(newServer);

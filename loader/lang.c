@@ -38,7 +38,7 @@ struct aString {
 struct aString * strings = NULL;
 int numStrings = 0, allocedStrings = 0;
 
-static char * topLineWelcome = N_("Welcome to " PRODUCTNAME);
+static char * topLineWelcome = N_("Welcome to %s");
 static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
 
 static int aStringCmp(const void * a, const void * b) {
@@ -303,8 +303,9 @@ int chooseLanguage(char ** lang, int flags) {
     else
 	choice = english;
 
-    newtWinMenu(_("Choose a Language"), _("What language should be used "
-		"during the installation process?"), 40, 5, 5, 8,
+    newtWinMenu(_("Choose a Language"),
+		_("What language would you like to use during the "
+		  "installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
 
     langPicked = langs[choice];
@@ -320,6 +321,7 @@ int chooseLanguage(char ** lang, int flags) {
     if (i == numLanguages) abort();
 
     if (!strncmp(languages[choice].key, "en", 2)) {
+	char *buf;
 	/* stick with the default (English) */
 	unsetenv("LANG");
 	unsetenv("LANGKEY");
@@ -329,8 +331,9 @@ int chooseLanguage(char ** lang, int flags) {
             free(strings), strings = NULL;
             numStrings = allocedStrings = 0;
         }
-
-	newtDrawRootText(0, 0, _(topLineWelcome));
+	buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+	newtDrawRootText(0, 0, buf);
+	free(buf);
 	newtPushHelpLine(_(bottomHelpLine));
 
 	return 0;

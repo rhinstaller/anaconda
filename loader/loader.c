@@ -192,9 +192,11 @@ static int setupRamdisk(void) {
 
 void startNewt(int flags) {
     if (!newtRunning) {
+	char *buf = sdupprintf(_("Welcome to %s"), PRODUCTNAME);
 	newtInit();
 	newtCls();
-	newtDrawRootText(0, 0, _("Welcome to " PRODUCTNAME));
+	newtDrawRootText(0, 0, buf);
+	free(buf);
 
 	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 
@@ -963,6 +965,7 @@ static char * mountHardDrive(struct installMethod * method,
     char * tmpDir;
     char * type;
     char * url = NULL;
+    char * buf;
     int numPartitions;
     #ifdef __sparc__
     static int ufsloaded;
@@ -1066,16 +1069,17 @@ static char * mountHardDrive(struct installMethod * method,
 
 #endif
 
-	text = newtTextboxReflowed(-1, -1,
-		_("What partition and directory on that partition hold the "
-		  "CD (iso9660) images for " PRODUCTNAME "? If you don't "
-		  "see the disk drive you're using listed here, press F2 "
-		  "to configure additional devices."), 62, 5, 5, 0);
-
+	buf = sdupprintf(_("What partition and directory on that "
+			   "partition hold the CD (iso9660) images "
+			   "for %s? If you don't see the disk drive "
+			   "you're using listed here, press F2 "
+			   "to configure additional devices."), PRODUCTNAME);
+	text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
+	free(buf);
+	
 	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
 			      NEWT_FLAG_RETURNEXIT | 
-				(numPartitions > 5 ? NEWT_FLAG_SCROLL : 0)
-			    );
+			      (numPartitions > 5 ? NEWT_FLAG_SCROLL : 0));
 	
 	for (i = 0; i < numPartitions; i++) 
 	    newtListboxAppendEntry(listbox, partitions[i].name, 
@@ -1242,11 +1246,12 @@ static char * mediaCheckCdrom(char *cddriver) {
 }
 
 static void wrongCDMessage(void) {
-    newtWinMessage(_("Error"), _("OK"),
-		   _("The " PRODUCTNAME " CD was not found "
-		     "in any of your CDROM drives. Please insert "
-		     "the " PRODUCTNAME " CD and press %s to retry."), 
-		   _("OK"));
+    char *buf = sdupprintf(_("The %s CD was not found "
+			     "in any of your CDROM drives. Please insert "
+			     "the %s CD and press %s to retry."), PRODUCTNAME,
+			   PRODUCTNAME);
+    newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
+    free(buf);
 }
 
 /* put mounts back and continue */
@@ -1355,10 +1360,12 @@ static char * setupCdrom(struct installMethod * method,
 	if (probeQuickly) return NULL;
 
 	if (hasCdrom) {
-	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
-			_("The " PRODUCTNAME " CD was not found "
-			  "in any of your CDROM drives. Please insert "
-			  "the " PRODUCTNAME " CD and press %s to retry."), _("OK"));
+	    char *buf = sdupprintf(_("The %s CD was not found in any of your "
+				     "CDROM drives. Please insert the %s CD "
+				     "and press %s to retry."), PRODUCTNAME,
+				   PRODUCTNAME);
+	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), buf, _("OK"));
+	    free(buf);
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, 
@@ -2808,7 +2815,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 
 #if 0
     _("The floppy disk you inserted is not a valid update disk "
-      "for this release of " PRODUCTNAME ".")
+      "for this release of %s."), PRODUCTNAME
 #endif
 
 logMessage("UPDATES floppy device is %s", floppyDevice);
@@ -3035,10 +3042,12 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 
 static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
+	char *buf;
+	buf = sdupprintf(_("You do not have enough RAM to install %s "
+			   "on this machine."), PRODUCTNAME);
 	startNewt(flags);
-	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
-					      "RAM to install " PRODUCTNAME 
-					      " on this machine."));
+	newtWinMessage(_("Error"), _("OK"), buf);
+	free(buf);
 	stopNewt();
 	exit(0);
     }

@@ -2,6 +2,8 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
+#include <stdarg.h>
+#include <stdlib.h>
 
 #include "log.h"
 
@@ -66,3 +68,26 @@ int simpleStringCmp(const void * a, const void * b) {
     return strcmp(first, second);
 }
 
+char * sdupprintf(const char *format, ...) {
+    char *buf = NULL;
+    char c;
+    va_list args;
+    size_t size = 0;
+
+    va_start(args, format);
+    
+    /* XXX requires C99 vsnprintf behavior */
+    size = vsnprintf(&c, 1, format, args) + 1;
+    if (size == -1) {
+	printf("ERROR: vsnprintf behavior is not C99\n");
+	abort();
+    }
+	
+    buf = malloc(size);
+    if (buf == NULL)
+	return NULL;
+    vsnprintf(buf, size, format, args);
+    va_end (args);
+
+    return buf;
+}

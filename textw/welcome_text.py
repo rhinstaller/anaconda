@@ -40,7 +40,7 @@ class WelcomeWindow:
 class ReconfigWelcomeWindow:
     def __call__(self, screen):
         rc = ButtonChoiceWindow(screen, _("%s"), 
-                                _("Welcome to the %s!\n\n"
+                                _("Welcome to %s!\n\n"
                                   "You have entered reconfiguration mode, "
                                   "which will allow you to configure "
                                   "site-specific options of your computer."

@@ -16,6 +16,7 @@
 #include "urls.h"
 #include "log.h"
 #include "windows.h"
+#include "misc.h"
 
 #if 0
 static const char * urlfilter(const char * u)
@@ -115,8 +116,9 @@ int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
     return 0;
 }
 
+#if defined (__s390__) || defined (__s390x__)
 int setupRemote(struct iurlinfo * ui) {
-    char *env, *d, *e;
+    char *env, *d;
      
     if (!(env = getenv("RPMSERVER"))) {
 	ui->address = "";
@@ -149,6 +151,7 @@ int setupRemote(struct iurlinfo * ui) {
 
     return 0;
 }
+#endif /* #if defined (__s390__) || defined (__s390x__) */
 
 char * addrToIp(char * hostname) {
     struct in_addr ad;
@@ -176,6 +179,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     int width, height;
     newtGrid entryGrid, buttons, grid;
     char * chptr;
+    char * buf;
+    char *msg = N_("Please enter the following information:\n"
+		   "\n"
+		   "    o the name or IP number of your %s server\n" 
+		   "    o the directory on that server containing\n" 
+		   "      %s for your architecture\n");
 
     if (ui->address) {
 	site = ui->address;
@@ -194,22 +203,14 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     
     switch (protocol) {
     case URL_METHOD_FTP:
-	reflowedText = newtReflowText(
-            _("Please enter the following information:\n"
-	      "\n"
-	      "    o the name or IP number of your FTP server\n" 
-	      "    o the directory on that server containing\n" 
-	      "      " PRODUCTNAME " for your architecture\n"),
-	    47, 5, 5, &width, &height);
+	buf = sdupprintf(msg, "FTP", PRODUCTNAME);
+	reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
+	free(buf);
 	break;
     case URL_METHOD_HTTP:
-	reflowedText = newtReflowText(
-            _("Please enter the following information:\n"
-	      "\n"
-	      "    o the name or IP number of your web server\n" 
-	      "    o the directory on that server containing\n" 
-	      "      " PRODUCTNAME " for your architecure\n"), 
-	    47, 5, 5, &width, &height);
+	buf = sdupprintf(msg, "Web", PRODUCTNAME);
+	reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
+	free(buf);
 	break;
     }
     text = newtTextbox(-1, -1, width, height, NEWT_TEXTBOX_WRAP);
