@@ -712,6 +712,9 @@ class Partitions:
     def getMigratableRequests(self):
         retval = []
         for request in self.requests:
+            if request.type != REQUEST_PREEXIST:
+                continue
+            
             if request.origfstype:
                 if request.origfstype.isMigratable():
                     retval.append(request)
