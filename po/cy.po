@@ -190,9 +190,8 @@ msgid "Using mouse type: %s"
 msgstr "Yn defnyddio llygoden math: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Yn chwilio am arsefydliadau %s..."
+msgstr "Yn dechrau arsefydliad grafigol..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -250,12 +249,12 @@ msgstr ""
 "modd i OpenFirmware gychwyn yr arsefydliad yma."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Gall na fydd rhaniad cychwyn %s yn bodloni cyfyngiadau cychwyn eich "
-"pensaernïaeth.  Anogir creu disg gychwyn yn gryf."
+"pensaernïaeth."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1016,6 +1015,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Digwyddodd y gwall canlynol wrth dosrannu eich ffurfwedd kickstart:\n"
+"\n"
+"%s"
 
 #
 #: ../gui.py:658 ../text.py:286
@@ -1068,7 +1070,7 @@ msgstr "_Ail-geisio"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Gadawith y gosdwr nawr..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1190,7 +1192,7 @@ msgid "Change CDROM"
 msgstr "Newid CDd-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Rhowch %s ddisg %d i mewn i barhau."
 
@@ -1550,7 +1552,7 @@ msgstr ""
 "A hoffec ail-fformadu'r DASD yma gan ddefnyddio fformat CDL?"
 
 #: ../partedUtils.py:308
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1558,9 +1560,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Mae'r dabl raniadau ar y ddyfais /dev/%s o fath annisgwyl %s ar gyfer eich "
-"saernïaeth.  I ddefnyddio'r ddisg hon ar gyfer arsefydliad o %s, rhaid ei "
-"hail- ymgychwyn gan achosi colled yr HOLL DDATA arni.\n"
+"Mae'r dabl raniadau ar y ddyfais /dev/%s o fath %s. I ddefnyddio'r ddisg "
+"hon ar gyfer arsefydliad o %s, rhaid ei hail-ymgychwyn gan achosi colled "
+"yr HOLL DDATA arni.\n"
 "\n"
 "A hoffech ymgychwyn y gyrrydd yma?"
 
@@ -1587,7 +1589,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Arhoswch tra fformadir y gyrrydd %s...\n"
 
 #: ../partedUtils.py:831
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1598,7 +1600,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Roedd y dabl raniadau ar y ddyfais %s yn annarllenadwy. I greu raniadau "
+"Roedd y dabl raniadau ar y ddyfais %s (%s) yn annarllenadwy. I greu raniadau "
 "newydd rhaid ei hymgychwyn, gan achosi colled yr HOLL DDATA ar y gyriant "
 "yma.\n"
 "\n"
@@ -2514,6 +2516,9 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Methu dechrau X ar eich cyfrifiadur. Hoffech chi'n dechrau VNC i cysylltu'r "
+"cyfrifiadur hwn o'r cyfrifiadur arall i wneud gosod grafigol neu parhau "
+"gyda gosod modd testun?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -2537,6 +2542,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Bydd gwrandawyr heb awdurdod ddim cyslltu neu monitro eich gosod os byddech"
+"chi rhowch cyfrinair. Rhowch cyfrinair i defynddio yn ystod yr gosod"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2568,58 +2575,57 @@ msgid "DDC Probed Monitor"
 msgstr "Arsylwydd Chwiliededig DDC"
 
 #: ../zfcp.py:27
+# Rhybudd: Mae saesneg yn anghywir - Enw porth yw hi nid rhif.
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"Mae peiriannau zSeries yn cael cyrchu dyfeisiau SCSI safonol dros sianeli "
+"ffibr (FCP). Bydd rhaid i chi rhoi pum paramedrau o pob dyfais: rhif "
+"dyfais 16did, SCSI ID 16did, enw porth byd-eang (WWPN) 64did, LUN SCSI "
+"16did ac LUN FCP 64did."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Dyfais"
+msgstr "Rhif o'r ddyfais"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Nid ydych wedi penodi enw gwesteiwr."
+msgstr "Nid ydych wedi penodi rhif o'r ddyfais neu annilys yw'r rhif."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "Id SCSI"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Nid ydych wedi penodi enw gwesteiwr."
+msgstr "Nid ydych wedi penodi ID SCSI neu annilys yw'r ID."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nid ydych wedi penodi enw gwesteiwr."
+msgstr "Nid ydych wedi penodi enw porth byd-eang neu annilys yw'r enw."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "LUN SCSI"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Nid ydych wedi penodi enw gwesteiwr."
+msgstr "Nid ydych wedi penodi rhif o'r LUN SCSI neu annilys yw'r rhif."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "LUN FCP"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Nid ydych wedi penodi enw gwesteiwr."
+msgstr "Nid ydych wedi penodi LUN FCP neu annilys yw'r rhif."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2659,6 +2665,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Mae cyfrif root yn defynddio i weinyddu'r system hwn. Rhowch cyfrinair i "
+"ddefynddiwr root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3314,15 +3322,20 @@ msgstr "_Galluogi mur cadarn"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Cewch chi caniatâu cysylltiadau i wasanaethwyr penodol ar eich "
+"cyfrifiadur trwy'r mur cadarn. Pa gwasanaethwyr hoffech chi caniatâu cysylltiadau o'r "
+"cyfrifiaduron eraill?"
+
 
 #: ../iw/firewall_gui.py:145
+#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Mae Linux Diogelwch Cryfach yn darparu rheolyddion mwy graen-manwl"
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -5151,34 +5164,31 @@ msgid "_Skip X configuration"
 msgstr "_Hepgor Cyflunio X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Cyfluniad VNC"
+msgstr "Cyfluniad ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Gwaredu"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Dyfeisiau"
+msgstr "Dyfeisiau FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Ychwanegu Dyfais"
+msgstr "Ychwanegu Dyfais FCP"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Golygu Dyfais RAID"
+msgstr "Golygu Dyfais FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Dych ar fin gwaredu disg FCP o'ch ffurfosodiad. Hoffech chi barhau?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5589,9 +5599,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Ni allwch addasu mur cadarn analluog."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Addasu Cyfluniad Graffigol"
+msgstr "Addasu Ffurfweddu Mur Cadarn"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5694,7 +5703,7 @@ msgstr "Pwynt i Bwynt (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
@@ -5908,9 +5917,8 @@ msgid "End Cylinder:"
 msgstr "Silindr Diwedd:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Enw Grŵp Cyfrolau:"
+msgstr "Grŵp Gyfrol:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6034,24 +6042,22 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "0 yw uchafswm nifer y sbariau âg aräe RAID0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Grŵpiau Cyfrolau LVM"
+msgstr "Does Dim Grŵpiau Cyfrolau"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
+#, fuzzy (CHECK ME)
 msgid "No volume groups to create a logical volume in."
-msgstr "Rhowch enw cyfrol rhesymegol."
+msgstr "Does dim grŵpiau cyfrolau i creu cyfrolau rhesymegol."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Mae'r maint gofynnol cyfredol (%10.2f MB) yn fwy nag uchafswm maint cyfrolau "
-"rhesymegol (%10.2f MB). I gynyddu'r terfyn hwn gallwch gynyddu maint Mesur "
-"Corfforol y Grŵp Cyfrolau yma."
+"rhesymegol (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6059,26 +6065,24 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Mae'r maint gofynnol cyfredol (%10.2f MB) yn fwy nag y lle ar gael ar y "
+"cyfrol resymegol (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Golygu Cyfrol Resymegol"
+msgstr "Rhaniad newydd neu Cyfrol Resymegol?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Ni all raniadau cychwynadwy fod ar gyfrol resymegol."
+msgstr "Hoffech chi creu rhaniad newydd neu cyfrol resymegol?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Rhaniad"
+msgstr "rhaniad"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Cyfrolau Rhesymegol"
+msgstr "cyfrol resymegol"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6684,39 +6688,36 @@ msgid "Video RAM:"
 msgstr "RAM Fideo:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Dyfais"
+msgstr "Rhif o'r dyfais"
 
 #: ../textw/zfcp_text.py:34
 msgid "SCSI ID:"
-msgstr ""
+msgstr "ID SCSI:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "LUN SCSI:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "LUN FCP:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Dyfais"
+msgstr "Dyfais FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Dyfais"
+msgstr "Rhif o'r dyfais"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Gwaredu"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6930,32 +6931,28 @@ msgstr ""
 "ei defnyddio?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Mae gennych sawl dyfais a allai fod yn darddiad disg gyrrydd.  Pa un hoffech "
+"Mae gennych sawl rhaniad a allai fod yn darddiad delwedd disg gyrrydd.  Pa un hoffech "
 "ei defnyddio?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Methwyd gosod disg ddiweddariadau"
+msgstr "Methwyd gosod rhaniad."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Dewiswch yrrydd"
+msgstr "Dewiswch delwedd disg gyrrydd"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Dewiswch pa ffeil yw'r eich delwedd disg gyrrydd."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Methwyd gosod disg gyrrydd."
+msgstr "Methwyd gosod disg gyrrydd o'r ffeil."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7142,7 +7139,7 @@ msgstr "Methu canfod ffeil kickstart ar ddisg galed."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Methu darganfod pa ddisg caled yw'r disg BIOS %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7172,9 +7169,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Methu canfod ks.cfg ar y ddisg feddal gychwyn."
 
 #: ../loader2/kickstart.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Ymresymiad gwael i orchymun dull kickstartd DG %s: %s"
+msgstr "Ymresymiad gwael i orchymun dull kickstartd %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:172
 #, c-format
@@ -7453,7 +7450,9 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "dyfais rwydwaith di-wifr yw %s. Rhowch yr ESSID ac allwedd amgryptiad "
+"i gyrchu eich rhwydwaith di-wifr. Os nid rhaid i chi defnyddio allwedd, "
+"gadwech y maes yn wag a pharhau'r gosod."
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
@@ -7785,7 +7784,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Bueonos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7865,7 +7864,7 @@ msgstr "Ynysoedd Chatham"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8024,7 +8023,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8131,10 +8130,9 @@ msgid "most locations"
 msgstr "rhan fwyaf o lefydd"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 msgstr ""
-"rhan fwyaf o lefydd (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+"rhan fwyaf o lefydd (CB, CC, CN ,ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8279,11 +8277,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8331,7 +8329,7 @@ msgstr "Tibet a rhan fwyaf Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8343,7 +8341,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman(TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8395,16 +8393,15 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabeg"
 
 #. generated from lang-table
 msgid "Bengali"
 msgstr "Bengaleg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Hwngareg"
+msgstr "Bwlgareg"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8480,7 +8477,7 @@ msgstr "Corëeg"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedoneg"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8495,9 +8492,8 @@ msgid "Persian"
 msgstr "Perseg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Saesneg"
+msgstr "Pwyleg"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8509,7 +8505,7 @@ msgstr "Portwgëeg(Brasilaidd)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabeg"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8551,5 +8547,3 @@ msgstr "Cymraeg"
 msgid "Zulu"
 msgstr "Zwlŵeg"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Dn yr Ariannyn (BA, DF, SC, TF)"
