@@ -133,6 +133,8 @@ class CdromInstallMethod(ImageInstallMethod):
 			f.close()
 			if newStamp == timestamp:
 			    done = 1
+                            # make /tmp/cdrom again so cd gets ejected
+                            isys.makeDevInode(self.device, "/tmp/cdrom")
 
 		    if not done:
 			self.messageWindow(_("Wrong CDROM"),
