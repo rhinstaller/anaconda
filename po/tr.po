@@ -1919,13 +1919,13 @@ msgstr "%s kurulumuna başlamak için İleri'ye tıklayın."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
 "Kurulum boyunca yapılan işlemlerin kaydını sisteminizi yeniden açtıktan "
-"sonra /tmp/install.log dosyasında bulabilirsiniz. Seçimlerinizi içeren "
+"sonra /root/install.log dosyasında bulabilirsiniz. Seçimlerinizi içeren "
 "bir kickstart dosyası da /root/anaconda-ks.cfg adıyla kaydedilecektir."
 
 #: ../iw/confirm_gui.py:68
@@ -1939,11 +1939,11 @@ msgstr "%s güncellemesine başlamak için İleri'ye tıklayın."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Güncelleme boyunca yapılan işlemlerin kaydını sisteminizi yeniden açtıktan "
-"sonra /tmp/upgrade.log dosyasında bulabilirsiniz."
+"sonra /root/upgrade.log dosyasında bulabilirsiniz."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
 msgid "Congratulations"
@@ -3231,11 +3231,11 @@ msgstr "Kuruluma başlangıç"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Kurulum boyunca yapılan işlemlerin kaydını sisteminizi yeniden açtıktan "
-"sonra /tmp/install.log dosyasında bulabilirsiniz."
+"sonra /root/install.log dosyasında bulabilirsiniz."
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"
