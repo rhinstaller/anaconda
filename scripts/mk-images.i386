@@ -16,6 +16,11 @@ prepareBootImage() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
+	    if [ $BOOTLANG = "ja_JP" ]; then
+		EXTRA='-e "s/ vga=.*//"'
+	    fi
+	    sed -e "s/initrd.img/initrd.img lang=$BOOTLANG/g" $EXTRA < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cfg-
+	    mv -f $MBD_BOOTTREE/syslinux.cfg- $MBD_BOOTTREE/syslinux.cfg
 	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
 	    if [ $? != 0 ]; then
 		echo $0: Failed to copy messages from $BOOTDISKDIR/$BOOTLANG to $MBD_BOOTTREE.
