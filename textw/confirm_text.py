@@ -43,7 +43,7 @@ class BeginInstallWindow:
         return INSTALL_OK
 
 class BeginUpgradeWindow:
-    def __call__ (self, screen) :
+    def __call__ (self, screen, intf, id) :
         rc = ButtonChoiceWindow (screen, _("Upgrade to begin"),
                                 _("A complete log of your upgrade will be in "
                                   "%s after rebooting your system. You "
