@@ -1,4 +1,4 @@
-CFLAGS = -Wall -g -DTESTING
+CFLAGS = -Wall -g
 LOADLIBES = -lpci
 LDFLAGS = -g
 
