@@ -522,6 +522,7 @@ class PartitionWindow:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
+                request = origrequest
 
             # backup current (known working) configuration
             backpart = self.partitions.copy()
@@ -735,7 +736,7 @@ class PartitionWindow:
         self.fsset = fsset
         self.diskset = diskset
         self.intf = intf
-        
+
         self.diskset.openDevices()
         self.partitions = partitions
 
@@ -799,8 +800,8 @@ class AutoPartitionWindow:
             flag = FLAGS_SET
         # XXX need a way to disable the checkbox tree
         
-    def __call__(self, screen, type, cleardrives, diskset, intf, useAuto):
-        if not useAuto:
+    def __call__(self, screen, id, intf):
+        if not id.useAutopartitioning:
             return INSTALL_NOOP
         
         self.g = GridFormHelp(screen, _("Autopartitioning"), "autopartitioning", 1, 6)
@@ -810,14 +811,15 @@ class AutoPartitionWindow:
         typebox.append(_("Remove all Linux partitions"), CLEARPART_TYPE_LINUX)
         typebox.append(_("Remove all partitions"), CLEARPART_TYPE_ALL)
         typebox.append(_("Remove no partitions"), CLEARPART_TYPE_NONE)
-        typebox.setCurrent(type)
+        typebox.setCurrent(id.autoClearPartType)
         self.g.add(typebox, 0, 2, (0,1,0,0))
 
         # list of drives to select which to clear
         subgrid = Grid(1, 2)
         driveLbl = Label(_("Clear Partitions on These Drives:"))
+        cleardrives = id.autoClearPartDrives
         subgrid.setField(driveLbl, 0, 0)
-        disks = diskset.disks.keys()
+        disks = id.diskset.disks.keys()
         drivelist = CheckboxTree(height=3, scroll=1)
         if not cleardrives or len(cleardrives) < 1:
             for disk in disks:
@@ -844,6 +846,6 @@ class AutoPartitionWindow:
         if res == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        type = typebox.current()
-        cleardrives = drivelist.getSelection()
+        id.autoClearPartType = typebox.current()
+        id.autoClearPartDrives = drivelist.getSelection()
         return INSTALL_OK
