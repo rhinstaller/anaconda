@@ -28,7 +28,7 @@ if len(sys.argv) > 1:
         output = sys.argv[3]
         syslog = Syslogd (root, open (output, "w+"))
 
-import gettext
+import gettext_rh
 import traceback
 import string
 
@@ -37,8 +37,8 @@ import iutil
 
 setverPath = None
 
-gettext.bindtextdomain("anaconda", "/usr/share/locale")
-gettext.textdomain("anaconda")
+gettext_rh.bindtextdomain("anaconda", "/usr/share/locale")
+gettext_rh.textdomain("anaconda")
 _ = gettext.gettext
 
 (args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
