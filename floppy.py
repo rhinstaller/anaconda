@@ -19,6 +19,7 @@ import iutil
 import re
 import os
 import rpm
+import kudzu
 from constants import *
 from log import log
 from flags import flags
@@ -26,63 +27,25 @@ from translate import _
 
 def probeFloppyDevice():
     fdDevice = "fd0"
-    if iutil.getArch() == "sparc":
-	try:
-	    f = open(fdDevice, "r")
-	except IOError, (errnum, msg):
-	    if errno.errorcode[errnum] == 'ENXIO':
-		fdDevice = "fd1"
-	else:
-	    f.close()
-    elif iutil.getArch() == "alpha":
-	pass
-    elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-	pass
-    elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
-	# Look for the first IDE floppy device
-	drives = isys.floppyDriveDict()
-	if not drives:
-	    log("no IDE floppy devices found")
-	    return fdDevice
 
-	floppyDrive = drives.keys()[0]
-	# need to go through and find if there is an LS-120
-	for dev in drives.keys():
-	    if re.compile(".*[Ll][Ss]-120.*").search(drives[dev]):
-		floppyDrive = dev
+    # we now have nifty kudzu code that does all of the heavy lifting
+    # and properly detects detached floppy drives, ide floppies, and
+    # even usb floppies
+    devices = kudzu.probe(kudzu.CLASS_FLOPPY,
+                          kudzu.BUS_IDE | kudzu.BUS_MISC | kudzu.BUS_SCSI,
+                          kudzu.PROBE_ALL)
 
-	# No IDE floppy's -- we're fine w/ /dev/fd0
-	if not floppyDrive: return fdDevice
+    if not devices:
+        log("no floppy devices found but we'll try fd0 anyway")
+        return fdDevice
 
-	if iutil.getArch() == "ia64":
-	    fdDevice = floppyDrive
-	    log("anaconda floppy device is %s", fdDevice)
-	    return fdDevice
-
-	# Look in syslog for a real fd0 (which would take precedence)
-	try:
-	    f = open("/tmp/syslog", "r")
-	except IOError:
-	    try: 
-		f = open("/var/log/dmesg", "r")
-	    except IOError:
-		return fdDevice
-
-	for line in f.readlines():
-	    # chop off the loglevel (which init's syslog leaves behind)
-	    line = line[3:]
-	    match = "Floppy drive(s): "
-	    if match == line[:len(match)]:
-		# Good enough
-		floppyDrive = "fd0"
-		break
-
-	fdDevice = floppyDrive
-    else:
-	raise SystemError, "cannot determine floppy device for this arch"
-
+    for device in devices:
+        if device.detached:
+            continue
+        log("anaconda floppy device %s" % (device.device))
+        return device.device
+    
     log("anaconda floppy device is %s", fdDevice)
-
     return fdDevice
 
 def makeBootdisk (intf, floppyDevice, hdList, instPath):

@@ -2372,39 +2372,33 @@ void setFloppyDevice(int flags) {
     char line[256];
     const char * match = "Floppy drive(s): ";
     int foundFd0 = 0;
+    int i = 0;
     FILE * f;
 
     /*if (FL_TESTING(flags)) return;*/
 
-    logMessage("probing for ide floppies");
+    logMessage("probing for floppy devices");
 
-    devices = probeDevices(CLASS_FLOPPY, BUS_IDE, PROBE_ALL);
+    devices = probeDevices(CLASS_FLOPPY, BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
 
     if (!devices) {
-	logMessage("no ide floppy devices found");
-	return;
+        logMessage("no floppy devices found");
+        return;
     }
 
-    logMessage("found IDE floppy %s", devices[0]->device);
-	
-#ifdef __i386__
-    f = fopen("/tmp/syslog", "r");
-    while (fgets(line, sizeof(line), f)) {
-	if (!strncmp(line + 3, match, strlen(match))) {
-	    foundFd0 = 1;
-	    break;
-	}
+    for(i=0;devices[i];i++) {
+      if (devices[i]->detached == 0) {
+	logMessage("first non-detached floppy is %s", devices[i]->device);
+        foundFd0 = 1;
+        break;
+      }
     }
 
-    fclose(f);
+    if (foundFd0) {
+        floppyDevice = strdup(devices[i]->device);
+    }
 
-    if (!foundFd0)
-	floppyDevice = strdup(devices[0]->device);
-#else	/* ia64 */
-    floppyDevice=strdup(devices[0]->device);
-#endif
-#endif
-	
+#endif	
     logMessage("system floppy device is %s", floppyDevice);
 }
 
@@ -2438,6 +2432,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     mlLoadModule("hid", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("keybdev", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+
+    /* add a flag to skip this module load maybe ? */
+    mlLoadModule("usb-storage", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     return 0;
 }
@@ -2654,9 +2651,6 @@ int main(int argc, char ** argv) {
     }
 
     setFloppyDevice(flags);
-
-    /* We must look for cards which require the agpgart module */
-    agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
     if (FL_KSFLOPPY(flags)) {
 	startNewt(flags);
@@ -2876,6 +2870,9 @@ int main(int argc, char ** argv) {
 	    close(fd);
 	}
     }
+
+    /* We must look for cards which require the agpgart module */
+    agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);

@@ -50,19 +50,19 @@ prepareBootImage() {
 }
 
 # LATEUSBMODS go in the second stage
-USBMODS="usb-ohci usb-uhci hid keybdev"
+USBMODS="usb-ohci usb-uhci hid keybdev usb-storage"
 LATEUSBMODS="mousedev"
 IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
-SECSTAGE="msdos vfat raid0 raid1 raid5 ext3 reiserfs $IDEMODS $SCSIMODS $LATEUSBMODS"
+SECSTAGE="agpgart msdos vfat raid0 raid1 raid5 ext3 reiserfs $IDEMODS $SCSIMODS $LATEUSBMODS"
 
-COMMONMODULES="vfat $USBMODS agpgart"
+COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci 
-	       eepro100 e100 tulip pcnet32 hp100"
-#	       sis900 "
+	       eepro100 tulip pcnet32"
+#	       sis900 e100 hp100 8139too"
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
