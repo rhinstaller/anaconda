@@ -14,7 +14,7 @@ everything: $(TARGET)
 
 all:	collage
 
-collage:	collage.o commands.o idmap.o ls.o
+collage:	collage.o commands.o idmap.o ls.o mount_by_label.o
 
 install:
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)

@@ -18,6 +18,7 @@
 #include "commands.h"
 #include "idmap.h"
 #include "ls.h"
+#include "mount_by_label.h"
 #include "popt.h"
 #include "../isys/cpio.h"
 
@@ -111,6 +112,12 @@ int mountCommand(int argc, char ** argv) {
 	fs = argv[2];
 	dev = argv[3];
 	dir = argv[4];
+    }
+
+    if (!strncmp(dev, "LABEL=", 6)) {
+	dev = get_spec_by_volume_label(dev + 6);
+    } else if (!strncmp(dev, "UUID=", 5)) {
+	dev = get_spec_by_uuid(dev + 5);
     }
 
     if (!strncmp(dev, "/dev/", 5) && access(dev, X_OK)) {
