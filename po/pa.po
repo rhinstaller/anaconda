@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-24 20:04+0530\n"
+"PO-Revision-Date: 2004-09-01 11:40+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "%s %s ਇੰਸਟਾਲੇਸ਼ਨ"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
-msgstr "ਵੀਐਨਸੀ(vnc) ਗੁਪਤ-ਕੋਡ ਨਿਰਧਾਰਨ ਅਸਫਲ਼ - ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀ ਵਰਤਿਆ ਜਾ ਰਿਹਾ !"
+msgstr "ਵੀਐਨਸੀ(vnc) ਗੁਪਤ-ਕੋਡ ਨਿਰਧਾਰਨ ਅਸਫਲ਼ - ਕੋਈ ਗੁਪਤ-ਕੋਡ ਨਹੀ ਵਰਤਿਆ ਜਾ ਰਿਹਾ!"
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
@@ -170,13 +170,15 @@ msgstr "X ਜੰਤਰ ਸਥਿਤੀ ਇਕਾਈ ਨੂੰ ਆਰੰਭ ਕ�
 
 #: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "ਗਰਾਫਿਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਉਪੱਲਬਧ ਨਹੀ ਹੈ...ਪਾਠ ਢੰਗ ਆਰੰਭ ਹੋ ਰਿਹਾ ਹੈ।"
+msgstr "ਗਰਾਫਿਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਉਪੱਲਬਧ ਨਹੀ ਹੈ...  ਪਾਠ ਢੰਗ ਆਰੰਭ ਹੋ ਰਿਹਾ ਹੈ।"
 
 #: ../anaconda:859
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr "ਕੋਈ ਮਾਊਸ ਨਹੀ ਲੱਭਾ। ਗਰਾਫਿਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਮਾਊਸ ਜ਼ਰੂਰੀ ਹੈ। ਪਾਠ ਢੰਗ ਆਰੰਭ ਹੋ ਰਿਹਾ ਹੈ।"
+msgstr ""
+"ਕੋਈ ਮਾਊਸ ਨਹੀ ਲੱਭਾ। ਗਰਾਫਿਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਮਾਊਸ ਜ਼ਰੂਰੀ ਹੈ। ਪਾਠ ਢੰਗ ਆਰੰਭ "
+"ਹੋ ਰਿਹਾ ਹੈ।"
 
 #: ../anaconda:869
 #, c-format
@@ -211,7 +213,7 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"ਬੂਟ ਭਾਗ %s  ਇੱਕ ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧ ਨਹੀ ਹੈ। ਐਸਆਰਐਮ(SRM) "
+"ਬੂਟ ਭਾਗ %s ਇੱਕ ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧ ਨਹੀ ਹੈ। ਐਸਆਰਐਮ(SRM) "
 "ਇਸ ਭਾਗ ਤੋ ਬੂਟ ਨਹੀ ਕਰ ਸਕਦਾ ਹੈ। ਬੀਐਸਡੀ(BSD) ਡਿਸਕ ਲੇਬਲ ਨਾਲ ਸੰਬੰਧਿਤ ਭਾਗ ਵਰਤੋਂ "
 "ਜਾਂ ਇਸ ਜੰਤਰ ਡਿਸਕ ਦਾ ਡਿਸਕ ਲੇਬਲ ਬੀਐਸਡੀ(BSD) ਵਿੱਚ ਤਬਦੀਲ ਕਰ ਦਿਉ।"
 
@@ -222,7 +224,7 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"ਬੂਟ ਭਾਗ %s ਉਸ ਡਿਸਕ ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀ ਹੈ ਜੋ ਕਿ ਬੂਟ-ਲੋਡਰ ਲਈ ਲੋਡ਼ੀਦੀ ਖਾਲੀ ਥਾਂ ਉਪਲੱਬਧ "
+"ਬੂਟ ਭਾਗ %s ਉਸ ਡਿਸਕ ਨਾਲ ਸੰਬੰਧਿਤ ਨਹੀ ਹੈ, ਜੋ ਕਿ ਬੂਟ-ਲੋਡਰ ਲਈ ਲੋਡ਼ੀਦੀ ਖਾਲੀ ਥਾਂ ਉਪਲੱਬਧ "
 "ਕਰਾ ਸਕੇ। ਇਸ ਦੀ ਪੁਸ਼ਟੀ ਕਰ ਲਵੋ ਕਿ ਉਸ ਡਿਸਕ ਜੋ ਕਿ /boot ਨੂੰ ਰੱਖਦੀ ਹੈ, ਉੱਪਰ ਘੱਟੋ-ਘੱਟ "
 "5 ਐਮਬੀ ਖਾਲੀ ਥਾਂ ਉਪਲੱਬਧ ਹੈ।"
 
@@ -1081,7 +1083,7 @@ msgstr "_ਸਹਾਇਤਾ ਵੇਖਾਉ"
 
 #: ../gui.py:1198
 msgid "Hide _Help"
-msgstr "_ਸਹਾਇਤਾ ਉਹਲੇ"
+msgstr "ਸ_ਹਾਇਤਾ ਉਹਲੇ"
 
 #: ../gui.py:1200
 msgid "_Debug"
@@ -1544,11 +1546,11 @@ msgstr ""
 
 #: ../partedUtils.py:313
 msgid "_Ignore drive"
-msgstr "ਡਰਾਇਵ ਅਣਡਿੱਠੀ"
+msgstr "ਡਰਾਇਵ _ਅਣਡਿੱਠੀ"
 
 #: ../partedUtils.py:314
 msgid "_Format drive"
-msgstr "ਡਰਾਇਵ ਫਾਰਮਿਟ"
+msgstr "_ਡਰਾਇਵ ਫਾਰਮਿਟ"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1600,7 +1602,7 @@ msgstr ""
 "\n"
 "ਇਸ ਕਾਰਵਾਈ ਨਾਲ ਪਹਿਲਾਂ ਡਰਾਇਵ ਬਾਰੇ ਪਹਿਲਾਂ ਕੀਤੀ ਚੋਣ ਨੂੰ ਰੱਦ ਕਰ ਦਿੱਤਾ ਜਾਵੇਗਾ।\n"
 "\n"
-"ਕੀ ਤੁਸੀ ਡਾਰਇਵ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਕਰਨ ਲਈ ਸਹਿਮਤ ਹੋ ?"
+"ਕੀ ਤੁਸੀ ਡਾਰਇਵ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਅਤੇ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਕਰਨ ਲਈ ਸਹਿਮਤ ਹੋ?"
 
 #: ../partedUtils.py:988 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -2573,11 +2575,11 @@ msgstr ""
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr "ਪਰ੍ਬੰਧਕ(Root) ਦਾ ਗੁਪਤ-ਕੋਡਃ"
+msgstr "ਪਰ੍ਬੰਧਕ(Root) ਦਾ _ਗੁਪਤ-ਕੋਡਃ"
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "ਪੁਸ਼ਟੀਃ"
+msgstr "_ਪੁਸ਼ਟੀਃ"
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
@@ -2585,71 +2587,71 @@ msgstr "ਪ੍ਰਮਾਣਿਕਤਾ ਸੰਰਚਨਾ"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr "MD5 ਗੁਪਤ-ਕੋਡ ਯੋਗ ਕਰੋ"
+msgstr "_MD5 ਗੁਪਤ-ਕੋਡ ਯੋਗ ਕਰੋ"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr "shadow ਗੁਪਤ-ਕੋਡ ਯੋਗ ਕਰੋ"
+msgstr "shado_w ਗੁਪਤ-ਕੋਡ ਯੋਗ ਕਰੋ"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr "NIS ਯੋਗ ਕਰੋ"
+msgstr "N_IS ਯੋਗ ਕਰੋ"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "NIS ਸਰਵਰ ਲੱਭਣ ਲਈ ਬਰਾਡਕਾਸਟ ਵਰਤੋਂ"
+msgstr "NIS ਸਰਵਰ ਲੱਭਣ ਲਈ _ਬਰਾਡਕਾਸਟ ਵਰਤੋਂ"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
-msgstr "NIS ਡੋਮੇਨਃ"
+msgstr "NIS _ਡੋਮੇਨਃ"
 
 #: ../iw/auth_gui.py:118
 msgid "NIS _Server: "
-msgstr "NIS ਸਰਵਰ:"
+msgstr "NIS _ਸਰਵਰ:"
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
-msgstr "LDAP ਯੋਗ ਕਰੋ"
+msgstr "_LDAP ਯੋਗ ਕਰੋ"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr "TLS ਖੋਜ ਵਰਤੋ"
+msgstr "_TLS ਖੋਜ ਵਰਤੋ"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
-msgstr "LDAP ਸਰਵਰ:"
+msgstr "LDAP _ਸਰਵਰ:"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr "LDAP ਅਧਾਰ DN:"
+msgstr "LDAP _ਆਧਾਰ DN:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr "ਕਰਬਰੋਸ ਯੋਗ"
+msgstr "_ਕਰਬਰੋਸ ਯੋਗ"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
-msgstr "ਸੀਮਾ ਖੇਤਰ:"
+msgstr "ਸੀ_ਮਾ ਖੇਤਰ:"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
-msgstr "KDC:"
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "ਪ੍ਰਬੰਧਕ ਸਰਵਰਃ"
+msgstr "_ਪ੍ਰਬੰਧਕ ਸਰਵਰਃ"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr "SMB ਪ੍ਰਮਾਣਕਿਤਾ ਯੋਗ ਕਰੋ"
+msgstr "SMB _ਪ੍ਰਮਾਣਕਿਤਾ ਯੋਗ ਕਰੋ"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
-msgstr "SMB ਸਰਵਰ:"
+msgstr "SMB _ਸਰਵਰ:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr "SMB ਵਰਕਗਰੁੱਪ:"
+msgstr "SMB ਵਰਕ_ਗਰੁੱਪ:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2678,11 +2680,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "ਬੂਟ-ਲੋਡਰ ਗੁਪਤ-ਕੋਡ ਵਰਤੋਂ"
+msgstr "ਬੂਟ-ਲੋਡਰ ਗੁਪਤ-ਕੋਡ _ਵਰਤੋਂ"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ"
+msgstr "_ਗੁਪਤ-ਕੋਡ ਤਬਦੀਲ"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2698,11 +2700,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
-msgstr "ਗੁਪਤ-ਕੋਡਃ"
+msgstr "_ਗੁਪਤ-ਕੋਡਃ"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr "ਪੁਸ਼ਟੀਃ"
+msgstr "ਪੁਸ਼_ਟੀਃ"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
@@ -2747,11 +2749,11 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "ਹਾਂ, ਮੈ ਬੂਟ-ਡਿਸਕੀਟ ਬਣਾਉਣ ਚਾਹੁੰਦਾ ਹਾਂ"
+msgstr "_ਹਾਂ, ਮੈ ਬੂਟ-ਡਿਸਕੀਟ ਬਣਾਉਣ ਚਾਹੁੰਦਾ ਹਾਂ"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
-msgstr "ਨਹੀ, ਮੈਂ ਬੂਟ-ਡਿਸਕੀਟ ਨਹੀ ਬਣਾਉਣ ਚਾਹੁੰਦਾ ਹਾਂ"
+msgstr "ਨਹੀ, ਮੈਂ ਬੂਟ-ਡਿਸਕੀਟ _ਨਹੀ ਬਣਾਉਣ ਚਾਹੁੰਦਾ ਹਾਂ"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2777,7 +2779,7 @@ msgstr "LBA32 ਲਈ ਮਜ਼ਬੂਰ ਕਰੋ"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "LBA32 ਲਈ ਮਜ਼ਬੂਰ ਕਰੋ (ਆਮ ਤੌਰ ਤੇ ਲੋਡ਼ੀਦਾ ਨਹੀ)"
+msgstr "LBA32 ਲਈ _ਮਜ਼ਬੂਰ ਕਰੋ (ਆਮ ਤੌਰ ਤੇ ਲੋਡ਼ੀਦਾ ਨਹੀ)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2789,7 +2791,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr "ਸਧਾਰਨ ਕਰਨਲ ਪੈਰਾਮੀਟਰ"
+msgstr "_ਸਧਾਰਨ ਕਰਨਲ ਪੈਰਾਮੀਟਰ"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
@@ -2815,7 +2817,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr "ਬਿਨਾਂ ਬੂਟ ਲੋਡਰ ਦੇ ਜਾਰੀ ਰੱਖੋ"
+msgstr "ਬਿਨਾਂ ਬੂਟ ਲੋਡਰ ਦੇ _ਜਾਰੀ ਰੱਖੋ"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
@@ -2829,15 +2831,15 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
-msgstr "ਗਰਬ(GRUB ) ਨੂੰ ਬੂਟ ਲੋਡਰ ਵਜੋਂ ਵਰਤੋਂ"
+msgstr "_ਗਰਬ(GRUB ) ਨੂੰ ਬੂਟ ਲੋਡਰ ਵਜੋਂ ਵਰਤੋਂ"
 
 #: ../iw/bootloader_main_gui.py:143
 msgid "Use _LILO as the boot loader"
-msgstr "ਲੀਲੋ(LILO) ਨੂੰ ਬੂਟ ਲੋਡਰ ਵਜੋਂ ਵਰਤੋਂ"
+msgstr "_ਲੀਲੋ(LILO) ਨੂੰ ਬੂਟ ਲੋਡਰ ਵਜੋਂ ਵਰਤੋਂ"
 
 #: ../iw/bootloader_main_gui.py:147
 msgid "_Do not install a boot loader"
-msgstr "ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲ ਨਾ ਕਰੋ"
+msgstr "ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲ _ਨਾ ਕਰੋ"
 
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
@@ -2850,11 +2852,11 @@ msgstr "ਕੋਈ ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲ ਨਹੀ ਹੋਵ�
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "ਬੂਟ ਲੋਡਰ ਤਬਦੀਲ"
+msgstr "ਬੂਟ ਲੋਡਰ _ਤਬਦੀਲ"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
-msgstr "ਤਕਨੀਕੀ ਬੂਟ ਲੋਡਰ ਚੋਣ ਦੀ ਸੰਰਚਨਾ"
+msgstr "ਤਕਨੀਕੀ ਬੂਟ ਲੋਡਰ _ਚੋਣ ਦੀ ਸੰਰਚਨਾ"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2862,7 +2864,7 @@ msgstr "ਬੂਟ ਲੋਡਰ ਰਿਕਾਰਡ ਨੂੰ ਇੰਸਟਾਲ �
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr "ਡਰਾਇਵ ਕ੍ਰਮ ਤਬਦੀਲ"
+msgstr "_ਡਰਾਇਵ ਕ੍ਰਮ ਤਬਦੀਲ"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
@@ -2947,7 +2949,7 @@ msgstr "ਮੁਬਾਰਕ"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
-msgstr "ਮੁਡ਼ ਚਾਲੂ"
+msgstr "ਮੁਡ਼ _ਚਾਲੂ"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -3022,15 +3024,15 @@ msgstr "ਲੋਡ਼ੀਦਾ"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr "ਨਿਰਭਰਤਾ ਨੂੰ ਨਿਪਟਾਉਣ ਲਈ ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰੋ"
+msgstr "ਨਿਰਭਰਤਾ ਨੂੰ ਨਿਪਟਾਉਣ ਲਈ ਪੈਕੇਜ _ਇੰਸਟਾਲ ਕਰੋ"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr "ਪੈਕੇਜ ਜਿਨਾਂ ਦੀ ਨਿਰਭਰਤਾ ਹੈ, ਨੂੰ ਇੰਸਟਾਲ ਨਾ ਕਰੋ।"
+msgstr "ਪੈਕੇਜ ਜਿਨਾਂ ਦੀ ਨਿਰਭਰਤਾ ਹੈ, ਨੂੰ _ਇੰਸਟਾਲ ਨਾ ਕਰੋ।"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
-msgstr "ਪੈਕੇਜ ਨਿਰਭਰਤਾ ਨੂੰ ਰੱਦ ਕਰੋ"
+msgstr "ਪੈਕੇਜ ਨਿਰਭਰਤਾ ਨੂੰ _ਰੱਦ ਕਰੋ"
 
 #: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
 msgid "Package Defaults"
@@ -3076,11 +3078,11 @@ msgstr ""
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
-msgstr "ਮੂਲ ਸਾਫਟਵੇਅਰ ਪੈਕੇਜ ਹੀ ਇੰਸਟਾਲ ਕਰੋ"
+msgstr "ਮੂਲ ਸਾਫਟਵੇਅਰ ਪੈਕੇਜ ਹੀ _ਇੰਸਟਾਲ ਕਰੋ"
 
 #: ../iw/desktop_choice_gui.py:74
 msgid "_Customize software packages to be installed"
-msgstr "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਾਫਟਵਟਅਰ ਪੈਕੇਜ ਦੀ ਚੋਣ ਕਰੋ"
+msgstr "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਾਫਟਵਟਅਰ ਪੈਕੇਜ _ਦੀ ਚੋਣ ਕਰੋ"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -3101,7 +3103,7 @@ msgstr "ਨਵੀਨੀਕਰਨ ਜਾਂਚ"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
-msgstr "ਮੌਜੂਦਾ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ ਨਵੀਨੀਕਰਨ"
+msgstr "ਮੌਜੂਦਾ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ _ਨਵੀਨੀਕਰਨ"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -3115,7 +3117,7 @@ msgstr ""
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "_Install %s"
-msgstr "ਇੰਸਟਾਲ %s"
+msgstr "_ਇੰਸਟਾਲ %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -3179,12 +3181,12 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:43
 msgid "_Configure Firewall"
-msgstr "ਫਾਇਰਵਾਲ ਸੰਰਚਨਾ"
+msgstr "ਫਾਇਰਵਾਲ _ਸੰਰਚਨਾ"
 
 #: ../iw/firewall_gui.py:43 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:120
 msgid "_Proceed"
-msgstr "ਅੱਗੇ ਚੱਲੋ"
+msgstr "_ਅੱਗੇ ਚੱਲੋ"
 
 #: ../iw/firewall_gui.py:77 ../textw/firewall_text.py:31
 msgid ""
@@ -3196,11 +3198,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:88
 msgid "N_o firewall"
-msgstr "ਕੋਈ ਫਾਇਰਵਾਲ ਨਹੀ"
+msgstr "ਕੋਈ ਫਾਇਰਵਾਲ _ਨਹੀ"
 
 #: ../iw/firewall_gui.py:90
 msgid "_Enable firewall"
-msgstr "ਫਾਇਰਵਾਲ ਯੋਗ"
+msgstr "ਫਾਇਰਵਾਲ ਯੋ_ਗ"
 
 #: ../iw/firewall_gui.py:107 ../textw/firewall_text.py:94
 msgid ""
@@ -3224,7 +3226,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:155
 msgid "Enable _SELinux?:"
-msgstr "SELinux ਯੋਗ ?:"
+msgstr "_SELinux ਯੋਗ?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3268,23 +3270,23 @@ msgstr "ਹੋਰ ਭਾਸ਼ਾ ਸਹਾਇਤਾ"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "ਸਿਸਟਮ ਲਈ ਮੂਲ਼ ਭਾਸ਼ਾ ਚੁਣੋਃ"
+msgstr "ਸਿਸਟਮ ਲਈ _ਮੂਲ਼ ਭਾਸ਼ਾ ਚੁਣੋਃ"
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "ਸਿਸਟਮ ਤੇ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਹੋਰ ਵਾਧੂ ਭਾਸ਼ਾਂਵਾਂ ਚੁਣੋਃ"
+msgstr "ਸਿਸਟਮ ਤੇ ਇੰਸਟਾਲ ਕਰਨ ਲਈ _ਹੋਰ ਵਾਧੂ ਭਾਸ਼ਾਂਵਾਂ ਚੁਣੋਃ"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "ਸਭ ਚੁਣੋ"
+msgstr "_ਸਭ ਚੁਣੋ"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "ਮੂਲ ਹੀ ਚੁਣੋ"
+msgstr "ਮੂਲ _ਹੀ ਚੁਣੋ"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "ਮੁਡ਼ ਨਿਰਧਾਰਨ"
+msgstr "ਮੁਡ਼ ਨਿ_ਰਧਾਰਨ"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3322,7 +3324,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:183
 msgid "C_ontinue"
-msgstr "ਜਾਰੀ"
+msgstr "_ਜਾਰੀ"
 
 #: ../iw/lvm_dialog_gui.py:154
 #, python-format
@@ -3391,11 +3393,11 @@ msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਸੋਧ"
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr "ਮਾਊਟ ਸਥਿਤੀਃ"
+msgstr "_ਮਾਊਟ ਸਥਿਤੀਃ"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "ਫਾਇਲ ਸਿਸਟਮ ਕਿਸਮਃ"
+msgstr "_ਫਾਇਲ ਸਿਸਟਮ ਕਿਸਮਃ"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
@@ -3408,7 +3410,7 @@ msgstr "ਅਣਪਛਾਤਾ"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂਃ"
+msgstr "_ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂਃ"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
@@ -3416,7 +3418,7 @@ msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂਃ"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
-msgstr "ਅਕਾਰ(ਐਮਬੀ)ਃ"
+msgstr "_ਅਕਾਰ(ਐਮਬੀ)ਃ"
 
 #: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:379
 #: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:343
@@ -3561,7 +3563,7 @@ msgstr "LVM ਵਾਲੀਅਮ ਸਮੂਹ ਸੋਧ"
 
 #: ../iw/lvm_dialog_gui.py:954
 msgid "_Volume Group Name:"
-msgstr "ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂਃ"
+msgstr "_ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂਃ"
 
 #: ../iw/lvm_dialog_gui.py:962
 msgid "Volume Group Name:"
@@ -3569,7 +3571,7 @@ msgstr "ਵਾਲੀਅਮ ਸਮੂਹ ਨਾਂਃ"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "ਵਾਸਤਵਿਕ ਸਮੱਰਥਾਃ"
+msgstr "_ਵਾਸਤਵਿਕ ਸਮੱਰਥਾਃ"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
@@ -3577,7 +3579,7 @@ msgstr "ਵਾਸਤਵਿਕ ਸਮੱਰਥਾਃ"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr "ਵਰਤਣ ਲਈ ਵਾਸਤਵਿਕ ਵਾਲੀਅਮਃ"
+msgstr "_ਵਰਤਣ ਲਈ ਵਾਸਤਵਿਕ ਵਾਲੀਅਮਃ"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
@@ -3601,12 +3603,12 @@ msgstr "ਅਕਾਰ(ਐਮਬੀ)"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/osbootwidget.py:95
 msgid "_Add"
-msgstr "ਸ਼ਾਮਿਲ"
+msgstr "_ਸ਼ਾਮਿਲ"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:508
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1360
 msgid "_Edit"
-msgstr "ਸੋਧ"
+msgstr "_ਸੋਧ"
 
 #: ../iw/lvm_dialog_gui.py:1099
 msgid "Logical Volumes"
@@ -3634,15 +3636,15 @@ msgstr "/dev/ttyS3 (ਡਾਸ ਵਿੱਚ COM4 )"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
-msgstr "ਜੰਤਰ"
+msgstr "_ਜੰਤਰ"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr "ਮਾਡਲ"
+msgstr "_ਮਾਡਲ"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "3 ਬਟਨਾਂ ਵਾਲੇ ਮਾਊਸ ਦੀ ਤਰਾਂ"
+msgstr "3 ਬਟਨਾਂ ਵਾਲੇ ਮਾਊਸ ਦੀ _ਤਰਾਂ"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
@@ -3666,19 +3668,19 @@ msgstr "ਤ੍ਰਸ਼ਰੀ DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "ਗੇਟਵੇ"
+msgstr "_ਗੇਟਵੇ"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "ਪ੍ਰਾਇਮਰੀ DNS"
+msgstr "_ਪ੍ਰਾਇਮਰੀ DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "ਸੈਕੰਡਰੀ DNS"
+msgstr "_ਸੈਕੰਡਰੀ DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "ਤ੍ਰਸ਼ਰੀ DNS"
+msgstr "_ਤ੍ਰਸ਼ਰੀ DNS"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -3759,23 +3761,23 @@ msgstr "ਇੰਟਰਫੇਸ %s ਸੋਧ"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr "DHCP ਨਾਲ ਸੰਰਚਨਾ"
+msgstr "_DHCP ਨਾਲ ਸੰਰਚਨਾ"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr "ਬੂਟ ਸਮੇਂ ਸਰਗਰਮ"
+msgstr "_ਬੂਟ ਸਮੇਂ ਸਰਗਰਮ"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr "ਆਈਪੀ(IP) ਸਿਰਨਾਵਾਂ"
+msgstr "_ਆਈਪੀ(IP) ਸਿਰਨਾਵਾਂ"
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr "ਨੈੱਟਮਾਸਕ"
+msgstr "ਨੈੱਟ_ਮਾਸਕ"
 
 #: ../iw/network_gui.py:234
 msgid "_Point to Point (IP)"
-msgstr "Point ਤੋ Point (IP)"
+msgstr "_Point ਤੋ Point (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
@@ -3783,7 +3785,7 @@ msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr "ਇੰਕ੍ਰਿਪਟਿਡ ਕੀ( _K)"
+msgstr "ਇੰਕ੍ਰਿਪਟਿਡ _ਕੀ"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -3816,11 +3818,11 @@ msgstr "ਮੇਜ਼ਬਾਨ ਨਾਂ ਨਿਰਧਾਰਨਃ"
 
 #: ../iw/network_gui.py:529
 msgid "_automatically via DHCP"
-msgstr "DHCP ਦੁਆਰਾ ਸਵੈ ਹੀ"
+msgstr "DHCP ਦੁਆਰਾ _ਸਵੈ ਹੀ"
 
 #: ../iw/network_gui.py:535
 msgid "_manually"
-msgstr "ਦਸਤੀ"
+msgstr "_ਦਸਤੀ"
 
 #: ../iw/network_gui.py:541
 msgid "(ex. \"host.domain.com\")"
@@ -3873,11 +3875,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "ਲੇਬਲ"
+msgstr "_ਲੇਬਲ"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr "ਮੂਲ ਬੂਟ ਟੀਚਾ"
+msgstr "ਮੂਲ ਬੂਟ _ਟੀਚਾ"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
@@ -3935,19 +3937,19 @@ msgstr ""
 
 #: ../iw/package_gui.py:356
 msgid "_Tree View"
-msgstr "ਪੇਚਦਾਰ ਦਰਿਸ਼"
+msgstr "_ਪੇਚਦਾਰ ਦਰਿਸ਼"
 
 #: ../iw/package_gui.py:358
 msgid "_Flat View"
-msgstr "ਸਮਾਂਤਰ ਦਰਿਸ਼"
+msgstr "_ਸਮਾਂਤਰ ਦਰਿਸ਼"
 
 #: ../iw/package_gui.py:373
 msgid "_Package"
-msgstr "ਪੈਕੇਜ"
+msgstr "_ਪੈਕੇਜ"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
-msgstr "ਅਕਾਰ (ਐਮਬੀ)"
+msgstr "_ਅਕਾਰ (ਐਮਬੀ)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
@@ -3955,11 +3957,11 @@ msgstr "ਕੁੱਲ ਅਕਾਰਃ"
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr "ਸਮੂਹ ਵਿੱਚ ਸਾਰੇ ਚੁਣੋ"
+msgstr "ਸਮੂਹ ਵਿੱਚ _ਸਭ ਚੁਣੋ"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "ਸਮੂਹ ਵਿੱਚ ਕੋਈ ਨਾ ਚੁਣੋ"
+msgstr "ਸਮੂਹ ਵਿੱਚ ਕੋਈ _ਨਾ ਚੁਣੋ"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
