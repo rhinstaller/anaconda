@@ -12,6 +12,7 @@ if (os.path.exists('isys')):
     sys.path.append('textw')
     sys.path.append('iw')
     sys.path.append('installclasses')
+    sys.path.append('edd')
 else:
     sys.path.append('/usr/lib/anaconda')
     sys.path.append('/usr/lib/anaconda/textw')
