@@ -835,9 +835,17 @@ class ToDo:
 		      "was not unmounted cleanly. Please boot your Linux "
 		      "installation, let the filesystems be checked, and "
 		      "shut down cleanly to upgrade."))
-                os.kill (os.getpid(), 9)    
+		sys.exit(0)
 
-            self.fstab.mountFilesystems (self.instPath)
+	    try:
+                self.fstab.mountFilesystems (self.instPath)
+	    except SystemError, msg:
+		self.intf.messageWindow(("Dirty Filesystems"),
+		    _("One or more of the filesystems listed in the "
+		      "/etc/fstab on your Linux system cannot be mounted. "
+		      "Please fix this problem and try to upgrade again."))
+		sys.exit(0)
+
 	    self.fstab.turnOnSwap(formatSwap = 0)
         self.getCompsList ()
 	self.getHeaderList ()
