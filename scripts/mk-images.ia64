@@ -1,5 +1,6 @@
 # LATEUSBMODS go in the second stage
-USBMODS="usb-uhci usb-ohci hid keybdev"
+# FIXME: have to include sd_mod for usb-storage
+USBMODS="usb-uhci usb-ohci hid keybdev usb-storage sd_mod"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
