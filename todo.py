@@ -325,7 +325,7 @@ class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
 		 installSystem = 1, mouse = None, instClass = None, x = None,
 		 expert = 0, serial = 0, reconfigOnly = 0, test = 0,
-		 extraModules = []):
+		 extraModules = [], lowres = None):
 	self.intf = intf
 	self.method = method
 	self.hdList = None
@@ -339,6 +339,7 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
+        self.lowres = lowres
 
         if mouse:
             self.mouse = mouse
