@@ -213,10 +213,12 @@ if (progmode == 'rescue'):
 	sys.stderr.write('--method required for rescue mode\n')
 	sys.exit(1)
 
-    import rescue
+    import rescue, instdata
     
     log.open (logFile)
-    rescue.runRescue(method, flags.serial, not rescue_nomount)
+    id = instdata.InstallData([], "fd0")
+    rescue.runRescue("/mnt/sysimage", not rescue_nomount, id)
+
     # shouldn't get back here
     sys.exit(1)
 elif (progmode == 'reconfig'):
