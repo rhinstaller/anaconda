@@ -129,7 +129,7 @@ class Kickstart(InstallClass):
 		     "rootpw"		: self.doRootPw		,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
-		     "xserver"		: None			,
+		     "xdisplay"		: None			,
 		   }
 
 	for n in open(file).readlines():
