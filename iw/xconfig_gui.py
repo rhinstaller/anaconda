@@ -179,6 +179,8 @@ class MonitorWindow (InstallWindow):
         # Monitor selection tree
         ctree = GtkCTree ()
         ctree.set_selection_mode (SELECTION_BROWSE)
+        ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+        ctree.set_line_style(CTREE_LINES_NONE)
         ctree.connect ("tree_select_row", self.selectCb)
 
         arch = iutil.getArch()
