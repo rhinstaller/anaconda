@@ -2442,7 +2442,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
     startNewt(flags);
 
     winStatus(40, 3, _("IDE"), _("Initializing IDE modules..."));
-    
+
     mlLoadModule("ide-mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ide-probe-mod", NULL, modLoaded, modDeps, NULL, modInfo, 
 		 flags);
@@ -2553,16 +2553,20 @@ int main(int argc, char ** argv) {
 
     openLog(FL_TESTING(flags));
 
-    setFloppyDevice(flags);
-
     kd = kdInit();
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    /* Note we *always* do this. If you could avoid this you could get
-       a system w/o USB keyboard support, which would be bad. */
-    usbInitialize(modLoaded, modDeps, modInfo, flags);
+    if (!continuing) {
+	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
+
+	/* Note we *always* do this. If you could avoid this you could get
+	   a system w/o USB keyboard support, which would be bad. */
+	usbInitialize(modLoaded, modDeps, modInfo, flags);
+    }
+
+    setFloppyDevice(flags);
 
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
@@ -2612,10 +2616,6 @@ int main(int argc, char ** argv) {
 			      floppyDevice);
 	}
    
-	/* Load the ide modules after letting the user specify a driver disk.
-	   This let's them override the ide drivers if they like. */
-	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
-
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
     }
@@ -2718,6 +2718,11 @@ int main(int argc, char ** argv) {
     if (ksFile)
 	kickstartDevices(&kd, modInfo, modLoaded, &modDeps, flags);
 
+    /* We may already have these modules loaded, but trying again won't
+       hurt. */
+    ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
+
+
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     if (((access("/proc/bus/pci/devices", X_OK) &&
@@ -2750,10 +2755,6 @@ int main(int argc, char ** argv) {
 	    close(fd);
 	}
     }
-
-    /* We may already have these modules loaded, but trying again won't
-       hurt. */
-    ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
