@@ -435,6 +435,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/terminfo/v
     mkdir -p $MBD_DIR/var/state
     mkdir -p $MBD_DIR/var/run
+    mkdir -p $MBD_DIR/var/lock/rpm
     ln -s /tmp $MBD_DIR/var/state/xkb
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
