@@ -81,7 +81,7 @@ static int sd_major(int major_idx) {
 
 int devMakeInode(char * devName, char * path) {
     int i;
-    unsigned int major, minor;
+    int major, minor;
     int type;
     char *ptr;
     char *dir;
@@ -93,7 +93,6 @@ int devMakeInode(char * devName, char * path) {
     if (devName[0] == 's' && devName[1] == 'd') {
 	int drive = 0;
 	char *num = NULL;
-        int maj;
 	type = S_IFBLK;
 
 	if (devName[3] && isdigit(devName[3])) {
@@ -105,17 +104,15 @@ int devMakeInode(char * devName, char * path) {
 	} else
 	    drive = devName[2] - 'a';
         
-        maj = sd_major(drive & 0xf0);
-        if (maj < 0)
-            return maj;
-        major = maj >> 4;
+        major = sd_major((drive & 0xf0) >> 4);
+        if (major < 0)
+            return major;
 	minor = (drive * 16) % 256;
+        minor += (drive & 0xfff00);
 	if (num && num[0] && num[1])
 	   minor += (num[0] - '0') * 10 + (num[1] - '0');
 	else if (num && num[0])
 	   minor += (num[0] - '0');
-	if (minor > 255)
-	    return -1;
     } else if (devName[0] == 'm' && devName[1] == 'd') {
 	type = S_IFBLK;
 	major = 9;
