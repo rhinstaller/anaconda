@@ -135,7 +135,7 @@ class KickstartBase(BaseInstallClass):
 	    elif str == '--smtp':
                 ports.append("25:tcp")
 	    elif str == '--http':
-                ports.extend(["80:tcp", "443:tcp"]
+                ports.extend(["80:tcp", "443:tcp"])
 	    elif str == '--ftp':
                 ports.append("21:tcp")
 	    elif str == '--high' or str == '--medium':
