@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <sys/utsname.h>
 #include <sys/wait.h>
+#include <sys/mman.h>
 
 #include "log.h"
 #include "modstubs.h"
@@ -84,7 +85,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     char * ballPath = NULL;
     int version = 1;
     int fd;
-    char * modbuf = NULL;
+    void * modbuf = NULL;
     struct stat sb;
 
     if (argc < 2) {
@@ -124,13 +125,13 @@ int ourInsmodCommand(int argc, char ** argv) {
         return 1;
     }
 
-    modbuf = malloc(sb.st_size);
-    if (read(fd, modbuf, sb.st_size) < sb.st_size) {
+    modbuf = mmap(0, sb.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+    if (modbuf == NULL) {
         logMessage("error reading file %s: %s", file, strerror(errno));
         return 1;
     }
 
-    rc = init_module(file, sb.st_size, "");
+    rc = init_module(modbuf, sb.st_size, "");
     if (rc != 0)
         logMessage("failed to insert module (%d)", errno);
     return rc;
