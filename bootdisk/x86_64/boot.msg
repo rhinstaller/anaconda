@@ -1,4 +1,5 @@
  
+splash.lss
 
  -  To install or upgrade in graphical mode, press the 0f<ENTER>07 key.
 
