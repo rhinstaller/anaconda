@@ -228,13 +228,12 @@ class Fstab:
             
 	isys.mount('/proc', instPath + '/proc', 'proc')
 
-    def writeFstab(self):
+    def write(self, prefix, fdDevice = "/dev/fd0"):
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
-	f = open (self.instPath + "/etc/fstab", "w")
-	self.setFdDevice ()
+	f = open (prefix + "/etc/fstab", "w")
 	for (mntpoint, dev, fs, reformat, size) in self.mountList():
-	    iutil.mkdirChain(self.instPath + mntpoint)
+	    iutil.mkdirChain(prefix + mntpoint)
 	    if (mntpoint == '/'):
 		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
 	    else:
@@ -244,15 +243,23 @@ class Fstab:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % (self.fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
+	f.write (format % (fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
+
+	for (partition, doFormat) in self.swapList():
+	    f.write (format % (partition, 'swap', 'swap', 'defaults', 0, 0))
+
 	f.close ()
         # touch mtab
-        open (self.instPath + "/etc/mtab", "w+")
+        open (prefix + "/etc/mtab", "w+")
         f.close ()
 
-	self.createRaidTab("/mnt/sysimage/etc/raidtab", "/dev")
+	self.createRaidTab(prefix + "/etc/raidtab", "/dev")
+
+    def addMount(self, partition, mount, fsystem, doFormat = 0, size = 0):
+	self.extraFilesystems.append(mount, partition, fsystem, doFormat,
+				     size)
 
     def mountList(self):
 	def sortMounts(one, two):
@@ -272,7 +279,12 @@ class Fstab:
 		self.fsCache[(partition, mount)] = (0, )
 	    (doFormat,) = self.fsCache[(partition, mount)]
 	    fstab.append((mount, partition, fsystem, doFormat, size ))
+
+	for n in self.extraFilesystems:
+	    fstab.append(n)
+
 	fstab.sort(sortMounts)
+
 	return fstab
 
     def saveDruidPartitions(self):
@@ -294,6 +306,7 @@ class Fstab:
 	self.serial = serial
 	self.waitWindow = waitWindow
 	self.badBlockCheck = 0
+	self.extraFilesystems = []
 
 class GuiFstab(Fstab):
 
