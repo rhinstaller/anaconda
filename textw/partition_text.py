@@ -403,7 +403,7 @@ class PartitionWindow:
                 request.primary = primonly
                 request.maxSize = maxsize
 
-                err = sanityCheck(self.partitions, request)
+                err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -420,7 +420,7 @@ class PartitionWindow:
                 else:
                     origrequest.format = 0
 
-                err = sanityCheck(self.partitions, origrequest)
+                err = sanityCheckPartitionRequest(self.partitions, origrequest)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -502,7 +502,7 @@ class PartitionWindow:
             else:
                 request.format = 0
             
-            err = sanityCheck(self.partitions, request)
+            err = sanityCheckPartitionRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
                                         "%s" % (err))
@@ -636,6 +636,7 @@ class PartitionWindow:
             else:
                 if not self.partitions.getRequestByMountPoint("/"):
                     continue
+                self.fsset.reset()
                 for request in self.partitions.requests:
                     # XXX improve sanity checking
                     if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):

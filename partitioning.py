@@ -34,6 +34,11 @@ REQUEST_PREEXIST = 1
 REQUEST_NEW = 2
 REQUEST_RAID = 4
 
+# max partition size in kB
+# XXX these are just made up, need to get real values from parted!
+MAX_PART_SIZE = 1024*1024*1024
+MAX_SWAP_PART_SIZE_KB = 2147483640/1024
+
 fsTypes = {}
 
 fs_type = parted.file_system_type_get_next ()
@@ -145,45 +150,80 @@ def get_available_raid_partitions(diskset, requests):
     for drive in drives:
         disk = diskset.disks[drive]
         for part in get_raid_partitions(disk):
+            used = 0
             for raid in raiddevs:
-                if raid.raidmembers and part in raid.raidmembers:
+                if raid.raidmembers:
+                    for raidmem in raid.raidmembers:
+                        if get_partition_name(part) == get_partition_name(raidmem.partition):
+                            used = 1
+                            break
+                if used:
                     break
-            rc.append(part)
+
+            if not used:
+                rc.append(part)
     return rc
 
 # return minimum numer of raid members required for a raid level
 def get_raid_min_members(raidlevel):
-    if raidlevel == "RAID-0":
+    if raidlevel == "RAID0":
         return 2
-    elif raidlevel == "RAID-1":
+    elif raidlevel == "RAID1":
         return 2
-    elif raidlevel == "RAID-5":
+    elif raidlevel == "RAID5":
         return 3
     else:
         raise ValueError, "invalid raidlevel in get_raid_min_members"
 
 # return max num of spares available for raidlevel and total num of members
 def get_raid_max_spares(raidlevel, nummembers):
-    if raidlevel == "RAID-0":
+    if raidlevel == "RAID0":
         return 0
-    elif raidlevel == "RAID-1":
-        return 0
-    elif raidlevel == "RAID-5":
+    elif raidlevel == "RAID1" or raidlevel == "RAID5":
         return max(0, nummembers - get_raid_min_members(raidlevel))
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"
 
-# returns error string if something not right about request
-# returns error string if something not right about request
-def sanityCheck(reqpartitions, newrequest):
-    # see if mount point is valid if its a new partition request
+def get_raid_device_size(raidrequest):
+    if not raidrequest.raidmembers or not raidrequest.raidlevel:
+        return 0
     
-    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt']
-    mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
-    
-    mntpt = newrequest.mountpoint
-    fstype = newrequest.fstype
+    raidlevel = raidrequest.raidlevel
+    nummembers = len(raidrequest.raidmembers)
+    smallest = None
+    sum = 0
+    for member in raidrequest.raidmembers:
+        part = member.partition
+        partsize =  part.geom.length * part.geom.disk.dev.sector_size
+        print "raid members, size->",get_partition_name(part), partsize
+        if raidlevel == "RAID0":
+            sum = sum + partsize
+        else:
+            if not smallest:
+                smallest = partsize
+            elif sizekb < smallest:
+                smallest = partsize
 
+    if raidlevel == "RAID0":
+        return sum
+    elif raidlevel == "RAID1":
+        return smallest
+    elif raidlevel == "RAID5":
+        return (nummembers-1) * smallest
+    else:
+        raise ValueError, "Invalid raidlevel in get_raid_device_size()"
+    
+# return name of boot mount point in current requests
+def getBootableRequest(reqpartitions):
+    bootreq = reqpartitions.getRequestByMountPoint("/boot")
+    if not bootreq:
+        bootreq = reqpartitions.getRequestByMountPoint("/")
+
+    return bootreq
+
+
+# sanityCheckMountPoint
+def sanityCheckMountPoint(mntpt, fstype, reqtype):
     if mntpt:
         passed = 1
         if not mntpt:
@@ -191,41 +231,98 @@ def sanityCheck(reqpartitions, newrequest):
         else:
             if mntpt[0] != '/' or (len(mntpt) > 1 and mntpt[-1:] == '/'):
                 passed = 0
-
+                
         if not passed:
             return _("The mount point is invalid.  Mount points must start "
                      "with '/' and cannot end with '/', and must contain "
                      "printable characters.")
+        else:
+            return None
     else:
-        if newrequest.fstype.isMountable() and newrequest.type == REQUEST_NEW:
+        if fstype and fstype.isMountable() and reqtype == REQUEST_NEW:
             return _("Please specify a mount point for this partition.")
         else:
             # its an existing partition so don't force a mount point
-            return
+            return None
 
-    # mount point is defined and is legal. now make sure its unique
+def isMountPointInUse(reqpartitions, newrequest):
+    mntpt = newrequest.mountpoint
+    if not mntpt:
+        return None
+    
     if reqpartitions and reqpartitions.requests:
         for request in reqpartitions.requests:
-            if request.mountpoint == mntpt and request.start != newrequest.start:
-                return _("The mount point %s is already in use, please "
-                         "choose a different mount point." % (mntpt))
+            if request.mountpoint == mntpt:
+                used = 0
+                if newrequest.type == REQUEST_RAID:
+                    if request.raidmembers != newrequest.raidmembers:
+                        used = 1
+                else:
+                    if request.start != newrequest.start:
+                        used = 1
+
+                if used:
+                    return _("The mount point %s is already in use, please "
+                             "choose a different mount point." % (mntpt))
 
 
-    # further sanity checks
-    if fstype.isLinuxNativeFS():    
-        if mntpt in mustbeonroot:
+    return None
+
+def doMountPointLinuxFSChecks(newrequest):
+    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt']
+    mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
+
+    if newrequest.fstype.isLinuxNativeFS():
+        if newrequest.mountpoint in mustbeonroot:
             return _("This mount point is invalid.  This directory must "
                      "be on the / filesystem.")
 
-        if fstype.getName() == "linux-swap":
-            if newrequest.size * 1024 > MAX_SWAP_PART_SIZE_KB:
-                return _("This swap partition exceeds the maximum size of "
-                         "%s MB.") % (MAX_SWAP_PART_SIZE_KB / 1024)
+    if newrequest.fstype.getName() == "swap":
+        if newrequest.type == REQUEST_RAID:
+            swapsize = get_raid_device_size(newrequest)
+        else:
+            swapsize = newrequest.size
+
+        print "swapsize ->",swapsize
+
+        if swapsize * 1024 > MAX_SWAP_PART_SIZE_KB:
+            return _("This swap partition exceeds the maximum size of "
+                     "%s MB.") % (MAX_SWAP_PART_SIZE_KB / 1024)
+        else:
+            return None
     else:
-        if mntpt in mustbeonlinuxfs:
+        if newrequest.mountpoint in mustbeonlinuxfs:
             return _("This mount point must be on a linux filesystem.")
 
     return None
+    
+
+
+# returns error string if something not right about request
+def sanityCheckPartitionRequest(reqpartitions, newrequest):
+    # see if mount point is valid if its a new partition request
+    mntpt = newrequest.mountpoint
+    fstype = newrequest.fstype
+    reqtype = newrequest.type
+
+    rc = sanityCheckMountPoint(mntpt, fstype, reqtype)
+    if rc:
+        return rc
+
+    rc = isMountPointInUse(reqpartitions, newrequest)
+    if rc:
+        return rc
+    
+    rc = doMountPointLinuxFSChecks(newrequest)
+    if rc:
+        return rc
+    
+    return None
+
+# return error string is something not right about raid request
+def sanityCheckRaidRequest(reqpartitions, newraid):
+    rc = sanityCheckPartitionRequest(reqpartitions, newraid)
+
 
 class DeleteSpec:
     def __init__(self, drive, start, end):
@@ -281,14 +378,24 @@ class PartitionSpec:
         self.currentDrive = None
 
     def __str__(self):
-        return "mountpoint: %s   type: %s\n" %(self.mountpoint, self.fstype.getName()) +\
+        if self.fstype:
+            fsname = self.fstype.getName()
+        else:
+            fsname = "None"
+        raidmem = []
+        if self.raidmembers:
+            for i in self.raidmembers:
+                raidmem.append(get_partition_name(i.partition))
+                
+        return "mountpoint: %s   type: %s\n" %(self.mountpoint, fsname) +\
                "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSize) +\
                "  start: %s   end: %s   partnum: %s\n" %(self.start, self.end, self.partnum) +\
                "  drive: %s   primary: %s  secondary: %s\n" %(self.drive, self.primary, self.secondary) +\
                "  format: %s, options: %s" %(self.format, self.options) +\
-               "  device: %s, realDevice: %s" %(self.device, self.realDevice)+\
+               "  device: %s, realDevice: %s\n" %(self.device, self.realDevice)+\
                "  raidlevel: %s" % (self.raidlevel)+\
-               "  raidspares: %s" % (self.raidspares)
+               "  raidspares: %s" % (self.raidspares)+\
+               "  raidmembers: %s" % (raidmem)
 
     # turn a partition request into a fsset entry
     def toEntry(self):

@@ -27,7 +27,7 @@ defaultMountPoints = ('/', '/boot', '/home', '/tmp', '/usr', '/var')
 
 fileSystemTypes = {}
 
-availRaidLevels = ['RAID-0', 'RAID-1', 'RAID-5']
+availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 
 def fileSystemTypeGetDefault():
     return fileSystemTypeGet('ext2')

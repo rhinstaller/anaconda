@@ -305,6 +305,7 @@ def createAllowedDrivesClist(drives, reqdrives):
     return driveclist
 
 def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
+
     partclist = GtkCList()
     partclist.set_selection_mode (SELECTION_MULTIPLE)
 
@@ -322,7 +323,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     return partclist
 
-def createRaidLevelMenu(levels, reqlevel):
+def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     leveloption = GtkOptionMenu()
     leveloptionmenu = GtkMenu()
     defindex = None
@@ -333,6 +334,8 @@ def createRaidLevelMenu(levels, reqlevel):
         leveloptionmenu.add(item)
         if reqlevel and lev == reqlevel:
             defindex = i
+        if raidlevelchangeCB and sparesb:
+            item.connect("activate", raidlevelchangeCB, sparesb)
         i = i + 1
 
     leveloption.set_menu (leveloptionmenu)
@@ -352,6 +355,9 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
     defindex = None
     i = 0
     for name in names:
+        if not fileSystemTypeGet(name).isSupported():
+            continue
+        
         if fileSystemTypeGet(name).isFormattable():
             item = GtkMenuItem(name)
             item.set_data ("type", types[name])
@@ -369,7 +375,24 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
 
     return (fstypeoption, fstypeoptionMenu)
 
-
+def raidlevelchangeCB(widget, sparesb):
+    raidlevel = widget.get_data("level")
+    numparts = sparesb.get_data("numparts")
+    maxspares = get_raid_max_spares(raidlevel, numparts)
+    if maxspares > 0:
+        sparesb.set_sensitive(1)
+        adj = sparesb.get_adjustment()
+        value = adj.value
+        if adj.value > maxspares:
+            value = maxspares
+        adj.set_all(value, 0, maxspares,
+                    adj.step_increment, adj.page_increment,
+                    adj.page_size)
+        sparesb.set_adjustment(adj)
+        sparesb.set_value(value)
+    else:
+        sparesb.set_value(0)
+        sparesb.set_sensitive(0)
 
 class PartitionWindow(InstallWindow):
     def __init__(self, ics):
@@ -381,6 +404,7 @@ class PartitionWindow(InstallWindow):
     def getNext(self):
         self.diskStripeGraph.shutDown()    
         self.clearTree()
+        self.fsset.reset()
         for request in self.partitions.requests:
             # XXX improve sanity checking
             if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
@@ -683,8 +707,6 @@ class PartitionWindow(InstallWindow):
                 # read out UI into a partition specification
                 filesystem = fstypeoptionMenu.get_active().get_data("type")
 
-                print filesystem.getName()
-
                 if not newbycyl:
                     if fixedrb.get_active():
                         grow = None
@@ -726,7 +748,7 @@ class PartitionWindow(InstallWindow):
                 print "new requests:"
                 print request
 
-                err = sanityCheck(self.partitions, request)
+                err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -746,7 +768,7 @@ class PartitionWindow(InstallWindow):
                 else:
                     request.format = 0
 
-                err = sanityCheck(self.partitions, request)
+                err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
@@ -830,6 +852,12 @@ class PartitionWindow(InstallWindow):
         self.tree.thaw()
         self.checkNextConditions()
 
+#        for r in self.partitions.requests:
+#            print "--------------------------"
+#            print r
+#            print "--------------------------"
+#
+#        print "\n\n"
         return rc
 
     def editCb(self, widget):
@@ -874,6 +902,8 @@ class PartitionWindow(InstallWindow):
         maintable.set_col_spacings (5)
         row = 0
 
+        availraidparts = get_available_raid_partitions(self.diskset, self.partitions.requests)
+
         # Mount Point entry
         maintable.attach(createAlignedLabel(_("Mount Point:")),
                                             0, 1, row, row + 1)
@@ -895,7 +925,29 @@ class PartitionWindow(InstallWindow):
         # raid level
         maintable.attach(createAlignedLabel(_("RAID Level:")),
                                             0, 1, row, row + 1)
-        (leveloption, leveloptionmenu) = createRaidLevelMenu(availRaidLevels, raidrequest.raidlevel)
+
+        # Create here, pack below
+        numparts =  len(availraidparts)
+        if raidrequest.raidlevel:
+            maxspares = get_raid_max_spares(raidrequest.raidlevel, numparts)
+        else:
+            maxspares = 0
+
+        spareAdj = GtkAdjustment (value = 0, lower = 0,
+                               upper = maxspares, step_incr = 1)
+        sparesb = GtkSpinButton(spareAdj, digits = 0)
+        sparesb.set_data("numparts", numparts)
+
+        if maxspares > 0:
+            sparesb.set_sensitive(1)
+        else:
+            sparesb.set_value(0)
+            sparesb.set_sensitive(0)
+
+        (leveloption, leveloptionmenu) = createRaidLevelMenu(availRaidLevels,
+                                                       raidrequest.raidlevel,
+                                                       raidlevelchangeCB,
+                                                       sparesb)
         maintable.attach(leveloption, 1, 2, row, row + 1)
             
         row = row + 1
@@ -904,22 +956,16 @@ class PartitionWindow(InstallWindow):
         maintable.attach(createAlignedLabel(_("Raid Members:")),
                          0, 1, row, row + 1)
 
-        availraidparts = []
-        for drive in self.diskset.disks.keys():
-            availraidparts.extend(get_raid_partitions(self.diskset.disks[drive]))
-
         # XXX need to pass in currently used partitions for this device
         raidclist = createAllowedRaidPartitionsClist(availraidparts,
                                                      raidrequest.raidmembers)
+
         maintable.attach(raidclist, 1, 2, row, row + 1)
         row = row + 1
 
-        # number of spares
+        # number of spares - created widget above
         maintable.attach(createAlignedLabel(_("Number of spares?:")),
                          0, 1, row, row + 1)
-        spareAdj = GtkAdjustment (value = 0, lower = 0,
-                               upper = len(availraidparts), step_incr = 1)
-        sparesb = GtkSpinButton(spareAdj, digits = 0)
         maintable.attach(sparesb, 1, 2, row, row + 1)
         row = row + 1
 
@@ -944,12 +990,16 @@ class PartitionWindow(InstallWindow):
             if rc == 1:
                 dialog.close()
                 return
+            elif rc == -1:
+                # something died in dialog
+                raise ValueError, "Died inside of raid edit dialog!"
 
             # read out UI into a partition specification
             request = copy.copy(raidrequest)
 
             filesystem = fstypeoptionMenu.get_active().get_data("type")
             request.fstype = filesystem
+            print "in editraid, fs = ",filesystem.getName()
 
             if request.fstype.isMountable():
                 request.mountpoint = mountCombo.entry.get_text()
@@ -971,7 +1021,7 @@ class PartitionWindow(InstallWindow):
 
             print request
 
-            err = sanityCheck(self.partitions, request)
+            err = sanityCheckRaidRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
                                         "%s" % (err))
