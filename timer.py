@@ -32,7 +32,11 @@ class Timer:
 	else:
 	    return self.total + (time.time() - self.startedAt)
 
+    def reset(self, start = 1):
+        self.total = 0
+        self.startedAt = -1
+        if start:
+            self.start()
+
     def __init__(self, start = 1):
-	self.total = 0
-	self.startedAt = -1
-	self.start()
+        self.reset(start)

@@ -3,6 +3,7 @@ import rpm
 import os
 import gui
 import sys
+import timer
 from gtk import *
 from iw_gui import *
 from translate import _, N_
@@ -81,14 +82,11 @@ class InstallProgressWindow (InstallWindow):
 
     def setPackage(self, header):
         if len(self.pixmaps):
-            pkgsPerImage = self.numTotal / len(self.pixmaps)
-            if pkgsPerImage < 1:
-                pkgsPerImage = 1
-            if not (self.numComplete) % pkgsPerImage:
-                if self.numComplete:
-                    num = self.numComplete * len(self.pixmaps) / self.numTotal
-                else:
-                    num = 0
+            # set to switch every N seconds
+            if self.pixtimer.elapsed() > 30:
+                num = self.pixcurnum + 1
+                if num >= len(self.pixmaps):
+                    num = min(1, len(self.pixmaps))
                 im = self.ics.readPixmap (self.pixmaps[num])
                 im.render ()
                 pix = im.make_pixmap ()
@@ -97,7 +95,9 @@ class InstallProgressWindow (InstallWindow):
                 self.adbox.add (pix)
                 self.adpix = pix
                 self.adbox.show_all()
-
+                self.pixcurnum = num
+                self.pixtimer.reset()
+                
         self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                                            header[rpm.RPMTAG_VERSION],
                                                            header[rpm.RPMTAG_RELEASE]))
@@ -172,6 +172,8 @@ class InstallProgressWindow (InstallWindow):
                 pixmaps.append(pixmap[string.find(pixmap, "rnotes/"):])
 
         self.pixmaps = pixmaps
+        self.pixtimer = timer.Timer()
+        self.pixcurnum = 0
         
 	table = GtkTable (3, 2)
         self.curPackage = { "package" : _("Package"),
