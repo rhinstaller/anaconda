@@ -710,21 +710,21 @@ class ComponentSet:
 
     def selectDepCause (self, deps):
 	for (who, dep) in deps:
-	    self.packages[who].select ()
+	    if self.packages.has_key(who):
+                self.packages[who].select ()
 
     def unselectDepCause (self, deps):
 	for (who, dep) in deps:
-	    self.packages[who].unselect ()
+	    if self.packages.has_key(who):            
+                self.packages[who].unselect ()
 
     def selectDeps (self, deps):
 	for (who, dep) in deps:
-	    # this skips right over "no suggestion"
 	    if self.packages.has_key(dep):
 		self.packages[dep].select ()
 
     def unselectDeps (self, deps):
 	for (who, dep) in deps:
-	    # this skips right over "no suggestion"
 	    if self.packages.has_key(dep):
 		self.packages[dep].unselect ()
 
