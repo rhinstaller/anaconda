@@ -257,6 +257,10 @@ if traceOnly:
     import mimetools
     import mimetypes
     import syslogd
+
+    if iutil.getArch() == "i386":
+	import edd
+
     if display_mode == 't':
         from newtpyfsedit import fsedit        
     for module in sys.__dict__['modules'].keys ():
