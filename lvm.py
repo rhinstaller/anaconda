@@ -145,3 +145,43 @@ def getMaxLVSize(pe):
     pe - PE size in KB
     """
     return pe*64
+
+def createSuggestedVGName(partitions):
+    """Given list of partition requests, come up with a reasonable VG name
+
+    partitions - list of requests
+    """
+    i = 0
+    while 1:
+	tmpname = "Volume%02d" % (i,)
+	if not partitions.isVolumeGroupNameInUse(tmpname):
+	    break
+
+	i = i + 1
+	if i>99:
+	    tmpname = ""
+
+    return tmpname
+	    
+def createSuggestedLVName(logreqs):
+    """Given list of LV requests, come up with a reasonable LV name
+
+    partitions - list of LV requests for this VG
+    """
+    i = 0
+
+    lnames = []
+    for lv in logreqs:
+	lnames.append(lv.logicalVolumeName)
+    
+    while 1:
+	tmpname = "LogVol%02d" % (i,)
+	if (logreqs is None) or (tmpname not in lnames):
+	    break
+
+	i = i + 1
+	if i>99:
+	    tmpname = ""
+
+    return tmpname
+	    
