@@ -20,7 +20,7 @@ from translate import _
 class PartitionMethodWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
-        ics.setTitle (_("Automatic Partitioning"))
+        ics.setTitle (_("Disk Partitioning"))
 
     def getNext(self):
         
