@@ -734,9 +734,9 @@ class InstallProgressWindow:
        	self.numComplete = self.numComplete + 1
 	self.sizeComplete = self.sizeComplete + header[rpm.RPMTAG_SIZE]
 	self.numCompleteW.setText("%12d" % self.numComplete)
-	self.sizeCompleteW.setText("%10d M" % (self.sizeComplete / (1024 * 1024)))
+	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete / (1024 * 1024)))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
-	self.sizeRemainingW.setText("%10d M" % ((self.sizeTotal - self.sizeComplete) / (1024 * 1024)))
+	self.sizeRemainingW.setText("%10dM" % ((self.sizeTotal - self.sizeComplete) / (1024 * 1024)))
 	self.total.set(self.sizeComplete)
 
 	elapsedTime = time.time() - self.timeStarted 
@@ -758,7 +758,7 @@ class InstallProgressWindow:
 	self.name.setText("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                         header[rpm.RPMTAG_VERSION],
                                         header[rpm.RPMTAG_RELEASE]))
-	self.size.setText("%d k" % (header[rpm.RPMTAG_SIZE] / 1024))
+	self.size.setText("%dk" % (header[rpm.RPMTAG_SIZE] / 1024))
 	summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary != None):
 	    self.summ.setText(summary)
@@ -806,7 +806,7 @@ class InstallProgressWindow:
 
 	overall.setField (Label (_("Total    :")), 0, 1, anchorLeft = 1)
 	overall.setField (Label ("%12d" % total), 1, 1, anchorLeft = 1)
-	overall.setField (Label ("%10d M" % (totalSize / (1024 * 1024))),
+	overall.setField (Label ("%10dM" % (totalSize / (1024 * 1024))),
                           2, 1, anchorLeft = 1)
 	self.timeTotalW = Label("")
 	overall.setField(self.timeTotalW, 3, 1, anchorLeft = 1)
@@ -816,14 +816,14 @@ class InstallProgressWindow:
 	self.numCompleteW = Label("%12d" % self.numComplete)
 	overall.setField(self.numCompleteW, 1, 2, anchorLeft = 1)
 	self.sizeComplete = 0
-        self.sizeCompleteW = Label("%10d M" % (self.sizeComplete / (1024 * 1024)))
+        self.sizeCompleteW = Label("%10dM" % (self.sizeComplete / (1024 * 1024)))
 	overall.setField(self.sizeCompleteW, 2, 2, anchorLeft = 1)
 	self.timeCompleteW = Label("")
 	overall.setField(self.timeCompleteW, 3, 2, anchorLeft = 1)
 
 	overall.setField (Label (_("Remaining:  ")), 0, 3, anchorLeft = 1)
 	self.numRemainingW = Label("%12d" % total)
-        self.sizeRemainingW = Label("%10d M" % (totalSize / (1024 * 1024)))
+        self.sizeRemainingW = Label("%10dM" % (totalSize / (1024 * 1024)))
 	overall.setField(self.numRemainingW, 1, 3, anchorLeft = 1)
 	overall.setField(self.sizeRemainingW, 2, 3, anchorLeft = 1)
 	self.timeRemainingW = Label("")
@@ -901,7 +901,8 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 1999 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
-	self.screen.suspendCallback(killSelf, self.screen)
+#	self.screen.suspendCallback(killSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
@@ -963,3 +964,8 @@ class InstallInterface:
 def killSelf(screen):
     screen.finish()
     os._exit(0)
+
+def debugSelf(screen):
+    screen.finish ()
+    import pdb
+    pdb.set_trace()
