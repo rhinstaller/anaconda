@@ -34,6 +34,11 @@
 	%post/%pre, etc.  Note that the filename is relative to use of
 	--chroot or not. (#124370)
 
+2004-10-04  Mike McLean  <mikem@redhat.com>
+	* scripts/pkgorder: Add some command line options: --file <f> to
+	write to a file instead of stdout, --debug to increas the rpm
+	verbosity, --product to set the product path.
+
 2004-10-04  Karsten Hopp  <karsten@redhat.com>
 
 	* loader2/linuxrc.s390: fix LCS PORTNAME

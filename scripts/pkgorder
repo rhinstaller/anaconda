@@ -120,8 +120,12 @@ def runTsAndOutput(pkglist):
         pkgs.sort(archSort)
         for pnevra in pkgs:
             pkg = hdlist.pkgs[pnevra[0]]
-            print "%s-%s-%s.%s.rpm" % (pkg['name'], pkg['version'],
-                                       pkg['release'], pkg['arch'])
+            line = "%s-%s-%s.%s.rpm\n" % (pkg['name'], pkg['version'],
+                                          pkg['release'], pkg['arch'])
+            if ofile is None:
+                print line,
+            else:
+                ofile.write(line)
     
 
 
@@ -129,17 +133,42 @@ def runTsAndOutput(pkglist):
 if os.environ.has_key("PKGORDER_DEBUG"):
     rpm.setVerbosity(rpm.RPMLOG_DEBUG)
 
-if len(sys.argv) < 3:
+productPath = None
+ofile = None
+
+#parse optional arguments
+args = [sys.argv[0]]
+n = 1
+while n < len(sys.argv):
+    arg = sys.argv[n]
+    n += 1
+    if arg == "--debug":
+        rpm.setVerbosity(rpm.RPMLOG_DEBUG)
+    elif arg == "--file":
+        ofile = open(sys.argv[n],'w')
+        n += 1
+    elif arg == "--product":
+        productPath = sys.argv[n]
+        n += 1
+    else:
+        args.append(arg)
+
+if len(args) < 3:
     print "pkgorder <toppath> <arch>"
     sys.exit(1)
 
-arch = sys.argv[2]
-distDir = os.path.normpath(sys.argv[1])
+distDir = os.path.normpath(args[1])
+arch = args[2]
 
-if len(sys.argv) > 3:
-    productPath = sys.argv[3]
-else:
-    productPath = "RedHat"
+# in previous versions, argument 3 was overloaded as both an optional
+# productPath specification and the start of the optional complist
+# specification. For script compatibility, we still have this overloading
+# (as long as --product is not used).
+if productPath is None:
+    if len(args) > 3:
+        productPath = args[3]
+    else:
+        productPath = "RedHat"
 
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
@@ -192,8 +221,8 @@ grpids = grpset.groups.keys()
 grpids.sort()
 
 # allow passing in an initial group list on the command line
-if len(sys.argv) > 3:
-    complist = sys.argv[3:]
+if len(args) > 3:
+    complist = args[3:]
 else:
     complist = []
 # then we add the things we have hard-coded.  this is kind of ugly and in
@@ -268,3 +297,5 @@ for p in pkgOrder:
 
 runTsAndOutput(list)
 
+if ofile is not None:
+    ofile.close()
