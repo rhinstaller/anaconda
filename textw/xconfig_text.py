@@ -68,24 +68,6 @@ class XCustomWindow:
         if button != TEXT_CANCEL_CHECK:
             self.selectedRes = availmodes[result]
         
-    def testCB(self, screen):
-	return
-    
-#         newmodes = {}
-#         newmodes[self.selectedDepth] = []
-#         newmodes[self.selectedDepth].append (self.selectedRes)
-#
-#         manmodes = self.xconfig.getManualModes()
-#         self.xconfig.setManualModes(newmodes)
-#
-#         try:
-#             self.xconfig.test (root=self.instPath)
-#         except RuntimeError:
-#             ### test failed window
-#             pass
-#
-#         self.xconfig.setManualModes(manmodes)
-        
     def loginCB(self, widget):
         if widget == self.graphrb:
             self.selectedRunLevel = 5
@@ -107,19 +89,15 @@ class XCustomWindow:
     def __call__(self, screen, xsetup, monitor, videocard, desktop, comps,
                  instPath):
 
-        def numCompare (first, second):
-            first = string.atoi (first)
-            second = string.atoi (second)
-            if first > second:
-                return 1
-            elif first < second:
-                return -1
-            return 0
-
         self.instPath = instPath
         self.xsetup = xsetup
 	self.origres = self.xsetup.xhwstate.get_resolution()
 	self.origdepth = self.xsetup.xhwstate.get_colordepth()
+
+	if not xsetup.imposed_sane_default:
+	    xsetup.xhwstate.choose_sane_default()
+	else:
+	    xsetup.imposed_sane_default = 1
 
         availableRes    = self.xsetup.xhwstate.available_resolutions()
 	availableDepths = self.xsetup.xhwstate.available_color_depths()
@@ -150,11 +128,6 @@ class XCustomWindow:
         self.selectedRunLevel = desktop.getDefaultRunLevel()
 
         while 1:
-# removing test option
-#
-#            bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Test"), "test"),
-#                                     TEXT_BACK_BUTTON))
-
             bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 
             toplevel = GridFormHelp (screen, _("X Customization"),
@@ -163,9 +136,6 @@ class XCustomWindow:
             text = _("Select the color depth and video mode you want to "
                      "use for your system. ")
 	    
-#                     "Use the '%s' button to test the video mode."
-#                     % (_("Test")))
-
             customgrid = Grid(3,2)
             label = Label(_("Color Depth:"))
             customgrid.setField(label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
