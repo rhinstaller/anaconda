@@ -14,7 +14,7 @@ msgstr ""
 
 #: ../iw/language.py:10 ../text.py:39 ../text.py:818
 msgid "Language Selection"
-msgstr ""
+msgstr "Выбор языка"
 
 #: ../text.py:40
 msgid "What language would you like to use during the installation process?"
@@ -371,6 +371,8 @@ msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
+"Вставьте отформатированную дискету в первый дисковод. Все данные на этой при "
+"создании загрузочного диска будут уничтожены."
 
 #: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
 #: ../textw/lilo.py:20
@@ -423,7 +425,7 @@ msgstr "Завершено:   "
 
 #: ../text.py:676
 msgid "Remaining:  "
-msgstr "Осталось:   "
+msgstr " Осталось:   "
 
 #: ../text.py:746
 msgid "What time zone are you located in?"
@@ -470,7 +472,7 @@ msgstr "Автоматическое разбиение"
 
 #: ../text.py:836
 msgid "Swap"
-msgstr ""
+msgstr "Swap"
 
 #: ../text.py:838
 msgid "Filesystem Formatting"
@@ -547,7 +549,7 @@ msgstr "Проверка системы"
 
 #: ../text.py:884
 msgid "Customize Upgrade"
-msgstr ""
+msgstr "Уточнить обновление"
 
 #: ../text.py:886
 msgid "Upgrade System"
@@ -748,7 +750,7 @@ msgstr "Обновление"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Использовать fdisk для разбиения дисков"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -948,6 +950,11 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"If you don't want to do this, you can continue with this install by "
+"partitioning manually, or you can go back and perform a fully customized "
+"installation."
 
 #: ../iw/rootpartition.py:137
 msgid "Remove data"
@@ -991,19 +998,19 @@ msgstr "Видео ОЗУ"
 
 #: ../iw/xconfig.py:12
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Частоты строчной развертки"
 
 #: ../iw/xconfig.py:13
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Частоты кадровой развертки"
 
 #: ../iw/xconfig.py:14
 msgid "Test failed"
-msgstr ""
+msgstr "Сбой теста"
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
 msgid "Customize X Configuration"
-msgstr ""
+msgstr "Уточнение конфигурации X"
 
 #: ../iw/xconfig.py:63
 msgid "Bits per Pixel"
@@ -1018,6 +1025,8 @@ msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
+"В большинстве случаев оптимальные настройки вашей видеокарты и монитора "
+"могут быть установлены автоматически."
 
 #: ../iw/xconfig.py:157
 msgid "Autoprobe results:"
@@ -1044,6 +1053,10 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+"В некоторых системах необходимо передать ядру специальные параметры при "
+"загрузке. Если вам требуются такие параметры, введите их сейчас. Если "
+"указывать дополнительные параметры не требуется или вы не знаете, что это "
+"такое, оставьте это поле пустым."
 
 #: ../textw/lilo.py:62
 msgid "Where do you want to install the bootloader?"
@@ -1999,23 +2012,23 @@ msgstr ""
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr ""
+msgstr "Этот каталог не содержит инсталляционное дерево Red Hat"
 
 #: ../loader/loader.c:847
 msgid "I could not mount that directory from the server"
-msgstr ""
+msgstr "Невозможно смонтироать этот каталог с сервера"
 
 #: ../loader/loader.c:932
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:933
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr ""
+msgstr "Невозможно получить виртуальный диск второго этапа"
 
 #: ../loader/loader.c:1057
 msgid "Rescue Method"
-msgstr ""
+msgstr "Метод восстановления"
 
 #: ../loader/loader.c:1058
 msgid "Installation Method"
@@ -2023,7 +2036,7 @@ msgstr "Метод инсталляции"
 
 #: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Какой носитель содержит спасательный образ?"
 
 #: ../loader/loader.c:1062
 msgid "What type of media contains the packages to be installed?"
@@ -2031,15 +2044,15 @@ msgstr "Носитель какого типа содержит пакеты для инсталляции?"
 
 #: ../loader/loader.c:1388
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Невозможно найти ks.cfg на загрузочной дискете"
+msgstr "Невозможно найти ks.cfg на загрузочной дискете."
 
 #: ../loader/loader.c:1500
 msgid "PC Card"
-msgstr "Карта PCMCIA"
+msgstr "PC Card"
 
 #: ../loader/loader.c:1500
 msgid "Initializing PC Card Devices..."
-msgstr ""
+msgstr "Инициализация устройств PC Card..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2070,46 +2083,44 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Использовать динамическую конфигурацию IP (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
-#, fuzzy
 msgid "Configure TCP/IP"
-msgstr "Использовать DHCP"
+msgstr "Конфигурация TCP/IP"
 
 #: ../loader/net.c:329
 msgid "Missing Information"
 msgstr "Пропущена информация"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Необходимо ввести правильные параметры IP для продолжения."
+msgstr "Для продолжения необходимо ввести верный адрес IP и маску подсети."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Динамический IP"
 
 #: ../loader/net.c:339 ../loader/net.c:570
 msgid "Sending request for IP information..."
-msgstr ""
+msgstr "Посылаю запрос конфигурации IP..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "Определение имени хоста и домена..."
 
 #: ../loader/net.c:559
 msgid "kickstart"
-msgstr ""
+msgstr "kickstart"
 
 #: ../loader/net.c:560
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "неверный аргумент сетевой команды  %s: :s%"
 
 #: ../loader/net.c:607
 msgid "Boot protocol to use"
-msgstr ""
+msgstr "Протокол автоконфигурации сети"
 
 #: ../loader/net.c:609
 msgid "Network gateway"
@@ -2142,7 +2153,7 @@ msgstr ""
 #: ../loader/net.c:696
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
 #, fuzzy
@@ -2151,7 +2162,7 @@ msgstr "Конфигурация сети"
 
 #: ../loader/net.c:699
 msgid "Would you like to set up networking?"
-msgstr ""
+msgstr "Хотите ли вы настроить доступ к сети?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
@@ -2177,36 +2188,35 @@ msgstr ""
 
 #: ../loader/urls.c:156
 msgid "FTP site name:"
-msgstr ""
+msgstr "Имя сервера FTP:"
 
 #: ../loader/urls.c:157
 msgid "Web site name:"
-msgstr ""
+msgstr "Имя Web-сайта:"
 
 #: ../loader/urls.c:176
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr ""
+msgstr "Использовать авторизованный ftp или proxy-сервер"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Выберите сервер"
+msgstr "Использовать proxy-сервер"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
-msgstr ""
+msgstr "Настройка FTP"
 
 #: ../loader/urls.c:192
 msgid "HTTP Setup"
-msgstr ""
+msgstr "Настройка HTTP"
 
 #: ../loader/urls.c:202
 msgid "You must enter a server name."
-msgstr ""
+msgstr "Вы должны указать имя сервера."
 
 #: ../loader/urls.c:207
 msgid "You must enter a directory."
-msgstr ""
+msgstr "Вы должны указать каталог."
 
 #: ../loader/urls.c:268
 msgid ""
@@ -2214,12 +2224,15 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
+"Если вы не используете анонимный ftp, введите ниже имя пользователя и пароль "
+"для доступа к серверу ftp. При необходимости введите также адрес сервера FTP "
+"proxy."
 
 #: ../loader/urls.c:274
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
+msgstr "ЕСли вы используете HTTP proxy-сервер, укажите его имя или адрес IP"
 
 #: ../loader/urls.c:295
 msgid "Account name:"
@@ -2227,20 +2240,20 @@ msgstr "Имя пользователя:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
-msgstr ""
+msgstr "FTP Proxy:"
 
 #: ../loader/urls.c:304
 msgid "HTTP Proxy:"
-msgstr ""
+msgstr "HTTP Proxy:"
 
 #: ../loader/urls.c:308
 msgid "FTP Proxy Port:"
-msgstr ""
+msgstr "Порт FTP Proxy"
 
 #: ../loader/urls.c:309
 msgid "HTTP Proxy Port:"
-msgstr ""
+msgstr "Порт HTTP Proxy:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "Загрузка драйвера SCSI"
