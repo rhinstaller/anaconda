@@ -404,13 +404,18 @@ class x86BootloaderInfo(bootloaderInfo):
 	    bootDev = fsset.getEntryByMountPoint("/")
 	    grubPath = "/boot/grub"
 	    cfPath = "/boot/"
+            f.write ("# NOTICE:  You do not have a /boot partition.  This means that\n")
+            f.write ("#          all kernel and initrd paths are relative to /, eg.\n")            
 	else:
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
-            f.write ("#          all kernel paths are relative to /boot/\n")
+            f.write ("#          all kernel and initrd paths are relative to /boot/, eg.\n")
 
+        bootDev = bootDev.device.getDevice(asBoot = 1)
+        
+        f.write ('#          root %s\n' % grubbyPartitionName(bootDev))
+        f.write ("#          kernel %svmlinuz-version ro root=/dev/%s\n" % (cfPath, rootDev))
+        f.write ("#          initrd %sinitrd-version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
-
-	bootDev = bootDev.device.getDevice(asBoot = 1)
 
         # get the default image to boot... we have to walk and find it
         # since grub indexes by where it is in the config file
