@@ -670,19 +670,12 @@ class InstallControlWindow:
         self.window.set_border_width(0)
         vbox = GtkVBox (FALSE, 10)
 
+
+        if self.todo.lowres != '640x480':
+            
         #Create header at the top of the installer
-        try:
-            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/anaconda_header.png")
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
-                a = GtkAlignment ()
-                a.add (pix)
-                a.set (0.5, 0.5, 1.0, 1.0)
-                vbox.pack_start (a, FALSE, TRUE, 0)
-        except:
             try:
-                im = GdkImlib.Image ("pixmaps/anaconda_header.png")
+                im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/anaconda_header.png")
                 if im:
                     im.render ()
                     pix = im.make_pixmap ()
@@ -692,16 +685,26 @@ class InstallControlWindow:
                     vbox.pack_start (a, FALSE, TRUE, 0)
             except:
                 try:
-                    im = GdkImlib.Image ("/tmp/updates/anaconda_header.png")
+                    im = GdkImlib.Image ("pixmaps/anaconda_header.png")
                     if im:
                         im.render ()
                         pix = im.make_pixmap ()
                         a = GtkAlignment ()
                         a.add (pix)
                         a.set (0.5, 0.5, 1.0, 1.0)
-                        vbox.pack_start (a, FALSE, TRUE, 0)                    
+                        vbox.pack_start (a, FALSE, TRUE, 0)
                 except:
-                    print "Unable to load anaconda_header.png"
+                    try:
+                        im = GdkImlib.Image ("/tmp/updates/anaconda_header.png")
+                        if im:
+                            im.render ()
+                            pix = im.make_pixmap ()
+                            a = GtkAlignment ()
+                            a.add (pix)
+                            a.set (0.5, 0.5, 1.0, 1.0)
+                            vbox.pack_start (a, FALSE, TRUE, 0)                    
+                    except:
+                        print "Unable to load anaconda_header.png"
 
         vbox.set_spacing(0)
 
