@@ -619,6 +619,11 @@ def setPreexistParts(diskset, requests, newParts):
                         else:
                             part.set_flag(parted.PARTITION_RAID, 0)
 
+                        if request.fstype.getName() == "physical volume (LVM)":
+                            part.set_flag(parted.PARTITION_LVM, 1)
+                        else:
+                            part.set_flag(parted.PARTITION_LVM, 0)
+
                         set_partition_file_system_type(part, request.fstype)
                             
                 break

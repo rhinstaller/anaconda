@@ -1681,6 +1681,12 @@ class PartitionWindow(InstallWindow):
         maintable.attach(createAlignedLabel(_("Size")), 0, 1, row, row + 1)
         sizeEntry = gtk.Entry(16)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
+        row = row + 1
+
+        maintable.attach(createAlignedLabel(_("Logical Volume Name")), 0, 1, row, row + 1)
+        lvnameEntry = gtk.Entry(16)
+        maintable.attach(lvnameEntry, 1, 2, row, row + 1)
+        row = row + 1
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
@@ -1695,9 +1701,10 @@ class PartitionWindow(InstallWindow):
         fsystem = fileSystemTypeGetDefault()
         mntpt = mountpointEntry.get_text()
         size = int(sizeEntry.get_text())
+        lvname = lvnameEntry.get_text()
 
         request = PartitionSpec(fsystem, REQUEST_LV, mountpoint = mntpt,
-                                size = size)
+                                volname = lvname, size = size)
         self.logvolreqs.append(request)
         self.logvollist.append((mntpt,))
         
@@ -1761,7 +1768,9 @@ class PartitionWindow(InstallWindow):
 
         # first add the volume group
         request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
-                                REQUEST_VG, physvolumes = pv)
+                                REQUEST_VG, physvolumes = pv,
+                                vgname = volnameEntry.get_text())
+
         self.partitions.addRequest(request)
 
         # this is an evil hack for now.  should addRequest return the id?
@@ -1771,6 +1780,7 @@ class PartitionWindow(InstallWindow):
         # now add the logical volumes
         for lv in self.logvolreqs:
             lv.volumeGroup = vgID
+            lv.format = 1
             self.partitions.addRequest(lv)
 
         for req in self.partitions.requests:

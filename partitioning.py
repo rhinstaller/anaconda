@@ -772,7 +772,8 @@ class PartitionSpec:
                  constraint = None, migrate = None,
                  raidmembers = None, raidlevel = None, 
                  raidspares = None, badblocks = None, fslabel = None,
-                 physvolumes = None, vgname = None, volgroup = None):
+                 physvolumes = None, vgname = None,
+                 volgroup = None, volname = None):
         #
         # requesttype: REQUEST_PREEXIST or REQUEST_NEW or REQUEST_RAID
         #
@@ -815,7 +816,8 @@ class PartitionSpec:
         self.volumeGroupName = vgname
         
         # logical volume specific.  volgroup is the uniqueID of the VG
-        self.volumeGroup = volgroup 
+        self.volumeGroup = volgroup
+        self.logicalVolumeName = volname
 
         # fs label (if pre-existing, otherwise None)
         self.fslabel = fslabel
@@ -854,7 +856,10 @@ class PartitionSpec:
                "  raidspares: %s" % (self.raidspares)+\
                "  raidmembers: %s\n" % (raidmem)+\
                "  vgname: %s" % (self.volumeGroupName)+\
-               "  physical volumes: %s" % (self.physicalVolumes)
+               "  physical volumes: %s\n" % (self.physicalVolumes)+\
+               "  parent volume group: %s" % (self.volumeGroup)+\
+               "  logical volume name: %s" % (self.logicalVolumeName)
+               
 
     # turn a partition request into a fsset entry
     def toEntry(self, partitions):
@@ -866,8 +871,20 @@ class PartitionSpec:
                                       raidmems,
                                       spares = self.raidspares)
         # XXX need to handle this obviously
-        elif self.type == REQUEST_LV or self.type == REQUEST_VG:
-            return None
+        elif self.type == REQUEST_VG:
+            pvs = []
+            for pv in self.physicalVolumes:
+                pvs.append(partitions.getRequestByID(pv).device)
+            device = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
+            print "found volume group %s" % (self.volumeGroupName)
+            print "pvs are ", pvs
+        elif self.type == REQUEST_LV:
+            device = fsset.LogicalVolumeDevice(
+                partitions.getRequestByID(self.volumeGroup).volumeGroupName,
+                                               self.size,
+                                               self.logicalVolumeName)
+            print "found logical volume %s, vg is %s" % (self.logicalVolumeName,
+                                                         self.volumeGroup)
         else:
             device = fsset.PartitionDevice(self.device)
 
@@ -1944,8 +1961,14 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         # XXX hack for lvm not being complete, *must* be error condition pre-release
         if entry:
             fsset.add (entry)
-##         else:
-##             raise RuntimeError, "Managed to not get an entry back from request.toEntry"
+        else:
+            raise RuntimeError, "Managed to not get an entry back from request.toEntry"
+        print entry, entry.fsystem.name,
+        if entry.mountpoint:
+            print entry.mountpoint
+        else:
+            print ""
+        
     if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
         return
     # XXX this attribute is probably going away

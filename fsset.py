@@ -69,7 +69,8 @@ def getUsableLinuxFs():
     # make sure the default is first in the list, kind of ugly
     default = fileSystemTypeGetDefault()
     if default in rc:
-        rc = [ default ] + rc.remove(default)
+        del rc[rc.index(default)]
+        rc = [ default ] + rc
     return rc
 
 def mountCompare(a, b):
@@ -504,11 +505,11 @@ class lvmPhysicalVolumeDummyFileSystem(FileSystemType):
 
     def isMountable(self):
         return 0
-
-    def formatDevice(self, entry, progress, chroot='/'):
-        # pvcreate did all we need to format this partition...
-        pass
     
+    def formatDevice(self, entry, progress, chroot='/'):
+        # already done by the pvcreate during volume creation
+        pass
+
 fileSystemTypeRegister(lvmPhysicalVolumeDummyFileSystem())
 
 class lvmVolumeGroupDummyFileSystem(FileSystemType):
@@ -526,7 +527,7 @@ class lvmVolumeGroupDummyFileSystem(FileSystemType):
             return 0
 
         def formatDevice(self, entry, progress, chroot='/'):
-            # vgcreate does this
+            # the vgcreate already did this
             pass
 
 fileSystemTypeRegister(lvmVolumeGroupDummyFileSystem())
@@ -964,6 +965,22 @@ class FileSystemSet:
                                        % (entry.device.getDevice(),))
                 sys.exit(0)
 
+    def createLogicalVolumes (self, chroot='/'):
+        # first set up the volume groups
+        for entry in self.entries:
+            print entry.fsystem.name
+            if entry.fsystem.name == "volume group (LVM)":
+                print "setting up volume group"
+                entry.device.setupDevice(chroot)
+
+        # then set up the logical volumes
+        for entry in self.entries:
+            print type(entry.device)
+            if type(entry.device) == type(LogicalVolumeDevice):
+                print "setting up a logical volume"
+                entry.device.setupDevice(chroot)
+                
+
     def makeFilesystems (self, chroot='/'):
         formatted = []
         for entry in self.entries:
@@ -1345,9 +1362,112 @@ class RAIDDevice(Device):
 ext2 = fileSystemTypeGet("ext2")
 ext2.registerDeviceArgumentFunction(RAIDDevice, RAIDDevice.ext2Args)
 
-class LVMDevice(Device):
-    def __init__(self):
+class VolumeGroupDevice(Device):
+    def __init__(self, name, physvols, existing = 0):
         Device.__init__(self)
+        self.physicalVolumes = physvols
+        self.isSetup = existing
+        self.name = name
+        self.device = name
+
+        # these are attributes we might want to expose.  or maybe not
+        # self.physicalextentsize = 4 * 1024 * 1024
+
+    def setupDevice (self, chroot, devPrefix='/tmp'):
+        # XXX cheap hack
+        import _isys
+        for drive in [ "hda", "hdb", "hdc", "hdd", "sda", "sdb", "sdd" ]:
+            _isys.mkdevinode(drive, "/dev/%s" % (drive,))
+            for part in range(1, 16):
+                dev = "%s%d" % (drive, part)
+                path = "/dev/%s" % (dev,)
+                _isys.mkdevinode(dev, path)
+        
+        if not self.isSetup:
+            rc = iutil.execWithRedirect("/usr/sbin/vgscan",
+                                        ["vgscan", "-v"],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+            if rc:
+                raise SystemError
+            
+            nodes = []
+            for volume in self.physicalVolumes:
+                # XXX the lvm tools are broken and will only work for /dev
+##                 node = PartitionDevice(volume).setupDevice(chroot,
+##                                                            devPrefix="/dev")
+                node = "/dev/%s" % (volume,)
+
+                # now make the device into a real physical volume
+                # XXX I don't really belong here.   should
+                # there be a PhysicalVolumeDevice(PartitionDevice) ?
+                rc = iutil.execWithRedirect("/usr/sbin/pvcreate",
+                                            ["pvcreate", "-ff", "-y",
+                                             "-v", node],
+                                            stdout = "/tmp/lvmout",
+                                            stderr = "/tmp/lvmout",
+                                            searchPath = 1)
+                if rc:
+                    raise SystemError
+
+                nodes.append(node)
+
+
+            args = [ "/usr/sbin/vgcreate", "-v", self.name ]
+            args.extend(nodes)
+            print "running ", args
+            rc = iutil.execWithRedirect(args[0], args,
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+
+            self.isSetup = 1
+            
+        return "/dev/%s" % (self.name,)
+
+    def solidify(self):
+        return
+
+class LogicalVolumeDevice(Device):
+    # note that size is in megabytes!
+    def __init__(self, volumegroup, size, vgname, existing = 0):
+        Device.__init__(self)
+        self.volumeGroup = volumegroup
+        self.size = size
+        self.name = vgname
+        self.isSetup = 0
+
+        # these are attributes we might want to expose.  or maybe not.
+        # self.chunksize
+        # self.stripes
+        # self.stripesize
+        # self.extents
+        # self.readaheadsectors
+
+    def setupDevice(self, chroot, devPrefix='/tmp'):
+        if not self.isSetup:
+            rc = iutil.execWithRedirect("/usr/sbin/lvcreate",
+                                        ["lvcreate", "-L",
+                                         "%dM" % (self.size,),
+                                         "-n", self.name,
+                                         self.volumeGroup],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+            if rc:
+                raise SystemError
+            
+            self.isSetup = 1
+
+        return self.getDevice()
+
+    def getDevice(self, asBoot = 0):
+        return "/dev/%s/%s" % (self.volumeGroup, self.name)
+
+    def solidify(self):
+        return
+            
     
 class PartitionDevice(Device):
     def __init__(self, partition):
