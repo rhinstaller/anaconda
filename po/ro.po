@@ -432,6 +432,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la migrarea %s. Aceastã problemã este fatalã ºi "
+"programul de instalare nu poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:1080 ../fsset.py:1089
 msgid "Invalid mount point"
@@ -444,6 +448,11 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la crearea %s. Unul dintre elementele acestei locaþii "
+"nu este un director. Aceastã eroare este fatalã ºi programul de instalare nu "
+"poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:1090
 msgid ""
@@ -452,6 +461,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"S-a detectat o eroare la crearea %s: %s. Aceastã eroare este fatalã ºi "
+"programul de instalare nu poate continua.\n"
+"\n"
+"Apãsaþi Enter pentru a reseta sistemul."
 
 #: ../fsset.py:1103
 msgid ""
@@ -461,6 +474,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Eroare la montarea partiþiei %s în %s: %s\n"
+"\n"
+"Aceastã eroare poate însemna cã aceastã partiþie nu a fost formatatã.\n"
+"\n"
+"Selectaþi OK pentru a reseta sistemul."
 
 #: ../fsset.py:1693
 msgid "Formatting"
@@ -472,7 +490,7 @@ msgstr "Se iniþializeazã %s cu un sistem ext2..."
 
 #: ../gui.py:107 ../text.py:300
 msgid "Fix"
-msgstr ""
+msgstr "Fixeazã"
 
 #: ../gui.py:108 ../iw/partition_gui.py:508 ../iw/partition_gui.py:665
 #: ../iw/partition_gui.py:730 ../iw/welcome_gui.py:97 ../loader/devices.c:232
@@ -517,6 +535,11 @@ msgid ""
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
+"S-a detectat o eroare de tip necunoscut. Cel mai probabil aceasta este o "
+"eroare în programul de instalare. Vã rugãm sã copiaþi întregul text al "
+"erorii sau sã salvaþi informaþiile despre eroare pe o dischetã ºi sã "
+"introduceþi un raport detaliat la adresa de web http://bugzilla.redhat.com/"
+"bugzilla pentru componenta \"anaconda\""
 
 #: ../gui.py:316 ../text.py:268
 msgid ""
@@ -593,6 +616,8 @@ msgstr "Ecran de Instalare"
 #: ../harddrive.py:173
 msgid "Missing CD #%d, which is required for the install."
 msgstr ""
+"CD-ul cu numãrul %d lipseºte ºi este necesar pentru continuarea procesului "
+"de instalare."
 
 #: ../image.py:60
 msgid "Copying File"
@@ -669,6 +694,9 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Sistemele de fiºiere pe care le-aþi selectat pentru actualizare sînt deja "
+"montate. Nu puteþi naviga înapoi din acest pas al instalãrii.\n"
+"\n"
 
 #: ../iw/package_gui.py:35 ../packages.py:43
 msgid "Would you like to continue with the upgrade?"
@@ -705,6 +733,9 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Fiºierul %s nu poate fi citit. Aceastã eroare are ca posibile cauze lipsa "
+"fiºierului, un pachet cu erori sau o eroare la citire de pe suportul de "
+"instalare. Apãsaþi Enter pentru a încerca din nou."
 
 #: ../packages.py:280
 msgid "Error Installing Package"
@@ -719,6 +750,13 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"S-a detectat o eroare la instalarea %s. Aceastã eroare poate indica eroare "
+"la citire de pe suportul de instalare, lipsa de spaþiu pe discul în care se "
+"face instalarea sau alte tipuri de erori hardware. Aceastã eroare este "
+"fatalã ºi programul de instalare nu poate continua. Vã rugãm sã verificaþi "
+"suportul de instalare ºi sã incercaþi instalarea din nou.\n"
+"\n"
+"Selectaþi OK pentru a reseta sistemul."
 
 #: ../packages.py:530
 msgid "Setting up RPM transaction..."
@@ -757,6 +795,12 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Urmãtoarele pachete au fost selectate\n"
+"în mod automat pentru instalare:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:600
 msgid "Install Starting"
@@ -765,6 +809,7 @@ msgstr "Pornire Instalare"
 #: ../packages.py:601
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
+"Se porneºte procesul de instalare - acest pas poate dura cîteva minute..."
 
 #: ../packages.py:646
 msgid ""
@@ -793,6 +838,10 @@ msgid ""
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
+"Se pare cã nu aveþi suficient spaþiu pentru numãrul de fiºiere conþinute în "
+"pachetele pe care le-aþi selectat. Aveþi nevoie de mai mult spaþiu în tabela "
+"de fiºiere pe urmãtoarele partiþii (i-nodes):\n"
+"\n"
 
 #: ../packages.py:671
 msgid "Nodes Needed"
@@ -808,6 +857,10 @@ msgid ""
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
+"\n"
+"\n"
+"Urmãtoarele pachete sînt disponibile în aceastã versiune însã nu au fost "
+"selectate pentru actualizare:\n"
 
 #: ../packages.py:715
 msgid "Post Install"
@@ -826,6 +879,9 @@ msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
+"Acest director de montare este invalid. Directoarele de montare trebuie sã "
+"înceapã cu '/', nu se pot termina cu '/' ºi trebuie sã conþinã numai "
+"caractere alphanumerice fãrã spaþii."
 
 #: ../partitioning.py:363
 msgid "Please specify a mount point for this partition."
@@ -834,44 +890,53 @@ msgstr "Specificaþi un director de montare pentru aceastã partiþie."
 #: ../partitioning.py:382
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
-msgstr ""
+msgstr "Acest director de montare este deja utilizat, alegeþi un alt director."
 
 #: ../partitioning.py:439
 msgid ""
 "This mount point is invalid.  This directory must be on the / filesystem."
 msgstr ""
+"Acest director de montare este invalid. Acest director trebuie sã existe pe "
+"partiþia care conþine sistemul de fiºiere /."
 
 #: ../partitioning.py:444
 msgid "This mount point must be on a linux filesystem."
 msgstr ""
+"Acest director de montare trebuie sã fie pe un sistem de fiºiere de tip "
+"Linux."
 
 #: ../partitioning.py:457
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr ""
+"Mãrimea partiþiei %s (mãrime = %s MB) depãºeºte mãrimea maximã de %s MB."
 
 #: ../partitioning.py:464
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
+"Mãrimea partiþiei selectate (mãrime = %s MB) depãºeºte mãrimea maximã de %s "
+"MB."
 
 #: ../partitioning.py:469
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr ""
+msgstr "Mãrimea partiþiei selectate este negativã! (mãrime = %s MB)"
 
 #: ../partitioning.py:473
 msgid "Partitions can't start below the first cylinder."
-msgstr ""
+msgstr "Partiþiile nu pot porni înainte de primul cilindru."
 
 #: ../partitioning.py:476
 msgid "Partitions can't end on a negative cylinder."
-msgstr ""
+msgstr "Partiþiile nu se pot termina la un cilindru cu numãr negativ."
 
 #: ../partitioning.py:509
 msgid "No members in RAID request, or not RAID level specified."
 msgstr ""
+"Nu existã nici un membru în partiþia RAID cerutã, sau nivelul RAID nu a fost "
+"specificat."
 
 #: ../partitioning.py:527 ../partitioning.py:617
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -879,54 +944,72 @@ msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID1"
 
 #: ../partitioning.py:531
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "O partiþie RAID de tip %s necesitã cel puþin %s membri."
 
 #: ../partitioning.py:537
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
+"Aceastã partiþie de tip RAID poate avea un maxim de %s membri suplementari. "
+"Pentru a avea mai mulþi membri suplementari trebuie sã mai adãugaþi membri "
+"la partiþia RAID."
 
 #: ../partitioning.py:578
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
+"Nu aþi definit o partiþie de root (/) ºi aceasta este necesar pentru ca "
+"procesul de instalare sã continue."
 
 #: ../partitioning.py:581
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
+"Partiþia de root (/) este mai micã de 250 MB, în mod normal mult prea micã "
+"pentru a instala %s."
 
 #: ../partitioning.py:586
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
+"Trebuie sã creaþi o partiþie /boot/efi de tip FAT ºi care are cel puþin 50 "
+"MB disponibili."
 
 #: ../partitioning.py:594
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
+"Partiþia %s este mai micã de %s MB ºi deci mai micã decît este recomandat "
+"pentru on instalare de %s normalã."
 
 #: ../partitioning.py:621
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
+"Nu aþi specificat o partiþie de swap. Deºi nu este strict necesarã în toate "
+"cazurile, disponibilitatea unei partiþii de swap îmbunãtãþeºte viteza ºi "
+"performanþa procesului de instalare în cele mai multe cazuri."
 
 #: ../partitioning.py:625
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
+"Aþi specificat mau mult de 32 de partiþii de swap. Kernelul pentru %s "
+"suportã numai 32 partiþii de swap."
 
 #: ../partitioning.py:634
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
+"Aþi alocat mai puþin swap (%dM) decît memoria RAM disponibilã în acest "
+"sistem. Aceasta poate avea efecte negative pentru performanþa sistemului."
 
 #: ../partitioning.py:707
 msgid ""
@@ -936,10 +1019,16 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
+"Tabela de partiþii de pe discul /dev/%s are un tip necunoscut pentru acest "
+"sistem. Pentru a folosi acest disc pentru instalarea %s, discul trebuie "
+"iniþializat din nou, avînd ca efect pierderea TUTUROR DATELOR de pe acest "
+"disc.\n"
+"\n"
+"Doriþi sã iniþializaþi acest disc?"
 
 #: ../partitioning.py:1333
 msgid "Error mounting filesystem on %s: %s"
-msgstr ""
+msgstr "Eroare la montarea sistemului de fiºiere pe %s: %s"
 
 #: ../partitioning.py:1456
 msgid ""
@@ -948,6 +1037,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
+"Tabela de partiþii de pe discul %s nu poate fi cititã. Pentru a crea o noua "
+"tablã de partiþii discul trebuie re-iniþializat, avînd ca efect pierderea "
+"TUTUROR DATELOR de pe acest disc.\n"
+"\n"
+"Doriþi sã iniþializaþi acest disc?"
 
 #: ../partitioning.py:1551
 msgid "No Drives Found"
@@ -958,6 +1052,8 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
 msgstr ""
+"S-a detectat o eroare - nu s-a gãsit nici un disc pe care se poate efectua "
+"instalarea. Verificaþi sistemul pentru probleme hardware."
 
 #: ../partitioning.py:1645
 msgid ""
@@ -965,6 +1061,9 @@ msgid ""
 "\n"
 "Are you sure?"
 msgstr ""
+"Sînteþi pe cale sã ºtergeþi o partiþie RAID.\n"
+"\n"
+"Doriþi sã continuaþi?"
 
 #: ../partitioning.py:1648
 msgid ""
@@ -972,6 +1071,9 @@ msgid ""
 "\n"
 "Are you sure?"
 msgstr ""
+"Sînteþi pe cale sã ºtergeþi partiþia /dev/%s/\n"
+"\n"
+"Doriþi sã continuaþi?"
 
 #: ../partitioning.py:1652
 msgid "Are you sure you want to delete this partition?"
@@ -983,20 +1085,21 @@ msgstr "Confirmare ªtergere"
 
 #: ../partitioning.py:1658
 msgid "Confirm Reset"
-msgstr "Confirmare Resetare"
+msgstr "Re-Iniþializare"
 
 #: ../partitioning.py:1659
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
+"Doriþi sã resetaþi tabela de partiþii la starea ºi configuraþia orginale?"
 
 #: ../partitioning.py:1683
 msgid "the partition in use by the installer."
-msgstr ""
+msgstr "partiþia folositã de programul de instalare."
 
 #: ../partitioning.py:1686
 msgid "a partition which is a member of a RAID array."
-msgstr ""
+msgstr "o partiþie care este un membru al unei partiþii RAID."
 
 #: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
 #: ../partitioning.py:1720 ../partitioning.py:1727
@@ -1016,16 +1119,22 @@ msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"Nu puteþi ºterge aceastã partiþie din cauzã cã este o partiþie de tip extins "
+"care conþine %s"
 
 #: ../partitioning.py:1721
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
+"Nu puteþi ºterge aceastã partiþie din cauzã cã este partiþia care conþine "
+"datele pentru instalarea de pe hard disk."
 
 #: ../partitioning.py:1728
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
+"Nu puteþi sã ºtergeþi aceastã partiþie din cauzã cã este o partiþie membru "
+"al unei partiþii RAID."
 
 #: ../partitioning.py:1759 ../partitioning.py:1781
 msgid "Unable To Edit"
@@ -1040,14 +1149,18 @@ msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
+"Nu puteþi edita aceastã partiþie din cauzã cã este o partiþie de tip extins "
+"care conþine %s"
 
 #: ../partitioning.py:1790
 msgid "Unable to Edit"
-msgstr "Nu s-a putut Edita"
+msgstr "Nu se poate Edita"
 
 #: ../partitioning.py:1791
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
+"Nu puteþi modifica aceastã partiþie din cauzã cã este o partiþie membru a "
+"unei partiþii de tip RAID."
 
 #: ../partitioning.py:1803
 msgid "Installation cannot continue."
@@ -1059,6 +1172,9 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
+"Opþiunile de partiþionare pe care le-aþi ales au fost deja activate. Nu vã "
+"puteþi întoarce la ecranul de configurare si editare a partiþiilor. Doriþi "
+"sã continuaþi cu procesul de instalare?"
 
 #: ../partitioning.py:1827
 msgid "Low Memory"
@@ -1087,6 +1203,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s este o partiþie de tip 0x83 (Linux swap) însã nu apare a fi "
+"formatatã ca o partiþie de tip Linux swap.\n"
+"\n"
+"Doriþi sã formataþi aceastã partiþie ca o partiþie de swap?"
 
 #: ../partitioning.py:1869 ../partitioning.py:1887
 msgid "Format?"
@@ -1099,6 +1219,10 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Aþi ales sã formataþi o partiþie deja creatã. Aceastã operaþie va distruge "
+"toate datele de pe aceastã partiþie.\n"
+"\n"
+"Doriþi sã continuaþi?"
 
 #: ../partitioning.py:1878
 msgid ""
@@ -1110,6 +1234,13 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Aþi ales sã nu formataþi o partiþie definitã anterior care este folositã "
+"pentru un director de sistem. Cu excepþia cazurilor cînd aveþi nevoie de "
+"datele de pe aceastã partiþie, este recomandat sã formataþi aceastã partiþie "
+"pentru a garanta cã datele ºi fiºierele deja existente pe aceastã partiþie "
+"nu corup procesul de instalare.\n"
+"\n"
+"Doriþi sã continuaþi?"
 
 #: ../partitioning.py:1894
 msgid "Error with Partitioning"
@@ -1122,6 +1253,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Urmãtoarele erori au fost detectate la analiza schemei de partiþionare "
+"selectate. Aceste erori trebuie corectate înainte de a continua procesul de "
+"instalare a %s.\n"
+"\n"
+"%s"
 
 #: ../partitioning.py:1908
 msgid "Partitioning Warning"
@@ -1135,18 +1271,26 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
+"Aceste erori minore au fost detectate la analiza schemei de partiþionare "
+"selectate.\n"
+"\n"
+"%s\n"
+"\n"
+"Doriþi sã continuaþi cu aceastã schemã de partiþionare?"
 
 #: ../iw/partition_gui.py:586 ../partitioning.py:1921
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
+"Urmãtoarele partitii definite anterior pornirii programului de instalare au "
+"fost selectate pentru formatare ºi distrugere a datelor."
 
 #: ../iw/partition_gui.py:589 ../partitioning.py:1924
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
+msgstr "Doriþi sã continuaþi cu procesul de formatare?"
 
 #: ../partitioning.py:1930
 msgid "Format Warning"
@@ -1155,6 +1299,7 @@ msgstr "Averisnment la Formatare"
 #: ../rescue.py:77 ../rescue.py:115 ../rescue.py:209
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
+"Cînd aþi terminat ieºiþi din promptul shell ºi sistemul se va reseta automat."
 
 #: ../rescue.py:99 ../rescue.py:163 ../rescue.py:171 ../rescue.py:188
 msgid "Rescue"
@@ -1207,6 +1352,10 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Acest sistem are partiþii care necesitã verificare ºi validare. Apãsaþi "
+"Enter pentru a obþine un shell din care puteþi lansa fsck pentru verificare "
+"ºi apoi monta partiþiile. Sistemul se va reseta în mod automat cînd ieºiþi "
+"din shell."
 
 #: ../rescue.py:172
 msgid ""
@@ -1219,6 +1368,14 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
+"Sistemul a fost montat sub directorul /mnt/sysimage.\n"
+"\n"
+"Apãsaþi Enter pentru a obþine un shell. Dacã doriþi sã transformaþi mediul "
+"de root în acest sistem, lansaþi comanda:\n"
+"\n"
+"        chroot /mnt/sysimage\n"
+"\n"
+"Sistemul se va reseta automat cînd ieºiþi din shell."
 
 #: ../rescue.py:189
 msgid ""
@@ -1238,6 +1395,8 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Nu aveþi nici o partiþie de tip Linux. Apãsaþi Enter pentru un shell. "
+"Sistemul se va reseta automat cînd ieºiþi din shell."
 
 #: ../rescue.py:206
 msgid "Your system is mounted under the /mnt/sysimage directory."
@@ -1349,6 +1508,11 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Urmãtoarele fiºiere sînt de tip link simbolic absolut ºi nu sînt suportate "
+"de programul de instalare. Trebuie sã modificaþi aceste fiºiere ca sã fie de "
+"tip link simbolic relativ ºi apoi sã porniþi din nou programul de "
+"instalare.\n"
+"\n"
 
 #: ../upgrade.py:259
 msgid "%s not found"
@@ -1411,19 +1575,19 @@ msgstr "Nu s-a putut detecta placa video"
 
 #: ../xserver.py:101
 msgid "Attempting to start framebuffer based X server"
-msgstr ""
+msgstr "Se încearcã pornirea unui X Server bazat pe framebuffer"
 
 #: ../xserver.py:109
 msgid "Attempting to start native X server"
-msgstr ""
+msgstr "Se încearcã pornirea unui X Server nativ"
 
 #: ../xserver.py:117
 msgid "Attempting to start VGA16 X server"
-msgstr ""
+msgstr "Se încearcã pornirea unui X Server în mod VGA16"
 
 #: ../xserver.py:170
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
+msgstr "Serverul X se iniþializeazã... un log este gãsit în /tmp/X.log\n"
 
 #: ../xserver.py:197
 msgid " X server started successfully."
@@ -1497,7 +1661,7 @@ msgstr "Introduceþi numele contului"
 
 #: ../iw/account_gui.py:273
 msgid "Enter the password for the root user (administrator) of this system."
-msgstr ""
+msgstr "Introduceþi parola pentru adminitratorul de sistem (root)."
 
 #: ../iw/account_gui.py:289
 msgid "Root Password: "
@@ -1518,7 +1682,7 @@ msgstr "Nume Complet"
 
 #: ../iw/account_gui.py:333 ../textw/userauth_text.py:218
 msgid "Add"
-msgstr "Adãugare"
+msgstr "Adaugã"
 
 #: ../iw/account_gui.py:335 ../textw/bootloader_text.py:281
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:990
@@ -1530,7 +1694,7 @@ msgstr "Editare"
 #: ../iw/account_gui.py:338 ../textw/partition_text.py:990
 #: ../textw/userauth_text.py:218
 msgid "Delete"
-msgstr "ªtergere"
+msgstr "ªterge"
 
 #: ../iw/account_gui.py:358
 msgid ""
@@ -1539,6 +1703,10 @@ msgid ""
 "administrative users who need to use this system. Use the <Add> button to "
 "enter additional user accounts."
 msgstr ""
+"Puteþi crea conturi utilizator adiþionale pe acest sistem. Aceste conturi "
+"pot fi folosite pentru un cont personal de lucru, sau pentru alþi "
+"utilizatori care nu au nevoie de permisiuni de administrator. Selectaþi "
+"butonul pentru adãugare pentru a introduce conturi utilizator adiþionale."
 
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 msgid "Authentication Configuration"
@@ -1574,7 +1742,7 @@ msgstr "Activeazã LDAP"
 
 #: ../iw/auth_gui.py:142
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Foloseºte rezoluþia TLS"
 
 #: ../iw/auth_gui.py:143 ../textw/userauth_text.py:368
 msgid "LDAP Server:"
@@ -1610,23 +1778,23 @@ msgstr "Server SMB:"
 
 #: ../iw/auth_gui.py:213
 msgid "SMB Workgroup:"
-msgstr ""
+msgstr "Workgroup SMB:"
 
 #: ../iw/auth_gui.py:240
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:241
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:242
 msgid "Kerberos 5"
-msgstr ""
+msgstr "Kerberos 5"
 
 #: ../iw/auth_gui.py:243
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../iw/bootdisk_gui.py:23
 msgid "Boot Disk Creation"
@@ -1639,6 +1807,11 @@ msgid ""
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
+"Discheta de boot vã permite sã încãrcaþi sistemul de operare de pe unitatea "
+"de floppy.\n"
+"\n"
+"Introduceþi o dischetã nouã în unitatea de floppy. Toate datale de pe "
+"aceastã dischetã vor fi ºterse."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:84
 msgid ""
@@ -1646,6 +1819,9 @@ msgid ""
 "\n"
 "A boot disk is REQUIRED to boot a partitionless install."
 msgstr ""
+"\n"
+"\n"
+"O dischetã de boot este NECESARA pentru o instalare fãrã partiþii."
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
@@ -1688,7 +1864,7 @@ msgstr "Parametri pentru Kernel"
 
 #: ../iw/bootloader_gui.py:340 ../textw/bootloader_text.py:111
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "Foloseºte LBA32 în toate cazurile (în mod normal nu trebuie selectat)"
 
 #: ../iw/bootloader_gui.py:349
 msgid ""
@@ -1696,6 +1872,10 @@ msgid ""
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
 msgstr ""
+"Selectaþi încãrcãtorul de sistem de operare care va fi folosit de acest "
+"sistem. implicit se va folosi GRUB. Dacã nu doriþi sã suprascrieþi "
+"încãrcãtorul deja instalat, selectaþi \"Fãrã instalare de încãrcãtor de "
+"sistem\"."
 
 #: ../iw/bootloader_gui.py:356 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:266 ../textw/silo_text.py:207
@@ -1727,11 +1907,11 @@ msgstr "Eticheta"
 
 #: ../iw/bootloader_gui.py:361
 msgid "Use GRUB as the boot loader"
-msgstr ""
+msgstr "Foloseºte GRUB ca încãrcãtor de sistem de operare."
 
 #: ../iw/bootloader_gui.py:362
 msgid "Use LILO as the boot loader"
-msgstr ""
+msgstr "Foloseºte LILO ca încãrcãtor de sistem de operare"
 
 #: ../iw/bootloader_gui.py:363
 msgid "Do not install a boot loader"
@@ -1752,6 +1932,10 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"Parola de protecþie a încãrcãtorului de sistem de operare este mai micã de "
+"ºase caractere. Se recomandã folosirea unei parole mai lungi.\n"
+"\n"
+"Doriþi sã continuaþi cu aceastã parolã?"
 
 #: ../iw/bootloaderpassword_gui.py:54
 msgid "Password accepted."
@@ -1771,6 +1955,12 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
+"O parolã pentru încãrcãtorul de sistem de operare protejeazã sistemul de "
+"utilizatorii care introduc opþiuni de încãrcare în mod arbitrar cînd "
+"sistemul este resetat. Pentru securizarea sistemului se recomandã folosirea "
+"unei parole care protejeazã încãrcarea sistemului cu opþiuni diferite de "
+"cele setate de administratorul de sistem, însã aceasta nu este necesarã în "
+"toate cazurile."
 
 #: ../iw/bootloaderpassword_gui.py:84
 msgid "Use a GRUB Password?"
@@ -1827,6 +2017,10 @@ msgid ""
 "you press <Enter> to reboot.\n"
 "\n"
 msgstr ""
+"Dacã aþi creat o dischetã de boot pentru a încãrca sistemul %s, introduceþi "
+"acea dischetã in unitatea de floppy înainte de a apãsa Enter pentru a reseta "
+"sistemul.\n"
+"\n"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -1948,27 +2142,27 @@ msgstr " nu este un port valid."
 
 #: ../iw/firewall_gui.py:132
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Formatul este 'port:protocol'. De exemuplu, '1234:udp'"
 
 #: ../iw/firewall_gui.py:219
 msgid "Please choose your security level:  "
-msgstr ""
+msgstr "Selectaþi nivelul de securizare:  "
 
 #: ../iw/firewall_gui.py:228 ../textw/firewall_text.py:47
 msgid "High"
-msgstr ""
+msgstr "Înalt"
 
 #: ../iw/firewall_gui.py:229 ../textw/firewall_text.py:50
 msgid "Medium"
-msgstr ""
+msgstr "Mediu"
 
 #: ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 msgid "No firewall"
-msgstr ""
+msgstr "Fãrã instalare firewall"
 
 #: ../iw/firewall_gui.py:246
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Foloseºte configuraþia de firewall implicitã"
 
 #: ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 msgid "Customize"
@@ -1976,15 +2170,15 @@ msgstr "Personalizare"
 
 #: ../iw/firewall_gui.py:260
 msgid "Trusted devices:"
-msgstr ""
+msgstr "Interfeþe de încredere:"
 
 #: ../iw/firewall_gui.py:285 ../textw/firewall_text.py:84
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Acceptã trafic cãtre:"
 
 #: ../iw/firewall_gui.py:314
 msgid "Other ports:"
-msgstr ""
+msgstr "Alte porturi:"
 
 #: ../iw/format_gui.py:25
 msgid "Choose partitions to Format"
@@ -2042,7 +2236,7 @@ msgstr "Limba folositã în mod implicit pe acest sistem:  "
 
 #: ../iw/language_support_gui.py:153
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Limbaje instalate curent:"
 
 #: ../iw/language_support_gui.py:155
 msgid "Choose additional languages you would like to use on this system:"
@@ -2058,7 +2252,7 @@ msgstr "Resetare"
 
 #: ../iw/language_support_gui.py:224
 msgid "Select as default"
-msgstr ""
+msgstr "Implicit"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -2086,7 +2280,7 @@ msgstr "Emulare 3 butoane"
 
 #: ../iw/mouse_gui.py:159
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../iw/mouse_gui.py:229
 msgid "Which model mouse is attached to the computer?"
@@ -2151,11 +2345,11 @@ msgstr "Mãrimea Totalã Instalatã:"
 
 #: ../iw/package_gui.py:416
 msgid "Tree View"
-msgstr ""
+msgstr "Arborescent"
 
 #: ../iw/package_gui.py:418
 msgid "Flat View"
-msgstr ""
+msgstr "Listã"
 
 #: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
@@ -2167,11 +2361,11 @@ msgstr "Mãrime totalã: "
 
 #: ../iw/package_gui.py:466
 msgid "Select all in group"
-msgstr ""
+msgstr "Selectezã totul în grup"
 
 #: ../iw/package_gui.py:470
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Deselecteazã totul din grup"
 
 #: ../iw/package_gui.py:503 ../textw/packages_text.py:57
 msgid "Package Group Selection"
@@ -2186,7 +2380,7 @@ msgstr "Selectaþi pachetele individuale"
 #: ../textw/partition_text.py:189 ../textw/partition_text.py:191
 #: ../textw/partition_text.py:216
 msgid "<Not Applicable>"
-msgstr ""
+msgstr "<Nu se aplicã>"
 
 #: ../iw/partition_gui.py:493 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
@@ -2196,11 +2390,14 @@ msgstr "Setare Disc"
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
+"Urmãtoarele erori critice s-au detectat în schema de partiþionare aleasã."
 
 #: ../iw/partition_gui.py:556
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
+"Aceste erori trebuie corectate înainte de a putea continua procesul de "
+"instalare a %s."
 
 #: ../iw/partition_gui.py:563
 msgid "Partitioning Errors"
@@ -2209,6 +2406,7 @@ msgstr "Erori ls Partiþionare"
 #: ../iw/partition_gui.py:569
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
+"Urmãtoarele erori minore s-au detectat în schema de partiþionare aleasã."
 
 #: ../iw/partition_gui.py:571
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -2229,11 +2427,11 @@ msgstr "Spaþiu Liber"
 
 #: ../iw/partition_gui.py:654 ../textw/partition_text.py:77
 msgid "Extended"
-msgstr ""
+msgstr "Extins"
 
 #: ../iw/partition_gui.py:656 ../textw/partition_text.py:79
 msgid "software RAID"
-msgstr ""
+msgstr "software RAID"
 
 #: ../iw/partition_gui.py:674 ../iw/partition_gui.py:734
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:145
@@ -2250,19 +2448,19 @@ msgstr "Partiþia RAID %s"
 
 #: ../iw/partition_gui.py:815
 msgid "Additional Size Options"
-msgstr ""
+msgstr "Opþiuni Adiþionale"
 
 #: ../iw/partition_gui.py:820
 msgid "Fixed size"
-msgstr ""
+msgstr "Mãrime Fixã"
 
 #: ../iw/partition_gui.py:821
 msgid "Fill all space up to (MB):"
-msgstr ""
+msgstr "Foloseºte tot spaþiul pînã la (MB):"
 
 #: ../iw/partition_gui.py:829
 msgid "Fill to maximum allowable size"
-msgstr ""
+msgstr "Foloseºte tot spaþiul disponibil"
 
 #: ../iw/partition_gui.py:858 ../textw/partition_text.py:542
 msgid "Add Partition"
@@ -2305,19 +2503,19 @@ msgstr "Mãrime (MB):"
 
 #: ../iw/partition_gui.py:963 ../textw/partition_text.py:346
 msgid "Start Cylinder:"
-msgstr ""
+msgstr "Cilindru de start:"
 
 #: ../iw/partition_gui.py:979 ../textw/partition_text.py:359
 msgid "End Cylinder:"
-msgstr ""
+msgstr "Cilindru de sfîrºit:"
 
 #: ../iw/partition_gui.py:1010
 msgid "How would you like to prepare the filesystem on this partition?"
-msgstr ""
+msgstr "Ce doriþi sã faceþi cu sistemul de fiºiere de pe aceastã partiþie?"
 
 #: ../iw/partition_gui.py:1019 ../textw/partition_text.py:449
 msgid "Leave unchanged (preserve data)"
-msgstr ""
+msgstr "Lasã neschimbat (pãstreazã datele)"
 
 #: ../iw/partition_gui.py:1024
 msgid "Format partition as:"
@@ -2333,7 +2531,7 @@ msgstr "Verificare blocuri defecte la formatare?"
 
 #: ../iw/partition_gui.py:1101 ../textw/partition_text.py:584
 msgid "Force to be a primary partition"
-msgstr ""
+msgstr "Partiþie de tip primar"
 
 #: ../iw/partition_gui.py:1108 ../textw/partition_text.py:447
 #: ../textw/partition_text.py:587
@@ -2345,7 +2543,7 @@ msgstr "Verificare blocuri defecte la formatare"
 #: ../textw/partition_text.py:751 ../textw/partition_text.py:773
 #: ../textw/partition_text.py:902
 msgid "Error With Request"
-msgstr ""
+msgstr "Eroare la procesare"
 
 #: ../iw/partition_gui.py:1292 ../textw/partition_text.py:165
 msgid "Could not allocate requested partitions: %s."
@@ -2369,7 +2567,7 @@ msgstr "Creazã o partiþie RAID"
 
 #: ../iw/partition_gui.py:1358 ../textw/partition_text.py:831
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "Sînt necesare cel puþin douã partiþii RAID."
 
 #: ../iw/partition_gui.py:1373 ../textw/partition_text.py:227
 msgid "Filesystem type:"
@@ -2385,7 +2583,7 @@ msgstr "Componente RAID:"
 
 #: ../iw/partition_gui.py:1431
 msgid "Number of spares:"
-msgstr ""
+msgstr "Nr. Suplimentare:"
 
 #: ../iw/partition_gui.py:1438 ../textw/partition_text.py:843
 msgid "Format partition?"
@@ -2413,11 +2611,11 @@ msgstr "Creare _RAID"
 
 #: ../iw/partition_gui.py:1561 ../textw/partition_text.py:986
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: ../iw/partition_gui.py:1561 ../textw/partition_text.py:986
 msgid "End"
-msgstr "Sfârºit"
+msgstr "Sfîrºit"
 
 #: ../iw/partition_gui.py:1562
 msgid "Format"
@@ -2443,6 +2641,7 @@ msgstr "Ce dis(uri) doriþi sã folosiþi pentru aceastã instalare?"
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
 msgstr ""
+"Verificare (vã permite sã verificaþi rezultatele partiþionãrii automate)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -2450,7 +2649,7 @@ msgstr "Configurare Partiþii"
 
 #: ../iw/partmethod_gui.py:59
 msgid "Have the installer automatically partition for you"
-msgstr ""
+msgstr "Partiþionare automatã de cãtre programul de instalare"
 
 #: ../iw/partmethod_gui.py:62
 msgid "Manually partition with Disk Druid"
@@ -2466,7 +2665,7 @@ msgstr "Instalare Aplicaþii"
 
 #: ../iw/progress_gui.py:119
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s KBytes"
 
 #: ../iw/progress_gui.py:193 ../iw/progress_gui.py:246
 #: ../textw/partition_text.py:986
@@ -2572,26 +2771,30 @@ msgstr "Actualizare Configurare Încãrcãtor de Sistem"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
-msgstr ""
+msgstr "Aceastã opþiune va actualiza încãrcãtorul de sistem de operare."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
+"Programul de instalare a detectat încãrcãtorul de sistem de operare %s "
+"instalat pe %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "%s  %s"
-msgstr ""
+msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
-msgstr ""
+msgstr "Aceasta este opþiunea recomandatã."
 
 #: ../iw/upgrade_bootloader_gui.py:81 ../textw/upgrade_bootloader_text.py:57
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
 msgstr ""
+"Programul de instalare nu a putut determina versiunea de încãrcãtor de "
+"sistem de operare folosit pe acest sistem."
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
@@ -2602,6 +2805,9 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
+"Aceastã opþiune vã permite sã creaþi o nouã configuraþie pentru încãrcãtorul "
+"de sistem de operare. Dacã doriþi sã schimbaþi încãrcãtorul de sistem de "
+"operare, selectaþi opþiunea relevantã."
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
@@ -2612,6 +2818,9 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
+"Aceastã opþiune nu va efectua nici un fel de schimbãri la încãrcãtorul de "
+"sistem de operare. Dacã folosiþi un alt încãrcãtor de sistem de operare "
+"produs de altcineva, selectaþi aceastã opþiune."
 
 #: ../iw/upgrade_bootloader_gui.py:111
 msgid "What would you like to do?"
@@ -2630,6 +2839,13 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
+"Aceastã versiune de %s are suport pentru ext3, care este un sistem de "
+"fiºiere cu jurnal. Ext3 are cîteva avantaje majore comparat cu sistemul de "
+"fiºiere ext2, prezent în mod tradiþional în versiunile mai vechi de %s. Este "
+"posibil sã migrati partiþiile de tip ext2 cãtre partiþii ext3 fãrã a pierde "
+"datele.\n"
+"\n"
+"Care dintre partiþiile de mai jos doriþi sã fie migrate?"
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
@@ -2642,6 +2858,11 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Versiunea de kernel 2.4 are nevoie de mult mai multã memorie swap comparativ "
+"cu versiunile mai vechi - uneori chiar dublu faþã de cîtã memorie RAM este "
+"disponibilã pe sistem. Acum aveþi %dMB spaþiu swap configurat, însã puteþi "
+"crea spaþiu swap adiþional pe una dintre partiþiile care conþin sisteme de "
+"fiºiere."
 
 #: ../iw/upgrade_swap_gui.py:97
 msgid ""
@@ -2649,14 +2870,17 @@ msgid ""
 "\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
+"\n"
+"\n"
+"Programul de instalare a detectat %s MB de memorie RAM.\n"
 
 #: ../iw/upgrade_swap_gui.py:109
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Creare spaþiu swap într-un fiºier"
 
 #: ../iw/upgrade_swap_gui.py:118
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Selectaþi partiþia pe care se va crea acest fiºier de swap:"
 
 #: ../iw/upgrade_swap_gui.py:123
 msgid "Free Space (MB)"
@@ -2667,6 +2891,8 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Este recomandat ca fiºierul de swap sã aibã cel puþin %d MB. Ce mãrime "
+"doriþi sã dedicaþi fiºierului de swap?:"
 
 #: ../iw/upgrade_swap_gui.py:153 ../textw/upgrade_text.py:130
 msgid "Swap file size (MB):"
@@ -2674,7 +2900,7 @@ msgstr "Mãrime fiºier SWAP (MB):"
 
 #: ../iw/upgrade_swap_gui.py:162
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Fãrã creare de fiºier pentru spaþiul swap"
 
 #: ../iw/upgrade_swap_gui.py:172
 msgid ""
@@ -2682,15 +2908,20 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Este recomandat sã creaþi un fiºier de swap. Programul de instalare poate "
+"avea probleme dacã nu are suficientã memorie la dispoziþie pentru a efectua "
+"instalarea. Doriþi sã continuaþi?"
 
 #: ../iw/upgrade_swap_gui.py:180 ../textw/upgrade_text.py:175
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Fiºierul de swap trebuie sã fie ca mãrime între 1 ºi 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:170
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"Nu aveþi suficient spaþiu pe discul selectat pentru a crea o partiþie de "
+"swap."
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 msgid "Welcome"
@@ -2698,7 +2929,7 @@ msgstr "Bun venit"
 
 #: ../iw/welcome_gui.py:62
 msgid "Exiting anaconda now"
-msgstr ""
+msgstr "Programul de instalare Anaconda s-a terminat"
 
 #: ../iw/welcome_gui.py:89
 msgid "Would you like to configure your system?"
@@ -2710,35 +2941,35 @@ msgstr "Personalizare configuraþie X Windows"
 
 #: ../iw/xconfig_gui.py:197 ../textw/xconfig_text.py:183
 msgid "Color Depth:"
-msgstr ""
+msgstr "Spaþiu Culori:"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 Culori (8 Biþi)"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "65,536 Culori (16 Biþi)"
 
 #: ../iw/xconfig_gui.py:202 ../textw/xconfig_text.py:100
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Paletã Completã (24 Biþi)"
 
 #: ../iw/xconfig_gui.py:211
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Rezoluþie Ecran:"
 
 #: ../iw/xconfig_gui.py:305
 msgid "   Test Setting   "
-msgstr ""
+msgstr "  Testare Setãri  "
 
 #: ../iw/xconfig_gui.py:328
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Selectaþi mediul grafic implicit:"
 
 #: ../iw/xconfig_gui.py:330
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Mediul grafic selectat este:"
 
 # ../comps/comps-master:259
 #: ../iw/xconfig_gui.py:345 ../textw/xconfig_text.py:204
@@ -2754,7 +2985,7 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:376
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Selectaþi tipul de încãrcare:"
 
 #: ../iw/xconfig_gui.py:383 ../textw/xconfig_text.py:224
 msgid "Text"
@@ -2770,11 +3001,11 @@ msgstr "Configurare Monitoare"
 
 #: ../iw/xconfig_gui.py:564 ../iw/xconfig_gui.py:891
 msgid "Generic"
-msgstr ""
+msgstr "Generic, No-Name"
 
 #: ../iw/xconfig_gui.py:601
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Monitor Detectat de DDC"
 
 #: ../iw/xconfig_gui.py:603
 msgid "Unprobed Monitor"
@@ -2782,7 +3013,7 @@ msgstr "Monitor Neverificat"
 
 #: ../iw/xconfig_gui.py:650 ../iw/xconfig_gui.py:1007
 msgid "Restore original values"
-msgstr ""
+msgstr "Valori originale"
 
 #: ../iw/xconfig_gui.py:658
 msgid "Horizontal Sync:"
@@ -2794,11 +3025,11 @@ msgstr "Frecvenþe Verticale:"
 
 #: ../iw/xconfig_gui.py:666
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:669
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 # ../comps/comps-master:371
 #: ../iw/xconfig_gui.py:687
@@ -2814,6 +3045,9 @@ msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
+"Aceastã placã video nu are nici un server X Windows disponibil. Trebuie sã "
+"selectaþi o placã diferitã sau sã alegeþi sã nu configuraþi X Windows în "
+"acest pas."
 
 #: ../iw/xconfig_gui.py:731 ../textw/xconfig_text.py:620
 msgid "Unspecified video card"
@@ -2825,6 +3059,8 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
+"Trebuie sã selectaþi o placã video inainte de a continua. Dacã doriþi sã nu "
+"configuraþi X Windows în acest pas selectaþi opþiunea relevantã de mai jos."
 
 #: ../iw/xconfig_gui.py:852
 msgid ""
@@ -2896,11 +3132,11 @@ msgstr "Ce încãrcãtor de sistem doriþi sã folosiþi?"
 
 #: ../textw/bootloader_text.py:45
 msgid "Use GRUB Boot Loader"
-msgstr ""
+msgstr "Foloseºte GRUB pentru încãrcare"
 
 #: ../textw/bootloader_text.py:46
 msgid "Use LILO Boot Loader"
-msgstr ""
+msgstr "Foloseºte LILO pentru încãrcare"
 
 #: ../textw/bootloader_text.py:47
 msgid "No Boot Loader"
@@ -2973,6 +3209,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
+" <Space> selecteazã opt | <F2> selecteazã val implicitã  | <F12> pas urmãtor>"
 
 #: ../textw/bootloader_text.py:384
 msgid "Use a GRUB Password"
@@ -3000,7 +3237,7 @@ msgstr "Parola pentru încãrcãtorul de sistem este prea scurtã."
 
 #: ../textw/complete_text.py:26
 msgid "<Enter> to reboot"
-msgstr ""
+msgstr "<Enter> pentru a reseta"
 
 #: ../textw/complete_text.py:36 ../textw/complete_text.py:57
 #: ../textw/complete_text.py:72
@@ -3035,7 +3272,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:55
 msgid "<Enter> to continue"
-msgstr ""
+msgstr "<Enter> pentru a continua"
 
 #: ../textw/complete_text.py:58
 msgid ""
@@ -3049,7 +3286,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:69
 msgid "<Enter> to exit"
-msgstr ""
+msgstr "<Enter> pentru ieºire"
 
 #: ../textw/complete_text.py:73
 msgid ""
@@ -3100,31 +3337,31 @@ msgstr ""
 
 #: ../textw/firewall_text.py:43
 msgid "Security Level:"
-msgstr ""
+msgstr "Nivel Securitate"
 
 #: ../textw/firewall_text.py:72
 msgid "Trusted Devices:"
-msgstr ""
+msgstr "Interfeþe interne"
 
 #: ../textw/firewall_text.py:89
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:91
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../loader/telnetd.c:64 ../loader/telnetd.c:106 ../textw/firewall_text.py:93
 msgid "Telnet"
-msgstr ""
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:95
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:97
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Mail (SMTP)"
 
 #: ../loader/loader.c:1661 ../textw/firewall_text.py:99
 msgid "FTP"
@@ -3142,7 +3379,7 @@ msgstr "Alegere Invalidã"
 
 #: ../textw/firewall_text.py:130
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Nu puteþi configura un firewall dezactivat"
 
 #: ../textw/firewall_text.py:135
 msgid "Firewall Configuration - Customize"
@@ -3178,7 +3415,7 @@ msgstr "Selecteazã Totul"
 
 #: ../textw/language_text.py:122
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
+msgstr "Ce alte limbi doriþi sã instalaþi pe acest sistem?"
 
 # ../comps/comps-master:446
 #: ../textw/language_text.py:126
@@ -3280,7 +3517,7 @@ msgstr "Mãrime :"
 
 #: ../textw/packages_text.py:97
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -3308,15 +3545,15 @@ msgstr ""
 
 #: ../textw/partition_text.py:35
 msgid "Must specify a value"
-msgstr ""
+msgstr "Trebuie specificatã o valoare"
 
 #: ../textw/partition_text.py:38
 msgid "Requested value is not an integer"
-msgstr ""
+msgstr "Valoarea specificatã nu este un numãr întreg"
 
 #: ../textw/partition_text.py:40
 msgid "Requested value is too large"
-msgstr ""
+msgstr "Valoarea cerutã este prea mare"
 
 #: ../textw/partition_text.py:168
 msgid "Warning: %s"
@@ -3328,15 +3565,15 @@ msgstr "Mãrime Fixã:"
 
 #: ../textw/partition_text.py:319
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "Foloseºte pînã în (MB):"
 
 #: ../textw/partition_text.py:323
 msgid "Fill all available space:"
-msgstr ""
+msgstr "Tot spaþiul disponibil:"
 
 #: ../textw/partition_text.py:420
 msgid "Number of spares?"
-msgstr ""
+msgstr "Suplementare:"
 
 #: ../textw/partition_text.py:438 ../textw/partition_text.py:643
 msgid "Filesystem Options"
@@ -3345,15 +3582,16 @@ msgstr "Opþiuni Sistem de Fiºiere"
 #: ../textw/partition_text.py:441
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
-msgstr "Alegeþi cum doriþi sã partiþionaþi sistemul."
+msgstr ""
+"Alegeþi cum doriþi sã configuraþi sistemul de fiºiere pe aceastã partiþie."
 
 #: ../textw/partition_text.py:458
 msgid "Format as:"
-msgstr ""
+msgstr "Formatare:"
 
 #: ../textw/partition_text.py:478
 msgid "Migrate to:"
-msgstr ""
+msgstr "Migrare la:"
 
 #: ../textw/partition_text.py:615
 msgid "Filesystem Label:"
@@ -3365,11 +3603,11 @@ msgstr "Opþiuni Sistem de Fiºiere:"
 
 #: ../textw/partition_text.py:629 ../textw/partition_text.py:663
 msgid "Format as %s"
-msgstr ""
+msgstr "Formatare tip %s"
 
 #: ../textw/partition_text.py:631 ../textw/partition_text.py:665
 msgid "Migrate to %s"
-msgstr ""
+msgstr "Migrare la tip %s"
 
 #: ../textw/partition_text.py:633 ../textw/partition_text.py:667
 msgid "Leave unchanged"
@@ -3377,39 +3615,39 @@ msgstr "Lasã neschimbat"
 
 #: ../textw/partition_text.py:692 ../textw/partition_text.py:741
 msgid "Invalid Entry for Partition Size"
-msgstr ""
+msgstr "Mãrimea partiþiei selectate este invalidã"
 
 #: ../textw/partition_text.py:704
 msgid "Invalid Entry for Maximum Size"
-msgstr ""
+msgstr "Valoarea mãrimii maxime este invalidã"
 
 #: ../textw/partition_text.py:723
 msgid "Invalid Entry for Starting Cylinder"
-msgstr ""
+msgstr "Cilindrul de Start este invalid"
 
 #: ../textw/partition_text.py:733
 msgid "Invalid Entry for End Cylinder"
-msgstr ""
+msgstr "Cilindrul de Sfîrºit este invalid"
 
 #: ../textw/partition_text.py:830
 msgid "No RAID partitions"
-msgstr ""
+msgstr "Nu existã partiþii RAID"
 
 #: ../textw/partition_text.py:881
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "Numarul de suplementare este invalid"
 
 #: ../textw/partition_text.py:894
 msgid "Too many spares"
-msgstr ""
+msgstr "Prea multe suplementare"
 
 #: ../textw/partition_text.py:895
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr ""
+msgstr "Numãrul maxim de suplementare cu o partiþie RAID0 este 0."
 
 #: ../textw/partition_text.py:980
 msgid "Partitioning"
-msgstr ""
+msgstr "Partiþionare"
 
 #: ../textw/partition_text.py:990
 msgid "New"
@@ -3417,7 +3655,7 @@ msgstr "Nou"
 
 #: ../textw/partition_text.py:990
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../textw/partition_text.py:993
 msgid ""
@@ -3431,7 +3669,7 @@ msgstr "Partiþia root nedefinita"
 
 #: ../textw/partition_text.py:1021
 msgid "Must have a / partition to install on."
-msgstr ""
+msgstr "Trebuie sã aveþi o partiþie / pentru instalare."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -3517,6 +3755,11 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Versiunea de kernel 2.4 are nevoie de mult mai multã memorie swap comparativ "
+"cu versiunile mai vechi - uneori chiar dublu faþã de cîtã memorie RAM este "
+"disponibilã pe sistem. Acum aveþi %dMB spaþiu swap configurat, însã puteþi "
+"crea spaþiu swap adiþional pe una dintre partiþiile care conþin sisteme de "
+"fiºiere."
 
 #: ../textw/upgrade_text.py:109
 msgid "Free Space"
@@ -3524,7 +3767,7 @@ msgstr "Spaþiu Liber"
 
 #: ../textw/upgrade_text.py:124
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "Memorie RAM detectatã (MB):"
 
 #: ../textw/upgrade_text.py:127
 msgid "Suggested size (MB):"
@@ -3549,7 +3792,7 @@ msgstr "System pentru actualizare"
 
 #: ../textw/upgrade_text.py:224
 msgid "Upgrade Partition"
-msgstr ""
+msgstr "Actualizeazã Partiþia"
 
 #: ../textw/upgrade_text.py:246
 msgid "Customize Packages to Upgrade"
@@ -3722,11 +3965,11 @@ msgstr "Detectare server prin broadcast"
 
 #: ../textw/userauth_text.py:380
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Foloseºte conexiuni TLS"
 
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 msgid ""
@@ -3768,19 +4011,19 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:24
 msgid "Color Depth"
-msgstr ""
+msgstr "Spaþiu Culori"
 
 #: ../textw/xconfig_text.py:25
 msgid "Please select the color depth you would like to use:"
-msgstr ""
+msgstr "Selectaþi numãrul de culori pe care doriþi sã-l folosiþi:"
 
 #: ../textw/xconfig_text.py:43
 msgid "Resolution"
-msgstr ""
+msgstr "Rezoluþia"
 
 #: ../textw/xconfig_text.py:44
 msgid "Please select the resolution you would like to use:"
-msgstr ""
+msgstr "Selectaþi rezoluþia pe care doriþi sã o folosiþi:"
 
 #: ../loader/loader.c:916 ../loader/loader.c:1209 ../loader/loader.c:1212
 #: ../loader/loader.c:1227 ../loader/loader.c:1235
@@ -3797,6 +4040,8 @@ msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
 msgstr ""
+"Selectaþi numãrul de culori ºi rezoluþia pe care doriþi sã le folosiþi pe "
+"acest sistem. Folosiþi butonul '%s' pentru a testa modul video."
 
 #: ../textw/xconfig_text.py:187 ../textw/xconfig_text.py:194
 #: ../textw/xconfig_text.py:403 ../textw/xconfig_text.py:414
@@ -3806,7 +4051,7 @@ msgstr "Schimbã"
 
 #: ../textw/xconfig_text.py:190
 msgid "Resolution:"
-msgstr ""
+msgstr "Rezoluþie:"
 
 #: ../textw/xconfig_text.py:200
 msgid "Default Desktop:"
@@ -3822,11 +4067,11 @@ msgstr "Monitor"
 
 #: ../textw/xconfig_text.py:272
 msgid "Please select the monitor attached to your system."
-msgstr ""
+msgstr "Selectaþi tipul de monitor ataºat acestui sistem."
 
 #: ../textw/xconfig_text.py:289
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "Valori Sincronizare"
 
 #: ../textw/xconfig_text.py:294
 msgid ""
@@ -3835,14 +4080,20 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"Introduceþi valorile de sincronizare pentru monitorul ataºat acestui "
+"calculator.\n"
+"\n"
+"NOTA - în mod normal nu este necesar ca ratele de sincronizare sã fie "
+"modificate manual. Folosiþi atenþie maximã pentru a vã asigura cã valorile "
+"introduse sînt corecte."
 
 #: ../textw/xconfig_text.py:299
 msgid "HSync Rate: "
-msgstr ""
+msgstr "Ratã HSync:"
 
 #: ../textw/xconfig_text.py:304
 msgid "VSync Rate: "
-msgstr ""
+msgstr "Ratã VSync:"
 
 #: ../textw/xconfig_text.py:328
 msgid "horizontal"
@@ -3850,7 +4101,7 @@ msgstr "orizontal"
 
 #: ../textw/xconfig_text.py:331
 msgid "vertical"
-msgstr ""
+msgstr "vertical"
 
 #: ../textw/xconfig_text.py:340
 msgid "Invalid Sync Rates"
@@ -3868,12 +4119,23 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
+"Rata de sync %s este invalidã:\n"
+"\n"
+"      %s\n"
+"\n"
+"O valoare de sync validã este de forma:\n"
+"\n"
+"      31.5                   un singur numãr\n"
+"    50.1-90.2                o plajã de valori\n"
+"31.5,35.0,39.3-40.0          o listã de numere ºi plaje de valori.\n"
 
 #: ../textw/xconfig_text.py:395
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
+"Selectaþi tipul de monitor pentru acest calculator. Folosiþi butonul '%s' "
+"pentru a reseta totul la valorile obþinute în urma autodetecþiei."
 
 #: ../textw/xconfig_text.py:399
 msgid "Monitor:"
@@ -3881,11 +4143,11 @@ msgstr "Monitor:"
 
 #: ../textw/xconfig_text.py:406
 msgid "HSync Rate:"
-msgstr ""
+msgstr "Ratã HSync:"
 
 #: ../textw/xconfig_text.py:416
 msgid "VSync Rate:"
-msgstr ""
+msgstr "Ratã VSync:"
 
 #: ../textw/xconfig_text.py:435
 msgid "You cannot go back from this step."
@@ -3896,6 +4158,8 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
+"Selectaþi placa video prezentã in acest sistem. Selectaþi butonul '%s' "
+"pentru a reseta selecþia la placa detectatã în urma autodetecþiei."
 
 #: ../textw/xconfig_text.py:507
 msgid "Video RAM"
@@ -3906,6 +4170,8 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
+"Selectaþi mãrimea memoriei video de pe aceastã placã. Selectaþi '%s' pentru "
+"a reseta selecþia la valoarea obþinutã în urma autodetecþiei."
 
 #: ../textw/xconfig_text.py:581
 msgid "Video Card Configuration"
@@ -3913,7 +4179,7 @@ msgstr "Configurare Placã Video"
 
 #: ../textw/xconfig_text.py:584
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "Selectaþi placa video ºi mãrimea memoriei video"
 
 #: ../textw/xconfig_text.py:587
 msgid "Video Card:"
@@ -3933,7 +4199,7 @@ msgstr "Personalizare"
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Laptop"
 
 #: ../installclasses/server.py:9
 msgid "Server"
