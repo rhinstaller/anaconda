@@ -60,8 +60,9 @@
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/usr/bin:"
     "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin",
-    "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
-    "/mnt/sysimage/lib:/mnt/sysimage/usr/lib",
+    /* we set a nicer ld library path specifically for bash -- a full
+       one makes anaconda unhappy */
+    "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib",
     "HOME=/",
     "TERM=linux",
     "DEBUG=",

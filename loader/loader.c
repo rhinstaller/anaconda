@@ -168,6 +168,10 @@ static void spawnShell(int flags) {
 		logMessage("could not set new controlling tty");
 	    }
 
+	    setenv("LD_LIBRARY_PATH",
+		    "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
+		    "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
+
 	    execl("/bin/sh", "-/bin/sh", NULL);
 	    logMessage("exec of /bin/sh failed: %s", strerror(errno));
 	}
