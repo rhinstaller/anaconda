@@ -499,6 +499,9 @@ def setPreexistParts(diskset, requests, newParts):
         while part:
             if part.geom.start == request.start and part.geom.end == request.end:
                 request.device = get_partition_name(part)
+                if request.fstype:
+                    if request.fstype.getName() != request.origfstype.getName():
+                        set_partition_file_system_type(part, request.fstype)
                 break
             part = disk.next_partition(part)
 
