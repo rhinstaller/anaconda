@@ -1907,6 +1907,7 @@ class VolumeGroupDevice(Device):
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
+                lvm.writeForceConf()
                 rc = iutil.execWithRedirect("lvm",
                                             ["lvm", "pvcreate", "-ff", "-y",
                                              "-v", node],
@@ -1915,11 +1916,15 @@ class VolumeGroupDevice(Device):
                                             searchPath = 1)
                 if rc:
                     raise SystemError, "pvcreate failed for %s" % (volume,)
+                lvm.unlinkConf()
+
+                lvm.wipeOtherMetadataFromPV(node)
 
                 nodes.append(node)
 
         if not self.isSetup:
             # rescan now that we've recreated pvs.  ugh.
+            lvm.writeForceConf()            
             lvm.vgscan()
 
             args = [ "lvm", "vgcreate", "-v", "-An",
@@ -1934,6 +1939,7 @@ class VolumeGroupDevice(Device):
             if rc:
                 raise SystemError, "vgcreate failed for %s" %(self.name,)
 
+            lvm.unlinkConf()
             self.isSetup = 1
         else:
             lvm.vgscan()
@@ -1964,6 +1970,7 @@ class LogicalVolumeDevice(Device):
 
     def setupDevice(self, chroot="/", devPrefix='/tmp'):
         if not self.isSetup:
+            lvm.writeForceConf()
             rc = iutil.execWithRedirect("lvm",
                                         ["lvm", "lvcreate", "-L",
                                          "%dM" % (self.size,),
@@ -1974,7 +1981,7 @@ class LogicalVolumeDevice(Device):
                                         searchPath = 1)
             if rc:
                 raise SystemError, "lvcreate failed for %s" %(self.name,)
-            
+            lvm.unlinkConf()
             self.isSetup = 1
 
         return "/dev/%s" % (self.getDevice(),)

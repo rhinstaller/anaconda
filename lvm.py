@@ -15,6 +15,7 @@ import iutil
 import os,sys
 import string
 import math
+import isys
 
 from flags import flags
 from rhpl.log import log
@@ -225,6 +226,39 @@ def vglist():
         vgs.append( (vg, size) )
 
     return vgs
+
+# FIXME: this is a hack.  we really need to have a --force option.
+def unlinkConf():
+    if os.path.exists("%s/lvm.conf" %(lvmroot,)):
+        os.unlink("%s/lvm.conf" %(lvmroot,))
+        
+def writeForceConf():
+    """Write out an /etc/lvm/lvm.conf that doesn't do much (any?) filtering"""
+
+    lvmroot = "/etc/lvm"
+    if not os.path.isdir(lvmroot):
+        os.mkdir(lvmroot)
+
+    unlinkConf()
+
+    f = open("%s/lvm.conf", "w+")
+    f.write("""
+# anaconda hacked lvm.conf to avoid filtering breaking things
+devices = {
+  sysfs_scan = 0
+  md_component_detection = 0
+}
+""")
+
+# FIXME: another hack.  we need to wipe the raid metadata since pvcreate
+# doesn't
+def wipeOtherMetadataFromPV(node):
+    try:
+        isys.wipeRaidSB(node)
+    except Exception, e:
+        log("error wiping raidsb from %s: %s", node, e)
+        
+    
 
 def getPossiblePhysicalExtents(floor=0):
     """Returns a list of integers representing the possible values for

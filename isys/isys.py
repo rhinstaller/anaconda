@@ -78,6 +78,19 @@ def raidstart(mdDevice, aMember):
     os.close(fd)
     os.remove("/tmp/member")
 
+def wipeRaidSB(device):
+    try:
+        fd = os.open(device, O_WRONLY)
+    except OSError, e:
+        log("error wiping raid device superblock for %s: %s", device, e)
+        return
+
+    try:
+        _isys.wiperaidsb(fd)
+    finally:
+        os.close(fd)
+    return
+
 def raidsb(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     return raidsbFromDevice("/tmp/md")
