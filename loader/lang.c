@@ -223,7 +223,7 @@ static int loadFont(char * fontFile, int flags) {
 
 void setLanguage (char * key) {
     int i;
-    
+
     for (i = 0; i < numLanguages; i++) {
 	if (!strcmp(languages[i].key, key)) {
 	    setenv("LANG", languages[i].key, 1);
@@ -242,11 +242,6 @@ int chooseLanguage(char ** lang, int flags) {
     char ** langs;
     int i;
     int english = 0;
-
-    if (strings) {
-	free(strings), strings = NULL;
-	numStrings = allocedStrings = 0;
-    }
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
@@ -283,6 +278,12 @@ int chooseLanguage(char ** lang, int flags) {
     setenv("LANG", languages[choice].key, 1);
     setenv("LC_ALL", languages[choice].lc_all, 1);
     setenv("LINGUAS", languages[choice].key, 1);
+
+    if (strings) {
+	free(strings), strings = NULL;
+	numStrings = allocedStrings = 0;
+    }
+
     loadLanguage (NULL, flags);
     if (languages[choice].font)
 	loadFont(languages[choice].font, flags);
