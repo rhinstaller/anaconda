@@ -215,7 +215,6 @@ static void setLangEnv (int i, int flags) {
 
     setenv("LANG", languages[i].lc_all, 1);
     setenv("LANGKEY", languages[i].key, 1);
-    setenv("LC_ALL", languages[i].lc_all, 1);
     setenv("LINGUAS", languages[i].lc_all, 1);
     loadLanguage (NULL, flags);
 }
