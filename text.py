@@ -127,7 +127,7 @@ class KeyboardWindow:
 	if self.beenRun:
 	    default = todo.keyboard.get ()
 	else:
-            default = iutil.defaultKeyboard()
+            default = iutil.defaultKeyboard(todo.language.get())
 
         try:
             default = keyboards.index (default)

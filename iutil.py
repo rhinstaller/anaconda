@@ -328,7 +328,7 @@ def defaultZone(locale):
     
     return "US/Eastern"
 
-def defaultKeyboard():
+def defaultKeyboard(locale):
     if os.access("lang-table", os.R_OK):
         f = open("lang-table", "r")
     elif os.access("/etc/lang-table", os.R_OK):
@@ -342,7 +342,7 @@ def defaultKeyboard():
     for line in lines:
         string.strip(line)
         l = string.split(line)
-        if l[4] == os.environ["LANG"]:
+        if l[4] == locale:
             return l[5]
     
     return "us"

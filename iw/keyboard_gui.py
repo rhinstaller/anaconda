@@ -50,7 +50,7 @@ class KeyboardWindow (InstallWindow):
     # KeyboardWindow tag="kybd"
     def getScreen (self):
         if not self.hasrun:
-            default = iutil.defaultKeyboard()
+            default = iutil.defaultKeyboard(self.todo.language.get())
             if Keyboard.console2x.has_key (default):
                 self.model = Keyboard.console2x[default][0]
                 self.layout = Keyboard.console2x[default][1]
