@@ -743,14 +743,17 @@ main (int argc, char **argv)
 
 #endif
 
-static PyMethodDef tzObjectMethods[] = {
-    { NULL },
-};
-
 typedef struct tzObject_t {
     PyObject_HEAD;
     MapData * mapdata;
 } tzObject;
+
+static PyObject * setcurrent (tzObject * o, PyObject * args);
+
+static PyMethodDef tzObjectMethods[] = {
+    { "setcurrent", (PyCFunction) setcurrent, METH_VARARGS, NULL },
+    { NULL }
+};
 
 /*  typedef struct tzObject_t tzObject; */
 
@@ -773,6 +776,27 @@ static PyTypeObject tzType = {
 	0,				/* tp_as_sequence */
 	0,				/* tp_as_mapping */
 };
+
+
+static PyObject * setcurrent (tzObject * o, PyObject * args) {
+    char * loc;
+    int index;
+    
+    if (!PyArg_ParseTuple(args, "s", &loc))
+	return NULL;
+
+    index = find_location (o->mapdata->Locations, loc);
+
+    if (index == -1)
+	return NULL;
+    
+    set_selection (o->mapdata, index, TRUE);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+
 
 static PyObject * tzGetAttr(tzObject * o, char * name) {
     if (!strncmp (name, "map", 3)) {
