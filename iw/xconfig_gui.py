@@ -695,6 +695,7 @@ class XConfigWindow (InstallWindow):
 
         vidram = self.videocard.possible_ram_sizes()[index]
         self.videocard.primaryCard().setVideoRam(str(vidram))
+        self.xconfig.setVideoCard(self.videocard.primaryCard())
         self.xconfig.filterModesByMemory ()
         
         return None
@@ -703,6 +704,10 @@ class XConfigWindow (InstallWindow):
         self.configbox.set_sensitive (not widget.get_active ())
 
     def movetree (self, ctree, area, selected_node):
+        if self.selected_node == None:
+            print "bad selected_node = None!!"
+            return
+        
         self.ctree.freeze()
         node = self.selected_node
         (parent_node, cardname) = self.ctree.node_get_row_data(node)
@@ -777,7 +782,7 @@ class XConfigWindow (InstallWindow):
             count = count + 1
 
     # XConfigWindow tag="xconf"
-    def getScreen (self, dispatch, xconfig, videocard):
+    def getScreen (self, dispatch, xconfig, videocard, intf):
         def makeFormattedLabel(text):
             label = GtkLabel (text)
             label.set_justify (JUSTIFY_LEFT)
@@ -855,8 +860,24 @@ class XConfigWindow (InstallWindow):
         cards.sort()
 
         other_cards = copy.copy(cards)
-        current_cardsel = self.videocard.primaryCard().getCardData(dontResolve=1)["NAME"]
-        probed_card = self.videocard.primaryCard(useProbed=1).getCardData()["NAME"]
+        current_cardsel = None
+        probed_card = None
+        self.current_node = None
+        self.orig_node = None
+        self.selected_node = None
+        if self.videocard.primaryCard():
+            carddata = self.videocard.primaryCard().getCardData(dontResolve=1)
+            if carddata:
+                current_cardsel = carddata["NAME"]
+            else:
+                current_cardsel = None
+
+            carddata = self.videocard.primaryCard(useProbed=1).getCardData()
+            if carddata:
+                probed_card = carddata["NAME"]
+            else:
+                probed_card = None
+            
         for card in cards:
             temp = string.lower(card)
 
