@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Cristioan Gafton <gafton@redhat.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -67,17 +67,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Ok"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Tillbaka"
 
@@ -138,7 +150,10 @@ msgstr "Installationssteg"
 msgid "What type of system would you like to install?"
 msgstr "Vilket installationsmedium innehåller paketen som skall installeras?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Fel"
 
@@ -175,7 +190,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Ja"
 
@@ -184,8 +200,8 @@ msgstr "Ja"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Nej"
 
@@ -220,19 +236,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "IP-adress:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Nätmask"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Standard gateway (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Primär namnserver:"
 
@@ -261,7 +277,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Värdnamn"
 
@@ -781,7 +797,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 #, fuzzy
 msgid "What language should be used during the installation process?"
 msgstr "Vilka paket skall installeras?"
@@ -852,12 +868,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP-adress:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Nätmask"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -974,7 +990,7 @@ msgstr "Rot-partition"
 msgid "Automatic Partitioning"
 msgstr "Ändra partition"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -984,12 +1000,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "Server:"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Partitionera om"
@@ -1221,7 +1237,7 @@ msgstr "Felaktig partitionstabell"
 msgid "Initialize"
 msgstr "Initialiserar"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Försök igen"
 
@@ -1709,6 +1725,484 @@ msgstr "Spara ändringar av partitionstabellen?"
 msgid "You may only delete NFS mounts."
 msgstr "Du kan enbart radera NFS-monteringer."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Annan CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "CDROM typ"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Vilken typ av CDROM har du?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Initialiserar CDROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Diverse parametrar:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Modulparametrar"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Vilken drivrutin skall jag prova?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Modulparametrar"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Enhet"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Kickstart-fel"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Fel vid öppning: kickstart-fil %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Fel vid inläsning av kickstart-fil %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Fel på linje %d i kickstart-fil %s."
+
+#: ../loader/lang.c:232
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Undersök en grupp:"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Hårddiskar"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Välkommen till Red Hat Linux"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> mellan element    | <Space> väljer  | <F12> nästa skärm "
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Vilket installationsmedium innehåller paketen som skall installeras?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"Följande SCSI-adaptorar hittades i ditt system:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Färdig"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Enhet"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Arbetsstation"
+
+#: ../loader/loader.c:447
+#, fuzzy
+msgid "Loading second stage ramdisk..."
+msgstr "Supplimenteringsdiskett"
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Skapar initiell ramdisk.."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Hårddiskar"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Du har inte definierat swap utrymme. Vill du fortsätta eller partitionera om "
+"disken?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Hvilken partisjon og katalog på den partisjonen inneholder RedHat/RPMS og "
+"RedHat/Base-katalogene?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Katalog som innehåller Red Hat:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Välj partition"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr ""
+"Enhet %s ser inte ut att innehålla installationsträd för Red Hat Linux."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Försöket att montera den katalogen från servern misslyckades."
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Skapar initiell ramdisk.."
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Installeringsmetod"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Vilket installationsmedium innehåller paketen som skall installeras?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Hittade inte ks.cfg på bootdisketten"
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Initialiserar CDROM..."
+
+#: ../loader/net.c:147
+#, fuzzy
+msgid "NFS server name:"
+msgstr "Namn på NFS-server"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Red Hat-katalog:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "SMB-inställningar"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Skriv in följande information:\n"
+"\n"
+"    o Namn eller IP-adress på din NFS server\n"
+"    o katalog på servern som innehåller\n"
+"      Red Hat Linux för din plattform"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Skriv in IP-konfigurationen för denna datorn. Varje adress skall skrivas som "
+"en IP adress (T ex. 1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Konfigurera TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Skrivarinformation"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Du måste skriva in en giltig IP-adress och nätmask."
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Sänder DHCP-förfrågan..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Undersöker hostnamn och domän..."
+
+#: ../loader/net.c:559
+#, fuzzy
+msgid "kickstart"
+msgstr "Kickstart-fel"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "felaktigt argument till kommando i kickstartläge %s : %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Upstarts protokoll"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "NFS-konfiguration"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "IP-adress:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Primär namnserver:"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "NFS-konfiguration"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> mellan element    | <Space> väljer  | <F12> nästa skärm "
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Konfigurera nätverk"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Konfigurera inte nätverk"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Hämtar"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Skriv in följande upplysningar:\n"
+"\n"
+"     o Namn eller IP-adress på ftp-server\n"
+"     o katalog på serveren som innehåller\n"
+"       Red Hat Linux for din arkitektur\n"
+
+#: ../loader/urls.c:138
+#, fuzzy
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Skriv in följande upplysningar:\n"
+"\n"
+"     o Namn eller IP-adress på ftp-server\n"
+"     o katalog på serveren som innehåller\n"
+"       Red Hat Linux for din arkitektur\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "FTP-server:"
+
+#: ../loader/urls.c:157
+#, fuzzy
+msgid "Web site name:"
+msgstr "FTP-server:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Använd icke-anonym ftp eller en proxy-server"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Undersök en grupp:"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "FTP-inställningar"
+
+#: ../loader/urls.c:192
+#, fuzzy
+msgid "HTTP Setup"
+msgstr "FTP-inställningar"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr ""
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr ""
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Om du använder icke-anonym ftp, skriv in användarnamnet och lösenord. Om du "
+"använder en proxy-server, skriv in namnet på den."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Användarnamn:"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "FTP proxy-server"
+
+#: ../loader/urls.c:304
+#, fuzzy
+msgid "HTTP Proxy:"
+msgstr "FTP proxy-server"
+
+#: ../loader/urls.c:308
+#, fuzzy
+msgid "FTP Proxy Port:"
+msgstr "FTP proxy-server"
+
+#: ../loader/urls.c:309
+#, fuzzy
+msgid "HTTP Proxy Port:"
+msgstr "FTP proxy-server"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Supplimenteringsdiskett"
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1717,9 +2211,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "Välj ett root-lösenord. DU skall skriva det två gånger för att vara säker "
 #~ "att du inte skrev fel. Kom ihåg att root-lösenordet är den viktigaste delen "
 #~ "av systemets säkerhet!"
-
-#~ msgid "Password:"
-#~ msgstr "Lösenord:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Lösenord (en gång till):"
@@ -1797,9 +2288,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "För att installera Red Hat Linux behöver du minst en partition på 50 MB Vi "
 #~ "föreslår att du placerar denna på den första hårddisken i ditt system så du "
 #~ "kan starta Linux med LILO."
-
-#~ msgid "Done"
-#~ msgstr "Färdig"
 
 #~ msgid "Continue"
 #~ msgstr "Fortsätt"
@@ -1883,18 +2371,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "No DHCP reply received"
 #~ msgstr "Fick inga svar på DHCP-förfrågan"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Annan CDROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "CDROM typ"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Vilken typ av CDROM har du?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Initialiserar CDROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "IO-port:"
 
@@ -1921,9 +2397,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "Load module"
 #~ msgstr "Last modul"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Vilken drivrutin skall jag prova?"
 
 #~ msgid "Probe"
 #~ msgstr "Test"
@@ -1967,9 +2440,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "I många fall behöver %s drivrutinen extra information om din dator. Om du "
 #~ "föredrar, några vanliga värden för dessa parametrar blir undersökta. Detta "
 #~ "kan innebära att din dator kraschar, men det bör inte ställa till nån skada"
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Diverse parametrar:"
 
 #~ msgid "Module options:"
 #~ msgstr "Modulparametrar:"
@@ -2018,25 +2488,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Supplimenteringsdiskett"
 
-#~ msgid "Installation Method"
-#~ msgstr "Installeringsmetod"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Skriv in följande information:\n"
-#~ "\n"
-#~ "    o Namn eller IP-adress på din NFS server\n"
-#~ "    o katalog på servern som innehåller\n"
-#~ "      Red Hat Linux för din plattform"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Red Hat-katalog:"
-
 #~ msgid "Note"
 #~ msgstr "Notera"
 
@@ -2057,16 +2508,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "Ofullständigt NFS-kommando"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Försöket att montera den katalogen från servern misslyckades."
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
-
-#, fuzzy
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Supplimenteringsdiskett"
 
 #, fuzzy
 #~ msgid ""
@@ -2118,10 +2559,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "installationsmetod."
 
 #, fuzzy
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Supplimenteringsdiskett"
-
-#, fuzzy
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2142,29 +2579,8 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "hd command incomplete"
 #~ msgstr "Ofullständigt NFS-kommando"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Hvilken partisjon og katalog på den partisjonen inneholder RedHat/RPMS og "
-#~ "RedHat/Base-katalogene?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Katalog som innehåller Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Välj partition"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Misslyckades att skapa symbolisk länk till /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr ""
-#~ "Enhet %s ser inte ut att innehålla installationsträd för Red Hat Linux."
-
-#, fuzzy
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Skapar initiell ramdisk.."
 
 #, fuzzy
 #~ msgid "url command"
@@ -2314,9 +2730,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "Linux native"
 #~ msgstr "ext2fs"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Hårddiskar"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Genomsöker hårddiskarna..."
 
@@ -2403,9 +2816,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "Skriv <exit> för att återgå till installationsprogrammet.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Kickstart-fel"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Hittade ingen kickstart-konfigurationsfilserver."
 
@@ -2414,9 +2824,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Kunde inte montera bootdisketten."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Hittade inte ks.cfg på bootdisketten"
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Fel vid öppning av filer till kicksstart-kopiering: %s\n"
@@ -2580,15 +2987,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Misslyckades kopiera kickstart-fil från disketten."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Fel vid öppning: kickstart-fil %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Fel vid inläsning av kickstart-fil %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Fel på linje %d i kickstart-fil %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Okänt kommando %s på linje %d i kickstart-fil %s."
 
@@ -2630,13 +3028,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgstr "Inget swap utrymme"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Du har inte definierat swap utrymme. Vill du fortsätta eller partitionera om "
-#~ "disken?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2655,9 +3046,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Felaktig linje i /mnt/etc/fstab -- avbryter"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Undersöker hostnamn och domän..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Söker efter nätverkskort"
 
@@ -2667,30 +3055,14 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgstr ""
 #~ "Hittade inget nätverkskort. Tryck <Enter> för att konfigurera ett manuellt."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Skriv in IP-konfigurationen för denna datorn. Varje adress skall skrivas som "
-#~ "en IP adress (T ex. 1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Konfigurera TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Statisk IP-adress"
 
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "felaktigt IP-nummer till kommandot: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "felaktigt argument till kommando i kickstartläge %s : %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "kickstarts nätverkskommando behöver en IP-adress."
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Upstarts protokoll"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2698,9 +3070,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgstr ""
 #~ "Hur skall IP-konfigurationen sättas? Om din systemadministratör gav dig en "
 #~ "IP-adress, välj \"static IP\"."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Sänder DHCP-förfrågan..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Sänder BOOTP-förfrågan..."
@@ -2747,9 +3116,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Konfigurera om nätverket nu"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Konfigurera inte nätverk"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "LAN-nätverk har redan konfigurerats. Vill du:"
@@ -2820,9 +3186,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Uppgraderar paket"
-
-#~ msgid "Printer Information"
-#~ msgstr "Skrivarinformation"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> kommer visa information om en speciell skrivartyp"
@@ -3023,13 +3386,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgstr "Verifiera skrivarkonfiguration"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Följande SCSI-adaptorar hittades i ditt system:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3039,10 +3395,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "Do you have any SCSI adapters?"
 #~ msgstr "Har du en SCSI-adapter?"
 
-#, fuzzy
-#~ msgid "SMB server name  :"
-#~ msgstr "Namn på NFS-server"
-
 #~ msgid "Share volume     :"
 #~ msgstr "Delad enhet:   :"
 
@@ -3051,9 +3403,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 
 #~ msgid "Password         :"
 #~ msgstr "Lösenord\t  :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "SMB-inställningar"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3076,9 +3425,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ msgid "failed to create %s\n"
 #~ msgstr "Kan inte skapa %s: %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Hämtar"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "öppnandet av %s misslykades: %s\n"
 
@@ -3087,73 +3433,6 @@ msgstr "Du kan enbart radera NFS-monteringer."
 #~ "Error transferring file %s:\n"
 #~ "%s"
 #~ msgstr "Fel vid öppning: kickstart-fil %s: %s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Skriv in följande upplysningar:\n"
-#~ "\n"
-#~ "     o Namn eller IP-adress på ftp-server\n"
-#~ "     o katalog på serveren som innehåller\n"
-#~ "       Red Hat Linux for din arkitektur\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Skriv in följande upplysningar:\n"
-#~ "\n"
-#~ "     o Namn eller IP-adress på ftp-server\n"
-#~ "     o katalog på serveren som innehåller\n"
-#~ "       Red Hat Linux for din arkitektur\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "FTP-server:"
-
-#, fuzzy
-#~ msgid "Web site name:"
-#~ msgstr "FTP-server:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Använd icke-anonym ftp eller en proxy-server"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP-inställningar"
-
-#, fuzzy
-#~ msgid "HTTP Setup"
-#~ msgstr "FTP-inställningar"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Om du använder icke-anonym ftp, skriv in användarnamnet och lösenord. Om du "
-#~ "använder en proxy-server, skriv in namnet på den."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP proxy-server"
-
-#, fuzzy
-#~ msgid "HTTP Proxy:"
-#~ msgstr "FTP proxy-server"
-
-#, fuzzy
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP proxy-server"
-
-#, fuzzy
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "FTP proxy-server"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 1999-09-01 22:40+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -73,17 +73,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "V redu"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Nazaj"
 
@@ -144,7 +156,10 @@ msgstr "Koraki namestitve"
 msgid "What type of system would you like to install?"
 msgstr "Kje so shranjeni paketi, ki naj jih namestimo?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Napaka"
 
@@ -181,7 +196,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Da"
 
@@ -190,8 +206,8 @@ msgstr "Da"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Ne"
 
@@ -226,19 +242,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "Naslov IP:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Omre¾na maska:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Privzeti prehod (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Primarni imenski stre¾nik:"
 
@@ -267,7 +283,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Ime raèunalnika"
 
@@ -787,7 +803,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr "Kateri jezik boste uporabljali med namestitvenim postopkom?"
 
@@ -858,12 +874,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "Naslov IP:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Omre¾na maska:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -980,7 +996,7 @@ msgstr "Korenska particija"
 msgid "Automatic Partitioning"
 msgstr "Korenska particija"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -990,12 +1006,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "Oddaljeni lpd"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Nerazporejene particije"
@@ -1228,7 +1244,7 @@ msgstr "Slaba particijska tabela"
 msgid "Initialize"
 msgstr "Inicializiraj"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Ponovno"
 
@@ -1716,6 +1732,477 @@ msgstr "Shrani spremembe v particijsko tabelo"
 msgid "You may only delete NFS mounts."
 msgstr "Zbri¹ete lahko samo priklope NFS."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Drugi CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "Tip CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Kateri tip pogona CDROM imate?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Inicializiramo CDROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Razliène izbire:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Parametri modula"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Kateri gonilnik poskusimo?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Parametri modula"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Naprava"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Napaka hitrega zagona"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Napaka pri odpiranju: datoteka za hitri zagon %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Napaka pri branju vsebine datoteke za hitri zagon %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Napaka v vrstici %d datoteke za hitri zagon %s."
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr "Izberite jezik"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "trdi diski"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Dobrodo¹li v Red Hat Linuxu"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> med elementi  | <Space> izbere | <F12> naslednji zaslon "
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Kje so shranjeni paketi, ki naj jih namestimo?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"V sistemu so bili najdeni naslednji prikljuèki SCSI:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Opravljeno"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Naprava"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Delovna postaja"
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr "Nalagamo drugo stopnjo pomnilni¹kega diska..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Napaka pri branju drugostopenjskega pomnilni¹kega diska."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "trdi diski"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Nobenega definiranega izmenjalnega prostora ni. Bi radi nadaljevali ali "
+"razdelili disk?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Na kateri particiji in v katerem imeniku se nahajata imenika RedHat/RPMS in "
+"RedHat/base?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Imenik z Red Hatom:"
+
+#: ../loader/loader.c:622
+#, fuzzy
+msgid "Select Partition"
+msgstr "Odstranitev particije"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Videti je, da naprava %s ne vsebuje namestitvenega drevesa Red Hat,"
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Ni videti, da bi ta imenik vseboval namestitveno drevo Red Hat."
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Priklop imenika v stre¾nik ni uspel"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Ne moremo obnoviti drugostopenjskega pomnilni¹kega diska: %s"
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Metoda namestitve"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Kje so shranjeni paketi, ki naj jih namestimo?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Ne morem najti ks.cfg na zagonski disketi."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Inicializiramo CDROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "Ime stre¾nika NFS:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Imenik z Red Hat:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "Nastavitev SMB"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Prosimo èe podate naslednje informacije:\n"
+"\n"
+"    o ime ali ¹tevilko IP stre¾nika NFS\n"
+"    o imenik na stre¾niku, ki vsebuje Red Hat Linux\n"
+"      za va¹o arhitekturo"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Prosim vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot naslov "
+"IP v zapisu decimalnih ¹tevilk, loèenih s piko (na primer 1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Nastavitev TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Podatki o tiskalniku"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Vnesti morate tako pravilni naslov IP kot tudi omre¾no masko."
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Po¹iljam zahtevo DHCP..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Doloèam ime raèunalnika in domeno..."
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "hitri zagon"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "slab argument za hitri zagon omre¾nega ukaza %s: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Zagonski protokol"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "Nastavitev NFS"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "Naslov IP:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Stre¾nik"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "Nastavitev NFS"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> med elementi  | <Space> izbere | <F12> naslednji zaslon "
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Mre¾ne nastavitve"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Ne usposabljaj vmre¾evanja"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Pobiram"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Prosim vnesite naslednje informacije:\n"
+"\n"
+"    o ime ali ¹tevilko IP stre¾nika FTP\n"
+"    o imenik v tem stre¾niku, ki vsebuje\n"
+"      Red Hat Linux za va¹o arhitekturo\n"
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Prosim vnesite naslednje informacije:\n"
+"\n"
+"    o ime ali ¹tevilko IP spletnega stre¾nika\n"
+"    o imenik v tem stre¾niku, ki vsebuje\n"
+"      Red Hat Linux za va¹o arhitekturo\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "Ime stre¾nika FTP:"
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr "Ime spletnega stre¾nika:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Uporaba neanonimnega FTP-ja ali nadomestnega stre¾nika (proxy)"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Uporabi nadomestni stre¾nik"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "Namestitev prek FTP"
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr "Namestitev prek HTTP"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr "Vnesti morate ime stre¾nika."
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr "Vnesti morate imenik."
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Èe uporabljate neanonimni FTP, v spodnje polje vnesite ime raèuna in geslo. "
+"Èe uporabljate nadomestni stre¾nik za FTP (proxy), vnesite ime nadomestnega "
+"stre¾nika FTP, ki ga uporabljate."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Èe uporabljate nadomestni stre¾nik za HTTP (proxy), vnesite ime nadomestnega "
+"stre¾nika HTTP, ki ga uporabljate."
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Ime raèuna:"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Geslo:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "Nadomestni FTP:"
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr "Nadomestni HTTP:"
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr "Vrata nadomestnega FTP:"
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr "Vrata nadomestnega HTTP:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Nalagam gonilnike z diskete..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1724,9 +2211,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "Izberite geslo roota. Morate ga vpisati dvakrat, da izkljuèite mo¾nost "
 #~ "tipkarske napake. Ne pozabite, da je korensko geslo kritièen del varnosti "
 #~ "sistema!"
-
-#~ msgid "Password:"
-#~ msgstr "Geslo:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Geslo (spet):"
@@ -1810,9 +2294,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "prvih dveh diskov v va¹em sistemu, da boste lahko zaganjali Linux z "
 #~ "nalagalnikom LILO."
 
-#~ msgid "Done"
-#~ msgstr "Opravljeno"
-
 #~ msgid "Continue"
 #~ msgstr "Nadaljevanje"
 
@@ -1877,18 +2358,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "No DHCP reply received"
 #~ msgstr "Nobenega odgovora DHCP ni"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Drugi CDROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "Tip CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Kateri tip pogona CDROM imate?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inicializiramo CDROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Osnovna vrata I/O:"
 
@@ -1915,9 +2384,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "Load module"
 #~ msgstr "Nalo¾imo modul"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Kateri gonilnik poskusimo?"
 
 #~ msgid "Probe"
 #~ msgstr "Detekcija"
@@ -1963,9 +2429,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "Èe ¾elite, bomo poskusili z nekaj ustaljenimi vrednostmi za iskane "
 #~ "parametre. Postopek lahko ustavi raèunalnik, tako da ga je potrebno ponovno "
 #~ "zagnati, ne bi pa smel napraviti nobene ¹kode."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Razliène izbire:"
 
 #~ msgid "Module options:"
 #~ msgstr "Nastavitve modulov:"
@@ -2024,28 +2487,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Prisilimo nadomestni disk"
 
-#~ msgid "Installation Method"
-#~ msgstr "Metoda namestitve"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Prosimo èe podate naslednje informacije:\n"
-#~ "\n"
-#~ "    o ime ali ¹tevilko IP stre¾nika NFS\n"
-#~ "    o imenik na stre¾niku, ki vsebuje Red Hat Linux\n"
-#~ "      za va¹o arhitekturo"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Ime stre¾nika NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Imenik z Red Hat:"
-
 #~ msgid "Note"
 #~ msgstr "Opombe"
 
@@ -2066,15 +2507,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "nepopoln ukaz NFS"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Priklop imenika v stre¾nik ni uspel"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Ni videti, da bi ta imenik vseboval namestitveno drevo Red Hat."
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Nalagamo drugo stopnjo pomnilni¹kega diska..."
 
 #~ msgid "PCMCIA Disk"
 #~ msgstr "Disk PCMCIA"
@@ -2120,9 +2552,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "Priklop diskete ni uspel. Prosim vstavite disketo z moduli Red Hat, ali "
 #~ "izberite ,Prekini` in izberite drugaèen namestitveni postopek."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Nalagam gonilnike z diskete..."
-
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2144,24 +2573,8 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "HD device %s not found"
 #~ msgstr "diskovna naprava %s ni najdena"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Na kateri particiji in v katerem imeniku se nahajata imenika RedHat/RPMS in "
-#~ "RedHat/base?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Imenik z Red Hatom:"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Neuspelo ustvarjanje simbolne povezave /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Videti je, da naprava %s ne vsebuje namestitvenega drevesa Red Hat,"
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Napaka pri branju drugostopenjskega pomnilni¹kega diska."
 
 #~ msgid "url command"
 #~ msgstr "ukaz url"
@@ -2171,9 +2584,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "url command incomplete"
 #~ msgstr "nepopoln ukaz url"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Ne moremo obnoviti drugostopenjskega pomnilni¹kega diska: %s"
 
 #~ msgid "Mount points must begin with a leading /."
 #~ msgstr "Toèko priklopa mora uvesti uvodni /."
@@ -2331,9 +2741,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "Win95 FAT32"
 #~ msgstr "Win95 FAT32"
 
-#~ msgid "Hard Drives"
-#~ msgstr "trdi diski"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Pregledujem diske..."
 
@@ -2415,9 +2822,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "Pritisnite <exit> za vrnitev v namestitveni program.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Napaka hitrega zagona"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Ne morem najti datoteènega stre¾nika za namestitev hitrega zagona."
 
@@ -2426,9 +2830,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Nisem mogel priklopiti zagonske diskete."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Ne morem najti ks.cfg na zagonski disketi."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Napaka pri odpiranju datotek za kopijo hitrega zagona: %s\n"
@@ -2601,15 +3002,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Prepisujem jedro na disketo..."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Napaka pri odpiranju: datoteka za hitri zagon %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Napaka pri branju vsebine datoteke za hitri zagon %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Napaka v vrstici %d datoteke za hitri zagon %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Neznani ukaz %s v vrstici %d datoteke za hitri zagon %s."
 
@@ -2618,9 +3010,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "Failed to write ks post script: %s"
 #~ msgstr "Neuspe¹en zapis ks post scripta: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Izberite jezik"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Neuspe¹no ustvarjanje simbolne povezave do izvora paketa."
@@ -2665,13 +3054,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgstr "Ni izmenjalnega prostora"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Nobenega definiranega izmenjalnega prostora ni. Bi radi nadaljevali ali "
-#~ "razdelili disk?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2690,9 +3072,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Slaba vrstica v /mnt/etc/fstab -- prekinjam"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Doloèam ime raèunalnika in domeno..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Preizkus mre¾ne kartice"
 
@@ -2703,16 +3082,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ "Preizkus mre¾ne kartice v va¹em sistemu ni na¹el kartice. Pritisnite <Enter> "
 #~ "za roèno nastavitev."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Prosim vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot naslov "
-#~ "IP v zapisu decimalnih ¹tevilk, loèenih s piko (na primer 1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Nastavitev TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Statièni naslov IP"
 
@@ -2722,20 +3091,11 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "hitri zagon"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "slaba ¹tevilka IP v omre¾nem ukazu: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "slab argument za hitri zagon omre¾nega ukaza %s: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "mre¾nem ukazu za hitri zagon manjka naslov IP"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Zagonski protokol"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2743,9 +3103,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgstr ""
 #~ "Kako naj bodo nastavljene informacije o IP? Èe vam je upravitelj sistema "
 #~ "dodelil naslov IP, izberite statièno ¹tevilko IP."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Po¹iljam zahtevo DHCP..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Po¹iljam zahtevo BOOTP..."
@@ -2794,9 +3151,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Takoj ponovno nastavi mre¾o"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Ne usposabljaj vmre¾evanja"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Vmre¾evanje LAN je ¾e nastavljeno. Ali ¾elite:"
@@ -2885,9 +3239,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Nadgradnja paketov"
-
-#~ msgid "Printer Information"
-#~ msgstr "Podatki o tiskalniku"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> vam dá informacije o vrsti doloèenega tiskalnika."
@@ -3092,13 +3443,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgstr "Preveri nastavitve tiskalnika"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "V sistemu so bili najdeni naslednji prikljuèki SCSI:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3119,9 +3463,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 
 #~ msgid "Password         :"
 #~ msgstr "Geslo            :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "Nastavitev SMB"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3154,9 +3495,6 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgid "failed to create %s\n"
 #~ msgstr "na morem ustvariti %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Pobiram"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "odpiranje %s ni uspelo: %s\n"
 
@@ -3166,78 +3504,3 @@ msgstr "Zbri¹ete lahko samo priklope NFS."
 #~ msgstr ""
 #~ "Napaka pri prenosu datoteke %s:\n"
 #~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Prosim vnesite naslednje informacije:\n"
-#~ "\n"
-#~ "    o ime ali ¹tevilko IP stre¾nika FTP\n"
-#~ "    o imenik v tem stre¾niku, ki vsebuje\n"
-#~ "      Red Hat Linux za va¹o arhitekturo\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Prosim vnesite naslednje informacije:\n"
-#~ "\n"
-#~ "    o ime ali ¹tevilko IP spletnega stre¾nika\n"
-#~ "    o imenik v tem stre¾niku, ki vsebuje\n"
-#~ "      Red Hat Linux za va¹o arhitekturo\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Ime stre¾nika FTP:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Ime spletnega stre¾nika:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Uporaba neanonimnega FTP-ja ali nadomestnega stre¾nika (proxy)"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Namestitev prek FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Namestitev prek HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Vnesti morate ime stre¾nika."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Vnesti morate imenik."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Èe uporabljate neanonimni FTP, v spodnje polje vnesite ime raèuna in geslo. "
-#~ "Èe uporabljate nadomestni stre¾nik za FTP (proxy), vnesite ime nadomestnega "
-#~ "stre¾nika FTP, ki ga uporabljate."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Èe uporabljate nadomestni stre¾nik za HTTP (proxy), vnesite ime nadomestnega "
-#~ "stre¾nika HTTP, ki ga uporabljate."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Nadomestni FTP:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Nadomestni HTTP:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Vrata nadomestnega FTP:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Vrata nadomestnega HTTP:"

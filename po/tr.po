@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 1999-03-28 04:05+0200\n"
 "Last-Translator: Rabun Koþar <kosarrab@boun.edu.tr>\n"
 "Language-Team: Turkish <tr@li.org>\n"
@@ -71,17 +71,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Tamam"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Geri"
 
@@ -142,7 +154,10 @@ msgstr "Kurulum Adýmlarý"
 msgid "What type of system would you like to install?"
 msgstr "Kurulacak paketler hangi ortamda bulunuyor?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Hata"
 
@@ -179,7 +194,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Evet"
 
@@ -188,8 +204,8 @@ msgstr "Evet"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Hayýr"
 
@@ -224,19 +240,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "IP adresi:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Að maskesi:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Yönlendirici (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Birincil DNS sunucusu:"
 
@@ -265,7 +281,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Makine Adý"
 
@@ -785,7 +801,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
@@ -856,12 +872,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP adresi:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Að maskesi:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -978,7 +994,7 @@ msgstr "Kök Bölümü"
 msgid "Automatic Partitioning"
 msgstr "Bölüm Ayarý"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -988,12 +1004,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "Uzak lpd"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Yeniden Bölümle"
@@ -1226,7 +1242,7 @@ msgstr "Hatalý Bölüm Tablosu"
 msgid "Initialize"
 msgstr "Sýfýrla"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Tekrar dene"
 
@@ -1713,6 +1729,477 @@ msgstr "Bölüm tablosundaki deðiþiklikler saklansýn mý?"
 msgid "You may only delete NFS mounts."
 msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Baþka CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "CDROM Tipi"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "CDROM sürücünüzün tipi ne?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "CDROM hazýrlanýyor..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Çeþitli seçenekler:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Modül Parametreleri"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Hangi sürücü denensin?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Modül Parametreleri"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Aygýt"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Kickstart Hatasý"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "kickstart %s dosyasý açýlamadý: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "kickstart %s dosyasýnýn içeriði okunamadý: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "kicktart %s dosyasýnýn %d. satýrýnda hata"
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr "Bir Dil Seçin"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Sabit Diskler"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Red Hat Linux'a Hoþgeldiniz"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki "
+"ekran"
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Kurulacak paketler hangi ortamda bulunuyor?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"Sisteminizde aþaðýdaki türden SCSI denetçileri bulundu:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Yapýldý"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Aygýt"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Ýþistasyonu"
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr "Ýkinci kýsým ramdisk'i yükleniyor"
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Ýkinci kýsým ramdisk yüklenmesinde hata."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Sabit Diskler"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Tanýmlý takas alaný yok. Devam mý etmek istiyorsunuz, yosa diskinizi yeniden "
+"bölümlemek mi?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Bu bölümdeki hangi bölüm ve dizin RedHat/RPMS ve RedHat/base dizinlerini "
+"içermekte ?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "RedHat bulunan dizin:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Bölümü seçin"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "%s aygýtýnda bir Red Hat kurulum aðacý bulunamadý."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Bu dizinde Red Hat kurulum aðacý bulunamadý."
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Sunucudan bu dizin baðlanamadý."
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Ýkini kýsým ramdisk'i alýnamýyor: %s"
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Kurulum Yöntemi"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Kurulacak paketler hangi ortamda bulunuyor?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "CDROM hazýrlanýyor..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "NFS sunucu adý:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Red Hat dizini:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "SMB Ayarlarý"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Lütfen aþaðýdaki bilgileri girin:\n"
+"\n"
+"    o NFS sunucunuzun adý ya da IP adresi\n"
+"    o Sunucuda donanýmýnýza iliþkin\n"
+"      Red Hat Linux'un bulunduðu dizin"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Bu makina için að ayarlarýný girin. Gireceðiniz deðerler nokta ile ayrýlmýþ "
+"dört sayý þeklinde tanýmlanmalý (mesela 1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "TCP/IP Ayarlarý"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Yazýcý Bilgileri"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Geçerli bir IP adresi ve að maskesi girmelisiniz."
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "DHCP isteði gönderiliyor..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Makina ve alan adý belirleniyor..."
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "kickstart að komutu için hatalý argüman %s: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Açýlýþ Protokolü"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "NFS Ayarlarý"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "IP adresi:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Sunucu"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "NFS Ayarlarý"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki "
+"ekran"
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Að Ayarlarý"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Að ayarlarýný yapma"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Alýnýyor"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Lütfen aþaðýdaki bilgileri girin:\n"
+"\n"
+"    o FTP sunucunuzun adý ya da IP adresi\n"
+"    o Sunucuda donanýmýnýza iliþkin\n"
+"      Red Hat Linux'un bulunduðu dizin\n"
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Lütfen aþaðýdaki bilgileri girin:\n"
+"\n"
+"    o Að sunucunuzun adý ya da IP adresi\n"
+"    o Sunucuda donanýmýnýza iliþkin\n"
+"      Red Hat Linux'un bulunduðu dizin\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "FTP sitesi adý:"
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr "Að sitesi adý:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "kullanýcýyla ftp ya da kukla (proxy) sunucu"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Kukla (proxy) sunucu kullan"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "FTP Ayarlarý"
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr "HTTP Ayarlarý"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr "Bir sunucu adý girmelisiniz"
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr "Bir dizin adý girmelisiniz"
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Anonim olmayan FTP yapýlacaksa kullanýcý adý ve parolayý belirtin. Kukla "
+"(proxy) sunucu kullanýlacaksa bu sunucunun adýný belirtin."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Eðer bir HTTP kukla (proxy) sunucu kullanýlacaksa bu sunucunun adýný "
+"belirtin."
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Hesap adý:"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Þifre:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "FTP kuklasý (proxy):"
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr "HTTP kuklasý:"
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr "FTP kuklasý (proxy) portu:"
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr "HTTP kuklasý (proxy) portu:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Sürücü Disketi yükleniyor..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1721,9 +2208,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Bir root parolasý seçin. Yazarken hata olmadýðýndan emin olabilmek için iki "
 #~ "kere girmeniz isteniyor. root parolasýnýn sistem güvenliðinin en kritik "
 #~ "noktalarýndan biri olduðunu unutmayýn."
-
-#~ msgid "Password:"
-#~ msgstr "Þifre:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Parola (tekrar) :"
@@ -1805,9 +2289,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Red Hat Linux kurabilmek için Linux'a ayrýlmýþ en az 150 MB boyunda bir disk "
 #~ "bölümü gerekiyor. Sistem yüklemede LILO kullanabilmeniz için bu bölümü ilk "
 #~ "iki sabit diskten birinde ayýrmanýzý öneririz."
-
-#~ msgid "Done"
-#~ msgstr "Yapýldý"
 
 #~ msgid "Continue"
 #~ msgstr "Devam"
@@ -1894,18 +2375,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "No DHCP reply received"
 #~ msgstr "DHCP yanýtý alýnamadý"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Baþka CDROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "CDROM Tipi"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "CDROM sürücünüzün tipi ne?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "CDROM hazýrlanýyor..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Taban IO adresi:"
 
@@ -1932,9 +2401,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "Load module"
 #~ msgstr "Modül yükleme"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Hangi sürücü denensin?"
 
 #~ msgid "Probe"
 #~ msgstr "Tara"
@@ -1979,9 +2445,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Birçok durumda %s aygýtýnýn tanýtýlmasý için ek parametreler gerekebilir. "
 #~ "Ýsterseniz bu parametreler için sýk rastlanan bazý deðerler denenebilir. Bu "
 #~ "iþlem makinanýzý kilitleyebilir, ancak donanýmýnýza zarar vermesi beklenmez."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Çeþitli seçenekler:"
 
 #~ msgid "Module options:"
 #~ msgstr "Modül seçenekleri:"
@@ -2037,28 +2500,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Ek disketi iste"
 
-#~ msgid "Installation Method"
-#~ msgstr "Kurulum Yöntemi"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Lütfen aþaðýdaki bilgileri girin:\n"
-#~ "\n"
-#~ "    o NFS sunucunuzun adý ya da IP adresi\n"
-#~ "    o Sunucuda donanýmýnýza iliþkin\n"
-#~ "      Red Hat Linux'un bulunduðu dizin"
-
-#~ msgid "NFS server name:"
-#~ msgstr "NFS sunucu adý:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Red Hat dizini:"
-
 #~ msgid "Note"
 #~ msgstr "Not"
 
@@ -2079,15 +2520,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "nfs komutu eksik"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Sunucudan bu dizin baðlanamadý."
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Bu dizinde Red Hat kurulum aðacý bulunamadý."
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Ýkinci kýsým ramdisk'i yükleniyor"
 
 #~ msgid "PCMCIA Disk"
 #~ msgstr "PCMCIA Disketi"
@@ -2132,9 +2564,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Disket baðlanamadý. Lütfen Red Hat Modül disketini takýn ya da baþka bir "
 #~ "kurulum yöntemi seçmek üzere 'Vazgeç' seçeneðini seçin."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Sürücü Disketi yükleniyor..."
-
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2155,27 +2584,8 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "HD device %s not found"
 #~ msgstr "Sabit disk aygýtý %s bulunamadý"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Bu bölümdeki hangi bölüm ve dizin RedHat/RPMS ve RedHat/base dizinlerini "
-#~ "içermekte ?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "RedHat bulunan dizin:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Bölümü seçin"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "/tmp/rhimage sembolik bað yaratýlamadý: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "%s aygýtýnda bir Red Hat kurulum aðacý bulunamadý."
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Ýkinci kýsým ramdisk yüklenmesinde hata."
 
 #~ msgid "url command"
 #~ msgstr "url komutu"
@@ -2185,9 +2595,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "url command incomplete"
 #~ msgstr "url komutu eksik"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Ýkini kýsým ramdisk'i alýnamýyor: %s"
 
 #~ msgid "Mount points must begin with a leading /."
 #~ msgstr "Baðlama noktalarý / iþaretiyle baþlamalý."
@@ -2342,9 +2749,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "Win95 FAT32"
 #~ msgstr "Win95 FAT32"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Sabit Diskler"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Sabit diskler taranýyor..."
 
@@ -2430,9 +2834,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Kurulum programýna geri dönmek için <exit> yazýn.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Kickstart Hatasý"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Kickstart ayar dosyasý sunucusu bulunamadý."
 
@@ -2441,9 +2842,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Açýlýþ disketi baðlanamadý."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Açýlýþ disketinde ks.cfg dosyasý bulunamadý."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Kickstart copy için dosyalar açýlamadý: %s\n"
@@ -2614,15 +3012,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Disketten Linux çekirdeði kopyalanýyor..."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "kickstart %s dosyasý açýlamadý: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "kickstart %s dosyasýnýn içeriði okunamadý: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "kicktart %s dosyasýnýn %d. satýrýnda hata"
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "kickstart %s dosyasýnýn %d. satýrýnda anlaþýlmayan komut"
 
@@ -2631,9 +3020,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "Failed to write ks post script: %s"
 #~ msgstr "ks post script yazýlamadý: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Bir Dil Seçin"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Paketlerin bulunduðu yere sembolik bað oluþturulamadý."
@@ -2675,13 +3061,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgstr "Takas Alaný Yok"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Tanýmlý takas alaný yok. Devam mý etmek istiyorsunuz, yosa diskinizi yeniden "
-#~ "bölümlemek mi?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2700,9 +3079,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "/mnt/etc/fstab dosyasýnda hatalý satýr -- çýkýlýyor"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Makina ve alan adý belirleniyor..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Ethernet Taramasý"
 
@@ -2713,16 +3089,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ "Ethernet taramasý sisteminizde bir kart bulamadý. <Enter> tuþuna  basarak "
 #~ "kart ayarlarýný kendiniz yapabilirsiniz."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Bu makina için að ayarlarýný girin. Gireceðiniz deðerler nokta ile ayrýlmýþ "
-#~ "dört sayý þeklinde tanýmlanmalý (mesela 1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "TCP/IP Ayarlarý"
-
 #~ msgid "Static IP address"
 #~ msgstr "Statik IP adresi"
 
@@ -2732,20 +3098,11 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "network komutunda hatalý IP numarasý: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "kickstart að komutu için hatalý argüman %s: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "kickstart að komutunda IP adresi eksik"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Açýlýþ Protokolü"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2753,9 +3110,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgstr ""
 #~ "IP bilgileri nasýl belirlensin. Kullanýmýnýz için ayrýlmýþ sabit bir IP "
 #~ "adresi varsa, statik IP seçin."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "DHCP isteði gönderiliyor..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "BOOTP isteði gönderiliyor..."
@@ -2804,9 +3158,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Að ayarlarýný yeniden yap"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Að ayarlarýný yapma"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Yerel að ayarý yapýlmýþ durumda. Ne yapmak istersiniz?"
@@ -2894,9 +3245,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Paket Güncelleme"
-
-#~ msgid "Printer Information"
-#~ msgstr "Yazýcý Bilgileri"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr ""
@@ -3098,13 +3446,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgstr "Yazýcý Ayarý Doðrulanmasý"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Sisteminizde aþaðýdaki türden SCSI denetçileri bulundu:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3125,9 +3466,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
 #~ msgid "Password         :"
 #~ msgstr "Þifre            :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "SMB Ayarlarý"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3160,9 +3498,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgid "failed to create %s\n"
 #~ msgstr "%s yaratýlamadý\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Alýnýyor"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "%s açýlamadý: %s\n"
 
@@ -3172,80 +3507,6 @@ msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 #~ msgstr ""
 #~ "%s dosyasý transfer hatasý:\n"
 #~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Lütfen aþaðýdaki bilgileri girin:\n"
-#~ "\n"
-#~ "    o FTP sunucunuzun adý ya da IP adresi\n"
-#~ "    o Sunucuda donanýmýnýza iliþkin\n"
-#~ "      Red Hat Linux'un bulunduðu dizin\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Lütfen aþaðýdaki bilgileri girin:\n"
-#~ "\n"
-#~ "    o Að sunucunuzun adý ya da IP adresi\n"
-#~ "    o Sunucuda donanýmýnýza iliþkin\n"
-#~ "      Red Hat Linux'un bulunduðu dizin\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "FTP sitesi adý:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Að sitesi adý:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "kullanýcýyla ftp ya da kukla (proxy) sunucu"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP Ayarlarý"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "HTTP Ayarlarý"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Bir sunucu adý girmelisiniz"
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Bir dizin adý girmelisiniz"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Anonim olmayan FTP yapýlacaksa kullanýcý adý ve parolayý belirtin. Kukla "
-#~ "(proxy) sunucu kullanýlacaksa bu sunucunun adýný belirtin."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Eðer bir HTTP kukla (proxy) sunucu kullanýlacaksa bu sunucunun adýný "
-#~ "belirtin."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP kuklasý (proxy):"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP kuklasý:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP kuklasý (proxy) portu:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP kuklasý (proxy) portu:"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda-text 1.0\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 1999-07-29 17:11-0400\n"
 "Last-Translator: Matt Wilson <msw@redhat.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -70,17 +70,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr ""
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr ""
 
@@ -134,7 +146,10 @@ msgstr ""
 msgid "What type of system would you like to install?"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr ""
 
@@ -166,7 +181,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr ""
 
@@ -175,8 +191,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr ""
 
@@ -209,19 +225,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr ""
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr ""
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr ""
 
@@ -247,7 +263,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr ""
 
@@ -700,7 +716,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -764,11 +780,11 @@ msgstr ""
 msgid "IP Address"
 msgstr ""
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 msgid "Netmask"
 msgstr ""
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -877,7 +893,7 @@ msgstr ""
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -887,11 +903,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 msgid "Manually partition"
 msgstr ""
 
@@ -1089,7 +1105,7 @@ msgstr ""
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr ""
 
@@ -1514,4 +1530,413 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1546
 msgid "You may only delete NFS mounts."
+msgstr ""
+
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr ""
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr ""
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr ""
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr ""
+
+#: ../loader/devices.c:45
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../loader/devices.c:54
+msgid "Module Parameters"
+msgstr ""
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr ""
+
+#: ../loader/devices.c:135
+msgid "Specify module parameters"
+msgstr ""
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+msgid "Devices"
+msgstr ""
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr ""
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr ""
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr ""
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr ""
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr ""
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+msgid "Hard drive"
+msgstr ""
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Red Hat Linux/German"
+
+#: ../loader/loader.c:124
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+msgid "What kind of device would you like to add"
+msgstr ""
+
+#: ../loader/loader.c:285
+msgid "I have found the following devices in your system:"
+msgstr ""
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr ""
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Add Device"
+msgstr ""
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+msgid "Loading"
+msgstr ""
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr ""
+
+#: ../loader/loader.c:451
+msgid "Error loading ramdisk."
+msgstr ""
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr ""
+
+#: ../loader/loader.c:573
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+
+#: ../loader/loader.c:586
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr ""
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr ""
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr ""
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr ""
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr ""
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr ""
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr ""
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+msgid "What type of media contains the packages to be installed?"
+msgstr ""
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr ""
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+msgid "Initializing PC Card Devices..."
+msgstr ""
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr ""
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr ""
+
+#: ../loader/net.c:156
+msgid "NFS Setup"
+msgstr ""
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr ""
+
+#: ../loader/net.c:329
+msgid "Missing Information"
+msgstr ""
+
+#: ../loader/net.c:330
+msgid "You must enter both a valid IP address and a netmask."
+msgstr ""
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+msgid "Sending request for IP information..."
+msgstr ""
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr ""
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr ""
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr ""
+
+#: ../loader/net.c:607
+msgid "Boot protocol to use"
+msgstr ""
+
+#: ../loader/net.c:609
+msgid "Network gateway"
+msgstr ""
+
+#: ../loader/net.c:611
+msgid "IP address"
+msgstr ""
+
+#: ../loader/net.c:613
+msgid "Nameserver"
+msgstr ""
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+msgid "Network device"
+msgstr ""
+
+#: ../loader/net.c:695
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+msgid "Network configuration"
+msgstr ""
+
+#: ../loader/net.c:699
+msgid "Would you like to set up networking?"
+msgstr ""
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr ""
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr ""
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr ""
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr ""
+
+#: ../loader/urls.c:180
+msgid "Use proxy server"
+msgstr ""
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr ""
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr ""
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr ""
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr ""
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+
+#: ../loader/urls.c:295
+msgid "Account name:"
+msgstr ""
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr ""
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr ""
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr ""
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr ""
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr ""
+
+#: ../loader/windows.c:46
+msgid "Loading SCSI driver"
 msgstr ""

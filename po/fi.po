@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Raimo Koski <rkoski@pp.weppi.fi>\n"
 "Language-Team: Finnish <linux@sot.com>\n"
@@ -74,17 +74,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Ok"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Takaisin"
 
@@ -145,7 +157,10 @@ msgstr "Asennusvaiheet"
 msgid "What type of system would you like to install?"
 msgstr "Missä tietovälineessä asennettavat paketit ovat?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Virhe"
 
@@ -182,7 +197,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -191,8 +207,8 @@ msgstr "Kyllä"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Ei"
 
@@ -227,19 +243,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "IP-osoite:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Verkon peitto:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Oletusyhdyskäytävä:"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Ensisijainen nimipalvelin:"
 
@@ -268,7 +284,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Koneen nimi"
 
@@ -791,7 +807,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 #, fuzzy
 msgid "What language should be used during the installation process?"
 msgstr "Mitkä paketit asennetaan?"
@@ -863,12 +879,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP-osoite:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Verkon peitto:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -985,7 +1001,7 @@ msgstr "Juuriosio"
 msgid "Automatic Partitioning"
 msgstr "Muokkaa osiota"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -995,12 +1011,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "lpd-palvelin"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Osioi uudelleen"
@@ -1228,7 +1244,7 @@ msgstr "Viallinen osiotaulu"
 msgid "Initialize"
 msgstr "Alusta"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Uudelleen"
 
@@ -1715,6 +1731,480 @@ msgstr "Tallenna muutokset osiotauluun?"
 msgid "You may only delete NFS mounts."
 msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Muu CD-ROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "CD-ROM:n tyyppi"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Mikä CD-ROM sinulla on?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Alustetaan CD-ROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Sekalaiset parametrit"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Modulin parametrit"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Mitä ajuria kokeillaan?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Modulin parametrit"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Laite"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Kickstart-virhe"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Virhe avattaessa: kickstartin tiedosto %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Virhe luettaessa kickstart-tiedoston %s sisältöä: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Virhe rivillä %d kickstart-tiedostossa %s."
+
+#: ../loader/lang.c:232
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Valitse tarkasteltava ryhmä:"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Kiintolevyt"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Tervetuloa Red Hat Linuxin käyttäjäksi"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> vaihtaa elementtiä  | <Space> valitsee | <F12> seuraava "
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Missä tietovälineessä asennettavat paketit ovat?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"Löysin seuraavan tyyppisiä SCSI-adaptereita järjestelmästäsi:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Valmis"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Laite"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Työasema"
+
+#: ../loader/loader.c:447
+#, fuzzy
+msgid "Loading second stage ramdisk..."
+msgstr "Lataan lisälevykettä..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Luon käynnistyksen ramlevyn..."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Kiintolevyt"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Sinulla ei ole sivutusosioita määriteltynä. Haluatko jatkaa tai osioida "
+"levysi uudelleen?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Millä osiolla ja hakemistossa on RedHat/RPMS ja RedHat/base hakemistot?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Hakemisto, jossa Red Hat on:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Valitse osio"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Laitteessa %s ei vaikuta olevan Red Hatin asennushakemistopuuta."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Hakemistosta ei löydy Red Hatin asennushakemistopuuta."
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "En voinut liittää hakemistoa palvelimelta"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Luon käynnistyksen ramlevyn..."
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Asennusmenetelmä"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Missä tietovälineessä asennettavat paketit ovat?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "En löydä ks.cfg:tä käynnistyslevykkeeltä."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Alustetaan CD-ROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "NFS-palvelijan nimi:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Red Hatin hakemisto:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "SMB:n määrittely"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Syötä seuraavat tiedot:\n"
+"\n"
+"    o NFS-palvelijan IP-osoite tai nimi\n"
+"    o hakemisto palvelijalla, jossa on\n"
+"      Red Hat Linux"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Syötä koneen TCP/IP-asetukset. Kukin kohta pitää syöttää IP-osoitteena, "
+"pisteillä eroteltuna nelinumeroisena lukuna (esim. 1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Konfiguroi TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Kirjoittimen tiedot"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Sinun on syötettävä kelvollinen IP-osoite ja verkon peitto"
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Lähetän DHCP-pyynnön..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Haen koneen ja verkkoalueen nimeä..."
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "huono parametri kickstartin network-komennolle %s: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Käynnistysprotokolla"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "NFS:n määrittely"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "IP-osoite:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Palvelin"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "NFS:n määrittely"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> vaihtaa elementtiä  | <Space> valitsee | <F12> seuraava "
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Verkon määritykset"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Älä määrittele verkkoa"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Haen"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Syötä seuraavat tiedot:\n"
+"\n"
+"    o FTP-palvelijan nimi tai IP-numero\n"
+"    o hakemisto palvelimella, jossa on\n"
+"      Red Hat Linux\n"
+
+#: ../loader/urls.c:138
+#, fuzzy
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Syötä seuraavat tiedot:\n"
+"\n"
+"    o FTP-palvelijan nimi tai IP-numero\n"
+"    o hakemisto palvelimella, jossa on\n"
+"      Red Hat Linux\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "FTP-palvelijan nimi:"
+
+#: ../loader/urls.c:157
+#, fuzzy
+msgid "Web site name:"
+msgstr "FTP-palvelijan nimi:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Käytä tunnuksellista ftp:tä tai proxy-palvelinta"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Valitse tarkasteltava ryhmä:"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "FTP:n määrittely"
+
+#: ../loader/urls.c:192
+#, fuzzy
+msgid "HTTP Setup"
+msgstr "FTP:n määrittely"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr ""
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr ""
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Jos käytät tunnuksellista ftp:tä, syötä käyttäjätunnus ja salasana, joita "
+"haluat käyttää. Jos käytät FTP-proxyä, syötä proxy-palvelimen nimi."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Käyttäjätunnus:"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Salasana:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "FTP-proxy:"
+
+#: ../loader/urls.c:304
+#, fuzzy
+msgid "HTTP Proxy:"
+msgstr "FTP-proxy:"
+
+#: ../loader/urls.c:308
+#, fuzzy
+msgid "FTP Proxy Port:"
+msgstr "FTP-proxy:"
+
+#: ../loader/urls.c:309
+#, fuzzy
+msgid "HTTP Proxy Port:"
+msgstr "FTP-proxy:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Lataan lisälevykettä..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1723,9 +2213,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Valitse pääkäyttäjän salasana. Sinun pitää syöttää se kahdesti, jotta se on "
 #~ "varmasti oikein etkä tehnyt kirjoitusvirhettä. Muista, että pääkäyttäjän "
 #~ "salasana on kriittinen osa järjestelmän tietoturvaa!"
-
-#~ msgid "Password:"
-#~ msgstr "Salasana:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Salasana (sama):"
@@ -1807,9 +2294,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Red Hat Linuxin asennus vaatii vähintään 150 Mt kokoisen osion määrittelyä "
 #~ "Linuxille. Suosittelemme tuon osion sijoittamista toiselle kahdesta "
 #~ "ensimmäisestä kiintolevyistä, jotta voi käynnistää Linuxin LILO:n avulla."
-
-#~ msgid "Done"
-#~ msgstr "Valmis"
 
 #~ msgid "Continue"
 #~ msgstr "Jatka"
@@ -1896,18 +2380,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "No DHCP reply received"
 #~ msgstr "DHCP-vastausta ei saatu"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Muu CD-ROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "CD-ROM:n tyyppi"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Mikä CD-ROM sinulla on?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Alustetaan CD-ROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Perus-IO-osoite:"
 
@@ -1934,9 +2406,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
 #~ msgid "Load module"
 #~ msgstr "Lataa moduli"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Mitä ajuria kokeillaan?"
 
 #~ msgid "Probe"
 #~ msgstr "Haku"
@@ -1980,9 +2449,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Usein %s-ajuri tarvitsee lisätietoja laitteistosta. Jos haluat, kokeilen "
 #~ "yleisimpiä parametrejä. Tämä toimitus voi pysäyttää koneen, mutta ei "
 #~ "aiheuttaa vahinkoa."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Sekalaiset parametrit"
 
 #~ msgid "Module options:"
 #~ msgstr "Modulin parametrit:"
@@ -2030,28 +2496,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Pakota lisälevykeen lataus"
 
-#~ msgid "Installation Method"
-#~ msgstr "Asennusmenetelmä"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Syötä seuraavat tiedot:\n"
-#~ "\n"
-#~ "    o NFS-palvelijan IP-osoite tai nimi\n"
-#~ "    o hakemisto palvelijalla, jossa on\n"
-#~ "      Red Hat Linux"
-
-#~ msgid "NFS server name:"
-#~ msgstr "NFS-palvelijan nimi:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Red Hatin hakemisto:"
-
 #~ msgid "Note"
 #~ msgstr "Huomaa"
 
@@ -2072,16 +2516,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "nfs-komento epätäydellinen"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "En voinut liittää hakemistoa palvelimelta"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Hakemistosta ei löydy Red Hatin asennushakemistopuuta."
-
-#, fuzzy
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Lataan lisälevykettä..."
 
 #, fuzzy
 #~ msgid ""
@@ -2130,10 +2564,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "peruuta valitaksesi toisen asennustavan."
 
 #, fuzzy
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Lataan lisälevykettä..."
-
-#, fuzzy
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2154,27 +2584,8 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "hd command incomplete"
 #~ msgstr "nfs-komento epätäydellinen"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Millä osiolla ja hakemistossa on RedHat/RPMS ja RedHat/base hakemistot?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Hakemisto, jossa Red Hat on:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Valitse osio"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Symbolisen linkin /tmp/rhimage luonti epäonnistui: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Laitteessa %s ei vaikuta olevan Red Hatin asennushakemistopuuta."
-
-#, fuzzy
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Luon käynnistyksen ramlevyn..."
 
 #, fuzzy
 #~ msgid "url command"
@@ -2324,9 +2735,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Linux native"
 #~ msgstr "Linuxin natiivi"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Kiintolevyt"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Etsin kiintolevyjä..."
 
@@ -2415,9 +2823,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Kirjoita <exit> palataksesi asennusohjelmaan.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Kickstart-virhe"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Kickstartin konfigurointitiedostopalvelinta ei löytynyt."
 
@@ -2426,9 +2831,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "En voinut liittää käynnistyslevykettä"
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "En löydä ks.cfg:tä käynnistyslevykkeeltä."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Virhe avattaessa tiedostoja kickstartin copy-komennolle: %s\n"
@@ -2593,15 +2995,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Virhe kopioitaessa kickstart-tiedostoa levykkeeltä."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Virhe avattaessa: kickstartin tiedosto %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Virhe luettaessa kickstart-tiedoston %s sisältöä: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Virhe rivillä %d kickstart-tiedostossa %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Tuntematon komento %s rivillä %d kickstart-tiedostossa %s."
 
@@ -2653,13 +3046,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgstr "Ei sivutusaluetta"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Sinulla ei ole sivutusosioita määriteltynä. Haluatko jatkaa tai osioida "
-#~ "levysi uudelleen?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2678,9 +3064,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Epäkelpo rivi tiedostossa /mnt/etc/fstab -- lopetan"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Haen koneen ja verkkoalueen nimeä..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Ethernet-kortin haku"
 
@@ -2691,16 +3074,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Ethernet-kortin haku ei löytänyt korttia koneestasi. Paina <Enter> "
 #~ "määritelläksesi sen itse."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Syötä koneen TCP/IP-asetukset. Kukin kohta pitää syöttää IP-osoitteena, "
-#~ "pisteillä eroteltuna nelinumeroisena lukuna (esim. 1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Konfiguroi TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Kiinteä IP-osoite"
 
@@ -2710,20 +3083,11 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "huono IP-osoite network-käskyssä: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "huono parametri kickstartin network-komennolle %s: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "kickstartin network-komennosta puuttuu IP-osoite"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Käynnistysprotokolla"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2731,9 +3095,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgstr ""
 #~ "Miten IP-osoitteet haetaan? Jos verkkosi ylläpitäjä antoi sinulle "
 #~ "IP-osoitteen, valitse kiinteä IP."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Lähetän DHCP-pyynnön..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Lähetän BOOTP-pyynnön..."
@@ -2782,9 +3143,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Muuta verkon asetuksia"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Älä määrittele verkkoa"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Lähiverkko on jo määritelty. Haluatko:"
@@ -2857,9 +3215,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Päivitä paketit"
-
-#~ msgid "Printer Information"
-#~ msgstr "Kirjoittimen tiedot"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> antaa tietoja kyseisestä kirjoittimesta"
@@ -3063,13 +3418,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Verify Printer Configuration"
 #~ msgstr "Tarkista kirjoittimen konfiguraatio"
 
-#~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Löysin seuraavan tyyppisiä SCSI-adaptereita järjestelmästäsi:\n"
-#~ "\n"
-
 #, fuzzy
 #~ msgid ""
 #~ "\n"
@@ -3092,9 +3440,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "Password         :"
 #~ msgstr "Salasana          :"
 
-#~ msgid "SMB Setup"
-#~ msgstr "SMB:n määrittely"
-
 #~ msgid ""
 #~ "Please enter the following information:\n"
 #~ "\n"
@@ -3116,9 +3461,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ msgid "failed to create %s\n"
 #~ msgstr "En voi luoda %s: %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Haen"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "%s:n avaus epäonnistui: %s\n"
 
@@ -3127,73 +3469,6 @@ msgstr "Voit poistaa vain NFS:n liitoskohtia."
 #~ "Error transferring file %s:\n"
 #~ "%s"
 #~ msgstr "Virhe avattaessa: kickstartin tiedosto %s: %s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Syötä seuraavat tiedot:\n"
-#~ "\n"
-#~ "    o FTP-palvelijan nimi tai IP-numero\n"
-#~ "    o hakemisto palvelimella, jossa on\n"
-#~ "      Red Hat Linux\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Syötä seuraavat tiedot:\n"
-#~ "\n"
-#~ "    o FTP-palvelijan nimi tai IP-numero\n"
-#~ "    o hakemisto palvelimella, jossa on\n"
-#~ "      Red Hat Linux\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "FTP-palvelijan nimi:"
-
-#, fuzzy
-#~ msgid "Web site name:"
-#~ msgstr "FTP-palvelijan nimi:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Käytä tunnuksellista ftp:tä tai proxy-palvelinta"
-
-#~ msgid "FTP Setup"
-#~ msgstr "FTP:n määrittely"
-
-#, fuzzy
-#~ msgid "HTTP Setup"
-#~ msgstr "FTP:n määrittely"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Jos käytät tunnuksellista ftp:tä, syötä käyttäjätunnus ja salasana, joita "
-#~ "haluat käyttää. Jos käytät FTP-proxyä, syötä proxy-palvelimen nimi."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP-proxy:"
-
-#, fuzzy
-#~ msgid "HTTP Proxy:"
-#~ msgstr "FTP-proxy:"
-
-#, fuzzy
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP-proxy:"
-
-#, fuzzy
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "FTP-proxy:"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

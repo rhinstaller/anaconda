@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 199-04-10 12:00+EST\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -69,17 +69,29 @@ msgstr "Unde este conectat mouse-ul? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Ok"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Înapoi"
 
@@ -131,7 +143,10 @@ msgstr "Tip instalare"
 msgid "What type of system would you like to install?"
 msgstr "Ce tip de system doriþi sã instalaþi?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Eroare"
 
@@ -167,7 +182,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Da"
 
@@ -176,8 +192,8 @@ msgstr "Da"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Nu"
 
@@ -210,19 +226,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr "Foloseºte bootp/dhcp"
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "Adresã IP:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Netmask:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Gateway (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Server DNS primar:"
 
@@ -251,7 +267,7 @@ msgstr ""
 "ataºat unei reþele, numele de host este asignat de cãtre administratorul de "
 "reþea."
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Nume host"
 
@@ -730,7 +746,7 @@ msgstr "Aranjament taste"
 msgid "Variant"
 msgstr "Variantã"
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr "Ce limbã trebuie folositã în timpul rulãrii programului de instalare?"
 
@@ -794,11 +810,11 @@ msgstr "Activare la iniþializarea sistemului"
 msgid "IP Address"
 msgstr "Adresã IP"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr "Network"
 
@@ -902,7 +918,7 @@ msgstr "Selectare Partiþia de Root"
 msgid "Automatic Partitioning"
 msgstr "Partiþionare Automatã"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -917,11 +933,11 @@ msgstr ""
 "instalare prin selectarea partiþionãrii manuale, sau puteþi sã selectaþi "
 "ecranul precedent ºi sã selectaþi o instalare personalizatã"
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 msgid "Remove data"
 msgstr "ªtergere date"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 msgid "Manually partition"
 msgstr "Partiþionare manualã"
 
@@ -1152,7 +1168,7 @@ msgstr "Tabela de Partiþii Invalidã"
 msgid "Initialize"
 msgstr "Iniþializare"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Încearcã din nou"
 
@@ -1629,6 +1645,481 @@ msgstr "Salvaþi schimbãrile în tabela de partiþii?"
 msgid "You may only delete NFS mounts."
 msgstr "Puteþi ºterge numai NFS mounts."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Alt tip de CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "Tipul de CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Ce tip de CDROM aveþi?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Initializare CDROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Alte Opþiuni:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Parametri pentru Kernel"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Care driver trebuie încercat?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Parametri pentru Kernel"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Partiþie"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Eroare KickStart"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Eroare la deschiderea fiºierului kickstart %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Eroare la citirea conþinutului fiºierului kickstart %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Eroare la linia %d a fiºierului kickstart %s."
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr "Limbã program instalare"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Hard Discuri"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Bun venit la Red Hat Linux!"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
+"ecran "
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Ce tip de system doriþi sã instalaþi?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"Am gãsit urmãtoarele tipuri de adaptoare SCSI în acest calculator:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Gata"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Partiþie"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Locaþie"
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr "Încãrcare ramdisk pentru etapa a doua..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Eroare la citirea ramdisk pentru etapa a doua..."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Hard Discuri"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Spaþiu pentru memoria swap nu este definit. Doriþi sã continuaþi sau sã "
+"reparþitionaþi discul?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
+"ºi RedHat/base?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Directorul conþinînd Red Hat:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Selectaþi o Partitie"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Directorul specificat nu conþine distribuþia Red Hat Linux"
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Nu s-a putut citi directorul specificat de pe server"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Nu s-a putut receptiona ramdiskul pentru stagiul doi: %s"
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Metodã de Instalare"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Ce tip de system doriþi sã instalaþi?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Initializare CDROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "Numele serverului NFS:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Directorul Red Hat:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "Setare SMB"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Urmatoarele informaþii sînt necesare:\n"
+"    o numele sau adresa de IP a serverului NFS\n"
+"    o directorul de pe serverul de NFS conþinînd\n"
+"      pachetele Red Hat Linux pentru acest sistem"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Introduceþi configuraþia IP oentru acest calculator. Fiecare valoare trebuie "
+"introdusã ca o adresã de IP în notaþie decimalã cu punct (de exemplu, "
+"1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Configurare TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Setare imprimantã"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Trebuie sã introduceþi date corecte pentru IP."
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Trimitere cerere DHCP..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Determinare host name ºi domeniu..."
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argument eronat pentru comanda network în kickstart %s: %s "
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Prococol Boot"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "Configurare Reþea"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "Adresã IP:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Server"
+
+#: ../loader/net.c:620
+#, fuzzy
+msgid "Domain name"
+msgstr "Domeniu NIS: "
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "Configurare Reþea"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
+"ecran "
+
+#: ../loader/net.c:696
+#, fuzzy, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Configurare Reþea"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Fãrã setare de reþea LAN"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Transfer"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Introduceþi urmãtoarele informaþii:\n"
+"\n"
+"    o numele sau adresa de IP a serverului de FTP\n"
+"    o directorul de pe acel server conþinînd\n"
+"      distribuþia Red Hat Linux pentru sistemul\n"
+"      dumneavoastrã\n"
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Introduceþi urmãtoarele informaþii:\n"
+"\n"
+"    o numele sau adresa de IP a serverului WWW\n"
+"    o directorul de pe acel server conþinînd\n"
+"      distribuþia Red Hat Linux pentru sistemul\n"
+"      dumneavoastrã\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "Numele serverului FTP:"
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr "Numele serverului WWW:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Utilizaþi non-anonymous ftp sau un proxy server"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Selectaþi un server"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "Setare FTP"
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr "Setare HTTP"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr "Trebuie introdus un nume server."
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr "Trebuie introdus un director."
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Dacã folosiþi non-anonymous ftp, introduceþi mai jos contul si parola pe "
+"care doriþi sã le folosiþi. Dacã folosiþi un proxy server pentru FTP "
+"introduceþi numele sau adresa de IP a serverului proxy pe care doriþi sã-l "
+"folosiþi."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Daca folositi un proxy server pentru HTTP introduceti numele serverului."
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Nume Cont"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Parola:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "FTP Proxy:"
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr "HTTP Proxy:"
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr "FTP Proxy Port:"
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr "HTTP Proxy Port:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Încãrcare Driver Disk..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1638,9 +2129,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "ori pentru a fi siguri ca aþi tipãrit-o corect ºi pentru a evita eventualele "
 #~ "erori de tastare. Este important sã vã amintiþi cã parola de root este o "
 #~ "parte criticã a securitãþii sistemului dumneavoastrã!"
-
-#~ msgid "Password:"
-#~ msgstr "Parola:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Parola (din nou):"
@@ -1690,9 +2178,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "minim 150 MB dedicatã pentru Linux. Vã sugerãm plasarea acelei partiþii pe "
 #~ "unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea "
 #~ "folosi LILO pentru lansarea sistemului Linux."
-
-#~ msgid "Done"
-#~ msgstr "Gata"
 
 #~ msgid "Continue"
 #~ msgstr "Continuare"
@@ -1771,18 +2256,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "No DHCP reply received"
 #~ msgstr "Nu s-a recepþionat nici un rãspuns de la serverul DHCP"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Alt tip de CDROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "Tipul de CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Ce tip de CDROM aveþi?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Initializare CDROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Adresa IO Port:"
 
@@ -1809,9 +2282,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "Load module"
 #~ msgstr "Încarcã modul"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Care driver trebuie încercat?"
 
 #~ msgid "Probe"
 #~ msgstr "Detecþie"
@@ -1857,9 +2327,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "configuraþia hardware a acestui sistem. Dacã doriþi, citeva valori comune "
 #~ "pentru acei parametri vor fi încercate. Acest proces poate bloca "
 #~ "calculatorul, ºi nu poate cauza pierderi de date."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Alte Opþiuni:"
 
 #~ msgid "Module options:"
 #~ msgstr "Opþiuni pentru Modul:"
@@ -1917,27 +2384,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Force supplemental disk"
 
-#~ msgid "Installation Method"
-#~ msgstr "Metodã de Instalare"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Urmatoarele informaþii sînt necesare:\n"
-#~ "    o numele sau adresa de IP a serverului NFS\n"
-#~ "    o directorul de pe serverul de NFS conþinînd\n"
-#~ "      pachetele Red Hat Linux pentru acest sistem"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Numele serverului NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Directorul Red Hat:"
-
 #~ msgid "Note"
 #~ msgstr "Notã"
 
@@ -1958,15 +2404,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "comanda nfs incompletã"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Nu s-a putut citi directorul specificat de pe server"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Directorul specificat nu conþine distribuþia Red Hat Linux"
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Încãrcare ramdisk pentru etapa a doua..."
 
 #~ msgid "PCMCIA Disk"
 #~ msgstr "PCMCIA Disk"
@@ -2014,9 +2451,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Modules Disk, "
 #~ "sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Încãrcare Driver Disk..."
-
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2038,27 +2472,8 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "HD device %s not found"
 #~ msgstr "Hard drive %s inexistent"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
-#~ "ºi RedHat/base?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Directorul conþinînd Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Selectaþi o Partitie"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Eroare la crearea symlink /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Eroare la citirea ramdisk pentru etapa a doua..."
 
 #~ msgid "url command"
 #~ msgstr "comanda url"
@@ -2068,9 +2483,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "url command incomplete"
 #~ msgstr "comandã url incompletã"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Nu s-a putut receptiona ramdiskul pentru stagiul doi: %s"
 
 #~ msgid "Mount points must begin with a leading /."
 #~ msgstr "Directorul de montare trebuie sã înceapã cu /."
@@ -2248,9 +2660,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Win95 FAT32"
 #~ msgstr "Win95 FAT32"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Hard Discuri"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Inspectare hard discuri..."
 
@@ -2336,9 +2745,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "\n"
 #~ "Folosiþi comanda <exit> pentru a vã întoarce în programul de instalare.\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Eroare KickStart"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Nu s-a detectat nici un server pentru configurarea kickstart."
 
@@ -2347,9 +2753,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Nu s-a putut citi discheta de boot."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Eroare la deschiderea fiºierelor pentru copierea kickstart: %s\n"
@@ -2522,15 +2925,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Se copie imaginea kernel de pe dischetã..."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Eroare la deschiderea fiºierului kickstart %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Eroare la citirea conþinutului fiºierului kickstart %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Eroare la linia %d a fiºierului kickstart %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Comanda %s la linia %d în fiºierul kickstart %s este invalidã."
 
@@ -2540,9 +2934,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Failed to write ks post script: %s"
 #~ msgstr ""
 #~ "Eroare la scrierea fiºierului de comenzi pentru post-instalarea kickstart: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Limbã program instalare"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Eroare la crearea symlink pentru sursa de pachete."
@@ -2584,13 +2975,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgstr "Memoria swap nu este definita"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Spaþiu pentru memoria swap nu este definit. Doriþi sã continuaþi sau sã "
-#~ "reparþitionaþi discul?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2609,9 +2993,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Linie invalidã în /mnt/etc/fstab -- abandon"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Determinare host name ºi domeniu..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Detecþie Ethernet"
 
@@ -2622,17 +3003,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ "Detecþia Ethernet nu a identificat un adaptor de reþea în acest calculator. "
 #~ "Apãsaþi <Enter> pentru a configurare manualã."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Introduceþi configuraþia IP oentru acest calculator. Fiecare valoare trebuie "
-#~ "introdusã ca o adresã de IP în notaþie decimalã cu punct (de exemplu, "
-#~ "1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Configurare TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Adresã IP staticã"
 
@@ -2642,20 +3012,11 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "adresã de ip incorecta în comanda: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "argument eronat pentru comanda network în kickstart %s: %s "
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "comenzii network în kickstart îi lipseºte adresa de ip"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Prococol Boot"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2663,9 +3024,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgstr ""
 #~ "Cum trebuie setatã adresa de IP? Dacã administratorul de reþea v-a furnizat "
 #~ "o adresã de IP, selectaþi IP static."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Trimitere cerere DHCP..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Trimitere cerere BOOTP..."
@@ -2715,9 +3073,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Reconfigureazã reþeaua LAN"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Fãrã setare de reþea LAN"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Reþeaua LAN a fost deja configuratã. Cum doriþi sã continuaþi?"
@@ -2803,9 +3158,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Actualizare Pachete"
-
-#~ msgid "Printer Information"
-#~ msgstr "Setare imprimantã"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr ""
@@ -3019,13 +3371,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgstr "Verificare configurare imprimantã"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Am gãsit urmãtoarele tipuri de adaptoare SCSI în acest calculator:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3046,9 +3391,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 
 #~ msgid "Password         :"
 #~ msgstr "Parola de access      :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "Setare SMB"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3081,9 +3423,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgid "failed to create %s\n"
 #~ msgstr "Nu se poate crea %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Transfer"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "eroare la deschiderea %s: %s\n"
 
@@ -3093,83 +3432,6 @@ msgstr "Puteþi ºterge numai NFS mounts."
 #~ msgstr ""
 #~ "Eroare la transferul fiºierului %s:\n"
 #~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Introduceþi urmãtoarele informaþii:\n"
-#~ "\n"
-#~ "    o numele sau adresa de IP a serverului de FTP\n"
-#~ "    o directorul de pe acel server conþinînd\n"
-#~ "      distribuþia Red Hat Linux pentru sistemul\n"
-#~ "      dumneavoastrã\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Introduceþi urmãtoarele informaþii:\n"
-#~ "\n"
-#~ "    o numele sau adresa de IP a serverului WWW\n"
-#~ "    o directorul de pe acel server conþinînd\n"
-#~ "      distribuþia Red Hat Linux pentru sistemul\n"
-#~ "      dumneavoastrã\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Numele serverului FTP:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Numele serverului WWW:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Utilizaþi non-anonymous ftp sau un proxy server"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Setare FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Setare HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Trebuie introdus un nume server."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Trebuie introdus un director."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Dacã folosiþi non-anonymous ftp, introduceþi mai jos contul si parola pe "
-#~ "care doriþi sã le folosiþi. Dacã folosiþi un proxy server pentru FTP "
-#~ "introduceþi numele sau adresa de IP a serverului proxy pe care doriþi sã-l "
-#~ "folosiþi."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Daca folositi un proxy server pentru HTTP introduceti numele serverului."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP Proxy:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP Proxy:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP Proxy Port:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP Proxy Port:"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

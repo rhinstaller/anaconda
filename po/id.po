@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 1998-09-12 09:57+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -71,17 +71,29 @@ msgstr "Perangkat apa yang disambung ke mouse? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Ok"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Kembali"
 
@@ -133,7 +145,10 @@ msgstr "Tipe Instalasi"
 msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Error"
 
@@ -167,7 +182,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "YA"
 
@@ -176,8 +192,8 @@ msgstr "YA"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Tidak"
 
@@ -210,19 +226,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr "Gunakan bootp/dhcp"
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "Alamat IP:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Netmask:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Gateway default (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Nameserver Utama:"
 
@@ -250,7 +266,7 @@ msgstr ""
 "Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
 "jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Hostname"
 
@@ -724,7 +740,7 @@ msgstr "Layout"
 msgid "Variant"
 msgstr "Varian"
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -788,11 +804,11 @@ msgstr "Aktifkan saat boot"
 msgid "IP Address"
 msgstr "Alamat IP"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr "Network"
 
@@ -896,7 +912,7 @@ msgstr "Pilih Partisi root"
 msgid "Automatic Partitioning"
 msgstr "Partisi otomatis"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -910,11 +926,11 @@ msgstr ""
 "Bila Anda tidak ingin melakukan ini, Anda bisa lanjutkan dgn instalasi "
 "partisi manual, atau bisa kembali ke awal dan lakukan instalasi custom."
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 msgid "Remove data"
 msgstr "Hapus data"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 msgid "Manually partition"
 msgstr "Partisi manual"
 
@@ -1138,7 +1154,7 @@ msgstr "Tabel Partisi Rusak"
 msgid "Initialize"
 msgstr "Inisialisasi"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Ulangi lagi"
 
@@ -1596,6 +1612,476 @@ msgstr "Simpan tabel partisi?"
 msgid "You may only delete NFS mounts."
 msgstr "Anda hanya boleh menghapus mount NFS"
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "CDROM lain"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "tipe CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "CDROM jenis apa yang Anda punya?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Inisialisasi CDROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Pilihan Lain-lain:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Parameter Kernel"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Driver mana yang ingin dipakai ?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Parameter Kernel"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Perangkat"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Errok Kickstart"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Error membuka file kickstart %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Error saat membaca isi file kickstart %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Error pada baris %d di file kickstart %s."
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr "Pilih bahasanya:"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Hard Disk"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Selamat Datang di Linux Red Hat!"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Sistem macam mana yang hendak diinstal ?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"Saya menemukan adapter SCSI berikut ini:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Selesai"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Perangkat"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Lokasi"
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr "Sedang mengambil ramdisk tahap kedua..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Error saat membaca ramdisk tahap kedua"
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Hard Disk"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Anda belum memberitahu saya area swapnya. Lanjutkan saja atau partisi ulang "
+"disk Anda ?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Partisi mana dan di direktori mana yang berisi file-file instalasi "
+"RedHat/RPMS dan direktori RedHat/base ?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Direktori yang berisi Red Hat:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Pilih Partisinya"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Direktori ini tidak memiliki tree Red Hat"
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Saya tak dapat memount direktori tersebut dari server"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Metode Instalasi"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Sistem macam mana yang hendak diinstal ?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Saya tak dapat menemukan ks.cfg di floppy."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Inisialisasi CDROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "Nama server NFS:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Direktori Red Hat:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "Setup SMB"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Silahkan memasukan informasi berikut:\n"
+"\n"
+"  - Nama atau alamat IP NFS Server\n"
+"  - direktori pada server tersebut yang berisi\n"
+"    Red Hat Linux"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Sekarang masukkan alamat IP untuk mesin ini. Tiap IP harus dituliskandalam "
+"bentuk notasi desimal bertitik (misalnya, 202.159.123.25)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Konfigurasi TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Informasi Printer"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Anda harus memberikan alamat IP yang valid"
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Mengirimkan permintaan DHCP..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Sedang mencari tahu nama host dan domain..."
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Protokol Boot"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "Setup Network"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "Alamat IP:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Server"
+
+#: ../loader/net.c:620
+#, fuzzy
+msgid "Domain name"
+msgstr "Domain NIS:"
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "Setup Network"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+"  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
+
+#: ../loader/net.c:696
+#, fuzzy, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Konfigurasi Jaringan"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Jangan mensetup jaringan"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Mengambil file"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Sekarang masukkan informasi berikut:\n"
+"\n"
+" - nama atau alamat IP FTP server \n"
+" - direktori di server tersebut yang berisi\n"
+"   master instalasi Red Hat Linux\n"
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Sekarang masukkan informasi berikut:\n"
+"\n"
+" - nama atau alamat IP web server \n"
+" - direktori di server tersebut yang berisi\n"
+"   master instalasi Red Hat Linux\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "Nama FTP site:"
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr "Nama web site:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Gunakan non-anonim ftp atau proxy server"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Pilih server"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "Setup FTP"
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr "Setup HTTP"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr "Masukkan nama servernya."
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr "Masukkan nama direktorinya."
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Bila Anda menggunakan ftp non-anonim, segera masukkan nama login dan "
+"passwordnya. Bila Anda menggunakan proxy FTP, maka tuliskan nama serverproxy "
+"FTPnya."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Bila Anda menggunakan proxy HTTP, maka tuliskan nama server proxy HTTPnya."
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Nama Account"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Password:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "Proxy FTP:"
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr "Proxy HTTP:"
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr "Port Proxy FTP:"
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr "Port Proxy HTTP:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Meload Disket Driver..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1604,9 +2090,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "Buatlah password root. Anda harus menuliskannya dua kali agar Anda ingat dan "
 #~ "tidak salah ketik. Ingatlah selalu bahwa password root ini sangat penting "
 #~ "dalam keamanan sistem!"
-
-#~ msgid "Password:"
-#~ msgstr "Password:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Password (lagi):"
@@ -1720,9 +2203,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
 #~ "agar Anda dapat langsung memboot ke Linux dengan LILO."
 
-#~ msgid "Done"
-#~ msgstr "Selesai"
-
 #~ msgid "Continue"
 #~ msgstr "Lanjutkan"
 
@@ -1803,18 +2283,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "No DHCP reply received"
 #~ msgstr "Tidak ada balasan DHCP"
 
-#~ msgid "Other CDROM"
-#~ msgstr "CDROM lain"
-
-#~ msgid "CDROM type"
-#~ msgstr "tipe CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "CDROM jenis apa yang Anda punya?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inisialisasi CDROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Basis IO port:"
 
@@ -1841,9 +2309,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "Load module"
 #~ msgstr "Load modul"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Driver mana yang ingin dipakai ?"
 
 #~ msgid "Probe"
 #~ msgstr "Deteksi"
@@ -1887,9 +2352,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "Sering kali, driver %s membutuhkan argumen tambahan agar bisa dikenali. Anda "
 #~ "bisa menuliskan argumen tersebut. Proses ini bisa menyebabkan sistem menjadi "
 #~ "hang, namun seharusnya tidak merusak hardwarenya."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Pilihan Lain-lain:"
 
 #~ msgid "Module options:"
 #~ msgstr "Pilihan Modul:"
@@ -1945,28 +2407,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "Force supplemental disk"
 #~ msgstr "Ganti ke disk supplemental"
 
-#~ msgid "Installation Method"
-#~ msgstr "Metode Instalasi"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Silahkan memasukan informasi berikut:\n"
-#~ "\n"
-#~ "  - Nama atau alamat IP NFS Server\n"
-#~ "  - direktori pada server tersebut yang berisi\n"
-#~ "    Red Hat Linux"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Nama server NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Direktori Red Hat:"
-
 #~ msgid "Note"
 #~ msgstr "Catatan"
 
@@ -1987,15 +2427,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "Perintah nfs tak lengkap"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Saya tak dapat memount direktori tersebut dari server"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Direktori ini tidak memiliki tree Red Hat"
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Sedang mengambil ramdisk tahap kedua..."
 
 #~ msgid "PCMCIA Disk"
 #~ msgstr "Disk PCMCIA"
@@ -2040,9 +2471,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "Saya gagal saat memount disketnya. Tolong masukkan saja disket Module Red "
 #~ "Hat,atau tekan Batal untuk memilih proses instalasi yang lain."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Meload Disket Driver..."
-
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2063,27 +2491,8 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "HD device %s not found"
 #~ msgstr "Device HD %s tidak ketemu"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Partisi mana dan di direktori mana yang berisi file-file instalasi "
-#~ "RedHat/RPMS dan direktori RedHat/base ?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Direktori yang berisi Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Pilih Partisinya"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Saya gagal saat membuat symlink /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Error saat membaca ramdisk tahap kedua"
 
 #~ msgid "url command"
 #~ msgstr "perintah url"
@@ -2093,9 +2502,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "url command incomplete"
 #~ msgstr "perintah url tak lengkap"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
 
 #~ msgid "Mount points must begin with a leading /."
 #~ msgstr "Lokasi mount harus dimulai dengan /."
@@ -2248,9 +2654,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "Win95 FAT32"
 #~ msgstr "Win95 FAT32"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Hard Disk"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Mencari hard disk..."
 
@@ -2335,9 +2738,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "Ketik <exit> untuk kembali ke program instalasi.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Errok Kickstart"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Saya tidak dapat menemukan file kickstart di server."
 
@@ -2346,9 +2746,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Saya gagal memount boot floopy."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Gagal membuka file untuk menyalin kickstart: %s\n"
@@ -2519,15 +2916,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Menyalin kernel dari disket..."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Error membuka file kickstart %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Error saat membaca isi file kickstart %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Error pada baris %d di file kickstart %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Perintah tak dikenal %s pada baris %d di file kickstart %s."
 
@@ -2536,9 +2924,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "Failed to write ks post script: %s"
 #~ msgstr "Gagal menuliskan post script ks: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Pilih bahasanya:"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Gagal membuat symlink untuk source package."
@@ -2580,13 +2965,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgstr "Tidak ada area swap"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Anda belum memberitahu saya area swapnya. Lanjutkan saja atau partisi ulang "
-#~ "disk Anda ?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2605,9 +2983,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Ada kesalahan di /mnt/etc/fstab -- batal"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Sedang mencari tahu nama host dan domain..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Pencarian Ethernet"
 
@@ -2618,16 +2993,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ "Saya tidak menemukan satu ethernet card pun di sistem Anda. Silahkantekan "
 #~ "<ENTER> untuk mengkonfigurasi secara manual."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Sekarang masukkan alamat IP untuk mesin ini. Tiap IP harus dituliskandalam "
-#~ "bentuk notasi desimal bertitik (misalnya, 202.159.123.25)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Konfigurasi TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Alamat IP statis"
 
@@ -2637,20 +3002,11 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "alamat IP di perintah %s salah"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "perintah kickstart membutuhkan alamat IP"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Protokol Boot"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2658,9 +3014,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgstr ""
 #~ "Bagaimana cara IP Anda diset ? Bila system administrator Andamemberikan "
 #~ "alamat IP tertentu, maka pilihlah IP statis."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Mengirimkan permintaan DHCP..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Mengirimkan permintaan BOOTP..."
@@ -2709,9 +3062,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Konfigurasikan jaringan sekarang"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Jangan mensetup jaringan"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Jaringan LAN telah dikonfigurasi. Apakah Anda ingin:"
@@ -2798,9 +3148,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Upgrade Paket"
-
-#~ msgid "Printer Information"
-#~ msgstr "Informasi Printer"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "Tekan <F1> untuk melihat informasi printer ini"
@@ -3002,13 +3349,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgstr "Periksa Konfigurasi Printer"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Saya menemukan adapter SCSI berikut ini:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3029,9 +3369,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 
 #~ msgid "Password         :"
 #~ msgstr "Password         :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "Setup SMB"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3064,9 +3401,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgid "failed to create %s\n"
 #~ msgstr "saya gagal membuat %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Mengambil file"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "saya gagal membuka %s: %s\n"
 
@@ -3076,80 +3410,6 @@ msgstr "Anda hanya boleh menghapus mount NFS"
 #~ msgstr ""
 #~ "Terjadi kesalahan saat mentransfer file %s:\n"
 #~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Sekarang masukkan informasi berikut:\n"
-#~ "\n"
-#~ " - nama atau alamat IP FTP server \n"
-#~ " - direktori di server tersebut yang berisi\n"
-#~ "   master instalasi Red Hat Linux\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Sekarang masukkan informasi berikut:\n"
-#~ "\n"
-#~ " - nama atau alamat IP web server \n"
-#~ " - direktori di server tersebut yang berisi\n"
-#~ "   master instalasi Red Hat Linux\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Nama FTP site:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Nama web site:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Gunakan non-anonim ftp atau proxy server"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Setup FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Setup HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Masukkan nama servernya."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Masukkan nama direktorinya."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Bila Anda menggunakan ftp non-anonim, segera masukkan nama login dan "
-#~ "passwordnya. Bila Anda menggunakan proxy FTP, maka tuliskan nama serverproxy "
-#~ "FTPnya."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Bila Anda menggunakan proxy HTTP, maka tuliskan nama server proxy HTTPnya."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Proxy FTP:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Proxy HTTP:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Port Proxy FTP:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Port Proxy HTTP:"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

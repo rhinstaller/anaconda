@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Arnaldo Carvalho de Melo <acme@conectiva.com.br>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,17 +71,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr ""
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Anterior"
 
@@ -141,7 +153,10 @@ msgstr "Passos da Instalação"
 msgid "What type of system would you like to install?"
 msgstr "Que tipo de mídia contém os pacotes a serem instalados?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Erro"
 
@@ -179,7 +194,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Sim"
 
@@ -188,8 +204,8 @@ msgstr "Sim"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Não"
 
@@ -223,19 +239,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "Endereço IP:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Máscara:"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Roteador Default (IP):"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Servidor DNS Primário:"
 
@@ -264,7 +280,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Máquina"
 
@@ -784,7 +800,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 #, fuzzy
 msgid "What language should be used during the installation process?"
 msgstr "Que pacotes devem ser instalados?"
@@ -856,12 +872,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "Endereço IP:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Máscara:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -977,7 +993,7 @@ msgstr "Partição Root"
 msgid "Automatic Partitioning"
 msgstr "Editar Partição"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -987,12 +1003,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "lpd Remota"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Reparticionar"
@@ -1222,7 +1238,7 @@ msgstr "Tabela de Partições Inválida"
 msgid "Initialize"
 msgstr "Inicialize"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Insistir"
 
@@ -1708,6 +1724,476 @@ msgstr "As alterações devem ser salvas na(s) tabela(s) de partições?"
 msgid "You may only delete NFS mounts."
 msgstr "Você somente pode deletar pontos de montagem NFS."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "Outro CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "Tipo de CDROM"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Que tipo de CDROM você tem?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "Inicializando CDROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Opções Extras:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Parâmetros do Módulo"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Que driver devo tentar?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Parâmetros do Módulo"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Dispositivo"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Erro no Kickstart"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Erro na abertura: arquivo kickstart %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Erro durante leitura do conteudo do arquivo kickstart %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Erro na linha %d do arquivo kickstart: %s."
+
+#: ../loader/lang.c:232
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Escolha um grupo para examinar:"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Discos Rígidos"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Bem-vindo ao Red Hat Linux"
+
+#: ../loader/loader.c:124
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Que tipo de mídia contém os pacotes a serem instalados?"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr "O dispositivo não foi encontrado em seu sistema!"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Pronto"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Dispositivo"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+msgid "Loading"
+msgstr ""
+
+#: ../loader/loader.c:447
+#, fuzzy
+msgid "Loading second stage ramdisk..."
+msgstr "Criando ramdisk inicial..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Criando ramdisk inicial..."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Discos Rígidos"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Você não tem nenhum swap definido. Deseja continuar ou reparticionar seu "
+"disco?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr ""
+"Que partição e diretório nesta partição contém os diretórios RedHat/RPMS e "
+"RedHat/base?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Diretório contendo Red Hat:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Selecione Partição"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "O dispositivo %s não parece conter uma árvore de instalação Red Hat."
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Este diretório não parece conter uma árvore de instalação Red Hat."
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "Não foi possível montar este diretório do servidor"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Criando ramdisk inicial..."
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Método de Instalação"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Que tipo de mídia contém os pacotes a serem instalados?"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "O ks.cfg não foi encontrado no disquete de boot."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "Inicializando CDROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "Nome servidor NFS:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Diretório Red Hat:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "Configuração SMB"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Por favor informe as seguintes informações:\n"
+"\n"
+"    o Nome ou IP de seu servidor NFS\n"
+"    o Diretório no servidor contendo o Red Hat\n"
+"      Linux para sua arquitetura de hardware"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Por favor digite a configuração IP para esta máquina. Cada ítem deverá ser "
+"digitado como um endereço IP em notação decimal com pontos (por exemplo: "
+"1.2.3.4)."
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Configuração TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "Informações da Impressora"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Você deve informar endereço IP e máscara validos."
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Enviando requisição DHCP..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Determinando nome da máquina e do domínio..."
+
+#: ../loader/net.c:559
+#, fuzzy
+msgid "kickstart"
+msgstr "Erro no Kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argumento inválido para o comando de rede kickstart %s: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Protocolo de Inicialização"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "Configuração NFS"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "Endereço IP:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Servidor:"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "Configuração NFS"
+
+#: ../loader/net.c:695
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Configuração da Rede"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Não configurar a rede"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Buscando"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Por favor digite as seguintes informações:\n"
+"\n"
+"    o Nome ou IP de seu servidor FTP\n"
+"    o Diretório no servidor contendo o\n"
+"      Red Hat Linux para sua arquitetura de hardware\n"
+
+#: ../loader/urls.c:138
+#, fuzzy
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Por favor digite as seguintes informações:\n"
+"\n"
+"    o Nome ou IP de seu servidor FTP\n"
+"    o Diretório no servidor contendo o\n"
+"      Red Hat Linux para sua arquitetura de hardware\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "Nome servidor FTP:"
+
+#: ../loader/urls.c:157
+#, fuzzy
+msgid "Web site name:"
+msgstr "Nome servidor FTP:"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Use ftp não-anônimo ou servidor proxy"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Escolha um grupo para examinar:"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "Configuração FTP"
+
+#: ../loader/urls.c:192
+#, fuzzy
+msgid "HTTP Setup"
+msgstr "Configuração FTP"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr ""
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr ""
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Se você está usando ftp não-anônimo, digite a conta e senha que você deseja "
+"usar. Se você está usando um proxy FTP digite o nome do proxy FTP a ser "
+"usado."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "Usuário:"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Senha:"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "Proxy FTP:"
+
+#: ../loader/urls.c:304
+#, fuzzy
+msgid "HTTP Proxy:"
+msgstr "Proxy FTP:"
+
+#: ../loader/urls.c:308
+#, fuzzy
+msgid "FTP Proxy Port:"
+msgstr "Proxy FTP:"
+
+#: ../loader/urls.c:309
+#, fuzzy
+msgid "HTTP Proxy Port:"
+msgstr "Proxy FTP:"
+
+#: ../loader/windows.c:46
+msgid "Loading SCSI driver"
+msgstr ""
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1716,9 +2202,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "Escolha uma senha para o root. Você deverá digitá-la duas vezes para "
 #~ "garantir que você não errou na digitação. Lembre-se que a senha do root é "
 #~ "uma parte crítica da segurança de seu sistema!"
-
-#~ msgid "Password:"
-#~ msgstr "Senha:"
 
 #~ msgid "Password (again):"
 #~ msgstr "Senha (de novo) :"
@@ -1804,9 +2287,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "dedicada ao Linux. Sugerimos colocar esta partição em um dos dois primeiros "
 #~ "discos rígidos em seu sistema para que o lilo possa ser usado."
 
-#~ msgid "Done"
-#~ msgstr "Pronto"
-
 #~ msgid "Continue"
 #~ msgstr "Continuar"
 
@@ -1886,18 +2366,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "No DHCP reply received"
 #~ msgstr "Não foi recebida nenhuma resposta DHCP"
 
-#~ msgid "Other CDROM"
-#~ msgstr "Outro CDROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "Tipo de CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Que tipo de CDROM você tem?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inicializando CDROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Porta Base E/S:"
 
@@ -1925,9 +2393,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Load module"
 #~ msgstr "Carregar Módulo"
 
-#~ msgid "Which driver should I try?"
-#~ msgstr "Que driver devo tentar?"
-
 #~ msgid "Probe"
 #~ msgstr "Detectar"
 
@@ -1945,9 +2410,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #~ msgid "No module exists for %s"
 #~ msgstr "Não existe módulo para %s"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "O dispositivo não foi encontrado em seu sistema!"
 
 #~ msgid ""
 #~ "In some cases, the %s driver needs to have extra information to work "
@@ -1972,9 +2434,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "máquinar. Se preferir, alguns valores comuns para estes parâmetros serão "
 #~ "tentados. Este processo poderá travar sua máquina, mas isto não deverá "
 #~ "causar nenhum dano."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Opções Extras:"
 
 #~ msgid "Module options:"
 #~ msgstr "Opções do módulo:"
@@ -2017,28 +2476,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Disco Suplementar"
 
-#~ msgid "Installation Method"
-#~ msgstr "Método de Instalação"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Por favor informe as seguintes informações:\n"
-#~ "\n"
-#~ "    o Nome ou IP de seu servidor NFS\n"
-#~ "    o Diretório no servidor contendo o Red Hat\n"
-#~ "      Linux para sua arquitetura de hardware"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Nome servidor NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Diretório Red Hat:"
-
 #~ msgid "Note"
 #~ msgstr "Nota"
 
@@ -2059,16 +2496,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "comando nfs incompleto"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Não foi possível montar este diretório do servidor"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Este diretório não parece conter uma árvore de instalação Red Hat."
-
-#, fuzzy
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Criando ramdisk inicial..."
 
 #, fuzzy
 #~ msgid ""
@@ -2139,29 +2566,8 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "hd command incomplete"
 #~ msgstr "comando nfs incompleto"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Que partição e diretório nesta partição contém os diretórios RedHat/RPMS e "
-#~ "RedHat/base?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Diretório contendo Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Selecione Partição"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Falha na criação do link simbólico /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr ""
-#~ "O dispositivo %s não parece conter uma árvore de instalação Red Hat."
-
-#, fuzzy
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Criando ramdisk inicial..."
 
 #, fuzzy
 #~ msgid "url command"
@@ -2308,9 +2714,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Linux native"
 #~ msgstr "Nativa Linux"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Discos Rígidos"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Procurando discos rígidos..."
 
@@ -2380,9 +2783,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "Digite <exit> para retornar ao programa de instalação.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Erro no Kickstart"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Servidor de arquivos de configuração kickstart não encontrado."
 
@@ -2391,9 +2791,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Não foi possível montar o disquete de boot."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "O ks.cfg não foi encontrado no disquete de boot."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Erro na abertura de arquivos para cópia kickstart: %s\n"
@@ -2541,15 +2938,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Erro durante cópia do arquivo kickstart a partir do disquete."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Erro na abertura: arquivo kickstart %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Erro durante leitura do conteudo do arquivo kickstart %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Erro na linha %d do arquivo kickstart: %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Comando %s desconhecido na linha %d do arquivo kickstart %s."
 
@@ -2587,13 +2975,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgstr "Nenhum Swap"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Você não tem nenhum swap definido. Deseja continuar ou reparticionar seu "
-#~ "disco?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2612,9 +2993,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Linha incorreta em /mnt/etc/fstab -- abortando"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Determinando nome da máquina e do domínio..."
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Detecção Ethernet"
 
@@ -2625,31 +3003,14 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "A detecção Ethernet não encontrou uma placa em seu sistema. Pressione "
 #~ "<Enter> para configurar manualmente."
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Por favor digite a configuração IP para esta máquina. Cada ítem deverá ser "
-#~ "digitado como um endereço IP em notação decimal com pontos (por exemplo: "
-#~ "1.2.3.4)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Configuração TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Endereço IP Estático"
 
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "número ip inválido no comando de rede: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "argumento inválido para o comando de rede kickstart %s: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "falta o endereço ip para o comando de rede kickstart"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Protocolo de Inicialização"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2657,9 +3018,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgstr ""
 #~ "Como deve ser obtida a configuração IP? Se o administrador de seu sistema "
 #~ "lhe forneceu um endereço IP escolha IP Estático."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Enviando requisição DHCP..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Enviando requisição BOOTP..."
@@ -2709,9 +3067,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Reconfigurar a rede"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Não configurar a rede"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "A configuração da rede local já foi feita: Deseja:"
@@ -2784,9 +3139,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Atualizar Pacotes"
-
-#~ msgid "Printer Information"
-#~ msgstr "Informações da Impressora"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> mostrará informações sobre um tipo particular de impressora"
@@ -3015,9 +3367,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "Password         :"
 #~ msgstr "Senha            :"
 
-#~ msgid "SMB Setup"
-#~ msgstr "Configuração SMB"
-
 #~ msgid ""
 #~ "Please enter the following information:\n"
 #~ "\n"
@@ -3038,9 +3387,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ msgid "failed to create %s\n"
 #~ msgstr "Não foi possível criar %s: %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Buscando"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "abertura de %s falhou: %s\n"
 
@@ -3049,74 +3395,6 @@ msgstr "Você somente pode deletar pontos de montagem NFS."
 #~ "Error transferring file %s:\n"
 #~ "%s"
 #~ msgstr "Erro na abertura: arquivo kickstart %s: %s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Por favor digite as seguintes informações:\n"
-#~ "\n"
-#~ "    o Nome ou IP de seu servidor FTP\n"
-#~ "    o Diretório no servidor contendo o\n"
-#~ "      Red Hat Linux para sua arquitetura de hardware\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Por favor digite as seguintes informações:\n"
-#~ "\n"
-#~ "    o Nome ou IP de seu servidor FTP\n"
-#~ "    o Diretório no servidor contendo o\n"
-#~ "      Red Hat Linux para sua arquitetura de hardware\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Nome servidor FTP:"
-
-#, fuzzy
-#~ msgid "Web site name:"
-#~ msgstr "Nome servidor FTP:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Use ftp não-anônimo ou servidor proxy"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Configuração FTP"
-
-#, fuzzy
-#~ msgid "HTTP Setup"
-#~ msgstr "Configuração FTP"
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Se você está usando ftp não-anônimo, digite a conta e senha que você deseja "
-#~ "usar. Se você está usando um proxy FTP digite o nome do proxy FTP a ser "
-#~ "usado."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Proxy FTP:"
-
-#, fuzzy
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Proxy FTP:"
-
-#, fuzzy
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Proxy FTP:"
-
-#, fuzzy
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Proxy FTP:"
 
 #~ msgid ""
 #~ "An error occurred reading the partition table for the block device %s.  The "

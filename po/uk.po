@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"POT-Creation-Date: 1999-09-12 13:09-0400\n"
 "PO-Revision-Date: 1999-04-09 12:20+0300\n"
 "Last-Translator: Antonchuk Serg <anchuk@comizdat.com>\n"
 "Language-Team: Comizdat <anchuk@comizdat.com>\n"
@@ -71,17 +71,29 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
+#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
+#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr "Ok"
 
 #: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
-#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
-#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
-#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
-#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
-#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
+#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
+#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
+#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
+#: ../text.py:744 ../text.py:766
 msgid "Back"
 msgstr "Назад"
 
@@ -142,7 +154,10 @@ msgstr "Етапи встановлення"
 msgid "What type of system would you like to install?"
 msgstr "Обер╕ть тип нос╕я, що м╕стить пакети для встановлення:"
 
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr "Помилка"
 
@@ -178,7 +193,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
+#: ../text.py:229 ../text.py:415 ../text.py:418
 msgid "Yes"
 msgstr "Так"
 
@@ -187,8 +203,8 @@ msgstr "Так"
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
-#: ../text.py:421
+#: ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
+#: ../text.py:234 ../text.py:415 ../text.py:421
 msgid "No"
 msgstr "Н╕"
 
@@ -222,19 +238,19 @@ msgstr ""
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:320
+#: ../loader/net.c:234 ../text.py:320
 msgid "IP address:"
 msgstr "IP-адреса:"
 
-#: ../text.py:321
+#: ../loader/net.c:237 ../text.py:321
 msgid "Netmask:"
 msgstr "Маска п╕дмереж╕"
 
-#: ../text.py:322
+#: ../loader/net.c:240 ../text.py:322
 msgid "Default gateway (IP):"
 msgstr "Шлюз за замовчуванням"
 
-#: ../text.py:323
+#: ../loader/net.c:243 ../text.py:323
 msgid "Primary nameserver:"
 msgstr "Первинний сервер назв (DNS):"
 
@@ -263,7 +279,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../text.py:394
+#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr "Назва хосту"
 
@@ -783,7 +799,7 @@ msgstr ""
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14
+#: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
 msgstr "Яка мова повинна використовуватись п╕д час процесу инстяляц╕╖?"
 
@@ -854,12 +870,12 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP-адреса:"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/net.c:615
 #, fuzzy
 msgid "Netmask"
 msgstr "Маска п╕дмереж╕"
 
-#: ../iw/network.py:142
+#: ../iw/network.py:142 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
@@ -976,7 +992,7 @@ msgstr "Кореневий розд╕л"
 msgid "Automatic Partitioning"
 msgstr "Редагувати розд╕л"
 
-#: ../iw/rootpartition.py:124
+#: ../iw/rootpartition.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -986,12 +1002,12 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:136
+#: ../iw/rootpartition.py:137
 #, fuzzy
 msgid "Remove data"
 msgstr "В╕ддалений lpd"
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 #, fuzzy
 msgid "Manually partition"
 msgstr "Перед╕л"
@@ -1221,7 +1237,7 @@ msgstr "Помилкова таблиця розд╕л╕в"
 msgid "Initialize"
 msgstr "╤н╕цювання"
 
-#: ../libfdisk/fsedit.c:1036
+#: ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 msgid "Retry"
 msgstr "Повторити"
 
@@ -1708,6 +1724,473 @@ msgstr "Зберегти зм╕ни таблиць разд╕л╕в?"
 msgid "You may only delete NFS mounts."
 msgstr "Прибрати можна лише NFS mounts."
 
+#: ../loader/cdrom.c:26
+msgid "Other CDROM"
+msgstr "╤нший CD-ROM"
+
+#: ../loader/cdrom.c:32
+msgid "CDROM type"
+msgstr "Тип CD-ROM"
+
+#: ../loader/cdrom.c:32
+msgid "What type of CDROM do you have?"
+msgstr "Який у вас тип CDROM?"
+
+#: ../loader/cdrom.c:88
+msgid "Initializing CDROM..."
+msgstr "╤н╕ц╕ювання CD-ROM..."
+
+#: ../loader/devices.c:45
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "╤нш╕ параметри:"
+
+#: ../loader/devices.c:54
+#, fuzzy
+msgid "Module Parameters"
+msgstr "Параметри модуля"
+
+#: ../loader/devices.c:54
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"button now."
+msgstr ""
+
+#: ../loader/devices.c:120
+msgid "Which driver should I try?"
+msgstr "Який драйвер випробувати?"
+
+#: ../loader/devices.c:135
+#, fuzzy
+msgid "Specify module parameters"
+msgstr "Параметри модуля"
+
+#: ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
+#: ../loader/loader.c:311
+#, fuzzy
+msgid "Devices"
+msgstr "Пристр╕й"
+
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+msgid "Kickstart Error"
+msgstr "Помилка kickstart"
+
+#: ../loader/kickstart.c:57
+#, c-format
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Помилка в╕дкриття файлу: файл kickstart %s: %s"
+
+#: ../loader/kickstart.c:67
+#, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Помилка читання вм╕сту файлу kickstart %s: %s"
+
+#: ../loader/kickstart.c:106
+#, c-format
+msgid "Error on line %d of kickstart file %s."
+msgstr "Помилка в рядку  %d файлу kickstart %s."
+
+#: ../loader/lang.c:232
+msgid "Choose a Language"
+msgstr "Обер╕ть групу щоб перев╕рити"
+
+#: ../loader/loader.c:98
+msgid "Local CDROM"
+msgstr ""
+
+#: ../loader/loader.c:101
+msgid "NFS image"
+msgstr ""
+
+#: ../loader/loader.c:106
+#, fuzzy
+msgid "Hard drive"
+msgstr "Жорстк╕ диски"
+
+#: ../loader/loader.c:122
+#, fuzzy
+msgid "Welcome to Red Hat Linux"
+msgstr "Ласкаво просимо до Red Hat Linux"
+
+#: ../loader/loader.c:124
+#, fuzzy
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+" <Tab>/<Alt-Tab> м╕ж елементами | <Space> виб╕р | <F12> наступний екран "
+
+#: ../loader/loader.c:226
+msgid "SCSI"
+msgstr ""
+
+#: ../loader/loader.c:238
+#, fuzzy
+msgid "What kind of device would you like to add"
+msgstr "Обер╕ть тип нос╕я, що м╕стить пакети для встановлення:"
+
+#: ../loader/loader.c:285
+#, fuzzy
+msgid "I have found the following devices in your system:"
+msgstr ""
+"У ваш╕й систем╕ виявлено так╕ типи SCSI-адаптер╕в:\n"
+"\n"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+msgid "Done"
+msgstr "Готово"
+
+#: ../loader/loader.c:287 ../loader/loader.c:311
+#, fuzzy
+msgid "Add Device"
+msgstr "Пристр╕й"
+
+#: ../loader/loader.c:312
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+
+#: ../loader/loader.c:393 ../loader/loader.c:395
+#, fuzzy
+msgid "Loading"
+msgstr "Станц╕я для роботи"
+
+#: ../loader/loader.c:447
+msgid "Loading second stage ramdisk..."
+msgstr "Завантаження другого ramdisk..."
+
+#: ../loader/loader.c:451
+#, fuzzy
+msgid "Error loading ramdisk."
+msgstr "Помилка читання другого диска ramdisk."
+
+#: ../loader/loader.c:572
+msgid "Hard Drives"
+msgstr "Жорстк╕ диски"
+
+#: ../loader/loader.c:573
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Ви не визначили область своп╕нгу (swap space). Продовжити чи перерозпод╕лити "
+"диск?"
+
+#: ../loader/loader.c:586
+#, fuzzy
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories? If you don't see the disk drive you're using listed "
+"here, press F2 to configure additional devices."
+msgstr "Де розд╕л та каталог, що м╕стять каталоги RedHat/RPMS та RedHat/base?"
+
+#: ../loader/loader.c:600
+msgid "Directory holding Red Hat:"
+msgstr "Директор╕я, що м╕стить Red Hat:"
+
+#: ../loader/loader.c:622
+msgid "Select Partition"
+msgstr "Обер╕ть розд╕л"
+
+#: ../loader/loader.c:666
+#, c-format
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Пристр╕й %s не м╕стить дерево встановлення Red Hat"
+
+#: ../loader/loader.c:711
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"Ok\" to retry."
+msgstr ""
+
+#: ../loader/loader.c:844
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Цей каталог не м╕стить дерево встановлення Red Hat"
+
+#: ../loader/loader.c:849
+msgid "I could not mount that directory from the server"
+msgstr "неможливо змонтувати цей каталог з сервера"
+
+#: ../loader/loader.c:934
+msgid "FTP"
+msgstr ""
+
+#: ../loader/loader.c:935
+#, fuzzy
+msgid "Unable to retrieve the second stage ramdisk"
+msgstr "Не можу розгорнути другий ramdisk: %s"
+
+#: ../loader/loader.c:1038
+msgid "Rescue Method"
+msgstr ""
+
+#: ../loader/loader.c:1039
+msgid "Installation Method"
+msgstr "Метод встановлення"
+
+#: ../loader/loader.c:1041
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader/loader.c:1043
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "Обер╕ть тип нос╕я, що м╕стить пакети для встановлення:"
+
+#: ../loader/loader.c:1357
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Не можу знайти ks.cfg на дискет╕ завантаження."
+
+#: ../loader/loader.c:1466
+msgid "PC Card"
+msgstr ""
+
+#: ../loader/loader.c:1466
+#, fuzzy
+msgid "Initializing PC Card Devices..."
+msgstr "╤н╕ц╕ювання CD-ROM..."
+
+#: ../loader/net.c:147
+msgid "NFS server name:"
+msgstr "Назву сервера NFS:"
+
+#: ../loader/net.c:150 ../loader/urls.c:160
+msgid "Red Hat directory:"
+msgstr "Каталог Red Hat:"
+
+#: ../loader/net.c:156
+#, fuzzy
+msgid "NFS Setup"
+msgstr "Налагодження SMB"
+
+#: ../loader/net.c:157
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Введ╕ть таку ╕нформац╕ю:\n"
+"    o назву або IP-адресу вашого сервера NFS\n"
+"    o каталог на цьому сервер╕, де м╕ститься\n"
+"      Red Hat Linux для вашо╖ арх╕тектури"
+
+#: ../loader/net.c:228
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Введ╕ть конф╕гурац╕ю протоколу IP для ц╕╓╖ машини. Кожен елементтреба "
+"вводити як IP-адресу в десяткових числах з крапками (наприклад,1.2.3.4)"
+
+#: ../loader/net.c:270
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader/net.c:298
+msgid "Configure TCP/IP"
+msgstr "Налагодження TCP/IP"
+
+#: ../loader/net.c:329
+#, fuzzy
+msgid "Missing Information"
+msgstr "╤нформац╕я про принтер"
+
+#: ../loader/net.c:330
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Сл╕д ввести правильну IP-адресу та маску п╕дмереж╕"
+
+#: ../loader/net.c:338 ../loader/net.c:569
+msgid "Dynamic IP"
+msgstr ""
+
+#: ../loader/net.c:339 ../loader/net.c:570
+#, fuzzy
+msgid "Sending request for IP information..."
+msgstr "Посилаю запит DHCP..."
+
+#: ../loader/net.c:461
+msgid "Determining host name and domain..."
+msgstr "Визначення назви комп'ютера та домену"
+
+#: ../loader/net.c:559
+msgid "kickstart"
+msgstr "kickstart"
+
+#: ../loader/net.c:560
+#, c-format
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "нев╕рний аргумент для мережево╖ команди kickstart %s: %s"
+
+#: ../loader/net.c:607
+#, fuzzy
+msgid "Boot protocol to use"
+msgstr "Протокол завантаження"
+
+#: ../loader/net.c:609
+#, fuzzy
+msgid "Network gateway"
+msgstr "Нлагодження NFS"
+
+#: ../loader/net.c:611
+#, fuzzy
+msgid "IP address"
+msgstr "IP-адреса:"
+
+#: ../loader/net.c:613
+#, fuzzy
+msgid "Nameserver"
+msgstr "Сервер"
+
+#: ../loader/net.c:620
+msgid "Domain name"
+msgstr ""
+
+#: ../loader/net.c:623
+#, fuzzy
+msgid "Network device"
+msgstr "Нлагодження NFS"
+
+#: ../loader/net.c:695
+#, fuzzy
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
+msgstr ""
+" <Tab>/<Alt-Tab> м╕ж елементами | <Space> виб╕р | <F12> наступний екран "
+
+#: ../loader/net.c:696
+#, c-format
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../loader/net.c:698
+#, fuzzy
+msgid "Network configuration"
+msgstr "Конф╕гурац╕я мереж╕"
+
+#: ../loader/net.c:699
+#, fuzzy
+msgid "Would you like to set up networking?"
+msgstr "Не встановлюйте службу мереж╕"
+
+#: ../loader/urls.c:62 ../loader/urls.c:65
+msgid "Retrieving"
+msgstr "Отримання"
+
+#: ../loader/urls.c:129
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Введ╕ть таку ╕нформац╕ю:\n"
+"\n"
+"    o назва чи IP-адреса вашого FTP сервера\n"
+"    o каталог на цьому сервер╕, що м╕стить\n"
+"      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
+
+#: ../loader/urls.c:138
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Введ╕ть таку ╕нформац╕ю:\n"
+"\n"
+"    o назва або адреса IP вашого Web-сервера\n"
+"    o каталог на цьому сервер╕, що м╕стить\n"
+"      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
+
+#: ../loader/urls.c:156
+msgid "FTP site name:"
+msgstr "Назва сервера FTP:"
+
+#: ../loader/urls.c:157
+msgid "Web site name:"
+msgstr "Назва Web-сервера :"
+
+#: ../loader/urls.c:176
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Використовувати авторизований ftp або прокс╕-сервер"
+
+#: ../loader/urls.c:180
+#, fuzzy
+msgid "Use proxy server"
+msgstr "Використовувати прокс╕-сервер"
+
+#: ../loader/urls.c:191
+msgid "FTP Setup"
+msgstr "Налагодження FTP"
+
+#: ../loader/urls.c:192
+msgid "HTTP Setup"
+msgstr "Налагодження HTTP"
+
+#: ../loader/urls.c:202
+msgid "You must enter a server name."
+msgstr "Ви ма╓те ввести назву сервера."
+
+#: ../loader/urls.c:207
+msgid "You must enter a directory."
+msgstr "Ви ма╓те ввести каталог."
+
+#: ../loader/urls.c:268
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Якщо ви використову╓те авторизований доступ до ftp, введ╕ть ╕м'я "
+"користувачата пароль. Якщо ви використовуете прокс╕-сервер для доступу до "
+"FTP - введ╕тьназву сервера."
+
+#: ../loader/urls.c:274
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Якщо ви використовуете HTTP прокс╕-сервер для доступу до HTTP - введ╕ть "
+"назвусервера."
+
+#: ../loader/urls.c:295
+#, fuzzy
+msgid "Account name:"
+msgstr "╤м`я користувача"
+
+#: ../loader/urls.c:298
+msgid "Password:"
+msgstr "Пароль"
+
+#: ../loader/urls.c:303
+msgid "FTP Proxy:"
+msgstr "Прокс╕-сервер FTP:"
+
+#: ../loader/urls.c:304
+msgid "HTTP Proxy:"
+msgstr "Прокс╕-сервер HTTP:"
+
+#: ../loader/urls.c:308
+msgid "FTP Proxy Port:"
+msgstr "Порт прокс╕-сервера FTP:"
+
+#: ../loader/urls.c:309
+msgid "HTTP Proxy Port:"
+msgstr "Порт прокс╕-сервера HTTP:"
+
+#: ../loader/windows.c:46
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "Завантаження диска драйвера..."
+
 #~ msgid ""
 #~ "Pick a root password. You must type it twice to ensure you know what it is "
 #~ "and didn't make a mistake in typing. Remember that the root password is a "
@@ -1716,9 +2199,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Обер╕ть пароль користувача root. Ви ма╓те ввести его дв╕ч╕, щоб не "
 #~ "помилитися. Пам'ятайте, що пароль користувача root - вир╕шальна ланка "
 #~ "безпеки системи!"
-
-#~ msgid "Password:"
-#~ msgstr "Пароль"
 
 #~ msgid "Password (again):"
 #~ msgstr "П╕дтверд╕ть пароль:"
@@ -1799,9 +2279,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Щоб встановити Red Hat Linux, вам потр╕бен щонайменше один розд╕л на 150 MB, "
 #~ "вид╕лений п╕д Linux. Ми радимо розм╕стити цей розд╕л наодному з двох перших "
 #~ "жорстких диск╕в системи, щоб ви могли завантажувати Linux за допомогою LILO."
-
-#~ msgid "Done"
-#~ msgstr "Готово"
 
 #~ msgid "Continue"
 #~ msgstr "Продовжити"
@@ -1885,18 +2362,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "No DHCP reply received"
 #~ msgstr "В╕дпов╕д╕ DHCP нема╓"
 
-#~ msgid "Other CDROM"
-#~ msgstr "╤нший CD-ROM"
-
-#~ msgid "CDROM type"
-#~ msgstr "Тип CD-ROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Який у вас тип CDROM?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "╤н╕ц╕ювання CD-ROM..."
-
 #~ msgid "Base IO port:"
 #~ msgstr "Базовий порт IO"
 
@@ -1923,9 +2388,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "Load module"
 #~ msgstr "Завантаження модуля"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Який драйвер випробувати?"
 
 #~ msgid "Probe"
 #~ msgstr "Спроба"
@@ -1969,9 +2431,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Здеб╕льшого драйвер %s потребу╓ додатково╖ ╕нформац╕╖ про апаратн╕ "
 #~ "засоби.Деяк╕ найзагальн╕ш╕ значення параметр╕в можна випробувати "
 #~ "автоматично. Цеможе призвести до зупинки комп'ютера, але то не зашкодить."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "╤нш╕ параметри:"
 
 #~ msgid "Module options:"
 #~ msgstr "Параметри модуля:"
@@ -2027,27 +2486,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "Force supplemental disk"
 #~ msgstr "Перейти на завантаження диску доповнення"
 
-#~ msgid "Installation Method"
-#~ msgstr "Метод встановлення"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Введ╕ть таку ╕нформац╕ю:\n"
-#~ "    o назву або IP-адресу вашого сервера NFS\n"
-#~ "    o каталог на цьому сервер╕, де м╕ститься\n"
-#~ "      Red Hat Linux для вашо╖ арх╕тектури"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Назву сервера NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Каталог Red Hat:"
-
 #~ msgid "Note"
 #~ msgstr "Нотатка"
 
@@ -2068,15 +2506,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "nfs command incomplete"
 #~ msgstr "команду nfs не завершено"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "неможливо змонтувати цей каталог з сервера"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Цей каталог не м╕стить дерево встановлення Red Hat"
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Завантаження другого ramdisk..."
 
 #~ msgid "PCMCIA Disk"
 #~ msgstr "PCMCIA диск"
@@ -2121,9 +2550,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Неможливо змонтувати дискету. Вставте диск Red Hat Module або "
 #~ "обер╕ть`Скасувати', щоб зм╕нити метод встановлення."
 
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Завантаження диска драйвера..."
-
 #~ msgid ""
 #~ "This install method requires two additional disks. Please remove the boot "
 #~ "disk currently in your drive and replace it with the Red Hat Supplementary "
@@ -2144,26 +2570,8 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "HD device %s not found"
 #~ msgstr "Пристр╕й HD %s не знайдено"
 
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Де розд╕л та каталог, що м╕стять каталоги RedHat/RPMS та RedHat/base?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Директор╕я, що м╕стить Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Обер╕ть розд╕л"
-
 #~ msgid "Failed to create /tmp/rhimage symlink: %s"
 #~ msgstr "Неможливо створити tmp/rhimage symlink: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Пристр╕й %s не м╕стить дерево встановлення Red Hat"
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Помилка читання другого диска ramdisk."
 
 #~ msgid "url command"
 #~ msgstr "команда url"
@@ -2173,9 +2581,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "url command incomplete"
 #~ msgstr "команду url не завершено"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Не можу розгорнути другий ramdisk: %s"
 
 #~ msgid "Mount points must begin with a leading /."
 #~ msgstr "Адреси монтування мають починатися з `/'."
@@ -2328,9 +2733,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "Win95 FAT32"
 #~ msgstr "Win95 FAT32"
 
-#~ msgid "Hard Drives"
-#~ msgstr "Жорстк╕ диски"
-
 #~ msgid "Scanning hard drives..."
 #~ msgstr "Сканування Перев╕рка жорстких диск╕в..."
 
@@ -2415,9 +2817,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Набер╕ть <exit>, щоб повернутися у програму встановлення.\n"
 #~ "\n"
 
-#~ msgid "Kickstart Error"
-#~ msgstr "Помилка kickstart"
-
 #~ msgid "No kickstart configuration file server can be found."
 #~ msgstr "Файлсервер конф╕гурац╕╖ для kickstart не знайдено."
 
@@ -2426,9 +2825,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "I could not mount the boot floppy."
 #~ msgstr "Неможливо змонтувати дискету завантаження."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Не можу знайти ks.cfg на дискет╕ завантаження."
 
 #~ msgid "Error opening files for kickstart copy: %s\n"
 #~ msgstr "Помилка в╕дкриття файла для коп╕ювання kickstart: %s\n"
@@ -2597,15 +2993,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "Copying kernel from floppy..."
 #~ msgstr "Коп╕ювання ядра з дискети..."
 
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Помилка в╕дкриття файлу: файл kickstart %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Помилка читання вм╕сту файлу kickstart %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Помилка в рядку  %d файлу kickstart %s."
-
 #~ msgid "Unknown command %s on line %d of kickstart file %s."
 #~ msgstr "Нев╕дома команда %s в рядку %d файлу kickstart %s."
 
@@ -2614,9 +3001,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "Failed to write ks post script: %s"
 #~ msgstr "Неможливо записати ks post script: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Обер╕ть групу щоб перев╕рити"
 
 #~ msgid "Failed to create symlink for package source."
 #~ msgstr "Неможливо створити посилання на джерело пакету."
@@ -2658,13 +3042,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgstr "Не вказано область своп╕нгу"
 
 #~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Ви не визначили область своп╕нгу (swap space). Продовжити чи перерозпод╕лити "
-#~ "диск?"
-
-#~ msgid ""
 #~ "What partitions would you like to use for swap space? This will destroy any "
 #~ "information already on the partition."
 #~ msgstr ""
@@ -2683,9 +3060,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "Bad line in /mnt/etc/fstab -- aborting"
 #~ msgstr "Помилкова строка в /mnt/etc/fstab -- обробку перервано"
 
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Визначення назви комп'ютера та домену"
-
 #~ msgid "Ethernet Probe"
 #~ msgstr "Пошук Ethernet"
 
@@ -2696,16 +3070,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ "Мережево╖ карти не виявлено. Натисн╕ть <Enter>, щоб визначититип карти з╕ "
 #~ "списку"
 
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Введ╕ть конф╕гурац╕ю протоколу IP для ц╕╓╖ машини. Кожен елементтреба "
-#~ "вводити як IP-адресу в десяткових числах з крапками (наприклад,1.2.3.4)"
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Налагодження TCP/IP"
-
 #~ msgid "Static IP address"
 #~ msgstr "Статична IP-адреса"
 
@@ -2715,20 +3079,11 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "DHCP"
 #~ msgstr "DHCP"
 
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
 #~ msgid "bad ip number in network command: %s"
 #~ msgstr "нев╕рна IP-адреса в мережев╕й команд╕: %s"
 
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "нев╕рний аргумент для мережево╖ команди kickstart %s: %s"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "В мережев╕й команд╕ kickstart пропущено адресу IP"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Протокол завантаження"
 
 #~ msgid ""
 #~ "How should the IP information be set? If your system administrator gave you "
@@ -2736,9 +3091,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgstr ""
 #~ "Вкаж╕ть спос╕б визначення адреси IP. Якщо ваш адм╕н╕стратор мереж╕ надав вам "
 #~ "адресу IP, вибер╕ть статичну IP."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Посилаю запит DHCP..."
 
 #~ msgid "Sending BOOTP request..."
 #~ msgstr "Посилаю запит BOOTP..."
@@ -2786,9 +3138,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "Reconfigure network now"
 #~ msgstr "Перебудуйте мережу"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Не встановлюйте службу мереж╕"
 
 #~ msgid "LAN networking has already been configured. Do you want to:"
 #~ msgstr "Мережу вже налагоджено. Чи хочете ви:"
@@ -2874,9 +3223,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "Upgrade Packages"
 #~ msgstr "Оновлення пакет╕в"
-
-#~ msgid "Printer Information"
-#~ msgstr "╤нформац╕я про принтер"
 
 #~ msgid "<F1> will give you information on a particular printer type"
 #~ msgstr "<F1> - ╕нформац╕я про особливий тип принтера"
@@ -3078,13 +3424,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgstr "Перев╕рте конф╕гурац╕ю принтера"
 
 #~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "У ваш╕й систем╕ виявлено так╕ типи SCSI-адаптер╕в:\n"
-#~ "\n"
-
-#~ msgid ""
 #~ "\n"
 #~ "Do you have any more SCSI adapters on your system?"
 #~ msgstr ""
@@ -3105,9 +3444,6 @@ msgstr "Прибрати можна лише NFS mounts."
 
 #~ msgid "Password         :"
 #~ msgstr "Пароль           :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "Налагодження SMB"
 
 #~ msgid ""
 #~ "Please enter the following information:\n"
@@ -3139,9 +3475,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgid "failed to create %s\n"
 #~ msgstr "неможливо створити %s\n"
 
-#~ msgid "Retrieving"
-#~ msgstr "Отримання"
-
 #~ msgid "open of %s failed: %s\n"
 #~ msgstr "неможливо в╕дкрити %s: %s\n"
 
@@ -3151,81 +3484,6 @@ msgstr "Прибрати можна лише NFS mounts."
 #~ msgstr ""
 #~ "Помилка передання файлу %s:\n"
 #~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Введ╕ть таку ╕нформац╕ю:\n"
-#~ "\n"
-#~ "    o назва чи IP-адреса вашого FTP сервера\n"
-#~ "    o каталог на цьому сервер╕, що м╕стить\n"
-#~ "      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Введ╕ть таку ╕нформац╕ю:\n"
-#~ "\n"
-#~ "    o назва або адреса IP вашого Web-сервера\n"
-#~ "    o каталог на цьому сервер╕, що м╕стить\n"
-#~ "      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Назва сервера FTP:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Назва Web-сервера :"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Використовувати авторизований ftp або прокс╕-сервер"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Налагодження FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Налагодження HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Ви ма╓те ввести назву сервера."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Ви ма╓те ввести каталог."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Якщо ви використову╓те авторизований доступ до ftp, введ╕ть ╕м'я "
-#~ "користувачата пароль. Якщо ви використовуете прокс╕-сервер для доступу до "
-#~ "FTP - введ╕тьназву сервера."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Якщо ви використовуете HTTP прокс╕-сервер для доступу до HTTP - введ╕ть "
-#~ "назвусервера."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Прокс╕-сервер FTP:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Прокс╕-сервер HTTP:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Порт прокс╕-сервера FTP:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Порт прокс╕-сервера HTTP:"
 
 #~ msgid "LAN manager host:"
 #~ msgstr "Хост LAN manager:"
