@@ -1,5 +1,8 @@
 2004-09-30  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (FileSystemSet.makeLVMNodes): Try to fix upgrade
+	traceback (#134258)
+
 	* loader2/net.c: Make changing the DNS server work (#122554)
 
 2004-09-30 Paul Nasrat <pnasrat@redhat.com>

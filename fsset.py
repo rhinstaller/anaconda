@@ -1562,7 +1562,7 @@ MAILADDR root
         if trylvm1:
             dev = root.device.getDevice()
             # lvm1 major is 58
-            if posix.major(os.stat("%s/dev/%s" %(instPath, dev)).st_rdev) == 58:
+            if os.access("%s/dev/%s" %(instPath, dev), os.R_OK) and posix.major(os.stat("%s/dev/%s" %(instPath, dev)).st_rdev) == 58:
                 rootlvm1 = 1
         
         if isinstance(root.device, LogicalVolumeDevice) or rootlvm1:
