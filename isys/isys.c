@@ -1093,9 +1093,9 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 	if (inq.cmd[1] & (1 << 7)) {
 	    /* XXX check the vendor, if it's DELL, HP, or ADAPTEC it could be
 	       an adaptec perc RAID (aacraid) device */
-	    if ((!strncmp (inq.cmd + 8, "DELL", 4))
-		|| (!strncmp (inq.cmd + 8, "HP", 2))
-		|| (!strncmp (inq.cmd + 8, "ADAPTEC", 7))) {
+	    if ((!strncmp ((char *)inq.cmd +8, "DELL", 4))
+		|| (!strncmp ((char *)inq.cmd + 8, "HP", 2))
+		|| (!strncmp ((char *)inq.cmd + 8, "ADAPTEC", 7))) {
 		rc = 0;
 	    } else
 		rc = 1;
