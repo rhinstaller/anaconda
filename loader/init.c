@@ -476,12 +476,6 @@ int main(int argc, char **argv) {
 
     printf("Red Hat install init version %s starting\n", VERSION);
 
-printf("Unmounting devfs... ");
-if (umount("/dev")) {
-	printf("failed: %d", errno);
-}
-printf("done\n");
-
     printf("mounting /proc filesystem... "); 
     if (!testing) {
 	if (mount("/proc", "/proc", "proc", 0, NULL))
