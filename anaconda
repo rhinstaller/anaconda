@@ -584,7 +584,7 @@ if method:
         method = NfsIsoInstallMethod(method[8:], intf.messageWindow)
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
-        method = UrlInstallMethod(method)
+        method = UrlInstallMethod(method, rootPath)
     elif method.startswith('hd://'):
         method = method[5:]
 

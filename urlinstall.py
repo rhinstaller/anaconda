@@ -40,7 +40,7 @@ class UrlInstallMethod(InstallMethod):
 	return ComponentSet(self.baseUrl + '/RedHat/base/comps', hdlist)
 
     def getFilename(self, h, timer):
-	root = "/mnt/sysimage"
+	root = self.rootPath
 	pathlist = [ "/var/tmp", "/tmp",
 		     "/." ]
 	for p in pathlist:
@@ -113,8 +113,9 @@ class UrlInstallMethod(InstallMethod):
 	hdlist.mergeFullHeaders(fn)
 	os.unlink(fn)
 
-    def __init__(self, url):
+    def __init__(self, url, rootPath):
 	InstallMethod.__init__(self)
+        self.rootPath = rootPath
 
 	i = string.index(url, '://') + 2
 	self.baseUrl = url[0:i]
