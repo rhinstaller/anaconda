@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
-"POT-Creation-Date: 2002-03-25 17:27-0500\n"
+"POT-Creation-Date: 2002-04-15 17:42-0400\n"
 "PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:313
+#: ../anaconda:319
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -24,9 +24,9 @@ msgstr ""
 "Nimate dovolj sistemskega pomnilnika, da bi name¹èali sistem v grafiènem "
 "naèinu. Namestitev se zaganja v besedilnem naèinu."
 
-#: ../anaconda:332 ../gui.py:110 ../mouse.py:282 ../rescue.py:35
-#: ../rescue.py:145 ../rescue.py:168 ../rescue.py:177 ../rescue.py:193
-#: ../rescue.py:199 ../text.py:303 ../text.py:424 ../xserver.py:51
+#: ../anaconda:338 ../gui.py:110 ../mouse.py:283 ../rescue.py:35
+#: ../rescue.py:142 ../rescue.py:165 ../rescue.py:174 ../rescue.py:190
+#: ../rescue.py:196 ../text.py:303 ../text.py:424 ../xserver.py:51
 #: ../iw/account_gui.py:150 ../iw/account_gui.py:161
 #: ../iw/partition_gui.py:506 ../iw/partition_gui.py:860
 #: ../iw/partition_gui.py:1342 ../textw/bootdisk_text.py:66
@@ -40,54 +40,55 @@ msgstr ""
 #: ../loader/devices.c:239 ../loader/devices.c:258 ../loader/devices.c:265
 #: ../loader/devices.c:334 ../loader/devices.c:429 ../loader/kickstart.c:59
 #: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
-#: ../loader/lang.c:96 ../loader/lang.c:309 ../loader/lang.c:631
-#: ../loader/loader.c:329 ../loader/loader.c:471 ../loader/loader.c:488
-#: ../loader/loader.c:594 ../loader/loader.c:895 ../loader/loader.c:1096
-#: ../loader/loader.c:1155 ../loader/loader.c:1253 ../loader/loader.c:1292
-#: ../loader/loader.c:1295 ../loader/loader.c:1367 ../loader/loader.c:1463
-#: ../loader/loader.c:1575 ../loader/loader.c:1580 ../loader/loader.c:1622
-#: ../loader/loader.c:1661 ../loader/loader.c:1693 ../loader/loader.c:1964
-#: ../loader/loader.c:2718 ../loader/loader.c:2748 ../loader/loader.c:2811
-#: ../loader/loader.c:2826 ../loader/loader.c:3049 ../loader/loader.c:3081
-#: ../loader/mediacheck.c:192 ../loader/mediacheck.c:248
-#: ../loader/mediacheck.c:280 ../loader/modules.c:389 ../loader/modules.c:409
-#: ../loader/modules.c:442 ../loader/net.c:185 ../loader/net.c:273
-#: ../loader/net.c:360 ../loader/net.c:734 ../loader/net.c:767
-#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/telnetd.c:68 ../loader/urls.c:80 ../loader/urls.c:90
-#: ../loader/urls.c:98 ../loader/urls.c:202 ../loader/urls.c:272
-#: ../loader/urls.c:277 ../loader/urls.c:283 ../loader/urls.c:423
+#: ../loader/lang.c:96 ../loader/lang.c:308 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:473 ../loader/loader.c:490
+#: ../loader/loader.c:596 ../loader/loader.c:895 ../loader/loader.c:1096
+#: ../loader/loader.c:1155 ../loader/loader.c:1252 ../loader/loader.c:1253
+#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1366
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1576
+#: ../loader/loader.c:1581 ../loader/loader.c:1623 ../loader/loader.c:1662
+#: ../loader/loader.c:1694 ../loader/loader.c:1965 ../loader/loader.c:2723
+#: ../loader/loader.c:2753 ../loader/loader.c:2816 ../loader/loader.c:2831
+#: ../loader/loader.c:3054 ../loader/loader.c:3086 ../loader/mediacheck.c:192
+#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
+#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/net.c:730 ../loader/net.c:763 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
+#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
+#: ../loader/urls.c:279 ../loader/urls.c:419
 msgid "OK"
 msgstr "V redu"
 
-#: ../anaconda:375
+#: ../anaconda:381
 msgid "Probing for video card:   "
 msgstr "Ugotavlja se grafièna kartica: "
 
-#: ../anaconda:383
+#: ../anaconda:389
 msgid "Unable to probe\n"
 msgstr "Ni bilo moè zaznati\n"
 
-#: ../anaconda:385
+#: ../anaconda:391
 msgid "Probing for monitor type: "
 msgstr "Ugotavlja se vrsta monitorja: "
 
-#: ../anaconda:392
+#: ../anaconda:398
 msgid "Probing for mouse type:   "
 msgstr "Ugotavlja se vrsta mi¹ke: "
 
-#: ../anaconda:396
+#: ../anaconda:402
 msgid "Skipping mouse probe.\n"
 msgstr "Preskakujem zaznavanje mi¹ke.\n"
 
-#: ../anaconda:410
+#: ../anaconda:417
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Grafièna namestitev ni dostopna za namestitev %s. Zaganja se besedilni naèin."
 
-#: ../anaconda:420
+#: ../anaconda:427
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -95,7 +96,7 @@ msgstr ""
 "Mi¹ka ni bila zaznana. Za grafièno namestitev potrebujete mi¹ko. Zaganja se "
 "besedilni naèin."
 
-#: ../anaconda:425
+#: ../anaconda:432
 msgid "Using mouse type: "
 msgstr "Uporablja se vrsta mi¹ke: "
 
@@ -189,7 +190,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
+#: ../autopart.py:996 ../bootloader.py:286 ../image.py:200
 #: ../partitioning.py:706 ../partitioning.py:1455 ../upgrade.py:258
 #: ../upgrade.py:378 ../upgrade.py:397 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1296
@@ -197,7 +198,7 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:436
 #: ../textw/partition_text.py:168 ../textw/upgrade_text.py:174
-#: ../loader/loader.c:3456
+#: ../loader/loader.c:3478
 msgid "Warning"
 msgstr "Opozorilo"
 
@@ -282,11 +283,11 @@ msgstr ""
 "V va¹ sistem niste namestili pakete za jedro. Nastavitev va¹ega zagonskega "
 "nalagalnika ne bo spremenjena."
 
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Bootloader"
 msgstr "Zagonski nalagalnik"
 
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Installing bootloader..."
 msgstr "Zagonski nalagalnik se name¹èa..."
 
@@ -294,7 +295,7 @@ msgstr "Zagonski nalagalnik se name¹èa..."
 msgid "Everything"
 msgstr "Vse"
 
-#: ../comps.py:682 ../comps.py:748 ../upgrade.py:497
+#: ../comps.py:682 ../comps.py:748 ../upgrade.py:546
 msgid "no suggestion"
 msgstr "ni predloga"
 
@@ -314,28 +315,28 @@ msgstr ""
 "Stanje va¹ega sistema je bilo uspe¹no zapisano na disketo. Sistem se bo zdaj "
 "resetiral."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:522 ../fsset.py:928
-#: ../fsset.py:947 ../fsset.py:992 ../fsset.py:1014 ../fsset.py:1059
-#: ../fsset.py:1102 ../harddrive.py:172 ../image.py:63 ../image.py:143
-#: ../packages.py:259 ../partitioning.py:1332 ../upgrade.py:311
+#: ../floppy.py:62 ../floppy.py:91 ../fsset.py:522 ../fsset.py:946
+#: ../fsset.py:965 ../fsset.py:1010 ../fsset.py:1032 ../fsset.py:1079
+#: ../fsset.py:1122 ../harddrive.py:172 ../image.py:63 ../image.py:145
+#: ../packages.py:263 ../partitioning.py:1335 ../upgrade.py:311
 #: ../upgrade.py:323 ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
 #: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
-#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
+#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:473
+#: ../loader/loader.c:490 ../loader/loader.c:596 ../loader/loader.c:895
 #: ../loader/loader.c:1155 ../loader/loader.c:1253 ../loader/loader.c:1367
-#: ../loader/loader.c:1575 ../loader/loader.c:1580 ../loader/loader.c:1622
-#: ../loader/loader.c:1693 ../loader/loader.c:2718 ../loader/loader.c:2748
-#: ../loader/loader.c:2826 ../loader/loader.c:3049 ../loader/loader.c:3081
+#: ../loader/loader.c:1576 ../loader/loader.c:1581 ../loader/loader.c:1623
+#: ../loader/loader.c:1694 ../loader/loader.c:2723 ../loader/loader.c:2753
+#: ../loader/loader.c:2831 ../loader/loader.c:3054 ../loader/loader.c:3086
 #: ../loader/mediacheck.c:192 ../loader/mediacheck.c:248
 #: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:80
-#: ../loader/urls.c:90 ../loader/urls.c:98 ../loader/urls.c:272
-#: ../loader/urls.c:277
+#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:81
+#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
+#: ../loader/urls.c:273
 msgid "Error"
 msgstr "Napaka"
 
-#: ../floppy.py:63 ../floppy.py:86
+#: ../floppy.py:63 ../floppy.py:92
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -343,11 +344,11 @@ msgstr ""
 "Med izdelavo zagonske diskete je pri¹lo do napake.  Prosim preprièajte se, "
 "da je v prvem disketniku formatirana disketa."
 
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating"
 msgstr "Ustvarja se"
 
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating boot disk..."
 msgstr "Ustvarjamo zagonski disk..."
 
@@ -373,15 +374,15 @@ msgstr ""
 "\n"
 "Ali ¾elite nadaljevati brez prenosa %s?"
 
-#: ../fsset.py:862 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:880 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Glavni zagonski zapis (MBR)"
 
-#: ../fsset.py:863 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:881 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Prvi sektor zaganjalne razdelitve"
 
-#: ../fsset.py:929
+#: ../fsset.py:947
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -394,7 +395,7 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:948
+#: ../fsset.py:966
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -409,7 +410,7 @@ msgstr ""
 "\n"
 "Pritisnite V redu za vnovièen zagon sistema."
 
-#: ../fsset.py:993
+#: ../fsset.py:1011
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -422,7 +423,7 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:1015
+#: ../fsset.py:1033
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -435,7 +436,7 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:1060
+#: ../fsset.py:1080
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -448,11 +449,11 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:1080 ../fsset.py:1089
+#: ../fsset.py:1100 ../fsset.py:1109
 msgid "Invalid mount point"
 msgstr "Nepravilna toèka priklopa"
 
-#: ../fsset.py:1081
+#: ../fsset.py:1101
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -465,7 +466,7 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:1090
+#: ../fsset.py:1110
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -478,7 +479,7 @@ msgstr ""
 "\n"
 "Pritisnite Enter za vnovièen zagon sistema."
 
-#: ../fsset.py:1103
+#: ../fsset.py:1123
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -493,11 +494,11 @@ msgstr ""
 "\n"
 "Pritisnite V redu za vnovièen zagon sistema."
 
-#: ../fsset.py:1693
+#: ../fsset.py:1719
 msgid "Formatting"
 msgstr "Formatiranje"
 
-#: ../fsset.py:1694
+#: ../fsset.py:1720
 #, python-format
 msgid "Formatting %s filesystem..."
 msgstr "Formatira se datoteèni sistem %s..."
@@ -511,7 +512,7 @@ msgstr "Popravi"
 #: ../iw/welcome_gui.py:97 ../textw/bootdisk_text.py:26
 #: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:254 ../loader/devices.c:232
-#: ../loader/loader.c:1026 ../loader/loader.c:3456 ../loader/net.c:901
+#: ../loader/loader.c:1026 ../loader/loader.c:3478 ../loader/net.c:897
 msgid "Yes"
 msgstr "Da"
 
@@ -521,11 +522,11 @@ msgstr "Da"
 #: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:52 ../textw/upgrade_text.py:254
 #: ../textw/upgrade_text.py:261 ../loader/devices.c:233
-#: ../loader/loader.c:3456 ../loader/net.c:901
+#: ../loader/loader.c:3478 ../loader/net.c:897
 msgid "No"
 msgstr "Ne"
 
-#: ../gui.py:111 ../text.py:304 ../loader/net.c:278 ../loader/net.c:405
+#: ../gui.py:111 ../text.py:304 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "Ponovno"
 
@@ -539,7 +540,7 @@ msgstr "Prezri"
 #: ../textw/bootloader_text.py:202 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:76 ../textw/welcome_text.py:51
-#: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2811
+#: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2816
 #: ../loader/modules.c:442 ../loader/pcmcia.c:104
 msgid "Cancel"
 msgstr "Preklièi"
@@ -564,69 +565,69 @@ msgstr ""
 "Zdaj, prosimo, vstavite disketo. Vsa vsebina diskete do zbrisana, zato, "
 "prosimo, to disketo izberite nadvse pazljivo."
 
-#: ../gui.py:395 ../gui.py:768
+#: ../gui.py:396 ../gui.py:776
 msgid "Online Help"
 msgstr "Pomoè na zvezi"
 
-#: ../gui.py:396 ../iw/language_gui.py:20 ../textw/language_text.py:38
+#: ../gui.py:397 ../iw/language_gui.py:20 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Izbira jezika"
 
-#: ../gui.py:454 ../iw/firewall_gui.py:135
+#: ../gui.py:455 ../iw/firewall_gui.py:135
 msgid "Close"
 msgstr "Zapri"
 
-#: ../gui.py:459 ../gui.py:632
+#: ../gui.py:460 ../gui.py:636
 msgid "Release Notes"
 msgstr "Zapiski ob izdaji"
 
-#: ../gui.py:491
+#: ../gui.py:492
 msgid "Unable to load file!"
 msgstr "Datoteke ni moè nalo¾iti!"
 
-#: ../gui.py:522
+#: ../gui.py:526
 msgid "Release notes are missing.\n"
 msgstr "Manjkajo zapiski ob izdaji.\n"
 
-#: ../gui.py:628 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
+#: ../gui.py:632 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:185 ../loader/cdrom.c:34 ../loader/devices.c:95
-#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
-#: ../loader/loader.c:329 ../loader/loader.c:1026 ../loader/loader.c:1096
-#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1964
-#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/urls.c:202 ../loader/urls.c:423
+#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:1026 ../loader/loader.c:1096
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1965
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/urls.c:198 ../loader/urls.c:419
 msgid "Back"
 msgstr "Nazaj"
 
-#: ../gui.py:630
+#: ../gui.py:634
 msgid "Next"
 msgstr "Naprej"
 
-#: ../gui.py:634
+#: ../gui.py:638
 msgid "Show Help"
 msgstr "Prika¾imo pomoè"
 
-#: ../gui.py:636
+#: ../gui.py:640
 msgid "Hide Help"
 msgstr "Skrijmo pomoè"
 
-#: ../gui.py:678
+#: ../gui.py:682
 #, python-format
 msgid "%s Installer"
 msgstr "Namestitev %s"
 
-#: ../gui.py:693
+#: ../gui.py:697
 #, python-format
 msgid "%s Installer on %s"
 msgstr "Namestitev %s v %s"
 
-#: ../gui.py:731
+#: ../gui.py:735
 msgid "Unable to load title bar"
 msgstr "Naslovne vrstice ni moè nalo¾iti"
 
-#: ../gui.py:816
+#: ../gui.py:824
 msgid "Install Window"
 msgstr "Namestitveno okno"
 
@@ -660,15 +661,15 @@ msgstr "Spremeni CDROM"
 msgid "Please insert disc %d to continue."
 msgstr "Prosimo, za nadaljevanje vstavite plo¹èo %d."
 
-#: ../image.py:138
+#: ../image.py:140
 msgid "Wrong CDROM"
 msgstr "Napaèen CDROM"
 
-#: ../image.py:139
+#: ../image.py:141
 msgid "That's not the correct Red Hat CDROM."
 msgstr "To ni pravi CD-ROM z Red Hat."
 
-#: ../image.py:144
+#: ../image.py:146
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM-a ni moè priklopiti."
 
@@ -680,11 +681,11 @@ msgstr "Namestitev"
 msgid "Unable to probe"
 msgstr "Ni moè presku¹ati"
 
-#: ../mouse.py:275 ../xserver.py:44
+#: ../mouse.py:276 ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "Mi¹ka ni bila zaznana"
 
-#: ../mouse.py:276 ../xserver.py:45
+#: ../mouse.py:277 ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -696,7 +697,7 @@ msgstr ""
 "svoji mi¹ki. Uporabite pa lahko tudi tekstovno namestitev, pri kateri mi¹ka "
 "ni obvezna."
 
-#: ../mouse.py:282 ../mouse.py:283 ../xserver.py:51 ../xserver.py:52
+#: ../mouse.py:283 ../mouse.py:284 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "Uporabi tekstovni naèin"
 
@@ -734,7 +735,7 @@ msgstr "Preverjanje odvisnosti"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Preverjam odvisnosti v paketih, izbranih za namestitev..."
 
-#: ../packages.py:223 ../packages.py:529
+#: ../packages.py:223 ../packages.py:536
 msgid "Processing"
 msgstr "Obdelujemo"
 
@@ -742,7 +743,7 @@ msgstr "Obdelujemo"
 msgid "Preparing to install..."
 msgstr "Pripravljamo se na namestitev..."
 
-#: ../packages.py:260
+#: ../packages.py:264
 #, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -751,11 +752,11 @@ msgstr ""
 "Datoteke %s ni moè odpreti. To je lahko zato, ker manjka ali zaradi slabega "
 "paketa ali nosilca. Pritisnite <Enter> za vnovièen poskus."
 
-#: ../packages.py:280
+#: ../packages.py:284
 msgid "Error Installing Package"
 msgstr "Napaka pri name¹èanju paketa"
 
-#: ../packages.py:281
+#: ../packages.py:285
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -772,11 +773,11 @@ msgstr ""
 "\n"
 "Pritisnite gumb V redu za vnovièen zagon sistema."
 
-#: ../packages.py:530
+#: ../packages.py:537
 msgid "Setting up RPM transaction..."
 msgstr "Vzpostavljam prenos RPM..."
 
-#: ../packages.py:567
+#: ../packages.py:574
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -785,7 +786,7 @@ msgstr ""
 "Nadgrajujem pakete %s.\n"
 "\n"
 
-#: ../packages.py:569
+#: ../packages.py:576
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -794,17 +795,17 @@ msgstr ""
 "Name¹èajo se paketi %s\n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:583
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Nadgrajuje se %s-%s-%s.\n"
 
-#: ../packages.py:578
+#: ../packages.py:585
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Name¹èa se %s-%s-%s.\n"
 
-#: ../packages.py:594
+#: ../packages.py:601
 #, python-format
 msgid ""
 "\n"
@@ -821,15 +822,15 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:600
+#: ../packages.py:607
 msgid "Install Starting"
 msgstr "Namestitev se zaèenja"
 
-#: ../packages.py:601
+#: ../packages.py:608
 msgid "Starting install process, this may take several minutes..."
 msgstr "Namestitveni proces se zaganja; to lahko traja nekaj minut..."
 
-#: ../packages.py:646
+#: ../packages.py:653
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -839,17 +840,17 @@ msgstr ""
 "Potrebujete veè prostora na naslednjem datoteènem sistemu:\n"
 "\n"
 
-#: ../packages.py:650 ../packages.py:670 ../iw/partition_gui.py:1562
+#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
 #: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Toèka priklopa"
 
-#: ../packages.py:651
+#: ../packages.py:658
 msgid "Space Needed"
 msgstr "Potreben prostor"
 
-#: ../packages.py:666
+#: ../packages.py:673
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -859,15 +860,15 @@ msgstr ""
 "Potrebujete veè datoteènih vozlov na naslednjih datoteènih sistemih:\n"
 "\n"
 
-#: ../packages.py:671
+#: ../packages.py:678
 msgid "Nodes Needed"
 msgstr "Potrebni vozli"
 
-#: ../packages.py:677
+#: ../packages.py:684
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
-#: ../packages.py:698
+#: ../packages.py:705
 msgid ""
 "\n"
 "\n"
@@ -877,11 +878,11 @@ msgstr ""
 "\n"
 "Naslednji paketi so na voljo v tej razlièici, a NISO bili nadgrajeni:\n"
 
-#: ../packages.py:715
+#: ../packages.py:722
 msgid "Post Install"
 msgstr "Po namestitvi"
 
-#: ../packages.py:716
+#: ../packages.py:723
 msgid "Performing post install configuration..."
 msgstr "Izvajamo nastavitve po namestitvi..."
 
@@ -1045,7 +1046,7 @@ msgstr ""
 "\n"
 "Ali ¾elite ta pogon inicializirati?"
 
-#: ../partitioning.py:1333
+#: ../partitioning.py:1336
 #, python-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Napaka pri priklapljanju datoteènega sistema na %s: %s"
@@ -1064,11 +1065,11 @@ msgstr ""
 "\n"
 "Ali ¾elite ta pogon inicializirati?"
 
-#: ../partitioning.py:1551
+#: ../partitioning.py:1544
 msgid "No Drives Found"
 msgstr "Noben pogon ni bil najden"
 
-#: ../partitioning.py:1552
+#: ../partitioning.py:1545
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -1077,7 +1078,7 @@ msgstr ""
 "ustvarili nove datoteène sisteme. Prosim preverite va¹o strojno opremo za "
 "razlog te te¾ave."
 
-#: ../partitioning.py:1645
+#: ../partitioning.py:1633
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -1087,7 +1088,7 @@ msgstr ""
 "\n"
 "Ste preprièani, da jo ¾elite izbrisati?"
 
-#: ../partitioning.py:1648
+#: ../partitioning.py:1636
 #, python-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -1098,47 +1099,47 @@ msgstr ""
 "\n"
 "Ste preprièani, da ¾elite ta razdelek odstraniti?"
 
-#: ../partitioning.py:1652
+#: ../partitioning.py:1640
 msgid "Are you sure you want to delete this partition?"
 msgstr "Ste preprièani, da ¾elite odstraniti ta razdelek?"
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1642
 msgid "Confirm Delete"
 msgstr "Potrdite odstranitev"
 
-#: ../partitioning.py:1658
+#: ../partitioning.py:1646
 msgid "Confirm Reset"
 msgstr "Potrdite resetiranje"
 
-#: ../partitioning.py:1659
+#: ../partitioning.py:1647
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Ste preprièani, da ¾elite obnoviti razdelitveno tabelo v njenem izvirnem "
 "stanju?"
 
-#: ../partitioning.py:1683
+#: ../partitioning.py:1671
 msgid "the partition in use by the installer."
 msgstr "razdelek, ki ga uporablja namestitveni program."
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1674
 msgid "a partition which is a member of a RAID array."
 msgstr "razdelek, ki je èlan polja RAID."
 
-#: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
-#: ../partitioning.py:1720 ../partitioning.py:1727
+#: ../partitioning.py:1683 ../partitioning.py:1689 ../partitioning.py:1697
+#: ../partitioning.py:1708 ../partitioning.py:1715
 msgid "Unable To Remove"
 msgstr "Ni moè odstraniti"
 
-#: ../partitioning.py:1696
+#: ../partitioning.py:1684
 msgid "You must first select a partition to remove."
 msgstr "Najprej morate izbrati razdelek, ki naj se odstrani."
 
-#: ../partitioning.py:1702
+#: ../partitioning.py:1690
 msgid "You cannot remove free space."
 msgstr "Praznega prostora ni moè odstraniti."
 
-#: ../partitioning.py:1710
+#: ../partitioning.py:1698
 #, python-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1146,7 +1147,7 @@ msgid ""
 msgstr ""
 "Tega razdelka ni moè odstraniti, saj je to podalj¹ani razdelek, ki vsebuje %s"
 
-#: ../partitioning.py:1721
+#: ../partitioning.py:1709
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1154,19 +1155,19 @@ msgstr ""
 "Tega razdelka ne morete odstraniti, saj vsebuje podatke za namestitev v trdi "
 "disk."
 
-#: ../partitioning.py:1728
+#: ../partitioning.py:1716
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr "Tega razdelka ne morete odstraniti, saj je del naprave RAID."
 
-#: ../partitioning.py:1759 ../partitioning.py:1781
+#: ../partitioning.py:1747 ../partitioning.py:1769
 msgid "Unable To Edit"
 msgstr "Ni moè urediti"
 
-#: ../partitioning.py:1760
+#: ../partitioning.py:1748
 msgid "You must select a partition to edit"
 msgstr "Izbrati morate razdelek za urejanje"
 
-#: ../partitioning.py:1782
+#: ../partitioning.py:1770
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1174,19 +1175,19 @@ msgid ""
 msgstr ""
 "Tega razdelka ne morete urediti, saj je podalj¹ani razdelek, ki vsebuje %s"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1778
 msgid "Unable to Edit"
 msgstr "Ni moè urediti"
 
-#: ../partitioning.py:1791
+#: ../partitioning.py:1779
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "Tega razdelka ni moè urediti, saj je del naprave RAID"
 
-#: ../partitioning.py:1803
+#: ../partitioning.py:1791
 msgid "Installation cannot continue."
 msgstr "Namestitev se ne more nadaljevati."
 
-#: ../partitioning.py:1804
+#: ../partitioning.py:1792
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1196,11 +1197,11 @@ msgstr ""
 "se veè vrniti v zaslon za urejevanje diska. Bi radi nadaljevali postopek "
 "namestitve?"
 
-#: ../partitioning.py:1827
+#: ../partitioning.py:1815
 msgid "Low Memory"
 msgstr "Premajhen pomnilnik"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1816
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1209,11 +1210,11 @@ msgstr ""
 "Ker nimate dovolj pomnilnika, moramo takoj ugasniti izmenjalni prostor. Za "
 "to bomo morali takoj zapisati razdelitveno tabelo na disk.  Je to v redu?"
 
-#: ../partitioning.py:1849
+#: ../partitioning.py:1837
 msgid "Format as Swap?"
 msgstr "Formatiraj kot izmenjalno?"
 
-#: ../partitioning.py:1850
+#: ../partitioning.py:1838
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1226,11 +1227,11 @@ msgstr ""
 "\n"
 "Bi radi formatirali ta razdelek kot izmenjevalnega?"
 
-#: ../partitioning.py:1869 ../partitioning.py:1887
+#: ../partitioning.py:1857 ../partitioning.py:1875
 msgid "Format?"
 msgstr "Formatiranje?"
 
-#: ../partitioning.py:1870
+#: ../partitioning.py:1858
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1242,7 +1243,7 @@ msgstr ""
 "\n"
 "Ali ste preprièani, da ¾elite res to storiti?"
 
-#: ../partitioning.py:1878
+#: ../partitioning.py:1866
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1260,11 +1261,11 @@ msgstr ""
 "\n"
 "Ali ste preprièani, da ¾elite res to storiti?"
 
-#: ../partitioning.py:1894
+#: ../partitioning.py:1882
 msgid "Error with Partitioning"
 msgstr "Napaka pri razdeljevanju"
 
-#: ../partitioning.py:1895
+#: ../partitioning.py:1883
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1277,11 +1278,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1908
+#: ../partitioning.py:1896
 msgid "Partitioning Warning"
 msgstr "Opozorilo o razdelitvi"
 
-#: ../partitioning.py:1909
+#: ../partitioning.py:1897
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1296,7 +1297,7 @@ msgstr ""
 "\n"
 "Bi radi nadaljevali z va¹o zahtevano razdelitveno shemo?"
 
-#: ../partitioning.py:1921 ../iw/partition_gui.py:586
+#: ../partitioning.py:1909 ../iw/partition_gui.py:586
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1304,7 +1305,7 @@ msgstr ""
 "Naslednji obstojeèi razdelki so bili izbrani za formatiranje, kar bo unièilo "
 "vse podatke na njih."
 
-#: ../partitioning.py:1924 ../iw/partition_gui.py:589
+#: ../partitioning.py:1912 ../iw/partition_gui.py:589
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1312,19 +1313,19 @@ msgstr ""
 "Izberite ,Da` za nadaljevanje in formatiranje teh razdelkov, ali ,Ne`, da se "
 "vrnete in spremenite te nastavitve."
 
-#: ../partitioning.py:1930
+#: ../partitioning.py:1918
 msgid "Format Warning"
 msgstr "Opozorilo pri formatiranju"
 
-#: ../rescue.py:77 ../rescue.py:115 ../rescue.py:209
+#: ../rescue.py:69 ../rescue.py:112 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Ko konèate, se odjavite iz lupine in va¹ sistem se bo znova zagnal."
 
-#: ../rescue.py:99 ../rescue.py:163 ../rescue.py:171 ../rescue.py:188
+#: ../rescue.py:96 ../rescue.py:160 ../rescue.py:168 ../rescue.py:185
 msgid "Rescue"
 msgstr "Re¹uj"
 
-#: ../rescue.py:100
+#: ../rescue.py:97
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1346,35 +1347,35 @@ msgstr ""
 "ta korak bo preskoèen tako, da boste lahko ¹li neposredno v ukazno lupino.\n"
 "\n"
 
-#: ../rescue.py:110 ../loader/loader.c:1227 ../loader/loader.c:1235
+#: ../rescue.py:107 ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Continue"
 msgstr "Nadaljuj"
 
-#: ../rescue.py:110 ../rescue.py:119
+#: ../rescue.py:107 ../rescue.py:116
 msgid "Read-Only"
 msgstr "Le branje"
 
-#: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
+#: ../rescue.py:107 ../rescue.py:109 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:120 ../loader/loader.c:916 ../loader/loader.c:1293
 #: ../loader/loader.c:1295
 msgid "Skip"
 msgstr "Preskoèi"
 
-#: ../rescue.py:142
+#: ../rescue.py:139
 msgid "System to Rescue"
 msgstr "Re¹evanje sistema"
 
-#: ../rescue.py:143 ../textw/upgrade_text.py:211
+#: ../rescue.py:140 ../textw/upgrade_text.py:211
 msgid "What partition holds the root partition of your installation?"
 msgstr "Katera razdelitev je korenska razdelitev va¹ega sistema?"
 
-#: ../rescue.py:145 ../rescue.py:149 ../iw/congrats_gui.py:29
+#: ../rescue.py:142 ../rescue.py:146 ../iw/congrats_gui.py:29
 #: ../iw/congrats_gui.py:87
 msgid "Exit"
 msgstr "Izhod"
 
-#: ../rescue.py:164
+#: ../rescue.py:161
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1385,7 +1386,7 @@ msgstr ""
 "svoje razdelke. Ko boste zapustili lupino, se bo sistem samodejno vnoviè "
 "zagnal."
 
-#: ../rescue.py:172
+#: ../rescue.py:169
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1405,7 +1406,7 @@ msgstr ""
 "\n"
 "Po izhodu iz lupine se bo sistem samodejno vnoviè zagnal."
 
-#: ../rescue.py:189
+#: ../rescue.py:186
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1419,11 +1420,11 @@ msgstr ""
 "Pritisnite <Enter> za ukazno lupino. Po izhodu iz lupine se bo sistem "
 "samodejno vnoviè zagnal."
 
-#: ../rescue.py:195
+#: ../rescue.py:192
 msgid "Rescue Mode"
 msgstr "Naèin re¹evanja"
 
-#: ../rescue.py:196
+#: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1431,7 +1432,7 @@ msgstr ""
 "Nimate razdelitev Linuxa. Pritisnite Enter, da dobite ukazno lupino. Ko "
 "boste zapustili lupino, se bo sistem samodejno vnoviè zagnal."
 
-#: ../rescue.py:206
+#: ../rescue.py:203
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Va¹ sistem je priklopljen pod imenikom /mnt/sysimage."
 
@@ -1599,19 +1600,19 @@ msgstr ""
 msgid "Unknown Card"
 msgstr "Neznana kartica"
 
-#: ../xf86config.py:847 ../textw/xconfig_text.py:488
+#: ../xf86config.py:881 ../textw/xconfig_text.py:488
 msgid "Video Card"
 msgstr "Grafièna kartica"
 
-#: ../xf86config.py:849
+#: ../xf86config.py:883
 msgid "Video Ram"
 msgstr "Video RAM"
 
-#: ../xf86config.py:852
+#: ../xf86config.py:886
 msgid "X server"
 msgstr "Stre¾nik X"
 
-#: ../xf86config.py:855
+#: ../xf86config.py:889
 msgid "Unable to detect video card"
 msgstr "Ne moremo zaznati grafiène kartice"
 
@@ -1688,7 +1689,7 @@ msgid "Full Name:"
 msgstr "Polno ime:"
 
 #: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
-#: ../textw/userauth_text.py:37 ../loader/urls.c:393
+#: ../textw/userauth_text.py:37 ../loader/urls.c:389
 msgid "Password:"
 msgstr "Geslo:"
 
@@ -2116,14 +2117,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Nerazre¹ene odvisnosti"
 
-#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:519
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
 msgstr "Skupna velikost namestitve: %s"
 
-#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:430
-#: ../iw/progress_gui.py:192 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
+#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Paket"
 
@@ -2268,7 +2269,7 @@ msgstr "Onemogoèimo neme tipke"
 msgid "Test your selection here:"
 msgstr "Tukaj preverite va¹o izbiro:"
 
-#: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:307
+#: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "Kateri jezik bi radi uporabljali med namestitvenim postopkom?"
 
@@ -2348,11 +2349,11 @@ msgstr "Aktivacija ob zagonu"
 msgid "IP Address"
 msgstr "Naslov IP"
 
-#: ../iw/network_gui.py:195 ../loader/net.c:818
+#: ../iw/network_gui.py:195 ../loader/net.c:814
 msgid "Netmask"
 msgstr "Omre¾na maska"
 
-#: ../iw/network_gui.py:196 ../loader/loader.c:314
+#: ../iw/network_gui.py:196 ../loader/loader.c:316
 msgid "Network"
 msgstr "Mre¾a"
 
@@ -2360,8 +2361,8 @@ msgstr "Mre¾a"
 msgid "Broadcast"
 msgstr "Oddajanje"
 
-#: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:626
-#: ../loader/net.c:820
+#: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:622
+#: ../loader/net.c:816
 msgid "Hostname"
 msgstr "Ime raèunalnika"
 
@@ -2385,39 +2386,39 @@ msgstr "Terciarni DNS"
 msgid "Individual Package Selection"
 msgstr "Izbira posameznih paketov"
 
-#: ../iw/package_gui.py:280
+#: ../iw/package_gui.py:275
 msgid "Total install size: "
 msgstr "Skupna velikost namestitve: "
 
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:411
 msgid "Tree View"
 msgstr "Drevesni pogled"
 
-#: ../iw/package_gui.py:418
+#: ../iw/package_gui.py:413
 msgid "Flat View"
 msgstr "Ravni pogled"
 
-#: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
+#: ../iw/package_gui.py:427 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
 msgstr "Velikost (MB)"
 
-#: ../iw/package_gui.py:463
+#: ../iw/package_gui.py:458
 msgid "Total size: "
 msgstr "Skupna velikost:"
 
-#: ../iw/package_gui.py:466
+#: ../iw/package_gui.py:461
 msgid "Select all in group"
 msgstr "Izberi vse v skupini"
 
-#: ../iw/package_gui.py:470
+#: ../iw/package_gui.py:465
 msgid "Unselect all in group"
 msgstr "Odizberi vse v skupini"
 
-#: ../iw/package_gui.py:503 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:498 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Izbira skupine paketov"
 
-#: ../iw/package_gui.py:587 ../textw/packages_text.py:50
+#: ../iw/package_gui.py:582 ../textw/packages_text.py:50
 msgid "Select individual packages"
 msgstr "Izberite posamezne pakete"
 
@@ -2716,44 +2717,44 @@ msgstr "Name¹èamo pakete"
 msgid "%s KBytes"
 msgstr "%s kbajtov"
 
-#: ../iw/progress_gui.py:193 ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Velikost"
 
-#: ../iw/progress_gui.py:194
+#: ../iw/progress_gui.py:197
 msgid "Summary"
 msgstr "Povzetek"
 
-#: ../iw/progress_gui.py:224
+#: ../iw/progress_gui.py:227
 msgid "Package Progress: "
 msgstr "Napredek paketa: "
 
-#: ../iw/progress_gui.py:229
+#: ../iw/progress_gui.py:232
 msgid "Total Progress:   "
 msgstr "Skupni napredek:  "
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Status"
 msgstr "Stanje"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Packages"
 msgstr "Paketi"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Time"
 msgstr "Èas"
 
-#: ../iw/progress_gui.py:256
+#: ../iw/progress_gui.py:259
 msgid "Total"
 msgstr "Skupno"
 
-#: ../iw/progress_gui.py:257
+#: ../iw/progress_gui.py:260
 msgid "Completed"
 msgstr "Opravljeno"
 
-#: ../iw/progress_gui.py:258
+#: ../iw/progress_gui.py:261
 msgid "Remaining"
 msgstr "Preostanek"
 
@@ -2828,11 +2829,6 @@ msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno name¹èen v %s."
 
-#: ../iw/upgrade_bootloader_gui.py:76
-#, python-format
-msgid "%s  %s"
-msgstr "%s  %s"
-
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
 msgstr "To je priporoèena izbira."
@@ -2845,11 +2841,11 @@ msgstr ""
 "Namestitev ne more zaznati zagonskega nalagalnika, ki ga va¹ sistem trenutno "
 "uporablja."
 
-#: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
+#: ../iw/upgrade_bootloader_gui.py:90 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Ustvari nastavitev novega zagonskega nalagalnika"
 
-#: ../iw/upgrade_bootloader_gui.py:91
+#: ../iw/upgrade_bootloader_gui.py:92
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
@@ -2857,11 +2853,11 @@ msgstr ""
 "To vam bo omogoèilo narediti novo nastavitev zagonskega nalagalnika.  Èe "
 "¾elite preklapljati med zagonskimi nalagalniki, bi morali izbrati to."
 
-#: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
+#: ../iw/upgrade_bootloader_gui.py:99 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
 msgstr "Preskoèi osve¾evanje zagonskega nalagalnika"
 
-#: ../iw/upgrade_bootloader_gui.py:99
+#: ../iw/upgrade_bootloader_gui.py:100
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
@@ -2869,7 +2865,7 @@ msgstr ""
 "To ne bo spremenilo nièesar v va¹ih nastavitvah za zagonski nalagalnik.  Èe "
 "uporabljate nek tretji nalagalnik, bi morali izbrati to."
 
-#: ../iw/upgrade_bootloader_gui.py:111
+#: ../iw/upgrade_bootloader_gui.py:112
 msgid "What would you like to do?"
 msgstr "Kaj bi radi storili?"
 
@@ -3419,7 +3415,7 @@ msgstr "Svetovni splet (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Po¹ta (SMTP)"
 
-#: ../textw/firewall_text.py:99 ../loader/loader.c:1661
+#: ../textw/firewall_text.py:99 ../loader/loader.c:1662
 msgid "FTP"
 msgstr "FTP"
 
@@ -3519,19 +3515,19 @@ msgstr "Omre¾na naprava: %s"
 msgid "Use bootp/dhcp"
 msgstr "Uporaba bootp/dhcp"
 
-#: ../textw/network_text.py:77 ../loader/net.c:310
+#: ../textw/network_text.py:77 ../loader/net.c:305
 msgid "IP address:"
 msgstr "Naslov IP:"
 
-#: ../textw/network_text.py:78 ../loader/net.c:313
+#: ../textw/network_text.py:78 ../loader/net.c:308
 msgid "Netmask:"
 msgstr "Omre¾na maska:"
 
-#: ../textw/network_text.py:79 ../loader/net.c:316
+#: ../textw/network_text.py:79 ../loader/net.c:311
 msgid "Default gateway (IP):"
 msgstr "Privzeti prehod (IP):"
 
-#: ../textw/network_text.py:81 ../loader/net.c:319
+#: ../textw/network_text.py:81 ../loader/net.c:314
 msgid "Primary nameserver:"
 msgstr "Primarni imenski stre¾nik:"
 
@@ -4085,7 +4081,7 @@ msgid "Please select the resolution you would like to use:"
 msgstr "Prosimo, izberite ¾eleno loèljivost:"
 
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
-#: ../loader/loader.c:916 ../loader/loader.c:1209 ../loader/loader.c:1212
+#: ../loader/loader.c:916 ../loader/loader.c:1206 ../loader/loader.c:1209
 #: ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Test"
 msgstr "Preskus"
@@ -4315,7 +4311,7 @@ msgid "Module Parameters"
 msgstr "Parametri modulov"
 
 #: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:357
-#: ../loader/loader.c:327 ../loader/loader.c:388 ../loader/loader.c:404
+#: ../loader/loader.c:329 ../loader/loader.c:390 ../loader/loader.c:406
 msgid "Devices"
 msgstr "Naprave"
 
@@ -4377,62 +4373,62 @@ msgstr "Napaka pri branju vsebine datoteke za hitri zagon %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Napaka v vrstici %d datoteke za hitri zagon %s."
 
-#: ../loader/lang.c:41 ../loader/loader.c:195
+#: ../loader/lang.c:41 ../loader/loader.c:197
 #, c-format
 msgid "Welcome to %s"
 msgstr "Dobrodo¹li v %s"
 
-#: ../loader/lang.c:42 ../loader/loader.c:201
+#: ../loader/lang.c:42 ../loader/loader.c:203
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
-#: ../loader/lang.c:306
+#: ../loader/lang.c:305
 msgid "Choose a Language"
 msgstr "Izberite jezik"
 
-#: ../loader/lang.c:629
+#: ../loader/lang.c:632
 msgid "Keyboard Type"
 msgstr "Vrsta tipkovnice"
 
-#: ../loader/lang.c:630
+#: ../loader/lang.c:633
 msgid "What type of keyboard do you have?"
 msgstr "Kak¹no tipkovnico imate?"
 
-#: ../loader/loader.c:133
+#: ../loader/loader.c:135
 msgid "Local CDROM"
 msgstr "Lokalni CD-ROM"
 
-#: ../loader/loader.c:136
+#: ../loader/loader.c:138
 msgid "NFS image"
 msgstr "Slika NFS"
 
-#: ../loader/loader.c:141
+#: ../loader/loader.c:143
 msgid "Hard drive"
 msgstr "Trdi disk"
 
-#: ../loader/loader.c:314
+#: ../loader/loader.c:316
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:328
+#: ../loader/loader.c:330
 msgid "What kind of device would you like to add"
 msgstr "Kak¹no napravo bi radi dodali?"
 
-#: ../loader/loader.c:377
+#: ../loader/loader.c:379
 msgid "The following devices have been found on your system:"
 msgstr "V va¹em sistemu so bile najdene naslednje naprave:"
 
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Done"
 msgstr "Opravljeno"
 
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Add Device"
 msgstr "Dodajmo napravo"
 
-#: ../loader/loader.c:405
+#: ../loader/loader.c:407
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
@@ -4440,12 +4436,12 @@ msgstr ""
 "Za va¹ sistem ¹e ni nalo¾enih posebnih gonilnikov.  Bi jih radi nalo¾ili "
 "zdaj?"
 
-#: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
+#: ../loader/loader.c:491 ../loader/loader.c:896 ../loader/loader.c:2754
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Ne moremo brati imenika %s: %s"
 
-#: ../loader/loader.c:595
+#: ../loader/loader.c:597
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -4504,15 +4500,15 @@ msgstr "Izberite razdelitev"
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Videti je, da naprava %s ne vsebuje slik zgo¹èenk Red Hata."
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
+#: ../loader/loader.c:1206 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
 msgstr "Preskus nosilca"
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1213
+#: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
 msgstr "Izvrzi CD"
 
-#: ../loader/loader.c:1210
+#: ../loader/loader.c:1207
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -4572,60 +4568,60 @@ msgid ""
 "install through?"
 msgstr "Katero vrsto sistema bi radi namestili?"
 
-#: ../loader/loader.c:1576
+#: ../loader/loader.c:1577
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Ni videti, da bi ta imenik vseboval namestitveno drevo Red Hat."
 
-#: ../loader/loader.c:1581
+#: ../loader/loader.c:1582
 msgid "That directory could not be mounted from the server"
 msgstr "Tega imenika ni bilo moè priklopiti s stre¾nika"
 
-#: ../loader/loader.c:1623
+#: ../loader/loader.c:1624
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "Datoteke %s/%s ni moè najti v stre¾niku."
 
-#: ../loader/loader.c:1661
+#: ../loader/loader.c:1662
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1662
+#: ../loader/loader.c:1663
 msgid "Unable to retrieve the first install image"
 msgstr "Ne moremo nalo¾iti drugostopenjskega pomnilni¹kega diska: %s"
 
-#: ../loader/loader.c:1693
+#: ../loader/loader.c:1694
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "Namestitev prek FTP in HTTP zahteva vsaj 20 MB pomnilnika."
 
-#: ../loader/loader.c:1956
+#: ../loader/loader.c:1957
 msgid "Rescue Method"
 msgstr "Metoda re¹itve"
 
-#: ../loader/loader.c:1957
+#: ../loader/loader.c:1958
 msgid "Installation Method"
 msgstr "Metoda namestitve"
 
-#: ../loader/loader.c:1959
+#: ../loader/loader.c:1960
 msgid "What type of media contains the rescue image?"
 msgstr "Kak¹ne vrste nosilec vsebuje re¹ilno sliko?"
 
-#: ../loader/loader.c:1961
+#: ../loader/loader.c:1962
 msgid "What type of media contains the packages to be installed?"
 msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
-#: ../loader/loader.c:2719
+#: ../loader/loader.c:2724
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Ne moremo najti ks.cfg na zagonski disketi."
 
-#: ../loader/loader.c:2811
+#: ../loader/loader.c:2816
 msgid "Updates Disk"
 msgstr "Popravki"
 
-#: ../loader/loader.c:2812
+#: ../loader/loader.c:2817
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Vstavite disketo s popravki in pritisnite \"V redu\" za nadaljevanje"
 
-#: ../loader/loader.c:2817
+#: ../loader/loader.c:2822
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
@@ -4634,24 +4630,24 @@ msgstr ""
 "Disketa, ki ste jo vstavili, ni veljavna disketa za nadgradnjo na to izdajo "
 "sistema %s"
 
-#: ../loader/loader.c:2827
+#: ../loader/loader.c:2832
 msgid "Failed to mount floppy disk."
 msgstr "Ne moremo priklopiti diskete."
 
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Updates"
 msgstr "Popravki"
 
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Reading anaconda updates..."
 msgstr "Beremo popravke anaconda..."
 
-#: ../loader/loader.c:3046
+#: ../loader/loader.c:3051
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nimate dovolj pomnilnika za namestitev sistema %s v ta stroj."
 
-#: ../loader/loader.c:3082
+#: ../loader/loader.c:3087
 msgid ""
 "The second stage of the install which you have selected does not match the "
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
@@ -4661,7 +4657,7 @@ msgstr ""
 "jo uporabljate.  To se ne bi smelo zgoditi; zdaj se bo va¹ sistem znova "
 "zagnal."
 
-#: ../loader/loader.c:3457
+#: ../loader/loader.c:3479
 msgid ""
 "No hard drives have been found. You probably need to manually choose device "
 "drivers for the installation to succeed. Would you like to select drivers "
@@ -4670,7 +4666,7 @@ msgstr ""
 "Trdih diskov ni bilo moè najti. Verjetno morate roèno doloèiti gonilnike "
 "naprav, da se bo namestitev uspe¹no konèala. Bi zdaj radi izbrali gonilnike?"
 
-#: ../loader/loader.c:3617
+#: ../loader/loader.c:3644
 msgid "Running anaconda - please wait...\n"
 msgstr "Anaconda teèe - prosimo, poèakajte ...\n"
 
@@ -4776,42 +4772,42 @@ msgstr "Povzetki vsebine diskov"
 msgid "Please insert the %s driver disk now."
 msgstr "Zdaj, prosimo, vstavite disketo z gonilnikom %s."
 
-#: ../loader/net.c:171
-msgid "NFS server name:"
-msgstr "Ime stre¾nika NFS:"
-
-#: ../loader/net.c:174 ../loader/urls.c:230
-msgid "Red Hat directory:"
-msgstr "Imenik z Red Hat:"
-
-#: ../loader/net.c:179
+#: ../loader/net.c:62
 #, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
-"    o the name or IP number of your NFS server\n"
+"    o the name or IP number of your %s server\n"
 "    o the directory on that server containing\n"
-"      %s for your architecture"
+"      %s for your architecture\n"
 msgstr ""
-"Prosimo èe podate naslednje informacije:\n"
+"Prosimo, vnesite naslednje informacije:\n"
 "\n"
-"    o ime ali ¹tevilko IP stre¾nika NFS\n"
-"    o imenik na stre¾niku, ki vsebuje\n"
-"      %s za va¹o arhitekturo"
+"    o ime ali ¹tevilko IP spletnega stre¾nika za %s\n"
+"    o imenik v tem stre¾niku, ki vsebuje\n"
+"      %s za va¹o arhitekturo\n"
 
-#: ../loader/net.c:184
+#: ../loader/net.c:176
+msgid "NFS server name:"
+msgstr "Ime stre¾nika NFS:"
+
+#: ../loader/net.c:179 ../loader/urls.c:226
+msgid "Red Hat directory:"
+msgstr "Imenik z Red Hat:"
+
+#: ../loader/net.c:185
 msgid "NFS Setup"
 msgstr "Nastavitev NFS"
 
-#: ../loader/net.c:263
+#: ../loader/net.c:259
 msgid "Nameserver IP"
 msgstr "IP imenskega stre¾nika"
 
-#: ../loader/net.c:267 ../loader/net.c:816
+#: ../loader/net.c:263 ../loader/net.c:812
 msgid "Nameserver"
 msgstr "Imenski stre¾nik"
 
-#: ../loader/net.c:268
+#: ../loader/net.c:264
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -4823,15 +4819,15 @@ msgstr ""
 "imenski stre¾nik, zdaj to, prosimo, vstavite. Èe tega podatkanimate, pustite "
 "to polje prazno, namestitev pa se bo vseeno nadaljevala."
 
-#: ../loader/net.c:278
+#: ../loader/net.c:274
 msgid "Invalid IP Information"
 msgstr "Neveljavni podatki o IP"
 
-#: ../loader/net.c:279
+#: ../loader/net.c:275
 msgid "You entered an invalid IP address."
 msgstr "Vnesti morate veljaven naslov IP."
 
-#: ../loader/net.c:304
+#: ../loader/net.c:299
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -4839,85 +4835,85 @@ msgstr ""
 "Prosimo, vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot "
 "naslov IP v zapisu decimalnih ¹tevilk, loèenih s piko (na primer 1.2.3.4)."
 
-#: ../loader/net.c:346
+#: ../loader/net.c:341
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Uporaba dinamiène nastavitve IP (BOOTP/DHCP)"
 
-#: ../loader/net.c:374
+#: ../loader/net.c:369
 msgid "Configure TCP/IP"
 msgstr "Nastavitev TCP/IP"
 
-#: ../loader/net.c:405
+#: ../loader/net.c:400
 msgid "Missing Information"
 msgstr "Manjkajoèi podatki"
 
-#: ../loader/net.c:406
+#: ../loader/net.c:401
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Vnesti morate veljaven naslov IP in mre¾no masko."
 
-#: ../loader/net.c:414 ../loader/net.c:750
+#: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
 msgstr "Dinamièni IP"
 
-#: ../loader/net.c:415 ../loader/net.c:751
+#: ../loader/net.c:410 ../loader/net.c:747
 msgid "Sending request for IP information..."
 msgstr "Po¹iljam zahtevo po podatkih IP..."
 
-#: ../loader/net.c:627
+#: ../loader/net.c:623
 msgid "Determining host name and domain..."
 msgstr "Doloèamo ime raèunalnika in domeno..."
 
-#: ../loader/net.c:734 ../loader/net.c:767
+#: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
 msgstr "hitri zagon"
 
-#: ../loader/net.c:735
+#: ../loader/net.c:731
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "slab argument za hitri zagon omre¾nega ukaza %s: %s"
 
-#: ../loader/net.c:768
+#: ../loader/net.c:764
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Slaba ¹tevilka bootproto %s v omre¾nem ukazu"
 
-#: ../loader/net.c:810
+#: ../loader/net.c:806
 msgid "Boot protocol to use"
 msgstr "Zagonski protokol, ki naj se uporablja"
 
-#: ../loader/net.c:812
+#: ../loader/net.c:808
 msgid "Network gateway"
 msgstr "Omre¾ni prehod"
 
-#: ../loader/net.c:814
+#: ../loader/net.c:810
 msgid "IP address"
 msgstr "Naslov IP"
 
-#: ../loader/net.c:823
+#: ../loader/net.c:819
 msgid "Domain name"
 msgstr "Ime domene"
 
-#: ../loader/net.c:826
+#: ../loader/net.c:822
 msgid "Network device"
 msgstr "Omre¾na naprava"
 
-#: ../loader/net.c:898
+#: ../loader/net.c:894
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
 " <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
-#: ../loader/net.c:899
+#: ../loader/net.c:895
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:901
+#: ../loader/net.c:897
 msgid "Network configuration"
 msgstr "Mre¾ne nastavitve"
 
-#: ../loader/net.c:902
+#: ../loader/net.c:898
 msgid "Would you like to set up networking?"
 msgstr "Bi radi vzpostavili vmre¾evanje?"
 
@@ -4953,84 +4949,69 @@ msgstr "Èaka se povezava prek telneta..."
 msgid "Running anaconda via telnet..."
 msgstr "Anaconda se poganja prek telneta..."
 
-#: ../loader/urls.c:81
+#: ../loader/urls.c:82
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Ne moremo zapisovati dnevnika v %s: %s"
 
-#: ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:92 ../loader/urls.c:100
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Ni moè nalo¾iti %s: %s"
 
-#: ../loader/urls.c:104
+#: ../loader/urls.c:105
 msgid "Retrieving"
 msgstr "Nalaganje"
 
-#: ../loader/urls.c:183
-#, c-format
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your %s server\n"
-"    o the directory on that server containing\n"
-"      %s for your architecture\n"
-msgstr ""
-"Prosimo, vnesite naslednje informacije:\n"
-"\n"
-"    o ime ali ¹tevilko IP spletnega stre¾nika za %s\n"
-"    o imenik v tem stre¾niku, ki vsebuje\n"
-"      %s za va¹o arhitekturo\n"
-
-#: ../loader/urls.c:226
+#: ../loader/urls.c:222
 msgid "FTP site name:"
 msgstr "Ime stre¾nika FTP:"
 
-#: ../loader/urls.c:227
+#: ../loader/urls.c:223
 msgid "Web site name:"
 msgstr "Ime spletnega stre¾nika:"
 
-#: ../loader/urls.c:245
+#: ../loader/urls.c:241
 msgid "Use non-anonymous ftp"
 msgstr "Uporaba neanonimnega FTP-ja"
 
-#: ../loader/urls.c:250
+#: ../loader/urls.c:246
 msgid "Use proxy server"
 msgstr "Uporabljajmo nadomestni stre¾nik"
 
-#: ../loader/urls.c:262
+#: ../loader/urls.c:258
 msgid "FTP Setup"
 msgstr "Namestitev prek FTP"
 
-#: ../loader/urls.c:263
+#: ../loader/urls.c:259
 msgid "HTTP Setup"
 msgstr "Namestitev prek HTTP"
 
-#: ../loader/urls.c:273
+#: ../loader/urls.c:269
 msgid "You must enter a server name."
 msgstr "Vnesti morate ime stre¾nika."
 
-#: ../loader/urls.c:278
+#: ../loader/urls.c:274
 msgid "You must enter a directory."
 msgstr "Vnesti morate imenik."
 
-#: ../loader/urls.c:283
+#: ../loader/urls.c:279
 msgid "Unknown Host"
 msgstr "Neznan gostitelj"
 
-#: ../loader/urls.c:284
+#: ../loader/urls.c:280
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s ni veljavno ime gostitelja"
 
-#: ../loader/urls.c:364
+#: ../loader/urls.c:360
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
 "Èe uporabljate neanonimni FTP, v spodnje polje vnesite ime raèuna in geslo. "
 
-#: ../loader/urls.c:369
+#: ../loader/urls.c:365
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -5038,23 +5019,23 @@ msgstr ""
 "Èe uporabljate nadomestni stre¾nik za HTTP (proxy), vnesite ime nadomestnega "
 "stre¾nika HTTP, ki ga uporabljate."
 
-#: ../loader/urls.c:390
+#: ../loader/urls.c:386
 msgid "Account name:"
 msgstr "Ime raèuna:"
 
-#: ../loader/urls.c:399
+#: ../loader/urls.c:395
 msgid "FTP Proxy:"
 msgstr "Nadomestni FTP:"
 
-#: ../loader/urls.c:400
+#: ../loader/urls.c:396
 msgid "HTTP Proxy:"
 msgstr "Nadomestni HTTP:"
 
-#: ../loader/urls.c:404
+#: ../loader/urls.c:400
 msgid "FTP Proxy Port:"
 msgstr "Vrata nadomestnega FTP:"
 
-#: ../loader/urls.c:405
+#: ../loader/urls.c:401
 msgid "HTTP Proxy Port:"
 msgstr "Vrata nadomestnega HTTP:"
 
@@ -5592,6 +5573,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moskva+10 - Beringovo morje"
 
 #. generated from zone.tab
+msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Standardni gorski èas - Arizona"
 
@@ -5637,10 +5622,6 @@ msgstr "Gorski èas - ju¾ni Idaho in vzhodni Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Gorski èas - zahodna Severozahodna podroèja"
-
-#. generated from zone.tab
-msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5795,10 +5776,6 @@ msgid "W Amazonas"
 msgstr "Z Amazonka"
 
 #. generated from zone.tab
-msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "Z Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "zahodni in osrednji Borneo"
 
@@ -5831,20 +5808,12 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporo¾je, V. Lugansk"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-"GB2312            us              Asia/Shanghai"
-msgstr ""
-"Kitajsko(poenostavljeno)    zh_CN.GB2312    Niè    Niè            zh_CN."
-"GB2312            us              Azija/©anghaj"
+msgid "Chinese(Simplified)"
+msgstr "kitaj¹èina (poenostavljena)"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-"Big5              us              Asia/Taipei"
-msgstr ""
-"Kitajsko(tradicionalno)   zh_TW.Big5      Niè    Niè            zh_TW."
-"Big5              us              Azija/Taipei"
+msgid "Chinese(Traditional)"
+msgstr "kitaj¹èina (tradicionalna)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5891,10 +5860,6 @@ msgid "Portuguese"
 msgstr "portugal¹èina"
 
 #. generated from lang-table
-msgid "Portuguese(Brasilian) pt"
-msgstr "portugal¹èina(brazilska) pt"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "ru¹èina"
 
@@ -5913,6 +5878,45 @@ msgstr "¹ved¹èina"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ukrajin¹èina"
+
+#~ msgid "%s  %s"
+#~ msgstr "%s  %s"
+
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your NFS server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      %s for your architecture"
+#~ msgstr ""
+#~ "Prosimo èe podate naslednje informacije:\n"
+#~ "\n"
+#~ "    o ime ali ¹tevilko IP stre¾nika NFS\n"
+#~ "    o imenik na stre¾niku, ki vsebuje\n"
+#~ "      %s za va¹o arhitekturo"
+
+#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+#~ msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+
+#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+#~ msgstr "Z Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#~ msgid ""
+#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
+#~ "GB2312            us              Asia/Shanghai"
+#~ msgstr ""
+#~ "Kitajsko(poenostavljeno)    zh_CN.GB2312    Niè    Niè            zh_CN."
+#~ "GB2312            us              Azija/©anghaj"
+
+#~ msgid ""
+#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
+#~ "Big5              us              Asia/Taipei"
+#~ msgstr ""
+#~ "Kitajsko(tradicionalno)   zh_TW.Big5      Niè    Niè            zh_TW."
+#~ "Big5              us              Azija/Taipei"
+
+#~ msgid "Portuguese(Brasilian) pt"
+#~ msgstr "portugal¹èina(brazilska) pt"
 
 #~ msgid "Update current settings"
 #~ msgstr "Osve¾i trenutne nastavitve"
@@ -5984,12 +5988,6 @@ msgstr "ukrajin¹èina"
 
 #~ msgid "Welcome to Red Hat Linux"
 #~ msgstr "Dobrodo¹li v Red Hat Linuxu"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "kitaj¹èina (poenostavljena)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "kitaj¹èina (tradicionalna)"
 
 #~ msgid ""
 #~ "What partition and directory on that partition hold the CD (iso9660) "

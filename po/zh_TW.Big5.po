@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.3\n"
-"POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-04-12 10:17GMT+10:00\n"
+"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"PO-Revision-Date: 2002-04-15 18:11-0400\n"
 "Last-Translator: Ben Wu <hpwu@redhat.com>\n"
 "Language-Team: Traditional Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,82 +16,82 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.6\n"
 
-#: ../anaconda:313
+#: ../anaconda:319
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "您沒有足夠的記憶體可使用圖形安裝模式， 進入文字安裝模式。"
 
-#: ../anaconda:332 ../gui.py:110 ../iw/account_gui.py:150
-#: ../iw/account_gui.py:161 ../iw/partition_gui.py:506
-#: ../iw/partition_gui.py:860 ../iw/partition_gui.py:1342 ../loader/cdrom.c:34
-#: ../loader/devices.c:94 ../loader/devices.c:239 ../loader/devices.c:258
-#: ../loader/devices.c:265 ../loader/devices.c:334 ../loader/devices.c:429
-#: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/lang.c:309
-#: ../loader/lang.c:631 ../loader/loader.c:329 ../loader/loader.c:471
-#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
-#: ../loader/loader.c:1096 ../loader/loader.c:1155 ../loader/loader.c:1253
-#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1367
-#: ../loader/loader.c:1463 ../loader/loader.c:1575 ../loader/loader.c:1580
-#: ../loader/loader.c:1622 ../loader/loader.c:1661 ../loader/loader.c:1693
-#: ../loader/loader.c:1964 ../loader/loader.c:2718 ../loader/loader.c:2748
-#: ../loader/loader.c:2811 ../loader/loader.c:2826 ../loader/loader.c:3049
-#: ../loader/loader.c:3081 ../loader/mediacheck.c:192
-#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
-#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
-#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/net.c:734 ../loader/net.c:767 ../loader/pcmcia.c:104
-#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
-#: ../loader/urls.c:80 ../loader/urls.c:90 ../loader/urls.c:98
-#: ../loader/urls.c:202 ../loader/urls.c:272 ../loader/urls.c:277
-#: ../loader/urls.c:283 ../loader/urls.c:423 ../mouse.py:282 ../rescue.py:35
-#: ../rescue.py:145 ../rescue.py:168 ../rescue.py:177 ../rescue.py:193
-#: ../rescue.py:199 ../text.py:303 ../text.py:424 ../textw/bootdisk_text.py:66
+#: ../anaconda:338 ../gui.py:110 ../mouse.py:283 ../rescue.py:35
+#: ../rescue.py:142 ../rescue.py:165 ../rescue.py:174 ../rescue.py:190
+#: ../rescue.py:196 ../text.py:303 ../text.py:424 ../xserver.py:51
+#: ../iw/account_gui.py:150 ../iw/account_gui.py:161
+#: ../iw/partition_gui.py:506 ../iw/partition_gui.py:860
+#: ../iw/partition_gui.py:1342 ../textw/bootdisk_text.py:66
 #: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:48
 #: ../textw/complete_text.py:63 ../textw/complete_text.py:79
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:195 ../textw/network_text.py:139
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160 ../xserver.py:51
+#: ../textw/silo_text.py:160 ../loader/cdrom.c:34 ../loader/devices.c:94
+#: ../loader/devices.c:239 ../loader/devices.c:258 ../loader/devices.c:265
+#: ../loader/devices.c:334 ../loader/devices.c:429 ../loader/kickstart.c:59
+#: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
+#: ../loader/lang.c:96 ../loader/lang.c:308 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:473 ../loader/loader.c:490
+#: ../loader/loader.c:596 ../loader/loader.c:895 ../loader/loader.c:1096
+#: ../loader/loader.c:1155 ../loader/loader.c:1252 ../loader/loader.c:1253
+#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1366
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1576
+#: ../loader/loader.c:1581 ../loader/loader.c:1623 ../loader/loader.c:1662
+#: ../loader/loader.c:1694 ../loader/loader.c:1965 ../loader/loader.c:2723
+#: ../loader/loader.c:2753 ../loader/loader.c:2816 ../loader/loader.c:2831
+#: ../loader/loader.c:3054 ../loader/loader.c:3086 ../loader/mediacheck.c:192
+#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
+#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/net.c:730 ../loader/net.c:763 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
+#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
+#: ../loader/urls.c:279 ../loader/urls.c:419
 msgid "OK"
 msgstr "確定"
 
-#: ../anaconda:375
+#: ../anaconda:381
 msgid "Probing for video card:   "
 msgstr "偵測顯示卡：   "
 
-#: ../anaconda:383
+#: ../anaconda:389
 msgid "Unable to probe\n"
 msgstr "無法偵測\n"
 
-#: ../anaconda:385
+#: ../anaconda:391
 msgid "Probing for monitor type: "
 msgstr "偵測螢幕類型： "
 
-#: ../anaconda:392
+#: ../anaconda:398
 msgid "Probing for mouse type:   "
 msgstr "偵測滑鼠類型：   "
 
-#: ../anaconda:396
+#: ../anaconda:402
 msgid "Skipping mouse probe.\n"
 msgstr "略過滑鼠偵測。\n"
 
-#: ../anaconda:410
+#: ../anaconda:417
 #, c-format
-msgid "Graphical installation not available for %s installs.  Starting text mode."
+msgid ""
+"Graphical installation not available for %s installs.  Starting text mode."
 msgstr "%s 安裝不支援圖形模式安裝。  開始文字模式安裝。"
 
-#: ../anaconda:420
+#: ../anaconda:427
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
-"偵測不到滑鼠。 圖形模式安裝需要滑鼠。 "
-"開始文字模式安裝。"
+msgstr "偵測不到滑鼠。 圖形模式安裝需要滑鼠。 開始文字模式安裝。"
 
-#: ../anaconda:425
+#: ../anaconda:432
 msgid "Using mouse type: "
 msgstr "使用滑鼠類型："
 
@@ -112,18 +112,18 @@ msgid "Could not allocate partitions"
 msgstr "無法配置分割區"
 
 #: ../autopart.py:769
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
-msgstr ""
-"Boot 分割區 %s 可能無法在您的平台上啟動。 "
-"強烈建議您建立一個開機片。"
+msgstr "Boot 分割區 %s 可能無法在您的平台上啟動。 強烈建議您建立一個開機片。"
 
 #: ../autopart.py:901
 msgid "Requested Partition Does Not Exist"
 msgstr "要求的分割區不存在"
 
 #: ../autopart.py:902
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -138,6 +138,7 @@ msgid "Partition Request Sanity Check Errors"
 msgstr "分割區完整性檢查發生錯誤"
 
 #: ../autopart.py:936
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -156,6 +157,7 @@ msgid "Warnings During Automatic Partitioning"
 msgstr "警告，自動分割磁碟中"
 
 #: ../autopart.py:946
+#, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
@@ -171,6 +173,7 @@ msgid "Error Partitioning"
 msgstr "設定分割區錯誤"
 
 #: ../autopart.py:960
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -180,15 +183,15 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
-#: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
-#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1625
-#: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
-#: ../iw/upgrade_swap_gui.py:186 ../loader/loader.c:3456
-#: ../partitioning.py:706 ../partitioning.py:1455
+#: ../autopart.py:996 ../bootloader.py:286 ../image.py:200
+#: ../partitioning.py:706 ../partitioning.py:1455 ../upgrade.py:258
+#: ../upgrade.py:378 ../upgrade.py:397 ../iw/bootloader_gui.py:58
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1296
+#: ../iw/partition_gui.py:1625 ../iw/upgrade_swap_gui.py:171
+#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:436
 #: ../textw/partition_text.py:168 ../textw/upgrade_text.py:174
-#: ../upgrade.py:258 ../upgrade.py:378 ../upgrade.py:397
+#: ../loader/loader.c:3478
 msgid "Warning"
 msgstr "警告"
 
@@ -204,22 +207,20 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
-"自動分割磁碟可以根據您所選擇的安裝類型來幫您自動分割。 "
-"您也可以根據您的需求自行分割。\n"
+"自動分割磁碟可以根據您所選擇的安裝類型來幫您自動分割。 您也可以根據您的需求自"
+"行分割。\n"
 "\n"
-"手動建立分割區的工具程式 - Disk Druid，允許您使用互動式的環境來分割。 "
-"您可以設定檔案系統類型,掛載點,大小等等。\n"
+"手動建立分割區的工具程式 - Disk Druid，允許您使用互動式的環境來分割。 您可以"
+"設定檔案系統類型,掛載點,大小等等。\n"
 "\n"
-"fdisk 是由 Red Hat 提供的傳統文字介面的分割工具。 "
-"雖然使用上較不易,但功能較為完整、強大。"
+"fdisk 是由 Red Hat 提供的傳統文字介面的分割工具。 雖然使用上較不易,但功能較為"
+"完整、強大。"
 
 #: ../autopart.py:1018
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on hard drives."
-msgstr ""
-"在安裝程式幫您自動分割磁碟之前，您 "
-"必須先選擇如何分配您硬碟的空間。"
+msgstr "在安裝程式幫您自動分割磁碟之前，您 必須先選擇如何分配您硬碟的空間。"
 
 #: ../autopart.py:1023
 msgid "Remove all partitions on this system"
@@ -234,6 +235,7 @@ msgid "Keep all partitions and use existing free space"
 msgstr "保留所有分割區並使用現有的可用空間"
 
 #: ../autopart.py:1027
+#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -247,6 +249,7 @@ msgstr ""
 "您確定要繼續嗎？"
 
 #: ../autopart.py:1032
+#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -263,15 +266,13 @@ msgstr ""
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"您的系統沒有安裝核心套件。 您的開機管理程式 "
-"設定將不會變動。"
+msgstr "您的系統沒有安裝核心套件。 您的開機管理程式 設定將不會變動。"
 
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Bootloader"
 msgstr "開機管理程式"
 
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Installing bootloader..."
 msgstr "安裝開機管理程式..."
 
@@ -279,7 +280,7 @@ msgstr "安裝開機管理程式..."
 msgid "Everything"
 msgstr "全部安裝"
 
-#: ../comps.py:682 ../comps.py:748 ../upgrade.py:497
+#: ../comps.py:682 ../comps.py:748 ../upgrade.py:546
 msgid "no suggestion"
 msgstr "沒有建議"
 
@@ -295,42 +296,40 @@ msgstr "Dump 寫入"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"你的系統設定值已經寫入到軟碟之中。 現在系統 "
-"將重新啟動。"
+msgstr "你的系統設定值已經寫入到軟碟之中。 現在系統 將重新啟動。"
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:522 ../fsset.py:928
-#: ../fsset.py:947 ../fsset.py:992 ../fsset.py:1014 ../fsset.py:1059
-#: ../fsset.py:1102 ../harddrive.py:172 ../image.py:63 ../image.py:143
+#: ../floppy.py:62 ../floppy.py:91 ../fsset.py:522 ../fsset.py:946
+#: ../fsset.py:965 ../fsset.py:1010 ../fsset.py:1032 ../fsset.py:1079
+#: ../fsset.py:1122 ../harddrive.py:172 ../image.py:63 ../image.py:145
+#: ../packages.py:263 ../partitioning.py:1335 ../upgrade.py:311
+#: ../upgrade.py:323 ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
+#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
-#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
+#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:473
+#: ../loader/loader.c:490 ../loader/loader.c:596 ../loader/loader.c:895
 #: ../loader/loader.c:1155 ../loader/loader.c:1253 ../loader/loader.c:1367
-#: ../loader/loader.c:1575 ../loader/loader.c:1580 ../loader/loader.c:1622
-#: ../loader/loader.c:1693 ../loader/loader.c:2718 ../loader/loader.c:2748
-#: ../loader/loader.c:2826 ../loader/loader.c:3049 ../loader/loader.c:3081
+#: ../loader/loader.c:1576 ../loader/loader.c:1581 ../loader/loader.c:1623
+#: ../loader/loader.c:1694 ../loader/loader.c:2723 ../loader/loader.c:2753
+#: ../loader/loader.c:2831 ../loader/loader.c:3054 ../loader/loader.c:3086
 #: ../loader/mediacheck.c:192 ../loader/mediacheck.c:248
 #: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:80
-#: ../loader/urls.c:90 ../loader/urls.c:98 ../loader/urls.c:272
-#: ../loader/urls.c:277 ../packages.py:259 ../partitioning.py:1332
-#: ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
-#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434 ../upgrade.py:311
-#: ../upgrade.py:323
+#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:81
+#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
+#: ../loader/urls.c:273
 msgid "Error"
 msgstr "錯誤"
 
-#: ../floppy.py:63 ../floppy.py:86
+#: ../floppy.py:63 ../floppy.py:92
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr "製作開機片時發生錯誤。 請確定磁碟機中已經放入一片格式化過的磁片。"
 
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating"
 msgstr "建立中"
 
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating boot disk..."
 msgstr "建立開機磁片中..."
 
@@ -339,10 +338,12 @@ msgid "Checking for Bad Blocks"
 msgstr "格式化時順便檢查是否有損壞的磁區"
 
 #: ../fsset.py:162
+#, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "檢查 /dev/%s 是否有損壞的磁區..."
 
 #: ../fsset.py:523
+#, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
 "migrating this filesystem if desired.\n"
@@ -353,15 +354,16 @@ msgstr ""
 "\n"
 "您要選擇不轉換 %s 繼續安裝嗎？"
 
-#: ../fsset.py:862 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:880 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "主要開機磁區(MBR)"
 
-#: ../fsset.py:863 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:881 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "boot 分割區的第一個磁區"
 
-#: ../fsset.py:929
+#: ../fsset.py:947
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -372,7 +374,8 @@ msgstr ""
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:948
+#: ../fsset.py:966
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -385,7 +388,8 @@ msgstr ""
 "可能是您的 swap 分割區尚未初始化。\n"
 "請按 確定 重新啟動您的系統。"
 
-#: ../fsset.py:993
+#: ../fsset.py:1011
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -396,7 +400,8 @@ msgstr ""
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:1015
+#: ../fsset.py:1033
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -407,7 +412,8 @@ msgstr ""
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:1060
+#: ../fsset.py:1080
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -418,23 +424,25 @@ msgstr ""
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:1080 ../fsset.py:1089
+#: ../fsset.py:1100 ../fsset.py:1109
 msgid "Invalid mount point"
 msgstr "錯誤的掛載點"
 
-#: ../fsset.py:1081
+#: ../fsset.py:1101
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
-"建立 %s 時發生錯誤。 這個路徑的一些元素並不是目錄。 "
-"這是個嚴重錯誤，安裝無法繼續。\n"
+"建立 %s 時發生錯誤。 這個路徑的一些元素並不是目錄。 這是個嚴重錯誤，安裝無法"
+"繼續。\n"
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:1090
+#: ../fsset.py:1110
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -445,7 +453,8 @@ msgstr ""
 "\n"
 "請按 Enter 重新啟動您的系統。"
 
-#: ../fsset.py:1103
+#: ../fsset.py:1123
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -459,11 +468,12 @@ msgstr ""
 "\n"
 "請按 OK 重新啟動您的系統."
 
-#: ../fsset.py:1693
+#: ../fsset.py:1719
 msgid "Formatting"
 msgstr "正在格式化"
 
-#: ../fsset.py:1694
+#: ../fsset.py:1720
+#, python-format
 msgid "Formatting %s filesystem..."
 msgstr "格式化 %s 檔案系統"
 
@@ -471,24 +481,26 @@ msgstr "格式化 %s 檔案系統"
 msgid "Fix"
 msgstr "修護"
 
-#: ../gui.py:108 ../iw/partition_gui.py:508 ../iw/partition_gui.py:665
-#: ../iw/partition_gui.py:730 ../iw/welcome_gui.py:97 ../loader/devices.c:232
-#: ../loader/loader.c:1026 ../loader/loader.c:3456 ../loader/net.c:901
-#: ../text.py:301 ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
-#: ../textw/constants_text.py:48 ../textw/upgrade_text.py:254
+#: ../gui.py:108 ../text.py:301 ../iw/partition_gui.py:508
+#: ../iw/partition_gui.py:665 ../iw/partition_gui.py:730
+#: ../iw/welcome_gui.py:97 ../textw/bootdisk_text.py:26
+#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
+#: ../textw/upgrade_text.py:254 ../loader/devices.c:232
+#: ../loader/loader.c:1026 ../loader/loader.c:3478 ../loader/net.c:897
 msgid "Yes"
 msgstr "是"
 
-#: ../gui.py:109 ../iw/partition_gui.py:509 ../iw/partition_gui.py:667
-#: ../iw/partition_gui.py:732 ../iw/welcome_gui.py:100 ../loader/devices.c:233
-#: ../loader/loader.c:3456 ../loader/net.c:901 ../text.py:302
-#: ../textw/bootdisk_text.py:26 ../textw/bootdisk_text.py:55
-#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:52
-#: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
+#: ../gui.py:109 ../text.py:302 ../iw/partition_gui.py:509
+#: ../iw/partition_gui.py:667 ../iw/partition_gui.py:732
+#: ../iw/welcome_gui.py:100 ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
+#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:254
+#: ../textw/upgrade_text.py:261 ../loader/devices.c:233
+#: ../loader/loader.c:3478 ../loader/net.c:897
 msgid "No"
 msgstr "否"
 
-#: ../gui.py:111 ../loader/net.c:278 ../loader/net.c:405 ../text.py:304
+#: ../gui.py:111 ../text.py:304 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "重試"
 
@@ -496,14 +508,14 @@ msgstr "重試"
 msgid "Ignore"
 msgstr "忽略"
 
-#: ../gui.py:113 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../gui.py:113 ../text.py:117 ../text.py:118 ../text.py:270 ../text.py:272
+#: ../text.py:306 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:861 ../iw/partition_gui.py:1343
-#: ../loader/devices.c:240 ../loader/loader.c:2811 ../loader/modules.c:442
-#: ../loader/pcmcia.c:104 ../text.py:117 ../text.py:118 ../text.py:270
-#: ../text.py:272 ../text.py:306 ../textw/bootloader_text.py:202
-#: ../textw/constants_text.py:40 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
-#: ../textw/welcome_text.py:51 ../textw/welcome_text.py:54
+#: ../textw/bootloader_text.py:202 ../textw/constants_text.py:40
+#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
+#: ../textw/userauth_text.py:76 ../textw/welcome_text.py:51
+#: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2816
+#: ../loader/modules.c:442 ../loader/pcmcia.c:104
 msgid "Cancel"
 msgstr "取消"
 
@@ -521,73 +533,77 @@ msgstr ""
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr "現在請插入一片磁片. 所有磁片上的文件將會被清除,所以請小心的選擇您所插入的磁片"
+msgstr ""
+"現在請插入一片磁片. 所有磁片上的文件將會被清除,所以請小心的選擇您所插入的磁片"
 
-#: ../gui.py:395 ../gui.py:768
+#: ../gui.py:396 ../gui.py:776
 msgid "Online Help"
 msgstr "線上輔助說明"
 
-#: ../gui.py:396 ../iw/language_gui.py:20 ../textw/language_text.py:38
+#: ../gui.py:397 ../iw/language_gui.py:20 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "選擇語言"
 
-#: ../gui.py:454 ../iw/firewall_gui.py:135
+#: ../gui.py:455 ../iw/firewall_gui.py:135
 msgid "Close"
 msgstr "關閉"
 
-#: ../gui.py:459 ../gui.py:632
+#: ../gui.py:460 ../gui.py:636
 msgid "Release Notes"
 msgstr "發行公告"
 
-#: ../gui.py:491
+#: ../gui.py:492
 msgid "Unable to load file!"
 msgstr "無法載入檔案!"
 
-#: ../gui.py:522
+#: ../gui.py:526
 msgid "Release notes are missing.\n"
 msgstr "遺失發行公告.\n"
 
-#: ../gui.py:628 ../loader/cdrom.c:34 ../loader/devices.c:95
-#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
-#: ../loader/loader.c:329 ../loader/loader.c:1026 ../loader/loader.c:1096
-#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1964
-#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/urls.c:202 ../loader/urls.c:423 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
-#: ../textw/confirm_text.py:38 ../textw/constants_text.py:44
-#: ../textw/silo_text.py:110 ../textw/userauth_text.py:185
+#: ../gui.py:632 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
+#: ../textw/constants_text.py:44 ../textw/silo_text.py:110
+#: ../textw/userauth_text.py:185 ../loader/cdrom.c:34 ../loader/devices.c:95
+#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:1026 ../loader/loader.c:1096
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1965
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/urls.c:198 ../loader/urls.c:419
 msgid "Back"
 msgstr "上一步"
 
-#: ../gui.py:630
+#: ../gui.py:634
 msgid "Next"
 msgstr "下一步"
 
-#: ../gui.py:634
+#: ../gui.py:638
 msgid "Show Help"
 msgstr "顯示求助訊息"
 
-#: ../gui.py:636
+#: ../gui.py:640
 msgid "Hide Help"
 msgstr "隱藏求助訊息"
 
-#: ../gui.py:678
+#: ../gui.py:682
+#, python-format
 msgid "%s Installer"
 msgstr "%s 系統安裝程式"
 
-#: ../gui.py:693
+#: ../gui.py:697
+#, python-format
 msgid "%s Installer on %s"
 msgstr "%s 系統安裝程式在 %s"
 
-#: ../gui.py:731
+#: ../gui.py:735
 msgid "Unable to load title bar"
 msgstr "無法載入標題列"
 
-#: ../gui.py:816
+#: ../gui.py:824
 msgid "Install Window"
 msgstr "安裝視窗"
 
 #: ../harddrive.py:173
+#, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "找不到安裝所需的 CD #%d."
 
@@ -610,18 +626,19 @@ msgid "Change CDROM"
 msgstr "其他類型的光碟機"
 
 #: ../image.py:121
+#, python-format
 msgid "Please insert disc %d to continue."
 msgstr "請插入光碟片 %d 以便繼續."
 
-#: ../image.py:138
+#: ../image.py:140
 msgid "Wrong CDROM"
 msgstr "錯誤的光碟"
 
-#: ../image.py:139
+#: ../image.py:141
 msgid "That's not the correct Red Hat CDROM."
 msgstr "這不是正確的 Red Hat 光碟片"
 
-#: ../image.py:144
+#: ../image.py:146
 msgid "The CDROM could not be mounted."
 msgstr "這張光碟片無法被掛載"
 
@@ -633,11 +650,11 @@ msgstr "安裝"
 msgid "Unable to probe"
 msgstr "無法偵測"
 
-#: ../mouse.py:275 ../xserver.py:44
+#: ../mouse.py:276 ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "偵測不到滑鼠"
 
-#: ../mouse.py:276 ../xserver.py:45
+#: ../mouse.py:277 ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -647,15 +664,15 @@ msgstr ""
 "無法自動偵測到您的滑鼠. 在圖形化的安裝模式中,請按<下一步>並提供您的滑鼠資訊. "
 "不然您也可以使用文字模式安裝,這樣就不需要使用到滑鼠了!"
 
-#: ../mouse.py:282 ../mouse.py:283 ../xserver.py:51 ../xserver.py:52
+#: ../mouse.py:283 ../mouse.py:284 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "使用文字模式安裝"
 
-#: ../iw/package_gui.py:30 ../packages.py:38
+#: ../packages.py:38 ../iw/package_gui.py:30
 msgid "Proceed with upgrade?"
 msgstr "確定系統升級?"
 
-#: ../iw/package_gui.py:31 ../packages.py:39
+#: ../packages.py:39 ../iw/package_gui.py:31
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -664,7 +681,7 @@ msgstr ""
 "您選擇要升級的檔案系統已經掛載了. 在這個安裝階段您無法回到上一步.\n"
 "\n"
 
-#: ../iw/package_gui.py:35 ../packages.py:43
+#: ../packages.py:43 ../iw/package_gui.py:35
 msgid "Would you like to continue with the upgrade?"
 msgstr "您想要繼續升級系統嗎?"
 
@@ -684,7 +701,7 @@ msgstr "套件相依性檢查"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "檢查安裝套件的相依性"
 
-#: ../packages.py:223 ../packages.py:529
+#: ../packages.py:223 ../packages.py:536
 msgid "Processing"
 msgstr "處理中"
 
@@ -692,17 +709,20 @@ msgstr "處理中"
 msgid "Preparing to install..."
 msgstr "正在準備安裝..."
 
-#: ../packages.py:260
+#: ../packages.py:264
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
-msgstr "檔案 %s 無法開啟. 可能是由於遺失檔案或是套件或媒體損毀. 請按 <return> 重試."
+msgstr ""
+"檔案 %s 無法開啟. 可能是由於遺失檔案或是套件或媒體損毀. 請按 <return> 重試."
 
-#: ../packages.py:280
+#: ../packages.py:284
 msgid "Error Installing Package"
 msgstr "安裝套件發生錯誤"
 
-#: ../packages.py:281
+#: ../packages.py:285
+#, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
 "disk space, and/or hardware problems.  This is a fatal error and your "
@@ -716,11 +736,12 @@ msgstr ""
 "\n"
 "按下 確定 鍵以重新啟動系統."
 
-#: ../packages.py:530
+#: ../packages.py:537
 msgid "Setting up RPM transaction..."
 msgstr "正在設定 RPM 處理程序..."
 
-#: ../packages.py:567
+#: ../packages.py:574
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
@@ -728,7 +749,8 @@ msgstr ""
 "正在升級 %s 套件 \n"
 "\n"
 
-#: ../packages.py:569
+#: ../packages.py:576
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
@@ -736,15 +758,18 @@ msgstr ""
 "正在安裝 %s 套件 \n"
 "\n"
 
-#: ../packages.py:576
+#: ../packages.py:583
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "正在升級 %s-%s-%s. \n"
 
-#: ../packages.py:578
+#: ../packages.py:585
+#, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "正在安裝套件 %s-%s-%s.\n"
 
-#: ../packages.py:594
+#: ../packages.py:601
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -760,15 +785,15 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../packages.py:600
+#: ../packages.py:607
 msgid "Install Starting"
 msgstr "安裝開始"
 
-#: ../packages.py:601
+#: ../packages.py:608
 msgid "Starting install process, this may take several minutes..."
 msgstr "開始安裝程序, 這要花上幾分鐘..."
 
-#: ../packages.py:646
+#: ../packages.py:653
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -778,17 +803,17 @@ msgstr ""
 "間:\n"
 "\n"
 
-#: ../iw/partition_gui.py:1562 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:650 ../packages.py:670 ../textw/partition_text.py:986
+#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "掛載點"
 
-#: ../packages.py:651
+#: ../packages.py:658
 msgid "Space Needed"
 msgstr "需求空間"
 
-#: ../packages.py:666
+#: ../packages.py:673
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -798,15 +823,15 @@ msgstr ""
 "間:\n"
 "\n"
 
-#: ../packages.py:671
+#: ../packages.py:678
 msgid "Nodes Needed"
 msgstr "需求節點"
 
-#: ../packages.py:677
+#: ../packages.py:684
 msgid "Disk Space"
 msgstr "磁碟空間"
 
-#: ../packages.py:698
+#: ../packages.py:705
 msgid ""
 "\n"
 "\n"
@@ -816,11 +841,11 @@ msgstr ""
 "\n"
 "以下套件已收入此版本但並沒有升級 \n"
 
-#: ../packages.py:715
+#: ../packages.py:722
 msgid "Post Install"
 msgstr "最後階段安裝"
 
-#: ../packages.py:716
+#: ../packages.py:723
 msgid "Performing post install configuration..."
 msgstr "執行最後階段安裝設定..."
 
@@ -841,11 +866,14 @@ msgid "Please specify a mount point for this partition."
 msgstr "請為這個分割區指定一個掛載點."
 
 #: ../partitioning.py:382
-msgid "The mount point %s is already in use, please choose a different mount point."
+#, python-format
+msgid ""
+"The mount point %s is already in use, please choose a different mount point."
 msgstr "您所要求的掛載點 %s 正在被使用中,請另外指定一個."
 
 #: ../partitioning.py:439
-msgid "This mount point is invalid.  This directory must be on the / filesystem."
+msgid ""
+"This mount point is invalid.  This directory must be on the / filesystem."
 msgstr "掛載點無效. 這個目錄必須在 / 檔案系統上."
 
 #: ../partitioning.py:444
@@ -853,18 +881,21 @@ msgid "This mount point must be on a linux filesystem."
 msgstr "這個掛載點必須在 linux 檔案系統上."
 
 #: ../partitioning.py:457
+#, python-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr "這個 %s 分割區的大小 (大小 = %s MB) 超過最大值 %s MB."
 
 #: ../partitioning.py:464
+#, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr "您所指定的分割區大小 (大小 = %s MB) 超過最大值 %s MB."
 
 #: ../partitioning.py:469
+#, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "您所指定的分割區大小為負的! (大小 = %s MB)"
 
@@ -885,10 +916,12 @@ msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "啟動分割區(/boot)只允許建立在 RAID 1 裝置上."
 
 #: ../partitioning.py:531
+#, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "%s 類型的磁碟陣列裝置需要至少 %s 的成員."
 
 #: ../partitioning.py:537
+#, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
@@ -897,22 +930,26 @@ msgstr ""
 "增成員至磁碟陣列裝置中."
 
 #: ../partitioning.py:578
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "您還沒指定 root 分割區 (/), 為了讓 %s 安裝程式繼續, 您必須先指定."
 
 #: ../partitioning.py:581
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "您的 root 分割區小於 250 MB, 空間太小,不足以安裝 %s."
 
 #: ../partitioning.py:586
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必須建立一個 FAT 類型的 /boot/efi 分割區,大小為 50 MB."
 
 #: ../partitioning.py:594
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
@@ -927,18 +964,22 @@ msgstr ""
 "大的改善."
 
 #: ../partitioning.py:625
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr "您指定了超過 32 個 swap 裝置. %s 的核心只支援到 32 個."
 
 #: ../partitioning.py:634
+#, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr "您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM). 這可能會影響效能."
+msgstr ""
+"您配置了比您系統記憶體 (%dM) 還要少的 swap 空間 (%dM). 這可能會影響效能."
 
 #: ../partitioning.py:707
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -951,11 +992,13 @@ msgstr ""
 "\n"
 "您想要初始化磁碟嗎? "
 
-#: ../partitioning.py:1333
+#: ../partitioning.py:1336
+#, python-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "掛載檔案系統 %s 發生錯誤: %s"
 
 #: ../partitioning.py:1456
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -967,11 +1010,11 @@ msgstr ""
 "\n"
 "您想要初始化磁碟嗎?"
 
-#: ../partitioning.py:1551
+#: ../partitioning.py:1544
 msgid "No Drives Found"
 msgstr "找不到磁碟機"
 
-#: ../partitioning.py:1552
+#: ../partitioning.py:1545
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -979,7 +1022,7 @@ msgstr ""
 "發生錯誤 - 找不到可用的磁碟機來建立新的檔案系統. 請檢查您的硬體以找出問題發生"
 "的原因."
 
-#: ../partitioning.py:1645
+#: ../partitioning.py:1633
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -989,7 +1032,8 @@ msgstr ""
 "\n"
 "您確定要刪除嗎?"
 
-#: ../partitioning.py:1648
+#: ../partitioning.py:1636
+#, python-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
 "\n"
@@ -999,97 +1043,101 @@ msgstr ""
 "\n"
 "您確定要刪除嗎?"
 
-#: ../partitioning.py:1652
+#: ../partitioning.py:1640
 msgid "Are you sure you want to delete this partition?"
 msgstr "您確定要刪除這個分割區嗎?"
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1642
 msgid "Confirm Delete"
 msgstr "確認刪除"
 
-#: ../partitioning.py:1658
+#: ../partitioning.py:1646
 msgid "Confirm Reset"
 msgstr "確認還原"
 
-#: ../partitioning.py:1659
-msgid "Are you sure you want to reset the partition table to its original state?"
+#: ../partitioning.py:1647
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要重設磁碟分割表至原設定值?"
 
-#: ../partitioning.py:1683
+#: ../partitioning.py:1671
 msgid "the partition in use by the installer."
 msgstr "此分割區正被安裝程式使用."
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1674
 msgid "a partition which is a member of a RAID array."
 msgstr "為磁碟陣列成員之一的分割區."
 
-#: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
-#: ../partitioning.py:1720 ../partitioning.py:1727
+#: ../partitioning.py:1683 ../partitioning.py:1689 ../partitioning.py:1697
+#: ../partitioning.py:1708 ../partitioning.py:1715
 msgid "Unable To Remove"
 msgstr "無法移除"
 
-#: ../partitioning.py:1696
+#: ../partitioning.py:1684
 msgid "You must first select a partition to remove."
 msgstr "您必須先選擇一個分割區以便移除."
 
-#: ../partitioning.py:1702
+#: ../partitioning.py:1690
 msgid "You cannot remove free space."
 msgstr "您無法移除剩餘空間."
 
-#: ../partitioning.py:1710
+#: ../partitioning.py:1698
+#, python-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr "這個分割區是延伸分割區,包含了 %s, 您無法移除它."
 
-#: ../partitioning.py:1721
+#: ../partitioning.py:1709
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr "這個分割區包含了安裝時要用到的資料, 您無法移除它."
 
-#: ../partitioning.py:1728
+#: ../partitioning.py:1716
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr "這個分割區是磁碟陣列裝置的一部份, 您無法移除它."
 
-#: ../partitioning.py:1759 ../partitioning.py:1781
+#: ../partitioning.py:1747 ../partitioning.py:1769
 msgid "Unable To Edit"
 msgstr "無法編輯"
 
-#: ../partitioning.py:1760
+#: ../partitioning.py:1748
 msgid "You must select a partition to edit"
 msgstr "您必須選擇一個分割區來編輯"
 
-#: ../partitioning.py:1782
+#: ../partitioning.py:1770
+#, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "這個分割區是延伸分割區, 包含 %s, 您無法編輯它."
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1778
 msgid "Unable to Edit"
 msgstr "無法編輯"
 
-#: ../partitioning.py:1791
+#: ../partitioning.py:1779
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "此分割區為磁碟陣列裝置的一部份時,您無法編輯它."
 
-#: ../partitioning.py:1803
+#: ../partitioning.py:1791
 msgid "Installation cannot continue."
 msgstr "無法繼續安裝."
 
-#: ../partitioning.py:1804
+#: ../partitioning.py:1792
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr "您選擇的磁碟分割選項已經啟動了. 您無法再回到磁碟編輯視窗. 您想要繼續安裝嗎?"
+msgstr ""
+"您選擇的磁碟分割選項已經啟動了. 您無法再回到磁碟編輯視窗. 您想要繼續安裝嗎?"
 
-#: ../partitioning.py:1827
+#: ../partitioning.py:1815
 msgid "Low Memory"
 msgstr "記憶體空間不足"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1816
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1098,11 +1146,12 @@ msgstr ""
 "因為您的電腦記憶體空間不足, 我們必須建立額外的 swap 空間, 即所謂虛擬記憶體, "
 "而且必須立即修改磁碟分割表, 您是否同意?"
 
-#: ../partitioning.py:1849
+#: ../partitioning.py:1837
 msgid "Format as Swap?"
 msgstr "格式化成 swap 分割區?"
 
-#: ../partitioning.py:1850
+#: ../partitioning.py:1838
+#, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
@@ -1113,11 +1162,11 @@ msgstr ""
 "\n"
 "您想要格式化成 swap 分割區嗎?"
 
-#: ../partitioning.py:1869 ../partitioning.py:1887
+#: ../partitioning.py:1857 ../partitioning.py:1875
 msgid "Format?"
 msgstr "格式化?"
 
-#: ../partitioning.py:1870
+#: ../partitioning.py:1858
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1129,7 +1178,7 @@ msgstr ""
 "\n"
 "您確定要繼續嗎?"
 
-#: ../partitioning.py:1878
+#: ../partitioning.py:1866
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1145,11 +1194,12 @@ msgstr ""
 "\n"
 "您確定不要格式化嗎？"
 
-#: ../partitioning.py:1894
+#: ../partitioning.py:1882
 msgid "Error with Partitioning"
 msgstr "磁碟分割錯誤"
 
-#: ../partitioning.py:1895
+#: ../partitioning.py:1883
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1160,11 +1210,12 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1908
+#: ../partitioning.py:1896
 msgid "Partitioning Warning"
 msgstr "磁碟分割警告"
 
-#: ../partitioning.py:1909
+#: ../partitioning.py:1897
+#, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
 "\n"
@@ -1178,31 +1229,31 @@ msgstr ""
 "\n"
 "您確定要繼續嗎?"
 
-#: ../iw/partition_gui.py:586 ../partitioning.py:1921
+#: ../partitioning.py:1909 ../iw/partition_gui.py:586
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr "下列已存在的分割區要被格式化,刪除資料中."
 
-#: ../iw/partition_gui.py:589 ../partitioning.py:1924
+#: ../partitioning.py:1912 ../iw/partition_gui.py:589
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr "選擇 '是' 繼續格式化這些分割區, 或 '否' 回到上一步並更改設定."
 
-#: ../partitioning.py:1930
+#: ../partitioning.py:1918
 msgid "Format Warning"
 msgstr "格式化警告"
 
-#: ../rescue.py:77 ../rescue.py:115 ../rescue.py:209
+#: ../rescue.py:69 ../rescue.py:112 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "完成後請退出 shell,您的系統將會重新啟動."
 
-#: ../rescue.py:99 ../rescue.py:163 ../rescue.py:171 ../rescue.py:188
+#: ../rescue.py:96 ../rescue.py:160 ../rescue.py:168 ../rescue.py:185
 msgid "Rescue"
 msgstr "救援"
 
-#: ../rescue.py:100
+#: ../rescue.py:97
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
@@ -1221,35 +1272,35 @@ msgstr ""
 "若有其他原因造成執行失敗, 您可以選擇 '跳過'. 系統將會直接進入命令列狀態.\n"
 "\n"
 
-#: ../loader/loader.c:1227 ../loader/loader.c:1235 ../rescue.py:110
+#: ../rescue.py:107 ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Continue"
 msgstr "繼續"
 
-#: ../rescue.py:110 ../rescue.py:119
+#: ../rescue.py:107 ../rescue.py:116
 msgid "Read-Only"
 msgstr "只可讀取"
 
-#: ../loader/loader.c:916 ../loader/loader.c:1293 ../loader/loader.c:1295
-#: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
+#: ../rescue.py:107 ../rescue.py:109 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:120
+#: ../textw/upgrade_text.py:120 ../loader/loader.c:916 ../loader/loader.c:1293
+#: ../loader/loader.c:1295
 msgid "Skip"
 msgstr "略過"
 
-#: ../rescue.py:142
+#: ../rescue.py:139
 msgid "System to Rescue"
 msgstr "系統救援"
 
-#: ../rescue.py:143 ../textw/upgrade_text.py:211
+#: ../rescue.py:140 ../textw/upgrade_text.py:211
 msgid "What partition holds the root partition of your installation?"
 msgstr "您的 Linux 安裝在那一個分割區呢?"
 
-#: ../iw/congrats_gui.py:29 ../iw/congrats_gui.py:87 ../rescue.py:145
-#: ../rescue.py:149
+#: ../rescue.py:142 ../rescue.py:146 ../iw/congrats_gui.py:29
+#: ../iw/congrats_gui.py:87
 msgid "Exit"
 msgstr "離開"
 
-#: ../rescue.py:164
+#: ../rescue.py:161
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1258,7 +1309,7 @@ msgstr ""
 "您選擇要掛載在系統的分割區有問題. 按 return 鍵以取得 shell, 您可以執行 fsck "
 "然後掛載分割區. 當您退出 shell 後,系統將自動重新啟動."
 
-#: ../rescue.py:172
+#: ../rescue.py:169
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -1277,7 +1328,7 @@ msgstr ""
 "\n"
 "當您退出 shell 時系統將會自動重新啟動."
 
-#: ../rescue.py:189
+#: ../rescue.py:186
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -1289,11 +1340,11 @@ msgstr ""
 "\n"
 "請按 <return> 取得 shell. 當您退出 shell 時系統將會自動重新啟動."
 
-#: ../rescue.py:195
+#: ../rescue.py:192
 msgid "Rescue Mode"
 msgstr "救援模式"
 
-#: ../rescue.py:196
+#: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1301,7 +1352,7 @@ msgstr ""
 "您沒有任何的 Linux 分割區.按 return 鍵以取得 shell. 當您退出 shell 後,系統將"
 "自動重新啟動."
 
-#: ../rescue.py:206
+#: ../rescue.py:203
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "您的系統掛載在 /mnt/sysimage 目錄下."
 
@@ -1326,11 +1377,13 @@ msgid "Debug"
 msgstr "除錯程式"
 
 #: ../text.py:321
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:324
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <F1>求助訊息 | <Tab>或<Alt-Tab>在各項目間移動 | 按空白鍵選取 | <F12>換下一"
 "頁"
@@ -1354,6 +1407,7 @@ msgid "Searching"
 msgstr "尋找中"
 
 #: ../upgrade.py:44
+#, python-format
 msgid "Searching for %s installations..."
 msgstr "正在尋找 %s 安裝程式..."
 
@@ -1374,7 +1428,8 @@ msgstr ""
 msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
-msgstr "在你的Linux系統上有一個以上的檔案系統沒有完整的卸載. 您還是想要掛載它們嗎？"
+msgstr ""
+"在你的Linux系統上有一個以上的檔案系統沒有完整的卸載. 您還是想要掛載它們嗎？"
 
 #: ../upgrade.py:225 ../upgrade.py:231
 msgid "Mount failed"
@@ -1409,6 +1464,7 @@ msgstr ""
 "\n"
 
 #: ../upgrade.py:259
+#, python-format
 msgid "%s not found"
 msgstr "找不到 %s"
 
@@ -1453,19 +1509,19 @@ msgstr ""
 msgid "Unknown Card"
 msgstr "未知的卡"
 
-#: ../textw/xconfig_text.py:488 ../xf86config.py:847
+#: ../xf86config.py:881 ../textw/xconfig_text.py:488
 msgid "Video Card"
 msgstr "顯示卡"
 
-#: ../xf86config.py:849
+#: ../xf86config.py:883
 msgid "Video Ram"
 msgstr "視訊記憶體"
 
-#: ../xf86config.py:852
+#: ../xf86config.py:886
 msgid "X server"
 msgstr "X 伺服器"
 
-#: ../xf86config.py:855
+#: ../xf86config.py:889
 msgid "Unable to detect video card"
 msgstr "無法偵測到顯示卡"
 
@@ -1542,7 +1598,7 @@ msgid "Full Name:"
 msgstr "全名:"
 
 #: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
-#: ../loader/urls.c:393 ../textw/userauth_text.py:37
+#: ../textw/userauth_text.py:37 ../loader/urls.c:389
 msgid "Password:"
 msgstr "密碼:"
 
@@ -1693,6 +1749,7 @@ msgid "Boot Disk Creation"
 msgstr "建立開機磁片"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
@@ -1862,6 +1919,7 @@ msgid "About to Install"
 msgstr "即將開始安裝"
 
 #: ../iw/confirm_gui.py:60
+#, python-format
 msgid "Click next to begin installation of %s."
 msgstr "按下一步開始安裝 %s."
 
@@ -1881,6 +1939,7 @@ msgid "About to Upgrade"
 msgstr "即將開始升級"
 
 #: ../iw/confirm_gui.py:73
+#, python-format
 msgid "Click next to begin upgrade of %s."
 msgstr "按下一步開始升級 %s."
 
@@ -1897,6 +1956,7 @@ msgid "Congratulations"
 msgstr "恭喜您"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
@@ -1907,6 +1967,7 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:56
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -1929,6 +1990,7 @@ msgstr ""
 "系統使用及設定的相關資訊, 您可以在 http://www.redhat.com/docs 取得 %s 手冊."
 
 #: ../iw/congrats_gui.py:104
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1948,13 +2010,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "未解決的套件相依性問題"
 
-#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:519
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
+#, python-format
 msgid "Total install size: %s"
 msgstr "總安裝大小: %s"
 
-#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:430
-#: ../iw/progress_gui.py:192 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
+#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "套件"
 
@@ -1991,6 +2054,7 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "請選擇包含 root (即/)檔案系統的磁碟:"
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
 msgstr "升級 %s 系統於分割區 /dev/%s"
 
@@ -2098,7 +2162,7 @@ msgstr "停用 dead keys"
 msgid "Test your selection here:"
 msgstr "測試您選擇的項目:"
 
-#: ../iw/language_gui.py:49 ../loader/lang.c:307 ../textw/language_text.py:39
+#: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "在安裝的過程中你想使用哪種語言?"
 
@@ -2178,11 +2242,11 @@ msgstr "開機時立即啟動"
 msgid "IP Address"
 msgstr "IP 位址"
 
-#: ../iw/network_gui.py:195 ../loader/net.c:818
+#: ../iw/network_gui.py:195 ../loader/net.c:814
 msgid "Netmask"
 msgstr "子網路遮罩"
 
-#: ../iw/network_gui.py:196 ../loader/loader.c:314
+#: ../iw/network_gui.py:196 ../loader/loader.c:316
 msgid "Network"
 msgstr "網路"
 
@@ -2190,8 +2254,8 @@ msgstr "網路"
 msgid "Broadcast"
 msgstr "廣播"
 
-#: ../iw/network_gui.py:251 ../loader/net.c:626 ../loader/net.c:820
-#: ../textw/network_text.py:207
+#: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:622
+#: ../loader/net.c:816
 msgid "Hostname"
 msgstr "主機名稱"
 
@@ -2215,39 +2279,39 @@ msgstr "第三個 DNS"
 msgid "Individual Package Selection"
 msgstr "選擇個別套件"
 
-#: ../iw/package_gui.py:280
+#: ../iw/package_gui.py:275
 msgid "Total install size: "
 msgstr "總安裝大小: "
 
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:411
 msgid "Tree View"
 msgstr "樹狀檢視"
 
-#: ../iw/package_gui.py:418
+#: ../iw/package_gui.py:413
 msgid "Flat View"
 msgstr "平面檢視"
 
-#: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
+#: ../iw/package_gui.py:427 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
 msgstr "大小 (MB)"
 
-#: ../iw/package_gui.py:463
+#: ../iw/package_gui.py:458
 msgid "Total size: "
 msgstr "全部大小:"
 
-#: ../iw/package_gui.py:466
+#: ../iw/package_gui.py:461
 msgid "Select all in group"
 msgstr "選取群組中全部"
 
-#: ../iw/package_gui.py:470
+#: ../iw/package_gui.py:465
 msgid "Unselect all in group"
 msgstr "群組中的都不選"
 
-#: ../iw/package_gui.py:503 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:498 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "選擇套件群組"
 
-#: ../iw/package_gui.py:587 ../textw/packages_text.py:50
+#: ../iw/package_gui.py:582 ../textw/packages_text.py:50
 msgid "Select individual packages"
 msgstr "選擇個別套件"
 
@@ -2263,11 +2327,14 @@ msgid "Disk Setup"
 msgstr "磁碟分割設定"
 
 #: ../iw/partition_gui.py:553
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "您的磁碟分割發生下列錯誤."
 
 #: ../iw/partition_gui.py:556
-msgid "These errors must be corrected prior to continuing with your install of %s."
+#, python-format
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "在您繼續安裝 %s 之前必須先更正這些錯誤."
 
 #: ../iw/partition_gui.py:563
@@ -2313,6 +2380,7 @@ msgid "Free"
 msgstr "剩餘空間"
 
 #: ../iw/partition_gui.py:736 ../textw/partition_text.py:147
+#, python-format
 msgid "RAID Device %s"
 msgstr "磁碟陣列裝置 %s"
 
@@ -2416,6 +2484,7 @@ msgid "Error With Request"
 msgstr "請求錯誤"
 
 #: ../iw/partition_gui.py:1292 ../textw/partition_text.py:165
+#, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "無法配置分割區: %s."
 
@@ -2428,6 +2497,7 @@ msgid "Add anyway"
 msgstr "確定繼續"
 
 #: ../iw/partition_gui.py:1303
+#, python-format
 msgid "Warning: %s."
 msgstr "警告: %s."
 
@@ -2498,6 +2568,7 @@ msgid "Automatic Partitioning"
 msgstr "自動分割磁碟"
 
 #: ../iw/partition_gui.py:1626
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
 msgstr "您至少需選擇一台磁碟機以便安裝 %s 系統."
 
@@ -2510,7 +2581,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "您想要安裝在哪一個磁碟機?"
 
 #: ../iw/partition_gui.py:1719
-msgid "Review (allows you to see and change the automatic partitioning results)"
+msgid ""
+"Review (allows you to see and change the automatic partitioning results)"
 msgstr "檢視 (讓您可以檢查及變動自動分割的結果)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
@@ -2534,47 +2606,48 @@ msgid "Installing Packages"
 msgstr "正在安裝套件"
 
 #: ../iw/progress_gui.py:119
+#, python-format
 msgid "%s KBytes"
 msgstr "%s KBytes"
 
-#: ../iw/progress_gui.py:193 ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "大小"
 
-#: ../iw/progress_gui.py:194
+#: ../iw/progress_gui.py:197
 msgid "Summary"
 msgstr "說明"
 
-#: ../iw/progress_gui.py:224
+#: ../iw/progress_gui.py:227
 msgid "Package Progress: "
 msgstr "套件安裝進度:"
 
-#: ../iw/progress_gui.py:229
+#: ../iw/progress_gui.py:232
 msgid "Total Progress:   "
 msgstr "整體安裝進度:"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Status"
 msgstr "狀態"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Packages"
 msgstr "套件"
 
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Time"
 msgstr "時間"
 
-#: ../iw/progress_gui.py:256
+#: ../iw/progress_gui.py:259
 msgid "Total"
 msgstr "選擇套件總數"
 
-#: ../iw/progress_gui.py:257
+#: ../iw/progress_gui.py:260
 msgid "Completed"
 msgstr "已完成"
 
-#: ../iw/progress_gui.py:258
+#: ../iw/progress_gui.py:261
 msgid "Remaining"
 msgstr "剩餘"
 
@@ -2644,12 +2717,10 @@ msgid "This will update your current boot loader."
 msgstr "這將會更新您目前的開機管理程式."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
-msgid "The installer has detected the %s boot loader currently installed on %s."
+#, python-format
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "安裝程式偵測到 %s 開機管理程式已安裝在 %s."
-
-#: ../iw/upgrade_bootloader_gui.py:76
-msgid "%s  %s"
-msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
@@ -2661,11 +2732,11 @@ msgid ""
 "system."
 msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式."
 
-#: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
+#: ../iw/upgrade_bootloader_gui.py:90 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "建立新的開機管理程式設定"
 
-#: ../iw/upgrade_bootloader_gui.py:91
+#: ../iw/upgrade_bootloader_gui.py:92
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
@@ -2673,17 +2744,18 @@ msgstr ""
 "這將會讓您建立一個新的開機管理程式設定. 如果您希望轉換不同的開機管理程式,您應"
 "該選取這個."
 
-#: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
+#: ../iw/upgrade_bootloader_gui.py:99 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
 msgstr "略過更新開機管理程式"
 
-#: ../iw/upgrade_bootloader_gui.py:99
+#: ../iw/upgrade_bootloader_gui.py:100
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
-msgstr "這將不會改變開機管理程式設定.  如果您使用第三者的開機管理程式,您應該選取這個."
+msgstr ""
+"這將不會改變開機管理程式設定.  如果您使用第三者的開機管理程式,您應該選取這個."
 
-#: ../iw/upgrade_bootloader_gui.py:111
+#: ../iw/upgrade_bootloader_gui.py:112
 msgid "What would you like to do?"
 msgstr "您想要怎麼做？"
 
@@ -2692,6 +2764,7 @@ msgid "Migrate Filesystems"
 msgstr "轉換檔案系統"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
+#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2710,6 +2783,7 @@ msgid "Upgrade Swap Partition"
 msgstr "升級 swap 分割區"
 
 #: ../iw/upgrade_swap_gui.py:90
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
@@ -2720,6 +2794,7 @@ msgstr ""
 "在配置了 %dMB 的 swap 空間, 您現在可以再新增一個 swap 空間在您的系統上."
 
 #: ../iw/upgrade_swap_gui.py:97
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2742,6 +2817,7 @@ msgid "Free Space (MB)"
 msgstr "剩餘空間 (MB)"
 
 #: ../iw/upgrade_swap_gui.py:138
+#, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
@@ -2769,7 +2845,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案必須介於 1 至 2000 MB 之間."
 
 #: ../iw/upgrade_swap_gui.py:187 ../textw/upgrade_text.py:170
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的磁碟機空間不足以建立 swap 分割區."
 
 #: ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
@@ -3041,7 +3118,8 @@ msgstr ""
 "在的分割區, 並分別給予一個識別標籤(boot label)"
 
 #: ../textw/bootloader_text.py:298
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> 選取按鈕 | <F2> 選取預設開機登錄 | <F12> 下一個畫面>"
 
 #: ../textw/bootloader_text.py:384
@@ -3078,6 +3156,7 @@ msgid "Complete"
 msgstr "安裝完成"
 
 #: ../textw/complete_text.py:37
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3104,6 +3183,7 @@ msgid "<Enter> to continue"
 msgstr "按 <Enter> 鍵繼續"
 
 #: ../textw/complete_text.py:58
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3123,6 +3203,7 @@ msgid "<Enter> to exit"
 msgstr "按 <Enter> 鍵離開"
 
 #: ../textw/complete_text.py:73
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3188,7 +3269,7 @@ msgstr "DHCP"
 msgid "SSH"
 msgstr "SSH"
 
-#: ../loader/telnetd.c:64 ../loader/telnetd.c:106 ../textw/firewall_text.py:93
+#: ../textw/firewall_text.py:93 ../loader/telnetd.c:64 ../loader/telnetd.c:106
 msgid "Telnet"
 msgstr "Telnet"
 
@@ -3200,7 +3281,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Mail (SMTP)"
 
-#: ../loader/loader.c:1661 ../textw/firewall_text.py:99
+#: ../textw/firewall_text.py:99 ../loader/loader.c:1662
 msgid "FTP"
 msgstr "FTP"
 
@@ -3233,6 +3314,7 @@ msgstr ""
 "埠, 可以以下列的格式 'service:protocol', 例如 'imap:tcp'."
 
 #: ../textw/firewall_text.py:194
+#, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "警告: %s 不是一個有效的連接埠."
 
@@ -3289,6 +3371,7 @@ msgid "Mouse Selection"
 msgstr "選擇滑鼠"
 
 #: ../textw/network_text.py:67
+#, python-format
 msgid "Network Device: %s"
 msgstr "網路裝置： %s"
 
@@ -3296,19 +3379,19 @@ msgstr "網路裝置： %s"
 msgid "Use bootp/dhcp"
 msgstr "使用 bootp/dhcp"
 
-#: ../loader/net.c:310 ../textw/network_text.py:77
+#: ../textw/network_text.py:77 ../loader/net.c:305
 msgid "IP address:"
 msgstr "IP 位址:"
 
-#: ../loader/net.c:313 ../textw/network_text.py:78
+#: ../textw/network_text.py:78 ../loader/net.c:308
 msgid "Netmask:"
 msgstr "子網路遮罩:"
 
-#: ../loader/net.c:316 ../textw/network_text.py:79
+#: ../textw/network_text.py:79 ../loader/net.c:311
 msgid "Default gateway (IP):"
 msgstr "預設閘道器的 IP 位址:"
 
-#: ../loader/net.c:319 ../textw/network_text.py:81
+#: ../textw/network_text.py:81 ../loader/net.c:314
 msgid "Primary nameserver:"
 msgstr "第一個名稱伺服器位址:"
 
@@ -3321,6 +3404,7 @@ msgid "Tertiary nameserver:"
 msgstr "第三個名稱伺服器:"
 
 #: ../textw/network_text.py:114
+#, python-format
 msgid "Network Configuration for %s"
 msgstr "%s 的網路組態設定"
 
@@ -3353,6 +3437,7 @@ msgid "Size    :"
 msgstr "大小    :"
 
 #: ../textw/packages_text.py:97
+#, python-format
 msgid "%.1f KBytes"
 msgstr "%.1f KBytes"
 
@@ -3361,7 +3446,8 @@ msgid "Total size"
 msgstr "全部大小"
 
 #: ../textw/packages_text.py:245
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <空白鍵>,<+>,<-> 選擇   |   <F1> 求助   |  <F2> 套件敘述"
 
 #: ../textw/packages_text.py:293
@@ -3390,6 +3476,7 @@ msgid "Requested value is too large"
 msgstr "輸入的值太大"
 
 #: ../textw/partition_text.py:168
+#, python-format
 msgid "Warning: %s"
 msgstr "警告: %s"
 
@@ -3414,7 +3501,8 @@ msgid "Filesystem Options"
 msgstr "檔案系統選項"
 
 #: ../textw/partition_text.py:441
-msgid "Please choose how you would like to prepare the filesystem on this partition."
+msgid ""
+"Please choose how you would like to prepare the filesystem on this partition."
 msgstr "請選擇磁碟分割工具以便為你的系統分割磁碟."
 
 #: ../textw/partition_text.py:458
@@ -3434,10 +3522,12 @@ msgid "Filesystem Option:"
 msgstr "檔案系統選項:"
 
 #: ../textw/partition_text.py:629 ../textw/partition_text.py:663
+#, python-format
 msgid "Format as %s"
 msgstr "格式化成 %s"
 
 #: ../textw/partition_text.py:631 ../textw/partition_text.py:665
+#, python-format
 msgid "Migrate to %s"
 msgstr "轉換成 %s"
 
@@ -3490,8 +3580,10 @@ msgid "RAID"
 msgstr "磁碟陣列"
 
 #: ../textw/partition_text.py:993
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-求助\t F2-新增     F3-編輯   F4-刪除\t    F5-重置     F12-OK        "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-求助\t F2-新增     F3-編輯   F4-刪除\t    F5-重置     F12-OK        "
 
 #: ../textw/partition_text.py:1020
 msgid "No Root Partition"
@@ -3579,6 +3671,7 @@ msgid "Hardware clock set to GMT?"
 msgstr "系統時鐘設為格林威治標準時間?"
 
 #: ../textw/upgrade_text.py:91
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
@@ -3629,7 +3722,8 @@ msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
-msgstr "您原來已經安裝的套件及其所需的附屬套件已被選擇要安裝,您想自訂要升級的套件嗎?"
+msgstr ""
+"您原來已經安裝的套件及其所需的附屬套件已被選擇要安裝,您想自訂要升級的套件嗎?"
 
 #: ../textw/userauth_text.py:22
 msgid "Root Password"
@@ -3707,7 +3801,8 @@ msgid "User Exists"
 msgstr "使用者已經存在"
 
 #: ../textw/userauth_text.py:146
-msgid "The root user is already configured. You don't need to add this user here."
+msgid ""
+"The root user is already configured. You don't need to add this user here."
 msgstr "使用者 root 已經設定完成.你不需要在這裡增加這個使用者."
 
 #: ../textw/userauth_text.py:154
@@ -3777,10 +3872,12 @@ msgid "Use TLS connections"
 msgstr "使用 TLS 連結"
 
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
+#, python-format
 msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -3799,6 +3896,7 @@ msgstr ""
 "假如您購買了 Official %s，請來我們的網站註冊您的產品, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -3829,9 +3927,9 @@ msgstr "解析度"
 msgid "Please select the resolution you would like to use:"
 msgstr "請選擇您要的解析度:"
 
-#: ../loader/loader.c:916 ../loader/loader.c:1209 ../loader/loader.c:1212
-#: ../loader/loader.c:1227 ../loader/loader.c:1235
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
+#: ../loader/loader.c:916 ../loader/loader.c:1206 ../loader/loader.c:1209
+#: ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Test"
 msgstr "測試"
 
@@ -3840,6 +3938,7 @@ msgid "X Customization"
 msgstr "設定 X Windows"
 
 #: ../textw/xconfig_text.py:177
+#, python-format
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
@@ -3907,6 +4006,7 @@ msgid "Invalid Sync Rates"
 msgstr "無效的更新頻率"
 
 #: ../textw/xconfig_text.py:341
+#, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
 "\n"
@@ -3929,6 +4029,7 @@ msgstr ""
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 
 #: ../textw/xconfig_text.py:395
+#, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
@@ -3951,6 +4052,7 @@ msgid "You cannot go back from this step."
 msgstr "您無法回到上一步."
 
 #: ../textw/xconfig_text.py:489
+#, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
@@ -3961,10 +4063,12 @@ msgid "Video RAM"
 msgstr "視訊記憶體"
 
 #: ../textw/xconfig_text.py:508
+#, python-format
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
-msgstr "請選擇您顯示卡上的視訊記憶體多寡. 選擇 '%s' 來重設安裝程式所偵測到的值."
+msgstr ""
+"請選擇您顯示卡上的視訊記憶體多寡. 選擇 '%s' 來重設安裝程式所偵測到的值."
 
 #: ../textw/xconfig_text.py:581
 msgid "Video Card Configuration"
@@ -4044,7 +4148,7 @@ msgid "Module Parameters"
 msgstr "模組參數"
 
 #: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:357
-#: ../loader/loader.c:327 ../loader/loader.c:388 ../loader/loader.c:404
+#: ../loader/loader.c:329 ../loader/loader.c:390 ../loader/loader.c:406
 msgid "Devices"
 msgstr "裝置"
 
@@ -4103,71 +4207,72 @@ msgstr "讀取 kickstart 檔案 %s 內容時發生錯誤: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "kickstart 檔案 %2$s 在第 %1$d 行發生錯誤."
 
-#: ../loader/lang.c:41 ../loader/loader.c:195
+#: ../loader/lang.c:41 ../loader/loader.c:197
 #, c-format
 msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
-#: ../loader/lang.c:42 ../loader/loader.c:201
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+#: ../loader/lang.c:42 ../loader/loader.c:203
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "按<Tab>或<Alt-Tab>在各項目間移動 | 按空白鍵選取 | 按<F12>換下一頁"
 
-#: ../loader/lang.c:306
+#: ../loader/lang.c:305
 msgid "Choose a Language"
 msgstr "選擇一個語言"
 
-#: ../loader/lang.c:629
+#: ../loader/lang.c:632
 msgid "Keyboard Type"
 msgstr "鍵盤類型"
 
-#: ../loader/lang.c:630
+#: ../loader/lang.c:633
 msgid "What type of keyboard do you have?"
 msgstr "您使用的是那一種鍵盤呢?"
 
-#: ../loader/loader.c:133
+#: ../loader/loader.c:135
 msgid "Local CDROM"
 msgstr "本機上的光碟"
 
-#: ../loader/loader.c:136
+#: ../loader/loader.c:138
 msgid "NFS image"
 msgstr "NFS 映像檔"
 
-#: ../loader/loader.c:141
+#: ../loader/loader.c:143
 msgid "Hard drive"
 msgstr "硬碟"
 
-#: ../loader/loader.c:314
+#: ../loader/loader.c:316
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:328
+#: ../loader/loader.c:330
 msgid "What kind of device would you like to add"
 msgstr "您想要新增什麼裝置"
 
-#: ../loader/loader.c:377
+#: ../loader/loader.c:379
 msgid "The following devices have been found on your system:"
 msgstr "已經在您的系統上找到下列裝置："
 
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Done"
 msgstr "完成"
 
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Add Device"
 msgstr "新增裝置"
 
-#: ../loader/loader.c:405
+#: ../loader/loader.c:407
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
 msgstr "並沒有為您的系統載入任何特殊的裝置驅動程式, 您想要現在載入嗎?"
 
-#: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
+#: ../loader/loader.c:491 ../loader/loader.c:896 ../loader/loader.c:2754
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "無法讀取目錄 %s: %s"
 
-#: ../loader/loader.c:595
+#: ../loader/loader.c:597
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -4221,15 +4326,15 @@ msgstr "選擇分割區"
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "裝置 %s 並沒有包含 Red Hat CDROM 的影像檔."
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
+#: ../loader/loader.c:1206 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
 msgstr "媒體測試"
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1213
+#: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
 msgstr "退出光碟片"
 
-#: ../loader/loader.c:1210
+#: ../loader/loader.c:1207
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -4285,84 +4390,84 @@ msgid ""
 "install through?"
 msgstr "你的系統有多種網路設備. 您想要透過那一種安裝?"
 
-#: ../loader/loader.c:1576
+#: ../loader/loader.c:1577
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "該目錄並沒有相關的安裝套件"
 
-#: ../loader/loader.c:1581
+#: ../loader/loader.c:1582
 msgid "That directory could not be mounted from the server"
 msgstr "無法從該伺服器掛載這個目錄"
 
-#: ../loader/loader.c:1623
+#: ../loader/loader.c:1624
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "伺服器上找不到檔案 %s/%s."
 
-#: ../loader/loader.c:1661
+#: ../loader/loader.c:1662
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1662
+#: ../loader/loader.c:1663
 msgid "Unable to retrieve the first install image"
 msgstr "無法讀取第一個安裝影像檔"
 
-#: ../loader/loader.c:1693
+#: ../loader/loader.c:1694
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "FTP及HTTP安裝需要 20MB 或更多的系統記憶體."
 
-#: ../loader/loader.c:1956
+#: ../loader/loader.c:1957
 msgid "Rescue Method"
 msgstr "救援方式"
 
-#: ../loader/loader.c:1957
+#: ../loader/loader.c:1958
 msgid "Installation Method"
 msgstr "安裝方式"
 
-#: ../loader/loader.c:1959
+#: ../loader/loader.c:1960
 msgid "What type of media contains the rescue image?"
 msgstr "您的救援映像檔(rescue image)存放在那一種媒體上呢?"
 
-#: ../loader/loader.c:1961
+#: ../loader/loader.c:1962
 msgid "What type of media contains the packages to be installed?"
 msgstr "您想安裝的套件是放在那一種儲存媒體上呢?"
 
-#: ../loader/loader.c:2719
+#: ../loader/loader.c:2724
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "安裝磁片上找不到 ks.cfg 這個檔案"
 
-#: ../loader/loader.c:2811
+#: ../loader/loader.c:2816
 msgid "Updates Disk"
 msgstr "升級磁片"
 
-#: ../loader/loader.c:2812
+#: ../loader/loader.c:2817
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "請放入您的升級磁片並按 確定 繼續."
 
-#: ../loader/loader.c:2817
+#: ../loader/loader.c:2822
 #, c-format
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of %"
 "s."
 msgstr "您放入的軟碟片不是 %s 版本的有效更新磁片."
 
-#: ../loader/loader.c:2827
+#: ../loader/loader.c:2832
 msgid "Failed to mount floppy disk."
 msgstr "無法掛載軟碟機."
 
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Updates"
 msgstr "升級"
 
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Reading anaconda updates..."
 msgstr "讀取 anaconda 升級程式..."
 
-#: ../loader/loader.c:3046
+#: ../loader/loader.c:3051
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "本機器沒有足夠的記憶體可供 %s  安裝."
 
-#: ../loader/loader.c:3082
+#: ../loader/loader.c:3087
 msgid ""
 "The second stage of the install which you have selected does not match the "
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
@@ -4371,7 +4476,7 @@ msgstr ""
 "您選取的第二階段安裝不符合您所使用的開機磁片. 這不應該發生, 現在正重新啟動您"
 "的系統."
 
-#: ../loader/loader.c:3457
+#: ../loader/loader.c:3479
 msgid ""
 "No hard drives have been found. You probably need to manually choose device "
 "drivers for the installation to succeed. Would you like to select drivers "
@@ -4380,7 +4485,7 @@ msgstr ""
 "找不到硬碟. 為使安裝順利進行,或許您需要手動選取該裝置驅動程式. 現在您想要選"
 "取 驅動程式了嗎?"
 
-#: ../loader/loader.c:3617
+#: ../loader/loader.c:3644
 msgid "Running anaconda - please wait...\n"
 msgstr "執行 anaconda - 請稍後...\n"
 
@@ -4388,7 +4493,8 @@ msgstr "執行 anaconda - 請稍後...\n"
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
-msgstr "無法從主卷冊描述中讀取磁碟數值. 這也許表示在建立此磁碟時沒有加上數值資訊."
+msgstr ""
+"無法從主卷冊描述中讀取磁碟數值. 這也許表示在建立此磁碟時沒有加上數值資訊."
 
 #: ../loader/mediacheck.c:201
 #, c-format
@@ -4483,42 +4589,42 @@ msgstr "驅動程式磁片"
 msgid "Please insert the %s driver disk now."
 msgstr "現在請放入 %s 驅動程式磁片."
 
-#: ../loader/net.c:171
-msgid "NFS server name:"
-msgstr "NFS 伺服器名稱"
-
-#: ../loader/net.c:174 ../loader/urls.c:230
-msgid "Red Hat directory:"
-msgstr "Red Hat Linux 所在目錄:"
-
-#: ../loader/net.c:179
+#: ../loader/net.c:62
 #, c-format
 msgid ""
 "Please enter the following information:\n"
 "\n"
-"    o the name or IP number of your NFS server\n"
+"    o the name or IP number of your %s server\n"
 "    o the directory on that server containing\n"
-"      %s for your architecture"
+"      %s for your architecture\n"
 msgstr ""
-"請輸入下列資訊\n"
+"請輸入下列資訊:\n"
 "\n"
-"    o 您的 NFS 伺服器 IP 或主機名稱\n"
+"    o %s 伺服器的名稱或 IP 位址\n"
 "    o 該伺服器所有的目錄\n"
-"      %s 您的主機架構"
+"      %s 您的主機架構\n"
 
-#: ../loader/net.c:184
+#: ../loader/net.c:176
+msgid "NFS server name:"
+msgstr "NFS 伺服器名稱"
+
+#: ../loader/net.c:179 ../loader/urls.c:226
+msgid "Red Hat directory:"
+msgstr "Red Hat Linux 所在目錄:"
+
+#: ../loader/net.c:185
 msgid "NFS Setup"
 msgstr "NFS 設定:"
 
-#: ../loader/net.c:263
+#: ../loader/net.c:259
 msgid "Nameserver IP"
 msgstr "名稱伺服器(Nameserver) IP位址"
 
-#: ../loader/net.c:267 ../loader/net.c:816
+#: ../loader/net.c:263 ../loader/net.c:812
 msgid "Nameserver"
 msgstr "名稱伺服器(Nameserver)"
 
-#: ../loader/net.c:268
+#: ../loader/net.c:264
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -4528,15 +4634,15 @@ msgstr ""
 "您的動態 IP 組態設定回應不包括 DNS 名稱伺服器. 如果您知道您的名稱伺服器，請現"
 "在輸入。否則就留下空白，而安裝過程仍將繼續。"
 
-#: ../loader/net.c:278
+#: ../loader/net.c:274
 msgid "Invalid IP Information"
 msgstr "輸入資料無效"
 
-#: ../loader/net.c:279
+#: ../loader/net.c:275
 msgid "You entered an invalid IP address."
 msgstr "您輸入無效的 IP 位址."
 
-#: ../loader/net.c:304
+#: ../loader/net.c:299
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -4544,84 +4650,84 @@ msgstr ""
 "請輸入這部機器的 IP 資訊,每一項都必須以 IP 位址的形式(十進制數目以小數點符號"
 "相隔)(例如 192.168.1.1)."
 
-#: ../loader/net.c:346
+#: ../loader/net.c:341
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "使用動態分配 IP(BOOTP/DHCP)"
 
-#: ../loader/net.c:374
+#: ../loader/net.c:369
 msgid "Configure TCP/IP"
 msgstr "TCP/IP 設定"
 
-#: ../loader/net.c:405
+#: ../loader/net.c:400
 msgid "Missing Information"
 msgstr "資訊不足"
 
-#: ../loader/net.c:406
+#: ../loader/net.c:401
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "您必須輸入一個有效的網路位址及網路遮罩"
 
-#: ../loader/net.c:414 ../loader/net.c:750
+#: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
 msgstr "動態 IP"
 
-#: ../loader/net.c:415 ../loader/net.c:751
+#: ../loader/net.c:410 ../loader/net.c:747
 msgid "Sending request for IP information..."
 msgstr "正在取得 IP 位址..."
 
-#: ../loader/net.c:627
+#: ../loader/net.c:623
 msgid "Determining host name and domain..."
 msgstr "正在取得主機及網域名稱..."
 
-#: ../loader/net.c:734 ../loader/net.c:767
+#: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
 msgstr "kickstart"
 
-#: ../loader/net.c:735
+#: ../loader/net.c:731
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "網路參數不正確 %s: %s"
 
-#: ../loader/net.c:768
+#: ../loader/net.c:764
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "錯誤的開機通訊協定 %s 設定"
 
-#: ../loader/net.c:810
+#: ../loader/net.c:806
 msgid "Boot protocol to use"
 msgstr "開機時使用的通訊協定"
 
-#: ../loader/net.c:812
+#: ../loader/net.c:808
 msgid "Network gateway"
 msgstr "網路閘道器(gateway)"
 
-#: ../loader/net.c:814
+#: ../loader/net.c:810
 msgid "IP address"
 msgstr "IP 位址"
 
-#: ../loader/net.c:823
+#: ../loader/net.c:819
 msgid "Domain name"
 msgstr "網域名稱"
 
-#: ../loader/net.c:826
+#: ../loader/net.c:822
 msgid "Network device"
 msgstr "網路裝置"
 
-#: ../loader/net.c:898
+#: ../loader/net.c:894
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr "按<Tab>或<Alt-Tab>在各項目間移動 | 按空白鍵選取 | 按 <F12> 換下一頁 "
 
-#: ../loader/net.c:899
+#: ../loader/net.c:895
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
-#: ../loader/net.c:901
+#: ../loader/net.c:897
 msgid "Network configuration"
 msgstr "網路設定"
 
-#: ../loader/net.c:902
+#: ../loader/net.c:898
 msgid "Would you like to set up networking?"
 msgstr "您想要設定網路嗎?"
 
@@ -4657,105 +4763,90 @@ msgstr "等候 telnet 連線中..."
 msgid "Running anaconda via telnet..."
 msgstr "使用 telnet 執行 anaconda - 請稍後..."
 
-#: ../loader/urls.c:81
+#: ../loader/urls.c:82
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "無法登入到 %s: %s"
 
-#: ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:92 ../loader/urls.c:100
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "無法傳回 %s: %s"
 
-#: ../loader/urls.c:104
+#: ../loader/urls.c:105
 msgid "Retrieving"
 msgstr "正在取得資訊"
 
-#: ../loader/urls.c:183
-#, c-format
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your %s server\n"
-"    o the directory on that server containing\n"
-"      %s for your architecture\n"
-msgstr ""
-"請輸入下列資訊:\n"
-"\n"
-"    o %s 伺服器的名稱或 IP 位址\n"
-"    o 該伺服器所有的目錄\n"
-"      %s 您的主機架構\n"
-
-#: ../loader/urls.c:226
+#: ../loader/urls.c:222
 msgid "FTP site name:"
 msgstr "FTP 站台名稱:"
 
-#: ../loader/urls.c:227
+#: ../loader/urls.c:223
 msgid "Web site name:"
 msgstr "網站名稱:"
 
-#: ../loader/urls.c:245
+#: ../loader/urls.c:241
 msgid "Use non-anonymous ftp"
 msgstr "使用非匿名登入 FTP"
 
-#: ../loader/urls.c:250
+#: ../loader/urls.c:246
 msgid "Use proxy server"
 msgstr "使用代理伺服器"
 
-#: ../loader/urls.c:262
+#: ../loader/urls.c:258
 msgid "FTP Setup"
 msgstr "FTP 設定"
 
-#: ../loader/urls.c:263
+#: ../loader/urls.c:259
 msgid "HTTP Setup"
 msgstr "HTTP 設定"
 
-#: ../loader/urls.c:273
+#: ../loader/urls.c:269
 msgid "You must enter a server name."
 msgstr "您必須輸入一個伺服器名稱."
 
-#: ../loader/urls.c:278
+#: ../loader/urls.c:274
 msgid "You must enter a directory."
 msgstr "您必須輸入一個目錄名稱."
 
-#: ../loader/urls.c:283
+#: ../loader/urls.c:279
 msgid "Unknown Host"
 msgstr "未知的主機名稱"
 
-#: ../loader/urls.c:284
+#: ../loader/urls.c:280
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s 不是一個有效的主機名稱."
 
-#: ../loader/urls.c:364
+#: ../loader/urls.c:360
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr "如果您使用非匿名的 ftp 站台,請在下面輸入你的帳號以及密碼."
 
-#: ../loader/urls.c:369
+#: ../loader/urls.c:365
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr "如果您正使用 HTTP 代理伺服器,請輸入 HTTP 代理伺服器的名稱."
 
-#: ../loader/urls.c:390
+#: ../loader/urls.c:386
 msgid "Account name:"
 msgstr "帳號名稱:"
 
-#: ../loader/urls.c:399
+#: ../loader/urls.c:395
 msgid "FTP Proxy:"
 msgstr "FTP Proxy:"
 
-#: ../loader/urls.c:400
+#: ../loader/urls.c:396
 msgid "HTTP Proxy:"
 msgstr "HTTP Proxy:"
 
-#: ../loader/urls.c:404
+#: ../loader/urls.c:400
 msgid "FTP Proxy Port:"
 msgstr "FTP Proxy Port:"
 
-#: ../loader/urls.c:405
+#: ../loader/urls.c:401
 msgid "HTTP Proxy Port:"
 msgstr "HTTP Proxy Port:"
 
@@ -4949,12 +5040,15 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr ""
+"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -5129,8 +5223,10 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -5289,12 +5385,18 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
+msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -5331,10 +5433,6 @@ msgstr "Mountain Time - south Idaho & east Oregon"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
-
-#. generated from zone.tab
-msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -5489,10 +5587,6 @@ msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
-msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "west & central Borneo"
 
@@ -5525,20 +5619,12 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-"GB2312            us              Asia/Shanghai"
-msgstr ""
-"簡體中文    zh_CN.GB2312    無    無            zh_CN.GB2312            "
-"us              亞洲/上海"
+msgid "Chinese(Simplified)"
+msgstr "簡體中文"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-"Big5              us              Asia/Taipei"
-msgstr ""
-"繁體中文   zh_TW.Big5      無    無            zh_TW.Big5              "
-"us              亞洲/台北"
+msgid "Chinese(Traditional)"
+msgstr "繁體中文"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5585,10 +5671,6 @@ msgid "Portuguese"
 msgstr "葡萄牙語"
 
 #. generated from lang-table
-msgid "Portuguese(Brasilian) pt"
-msgstr "葡萄牙語(巴西人的) pt"
-
-#. generated from lang-table
 msgid "Russian"
 msgstr "俄語"
 
@@ -5607,4 +5689,3 @@ msgstr "瑞典語"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "烏克蘭語"
-

@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3\n"
-"POT-Creation-Date: 2002-03-25 17:27-0500\n"
-"PO-Revision-Date: 2002-03-26 15:31GMT\n"
+"POT-Creation-Date: 2002-04-15 17:42-0400\n"
+"PO-Revision-Date: 2002-04-15 17:55-0400\n"
 "Last-Translator: Nuria Soriano <nuria@redhat.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 # ../anaconda:313
 # ../anaconda:313
 # ../anaconda:313
-#: ../anaconda:313
+#: ../anaconda:319
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -79,81 +79,82 @@ msgstr ""
 # ../textw/firewall_text.py:201 ../textw/network_text.py:134
 # ../textw/silo_text.py:110 ../textw/silo_text.py:147
 # ../textw/silo_text.py:160 ../xserver.py:51
-#: ../anaconda:332 ../gui.py:110 ../iw/account_gui.py:150
-#: ../iw/account_gui.py:161 ../iw/partition_gui.py:506
-#: ../iw/partition_gui.py:860 ../iw/partition_gui.py:1342 ../loader/cdrom.c:34
-#: ../loader/devices.c:94 ../loader/devices.c:239 ../loader/devices.c:258
-#: ../loader/devices.c:265 ../loader/devices.c:334 ../loader/devices.c:429
-#: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/lang.c:309
-#: ../loader/lang.c:631 ../loader/loader.c:329 ../loader/loader.c:471
-#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
-#: ../loader/loader.c:1096 ../loader/loader.c:1155 ../loader/loader.c:1253
-#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1367
-#: ../loader/loader.c:1463 ../loader/loader.c:1575 ../loader/loader.c:1580
-#: ../loader/loader.c:1622 ../loader/loader.c:1661 ../loader/loader.c:1693
-#: ../loader/loader.c:1964 ../loader/loader.c:2718 ../loader/loader.c:2748
-#: ../loader/loader.c:2811 ../loader/loader.c:2826 ../loader/loader.c:3049
-#: ../loader/loader.c:3081 ../loader/mediacheck.c:192
-#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
-#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
-#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/net.c:734 ../loader/net.c:767 ../loader/pcmcia.c:104
-#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
-#: ../loader/urls.c:80 ../loader/urls.c:90 ../loader/urls.c:98
-#: ../loader/urls.c:202 ../loader/urls.c:272 ../loader/urls.c:277
-#: ../loader/urls.c:283 ../loader/urls.c:423 ../mouse.py:282 ../rescue.py:35
-#: ../rescue.py:145 ../rescue.py:168 ../rescue.py:177 ../rescue.py:193
-#: ../rescue.py:199 ../text.py:303 ../text.py:424 ../textw/bootdisk_text.py:66
+#: ../anaconda:338 ../gui.py:110 ../mouse.py:283 ../rescue.py:35
+#: ../rescue.py:142 ../rescue.py:165 ../rescue.py:174 ../rescue.py:190
+#: ../rescue.py:196 ../text.py:303 ../text.py:424 ../xserver.py:51
+#: ../iw/account_gui.py:150 ../iw/account_gui.py:161
+#: ../iw/partition_gui.py:506 ../iw/partition_gui.py:860
+#: ../iw/partition_gui.py:1342 ../textw/bootdisk_text.py:66
 #: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:48
 #: ../textw/complete_text.py:63 ../textw/complete_text.py:79
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:195 ../textw/network_text.py:139
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160 ../xserver.py:51
+#: ../textw/silo_text.py:160 ../loader/cdrom.c:34 ../loader/devices.c:94
+#: ../loader/devices.c:239 ../loader/devices.c:258 ../loader/devices.c:265
+#: ../loader/devices.c:334 ../loader/devices.c:429 ../loader/kickstart.c:59
+#: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
+#: ../loader/lang.c:96 ../loader/lang.c:308 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:473 ../loader/loader.c:490
+#: ../loader/loader.c:596 ../loader/loader.c:895 ../loader/loader.c:1096
+#: ../loader/loader.c:1155 ../loader/loader.c:1252 ../loader/loader.c:1253
+#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1366
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1576
+#: ../loader/loader.c:1581 ../loader/loader.c:1623 ../loader/loader.c:1662
+#: ../loader/loader.c:1694 ../loader/loader.c:1965 ../loader/loader.c:2723
+#: ../loader/loader.c:2753 ../loader/loader.c:2816 ../loader/loader.c:2831
+#: ../loader/loader.c:3054 ../loader/loader.c:3086 ../loader/mediacheck.c:192
+#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
+#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/net.c:730 ../loader/net.c:763 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
+#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
+#: ../loader/urls.c:279 ../loader/urls.c:419
 msgid "OK"
 msgstr "OK"
 
 # ../anaconda:375
 # ../anaconda:375
 # ../anaconda:375
-#: ../anaconda:375
+#: ../anaconda:381
 msgid "Probing for video card:   "
 msgstr "Prueba de la tarjeta de vídeo: "
 
 # ../anaconda:383
 # ../anaconda:383
 # ../anaconda:383
-#: ../anaconda:383
+#: ../anaconda:389
 msgid "Unable to probe\n"
 msgstr "Imposible probarlo\n"
 
 # ../anaconda:385
 # ../anaconda:385
 # ../anaconda:385
-#: ../anaconda:385
+#: ../anaconda:391
 msgid "Probing for monitor type: "
 msgstr "Prueba del tipo de monitor: "
 
 # ../anaconda:392
 # ../anaconda:392
 # ../anaconda:392
-#: ../anaconda:392
+#: ../anaconda:398
 msgid "Probing for mouse type:   "
 msgstr "Prueba del tipo de ratón: "
 
 # ../anaconda:396
 # ../anaconda:396
 # ../anaconda:396
-#: ../anaconda:396
+#: ../anaconda:402
 msgid "Skipping mouse probe.\n"
 msgstr "Saltar la prueba del ratón.\n"
 
 # ../anaconda:410
 # ../anaconda:410
 # ../anaconda:410
-#: ../anaconda:410
+#: ../anaconda:417
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
@@ -164,7 +165,7 @@ msgstr ""
 # ../anaconda:420
 # ../anaconda:420
 # ../anaconda:420
-#: ../anaconda:420
+#: ../anaconda:427
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
@@ -175,7 +176,7 @@ msgstr ""
 # ../anaconda:425
 # ../anaconda:425
 # ../anaconda:425
-#: ../anaconda:425
+#: ../anaconda:432
 msgid "Using mouse type: "
 msgstr "Usando ratón tipo: "
 
@@ -213,6 +214,7 @@ msgstr "No se han podido asignar las particiones"
 # ../autopart.py:739
 # ../autopart.py:739
 #: ../autopart.py:769
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
@@ -231,6 +233,7 @@ msgstr "La partición requerida no existe"
 # ../autopart.py:854
 # ../autopart.py:854
 #: ../autopart.py:902
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -251,6 +254,7 @@ msgstr "El test de validez de la partición requerida controla los errores"
 # ../autopart.py:888
 # ../autopart.py:888
 #: ../autopart.py:936
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -275,6 +279,7 @@ msgstr "Aviso durante la partición automática"
 # ../autopart.py:898
 # ../autopart.py:898
 #: ../autopart.py:946
+#, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
@@ -300,6 +305,7 @@ msgstr "Error de particionamiento"
 # ../autopart.py:911
 # ../autopart.py:911
 #: ../autopart.py:960
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -333,15 +339,15 @@ msgstr ""
 # ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 # ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 # ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
-#: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
-#: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
-#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1625
-#: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
-#: ../iw/upgrade_swap_gui.py:186 ../loader/loader.c:3456
-#: ../partitioning.py:706 ../partitioning.py:1455
+#: ../autopart.py:996 ../bootloader.py:286 ../image.py:200
+#: ../partitioning.py:706 ../partitioning.py:1455 ../upgrade.py:258
+#: ../upgrade.py:378 ../upgrade.py:397 ../iw/bootloader_gui.py:58
+#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1296
+#: ../iw/partition_gui.py:1625 ../iw/upgrade_swap_gui.py:171
+#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:436
 #: ../textw/partition_text.py:168 ../textw/upgrade_text.py:174
-#: ../upgrade.py:258 ../upgrade.py:378 ../upgrade.py:397
+#: ../loader/loader.c:3478
 msgid "Warning"
 msgstr "Aviso"
 
@@ -410,6 +416,7 @@ msgstr "Guarde todas las particiones y use el espacio libre existente"
 # ../autopart.py:976
 # ../autopart.py:976
 #: ../autopart.py:1027
+#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -427,6 +434,7 @@ msgstr ""
 # ../autopart.py:981
 # ../autopart.py:981
 #: ../autopart.py:1032
+#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -451,14 +459,14 @@ msgstr ""
 # ../bootloader.py:656
 # ../bootloader.py:682
 # ../bootloader.py:710
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Bootloader"
 msgstr "Gestor de arranque"
 
 # ../bootloader.py:656
 # ../bootloader.py:682
 # ../bootloader.py:710
-#: ../bootloader.py:853
+#: ../bootloader.py:866
 msgid "Installing bootloader..."
 msgstr "Instalación del gestor de arranque..."
 
@@ -472,7 +480,7 @@ msgstr "Todo"
 # ../comps.py:672 ../upgrade.py:421
 # ../comps.py:672 ../upgrade.py:435
 # ../comps.py:672 ../upgrade.py:442
-#: ../comps.py:682 ../comps.py:748 ../upgrade.py:497
+#: ../comps.py:682 ../comps.py:748 ../upgrade.py:546
 msgid "no suggestion"
 msgstr "Ninguna sugerencia"
 
@@ -549,31 +557,31 @@ msgstr ""
 # ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 # ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
 # ../upgrade.py:305
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:522 ../fsset.py:928
-#: ../fsset.py:947 ../fsset.py:992 ../fsset.py:1014 ../fsset.py:1059
-#: ../fsset.py:1102 ../harddrive.py:172 ../image.py:63 ../image.py:143
+#: ../floppy.py:62 ../floppy.py:91 ../fsset.py:522 ../fsset.py:946
+#: ../fsset.py:965 ../fsset.py:1010 ../fsset.py:1032 ../fsset.py:1079
+#: ../fsset.py:1122 ../harddrive.py:172 ../image.py:63 ../image.py:145
+#: ../packages.py:263 ../partitioning.py:1335 ../upgrade.py:311
+#: ../upgrade.py:323 ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
+#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
-#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
+#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:473
+#: ../loader/loader.c:490 ../loader/loader.c:596 ../loader/loader.c:895
 #: ../loader/loader.c:1155 ../loader/loader.c:1253 ../loader/loader.c:1367
-#: ../loader/loader.c:1575 ../loader/loader.c:1580 ../loader/loader.c:1622
-#: ../loader/loader.c:1693 ../loader/loader.c:2718 ../loader/loader.c:2748
-#: ../loader/loader.c:2826 ../loader/loader.c:3049 ../loader/loader.c:3081
+#: ../loader/loader.c:1576 ../loader/loader.c:1581 ../loader/loader.c:1623
+#: ../loader/loader.c:1694 ../loader/loader.c:2723 ../loader/loader.c:2753
+#: ../loader/loader.c:2831 ../loader/loader.c:3054 ../loader/loader.c:3086
 #: ../loader/mediacheck.c:192 ../loader/mediacheck.c:248
 #: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/pcmcia.c:114
-#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:80
-#: ../loader/urls.c:90 ../loader/urls.c:98 ../loader/urls.c:272
-#: ../loader/urls.c:277 ../packages.py:259 ../partitioning.py:1332
-#: ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
-#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434 ../upgrade.py:311
-#: ../upgrade.py:323
+#: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:81
+#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
+#: ../loader/urls.c:273
 msgid "Error"
 msgstr "Error"
 
 # ../floppy.py:63 ../floppy.py:86
 # ../floppy.py:63 ../floppy.py:86
 # ../floppy.py:63 ../floppy.py:86
-#: ../floppy.py:63 ../floppy.py:86
+#: ../floppy.py:63 ../floppy.py:92
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -584,14 +592,14 @@ msgstr ""
 # ../floppy.py:73
 # ../floppy.py:73
 # ../floppy.py:73
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating"
 msgstr "Creación en curso"
 
 # ../floppy.py:73
 # ../floppy.py:73
 # ../floppy.py:73
-#: ../floppy.py:73
+#: ../floppy.py:78
 msgid "Creating boot disk..."
 msgstr "Creación de un disco de arranque..."
 
@@ -606,12 +614,14 @@ msgstr "Controlar los bloques dañados"
 # ../fsset.py:145
 # ../fsset.py:146
 #: ../fsset.py:162
+#, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Controlar los bloques dañados en /dev/%s..."
 
 # ../fsset.py:346
 # ../fsset.py:372
 #: ../fsset.py:523
+#, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
 "migrating this filesystem if desired.\n"
@@ -626,21 +636,22 @@ msgstr ""
 # ../fsset.py:655 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 # ../fsset.py:692 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 # ../fsset.py:724 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
-#: ../fsset.py:862 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:880 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 # ../fsset.py:656 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 # ../fsset.py:693 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 # ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
-#: ../fsset.py:863 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:881 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Primer sector de partición de inicio "
 
 # ../fsset.py:715
 # ../fsset.py:752
 # ../fsset.py:784
-#: ../fsset.py:929
+#: ../fsset.py:947
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -655,7 +666,8 @@ msgstr ""
 # ../fsset.py:734
 # ../fsset.py:771
 # ../fsset.py:803
-#: ../fsset.py:948
+#: ../fsset.py:966
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -673,7 +685,8 @@ msgstr ""
 # ../fsset.py:779
 # ../fsset.py:816
 # ../fsset.py:848
-#: ../fsset.py:993
+#: ../fsset.py:1011
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -688,7 +701,8 @@ msgstr ""
 # ../fsset.py:799
 # ../fsset.py:836
 # ../fsset.py:868
-#: ../fsset.py:1015
+#: ../fsset.py:1033
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -703,7 +717,8 @@ msgstr ""
 # ../fsset.py:828
 # ../fsset.py:870
 # ../fsset.py:902
-#: ../fsset.py:1060
+#: ../fsset.py:1080
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -718,14 +733,15 @@ msgstr ""
 # ../textw/network_text.py:132
 # ../fsset.py:890 ../fsset.py:899
 # ../fsset.py:922 ../fsset.py:931
-#: ../fsset.py:1080 ../fsset.py:1089
+#: ../fsset.py:1100 ../fsset.py:1109
 msgid "Invalid mount point"
 msgstr "Punto de montaje no válido"
 
 # ../fsset.py:828
 # ../fsset.py:891
 # ../fsset.py:923
-#: ../fsset.py:1081
+#: ../fsset.py:1101
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -741,7 +757,8 @@ msgstr ""
 # ../fsset.py:828
 # ../fsset.py:900
 # ../fsset.py:932
-#: ../fsset.py:1090
+#: ../fsset.py:1110
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -756,7 +773,8 @@ msgstr ""
 # ../fsset.py:848
 # ../fsset.py:913
 # ../fsset.py:945
-#: ../fsset.py:1103
+#: ../fsset.py:1123
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -774,14 +792,15 @@ msgstr ""
 # ../fsset.py:1369
 # ../fsset.py:1453
 # ../fsset.py:1488
-#: ../fsset.py:1693
+#: ../fsset.py:1719
 msgid "Formatting"
 msgstr "Formateo"
 
 # ../fsset.py:1370
 # ../fsset.py:1454
 # ../fsset.py:1489
-#: ../fsset.py:1694
+#: ../fsset.py:1720
+#, python-format
 msgid "Formatting %s filesystem..."
 msgstr "Formateo del sistema de ficheros %s ..."
 
@@ -807,11 +826,12 @@ msgstr "Fijar"
 # ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
 # ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 # ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
-#: ../gui.py:108 ../iw/partition_gui.py:508 ../iw/partition_gui.py:665
-#: ../iw/partition_gui.py:730 ../iw/welcome_gui.py:97 ../loader/devices.c:232
-#: ../loader/loader.c:1026 ../loader/loader.c:3456 ../loader/net.c:901
-#: ../text.py:301 ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
-#: ../textw/constants_text.py:48 ../textw/upgrade_text.py:254
+#: ../gui.py:108 ../text.py:301 ../iw/partition_gui.py:508
+#: ../iw/partition_gui.py:665 ../iw/partition_gui.py:730
+#: ../iw/welcome_gui.py:97 ../textw/bootdisk_text.py:26
+#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
+#: ../textw/upgrade_text.py:254 ../loader/devices.c:232
+#: ../loader/loader.c:1026 ../loader/loader.c:3478 ../loader/net.c:897
 msgid "Yes"
 msgstr "Si"
 
@@ -833,19 +853,20 @@ msgstr "Si"
 # ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 # ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 # ../textw/upgrade_text.py:259
-#: ../gui.py:109 ../iw/partition_gui.py:509 ../iw/partition_gui.py:667
-#: ../iw/partition_gui.py:732 ../iw/welcome_gui.py:100 ../loader/devices.c:233
-#: ../loader/loader.c:3456 ../loader/net.c:901 ../text.py:302
-#: ../textw/bootdisk_text.py:26 ../textw/bootdisk_text.py:55
-#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:52
-#: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
+#: ../gui.py:109 ../text.py:302 ../iw/partition_gui.py:509
+#: ../iw/partition_gui.py:667 ../iw/partition_gui.py:732
+#: ../iw/welcome_gui.py:100 ../textw/bootdisk_text.py:26
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
+#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:254
+#: ../textw/upgrade_text.py:261 ../loader/devices.c:233
+#: ../loader/loader.c:3478 ../loader/net.c:897
 msgid "No"
 msgstr "No"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../gui.py:111 ../loader/net.c:278 ../loader/net.c:405 ../text.py:304
+#: ../gui.py:111 ../text.py:304 ../loader/net.c:274 ../loader/net.c:400
 msgid "Retry"
 msgstr "Volver a intentar"
 
@@ -880,14 +901,14 @@ msgstr "Ignorar"
 # ../textw/constants_text.py:24 ../textw/silo_text.py:147
 # ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 # ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
-#: ../gui.py:113 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../gui.py:113 ../text.py:117 ../text.py:118 ../text.py:270 ../text.py:272
+#: ../text.py:306 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:861 ../iw/partition_gui.py:1343
-#: ../loader/devices.c:240 ../loader/loader.c:2811 ../loader/modules.c:442
-#: ../loader/pcmcia.c:104 ../text.py:117 ../text.py:118 ../text.py:270
-#: ../text.py:272 ../text.py:306 ../textw/bootloader_text.py:202
-#: ../textw/constants_text.py:40 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
-#: ../textw/welcome_text.py:51 ../textw/welcome_text.py:54
+#: ../textw/bootloader_text.py:202 ../textw/constants_text.py:40
+#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
+#: ../textw/userauth_text.py:76 ../textw/welcome_text.py:51
+#: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2816
+#: ../loader/modules.c:442 ../loader/pcmcia.c:104
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -898,8 +919,8 @@ msgstr "Cancelar"
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
-"a detailed bug report against anaconda at "
-"http://bugzilla.redhat.com/bugzilla/"
+"a detailed bug report against anaconda at http://bugzilla.redhat.com/"
+"bugzilla/"
 msgstr ""
 "Se ha producido una situación excepcional. Se trata probablemente de un "
 "error. Por favor copie el texto completo de esta excepción o guarde un "
@@ -920,14 +941,14 @@ msgstr ""
 # ../gui.py:381 ../gui.py:743
 # ../gui.py:381 ../gui.py:743
 # ../gui.py:381 ../gui.py:743
-#: ../gui.py:395 ../gui.py:768
+#: ../gui.py:396 ../gui.py:776
 msgid "Online Help"
 msgstr "Ayuda en línea"
 
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:43
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
-#: ../gui.py:396 ../iw/language_gui.py:20 ../textw/language_text.py:38
+#: ../gui.py:397 ../iw/language_gui.py:20 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Selección del idioma"
 
@@ -937,28 +958,28 @@ msgstr "Selección del idioma"
 # ../textw/silo_text.py:168
 # ../textw/bootloader_text.py:196 ../textw/silo_text.py:147
 # ../textw/silo_text.py:168
-#: ../gui.py:454 ../iw/firewall_gui.py:135
+#: ../gui.py:455 ../iw/firewall_gui.py:135
 msgid "Close"
 msgstr "Cerrar"
 
 # ../gui.py:445 ../gui.py:607
 # ../gui.py:445 ../gui.py:607
 # ../gui.py:445 ../gui.py:607
-#: ../gui.py:459 ../gui.py:632
+#: ../gui.py:460 ../gui.py:636
 msgid "Release Notes"
 msgstr "Notas de última hora"
 
 # ../gui.py:476
 # ../gui.py:476
 # ../gui.py:476
-#: ../gui.py:491
+#: ../gui.py:492
 msgid "Unable to load file!"
 msgstr "¡Ha sido imposible cargar el archivo!"
 
 # ../gui.py:497
 # ../gui.py:497
 # ../gui.py:497
-#: ../gui.py:522
+#: ../gui.py:526
 msgid "Release notes are missing.\n"
 msgstr "Faltan las notas de última hora.\n"
 
@@ -989,64 +1010,66 @@ msgstr "Faltan las notas de última hora.\n"
 # ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 # ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
-#: ../gui.py:628 ../loader/cdrom.c:34 ../loader/devices.c:95
-#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
-#: ../loader/loader.c:329 ../loader/loader.c:1026 ../loader/loader.c:1096
-#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1964
-#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/urls.c:202 ../loader/urls.c:423 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
-#: ../textw/confirm_text.py:38 ../textw/constants_text.py:44
-#: ../textw/silo_text.py:110 ../textw/userauth_text.py:185
+#: ../gui.py:632 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
+#: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
+#: ../textw/constants_text.py:44 ../textw/silo_text.py:110
+#: ../textw/userauth_text.py:185 ../loader/cdrom.c:34 ../loader/devices.c:95
+#: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:634
+#: ../loader/loader.c:331 ../loader/loader.c:1026 ../loader/loader.c:1096
+#: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1965
+#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
+#: ../loader/urls.c:198 ../loader/urls.c:419
 msgid "Back"
 msgstr "Anterior"
 
 # ../gui.py:605
 # ../gui.py:605
 # ../gui.py:605
-#: ../gui.py:630
+#: ../gui.py:634
 msgid "Next"
 msgstr "Siguiente"
 
 # ../gui.py:609
 # ../gui.py:609
 # ../gui.py:609
-#: ../gui.py:634
+#: ../gui.py:638
 msgid "Show Help"
 msgstr "Mostrar Ayuda"
 
 # ../gui.py:611
 # ../gui.py:611
 # ../gui.py:611
-#: ../gui.py:636
+#: ../gui.py:640
 msgid "Hide Help"
 msgstr "Esconder Ayuda"
 
 # ../packages.py:630
 # ../packages.py:646
 # ../packages.py:647
-#: ../gui.py:678
+#: ../gui.py:682
+#, python-format
 msgid "%s Installer"
 msgstr "Programa de instalación %s"
 
 # ../gui.py:668
 # ../gui.py:668
 # ../gui.py:668
-#: ../gui.py:693
+#: ../gui.py:697
+#, python-format
 msgid "%s Installer on %s"
 msgstr "%sInstalador de Red Hat Linux en %s"
 
 # ../gui.py:706
 # ../gui.py:706
 # ../gui.py:706
-#: ../gui.py:731
+#: ../gui.py:735
 msgid "Unable to load title bar"
 msgstr "¡Ha sido imposible cargar la barra del título!"
 
 # ../gui.py:791
 # ../gui.py:791
 # ../gui.py:791
-#: ../gui.py:816
+#: ../gui.py:824
 msgid "Install Window"
 msgstr "Instalar ventana"
 
@@ -1054,6 +1077,7 @@ msgstr "Instalar ventana"
 # ../harddrive.py:172
 # ../harddrive.py:172
 #: ../harddrive.py:173
+#, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "Falta el CD #%d, requerido para la instalación. "
 
@@ -1094,27 +1118,28 @@ msgstr "Cambie CDROM"
 # ../image.py:120
 # ../image.py:120
 #: ../image.py:121
+#, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Por favor, introduzca el disco %d para continuar."
 
 # ../image.py:137
 # ../image.py:137
 # ../image.py:137
-#: ../image.py:138
+#: ../image.py:140
 msgid "Wrong CDROM"
 msgstr "CDROM erróneo"
 
 # ../image.py:138
 # ../image.py:138
 # ../image.py:138
-#: ../image.py:139
+#: ../image.py:141
 msgid "That's not the correct Red Hat CDROM."
 msgstr "Éste no es el CDROM correcto de Red Hat"
 
 # ../image.py:143
 # ../image.py:143
 # ../image.py:143
-#: ../image.py:144
+#: ../image.py:146
 msgid "The CDROM could not be mounted."
 msgstr "No se puede instalar el CDROM."
 
@@ -1135,14 +1160,14 @@ msgstr "¡Ha sido imposible probarlo!"
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:274 ../xserver.py:44
-#: ../mouse.py:275 ../xserver.py:44
+#: ../mouse.py:276 ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "Ratón no detectado"
 
 # ../mouse.py:274 ../xserver.py:45
 # ../mouse.py:274 ../xserver.py:45
 # ../mouse.py:275 ../xserver.py:45
-#: ../mouse.py:276 ../xserver.py:45
+#: ../mouse.py:277 ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -1157,21 +1182,21 @@ msgstr ""
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
 # ../mouse.py:281 ../mouse.py:282 ../xserver.py:51 ../xserver.py:52
-#: ../mouse.py:282 ../mouse.py:283 ../xserver.py:51 ../xserver.py:52
+#: ../mouse.py:283 ../mouse.py:284 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "Utilizar modo texto"
 
 # ../iw/package_gui.py:30 ../packages.py:37
 # ../iw/package_gui.py:30 ../packages.py:37
 # ../iw/package_gui.py:30 ../packages.py:38
-#: ../iw/package_gui.py:30 ../packages.py:38
+#: ../packages.py:38 ../iw/package_gui.py:30
 msgid "Proceed with upgrade?"
 msgstr "¿Desea continuar con la actualización?"
 
 # ../iw/package_gui.py:31 ../packages.py:38
 # ../iw/package_gui.py:31 ../packages.py:38
 # ../iw/package_gui.py:31 ../packages.py:39
-#: ../iw/package_gui.py:31 ../packages.py:39
+#: ../packages.py:39 ../iw/package_gui.py:31
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1185,7 +1210,7 @@ msgstr ""
 # ../iw/package_gui.py:35 ../packages.py:42
 # ../iw/package_gui.py:35 ../packages.py:42
 # ../iw/package_gui.py:35 ../packages.py:43
-#: ../iw/package_gui.py:35 ../packages.py:43
+#: ../packages.py:43 ../iw/package_gui.py:35
 msgid "Would you like to continue with the upgrade?"
 msgstr "¿Le gustaría continuar con la actualización?"
 
@@ -1222,7 +1247,7 @@ msgstr ""
 # ../packages.py:203 ../packages.py:466
 # ../packages.py:202 ../packages.py:473
 # ../packages.py:203 ../packages.py:474
-#: ../packages.py:223 ../packages.py:529
+#: ../packages.py:223 ../packages.py:536
 msgid "Processing"
 msgstr "Elaboración en curso"
 
@@ -1236,7 +1261,8 @@ msgstr "Preparación para la instalación..."
 # ../packages.py:238
 # ../packages.py:237
 # ../packages.py:238
-#: ../packages.py:260
+#: ../packages.py:264
+#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
@@ -1248,11 +1274,12 @@ msgstr ""
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
-#: ../packages.py:280
+#: ../packages.py:284
 msgid "Error Installing Package"
 msgstr "Error en la instalación de paquetes"
 
-#: ../packages.py:281
+#: ../packages.py:285
+#, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
 "disk space, and/or hardware problems.  This is a fatal error and your "
@@ -1271,14 +1298,15 @@ msgstr ""
 # ../packages.py:467
 # ../packages.py:474
 # ../packages.py:475
-#: ../packages.py:530
+#: ../packages.py:537
 msgid "Setting up RPM transaction..."
 msgstr "Configuración de una transacción RPM..."
 
 # ../packages.py:508
 # ../packages.py:515
 # ../packages.py:516
-#: ../packages.py:567
+#: ../packages.py:574
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
@@ -1287,7 +1315,8 @@ msgstr "Actualización de paquetes %s.\n"
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
-#: ../packages.py:569
+#: ../packages.py:576
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
@@ -1298,18 +1327,21 @@ msgstr ""
 # ../packages.py:508
 # ../packages.py:515
 # ../packages.py:516
-#: ../packages.py:576
+#: ../packages.py:583
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Actualización de %s-%s-%s.\n"
 
 # ../packages.py:510
 # ../packages.py:517
 # ../packages.py:518
-#: ../packages.py:578
+#: ../packages.py:585
+#, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Instalación de %s-%s-%s.\n"
 
-#: ../packages.py:594
+#: ../packages.py:601
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -1328,18 +1360,18 @@ msgstr ""
 # ../gui.py:791
 # ../gui.py:791
 # ../gui.py:791
-#: ../packages.py:600
+#: ../packages.py:607
 msgid "Install Starting"
 msgstr "Instalar Startling"
 
-#: ../packages.py:601
+#: ../packages.py:608
 msgid "Starting install process, this may take several minutes..."
 msgstr "Inicio del proceso de instalación, puede durar varios minutos..."
 
 # ../packages.py:561
 # ../packages.py:577
 # ../packages.py:578
-#: ../packages.py:646
+#: ../packages.py:653
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1355,8 +1387,8 @@ msgstr ""
 # ../packages.py:581 ../packages.py:601 ../textw/upgrade_text.py:106
 # ../iw/partition_gui.py:1543 ../iw/upgrade_swap_gui.py:123
 # ../packages.py:582 ../packages.py:602 ../textw/upgrade_text.py:106
-#: ../iw/partition_gui.py:1562 ../iw/upgrade_swap_gui.py:123
-#: ../packages.py:650 ../packages.py:670 ../textw/partition_text.py:986
+#: ../packages.py:657 ../packages.py:677 ../iw/partition_gui.py:1562
+#: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "Punto de Montaje"
@@ -1364,14 +1396,14 @@ msgstr "Punto de Montaje"
 # ../packages.py:566
 # ../packages.py:582
 # ../packages.py:583
-#: ../packages.py:651
+#: ../packages.py:658
 msgid "Space Needed"
 msgstr "Espacio necesario"
 
 # ../packages.py:581
 # ../packages.py:597
 # ../packages.py:598
-#: ../packages.py:666
+#: ../packages.py:673
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1385,18 +1417,18 @@ msgstr ""
 # ../packages.py:586
 # ../packages.py:602
 # ../packages.py:603
-#: ../packages.py:671
+#: ../packages.py:678
 msgid "Nodes Needed"
 msgstr "Nodos necesarios"
 
 # ../packages.py:592
 # ../packages.py:608
 # ../packages.py:609
-#: ../packages.py:677
+#: ../packages.py:684
 msgid "Disk Space"
 msgstr "Espacio en el disco"
 
-#: ../packages.py:698
+#: ../packages.py:705
 msgid ""
 "\n"
 "\n"
@@ -1410,14 +1442,14 @@ msgstr ""
 # ../packages.py:630
 # ../packages.py:646
 # ../packages.py:647
-#: ../packages.py:715
+#: ../packages.py:722
 msgid "Post Install"
 msgstr "Post-instalación"
 
 # ../packages.py:631
 # ../packages.py:647
 # ../packages.py:648
-#: ../packages.py:716
+#: ../packages.py:723
 msgid "Performing post install configuration..."
 msgstr "Configuración post-instalación..."
 
@@ -1452,6 +1484,7 @@ msgstr "Especifique el punto de montaje para esta partición."
 # ../partitioning.py:379
 # ../partitioning.py:379
 #: ../partitioning.py:382
+#, python-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr ""
@@ -1479,6 +1512,7 @@ msgstr "Este punto de montaje debe esta en un sistema de ficheros linux."
 # ../partitioning.py:451
 # ../partitioning.py:454
 #: ../partitioning.py:457
+#, python-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
@@ -1490,6 +1524,7 @@ msgstr ""
 # ../partitioning.py:458
 # ../partitioning.py:461
 #: ../partitioning.py:464
+#, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
@@ -1501,6 +1536,7 @@ msgstr ""
 # ../partitioning.py:463
 # ../partitioning.py:466
 #: ../partitioning.py:469
+#, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "¡El tamaño de la partición solicitada es negativo! (tamaño = %s MB)"
 
@@ -1538,6 +1574,7 @@ msgstr "Las particiones de arranque solo pueden estar en dispositivos RAID1."
 # ../partitioning.py:525
 # ../partitioning.py:528
 #: ../partitioning.py:531
+#, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "Un dispositivo RAID de tipo %s requiere al menos %s miembros."
 
@@ -1545,6 +1582,7 @@ msgstr "Un dispositivo RAID de tipo %s requiere al menos %s miembros."
 # ../partitioning.py:531
 # ../partitioning.py:534
 #: ../partitioning.py:537
+#, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
@@ -1556,17 +1594,19 @@ msgstr ""
 # ../partitioning.py:563
 # ../partitioning.py:566
 #: ../partitioning.py:578
+#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"No ha definido una partición root (/), necesaria para que la instalación de "
-"%s continue."
+"No ha definido una partición root (/), necesaria para que la instalación de %"
+"s continue."
 
 # ../partitioning.py:551
 # ../partitioning.py:566
 # ../partitioning.py:569
 #: ../partitioning.py:581
+#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
@@ -1587,6 +1627,7 @@ msgstr ""
 # ../partitioning.py:579
 # ../partitioning.py:582
 #: ../partitioning.py:594
+#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
@@ -1609,6 +1650,7 @@ msgstr ""
 # ../partitioning.py:610
 # ../partitioning.py:613
 #: ../partitioning.py:625
+#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
@@ -1620,21 +1662,23 @@ msgstr ""
 # ../partitioning.py:619
 # ../partitioning.py:622
 #: ../partitioning.py:634
+#, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Ha asignado menos espacio swap (%dM) del que RAM tiene a su disposición "
-"(%dM) en su sistema.  Esto podría afectar negativamente al rendimiento."
+"Ha asignado menos espacio swap (%dM) del que RAM tiene a su disposición (%"
+"dM) en su sistema.  Esto podría afectar negativamente al rendimiento."
 
 # ../partitioning.py:676
 # ../partitioning.py:692
 # ../partitioning.py:695
 #: ../partitioning.py:707
+#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
-"architecture.  To use this disk for installation of %s, it must be "
-"re-initialized causing the loss of ALL DATA on this drive.\n"
+"architecture.  To use this disk for installation of %s, it must be re-"
+"initialized causing the loss of ALL DATA on this drive.\n"
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
@@ -1648,7 +1692,8 @@ msgstr ""
 # ../partitioning.py:1236 ../partitioning.py:1267
 # ../partitioning.py:1256 ../partitioning.py:1287
 # ../partitioning.py:1259 ../partitioning.py:1290
-#: ../partitioning.py:1333
+#: ../partitioning.py:1336
+#, python-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Error al montar el sistema de ficheros en %s: %s"
 
@@ -1656,6 +1701,7 @@ msgstr "Error al montar el sistema de ficheros en %s: %s"
 # ../partitioning.py:1399
 # ../partitioning.py:1402
 #: ../partitioning.py:1456
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1671,14 +1717,14 @@ msgstr ""
 # ../partitioning.py:1465
 # ../partitioning.py:1485
 # ../partitioning.py:1488
-#: ../partitioning.py:1551
+#: ../partitioning.py:1544
 msgid "No Drives Found"
 msgstr "No se encuentran las unidades"
 
 # ../partitioning.py:1466
 # ../partitioning.py:1486
 # ../partitioning.py:1489
-#: ../partitioning.py:1552
+#: ../partitioning.py:1545
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -1690,7 +1736,7 @@ msgstr ""
 # ../partitioning.py:1548
 # ../partitioning.py:1568
 # ../partitioning.py:1571
-#: ../partitioning.py:1645
+#: ../partitioning.py:1633
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -1703,7 +1749,8 @@ msgstr ""
 # ../partitioning.py:1551
 # ../partitioning.py:1571
 # ../partitioning.py:1574
-#: ../partitioning.py:1648
+#: ../partitioning.py:1636
+#, python-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
 "\n"
@@ -1716,28 +1763,28 @@ msgstr ""
 # ../partitioning.py:1555
 # ../partitioning.py:1575
 # ../partitioning.py:1578
-#: ../partitioning.py:1652
+#: ../partitioning.py:1640
 msgid "Are you sure you want to delete this partition?"
 msgstr "¿Está seguro de querer eliminar la partición?"
 
 # ../partitioning.py:1557
 # ../partitioning.py:1577
 # ../partitioning.py:1580
-#: ../partitioning.py:1654
+#: ../partitioning.py:1642
 msgid "Confirm Delete"
 msgstr "Confirmar la eliminización"
 
 # ../partitioning.py:1561
 # ../partitioning.py:1581
 # ../partitioning.py:1584
-#: ../partitioning.py:1658
+#: ../partitioning.py:1646
 msgid "Confirm Reset"
 msgstr "Confirmar el reinicio"
 
 # ../partitioning.py:1562
 # ../partitioning.py:1582
 # ../partitioning.py:1585
-#: ../partitioning.py:1659
+#: ../partitioning.py:1647
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
@@ -1746,14 +1793,14 @@ msgstr ""
 # ../partitioning.py:1586
 # ../partitioning.py:1606
 # ../partitioning.py:1609
-#: ../partitioning.py:1683
+#: ../partitioning.py:1671
 msgid "the partition in use by the installer."
 msgstr "la partición en uso por el instalador."
 
 # ../partitioning.py:1589
 # ../partitioning.py:1609
 # ../partitioning.py:1612
-#: ../partitioning.py:1686
+#: ../partitioning.py:1674
 msgid "a partition which is a member of a RAID array."
 msgstr "una partición que es un miembro de un array de RAID."
 
@@ -1763,29 +1810,30 @@ msgstr "una partición que es un miembro de un array de RAID."
 # ../partitioning.py:1643 ../partitioning.py:1650
 # ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
 # ../partitioning.py:1646 ../partitioning.py:1653
-#: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
-#: ../partitioning.py:1720 ../partitioning.py:1727
+#: ../partitioning.py:1683 ../partitioning.py:1689 ../partitioning.py:1697
+#: ../partitioning.py:1708 ../partitioning.py:1715
 msgid "Unable To Remove"
 msgstr "Ha sido imposible de eliminar"
 
 # ../partitioning.py:1599
 # ../partitioning.py:1619
 # ../partitioning.py:1622
-#: ../partitioning.py:1696
+#: ../partitioning.py:1684
 msgid "You must first select a partition to remove."
 msgstr "En primer lugar debe seleccionar una partición a eliminar."
 
 # ../partitioning.py:1605
 # ../partitioning.py:1625
 # ../partitioning.py:1628
-#: ../partitioning.py:1702
+#: ../partitioning.py:1690
 msgid "You cannot remove free space."
 msgstr "No puede eliminar espacio libre."
 
 # ../partitioning.py:1613
 # ../partitioning.py:1633
 # ../partitioning.py:1636
-#: ../partitioning.py:1710
+#: ../partitioning.py:1698
+#, python-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
@@ -1796,7 +1844,7 @@ msgstr ""
 # ../partitioning.py:1624
 # ../partitioning.py:1644
 # ../partitioning.py:1647
-#: ../partitioning.py:1721
+#: ../partitioning.py:1709
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1807,7 +1855,7 @@ msgstr ""
 # ../partitioning.py:1631
 # ../partitioning.py:1651
 # ../partitioning.py:1654
-#: ../partitioning.py:1728
+#: ../partitioning.py:1716
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "No puede eliminar esta partición, ya que es parte de un dispositivo RAID."
@@ -1815,21 +1863,22 @@ msgstr ""
 # ../partitioning.py:1662 ../partitioning.py:1684
 # ../partitioning.py:1682 ../partitioning.py:1704
 # ../partitioning.py:1685 ../partitioning.py:1707
-#: ../partitioning.py:1759 ../partitioning.py:1781
+#: ../partitioning.py:1747 ../partitioning.py:1769
 msgid "Unable To Edit"
 msgstr "Ha sido imposible modificarla"
 
 # ../partitioning.py:1663
 # ../partitioning.py:1683
 # ../partitioning.py:1686
-#: ../partitioning.py:1760
+#: ../partitioning.py:1748
 msgid "You must select a partition to edit"
 msgstr "Seleccione una partición a modificar"
 
 # ../partitioning.py:1685
 # ../partitioning.py:1705
 # ../partitioning.py:1708
-#: ../partitioning.py:1782
+#: ../partitioning.py:1770
+#, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
@@ -1840,28 +1889,28 @@ msgstr ""
 # ../partitioning.py:1693 ../partitioning.py:1698
 # ../partitioning.py:1713 ../partitioning.py:1718
 # ../partitioning.py:1716
-#: ../partitioning.py:1790
+#: ../partitioning.py:1778
 msgid "Unable to Edit"
 msgstr "Ha sido imposible modificarla"
 
 # ../partitioning.py:1699
 # ../partitioning.py:1719
 # ../partitioning.py:1717
-#: ../partitioning.py:1791
+#: ../partitioning.py:1779
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "No puede modificar esta partición, forma parte de un dispositivo RAID"
 
 # ../partitioning.py:1711
 # ../partitioning.py:1731
 # ../partitioning.py:1729
-#: ../partitioning.py:1803
+#: ../partitioning.py:1791
 msgid "Installation cannot continue."
 msgstr "No se puede continuar con la instalación"
 
 # ../partitioning.py:1712
 # ../partitioning.py:1732
 # ../partitioning.py:1730
-#: ../partitioning.py:1804
+#: ../partitioning.py:1792
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1874,14 +1923,14 @@ msgstr ""
 # ../partitioning.py:1732
 # ../partitioning.py:1752
 # ../partitioning.py:1750
-#: ../partitioning.py:1827
+#: ../partitioning.py:1815
 msgid "Low Memory"
 msgstr "Poca Memoria"
 
 # ../partitioning.py:1733
 # ../partitioning.py:1753
 # ../partitioning.py:1751
-#: ../partitioning.py:1828
+#: ../partitioning.py:1816
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1894,12 +1943,13 @@ msgstr ""
 # ../textw/partition_text.py:627 ../textw/partition_text.py:661
 # ../textw/partition_text.py:627 ../textw/partition_text.py:661
 # ../partitioning.py:1769
-#: ../partitioning.py:1849
+#: ../partitioning.py:1837
 msgid "Format as Swap?"
 msgstr "¿Formatear como swap?"
 
 # ../partitioning.py:1770
-#: ../partitioning.py:1850
+#: ../partitioning.py:1838
+#, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
@@ -1914,14 +1964,14 @@ msgstr ""
 # ../partitioning.py:1745 ../partitioning.py:1763
 # ../partitioning.py:1765 ../partitioning.py:1783
 # ../partitioning.py:1789 ../partitioning.py:1807
-#: ../partitioning.py:1869 ../partitioning.py:1887
+#: ../partitioning.py:1857 ../partitioning.py:1875
 msgid "Format?"
 msgstr "¿Desea formatear?"
 
 # ../partitioning.py:1746
 # ../partitioning.py:1766
 # ../partitioning.py:1790
-#: ../partitioning.py:1870
+#: ../partitioning.py:1858
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1933,7 +1983,7 @@ msgstr ""
 "\n"
 "¿Está seguro que quiere hacerlo"
 
-#: ../partitioning.py:1878
+#: ../partitioning.py:1866
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1954,14 +2004,15 @@ msgstr ""
 # ../partitioning.py:1770
 # ../partitioning.py:1790
 # ../partitioning.py:1814
-#: ../partitioning.py:1894
+#: ../partitioning.py:1882
 msgid "Error with Partitioning"
 msgstr "Error de particionamiento"
 
 # ../partitioning.py:1771
 # ../partitioning.py:1791
 # ../partitioning.py:1815
-#: ../partitioning.py:1895
+#: ../partitioning.py:1883
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1977,14 +2028,15 @@ msgstr ""
 # ../partitioning.py:1784
 # ../partitioning.py:1804
 # ../partitioning.py:1828
-#: ../partitioning.py:1908
+#: ../partitioning.py:1896
 msgid "Partitioning Warning"
 msgstr "Aviso de particionamiento"
 
 # ../partitioning.py:1785
 # ../partitioning.py:1805
 # ../partitioning.py:1829
-#: ../partitioning.py:1909
+#: ../partitioning.py:1897
+#, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
 "\n"
@@ -2001,7 +2053,7 @@ msgstr ""
 # ../iw/partition_gui.py:576 ../partitioning.py:1797
 # ../iw/partition_gui.py:576 ../partitioning.py:1817
 # ../iw/partition_gui.py:576 ../partitioning.py:1841
-#: ../iw/partition_gui.py:586 ../partitioning.py:1921
+#: ../partitioning.py:1909 ../iw/partition_gui.py:586
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -2012,7 +2064,7 @@ msgstr ""
 # ../iw/partition_gui.py:579 ../partitioning.py:1800
 # ../iw/partition_gui.py:579 ../partitioning.py:1820
 # ../iw/partition_gui.py:579 ../partitioning.py:1844
-#: ../iw/partition_gui.py:589 ../partitioning.py:1924
+#: ../partitioning.py:1912 ../iw/partition_gui.py:589
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -2023,34 +2075,34 @@ msgstr ""
 # ../partitioning.py:1806
 # ../partitioning.py:1826
 # ../partitioning.py:1850
-#: ../partitioning.py:1930
+#: ../partitioning.py:1918
 msgid "Format Warning"
 msgstr "Aviso de formateo"
 
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
-#: ../rescue.py:77 ../rescue.py:115 ../rescue.py:209
+#: ../rescue.py:69 ../rescue.py:112 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Cuando haya acabado salga de la shell y su sistema rearrancará."
 
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
-#: ../rescue.py:99 ../rescue.py:163 ../rescue.py:171 ../rescue.py:188
+#: ../rescue.py:96 ../rescue.py:160 ../rescue.py:168 ../rescue.py:185
 msgid "Rescue"
 msgstr "Rescatar"
 
 # ../rescue.py:91
 # ../rescue.py:91
 # ../rescue.py:91
-#: ../rescue.py:100
+#: ../rescue.py:97
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
 "installation and mount it under the directory /mnt/sysimage.  You can then "
 "make any changes required to your system.  If you want to proceed with this "
-"step choose 'Continue'. You can also choose to mount your filesystems "
-"read-only instead of read-write by choosing 'Read-Only'.\n"
+"step choose 'Continue'. You can also choose to mount your filesystems read-"
+"only instead of read-write by choosing 'Read-Only'.\n"
 "\n"
 "If for some reason this process fails you can choose 'Skip' and this step "
 "will be skipped and you will go directly to a command shell.\n"
@@ -2070,14 +2122,14 @@ msgstr ""
 # ../rescue.py:99
 # ../rescue.py:99
 # ../rescue.py:99
-#: ../loader/loader.c:1227 ../loader/loader.c:1235 ../rescue.py:110
+#: ../rescue.py:107 ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Continue"
 msgstr "Continuar"
 
 # ../packages.py:96
 # ../packages.py:96
 # ../packages.py:97
-#: ../rescue.py:110 ../rescue.py:119
+#: ../rescue.py:107 ../rescue.py:116
 msgid "Read-Only"
 msgstr "Modo lectura"
 
@@ -2090,24 +2142,24 @@ msgstr "Modo lectura"
 # ../rescue.py:99 ../rescue.py:101 ../textw/bootdisk_text.py:68
 # ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
 # ../textw/upgrade_text.py:118
-#: ../loader/loader.c:916 ../loader/loader.c:1293 ../loader/loader.c:1295
-#: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
+#: ../rescue.py:107 ../rescue.py:109 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:120
+#: ../textw/upgrade_text.py:120 ../loader/loader.c:916 ../loader/loader.c:1293
+#: ../loader/loader.c:1295
 msgid "Skip"
 msgstr "Saltar"
 
 # ../rescue.py:127
 # ../rescue.py:127
 # ../rescue.py:127
-#: ../rescue.py:142
+#: ../rescue.py:139
 msgid "System to Rescue"
 msgstr "Sistema a rescatar"
 
 # ../rescue.py:128 ../textw/upgrade_text.py:208
 # ../rescue.py:128 ../textw/upgrade_text.py:208
 # ../rescue.py:128 ../textw/upgrade_text.py:209
-#: ../rescue.py:143 ../textw/upgrade_text.py:211
+#: ../rescue.py:140 ../textw/upgrade_text.py:211
 msgid "What partition holds the root partition of your installation?"
 msgstr "¿Qué partición contiene la partición root de su instalación?"
 
@@ -2117,15 +2169,15 @@ msgstr "¿Qué partición contiene la partición root de su instalación?"
 # ../rescue.py:134
 # ../iw/congrats_gui.py:28 ../iw/congrats_gui.py:85 ../rescue.py:130
 # ../rescue.py:134
-#: ../iw/congrats_gui.py:29 ../iw/congrats_gui.py:87 ../rescue.py:145
-#: ../rescue.py:149
+#: ../rescue.py:142 ../rescue.py:146 ../iw/congrats_gui.py:29
+#: ../iw/congrats_gui.py:87
 msgid "Exit"
 msgstr "Salir"
 
 # ../rescue.py:171
 # ../rescue.py:171
 # ../rescue.py:171
-#: ../rescue.py:164
+#: ../rescue.py:161
 msgid ""
 "Your system had dirty filesystems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -2138,7 +2190,7 @@ msgstr ""
 # ../rescue.py:146
 # ../rescue.py:146
 # ../rescue.py:146
-#: ../rescue.py:172
+#: ../rescue.py:169
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -2161,7 +2213,7 @@ msgstr ""
 # ../rescue.py:164
 # ../rescue.py:164
 # ../rescue.py:164
-#: ../rescue.py:189
+#: ../rescue.py:186
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -2178,14 +2230,14 @@ msgstr ""
 # ../rescue.py:170
 # ../rescue.py:170
 # ../rescue.py:170
-#: ../rescue.py:195
+#: ../rescue.py:192
 msgid "Rescue Mode"
 msgstr "Modo de Rescate"
 
 # ../rescue.py:171
 # ../rescue.py:171
 # ../rescue.py:171
-#: ../rescue.py:196
+#: ../rescue.py:193
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -2196,7 +2248,7 @@ msgstr ""
 # ../rescue.py:181
 # ../rescue.py:181
 # ../rescue.py:181
-#: ../rescue.py:206
+#: ../rescue.py:203
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "El sistema está montado bajo el directorio /mnt/sysimage."
 
@@ -2239,6 +2291,7 @@ msgstr "Depurar"
 # ../text.py:300
 # ../text.py:301
 #: ../text.py:321
+#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
@@ -2287,6 +2340,7 @@ msgstr "Buscando"
 # ../upgrade.py:44
 # ../upgrade.py:44
 #: ../upgrade.py:44
+#, python-format
 msgid "Searching for %s installations..."
 msgstr "Búsqueda de instalaciones %s..."
 
@@ -2349,9 +2403,8 @@ msgid ""
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
 msgstr ""
-"No se ha podido montar uno o más sistemas de ficheros de la lista de "
-"/etc/fstab. Trate de resolver el problema y vuelva a intentar la "
-"actualización."
+"No se ha podido montar uno o más sistemas de ficheros de la lista de /etc/"
+"fstab. Trate de resolver el problema y vuelva a intentar la actualización."
 
 # ../upgrade.py:225
 # ../upgrade.py:230
@@ -2372,6 +2425,7 @@ msgstr ""
 # ../upgrade.py:241
 # ../upgrade.py:241
 #: ../upgrade.py:259
+#, python-format
 msgid "%s not found"
 msgstr "%s no encontrado"
 
@@ -2445,28 +2499,28 @@ msgstr "Tarjeta desconocida"
 # ../textw/xconfig_text.py:469 ../xf86config.py:850
 # ../textw/xconfig_text.py:476 ../xf86config.py:850
 # ../textw/xconfig_text.py:476 ../xf86config.py:850
-#: ../textw/xconfig_text.py:488 ../xf86config.py:847
+#: ../xf86config.py:881 ../textw/xconfig_text.py:488
 msgid "Video Card"
 msgstr "Tarjeta de vídeo"
 
 # ../xf86config.py:852
 # ../xf86config.py:852
 # ../xf86config.py:852
-#: ../xf86config.py:849
+#: ../xf86config.py:883
 msgid "Video Ram"
 msgstr "Ram de vídeo"
 
 # ../xf86config.py:855
 # ../xf86config.py:855
 # ../xf86config.py:855
-#: ../xf86config.py:852
+#: ../xf86config.py:886
 msgid "X server"
 msgstr "Servidor X"
 
 # ../xf86config.py:858
 # ../xf86config.py:858
 # ../xf86config.py:858
-#: ../xf86config.py:855
+#: ../xf86config.py:889
 msgid "Unable to detect video card"
 msgstr "No puede detectar la tarjeta vídeo"
 
@@ -2603,7 +2657,7 @@ msgstr "Nombre completo:"
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
-#: ../loader/urls.c:393 ../textw/userauth_text.py:37
+#: ../textw/userauth_text.py:37 ../loader/urls.c:389
 msgid "Password:"
 msgstr "Contraseña:"
 
@@ -2707,9 +2761,9 @@ msgstr "Borrar"
 #: ../iw/account_gui.py:358
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
-"accounts could be for a personal login account, or for other "
-"non-administrative users who need to use this system. Use the <Add> button "
-"to enter additional user accounts."
+"accounts could be for a personal login account, or for other non-"
+"administrative users who need to use this system. Use the <Add> button to "
+"enter additional user accounts."
 msgstr ""
 "Se pueden crear otras cuenta para otros usuarios de este sistema. Dichas "
 "cuentas pueden ser para una cuenta personal, o para otros usuarios que "
@@ -2881,6 +2935,7 @@ msgstr "Creación del disco de arranque"
 # ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:74
 # ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
+#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
@@ -3198,6 +3253,7 @@ msgstr "Sobre la instalación"
 # ../iw/confirm_gui.py:59
 # ../iw/confirm_gui.py:59
 #: ../iw/confirm_gui.py:60
+#, python-format
 msgid "Click next to begin installation of %s."
 msgstr "Haga click en Siguiente para empezar la instalación de %s."
 
@@ -3208,8 +3264,8 @@ msgstr "Haga click en Siguiente para empezar la instalación de %s."
 msgid ""
 "A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
-"kickstart file representing the choices you have made will be in "
-"/root/anaconda-ks.cfg."
+"kickstart file representing the choices you have made will be in /root/"
+"anaconda-ks.cfg."
 msgstr ""
 "Encontrará un completo registro de su instalación en /root/install.log "
 "después de reiniciar su sistema. Lo podrá necesitar más tarde. Encontrará un "
@@ -3226,6 +3282,7 @@ msgstr "Sobre la actualización"
 # ../iw/confirm_gui.py:72
 # ../iw/confirm_gui.py:72
 #: ../iw/confirm_gui.py:73
+#, python-format
 msgid "Click next to begin upgrade of %s."
 msgstr "Haga click en Siguiente para empezar la actualización de %s."
 
@@ -3250,6 +3307,7 @@ msgstr "Enhorabuena"
 # ../iw/congrats_gui.py:47 ../textw/complete_text.py:29
 # ../iw/congrats_gui.py:47 ../textw/complete_text.py:29
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
+#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
@@ -3263,14 +3321,15 @@ msgstr ""
 # ../iw/congrats_gui.py:55
 # ../iw/congrats_gui.py:55
 #: ../iw/congrats_gui.py:56
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit "
-"http://www.redhat.com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
+"com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
@@ -3290,11 +3349,12 @@ msgstr ""
 # ../iw/congrats_gui.py:102
 # ../iw/congrats_gui.py:102
 #: ../iw/congrats_gui.py:104
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit "
-"http://www.redhat.com/errata.\n"
+"For information on errata (updates and bug fixes), visit http://www.redhat."
+"com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the %s "
 "manuals at http://www.redhat.com/docs."
@@ -3320,8 +3380,9 @@ msgstr "Dependencias no resueltas"
 # ../textw/packages_text.py:24 ../textw/packages_text.py:270
 # ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
 # ../textw/packages_text.py:24 ../textw/packages_text.py:270
-#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:519
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
+#, python-format
 msgid "Total install size: %s"
 msgstr "Tamaño total de la instalación: %s"
 
@@ -3331,8 +3392,8 @@ msgstr "Tamaño total de la instalación: %s"
 # ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 # ../iw/dependencies_gui.py:64 ../iw/package_gui.py:423
 # ../iw/progress_gui.py:191 ../textw/packages_text.py:301
-#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:430
-#: ../iw/progress_gui.py:192 ../textw/packages_text.py:301
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:425
+#: ../iw/progress_gui.py:195 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Paquete"
 
@@ -3394,6 +3455,7 @@ msgstr ""
 # ../iw/examine_gui.py:88 ../textw/upgrade_text.py:222
 # ../iw/examine_gui.py:88 ../textw/upgrade_text.py:223
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
+#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
 msgstr "Actualizar la instalación de %s en la partición /dev/%s"
 
@@ -3579,7 +3641,7 @@ msgstr "Pruebe su selección aquí:"
 # ../iw/language_gui.py:49 ../textw/language_text.py:44
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
-#: ../iw/language_gui.py:49 ../loader/lang.c:307 ../textw/language_text.py:39
+#: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:306
 msgid "What language would you like to use during the installation process?"
 msgstr "¿Qué idioma le gustaría usar durante el proceso de instalación?"
 
@@ -3717,14 +3779,14 @@ msgstr "Dirección IP"
 # ../iw/network_gui.py:195 ../loader/net.c:806
 # ../iw/network_gui.py:195 ../loader/net.c:806
 # ../iw/network_gui.py:195 ../loader/net.c:806
-#: ../iw/network_gui.py:195 ../loader/net.c:818
+#: ../iw/network_gui.py:195 ../loader/net.c:814
 msgid "Netmask"
 msgstr "Máscara de red"
 
 # ../iw/network_gui.py:196 ../loader/loader.c:308
 # ../iw/network_gui.py:196 ../loader/loader.c:308
 # ../iw/network_gui.py:196 ../loader/loader.c:308
-#: ../iw/network_gui.py:196 ../loader/loader.c:314
+#: ../iw/network_gui.py:196 ../loader/loader.c:316
 msgid "Network"
 msgstr "Red"
 
@@ -3741,8 +3803,8 @@ msgstr "Broadcast"
 # ../textw/network_text.py:177
 # ../iw/network_gui.py:251 ../loader/net.c:610 ../loader/net.c:808
 # ../textw/network_text.py:177
-#: ../iw/network_gui.py:251 ../loader/net.c:626 ../loader/net.c:820
-#: ../textw/network_text.py:207
+#: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:622
+#: ../loader/net.c:816
 msgid "Hostname"
 msgstr "Nombre del Host"
 
@@ -3787,63 +3849,63 @@ msgstr "Selección individual de paquetes"
 # ../textw/packages_text.py:24 ../textw/packages_text.py:270
 # ../iw/dependencies_gui.py:32 ../iw/package_gui.py:517
 # ../textw/packages_text.py:24 ../textw/packages_text.py:270
-#: ../iw/package_gui.py:280
+#: ../iw/package_gui.py:275
 msgid "Total install size: "
 msgstr "Tamaño total de la instalación:"
 
 # ../iw/package_gui.py:408
 # ../iw/package_gui.py:409
 # ../iw/package_gui.py:409
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:411
 msgid "Tree View"
 msgstr "Visión en árbol"
 
 # ../iw/package_gui.py:410
 # ../iw/package_gui.py:411
 # ../iw/package_gui.py:411
-#: ../iw/package_gui.py:418
+#: ../iw/package_gui.py:413
 msgid "Flat View"
 msgstr "Visión plana"
 
 # ../iw/package_gui.py:424 ../iw/partition_gui.py:1533
 # ../iw/package_gui.py:425 ../iw/partition_gui.py:1535
 # ../iw/package_gui.py:425 ../iw/partition_gui.py:1543
-#: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
+#: ../iw/package_gui.py:427 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
 msgstr "Tamaño (MB)"
 
 # ../iw/package_gui.py:455
 # ../iw/package_gui.py:456
 # ../iw/package_gui.py:456
-#: ../iw/package_gui.py:463
+#: ../iw/package_gui.py:458
 msgid "Total size: "
 msgstr "Tamaño total: "
 
 # ../iw/package_gui.py:458
 # ../iw/package_gui.py:459
 # ../iw/package_gui.py:459
-#: ../iw/package_gui.py:466
+#: ../iw/package_gui.py:461
 msgid "Select all in group"
 msgstr "Seleccionar todo en el grupo"
 
 # ../iw/package_gui.py:462
 # ../iw/package_gui.py:463
 # ../iw/package_gui.py:463
-#: ../iw/package_gui.py:470
+#: ../iw/package_gui.py:465
 msgid "Unselect all in group"
 msgstr "Deseleccionar todo en el grupo"
 
 # ../iw/package_gui.py:495 ../textw/packages_text.py:57
 # ../iw/package_gui.py:496 ../textw/packages_text.py:57
 # ../iw/package_gui.py:496 ../textw/packages_text.py:57
-#: ../iw/package_gui.py:503 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:498 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "Selección de grupos de paquetes"
 
 # ../iw/package_gui.py:579 ../textw/packages_text.py:50
 # ../iw/package_gui.py:580 ../textw/packages_text.py:50
 # ../iw/package_gui.py:580 ../textw/packages_text.py:50
-#: ../iw/package_gui.py:587 ../textw/packages_text.py:50
+#: ../iw/package_gui.py:582 ../textw/packages_text.py:50
 msgid "Select individual packages"
 msgstr "Selección individual de los paquetes"
 
@@ -3886,11 +3948,12 @@ msgstr ""
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
 #: ../iw/partition_gui.py:556
+#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
-"Estos errores deben ser corregidos antes de continuar con la instalación de "
-"%s."
+"Estos errores deben ser corregidos antes de continuar con la instalación de %"
+"s."
 
 # ../iw/partition_gui.py:553
 # ../iw/partition_gui.py:553
@@ -3974,6 +4037,7 @@ msgstr "Libre"
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
 #: ../iw/partition_gui.py:736 ../textw/partition_text.py:147
+#, python-format
 msgid "RAID Device %s"
 msgstr "Dispositivo RAID %s"
 
@@ -4170,6 +4234,7 @@ msgstr "Error en la petición"
 # ../iw/partition_gui.py:1271 ../textw/partition_text.py:164
 # ../iw/partition_gui.py:1276 ../textw/partition_text.py:164
 #: ../iw/partition_gui.py:1292 ../textw/partition_text.py:165
+#, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "No se han podido asignar la particiones requeridas: %s."
 
@@ -4191,6 +4256,7 @@ msgstr "Añadir de todas maneras"
 # ../iw/partition_gui.py:1282
 # ../iw/partition_gui.py:1287
 #: ../iw/partition_gui.py:1303
+#, python-format
 msgid "Warning: %s."
 msgstr "Aviso: %s."
 
@@ -4310,6 +4376,7 @@ msgstr "Particionamiento Automático"
 # ../iw/partition_gui.py:1599
 # ../iw/partition_gui.py:1607
 #: ../iw/partition_gui.py:1626
+#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
 msgstr ""
 "Es necesario que seleccione al menos una unidad en la que tener instalado %s."
@@ -4377,13 +4444,14 @@ msgstr "Instalando paquetes"
 # ../iw/progress_gui.py:119
 # ../iw/progress_gui.py:119
 #: ../iw/progress_gui.py:119
+#, python-format
 msgid "%s KBytes"
 msgstr "%s KBytes"
 
 # ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
-#: ../iw/progress_gui.py:193 ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:196 ../iw/progress_gui.py:249
 #: ../textw/partition_text.py:986
 msgid "Size"
 msgstr "Tamaño"
@@ -4391,63 +4459,63 @@ msgstr "Tamaño"
 # ../iw/progress_gui.py:193
 # ../iw/progress_gui.py:193
 # ../iw/progress_gui.py:193
-#: ../iw/progress_gui.py:194
+#: ../iw/progress_gui.py:197
 msgid "Summary"
 msgstr "Descripción"
 
 # ../iw/progress_gui.py:223
 # ../iw/progress_gui.py:223
 # ../iw/progress_gui.py:223
-#: ../iw/progress_gui.py:224
+#: ../iw/progress_gui.py:227
 msgid "Package Progress: "
 msgstr "Progreso del paquete: "
 
 # ../iw/progress_gui.py:228
 # ../iw/progress_gui.py:228
 # ../iw/progress_gui.py:228
-#: ../iw/progress_gui.py:229
+#: ../iw/progress_gui.py:232
 msgid "Total Progress:   "
 msgstr "Progreso Total:   "
 
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Status"
 msgstr "Estado"
 
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Packages"
 msgstr "Paquetes"
 
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
 # ../iw/progress_gui.py:245
-#: ../iw/progress_gui.py:246
+#: ../iw/progress_gui.py:249
 msgid "Time"
 msgstr "Tiempo"
 
 # ../iw/progress_gui.py:255
 # ../iw/progress_gui.py:255
 # ../iw/progress_gui.py:255
-#: ../iw/progress_gui.py:256
+#: ../iw/progress_gui.py:259
 msgid "Total"
 msgstr "Total"
 
 # ../iw/progress_gui.py:256
 # ../iw/progress_gui.py:256
 # ../iw/progress_gui.py:256
-#: ../iw/progress_gui.py:257
+#: ../iw/progress_gui.py:260
 msgid "Completed"
 msgstr "Completado"
 
 # ../iw/progress_gui.py:257
 # ../iw/progress_gui.py:257
 # ../iw/progress_gui.py:257
-#: ../iw/progress_gui.py:258
+#: ../iw/progress_gui.py:261
 msgid "Remaining"
 msgstr "Restante"
 
@@ -4571,15 +4639,12 @@ msgid "This will update your current boot loader."
 msgstr "Esto actualizará su gestor de arranque actual."
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
+#, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "El instalador ha detectado que el gestor de arranque %s está instalado en la "
 "actualidad en %s."
-
-#: ../iw/upgrade_bootloader_gui.py:76
-msgid "%s  %s"
-msgstr "%s  %s"
 
 #: ../iw/upgrade_bootloader_gui.py:77
 msgid "This is the recommended option."
@@ -4602,11 +4667,11 @@ msgstr ""
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
 # ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
 # ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
-#: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
+#: ../iw/upgrade_bootloader_gui.py:90 ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
 msgstr "Creación de una nueva configuración del cargador de arranque"
 
-#: ../iw/upgrade_bootloader_gui.py:91
+#: ../iw/upgrade_bootloader_gui.py:92
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
@@ -4617,11 +4682,11 @@ msgstr ""
 # ../textw/bootloader_text.py:66
 # ../textw/bootloader_text.py:66
 # ../textw/bootloader_text.py:66
-#: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
+#: ../iw/upgrade_bootloader_gui.py:99 ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
 msgstr "Saltar la actualización del cargador de arranque"
 
-#: ../iw/upgrade_bootloader_gui.py:99
+#: ../iw/upgrade_bootloader_gui.py:100
 msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
@@ -4632,7 +4697,7 @@ msgstr ""
 # ../loader/loader.c:322
 # ../loader/loader.c:322
 # ../loader/loader.c:322
-#: ../iw/upgrade_bootloader_gui.py:111
+#: ../iw/upgrade_bootloader_gui.py:112
 msgid "What would you like to do?"
 msgstr "¿Qué opción prefiere?"
 
@@ -4647,6 +4712,7 @@ msgstr "Migrar los sistemas de ficheros"
 # ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 # ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
+#, fuzzy, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -4673,6 +4739,7 @@ msgstr "Actualización de la partición swap"
 # ../iw/upgrade_swap_gui.py:88
 # ../iw/upgrade_swap_gui.py:90
 #: ../iw/upgrade_swap_gui.py:90
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
@@ -4688,6 +4755,7 @@ msgstr ""
 # ../iw/upgrade_swap_gui.py:95
 # ../iw/upgrade_swap_gui.py:97
 #: ../iw/upgrade_swap_gui.py:97
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -4722,6 +4790,7 @@ msgstr "Espacio libre (MB)"
 # ../iw/upgrade_swap_gui.py:136
 # ../iw/upgrade_swap_gui.py:138
 #: ../iw/upgrade_swap_gui.py:138
+#, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
@@ -5289,14 +5358,15 @@ msgstr "Completado"
 # ../iw/congrats_gui.py:55
 # ../iw/congrats_gui.py:55
 #: ../textw/complete_text.py:37
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit "
-"http://www.redhat.com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
+"com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/docs."
@@ -5320,6 +5390,7 @@ msgid "<Enter> to continue"
 msgstr "<Intro> para continuar"
 
 #: ../textw/complete_text.py:58
+#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -5346,22 +5417,23 @@ msgstr "<Intro> para salir"
 # ../iw/congrats_gui.py:102
 # ../iw/congrats_gui.py:102
 #: ../textw/complete_text.py:73
+#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit "
-"http://www.redhat.com/errata.\n"
+"For information on errata (updates and bug fixes), visit http://www.redhat."
+"com/errata.\n"
 "\n"
-"Information on using your system is available in the %s manuals at "
-"http://www.redhat.com/docs."
+"Information on using your system is available in the %s manuals at http://"
+"www.redhat.com/docs."
 msgstr ""
 "Enhorabuena, la configuración ha sido completada. \n"
 "\n"
 "Para mayor información sobre las erratas (actualizaciones y parches) "
 "disponibles, visite http://www.redhat.com/errata.\n"
 "\n"
-"Encontrará información sobre el uso del sistema en los manuales %s en "
-"http://www.redhat.com/docs."
+"Encontrará información sobre el uso del sistema en los manuales %s en http://"
+"www.redhat.com/docs."
 
 # ../textw/confirm_text.py:20
 # ../textw/confirm_text.py:20
@@ -5442,7 +5514,7 @@ msgstr "SSH"
 # ../textw/firewall_text.py:99
 # ../textw/firewall_text.py:99
 # ../textw/firewall_text.py:99
-#: ../loader/telnetd.c:64 ../loader/telnetd.c:106 ../textw/firewall_text.py:93
+#: ../textw/firewall_text.py:93 ../loader/telnetd.c:64 ../loader/telnetd.c:106
 msgid "Telnet"
 msgstr "Telnet"
 
@@ -5463,7 +5535,7 @@ msgstr "Correo (SMTP)"
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
-#: ../loader/loader.c:1661 ../textw/firewall_text.py:99
+#: ../textw/firewall_text.py:99 ../loader/loader.c:1662
 msgid "FTP"
 msgstr "FTP"
 
@@ -5520,6 +5592,7 @@ msgstr ""
 # ../textw/firewall_text.py:200
 # ../textw/firewall_text.py:200
 #: ../textw/firewall_text.py:194
+#, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Aviso: %s no es un puerto válido."
 
@@ -5619,6 +5692,7 @@ msgstr "Selección del ratón"
 # ../loader/net.c:814
 # ../loader/net.c:814
 #: ../textw/network_text.py:67
+#, python-format
 msgid "Network Device: %s"
 msgstr "Dispositivo de red:%s"
 
@@ -5632,28 +5706,28 @@ msgstr "Usar bootp/dhcp"
 # ../loader/net.c:309 ../textw/network_text.py:82
 # ../loader/net.c:309 ../textw/network_text.py:82
 # ../loader/net.c:309 ../textw/network_text.py:82
-#: ../loader/net.c:310 ../textw/network_text.py:77
+#: ../textw/network_text.py:77 ../loader/net.c:305
 msgid "IP address:"
 msgstr "Dirección IP:"
 
 # ../loader/net.c:312 ../textw/network_text.py:83
 # ../loader/net.c:312 ../textw/network_text.py:83
 # ../loader/net.c:312 ../textw/network_text.py:83
-#: ../loader/net.c:313 ../textw/network_text.py:78
+#: ../textw/network_text.py:78 ../loader/net.c:308
 msgid "Netmask:"
 msgstr "Máscara de red:"
 
 # ../loader/net.c:315 ../textw/network_text.py:84
 # ../loader/net.c:315 ../textw/network_text.py:84
 # ../loader/net.c:315 ../textw/network_text.py:84
-#: ../loader/net.c:316 ../textw/network_text.py:79
+#: ../textw/network_text.py:79 ../loader/net.c:311
 msgid "Default gateway (IP):"
 msgstr "Puerta de enlance predeterminada (IP):"
 
 # ../loader/net.c:318 ../textw/network_text.py:85
 # ../loader/net.c:318 ../textw/network_text.py:85
 # ../loader/net.c:318 ../textw/network_text.py:85
-#: ../loader/net.c:319 ../textw/network_text.py:81
+#: ../textw/network_text.py:81 ../loader/net.c:314
 msgid "Primary nameserver:"
 msgstr "Servidor de nombres primario:"
 
@@ -5675,6 +5749,7 @@ msgstr "Servidor de nombre terciario:"
 # ../iw/network_gui.py:21 ../textw/network_text.py:115
 # ../iw/network_gui.py:21 ../textw/network_text.py:115
 #: ../textw/network_text.py:114
+#, python-format
 msgid "Network Configuration for %s"
 msgstr "Configuración de red para %s"
 
@@ -5728,6 +5803,7 @@ msgstr "Tamaño  :"
 # ../textw/packages_text.py:97
 # ../textw/packages_text.py:97
 #: ../textw/packages_text.py:97
+#, python-format
 msgid "%.1f KBytes"
 msgstr "%.1f KBytes"
 
@@ -5792,6 +5868,7 @@ msgstr "El valor introducido es demasiado grande"
 # ../textw/partition_text.py:167
 # ../textw/partition_text.py:167
 #: ../textw/partition_text.py:168
+#, python-format
 msgid "Warning: %s"
 msgstr "Aviso: %s"
 
@@ -5872,6 +5949,7 @@ msgstr "Opción de sistema de ficheros"
 # ../textw/partition_text.py:627 ../textw/partition_text.py:661
 # ../textw/partition_text.py:628 ../textw/partition_text.py:662
 #: ../textw/partition_text.py:629 ../textw/partition_text.py:663
+#, python-format
 msgid "Format as %s"
 msgstr "Formatear como %s"
 
@@ -5879,6 +5957,7 @@ msgstr "Formatear como %s"
 # ../textw/partition_text.py:629 ../textw/partition_text.py:663
 # ../textw/partition_text.py:630 ../textw/partition_text.py:664
 #: ../textw/partition_text.py:631 ../textw/partition_text.py:665
+#, python-format
 msgid "Migrate to %s"
 msgstr "Migrar a %s"
 
@@ -6130,6 +6209,7 @@ msgstr "¿Reloj hardware en GMT?"
 # ../textw/upgrade_text.py:89
 # ../textw/upgrade_text.py:89
 #: ../textw/upgrade_text.py:91
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
@@ -6315,8 +6395,8 @@ msgstr "ID de usuario incorrecto"
 # ../textw/userauth_text.py:116
 #: ../textw/userauth_text.py:116
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, "
-"a-z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, a-"
+"z, and 0-9."
 msgstr ""
 "Los ISs de usuario deben constar de menos de 8 caracteres y contienen "
 "caracteres de la A-Z, a-z y del 0-9."
@@ -6470,6 +6550,7 @@ msgid "Use TLS connections"
 msgstr "Usar conexiones TLS"
 
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
+#, python-format
 msgid "%s"
 msgstr "%s"
 
@@ -6477,6 +6558,7 @@ msgstr "%s"
 # ../textw/welcome_text.py:22
 # ../textw/welcome_text.py:22
 #: ../textw/welcome_text.py:23
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -6497,6 +6579,7 @@ msgstr ""
 "través de nuestro sitio web, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -6544,9 +6627,9 @@ msgstr "Seleccione la resolución que le gustaría utilizar:"
 # ../textw/xconfig_text.py:155 ../textw/xconfig_text.py:164
 # ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 # ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
-#: ../loader/loader.c:916 ../loader/loader.c:1209 ../loader/loader.c:1212
-#: ../loader/loader.c:1227 ../loader/loader.c:1235
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
+#: ../loader/loader.c:916 ../loader/loader.c:1206 ../loader/loader.c:1209
+#: ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Test"
 msgstr "Test"
 
@@ -6561,6 +6644,7 @@ msgstr "Personalización de las X"
 # ../textw/xconfig_text.py:165
 # ../textw/xconfig_text.py:165
 #: ../textw/xconfig_text.py:177
+#, python-format
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
@@ -6679,6 +6763,7 @@ msgstr "Ratios de sincronización incorrectos"
 # ../textw/xconfig_text.py:329
 # ../textw/xconfig_text.py:329
 #: ../textw/xconfig_text.py:341
+#, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
 "\n"
@@ -6704,6 +6789,7 @@ msgstr ""
 # ../textw/xconfig_text.py:383
 # ../textw/xconfig_text.py:383
 #: ../textw/xconfig_text.py:395
+#, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
@@ -6743,6 +6829,7 @@ msgstr "No puede retroceder llegado a este punto."
 # ../textw/xconfig_text.py:477
 # ../textw/xconfig_text.py:477
 #: ../textw/xconfig_text.py:489
+#, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
@@ -6762,10 +6849,10 @@ msgstr "RAM de vídeo"
 # ../textw/xconfig_text.py:496
 # ../textw/xconfig_text.py:496
 #: ../textw/xconfig_text.py:508
+#, python-format
 msgid ""
-"Please select the amount of video RAM present on your video card. Choose "
-"'%s' to reset the selection to the amount the installer detected on your "
-"card."
+"Please select the amount of video RAM present on your video card. Choose '%"
+"s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Seleccione la cantidad de RAM de vídeo presente en su tarjeta de vídeo. "
 "Escoja '%s' para reiniciar la selección hasta la cantidad que el instalador "
@@ -6911,7 +6998,7 @@ msgstr "Parámetros del módulo"
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
 #: ../loader/devices.c:232 ../loader/devices.c:239 ../loader/devices.c:357
-#: ../loader/loader.c:327 ../loader/loader.c:388 ../loader/loader.c:404
+#: ../loader/loader.c:329 ../loader/loader.c:390 ../loader/loader.c:406
 msgid "Devices"
 msgstr "Dispositivos"
 
@@ -6942,8 +7029,8 @@ msgstr "Fallo al montar el disco de drivers."
 #: ../loader/devices.c:266
 #, c-format
 msgid ""
-"The floppy disk you inserted is not a valid driver disk for this release of "
-"%s."
+"The floppy disk you inserted is not a valid driver disk for this release of %"
+"s."
 msgstr "El disco introducido no es válido para esta versión de %s."
 
 # ../loader/devices.c:327
@@ -7006,7 +7093,7 @@ msgstr "Error en la línea %d del fichero kickstart %s."
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
-#: ../loader/lang.c:41 ../loader/loader.c:195
+#: ../loader/lang.c:41 ../loader/loader.c:197
 #, c-format
 msgid "Welcome to %s"
 msgstr "Bienvenido a %s"
@@ -7014,7 +7101,7 @@ msgstr "Bienvenido a %s"
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
-#: ../loader/lang.c:42 ../loader/loader.c:201
+#: ../loader/lang.c:42 ../loader/loader.c:203
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -7023,84 +7110,84 @@ msgstr ""
 # ../loader/lang.c:298
 # ../loader/lang.c:297
 # ../loader/lang.c:297
-#: ../loader/lang.c:306
+#: ../loader/lang.c:305
 msgid "Choose a Language"
 msgstr "Elija un idioma"
 
 # ../loader/lang.c:594
 # ../loader/lang.c:606
 # ../loader/lang.c:606
-#: ../loader/lang.c:629
+#: ../loader/lang.c:632
 msgid "Keyboard Type"
 msgstr "Tipo de teclado"
 
 # ../loader/lang.c:595
 # ../loader/lang.c:607
 # ../loader/lang.c:607
-#: ../loader/lang.c:630
+#: ../loader/lang.c:633
 msgid "What type of keyboard do you have?"
 msgstr "¿Qué tipo de teclado tiene?"
 
 # ../loader/loader.c:123
 # ../loader/loader.c:123
 # ../loader/loader.c:123
-#: ../loader/loader.c:133
+#: ../loader/loader.c:135
 msgid "Local CDROM"
 msgstr "CDROM Local"
 
 # ../loader/loader.c:126
 # ../loader/loader.c:126
 # ../loader/loader.c:126
-#: ../loader/loader.c:136
+#: ../loader/loader.c:138
 msgid "NFS image"
 msgstr "Imagen NFS"
 
 # ../loader/loader.c:131
 # ../loader/loader.c:131
 # ../loader/loader.c:131
-#: ../loader/loader.c:141
+#: ../loader/loader.c:143
 msgid "Hard drive"
 msgstr "Disco duro"
 
 # ../loader/loader.c:308
 # ../loader/loader.c:308
 # ../loader/loader.c:308
-#: ../loader/loader.c:314
+#: ../loader/loader.c:316
 msgid "SCSI"
 msgstr "SCSI"
 
 # ../loader/loader.c:322
 # ../loader/loader.c:322
 # ../loader/loader.c:322
-#: ../loader/loader.c:328
+#: ../loader/loader.c:330
 msgid "What kind of device would you like to add"
 msgstr "¿Qué tipo de dispositivo le gustaría añadir?"
 
 # ../loader/loader.c:371
 # ../loader/loader.c:371
 # ../loader/loader.c:371
-#: ../loader/loader.c:377
+#: ../loader/loader.c:379
 msgid "The following devices have been found on your system:"
 msgstr "Se han encontrado los siguientes dispositivos en su sistema:"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Done"
 msgstr "Hecho"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader/loader.c:379 ../loader/loader.c:404
+#: ../loader/loader.c:381 ../loader/loader.c:406
 msgid "Add Device"
 msgstr "Añadir dispositivo"
 
 # ../loader/loader.c:399
 # ../loader/loader.c:399
 # ../loader/loader.c:399
-#: ../loader/loader.c:405
+#: ../loader/loader.c:407
 msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
@@ -7111,12 +7198,12 @@ msgstr ""
 # ../loader/loader.c:536 ../loader/loader.c:2238
 # ../loader/loader.c:536 ../loader/loader.c:2238
 # ../loader/loader.c:536 ../loader/loader.c:2238
-#: ../loader/loader.c:489 ../loader/loader.c:896 ../loader/loader.c:2749
+#: ../loader/loader.c:491 ../loader/loader.c:896 ../loader/loader.c:2754
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "No se pudo leer el directorio %s: %s"
 
-#: ../loader/loader.c:595
+#: ../loader/loader.c:597
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -7196,15 +7283,15 @@ msgstr "Selección de la Partición"
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "El dispositivo %s no contiene las imágenes de los CDROM de Red Hat."
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1227 ../loader/mediacheck.c:209
+#: ../loader/loader.c:1206 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
 msgstr "Control de medios"
 
-#: ../loader/loader.c:1209 ../loader/loader.c:1213
+#: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
 msgstr "Extraer el CD"
 
-#: ../loader/loader.c:1210
+#: ../loader/loader.c:1207
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
@@ -7216,12 +7303,12 @@ msgstr ""
 #: ../loader/loader.c:1228
 #, c-format
 msgid ""
-"If you would like to test additional media, insert the next CD and press "
-"\"%s\". You do not have to test all CDs, although it is recommended you do "
-"so at least once.\n"
+"If you would like to test additional media, insert the next CD and press \"%s"
+"\". You do not have to test all CDs, although it is recommended you do so at "
+"least once.\n"
 "\n"
-"To begin the installation process insert CD #1 into the drive and press "
-"\"%s\"."
+"To begin the installation process insert CD #1 into the drive and press \"%s"
+"\"."
 msgstr ""
 "Si quiere probar otros medios, introduzca el CD y pulse \"%s\". No debe "
 "comprobar todos los CDs, aunque se le recomienda de lo haga al menos una "
@@ -7282,21 +7369,21 @@ msgstr ""
 # ../loader/loader.c:1141
 # ../loader/loader.c:1141
 # ../loader/loader.c:1141
-#: ../loader/loader.c:1576
+#: ../loader/loader.c:1577
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Este directorio no parece contener un árbol de instalación de Red Hat."
 
 # ../loader/loader.c:1146
 # ../loader/loader.c:1146
 # ../loader/loader.c:1146
-#: ../loader/loader.c:1581
+#: ../loader/loader.c:1582
 msgid "That directory could not be mounted from the server"
 msgstr "Este directorio no podría ser montado desde el servidor"
 
 # ../loader/loader.c:1186
 # ../loader/loader.c:1186
 # ../loader/loader.c:1186
-#: ../loader/loader.c:1623
+#: ../loader/loader.c:1624
 #, c-format
 msgid "File %s/%s not found on server."
 msgstr "No se ha encontrado el archivo %s/%s en el servidor"
@@ -7304,21 +7391,21 @@ msgstr "No se ha encontrado el archivo %s/%s en el servidor"
 # ../loader/loader.c:1213
 # ../loader/loader.c:1213
 # ../loader/loader.c:1213
-#: ../loader/loader.c:1661
+#: ../loader/loader.c:1662
 msgid "HTTP"
 msgstr "HTTP"
 
 # ../loader/loader.c:1214
 # ../loader/loader.c:1214
 # ../loader/loader.c:1214
-#: ../loader/loader.c:1662
+#: ../loader/loader.c:1663
 msgid "Unable to retrieve the first install image"
 msgstr "No se puede recuperar la primera imágen de la instalación "
 
 # ../loader/loader.c:1244
 # ../loader/loader.c:1244
 # ../loader/loader.c:1244
-#: ../loader/loader.c:1693
+#: ../loader/loader.c:1694
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "La instalación mediante FTP y HTTP requiere, al menos, 20MB de memoria."
@@ -7326,60 +7413,60 @@ msgstr ""
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
-#: ../loader/loader.c:1956
+#: ../loader/loader.c:1957
 msgid "Rescue Method"
 msgstr "Método de Rescate"
 
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
-#: ../loader/loader.c:1957
+#: ../loader/loader.c:1958
 msgid "Installation Method"
 msgstr "Método de instalación"
 
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
-#: ../loader/loader.c:1959
+#: ../loader/loader.c:1960
 msgid "What type of media contains the rescue image?"
 msgstr "¿Qué tipo de dispositivo contiene la imagen de rescate?"
 
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
-#: ../loader/loader.c:1961
+#: ../loader/loader.c:1962
 msgid "What type of media contains the packages to be installed?"
 msgstr "¿Qué tipo de dispositivo contiene los paquetes para ser instalados?"
 
 # ../loader/loader.c:2208
 # ../loader/loader.c:2208
 # ../loader/loader.c:2208
-#: ../loader/loader.c:2719
+#: ../loader/loader.c:2724
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "No puedo encontrar ks.cfg en el disco de inicio."
 
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
-#: ../loader/loader.c:2811
+#: ../loader/loader.c:2816
 msgid "Updates Disk"
 msgstr "Disco de actualización"
 
 # ../loader/loader.c:2301
 # ../loader/loader.c:2301
 # ../loader/loader.c:2301
-#: ../loader/loader.c:2812
+#: ../loader/loader.c:2817
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Introduzca su disco de actualización y pulse \"OK\" para continuar."
 
 # ../loader/loader.c:2306
 # ../loader/loader.c:2306
 # ../loader/loader.c:2306
-#: ../loader/loader.c:2817
+#: ../loader/loader.c:2822
 #, c-format
 msgid ""
-"The floppy disk you inserted is not a valid update disk for this release of "
-"%s."
+"The floppy disk you inserted is not a valid update disk for this release of %"
+"s."
 msgstr ""
 "El disco que ha introducido no es un disco de actualización válido para esta "
 "versión %s."
@@ -7387,33 +7474,33 @@ msgstr ""
 # ../loader/loader.c:2316
 # ../loader/loader.c:2316
 # ../loader/loader.c:2316
-#: ../loader/loader.c:2827
+#: ../loader/loader.c:2832
 msgid "Failed to mount floppy disk."
 msgstr "Fallo en el montaje de la disquetera."
 
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Updates"
 msgstr "Actualizaciones"
 
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
-#: ../loader/loader.c:2832
+#: ../loader/loader.c:2837
 msgid "Reading anaconda updates..."
 msgstr "Leyendo actualizaciones de anaconda..."
 
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
-#: ../loader/loader.c:3046
+#: ../loader/loader.c:3051
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "No posee suficiente RAM para instalar %s en esta máquina."
 
-#: ../loader/loader.c:3082
+#: ../loader/loader.c:3087
 msgid ""
 "The second stage of the install which you have selected does not match the "
 "boot disk which you are using.  This shouldn't happen, and I'm rebooting "
@@ -7423,7 +7510,7 @@ msgstr ""
 "disco de arranque en uso. Esto no debería suceder, se procederá a "
 "reinicializará el sistema."
 
-#: ../loader/loader.c:3457
+#: ../loader/loader.c:3479
 msgid ""
 "No hard drives have been found. You probably need to manually choose device "
 "drivers for the installation to succeed. Would you like to select drivers "
@@ -7436,7 +7523,7 @@ msgstr ""
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
-#: ../loader/loader.c:3617
+#: ../loader/loader.c:3644
 msgid "Running anaconda - please wait...\n"
 msgstr "Ejecutando anaconda - por favor espere...\n"
 
@@ -7564,63 +7651,63 @@ msgstr "Disco de drivers"
 msgid "Please insert the %s driver disk now."
 msgstr "Por favor, introduzca el disco de drivers %s."
 
+# ../loader/net.c:180
+# ../loader/net.c:180
+# ../loader/net.c:180
+#: ../loader/net.c:62
+#, c-format
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your %s server\n"
+"    o the directory on that server containing\n"
+"      %s for your architecture\n"
+msgstr ""
+"Por favor introduzca la siguiente información:\n"
+"\n"
+"    o el nombre o número IP de su servidor %s\n"
+"    o el directorio del servidor que contiene\n"
+".......%s para su arquitectura\n"
+
 # ../loader/net.c:170
 # ../loader/net.c:170
 # ../loader/net.c:170
-#: ../loader/net.c:171
+#: ../loader/net.c:176
 msgid "NFS server name:"
 msgstr "Nombre del servidor NFS:"
 
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
-#: ../loader/net.c:174 ../loader/urls.c:230
+#: ../loader/net.c:179 ../loader/urls.c:226
 msgid "Red Hat directory:"
 msgstr "Directorio Red Hat:"
 
-# ../loader/net.c:180
-# ../loader/net.c:180
-# ../loader/net.c:180
-#: ../loader/net.c:179
-#, c-format
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your NFS server\n"
-"    o the directory on that server containing\n"
-"      %s for your architecture"
-msgstr ""
-"Por favor introduzca la siguiente información:\n"
-"\n"
-"    o el nombre o número IP de su servidor NFS \n"
-"    o el directorio del servidor que contiene\n"
-".......%s para su arquitectura"
-
 # ../loader/net.c:179
 # ../loader/net.c:179
 # ../loader/net.c:179
-#: ../loader/net.c:184
+#: ../loader/net.c:185
 msgid "NFS Setup"
 msgstr "Configuración NFS"
 
 # ../loader/net.c:262
 # ../loader/net.c:262
 # ../loader/net.c:262
-#: ../loader/net.c:263
+#: ../loader/net.c:259
 msgid "Nameserver IP"
 msgstr "IP del servidor de nombres"
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
-#: ../loader/net.c:267 ../loader/net.c:816
+#: ../loader/net.c:263 ../loader/net.c:812
 msgid "Nameserver"
 msgstr "Servidor de nombres"
 
 # ../loader/net.c:267
 # ../loader/net.c:267
 # ../loader/net.c:267
-#: ../loader/net.c:268
+#: ../loader/net.c:264
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
@@ -7635,21 +7722,21 @@ msgstr ""
 # ../loader/net.c:277
 # ../loader/net.c:277
 # ../loader/net.c:277
-#: ../loader/net.c:278
+#: ../loader/net.c:274
 msgid "Invalid IP Information"
 msgstr "Información IP no válida"
 
 # ../loader/net.c:278
 # ../loader/net.c:278
 # ../loader/net.c:278
-#: ../loader/net.c:279
+#: ../loader/net.c:275
 msgid "You entered an invalid IP address."
 msgstr "Ha introducido una dirección IP no válida"
 
 # ../loader/net.c:303
 # ../loader/net.c:303
 # ../loader/net.c:303
-#: ../loader/net.c:304
+#: ../loader/net.c:299
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
@@ -7661,63 +7748,63 @@ msgstr ""
 # ../loader/net.c:345
 # ../loader/net.c:345
 # ../loader/net.c:345
-#: ../loader/net.c:346
+#: ../loader/net.c:341
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr "Utilizar la configuración IP dinámica (BOOT/DHCP)"
 
 # ../loader/net.c:373
 # ../loader/net.c:373
 # ../loader/net.c:373
-#: ../loader/net.c:374
+#: ../loader/net.c:369
 msgid "Configure TCP/IP"
 msgstr "Configurar TCP/IP"
 
 # ../loader/net.c:404
 # ../loader/net.c:404
 # ../loader/net.c:404
-#: ../loader/net.c:405
+#: ../loader/net.c:400
 msgid "Missing Information"
 msgstr "Falta de información"
 
 # ../loader/net.c:405
 # ../loader/net.c:405
 # ../loader/net.c:405
-#: ../loader/net.c:406
+#: ../loader/net.c:401
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Debe introducir una dirección IP y una máscara de red válidas."
 
 # ../loader/net.c:413 ../loader/net.c:738
 # ../loader/net.c:413 ../loader/net.c:738
 # ../loader/net.c:413 ../loader/net.c:738
-#: ../loader/net.c:414 ../loader/net.c:750
+#: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
 msgstr "IP Dinámico"
 
 # ../loader/net.c:414 ../loader/net.c:739
 # ../loader/net.c:414 ../loader/net.c:739
 # ../loader/net.c:414 ../loader/net.c:739
-#: ../loader/net.c:415 ../loader/net.c:751
+#: ../loader/net.c:410 ../loader/net.c:747
 msgid "Sending request for IP information..."
 msgstr "Enviando petición de información IP..."
 
 # ../loader/net.c:611
 # ../loader/net.c:611
 # ../loader/net.c:611
-#: ../loader/net.c:627
+#: ../loader/net.c:623
 msgid "Determining host name and domain..."
 msgstr "Determinando nombre de host y dominio..."
 
 # ../loader/net.c:722 ../loader/net.c:755
 # ../loader/net.c:722 ../loader/net.c:755
 # ../loader/net.c:722 ../loader/net.c:755
-#: ../loader/net.c:734 ../loader/net.c:767
+#: ../loader/net.c:730 ../loader/net.c:763
 msgid "kickstart"
 msgstr "kickstart"
 
 # ../loader/net.c:723
 # ../loader/net.c:723
 # ../loader/net.c:723
-#: ../loader/net.c:735
+#: ../loader/net.c:731
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "Argumento erróneo para el comando de red kickstart %s: %s"
@@ -7725,7 +7812,7 @@ msgstr "Argumento erróneo para el comando de red kickstart %s: %s"
 # ../loader/net.c:756
 # ../loader/net.c:756
 # ../loader/net.c:756
-#: ../loader/net.c:768
+#: ../loader/net.c:764
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "bootproto erróneo %s especificado en el comando de red"
@@ -7733,42 +7820,42 @@ msgstr "bootproto erróneo %s especificado en el comando de red"
 # ../loader/net.c:798
 # ../loader/net.c:798
 # ../loader/net.c:798
-#: ../loader/net.c:810
+#: ../loader/net.c:806
 msgid "Boot protocol to use"
 msgstr "Protocolo de inicio a utilizar"
 
 # ../loader/net.c:800
 # ../loader/net.c:800
 # ../loader/net.c:800
-#: ../loader/net.c:812
+#: ../loader/net.c:808
 msgid "Network gateway"
 msgstr "Puerta de enlace para la red"
 
 # ../loader/net.c:802
 # ../loader/net.c:802
 # ../loader/net.c:802
-#: ../loader/net.c:814
+#: ../loader/net.c:810
 msgid "IP address"
 msgstr "Dirección IP"
 
 # ../loader/net.c:811
 # ../loader/net.c:811
 # ../loader/net.c:811
-#: ../loader/net.c:823
+#: ../loader/net.c:819
 msgid "Domain name"
 msgstr "Nombre del dominio"
 
 # ../loader/net.c:814
 # ../loader/net.c:814
 # ../loader/net.c:814
-#: ../loader/net.c:826
+#: ../loader/net.c:822
 msgid "Network device"
 msgstr "Dispositivo de red"
 
 # ../loader/net.c:886
 # ../loader/net.c:886
 # ../loader/net.c:886
-#: ../loader/net.c:898
+#: ../loader/net.c:894
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -7778,7 +7865,7 @@ msgstr ""
 # ../loader/net.c:887
 # ../loader/net.c:887
 # ../loader/net.c:887
-#: ../loader/net.c:899
+#: ../loader/net.c:895
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
@@ -7786,14 +7873,14 @@ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 # ../loader/net.c:889
 # ../loader/net.c:889
 # ../loader/net.c:889
-#: ../loader/net.c:901
+#: ../loader/net.c:897
 msgid "Network configuration"
 msgstr "Configuración de red"
 
 # ../loader/net.c:890
 # ../loader/net.c:890
 # ../loader/net.c:890
-#: ../loader/net.c:902
+#: ../loader/net.c:898
 msgid "Would you like to set up networking?"
 msgstr "¿Quiere configurar la red?"
 
@@ -7853,7 +7940,7 @@ msgstr "Ejecución de anaconda a través de telnet..."
 # ../loader/urls.c:80
 # ../loader/urls.c:80
 # ../loader/urls.c:80
-#: ../loader/urls.c:81
+#: ../loader/urls.c:82
 #, c-format
 msgid "Failed to log into %s: %s"
 msgstr "Fallo al acceder a %s: %s"
@@ -7861,7 +7948,7 @@ msgstr "Fallo al acceder a %s: %s"
 # ../loader/urls.c:90 ../loader/urls.c:98
 # ../loader/urls.c:90 ../loader/urls.c:98
 # ../loader/urls.c:90 ../loader/urls.c:98
-#: ../loader/urls.c:91 ../loader/urls.c:99
+#: ../loader/urls.c:92 ../loader/urls.c:100
 #, c-format
 msgid "Failed to retrieve %s: %s"
 msgstr "Error al recuperar %s: %s"
@@ -7869,95 +7956,77 @@ msgstr "Error al recuperar %s: %s"
 # ../loader/urls.c:103
 # ../loader/urls.c:103
 # ../loader/urls.c:103
-#: ../loader/urls.c:104
+#: ../loader/urls.c:105
 msgid "Retrieving"
 msgstr "Recuperando"
 
-# ../loader/net.c:180
-# ../loader/net.c:180
-# ../loader/net.c:180
-#: ../loader/urls.c:183
-#, c-format
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your %s server\n"
-"    o the directory on that server containing\n"
-"      %s for your architecture\n"
-msgstr ""
-"Por favor introduzca la siguiente información:\n"
-"\n"
-"    o el nombre o número IP de su servidor %s\n"
-"    o el directorio del servidor que contiene\n"
-".......%s para su arquitectura\n"
-
 # ../loader/urls.c:190
 # ../loader/urls.c:190
 # ../loader/urls.c:190
-#: ../loader/urls.c:226
+#: ../loader/urls.c:222
 msgid "FTP site name:"
 msgstr "Nombre del sitio FTP:"
 
 # ../loader/urls.c:191
 # ../loader/urls.c:191
 # ../loader/urls.c:191
-#: ../loader/urls.c:227
+#: ../loader/urls.c:223
 msgid "Web site name:"
 msgstr "Nombre del sitio web:"
 
 # ../loader/urls.c:209
 # ../loader/urls.c:209
 # ../loader/urls.c:209
-#: ../loader/urls.c:245
+#: ../loader/urls.c:241
 msgid "Use non-anonymous ftp"
 msgstr "Usar un FTP no anónimo"
 
 # ../loader/urls.c:214
 # ../loader/urls.c:214
 # ../loader/urls.c:214
-#: ../loader/urls.c:250
+#: ../loader/urls.c:246
 msgid "Use proxy server"
 msgstr "Usar un servidor proxy"
 
 # ../loader/urls.c:226
 # ../loader/urls.c:226
 # ../loader/urls.c:226
-#: ../loader/urls.c:262
+#: ../loader/urls.c:258
 msgid "FTP Setup"
 msgstr "Configuración FTP"
 
 # ../loader/urls.c:227
 # ../loader/urls.c:227
 # ../loader/urls.c:227
-#: ../loader/urls.c:263
+#: ../loader/urls.c:259
 msgid "HTTP Setup"
 msgstr "Configuración HTTP"
 
 # ../loader/urls.c:237
 # ../loader/urls.c:237
 # ../loader/urls.c:237
-#: ../loader/urls.c:273
+#: ../loader/urls.c:269
 msgid "You must enter a server name."
 msgstr "Debe introducir un nombre de servidor."
 
 # ../loader/urls.c:242
 # ../loader/urls.c:242
 # ../loader/urls.c:242
-#: ../loader/urls.c:278
+#: ../loader/urls.c:274
 msgid "You must enter a directory."
 msgstr "Debe introducir un directorio."
 
 # ../loader/urls.c:247
 # ../loader/urls.c:247
 # ../loader/urls.c:247
-#: ../loader/urls.c:283
+#: ../loader/urls.c:279
 msgid "Unknown Host"
 msgstr "Host desconocido"
 
 # ../loader/urls.c:248
 # ../loader/urls.c:248
 # ../loader/urls.c:248
-#: ../loader/urls.c:284
+#: ../loader/urls.c:280
 #, c-format
 msgid "%s is not a valid hostname."
 msgstr "%s no es un nombre de host válido."
@@ -7965,7 +8034,7 @@ msgstr "%s no es un nombre de host válido."
 # ../loader/urls.c:328
 # ../loader/urls.c:328
 # ../loader/urls.c:328
-#: ../loader/urls.c:364
+#: ../loader/urls.c:360
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
@@ -7976,7 +8045,7 @@ msgstr ""
 # ../loader/urls.c:333
 # ../loader/urls.c:333
 # ../loader/urls.c:333
-#: ../loader/urls.c:369
+#: ../loader/urls.c:365
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
@@ -7987,35 +8056,35 @@ msgstr ""
 # ../loader/urls.c:354
 # ../loader/urls.c:354
 # ../loader/urls.c:354
-#: ../loader/urls.c:390
+#: ../loader/urls.c:386
 msgid "Account name:"
 msgstr "Nombre de la cuenta:"
 
 # ../loader/urls.c:363
 # ../loader/urls.c:363
 # ../loader/urls.c:363
-#: ../loader/urls.c:399
+#: ../loader/urls.c:395
 msgid "FTP Proxy:"
 msgstr "Proxy FTP:"
 
 # ../loader/urls.c:364
 # ../loader/urls.c:364
 # ../loader/urls.c:364
-#: ../loader/urls.c:400
+#: ../loader/urls.c:396
 msgid "HTTP Proxy:"
 msgstr "Proxy HTTP:"
 
 # ../loader/urls.c:368
 # ../loader/urls.c:368
 # ../loader/urls.c:368
-#: ../loader/urls.c:404
+#: ../loader/urls.c:400
 msgid "FTP Proxy Port:"
 msgstr "Puerto del Proxy FTP:"
 
 # ../loader/urls.c:369
 # ../loader/urls.c:369
 # ../loader/urls.c:369
-#: ../loader/urls.c:405
+#: ../loader/urls.c:401
 msgid "HTTP Proxy Port:"
 msgstr "Puerto del Proxy HTTP:"
 
@@ -8582,6 +8651,10 @@ msgid "Moscow+10 - Bering Sea"
 msgstr "Moscú+10 - Mar de Bering"
 
 #. generated from zone.tab
+msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Hora de las montañas Rocayosas - Arizona"
 
@@ -8628,10 +8701,6 @@ msgstr "Mountain Time - Idaho del Sur & Oregón del Este"
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - Territorios del Noroeste del Oeste"
-
-#. generated from zone.tab
-msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -8786,10 +8855,6 @@ msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
-msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#. generated from zone.tab
 msgid "west & central Borneo"
 msgstr "Borneo oeste & central"
 
@@ -8822,20 +8887,12 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN.GB2312  "
-"          us              Asia/Shanghai"
-msgstr ""
-"Chino(simplificado)    zh_CN.GB2312    Ninguno    Ninguno            "
-"zh_CN.GB2312            us              Asia/Changai"
+msgid "Chinese(Simplified)"
+msgstr "Chino(simplificado)"
 
 #. generated from lang-table
-msgid ""
-"Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW.Big5    "
-"          us              Asia/Taipei"
-msgstr ""
-"Chino(tradicional)   zh_TW.Big5      Ninguno    Ninguno            "
-"zh_TW.Big5              us              Asia/Taipei"
+msgid "Chinese(Traditional)"
+msgstr "Chino(tradicional)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -8883,10 +8940,6 @@ msgstr "Noruego"
 #. generated from lang-table
 msgid "Portuguese"
 msgstr "Portugués"
-
-#. generated from lang-table
-msgid "Portuguese(Brasilian) pt"
-msgstr "Portugués(brasileño) pt"
 
 #. generated from lang-table
 msgid "Russian"
