@@ -425,7 +425,7 @@ class InstallCallback:
                                                           h['release']))
                                                           
                     self.method.unmountCD()
-		    self.messageWindow(_("Error"),
+		    rc = self.messageWindow(_("Error"),
 			_("The package %s-%s-%s cannot be opened. This is due "
                           "to a missing file or perhaps a corrupt package.  "
                           "If you are installing from CD media this usually "
@@ -433,7 +433,27 @@ class InstallCallback:
 			  "unable to read the media.\n\n"
 			  "Press <return> to try again.") % (h['name'],
                                                              h['version'],
-                                                             h['release']))
+                                                             h['release']),
+                                            type="custom",
+                                            custom_icon="error",
+                                            custom_buttons = [ _("Re_boot"),
+                                                               _("_Retry") ])
+                    if rc == 0:
+                        rc = self.messageWindow(_("Warning"),
+                                                _("If you reboot, your system "
+                                                  "will be left in an "
+                                                  "inconsistent state that "
+                                                  "will likely require "
+                                                  "reinstallation.  Are you "
+                                                  "sure you wish to "
+                                                  "continue?"),
+                                                type = "custom",
+                                                custom_icon="warning",
+                                                custom_buttons = [_("_Cancel"),
+                                                                  _("_Reboot")])
+                        if rc == 1:
+                            sys.exit(0)
+                        
 	    self.progress.setPackageStatus(_("Installing..."), None)
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
