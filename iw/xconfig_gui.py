@@ -88,7 +88,7 @@ class XCustomWindow (InstallWindow):
 
     def desktop_cb (self, widget, desktop):
         self.newDesktop = desktop
-        print desktop
+#        print desktop
 
         if desktop == "GNOME":
             im = self.ics.readPixmap ("gnome.png")
@@ -411,11 +411,6 @@ class MonitorWindow (InstallWindow):
             self.todo.x.state = monitor[0]
 
     def getNext (self):
-        print "Inside getNext"
-
-        print self.hEntry.get_text ()
-        print self.vEntry.get_text ()
-        
         if self.skipme:
             return None
 
@@ -516,9 +511,6 @@ class MonitorWindow (InstallWindow):
             ctree.expand (selParent)
             ctree.connect ("draw", self.moveto, select)
 
-
-        print self.todo.x.monHoriz
-        print self.todo.x.monVert
 
         self.hEntry.set_text (self.todo.x.monHoriz)
         self.vEntry.set_text (self.todo.x.monVert)        
