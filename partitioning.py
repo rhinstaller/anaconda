@@ -479,6 +479,58 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
                                             - minmembers )
     return None
 
+# this function is called at the end of partitioning so that we
+# can make sure you don't have anything silly (like no /, a really small /,
+# etc).  returns (errors, warnings) where each is a list of strings or None
+# if there are none
+def sanityCheckAllRequests(requests):
+    checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 50),
+                  ('/home', 100), ('/boot', 20)]
+    warnings = []
+    errors = []
+
+    slash = requests.getRequestByMountPoint('/')
+    if not slash:
+        errors.append(_("You have not defined a root partition (/), which is required for installation of Red Hat Linux to continue."))
+
+    if slash and slash.size < 250:
+        warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install Red Hat Linux."))
+
+    for (mount, size) in checkSizes:
+        req = requests.getRequestByMountPoint(mount)
+        if req and req.size < size:
+            warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
+
+    foundSwap = 0
+    swapSize = 0
+    for request in requests.requests:
+        if request.fstype and request.fstype.getName() == "swap":
+            foundSwap = foundSwap + 1
+            swapSize = swapSize + request.size
+            break
+        
+    if foundSwap == 0:
+        warnings.append(_("You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."))
+
+    # XXX number of swaps not exported from kernel and could change
+    if foundSwap >= 32:
+        warnings.append(_("You have specified more than 32 swap devices.  The kernel for Red Hat Linux only supports 32 swap devices."))
+
+    mem = iutil.memInstalled(corrected = 0)
+    rem = mem % 16384
+    if rem:
+        mem = mem + (16384 - rem)
+    mem = mem / 1024
+
+    if foundSwap and (swapSize < (mem - 8)) and (mem < 1024):
+        warnings.append(_("You have allocated less swap space (%dM) than available RAM (%dM) on your system.  This could negatively impact performance.") %(swapSize, mem))
+
+    if warnings == []:
+        warnings = None
+    if errors == []:
+        errors = None
+
+    return (errors, warnings)
 
 # add delete specs to requests for all logical partitions in part
 def deleteAllLogicalPartitions(part, requests):
@@ -1342,11 +1394,11 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
                                   "no longer return to the disk editing "
                                   "screen. Would you like to continue "
                                   "with the installation process?"),
-                                  type = "yesno")
+                                type = "yesno")
         if rc == 0:
             sys.exit(0)
         return DISPATCH_FORWARD
-
+        
     fsset.reset()
     for request in partitions.requests:
         # XXX improve sanity checking
