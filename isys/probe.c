@@ -194,14 +194,14 @@ int kdFindDasdList(struct knownDevices * devices, int code) {
 
         line = (char *)malloc(100*sizeof(char));
         while (fgets (line, 100, fd) != NULL) {
-                ret = sscanf (line, "%*[A-Za-z0-9](%[A-Z]) at ( %*d: %*d) is %s : %*s",
+                ret = sscanf (line, "%*[A-Za-z0-9](ECKD) at ( %*d: %*d) is %s : %*s",
                                 format, devname);
-                if (ret == 2) {
+                if (ret == 1) {
                         if(!deviceKnown(devices, devname)) {
                                 device.code = code;
                                 device.class = CLASS_HD;
                                 device.name = strdup(devname);
-                                device.model = strdup(format);
+                                device.model = strdup("IBM DASD");
                                 addDevice(devices, device);
                         }
                 }
