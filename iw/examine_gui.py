@@ -10,9 +10,11 @@ class UpgradeExamineWindow (InstallWindow):
         ics.setTitle (_("Upgrade Examine"))
         ics.readHTML ("upgrade")
 
-    def toggled (self, widget, part):
+    def toggled (self, widget, newPart):
         if widget.get_active ():
-            self.root = part
+	    for (part, someFilesystem) in self.parts:
+		if part == newPart:
+		    self.root = (part, someFilesystem)
 
     def getNext (self):
         threads_leave ()
@@ -27,22 +29,22 @@ class UpgradeExamineWindow (InstallWindow):
 
     def getScreen (self):
         threads_leave ()
-        parts = self.todo.upgradeFindRoot ()
+        self.parts = self.todo.upgradeFindRoot ()
         threads_enter ()
 
 	box = GtkVBox (FALSE)
-        if not parts:
+        if not self.parts:
             box.pack_start (GtkLabel (_("You don't have any Linux partitions.\n You can't upgrade this sytem!")),
                             FALSE)
             return box
 
         vbox = GtkVBox (FALSE, 5)
 
-        if parts and len (parts) > 1:
+        if self.parts and len (self.parts) > 1:
             self.ics.setNextEnabled (TRUE)
-            self.root = parts[0]
+            (self.root, someFilesystem) = self.parts[0]
             group = None
-            for part in parts:
+            for (part, someFilesystem) in self.parts:
                 group = GtkRadioButton (group, part)
                 group.connect ("toggled", self.toggled, part)
                 box.pack_start (group, FALSE)
@@ -55,7 +57,7 @@ class UpgradeExamineWindow (InstallWindow):
         else:
             # if there is only one partition, go on.
             self.ics.setNextEnabled (TRUE)
-            self.root = parts[0]
+            self.root = self.parts[0]
             
         self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
         self.individualPackages.set_active (FALSE)
