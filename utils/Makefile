@@ -17,8 +17,9 @@ genhdlist: genhdlist.c
 snarffont: snarffont.c
 	$(CC) -o snarffont snarffont.c
 
-install:
-	@echo "nothing to do"		
+install: all
+	mkdir -p $(DESTDIR)/usr/bin
+	install -m755 -s genhdlist $(DESTDIR)/usr/bin
 
 clean:	
 	rm -f modlist genhdlist moddeps snarffont *.o 
