@@ -55,15 +55,17 @@ class BootloaderChoiceWindow:
         grid.add(skipbl, 0, 3, (0,0,0,1))
         grid.add(buttons, 0, 4, growx = 1)
 
-        result = grid.runOnce()
+        while 1:
+            result = grid.run()
 
-        button = buttons.buttonPressed(result)
+            button = buttons.buttonPressed(result)
         
-        if button == TEXT_BACK_CHECK:
-            return INSTALL_BACK        
+            if button == TEXT_BACK_CHECK:
+                screen.popWindow()
+                return INSTALL_BACK        
 
-        if blradio.getSelection() == "nobl":
-            rc = ButtonChoiceWindow(screen, _("Skip Boot Loader"),
+            if blradio.getSelection() == "nobl":
+                rc = ButtonChoiceWindow(screen, _("Skip Boot Loader"),
 				_("You have elected to not install "
 				  "any boot loader. It is strongly recommended "
 				  "that you install a boot loader unless "
@@ -75,17 +77,20 @@ class BootloaderChoiceWindow:
 				  "installation?"),
 				[ (_("Yes"), "yes"), (_("No"), "no") ],
 				width = 50)
-	    dispatch.skipStep("instbootloader", skip = (rc == "yes"))
-            dispatch.skipStep("bootloaderpassword")            
-        elif blradio.getSelection() == "lilo":
-            bl.setUseGrub(0)
-            dispatch.skipStep("instbootloader", 0)            
-	else:
-            bl.setUseGrub(1)
-            dispatch.skipStep("instbootloader", 0)
-            dispatch.skipStep("bootloaderpassword", 0)                        
+                if rc == "no":
+                    continue
+                dispatch.skipStep("instbootloader", skip = (rc == "yes"))
+                dispatch.skipStep("bootloaderpassword")            
+            elif blradio.getSelection() == "lilo":
+                bl.setUseGrub(0)
+                dispatch.skipStep("instbootloader", 0)            
+            else:
+                bl.setUseGrub(1)
+                dispatch.skipStep("instbootloader", 0)
+                dispatch.skipStep("bootloaderpassword", 0)
 
-        return INSTALL_OK
+            screen.popWindow()
+            return INSTALL_OK
         
 
 class BootloaderAppendWindow:
