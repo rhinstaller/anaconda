@@ -680,7 +680,7 @@ class Partitions:
         accepting a partition will be run on the requests as well.
         """
         checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
-                      ('/home', 100), ('/boot', 20)]
+                      ('/home', 100), ('/boot', 75)]
         warnings = []
         errors = []
 
