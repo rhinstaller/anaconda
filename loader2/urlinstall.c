@@ -46,7 +46,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
     fd = urlinstStartTransfer(ui, file, NULL, 1, flags);
 
-    if (fd == -2) return 1;
+    if (fd == -2) return 2;
 
     if (fd < 0) {
         /* file not found */
@@ -56,7 +56,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
         fd = urlinstStartTransfer(ui, newFile, NULL, 1, flags);
 
-        if (fd == -2) return 1;
+        if (fd == -2) return 2;
         if (fd < 0) {
             if (!silentErrors) 
                 newtWinMessage(_("Error"), _("OK"),
@@ -64,7 +64,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
                                (ui->protocol == URL_METHOD_FTP ? "ftp" : 
                                 "http"),
                                ui->address, ui->prefix, file);
-            return 1;
+            return 2;
         }
     }
 
@@ -86,6 +86,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
     char *stage2img;
     char tmpstr1[1024], tmpstr2[1024];
+    int rc;
 
     /*    setupRamdisk();*/
 
@@ -124,10 +125,12 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     snprintf(tmpstr1, sizeof(tmpstr1), "RedHat/base/%s", stage2img);
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
 
-    if (loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,
-			   "/mnt/runtime", "loop0", 0)) {
-        newtWinMessage(_("Error"), _("OK"),
-                       _("Unable to retrieve the install image."));
+    rc = loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,
+                            "/mnt/runtime", "loop0", 0);
+    if (rc) {
+        if (rc != 2) 
+            newtWinMessage(_("Error"), _("OK"),
+                           _("Unable to retrieve the install image."));
         return 1;
     }
 
