@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-14 11:37-0500\n"
-"PO-Revision-Date: 2001-03-10 02:56+0100\n"
+"PO-Revision-Date: 2001-03-17 01:07+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1529,7 +1529,7 @@ msgstr "Välj standardspråket:   "
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Nuvarande installerade språk:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1903,9 +1903,8 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
 #: ../iw/rootpartition_gui.py:375
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Manuell partitionering"
+msgstr "Diskpartitionering"
 
 #: ../iw/rootpartition_gui.py:377
 #, c-format
@@ -1916,6 +1915,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Var vänlig och välj den typ av diskpartitionering som du vill använda.\n"
+"\n"
+"Automatisk partitionering kommer att ta bort %s\n"
+"\n"
+"Genom att välja manuell partitionering kan du skapa partitionerna för hand."
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
@@ -2068,9 +2072,8 @@ msgid "UTC Offset"
 msgstr "Avstånd till UTC"
 
 #: ../iw/upgrade_swap_gui.py:17
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Uppgradera partition"
+msgstr "Uppgradera växlingspartition"
 
 #: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
 #, c-format
@@ -2080,23 +2083,22 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"2.4-kärnan behöver avsevärt mer växlingsutrymme än tidigare kärnor, så "
-"mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. Du "
-"har för tillfället %d MB växlingsutrymme konfigurerat, men du kan skapa "
+"2.4-kärnan behöver avsevärt mer växlingsutrymme (swap) än tidigare kärnor, "
+"så mycket som dubbelt så mycket utrymme som mängden RAM-minne på systemet. "
+"Du har för tillfället %d MB växlingsutrymme konfigurerat, men du kan skapa "
 "ytterligare växlingsutrymme på ett av dina filsystem nu."
 
 #: ../iw/upgrade_swap_gui.py:80
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Jag vill skapa en växlingsfil"
 
 #: ../iw/upgrade_swap_gui.py:94
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Välj den partition som växlingsfilen ska läggas på:"
 
 #: ../iw/upgrade_swap_gui.py:99
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Ledigt utrymme"
+msgstr "Ledigt utrymme (MB)"
 
 #: ../iw/upgrade_swap_gui.py:114
 #, c-format
@@ -2104,14 +2106,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Det rekommenderas att din växlingsfil är minst %d MB. Ange en storlek för "
+"växlingsfilen:"
 
 #: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
-msgstr "Storlek på växlingsfil (swap):"
+msgstr "Storlek på växlingsfil (MB):"
 
 #: ../iw/upgrade_swap_gui.py:135
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Jag vill inte skape en växlingsfil"
 
 #: ../iw/upgrade_swap_gui.py:145
 msgid ""
@@ -2119,10 +2123,13 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Det rekommenderas varmt att du skapar en växlingsfil. Om du inte gör det kan "
+"installationsprogrammet komma att avslutas onormalt. Är du säker på att du "
+"vill fortsätta?"
 
 #: ../iw/upgrade_swap_gui.py:154
 msgid "The swap file must be between 0 and 2000 MB in size."
-msgstr ""
+msgstr "Växlingsfilen måste vara mellan 0 och 2000 MB stor."
 
 #: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
 msgid ""
@@ -2574,7 +2581,7 @@ msgid "Done"
 msgstr "Färdig"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Automatic partitioning will erase %s\n"
 "\n"
@@ -2582,7 +2589,7 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"%s\n"
+"Automatisk partitionering kommer att ta bort %s\n"
 "\n"
 "Om du inte vill göra detta kan du fortsätta installationen genom att "
 "partitionera manuellt, eller gå tillbaka och utföra en helt anpassad "
@@ -2874,10 +2881,8 @@ msgid "Custom System"
 msgstr "Anpassat system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid "any preexisting Linux installations on your system."
-msgstr ""
-"Du kommer att ta bort eventuella tidigare Linuxinstallationer på ditt system."
+msgstr "alla tidigare Linuxinstallationer på ditt system."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2888,11 +2893,8 @@ msgid "Server System"
 msgstr "Serversystem"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid "ALL DATA on your hard drive to make room for your Linux installation."
-msgstr ""
-"Du kommer att ta bort ALL DATA på din hårddisk för att göra plats åt din "
-"Linuxinstallation."
+msgstr "ALL DATA på din hårddisk för att göra plats åt din Linuxinstallation."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5188,61 +5190,3 @@ msgstr "Turkiska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
-
-#~ msgid "#"
-#~ msgstr "#"
-
-#~ msgid ""
-#~ "# 1.  ISO 3166 2-character country code.  See the file `iso3166.tab'."
-#~ msgstr "# 1. ISO 3166-landskod med två tecken. Se filen \"iso3166.tab\"."
-
-#~ msgid "# (1) makes some geographical sense, and"
-#~ msgstr "# (1) är lite vettigt geografiskt, och"
-
-#~ msgid "# 2.  Latitude and longitude of the zone's principal location"
-#~ msgstr "# 2. Latitud och longitud för zonens huvudort"
-
-#~ msgid ""
-#~ "# (2) puts the most populous zones first, where that does not contradict (1)."
-#~ msgstr ""
-#~ "# (2) gör att de tättbefolkade zonerna hamnar först, där det inte motsäger "
-#~ "(1)."
-
-#~ msgid "# 3.  Zone name used in value of TZ environment variable."
-#~ msgstr "# 3. Zonnamn som används i värdet på TZ-miljövariabeln."
-
-#~ msgid ""
-#~ "# 4.  Comments; present if and only if the country has multiple rows."
-#~ msgstr "# 4. Kommentarer; finns om och endast om landet har flera rader."
-
-#~ msgid "# Columns are separated by a single tab."
-#~ msgstr "# Kolumner åtskiljs med ett enkelt tabbsteg."
-
-#~ msgid "#country-"
-#~ msgstr "#land-"
-
-#~ msgid "#     either +-DDMM+-DDDMM or +-DDMMSS+-DDDMMSS,"
-#~ msgstr "#    antingen +-DDMM+-DDDMM eller +-DDMMSS+-DDDMMSS,"
-
-#~ msgid "#     first latitude (+ is north), then longitude (+ is east)."
-#~ msgstr "#    först latituden (+ är norr), sedan longituden (+ är öster)."
-
-#~ msgid "# From Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-#~ msgstr "# Från Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-
-#~ msgid "#     in ISO 6709 sign-degrees-minutes-seconds format,"
-#~ msgstr "#    i ISO 6709-tecken-grader-minuter-sekunder-format,"
-
-#~ msgid "# Lines beginning with `#' are comments."
-#~ msgstr "# Rader som börjar med \"#\" är kommentarer."
-
-#~ msgid ""
-#~ "# The table is sorted first by country, then an order within the country that"
-#~ msgstr ""
-#~ "# Tabellen sorteras först efter land, sedan en ordning inom det landet som"
-
-#~ msgid "# This file contains a table with the following columns:"
-#~ msgstr "# Denna fil innehåller en tabell med följande kolumner:"
-
-#~ msgid "# TZ zone descriptions"
-#~ msgstr "# TZ-zonbeskrivningar"
